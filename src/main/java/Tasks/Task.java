@@ -2,16 +2,28 @@ package Tasks;
 
 import ChatterBoxErrors.ChatterBoxMarkError;
 
+/**
+ * Represents a general Task in Chatterbox.
+ */
 public class Task {
-    private String name;
+    private final String name;
     private Boolean isCompleted;
 
+    /**
+     * Initialisation of a general Task in Chatterbox
+     * @param name Name of a Task.
+     */
     public Task (String name) {
         this.name = name;
         this.isCompleted = false;
     }
 
-    public String setCompleted(Boolean completed) throws ChatterBoxMarkError {
+    /**
+     * Sets the status of the Task to a specific state.
+     * @param completed The state of the Task to update to.
+     * @return String of the status of the change.
+     */
+    public String setCompleted(Boolean completed) {
         StringBuilder message = new StringBuilder();
         if (!this.isCompleted && completed) {
             this.isCompleted = true;
@@ -47,6 +59,10 @@ public class Task {
         return name;
     }
 
+    /**
+     * The general way a Task should be saved as in a save file.
+     * @return String for saving a Task.
+     */
     public String storeTask() {
         StringBuilder saveTaskInfo = new StringBuilder();
         if (this.getCompleted()) {
@@ -61,6 +77,10 @@ public class Task {
         return saveTaskInfo.toString();
     }
 
+    /**
+     * The string representation of a Task.
+     * @return String representation of a Task.
+     */
     @Override
     public String toString() {
         return this.isCompleted ? "[X] " + this.name : "[ ] " + this.name;

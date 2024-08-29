@@ -9,7 +9,16 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a static Parser that handles all commands and user inputs.
+ */
 public class Parser {
+    /**
+     * Process a command for ChatterBox.
+     * @param input A string representing the command.
+     * @return An array of strings that have the command along with details.
+     * @throws ChatterBoxError Handles different errors from ChatterBox.
+     */
     public static String[] processInput(String input) throws ChatterBoxError {
         String[] userCommand = new String[4];
         String[] command = input.split(" ", 2);
@@ -73,6 +82,12 @@ public class Parser {
         return userCommand;
     }
 
+    /**
+     * Processes inputs coming from a save file.
+     * @param input String inputs from a save file.
+     * @return An array of strings that have the command along with details.
+     * @throws ChatterBoxError Handles different errors from ChatterBox.
+     */
     public static String[] processSaveInput(String input) throws ChatterBoxError {
         String[] userCommand  = new String[2];
         try {
@@ -88,6 +103,13 @@ public class Parser {
             throw new ChatterBoxError("Unable to parse line: " + input + "\n");
         }
     }
+
+    /**
+     * Process and extracts name and one time from the input string for Deadline.
+     * @param input A string containing the name and time of a Deadline.
+     * @return An array containing the name and by time.
+     * @throws ChatterBoxDeadlineError Specific Error relating to use of Deadline.
+     */
     public static String[] oneTimeExtractor(String input) throws ChatterBoxDeadlineError {
         String oneTimeRegex = "^(.*) /by (.*)$";
         Matcher oneTimeMatcher = Pattern.compile(oneTimeRegex).matcher(input);
@@ -101,6 +123,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Process and extracts name and one time from the input string for Event.
+     * @param input A string containing the name and time of an Event.
+     * @return An array containing the name, from time and by time.
+     * @throws ChatterBoxEventError Specific Error relating to use of Event.
+     */
     public static String[] twoTimeExtractor(String input) throws ChatterBoxEventError {
         String twoTimeRegex = "^(.*) /from (.*) /to (.*)$";
         Matcher twoTimeMatcher = Pattern.compile(twoTimeRegex).matcher(input);
@@ -115,6 +143,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks and processes a specific format of time for use in Chatterbox.
+     * @param dateString A string of specific format.
+     * @return A LocalDateTime object containing date and time.
+     * @throws ChatterBoxInvalidDateTimeError An error to specify the format for Date and Time.
+     * @throws ChatterBoxInvalidDateError An error to specify the format for Date.
+     */
     public static LocalDateTime processDateTime(String dateString) throws ChatterBoxInvalidDateTimeError, ChatterBoxInvalidDateError {
         DateTimeFormatter dateTimeFormatter;
         boolean containsTime;

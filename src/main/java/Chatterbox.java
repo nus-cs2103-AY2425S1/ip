@@ -1,14 +1,22 @@
 import ChatterBoxErrors.ChatterBoxError;
+import ChatterBoxErrors.ChatterBoxNullTaskError;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.ToDo;
 import Utils.*;
 
+/**
+ * Represents a Chatbot.
+ */
 public class Chatterbox {
     private final StoredList taskList;
     private final Storage storage;
     private final Ui ui;
 
+    /**
+     * Initialised an instance of Chatterbox with the given save file.
+     * @param saveFilePath The filepath of a save file.
+     */
     public Chatterbox(String saveFilePath) {
         storage = new Storage(saveFilePath);
         storage.readFromSave();
@@ -18,6 +26,9 @@ public class Chatterbox {
         ui.printTasks(taskList);
     }
 
+    /**
+     * Runs Chatterbox until a bye input is provided by the user.
+     */
     public void run() {
         boolean isRunningProgram = true;
         while (isRunningProgram) {
@@ -30,6 +41,12 @@ public class Chatterbox {
         }
     }
 
+    /**
+     * Performs the command given and returns whether the Chatbot should be terminated.
+     * @param input The command from the user.
+     * @return If command received should terminate the Chatbot
+     * @throws ChatterBoxError For any ChatterBox related errors.
+     */
     public boolean doCommand(String input) throws ChatterBoxError {
         String message;
         try {
@@ -43,12 +60,20 @@ public class Chatterbox {
                 ui.printTasks(taskList);
                 break;
             case MARK:
-                message = taskList.getItem(Integer.parseInt(command[1])).setCompleted(true);
-                ui.printMessage(message);
+                try {
+                    message = taskList.getItem(Integer.parseInt(command[1])).setCompleted(true);
+                    ui.printMessage(message);
+                } catch (IndexOutOfBoundsException e) {
+                    throw new ChatterBoxNullTaskError();
+                }
                 break;
             case UNMARK:
-                message = taskList.getItem(Integer.parseInt(command[1])).setCompleted(false);
-                ui.printMessage(message);
+                try {
+                    message = taskList.getItem(Integer.parseInt(command[1])).setCompleted(false);
+                    ui.printMessage(message);
+                } catch (IndexOutOfBoundsException e) {
+                    throw new ChatterBoxNullTaskError();
+                }
                 break;
             case DELETE:
                 message = taskList.removeItem(Integer.parseInt(command[1]));
@@ -71,7 +96,7 @@ public class Chatterbox {
                 ui.printMessage(message);
                 break;
             }
-        } catch (ChatterBoxError    e) {
+        } catch (ChatterBoxError e) {
             throw e;
         }
         return true;

@@ -14,18 +14,28 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+ * Representation of a Storage for Chatterbox.
+ */
 public class Storage {
     private final Path saveFilePath;
     private final Path saveDirectoryPath;
     private final Ui ui = new Ui();
-    private StoredList saveList = new StoredList();
+    private final StoredList saveList = new StoredList();
 
+    /**
+     * Initialisation of a Storage given the save file.
+     * @param fileName The string path to a save file.
+     */
     public Storage(String fileName) {
         String currentDirectory = System.getProperty("user.dir");
         saveFilePath = Paths.get(currentDirectory, fileName);
         saveDirectoryPath = saveFilePath.getParent();
     }
 
+    /**
+     * Reads from a save file and processes it into the StoredList.
+     */
     public void readFromSave() {
         try {
             Files.createDirectories(saveDirectoryPath);
@@ -64,6 +74,10 @@ public class Storage {
         return saveList;
     }
 
+    /**
+     * Writes the given task list into a save file.
+     * @param taskList The current task list of the running Chatterbox.
+     */
     public void writeToSave(StoredList taskList) {
         try {
             FileWriter fileWriter = new FileWriter(saveFilePath.toString());
@@ -76,6 +90,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Performs the command given to create a StoredList from the save file.
+     * @param input The command from the user.
+     * @throws ChatterBoxError For any ChatterBox related errors.
+     */
     public void doCommand(String input) throws ChatterBoxError {
         String message;
         try {

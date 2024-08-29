@@ -4,13 +4,24 @@ import Tasks.Task;
 
 import java.util.ArrayList;
 
+/**
+ * A representation of a task list for Chatterbox.
+ */
 public class StoredList {
     private ArrayList<Task> data;
 
+    /**
+     * Initialisation of a list for storing task in Chatterbox.
+     */
     public StoredList() {
         this.data = new ArrayList<Task>();
     }
 
+    /**
+     * Adds a task in to the task list.
+     * @param item A task to be added.
+     * @return The message if successful in adding a Task.
+     */
     public String addItem(Task item) {
         StringBuilder message = new StringBuilder();
         this.data.add(item);
@@ -30,6 +41,11 @@ public class StoredList {
         return this.data.size();
     }
 
+    /**
+     * Removes a task from the task list.
+     * @param index The index to the task,
+     * @return The message if successful in removing a Task.
+     */
     public String removeItem(int index) {
         String message = "____________________________________________________________\n" +
                 "Noted. I've removed this task:\n" +
@@ -40,6 +56,10 @@ public class StoredList {
         return message;
     }
 
+    /**
+     * The string representation of a task list for Chatterbox.
+     * @return A string representation of StoredList.
+     */
     @Override
     public String toString() {
         StringBuilder message = new StringBuilder("____________________________________________________________\n");

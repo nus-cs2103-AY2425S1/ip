@@ -3,22 +3,35 @@ package Tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an Event task.
+ */
 public class Event extends Task {
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
 
+    /**
+     * Initialisation of a Event task with the required attributes.
+     * @param name Name of the task.
+     * @param start Start date/ time of the task.
+     * @param end End date/ time of the task
+     */
     public Event (String name, LocalDateTime start, LocalDateTime end) {
         super(name);
-        this.start = start;
-        this.end = end;
+        this.startTime = start;
+        this.endTime = end;
     }
 
+    /**
+     * Returns a string on how an Event should be stored in a save file.
+     * @return Save format for the task.
+     */
     @Override
     public String storeTask() {
         StringBuilder saveTaskInfo = new StringBuilder();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        String startDate = this.start.format(formatter);
-        String endDate = this.end.format(formatter);
+        String startDate = this.startTime.format(formatter);
+        String endDate = this.endTime.format(formatter);
         if (this.getCompleted()) {
             saveTaskInfo.append("done, ");
         }
@@ -35,11 +48,15 @@ public class Event extends Task {
         return saveTaskInfo.toString();
     }
 
+    /**
+     * Returns the string representation of an Event.
+     * @return String representation of Event.
+     */
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
-        String startDate = this.start.format(formatter);
-        String endDate = this.end.format(formatter);
+        String startDate = this.startTime.format(formatter);
+        String endDate = this.endTime.format(formatter);
         return "[E] " + super.toString() + " (from: " + startDate + " to: " + endDate + ")";
     }
 }
