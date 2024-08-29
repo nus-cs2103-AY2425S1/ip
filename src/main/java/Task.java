@@ -23,4 +23,11 @@ public class Task {
     public void markAsUndone() {
         this.isDone = false;
     }
+
+    public String fileString() {
+        return (this.isDone
+                ? "1 | "
+                : "0 | ")
+                + this.description;
+    }
 }
