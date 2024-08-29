@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 public class Deadline extends Task {
     private LocalDateTime deadline;
+
     public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
@@ -24,6 +25,5 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         return "D | " + (isDone ? "1" : "0") + " | " + description.trim() + " | " + deadline.format(Bao.fileDateFormat);
-
     }
 }

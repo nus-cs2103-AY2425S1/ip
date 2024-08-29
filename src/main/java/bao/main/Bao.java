@@ -2,6 +2,7 @@ package bao.main;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+
 public class Bao {
     private Ui ui;
     private Storage storage;
@@ -11,7 +12,6 @@ public class Bao {
     public static DateTimeFormatter fileDateFormat;
     public static DateTimeFormatter dateOnlyFormat;
     public static DateTimeFormatter outputDateFormat;
-
 
     public Bao(String filePath) {
         ui = new Ui();
@@ -61,7 +61,6 @@ public class Bao {
                 .appendOptional(DateTimeFormatter.ofPattern("yyyy/M/dc"))
                 .appendOptional(DateTimeFormatter.ofPattern("yyyy/M/d"))
                 .toFormatter();
-
         fileDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         dateOnlyFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
         outputDateFormat = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");

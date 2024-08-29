@@ -3,7 +3,6 @@ package bao.main;
 import bao.task.Task;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +15,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> loadFile() throws IOException, FileNotFoundException {
+    public ArrayList<Task> loadFile() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
         if (!file.exists()) {
@@ -43,6 +42,7 @@ public class Storage {
         for (Task task : tasks) {
             writer.println(task.toFileString());
         }
+
         writer.close();
     }
 }
