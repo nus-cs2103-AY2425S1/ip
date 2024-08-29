@@ -15,5 +15,3 @@ mark 50
 todo
 event Meeting with Johnny
 deadline Finish Quiz 20
-delete 100
-delete 1
