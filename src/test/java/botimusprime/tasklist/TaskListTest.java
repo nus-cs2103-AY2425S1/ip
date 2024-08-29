@@ -16,7 +16,7 @@ public class TaskListTest {
     private File testFile;
 
     @BeforeEach
-    public void setUp() {
+    public void setup() {
         botimusPrime = new BotimusPrime(TEST_FILE_NAME);
 
         testFile = new File(new File("./data"), TEST_FILE_NAME);
@@ -34,7 +34,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testAddToDo_noDescriptionInput() {
+    public void testAddToDo_noDescriptionInput_emptyListReturned() {
         String noDescInput = "todo ";
 
         botimusPrime.getTaskList().addToDo(noDescInput);
@@ -43,7 +43,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testAddToDo_ValidInput() {
+    public void testAddToDo_ValidInput_nonEmptyListReturned() {
         String validInput = "todo buy banana";
 
         botimusPrime.getTaskList().addToDo(validInput);

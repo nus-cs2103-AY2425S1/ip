@@ -28,7 +28,8 @@ public class TaskList {
             System.out.println("congrats bro u got nth to do in the todolist, respect 100");
             return;
         }
-        System.out.println("____________________________________________________________\n" + "Here are the tasks in your list:\n");
+        System.out.println("____________________________________________________________\n"
+                + "Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.printf("%d. %s%n", i + 1, tasks.get(i));
         }
@@ -45,8 +46,8 @@ public class TaskList {
         int idx = Integer.parseInt(numFinder[1]) - 1;
         tasks.get(idx).markAsDone();
         storage.saveToDisk(this);
-        System.out.println("____________________________________________________________\n" +
-                "Nice! I've marked this task as done:\n" +
+        System.out.println("____________________________________________________________\n"
+                + "Nice! I've marked this task as done:\n" +
                 tasks.get(idx));
     }
 
@@ -60,8 +61,8 @@ public class TaskList {
         int idx = Integer.parseInt(numFinder[1]) - 1;
         tasks.get(idx).markAsUndone();
         storage.saveToDisk(this);
-        System.out.println("____________________________________________________________\n" +
-                "OK, I've marked this task as not done yet:\n" +
+        System.out.println("____________________________________________________________\n"
+                + "OK, I've marked this task as not done yet:\n" +
                 tasks.get(idx));
     }
 
@@ -76,14 +77,13 @@ public class TaskList {
         Task task = tasks.get(idx);
         tasks.remove(idx);
         storage.saveToDisk(this);
-        System.out.println("____________________________________________________________\n" +
-                "Noted. I've removed this task:\n" +
-                task +
-                "\nNow you have " + tasks.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________\n"
+                + "Noted. I've removed this task:\n" + task + "\nNow you have "
+                        + tasks.size() + " tasks in the list.");
     }
 
     public void addToDo(String input) {
-        if (input.length() <= 5 || input.substring(5).isEmpty()) {
+        if (input.length() <= 5) {
             System.out.println("eh bro udw to put ur description of ur task issit");
             return;
         }
@@ -95,13 +95,13 @@ public class TaskList {
 
         System.out.println(
                 "____________________________________________________________\n" +
-                        String.format("Alright, I've added the task:\n %s\nNow you have %d tasks in the list.\n", task, tasks.size()) +
-
-                        "____________________________________________________________\n");
+                        String.format("Alright, I've added the task:\n %s\nNow you have %d tasks in the list.\n",
+                                task, tasks.size())
+                                        + "____________________________________________________________\n");
     }
 
     public void addDeadline(String input) {
-        if (input.length() <= 9 || input.substring(9).isEmpty() || !input.contains("/by")) {
+        if (input.length() <= 9 || !input.contains("/by")) {
             System.out.println("brother u forgot to type all the deadline task details plz.");
         }
         String[] parser = input.split("/by ");
@@ -114,26 +114,30 @@ public class TaskList {
         String deadline = parser[1];
 
         if (deadline.isEmpty()) {
-            System.out.println("eh bro u got due date anot ");
+            System.out.println("eh bro u got due date anot");
             return;
         } else if (description.isEmpty()) {
             System.out.println("eh bro ur task no description leh wake up ur idea");
         }
 
-        Deadline task = new Deadline(description, false, Parser.stringToDateTime(deadline));
+        Deadline task = new Deadline(description,
+                false,
+                        Parser.stringToDateTime(deadline));
 
         tasks.add(task);
         storage.saveToDisk(this);
 
         System.out.println(
                 "____________________________________________________________\n" +
-                        String.format("Alright, I've added the task:\n %s\nNow you have %d tasks in the list.\n", task, tasks.size()) +
-
-                        "____________________________________________________________\n");
+                        String.format("Alright, I've added the task:\n %s\nNow you have %d tasks in the list.\n",
+                                task, tasks.size())
+                                        + "____________________________________________________________\n");
     }
 
     public void addEvent(String input) {
-        if (input.length() <= 6 || input.substring(6).trim().isEmpty()) {
+        if (input.length() <= 6 || input.substring(6)
+                .trim()
+                        .isEmpty()) {
             System.out.println("brother u forgot to type all the event task details");
             return;
         } else if (!input.contains("/from") || !input.contains("/to")) {
@@ -143,7 +147,8 @@ public class TaskList {
 
         String[] parser = input.split("/from ");
 
-        if (parser.length < 2 || parser[1].trim().isEmpty()) {
+        if (parser.length < 2 || parser[1].trim()
+                .isEmpty()) {
             System.out.println("hi plz actually put a time");
             return;
         }
@@ -153,7 +158,9 @@ public class TaskList {
 
         String[] fromAndTo = times.split("/to ");
 
-        if (fromAndTo.length < 2 || fromAndTo[0].trim().isEmpty() || fromAndTo[1].trim().isEmpty()) {
+        if (fromAndTo.length < 2 || fromAndTo[0].trim().
+                isEmpty() || fromAndTo[1].trim()
+                        .isEmpty()) {
             System.out.println("hi plz actually put times in ur EVENT");
             return;
         }
@@ -161,15 +168,18 @@ public class TaskList {
         String from = fromAndTo[0].trim();
         String to = fromAndTo[1].trim();
 
-        Event task = new Event(description, false, Parser.stringToDateTime(from), Parser.stringToDateTime(to));
+        Event task = new Event(description,
+                false,
+                        Parser.stringToDateTime(from),
+                                Parser.stringToDateTime(to));
 
         tasks.add(task);
         storage.saveToDisk(this);
 
         System.out.println(
                 "____________________________________________________________\n" +
-                        String.format("Alright, I've added the task:\n %s\nNow you have %d tasks in the list.\n", task, tasks.size()) +
-
-                        "____________________________________________________________\n");
+                        String.format("Alright, I've added the task:\n %s\nNow you have %d tasks in the list.\n",
+                                task, tasks.size())
+                                        + "____________________________________________________________\n");
     }
 }

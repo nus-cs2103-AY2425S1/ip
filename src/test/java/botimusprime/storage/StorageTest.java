@@ -16,7 +16,7 @@ public class StorageTest {
     private File testFile;
 
     @BeforeEach
-    public void setUp() {
+    public void setup() {
         testFile = new File(new File("./data"), TEST_FILE_NAME);
 
         if (testFile.exists()) {
@@ -63,13 +63,16 @@ public class StorageTest {
         ArrayList<Task> tasks = taskList.getTasks();
         assertEquals(3, tasks.size());
 
-        assertEquals("fold clothes", tasks.get(0).getDescription());
+        assertEquals("fold clothes", tasks.get(0)
+                .getDescription());
         assertFalse(tasks.get(0).isDone());
 
-        assertEquals("national day", tasks.get(1).getDescription());
+        assertEquals("national day", tasks.get(1)
+                .getDescription());
         assertTrue(tasks.get(1).isDone());
 
-        assertEquals("return book", tasks.get(2).getDescription());
+        assertEquals("return book", tasks.get(2)
+                .getDescription());
         assertFalse(tasks.get(2).isDone());
     }
 
