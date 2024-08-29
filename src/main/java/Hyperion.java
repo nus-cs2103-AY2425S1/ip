@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -5,7 +6,7 @@ import java.util.Scanner;
 public class Hyperion {
     public static void main(String[] args) {
         System.out.println("Welcome to Hyperion!");
-        List<Task> allTasks = new ArrayList<>();
+        List<Task> allTasks = FileUtil.loadTasks();
 
         Scanner scanner = new Scanner(System.in);
         String input;
@@ -18,6 +19,8 @@ public class Hyperion {
             try {
                 Parser parser = new Parser(input, allTasks);
                 carryOn = parser.carryOn();
+
+                FileUtil.saveTasks(allTasks);
             } catch (EmptyStringException |
                      CommandFoundButInvalidException |
                      CommandNotFoundException e) {
