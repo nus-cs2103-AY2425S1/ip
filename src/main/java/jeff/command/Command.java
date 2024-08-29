@@ -1,3 +1,10 @@
+package jeff.command;
+
+import jeff.TaskList;
+import jeff.Ui;
+import jeff.Storage;
+import jeff.exceptions.JEFFException;
+
 public abstract class Command {
 
     /**

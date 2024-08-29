@@ -1,3 +1,5 @@
+package jeff.task;
+
 public class Task {
     private final String task;
     private boolean isDone;

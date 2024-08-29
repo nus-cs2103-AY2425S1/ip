@@ -1,3 +1,11 @@
+package jeff;
+
+import jeff.exceptions.LineCorruptedException;
+import jeff.task.Deadline;
+import jeff.task.Event;
+import jeff.task.Task;
+import jeff.task.ToDo;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

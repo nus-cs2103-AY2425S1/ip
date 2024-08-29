@@ -1,3 +1,8 @@
+package jeff;
+
+import jeff.command.*;
+import jeff.exceptions.JEFFException;
+
 public class Parser {
 
     public static Command parse(String fullCommand) throws JEFFException {

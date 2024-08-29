@@ -1,3 +1,7 @@
+package jeff;
+
+import jeff.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
