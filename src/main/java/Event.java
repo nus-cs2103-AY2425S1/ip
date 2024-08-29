@@ -18,4 +18,14 @@ public class Event extends Task {
                 + this.endDate
                 + ")";
     }
+
+    @Override
+    public String parseTaskInfo() {
+        return "E, "
+                + (this.isCompleted ? "1, " : "0, ")
+                + this.name + ", "
+                + this.startDate + ", "
+                + this.endDate
+                + "\n";
+    }
 }

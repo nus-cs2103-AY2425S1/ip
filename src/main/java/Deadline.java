@@ -10,4 +10,13 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
+
+    @Override
+    public String parseTaskInfo() {
+        return "D, "
+                + (this.isCompleted ? "1, " : "0, ")
+                + this.name + ", "
+                + this.by
+                + "\n";
+    }
 }

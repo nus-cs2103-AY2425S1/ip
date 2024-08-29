@@ -1,0 +1,3 @@
+T, 0, kkk
+T, 0, make iP
+E, 0, sem1, august, december

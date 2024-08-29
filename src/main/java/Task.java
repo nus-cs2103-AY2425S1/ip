@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected final String name;
     protected boolean isCompleted;
 
@@ -26,4 +26,6 @@ public class Task {
                 + "] "
                 + this.name;
     }
+
+    public abstract String parseTaskInfo();
 }

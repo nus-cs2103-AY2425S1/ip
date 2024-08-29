@@ -8,4 +8,12 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String parseTaskInfo() {
+        return "T, "
+                + (this.isCompleted ? "1, " : "0, ")
+                + this.name
+                + "\n";
+    }
 }
