@@ -11,13 +11,24 @@ import monique.task.Event;
 import monique.task.Task;
 import monique.task.ToDo;
 
+/**
+ * The <code>Parser</code> class processes user input and returns the corresponding <code>Command</code> object.
+ * It handles various commands and task types, parsing the input to create appropriate command objects.
+ */
 public class Parser {
     private static final Set<String> commands = Set.of("list", "mark", "unmark", "bye", "/commands", "delete", "find");
     private static final Set<String> taskTypes = Set.of("todo", "deadline", "event");
 
+    /**
+     * Parses the given command string and returns the corresponding <code>Command</code> object.
+     * The method identifies the command type and creates the appropriate command object with the provided parameters.
+     *
+     * @param fullCommand The full command string to be parsed.
+     * @return The <code>Command</code> object corresponding to the parsed command.
+     */
     public static Command parse(String fullCommand) {
         String firstWord = fullCommand.split(" ")[0];
-        boolean hasSecondWord = fullCommand.split(" ").length >1;
+        boolean hasSecondWord = fullCommand.split(" ").length > 1;
         Command command = null;
 
         if (commands.contains(firstWord)) {
@@ -78,37 +89,20 @@ public class Parser {
                 } catch (NumberFormatException nfe) {
                     System.out.println("you have tried to use an invalid number");
                 }
-<<<<<<< HEAD
             }
-=======
-                case "delete" : {
-                    try {
-                        if (!hasSecondWord) {
-                            throw new ParseException();
-                        }
-                        int taskNum = Integer.parseInt(fullCommand.split("delete ")[1]) -1;
-                        command = new DeleteCommand(taskNum);
-                        break;
-                    } catch (ParseException pe){
-                        pe.advice();
-                    } catch (NumberFormatException nfe) {
-                        System.out.println("you have tried to use an invalid number");
+            case "find" : {
+                try {
+                    if (!hasSecondWord) {
+                        throw new ParseException();
                     }
+                    String searchKey = fullCommand.split("find ")[1];
+                    command = new FindCommand(searchKey);
+                    break;
+                } catch (ParseException pe) {
+                    pe.advice();
                 }
-                case "find" : {
-                    try {
-                        if (!hasSecondWord) {
-                            throw new ParseException();
-                        }
-                        String searchKey = fullCommand.split("find ")[1];
-                        command = new FindCommand(searchKey);
-                        break;
-                    } catch (ParseException pe) {
-                        pe.advice();
-                    }
-                }
->>>>>>> Level-9
             }
+        }
         } else if (taskTypes.contains(firstWord)) {
             //add to taskList
             switch (firstWord) {
