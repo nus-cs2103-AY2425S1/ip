@@ -40,7 +40,7 @@ public class TaskList {
      * @param i Index of the task to mark as done.
      */
     public void markTaskAsDone(int i) {
-        tasks.get(i).markDone();
+        this.tasks.get(i).markDone();
     }
 
     /**
@@ -49,7 +49,7 @@ public class TaskList {
      * @param i Index of the task to unmark as done.
      */
     public void unmarkTaskAsDone(int i) {
-        tasks.get(i).unmarkDone();
+        this.tasks.get(i).unmarkDone();
     }
 
     /**
@@ -57,7 +57,7 @@ public class TaskList {
      * 
      * @return The number of tasks.
      */
-    public int noOfTasks() {
+    public int getNumberOfTasks() {
         return tasks.size();
     }
 
@@ -67,7 +67,18 @@ public class TaskList {
      * @param i Index of the task to return.
      * @return String representation of the task.
      */
-    public String taskAtIndexToString(int i) {
+    public String getTaskAtIndexAsString(int i) {
         return tasks.get(i).toString();
+    }
+
+    public ArrayList<Task> getTasksFromSearchString(String query) {
+        ArrayList<Task> matchingTasks = new ArrayList<Task>();
+        for (Task task : this.tasks) {
+            if (task.toString().contains(query)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        return matchingTasks;
     }
 }

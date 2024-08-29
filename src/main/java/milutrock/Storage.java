@@ -2,9 +2,9 @@ package milutrock;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.io.OutputStream;
+import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -34,7 +34,8 @@ public class Storage {
         try {
             Scanner scanner = new Scanner(this.file);
             this.replayInput(scanner);
-        } catch (FileNotFoundException e) {}
+        } catch (FileNotFoundException e) {
+        }
 
         System.setOut(stdout);
     }
@@ -57,7 +58,8 @@ public class Storage {
             String input = scanner.nextLine();
             try {
                 parser.parseCommand(input);
-            } catch (UnknownCommandException e) {}
+            } catch (UnknownCommandException e) {
+            }
         }
     }
 }

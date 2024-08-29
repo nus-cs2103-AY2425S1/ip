@@ -1,5 +1,7 @@
 package milutrock;
 
+import java.util.ArrayList;
+
 import milutrock.exceptions.InvalidTaskFormatException;
 import milutrock.exceptions.UnknownCommandException;
 import milutrock.tasks.Deadline;
@@ -55,11 +57,13 @@ public class Parser {
             this.handleUnmark(words);
         } else if (words.length == 2 && words[0].equals("delete")) {
             this.handleDelete(words);
+        } else if (words.length > 1 && words[0].equals("find")) {
+            this.handleFind(input);
         } else if (
-            words[0].equals("todo") || 
-            words[0].equals("deadline") || 
-            words[0].equals("event")
-        ){
+            words[0].equals("todo")
+            || words[0].equals("deadline")
+            || words[0].equals("event")
+        ) {
             this.handleAdd(words, input);
         } else {
             throw new UnknownCommandException(input);
@@ -92,6 +96,12 @@ public class Parser {
         int i = Integer.parseInt(words[1]) - 1;
         Task task = taskList.removeTask(i);
         ui.printDeleteMessage(task);
+    }
+
+    private void handleFind(String input) {
+        String query = input.substring(5);
+        ArrayList<Task> tasks = this.taskList.getTasksFromSearchString(query);
+        ui.printFindMessage(tasks);
     }
 
     private void handleAdd(String[] words, String input) {

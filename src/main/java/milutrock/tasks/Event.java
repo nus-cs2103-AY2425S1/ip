@@ -28,12 +28,12 @@ public class Event extends Task {
         }
 
         String[] parts = input.substring(6).split(" /from ");
-        if (parts.length != 2 ) {
+        if (parts.length != 2) {
             throw new InvalidTaskFormatException("Event");
         }
-        
+
         String[] dates = parts[1].split(" /to ");
-        if (dates.length != 2 ) {
+        if (dates.length != 2) {
             throw new InvalidTaskFormatException("Event");
         }
 
@@ -41,7 +41,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String toString() { 
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")"; 
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
 }

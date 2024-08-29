@@ -2,6 +2,7 @@ package milutrock.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 import milutrock.exceptions.InvalidTaskFormatException;
 
 /**
@@ -26,7 +27,7 @@ public class Deadline extends Task {
         if (input.length() < 9) {
             throw new InvalidTaskFormatException("Deadline");
         }
-        
+
         String[] parts = input.substring(9).split(" /by ");
         if (parts.length != 2) {
             throw new InvalidTaskFormatException("Deadline");
@@ -39,9 +40,9 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toString() { 
+    public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
 
-        return "[D]" + super.toString() + " (by: " + this.by.format(formatter) + ")"; 
+        return "[D]" + super.toString() + " (by: " + this.by.format(formatter) + ")";
     }
 }

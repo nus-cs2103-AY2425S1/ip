@@ -1,5 +1,7 @@
 package milutrock;
 
+import java.util.ArrayList;
+
 import milutrock.tasks.Task;
 
 /**
@@ -13,7 +15,8 @@ public class Ui {
         this.name = name;
         this.taskList = taskList;
     }
-    
+
+
     /**
      * Display a greeting message with the name of the assistant.
      */
@@ -42,7 +45,7 @@ public class Ui {
      * @param i Index of the task to print.
      */
     public void printTask(int i) {
-        System.out.println("  " + taskList.taskAtIndexToString(i));
+        System.out.println("  " + taskList.getTaskAtIndexAsString(i));
     }
 
     /**
@@ -50,8 +53,8 @@ public class Ui {
      */
     public void printTaskList() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskList.noOfTasks(); i++) {
-            System.out.println((i + 1) + ". " + taskList.taskAtIndexToString(i));
+        for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
+            System.out.println((i + 1) + ". " + taskList.getTaskAtIndexAsString(i));
         }
     }
 
@@ -86,7 +89,7 @@ public class Ui {
     public void printDeleteMessage(Task task) {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
-        System.out.println("Now you have " + taskList.noOfTasks() + " tasks in the list.");
+        System.out.println("Now you have " + taskList.getNumberOfTasks() + " tasks in the list.");
     }
 
     /**
@@ -95,7 +98,14 @@ public class Ui {
      */
     public void printAddMessage() {
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + taskList.taskAtIndexToString(taskList.noOfTasks() - 1));
-        System.out.println("Now you have " + taskList.noOfTasks() + " tasks in the list.");
+        System.out.println("  " + taskList.getTaskAtIndexAsString(taskList.getNumberOfTasks() - 1));
+        System.out.println("Now you have " + taskList.getNumberOfTasks() + " tasks in the list.");
+    }
+
+    public void printFindMessage(ArrayList<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
     }
 }

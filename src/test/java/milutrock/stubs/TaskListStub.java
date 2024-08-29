@@ -54,14 +54,14 @@ public class TaskListStub extends TaskList {
     }
 
     @Override
-    public int noOfTasks() {
+    public int getNumberOfTasks() {
         this.lastFunctionCalled = Function.NO_OF_TASKS;
 
         return 0;
     }
 
     @Override
-    public String taskAtIndexToString(int i) {
+    public String getTaskAtIndexAsString(int i) {
         this.lastFunctionCalled = Function.TASK_AT_INDEX_TO_STRING;
         this.integerInput = i;
         
