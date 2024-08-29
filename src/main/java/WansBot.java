@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class WansBot {
-
-    public static void emptyInput(String userInput) throws InputEmptyException {
+    // Method that deals with empty inputs by throwing InputEmptyException
+    private static void emptyInput(String userInput) throws InputEmptyException {
         if (userInput.strip().equalsIgnoreCase("todos") ||
             userInput.strip().equalsIgnoreCase("deadline") ||
             userInput.strip().equalsIgnoreCase("event") ||
@@ -13,8 +13,9 @@ public class WansBot {
         }
     }
 
-    public static void notNumInput(String userInput, int taskListSize) throws NumberFormatException
-    , NotANumMarkingException {
+    // Method that throws NumberFormatException and custom NotANumMarkingException
+    private static void notNumInput(String userInput, int taskListSize) throws NumberFormatException,
+            NotANumMarkingException {
         if (userInput.startsWith("unmark")) {
             int posTask = Integer.parseInt(userInput.substring(7));
             if (posTask > taskListSize || posTask < 1) {
@@ -33,14 +34,16 @@ public class WansBot {
         }
     }
 
-    public static void missingInputDeadline(String userInput) {
+    // Method that throws custom InputEmptyException for deadlineds
+    private static void missingInputDeadline(String userInput) {
         String[] splitUser = userInput.split( " /by ", 2);
         if (splitUser.length < 2) {
             throw new InputEmptyException(userInput, "/by");
         }
     }
 
-    public static void missingInputEvent(String userInput) {
+    // Method that throws custom InputEmptyException for events
+    private static void missingInputEvent(String userInput) {
         String[] splitUserStartDate = userInput.split(" /from ", 3);
         if (splitUserStartDate.length < 2) {
             throw new InputEmptyException(userInput, "/from");
