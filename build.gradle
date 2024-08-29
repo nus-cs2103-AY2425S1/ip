@@ -4,6 +4,8 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+mainClassName = 'main.KukiShinobu'
+
 repositories {
     mavenCentral()
 }
@@ -28,12 +30,13 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("main.KukiShinobu")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "KukiShinobu"
     archiveClassifier = null
+    archiveFileName = "KukiShinobu.jar"
 }
 
 run{
