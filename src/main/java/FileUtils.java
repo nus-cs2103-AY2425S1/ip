@@ -7,6 +7,30 @@ import java.io.IOException;
 public class FileUtils {
     private static final String DATA_PATH = "./data.txt";
 
+    private static void processTaskString(String taskString, TaskList taskList) {
+        String[] taskParts = taskString.split("\\|");
+        String taskType = taskParts[0];
+        boolean isDone = taskParts[1].equals("1");
+        String taskDescription = taskParts[2];
+        Task task;
+        switch (taskType) {
+        case "T":
+            task = new Todo(taskDescription);
+            if (isDone) {
+                task.markAsDone();
+            }
+            taskList.addItem(task);
+            break;
+        case "D":
+            task = new Deadline(taskDescription, taskParts[3]);
+            if (isDone) {
+                task.markAsDone();
+            }
+            taskList.addItem(task);
+            break;
+        }
+    }
+
     private static void createFileIfNotExists() {
         // This method is created with use of ChatGPT
 
@@ -32,7 +56,7 @@ public class FileUtils {
             File f = new File(FileUtils.DATA_PATH); // create a File for the given file path
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
             while (s.hasNext()) {
-                System.out.println(s.nextLine());
+                processTaskString(s.nextLine(), taskList);
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());
@@ -44,7 +68,7 @@ public class FileUtils {
         // Save tasks to file
         try {
             FileWriter fw = new FileWriter(FileUtils.DATA_PATH);
-            fw.write(taskList.getList());
+            fw.write(taskList.getSaveFormatList());
             fw.close();
         } catch (IOException e) {
             System.out.println("An error occurred: " + e.getMessage());
