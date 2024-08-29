@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("Cypher")
+    mainClass.set("cypherchatbot.Cypher")
 }
 
 shadowJar {

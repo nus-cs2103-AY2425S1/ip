@@ -2,6 +2,8 @@ package cypherchatbot.task;
 
 import cypherchatbot.task.Task;
 
+import java.util.Objects;
+
 public class ToDo extends Task {
 
     public ToDo(String desc) {
@@ -19,5 +21,13 @@ public class ToDo extends Task {
     public String toStringinFile() {
         int val = this.completed ? 1 : 0;
         return String.format("T|%d|%s", val, this.description);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o.getClass() == this.getClass()) {
+            return Objects.equals(this.description, ((ToDo) o).description);
+        }
+        return false;
     }
 }
