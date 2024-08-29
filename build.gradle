@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("YappingBot")
+    mainClass.set("yappingbot.YappingBot")
 }
 
 shadowJar {

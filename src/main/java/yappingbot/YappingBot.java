@@ -1,3 +1,4 @@
+package yappingbot;
 import commands.Parser;
 import exceptions.YappingBotException;
 import exceptions.YappingBotUnknownCommandException;
