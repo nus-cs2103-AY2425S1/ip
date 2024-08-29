@@ -211,70 +211,6 @@ public class Weeny {
         }
     }
 
-    /**
-     * Extracts the first word from a given sentence.
-     *
-     * @param sentence The input string.
-     * @return The first word of the sentence.
-     */
-    public static String extractFirstWord(String sentence) {
-        int spaceIndex = sentence.indexOf(" ");
-        return spaceIndex == -1 ? sentence : sentence.substring(0, spaceIndex);
-    }
-
-    public static LocalDate convertDate(String date) {
-        String[] splitDate = date.split("/");
-        int[] splitDateint = new int[3];
-        for (int i = 0; i < 3; i++) {
-            splitDateint[i] = Integer.parseInt(splitDate[i]);
-        }
-        LocalDate convertedDate = LocalDate.of(splitDateint[2], splitDateint[1], splitDateint[0]);
-        return convertedDate;
-    }
-
-    public static LocalTime convertTime(String time) {
-        int hour = Integer.parseInt(time.substring(0,2));
-        int minute = Integer.parseInt(time.substring(2));
-        return LocalTime.of(hour, minute);
-    }
-
-    /**
-     * Extracts the last number in a command string.
-     *
-     * @param sentence The input string.
-     * @return The number at the end of the sentence.
-     */
-    public static int extractEndNumber(String sentence) {
-        int spaceIndex = sentence.indexOf(" ");
-        return Integer.parseInt(sentence.substring(spaceIndex + 1).trim());
-    }
-
-    /**
-     * Extracts the deadline time from a given command string.
-     *
-     * @param sentence The input string.
-     * @return The extracted deadline time as a string.
-     */
-    public static String extractDeadlineTime(String sentence) {
-        int index = sentence.indexOf("/by") + 4;
-        return sentence.substring(index).trim();
-    }
-
-    /**
-     * Extracts the event start and end times from a given command string.
-     *
-     * @param sentence The input string.
-     * @return An array containing start and end times.
-     */
-    public static String[] extractEventTimes(String sentence) {
-        int fromIndex = sentence.indexOf("/from") + 6;
-        int toIndex = sentence.indexOf("/to");
-        int toIndexPlus4 = toIndex + 4;
-        return new String[] {
-                sentence.substring(fromIndex, toIndex - 1).trim(),
-                sentence.substring(toIndexPlus4).trim()
-        };
-    }
 
     /**
      * Validates that the index is within the valid range of task list.
@@ -320,26 +256,6 @@ public class Weeny {
         if (input.length() <= 9 || !input.contains("/by")) {
             throw new IllegalArgumentException("What is a deadline without a date or a task? >:(");
         }
-    }
-
-    /**
-     * Extracts the name of the event from the input string.
-     *
-     * @param input The input string.
-     * @return The event name.
-     */
-    private static String extractEventName(String input) {
-        return input.substring(6, input.indexOf("/from") - 1).trim();
-    }
-
-    /**
-     * Extracts the name of the deadline task from the input string.
-     *
-     * @param input The input string.
-     * @return The deadline task name.
-     */
-    private static String extractDeadlineName(String input) {
-        return input.substring(9, input.indexOf("/by") - 1).trim();
     }
 
     /**
