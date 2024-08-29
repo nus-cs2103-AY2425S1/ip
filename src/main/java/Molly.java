@@ -1,16 +1,15 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import mollyexception.MollyException;
+import parser.Parser;
+import storage.Storage;
+import tasklist.TaskList;
+import ui.Ui;
+
 import java.util.Scanner;
-import java.util.ArrayList;
 
 /**
  * Molly bot class containing static methods that help Molly interact with user.
  */
 public class Molly {
-    public static String name = "Molly";
-
-    //public static final String FILE_PATH = "./data/Molly.txt";
 
     public static String[] helpCommands = {
             "todo (description) - creates a new todo", "deadline (description) /by (end time or date) - creates a deadline",
@@ -31,7 +30,7 @@ public class Molly {
      * This is a static method for the Molly bot that processes user inputs and manipulates the task array accordingly.
      */
     public void assistUser() throws MollyException {
-        //ArrayList<Task> botMemory = new ArrayList<>();
+        //ArrayList<task.Task> botMemory = new ArrayList<>();
         Ui.greetUser();
         TaskList taskList = new TaskList(storage.loadTasks());
         Scanner botScanner = new Scanner(System.in);

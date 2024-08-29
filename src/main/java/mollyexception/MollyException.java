@@ -1,5 +1,7 @@
+package mollyexception;
+
 /**
- * Added MollyException class
+ * Added mollyexception.MollyException class
  */
 
 public class MollyException extends Exception {

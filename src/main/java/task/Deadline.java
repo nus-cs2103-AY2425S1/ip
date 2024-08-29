@@ -1,8 +1,12 @@
+package task;
+
+import task.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 /**
- * This Deadline class extends Task and represents deadlines with a specified end date.
+ * This task.Deadline class extends task.Task and represents deadlines with a specified end date.
  */
 
 public class Deadline extends Task {

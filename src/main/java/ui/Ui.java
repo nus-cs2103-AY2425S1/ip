@@ -1,3 +1,5 @@
+package ui;
+
 public class Ui {
 
     public static String[] helpCommands = {
@@ -20,7 +22,7 @@ public class Ui {
      */
     public static void greetUser() {
         Ui.printLine();
-        System.out.println("Hello! I'm " + Molly.name);
+        System.out.println("Hello! I'm Molly.");
         System.out.println("I am a virtual assistant designed to help you plan your tasks.");
         System.out.println("What can I do for you? For a guide, enter the '/help' command");
     }

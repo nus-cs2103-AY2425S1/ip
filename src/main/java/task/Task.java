@@ -1,5 +1,7 @@
+package task;
+
 /**
- * Task class that is used as the baseline class for defining tasks that Molly saves.
+ * task.Task class that is used as the baseline class for defining tasks that Molly saves.
  */
 public class Task {
 
