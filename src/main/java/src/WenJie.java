@@ -113,109 +113,109 @@ public class WenJie {
 //                        break;
 //                    }
 
-                    case "todo": {
+//                    case "todo": {
+//
+//                        if (input.length() <= 5) {
+//                            throw new NoFollowUpException();
+//                        }
+//
+//                        ToDo temp = new ToDo(input.substring(5));
+//
+//                        String output =
+//                                "____________________________________________________________\n" +
+//                                        "Got it. I've added this task:\n" +
+//                                        temp + "\n" +
+//                                        "Now you have " + (taskList.size() + 1)+" tasks in the list.\n" +
+//                                        "____________________________________________________________\n";
+//                        System.out.println(output);
+//                        taskList.add(temp);
+//                        break;
+//                    }
 
-                        if (input.length() <= 5) {
-                            throw new NoFollowUpException();
-                        }
+//                    case "deadline": {
+//
+//                        if (input.length() <= 8) {
+//                            throw new NoFollowUpException();
+//                        }
+//
+//                        String by = "";
+//                        for (int i = 0; i < parts.length; i++) {
+//                            if (parts[i].charAt(0) == '/') {
+//                                for (int j = i + 1; j < parts.length; j++){
+//                                    by += parts[j] + " ";
+//                                }
+//                                break;
+//                            }
+//                        }
+//                        int endIndex = 0;
+//                        for (int i = 0; i < input.length(); i++) {
+//                            if (input.charAt(i) == '/') {
+//                                endIndex = i;
+//                                break;
+//                            }
+//                        }
+//
+//                        String desc = input.substring(9, endIndex);
+//                        Deadline temp = new Deadline(desc, by);
+//                        taskList.add(temp);
+//                        String output =
+//                                "____________________________________________________________\n" +
+//                                        "Got it. I've added this task:\n" +
+//                                        temp + "\n" +
+//                                        "Now you have " + taskList.size() +" tasks in the list.\n" +
+//                                        "____________________________________________________________\n";
+//                        System.out.println(output);
+//                        break;
+//                    }
 
-                        ToDo temp = new ToDo(input.substring(5));
-
-                        String output =
-                                "____________________________________________________________\n" +
-                                        "Got it. I've added this task:\n" +
-                                        temp + "\n" +
-                                        "Now you have " + (taskList.size() + 1)+" tasks in the list.\n" +
-                                        "____________________________________________________________\n";
-                        System.out.println(output);
-                        taskList.add(temp);
-                        break;
-                    }
-
-                    case "deadline": {
-
-                        if (input.length() <= 8) {
-                            throw new NoFollowUpException();
-                        }
-
-                        String by = "";
-                        for (int i = 0; i < parts.length; i++) {
-                            if (parts[i].charAt(0) == '/') {
-                                for (int j = i + 1; j < parts.length; j++){
-                                    by += parts[j] + " ";
-                                }
-                                break;
-                            }
-                        }
-                        int endIndex = 0;
-                        for (int i = 0; i < input.length(); i++) {
-                            if (input.charAt(i) == '/') {
-                                endIndex = i;
-                                break;
-                            }
-                        }
-
-                        String desc = input.substring(9, endIndex);
-                        Deadline temp = new Deadline(desc, by);
-                        taskList.add(temp);
-                        String output =
-                                "____________________________________________________________\n" +
-                                        "Got it. I've added this task:\n" +
-                                        temp + "\n" +
-                                        "Now you have " + taskList.size() +" tasks in the list.\n" +
-                                        "____________________________________________________________\n";
-                        System.out.println(output);
-                        break;
-                    }
-
-                    case "event": {
-
-                        if (input.length() <= 5) {
-                            throw new NoFollowUpException();
-                        }
-
-                        String from = "", to = "";
-
-                        for (int i = 0; i < parts.length; i++) {
-                            if (parts[i].charAt(0) == '/') {
-                                int j = i + 1;
-                                while(parts[j].charAt(0) != '/') {
-                                    from += parts[j] + " ";
-                                    j++;
-                                }
-                                j++;
-                                while(j < parts.length) {
-                                    to += parts[j];
-                                    j++;
-                                }
-
-                                break;
-                            }
-                        }
-                        int endIndex = 0;
-                        for (int i = 0; i < input.length(); i++) {
-                            if (input.charAt(i) == '/') {
-                                endIndex = i;
-                                break;
-                            }
-                        }
-
-                        if (endIndex == 0) {
-                            throw new InvalidInputException();
-                        }
-
-                        String desc = input.substring(6, endIndex);
-                        Event temp = new Event(desc, from, to);
-                        taskList.add(temp);
-                        String output =
-                                "____________________________________________________________\n" +
-                                        "Got it. I've added this task:\n" +
-                                        temp + "\n" +
-                                        "Now you have " + taskList.size() +" tasks in the list.\n" +
-                                        "____________________________________________________________\n";
-                        System.out.println(output);
-                        break;
-                    }
+//                    case "event": {
+//
+//                        if (input.length() <= 5) {
+//                            throw new NoFollowUpException();
+//                        }
+//
+//                        String from = "", to = "";
+//
+//                        for (int i = 0; i < parts.length; i++) {
+//                            if (parts[i].charAt(0) == '/') {
+//                                int j = i + 1;
+//                                while(parts[j].charAt(0) != '/') {
+//                                    from += parts[j] + " ";
+//                                    j++;
+//                                }
+//                                j++;
+//                                while(j < parts.length) {
+//                                    to += parts[j];
+//                                    j++;
+//                                }
+//
+//                                break;
+//                            }
+//                        }
+//                        int endIndex = 0;
+//                        for (int i = 0; i < input.length(); i++) {
+//                            if (input.charAt(i) == '/') {
+//                                endIndex = i;
+//                                break;
+//                            }
+//                        }
+//
+//                        if (endIndex == 0) {
+//                            throw new InvalidInputException();
+//                        }
+//
+//                        String desc = input.substring(6, endIndex);
+//                        Event temp = new Event(desc, from, to);
+//                        taskList.add(temp);
+//                        String output =
+//                                "____________________________________________________________\n" +
+//                                        "Got it. I've added this task:\n" +
+//                                        temp + "\n" +
+//                                        "Now you have " + taskList.size() +" tasks in the list.\n" +
+//                                        "____________________________________________________________\n";
+//                        System.out.println(output);
+//                        break;
+//                    }
 
 //                    case "delete": {
 //

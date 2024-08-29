@@ -1,7 +1,7 @@
 package src;
 
 public class InvalidInputException extends DukeException {
-    InvalidInputException() {
+    public InvalidInputException() {
         super("test");
     }
 
