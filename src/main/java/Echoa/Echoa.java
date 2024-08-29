@@ -1,3 +1,5 @@
+package Echoa;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -109,7 +111,7 @@ public class Echoa {
         }
     }
 
-        /**
+    /**
      * The main method is the entry point to the application.
      * It catches any file related exception and handles them.
      *

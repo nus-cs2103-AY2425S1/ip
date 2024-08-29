@@ -1,3 +1,5 @@
+package Echoa;
+
 /**
  * InvalidInstructionsContentException is a class that encapsulates errors relating to instruction
  */

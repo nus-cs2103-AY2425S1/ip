@@ -1,3 +1,5 @@
+package Echoa;
+
 /**
  * Task is a class that encapsulates the characteristics of a Task.
  * It contains the field, description and isDone.

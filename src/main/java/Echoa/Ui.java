@@ -1,3 +1,5 @@
+package Echoa;
+
 public class Ui {
     public static final String[] INSTRUCTION_LIST = {"todo", "deadline", "event", "mark", "unmark", "delete", "list", "bye"};
 

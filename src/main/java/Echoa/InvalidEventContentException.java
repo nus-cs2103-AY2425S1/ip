@@ -1,3 +1,5 @@
+package Echoa;
+
 /**
  * InvalidDEventContentException is a class that encapsulates errors relating to event.
  * It extends from the class InvalidTaskContentException.

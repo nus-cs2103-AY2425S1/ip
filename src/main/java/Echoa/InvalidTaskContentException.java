@@ -1,3 +1,5 @@
+package Echoa;
+
 /**
  * InvalidTaskContentException is a class that encapsulates errors relating to task
  */

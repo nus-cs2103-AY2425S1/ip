@@ -1,3 +1,5 @@
+package Echoa;
+
 /**
  * InvalidDeadlineContentException is a class that encapsulates errors relating to deadline.
  * It extends from the class InvalidTaskContentException.
