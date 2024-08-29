@@ -39,6 +39,11 @@ public class Azir {
         }
     }
 
+    /**
+     * Runs the Azir chat bot
+     *
+     * @throws IOException
+     */
     public void run() throws IOException {
         ui.showWelcome();
         boolean isExit = false;
