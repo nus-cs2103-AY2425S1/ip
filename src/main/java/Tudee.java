@@ -1,6 +1,5 @@
 import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -9,52 +8,35 @@ public class Tudee {
         LIST, BYE, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, DATE, UNKNOWN
     }
     public static void main(String[] args) {
-        String logo = "____________________________________________________________ \n"
-                + "Hello! I'm Tudee, your chatbot bestie! \n"
-                + "How can I help you today? :) \n"
-                + "____________________________________________________________ \n";
-        System.out.println(logo);
+        Ui ui = new Ui();
+        ui.showWelcome();
         String path = "./data/tudee.txt";
         Storage storage = new Storage(path);
         List<Task> list = storage.load();
         int count = list.size();
         String input;
-        Scanner sc = new Scanner(System.in);
         while (true) {
             try {
                 String output = "";
-                input = sc.nextLine();
+                input = ui.readCommand();
                 Task currentTask;
                 String[] inputArray = input.split(" ", 2);
                 Command cmd = getCmd(inputArray[0]);
                 if (cmd == Command.LIST) {
-                    System.out.println("____________________________________________________________ \n");
-                    for (int i = 0; i < list.size(); i++) {
-                        System.out.println(i + 1 + ". " + list.get(i));
-                    }
-                    System.out.println("____________________________________________________________ \n");
+                    ui.showTaskList(list);
                 } else if (cmd == Command.BYE) {
-                    output = "____________________________________________________________ \n"
-                            + "Bye. Hope to see you again soon! Don't forget about me :( \n"
-                            + "____________________________________________________________";
-                    System.out.println(output);
+                    ui.showBye();
                     break;
                 } else if (cmd == Command.MARK) {
                     int index = Integer.parseInt(inputArray[1]) - 1;
                     Task target = list.get(index);
                     target.markAsDone();
-                    System.out.println("____________________________________________________________ \n");
-                    System.out.println("Nice! I've marked this task as done: \n");
-                    System.out.println(target);
-                    System.out.println("____________________________________________________________ \n");
+                    ui.showMark(target);
                 } else if (cmd == Command.UNMARK) {
                     int index = Integer.parseInt(inputArray[1]) - 1;
                     Task target = list.get(index);
                     target.markAsNotDone();
-                    System.out.println("____________________________________________________________ \n");
-                    System.out.println("Ok, I've marked this task as not done yet: \n");
-                    System.out.println(target);
-                    System.out.println("____________________________________________________________ \n");
+                    ui.showUnMark(target);
                 } else if (cmd == Command.TODO || cmd == Command.DEADLINE || cmd == Command.EVENT) {
                     if (inputArray.length <= 1) {
                         throw new TudeeException("Oopsie daisy, are you not aware of my capabilities?!?! I need to know what you want to add.");
@@ -70,21 +52,13 @@ public class Tudee {
                         }
                         list.add(currentTask);
                         count++;
-                        System.out.println("____________________________________________________________ \n");
-                        System.out.println("Got it. I've added this task: \n");
-                        System.out.println("  " + currentTask);
-                        System.out.println("Now you have " + count + " tasks in the list. \n");
-                        System.out.println("____________________________________________________________ \n");
+                        ui.showAdd(currentTask, count);
                     }
                 } else if (cmd == Command.DELETE) {
                     int index = Integer.parseInt(inputArray[1]) - 1;
                     Task temp = list.remove(index);
                     count--;
-                    System.out.println("____________________________________________________________ \n");
-                    System.out.println("Noted. I've removed this task: \n");
-                    System.out.println(temp);
-                    System.out.println("Now you have " + count + " tasks in the list. \n");
-                    System.out.println("____________________________________________________________ \n");
+                    ui.showDelete(temp, count);
                 } else if (cmd == Command.DATE) {
                     if (inputArray.length <= 1) {
                         throw new TudeeException("Tell me the date you want to check for.");
@@ -109,11 +83,11 @@ public class Tudee {
                                 }
                             }
                             if (!haveTask) {
-                                System.out.println("You have no tasks on this date, " + inputDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ".");
+                                throw new TudeeException("You have no tasks on this date, " + inputDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ".");
                             }
                         }
                         catch (DateTimeParseException e) {
-                            System.out.println("Invalid date format, Please use yyyy-MM-dd.");
+                            throw new TudeeException("Invalid date format, Please use yyyy-MM-dd.");
                         }
                     }
                 }
@@ -122,12 +96,10 @@ public class Tudee {
                 }
                 storage.save(list);
             } catch (TudeeException exception) {
-                System.out.println("____________________________________________________________ \n");
-                System.out.println(exception.getMessage());
-                System.out.println("____________________________________________________________ \n");
+                ui.showError(exception.getMessage());
             }
         }
-        sc.close();
+        ui.close();
     }
 
     private static Command getCmd(String command) {

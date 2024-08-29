@@ -3,5 +3,5 @@ D | 0 | return book | 2024-06-04
 E | 0 | project meeting | 2024-08-20 | 2024-08-25
 T | 1 | join sports club
 T | 1 | read book
-D | 0 | return book | 2024-08-29
+D | 1 | return book | 2024-08-29
 D | 0 | read book | 2024-08-24
