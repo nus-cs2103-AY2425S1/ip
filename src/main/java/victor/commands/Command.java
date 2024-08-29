@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 import victor.messages.ReturnMessage;
 import victor.tasklist.TaskList;
+import victor.tasks.ToDo;
 
 public class Command {
     protected TaskList taskList;
@@ -27,5 +28,13 @@ public class Command {
     public ReturnMessage execute() {
         return new ReturnMessage("  ~  Sorry, that's not something I know how to do :(",
                 "  ~  Please specify either a To Do, a Deadline or an Event!");
+    }
+
+    public TaskList getTaskList() {
+        return this.taskList;
+    }
+
+    public String[] getAdditionalInput() {
+        return this.additionalInput;
     }
 }

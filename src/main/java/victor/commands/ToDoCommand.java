@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import victor.messages.ReturnMessage;
+import victor.tasklist.TaskList;
 import victor.tasks.ToDo;
 
 public class ToDoCommand extends Command {
@@ -36,5 +37,17 @@ public class ToDoCommand extends Command {
         } catch (IOException writeException) {
             throw new RuntimeException("Problem writing to file.");
         }
+    }
+
+    public ToDo getToDo() {
+        return this.toDo;
+    }
+
+    public TaskList getTaskList() {
+        return this.taskList;
+    }
+
+    public String[] getAdditionalInput() {
+        return this.additionalInput;
     }
 }

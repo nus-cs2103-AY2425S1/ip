@@ -5,7 +5,9 @@ import java.nio.file.Path;
 import java.time.format.DateTimeParseException;
 
 import victor.messages.ReturnMessage;
+import victor.tasklist.TaskList;
 import victor.tasks.Deadline;
+import victor.tasks.ToDo;
 
 public class DeadlineCommand extends Command {
     private Deadline deadline;
@@ -62,5 +64,17 @@ public class DeadlineCommand extends Command {
         } catch (IOException writeException) {
             throw new RuntimeException("Problem writing to file.");
         }
+    }
+
+    public Deadline getDeadline() {
+        return this.deadline;
+    }
+
+    public TaskList getTaskList() {
+        return this.taskList;
+    }
+
+    public String[] getAdditionalInput() {
+        return this.additionalInput;
     }
 }
