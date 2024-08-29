@@ -2,10 +2,39 @@ import TaskObj.Task;
 import TaskObj.TaskType;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Printer {
-    public static final String hLine = "____________________________________________________________\n";
-    // Method to print todolist
+public class Ui {
+    private final Scanner myScanner = new Scanner(System.in);
+    private final String cat0 = """
+                  ╱|、
+                (˚ˎ 。7 \s
+                 |、˜〵         \s
+                 じしˍ,)ノ
+                """;
+    private final String cat1 = """
+                 ∧,,,∧
+                ( ̳• · •̳)
+                /    づ♡
+                """;
+    private static final String hLine = "____________________________________________________________\n";
+    String greeting = "Hello! I'm Milo\nWhat can I do for you?\n" + cat0;
+    String bye = "Bye. Hope to see you again soon!\n" + cat1;
+    String greetingMessage = hLine + greeting + hLine;
+    String byeMessage = hLine + bye + hLine;
+
+    public void greetUser() {
+        // Greet user
+        System.out.println(greetingMessage);
+    }
+
+    public String getUserInput() {
+        return myScanner.nextLine();
+    }
+
+    public void byeUser() {
+        System.out.print(byeMessage);
+    }
     public static void printList(ArrayList<Task> todoList) {
         System.out.print(hLine);
         System.out.println("Here are the tasks in your list:");
@@ -58,18 +87,17 @@ public class Printer {
     public static void printError(TaskType.taskType tasktype, String desc) {
         String oops = "OOPS!!! ";
         switch (tasktype) {
-            case TODO:
-                System.out.println(hLine + oops + desc + "\n" + hLine);
-                break;
-            case DEADLINE:
-                System.out.println(hLine + oops + desc + "\n" + hLine);
-                break;
-            case EVENT:
+            case TODO, EVENT, DEADLINE:
                 System.out.println(hLine + oops + desc + "\n" + hLine);
                 break;
             case INVALID:
                 String invalidMessage = oops + "I'm sorry, but I don't know what that means ;-;\n";
                 System.out.println(hLine + invalidMessage + hLine);
+                break;
+            case DATE:
+                String invalidDateMessage = oops + "date is not properly formatted\n " +
+                        "It should be formatted as follow: YYYY-MM-DD\n";
+                System.out.println(hLine + invalidDateMessage + hLine);
                 break;
             default:
                 String defaultMessage = oops + "I'm sorry, I don't know what that means ;-;\n";
