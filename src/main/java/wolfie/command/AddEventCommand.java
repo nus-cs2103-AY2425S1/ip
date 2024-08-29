@@ -33,7 +33,6 @@ public class AddEventCommand extends Command {
         Task task = new Event(description, from, to, false);
         tasks.add(task);
         storage.save(tasks);
-        ui.showTaskAdded(task, tasks.size());
-        return description;
+        return ui.showTaskAdded(task, tasks.size());
     }
 }

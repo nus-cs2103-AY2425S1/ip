@@ -22,7 +22,6 @@ public class OnCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         List<Task> tasksOnDate = tasks.getTasksOnDate(date);
-        ui.showTasksOnDate(date, tasksOnDate);
-        return null;
+        return ui.showTasksOnDate(date, tasksOnDate);
     }
 }

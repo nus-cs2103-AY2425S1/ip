@@ -26,13 +26,9 @@ public class FindCommand extends Command {
                 .toList();
 
         if (matchingTasks.isEmpty()) {
-            throw new WolfieException("There are no matching tasks in your list.");
+            throw new WolfieException("No tasks found matching the keyword.");
         } else {
-            ui.showMessage("Here are the matching tasks in your list:");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                ui.showMessage((i + 1) + ". " + matchingTasks.get(i));
-            }
+            return ui.showMatchingTasks(matchingTasks);
         }
-        return null;
     }
 }

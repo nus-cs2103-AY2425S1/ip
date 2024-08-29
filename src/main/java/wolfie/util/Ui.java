@@ -57,8 +57,8 @@ public class Ui {
     /**
      * Prints the error message when loading tasks
      */
-    public void showLoadingError() {
-        System.out.println(" OOPS!!! Error loading tasks."); // Print the error message
+    public String showLoadingError() {
+        return "OOPS!!! Error loading tasks."; // Print the error message
     }
 
     /**
@@ -66,15 +66,15 @@ public class Ui {
      *
      * @param message the error message
      */
-    public void showError(String message) {
-        System.out.println(" OOPS!!! " + message); // Print the specific error message
+    public String showError(String message) {
+        return " OOPS!!! " + message; // Print the specific error message
     }
 
     /**
      * Prints the goodbye message
      */
-    public void showGoodbye() {
-        System.out.println(" Bye Dean's Lister! Hope to see you again soon :-)"); // Print the goodbye message
+    public String showGoodbye() {
+        return " Bye Dean's Lister! Hope to see you again soon :-)"; // Print the goodbye message
     }
 
     /**
@@ -82,11 +82,13 @@ public class Ui {
      *
      * @param tasks the list of tasks
      */
-    public void showTasks(TaskList tasks) {
-        System.out.println(" Here are the tasks in your list:");
+    public String showTasks(TaskList tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(" Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(" " + (i + 1) + ". " + tasks.get(i)); // Print the task number and task
+            sb.append(" ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
+        return sb.toString();
     }
     /**
      * Prints the tasks that just got added to the list
@@ -103,10 +105,8 @@ public class Ui {
      * @param task the task that was removed
      * @param size the new size of the task list
      */
-    public void showTaskRemoved(Task task, int size) {
-        System.out.println(" Noted! I've removed this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + size + " remaining tasks in the list.");
+    public String showTaskRemoved(Task task, int size) {
+        return " Noted. I've removed this task:\n   " + task + "\n Now you have " + size + " tasks in the list.";
     }
 
     /**
@@ -114,9 +114,8 @@ public class Ui {
      *
      * @param task the task that was marked as done
      */
-    public void showTaskMarked(Task task) {
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("   " + task);
+    public String showTaskMarked(Task task) {
+        return " Nice! I've marked this task as done:\n   " + task;
     }
 
     /**
@@ -124,9 +123,8 @@ public class Ui {
      *
      * @param task the task that was marked as not done
      */
-    public void showTaskUnmarked(Task task) {
-        System.out.println(" OK! I've marked this task as not done yet:");
-        System.out.println("   " + task);
+    public String showTaskUnmarked(Task task) {
+        return " Nice! I've marked this task as not done yet:\n   " + task;
     }
 
     /**
@@ -135,14 +133,30 @@ public class Ui {
      * @param date the date to check for tasks
      * @param tasks the list of tasks due on that date
      */
-    public void showTasksOnDate(LocalDate date, List<Task> tasks) {
-        System.out.println(" Here are the tasks on " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ":");
-        for (Task task : tasks) {
-            System.out.println("   " + task);
+    public String showTasksOnDate(LocalDate date, List<Task> tasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(" Here are the tasks on ").append(date.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
+                .append(":\n");
+        if (tasks.isEmpty()) {
+            sb.append("   There are no tasks on this date.\n");
+        } else {
+            for (Task task : tasks) {
+                sb.append("   ").append(task).append("\n");
+            }
         }
+        return sb.toString();
     }
-
-    public void showMessage(String s) {
-        System.out.println(s);
+    /**
+     * Prints the tasks that match the keyword
+     *
+     * @param matchingTasks the list of tasks that match the keyword
+     */
+    public String showMatchingTasks(List<Task> matchingTasks) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(" Here are the matching tasks in your list:\n");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            sb.append(" ").append(i + 1).append(".").append(matchingTasks.get(i)).append("\n");
+        }
+        return sb.toString();
     }
 }

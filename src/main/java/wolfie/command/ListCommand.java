@@ -10,7 +10,6 @@ import wolfie.util.Ui;
 public class ListCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showTasks(tasks);
-        return null;
+        return ui.showTasks(tasks);
     }
 }
