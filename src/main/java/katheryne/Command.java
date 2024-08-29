@@ -7,50 +7,30 @@ public class Command {
     protected Ui ui;
     protected TaskList taskList;
 
-     *Constructor for Command Class
-     * @param taskList taskList
-     * @param ui Ui
-     */
     public Command(Ui ui, TaskList taskList) {
         this.ui = ui;
         this.taskList = taskList;
     }
 
-<<<<<<< HEAD
     public String executeList() {
-<<<<<<< HEAD
-        return ui.getListMessage();
-=======
-        return ui.getListMessage(taskList);
->>>>>>> branch-Level-9
-=======
-    /**
-     *Generate a list of all tasks stored.
-     * @param l TaskList
-     * @return a string from ui.getListMessage()
-     */
-    public String executeList(TaskList l) {
-        return ui.getListMessage(l);
->>>>>>> A-JavaDoc
+        return ui.getListMessage() + '\n' + taskList.toString();
     }
 
-<<<<<<< HEAD
+
     /**
      *Mark corresponding task in the task list as done.
      * @param string String from the Scanner(System.in)
      * @return a string from ui.getMarkMessage()
      */
-    public String executeMark(String string) throws MissingInformationException, IndexOutOfBoundsException {
-=======
+
     public String executeMark(String string)
             throws MissingInformationException, IndexOutOfBoundsException {
->>>>>>> branch-A-CodingStandard
         String[] fullCommand = Parser.parseCommand(string);
         if (fullCommand.length < 2) {
             String msg = "You need to specify the task number to mark.";
             throw new MissingInformationException(msg);
         }
-        if (Integer.parseInt(fullCommand[1])> taskList.getTaskList().size()) {
+        if (Integer.parseInt(fullCommand[1]) > taskList.getTaskList().size()) {
             throw new IndexOutOfBoundsException(Message.MESSAGE_INDEX_ERROR);
         }
         int id = Integer.parseInt(fullCommand[1])-1;
@@ -58,18 +38,14 @@ public class Command {
         return ui.getMarkMessage(taskList.getTask(id));
     }
 
-<<<<<<< HEAD
-
     /**
      * Unmark corresponding task in the task list as not done yet.
      * @param string String from the Scanner(System.in)
      * @return a string from ui.getUnmarkMessage()
      */
-    public String executeUnmark(String string) throws MissingInformationException, IndexOutOfBoundsException {
-=======
+
     public String executeUnmark(String string)
             throws MissingInformationException, IndexOutOfBoundsException {
->>>>>>> branch-A-CodingStandard
         String[] fullCommand = Parser.parseCommand(string);
         if (fullCommand.length < 2) {
             String msg = "You need to specify the task number to mark.";
@@ -83,17 +59,13 @@ public class Command {
         return ui.getUnmarkMessage(taskList.getTask(id));
     }
 
-<<<<<<< HEAD
     /**
      * Add a ToDo Task to the TaskList
      * @param string String from the Scanner(System.in)
      * @return a string from ui.getAddMessage()
      */
-    public String executeAddToDo(String string) throws MissingInformationException {
-=======
     public String executeAddToDo(String string)
             throws MissingInformationException {
->>>>>>> branch-A-CodingStandard
         String[] fullCommand = Parser.parseCommand(string);
         if (fullCommand.length < 2 || fullCommand[1].isEmpty()) {
             String msg = "You need to specify the description of a todo task.";
@@ -105,7 +77,6 @@ public class Command {
         return ui.getAddMessage(todo,taskList);
     }
 
-<<<<<<< HEAD
 
     /**
      * Add an Event Task to the TaskList
@@ -113,11 +84,8 @@ public class Command {
      * @return a string from ui.getAddMessage()
      */
 
-    public String executeAddEvent(String string) throws MissingInformationException {
-=======
     public String executeAddEvent(String string)
             throws MissingInformationException {
->>>>>>> branch-A-CodingStandard
         String[] fullCommand = Parser.parseCommand(string);
         if (fullCommand.length < 2 || fullCommand[1].isEmpty()) {
             String msg = "You need to specify the description of an event.";
@@ -143,18 +111,13 @@ public class Command {
         return ui.getAddMessage(event,taskList);
     }
 
-<<<<<<< HEAD
-
     /**
      * Add a Deadline Task to the TaskList
      * @param string String from the Scanner(System.in)
      * @return a string from ui.getAddMessage()
      */
-    public String executeAddDeadline(String string) throws MissingInformationException, InvalidInputException {
-=======
     public String executeAddDeadline(String string)
             throws MissingInformationException, InvalidInputException {
->>>>>>> branch-A-CodingStandard
         String[] fullCommand = Parser.parseCommand(string);
         if (fullCommand.length < 2 || fullCommand[1].isEmpty()) {
             String msg = "You need to specify the description of a deadline.";
@@ -181,18 +144,14 @@ public class Command {
         return ui.getAddMessage(deadline,taskList);
     }
 
-<<<<<<< HEAD
 
     /**
      * Delete a task from the task list
      * @param string String from the Scanner(System.in)
      * @return a string from ui.getDeleteMessage()
      */
-    public String executeDelete(String string) throws MissingInformationException{
-=======
     public String executeDelete(String string)
             throws MissingInformationException{
->>>>>>> branch-A-CodingStandard
         String[] fullCommand = Parser.parseCommand(string);
         if (fullCommand.length < 2 || fullCommand[1].isEmpty()) {
             String msg = "You need to specify the task number to delete.";
