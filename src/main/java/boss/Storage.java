@@ -1,4 +1,7 @@
-// deals with loading tasks from the file and saving tasks in the file
+package boss;// deals with loading tasks from the file and saving tasks in the file
+import boss.Deadline;
+import boss.Event;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -50,13 +53,16 @@ public class Storage {
 
         try {
             List<String> lst = Files.readAllLines(Path.of(filePath));
+
             for (String str : lst) {
                 String[] arr = str.split("] ");
                 String s = arr[arr.length - 1];
                 if (arr[0].contains("X") || arr[1].contains("X")) {
-                    tasks.add(new Task(s, true));
+                    Task task = typeOfTask(s, str, true);
+                    tasks.add(task);
                 } else {
-                    tasks.add(new Task(s));
+                    Task task = typeOfTask(s, str, false);
+                    tasks.add(task);
                 }
             }
         } catch (IOException e) {
@@ -64,5 +70,31 @@ public class Storage {
         }
         return tasks;
     }
+
+    public Task typeOfTask(String description, String str, boolean isDone) {
+        // todo
+        if (str.contains("[T]")) {
+            return new Todo(description, isDone);
+        } else if (str.contains("[D]")) {
+
+            String[] string = description.split("\\| ");
+
+            String deadline = string[1].split("by: ")[1];
+
+            return Deadline.of(string[0], deadline, isDone);
+
+        } else if (str.contains("[E]")) {
+            String[] newStr = description.split("\\| ");
+
+            String from = newStr[1].split("from:")[1];
+            String to = newStr[2].split("to:")[1];
+
+            return new Event(newStr[0], from, to, isDone);
+
+        } else {
+            return new Task(description, isDone);
+        }
+    }
+
 
 }

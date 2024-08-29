@@ -1,3 +1,5 @@
+package boss;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,29 +17,34 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    public Deadline(String description, LocalDateTime date) {
-        super(description);
+    public Deadline(String description, boolean isDone, String by) {
+        super(description, isDone);
+        this.by = by;
+    }
+
+    public Deadline(String description, boolean isDone, LocalDateTime date) {
+        super(description, isDone);
         this.by = date.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
         this.dateTime = date;
     }
-    public Deadline(String description, LocalDate date) {
-        super(description);
+    public Deadline(String description, boolean isDone, LocalDate date) {
+        super(description, isDone);
         this.by = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         this.date = date;
     }
 
 
-    public static Deadline of(String description, String by) {
+    public static Deadline of(String description, String by, boolean isDone) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime date = LocalDateTime.parse(by, formatter);
-            return new Deadline(description, date);
+            return new Deadline(description, isDone, date);
         } catch (DateTimeParseException e) {
             try {
                 LocalDate date = LocalDate.parse(by);
-                return new Deadline(description, date);
+                return new Deadline(description, isDone, date);
             } catch (DateTimeParseException e2) {
-                return new Deadline(description, by);
+                return new Deadline(description, isDone, by);
             }
         }
     }
@@ -45,6 +52,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + "| by: " + by;
     }
 }
