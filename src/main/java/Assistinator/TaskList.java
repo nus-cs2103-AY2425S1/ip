@@ -43,6 +43,23 @@ public class TaskList {
         return sb.toString().trim();
     }
 
+    /**
+     * Filters and generates output string
+     * @param keyword Search keyword
+     * @return Filtered string
+     */
+    public String filterTasks(String keyword) {
+        int j = 1;
+        StringBuilder sb = new StringBuilder();
+        for (Task task : tasks) {
+            if (task.contains(keyword)) {
+                sb.append(j).append(".").append(task.toString()).append("\n");
+                j++;
+            }
+        }
+        return sb.toString().trim();
+    }
+
     public int size() {
         return tasks.size();
     }

@@ -1,7 +1,7 @@
 package Assistinator;
 
 public enum Command {
-    BYE, LIST, MARK, UNMARK, TODO, EVENT, DEADLINE, DELETE, UNKNOWN;
+    BYE, LIST, MARK, UNMARK, TODO, EVENT, DEADLINE, DELETE, FIND, UNKNOWN;
 
     static Command fromString(String input) {
         String commandString = input.toUpperCase();

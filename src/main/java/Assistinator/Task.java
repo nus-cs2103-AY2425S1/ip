@@ -26,4 +26,13 @@ public abstract class Task {
     }
 
     public abstract String toFileString();
+
+    /**
+     * Checks if task description contains keyword
+     * @param keyword search keyword
+     * @return whether description contains keyword
+     */
+    public boolean contains(String keyword){
+        return this.description.contains(keyword);
+    }
 }
