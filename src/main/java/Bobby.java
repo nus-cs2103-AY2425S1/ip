@@ -1,9 +1,11 @@
-import java.io.PrintWriter;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.File;
+import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Bobby {
     private static String greeting = "Hello! I'm Bobby\n"
             + "What can I do for you?\n";
@@ -13,7 +15,7 @@ public class Bobby {
     private static ArrayList<String> listForDisk = new ArrayList(100);
     private static final String FILE_PATH = "/Users/zhiyi/Desktop/CS2103T/Chatbot/src/main/task.txt";
     private enum ActionType {
-        bye, list, delete, mark, unmark, todo, deadline, event
+        bye, list, delete, mark, unmark, todo, deadline, event, retry
     }
     private enum SimpleType {
         T, D, E
@@ -36,7 +38,7 @@ public class Bobby {
     /**
      * Writes the given task description to the file.
      */
-    private static void writeToFile() throws IOException {
+    private static void writeToFile() throws Exception {
         FileWriter fw = new FileWriter(FILE_PATH, true);
         for (int x = 0; x < listToPrint.size(); x++) {
             Task curr_task = listToPrint.get(x);
@@ -49,7 +51,7 @@ public class Bobby {
         fw.close();
     }
 
-    private static void loadTaskList() throws IOException {
+    private static void loadTaskList() throws Exception {
         File file = new File(FILE_PATH);
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
@@ -64,6 +66,7 @@ public class Bobby {
     }
     private static Task constructTask(String desc) {
         String details[] = desc.split("/");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         switch(SimpleType.valueOf(details[0])) {
             case T:
                 Task task = new ToDos(details[2]);
@@ -74,7 +77,8 @@ public class Bobby {
                 }
                 return task;
             case D:
-                task = new Deadlines(details[2], details[3]);
+                task = new Deadlines(details[2],
+                        LocalDateTime.parse(details[3], formatter));
                 if (details[1].equals("1")) {
                     task.isDone = true;
                 } else {
@@ -82,7 +86,9 @@ public class Bobby {
                 }
                 return task;
             case E:
-                task = new Events(details[2], details[3], details[4]);
+                task = new Events(details[2],
+                        LocalDateTime.parse(details[3], formatter),
+                        LocalDateTime.parse(details[4], formatter));
                 if (details[1].equals("1")) {
                     task.isDone = true;
                 } else {
@@ -113,7 +119,6 @@ public class Bobby {
         if (idx <= listToPrint.size()) {
             Task deleted_task = retrive_task(idx);
             listToPrint.remove(idx - 1);
-            listForDisk.remove(idx - 1);
             System.out.println("Noted. I've removed this task:\n" +
                     deleted_task.toString() + "\nNow you have "
                     + listToPrint.size() + " tasks in the list.\n");
@@ -165,25 +170,33 @@ public class Bobby {
      * Handles the "bye" command by printing the task list and
      * writes all task into task.txt to be saved in disk
      */
-    private static void handle_bye() throws IOException {
-        writeToFile();
-        System.out.println(exit);
+    private static void handle_bye() throws Exception {
+        if (scan.nextLine().isEmpty()) {
+            writeToFile();
+            System.out.println(exit);
+        } else {
+            check_action(ActionType.retry);
+        }
     }
 
     /**
      * Handles the "list" command by printing the task list and
      * processing the next user action.
      */
-    private static void handle_list() throws IOException {
-        print_list();
-        check_action(getActionType(scan.next()));
+    private static void handle_list() throws Exception {
+        if (scan.nextLine().isEmpty()) {
+            print_list();
+            check_action(getActionType(scan.next()));
+        } else {
+            check_action(ActionType.retry);
+        }
     }
 
     /**
      * Handles the "delete" command by deleting the specified task
      * and processing the next user action.
      */
-    private static void handle_delete() throws IOException {
+    private static void handle_delete() throws Exception {
         int curr_task_index = scan.nextInt();
         delete_task(curr_task_index);
         check_action(getActionType(scan.next()));
@@ -193,7 +206,7 @@ public class Bobby {
      * Handles the "mark" command by marking the specified task as done
      * and processing the next user action.
      */
-    private static void handle_mark() throws IOException {
+    private static void handle_mark() throws Exception {
         Task curr_task;
         if (scan.hasNextInt()) {
             curr_task = retrive_task(scan.nextInt());
@@ -223,7 +236,7 @@ public class Bobby {
      * Handles the "unmark" command by unmarking the specified task
      * and processing the next user action.
      */
-    private static void handle_unmark() throws IOException {
+    private static void handle_unmark() throws Exception {
         Task curr_task;
         if (scan.hasNextInt()) {
             curr_task = retrive_task(scan.nextInt());
@@ -253,7 +266,7 @@ public class Bobby {
      * Handles the "todo" command by adding a new ToDo task
      * and processing the next user action.
      */
-    private static void handle_todo() throws IOException {
+    private static void handle_todo() throws Exception {
         String input = scan.nextLine();
         if (input.trim().isEmpty()) {
             System.out.println("OOPS!!! The description of a todo is empty. (todo xxx)\n");
@@ -272,46 +285,67 @@ public class Bobby {
      * Handles the "deadline" command by adding a new Deadline task
      * and processing the next user action.
      */
-    private static void handle_deadline() throws IOException {
+    private static void handle_deadline() throws Exception {
         String input = scan.nextLine();
         String details[] = input.split("/by");
         if (details.length < 2 || details[0].trim().isEmpty() || details[1].trim().isEmpty()) {
-            System.out.println("OOPS!!! Format of deadline should be (deadline xxx /by xxx)\n");
+            System.out.println("OOPS!!! Format of deadline should be " +
+                    "(deadline xxx /by yyyy-MM-dd HHmm)\n");
             check_action(getActionType(scan.next()));
             return;
         }
-        Deadlines curr_deadlines = new Deadlines(details[0].trim(), details[1].trim());
-        add_task(curr_deadlines);
-        System.out.println("Got it. I've added this task:\n" +
-                curr_deadlines.toString() + "\n" +
-                "Now you have " + listToPrint.size() + " tasks in the list.\n");
-        check_action(getActionType(scan.next()));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        try {
+            LocalDateTime by = LocalDateTime.parse(details[1].trim(), formatter);
+            Deadlines curr_deadlines = new Deadlines(details[0].trim(), by);
+            add_task(curr_deadlines);
+            System.out.println("Got it. I've added this task:\n" +
+                    curr_deadlines.toString() + "\n" +
+                    "Now you have " + listToPrint.size() + " tasks in the list.\n");
+            check_action(getActionType(scan.next()));
+        }catch (DateTimeParseException e) {
+            System.out.println("OOPS!!! Format of deadline should be " +
+                    "(deadline xxx /by yyyy-MM-dd HHmm)\n");
+            check_action(getActionType(scan.next()));
+        }
     }
 
     /**
      * Handles the "event" command by adding a new Event task
      * and processing the next user action.
      */
-    private static void handle_event() throws IOException {
+    private static void handle_event() throws Exception {
         String input = scan.nextLine();
         String details[] = input.split("/from");
         if (details.length < 2 || details[0].trim().isEmpty()) {
-            System.out.println("OOPS!!! Format of events should be (event xxx /from xxx /to xxx)\n");
+            System.out.println("OOPS!!! Format of events should be " +
+                    "(event xxx /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)\n");
             check_action(getActionType(scan.next()));
             return;
         }
         String duration[] = details[1].split("/to");
-        if (duration.length < 2 || duration[0].trim().isEmpty() || duration[1].trim().isEmpty()) {
-            System.out.println("OOPS!!! Format of events should be (event xxx /from xxx /to xxx)\n");
+        if (duration.length < 2 || duration[0].trim().isEmpty()
+                || duration[1].trim().isEmpty()) {
+            System.out.println("OOPS!!! Format of events should be " +
+                    "(event xxx /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)\n");
             check_action(getActionType(scan.next()));
             return;
         }
-        Events curr_events = new Events(details[0].trim(), duration[0].trim(), duration[1].trim());
-        add_task(curr_events);
-        System.out.println("Got it. I've added this task:\n" +
-                curr_events.toString() + "\n" +
-                "Now you have " + listToPrint.size() + " tasks in the list.\n");
-        check_action(getActionType(scan.next()));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            try {
+                LocalDateTime from = LocalDateTime.parse(duration[0].trim(), formatter);
+                LocalDateTime to = LocalDateTime.parse(duration[1].trim(), formatter);
+                Events curr_events = new Events(details[0].trim(), from, to);
+                add_task(curr_events);
+                System.out.println("Got it. I've added this task:\n" +
+                        curr_events.toString() + "\n" +
+                        "Now you have " + listToPrint.size() + " tasks in the list.\n");
+                check_action(getActionType(scan.next()));
+            } catch (DateTimeParseException e) {
+                System.out.println("OOPS!!! Format of event should be " +
+                        "(event xxx /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)\n");
+                check_action(getActionType(scan.next()));
+            }
     }
 
     /**
@@ -319,41 +353,49 @@ public class Bobby {
      *
      * @param action The type of action to perform, as determined by user input.
      */
-    private static void check_action(ActionType action) throws IOException {
-        switch (action) {
-        case bye:
-            handle_bye();
-            break;
-        case list:
-            handle_list();
-            break;
-        case delete:
-            handle_delete();
-            break;
-        case mark:
-            handle_mark();
-            return;
-        case unmark:
-            handle_unmark();
-            return;
-        case todo:
-            handle_todo();
-            break;
-        case deadline:
-            handle_deadline();
-            break;
-        case event:
-            handle_event();
-            break;
-        default:
+    private static void check_action(ActionType action) throws Exception {
+        try {
+            switch (action) {
+                case bye:
+                    handle_bye();
+                    break;
+                case list:
+                    handle_list();
+                    break;
+                case delete:
+                    handle_delete();
+                    break;
+                case mark:
+                    handle_mark();
+                    return;
+                case unmark:
+                    handle_unmark();
+                    return;
+                case todo:
+                    handle_todo();
+                    break;
+                case deadline:
+                    handle_deadline();
+                    break;
+                case event:
+                    handle_event();
+                    break;
+                case retry:
+                default:
+                    System.out.println("HELP!! I do not recognise this action as of now.\n" +
+                            "You can try: todo xxx, event xxx /from xxx /to xxx, " +
+                            "deadline xxx /by xxx, unmark x, mark x, list, bye\n");
+                    check_action(getActionType(scan.next()));
+                    break;
+            }
+
+        } catch (Exception e) {
             System.out.println("HELP!! I do not recognise this action as of now.\n" +
                     "You can try: todo xxx, event xxx /from xxx /to xxx, " +
-                    "deadline xxx /by xxx, unmark x, mark x\n");
-            check_action(getActionType(scan.next()));
-            break;
+                    "deadline xxx /by xxx, unmark x, mark x, list, bye\n");
         }
     }
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         System.out.println(greeting);
         loadTaskList();
         String input = scan.next();
