@@ -40,7 +40,7 @@ public class Storage {
         return tasks;
     }
 
-    private static Task loadTask(String taskDescription) throws SerenityException {
+    public Task loadTask(String taskDescription) throws SerenityException {
         String[] parts = taskDescription.split("\\|");
         Task t;
 
