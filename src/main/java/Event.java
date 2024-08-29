@@ -7,7 +7,18 @@ public class Event extends Task {
         this.starttime = starttime;
         this.endtime = endtime;
     }
+
+    public Event(boolean status, String description, String starttime, String endtime) {
+        super(description, status);
+        this.starttime = starttime;
+        this.endtime = endtime;
+    }
+
     public String toString() {
         return "[E]" + super.toString() + " from: " + this.starttime + " to: " + this.endtime;
+    }
+
+    public String toStorage() {
+        return "E," + super.toStorage() + "," + starttime + "," + endtime;
     }
 }
