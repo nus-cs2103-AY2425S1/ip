@@ -1,15 +1,5 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.IOException;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,14 +11,17 @@ public class Phenex {
     private TaskList tasks;
     private Storage storage;
 
-    public Phenex() {
-        this.storage = new Storage();
+    public Phenex(Path filePath) {
+        this.storage = new Storage(filePath);
         this.tasks = new TaskList(this.storage);
         this.ui = new Ui();
     }
 
     public static void main(String[] args) {
-        Phenex p = new Phenex();
+        String home = System.getProperty("user.home");
+        Path filePath = Paths.get(home, "Downloads", "CS2103T_AY2425", "iP", "data", "phenex.txt");
+        Phenex p = new Phenex(filePath);
+
         p.ui.greet();
 
         Scanner scanner = new Scanner(System.in);
@@ -120,7 +113,6 @@ public class Phenex {
             } catch (PhenexException e) {
                 System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
             }
-
 
             p.ui.printLine();
         }
