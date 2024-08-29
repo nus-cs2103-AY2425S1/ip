@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -182,7 +185,7 @@ public class Eevee {
                     tasks.add(t);
                     try {
                         appendToFile(FILE_PATH, "T" + "|" + t.getStatus() + "|"
-                                + t.getDescription() + "\n");
+                                + s + "\n");
                     } catch (IOException e) {
                         throw new EeveeException("Unable to store task!");
                     }
@@ -195,16 +198,29 @@ public class Eevee {
                         throw new EeveeException("No task found :( "
                                 + "Please input the task details and description correctly");
                     }
-                    String[] info = s.split("/", 2);
+                    String[] info = s.split("/by", 2);
                     if (info.length < 2) {
                         throw new EeveeException("Deadline not given for task type 'deadline'. "
                                 + "Please input a deadline denoted by '/by' or use task type 'todo' instead.");
                     }
-                    Deadline d = new Deadline(info[0], info[1]);
+
+                    String description = info[0];
+                    String dueDate = info[1].trim();
+
+                    // Check if deadline is a date, if so handle it
+                    try {
+                        LocalDate date = LocalDate.parse(dueDate);
+                        dueDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                    } catch(DateTimeException ignored) {
+
+                    }
+
+                    // Create and store task
+                    Deadline d = new Deadline(info[0], dueDate);
                     tasks.add(d);
                     try {
                         appendToFile(FILE_PATH, "D" + "|" + d.getStatus() + "|"
-                                + d.getDescription() + "|" + ((Deadline) d).getDeadline() + "\n");
+                                + description + "|" + dueDate + "\n");
                     } catch (IOException e) {
                         throw new EeveeException("Unable to store task!");
                     }
@@ -227,7 +243,7 @@ public class Eevee {
                     tasks.add(e);
                     try {
                         appendToFile(FILE_PATH, "E" + "|" + e.getStatus() + "|"
-                                + e.getDescription() + "|" + ((Event) e).getFrom() + "|" + ((Event) e).getTo() + "\n");
+                                + info[0] + "|" + info[1] + "|" + info[2] + "\n");
                     } catch (IOException exception) {
                         throw new EeveeException("Unable to store task!");
                     }

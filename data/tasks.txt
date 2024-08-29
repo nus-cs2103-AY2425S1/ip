@@ -1,5 +1,0 @@
-T|0|read
-D|0|swim |by tomorrow
-E|0|watch movie |from 6pm |to 8pm
-T|0|do project
-T|0|hi
