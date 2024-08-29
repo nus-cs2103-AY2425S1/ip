@@ -49,18 +49,18 @@ public class NewGreetBot {
         } else if (keyword.equals("LIST")) {
             return ui.showList(this.tasks);
         } else if (keyword.equals("MARK")) {
-            return this.markAsDone(Parser.parseMarkUnmark(segment[1]) - 1);
+            return this.markAsDone(Parser.parseMarkUnmarkDelete(segment[1]) - 1);
         } else if (keyword.equals("UNMARK")) {
-            return this.markAsNotDone(Parser.parseMarkUnmark(segment[1]) - 1);
+            return this.markAsNotDone(Parser.parseMarkUnmarkDelete(segment[1]) - 1);
         } else if (keyword.equals("TODO")) {
             return this.addTodo(Parser.parseTodo(segment[1]));
         } else if (keyword.equals("EVENT")) {
             return this.addEvent(Parser.parseEvent(segment[1]));
         } else if (keyword.equals("DEADLINE")) {
             return this.addDeadline(Parser.parseDeadline(segment[1]));
-        }/* else if (keyword.equals("DELETE")) {
-            return ui.delete()
-        }*/ else {
+        } else if (keyword.equals("DELETE")) {
+            return this.deleteTask(Parser.parseMarkUnmarkDelete(segment[1]));
+        } else {
             return "";
         }
     }
@@ -73,6 +73,12 @@ public class NewGreetBot {
     private String markAsNotDone(int position) {
         this.tasks.get(position).unmark();
         return ui.showUnmarked(tasks.get(position), tasks.getLength());
+    }
+
+    private String deleteTask(int position) {
+        Task deletedTask = tasks.get(position - 1);
+        this.tasks.delete(position);
+        return ui.showDelete(deletedTask, tasks.getLength());
     }
 
     private String addTodo(String description) {

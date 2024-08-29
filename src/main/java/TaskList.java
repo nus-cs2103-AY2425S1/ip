@@ -21,16 +21,20 @@ public class TaskList {
     }
 
     public void delete(int position) {
+        System.out.println(position);
         list.remove(position - 1);
     }
 
     public String showTasks(){
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < list.size() - 1; i++) {
+        result.append("Here are the tasks in your list:\n");
+        for (int i = 0; i < list.size(); i++) {
+            result.append(String.format("%d.", i + 1));
             result.append(list.get(i));
-            result.append("\n");
+            if (i != list.size() - 1) {
+                result.append("\n");
+            }
         }
-        result.append(list.get(list.size() - 1));
         return result.toString();
     }
 
