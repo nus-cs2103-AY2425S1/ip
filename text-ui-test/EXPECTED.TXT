@@ -9,18 +9,21 @@ How can I help you?
 A new task is added
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
 How can I help you?
-Your tasks list as follow:
+The tasks list as follow:
 1. [T][ ] borrow book
 2. [D][ ] return book (by: Sunday)
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 How can I help you?
-Your task is marked
+A task is marked
 [T][X] borrow book
 How can I help you?
-Your task is marked
+A task is marked
 [D][X] return book (by: Sunday)
 How can I help you?
-Your task is unmarked
+A task is unmarked
 [T][ ] borrow book
+How can I help you?
+A task is deleted
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
 How can I help you?
 Bye, see you later!

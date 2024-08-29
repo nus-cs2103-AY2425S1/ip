@@ -25,7 +25,7 @@ public class ToMo {
                         throw new Exception("Wrong number of arguments in list command: expected 1, got " + words.length);
                     }
 
-                    System.out.println("Your tasks list as follow:");
+                    System.out.println("The tasks list as follow:");
                     for (int i = 0; i < tasks.size(); ++i) {
                         System.out.println((i + 1) + ". " + tasks.get(i));
                     }
@@ -38,7 +38,7 @@ public class ToMo {
                         Task newTask = tasks.get(i);
                         newTask.mark();
                         tasks.set(i, newTask);
-                        System.out.println("Your task is marked");
+                        System.out.println("A task is marked");
                         System.out.println(tasks.get(i));
                     } else {
                         throw new Exception("Index out of range for command mark");
@@ -52,10 +52,10 @@ public class ToMo {
                         Task newTask = tasks.get(i);
                         newTask.unmark();
                         tasks.set(i, newTask);
-                        System.out.println("Your task is unmarked");
+                        System.out.println("A task is unmarked");
                         System.out.println(newTask);
                     } else {
-                        throw new Exception("Index out of range for command mark");
+                        throw new Exception("Index out of range for command unmark");
                     }
                 } else if (words[0].equals("todo")) {
                     if (cmd.length() <= 5) {
@@ -95,6 +95,19 @@ public class ToMo {
                     tasks.add(task);
                     System.out.println("A new task is added");
                     System.out.println(task);
+                } else if (words[0].equals("delete")) {
+                    if (words.length != 2) {
+                        throw new Exception("Wrong number of arguments in delete command: expected 2, got " + words.length);
+                    }
+                    int i = Integer.parseInt(words[1]) - 1;
+                    if (i >= 0 && i < tasks.size()) {
+                        Task task = tasks.get(i);
+                        tasks.remove(i);
+                        System.out.println("A task is deleted");
+                        System.out.println(task);
+                    } else {
+                        throw new Exception("Index out of range for command delete");
+                    }  
                 } else {
                     throw new Exception("Unknown command");
                 }
