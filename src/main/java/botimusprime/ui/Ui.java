@@ -11,7 +11,7 @@ public class Ui {
 
     private static final String greetingMessage =
             "____________________________________________________________\n" +
-                    " Greetings, human. I am BotimusPrime.BotimusPrime.\n" +
+                    " Greetings, human. I am BotimusPrime.\n" +
                     " What can I do for you?\n" +
                     "____________________________________________________________";
     private static final String byeMessage =

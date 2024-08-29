@@ -35,6 +35,10 @@ public abstract class Task {
         isDone = false;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     public String saveString() {
         return "placeholder";
     }
@@ -63,4 +67,6 @@ public abstract class Task {
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
+
+
 }
