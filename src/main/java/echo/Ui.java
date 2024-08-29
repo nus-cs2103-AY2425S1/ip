@@ -181,7 +181,7 @@ public class Ui {
     public void printWelcome() {
         String welcomeMsg =
                 "____________________________________________________________\n" +
-                "Hello! I'm echo.Echo!\n" +
+                "Hello! I'm Echo!\n" +
                 "What can I do for you?\n" +
                 "____________________________________________________________\n";
         System.out.print(welcomeMsg);
