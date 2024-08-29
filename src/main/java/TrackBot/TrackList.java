@@ -1,20 +1,17 @@
 package TrackBot;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TrackList {
     private List<Task> list;
-    private TrackBotStorage storage;
+    private final TrackBotStorage storage;
 
-    public TrackList(File file, TrackBotStorage storage) throws IOException {
-        this.list = new ArrayList<>();
+    public TrackList(TrackBotStorage storage) throws IOException {
         this.storage = storage;
         try {
-            storage.loadContents(list);
+            list = storage.loadContents();
         } catch (FileNotFoundException e) {
             System.out.println("File not found. Starting with an empty task list.");
         }
@@ -28,7 +25,7 @@ public class TrackList {
         }
     }
 
-    public void addToList(Task task) throws TrackBotException, IOException {
+    public void addToList(Task task) throws TrackBotException {
         if (task == null) {
             throw new TrackBotException("No task found.");
         }
@@ -78,7 +75,7 @@ public class TrackList {
         System.out.println("````````````````````````````````````````````````````````````");
     }
 
-    public void listToString() throws TrackBotException {
+    public void printList() throws TrackBotException {
         if (list.isEmpty()) {
             throw new TrackBotException("The list is currently empty.");
         }

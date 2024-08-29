@@ -3,7 +3,6 @@ package TrackBot.commands;
 import TrackBot.TrackBotStorage;
 import TrackBot.TrackList;
 import TrackBot.Ui;
-import TrackBot.commands.Command;
 
 public class ExitCommand extends Command {
     @Override

@@ -1,18 +1,21 @@
 package TrackBot;
 
-import java.io.File;
+import TrackBot.commands.Command;
+
 import java.io.IOException;
 import java.util.Scanner;
 public class TrackBot {
     private TrackBotStorage storage;
     private TrackList trackList;
-    private Ui ui;
+    private final Ui ui;
+    private final Parser parser;
 
     public TrackBot(String filePath) {
         ui = new Ui();
+        parser = new Parser();
         try {
             storage = new TrackBotStorage(filePath);
-            trackList = new TrackList(new File(filePath), storage);
+            trackList = new TrackList(storage);
         } catch (IOException e) {
             System.out.println("File not found");
 //            ui.showLoadingError();
@@ -22,26 +25,46 @@ public class TrackBot {
         }
     }
 
+//    public void run() {
+//        Scanner scanner = new Scanner(System.in);
+//        ui.showWelcome();
+//
+//        // Solution below inspired by https://www.javatpoint.com/chatbot-application-in-java
+//        while (true) {
+//            String userInput = scanner.nextLine();
+//            try {
+//                if (userInput.equalsIgnoreCase("bye")) {
+//                    break;
+//                }
+//                Parser.checkUserInput(userInput, trackList);
+//            } catch (TrackBotException e) {
+//                System.out.println(e.getMessage());
+//            } catch (Exception e) {
+//                System.out.println("An error occurred: " + e.getMessage());
+//            }
+//        }
+//
+//        // close scanner and exit with message
+//        scanner.close();
+//        ui.showBye();
+//    }
+
     public void run() {
         Scanner scanner = new Scanner(System.in);
         ui.showWelcome();
+        boolean isExit = false;
 
-        // Solution below inspired by https://www.javatpoint.com/chatbot-application-in-java
-        while (true) {
+        while (!isExit) {
             String userInput = scanner.nextLine();
             try {
-                if (userInput.equalsIgnoreCase("bye")) {
-                    break;
-                }
-                InputParser.checkUserInput(userInput, trackList);
+                Command command = parser.parse(userInput);
+                command.execute(trackList, ui, storage);
+                isExit = command.isExit();
             } catch (TrackBotException e) {
                 System.out.println(e.getMessage());
-            } catch (Exception e) {
-                System.out.println("An error occurred: " + e.getMessage());
             }
         }
 
-        // close scanner and exit with message
         scanner.close();
         ui.showBye();
     }
