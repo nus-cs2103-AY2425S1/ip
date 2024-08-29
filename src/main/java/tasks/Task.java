@@ -22,6 +22,22 @@ abstract public class Task {
         return this.name;
     }
 
+    public abstract String getType();
+
+    public abstract String getAdditionalInfo();
+
+    public boolean isComplete() {
+        return this.isCompleted;
+    }
+
+    public void setDone(boolean isDone) {
+        this.isCompleted = isDone;
+    }
+
+    public String toFileString() {
+        return getType() + "|" + getName() + "|" + isComplete() + "|" + getAdditionalInfo();
+    }
+
     @Override
     public String toString() {
         String marker = isCompleted ? "[X]" : "[ ]";
