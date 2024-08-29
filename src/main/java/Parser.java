@@ -1,19 +1,33 @@
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    public static Command parseCommand(String input) {
+    public static Command parseCommand(String input) throws MonoBotException {
         String[] parts = input.split(" ", 2);
         String commandString = parts[0].toLowerCase();
+        CommandType type = parseCommandType(commandString);
+
+        return switch (type) {
+            case LIST -> new ListCommand();
+            case TODO, DEADLINE, EVENT -> new AddCommand(type, parseTask(input));
+            case MARK -> new MarkCommand(getTaskIndex(input));
+            case UNMARK -> new UnmarkCommand(getTaskIndex(input));
+            case DELETE -> new DeleteCommand(getTaskIndex(input));
+            case BYE -> new ExitCommand();
+            case INVALID -> new InvalidCommand();
+        };
+    }
+
+    private static CommandType parseCommandType(String commandString) {
         return switch (commandString) {
-            case "list" -> Command.LIST;
-            case "mark" -> Command.MARK;
-            case "unmark" -> Command.UNMARK;
-            case "todo" -> Command.TODO;
-            case "deadline" -> Command.DEADLINE;
-            case "event" -> Command.EVENT;
-            case "delete" -> Command.DELETE;
-            case "bye" -> Command.BYE;
-            default -> Command.INVALID;
+            case "list" -> CommandType.LIST;
+            case "mark" -> CommandType.MARK;
+            case "unmark" -> CommandType.UNMARK;
+            case "todo" -> CommandType.TODO;
+            case "deadline" -> CommandType.DEADLINE;
+            case "event" -> CommandType.EVENT;
+            case "delete" -> CommandType.DELETE;
+            case "bye" -> CommandType.BYE;
+            default -> CommandType.INVALID;
         };
     }
 
@@ -23,7 +37,7 @@ public class Parser {
             throw new MonoBotException("Task details are missing");
         }
 
-        Command command = parseCommand(parts[0]);
+        CommandType command = parseCommandType(parts[0]);
         String details = parts[1].trim();
 
         return switch (command) {
@@ -32,6 +46,14 @@ public class Parser {
             case EVENT -> parseEvent(details);
             default -> throw new MonoBotException("Invalid task type");
         };
+    }
+
+    private static int getTaskIndex(String input) throws MonoBotException {
+        String[] parts = input.split(" ", 2);
+        if (parts.length != 2 || parts[1].trim().isEmpty()) {
+            throw new MonoBotException("Please specify which task to process");
+        }
+        return Integer.parseInt(parts[1].trim()) - 1;
     }
 
     private static Task parseDeadline(String details) throws MonoBotException {
