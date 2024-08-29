@@ -22,14 +22,15 @@ public class Ui {
      * Prints the welcome message when the chat bot is launched.
      */
     public void printWelcomeMessage() {
-        String logo = """
-                        ########   #######   ########   #######\s
-                        #       #     #      #       #     #   \s
-                        ########      #      ########      #   \s
-                        #       #     #      #       #     #   \s
-                        #       #     #      #       #     #   \s
-                        ########   #######   ########   #######\s
-                      """;
+        String logo =
+                          """
+                          ########   #######   ########   #######\s
+                          #       #     #      #       #     #   \s
+                          ########      #      ########      #   \s
+                          #       #     #      #       #     #   \s
+                          #       #     #      #       #     #   \s
+                          ########   #######   ########   #######\s
+                          """;
 
         System.out.println("Hello from\n" + logo + "\n"
                 + "How can I help you?");
