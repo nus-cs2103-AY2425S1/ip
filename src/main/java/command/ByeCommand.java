@@ -1,7 +1,7 @@
 package command;
 
 import tasklist.TaskList;
-import ui.CommandLineUI;
+import ui.CommandLineUi;
 
 /**
  * Represents a command to exit the application.
@@ -16,7 +16,7 @@ public class ByeCommand extends Command {
      * @param tasklist The TaskList, which is not used in this command.
      * @param ui       The CommandLineUI, which is not used in this command.
      */
-    public void execute(TaskList tasklist, CommandLineUI ui) {
+    public void execute(TaskList tasklist, CommandLineUi ui) {
         // Do nothing
     }
 

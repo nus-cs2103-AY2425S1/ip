@@ -4,7 +4,7 @@ import java.util.List;
 
 import tasklist.TaskList;
 import tasks.Task;
-import ui.CommandLineUI;
+import ui.CommandLineUi;
 
 /**
  * Represents a command to list all tasks in the task list.
@@ -20,7 +20,7 @@ public class ListCommand extends Command {
      * @param tasklist The TaskList containing the tasks to be listed.
      * @param ui       The CommandLineUI used to interact with the user.
      */
-    public void execute(TaskList tasklist, CommandLineUI ui) {
+    public void execute(TaskList tasklist, CommandLineUi ui) {
         List<Task> tasks = tasklist.getTasks();
 
         for (int i = 0; i < tasks.size(); i++) {

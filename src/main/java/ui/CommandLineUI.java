@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Provides a command-line interface (CLI) for interacting with the user.
  * It supports displaying messages, reading user input, and formatting output.
  */
-public class CommandLineUI {
+public class CommandLineUi {
 
     /** Scanner for reading user input from the command line. */
     private Scanner sc;
@@ -14,7 +14,7 @@ public class CommandLineUI {
     /**
      * Constructs a CommandLineUI and initializes the scanner for reading input.
      */
-    public CommandLineUI() {
+    public CommandLineUi() {
         // Initialize scanner
         sc = new Scanner(System.in);
     }

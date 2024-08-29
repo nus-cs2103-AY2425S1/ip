@@ -5,7 +5,7 @@ import parser.Parser;
 import storage.FileStorage;
 import storage.Storage;
 import tasklist.TaskList;
-import ui.CommandLineUI;
+import ui.CommandLineUi;
 
 /**
  * The main class for the OuiOuiBaguette application.
@@ -20,7 +20,7 @@ public class OuiOuiBaguette {
     private TaskList tasks;
 
     /** The command-line interface for interacting with the user. */
-    private CommandLineUI ui;
+    private CommandLineUi ui;
 
     /** The parser that interprets user input and converts it into commands. */
     private Parser parser;
@@ -32,7 +32,7 @@ public class OuiOuiBaguette {
      * @param dirPath The directory path where task data will be stored.
      */
     public OuiOuiBaguette(String dirPath) {
-        ui = new CommandLineUI();
+        ui = new CommandLineUi();
         storage = new FileStorage(dirPath);
         tasks = new TaskList(storage);
         parser = new Parser();

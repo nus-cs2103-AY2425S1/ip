@@ -4,7 +4,7 @@ import tasklist.TaskList;
 import tasks.Deadline;
 import tasks.DeadlineException;
 import tasks.Task;
-import ui.CommandLineUI;
+import ui.CommandLineUi;
 
 /**
  * Represents a command to add a deadline task to the task list.
@@ -32,7 +32,7 @@ public class AddDeadlineCommand extends Command {
      * @param tasklist The TaskList where the task will be added.
      * @param ui       The CommandLineUI used to interact with the user.
      */
-    public void execute(TaskList tasklist, CommandLineUI ui) {
+    public void execute(TaskList tasklist, CommandLineUi ui) {
         tasklist.addTask(task);
 
         ui.speakLine("Got it. I've added this task:");

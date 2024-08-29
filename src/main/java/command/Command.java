@@ -1,7 +1,7 @@
 package command;
 
 import tasklist.TaskList;
-import ui.CommandLineUI;
+import ui.CommandLineUi;
 
 /**
  * Represents an abstract command in the application.
@@ -15,7 +15,7 @@ public abstract class Command {
      * @param tasklist The TaskList that the command operates on.
      * @param ui       The CommandLineUI used to interact with the user.
      */
-    public abstract void execute(TaskList tasklist, CommandLineUI ui);
+    public abstract void execute(TaskList tasklist, CommandLineUi ui);
 
     /**
      * Determines whether the command causes the application to exit.

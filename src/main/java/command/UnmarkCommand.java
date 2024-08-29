@@ -2,7 +2,7 @@ package command;
 
 import tasklist.TaskList;
 import tasklist.TaskListOutOfBoundsException;
-import ui.CommandLineUI;
+import ui.CommandLineUi;
 
 /**
  * Represents a command to unmark a task as not done in the task list.
@@ -27,7 +27,7 @@ public class UnmarkCommand extends Command {
      * @param tasklist The TaskList where the task will be unmarked as not done.
      * @param ui       The CommandLineUI used to interact with the user.
      */
-    public void execute(TaskList tasklist, CommandLineUI ui) {
+    public void execute(TaskList tasklist, CommandLineUi ui) {
         try {
             tasklist.unmark(index);
 

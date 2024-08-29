@@ -5,7 +5,7 @@ import java.util.List;
 
 import tasklist.TaskList;
 import tasks.Task;
-import ui.CommandLineUI;
+import ui.CommandLineUi;
 
 /**
  * Represents a command to find tasks in the task list that match a given keyword.
@@ -31,7 +31,7 @@ public class FindCommand extends Command {
      * @param tasklist The TaskList to search for matching tasks.
      * @param ui       The CommandLineUI used to interact with the user.
      */
-    public void execute(TaskList tasklist, CommandLineUI ui) {
+    public void execute(TaskList tasklist, CommandLineUi ui) {
         List<Task> matches = new ArrayList<Task>();
 
         List<Task> tasks = tasklist.getTasks();

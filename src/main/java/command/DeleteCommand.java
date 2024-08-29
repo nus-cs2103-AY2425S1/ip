@@ -3,7 +3,7 @@ package command;
 import tasklist.TaskList;
 import tasklist.TaskListOutOfBoundsException;
 import tasks.Task;
-import ui.CommandLineUI;
+import ui.CommandLineUi;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
      * @param tasklist The TaskList from which the task will be deleted.
      * @param ui       The CommandLineUI used to interact with the user.
      */
-    public void execute(TaskList tasklist, CommandLineUI ui) {
+    public void execute(TaskList tasklist, CommandLineUi ui) {
 
         try {
             Task task = tasklist.delete(index);
