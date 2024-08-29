@@ -1,6 +1,9 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Provides the skeleton for a kind of Task named Deadline.
+ */
 public class Deadline extends Task{
     private final LocalDateTime by;
     public Deadline(String name, LocalDateTime by) {
@@ -10,7 +13,7 @@ public class Deadline extends Task{
 
     @Override
     public String taskData() {
-        return String.format("D" + super.taskData() + deli + by + "\n");
+        return String.format("D" + super.taskData() + deli + by.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")) + "\n");
     }
 
     @Override

@@ -1,3 +1,6 @@
+/**
+ * Provides skeleton for a kind of Task named Todo.
+ */
 public class Todo extends Task{
     public Todo(String name) {
         super(name);

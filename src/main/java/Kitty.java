@@ -11,7 +11,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-
+/**
+ * Provides an interactive ChatBot named Kitty.
+ */
 public class Kitty {
     private static final String NAME = "Kitty";
     private static final String DIVISION_LINE = "--------------------------";
@@ -23,6 +25,11 @@ public class Kitty {
 
     private static final ArrayList<Task> TASKS = new ArrayList<Task>(100);
 
+    /**
+     * Starts the ChatBot.
+     *
+     * @param args Program input.
+     */
     public static void main(String[] args) {
 //        String logo = """
 //                 ____        -
@@ -35,6 +42,9 @@ public class Kitty {
         Greet();
     }
 
+    /**
+     * Prints greetings and initializes the list.
+     */
     private static void Greet() {
         System.out.println("Hello! I'm " + NAME);
         System.out.println("What can I do for you?\n");
@@ -61,6 +71,11 @@ public class Kitty {
         Echo();
     }
 
+    /**
+     * Creates tasks from txt file input if there is data in file KITTY_TASKS_DATA.
+     *
+     * @param str Task data stored in the file.
+     */
     private static void createTaskFromInput(String str) {
         String[] aux = str.split("~!!");
         Task tmp;
@@ -83,6 +98,9 @@ public class Kitty {
 
     }
 
+    /**
+     * Takes charge of the main interactions of ChatBot with user.
+     */
     private static void Echo() {
         String command = "";
         Scanner sc = new Scanner(System.in);
@@ -109,6 +127,11 @@ public class Kitty {
         }
     }
 
+    /**
+     * Creates tasks from valid user input, adds to list and updates the file.
+     *
+     * @param item Potential task to add.
+     */
     private static void add(String item) {
         String[] aux = item.split(" ", 2);
         String type = aux[0];
@@ -151,13 +174,22 @@ public class Kitty {
         }
     }
 
-    // Adapted from Week 3 Topic: File I/O
+    /**
+     * Updates the new task to the file.
+     * Adapted from Week 3 Topic: File I/O.
+     *
+     * @param textToAppend The String data for the new task to add to the file.
+     * @throws IOException If file writing is not successful.
+     */
     private static void addLine(String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(KITTY_DATA_PATH, true);
         fw.write(textToAppend);
         fw.close();
     }
 
+    /**
+     * Rewrites the file when there is task mark or deletion and need to modify information.
+     */
     private static void rewriteFile() {
         try {
             FileWriter fw = new FileWriter(KITTY_DATA_PATH);
@@ -170,6 +202,15 @@ public class Kitty {
             return;
         }
     }
+
+    /**
+     * Creates Deadline object if the command is in valid form.
+     *
+     * @param str The deadline command
+     * @return A Task object.
+     * @throws DeadlineException If the format is not valid for an event.
+     * @throws DateFormatException If the time specification is not in valid form.
+     */
     private static Task createDeadline(String str) throws DeadlineException, DateFormatException{
         String[] parts = str.split("/by");
         if (parts.length != 2)
@@ -182,6 +223,14 @@ public class Kitty {
         }
     }
 
+    /**
+     * Creates Event object if the command if the command is in valid format.
+     *
+     * @param str The event command.
+     * @return a Task object.
+     * @throws EventException If the format is not valid for an event.
+     * @throws DateFormatException If the time specification is not in valid form.
+     */
     private static Task createEvent(String str) throws EventException, DateFormatException{
         String[] parts = str.split("/from|/to");
         if (parts.length != 3)
@@ -195,6 +244,9 @@ public class Kitty {
         }
     }
 
+    /**
+     * Lists out the tasks in the list.
+     */
     private static void List() {
         int count = 1;
         Task[] tmp = new Task[0];
@@ -206,6 +258,11 @@ public class Kitty {
         System.out.println("\n" + DIVISION_LINE);
     }
 
+    /**
+     * Deletes a task from the list and removes from the file.
+     *
+     * @param index The index of the task in the list.
+     */
     private static void delete(int index) {
         try {
             Task tmp = TASKS.get(index - 1);
@@ -223,6 +280,11 @@ public class Kitty {
         }
     }
 
+    /**
+     * Marks a task as done in the list.
+     *
+     * @param index Index of the task in the list.
+     */
     private static void mark(int index) {
         try {
             Task tmp = TASKS.get(index - 1);
@@ -238,6 +300,11 @@ public class Kitty {
         }
     }
 
+    /**
+     * Marks a task in the list undone.
+     *
+     * @param index Index of task in the list.
+     */
     private static void unmark(int index) {
         try {
             Task tmp = TASKS.get(index - 1);
@@ -253,6 +320,12 @@ public class Kitty {
         }
     }
 
+    /**
+     * Helps to determine the task index to mark, unmark and delete tasks in the list.
+     *
+     * @param input The command to investigate.
+     * @return the first number of the command.
+     */
     private static int extractFirstNumber(String input) {
         // Replace all non-digit characters with spaces
         String cleanedInput = input.replaceAll("\\D+", " ");
@@ -274,6 +347,9 @@ public class Kitty {
         return -1;
     }
 
+    /**
+     * Closes the ChatBot.
+     */
     private static void Exit() {
         System.out.println(DIVISION_LINE);
         System.out.println("Bye. Hope I can see you again soon!\nNext time bring me some cat food please!!!\n");
