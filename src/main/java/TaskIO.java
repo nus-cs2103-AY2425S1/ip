@@ -188,8 +188,9 @@ public class TaskIO {
             taskList.addTask(incomingTask);
             break;
         case EVENT:
-            String eventFrom = taskComponents[3];
-            String eventTo = taskComponents[4];
+            DateTimeFormatter eventFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+            LocalDateTime eventFrom = LocalDateTime.parse(taskComponents[3].trim(), eventFormatter);
+            LocalDateTime eventTo = LocalDateTime.parse(taskComponents[4].trim(), eventFormatter);
             incomingTask = new Event(taskDescription, taskStatus, eventFrom, eventTo);
             taskList.addTask(incomingTask);
             break;
