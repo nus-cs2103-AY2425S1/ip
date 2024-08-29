@@ -1,3 +1,5 @@
+package talker;
+
 public class TalkerException extends Exception {
 
     public TalkerException(String message) {

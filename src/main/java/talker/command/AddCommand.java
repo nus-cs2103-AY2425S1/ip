@@ -1,3 +1,11 @@
+package talker.command;
+
+import talker.Storage;
+import talker.TalkerException;
+import talker.Ui;
+import talker.task.TaskList;
+import talker.task.TaskType;
+
 public class AddCommand extends Command {
 
     private String input;

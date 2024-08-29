@@ -1,3 +1,5 @@
+package talker.task;
+
 public class Task {
     // String describing task
     protected String description;
