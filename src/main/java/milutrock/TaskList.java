@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import milutrock.tasks.Task;
 
-public class TaskList  {
+public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<Task>();
 
     public void addTask(Task task) {
