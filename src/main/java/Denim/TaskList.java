@@ -1,6 +1,6 @@
-package Denim;
+package denim;
 
-import Denim.Tasks.Task;
+import denim.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ public class TaskList {
     public void addTask(Task task) {
         this.taskList.add(task);
     }
+
     public void addTaskAtIndex(int index, Task task) {
         this.taskList.add(index, task);
     }
@@ -22,9 +23,6 @@ public class TaskList {
     public void deleteTaskAtIndex(int index) {
         this.taskList.remove(index);
     }
-
-
-
 
     public Task getTask(int index) {
         return this.taskList.get(index);
@@ -51,11 +49,12 @@ public class TaskList {
             return "Your Task List is Empty.\n";
         }
 
-        List<String> taskStrings = new ArrayList<>();
+        List<String> stringList = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
-            taskStrings.add(String.format("%d %s", i + 1, this.getTask(i)));
+            stringList.add(String.format("%d %s", i + 1, this.getTask(i)));
         }
-        String returnListMessage = String.join("\n", taskStrings);
+
+        String returnListMessage = String.join("\n", stringList);
         return returnListMessage;
     }
 }
