@@ -12,6 +12,10 @@ public class Deadline extends Task {
         this.by = LocalDate.parse(by, formatter);
     }
 
+    public LocalDate getBy() {
+        return this.by;
+    }
+
     @Override
     public String toFileFormat() {
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | "

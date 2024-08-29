@@ -14,6 +14,14 @@ public class Event extends Task {
         this.to = LocalDate.parse(to, formatter);
     }
 
+    public LocalDate getFrom() {
+        return this.from;
+    }
+
+    public LocalDate getTo() {
+        return this.to;
+    }
+
     @Override
     public String toFileFormat() {
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | "

@@ -13,6 +13,10 @@ public class AddCommand extends Command {
         this.task = task;
     }
 
+    public Task getTask() {
+        return this.task;
+    }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws CharlotteException {
         tasks.addTask(task);
