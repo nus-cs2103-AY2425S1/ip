@@ -242,7 +242,8 @@ public class Pebble {
             Deadline deadline;
             try {
                 // Try to parse the date
-                deadline = new Deadline(description, LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM dd yyyy")).toString());
+                deadline = new Deadline(description,
+                        LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM dd yyyy")).toString());
             } catch (DateTimeException e) {
                 // If parsing fails, use the original string
                 deadline = new Deadline(description, by);
