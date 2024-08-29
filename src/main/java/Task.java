@@ -1,10 +1,14 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+    public Task(String description, Boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
@@ -23,11 +27,23 @@ public class Task {
         System.out.println(this.toString());
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public String getDoneStatus() {
+        if (isDone) {
+            return "Done";
+        } else {
+            return "Not done";
+        }
+    }
 
     @Override
     public String toString() {
         return getStatusIcon() + " " + this.description;
     }
 
+    public abstract String toSave();
     //...
 }

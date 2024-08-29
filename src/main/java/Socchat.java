@@ -7,12 +7,27 @@ import java.io.File;
 
 
 public class Socchat {
+    private Parser parser;
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
     private static Scanner scanner = new Scanner(System.in);
     enum Command{
         BYE, LIST, MARK, UNMARK, TODO, EVENT, DEADLINE, DELETE
     }
-    public static void main(String[] args) {
-        TaskList taskList = new TaskList();
+    public Socchat(String filePath) {
+        parser = new Parser();
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            taskList = new TaskList(storage.load());
+        } catch (SocchatException e) {
+            ui.showLoadingError();
+            taskList = new TaskList();
+        }
+    }
+
+    public void run() {
         greet();
 
         chatLoop:
@@ -38,15 +53,18 @@ public class Socchat {
                         taskList.setMark(taskIndexString, false);
                         break;
                     case TODO:
-                        strToken = stringTokenize("TODO");
+                        String str = command + scanner.nextLine();
+                        strToken = parser.tokenizeAdd(str);
                         taskList.addTodo(strToken);
                         break;
                     case DEADLINE:
-                        strToken = stringTokenize("DEADLINE");
+                        str = command + scanner.nextLine();
+                        strToken = parser.tokenizeAdd(str);
                         taskList.addDeadline(strToken);
                         break;
                     case EVENT:
-                        strToken = stringTokenize("EVENT");
+                        str = command + scanner.nextLine();
+                        strToken = parser.tokenizeAdd(str);
                         taskList.addEvent(strToken);
                         break;
                     case DELETE:
@@ -55,11 +73,15 @@ public class Socchat {
                         break;
                 }
             } catch (SocchatException e) {
-                    System.out.println(e.getMessage());
-                }
+                System.out.println(e.getMessage());
             }
-
         }
+
+    }
+    public static void main(String[] args) {
+
+        new Socchat("tasks.txt").run();
+    }
     public static Command getCommand(String input) throws SocchatException {
         try {
             return Command.valueOf(input.toUpperCase());
@@ -67,11 +89,6 @@ public class Socchat {
             throw new SocchatException("Uh Ohh! Socchat does not understand this...");
         }
 
-    }
-    public static String[] stringTokenize(String command) {
-        String str = command + scanner.nextLine();
-        String[] strToken = str.split(" /");
-        return strToken;
     }
 
     public static void greet() {

@@ -1,19 +1,28 @@
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.io.FileWriter;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class TaskList {
-
+    private Parser parser;
+    private Storage storage;
     private ArrayList<Task> tasks;
+
     public TaskList() {
         this.tasks = new ArrayList<>();
+        parser = new Parser();
         String fileName = "savedTasks.txt";
         File file = new File(fileName); // delete the existing file
         if (file.exists()) {
             file.delete();
         }
+    }
+
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public void delete(String indexString) throws SocchatException {
@@ -24,7 +33,8 @@ public class TaskList {
             tasks.remove(taskIndex - 1);
             System.out.println("Deleted "  + "\"" +  task.toString() + "\"");
             System.out.println("Now you have " + tasks.size() + " task(s).");
-            updateFile(false);
+
+            storage.update(tasks, false);
         } catch (IndexOutOfBoundsException e) {
             throw new SocchatException("Invalid task number.");
         } catch (NumberFormatException e) {
@@ -48,7 +58,8 @@ public class TaskList {
             System.out.print("added: ");
             System.out.println(t.toString());
             System.out.println("Now you have " + tasks.size() + " task(s).");
-            updateFile(true);
+
+            storage.update(tasks, true);
         } catch (IndexOutOfBoundsException e) {
             // scanner.nextLine();
             throw new SocchatException("Invalid Todo format: Description is empty");
@@ -60,15 +71,16 @@ public class TaskList {
             String des = strToken[0].substring("event ".length());
             String from = strToken[1].substring("from ".length());
             String to = strToken[2].substring("to ".length());
-            LocalDate formattedFrom = LocalDate.parse(from);
-            LocalDate formattedTo = LocalDate.parse(to);
+            LocalDateTime formattedFrom = parser.parseDate(from);
+            LocalDateTime formattedTo = parser.parseDate(to);
 
             Task t = new Event(des, formattedFrom, formattedTo);
             tasks.add(t);
             System.out.print("added: ");
             System.out.println(t.toString());
             System.out.println("Now you have " + tasks.size() + " task(s).");
-            updateFile(true);
+
+            storage.update(tasks, true);
         } catch (IndexOutOfBoundsException e) {
 
             throw new SocchatException("Invalid Event format: event <description> /from <startTime> /to <endTime>");
@@ -78,14 +90,15 @@ public class TaskList {
         try {
             String des = strToken[0].substring("deadline ".length());
             String by = strToken[1].substring("by ".length());
-            LocalDate formattedBy = LocalDate.parse(by);
+            LocalDateTime formattedBy = parser.parseDate(by);
 
             Task t = new Deadline(des, formattedBy);
             tasks.add(t);
             System.out.print("added: ");
             System.out.println(t.toString());
             System.out.println("Now you have " + tasks.size() + " task(s).");
-            updateFile(true);
+
+            storage.update(tasks, true);
         } catch (IndexOutOfBoundsException e) {
             throw new SocchatException("Invalid Deadline format: deadline <description> /by <deadline>");
         }
@@ -101,7 +114,7 @@ public class TaskList {
             } else {
                 tasks.get(taskIndex - 1).unmark();
             }
-            updateFile(false);
+            storage.update(tasks, false);
         } catch (IndexOutOfBoundsException e) {
             throw new SocchatException("Invalid task number.");
         } catch (NumberFormatException e) {
@@ -109,22 +122,6 @@ public class TaskList {
         }
     }
 
-    private void updateFile(Boolean needAppend) {
-        String file = "savedTasks.txt";
-        ArrayList<Task> content = new ArrayList<>();
-        if (needAppend) {
-            content.add(tasks.get(tasks.size() - 1)); // Append only the last added task
-        } else {
-            content = tasks; // Rewrite the tasks
-        }
-        try(FileWriter writer = new FileWriter(file, needAppend)) {
-            for (Task t : content) {
-                writer.write(t.toString());
-                writer.write(System.lineSeparator());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
 }
