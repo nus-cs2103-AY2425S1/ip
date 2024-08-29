@@ -1,3 +1,9 @@
+package commands;
+
+import storage.Storage;
+import tasks.TaskList;
+import ui.Ui;
+
 public class ByeCommand extends Command {
     public boolean isExit() {
         return true;
