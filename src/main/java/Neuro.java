@@ -225,6 +225,9 @@ public class Neuro {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("    UH OH! Index out of bounds! Try calling the command 'list' to verify the" +
                             " index of the desired task.");
+                } catch (NumberFormatException e) {
+                    System.out.println("    UH OH! Invalid index for 'mark' command! Add a valid index for a task" +
+                            " to mark, like 'mark 2'.");
                 }
                 System.out.println("    ___________________________________________________");
 
@@ -246,6 +249,9 @@ public class Neuro {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("    UH OH! Index out of bounds! Try calling the command 'list' to verify the" +
                             " index of the desired task.");
+                } catch (NumberFormatException e) {
+                    System.out.println("    UH OH! Invalid index for 'mark' command! Add a valid index for a task" +
+                            " to mark, like 'mark 2'.");
                 }
                 System.out.println("    ___________________________________________________");
             } else if (input.startsWith("delete")) {
