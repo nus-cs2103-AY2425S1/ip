@@ -46,6 +46,27 @@ public class KieTwoForOne {
         System.out.println(separationLine);
     }
 
+    public static boolean isCompleteInput(String[] input) throws KieTwoForOneException {
+        if (input.length <= 1 && !input[0].equalsIgnoreCase("list") && !input[0]. equalsIgnoreCase("bye")) {
+            throw new KieTwoForOneException();
+        }
+        return true;
+    }
+
+    public static boolean isCompleteEventInput(String[] input) throws KieTwoForOneException {
+        if (input.length != 3) {
+            throw new KieTwoForOneException();
+        }
+        return true;
+    }
+
+    public static boolean isCompleteDeadlineInput(String[] input) throws KieTwoForOneException {
+        if (input.length != 2) {
+            throw new KieTwoForOneException();
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -58,6 +79,20 @@ public class KieTwoForOne {
             String input = scanner.nextLine();
             String[] instruction = input.split(" ", 2);
             String[] taskDetails = new String[0];
+
+            try {
+                Instructions.valueOf(instruction[0].toUpperCase());
+                isCompleteInput(instruction);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid input!");
+                System.out.println(separationLine);
+                continue;
+            } catch (KieTwoForOneException e) {
+                System.out.println("Your instruction is incomplete!");
+                System.out.println(separationLine);
+                continue;
+            }
+
             if (instruction.length > 1) {
                 taskDetails = instruction[1].split(" /", 0);
             }
@@ -84,9 +119,23 @@ public class KieTwoForOne {
                     KieTwoForOne.addTasks(new Todo(instruction[1]));
                     break;
                 case EVENT:
+                    try  {
+                        isCompleteEventInput(taskDetails);
+                    } catch (KieTwoForOneException e){
+                        System.out.println("Please input a start and end time!");
+                        System.out.println(separationLine);
+                        break;
+                    }
                     KieTwoForOne.addTasks(new Event(taskDetails[0], taskDetails[1], taskDetails[2]));
                     break;
                 case DEADLINE:
+                    try {
+                        isCompleteDeadlineInput(taskDetails);
+                    } catch (KieTwoForOneException e) {
+                        System.out.println("Please input a deadline!");
+                        System.out.println(separationLine);
+                        break;
+                    }
                     KieTwoForOne.addTasks(new Deadline(taskDetails[0], taskDetails[1]));
                     break;
                 default:
