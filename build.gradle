@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("Denim.Denim")
+    mainClass.set("denim.Denim")
 }
 
 shadowJar {

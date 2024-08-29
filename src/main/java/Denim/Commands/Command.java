@@ -14,10 +14,10 @@ public abstract class Command {
      * Executes the command on the given task list and with the provided I/O operations.
      *
      * @param taskList The task list to perform the command on.
-     * @param taskIO   The I/O operations for reading from and writing to storage.
+     * @param taskIo   The I/O operations for reading from and writing to storage.
      * @return The result of the command execution.
      */
-    public abstract CommandResult execute(TaskList taskList, TaskIO taskIO);
+    public abstract CommandResult execute(TaskList taskList, TaskIo taskIo);
 
     /**
      * Determines whether this command should exit the application.

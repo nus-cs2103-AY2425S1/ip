@@ -17,9 +17,9 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(TaskList taskList, TaskIo taskIO) {
+    public CommandResult execute(TaskList taskList, TaskIo taskIo) {
         try {
-            taskIO.writeTaskData(todoTask);
+            taskIo.writeTaskData(todoTask);
         } catch (DenimException e) {
             return new CommandResult("Command Failed. Error:\n" + e.getMessage());
         }

@@ -15,7 +15,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(TaskList taskList, TaskIo taskIO) {
+    public CommandResult execute(TaskList taskList, TaskIo taskIo) {
 
         if (!taskList.isValidIndex(index)) {
             return new CommandResult("The index chosen is invalid.");
@@ -25,7 +25,7 @@ public class DeleteCommand extends Command {
         taskList.deleteTaskAtIndex(index);
 
         try {
-            taskIO.deleteTask(taskList);
+            taskIo.deleteTask(taskList);
         } catch (DenimException e) {
             taskList.addTaskAtIndex(index, deletedTask);
             return new CommandResult(e.getMessage() + "\n The task was not deleted.");

@@ -4,7 +4,6 @@ import denim.exceptions.DenimException;
 import denim.TaskList;
 import denim.storage.TaskIo;
 
-
 public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
     public static final String COMMAND_USAGE = "unmark <taskNumber>";
@@ -16,7 +15,7 @@ public class UnmarkCommand extends Command {
 
 
     @Override
-    public CommandResult execute(TaskList taskList, TaskIo taskIO) {
+    public CommandResult execute(TaskList taskList, TaskIo taskIo) {
 
         if (!taskList.isValidIndex(index)) {
             return new CommandResult("The index chosen is invalid.");
@@ -29,7 +28,7 @@ public class UnmarkCommand extends Command {
 
         try {
             taskList.unmarkTask(index);
-            taskIO.unmarkTask(taskList);
+            taskIo.unmarkTask(taskList);
         } catch (DenimException e) {
             taskList.markTask(index);
             return new CommandResult(e.getMessage());

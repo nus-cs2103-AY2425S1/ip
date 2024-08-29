@@ -13,7 +13,7 @@ public class MarkCommand extends Command {
         this.index = index;
     }
     @Override
-    public CommandResult execute(TaskList taskList, TaskIo taskIO) {
+    public CommandResult execute(TaskList taskList, TaskIo taskIo) {
 
         if (!taskList.isValidIndex(index)) {
             return new CommandResult("The index chosen is invalid.");
@@ -26,7 +26,7 @@ public class MarkCommand extends Command {
 
         try {
             taskList.markTask(index);
-            taskIO.markTask(taskList);
+            taskIo.markTask(taskList);
         } catch (DenimException e) {
             taskList.unmarkTask(index);
             return new CommandResult(e.getMessage());

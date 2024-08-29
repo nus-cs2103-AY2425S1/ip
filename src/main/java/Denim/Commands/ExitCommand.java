@@ -7,7 +7,7 @@ public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "bye";
     @Override
-    public CommandResult execute(TaskList taskList, TaskIo taskIO) {
+    public CommandResult execute(TaskList taskList, TaskIo taskIo) {
         return new CommandResult("Bye. Hope to see you again soon!");
     }
 
