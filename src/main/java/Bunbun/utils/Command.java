@@ -58,6 +58,8 @@ public class Command {
                 } else {
                     this.ui.response("Specify 1! positive integer to delete task D:");
                 }
+            } else if (firstWord.equals("find")) {
+                this.taskList.searchAndDisplay(tokens);
             } else {
                 this.ui.response("Sorry, I don't understand ><");
             }
