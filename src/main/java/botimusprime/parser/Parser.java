@@ -89,6 +89,8 @@ public class Parser {
             taskList.addEvent(input);
         } else if (input.startsWith("delete")) {
             taskList.delete(input);
+        } else if (input.startsWith("find")) {
+            taskList.findTask(input);
         } else {
             System.out.println("bro out here speaking nonsense issit");
         }
