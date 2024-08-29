@@ -9,6 +9,9 @@ import exceptions.LlamaException;
 import parser.Parser;
 import ui.Ui;
 
+/**
+ * Main class for program. Responsible for starting and ending the program
+ */
 public class Llama {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -16,6 +19,9 @@ public class Llama {
     private Ui ui;
     private TaskList taskList;
 
+    /**
+     * Constructor for Llama
+     */
     public Llama() {
         this.ui = new Ui();
         this.storage = new Storage();
@@ -26,6 +32,9 @@ public class Llama {
         }
     }
 
+    /**
+     * Method to start running the program
+     */
     public void run() {
         Scanner sc = new Scanner(System.in);
 

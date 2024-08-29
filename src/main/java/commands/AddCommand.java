@@ -14,6 +14,9 @@ import data.Deadline;
 import data.Event;
 import ui.Ui;
 
+/**
+ * Represents the command to add a Task
+ */
 public class AddCommand implements Command {
     public enum TaskType{
         TODO,
@@ -25,6 +28,12 @@ public class AddCommand implements Command {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Constructor for AddCommand
+     *
+     * @param remaining input that represents the task, end time and start time to add
+     * @param taskType type of task to save (Todo, Deadline, Event)
+     */
     public AddCommand(String remaining, TaskType taskType) {
         if (remaining.isBlank()) {
             if (taskType == TaskType.TODO) {

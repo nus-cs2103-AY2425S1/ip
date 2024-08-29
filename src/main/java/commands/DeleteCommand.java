@@ -7,9 +7,17 @@ import data.TaskList;
 import data.Storage;
 import ui.Ui;
 
+/**
+ * Represents the command to delete a Task
+ */
 public class DeleteCommand implements Command {
     private String remaining;
 
+    /**
+     * Constructor for DeleteCommand
+     *
+     * @param remaining input to tell program which task to delete
+     */
     public DeleteCommand(String remaining) {
         this.remaining = remaining;
     }

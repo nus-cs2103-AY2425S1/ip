@@ -10,7 +10,16 @@ import commands.EditCommand.Instruction;
 import commands.ListCommand;
 import exceptions.LlamaException;
 
+/**
+ * Deals with making sense of the user command
+ */
 public class Parser {
+    /**
+     * Method to interpret user's input
+     *
+     * @param input user input to be interpreted
+     * @return Command that program can execute based on user input
+     */
     public static Command parse(String input) {
         // Split input into command and remaining
         String command = input;
