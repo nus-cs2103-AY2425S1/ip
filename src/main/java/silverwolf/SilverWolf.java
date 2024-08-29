@@ -15,7 +15,7 @@ public class SilverWolf {
 
     // constants for directory and file paths
     public static final String DIRECTORY_PATH = "data/";
-    public static final String FILE_PATH = DIRECTORY_PATH + "/silverWolf.txt";
+    public static final String FILE_PATH = DIRECTORY_PATH + "silverWolf.txt";
     private Storage storage; // Handles the saving and loading of tasks to and from a file
     private TaskList tasks; // Stores the list of tasks
     private Ui ui; // Manages user interaction

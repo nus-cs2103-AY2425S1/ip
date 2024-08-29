@@ -31,7 +31,8 @@ public class Storage {
     public Storage(String filePath) {
         Path path = Paths.get(filePath);
         this.directoryPath = path.getParent() != null ? path.getParent().toString() : "";
-        this.filePath = path.getFileName().toString();
+        String[] parts = path.getFileName().toString().split("/");
+        this.filePath = parts[0];
         this.fullPath = Paths.get(this.directoryPath, this.filePath).toString();
     }
 
@@ -106,4 +107,5 @@ public class Storage {
         }
         return tasks;
     }
+
 }
