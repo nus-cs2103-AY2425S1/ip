@@ -11,12 +11,12 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 public class Storage {
-    private String filepath = "./data/rex.txt";
-    private String temppath = "./data/tmp.txt";
+    private static final String FILE_PATH = "./data/rex.txt";
+    private static final String TEMP_PATH = "./data/tmp.txt";
 
     public void loadFile(TaskList list) throws IOException {
         // Create new file and directory for filepath
-        File file = new File(filepath);
+        File file = new File(FILE_PATH);
         File dir = file.getParentFile();
 
         createDirectory(dir);
@@ -27,11 +27,11 @@ public class Storage {
     }
 
     public void updateFile(TaskList list) throws IOException {
-        File file = new File(filepath);
-        File temp = new File(temppath);
+        File file = new File(FILE_PATH);
+        File temp = new File(TEMP_PATH);
 
         // Create temp file to copy taskList from
-        Files.deleteIfExists(Paths.get(temppath));
+        Files.deleteIfExists(Paths.get(TEMP_PATH));
         createFile(temp);
 
         FileWriter writer = new FileWriter(temp, true);
@@ -46,14 +46,14 @@ public class Storage {
         writer.close();
 
         // Copy to save file
-        Files.copy(Paths.get(temppath), Paths.get(filepath), StandardCopyOption.REPLACE_EXISTING);
-        Files.delete(Paths.get(temppath));
+        Files.copy(Paths.get(TEMP_PATH), Paths.get(FILE_PATH), StandardCopyOption.REPLACE_EXISTING);
+        Files.delete(Paths.get(TEMP_PATH));
     }
 
-    private void createDirectory(File f) {
+    private void createDirectory(File dir) {
         // Create new directory if it does not exist
-        if (!f.isDirectory()) {
-            f.mkdirs();
+        if (!dir.isDirectory()) {
+            dir.mkdirs();
         }
     }
 

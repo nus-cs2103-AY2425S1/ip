@@ -12,13 +12,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Parser {
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yy HHmm");
+
 
     public static String[] parseInput(String input) throws InvalidInputException {
         // Parse rex.command and rex.command argument
         String[] inputTokens = input.split(" ", 2);
 
         // Error check input argument based on rex.command
-        parseInputError(inputTokens);
+        validateInput(inputTokens);
 
         // Return rex.command if no error
         return inputTokens;
@@ -38,9 +40,9 @@ public class Parser {
             // 1 if marked, 0 if unmarked
             int marked = Integer.parseInt(taskTokens[1]);
             boolean isMarked = marked == 1;
+            String description = taskTokens[2];
 
             // Add to rex.task list
-            String description = taskTokens[2];
             switch (taskType) {
             case "T":
                 list.loadTask(description, isMarked);
@@ -87,14 +89,12 @@ public class Parser {
     }
 
     public static LocalDateTime parseDateTime(String dateTimeString) {
-        LocalDateTime dateTime = LocalDateTime.from(LocalDateTime.parse(dateTimeString,
-                DateTimeFormatter.ofPattern("dd-MM-yy HHmm")));
-
-        return dateTime;
+        return LocalDateTime.parse(dateTimeString, DATE_TIME_FORMATTER);
     }
 
-    private static void parseInputError(String[] inputTokens) throws InvalidInputException {
+    private static void validateInput(String[] inputTokens) throws InvalidInputException {
         Command command = Command.inputToCommand(inputTokens[0]);
+
         switch (command) {
         case HELP:
         case BYE:
