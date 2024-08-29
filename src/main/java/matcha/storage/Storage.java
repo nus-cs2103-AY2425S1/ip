@@ -1,19 +1,14 @@
 package matcha.storage;
 
-import matcha.parser.Parser;
-
-import matcha.task.Task;
-
-import matcha.exception.MatchaException;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-
+import matcha.exception.MatchaException;
+import matcha.parser.Parser;
+import matcha.task.Task;
 
 /**
  * Represents a Storage object that saves and loads tasks from a file.
@@ -37,21 +32,20 @@ public class Storage {
      * @throws IOException If there is an error creating the file.
      */
     private static File initFile() throws IOException {
-       File file = new File(FILE_PATH);
+        File file = new File(FILE_PATH);
 
-       if (!file.getParentFile().exists()) {
-           //create directory if it does not exist
-           file.getParentFile().mkdirs();
-       }
+        if (!file.getParentFile().exists()) {
+            //create directory if it does not exist
+            file.getParentFile().mkdirs();
+        }
 
-       if (!file.exists()) {
-           //create file if it does not exist
-           file.createNewFile();
-       }
+        if (!file.exists()) {
+            //create file if it does not exist
+            file.createNewFile();
+        }
 
-       return file;
+        return file;
     }
-
     /**
      * Loads tasks from given file and returns them as an ArrayList.
      *
@@ -60,25 +54,24 @@ public class Storage {
      */
     public ArrayList<Task> loadTasks() throws MatchaException {
         try {
-          File file = Storage.initFile();
-          ArrayList<Task> tasks = new ArrayList<>();
-          Scanner scanner = new Scanner(file);
+            File file = Storage.initFile();
+            ArrayList<Task> tasks = new ArrayList<>();
+            Scanner scanner = new Scanner(file);
 
-          //parse each line of file and add to tasks
-          while (scanner.hasNext()) {
+            //parse each line of file and add to tasks
+            while (scanner.hasNext()) {
                 Task task = Parser.parseFileData(scanner.nextLine());
                 tasks.add(task);
-          }
+            }
 
-          //close scanner once done adding tasks
-          scanner.close();
-          return tasks;
+            //close scanner once done adding tasks
+            scanner.close();
+            return tasks;
 
         } catch (IOException e) {
             throw new MatchaException("Oh no! Error loading tasks from file.");
         }
     }
-
     /**
      * Saves tasks to a given file.
      *

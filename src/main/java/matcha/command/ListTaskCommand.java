@@ -1,15 +1,13 @@
 package matcha.command;
 
-import matcha.tasklist.TaskList;
-
 import matcha.storage.Storage;
-
+import matcha.tasklist.TaskList;
 import matcha.ui.Ui;
 
 /**
  * Represents a command to list all tasks in the task list.
  */
-public class ListTaskCommand extends Command{
+public class ListTaskCommand extends Command {
 
     /**
      * Executes the command to list all tasks in the task list.

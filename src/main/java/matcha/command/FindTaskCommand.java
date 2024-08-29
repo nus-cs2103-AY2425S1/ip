@@ -1,12 +1,12 @@
 package matcha.command;
 
+import java.util.ArrayList;
+
 import matcha.exception.MatchaException;
 import matcha.storage.Storage;
 import matcha.task.Task;
 import matcha.tasklist.TaskList;
 import matcha.ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command to find tasks that contain a given keyword.

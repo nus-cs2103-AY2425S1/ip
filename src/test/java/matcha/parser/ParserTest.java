@@ -1,25 +1,23 @@
 package matcha.parser;
 
-import matcha.command.ListTaskCommand;
-import matcha.command.AddTaskCommand;
-import matcha.command.DeleteTaskCommand;
-import matcha.command.UpdateTaskCommand;
-import matcha.command.ExitCommand;
-import matcha.command.Command;
-
-import matcha.exception.MatchaException;
-
-import matcha.task.Task;
-import matcha.task.Deadline;
-import matcha.task.Event;
-import matcha.task.Todo;
-
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 
+import org.junit.jupiter.api.Test;
+
+import matcha.command.AddTaskCommand;
+import matcha.command.Command;
+import matcha.command.DeleteTaskCommand;
+import matcha.command.ExitCommand;
+import matcha.command.ListTaskCommand;
+import matcha.command.UpdateTaskCommand;
+import matcha.exception.MatchaException;
+import matcha.task.Deadline;
+import matcha.task.Event;
+import matcha.task.Task;
+import matcha.task.Todo;
 public class ParserTest {
 
     @Test

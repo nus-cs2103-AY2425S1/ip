@@ -1,19 +1,15 @@
 package matcha.command;
 
 import matcha.exception.MatchaException;
-
-import matcha.task.Task;
-
 import matcha.storage.Storage;
-
+import matcha.task.Task;
 import matcha.tasklist.TaskList;
-
 import matcha.ui.Ui;
 
 /**
  * Represents a command to delete a task from the task list.
  */
-public class DeleteTaskCommand extends Command{
+public class DeleteTaskCommand extends Command {
     private String[] inputWords;
 
     /**

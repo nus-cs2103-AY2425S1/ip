@@ -1,15 +1,13 @@
 package matcha.command;
 
 import matcha.storage.Storage;
-
 import matcha.tasklist.TaskList;
-
 import matcha.ui.Ui;
 
 /**
  * Represents a command to exit the program.
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
 
     /**
      * Executes the command to exit the program.

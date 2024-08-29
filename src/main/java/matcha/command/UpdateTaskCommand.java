@@ -1,17 +1,14 @@
 package matcha.command;
 
-import matcha.tasklist.TaskList;
-
-import matcha.ui.Ui;
-
-import matcha.storage.Storage;
-
 import matcha.exception.MatchaException;
+import matcha.storage.Storage;
+import matcha.tasklist.TaskList;
+import matcha.ui.Ui;
 
 /**
  * Represents a command to update a task in the task list.
  */
-public class UpdateTaskCommand extends Command{
+public class UpdateTaskCommand extends Command {
     private String commandType;
     private String[] inputWords;
 
