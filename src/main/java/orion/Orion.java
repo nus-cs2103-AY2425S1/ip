@@ -12,6 +12,11 @@ import orion.parser.Parser;
 import orion.commands.Command;
 import orion.ui.UI;
 
+/**
+ * The Orion class is the main entry point for the task management application.
+ * It initializes the necessary components and handles the main program loop
+ * that processes user input commands.
+ */
 public class Orion {
     private static TaskList manager;
     private static UI ui = new UI();
@@ -28,6 +33,12 @@ public class Orion {
 
     public static Parser parser = new Parser();
 
+    /**
+     * The main method that starts the application and handles the main loop
+     * for processing user commands.
+     *
+     * @param args Command-line arguments passed to the program (not used).
+     */
     public static void main(String[] args) {
         ui.showWelcome();
 
@@ -68,6 +79,12 @@ public class Orion {
         }
     }
 
+    /**
+     * Handles the 'list' command by validating the input and displaying the current
+     * list of tasks.
+     *
+     * @param parts The split user input containing the command and its arguments.
+     */
     private static void handleList(String[] parts) {
         try {
             parser.validateListCommand(parts);
@@ -78,6 +95,12 @@ public class Orion {
         }
     }
 
+    /**
+     * Handles the 'event' command by validating the input, creating an event task,
+     * and adding it to the task list.
+     *
+     * @param parts The split user input containing the command and its arguments.
+     */
     private static void handleEvent(String[] parts) {
         try {
             EventDetails details = parser.validateEventCommand(parts);
@@ -88,6 +111,12 @@ public class Orion {
         }
     }
 
+    /**
+     * Handles the 'deadline' command by validating the input, creating a deadline
+     * task, and adding it to the task list.
+     *
+     * @param parts The split user input containing the command and its arguments.
+     */
     private static void handleDeadline(String[] parts) {
         try {
             DeadlineDetails deadlineDetails = parser.validateDeadlineCommand(parts);
@@ -98,6 +127,12 @@ public class Orion {
         }
     }
 
+    /**
+     * Handles the 'todo' command by validating the input, creating a todo task, and
+     * adding it to the task list.
+     *
+     * @param parts The split user input containing the command and its arguments.
+     */
     private static void handleTodo(String[] parts) {
         try {
             String description = parser.validateTodoCommand(parts);
@@ -108,6 +143,12 @@ public class Orion {
         }
     }
 
+    /**
+     * Handles the 'mark' command by validating the input and marking the specified
+     * task as done.
+     *
+     * @param parts The split user input containing the command and its arguments.
+     */
     private static void handleMark(String[] parts) {
         try {
             int index = parser.validateMarkAndUnMarkCommand(parts, manager);
@@ -118,6 +159,12 @@ public class Orion {
         }
     }
 
+    /**
+     * Handles the 'unmark' command by validating the input and marking the
+     * specified task as not done.
+     *
+     * @param parts The split user input containing the command and its arguments.
+     */
     private static void handleUnmark(String[] parts) {
         try {
             int index = parser.validateMarkAndUnMarkCommand(parts, manager);
@@ -128,6 +175,12 @@ public class Orion {
         }
     }
 
+    /**
+     * Handles the 'delete' command by validating the input and deleting the
+     * specified task from the task list.
+     *
+     * @param parts The split user input containing the command and its arguments.
+     */
     private static void handleDelete(String[] parts) {
         try {
             int index = parser.validateDeleteCommand(parts, manager);
