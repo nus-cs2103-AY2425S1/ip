@@ -1,7 +1,7 @@
 package src;
 
 public class NoNumberInputtedException extends DukeException {
-    NoNumberInputtedException() {
+    public NoNumberInputtedException() {
 
         super("test");
     }

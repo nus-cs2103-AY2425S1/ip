@@ -54,64 +54,64 @@ public class WenJie {
                 String firstWord = parts[0];
 
                 switch(firstWord) {
-                    case "bye": {
-                        active = false;
-                        storage.writeTasks();
-                        break;
-                    }
+//                    case "bye": {
+//                        active = false;
+//                        storage.writeTasks();
+//                        break;
+//                    }
 
-                    case "list": {
-                        String list =
-                                "____________________________________________________________\n" +
-                                        displayList(taskList) +
-                                        "____________________________________________________________\n";
-                        System.out.println(list);
-                        break;
-                    }
+//                    case "list": {
+//                        String list =
+//                                "____________________________________________________________\n" +
+//                                        displayList(taskList) +
+//                                        "____________________________________________________________\n";
+//                        System.out.println(list);
+//                        break;
+//                    }
 
-                    case "mark": {
+//                    case "mark": {
+//
+//                        if (parts.length <= 1) {
+//                            throw new NoNumberInputtedException();
+//                        }
+//
+//                        int taskNo = Integer.parseInt(parts[1]) - 1;
+//
+//                        if (taskNo + 1 > taskList.size()) {
+//                            throw new OutOfBoundsException();
+//                        }
+//
+//                        taskList.get(taskNo).setStatusIcon(true);
+//                        String output =
+//                                "____________________________________________________________\n" +
+//                                        "Nice! I've marked this task as done:\n" +
+//                                        taskList.get(taskNo) + "\n" +
+//                                        "____________________________________________________________";
+//                        System.out.println(output);
+//                        break;
+//                    }
 
-                        if (parts.length <= 1) {
-                            throw new NoNumberInputtedException();
-                        }
-
-                        int taskNo = Integer.parseInt(parts[1]) - 1;
-
-                        if (taskNo + 1 > taskList.size()) {
-                            throw new OutOfBoundsException();
-                        }
-
-                        taskList.get(taskNo).setStatusIcon(true);
-                        String output =
-                                "____________________________________________________________\n" +
-                                        "Nice! I've marked this task as done:\n" +
-                                        taskList.get(taskNo) + "\n" +
-                                        "____________________________________________________________";
-                        System.out.println(output);
-                        break;
-                    }
-
-                    case "unmark": {
-
-                        if (parts.length <= 1) {
-                            throw new NoNumberInputtedException();
-                        }
-
-                        int taskNo = Integer.parseInt(parts[1]) - 1;
-
-                        if (taskNo + 1 > taskList.size()) {
-                            throw new OutOfBoundsException();
-                        }
-
-                        taskList.get(taskNo).setStatusIcon(false);
-                        String output =
-                                " ____________________________________________________________\n" +
-                                        " OK, I've marked this task as not done yet:\n " +
-                                        taskList.get(taskNo) + "\n" +
-                                        " ____________________________________________________________";
-                        System.out.println(output);
-                        break;
-                    }
+//                    case "unmark": {
+//
+//                        if (parts.length <= 1) {
+//                            throw new NoNumberInputtedException();
+//                        }
+//
+//                        int taskNo = Integer.parseInt(parts[1]) - 1;
+//
+//                        if (taskNo + 1 > taskList.size()) {
+//                            throw new OutOfBoundsException();
+//                        }
+//
+//                        taskList.get(taskNo).setStatusIcon(false);
+//                        String output =
+//                                " ____________________________________________________________\n" +
+//                                        " OK, I've marked this task as not done yet:\n " +
+//                                        taskList.get(taskNo) + "\n" +
+//                                        " ____________________________________________________________";
+//                        System.out.println(output);
+//                        break;
+//                    }
 
                     case "todo": {
 
@@ -217,31 +217,31 @@ public class WenJie {
                         break;
                     }
 
-                    case "delete": {
-
-                        if (parts.length <= 1) {
-                            throw new NoNumberInputtedException();
-                        }
-
-                        int taskNo = Integer.parseInt(parts[1]) - 1;
-
-                        if (taskNo + 1 > taskList.size()) {
-                            throw new OutOfBoundsException();
-                        }
-
-                        Task taskToRemove = taskList.get(taskNo);
-                        taskList.remove(taskNo);
-
-                        String output =
-                                "____________________________________________________________\n" +
-                                "Noted. I've removed this task:\n" +
-                                taskToRemove + "\n" +
-                                "Now you have " + taskList.size() + " tasks in the list.\n" +
-                                "____________________________________________________________";
-
-                        System.out.println(output);
-                        break;
-                    }
+//                    case "delete": {
+//
+//                        if (parts.length <= 1) {
+//                            throw new NoNumberInputtedException();
+//                        }
+//
+//                        int taskNo = Integer.parseInt(parts[1]) - 1;
+//
+//                        if (taskNo + 1 > taskList.size()) {
+//                            throw new OutOfBoundsException();
+//                        }
+//
+//                        Task taskToRemove = taskList.get(taskNo);
+//                        taskList.remove(taskNo);
+//
+//                        String output =
+//                                "____________________________________________________________\n" +
+//                                "Noted. I've removed this task:\n" +
+//                                taskToRemove + "\n" +
+//                                "Now you have " + taskList.size() + " tasks in the list.\n" +
+//                                "____________________________________________________________";
+//
+//                        System.out.println(output);
+//                        break;
+//                    }
 
 
                     default :
@@ -259,16 +259,7 @@ public class WenJie {
 
     }
 
-    public static String displayList(ArrayList<Task> list) {
-        String result = "";
-        int i = 0;
-        while (i < list.size()){
-            String newLine = (i + 1) + ". " + list.get(i) + "\n";
-            result += newLine;
-            i++;
-        }
-        return result;
-    }
+
 
 
 }

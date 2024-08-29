@@ -1,7 +1,7 @@
 package src;
 
 public class OutOfBoundsException extends DukeException {
-    OutOfBoundsException() {
+    public OutOfBoundsException() {
         super("test");
     }
 

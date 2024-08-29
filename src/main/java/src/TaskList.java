@@ -13,4 +13,8 @@ public class TaskList {
     public TaskList() {
 
     }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
 }
