@@ -7,8 +7,19 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests for the {@link Parser} class.
+ * This class contains unit tests for the methods in the {@link Parser} class,
+ * specifically for parsing commands and reading tasks from a file.
+ */
 public class ParserTest {
 
+    /**
+     * Tests the {@link Parser#handleInput(String, TaskList, Ui)} method
+     * with a valid "todo" command.
+     * Verifies that the task is correctly added to the task list and its
+     * description matches the command input.
+     */
     @Test
     public void testParseValidNewCommand() {
         String command = "todo test command";
@@ -24,6 +35,12 @@ public class ParserTest {
         }
     }
 
+    /**
+     * Tests the {@link Parser#parseTaskFromFile(String)} method.
+     * Verifies that a task is correctly parsed from a file string representation
+     * and added to the task list. Checks that the task's description and status
+     * are correctly set according to the file string.
+     */
     @Test
     public void testParseReadFromFile() {
         String fileString = "T | 1 | read from file test";
