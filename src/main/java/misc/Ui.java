@@ -13,10 +13,16 @@ import task.Task;
 public class Ui {
     String blankline = "____________________________________________________________ \s";
     
+    /**
+     * Prints a farewell message to the user.
+     */
     public void endGame() {
         System.out.println(blankline + "\n" + "Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Prints a start message.
+     */
     public void startGame() {
         System.out.println(  """
             ____________________________________________________________ \s
@@ -26,15 +32,24 @@ public class Ui {
             """);
     }
 
+    /**
+     * Return a blank line.
+     */
     public String retBlank() {
         return blankline;
     }
 
+    /**
+     * Return tasks.
+     */
     public void replyGetList(Tasklist tasklist) {
         System.out.println("Here are the tasks in your list:" + "\n"
         + tasklist.getList() + blankline);
     }
 
+    /**
+     * Returns reply for mark done command.
+     */
     public Tasklist replyMarkDone(int pos, Tasklist tasklist) {
         tasklist.getStr(pos).setDone();
         System.out.println("Nice! I've marked this task as done:" + "\n"
@@ -42,6 +57,9 @@ public class Ui {
         return tasklist;
     }
 
+    /**
+     * Returns reply for mark undone command.
+     */
     public Tasklist replyMarkUndone(int pos, Tasklist tasklist) {
         tasklist.getStr(pos).setUndone();
         System.out.println("OK, I've marked this task as not done yet:" + "\n"
@@ -49,6 +67,9 @@ public class Ui {
         return tasklist;
     }
 
+    /**
+     * Returns reply for todo command.
+     */
     public Tasklist replyTodo(String s, Tasklist tasklist) throws MissingParamsException {
         if (Objects.equals(s, "")) { 
             throw new MissingParamsException("todo"); 
@@ -62,6 +83,9 @@ public class Ui {
         return tasklist;
     }
 
+    /**
+     * Returns reply for event command.
+     */
     public Tasklist replyEvent(String s, Tasklist tasklist) throws MissingParamsException {
         String[] splitString = s.split("/from|/to", 3);
 
@@ -84,6 +108,9 @@ public class Ui {
         return tasklist;
     }
 
+    /**
+     * Returns reply for deadline command.
+     */
     public Tasklist replyDeadline(String s, Tasklist tasklist) throws MissingParamsException {
         String[] splitString = s.split("/by");
         if (splitString.length != 2 || Objects.equals(splitString[0], "") || Objects.equals(splitString[1], "")) {
@@ -102,6 +129,9 @@ public class Ui {
         return tasklist;
     }
 
+    /**
+     * Returns reply for delete command.
+     */
     public Tasklist replyDelete(int pos, Tasklist tasklist) throws PositionException{
         if (pos >= tasklist.getSize() || pos < 0) {
             throw new PositionException(pos);
