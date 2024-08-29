@@ -7,7 +7,13 @@ import data.TaskList;
 import data.Storage;
 import ui.Ui;
 
+/**
+ * Represents the command to edit a Task
+ */
 public class EditCommand implements Command {
+    /**
+     * Different instructions given to program to edit a Task
+     */
     public enum Instruction {
         MARK,
         UNMARK
@@ -16,6 +22,12 @@ public class EditCommand implements Command {
     private String remaining;
     private Instruction instruction;
 
+    /**
+     * Constructor for EditCommand
+     *
+     * @param remaining input to tell program which task to edit
+     * @param instruction tells program how to edit the task
+     */
     public EditCommand(String remaining, Instruction instruction) {
         this.remaining = remaining;
         this.instruction = instruction;
