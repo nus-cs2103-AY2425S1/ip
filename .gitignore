@@ -15,3 +15,6 @@ bin/
 
 # Test files
 text-ui-test/debug
+
+# Files to store data
+store

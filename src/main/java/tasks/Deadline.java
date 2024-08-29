@@ -17,6 +17,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String getSaveString() {
+        return String.format("D,%s,%s,%s", isDone, description, deadline);
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString()
                 + String.format(" (by: %s)", deadline.toString());

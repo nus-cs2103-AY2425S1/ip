@@ -19,6 +19,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String getSaveString() {
+        return String.format("E,%s,%s,%s,%s", isDone, description, from, to);
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString()
                 + String.format(" (from: %s to: %s)", from, to);
