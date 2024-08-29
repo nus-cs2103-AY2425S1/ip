@@ -34,36 +34,41 @@ public class Parser {
 
         switch (firstWord) {
             case "bye":
-                System.out.println("See you again");
-                break;
+            System.out.println("See you again");
+            break;
 
             case "list":
-                System.out.println(dukeManager.listItems());
-                break;
+            System.out.println(dukeManager.listItems(""));
+            break;
 
             case "mark", "unmark":
-                handleMarkUnmark(command, firstWord);
-                break;
+            handleMarkUnmark(command, firstWord);
+            break;
 
             case "deadline":
-                handleDeadline(command);
-                break;
+            handleDeadline(command);
+            break;
 
             case "todo":
-                handleTodo(command);
-                break;
+            handleTodo(command);
+            break;
 
             case "event":
-                handleEvent(command);
-                break;
+            handleEvent(command);
+            break;
 
             case "delete":
-                handleDelete(command);
-                break;
+            handleDelete(command);
+            break;
+
+            case "find":
+            handleFind(command);
+            break;
 
             default:
-                System.out.println("I don't understand your command!");
-                break;
+            System.out.println("I don't understand your command!");
+            break;
+
         }
     }
 
@@ -145,4 +150,10 @@ public class Parser {
             System.out.println("Invalid task number.");
         }
     }
+
+    private void handleFind(String command) {
+        String itemName = command.replace("find ", "");
+        System.out.println(dukeManager.listItems(itemName));
+    }
+
 }
