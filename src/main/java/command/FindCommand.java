@@ -1,13 +1,13 @@
 package command;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import exception.ScheduloException;
 import task.Task;
 import task.TaskList;
 import util.Storage;
 import util.Ui;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Represents a command to find tasks that contain a specific word.
