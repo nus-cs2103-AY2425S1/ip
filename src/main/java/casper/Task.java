@@ -41,7 +41,12 @@ public abstract class Task {
         return this.description;
     }
 
-    protected String formatDate(LocalDate dateTime) {
-        return dateTime.format(FORMATTER);
+    /**
+     * Formats the display of date according to the class variable FORMATTER
+     * @param date The date to be formatted
+     * @return The formatted date as a string
+     */
+    protected String formatDate(LocalDate date) {
+        return date.format(FORMATTER);
     }
 }

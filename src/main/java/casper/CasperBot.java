@@ -3,7 +3,8 @@ import exception.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class CasperBot {
     private enum CommandType {
@@ -32,6 +33,9 @@ public class CasperBot {
         new CasperBot("chatbot.txt").run();
     }
 
+    /**
+     * Initialises the application
+     */
     private void run() {
         try {
             this.storage.openFile(this.taskList);this.ui.printLine();
@@ -43,6 +47,9 @@ public class CasperBot {
         }
     }
 
+    /**
+     * Listens for user input and replies accordingly
+     */
     private void echo() {
         Scanner scanner = new Scanner(System.in);
         String input = "";
@@ -154,6 +161,13 @@ public class CasperBot {
         scanner.close();
     }
 
+    /**
+     * Checks if a string is a valid command
+     *
+     * @param command The string to be validated
+     * @param commandType The type of command it should belong to (CREATE, TASK)
+     * @return
+     */
     private static boolean isValidCommand(String command, CommandType commandType) {
         try {
             switch (commandType) {
