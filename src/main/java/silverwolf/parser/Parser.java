@@ -6,6 +6,7 @@ import silverwolf.command.AddCommand;
 import silverwolf.command.Command;
 import silverwolf.command.DeleteCommand;
 import silverwolf.command.ExitCommand;
+import silverwolf.command.FindCommand;
 import silverwolf.command.ListCommand;
 import silverwolf.command.MarkCommand;
 import silverwolf.command.UnmarkCommand;

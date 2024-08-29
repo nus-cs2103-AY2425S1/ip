@@ -1,17 +1,17 @@
 package silverwolf.command;
 
+import java.util.List;
+
 import silverwolf.storage.Storage;
 import silverwolf.task.Task;
 import silverwolf.task.TaskList;
 import silverwolf.ui.Ui;
 
-import java.util.List;
-
 /**
  * The FindCommand class represents a command to find a task by searching for a keyword.
  * It extends the abstract Command class and implements the logic to list all tasks.
  */
-public class FindCommand extends Command{
+public class FindCommand extends Command {
     private final String keyword;
     /**
      * Constructs a FindCommand with the specified keyword.
