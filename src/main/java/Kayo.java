@@ -1,5 +1,10 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Kayo {
@@ -8,6 +13,17 @@ public class Kayo {
         Greet();
         Scanner input = new Scanner(System.in);
         String inputString;
+        try {
+            File f = new File("data/kayo.txt");
+            Scanner sc = new Scanner(f);
+            while (sc.hasNextLine()) {
+                String readString = sc.nextLine();
+                Task task = getTask(readString);
+                taskList.add(task);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
         while(true) {
             inputString = input.nextLine();
             String[] splitList = inputString.split(" ");
@@ -59,8 +75,26 @@ public class Kayo {
             } else {
                 new DukeException("OOPS !! Sorry i dont know what that means!");
             }
+            updateData(taskList);
         }
         Exit();
+    }
+
+    private static Task getTask(String readString) {
+        String[] splitStrings = readString.split(" ");
+        boolean isDone = !splitStrings[1].equals("[");
+        Task task = null;
+        String taskDetails = readString.substring(8);
+        String[] splitDetails = taskDetails.split(" ");
+        if (Objects.equals(splitStrings[0], "[T]")) {
+           task = new ToDo(splitDetails[0],isDone);
+        } else if (Objects.equals(splitStrings[0], "[D]")) {
+            String byString = splitDetails[2].substring(0, splitDetails[2].length()-1);
+            task = new Deadline(splitDetails[0],isDone,byString);
+        } else if (Objects.equals(splitStrings[0], "[E]")) {
+            task = new Event(splitDetails[0],isDone, splitDetails[2],splitDetails[4].substring(0, splitDetails[4].length()-1));
+        }
+        return task;
     }
 
     private static class Task{
@@ -77,8 +111,22 @@ public class Kayo {
             this.isDone = isDone;
         }
         public String toString(){
-            String taskString = (isDone) ? "[X]": "[ ]";
+            String taskString = (isDone) ? "[X] ": "[ ] ";
             return taskString + task;
+        }
+    }
+
+    private static void updateData(List<Task> taskList) {
+        try {
+            FileWriter fw = new FileWriter("data/kayo.txt");
+            String dataBody = "";
+            for (int i = 0; i < taskList.size(); i++) {
+                dataBody += taskList.get(i).toString() + System.lineSeparator();
+            }
+            fw.write(dataBody);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("File not found");
         }
     }
     private static void ListItems(List<Task> taskList) {
@@ -102,18 +150,18 @@ public class Kayo {
         }
         @Override
         public String toString() {
-            return "[T]"+ super.toString();
+            return "[T] "+ super.toString();
         }
     }
     public static class Deadline extends Task {
         protected String by;
         public Deadline(String task, boolean isDone, String by) {
             super(task, isDone);
-            this.by = by;
+            this.by = by.trim();
         }
         @Override
         public String toString() {
-            return "[D] "+super.toString() + "(by" + by + ")";
+            return "[D] "+super.toString() + " (by " + by + ")";
         }
     }
     public static class DukeException {
@@ -128,8 +176,8 @@ public class Kayo {
         protected String to;
         public Event(String task, boolean isDone, String from, String to) {
             super(task, isDone);
-            this.from = from;
-            this.to = to;
+            this.from = from.trim();
+            this.to = to.trim();
         }
         public void setFromTo(String from, String to) {
             this.from = from;
@@ -137,7 +185,7 @@ public class Kayo {
         }
         @Override
         public String toString() {
-            return "[E]" +super.toString() + "(from: " +from + " to: " + to +  ")";
+            return "[E] " +super.toString() + " (from: " +from + " to: " + to +  ")";
         }
     }
 }
