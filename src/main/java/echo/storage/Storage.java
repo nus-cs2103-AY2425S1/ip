@@ -44,7 +44,7 @@ public class Storage {
     /**
      * Adds all the task in the saved file into the taskList
      *
-     * @param parser Parser object to interpret the text provided in the saved file
+     * @param parser Parser to interpret the text provided in the saved file
      * @param taskList taskList for the tasks to be added inside
      * @throws FileNotFoundException if there is no file present in the file path
      */
