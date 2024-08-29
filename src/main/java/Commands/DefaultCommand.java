@@ -4,6 +4,7 @@ public class DefaultCommand extends Command {
     String userInput;
 
     public DefaultCommand(String userInput) {
+
         this.userInput = userInput;
     }
 
@@ -13,11 +14,13 @@ public class DefaultCommand extends Command {
      */
     @Override
     public void execute() {
-       System.out.println(userInput);
+
+        System.out.println(userInput);
     }
 
     @Override
     public boolean isExit() {
+
         return false;
     }
 }

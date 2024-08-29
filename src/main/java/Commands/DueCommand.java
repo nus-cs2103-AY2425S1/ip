@@ -6,6 +6,7 @@ public class DueCommand extends Command {
     String userInput;
 
     public DueCommand(String userInput) {
+
         this.userInput = userInput;
     }
 
@@ -22,6 +23,7 @@ public class DueCommand extends Command {
 
     @Override
     public boolean isExit() {
+
         return false;
     }
 }

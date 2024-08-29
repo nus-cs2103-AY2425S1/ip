@@ -6,6 +6,7 @@ public class DeadlineCommand extends Command {
     String userInput;
 
     public DeadlineCommand(String userInput) {
+
         this.userInput = userInput;
     }
 
@@ -23,6 +24,7 @@ public class DeadlineCommand extends Command {
 
     @Override
     public boolean isExit() {
+
         return false;
     }
 }

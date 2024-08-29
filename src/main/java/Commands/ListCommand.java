@@ -6,6 +6,7 @@ public class ListCommand extends Command {
     String userInput;
 
     public ListCommand(String userInput) {
+
         this.userInput = userInput;
     }
 
@@ -22,6 +23,7 @@ public class ListCommand extends Command {
 
     @Override
     public boolean isExit() {
+
         return false;
     }
 }
