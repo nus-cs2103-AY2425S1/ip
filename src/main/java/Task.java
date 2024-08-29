@@ -1,26 +1,26 @@
 public abstract class Task {
     protected String description;
-    protected boolean isDone;
+    protected boolean isMarked;
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        this.isMarked = false;
     }
 
-    public boolean mark(boolean marking) {
+    public boolean mark(boolean toMark) {
         // Task is already marked correctly
-        if (this.isDone == marking) {
+        if (this.isMarked == toMark) {
             return false;
         }
         else {
-            this.isDone = marking;
+            this.isMarked = toMark;
             return true;
         }
     }
 
     @Override
     public String toString() {
-        String done = isDone ? "X" : " ";
-        return "[" + done + "] " + this.description;
+        String mark = isMarked ? "X" : " ";
+        return "[" + mark + "] " + this.description;
     }
 }

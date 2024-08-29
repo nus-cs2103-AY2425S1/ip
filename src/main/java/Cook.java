@@ -4,216 +4,137 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Cook {
-    public static void main(String[] args) {
 
-        // Solution below adapted from https://www.patorjk.com/software/taag/#p=author&v=0&f=Avatar&t=Cook
-        String logo = """ 
-                          ____  ____  ____  _  __
-                         /   _\\/  _ \\/  _ \\/ |/ /
-                         |  /  | / \\|| / \\||   /\s
-                         |  \\__| \\_/|| \\_/||   \\\s
-                         \\____/\\____/\\____/\\_|\\_\\
-                                                \s
-                         """;
-        System.out.print(logo);
-        formatting("Hello, I'm Cook!\nWhat can I do for you?");
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+    private Parser parser;
 
-        // Solution below inspired by https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html
-        ArrayList<Task> taskList = new ArrayList<>();
+    public Cook (File file) {
+        this.storage = new Storage(file);
+        this.tasks = new TaskList();
+        this.ui = new Ui();
+    }
 
-        // Solution below inspired by https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html
-        Scanner input = new Scanner(System.in);
+    public void run() {
+        HashMap<String, Integer> validCommands = new HashMap<>();
+
+        validCommands.put("bye", 1);
+        validCommands.put("list", 1);
+        validCommands.put("mark", 2);
+        validCommands.put("unmark", 2);
+        validCommands.put("delete", 2);
+        validCommands.put("todo", 2);
+        validCommands.put("deadline", 4);
+        validCommands.put("event", 6);
+
+        this.parser = new Parser(validCommands);
+
+        this.ui.welcome();
+
         while (true) {
+            String input = this.ui.getInput();
+            HashMap<String, String> argumentsHashMap;
 
-            String userInput = input.nextLine();
-            String[] commands = userInput.split(" ");
+            try {
+                argumentsHashMap = this.parser.readInput(input);
+            } catch (InvalidCommandException e) {
+                 this.ui.say(e.getMessage());
+                 continue;
+            }
 
-            // Breaks loop
-            if (userInput.equalsIgnoreCase("bye")) {
-                formatting("Bye. Hope to see you again soon!");
+            String command = argumentsHashMap.get("command");
+            if (command.equals("bye")) {
                 break;
-            }
-
-            // Prints out to do list
-            else if (userInput.equalsIgnoreCase("list")) {
-                StringBuilder taskListString = new StringBuilder();
-                for (int i = 0; i < taskList.size(); i++) {
-                    int taskNo = i + 1;
-                    Task task = taskList.get(i);
-                    taskListString.append(taskNo).append(".").append(task.toString()).append("\n");
-                }
-                formatting(taskListString.toString().stripTrailing());
-            }
-
-            // Mark/Unmark tasks
-            else if (commands.length == 2 && (commands[0].equalsIgnoreCase("mark") ||
-                    commands[0].equalsIgnoreCase("unmark"))) {
+            } else if (command.equals("list")) {
+                this.ui.say(this.tasks.toString());
+            } else if (command.contains("mark") || command.equals("delete")) {
+                int taskNo;
 
                 try {
-                    int taskIndex = Integer.parseInt(commands[1]) - 1;
-                    Task taskToMark = taskList.get(taskIndex);
-                    boolean isMarking = commands[0].equalsIgnoreCase("mark");
-                    boolean isSuccessful = taskToMark.mark(isMarking);
-                    String done = isMarking ? "done" : "not done";
-
-                    if (isSuccessful) {
-                        formatting("Alright, I've marked this task as " + done + ":\n   " + taskToMark);
-                    } else {
-                        formatting("Oh no! The task is already marked as " + done + ":\n" +
-                                "Did you intend to do something else?");
-                    }
-
-                } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                    formatting("Oh no! I can't find the task you are referring to... Sorry!");
-                }
-            }
-
-            // Delete tasks
-            else if (commands.length == 2 && commands[0].equalsIgnoreCase("delete")) {
-                try {
-                    int taskIndex = Integer.parseInt(commands[1]) - 1;
-                    Task taskToMark = taskList.remove(taskIndex);
-                    formatting("Alright, I've deleted the following task:\n   " + taskToMark.toString());
-                } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                    formatting("Oh no! I can't find the task you are referring to... Sorry!");
-                }
-            }
-
-            // Tasks
-            else {
-                Task newTask;
-                if (commands[0].equalsIgnoreCase("todo")) {
-                    if (commands.length == 1) {
-                        formatting("Oh no! The description of a todo cannot be empty. Please try again!");
-                        continue;
-                    }
-
-                    // 5 to get everything after "todo "
-                    String taskName = userInput.substring(5);
-                    newTask = new ToDo(taskName);
-                }
-                else if (commands[0].equalsIgnoreCase("deadline")) {
-                    int indexOfBy = findFirstCommand(commands, "/by");
-                    if (indexOfBy == -1) {
-                        formatting("Oh no! I can't see the deadline of the task... Perhaps you can try again?");
-                        continue;
-                    }
-
-                    StringBuilder deadlineDesc = new StringBuilder();
-                    for (int i = 1; i < indexOfBy; i++) {
-                        deadlineDesc.append(commands[i]).append(" ");
-                    }
-
-                    if (deadlineDesc.isEmpty()) {
-                        formatting("Oh no! The description of a deadline cannot be empty. Please try again!");
-                        continue;
-                    }
-                    deadlineDesc.deleteCharAt(deadlineDesc.length() - 1);
-
-                    // Solution below inspired by https://www.baeldung.com/java-8-date-time-intro
-                    try {
-                        LocalDateTime deadlineDateTime = LocalDateTime.parse(commands[indexOfBy + 1] + "T" +
-                                commands[indexOfBy + 2]);
-                        newTask = new Deadline(deadlineDesc.toString(), deadlineDateTime);
-                    } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-                        formatting("Oh no! The deadline date and time must be " +
-                                "in a valid format such as YYYY-MM-DD HH:mm. Please try again!");
-                        continue;
-                    }
-                }
-                else if (commands[0].equalsIgnoreCase("event")) {
-                    int indexOfFrom = findFirstCommand(commands, "/from");
-                    int indexOfTo = findFirstCommand(commands, "/to");
-                    if (indexOfFrom == -1 || indexOfTo == -1) {
-                        formatting("Oh no! I don't know when the event is held... Perhaps you can try again?");
-                        continue;
-                    }
-
-                    StringBuilder eventDesc = new StringBuilder();
-                    for (int i = 1; i < indexOfFrom; i++) {
-                        eventDesc.append(commands[i]).append(" ");
-                    }
-
-                    if (eventDesc.isEmpty()) {
-                        formatting("Oh no! The description of an event cannot be empty. Please try again!");
-                        continue;
-                    }
-                    eventDesc.deleteCharAt(eventDesc.length() - 1);
-
-                    // Solution below inspired by https://www.baeldung.com/java-8-date-time-intro
-                    try {
-                        LocalDateTime startDateTime = LocalDateTime.parse(commands[indexOfFrom + 1] + "T" +
-                                commands[indexOfFrom + 2]);
-                        LocalDateTime endDateTime = LocalDateTime.parse(commands[indexOfTo + 1] + "T" +
-                                commands[indexOfTo + 2]);
-                        if (startDateTime.isAfter(endDateTime)) {
-                            formatting("Oh no! Your starting date and time cannot be " +
-                                    "after your ending date and time of the event.");
-                            continue;
-                        }
-                        newTask = new Event(eventDesc.toString(), startDateTime, endDateTime);
-                    } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-                        formatting("Oh no! The starting and end date of an event must be " +
-                                "in a valid format such as YYYY-MM-DD HH:mm. Please try again!");
-                        continue;
-                    }
-
-                }
-                else {
-                    formatting("I don't understand what you mean... Could you say it again?");
+                    taskNo = Integer.parseInt(argumentsHashMap.get(command));
+                } catch (NumberFormatException e) {
+                    this.ui.say("A task must be selected.");
                     continue;
                 }
 
-                // Add task to task list
-                taskList.add(newTask);
+                boolean toMark = command.equals("mark");
+                boolean isSuccessful;
 
-                // Solution below adapted from https://www.w3schools.com/java/java_files_create.asp
-                File taskListFile = new File("data","Task List.txt");
+                try {
+                    if (command.equals("delete")) {
+                        this.tasks.deleteTask(taskNo);
+                    } else {
+                        isSuccessful = this.tasks.markTask(taskNo, toMark);
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    this.ui.say("The task is not in the list.");
+                    continue;
+                }
+            }
+            else {
+                switch (command) {
+                case "todo" -> {
+                    String taskDesc = argumentsHashMap.get("todo");
+                    this.tasks.addTask(new ToDo(taskDesc));
+                }
+                case "deadline" -> {
+                    String taskDesc = argumentsHashMap.get("deadline");
+                    LocalDateTime deadlineDateTime;
 
-                StringBuilder taskListString = new StringBuilder();
-                for (Task t : taskList) {
-                    taskListString.append(t.toString()).append("\n");
+                    try {
+                        deadlineDateTime = LocalDateTime.parse(argumentsHashMap.get("/by"));
+                    } catch (DateTimeParseException e) {
+                        this.ui.say("Date & time must be in a valid format, e.g. YYYY-MM-DD HH:mm.");
+                        continue;
+                    } catch (NullPointerException e) {
+                        this.ui.say("Deadline command format: deadline [desc] /by [YYYY-MM-DD HH:mm].");
+                        continue;
+                    }
+
+                    this.tasks.addTask(new Deadline(taskDesc, deadlineDateTime));
+                }
+                case "event" -> {
+                    String taskDesc = argumentsHashMap.get("deadline");
+                    LocalDateTime startDateTime;
+                    LocalDateTime endDateTime;
+
+                    try {
+                        startDateTime = LocalDateTime.parse(argumentsHashMap.get("/from"));
+                        endDateTime = LocalDateTime.parse(argumentsHashMap.get("/to"));
+                        if (startDateTime.isAfter(endDateTime)) {
+                            this.ui.say("The starting date & time cannot be " +
+                                    "after the ending date & time");
+                        }
+                    } catch (DateTimeParseException e) {
+                        this.ui.say("Date & time must be in a valid format, e.g. YYYY-MM-DD HH:mm.");
+                        continue;
+                    } catch (NullPointerException e) {
+                        this.ui.say("Event command format: event [desc] " +
+                                "/from [YYYY-MM-DD HH:mm] /to [YYYY-MM-DD HH:mm].");
+                        continue;
+                    }
+
+                    this.tasks.addTask(new Event(taskDesc, startDateTime, endDateTime));
+                }
                 }
                 try {
-                    // Solution below adapted from https://stackoverflow.com/questions/3634853/how-to-create-a-directory-in-java
-                    boolean isDirCreated = new File("data").mkdir();
-                    boolean isFileCreated = taskListFile.createNewFile();
-                    Files.writeString(taskListFile.toPath(), taskListString.toString());
-
-                    if (isFileCreated) {
-                        formatting("I've created a new file under \"" + taskListFile + "\""
-                                + " to store your task list!");
-                    }
-                    else {
-                        formatting("Your task list file has been updated with the " + commands[0]
-                                + "! It can be found under \"" + taskListFile + "\".\n" +
-                                "You now have " + taskList.size() + " task(s) in the list!");
-                    }
-
+                    this.storage.createFile();
+                    this.storage.writeFile(this.tasks.toString());
+                    this.ui.say("File saved.");
                 } catch (IOException e) {
-                    formatting("Oh no! I can't find save the task list at the specified path... " +
-                            "perhaps its elsewhere?\nYour latest task has not been saved.");
-                    taskList.remove(newTask);
+                    this.ui.say("File cannot be saved.");
+                    continue;
                 }
             }
         }
     }
 
-    public static void formatting(String text) {
-        System.out.println("____________________________________________________________");
-        System.out.println(text);
-        System.out.println("____________________________________________________________");
-    }
-
-    public static int findFirstCommand(String[] commands, String command) {
-        for (int i = 0; i < commands.length; i++) {
-            if (commands[i].equalsIgnoreCase(command)) {
-                return i;
-            }
-        }
-        return -1;
+    public static void main(String[] args) {
+        new Cook(new File("data", "tasks.txt")).run();
     }
 }
