@@ -6,6 +6,11 @@ public class Deadline extends Task{
     }
 
     @Override
+    public String taskData() {
+        return String.format("D" + super.taskData() + deli + by + "\n");
+    }
+
+    @Override
     public String toString() {
         return String.format("[D]" + super.toString()
             + " (by: " + by + ")");

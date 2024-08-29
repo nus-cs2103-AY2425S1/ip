@@ -1,9 +1,18 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+
 
 public class Kitty {
     private static final String name = "Kitty";
+    private static final String dirPath = "data";
+    private static final String kittyDataPath = "data/Kitty.txt";
+    private static final File kittyTasksData = new File(kittyDataPath);
     private static final ArrayList<Task> list = new ArrayList<Task>(100);
     private static final String divisionLine = "--------------------------";
     public static void main(String[] args) {
@@ -22,7 +31,45 @@ public class Kitty {
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?\n");
         System.out.println(divisionLine);
+        try {
+            if (!kittyTasksData.exists()) {
+                File dir = new File(dirPath);
+                boolean isCreated = dir.mkdirs();
+                System.out.println("create directory: " + isCreated);
+                isCreated = kittyTasksData.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.print("");
+        }
+        try {
+            Scanner scanKittyTasks = new Scanner(kittyTasksData);
+            while (scanKittyTasks.hasNext()) {
+                createTaskFromInput(scanKittyTasks.nextLine());
+            }
+        } catch(FileNotFoundException e) {
+            System.out.println("No file available");
+            // deal with file/ folder not yet exist scenario
+        }
         Echo();
+    }
+
+    private static void createTaskFromInput(String str) {
+        String[] aux = str.split("~!!");
+        Task tmp;
+        switch (aux[0].trim()) {
+            case "T" -> tmp = new Todo(aux[2]);
+            case "D" -> tmp = new Deadline(aux[2], aux[3]);
+            case "E" -> tmp = new Event(aux[2], aux[3], aux[4]);
+            default -> {
+                return;
+            }
+        }
+
+        list.add(tmp);
+        if (aux[1].trim().equals("1")) {
+            tmp.mark();
+        }
+
     }
 
     private static void Echo() {
@@ -56,20 +103,32 @@ public class Kitty {
         String type = aux[0];
         Task tmp;
         try {
-            if (aux.length == 1) {
+            // input check
+            if (aux.length == 1 ||
+                    (!type.equals("todo") && !type.equals("deadline") && !type.equals("event"))) {
                 System.out.println(divisionLine);
                 System.out.println("Oooops... I don't know what you want to do though...");
                 throw new TaskException();
             }
-            String name = aux[1];
+
+            // create corresponding tasks according to valid input
+            String name = aux[1].trim();
             tmp = type.equals("todo")
                     ? new Todo(name)
                     : type.equals("deadline")
                     ? createDeadline(name)
-                    : type.equals("event")
-                    ? createEvent(name)
-                    : null;
+                    : createEvent(name);
+
+            // update data structure and file
             list.add(tmp);
+            String data = tmp.taskData();
+            try {
+                addLine(data);
+            } catch (IOException e) {
+                System.out.println("Write failed");
+            }
+
+            // output in the terminal
             System.out.println(divisionLine);
             System.out.println("Okie, I added it into the list:");
             System.out.println("  " + tmp);
@@ -81,6 +140,25 @@ public class Kitty {
         }
     }
 
+    // Adapted from Week 3 Topic: File I/O
+    private static void addLine(String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(kittyDataPath, true);
+        fw.write(textToAppend);
+        fw.close();
+    }
+
+    private static void rewriteFile() {
+        try {
+            FileWriter fw = new FileWriter(kittyDataPath);
+            fw.write("");
+            fw.close();
+            for (Task task: list) {
+                addLine(task.taskData());
+            }
+        } catch (IOException e) {
+            return;
+        }
+    }
     private static Task createDeadline(String str) throws DeadlineException{
         String[] parts = str.split("/by");
         if (parts.length == 1)
@@ -112,6 +190,7 @@ public class Kitty {
             Task tmp = list.get(index - 1);
             String note = tmp.toString();
             list.remove(index - 1);
+            rewriteFile();
             System.out.println(divisionLine);
             System.out.println("I have removed it from the list :)");
             System.out.println("  " + note);
@@ -127,9 +206,10 @@ public class Kitty {
         try {
             Task tmp = list.get(index - 1);
             tmp.mark();
+            rewriteFile();
             System.out.println(divisionLine);
             System.out.println("Well done! You have completed this task!");
-            System.out.println("  " + tmp);
+            System.out.println(" " + tmp);
             System.out.println("\n" + divisionLine);
         } catch (IndexOutOfBoundsException e) {
             System.out.println(divisionLine + "\nIndex out of bound, you can only input integer from 1 to "
@@ -141,6 +221,7 @@ public class Kitty {
         try {
             Task tmp = list.get(index - 1);
             tmp.unmark();
+            rewriteFile();
             System.out.println(divisionLine);
             System.out.println("Meow~ Okay we can continue this task!");
             System.out.println("  " + tmp);
