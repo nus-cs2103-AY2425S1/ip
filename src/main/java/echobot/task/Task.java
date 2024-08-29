@@ -19,10 +19,16 @@ public class Task implements Saveable {
         this.isDone = isDone;
     }
 
+    /**
+     * Mark this task as done.
+     */
     public void markDone() {
         this.isDone = true;
     }
 
+    /**
+     * Mark this task as undone.
+     */
     public void markUndone() {
         this.isDone = false;
     }

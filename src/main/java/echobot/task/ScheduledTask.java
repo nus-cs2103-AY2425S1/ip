@@ -32,6 +32,12 @@ public abstract class ScheduledTask extends Task {
         return dateTime.format(DateTimeFormatter.ofPattern(this.DATE_TIME_OUTPUT_FORMAT));
     }
 
+    /**
+     * Checks if the task falls between the date.
+     *
+     * @param date The date to be checked.
+     * @return True if the task falls between the date, otherwise False.
+     */
     public abstract boolean isTaskWithinThisDate(LocalDate date);
 
     @Override
