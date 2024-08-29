@@ -3,6 +3,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeParseException;
 
 public class Hana {
     public static void main(String[] args) {
@@ -78,6 +82,13 @@ public class Hana {
                         throw new HanaException("OOPS!!! Please add deadline date/time by adding /by");
                     }
                     String[] parts = input.substring(9).split(" /by ");
+                    // Check date input
+                    try {
+                        LocalDate d1 = LocalDate.parse(parts[1]);
+                        parts[1] = d1.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                    } catch (DateTimeParseException e) {
+                        throw new HanaException("OOPS!!! The date format is incorrect. Please use the format YYYY-MM-DD.");
+                    }
                     tasks.add(new Deadline(parts[0], parts[1]));
                     System.out.println(line + "    Got it. I've added this task:\n" +
                             "       " + tasks.get(tasks.size() - 1) + "\n" +
@@ -91,6 +102,15 @@ public class Hana {
                         throw new HanaException("OOPS!!! Please add /from before /to");
                     }
                     String[] parts = input.substring(6).split(" /from | /to ");
+                    // Check date input
+                    try {
+                        LocalDate d1 = LocalDate.parse(parts[1]);
+                        LocalDate d2 = LocalDate.parse(parts[2]);
+                        parts[1] = d1.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                        parts[2] = d2.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                    } catch (DateTimeParseException e) {
+                        throw new HanaException("OOPS!!! The date format is incorrect. \nPlease use the format YYYY-MM-DD.");
+                    }
                     tasks.add(new Event(parts[0], parts[1], parts[2]));
                     System.out.println(line + "    Got it. I've added this task:\n" +
                             "       " + tasks.get(tasks.size() - 1) + "\n" +
@@ -110,7 +130,6 @@ public class Hana {
             } catch (HanaException e) {
                 System.out.println(line + "    " + e.getMessage() + "\n" + line);
             }
-
             input = scanner.nextLine();
         }
 
