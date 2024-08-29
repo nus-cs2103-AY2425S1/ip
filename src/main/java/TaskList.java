@@ -6,139 +6,88 @@ import java.nio.file.Path;
 import java.nio.file.Files;
 
 public class TaskList {
-    ArrayList<Task> list = new ArrayList<>();
+    private ArrayList<Task> list = new ArrayList<>();
 
-    public void addToList(Task task) {
-        printLine();
-        System.out.println("    The task hath been added");
-        System.out.println("      " + task);
-        list.add(task);
-        if (list.size() == 1) {
-            System.out.println("    thou now hath " + list.size() + " task to complete");
-        } else {
-            System.out.println("    thou now hath " + list.size() + " tasks to complete");
-        }
-        printLine();
-        System.out.println();
-    }
-
-    private void printLine() {
+    protected static void printLine() {
         System.out.println("    ____________________________________________________________________________");
     }
 
-     public void printList() {
-        if (list.isEmpty()) {
-            printLine();
-            System.out.println("    No tasks to do? that's pretty goooood.");
-            printLine();
-
-        } else {
-            printLine();
-            System.out.println("    So here's the tasks in your list, you should proooobably do them");
-            for (int i = 0; i < list.size(); i++) {
-                System.out.println("    " + (i + 1) + ". " + list.get(i));
-            }
-            printLine();
-        }
+    public void addToList(Task task) {
+        list.add(task);
     }
 
-    public void markTaskAsDone(int index) {
-        printLine();
+    public Task getTask(int index) throws Elseption {
         Task task;
 
         try {
             task = list.get(index - 1);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("    Ain't no such task in the middle of these woods");
-            printLine();
-            return;
+            throw new Elseption();
         }
 
-        if (task.markAsDone()) {
-            System.out.println("    Yes boss, marked the task as done.");
-            System.out.println("     " + task.toString());
-        }
-        printLine();
+        return task;
     }
 
-    public void unmarkTaskAsUndone(int index) {
-        printLine();
-        Task task;
-
-        try {
-            task = list.get(index - 1);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("    Ain't no such task in the middle of these woods");
-            printLine();
-            return;
-        }
-
-        if (task.unmarkAsUndone()) {
-            System.out.println("    Interesting choice but I've marked the task as not done.");
-            System.out.println("      " + task.toString());
-        }
-
-        printLine();
+    public Integer getSize() {
+        return list.size();
     }
 
-    public void deleteTask(int index) {
-        printLine();
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
+
+    public boolean markTaskAsDone(int index) throws Elseption {
+        Task task = getTask(index);
+
+        return task.markAsDone();
+    }
+
+    public boolean unmarkTaskAsUndone(int index) throws Elseption {
+        Task task = getTask(index);
+
+        return task.unmarkAsUndone();
+    }
+
+    public Task  deleteTask(int index) throws Elseption {
         Task task;
 
         try {
             task = list.remove(index - 1);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("    Ain't no such task in the middle of these woods");
-            printLine();
-            return;
+            throw new Elseption();
         }
 
-        System.out.println("    Your bidding has been done, removed:");
-        System.out.println("      " + task.toString());
-        if (list.size() == 1) {
-            System.out.println("    thou now hath " + list.size() + " task to complete");
-        } else if (list.isEmpty()) {
-            System.out.println("    thou hath no tasks to be completed");
-        } else {
-            System.out.println("    thou now hath " + list.size() + " tasks to complete");
-        }
-
-        printLine();
-    }
-
-    public void writeToFile() {
-        Path dataDir = Paths.get( "data");
-        Path dataTxt = Paths.get( "data", "data.txt");
-
-        try {
-            if (Files.notExists(dataDir)) {
-                Files.createDirectory(dataDir);
-                Files.createFile(dataTxt);
-
-            } else if (Files.notExists(dataTxt)) {
-                Files.createFile(dataTxt);
-            }
-
-        } catch (IOException e) {
-            System.out.println("    there hath been a failure in saving your work");
-        }
-
-        try {
-            FileWriter fw = new FileWriter(dataTxt.toString());
-            for (Task task : list) {
-                fw.write(task.toFileString() + System.lineSeparator());
-
-            }
-            fw.close();
-
-        } catch (IOException e) {
-            System.out.println("    there hath been a failure in saving your work");
-        }
-
+        return task;
     }
 
     @Override
     public String toString() {
         return list.toString();
+    }
+
+    public String printString() {
+        StringBuilder returnStr = new StringBuilder();
+
+        if (list.isEmpty()) {
+            returnStr.append("    No tasks to do? that's pretty goooood.");
+
+        } else {
+            returnStr.append("    So here's the tasks in your list, you should proooobably do them\n");
+            for (int i = 0; i < list.size(); i++) {
+                returnStr.append("    ").append(i + 1).append(". ").append(list.get(i)).append("\n");
+            }
+        }
+
+        return returnStr.toString().stripTrailing();
+    }
+
+    public String fileString() {
+        StringBuilder returnStr = new StringBuilder();
+
+        for (Task task : list) {
+            returnStr.append(task.toFileString()).append(System.lineSeparator());
+        }
+
+        return returnStr.toString();
     }
 }

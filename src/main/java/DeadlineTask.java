@@ -62,10 +62,11 @@ public class DeadlineTask extends Task{
 
     @Override
     public String toFileString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         if (this.status) {
-            return "D | 1 | " + this.description + " | " + this.deadline;
+            return "D | 1 | " + this.description + " | " + this.deadline.format(formatter);
         } else {
-            return "D | 0 | " + this.description + " | " + this.deadline;
+            return "D | 0 | " + this.description + " | " + this.deadline.format(formatter);
         }
     }
 }

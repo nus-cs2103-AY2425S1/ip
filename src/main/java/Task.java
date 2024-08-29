@@ -9,7 +9,6 @@ abstract public class Task {
 
     public boolean markAsDone() {
         if (this.status) {
-            System.out.println("    So uh, the task is already done");
             return false;
 
         } else {
@@ -20,7 +19,6 @@ abstract public class Task {
 
     public boolean unmarkAsUndone() {
         if (!this.status) {
-            System.out.println("    So uh, the task already is not done");
             return false;
 
         } else {
