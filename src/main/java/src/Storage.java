@@ -73,7 +73,10 @@ public class Storage {
             }
             case 'E': {
                 String[] segments = description.split("/");
+                System.out.println(description);
+
                 taskToAdd = new Event(segments[0], segments[1].substring(6), segments[2].substring(4));
+
                 break;
             }
         }
