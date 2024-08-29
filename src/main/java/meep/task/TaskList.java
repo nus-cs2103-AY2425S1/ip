@@ -1,3 +1,5 @@
+package meep.task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -9,10 +11,6 @@ public class TaskList {
 
     public TaskList(TaskList taskList) {
         this.tasks = new ArrayList<>(taskList.tasks);
-    }
-
-    public void addItem(String item) {
-        this.tasks.add(new Task(item));
     }
 
     public void addItem(Task item) {

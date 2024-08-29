@@ -1,8 +1,13 @@
+package meep.task;
+
 import java.io.FileWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.IOException;
+
+import meep.ui.Ui;
+import meep.MeepException;
 
 public class Storage {
     private final String dataPath;

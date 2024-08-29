@@ -1,5 +1,7 @@
-public class Todo extends Task{
-    public Todo (String description) {
+package meep.task;
+
+public class Todo extends Task {
+    public Todo(String description) {
         super(description);
     }
 
