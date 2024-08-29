@@ -14,6 +14,11 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * The AddDeadlineCommandTest class contains unit tests for the AddDeadlineCommand class.
+ * It tests the functionality of adding deadlines to a task list and ensures that exceptions
+ * are correctly thrown for invalid inputs.
+ */
 public class AddDeadlineCommandTest {
 
     private TaskList tasks;
@@ -21,6 +26,10 @@ public class AddDeadlineCommandTest {
     private StubUi ui;
     private DateTimeFormatter[] formatters;
 
+    /**
+     * Sets up the test environment before each test method is executed.
+     * Initializes the task list, storage, UI stubs, and date formatters.
+     */
     @BeforeEach
     public void setUp() {
         tasks = new TaskList();
@@ -32,6 +41,12 @@ public class AddDeadlineCommandTest {
         };
     }
 
+    /**
+     * Tests the successful addition of a deadline task.
+     * Verifies that the task list contains the new task and the UI shows the correct message.
+     *
+     * @throws ArtsException if an error occurs during command execution.
+     */
     @Test
     public void testAddDeadlineSuccessfully() throws ArtsException {
         String details = "Finish report /by 2024-08-29 1800";
@@ -44,6 +59,10 @@ public class AddDeadlineCommandTest {
                 "\nNow you have 1 task in the list.", ui.getLastMessage());
     }
 
+    /**
+     * Tests that an ArtsException is thrown when the deadline command is missing a /by date.
+     * Verifies that the exception message indicates the missing /by date.
+     */
     @Test
     public void testMissingByDateThrowsException() {
         String details = "Finish report";
@@ -53,6 +72,10 @@ public class AddDeadlineCommandTest {
         assertEquals("The deadline must have a /by date.", exception.getMessage(), "Exception message should indicate missing /by date.");
     }
 
+    /**
+     * Tests that an ArtsException is thrown for an invalid date format in the deadline command.
+     * Verifies that the exception message indicates the invalid date format.
+     */
     @Test
     public void testInvalidDateFormatThrowsException() {
         String details = "Finish report /by 29-08-2024 1800";
@@ -62,7 +85,10 @@ public class AddDeadlineCommandTest {
         assertEquals("Invalid date format. Please use yyyy-MM-dd HHmm or d/M/yyyy HHmm.", exception.getMessage(), "Exception message should indicate invalid date format.");
     }
 
-    // Stub classes for Storage and Ui
+    /**
+     * A stub class for Storage used in testing.
+     * Overrides the save method to do nothing, simulating a storage component without actual file operations.
+     */
     private static class StubStorage extends Storage {
         public StubStorage(String filePath) {
             super(filePath); // Use the constructor from Storage
@@ -74,6 +100,10 @@ public class AddDeadlineCommandTest {
         }
     }
 
+    /**
+     * A stub class for Ui used in testing.
+     * Captures the last message shown by the UI for verification in tests.
+     */
     private static class StubUi extends Ui {
         private String lastMessage;
 

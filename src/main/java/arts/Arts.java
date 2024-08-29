@@ -14,6 +14,11 @@ import arts.command.AddTodoCommand;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Arts class is the main entry point for the Arts application.
+ * It manages the initialization and execution of the application, handling user commands
+ * and coordinating between different components like storage, UI, and task management.
+ */
 public class Arts {
     private static final DateTimeFormatter[] INPUT_FORMATTERS = new DateTimeFormatter[]{
             DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
@@ -25,6 +30,12 @@ public class Arts {
     private final Ui ui;
     private final Parser parser;
 
+    /**
+     * Constructs an Arts object with the specified file path for task storage.
+     * Initializes the UI, storage, parser, and loads existing tasks.
+     *
+     * @param filePath The path of the file where tasks are stored.
+     */
     public Arts(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -39,6 +50,10 @@ public class Arts {
         tasks = tempTasks;
     }
 
+    /**
+     * Runs the Arts application, processing user commands in a loop until exit.
+     * Handles various commands related to task management and user interaction.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -85,6 +100,11 @@ public class Arts {
         }
     }
 
+    /**
+     * Lists all tasks currently stored in the task list.
+     *
+     * @return A string representation of the tasks, or a message if no tasks are present.
+     */
     private String listTasks() {
         if (tasks.isEmpty()) {
             return "No tasks yet! Why not add some?";
@@ -97,6 +117,11 @@ public class Arts {
         }
     }
 
+    /**
+     * The main method to start the Arts application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Arts("./data/tasks.txt").run();
     }

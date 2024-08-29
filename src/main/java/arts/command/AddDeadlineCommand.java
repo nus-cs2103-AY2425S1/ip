@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to add a deadline task to the task list.
+ */
 public class AddDeadlineCommand implements Command {
     private final TaskList tasks;
     private final Storage storage;
@@ -16,6 +19,16 @@ public class AddDeadlineCommand implements Command {
     private final String details;
     private final DateTimeFormatter[] inputFormatters;
 
+    /**
+     * Constructs an AddDeadlineCommand with the specified task list, storage, UI, task details,
+     * and date formatters.
+     *
+     * @param tasks The list of tasks.
+     * @param storage The storage used to save tasks.
+     * @param ui The user interface for displaying messages.
+     * @param details The details of the task to be added.
+     * @param inputFormatters An array of date formatters for parsing the deadline date.
+     */
     public AddDeadlineCommand(TaskList tasks, Storage storage, Ui ui, String details, DateTimeFormatter[] inputFormatters) {
         this.tasks = tasks;
         this.storage = storage;
@@ -24,6 +37,12 @@ public class AddDeadlineCommand implements Command {
         this.inputFormatters = inputFormatters;
     }
 
+    /**
+     * Executes the command to add a deadline task. Parses the task details and adds the task
+     * to the task list. Saves the updated task list to storage and displays a confirmation message.
+     *
+     * @throws ArtsException If the task details are invalid or if the date format is incorrect.
+     */
     @Override
     public void execute() throws ArtsException {
         String[] deadlineParts = details.split(" /by ");
@@ -37,6 +56,14 @@ public class AddDeadlineCommand implements Command {
                 "\nNow you have " + tasks.size() + " " + (tasks.size() == 1 ? "task" : "tasks") + " in the list.");
     }
 
+    /**
+     * Parses a date string using the provided date formatters. Attempts to parse the date string
+     * with each formatter until successful. Throws an exception if all formatters fail.
+     *
+     * @param dateString The date string to parse.
+     * @return The parsed LocalDateTime object.
+     * @throws ArtsException If the date string cannot be parsed with any of the provided formatters.
+     */
     private LocalDateTime parseDate(String dateString) throws ArtsException {
         LocalDateTime date = null;
         for (DateTimeFormatter formatter : inputFormatters) {

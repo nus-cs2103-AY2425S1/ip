@@ -11,13 +11,29 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The Storage class handles the loading and saving of tasks to and from a file.
+ * It manages the persistence of task data, allowing tasks to be stored and retrieved.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path for storing tasks.
+     *
+     * @param filePath The path of the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by the filePath.
+     * If the file does not exist, it initializes an empty task list.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws ArtsException If there is an error reading the file or parsing tasks.
+     */
     public ArrayList<Task> load() throws ArtsException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -38,6 +54,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the provided list of tasks to the file specified by the filePath.
+     *
+     * @param tasks The list of tasks to be saved to the file.
+     * @throws ArtsException If there is an error writing to the file.
+     */
     public void save(ArrayList<Task> tasks) throws ArtsException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {

@@ -1,4 +1,3 @@
-
 package arts.command;
 
 import arts.task.TaskList;
@@ -14,12 +13,21 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * The AddTodoCommandTest class contains unit tests for the AddTodoCommand class.
+ * It tests the functionality of adding todo tasks to a task list and ensures that exceptions
+ * are correctly thrown for invalid inputs.
+ */
 public class AddTodoCommandTest {
 
     private TaskList tasks;
     private StubStorage storage;
     private StubUi ui;
 
+    /**
+     * Sets up the test environment before each test method is executed.
+     * Initializes the task list, storage, and UI stubs.
+     */
     @BeforeEach
     public void setUp() {
         tasks = new TaskList();
@@ -27,6 +35,12 @@ public class AddTodoCommandTest {
         ui = new StubUi();
     }
 
+    /**
+     * Tests the successful addition of a todo task.
+     * Verifies that the task list contains the new task and the UI shows the correct message.
+     *
+     * @throws ArtsException if an error occurs during command execution.
+     */
     @Test
     public void testAddTodoSuccessfully() throws ArtsException {
         String description = "Read a book";
@@ -39,6 +53,10 @@ public class AddTodoCommandTest {
                 "\nNow you have 1 task in the list.", ui.getLastMessage());
     }
 
+    /**
+     * Tests that an ArtsException is thrown when the todo command has an empty description.
+     * Verifies that the exception message indicates the empty description.
+     */
     @Test
     public void testEmptyDescriptionThrowsException() {
         String description = "";
@@ -48,6 +66,10 @@ public class AddTodoCommandTest {
         assertEquals("The description of a todo cannot be empty.", exception.getMessage(), "Exception message should indicate empty description.");
     }
 
+    /**
+     * Tests that an ArtsException is thrown when the todo command has a null description.
+     * Verifies that the exception message indicates the empty description.
+     */
     @Test
     public void testNullDescriptionThrowsException() {
         String description = null;
@@ -57,7 +79,10 @@ public class AddTodoCommandTest {
         assertEquals("The description of a todo cannot be empty.", exception.getMessage(), "Exception message should indicate empty description.");
     }
 
-    // Stub classes for Storage and Ui
+    /**
+     * A stub class for Storage used in testing.
+     * Overrides the save method to do nothing, simulating a storage component without actual file operations.
+     */
     private static class StubStorage extends Storage {
         public StubStorage(String filePath) {
             super(filePath);
@@ -69,6 +94,10 @@ public class AddTodoCommandTest {
         }
     }
 
+    /**
+     * A stub class for Ui used in testing.
+     * Captures the last message shown by the UI for verification in tests.
+     */
     private static class StubUi extends Ui {
         private String lastMessage;
 

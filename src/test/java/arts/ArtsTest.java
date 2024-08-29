@@ -11,17 +11,29 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Test class for the Arts application.
+ * This class contains integration tests for the Arts class, verifying the application's command processing and output.
+ */
 public class ArtsTest {
 
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     private final String filePath = "test_tasks.txt";
 
+    /**
+     * Sets up the test environment before each test.
+     * Redirects System.out to capture output and ensures the test file is deleted to start fresh.
+     */
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(outputStreamCaptor, true, StandardCharsets.UTF_8));
         new File(filePath).delete(); // Ensure the file is clean before each test
     }
 
+    /**
+     * Tests the run() method of the Arts class by adding a todo task and listing tasks.
+     * Verifies that the task is added and displayed correctly in the output.
+     */
     @Test
     public void testRun_addTodoAndList() {
         String input = "todo Test Task\nlist\nbye\n";
@@ -37,6 +49,10 @@ public class ArtsTest {
         assertTrue(output.contains("1. [T][ ] Test Task"));
     }
 
+    /**
+     * Tests the run() method of the Arts class with an invalid command.
+     * Verifies that the application responds with an appropriate error message.
+     */
     @Test
     public void testRun_invalidCommand() {
         String input = "invalidcommand\nbye\n";

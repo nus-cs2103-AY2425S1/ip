@@ -14,12 +14,21 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * The MarkCommandTest class contains unit tests for the MarkCommand class.
+ * It tests the functionality of marking tasks as done in a task list and ensures that exceptions
+ * are correctly thrown for invalid inputs.
+ */
 public class MarkCommandTest {
 
     private TaskList tasks;
     private StubStorage storage;
     private StubUi ui;
 
+    /**
+     * Sets up the test environment before each test method is executed.
+     * Initializes the task list with sample tasks, and sets up storage and UI stubs.
+     */
     @BeforeEach
     public void setUp() {
         tasks = new TaskList();
@@ -28,6 +37,12 @@ public class MarkCommandTest {
         ui = new StubUi();
     }
 
+    /**
+     * Tests the successful marking of a task as done.
+     * Verifies that the task's status is updated correctly and the UI shows the correct message.
+     *
+     * @throws ArtsException if an error occurs during command execution.
+     */
     @Test
     public void testMarkTaskSuccessfully() throws ArtsException {
         String taskIndex = "1";
@@ -39,6 +54,10 @@ public class MarkCommandTest {
         assertEquals("Nice! I've marked this task as done:\n [T][X] Read a book", ui.getLastMessage());
     }
 
+    /**
+     * Tests that an ArtsException is thrown when an invalid task index is provided.
+     * Verifies that the exception message indicates the invalid task index.
+     */
     @Test
     public void testInvalidTaskIndexThrowsException() {
         String taskIndex = "2"; // Out of bounds
@@ -48,6 +67,10 @@ public class MarkCommandTest {
         assertEquals("Invalid task index.", exception.getMessage(), "Exception message should indicate invalid task index.");
     }
 
+    /**
+     * Tests that an ArtsException is thrown when a non-numeric task index is provided.
+     * Verifies that the exception message indicates the invalid task index.
+     */
     @Test
     public void testNonNumericTaskIndexThrowsException() {
         String taskIndex = "a"; // Non-numeric
@@ -57,7 +80,10 @@ public class MarkCommandTest {
         assertEquals("Invalid task index.", exception.getMessage(), "Exception message should indicate invalid task index.");
     }
 
-    // Stub classes for Storage and Ui
+    /**
+     * A stub class for Storage used in testing.
+     * Overrides the save method to do nothing, simulating a storage component without actual file operations.
+     */
     private static class StubStorage extends Storage {
         public StubStorage(String filePath) {
             super(filePath);
@@ -69,6 +95,10 @@ public class MarkCommandTest {
         }
     }
 
+    /**
+     * A stub class for Ui used in testing.
+     * Captures the last message shown by the UI for verification in tests.
+     */
     private static class StubUi extends Ui {
         private String lastMessage;
 
