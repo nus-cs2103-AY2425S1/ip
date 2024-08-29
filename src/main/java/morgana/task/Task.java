@@ -1,3 +1,5 @@
+package morgana.task;
+
 public abstract class Task {
     private final TaskType type;
     private final String description;

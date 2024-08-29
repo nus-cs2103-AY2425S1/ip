@@ -1,3 +1,11 @@
+package morgana.commands;
+
+import morgana.exceptions.MorganaException;
+import morgana.parser.Parser;
+import morgana.storage.Storage;
+import morgana.task.TaskList;
+import morgana.ui.Ui;
+
 public class DeleteCommand extends Command {
     private final String args;
 

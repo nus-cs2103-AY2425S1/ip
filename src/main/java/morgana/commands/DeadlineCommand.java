@@ -1,3 +1,10 @@
+package morgana.commands;
+
+import morgana.task.Deadline;
+import morgana.exceptions.MorganaException;
+import morgana.parser.Parser;
+import morgana.task.Task;
+
 public class DeadlineCommand extends AddCommand {
     public DeadlineCommand(String args) {
         super(args);

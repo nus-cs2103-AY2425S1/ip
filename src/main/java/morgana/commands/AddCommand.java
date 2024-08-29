@@ -1,3 +1,11 @@
+package morgana.commands;
+
+import morgana.exceptions.MorganaException;
+import morgana.storage.Storage;
+import morgana.task.Task;
+import morgana.task.TaskList;
+import morgana.ui.Ui;
+
 public abstract class AddCommand extends Command {
     private final String args;
 
