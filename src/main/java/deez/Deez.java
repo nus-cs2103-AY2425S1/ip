@@ -113,7 +113,7 @@ public class Deez implements Serializable {
         }
     }
 
-    private void handleCommand(Pair<Command, Properties> inputPair) {
+    protected void handleCommand(Pair<Command, Properties> inputPair) {
         Command cmd = inputPair.getKey();
         Properties props = inputPair.getValue();
         switch (cmd) {
