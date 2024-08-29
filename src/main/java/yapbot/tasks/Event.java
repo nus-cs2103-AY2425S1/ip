@@ -1,11 +1,14 @@
 package yapbot.tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Child class of Task that has a start and end dates/times.
  */
 public class Event extends Task {
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Returns an Event instance with isDone set to false by default.
@@ -14,7 +17,7 @@ public class Event extends Task {
      * @param from Date/time when this task should start.
      * @param to Date/time when this task should end.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -28,7 +31,7 @@ public class Event extends Task {
      * @param to Date/time when this task should end.
      * @param isDone Set to true for task to be completed by default.
      */
-    public Event(String description, String from, String to, boolean isDone) {
+    public Event(String description, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(description, isDone);
         this.from = from;
         this.to = to;
@@ -36,11 +39,12 @@ public class Event extends Task {
 
     @Override
     public String saveTask() {
-        return "E/" + super.saveTask() + "/" + this.from + "/" + this.to;
+        return "E/" + super.saveTask() + "/" + this.from.toString() + "/" + this.to.toString();
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (From: " + this.from + " To: " + this.to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ha dd MMM yyyy");
+        return "[E]" + super.toString() + " (From: " + this.from.format(formatter) + " To: " + this.to.format(formatter) + ")";
     }
 }
