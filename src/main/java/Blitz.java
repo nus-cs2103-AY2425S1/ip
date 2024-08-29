@@ -100,4 +100,8 @@ public class Blitz{
         Blitz blitz_jr = new Blitz();
         blitz_jr.start();
     }
+
+    public int dummyMethod() {
+        return 2;
+    }
 }
