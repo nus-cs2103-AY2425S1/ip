@@ -17,12 +17,21 @@ public class TaskList {
             "____________________________________________________________";
     private final List<Task> taskList;
 
+    /**
+     * Default Constructor for TaskList.
+     */
     public TaskList() {
         taskList = new ArrayList<>();
         System.out.println("New task list created.");
         System.out.println(line);
     }
 
+    /**
+     * Constructor for TaskList that loads the tasks from a file.
+     * The file is expected to be in the format of the save representation of the tasks.
+     *
+     * @param lines the lines of tasks to be loaded
+     */
     public TaskList(String[] lines) {
         taskList = new ArrayList<>();
 
