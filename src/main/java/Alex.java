@@ -27,10 +27,10 @@ public class Alex {
                     printTaskList();
                 } else if (userInput.toLowerCase().startsWith("mark ")) {
                     int taskIndex = parseTaskIndex(userInput);
-
                     if (taskIndex >= 0 && taskIndex < tasks.size()) {
                         tasks.get(taskIndex).markAsDone();
                         printTaskStatusChange("Nice! I've marked this task as done:", taskIndex);
+                        saveTasks();  // Save tasks after update
                     } else {
                         printInvalidTaskNumber();
                     }
@@ -39,6 +39,7 @@ public class Alex {
                     if (taskIndex >= 0 && taskIndex < tasks.size()) {
                         tasks.get(taskIndex).markAsNotDone();
                         printTaskStatusChange("OK, I've marked this task as not done yet:", taskIndex);
+                        saveTasks();  // Save tasks after update
                     } else {
                         printInvalidTaskNumber();
                     }
@@ -47,6 +48,7 @@ public class Alex {
                     if (taskIndex >= 0 && taskIndex < tasks.size()) {
                         Task removedTask = tasks.remove(taskIndex);
                         printTaskDeleted(removedTask);
+                        saveTasks();  // Save tasks after update
                     } else {
                         printInvalidTaskNumber();
                     }
@@ -55,24 +57,23 @@ public class Alex {
                 } else if (userInput.equalsIgnoreCase("bye")) {
                     printDividerWithMessage("Bye. Hope to see you again soon!");
                     break;
-
                 } else if (userInput.toLowerCase().startsWith("todo ")) {
                     Task newTask = new Todo(userInput.substring(5));
                     tasks.add(newTask);
                     printTaskAdded(newTask);
-                    
+                    saveTasks();  // Save tasks after update
                 } else if (userInput.toLowerCase().startsWith("deadline ")) {
                     String[] parts = userInput.substring(9).split(" /by ");
                     Task newTask = new Deadline(parts[0], parts[1]);
                     tasks.add(newTask);
                     printTaskAdded(newTask);
-
+                    saveTasks();  // Save tasks after update
                 } else if (userInput.toLowerCase().startsWith("event ")) {
                     String[] parts = userInput.substring(6).split(" /from | /to ");
                     Task newTask = new Event(parts[0], parts[1], parts[2]);
                     tasks.add(newTask);
                     printTaskAdded(newTask);
-
+                    saveTasks();  // Save tasks after update
                 } else if (userInput.toLowerCase().equals("todo")) {
                     throw new EmptyTodoException();
                 } else if (userInput.toLowerCase().equals("blah")) {
@@ -81,6 +82,7 @@ public class Alex {
                     Task newTask = new Task(userInput, TaskType.TODO);
                     tasks.add(newTask);
                     printTaskAdded(newTask);
+                    saveTasks();  // Save tasks after update
                 }
             } catch (AlexException e) {
                 printDividerWithMessage(e.getMessage());
@@ -93,6 +95,25 @@ public class Alex {
         File dataDir = new File("./data");
         if (!dataDir.exists()) {
             dataDir.mkdirs();
+        }
+    }
+    
+
+    private static void saveTasks() {
+        File file = new File(FILE_PATH);
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+            for (Task task : tasks) {
+                String line = task.taskType + " | " + (task.isDone ? "1" : "0") + " | " + task.getDescription();
+                if (task instanceof Deadline) {
+                    line += " | " + ((Deadline) task).by;
+                } else if (task instanceof Event) {
+                    line += " | " + ((Event) task).from + " | " + ((Event) task).to;
+                }
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            printDividerWithMessage("Error saving tasks: " + e.getMessage());
         }
     }
 
