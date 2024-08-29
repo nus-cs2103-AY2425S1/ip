@@ -1,3 +1,5 @@
+package James;
+
 import java.util.Scanner;
 
 public class Ui {
