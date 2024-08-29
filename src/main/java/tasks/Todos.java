@@ -11,9 +11,9 @@ public class Todos extends Task {
         String myTodo = "[ T ] ";
 
         if (this.isDone()) {
-            myTodo += "[ X ] ";
+            myTodo += "[ X ]";
         } else {
-            myTodo += "[   ] ";
+            myTodo += "[   ]";
         }
         return myTodo + super.toString();
     }

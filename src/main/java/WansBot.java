@@ -227,13 +227,13 @@ public class WansBot {
         switch (typeTask) {
             case "T":
                 if (fileInput.contains("[ X ]")) {
-                    nameTask = fileInput.substring(13);
+                    nameTask = fileInput.substring(11);
                     Todos next = new Todos(nameTask);
                     next.finish();
                     userTaskList.add(next);
                     numTasks++;
                 } else {
-                    nameTask = fileInput.substring(13);
+                    nameTask = fileInput.substring(11);
                     Todos next = new Todos(nameTask);
                     userTaskList.add(next);
                     numTasks++;
