@@ -5,32 +5,34 @@ import java.util.ArrayList;
 
 public class TalkaBot {
 
-    private Scanner sc;
-    private ArrayList<Task> list;
+    private Ui ui;
+    private TaskList taskList;
     private Storage storage;
 
     public TalkaBot(String filePath) {
-        storage = new Storage(filePath);
-        this.sc = new Scanner(System.in);
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
         try {
-            this.list = storage.load();
+            this.taskList = storage.load();
         } catch (IOException e) {
-            Message.error(e.getMessage());
+            this.ui.error(e.getMessage());
         }
     }
 
     private void run() {
         boolean end = false;
-        Message.hello();
+        this.ui.hello();
+        ui.dashedLine();
         while (!end) {
             try {
-                String input = this.sc.nextLine();
+                String input = this.ui.getLine();
+                ui.dashedLine();
                 if (input == "") {
                     throw new NoInputException();
                 } else if (input.equalsIgnoreCase("bye")) {
                     end = true;
                 } else if (input.equalsIgnoreCase("list")) {
-                    Message.displayList(this.list);
+                    this.ui.displayList(this.taskList);
                 } else if (input.toLowerCase().startsWith("mark")) {
                     this.mark(input);
                 } else if (input.toLowerCase().startsWith("unmark")) {
@@ -44,34 +46,25 @@ public class TalkaBot {
                         throw new InvalidScheduleException();
                     }
                     Task curr = new ToDo(input.substring(5));
-                    this.list.add(curr);
-                    Message.echo(curr, this.list.size());
-                    storage.save(this.list);
+                    this.taskList.add(curr);
+                    this.ui.echo(curr, this.taskList.size());
+                    storage.save(this.taskList);
                 } else if (input.toLowerCase().startsWith("deadline")) {
                     if (input.length() < 10) {
                         throw new InvalidScheduleException();
                     }
-                    if (input.indexOf("/by") == -1) {
-                        throw new UnknownTimeException("should be done by");
-                    }
-                    Task curr = new Deadline(input.substring(9));
-                    this.list.add(curr);
-                    Message.echo(curr, this.list.size());
-                    storage.save(this.list);
+                    Task curr = new Deadline(Parser.getDeadline(input));
+                    this.taskList.add(curr);
+                    this.ui.echo(curr, this.taskList.size());
+                    storage.save(this.taskList);
                 } else if (input.toLowerCase().startsWith("event")) {
                     if (input.length() < 7) {
                         throw new InvalidScheduleException();
                     }
-                    if (input.indexOf("/from") == -1) {
-                        throw new UnknownTimeException("starts");
-                    }
-                    if (input.indexOf("/to") == -1) {
-                        throw new UnknownTimeException("ends");
-                    }
-                    Task curr = new Event(input.substring(6));
-                    this.list.add(curr);
-                    Message.echo(curr, this.list.size());
-                    storage.save(this.list);
+                    Task curr = new Event(Parser.getEvent(input));
+                    this.taskList.add(curr);
+                    this.ui.echo(curr, this.taskList.size());
+                    storage.save(this.taskList);
                 } else {
                     if (input == "") {
                     } else {
@@ -79,59 +72,64 @@ public class TalkaBot {
                     }
                 }
             } catch (TalkaBotException e) {
-                Message.error(e.getMessage());
+                this.ui.error(e.getMessage());
             } catch (DateTimeException e) {
-                Message.error("Sorry, I need a valid date format! For example: yyyy-mm-dd");
+                this.ui.error("Sorry, I need a valid date format! For example: yyyy-mm-dd");
+            } catch (IOException e) {
+                this.ui.error(e.getMessage());
+            }
+            if (!end) {
+                ui.dashedLine();
             }
         }
-        Message.goodbye();
+        this.ui.goodbye();
     }
 
     private boolean isValidNumber(String str, int len) {
         try {
             return str.length() > len
-                    && Integer.parseInt(str.substring(len)) <= this.list.size()
+                    && Integer.parseInt(str.substring(len)) <= this.taskList.size()
                     && Integer.parseInt(str.substring(len)) >= 1;
         } catch(NumberFormatException e){
             return false;
         }
     }
 
-    private void mark(String input) throws InvalidEditException {
+    private void mark(String input) throws InvalidEditException, IOException {
         if (!isValidNumber(input, 5)) {
             throw new InvalidEditException("mark");
         }
-        Task task = this.list.get(Integer.parseInt(input.substring(5)) - 1);
+        Task task = this.taskList.get(Integer.parseInt(input.substring(5)) - 1);
         task.markAsDone();
-        Message.mark(task);
-        storage.save(this.list);
+        this.ui.mark(task);
+        storage.save(this.taskList);
     }
 
-    private void unmark(String input) throws InvalidEditException {
+    private void unmark(String input) throws InvalidEditException, IOException {
         if (!isValidNumber(input, 7)) {
             throw new InvalidEditException("unmark");
         }
-        Task task = this.list.get(Integer.parseInt(input.substring(7)) - 1);
+        Task task = this.taskList.get(Integer.parseInt(input.substring(7)) - 1);
         task.markAsUndone();
-        Message.unmark(task);
-        storage.save(this.list);
+        this.ui.unmark(task);
+        storage.save(this.taskList);
     }
 
-    private void delete(String input) throws InvalidEditException {
+    private void delete(String input) throws InvalidEditException, IOException {
         if (!isValidNumber(input, 7)) {
             throw new InvalidEditException("delete");
         }
-        Task task = this.list.remove(Integer.parseInt(input.substring(7)) - 1);
-        Message.delete(task, this.list.size());
-        storage.save(this.list);
+        Task task = this.taskList.delete(Integer.parseInt(input.substring(7)) - 1);
+        this.ui.delete(task, this.taskList.size());
+        storage.save(this.taskList);
     }
 
     private void getDay(String input) throws InvalidEditException {
         if (!isValidNumber(input, 8)) {
             throw new InvalidEditException("get the day of");
         }
-        Task task = this.list.get(Integer.parseInt(input.substring(8)) - 1);
-        Message.getDay(task);
+        Task task = this.taskList.get(Integer.parseInt(input.substring(8)) - 1);
+        this.ui.getDay(task);
     }
 
     public static void main(String[] args) {
