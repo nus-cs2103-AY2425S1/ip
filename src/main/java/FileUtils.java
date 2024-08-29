@@ -8,26 +8,37 @@ public class FileUtils {
     private static final String DATA_PATH = "./data.txt";
 
     private static void processTaskString(String taskString, TaskList taskList) {
-        String[] taskParts = taskString.split("\\|");
-        String taskType = taskParts[0];
-        boolean isDone = taskParts[1].equals("1");
-        String taskDescription = taskParts[2];
-        Task task;
-        switch (taskType) {
-        case "T":
-            task = new Todo(taskDescription);
-            if (isDone) {
-                task.markAsDone();
+        try {
+            String[] taskParts = taskString.split("\\|");
+            String taskType = taskParts[0];
+            boolean isDone = taskParts[1].equals("1");
+            String taskDescription = taskParts[2];
+            Task task;
+            switch (taskType) {
+            case "T":
+                task = new Todo(taskDescription);
+                if (isDone) {
+                    task.markAsDone();
+                }
+                taskList.addItem(task);
+                break;
+            case "D":
+                task = new Deadline(taskDescription, taskParts[3]);
+                if (isDone) {
+                    task.markAsDone();
+                }
+                taskList.addItem(task);
+                break;
+            case "E":
+                task = new Event(taskDescription, taskParts[3], taskParts[4]);
+                if (isDone) {
+                    task.markAsDone();
+                }
+                taskList.addItem(task);
+                break;
             }
-            taskList.addItem(task);
-            break;
-        case "D":
-            task = new Deadline(taskDescription, taskParts[3]);
-            if (isDone) {
-                task.markAsDone();
-            }
-            taskList.addItem(task);
-            break;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Error loading task: The saved task is in an invalid format.");
         }
     }
 
