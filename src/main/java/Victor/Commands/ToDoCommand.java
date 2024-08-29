@@ -1,7 +1,7 @@
-package Commands;
+package Victor.Commands;
 
-import Messages.ReturnMessage;
-import Tasks.ToDo;
+import Victor.Messages.ReturnMessage;
+import Victor.Tasks.ToDo;
 
 import java.io.IOException;
 import java.nio.file.Path;

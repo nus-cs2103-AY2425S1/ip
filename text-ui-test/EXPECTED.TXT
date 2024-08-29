@@ -17,17 +17,17 @@ What can I do for you?
   ~  You now have 1 task in your list.
 ============================================================
 ============================================================
-  ~  Splendid! I added this Tasks.Deadline:
+  ~  Splendid! I added this Victor.Tasks.Deadline:
   ~    {D}{ } return library book (by: 9th August)
   ~  You now have 2 tasks in your list.
 ============================================================
 ============================================================
-  ~  Splendid! I added this Tasks.Deadline:
+  ~  Splendid! I added this Victor.Tasks.Deadline:
   ~    {D}{ } call family (by: Sunday)
   ~  You now have 3 tasks in your list.
 ============================================================
 ============================================================
-  ~  Wonderful! I added this Tasks.Event:
+  ~  Wonderful! I added this Victor.Tasks.Event:
   ~    {E}{ } business conference (from: 2 PM to: 5PM)
   ~  You now have 4 tasks in your list.
 ============================================================
@@ -68,7 +68,7 @@ What can I do for you?
   ~  You now have 6 tasks in your list.
 ============================================================
 ============================================================
-  ~  Wonderful! I added this Tasks.Event:
+  ~  Wonderful! I added this Victor.Tasks.Event:
   ~    {E}{ } business presentation (from: 8 AM to: 12PM)
   ~  You now have 7 tasks in your list.
 ============================================================

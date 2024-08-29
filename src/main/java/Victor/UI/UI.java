@@ -1,7 +1,6 @@
-package UI;
+package Victor.UI;
 
-import Messages.ReturnMessage;
-
+import Victor.Messages.ReturnMessage;
 import java.io.PrintStream;
 import java.util.Scanner;
 

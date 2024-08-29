@@ -1,6 +1,6 @@
-package Commands;
-import TaskList.TaskList;
-import Messages.ReturnMessage;
+package Victor.Commands;
+import Victor.TaskList.TaskList;
+import Victor.Messages.ReturnMessage;
 
 import java.nio.file.Path;
 
