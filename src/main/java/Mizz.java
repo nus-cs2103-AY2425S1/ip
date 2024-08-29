@@ -2,30 +2,33 @@ import util.TaskList;
 import util.Storage;
 import util.Ui;
 import util.Parser;
-import util.Utility;
+import static util.Utility.INDENT;
+import static util.Utility.prettyPrint;
 import MizzExceptions.MizzException;
 import commands.Command;
 
+/**
+ * Main chat bot class.
+ */
 public class Mizz {
   /** Name of the chat bot */
   private static final String NAME = "Mizz";
-
   /** Stores the past commands entered */
   private final TaskList usrTasks;
   /** Greeting to be printed */
   private final String greeting;
   /** Last command entered by the user */
   private String cmd;
-
+  /** Storage class to interact with the hard disk */
   private final Storage storage;
-
+  /** Ui class to interact with the user */
   private final Ui ui;
 
   /**
-   * Constructor for Mizz class. Initialises the Mizz object with defualt values
+   * Constructor for Mizz class. Initialises the Mizz object with defualt values.
    * 
    * @param greeting The greeting msg to be printed.
-   * @param exitMsg  The exit msg to be printed.
+   * @param filePath The file path of the stored file.
    */
   public Mizz(String greeting, String filePath) {
     this.greeting = greeting;
@@ -44,7 +47,7 @@ public class Mizz {
 
   public static void main(String[] args) {
     String greeting = String.format(
-        "Hello! I'm %s\n%sWhat can I do for you?", NAME, Utility.INDENT);
+        "Hello! I'm %s\n%sWhat can I do for you?", NAME, INDENT);
     Mizz bot = new Mizz(greeting, "./store/storage.txt");
 
     bot.greet();
@@ -57,9 +60,8 @@ public class Mizz {
         Command c = Command.of(bot.cmd);
         c.execute(bot.usrTasks, bot.ui, bot.storage, parsedInput);
       } catch (MizzException e) {
-        Utility.prettyPrint(e.toString());
+        prettyPrint(e.toString());
       }
-      // bot.commandHandler(cmd);
     }
   }
 

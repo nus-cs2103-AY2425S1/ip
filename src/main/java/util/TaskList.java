@@ -4,17 +4,34 @@ import java.util.List;
 import tasks.Task;
 import java.util.ArrayList;
 
+/**
+ * Utility class to interact with an instance of a list containing user tasks.
+ */
 public class TaskList {
   private List<Task> tasks;
 
+  /**
+   * Constructor for taskList.
+   */
   public TaskList() {
     this.tasks = new ArrayList<>(100);
   }
 
+  /**
+   * Method to add a new task into the running list.
+   * 
+   * @param task The new task to be added.
+   */
   public void addTask(Task task) {
     this.tasks.add(task);
   }
 
+  /**
+   * Method to add a new task into the running list and the storage file.
+   * 
+   * @param task The new task to be added.
+   * @param s    The storage instance being used.
+   */
   public void addTask(Task task, Storage s) {
     this.tasks.add(task);
     s.addToStorage(task.toString());
@@ -63,10 +80,20 @@ public class TaskList {
     return entry;
   }
 
+  /**
+   * Utility method to get the size of the current list.
+   * 
+   * @return Size of the list.
+   */
   public int size() {
     return this.tasks.size();
   }
 
+  /**
+   * Utility method to convert to an array.
+   * 
+   * @return The list as a Task array.
+   */
   public Task[] toArray() {
     return this.tasks.toArray(new Task[this.tasks.size()]);
   }
