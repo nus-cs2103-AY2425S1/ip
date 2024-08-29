@@ -13,9 +13,9 @@ public interface TaskParser {
     Task parseFromDb(String taskStr) throws IllegalTaskTypeException, IllegalTaskArgumentException;
     default void handleTaskStatus(Task task, String taskStatus) throws IllegalTaskArgumentException {
         switch (taskStatus) {
-            case "1" -> task.markDone();
-            case "0" -> task.unmarkDone();
-            default -> throw new IllegalTaskArgumentException("");
+        case "1" -> task.markDone();
+        case "0" -> task.unmarkDone();
+        default -> throw new IllegalTaskArgumentException("");
         }
     }
 
