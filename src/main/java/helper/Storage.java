@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 
 public class Storage {
     private final String path;
-    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); // allows user to specify time as well
+    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"); // allows user to specify time as well
 
 
     /**
