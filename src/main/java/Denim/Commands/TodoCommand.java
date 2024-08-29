@@ -1,3 +1,11 @@
+package Denim.Commands;
+
+import Denim.Tasks.Todo;
+import Denim.Exceptions.DenimException;
+import Denim.TaskList;
+import Denim.Storage.TaskIO;
+import Denim.Tasks.Task;
+
 public class TodoCommand extends Command {
 
     public static final String COMMAND_WORD = "todo";
@@ -13,7 +21,7 @@ public class TodoCommand extends Command {
         try {
             taskIO.writeTaskData(todoTask);
         } catch (DenimException e) {
-            return new CommandResult("Command Failed. Error:\n" + e.getMessage());
+            return new CommandResult("Denim.Commands.Command Failed. Error:\n" + e.getMessage());
         }
 
         taskList.addTask(this.todoTask);

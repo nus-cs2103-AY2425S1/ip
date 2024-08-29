@@ -1,3 +1,7 @@
+package Denim;
+
+import Denim.Commands.*;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +22,7 @@ public class Parser {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 
         if (!matcher.matches()) {
-            return new InvalidCommand("Invalid Command", "Command for help: help");
+            return new InvalidCommand("Invalid Denim.Commands.Command", "Denim.Commands.Command for help: help");
         }
 
         final String commandWord = matcher.group("commandWord").trim();
@@ -53,7 +57,7 @@ public class Parser {
             return prepareHelp();
 
         default:
-            return new InvalidCommand("Invalid Command", "Command for help: help");
+            return new InvalidCommand("Invalid Denim.Commands.Command", "Denim.Commands.Command for help: help");
         }
     }
 

@@ -1,3 +1,7 @@
+package Denim;
+
+import Denim.Commands.CommandResult;
+
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
@@ -6,7 +10,7 @@ public class Ui {
     static final String horizontalLine = "____________________________________________________________";
     static final String chatBotName = "Denim";
 
-    static final int indexOffset = 1;
+    public static final int indexOffset = 1;
 
     private final Scanner in;
     private final PrintStream out;

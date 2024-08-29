@@ -1,3 +1,5 @@
+package Denim.Commands;
+
 public class CommandResult {
     private final String reply;
 

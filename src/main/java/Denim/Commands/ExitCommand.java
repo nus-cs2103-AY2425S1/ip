@@ -1,3 +1,10 @@
+package Denim.Commands;
+
+import Denim.Exceptions.DenimException;
+import Denim.TaskList;
+import Denim.Storage.TaskIO;
+import Denim.Tasks.Task;
+
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "bye";

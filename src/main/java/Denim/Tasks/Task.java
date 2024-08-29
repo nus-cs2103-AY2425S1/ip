@@ -1,11 +1,13 @@
+package Denim.Tasks;
+
 public class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Returns a Task object.
+     * Returns a Denim.Tasks.Task object.
      *
-     * @param description Description of the Task
+     * @param description Description of the Denim.Tasks.Task
      */
     public Task(String description) {
         this.description = description;
@@ -18,7 +20,7 @@ public class Task {
     }
 
     /**
-     * Returns Symbolic Representation of whether the Task is done or not.
+     * Returns Symbolic Representation of whether the Denim.Tasks.Task is done or not.
      *
      * @return symbolic representation of task state
      */
