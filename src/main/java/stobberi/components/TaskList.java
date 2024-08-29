@@ -78,6 +78,7 @@ public class TaskList {
         Ui.displayForm(
                 "Got it. I've added this task:\n    "
                         + listOfTasks.get(listOfTasks.size() - 1)
+                        + "\n"
                         + "Now you have " + listOfTasks.size() + " in the list.");
     }
 
