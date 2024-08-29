@@ -49,6 +49,21 @@ public abstract class Task {
         isDone = false;
     }
 
+    public boolean isOnDate(LocalDate date) {
+        if (this instanceof Deadline) {
+            Deadline deadlineTask = (Deadline) this;
+            if (deadlineTask.getDeadline().toLocalDate().equals(date)) {
+                return true;
+            }
+        } else if (this instanceof Event) {
+            Event eventTask = (Event) this;
+            if (eventTask.getTo().toLocalDate().equals(date)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return isDone ? "[X] " + name : "[ ] " + name;
