@@ -39,3 +39,9 @@ shadowJar {
 run{
     standardInput = System.in
 }
+
+mainClassName = 'waterfall.Waterfall'
+
+shadowJar {
+    archiveFileName = 'waterfall.jar'
+}
