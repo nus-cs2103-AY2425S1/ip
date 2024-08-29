@@ -1,6 +1,7 @@
 package Boombotroz;
 
 public class ToDo extends Task {
+    
     public ToDo(boolean mark, String task) {
         super(mark, task);
 
