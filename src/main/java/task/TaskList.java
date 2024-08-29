@@ -3,9 +3,16 @@ package task;
 import data.InsufficientInfoException;
 import storage.Storage;
 import storage.StorageOperationException;
+import utils.exceptions.IllegalValueException;
+import utils.formatters.Formatter;
+import utils.helpers.HelperFunctions;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TaskList {
@@ -20,7 +27,7 @@ public class TaskList {
         this.list = taskList;
     }
 
-    public void addTask(String info, TaskType type) throws InsufficientInfoException, StorageOperationException {
+    public void addTask(String info, TaskType type) throws InsufficientInfoException, StorageOperationException, IllegalValueException {
         if (info.isBlank()) {
             throw new InsufficientInfoException(type);
         } else {
@@ -54,15 +61,42 @@ public class TaskList {
      * @return {@code TaskList} containing tasks decoded from the {@code taskStrings}.
      * @throws InsufficientInfoException
      */
-    public static TaskList decodeTxt(List<String> taskStrings) {
+    public static TaskList decodeTxt(List<String> taskStrings) throws IllegalValueException {
         ArrayList<Task> taskList = new ArrayList<>();
 
         for (String taskString : taskStrings) {
-            String[] keys = taskString.split(" \\| ");
-            taskList.add(Task.of(keys));
+            if (!taskString.isEmpty()) {
+                String[] keys = taskString.split(" \\| ");
+                taskList.add(Task.of(keys));
+            }
         }
 
         return new TaskList(taskList);
+    }
+
+    public void showTasks(String command) throws IllegalValueException {
+        if (command.isBlank()) {
+            System.out.println(this);
+        } else {
+            String[] keys = command.substring(1).split(" ");
+            switch (keys[0]) {
+            case "today" -> System.out.println(tasksOnDate(LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT)));
+            case "on" -> System.out.println(tasksOnDate(HelperFunctions.stringToDateTime(keys[1], true)));
+            }
+        }
+    }
+
+    public TaskList tasksOnDate(LocalDateTime date) {
+        ArrayList<Task> result = new ArrayList<>();
+
+        for (Task task: list) {
+            if ((task instanceof Deadline && ((Deadline) task).dueOnDate(date) )
+                    || (task instanceof Event && ((Event) task).ongoingOnDate(date))) {
+                result.add(task);
+            }
+        }
+
+        return new TaskList(result);
     }
 
     @Override
