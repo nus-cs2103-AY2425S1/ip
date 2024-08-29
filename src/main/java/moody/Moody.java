@@ -32,6 +32,7 @@ public class Moody {
         this.storage = new Storage(filePath);
 
         TaskList loadedTasks = null;
+
         try {
             loadedTasks = new TaskList(storage.load());
             ui.showLine();
