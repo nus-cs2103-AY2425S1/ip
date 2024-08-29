@@ -1,5 +1,8 @@
-import java.util.*;
+package rainy.database;
 import java.io.*;
+import java.util.*;
+import rainy.tasks.*;
+import rainy.rainyexceptions.*;
 
 public class Storage {
     public Storage() {
