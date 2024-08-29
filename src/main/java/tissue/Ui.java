@@ -1,6 +1,7 @@
 package tissue;
 
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 public class Ui {
     private static final String LINE =
@@ -49,6 +50,13 @@ public class Ui {
                 System.out.println(INDENT + "  " + task);
                 System.out.println(
                         INDENT + "Now you have " + taskList.size() + " tasks in the list.");
+            } else if (in.equals("find")) {
+                ArrayList<Task> matches = taskList.searchKeyword(parser.retrieveNextString());
+                System.out.println(INDENT + "Here are the matching tasks!");
+                for (Task task : matches) {
+                    System.out.println(INDENT + task);
+                }
+
             } else {
                 storeTask(in);
             }
