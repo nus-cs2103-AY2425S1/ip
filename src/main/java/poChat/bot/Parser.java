@@ -93,9 +93,12 @@ class Parser {
         return isChatOver;
     }
 
+    /**
+     * Prints the goodbye message to the user
+     */
     private void sayGoodbye() {
-        String introMessage = "Bye. Hope to see you again soon!";
-        System.out.println(introMessage);
+        String goodbyeMessage = "Bye. Hope to see you again soon!";
+        System.out.println(goodbyeMessage);
     }
 
     private void addTaskToList(Task task) {
