@@ -26,4 +26,8 @@ public class NuffleException extends Exception {
     public static NuffleException checkEventFormat() {
         return new NuffleException("There is missing /to or /from in your command... or both.");
     }
+
+    public static NuffleException checkDateTimeFormat() {
+        return new NuffleException("Please check the date time format for your input [format: yyyy-mm-dd hhmm.");
+    }
 }
