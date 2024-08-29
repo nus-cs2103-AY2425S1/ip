@@ -1,4 +1,4 @@
-package TrackBot;
+package TrackBot.ui;
 
 public class Ui {
     public void showWelcome() {

@@ -1,8 +1,8 @@
 package TrackBot.commands;
 
 import TrackBot.TrackBotStorage;
-import TrackBot.TrackList;
-import TrackBot.Ui;
+import TrackBot.task.TrackList;
+import TrackBot.ui.Ui;
 
 public class ExitCommand extends Command {
     @Override

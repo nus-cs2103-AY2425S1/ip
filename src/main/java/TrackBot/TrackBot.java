@@ -1,6 +1,9 @@
 package TrackBot;
 
 import TrackBot.commands.Command;
+import TrackBot.task.TrackList;
+import TrackBot.ui.Parser;
+import TrackBot.ui.Ui;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -21,7 +24,7 @@ public class TrackBot {
 //            ui.showLoadingError();
         }
         if (trackList == null) {
-            System.out.println("Failed to initialize TrackBot.TrackBot.TrackList.");
+            System.out.println("Failed to initialize TrackBot.TrackBot.task.TrackList.");
         }
     }
 

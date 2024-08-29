@@ -1,4 +1,4 @@
-package TrackBot;
+package TrackBot.task;
 
 public abstract class Task {
     protected String desc;

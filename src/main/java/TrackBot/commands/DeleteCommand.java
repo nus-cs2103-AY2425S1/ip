@@ -2,8 +2,8 @@ package TrackBot.commands;
 
 import TrackBot.TrackBotException;
 import TrackBot.TrackBotStorage;
-import TrackBot.TrackList;
-import TrackBot.Ui;
+import TrackBot.task.TrackList;
+import TrackBot.ui.Ui;
 
 public class DeleteCommand extends Command {
     private final int taskIndex;

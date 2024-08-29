@@ -1,6 +1,9 @@
-package TrackBot;
+package TrackBot.ui;
 
-public class Event extends Task{
+import TrackBot.task.Task;
+import TrackBot.ui.Parser;
+
+public class Event extends Task {
     protected String from;
     protected String to;
 
