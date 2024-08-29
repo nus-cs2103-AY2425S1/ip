@@ -1,9 +1,6 @@
 package storage;
 
-import tasks.DeadlineTask;
-import tasks.EventTask;
-import tasks.TaskList;
-import tasks.ToDoTask;
+import tasks.*;
 
 import java.io.*;
 import java.time.LocalDateTime;
