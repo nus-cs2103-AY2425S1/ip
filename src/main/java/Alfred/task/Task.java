@@ -47,8 +47,9 @@ abstract public class Task {
             return Events.createTask(input);
         case "deadline":
             return Deadlines.createTask(input);
+        default:
+            throw new AlfredException("Invalid task: " + parts[0]);
         }
-        return null;
     }
 
     public abstract String toFileFormat();
