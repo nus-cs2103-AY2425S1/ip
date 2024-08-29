@@ -18,4 +18,4 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 
 # Saved data
-src/main/java/storage/data
+data/
