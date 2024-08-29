@@ -2,6 +2,8 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Jard {
 
@@ -59,42 +61,44 @@ public class Jard {
     }
 
     public static class Deadline extends Task {
-        protected String by;
+        protected LocalDateTime by;
 
         public Deadline(String description, String by) {
             super(description);
-            this.by = by;
+            this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         }
 
         @Override
         public String toFileString() {
-            return String.format("D | %d | %s | %s", isDone ? 1 : 0, description, by);
+            return String.format("D | %d | %s | %s", isDone ? 1 : 0, description, by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
         }
 
         @Override
         public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
+            return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma")) + ")";
         }
     }
 
     public static class Event extends Task {
-        protected String from;
-        protected String to;
+        protected LocalDateTime from;
+        protected LocalDateTime to;
 
         public Event(String description, String from, String to) {
             super(description);
-            this.from = from;
-            this.to = to;
+            this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         }
 
-        @Override
         public String toFileString() {
-            return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description, from, to);
+            return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description,
+                    from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")),
+                    to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
         }
 
         @Override
         public String toString() {
-            return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+            return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma"))
+                    + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma")) + ")";
         }
     }
 
