@@ -24,6 +24,7 @@ public abstract class Task {
     }
 
     public abstract String getType(); //method to return whether task is a ToDo, Event or Deadline
+    public abstract String toFileFormat(); //method to convert tasks' data into the file's format
 
     @Override
     public String toString() {
