@@ -41,7 +41,7 @@ public class Parser {
                     if (isDone) eventTask.setIsDone();
                     return eventTask;
                 default:
-                    System.out.println("Unknown xbot.task type: " + type);
+                    System.out.println("Unknown task type: " + type);
             }
         }
         return null;
@@ -121,7 +121,7 @@ public class Parser {
                 break;
             case "delete":
                 if (rest.isEmpty()) {
-                    throw new XBotException("The xbot.task number to be deleted cannot be empty!");
+                    throw new XBotException("The task number to be deleted cannot be empty!");
                 }
                 list.deleteTask(rest);
                 storage.saveTask(list);

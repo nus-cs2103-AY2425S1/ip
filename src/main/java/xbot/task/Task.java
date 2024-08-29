@@ -20,7 +20,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done xbot.task with X
+        return (isDone ? "X" : " "); // mark done task with X
     }
 
     public void setIsDone() {
@@ -29,13 +29,13 @@ public class Task {
 
     public void markAsDone() {
         isDone = true;
-        System.out.println("Nice! I've marked this xbot.task as done:\n" +
+        System.out.println("Nice! I've marked this task as done:\n" +
                 toString());
     }
 
     public void markAsUndone() {
         isDone = false;
-        System.out.println("OK, I've marked this xbot.task as not done yet:\n" +
+        System.out.println("OK, I've marked this task as not done yet:\n" +
                 toString());
     }
 

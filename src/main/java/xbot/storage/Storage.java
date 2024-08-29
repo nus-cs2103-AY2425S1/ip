@@ -18,7 +18,7 @@ public class Storage {
     public void loadTask() throws IOException {
         TaskList list = new TaskList();
         if (Files.exists(DATA_PATH)) {
-            //Add all xbot.task in data/XBot.txt to the list
+            //Add all task in data/XBot.txt to the list
             try (Scanner scanner = new Scanner(DATA_PATH.toFile())) {
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
