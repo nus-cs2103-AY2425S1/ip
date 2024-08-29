@@ -22,6 +22,7 @@ public class Sage {
             taskList = new TaskList(storage.load());
         } catch (IOException | SageException e) {
             ui.showError(e.getMessage());
+            taskList = new TaskList();
         }
     }
 

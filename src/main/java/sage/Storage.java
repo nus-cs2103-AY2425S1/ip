@@ -25,7 +25,8 @@ public class Storage {
         File file = new File(filePath);
 
         if (!file.exists()) {
-            throw new SageException("File does not exist.");
+            file.getParentFile().mkdirs();
+            file.createNewFile();
         }
 
         Scanner scanner = new Scanner(file);

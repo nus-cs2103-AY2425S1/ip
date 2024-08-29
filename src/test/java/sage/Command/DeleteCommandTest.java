@@ -20,7 +20,7 @@ public class DeleteCommandTest {
     public void setUp() {
         tasks = new TaskList();
         ui = new Ui();
-        storage = new Storage("dummy.txt"); // Using dummy storage for testing
+        storage = new Storage("test.txt");
         tasks.add(new ToDoTask("Task 1"));
         tasks.add(new ToDoTask("Task 2"));
     }
