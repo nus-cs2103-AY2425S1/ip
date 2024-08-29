@@ -4,10 +4,14 @@ import orion.task.Deadline;
 import orion.task.Event;
 import orion.task.Task;
 import orion.task.Todo;
-import orion.task.*;
 import orion.orionExceptions.FileInitializationException;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -27,7 +31,8 @@ public class Storage {
                 if (dataFile.getParentFile() != null && !dataFile.getParentFile().exists()) {
                     boolean dirsCreated = dataFile.getParentFile().mkdirs();
                     if (!dirsCreated) {
-                        throw new FileInitializationException("Failed to create directories: " + dataFile.getParentFile());
+                        throw new FileInitializationException(
+                                "Failed to create directories: " + dataFile.getParentFile());
                     }
                 }
 
