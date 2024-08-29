@@ -1,4 +1,2 @@
-T ~!! 0 ~!!   Read book
-T ~!! 1 ~!!   finish Level 7
-E ~!! 0 ~!!   dfjqlk~!!566~!!342
-E ~!! 0 ~!!   hihih~!!34~!!df
+T ~!! 0 ~!! cs2103t hw
+D ~!! 0 ~!! course review~!!2024-09-03T17:00
