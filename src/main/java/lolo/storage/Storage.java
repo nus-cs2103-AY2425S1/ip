@@ -1,3 +1,11 @@
+package lolo.storage;
+
+import lolo.LoloException;
+import lolo.task.Deadline;
+import lolo.task.Event;
+import lolo.task.Task;
+import lolo.task.ToDo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

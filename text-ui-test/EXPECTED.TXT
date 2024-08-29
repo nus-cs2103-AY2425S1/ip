@@ -1,5 +1,5 @@
 Error loading tasks from file.
-Hello! I'm Lolo, your friendly task manager. 😊
+Hello! I'm lolo.Lolo, your friendly task manager. 😊
 What do you want to do today?
 
 You: ______________________________________
@@ -54,5 +54,5 @@ You: ______________________________________
     2.[E][ ] Team Meeting (from: Sep 15 2024, 2:00 pm to: Sep 15 2024, 4:00 pm)
 ______________________________________
 You: ______________________________________
-Lolo: Bye. Hope to see you again soon! 👋
+lolo.Lolo: Bye. Hope to see you again soon! 👋
 ______________________________________

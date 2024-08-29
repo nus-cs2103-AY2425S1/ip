@@ -1,3 +1,9 @@
+package lolo;
+import lolo.command.Command;
+import lolo.command.Parser;
+import lolo.storage.Storage;
+import lolo.task.TaskList;
+
 public class Lolo {
     private Storage storage;
     private TaskList tasks;
