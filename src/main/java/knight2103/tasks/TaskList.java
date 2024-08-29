@@ -40,17 +40,17 @@ public class TaskList {
         this.taskList.add(newTask);
     }
 
-    public Task mark(int index) throws ArrayIndexOutOfBoundsException {
+    public Task mark(int index) throws IndexOutOfBoundsException {
         taskList.get(index).markDone();
         return taskList.get(index); // must be after to return the newly updated one
     }
 
-    public Task unmark(int index) throws ArrayIndexOutOfBoundsException {
+    public Task unmark(int index) throws IndexOutOfBoundsException {
         taskList.get(index).unmarkDone();
         return taskList.get(index); // must be after to return the newly updated one
     }
 
-    public Task delete(int index) throws ArrayIndexOutOfBoundsException {
+    public Task delete(int index) throws IndexOutOfBoundsException {
         Task taskToDelete = taskList.get(index);
         taskList.remove(index);
         return taskToDelete;
