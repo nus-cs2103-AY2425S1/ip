@@ -50,13 +50,6 @@ public class Parser {
                 String extracted = match.group(1);
                 int index = Integer.parseInt(extracted);
                 return new ActionTaskIndexTuple(MARKED,null,index);
-//                if (index > tasks.size() || index == 0) {
-//                    throw new MentosException("No Such Tasks!");
-//                }
-//                tasks.get(index-1).markAsDone();
-//                System.out.println("Nicely done! This task is marked as done!");
-//                System.out.println(tasks.get(index-1).toString());
-//                System.out.println("____________________________");
 
             } else if (input.startsWith(UNMARKED)) {
                 Matcher match = regexHandler(input, "unmark (\\d+)");
@@ -66,13 +59,6 @@ public class Parser {
                 String extracted = match.group(1);
                 int index = Integer.parseInt(extracted);
                 return new ActionTaskIndexTuple(UNMARKED,null,index);
-//                if (index > tasks.size() || index == 0) {
-//                    throw new MentosException("No Such Tasks!");
-//                }
-//                tasks.get(index-1).markAsNotDone();
-//                System.out.println("Holdup this task is not done!");
-//                System.out.println(tasks.get(index-1).toString());
-//                System.out.println("____________________________");
             } else if (input.startsWith(DELETE)){
                 Matcher match = regexHandler(input,"delete (\\d+)$");
                 if (match == null){
@@ -81,13 +67,6 @@ public class Parser {
                 String extracted = match.group(1);
                 int index = Integer.parseInt(extracted);
                 return new ActionTaskIndexTuple(DELETE,null,index);
-//                if (index > tasks.size() || index ==0){
-//                    throw new MentosException("No Such Tasks!");
-//                }
-//                System.out.println("____________________________");
-//                System.out.printf("Alrights I have removed the following task!\n%s%n",tasks.get(index-1).toString());
-//                tasks.remove(index-1);
-//                System.out.printf("%d remaining tasks%n",tasks.size());
             }
             else if (input.startsWith(TODO)) {
                 Matcher match = regexHandler(input, "todo (.+)");
@@ -98,8 +77,6 @@ public class Parser {
 
                 Task newTodo = new ToDo(extracted);
                 return new ActionTaskIndexTuple(TODO,newTodo,-1);
-//                tasks.add(newTodo);
-//                print_event(TODO,newTodo);
             } else if (input.startsWith(DEADLINE)){
                 Matcher match = regexHandler(input,"deadline (.+) \\/by (\\d{4}-\\d{2}-\\d{2} \\d{4})$");
                 if (match == null){
@@ -109,8 +86,6 @@ public class Parser {
                 String by = match.group(2);
                 Task newDeadline = new Deadline(deadline_desc,by);
                 return new ActionTaskIndexTuple(DEADLINE,newDeadline,-1);
-//                tasks.add(newDeadline);
-//                print_event(DEADLINE,newDeadline);
             } else if (input.startsWith(EVENT)){
                 Matcher match = regexHandler(input,"event (.+) \\/from (\\d{4}-\\d{2}-\\d{2} \\d{4}) \\/to (\\d{4}-\\d{2}-\\d{2} \\d{4})$");
                 if (match == null){
@@ -122,9 +97,7 @@ public class Parser {
                 String to = match.group(3);
                 Task newEvent = new Event(eventDesc,from,to);
                 return new ActionTaskIndexTuple(EVENT,newEvent,-1);
-//
-//                tasks.add(newEvent);
-//                print_event(EVENT,newEvent);
+
             }
 
             else {
@@ -133,7 +106,6 @@ public class Parser {
                 System.out.println("____________________________");
                 return null;
             }
-//            saveTasksToFile();
         } catch (MentosException err){
             System.out.println(err);
         } catch (DateTimeException e){
@@ -162,21 +134,4 @@ public class Parser {
         return null;
     }
 
-    public void print_event(String event, Task task, TaskList tasks){
-        /*
-         * Prints a formatted message indicating that a task event has occurred.
-         *
-         * This method outputs a message to the console that includes the type of event
-         * (such as "todo", "deadline", or "event"), the details of the task that was
-         * added, and the number of remaining tasks. The message is enclosed within
-         * a border for visual clarity.
-         *
-         * @param event the type of event that occurred (e.g., "todo", "deadline", "event").
-         * @param task the task object that was added or modified, whose details will be printed.
-         */
-
-        System.out.println("____________________________");
-        System.out.printf(event+" Added\n%s\n%d remaining tasks%n",task.toString(),tasks.size());
-        System.out.println("____________________________");
-    }
 }
