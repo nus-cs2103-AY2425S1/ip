@@ -1,4 +1,7 @@
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable{
+    private static final long serialVersionUID = 3L;
     protected final boolean isDone;
     protected final String taskDescription;
 

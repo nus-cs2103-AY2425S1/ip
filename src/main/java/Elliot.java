@@ -1,13 +1,22 @@
 import java.util.Scanner;
 import java.util.Arrays;
+import java.io.File;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.lang.ClassNotFoundException;
 
 public class Elliot {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
-        TaskList taskList = new TaskList();
+        TaskList taskList;
 
         introSay();
+        taskList = loadTaskList();
         while (isRunning) {
             System.out.print("> ");
             String userInput = captureUserInput(scanner).strip();
@@ -101,6 +110,7 @@ public class Elliot {
                 say(taskList.toString());
                 break;
             case "bye":
+                saveTaskList(taskList);
                 byeSay();
                 isRunning = false;
                 break;
@@ -141,5 +151,35 @@ public class Elliot {
         return Arrays.stream(strArray)
                 .map(String::strip)
                 .toArray(String[]::new);
+    }
+
+    private static TaskList loadTaskList() {
+        try {
+            File file = new File("ElliotTaskList.ser");
+            if (file.exists()) {
+                ObjectInputStream ois = new ObjectInputStream(
+                        new FileInputStream(file));
+                say("task list save file loaded\n");
+                return (TaskList) ois.readObject();
+            } else {
+                file.createNewFile();
+                say("created new save file for task list\n");
+                return new TaskList();
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return new TaskList();
+        }
+    }
+
+    private static void saveTaskList(TaskList taskList) {
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(
+                    new FileOutputStream("ElliotTaskList.ser"));
+            oos.writeObject(taskList);
+            say("task list saved to file!\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

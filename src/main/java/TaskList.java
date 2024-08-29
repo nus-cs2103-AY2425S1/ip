@@ -1,6 +1,8 @@
 import java.util.List;
+import java.io.Serializable;
 
-public class TaskList {
+public class TaskList implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final ImList<Task> imTaskList;
 
     public TaskList() {

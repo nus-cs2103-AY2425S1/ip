@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.stream.Stream;
+import java.io.Serializable;
 
 /**
  * An immutable implementation of the {@code ArrayList} using an 
@@ -11,7 +12,8 @@ import java.util.stream.Stream;
  * @author  cs2030
  * @param <E> the type of elements in this list
  */
-public class ImList<E> implements Iterable<E> {
+public class ImList<E> implements Iterable<E>, Serializable {
+    private static final long serialVersionUID = 2L;
     private final ArrayList<E> elems;
 
     /**
