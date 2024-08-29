@@ -37,7 +37,7 @@ public class Parser {
             return result;
         } else if (command.startsWith("todo")) {
             int todoIndex = command.indexOf("todo");
-            if (command.substring(5).trim().isEmpty()) {
+            if (command.length() == 4 || command.substring(5).trim().isEmpty()) {
                 throw new AzirException("todo cannot have an empty description. " +
                         "Format: todo [description]");
             }

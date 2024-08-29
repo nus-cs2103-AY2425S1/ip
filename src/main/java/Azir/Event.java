@@ -10,7 +10,7 @@ public class Event extends Task {
     }
 
     public String formatText() {
-        return String.format("E | %s | %s | %s - %s", super.getDoneString(), super.getDescription(), this.startDay, this.endDay);
+        return String.format("E | %s | %s | %s | %s", super.getDoneString(), super.getDescription(), this.startDay, this.endDay);
     }
 
     @Override
