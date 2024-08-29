@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone = false;
 
@@ -9,6 +9,8 @@ public class Task {
     public void editStatus() {
         this.isDone = !this.isDone;
     }
+
+    public abstract String parseToFile();
 
     @Override
     public String toString() {
