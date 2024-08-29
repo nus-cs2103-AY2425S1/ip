@@ -41,31 +41,31 @@ public class Storage {
                 String description = parts[2];
 
                 switch (type) {
-                    case "T":
-                        taskList.add(new Todo(description, isMarked));
-                        break;
+                case "T":
+                    taskList.add(new Todo(description, isMarked));
+                    break;
 
-                    case "D":
-                        if (parts.length < 4) {
-                            throw new MissingDescriptionException("Missing deadline information in line: " + line);
-                        }
-                        String deadline = parts[3];
-                        taskList.add(new Deadline(description, isMarked, LocalDateTime.parse(deadline)));
-                        break;
+                case "D":
+                    if (parts.length < 4) {
+                        throw new MissingDescriptionException("Missing deadline information in line: " + line);
+                    }
+                    String deadline = parts[3];
+                    taskList.add(new Deadline(description, isMarked, LocalDateTime.parse(deadline)));
+                    break;
 
-                    case "E":
-                        if (parts.length < 5) {
-                            throw new MissingDescriptionException("Missing event time information in line: " + line);
-                        }
-                        String start = parts[3];
-                        String end = parts[4];
-                        taskList.add(new Event(description, isMarked, LocalDateTime.parse(start),
-                                LocalDateTime.parse(end)));
-                        break;
+                case "E":
+                    if (parts.length < 5) {
+                        throw new MissingDescriptionException("Missing event time information in line: " + line);
+                    }
+                    String start = parts[3];
+                    String end = parts[4];
+                    taskList.add(new Event(description, isMarked, LocalDateTime.parse(start),
+                            LocalDateTime.parse(end)));
+                    break;
 
-                    default:
-                        System.out.println("Unknown task type found: " + type);
-                        break;
+                default:
+                    System.out.println("Unknown task type found: " + type);
+                    break;
                 }
             }
         } catch (FileNotFoundException e) {
