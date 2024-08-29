@@ -54,15 +54,33 @@ public class Parser {
      */
     public static CommandType parseCommand(String input) {
         switch (input) {
-            case "bye": return CommandType.BYE;
-            case "list": return CommandType.LIST;
-            case "mark": return CommandType.MARK;
-            case "unmark": return CommandType.UNMARK;
-            case "delete": return CommandType.DELETE;
-            case "todo": return CommandType.TODO;
-            case "event": return CommandType.EVENT;
-            case "deadline": return CommandType.DEADLINE;
-            default: return CommandType.INVALID;
+        case "bye":
+            return CommandType.BYE;
+            // Fallthrough
+        case "list":
+            return CommandType.LIST;
+            // Fallthrough
+        case "mark":
+            return CommandType.MARK;
+            // Fallthrough
+        case "unmark":
+            return CommandType.UNMARK;
+            // Fallthrough
+        case "delete":
+            return CommandType.DELETE;
+            // Fallthrough
+        case "todo":
+            return CommandType.TODO;
+            // Fallthrough
+        case "event":
+            return CommandType.EVENT;
+            // Fallthrough
+        case "deadline":
+            return CommandType.DEADLINE;
+            // Fallthrough
+        default:
+            return CommandType.INVALID;
+            // Fallthrough
         }
     }
 
@@ -79,35 +97,45 @@ public class Parser {
         CommandType command = parseCommand(verb);
 
         switch (command) {
-            case BYE:
-                exit();
-                return false;
-            case LIST:
-                listTasks();
-                return true;
-            case MARK:
-                handleMark(input);
-                return true;
-            case UNMARK:
-                handleUnmark(input);
-                return true;
-            case DELETE:
-                handleDelete(input);
-                return true;
-            case TODO:
-                handleTodo(input);
-                return true;
-            case EVENT:
-                handleEvent(input);
-                return true;
-            case DEADLINE:
-                handleDeadline(input);
-                return true;
-            case INVALID:
-                handleInvalid(input);
-                return true;
-            default:
-                return false;
+        case BYE:
+            exit();
+            return false;
+            // Fallthrough
+        case LIST:
+            listTasks();
+            return true;
+            // Fallthrough
+        case MARK:
+            handleMark(input);
+            return true;
+            // Fallthrough
+        case UNMARK:
+            handleUnmark(input);
+            return true;
+            // Fallthrough
+        case DELETE:
+            handleDelete(input);
+            return true;
+            // Fallthrough
+        case TODO:
+            handleTodo(input);
+            return true;
+            // Fallthrough
+        case EVENT:
+            handleEvent(input);
+            return true;
+            // Fallthrough
+        case DEADLINE:
+            handleDeadline(input);
+            return true;
+            // Fallthrough
+        case INVALID:
+            handleInvalid(input);
+            return true;
+            // Fallthrough
+        default:
+            return false;
+            // Fallthrough
         }
     }
 
