@@ -7,8 +7,10 @@ public class Muffin {
     }
 
     public static void main(String[] args) {
+        String filePath = "../taskList.txt";
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> list = new ArrayList<>();
+        FileProcessor fp = new FileProcessor();
+        ArrayList<Task> list = fp.readFromFile(filePath);
 
         String logo = " __  __       __  __ _\n" +
                 "|  \\/  |_  _ / _|/ _(_)_ _\n" +
@@ -21,13 +23,14 @@ public class Muffin {
         System.out.println(logo + "\n" + helloMsg);
 
         try {
-            command(sc, list);
+            command(sc, fp, list, filePath);
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
     }
 
-    public static void command(Scanner sc, ArrayList<Task> list) throws MuffinException {
+    public static void command(Scanner sc, FileProcessor fp, ArrayList<Task> list, String filePath)
+            throws MuffinException {
         try {
             String userInput = sc.nextLine();
             int len = list.size();
@@ -76,74 +79,80 @@ public class Muffin {
             }
 
             switch (command) {
-                case BYE:
-                    System.out.println("Goodbye~ Hope to see you again soon!");
-                    break;
+            case BYE:
+                System.out.println("Goodbye~ Hope to see you again soon!");
+                break;
 
-                case LIST:
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < len; i++) {
-                        System.out.println((i + 1) + "." + list.get(i));
-                    }
-                    command(sc, list);
-                    break;
+            case LIST:
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < len; i++) {
+                    System.out.println((i + 1) + "." + list.get(i));
+                }
+                command(sc, fp, list, filePath);
+                break;
 
-                case MARK:
-                    Task t = list.get(Integer.parseInt(remainingString) - 1);
-                    t.isDone = true;
-                    System.out.println("Yay! Marked as done:\n" + "\t" + t);
-                    command(sc, list);
-                    break;
+            case MARK:
+                Task t = list.get(Integer.parseInt(remainingString) - 1);
+                t.isDone = true;
+                System.out.println("Yay! Marked as done:\n" + "\t" + t);
+                fp.writeToFile(filePath, list);
+                command(sc, fp, list, filePath);
+                break;
 
-                case UNMARK:
-                    Task s = list.get(Integer.parseInt(remainingString) - 1);
-                    s.isDone = false;
-                    System.out.println("Ok. Marked as not done yet:\n" + "\t" + s);
-                    command(sc, list);
-                    break;
+            case UNMARK:
+                Task s = list.get(Integer.parseInt(remainingString) - 1);
+                s.isDone = false;
+                System.out.println("Ok. Marked as not done yet:\n" + "\t" + s);
+                fp.writeToFile(filePath, list);
+                command(sc, fp, list, filePath);
+                break;
 
-                case DELETE:
-                    int index = Integer.parseInt(remainingString) - 1;
-                    Task r = list.get(index);
-                    list.remove(index);
-                    System.out.println("Ok. Task has been removed:\n" + "\t" + r);
-                    System.out.println("Now you have " + list.size() + " tasks in your list.");
-                    command(sc, list);
-                    break;
+            case DELETE:
+                int index = Integer.parseInt(remainingString) - 1;
+                Task r = list.get(index);
+                list.remove(index);
+                System.out.println("Ok. Task has been removed:\n" + "\t" + r);
+                System.out.println("Now you have " + list.size() + " tasks in your list.");
+                fp.writeToFile(filePath, list);
+                command(sc, fp, list, filePath);
+                break;
 
-                case TODO:
-                    if (remainingString.isEmpty()) {
-                        throw new MuffinException("Oh no! You must have a description for a todo task!");
-                    }
-                    list.add(new Todo(parts[0]));
-                    System.out.println("Ok. Added this task:\n" + "\t" + list.get(len));
-                    System.out.println("Now you have " + (len + 1) + " tasks in your list.");
-                    command(sc, list);
-                    break;
+            case TODO:
+                if (remainingString.isEmpty()) {
+                    throw new MuffinException("Oh no! You must have a description for a todo task!");
+                }
+                list.add(new Todo(parts[0]));
+                System.out.println("Ok. Added this task:\n" + "\t" + list.get(len));
+                System.out.println("Now you have " + (len + 1) + " tasks in your list.");
+                fp.writeToFile(filePath, list);
+                command(sc, fp, list, filePath);
+                break;
 
-                case DEADLINE:
-                    if (parts.length < 2) {
-                        throw new MuffinException("Oh no! You must have a description and a deadline for a deadline task!");
-                    }
-                    list.add(new Deadline(parts[0], parts[1]));
-                    System.out.println("Ok. Added this task:\n" + "\t" + list.get(len));
-                    System.out.println("Now you have " + (len + 1) + " tasks in your list.");
-                    command(sc, list);
-                    break;
+            case DEADLINE:
+                if (parts.length < 2) {
+                    throw new MuffinException("Oh no! You must have a description and a deadline for a deadline task!");
+                }
+                list.add(new Deadline(parts[0], parts[1]));
+                System.out.println("Ok. Added this task:\n" + "\t" + list.get(len));
+                System.out.println("Now you have " + (len + 1) + " tasks in your list.");
+                fp.writeToFile(filePath, list);
+                command(sc, fp, list, filePath);
+                break;
 
-                case EVENT:
-                    if (parts.length < 3) {
-                        throw new MuffinException("Oh no! You must have a description and a timeframe for an event task!");
-                    }
-                    list.add(new Event(parts[0], parts[1], parts[2]));
-                    System.out.println("Ok. Added this task:\n" + "\t" + list.get(len));
-                    System.out.println("Now you have " + (len + 1) + " tasks in your list.");
-                    command(sc, list);
-                    break;
+            case EVENT:
+                if (parts.length < 3) {
+                    throw new MuffinException("Oh no! You must have a description and a timeframe for an event task!");
+                }
+                list.add(new Event(parts[0], parts[1], parts[2]));
+                System.out.println("Ok. Added this task:\n" + "\t" + list.get(len));
+                System.out.println("Now you have " + (len + 1) + " tasks in your list.");
+                fp.writeToFile(filePath, list);
+                command(sc, fp, list, filePath);
+                break;
             }
         } catch (MuffinException e) {
             System.out.println(e.getMessage());
-            command(sc, list);
+            command(sc, fp, list, filePath);
         }
     }
 }
