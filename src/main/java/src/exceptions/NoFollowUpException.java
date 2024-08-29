@@ -1,7 +1,7 @@
-package src;
+package src.exceptions;
 
 public class NoFollowUpException extends DukeException {
-    NoFollowUpException() {
+    public NoFollowUpException() {
         super("test");
     }
 

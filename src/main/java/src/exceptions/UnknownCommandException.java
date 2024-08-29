@@ -1,7 +1,9 @@
-package src;
+package src.exceptions;
+
+import src.exceptions.DukeException;
 
 public class UnknownCommandException extends DukeException {
-    UnknownCommandException() {
+    public UnknownCommandException() {
         super("test");
     }
 

@@ -1,7 +1,7 @@
-package src;
+package src.exceptions;
 
 public class NoNumberInputtedException extends DukeException {
-    NoNumberInputtedException() {
+    public NoNumberInputtedException() {
 
         super("test");
     }

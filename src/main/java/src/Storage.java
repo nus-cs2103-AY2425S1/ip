@@ -1,5 +1,11 @@
 package src;
 
+import src.tasks.Deadline;
+import src.tasks.Event;
+import src.tasks.Task;
+import src.tasks.ToDo;
+import src.exceptions.NoFileException;
+
 import java.io.File;
 import java.nio.file.Paths;
 import java.io.FileNotFoundException;
@@ -8,7 +14,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.io.BufferedWriter;
-import java.util.Objects;
 
 public class Storage {
 
@@ -20,22 +25,22 @@ public class Storage {
         this.filePath = filePath;
         try {
             readTasks();
-        } catch (FileNotFoundException e) {
+        } catch (NoFileException e) {
             System.out.println("Bro I can't find a file to retrieve the data, \n" +
                     " can help lobang me and create a file pls");
         }
 
     }
 
-    public ArrayList<Task> getTasks() {
+    public ArrayList<Task> load() {
         return tasks;
     }
 
-    public void readTasks() throws FileNotFoundException {
+    public void readTasks() throws NoFileException {
         File file = new File(filePath);
 
         if (!file.exists()) {
-            throw new FileNotFoundException();
+            throw new NoFileException();
         } else {
             try {
                 String content = new String(Files.readAllBytes(Paths.get(filePath)));
@@ -73,8 +78,6 @@ public class Storage {
             }
             case 'E': {
                 String[] segments = description.split("/");
-                System.out.println(description);
-
                 taskToAdd = new Event(segments[0], segments[1].substring(6), segments[2].substring(4));
 
                 break;
@@ -99,15 +102,15 @@ public class Storage {
                 try {
                     BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
 
-                    String formattedString = "";
+                    StringBuilder formattedString = new StringBuilder();
 
 
                     for (Task task : tasks) {
-                        formattedString += task.toPrettierString();
-                        formattedString += "\n";
+                        formattedString.append(task.toPrettierString());
+                        formattedString.append("\n");
                     }
 
-                    writer.write(formattedString);
+                    writer.write(formattedString.toString());
                     writer.flush();
 
 
