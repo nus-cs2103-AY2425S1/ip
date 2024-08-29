@@ -14,6 +14,7 @@ public class Parser {
             case "todo" -> new AddCommand("todo", fullCommand[1]);
             case "deadline" -> new AddCommand("deadline", fullCommand[1]);
             case "event" -> new AddCommand("event", fullCommand[1]);
+            case "find" -> new FindCommand(fullCommand[1]);
             case "delete" -> new DeleteCommand(fullCommand[1]);
             case "bye" -> new ExitCommand();
             default -> throw new SageException("Invalid Command");

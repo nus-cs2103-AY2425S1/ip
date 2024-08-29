@@ -49,11 +49,11 @@ public class TaskList {
         Sage.ui.showResponse(String.valueOf(confirmationMessage.append(task)));
     }
 
-    public void listTasks() {
+    public void listTasks(String text) {
         if (tasks.isEmpty()) {
             Sage.ui.showEmptyList();
         } else {
-            StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
+            StringBuilder result = new StringBuilder(text + "\n");
             for (int i = 0; i < tasks.size(); i++) {
                 result.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
             }
