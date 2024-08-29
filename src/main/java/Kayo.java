@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -90,7 +92,12 @@ public class Kayo {
            task = new ToDo(splitDetails[0],isDone);
         } else if (Objects.equals(splitStrings[0], "[D]")) {
             String byString = splitDetails[2].substring(0, splitDetails[2].length()-1);
-            task = new Deadline(splitDetails[0],isDone,byString);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM/dd/yyyy");
+            String day = splitDetails[3].length()==1? "0" + splitDetails[3] : splitDetails[3];
+            String data = splitDetails[2]+"/"+day+"/"+splitDetails[4].substring(0,splitDetails[4].length()-1);
+            LocalDate date = LocalDate.parse(data,formatter);
+            String newDate = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            task = new Deadline(splitDetails[0],isDone,newDate);
         } else if (Objects.equals(splitStrings[0], "[E]")) {
             task = new Event(splitDetails[0],isDone, splitDetails[2],splitDetails[4].substring(0, splitDetails[4].length()-1));
         }
@@ -154,14 +161,14 @@ public class Kayo {
         }
     }
     public static class Deadline extends Task {
-        protected String by;
+        protected LocalDate by;
         public Deadline(String task, boolean isDone, String by) {
             super(task, isDone);
-            this.by = by.trim();
+            this.by = LocalDate.parse(by.trim());
         }
         @Override
         public String toString() {
-            return "[D] "+super.toString() + " (by " + by + ")";
+            return "[D] "+super.toString() + " (by " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
         }
     }
     public static class DukeException {
