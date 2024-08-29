@@ -8,6 +8,7 @@ public class Yoda {
 
     static ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
+        tasks = Storage.loadTasks();
         Scanner scanner = new Scanner(System.in);
 
         printLine();
@@ -118,6 +119,7 @@ public class Yoda {
         } else {
             throw new NonsenseInputException();
         }
+        Storage.saveTasks(tasks);
     }
 
     public static boolean checkValidToDo(String input) {
