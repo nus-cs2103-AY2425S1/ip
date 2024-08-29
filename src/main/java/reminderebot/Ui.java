@@ -1,4 +1,10 @@
+package reminderebot;
+
 import java.util.Scanner;
+import reminderebot.task.Task;
+import reminderebot.task.ToDo;
+import reminderebot.task.Deadline;
+import reminderebot.task.Event;
 
 /**
  * Ui represents the user interface for Reminderebot.

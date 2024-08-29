@@ -1,19 +1,26 @@
+package reminderebot.commands;
+
+import reminderebot.TaskList;
+import reminderebot.Ui;
+import reminderebot.Storage;
+import reminderebot.ReminderebotException;
+
 /**
- * The UnmarkCommand class represents a command to mark a task in tasklist as undone.
+ * The MarkCommand class represents a command to mark a task in tasklist as done.
  */
-public class UnmarkCommand extends Command {
+public class MarkCommand extends Command {
     private final int index;
 
     /**
-     * Create an Unmark command.
+     * Create a Mark command.
      * @param index
      */
-    public UnmarkCommand(int index) {
+    public MarkCommand(int index) {
         this.index = index;
     }
 
     /**
-     * Marks task as undone.
+     * Marks task as done.
      * @param tasklist
      * @param ui
      * @param storage
@@ -23,14 +30,14 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList tasklist, Ui ui, Storage storage) throws ReminderebotException {
         if (index > tasklist.length() || index < 1) { // index is out of bounds
             throw new ReminderebotException("Item selected to be marked is not in list.\n" +
-                    "Syntax: unmark <int>");
+                    "Syntax: mark <int>");
         }
-        tasklist.unmarkTask(index);
-        ui.unmarkTask(tasklist.getTask(index - 1));
+        tasklist.markTask(index);
+        ui.markTask(tasklist.getTask(index - 1));
     }
 
     /**
-     * Unmark command does not exit.
+     * Mark command does not exit.
      * @return false
      */
     @Override

@@ -1,3 +1,10 @@
+package reminderebot.commands;
+
+import reminderebot.TaskList;
+import reminderebot.Ui;
+import reminderebot.Storage;
+import reminderebot.ReminderebotException;
+
 /**
  * The abstract Command class represents a command that Reminderebot can execute.
  */

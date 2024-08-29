@@ -1,5 +1,15 @@
+package reminderebot.commands;
+
+import reminderebot.TaskList;
+import reminderebot.Ui;
+import reminderebot.Storage;
+import reminderebot.ReminderebotException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import reminderebot.task.Task;
+import reminderebot.task.ToDo;
+import reminderebot.task.Deadline;
+import reminderebot.task.Event;
 
 /**
  * The EventCommand class represents a command to create an Event.
@@ -12,7 +22,7 @@ public class EventCommand extends Command {
      * Create a EventCommand.
      * @param command
      */
-    EventCommand(String command) {
+    public EventCommand(String command) {
         this.command = command;
     }
 
