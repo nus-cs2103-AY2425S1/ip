@@ -1,163 +1,37 @@
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 public class Morgana {
     private static final String NAME = "Morgana";
-    private static final String HORIZONTAL_LINE = "============================================================\n";
 
     private Storage storage;
-    private List<Task> tasks;
+    private TaskList tasks;
+    private Ui ui;
 
     public Morgana(String filePath) {
+        ui = new Ui();
         try {
             storage = new Storage(filePath);
-            tasks = storage.loadTasks();
-        } catch (IOException e) {
+            tasks = new TaskList(storage.load());
+        } catch (MorganaException e) {
             System.out.println(e.getMessage());
-            tasks = new ArrayList<>();
+            tasks = new TaskList();
         }
     }
 
     public void run() {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.printf("Hello! I'm %s.%n", NAME);
-        System.out.println("What can I do for you?");
-        System.out.println(HORIZONTAL_LINE);
-
-        Scanner sc = new Scanner(System.in);
-        String line;
-        while (!(line = sc.nextLine()).startsWith("bye")) {
-            String[] input = line.trim().split(" ", 2);
+        ui.showWelcomeMessage(NAME);
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                switch (input[0]) {
-                    case "list" -> {
-                        listTasks();
-                        continue;
-                    }
-                    case "mark" -> updateTaskStatus(parseTaskIndex(input),
-                            "Nice! I've marked this task as done:", true);
-                    case "unmark" -> updateTaskStatus(parseTaskIndex(input),
-                            "OK, I've marked this task as not done yet:", false);
-                    case "delete" -> deleteTask(parseTaskIndex(input));
-                    default -> addTask(input);
-                }
-                storage.saveTasks(tasks);
-            } catch (MorganaException | IOException e) {
-                System.out.print(HORIZONTAL_LINE);
-                System.out.println(e.getMessage());
-                System.out.println(HORIZONTAL_LINE);
+                String line = ui.getUserInput();
+                Command command = Parser.parse(line);
+                command.execute(tasks, ui, storage);
+                isExit = command.isExit();
+            } catch (MorganaException e) {
+                ui.showToUser(e.getMessage());
             }
         }
-
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.print(HORIZONTAL_LINE);
     }
 
     public static void main(String[] args) {
         new Morgana("./data/morgana.txt").run();
-    }
-
-    private void listTasks() {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("%d. %s%n", i + 1, tasks.get(i));
-        }
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    private int parseTaskIndex(String[] input) throws MorganaException {
-        if (input.length < 2) {
-            throw new MorganaException("Please specify a task number.");
-        }
-        try {
-            int index = Integer.parseInt(input[1].trim()) - 1;
-            if (index < 0 || index >= tasks.size()) {
-                throw new IndexOutOfBoundsException();
-            }
-            return index;
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new MorganaException("Please specify a valid task number.");
-        }
-    }
-
-    private void updateTaskStatus(int index, String message, boolean isDone) {
-        Task task = tasks.get(index);
-        task.markAsDone(isDone);
-
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println(message);
-        System.out.printf("%d. %s%n", index + 1, task);
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    private void deleteTask(int index) {
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Noted. I've removed this task:");
-        System.out.printf("%d. %s%n", index + 1, tasks.remove(index));
-        System.out.printf("Now you have %d task%s in the list.%n",
-                tasks.size(), tasks.size() > 1 ? "s" : "");
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    private void addTask(String[] input) throws MorganaException {
-        Task task = createTask(input[0], input.length > 1 ? input[1].trim() : "");
-        tasks.add(task);
-
-        System.out.print(HORIZONTAL_LINE);
-        System.out.println("Got it. I've added this task:");
-        System.out.printf("%s%n", task);
-        System.out.printf("Now you have %d task%s in the list.%n",
-                tasks.size(), tasks.size() > 1 ? "s" : "");
-        System.out.println(HORIZONTAL_LINE);
-    }
-
-    private Task createTask(String command, String args) throws MorganaException {
-        return switch (command) {
-            case "todo" -> {
-                if (args.isEmpty()) {
-                    throw new MorganaException("""
-                            Invalid todo format.
-                            Usage: todo <description>
-                            Example: todo borrow book""");
-                }
-                yield new Todo(args);
-            }
-            case "deadline" -> {
-                String[] parts = args.split(" /by ");
-                if (parts.length != 2) {
-                    throw new MorganaException("""
-                            Invalid deadline format.
-                            Usage: deadline <description> /by <yyyy-MM-dd HHmm>
-                            Example: deadline return book /by 2019-10-15 1800""");
-                }
-                yield new Deadline(parts[0], parseDateTime(parts[1]));
-            }
-            case "event" -> {
-                String[] parts = args.split(" /from | /to ");
-                if (parts.length != 3) {
-                    throw new MorganaException("""
-                            Invalid event format.
-                            Usage: event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>
-                            Example: event project meeting /from 2019-10-15 1400 /to 2019-10-15 1600""");
-                }
-                yield new Event(parts[0], parseDateTime(parts[1]), parseDateTime(parts[2]));
-            }
-            default -> throw new MorganaException("Unknown command: %s".formatted(command));
-        };
-    }
-
-    private LocalDateTime parseDateTime(String dateTime) throws MorganaException {
-        try {
-            return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        } catch (DateTimeParseException e) {
-            throw new MorganaException("Invalid date/time format. Please use 'yyyy-MM-dd HHmm'.");
-        }
     }
 }
