@@ -1,5 +1,6 @@
 package skibidi;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import skibidi.task.AbstractTask;
@@ -49,11 +50,21 @@ public class TaskList {
         }
     }
 
+    public TaskList findTasksMatchingDescription(String query) {
+        List<AbstractTask> results = new ArrayList<>();
+        for (AbstractTask task : tasks) {
+            if (task.getDescription().contains(query)) {
+                results.add(task);
+            }
+        }
+        return new TaskList(results);
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            stringBuilder.append("\t");
+            stringBuilder.append(String.format("\t%d. ", i + 1));
             stringBuilder.append(tasks.get(i).toString());
             if (i < tasks.size() - 1) {
                 stringBuilder.append("\n");

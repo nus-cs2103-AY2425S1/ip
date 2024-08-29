@@ -21,7 +21,7 @@ skibidi.task.AbstractTask$TaskDeserializationException: TASK PARSING ERROR: No t
 	NUMBER OF TASKS IN LIST: 1
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 	LISTING ITEMS:
-	[T][ ] first task
+	1. [T][ ] first task
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 	MARKING TASK
 	[T][X] first task
@@ -38,8 +38,8 @@ skibidi.task.AbstractTask$TaskDeserializationException: TASK PARSING ERROR: No t
 	[E][X] project meeting (from: 2000-05-23) (to: 2012-07-22)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 	LISTING ITEMS:
-	[T][ ] first task
-	[E][X] project meeting (from: 2000-05-23) (to: 2012-07-22)
+	1. [T][ ] first task
+	2. [E][X] project meeting (from: 2000-05-23) (to: 2012-07-22)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 	TASK WITH ITEM NUMBER NOT FOUND
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -57,6 +57,9 @@ skibidi.task.AbstractTask$TaskDeserializationException: TASK PARSING ERROR: No t
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 	DELETED TASK: [T][ ] first task
 	NUMBER OF TASKS IN LIST: 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> 	SEARCH RESULTS:
+	1. [E][X] project meeting (from: 2000-05-23) (to: 2012-07-22)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

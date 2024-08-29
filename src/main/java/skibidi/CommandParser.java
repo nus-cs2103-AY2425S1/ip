@@ -10,6 +10,7 @@ import skibidi.command.DeleteCommand;
 import skibidi.command.ListCommand;
 import skibidi.command.MarkCommand;
 import skibidi.command.UnmarkCommand;
+import skibidi.command.FindCommand;
 import skibidi.task.Deadline;
 import skibidi.task.Event;
 import skibidi.task.Todo;
@@ -28,7 +29,8 @@ public class CommandParser {
         TODO,
         DEADLINE,
         EVENT,
-        DELETE
+        DELETE,
+        FIND
     }
 
     public boolean isExit(String command) {
@@ -82,6 +84,8 @@ public class CommandParser {
                 return Optional.of(new AddCommand(event, successMessage));
             case DELETE:
                 return Optional.of(new DeleteCommand(Integer.parseInt(args[1].strip())));
+            case FIND:
+                return Optional.of(new FindCommand(args[1].strip()));
             default:
                 throw new CommandParseException("UNKNOWN COMMAND GIVEN");
             }
