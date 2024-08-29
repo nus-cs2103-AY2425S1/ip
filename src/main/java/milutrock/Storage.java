@@ -10,6 +10,10 @@ import java.util.Scanner;
 
 import milutrock.exceptions.UnknownCommandException;
 
+/**
+ * Handle loading and storing tasks using a file and a parser, with
+ * methods to replay previous input and store new tasks.
+ */
 public class Storage {
     private File file;
     private Parser parser;
@@ -19,8 +23,10 @@ public class Storage {
         this.parser = parser;
     }
 
-    // Replay previous input without output. This is a dirty way to re-create the
-    // task list
+    /**
+     * Replay previous input without output. 
+     * This is a dirty way to re-create the task list.
+    */
     public void loadTasks() {
         PrintStream stdout = System.out;
         System.setOut(new PrintStream(OutputStream.nullOutputStream()));
@@ -34,6 +40,9 @@ public class Storage {
         System.setOut(stdout);
     }
 
+    /**
+     * Write the contents of the parser's stdin to the file specified.
+     */
     public void storeTasks() {
         try {
             FileWriter fw = new FileWriter(this.file.getAbsoluteFile());
