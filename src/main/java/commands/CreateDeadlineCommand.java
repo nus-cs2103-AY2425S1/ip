@@ -11,12 +11,12 @@ public class CreateDeadlineCommand implements Command {
     private final String name;
     private final String by;
 
-    public CreateDeadlineCommand(List<Task> items, String input) {
+    public CreateDeadlineCommand(List<Task> items, String message) {
         this.items = items;
 
-        // Remove the command from the input
-        String inputArgs = Parser.parseInput(input).args();
-        String[] args = Parser.extractArgs(inputArgs, new String[] { "/by" });
+        // Remove the keyword from the message
+        String messageArgs = Parser.parseMessage(message).args();
+        String[] args = Parser.extractArgs(messageArgs, new String[] { "/by" });
 
         this.name = args[0];
         this.by = args[1];

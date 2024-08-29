@@ -12,12 +12,12 @@ public class CreateEventCommand implements Command {
     private final String from;
     private final String to;
 
-    public CreateEventCommand(List<Task> items, String input) {
+    public CreateEventCommand(List<Task> items, String message) {
         this.items = items;
 
-        // Remove the command from the input
-        String inputArgs = Parser.parseInput(input).args();
-        String[] args = Parser.extractArgs(inputArgs, new String[] { "/from", "/to" });
+        // Remove the keyword from the message
+        String messageArgs = Parser.parseMessage(message).args();
+        String[] args = Parser.extractArgs(messageArgs, new String[] { "/from", "/to" });
 
         this.name = args[0];
         this.from = args[1];

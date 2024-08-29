@@ -19,28 +19,28 @@ public class IpMan {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("> ");
-            String input = scanner.nextLine();
+            String message = scanner.nextLine();
             Command command;
 
             try {
-                if (input.equals("bye")) {
+                if (message.equals("bye")) {
                     break;
-                } else if (input.equals("list")) {
+                } else if (message.equals("list")) {
                     command = new ListCommand(items);
-                } else if (input.startsWith("mark")) {
-                    command = new MarkCommand(items, input);
-                } else if (input.startsWith("unmark")) {
-                    command = new UnmarkCommand(items, input);
-                } else if (input.startsWith("todo")) {
-                    command = new CreateToDoCommand(items, input);
-                } else if (input.startsWith("deadline")) {
-                    command = new CreateDeadlineCommand(items, input);
-                } else if (input.startsWith("event")) {
-                    command = new CreateEventCommand(items, input);
-                } else if (input.startsWith("delete")) {
-                    command = new DeleteCommand(items, input);
+                } else if (message.startsWith("mark")) {
+                    command = new MarkCommand(items, message);
+                } else if (message.startsWith("unmark")) {
+                    command = new UnmarkCommand(items, message);
+                } else if (message.startsWith("todo")) {
+                    command = new CreateToDoCommand(items, message);
+                } else if (message.startsWith("deadline")) {
+                    command = new CreateDeadlineCommand(items, message);
+                } else if (message.startsWith("event")) {
+                    command = new CreateEventCommand(items, message);
+                } else if (message.startsWith("delete")) {
+                    command = new DeleteCommand(items, message);
                 } else {
-                    System.out.println("Sorry, I don't recognise that command. Try again!");
+                    System.out.println("Sorry, I don't recognise that keyword. Try again!");
                     continue;
                 }
 

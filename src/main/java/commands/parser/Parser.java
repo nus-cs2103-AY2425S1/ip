@@ -3,27 +3,27 @@ package commands.parser;
 import java.util.StringJoiner;
 
 public class Parser {
-    public record Input(String command, String args) {}
+    public record Message(String keyword, String args) {}
 
-    public static Input parseInput(String input) {
-        String[] split = input.split(" ", 2);
+    public static Message parseMessage(String message) {
+        String[] split = message.split(" ", 2);
         if (split.length <= 1) {
-            return new Input(input, "");
+            return new Message(message, "");
         }
-        return new Input(split[0], split[1]);
+        return new Message(split[0], split[1]);
     }
 
-    public static String[] extractArgs(String inputArgs, String[] args) {
+    public static String[] extractArgs(String messageArgs, String[] argNames) {
         // The values ot the arguments. One additional space is used for the
-        // text before all the arguments, i.e. <command> TEXT <arg1> ARG1 VAL...
-        String[] values = new String[args.length + 1];
+        // text before all the arguments, i.e. <keyword> TEXT <arg1> ARG1 VAL...
+        String[] values = new String[argNames.length + 1];
         int index = 0;
 
         StringJoiner sj = new StringJoiner(" ");
-        String[] split = inputArgs.split(" ");
+        String[] split = messageArgs.split(" ");
         for (String s : split) {
             // s is part of the previous argument
-            if (!(index < args.length && s.equals(args[index]))) {
+            if (!(index < argNames.length && s.equals(argNames[index]))) {
                 sj.add(s);
                 continue;
             }
@@ -35,8 +35,8 @@ public class Parser {
         }
         values[index] = sj.toString();
 
-        if (index != args.length) {
-            throw new MissingArgumentException(args.length, index);
+        if (index != argNames.length) {
+            throw new MissingArgumentException(argNames.length, index);
         }
 
         return values;

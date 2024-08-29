@@ -9,9 +9,9 @@ public class MarkCommand implements Command {
     private final int itemIndex;
     private final List<Task> items;
 
-    public MarkCommand(List<Task> items, String input) {
-        String inputArgs = Parser.parseInput(input).args();
-        int index = Integer.parseInt(inputArgs) - 1;
+    public MarkCommand(List<Task> items, String message) {
+        String messageArgs = Parser.parseMessage(message).args();
+        int index = Integer.parseInt(messageArgs) - 1;
 
         if (index < 0 || index >= items.size()) {
             throw new InvalidIndexException(items.size(), index);

@@ -11,11 +11,11 @@ public class CreateToDoCommand implements Command {
     private final List<Task> items;
     private final String name;
 
-    public CreateToDoCommand(List<Task> items, String input) {
+    public CreateToDoCommand(List<Task> items, String message) {
         this.items = items;
 
-        // Remove the command from the input
-        this.name = Parser.parseInput(input).args();
+        // Remove the keyword from the message
+        this.name = Parser.parseMessage(message).args();
         if (this.name.isEmpty()) {
             throw new MissingArgumentException(1, 0);
         }
