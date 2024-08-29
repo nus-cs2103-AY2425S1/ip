@@ -1,27 +1,30 @@
-import java.util.List;
-import java.util.StringJoiner;
+package commands;
 
-public class CreateEventCommand implements Command {
+import commands.parser.Parser;
+import models.Deadline;
+import models.Task;
+
+import java.util.List;
+
+public class CreateDeadlineCommand implements Command {
     private final List<Task> items;
     private final String name;
-    private final String from;
-    private final String to;
+    private final String by;
 
-    public CreateEventCommand(List<Task> items, String input) {
+    public CreateDeadlineCommand(List<Task> items, String input) {
         this.items = items;
 
         // Remove the command from the input
         String inputArgs = Parser.parseInput(input).args();
-        String[] args = Parser.extractArgs(inputArgs, new String[] { "/from", "/to" });
+        String[] args = Parser.extractArgs(inputArgs, new String[] { "/by" });
 
         this.name = args[0];
-        this.from = args[1];
-        this.to = args[2];
+        this.by = args[1];
     }
 
     @Override
     public void execute() {
-        Task task = new Event(this.name, this.from, this.to);
+        Task task = new Deadline(this.name, this.by);
         items.add(task);
 
         System.out.println("Got it. I've added this task:");

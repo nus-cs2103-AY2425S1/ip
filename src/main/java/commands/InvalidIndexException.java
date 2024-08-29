@@ -1,3 +1,5 @@
+package commands;
+
 public class InvalidIndexException extends RuntimeException {
     public InvalidIndexException(int capacity, int actual) {
         super(String.format(

@@ -1,10 +1,15 @@
+package commands;
+
+import commands.parser.Parser;
+import models.Task;
+
 import java.util.List;
 
-public class DeleteCommand implements Command {
+public class MarkCommand implements Command {
     private final int itemIndex;
     private final List<Task> items;
 
-    public DeleteCommand(List<Task> items, String input) {
+    public MarkCommand(List<Task> items, String input) {
         String inputArgs = Parser.parseInput(input).args();
         int index = Integer.parseInt(inputArgs) - 1;
 
@@ -19,10 +24,7 @@ public class DeleteCommand implements Command {
     @Override
     public void execute() {
         Task task = items.get(itemIndex);
-        items.remove(itemIndex);
-
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", this.items.size());
+        task.markDone();
+        System.out.printf("Marked this task as done:\n%s\n", task);
     }
 }

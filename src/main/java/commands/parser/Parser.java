@@ -1,3 +1,5 @@
+package commands.parser;
+
 import java.util.StringJoiner;
 
 public class Parser {

@@ -1,3 +1,5 @@
+package commands.parser;
+
 public class MissingArgumentException extends RuntimeException {
     public MissingArgumentException(int expectedNoArgs, int actualNoArgs) {
         super(String.format(
