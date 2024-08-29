@@ -1,9 +1,3 @@
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.PriorityQueue;
 import java.util.Scanner;
 
 /**
@@ -12,142 +6,42 @@ import java.util.Scanner;
  */
 
 public class Nen2 {
-    private final static String logo = " _   _                 __\n"
-            + "| \\ | |  ___  _ ___   |_  \\ \n"
-            + "|  \\| | / _ \\| '__ |    ) |\n"
-            + "| |\\  ||  __/| | | |   / /_ \n"
-            + "|_| \\_| \\___||_| |_|  |____|\n";
-    private static final String separator = "--------------------------------------------";
-    private static final Scanner messageReader = new Scanner(System.in);
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
+    private final Parser parser;
 
-    private static final ArrayList<Task> listOfTasks = new ArrayList<>();
+    public Nen2(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        tasks = new TaskList(storage.load());
+        parser = new Parser(tasks, ui);
+    }
 
-    private static final PriorityQueue<Task> listOfTasksWithDeadline = new PriorityQueue<>();
+    public void run() {
+        Scanner messageReader = new Scanner(System.in);
 
-    private static final String DATA_ADDRESS = "data/nen2.txt";
+        ui.greet();
+        while (true) {
+            if(!parser.parseInput(messageReader.nextLine())) {
+                break;
+            }
+        }
+        storage.save(tasks.toDataStringArr());
+        ui.exit();
+    }
 
     public static void main(String[] args) {
-        loadSavedData();
-        greet();
-        parseInput(messageReader.nextLine());
-        saveData();
-        exit();
+        new Nen2("data/nen2.txt").run();
     }
 
-    private static void parseInput(String input) {
-        System.out.println(separator);
 
-        int arg;
-        String action = input.split(" ")[0];
 
-        try{
-            switch(action) {
-                case "bye":
-                    return;
-                case "mark":
-                    arg = getIndex(input);
-                    listOfTasks.get(arg - 1).markAsDone();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(listOfTasks.get(arg - 1).toString());
-                    break;
-                case "unmark":
-                    arg = getIndex(input);
-                    listOfTasks.get(arg - 1).markAsNotDone();
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(listOfTasks.get(arg - 1).toString());
-                    break;
-                case "delete":
-                    arg = getIndex(input);
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println(listOfTasks.get(arg - 1).toString());
-                    listOfTasks.remove(arg - 1);
-                    System.out.println("Now you have " + listOfTasks.size() + " tasks in the list.");
-                    break;
-                case "list":
-                    printList();
-                    break;
-                default:
-                    Task t = Task.of(input);
-                    listOfTasks.add(t);
-                    System.out.println("Got it. I've added this task: \n" + t);
-                    System.out.println("Now you have " + listOfTasks.size() + " tasks in the list.");
-            }
-        } catch (InvalidInputException |
-                 ArgumentMissingException |
-                 EmptyDescriptionException |
-                 DateTimeFormatIncorrectException e){
-            System.out.println(e.getMessage());
-        }
 
-        System.out.println(separator);
-        parseInput(messageReader.nextLine());
-    }
 
-    private static void loadSavedData() {
-        try {
-            File f = new File(DATA_ADDRESS); // create a File for the given file path
-            Scanner s = new Scanner(f); // create a Scanner using the File as the source
-            while (s.hasNext()) {
-                listOfTasks.add(Todo.parseData(s.nextLine()));
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File Not Found ");
-        } catch (FailToParseDataException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
-    private static void saveData() {
-        try {
-            FileWriter fw = new FileWriter(DATA_ADDRESS);
 
-            for (Task t : listOfTasks) {
-                fw.write(t.toData() + "\n");
-            }
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Fail to save data");
-        }
-    }
 
-    private static int getIndex(String text) throws ArgumentMissingException, InvalidInputException{
-        String[] arr = text.split(" ");
-        if (arr.length < 2) {
-            throw new ArgumentMissingException(arr[0] + " which one??");
-        }
-        try {
-            int out = Integer.parseInt(arr[1]);
-            if (out > listOfTasks.size()) {
-                throw new ArgumentMissingException("Helloo there's only " + listOfTasks.size() + " tasks\n"
-                        + "How to " + arr[0] + " " + out + "th task");
-            }
-            return out;
-        } catch (NumberFormatException e) {
-            throw new InvalidInputException("Huh?? \"" + arr[1] + "\" is not a number lah!");
-        }
-    }
 
-    private static void printList() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < listOfTasks.size(); i++) {
-            System.out.println(String.valueOf(i + 1) + "." + listOfTasks.get(i));
-        }
-    }
 
-    /**
-     * Greets user by printing out logo and greeting messages
-     */
-    public static void greet() {
-        System.out.println(separator);
-        System.out.println(logo + "Hello! I'm Nen2 \nWhat can I do for you?");
-        System.out.println(separator);
-    }
-
-    /**
-     * End the conversation with ending messages
-     */
-    public static void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(separator);
-    }
 }
