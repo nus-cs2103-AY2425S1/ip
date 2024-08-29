@@ -1,7 +1,7 @@
-package ui;
+package bocchi.ui;
 
-import command.Command;
-import command.Parser;
+import bocchi.command.Command;
+import bocchi.command.Parser;
 
 import java.util.Scanner;
 
@@ -45,10 +45,10 @@ public class Ui {
     }
 
     /**
-     * Reads a command.
+     * Reads a bocchi.command.
      *
      * @param scanner The scanner to use.
-     * @return The command.
+     * @return The bocchi.command.
      */
     public Command readCommand(Scanner scanner) {
         System.out.print(">> ");

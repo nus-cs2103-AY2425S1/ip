@@ -1,7 +1,7 @@
-package storage;
+package bocchi.storage;
 
-import exception.BocchiException;
-import task.Task;
+import bocchi.exception.BocchiException;
+import bocchi.task.Task;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a loader and saver for the task list.
- * It uses serialization to save and load the task list.
+ * Represents a loader and saver for the bocchi.task list.
+ * It uses serialization to save and load the bocchi.task list.
  */
 public class Storage {
 
@@ -25,7 +25,7 @@ public class Storage {
      */
     private final Path DATA_DIRECTORY = Path.of("data");
     /**
-     * The file path of the serialized task list.
+     * The file path of the serialized bocchi.task list.
      */
     private final Path FILE_PATH = DATA_DIRECTORY.resolve("tasks.ser");
 
@@ -43,9 +43,9 @@ public class Storage {
     }
 
     /**
-     * Loads the task list from the file.
+     * Loads the bocchi.task list from the file.
      *
-     * @return The task list. Returns null if the file does not exist or cannot be read.
+     * @return The bocchi.task list. Returns null if the file does not exist or cannot be read.
      */
     public List<Task> load() throws BocchiException {
         List<Task> savedTasks = new ArrayList<>();
@@ -80,9 +80,9 @@ public class Storage {
 
 
     /**
-     * Saves the task list to the file.
+     * Saves the bocchi.task list to the file.
      *
-     * @param tasks The task list.
+     * @param tasks The bocchi.task list.
      */
     public void save(List<Task> tasks) throws BocchiException {
         try (FileOutputStream fileOut = new FileOutputStream(FILE_PATH.toString());

@@ -1,4 +1,4 @@
-package util;
+package bocchi.util;
 
 import org.junit.jupiter.api.Test;
 

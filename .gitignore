@@ -16,5 +16,5 @@ bin/
 # User-specific data
 /data/
 
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+/text-bocchi.ui-test/ACTUAL.TXT
+text-bocchi.ui-test/EXPECTED-UNIX.TXT

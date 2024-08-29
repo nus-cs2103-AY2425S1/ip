@@ -1,13 +1,13 @@
-package task;
+package bocchi.task;
 
-import exception.BocchiException;
-import util.BocchiDateTimeFormatter;
+import bocchi.exception.BocchiException;
+import bocchi.util.BocchiDateTimeFormatter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents an event task.
+ * Represents an event bocchi.task.
  */
 public class Event extends Task {
     /**
