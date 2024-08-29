@@ -12,6 +12,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline(String description, boolean isDone, LocalDateTime by) {
+        super(description, isDone);
+        this.by = by;
+    }
     @Override
     public String toString() {
         return "[D]" + super.toString()
@@ -19,7 +23,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public  String toFileRecord() {
+    public String toFileRecord() {
         Integer status = isDone ? 1 : 0;
         return "D" + " | " + status + " | " + this.description
                 + " | " + this.by;
@@ -28,5 +32,14 @@ public class Deadline extends Task {
     public String getStatus() {
         return "[D]" + "[" + super.getStatusIcon() + "]" + " " + super.toString()
                 + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm", Locale.ENGLISH)) + ")";
+    }
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Deadline obj) {
+            return obj.description.equals(this.description)
+                    && obj.by.equals(this.by)
+                    && obj.isDone == isDone;
+        }
+        return false;
     }
 }

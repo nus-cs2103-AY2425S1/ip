@@ -24,7 +24,7 @@ public class Storage {
     public TaskList load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File parentDir = file.getParentFile();
-        if (!parentDir.exists()) {
+        if (parentDir != null && !parentDir.exists()) {
             parentDir.mkdir();
         }
         if (!file.exists()) {
@@ -35,19 +35,20 @@ public class Storage {
             String nextLine = s.nextLine();
             String[] parts = nextLine.split(" \\| ");
             Task task;
+            boolean isDone = Integer.parseInt(parts[1]) == 1 ? true : false;
             Topaz.TaskType type = Topaz.TaskType.valueOf(parts[0]);
             switch (type) {
                 case T:
-                    task = new Todo(parts[2]);
+                    task = new Todo(parts[2], isDone);
                     break;
                 case D:
-                    task = new Deadline(parts[2], LocalDateTime.parse(parts[3]));
+                    task = new Deadline(parts[2], isDone, LocalDateTime.parse(parts[3]));
                     break;
                 case E:
-                    task = new Event(parts[2], LocalDateTime.parse(parts[3]), LocalDateTime.parse(parts[4]));
+                    task = new Event(parts[2], isDone, LocalDateTime.parse(parts[3]), LocalDateTime.parse(parts[4]));
                     break;
                 default:
-                    return new TaskList();
+                    throw new IOException();
             }
             tasks.add(task);
         }

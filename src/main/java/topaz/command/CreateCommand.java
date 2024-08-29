@@ -1,5 +1,12 @@
 package topaz.command;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import topaz.exception.InvalidTaskException;
 import topaz.exception.InvalidTimeException;
 import topaz.main.Storage;
@@ -11,17 +18,10 @@ import topaz.task.Task;
 import topaz.task.Todo;
 import topaz.ui.Ui;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class CreateCommand extends Command {
     // Todo, Deadline, Event
 
-    private static final DateTimeFormatter dateTimeFormatter =  DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private String detail;
     public CreateCommand(String keyword, String detail) {
         super(keyword);

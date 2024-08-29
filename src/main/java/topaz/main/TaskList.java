@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
-    ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -51,5 +51,18 @@ public class TaskList {
         for (Task t: this.tasks) {
             fw.write(t.toFileRecord() + "\n");
         }
+    }
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof TaskList) {
+            TaskList other = (TaskList) object;
+            for (int i = 0; i < other.getSize(); i++) {
+                if (!this.tasks.get(i).equals(other.tasks.get(i))) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 }

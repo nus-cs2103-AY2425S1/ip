@@ -6,17 +6,23 @@ import java.util.ArrayList;
 
 public class Task {
     protected String description;
-    protected boolean isDone;
+    protected Boolean isDone = false;
+
+    public Task(String description, Boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
     }
 
     public void parseState(String state) throws InvalidStateException {
         try {
             int stateInt = Integer.parseInt(state);
-            if (stateInt == 1) this.setDone();
+            if (stateInt == 1) {
+                this.setDone();
+            }
         } catch (NumberFormatException e) {
             throw new InvalidStateException(state);
         }
@@ -24,7 +30,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return description;
+        return description + " isDone: " + isDone;
     }
 
     public String getStatusIcon() {
@@ -36,7 +42,7 @@ public class Task {
     }
 
     public void setDone() {
-       this.isDone = true;
+        this.isDone = true;
     }
 
     public void setUndo() {
