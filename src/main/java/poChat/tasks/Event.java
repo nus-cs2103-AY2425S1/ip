@@ -1,6 +1,8 @@
+package poChat.tasks;
+
 import java.time.LocalDateTime;
 
-class Event extends Task {
+public class Event extends Task {
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
 

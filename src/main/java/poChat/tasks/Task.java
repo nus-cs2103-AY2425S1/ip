@@ -1,7 +1,9 @@
+package poChat.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-abstract class Task {
+public abstract class Task {
     private final String taskDescription;
     private boolean isDone;
 

@@ -1,6 +1,8 @@
+package poChat.tasks;
+
 import java.time.LocalDateTime;
 
-class Deadline extends Task {
+public class Deadline extends Task {
     private final LocalDateTime deadline;
 
     public Deadline(String taskDescription, String deadline, boolean isDone) {

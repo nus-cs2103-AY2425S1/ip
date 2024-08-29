@@ -1,4 +1,6 @@
-class ToDo extends Task {
+package poChat.tasks;
+
+public class ToDo extends Task {
     public ToDo(String taskDescription, boolean isDone) {
         super(taskDescription, isDone);
     }

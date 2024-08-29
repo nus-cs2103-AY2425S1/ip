@@ -1,5 +1,9 @@
+package poChat.bot;
+
 import java.io.*;
 import java.util.ArrayList;
+import poChat.tasks.Task;
+import poChat.exceptions.ChatHistoryFileMissingException;
 
 class ChatData {
     private final String filename;

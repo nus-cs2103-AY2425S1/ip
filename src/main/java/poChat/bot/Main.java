@@ -1,7 +1,9 @@
+package poChat.bot;
+
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws TaskDescriptionEmptyException {
+    public static void main(String[] args) {
         PoChat poChat = new PoChat();
         ChatData chatData = new ChatData("src//main//chat_data.txt");
         poChat.load(chatData);

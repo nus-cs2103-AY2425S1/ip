@@ -1,3 +1,7 @@
+package poChat.bot;
+
+import poChat.exceptions.TaskDescriptionEmptyException;
+
 class PoChat {
     private TaskList taskList;
 
