@@ -28,7 +28,7 @@ public class Parser {
             if (markParts.length == 2) {
                 try {
                     int taskToMark = Integer.parseInt(markParts[1]) - 1;
-                    if (taskToMark > taskList.getBotMemory().size() - 1) {
+                    if (taskToMark > taskList.getBotMemory().size() - 1 || taskToMark < 0) {
                         throw new MollyException("Please select a valid task number.");
                     } else {
                         taskList.toggleTaskDone(taskToMark);
@@ -49,8 +49,12 @@ public class Parser {
             if (parts.length == 2) {
                 try {
                     int taskToDelete = Integer.parseInt(parts[1]) - 1;
-                    taskList.removeTask(taskToDelete);
-                    storage.saveTasks(taskList);
+                    if (taskToDelete > taskList.getBotMemory().size() - 1 || taskToDelete < 0) {
+                        throw new MollyException("Please select a valid task number.");
+                    } else {
+                        taskList.removeTask(taskToDelete);
+                        storage.saveTasks(taskList);
+                    }
                 } catch (NumberFormatException e) {
                     Ui.printLine();
                     throw new MollyException("Invalid command. Please enter a valid task number.");
