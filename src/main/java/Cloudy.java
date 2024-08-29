@@ -6,9 +6,15 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 
+import java.time.LocalDate;
+
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Cloudy {
 
@@ -135,27 +141,42 @@ public class Cloudy {
 
             // user adds Deadline task
             } else if (userInput.startsWith("deadline")) {
-                System.out.println("____________________________________________________________");
-                System.out.println("Got it. I've added this task:");
 
-                String[] parts = userInput.split("/by");
+                String[] parts = userInput.split("/by ");
                 String taskDescription = parts[0].substring(9).trim();
-                String deadline = parts.length > 1 ? parts[1].trim() : "";
-                Task newTask = new Deadline(taskDescription, deadline, false);
-                userList.add(newTask);
-                saveTasksToFile(userList);
+                String inputDeadline = parts.length > 1 ? parts[1].trim() : "";
 
-                System.out.println(newTask.printTaskOnList());
-                System.out.println("Now you have " + userList.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________");
+                String datePattern = "^\\d{2}/\\d{2}/\\d{4}$";
+                Pattern pattern = Pattern.compile(datePattern);
+                Matcher matcher = pattern.matcher(inputDeadline);
+
+                if (matcher.matches()) {
+                    try {
+                        String[] deadlineParts = inputDeadline.split("/");
+                        LocalDate deadline = LocalDate.parse(deadlineParts[2] + "-" + deadlineParts[1] + "-" + deadlineParts[0]);
+
+                        Task newTask = new Deadline(taskDescription, deadline, false);
+                        userList.add(newTask);
+                        saveTasksToFile(userList);
+
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(newTask.printTaskOnList());
+                        System.out.println("Now you have " + userList.size() + " tasks in the list.");
+                        System.out.println("____________________________________________________________");
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid format. Please enter a deadline with the format [task] /by dd/mm/yyyy.");
+                    }
+                } else {
+                    System.out.println("Invalid format. Please enter a deadline with the format [task] /by dd/mm/yyyy.");
+                }
 
                 // prompt for input
                 userInput = echo.nextLine();
 
             // user adds Event task
             } else if (userInput.startsWith("event")) {
-                System.out.println("____________________________________________________________");
-                System.out.println("Got it. I've added this task:");
+
 
                 String[] partsFrom = userInput.split("/from");
                 String taskDescription = partsFrom[0].substring(6).trim();
@@ -166,15 +187,39 @@ public class Cloudy {
                     if (partsTo.length > 1) {
                         endTime = partsTo[1].trim();
                     }
-
                 }
-                Task newTask = new Event(taskDescription, startTime, endTime, false);
-                userList.add(newTask);
-                saveTasksToFile(userList);
 
-                System.out.println(newTask.printTaskOnList());
-                System.out.println("Now you have " + userList.size() + " tasks in the list.");
-                System.out.println("____________________________________________________________");
+                String datePattern = "^\\d{2}/\\d{2}/\\d{4}$";
+                Pattern pattern = Pattern.compile(datePattern);
+                Matcher matcherStartTime = pattern.matcher(startTime);
+                Matcher matcherEndTime = pattern.matcher(endTime);
+
+                if (matcherStartTime.matches() && matcherEndTime.matches()) {
+                    try {
+                        String[] startTimeParts = startTime.split("/");
+                        String[] endTimeParts = startTime.split("/");
+                        LocalDate startTimeFinal =
+                                LocalDate.parse(startTimeParts[2] + "-" + startTimeParts[1] + "-" + startTimeParts[0]);
+                        LocalDate endTimeFinal =
+                                LocalDate.parse(endTimeParts[2] + "-" + endTimeParts[1] + "-" + endTimeParts[0]);
+
+                        Task newTask = new Event(taskDescription, startTimeFinal, endTimeFinal, false);
+                        userList.add(newTask);
+                        saveTasksToFile(userList);
+
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(newTask.printTaskOnList());
+                        System.out.println("Now you have " + userList.size() + " tasks in the list.");
+                        System.out.println("____________________________________________________________");
+
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid format. Please enter an event with the format [event] /from dd/mm/yyyy /to dd/mm/yyyy");
+                    }
+                } else {
+                    System.out.println("Invalid format. Please enter an event with the format [event] /from dd/mm/yyyy /to dd/mm/yyyy");
+                }
+
 
                 // prompt for input
                 userInput = echo.nextLine();
@@ -290,11 +335,11 @@ public class Cloudy {
             case "T":
                 return new Todo(taskDescription, isMarked);
             case "D":
-                String deadline = parts[3];
+                LocalDate deadline = LocalDate.parse(parts[3]);
                 return new Deadline(taskDescription, deadline, isMarked);
             case "E":
-                String startTime = parts[3];
-                String endTime = parts[4];
+                LocalDate startTime = LocalDate.parse(parts[3]);
+                LocalDate endTime = LocalDate.parse(parts[4]);
                 return new Event(taskDescription, startTime, endTime, isMarked);
             default:
                 return null;
