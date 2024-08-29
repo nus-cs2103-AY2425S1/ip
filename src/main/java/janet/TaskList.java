@@ -91,4 +91,16 @@ public class TaskList {
         // return "task deleted";
     }
 
+
+    public TaskList findTask(String keyword) {
+        // returns a TaskList, where tasks have the keyword in their descriptions.
+        TaskList taskList = new TaskList();
+        for (Task task : listOfTasks) {
+            if (task.getDescription().contains(keyword)) {
+                taskList.addTaskToList(task);
+            }
+        }
+        return taskList;
+    }
+
 }
