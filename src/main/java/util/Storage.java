@@ -1,13 +1,14 @@
 package util;
 
+import task.Task;
+import task.TaskList;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import task.Task;
-import task.TaskList;
 
 /**
  * The Storage class is responsible for loading tasks from and saving tasks to a file.
@@ -39,13 +40,13 @@ public class Storage {
             file.createNewFile();
             return tasks;
         }
-        Scanner fileReader = new Scanner(file);
-        while (fileReader.hasNext()) {
-            String taskLine = fileReader.nextLine();
-            Task task = Parser.parseTask(taskLine);
-            tasks.add(task);
+        try (Scanner fileReader = new Scanner(file)) {
+            while (fileReader.hasNext()) {
+                String taskLine = fileReader.nextLine();
+                Task task = Parser.parseTask(taskLine);
+                tasks.add(task);
+            }
         }
-        fileReader.close();
         return tasks;
     }
 
@@ -57,10 +58,10 @@ public class Storage {
      * @throws IOException If an I/O error occurs while saving the tasks.
      */
     public void save(TaskList tasks) throws IOException {
-        FileWriter fileWriter = new FileWriter(filePath);
-        for (Task task : tasks.getTasks()) {
-            fileWriter.write(task.toFileString() + "\n");
+        try (FileWriter fileWriter = new FileWriter(filePath)) {
+            for (Task task : tasks.getTasks()) {
+                fileWriter.write(task.toFileString() + "\n");
+            }
         }
-        fileWriter.close();
     }
 }

@@ -8,13 +8,13 @@ import java.util.ArrayList;
  * as well as to retrieve the list of tasks.
  */
 public class TaskList {
-    private ArrayList<Task> tasklist;
+    private ArrayList<Task> taskList;
 
     /**
      * Constructs an empty TaskList.
      */
     public TaskList() {
-        this.tasklist = new ArrayList<>();
+        this.taskList = new ArrayList<>();
     }
 
     /**
@@ -23,7 +23,7 @@ public class TaskList {
      * @param tasks An ArrayList of Task objects to initialize the TaskList.
      */
     public TaskList(ArrayList<Task> tasks) {
-        this.tasklist = tasks;
+        this.taskList = tasks;
     }
 
     /**
@@ -33,10 +33,10 @@ public class TaskList {
      * @param task The Task to be added.
      */
     public void add(Task task) {
-        tasklist.add(task);
+        taskList.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
     /**
@@ -46,11 +46,11 @@ public class TaskList {
      * @param index The index of the task to be deleted.
      */
     public void delete(int index) {
-        Task task = tasklist.get(index);
-        tasklist.remove(index);
+        Task task = taskList.get(index);
+        taskList.remove(index);
         System.out.println("Noted. I've removed this task:");
         System.out.println(task);
-        System.out.println("Now you have " + tasklist.size() + " tasks in the list.");
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
     /**
@@ -60,7 +60,7 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      */
     public void mark(int index) {
-        Task task = tasklist.get(index);
+        Task task = taskList.get(index);
         task.mark();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task);
@@ -73,7 +73,7 @@ public class TaskList {
      * @param index The index of the task to be marked as not done.
      */
     public void unmark(int index) {
-        Task task = tasklist.get(index);
+        Task task = taskList.get(index);
         task.unmark();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task);
@@ -85,7 +85,7 @@ public class TaskList {
      * @return An ArrayList of Task objects.
      */
     public ArrayList<Task> getTasks() {
-        return tasklist;
+        return taskList;
     }
 
     /**
@@ -96,8 +96,8 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
-        for (int i = 0; i < tasklist.size(); i++) {
-            sb.append((i + 1) + ". " + tasklist.get(i) + "\n");
+        for (int i = 0; i < taskList.size(); i++) {
+            sb.append((i + 1) + ". " + taskList.get(i) + "\n");
         }
         return sb.toString();
     }

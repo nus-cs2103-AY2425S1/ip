@@ -81,10 +81,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        if (this.done) {
-            return "[X] " + this.taskName;
-        } else {
-            return "[ ] " + this.taskName;
-        }
+        return (this.done ? "[X] " : "[ ] ") + this.taskName;
     }
 }

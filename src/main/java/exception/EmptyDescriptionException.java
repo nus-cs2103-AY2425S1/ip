@@ -6,6 +6,7 @@ package exception;
  */
 public class EmptyDescriptionException extends ScheduloException {
 
+
     /**
      * Constructs an EmptyDescriptionException with a specific task type.
      * The exception message indicates that the description of the task type cannot be empty.

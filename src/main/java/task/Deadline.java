@@ -1,8 +1,10 @@
 package task;
 
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 /**
  * The Deadline class represents a task with a specific deadline.
@@ -10,8 +12,8 @@ import java.time.LocalDate;
  */
 public class Deadline extends Task {
 
-    private LocalDateTime timedeadline;
-    private LocalDate datedeadline;
+    private LocalDateTime timeDeadline;
+    private LocalDate dateDeadline;
 
     /**
      * Constructs a Deadline with a name and a LocalDateTime deadline.
@@ -21,7 +23,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, LocalDateTime deadline) {
         super(name);
-        this.timedeadline = deadline;
+        this.timeDeadline = deadline;
     }
 
     /**
@@ -32,7 +34,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, LocalDate deadline) {
         super(name);
-        this.datedeadline = deadline;
+        this.dateDeadline = deadline;
     }
 
     /**
@@ -44,7 +46,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, LocalDateTime deadline, boolean isDone) {
         super(name, isDone);
-        this.timedeadline = deadline;
+        this.timeDeadline = deadline;
     }
 
     /**
@@ -56,7 +58,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, LocalDate deadline, boolean isDone) {
         super(name, isDone);
-        this.datedeadline = deadline;
+        this.dateDeadline = deadline;
     }
 
     /**
@@ -65,10 +67,10 @@ public class Deadline extends Task {
      * @return The formatted deadline as a String.
      */
     private String getDisplayStringDeadline() {
-        if (this.timedeadline != null) {
-            return this.timedeadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+        if (this.timeDeadline != null) {
+            return this.timeDeadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
         } else {
-            return this.datedeadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            return this.dateDeadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         }
     }
 
@@ -78,10 +80,10 @@ public class Deadline extends Task {
      * @return The formatted deadline as a String.
      */
     private String getStringDeadline() {
-        if (this.timedeadline != null) {
-            return this.timedeadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        if (this.timeDeadline != null) {
+            return this.timeDeadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         } else {
-            return this.datedeadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            return this.dateDeadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         }
     }
 
@@ -107,5 +109,4 @@ public class Deadline extends Task {
         String stringDeadline = this.getDisplayStringDeadline();
         return "[D] " + super.toString() + " (by: " + stringDeadline + ")";
     }
-
 }

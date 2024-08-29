@@ -1,11 +1,11 @@
-import java.io.IOException;
-
 import command.Command;
 import exception.ScheduloException;
 import task.TaskList;
 import util.Parser;
 import util.Storage;
 import util.Ui;
+
+import java.io.IOException;
 
 /**
  * The main class for the Schedulo application.
