@@ -19,18 +19,29 @@ public class TaskList {
     }
 
     public void markTaskAsDone(int i) {
-        tasks.get(i).markDone();
+        this.tasks.get(i).markDone();
     }
 
     public void unmarkTaskAsDone(int i) {
-        tasks.get(i).unmarkDone();
+        this.tasks.get(i).unmarkDone();
     }
 
     public int noOfTasks() {
-        return tasks.size();
+        return this.tasks.size();
     }
 
     public String taskAtIndexToString(int i) {
-        return tasks.get(i).toString();
+        return this.tasks.get(i).toString();
+    }
+
+    public ArrayList<Task> getTasksFromSearchString(String query) {
+        ArrayList<Task> matchingTasks = new ArrayList<Task>();
+        for (Task task : this.tasks) {
+            if (task.toString().contains(query)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        return matchingTasks;
     }
 }
