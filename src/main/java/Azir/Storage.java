@@ -12,6 +12,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage deals with loading tasks from the file
+ * and saving tasks in the file
+ */
 public class Storage {
     private String filePath;
 
@@ -19,6 +23,13 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads tasks from the hard disk
+     *
+     * @param filePath Path of current hard disk file
+     * @return List of tasks in the hard disk
+     * @throws FileNotFoundException If there is no hard disk file at filePath
+     */
     public static ArrayList<Task> readFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath);
         System.out.println("This is your current list:");
@@ -61,6 +72,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Helper method for write, writes content to hard disk
+     *
+     * @param filePath Path of current hard disk file
+     * @param lines List of formatted Task strings
+     */
     public static void writeToFile(String filePath, ArrayList<String> lines) {
         try {
             Files.write(Paths.get(filePath), lines);
@@ -69,10 +86,23 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the hard disk
+     *
+     * @return List of tasks in the hard disk
+     * @throws IOException If there are errors with the file
+     */
     public ArrayList<Task> load() throws IOException {
         return readFileContents(this.filePath);
     }
 
+    /**
+     * Saves tasks to hardDisk
+     *
+     * @param filePath Location of hard disk file
+     * @param lines List of tasks that have been formatted
+     * @throws IOException If there are errors with the file
+     */
     public void write(String filePath, ArrayList<String> lines) throws IOException {
         if (!Files.exists(Paths.get("./data"))) {
             Files.createDirectory(Paths.get("./data"));

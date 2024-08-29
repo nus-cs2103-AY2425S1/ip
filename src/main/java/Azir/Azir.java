@@ -39,6 +39,11 @@ public class Azir {
         }
     }
 
+    /**
+     * Runs the Azir chat bot
+     *
+     * @throws IOException If there are errors with the file
+     */
     public void run() throws IOException {
         ui.showWelcome();
         boolean isExit = false;
