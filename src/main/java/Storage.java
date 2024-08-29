@@ -77,29 +77,17 @@ public class Storage {
         }
     }
 
-    public void saveTaskList(ArrayList<Task> taskList) throws IOException {
+    public void saveTaskList(TaskList tasks) throws IOException {
         initialise();
+        ArrayList<Task> taskList = tasks.getTasks();
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)){
             for (Task task : taskList) {
-                String item = parseTaskToString(task);
+                String item = task.parseToFileFormat();
                 writer.write(item);
                 writer.newLine();
             }
-        } catch (SnipeException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Task is not a valid task");
         }
-    }
-
-    private String parseTaskToString(Task task) throws SnipeException{
-        String status = task.getStatus() ? "1" : "0";
-        if (task instanceof ToDo) {
-            return "T | " + status + " | " + task.getDescription();
-        } else if (task instanceof Deadline) {
-            return "D | " + status + " | " + task.getDescription() + " | " + ((Deadline) task).getFormattedDeadline();
-        } else if (task instanceof Event) {
-            String[] startAndEnd = ((Event) task).getFormattedStartAndEnd();
-            return "E | " + status + " | " + task.getDescription() + " | " + startAndEnd[0] + " | " + startAndEnd[1];
-        }
-        throw new SnipeException("Task is not a valid task");
     }
 }

@@ -54,6 +54,15 @@ public class Event extends Task {
         };
     }
 
+    @Override
+    public String parseToFileFormat() {
+        String status = getStatus() ? "1" : "0";
+        String[] formattedStartAndEnd = new String[]{
+                start != null ? start.format(INPUT_FORMAT) : "",
+                end != null ? end.format(INPUT_FORMAT) : ""};
+        return "E | " + status + " | " + this.description + " | " + formattedStartAndEnd[0] + " | " + formattedStartAndEnd[1];
+    }
+
     /**
      * Returns a string representation of the event task,
      * including its type indicator, description, start time, and end time.

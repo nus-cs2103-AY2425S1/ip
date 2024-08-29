@@ -71,6 +71,8 @@ public abstract class Task {
         this.isDone = !isDone;
     }
 
+    public abstract String parseToFileFormat();
+
     /**
      * Returns a string representation of the task, including its status and description.
      *
