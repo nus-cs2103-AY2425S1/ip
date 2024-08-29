@@ -94,10 +94,8 @@ public class Ui {
      * @param task the task that was added
      * @param size the new size of the task list
      */
-    public void showTaskAdded(Task task, int size) {
-        System.out.println(" Got it! I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + size + " tasks in the list.");
+    public String showTaskAdded(Task task, int size) {
+        return " Got it. I've added this task:\n   " + task + "\n Now you have " + size + " tasks in the list.";
     }
 
     /**

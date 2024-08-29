@@ -13,13 +13,15 @@ import wolfie.util.Ui;
 public abstract class Command {
     /**
      * Executes the command.
-     * @param tasks The list of tasks
-     * @param ui The user interface
+     *
+     * @param tasks   The list of tasks
+     * @param ui      The user interface
      * @param storage The storage object
-     * @throws IOException If an I/O error occurs
+     * @return The response to the user
+     * @throws IOException     If an I/O error occurs
      * @throws WolfieException If an error occurs while executing the command
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException;
     /**
      * Returns true if the program should exit after executing the command.
      * @return true if the program should exit after executing the command, false otherwise

@@ -22,7 +22,7 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException {
         String[] parts = arguments.split(" /from | /to ");
         if (parts.length < 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
             throw new WolfieException("The description, start time, and end time of an event cannot be empty.");
@@ -34,5 +34,6 @@ public class AddEventCommand extends Command {
         tasks.add(task);
         storage.save(tasks);
         ui.showTaskAdded(task, tasks.size());
+        return description;
     }
 }

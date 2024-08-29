@@ -22,7 +22,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException {
         String[] parts = arguments.split(" /by ");
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
             throw new WolfieException("The description and deadline of a deadline task cannot be empty.");
@@ -33,5 +33,6 @@ public class AddDeadlineCommand extends Command {
         tasks.add(task);
         storage.save(tasks);
         ui.showTaskAdded(task, tasks.size()); // Show the task added message
+        return description;
     }
 }

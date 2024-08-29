@@ -54,6 +54,17 @@ public class Wolfie {
         }
     }
 
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (WolfieException | IOException e) {
+            return e.getMessage();
+        }
+    }
     public static void main(String[] args) {
         new Wolfie("data/tasks.txt").run();
     }

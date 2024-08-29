@@ -19,7 +19,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException {
         if (index < 0 || index >= tasks.size()) {
             throw new WolfieException("Invalid task number. Please use existing numbers and not the description.");
         }
@@ -27,5 +27,6 @@ public class MarkCommand extends Command {
         task.markAsDone();
         storage.save(tasks);
         ui.showTaskMarked(task);
+        return null;
     }
 }

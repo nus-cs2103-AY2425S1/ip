@@ -20,7 +20,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, WolfieException {
         List<Task> matchingTasks = tasks.getTasks().stream()
                 .filter(task -> task.getDescription().contains(keyword))
                 .toList();
@@ -33,5 +33,6 @@ public class FindCommand extends Command {
                 ui.showMessage((i + 1) + ". " + matchingTasks.get(i));
             }
         }
+        return null;
     }
 }
