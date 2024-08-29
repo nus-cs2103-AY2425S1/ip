@@ -1,7 +1,5 @@
-package task;
+package ratchet.task;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList extends ArrayList<Task> {
@@ -18,7 +16,7 @@ public class TaskList extends ArrayList<Task> {
         return super.get(i);
     }
 
-    public Task unmarkTask(int i){
+    public Task unmarkTask(int i) {
         super.get(i).markAsNotDone();
         return super.get(i);
     }

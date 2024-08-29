@@ -1,10 +1,10 @@
-package task;
+package ratchet.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class DeadlineTask extends Task {
-    private LocalDate deadline;
+    private final LocalDate deadline;
 
     public DeadlineTask(String description, LocalDate deadline) {
         super(description);

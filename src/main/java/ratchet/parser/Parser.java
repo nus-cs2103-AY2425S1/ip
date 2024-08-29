@@ -1,13 +1,19 @@
-package parser;
+package ratchet.parser;
 
-import command.*;
-import exception.InvalidCommandArgumentException;
-import exception.InvalidCommandException;
-import exception.RatchetException;
-import task.DeadlineTask;
-import task.EventTask;
-import task.Task;
-import task.TodoTask;
+import ratchet.command.AddCommand;
+import ratchet.command.Command;
+import ratchet.command.DeleteCommand;
+import ratchet.command.ExitCommand;
+import ratchet.command.ListCommand;
+import ratchet.command.MarkCommand;
+import ratchet.command.UnmarkCommand;
+import ratchet.exception.InvalidCommandArgumentException;
+import ratchet.exception.InvalidCommandException;
+import ratchet.exception.RatchetException;
+import ratchet.task.DeadlineTask;
+import ratchet.task.EventTask;
+import ratchet.task.Task;
+import ratchet.task.TodoTask;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -15,23 +21,16 @@ import java.time.format.DateTimeParseException;
 public class Parser {
     public Command parse(String input) throws RatchetException {
         String command = input.split(" ")[0].toUpperCase();
-        switch (command) {
-        case "LIST":
-            return new ListCommand();
-        case "MARK":
-            return mark(input);
-        case "UNMARK":
-            return unmark(input);
-        case "TODO", "DEADLINE", "EVENT":
-            return addTask(input);
-        case "DELETE":
-            return delete(input);
-        case "BYE":
-            return new ExitCommand();
-        default:
-            throw new InvalidCommandException(
-                    "Ratchet is unable to " + "execute" + " " + command + "!");
-        }
+        return switch (command) {
+            case "LIST" -> new ListCommand();
+            case "MARK" -> mark(input);
+            case "UNMARK" -> unmark(input);
+            case "TODO", "DEADLINE", "EVENT" -> addTask(input);
+            case "DELETE" -> delete(input);
+            case "BYE" -> new ExitCommand();
+            default -> throw new InvalidCommandException(
+                    "Ratchet is unable to execute " + command + "!");
+        };
     }
 
     private Command addTask(String text) throws InvalidCommandArgumentException {
@@ -57,8 +56,8 @@ public class Parser {
             try {
                 description = split[0].split("deadline ")[1];
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidCommandArgumentException("The description of a deadline task cannot be"
-                        + " empty!");
+                throw new InvalidCommandArgumentException(
+                        "The description of a deadline task cannot be empty!");
             }
             task = new DeadlineTask(description, deadline);
         } else {
@@ -84,8 +83,8 @@ public class Parser {
             try {
                 description = split2[0].split("event ")[1];
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidCommandArgumentException("The description of a deadline task cannot be "
-                        + "empty!");
+                throw new InvalidCommandArgumentException(
+                        "The description of a deadline task cannot be empty!");
             }
             task = new EventTask(description, from, to);
         }

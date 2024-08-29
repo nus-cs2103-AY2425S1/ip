@@ -1,4 +1,4 @@
-package exception;
+package ratchet.exception;
 
 public class InvalidCommandException extends RatchetException {
     public InvalidCommandException(String message) {

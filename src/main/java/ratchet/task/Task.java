@@ -1,7 +1,7 @@
-package task;
+package ratchet.task;
 
 public abstract class Task {
-    private String description;
+    private final String description;
     private boolean isDone;
 
     public Task(String description) {
@@ -23,7 +23,7 @@ public abstract class Task {
     }
 
     private String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done ratchet.task with X
     }
 
     @Override
