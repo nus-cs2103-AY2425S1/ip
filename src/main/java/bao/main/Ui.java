@@ -1,4 +1,7 @@
+package bao.main;
+
 import java.util.Scanner;
+
 public class Ui {
     private Scanner scanner;
     private static String baoHappy =

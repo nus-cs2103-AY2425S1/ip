@@ -6,14 +6,14 @@ ____________________________________________________________
  |    3    |
  \________/
 
-Hello! I'm Bao but you can call me Bao
-What can Bao do for you?
+Hello! I'm bao.main.Bao but you can call me bao.main.Bao
+What can bao.main.Bao do for you?
 ____________________________________________________________
-Bao got it! Bao is now tracking:
+bao.main.Bao got it! bao.main.Bao is now tracking:
 [T] [ ] read book
 You have 1 tasks in the list
 ____________________________________________________________
-Bao got it! Bao is now tracking:
+bao.main.Bao got it! bao.main.Bao is now tracking:
 [T] [ ] write essay
 You have 2 tasks in the list
 ____________________________________________________________
