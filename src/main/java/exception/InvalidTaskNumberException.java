@@ -1,3 +1,4 @@
+package exception;
 public class InvalidTaskNumberException extends ScheduloException {
     
     public InvalidTaskNumberException() {

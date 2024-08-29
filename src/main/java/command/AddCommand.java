@@ -1,4 +1,15 @@
+package command;
 import java.io.IOException;
+
+import task.TaskList;
+
+import task.Task;
+
+import exception.ScheduloException;
+
+import util.Storage;
+
+import util.Ui;
 
 public class AddCommand extends Command {
     private Task task;
