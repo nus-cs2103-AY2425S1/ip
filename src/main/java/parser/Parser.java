@@ -30,6 +30,8 @@ public class Parser {
                 parseEvent(command);
             } else if (command.toLowerCase().startsWith("delete")) {
                 parseDelete(command);
+            } else if (command.toLowerCase().startsWith("find")) {
+                parseFind(command);
             } else {
                 throw new TakoException("Tako does not understand this command!");
             }
@@ -39,6 +41,19 @@ public class Parser {
         }
     }
 
+    public static void parseFind(String command) {
+        try {
+            if (command.length() > 4 && command.charAt(4) == ' ' && !command.substring(5).isBlank()) {
+                String targetString = command.substring(5);
+                Ui.findTargetString(targetString);
+            } else {
+                throw new TakoException("Wrong format! Find command should have the form 'find x', where x is not empty");
+            }
+        } catch (TakoException e) {
+            System.out.println(e.message());
+            Ui.promptInput();
+        }
+    }
     public static void parseMark(String command) {
         try {
             if (command.length() > 4 && command.charAt(4) == ' ') {
