@@ -42,10 +42,10 @@ public class Ui {
         } else {
             for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
                 if (i == taskList.getNumberOfTasks() - 1) {
-                    currentList += (i+1) + ". " + taskList.getListOfTasks().get(i) + "\n" + horizontalLine;
+                    currentList += (i+1) + ". " + taskList.getTask(i) + "\n" + horizontalLine;
                     break;
                 }
-                currentList += (i+1) + ". " + taskList.getListOfTasks().get(i) + "\n";
+                currentList += (i+1) + ". " + taskList.getTask(i) + "\n";
             }
             System.out.println(currentList);
         }
