@@ -14,7 +14,7 @@ public class Luffy {
 
     public static void validCommand(String command) throws LuffyException {
         command = command.trim();
-        String[] validCommands = {"mark", "unmark", "todo", "deadline", "event"};
+        String[] validCommands = {"mark", "unmark", "todo", "deadline", "event", "delete"};
         String[] parsedCommands = command.split(" ", 2);
 
        if (Arrays.stream(validCommands).noneMatch(parsedCommands[0]::equals)) {
@@ -137,6 +137,17 @@ public class Luffy {
                 textList.add(eventTask);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(String.format("  %s", eventTask.stringIsDone()));
+                System.out.println(String.format("Now you have %d tasks in the list.", textList.size()));
+                showLine();
+
+            } else if (echoPhrase.startsWith("delete ")) {
+
+                showLine();
+                int index = Integer.parseInt(echoPhrase.substring(7)) - 1;
+                textList.get(index).markDone();
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(String.format("  %s", textList.get(index).stringIsDone()));
+                textList.remove(index);
                 System.out.println(String.format("Now you have %d tasks in the list.", textList.size()));
                 showLine();
 
