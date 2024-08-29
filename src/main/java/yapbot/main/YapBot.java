@@ -10,6 +10,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -126,16 +131,29 @@ public class YapBot {
             }
 
             String taskName = taskDetails.substring(0, taskDetails.indexOf("/by")).strip();
-            String deadline = taskDetails.substring(taskDetails.indexOf("/by") + 3).strip();
+            String deadlineStr = taskDetails.substring(taskDetails.indexOf("/by") + 3).strip().toUpperCase();
 
             if (taskName.isEmpty()) {
                 throw new YapBotException("Error, Automated Task Suggestion module offline.\nTask details"
                         + " must be manually entered.");
             }
 
-            if (deadline.isEmpty()) {
+            if (deadlineStr.isEmpty()) {
                 throw new YapBotException("Error, Deadline Prediction module offline.\nManually input a "
                         + "deadline or use command \"todo\" for tasks without deadlines.");
+            }
+
+            LocalDateTime deadline;
+
+            if (deadlineStr.contains("AM") | deadlineStr.contains("PM")) {
+                if (deadlineStr.contains("/")) {
+                    deadline = LocalDateTime.parse(deadlineStr, DateTimeFormatter.ofPattern("ha yyyy/MM/dd"));
+                } else {
+                    deadline = LocalTime.parse(deadlineStr, DateTimeFormatter.ofPattern("ha")).atDate(LocalDate.now());
+                }
+
+            } else {
+                deadline = LocalDate.parse(deadlineStr, DateTimeFormatter.ofPattern("yyyy/MM/dd")).atStartOfDay();
             }
 
             Task task = new Deadline(taskName, deadline);
@@ -166,16 +184,16 @@ public class YapBot {
             String taskDeadlines = taskDetails.substring(taskDetails.indexOf("/"));
             int fromIndex = taskDeadlines.indexOf("/from");
             int toIndex = taskDeadlines.indexOf("/to");
-            String from;
-            String to;
+            String fromStr;
+            String toStr;
 
             // Checks order of /from and /to
             if (toIndex > fromIndex) {
-                from = taskDeadlines.substring(taskDeadlines.indexOf("/from") + 5, taskDeadlines.indexOf("/to")).strip();
-                to = taskDeadlines.substring(taskDeadlines.indexOf("/to") + 3).strip();
+                fromStr = taskDeadlines.substring(taskDeadlines.indexOf("/from") + 5, taskDeadlines.indexOf("/to")).strip();
+                toStr = taskDeadlines.substring(taskDeadlines.indexOf("/to") + 3).strip();
             } else {
-                to = taskDeadlines.substring(taskDeadlines.indexOf("/to") + 3, taskDeadlines.indexOf("/from")).strip();
-                from = taskDeadlines.substring(taskDeadlines.indexOf("/from") + 5).strip();
+                toStr = taskDeadlines.substring(taskDeadlines.indexOf("/to") + 3, taskDeadlines.indexOf("/from")).strip();
+                fromStr = taskDeadlines.substring(taskDeadlines.indexOf("/from") + 5).strip();
             }
 
             if (taskName.isEmpty()) {
@@ -183,20 +201,21 @@ public class YapBot {
                         + " must be manually entered.");
             }
 
-            if (to.isEmpty() && from.isEmpty()) {
+            if (toStr.isEmpty() && fromStr.isEmpty()) {
                 throw new YapBotException("Error, start and end times not detected.\nUse command \"todo\" for tasks " +
                         "without deadlines.");
             }
 
-            if (to.isEmpty()) {
+            if (toStr.isEmpty()) {
                 throw new YapBotException("Error, end time not detected.\nManual input of end time required.");
             }
 
-            if (from.isEmpty()) {
+            if (fromStr.isEmpty()) {
                 throw new YapBotException("Error, start time not detected.\nUse command \"deadline\" for tasks "
                         + "without start times.");
             }
-
+            LocalDateTime from = LocalDateTime.parse(toStr, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+            LocalDateTime to = LocalDateTime.parse(fromStr, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
             Task task = new Event(taskName, from, to);
             storedTasks.add(task);
 
@@ -243,6 +262,10 @@ public class YapBot {
             if (file.exists()) {
                 Scanner s =  new Scanner(file);
 
+                if (!s.hasNext()) {
+                    return false;
+                }
+
                 while (s.hasNext()) {
                     String[] taskData = s.nextLine().split("/");
                     String taskType = taskData[0];
@@ -265,7 +288,7 @@ public class YapBot {
                     case "D": {
                         int isDone = Integer.parseInt(taskData[1]);
                         String taskDetails = taskData[2];
-                        String deadline = taskData[3];
+                        LocalDateTime deadline = LocalDateTime.parse(taskData[3]);
                         Task task;
 
                         if (isDone == 1) {
@@ -280,8 +303,8 @@ public class YapBot {
                     case "E": {
                         int isDone = Integer.parseInt(taskData[1]);
                         String taskDetails = taskData[2];
-                        String from = taskData[3];
-                        String to = taskData[4];
+                        LocalDateTime from = LocalDateTime.parse(taskData[3]);
+                        LocalDateTime to = LocalDateTime.parse(taskData[4]);
                         Task task;
 
                         if (isDone == 1) {
@@ -484,6 +507,9 @@ public class YapBot {
                 System.out.println(PREFIX_LINE + "\nShutting down...\nFatal error: Save failed."
                         + "\nYour tasks may not load when YapBot starts again."
                         + "\nYapBot process terminated.\n" + POSTFIX_LINE);
+            } catch (DateTimeParseException e) {
+                System.out.println(PREFIX_LINE + "\nError, Dynamic DateTime Module offline."
+                        + "\nDate should be in format \"YYYY/MM/DD\" (eg. 5pm 2024/09/01)\n" + POSTFIX_LINE);
             }
 
             // Wait for next input from user unless bye command was given.
