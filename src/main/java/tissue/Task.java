@@ -2,25 +2,25 @@ package tissue;
 
 public class Task {
     private final String task;
-    private boolean done;
+    private boolean isDone;
 
-    public Task(boolean done, String task) {
-        this.done = done;
+    public Task(boolean isDone, String task) {
+        this.isDone = isDone;
         this.task = task;
     }
 
     public Task markTask() {
-        done = true;
+        isDone = true;
         return this;
     }
 
     public Task unmarkTask() {
-        done = false;
+        isDone = false;
         return this;
     }
 
-    public boolean getDone() {
-        return done;
+    public boolean getIsDone() {
+        return isDone;
     }
 
     public String getTask() {
@@ -29,6 +29,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return done ? "[X] " + task : "[ ] " + task;
+        return isDone ? "[X] " + task : "[ ] " + task;
     }
 }

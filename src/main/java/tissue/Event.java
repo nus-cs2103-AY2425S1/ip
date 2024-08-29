@@ -35,6 +35,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         String task = super.getTask() + " " + String.format("(from: %s to: %s)", from, to);
-        return super.getDone() ? "[E][X] " + task : "[E][ ] " + task;
+        return super.getIsDone() ? "[E][X] " + task : "[E][ ] " + task;
     }
 }
