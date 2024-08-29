@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,7 +26,74 @@ public class Eevee {
         }
     }
 
+    private static final String FILE_PATH = "data/tasks.txt";
+
     /**
+     * Appends desired String to the file.
+     *
+     * @param filePath The file path of target file.
+     * @param textToAppend The String to be appended into the file.
+     * @throws IOException Input / Output exceptions.
+     */
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAppend);
+        fw.close();
+    }
+
+    /**
+     * Prints contents of the file.
+     *
+     * @param filePath The file that is to be printed.
+     * @throws FileNotFoundException Exception if the file is not found.
+     */
+    private static void printFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
+    }
+
+    private static void loadTasks(String filePath, ArrayList<Task> tasks) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner scanner = new Scanner(f);
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            String[] taskData = line.split("\\|");
+
+            String type = taskData[0];
+            boolean isDone = taskData[1].equals("1");
+            String description = taskData[2];
+
+            switch (type) {
+            case "T":
+                Todo t = new Todo(description);
+                tasks.add(t);
+                break;
+
+            case "D":
+                String deadline = taskData[3];
+                Deadline d = new Deadline(description, deadline);
+                tasks.add(d);
+                break;
+
+            case "E":
+                String from = taskData[3];
+                String to = taskData[4];
+                Event e = new Event(description, from, to);
+                tasks.add(e);
+                break;
+
+            default:
+                System.out.println("Invalid task found!");
+                break;
+            }
+        }
+    }
+
+    /** 
      * Serves as the entry point for the Eevee program.
      *
      * @param args Command-line arguments.
@@ -32,6 +103,12 @@ public class Eevee {
         String divider = "____________________________________________________________\n";
         String greeting = "Hello! I'm Eevee\nWhat can I do for you?\n";
         String exit = "Bye. Hope to see you again soon!\n";
+
+        try {
+            loadTasks(FILE_PATH, tasks);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+        }
 
         System.out.print(divider + greeting + divider);
 
@@ -58,7 +135,8 @@ public class Eevee {
                 case MARK: {
                     int taskNumber = scanner.nextInt();
                     if (taskNumber > tasks.size()) {
-                        throw new EeveeException("No task under the given task number. Did you type the wrong number?");
+                        throw new EeveeException("No task under the given task number. "
+                                + "Did you type the wrong number?");
                     }
                     Task t = tasks.get(taskNumber - 1);
                     if (t.isDone) {
@@ -71,7 +149,8 @@ public class Eevee {
                 case UNMARK: {
                     int taskNumber = scanner.nextInt();
                     if (taskNumber > tasks.size()) {
-                        throw new EeveeException("No task under the given task number. Did you type the wrong number?");
+                        throw new EeveeException("No task under the given task number. "
+                                + "Did you type the wrong number?");
                     }
                     Task t = tasks.get(taskNumber - 1);
                     if (!t.isDone) {
@@ -85,7 +164,8 @@ public class Eevee {
                 case DELETE: {
                     int taskNumber = scanner.nextInt();
                     if (taskNumber > tasks.size()) {
-                        throw new EeveeException("No task under the given task number. Did you type the wrong number?");
+                        throw new EeveeException("No task under the given task number. "
+                                + "Did you type the wrong number?");
                     }
                     Task t = tasks.get(taskNumber - 1);
                     tasks.remove(taskNumber - 1);
@@ -95,17 +175,25 @@ public class Eevee {
                 case TODO: {
                     String s = scanner.nextLine().trim();
                     if (s.isEmpty()) {
-                        throw new EeveeException("No task found :( Please input the task details and description correctly");
+                        throw new EeveeException("No task found :( "
+                                + "Please input the task details and description correctly");
                     }
                     Todo t = new Todo(s);
                     tasks.add(t);
+                    try {
+                        appendToFile(FILE_PATH, "T" + "|" + t.getStatus() + "|"
+                                + t.getDescription() + "\n");
+                    } catch (IOException e) {
+                        throw new EeveeException("Unable to store task!");
+                    }
                     System.out.println("Added the following task to your list:\n" + t);
                     break;
                 }
                 case DEADLINE: {
                     String s = scanner.nextLine().trim();
                     if (s.isEmpty()) {
-                        throw new EeveeException("No task found :( Please input the task details and description correctly");
+                        throw new EeveeException("No task found :( "
+                                + "Please input the task details and description correctly");
                     }
                     String[] info = s.split("/", 2);
                     if (info.length < 2) {
@@ -114,13 +202,20 @@ public class Eevee {
                     }
                     Deadline d = new Deadline(info[0], info[1]);
                     tasks.add(d);
+                    try {
+                        appendToFile(FILE_PATH, "D" + "|" + d.getStatus() + "|"
+                                + d.getDescription() + "|" + ((Deadline) d).getDeadline() + "\n");
+                    } catch (IOException e) {
+                        throw new EeveeException("Unable to store task!");
+                    }
                     System.out.println("Added the following task to your list:\n" + d);
                     break;
                 }
                 case EVENT: {
                     String s = scanner.nextLine().trim();
                     if (s.isEmpty()) {
-                        throw new EeveeException("No task found :( Please input the task details and description correctly");
+                        throw new EeveeException("No task found :( "
+                                + "Please input the task details and description correctly");
                     }
                     String[] info = s.split("/", 3);
                     if (info.length < 3) {
@@ -130,6 +225,12 @@ public class Eevee {
                     }
                     Event e = new Event(info[0], info[1], info[2]);
                     tasks.add(e);
+                    try {
+                        appendToFile(FILE_PATH, "E" + "|" + e.getStatus() + "|"
+                                + e.getDescription() + "|" + ((Event) e).getFrom() + "|" + ((Event) e).getTo() + "\n");
+                    } catch (IOException exception) {
+                        throw new EeveeException("Unable to store task!");
+                    }
                     System.out.println("Added the following task to your list:\n" + e);
                     break;
                 }
