@@ -16,12 +16,16 @@
             return this.description;
         }
 
-        public void mark() {
+        public void setMark() {
             this.isDone = true;
         }
 
-        public void unmark() {
+        public void setUnmark() {
             this.isDone = false;
+        }
+
+        public String toOutput() {
+            return " ";
         }
 
         @Override

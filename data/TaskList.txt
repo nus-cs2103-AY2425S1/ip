@@ -1,0 +1,6 @@
+D | 0 | this | 4pm
+D | 1 | that | 6am
+E | 0 | haha | July 6th 2pm-July 6th 10am
+E | 0 | lol | May 5th 6pm-June 8th 9am
+T | 0 | hello
+E | 0 | akdsjflsajf | 6pm-9pm
