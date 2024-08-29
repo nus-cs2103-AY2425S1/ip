@@ -31,7 +31,7 @@ public class Ekud {
 
         // load storage
         ui.printOutput("Before we start, let me try to find your tasks!!");
-        if (storage.doesPathExists()) {
+        if (storage.hasExistingPath()) {
             ui.printOutput("Found them! I'm going to load them into the system now!");
             storage.loadTasks(tasks, ui);
         } else {

@@ -1,6 +1,5 @@
 package ekud.commands;
 
-import ekud.exceptions.EkudException;
 import ekud.components.Storage;
 import ekud.components.Ui;
 import ekud.task.Task;
@@ -8,7 +7,7 @@ import ekud.components.TaskList;
 
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws EkudException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.isEmpty()) {
             ui.printOutput("Would Ya look at that: No tasks to be found. Shocking ain't it");
         } else {
