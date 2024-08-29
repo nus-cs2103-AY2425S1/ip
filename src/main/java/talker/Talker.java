@@ -53,6 +53,5 @@ public class Talker {
     public static void main(String[] args) {
         new Talker().run();
     }
-
 }
 
