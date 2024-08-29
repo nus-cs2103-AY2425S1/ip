@@ -19,22 +19,21 @@ public class Talker {
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+    private static Ui ui = new Ui(NAME);
+
     public static void main(String[] args) {
 
         try {
             readFile();
         } catch (TalkerException e) {
-            System.out.println("Error: "+ e.getMessage());
+            ui.printError(e);
         }
 
-        System.out.println(LINE);
-        System.out.printf("Hello! I'm %s\n", NAME);
-        System.out.println("What can I do for you?");
-        System.out.println(LINE);
+        ui.printWelcome();
         Scanner reader = new Scanner(System.in);
         // read user input
         String input = reader.nextLine();
-        System.out.println(LINE);
+        ui.printLine();
 
         // if command "bye" entered, exit
         while (!input.equals("bye")) {
@@ -42,16 +41,14 @@ public class Talker {
                 manageInputs(input);
                 writeFile();
             } catch (TalkerException e) {
-                System.out.println("Error: " + e.getMessage());
+                ui.printError(e);
             } finally {
-                System.out.println(LINE);
+                ui.printLine();
                 input = reader.nextLine();
-                System.out.println(LINE);
+                ui.printLine();
             }
         }
-
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.print(LINE);
+        ui.printGoodBye();
     }
 
     public static void printTasksOn(String date) throws TalkerException {
@@ -62,13 +59,13 @@ public class Talker {
         } catch (DateTimeException e) {
             throw new TalkerException("Incorrect date format. Try again with: yyyy/MM/dd");
         }
-        System.out.println("These are your tasks on " + targetDate.format(OUTPUT_FORMAT) + ":");
+        ui.printTasksOn(targetDate.format(OUTPUT_FORMAT));
         for (Task task: list) {
             if (task instanceof Deadline) {
                 LocalDate deadline = ((Deadline) task).getDeadline().toLocalDate();
                 if (targetDate.isBefore(deadline) || targetDate.isEqual(deadline)) {
                     if (!task.isComplete()) {
-                        System.out.println(task);
+                        ui.printTask(task);
                     }
                 }
             } else if (task instanceof Event) {
@@ -78,7 +75,7 @@ public class Talker {
                 if ((targetDate.isAfter(start) || targetDate.isEqual(start))
                         && (targetDate.isBefore(end) || targetDate.isEqual(end))) {
                     if (!task.isComplete()) {
-                        System.out.println(task);
+                        ui.printTask(task);
                     }
                 }
             }
@@ -204,18 +201,14 @@ public class Talker {
         if (list.isEmpty()) {
             throw new TalkerException("List is empty!");
         }
-
-        System.out.println("Here are the tasks in your list:");
-
-        for (int i = 0; i < list.size(); i++) {
-            System.out.printf("%d.%s\n", i + 1, list.get(i));
-        }
+        ui.printTaskList(list);
     }
 
     private static void markTaskComplete(String[] parsed) throws TalkerException {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
-            System.out.println(list.get(index).mark());
+            list.get(index).mark();
+            ui.printTask(list.get(index));
         } catch (NumberFormatException e) {
             throw new TalkerException("Mark format wrong. Try again with: mark <task number>");
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -226,7 +219,8 @@ public class Talker {
     private static void unmarkTaskComplete(String[] parsed) throws TalkerException {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
-            System.out.println(list.get(index).unmark());
+            list.get(index).unmark();
+            ui.printTask(list.get(index));
         } catch (NumberFormatException e) {
             throw new TalkerException("Unmark format wrong. Try again with: unmark <task number>");
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -237,12 +231,8 @@ public class Talker {
     private static void deleteTask(String[] parsed) throws TalkerException {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
-
             Task removed = list.remove(index);
-
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(removed);
-            System.out.printf("Now you have %d tasks in the list.\n", list.size());
+            ui.printTaskDelete(removed, list.size());
         } catch (NumberFormatException e) {
             throw new TalkerException("Delete format wrong. Try again with: delete <task number>");
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -253,13 +243,9 @@ public class Talker {
     private static void createToDo(String input) throws TalkerException {
         try {
             String desc = input.substring(5);
-
             Task newTask = new ToDo(desc);
-
             list.add(newTask);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(newTask);
-            System.out.printf("Now you have %d tasks in the list.\n", list.size());
+            ui.printTaskAdd(newTask, list.size());
         } catch (IndexOutOfBoundsException e) {
             throw new TalkerException("ToDo format wrong. Try again with: todo <description>");
         }
@@ -274,11 +260,8 @@ public class Talker {
             String by = parsed[1];
 
             Task newTask = new Deadline(desc, by);
-
             list.add(newTask);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(newTask);
-            System.out.printf("Now you have %d tasks in the list.\n", list.size());
+            ui.printTaskAdd(newTask, list.size());
         } catch (IndexOutOfBoundsException e) {
             throw new TalkerException(
                     "Deadline format wrong. Try again with: deadline <description> /by <dd-MM-yyyy HH:mm>");
@@ -298,9 +281,7 @@ public class Talker {
             Task newTask = new Event(desc, from, to);
 
             list.add(newTask);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(newTask);
-            System.out.printf("Now you have %d tasks in the list.\n", list.size());
+            ui.printTaskAdd(newTask, list.size());
         } catch (IndexOutOfBoundsException e) {
             throw new TalkerException(
                     "Event format wrong. Try again with: event <description> " +
