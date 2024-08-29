@@ -19,9 +19,6 @@ public class Bob {
     public static void main(String[] args) {
 
         List<Task> myTasks = readData();
-        LocalDate test1 = LocalDate.parse("19/12/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu"));
-        System.out.println(test1);
-
 
         System.out.print(DIVIDER + GREETINGS + DIVIDER);
 
