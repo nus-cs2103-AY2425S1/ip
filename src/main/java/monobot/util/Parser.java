@@ -43,6 +43,8 @@ public class Parser {
             return new ExitCommand();
         case INVALID:
             return new InvalidCommand();
+        case FIND:
+            return new FindCommand(getSearch(input));
         default:
             throw new IllegalArgumentException();
         }
@@ -72,6 +74,8 @@ public class Parser {
             return CommandType.DELETE;
         case "bye":
             return CommandType.BYE;
+        case "find":
+            return CommandType.FIND;
         default:
             return CommandType.INVALID;
         }
@@ -87,7 +91,7 @@ public class Parser {
     public static Task parseTask(String input) throws MonoBotException {
         String[] parts = input.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new MonoBotException("monobot.task.Task details are missing");
+            throw new MonoBotException("Task details are missing");
         }
 
         CommandType command = parseCommandType(parts[0]);
@@ -118,6 +122,14 @@ public class Parser {
             throw new MonoBotException("Please specify which task to process");
         }
         return Integer.parseInt(parts[1].trim()) - 1;
+    }
+
+    private static String getSearch(String input) throws MonoBotException {
+        String[] parts = input.split(" ", 2);
+        if (parts.length != 2 || parts[1].trim().isEmpty()) {
+            throw new MonoBotException("Please specify which task to process");
+        }
+        return parts[1];
     }
 
     /**

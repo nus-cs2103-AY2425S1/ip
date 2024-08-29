@@ -60,6 +60,19 @@ public class Ui {
         printHorizontalLine();
     }
 
+    public void printMatchingTasks(TaskList taskList) {
+        printHorizontalLine();
+        if (taskList.isEmpty()) {
+            System.out.println("No matching tasks found");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < taskList.size(); i++) {
+                System.out.printf("%d. %s%n", i + 1, taskList.getTask(i));
+            }
+        }
+        printHorizontalLine();
+    }
+
     /**
      * Prints task that was just added by user.
      *
