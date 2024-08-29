@@ -1,5 +1,8 @@
 T | 1 | read book
-D | 1 | finish the computing project |  Monday
 T | 0 | read books
-D | 0 | read a novel | Mon
 T | 0 | go for a jog
+E | 0 | prepare for debate | 2pm | 4pm
+T | 0 | waef
+T | 0 | asdfasadfsadf
+T | 0 | sdfawersdfasdfasf
+D | 0 | play | 2024-08-31T19:00
