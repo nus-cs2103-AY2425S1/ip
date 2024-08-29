@@ -1,7 +1,5 @@
 package serenity;
 
-import serenity.SerenityException;
-
 import java.util.ArrayList;
 
 public class TaskList {
@@ -103,6 +101,30 @@ public class TaskList {
 
         return message;
 
+    }
+
+    public String findTask(String input) throws SerenityException {
+
+        String[] parts = input.split(" ");
+        if (parts.length == 1) {
+            throw new SerenityException("Error: Missing keyword.");
+        }
+
+        String keyWord = parts[1].strip();
+        ArrayList<Task> foundTasks = new ArrayList<>();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).toString().contains(keyWord)) {
+                foundTasks.add(tasks.get(i));
+            }
+        }
+
+        String message = "Here are the matching tasks in your list:";
+        for (int j = 0; j < foundTasks.size(); j++) {
+            int index = j + 1;
+            message += "\n" + index + ". " + foundTasks.get(j);
+        }
+        return message;
     }
 
     @Override

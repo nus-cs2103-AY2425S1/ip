@@ -32,6 +32,10 @@ public class Parser {
             ui.showMessage(message);
             storage.writeToFile(tasks);
             break;
+        case "find":
+            message = tasks.findTask(input);
+            ui.showMessage(message);
+            break;
         default:
             ui.showMessage("Error: Invalid task.");
             break;
