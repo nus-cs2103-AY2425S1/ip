@@ -4,7 +4,6 @@ import Denim.Tasks.Event;
 import Denim.Exceptions.DenimException;
 import Denim.TaskList;
 import Denim.Storage.TaskIO;
-import Denim.Tasks.Task;
 
 import java.time.LocalDateTime;
 
