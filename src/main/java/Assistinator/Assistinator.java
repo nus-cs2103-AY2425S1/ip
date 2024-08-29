@@ -60,6 +60,8 @@ public class Assistinator {
                 tasks.deleteTask(deleteIndex);
                 storage.saveTasks(tasks.getTasks());
                 return "Task " + (deleteIndex + 1) + " deleted successfully. Number of Tasks: " + tasks.size();
+            case FIND:
+                return tasks.filterTasks(fullCommand.substring(fullCommand.indexOf(' ') + 1));
             default:
                 throw new AssitinatorExceptions("Command does not exist");
         }
