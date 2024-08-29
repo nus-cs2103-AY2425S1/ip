@@ -20,6 +20,14 @@ public class Task {
         return (this.isDone ? "X" : " ");
     }
 
+    public String getSaveFormat() {
+        return (this.isDone ? "1" : "0") + "|" + this.description;
+    }
+
+    public Task loadTask(String task) {
+        return this;
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;

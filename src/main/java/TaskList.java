@@ -43,6 +43,14 @@ public class TaskList {
         return list.toString();
     }
 
+    public String getSaveFormatList() {
+        StringBuilder list = new StringBuilder();
+        for (Task task : this.tasks) {
+            list.append(task.getSaveFormat()).append("\n");
+        }
+        return list.toString();
+    }
+
     public int getSize() {
         return tasks.size();
     }
