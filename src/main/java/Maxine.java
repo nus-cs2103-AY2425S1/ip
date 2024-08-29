@@ -93,9 +93,6 @@ public class Maxine {
     public static void main(String[] args) throws Exception {
         System.out.println("Hi! Nice to meet you :) I am Maxine");
         FileReading.rememberFileContents("data/maxine.txt", list);
-//        switch (answer) {
-//            case "bye":
-//        }
 
         while (true) {
             String answer = ask();
