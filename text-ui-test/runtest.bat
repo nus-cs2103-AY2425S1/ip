@@ -15,8 +15,8 @@ IF ERRORLEVEL 1 (
 REM no error here, errorlevel == 0
 
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-REM change Duke to Knight2103
-java -classpath ..\bin Knight2103 < input.txt > ACTUAL.TXT
+REM change Duke to knight2103.Knight2103
+java -classpath ..\bin knight2103.Knight2103 < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output, and output ONLY THE DIFFERENCES
 FC ACTUAL.TXT EXPECTED.TXT

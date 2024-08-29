@@ -1,10 +1,12 @@
+package knight2103.tasks;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     protected final LocalDate deadline;
 
-    Deadline(String description, String deadline) {
+    public Deadline(String description, String deadline) {
         super(description);
         this.deadline = LocalDate.parse(deadline);
     }

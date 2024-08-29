@@ -1,3 +1,7 @@
+package knight2103.files;
+
+import knight2103.tasks.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,7 +13,7 @@ import java.util.Scanner;
 
 public class Storage {
     private final File taskFile;
-    Storage(String filePath) {
+    public Storage(String filePath) {
         this.taskFile = new File(filePath);
     }
 
@@ -68,19 +72,19 @@ private Optional<Task> formatLineToTask(String lineInFile) {
         switch (lineArray[0]) {
             case "T":
                 if (lineArray.length != 3) {
-                    throw new FileContentsInvalid("Number of columns mismatch. There should be 3 for Todo");
+                    throw new FileContentsInvalid("Number of columns mismatch. There should be 3 for knight2103.tasks.Todo");
                 }
                 taskToAdd = new Todo(lineArray[2]);
                 return Optional.of(checkForMarkedFormat(lineArray, taskToAdd));
             case "D":
                 if (lineArray.length != 4) {
-                    throw new FileContentsInvalid("Number of columns mismatch. There should be 4 for Deadline");
+                    throw new FileContentsInvalid("Number of columns mismatch. There should be 4 for knight2103.tasks.Deadline");
                 }
                 try {
                     taskToAdd = new Deadline(lineArray[2], lineArray[3]);
                     return Optional.of(checkForMarkedFormat(lineArray, taskToAdd));
                 } catch (DateTimeParseException e) {
-                    System.out.println("Deadline format is wrong in the file contents. For deadline, it should be yyyy-MM-dd format.");
+                    System.out.println("knight2103.tasks.Deadline format is wrong in the file contents. For deadline, it should be yyyy-MM-dd format.");
                 }
                 break;
             case "E":
@@ -91,7 +95,7 @@ private Optional<Task> formatLineToTask(String lineInFile) {
                     taskToAdd = new Event(lineArray[2], lineArray[3], lineArray[4]);
                     return Optional.of(checkForMarkedFormat(lineArray, taskToAdd));
                 } catch (DateTimeParseException e) {
-                        System.out.println("Deadline format is wrong in the file contents. For events, it should be yyyy-MM-ddThh:mm format");
+                        System.out.println("knight2103.tasks.Deadline format is wrong in the file contents. For events, it should be yyyy-MM-ddThh:mm format");
                 }
                 break;
             default:

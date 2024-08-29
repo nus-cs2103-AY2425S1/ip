@@ -1,3 +1,5 @@
+package knight2103.tasks;
+
 import java.util.ArrayList;
 
 // TASKLIST CANNOT HAVE UI
@@ -5,11 +7,11 @@ import java.util.ArrayList;
 public class TaskList {
     private final ArrayList<Task> taskList;
 
-    TaskList() {
+    public TaskList() {
         this.taskList = new ArrayList<Task>();
     }
 
-    TaskList(ArrayList<Task> storageData) {
+    public TaskList(ArrayList<Task> storageData) {
         this.taskList = storageData;
     }
 
