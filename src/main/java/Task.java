@@ -14,6 +14,11 @@ abstract public class Task {
         this.completed = false;
     }
 
+    public String getSaveFormat() {
+        String s = this.completed ? "1 | " : "0 | ";
+        return s + this.name;
+    }
+
     @Override
     public String toString() {
         String completedBox = this.completed ? "[X] " : "[ ] ";
