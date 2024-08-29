@@ -65,12 +65,8 @@ public class Katheryne {
                 } else if (commandWord.equals("find")) {
                     System.out.println(c.executeFind(str));
                 } else {
-<<<<<<< HEAD
-                    throw new InvalidInputException("I'm sorry, Katheryne is unable to comprehend your request.");
-=======
                     throw new InvalidInputException("Katheryne: " +
                             "I'm sorry, Katheryne is unable to comprehend your request.");
->>>>>>> branch-A-CodingStandard
                 }
                 storage.save(taskList);
             } catch (InvalidInputException e) {
