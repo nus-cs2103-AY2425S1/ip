@@ -73,7 +73,7 @@ public class Storage {
     public void saveToFile() {
         FileWriter fw =  null;
         try {
-            fw = new FileWriter("src/main/data/savedTasks.txt");
+            fw = new FileWriter(filePath);
             fw.write(taskList.getTasksToSave());
             fw.close();
         } catch (IOException e) {
