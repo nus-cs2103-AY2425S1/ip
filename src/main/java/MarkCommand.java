@@ -8,7 +8,7 @@ public class MarkCommand extends Command {
 
     public void execute(TaskList tasks,Ui ui, Storage storage) {
         if (index >= tasks.getLength() || index < 0) {
-            ui.showMarkingError();
+            ui.showTaskNotFoundError();
             return;
         }
         tasks.getTask(index).markCompleted();
