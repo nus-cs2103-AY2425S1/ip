@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-public class Task implements Serializable {
+public abstract class Task implements Serializable {
     private static final long serialVersionID = 1L;
 
     protected String description;
@@ -19,4 +19,6 @@ public class Task implements Serializable {
     public void markAsNotDone() {
         this.isDone = false;
     }
+
+    public abstract String getInitDesc();
 }
