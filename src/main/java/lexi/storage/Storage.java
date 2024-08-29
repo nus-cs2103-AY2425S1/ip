@@ -1,3 +1,11 @@
+package lexi.storage;
+
+import lexi.exception.LexiException;
+import lexi.task.Deadline;
+import lexi.task.Event;
+import lexi.task.Task;
+import lexi.task.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

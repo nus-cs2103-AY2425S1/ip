@@ -1,3 +1,7 @@
+package lexi.ui;
+
+import lexi.task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

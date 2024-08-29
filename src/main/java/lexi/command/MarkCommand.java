@@ -1,4 +1,10 @@
-import java.util.ArrayList;
+package lexi.command;
+
+import lexi.exception.LexiException;
+import lexi.storage.Storage;
+import lexi.task.Task;
+import lexi.task.TaskList;
+import lexi.ui.Ui;
 
 public class MarkCommand extends Command {
     private int taskNumber;

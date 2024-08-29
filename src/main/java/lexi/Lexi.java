@@ -1,3 +1,12 @@
+package lexi;
+
+import lexi.command.Command;
+import lexi.exception.LexiException;
+import lexi.parser.Parser;
+import lexi.storage.Storage;
+import lexi.task.TaskList;
+import lexi.ui.Ui;
+
 public class Lexi {
 
     private Storage storage;

@@ -1,3 +1,4 @@
+package lexi.command;
 public enum Commands {
         TODO("Adds a todo task."),
         DEADLINE("Adds a task with a deadline."),
