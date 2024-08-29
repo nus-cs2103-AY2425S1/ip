@@ -75,6 +75,12 @@ public class Ui {
         }
     }
 
+    public void showFindMessage(TaskList taskList) {
+        // taskList is a subset of the current total taskList
+        System.out.println(horizontalLine + "\nHere are the matching tasks in your list:\n"
+                + displayTasksInList(taskList) + "\n" + horizontalLine);
+    }
+
     public void showDeleteTaskMessage(Task deletedTask, int numberOfTasks) {
         System.out.println(horizontalLine + "\nNoted. I've removed this task:\n" +
                 String.format("    %s\nNow you have %d tasks in your list\n",
