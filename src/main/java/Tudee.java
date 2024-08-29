@@ -1,6 +1,5 @@
 import java.util.List;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Tudee {
     enum Command {
@@ -74,8 +73,7 @@ public class Tudee {
                         System.out.println("Now you have " + count + " tasks in the list. \n");
                         System.out.println("____________________________________________________________ \n");
                     }
-                }
-                else if (cmd == Command.DELETE) {
+                } else if (cmd == Command.DELETE) {
                     int index = Integer.parseInt(inputArray[1]) - 1;
                     Task temp = list.remove(index);
                     count--;
@@ -84,13 +82,11 @@ public class Tudee {
                     System.out.println(temp);
                     System.out.println("Now you have " + count + " tasks in the list. \n");
                     System.out.println("____________________________________________________________ \n");
-                }
-                else {
+                } else {
                     throw new TudeeException("Everything has limits, and this is my limit.");
                 }
                 storage.save(list);
-            }
-            catch (TudeeException exception) {
+            } catch (TudeeException exception) {
                 System.out.println("____________________________________________________________ \n");
                 System.out.println(exception.getMessage());
                 System.out.println("____________________________________________________________ \n");
