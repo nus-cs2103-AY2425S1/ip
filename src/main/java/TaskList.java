@@ -141,4 +141,14 @@ public class TaskList {
             printLine();
         }
     }
+
+    public String fileString() {
+        StringBuilder returnStr = new StringBuilder();
+
+        for (Task task : list) {
+            returnStr.append(task.toFileString()).append(System.lineSeparator());
+        }
+
+        return returnStr.toString();
+    }
 }

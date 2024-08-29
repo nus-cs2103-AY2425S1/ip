@@ -10,7 +10,7 @@ public class Ui {
         System.out.println("    ____________________________________________________________________________");
     }
 
-    public void addToList() {
+    private void addToList() {
 
     }
 
@@ -83,5 +83,4 @@ public class Ui {
         System.out.println("    See you next time.");
         printLine();
     }
-
 }
