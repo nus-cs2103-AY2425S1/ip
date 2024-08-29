@@ -37,9 +37,7 @@ public class LBot {
         while (true) {
             try {
                 userInput = scanner.nextLine();
-                ui.print(userInput);
                 Command c = Parser.parse(userInput);
-                ui.print(c.toString());
                 if (c == null) {
                     throw new ExecuteCommandException("Command could not be executed!");
                 } else {

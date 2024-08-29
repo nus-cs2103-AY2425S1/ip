@@ -23,6 +23,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return this.type + "[" + this.status() + "] " + this.description + "(by: " + dueDate.format(dateTimeFormat) + ")";
+        return this.type + "[" + this.status() + "] " + this.description + " (by: " + dueDate.format(dateTimeFormat) + ")";
     }
 }

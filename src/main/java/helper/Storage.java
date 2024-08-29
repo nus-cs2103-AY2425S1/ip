@@ -83,7 +83,10 @@ public class Storage {
         Matcher matcher = pattern.matcher(input);
         if (matcher.find()) {
             String type = matcher.group(1);
+            System.out.println(matcher.group(1));
+            System.out.println(matcher.group(2));
             boolean isComplete = Objects.equals(matcher.group(2), "x");
+            System.out.println(isComplete);
             String description = matcher.group(3);
 
             // Conditional captures for event/deadline

@@ -1,6 +1,7 @@
 package command;
 
 import exception.ExecuteCommandException;
+import exception.FileException;
 import helper.Storage;
 import helper.TaskList;
 import helper.Ui;
@@ -14,8 +15,9 @@ public class ToDoCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws ExecuteCommandException {
+    public void execute(Ui ui, Storage storage, TaskList tasks) throws ExecuteCommandException, FileException {
         tasks.addTask(new Todo(this.description));
+        storage.saveTaskToFile(tasks);
         // TODO: need to print smt?
     }
 

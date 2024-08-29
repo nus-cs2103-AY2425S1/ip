@@ -25,6 +25,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return this.type + "[" + this.status() + "] " + this.description + "(from: " + this.startDateTime.format(dateTimeFormat) + " to: " + this.endDateTime.format(dateTimeFormat) + ")";
+        return this.type + "[" + this.status() + "] " + this.description + " (from: " + this.startDateTime.format(dateTimeFormat) + " to: " + this.endDateTime.format(dateTimeFormat) + ")";
     }
 }
