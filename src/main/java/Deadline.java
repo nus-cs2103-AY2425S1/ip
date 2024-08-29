@@ -12,10 +12,6 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
-    public Deadline() {
-        super();
-    }
-
     @Override
     public boolean fallsOnDate(LocalDate date) {
         return this.deadline.isEqual(date);

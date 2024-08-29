@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 
 public abstract class Task {
-    private String description;
+    private final String description;
     private boolean isDone;
 
     public Task(String description) {
@@ -12,11 +12,6 @@ public abstract class Task {
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
-    }
-
-    public Task() {
-        this.description = "";
-        this.isDone = false;
     }
 
     public boolean getIsDone() {

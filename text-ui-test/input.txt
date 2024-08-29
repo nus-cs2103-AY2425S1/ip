@@ -5,6 +5,7 @@ list
 date
 delete
 add
+idk
 todo
 go jogging
 add
@@ -16,25 +17,20 @@ aug 29
 14:00
 1600
 16:00
-list
 check
 3
 1
-list
 add
 deadline
 assignment
 aug 30
 2024-08-30
-list
 check
 4
 3
-list
 uncheck
 4
 1
-list
 date
 aug 29
 2024-08-29
@@ -50,15 +46,12 @@ list
 delete
 5
 2
-list
 delete
 5
 1
-list
 delete
 5
 1
-list
 delete
 5
 1

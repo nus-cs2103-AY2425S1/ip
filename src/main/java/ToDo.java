@@ -9,10 +9,6 @@ public class ToDo extends Task {
         super(description, isDone);
     }
 
-    public ToDo() {
-        super();
-    }
-
     @Override
     public boolean fallsOnDate(LocalDate date) {
         return false;

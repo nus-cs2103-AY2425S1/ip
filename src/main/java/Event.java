@@ -20,10 +20,6 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public Event() {
-        super();
-    }
-
     @Override
     public boolean fallsOnDate(LocalDate date) {
         return this.date.isEqual(date);
