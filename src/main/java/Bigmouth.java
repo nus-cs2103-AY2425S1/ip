@@ -3,7 +3,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Bigmouth {
-    private static final String FILE_PATH = "/data/Bigmouth.txt";
+    private static final URL fileURL = Bigmouth.class.getProtectionDomain().getCodeSource().getLocation();
+    private static String path = fileURL.getPath(); //FILE_PATH;
+    public static String rootPath = path.substring(0, path.indexOf("ip") + 3) +  "/data/Bigmouth.txt";
     private static ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
@@ -157,10 +159,6 @@ public class Bigmouth {
         scanner.close();
     }
     private static void saveToFile() {
-        URL fileURL = Bigmouth.class.getProtectionDomain().getCodeSource().getLocation();
-        String path = fileURL.getPath(); //FILE_PATH;
-        String rootPath = path.substring(0, path.indexOf("ip") + 3);
-        rootPath += FILE_PATH;
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(rootPath))) {
             for (Task task : tasks) {
@@ -173,7 +171,7 @@ public class Bigmouth {
     }
 
     private static void loadFromFile() {
-        File file = new File(FILE_PATH);
+        File file = new File(rootPath);
         if (!file.exists()) {
             return;  // No file to load from
         }
@@ -182,6 +180,11 @@ public class Bigmouth {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(" \\| ");
+                if (parts.length < 3) {
+                    System.out.println("Skipping malformed line: " + line);
+                    continue;
+                }
+
                 String type = parts[0];
                 boolean isDone = parts[1].equals("1");
                 String description = parts[2];
@@ -189,16 +192,31 @@ public class Bigmouth {
                 Task task = null;
                 switch (type) {
                     case "T":
-                        task = new Todo(description);
+                        if (parts.length == 3) {
+                            task = new Todo(description);
+                        } else {
+                            System.out.println("Skipping malformed Todo line: " + line);
+                        }
                         break;
                     case "D":
-                        String by = parts[3];
-                        task = new Deadline(description, by);
+                        if (parts.length == 4) {
+                            String by = parts[3];
+                            task = new Deadline(description, by);
+                        } else {
+                            System.out.println("Skipping malformed Deadline line: " + line);
+                        }
                         break;
                     case "E":
-                        String from = parts[3];
-                        String to = parts[4];
-                        task = new Event(description, from, to);
+                        if (parts.length == 5) {
+                            String from = parts[3];
+                            String to = parts[4];
+                            task = new Event(description, from, to);
+                        } else {
+                            System.out.println("Skipping malformed Event line: " + line);
+                        }
+                        break;
+                    default:
+                        System.out.println("Skipping unknown task type line: " + line);
                         break;
                 }
 
@@ -212,5 +230,5 @@ public class Bigmouth {
         } catch (IOException e) {
             System.out.println("Error loading tasks from file: " + e.getMessage());
         }
-}
+    }
 }
