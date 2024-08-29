@@ -23,8 +23,16 @@ public class Ui {
         return command;
     }
 
-    public void showCommandEndMessage() {
-        System.out.println("Here are the tasks in your list:");
+    public void showCommandEndMessage(String command) {
+        switch (command) {
+        case "list":
+            System.out.println("Here are the tasks in your list:");
+            break;
+
+        case "find":
+            System.out.println("Here are the matching tasks in your list:");
+            break;
+        }
     }
 
     public void showCommandEndMessage(String command, String task) {
