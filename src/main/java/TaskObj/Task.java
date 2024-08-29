@@ -2,7 +2,7 @@ package TaskObj;
 public class Task {
     public static int taskNumber = 0;
     private final String description;
-    private Boolean completed = false;
+    private Boolean isCompleted = false;
 
     private Boolean deleted = false;
 
@@ -11,15 +11,21 @@ public class Task {
         taskNumber++;
     }
 
+    public Task(String desc, Boolean isCompleted) {
+        this.description = desc;
+        this.isCompleted = isCompleted;
+        taskNumber++;
+    }
+
     public void mark() {
-        if (!this.completed) {
-            this.completed = true;
+        if (!this.isCompleted) {
+            this.isCompleted = true;
         }
     }
 
     public void unmark() {
-        if (this.completed) {
-            this.completed = false;
+        if (this.isCompleted) {
+            this.isCompleted = false;
         }
     }
 
@@ -30,6 +36,10 @@ public class Task {
 
     @Override
     public String toString() {
-        return completed ? "[X] " + description : "[ ] " + description;
+        return isCompleted ? "[X] " + description : "[ ] " + description;
+    }
+
+    public String toTextString() {
+        return isCompleted ? " | 1 | " + description : " | 0 | " + description;
     }
 }
