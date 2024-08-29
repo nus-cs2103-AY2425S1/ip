@@ -6,6 +6,8 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.charset.StandardCharsets;
 import java.io.IOException;
+import java.io.FileWriter;
+import java.io.File;
 import java.util.Collections;
 import java.util.Iterator;
 
@@ -18,22 +20,20 @@ public class Weeny {
 
     public static void main(String[] args) {
         // Check if data directory and TaskList.txt exist, create if not
-        Path dataDir = Paths.get("data");
-        Path taskFile = dataDir.resolve("TaskList.txt");
-
+        File dataDir = new File("./data");
+        File taskFile = new File(dataDir, "TaskList.txt");
         try {
-            if (Files.notExists(dataDir)) {
-                Files.createDirectory(dataDir);
+            if (dataDir.mkdir()) {
+                // Create directory successful
             }
-
-            if (Files.notExists(taskFile)) {
-                Files.createFile(taskFile);
+            if (taskFile.createNewFile()) {
+                // Create file successful
             }
         } catch (IOException e) {
-            System.err.println("Error creating directory or file: " + e.getMessage());
+            System.err.println("Error creating directory or file" + e.getMessage());
             e.printStackTrace();
-            return;
         }
+
 
         // Read TaskList file to resume TaskList
         List<Task> tasks = readFileIn("./data/TaskList.txt");
@@ -136,6 +136,9 @@ public class Weeny {
         System.out.println("Bye. Hope to see you soon!");
         printLine();
         userInput.close();
+
+        // Write to TaskList.txt
+        writeFileIn("./Data/TaskList.txt", tasks);
     }
 
     /**
@@ -174,10 +177,8 @@ public class Weeny {
                 currentTask = new Deadlines(description, processTask[3]);
             } else if (processTask[0].equals("E")) {
                 int split = processTask[3].indexOf('-');
-                String startTime = processTask[3].substring(0, split - 1) +
-                        processTask[3].substring(processTask[3].length() - 3);
-                String endTime = processTask[3].substring(0, split - 2) + " " +
-                        processTask[3].substring(split + 1);
+                String startTime = processTask[3].substring(0, split);
+                String endTime = processTask[3].substring(split + 1, processTask[3].length());
                 currentTask = new Events(description, startTime, endTime);
             } else {
                 // should not reach here
@@ -188,6 +189,20 @@ public class Weeny {
             taskList.add(currentTask);
         }
         return taskList;
+    }
+
+    public static void writeFileIn(String path, List<Task> tasks) {
+        Iterator<Task> taskIterator = tasks.iterator();
+        try {
+            FileWriter fileWriter = new FileWriter(path);
+            while (taskIterator.hasNext()) {
+                fileWriter.write(taskIterator.next().toOutput() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error in writing");
+            e.printStackTrace();
+        }
     }
 
     /**
