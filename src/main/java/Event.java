@@ -9,6 +9,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String getDataString() {
+        return String.format("E ||| %d ||| %s ||| %s ||| %s\n",
+                this.getStatus(), this.getDescription(), this.eventStart, this.eventEnd);
+    }
+    @Override
     public String toString() {
         String detailsString = String.format(" (from: %s to: %s)", eventStart, eventEnd);
         return "[E]" + super.toString() + detailsString;
