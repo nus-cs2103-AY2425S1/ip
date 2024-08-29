@@ -3,6 +3,7 @@ package silverwolf.ui;
 import java.util.Scanner;
 
 import silverwolf.task.Task;
+
 /**
  * The Ui class handles user interactions with the application.
  * It is responsible for displaying messages to the user and reading user input.
@@ -134,6 +135,25 @@ public class Ui {
         this.showLine();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task);
+        this.showLine();
+        this.newline();
+    }
+
+    /**
+     * Displays the tasks that match the search keyword.
+     *
+     * @param tasks The list of tasks that match the search.
+     */
+    public void showMatchingTasks(List<Task> tasks) {
+        this.showLine();
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks found with the given keyword.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
+        }
         this.showLine();
         this.newline();
     }

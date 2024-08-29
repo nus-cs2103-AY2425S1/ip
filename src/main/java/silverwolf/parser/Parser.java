@@ -35,6 +35,8 @@ public class Parser {
         switch (commandWord) {
         case "bye":
             return new ExitCommand(); // Exit the chat bot
+        case "find":
+            return new FindCommand(arguments); // Search for list
         case "list":
             return new ListCommand(); // List all tasks
         case "delete":
@@ -53,7 +55,6 @@ public class Parser {
             throw new SilverWolfException("Unknown command: " + commandWord); // Handle unrecognized commands
         }
     }
-
 
     /**
      * Parses the arguments for an event command and returns an Event object.

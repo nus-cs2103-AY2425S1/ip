@@ -2,6 +2,7 @@ package silverwolf.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The TaskList class represents a collection of tasks.
@@ -71,5 +72,17 @@ public class TaskList {
      */
     public Task getTask(int index) {
         return tasks.get(index);
+    }
+
+    /**
+     * Finds tasks containing the specified keyword.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return A list of tasks that contain the keyword.
+     */
+    public List<Task> findTasks(String keyword) {
+        return tasks.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toList());
     }
 }
