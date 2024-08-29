@@ -3,22 +3,27 @@ package Jard;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * The Jard class represents the main application that interacts with the user.
+ * It handles the core functionality of the chatbot, including task management,
+ * user input processing, and file storage.
+ */
 public class Jard {
     private Storage storage;
     private List<Task> tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Jard instance with the specified file path for task storage.
+     *
+     * @param filePath The path of the file where tasks will be loaded from and saved to.
+     */
     public Jard(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = storage.loadTasks();
     }
 
-    public static class JardException extends RuntimeException {
-        public JardException(String message) {
-            super(message);
-        }
-    }
 
     /**
      * Finds tasks that contain the word after find.
@@ -37,7 +42,10 @@ public class Jard {
         return matchingTasks;
     }
 
-
+    /**
+     * Starts the Jard chatbot application, displaying the welcome message and
+     * entering the main loop to process user commands.
+     */
     public void run() {
         ui.showWelcome();
         while (true) {
@@ -68,20 +76,25 @@ public class Jard {
                 } else if (command.equals("find")) {
                     String keyword = inputParts[1];
                     List<Task> matchingTasks = findTasks(keyword);
-                    ui.showFindResult(matchingTasks);
+                    ui.showFindResults(matchingTasks);
                 } else {
                     Task task = Parser.parseTask(input);
                     tasks.add(task);
                     ui.showAddTask(task, tasks.size());
                 }
                 storage.saveTasks(tasks);
-            } catch (Jard.JardException e) {
+            } catch (JardException e) {
                 ui.showError(e.getMessage());
             }
         }
         ui.close();
     }
 
+    /**
+     * The main method serves as the entry point for the Jard chatbot application.
+     *
+     * @param args Command line arguments, if any.
+     */
     public static void main(String[] args) {
         new Jard("./data/jard.txt").run();
     }
