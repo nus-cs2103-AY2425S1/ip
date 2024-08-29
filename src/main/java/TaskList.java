@@ -50,7 +50,7 @@ public class TaskList {
         StringBuilder textToAdd = new StringBuilder();
         for(int i = 0; i < this.tasks.size(); i++) {
             Task task = tasks.get(i);
-            String taskString = i + ". " + task.getType() + task.getStatus()+ " " + task.getDescription() + " " + task.getDates();
+            String taskString = (i + 1) + ". " + task.getType() + task.getStatus()+ " " + task.getDescription() + " " + task.getDates();
             textToAdd.append(taskString).append("\n");
         }
         fw.write(textToAdd.toString());
