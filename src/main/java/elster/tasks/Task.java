@@ -9,10 +9,9 @@ public abstract class Task {
     protected boolean status;
 
     /**
-     * Is a general constructor for all tasks.
-     * Note that all tasks have a description and a status.
+     * General constructor for all tasks.
      *
-     * @param description description of the task
+     * @param description Description of the task.
      */
     public Task(String description) {
         this.description = description;
