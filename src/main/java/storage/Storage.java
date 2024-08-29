@@ -72,7 +72,7 @@ public class Storage {
 
     public void save() throws AtlasException {
         try {
-            FileWriter fw = new FileWriter(this.filepath);
+            FileWriter fw = new FileWriter(this.filepath, false);
             fw.write(this.formatTasks());
             fw.close();
         } catch (IOException e) {

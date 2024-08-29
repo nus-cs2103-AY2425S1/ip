@@ -43,6 +43,7 @@ public class Parser {
                 int unmarkIndex = Integer.parseInt(commandsArray[1]) - 1;
                 return new UnmarkCommand(unmarkIndex);
             case TODO:
+                commandsArray = fullCommand.split("todo ");
                 if (commandsArray.length == 1) {
                     throw new AtlasException("The description of a todo cannot be empty.");
                 }

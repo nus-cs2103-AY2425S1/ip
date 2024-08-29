@@ -31,8 +31,12 @@ diff ACTUAL.TXT EXPECTED-UNIX.TXT
 if [ $? -eq 0 ]
 then
     echo "Test result: PASSED"
-    exit 0
 else
     echo "Test result: FAILED"
     exit 1
 fi
+
+# remove the data folder and atlas.txt file created
+rm ./data/atlas.txt
+rmdir ./data
+exit 0

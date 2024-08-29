@@ -28,16 +28,17 @@ public class Ui {
                     \\/__/                       \\/__/     \\/__/         \\/__/
                 """;
 
-        System.out.println("Hello from\n" + logo);
-        this.showLine();
+        System.out.println("Hello from\n" + logo + '\n' + Ui.LINE);
         System.out.println("Hello! I'm Atlas\n" + "What can I do for you?");
         this.showLine();
     }
 
     public void print(String message) {
-        System.out.println('\n' + Ui.LINE);
-        System.out.println(message);
-//        System.out.println(Ui.LINE + '\n');
+        System.out.println(Ui.LINE + '\n' + message);
+    }
+
+    public void showError(String message) {
+        this.print(message);
     }
 
     public void exit() {
@@ -46,9 +47,5 @@ public class Ui {
 
     public void showLine() {
         System.out.println(Ui.LINE + '\n');
-    }
-
-    public void showError(String message) {
-        System.out.println(message);
     }
 }

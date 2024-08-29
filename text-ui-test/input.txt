@@ -1,5 +1,5 @@
-deadline return book /by Sunday 2pm
-event CS2103T lecture /from Friday 4pm /to 6pm
+deadline return book /by 2024-07-15 1400
+event CS2103T lecture /from 2024-07-16 0800 /to 2024-07-16 1000
 mark 1
 list
 unmark 1
@@ -7,6 +7,6 @@ list
 todo buy groceries
 list
 mark 3
-event football match /from Sunday 5pm /to Sunday 7pm
+event football match /from 2024-07-20 1700 /to 2024-07-16 1900
 list
 bye
