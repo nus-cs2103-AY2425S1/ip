@@ -71,6 +71,19 @@ public class TaskManagement {
 		return res.toString();
 	}
 
+	public String getPrintTasks(List<Task> tasks) {
+		StringBuilder res = new StringBuilder();
+
+		for (int i = 0; i < tasks.size(); i++ ) {
+			Task t = tasks.get(i);
+			res.append(Config.INDENTATION + (i+1) + ". " + t);
+			if (i != tasks.size() - 1) {
+				res.append("\n");
+			}
+		}
+		return res.toString();
+	}
+
 	/**
 	 * Handles marking or unmarking a task based on the action and task ID.
 	 *

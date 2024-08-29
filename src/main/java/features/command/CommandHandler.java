@@ -44,6 +44,8 @@ public class CommandHandler {
 				handleAddTask(command);
 			} else if (command.startsWith(CommandType.DELETE.getType())) {
 				handleDeleteTask(command);
+			} else if (command.startsWith(CommandType.FIND.getType())) {
+				handleFind(command);
 			} else {
 				throw new Exception("Unknown message :(. Please see below for the list of available commands:\n\n" + Config.commands);
 			}
@@ -103,6 +105,32 @@ public class CommandHandler {
 		int id = Integer.parseInt(parts[1]);
 		Task t = tm.remove(id);
 		printAfterEditList("Noted. I've removed this task:", t);
+	}
+
+	/**
+	 * Handles the 'find' command to search for tasks containing a specific query in their name.
+	 * If the query is found in the task name, it adds the task to the result list and prints
+	 * the matching tasks. Throws an exception if the command syntax is incorrect.
+	 *
+	 * @param command The full command string input by the user, including the find command and query.
+	 * @throws Exception If the command is improperly formatted or lacks a search query.
+	 */
+	private void handleFind(String command) throws Exception {
+		String[] parts = command.split(" ");
+		if (parts.length <= 1) {
+			throw new Exception("Invalid command. Usage: find <query>.");
+		}
+
+		List<Task> result = new ArrayList<>();
+		String query = parts[1];
+		for (Task t : tm.getAllTasks()) {
+			if (t.getName().contains(query)) {
+				result.add(t);
+			}
+		}
+
+		String res = tm.getPrintTasks(result);
+		Utils.printItem("Matching tasks in your list: \n" + res);
 	}
 
 	/**
@@ -204,7 +232,8 @@ enum CommandType {
 	EXIT("bye"),
 	MARK("mark"),
 	UNMARK("unmark"),
-	DELETE("delete");
+	DELETE("delete"),
+	FIND("find");
 
 	private final String cmd;
 

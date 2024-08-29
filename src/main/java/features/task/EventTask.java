@@ -46,7 +46,7 @@ public class EventTask extends Task {
 	 * @return the start time of the task
 	 */
 	public String getStartAt() {
-		return this.startAt.toString();
+		return this.startAt.toString().replace("T", " ");
 	}
 
 	/**
@@ -55,6 +55,6 @@ public class EventTask extends Task {
 	 * @return the end time of the task
 	 */
 	public String getEndAt() {
-		return this.endAt.toString();
+		return this.endAt.toString().replace("T", " ");
 	}
 }
