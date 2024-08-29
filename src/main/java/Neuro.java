@@ -2,12 +2,50 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Neuro {
+    private static LocalDateTime parseDateTime(String dateTimeStr) throws IllegalArgumentException {
+        DateTimeFormatter[] dateTimeFormatters = {
+                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
+                DateTimeFormatter.ofPattern("yyyy-M-d HHmm"),
+                DateTimeFormatter.ofPattern("MMM d yyyy h a"),
+                DateTimeFormatter.ofPattern("MMM d yyyy ha")
+        };
+
+        DateTimeFormatter[] dateFormatters = {
+                DateTimeFormatter.ofPattern("d/M/yyyy"),
+                DateTimeFormatter.ofPattern("yyyy-M-d"),
+                DateTimeFormatter.ofPattern("MMM d yyyy")
+        };
+
+        for (DateTimeFormatter formatter : dateTimeFormatters) {
+            try {
+                return LocalDateTime.parse(dateTimeStr, formatter);
+            } catch (DateTimeParseException e) {
+                continue;
+            }
+        }
+
+        for (DateTimeFormatter formatter : dateFormatters) {
+            try {
+                return LocalDate.parse(dateTimeStr, formatter).atStartOfDay();
+            } catch (DateTimeParseException e) {
+                continue;
+            }
+        }
+
+        throw new IllegalArgumentException("Invalid date string!");
+    }
+
     private static Task getTask(String input) throws IllegalArgumentException {
         // String split inspired by https://www.w3schools.com/java/ref_string_split.asp
         // Array copyOfRange inspired by https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
@@ -53,7 +91,8 @@ public class Neuro {
                         " a valid deadline like 'deadline finish homework /by Mon 2359'.");
             }
 
-            task = new Deadline(description, deadline);
+            task = new Deadline(description, parseDateTime(deadline));
+
         } else if (taskType.equals("event")) {
             int fromIndex = -1;
             int toIndex = -1;
@@ -115,7 +154,7 @@ public class Neuro {
                 taskToAdd = new Todo(taskComponents[2]);
                 break;
             case ("D"):
-                taskToAdd = new Deadline(taskComponents[2], taskComponents[3]);
+                taskToAdd = new Deadline(taskComponents[2], LocalDateTime.parse(taskComponents[3]));
                 break;
             case ("E"):
                 taskToAdd = new Event(taskComponents[2], taskComponents[3], taskComponents[4]);
@@ -225,6 +264,9 @@ public class Neuro {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("    UH OH! Index out of bounds! Try calling the command 'list' to verify the" +
                             " index of the desired task.");
+                } catch (NumberFormatException e) {
+                    System.out.println("    UH OH! Invalid index for 'mark' command! Add a valid index for a task" +
+                            " to mark, like 'mark 2'.");
                 }
                 System.out.println("    ___________________________________________________");
 
@@ -246,6 +288,9 @@ public class Neuro {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("    UH OH! Index out of bounds! Try calling the command 'list' to verify the" +
                             " index of the desired task.");
+                } catch (NumberFormatException e) {
+                    System.out.println("    UH OH! Invalid index for 'mark' command! Add a valid index for a task" +
+                            " to mark, like 'mark 2'.");
                 }
                 System.out.println("    ___________________________________________________");
             } else if (input.startsWith("delete")) {

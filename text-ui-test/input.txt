@@ -5,14 +5,16 @@ mark 1
 mark 2
 unmark 1
 unmark 2
+mark test
+unmark test
 todo
 list
-deadline return book /by June 6th
+deadline return book /by Jun 6 2019
 list
 deadline
 deadline /by
 deadline return book /by
-event project meeting /from Aug 6th 2pm /to 4pm
+event project meeting /from Aug 6 2pm /to 4pm
 list
 event
 event /from
