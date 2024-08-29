@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 public class SecondMind {
     private static final String line = "____________________________________________________________";
@@ -37,6 +39,11 @@ public class SecondMind {
         FileWriter fw = new FileWriter(DATA_FILE_PATH, true);
         fw.write(data);
         fw.close();
+    }
+
+    private static LocalDateTime textToLocalDateTime(String text) throws DateTimeParseException {
+        LocalDateTime ldt = LocalDateTime.parse(text);
+        return ldt;
     }
 
     private static Task createToDo(String[] taskInfo) throws EmptyToDoException {
