@@ -55,10 +55,10 @@ public class Storage {
         return taskList;
     }
 
-    public void syncFile(String toAdd) throws AlisaException {
+    public void syncFile(TaskList taskList) throws AlisaException {
         try {
             FileWriter fw = new FileWriter(this.filePath);
-            fw.write(toAdd);
+            fw.write(taskList.toFileString());
             fw.close();
         } catch (IOException e) {
             throw new AlisaException("Couldn't update file!!");
