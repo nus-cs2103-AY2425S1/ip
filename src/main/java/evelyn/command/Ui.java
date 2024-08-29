@@ -1,7 +1,7 @@
-package command;
+package evelyn.command;
 
-import exception.InvalidInputException;
-import exception.NoInputException;
+import evelyn.exception.InvalidInputException;
+import evelyn.exception.NoInputException;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -23,7 +23,7 @@ public class Ui {
     public void start() {
         this.isChatting = true;
         System.out.println(horizontalLine);
-        System.out.println("Hi! I am Evelyn");
+        System.out.println("Hi! I am evelyn.Evelyn");
         System.out.println("Here are my keywords:");
         System.out.println("\n");
         System.out.println("todo [task description]");

@@ -1,4 +1,4 @@
-package tasks;
+package evelyn.tasks;
 
 public class Todo extends Task {
     public Todo (String description, boolean isMarked) {

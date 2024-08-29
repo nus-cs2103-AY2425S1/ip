@@ -1,4 +1,4 @@
-package exception;
+package evelyn.exception;
 
 public class EvelynException extends Exception{
     public EvelynException(String msg) {

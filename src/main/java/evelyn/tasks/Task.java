@@ -1,4 +1,4 @@
-package tasks;
+package evelyn.tasks;
 
 public class Task {
     private String description;

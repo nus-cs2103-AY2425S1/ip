@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("Evelyn")
+    mainClass.set("src/main/java/evelyn/Evelyn.java")
 }
 
 shadowJar {

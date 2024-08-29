@@ -1,7 +1,9 @@
-import command.Parser;
-import command.Storage;
-import command.TaskList;
-import command.Ui;
+package evelyn;
+
+import evelyn.command.Parser;
+import evelyn.command.Storage;
+import evelyn.command.TaskList;
+import evelyn.command.Ui;
 
 import java.io.IOException;
 

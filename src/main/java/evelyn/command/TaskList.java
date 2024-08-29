@@ -1,9 +1,9 @@
-package command;
+package evelyn.command;
 
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
+import evelyn.tasks.Deadline;
+import evelyn.tasks.Event;
+import evelyn.tasks.Task;
+import evelyn.tasks.Todo;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -137,7 +137,7 @@ public class TaskList {
             String start = parts2[0];
             String end = parts2[1].substring(0, parts2[1].length() - 1);
 
-            tasks.Event newEvent = new Event(description, start, end, isMarked);
+            evelyn.tasks.Event newEvent = new Event(description, start, end, isMarked);
             this.list.add(newEvent);
         } else {
             throw new IOException();

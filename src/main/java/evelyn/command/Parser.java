@@ -1,10 +1,10 @@
-package command;
+package evelyn.command;
 
-import exception.InvalidInputException;
-import exception.NoInputException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Todo;
+import evelyn.exception.InvalidInputException;
+import evelyn.exception.NoInputException;
+import evelyn.tasks.Deadline;
+import evelyn.tasks.Event;
+import evelyn.tasks.Todo;
 
 import java.util.Objects;
 
