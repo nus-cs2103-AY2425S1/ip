@@ -1,4 +1,4 @@
-package James;
+package james;
 
 import java.util.Scanner;
 
@@ -10,11 +10,11 @@ public class Ui {
     }
 
     public void showGreeting() {
-        System.out.println("Hello Big Boy! I'm James \nHow can I assist you today? \n");
+        System.out.println("Hello Big Boy! I'm James\nHow can I assist you today?\n");
     }
 
     public void showExitMessage() {
-        System.out.println("Goodbye. Come back anytime! \n");
+        System.out.println("Goodbye. Come back anytime!\n");
     }
 
     public String readCommand() {

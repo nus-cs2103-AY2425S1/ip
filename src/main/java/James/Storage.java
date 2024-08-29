@@ -1,4 +1,4 @@
-package James;
+package james;
 
 import java.io.File;
 import java.io.FileNotFoundException;
