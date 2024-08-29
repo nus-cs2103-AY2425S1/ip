@@ -1,11 +1,22 @@
+package tudee.command;
+
+import tudee.task.TaskList;
+import tudee.ui.Ui;
+import tudee.storage.Storage;
+import tudee.task.Task;
+import tudee.task.Deadline;
+import tudee.task.Events;
+import tudee.TudeeException;
+
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-class DateCommand extends Command {
+public class DateCommand extends Command {
     private LocalDate date;
 
-    DateCommand(String dateStr) throws TudeeException {
+    public DateCommand(String dateStr) throws TudeeException {
         try {
             this.date = LocalDate.parse(dateStr);
         } catch (DateTimeParseException e) {

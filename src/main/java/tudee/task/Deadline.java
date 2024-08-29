@@ -1,14 +1,16 @@
+package tudee.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-class Deadline extends Task {
+public class Deadline extends Task {
     LocalDate deadline;
-    Deadline(String taskString, String deadline) {
+    public Deadline(String taskString, String deadline) {
         super(taskString);
         this.deadline = LocalDate.parse(deadline);
     }
 
-    LocalDate getDateTime() {
+    public LocalDate getDateTime() {
         return  this.deadline;
     }
 

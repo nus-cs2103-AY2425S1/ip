@@ -1,3 +1,10 @@
+package tudee.storage;
+
+import tudee.task.Task;
+import tudee.task.ToDo;
+import tudee.task.Deadline;
+import tudee.task.Events;
+import tudee.TudeeException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -6,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-class Storage {
+public class Storage {
     private final String path;
 
     public Storage(String path) {

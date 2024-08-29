@@ -1,3 +1,11 @@
+package tudee;
+
+import tudee.storage.Storage;
+import tudee.ui.Ui;
+import tudee.parser.Parser;
+import tudee.task.TaskList;
+import tudee.command.Command;
+
 public class Tudee {
     private Storage storage;
     private TaskList taskList;
@@ -8,7 +16,7 @@ public class Tudee {
         storage = new Storage(filePath);
         try {
             taskList = new TaskList(storage.load());
-        } catch (TudeeException e) {
+        } catch (tudee.TudeeException e) {
             ui.showError(e.getMessage());
         }
     }
@@ -22,7 +30,7 @@ public class Tudee {
                 Command c = Parser.parse(command);
                 c.execute(taskList, ui, storage);
                 isExit = c.isExit();
-            } catch (TudeeException e) {
+            } catch (tudee.TudeeException e) {
                 ui.showError(e.getMessage());
             }
         }

@@ -1,5 +1,7 @@
-class ToDo extends Task {
-    ToDo(String taskString) {
+package tudee.task;
+
+public class ToDo extends Task {
+    public ToDo(String taskString) {
         super(taskString);
     }
 

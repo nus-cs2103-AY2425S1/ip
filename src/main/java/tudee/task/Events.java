@@ -1,20 +1,22 @@
+package tudee.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-class Events extends Task {
+public class Events extends Task {
     LocalDate start;
     LocalDate end;
-    Events(String taskString, String start, String end) {
+    public Events(String taskString, String start, String end) {
         super(taskString);
         this.start = LocalDate.parse(start);
         this.end = LocalDate.parse(end);
     }
 
-    LocalDate getStart() {
+    public LocalDate getStart() {
         return this.start;
     }
 
-    LocalDate getEnd() {
+    public LocalDate getEnd() {
         return this.end;
     }
 

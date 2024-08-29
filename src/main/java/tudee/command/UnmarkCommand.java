@@ -1,7 +1,14 @@
-class UnmarkCommand extends Command {
+package tudee.command;
+
+import tudee.task.TaskList;
+import tudee.ui.Ui;
+import tudee.storage.Storage;
+import tudee.task.Task;
+
+public class UnmarkCommand extends Command {
     private int index;
 
-    UnmarkCommand(int index) {
+    public UnmarkCommand(int index) {
         this.index = index;
     }
 

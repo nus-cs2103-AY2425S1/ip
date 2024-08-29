@@ -1,7 +1,14 @@
-class AddTaskCommand extends Command {
+package tudee.command;
+
+import tudee.task.TaskList;
+import tudee.ui.Ui;
+import tudee.storage.Storage;
+import tudee.task.Task;
+
+public class AddTaskCommand extends Command {
     private Task task;
 
-    AddTaskCommand(Task task) {
+    public AddTaskCommand(Task task) {
         this.task = task;
     }
 
