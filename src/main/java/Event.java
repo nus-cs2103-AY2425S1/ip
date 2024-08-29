@@ -12,11 +12,15 @@ public class Event extends Task {
     }
 
     public String formatString() {
-        return String.format("E | %s | %s | %s", super.formatString(), this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy")), this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        String from = this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String to = this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return String.format("E | %s | %s | %s", super.formatString(), from, to);
     }
 
     @Override
     public String toString() {
-        return String.format("[E] %s (from: %s to: %s)", super.toString(), this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy")), this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        String from = this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String to = this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return String.format("[E] %s (from: %s to: %s)", super.toString(), from, to);
     }
 }
