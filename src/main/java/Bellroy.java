@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +30,14 @@ public class Bellroy {
                     System.out.println("____________________________________________________________\n" +
                         "     Bye. Hope to see you again soon!\n" +
                         "____________________________________________________________\n");
+                    try(FileWriter writer = new FileWriter("Bellroy.txt")) {
+                        for (Task t: toDoList) {
+                            writer.write(t.toString());
+                            writer.write("\n");
+                        }
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    };
                     scanner.close();
                     return;
 
