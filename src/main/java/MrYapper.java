@@ -1,7 +1,8 @@
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
 
 public class MrYapper {
     private static final String GREETING_MESSAGE = " Hello! I'm MrYapper\n"
@@ -18,55 +19,73 @@ public class MrYapper {
     }
 
     private static void addTask(String type, String[] processedInput) throws InvalidTaskException {
-        if (processedInput.length < 2) {
-            throw new InvalidTaskException(type, " You need to provide the task details!");
-        }
-        String details = processedInput[1];
-        Task newTask;
-        String[] parameters;
-        switch (type) {
-        case "todo":
-            newTask = new Todo(details);
-            break;
-        case "deadline":
-            parameters = details.split("/by");
-            if (parameters.length != 2) {
-                throw new InvalidTaskException(type, " I'll need you to format your details properly");
-            } else if (parameters[0].trim().isEmpty()) {
-                throw new InvalidTaskException(type, " Your description cannot be empty!");
-            } else if (parameters[1].trim().isEmpty()) {
-                throw new InvalidTaskException(type, " Your deadline cannot be empty!");
-            } else {
-                newTask = new Deadline(parameters[0].trim(), parameters[1].trim());
+        try {
+            if (processedInput.length < 2) {
+                throw new InvalidTaskException(type, " You need to provide the task details!");
             }
-            break;
-        case "event":
-            parameters = details.split("/from");
-            if (parameters.length != 2) {
-                throw new InvalidTaskException(type, " I'll need you to format your details properly");
-            } else if (parameters[0].trim().isEmpty()) {
-                throw new InvalidTaskException(type, " Your description cannot be empty!");
+            String details = processedInput[1];
+            Task newTask;
+            String[] parameters;
+            FileWriter fw = new FileWriter(TASK_DATA_PATH, true);
+
+            switch (type) {
+            case "todo":
+                newTask = new Todo(details);
+                fw.write("T ||| 0 ||| " + details + "\n");
+                break;
+            case "deadline":
+                parameters = details.split("/by");
+                String deadlineDescription = parameters[0].trim();
+                String deadlineTime = parameters[1].trim();
+                if (parameters.length != 2) {
+                    throw new InvalidTaskException(type, " I'll need you to format your details properly");
+                } else if (deadlineDescription.isEmpty()) {
+                    throw new InvalidTaskException(type, " Your description cannot be empty!");
+                } else if (deadlineTime.isEmpty()) {
+                    throw new InvalidTaskException(type, " Your deadline cannot be empty!");
+                } else {
+                    newTask = new Deadline(deadlineDescription, deadlineTime);
+                    fw.write("D ||| 0 ||| " + deadlineDescription + " ||| "
+                            + deadlineTime + "\n");
+                }
+                break;
+            case "event":
+                parameters = details.split("/from");
+                String eventDescription = parameters[0].trim();
+                if (parameters.length != 2) {
+                    throw new InvalidTaskException(type, " I'll need you to format your details properly");
+                } else if (eventDescription.isEmpty()) {
+                    throw new InvalidTaskException(type, " Your description cannot be empty!");
+                }
+
+                String[] timings = parameters[1].trim().split("/to");
+                String eventStart = timings[0].trim();
+                String eventEnd = timings[1].trim();
+
+                if (timings.length != 2) {
+                    throw new InvalidTaskException(type, " I'll need you to format your details properly");
+                } else if (timings[0].trim().isEmpty()) {
+                    throw new InvalidTaskException(type, " Your start time cannot be empty!");
+                } else if (timings[1].trim().isEmpty()) {
+                    throw new InvalidTaskException(type, " Your end time cannot be empty!");
+                } else {
+                    newTask = new Event(eventDescription, eventStart, eventEnd);
+                    fw.write("E ||| 0 ||| " + eventDescription + " ||| "
+                            + eventStart + " ||| " + eventEnd + "\n");
+                }
+                break;
+            default:
+                say(" The type of task is invalid! Something went wrong :(");
+                return;
             }
 
-            String[] timings = parameters[1].trim().split("/to");
-            if (timings.length != 2) {
-                throw new InvalidTaskException(type, " I'll need you to format your details properly");
-            } else if (timings[0].trim().isEmpty()) {
-                throw new InvalidTaskException(type, " Your start time cannot be empty!");
-            } else if (timings[1].trim().isEmpty()) {
-                throw new InvalidTaskException(type, " Your end time cannot be empty!");
-            } else {
-                newTask = new Event(parameters[0].trim(), timings[0].trim(), timings[1].trim());
-            }
-            break;
-        default:
-            say(" The type of task is invalid! Something went wrong :(");
-            return;
+            fw.close();
+            taskList.add(newTask);
+            say(String.format(" Task added successfully!\n   %s\n Now you have %d tasks in the list",
+                    newTask, taskList.size()));
+        } catch (IOException e) {
+            say(" Something went wrong when adding the task into the data file :(");
         }
-
-        taskList.add(newTask);
-        say(String.format(" Task added successfully!\n   %s\n Now you have %d tasks in the list",
-                newTask, taskList.size()));
     }
 
     private static void listTask() {
