@@ -245,11 +245,44 @@ public class Parser {
                 }
                 break;
 
+            } else if (act.equals("find")) {
+                //if 'find' entered without keyword
+                if (arr.length == 1) {
+                    System.out.println("You need to enter a keyword to find your tasks!");
+                    break;
+                //if 'find' entered with more than 1 keyword
+                } else if (arr.length > 2) {
+                    System.out.println("You can only enter on keyword!");
+                    break;
+
+                } else {
+                    String keyword = arr[1];
+                    System.out.println("Here are the matching tasks in your list:");
+                    int num = 1;
+                    boolean match = false;
+                    for (int j = 0; j < tasklist.size(); j++) {
+                        Task t = tasklist.getTask(j);
+                        String[] taskName = t.name.split(" ");
+                        for (int k = 0; k < taskName.length; k++) {
+                            if (taskName[k].toLowerCase().equals(keyword)) {
+                                match = true;
+                            }
+                        }
+                        if (match) {
+                            System.out.println(String.format("%d. %s", num, t));
+                            num++;
+                            match = false;
+                        }
+                    }
+                    ui.breakLine();
+                    break;
+                }
             } else {
-                System.out.println("ERROR! Unknown Command!");
-                ui.breakLine();
-                break;
+                    System.out.println("ERROR! Unknown Command!");
+                    ui.breakLine();
+                    break;
             }
         }
     }
 }
+

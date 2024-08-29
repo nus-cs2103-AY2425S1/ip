@@ -1,2 +1,4 @@
 type,is_checked,task_name,time1,time2
 T,0,Eat Cup Noodles
+T,0,throw away the cup
+T,1,capture a pet hamster
