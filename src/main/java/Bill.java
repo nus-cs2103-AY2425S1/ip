@@ -1,7 +1,21 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.nio.file.Files;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Bill {
+    private boolean directoryExists;
+    java.nio.file.Path pathStorageDirectory;
+    java.nio.file.Path pathStorageFile;
+
+
     private ArrayList<Task> userList;
     private enum Route {
         LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
@@ -9,6 +23,10 @@ public class Bill {
 
     public Bill() {
         userList = new ArrayList<>();
+        String home = System.getProperty("user.home");
+        // run on desktop, but can omit depending on user saved location
+        pathStorageDirectory = java.nio.file.Paths.get(home, "Desktop", "CS2103T_IP", "data");
+        pathStorageFile = java.nio.file.Paths.get(home, "Desktop", "CS2103T_IP", "data", "bill.txt");
     }
 
     private void introduce() {
@@ -31,13 +49,24 @@ public class Bill {
         }
     }
 
-    private void addTask(Task newTask){
+    private void saveList() throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(String.valueOf(pathStorageFile)));
+        for (int i = 0; i < userList.size(); i++) {
+            writer.write((i + 1) + "." + userList.get(i));
+            writer.newLine();
+        }
+        writer.close();
+    }
+
+    private void addTask(Task newTask) throws IOException {
         userList.add(newTask);
         System.out.println("added: " + newTask);
         System.out.println("Now you have " + userList.size() + " tasks in the list.");
+        //update hardisk list
+        saveList();
     }
 
-    private void handleMarkOfTask(String[] parsedInput) throws BillException {
+    private void handleMarkOfTask(String[] parsedInput) throws BillException, IOException {
         // data validation
         if (parsedInput.length < 2) {
             throw new BillException("Please provide a second argument when marking or unmarking a task");
@@ -57,9 +86,12 @@ public class Bill {
             targetTask.unmark();
         }
         System.out.println(targetTask);
+        //update hardisk list
+        saveList();
+
     }
 
-    private void handleToDo(String userCommand) throws BillException {
+    private void handleToDo(String userCommand) throws BillException, IOException {
         // data validation
         String[] parsedInput = userCommand.split(" ");
         if (parsedInput.length < 2) {
@@ -69,7 +101,7 @@ public class Bill {
         addTask(new ToDo(trimmedUserCommand));
     }
 
-    private void handleDeadline(String userCommand) throws BillException {
+    private void handleDeadline(String userCommand) throws BillException, IOException {
         // data validation
         String[] parsedInput = userCommand.split(" ");
         if (parsedInput.length < 4) {
@@ -91,7 +123,7 @@ public class Bill {
         }
     }
 
-    private void handleEvent(String userCommand) throws BillException {
+    private void handleEvent(String userCommand) throws BillException, IOException {
         // data validation
         String[] parsedInput = userCommand.split(" ");
         if (parsedInput.length < 6) {
@@ -138,6 +170,7 @@ public class Bill {
         System.out.println("Noted. I've removed this task:");
         System.out.println(targetTask);
         System.out.println("Now you have " + userList.size() + " tasks in the list.");
+        //update hardisk list
     }
 
     private Route getRouteEnum(String route) {
@@ -149,7 +182,92 @@ public class Bill {
         }
     }
 
+    private void loadStorage() throws IOException, BillException {
+        boolean directoryExists = java.nio.file.Files.exists(pathStorageDirectory);
+        boolean fileExists  = java.nio.file.Files.exists(pathStorageFile);
+        // if directory doesn't exist
+        if (!directoryExists) {
+            // make the directory and the file
+            Files.createDirectory(pathStorageDirectory);
+        }
+        // if directory exists but file doesn't
+        if (!fileExists) {
+            // make the file
+            Files.createFile(pathStorageFile);
+        }
+
+        File file = new File(String.valueOf(pathStorageFile));
+        // if text file empty return early to main function
+        if (file.length() == 0) {
+            return;
+        }
+
+        // while loop until finish reading bill.txt or error
+        BufferedReader lineReader = new BufferedReader(new FileReader(String.valueOf(pathStorageFile)));
+
+        String line;
+        while ((line = lineReader.readLine()) != null) {
+            // get 4 char the route, note index from 0
+            char route = line.charAt(3);
+
+
+            // get 7 char the mark
+            char mark = line.charAt(6);
+            boolean isMarked = mark == 'X';
+
+            // get index of first char after marking [ ] or [X] and the space after
+            int firstSpace = Math.max(line.indexOf("[ ]"), line.indexOf("[X]")) + 4;
+
+            // get index
+            int index = Integer.parseInt(String.valueOf(line.charAt(0)));
+
+            // load storage into list var
+                switch (route) {
+                    case 'T':
+                        System.out.println("todo " + line.substring(firstSpace));
+                        handleToDo("todo " + line.substring(firstSpace));
+                        break;
+                    case 'D':
+                        handleDeadline("deadline " + line.substring(firstSpace).replace("(", "").replace(")", "").replace("by:", "/by"));
+                        break;
+                    case 'E':
+                        handleEvent("event " + line.substring(firstSpace).replace("(", "").replace(")", "").replace("from:", "/from").replace("to:", "/to"));
+                        break;
+                    default:
+                        throw new BillException("Not a recognised command in bill.txt, please ensure that all lines in bill.txt have the template of the expected output based on user commands");
+                }
+                if (isMarked) {
+                    handleMarkOfTask(new String[]{"mark", String.valueOf(index)});
+                }
+        }
+    }
+
     public void start() {
+        PrintStream originalOutput = System.out;
+        // temp output to hide print messages, so can leverage previously built methods which have print statements
+        OutputStream silence = new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+                //do nothing
+            }
+        };
+
+        try {
+            System.setOut(new PrintStream(silence));
+            loadStorage();
+        } catch (IOException ex) {
+            System.setOut(originalOutput);
+            System.out.println(ex.getMessage());
+            return;
+        } catch (BillException ex) {
+            System.setOut(originalOutput);
+            System.out.println("There is a formatting issue with the bill.txt file, it is related to:");
+            System.out.println(ex.getMessage());
+            return;
+        }
+
+        System.setOut(originalOutput);
+
         introduce();
         Scanner userScanner = new Scanner(System.in);
         // remove leading and trailing whitespaces
@@ -158,7 +276,6 @@ public class Bill {
         while (!userCommand.equals("bye")) {
             String[] parsedInput = userCommand.split(" ");
             Route route = getRouteEnum(parsedInput[0]);
-
             try {
                 switch (route) {
                     case LIST:
@@ -185,6 +302,8 @@ public class Bill {
                 }
             } catch (BillException ex) {
                 System.out.println(ex.getMessage());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
             userCommand = userScanner.nextLine();
         }
