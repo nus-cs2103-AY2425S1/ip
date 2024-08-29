@@ -28,18 +28,7 @@ public class Elster {
         String input;
         Scanner myScanner = new Scanner(System.in);
 
-        String logo = "___________.__            __\n" +
-                "\\_   _____/|  |   _______/  |_  ___________\n" +
-                " |    __)_ |  |  /  ___/\\   __\\/ __ \\_  __ \\\n" +
-                " |        \\|  |__\\___ \\  |  | \\  ___/|  | \\/\n" +
-                "/_______  /|____/____  > |__|  \\___  >__|\n" +
-                "        \\/           \\/            \\/";
-        System.out.println(logo);
-        ui.printLine();
-
-        System.out.println("    Hello, \"greetings\" from your friendly neighbourhood chatbot Elster..");
-        System.out.println("    How can I help you today :|");
-        ui.printLine();
+        ui.welcomeMessage();
 
         while (byeSentinel) {
             input = myScanner.nextLine().strip();
@@ -47,21 +36,31 @@ public class Elster {
                 byeSentinel = false;
 
             } else if (input.equals("list")) {
-                taskList.printList();
+                ui.printList(taskList);
 
             } else if (input.startsWith("deadline")) {
                 DeadlineTask task = DeadlineTask.of(input);
                 if (!(task == null)) {
                     taskList.addToList(task);
                 }
-                taskList.writeToFile();
+
+                try {
+                    storage.writeToFile(taskList);
+                } catch (Elseption e) {
+                    ui.saveFileErrorMessage();
+                }
 
             } else if (input.startsWith("event")) {
                 EventTask task = EventTask.of(input);
                 if (!(task == null)) {
                     taskList.addToList(task);
                 }
-                taskList.writeToFile();
+
+                try {
+                    storage.writeToFile(taskList);
+                } catch (Elseption e) {
+                    ui.saveFileErrorMessage();
+                }
 
             } else if (input.startsWith("delete")) {
                 taskList.deleteTask(Integer.parseInt(input.substring(7).strip()));
@@ -71,15 +70,52 @@ public class Elster {
                 if (!(task == null)) {
                     taskList.addToList(task);
                 }
-                taskList.writeToFile();
+
+                try {
+                    storage.writeToFile(taskList);
+                } catch (Elseption e) {
+                    ui.saveFileErrorMessage();
+                }
 
             } else if (input.startsWith("mark")) {
-                taskList.markTaskAsDone(Integer.parseInt(input.substring(5,6)));
-                taskList.writeToFile();
+                int index = Integer.parseInt(input.substring(5).strip());
+
+                try {
+                    if (taskList.markTaskAsDone(index)) {
+                        ui.taskDoneMessage(taskList.getTask(index));
+                    } else {
+                        ui.alreadyDoneErrorMessage();
+                    }
+
+                } catch (Elseption e) {
+                    ui.indexOutOfBoundsErrorMessage();
+                }
+
+                try {
+                    storage.writeToFile(taskList);
+                } catch (Elseption e) {
+                    ui.saveFileErrorMessage();
+                }
 
             } else if (input.startsWith("unmark")) {
-                taskList.unmarkTaskAsUndone(Integer.parseInt(input.substring(7,8)));
-                storage.writeToFile(taskList);
+                int index = Integer.parseInt(input.substring(7).strip());
+
+                try {
+                    if (taskList.unmarkTaskAsUndone(index)) {
+                        ui.taskUndoneMessage(taskList.getTask(index));
+                    } else {
+                        ui.alreadyUndoneErrorMessage();
+                    }
+
+                } catch (Elseption e) {
+                    ui.indexOutOfBoundsErrorMessage();
+                }
+
+                try {
+                    storage.writeToFile(taskList);
+                } catch (Elseption e) {
+                    ui.saveFileErrorMessage();
+                }
 
             } else {
                 ui.nonsenseErrorMessage();

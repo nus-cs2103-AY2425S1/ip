@@ -15,7 +15,7 @@ public class Storage {
         this.ui = ui;
     }
 
-    public void writeToFile(TaskList taskList) {
+    public void writeToFile(TaskList taskList) throws Elseption {
         try {
             if (Files.notExists(dirPath)) {
                 Files.createDirectory(dirPath);
@@ -25,17 +25,12 @@ public class Storage {
                 Files.createFile(filePath);
             }
 
-        } catch (IOException e) {
-            ui.saveFileErrorMessage();
-        }
-
-        try {
             FileWriter fw = new FileWriter(filePath.toString());
             fw.write(taskList.fileString());
             fw.close();
 
         } catch (IOException e) {
-            ui.saveFileErrorMessage();
+            throw new Elseption();
         }
     }
 }

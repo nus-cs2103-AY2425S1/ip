@@ -26,43 +26,28 @@ public class TaskList {
         System.out.println();
     }
 
-    public void markTaskAsDone(int index) {
-        printLine();
+    public Task getTask(int index) throws Elseption {
         Task task;
 
         try {
             task = list.get(index - 1);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("    Ain't no such task in the middle of these woods");
-            printLine();
-            return;
+            throw new Elseption();
         }
 
-        if (task.markAsDone()) {
-            System.out.println("    Yes boss, marked the task as done.");
-            System.out.println("     " + task.toString());
-        }
-        printLine();
+        return task;
     }
 
-    public void unmarkTaskAsUndone(int index) {
-        printLine();
-        Task task;
+    public boolean markTaskAsDone(int index) throws Elseption {
+        Task task = getTask(index);
 
-        try {
-            task = list.get(index - 1);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("    Ain't no such task in the middle of these woods");
-            printLine();
-            return;
-        }
+        return task.markAsDone();
+    }
 
-        if (task.unmarkAsUndone()) {
-            System.out.println("    Interesting choice but I've marked the task as not done.");
-            System.out.println("      " + task.toString());
-        }
+    public boolean unmarkTaskAsUndone(int index) throws Elseption {
+        Task task = getTask(index);
 
-        printLine();
+        return task.unmarkAsUndone();
     }
 
     public void deleteTask(int index) {
@@ -90,56 +75,25 @@ public class TaskList {
         printLine();
     }
 
-    public void writeToFile() {
-        Path dataDir = Paths.get( "data");
-        Path dataTxt = Paths.get( "data", "data.txt");
-
-        try {
-            if (Files.notExists(dataDir)) {
-                Files.createDirectory(dataDir);
-                Files.createFile(dataTxt);
-
-            } else if (Files.notExists(dataTxt)) {
-                Files.createFile(dataTxt);
-            }
-
-        } catch (IOException e) {
-            System.out.println("    there hath been a failure in saving your work");
-        }
-
-        try {
-            FileWriter fw = new FileWriter(dataTxt.toString());
-            for (Task task : list) {
-                fw.write(task.toFileString() + System.lineSeparator());
-
-            }
-            fw.close();
-
-        } catch (IOException e) {
-            System.out.println("    there hath been a failure in saving your work");
-        }
-
-    }
-
     @Override
     public String toString() {
         return list.toString();
     }
 
-    public void printList() {
+    public String printString() {
+        StringBuilder returnStr = new StringBuilder();
+
         if (list.isEmpty()) {
-            printLine();
-            System.out.println("    No tasks to do? that's pretty goooood.");
-            printLine();
+            returnStr.append("    No tasks to do? that's pretty goooood.");
 
         } else {
-            printLine();
-            System.out.println("    So here's the tasks in your list, you should proooobably do them");
+            returnStr.append("    So here's the tasks in your list, you should proooobably do them\n");
             for (int i = 0; i < list.size(); i++) {
-                System.out.println("    " + (i + 1) + ". " + list.get(i));
+                returnStr.append("    ").append(i + 1).append(". ").append(list.get(i)).append("\n");
             }
-            printLine();
         }
+
+        return returnStr.toString().stripTrailing();
     }
 
     public String fileString() {
