@@ -1,3 +1,5 @@
+package features.task;
+
 public class EventTask extends Task {
 	private String startAt;
 	private String endAt;
@@ -11,5 +13,13 @@ public class EventTask extends Task {
 	@Override
 	public String toString() {
 		return "[E]" + super.toString() + " (from: " + this.startAt + " to: " + this.endAt + ")";
+	}
+
+	public String getStartAt() {
+		return this.startAt;
+	}
+
+	public String getEndAt() {
+		return this.endAt;
 	}
 }

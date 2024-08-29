@@ -1,32 +1,32 @@
+package features.task;
+
 import java.util.*;
+import config.Config;
+import data.TaskDAO;
 
 public class TaskManagement {
-	private List<Task> tasks;
 	public int length;
+	private TaskDAO taskDAO;
 
-	public TaskManagement() {
-		this.tasks = new ArrayList<>();
-		this.length = 0;
+	public TaskManagement(TaskDAO taskDAO) {
+		this.taskDAO = taskDAO;
+		this.length = taskDAO.getAllTasks().size();
 	}
 
 	public void add(Task task) {
-		int len = this.tasks.size();
-		task.setId(len + 1);
-		this.tasks.add(task);
-		this.length++;
+		length++;
+		taskDAO.addTask(task);
 	}
 
 	public Task remove(int id) {
-		Task t = this.findTaskById(id).get(); 
-		this.tasks = this.tasks.stream()
-								.filter(task -> !task.getId().equals(id))
-								.toList();
-		this.length--;
-		return t;
+		length--;
+		return taskDAO.deleteTask(id);
 	}
 
 	public String getPrintTasks() {
 		StringBuilder res = new StringBuilder();
+		List<Task> tasks = taskDAO.getAllTasks();
+
 		for (int i = 0; i < tasks.size(); i++ ) {
 			Task t = tasks.get(i);
 			res.append(Config.INDENTATION + (i+1) + ". " + t);
@@ -39,13 +39,19 @@ public class TaskManagement {
 
 	public void handleItem(String action, int id) {
 		Optional<Task> task = this.findTaskById(id);
-
+		System.out.println(task);
 		switch (action) {
 			case "mark":
-				task.ifPresent(t -> t.mark());
+				task.ifPresent((t) -> {
+					t.mark();
+					taskDAO.updateTask(t);
+				});
 				break;
 			case "unmark":
-				task.ifPresent(t -> t.unmark());
+				task.ifPresent(t -> {
+					t.unmark();
+					taskDAO.updateTask(t);
+				});
 				break;
 			default:
 				break;
@@ -54,8 +60,6 @@ public class TaskManagement {
 	}	
 
 	public Optional<Task> findTaskById(int id) {
-		return tasks.stream()
-					.filter(task -> task.getId().equals(id))
-					.findFirst();	
+		return taskDAO.findTaskById(id);
 	}
 }
