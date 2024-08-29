@@ -46,11 +46,20 @@ public class TaskList {
         }
     }
 
+    public String toData() {
+        StringBuilder data = new StringBuilder();
+        for (Task task : list) {
+            data.append(task.toData()).append("\n ");
+        }
+        return data.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-            output.append(String.format("%d.[%s][%s] %s\n", i + 1, list.get(i).getTypeIcon(), list.get(i).getStatusIcon(), list.get(i)));
+            output.append(String.format("%d.[%s][%s] %s\n", i + 1, list.get(i).getTypeIcon(),
+                    list.get(i).getStatusIcon(), list.get(i)));
         }
         return output.toString();
     }

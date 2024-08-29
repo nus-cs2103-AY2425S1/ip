@@ -81,7 +81,8 @@ public class Him {
                 case "event": {
                     try {
                         String[] details = input[1].split("/");
-                        Event newEvent = new Event(details[0].trim(), details[1].substring(details[1].indexOf(" ")).trim(),
+                        Event newEvent = new Event(details[0].trim(),
+                                details[1].substring(details[1].indexOf(" ")).trim(),
                                 details[2].substring(details[2].indexOf(" ")).trim());
                         list.add(newEvent);
                         System.out.println("\nHim: added \"" + newEvent + "\" to list\n");
@@ -108,6 +109,7 @@ public class Him {
             input = scanner.nextLine().split(" ", 2);
             command = input[0];
         }
+        scanner.close();
         exit();
     }
 }

@@ -3,30 +3,43 @@ package task;
 import exceptions.AlreadyCompletedException;
 
 public abstract class Task {
-    private boolean isComplete = false;
+    private boolean isCompleted = false;
     private String title;
 
     public Task(String title) {
         this.title = title;
     }
 
-    public void complete() throws AlreadyCompletedException {
-        if (isComplete) {
-            throw new AlreadyCompletedException();
-        }
-        isComplete = true;
+    public static Task of(String data) {
+        String[] args = data.split("|");
+        return switch (args[0]) {
+            case "T" -> ToDo.of(args);
+            case "D" -> Deadline.of(args);
+            case "E" -> Event.of(args);
+            default -> null;
+        };
     }
 
+    public void complete() throws AlreadyCompletedException {
+        if (this.isCompleted) {
+            throw new AlreadyCompletedException();
+        }
+        this.isCompleted = true;
+    }
 
     public String getStatusIcon() {
-        return (isComplete ? "X" : " ");
+        return (this.isCompleted ? "X" : " ");
+    }
+
+    public abstract String getTypeIcon();
+
+    public String toData() {
+        return String.format("T|%b|%s", this.isCompleted, this.title);
     }
 
     @Override
     public String toString() {
-        return title;
+        return this.title;
     }
-
-    public abstract String getTypeIcon();
 }
 

@@ -10,9 +10,18 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public static Event of(String[] args) {
+        return new Event(args[1], args[2], args[3]);
+    }
+
     @Override
     public String getTypeIcon() {
         return "E";
+    }
+
+    @Override
+    public String toData() {
+        return super.toData() + "|" + start + "|" + end;
     }
 
     @Override
