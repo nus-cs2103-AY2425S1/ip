@@ -1,3 +1,9 @@
+package colress;
+
+import colress.command.Command;
+import colress.exception.UnknownCommandException;
+import colress.exception.UnknownTaskTypeException;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;

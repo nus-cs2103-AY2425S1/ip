@@ -1,3 +1,7 @@
+package colress;
+
+import colress.exception.FileCorruptedException;
+
 import java.io.IOException;
 
 public final class Colress {
