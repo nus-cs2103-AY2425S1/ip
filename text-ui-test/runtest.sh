@@ -18,8 +18,10 @@ then
     rm data.txt
 fi
 
-# compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
+# Compile the code into the bin folder, terminates if error occurred
+# shellcheck disable=SC2046
+# Modify the command to include all the java files in the src folder (ChatGPT)
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin $(find ../src/main/java -name "*.java")
 then
     echo "********** BUILD FAILURE **********"
     exit 1
