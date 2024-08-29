@@ -40,7 +40,9 @@ public class Storage {
             String taskIsDone = taskComponents[1];
             Task taskToAdd = getTaskToAdd(taskType, taskComponents, taskIsDone);
 
-            taskList.add(taskToAdd);
+            if (taskToAdd != null) {
+                taskList.add(taskToAdd);
+            }
         }
 
         return new TaskList(taskList);
@@ -49,19 +51,24 @@ public class Storage {
     private Task getTaskToAdd(String taskType, String[] taskComponents, String taskIsDone) {
         Task taskToAdd = null;
 
-        switch (taskType) {
-            case ("T"):
-                taskToAdd = new Todo(taskComponents[2]);
-                break;
-            case ("D"):
-                taskToAdd = new Deadline(taskComponents[2], LocalDateTime.parse(taskComponents[3]));
-                break;
-            case ("E"):
-                taskToAdd = new Event(taskComponents[2], taskComponents[3], taskComponents[4]);
-                break;
-            default:
-                break;
+        try {
+            switch (taskType) {
+                case ("T"):
+                    taskToAdd = new Todo(taskComponents[2]);
+                    break;
+                case ("D"):
+                    taskToAdd = new Deadline(taskComponents[2], LocalDateTime.parse(taskComponents[3]));
+                    break;
+                case ("E"):
+                    taskToAdd = new Event(taskComponents[2], taskComponents[3], taskComponents[4]);
+                    break;
+                default:
+                    break;
+            }
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+            // Corrupted line in save file
         }
+
 
         if (taskIsDone.equals("1") && taskToAdd != null) {
             taskToAdd.markDone();
