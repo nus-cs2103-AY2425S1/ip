@@ -11,4 +11,10 @@ public class Deadline extends Task{
         String temp = super.toString();
         return String.format("[D]%s (by %s )", temp, date);
     }
+
+    @Override
+    public String toFileStorage() {
+        String temp = super.toFileStorage();
+        return String.format("D|%s|%s", temp, date);
+    }
 }

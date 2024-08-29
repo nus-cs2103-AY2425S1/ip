@@ -13,4 +13,10 @@ public class Event extends Task{
         String temp = super.toString();
         return String.format("[E]%s (from %s to: %s)", temp, fromDate, toDate);
     }
+
+    @Override
+    public String toFileStorage() {
+        String temp = super.toFileStorage();
+        return String.format("E|%s|%s|%s", temp, fromDate, toDate);
+    }
 }

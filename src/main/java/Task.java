@@ -15,6 +15,10 @@ public class Task {
         this.isCompleted = false;
     }
 
+    public String toFileStorage() {
+        String completeString = isCompleted ? "1" : "0";
+        return completeString + "|" + name;
+    }
     @Override
     public String toString() {
         String completeIcon = isCompleted ? "X" : " ";

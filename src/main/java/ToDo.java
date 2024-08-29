@@ -8,4 +8,10 @@ public class ToDo extends Task{
         String temp = super.toString();
         return String.format("[T]%s", temp);
     }
+
+    @Override
+    public String toFileStorage() {
+        String temp = super.toFileStorage();
+        return String.format("T|%s", temp);
+    }
 }
