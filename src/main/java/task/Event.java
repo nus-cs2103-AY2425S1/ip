@@ -2,14 +2,21 @@ package task;
 
 import exceptions.AlreadyCompletedException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    private String start;
-    private String end;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
     public Event(String title, String start, String end) {
         super(title);
-        this.start = start;
-        this.end = end;
+        String[] startArgs = start.split("/at");
+        String[] endArgs = end.split("/at");
+        this.start = LocalDateTime.of(LocalDate.parse(startArgs[0].trim()), LocalTime.parse(startArgs[1].trim()));
+        this.end = LocalDateTime.of(LocalDate.parse(endArgs[0].trim()), LocalTime.parse(endArgs[1].trim()));
     }
 
     public static Event of(String[] args) throws AlreadyCompletedException {
@@ -27,11 +34,13 @@ public class Event extends Task {
 
     @Override
     public String toData() {
-        return super.toData() + "|" + start + "|" + end;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'/at 'HH:mm");
+        return super.toData() + "|" + start.format(formatter) + "|" + end.format(formatter);
     }
 
     @Override
     public String toString() {
-        return String.format("%s (from: %s to: %s)", super.toString(), start, end);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' at 'HH:mm");
+        return String.format("%s (FROM: %s | TO: %s)", super.toString(), start.format(formatter), end.format(formatter));
     }
 }

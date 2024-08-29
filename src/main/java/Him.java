@@ -48,7 +48,7 @@ public class Him {
             storage.initStorage();
         } catch (AlreadyCompletedException e) {
             System.out.println("Failed to load tasks make sure tasks file is not corrupted");
-            System.exit(1);
+            System.exit(0);
         }
         Scanner scanner = new Scanner(System.in);
         greet();
@@ -81,7 +81,7 @@ public class Him {
                 case "deadline": {
                     try {
                         String[] details = input[1].split("/by");
-                        Deadline newDeadline = new Deadline(details[0].trim(), details[1].trim());
+                        Deadline newDeadline = Deadline.of(details[0].trim(), details[1].trim());
                         list.add(newDeadline);
                         System.out.println("\nHim: added \"" + newDeadline + "\" to list\n");
                     } catch (IndexOutOfBoundsException e) {
@@ -92,10 +92,10 @@ public class Him {
                 }
                 case "event": {
                     try {
-                        String[] details = input[1].split("/");
-                        Event newEvent = new Event(details[0].trim(),
-                                details[1].substring(details[1].indexOf(" ")).trim(),
-                                details[2].substring(details[2].indexOf(" ")).trim());
+                        String[] details = input[1].split("/start");
+                        //event Title /start Date /at Time /end Date /at Time
+                        String[] interval = details[1].split("/end");
+                        Event newEvent = new Event(details[0].trim(), interval[0].trim(), interval[1].trim());
                         list.add(newEvent);
                         System.out.println("\nHim: added \"" + newEvent + "\" to list\n");
                     } catch (IndexOutOfBoundsException e) {
