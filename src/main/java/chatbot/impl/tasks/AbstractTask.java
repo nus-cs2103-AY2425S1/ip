@@ -4,9 +4,9 @@ import chatbot.Task;
 
 public abstract class AbstractTask implements Task {
 
-    private final String description;
+    protected final String description;
 
-    private boolean isDone;
+    protected boolean isDone;
 
     public AbstractTask(String description) {
         this.description = description;

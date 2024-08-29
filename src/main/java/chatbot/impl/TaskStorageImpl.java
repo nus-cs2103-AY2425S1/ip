@@ -3,19 +3,43 @@ package chatbot.impl;
 import chatbot.Task;
 import chatbot.TaskStorage;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 public class TaskStorageImpl implements TaskStorage {
+
+    private static final Path FILE_PATH = Paths.get("./data/tasks.txt");
 
     private final ArrayList<Task> tasks;
 
     public TaskStorageImpl() {
         tasks = new ArrayList<>();
+
+        try {
+            Files.createDirectories(Paths.get("./data"));
+        } catch (IOException e) {
+            // Todo: Proper exception handling
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void addTask(Task task) {
         tasks.add(task);
+
+        try {
+            Files.write(FILE_PATH,
+                    (task.serialize() + "\n").getBytes(),
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            // Todo: Proper exception handling
+            e.printStackTrace();
+        }
     }
 
     @Override

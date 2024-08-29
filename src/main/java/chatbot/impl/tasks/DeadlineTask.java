@@ -9,6 +9,12 @@ public class DeadlineTask extends AbstractTask {
         this.deadline = deadline;
     }
 
+
+    @Override
+    public String serialize() {
+        return String.format("E | %d | %s | %s", isDone ? 1 : 0, description, deadline);
+    }
+
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), deadline);
