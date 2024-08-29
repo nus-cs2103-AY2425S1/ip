@@ -15,6 +15,12 @@ public class Storage {
     public Storage() {
     }
 
+    /**
+     * Loads all previous tasks that user has input before.
+     *
+     * @return Array of all  previous tasks.
+     * @throws DuckException if file is corrupted.
+     * */
     public static Task[] load() throws DuckException {
         File file = new File(path);
         Task[] tasks;
@@ -39,6 +45,13 @@ public class Storage {
             throw new DuckException("Cannot load tasks.");
         }
     }
+
+    /**
+     * Loads total number of previous tasks that user has input before.
+     *
+     * @return Integer total of number of previous tasks.
+     * @throws DuckException if file is corrupted.
+     * */
     public static int loadNum() throws DuckException {
         File file = new File(path);
         try {
@@ -57,6 +70,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves current list of tasks after user has made his or her changes.
+     *
+     * @param tasks Current list of all tasks to be saved.
+     * @param n Number of tasks in the list to be saved.
+     * @throws DuckException if the list is not formatted correctly.
+     * */
     public static void save(Task[] tasks, int n) throws DuckException {
         try {
             FileWriter writer = new FileWriter(path);
@@ -71,6 +91,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses through a line from the Storage file to convert it from String to its corresponding Task.
+     *
+     * @param line Line to be parsed through.
+     * @return Task that the input line corresponds to.
+     * @throws DuckException if the line is not in a recognisable format.
+     * */
     private static Task parser(String line) throws DuckException {
         String[] parts = line.split(" \\| ");
         if (Objects.equals(parts[0], "T")) {

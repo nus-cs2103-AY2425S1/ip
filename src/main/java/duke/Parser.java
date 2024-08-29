@@ -2,6 +2,14 @@ package duke;
 
 public class Parser {
 
+    /**
+     * Parses user commands and executes corresponding methods.
+     *
+     * @param cmds List of all existing tasks.
+     * @param userCmd Current user command to be parsed.
+     * @return Boolean value to indicate when user finished giving all input.
+     * @throws DuckException if user command given is invalid
+     * */
     public static boolean parseCmd(TaskList cmds, String userCmd) throws DuckException {
         if (userCmd.toLowerCase().equals("bye")) {
             Ui.printText("Bye. Hope to see you again soon!");
