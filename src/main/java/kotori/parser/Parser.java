@@ -39,13 +39,13 @@ public class Parser {
         } else if (input.equals("list")) {
             return new PrintListCommand(list);
         } else if (input.startsWith("mark ")) {
-            int index = Integer.parseInt(input.split(" ")[1]);
+            int index = Integer.parseInt(input.split(" ")[1].trim());
             return new MarkCommand(storage, list, index);
         } else if (input.startsWith("unmark ")) {
-            int index = Integer.parseInt(input.split(" ")[1]);
+            int index = Integer.parseInt(input.split(" ")[1].trim());
             return new UnmarkCommand(storage, list, index);
         } else if (input.startsWith("delete ")) {
-            int index = Integer.parseInt(input.split(" ")[1]);
+            int index = Integer.parseInt(input.split(" ")[1].trim());
             return new DeleteCommand(storage, list, index);
 
         } else if (input.startsWith("search ")) {
