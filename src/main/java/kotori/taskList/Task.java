@@ -84,6 +84,10 @@ public abstract class Task {
 
     public abstract String getStorageMessage();
 
+    public boolean hasDescription(String description) {
+        return this.description.contains(description);
+    };
+
     private Task(boolean isDone, String description) {
         this.description = description;
         this.isDone = isDone;
@@ -186,6 +190,7 @@ public abstract class Task {
         public boolean isRelatedToDate(LocalDate date) {
             return false;
         }
+
     }
 
     private static class DeadLine extends Task {

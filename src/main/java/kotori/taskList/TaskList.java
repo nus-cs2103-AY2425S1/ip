@@ -89,6 +89,23 @@ public class TaskList {
         }
     }
 
+    /**
+     * find a sublist that each element has the description
+     *
+     * @param description the description.
+     * @return the sublist found
+     * */
+
+    public TaskList findAll(String description) {
+        TaskList result = new TaskList();
+        for (Task t : taskList) {
+            if (t.hasDescription(description)) {
+                result.add(t);
+            }
+        }
+        return result;
+    }
+
     @Override
      public String toString() {
         String result = "";

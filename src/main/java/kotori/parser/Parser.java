@@ -1,7 +1,7 @@
 package kotori.parser;
 
 import kotori.command.*;
-import kotori.command.searchCommand;
+import kotori.command.SearchCommand;
 import kotori.storage.Storage;
 import kotori.taskList.*;
 
@@ -27,6 +27,7 @@ public class Parser {
      * @return the command going to be execute later
      * */
     public Command parse(String input) {
+        input = input.trim();
         if (input.equals("bye")) {
             return new ExitCommand(list);
         } else if (input.equals("list")) {
@@ -42,7 +43,9 @@ public class Parser {
             return new DeleteCommand(storage, list, index);
 
         } else if (input.startsWith("search ")) {
-            return new searchCommand(list,input.substring(5));
+            return new SearchCommand(list,input.substring(7));
+        } else if (input.startsWith("find ")) {
+            return new FindCommand(list, input.substring(5));
         } else {
             return new AddCommand(storage, list, input);
             }

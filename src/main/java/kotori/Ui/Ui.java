@@ -57,6 +57,24 @@ public class Ui {
     }
 
     /**
+     * Prints a list with the given messages.
+     *
+     * @param list The list to be printed.
+     * @param inputs the messages to be included.
+     * */
+
+    public static void printListWithMessages(TaskList list, String... inputs) {
+        printLine();
+        for (String s : inputs){
+            System.out.println("    " + s);
+        }
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(String.format("    %s. %s",i + 1, list.get(i).toString()));
+        }
+        printLine();
+    }
+
+    /**
      * prints a greeting.
      * */
 
