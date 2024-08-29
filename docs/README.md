@@ -1,4 +1,4 @@
-# MGTOW User Guide
+# mgtow.MGTOW User Guide
 
 // Update the title above to match the actual product name
 

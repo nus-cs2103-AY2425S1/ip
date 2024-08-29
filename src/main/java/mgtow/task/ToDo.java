@@ -1,3 +1,7 @@
+package mgtow.task;
+
+import mgtow.task.Task;
+
 import java.time.LocalDate;
 
 public class ToDo extends Task {

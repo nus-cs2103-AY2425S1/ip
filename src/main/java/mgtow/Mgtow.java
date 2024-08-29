@@ -1,11 +1,20 @@
+package mgtow;
+
+import mgtow.storage.Storage;
+import mgtow.task.Task;
+import mgtow.task.TaskList;
+import mgtow.ui.Ui;
+import mgtow.util.InvalidTaskException;
+import mgtow.util.Parser;
+
 import java.time.LocalDate;
 
-public class MGTOW {
+public class Mgtow {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public MGTOW(String filePath) {
+    public Mgtow(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -69,6 +78,6 @@ public class MGTOW {
     }
 
     public static void main(String[] args) {
-        new MGTOW("./data/MGTOW.txt").run();
+        new Mgtow("./data/mgtow.MGTOW.txt").run();
     }
 }

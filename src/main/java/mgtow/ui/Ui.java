@@ -1,3 +1,7 @@
+package mgtow.ui;
+
+import mgtow.task.Task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -13,7 +17,7 @@ public class Ui {
 
     public void showWelcome() {
         printMsg(LINE);
-        printMsg("Hello! I'm MGTOW");
+        printMsg("Hello! I'm MGTOW.");
         printMsg("What can I do for you?");
         printMsg(LINE);
     }
@@ -47,7 +51,7 @@ public class Ui {
     }
 
     public void showGoodbye() {
-        printMsg("OK bye time to MGTOW");
+        printMsg("OK bye time to MGTOW.");
     }
 
     public void printMsg(String str) {

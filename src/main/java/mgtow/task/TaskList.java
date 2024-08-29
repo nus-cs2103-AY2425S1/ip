@@ -1,3 +1,8 @@
+package mgtow.task;
+
+import mgtow.task.Task;
+import mgtow.util.InvalidTaskException;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
