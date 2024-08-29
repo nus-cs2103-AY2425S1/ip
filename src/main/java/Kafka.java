@@ -22,7 +22,7 @@ public class Kafka {
         this.tasks.add(task);
         System.out.println("  Got it. I've added this task.");
         System.out.println("    " + task);
-        System.out.println("  Now you have " + tasks.size() + " task(s) in the list.");
+        System.out.println("  Now you have " + this.tasks.size() + " task(s) in the list.");
     }
 
     public void createList() {
@@ -48,6 +48,18 @@ public class Kafka {
         String message = "  OK, I've marked this task as not done yet:\n"
                 + "    " + t;
         System.out.println(message);
+    }
+
+    public void delete(int taskNumber) {
+        if (this.tasks.isEmpty()) {
+            return;
+        }
+        Task t = this.tasks.get(taskNumber - 1);
+        this.tasks.remove(taskNumber - 1);
+        String message = "  Noted. I've removed this task:\n"
+                + "    " + t;
+        System.out.println(message);
+        System.out.println("  Now you have " + this.tasks.size() + " task(s) in the list.");
     }
 
     public static void main(String[] args) {
@@ -81,6 +93,9 @@ public class Kafka {
                 } else if (userInput[0].equalsIgnoreCase("unmark")) {
                     int taskNumber = Integer.parseInt(userInput[1]);
                     kafka.unmark(taskNumber);
+                } else if (userInput[0].equalsIgnoreCase("delete")) {
+                    int taskNumber = Integer.parseInt(userInput[1]);
+                    kafka.delete(taskNumber);
                 } else {
                     if (userInput[0].equalsIgnoreCase("todo")) {
                         if (userInput.length < 2) {
