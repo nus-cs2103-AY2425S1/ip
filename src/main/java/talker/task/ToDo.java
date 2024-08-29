@@ -1,5 +1,8 @@
 package talker.task;
 
+/**
+ * Represents a ToDo task
+ */
 public class ToDo extends Task {
 
     /**

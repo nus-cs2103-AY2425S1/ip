@@ -6,6 +6,9 @@ import java.time.format.DateTimeFormatter;
 
 import talker.TalkerException;
 
+/**
+ * Represents an Event task with a start and end date/time
+ */
 public class Event extends Task {
 
     // start date/time

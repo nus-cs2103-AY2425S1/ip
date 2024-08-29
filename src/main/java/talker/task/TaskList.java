@@ -10,21 +10,37 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks
+ */
 public class TaskList {
 
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private ArrayList<Task> list;
 
+    /**
+     * Constructor for a new TaskList object
+     */
     public TaskList() {
         this.list = new ArrayList<>();
     }
 
-
+    /**
+     * Sets the list of tasks as provided
+     *
+     * @param list representing the list of tasks
+     */
     public void setTasks(ArrayList<Task> list) {
         this.list = list;
     }
 
+    /**
+     * Writes the list of tasks using fileWriter object
+     *
+     * @param fileWriter fileWriter to write tasks into file
+     * @throws TalkerException if unable to write to file
+     */
     public void writeToFile(FileWriter fileWriter) throws TalkerException {
         try {
             for (Task task: list) {
@@ -35,6 +51,17 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints a list of tasks that are occuring on a certain date
+     * ToDo tasks are not printed
+     * Deadline tasks where the deadline has not yet passed are printed
+     * Event tasks where the start date has already passed but the end date
+     * has not yet passed are printed
+     *
+     * @param date string representing target date
+     * @param ui ui object to print output
+     * @throws TalkerException if incorrect date format
+     */
     public void printTasksOn(String date, Ui ui) throws TalkerException {
         LocalDate targetDate;
         try {
@@ -66,6 +93,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints the list of current tasks
+     *
+     * @param ui ui object to print output
+     * @throws TalkerException if list is empty
+     */
     public void listTasks(Ui ui) throws TalkerException {
         if (list.isEmpty()) {
             throw new TalkerException("List is empty!");
@@ -73,6 +106,13 @@ public class TaskList {
         ui.printTaskList(list);
     }
 
+    /**
+     * Marks target task as complete
+     *
+     * @param parsed string representing task number
+     * @param ui ui object to print output
+     * @throws TalkerException if no corresponding task found
+     */
     public void markTaskComplete(String[] parsed, Ui ui) throws TalkerException {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
@@ -84,6 +124,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks target task as incomplete
+     *
+     * @param parsed string representing task number
+     * @param ui ui object to print output
+     * @throws TalkerException if no corresponding task found
+     */
     public void unmarkTaskComplete(String[] parsed, Ui ui) throws TalkerException {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
@@ -95,6 +142,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes target task from list
+     *
+     * @param parsed string representing task number
+     * @param ui ui object to print output
+     * @throws TalkerException if no corresponding task found
+     */
     public void deleteTask(String[] parsed, Ui ui) throws TalkerException {
         try {
             int index = Integer.parseInt(parsed[1]) - 1;
@@ -107,6 +161,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Creates a new ToDo object and adds it into list
+     *
+     * @param input string representing ToDo task
+     * @param ui ui object to print output
+     * @throws TalkerException if incorrect input format
+     */
     public void createToDo(String input, Ui ui) throws TalkerException {
         try {
             String desc = input.substring(5);
@@ -118,6 +179,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Creates new Deadline object and adds it into list
+     *
+     * @param input string representing Deadline task
+     * @param ui ui object to print output
+     * @throws TalkerException if incorrect input format
+     */
     public void createDeadline(String input, Ui ui) throws TalkerException {
         try {
             String contents = input.substring(9);
@@ -135,6 +203,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Creates new Event object and adds it into list
+     *
+     * @param input string representing Event task
+     * @param ui ui object to print output
+     * @throws TalkerException if incorrect input format
+     */
     public void createEvent(String input, Ui ui) throws TalkerException {
         try {
             String contents = input.substring(6);

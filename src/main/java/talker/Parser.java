@@ -15,8 +15,20 @@ import talker.task.Task;
 import talker.task.TaskType;
 import talker.task.ToDo;
 
+/**
+ * Represents a parsing object to help parse text inputs
+ * into commands and executables
+ */
 public class Parser {
 
+    /**
+     * Parses user input into Command objects depending on the
+     * style of user input
+     *
+     * @param input String input by user
+     * @return Command object
+     * @throws TalkerException
+     */
     public static Command parseInput(String input) throws TalkerException {
         String[] parsed = input.split(" ");
         switch (parsed[0]) {
@@ -43,6 +55,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses input line from existing file into a Task
+     *
+     * @param taskString input line from existing file
+     * @return Task object represented by the input line
+     * @throws TalkerException if invalid input detected
+     */
     public static Task parseTaskFromFile(String taskString) throws TalkerException {
         String[] parsed = taskString.split(" \\| ");
         boolean isComplete;

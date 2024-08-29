@@ -5,6 +5,9 @@ import talker.TalkerException;
 import talker.Ui;
 import talker.task.TaskList;
 
+/**
+ * Represents a command to be executed based on input from user
+ */
 public abstract class Command {
 
     public abstract void execute(TaskList list, Ui ui, Storage storage) throws TalkerException;
