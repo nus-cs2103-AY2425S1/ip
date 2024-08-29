@@ -9,14 +9,25 @@ import exceptions.MissingArgumentException;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
+/**
+ * The {@code Parser} class is responsible for interpreting user input and converting
+ * it into executable commands. It parses the input string and determines which command
+ * should be executed, providing the appropriate parameters to the command.
+ */
 public class Parser {
 
-    private static boolean isExit = false;
-
-    public static boolean exitStatus() {
-        return isExit;
-    }
-    public static Command parse(String fullCommand) throws DownyException { // Exception to be changed to specific one
+    /**
+     * Parses the user's input and returns the corresponding command. The input string
+     * is split and analyzed to determine which command to execute. If the input is invalid
+     * or missing required arguments, an appropriate exception is thrown.
+     *
+     * @param fullCommand The full command input from the user.
+     * @return The {@code Command} object corresponding to the user's input.
+     * @throws DownyException If the input is invalid or if required arguments are missing.
+     *                        Specific exceptions include {@code InvalidCommandException},
+     *                        {@code InvalidFormatException}, and {@code MissingArgumentException}.
+     */
+    public static Command parse(String fullCommand) throws DownyException {
         String[] parts = fullCommand.split(" ", 2);
         String command = parts[0];
         switch (command) {
@@ -53,7 +64,6 @@ public class Parser {
                             "   todo <taskDescription>");
                 }
                 return new TodoCommand(parts[1]);
-
             }
             case "deadline" -> {
                 if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -82,8 +92,7 @@ public class Parser {
                 if (parts.length < 2 || parts[1].trim().isEmpty()) {
                     throw new MissingArgumentException("Event command requires a task description, " +
                             "start time, and end time.\n   " +
-                            "event <taskDescription> " +
-                            "/from <startTime> /to <endTime>");
+                            "event <taskDescription> /from <startTime> /to <endTime>");
                 }
                 String remainder = parts[1];
                 String[] splitParts = remainder.split("/from", 2);
@@ -114,5 +123,4 @@ public class Parser {
             }
         }
     }
-
 }

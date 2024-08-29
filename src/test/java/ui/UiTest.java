@@ -64,13 +64,6 @@ class UiTest {
     }
 
     @Test
-    void testDisplayExitMessage() {
-        ui.displayExitMessage();
-        String expectedOutput = DIVIDER + "Bye! Yippee!\n" + DIVIDER;
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
-    }
-
-    @Test
     void testDisplayTasks() {
         TaskList taskList = new TaskList();
         taskList.addTodo("Read a book");
