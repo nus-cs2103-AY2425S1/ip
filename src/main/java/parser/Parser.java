@@ -8,6 +8,12 @@ import task.Event;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
+    /**
+     * Parses the given input and returns the corresponding command.
+     *
+     * @param input The input to parse.
+     * @return The corresponding command.
+     */
     public static Command parse(String input) {
         String[] parts = input.split(" ", 2);
         String command = parts[0];
