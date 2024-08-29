@@ -1,5 +1,13 @@
 package stan;
-import stan.commands.*;
+import stan.commands.Command;
+import stan.commands.DeadlineCommand;
+import stan.commands.DeleteCommand;
+import stan.commands.EventCommand;
+import stan.commands.ExitCommand;
+import stan.commands.ListCommand;
+import stan.commands.MarkCommand;
+import stan.commands.TodoCommand;
+import stan.commands.UnmarkCommand;
 import stan.exceptions.StanException;
 import stan.exceptions.StanInvalidArgumentException;
 import stan.exceptions.StanInvalidCommandException;

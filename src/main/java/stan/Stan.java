@@ -1,7 +1,7 @@
 package stan;
 
 import java.util.ArrayList;
-import stan.commands.*;
+import stan.commands.Command;
 import stan.exceptions.StanException;
 
 public class Stan {
