@@ -6,7 +6,21 @@ import snipe.task.Deadline;
 import snipe.task.Event;
 import snipe.task.ToDo;
 
+/**
+ * The {@code Parser} class handles parsing of user input into executable commands.
+ * It interprets the input string and determines the appropriate command to execute.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and returns the corresponding {@link Command} object.
+     * The method identifies the type of command from the user input and creates the appropriate
+     * command object for execution.
+     *
+     * @param userInput The input provided by the user.
+     * @return The {@link Command} object corresponding to the user input.
+     * @throws SnipeException If the input is invalid or cannot be parsed into a known command.
+     */
     public static Command parse(String userInput) throws SnipeException {
         String[] split = userInput.split(" ", 2);
         String commandWord = split[0].toUpperCase();
@@ -42,6 +56,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a task command and returns the corresponding {@link Command} object.
+     * Handles the parsing of task-related commands such as "TODO", "DEADLINE", and "EVENT".
+     *
+     * @param commandWord The command word indicating the type of task (e.g., "TODO", "DEADLINE", "EVENT").
+     * @param split       The split array of the user input, containing the command word and task details.
+     * @return The {@link Command} object representing the task-related action.
+     * @throws SnipeException If the input is invalid, such as missing details or incorrect format.
+     */
     private static Command parseTaskCommand(String commandWord, String[] split) throws SnipeException {
         if (split.length < 2 || split[1].trim().isEmpty()) {
             throw new SnipeException("The description of a task cannot be empty. Use 'help' for correct syntax.");

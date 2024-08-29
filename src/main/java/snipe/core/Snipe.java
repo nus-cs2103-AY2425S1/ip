@@ -11,14 +11,21 @@ import java.util.ArrayList;
 import java.io.IOException;
 
 /**
- * The {@code snipe.core.Snipe} class represents a task management system that interacts with the user via snipe.command-line input.
+ * The {@code snipe.core.Snipe} class represents a task management system that interacts with the user via command-line input.
  * It supports commands for adding, deleting, marking, unmarking, and listing tasks.
+ * The application reads from and writes to a task list file and provides a simple text-based interface to manage tasks.
  */
 public class Snipe {
     private Storage taskListStorage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a new {@code Snipe} instance.
+     * Initialises the storage, user interface, and task list by reading from the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Snipe(String filePath) {
         this.ui = new Ui();
         this.taskListStorage = new Storage(filePath);
@@ -31,7 +38,11 @@ public class Snipe {
     }
 
     /**
-     * Initializes the chat, greeting the user and handling user input.
+     * Initialises the chat interface with the user, greets the user, and handles user input in a loop.
+     * The method continues to accept and execute commands until the user issues an exit command.
+     *
+     * @throws IOException    If an input or output exception occurs.
+     * @throws SnipeException If an application-specific error occurs during command processing.
      */
     public void initChat() throws IOException, SnipeException {
         ui.showWelcome();
@@ -50,9 +61,12 @@ public class Snipe {
     }
 
     /**
-     * The main method that starts the application.
+     * The main method that starts the Snipe application.
+     * Initialises the application with the path to the task list file and starts the user interface.
      *
-     * @param args snipe.command.Command-line arguments (not used).
+     * @param args Command-line arguments (not used).
+     * @throws IOException    If an input or output exception occurs.
+     * @throws SnipeException If an application-specific error occurs during initialisation.
      */
     public static void main(String[] args) throws IOException, SnipeException {
         Snipe snipe = new Snipe("src/main/txt/taskList.txt");

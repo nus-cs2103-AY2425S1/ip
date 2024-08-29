@@ -25,7 +25,7 @@ public abstract class Task {
     protected final TaskType type;
 
     /**
-     * Constructs a new {@code snipe.task.Task} with the specified description and type.
+     * Constructs a new {@code Task} with the specified description and type.
      * The task is initially not completed.
      *
      * @param description The description of the task.
@@ -73,6 +73,12 @@ public abstract class Task {
         this.isDone = !isDone;
     }
 
+    /**
+     * Returns a string representation of the task formatted for storage in a file.
+     * This method must be implemented by subclasses to provide the specific format for different task types.
+     *
+     * @return A string representation of the task for file storage.
+     */
     public abstract String parseToFileFormat();
 
     /**
