@@ -13,5 +13,11 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Tem files
+src/main/resources/
+
+# Data file
+
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
