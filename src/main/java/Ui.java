@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class UserInterface {
+public class Ui {
     private Scanner scanner;
 
-    public UserInterface() {
+    public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
@@ -71,7 +71,13 @@ public class UserInterface {
         System.out.println("Got it. I've added this task:\n" +
                 task.getStatus() +
                 task.getDescription());
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        makeLine();
+    }
+
+    public void showLoadingError() {
+        makeLine();
+        System.out.println("Error loading tasks.");
         makeLine();
     }
 }

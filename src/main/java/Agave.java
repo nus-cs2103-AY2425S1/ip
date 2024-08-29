@@ -1,22 +1,21 @@
-import java.io.File;
 import java.io.IOException;
 
 public class Agave {
 
-    private UserInterface ui;
+    private Ui ui;
+    private Storage storage;
+    private TaskList tasks;
     private boolean isRunning;
-    private Task taskManager;
-    private FileHandler fileHandler;
 
-    public Agave() {
-        this.ui = new UserInterface();
+    public Agave(String filePath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
         this.isRunning = true;
-        this.taskManager = new Task();
-        this.fileHandler = new FileHandler("./data/agave.txt");
         try {
-            this.taskManager.setTasks(fileHandler.loadTasks());
+            this.tasks = new TaskList(storage.loadTasks());
         } catch (IOException e) {
-            System.out.println("Error loading the tasks: " + e.getMessage());
+            ui.showLoadingError();
+            this.tasks = new TaskList();
         }
     }
 
@@ -26,121 +25,42 @@ public class Agave {
         while (isRunning) {
             try {
                 String userInput = ui.getUserInput("Enter a command: ");
-                if (userInput.equalsIgnoreCase("bye")) {
+                Parser parser = new Parser(userInput);
+                String command = parser.getCommand();
+
+                if (command.equals("bye")) {
                     isRunning = false;
                     ui.showBye();
-                } else if (userInput.equalsIgnoreCase("list")) {
-                    ui.showTasks(taskManager.getTasks());
-                } else if (userInput.startsWith("mark")) {
-                    handleMark(userInput);
-                } else if (userInput.startsWith("unmark")) {
-                    handleUnmark(userInput);
-                } else if (userInput.startsWith("todo")) {
-                    handleTodoInput(userInput);
-                } else if (userInput.startsWith("deadline")) {
-                    handleDeadlineInput(userInput);
-                } else if (userInput.startsWith("event")) {
-                    handleEventInput(userInput);
-                } else if (userInput.startsWith("delete")) {
-                    handleDelete(userInput);
+                } else if (command.equals("list")) {
+                    ui.showTasks(tasks.getTasks());
+                } else if (command.equals("mark")) {
+                    tasks.markTask(parser.getTaskNumber());
+                    ui.showMarkedTask(tasks.getTask(parser.getTaskNumber() - 1));
+                } else if (command.equals("unmark")) {
+                    tasks.unmarkTask(parser.getTaskNumber());
+                    ui.showUnmarkedTask(tasks.getTask(parser.getTaskNumber() - 1));
+                } else if (command.equals("todo")) {
+                    tasks.addTask(parser.parseTodo());
+                    ui.showTaskAdded(tasks.getLastTask(), tasks.size(), tasks.getTasks());
+                } else if (command.equals("deadline")) {
+                    tasks.addTask(parser.parseDeadline());
+                    ui.showTaskAdded(tasks.getLastTask(), tasks.size(), tasks.getTasks());
+                } else if (command.equals("event")) {
+                    tasks.addTask(parser.parseEvent());
+                    ui.showTaskAdded(tasks.getLastTask(), tasks.size(), tasks.getTasks());
+                } else if (command.equals("delete")) {
+                    tasks.deleteTask(parser.getTaskNumber());
                 } else {
                     throw new AgaveException("I'm sorry, but I don't understand the command: " + userInput);
                 }
-                fileHandler.saveTasks(taskManager.getTasks());
-            } catch (AgaveException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                storage.saveTasks(tasks.getTasks());
+            } catch (AgaveException | IOException e) {
                 ui.showError(e.getMessage());
-            } catch (IOException e) {
-                System.out.println("Error while saving tasks: " + e.getMessage());;
             }
-        }
-    }
-
-    private void handleMark(String userInput) throws AgaveException {
-        try {
-            int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-            if (taskNumber > 0 && taskNumber <= taskManager.getTasks().size()) {
-                taskManager.getTasks().get(taskNumber - 1).markAsDone();
-                ui.showMarkedTask(taskManager.getTasks().get(taskNumber - 1));
-            } else {
-                throw new AgaveException("Task number is out of range. Please enter a valid task number.");
-            }
-        } catch (NumberFormatException e) {
-            throw new AgaveException("Please enter a valid task number.");
-        }
-    }
-
-    private void handleUnmark(String userInput) throws AgaveException {
-        try {
-            int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-            if (taskNumber > 0 && taskNumber <= taskManager.getTasks().size()) {
-                taskManager.getTasks().get(taskNumber - 1).unmarkAsDone();
-                ui.showUnmarkedTask(taskManager.getTasks().get(taskNumber - 1));
-            } else {
-                throw new AgaveException("Task number is out of range. Please enter a valid task number.");
-            }
-        } catch (NumberFormatException e) {
-            throw new AgaveException("Please enter a valid task number.");
-        }
-    }
-
-    private void handleTodoInput(String userInput) throws AgaveException {
-        String description = userInput.substring(4).trim();
-        if (description.isEmpty()) {
-            throw new AgaveException("The description of a todo cannot be empty.");
-        }
-        taskManager.addTask(new ToDo(description));
-        System.out.println("Added todo:");
-        System.out.println(" [T][ ] " + description);
-        taskManager.showNumberOfTasks();
-    }
-
-    private void handleDeadlineInput(String userInput) throws AgaveException {
-        try {
-            String[] split = userInput.split(" /by ");
-            String description = split[0].substring(8).trim();
-            String by = split[1].trim();
-            if (description.isEmpty() || by.isEmpty()) {
-                throw new AgaveException("The description and deadline of a task cannot be empty.");
-            }
-            taskManager.addTask(new Deadline(description, by));
-            System.out.println("Added deadline:");
-            System.out.println("  [D][ ] " + description + " (by: " + by + ")");
-            taskManager.showNumberOfTasks();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new AgaveException("Please enter the deadline in the correct format: 'deadline <description> /by <yyyy/MM/dd HHmm>'.");
-        }
-    }
-
-    private void handleEventInput(String userInput) throws AgaveException {
-        try {
-            String[] split = userInput.split(" /from | /to ");
-            String description = split[0].substring(5).trim();
-            String from = split[1].trim();
-            String to = split[2].trim();
-            if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-                throw new AgaveException("The description, start time, and end time of an event cannot be empty.");
-            }
-            taskManager.addTask(new Event(description, from, to));
-            System.out.println("Added event:");
-            System.out.println("  [E][ ] " + description + " (from: " + from + " to: " + to + ")");
-            taskManager.showNumberOfTasks();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new AgaveException("Please enter the event in the correct format: 'event <description> /from <yyyy/MM/dd HHmm> /to <yyyy/MM/dd HHmm>'.");
-        }
-    }
-
-
-    private void handleDelete(String userInput) throws AgaveException {
-        try {
-            int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-            taskManager.deleteTask(taskNumber);
-        } catch (NumberFormatException e) {
-            throw new AgaveException("Please enter a valid task number.");
         }
     }
 
     public static void main(String[] args) {
-        Agave agave = new Agave();
-        agave.run();
+        new Agave("./data/agave.txt").run();
     }
 }

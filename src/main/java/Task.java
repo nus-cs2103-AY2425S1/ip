@@ -51,10 +51,6 @@ public class Task {
         }
     }
 
-    public ArrayList<Task> getTasks() {
-        return tasks;
-    }
-
     public void showNumberOfTasks() {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
@@ -72,8 +68,8 @@ public class Task {
         Task task = split[0].equals("T")
                 ? new ToDo(split[2])
                 : split[0].equals("D")
-                ? new Deadline(split[2], split[3]) // 2 is description, 3 is by (yyyy-MM-dd HHmm)
-                : new Event(split[2], split[3], split[4]); // 2 is description, 3 is from (yyyy-MM-dd HHmm), 4 is to
+                ? new Deadline(split[2], split[3]) // 2 is description, 3 is by
+                : new Event(split[2], split[3], split[4]); // 2 is description, 3 is from, 4 is to
         if (split[1].equals("1")) {
             task.markAsDone();
         }
