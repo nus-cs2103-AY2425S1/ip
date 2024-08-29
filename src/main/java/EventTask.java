@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * The EventTask class represents a task that occurs during a specific time frame.
@@ -15,7 +16,7 @@ public class EventTask extends Task {
      * @param startTime the start time of the event
      * @param endTime the end time of the event
      */
-    public EventTask(String name, String startTime, String endTime) {
+    public EventTask(String name, String startTime, String endTime) throws DateTimeParseException {
         super(name);
 
         // Use LocalDateTime instead of LocalDate to handle date and time
