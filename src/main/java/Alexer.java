@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Alexer {
@@ -8,9 +10,21 @@ public class Alexer {
 
     private final Scanner scanner = new Scanner(System.in);
 
+    private final List<String> tasks = new ArrayList<>();
+
     public void printGoodbye() {
         System.out.println(BREAK);
         System.out.println(GOODBYE);
+        System.out.println(BREAK);
+    }
+
+    public void printTasks() {
+        System.out.println(BREAK);
+
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.format("%d: %s\n", i + 1, tasks.get(i));
+        }
+
         System.out.println(BREAK);
     }
 
