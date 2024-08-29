@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.DateTimeException;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * Handles parsing of user input and execution of commands in the Meow application.
@@ -18,7 +19,6 @@ public class Parser {
     public static LocalDate parseDateTime(String input) throws DateTimeException, DateTimeParseException {
         return LocalDate.parse(input, FORMATTER);
     }
-
 
     /**
      * Parses a single user input command and executes the corresponding task management action.
@@ -44,13 +44,13 @@ public class Parser {
                 } else {
                     StringBuilder listMessage = new StringBuilder();
                     for (int i = 0; i < taskList.getTaskCount(); i++) {
-                        if (i != taskList.getTaskCount() -1) {
+                        if (i != taskList.getTaskCount() - 1) {
                             listMessage.append(i + 1).append(". ").append(taskList.getTask(i)).append("\n");
                         } else {
                             listMessage.append(i + 1).append(". ").append(taskList.getTask(i));
                         }
                     }
-                        ui.showMessage(listMessage.toString());
+                    ui.showMessage(listMessage.toString());
                 }
             } else if (input.startsWith("mark")) {
                 if (input.startsWith("mark ")) {
@@ -146,7 +146,7 @@ public class Parser {
                 } else {
                     throw new MeowException("Invalid todo format. Example: todo eat lunch");
                 }
-            } else if (input.startsWith("delete")) {
+            } else if (input.startsWith("dlete")) {
                 if (input.startsWith("delete ")) {
                     int index = Integer.parseInt(input.substring(7).trim()) - 1;
                     if (index >= 0 && index < taskList.getTaskCount()) {
@@ -163,6 +163,34 @@ public class Parser {
                     }
                 } else {
                     throw new MeowException("Invalid delete format. Example: delete 1");
+                }
+            } else if (input.startsWith("find")) {
+                if (input.startsWith("find ")) {
+                    String keyword = input.substring(5).trim();
+                    TaskList filteredList = new TaskList(new ArrayList<>());
+
+                    for (int i = 0; i < taskList.getTaskCount(); i++) {
+                        Task currentTask = taskList.getTask(i);
+                        if (currentTask.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                            filteredList.addTask(currentTask);
+                        }
+                    }
+                    filteredList.getTasks();
+                    if (filteredList.getTaskCount() == 0) {
+                        ui.showMessage("No tasks match your search. ROWR!");
+                    } else {
+                        StringBuilder listMessage = new StringBuilder();
+                        for (int i = 0; i < filteredList.getTaskCount(); i++) {
+                            if (i != filteredList.getTaskCount() - 1) {
+                                listMessage.append(i + 1).append(". ").append(filteredList.getTask(i)).append("\n");
+                            } else {
+                                listMessage.append(i + 1).append(". ").append(filteredList.getTask(i));
+                            }
+                        }
+                        ui.showMessage(listMessage.toString());
+                    }
+                } else {
+                    throw new MeowException("Invalid find format. Example: find book");
                 }
             } else {
                 ui.showMessage("Whatchu sayin bruh?");
