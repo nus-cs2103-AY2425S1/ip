@@ -1,15 +1,37 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.nio.file.Path;
+import java.io.FileWriter;
 
 public class CancelGPT {
     private final String CHATBOT_NAME;
     private final List<Task> TASKS_LIST;
+    private Path tasksStoragePath;
 
     public CancelGPT() {
         this.CHATBOT_NAME = "CancelGPT";
         this.TASKS_LIST = new ArrayList<>();
+        try {
+            Path tasksStorageDirectoryPath = Paths.get(System.getProperty("user.home"), "accountexeregister-ip", "data");
+            if (!Files.exists(tasksStorageDirectoryPath)) {
+                Files.createDirectories(tasksStorageDirectoryPath);
+            }
+            this.tasksStoragePath = Paths.get(tasksStorageDirectoryPath.toString(), CHATBOT_NAME + ".txt");
+            if (!Files.exists(this.tasksStoragePath)) {
+                Files.createFile(this.tasksStoragePath);
+            }
+            this.readTaskStorageToTasksList();
+        } catch (IOException e) {
+            System.out.println("Unable to use TASKS STORAGE. Exiting program");
+            System.exit(1);
+        }
+
     }
     public static void main(String[] args) {
         CancelGPT cancelGPT = new CancelGPT();
@@ -29,6 +51,14 @@ public class CancelGPT {
             System.out.println(horizontalLine);
             handleCommand(command);
             System.out.println(horizontalLine);
+
+            try {
+                saveTasks();
+            } catch (IOException e) {
+                System.out.println("Unable to save tasks to TASKS STORAGE. Exiting program");
+                System.exit(1);
+            }
+
             command = sc.nextLine();
         }
 
@@ -226,5 +256,22 @@ public class CancelGPT {
         for (int i = 0; i < this.TASKS_LIST.size(); i++) {
             System.out.println(i + 1 + ". " + this.TASKS_LIST.get(i));
         }
+    }
+
+    public void readTaskStorageToTasksList() throws IOException {
+        Scanner tasksStorageReader = new Scanner(this.tasksStoragePath);
+        while (tasksStorageReader.hasNextLine()) {
+            this.TASKS_LIST.add(Task.getTaskFromSavedDataString(tasksStorageReader.nextLine()));
+        }
+        tasksStorageReader.close();
+    }
+
+    public void saveTasks() throws IOException {
+        FileWriter tasksStorageSaver = new FileWriter(this.tasksStoragePath.toString());
+        for (Task task : this.TASKS_LIST) {
+            tasksStorageSaver.write(task.getSavedDataString());
+            tasksStorageSaver.write("\n");
+        }
+        tasksStorageSaver.close();
     }
 }
