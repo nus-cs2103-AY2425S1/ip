@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.lang.StringBuilder;
@@ -20,53 +21,8 @@ public class Dudu {
     public static String filePath = "./data/dudu.txt";
 
     public static void main(String[] args) {
-        String directoryName = "./data";
-        File directory = new File(directoryName);
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
-        File file = new File("./data/dudu.txt");
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
-
-        try {
-            Scanner sc = new Scanner(file);
-            while (sc.hasNext()) {
-                String[] input = sc.nextLine().split("\\|", 3);
-                TaskType type = TaskType.valueOf(input[0].trim());
-                boolean marked = Integer.parseInt(input[1].trim()) == 1;
-                String content = input[2].trim();
-                Task task = null;
-                switch (type) {
-                    case T:
-                        task = new ToDo(content);
-                        break;
-                    case D: {
-                        String description = content.split("\\|")[0];
-                        LocalDate date = LocalDate.parse(content.split("\\|")[1].trim());
-                        task = new Deadline(description, date);
-                        break;
-                    } case E: {
-                        String description = content.split("\\|")[0];
-                        LocalDate from = LocalDate.parse(content.split("\\|")[1].trim());
-                        LocalDate to = LocalDate.parse(content.split("\\|")[2].trim());
-                        task = new Event(description, from, to);
-                        break;
-                    }
-                }
-                if (marked) {
-                    task.markCompleted();
-                }
-                tasks.add(task);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
-        }
+        Storage s = new Storage("./data/dudu.txt");
+        tasks = s.load();
 
         String welcomeMessage = LineWrapper.wrap("Hello! I'm dudu\n"
                 + "What can I do for you?");
