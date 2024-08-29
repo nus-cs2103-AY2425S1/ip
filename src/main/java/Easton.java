@@ -1,3 +1,7 @@
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,6 +28,13 @@ public class Easton {
         boolean isFinished = false;
         String input;
         Action action;
+
+        try {
+            retrieveData();
+        } catch (IOException e) {
+            e.printStackTrace();
+            isFinished = true;
+        }
 
         while (!isFinished) {
             input = prompt(scanner);
@@ -192,5 +203,53 @@ public class Easton {
 
     private static String prompt(Scanner scanner) {
         return scanner.nextLine();
+    }
+
+    private static Path getFilePath() throws IOException{
+        String currentDirectory = System.getProperty("user.dir");
+        Path folder = Paths.get(currentDirectory, "data");
+        Path filePath = Paths.get(folder.toString(), "tasks.csv");
+
+        if (Files.notExists(folder)) {
+            Files.createDirectory(folder);
+        }
+
+        if (Files.notExists(filePath)) {
+            Files.createFile(filePath);
+        }
+
+        return filePath;
+    }
+
+    private static void retrieveData() throws IOException {
+        Path filePath = getFilePath();
+        String line;
+        Task task;
+
+        BufferedReader bufferedReader = new BufferedReader(
+                new FileReader(
+                        filePath.toString()
+                )
+        );
+
+        while ((line = bufferedReader.readLine()) != null) {
+            String[] data = line.split(",");
+            switch (data[0]) {
+            case "T":
+                task = new ToDo(data[2]);
+                break;
+            case "D":
+                task = new Deadline(data[2], data[3]);
+                break;
+            case "E":
+                task = new Event(data[2], data[3], data[4]);
+                break;
+            default:
+                continue;
+            }
+
+            task.setDone(data[1].equals("1"));
+            tasks.add(task);
+        }
     }
 }
