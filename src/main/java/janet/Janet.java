@@ -67,6 +67,9 @@ public class Janet {
                     tasks.addTaskToList(event);
                     ui.showSuccessfulTaskAddition(event, tasks.getNumberOfTasks());
                     break;
+                case FIND:
+
+                    break;
                 }
                 if (hasTypedBye) {
                     break;
