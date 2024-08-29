@@ -3,6 +3,9 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
 
+    public TaskList() {
+
+    }
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }

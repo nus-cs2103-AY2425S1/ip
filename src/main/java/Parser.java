@@ -22,6 +22,8 @@ public class Parser {
                 return handleDelete(parts);
             case LIST:
                 return listTasks();
+            case BYE:
+                return handleBye();
             default:
                 throw new LexiException("Unrecognized command: " + parts[0]);
             }
@@ -30,6 +32,9 @@ public class Parser {
         }
     }
 
+    private static ByeCommand handleBye() {
+        return new ByeCommand();
+    }
     private static DeleteCommand handleDelete(String[] parts) throws LexiException {
         if(parts.length != 2) {
             throw new LexiException("Please key in the command in this format " +

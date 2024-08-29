@@ -7,12 +7,16 @@ public class Ui {
         System.out.println(LINE_BREAK);
     }
 
-    public void greet() {
+    public void showWelcome() {
             this.showLine();
             System.out.println(" Hello! I'm Lexi\n What can I do for you?");
             this.showLine();
     }
-
+    public void showBye() {
+        this.showLine();
+        System.out.println(" Bye. Hope to see you again soon!");
+        this.showLine();
+    }
     public String readCommand() {
         Scanner userInput = new Scanner(System.in);
         String response = userInput.nextLine();
@@ -61,5 +65,8 @@ public class Ui {
             System.out.printf("  %d. %s%n", i+1, currTask);
         }
         this.showLine();
+    }
+    public void showError(String message) {
+        System.out.println(message);
     }
 }
