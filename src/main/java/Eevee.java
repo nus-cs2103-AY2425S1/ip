@@ -1,15 +1,32 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a task management program.
+ */
 public class Eevee {
+    /**
+     * Enumerates the possible commands that can be executed by the Eevee program.
+     */
     enum Command {
         BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT;
 
+        /**
+         * Converts a string command to its corresponding Command enumeration.
+         *
+         * @param command The string representation of the command.
+         * @return The corresponding Command enumeration.
+         */
         public static Command enumerate(String command) {
             return Command.valueOf(command.toUpperCase());
         }
     }
 
+    /**
+     * Serves as the entry point for the Eevee program.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         ArrayList<Task> tasks = new ArrayList<>();
         String divider = "____________________________________________________________\n";
