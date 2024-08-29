@@ -1,189 +1,93 @@
-import java.util.Scanner;
-import java.time.LocalDate;
-
 public class Nixy {
-    static final String HORIZONTAL_LINE = "____________________________________________________________";
-    static String[] tasks = new String[100];
-    static int taskCount = 0;
-    static TaskManager taskManager = new TaskManager();
 
-    public static void main(String[] args) {
-        String chatbotName = "Nixy";
-        PrintUtility.wrapPrintWithHorizontalLines("Hello! I'm " + chatbotName, "What can I do for you?");
-        while (true) {
-            String input = readInput();
-            if (input.equals("bye")) {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Nixy(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (NixyException e) {
+            ui.showNixyException(e);
+            tasks = new TaskList();
+        }
+    }
+
+    /**
+     * Main driver for Nixy
+     * Entry point to display welcome message and read user input.
+     */
+    public void run() {
+        ui.showWelcome();
+        Boolean isExit = false;
+        while (!isExit) {
+            String input = ui.readInput();
+            Parser p;
+            Command c;
+            try {
+                p = new Parser(input);
+                c = p.getCommand();
+            } catch (NixyException e) {
+                ui.showNixyException(e);
+                continue;
+            }
+            switch (c) {
+            case BYE:
+                isExit = true;
+                break;
+            case LIST:
+                ui.showList(tasks);
+                break;
+            case MARK:
+                try {
+                    String taskStr = tasks.markTaskAsDone(p.getTaskNumber());
+                    ui.showMarkedAsDone(taskStr);
+                    storage.save(tasks);
+                } catch (NixyException e) {
+                    ui.showNixyException(e);
+                }
+                break;
+            case UNMARK:
+                try {
+                    String taskStr = tasks.markTaskAsUndone(p.getTaskNumber());
+                    ui.showMarkedAsUndone(taskStr);
+                    storage.save(tasks);
+                } catch (NixyException e) {
+                    ui.showNixyException(e);
+                }
+                break;
+            case DELETE:
+                try {
+                    String taskStr = tasks.deleteTask(p.getTaskNumber());
+                    ui.showDeletedTask(taskStr, tasks.getTaskCount());
+                    storage.save(tasks);
+                } catch (NixyException e) {
+                    ui.showNixyException(e);
+                }
+                break;
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                try {
+                    Task task = p.getTask();
+                    tasks.addTask(task);
+                    ui.showAddedTask(task, tasks.getTaskCount());
+                    storage.save(tasks);
+                } catch (NixyException e) {
+                    ui.showNixyException(e);
+                }
+                break;
+            case INVALID:
+                ui.showUnknownWarning();
                 break;
             }
-            if (input.equals("list")) {
-                list();
-                continue;
-            }
-            if (input.startsWith("mark")) {
-                final int MARK_PREFIX_LENGTH = 4;
-                String taskNumberStr = input.substring(MARK_PREFIX_LENGTH).trim();
-                if (taskNumberStr.isEmpty()) {
-                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The task number to mark as done cannot be empty.");
-                    continue;
-                }
-                try {
-                    int taskNumber = Integer.parseInt(taskNumberStr);
-                    taskManager.markTaskAsDone(taskNumber);
-                } catch (NumberFormatException e) {
-                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The task number to mark as done must be an integer.");
-                } catch (TaskNotExistException e) {
-                    PrintUtility.wrapPrintWithHorizontalLines(e.getMessage());
-                }
-                continue;
-            }
-            if (input.startsWith("unmark")) {
-                final int UNMARK_PREFIX_LENGTH = 6;
-                String taskNumberStr = input.substring(UNMARK_PREFIX_LENGTH).trim();
-                if (taskNumberStr.isEmpty()) {
-                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The task number to mark as undone cannot be empty.");
-                    continue;
-                }
-                try {
-                    int taskNumber = Integer.parseInt(taskNumberStr);
-                    taskManager.markTaskAsUndone(taskNumber);
-                } catch (NumberFormatException e) {
-                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The task number to mark as undone must be an integer.");
-                } catch (TaskNotExistException e) {
-                    PrintUtility.wrapPrintWithHorizontalLines(e.getMessage());
-                }
-                continue;
-            }
-            if (input.startsWith("delete")) {
-                final int DELETE_PREFIX_LENGTH = 6;
-                String taskNumberStr = input.substring(DELETE_PREFIX_LENGTH).trim();
-                if (taskNumberStr.isEmpty()) {
-                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The task number to delete cannot be empty.");
-                    continue;
-                }
-                try {
-                    int taskNumber = Integer.parseInt(taskNumberStr);
-                    taskManager.deleteTask(taskNumber);
-                } catch (NumberFormatException e) {
-                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The task number to delete must be an integer.");
-                } catch (TaskNotExistException e) {
-                    PrintUtility.wrapPrintWithHorizontalLines(e.getMessage());
-                }
-                continue;
-            }
-            if (input.startsWith("todo")) {
-                final int TODO_PREFIX_LENGTH = 4;
-                String taskName = input.substring(TODO_PREFIX_LENGTH).trim();
-                if (taskName.isEmpty()) {
-                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The description of a todo cannot be empty.");
-                    continue;
-                }
-                store(new TodoTask(taskName));
-                continue;
-            }
-            if (input.startsWith("deadline")) {
-                final int DEADLINE_PREFIX_LENGTH = 8;
-                String taskMeta = input.substring(DEADLINE_PREFIX_LENGTH).trim();
-
-                // check if taskMeta is empty or does not contain /by
-                if (taskMeta.isEmpty()) {
-                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The description of a deadline cannot be empty.");
-                    continue;
-                }
-
-                // index 0 is task name, index 1 is deadline
-                try {
-                    String[] taskParts = taskMeta.split(" /by ");
-                    store(new DeadlineTask(taskParts[0], LocalDate.parse(taskParts[1])));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The deadline of a deadline task must be specified.");
-                }
-
-                continue;
-            }
-            if (input.startsWith("event")) {
-                final int EVENT_PREFIX_LENGTH = 5;
-                String taskMeta = input.substring(EVENT_PREFIX_LENGTH).trim();
-
-                // check if taskMeta is empty or does not contain /from and /to
-                if (taskMeta.isEmpty()) {
-                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The description of an event cannot be empty.");
-                    continue;
-                }
-
-                // index 0 is task name, index 1 is start time with end time
-                try {
-                    String[] taskParts = taskMeta.split(" /from ");
-                    String taskName = taskParts[0];
-                    // index 0 is start time, index 1 is end time
-                    taskParts = taskParts[1].split(" /to ");
-                    store(new EventTask(taskName, LocalDate.parse(taskParts[0]), LocalDate.parse(taskParts[1])));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    PrintUtility.wrapPrintWithHorizontalLines("BLAHH!!! The start and end time of an event must be specified.");
-                }
-                continue;
-            }
-
-            PrintUtility.wrapPrintWithHorizontalLines("HEY YOU ARE TYPING WEIRD THINGS! I don't understand.");
         }
-        exit();
+        ui.showGoodbye();
     }
 
-    /**
-     * Read input from the user.
-     */
-    private static String readInput() {
-        Scanner in = new Scanner(System.in);
-        String input = in.nextLine();
-        return input;
+    public static void main(String[] args) {
+        new Nixy("../../../data/tasks.txt").run();
     }
-
-    /** Get command and arguments from input string.
-     * @param input input string from user
-     * @return array of command and arguments
-     */
-    private static String[] splitCommand(String input) {
-        return input.split(" ");
-    }
-
-    /**
-     * Deprecated method to read input and echo it back.
-     */
-    private static void echo() {
-        Scanner in = new Scanner(System.in);
-        String input = in.nextLine();
-        if (input.equals("bye")) {
-            exit();
-            return;
-        }
-        PrintUtility.wrapPrintWithHorizontalLines(input);
-        echo();
-    }
-
-    /**
-     * Store new task in the list of tasks.
-     * @param task task to be stored (TodoTask, DeadlineTask, EventTask)
-     */
-    private static void store(Task task) {
-        taskManager.addTask(task);
-        PrintUtility.wrapPrintWithHorizontalLines("Got it. I've added this task: \n      " + task,
-            "Now you have " + taskManager.getTaskCount() + " tasks in the list.");
-    }
-
-    /**
-     * List all tasks in the list of tasks.
-     */
-    private static void list() {
-        PrintUtility.indentPrint(HORIZONTAL_LINE);
-        PrintUtility.indentPrint("Here are the tasks in your list:");
-        taskManager.listTasks();
-        PrintUtility.indentPrint(HORIZONTAL_LINE);
-    }
-
-    /**
-     * Print exit message
-     */
-    private static void exit() {
-        PrintUtility.wrapPrintWithHorizontalLines("Bye. Hope to see you again soon!");
-    }
-
 }
