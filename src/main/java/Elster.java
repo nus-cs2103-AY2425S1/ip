@@ -1,5 +1,6 @@
 import com.sun.source.tree.CaseTree;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,7 +26,7 @@ public class Elster {
         printLine();
 
         while (byeSentinel) {
-            input = myScanner.nextLine();
+            input = myScanner.nextLine().strip();
             if (input.equals("bye")) {
                 byeSentinel = false;
 
@@ -37,12 +38,14 @@ public class Elster {
                 if (!(task == null)) {
                     taskList.addToList(task);
                 }
+                taskList.writeToFile();
 
             } else if (input.startsWith("event")) {
                 EventTask task = EventTask.of(input);
                 if (!(task == null)) {
                     taskList.addToList(task);
                 }
+                taskList.writeToFile();
 
             } else if (input.startsWith("delete")) {
                 taskList.deleteTask(Integer.parseInt(input.substring(7).strip()));
@@ -52,16 +55,19 @@ public class Elster {
                 if (!(task == null)) {
                     taskList.addToList(task);
                 }
+                taskList.writeToFile();
 
             } else if (input.startsWith("mark")) {
                 taskList.markTaskAsDone(Integer.parseInt(input.substring(5,6)));
+                taskList.writeToFile();
 
             } else if (input.startsWith("unmark")) {
                 taskList.unmarkTaskAsUndone(Integer.parseInt(input.substring(7,8)));
+                taskList.writeToFile();
 
             } else {
                 printLine();
-                System.out.println("    Could you, like, write a sensible command please?");
+                System.out.println("    Could you, like, write a sensible command please? \n");
                 printLine();
             }
         }

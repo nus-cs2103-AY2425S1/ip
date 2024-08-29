@@ -44,4 +44,13 @@ public class EventTask extends Task {
             return "[E][ ] " + this.description + " (from: " + start  + " to: " + end + ")";
         }
     }
+
+    @Override
+    public String toFileString() {
+        if (this.status) {
+            return "D | 1 | " + this.description + " | " + this.start + " | " + this.end;
+        } else {
+            return "D | 0 | " + this.description + " | " + this.start + " | " + this.end;
+        }
+    }
 }

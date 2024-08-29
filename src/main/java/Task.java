@@ -41,4 +41,6 @@ abstract public class Task {
             return "[ ] " + this.description;
         }
     }
+
+    public abstract  String toFileString();
 }

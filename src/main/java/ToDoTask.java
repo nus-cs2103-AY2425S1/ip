@@ -14,11 +14,21 @@ public class ToDoTask extends Task {
         }
     }
 
+    @Override
     public String toString() {
         if (this.status) {
             return "[T][X] " + this.description;
         } else {
             return "[T][ ] " + this.description;
+        }
+    }
+
+    @Override
+    public String toFileString() {
+        if (this.status) {
+            return "T | 1 | " + this.description;
+        } else {
+            return "T | 0 | " + this.description;
         }
     }
 }

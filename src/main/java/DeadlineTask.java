@@ -35,4 +35,13 @@ public class DeadlineTask extends Task{
             return "[D][ ] " + this.description + " (by: " + deadline + ")";
         }
     }
+
+    @Override
+    public String toFileString() {
+        if (this.status) {
+            return "D | 1 | " + this.description + " | " + this.deadline;
+        } else {
+            return "D | 0 | " + this.description + " | " + this.deadline;
+        }
+    }
 }
