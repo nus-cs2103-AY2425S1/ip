@@ -55,7 +55,7 @@ public class Joe {
     }
 
     public static void main(String[] args) {
-        new Joe("data/joe.txt").run(); // remove ../ if running from the root directory
+        new Joe("data/joe.txt").run();
     }
 
 }
