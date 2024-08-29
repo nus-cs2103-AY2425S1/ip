@@ -1,9 +1,11 @@
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
 
 public class Pixel {
     public final static String DIRECTORY_PATH = "../data";
@@ -47,10 +49,11 @@ public class Pixel {
         Scanner scanner = new Scanner(file); // create a Scanner using the File as the source
         while (scanner.hasNext()) {
             String dataLine = scanner.nextLine();
-            String[] inputs = dataLine.split(" | ");
-            String taskType = inputs[0];
-            String doneStatus = inputs[1];
-            String taskDescription = inputs[2];
+            String[] inputs = dataLine.split("\\|", 0);
+            String taskType = inputs[0].trim();
+            String doneStatus = inputs[1].trim();
+            String taskDescription = inputs[2].trim();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             switch(taskType) {
             case "T":
                 ToDo currentTask = new ToDo(taskDescription);
@@ -60,7 +63,7 @@ public class Pixel {
                 tasks.add(currentTask);
                 break;
             case "D":
-                String deadline = inputs[3];
+                LocalDateTime deadline = LocalDateTime.parse(inputs[3].trim(), formatter);
                 Deadline currentDeadline = new Deadline(taskDescription, deadline);
                 if (doneStatus.equals("1")) {
                     currentDeadline.markAsDone();
@@ -68,10 +71,10 @@ public class Pixel {
                 tasks.add(currentDeadline);
                 break;
             case "E":
-                String fromToDate = inputs[3];
-                String[] fromToSplit = fromToDate.split("-");
-                String from = fromToSplit[0];
-                String to = fromToSplit[1];
+                String fromToDate = inputs[3].trim();
+                String[] fromToSplit = fromToDate.split("to");
+                LocalDateTime from = LocalDateTime.parse(fromToSplit[0].trim(), formatter);
+                LocalDateTime to = LocalDateTime.parse(fromToSplit[1].trim(), formatter);
                 Event currentEvent = new Event(taskDescription, from, to);
                 if (doneStatus.equals("1")) {
                     currentEvent.markAsDone();
@@ -163,18 +166,27 @@ public class Pixel {
                     printAddConfirmation(newToDo.toString());
                 }
             } else if (command.startsWith("deadline")) {
-                String[] stringArray = command.split("/", 0);
+                String[] stringArray = command.split("/by", 0);
                 String description = stringArray[0].replace("deadline", "").trim();
-                String by = stringArray[1].replace("by", "").trim();
+                String byString = stringArray[1].replace("by", "").trim();
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                LocalDateTime by = LocalDateTime.parse(byString, formatter);
                 Deadline newDeadline = new Deadline(description, by);
                 tasks.add(newDeadline);
                 updateFile();
                 printAddConfirmation(newDeadline.toString());
             } else if (command.startsWith("event")) {
-                String[] stringArray = command.split("/", 0);
+                String[] stringArray = command.split("/from", 0);
                 String description = stringArray[0].replace("event", "").trim();
-                String from = stringArray[1].replace("from", "").trim();
-                String to = stringArray[2].replace("to", "").trim();
+                String fromAndToString = stringArray[1].trim();
+                String[] fromAndToArray = fromAndToString.split("/to", 0);
+                String fromString = fromAndToArray[0].trim();
+                String toString = fromAndToArray[1].trim();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                LocalDateTime from = LocalDateTime.parse(fromString, formatter);
+                LocalDateTime to = LocalDateTime.parse(toString, formatter);
+
                 Event newEvent = new Event(description, from, to);
                 tasks.add(newEvent);
                 updateFile();
