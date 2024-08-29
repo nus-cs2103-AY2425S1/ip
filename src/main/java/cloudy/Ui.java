@@ -1,3 +1,5 @@
+package cloudy;
+
 public class Ui {
 
     public void showGreeting() {
