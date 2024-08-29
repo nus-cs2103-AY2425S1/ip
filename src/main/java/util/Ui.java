@@ -2,9 +2,15 @@ package util;
 
 import java.util.Scanner;
 
+/**
+ * Utility class to interact with the user.
+ */
 public class Ui {
     private final Scanner sc;
 
+    /**
+     * Constructor for a new Ui object.
+     */
     public Ui() {
         this.sc = new Scanner(System.in);
     };
@@ -28,6 +34,11 @@ public class Ui {
         Utility.prettyPrint(sb.toString());
     }
 
+    /**
+     * Utility method to get input from std::in.
+     * 
+     * @return Input from std::in.
+     */
     public String getNextLine() {
         return this.sc.nextLine();
     }

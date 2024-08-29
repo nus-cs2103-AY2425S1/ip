@@ -57,11 +57,27 @@ public abstract class Command {
         }
     }
 
+    /**
+     * Factory method to create a Command from a string.
+     * 
+     * @param type String representing a command.
+     * @return The Command represented by the type.
+     * @throws MizzException if the type is an invalid command.
+     */
     public static Command of(String type) throws MizzException {
         CommandTypes cmdType = CommandTypes.toCommandType(type);
         return CommandTypes.toCommand(cmdType);
     }
 
+    /**
+     * Method to excute the command.
+     * 
+     * @param tl The tasklist object.
+     * @param ui The Ui object.
+     * @param storage The storage object.
+     * @param details An array of the details.
+     * @throws MizzException if the excute operation fails.
+     */
     public abstract void execute(TaskList tl, Ui ui, Storage storage, String... details)
             throws MizzException;
 
