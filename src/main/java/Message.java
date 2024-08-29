@@ -42,4 +42,16 @@ public class Message {
         System.out.println(message);
     }
 
+    public static void getDay(Task task) {
+        if (task instanceof ToDo) {
+            throw new WrongTaskTypeException("does not have a deadline!");
+        } else if (task instanceof Deadline) {
+            Deadline d = (Deadline) task;
+            System.out.println("This task is due on a " + d.getDay() + "!");
+        } else if (task instanceof Event) {
+            Event e = (Event) task;
+            System.out.println("This task occurs from " + e.getDay() + "!");
+        }
+    }
+
 }
