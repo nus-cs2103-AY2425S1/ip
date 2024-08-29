@@ -17,6 +17,17 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the storage of tasks.
+ * Handles the reading and writing of tasks to a file.
+ * The file is stored in the file path specified by the user.
+ * The file is created if it does not exist.
+ * The file is read and written to in the format:
+ * [task type] | [status] | [description] | [date]
+ * where task type is T for ToDoTask, D for DeadlineTask, and E for EventTask.
+ * where status is X if the task is done, and a space if the task is not done.
+ * where date is the date of the task in the format "MMM d yyyy, HH:mm".
+ */
 public class Storage {
 
     private String filePath;
@@ -24,6 +35,12 @@ public class Storage {
         this.filePath = filePath;
         load(filePath);
     }
+
+    /**
+     * Writes the tasks to the file.
+     * @param data File to write to.
+     * @param items List of tasks to write to the file.
+     */
     public void write(File data, ArrayList<Task> items) {
         try {
             FileWriter writer = new FileWriter(data);
@@ -43,6 +60,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the file to store data.
+     * Creates a file to store data if none exists.
+     * @param filePath File path to store data.
+     */
     private void load(String filePath) {
         // Creates a file to store data if none exists
         try {
@@ -52,6 +74,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the tasks from the file.
+     * Creates a list of tasks from the file.
+     * Handles the reading of tasks from the file.
+     * Handles the case where the file is not found.
+     * Handles the case where the file is empty.
+     * @param data File to read from.
+     * @return List of tasks read from the file.
+     */
     public ArrayList<Task> read(File data) {
         ArrayList<Task> items = null;
         try {
@@ -79,6 +110,14 @@ public class Storage {
         return items;
     }
 
+    /**
+     * Creates a task from the file.
+     * @param type Task type.
+     * @param desc Task description.
+     * @param date Task date.
+     * @return Task created from the file.
+     * @throws SigmaException If the task type is invalid, or contains invalid date format.
+     */
     private Task createTaskFromFile(String type, String desc, String date) throws SigmaException {
         Task item;
         switch (type) {

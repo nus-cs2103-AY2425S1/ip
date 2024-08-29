@@ -8,12 +8,22 @@ import sigma.task.DeadlineTask;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents the command to add a deadline task.
+ */
 public class DeadlineCommand extends Commands {
 
     public DeadlineCommand(String[] split) {
         super(split);
     }
 
+    /**
+     * Adds a deadline task to the task list.
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws SigmaException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
         Parser parser = new Parser();

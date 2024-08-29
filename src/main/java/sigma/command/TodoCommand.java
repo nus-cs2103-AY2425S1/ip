@@ -6,11 +6,22 @@ import sigma.Ui;
 import sigma.exception.SigmaException;
 import sigma.task.ToDoTask;
 
+/**
+ * Represents the command to add a todo task.
+ */
 public class TodoCommand extends Commands {
 
     public TodoCommand(String[] split) {
         super(split);
     }
+
+    /**
+     * Adds a todo task to the task list.
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws SigmaException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
         ToDoTask toDoTask = null;

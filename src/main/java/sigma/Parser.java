@@ -7,8 +7,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a parser that parses user input.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding command.
+     * @param command User input.
+     * @return Corresponding command.
+     */
     public static Commands parse(String command) {
         String[] split = command.split(" ", 2);
         String cmd = split[0]; // Convert input to uppercase to match enum
@@ -34,6 +42,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the date and time input and returns a LocalDateTime object.
+     * @param timing Date and time input.
+     * @return LocalDateTime object.
+     * @throws SigmaException If the date and time input is invalid.
+     */
     public static LocalDateTime dateTimeParse(String timing) throws SigmaException {
         LocalDateTime dateTime;
         try {

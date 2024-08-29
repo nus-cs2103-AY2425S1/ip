@@ -6,11 +6,22 @@ import sigma.Ui;
 import sigma.exception.SigmaException;
 import sigma.task.Task;
 
+/**
+ * Represents the command to delete a task from the list.
+ */
 public class DeleteCommand extends Commands {
 
     public DeleteCommand(String[] split) {
         super(split);
     }
+
+    /**
+     * Deletes a task from the task list.
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws SigmaException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
         if (split.length < 2) {
