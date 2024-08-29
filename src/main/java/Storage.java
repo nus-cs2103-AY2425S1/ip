@@ -54,7 +54,7 @@ public class Storage {
         return toDo;
     }
 
-    public void save(ArrayList<Task> toDo) {
+    public void save(TaskList toDo) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
             for (int i = 1; i <= toDo.size(); i++) {

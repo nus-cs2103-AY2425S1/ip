@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class TaskList {
     public static final Task EMPTY_TASK = new Task("default");
 
-    public ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -19,6 +19,18 @@ public class TaskList {
 
     public void deleteTask(int index) {
         tasks.remove(index);
+    }
+
+    public Task get(int index) {
+        return tasks.get(index);
+    }
+
+    public int size() {
+        return tasks.size();
+    }
+
+    public boolean isEmpty() {
+        return tasks.isEmpty();
     }
 
 }

@@ -6,7 +6,7 @@ public class UnknownCommand extends Command{
         this.commandMessage = commandMessage;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Storage storage) {
         System.out.println("Sorry to say that I don't know what does \"" + commandMessage + "\" means. " +
                 "Anyway, have a good day :)");
     }

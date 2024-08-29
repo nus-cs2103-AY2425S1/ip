@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import static java.lang.Integer.parseInt;
 
 public class Utility {
 
@@ -90,7 +91,7 @@ public class Utility {
         }
         if (taskType.equals("delete")) {
             try {
-                int taskIndex = divideMessage(message)[1].charAt(0) - 49;
+                int taskIndex = parseInt(divideMessage(message)[1]) - 1;
                 System.out.println("Noted. I've removed this task:\n" + toDo.get(taskIndex) +
                         "\nNow you have " + (toDo.size() - 1) + " tasks in the list.");
                 toDo.remove(taskIndex);

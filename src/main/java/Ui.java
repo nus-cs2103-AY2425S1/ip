@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Ui {
 
     public static final String LINE = "________________________________________________";
@@ -13,13 +15,16 @@ public class Ui {
     }
 
     public static void showBye() {
-        showLine();
         System.out.println("Bye. Hope to see you again soon!");
-        showLine();
     }
 
     public static void showError(String errorMessage) {
         System.out.println(errorMessage);
+    }
+
+    public static String readCommand() {
+        Scanner sc = new Scanner(System.in);
+        return sc.nextLine();
     }
 
 
