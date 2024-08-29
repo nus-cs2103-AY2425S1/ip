@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -84,31 +85,39 @@ public class Barcus {
                 if (!wordsList.contains("/by")) {
                     talk("Uh oh, please include '/by' and deadline after it");
                 } else {
-                    int byI = wordsList.indexOf("/by");
-//
+                    try {
+                        int byI = wordsList.indexOf("/by");
+                        //
 //                    String[] temp = reply.split(" /by ");
 //                    String by = temp[1];
-                    tasks.add(new Deadline(
-                            String.join(" ", Arrays.copyOfRange(words, 1, byI)),
-                            String.join(" ", Arrays.copyOfRange(words, byI + 1, words.length))));
-                    curr++;
-                    talk("Added task: " + tasks.get(curr - 1) + "\nThere are " + curr + " task(s) in the list.");
+                        tasks.add(new Deadline(
+                                String.join(" ", Arrays.copyOfRange(words, 1, byI)),
+                                String.join(" ", Arrays.copyOfRange(words, byI + 1, words.length))));
+                        curr++;
+                        talk("Added task: " + tasks.get(curr - 1) + "\nThere are " + curr + " task(s) in the list.");
+                    } catch (DateTimeParseException e) {
+                        talk("Uh oh, please format date as dd/MM/yyyy HH:mm");
+                    }
+
                 }
             } else if (words[0].equals("event")) {
                 List<String> wordsList = Arrays.asList(words);
                 if (!wordsList.contains("/from") || !wordsList.contains("/to")) {
                     talk("Uh oh, please include '/from' and '/to' as well as dates after each of those words");
                 } else {
-                    int fromI = wordsList.indexOf("/from");
-                    int toI = wordsList.indexOf("/to");
-                    tasks.add(new Event(
-                            String.join(" ", Arrays.copyOfRange(words, 1, fromI)),
-                            String.join(" ", Arrays.copyOfRange(words, fromI + 1, toI)),
-                            String.join(" ", Arrays.copyOfRange(words, toI + 1, words.length))
-                    ));
-                    curr++;
-                    talk("Added task: " + tasks.get(curr - 1) + "\nThere are " + curr + " task(s) in the list.");
-
+                    try {
+                        int fromI = wordsList.indexOf("/from");
+                        int toI = wordsList.indexOf("/to");
+                        tasks.add(new Event(
+                                String.join(" ", Arrays.copyOfRange(words, 1, fromI)),
+                                String.join(" ", Arrays.copyOfRange(words, fromI + 1, toI)),
+                                String.join(" ", Arrays.copyOfRange(words, toI + 1, words.length))
+                        ));
+                        curr++;
+                        talk("Added task: " + tasks.get(curr - 1) + "\nThere are " + curr + " task(s) in the list.");
+                    } catch (DateTimeParseException e) {
+                        talk("Uh oh, please format date as dd/MM/yyyy HH:mm");
+                    }
                 }
             } else if (words[0].equals("delete")) {
                 if (words.length != 2) {
@@ -143,15 +152,28 @@ public class Barcus {
 
     }
 
+    /**
+     * Prints message s with appropriate string in front
+     * @param s
+     */
     private static void talk(String s) {
         System.out.println("Barcus: " + s);
     }
 
+    /**
+     * Returns user input
+     * @param scanner
+     * @return user input
+     */
     private static String receive(Scanner scanner) {
         System.out.print("You: ");
         return scanner.nextLine();
     }
 
+    /**
+     * Returns information from the save file formatted in a List of Tasks
+     * @return ArrayList of Tasks in save folder
+     */
     private static ArrayList<Task> downloadSaved() {
         File file = new File("./data/savedTasks.txt");
         File dir = new File("./data");
@@ -199,7 +221,10 @@ public class Barcus {
         return tasks;
     }
 
-
+    /**
+     * Saves tasks into the save folder
+     * @param tasks
+     */
     private static void uploadSaved(ArrayList<Task> tasks) {
         try (FileWriter writer = new FileWriter("./data/savedTasks.txt");
              BufferedWriter bfWriter = new BufferedWriter(writer)) {

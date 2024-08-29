@@ -1,26 +1,35 @@
-public class Event extends Task {
-    protected String from;
-    protected String to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Event(String description, String from, String to) {
+public class Event extends Task {
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+
+    private final static DateTimeFormatter fromFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private final static DateTimeFormatter toFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+
+    public Event(String description, String from, String to) throws DateTimeParseException {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from, fromFormatter);
+        this.to = LocalDateTime.parse(to, fromFormatter);
     }
 
-    public Event(String description, boolean isDone, String from, String to) {
+    public Event(String description, boolean isDone, String from, String to) throws DateTimeParseException {
         super(description, isDone);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from, fromFormatter);
+        this.to = LocalDateTime.parse(to, fromFormatter);
     }
 
     @Override
     public String convertToSavedString() {
-        return "E | " + super.convertToSavedString() + " | " + this.from + " | " + this.to;
+        return "E | " + super.convertToSavedString() + " | " + this.from.format(fromFormatter)
+                + " | " + this.to.format(fromFormatter);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(toFormatter)
+                + " to: " + to.format(toFormatter) + ")";
     }
 }
