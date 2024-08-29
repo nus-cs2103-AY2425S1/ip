@@ -13,6 +13,9 @@ public class Susan {
         // Initialise Task Arraylist
         List<Task> tasks = new ArrayList<>();
 
+        // Make File
+        Save listSaver = new Save();
+
         // Add, List
         while (!userInput.equalsIgnoreCase("bye")) {
             System.out.println("~~~");
@@ -91,6 +94,8 @@ public class Susan {
                 System.out.println(" " + tasks.get(tasks.size() - 1));
                 System.out.println("You have " + tasks.size() + " task(s) in the list.");
             }
+            // Save the list
+            listSaver.SaveList(tasks);
 
             // Read next input
             userInput = scanner.nextLine();
