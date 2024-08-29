@@ -1,73 +1,26 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Garfield {
 
     private static ArrayList<Task> taskList = new ArrayList<>();
     private Ui ui;
+    private Storage storage;
 
     public Garfield(String saveFilePath){
         this.ui = new Ui();
-
-        // Load harddisk file
-        File savedFile = new File(saveFilePath);
-        try {
-            Scanner fileScanner = new Scanner(savedFile);
-            String savedTask;
-            while (fileScanner.hasNext()) {
-                savedTask = fileScanner.nextLine();
-                String[] taskDetails = savedTask.split(" \\| ");
-                String taskType = taskDetails[0];
-
-                switch (taskType) {
-                    case "T":
-                        Todo newTodo = new Todo(taskDetails[2]);
-                        taskList.add(newTodo);
-                        if (taskDetails[1].equals("1")) {
-                            newTodo.markAsDone();
-                        } else {
-                            newTodo.markAsUndone();
-                        }
-                        break;
-                    case "D":
-                        Deadline newDeadline = new Deadline(taskDetails[2], Garfield.parseDateTime(taskDetails[3]));
-                        taskList.add(newDeadline);
-                        if (taskDetails[1].equals("1")) {
-                            newDeadline.markAsDone();
-                        } else {
-                            newDeadline.markAsUndone();
-                        }
-                        break;
-                    case "E":
-                        Event newEvent = new Event(taskDetails[2], Garfield.parseDateTime(taskDetails[3]), Garfield.parseDateTime(taskDetails[4]));
-                        taskList.add(newEvent);
-                        if (taskDetails[1].equals("1")) {
-                            newEvent.markAsDone();
-                        } else {
-                            newEvent.markAsUndone();
-                        }
-                        break;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            // You don't have a save file
-        }
+        this.storage = new Storage(saveFilePath);
+        taskList = this.storage.load();
     }
 
     public void run() {
         this.ui.showGreeting();
 
-
         String userInput;
         while (true) {
-            this.saveToHardDisk();
+            this.storage.save(taskList);
             userInput = this.ui.readCommand();
 
             if (userInput.equalsIgnoreCase("bye")) {
@@ -232,22 +185,7 @@ public class Garfield {
         this.ui.showMessage("Finally. Try not to come back too soon.");
     }
     public static void main(String[] args) {
-        new Garfield("./data/save.txt").run();
-    }
-
-    private void saveToHardDisk() {
-        try (FileWriter fw = new FileWriter("./data/save.txt")) {
-            String prefix = "";
-            StringBuilder textToWrite = new StringBuilder();
-            for (Task t : taskList) {
-                textToWrite.append(prefix);
-                prefix = System.lineSeparator();
-                textToWrite.append(t.toSaveRepresentation());
-            }
-            fw.write(textToWrite.toString());
-        } catch (IOException e) {
-            this.ui.showMessage("Something went wrong when saving your task list.");
-        }
+        new Garfield("../data/save.txt").run();
     }
 
     private static LocalDateTime parseDateTime(String dateInput) throws DateTimeParseException {
