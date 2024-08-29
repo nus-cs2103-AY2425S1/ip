@@ -13,14 +13,12 @@ public abstract class Task {
         return (isDone ? "X" : " ");
     }
 
-    public boolean markAsDone() {
+    public void markAsDone() {
         this.isDone = true;
-        return true;
     }
 
-    public boolean markAsNotDone() {
+    public void markAsNotDone() {
         this.isDone = false;
-        return true;
     }
 
     public String getDescription() {

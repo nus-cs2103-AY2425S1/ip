@@ -1,16 +1,21 @@
 package storage;
 
-import task.*;
-import ui.Ui;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Scanner;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.TaskList;
+import task.ToDo;
+
+import ui.Ui;
+
 
 public class Storage {
     static final String FILE_PATH = "data/bob.txt";
@@ -56,7 +61,7 @@ public class Storage {
             FileWriter fw = new FileWriter(FILE_PATH);
             fw.close();
         } catch (IOException ignored) {
-            this.ui.savingError();
+            this.ui.savingErrorUi();
         }
     }
     public void saveTask(String s) {
@@ -65,7 +70,7 @@ public class Storage {
             fw.write(s + System.lineSeparator());
             fw.close();
         } catch (IOException ignored) {
-            this.ui.savingError();
+            this.ui.savingErrorUi();
         }
     }
 }

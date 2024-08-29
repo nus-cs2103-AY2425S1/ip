@@ -21,23 +21,23 @@ public class Ui {
         sendMessage("Now you have " + size + " tasks in the list.");
     }
 
-    public void markTaskUI(Task t) {
+    public void markTaskUi(Task t) {
         sendMessage("Nice! I've marked this task as done:");
         sendMessage(t.toString());
     }
 
-    public void unmarkTaskUI(Task t) {
+    public void unmarkTaskUi(Task t) {
         sendMessage("OK, I've marked this task as not done yet:");
         sendMessage(t.toString());
     }
 
-    public void deleteTaskUI(Task t, int size) {
+    public void deleteTaskUi(Task t, int size) {
         sendMessage("Noted. I've removed this task:");
         sendMessage(t.toString());
         sendMessage("Now you have " + size + " tasks in the list.");
     }
 
-    public void savingError() {
+    public void savingErrorUi() {
         sendMessage("An error has occurred when trying to save.");
     }
 
