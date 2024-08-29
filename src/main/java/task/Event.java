@@ -17,7 +17,7 @@ public class Event extends Task {
     public final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
 
     /**
-     * Event constructor that checks if the startTime and endTime can be parsed as LocalDateTime objects
+     * Checks if the startTime and endTime can be parsed as LocalDateTime objects
      * @param description
      * @param startTime
      * @param endTime

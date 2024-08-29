@@ -21,7 +21,7 @@ public class Task {
 
 
     /**
-     * Override toString method for printing of todo tasks
+     * Overrides toString method for printing of todo tasks
      * @return String
      */
     @Override
@@ -31,7 +31,7 @@ public class Task {
 
 
     /**
-     * This toggle task done method allows the user to toggle whether the task is marked as completed or not.
+     * Allows the user to toggle whether the task is marked as completed or not.
      */
     public void toggleTaskDone() {
         if (this.taskIsDone) {

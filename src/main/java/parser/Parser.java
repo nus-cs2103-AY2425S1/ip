@@ -17,7 +17,7 @@ public class Parser {
     }
 
     /**
-     * This handleUserInput takes care of the different user inputs and decides what actions to perform for each of them.
+     * Handles the different user inputs and decides what actions to perform for each of them.
      * @param userInput
      * @throws MollyException
      */
