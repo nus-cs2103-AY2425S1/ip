@@ -39,6 +39,4 @@ public class UnmarkCommand extends Command {
             throw new LictException("Please enter a valid integer index. For eg. 'unmark 1'");
         }
     }
-
-
 }
