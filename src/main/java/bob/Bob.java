@@ -1,4 +1,7 @@
+package bob;
 import exceptions.*;
+import task.*;
+import misc.*;
 
 public class Bob {
     Storage storage;
