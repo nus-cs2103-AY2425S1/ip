@@ -28,12 +28,14 @@ public class DeadlineTask extends Task{
         }
 
         try {
-            String deadlineString = input.substring(input.indexOf("/by") + 4).strip();
-            if (deadlineString.length() == 10) {
-                deadline = LocalDate.parse(deadlineString).atTime(23, 59);
+            String deadlineStr = input.substring(input.indexOf("/by") + 4).strip();
+
+            if (deadlineStr.length() == 10) {
+                deadline = LocalDate.parse(deadlineStr).atTime(23, 59);
+
             } else {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                deadline = LocalDateTime.parse(deadlineString, formatter);
+                deadline = LocalDateTime.parse(deadlineStr, formatter);
             }
 
         } catch (Exception e) {
