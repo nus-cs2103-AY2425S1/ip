@@ -19,6 +19,10 @@ public class Ui {
         Ui.printResponse("Bye. Hope to see you again soon!");
     }
 
+    public void showTaskList(TaskList tasks) {
+        Ui.printResponse(tasks.toString());
+    }
+
     public void showAddTask(Task task, int size) {
         Ui.printResponse("Got it. I've added this task:\n  "
                 + task.toString()

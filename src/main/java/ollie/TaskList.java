@@ -4,6 +4,7 @@ import ollie.exception.OllieException;
 import ollie.task.Task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
@@ -45,6 +46,11 @@ public class TaskList {
         Task task = tasks.get(index);
         task.markAsUndone();
         return task;
+    }
+
+    public TaskList filterByString(String findQuery) {
+        return new TaskList(this.tasks.stream().filter(task -> task.doesDescContain(findQuery)).collect(Collectors
+                .toCollection(ArrayList::new)));
     }
 
     @Override
