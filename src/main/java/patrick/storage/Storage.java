@@ -1,7 +1,6 @@
 package patrick.storage;
 
 import patrick.tasklist.*;
-import patrick.ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,10 +9,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The {@code Storage} class handles the reading and writing of task data to and from a file.
+ * It supports loading tasks from a file, adding, deleting, and saving tasks.
+ */
 public class Storage {
     static ArrayList<Task> list = new ArrayList<>();
     static String filePath;
 
+    /**
+     * Constructs a {@code Storage} object with the specified file path.
+     *
+     * @param filePath the path to the file where tasks are stored.
+     * @throws NullPointerException if the file path is null.
+     */
     public Storage(String filePath) throws NullPointerException {
         if (filePath != null) {
             Storage.filePath = filePath;
@@ -21,6 +30,13 @@ public class Storage {
             throw new NullPointerException("FilePath cannot be null");
         }
     }
+
+    /**
+     * Loads tasks from the specified file. If the file does not exist, a new file is created.
+     *
+     * @return an {@code ArrayList} of tasks loaded from the file.
+     * @throws StorageOperationException if there is an error during the file operation.
+     */
     public ArrayList<Task> load() throws StorageOperationException {
         try {
             readTasks(filePath);
@@ -37,18 +53,40 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Returns the list of tasks.
+     *
+     * @return an {@code ArrayList} of tasks.
+     */
     public static ArrayList<Task> getList() {
         return list;
     }
 
+    /**
+     * Adds a task to the list.
+     *
+     * @param task the task to be added.
+     */
     public static void addList(Task task) {
         list.add(task);
     }
 
+    /**
+     * Deletes a task from the list by index.
+     *
+     * @param index the 1-based index of the task to be deleted.
+     */
     public static void deleteItem(int index) {
         list.remove(index - 1);
     }
 
+    /**
+     * Reads tasks from the file and populates the task list.
+     *
+     * @param filePath the path to the file containing the tasks.
+     * @throws FileNotFoundException if the file is not found.
+     * @throws IllegalValueException if the file contains invalid data.
+     */
     private static void readTasks(String filePath) throws FileNotFoundException, IllegalValueException {
         File file = new File(filePath);
         Scanner s = new Scanner(file);
@@ -88,12 +126,23 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends the specified text to the file.
+     *
+     * @param text the text to be appended to the file.
+     * @throws IOException if an I/O error occurs.
+     */
     public static void appendToFile(String text) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath, true);
         fileWriter.write(text);
         fileWriter.close();
     }
 
+    /**
+     * Writes the current list of tasks to the file, overwriting its contents.
+     *
+     * @throws IOException if an I/O error occurs.
+     */
     public static void writeToFile() throws IOException {
         FileWriter fileWriter = new FileWriter(filePath);
         for (int i = 0; i < list.size(); i++) {
@@ -108,15 +157,28 @@ public class Storage {
         fileWriter.close();
     }
 
+    /**
+     * Exception class used for handling storage operation errors.
+     */
     public static class StorageOperationException extends Exception {
+        /**
+         * Constructs a new {@code StorageOperationException} with the specified detail message.
+         *
+         * @param message the detail message.
+         */
         public StorageOperationException(String message) {
             super(message);
         }
     }
 
+    /**
+     * Exception class used for handling illegal values in the task data.
+     */
     public static class IllegalValueException extends Exception {
         /**
-         * @param message should contain relevant information on the failed constraint(s)
+         * Constructs a new {@code IllegalValueException} with the specified detail message.
+         *
+         * @param message should contain relevant information on the failed constraint(s).
          */
         public IllegalValueException(String message) {
             super(message);
