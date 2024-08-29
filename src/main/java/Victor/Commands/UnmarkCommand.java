@@ -1,6 +1,6 @@
-package Commands;
+package Victor.Commands;
 
-import Messages.ReturnMessage;
+import Victor.Messages.ReturnMessage;
 
 import java.nio.file.Path;
 

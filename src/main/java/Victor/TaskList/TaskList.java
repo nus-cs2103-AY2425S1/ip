@@ -1,6 +1,6 @@
-package TaskList;
+package Victor.TaskList;
 
-import Tasks.Task;
+import Victor.Tasks.Task;
 
 import java.io.FileWriter;
 import java.io.IOException;

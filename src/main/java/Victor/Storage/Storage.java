@@ -1,4 +1,4 @@
-package Storage;
+package Victor.Storage;
 
 import java.io.IOException;
 import java.io.File;
@@ -6,12 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
 
-import Commands.Command;
-import Commands.DeadlineCommand;
-import Commands.EventCommand;
-import Commands.MarkCommand;
-import Commands.ToDoCommand;
-import TaskList.TaskList;
+import Victor.Commands.Command;
+import Victor.Commands.DeadlineCommand;
+import Victor.Commands.EventCommand;
+import Victor.Commands.MarkCommand;
+import Victor.Commands.ToDoCommand;
+import Victor.TaskList.TaskList;
 
 public class Storage {
     Path filePath;

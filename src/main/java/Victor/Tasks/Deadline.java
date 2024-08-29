@@ -1,9 +1,8 @@
-package Tasks;
+package Victor.Tasks;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

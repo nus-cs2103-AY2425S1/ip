@@ -1,13 +1,17 @@
-package Commands;
+package Victor.Commands;
 
-import Messages.ReturnMessage;
+import Victor.Messages.ReturnMessage;
+import Victor.Tasks.Task;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
-public class MarkCommand extends Command {
+public class DeleteCommand extends Command {
     private String taskNumber;
 
-    public MarkCommand(String[] additionalInput) {
+    public DeleteCommand(String[] additionalInput) {
         super(additionalInput);
         if (additionalInput.length == 1) {
             this.taskNumber = "-1";
@@ -16,17 +20,13 @@ public class MarkCommand extends Command {
         }
     }
 
-    public MarkCommand(int task) {
-        super(new String[] {});
-        this.taskNumber = String.valueOf(task);
-    }
-
     @Override
     public ReturnMessage execute() {
         try {
-            return new ReturnMessage(super.taskList.markDone(Integer.parseInt(taskNumber)));
+            return new ReturnMessage(super.taskList.deleteTask(Integer.parseInt(taskNumber)));
         } catch (NumberFormatException e) {
-            return new ReturnMessage("  ~  I don't think there's a task with that number!");
+            return new ReturnMessage("  ~  Sorry, I don't think you entered a number for which" +
+                    " task to delete!");
         }
     }
 

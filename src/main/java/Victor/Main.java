@@ -1,11 +1,13 @@
-import Messages.ReturnMessage;
-import Parser.Parser;
-import UI.UI;
-import TaskList.TaskList;
+package Victor;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import Storage.Storage;
-import Commands.Command;
+import Victor.Commands.Command;
+import Victor.Messages.ReturnMessage;
+import Victor.Parser.Parser;
+import Victor.Storage.Storage;
+import Victor.TaskList.TaskList;
+import Victor.UI.UI;
 
 public class Main {
     private final Path FILE_PATH = Paths.get("data", "data.txt");
