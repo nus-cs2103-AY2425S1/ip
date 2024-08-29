@@ -4,9 +4,11 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task with a specific start date and end date.
  */
-public class Event extends Task{
+public class Event extends Task {
+
     private LocalDate start;
     private LocalDate end;
+
     /**
      * Constructs an event task with the given description, start date, and end date.
      *
@@ -35,20 +37,21 @@ public class Event extends Task{
      *
      * @return A string representing the start and end dates of the event.
      */
-
     @Override
     public String getDates() {
-        return "| " + this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " - " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return "| " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+              + " - " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
-
 
     /**
      * Returns a string representation of the event task.
      *
-     * @return A string in the format "[E] description (by: start to: end)".
+     * @return A string in the format "[E] description (from: start to: end)".
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[E]" + super.toString()
+              + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+              + " to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

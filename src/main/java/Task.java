@@ -2,11 +2,11 @@
  * Represents a task with a description and completion status.
  * This class provides methods to retrieve the task description,
  * mark the task as done or not done, and represent the task as a string.
- *
  */
 public class Task {
     private String description;
     private boolean done;
+
     /**
      * Constructs a task with the given description.
      *
@@ -16,6 +16,7 @@ public class Task {
         this.description = description;
         this.done = false;
     }
+
     /**
      * Returns the description of the task.
      *
@@ -40,48 +41,40 @@ public class Task {
      * @return A string representing the task's status.
      */
     public String getStatus() {
-        if (done) {
-            return "| 1 |";
-        } else {
-            return "| 0 |";
-        }
+        return done ? "| 1 |" : "| 0 |";
     }
 
     /**
      * Marks the task as done.
      */
-    public void done() {
+    public void markAsDone() {
         this.done = true;
-    }
-
-    /**
-     * Returns a string representation of the task.
-     * @return The description of the task.
-     */
-    @Override
-    public String toString() {
-        if (done) {
-            return "[X] " + description;
-        } else {
-            return "[ ] " + description;
-        }
-
-    }
-
-    /**
-     * Returns the type of task.
-     *
-     * @return An empty string, to be overridden by subclasses.
-     */
-    public String getType() {
-        return "";
     }
 
     /**
      * Marks the task as not done.
      */
-    public void notDone() {
+    public void markAsNotDone() {
         this.done = false;
     }
 
+    /**
+     * Returns a string representation of the task.
+     *
+     * @return The string representation of the task's status and description.
+     */
+    @Override
+    public String toString() {
+        return (done ? "[X] " : "[ ] ") + description;
+    }
+
+    /**
+     * Returns the type of task.
+     * Subclasses should override this method to provide specific task types.
+     *
+     * @return A string representing the type of the task.
+     */
+    public String getType() {
+        return "";
+    }
 }

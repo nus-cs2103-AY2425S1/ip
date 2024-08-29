@@ -1,31 +1,18 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
-import java.io.File;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 /**
  * Nayana is a class that demonstrates a simple console-based interaction.
- * It prints an ASCII logo and several lines of text to the console.
+ * It manages user interaction, command processing, and task management.
  */
 public class Nayana {
 
-    /**
-     * The main method is the entry point of the application.
-     * It prints a logo and a series of messages to the console.
-     * and continues to process user input until the user types "bye"
-     * Commands include listing tasks or adding new tasks.
-     * The tasks can be marked as done or not done
-     * tasks can be deleted
-     * date formatting has been added (commiting to branch 8)
-     * @param args Command line arguments.
-     */
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Nayana instance with the specified file path for task storage.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Nayana(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -36,6 +23,10 @@ public class Nayana {
             tasks = new TaskList();
         }
     }
+
+    /**
+     * Runs the main loop of the application, processing user commands until exit is requested.
+     */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;
@@ -53,7 +44,14 @@ public class Nayana {
             }
         }
     }
+
+    /**
+     * The main method is the entry point of the application.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
-        new Nayana("data/nayana.txt").run();
+        String filePath = "data/nayana.txt";
+        new Nayana(filePath).run();
     }
 }

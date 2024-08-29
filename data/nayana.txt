@@ -1,1 +1,3 @@
-1. T | 0 | nothing 
+1. T | 1 | nothing 
+2. T | 0 | somethin 
+3. E | 0 | sdfasfd | Dec 1 2019 - Dec 3 2019

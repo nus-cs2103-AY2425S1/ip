@@ -2,108 +2,137 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    public static Command parse(String command) throws NayanaException{
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param command The user input command.
+     * @return The corresponding Command object.
+     * @throws NayanaException If the command format is invalid or if parsing fails.
+     */
+    public static Command parse(String command) throws NayanaException {
         if (command.isBlank()) {
-            throw new NayanaException("tasks cannot be empty :(");
+            throw new NayanaException("Tasks cannot be empty.");
+        }
 
-        } else if (command.equals("bye")) {
+        String[] commandParts;
+
+        if (command.equals("bye")) {
             return new ExitCommand();
 
         } else if (command.equals("list")) {
             return new ListCommand();
 
-        }else if (command.startsWith("mark")) {
-            try {
-                int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                return new MarkCommand(index);
-            } catch (NumberFormatException e){
-                throw new NayanaException("invalid format for mark");
-            }
+        } else if (command.startsWith("mark")) {
+            return createMarkCommand(command);
 
-        }else if (command.startsWith("unmark")) {
-            try {
-                int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                return new UnmarkCommand(index);
-            } catch (NumberFormatException e) {
-                throw new NayanaException("invalid format for mark");
-            }
+        } else if (command.startsWith("unmark")) {
+            return createUnmarkCommand(command);
+
         } else if (command.startsWith("delete")) {
-            try {
-                int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                return new DeleteCommand(index);
-            } catch (NumberFormatException e){
-                throw new NayanaException("invalid format for delete");
-            }
+            return createDeleteCommand(command);
 
-        }else if (command.startsWith("deadline")) {
-
-            String[] parts = command.split(" /by ");
-            if (parts.length != 2) {
-                throw new NayanaException("invalid format for deadline");
-            } else if (parts[0].substring(8).trim().isEmpty() || parts[1].trim().isEmpty()) {
-                throw new NayanaException("description and deadline cannot be empty.");
-            } else {
-                String description = parts[0].substring(8).trim();
-                String deadline = parts[1].trim();
-                if (!validDateFormat(deadline)) {
-                    throw new NayanaException("invalid date format");
-                } else {
-                    LocalDate d1 = LocalDate.parse(deadline);
-                    Task deadlineTask = new Deadlines(description, d1);
-                    return new AddCommand(deadlineTask);
-                }
-            }
+        } else if (command.startsWith("deadline")) {
+            return createDeadlineCommand(command);
 
         } else if (command.startsWith("event")) {
-            String[] fromParts = command.split(" /from ");
-            if (fromParts.length != 2) {
-                throw new NayanaException("invalid format for event");
-            } else {
-                String[] toParts = fromParts[1].split(" /to ");
-                if (toParts.length != 2) {
-                    throw new NayanaException("invalid format for event");
-                } else if (fromParts[0].substring(5).trim().isEmpty() ||
-                      toParts[0].trim().isEmpty() || toParts[1].trim().isEmpty()) {
-                    throw new NayanaException("description, start time and end time cannot be empty.");
-                } else {
-                    String description = fromParts[0].substring(5);
-                    String startTime = toParts[0].trim();
-                    String endTime = toParts[1].trim();
-                    if (!validDateFormat(startTime) || !validDateFormat(endTime)) {
-                        throw new NayanaException("invalid date format");
-                    } else {
-                        LocalDate d1 = LocalDate.parse(startTime);
-                        LocalDate d2 = LocalDate.parse(endTime);
+            return createEventCommand(command);
 
-                        Task eventTask = new Event(description,d1,d2);
-                        return new AddCommand(eventTask);
-                    }
-                }
-            }
         } else if (command.startsWith("todo")) {
-            String[] parts = command.split("todo ");
-            if (parts.length != 2) {
-                throw new NayanaException("invalid format for todo");
-            } else if (parts[1].trim().isEmpty()) {
-                throw new NayanaException("description cannot be empty.");
-            } else {
-                String description = parts[1].trim();
-                Task todoTask = new ToDos(description);
-                return new AddCommand(todoTask);
-            }
+            return createTodoCommand(command);
+
         } else {
-            throw new NayanaException("Please use the correct format and start your prompts \nwith " +
-                  "deadline, event, todo, mark, unmark, delete, list, bye ");
+            throw new NayanaException("Invalid command. Please use one of the following: deadline, event, todo, mark, unmark, delete, list, bye.");
         }
     }
 
-    private static boolean validDateFormat(String deadline) {
+    private static Command createMarkCommand(String command) throws NayanaException {
         try {
-            LocalDate d1 = LocalDate.parse(deadline);
+            int index = Integer.parseInt(command.split(" ")[1]) - 1;
+            return new MarkCommand(index);
+        } catch (NumberFormatException e) {
+            throw new NayanaException("Invalid format for mark command.");
+        }
+    }
+
+    private static Command createUnmarkCommand(String command) throws NayanaException {
+        try {
+            int index = Integer.parseInt(command.split(" ")[1]) - 1;
+            return new UnmarkCommand(index);
+        } catch (NumberFormatException e) {
+            throw new NayanaException("Invalid format for unmark command.");
+        }
+    }
+
+    private static Command createDeleteCommand(String command) throws NayanaException {
+        try {
+            int index = Integer.parseInt(command.split(" ")[1]) - 1;
+            return new DeleteCommand(index);
+        } catch (NumberFormatException e) {
+            throw new NayanaException("Invalid format for delete command.");
+        }
+    }
+
+    private static Command createDeadlineCommand(String command) throws NayanaException {
+        String[] parts = command.split(" /by ");
+        if (parts.length != 2) {
+            throw new NayanaException("Invalid format for deadline command.");
+        }
+        String description = parts[0].substring(8).trim();
+        String deadline = parts[1].trim();
+        if (description.isEmpty() || deadline.isEmpty()) {
+            throw new NayanaException("Description and deadline cannot be empty.");
+        }
+        if (!validDateFormat(deadline)) {
+            throw new NayanaException("Invalid date format for deadline.");
+        }
+        LocalDate date = LocalDate.parse(deadline);
+        Task deadlineTask = new Deadlines(description, date);
+        return new AddCommand(deadlineTask);
+    }
+
+    private static Command createEventCommand(String command) throws NayanaException {
+        String[] fromParts = command.split(" /from ");
+        if (fromParts.length != 2) {
+            throw new NayanaException("Invalid format for event command.");
+        }
+        String[] toParts = fromParts[1].split(" /to ");
+        if (toParts.length != 2) {
+            throw new NayanaException("Invalid format for event command.");
+        }
+        String description = fromParts[0].substring(5).trim();
+        String startTime = toParts[0].trim();
+        String endTime = toParts[1].trim();
+        if (description.isEmpty() || startTime.isEmpty() || endTime.isEmpty()) {
+            throw new NayanaException("Description, start time, and end time cannot be empty.");
+        }
+        if (!validDateFormat(startTime) || !validDateFormat(endTime)) {
+            throw new NayanaException("Invalid date format for event.");
+        }
+        LocalDate startDate = LocalDate.parse(startTime);
+        LocalDate endDate = LocalDate.parse(endTime);
+        Task eventTask = new Event(description, startDate, endDate);
+        return new AddCommand(eventTask);
+    }
+
+    private static Command createTodoCommand(String command) throws NayanaException {
+        String[] parts = command.split("todo ");
+        if (parts.length != 2) {
+            throw new NayanaException("Invalid format for todo command.");
+        }
+        String description = parts[1].trim();
+        if (description.isEmpty()) {
+            throw new NayanaException("Description cannot be empty.");
+        }
+        Task todoTask = new ToDos(description);
+        return new AddCommand(todoTask);
+    }
+
+    private static boolean validDateFormat(String date) {
+        try {
+            LocalDate.parse(date);
             return true;
         } catch (DateTimeParseException e) {
             return false;
         }
     }
-
 }

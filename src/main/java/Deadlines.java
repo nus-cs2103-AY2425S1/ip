@@ -4,8 +4,10 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task with a specific deadline.
  */
-public class Deadlines extends Task{
+public class Deadlines extends Task {
+
     private LocalDate date;
+
     /**
      * Constructs a deadline task with the given description and end time.
      *
@@ -15,8 +17,6 @@ public class Deadlines extends Task{
     public Deadlines(String description, LocalDate date) {
         super(description);
         this.date = date;
-
-
     }
 
     /**
@@ -46,7 +46,6 @@ public class Deadlines extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
-
 }

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 /**
  * Represents a list of tasks.
- * This class manages a collection of tasks and provides methods to add and list them.
+ * This class manages a collection of tasks and provides methods to add, remove, and list them.
  */
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -11,11 +11,17 @@ public class TaskList {
     /**
      * Constructs an empty task list.
      */
-    public TaskList(Storage storage){
-        this.tasks = new ArrayList<Task>();
-    }
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
+    }
+
+    /**
+     * Constructs a task list with an initial set of tasks.
+     *
+     * @param tasks The initial list of tasks.
+     */
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = new ArrayList<>(tasks);
     }
 
     /**
@@ -23,19 +29,21 @@ public class TaskList {
      *
      * @param task The task to be added.
      */
-    public void addTask(Task task){
+    public void addTask(Task task) {
         tasks.add(task);
     }
 
-
     /**
-     * Deletes a task from the task list by index and writes the updated list to a file.
+     * Deletes a task from the task list by index.
      *
      * @param index The index of the task to be deleted.
-     * @return
-     * @throws IOException If an I/O error occurs while writing to the file.
+     * @return The deleted task.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
-    public Task delete(int index){
+    public Task delete(int index) {
+        if (index < 0 || index >= tasks.size()) {
+            throw new IndexOutOfBoundsException("Invalid task index.");
+        }
         Task task = tasks.get(index);
         tasks.remove(index);
         return task;
@@ -51,26 +59,44 @@ public class TaskList {
     }
 
     /**
-     * Marks the task as done.
+     * Marks the task at the given index as done.
+     *
+     * @param index The index of the task to be marked as done.
+     * @return The updated task.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
     public Task markAsDone(int index) {
+        if (index < 0 || index >= tasks.size()) {
+            throw new IndexOutOfBoundsException("Invalid task index.");
+        }
         Task task = tasks.get(index);
-        task.done();
+        task.markAsDone();
         return task;
     }
-
-    public ArrayList<Task> getTasks() {
-        return this.tasks;
-    }
-
 
     /**
-     * Marks the task as not done.
+     * Marks the task at the given index as not done.
+     *
+     * @param index The index of the task to be marked as not done.
+     * @return The updated task.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
      */
     public Task markAsNotDone(int index) {
+        if (index < 0 || index >= tasks.size()) {
+            throw new IndexOutOfBoundsException("Invalid task index.");
+        }
         Task task = tasks.get(index);
-        task.notDone();
+        task.markAsNotDone();
         return task;
+    }
+
+    /**
+     * Returns a list of all tasks.
+     *
+     * @return The list of tasks.
+     */
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
     }
 
     /**
@@ -81,13 +107,10 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        String listOfTasks = "Here are the tasks in your list:\n";
+        StringBuilder listOfTasks = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            listOfTasks += (i + 1) + ". " + tasks.get(i) + "\n";
+            listOfTasks.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }
-        return listOfTasks;
-
+        return listOfTasks.toString();
     }
 }
-
-
