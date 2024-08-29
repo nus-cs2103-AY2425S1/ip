@@ -38,7 +38,7 @@ public class Parser {
         case "BYE":
             return new ExitCommand();
         default:
-            throw new SnipeException("I'm sorry, I don't understand that snipe.command.");
+            throw new SnipeException("I'm sorry, I don't understand that command.");
         }
     }
 
