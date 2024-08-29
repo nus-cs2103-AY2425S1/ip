@@ -19,7 +19,7 @@ public class Optimus {
 
     /**
      * Constructs an instance of the Optimus class.
-     * Initializes the storage, task list, and UI components.
+     * Initializes the UI, task list, and storage components.
      * Loads tasks from the file, or initializes an empty task list if an error occurs.
      *
      * @param filePath The file path where tasks are stored.
@@ -30,7 +30,7 @@ public class Optimus {
         try {
             taskList = new TaskList(storage.loadTasks());
         } catch (IOException e) {
-            ui.showError("Error loading tasks from file.");
+            System.out.println("Error loading tasks from file: " + e.getMessage());
             this.taskList = new TaskList();
         }
     }
@@ -40,8 +40,7 @@ public class Optimus {
      * Handles user input and executes commands until the user exits.
      */
     public void run() {
-        // Greeting for user
-        ui.greetUser();
+        ui.greetUser(); // Greeting for user
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -73,11 +72,11 @@ public class Optimus {
                     }
                     ui.findTasks(userInput, taskList);
                 } else { // Handle invalid command
-                    ui.showError("Invalid command.");
                     ui.showExampleCommand();
+                    throw new OptimusException("Invalid command.");
                 }
             } catch (OptimusException e) { // Handle custom exceptions
-                ui.showError(e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
     }

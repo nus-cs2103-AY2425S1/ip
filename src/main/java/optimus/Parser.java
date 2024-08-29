@@ -6,7 +6,7 @@ package optimus;
  */
 public class Parser {
     /**
-     * Parses the user input and splits it into command words.
+     * Parses the user input and splits it into command words array.
      *
      * @param userInput The raw input from the user.
      * @return An array of command words from the input.

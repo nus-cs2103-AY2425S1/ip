@@ -24,9 +24,10 @@ public class Storage {
 
     /**
      * Loads tasks from the file if it exists.
-     * If the file or directory does not exist, creates them.
+     * If the file or directory does not exist, create them.
      * This method was partially inspired by code examples provided by ChatGPT and W3Schools.
      * Reference: https://www.w3schools.com/java/java_files_create.asp
+     * ChatGPT suggested to catch IOException
      *
      * @return The list of tasks loaded from the file.
      * @throws IOException If an I/O error occurs while loading the file.

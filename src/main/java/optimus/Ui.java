@@ -12,7 +12,7 @@ public class Ui {
     }
 
     /**
-     * Greets the user and provides instructions for using the chatbot.
+     * Greets the user and provides instructions for using Optimus.
      */
     public void greetUser() {
         String greeting = "Hello! I'm Optimus.\n" +
@@ -39,7 +39,7 @@ public class Ui {
     }
 
     /**
-     * Displays a farewell message to the user.
+     * Displays a goodbye message to the user.
      */
     public void sayBye() {
         System.out.println("Bye. Hope to see you again soon!\n");
@@ -58,21 +58,11 @@ public class Ui {
     }
 
     /**
-     * Displays an error message to the user.
-     *
-     * @param message The error message to be displayed.
-     */
-    public void showError(String message) {
-        System.out.println("Error: " + message);
-    }
-
-    /**
      * Finds and displays tasks from the task list that contain the specified keyword.
      *
      * @param userInput The raw input from the user, which includes the "find" command and the keyword.
      * @param taskList The TaskList object containing the list of tasks to search through.
      */
-
     public void findTasks(String userInput, TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTasks();
         String[] command = Parser.parseCommand(userInput);
