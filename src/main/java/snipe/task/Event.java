@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * The {@code snipe.task.Event} class represents a task that occurs at a specific time
+ * The {@code Event} class represents a task that occurs at a specific time
  * with a defined start and end time. It is a subclass of {@link Task}.
  */
 public class Event extends Task {
@@ -16,17 +16,20 @@ public class Event extends Task {
     /** The end time of the event. */
     protected LocalDateTime end;
 
-    /** Formatter for parsing and displaying date and time. */
+    /** Formatter for parsing date and time from the input format. */
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    /** Formatter for displaying date and time in the output format. */
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
 
     /**
-     * Constructs a new {@code snipe.task.Event} task with the specified description, start time, and end time.
+     * Constructs a new {@code Event} task with the specified description, start time, and end time.
      * The task type is set to {@link TaskType#EVENT}.
      *
      * @param description The description of the event task.
-     * @param start       The start time of the event.
-     * @param end         The end time of the event.
+     * @param start       The start time of the event in the format "yyyy-MM-dd HHmm".
+     * @param end         The end time of the event in the format "yyyy-MM-dd HHmm".
+     * @throws DateTimeParseException If the provided start or end time strings cannot be parsed.
      */
     public Event(String description, String start, String end) {
         super(description, TaskType.EVENT);
@@ -38,6 +41,7 @@ public class Event extends Task {
      *
      * @param startStr The start time string in "yyyy-MM-dd HHmm" format.
      * @param endStr   The end time string in "yyyy-MM-dd HHmm" format.
+     * @throws DateTimeParseException If the provided start or end time strings cannot be parsed.
      */
     private void setStartAndEnd(String startStr, String endStr) throws DateTimeParseException{
         this.start = LocalDateTime.parse(startStr, INPUT_FORMAT);
@@ -45,9 +49,10 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the formatted start and end times.
+     * Returns the formatted start and end times for display purposes.
      *
-     * @return An array containing formatted start and end times.
+     * @return An array containing the formatted start and end times.
+     *         If the start or end time is null, a corresponding message is provided.
      */
     public String[] getFormattedStartAndEnd() {
         return new String[]{
@@ -56,6 +61,11 @@ public class Event extends Task {
         };
     }
 
+    /**
+     * Returns a string representation of the task formatted for storage in a file.
+     *
+     * @return A string representation of the task in the format "E | status | description | start | end".
+     */
     @Override
     public String parseToFileFormat() {
         String status = getStatus() ? "1" : "0";
