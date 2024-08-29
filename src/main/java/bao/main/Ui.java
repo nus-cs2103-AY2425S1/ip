@@ -11,7 +11,6 @@ public class Ui {
                     + " |  ^   ^  |\n"
                     + " |    3    |\n"
                     + " \\________/\n";
-
     private static String baoSad =
             "     ___\n"
                     + "   /     \\\n"
