@@ -1,11 +1,15 @@
 package models;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
     public static final char TASK_TYPE = 'E';
+    private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    private final String from;
-    private final String to;
-    public Event(String name, String from, String to) {
+    private final LocalDate from;
+    private final LocalDate to;
+    public Event(String name, LocalDate from, LocalDate to) {
         super(name);
         this.from = from;
         this.to = to;
@@ -13,7 +17,11 @@ public class Event extends Task {
 
     public static Event deserialize(String line) {
         String[] values = line.split("\\|");
-        Event event = new Event(values[2], values[3], values[4]);
+        Event event = new Event(
+            values[2],
+            LocalDate.parse(values[3]),
+            LocalDate.parse(values[4])
+        );
         if (values[1].equals("X")) {
             event.markDone();
         }
@@ -39,6 +47,11 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + String.format(" (from: %s to: %s)", this.from, this.to);
+        return String.format(
+            "%s  (from: %s to: %s)",
+            super.toString(),
+            this.from.format(dateFormat),
+            this.to.format(dateFormat)
+        );
     }
 }
