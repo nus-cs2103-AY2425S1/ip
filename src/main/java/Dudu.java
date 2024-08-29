@@ -51,10 +51,14 @@ public class Dudu {
                         String description = content.split("\\|")[0];
                         String date = content.split("\\|")[1];
                         task = new Deadline(description, date);
+                        break;
                     } case E: {
+                        System.out.println(content);
                         String description = content.split("\\|")[0];
-                        String date = content.split("\\|")[1];
-                        task = new Event(description, date, date);
+                        String from = content.split("\\|")[1];
+                        String to = content.split("\\|")[2];
+                        task = new Event(description, from, to);
+                        break;
                     }
                 }
                 if (marked) {
