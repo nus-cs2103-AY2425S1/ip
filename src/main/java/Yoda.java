@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -96,26 +100,41 @@ public class Yoda {
             }
             String task = splitInput[1];
             String[] splitTask = task.split("/by ", 2);
-            Deadline newTask = new Deadline(splitTask[0], splitTask[1]);
-            tasks.add(newTask);
-            printLine();
-            System.out.println("Added task:\n" + newTask + "\n"
-                    + String.format("Now you have %d tasks in the list", tasks.size()));
-            printLine();
+            Deadline newTask = null;
+            try {
+                LocalDate by = LocalDate.parse(splitTask[1]);
+                newTask = new Deadline(splitTask[0], by);
+                tasks.add(newTask);
+                printLine();
+                System.out.println("Added task:\n" + newTask + "\n"
+                        + String.format("Now you have %d tasks in the list", tasks.size()));
+                printLine();
+            } catch (DateTimeParseException e) {
+                throw new InvalidInputException("Deadline must be in format yyyy-mm-dd");
+            }
         } else if (Objects.equals(splitInput[0], "event")) {
             if (!checkValidEvent(input)) {
                 throw new InvalidInputException("An event must have a description, start time and end time, no...?");
             }
             String task = splitInput[1];
-            String[] splitTask = task.split("/from ", 2);
-            String[] times = splitTask[1].split("/to ", 2);
+            String[] splitTask = task.split(" /from ", 2);
+            String[] times = splitTask[1].split(" /to ", 2);
 
-            Event newTask = new Event(splitTask[0], times[0], times[1]);
-            tasks.add(newTask);
-            printLine();
-            System.out.println("Added task:\n" + newTask + "\n"
-                    + String.format("Now you have %d tasks in the list", tasks.size()));
-            printLine();
+            Event newTask = null;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            try {
+                LocalDateTime from = LocalDateTime.parse(times[0], formatter);
+                LocalDateTime to = LocalDateTime.parse(times[1], formatter);
+                newTask = new Event(splitTask[0], from, to);
+                tasks.add(newTask);
+                printLine();
+                System.out.println("Added task:\n" + newTask + "\n"
+                        + String.format("Now you have %d tasks in the list", tasks.size()));
+                printLine();
+            } catch (DateTimeParseException e) {
+                System.out.println("Dates and times must be in format: yyyy-mm-dd HHmm");
+            }
+
         } else {
             throw new NonsenseInputException();
         }

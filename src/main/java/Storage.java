@@ -1,5 +1,9 @@
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.util.Scanner;
@@ -47,12 +51,12 @@ public class Storage {
                         newTask = new ToDo(description);
                         break;
                     case "D":
-                        String by = splitInput[3];
+                        LocalDate by = LocalDate.parse(splitInput[3]);
                         newTask = new Deadline(description, by);
                         break;
                     case "E":
-                        String from = splitInput[3];
-                        String to = splitInput[4];
+                        LocalDateTime from = LocalDateTime.parse(splitInput[3]);
+                        LocalDateTime to = LocalDateTime.parse(splitInput[4]);
                         newTask = new Event(description, from, to);
                         break;
                 }
