@@ -1,15 +1,25 @@
-public class Deadline extends Task{
-    private String dueDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Deadline(String taskDescription, String dueDate) {
+public class Deadline extends Task{
+    private LocalDateTime dueDate;
+
+    public Deadline(String taskDescription, String dueDate) throws AlisaException {
         super(taskDescription);
-        this.dueDate = dueDate;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm");
+            this.dueDate = LocalDateTime.parse(dueDate, formatter);
+        } catch (DateTimeParseException e) {
+            throw new AlisaException("Please write the deadline in the following format: yyyy-mm-dd hh:mm");
+        }
     }
 
     @Override
     public String toString() {
         String task = super.toString();
-        return "[D] " + task + "(by: " + dueDate + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm");
+        return "[D] " + task + "(by: " + dueDate.format(formatter) + ")";
     }
     @Override
     public String toFileString() {
