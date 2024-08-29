@@ -3,8 +3,14 @@ import java.util.Scanner;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
 public class Optimus {
+
+
     public static void main(String[] args) {
+        final String FILE_PATH = "./data/Optimus.txt";
+        File myFile = new File(FILE_PATH);
+        
         System.out.println("Hello! I'm Optimus");
         System.out.println("What can I do for you?");
         Scanner stringScanner = new Scanner(System.in);
