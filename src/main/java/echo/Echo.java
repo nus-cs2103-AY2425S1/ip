@@ -17,6 +17,7 @@ public class Echo {
         }
         ui = new Ui(taskList);
     }
+
     public void run() {
         ui.acceptInput();
         storage.saveToFile();
