@@ -1,7 +1,10 @@
 import java.sql.Array;
+import java.time.LocalTime;
 import java.util.Scanner;  // Import the Scanner class
 import java.util.ArrayList; // import the ArrayList class
 import java.lang.ArrayIndexOutOfBoundsException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Tuesday {
     private static ArrayList<Task> tasksArray = new ArrayList<>();
@@ -13,19 +16,21 @@ public class Tuesday {
                 + "\nNow you have " + Task.count + " task(s) in the list."
                 + "\n_______________________________");
     }
-    private static void Msg_welcome() {
+    private static void msg_welcome() {
         System.out.println("_______________________________\n"
                 + "Hello! I'm Tuesday, a randomly created bot.\n"
                 + "What can I do for you?\n"
                 + "_______________________________");
     }
-    private static void Msg_bye() {
+    private static void msg_bye() {
         System.out.println("_______________________________"
                 + "\nBye bye. Hope to see you again soon!\n"
                 + "_______________________________");
     }
-    private static void Msg_list() {
+    private static void msg_list() {
         String message = "Here are the tasks in your list:\n";
+        if (Task.count == 0)
+            return;
         for (int n = 0; n < Task.count; n++) {
             message += (n+1) + "." + tasksArray.get(n).toString() + "\n";
         }
@@ -58,6 +63,7 @@ public class Tuesday {
 
     private static void comm_deadline(String title, String by_msg) {
         Deadline deadlineItem = new Deadline(title, by_msg);
+
         tasksArray.add(deadlineItem);
 
         print_taskcount("added");
@@ -77,7 +83,7 @@ public class Tuesday {
         tasksArray.remove(index-1);
     }
     public static void main(String[] args) {
-        Msg_welcome();
+        msg_welcome();
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
         String userInput = "";
         String[] userInputArr;
@@ -89,7 +95,7 @@ public class Tuesday {
                 break;
 
             if (userInput.equals("list")) {
-                Msg_list();
+                msg_list();
             } else if (userInputArr[0].equals("mark")) {
                 try {
                     comm_mark(Integer.parseInt(userInputArr[1]), true);
@@ -121,7 +127,7 @@ public class Tuesday {
                 } catch(ArrayIndexOutOfBoundsException e) {
                     System.out.println("Hey there! The 'deadline' function cannot be empty");
                 } catch(Exception e) {
-                    System.out.println("Hey there! Can you try typing differently ");
+                    System.out.println("Hey there! Can you try typing differently " + e);
                 }
             } else if (userInputArr[0].equals("event")) {
                 try {
@@ -147,6 +153,6 @@ public class Tuesday {
                         + "\n_______________________________");
             }
         }
-        Msg_bye();
+        msg_bye();
     }
 }
