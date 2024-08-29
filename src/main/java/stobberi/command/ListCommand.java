@@ -1,6 +1,6 @@
-package Stobberi.Command;
+package stobberi.command;
 
-import Stobberi.components.TaskList;
+import stobberi.components.TaskList;
 
 /**
  * Represents a command to display all tasks in a {@link TaskList}.

@@ -1,4 +1,4 @@
-package Stobberi.StobberiException;
+package stobberi.stobberiException;
 
 /**
  * Custom exception for cases where a Stobberi task is not found.

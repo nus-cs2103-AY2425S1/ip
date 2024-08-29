@@ -1,10 +1,10 @@
-package Stobberi.components;
+package stobberi.components;
 
-import Stobberi.StobberiException.NotPossibleDurationStobberiException;
-import Stobberi.Task.Deadline;
-import Stobberi.Task.Event;
-import Stobberi.Task.Task;
-import Stobberi.Task.Todo;
+import stobberi.stobberiException.NotPossibleDurationStobberiException;
+import stobberi.task.Deadline;
+import stobberi.task.Event;
+import stobberi.task.Task;
+import stobberi.task.Todo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

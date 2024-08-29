@@ -1,4 +1,4 @@
-package Stobberi.Command;
+package stobberi.command;
 
 /**
  * Represents a command that terminates the application.

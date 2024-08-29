@@ -1,4 +1,4 @@
-package Stobberi.Task;
+package stobberi.task;
 
 /**
  * The {@code Task} class represents a task with a description and a status indicating

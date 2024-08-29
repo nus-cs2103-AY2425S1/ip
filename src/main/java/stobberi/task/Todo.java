@@ -1,4 +1,4 @@
-package Stobberi.Task;
+package stobberi.task;
 
 /**
  * Represents a Todo task, which is a specific type of {@link Task}.

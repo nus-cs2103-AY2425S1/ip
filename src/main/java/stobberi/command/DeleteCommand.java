@@ -1,6 +1,6 @@
-package Stobberi.Command;
+package stobberi.command;
 
-import Stobberi.components.TaskList;
+import stobberi.components.TaskList;
 
 /**
  * Represents a command to delete a task from a {@link TaskList} based on the task number.

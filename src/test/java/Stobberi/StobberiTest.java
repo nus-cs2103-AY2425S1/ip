@@ -1,4 +1,4 @@
-package Stobberi;
+package stobberi;
 
 import org.junit.jupiter.api.Test;
 

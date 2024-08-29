@@ -1,6 +1,6 @@
-package Stobberi.Task;
+package stobberi.task;
 
-import Stobberi.StobberiException.NotPossibleDurationStobberiException;
+import stobberi.stobberiException.NotPossibleDurationStobberiException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

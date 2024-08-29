@@ -1,4 +1,4 @@
-package Stobberi.StobberiException;
+package stobberi.stobberiException;
 
 /**
  * Custom exception class for Stobberi application.

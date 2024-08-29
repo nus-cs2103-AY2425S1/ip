@@ -1,6 +1,6 @@
-package Stobberi.Command;
+package stobberi.command;
 
-import Stobberi.StobberiException.StobberiException;
+import stobberi.stobberiException.StobberiException;
 
 /**
  * Represents a command that can be executed. The command has an exit flag that indicates

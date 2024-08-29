@@ -1,8 +1,8 @@
-package Stobberi.Command;
+package stobberi.command;
 
-import Stobberi.StobberiException.StobberiException;
-import Stobberi.StobberiException.WrongDateTimeStobberiException;
-import Stobberi.components.TaskList;
+import stobberi.stobberiException.StobberiException;
+import stobberi.stobberiException.WrongDateTimeStobberiException;
+import stobberi.components.TaskList;
 
 import java.time.format.DateTimeParseException;
 

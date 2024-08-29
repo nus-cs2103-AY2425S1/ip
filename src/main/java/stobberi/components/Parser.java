@@ -1,19 +1,19 @@
-package Stobberi.components;
+package stobberi.components;
 
-import Stobberi.Command.Command;
-import Stobberi.Command.DateCommand;
-import Stobberi.Command.DeadlineCommand;
-import Stobberi.Command.DeleteCommand;
-import Stobberi.Command.EventCommand;
-import Stobberi.Command.ExitCommand;
-import Stobberi.Command.FindCommand;
-import Stobberi.Command.ListCommand;
-import Stobberi.Command.MarkCommand;
-import Stobberi.Command.TodoCommand;
-import Stobberi.Command.UnmarkCommand;
-import Stobberi.StobberiException.NoNumberStobberiException;
-import Stobberi.StobberiException.NoSuchTaskStobberiException;
-import Stobberi.StobberiException.StobberiException;
+import stobberi.command.Command;
+import stobberi.command.DateCommand;
+import stobberi.command.DeadlineCommand;
+import stobberi.command.DeleteCommand;
+import stobberi.command.EventCommand;
+import stobberi.command.ExitCommand;
+import stobberi.command.FindCommand;
+import stobberi.command.ListCommand;
+import stobberi.command.MarkCommand;
+import stobberi.command.TodoCommand;
+import stobberi.command.UnmarkCommand;
+import stobberi.stobberiException.NoNumberStobberiException;
+import stobberi.stobberiException.NoSuchTaskStobberiException;
+import stobberi.stobberiException.StobberiException;
 
 /**
  * This class is responsible for parsing user commands and creating the corresponding {@link Command} objects.

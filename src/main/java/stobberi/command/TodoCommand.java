@@ -1,9 +1,9 @@
-package Stobberi.Command;
+package stobberi.command;
 
-import Stobberi.StobberiException.EmptyStobberiException;
-import Stobberi.StobberiException.StobberiException;
-import Stobberi.components.TaskList;
-import Stobberi.Task.Todo;
+import stobberi.stobberiException.EmptyStobberiException;
+import stobberi.stobberiException.StobberiException;
+import stobberi.components.TaskList;
+import stobberi.task.Todo;
 
 /**
  * Represents a command to add a new to-do task to a {@link TaskList}.

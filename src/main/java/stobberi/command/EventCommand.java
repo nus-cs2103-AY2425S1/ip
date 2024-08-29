@@ -1,10 +1,10 @@
-package Stobberi.Command;
+package stobberi.command;
 
-import Stobberi.Task.Event;
-import Stobberi.StobberiException.EmptyStobberiException;
-import Stobberi.StobberiException.StobberiException;
-import Stobberi.StobberiException.WrongDateTimeStobberiException;
-import Stobberi.components.TaskList;
+import stobberi.task.Event;
+import stobberi.stobberiException.EmptyStobberiException;
+import stobberi.stobberiException.StobberiException;
+import stobberi.stobberiException.WrongDateTimeStobberiException;
+import stobberi.components.TaskList;
 
 import java.time.format.DateTimeParseException;
 

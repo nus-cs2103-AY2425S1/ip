@@ -1,4 +1,4 @@
-package Stobberi.components;
+package stobberi.components;
 
 import java.util.Scanner;
 
