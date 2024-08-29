@@ -1,3 +1,7 @@
+package Sage;
+
+import Command.*;
+
 public class Parser {
     public static Command parse(String input) throws SageException {
         String[] fullCommand = input.split(" ", 2);
@@ -29,7 +33,7 @@ public class Parser {
                 return new ExitCommand();
 
             default:
-                throw new SageException("Invalid Command");
+                throw new SageException("Invalid Command.Command");
         }
     }
 }
