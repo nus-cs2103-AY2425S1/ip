@@ -1,10 +1,7 @@
 package hoshi.utils;
 
 import hoshi.exception.HoshiException;
-import hoshi.task.Deadline;
-import hoshi.task.Event;
-import hoshi.task.TaskList;
-import hoshi.task.Todo;
+import hoshi.task.*;
 import hoshi.ui.Ui;
 
 import java.io.IOException;
@@ -48,6 +45,7 @@ public class Parser {
             break;
 
         case "delete":
+
             handleDelete(input, taskList, ui);
             break;
 
@@ -55,6 +53,9 @@ public class Parser {
             handleAdd(input, scanner, taskList, ui);
             break;
 
+        case "find":
+            handleFind(input, taskList, ui);
+            break;
         default:
             ui.displayError("Hoshi doesn't understand, try a different input?");
             break;
@@ -89,7 +90,6 @@ public class Parser {
                 if (markIndex <= taskList.size() - 1) {
 
                     taskList.get(markIndex).setIsDone(true);
-
                     ui.displayTaskMarked(taskList.get(markIndex));
 
                     handleSave(ui, taskList);
@@ -154,7 +154,7 @@ public class Parser {
      *
      * @param input the input that the user entered which is used to check which command to execute
      * @param taskList the TaskList that stores 3 types of tasks
-     * @param ui Ui that handles all user interaction
+     * @param ui Ui that handles displaying information to user
      */
     public void handleDelete(String input, TaskList taskList, Ui ui) {
 
@@ -230,6 +230,8 @@ public class Parser {
 
                     ui.displayTaskAdded(input);
 
+
+
                 } catch (HoshiException e) {
                     ui.displayError(e.getMessage());
                 }
@@ -299,6 +301,7 @@ public class Parser {
 
                     ui.displayTaskAdded(input);
 
+
                 } catch (HoshiException e) {
                     ui.displayError(e.getMessage());
                 } catch (DateTimeParseException e) {
@@ -308,7 +311,7 @@ public class Parser {
             }
             default ->
 
-                    // in event of invalid input
+                // in event of invalid input
                     ui.displayError("Hoshi doesn't understand! Please try again with the above keywords");
 
             }
@@ -325,5 +328,42 @@ public class Parser {
             ui.displaySavingError(e.getMessage());
         }
     }
-    
+
+    /**
+     * Adds either to do/deadline/event tasks that are described by the user to TaskList which is to be written to a
+     * txt file later
+     *
+     * @param taskList the TaskList that stores 3 types of tasks
+     * @param ui Ui that handles displaying information to user
+     */
+    public void handleFind(String input, TaskList taskList, Ui ui) {
+
+        if (input.trim().length() == 4) {
+            ui.displayError("Hoshi doesn't understand! Please try again with - Find {Keyword}");
+            return;
+        }
+
+        String[] parts = input.split(" ");
+        String keyword = parts[1].toLowerCase();
+
+        TaskList matchingTasks = new TaskList();
+        for (int i = 0; i < taskList.size(); i++) {
+
+            Task currentTask = taskList.get(i);
+            String currentDesc = currentTask.getDesc().toLowerCase();
+
+            if (currentDesc.contains(keyword)) { // Check if the task contains the keyword
+
+                // add currentTask if currentDesc contains the keyword
+                matchingTasks.add(currentTask);
+            }
+        }
+
+        // call ui class to display matching tasks list
+        ui.displayMatchingList();
+        ui.displayTasks(matchingTasks);
+
+    }
+
+
 }
