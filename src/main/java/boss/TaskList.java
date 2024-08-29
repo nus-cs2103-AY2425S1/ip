@@ -1,3 +1,8 @@
+package boss;
+
+import boss.BossException;
+import boss.Task;
+
 import java.util.ArrayList;
 public class TaskList {
 
@@ -24,7 +29,7 @@ public class TaskList {
             }
             int num = Integer.parseInt(taskNum);
             if (tasks.size() < num) {
-                throw new BossException("Task " + num + " does not exist yet");
+                throw new BossException("boss.Task " + num + " does not exist yet");
             }
             Task item = tasks.get(num - 1);
             item.markAsUnDone();
@@ -48,11 +53,12 @@ public class TaskList {
             }
             int num = Integer.parseInt(taskNum);
             if (tasks.size() < num) {
-                throw new BossException("Task " + num + " does not exist yet");
+                throw new BossException("boss.Task " + num + " does not exist yet");
             }
             Task item = tasks.get(num - 1);
             item.markAsDone();
             String toReplace = item.getDescription();
+
             String newFileData = reWrite(tasks, num, toReplace);
 
             System.out.println("Nice! I have marked this task as done!");
@@ -72,7 +78,7 @@ public class TaskList {
             }
             int num = Integer.parseInt(taskNum);
             if (tasks.size() < num) {
-                throw new BossException("Task " + num + " does not exist");
+                throw new BossException("boss.Task " + num + " does not exist");
             }
             Task item = tasks.remove(num - 1);
             String newFileData = reWrite(tasks, num, "");
