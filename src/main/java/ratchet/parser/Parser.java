@@ -1,5 +1,8 @@
 package ratchet.parser;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import ratchet.command.AddCommand;
 import ratchet.command.Command;
 import ratchet.command.DeleteCommand;
@@ -15,22 +18,26 @@ import ratchet.task.EventTask;
 import ratchet.task.Task;
 import ratchet.task.TodoTask;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-
 public class Parser {
     public Command parse(String input) throws RatchetException {
         String command = input.split(" ")[0].toUpperCase();
-        return switch (command) {
-            case "LIST" -> new ListCommand();
-            case "MARK" -> mark(input);
-            case "UNMARK" -> unmark(input);
-            case "TODO", "DEADLINE", "EVENT" -> addTask(input);
-            case "DELETE" -> delete(input);
-            case "BYE" -> new ExitCommand();
-            default -> throw new InvalidCommandException(
+        switch (command) {
+        case "LIST":
+            return new ListCommand();
+        case "MARK":
+            return mark(input);
+        case "UNMARK":
+            return unmark(input);
+        case "TODO", "DEADLINE", "EVENT":
+            return addTask(input);
+        case "DELETE":
+            return delete(input);
+        case "BYE":
+            return new ExitCommand();
+        default:
+            throw new InvalidCommandException(
                     "Ratchet is unable to execute " + command + "!");
-        };
+        }
     }
 
     private Command addTask(String text) throws InvalidCommandArgumentException {

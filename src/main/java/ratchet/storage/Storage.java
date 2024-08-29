@@ -1,15 +1,17 @@
 package ratchet.storage;
 
-import ratchet.task.DeadlineTask;
-import ratchet.task.EventTask;
-import ratchet.task.TaskList;
-import ratchet.task.TodoTask;
-
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
+
+import ratchet.task.DeadlineTask;
+import ratchet.task.EventTask;
+import ratchet.task.Task;
+import ratchet.task.TaskList;
+import ratchet.task.TodoTask;
 
 public class Storage {
     private static final String PATH_TO_DIRECTORY = "data";
@@ -30,9 +32,12 @@ public class Storage {
                             LocalDate.parse(info[3])));
                     break;
                 case "E":
-                    tasks.addTask(new EventTask(info[1], Boolean.parseBoolean(info[2]), LocalDate.parse(info[3]),
+                    tasks.addTask(new EventTask(info[1], Boolean.parseBoolean(info[2]),
+                            LocalDate.parse(info[3]),
                             LocalDate.parse(info[4])));
                     break;
+                default:
+                    System.out.println("Unexpected type");
                 }
             }
         } catch (FileNotFoundException e) {
@@ -40,8 +45,15 @@ public class Storage {
         }
     }
 
-    public void saveTasks(TaskList tasks) throws IOException {
-
+    public void saveTasks(TaskList tasks) {
+        try (FileWriter fw = new FileWriter("data/ratchet.txt")) {
+            for (Task task : tasks) {
+                fw.write(task.toSave());
+                fw.write(System.lineSeparator());
+            }
+        } catch (IOException e) {
+            System.out.println("Unable to save data!");
+        }
     }
 
     private void initFile() {
