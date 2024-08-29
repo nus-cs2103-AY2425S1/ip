@@ -7,10 +7,6 @@ import java.io.InputStreamReader;
 public class Ui {
     private BufferedReader bi = new BufferedReader(new InputStreamReader(System.in));
 
-    public void showLoadingError() {
-        System.out.println("A loading error has occurred. Starting with a new list.");
-    }
-
     public void showError(Exception e) {
         System.out.println(e.getMessage());
         e.printStackTrace();

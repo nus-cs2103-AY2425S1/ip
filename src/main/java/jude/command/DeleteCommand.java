@@ -15,7 +15,7 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws JudeException {
         list.deleteTask(index);
-        ui.showMessage("jude.task.Task has been deleted.");
+        ui.showMessage("Task has been deleted.");
         storage.save(list);
     }
 

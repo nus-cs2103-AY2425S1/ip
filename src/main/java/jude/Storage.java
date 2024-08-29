@@ -38,39 +38,28 @@ public class Storage {
             throw new JudeException("file not found" + errorMessage);
         }
 
-
         while (fileReader.hasNextLine()) {
             String[] split = fileReader.nextLine().split(" \\| ");
 
-            // Handles file format with no Type letter
-            if (split.length < 3) {
-                throw new JudeException("invalid file format" + errorMessage);
-            }
-            boolean isDone = split[1].equals("1");
-            String description = split[2];
+            try {
+                boolean isDone = split[1].equals("1");
+                String description = split[2];
 
-            switch (split[0]) {
-            case "T":
-                if (split.length != 3) {
-                    throw new JudeException("invalid file format" + errorMessage);
+                switch (split[0]) {
+                case "T":
+                    list.add(new Todo(description, isDone));
+                    break;
+                case "D":
+                    list.add(new Deadline(description, split[3], isDone));
+                    break;
+                case "E":
+                    list.add(new Event(description, split[3], split[4], isDone));
+                    break;
+                default:
+                    break;
                 }
-                list.add(new Todo(description, isDone));
-                break;
-            case "D":
-                if (split.length != 4) {
-                    throw new JudeException("invalid file format" + errorMessage);
-                }
-                list.add(new Deadline(description, split[3], isDone));
-                break;
-            case "E":
-                if (split.length != 5) {
-                    throw new JudeException("invalid file format" + errorMessage);
-                }
-
-                list.add(new Event(description, split[3], split[4], isDone));
-                break;
-            default:
-                break;
+            } catch (ArrayIndexOutOfBoundsException ae) {
+                throw new JudeException("Invalid format was provided in the save file.");
             }
         }
         return list;
@@ -78,15 +67,6 @@ public class Storage {
 
     public void save(TaskList list) throws JudeException {
         File save = new File(filePath);
-
-        // Check if file exists, create a file if it doesn't
-        if (!save.exists()) {
-            try {
-                save.createNewFile();
-            } catch (IOException ie) {
-                throw new JudeException("An error has occurred while creating a save file.");
-            }
-        }
 
         // Write to the save file
         try {
@@ -97,7 +77,6 @@ public class Storage {
             throw new JudeException("IOException has occurred while writing to a save file.");
         }
     }
-
 
 
 }
