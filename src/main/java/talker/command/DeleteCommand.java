@@ -1,3 +1,10 @@
+package talker.command;
+
+import talker.Storage;
+import talker.TalkerException;
+import talker.Ui;
+import talker.task.TaskList;
+
 public class DeleteCommand extends Command{
 
     private String[] parsed;

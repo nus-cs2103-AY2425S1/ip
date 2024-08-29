@@ -1,4 +1,7 @@
-import java.util.Scanner;
+package talker;
+
+import talker.command.Command;
+import talker.task.TaskList;
 
 public class Talker {
     private static final String NAME = "Talker";
