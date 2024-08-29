@@ -1,3 +1,5 @@
+package Nen2;
+
 /**
  * This class represent an exception which is thrown when the argument(s) of a task(date and time) has incorrect format
  * @author Gan Ren Yick (A0276246X)

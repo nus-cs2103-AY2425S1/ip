@@ -1,3 +1,4 @@
+package Nen2;
 /**
  * This class represents a parser deals with making sense of the user command
  * @author Gan Ren Yick (A0276246X)

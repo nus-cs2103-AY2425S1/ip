@@ -1,3 +1,5 @@
+package Nen2;
+
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Date;
@@ -58,7 +60,7 @@ public abstract class Task {
         throw new InvalidInputException("OOPSIEE where is your /" + parameter + " argument");
     }
 
-    private static String getDescription(String text) throws EmptyDescriptionException{
+    private static String getDescription(String text) throws EmptyDescriptionException {
         String[] arr = text.split("/")[0].split(" ");
         arr[0] = "";
         String out = String.join(" ", arr);
