@@ -1,19 +1,16 @@
 import java.io.*;
 import java.util.ArrayList;
 
-public class FileHandler {
+public class Storage {
 
     private File file;
-    private FileWriter fileWriter;
-    private BufferedReader bufferedReader;
-    private String FILE_PATH = "./data/agave.txt";
 
-    public FileHandler(String filePath) {
+    public Storage(String filePath) {
         this.file = new File(filePath);
 
         try {
             if (!file.exists()) {
-                file.getParentFile().mkdir();
+                file.getParentFile().mkdirs();
                 file.createNewFile();
             }
         } catch (IOException e) {
@@ -40,9 +37,8 @@ public class FileHandler {
     }
 
     public ArrayList<Task> loadTasks() throws IOException {
-        ArrayList<Task> tasks = new ArrayList<Task>();
-        try {
-            bufferedReader = new BufferedReader(new FileReader(file));
+        ArrayList<Task> tasks = new ArrayList<>();
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             String line = bufferedReader.readLine();
             while (line != null) {
                 Task task = Task.parseTask(line);
@@ -51,8 +47,6 @@ public class FileHandler {
             }
         } catch (IOException e) {
             System.out.println("Error when reading from file: " + e.getMessage());
-        } finally {
-            bufferedReader.close();
         }
         return tasks;
     }
