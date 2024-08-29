@@ -4,8 +4,8 @@ import bobby.exception.EmptyDescriptionException;
 
 public class Todo extends Task {
 
-    public Todo(String s) {
-        super(s);
+    public Todo(String description) {
+        super(description);
     }
 
     public static Todo createTodo(String input) throws EmptyDescriptionException {

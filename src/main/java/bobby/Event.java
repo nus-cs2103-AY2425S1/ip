@@ -5,8 +5,8 @@ import bobby.exception.EmptyDescriptionException;
 public class Event extends Task {
     String start;
     String end;
-    public Event(String s, String start, String end) {
-        super(s);
+    public Event(String description, String start, String end) {
+        super(description);
         this.start = start;
         this.end = end;
     }
