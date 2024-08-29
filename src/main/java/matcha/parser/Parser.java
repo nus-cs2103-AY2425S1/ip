@@ -1,5 +1,8 @@
 package matcha.parser;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 import matcha.command.AddTaskCommand;
 import matcha.command.Command;
 import matcha.command.DeleteTaskCommand;
@@ -7,16 +10,13 @@ import matcha.command.ExitCommand;
 import matcha.command.FindTaskCommand;
 import matcha.command.ListTaskCommand;
 import matcha.command.UpdateTaskCommand;
-
 import matcha.exception.MatchaException;
-
 import matcha.task.Deadline;
 import matcha.task.Event;
 import matcha.task.Task;
 import matcha.task.Todo;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
+
 
 /**
  * Represents a Parser object which is responsible for parsing user input and file data.
@@ -76,20 +76,20 @@ public class Parser {
             switch (taskType) {
             case "T":
                 task = new Todo(taskInfo[2]);
-                if(isTaskDone) {
+                if (isTaskDone) {
                     task.markDone();
                 }
                 break;
             case "D":
                 task = new Deadline(taskInfo[2], LocalDateTime.parse(taskInfo[3]));
-                if(isTaskDone) {
+                if (isTaskDone) {
                     task.markDone();
                 }
                 break;
             case "E":
                 task = new Event(taskInfo[2], LocalDateTime.parse(taskInfo[3]),
                         LocalDateTime.parse(taskInfo[4]));
-                if(isTaskDone) {
+                if (isTaskDone) {
                     task.markDone();
                 }
                 break;

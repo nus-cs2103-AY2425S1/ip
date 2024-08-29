@@ -3,8 +3,7 @@ package matcha.exception;
 /**
  * Represents a custom exception for all errors related to the Matcha program
  */
-public class MatchaException extends Exception{
-
+public class MatchaException extends Exception {
     /**
      * Constructs a new MatchaException with the error message
      * @param msg the error message

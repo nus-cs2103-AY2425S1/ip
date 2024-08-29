@@ -39,7 +39,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "\t[E]" + super.toString() + " (from: " + this.from.format(Task.getOutputFormat()) + " to: " +
-                this.to.format(Task.getOutputFormat()) + ")";
+        return "\t[E]" + super.toString() + " (from: " + this.from.format(Task.getOutputFormat()) + " to: "
+                + this.to.format(Task.getOutputFormat()) + ")";
     }
 }

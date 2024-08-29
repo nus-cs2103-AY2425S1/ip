@@ -1,8 +1,8 @@
 package matcha.tasklist;
 
-import matcha.task.Task;
-
 import java.util.ArrayList;
+
+import matcha.task.Task;
 
 /**
  * Represents a list of Tasks.
@@ -90,17 +90,6 @@ public class TaskList {
     }
 
     /**
-     * Prints the task that was updated in the list. Indicates
-     * the number of tasks in the list after updating.
-     *
-     * @param task Task that was updated.
-     */
-    public void printTask(Task task) {
-        System.out.println(task);
-        System.out.println("You have " + tasks.size() + " tasks in the list.");
-    }
-    
-    /**
      * Finds tasks that contain the given keyword and adds it to an ArrayList.
      *
      * @param keyword The keyword to search for.
@@ -114,5 +103,16 @@ public class TaskList {
             }
         }
         return matchingTasks;
+    }
+
+    /**
+     * Prints the task that was updated in the list. Indicates
+     * the number of tasks in the list after updating.
+     *
+     * @param task Task that was updated.
+     */
+    public void printTask(Task task) {
+        System.out.println(task);
+        System.out.println("You have " + tasks.size() + " tasks in the list.");
     }
 }

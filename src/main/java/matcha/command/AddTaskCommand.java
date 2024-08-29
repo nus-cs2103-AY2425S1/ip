@@ -1,25 +1,21 @@
 package matcha.command;
 
-import matcha.exception.MatchaException;
-
-import matcha.task.Task;
-import matcha.task.Deadline;
-import matcha.task.Event;
-import matcha.task.Todo;
-
-import matcha.tasklist.TaskList;
-
-import matcha.storage.Storage;
-
-import matcha.ui.Ui;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import matcha.exception.MatchaException;
+import matcha.storage.Storage;
+import matcha.task.Deadline;
+import matcha.task.Event;
+import matcha.task.Task;
+import matcha.task.Todo;
+import matcha.tasklist.TaskList;
+import matcha.ui.Ui;
 
 /**
  * Represents a command to add a task to the task list.
  */
-public class AddTaskCommand extends Command{
+public class AddTaskCommand extends Command {
     private String commandType;
     private String[] inputWords;
 
@@ -48,9 +44,7 @@ public class AddTaskCommand extends Command{
         if (inputWords.length < 2) {
             throw new MatchaException("Please include the " + commandType + " details!");
         }
-        
         switch (commandType) {
-
         case "todo":
             Todo todo = new Todo(inputWords[1]);
             System.out.println("Alright, I have added this Todo:");
@@ -94,8 +88,8 @@ public class AddTaskCommand extends Command{
      */
     private Deadline createDeadline() throws MatchaException {
         if (!inputWords[1].contains(" /by ")) {
-            throw new MatchaException("Invalid format to add Deadline.\nPlease use '/by' to specify the " +
-                    "time of the Deadline.");
+            throw new MatchaException("Invalid format to add Deadline.\nPlease use '/by' to specify the "
+                    + "time of the Deadline.");
         }
 
         //extract deadline description and 'by'
@@ -122,8 +116,8 @@ public class AddTaskCommand extends Command{
      */
     private Event createEvent() throws MatchaException {
         if (!inputWords[1].contains(" /from ") || !inputWords[1].contains(" /to ")) {
-            throw new MatchaException("Invalid format to add Event.\nPlease use '/from' and '/to' to specify the " +
-                    "Event duration.");
+            throw new MatchaException("Invalid format to add Event.\nPlease use '/from' and '/to' to specify the "
+                    + "Event duration.");
         }
 
         //extract event description, 'from' and 'to'
