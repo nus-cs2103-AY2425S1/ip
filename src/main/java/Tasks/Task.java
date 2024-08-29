@@ -3,7 +3,7 @@ package Tasks;
 import Exceptions.*;
 
 public abstract class Task {
-    private String taskname;
+    protected String taskname;
     private boolean done;
     public Task(String s) {
         taskname = s;
