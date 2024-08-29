@@ -74,6 +74,40 @@ public class Parser {
         return byIndex;
     }
 
+    public static int getEventFromIndex(String[] commandComponents) {
+        int fromIndex = -1;
+        for (int i = 1; i < commandComponents.length; i++) {
+            if (commandComponents[i].equals("/from")) {
+                fromIndex = i;
+                break;
+            }
+        }
+
+        // Missing /from
+        if (fromIndex < 0) {
+            throw new IllegalArgumentException("UH OH! The command given is missing the '/from' input for event." +
+                    "Try updating the command like 'event project meeting /from Mon 2pm /to 5pm'.");
+        }
+        return fromIndex;
+    }
+
+    public static int getEventToIndex(String[] commandComponents) {
+        int toIndex = -1;
+        for (int i = 1; i < commandComponents.length; i++) {
+            if (commandComponents[i].equals("/to")) {
+                toIndex = i;
+                break;
+            }
+        }
+
+        // Missing /to
+        if (toIndex < 0) {
+            throw new IllegalArgumentException("UH OH! The command given is missing the '/to' input for event." +
+                    "Try updating the command like 'event project meeting /from Mon 2pm /to 5pm'.");
+        }
+        return toIndex;
+    }
+
     private static int getIndexFromCommand(String userCommand) {
         String[] commandComponents = userCommand.split(" ");
 

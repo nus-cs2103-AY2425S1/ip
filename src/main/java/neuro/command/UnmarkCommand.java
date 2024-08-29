@@ -23,6 +23,7 @@ public class UnmarkCommand extends Command {
         try {
             Task task = tasks.getTask(index - 1);
             task.markUndone();
+            storage.updateTaskFile(tasks);
 
             ui.showMessage("Ok! I've unmarked this task as done:");
             ui.showMessage(task.toString());

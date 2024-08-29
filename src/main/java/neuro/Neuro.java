@@ -18,78 +18,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Neuro {
-    private static Task getTaskToAdd(String taskType, String[] taskComponents, String taskIsDone) {
-        Task taskToAdd = null;
-
-        switch (taskType) {
-            case ("T"):
-                taskToAdd = new Todo(taskComponents[2]);
-                break;
-            case ("D"):
-                taskToAdd = new Deadline(taskComponents[2], LocalDateTime.parse(taskComponents[3]));
-                break;
-            case ("E"):
-                taskToAdd = new Event(taskComponents[2], taskComponents[3], taskComponents[4]);
-                break;
-            default:
-
-                break;
-        }
-
-        if (taskIsDone.equals("1") && taskToAdd != null) {
-            taskToAdd.markDone();
-        }
-        return taskToAdd;
-    }
-
-    private static ArrayList<Task> loadOrCreateTaskFile(String filePath) throws FileNotFoundException {
-        File f = new File(filePath);
-        try {
-            if (!f.exists()) {
-                f.getParentFile().mkdirs();
-                f.createNewFile();
-            }
-        } catch (IOException e) {
-            System.out.println("Error encountered: " + e);
-        }
-
-        Scanner s = new Scanner(f);
-        ArrayList<Task> taskList = new ArrayList<>();
-
-        while (s.hasNext()) {
-            String nextLine = s.nextLine();
-            String[] taskComponents = nextLine.split(" \\| ");
-            String taskType = taskComponents[0];
-            String taskIsDone = taskComponents[1];
-            Task taskToAdd = getTaskToAdd(taskType, taskComponents, taskIsDone);
-
-            taskList.add(taskToAdd);
-        }
-
-        return taskList;
-    }
-
-    private static void updateTaskFile(String filePath, ArrayList<Task> taskList) throws IOException {
-        FileWriter fileWriter = new FileWriter(filePath);
-
-        for (Task task : taskList) {
-            fileWriter.write(task.toSaveData() + System.lineSeparator());
-        }
-
-        fileWriter.close();
-    }
-
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     public Neuro(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
-        } catch (Exception e) {
-
+            tasks = storage.load();
+        } catch (FileNotFoundException e) {
+            ui.showError("Save file missing!");
         }
     }
 
@@ -104,7 +43,7 @@ public class Neuro {
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             // TODO: Switch to specific or custom exception
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();

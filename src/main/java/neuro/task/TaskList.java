@@ -1,11 +1,12 @@
 package neuro.task;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class TaskList {
+public class TaskList implements Iterable<Task> {
     ArrayList<Task> taskList;
-    public TaskList(Object o) {
-        this.taskList = new ArrayList<>();
+    public TaskList(ArrayList<Task> taskList) {
+        this.taskList = taskList;
     }
 
     public void addTask(Task task) {
@@ -26,5 +27,10 @@ public class TaskList {
 
     public Task removeTask(int index) {
         return taskList.remove(index);
+    }
+
+    @Override
+    public Iterator<Task> iterator() {
+        return taskList.iterator();
     }
 }

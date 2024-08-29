@@ -54,29 +54,8 @@ public class AddCommand extends Command {
                 break;
 
             case EVENT:
-                int fromIndex = -1;
-                int toIndex = -1;
-
-                for (int i = 1; i < commandComponents.length; i++) {
-                    if (commandComponents[i].equals("/from")) {
-                        fromIndex = i;
-                    } else if (commandComponents[i].equals("/to")) {
-                        toIndex = i;
-                        break;
-                    }
-                }
-
-                // Missing /from
-                if (fromIndex < 0) {
-                    throw new IllegalArgumentException("UH OH! The command given is missing the '/from' input for event." +
-                            "Try updating the command like 'event project meeting /from Mon 2pm /to 5pm'.");
-                }
-
-                // Missing /to
-                if (toIndex < 0) {
-                    throw new IllegalArgumentException("UH OH! The command given is missing the '/to' input for event." +
-                            "Try updating the command like 'event project meeting /from Mon 2pm /to 5pm'.");
-                }
+                int fromIndex = Parser.getEventFromIndex(commandComponents);
+                int toIndex = Parser.getEventToIndex(commandComponents);
 
                 String eventDescription = String.join(" ",
                         Arrays.copyOfRange(commandComponents, 1, fromIndex));
@@ -105,6 +84,7 @@ public class AddCommand extends Command {
         }
 
         tasks.addTask(task);
+        storage.updateTaskFile(tasks);
         ui.showMessage("Ok, I've added this task:");
         ui.showMessage("    " + task);
         ui.showMessage("You now have " + tasks.getSize() + " tasks in the list.");

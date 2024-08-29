@@ -23,6 +23,7 @@ public class MarkCommand extends Command {
         try {
             Task task = tasks.getTask(index - 1);
             task.markDone();
+            storage.updateTaskFile(tasks);
 
             ui.showMessage("Nice! I've marked this task as done:");
             ui.showMessage(task.toString());
