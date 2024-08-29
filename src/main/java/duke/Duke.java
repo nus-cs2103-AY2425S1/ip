@@ -16,6 +16,7 @@ public class Duke {
         try {
             tasks = new TaskList(storage.load());
         } catch (FileNotFoundException | ParseException e) {
+            ui.showError("Error with input file!");
             tasks = new TaskList(new ArrayList<>());
         }
     }
