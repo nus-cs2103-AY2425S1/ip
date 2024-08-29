@@ -15,7 +15,7 @@ public class Storage {
     public void saveData(ArrayList<Task> Tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task task : Tasks) {
-            fw.write(task.toString());
+            fw.write(task.toStorage());
             fw.write(System.getProperty( "line.separator" ));
         }
         fw.close();
@@ -31,7 +31,7 @@ public class Storage {
             }
             return Tasks;
         } catch (FileNotFoundException e) {
-            System.out.println("File doesn't exist");
+            System.out.println("There was no datafile stored for twilight tasks");
             return new ArrayList<String>();
         }
     }

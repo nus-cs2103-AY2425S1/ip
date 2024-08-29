@@ -1,11 +1,14 @@
 import java.util.ArrayList;
 
 public class Parser {
-    private static final String[] COMMANDS = new String[]{"list", "mark", "unmark", "event", "todo", "deadline", "delete", "bye"};
+    private static final String[] COMMANDS = new String[]{"list", "mark", "unmark", "todo", "event", "deadline", "delete", "bye"};
     public Parser(){}
 
     public static Command parse(String input) {
         String[] split = input.split(" ", 2);
+        if (split[0].equals("list")) {
+            return new ListCommand();
+        }
         String command = split[0];
         String details = split[1];
         int i = 0;
