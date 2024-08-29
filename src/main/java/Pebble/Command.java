@@ -1,3 +1,5 @@
+package Pebble;
+
 public class Command {
     private CommandType commandType;
     private String arguments;
