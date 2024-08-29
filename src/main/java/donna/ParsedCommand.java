@@ -1,3 +1,5 @@
+package donna;
+
 public class ParsedCommand {
     private final String commandType;
     private final String argument1;
