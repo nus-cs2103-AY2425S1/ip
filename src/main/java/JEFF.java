@@ -2,7 +2,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
 import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -158,6 +160,13 @@ public class JEFF {
         case "list":
             printList();
             break;
+        case "print":
+            if (parts.length == 2) {
+                printTasksOnDate(parts[1]);
+            } else {
+                throw new JEFFException("You must provide a date after the command!");
+            }
+            break;
         case "mark":
             if (parts.length == 2 && isNumeric(parts[1])) {
                 markDone(Integer.parseInt(parts[1]));
@@ -204,6 +213,30 @@ public class JEFF {
             throw new JEFFException("That is not a valid command!");
         }
         return false;
+    }
+
+    private static void printTasksOnDate(String dateString) throws JEFFException {
+        try {
+            DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate date = LocalDate.parse(dateString, DATE_FORMATTER);
+            System.out.println("Tasks due on " + date.format(DATE_FORMATTER) + ":");
+            boolean found = false;
+            for (Task task : taskList) {
+                if (task instanceof Deadline) {
+                    Deadline deadlineTask = (Deadline) task;
+                    if (deadlineTask.getDueDate().toLocalDate().equals(date)) {
+                        System.out.println(deadlineTask);
+                        found = true;
+                    }
+                }
+            }
+
+            if (!found) {
+                System.out.println("No tasks due on this date.");
+            }
+        } catch (DateTimeParseException e) {
+            throw new JEFFException("Invalid date format! Please use 'DD/MM/YYYY'.");
+        }
     }
 
     private static void deleteTask(int i) throws JEFFException {
