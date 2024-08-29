@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -9,12 +10,15 @@ public class Bob {
     private ArrayList<Task> records;
     private int counter;
 
+    private String savedFilePath;
+
     /**
      * Initialises an instance of Bob.
      */
     public Bob() {
         this.records = new ArrayList<>();
         this.counter = 0;
+        this.savedFilePath = "src/main/java/savedFile.txt";
     }
 
     public static void main(String[] args)  {
@@ -29,6 +33,7 @@ public class Bob {
      * This is a chat function by Bob.
      */
     static void chat(Bob bob)  {
+        bob.loadTasks();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine().trim(); //input with NO whitespace in front/back
 
@@ -52,7 +57,7 @@ public class Bob {
                 default:
                     bob.addTask(input, inputWords);
             }
-
+            bob.saveRecords();
             input = scanner.nextLine().trim();
         }
         printLines("Bye. Hope to see you again soon!");
@@ -136,10 +141,16 @@ public class Bob {
             if (taskDescription.equals("")) {
                 throw new InvalidTaskException("OOPS!!! The description of a event cannot be empty.");
             }
-
-            String startDateTime = inputWords[Arrays.asList(inputWords).indexOf("/from") + 1];
-            String endDateTime = inputWords[Arrays.asList(inputWords).indexOf("/to") + 1];
-            newTask = new Event(taskDescription, startDateTime, endDateTime);
+//            for (String x : inputWords) {
+//                System.out.println(x);
+//            }
+            if (!inputWords[Arrays.asList(inputWords).indexOf("/from") + 3].equals("/to")) {
+                throw new InvalidTaskException("Invalid use of event format. Should be  '<description> /from <day> <start time>'");
+            }
+            String day = inputWords[Arrays.asList(inputWords).indexOf("/from") + 1];
+            String startTime = inputWords[Arrays.asList(inputWords).indexOf("/from") + 2];
+            String endTime = inputWords[Arrays.asList(inputWords).indexOf("/to") + 1];
+            newTask = new Event(taskDescription, day, startTime, endTime);
             break;
         default:
             throw new InvalidTaskException("OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -180,12 +191,12 @@ public class Bob {
                 if (subString2.length == 0) {
                     throw new InvalidTaskException("OOPS!!! The event description cannot be empty.");
                 }
-                throw new InvalidTaskException("Invalid use of event format. Should be  '... /from ...'");
+                throw new InvalidTaskException("Invalid use of event format. Should be  '<description> /from <day> <start time>'");
             }
 
             String[] subString3 = subString2[1].split("/to");
             if (subString3.length <= 1) {
-                throw new InvalidTaskException("Invalid use of event format. Should be '... /to ...'.");
+                throw new InvalidTaskException("Invalid use of event format. Should be '<day> <start time> /to <end time>'.");
             }
             if (subString3[0].trim().isEmpty()) {
                 throw new InvalidTaskException("OOPS!!! The start time for the event cannot be empty.");
@@ -297,4 +308,76 @@ public class Bob {
         }
         Bob.printLines(allRecords);
     }
+
+    /**
+     * Saves tasks updates by user to records.
+     */
+    public void saveRecords() {
+        File file = new File (savedFilePath);
+        try {
+            if(!file.exists()) {
+                boolean isFileCreated = file.createNewFile();
+                if (!isFileCreated) {
+                    System.out.println("Failed to create new file when saving records.");
+                }
+            }
+            FileWriter fileWriter = new FileWriter(file);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            for (Task x: records) {
+                String fileFormatLine = x.fileFormat();
+                bufferedWriter.write(fileFormatLine);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            super.toString();
+        }
+    }
+
+    /**
+     * Updates Bob's records and prints out all existing records.
+     */
+    public void loadTasks() {
+        try {
+            File file = new File(savedFilePath);
+            if (!file.exists()) {
+                boolean isFileCreated = file.createNewFile();
+                if (!isFileCreated) {
+                    System.out.println("Failed to create file when loading task.");
+                }
+                return;
+            }
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line = bufferedReader.readLine();
+            System.out.println("\t====== Current Records =====\n");
+            while (line != null && !line.equals("")) {
+                Task task = this.parseData(line);
+                this.records.add(this.counter, task);
+                this.setCounter(this.counter + 1);
+                System.out.println("\t" + line);
+                line = bufferedReader.readLine();
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
+            super.toString();
+        }
+    }
+
+    public Task parseData(String lineInput) throws IOException {
+        String[] parts = lineInput.split(" //| ");
+        boolean isDone = (parts[1].equals("1")) ? true : false;
+
+        switch (parts[0]) {
+        case "T":
+            return new Todo(parts[2], isDone);
+        case "D":
+            return new Deadline(parts[2], parts[3], isDone);
+        case "E":
+            return new Event(parts[2], parts[3], parts[4], parts[5]);
+        default:
+            throw new IOException("unable to parse Data for loading.");
+        }
+    }
+
 }
