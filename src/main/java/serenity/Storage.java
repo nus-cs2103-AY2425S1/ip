@@ -1,7 +1,5 @@
 package serenity;
 
-import serenity.SerenityException;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,15 +10,29 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the storing, loading and saving of tasks to data file.
+ */
 public class Storage {
 
     protected String filePath;
 
+    /**
+     * Constructs a Storage object.
+     *
+     * @param filePath The path of file where data is stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-
+    /**
+     * Loads tasks stored in data file to chatbot.
+     *
+     * @return ArrayList of tasks loaded from data file.
+     * @throws IOException If there are issues with creating directory or file
+     * @throws SerenityException If there are issues with loading a task.
+     */
     public ArrayList<Task> loadFile() throws IOException, SerenityException {
         //create directory if directory does not exist
         Files.createDirectories(Paths.get("data"));
@@ -39,6 +51,14 @@ public class Storage {
         sc.close();
         return tasks;
     }
+
+    /**
+     * Converts string representation of task stored in data file to a Task.
+     *
+     * @param taskDescription String representation of task stored in data file.
+     * @return Task created with the task description.
+     * @throws SerenityException If task description is invalid and task cannot be created.
+     */
 
     public Task loadTask(String taskDescription) throws SerenityException {
         String[] parts = taskDescription.split("\\|");
@@ -74,17 +94,35 @@ public class Storage {
         return t;
     }
 
+    /**
+     * Writes to data file by appending text to existing content.
+     *
+     * @param textToAppend Text to be appended.
+     * @throws IOException If there are issues accessing file.
+     */
     public void appendToFile(String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAppend + "\n");
         fw.close();
     }
 
+    /**
+     * Saves task to data file.
+     *
+     * @param t Task to be saved to file.
+     * @throws IOException If there are issues appending text to file.
+     */
     public void saveTask(Task t) throws IOException {
         String textToAppend = t.formatData();
         appendToFile(textToAppend);
     }
 
+    /**
+     * Writes to file by overwriting existing content.
+     *
+     * @param tasks Tasks to be saved to file.
+     * @throws IOException If there are issues writing to file.
+     */
     public void writeToFile(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath); //overwrite
         fw.write(tasks.toDataFormat());

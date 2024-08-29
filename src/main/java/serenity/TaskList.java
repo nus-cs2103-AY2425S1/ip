@@ -1,21 +1,38 @@
 package serenity;
 
-import serenity.SerenityException;
-
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks, where tasks can be added, deleted
+ * and marked as done or undone.
+ */
 public class TaskList {
 
     protected ArrayList<Task> tasks;
 
+    /**
+     * Constructs a TaskList with no existing tasks.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList with existing tasks.
+     *
+     * @param tasks ArrayList of existing tasks.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Creates task of specified type with given task description.
+     *
+     * @param input Task description specifying type of task.
+     * @return Task of specified type with given task description
+     * @throws SerenityException If type of task is not specified.
+     */
     public Task createTask(String input) throws SerenityException {
         Task t;
 
@@ -55,6 +72,12 @@ public class TaskList {
 
     }
 
+    /**
+     * Adds task to TaskList.
+     *
+     * @param t Task to be added.
+     * @return Message to be displayed when task is added.
+     */
     public String addTask(Task t) {
         tasks.add(t);
         String numOfTasks = tasks.size() == 1 ? "task" : "tasks";
@@ -62,6 +85,13 @@ public class TaskList {
                 + "\nNow you have " + tasks.size() + " " + numOfTasks + " in the list.");
     }
 
+    /**
+     * Deletes task from TaskList.
+     *
+     * @param input Command containing index of task to delete.
+     * @return Message to be displayed when task is deleted.
+     * @throws SerenityException If task index is not specified.
+     */
     public String deleteTask(String input) throws SerenityException {
 
         String[] parts = input.split(" ");
@@ -78,6 +108,13 @@ public class TaskList {
                 + "\nNow you have " + tasks.size() + " " + numOfTasks + " in the list.");
     }
 
+    /**
+     * Changes status of task.
+     *
+     * @param input Command to containing index of task to change status.
+     * @return Message to be displayed to user when task status is changed.
+     * @throws SerenityException If task index is not specified.
+     */
     public String changeStatus(String input) throws SerenityException {
 
         String[] parts = input.split(" ");
@@ -100,11 +137,14 @@ public class TaskList {
         } else {
             throw new SerenityException("Error: Type of task is not specified.");
         }
-
         return message;
-
     }
 
+    /**
+     * Returns string representation of TaskList.
+     *
+     * @return String representation.
+     */
     @Override
     public String toString() {
         String message = "Here are the tasks in your list:";
@@ -115,6 +155,11 @@ public class TaskList {
         return message;
     }
 
+    /**
+     * Returns string representation of TaskList to save as data.
+     *
+     * @return String representation to save as data.
+     */
     public String toDataFormat() {
         String data = "";
         for (Task t: tasks) {
@@ -123,5 +168,4 @@ public class TaskList {
         return data;
 
     }
-
 }

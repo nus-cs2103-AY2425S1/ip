@@ -1,9 +1,25 @@
 package serenity;
 import java.io.IOException;
 
+/**
+ * Represents a parser that parses user inputs and carries out the actions corresponding to the command.
+ */
+
 public class Parser {
 
-    public static void parse(String input, TaskList tasks, Ui ui, Storage storage) throws SerenityException, IOException {
+    /**
+     * Obtains command from user input and carries out the corresponding actions.
+     *
+     * @param input User's input.
+     * @param tasks List of tasks.
+     * @param ui User interface.
+     * @param storage Data storage.
+     * @throws SerenityException If user input is invalid and task cannot be created.
+     * @throws IOException If there is an issue writing to file that stores data.
+     */
+
+    public static void parse(String input, TaskList tasks, Ui ui, Storage storage)
+            throws SerenityException, IOException {
         String[] parts = input.split(" ", 2);
         String command = parts[0].strip();
         String message;
@@ -38,6 +54,13 @@ public class Parser {
         }
 
     }
+
+    /**
+     * Checks if command is to exit chatbot.
+     *
+     * @param input User's input.
+     * @return True if the command is bye.
+     */
 
     public static boolean isExit (String input) {
         return input.startsWith("bye");
