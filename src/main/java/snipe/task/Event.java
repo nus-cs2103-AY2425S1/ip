@@ -1,9 +1,11 @@
+package snipe.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * The {@code Event} class represents a task that occurs at a specific time
+ * The {@code snipe.task.Event} class represents a task that occurs at a specific time
  * with a defined start and end time. It is a subclass of {@link Task}.
  */
 public class Event extends Task {
@@ -19,7 +21,7 @@ public class Event extends Task {
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
 
     /**
-     * Constructs a new {@code Event} task with the specified description, start time, and end time.
+     * Constructs a new {@code snipe.task.Event} task with the specified description, start time, and end time.
      * The task type is set to {@link TaskType#EVENT}.
      *
      * @param description The description of the event task.

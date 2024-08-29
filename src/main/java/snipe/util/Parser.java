@@ -1,4 +1,10 @@
-import java.util.ArrayList;
+package snipe.util;
+
+import snipe.command.*;
+import snipe.exception.SnipeException;
+import snipe.task.Deadline;
+import snipe.task.Event;
+import snipe.task.ToDo;
 
 public class Parser {
     public static Command parse(String userInput) throws SnipeException {
@@ -32,7 +38,7 @@ public class Parser {
         case "BYE":
             return new ExitCommand();
         default:
-            throw new SnipeException("I'm sorry, I don't understand that command.");
+            throw new SnipeException("I'm sorry, I don't understand that snipe.command.");
         }
     }
 

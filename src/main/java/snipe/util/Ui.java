@@ -1,8 +1,10 @@
+package snipe.util;
+
 import java.util.Scanner;
 
 public class Ui {
     /** The name of the application. */
-    private static final String NAME = "Snipe";
+    private static final String NAME = "snipe.core.Snipe";
 
     /** The ASCII art logo for the application. */
     private static final String LOGO

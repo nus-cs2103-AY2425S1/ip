@@ -1,10 +1,11 @@
+package snipe.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 
 /**
- * The {@code Deadline} class represents a task that has a specific deadline.
+ * The {@code snipe.task.Deadline} class represents a task that has a specific deadline.
  * It is a subclass of {@link Task}.
  */
 public class Deadline extends Task {
@@ -17,7 +18,7 @@ public class Deadline extends Task {
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
 
     /**
-     * Constructs a new {@code Deadline} task with the specified description and deadline.
+     * Constructs a new {@code snipe.task.Deadline} task with the specified description and deadline.
      * The task type is set to {@link TaskType#DEADLINE}.
      *
      * @param description The description of the deadline task.
