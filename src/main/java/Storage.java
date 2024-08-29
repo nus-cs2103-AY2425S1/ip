@@ -1,3 +1,5 @@
+import com.sun.security.jgss.GSSUtil;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
@@ -11,7 +13,7 @@ public class Storage {
         File file = new File(filePath);
         if (!file.exists()) {
             file.mkdirs();
-            // file = new ...
+            // file = new ...??
         }
         this.file = file;
     }
@@ -22,12 +24,10 @@ public class Storage {
             Scanner sc = new Scanner(this.file);
             while (sc.hasNext()) {
                 String line = sc.nextLine();
-                if (!line.matches("^T \\| [01] \\| .+") ||
-                        !line.matches("^D \\| [01] \\| .+ \\| \\d{4}-\\d{2}-\\d{2}") ||
-                        !line.matches("^E \\| [01] \\| .+ \\| \\d{4}-\\d{2}-\\d{2} \\| \\d{4}-\\d{2}-\\d{2}")) {
-                    System.out.println("Invalid task found in file");
-                    continue;
+                if (!line.matches("^[TDE] .+")) {
+                    throw new InvalidFormatException("Invalid task found in file");
                 }
+
                 String[] input = line.split("\\|", 3);
                 Dudu.TaskType type = Dudu.TaskType.valueOf(input[0].trim());
                 boolean marked = Integer.parseInt(input[1].trim()) == 1;
@@ -35,9 +35,15 @@ public class Storage {
                 Task task = null;
                 switch (type) {
                     case T:
+                        if (!line.matches("^T \\| [01] \\| .+")) {
+                            throw new InvalidFormatException("Format should be T | [1/0] | [description]");
+                        }
                         task = new ToDo(content);
                         break;
                     case D: {
+                        if (!line.matches("^D \\| [01] \\| .+ \\| \\d{4}-\\d{2}-\\d{2}")) {
+                            throw new InvalidFormatException("Format should be D | [1/0] | [description] | yyyy-mm-dd");
+                        }
                         String[] tmp = content.split("\\|");
                         String description = tmp[0].trim();
                         try {
@@ -48,6 +54,9 @@ public class Storage {
                         }
                         break;
                     } case E: {
+                        if (!line.matches("^E \\| [01] \\| .+ \\| \\d{4}-\\d{2}-\\d{2} \\| \\d{4}-\\d{2}-\\d{2}")) {
+                            throw new InvalidFormatException("Format should be E | [1/0] | [description] | yyyy-mm-dd | yyyy-mm-dd");
+                        }
                         String[] tmp = content.split("\\|");
                         String description = tmp[0].trim();
                         try {
@@ -68,6 +77,8 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
+            System.out.println(e);
+        } catch (InvalidFormatException e) {
             System.out.println(e);
         }
         return tasks;
