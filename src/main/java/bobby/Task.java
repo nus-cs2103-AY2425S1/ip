@@ -4,9 +4,9 @@ public abstract class Task {
     private boolean completed;
     private String description;
 
-    public Task(String s) {
+    public Task(String description) {
         this.completed = false;
-        this.description = s;
+        this.description = description;
     }
 
     @Override

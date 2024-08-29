@@ -1,10 +1,11 @@
 package bobby;
 
-import bobby.exception.EmptyDescriptionException;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import bobby.exception.EmptyDescriptionException;
+
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
     @Test

@@ -1,8 +1,8 @@
 package bobby;
 
-import java.util.ArrayList;
-
 import bobby.exception.BobbyException;
+
+import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> listOfTasks;

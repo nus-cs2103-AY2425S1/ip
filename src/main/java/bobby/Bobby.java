@@ -1,9 +1,9 @@
 package bobby;
 
+import bobby.exception.BobbyException;
+
 import java.io.IOException;
 import java.util.Scanner;
-
-import bobby.exception.BobbyException;
 
 public class Bobby {
     private static String filePath = "data.txt";

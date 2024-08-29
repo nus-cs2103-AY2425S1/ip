@@ -1,14 +1,14 @@
 package bobby;
 
+import bobby.exception.EmptyDescriptionException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import bobby.exception.EmptyDescriptionException;
-
 public class Deadline extends Task {
     LocalDate deadline;
-    public Deadline(String s, String deadline) {
-        super(s);
+    public Deadline(String description, String deadline) {
+        super(description);
         this.deadline = LocalDate.parse(deadline);
     }
 
