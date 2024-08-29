@@ -1,5 +1,8 @@
+package com.meow.com.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import com.meow.Meowception;
 public class Event extends Task {
     protected String start;
     protected String end;

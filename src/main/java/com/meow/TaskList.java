@@ -1,5 +1,10 @@
+package com.meow;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.meow.com.tasks.Task;
+import com.meow.com.tasks.Todo;
+import com.meow.com.tasks.Deadline;
 
 public class TaskList {
     List<Task> tasks;

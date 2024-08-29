@@ -1,3 +1,4 @@
+package com.meow;
 public class Ui {
     static private String LOGO =  
     "     ___           ___           ___           ___\n" +     

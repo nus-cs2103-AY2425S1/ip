@@ -1,3 +1,4 @@
+package com.meow;
 public class Meowception extends Exception {
     String code;
     

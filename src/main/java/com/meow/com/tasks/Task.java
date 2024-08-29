@@ -1,3 +1,4 @@
+package com.meow.com.tasks;
 public class Task {
     private String taskName;
     private boolean isDone;

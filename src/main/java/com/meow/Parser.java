@@ -1,4 +1,11 @@
+package com.meow;
 import java.util.Scanner;
+
+import com.meow.com.tasks.Task;
+import com.meow.com.tasks.Todo;
+import com.meow.com.tasks.Event;
+
+import com.meow.com.tasks.Deadline;
 public class Parser {
     private Scanner scanner;
     private TaskList taskList;
