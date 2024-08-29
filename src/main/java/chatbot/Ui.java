@@ -1,6 +1,9 @@
-import tasks.TaskList;
+package chatbot;
 
 import java.util.Scanner;
+
+import storage.Storage;
+import tasks.TaskList;
 
 public class Ui {
 
@@ -14,7 +17,7 @@ public class Ui {
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        botSay("Hello I'm Peridot!!");
+        botSay("Hello I'm chatbot.Peridot!!");
         botSay("What's up?");
         String userResponse = scanner.nextLine();
         while (!userResponse.equals("bye")) {
@@ -31,6 +34,6 @@ public class Ui {
     }
 
     public static void botSay(String string) {
-        System.out.println("Peridot: " + string);
+        System.out.println("chatbot.Peridot: " + string);
     }
 }
