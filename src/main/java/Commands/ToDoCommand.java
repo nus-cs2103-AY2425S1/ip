@@ -6,6 +6,7 @@ public class ToDoCommand extends Command {
     String userInput;
 
     public ToDoCommand(String userInput) {
+
         this.userInput = userInput;
     }
 
@@ -22,6 +23,7 @@ public class ToDoCommand extends Command {
 
     @Override
     public boolean isExit() {
+
         return false;
     }
 }

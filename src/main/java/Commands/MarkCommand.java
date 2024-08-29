@@ -6,6 +6,7 @@ public class MarkCommand extends Command {
     String userInput;
 
     public MarkCommand(String userInput) {
+
         this.userInput = userInput;
     }
 
@@ -25,6 +26,7 @@ public class MarkCommand extends Command {
 
     @Override
     public boolean isExit() {
+
         return false;
     }
 }

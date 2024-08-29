@@ -6,6 +6,7 @@ public class DeleteCommand extends Command {
     String userInput;
 
     public DeleteCommand(String userInput) {
+
         this.userInput = userInput;
     }
 
@@ -25,6 +26,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public boolean isExit() {
+
         return false;
     }
 }

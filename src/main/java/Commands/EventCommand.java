@@ -6,6 +6,7 @@ public class EventCommand extends Command {
     String userInput;
 
     public EventCommand(String userInput) {
+
         this.userInput = userInput;
     }
 
@@ -22,6 +23,7 @@ public class EventCommand extends Command {
 
     @Override
     public boolean isExit() {
+
         return false;
     }
 }
