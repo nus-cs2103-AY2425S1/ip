@@ -1,5 +1,6 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+package elster;
+
+import elster.tasks.Task;
 
 public class Ui {
     public void printList(TaskList list) {

@@ -1,9 +1,12 @@
-import com.sun.source.tree.CaseTree;
+package elster;
 
-import java.io.IOException;
+import elster.tasks.DeadlineTask;
+import elster.tasks.EventTask;
+import elster.tasks.Task;
+import elster.tasks.ToDoTask;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Elster {
