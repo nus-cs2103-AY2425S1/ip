@@ -12,8 +12,13 @@ public class Event extends Task {
 
     public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        try {
+            this.start = dateTimeParser(start.trim());
+            this.end = dateTimeParser(end.trim());
+        } catch (Exception e) {
+            this.start = start;
+            this.end = end;
+        }
     }
     
     public void addToEvent(String[] arr, ArrayList<Task> list) throws MaxineException {
@@ -33,7 +38,8 @@ public class Event extends Task {
         }
 
         if (!hasFrom || !hasTo || arr[1].equals("/from")) {
-            throw new MaxineException("Please follow this format: event [enter event] /from [start date] /to [end date]");
+            throw new MaxineException("Please follow this format: " +
+                    "event [enter event] /from [start date] /to [end date]");
         }
         boolean isAfterFrom = false;
         boolean isAfterTo = false;

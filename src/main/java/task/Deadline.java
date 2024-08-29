@@ -1,5 +1,7 @@
 package task;
 import exception.MaxineException;
+
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Deadline extends Task {
@@ -12,7 +14,11 @@ public class Deadline extends Task {
 
     public Deadline(String description, String ddl) {
         super(description);
-        this.ddl = ddl;
+        try {
+            this.ddl = dateTimeParser(ddl.trim());
+        } catch (Exception e) {
+            this.ddl = ddl;
+        }
     }
     
     public void addToDeadline(String[] arr, ArrayList<Task> list) throws MaxineException {
