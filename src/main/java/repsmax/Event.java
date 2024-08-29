@@ -1,3 +1,4 @@
+package repsmax;
 public class Event extends Task {
 
     protected String from;

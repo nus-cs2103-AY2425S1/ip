@@ -1,3 +1,4 @@
+package repsmax;
 
 import java.util.Scanner;
 /**

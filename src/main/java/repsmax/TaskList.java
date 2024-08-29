@@ -1,5 +1,8 @@
+package repsmax;
+
 import java.util.List;
 import java.util.ArrayList;
+import repsmax.Task;
 public class TaskList {
     private final List<Task> tasks;
 

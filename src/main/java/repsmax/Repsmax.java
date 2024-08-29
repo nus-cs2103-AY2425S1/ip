@@ -1,3 +1,5 @@
+package repsmax;
+
 public class Repsmax {
 
     private final Storage storage;
