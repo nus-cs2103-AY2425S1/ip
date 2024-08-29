@@ -141,7 +141,7 @@ public class FRIDAY {
                     throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
                 }
                 //create new to do task
-                Task newToDo = new ToDo(taskDetails, 0);
+                Task newToDo = new ToDo(taskDetails.strip(), 0);
                 add(newToDo);
                 updateStorage();
                 break;
@@ -151,8 +151,8 @@ public class FRIDAY {
                 }
                 //create new deadline task
                 String[] deadlineDetails = taskDetails.split("/");
-                String deadlineDescription = deadlineDetails[0];
-                String deadlineDeadline = deadlineDetails[1];
+                String deadlineDescription = deadlineDetails[0].strip();
+                String deadlineDeadline = deadlineDetails[1].strip();
                 Task newDeadline = new Deadline(deadlineDescription, deadlineDeadline, 0);
                 add(newDeadline);
                 updateStorage();
@@ -166,9 +166,9 @@ public class FRIDAY {
                 //split the input with the whitespace, "from" and "to" delimiters
                 String[] eventDetails = taskDetails.split("/from");
                 String[] startEnd = eventDetails[1].split("to");
-                String eventDescription = eventDetails[0];
-                String eventStart = startEnd[0];
-                String eventEnd = startEnd[1];
+                String eventDescription = eventDetails[0].trim();
+                String eventStart = startEnd[0].trim();
+                String eventEnd = startEnd[1].trim();
                 Task newEvent = new Event(eventDescription, eventStart, eventEnd, 0);
                 add(newEvent);
                 updateStorage();
@@ -238,7 +238,7 @@ public class FRIDAY {
         String[] taskElements = data.split("\\|");
         String taskType = taskElements[0].trim();
         int status = Integer.parseInt(taskElements[1].trim());
-        String taskDesc = taskElements[2];
+        String taskDesc = taskElements[2].trim();
         switch(taskType) {
             case("T") :
                 Task toDo = new ToDo(taskDesc, status);
@@ -246,10 +246,10 @@ public class FRIDAY {
                 break;
             case("E") :
                 String duration = taskElements[3].trim();
-                String[] startEnd = duration.split("from|to");
-                String start = startEnd[0];
-                String end = startEnd[1];
-                System.out.println(start + " " + end);
+                System.out.println(duration);
+                String[] startEnd = duration.split("from |to ");
+                String start = startEnd[1].trim();
+                String end = startEnd[2].trim();
                 Task event = new Event(taskDesc, start, end, status);
                 storage.add(event);
                 break;
@@ -260,6 +260,9 @@ public class FRIDAY {
                 break;
             default:
                 System.out.println("Encountered unrecognizable task type");
+
+            int k = 0;
+
         }
     }
 
