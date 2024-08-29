@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 import action.Action;
 import action.AddTaskAction;
 import action.DeleteTaskAction;
+import action.FindTasksAction;
 import action.HelpAction;
 import action.ListTasksAction;
 import action.MarkTaskAction;
@@ -51,6 +52,7 @@ public class Parser {
         }
         case MARK -> new MarkTaskAction(parseTaskIndex(input));
         case UNMARK -> new UnmarkTaskAction(parseTaskIndex(input));
+        case FIND -> new FindTasksAction(parseSearchString(input));
         case DELETE -> new DeleteTaskAction(parseTaskIndex(input));
         case HELP -> new HelpAction();
         default -> throw new InvalidCommandException(input);
@@ -107,5 +109,14 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw new InvalidDateFormatException(e.getParsedString());
         }
+    }
+
+    private String parseSearchString(String input) throws InvalidCommandFormatException {
+        String[] args = input.split(" ");
+        if (args.length != 2) {
+            throw new InvalidCommandFormatException(Command.FIND);
+        }
+
+        return args[1].strip();
     }
 }

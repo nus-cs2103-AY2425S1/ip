@@ -107,4 +107,30 @@ public class TaskList {
         }
         return stringBuilder.toString();
     }
+
+    /**
+     * Returns a string all tasks in the the task list which match the given search string.
+     *
+     * @param  searchString Search string to compare.
+     * @return String of all tasks matching the given search string.
+     */
+    public String findMatches(String searchString) {
+        StringBuilder stringBuilder = new StringBuilder();
+        int matchCount = 0;
+        for (int i = 0; i < getTaskCount(); i++) {
+            if (tasks.get(i).isMatch(searchString)) {
+                matchCount++;
+                stringBuilder.append(i + 1 ).append(". ");
+                stringBuilder.append(tasks.get(i).toString()).append("\n");
+            }
+        }
+
+        if (matchCount == 1) {
+            stringBuilder.insert(0, "1 matching task found!\n");
+        } else {
+            stringBuilder.insert(0, matchCount + " tasks found!\n");
+        }
+
+        return stringBuilder.toString();
+    }
 }

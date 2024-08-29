@@ -9,11 +9,12 @@ public enum Command {
     LIST("list", "list", "list all tasks"),
     TODO("todo", "todo <name>", "Add a todo with name"),
     DEADLINE("deadline", "deadline <name> /by <end date>", "Add a deadline with name and end date "),
-    EVENT("event", "event <name> /from <start date> /end <end date>",
+    EVENT("event", "event <name> /from <start date> /to <end date>",
             "Add an event with name, start date and end date"),
     MARK("mark", "mark <task index>", "mark task with corresponding task index as done"),
     UNMARK("unmark", "unmark <task index>", "unmark task with corresponding task index as undone"),
     DELETE("delete", "delete <task index>", "delete task with corresponding task index"),
+    FIND("find", "find <search string>", "find task with matching search string"),
     HELP("help", "help", "view all available commands"),
     EXIT("bye", "bye", "exit BotManager");
 
