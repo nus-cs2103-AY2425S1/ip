@@ -11,9 +11,13 @@ import arts.command.MarkCommand;
 import arts.command.UnmarkCommand;
 import arts.command.DeleteCommand;
 import arts.command.AddTodoCommand;
+import arts.command.FindCommand;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Main class for the Arts application, responsible for running the task management system.
+ */
 public class Arts {
     private static final DateTimeFormatter[] INPUT_FORMATTERS = new DateTimeFormatter[]{
             DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
@@ -25,6 +29,11 @@ public class Arts {
     private final Ui ui;
     private final Parser parser;
 
+    /**
+     * Constructs an Arts object with a specified file path for storage.
+     *
+     * @param filePath The file path for storing tasks.
+     */
     public Arts(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -39,6 +48,9 @@ public class Arts {
         tasks = tempTasks;
     }
 
+    /**
+     * Runs the Arts application, processing user commands in a loop until exit.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -74,6 +86,9 @@ public class Arts {
                     case EVENT:
                         new AddEventCommand(tasks, storage, ui, parts[1], INPUT_FORMATTERS).execute();
                         break;
+                    case FIND:
+                        new FindCommand(tasks, ui, parts[1]).execute();
+                        break;
                     default:
                         throw new ArtsException("I'm sorry, but I don't know what that means.");
                 }
@@ -85,6 +100,11 @@ public class Arts {
         }
     }
 
+    /**
+     * Lists all tasks currently in the task list.
+     *
+     * @return A string representation of all tasks.
+     */
     private String listTasks() {
         if (tasks.isEmpty()) {
             return "No tasks yet! Why not add some?";
@@ -97,6 +117,11 @@ public class Arts {
         }
     }
 
+    /**
+     * Main method to start the Arts application.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         new Arts("./data/tasks.txt").run();
     }
