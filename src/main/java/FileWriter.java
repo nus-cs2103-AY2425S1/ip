@@ -16,6 +16,7 @@ public class FileWriter {
 
             properties.setProperty("taskType", String.valueOf(task.getTaskType()));
             properties.setProperty("description", task.getDescription());
+            properties.setProperty("isDone", task.isDone() ? "T" : "F");
             if (task instanceof Deadline) {
                 properties.setProperty("endDate", ((Deadline) task).getEndDate());
             }

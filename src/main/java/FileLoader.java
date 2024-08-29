@@ -37,6 +37,7 @@ public class FileLoader {
                 case "E" -> new Event(properties.getProperty("description"), properties.getProperty("endDate"), properties.getProperty("startDate"));
                 default -> throw new IllegalArgumentException("Unknown task type: " + taskType);
             };
+            if (properties.getProperty("isDone").equals("T")) task.setDone();
             tasks.add(task);
             index++;
         }
