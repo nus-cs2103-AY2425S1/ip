@@ -2,7 +2,7 @@ package denim.commands;
 
 import denim.TaskList;
 import denim.exceptions.DenimException;
-import denim.storage.TaskIO;
+import denim.storage.TaskIo;
 import denim.tasks.Task;
 
 public class DeleteCommand extends Command {
@@ -15,7 +15,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(TaskList taskList, TaskIO taskIO) {
+    public CommandResult execute(TaskList taskList, TaskIo taskIO) {
 
         if (!taskList.isValidIndex(index)) {
             return new CommandResult("The index chosen is invalid.");

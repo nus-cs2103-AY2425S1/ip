@@ -2,7 +2,7 @@ package denim.commands;
 
 import denim.exceptions.DenimException;
 import denim.TaskList;
-import denim.storage.TaskIO;
+import denim.storage.TaskIo;
 
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
@@ -13,7 +13,7 @@ public class MarkCommand extends Command {
         this.index = index;
     }
     @Override
-    public CommandResult execute(TaskList taskList, TaskIO taskIO) {
+    public CommandResult execute(TaskList taskList, TaskIo taskIO) {
 
         if (!taskList.isValidIndex(index)) {
             return new CommandResult("The index chosen is invalid.");

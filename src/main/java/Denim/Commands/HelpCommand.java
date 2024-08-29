@@ -1,7 +1,7 @@
 package denim.commands;
 
 import denim.TaskList;
-import denim.storage.TaskIO;
+import denim.storage.TaskIo;
 
 public class HelpCommand extends Command {
 
@@ -17,7 +17,7 @@ public class HelpCommand extends Command {
             UnmarkCommand.COMMAND_USAGE);
 
     @Override
-    public CommandResult execute(TaskList taskList, TaskIO taskIO) {
+    public CommandResult execute(TaskList taskList, TaskIo taskIO) {
         return new CommandResult(returnFormat);
     }
 

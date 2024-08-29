@@ -1,13 +1,13 @@
 package denim.commands;
 
 import denim.TaskList;
-import denim.storage.TaskIO;
+import denim.storage.TaskIo;
 
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "bye";
     @Override
-    public CommandResult execute(TaskList taskList, TaskIO taskIO) {
+    public CommandResult execute(TaskList taskList, TaskIo taskIO) {
         return new CommandResult("Bye. Hope to see you again soon!");
     }
 

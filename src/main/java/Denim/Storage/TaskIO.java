@@ -1,11 +1,11 @@
-package Denim.Storage;
+package denim.storage;
 
-import Denim.Exceptions.DenimException;
-import Denim.TaskList;
-import Denim.Tasks.Deadline;
-import Denim.Tasks.Event;
-import Denim.Tasks.Task;
-import Denim.Tasks.Todo;
+import denim.exceptions.DenimException;
+import denim.TaskList;
+import denim.tasks.Deadline;
+import denim.tasks.Event;
+import denim.tasks.Task;
+import denim.tasks.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class TaskIO {
+public class TaskIo {
 
     enum fileStatus {
         DIRECTORY_DOES_NOT_EXIST,
@@ -27,7 +27,7 @@ public class TaskIO {
 
     private final File taskFile;
 
-    public TaskIO(String pathname) {
+    public TaskIo(String pathname) {
         this.taskFile = new File(pathname);
     }
 

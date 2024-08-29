@@ -1,7 +1,7 @@
 package denim.commands;
 
 import denim.TaskList;
-import denim.storage.TaskIO;
+import denim.storage.TaskIo;
 
 public class InvalidCommand extends Command {
     private final String error;
@@ -12,7 +12,7 @@ public class InvalidCommand extends Command {
         this.feedback = feedback;
     }
     @Override
-    public CommandResult execute(TaskList taskList, TaskIO taskIO) {
+    public CommandResult execute(TaskList taskList, TaskIo taskIO) {
         String returnMessage = String.format("%s\n%s", error, feedback);
         return new CommandResult(returnMessage);
     }

@@ -3,7 +3,7 @@ package denim.commands;
 import denim.tasks.Todo;
 import denim.exceptions.DenimException;
 import denim.TaskList;
-import denim.storage.TaskIO;
+import denim.storage.TaskIo;
 import denim.tasks.Task;
 
 public class TodoCommand extends Command {
@@ -17,7 +17,7 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(TaskList taskList, TaskIO taskIO) {
+    public CommandResult execute(TaskList taskList, TaskIo taskIO) {
         try {
             taskIO.writeTaskData(todoTask);
         } catch (DenimException e) {

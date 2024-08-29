@@ -1,14 +1,14 @@
 package denim.commands;
 
 import denim.TaskList;
-import denim.storage.TaskIO;
+import denim.storage.TaskIo;
 
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
     public static final String COMMAND_USAGE = "list";
     @Override
-    public CommandResult execute(TaskList taskList, TaskIO taskIO) {
+    public CommandResult execute(TaskList taskList, TaskIo taskIO) {
         String returnMessage = taskList.printList();
         return new CommandResult(returnMessage);
     }
