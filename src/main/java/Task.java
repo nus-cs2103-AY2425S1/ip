@@ -20,8 +20,9 @@ public abstract class Task {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
 
-    public void toggleIsDone() {
+    public boolean toggleIsDone() {
         this.isDone = !this.isDone;
+        return this.isDone;
     }
 
     @Override
