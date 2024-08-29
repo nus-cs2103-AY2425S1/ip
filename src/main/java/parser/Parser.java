@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
     // Deals with making sense of the user command
-    private enum CommandType {
+    enum CommandType {
         BYE("bye"),
         LIST("list"),
         MARK("mark"),
