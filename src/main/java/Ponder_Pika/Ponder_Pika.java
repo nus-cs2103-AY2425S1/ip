@@ -1,5 +1,7 @@
 package Ponder_Pika;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,6 +15,7 @@ public class Ponder_Pika {
 
     private final IOHandler io = new IOHandler();
     private final List<Task> myList = io.loadData();
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
 
     public void printDivider() {
         System.out.println("...........................................................");
@@ -101,7 +104,7 @@ public class Ponder_Pika {
                             throw new PonderPikaException("Missing Description for Deadline Task!");
                         }
 
-                        Task deadline = new Deadline(args[0].trim(), args[1].trim());
+                        Task deadline = new Deadline(args[0].trim(), LocalDateTime.parse(args[1].trim(), formatter));
                         myList.add(deadline);
                         System.out.println("        Pika! I have added a deadline: " + args[0].trim() + " by " + args[1].trim());
                         System.out.println("\nPeek-A-Boo! We have " + myList.size() + " tasks in our list");
@@ -127,7 +130,7 @@ public class Ponder_Pika {
                             throw new PonderPikaException("Missing \"From\" timeline for Event Task!");
                         }
 
-                        Task event = new Event(desc[0].trim(), time[0].trim(), time[1].trim());
+                        Task event = new Event(desc[0].trim(), LocalDateTime.parse(time[0].trim(), formatter), LocalDateTime.parse(time[1].trim(), formatter));
                         myList.add(event);
                         System.out.println("        Pika! I have added your event: " + desc[0].trim() + " from " + time[0].trim() + " to " + time[1].trim());
                         System.out.println("\nPeek-A-Boo! We have " + myList.size() + " tasks in our list");

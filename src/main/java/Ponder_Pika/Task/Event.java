@@ -1,10 +1,13 @@
 package Ponder_Pika.Task;
 
-public class Event extends Task{
-    private final String from;
-    private final String to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String from, String to) {
+public class Event extends Task{
+    private final LocalDateTime from;
+    private final LocalDateTime to;
+
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -12,11 +15,11 @@ public class Event extends Task{
 
     @Override
     public String saveFullDetails() {
-        return String.format("E | %b | %s | %s | %s", isDone(), getDescription(), this.from, this.to);
+        return String.format("E | %b | %s | %s | %s", isDone(), getDescription(), this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format(" (from: %s to: %s)", from, to);
+        return "[E]" + super.toString() + String.format(" (from: %s to: %s)", this.from.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")), this.to.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));
     }
 }

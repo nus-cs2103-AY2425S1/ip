@@ -1,20 +1,23 @@
 package Ponder_Pika.Task;
 
-public class Deadline extends Task {
-    private final String deadline;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String description, String deadline) {
+public class Deadline extends Task {
+    private final LocalDateTime deadline;
+
+    public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
     }
 
     @Override
     public String saveFullDetails() {
-        return String.format("D | %b | %s | %s", isDone(), getDescription(), this.deadline);
+        return String.format("D | %b | %s | %s", isDone(), getDescription(), this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + String.format(" (by: %s)", deadline);
+        return "[D]" + super.toString() + String.format(" (by: %s)", this.deadline.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));
     }
 }
