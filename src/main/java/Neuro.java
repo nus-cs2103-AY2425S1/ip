@@ -16,12 +16,15 @@ public class Neuro {
     private static LocalDateTime parseDateTime(String dateTimeStr) throws IllegalArgumentException {
         DateTimeFormatter[] dateTimeFormatters = {
                 DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
-                DateTimeFormatter.ofPattern("yyyy-M-d HHmm")
+                DateTimeFormatter.ofPattern("yyyy-M-d HHmm"),
+                DateTimeFormatter.ofPattern("MMM d yyyy h a"),
+                DateTimeFormatter.ofPattern("MMM d yyyy ha")
         };
 
         DateTimeFormatter[] dateFormatters = {
                 DateTimeFormatter.ofPattern("d/M/yyyy"),
-                DateTimeFormatter.ofPattern("yyyy-M-d")
+                DateTimeFormatter.ofPattern("yyyy-M-d"),
+                DateTimeFormatter.ofPattern("MMM d yyyy")
         };
 
         for (DateTimeFormatter formatter : dateTimeFormatters) {
