@@ -1,10 +1,10 @@
 package jarvis;
 
 public abstract class Task {
-        String name;
-        boolean done;
+    String name;
+    boolean done;
 
-        public Task(String name) {
+    public Task(String name) {
             this.name = name;
         }
 }

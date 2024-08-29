@@ -1,10 +1,5 @@
 package jarvis;
 
-import jarvis.Deadline;
-import jarvis.Event;
-import jarvis.Storage;
-import jarvis.Task;
-
 import java.util.ArrayList;
 
 public class TaskList {
@@ -17,7 +12,7 @@ public class TaskList {
     }
 
     public void list() {
-        for(int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             Task task = this.list.get(i);
             String checkbox = task.done ? "[X]" : "[ ]";
             System.out.printf("%d. %s\n", i + 1, task);
@@ -27,8 +22,7 @@ public class TaskList {
     public int getNumTasks() {
         return this.list.size();
     }
-    public void add(String input) throws IllegalArgumentException{
-
+    public void add(String input) throws IllegalArgumentException {
 
         String[] words = input.split(" ");
         String[] parts = input.split(" /");
@@ -83,7 +77,7 @@ public class TaskList {
     }
 
     public String acknowledge() {
-        Task task = this.list.get(this.list.size() -1);
+        Task task = this.list.get(this.list.size() - 1);
         String end = String.format("\nnow you have %d task(s) in the list", this.list.size());
         String result = "Got it. I've added this task:\n" + task.toString() + end;
         return result;
