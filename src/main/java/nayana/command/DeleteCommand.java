@@ -1,3 +1,11 @@
+package nayana.command;
+
+import nayana.TaskList;
+import nayana.Ui;
+import nayana.Storage;
+import nayana.NayanaException;
+import nayana.task.*;
+
 /**
  * Represents a command to delete a task from the task list.
  */

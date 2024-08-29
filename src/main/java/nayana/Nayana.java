@@ -1,3 +1,6 @@
+package nayana;
+import nayana.command.Command;
+
 /**
  * Nayana is a class that demonstrates a simple console-based interaction.
  * It manages user interaction, command processing, and task management.

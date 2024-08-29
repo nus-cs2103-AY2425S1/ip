@@ -1,3 +1,4 @@
+package nayana;
 /**
  * Represents a custom exception used in the Nayana application.
  */

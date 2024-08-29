@@ -1,4 +1,7 @@
+package nayana;
 import java.util.Scanner;
+import nayana.task.*;
+import nayana.command.*;
 
 /**
  * Handles interactions with the user in the console.
@@ -9,11 +12,9 @@ public class Ui {
     /**
      * Initializes the Ui class with a Scanner for user input.
      */
-    public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
 
-    private static final String WELCOME_MESSAGE =
+
+    private static final String  WELCOME_MESSAGE=
           "\n" +
           " ___ .-.     .---.   ___  ___    .---.   ___ .-.     .---.\n" +
           "(   )   \\   / .-, \\ (   )(   )  / .-, \\ (   )   \\   / .-,\\\n" +
