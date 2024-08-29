@@ -48,4 +48,12 @@ public class TaskList {
         System.out.println("Marked as undone:\n" + this.tasklist.get(index - 1));
         printLine();
     }
+
+    public ArrayList<Task> getTasks() {
+        return this.tasklist;
+    }
+
+    public void clear() {
+        this.tasklist.clear();
+    }
 }

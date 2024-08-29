@@ -10,6 +10,29 @@ public class Events extends Task {
     }
 
     @Override
+    public String getType() {
+        return "E";
+    }
+
+    @Override
+    public String getAdditionalInfo() {
+        return start + "|" + end;
+    }
+
+    @Override
+    public String toFileString() {
+        return getType() + "|" + getName() + "|" + isComplete() + "|" + getAdditionalInfo();
+    }
+
+    public String getFrom() {
+        return start;
+    }
+
+    public String getTo() {
+        return end;
+    }
+
+    @Override
     public String toString() {
         return "[E] " + super.toString() + "(" + start + end + ")";
     }
