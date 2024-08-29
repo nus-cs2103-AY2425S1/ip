@@ -1,4 +1,4 @@
-# Moody User Guide
+# moody.Moody User Guide
 
 // Update the title above to match the actual product name
 
