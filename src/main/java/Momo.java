@@ -2,13 +2,14 @@ import java.io.IOException;
 import java.sql.Array;
 import java.util.*;
 import java.util.ArrayList;
-
+import java.io.FileWriter;
 import static java.lang.System.exit;
 import java.util.regex.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
 
 public class Momo {
 
@@ -33,6 +34,7 @@ public class Momo {
 
         System.out.println("Hello! I'm Momo\nWhat can I do for you?");
         loadListFile();
+        printList();
         System.out.println("This is your current list");
         String input = sc.nextLine();
 
@@ -208,9 +210,42 @@ public class Momo {
         try {
             File f = new File("data/momo.txt"); // create a File for the given file path
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            String nextLine;
             while (s.hasNext()) {
-                System.out.println(s.nextLine());
+                nextLine = s.nextLine();
+                String[] inputs = nextLine.split("\\|");
+                if (Objects.equals(inputs[0], "T")) {
+                    if (Objects.equals(inputs[1], "1")) {
+                        list.add(new Todo(inputs[2], false));
+                    }
+                    else {
+                        list.add(new Todo(inputs[2], true));
+                    }
+                }
+                else if (Objects.equals(inputs[0], "D")) {
+                    if (Objects.equals(inputs[1], "1")) {
+                        list.add(new Deadline(inputs[2], inputs[3], false));
+                    }
+                    else {
+                        list.add(new Deadline(inputs[2], inputs[3], true));
+                    }
+                }
+                else if (Objects.equals(inputs[0], "E")) {
+                    if (Objects.equals(inputs[1], "1")) {
+                        list.add(new Event(inputs[2], inputs[3], inputs[4], false));
+                    }
+                    else {
+                        list.add(new Event(inputs[2], inputs[3], inputs[4], true));
+                    }
+
+                }
+                else {
+                    System.out.println("Invalid file formatting....");
+                }
             }
+            count = list.size();
+            s.close();
+
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found, creating a new file");
@@ -229,30 +264,55 @@ public class Momo {
             }
         }
     }
+
+
+
     public static void changeCompletion(int index, Command command) {
         System.out.println(horizontalLine);
         Task task = list.get(index);
 
         if (command == Command.MARK) {
             task.markComplete();
-            return;
         }
-        task.unmark();
+        else {
+            task.unmark();
+        }
+
         System.out.println(horizontalLine);
+
+        try {
+            RewriteTasksToFile("data/momo.txt");
+        }
+        catch (IOException e) {
+            System.out.println("Tasks not written successfully:" + e.getMessage());
+        }
 
     }
 
     public static void addToDo(String input) {
         String task = input.split(" ",2)[1];
-        list.add(new Todo(task));
+        list.add(new Todo(task, false));
+
+        String file2 = "data/momo.txt";
+        try {
+            writeToFile(file2, new Todo(task, false).toFileString());
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
     }
 
     public static void addDeadline(String input) {
         String desc = input.split(" ",2)[1];
         String task =  desc.split("/",2)[0];
         String by = desc.split("/",2)[1];
-        list.add(new Deadline(task, by));
+        list.add(new Deadline(task, by, false));
 
+        String file2 = "data/momo.txt";
+        try {
+            writeToFile(file2, new Deadline(task, by, false).toFileString());
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
     }
 
     public static void addEvent(String input) {
@@ -260,8 +320,14 @@ public class Momo {
         String task =  desc.split("/",2)[0];
         String from = desc.split("/",3)[1];
         String to = desc.split("/",3)[2];
-        list.add(new Event(task, from, to));
+        list.add(new Event(task, from, to, false));
 
+        String file2 = "data/momo.txt";
+        try {
+            writeToFile(file2, new Event(task, from, to, false).toFileString());
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
     }
     public static void printTaskAdded() {
         System.out.println(horizontalLine);
@@ -276,7 +342,26 @@ public class Momo {
         list.remove(index);
         System.out.println(String.format("Now you have %d task(s) in the list", count));
         System.out.println(horizontalLine);
+        try {
+            RewriteTasksToFile("data/momo.txt");
+        }
+        catch (IOException e) {
+            System.out.println("Tasks not written successfully:" + e.getMessage());
+        }
+    }
 
+    public static void RewriteTasksToFile(String filePath) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for (Task task : list) {
+            fw.write(task.toFileString() + "\n");
+        }
+        fw.close();
+    }
+
+    public static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAdd + "\n");
+        fw.close();
     }
 }
 
