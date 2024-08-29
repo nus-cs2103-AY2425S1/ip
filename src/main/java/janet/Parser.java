@@ -2,6 +2,9 @@ package janet;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the way Janet makes sense of user commands.
+ */
 public class Parser {
 
     /**
