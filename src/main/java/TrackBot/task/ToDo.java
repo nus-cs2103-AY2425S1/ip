@@ -1,4 +1,4 @@
-package TrackBot;
+package TrackBot.task;
 
 public class ToDo extends Task {
     public ToDo(String desc) {

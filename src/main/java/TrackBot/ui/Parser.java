@@ -1,5 +1,6 @@
-package TrackBot;
+package TrackBot.ui;
 
+import TrackBot.*;
 import TrackBot.commands.AddCommand;
 import TrackBot.commands.Command;
 import TrackBot.commands.DeleteCommand;
@@ -7,6 +8,8 @@ import TrackBot.commands.ExitCommand;
 import TrackBot.commands.ListCommand;
 import TrackBot.commands.MarkCommand;
 import TrackBot.commands.UnmarkCommand;
+import TrackBot.task.Task;
+import TrackBot.task.ToDo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -1,4 +1,7 @@
-package TrackBot;
+package TrackBot.ui;
+
+import TrackBot.task.Task;
+import TrackBot.ui.Parser;
 
 public class Deadline extends Task {
     protected String by;
@@ -8,7 +11,7 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
         this.by = Parser.checkDateFormat(by);
-//        date = TrackBot.TrackBot.Parser.checkDateFormat(by);
+//        date = TrackBot.TrackBot.ui.Parser.checkDateFormat(by);
     }
     @Override
     public String toStorageFormat() {

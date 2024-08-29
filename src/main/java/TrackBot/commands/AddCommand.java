@@ -1,10 +1,10 @@
 package TrackBot.commands;
 
-import TrackBot.Task;
+import TrackBot.task.Task;
 import TrackBot.TrackBotException;
 import TrackBot.TrackBotStorage;
-import TrackBot.TrackList;
-import TrackBot.Ui;
+import TrackBot.task.TrackList;
+import TrackBot.ui.Ui;
 
 public class AddCommand extends Command {
     private final Task task;
