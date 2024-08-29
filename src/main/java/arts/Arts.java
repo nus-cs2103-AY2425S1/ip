@@ -11,6 +11,7 @@ import arts.command.MarkCommand;
 import arts.command.UnmarkCommand;
 import arts.command.DeleteCommand;
 import arts.command.AddTodoCommand;
+import arts.command.FindCommand;
 
 import java.time.format.DateTimeFormatter;
 
@@ -52,7 +53,6 @@ public class Arts {
 
     /**
      * Runs the Arts application, processing user commands in a loop until exit.
-     * Handles various commands related to task management and user interaction.
      */
     public void run() {
         ui.showWelcome();
@@ -89,6 +89,9 @@ public class Arts {
                     case EVENT:
                         new AddEventCommand(tasks, storage, ui, parts[1], INPUT_FORMATTERS).execute();
                         break;
+                    case FIND:
+                        new FindCommand(tasks, ui, parts[1]).execute();
+                        break;
                     default:
                         throw new ArtsException("I'm sorry, but I don't know what that means.");
                 }
@@ -101,9 +104,9 @@ public class Arts {
     }
 
     /**
-     * Lists all tasks currently stored in the task list.
+     * Lists all tasks currently in the task list.
      *
-     * @return A string representation of the tasks, or a message if no tasks are present.
+     * @return A string representation of all tasks.
      */
     private String listTasks() {
         if (tasks.isEmpty()) {
@@ -118,9 +121,9 @@ public class Arts {
     }
 
     /**
-     * The main method to start the Arts application.
+     * Main method to start the Arts application.
      *
-     * @param args Command-line arguments (not used).
+     * @param args Command line arguments.
      */
     public static void main(String[] args) {
         new Arts("./data/tasks.txt").run();

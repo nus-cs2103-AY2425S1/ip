@@ -15,5 +15,7 @@ public enum CommandType {
     DELETE,    // Command to delete a task
     TODO,      // Command to add a todo task
     DEADLINE,  // Command to add a task with a deadline
-    EVENT      // Command to add an event task
+    EVENT,      // Command to add an event task
+
+    FIND        // Command to find a task
 }
