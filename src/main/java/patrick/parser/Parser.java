@@ -1,14 +1,29 @@
 package patrick.parser;
 
 import patrick.tasklist.*;
-
 import patrick.ui.Ui;
 
+/**
+ * The {@code Parser} class is responsible for parsing user input and determining
+ * the appropriate action based on the command. It uses the {@code Type} enum
+ * to classify different types of commands and executes the corresponding tasks.
+ */
 public class Parser {
     Type inputType;
+
+    /**
+     * Enum representing the different types of commands that can be parsed.
+     */
     public enum Type {
-        LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, ERROR, FORMATS
+        LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, ERROR, FORMATS, FIND
     }
+
+    /**
+     * Parses the user's input to determine the type of task and executes the appropriate action.
+     *
+     * @param userInput the input provided by the user.
+     * @return the type of the command that was executed.
+     */
     public Type parseTask(String userInput) {
         checkType(userInput);
 
@@ -25,7 +40,7 @@ public class Parser {
                     TaskList.mark(userInput);
                     break;
                 } catch (PatrickException e) {
-                    Ui.showErrorMsg(e.toString());
+                    Ui.showErrorMsg(e.getMessage());
                     break;
                 }
 
@@ -34,7 +49,7 @@ public class Parser {
                     TaskList.unmark(userInput);
                     break;
                 } catch (PatrickException e) {
-                    Ui.showErrorMsg(e.toString());
+                    Ui.showErrorMsg(e.getMessage());
                     break;
                 }
 
@@ -43,7 +58,7 @@ public class Parser {
                     ToDo.toDoTask(userInput);
                     break;
                 } catch (PatrickException e) {
-                    Ui.showErrorMsg(e.toString());
+                    Ui.showErrorMsg(e.getMessage());
                     break;
                 }
 
@@ -52,7 +67,7 @@ public class Parser {
                     Deadline.deadlineTask(userInput);
                     break;
                 } catch (PatrickException e) {
-                    Ui.showErrorMsg(e.toString());
+                    Ui.showErrorMsg(e.getMessage());
                     break;
                 }
 
@@ -61,7 +76,7 @@ public class Parser {
                     Event.eventTask(userInput);
                     break;
                 } catch (PatrickException e) {
-                    Ui.showErrorMsg(e.toString());
+                    Ui.showErrorMsg(e.getMessage());
                     break;
                 }
 
@@ -78,12 +93,26 @@ public class Parser {
                 Ui.formats();
                 break;
 
+            case FIND:
+                try {
+                    TaskList.findTask(userInput);
+                    break;
+                } catch (PatrickException e) {
+                    Ui.showErrorMsg(e.getMessage());
+                }
+
             default:
                 Ui.showErrorMsg("What are you trying to say man. Re-enter your command \n");
                 break;
         }
         return inputType;
     }
+
+    /**
+     * Determines the type of command based on the user's input and sets the {@code inputType} accordingly.
+     *
+     * @param input the input provided by the user.
+     */
     public void checkType(String input) {
         if (input.startsWith("list"))
             inputType = Type.LIST;
@@ -103,14 +132,23 @@ public class Parser {
             inputType = Type.DELETE;
         else if (input.startsWith("formats"))
             inputType = Type.FORMATS;
+        else if (input.startsWith("find"))
+            inputType = Type.FIND;
         else
             inputType = Type.ERROR;
     }
 
+    /**
+     * Exception class used for handling specific exceptions in the Parser class.
+     */
     public static class PatrickException extends Exception {
+        /**
+         * Constructs a new {@code PatrickException} with the specified detail message.
+         *
+         * @param str the detail message.
+         */
         public PatrickException(String str) {
             super(str);
         }
     }
-
 }
