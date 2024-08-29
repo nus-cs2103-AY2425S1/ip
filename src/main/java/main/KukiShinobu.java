@@ -1,3 +1,5 @@
+package main;
+
 import exception.KukiShinobuException;
 import parser.Parser;
 import storage.Storage;
