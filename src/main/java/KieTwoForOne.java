@@ -4,30 +4,32 @@ import java.util.Scanner;
 public class KieTwoForOne {
 
     private static ArrayList<Task> tasks = new ArrayList<>(100);
-    private static int count = 0;
     static String separationLine = "_________________________________________";
     static String chatBotName = "KieTwoForOne";
 
     public enum Instructions {
-        LIST, BLAH, MARK, UNMARK, BYE, TODO, EVENT, DEADLINE
+        LIST, MARK, UNMARK, BYE, TODO, EVENT, DEADLINE, DELETE
     }
 
     public static void addTasks(Task newTask) {
-        int sum = 0;
-        tasks.set(count, newTask);
-        count++;
-        for (int i = 0; tasks.get(i) != null; i++) {
-            sum++;
-        }
+        tasks.add(newTask);
         System.out.println("Got it. I've added this task:");
         System.out.println("    " + newTask);
-        System.out.println(String.format("Now you have %d tasks in the list", sum));
+        System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
         System.out.println(separationLine);
     }
 
+    public static void deleteTask(int position) {
+        Task removedTask = tasks.get(position - 1);
+        System.out.println("Noted. I've removed the task");
+        System.out.println("    " + removedTask);
+        tasks.remove(position - 1);
+        System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+        System.out.println(separationLine);
+    }
     public static void listTasks() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; tasks.get(i) != null; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.println(String.format("%d. %s", i + 1, tasks.get(i).toString()));
         }
         System.out.println(separationLine);
@@ -72,7 +74,7 @@ public class KieTwoForOne {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(separationLine);
-        System.out.println("Hello! I'm " + chatBotName);
+        System.out.println("Hello! I'm " + chatBotName + ".");
         System.out.println("What can I do for you?");
         System.out.println(separationLine);
 
@@ -106,15 +108,23 @@ public class KieTwoForOne {
                     System.out.println("Bye. Hope to see you again soon!");
                     System.out.println(separationLine);
                     break;
-                case BLAH:
-                    System.out.println("blah");
-                    System.out.println(separationLine);
-                    break;
                 case MARK:
-                    KieTwoForOne.markTask(Integer.valueOf(instruction[1]));
+                    try {
+                        KieTwoForOne.markTask(Integer.valueOf(instruction[1]));
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Task does not exist!");
+                        System.out.println(separationLine);
+                        break;
+                    }
                     break;
                 case UNMARK:
-                    KieTwoForOne.unmarkTask(Integer.valueOf(instruction[1]));
+                    try {
+                        KieTwoForOne.unmarkTask(Integer.valueOf(instruction[1]));
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Task does not exist!");
+                        System.out.println(separationLine);
+                        break;
+                    }
                     break;
                 case TODO:
                     KieTwoForOne.addTasks(new Todo(instruction[1]));
@@ -138,6 +148,15 @@ public class KieTwoForOne {
                         break;
                     }
                     KieTwoForOne.addTasks(new Deadline(taskDetails[0], taskDetails[1]));
+                    break;
+                case DELETE:
+                    try {
+                        deleteTask(Integer.valueOf(instruction[1]));
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Task does not exist!");
+                        System.out.println(separationLine);
+                        break;
+                    }
                     break;
                 default:
                     break;
