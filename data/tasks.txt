@@ -1,0 +1,7 @@
+TODO | 1 | cook
+TODO | 1 | cook dinner
+TODO | 1 | exit
+TODO | 0 | cook dinner
+TODO | 0 | buy groceries
+TODO | 0 | cook dinner
+TODO | 0 | return books

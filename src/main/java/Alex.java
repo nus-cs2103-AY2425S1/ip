@@ -1,10 +1,20 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Alex {
 
     private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static final String FILE_PATH = "./data/tasks.txt";
 
     public static void main(String[] args) {
+        createDataDirectory();  // Ensure data directory exists
+
         Scanner scanner = new Scanner(System.in);
 
         printDividerWithMessage("Hello! I'm Alex, your friendly assistant!\nWhat can I do for you?");
@@ -17,6 +27,7 @@ public class Alex {
                     printTaskList();
                 } else if (userInput.toLowerCase().startsWith("mark ")) {
                     int taskIndex = parseTaskIndex(userInput);
+
                     if (taskIndex >= 0 && taskIndex < tasks.size()) {
                         tasks.get(taskIndex).markAsDone();
                         printTaskStatusChange("Nice! I've marked this task as done:", taskIndex);
@@ -44,20 +55,24 @@ public class Alex {
                 } else if (userInput.equalsIgnoreCase("bye")) {
                     printDividerWithMessage("Bye. Hope to see you again soon!");
                     break;
+
                 } else if (userInput.toLowerCase().startsWith("todo ")) {
                     Task newTask = new Todo(userInput.substring(5));
                     tasks.add(newTask);
                     printTaskAdded(newTask);
+                    
                 } else if (userInput.toLowerCase().startsWith("deadline ")) {
                     String[] parts = userInput.substring(9).split(" /by ");
                     Task newTask = new Deadline(parts[0], parts[1]);
                     tasks.add(newTask);
                     printTaskAdded(newTask);
+
                 } else if (userInput.toLowerCase().startsWith("event ")) {
                     String[] parts = userInput.substring(6).split(" /from | /to ");
                     Task newTask = new Event(parts[0], parts[1], parts[2]);
                     tasks.add(newTask);
                     printTaskAdded(newTask);
+
                 } else if (userInput.toLowerCase().equals("todo")) {
                     throw new EmptyTodoException();
                 } else if (userInput.toLowerCase().equals("blah")) {
@@ -72,6 +87,13 @@ public class Alex {
             }
         }
         scanner.close();
+    }
+
+    private static void createDataDirectory() {
+        File dataDir = new File("./data");
+        if (!dataDir.exists()) {
+            dataDir.mkdirs();
+        }
     }
 
     private static void printTaskList() {
