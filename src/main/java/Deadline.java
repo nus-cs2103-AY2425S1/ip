@@ -15,11 +15,11 @@ public class Deadline extends Task {
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '/') {
                 return new Deadline(s.substring(9, i - 1), s.substring(i + 1), false);
+
             }
         }
         throw new BigdogException("Come on! Set a due by date and get to work!");
     }
-
     public static Deadline of(String s, boolean marked) throws BigdogException {
         if (s.length() <= 4) {
             throw new BigdogException("data file corrupted!");
@@ -37,6 +37,7 @@ public class Deadline extends Task {
     public String getDescription() {
         return super.getDescription() + " | " + this.end;
     }
+
 
     @Override
     public String toString() {

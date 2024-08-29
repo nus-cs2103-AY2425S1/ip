@@ -20,6 +20,7 @@ public class Task {
         }
     }
 
+
     public static Task of(String task, boolean marked) throws BigdogException {
         if (task.startsWith("T")) {
             return Todo.of(task, marked);
@@ -39,7 +40,6 @@ public class Task {
     public boolean isMarked() {
         return this.marked;
     }
-
 
     public void mark() {
         this.marked = true;
