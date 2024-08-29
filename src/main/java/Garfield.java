@@ -5,14 +5,15 @@ import java.util.ArrayList;
 
 public class Garfield {
 
-    private static ArrayList<Task> taskList = new ArrayList<>();
+//    private static ArrayList<Task> taskList = new ArrayList<>();
     private Ui ui;
     private Storage storage;
+    private TaskList taskList;
 
     public Garfield(String saveFilePath){
         this.ui = new Ui();
         this.storage = new Storage(saveFilePath);
-        taskList = this.storage.load();
+        taskList = new TaskList(this.storage.load());
     }
 
     public void run() {
@@ -32,14 +33,9 @@ public class Garfield {
                     this.ui.showMessage("Your list is empty. Just like my lasagna pan. "
                             + "Are we done here, or are you going to add something?");
                 } else {
-                    StringBuilder listSummary = new StringBuilder("Ugh, here's what you've got so far:\n\n");
-                    for (int i = 0; i < taskList.size(); i++) {
-                        listSummary.append((i + 1)).append(". ")
-                                .append(taskList.get(i).toString()).append("\n");
-
-                    }
-                    listSummary.append("\nCan we be done now?");
-                    this.ui.showMessage(listSummary.toString());
+                    String listSummary = "Ugh, here's what you've got so far:\n\n" + taskList.list() +
+                            "\nCan we be done now?";
+                    this.ui.showMessage(listSummary);
                 }
                 continue;
             }
@@ -48,12 +44,13 @@ public class Garfield {
                 String[] output = userInput.trim().split("\\s+");
                 if (output.length == 2) {
                     int taskId = Integer.parseInt(output[1]);
-                    if (taskId <= taskList.size()) {
-                        Task task = taskList.get(taskId - 1);
-                        task.markAsDone();
+
+                    try {
                         this.ui.showMessage("Nice. You actually did something. I've marked that task as done:\n\n\t"
-                                + task);
+                                + taskList.mark(taskId));
                         continue;
+                    } catch (Exception e) {
+                        // todo: handle exceptions
                     }
                 }
             }
@@ -62,12 +59,12 @@ public class Garfield {
                 String[] output = userInput.trim().split("\\s+");
                 if (output.length == 2) {
                     int taskId = Integer.parseInt(output[1]);
-                    if (taskId <= taskList.size()) {
-                        Task task = taskList.get(taskId - 1);
-                        task.markAsUndone();
+                    try {
                         this.ui.showMessage("Oh, having second thoughts? OK, I've marked that task as not done yet:\n\n\t"
-                                + task + "\n\nClearly, you're still undecided.");
+                                + taskList.unmark(taskId) + "\n\nClearly, you're still undecided.");
                         continue;
+                    } catch (Exception e) {
+                        // todo: handle exceptions
                     }
                 }
             }
@@ -76,12 +73,12 @@ public class Garfield {
                 String[] output = userInput.trim().split("\\s+");
                 if (output.length == 2) {
                     int taskId = Integer.parseInt(output[1]);
-                    if (taskId <= taskList.size()) {
-                        Task toRemove = taskList.get(taskId - 1);
-                        taskList.remove(taskId - 1);
+                    try {
                         this.ui.showMessage("Alright you've got 1 less task.\n\n\t"
-                                + toRemove + "\n\nEnjoy the extra ‘fun’ —or whatever you call it.");
+                                + taskList.delete(taskId) + "\n\nEnjoy the extra ‘fun’ —or whatever you call it.");
                         continue;
+                    } catch (Exception e) {
+                        // todo: handle exceptions
                     }
                 }
             }

@@ -68,8 +68,8 @@ public class Storage {
             }
             return taskList;
         } catch (FileNotFoundException e) {
-            // You don't have a save file
-            return null;
+            // You don't have a save file todo: add some error
+            return new ArrayList<Task>();
         }
     }
 
@@ -78,11 +78,12 @@ public class Storage {
      *
      * @param taskList ArrayList of Tasks to be saved.
      */
-    public void save(ArrayList<Task> taskList) {
+    public void save(TaskList taskList) {
+        ArrayList<Task> internalTaskList = taskList.getArrayList();  // Feels iffy, see how i can fix this
         try (FileWriter fw = new FileWriter(this.saveFilePath)) {
             String prefix = "";
             StringBuilder textToWrite = new StringBuilder();
-            for (Task t : taskList) {
+            for (Task t : internalTaskList) {
                 textToWrite.append(prefix);
                 prefix = System.lineSeparator();
                 textToWrite.append(t.toSaveRepresentation());
