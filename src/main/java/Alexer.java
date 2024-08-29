@@ -10,7 +10,7 @@ public class Alexer {
 
     private final Scanner scanner = new Scanner(System.in);
 
-    private final List<String> tasks = new ArrayList<>();
+    private final List<Task> tasks = new ArrayList<>();
 
     public void printGoodbye() {
         System.out.println(BREAK);
@@ -34,8 +34,9 @@ public class Alexer {
         System.out.println(BREAK);
     }
 
-    public void addTask(String task) {
+    public void addTask(String taskDescription) {
         // create new task
+        Task task = new Task(taskDescription);
         tasks.add(task);
 
         System.out.println(BREAK);
