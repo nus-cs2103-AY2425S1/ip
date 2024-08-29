@@ -41,8 +41,6 @@ public class Ui {
                 "Now you have %d tasks in the list.", task.toString(), total);
     }
 
-
-
     public String readInput() {
         return this.commandLineReader.nextLine();
     }

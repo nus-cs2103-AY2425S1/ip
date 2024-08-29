@@ -22,7 +22,6 @@ public class GreetBot {
     public void run() {
         System.out.println(this.ui.greetUser());
 
-
         while (this.isRunning) {
             try {
                 String input = this.ui.readInput().strip();

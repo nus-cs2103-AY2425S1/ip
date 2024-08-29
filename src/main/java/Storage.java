@@ -48,19 +48,19 @@ public class Storage {
         char typeOfTask = fields[0].charAt(0);
         if (typeOfTask == 'T') {
             String command = "todo" + fields[2];
-            Task.decideTask(command, taskList);
+            Task.decideTaskFromDatabase(command, taskList);
             if (fields[1].trim().equals("1")) {
                 taskList.get(taskList.size() - 1).mark();
             }
         } else if (typeOfTask == 'D') {
             String command = "deadline" + fields[2] + "/by" + fields[3];
-            Task.decideTask(command, taskList);
+            Task.decideTaskFromDatabase(command, taskList);
             if (fields[1].trim().equals("1")) {
                 taskList.get(taskList.size() - 1).mark();
             }
         } else if (typeOfTask == 'E') {
             String command = "event" + fields[2] + "/from" + fields[3] + "/to" + fields[4];
-            Task.decideTask(command, taskList);
+            Task.decideTaskFromDatabase(command, taskList);
             if (fields[1].trim().equals("1")) {
                 taskList.get(taskList.size() - 1).mark();
             }
