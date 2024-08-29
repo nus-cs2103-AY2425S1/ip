@@ -3,6 +3,7 @@ package Mediell;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
+/** Represents the Ui of the project. */
 public class Ui {
     private TaskList tasks;
 

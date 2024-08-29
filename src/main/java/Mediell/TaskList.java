@@ -1,5 +1,6 @@
 package Mediell;
 
+/** Represents an array of Task. */
 public class TaskList {
     private Task[] listItems;
     private int size;
@@ -9,33 +10,55 @@ public class TaskList {
         size = 0;
     }
 
+    /**
+     * Prints the tasks in the list.
+     */
     public void displayList() {
         for (int i = 0; i < size; i++) {
             System.out.println(String.valueOf(i+1) + ". " + listItems[i]);
         }
     }
 
+    /**
+     * Informs the user that the item has been added and increases the size of the list.
+     */
     private void addTaskProcessing() {
         System.out.println("Got it! I've added this task: ");
         System.out.println(listItems[size]);
         size++;
     }
 
+    /**
+     * Adds a ToDo task to the list.
+     * @param item the format of the task
+     */
     public void addToDo(String item) {
         listItems[size] = new ToDo(item);
         addTaskProcessing();
     }
 
+    /**
+     * Adds an Event task to the list.
+     * @param item the format of the task
+     */
     public void addEvent(String item) {
         listItems[size] = new Event(item);
         addTaskProcessing();
     }
 
+    /**
+     * Adds a Deadline task to the list.
+     * @param item the format of the task
+     */
     public void addDeadline(String item) {
         listItems[size] = new Deadline(item);
         addTaskProcessing();
     }
 
+    /**
+     * Marks a task in the list as completed.
+     * @param index the index to mark
+     */
     public void markItem(int index) {
         if (index >= size) {
             System.out.println("OOPS!! please enter a valid number");
@@ -46,6 +69,10 @@ public class TaskList {
         System.out.println(listItems[index]);
     }
 
+    /**
+     * Marks a task in the list as uncompleted.
+     * @param index the index to unMark
+     */
     public void unMarkItem(int index) {
         if (index >= size) {
             System.out.println("OOPS!! please enter a valid number");
@@ -56,6 +83,10 @@ public class TaskList {
         System.out.println(listItems[index]);
     }
 
+    /**
+     * Deletes a task from the list.
+     * @param index the index to delete
+     */
     public void deleteTask(int index) {
         if (index >= size) {
             System.out.println("OOPS!! please enter a valid number");
@@ -69,6 +100,10 @@ public class TaskList {
         size--;
     }
 
+    /**
+     * Exports all the task from the list
+     * @return String[] the tasks in an array of string
+     */
     public String[] exportTasks() {
         String[] temp = new String[size];
         for (int i = 0; i < size; i++) {
@@ -77,6 +112,10 @@ public class TaskList {
         return temp;
     }
 
+    /**
+     * Initialises all tasks into TaskList
+     * @param tasks string of tasks
+     */
     public void initTasks(String[] tasks) {
         size = tasks.length;
         for (int i = 0; i < size; i++) {

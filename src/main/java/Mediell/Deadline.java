@@ -2,6 +2,7 @@ package Mediell;
 
 import java.time.LocalDate;
 
+/** Represents a Task with a Deadline. */
 public class Deadline extends Task{
     private LocalDate by;
 
@@ -19,6 +20,11 @@ public class Deadline extends Task{
         return "[D]" + super.toString() + "(by: " + by + ")";
     }
 
+    /**
+     * Checks if the provided string is a valid Deadline.
+     * @param format String
+     * @return true if it is a deadline else false
+     */
     public static boolean isDeadlineFormat(String format) {
         return format.startsWith("D");
     }
