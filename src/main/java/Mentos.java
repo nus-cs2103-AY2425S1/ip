@@ -1,12 +1,17 @@
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.BufferedReader;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Mentos
 {
@@ -111,7 +116,7 @@ public class Mentos
         try {
             if (input.equals("list")) {
                 displayTasks();
-            } else if (input.startsWith(MARKED)) {
+            }  else if (input.startsWith(MARKED)) {
                 Matcher match = regexHandler(input, "mark (\\d+)");
                 if (match == null) {
                     throw new MentosException("Invalid input!");
@@ -166,9 +171,9 @@ public class Mentos
                 tasks.add(newTodo);
                 print_event(TODO,newTodo);
             } else if (input.startsWith(DEADLINE)){
-                Matcher match = regexHandler(input,"deadline (.+) \\/by (.+)$");
+                Matcher match = regexHandler(input,"deadline (.+) \\/by (\\d{4}-\\d{2}-\\d{2} \\d{4})$");
                 if (match == null){
-                    throw new MentosException("Invalid deadline input! usage:deadline <desc> /by <datetime>");
+                    throw new MentosException("Invalid deadline input! usage:deadline <desc> /by <datetime> in yyyy-mm-dd hhmm");
                 }
                 String deadline_desc = match.group(1);
                 String by = match.group(2);
@@ -176,14 +181,15 @@ public class Mentos
                 tasks.add(newDeadline);
                 print_event(DEADLINE,newDeadline);
             } else if (input.startsWith(EVENT)){
-                Matcher match = regexHandler(input,"event (.+) \\/from (.+) \\/to (.+)$");
+                Matcher match = regexHandler(input,"event (.+) \\/from (\\d{4}-\\d{2}-\\d{2} \\d{4}) \\/to (\\d{4}-\\d{2}-\\d{2} \\d{4})$");
                 if (match == null){
-                    throw new MentosException("Invalid Event input! usage:event <desc> /from <datetime> /to <datetime>" );
+                    throw new MentosException("Invalid Event input! usage:event <desc> /from <datetime> yyyy-mm-dd hhmm /to <datetime> yyyy-mm-dd hhmm" );
                 }
 
                 String eventDesc = match.group(1);
                 String from = match.group(2);
                 String to = match.group(3);
+                System.out.println(String.format("from: %s, to: %s",from,to));
                 Task newEvent = new Event(eventDesc,from,to);
                 tasks.add(newEvent);
                 print_event(EVENT,newEvent);
@@ -197,6 +203,8 @@ public class Mentos
             saveTasksToFile();
         } catch (MentosException err){
             System.out.println(err);
+        } catch (DateTimeException e){
+            System.out.println("Invalid Datetime inputted");
         }
     }
 
@@ -303,7 +311,7 @@ public class Mentos
                     String desc = eventMatcher.group(1);
                     String fromDate = eventMatcher.group(2);
                     String toDate = eventMatcher.group(3);
-                    Task eventEvent = new Event(desc,fromDate,toDate);
+                    Task eventEvent = new Event(desc,changeFormat(fromDate),changeFormat(toDate));
                     if (isDone.equals("X")){
                         eventEvent.markAsDone();
                     }
@@ -317,7 +325,7 @@ public class Mentos
                     }
                     String desc = deadlineMatcher.group(1);
                     String byDate = deadlineMatcher.group(2);
-                    Task deadlineEvent = new Deadline(desc,byDate);
+                    Task deadlineEvent = new Deadline(desc,changeFormat(byDate));
                     if (isDone.equals("X")){
                         deadlineEvent.markAsDone();
                     }
@@ -328,6 +336,15 @@ public class Mentos
             System.out.println("No Configuration found in "+ FILE_PATH);
         }
     }
+
+    public String changeFormat(String dateTimeStr){
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, inputFormatter);
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return dateTime.format(outputFormatter);
+    }
+
+
 
 }
 
