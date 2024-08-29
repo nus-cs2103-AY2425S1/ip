@@ -1,25 +1,29 @@
 package echo;
 
+import echo.task.TaskList;
+import echo.task.TaskType;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
+import java.time.LocalDate;
 
-public class EchoTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class TaskListTest {
     @Test
-    public void test() {
-        String input =
-                "List\n" +
-                "Todo walk dog";
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(input.getBytes());
-        System.setIn(inputStream);
+    public void test_delete_task() {
+        TaskList taskList = new TaskList();
+        taskList.addTask("walk dog", TaskType.TODO, "");
+        taskList.addDeadline("catch flight", LocalDate.parse("2024-09-15"));
+        taskList.addTask("birthday", TaskType.EVENT, "2pm->3pm");
+        taskList.deleteTask(2);
 
-        String expectedOutput;
+        String expected =
+                "1. [T] [ ] walk dog\n" +
+                "2. [E] [ ] birthday (from: 2pm to: 3pm)\n";
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(baos);
-        System.setOut(printStream);
-
-        Echo e = new Echo("src/main/data/testSavedTasks.txt");
-        String output = e.run();
+        assertEquals(
+               expected,
+               taskList.getTasksString()
+        );
     }
 }
