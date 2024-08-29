@@ -1,25 +1,33 @@
 public class Task {
     private String name;
-    private boolean status;
+    private boolean isDone;
 
     public Task(String name) {
         this.name = name;
-        this.status = false;
+        this.isDone = false;
     }
     public void mark() {
-        this.status = true;
+        this.isDone = true;
     }
 
     public void unmark() {
-        this.status = false;
+        this.isDone = false;
+    }
+
+    public String toListString() {
+        if (isDone) {
+            return " | 1 | " + name;
+        } else {
+            return " | 0 | " + name;
+        }
     }
 
     @Override
     public String toString() {
-        if (this.status == false) {
-            return "[ ] " + name;
-        } else {
+        if (isDone) {
             return "[X] " + name;
+        } else {
+            return "[ ] " + name;
         }
     }
 }
