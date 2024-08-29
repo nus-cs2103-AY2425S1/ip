@@ -12,14 +12,15 @@ public class Ui {
     }
 
     public void printWelcomeMessage() {
-        String logo = """
-                        ########   #######   ########   #######\s
-                        #       #     #      #       #     #   \s
-                        ########      #      ########      #   \s
-                        #       #     #      #       #     #   \s
-                        #       #     #      #       #     #   \s
-                        ########   #######   ########   #######\s
-                      """;
+        String logo =
+                          """
+                          ########   #######   ########   #######\s
+                          #       #     #      #       #     #   \s
+                          ########      #      ########      #   \s
+                          #       #     #      #       #     #   \s
+                          #       #     #      #       #     #   \s
+                          ########   #######   ########   #######\s
+                          """;
 
         System.out.println("Hello from\n" + logo + "\n"
                 + "How can I help you?");
