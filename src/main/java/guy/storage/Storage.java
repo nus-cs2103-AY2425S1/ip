@@ -1,15 +1,26 @@
 package guy.storage;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import guy.tasks.Task;
 import guy.tasks.TaskManager;
 
+/**
+ * A storage class, handling reads and writes to the file system.
+ * Only one instance exists at a time.
+ */
 public class Storage {
     private static Storage storage;
 
+    /**
+     * Retrieves the instance of the Storage class.
+     * @return the instance of the class
+     */
     public static Storage getInstance() {
         if (storage == null) {
             storage = new Storage();
@@ -17,6 +28,10 @@ public class Storage {
         return storage;
     }
 
+    /**
+     * Reads data from the file system and loads it into the TaskManager.
+     * Creates necessary directories and files if not present.
+     */
     public void readData() {
         try {
             File dir = new File("data/");
@@ -42,6 +57,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes data from the TaskManager to the file system.
+     */
     public void writeData() {
         try {
             FileWriter writer = new FileWriter("data/guy.txt");
@@ -55,8 +73,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves data to the Storage instance.
+     */
     public static void saveData() {
-        Storage f = storage.getInstance();
+        Storage f = Storage.getInstance();
         f.writeData();
     }
 
