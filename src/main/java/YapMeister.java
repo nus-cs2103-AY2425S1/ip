@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,13 +11,21 @@ public class YapMeister {
     final static int MAX_TASKS = 100;
 
     public static void main(String[] args) {
+        boolean isRunning = true;
+        File taskFile;
+        try {
+            taskFile = loadTaskFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            isRunning = false;
+        }
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("""
                 Hello I'm YapMeister
                 YAPYAPYAPYAP
                 """);
         String input = "";
-        boolean isRunning = true;
         ArrayList<Task> tasks = new ArrayList<>();
         while (isRunning) {
             System.out.print("\n");
@@ -82,6 +94,18 @@ public class YapMeister {
         System.out.println("Fine. Bye. Leave and never return");
     }
 
+    private static File loadTaskFile() throws IOException {
+        //create filepath if it does not exist
+        if (!Files.exists(Paths.get("./data/"))) {
+            new File("./data/").mkdirs();
+        }
+
+        File file = new File("./data/tasks.txt");
+
+        //create file if it does not exist
+        file.createNewFile();
+        return file;
+    }
 
     private static Task createTask(String type, String input) throws InvalidDescriptionException {
         Task task = null;
