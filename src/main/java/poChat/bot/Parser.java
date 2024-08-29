@@ -76,6 +76,9 @@ class Parser {
             } catch (StringIndexOutOfBoundsException e) {
                 throw new TaskDescriptionEmptyException();
             }
+        } else if (textInput.startsWith("find")) {
+            String keyword = textInput.substring(5);
+            this.taskList.printMatchingTasks(keyword);
         } else {
             replyToInvalidInput();
         }
