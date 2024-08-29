@@ -3,68 +3,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class ToMo {
-    public static class Task {
-        private String description;
-        private boolean done;
-
-        Task(String description) {
-            this.description = description;
-            this.done = false;
-        }
-        
-        public void mark() {
-            this.done = true;
-        }
-
-        public void unmark() {
-            this.done = false;
-        }
-
-        @Override
-        public String toString() {
-            String pref = done ? "[X] " : "[ ] ";
-            return pref + description;
-        }
-    }
-    
-    public static class ToDo extends Task {
-        ToDo(String description) {
-            super(description);
-        }
-        @Override
-        public String toString() {
-            return "[T]" + super.toString();
-        }
-    }
-
-    public static class Deadline extends Task {
-        private String deadline;
-        Deadline(String description, String deadline) {
-            super(description);
-            this.deadline = deadline;
-        }
-
-        @Override
-        public String toString() {
-            return "[D]" + super.toString() + "(by: " + deadline + ")";
-        }
-    }
-
-    public static class Event extends Task {
-        private String start;
-        private String end;
-        Event(String description, String start, String end) {
-            super(description);
-            this.start = start;
-            this.end = end;
-        }
-
-        @Override
-        public String toString() {
-            return "[E]" + super.toString() + "(from: " + start + "to: " + end + ")";
-        }
-    }
-
     public static void main(String[] args) {
         System.out.println("What's up, it's ToMo here!");
         Scanner sc = new Scanner(System.in);
