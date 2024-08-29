@@ -8,6 +8,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A class which manages database of the chatbot.
+ */
 public class Storage {
     private String filePath;
     private String workingDir = System.getProperty("user.dir");
@@ -17,6 +20,11 @@ public class Storage {
     }
 
     //Solution for load and readEntry is adapted from https://github.com/david-eom/CS2103T-IP/blob/master/src/main/java/duke/Storage.java
+
+    /**
+     * Returns a task array which represents the current material in the database.
+     * @return Task array which represents the current database.
+     */
     public Task[] load() {
         Path dataPath = java.nio.file.Paths.get(this.workingDir, this.filePath);
         File database = new File(dataPath.toString());
@@ -68,6 +76,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Stores the information in the program back to the database.
+     * @param taskList Tasks information when program runs.
+     */
     public void saveData(TaskList taskList) {
         Path dataPath = java.nio.file.Paths.get(this.workingDir, this.filePath);
         try (FileWriter databaseWriter = new FileWriter(dataPath.toString(), false)) {

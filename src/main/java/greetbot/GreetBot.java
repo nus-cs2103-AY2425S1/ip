@@ -5,6 +5,10 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 //the design of the class is referring to https://github.com/david-eom/CS2103T-IP/blob/master/src/main/java/duke/Duke.java#L150
+
+/**
+ * A class which functions as main control unit of the chatbot.
+ */
 public class GreetBot {
 
     private Storage storage;
@@ -21,6 +25,10 @@ public class GreetBot {
     }
 
     // run and getResponse method is adapted from https://github.com/david-eom/CS2103T-IP/blob/master/src/main/java/duke/Duke.java
+
+    /**
+     * Runs the chatbot.
+     */
     public void run() {
         System.out.println(this.ui.greetUser());
 
@@ -37,6 +45,13 @@ public class GreetBot {
 
     }
 
+    /**
+     * Returns a response string from ui directly or from the subprocess classes.
+     * @param input Input string from user keyboard.
+     * @return the string that needs to be printed.
+     * @throws RandomInputException exception when non-command input passes in through keyboard.
+     * @throws EmptyDescriptionException exception when nothing follows the command.
+     */
     public String getResponse(String input) throws RandomInputException, EmptyDescriptionException{
         String[] segment = Parser.parseCommand(input);
         String keyword = segment[0];
@@ -78,6 +93,11 @@ public class GreetBot {
         }
     }
 
+    /**
+     * A subprocess class which does marking and get the response of ui for marking a task.
+     * @param position The position in task list which needs to be marked.
+     * @return A response from ui.
+     */
     private String markAsDone(int position) {
         this.tasks.get(position).mark();
         return ui.showMarked(tasks.get(position), tasks.getLength());
@@ -88,6 +108,11 @@ public class GreetBot {
         return ui.showUnmarked(tasks.get(position), tasks.getLength());
     }
 
+    /**
+     * A subprocess class which does deletion and get the response of ui for deleting a task.
+     * @param position The position in task list which needs to be deleted.
+     * @return A response from ui.
+     */
     private String deleteTask(int position) {
         Task deletedTask = tasks.get(position - 1);
         this.tasks.delete(position);
