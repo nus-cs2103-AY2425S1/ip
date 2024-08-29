@@ -1,3 +1,11 @@
+package ai;
+
+import ai.command.*;
+import ai.exception.AiException;
+import ai.task.Deadline;
+import ai.task.Event;
+import ai.task.ToDo;
+
 public class Parser {
     public static Command parse(String fullCommand) throws AiException {
         String[] parsedCommand = fullCommand.split(" ", 2);

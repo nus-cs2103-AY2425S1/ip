@@ -1,3 +1,10 @@
+package ai.command;
+
+import ai.exception.AiException;
+import ai.task.Task;
+import ai.TaskList;
+import ai.Ui;
+
 public class MarkCommand extends Command{
     private int i;
     public MarkCommand(String index) {

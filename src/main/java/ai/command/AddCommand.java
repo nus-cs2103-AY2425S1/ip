@@ -1,3 +1,9 @@
+package ai.command;
+
+import ai.task.Task;
+import ai.TaskList;
+import ai.Ui;
+
 public class AddCommand extends Command {
     private Task task;
     public AddCommand(Task task) {
