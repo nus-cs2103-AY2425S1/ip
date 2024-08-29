@@ -26,4 +26,7 @@ public class Task {
     public void setUndone() {
         this.done = false;
     }
+
+    public String getName() { return this.name;
+    }
 }

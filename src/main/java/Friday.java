@@ -13,13 +13,14 @@ public class Friday {
 
         System.out.println("Loading........\n" + logo);
         printLine();
+        Storage storage = new Storage("./data/friday.txt");
+        TaskList master = new TaskList(storage.initList());
 
         System.out.println("""
                 Hello! I'm Friday!
                 What would you like to do?
                 """);
 
-        TaskList master = new TaskList(100);
         boolean bye = false;
         Scanner sc = new Scanner(System.in);
 
@@ -52,6 +53,7 @@ public class Friday {
                     try {
                         int index = Integer.parseInt(parsed[1]);
                         master.removeTask(index-1);
+                        storage.saveList(master.getParent());
                         break;
                     } catch (NumberFormatException | IndexOutOfBoundsException e) {
                         System.out.println("Friday > Input the task number (1 - " + master.getSize() + ") to remove the task\n");
@@ -61,6 +63,7 @@ public class Friday {
                 case "add":
                     try {
                         master.addTask(parsed[1]);
+                        storage.saveList(master.getParent());
                         break;
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Friday > Try doing add <task name> \n");
@@ -73,6 +76,7 @@ public class Friday {
                     try {
                         int index = Integer.parseInt(parsed[1]);
                         master.doneTask(parsed[0], index-1);
+                        storage.saveList(master.getParent());
                         printLine();
                         break;
                     } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -102,6 +106,7 @@ public class Friday {
             }
         }
         terminate();
+        storage.saveList(master.getParent());
         sc.close();
     }
 
