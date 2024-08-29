@@ -1,12 +1,32 @@
 package models;
 
 public class ToDo extends Task {
+    public static final char TASK_TYPE = 'T';
     public ToDo(String name) {
         super(name);
     }
 
     @Override
-    char getTaskType() {
-        return 'T';
+    public char getTaskType() {
+        return TASK_TYPE;
+    }
+
+    public static ToDo deserialize(String line) {
+        String[] values = line.split("\\|");
+        ToDo toDo = new ToDo(values[2]);
+        if (values[1].equals("X")) {
+            toDo.markDone();
+        }
+        return toDo;
+    }
+
+    @Override
+    public String serialize() {
+        return String.format(
+            "%s|%c|%s",
+            this.getTaskType(),
+            this.isDone ? 'X' : 'O',
+            this.name
+        );
     }
 }

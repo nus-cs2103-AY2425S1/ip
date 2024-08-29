@@ -1,8 +1,8 @@
 package models;
 
 public abstract class Task {
-    private boolean isDone = false;
-    private final String name;
+    protected boolean isDone = false;
+    protected final String name;
 
     public Task(String name) {
         this.name = name;
@@ -16,7 +16,9 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    abstract char getTaskType();
+    public abstract String serialize();
+
+    public abstract char getTaskType();
 
     @Override
     public String toString() {

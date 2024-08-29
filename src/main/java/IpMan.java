@@ -1,19 +1,20 @@
 import commands.*;
-import models.Task;
+import models.TaskList;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class IpMan {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
-    private static final List<Task> items = new ArrayList<>();
+    private static final TaskList items = new TaskList("./data/ipman.txt");
 
     public static void main(String[] args) {
         // Hello
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello! I'm Ip Man.");
         System.out.println("What can I do for you?");
+
+        // Load tasks
+        items.loadFromFile();
 
         // Main loop
         Scanner scanner = new Scanner(System.in);
