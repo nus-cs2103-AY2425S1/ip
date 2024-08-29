@@ -1,19 +1,33 @@
 Hello! I am RAINY - Responsive, Automated, Intelligence Network for You.
 I am a digital assistant designed to help you keep track of your day.
 So, what can I do for you today?
+Use me to track your ToDos/Deadlines/Events!
+No tasks currently!
+No tasks currently!
 Gotcha!! Added this task to your list:
 [T] borrow book
 Take note you currently have 1 task/s on your list. You got this Champ!!!
-Here are your tasks!!! Remember to complete them!!!
-1. [ ] [T] borrow book
+Alright I have removed this task: 
+[T] borrow book
+You currently have 0 task/s on hand. Please remember to complete them!
 Gotcha!! Added this task to your list:
-[D] return book (by Sunday)
+[E] project meeting (Aug 19 2024 from 18:00 to 20:00)
+Take note you currently have 1 task/s on your list. You got this Champ!!!
+Gotcha!! Added this task to your list:
+[D] return book (by Dec 2 2019 18:00)
 Take note you currently have 2 task/s on your list. You got this Champ!!!
-Gotcha!! Added this task to your list:
-[E] project meeting (from Mon 2pm to 4pm)
-Take note you currently have 3 task/s on your list. You got this Champ!!!
+The task list has been sorted according to date!
+Here are your tasks!!! Remember to complete them!!!
+1. [ ] [D] return book (by Dec 2 2019 18:00)
+2. [ ] [E] project meeting (Aug 19 2024 from 18:00 to 20:00)
 Well Done Champ! I've marked this task as done!
-Task is still undone!
+Well Done Champ! I've marked this task as done!
 I've marked this task as undone! Please remember to complete it!
-You have entered an invalid task number! Please try again.
+You need to provide a description of your ToDo task, please try again!
+You need to provide a description of your Deadline, please try again!
+You need to provide a description of your Event, please try again!
+Please indicate the category of your task (ToDo, Deadline, or Event) before providing a description of it.
+Please provide an end date for your Deadline!
+Please provide a proper date in MM/DD/YYYY format, as well as a start time and end time in HH:MM format for your Event!
+Please input a date in the format MM/DD/YYYY!
 Goodbye! Have a nice day ahead!!
