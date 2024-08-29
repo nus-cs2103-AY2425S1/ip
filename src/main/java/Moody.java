@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -26,9 +29,9 @@ public class Moody {
                     break;
                 } else if (userInput.equals("list")) {
                     listTasks();
-                } else if (userInput.startsWith("mark ")) {
+                } else if (userInput.startsWith("mark")) {
                     markTask(userInput);
-                } else if (userInput.startsWith("unmark ")) {
+                } else if (userInput.startsWith("unmark")) {
                     unmarkTask(userInput);
                 } else if (userInput.startsWith("todo")) {
                     addTodoTask(userInput);
@@ -36,7 +39,7 @@ public class Moody {
                     addDeadlineTask(userInput);
                 } else if (userInput.startsWith("event")) {
                     addEventTask(userInput);
-                } else if (userInput.startsWith("delete ")) {
+                } else if (userInput.startsWith("delete")) {
                     deleteTask(userInput);
                 } else {
                     invalidCommand();
@@ -64,7 +67,16 @@ public class Moody {
         System.out.println(SPACER);
     }
 
-    private static void markTask(String userInput) throws TaskOutOfBoundsException {
+    private static void markTask(String userInput) throws TaskOutOfBoundsException, TaskInputException {
+        // to handle empty task number
+        if (userInput.equals("mark") || userInput.equals("mark ")) {
+            throw new TaskInputException("""
+                    Error: Missing task number
+                    
+                    Please use the following format: mark <task number>
+                    """);
+        }
+
         int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
 
         // to handle array out-of-bounds cases when accessing userTasks arraylist
@@ -83,13 +95,22 @@ public class Moody {
         System.out.println(SPACER);
     }
 
-    private static void unmarkTask(String userInput) throws TaskOutOfBoundsException {
+    private static void unmarkTask(String userInput) throws TaskOutOfBoundsException, TaskInputException {
+        // to handle empty task number
+        if (userInput.equals("unmark") || userInput.equals("unmark ")) {
+            throw new TaskInputException("""
+                    Error: Missing task number
+                    
+                    Please use the following format: unmark <task number>
+                    """);
+        }
+
         int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
 
         // to handle array out-of-bounds cases when accessing userTasks arraylist
         if (taskNumber >= userTasks.size() || taskNumber < 0) {
             throw new TaskOutOfBoundsException("""
-                    Error: Cannot mark a task that does not exist
+                    Error: Cannot unmark a task that does not exist
                     
                     Please check that you are marking the correct task number.
                     """);
@@ -151,7 +172,15 @@ public class Moody {
                     """);
         }
 
-        userTasks.add(new Deadline(substrings[0].trim(), substrings[1].trim()));
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+        try {
+            userTasks.add(new Deadline(substrings[0].trim(), LocalDateTime.parse(substrings[1].trim(), inputFormatter)));
+        } catch (DateTimeParseException e) {
+            throw new TaskInputException(("Error: Invalid date format\n" +
+                    "Please use yyyy-MM-dd HHmm for the date\n"));
+        }
+
         saveTasksToFile();
         System.out.println(SPACER + "Got it. I've added this task:\n"
                 + INDENT + userTasks.get(userTasks.size() - 1) + "\n"
@@ -185,14 +214,32 @@ public class Moody {
 
         }
 
-        userTasks.add(new Event(substrings[0].trim(), substrings[1].trim(), substrings[2].trim()));
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+        try {
+            userTasks.add(new Event(substrings[0].trim(), LocalDateTime.parse(substrings[1].trim(), inputFormatter),
+                    LocalDateTime.parse(substrings[2].trim(), inputFormatter)));
+        } catch (DateTimeParseException e) {
+            throw new TaskInputException(("Error: Invalid date format\n" +
+                    "Please use yyyy-MM-dd HHmm format for the dates\n"));
+        }
+
         saveTasksToFile();
         System.out.println(SPACER + "Got it. I've added this task:\n"
                 + INDENT + userTasks.get(userTasks.size() - 1) + "\n"
                 + "Now you have " + userTasks.size() + " tasks in the list.\n" + SPACER);
     }
 
-    private static void deleteTask(String userInput) throws TaskOutOfBoundsException {
+    private static void deleteTask(String userInput) throws TaskOutOfBoundsException, TaskInputException {
+        // to handle empty task number
+        if (userInput.equals("delete") || userInput.equals("delete ")) {
+            throw new TaskInputException("""
+                    Error: Missing task number
+                    
+                    Please use the following format: delete <task number>
+                    """);
+        }
+
         int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
 
         // to handle array out-of-bounds cases when accessing userTasks arraylist
@@ -235,15 +282,18 @@ public class Moody {
                 boolean isTaskDone = parts[1].equals("1");
                 Task task;
 
+                DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
                 switch (taskType) {
                 case "T":
                     task = new Todo(parts[2].trim());
                     break;
                 case "D":
-                    task = new Deadline(parts[2].trim(), parts[3].trim());
+                    task = new Deadline(parts[2].trim(), LocalDateTime.parse(parts[3].trim(), inputFormatter));
                     break;
                 case "E":
-                    task = new Event(parts[2].trim(), parts[3].trim(), parts[4].trim());
+                    task = new Event(parts[2].trim(), LocalDateTime.parse(parts[3].trim(), inputFormatter),
+                            LocalDateTime.parse(parts[4].trim(), inputFormatter));
                     break;
                 default:
                     continue;
