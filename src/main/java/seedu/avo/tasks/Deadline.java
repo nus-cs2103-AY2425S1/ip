@@ -1,17 +1,20 @@
 package seedu.avo.tasks;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import seedu.avo.utils.DateTime;
 
 public class Deadline extends Task {
-    private final LocalDate dueDate;
-    public Deadline(String name, LocalDate dueDate) {
+    private final LocalDateTime dueDate;
+    public Deadline(String name, LocalDateTime dueDate) {
         super(name);
         this.dueDate = dueDate;
     }
     @Override
-    public boolean isOccurringOnDate(LocalDate date) { return date.equals(dueDate); }
+    public boolean isOccurringOnDate(LocalDate date) {
+        return date.equals(dueDate.toLocalDate());
+    }
     @Override
     public String formatData() {
         String dueDateStr = DateTime.format(dueDate);

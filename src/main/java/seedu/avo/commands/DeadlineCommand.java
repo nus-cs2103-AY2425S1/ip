@@ -1,5 +1,7 @@
 package seedu.avo.commands;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import seedu.avo.exceptions.AvoException;
 import seedu.avo.tasks.Deadline;
@@ -17,7 +19,7 @@ public class DeadlineCommand extends Command {
         if (inputs.length < 3) {
             throw new AvoException("OOPS!!! The description of a deadline cannot be empty.");
         }
-        LocalDate dueDate = DateTime.parse(inputs[2]);
-        manager.addTask(new Deadline(inputs[1], dueDate));
+        LocalDateTime dueDate = DateTime.parseWithTime("2024-09-09 18:00");
+        manager.addTask(new Deadline(inputs[1].trim(), dueDate));
     }
 }

@@ -1,7 +1,6 @@
 package seedu.avo.storage;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 import seedu.avo.exceptions.AvoException;
 import seedu.avo.tasks.Deadline;
@@ -21,12 +20,12 @@ public class TaskParser extends FileParser<Task> {
             task = new ToDo(inputs[2]);
             break;
         case "D":
-            LocalDate dueDate = DateTime.parse(inputs[3], DateTimeFormatter.ofPattern("MMM d yyyy"));
+            LocalDateTime dueDate = DateTime.parseFromStorage(inputs[3]);
             task =  new Deadline(inputs[2], dueDate);
             break;
         case "E":
-            LocalDate startTime = DateTime.parse(inputs[3], DateTimeFormatter.ofPattern("MMM d yyyy"));
-            LocalDate endTime = DateTime.parse(inputs[4], DateTimeFormatter.ofPattern("MMM d yyyy"));
+            LocalDateTime startTime = DateTime.parseFromStorage(inputs[3]);
+            LocalDateTime endTime = DateTime.parseFromStorage(inputs[4]);
             task =  new Event(inputs[2], startTime, endTime);
             break;
         default:
@@ -36,6 +35,7 @@ public class TaskParser extends FileParser<Task> {
         if (isCompleted) {
             task.complete();
         }
+        System.out.println(task);
         return task;
     }
 }

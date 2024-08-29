@@ -15,6 +15,6 @@ public class TodoCommand extends Command {
         if (inputs.length < 2) {
             throw new AvoException("OOPS!!! The description of a todo cannot be empty.");
         }
-        manager.addTask(new ToDo(inputs[1]));
+        manager.addTask(new ToDo(inputs[1].trim()));
     }
 }

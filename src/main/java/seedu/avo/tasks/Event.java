@@ -1,22 +1,25 @@
 package seedu.avo.tasks;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import seedu.avo.utils.DateTime;
 
 public class Event extends Task {
-    private final LocalDate startTime;
-    private final LocalDate endTime;
-    public Event(String name, LocalDate startTime, LocalDate endTime) {
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
+    public Event(String name, LocalDateTime startTime, LocalDateTime endTime) {
         super(name);
         this.startTime = startTime;
         this.endTime = endTime;
     }
     @Override
     public boolean isOccurringOnDate(LocalDate date) {
-        boolean isOnStartTime = date.equals(startTime);
-        boolean isOnEndTime = date.equals(endTime);
-        boolean isBetweenStartTimeAndEndTime = date.isAfter(startTime) && date.isBefore(endTime);
+        LocalDate startDate = startTime.toLocalDate();
+        LocalDate endDate = endTime.toLocalDate();
+        boolean isOnStartTime = date.equals(startDate);
+        boolean isOnEndTime = date.equals(endDate);
+        boolean isBetweenStartTimeAndEndTime = date.isAfter(startDate) && date.isBefore(endDate);
         return isOnStartTime || isOnEndTime || isBetweenStartTimeAndEndTime;
     }
     @Override

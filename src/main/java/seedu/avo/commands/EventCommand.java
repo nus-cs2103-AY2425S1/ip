@@ -1,6 +1,6 @@
 package seedu.avo.commands;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import seedu.avo.exceptions.AvoException;
 import seedu.avo.tasks.Event;
@@ -18,8 +18,8 @@ public class EventCommand extends Command {
         if (inputs.length < 4) {
             throw new AvoException("OOPS!!! The description of an event cannot be empty.");
         }
-        LocalDate startTime = DateTime.parse(inputs[2]);
-        LocalDate endTime = DateTime.parse(inputs[3]);
-        manager.addTask(new Event(inputs[1], startTime, endTime));
+        LocalDateTime startTime = DateTime.parseWithTime(inputs[2]);
+        LocalDateTime endTime = DateTime.parseWithTime(inputs[3]);
+        manager.addTask(new Event(inputs[1].trim(), startTime, endTime));
     }
 }

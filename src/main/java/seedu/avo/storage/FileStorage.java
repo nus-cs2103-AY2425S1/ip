@@ -47,7 +47,7 @@ public class FileStorage<T> extends Storage<T, String> {
         } catch (FileNotFoundException e) {
 
         } catch (AvoException e) {
-
+            System.out.println(e.getMessage());
         }
         return result;
     }
