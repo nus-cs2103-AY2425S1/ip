@@ -1,7 +1,17 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.IOException;
+
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Scanner;
+
 
 public class Phenex {
     private final String line = "\t____________________________________________________________\n";
@@ -18,6 +28,7 @@ public class Phenex {
             + "\tWhat can I do for you?\n"
             + line;
     private final String farewellMsg = "\t Goodbye. Extinguish the Zeon forces on your way out!\n" + line;
+    private final Path filePath;
 
     public enum TaskType {
         TASK_TODO, TASK_DEADLINE, TASK_EVENT;
@@ -25,6 +36,13 @@ public class Phenex {
 
     public Phenex() {
         this.tasks = new ArrayList<>();
+        String home = System.getProperty("user.home");
+        this.filePath = Paths.get(home, "Downloads", "CS2103T_AY2425", "iP", "data", "phenex.txt");
+        try {
+            this.readMemory();
+        } catch (FileNotFoundException e) {
+            System.out.println("404 Error, Memory Not Found: " + e.getMessage());
+        }
     }
 
     public void greet() {
@@ -78,29 +96,89 @@ public class Phenex {
         }
     }
 
+    public void addTaskFromMemory(String data) throws PhenexException {
+        String[] taskDetails = data.split(", ");
+
+        if (taskDetails.length <= 1) {
+            throw new PhenexException("Error, corrupted memory.");
+        }
+
+        String symbol = taskDetails[0];
+        String status = taskDetails[1];
+        String name;
+        Task taskToAdd;
+
+        switch (symbol) {
+        case "T":
+            if (taskDetails.length != 3) {
+                throw new PhenexException("Error, corrupted memory.");
+            }
+            name = taskDetails[2];
+            taskToAdd = new ToDo(name);
+            break;
+        case "D":
+            if (taskDetails.length != 4) {
+                throw new PhenexException("Error, corrupted memory.");
+            }
+            name = taskDetails[2];
+            String byDate = taskDetails[3];
+            taskToAdd = new Deadline(name, byDate);
+            break;
+        case "E":
+            if (taskDetails.length != 5) {
+                throw new PhenexException("Error, corrupted memory.");
+            }
+            name = taskDetails[2];
+            String from = taskDetails[3];
+            String to = taskDetails[4];
+            taskToAdd = new Event(name, from, to);
+            break;
+        default:
+            throw new PhenexException("Error, corrupted memory");
+        }
+
+        if (status.equals("1")) {
+            taskToAdd.setCompleted();
+        }
+        this.tasks.add(taskToAdd);
+    }
+
+    public void storeTasksToMemory() {
+
+        // write into file from tasks
+        try {
+            FileWriter fileWriter = new FileWriter(this.filePath.toString());
+            for (Task task : this.tasks) {
+                String line = task.parseTaskInfo();
+                fileWriter.write(line);
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void addTask(Matcher matcher, TaskType tt) throws PhenexException {
         String taskName = matcher.group(1);
         String emptyNameRegex = "\\s*";
         Pattern emptyNamePattern = Pattern.compile(emptyNameRegex);
         Matcher emptyNameMatcher = emptyNamePattern.matcher(taskName);
 
+        Task taskToAdd;
+
         switch (tt) {
         case TASK_TODO:
             if (emptyNameMatcher.matches()) {
                 throw new PhenexException("Error, invalid todo name");
             }
-            ToDo toDo = new ToDo(taskName);
-            this.tasks.add(toDo);
-            this.printTaskAdded(toDo);
+            taskToAdd = new ToDo(taskName);
             break;
         case TASK_DEADLINE:
             if (emptyNameMatcher.matches()) {
                 throw new PhenexException("Error, invalid deadline name");
             }
             String deadlineBy = matcher.group(2);
-            Deadline deadline = new Deadline(taskName, deadlineBy);
-            this.tasks.add(deadline);
-            this.printTaskAdded(deadline);
+            taskToAdd = new Deadline(taskName, deadlineBy);
             break;
         case TASK_EVENT:
             if (emptyNameMatcher.matches()) {
@@ -108,24 +186,26 @@ public class Phenex {
             }
             String eventFrom = matcher.group(2);
             String eventTo = matcher.group(3);
-            Event event = new Event(taskName, eventFrom, eventTo);
-            this.tasks.add(event);
-            this.printTaskAdded(event);
+            taskToAdd = new Event(taskName, eventFrom, eventTo);
             break;
         default:
             System.out.println("Unknown input");
-            break;
+            return;
         }
+
+        this.tasks.add(taskToAdd);
+        this.printTaskAdded(taskToAdd);
+        this.storeInMemory(taskToAdd.parseTaskInfo());
     }
 
     public void deleteTask(int idx) throws PhenexException {
         if (idx >= this.tasks.size()) {
             throw new PhenexException("Error, no such mission exists");
         }
-        Task t = this.tasks.get(idx);
+        Task taskToDelete = this.tasks.get(idx);
         this.tasks.remove(idx);
         System.out.println("\t OK. Mission aborted, retreat!");
-        System.out.println("\t  " + t);
+        System.out.println("\t  " + taskToDelete);
         System.out.println("\t " + this.tasks.size() + " missions remaining. Destroy the enemy!");
     }
 
@@ -135,9 +215,59 @@ public class Phenex {
         System.out.println("\t Total upcoming missions: " + this.tasks.size());
     }
 
+    public void validateFilePath() throws PhenexException {
+        boolean filePathExists = Files.exists(this.filePath);
+        if (!filePathExists) {
+            throw new PhenexException("404 Error: Memory not found! Abort.");
+        }
+    }
+
+    protected void readMemory() throws FileNotFoundException {
+        File memFile = new File(this.filePath.toString());
+        Scanner scanner = new Scanner(memFile);
+        while (scanner.hasNextLine()) {
+            String data = scanner.nextLine();
+            try {
+                addTaskFromMemory(data);
+            } catch (PhenexException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        scanner.close();
+    }
+
+    protected void storeInMemory(String memoryToAdd) {
+        String pathString = this.filePath.toString();
+        try {
+            FileWriter fw = new FileWriter(pathString, true);
+            fw.write(memoryToAdd);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         Phenex p = new Phenex();
         p.greet();
+
+        if (!Files.exists(p.filePath)) {
+            // create file if it doesn't exist
+            try {
+                Files.createFile(p.filePath);
+                System.out.println("Memory initialised.");
+            } catch (IOException e) {
+                System.out.println("Error, unable to initialise memory: " + e.getMessage());
+            }
+        }
+
+        // check if file path is valid
+        try {
+            p.validateFilePath();
+        } catch (PhenexException e) {
+            System.out.println(e.getMessage());
+        }
 
         Scanner scanner = new Scanner(System.in);
         String userInput;
@@ -246,6 +376,7 @@ public class Phenex {
             p.printLine();
         }
 
+        p.storeTasksToMemory();
         scanner.close();
         p.sayFarewell();
     }
