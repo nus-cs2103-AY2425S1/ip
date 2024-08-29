@@ -17,7 +17,9 @@ public abstract class Command {
      *
      * @return boolean True if this commands ends the conversation, false if otherwise.
      */
-    public boolean isExit() { return isExit; }
+    public boolean isExit() {
+        return isExit;
+    }
 
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws OllieException;
 }

@@ -1,18 +1,18 @@
 package ollie.task;
 
 import ollie.exception.OllieException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Represents an event task. It contains 2 dates, with each representing
  * when the event starts from, and when the event last to, respectively.
- *
  */
 public class Event extends Task {
 
-    protected LocalDate from;
-    protected LocalDate to;
+    private LocalDate from;
+    private LocalDate to;
 
     public Event(String description, LocalDate from, LocalDate to) throws OllieException {
         super(description);
@@ -34,5 +34,7 @@ public class Event extends Task {
      *
      * @return Formatted String.
      */
-    public String getFormattedString() { return "E | " + super.getFormattedString() + " | " + this.from + " | " + this.to;}
+    public String getFormattedString() {
+        return "E | " + super.getFormattedString() + " | " + this.from + " | " + this.to;
+    }
 }

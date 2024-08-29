@@ -7,8 +7,8 @@ import ollie.task.Task;
 /**
  * Represents a command for removing a task from the task list.
  */
-public class DeleteCommand extends Command{
-    int index;
+public class DeleteCommand extends Command {
+    private int index;
 
     public DeleteCommand(int index) {
         this.index = index;
@@ -17,8 +17,8 @@ public class DeleteCommand extends Command{
     /**
      * Execute the deletion of task.
      *
-     * @param tasks List of tasks.
-     * @param ui User interface controller.
+     * @param tasks   List of tasks.
+     * @param ui      User interface controller.
      * @param storage Storage controller for file manipulation.
      */
     @Override

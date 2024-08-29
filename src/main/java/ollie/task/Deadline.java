@@ -6,11 +6,10 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task with a deadline. It contains a date which represents
  * when the task is due by.
- *
  */
 public class Deadline extends Task {
 
-    protected LocalDate by;
+    private LocalDate by;
 
     public Deadline(String description, LocalDate by) {
         super(description);
@@ -27,5 +26,7 @@ public class Deadline extends Task {
      *
      * @return Formatted String.
      */
-    public String getFormattedString() { return "D | " + super.getFormattedString() + " | " + this.by;}
+    public String getFormattedString() {
+        return "D | " + super.getFormattedString() + " | " + this.by;
+    }
 }

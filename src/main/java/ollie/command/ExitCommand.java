@@ -25,5 +25,7 @@ public class ExitCommand extends Command {
         // Save data
         storage.save(tasks.getTasks());
         ui.showExit();
-    };
+    }
+
+    ;
 }
