@@ -1,9 +1,11 @@
-import commands.Command;
-import exceptions.AtlasException;
-import parser.Parser;
-import storage.Storage;
-import tasks.TaskList;
-import ui.Ui;
+package atlas;
+
+import atlas.commands.Command;
+import atlas.exceptions.AtlasException;
+import atlas.parser.Parser;
+import atlas.storage.Storage;
+import atlas.tasks.TaskList;
+import atlas.ui.Ui;
 
 public class Atlas {
     private final Ui ui;

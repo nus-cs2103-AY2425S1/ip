@@ -1,4 +1,4 @@
-package ui;
+package atlas.ui;
 
 import java.util.Scanner;
 
