@@ -15,8 +15,19 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
+
+    public Task removeTask(int index) throws BobException {
+        if (index < tasks.size() && index >= 0) {
+            return tasks.remove(index);
+        } else {
+            throw new BobException("Invalid index :(");
+        }
     }
 }
