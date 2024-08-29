@@ -9,6 +9,10 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    public TaskList() {
+        this.tasks = new ArrayList<Task>();
+    }
+
     public boolean isEmpty() {
         return tasks.isEmpty();
     }

@@ -8,9 +8,12 @@ import Command.InvalidCommand;
 import Command.MarkCommand;
 import Command.UnmarkCommand;
 import Command.DeleteCommand;
-import Storage.Storage;
-import Task.InvalidTaskException;
+import Command.FindCommand;
 
+import Storage.Storage;
+
+import Task.InvalidTaskException;
+import Task.RasputinException;
 import Task.TaskList;
 
 
@@ -74,6 +77,13 @@ public class Parser {
                 } catch (InvalidTaskException e) {
                     return new InvalidCommand(e.getMessage());
                 }
+            case "find":
+                try {
+                    return new FindCommand(input, tasks);
+                } catch (RasputinException e) {
+                    return new InvalidCommand(e.getMessage());
+                }
+
 
 
         }
