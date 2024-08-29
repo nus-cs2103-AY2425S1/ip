@@ -29,6 +29,8 @@ public class Milo {
         // Database to store text
         ArrayList<Task> todoList = new ArrayList<>();
 
+        // Reads data from storage
+        Saver.readData(todoList);
         // Greets user
         System.out.println(greetingMessage);
         // Await user input
@@ -49,6 +51,7 @@ public class Milo {
                     Task curTask = todoList.get(Integer.parseInt(arrOfInput[1]) - 1);
                     curTask.mark();
                     Printer.printMark(curTask);
+                    Saver.saveData(todoList);
                     userInput = myScanner.nextLine();
                     break;
                 // Mark as incomplete
@@ -56,6 +59,7 @@ public class Milo {
                     Task currTask = todoList.get(Integer.parseInt(arrOfInput[1]) - 1);
                     currTask.unmark();
                     Printer.printUnmark(currTask);
+                    Saver.saveData(todoList);
                     userInput = myScanner.nextLine();
                     break;
                 // Deleting tasks
@@ -65,6 +69,7 @@ public class Milo {
                     currrTask.delete();
                     todoList.remove(delIndex);
                     Printer.printDelete(currrTask);
+                    Saver.saveData(todoList);
                     userInput = myScanner.nextLine();
                     break;
                 // Adding tasks
@@ -74,11 +79,12 @@ public class Milo {
                     if (arrOfInput.length == 1) {
                         Printer.printError(TaskType.taskType.TODO, "The description of a todo cannot be empty");
                     } else {
-                        String desc = arrOfInput[1];
+                        String desc = arrOfInput[1].strip();
                         Task curTodo = new Todos(desc);
                         todoList.add(curTodo);
                         Printer.printTask(curTodo);
                     }
+                    Saver.saveData(todoList);
                     userInput = myScanner.nextLine();
                     break;
                 // Deadline
@@ -92,11 +98,12 @@ public class Milo {
                         if (deadlineDesc.length != 2) {
                             Printer.printError(TaskType.taskType.DEADLINE, "Invalid deadline command\n Proper formatting: deadline <task description> + /by + <date description>");
                         } else {
-                            Task curDeadline = new Deadlines(deadlineDesc[0], deadlineDesc[1]);
+                            Task curDeadline = new Deadlines(deadlineDesc[0].strip(), deadlineDesc[1].strip());
                             todoList.add(curDeadline);
                             Printer.printTask(curDeadline);
                         }
                     }
+                    Saver.saveData(todoList);
                     userInput = myScanner.nextLine();
                     break;
                 // Event
@@ -110,11 +117,12 @@ public class Milo {
                         if (eventDesc.length != 3) {
                             Printer.printError(TaskType.taskType.DEADLINE, "Invalid event command\n Proper formatting: deadline <task description> + /from + <starting date description> + /to + <ending date description");
                         } else {
-                            Task curEvent = new Events(eventDesc[0], eventDesc[1], eventDesc[2]);
+                            Task curEvent = new Events(eventDesc[0].strip(), eventDesc[1].strip(), eventDesc[2].strip());
                             todoList.add(curEvent);
                             Printer.printTask(curEvent);
                         }
                     }
+                    Saver.saveData(todoList);
                     userInput = myScanner.nextLine();
                     break;
                 default:
