@@ -45,10 +45,10 @@ public class Parser {
         } else if (words.length > 1 && words[0].equals("find")) {
             this.handleFind(input);
         } else if (
-            words[0].equals("todo") || 
-            words[0].equals("deadline") || 
-            words[0].equals("event")
-        ){
+            words[0].equals("todo")
+            || words[0].equals("deadline")
+            || words[0].equals("event")
+        ) {
             this.handleAdd(words, input);
         } else {
             throw new UnknownCommandException(input);

@@ -19,14 +19,14 @@ public class MiluTrock {
 
     public void run() {
         ui.printBanner();
-        
+
         storage.loadTasks();
-        
+
         Scanner scanner = new Scanner(System.in);
         boolean shouldContinue = true;
         while (shouldContinue && scanner.hasNext()) {
             String input = scanner.nextLine();
-            
+
             ui.printLineBreak();
 
             try {
@@ -34,7 +34,7 @@ public class MiluTrock {
             } catch (UnknownCommandException e) {
                 System.out.println(e.getMessage());
             }
-            
+
             ui.printLineBreak();
         }
         scanner.close();

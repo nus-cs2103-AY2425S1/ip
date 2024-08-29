@@ -12,7 +12,7 @@ public class Ui {
         this.name = name;
         this.taskList = taskList;
     }
-    
+
     public void printBanner() {
         System.out.println("Hello! I'm " + this.name + "!");
         System.out.println("What can I do for you?");
@@ -27,13 +27,13 @@ public class Ui {
     }
 
     public void printTask(int i) {
-        System.out.println("  " + taskList.taskAtIndexToString(i));
+        System.out.println("  " + taskList.getTaskAtIndexAsString(i));
     }
 
     public void printTaskList() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskList.noOfTasks(); i++) {
-            System.out.println((i + 1) + ". " + taskList.taskAtIndexToString(i));
+        for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
+            System.out.println((i + 1) + ". " + taskList.getTaskAtIndexAsString(i));
         }
     }
 
@@ -46,17 +46,17 @@ public class Ui {
         System.out.println("OK, I've marked this task as not done yet:");
         this.printTask(i);
     }
-    
+
     public void printDeleteMessage(Task task) {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
-        System.out.println("Now you have " + taskList.noOfTasks() + " tasks in the list.");
+        System.out.println("Now you have " + taskList.getNumberOfTasks() + " tasks in the list.");
     }
 
     public void printAddMessage() {
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + taskList.taskAtIndexToString(taskList.noOfTasks() - 1));
-        System.out.println("Now you have " + taskList.noOfTasks() + " tasks in the list.");
+        System.out.println("  " + taskList.getTaskAtIndexAsString(taskList.getNumberOfTasks() - 1));
+        System.out.println("Now you have " + taskList.getNumberOfTasks() + " tasks in the list.");
     }
 
     public void printFindMessage(ArrayList<Task> tasks) {

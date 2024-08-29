@@ -26,12 +26,12 @@ public class TaskList {
         this.tasks.get(i).unmarkDone();
     }
 
-    public int noOfTasks() {
-        return this.tasks.size();
+    public int getNumberOfTasks() {
+        return tasks.size();
     }
 
-    public String taskAtIndexToString(int i) {
-        return this.tasks.get(i).toString();
+    public String getTaskAtIndexAsString(int i) {
+        return tasks.get(i).toString();
     }
 
     public ArrayList<Task> getTasksFromSearchString(String query) {
