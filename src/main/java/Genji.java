@@ -1,11 +1,30 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Genji {
     private static String NAME = "Genji";
     private static String LINE = "________________________________________________________________";
     private static Scanner scanner = new Scanner(System.in);
     private static ArrayList<Task> list = new ArrayList();
+    private static String SAVE_LIST_PATH = "./data/Genji.txt";
+
+    private static void saveList(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    private static void loadList(String filePath) throws FileNotFoundException {
+            File f = new File(filePath);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                System.out.println(s.nextLine());
+            }
+    }
 
     public static void addList(Task t) {
         list.add(t);
