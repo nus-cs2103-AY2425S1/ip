@@ -6,9 +6,20 @@ import waterfall.Storage;
 import waterfall.Ui;
 import waterfall.task.*;
 
+/**
+ * Represents the <code>Command</code> object to delete a <code>Task</code>
+ * from the data storage and alerts the user.
+ *
+ * @author Wai Hong
+ */
+
 public class DeleteCommand extends Command {
     int index;
 
+    /**
+     * Constructs a command to delete task at specified index.
+     * @param index
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }

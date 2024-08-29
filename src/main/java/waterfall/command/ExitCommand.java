@@ -4,6 +4,12 @@ import waterfall.Storage;
 import waterfall.Ui;
 import waterfall.task.*;
 
+/**
+ * Represents the <code>Command</code> object to exit.
+ *
+ * @author Wai Hong
+ */
+
 public class ExitCommand extends Command {
 
     @Override

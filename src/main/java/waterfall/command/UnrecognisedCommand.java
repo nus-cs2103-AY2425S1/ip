@@ -4,6 +4,13 @@ import waterfall.Storage;
 import waterfall.Ui;
 import waterfall.task.*;
 
+/**
+ * Represents the <code>Command</code> object to alert user when
+ * the command is not recognised.
+ *
+ * @author Wai Hong
+ */
+
 public class UnrecognisedCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

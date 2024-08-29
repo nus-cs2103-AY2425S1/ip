@@ -2,7 +2,30 @@ package waterfall;
 
 import waterfall.command.*;
 
+/**
+ * The <code>Parser</code> class is responsible for interpreting user input and converting it
+ * into corresponding commands to be executed by the application.
+ * It analyzes the user input string and determines which specific command class
+ * should be instantiated based on the input format.
+ *
+ * @author Wai Hong
+ */
+
 public class Parser {
+
+    /**
+     * Parses the user input and returns the appropriate <code>Command</code> object.
+     * <p>
+     * The method determines the type of command based on the input string and extracts
+     * necessary parameters for the command (like task title, dates, etc.).
+     * It handles different command types such as "bye", "list", "mark", "unmark",
+     * "delete", "deadline", "todo" , and "event".
+     * </p>
+     *
+     * @param input The user input string to be parsed.
+     * @return The corresponding <code>Command</code> object based on the user input.
+     * @throws WaterfallException if the input format is invalid or if required fields are missing.
+     */
     public static Command parse(String input) throws WaterfallException {
         if (input.equals("bye")) {
             return new ExitCommand();

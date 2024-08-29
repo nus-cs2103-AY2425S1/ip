@@ -14,9 +14,25 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Manages data storage of users' tasks. A <code>Storage</code> object corresponds to
+ * a direct control to the file specified by the users' filePath.
+ * It provides functionalities to read tasks from the file, add tasks to the file,
+ * and update the existing tasks in the file.
+ *
+ * @author Wai Hong
+ */
+
 public class Storage {
     private final File taskFile;
 
+    /**
+     * Creates a new <code>Storage</code> instance for managing tasks in the specified file.
+     * Auto creates the file if the file or its parent directory does not exist.
+     *
+     * @param filePath The path to the file wheres tasks are stored.
+     * @throws IOException If I/O exception occurs when creating the file or directory.
+     */
     public Storage(String filePath) throws IOException {
         taskFile = new File(filePath);
         if (!taskFile.getParentFile().exists()) {
@@ -27,12 +43,25 @@ public class Storage {
         }
     }
 
+    /**
+     * Add a new task to the storage file. The task is appended to the end of the file.
+     *
+     * @param task The task to be added.
+     * @throws IOException If I/O exception occurs while writing to the file.
+     */
     public void addTask(Task task) throws IOException {
         FileWriter fileWriter = new FileWriter(taskFile, true);
         fileWriter.write(task.toStorageString() + System.lineSeparator());
         fileWriter.close();
     }
 
+    /**
+     * Updates the storage file with the provided list of tasks.
+     * This method overwrites the entire file content with the tasks provided.
+     *
+     * @param tasks List of tasks to be stored in the storage file.
+     * @throws IOException If I/O exception occurs while writing to the file.
+     */
     public void updateTask(List<Task> tasks) throws IOException {
         FileWriter fileWriter = new FileWriter(taskFile);
         for (Task task : tasks) {
@@ -41,6 +70,13 @@ public class Storage {
         fileWriter.close();
     }
 
+    /**
+     * Loads tasks from the storage file and stores them in a list.
+     * Each task is parsed based on the format stored in the file and added to the list.
+     *
+     * @return A list of tasks loaded from the storage file.
+     * @throws WaterfallException If the file is not found or there exists an unknown task data.
+     */
     public List<Task> load() throws WaterfallException {
         try {
             Scanner scanner = new Scanner(taskFile);
