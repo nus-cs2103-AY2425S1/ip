@@ -1,6 +1,7 @@
 package yapbot.tasks;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Child class of Task that has a start and end dates/times.
@@ -38,11 +39,12 @@ public class Event extends Task {
 
     @Override
     public String saveTask() {
-        return "E/" + super.saveTask() + "/" + this.from + "/" + this.to;
+        return "E/" + super.saveTask() + "/" + this.from.toString() + "/" + this.to.toString();
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (From: " + this.from + " To: " + this.to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ha dd MMM yyyy");
+        return "[E]" + super.toString() + " (From: " + this.from.format(formatter) + " To: " + this.to.format(formatter) + ")";
     }
 }

@@ -34,7 +34,7 @@ public class Deadline extends Task {
 
     @Override
     public String saveTask() {
-        return "D/" + super.saveTask() + "/" + this.deadline;
+        return "D/" + super.saveTask() + "/" + this.deadline.toString();
     }
 
     @Override
