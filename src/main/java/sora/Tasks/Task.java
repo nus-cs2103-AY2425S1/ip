@@ -28,5 +28,9 @@ public abstract class Task {
         return "[" + getStatus() + "] " + description;
     }
 
+    public boolean descriptionContainsString(String s) {
+        return this.description.toLowerCase().contains(s.toLowerCase());
+    }
+
     public abstract List<String> getTaskDetails();
 }
