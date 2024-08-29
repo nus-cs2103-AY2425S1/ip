@@ -20,7 +20,7 @@ public class Event extends Command {
     }
 
     private static void taskAdded(TaskList list, Task task) {
-        System.out.println("Got it. I've added this task:\n" + t);
+        System.out.println("Got it. I've added this task:\n" + task);
         System.out.println("Now you have " + list.size() + (list.size() == 1 ? " task in the list." : " tasks in the list."));
     }
 
