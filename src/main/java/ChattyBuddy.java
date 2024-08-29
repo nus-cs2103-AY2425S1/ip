@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 public class ChattyBuddy {
 
     private static void loadDataFile(ArrayList<Task> inputList) throws FileNotFoundException {

@@ -1,5 +1,9 @@
 T | 1 | read book
-D | 0 | return book | June 6th
+D | 0 | return book | null
 E | 0 | project meeting | Aug 6th 2pm | 4pm
 T | 0 | finish homework
-D | 1 | do my speech draft | 28th Aug
+D | 1 | do my speech draft | null
+D | 0 | do homework | null
+D | 0 | return book | null
+D | 0 | return book | 2019-02-12
+D | 0 | return book | 2019-12-02
