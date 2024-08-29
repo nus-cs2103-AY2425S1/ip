@@ -1,4 +1,4 @@
-Hello! Thanks for using Mylo.
+Hello! Thanks for using Main.
 What can I help you?
 --------------------------------
 Goodbye. Have a nice day ahead!
