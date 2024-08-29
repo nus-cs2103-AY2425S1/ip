@@ -1,9 +1,8 @@
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Paths;
+package elster;
+
+import elster.tasks.Task;
+
 import java.util.ArrayList;
-import java.nio.file.Path;
-import java.nio.file.Files;
 
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();

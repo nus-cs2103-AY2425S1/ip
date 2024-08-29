@@ -1,3 +1,5 @@
+package elster.tasks;
+
 abstract public class Task {
     String description;
     boolean status;
