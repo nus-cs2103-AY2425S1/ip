@@ -19,8 +19,6 @@ public class BocchiDateTimeFormatter {
             "yyyy-dd-MMM",
             "M-d",
             "MM-dd",
-            "MMM-dd",
-            "dd-MMM",
 
             "yyyy/M/d",
             "yyyy/MM/dd",
@@ -28,8 +26,9 @@ public class BocchiDateTimeFormatter {
             "yyyy/dd/MMM",
             "M/d",
             "MM/dd",
-            "MMM/dd",
-            "dd/MMM",
+
+            "MMM dd",
+            "dd MMM",
     };
 
     static private final String[] TIME_FORMATS = {
@@ -120,9 +119,5 @@ public class BocchiDateTimeFormatter {
      */
     static public String toString(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    }
-
-    public static void main(String[] args) {
-        System.out.println(BocchiDateTimeFormatter.parse("2024-9-1 9:00"));
     }
 }

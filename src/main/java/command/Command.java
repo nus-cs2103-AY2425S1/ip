@@ -49,7 +49,7 @@ public class Command {
      * @param key The key to the required keyword parameter.
      * @return The value of the required keyword parameter.
      */
-    public String getKeywordParam(String key) {
+    public String getKeywordParams(String key) {
         return keywordParams.get(key);
     }
 }

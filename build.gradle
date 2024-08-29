@@ -39,3 +39,10 @@ shadowJar {
 run{
     standardInput = System.in
 }
+
+// ChatGPT: Use UTF-8 encoding for special characters
+allprojects {
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+}

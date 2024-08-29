@@ -169,11 +169,11 @@ public class Bocchi {
                         case "mark" -> mark(Integer.parseInt(command.getParam()));
                         case "unmark" -> unmark(Integer.parseInt(command.getParam()));
                         case "todo" -> task(new Todo(command.getParam()));
-                        case "ddl", "deadline" -> task(new Deadline(command.getParam(), command.getKeywordParam("by")));
+                        case "ddl", "deadline" -> task(new Deadline(command.getParam(), command.getKeywordParams("by")));
                         case "event" -> task(new Event(
                                 command.getParam(),
-                                command.getKeywordParam("from"),
-                                command.getKeywordParam("to")
+                                command.getKeywordParams("from"),
+                                command.getKeywordParams("to")
                         ));
                         case "del", "delete" -> delete(Integer.parseInt(command.getParam()));
                         case "" -> throw new BocchiException(
