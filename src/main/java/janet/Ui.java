@@ -84,7 +84,12 @@ public class Ui {
     public String displayTasksInList(TaskList taskList) {
         String tasks = "";
         for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
-            tasks += (i + 1) + ". " + taskList.getTask(i) + "\n";
+            if (i == taskList.getNumberOfTasks() - 1) {
+                // reached last element in the list
+                tasks += (i+1) + ". " + taskList.getTask(i);
+                break;
+            }
+            tasks += (i+1) + ". " + taskList.getTask(i) + "\n";
         }
         return tasks;
     }
