@@ -3,17 +3,16 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class LevelHundred {
 
-    private final String pathToTaskFile = "src/main/data/level-hundred.txt";
-    private final String name = "LevelHundred";
+public class LevelHundred {
+    private final String NAME = "LevelHundred";
     private final Ui ui;
     private final Storage storage;
     private final TaskList taskList;
     
     public LevelHundred() {
         this.ui = new Ui();
-        this.storage = new Storage(pathToTaskFile);
+        this.storage = new Storage();
         this.taskList = new TaskList();
     }
 
@@ -143,7 +142,7 @@ public class LevelHundred {
     private void run() {
         this.initialiseTaskList();
 
-        this.ui.greet(this.name);
+        this.ui.greet(this.NAME);
 
         Scanner sc = new Scanner(System.in);
         boolean isRunning = true;
