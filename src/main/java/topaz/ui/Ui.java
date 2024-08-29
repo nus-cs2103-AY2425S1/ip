@@ -7,13 +7,26 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Handles user interactions and displays information to the user.
+ * Provides methods to read user input, display messages, and show errors.
+ */
 public class Ui {
 
     private Scanner scanner;
+    /**
+     * Initializes the Ui with a new {@link Scanner} for reading user input.
+     */
     public Ui() {
         scanner = new Scanner(System.in);
     }
 
+
+    /**
+     * Reads the next line of user input.
+     *
+     * @return The line of user input as a {@link String}.
+     */
     public String readCommand() {
         return scanner.nextLine();
     }

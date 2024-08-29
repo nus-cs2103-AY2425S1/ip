@@ -18,11 +18,21 @@ import topaz.task.Task;
 import topaz.task.Todo;
 import topaz.ui.Ui;
 
+/**
+ * Represents a command to create a new task in the task management system.
+ * Depending on the keyword, the command can create a Todo, Deadline, or Event task.
+ */
 public class CreateCommand extends Command {
     // Todo, Deadline, Event
 
     static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private String detail;
+    /**
+     * Constructs a CreateCommand with the specified keyword and detail.
+     *
+     * @param keyword The keyword specifying the type of task to create (e.g., "todo", "deadline", "event").
+     * @param detail  The detail string containing the task description and time specifications.
+     */
     public CreateCommand(String keyword, String detail) {
         super(keyword);
         this.detail = detail;

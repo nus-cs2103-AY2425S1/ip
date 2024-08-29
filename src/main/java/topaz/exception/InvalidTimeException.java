@@ -4,10 +4,24 @@ import topaz.main.Topaz;
 
 import java.time.LocalDateTime;
 
+
+/**
+ * Represents an exception that is thrown when there is an invalid time range for a task.
+ * This exception is used to indicate that the start time is later than the end time.
+ */
 public class InvalidTimeException extends InvalidTaskException {
 
     LocalDateTime from;
     LocalDateTime to;
+
+
+    /**
+     * Constructs an InvalidTimeException with the specified task type, start time, and end time.
+     *
+     * @param type The type of task that caused the exception.
+     * @param from The start time of the task.
+     * @param to The end time of the task.
+     */
     public InvalidTimeException(Topaz.TaskType type, LocalDateTime from, LocalDateTime to) {
         super(type);
         this.from = from;
