@@ -111,6 +111,11 @@ public class Ui {
     }
 
 
+    /**
+     * Prints message to show tasks that matched keyword.
+     *
+     * @param taskList The list of tasks.
+     */
     public void showFindMessage(TaskList taskList) {
         // taskList is a subset of the current total taskList
         if (taskList.isEmpty()) {
@@ -122,6 +127,13 @@ public class Ui {
         }
     }
 
+
+    /**
+     * Returns a String, containing the list of tasks in numbered order.
+     *
+     * @param taskList The list of tasks.
+     * @return A string message showing the list of tasks.
+     */
     public static String displayTasksInList(TaskList taskList) {
         String tasks = "";
         for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
