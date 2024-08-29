@@ -1,31 +1,28 @@
+import java.util.ArrayList;
+
 public class Task {
-    private String task;
+    private String description;
     private boolean done;
     protected static int count = 0;
 
-    public Task(String task) {
-        this.task = task;
+    public Task(String description) {
+        this.description = description;
         this.done = false;
         count++;
     }
 
-    public String getDone() {
-        if (this.done)
-            return "X";
-        else
-            return " ";
+    public Task(String description, boolean done) {
+        this.description = description;
+        this.done = done;
+        count++;
     }
 
-    public void changeDone(boolean state) {
-        this.done = state;
-    }
+    public Task() {
 
-    public static void deleteTask() {
-        count--;
     }
 
     @Override
     public String toString() {
-        return "["+ this.getDone()+"] "+ this.task;
+        return "["+ this.done+"] "+ this.description;
     }
 }
