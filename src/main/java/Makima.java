@@ -1,16 +1,16 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Makima {
 
     public static final String LINE_SEPERATOR = "__________________";
+    public static final Scanner SC = new Scanner(System.in);
     private boolean isRunning = true;
     private boolean editedTasks;
     private ArrayList<Task> tasks = new ArrayList<>();
-    private Scanner sc;
+
 
     private void greeting() {
         System.out.println("Yahallo! I'm your friendly chatbot, Makima!");
@@ -37,7 +37,7 @@ public class Makima {
 
     private int getListIndex() {
         while (true) {
-            String userInput = getInput();
+            String userInput = Parser.getInput();
             try {
                 int index = Integer.parseInt(userInput);
                 if (index < 1 || index > tasks.size()) {
@@ -54,57 +54,19 @@ public class Makima {
     private String getInput(String prompt) {
         System.out.println(prompt);
         System.out.println(LINE_SEPERATOR);
-        return getInput();
-    }
-
-    private String getInput() {
-        String userInput = sc.nextLine();
-        System.out.println(LINE_SEPERATOR);
-        while (userInput.isEmpty()) {
-            System.out.println("Input cannot be empty!");
-            System.out.println(LINE_SEPERATOR);
-            userInput = sc.nextLine();
-        }
-        return userInput;
+        return Parser.getInput();
     }
 
     private LocalDateTime getDate(String prompt) {
         System.out.println(prompt);
         System.out.println(LINE_SEPERATOR);
-        return getDate();
-    }
-
-    private LocalDateTime getDate() {
-        while (true) {
-            try {
-                return LocalDateTime.parse(getInput());
-            } catch (DateTimeParseException e) {
-                System.out.println("Invalid date format! Please input the date as follows: YYYY-MM-DD HH:MM," +
-                        "replacing the space with a T");
-            }
-        }
+        return Parser.getDate();
     }
 
     private LocalDateTime getDateAfter(LocalDateTime date, String prompt) {
         System.out.println(prompt);
         System.out.println(LINE_SEPERATOR);
-        return getDateAfter(date);
-    }
-
-    private LocalDateTime getDateAfter(LocalDateTime date) {
-        while (true) {
-            try {
-                LocalDateTime dateAfter = LocalDateTime.parse(getInput());
-                if (dateAfter.isAfter(date)) {
-                    return dateAfter;
-                } else {
-                    System.out.println("The specified date must be after the beginning of the event!");
-                }
-            } catch (DateTimeParseException e) {
-                System.out.println("Invalid date format! Please input the date as follows: YYYY-MM-DD HH:MM," +
-                        "replacing the space with a T");
-            }
-        }
+        return Parser.getDateAfter(date);
     }
 
     private void done() {
@@ -138,7 +100,6 @@ public class Makima {
     }
 
     public Makima() {
-        sc = new Scanner(System.in);
         greeting();
 
         isRunning = FileManager.loadFile(this);
@@ -147,7 +108,7 @@ public class Makima {
 
             editedTasks = false;
 
-            switch (getInput()) {
+            switch (Parser.getInput()) {
                 case "bye":
                     isRunning = false;
                     break;
