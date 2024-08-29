@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 
 import java.io.File;
-import java.nio.file.Paths;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,27 +14,31 @@ public class Bimo {
     public static String line = "    " + "___________________________________";
     public static Scanner scanner = new Scanner(System.in);
 
-    public static ArrayList<Task> list = new ArrayList<>();
+    public static ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
+        try {
+            File dataFile = new File("ip/data/Bimo.txt");
+            Scanner fileReader = new Scanner(dataFile);
+            while (fileReader.hasNext()) {
+                String text = fileReader.nextLine();
+                Task task = convertTextToTask(text);
+                tasks.add(task);
+            }
+        } catch (InvalidPathException e) {
+            System.out.println("File path not found, unable to run chatbot due to error");
+            return;
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println("File not found, unable to run chatbot due to error");
+            return;
+        }
         System.out.println(line);
         System.out.println("    " + String.format("Hello! I'm %s", name));
         System.out.println("    " + "What can I do for you?");
         System.out.println(line);
         String input = scanner.nextLine();
-
         boolean botIsActive = true;
         while (botIsActive) {
-            try {
-                File dataFile = new File("ip/data/Bimo.txt");
-                Scanner fileReader = new Scanner(dataFile);
-            } catch (InvalidPathException e) {
-                System.out.println("File path not found, unable to run chatbot due to error");
-                 break;
-            } catch (FileNotFoundException e) {
-                System.out.println(e.getMessage());
-                System.out.println("File not found, unable to run chatbot due to error");
-                break;
-            }
             Command command = null;
             String action = input.split(" ")[0].toLowerCase();
             try {
@@ -50,9 +53,9 @@ public class Bimo {
             System.out.println(line);
             switch (command) {
                 case LIST:
-                    System.out.println("    Here are the tasks in your list:");
-                    for (int i = 0; i < list.size(); i++) {
-                        String message = String.format("    %d. %s", i + 1, list.get(i).toString());
+                    System.out.println("    Here are the tasks in your tasks:");
+                    for (int i = 0; i < tasks.size(); i++) {
+                        String message = String.format("    %d. %s", i + 1, tasks.get(i).toString());
                         System.out.println(message);
                     }
                     break;
@@ -61,26 +64,28 @@ public class Bimo {
                     //need to handle if already marked
                     try {
                         int index1 = updateList(true, input);
+                        updateCompletionInFile();
                         System.out.println("    Good job! I've marked this task as done:");
-                        System.out.println("       " + list.get(index1).toString());
+                        System.out.println("       " + tasks.get(index1).toString());
                     } catch(IllegalArgumentException e) {
-                        System.out.println("    Task selected not found in list");
+                        System.out.println("    Task selected not found in tasks");
                     }
                     break;
                 case UNMARK:
                     try {
                         int index2 = updateList(false, input);
+                        updateCompletionInFile();
                         System.out.println("    OK, I've marked this task as not done yet:");
-                        System.out.println("       " + list.get(index2).toString());
+                        System.out.println("       " + tasks.get(index2).toString());
                     } catch (IllegalArgumentException e) {
-                        System.out.println("    Task selected not found in list");
+                        System.out.println("    Task selected not found in tasks");
                     }
                     break;
                 case TODO:
                     try {
                         Task task = new ToDo(getDetails(input));
                         printTaskInfo(task);
-                        writeToFile(task);
+                        appendToFile(task);
                     } catch (MissingDescriptionException e) {
                         System.out.println(e.getMessage());
                     }
@@ -92,7 +97,7 @@ public class Bimo {
                         String dueDate = processDate(true, true, temp);
                         Task task = new Deadline(details, dueDate);
                         printTaskInfo(task);
-                        writeToFile(task);
+                        appendToFile(task);
                     } catch (MissingDescriptionException e) {
                         System.out.println(e.getMessage());
                     } catch (InvalidDateException e) {
@@ -107,7 +112,7 @@ public class Bimo {
                         String end = processDate(false, true, temp2);
                         Task task = new Event(details, start, end);
                         printTaskInfo(task);
-                        writeToFile(task);
+                        appendToFile(task);
                     } catch (MissingDescriptionException e) {
                         System.out.println(e.getMessage());
                     } catch (InvalidDateException e) {
@@ -120,8 +125,8 @@ public class Bimo {
                         Task task = delete(index3);
                         System.out.println("    Noted. I've removed this task:");
                         System.out.println("        " + task.toString());
-                        String word = list.size() == 1 ? "task" : "tasks";
-                        System.out.println(String.format("    Now you have %d %s in the list.", list.size(), word));
+                        String word = tasks.size() == 1 ? "task" : "tasks";
+                        System.out.println(String.format("    Now you have %d %s in the tasks.", tasks.size(), word));
 
                     } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
@@ -147,12 +152,12 @@ public class Bimo {
      */
     public static int updateList(boolean complete, String input) throws IllegalArgumentException {
         int index = Integer.valueOf(input.toLowerCase().split(" ")[1]) - 1;
-        if (index < 0 || index >= list.size()) {
+        if (index < 0 || index >= tasks.size()) {
             throw new IllegalArgumentException();
         } else if(complete) {
-            list.get(index).markCompleted();
+            tasks.get(index).markCompleted();
         } else {
-            list.get(index).markUnCompleted();
+            tasks.get(index).markUnCompleted();
         }
         return index;
     }
@@ -200,10 +205,10 @@ public class Bimo {
      * @throws IllegalArgumentException
      */
     public static Task delete(int index) throws IllegalArgumentException {
-        if (list.size() <= 0 || index < 0 || index > list.size()) {
-            throw new IllegalArgumentException("Task not found in list");
+        if (tasks.size() <= 0 || index < 0 || index > tasks.size()) {
+            throw new IllegalArgumentException("Task not found in tasks");
         }
-        Task task = list.remove(index);
+        Task task = tasks.remove(index);
         return task;
     }
 
@@ -239,14 +244,14 @@ public class Bimo {
 
     /**
      * Abstraction to remove duplicated code
-     * @param task Task to be added into list
+     * @param task Task to be added into tasks
      */
     public static void printTaskInfo(Task task) {
         System.out.println("    Got it. I've added this task:");
-        Bimo.list.add(task);
+        Bimo.tasks.add(task);
         System.out.println("        " + task.toString());
-        String word = list.size() == 1 ? "task" : "tasks";
-        System.out.println(String.format("    Now you have %d %s in the list.", list.size(), word));
+        String word = tasks.size() == 1 ? "task" : "tasks";
+        System.out.println(String.format("    Now you have %d %s in the tasks.", tasks.size(), word));
     }
 
     /**
@@ -254,7 +259,7 @@ public class Bimo {
      * text format type|status|description|date1/date2
      * Split by | , if length == 2 means todo,
      * if length == 3 split by /, if length == 2 means event
-     * @param task Task object inside list
+     * @param task Task object inside tasks
      * @return Formatted text that can be written into data file
      */
     public static String convertTaskToText(Task task) {
@@ -287,9 +292,9 @@ public class Bimo {
     /**
      * Converts description of task to text in the form
      * type|status|description|date1|date2
-     * @param task Task inside the list
+     * @param task Task inside the tasks
      */
-    public static void writeToFile(Task task) {
+    public static void appendToFile(Task task) {
         String text = convertTaskToText(task) + System.lineSeparator();
         try {
             FileWriter writer = new FileWriter("ip/data/Bimo.txt", true);
@@ -299,5 +304,47 @@ public class Bimo {
         } catch (IOException e) {
             System.out.println("Enable to write to file for task " + task.toString());
         }
+    }
+
+    /**
+     * To re-write file when user marks or unmarks a task
+     */
+    public static void updateCompletionInFile() {
+        try {
+            FileWriter writer = new FileWriter("ip/data/Bimo.txt");
+            for (int i = 0; i < tasks.size(); i++) {
+                String text = convertTaskToText(tasks.get(i));
+                writer.write(text + System.lineSeparator());
+            }
+            writer.close();
+
+        } catch (IOException e) {
+            System.out.println("Enable to write to file");
+        }
+    }
+
+    /**
+     * Converts line of text in Bimo.txt to its corresponding Task object
+     * @param text line of code inside Bimo.txt
+     * @return Task object
+     */
+    public static Task convertTextToTask(String text) {
+        String[] details = text.split("\\|");
+        String type = details[0];
+        Task task= null;
+
+        boolean status = details[1].equals("0") ? false : true;
+        if (type.equals("T")) {
+            task = new ToDo(details[2]);
+        } else if (type.equals("D")) {
+            task = new Deadline(details[2], details[3]);
+        } else if (type.equals("E")) {
+            String[] dates = details[3].split("/");
+            task = new Event(details[2], dates[0], dates[1]);
+        }
+       if (status) {
+           task.markCompleted();
+       }
+       return task;
     }
 }
