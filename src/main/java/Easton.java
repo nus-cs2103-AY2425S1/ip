@@ -32,7 +32,7 @@ public class Easton {
         try {
             retrieveData();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("There was an error in retrieving my storage. ABORTING!!!");
             isFinished = true;
         }
 
@@ -268,7 +268,7 @@ public class Easton {
             }
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("Updated List was not saved properly.");
+            System.out.println("Updated list was not saved properly.");
         }
 
 
