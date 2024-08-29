@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.nio.file.Path;
@@ -29,6 +31,7 @@ public class TaskList {
             printLine();
             System.out.println("    No tasks to do? that's pretty goooood.");
             printLine();
+
         } else {
             printLine();
             System.out.println("    So here's the tasks in your list, you should proooobably do them");
@@ -42,6 +45,7 @@ public class TaskList {
     public void markTaskAsDone(int index) {
         printLine();
         Task task;
+
         try {
             task = list.get(index - 1);
         } catch (IndexOutOfBoundsException e) {
@@ -60,6 +64,7 @@ public class TaskList {
     public void unmarkTaskAsUndone(int index) {
         printLine();
         Task task;
+
         try {
             task = list.get(index - 1);
         } catch (IndexOutOfBoundsException e) {
@@ -72,6 +77,7 @@ public class TaskList {
             System.out.println("    Interesting choice but I've marked the task as not done.");
             System.out.println("      " + task.toString());
         }
+
         printLine();
     }
 
@@ -91,18 +97,41 @@ public class TaskList {
         System.out.println("      " + task.toString());
         if (list.size() == 1) {
             System.out.println("    thou now hath " + list.size() + " task to complete");
-        } else if (list.size() == 0 ) {
+        } else if (list.isEmpty()) {
             System.out.println("    thou hath no tasks to be completed");
         } else {
             System.out.println("    thou now hath " + list.size() + " tasks to complete");
         }
+
         printLine();
     }
 
-    private void writeToFile() {
-        Path path = Paths.get("iP", "data");
-        boolean directoryExists = Files.exists(path);
+    public void writeToFile() throws IOException {
+        Path dataDir = Paths.get( "data");
+        Path dataTxt = Paths.get( "data", "data.txt");
+        System.out.println("break 1");
 
+        if (Files.notExists(dataDir)) {
+            try {
+                Files.createDirectory(dataDir);
+                Files.createFile(dataTxt);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        } else if (Files.notExists(dataTxt)) {
+            try {
+                Files.createFile(dataTxt);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        System.out.println("break 2");
+
+        FileWriter fw = new FileWriter(dataTxt.toString());
+        for (Task task : list) {
+            fw.write(task.toFileString() + System.lineSeparator());
+        }
+        fw.close();
 
     }
 

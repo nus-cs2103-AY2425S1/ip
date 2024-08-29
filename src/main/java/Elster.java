@@ -1,5 +1,6 @@
 import com.sun.source.tree.CaseTree;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -51,6 +52,12 @@ public class Elster {
                 ToDoTask task = ToDoTask.of(input);
                 if (!(task == null)) {
                     taskList.addToList(task);
+                }
+
+                try {
+                    taskList.writeToFile();
+                } catch (IOException e) {
+                    System.out.println(e);
                 }
 
             } else if (input.startsWith("mark")) {

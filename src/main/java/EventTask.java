@@ -44,4 +44,9 @@ public class EventTask extends Task {
             return "[E][ ] " + this.description + " (from: " + start  + " to: " + end + ")";
         }
     }
+
+    @Override
+    public String toFileString() {
+        return "EventTask";
+    }
 }
