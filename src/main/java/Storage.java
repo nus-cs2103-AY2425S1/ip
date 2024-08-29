@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -78,6 +79,7 @@ public class Storage {
             }
             return t;
         } else if (Objects.equals(parts[0], "D")) {
+            System.out.println(Arrays.toString(parts));
             Task t = new Deadline(parts[2], parts[3]);
             if (parts[1].equals("1")) {
                 t.mark();

@@ -1,16 +1,18 @@
+import java.time.LocalDate;
+
 public class Event extends Task{
-    String fromdate;
-    String todate;
+    LocalDate fromdate;
+    LocalDate todate;
     public Event(String descr, String start, String end) {
         super(descr);
-        fromdate = start;
-        todate = end;
+        fromdate = LocalDate.parse(start);
+        todate = LocalDate.parse(end);
     }
 
     public String getDates() {
         return " | " + fromdate + " | "+todate;
     }
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + fromdate + " to: " + todate + ")";
+        return "[E]" + super.toString() + "(from: " + super.dateConverter(fromdate) + " to: " + super.dateConverter(todate) + ")";
     }
 }

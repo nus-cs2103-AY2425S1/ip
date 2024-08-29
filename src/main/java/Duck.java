@@ -68,10 +68,9 @@ public class Duck {
                 }
                 userCmd = userCmd.substring(9);
                 int n = userCmd.indexOf("/");
-                if (n==-1) {
+                if ((n==-1) || (userCmd.substring(n + 4).isEmpty())) {
                     throw new DuckException("A deadline needs an end date.");
                 }
-
                 cmds[cmdNum] = new Deadline(userCmd.substring(0, n), userCmd.substring(n+4));
                 System.out.println("Got it. I've added this task:\n  " + cmds[cmdNum]);
                 cmdNum++;
