@@ -1,8 +1,16 @@
+package cypherchatbot.command;
+
+import cypherchatbot.task.Deadline;
+import cypherchatbot.task.Task;
+import cypherchatbot.util.Storage;
+import cypherchatbot.util.TaskList;
+import cypherchatbot.util.Ui;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class DeadlineCommand extends Command{
+public class DeadlineCommand extends Command {
     String[] command;
 
     public DeadlineCommand(String[] s) {

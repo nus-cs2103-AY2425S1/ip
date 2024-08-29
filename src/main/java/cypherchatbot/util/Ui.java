@@ -1,3 +1,5 @@
+package cypherchatbot.util;
+
 import java.util.Scanner;
 
 public class Ui {

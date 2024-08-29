@@ -1,4 +1,8 @@
-public class ToDo extends Task{
+package cypherchatbot.task;
+
+import cypherchatbot.task.Task;
+
+public class ToDo extends Task {
 
     public ToDo(String desc) {
         super(desc);

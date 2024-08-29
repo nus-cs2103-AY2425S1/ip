@@ -1,3 +1,5 @@
+package cypherchatbot.task;
+
 abstract public class Task {
     protected String description;
     protected Boolean completed;

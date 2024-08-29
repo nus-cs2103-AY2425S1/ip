@@ -1,3 +1,7 @@
+package cypherchatbot.util;
+
+import cypherchatbot.CypherException;
+import cypherchatbot.command.*;
 
 public class CommandReader {
 
