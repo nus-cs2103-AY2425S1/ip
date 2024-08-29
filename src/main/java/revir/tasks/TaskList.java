@@ -44,6 +44,17 @@ public class TaskList {
         return str.toString();
     }
 
+    public String find(String keyword) {
+        StringBuilder str = new StringBuilder();
+        tasks.forEach(task -> {
+            if (task.toString().contains(keyword)) {
+                str.append(task.toString() + '\n');
+            }
+        });
+        if (!str.isEmpty()) str.deleteCharAt(str.length() - 1);
+        return str.toString();
+    }
+
     public String setCompleted(int index, boolean status) throws IndexOutOfBoundsException, IOException {
         if (index < 1 || index > tasks.size()) {
             throw new IndexOutOfBoundsException(

@@ -1,4 +1,5 @@
 package revir.user;
+
 import revir.system.Exceptions.IllegalCommandException;
 import revir.system.Exceptions.InvalidFormatException;
 import revir.tasks.*;
@@ -12,8 +13,9 @@ import java.util.Map;
 public class Parser {
     // use java enum to define command types
     enum Action {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, INVALID
     }
+
     static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     // create and statically define hashmap to map string to command type
@@ -27,6 +29,7 @@ public class Parser {
         actionMap.put("deadline", Action.DEADLINE);
         actionMap.put("event", Action.EVENT);
         actionMap.put("delete", Action.DELETE);
+        actionMap.put("find", Action.FIND);
     }
 
     public Command parse(String commandString) throws IllegalCommandException, InvalidFormatException {
@@ -34,7 +37,7 @@ public class Parser {
         String commandWord = split[0].toLowerCase();
         String args = split.length > 1 ? split[1] : "";
         Action action = Parser.actionMap.getOrDefault(commandWord, Action.INVALID);
-        // use switch case to return  different methods based on command type
+        // use switch case to return different methods based on command type
         switch (action) {
             case BYE:
                 return new Nop(true);
@@ -52,12 +55,14 @@ public class Parser {
                 return parseEvent(args);
             case DELETE:
                 return parseDelete(args);
+            case FIND:
+                return parseFind(args);
             case INVALID:
                 throw new IllegalCommandException(commandWord);
             default:
                 return new Nop(false);
         }
-   }
+    }
 
     Command parseMark(String args) {
         int taskIndex = Integer.parseInt(args);
@@ -67,6 +72,10 @@ public class Parser {
     Command parseUnmark(String args) {
         int taskIndex = Integer.parseInt(args);
         return new Mark(taskIndex, false);
+    }
+
+    Command parseFind(String args) throws InvalidFormatException {
+        return new Find(args);
     }
 
     Command parseTodo(String args) throws InvalidFormatException {
