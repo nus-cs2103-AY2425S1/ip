@@ -8,34 +8,56 @@ public enum Command {
     private static Command lastCommand;
 
     public static Command inputToCommand(String input) throws InvalidCommandException {
-        return switch (input) {
-            case "help" -> HELP;
-            case "todo" -> TODO;
-            case "deadline" -> DEADLINE;
-            case "event" -> EVENT;
-            case "list" -> LIST;
-            case "mark" -> MARK;
-            case "unmark" -> UNMARK;
-            case "delete" -> DELETE;
-            case "rawr" -> RAWR;
-            case "bye" -> BYE;
-            default -> throw new InvalidCommandException();
-        };
+        switch (input) {
+        case "help":
+            return HELP;
+        case "todo":
+            return TODO;
+        case "deadline":
+            return DEADLINE;
+        case "event":
+            return EVENT;
+        case "list":
+            return LIST;
+        case "mark":
+            return MARK;
+        case "unmark":
+            return UNMARK;
+        case "delete":
+            return DELETE;
+        case "rawr":
+            return RAWR;
+        case "bye":
+            return BYE;
+        default:
+            throw new InvalidCommandException();
+        }
     }
 
     public static String usageMessage(Command command) {
-        return switch (command) {
-            case HELP -> "help";
-            case TODO -> "todo <description>";
-            case DEADLINE -> "deadline <description> /by <date: DD-MM-YY> <time: HHMM>";
-            case EVENT -> "event <description> /from <date: DD-MM-YY> <time: HHMM> /to <date: DD-MM-YY> <time: HHMM>";
-            case LIST -> "list";
-            case MARK -> "mark <task number>";
-            case UNMARK -> "unmark <task number>";
-            case DELETE -> "delete <task number>";
-            case RAWR -> "rawr";
-            case BYE -> "bye";
-        };
+        switch (command) {
+        case HELP:
+            return "help";
+        case TODO:
+            return "todo <description>";
+        case DEADLINE:
+            return "deadline <description> /by <date: DD-MM-YY> <time: HHMM>";
+        case EVENT:
+            return "event <description> /from <date: DD-MM-YY> <time: HHMM> /to <date: DD-MM-YY> <time: HHMM>";
+        case LIST:
+            return "list";
+        case MARK:
+            return "mark <task number>";
+        case UNMARK:
+            return "unmark <task number>";
+        case DELETE:
+            return "delete <task number>";
+        case RAWR:
+            return "rawr";
+        case BYE:
+            return "bye";
+        }
+        return null;
     }
 
     public static String getCommandList() {
