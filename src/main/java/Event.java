@@ -23,6 +23,6 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return String.format("D\n%s%s\n%s\n", super.toFileString(), startTime, endTime);
+        return String.format("E\n%s%s\n%s\n", super.toFileString(), startTime, endTime);
     }
 }
