@@ -47,6 +47,9 @@ public class Storage {
             List<Task> tasks = new ArrayList<>();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
+                if (line.isEmpty()) {
+                    continue;
+                }
                 String[] strings = line.split(" \\| ");
                 Task task;
                 switch (strings[0]) {
@@ -60,8 +63,7 @@ public class Storage {
                     task = new Event(strings[2], strings[3], strings[4]);
                     break;
                 default:
-                    System.out.println("Unknown waterfall.task type in database: " + line);
-                    return null;
+                    throw new WaterfallException("Unknown task type in database: " + line);
                 }
                 if (Objects.equals(strings[1], "1")) {
                     task.setDone(true);

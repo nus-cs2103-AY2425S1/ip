@@ -28,6 +28,9 @@ public class Parser {
                 throw new WaterfallException("oh man where's your deadline!");
             }
             int index = input.indexOf("/");
+            if (index <= 9) {
+                throw new WaterfallException("Bruh what is this empty title are you kidding me!");
+            }
             String title = input.substring(9, index - 1);
             if (title.isEmpty()) {
                 throw new WaterfallException("Bruh what is this empty title are you kidding me!");
@@ -41,6 +44,9 @@ public class Parser {
             String[] inputs = input.split(" /");
             if (inputs.length != 3) {
                 throw new WaterfallException("invalid event format: An event must contain only from and to comments");
+            }
+            if (inputs[0].length() <= 5) {
+                throw new WaterfallException("Bruh what is this empty title are you kidding me!");
             }
             String title = inputs[0].substring(6);
             if (title.isEmpty()) {
