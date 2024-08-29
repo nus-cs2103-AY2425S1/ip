@@ -2,14 +2,33 @@ package boss;
 
 import java.io.IOException;
 
+/**
+ * Represents the class that deals with
+ * making sense of the user command
+ */
+
 public class Parser {
     private Storage storage;
     private TaskList tasks;
 
+
+    /**
+     * Creates a Parser object!
+     * @param storage deals with loading tasks and saving tasks from file
+     * @param tasks contains the task list
+     */
     public Parser(Storage storage, TaskList tasks) {
         this.storage = storage;
         this.tasks = tasks;
     }
+
+
+    /**
+     * Handles the user command
+     * @param task the user command
+     * @throws IOException throws an exception if
+     *                     writing to file causes an error.
+     */
 
     public void handleCommand(String task) throws IOException {
         if (task.equals("list")) {
