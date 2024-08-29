@@ -8,11 +8,36 @@ import java.time.format.DateTimeParseException;
 
 public class TaskList {
     private ArrayList<Task> lst;
-    private TaskListSaver tls;
+    private Storage storage;
 
-    TaskList(TaskListSaver tls) {
+    TaskList(Storage storage) {
         this.lst = new ArrayList<Task>();
-        this.tls = tls;
+        this.storage = storage;
+    }
+
+    static TaskList ofLoadFromTxt(Storage storage) throws LoafyException {
+        TaskList tl = new TaskList(storage);
+        try {
+            for (String line : storage.load()) {
+                String[] arr = line.split(",");
+                boolean isDone = arr[1].equals("true");
+                if (arr[0].equals("T")) {
+                    Todo td = new Todo(isDone, arr[2]);
+                    tl.lst.add(td);
+                } else if (arr[0].equals("D")) {
+                    Deadline dl = new Deadline(isDone, arr[2], LocalDateTime.parse(arr[3]));
+                    tl.lst.add(dl);
+                } else if (arr[0].equals("E")) {
+                    Event e = new Event(isDone, arr[2], LocalDateTime.parse(arr[3]), LocalDateTime.parse(arr[4]));
+                    tl.lst.add(e);
+                } else {
+                    throw LoafyException.corruptedList();
+                }
+            }
+        } catch (IndexOutOfBoundsException | DateTimeParseException e) {
+            throw LoafyException.corruptedList();
+        }
+        return tl;
     }
 
     String add(Task task) {
@@ -49,39 +74,15 @@ public class TaskList {
                 "Now you have " + this.lst.size() + " tasks in the list.";
     }
 
+    boolean isValid(int taskID) {
+        return 0 <= taskID && taskID < this.lst.size();
+    }
+
     private void writeToFile() {
         String s = "";
         for (Task task : this.lst) {
             s += task.convertToTxt() + "\n";
         }
-        this.tls.writeToFile(s);
-    }
-
-    void loadFromTxt(Path filePath) {
-        try {
-            List<String> txt = Files.readAllLines(filePath);
-            for (String line : txt) {
-                String[] arr = line.split(",");
-                boolean isDone = arr[1].equals("true");
-                if (arr[0].equals("T")) {
-                    Todo td = new Todo(isDone, arr[2]);
-                    this.lst.add(td);
-                } else if (arr[0].equals("D")) {
-                    Deadline dl = new Deadline(isDone, arr[2], LocalDateTime.parse(arr[3]));
-                    this.lst.add(dl);
-                } else if (arr[0].equals("E")) {
-                    Event e = new Event(isDone, arr[2], LocalDateTime.parse(arr[3]), LocalDateTime.parse(arr[4]));
-                    this.lst.add(e);
-                } else {
-                    throw new LoafyException();
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Error: Could not load previous list");
-        } catch (IndexOutOfBoundsException | LoafyException e) {
-            System.out.println("Error: Previous list corrupted");
-        } catch (DateTimeParseException e) {
-            System.out.println("Error: Could not parse DateTime");
-        }
+        this.storage.writeToFile(s);
     }
 }
