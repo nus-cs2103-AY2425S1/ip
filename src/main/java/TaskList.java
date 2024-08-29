@@ -18,7 +18,7 @@ public class TaskList {
     private static final String[] dirPathParts = { "..", "..", "..", "store" };
     private static final String[] filePathParts = { "..", "..", "..", "store", "tasks.csv" };
     private final File SAVE_DIR = new File(String.join(File.separator, dirPathParts));
-    private static final CSVHandler CSV_HANDLER = new CSVHandler(
+    private static final Storage CSV_HANDLER = new Storage(
             new File(String.join(File.separator, filePathParts)));
 
     public void addTask(Task task) {

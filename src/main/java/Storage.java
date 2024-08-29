@@ -8,13 +8,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
 
-public class CSVHandler {
+public class Storage {
     private final File FILE_PATH;
     private static final String COMMA_DELIMITER = ",";
 
     private List<List<String>> records = new ArrayList<>();
 
-    public CSVHandler(File filePath) {
+    public Storage(File filePath) {
         this.FILE_PATH = filePath;
     }
 
