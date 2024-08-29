@@ -1,4 +1,6 @@
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -6,7 +8,8 @@ public class Darkpool {
     public static void main(String[] args) {
         final String greeting = "it’s darkpool. what twisted reason dragged me into your misery?";
         final String bye = "contact me again and you'll regret it.";
-        ArrayList<Task> taskList = new ArrayList<>();
+        ArrayList<Task> taskList = loadData();
+
         output(greeting);
         while (true) {
             Scanner scanner = new Scanner(System.in);
@@ -20,11 +23,24 @@ public class Darkpool {
                 switch (userInput[0]) {
                     case "bye" -> {
                         output(bye);
+                        try {
+                            File dataFile = new File("./data/Darkpool.txt");
+                            dataFile.delete();
+                            dataFile.createNewFile();
+                            for (Task task : taskList) {
+                                task.saveToFile();
+                            }
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
                         scanner.close();
                         return;
                     }
 
                     case "list" -> {
+                        if (taskList.isEmpty()) {
+                            throw new DarkpoolException("bozo you got no tasks");
+                        }
                         StringBuilder temp = new StringBuilder("why am i here\n\t\t");
                         for (int i = 0; i < taskList.size(); i++) {
                             temp.append((i + 1)).append(". ").append(taskList.get(i).toString()).append("\n\t\t");
@@ -93,7 +109,6 @@ public class Darkpool {
                         String desc = fromParts[0];
                         String from = toParts[0];
                         String to = toParts[1];
-                        System.out.println(from);
                         taskList.add(new Event(desc, from, to));
                         int size = taskList.size();
                         output("i have dumped this nonsense on the list\n\t\t" + taskList.get(size - 1).toString() + "\n\tnow you are stuck with " + size + " goddamn tasks");
@@ -173,7 +188,59 @@ public class Darkpool {
 
     private static void output(String input) {
         System.out.println("\t—————————————————————————————————————————————————————————————————\n\t" + input + "\n" + "\t—————————————————————————————————————————————————————————————————");
-    // u001B[31m is the ANSI code for red text
+        // u001B[31m is the ANSI code for red text
         // u001B[0m
+    }
+
+    private static ArrayList<Task> loadData() {
+        ArrayList<Task> taskList = new ArrayList<>();
+        String task;
+
+        try {
+            File dataFile = new File("./data/Darkpool.txt");
+            if (dataFile.createNewFile()) {
+                return taskList;
+            }
+            Scanner scanner = new Scanner(dataFile);
+            while (scanner.hasNext()) {
+                task = scanner.nextLine();
+                taskList.add(parseTask(task));
+            }
+            scanner.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return taskList;
+    }
+
+    private static Task parseTask(String task) {
+        String[] taskParts = task.split(" \\| ");
+        String type = taskParts[0];
+        boolean isDone = taskParts[1].equals("1");
+        String description = taskParts[2];
+        String from, to, by;
+
+        switch (type) {
+            case "E" -> {
+                from = taskParts[3];
+                to = taskParts[4];
+                return new Event(description, from, to, isDone);
+            }
+            case "D" -> {
+                by = taskParts[3];
+                return new Deadline(description, by, isDone);
+            }
+            case "T" -> {
+                return new Todo(description, isDone);
+            }
+
+            default -> {
+                System.out.println("Unknown task type: " + type);
+                System.out.println(Arrays.toString(taskParts));
+                return null;
+            }
+        }
+
     }
 }
