@@ -1,6 +1,7 @@
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -100,10 +101,15 @@ public class Ruby {
         if (parts.length < 2 || parts[1].isEmpty()) {
             throw new RubyException("OOPS!!! The description of a deadline must include a date/time.");
         }
-        tasks.add(new Deadline(parts[0].substring(9), parts[1]));
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + tasks.get(tasks.size() - 1));
-        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+        Deadline deadline = new Deadline(parts[0].substring(9), parts[1].trim());
+        if (deadline.getBy() != null) {
+            tasks.add(deadline);
+            System.out.println("     Got it. I've added this task:");
+            System.out.println("       " + tasks.get(tasks.size() - 1));
+            System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+        } else {
+            System.out.println("Task not added due to invalid date format.");
+        }
     }
 
     private static void addEventTask(String command) throws RubyException {
@@ -112,10 +118,15 @@ public class Ruby {
             throw new RubyException("OOPS!!! The description of an event must include start and end times.");
         }
         String[] eventParts = parts[1].split(" /to ", 2);
-        tasks.add(new Event(parts[0].substring(6), eventParts[0], eventParts[1]));
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + tasks.get(tasks.size() - 1));
-        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+        Event event = new Event(parts[0].substring(6), eventParts[0], eventParts[1]);
+        if (event.getFrom() != null && event.getTo() != null) {
+            tasks.add(event);
+            System.out.println("     Got it. I've added this task:");
+            System.out.println("       " + tasks.get(tasks.size() - 1));
+            System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+        } else {
+            System.out.println("Task not added due to invalid date format.");
+        }
     }
 
     private static void deleteTask(String command) throws RubyException {
@@ -139,7 +150,16 @@ public class Ruby {
 
             FileWriter writer = new FileWriter(FILE_PATH);
             for (Task task : tasks) {
-                writer.write(task.toDataString() + System.lineSeparator());
+                String taskType = task instanceof Todo ? "T" : task instanceof Deadline ? "D" : "E";
+                String dateTimeInfo = "";
+                if (task instanceof Deadline) {
+                    dateTimeInfo = ((Deadline) task).getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                } else if (task instanceof Event) {
+                    dateTimeInfo = ((Event) task).getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " +
+                            ((Event) task).getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                }
+                writer.write(taskType + " | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() +
+                        (taskType.equals("T") ? "" : " | " + dateTimeInfo) + "\n");
             }
             writer.close();
         } catch (IOException e) {
@@ -155,6 +175,7 @@ public class Ruby {
             }
 
             List<String> lines = Files.readAllLines(path);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             for (String line : lines) {
                 String[] parts = line.split(" \\| ");
                 Task task;

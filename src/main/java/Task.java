@@ -1,6 +1,6 @@
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -23,10 +23,12 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public abstract String toDataString();
-
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 }
