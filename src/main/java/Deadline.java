@@ -1,5 +1,7 @@
+import java.time.LocalDate;
+
 public class Deadline extends Task{
-    private String by;
+    private LocalDate by;
 
     public Deadline() {
         super("");
@@ -7,12 +9,12 @@ public class Deadline extends Task{
 
     public Deadline(String taskName) {
         super(taskName.split("/by", 2)[0]);
-        by = taskName.split("/by", 2)[1];
+        by = LocalDate.parse(taskName.split("/by", 2)[1].strip());
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by:" + by + ")";
+        return "[D]" + super.toString() + "(by: " + by + ")";
     }
 
     public static boolean isDeadlineFormat(String format) {
@@ -27,7 +29,7 @@ public class Deadline extends Task{
     @Override
     public void initStorageFormat(String format) {
         String[] temp = format.split("\\|", 3);
-        by = temp[1];
+        by = LocalDate.parse(temp[1]);
         super.initStorageFormat(temp[2]);
     }
 }

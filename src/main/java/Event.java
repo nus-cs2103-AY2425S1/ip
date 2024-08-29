@@ -1,6 +1,8 @@
+import java.time.LocalDate;
+
 public class Event extends Task{
-    private String from;
-    private String to;
+    private LocalDate from;
+    private LocalDate to;
 
     public Event() {
         super("");
@@ -10,13 +12,13 @@ public class Event extends Task{
         super(taskName.split("/from", 2)[0]);
         String temp = taskName.split("/from", 2)[1];
         String[] tempArray = temp.split("/to", 2);
-        from = tempArray[0];
-        to = tempArray[1];
+        from = LocalDate.parse(tempArray[0].strip());
+        to = LocalDate.parse(tempArray[1].strip());
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from:" + from + "to:" + to + ")";
+        return "[E]" + super.toString() + "(from: " + from + " to: " + to + ")";
     }
 
     public static boolean isEventFormat(String format) {
@@ -31,8 +33,8 @@ public class Event extends Task{
     @Override
     public void initStorageFormat(String format) {
         String[] temp = format.split("\\|", 4);
-        from = temp[1];
-        to = temp[2];
+        from = LocalDate.parse(temp[1]);
+        to = LocalDate.parse(temp[2]);
         super.initStorageFormat(temp[3]);
     }
 }

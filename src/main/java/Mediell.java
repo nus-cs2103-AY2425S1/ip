@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -45,6 +46,9 @@ public class Mediell {
             } catch (ArrayIndexOutOfBoundsException e) {
                 // if out of range likely because not enough inputs
                 System.out.println("OOPS!! Not enough inputs were provided");
+            } catch (DateTimeParseException e) {
+                // if you can't pass date time means incorrect date format
+                System.out.println("OOPS!! Incorrect date time format provided use YYYY-MM-DD");
             }
             printLine();
         }
