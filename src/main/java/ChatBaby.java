@@ -1,4 +1,6 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,6 +13,8 @@ public class ChatBaby {
     private static final String FILE_PATH = DIRECTORY_PATH + File.separator + "chatBaby.txt";
 
     public static void main(String[] args) {
+        // Set the default locale to English
+        Locale.setDefault(Locale.ENGLISH);
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = loadTasks();
         greet();
@@ -162,9 +166,14 @@ public class ChatBaby {
             case DEADLINE:
                 String[] deadlineParts = description.split("/by ");
                 if (deadlineParts.length == 2) {
-                    String taskDescription = deadlineParts[0].trim();
-                    String deadline = deadlineParts[1].trim();
-                    newTask = new Deadline(taskDescription, deadline);
+                    try {
+                        String taskDescription = deadlineParts[0].trim();
+                        String deadline = deadlineParts[1].trim();
+                        newTask = new Deadline(taskDescription, deadline);
+                    } catch (DateTimeParseException e) {
+                        printInvalidTimeFormatError();
+                        return;
+                    }
                 } else {
                     printEmptyDescriptionError(type);
                     return;
@@ -173,9 +182,17 @@ public class ChatBaby {
             case EVENT:
                 String[] eventParts = description.split("/from ");
                 if (eventParts.length == 2) {
-                    String[] eventDetails = eventParts[1].split("/to ");
-                    if (eventDetails.length == 2) {
-                        newTask = new Event(eventParts[0].trim(), eventDetails[0].trim(), eventDetails[1].trim());
+                    String name = eventParts[0].trim();
+                    String[] eventTimes = eventParts[1].split("/to ");
+                    if (eventTimes.length == 2) {
+                        try {
+                            String from = eventTimes[0].trim();
+                            String to = eventTimes[1].trim();
+                            newTask = new Event(name, from, to);
+                        } catch (DateTimeParseException e) {
+                            printInvalidTimeFormatError();
+                            return;
+                        }
                     } else {
                         printEmptyDescriptionError(type);
                         return;
@@ -185,6 +202,7 @@ public class ChatBaby {
                     return;
                 }
                 break;
+
             default:
                 printUnknownCommandError();
                 return;
@@ -231,6 +249,12 @@ public class ChatBaby {
     private static void printUnknownCommandError() {
         System.out.println("____________________________________________________________\n"
                 + "Oh no!!! I'm sorry, but I don't understand that command.\n"
+                + "____________________________________________________________");
+    }
+
+    private static void printInvalidTimeFormatError() {
+        System.out.println("____________________________________________________________\n"
+                + "Invalid date format. Please use yyyy-MM-dd HH:mm.\n"
                 + "____________________________________________________________");
     }
 }

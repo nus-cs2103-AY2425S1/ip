@@ -8,16 +8,18 @@ public class Deadline extends Task{
     public Deadline(String name, String deadline) {
         super(name);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        try {
-            this.deadline = LocalDateTime.parse(deadline, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use yyyy-MM-dd HH:mm.");
-        }
+        this.deadline = LocalDateTime.parse(deadline, formatter);
+    }
+
+    public Deadline(String name, LocalDateTime deadline) {
+        super(name);
+        this.deadline = deadline;
     }
 
     @Override
     public String toFileText() {
-        return "D | " + (isDone ? "1" : "0") + " | " + name + " | " + deadline;
+        return "D | " + (isDone ? "1" : "0") + " | " + name + " | "
+                + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a"));
     }
 
     @Override

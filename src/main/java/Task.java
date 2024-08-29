@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     public String name;
     public boolean isDone;
@@ -19,11 +23,13 @@ public abstract class Task {
         if (taskType.equals("T")) {
             task = new ToDo(name);
         } else if (taskType.equals("D")) {
-            String deadline = text[3];
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+            LocalDateTime deadline = LocalDateTime.parse(text[3], formatter);
             task = new Deadline(name, deadline);
         } else if (taskType.equals("E")) {
-            String from = text[3];
-            String to = text[4];
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+            LocalDateTime from = LocalDateTime.parse(text[3], formatter);
+            LocalDateTime to = LocalDateTime.parse(text[4], formatter);
             task = new Event(name, from, to);
         } else {
             throw new Exception("Invalid task type");

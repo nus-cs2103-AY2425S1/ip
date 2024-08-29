@@ -1,7 +1,7 @@
-todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+todo read
+deadline return book /by 2024-08-29 18:00
 list
-blah
-delete 2
-bye
+event sport /by 2024-09-09 /to 2024-09-09
+event sport /from 2024-09-09 /to 2024-09-09
+event sport /from 2024-09-09 18:00 /to 2024-09-09 19:00
+deadline coding /by 2024-0909
