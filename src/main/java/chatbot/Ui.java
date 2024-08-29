@@ -17,6 +17,9 @@ public class Ui {
             + "| |_\\ |  __/|  __/\n"
             + "|____/ \\___| \\___|\n";
 
+    /**
+     * Prints out user guide
+     */
     public static final String help = """
             There are three types of task, you can add them by typing:
                 todo <task name>

@@ -2,9 +2,13 @@ package chatbot;
 
 import task.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.format.ResolverStyle;
 
 /**
  * Handles parsing of text representation of tasks
@@ -13,6 +17,38 @@ import java.util.regex.Pattern;
  * @author celeschai
  */
 public class Parser {
+    /**
+     * Accepted formats for date string input
+     */
+    private static final DateTimeFormatterBuilder builder =
+            new DateTimeFormatterBuilder()
+                    .parseCaseInsensitive()
+                    .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
+                    .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"))
+                    .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a"))
+                    .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm a"));
+
+    /**
+     * Parses date string input into java LocalDateTime objects
+     *
+     * @param dateTime string representation of date time
+     * @return LocalDateTime object for Task objects
+     */
+    public static LocalDateTime parseStringToDateTime(String dateTime) {
+        final DateTimeFormatter formatter = builder.toFormatter().withResolverStyle(ResolverStyle.LENIENT);
+        return LocalDateTime.parse(dateTime, formatter);
+    }
+
+    /**
+     * Parses java LocalDateTime objects into date string input
+     *
+     * @param dateTime LocalDateTime object from Task objects
+     * @return readable date time string for user
+     */
+    public static String parseDateTimeToString(LocalDateTime dateTime) {
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
+        return dateTime.format(formatter);
+    }
 
     /**
      * Parses task list from text files to create

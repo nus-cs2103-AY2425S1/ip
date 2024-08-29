@@ -2,6 +2,7 @@ package chatbot;
 
 import task.*;
 
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,17 +18,17 @@ public class Bee {
         TaskList taskList = new TaskList();
         Storage storage = new Storage();
 
-        // Check if source text file is successfully opened
+        // Checks if source text file is successfully opened
         boolean isOpenFile = storage.readFromTaskListFile();
         if (isOpenFile) {
-            // Parse input from saved text file
+            // Parses input from saved text file
             Parser.parseFromTxtTaskList(storage.getScanner(), taskList);
 
-            // Welcome user
+            // Welcomes user
             System.out.println(Ui.LOGO);
             Ui.printBtnLines("Hello, I'm Bee! What can I do for you?");
 
-            // User input
+            // Takes user input
             Scanner sc = new Scanner(System.in);
             while (sc.hasNextLine()) {
                 try {
@@ -45,16 +46,16 @@ public class Bee {
                                 "Here are the tasks in your list:\n".concat(taskList.toString()));
 
                     } else if (next.matches("mark (.+)")) {
-                        // Regular expression to capture task index for completion
+                        // Uses regular expression to capture task index for completion
                         Pattern pattern = Pattern.compile("mark (\\d+)");
                         Matcher matcher = pattern.matcher(next);
 
-                        // If match succeeds, obtain task index
+                        // Obtains task index if match succeeds
                         if (matcher.matches()) {
                             String num = matcher.group(1);
                             int index = Integer.parseInt(num);
 
-                            // Mark task as done
+                            // Marks task as done
                             if (taskList.isTaskExist(index)) {
                                 taskList.markTaskAsDone(index);
 
@@ -63,21 +64,22 @@ public class Bee {
                                                 "Nice! I've marked this task as done:\n    %s",
                                                 taskList.getTask(index)));
                             } else {
-                                // Warn user of invalid task specified
+                                // Warns user of invalid task specified
                                 throw new TaskIndexException();
                             }
                         }
+
                     } else if (next.matches("unmark (.+)")) {
-                        // Regular expression to capture task index for incompletion
+                        // Uses regular expression to capture task index for incompletion
                         Pattern pattern = Pattern.compile("unmark (\\d+)");
                         Matcher matcher = pattern.matcher(next);
 
-                        // If match succeeds, obtain task index
+                        // Obtains task index if match succeeds
                         if (matcher.matches()) {
                             String num = matcher.group(1);
                             int index = Integer.parseInt(num);
 
-                            // Mark task as incomplete
+                            // Marks task as incomplete
                             if (taskList.isTaskExist(index)) {
                                 taskList.markTaskAsIncomplete(index);
 
@@ -86,40 +88,39 @@ public class Bee {
                                                 "OK, I've marked this task as not done yet:\n    %s",
                                                 taskList.getTask(index)));
                             } else {
-                                // Warn user of invalid task specified
+                                // Warns user of invalid task specified
                                 throw new TaskIndexException();
                             }
                         }
 
                     } else if (next.matches("delete (.+)")) {
-                        // Regular expression to capture task index for deletion
+                        // Uses regular expression to capture task index for deletion
                         Pattern pattern = Pattern.compile("delete (\\d+)");
                         Matcher matcher = pattern.matcher(next);
 
-                        // If match succeeds, obtain task index
+                        // Obtains task index if match succeeds
                         if (matcher.matches()) {
                             String num = matcher.group(1);
                             int index = Integer.parseInt(num);
 
-                            // Delete task
+                            // Deletes task
                             if (taskList.isTaskExist(index)) {
                                 Task deletedTask = taskList.removeTask(index);
 
                                 Ui.deleteTaskResponse(
                                         deletedTask.toString(), taskList.getTotalNumOfTasks());
                             }
-                            // Warn user of invalid task specified
+                            // Warns user of invalid task specified
                         } else {
                             throw new TaskIndexException();
                         }
 
-                        // Add todo
                     } else if (next.matches("todo (.*)")) {
-                        // Regular expression to capture todo name
+                        // Uses regular expression to capture todo name
                         Pattern pattern = Pattern.compile("todo (\\S.*)");
                         Matcher matcher = pattern.matcher(next);
 
-                        // If match succeeds, obtain parameters
+                        // Obtains parameters if match succeeds
                         if (matcher.matches()) {
                             String name = matcher.group(1);
                             Todo todo = new Todo(name);
@@ -127,64 +128,65 @@ public class Bee {
                             Ui.addTaskResponse(
                                     todo.toString(), taskList.getTotalNumOfTasks());
 
-                            //Throw exception for invalid input
                         } else {
-                            throw new TaskInputException("name", "task");
+                            throw new InvalidInputException("name", "task");
                         }
 
-                        // Add deadline
                     } else if (next.matches("deadline (.*)")) {
-                        // Regular expression to capture deadline name and /by parameter
+                        // Uses regular expression to capture deadline name and /by parameter
                         Pattern pattern = Pattern.compile("deadline (\\S.*) /by (\\S.*)");
                         Matcher matcher = pattern.matcher(next);
 
-                        // If match succeeds, obtain parameters
+                        // Obtains parameters if match succeeds
                         if (matcher.matches()) {
                             String name = matcher.group(1);
                             String byParam = matcher.group(2);
 
-                            // Instantiate a Task object and add it to todolist
+                            // Instantiates a Task object and add it to todolist
                             Deadline deadline = new Deadline(name, byParam);
                             taskList.addTask(deadline);
                             Ui.addTaskResponse(deadline.toString(), taskList.getTotalNumOfTasks());
 
-                            //Throw exception for invalid input
                         } else {
-                            throw new TaskInputException("name, and due date", "deadline");
+                            throw new InvalidInputException("name, and due date", "deadline");
                         }
 
-                        // Add event
                     } else if (next.matches("event (.*)")) {
-                        // Regular expression to capture event name, /from and /to parameters
+                        // Uses regular expression to capture event name, /from and /to parameters
                         Pattern pattern = Pattern.compile("event (\\S.*) /from (\\S.*) /to (\\S.*)");
                         Matcher matcher = pattern.matcher(next);
 
-                        // If match succeeds, obtain parameters
+                        // Obtains parameters if match succeeds
                         if (matcher.matches()) {
                             String name = matcher.group(1);
                             String fromParam = matcher.group(2);
                             String toParam = matcher.group(3);
 
-                            // Instantiate a Task object and add it to todolist
+                            // Instantiates a Task object and add it to todolist
                             Event event = new Event(name, fromParam, toParam);
                             taskList.addTask(event);
                             Ui.addTaskResponse(event.toString(), taskList.getTotalNumOfTasks());
 
-                            //Throw exception for invalid input
                         } else {
-                            throw new TaskInputException("name, start, and end time", "event");
+                            throw new InvalidInputException("name, start, and end time", "event");
                         }
 
                     } else if (next.matches("help")) {
                         Ui.printBtnLines(Ui.help);
                     } else {
-                        // Throw exception when nothing, whitespaces, or no name is provided
+                        // Throws exception when nothing, whitespaces, or no name is provided
                         throw new BeeException("Say something helpful.");
                     }
 
-                    // Exception message to prompt user for valid input
-                } catch (BeeException e){
+                } catch (BeeException e) {
                     Ui.printBtnLines(e.getMessage());
+
+                } catch (DateTimeParseException e) {
+                    // Guides user on date time input formats
+                    Ui.printBtnLines("Format your time in: " +
+                            "yyyy-MM-dd HHmm (24Hr) or yyyy-MM-dd hh:mm am (12Hr).\n" +
+                            "You can replace - with \\ as well");
+
                 }
             }
             sc.close();
