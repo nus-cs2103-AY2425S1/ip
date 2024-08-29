@@ -21,6 +21,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Checks and creates, if necessary, necessary directories and files to save and load
+     * tasks from. Creates a TaskList object to use for the entire program's tasks.
+     * @return A TaskList object that is either blank, if no previous file existed or
+     * there were no saved tasks, or is populated with data loaded from the save file.
+     */
     public TaskList load() {
         Path dataPath = filePath.getParent();
         // Check if directory for txt file exists
@@ -57,6 +63,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Decodes the text from the save file and re-formats it into a String array that matches
+     * format required by Command and Task constructors.
+     * @param taskLine An array of strings from splitting each line of the save file by spaces.
+     * @return A Command object with the details of the task.
+     */
     public Command decodeTaskFromFile(String[] taskLine) {
         String[] commandInput;
         if (taskLine[0].equals("T")) {
@@ -71,6 +83,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads an individual line from the input file, splits it, and calls the decodeTaskFromFile
+     * function to create a Command object from the String input. Constructs the task list used
+     * by the program from the lines saved in the data save file. Checks if each of the tasks saved
+     * are completed and marks as completed if so.
+     * @param taskFileLine A string read from the data save file.
+     * @param taskList The task list object used to keep track of objects for the whole program.
+     * @param taskNumber The task number of the line being read, as decided by its order in the data save file.
+     */
     public void readTask(String taskFileLine, TaskList taskList, int taskNumber) {
         String[] lineContent = taskFileLine.split(" \\| ");
         Command command = decodeTaskFromFile(lineContent);
@@ -86,6 +107,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads all the task lines with the data save file as input and calls the readTask function
+     * to process and construct the TaskList for the entire program.
+     * @param filePath The relative file path (relative to project root directory) where data is saved.
+     * @return The populated TaskList preloaded with tasks that were saved at the given file path.
+     */
     public TaskList readFileContents(Path filePath) {
         try {
             int count = 1;

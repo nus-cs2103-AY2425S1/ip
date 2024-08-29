@@ -25,6 +25,10 @@ public class Command {
     public void write(Path filePath) {
     }
 
+    /**
+     * Generic return method that returns a message responding to blank input.
+     * @return A return message with a prompt to the user to enter the correct input.
+     */
     public ReturnMessage execute() {
         return new ReturnMessage("  ~  Sorry, that's not something I know how to do :(",
                 "  ~  Please specify either a To Do, a Deadline or an Event!");

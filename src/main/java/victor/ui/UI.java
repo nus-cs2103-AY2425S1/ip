@@ -26,6 +26,9 @@ public class UI {
         this.out = System.out;
     }
 
+    /**
+     * Displays the program welcome message to the user in the Standard Output.
+     */
     public void welcomeMessage() {
         out.println(LOGO);
         out.println("Hello! My name is Victor!");
@@ -33,6 +36,10 @@ public class UI {
         out.println(DIVIDER);
     }
 
+    /**
+     * Reads and returns the user input from the Standard Input.
+     * @return A string of the user input.
+     */
     public String getUserInput() {
         String userInput = in.nextLine();
         while (userInput.trim().isEmpty()) {
@@ -42,6 +49,11 @@ public class UI {
         return userInput;
     }
 
+    /**
+     * Displays the contents of the return message to the user in the Standard Output.
+     * @param returnMessage A ReturnMessage item containing details of the lines to
+     *                      be printed and shown to the user.
+     */
     public void showUserMessage(ReturnMessage returnMessage) {
         if (!returnMessage.isEmpty()) {
             for (String message : returnMessage.getMessages()) {
@@ -51,6 +63,9 @@ public class UI {
         }
     }
 
+    /**
+     * Displays the parting message of the program to the user.
+     */
     public void byeMessage() {
         out.println("  ~  Goodbye! Hope to see you again soon!");
         out.println(DIVIDER);

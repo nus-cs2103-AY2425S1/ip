@@ -17,6 +17,12 @@ public class TaskList {
         this.filePath = filePath;
     }
 
+    /**
+     * Adds a task to the internal ArrayList of tasks keeping track of all tasks in the program.
+     * Returns a string array of the output to be shown by the UI component to the user.
+     * @param task A Task object to be added to the task list.
+     * @return A string array with output to be shown to the user following adding the task.
+     */
     public String[] addTask(Task task) {
         this.tasks.add(task);
         return new String[] {"  ~  Cool! I added this task:",
@@ -24,6 +30,13 @@ public class TaskList {
             "  ~  You now have " + this.size() + ((this.size() == 1) ? " task" : " tasks") + " in your list."};
     }
 
+    /**
+     * Deletes a task from the internal ArrayList of tasks keeping track of all tasks in the program.
+     * Returns a string array of the output to be shown by the UI component to the user.
+     * @param taskNumber An integer representing the number of the task meant to be deleted.
+     * @return A string array with output to be shown to the user following deleting the task.
+     * Indicates success status of the deletion task.
+     */
     public String[] deleteTask(int taskNumber) {
         try {
             Task removed = tasks.remove(taskNumber - 1);
@@ -37,6 +50,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as done in the internal ArrayList of tasks keeping track of all tasks in the program.
+     * Returns a string array of the output to be shown by the UI component to the user.
+     * @param taskNumber An integer representing the number of the task meant to be marked as done.
+     * @return A string array with output to be shown to the user following marking the task as done.
+     * Indicates success status of the marking as done task.
+     */
     public String[] markDone(int taskNumber) {
         try {
             Task task = tasks.get(taskNumber - 1);
@@ -48,6 +68,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks a task as done in the internal ArrayList of tasks keeping track of all tasks in the program.
+     * Returns a string array of the output to be shown by the UI component to the user.
+     * @param taskNumber An integer representing the number of the task meant to be unmarked as done.
+     * @return A string array with output to be shown to the user following unmarking the task as done.
+     * Indicates success status of the unmarking as done task.
+     */
     public String[] unmarkDone(int taskNumber) {
         try {
             Task task = tasks.get(taskNumber - 1);
@@ -59,6 +86,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Writes the entire task list to the file at the file path provided.
+     * @param filePath A Path object - a relative file path (relative to project root directory)
+     *                 where data should be saved.
+     * @param shouldOverwrite A boolean specifying whether the current data in the file at the file
+     *                        path should be overwritten.
+     */
     public void writeToFile(Path filePath, boolean shouldOverwrite) {
         try {
             // Clear output file if overwriting
@@ -77,6 +111,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a string array listing the String versions of all the tasks currently in the
+     * task list, along with their number and order.
+     * @return A string array of all current tasks in the task list.
+     */
     public String[] enumerateTasks() {
         String[] outputList = new String[tasks.size() + 1];
         outputList[0] = "  ~  Sure! Here are all of your tasks:";
