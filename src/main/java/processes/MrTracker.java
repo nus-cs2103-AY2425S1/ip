@@ -1,10 +1,19 @@
 package processes;
 
+/**
+ * The main file of the programme. Contains the main method.
+ * Run the main method to start the task tracker
+ */
 public class MrTracker {
 
     public static final String FILEPATH = "./data/tasks.txt";
     public static final String DIRPATH = "./data";
 
+    /**
+     * Entry point of the programme. Starts all necessary processes for user to use the task tracker.
+     *
+     * @param args No parameters are passed
+     */
     public static void main(String[] args) {
         Ui ui = new Ui();
         Storage storage = new Storage(DIRPATH, FILEPATH);
