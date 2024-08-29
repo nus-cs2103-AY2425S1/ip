@@ -1,9 +1,14 @@
 package models;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
     public static final char TASK_TYPE = 'D';
-    private final String by;
-    public Deadline(String name, String by) {
+    private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    private final LocalDate by;
+    public Deadline(String name, LocalDate by) {
         super(name);
         this.by = by;
     }
@@ -15,7 +20,7 @@ public class Deadline extends Task {
 
     public static Deadline deserialize(String line) {
         String[] values = line.split("\\|");
-        Deadline deadline = new Deadline(values[2], values[3]);
+        Deadline deadline = new Deadline(values[2], LocalDate.parse(values[3]));
         if (values[1].equals("X")) {
             deadline.markDone();
         }
@@ -35,6 +40,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + String.format(" (by: %s)", this.by);
+        return super.toString() + String.format(" (by: %s)", this.by.format(dateFormat));
     }
 }
