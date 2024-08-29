@@ -24,7 +24,7 @@ public class Parser {
     public String scanUntil(String pattern) {
         String item = "";
         String temp = scanner.next();
-        while (!temp.equals(pattern)) {
+        while (!temp.equals(pattern) && scanner.hasNext()) {
             item += temp + " ";
             temp = scanner.next();
         }
