@@ -45,15 +45,20 @@ public class Alexer {
 
     public void promptLoop() {
         String input = scanner.nextLine();
+        String command = input.split(" ")[0];
 
-        if (!input.equals("bye") && !input.equals("list")) {
-            addTask(input);
-            promptLoop();
-        } else if (input.equals("list")) {
+        switch (command) {
+        case "bye":
+            printGoodbye();
+            break;
+        case "list":
             printTasks();
             promptLoop();
-        } else {
-            printGoodbye();
+            break;
+        default:
+            addTask(input);
+            promptLoop();
+            break;
         }
     }
 
