@@ -17,8 +17,24 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public void setDone(boolean isDone) {
         this.isDone = isDone;
+    }
+
+    /**
+     * Returns the string representation of the task that is parseable by YapBot.
+     */
+    public String saveTask() {
+        if (this.isDone) {
+            return "1/" + this.description;
+        } else {
+            return "0/" + this.description;
+        }
     }
 
     @Override
