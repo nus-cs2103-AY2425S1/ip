@@ -1,3 +1,4 @@
+package serenity;
 public class Event extends Task {
 
     protected String start;

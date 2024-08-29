@@ -1,3 +1,7 @@
+package serenity;
+
+import serenity.SerenityException;
+
 import java.util.ArrayList;
 
 public class TaskList {
