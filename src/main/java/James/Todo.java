@@ -1,4 +1,4 @@
-package James;
+package james;
 
 public class Todo extends Task{
     public Todo(String desc, Boolean mark) throws MissingDescriptionException{
