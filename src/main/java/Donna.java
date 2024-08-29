@@ -1,6 +1,8 @@
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -36,6 +38,55 @@ public class Donna {
         } catch (IOException e) {
             System.out.println("An error has occurred in saving the tasks: " + e.getMessage());
         }
+    }
+
+    private static boolean loadTasks() {
+        try {
+            Path filePath = Paths.get(FILE_PATH);
+            if (!Files.exists(filePath)) { //ensure that the directory exists- if not, it will be created
+                return false;
+            }
+
+            File f = new File(String.valueOf(filePath));
+            Scanner s = new Scanner(f);
+
+            while (s.hasNext()) {
+                String line = s.nextLine();
+                String[] inWords = line.split(" \\| ");
+                String taskType = inWords[0];
+                boolean isDone = inWords[1].equals("1");
+                Task task = null;
+                int count = 0;
+                switch (taskType) {
+                case "T":
+                    task = new ToDo(inWords[2]);
+                    count ++;
+                    break;
+                case "D":
+                    task = new Deadline(inWords[2], inWords[3]);
+                    count ++;
+                    break;
+                case "E":
+                    task = new Event(inWords[2], inWords[3], inWords[4]);
+                    count ++;
+                    break;
+                }
+
+                if (task != null) {
+                    if (isDone) {
+                        task.markDone();
+                    }
+                    tasks.add(task);
+                    taskNum += count;
+                }
+            }
+
+        } catch (IOException | ArrayIndexOutOfBoundsException |DonnaException e) {
+            // file data is corrupted, start in a new file
+//            System.out.println("No existing file found / File is corrupted. Starting in a new file.");
+            return false;
+        }
+        return true;
     }
 
     private static void addTask(String desc) throws DonnaException {
@@ -173,12 +224,20 @@ public class Donna {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
+        //load tasks before asking the user for inputs
+        boolean wasLoaded = loadTasks();
+
         //greeting
         printDashedLine();
         printDonnaLogo();
         System.out.println("Hello! I'm Donna");
-        System.out.println("What can I do for you?");
+        if (wasLoaded) {
+            System.out.println("We have had a chat before! Let's resume :)");
+        } else {
+            System.out.println("What can I do for you?");
+        }
         printDashedLine();
+
 
         //constant inputs from the user
         while (true) {
