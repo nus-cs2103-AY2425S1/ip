@@ -143,6 +143,17 @@ public class Duke {
         System.out.println(horizontalLine);
     }
 
+    public static void deleteTask(int rank) {
+        Task toRemove = tasks.get(rank-1);
+        tasks.remove(rank-1);
+
+        System.out.println(horizontalLine);
+        System.out.println("Noted. I've removed this task:");
+        toRemove.print();
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(horizontalLine);
+    }
+
     public static void listTasks()
     {
         int numberOfMessages = tasks.size();
@@ -233,11 +244,23 @@ public class Duke {
             } else if(command.equals("mark")) {
 
                 int rankToMark = Integer.valueOf(input.substring(5));
+
+                if(rankToMark < 1 || rankToMark > tasks.size()) {
+                    printError("Error: The task number is out of bounds. Terminating program.");
+                    break;
+                }
+
                 markTask(rankToMark);
 
             } else if(command.equals("unmark")) {
 
                 int rankToUnmark = Integer.valueOf(input.substring(7));
+
+                if(rankToUnmark < 1 || rankToUnmark > tasks.size()) {
+                    printError("Error: The task number is out of bounds. Terminating program.");
+                    break;
+                }
+
                 unmarkTask(rankToUnmark);
 
             } else if(command.equals("todo")) {
@@ -329,6 +352,21 @@ public class Duke {
 
 
                 addTask(new Task(taskName, EVENT, eventTimings));
+
+            } else if(command.equals("delete")) {
+                if(input.length() <= 7) {
+                    printError("Error: You need to specify which task to delete. Terminating program.");
+                    break;
+                }
+
+                int rankToDelete = Integer.valueOf(input.substring(7));
+
+                if(rankToDelete < 1 || rankToDelete > tasks.size()) {
+                    printError("Error: The task number is out of bounds. Terminating program.");
+                    break;
+                }
+
+                deleteTask(rankToDelete);
 
             } else {
 
