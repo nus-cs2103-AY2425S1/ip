@@ -11,13 +11,30 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Storage class handles the loading and saving of tasks from/to a file.
+ * It is responsible for reading tasks from a file when the application starts
+ * and writing the current tasks to the file when they are updated.
+ */
 public class Storage {
-    // Deals with loading tasks from the file and saving tasks in the file
     private String filePath;
+
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks will be stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the storage file into an array of Task objects.
+     *
+     * @return An array of Task objects loaded from the file.
+     * @throws PrimoException If the file format is incorrect or tasks cannot be loaded.
+     * @throws IOException If an I/O error occurs while reading the file.
+     */
     public Task[] load() throws PrimoException, IOException {
         ArrayList<Task> list = new ArrayList<>();
         try {
@@ -73,9 +90,14 @@ public class Storage {
             Files.createDirectories(directoryPath);
             Files.createFile(filePath);
         }
-        return null; // shouldn't reach here
+        return null; // should not reach here
     }
 
+    /**
+     * Updates the storage file with the current list of tasks.
+     *
+     * @param taskList The TaskList object containing the tasks to be saved.
+     */
     public void updateStorage(TaskList taskList) {
         ArrayList<Task> list = taskList.getTasks();
         int len = list.size();
