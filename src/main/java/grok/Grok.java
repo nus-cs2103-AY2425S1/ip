@@ -34,11 +34,14 @@ public class Grok {
         boolean hasUnsavedChanges = false;
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println(padMessage("Hello! I'm Grok.Grok\nWhat ya wanna do to grok your way to success?"));
+        System.out.println(padMessage("Hello! I'm Grok\nWhat ya wanna do to grok your way to success?"));
         while (true) {
             String userInput = scanner.nextLine();
             if (userInput.isEmpty()) {
                 System.out.println(padMessage("Please enter your command."));
+            } else if (userInput.contains("|")){
+                // required so that | can be used to delimit different items in storage reliably.
+                System.out.println(padMessage("Message cannot contain the restricted character '|'!"));
             } else if (userInput.equals("bye")) {
                 break;
             } else if (userInput.equals("list")) {
@@ -222,7 +225,7 @@ public class Grok {
             }
 
             if (hasUnsavedChanges) {
-                TextFileReader.writeToFile(TEXT_FILE_DIRECTORY);
+                TextFileReader.writeToFile(TEXT_FILE_DIRECTORY, tasks);
             }
         }
 
