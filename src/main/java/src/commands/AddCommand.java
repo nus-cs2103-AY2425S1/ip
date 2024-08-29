@@ -37,12 +37,8 @@ public class AddCommand extends Command {
                 if (getInput().length() <= 5) {
                     throw new NoFollowUpException();
                 }
-
                 ToDo temp = new ToDo(getInput().substring(5));
-
-                ui.showLine();
                 taskList.add(temp);
-
                 printAcknowledgeMessage(taskList.size(), ui, temp);
 
                 break;
