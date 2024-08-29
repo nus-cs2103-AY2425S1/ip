@@ -101,6 +101,12 @@ public class Parser {
                 throw new WaterfallException("Bruh what is this empty from command are you kidding me!");
             }
             return new AddCommand(title, from, to);
+        } else if (input.startsWith("find ")) {
+            if (input.length() <= 5) {
+                throw new WaterfallException("Bruh what is this empty task you are looking for!");
+            }
+            String targetTitle = input.substring(5);
+            return new SearchCommand(targetTitle);
         } else {
             return new UnrecognisedCommand();
         }
