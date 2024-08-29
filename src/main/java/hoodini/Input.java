@@ -7,7 +7,7 @@ package hoodini;
 public abstract class Input {
 
     private String input;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Constructor for Input object
@@ -16,7 +16,7 @@ public abstract class Input {
 
     public Input(String input) {
         this.input = input;
-        this.done = false;
+        this.isDone = false;
 
     }
 
@@ -33,7 +33,7 @@ public abstract class Input {
      * Used to handle input read from file
      */
     public void markdone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
@@ -42,10 +42,10 @@ public abstract class Input {
      */
 
     public String done() {
-        if (this.done) {
+        if (this.isDone) {
             return "This has already been marked";
         } else {
-            this.done = true;
+            this.isDone = true;
             return "I have marked the task "
                     + "as done:\n" + this + "\n";
         }
@@ -57,10 +57,10 @@ public abstract class Input {
      */
 
     public String unDone() {
-        if (!this.done) {
+        if (!this.isDone) {
             return "This has already been unmarked";
         } else {
-            this.done = false;
+            this.isDone = false;
             return "I have marked the task "
                     + "as undone: \n" + this + "\n";
 
@@ -75,7 +75,7 @@ public abstract class Input {
 
     @Override
     public String toString() {
-        if (done) {
+        if (isDone) {
             String str = "[X] " + this.input;
             return str;
         } else {

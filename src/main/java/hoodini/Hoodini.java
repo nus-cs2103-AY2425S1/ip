@@ -1,7 +1,7 @@
 package hoodini;
 
 /**
- * Class which handles the main configurations
+ * Handles the main configurations
  * of the Chatbot
  */
 
@@ -11,7 +11,7 @@ public class Hoodini {
     private Ui ui;
 
     /**
-     * Constructor to start the Hoodini chatbot, takes no parameters.
+     * Starts the Hoodini chatbot, takes no parameters.
      */
 
     public Hoodini() {
@@ -25,7 +25,7 @@ public class Hoodini {
     }
 
     /**
-     * Method to start chatbot
+     * Starts the chatbot
      */
 
     public void start() {

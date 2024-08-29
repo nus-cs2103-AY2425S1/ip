@@ -1,7 +1,7 @@
 package hoodini;
 
 /**
- * Event class to handle Events that the user inputs
+ * Handles events that the user inputs
  */
 public class Event extends Input {
 
@@ -9,7 +9,7 @@ public class Event extends Input {
     private String to;
 
     /**
-     * Constructor to store the String into Event Class
+     * Stores the String into Event Class
      *
      * @param input String input by user
      */
@@ -22,7 +22,7 @@ public class Event extends Input {
     }
 
     /**
-     * Alternative Constructor to handle input read
+     * Handles input read
      * from text file stored in local device.
      * @param input Task which the user wants to store.
      * @param from Starting time of event.

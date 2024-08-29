@@ -15,7 +15,7 @@ import javafx.scene.layout.HBox;
 
 
 /**
- * Class to handle dialog box of the application
+ * Handles dialog box of the application
  */
 public class HoodiniDialogBox extends HBox {
     @FXML
@@ -52,10 +52,22 @@ public class HoodiniDialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Returns a dialog box with the user input and the user's image.
+     * @param text The input of the user
+     * @param img The image of the user
+     * @return A dialog box with the user input and the user's image.
+     */
     public static HoodiniDialogBox getUserDialog(String text, Image img) {
         return new HoodiniDialogBox(text, img);
     }
 
+    /**
+     * Returns a dialog box with the chatbot's response and the chatbot's image.
+     * @param text The response of the chatbot
+     * @param img The image of the chatbot
+     * @return A dialog box with the chatbot's response and the chatbot's image.
+     */
     public static HoodiniDialogBox getHoodiniDialog(String text, Image img) {
         var db = new HoodiniDialogBox(text, img);
         db.flip();

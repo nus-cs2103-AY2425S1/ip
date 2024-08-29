@@ -17,7 +17,7 @@ public enum Case {
     ERROR;
 
     /**
-     * Method to get the case of the input
+     * Returns the case of the input
      * @param input String of command
      * @return Case type for case switch block
      */

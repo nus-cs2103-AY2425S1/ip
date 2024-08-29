@@ -1,11 +1,11 @@
 package hoodini;
 
 /**
- * Class to handle interations with user
+ * Handles interations with user
  */
 public class Ui {
     /**
-     * Default Constructor to create new UI object.
+     * Creates new UI object.
      */
     public Ui() {
 

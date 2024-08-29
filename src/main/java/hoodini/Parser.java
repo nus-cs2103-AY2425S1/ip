@@ -12,7 +12,7 @@ public class Parser {
     private Ui ui;
 
     /**
-     * Constructor for a new Parser object
+     * Stores storage and ui objects
      * @param store Tasklist to store tasks
      * @param ui Handles messages to the user
      */
@@ -32,7 +32,7 @@ public class Parser {
         if (java.nio.file.Files.exists(path)) {
             try {
                 readFromFile(path.toString());
-            } catch (InvalidTaskException e) {
+            } catch (ReadException e) {
                 System.out.println(e.getMessage());
             }
 
@@ -99,10 +99,10 @@ public class Parser {
      * Method to read from file and input content
      * to the chatbot
      * @param filepath the path of the file
-     * @throws InvalidTaskException Handles invalid tasks in file
+     * @throws ReadException Handles invalid tasks in file
      */
 
-    public void readFromFile(String filepath) throws InvalidTaskException {
+    public void readFromFile(String filepath) throws ReadException {
         try {
             java.io.File file = new java.io.File(filepath);
             java.util.Scanner input = new java.util.Scanner(file);
@@ -115,7 +115,7 @@ public class Parser {
                 } else if (str.startsWith("[E]")) {
                     handleFileEvent(str.substring(4));
                 } else {
-                    throw new InvalidTaskException("Whoopsie! "
+                    throw new ReadException("Whoopsie! "
                             + "There are invalid tasks in the file");
                 }
             }
@@ -172,7 +172,7 @@ public class Parser {
                 throw new InvalidInputException("Whoopsie! "
                         + "I am unable to understand your request!");
             }
-        } catch (InvalidTaskException e) {
+        } catch (HandleException e) {
             return e.getMessage();
         } catch (InvalidInputException e) {
             return e.getMessage();
@@ -182,11 +182,11 @@ public class Parser {
     /**
      * Method to handle ToDo tasks by user
      * @param str Input string from user
-     * @throws InvalidTaskException Handles invalid tasks
+     * @throws HandleException Handles invalid tasks
      */
-    private String handleToDo(String str) throws InvalidTaskException {
+    private String handleToDo(String str) throws HandleException {
         if (str.trim().equalsIgnoreCase("todo")) {
-            throw new InvalidTaskException("Whoopsie! Please enter a task");
+            throw new HandleException("Whoopsie! Please enter a task");
         } else {
             ToDo toDo = new ToDo(str);
             return store.store(toDo);
@@ -196,11 +196,11 @@ public class Parser {
     /**
      * Method to handle Deadline tasks by user
      * @param str Input string from user
-     * @throws InvalidTaskException Handles invalid tasks
+     * @throws HandleException Handles invalid tasks
      */
-    private String handleDeadline(String str) throws InvalidTaskException {
+    private String handleDeadline(String str) throws HandleException {
         if (str.trim().equalsIgnoreCase("deadline")) {
-            throw new InvalidTaskException("Whoopsie! Please enter a task");
+            throw new HandleException("Whoopsie! Please enter a task");
         } else {
             try {
                 Deadline deadline = new Deadline(str);
@@ -218,44 +218,44 @@ public class Parser {
     /**
      * Method to handle Event tasks by user
      * @param str Input string from user
-     * @throws InvalidTaskException Handles invalid tasks
+     * @throws handleException Handles invalid tasks
      */
-    private String handleEvent(String str) throws InvalidTaskException {
+    private String handleEvent(String str) throws HandleException {
         if (str.trim().equalsIgnoreCase("event")) {
-            throw new InvalidTaskException("Whoopsie! Please enter a task");
+            throw new HandleException("Whoopsie! Please enter a task");
         } else {
             Event event = new Event(str);
             return store.store(event);
         }
     }
 
-    private String handleDelete(String str) throws InvalidTaskException {
+    private String handleDelete(String str) throws HandleException {
         if (str.trim().equalsIgnoreCase("delete")) {
-            throw new InvalidTaskException("Whoopsie! Please enter a task");
+            throw new HandleException("Whoopsie! Please enter a task");
         } else {
             return store.delete(str);
         }
     }
 
-    private String handleMark(String str) throws InvalidTaskException {
+    private String handleMark(String str) throws HandleException {
         if (str.trim().equalsIgnoreCase("mark")) {
-            throw new InvalidTaskException("Whoopsie! Please enter a number");
+            throw new HandleException("Whoopsie! Please enter a number");
         } else {
             return store.mark(str);
         }
     }
 
-    private String handleUnmark(String str) throws InvalidTaskException {
+    private String handleUnmark(String str) throws HandleException {
         if (str.trim().equalsIgnoreCase("unmark")) {
-            throw new InvalidTaskException("Whoopsie! Please enter a number");
+            throw new HandleException("Whoopsie! Please enter a number");
         } else {
             return store.unmark(str);
         }
     }
 
-    private String handleFind(String str) throws InvalidTaskException {
+    private String handleFind(String str) throws HandleException {
         if (str.trim().equalsIgnoreCase("find")) {
-            throw new InvalidTaskException("Whoopsie! Please enter something to find");
+            throw new HandleException("Whoopsie! Please enter something to find");
         } else {
             return store.find(str);
         }

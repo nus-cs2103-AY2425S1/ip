@@ -5,7 +5,7 @@ package hoodini;
 public class ToDo extends Input {
 
     /**
-     * Constructor for ToDo class.
+     * Creates ToDo object.
      * @param input The input string
      */
     public ToDo(String input) {

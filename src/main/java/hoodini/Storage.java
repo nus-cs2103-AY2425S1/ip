@@ -8,22 +8,22 @@ import java.util.regex.Pattern;
 
 
 /**
- * Class which stores the tasklist and methods
+ * Stores the tasklist and methods
  * to handle tasks.
  * Has a method to write tasks to a text file
  */
 public class Storage {
     private static int counter = 0;
-    private ArrayList<Input> input;
+    private ArrayList<Input> inputs;
     private Ui ui;
 
     /**
-     * Constructor for a new Storage object.
+     * Creates a new Storage object.
      * Takes in a UI object to handle messages
      * @param ui Handles messages to the user.
      */
     public Storage(Ui ui) {
-        this.input = new ArrayList<>();
+        this.inputs = new ArrayList<>();
         this.ui = ui;
     }
 
@@ -36,7 +36,7 @@ public class Storage {
         if (input.empty()) {
             return ui.invalidTask();
         } else {
-            this.input.add(input);
+            this.inputs.add(input);
             counter++;
             return ui.store(input, counter);
         }
@@ -45,24 +45,24 @@ public class Storage {
     }
 
     /**
-     * Adding items to the tasklist without a message
+     * Adds items to the tasklist without a message
      * Handles input objects read from file
      * @param input Task which is read from the file
      */
     public void add(Input input) {
-        this.input.add(input);
+        this.inputs.add(input);
         counter++;
     }
 
     /**
-     * Method to write the tasklist to a local text file
+     * Writes the tasklist to a local text file
      * @param filename Name of file
      * @throws IOException Invalid file name
      */
     public void writeToFile(String filename) throws IOException {
         try (BufferedWriter writer = new
                 BufferedWriter(new FileWriter(filename))) {
-            for (Input i : input) {
+            for (Input i : inputs) {
                 writer.write(i.toString());
                 writer.newLine();
             }
@@ -71,8 +71,8 @@ public class Storage {
 
 
     /**
-     * Method to list out tasks to the user.
-     * No params required.
+     * Lists out tasks to the user.
+     * @return String representation of the tasks
      */
     public String output() {
         StringBuilder sb = new StringBuilder("Here are the list of tasks "
@@ -80,11 +80,11 @@ public class Storage {
         ArrayList<Input> unique = new ArrayList<>();
 
         for (int i = 0; i < counter; i++) {
-            if (unique.contains(this.input.get(i))) {
+            if (unique.contains(this.inputs.get(i))) {
                 continue;
             } else {
-                unique.add(input.get(i));
-                sb.append(i + 1).append(". ").append(input.get(i)).append("\n");
+                unique.add(inputs.get(i));
+                sb.append(i + 1).append(". ").append(inputs.get(i)).append("\n");
             }
         }
         return sb.toString();
@@ -92,8 +92,9 @@ public class Storage {
     }
 
     /**
-     * Method to mark the task as done
+     * Marks the task as done
      * @param str String from user on which task to mark
+     * @return String representation of the task marked
      */
     public String mark(String str) {
         int i = Integer.parseInt(
@@ -101,7 +102,7 @@ public class Storage {
         if (i > counter) {
             return ui.invalidInput();
         } else {
-            return input.get(i - 1).done();
+            return inputs.get(i - 1).done();
 
         }
 
@@ -109,16 +110,17 @@ public class Storage {
     }
 
     /**
-     * Method to delete the task
+     * Deletes the task
      * @param str String from user on which task to delete
+     * @return String representation of the task deleted
      */
     public String delete(String str) {
         int i = Integer.parseInt(str.substring(7));
         if (i > counter) {
             return ui.invalidInput();
         } else {
-            Input input1 = input.get(i - 1);
-            input.remove(i - 1);
+            Input input1 = inputs.get(i - 1);
+            inputs.remove(i - 1);
             counter--;
             return ui.delete(input1, counter);
 
@@ -128,31 +130,32 @@ public class Storage {
 
 
     /**
-     * Method to unmark the task
+     * Unmarks the task
      * @param str String from user on which task to unmark
+     * @return String representation of the task unmarked
      */
     public String unmark(String str) {
         int i = Integer.parseInt(str.substring(7));
         if (i > counter) {
             return ui.invalidInput();
         } else {
-            return input.get(i - 1).unDone();
+            return inputs.get(i - 1).unDone();
 
         }
 
     }
 
     /**
-     * Method uses regex to find patterns within the string
-     * in order to find matching tasks in task list
+     * Returns matching tasks to the input of the user
      * @param str string which user wants to find
+     * @return String representation of the tasks found
      */
     public String find(String str) {
         String regex = str.substring(5);
         Pattern pattern = Pattern.compile(regex);
         ArrayList<Input> arr = new ArrayList<>();
         for (int i = 0; i < counter; i++) {
-            Input found = input.get(i);
+            Input found = inputs.get(i);
             Matcher matcher = pattern.matcher(found.toString());
             if (matcher.find()) {
                 arr.add(found);

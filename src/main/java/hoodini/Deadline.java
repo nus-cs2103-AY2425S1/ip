@@ -4,14 +4,14 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Class which handles deadline inputs from the user
+ * Handles deadline inputs from the user
  * and stores the deadline date.
  */
 public class Deadline extends Input {
     private LocalDate deadline;
 
     /**
-     * Constructor to store the deadline input by the user
+     * Stores the deadline input by the user
      * @param input User input, parses user input and stores the deadline.
      * @throws DateTimeParseException If the date is not in the correct format.
      */
