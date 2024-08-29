@@ -1,152 +1,120 @@
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.time.DateTimeException;
+import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.Date;
 
-
-
+//the design of the class is referring to https://github.com/david-eom/CS2103T-IP/blob/master/src/main/java/duke/Duke.java#L150
 public class GreetBot {
-    public static void main(String[] args) {
-        new GreetBot().run();
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+    private boolean isRunning;
+
+    public GreetBot(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        isRunning = true;
+        tasks = new TaskList(storage.load());
+        storage.saveData(tasks);
     }
 
-    /* solution below inspired by main function in:
-    https://github.com/Wincenttjoi/CS2103T-duke-chatbot/blob/master/src/main/java/duke/Duke.java
-    */
-    private void run() {
-        try {
-            ArrayList<Task> list = new ArrayList<>();
+    // run and getResponse method is adapted from https://github.com/david-eom/CS2103T-IP/blob/master/src/main/java/duke/Duke.java
+    public void run() {
+        System.out.println(this.ui.greetUser());
 
-            //create file and directory for data storage
-            String workingDir = System.getProperty("user.dir");
-            Path dataPath = java.nio.file.Paths.get(workingDir, "data", "greetbot.txt");
-            File dir = new File(dataPath.getParent().toString());
-            dir.mkdir();
-            if (!Files.exists(dataPath)) {
-                FileWriter createFileWriter = new FileWriter(dataPath.toString(), false);
-                createFileWriter.close();
+
+        while (this.isRunning) {
+            try {
+                String input = this.ui.readInput().strip();
+                System.out.println(this.getResponse(input));
+            } catch (RandomInputException e) {
+                System.out.println(e.getMessage());
+            } catch (EmptyDescriptionException e) {
+                System.out.println(e.getMessage());
             }
-
-            //read and load from database
-            Scanner databaseReader = new Scanner(dataPath);
-            while (databaseReader.hasNextLine()) {
-                String[] data = databaseReader.nextLine().split(" \\|");
-                if (data[0].equals("T")) {
-                    String command = "todo" + data[2];
-                    try {
-                        Task.decideTask(command, list);
-
-                    } catch (EmptyDescriptionException e) {
-                        System.out.println(e.getMessage());
-                    } catch (RandomInputException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    if (data[1].equals(" 1")) {
-                        list.get(list.size() - 1).mark();
-                    }
-                } else if (data[0].equals("D")) {
-                    String command = "deadline" + data[2] + "/by" + data[3];
-                    try {
-                        Task.decideTask(command, list);
-
-                    } catch (EmptyDescriptionException e) {
-                        System.out.println(e.getMessage());
-                    } catch (RandomInputException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    if (data[1].equals(" 1")) {
-                        list.get(list.size() - 1).mark();
-                    }
-                } else {
-                    String command = "event" + data[2] + "/from" + data[3] + " /to" + data[4];
-                    try {
-                        Task.decideTask(command, list);
-
-                    } catch (EmptyDescriptionException e) {
-                        System.out.println(e.getMessage());
-                    } catch (RandomInputException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    if (data[1].equals(" 1")) {
-                        list.get(list.size() - 1).mark();
-                    }
-                }
-            }
-            databaseReader.close();
-
-
-            System.out.println("Hello! I'm GreetBot");
-            System.out.println("What can I do for you?");
-            Scanner scanner = new Scanner(System.in);
-
-            while (scanner.hasNext()) {
-
-                String currentCommand = scanner.nextLine();
-
-                if (currentCommand.equalsIgnoreCase("bye")) {
-                    System.out.println("Bye. Hope to see you again soon!");
-                    break;
-                } else if (currentCommand.equalsIgnoreCase("list")) {
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < list.size(); i++) {
-                        System.out.println(String.format("%d.%s", i + 1, list.get(i)));
-                    }
-                } else if (currentCommand.startsWith("mark")) {
-                    int index = Integer.parseInt(currentCommand.substring(currentCommand.indexOf(" ") + 1));
-                    list.get(index - 1).mark();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(list.get(index - 1).toString());
-                } else if (currentCommand.startsWith("unmark")) {
-                    int index = Integer.parseInt(currentCommand.substring(currentCommand.indexOf(" ") + 1));
-                    list.get(index - 1).unmark();
-                    System.out.println("Ok, I've marked this task as not done yet:");
-                    System.out.println(list.get(index - 1).toString());
-                } else {
-
-                    try {
-                        int before = list.size();
-                        Task.decideTask(currentCommand, list);
-                        if (before < list.size()) {
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println(list.get(list.size() - 1).toString());
-                            System.out.println(String.format("Now you have %s tasks in the list.", list.size()));
-                        }
-                    } catch (EmptyDescriptionException e) {
-                        System.out.println(e.getMessage());
-                    } catch (RandomInputException e) {
-                        System.out.println(e.getMessage());
-                    } catch (DateTimeParseException e) {
-                        System.out.println("すみません，Your date time format is invalid!!!");
-                    }
-                }
-                FileWriter databaseWriter = new FileWriter(dataPath.toString(), false);
-                for (int i = 0; i < list.size(); i++) {
-                    Task currentTask = list.get(i);
-                    char typeOfTask = currentTask.toString().charAt(1);
-                    if (typeOfTask == 'T') {
-                        databaseWriter.write(String.format("%s | %d |%s", typeOfTask, currentTask.isMarked() ? 1 : 0,currentTask.toString().substring(6)));
-                    } else if (typeOfTask == 'D') {
-                        databaseWriter.write(String.format("%s | %d |%s | %s", typeOfTask, currentTask.isMarked() ? 1 : 0,currentTask.toString().substring(6, currentTask.toString().indexOf("(")), currentTask.toString()));
-                    } else {
-                        databaseWriter.write(String.format("%s | %d | %s | %s| %s", typeOfTask, currentTask.isMarked() ? 1 : 0,currentTask.description, currentTask.toString(), currentTask.toString()));
-
-                    }
-                    databaseWriter.write(System.lineSeparator());
-                }
-                databaseWriter.close();
-            }
-
-
-            scanner.close();
-
-
-        } catch (IOException e) {
-            System.out.println("reached");
-            e.printStackTrace();
         }
+
+    }
+
+    public String getResponse(String input) throws RandomInputException, EmptyDescriptionException{
+        String[] segment = Parser.parseCommand(input);
+        String keyword = segment[0];
+        if (keyword.equals("BYE")) {
+            isRunning = false;
+            ui.closeInput();
+            storage.saveData(tasks);
+            return ui.farewellUser();
+        } else if (keyword.equals("LIST")) {
+            return ui.showList(this.tasks);
+        } else if (keyword.equals("MARK")) {
+            return this.markAsDone(Parser.parseMarkUnmarkDelete(segment[1]) - 1);
+        } else if (keyword.equals("UNMARK")) {
+            return this.markAsNotDone(Parser.parseMarkUnmarkDelete(segment[1]) - 1);
+        } else if (keyword.equals("TODO")) {
+            if (segment.length == 1) {
+                throw new EmptyDescriptionException("OOPS!!! The description of todo cannot be empty.");
+            }
+            return this.addTodo(Parser.parseTodo(segment[1]));
+        } else if (keyword.equals("EVENT")) {
+            if (segment.length == 1) {
+                throw new EmptyDescriptionException("OOPS!!! The description of event cannot be empty.");
+            }
+            return this.addEvent(Parser.parseEvent(segment[1]));
+        } else if (keyword.equals("DEADLINE")) {
+            if (segment.length == 1) {
+                throw new EmptyDescriptionException("OOPS!!! The description of deadline cannot be empty.");
+            }
+            return this.addDeadline(Parser.parseDeadline(segment[1]));
+        } else if (keyword.equals("DELETE")) {
+            if (segment.length == 1) {
+                throw new EmptyDescriptionException("OOPS!!! The description of delete cannot be empty.");
+            }
+            return this.deleteTask(Parser.parseMarkUnmarkDelete(segment[1]));
+        } else if (keyword.isEmpty()){
+            return "";
+        } else {
+            throw new RandomInputException("何のことを言っているのか分かりません");
+        }
+    }
+
+    private String markAsDone(int position) {
+        this.tasks.get(position).mark();
+        return ui.showMarked(tasks.get(position), tasks.getLength());
+    }
+
+    private String markAsNotDone(int position) {
+        this.tasks.get(position).unmark();
+        return ui.showUnmarked(tasks.get(position), tasks.getLength());
+    }
+
+    private String deleteTask(int position) {
+        Task deletedTask = tasks.get(position - 1);
+        this.tasks.delete(position);
+        return ui.showDelete(deletedTask, tasks.getLength());
+    }
+
+    private String addTodo(String description) {
+        Task todo = new Task.Todo(description);
+        this.tasks.add(todo);
+        return this.ui.showAdd(todo, this.tasks.getLength());
+    }
+
+    private String addEvent(String[] args) {
+        Task event = new Task.Event(args[0], args[1], args[2]);
+        this.tasks.add(event);
+        return this.ui.showAdd(event, this.tasks.getLength());
+    }
+
+    private String addDeadline(String[] args) {
+        try {
+            Task deadline = new Task.Deadline(args[0], args[1]);
+            this.tasks.add(deadline);
+            return this.ui.showAdd(deadline, this.tasks.getLength());
+        } catch (DateTimeParseException e) {
+            return "wrong time format for deadline task!";
+        }
+    }
+    public static void main(String[] args) {
+        new GreetBot("data/greetbot.txt").run();
     }
 }
