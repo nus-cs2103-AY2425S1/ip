@@ -15,7 +15,7 @@ public class TaskList {
     private List<Task> listOfTasks;
     private Ui ui;
 
-    private TaskList(Ui ui) {
+    protected TaskList(Ui ui) {
         try {
             listOfTasks = TaskDataBase.load();
             this.ui = ui;

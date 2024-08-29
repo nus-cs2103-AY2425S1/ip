@@ -111,7 +111,7 @@ public class Parser {
         String[] parts = message.split(" /from | /to ");
         String taskName = parts[0].replace("event", "").trim();
         if (taskName.isEmpty()) {
-            throw new MissingTaskNameException("deadline");
+            throw new MissingTaskNameException("event");
         }
         if (parts.length != 3) {
             throw new MissingDateException("event");
