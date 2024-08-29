@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -29,17 +28,12 @@ public class Shenhe {
                     if (userInput.trim().length() == 4) {
                         throw new EmptyTaskDescriptionException();
                     }
-                    int length = userInput.length();
-                    char lastChar = userInput.charAt(length - 1);
-                    int lastDigit = -1;
-                    if (Character.isDigit(lastChar)) {
-                        lastDigit = lastChar - '0';
-                    }
-                    if (lastDigit >= 1 && lastDigit <= length) {
-                        tasks.get(lastDigit - 1).markAsDone();
+                    int taskNumber = Integer.parseInt(userInput.substring(7).trim());
+                    if (taskNumber >= 1 && taskNumber <= totalNumberOfTasks) {
+                        tasks.get(taskNumber - 1).markAsDone();
                         System.out.println("____________________________________________________________");
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(tasks.get(lastDigit - 1).toString());
+                        System.out.println(tasks.get(taskNumber - 1).toString());
                         System.out.println("____________________________________________________________");
                     }
                     storage.saveTasks(tasks);
@@ -47,17 +41,12 @@ public class Shenhe {
                     if (userInput.trim().length() == 6) {
                         throw new EmptyTaskDescriptionException();
                     }
-                    int length = userInput.length();
-                    char lastChar = userInput.charAt(length - 1);
-                    int lastDigit = -1;
-                    if (Character.isDigit(lastChar)) {
-                        lastDigit = lastChar - '0';
-                    }
-                    if (lastDigit >= 1 && lastDigit <= length) {
-                        tasks.get(lastDigit - 1).markAsUndone();
+                    int taskNumber = Integer.parseInt(userInput.substring(7).trim());
+                    if (taskNumber >= 1 && taskNumber <= totalNumberOfTasks) {
+                        tasks.get(taskNumber - 1).markAsUndone();
                         System.out.println("____________________________________________________________");
                         System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println(tasks.get(lastDigit - 1).toString());
+                        System.out.println(tasks.get(taskNumber - 1).toString());
                         System.out.println("____________________________________________________________");
                     }
                     storage.saveTasks(tasks);
@@ -66,7 +55,7 @@ public class Shenhe {
                         throw new EmptyTaskDescriptionException();
                     }
                     String task = userInput.substring(5);
-                    tasks.add(new Todo(task));
+                    tasks.add(new Todo(task, false));
                     totalNumberOfTasks++;
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
@@ -85,14 +74,17 @@ public class Shenhe {
                     int indexOfSlash = userInput.indexOf("/");
                     String task = userInput.substring(9, indexOfSlash - 1);
                     String by = userInput.substring(indexOfSlash + 4);
-                    tasks.add(new Deadline(task, by));
-                    totalNumberOfTasks++;
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(tasks.get(totalNumberOfTasks - 1).toString());
-                    System.out.println("Now you have " + totalNumberOfTasks + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
-                    storage.saveTasks(tasks);
+                    if (DateParser.parse(by) != null) {
+                        totalNumberOfTasks++;
+                        tasks.add(new Deadline(task, false, DateParser.parse(by)));
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(tasks.get(totalNumberOfTasks - 1).toString());
+                        System.out.println("Now you have " + totalNumberOfTasks + " tasks in the list.");
+                        System.out.println("____________________________________________________________");
+                        storage.saveTasks(tasks);
+                    }
+
                 } else if (userInput.startsWith("event")) {
                     if (userInput.trim().length() == 5) {
                         throw new EmptyTaskDescriptionException();
@@ -111,7 +103,7 @@ public class Shenhe {
                     String task = userInput.substring(6, indexOfFirstSlash - 1);
                     String from = userInput.substring(indexOfFirstSlash + 6, indexOfSecondSlash - 1);
                     String to = userInput.substring(indexOfSecondSlash + 4);
-                    tasks.add(new Event(task, from, to));
+                    tasks.add(new Event(task, false, from, to));
                     totalNumberOfTasks++;
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
@@ -123,32 +115,29 @@ public class Shenhe {
                     if (userInput.trim().length() == 6) {
                         throw new EmptyTaskDescriptionException();
                     }
-                    int length = userInput.length();
-                    char lastChar = userInput.charAt(length - 1);
-                    int lastDigit = -1;
-                    if (Character.isDigit(lastChar)) {
-                        lastDigit = lastChar - '0';
-                    }
-                    if (lastDigit >= 1 && lastDigit <= length) {
+                    int taskNumber = Integer.parseInt(userInput.substring(7).trim());
+                    System.out.println("taskNumber: " + taskNumber);
+                    System.out.println("total number of tasks: " + tasks.size());
+                    if (taskNumber >= 1 && taskNumber <= tasks.size()) {
 
                         System.out.println("____________________________________________________________");
                         System.out.println("Noted. I've removed this task:");
-                        System.out.println(tasks.get(lastDigit - 1).toString());
-                        tasks.remove(lastDigit - 1);
+                        System.out.println(tasks.get(taskNumber - 1).toString());
+                        tasks.remove(taskNumber - 1);
                         totalNumberOfTasks--;
                         System.out.println("Now you have " + totalNumberOfTasks + " tasks in the list.");
                         System.out.println("____________________________________________________________");
                     }
                     storage.saveTasks(tasks);
+
                 } else if (!userInput.startsWith("list")) {
                     throw new UnknownTaskException();
                 } else if (userInput.startsWith("list") && userInput.trim().length() != 4) {
                     throw new InvalidListEnquiry();
                 } else {
-                    int length = tasks.size();
                     System.out.println("____________________________________________________________");
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < length; i++) {
+                    for (int i = 0; i < totalNumberOfTasks; i++) {
                         System.out.println(i + 1 + "." + tasks.get(i).toString());
                     }
                     System.out.println("____________________________________________________________");
