@@ -1,8 +1,8 @@
 import java.time.LocalDateTime;
 
 public class Parser {
-    private final Ui ui;
-    private final Storage storage;
+    private Ui ui;
+    private Storage storage;
 
     public Parser(Ui ui, Storage storage) {
         this.ui = ui;

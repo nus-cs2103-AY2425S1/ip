@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
 public class James {
-    private final Ui ui;
-    private final Storage storage;
-    private final TaskList taskList;
-    private final Parser parser;
+    private Ui ui;
+    private Storage storage;
+    private TaskList taskList;
+    private Parser parser;
 
     public James(String filepath) {
         ui = new Ui();

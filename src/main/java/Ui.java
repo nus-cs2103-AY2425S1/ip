@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
 public class Ui {
-    private final Scanner scanner;
+    private final Scanner SCANNER;
 
     public Ui() {
-        scanner = new Scanner(System.in);
+        SCANNER = new Scanner(System.in);
     }
 
     public void showGreeting() {
@@ -17,7 +17,7 @@ public class Ui {
 
     public String readCommand() {
         System.out.print("> ");
-        return scanner.nextLine();
+        return SCANNER.nextLine();
     }
 
     public void showMessage(String message) {
@@ -25,6 +25,6 @@ public class Ui {
     }
 
     public void close() {
-        scanner.close();
+        SCANNER.close();
     }
 }
