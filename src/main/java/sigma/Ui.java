@@ -1,3 +1,4 @@
+package sigma;
 // deals with interactions with user
 public class Ui {
 

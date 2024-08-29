@@ -1,3 +1,6 @@
+package sigma;
+import sigma.task.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;

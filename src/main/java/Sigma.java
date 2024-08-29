@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import sigma.*;
+@SuppressWarnings("FieldMayBeFinal")
 public class Sigma {
 //    public static ArrayList<Task> items = new ArrayList<>();
     private Ui ui;

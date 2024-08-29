@@ -1,9 +1,11 @@
+package sigma;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import sigma.task.*;
 
 // deals with making sense of the user command
 public class Parser {
