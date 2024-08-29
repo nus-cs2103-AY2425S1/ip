@@ -77,4 +77,17 @@ public class Ui {
             showMessage(lstNum + ". " + next.toString());
         }
     }
+
+    public void showFound(TaskList taskList) {
+        if (taskList.size() == 0) {
+            showMessage("No tasks in your list.");
+            return;
+        }
+        showMessage("Here are the matching tasks in your list:");
+        for (int i = 0; i < taskList.size(); i++) {
+            int lstNum = i + 1;
+            Task next = taskList.get(i);
+            showMessage(lstNum + ". " + next.toString());
+        }
+    }
 }

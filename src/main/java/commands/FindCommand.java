@@ -20,7 +20,7 @@ public class FindCommand extends Command {
                 results.addTask(t);
             }
         }
-        ui.showTasks(this.results);
+        ui.showFound(this.results);
     }
 
 }
