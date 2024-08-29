@@ -1,12 +1,22 @@
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.Scanner;
 
 public class Vinegar {
     private static List<Task> tasks = new ArrayList<>();
+    private static final String FILE_PATH = "./data/vinegar.txt";
 
     public static void main(String[] args) {
+        loadTasksFromFile();
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("____________________________________________________________");
@@ -15,7 +25,7 @@ public class Vinegar {
         System.out.println("____________________________________________________________");
 
         chatLoop:
-        while(true) {
+        while (true) {
             try {
                 String userInput = scanner.nextLine();
                 String[] inputParts = userInput.split(" ", 2);
@@ -26,6 +36,7 @@ public class Vinegar {
                         System.out.println("____________________________________________________________");
                         System.out.println("Bye. Hope to see you again soon!");
                         System.out.println("____________________________________________________________");
+                        saveTasksToFile();
                         break chatLoop;
 
                     case "list":
@@ -45,6 +56,7 @@ public class Vinegar {
                         System.out.println(" Nice! I've marked this task as done:");
                         System.out.println("   " + tasks.get(markIndex));
                         System.out.println("____________________________________________________________");
+                        saveTasksToFile();
                         break;
 
                     case "unmark":
@@ -55,6 +67,7 @@ public class Vinegar {
                         System.out.println(" OK, I've marked this task as not done yet:");
                         System.out.println("   " + tasks.get(unmarkIndex));
                         System.out.println("____________________________________________________________");
+                        saveTasksToFile();
                         break;
 
                     case "todo":
@@ -62,6 +75,7 @@ public class Vinegar {
                         Task todoTask = new Todo(inputParts[1]);
                         tasks.add(todoTask);
                         printTaskAdded(todoTask);
+                        saveTasksToFile();
                         break;
 
                     case "deadline":
@@ -71,6 +85,7 @@ public class Vinegar {
                         Task deadlineTask = new Deadline(deadlineParts[0], deadlineParts[1]);
                         tasks.add(deadlineTask);
                         printTaskAdded(deadlineTask);
+                        saveTasksToFile();
                         break;
 
                     case "event":
@@ -80,10 +95,12 @@ public class Vinegar {
                         Task eventTask = new Event(eventParts[0], eventParts[1], eventParts[2]);
                         tasks.add(eventTask);
                         printTaskAdded(eventTask);
+                        saveTasksToFile();
                         break;
 
                     case "delete":
                         handleDelete(inputParts);
+                        saveTasksToFile();
                         break;
 
                     default:
@@ -126,11 +143,58 @@ public class Vinegar {
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
+
     private static void printTaskAdded(Task task) {
         System.out.println("____________________________________________________________");
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + task);
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
+    }
+
+    // Save tasks to file
+    private static void saveTasksToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            for (Task task : tasks) {
+                writer.write(task.toFileFormat() + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println(" OOPS!!! Unable to save tasks to file.");
+        }
+    }
+
+    // Load tasks from file
+    private static void loadTasksFromFile() {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) return;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                String type = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+                Task task = null;
+
+                switch (type) {
+                    case "T":
+                        task = new Todo(description);
+                        break;
+                    case "D":
+                        task = new Deadline(description, parts[3]);
+                        break;
+                    case "E":
+                        task = new Event(description, parts[3], parts[4]);
+                        break;
+                }
+                if (task != null && isDone) {
+                    task.markAsDone();
+                }
+                tasks.add(task);
+            }
+        } catch (IOException e) {
+            System.out.println(" OOPS!!! Unable to load tasks from file.");
+        }
     }
 }
