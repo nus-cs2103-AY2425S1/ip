@@ -1,3 +1,5 @@
+package com.chatbaby;
+
 public class ListCommand extends Command {
     public ListCommand(String commandBody) {
         super(commandBody);

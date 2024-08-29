@@ -1,3 +1,5 @@
+package com.chatbaby;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;

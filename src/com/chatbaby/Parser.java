@@ -1,3 +1,5 @@
+package com.chatbaby;
+
 public class Parser {
     public static Command parse(String curCommand) throws ChatBabyException {
         String[] parts = curCommand.split(" ", 2);

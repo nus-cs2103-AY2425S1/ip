@@ -1,3 +1,5 @@
+package com.chatbaby;
+
 public class ExitCommand extends Command {
     public ExitCommand(String commandBody) {
         super(commandBody);

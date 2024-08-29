@@ -1,3 +1,5 @@
+package com.chatbaby;
+
 public class UnmarkCommand extends Command{
     public UnmarkCommand(String commandBody) {
         super(commandBody);
