@@ -32,4 +32,8 @@ public class Task {
         return output + " " + name;
     }
 
+    public String toFileString() {
+        return String.format("%s\n%s\n", name, done);
+    }
+
 }

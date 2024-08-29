@@ -5,6 +5,7 @@ public class Makima {
 
     public static final String LINE_SEPERATOR = "__________________";
     private boolean isRunning = true;
+    private boolean editedTasks;
     private ArrayList<Task> tasks = new ArrayList<>();
     private Scanner sc;
 
@@ -65,6 +66,7 @@ public class Makima {
     }
 
     private void done() {
+        editedTasks = true;
         System.out.println("Done!");
         System.out.println(LINE_SEPERATOR);
     }
@@ -85,6 +87,14 @@ public class Makima {
         tasks.add(event);
     }
 
+    public String convertTaskstoFileString() {
+        StringBuilder output = new StringBuilder();
+        for (Task task : tasks) {
+            output.append(task.toFileString());
+        }
+        return output.toString();
+    }
+
     public Makima() {
         sc = new Scanner(System.in);
         greeting();
@@ -92,6 +102,8 @@ public class Makima {
         isRunning = FileManager.loadFile(this);
 
         while (isRunning) {
+
+            editedTasks = false;
 
             switch (getInput()) {
                 case "bye":
@@ -145,6 +157,10 @@ public class Makima {
                 default:
                     System.out.println("Unknown command!");
                     System.out.println(LINE_SEPERATOR);
+            }
+
+            if (editedTasks) {
+                FileManager.saveFile(this);
             }
         }
 

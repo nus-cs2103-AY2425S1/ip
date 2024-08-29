@@ -11,4 +11,9 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String toFileString() {
+        return String.format("T\n%s", super.toFileString());
+    }
 }

@@ -14,7 +14,13 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    @Override
     public String toString() {
         return "[E]" + super.toString() + String.format("(from: %s, to: %s)", startTime, endTime);
+    }
+
+    @Override
+    public String toFileString() {
+        return String.format("D\n%s%s\n%s\n", super.toFileString(), startTime, endTime);
     }
 }
