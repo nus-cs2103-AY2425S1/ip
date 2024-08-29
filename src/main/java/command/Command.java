@@ -37,4 +37,8 @@ public abstract class Command {
     public boolean isExitCommand() {
         return false;
     }
+
+    public boolean isErrorCommand() {
+        return false;
+    }
 }

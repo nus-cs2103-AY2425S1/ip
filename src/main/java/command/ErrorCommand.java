@@ -13,4 +13,9 @@ public class ErrorCommand extends Command {
     public String execute(TaskList tasks) {
         return this.errorMsg;
     }
+
+    @Override
+    public boolean isErrorCommand() {
+        return true;
+    }
 }
