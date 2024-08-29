@@ -1,5 +1,7 @@
 package echobot.task;
 
+import java.util.Arrays;
+
 public class TaskStub extends Task {
     private final String taskName;
     private boolean isDone;
@@ -20,6 +22,10 @@ public class TaskStub extends Task {
 
     public boolean isDone() {
         return this.isDone;
+    }
+
+    public boolean isKeywordContained(String keyword) {
+        return Arrays.asList(taskName.split(" ")).contains(keyword);
     }
 
     @Override
