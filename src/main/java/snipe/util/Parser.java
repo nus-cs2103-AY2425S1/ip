@@ -32,19 +32,24 @@ public class Parser {
             return parseTaskCommand(commandWord, split);
         case "DELETE":
             if (split.length < 2 || split[1].trim().isEmpty()) {
-                throw new SnipeException("Please input a number. Use 'help for correct syntax");
+                throw new SnipeException("Please input a number. Use 'help' for correct syntax");
             }
             return new DeleteCommand(Integer.parseInt(split[1]) - 1);
         case "MARK":
             if (split.length < 2 || split[1].trim().isEmpty()) {
-                throw new SnipeException("Please input a number. Use 'help for correct syntax");
+                throw new SnipeException("Please input a number. Use 'help' for correct syntax");
             }
             return new MarkCommand(Integer.parseInt(split[1]) - 1);
         case "UNMARK":
             if (split.length < 2 || split[1].trim().isEmpty()) {
-                throw new SnipeException("Please input a number. Use 'help for correct syntax");
+                throw new SnipeException("Please input a number. Use 'help' for correct syntax");
             }
             return new UnmarkCommand(Integer.parseInt(split[1]) - 1);
+        case "FIND":
+            if (split.length < 2 || split[1].trim().isEmpty()) {
+                throw new SnipeException("Please input keyword. Use 'help' for correct syntax");
+            }
+            return new FindCommand(split[1]);
         case "HELP":
             return new HelpCommand();
         case "LIST":

@@ -1,3 +1,6 @@
 T | 1 | hello
 T | 0 | greet
-E | 0 | test | 2024-08-29 1800 | 2024-08-30 2359
+E | 1 | test | 2024-08-29 1800 | 2024-08-30 2359
+T | 1 | read book
+T | 0 | return book
+T | 0 | do workbooks

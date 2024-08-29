@@ -84,6 +84,23 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks in the task list that contain the specified keyword in their description.
+     *
+     * @param keyWord The keyword to search for in the task descriptions.
+     * @return An ArrayList of tasks that contain the specified keyword in their description.
+     */
+    public ArrayList<Task> findTasks(String keyWord) {
+        ArrayList<Task> filteredTasks = new ArrayList<Task>();
+        for (Task task: this.tasks) {
+            String text = task.getDescription();
+            if (text.contains(keyWord)) {
+                filteredTasks.add(task);
+            }
+        }
+        return filteredTasks;
+    }
+
+    /**
      * Returns a string representation of the number of tasks in the task list.
      *
      * @return A string indicating the number of tasks in the list.
