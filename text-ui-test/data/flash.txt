@@ -1,4 +1,11 @@
-D|X| project /by 2020-05-12 16:00
+D|X| project1 /by 2020-05-12
+D| | project2 /by 16:00
+D| | project /by Sunday
+D| | project /by 12/05/2020 16:00
+D| | project /by 12/05/2021
+E| | project meeting /from 5pm /to 6pm
+T| | read book
+D| | project /by 2020-05-12 16:00
 D| | project1 /by 2020-05-12
 D| | project2 /by 16:00
 D| | project /by Sunday
