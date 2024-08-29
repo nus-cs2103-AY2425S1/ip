@@ -3,7 +3,7 @@ import java.util.List;
 public class ToDos extends Task{
     // essentially a Task without time
     // add into ArrayList, and then print the statements
-    public ToDos(String description) throws InvalidSyntaxException, EmptyDescriptionException{
+    public ToDos(String description) throws CommandFoundButInvalidException {
         super(description);
         // check if description is valid here
         // if empty description is empty we throw
