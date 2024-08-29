@@ -1,3 +1,7 @@
+package topaz.exception;
+
+import topaz.main.Topaz;
+
 import java.time.LocalDateTime;
 
 public class InvalidTimeException extends InvalidTaskException {

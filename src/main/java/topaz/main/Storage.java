@@ -1,8 +1,14 @@
+package topaz.main;
+
+import topaz.task.Deadline;
+import topaz.task.Event;
+import topaz.task.Task;
+import topaz.task.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,7 +21,7 @@ public class Storage {
         this.file = new File(filePath);
     }
 
-    public ArrayList<Task> load() throws IOException {
+    public TaskList load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File parentDir = file.getParentFile();
         if (!parentDir.exists()) {
@@ -41,11 +47,11 @@ public class Storage {
                     task = new Event(parts[2], LocalDateTime.parse(parts[3]), LocalDateTime.parse(parts[4]));
                     break;
                 default:
-                    return tasks;
+                    return new TaskList();
             }
             tasks.add(task);
         }
-        return tasks;
+        return new TaskList(tasks);
     }
 
     public void save(TaskList taskList) throws IOException {

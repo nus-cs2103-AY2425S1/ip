@@ -1,3 +1,5 @@
+package topaz.exception;
+
 public class InvalidStateException extends Exception {
     private String state;
     public InvalidStateException(String state) {

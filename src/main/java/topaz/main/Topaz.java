@@ -1,3 +1,9 @@
+package topaz.main;
+
+import topaz.command.Command;
+import topaz.exception.InvalidCommandException;
+import topaz.ui.Ui;
+
 import java.io.IOException;
 
 public class Topaz {
@@ -16,7 +22,7 @@ public class Topaz {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            taskList = new TaskList(storage.load());
+            taskList = storage.load();
         } catch (IOException e) {
             ui.showInitializeIOEException(e);
             taskList = new TaskList();

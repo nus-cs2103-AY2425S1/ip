@@ -1,3 +1,7 @@
+package topaz.exception;
+
+import topaz.main.Topaz;
+
 public class InvalidTaskException extends Exception{
     private Topaz.TaskType type;
     public InvalidTaskException(Topaz.TaskType type) {

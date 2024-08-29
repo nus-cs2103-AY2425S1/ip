@@ -1,3 +1,5 @@
+package topaz.exception;
+
 public class InvalidCommandException extends Exception {
 
     private String input;

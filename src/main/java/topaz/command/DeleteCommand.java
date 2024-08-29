@@ -1,3 +1,10 @@
+package topaz.command;
+
+import topaz.main.Storage;
+import topaz.main.TaskList;
+import topaz.task.Task;
+import topaz.ui.Ui;
+
 import java.io.IOException;
 
 public class DeleteCommand extends Command {

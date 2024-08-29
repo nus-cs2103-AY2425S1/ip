@@ -1,3 +1,7 @@
+package topaz.main;
+
+import topaz.task.Task;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
