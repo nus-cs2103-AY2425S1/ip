@@ -46,7 +46,7 @@ public class SecondMind {
         LocalDateTime ldt = LocalDateTime.parse(dateTime);
         DateTimeFormatter formatter 
             = DateTimeFormatter.ofPattern(
-                    "yyyy-MM-dd HH:mm:ss a");
+                    "d MMM yyyy HH:mm:ss a");
     
         return ldt.format(formatter);
     }
