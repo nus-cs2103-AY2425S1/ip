@@ -1,3 +1,11 @@
+package lolo.command;
+
+import lolo.Ui;
+import lolo.LoloException;
+import lolo.storage.Storage;
+import lolo.task.Task;
+import lolo.task.TaskList;
+
 class AddCommand extends Command {
     private Task task;
 

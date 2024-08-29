@@ -1,3 +1,11 @@
+package lolo.command;
+
+import lolo.LoloException;
+import lolo.command.*;
+import lolo.task.Deadline;
+import lolo.task.Event;
+import lolo.task.ToDo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

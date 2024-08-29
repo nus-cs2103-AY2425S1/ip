@@ -1,3 +1,8 @@
+package lolo;
+
+import lolo.task.Task;
+import lolo.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -13,7 +18,7 @@ public class Ui {
     }
 
     public void showWelcome() {
-        System.out.println("Hello! I'm Lolo, your friendly task manager. 😊");
+        System.out.println("Hello! I'm lolo.Lolo, your friendly task manager. 😊");
         System.out.println("What do you want to do today?\n");
     }
 
@@ -22,7 +27,7 @@ public class Ui {
     }
 
     public void showGoodbye() {
-        System.out.println("Lolo: Bye. Hope to see you again soon! 👋");
+        System.out.println("lolo.Lolo: Bye. Hope to see you again soon! 👋");
     }
 
     public void showLoadingError() {
