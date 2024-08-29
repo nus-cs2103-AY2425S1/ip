@@ -1,18 +1,23 @@
-public class ListCommand extends Command{
+package Commands;
+
+import Main.Ui;
+
+public class DeadlineCommand extends Command {
     String userInput;
 
-    public ListCommand(String userInput) {
+    public DeadlineCommand(String userInput) {
         this.userInput = userInput;
     }
 
+
     /**
-     * Displays items in list via method in storelist class
+     * Adds items to list via method in storelist class
      *
      */
     @Override
     public void execute() {
         System.out.println(Ui.LINE);
-        storeList.displayItems();
+        storeList.addItem(userInput.substring(8), "deadline");
         System.out.println(Ui.LINE);
     }
 

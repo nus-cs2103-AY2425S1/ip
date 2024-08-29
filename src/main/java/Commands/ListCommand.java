@@ -1,18 +1,22 @@
-public class EventCommand extends Command{
+package Commands;
+
+import Main.Ui;
+
+public class ListCommand extends Command {
     String userInput;
 
-    public EventCommand(String userInput) {
+    public ListCommand(String userInput) {
         this.userInput = userInput;
     }
 
     /**
-     * Adds items to list via method in storelist class
+     * Displays items in list via method in storelist class
      *
      */
     @Override
     public void execute() {
         System.out.println(Ui.LINE);
-        storeList.addItem(userInput.substring(5), "event");
+        storeList.displayItems();
         System.out.println(Ui.LINE);
     }
 

@@ -1,12 +1,16 @@
-public class UnmarkCommand extends Command{
+package Commands;
+
+import Main.Ui;
+
+public class MarkCommand extends Command {
     String userInput;
 
-    public UnmarkCommand(String userInput) {
+    public MarkCommand(String userInput) {
         this.userInput = userInput;
     }
 
     /**
-     * Marks item as incomplete
+     * Marks item as completed via method in storelist class
      *
      */
     @Override
@@ -15,7 +19,7 @@ public class UnmarkCommand extends Command{
         String[] words = userInput.split(" ");
         System.out.println(Ui.LINE);
         int itemNum = Integer.parseInt(words[1]);
-        storeList.UnmarkItem(itemNum);
+        storeList.markItem(itemNum);
         System.out.println(Ui.LINE);
     }
 

@@ -1,4 +1,8 @@
-public class ToDoCommand extends Command{
+package Commands;
+
+import Main.Ui;
+
+public class ToDoCommand extends Command {
     String userInput;
 
     public ToDoCommand(String userInput) {

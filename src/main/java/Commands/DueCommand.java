@@ -1,19 +1,22 @@
-public class DeadlineCommand extends Command{
+package Commands;
+
+import Main.Ui;
+
+public class DueCommand extends Command {
     String userInput;
 
-    public DeadlineCommand(String userInput) {
+    public DueCommand(String userInput) {
         this.userInput = userInput;
     }
 
-
     /**
-     * Adds items to list via method in storelist class
+     * Displays items due via method in storelist class
      *
      */
     @Override
     public void execute() {
         System.out.println(Ui.LINE);
-        storeList.addItem(userInput.substring(8), "deadline");
+        storeList.dueOnDate(userInput.substring(4).trim());
         System.out.println(Ui.LINE);
     }
 

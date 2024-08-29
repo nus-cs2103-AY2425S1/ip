@@ -1,12 +1,16 @@
-public class DeleteCommand extends Command{
+package Commands;
+
+import Main.Ui;
+
+public class UnmarkCommand extends Command {
     String userInput;
 
-    public DeleteCommand(String userInput) {
+    public UnmarkCommand(String userInput) {
         this.userInput = userInput;
     }
 
     /**
-     * deletes item in list via method in storelist class
+     * Marks item as incomplete
      *
      */
     @Override
@@ -15,7 +19,7 @@ public class DeleteCommand extends Command{
         String[] words = userInput.split(" ");
         System.out.println(Ui.LINE);
         int itemNum = Integer.parseInt(words[1]);
-        storeList.deleteItem(itemNum);
+        storeList.UnmarkItem(itemNum);
         System.out.println(Ui.LINE);
     }
 

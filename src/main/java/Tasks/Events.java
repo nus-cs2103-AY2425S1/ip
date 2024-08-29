@@ -1,3 +1,8 @@
+package Tasks;
+
+import Exceptions.EmptyEventException;
+import Exceptions.EmptyEventTimingException;
+
 public class Events extends Task {
 
     /**
