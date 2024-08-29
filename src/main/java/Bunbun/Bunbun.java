@@ -1,7 +1,12 @@
 package Bunbun;
 
+import Bunbun.utils.Command;
+import Bunbun.utils.Parser;
+import Bunbun.utils.Storage;
+import Bunbun.utils.TaskList;
+import Bunbun.utils.Ui;
+
 import java.util.ArrayList;
-import Bunbun.utils.*;
 
 /**
  * This class implements a chatbot by the name of Bunbun.
@@ -13,11 +18,11 @@ public class Bunbun {
 
     private Storage storage;
     private TaskList list;
-    private UI ui;
+    private Ui ui;
 
     public Bunbun(String filePath) {
         this.storage = new Storage(filePath);
-        this.ui = new UI();
+        this.ui = new Ui();
         this.list = new TaskList(this.storage, this.ui);
     }
 

@@ -1,9 +1,10 @@
 package Bunbun.utils;
 
 import Bunbun.exceptions.BunbunException;
-import Bunbun.tasks.*;
+import Bunbun.tasks.ToDo;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class TaskListTest {
 
     private static Storage s = new Storage("src/main/data/test");
-    private static TaskList taskList = new TaskList(s, new UI());
+    private static TaskList taskList = new TaskList(s, new Ui());
     private static ToDo toAdd = new ToDo("HAI");
 
     @BeforeAll

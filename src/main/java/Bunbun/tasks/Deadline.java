@@ -1,4 +1,5 @@
 package Bunbun.tasks;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -38,7 +39,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        String str = "[D]" + super.toString() + String.format("( by: %s )", this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        String str = "[D]" + super.toString()
+                + String.format("( by: %s )", this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
         return str;
     }
 }

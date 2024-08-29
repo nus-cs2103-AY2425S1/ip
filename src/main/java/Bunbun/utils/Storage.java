@@ -1,13 +1,18 @@
 package Bunbun.utils;
-import Bunbun.tasks.*;
+
+import Bunbun.tasks.Deadline;
+import Bunbun.tasks.Event;
+import Bunbun.tasks.Task;
+import Bunbun.tasks.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.time.LocalDate;
 
 /**
  * This class handles flat file Storage for data persistence of Bunbun.
@@ -56,7 +61,7 @@ public class Storage {
         ArrayList<String> info = new ArrayList<>(Arrays.asList(taskDescription.split(";")));
         String type = info.get(0);
         Boolean isComplete = (info.get(1).equals("true")) ? true : false;
-        Task task;
+        Task task = null;
         if (type.equals("todo")) {
             task = new ToDo(info.get(2));
         } else if (type.equals("deadline")) {
