@@ -5,11 +5,11 @@ package greetbot;
  */
 public class EmptyDescriptionException extends Exception {
     
-    final private String message;
+    final private String MESSAGE;
 
     public EmptyDescriptionException(String message) {
         super();
-        this.message = message;
+        this.MESSAGE = message;
     }
 
     /**
@@ -17,6 +17,6 @@ public class EmptyDescriptionException extends Exception {
      * @return Description of the exception.
      */
     public String getMessage() {
-        return this.message;
+        return this.MESSAGE;
     }
 }

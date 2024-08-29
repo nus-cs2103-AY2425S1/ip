@@ -9,8 +9,8 @@ import java.util.ArrayList;
  */
 abstract class Task {
     protected String description;
-    private final DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy");
-    private final DateTimeFormatter databaseFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private final DateTimeFormatter RUNNINGFORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
+    private final DateTimeFormatter DATABASEFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     protected boolean isDone;
 
     /**
@@ -57,6 +57,7 @@ abstract class Task {
 
     }
 
+
     private int databaseMark() {return this.isDone ? 1 : 0;}
     public String getDescription() {
         return this.description;
@@ -73,22 +74,22 @@ abstract class Task {
 
         public Deadline(String description, String by) {
             super(description);
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                this.by = LocalDate.parse(by.substring(by.indexOf(" ") + 1), formatter);
-
+            this.by = LocalDate.parse(by.substring(by.indexOf(" ") + 1), super.DATABASEFORMAT);
 
         }
 
 
         @Override
         public String transferToDatabaseString() {
-            return String.format("D | %d | %s | %s", super.databaseMark(), super.description.trim(), this.by.format(super.databaseFormat).trim());
+            return String.format("D | %d | %s | %s",
+                    super.databaseMark(),
+                    super.description.trim(),
+                    this.by.format(super.DATABASEFORMAT).trim());
         }
 
         @Override
         public String toString() {
-            return String.format("[D]%s(by: %s)", super.toString(), this.by.format(super.format));
+            return String.format("[D]%s(by: %s)", super.toString(), this.by.format(super.RUNNINGFORMAT));
         }
     }
 
@@ -126,7 +127,11 @@ abstract class Task {
 
         @Override
         public String transferToDatabaseString() {
-            return String.format("E | %d | %s | %s | %s", super.databaseMark(), super.description.trim(), this.from.trim(), this.to.trim());
+            return String.format("E | %d | %s | %s | %s",
+                    super.databaseMark(),
+                    super.description.trim(),
+                    this.from.trim(),
+                    this.to.trim());
         }
 
         @Override
