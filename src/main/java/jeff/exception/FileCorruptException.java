@@ -1,5 +1,8 @@
 package jeff.exception;
 
+/**
+ * Represents an exception for any file corruption.
+ */
 public class FileCorruptException extends Exception {
     private String message;
 
@@ -12,7 +15,7 @@ public class FileCorruptException extends Exception {
     }
 
     /**
-     * Gets the message of the error
+     * Returns the message of the error
      *
      * @return the error message
      */

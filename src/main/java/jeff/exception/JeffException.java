@@ -1,5 +1,8 @@
 package jeff.exception;
 
+/**
+ * Represents an exception for any errors in this package.
+ */
 public class JeffException extends Exception {
     private String message;
 
@@ -22,7 +25,7 @@ public class JeffException extends Exception {
     }
 
     /**
-     * Gets the message of the error
+     * Returns the message of the error
      *
      * @return the error message
      */
