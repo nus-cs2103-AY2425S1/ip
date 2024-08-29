@@ -65,7 +65,7 @@ public class Primo {
         ended = true;
     }
 
-    private static void assessInput(String input) throws PrimoException{
+    private static void assessInput(String input) throws PrimoException {
         String[] words = input.split(" ");
         CommandType type = CommandType.getCommandType(words[0]);
         switch (type) {
@@ -308,6 +308,8 @@ public class Primo {
 }
 */
 
+import java.io.IOException;
+
 public class Primo {
 
     private Storage storage;
@@ -318,8 +320,9 @@ public class Primo {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
-        } catch (PrimoException e) {
+            tasks = new TaskList(storage.load()); // throws PE
+        } catch (PrimoException | IOException e) {
+            System.out.println(e);
             ui.showLoadingError();
             tasks = new TaskList();
         }
@@ -332,8 +335,8 @@ public class Primo {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                Command c = Parser.parse(fullCommand); // throws PE
+                c.execute(tasks, ui, storage); // throws PE
                 isExit = c.isExit();
             } catch (PrimoException e) {
                 ui.showError(e.getMessage());

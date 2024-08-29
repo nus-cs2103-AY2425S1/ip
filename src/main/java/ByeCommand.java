@@ -4,6 +4,8 @@ public class ByeCommand extends Command {
     }
 
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        return;
+        String byeMessage = "\nEl Primo:\n" +
+                "Bye. Hope to see you again soon!";
+        System.out.println(byeMessage);
     }
 }
