@@ -25,7 +25,7 @@ public class JEFF {
 
     public JEFF() {
         this.ui = new Ui();
-        this.storage = new Storage();
+        this.storage = new Storage(DIR_PATH, FILE_PATH);
     }
 
     public static void main(String[] args) {
@@ -34,7 +34,7 @@ public class JEFF {
 
     public void run() {
         // Load saved files (if any)
-        loadData();
+        taskList = storage.loadData();
         ui.showWelcome();
 
         boolean continueChat = true;
@@ -44,7 +44,7 @@ public class JEFF {
                 ui.showLine();
                 // parse the command
                 String[] parts = input.split(" ", 2);
-                if (handleCommand(parts)) continueChat = false;
+                if (this.handleCommand(parts)) continueChat = false;
             } catch (JEFFException e) {
                 ui.showError(e.getMessage());
             } finally {
@@ -54,98 +54,7 @@ public class JEFF {
         ui.showExit();
     }
 
-    public static void loadData() {
-        // Check if the directory exists
-        Path file = checkDirectory(DIR_PATH, FILE_PATH);
-        // Read the file
-        readFile(file);
-    }
-
-    private static void readFile(Path file) {
-        // Read file line by line
-        try {
-            List<String> lines = Files.readAllLines(file);
-            for (String line : lines) {
-                try {
-                    processLine(line);
-                } catch (LineCorruptedException e) {
-                    System.out.println("Error, " + e.getMessage() + ": " + line);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Something went wrong with reading the file!");
-        }
-    }
-
-    private static void processLine(String line) throws LineCorruptedException {
-        // Split the line by ","
-        String[] parts = line.split(",");
-        
-        // Load task into the current tasklist
-        switch (parts[0]) {
-        case "T":
-            if (parts.length != 3) throw new LineCorruptedException("Incorrect Format");
-            taskList.add(new ToDo(parts[2]));
-            break;
-        case "D":
-            if (parts.length != 4) throw new LineCorruptedException("Incorrect Format");
-            try {
-                taskList.add(
-                        new Deadline(parts[2],
-                            LocalDateTime.parse(parts[3].trim(), FORMATTER)
-                        )
-                );
-            } catch (DateTimeParseException e) {
-                throw new LineCorruptedException("Incorrect date format at the file!");
-            }
-            break;
-        case "E":
-            if (parts.length != 5) throw new LineCorruptedException("Incorrect Format");
-            try {
-                taskList.add(
-                        new Event(parts[2],
-                                LocalDateTime.parse(parts[3].trim(), FORMATTER),
-                                LocalDateTime.parse(parts[4].trim(), FORMATTER)
-                        )
-                );
-            } catch (DateTimeParseException e) {
-                throw new LineCorruptedException("Incorrect date format at the file!");
-            }
-            break;
-        default:
-            throw new LineCorruptedException("Unsupported task");
-        }
-        // check if the task is already completed
-        if (Objects.equals(parts[1], "X")) {
-            taskList.get(taskList.size() - 1).markDone();
-        }
-    }
-
-    private static Path checkDirectory(String DIR_PATH, String FILE_PATH) {
-        // Check if directory does not exist
-        Path directory = Paths.get(DIR_PATH);
-        if (!Files.exists(directory)) {
-            try {
-                Files.createDirectories(directory);
-            } catch (IOException e) {
-                System.out.println("Failed to create directory");
-            }
-        }
-
-        // Check if file exists
-        Path file = Paths.get(FILE_PATH);
-        if (!Files.exists(file)) {
-            try {
-                Files.createFile(file);
-            } catch (IOException e) {
-                System.out.println("Failed to create directory");
-            }
-        }
-
-        return file;
-    }
-
-    private static boolean handleCommand(String[] parts) throws JEFFException {
+    private boolean handleCommand(String[] parts) throws JEFFException {
         switch (parts[0].toLowerCase()) {
         case "bye":
             return true;
@@ -185,6 +94,7 @@ public class JEFF {
                 throw new JEFFException("You must provide a valid task to do!");
             } else {
                 addTask(parts[1], "todo");
+                storage.saveTask(taskList);
             }
             break;
         case "deadline":
@@ -192,6 +102,7 @@ public class JEFF {
                 throw new JEFFException("You must provide a valid deadline task!");
             } else {
                 addTask(parts[1], "deadline");
+                storage.saveTask(taskList);
             }
             break;
         case "event":
@@ -199,6 +110,7 @@ public class JEFF {
                 throw new JEFFException("You must provide a valid event task!");
             } else {
                 addTask(parts[1], "event");
+                storage.saveTask(taskList);
             }
             break;
         default:
@@ -240,22 +152,22 @@ public class JEFF {
         taskList.remove(i - 1);
     }
 
-    private static void markNotDone(int i) throws JEFFException {
+    private void markNotDone(int i) throws JEFFException {
         if (i <= 0 || i > taskList.size()) {
             throw new JEFFException("The number is outside the range!");
         }
         taskList.get(i - 1).markNotDone();
-        updateSave(i - 1);
+        storage.updateSave(taskList, i - 1);
         System.out.println("Ok, I marked this as undone:");
         System.out.printf("%s\n", taskList.get(i - 1));
     }
 
-    private static void markDone(int i) throws JEFFException {
+    private void markDone(int i) throws JEFFException {
         if (i <= 0 || i > taskList.size()) {
             throw new JEFFException("The number is outside the range!");
         }
         taskList.get(i - 1).markDone();
-        updateSave(i - 1);
+        storage.updateSave(taskList, i - 1);
         System.out.println("Alrighty, I marked this as done:");
         System.out.printf("%s\n", taskList.get(i - 1));
     }
@@ -304,48 +216,7 @@ public class JEFF {
             throw new JEFFException("Unsupported Task!");
         }
         // Save the task
-        saveTask();
         System.out.printf("added: %s\n", taskList.get(taskList.size() - 1));
-    }
-
-    private static void saveTask() {
-        // write to the file the newly added task
-        String taskAsCSV = taskList.get(taskList.size() - 1).saveAsCSV();
-        // try to append string to end of data file
-        try {
-            Path file = Paths.get(FILE_PATH);
-            // Check if the file already has content
-            boolean fileHasContent = Files.size(file) > 0;
-            if (fileHasContent) {
-                Files.writeString(file, "\n" + taskAsCSV, StandardOpenOption.APPEND);
-            } else {
-                Files.writeString(file, taskAsCSV, StandardOpenOption.APPEND);
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred saving the file");
-        }
-    }
-
-    private static void updateSave(int lineNumber) {
-        Path file = Paths.get(FILE_PATH);
-
-        try {
-            // Read all lines from the file
-            List<String> lines = Files.readAllLines(file);
-
-            // Update the specific line (lineNumber is zero-based)
-            if (lineNumber >= 0 && lineNumber < lines.size()) {
-                lines.set(lineNumber, taskList.get(lineNumber).saveAsCSV());
-            } else {
-                System.out.println("Invalid line number.");
-                return;
-            }
-
-            // Write the updated lines back to the file
-            Files.write(file, lines);
-        } catch (IOException e) {
-            System.out.println("Something went wrong updating the file");
-        }
     }
 
     private static boolean isNumeric(String str) {
