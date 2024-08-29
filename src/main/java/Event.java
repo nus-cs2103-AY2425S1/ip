@@ -11,6 +11,10 @@ public class Event extends Task {
         this.start = start;
         this.end = end;
     }
+    public String toFile() { //prototype in case of future modification
+        return "E" + super.toFile() +
+                start +  " |" + end;
+    }
 
     public String toString() { //prototype in case of future modification
         return "[E]" + super.toString() + " from: " +

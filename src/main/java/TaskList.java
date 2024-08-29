@@ -1,0 +1,42 @@
+import java.util.ArrayList;
+
+public class TaskList {
+    ArrayList<Task> myList;
+
+    public TaskList() {
+        myList = new ArrayList<Task>();
+    }
+    public TaskList(ArrayList<Task> taskList) {
+        this.myList = taskList;
+    }
+
+    public void addTask(Task task) {
+        myList.add(task);
+    }
+
+    public int size() {
+        return myList.size();
+    }
+
+    public Task get(int i) {
+        return myList.get(i);
+    }
+
+    public void add(Task t) {
+        myList.add(t);
+    }
+
+    public void delete(int i) {
+        myList.remove(i);
+    }
+
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < myList.size(); i++) {
+            if (myList.get(i) != null) {
+                result.append(myList.get(i).toString()).append("\n");
+            }
+        }
+        return result.toString();
+    }
+}

@@ -10,6 +10,9 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public String toFile() { //prototype in case of future modification
+        return "D" + super.toFile() + by;
+    }
     @Override
     public String toString() { //prototype in case of future modification
         return "[D]" + super.toString() + " by: " +

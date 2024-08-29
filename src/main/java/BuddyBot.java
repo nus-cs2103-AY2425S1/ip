@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class BuddyBot {
-    static FileStorage store = new FileStorage("BuddyBot.txt");
+    static FileStorage store = new FileStorage("./data/BuddyBot.txt");
     public static void main(String[] args) {
         //Scanner object
         Scanner myObj = new Scanner(System.in);
@@ -19,7 +19,13 @@ public class BuddyBot {
         System.out.println(" Hello! I'm BuddyBot");
         System.out.println(" What can I do for you?");
 
-        ArrayList<Task> myList = new ArrayList<Task>(100);
+        TaskList myList;
+        try {
+            myList = new TaskList(store.readFileContents());
+        } catch (BuddyBotException e) {
+            myList = new TaskList();
+        }
+
         //taking in user input
         String input = myObj.nextLine();
 
@@ -36,12 +42,12 @@ public class BuddyBot {
                 try { // Non-integer exception
                     int num = Integer.parseInt(last);
                     if (num > myList.size() || num <= 0) {
-                        throw new ListTooShortException();
+                        throw new BuddyBotException();
                     }
                     myList.get(num - 1).status = TaskStatus.DONE;
                     System.out.println("Nice! I've marked this task as done:");
                     read(myList);
-                } catch (NumberFormatException | ListTooShortException e) {
+                } catch (NumberFormatException | BuddyBotException e) {
                     System.out.println("This is an invalid input!");
                 } finally {
                     i--;
@@ -61,7 +67,7 @@ public class BuddyBot {
                             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                             LocalDate date = LocalDate.parse(time, format);
                             Deadline additionD = new Deadline(description, date);
-                            myList.add(i, additionD);
+                            myList.add(additionD);
                             System.out.println("Got it. I've added this task: \n" + additionD);
                             System.out.println("Now you have " + count(myList) + " tasks in the list.");
                         } catch (DateTimeParseException e) {
@@ -85,7 +91,7 @@ public class BuddyBot {
                             LocalDate startTime = LocalDate.parse(start, format);
                             LocalDate endTime = LocalDate.parse(end, format);
                             Event additionE = new Event(description, startTime, endTime);
-                            myList.add(i, additionE);
+                            myList.add(additionE);
                             System.out.println("Got it. I've added this task: \n" + additionE);
                             System.out.println("Now you have " + count(myList) + " tasks in the list.");
                         } catch (DateTimeParseException e) {
@@ -112,13 +118,13 @@ public class BuddyBot {
                         String index = input.substring(6).trim();
                         int num = Integer.parseInt(index);
                         if (num  > myList.size() || num <= 0) {
-                            throw new ListTooShortException();
+                            throw new BuddyBotException();
                         }
                         Task removed = myList.get(num - 1);
                         delete(myList, num);
                         System.out.println("Got it. I've removed this task: \n" + removed);
                         System.out.println("Now you have " + count(myList) + " tasks in the list.");
-                    } catch (NumberFormatException | ListTooShortException e) { // non-integer input
+                    } catch (NumberFormatException | BuddyBotException e) { // non-integer input
                         System.out.println("This is an invalid input!");
                     } finally {
                         i--;
@@ -132,10 +138,11 @@ public class BuddyBot {
             }
         }
         store.writeToTxt(writtenList(myList));
+        readList(myList);
         System.out.println(" Bye. Hope to see you again soon!");
     }
 
-    public static void read(ArrayList<Task> arr) {
+    public static void read(TaskList arr) {
         for (int i = 0; i < arr.size(); i++) {
             if (arr.get(i) == null) {
                 break;
@@ -145,31 +152,34 @@ public class BuddyBot {
         }
     }
 
-    public static int count(ArrayList<Task> arr) {
+    public static int count(TaskList arr) {
         return arr.size();
     }
 
-    public static void delete(ArrayList<Task> arr, int num) {
-        arr.remove(num - 1);
+    public static void delete(TaskList arr, int num) {
+        arr.delete(num - 1);
     }
 
-    public static String writtenList(ArrayList<Task> arr) {
+    public static String writtenList(TaskList arr) {
         StringBuilder result = new StringBuilder();
+
         for (int i = 0; i < arr.size(); i++) {
             if (arr.get(i) != null) {
-                result.append(arr.get(i).toString()).append("\n");
+                result.append(arr.get(i).toFile()).append("\n");
             }
         }
         return result.toString();
     }
 
-    /*public static void writeToTxt(String myTasks) { //Using this method
-        try  {
-            FileWriter myWriter = new FileWriter("BuddyBot.txt");
-            myWriter.write(myTasks);
-            myWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static void readList(TaskList arr) {
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < arr.size(); i++) {
+            if (arr.get(i) != null) {
+                result.append(arr.get(i).toString()).append("\n");
+            }
         }
-    }*/
+        System.out.println(result);
+    }
+
 }

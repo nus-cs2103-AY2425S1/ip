@@ -17,12 +17,17 @@ public class Task {
         return (status == TaskStatus.DONE ? "X" : " ");
     }
 
-    public void mark(Task task) {
+    public void mark() {
         this.status = TaskStatus.DONE;
     }
 
     @Override
     public String toString() {
         return " [" + this.getStatusIcon() + "] " + this.description;
+    }
+
+    public String toFile() {
+        return status == TaskStatus.DONE ? "|X|" : "|0|"
+                + description + "|";
     }
 }

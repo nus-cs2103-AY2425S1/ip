@@ -1,7 +1,7 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class FileStorage {
@@ -11,29 +11,60 @@ public class FileStorage {
     public FileStorage(String filePath) {
         this.filePath = filePath;
     }
-    private static void printFileContents(String filePath) throws FileNotFoundException {
-        File f = new File(filePath); //creating file
-        Scanner s = new Scanner(f); //create scanner for file
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
-        }
-    }
 
-    public static void main(String[] args) {
+    public ArrayList<Task> readFileContents() throws BuddyBotException {
+        ArrayList<Task> contents = new ArrayList<>();
         try {
-            printFileContents("BuddyBot.txt");
+            File f = new File(filePath); // create a File for the given file path
+            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            while (s.hasNextLine()) {
+                contents.add(readEntry(s.nextLine()));
+            }
+            s.close();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            throw new BuddyBotException();
         }
+        return contents;
+    }
+    private Task readEntry(String entry) {
+        String[] fields = entry.split("\\|");
+        //  System.out.println(Arrays.toString(fields));  // debug
+        Task taskToAdd;
+//        for (String field: fields) {
+//            System.out.println(field);
+//        }
+        switch (fields[0]) {
+            case "E":
+                taskToAdd = new Event(fields[2], LocalDate.parse(fields[3]), LocalDate.parse(fields[4]));
+                break;
+            case "D":
+                taskToAdd = new Deadline(fields[2], LocalDate.parse(fields[3]));
+                break;
+            default: // case "T":
+                System.out.println(fields[2]);
+                taskToAdd = new Todo(fields[2]);
+                break;
+        }
+        if ((fields[1]).equals("X")) {
+            taskToAdd.mark();
+        }
+        return taskToAdd;
     }
 
     public void writeToTxt(String myTasks) { //Using this method
         try  {
-            FileWriter myWriter = new FileWriter(this.filePath);
-            myWriter.write(myTasks);
-            myWriter.close();
+            File file = new File(this.filePath);
+            File dir = new File(file.getParent());
+            boolean dirCreated = dir.mkdirs();
+            FileWriter fw = new FileWriter(this.filePath, false);
+            BufferedWriter bw = new BufferedWriter(fw);
+           bw.write(myTasks);
+           bw.newLine();
+           bw.close();
+           fw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }
