@@ -28,6 +28,11 @@ test {
     }
 }
 
+shadowJar {
+    archiveFileName = 'Primo.jar'
+}
+
+
 application {
     mainClass.set("Primo")
 }
