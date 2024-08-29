@@ -12,7 +12,14 @@ public class InvalidInstructionException extends Exception {
         return this.instruction;
     }
 
-    public String toString() {
-        return this.getInstruction() + " is not a valid instruction!";
+    @Override
+    public String getMessage() {
+        String message = this.getInstruction() + " is not a valid command!\n" +
+                            "Here are the valid instructions: \n";
+        for (String i : Ui.INSTRUCTION_LIST) {
+            message = message + "- " + i + "\n";
+        }
+
+        return message;
     }
 }

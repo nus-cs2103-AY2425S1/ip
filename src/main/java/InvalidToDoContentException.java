@@ -7,7 +7,8 @@ public class InvalidToDoContentException extends InvalidTaskContentException {
         super();
     }
 
-    public String toString() {
+    @Override
+    public String getMessage() {
         return
         "Please key in the following format:\n" +
         "todo [task name]";

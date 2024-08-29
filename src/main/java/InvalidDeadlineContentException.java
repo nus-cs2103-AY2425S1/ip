@@ -8,10 +8,11 @@ public class InvalidDeadlineContentException extends InvalidTaskContentException
         super();
     }
 
-    public String toString() {
+    @Override
+    public String getMessage() {
         return
         "Please key in the following format:\n" +
-        "deadline [task name] /[due day, time, and/or date]";
+        "deadline [task name] /[YYYY-MM-DD] [HH:MM]";
     }
 
 }
