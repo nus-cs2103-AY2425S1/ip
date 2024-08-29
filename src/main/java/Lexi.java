@@ -18,10 +18,10 @@ public class Lexi {
         greet();
         loadTasks();
         String response = userInput.nextLine();
-        while (!response.toUpperCase().equals(Command.BYE.name())) {
+        while (!response.toUpperCase().equals(Commands.BYE.name())) {
             try {
                 String[] parts = response.split(" ");
-                Command command = Command.valueOf(parts[0].toUpperCase());
+                Commands command = Commands.valueOf(parts[0].toUpperCase());
                 switch (command) {
                     case MARK:
                     case UNMARK:
@@ -47,7 +47,7 @@ public class Lexi {
                 System.out.println(e.getMessage());
             } catch(IllegalArgumentException e) {
                 System.out.println("You have entered an invalid command!\nKey in one of them from the list below:\n");
-                Command.printCommands();
+                Commands.printCommands();
             } finally {
                 response = userInput.nextLine();
             }
