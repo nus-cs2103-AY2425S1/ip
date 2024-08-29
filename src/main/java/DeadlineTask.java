@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * The DeadlineTask class represents a task with a deadline. It extends the Task class
@@ -13,7 +14,7 @@ public class DeadlineTask extends Task {
      * @param name the name or description of the task
      * @param deadline the deadline date and time for the task in the format "dd/MM/yyyy HH:mm"
      */
-    public DeadlineTask(String name, String deadline) {
+    public DeadlineTask(String name, String deadline) throws DateTimeParseException {
         super(name);
         // Use LocalDateTime instead of LocalDate to handle date and time
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -22,6 +23,7 @@ public class DeadlineTask extends Task {
         // Desired output format with time in 12-hour format and AM/PM
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
         this.deadline = inputDateTime.format(outputFormatter);
+
     }
 
     /**
