@@ -3,10 +3,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.io.FileWriter;
+import java.time.format.DateTimeFormatter;
+
 
 public class Bob {
     private static List<Task> memory = new ArrayList<Task>();
@@ -119,13 +123,15 @@ public class Bob {
                 Task task;
                 if (response.startsWith("deadline")) {
                     String by = response.substring(response.indexOf("/by") + "/by".length()).trim();
+
+
                     String description = response.substring(
                             "deadline".length(),
                             response.indexOf("/by")).trim();
                     if (by.isEmpty() || description.isEmpty()) {
                         throw new EmptyFieldException();
                     }
-                    task = new Deadline(description, by);
+                    task = new Deadline(description, parseDatetime(by));
                 } else if (response.startsWith("todo")) {
                     String description = response.substring(
                             "todo".length()).trim();
@@ -144,7 +150,7 @@ public class Bob {
                     if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
                         throw new EmptyFieldException();
                     }
-                    task = new Event(description, from, to);
+                    task = new Event(description, parseDatetime(from), parseDatetime(to));
 
                 } else {
                     throw new InvalidCommandException();
@@ -171,6 +177,8 @@ public class Bob {
                 Bob.print("Field(s) may not be blank." + "\n" + Bob.HELP_MESSAGE);
             } catch(IOException e) {
                 Bob.print("I can't remember that for some reason T T");
+            } catch(DateTimeParseException e) {
+                Bob.print("Sorry, I only accept datetime inputs of yyyy-MM-dd HHmm");
             }
         }        Bob.print("Bye.");
 
@@ -213,6 +221,10 @@ public class Bob {
         writeToFile(STORAGE_FILE_PATH, text.toString());
     }
 
+    private static LocalDateTime parseDatetime(String input) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return LocalDateTime.parse(input, formatter);
+    }
     private static final String HELP_MESSAGE = "Key in \"I need help.\" for additional help.";
     private static final Path STORAGE_FILE_PATH = Paths.get("./data/bob.txt");
 }
