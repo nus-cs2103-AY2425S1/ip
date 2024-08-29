@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 public class Todo extends Task{
@@ -7,13 +8,17 @@ public class Todo extends Task{
     }
 
     protected static Todo makeTodo(StringTokenizer tokens) throws TheBotFatherException{
-        StringBuilder description = new StringBuilder();
-        String token = tokens.nextToken();
-        description.append(token).append(" ");
-        while (tokens.hasMoreTokens()) {
-            token = tokens.nextToken();
+        try {
+            StringBuilder description = new StringBuilder();
+            String token = tokens.nextToken();
             description.append(token).append(" ");
+            while (tokens.hasMoreTokens()) {
+                token = tokens.nextToken();
+                description.append(token).append(" ");
+            }
+            return new Todo(description.toString().trim());
+        } catch (NoSuchElementException e) {
+            throw new TheBotFatherException("If you have a todo, type : \"todo <description>\"");
         }
-        return new Todo(description.toString().substring(0, description.length() - 1));
     }
 }
