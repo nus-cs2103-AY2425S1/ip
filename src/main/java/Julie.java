@@ -75,11 +75,10 @@ public class Julie {
                             }
                             try {
                                 LocalDate due = LocalDate.parse(tokens[1]);
-
+                                t = new Deadline(tokens[0].substring(9), due);
                             } catch (DateTimeParseException e) {
                                 throw new InvalidInputException(input);
                             }
-                            t = new Deadline(tokens[0].substring(9), LocalDate.parse(tokens[1]));
                         }
                         // Fallthrough
                     case EVENT:
@@ -88,9 +87,14 @@ public class Julie {
                             if (tokens.length != 3) {
                                 throw new InvalidInputException(commandToken);
                             }
-                            t = new Event(tokens[0].substring(6),
-                                    LocalDate.parse(tokens[1]),
-                                    LocalDate.parse(tokens[2]));
+                            try {
+                                LocalDate from = LocalDate.parse(tokens[1]);
+                                LocalDate to = LocalDate.parse(tokens[2]);
+                                t = new Event(tokens[0].substring(6),
+                                        from, to);
+                            } catch (DateTimeParseException e) {
+                                throw new InvalidInputException(input);
+                            }
                         }
                         taskList.add(t);
                         CommonFunctions.addedPrompt(t, taskList);
