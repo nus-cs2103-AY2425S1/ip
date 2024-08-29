@@ -22,6 +22,14 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     public abstract String toSaveFormat();
 
     @Override
