@@ -10,6 +10,7 @@ public class WenJigglyBot {
     private final Ui ui;
 
     public WenJigglyBot() {
+
         tasks = new TaskList();
         ui = new Ui();
         try {
@@ -26,7 +27,6 @@ public class WenJigglyBot {
     }
 
     public void run() {
-
         Scanner scanner = new Scanner(System.in);
         ui.intro();
         String task;

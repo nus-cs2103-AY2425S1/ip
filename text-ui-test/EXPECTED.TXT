@@ -3,7 +3,7 @@ Sup im WenJigglyBot
 What can I do for you?
 Tasks saved to data.txt
 ____________________________________________________________
-	Adding Todo wenjigglybot.Task
+	Adding Todo Task
 	Done! Added: testtask
 You now have 1 tasks!
 ____________________________________________________________
@@ -12,7 +12,7 @@ Here are your tasks :)
 	1. [T][ ] testtask
 ____________________________________________________________
 ____________________________________________________________
-	Yay! wenjigglybot.Task Completed!
+	Yay! Task Completed!
 	[T][X] testtask
 ____________________________________________________________
 ____________________________________________________________
@@ -29,7 +29,7 @@ Here are your tasks :)
 ____________________________________________________________
 Tasks saved to data.txt
 ____________________________________________________________
-	Adding Todo wenjigglybot.Task
+	Adding Todo Task
 	Done! Added: borrow book
 You now have 2 tasks!
 ____________________________________________________________
@@ -39,7 +39,7 @@ Here are your tasks :)
 	2. [T][ ] borrow book
 ____________________________________________________________
 ____________________________________________________________
-	Yay! wenjigglybot.Task Completed!
+	Yay! Task Completed!
 	[T][X] borrow book
 ____________________________________________________________
 ____________________________________________________________
@@ -58,7 +58,7 @@ Here are your tasks :)
 ____________________________________________________________
 Tasks saved to data.txt
 ____________________________________________________________
-	Adding Event wenjigglybot.Task
+	Adding Event Task
 	Done! Added: return book
 You now have 3 tasks!
 ____________________________________________________________
@@ -69,7 +69,7 @@ Here are your tasks :)
 	3. [D][ ] return book (by: 2 February 2022)
 ____________________________________________________________
 ____________________________________________________________
-	Yay! wenjigglybot.Task Completed!
+	Yay! Task Completed!
 	[D][X] return book (by: 2 February 2022)
 ____________________________________________________________
 ____________________________________________________________
@@ -90,7 +90,7 @@ Here are your tasks :)
 ____________________________________________________________
 Tasks saved to data.txt
 ____________________________________________________________
-	Adding Event wenjigglybot.Task
+	Adding Event Task
 	Done! Added: meeting
 You now have 4 tasks!
 ____________________________________________________________
@@ -102,7 +102,7 @@ Here are your tasks :)
 	4. [E][ ] meeting (from: mon 2pm to: tues 5pm)
 ____________________________________________________________
 ____________________________________________________________
-	Yay! wenjigglybot.Task Completed!
+	Yay! Task Completed!
 	[E][X] meeting (from: mon 2pm to: tues 5pm)
 ____________________________________________________________
 ____________________________________________________________
