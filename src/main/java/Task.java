@@ -29,10 +29,4 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
-
-    public String addedConfirmation(ArrayList<Task> listOfTask) {
-        return "Got it. I've added this task:\n" +
-                "  " + this.toString() + "\n" +
-                "Now you have " + listOfTask.size() + " tasks in the list.";
-    }
 }
