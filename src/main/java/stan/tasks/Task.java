@@ -19,9 +19,9 @@ public abstract class Task {
     }
 
     /**
-     * Returns the status icon of the task.
+     * Returns the status of the task.
      *
-     * @return "X" if the task is done, otherwise a space character.
+     * @return "X" if the task is done, otherwise " ".
      */
     public String getStatus() {
         return (isDone ? "X" : " ");
@@ -42,9 +42,18 @@ public abstract class Task {
     }
 
     /**
-     * Converts the task to a storage-friendly string format.
+     * Returns the description of the task.
      *
-     * @return The string representation of the task for storage.
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Converts the task to a storage format.
+     *
+     * @return The string representation of the task in storage format.
      */
     public abstract String toStorageString();
 

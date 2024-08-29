@@ -2,6 +2,7 @@ package stan;
 
 import stan.tasks.Task;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The TaskList class manages the list of tasks.
@@ -29,7 +30,7 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to the list.
+     * Adds a task to the task list.
      *
      * @param task The task to be added.
      */
@@ -38,19 +39,19 @@ public class TaskList {
     }
 
     /**
-     * Removes a task from the list.
+     * Removes a task from the task list.
      *
      * @param index The index of the task to be removed.
-     * @return The task that was removed.
+     * @return The removed task.
      */
     public Task remove(int index) {
         return tasks.remove(index);
     }
 
     /**
-     * Retrieves a task from the list.
+     * Gets a task from the task list.
      *
-     * @param index The index of the task to retrieve.
+     * @param index The index of the task to get.
      * @return The task at the specified index.
      */
     public Task get(int index) {
@@ -58,20 +59,36 @@ public class TaskList {
     }
 
     /**
-     * Returns the total number of tasks in the list.
+     * Returns the size of the task list.
      *
-     * @return The number of tasks in the list.
+     * @return The number of tasks in the task list.
      */
     public int size() {
         return tasks.size();
     }
 
     /**
-     * Retrieves the list of tasks.
+     * Returns the list of tasks.
      *
      * @return The list of tasks.
      */
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    /**
+     * Finds tasks that contain the specified keyword.
+     *
+     * @param keyword The keyword to search for.
+     * @return A list of tasks that match the keyword.
+     */
+    public List<Task> findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 }
