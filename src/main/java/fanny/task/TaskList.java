@@ -113,4 +113,10 @@ public class TaskList {
         }
         return list.get(index - 1).toString();
     }
+
+    public List<Task> findTasks(String keyword) {
+        return list.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .toList();
+    }
 }
