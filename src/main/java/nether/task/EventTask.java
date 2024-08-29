@@ -14,20 +14,18 @@ public class EventTask extends Task {
         super(description);
         this.from = null;
         this.to = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
         // Validate the input date/time and then assign them
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             this.from = LocalDateTime.parse(from.trim(), formatter);
-
         } catch (DateTimeException e) {
             throw new NetherException("the date/time format for the event FROM timing is invalid. Please use " +
                     "the format: yyyy-MM-dd HHmm.");
         }
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            this.to = LocalDateTime.parse(to.trim(), formatter);
 
+        try {
+            this.to = LocalDateTime.parse(to.trim(), formatter);
         } catch (DateTimeException e) {
             throw new NetherException("the date/time format for the event TO timing is invalid. Please use " +
                     "the format: yyyy-MM-dd HHmm.");
