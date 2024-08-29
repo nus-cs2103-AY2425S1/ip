@@ -13,7 +13,7 @@ public class JoeTest {
 
     @Test
     public void testJoe_initialization_success() throws FileNotFoundException, CorruptedFileException {
-        Joe joe = new Joe("src/test/data/test.txt");
+        Joe joe = new Joe("data/test.txt");
         TaskList tasks = joe.getTasks();
         assertEquals(4, tasks.size());
         assertEquals("[T][X] read book", tasks.get(0).toString());
@@ -26,9 +26,9 @@ public class JoeTest {
     @Test
     public void testJoe_initialization_fileNotFound() {
         Exception exception = assertThrows(FileNotFoundException.class, () -> {
-            new Joe("src/test/data/nonexistent.txt").initializeTasks();
+            new Joe("data/nonexistent.txt").initializeTasks();
         });
-        assertEquals("java.io.FileNotFoundException: src\\test\\data\\nonexistent.txt " +
+        assertEquals("java.io.FileNotFoundException: data\\nonexistent.txt " +
                 "(The system cannot find the file specified)",
                 exception.toString());
     }
@@ -36,7 +36,7 @@ public class JoeTest {
     @Test
     public void testJoe_initialization_corruptedFile() {
         Exception exception = assertThrows(CorruptedFileException.class, () -> {
-            new Joe("src/test/data/corrupted.txt").initializeTasks();
+            new Joe("data/corrupted.txt").initializeTasks();
         });
         assertEquals("joe.exceptions.CorruptedFileException: The file is corrupted", exception.toString());
     }

@@ -17,7 +17,7 @@ public class StorageTest {
 
     @Test
     public void storageLoad_validFilePath_success() throws Exception {
-        Storage storage = new Storage("src/test/data/test.txt");
+        Storage storage = new Storage("data/test.txt");
         String[] lines = storage.load();
         assertEquals("T | 1 | read book", lines[0]);
         assertEquals("D | 0 | return book | by 12/12/2019 1800", lines[1]);
