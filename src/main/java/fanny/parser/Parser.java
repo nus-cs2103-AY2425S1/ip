@@ -9,6 +9,8 @@ import fanny.command.DeadlineCommand;
 import fanny.command.DeleteCommand;
 import fanny.command.MarkCommand;
 import fanny.command.UnmarkCommand;
+import fanny.command.FindCommand;
+
 import fanny.FannyException;
 
 /**
@@ -45,6 +47,8 @@ public class Parser {
             return new EventCommand(arguments);
         case "delete":
             return new DeleteCommand(arguments);
+        case "find":
+            return new FindCommand(arguments);
         default:
             throw new FannyException("Sorry, I'm confused! Please try again.");
         }
