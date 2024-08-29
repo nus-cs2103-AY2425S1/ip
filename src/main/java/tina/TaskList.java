@@ -29,12 +29,13 @@ public class TaskList {
      *
      * @param task The task to be added to the list.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         list.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task.getDes());
-        System.out.printf("Now you have %d tasks in the list.%n", list.size());
         storage.write(list);
+        String result = "Got it. I've added this task:\n" +
+                "  " + task.getDes() + "\n" +
+                String.format("Now you have %d tasks in the list.", list.size());
+        return result;
     }
 
     /**
@@ -43,12 +44,14 @@ public class TaskList {
      *
      * @param x The index of the task to be marked as completed.
      */
-    public void markTask(int x) {
+    public String markTask(int x) {
         Task currTask = list.get(x - 1);
         currTask.mark();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + currTask.getDes());
+        String result = "Nice! I've marked this task as done:\n" +
+                "  " + currTask.getDes();
+
         storage.write(list);
+        return result;
     }
 
     /**
@@ -57,25 +60,32 @@ public class TaskList {
      *
      * @param x The index of the task to be unmarked.
      */
-    public void unmarkTask(int x) {
+    public String unmarkTask(int x) {
         Task currTask = list.get(x - 1);
         currTask.unmark();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + currTask.getDes());
+        String result = "OK, I've marked this task as not done yet:\n" +
+                "  " + currTask.getDes();
         storage.write(list);
+        return result;
     }
 
     /**
      * Lists all tasks in the task list with their current status.
      * Displays the tasks with their respective indices.
      */
-    public void listTask() {
-        System.out.println("Here are the tasks in your list:");
+    public String listTask() {
+        StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < list.size(); i++) {
             Task currTask = list.get(i);
-            System.out.printf("%d.%s%n", i + 1, currTask.getDes());
+            result.append(i + 1).append(". ").append(currTask.getDes());
+            if (i < list.size() - 1) {
+                result.append("\n");
+            }
         }
+        return result.toString();
     }
+
+
 
     /**
      * Deletes a task from the list and saves the updated list to storage.
@@ -83,23 +93,26 @@ public class TaskList {
      *
      * @param x The index of the task to be deleted.
      */
-    public void deleteTask(int x) {
+    public String deleteTask(int x) {
         Task currTask = list.remove(x - 1);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + currTask.getDes());
-        System.out.printf("Now you have %d tasks in the list.%n", list.size());
+        String result = "Noted. I've removed this task:\n" +
+                "  " + currTask.getDes() + "\n" +
+                String.format("Now you have %d tasks in the list.", list.size());
         storage.write(list);
+        return result;
     }
 
-    public void findTask(String input) {
-        System.out.println("Here are the matching tasks in your list:");
+
+    public String findTask(String input) {
+        StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
         int count = 1;
         for (int i = 0; i < list.size(); i++) {
             Task currTask = list.get(i);
-            if(currTask.description().contains(input)) {
-                System.out.printf("%d.%s%n", count, currTask.getDes());
+            if (currTask.description().contains(input)) {
+                result.append(count).append(". ").append(currTask.getDes()).append("\n");
                 count++;
             }
         }
+        return result.toString();
     }
 }

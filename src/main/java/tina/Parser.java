@@ -23,17 +23,17 @@ public class Parser {
      * @param tasks The <code>TaskList</code> to which the parsed task will be added.
      * @throws TinaException if the command is invalid or the description is missing.
      */
-    private static void parseTask(String input, TaskList tasks) throws TinaException {
+    private static String parseTask(String input, TaskList tasks) throws TinaException {
         try {
             if (input.startsWith("todo")) {
                 String des = input.substring(5);
-                tasks.addTask(new Todo(des));
+                return tasks.addTask(new Todo(des));
             }
             else if (input.startsWith("deadline")) {
                 int byIdx = input.indexOf("/by");
                 String des = input.substring(9, byIdx - 1);
                 String end = input.substring(byIdx + 4);
-                tasks.addTask(new Deadline(des, end));
+                return tasks.addTask(new Deadline(des, end));
             }
             else if (input.startsWith("event")) {
                 int fromIdx = input.indexOf("/from");
@@ -41,7 +41,7 @@ public class Parser {
                 String des = input.substring(6, fromIdx - 1);
                 String start = input.substring(fromIdx + 6, toIdx - 1);
                 String end = input.substring(toIdx + 4);
-                tasks.addTask(new Event(des, start, end));
+                return tasks.addTask(new Event(des, start, end));
             } else {
                 throw new TinaException("I have no idea what that means");
             }
@@ -57,24 +57,24 @@ public class Parser {
      * @param tasks The <code>TaskList</code> on which the command will be executed.
      * @throws TinaException if the command is invalid, the index is missing, or the index format is incorrect.
      */
-    public static void parseInput(String input, TaskList tasks) throws TinaException {
+    public static String parseInput(String input, TaskList tasks) throws TinaException {
         try {
             if (input.startsWith("find")) {
                 String keyword = input.substring(5);
-                tasks.findTask(keyword);
+                return tasks.findTask(keyword);
             } else if (input.equals("list")) {
-                tasks.listTask();
+                return tasks.listTask();
             } else if (input.startsWith("mark")) {
                 int idx = Integer.parseInt(input.substring(5));
-                tasks.markTask(idx);
+                return tasks.markTask(idx);
             } else if (input.startsWith("unmark")) {
                 int idx = Integer.parseInt(input.substring(7));
-                tasks.unmarkTask(idx);
+                return tasks.unmarkTask(idx);
             } else if (input.startsWith("delete")) {
                 int idx = Integer.parseInt(input.substring(7));
-                tasks.deleteTask(idx);
+                return tasks.deleteTask(idx);
             } else {
-                parseTask(input, tasks);
+                return parseTask(input, tasks);
             }
         } catch (StringIndexOutOfBoundsException e) {
             throw new TinaException("What is the index?");

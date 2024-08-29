@@ -38,7 +38,7 @@ public class Ui {
         String input = sc.nextLine();
         while (!input.equals("bye")) {
             try {
-                Parser.parseInput(input, tasks);
+                System.out.println(Parser.parseInput(input, tasks));
             } catch (TinaException e) {
                 System.out.println(e.getMessage());
             }

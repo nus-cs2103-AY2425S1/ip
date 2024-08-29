@@ -1,0 +1,30 @@
+# Tina: Your personal chatbot
+> “Your mind is for having ideas, not holding them.” – David Allen
+
+Tina frees your mind of having to remember things you need to do. It's,
+- text-based
+- **EASY** to learn
+- ~~FAST~~ SUPER FAST to use
+## Key features
+- [x] Add 3 different tasks, Todo, Deadline, Event
+- [x] Provides specific error messages when wrong inputs are passed
+- [x] Save files locally, data is saved when app is rebooted
+- [x] Able to accept and return custom Date Time formats
+- [x] Find, mark, delete tasks
+- [ ] Interactive GUI (coming soon)
+- [ ] Reminders (coming soon)
+- [ ] Managing deadlines (coming soon)
+
+## How to use
+1. Download jar file from [here](https://github.com/Justincjr/ip/releases/tag/A-Jar).
+2. Run `java -jar "{filename}.jar"`
+3. Add your tasks
+4. Let Tina manage your tasks for you :smiley:
+
+If you are a Java programmer, you can use it to practice Java too. Here's the `main` method:
+```java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
