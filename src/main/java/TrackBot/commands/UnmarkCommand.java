@@ -5,15 +5,15 @@ import TrackBot.TrackBotStorage;
 import TrackBot.TrackList;
 import TrackBot.Ui;
 
-public class DeleteCommand extends Command {
+public class UnmarkCommand extends Command {
     private final int taskIndex;
 
-    public DeleteCommand(int taskIndex) {
+    public UnmarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 
     @Override
-    public void execute(TrackList trackList, Ui ui, TrackBotStorage storage) throws TrackBotException {
-        trackList.deleteFromList(taskIndex);
+    public void execute(TrackList taskList, Ui ui, TrackBotStorage storage) throws TrackBotException {
+        taskList.unmarkTask(taskIndex);
     }
 }

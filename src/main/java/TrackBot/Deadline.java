@@ -7,8 +7,8 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
-        this.by = InputParser.checkDateFormat(by);
-//        date = TrackBot.TrackBot.InputParser.checkDateFormat(by);
+        this.by = Parser.checkDateFormat(by);
+//        date = TrackBot.TrackBot.Parser.checkDateFormat(by);
     }
     @Override
     public String toStorageFormat() {
