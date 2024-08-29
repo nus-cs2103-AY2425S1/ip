@@ -68,14 +68,14 @@ public class Storage {
      * @param taskList
      */
     @SuppressWarnings("unchecked")
-    public void save(ArrayList<Task> taskList) {
+    public void save(TaskList taskList) {
         try {
             JSONObject taskListObj = new JSONObject();
             JSONArray taskListArr = new JSONArray();
 
-            for (int i = 0; i < taskList.size(); ++i) {
+            for (int i = 0; i < taskList.getSize(); ++i) {
                 JSONObject taskObj = new JSONObject();
-                Task task = taskList.get(i);
+                Task task = taskList.getTask(i);
                 if (task instanceof ToDo) {
                     taskObj.put("taskName", task.getTaskName());
                     taskObj.put("isDone", task.isDone());
