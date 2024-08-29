@@ -15,6 +15,6 @@ public class Event extends Task {
 
     @Override
     public String getFileString() {
-        return String.format("E | %s | %s | %s-%s", getStatusNumber(), getDescription(), from, to);
+        return String.format("E | %s | %s | %s to %s", getStatusNumber(), getDescription(), from, to);
     }
 }
