@@ -2,7 +2,6 @@ package sam;
 
 import java.util.ArrayList;
 import java.util.List;
-import sam.Item;
 
 /**
  * Represents a task list.

@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import sam.Deadline;
-
 /**
  * The Storage class handles the loading and saving of items to a file.
  */
