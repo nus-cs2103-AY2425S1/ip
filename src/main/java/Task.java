@@ -20,6 +20,9 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    /**
+     * Returns how the task is stored on ./data/taskList.txt as a string.
+     */
     public String toTxt() {
         return (isDone ? "1 " : "0 ") + this.description;
     }
