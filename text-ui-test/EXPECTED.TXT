@@ -12,7 +12,7 @@ Error: Description of todos cannot be empty.
 Please try again.
 -----------------------------------
 New Deadline task added:
-[D][ ] Return book  (by Sunday )
+[D][ ] Return book (by July 12, 2024 )
 -----------------------------------
 Error: Please include name, /by and deadline separated by space.
 -----------------------------------
@@ -25,19 +25,19 @@ Error: Description of deadlines cannot be empty.
 Please try again.
 -----------------------------------
 New Event task added:
- [E][ ] project meeting  (from Mon 2pm  to: 4pm)
+ [E][ ] project meeting  (from July 12, 2024 to: July 13, 2024)
 -----------------------------------
 Error: incorrect styling.
 Please include name, /from, fromDate, /to, toDate separated by space
 -----------------------------------
-New Event task added:
- [E][ ] project meeting  (from   to: 4pm)
+Error: fromDate of deadlines cannot be empty.
+Please try again.
 -----------------------------------
 Error: fromDate of deadlines cannot be empty.
 Please try again.
 -----------------------------------
 New Event task added:
- [E][ ]   (from Mon 2pm  to: 4pm)
+ [E][ ]   (from July 12, 2024 to: July 12, 2024)
 -----------------------------------
 Error: eventName of deadlines cannot be empty.
 Please try again.
@@ -50,10 +50,9 @@ Please include name, /from, fromDate, /to, toDate separated by space
 -----------------------------------
 1. [T][ ] Borrow book
 2. [T][ ] Read Book
-3. [D][ ] Return book  (by Sunday )
-4. [E][ ] project meeting  (from Mon 2pm  to: 4pm)
-5. [E][ ] project meeting  (from   to: 4pm)
-6. [E][ ]   (from Mon 2pm  to: 4pm)
+3. [D][ ] Return book (by July 12, 2024 )
+4. [E][ ] project meeting  (from July 12, 2024 to: July 13, 2024)
+5. [E][ ]   (from July 12, 2024 to: July 12, 2024)
 -----------------------------------
 Nice! I've marked this task as done:
 [T][X] Borrow book
@@ -66,10 +65,9 @@ Invalid index format. Please try again
 -----------------------------------
 1. [T][X] Borrow book
 2. [T][ ] Read Book
-3. [D][ ] Return book  (by Sunday )
-4. [E][ ] project meeting  (from Mon 2pm  to: 4pm)
-5. [E][ ] project meeting  (from   to: 4pm)
-6. [E][ ]   (from Mon 2pm  to: 4pm)
+3. [D][ ] Return book (by July 12, 2024 )
+4. [E][ ] project meeting  (from July 12, 2024 to: July 13, 2024)
+5. [E][ ]   (from July 12, 2024 to: July 12, 2024)
 -----------------------------------
 Ok, I've marked this task as not done yet:
 [T][ ] Borrow book
@@ -82,10 +80,9 @@ Invalid index format. Please try again
 -----------------------------------
 1. [T][ ] Borrow book
 2. [T][ ] Read Book
-3. [D][ ] Return book  (by Sunday )
-4. [E][ ] project meeting  (from Mon 2pm  to: 4pm)
-5. [E][ ] project meeting  (from   to: 4pm)
-6. [E][ ]   (from Mon 2pm  to: 4pm)
+3. [D][ ] Return book (by July 12, 2024 )
+4. [E][ ] project meeting  (from July 12, 2024 to: July 13, 2024)
+5. [E][ ]   (from July 12, 2024 to: July 12, 2024)
 -----------------------------------
 Ok, I've removed this task:
 [T][ ] Borrow book
@@ -97,10 +94,9 @@ Invalid index provided. Please try again
 Invalid index format. Please try again
 -----------------------------------
 1. [T][ ] Read Book
-2. [D][ ] Return book  (by Sunday )
-3. [E][ ] project meeting  (from Mon 2pm  to: 4pm)
-4. [E][ ] project meeting  (from   to: 4pm)
-5. [E][ ]   (from Mon 2pm  to: 4pm)
+2. [D][ ] Return book (by July 12, 2024 )
+3. [E][ ] project meeting  (from July 12, 2024 to: July 13, 2024)
+4. [E][ ]   (from July 12, 2024 to: July 12, 2024)
 -----------------------------------
 Command not recognized. Please try again
 -----------------------------------
