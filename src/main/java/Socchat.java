@@ -15,6 +15,7 @@ public class Socchat {
         TaskList taskList = new TaskList();
         greet();
 
+        chatLoop:
         while (true) {
             String[] strToken;
             try{
@@ -24,7 +25,7 @@ public class Socchat {
                 switch (command) {
                     case BYE:
                         exit();
-                        break;
+                        break chatLoop;
                     case LIST:
                         taskList.list();
                         break;

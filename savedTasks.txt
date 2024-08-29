@@ -1,2 +1,1 @@
-[T][X] sing
-[D][] do homework (by: no idea :-p)
+[T][] home
