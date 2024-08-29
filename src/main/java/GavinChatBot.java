@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
 
-
+/*
 public class GavinChatBot{
     // array to hold Task objects
     // static Task[] tasks = new Task[100];
@@ -229,5 +229,45 @@ public class GavinChatBot{
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(horizontalLine);
 
+    }
+}
+*/
+public class GavinChatBot {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+    private Parser parser;
+
+    public GavinChatBot(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        parser = new Parser();
+
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (IOException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                Command c = parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (GavinException | IOException e) {
+                ui.showError(e.getMessage());
+            }
+        }
+    }
+
+
+    public static void main(String[] args) {
+        new GavinChatBot("data/duke.txt").run();
     }
 }
