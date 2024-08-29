@@ -1,16 +1,21 @@
-T| | borrow book
-D| | return book /by Sunday
-D| | finish eng /by 2020-12-10 16:00
-D| | finish sci /by 10/12/2020
-D| | finish tamil /by 10/12/2020 16:00
-D| | finish chinese /by 16:00
-D| | finish malay /by Sunday
-T| | borrow book
-D| | return book /by Sunday
-E| | project meeting /from Mon 2pm /to 4pm
-D| | finish math /by 2020-12-10
-D| | finish eng /by 2020-12-10 16:00
-D| | finish sci /by 10/12/2020
-D| | finish tamil /by 10/12/2020 16:00
-D| | finish chinese /by 16:00
-D| | finish malay /by Sunday
+D|X| project2 /by 16:00
+D| | project /by Sunday
+D| | project /by 12/05/2020 16:00
+D| | project /by 12/05/2021
+E| | project meeting /from 5pm /to 6pm
+T| | read book
+D| | project /by 2020-05-12 16:00
+D| | project1 /by 2020-05-12
+D| | project2 /by 16:00
+D| | project /by Sunday
+D| | project /by 12/05/2020 16:00
+D| | project /by 12/05/2021
+E| | project meeting /from 5pm /to 6pm
+T| | read book
+D| | project /by 2020-05-12 16:00
+D| | project1 /by 2020-05-12
+D| | project2 /by 16:00
+D| | project /by Sunday
+D| | project /by 12/05/2020 16:00
+D| | project /by 12/05/2021
+E| | project meeting /from 5pm /to 6pm

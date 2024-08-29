@@ -15,8 +15,16 @@ public class StoreList {
     protected Task t;
 
     //initialize items array
-    public StoreList() {
-        items = new ArrayList<>();
+    public StoreList(ArrayList<Task> items) {
+        this.items = items;
+    }
+
+    public ArrayList<Task> getItems() {
+        return items;
+    }
+
+    public Task get(int i) {
+        return items.get(i);
     }
 
     /**
@@ -58,87 +66,9 @@ public class StoreList {
         }
     }
 
-    /**
-     * Saves appropriate task to file
-     * Catch all the relevant exceptions when trying to save invalid tasks
-     */
-    public void saveTasksToFile() {
-        FileUI.createFileIfNotPresent();
-
-        try {
-            FileWriter fw = new FileWriter(FileUI.FILE_PATH);
-
-            for (Task task : items) {
-                String taskType = task instanceof ToDos ? "T"
-                        : task instanceof Deadlines ? "D" : "E";
-                String taskStatus = task.getStatusIcon();
-                String taskDesc = task.getTaskDesc();
-                String taskInfo = taskType + "|" + taskStatus + "|" + taskDesc + "\n";
-
-                fw.write(taskInfo);
-            }
-            fw.close();
-
-        } catch (IOException e) {
-            System.out.println("Error saving tasks" + e.getMessage());
-        }
-    }
-
-    /**
-     * loads tasks from file and adds to list
-     * Catch all the relevant exceptions when trying to add invalid tasks
-     */
-    public void loadTasks() {
-        FileUI.createFileIfNotPresent();
-
-        try {
-            FileReader fr = new FileReader(FileUI.FILE_PATH);
-            BufferedReader br = new BufferedReader(fr);
-            String line = br.readLine();
-
-            // loop runs till file is empty
-            while (line != null) {
-                String[] parts = line.split("\\|");
-                //extract the diff parts of a task
-                String taskType = parts[0];
-                String taskStatus = parts[1];
-                String taskDesc = parts[2];
-
-                Task task = null;
-                switch (taskType) {
-                    case "T":
-                        task = new ToDos(taskDesc);
-                        break;
-
-                    case "D":
-                        task = new Deadlines(taskDesc);
-                        break;
-
-                    case "E":
-                        task = new Events(taskDesc);
-                        break;
-
-                    default:
-                        System.out.println("Unknown taskType");
-                        continue;
-                }
-                if (task != null) {
-                    if (taskStatus.equals("X")) {
-                        task.mark();
-                    }
-                    items.add(task);
-                }
-                line = br.readLine();
-            }
-        } catch (IOException e) {
-            System.out.println("Error saving tasks" + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Unknown error occurred" + e.getMessage());
-        }
-    }
-
     //getter
     public int getSize() {
+
         return items.size();
     }
 

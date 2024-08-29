@@ -1,11 +1,9 @@
-D| | finish /by 2020-12-10 1600
-D| | finish /by 10/12/2020
-D| | finish /by 2020-12-10 4:00
-D| | finish /by 2020-12-10 16:00
 D| | finish /by 16:00
 D| | finish /by 2020-12-10 16:00
-D| | task /by 2020-12-10
+D|X| task /by 2020-12-10
 D| | project /by 2020-12-10
 D| | Finish homework /by 2024-09-01
 D| | Submit report /by 2024-09-01
 D| | Prepare presentation /by 2024-09-05
+T| | read book
+T| | read bojjn

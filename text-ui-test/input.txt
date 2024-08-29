@@ -1,26 +1,18 @@
-todo borrow book
-list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-mark 2
-unmark 2
-list
 blah
-deadline
-event
-todo
-deadline return book /by
-event project meeting /from
-event project meeting /from Mon 2pm
-delete 3
+todo read book
+deadline project /by 2020-05-12 16:00
+deadline project1 /by 2020-05-12
+deadline project2 /by 16:00
+deadline project /by Sunday
+deadline project /by 12/05/2020 16:00
+deadline project /by 12/05/2021
+event project meeting /from 5pm /to 6pm
 list
-deadline finish math /by 2020-12-10
-deadline finish eng /by 2020-12-10 16:00
-deadline finish sci /by 10/12/2020
-deadline finish tamil /by 10/12/2020 16:00
-deadline finish chinese /by 16:00
-deadline finish malay /by Sunday
+mark 1
+mark 2
+unmark 1
 list
-due 2020-12-10
-due 10/12/2020
+delete 1
+list
+due 2020-05-12
 bye
