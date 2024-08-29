@@ -1,9 +1,18 @@
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 public class Event extends Task {
 
     // start date/time
-    String from;
+    private LocalDateTime from;
     // end date/time
-    String to;
+    private LocalDateTime to;
+    // input formatter
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    // output formatter
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
 
     /**
      * Constructor for Event
@@ -12,10 +21,14 @@ public class Event extends Task {
      * @param from starting date/time
      * @param to ending date/time
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws TalkerException {
         super(description, TaskType.EVENT);
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = LocalDateTime.parse(from, INPUT_FORMAT);
+            this.to = LocalDateTime.parse(to, INPUT_FORMAT);
+        } catch (DateTimeException e) {
+            throw new TalkerException("Invalid date-time format. Use dd-MM-yyyy HH:mm (01-01-2024 00:00)");
+        }
     }
 
     /**
@@ -26,10 +39,32 @@ public class Event extends Task {
      * @param to ending date/time
      * @param isComplete status of task
      */
-    public Event(String description, String from, String to, boolean isComplete) {
+    public Event(String description, String from, String to, boolean isComplete) throws TalkerException {
         super(description, TaskType.EVENT, isComplete);
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = LocalDateTime.parse(from, INPUT_FORMAT);
+            this.to = LocalDateTime.parse(to, INPUT_FORMAT);
+        } catch (DateTimeException e) {
+            throw new TalkerException("Invalid date-time format. Use dd-MM-yyyy HH:mm (01-01-2024 00:00)");
+        }
+    }
+
+    /**
+     * Returns start date/time of task
+     *
+     * @return LocalDateTime object with the start date/time of task
+     */
+    public LocalDateTime getFrom() {
+        return from;
+    }
+
+    /**
+     * Returns end date/time of task
+     *
+     * @return LocalDateTime object with the end date/time of task
+     */
+    public LocalDateTime getTo() {
+        return to;
     }
 
     /**
@@ -39,7 +74,8 @@ public class Event extends Task {
      */
     @Override
     public String getSaveFormat() {
-        return super.getSaveFormat() + " | " + from + " | " + to;
+        return super.getSaveFormat() + " | " + from.format(INPUT_FORMAT) +
+                " | " + to.format(INPUT_FORMAT);
     }
 
     /**
@@ -49,7 +85,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: "+ to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMAT) +
+                " to: "+ to.format(OUTPUT_FORMAT) + ")";
     }
 
 }

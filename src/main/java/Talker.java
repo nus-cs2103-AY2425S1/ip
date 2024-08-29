@@ -221,7 +221,7 @@ public class Talker {
             System.out.println(newTask);
             System.out.printf("Now you have %d tasks in the list.\n", list.size());
         } catch (IndexOutOfBoundsException e) {
-            throw new TalkerException("ToDo must have a description");
+            throw new TalkerException("ToDo format wrong. Try again with: todo <description>");
         }
     }
 
@@ -240,7 +240,8 @@ public class Talker {
             System.out.println(newTask);
             System.out.printf("Now you have %d tasks in the list.\n", list.size());
         } catch (IndexOutOfBoundsException e) {
-            throw new TalkerException("Deadline format wrong. Try again with: deadline <description> /by <deadline>");
+            throw new TalkerException(
+                    "Deadline format wrong. Try again with: deadline <description> /by <dd-MM-yyyy HH:mm>");
         }
     }
 
@@ -262,7 +263,8 @@ public class Talker {
             System.out.printf("Now you have %d tasks in the list.\n", list.size());
         } catch (IndexOutOfBoundsException e) {
             throw new TalkerException(
-                    "Event format wrong. Try again with: event <description> /from <start> /to <end>");
+                    "Event format wrong. Try again with: event <description> " +
+                            "/from <dd-MM-yyyy HH:mm> /to <dd-MM-yyyy HH:mm>");
         }
     }
 }

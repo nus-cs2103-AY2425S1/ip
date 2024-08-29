@@ -1,7 +1,16 @@
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 public class Deadline extends Task {
 
     // deadline of Deadline task
-    String by;
+    private LocalDateTime by;
+    // input formatter
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    // output formatter
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
 
     /**
      * Constructor for Deadline task
@@ -9,9 +18,13 @@ public class Deadline extends Task {
      * @param description description of task
      * @param by deadline for task
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws TalkerException {
         super(description, TaskType.DEADLINE);
-        this.by = by;
+        try {
+            this.by = LocalDateTime.parse(by, INPUT_FORMAT);
+        } catch (DateTimeException e) {
+            throw new TalkerException("Invalid date-time format. Use dd-MM-yyyy HH:mm (01-01-2024 00:00)");
+        }
     }
 
     /**
@@ -21,9 +34,22 @@ public class Deadline extends Task {
      * @param by deadline for task
      * @param isComplete status of task
      */
-    public Deadline(String description, String by, boolean isComplete) {
+    public Deadline(String description, String by, boolean isComplete) throws TalkerException {
         super(description, TaskType.DEADLINE, isComplete);
-        this.by = by;
+        try {
+            this.by = LocalDateTime.parse(by, INPUT_FORMAT);
+        } catch (DateTimeException e) {
+            throw new TalkerException("Invalid date-time format. Use dd-MM-yyyy HH:mm (01-01-2024 00:00)");
+        }
+    }
+
+    /**
+     * Returns deadline of task
+     *
+     * @return LocalDateTime object with the deadline of task
+     */
+    public LocalDateTime getDeadline() {
+        return by;
     }
 
     /**
@@ -33,7 +59,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getSaveFormat() {
-        return super.getSaveFormat() + " | " + by;
+        return super.getSaveFormat() + " | " + by.format(INPUT_FORMAT);
     }
 
     /**
@@ -42,6 +68,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(OUTPUT_FORMAT) + ")";
     }
 }
