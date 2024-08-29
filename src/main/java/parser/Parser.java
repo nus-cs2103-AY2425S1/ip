@@ -1,3 +1,10 @@
+package parser;
+
+import tasks.DeadlineTask;
+import tasks.EventTask;
+import tasks.ToDoTask;
+import tasks.Task;
+
 public class Parser {
 
     public Task parseDeadlineTask(String deadlineCommand) throws StringIndexOutOfBoundsException {

@@ -1,3 +1,5 @@
+import ui.Ui;
+
 import java.util.Scanner;
 public class Meeks {
     public static void main(String[] args) {
