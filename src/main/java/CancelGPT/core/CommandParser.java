@@ -1,3 +1,14 @@
+package CancelGPT.core;
+
+import CancelGPT.command.Command;
+import CancelGPT.datetime.LocalDateTimeHandler;
+import CancelGPT.exception.command.UnknownInput;
+import CancelGPT.exception.task.*;
+import CancelGPT.task.Deadline;
+import CancelGPT.task.Event;
+import CancelGPT.task.Task;
+import CancelGPT.task.ToDo;
+
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
@@ -33,7 +44,8 @@ public class CommandParser {
             } else {
                 throw new UnknownInput();
             }
-        } catch (MarkTaskInputException | UnmarkTaskInputException | InvalidTask | TaskDoesNotExist | UnknownInput | DeleteTaskInputException e) {
+        } catch (MarkTaskInputException | UnmarkTaskInputException | InvalidTask | TaskDoesNotExist | UnknownInput |
+                 DeleteTaskInputException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -81,7 +93,7 @@ public class CommandParser {
         String[] taskDescriptionArr = Arrays.copyOfRange(commandArray, 1, commandArray.length);
         String taskDescription = String.join(" ", taskDescriptionArr);
         if (taskDescription.isEmpty()) {
-            throw new InvalidTask("Missing description for ToDo task");
+            throw new InvalidTask("Missing description for CancelGPT.task.ToDo task");
         }
         return new ToDo(taskDescription);
     }
@@ -91,19 +103,19 @@ public class CommandParser {
 
         int byIndex = Arrays.asList(commandArray).indexOf("/by");
         if (byIndex == -1) {
-            throw new InvalidTask("Missing `by` for Deadline task");
+            throw new InvalidTask("Missing `by` for CancelGPT.task.Deadline task");
         }
 
         String[] taskDescriptionArr = Arrays.copyOfRange(commandArray, 1, byIndex);
         String taskDescription = String.join(" ", taskDescriptionArr);
         if (taskDescription.isEmpty()) {
-            throw new InvalidTask("Missing description for Deadline task");
+            throw new InvalidTask("Missing description for CancelGPT.task.Deadline task");
         }
 
         String[] byDateArr = Arrays.copyOfRange(commandArray, byIndex + 1, commandArray.length);
         String byDate = String.join(" ", byDateArr);
         if (byDate.isEmpty()) {
-            throw new InvalidTask("Missing by date for Deadline task");
+            throw new InvalidTask("Missing by date for CancelGPT.task.Deadline task");
         }
 
         Task deadlineTask;
@@ -121,31 +133,31 @@ public class CommandParser {
 
         int fromIndex = Arrays.asList(commandArray).indexOf("/from");
         if (fromIndex == -1) {
-            throw new InvalidTask("Missing `from` for Event task");
+            throw new InvalidTask("Missing `from` for CancelGPT.task.Event task");
         }
 
         String[] taskDescriptionArr = Arrays.copyOfRange(commandArray, 1, fromIndex);
         String taskDescription = String.join(" ", taskDescriptionArr);
         if (taskDescription.isEmpty()) {
-            throw new InvalidTask("Missing description for Event task");
+            throw new InvalidTask("Missing description for CancelGPT.task.Event task");
         }
 
 
         int toIndex = Arrays.asList(commandArray).indexOf("/to");
         if (toIndex == -1) {
-            throw new InvalidTask("Missing `to` for Event task");
+            throw new InvalidTask("Missing `to` for CancelGPT.task.Event task");
         }
 
         String[] fromDateArr = Arrays.copyOfRange(commandArray, fromIndex + 1, toIndex);
         String fromDate = String.join(" ", fromDateArr);
         if (fromDate.isEmpty()) {
-            throw new InvalidTask("Missing from date for Event task");
+            throw new InvalidTask("Missing from date for CancelGPT.task.Event task");
         }
 
         String[] toDateArr = Arrays.copyOfRange(commandArray, toIndex + 1, commandArray.length);
         String toDate = String.join(" ", toDateArr);
         if (toDate.isEmpty()) {
-            throw new InvalidTask("Missing to date for Event task");
+            throw new InvalidTask("Missing to date for CancelGPT.task.Event task");
         }
 
         Task eventTask;

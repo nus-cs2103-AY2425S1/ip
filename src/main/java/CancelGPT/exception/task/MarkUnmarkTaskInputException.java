@@ -1,3 +1,5 @@
+package CancelGPT.exception.task;
+
 public abstract class MarkUnmarkTaskInputException extends Exception {
 
     public MarkUnmarkTaskInputException(String action) {

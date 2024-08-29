@@ -1,3 +1,5 @@
+package CancelGPT.command;
+
 public enum Command {
     LIST("list"),
     DELETE("delete"),
