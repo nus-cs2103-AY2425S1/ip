@@ -30,32 +30,50 @@ public class Eli {
       String instruction = inputParts[0];
 
       if (instruction.equalsIgnoreCase("bye")) {
+        System.out.println("____________________________________________________________");
         System.out.println(" Bye. Come back soon!");
         System.out.println("____________________________________________________________");
         break;
       }
 
-      // Echo
-      //System.out.println("____________________________________________________________");
-      //System.out.println(" " + input);
-      //System.out.println("____________________________________________________________");
-
-      if (instruction.equalsIgnoreCase("list")) {
-        taskList.list();
-      } else if (instruction.equalsIgnoreCase("mark")) {
-        String taskIdxStr = inputParts[1];
-        int taskIdx = Integer.valueOf(taskIdxStr);
-        taskList.mark(taskIdx);
-      } else if (instruction.equalsIgnoreCase("unmark")) {
-        String taskIdxStr = inputParts[1];
-        int taskIdx = Integer.valueOf(taskIdxStr);
-        taskList.unmark(taskIdx);
-      } else if (instruction.equalsIgnoreCase("delete")) {
-        String taskIdxStr = inputParts[1];
-        int taskIdx = Integer.valueOf(taskIdxStr);
-        taskList.delete(taskIdx);
-      }else {
-        taskList.addTask(input);
+      try {
+        if (instruction.equalsIgnoreCase("list")) {
+          taskList.list();
+        } else if (instruction.equalsIgnoreCase("mark")) {
+          if (inputParts.length < 2) {
+            throw new EliException("Please specify the task number to mark.");
+          }
+          String taskIdxStr = inputParts[1];
+          int taskIdx = Integer.valueOf(taskIdxStr);
+          taskList.mark(taskIdx);
+        } else if (instruction.equalsIgnoreCase("unmark")) {
+          if (inputParts.length < 2) {
+            throw new EliException("Please specify the task number to unmark.");
+          }
+          String taskIdxStr = inputParts[1];
+          int taskIdx = Integer.valueOf(taskIdxStr);
+          taskList.unmark(taskIdx);
+        } else if (instruction.equalsIgnoreCase("delete")) {
+          if (inputParts.length < 2) {
+            throw new EliException("Please specify the task number to delete.");
+          }
+          String taskIdxStr = inputParts[1];
+          int taskIdx = Integer.valueOf(taskIdxStr);
+          taskList.delete(taskIdx);
+        } else {
+          //taskList.addTask(input);
+          throw new UnknownCommandException();
+        }
+      } catch (UnknownCommandException e) {
+        System.out.println("____________________________________________________________");
+        // System.out.println(" Sorry I cannot understand :(");
+        System.out.println(" " + e.getMessage());
+        System.out.println("____________________________________________________________");
+      } catch (EliException e) {
+        System.out.println("____________________________________________________________");
+        // System.out.println(" Sorry I cannot understand :(");
+        System.out.println(" " + e.getMessage());
+        System.out.println("____________________________________________________________");
       }
     }
 

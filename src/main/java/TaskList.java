@@ -10,7 +10,7 @@ public class TaskList {
     //this.taskCount = 0;
   }
 
-  public void addTask(String task) {
+  public void addTask(String task) throws EmptyDescriptionException, UnknownCommandException{
     // todo borrow book
     // deadline return book /by Sunday
     // event project meeting /from Mon 2pm /to 4pm
@@ -18,6 +18,10 @@ public class TaskList {
     String[] parts = task.split(" ", 2);
     String type = parts[0];
     String details = parts[1];
+
+    if (details.isEmpty()) {
+      throw new EmptyDescriptionException(type);
+    }
 
     Task newTask;
     if (type.equalsIgnoreCase("todo")) {
@@ -29,7 +33,8 @@ public class TaskList {
       String[] eventParts = details.split(" /from | /to ");
       newTask = new Event(eventParts[0], eventParts[1], eventParts[2]);
     } else {
-      newTask = new Task(task);
+      // newTask = new Task(task);
+      throw new UnknownCommandException();
     }
     if (tasks.size() < 100) {
       tasks.add(newTask);
