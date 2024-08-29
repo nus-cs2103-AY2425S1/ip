@@ -33,6 +33,7 @@ public class Parser {
                     System.out.println("bad input: invalid format " + input);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("bad input: invalid format " + input);
+                } catch (IllegalArgumentException e) {
                 } catch (Exception e) {
                     System.out.println("error");
                 }

@@ -23,7 +23,11 @@ public class TaskList {
             System.out.printf("%d. %s\n", i + 1, task);
         }
     }
-    public void add(String input){
+
+    public int getNumTasks() {
+        return this.list.size();
+    }
+    public void add(String input) throws IllegalArgumentException{
 
 
         String[] words = input.split(" ");
@@ -56,7 +60,7 @@ public class TaskList {
         break;
         default:
         System.out.println("Unknown command");
-        break;
+        throw(new IllegalArgumentException());
         }
     }
 
