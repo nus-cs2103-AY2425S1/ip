@@ -12,4 +12,9 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
+
+    @Override
+    public String getFileString() {
+        return String.format("E | %s | %s | %s-%s", getStatusNumber(), getDescription(), from, to);
+    }
 }
