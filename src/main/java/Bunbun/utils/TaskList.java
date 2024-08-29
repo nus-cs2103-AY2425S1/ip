@@ -1,5 +1,10 @@
 package Bunbun.utils;
-import Bunbun.exceptions.*;
+import Bunbun.exceptions.BunbunException;
+import Bunbun.exceptions.InvalidDateFormatException;
+import Bunbun.exceptions.InvalidFindFormatException;
+import Bunbun.exceptions.InvalidTaskFormatException;
+import Bunbun.exceptions.MissingTaskException;
+import Bunbun.exceptions.TaskNumOutOfBoundsException;
 import Bunbun.tasks.*;
 import java.util.ArrayList;
 import java.time.LocalDate;
@@ -155,12 +160,7 @@ public class TaskList {
         this.ui.response("These are your tasks!");
         for (int i = 0; i < this.numOfTasks; i++) {
             Task currTask = this.taskList.get(i);
-            String res;
-            if (currTask.isComplete()) {
-                res = String.format("%d.%s", i + 1, currTask);
-            } else {
-                res = String.format("%d.%s", i + 1, currTask);
-            }
+            String res = String.format("%d.%s", i + 1, currTask);
             this.ui.response(res);
         }
         this.ui.response("That's all your tasks for now :>>>");
@@ -198,6 +198,38 @@ public class TaskList {
             this.taskList.remove(taskNum - 1);
             this.numOfTasks -= 1;
             this.ui.response(String.format("You have %d tasks left!!", this.numOfTasks));
+        }
+    }
+
+    /**
+     * Displays tasks in task list that contain word searched by user.
+     *
+     * @param tokens ArrayList with Strings specifying the word to search for
+     */
+    public void searchAndDisplay(ArrayList<String> tokens) throws BunbunException {
+        if (tokens.size() == 1) {
+            throw new InvalidFindFormatException("Failed. Key in word to find!! :<");
+        }
+
+        String word = "";
+        for (int i = 1; i < tokens.size(); i++) {
+            word += tokens.get(i);
+        }
+        this.ui.response(String.format("These are the tasks containing %s!", word));
+        ArrayList<Task> tasksContainingWord = new ArrayList<>();
+
+        for (int i = 0; i < this.numOfTasks; i++) {
+            Task currTask = this.taskList.get(i);
+            String currTaskDescription = currTask.toString();
+            if (currTaskDescription.contains(word)) {
+                tasksContainingWord.add(currTask);
+            }
+        }
+
+        for (int i = 0; i < tasksContainingWord.size(); i++) {
+            Task currTask = tasksContainingWord.get(i);
+            String res = String.format("%d.%s", i + 1, currTask);
+            this.ui.response(res);
         }
     }
 
