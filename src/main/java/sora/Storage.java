@@ -12,20 +12,42 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Storage stores TaskList.
+ * It deals with loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
+    /** File path of the saved file */
     private final String filePath;
 
+    /**
+     * Constructs a new Storage.
+     *
+     * @param filePath File path of the saved file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public String saveTaskString(TaskList taskList) {
+    /**
+     * Returns String of all Task Details divided by " | ".
+     * It is a Helper Function for saveTaskList(TaskList)
+     *
+     * @param taskList TaskList.
+     * @return String of all Task Details divided by " | ".
+     */
+    private String saveTaskString(TaskList taskList) {
         return taskList.getTaskList().stream()
                 .map(Task::getTaskDetails)
                 .map(x -> String.join(" | ", x) + "\n")
                 .reduce("", (x, y) -> x + y);
     }
 
+    /**
+     * Saves taskList Details in this Storage instance's filePath.
+     *
+     * @param taskList TaskList.
+     */
     public void saveTaskList(TaskList taskList) {
         try {
             FileWriter fileWriter = new FileWriter(this.filePath);
@@ -36,6 +58,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads taskList Details from this Storage instance's filePath.
+     *
+     * @param taskList TaskList.
+     * @throws SoraException If line in this Storage instance's filePath is wrongly formatted.
+     */
     public void loadTaskList(TaskList taskList) throws SoraException {
         File file = new File(this.filePath);
         try {
@@ -62,6 +90,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads taskList Details from this Storage instance's filePath according to type of Task.
+     * It is a Helper Function for loadTaskList(TaskList).
+     *
+     * @param lineNumber Line number in this Storage instance's filePath.
+     * @param fileTaskDetails Formatted task details in this Storage instance's filePath.
+     * @param taskList TaskList.
+     * @throws SoraException If line in this Storage instance's filePath is wrongly formatted.
+     */
     private void loadTaskListHelper(int lineNumber, String fileTaskDetails, TaskList taskList) throws SoraException {
         String[] parsedFileTaskDetails = fileTaskDetails.split(" \\| ", 5);
         switch (parsedFileTaskDetails[0]) {

@@ -1,6 +1,14 @@
 package sora;
 
+/**
+ * Custom Exception for Sora.
+ */
 public class SoraException extends Exception {
+    /**
+     * Constructs a new SoraException.
+     *
+     * @param message Message to communicate to user.
+     */
     public SoraException(String message) {
         super(message);
     }

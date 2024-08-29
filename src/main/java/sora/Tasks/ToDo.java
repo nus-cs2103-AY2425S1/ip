@@ -2,7 +2,15 @@ package sora.Tasks;
 
 import java.util.List;
 
+/**
+ * Todo is a task
+ */
 public class ToDo extends Task {
+    /**
+     * Constructs a new Todo Task.
+     *
+     * @param description The description of the todo.
+     */
     public ToDo(String description) {
         super(description);
     }
