@@ -9,21 +9,20 @@ public class Event extends Task {
     private static String modifyDescription(String des) throws TaskException {
         if (des.length() == 0) {
             throw new TaskException("OH NO!!! The description of Event cannot be empty!");
-        } else if (!des.contains("/from") || !des.contains("/to")) {
-            throw new TaskException("Event should be of this format: {description} /from {date} /to {date}");
         }
         String regex = "(.*?) /from (.*?) /to (.*)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(des);
         if (matcher.find()) {
             String initalDes = matcher.group(1);
-            LocalDate fromTime = LocalDate.parse(matcher.group(2));
-            LocalDate toTime = LocalDate.parse(matcher.group(3));
+            DateTimeParser fromTime = new DateTimeParser(matcher.group(2));
+            DateTimeParser toTime = new DateTimeParser(matcher.group(3));
             return String.format("%s (from: %s to: %s)", initalDes,
-                    fromTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")),
-                    toTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
+                    fromTime,
+                    toTime);
+        } else {
+            throw new TaskException("Event should be of this format: {description} /from {date} /to {date}");
         }
-        return des.replaceFirst("/from", "(from:").replaceFirst("/to", "to:") + ")";
     }
 
     public Event(String description) throws TaskException {

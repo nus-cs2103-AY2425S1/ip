@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 public class Pixel {
     private static String name = "Pixel";
@@ -85,7 +86,7 @@ public class Pixel {
             }
             br.close();
         } catch (IOException e) {
-            PixelSays(e.getMessage());
+            PixelSays(e.getMessage(), "Creating a new file!");
         } finally {
 
         }
@@ -150,6 +151,8 @@ public class Pixel {
                         addTask(todo, list);
                     } catch (TaskException e) {
                         PixelSays(e.getMessage());
+                    } catch (DateTimeParseException e) {
+                        PixelSays(e.getMessage());
                     } finally {
 
                     }
@@ -159,6 +162,8 @@ public class Pixel {
                         Task todo = new Event(input);
                         addTask(todo, list);
                     } catch (TaskException e) {
+                        PixelSays(e.getMessage());
+                    } catch (DateTimeParseException e) {
                         PixelSays(e.getMessage());
                     } finally {
 
