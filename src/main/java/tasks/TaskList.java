@@ -134,6 +134,16 @@ public class TaskList {
         }
     }
 
+    public TaskList find(String command) {
+        TaskList newList = new TaskList();
+        for (Task task : taskList) {
+            if (task.getDescription().contains(command)) {
+                newList.addTask(task);
+            }
+        }
+        return newList;
+    }
+
     /**
      * A line to separate messages.
      * @return a string message of the segmentation between messages.
