@@ -60,79 +60,78 @@ public class Parser {
             }
 
             switch (taskType) {
-                case TODO:
-                    try {
-                        String[] string = task.split(" ");
-                        if (string.length == 1) {
-                            throw new BossException("The description of todo cannot be empty!");
-                        }
-                        Task item = new Todo(task);
-                        tasks.addTask(item);
-                        int i = storage.numofTasks();
-                        tasks.printabstraction(i);
-
-                        storage.writeToFile(item + System.lineSeparator(), true);
-
-                    } catch (BossException e) {
-                        System.out.println(e.getMessage());
-                    } catch (IOException e) {
-                        System.out.println("Something went wrong: " + e.getMessage());
+            case TODO:
+                try {
+                    String[] string = task.split(" ");
+                    if (string.length == 1) {
+                        throw new BossException("The description of todo cannot be empty!");
                     }
-                    break;
-                case DEADLINE:
-                    try {
-                        String[] string = task.split("/by ");
-                        if (string.length == 1) {
-                            throw new BossException("Please specify a deadline date!");
-                        }
-                        Task item = Deadline.of(string[0], string[1], false);
-                        tasks.addTask(item);
-                        int i = storage.numofTasks();
-                        tasks.printabstraction(i);
+                    Task item = new Todo(task);
+                    tasks.addTask(item);
+                    int i = storage.numofTasks();
+                    tasks.printabstraction(i);
+                    storage.writeToFile(item + System.lineSeparator(), true);
 
-                        storage.writeToFile(item + System.lineSeparator(), true);
-                    } catch (BossException e) {
-                        System.out.println(e.getMessage());
-                    } catch (IOException e) {
-                        System.out.println("Something went wrong: " + e.getMessage());
+                } catch (BossException e) {
+                    System.out.println(e.getMessage());
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
+                }
+                break;
+            case DEADLINE:
+                try {
+                    String[] string = task.split("/by ");
+                    if (string.length == 1) {
+                        throw new BossException("Please specify a deadline date!");
                     }
-                    break;
+                    Task item = Deadline.of(string[0], string[1], false);
+                    tasks.addTask(item);
+                    int i = storage.numofTasks();
+                    tasks.printabstraction(i);
 
-                case EVENT:
-                    try {
-                        String[] string = task.split("/");
-                        if (!(string.length == 3 && string[1].contains("from") && string[2].contains("to"))) {
-                            throw new BossException("Wrong input! You must specify a description, start and end date for an event!");
-                        }
-                        String[] description = string[0].split(" ");
-                        String from = string[1].split("from")[1];
-                        String to = string[2].split("to")[1];
-                        if (description.length == 1 || from.length() == 1 || to.length() == 1) {
-                            throw new BossException("Invalid input!");
-                        }
-                        Task item = new Event(string[0], from, to, false);
-                        tasks.addTask(item);
-                        int i = storage.numofTasks();
-                        tasks.printabstraction(i);
+                    storage.writeToFile(item + System.lineSeparator(), true);
+                } catch (BossException e) {
+                    System.out.println(e.getMessage());
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
+                }
+                break;
 
-                        storage.writeToFile(item + System.lineSeparator(), true);
-                    } catch (BossException e) {
-                        System.out.println(e.getMessage());
-                    } catch (IOException e) {
-                        System.out.println("Something went wrong: " + e.getMessage());
+            case EVENT:
+                try {
+                    String[] string = task.split("/");
+                    if (!(string.length == 3 && string[1].contains("from") && string[2].contains("to"))) {
+                        throw new BossException("Wrong input! You must specify a description, start and end date for an event!");
                     }
-                    break;
-                default:
-                    try {
-                        System.out.println("added: " + task);
-                        Task item = new Task(task);
-                        tasks.addTask(item);
-
-                        storage.writeToFile(item + System.lineSeparator(), true);
-                    } catch (IOException e) {
-                        System.out.println("Something went wrong: " + e.getMessage());
+                    String[] description = string[0].split(" ");
+                    String from = string[1].split("from")[1];
+                    String to = string[2].split("to")[1];
+                    if (description.length == 1 || from.length() == 1 || to.length() == 1) {
+                        throw new BossException("Invalid input!");
                     }
-                    break;
+                    Task item = new Event(string[0], from, to, false);
+                    tasks.addTask(item);
+                    int i = storage.numofTasks();
+                    tasks.printabstraction(i);
+
+                    storage.writeToFile(item + System.lineSeparator(), true);
+                } catch (BossException e) {
+                    System.out.println(e.getMessage());
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
+                }
+                break;
+            default:
+                try {
+                    System.out.println("added: " + task);
+                    Task item = new Task(task);
+                    tasks.addTask(item);
+
+                    storage.writeToFile(item + System.lineSeparator(), true);
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
+                }
+                break;
             }
         }
     }
