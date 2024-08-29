@@ -31,6 +31,9 @@ public class Parser {
         if (splitInput[0].equalsIgnoreCase("delete")) {
             return Command.DELETE;
         }
+        if (splitInput[0].equalsIgnoreCase("find")) {
+            return Command.FIND;
+        }
         throw new UnknownCommandException();
     }
 

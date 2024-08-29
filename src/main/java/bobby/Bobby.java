@@ -72,6 +72,9 @@ public class Bobby {
                     listOfTasks.deleteTask(indexDelete);
                     ui.showTaskDeleted(taskToBeDeleted, listOfTasks.getNumberOfTasks());
                     break;
+                case FIND:
+                    String keyword = input.split(" ", 2)[1].trim();
+                    ui.showFindTasks(this.listOfTasks.findMatchingTasks(keyword));
                 }
             } catch (BobbyException e) {
                 System.out.println(e.getMessage());
