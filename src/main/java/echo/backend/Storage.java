@@ -1,3 +1,9 @@
+package echo.backend;
+
+import echo.EchoException;
+import echo.task.TaskList;
+import echo.task.TaskType;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -8,7 +14,6 @@ import java.util.Scanner;
 public class Storage {
     private String filePath;
     private TaskList taskList;
-    private Boolean isFirstLine = true;
     public Storage(String filePath) {
         this.filePath = filePath;
         taskList = new TaskList();
@@ -44,9 +49,6 @@ public class Storage {
 
         while (fileScanner.hasNext()) {
             nextLine = fileScanner.nextLine();
-            if (!nextLine.isEmpty()) {
-                isFirstLine = false;
-            }
             splitLines = nextLine.split("\\|");
 
             String taskType  = splitLines[0].trim();
