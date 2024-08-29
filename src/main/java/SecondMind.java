@@ -42,7 +42,7 @@ public class SecondMind {
         fw.close();
     }
 
-    private static String formatDateTime (String dateTime) throws DateTimeParseException {
+    private static String formatDateTime(String dateTime) throws DateTimeParseException {
         LocalDateTime ldt = LocalDateTime.parse(dateTime);
         DateTimeFormatter formatter 
             = DateTimeFormatter.ofPattern(
@@ -71,7 +71,7 @@ public class SecondMind {
         String[] taskInfo = task.split(" /by ");
         //Prefix of taskInfo[0] is "deadline "
         String taskDescription = taskInfo[0].substring(9);
-        String taskDeadline = taskInfo[1];
+        String taskDeadline = formatDateTime(taskInfo[1]);
         String data = "\nD|0|" + taskDescription + "|" + taskDeadline;
         try {
             appendToFile(data);
