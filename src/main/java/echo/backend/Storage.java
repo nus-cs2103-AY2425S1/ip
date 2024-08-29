@@ -10,14 +10,29 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
-
+/**
+ * The Storage class handles the loading and saving of tasks from and to a file.
+ * It manages file creation, reading tasks from a file, and writing tasks back to the file.
+ */
 public class Storage {
-    private final String filePath;
-    private final TaskList taskList;
+    private String filePath;
+    private TaskList taskList;
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath the path to the file where tasks are stored
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.taskList = new TaskList();
     }
+    /**
+     * Loads the tasks from the file specified by filePath.
+     * If the file does not exist, it attempts to create a new file.
+     *
+     * @return the TaskList object containing the tasks loaded from the file
+     * @throws EchoException if there is an error loading or creating the file
+     */
     public TaskList load() throws EchoException {
         File savedTasks  = new File(filePath);
 
@@ -78,6 +93,10 @@ public class Storage {
         }
         return this.taskList;
     }
+    /**
+     * Saves the current TaskList to the file specified by filePath.
+     * If there is an error writing to the file, it prints an error message.
+     */
     public void saveToFile() {
         FileWriter fileWriter =  null;
         try {

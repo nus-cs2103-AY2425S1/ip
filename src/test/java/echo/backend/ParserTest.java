@@ -14,6 +14,6 @@ public class ParserTest {
     public void test_parse_date_time() {
         Parser parser = new Parser(new Ui(new TaskList()));
         assertThrows(DateTimeParseException.class,
-                () -> parser.parseDateTime("Fifth of August"));
+                () -> parser.parseDate("Fifth of August"));
     }
 }

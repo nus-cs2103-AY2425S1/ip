@@ -8,9 +8,13 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+/**
+ * The Parser class handles the parsing of user input and command processing.
+ * It interprets commands, manages date formatting, and interacts with the Ui class
+ * to communicate with the user and execute the corresponding actions.
+ */
 public class Parser {
-    private static final List<String> DATEFORMATS =
+    private static final List<String> DATE_FORMATS =
             new ArrayList<>(
                     Arrays.asList(
                             "yyyy-M-d",
@@ -20,9 +24,19 @@ public class Parser {
                             "d MMM yyyy",
                             "MMM d yyyy"));
     private Ui ui;
+    /**
+     * Constructs a Parser object with the specified Ui.
+     *
+     * @param ui the Ui object that handles user interaction and command execution
+     */
     public Parser(Ui ui) {
         this.ui = ui;
     }
+    /**
+     * Parses the user input and delegates the command to the Ui for execution.
+     *
+     * @param userInput the input string provided by the user
+     */
     public void parseInput(String userInput) {
         // Parses user input
         String[] userInputs = userInput.split(" ", 2);
@@ -68,18 +82,43 @@ public class Parser {
             break;
         }
     }
+    /**
+     * Splits an event description from the "/from" keyword to separate the start date.
+     *
+     * @param arg the event description possibly containing the "/from" keyword
+     * @return a String array containing the description and start date
+     */
     private String[] parseEventFrom(String arg) {
         return arg.split("/from ");
     }
+    /**
+     * Splits an event description from the "/to" keyword to separate the end date.
+     *
+     * @param arg the event description possibly containing the "/to" keyword
+     * @return a String array containing the start date and end date
+     */
     public String[] parseEventTo(String arg) {
         return arg.split("/to ");
     }
+    /**
+     * Splits a deadline description from the "/by" keyword to separate the deadline date.
+     *
+     * @param arg the deadline description possibly containing the "/by" keyword
+     * @return a String array containing the description and deadline date
+     */
     private String[] parseDeadline(String arg) {
         return arg.split("/by ");
     }
-    public LocalDate parseDateTime(String s) throws DateTimeParseException {
+    /**
+     * Parses a date string into a LocalDate object based on predefined date formats.
+     *
+     * @param s the date string to be parsed
+     * @return the parsed LocalDate object
+     * @throws DateTimeParseException if the date string cannot be parsed with any of the formats
+     */
+    public LocalDate parseDate(String s) throws DateTimeParseException {
         DateTimeFormatter formatter;
-        for (String pattern : DATEFORMATS) {
+        for (String pattern : DATE_FORMATS) {
             formatter = DateTimeFormatter.ofPattern(pattern);
             try {
                 LocalDate localDate = LocalDate.parse(s, formatter);
@@ -89,6 +128,9 @@ public class Parser {
         }
         throw new DateTimeParseException("Cannot parse string", s, 0);
     }
+    /**
+     * Enum representing the different commands that can be parsed from user input.
+     */
     private enum Command {
         MARK,
         UNMARK,
@@ -99,6 +141,12 @@ public class Parser {
         LIST,
         BYE,
         UNKNOWN;
+        /**
+         * Converts a string representing a user command into a corresponding Command enum value.
+         *
+         * @param command the command string to be converted
+         * @return the corresponding Command enum value, or UNKNOWN if the string does not match any command
+         */
         public static Command fromString(String command) {
             try {
                 return Command.valueOf(command.toUpperCase());
