@@ -10,8 +10,8 @@ public abstract class Task {
         this.title = title;
     }
 
-    public static Task of(String data) {
-        String[] args = data.split("|");
+    public static Task of(String data) throws AlreadyCompletedException {
+        String[] args = data.split("\\|");
         return switch (args[0]) {
             case "T" -> ToDo.of(args);
             case "D" -> Deadline.of(args);
@@ -34,7 +34,7 @@ public abstract class Task {
     public abstract String getTypeIcon();
 
     public String toData() {
-        return String.format("T|%b|%s", this.isCompleted, this.title);
+        return String.format("%s|%b|%s", this.getTypeIcon(), this.isCompleted, this.title);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package task;
 
+import exceptions.AlreadyCompletedException;
+
 public class Deadline extends Task {
     private String dueDate;
 
@@ -8,8 +10,12 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
-    public static Deadline of(String[] args) {
-        return new Deadline(args[1], args[2]);
+    public static Deadline of(String[] args) throws AlreadyCompletedException {
+        Deadline deadline = new Deadline(args[2], args[3]);
+        if (Boolean.parseBoolean(args[1])) {
+            deadline.complete();
+        }
+        return deadline;
     }
 
     @Override

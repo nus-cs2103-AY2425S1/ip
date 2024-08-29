@@ -1,20 +1,19 @@
 package storage;
 
+import exceptions.AlreadyCompletedException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import task.Deadline;
-import task.Event;
 import task.Task;
 import task.TaskList;
-import task.ToDo;
 
 public class Storage {
-    private static final String FILE_PATH = "./data/tasks.txt";
-    private static final String DIRECTORY_PATH = "./data";
+    private static final String FILE_PATH = "data/tasks.txt";
+    private static final String DIRECTORY_PATH = "data";
 
     public void initStorage() {
         try {
@@ -34,12 +33,15 @@ public class Storage {
         fw.close();
     }
 
-    public TaskList laodTaskList() throws FileNotFoundException {
+    public TaskList loadTaskList() throws FileNotFoundException, AlreadyCompletedException {
         File file = new File(FILE_PATH);
         TaskList list = new TaskList();
         Scanner sc = new Scanner(file);
         while (sc.hasNextLine()) {
             String data = sc.nextLine();
+            if (data.trim().isEmpty()) {
+                break;
+            }
             list.add(Task.of(data));
         }
         return list;
