@@ -34,16 +34,20 @@ public class Alexer {
         System.out.println(BREAK);
     }
 
+    public void addTask(String task) {
+        // create new task
+        tasks.add(task);
+
+        System.out.println(BREAK);
+        System.out.format("Added: %s\n", task);
+        System.out.println(BREAK);
+    }
+
     public void promptLoop() {
         String input = scanner.nextLine();
 
         if (!input.equals("bye") && !input.equals("list")) {
-            // create new task
-            tasks.add(input);
-
-            System.out.println(BREAK);
-            System.out.format("Added: %s\n", input);
-            System.out.println(BREAK);
+            addTask(input);
             promptLoop();
         } else if (input.equals("list")) {
             printTasks();
