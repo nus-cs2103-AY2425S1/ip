@@ -69,6 +69,14 @@ public class TaskList {
         return results.toArray(results.toArray(new String[0]));
     }
 
+    public String getSaveFormat() {
+        String res = "";
+        for (int i = 0; i < this.tasklist.size(); i++) {
+            res += this.tasklist.get(i).getSaveFormat() + "\n";
+        }
+        return res;
+    }
+
     public String toString() {
         String str = "";
         for (int i = 0; i < this.tasklist.size(); i++) {
