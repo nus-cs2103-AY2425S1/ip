@@ -2,10 +2,10 @@ package bob;
 import exceptions.CommandNotFoundException;
 import exceptions.MissingParamsException;
 import exceptions.PositionException;
-import task.Tasklist;
 import misc.Parser;
 import misc.Storage;
 import misc.Ui;
+import task.Tasklist;
 
 
 public class Bob {
@@ -81,7 +81,8 @@ public class Bob {
         }   
     }
 
-    public static void main(String[] args) throws CommandNotFoundException, MissingParamsException, PositionException {
+    public static void main(String[] args) throws CommandNotFoundException, 
+        MissingParamsException, PositionException {
         new Bob().run();
     }
 }

@@ -1,8 +1,9 @@
 package misc;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
+
+import org.junit.jupiter.api.Test;
 
 
 public class ParserTest {
