@@ -146,7 +146,7 @@ public class Parser {
                 } else {
                     throw new MeowException("Invalid todo format. Example: todo eat lunch");
                 }
-            } else if (input.startsWith("dlete")) {
+            } else if (input.startsWith("delete")) {
                 if (input.startsWith("delete ")) {
                     int index = Integer.parseInt(input.substring(7).trim()) - 1;
                     if (index >= 0 && index < taskList.getTaskCount()) {
