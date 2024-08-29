@@ -20,5 +20,8 @@ mark 6
 delete
 delete 6
 delete 2
+find
+find nomatches
+find book
 invalid command
 bye
