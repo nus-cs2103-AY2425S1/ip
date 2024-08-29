@@ -4,6 +4,6 @@ public abstract class Command {
         return false;
     }
 
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws GarfieldException {
     }
 }

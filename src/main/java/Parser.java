@@ -17,24 +17,24 @@ public class Parser {
         if (inputLine.toLowerCase().startsWith("delete")) {
             try {
                 return new DeleteCommand(getIntegerArg(inputLine));
-            } catch (Exception e) {
-                // todo: return some thing
+            } catch (GarfieldException e) {
+                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: delete <task id>");
             }
         }
 
         if (inputLine.toLowerCase().startsWith("mark")) {
             try {
                 return new MarkCommand(getIntegerArg(inputLine));
-            } catch (Exception e) {
-                // todo: return some thing
+            } catch (GarfieldException e) {
+                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: mark <task id>");
             }
         }
 
         if (inputLine.toLowerCase().startsWith("unmark")) {
             try {
                 return new UnmarkCommand(getIntegerArg(inputLine));
-            } catch (Exception e) {
-                // todo: return some thing
+            } catch (GarfieldException e) {
+                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: unmark <task id>");
             }
         }
 
@@ -42,8 +42,8 @@ public class Parser {
             try {
                 Todo newTodo = parseTodo(inputLine);
                 return new AddCommand(newTodo);
-            } catch (Exception e) {
-                // todo:
+            } catch (GarfieldException e) {
+                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: todo <task description>");
             }
         }
 
@@ -51,8 +51,9 @@ public class Parser {
             try {
                 Deadline newDeadline = parseDeadline(inputLine);
                 return new AddCommand(newDeadline);
-            } catch (Exception e) {
-                // todo:
+            } catch (GarfieldException e) {
+                throw new GarfieldException(e.getMessage() + "\n\n"
+                        + "Correct Usage: deadline <task description> /by yyyy-MM-dd HH:mm (24h time)");
             }
         }
 
@@ -60,30 +61,32 @@ public class Parser {
             try {
                 Event newEvent = parseEvent(inputLine);
                 return new AddCommand(newEvent);
-            } catch (Exception e) {
-                // todo:
+            } catch (GarfieldException e) {
+                throw new GarfieldException(e.getMessage() + "\n\n"
+                        + "Correct Usage: event <task description> /from yyyy-MM-dd HH:mm (24h time)"
+                        + " /to yyyy-MM-dd HH:mm (24h time)");
             }
         }
 
         throw new GarfieldException(inputLine + "? I’m not sure what that means. Can you give me a bit more to work with?");
     }
 
-    private static int getIntegerArg(String fullInput) {
+    private static int getIntegerArg(String fullInput) throws GarfieldException {
         String[] output = fullInput.trim().split("\\s+");
         if (output.length != 2) {
-            // todo: throw some error about invalid
+            throw new GarfieldException("No integer after the command to select a task!");
         }
         return Integer.parseInt(output[1]);
     }
 
-    private static Todo parseTodo(String fullInput) {
+    private static Todo parseTodo(String fullInput) throws GarfieldException {
         if (fullInput.length() <= 5) {
-            // todo: Looks like you forgot to add a description. Don’t leave me hanging—give it some detail!");
+            throw new GarfieldException("You are missing a description!");
         }
         String todoDescription = fullInput.substring(5);
 
         if (todoDescription.isBlank()) {
-            // todo: Looks like you forgot to add a description. Don’t leave me hanging—give it some detail!");
+            throw new GarfieldException("You are missing a description!");
         }
 
         return new Todo(todoDescription);
@@ -91,17 +94,17 @@ public class Parser {
 
     private static Deadline parseDeadline(String fullInput) throws GarfieldException{
         if (fullInput.length() <= 9) {
-            // todo: Looks like you forgot to add a description. Don’t leave me hanging—give it some detail!");
+            throw new GarfieldException("You are missing a description!");
         }
         String deadlineInput = fullInput.substring(9);
 
         if (deadlineInput.isBlank() || !deadlineInput.contains("/by")) {
-            // todo: Looks like you forgot to add a description. Don’t leave me hanging—give it some detail!");
+            throw new GarfieldException("You are missing a description or the '/by' flag!");
         }
 
         String[] deadlineArgs = fullInput.split("/by");
         if (deadlineArgs.length != 2) {
-            // todo: missing args
+            throw new GarfieldException("You didn't input a date and time after the '/by' flag!");
         }
         String deadlineDescription = deadlineArgs[0].strip();
 
@@ -109,27 +112,32 @@ public class Parser {
             LocalDateTime deadlineBy = parseDateTime(deadlineArgs[1].strip());
             return new Deadline(deadlineDescription, deadlineBy);
         } catch (DateTimeParseException e) {
-            throw new GarfieldException("Datetime wrong format");
+            throw new GarfieldException("Your datetime should be in the yyyy-MM-dd HH:mm (24h) format!");
         }
     }
 
     private static Event parseEvent(String fullInput) throws GarfieldException {
         if (fullInput.length() <= 6) {
-            // todo: missing description
+            throw new GarfieldException("You are missing a description!");
         }
         String eventInput = fullInput.substring(6);
 
         if (eventInput.isBlank() || !eventInput.contains("/from") || !eventInput.contains("/to")) {
-            // todo: missing args
+            throw new GarfieldException("You are missing a description or the '/from' and '/to' flags!");
         }
 
         String[] eventInputTwo = eventInput.split("/from");
 
         if (!eventInputTwo[1].contains("/to")) {
-            // todo: missing args
+            throw new GarfieldException("You are missing the '/to' flag!");
         }
 
         String[] eventArgs = eventInputTwo[1].split("/to");
+
+        if (eventArgs.length != 2) {
+            throw new GarfieldException("You didn't input a date and time after the '/to' flag!");
+        }
+
         String eventDescription = eventInputTwo[0].strip();
 
         try {
@@ -137,7 +145,7 @@ public class Parser {
             LocalDateTime eventTo = parseDateTime(eventArgs[1].strip());
             return new Event(eventDescription, eventFrom, eventTo);
         } catch (DateTimeParseException e) {
-            throw new GarfieldException("datetime wrong format");
+            throw new GarfieldException("Your datetime should be in the yyyy-MM-dd HH:mm (24h) format!");
         }
     }
 

@@ -5,13 +5,10 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        try {
-            ui.showMessage("Alright you've got 1 less task.\n\n\t"
-                    + taskList.delete(taskId) + "\n\nEnjoy the extra ‘fun’ —or whatever you call it.");
-            storage.save(taskList);
-        } catch (Exception e) {
-            // todo: handle exceptions
-        }
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws GarfieldException {
+        ui.showMessage("Alright you've got 1 less task.\n\n\t"
+                + taskList.delete(taskId) + "\n\nEnjoy the extra ‘fun’ —or whatever you call it.");
+        storage.save(taskList);
+
     }
 }

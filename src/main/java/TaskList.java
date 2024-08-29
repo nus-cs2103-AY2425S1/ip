@@ -37,27 +37,27 @@ public class TaskList {
         this.taskList.add(task);
     }
 
-    public String delete(int taskId) {
+    public String delete(int taskId) throws GarfieldException {
         Task task = this.get(taskId);
         taskList.remove(task);
         return task.toString();
     }
 
-    public String mark(int taskId) {
+    public String mark(int taskId) throws GarfieldException {
         Task task = this.get(taskId);
         task.markAsDone();
         return task.toString();
     }
 
-    public String unmark(int taskId) {
+    public String unmark(int taskId) throws GarfieldException {
         Task task = this.get(taskId);
         task.markAsUndone();
         return task.toString();
     }
 
-    private Task get(int taskId) {
+    private Task get(int taskId) throws GarfieldException {
         if (taskId > taskList.size()) {
-            // todo: need to account for out of bounds
+            throw new GarfieldException("The task doesn't exist!");
         }
 
         return taskList.get(taskId - 1);

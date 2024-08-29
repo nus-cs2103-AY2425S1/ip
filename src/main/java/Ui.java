@@ -59,7 +59,7 @@ public class Ui {
      */
     public void showError(String errorMessage) {
         this.showLine(70);
-        System.out.println("Something went wrong you doofus!");
+        System.out.println("Something went wrong you doofus!\n");
         System.out.println(errorMessage);
         this.showLine(70);
     }
