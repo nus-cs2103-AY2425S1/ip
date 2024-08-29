@@ -15,8 +15,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " " +
-                "(from: " + from.format(display_format) + " to: " + to.format(display_format) + ")";
+        return "[E]" + super.toString() + " "
+                + "(from: " + from.format(display_format) + " to: " + to.format(display_format) + ")";
     }
 
     /**
@@ -25,7 +25,7 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " +
-                from.format(display_format) + " | " + to.format(display_format);
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + from.format(display_format) + " | " + to.format(display_format);
     }
 }

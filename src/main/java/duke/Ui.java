@@ -23,9 +23,9 @@ public class Ui {
      * Show the message printed when a task is added.
      */
     public void showAddTask (TaskList tasks) {
-        System.out.println(LINE + "\n" + "Got it. I've added this task:" +
-                "\n     " + tasks.get(tasks.size() - 1).toString() + "\n" +
-                "Now you have " + tasks.size() + " task left \n" + LINE);
+        System.out.println(LINE + "\n" + "Got it. I've added this task:"
+                + "\n     " + tasks.get(tasks.size() - 1).toString() + "\n"
+                + "Now you have " + tasks.size() + " task left \n" + LINE);
     }
 
     /**
@@ -34,9 +34,9 @@ public class Ui {
     public void showDeleteTask (TaskList tasks, int index) throws DukeException {
         Task task = tasks.get(index);
         tasks.deleteTask(index);
-        System.out.println(LINE + "\n" + "Noted. I've removed this task:" +
-                "\n     " + task.toString() + "\n" +
-                "Now you have " + tasks.size() + " task left \n" + LINE);
+        System.out.println(LINE + "\n" + "Noted. I've removed this task:"
+                + "\n     " + task.toString() + "\n"
+                + "Now you have " + tasks.size() + " task left \n" + LINE);
 
     }
 

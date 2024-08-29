@@ -20,13 +20,13 @@ public abstract class Task {
 
     public void unMarkTask() {
         this.isDone = false;
-        System.out.println("OK, I've unmarked this task as not done yet: \n" +
-                "   [" + this.getStatusIcon() + "] " + this.description);
+        System.out.println("OK, I've unmarked this task as not done yet: \n"
+                + "   [" + this.getStatusIcon() + "] " + this.description);
     }
     public void markTask() {
         this.isDone = true;
-        System.out.println("Nice! I've marked this task as done: \n" +
-                "   [" + this.getStatusIcon() + "] " + this.description);
+        System.out.println("Nice! I've marked this task as done: \n"
+                + "   [" + this.getStatusIcon() + "] " + this.description);
     }
     @Override
     public String toString() {
