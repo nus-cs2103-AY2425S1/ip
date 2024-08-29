@@ -74,9 +74,10 @@ public class Ui {
         if (taskList.isEmpty()) {
             System.out.println(horizontalLine + "\nHere are the matching tasks in your list:\n"
                     + "OOPS! No tasks match what you were looking for!" + "\n" + horizontalLine);
+        } else {
+            System.out.println(horizontalLine + "\nHere are the matching tasks in your list:\n"
+                    + displayTasksInList(taskList) + "\n" + horizontalLine);
         }
-        System.out.println(horizontalLine + "\nHere are the matching tasks in your list:\n"
-                + displayTasksInList(taskList) + "\n" + horizontalLine);
     }
 
     public static String displayTasksInList(TaskList taskList) {
