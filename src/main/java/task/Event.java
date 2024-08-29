@@ -1,11 +1,13 @@
 package task;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
     private final LocalDateTime startDateTime;
     private final LocalDateTime endDateTime;
     private final String taskType = "[E]";
+    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public Event(String description, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         super(description);
@@ -23,6 +25,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return this.type + "[" + this.status() + "] " + this.description + "(from: " + this.startDateTime + " to: " + this.endDateTime + ")";
+        return this.type + "[" + this.status() + "] " + this.description + "(from: " + this.startDateTime.format(dateTimeFormat) + " to: " + this.endDateTime.format(dateTimeFormat) + ")";
     }
 }
