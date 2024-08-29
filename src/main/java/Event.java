@@ -9,7 +9,12 @@ public class Event extends Task{
     }
 
     @Override
+    public String toListString() {
+        return "E" + super.toListString() + " | " + from + " to " + to;
+    }
+
+    @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + from + "to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }

@@ -10,21 +10,59 @@ public class Genji {
     private static String LINE = "________________________________________________________________";
     private static Scanner scanner = new Scanner(System.in);
     private static ArrayList<Task> list = new ArrayList();
-    private static String SAVE_LIST_PATH = "./data/Genji.txt";
+    private static String SAVELIST_PATH = "./data/Genji.txt";
 
-    private static void saveList(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        fw.write(textToAdd);
-        fw.close();
+    private static void saveList(){
+        try {
+            FileWriter fw = new FileWriter(SAVELIST_PATH);
+            for (Task t : list) {
+                fw.write(t.toListString() + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    private static void loadList(String filePath) throws FileNotFoundException {
-            File f = new File(filePath);
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                System.out.println(s.nextLine());
+    private static void loadList() {
+            try {
+                File f = new File(SAVELIST_PATH);
+                Scanner s = new Scanner(f);
+                while (s.hasNext()) {
+                    String input = s.nextLine();
+                    if (input.startsWith("T")) {
+                        list.add(new ToDo(input.substring(8)));
+                        if (input.substring(4).startsWith("1")) {
+                            list.get(list.size()- 1).mark();
+                        }
+                    } else if (input.startsWith("D")) {
+                        String name = input.substring(8, input.lastIndexOf(" |"));
+                        String from = input.substring(input.lastIndexOf(" |") + 3);
+                        list.add(new Deadline(name, from));
+                        if (input.substring(4).startsWith("1")) {
+                            list.get(list.size() - 1).mark();
+                        }
+                    } else {
+                        String name = input.substring(8, input.lastIndexOf(" |"));
+                        String from = input.substring(input.lastIndexOf(" |") + 3, input.lastIndexOf(" to"));
+                        String to = input.substring(input.lastIndexOf(" to") + 4);
+                        list.add(new Event(name, from, to));
+                        if (input.substring(4).startsWith("1")) {
+                            list.get(list.size()- 1).mark();
+                        }
+                    }
+                    System.out.println(input);
+                }
+            } catch (FileNotFoundException e) {
+                File directory = new File("./data");
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+                File f = new File(SAVELIST_PATH);
+                System.out.println("No task in list");
             }
     }
+
 
     public static void addList(Task t) {
         list.add(t);
@@ -49,6 +87,7 @@ public class Genji {
     public static void run() {
         System.out.println(LINE);
         System.out.println("Hello! I'm " + NAME + "\nWhat can I do for you?");
+        loadList();
         System.out.println(LINE);
         while (true) {
             String input = scanner.nextLine();
@@ -69,6 +108,7 @@ public class Genji {
                     try {
                         int index = Integer.parseInt(input.substring(5)) - 1;
                         list.get(index).mark();
+                        saveList();
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.println(list.get(index));
                     } catch (NumberFormatException n) {
@@ -84,6 +124,7 @@ public class Genji {
                     try {
                         int index = Integer.parseInt(input.substring(7)) - 1;
                         list.get(index).unmark();
+                        saveList();
                         System.out.println("OK! I've marked this task as not done yet:");
                         System.out.println(list.get(index));
                     } catch (NumberFormatException n) {
@@ -96,21 +137,23 @@ public class Genji {
                 if (input.length() < 6) {
                     System.out.println("No descriptions detected, try again");
                 } else {
-                        ToDo td = new ToDo(input.substring(5));
-                        addList(td);
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(td);
-                        System.out.println("Now you have " + list.size() + " tasks in the list");
+                    ToDo td = new ToDo(input.substring(5));
+                    addList(td);
+                    saveList();
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(td);
+                    System.out.println("Now you have " + list.size() + " tasks in the list");
                 }
             } else if (input.startsWith("deadline")) {
                 if (input.length() < 10) {
                     System.out.println("No descriptions detected, try again");
                 } else {
                     try {
-                        String name = input.substring(9, input.lastIndexOf("/"));
-                        String time = input.substring(input.lastIndexOf("/") + 4);
+                        String name = input.substring(9, input.lastIndexOf(" /"));
+                        String time = input.substring(input.lastIndexOf(" /") + 5);
                         Deadline ddl = new Deadline(name, time);
                         addList(ddl);
+                        saveList();
                         System.out.println("Got it. I've added this task:");
                         System.out.println(ddl);
                         System.out.println("Now you have " + list.size() + " tasks in the list");
@@ -123,11 +166,12 @@ public class Genji {
                     System.out.println("No descriptions detected, try again");
                 } else {
                     try {
-                        String name = input.substring(6, input.indexOf("/from"));
-                        String from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to"));
-                        String to = input.substring(input.indexOf("/to") + 4);
+                        String name = input.substring(6, input.lastIndexOf(" /from"));
+                        String from = input.substring(input.lastIndexOf(" /from") + 7, input.lastIndexOf(" /to"));
+                        String to = input.substring(input.lastIndexOf(" /to") + 5);
                         Event evt = new Event(name, from, to);
                         addList(evt);
+                        saveList();
                         System.out.println("Got it. I've added this task:");
                         System.out.println(evt);
                         System.out.println("Now you have " + list.size() + " tasks in the list");
@@ -143,6 +187,7 @@ public class Genji {
                         int index = Integer.parseInt(input.substring(7)) - 1;
                         Task temp = list.get(index);
                         Genji.delete(index);
+                        saveList();
                         System.out.println("Noted. I've removed this task:");
                         System.out.println(temp);
                         System.out.println("Now you have " + list.size() + " tasks in the list");
