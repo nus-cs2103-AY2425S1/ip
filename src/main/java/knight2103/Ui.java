@@ -9,7 +9,7 @@ public class Ui {
     private final String welcome;
     private Scanner inputScanner;
 
-    Ui(String botName) { // Starting of bot programme
+    public Ui(String botName) { // Starting of bot programme
         this.welcome = showLine() + "\n"
                 + "Hello! I'm " + botName + "\n"
                 + "What can I do for you?\n"
@@ -56,5 +56,4 @@ public class Ui {
     public void showDelete(Task taskAffected, TaskList taskList) {
         System.out.println(showLine() + "\nNoted. I've removed this task:\n" + taskAffected + "\n Now you have " + taskList.getSize() + " tasks in the list.\n" + showLine());
     }
-
 }
