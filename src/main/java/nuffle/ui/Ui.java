@@ -1,3 +1,8 @@
+package nuffle.ui;
+
+import nuffle.exception.NuffleException;
+import nuffle.task.Task;
+
 public class Ui {
     private static void printLine() {
         /**
