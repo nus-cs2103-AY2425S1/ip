@@ -7,12 +7,29 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Class to parse the inputs into format that the chatbot can understand
+ */
 public class Parser {
+    /**
+     * Returns the command type of given command.
+     *
+     * @param commandLine
+     * @return Command Type
+     */
     public static String commandType(String commandLine) {
         String commandType = commandLine.split(" ")[0];
         return commandType;
     }
 
+    /**
+     * Return the arguments of given command.
+     *
+     * @param commandLine
+     * @param commandType
+     * @return command arguments
+     * @throws TalkyException
+     */
     public static String[] commandArgs(String commandLine, String commandType) throws TalkyException {
         String args = "";
         if (commandLine.split(" ").length == 1) {
@@ -66,6 +83,13 @@ public class Parser {
         return empty;
     }
 
+    /**
+     * Returns ArrayList of type LocalDateTime from Strings of dates.
+     *
+     * @param dates
+     * @return ArrayList of dates of type LocalDateTime
+     * @throws TalkyException
+     */
     public static ArrayList<LocalDateTime> parseDate(String... dates) throws TalkyException {
         ArrayList<LocalDateTime> formattedDates = new ArrayList<>();
         for (int i = 0; i < dates.length; i++) {

@@ -3,27 +3,55 @@ package Talky;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class that acts as Task
+ */
 public class Task {
     protected String name;
     protected boolean marked;
 
+    /**
+     * Constructor to initialize Task of given name.
+     *
+     * @param name Name of Task.
+     */
     public Task(String name) {
         this.name = name;
         this.marked = false;
     }
 
+    /**
+     * Returns name of Task.
+     *
+     * @return Task name.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Set mark status of Task.
+     *
+     * @param marked Mark status.
+     */
     public void setMark(boolean marked) {
         this.marked = marked;
     }
 
+    /**
+     * Returns save format name.
+     *
+     * @return Save format name.
+     */
     public String toSaveFormat() {
         return "Talky.Task";
     }
 
+    /**
+     * Returns string of Task name and marked status.
+     *
+     * @return String of task name and marked status.
+     */
     @Override
     public String toString() {
         String marked = this.marked ? "[X]" : "[ ]";

@@ -4,14 +4,15 @@ import Talky.TaskList;
 import Talky.SaveData;
 import Talky.Parser;
 import Talky.TalkyException;
+
+/**
+ * Talky Chatbot that acts as a Task Manager.
+ */
 public class Talky {
-    //private static ArrayList<Talky.Task> userTasks = new ArrayList<>();
     private final static String SAVE_PATH = "./data/talky.txt";
-    private boolean isRunning;
     private Ui ui;
     private TaskList userTasks;
     private SaveData saveData;
-    private Parser parser;
 
     private Talky() {
         ui = new Ui();
@@ -24,6 +25,9 @@ public class Talky {
         }
     }
 
+    /**
+     * Runs Talky Chatbot.
+     */
     public void run(){
         ui.printSeperator("Hello I'm Talky\n" + "How may I help you?");
         boolean isRunning = true;

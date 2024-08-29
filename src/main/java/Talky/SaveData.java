@@ -8,13 +8,27 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class that acts as save data.
+ */
 public class SaveData {
     String filePath;
 
+    /**
+     * Constructor that takes in path of save file.
+     *
+     * @param filePath
+     */
     public SaveData(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Returns ArrayList of task from save file.
+     *
+     * @return ArrayList of tasks.
+     * @throws TalkyException
+     */
     public ArrayList<Task> loadData() throws TalkyException {
         ArrayList<Task> userTasks = new ArrayList<>();
         File saveData = new File(filePath);
@@ -58,6 +72,12 @@ public class SaveData {
         return userTasks;
     }
 
+    /**
+     * Saves TaskList into save file.
+     *
+     * @param tasks TaskList to save.
+     * @throws TalkyException
+     */
     public void saveData(TaskList tasks) throws TalkyException {
         try {
             FileWriter fw = new FileWriter(filePath);
