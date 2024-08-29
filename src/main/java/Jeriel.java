@@ -26,6 +26,13 @@ public class Jeriel {
         // int taskCount = 0;
         ArrayList<Task> tasks = new ArrayList<>();
 
+        Storage storage = new Storage("../../data/duke.txt");  // Initialize Storage with file path
+
+        try {
+            tasks = storage.load();
+        } catch (Exception e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
 
 
         while (true) {
@@ -59,7 +66,7 @@ public class Jeriel {
                     System.out.println(" Nice! I've marked this task as done:");
                     System.out.println("   " + tasks.get(taskNumber));
                     System.out.println("____________________________________________________________");
-
+                    storage.save(tasks);
 
                 } else if (input.startsWith("unmark")) {
                     int taskNumber = Integer.parseInt(input.substring(7)) - 1;
@@ -70,7 +77,7 @@ public class Jeriel {
                     System.out.println(" OK, I've marked this task as not done yet:");
                     System.out.println("   " + tasks.get(taskNumber));
                     System.out.println("____________________________________________________________");
-
+                    storage.save(tasks);
 
                 } else if (input.startsWith("todo")) {
                     String description = input.substring(5).trim();
@@ -83,6 +90,10 @@ public class Jeriel {
                     System.out.println("   " + tasks.get(tasks.size() - 1));
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                    storage.save(tasks);
+
+
+
 
                 } else if (input.startsWith("deadline")) {
                     String[] parts = input.substring(9).split(" /by ");
@@ -96,6 +107,9 @@ public class Jeriel {
                     System.out.println("   " + tasks.get(tasks.size() - 1));
                     System.out.println(" Now you have " + tasks.get(tasks.size() - 1) + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                    storage.save(tasks);
+
+
                 
                 } else if (input.startsWith("event")) {
                     String[] parts = input.substring(6).split(" /from | /to ");
@@ -112,6 +126,10 @@ public class Jeriel {
                     System.out.println("   " + tasks.get(tasks.size() - 1));
                     System.out.println(" Now you have " + tasks.get(tasks.size()) + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                    storage.save(tasks);
+
+
+
             
                 } else if (input.startsWith("delete ")) {
                     int taskNumber = Integer.parseInt(input.substring(7)) - 1;
@@ -124,6 +142,10 @@ public class Jeriel {
                     System.out.println("   " + removedTask);
                     System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                    storage.save(tasks);
+
+
+
                 
                 } else {
                     throw new JerielException("I'm sorry, but I don't know what that means :-(");
