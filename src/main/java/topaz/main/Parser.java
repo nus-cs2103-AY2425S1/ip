@@ -7,7 +7,23 @@ import topaz.command.MarkCommand;
 import topaz.command.TextCommand;
 import topaz.exception.InvalidCommandException;
 
+/**
+ * Parses user input into the appropriate {@link Command} object.
+ * This class interprets a given command prompt and returns the corresponding command
+ * to be executed.
+ */
 public class Parser {
+    /**
+     * Parses a user input prompt and returns the corresponding {@link Command} object.
+     *
+     * <p>The method recognizes various commands such as "help", "bye", "list", "mark",
+     * "unmark", "todo", "deadline", "event", and "delete". If the input does not match
+     * any recognized commands, an {@link InvalidCommandException} is thrown.</p>
+     *
+     * @param prompt The user input command prompt to be parsed.
+     * @return The corresponding {@link Command} object based on the input prompt.
+     * @throws InvalidCommandException If the input prompt does not match any valid command.
+     */
     public static Command parse(String prompt) throws InvalidCommandException {
 
         if (prompt.equalsIgnoreCase("help")) {

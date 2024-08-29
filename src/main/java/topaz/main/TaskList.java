@@ -6,37 +6,79 @@ import java.util.ArrayList;
 
 import topaz.task.Task;
 
+/**
+ * Represents a list of tasks.
+ * This class manages the collection of tasks, allowing for adding, removing, and updating tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs a {@link TaskList} with the specified initial list of tasks.
+     *
+     * @param tasks An {@link ArrayList} of {@link Task} objects to initialize the task list with.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Constructs an empty {@link TaskList}.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The {@link Task} to be added.
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
+
+    /**
+     * Removes a task from the task list by its index.
+     *
+     * @param index The index of the task to remove (1-based index).
+     * @return The {@link Task} that was removed.
+     */
     public Task removeTask(int index) {
         return tasks.remove(index);
     }
 
+
+
+    /**
+     * Lists all tasks in the task list, displaying their status.
+     * Outputs each task with its index and status to the console.
+     */
     public void listTasks() {
         for (int i = 0; i < this.tasks.size(); i++) {
             System.out.println((i + 1) + ". " + this.tasks.get(i).getStatus());
         }
     }
 
+    /**
+     * Marks a task as done by its index.
+     *
+     * @param index The index of the task to mark as done (1-based index).
+     * @return The {@link Task} that was marked as done.
+     */
     public Task markAsDone(int index) {
         Task task = this.tasks.get(index - 1);
         task.setDone();
         return task;
     }
 
+    /**
+     * Marks a task as undone by its index.
+     *
+     * @param index The index of the task to mark as undone (1-based index).
+     * @return The {@link Task} that was marked as undone.
+     */
     public Task markAsUndone(int index) {
         Task task = this.tasks.get(index - 1);
         task.setUndo();
@@ -47,6 +89,12 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Writes the current tasks in the task list to a file using the specified {@link FileWriter}.
+     *
+     * @param fw The {@link FileWriter} used to write tasks to the file.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     public void write(FileWriter fw) throws IOException {
         for (Task t: this.tasks) {
             fw.write(t.toFileRecord() + "\n");

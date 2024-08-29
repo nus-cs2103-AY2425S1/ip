@@ -3,16 +3,36 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+
+/**
+ * Represents an event with a start and end time.
+ * An {@link Event} object has a description, a start time, and an end time.
+ */
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
+    /**
+     * Constructs an {@link Event} with the specified description, start time, and end time.
+     *
+     * @param description The description of the event.
+     * @param from The start time of the event.
+     * @param to The end time of the event.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Constructs an {@link Event} with the specified description, completion status, start time, and end time.
+     *
+     * @param description The description of the event.
+     * @param isDone The completion status of the event.
+     * @param from The start time of the event.
+     * @param to The end time of the event.
+     */
     public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(description, isDone);
         this.from = from;

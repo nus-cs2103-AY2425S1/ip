@@ -2,13 +2,28 @@ package topaz.exception;
 
 import topaz.main.Topaz;
 
+/**
+ * Represents an exception that is thrown when an invalid task input is encountered.
+ * This exception provides a detailed message based on the type of task error.
+ */
 public class InvalidTaskException extends Exception {
     private Topaz.TaskType type;
+    /**
+     * Constructs an InvalidTaskException with the specified task type.
+     *
+     * @param type The type of task that caused the exception.
+     */
     public InvalidTaskException(Topaz.TaskType type) {
         super();
         this.type = type;
     }
 
+    /**
+     * Returns a detailed error message for this exception based on the task type.
+     * The message provides guidance on correcting the task input.
+     *
+     * @return A string containing the error message.
+     */
     @Override
     public String toString() {
         switch (type) {
