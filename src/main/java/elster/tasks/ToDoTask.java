@@ -1,5 +1,8 @@
 package elster.tasks;
 
+/**
+ * Todo tasks are basic tasks with regular task functionalities
+ */
 public class ToDoTask extends Task {
     public ToDoTask(String description) {
         super(description);

@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Event tasks are tasks that have a start and end time on top of the base task functionalities
+ */
 public class EventTask extends Task {
     private LocalDateTime start;
     private LocalDateTime end;

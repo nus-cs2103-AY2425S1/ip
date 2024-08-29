@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Deadline tasks are tasks that have a deadline on top of the base task functionalities
+ */
 public class DeadlineTask extends Task {
     private final LocalDateTime deadline;
     private DeadlineTask(String description, LocalDateTime deadline) {
