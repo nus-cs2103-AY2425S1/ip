@@ -1,9 +1,8 @@
 package kotori.taskList;
 
 import kotori.storage.CorruptedFileException;
-
 import java.time.LocalDate;
-import java.util.Objects;
+
 
 public abstract class Task {
     protected String description;
@@ -163,7 +162,7 @@ public abstract class Task {
 
         @Override
         public String toString() {
-            return String.format("[E][%s] %s (from: %s to: %s)",getStatusIcon(),description,from,to);
+            return String.format("[E][%s] %s (from: %s to: %s)", getStatusIcon(), description,from,to);
         }
 
         @Override

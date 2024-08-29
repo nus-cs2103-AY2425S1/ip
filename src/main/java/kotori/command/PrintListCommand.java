@@ -5,13 +5,13 @@ import kotori.taskList.TaskList;
 import static kotori.Ui.Ui.printList;
 
 public class PrintListCommand extends Command {
-    private TaskList list;
+    private TaskList taskList;
 
     public PrintListCommand(TaskList list) {
-        this.list = list;
+        this.taskList = list;
     }
     @Override
     public void execute() {
-        printList(list);
+        printList(taskList);
     }
 }

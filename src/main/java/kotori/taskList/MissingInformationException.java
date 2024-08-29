@@ -10,6 +10,6 @@ public class MissingInformationException extends Exception{
     }
 
     public String getMessage() {
-        return String.format("Sorry~ Please enter the %s for %s",missingInfo, type);
+        return String.format("Sorry~ Please enter the %s for %s", missingInfo, type);
     }
 }
