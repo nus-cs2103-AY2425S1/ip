@@ -1,3 +1,4 @@
+package main.java.weeny;
 import java.util.List;
 import java.util.Scanner;
 public class Ui {

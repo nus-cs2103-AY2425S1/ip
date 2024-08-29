@@ -1,3 +1,4 @@
+package weeny;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
 public class Storage {
     public void createFileIfNotExist(String dir, String file) {
         File dataDir = new File(dir);

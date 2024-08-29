@@ -1,4 +1,5 @@
-    public class Task {
+package weeny;
+public class Task {
         protected String description;
         protected boolean isDone;
         protected TaskType type;
