@@ -54,7 +54,7 @@ public class Storage {
      * @return The task list with the tasks from the storage file.
      * @throws IOException If there is an error initializing the tasks.
      */
-    public TaskList initTasks() throws IOException {
+    public TaskList initTasks() throws IOException, DudeException {
         TaskList tasks = new TaskList();
         File file = new File(this.filePath);
         if (!file.exists()) {

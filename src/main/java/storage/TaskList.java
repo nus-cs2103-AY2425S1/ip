@@ -1,5 +1,6 @@
 package storage;
 
+import exception.DudeException;
 import task.Task;
 
 import java.util.ArrayList;
@@ -41,7 +42,10 @@ public class TaskList {
      * @param index The index of the task to be deleted.
      * @return The task that was deleted.
      */
-    public Task deleteTask(int index) {
+    public Task deleteTask(int index) throws DudeException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new DudeException("There is no such task!");
+        }
         return this.tasks.remove(index);
     }
 
@@ -79,7 +83,14 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      * @return The task that was marked as done.
      */
-    public Task markDone(int index) {
+    public Task markDone(int index) throws DudeException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new DudeException("There is no such task!");
+        }
+
+        if (tasks.get(index).isDone()) {
+            throw new DudeException("This task is already marked as done!");
+        }
         Task task = this.tasks.get(index);
         task.markAsDone();
         return task;
@@ -91,7 +102,13 @@ public class TaskList {
      * @param index The index of the task to be marked as undone.
      * @return The task that was marked as undone.
      */
-    public Task markUndone(int index) {
+    public Task markUndone(int index) throws DudeException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new DudeException("There is no such task!");
+        }
+        if (!tasks.get(index).isDone()) {
+            throw new DudeException("This task is already marked as undone!");
+        }
         Task task = this.tasks.get(index);
         task.markAsUndone();
         return task;

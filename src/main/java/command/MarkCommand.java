@@ -30,13 +30,6 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DudeException {
-        if (index < 0 || index >= tasks.getSize()) {
-            throw new DudeException("There is no such task!");
-        }
-
-        if (tasks.getTask(index).isDone()) {
-            throw new DudeException("This task is already marked as done!");
-        }
         tasks.markDone(index);
         storage.saveTasks(tasks);
         ui.showMarked(tasks.getTask(index));

@@ -31,6 +31,8 @@ public class Dude {
         } catch (IOException e) {
             this.ui.showLoadingError();
             this.tasks = new TaskList();
+        } catch (DudeException e) {
+            this.ui.showError(e.getMessage());
         }
     }
 

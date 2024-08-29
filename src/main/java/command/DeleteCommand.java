@@ -31,9 +31,6 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DudeException {
-        if (index < 0 || index >= tasks.getSize()) {
-            throw new DudeException("There is no such task!");
-        }
         Task task = tasks.deleteTask(index);
         storage.saveTasks(tasks);
         ui.showDeleted(task, tasks);
