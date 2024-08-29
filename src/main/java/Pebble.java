@@ -1,9 +1,13 @@
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 
 // ToDos: tasks without any date/time attached to it e.g., visit new theme park
@@ -226,7 +230,6 @@ public class Pebble {
      */
     private static Task parseTaskFromString(String line) {
         if (line.startsWith("[T]")) {
-            // format: [T][X] task description
             String description = line.substring(line.indexOf("] ") + 2);
             ToDo todo = new ToDo(description);
             if (line.contains("[X]")) {
@@ -234,28 +237,43 @@ public class Pebble {
             }
             return todo;
         } else if (line.startsWith("[D]")) {
-            // format: [D][X] task description (by: date)
             String description = line.substring(line.indexOf("] ") + 2, line.lastIndexOf(" (by: "));
             String by = line.substring(line.lastIndexOf(" (by: ") + 6, line.length() - 1);
-            Deadline deadline = new Deadline(description, by);
+            Deadline deadline;
+            try {
+                // Try to parse the date
+                deadline = new Deadline(description, LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM dd yyyy")).toString());
+            } catch (DateTimeException e) {
+                // If parsing fails, use the original string
+                deadline = new Deadline(description, by);
+            }
             if (line.contains("[X]")) {
                 deadline.markAsDone();
             }
             return deadline;
         } else if (line.startsWith("[E]")) {
-            // format: [E][X] task description (from: start to: end)
             String description = line.substring(line.indexOf("] ") + 2, line.lastIndexOf(" (from: "));
             String from = line.substring(line.lastIndexOf(" (from: ") + 8, line.lastIndexOf(" to: "));
             String to = line.substring(line.lastIndexOf(" to: ") + 5, line.length() - 1);
-            Event event = new Event(description, from, to);
+            Event event;
+            try {
+                // Try to parse the dates
+                event = new Event(description,
+                        LocalDate.parse(from, DateTimeFormatter.ofPattern("MMM dd yyyy")).toString(),
+                        LocalDate.parse(to, DateTimeFormatter.ofPattern("MMM dd yyyy")).toString());
+            } catch (DateTimeException e) {
+                // If parsing fails, use the original strings
+                event = new Event(description, from, to);
+            }
             if (line.contains("[X]")) {
                 event.markAsDone();
             }
             return event;
         }
-        // should never be reached unless file is corrupted
         return new invalidTask();
     }
+
+
 
     /**
      * Creates a new tasksList file if one does not already exist.
