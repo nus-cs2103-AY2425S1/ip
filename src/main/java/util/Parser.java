@@ -1,22 +1,16 @@
 package util;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
-import command.AddCommand;
-import command.Command;
-import command.CommandType;
-import command.DeleteCommand;
-import command.ExitCommand;
-import command.ListCommand;
-import command.MarkCommand;
-import command.UnmarkCommand;
+import command.*;
 import exception.InvalidCommandException;
 import exception.ScheduloException;
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
 
@@ -30,7 +24,6 @@ public class Parser {
         } catch (IllegalArgumentException e) {
             throw new InvalidCommandException();
         }
-        
 
         switch (commandType) {
             case LIST:

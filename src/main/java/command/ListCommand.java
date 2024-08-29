@@ -1,9 +1,7 @@
 package command;
 
 import task.TaskList;
-
 import util.Storage;
-
 import util.Ui;
 
 public class ListCommand extends Command {

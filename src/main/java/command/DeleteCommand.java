@@ -1,13 +1,11 @@
 package command;
-import java.io.IOException;
 
 import task.TaskList;
-
 import exception.ScheduloException;
-
 import util.Storage;
-
 import util.Ui;
+
+import java.io.IOException;
 
 public class DeleteCommand extends Command {
     private int index;

@@ -1,12 +1,13 @@
 package util;
+
+import task.Task;
+import task.TaskList;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import task.Task;
-import task.TaskList;
 
 public class Storage {
     private String filePath;
@@ -22,21 +23,21 @@ public class Storage {
             file.createNewFile();
             return tasks;
         }
-        Scanner fileReader = new Scanner(file);
-        while (fileReader.hasNext()) {
-            String taskLine = fileReader.nextLine();
-            Task task = Parser.parseTask(taskLine);
-            tasks.add(task);
+        try (Scanner fileReader = new Scanner(file)) {
+            while (fileReader.hasNext()) {
+                String taskLine = fileReader.nextLine();
+                Task task = Parser.parseTask(taskLine);
+                tasks.add(task);
+            }
         }
-        fileReader.close();
         return tasks;
     }
 
     public void save(TaskList tasks) throws IOException {
-        FileWriter fileWriter = new FileWriter(filePath);
-        for (Task task : tasks.getTasks()) {
-            fileWriter.write(task.toFileString() + "\n");
+        try (FileWriter fileWriter = new FileWriter(filePath)) {
+            for (Task task : tasks.getTasks()) {
+                fileWriter.write(task.toFileString() + "\n");
+            }
         }
-        fileWriter.close();
     }
 }

@@ -1,7 +1,8 @@
 package task;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
 
@@ -9,7 +10,7 @@ public class Event extends Task {
     private LocalDate to;
     private LocalDateTime fromTime;
     private LocalDateTime toTime;
-    
+
     public Event(String name, LocalDate from, LocalDate to) {
         super(name);
         this.from = from;
@@ -72,7 +73,7 @@ public class Event extends Task {
         } else {
             return this.toTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
         }
-    }  
+    }
 
     private String getStringFrom() {
         if (this.from != null) {
