@@ -1,14 +1,20 @@
+import java.io.File;
+import java.io.FileWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Repsmax {
+    private static final String FILE_PATH = "C:/Users/nicla/OneDrive/Desktop/Cs2103/repo/src/data.txt";
     public static void main(String[] args) {
         //initialise scanner
         Scanner scanner = new Scanner(System.in);
         //initialise string array
         List<Task> tasks = new ArrayList<>();
         //greet the user
+        loadTasks(tasks);
         String greeting = "  ____________________________________________________________\n" +
                 "   Hello! I'm Repsmax\n" +
                 "   What can I do for you?\n" +
@@ -23,6 +29,7 @@ public class Repsmax {
             String command = splitInput[0];
             if (userInput.equals("bye")) {
                 System.out.println(goodbye);
+                saveTasks(tasks);
                 break;
             }
 
@@ -45,6 +52,7 @@ public class Repsmax {
                             tasks.get(markIndex).setDone();
                             System.out.println("  " + tasks.get(markIndex));
                             System.out.println("  ____________________________________________________________\n");
+                            saveTasks(tasks);
                         } else {
                             System.out.println("  ____________________________________________________________\n");
                             System.out.println("  OOPS!!! The task number is out of range.\"");
@@ -66,6 +74,7 @@ public class Repsmax {
                             tasks.get(unmarkIndex).setUndone();
                             System.out.println("  " + tasks.get(unmarkIndex));
                             System.out.println("  ____________________________________________________________\n");
+                            saveTasks(tasks);
                         } else {
                             System.out.println("  ____________________________________________________________\n");
                             System.out.println("  OOPS!!! The task number is out of range.\"");
@@ -87,6 +96,7 @@ public class Repsmax {
                         System.out.println("   " + tasks.get(tasks.size() - 1));
                         System.out.println("  Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("  ____________________________________________________________");
+                        saveTasks(tasks);
                     } else {
                         System.out.println("  ____________________________________________________________");
                         System.out.println("  OOPS!!! The description of a todo cannot be empty.");
@@ -105,6 +115,7 @@ public class Repsmax {
                         System.out.println("   " + tasks.get(tasks.size() - 1));
                         System.out.println("  Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("  ____________________________________________________________");
+                        saveTasks(tasks);
 
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("  ____________________________________________________________");
@@ -126,6 +137,7 @@ public class Repsmax {
                         System.out.println("   " + tasks.get(tasks.size() - 1));
                         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("  ____________________________________________________________");
+                        saveTasks(tasks);
                     }  catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("  ____________________________________________________________");
                         System.out.println("  OOPS!!! The event command must include '/from <start date/time>' and '/to <end date/time>'.");
@@ -142,6 +154,7 @@ public class Repsmax {
                             System.out.println("   " + tasks.remove(deleteindex));
                             System.out.println("  Now you have " + tasks.size() + " tasks in the list.");
                             System.out.println("  ____________________________________________________________");
+                            saveTasks(tasks);
                         } else {
                             System.out.println("  ____________________________________________________________");
                             System.out.println("  OOPS!!! The task number is out of range.");
@@ -161,6 +174,37 @@ public class Repsmax {
                     System.out.println("____________________________________________________________");
                     break;
             }
+        }
+    }
+    public static void saveTasks(List<Task> tasks) {
+        try {
+            File file = new File(FILE_PATH);
+            FileWriter fileWriter = new FileWriter(file);
+            for (Task task : tasks) {
+                fileWriter.write(task.toFileFormat() + "\n");
+            }
+            fileWriter.close();
+            System.out.println("Tasks saved to file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks.");
+        }
+    }
+
+    public static void loadTasks(List<Task> tasks) {
+        try{
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                System.out.println("No task found. Starting a new List");
+                return;
+            }
+            Scanner fileScanner = new Scanner(file);
+            while(fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                tasks.add(Task.fromFileFormat(line));
+            }
+            fileScanner.close();
+        } catch (IOException e) {
+        System.out.println("An error occurred while loading tasks.");
         }
     }
 }
