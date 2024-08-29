@@ -16,6 +16,12 @@ public class Parser {
                 String[] eventParts = words[1].split("/from ", 2);
                 String[] timeParts = eventParts[1].split("/to ", 2);
                 return new AddCommand(new Event(eventParts[0], timeParts[0], timeParts[1]));
+            case "mark":
+                return new MarkCommand(Integer.parseInt(words[1]) - 1);
+            case "unmark":
+                return new UnmarkCommand(Integer.parseInt(words[1]) - 1);
+            case "delete":
+                return new DeleteCommand(Integer.parseInt(words[1]) - 1);
             default:
                 return new InvalidCommand();
         }
