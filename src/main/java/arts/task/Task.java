@@ -1,7 +1,6 @@
 package arts.task;
 
 import arts.ArtsException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

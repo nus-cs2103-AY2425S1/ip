@@ -2,6 +2,7 @@ package arts.util;
 
 import arts.ArtsException;
 import arts.enums.CommandType;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
