@@ -17,7 +17,7 @@ public class LogicController {
     private static TaskList taskList;
 
     /**
-     * Begins the chatbot
+     * Begins the chatbot.
      */
     public static void begin() {
         try {
@@ -42,7 +42,7 @@ public class LogicController {
     }
 
     /**
-     * Ends the chatbot
+     * Ends the chatbot.
      */
     public static void close() {
         isRunning = false;

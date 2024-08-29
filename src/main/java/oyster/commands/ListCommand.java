@@ -4,12 +4,15 @@ import oyster.LogicController;
 import oyster.tasks.TaskList;
 
 public class ListCommand extends Command {
+    /**
+     * Creates a ListCommand that populates itself with a message of the TaskList when executed.
+     */
     public ListCommand() {
 
     }
 
     /**
-     * Populates the message of the Command with the TaskList when executed
+     * Populates the message of the Command with the TaskList when executed.
      */
     @Override
     public void execute() {

@@ -17,8 +17,10 @@ public class Storage {
     }
 
     /**
-     * @return TaskList loaded from SAVE_PATH storage
-     * @throws ParseException If parsing goes wrong
+     * Loads the TaskList.
+     *
+     * @return TaskList loaded from SAVE_PATH storage.
+     * @throws ParseException If parsing goes wrong.
      */
     public static TaskList loadTaskList() throws ParseException {
         if (!directoryExists()) createSave();
@@ -50,7 +52,9 @@ public class Storage {
     }
 
     /**
-     * @param taskList The TaskList to be saved into SAVE_PATH Storage
+     * Saves the TaskList.
+     *
+     * @param taskList The TaskList to be saved into SAVE_PATH Storage.
      */
     public static void saveTaskList(TaskList taskList) {
         try {

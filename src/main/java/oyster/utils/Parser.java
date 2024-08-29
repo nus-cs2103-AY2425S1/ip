@@ -9,9 +9,11 @@ import java.util.Scanner;
 
 public class Parser {
     /**
-     * @param contents Contents of file to be read
-     * @return TaskList object holding all parsed Tasks
-     * @throws ParseException If parsing goes wrong
+     * Parses a file into a TaskList.
+     *
+     * @param contents Contents of file to be read.
+     * @return TaskList object holding all parsed Tasks.
+     * @throws ParseException If parsing goes wrong.
      */
     public static TaskList parseTaskList(String contents) throws ParseException {
         ArrayList<Command> commands = new ArrayList<Command>();
@@ -36,8 +38,10 @@ public class Parser {
     }
 
     /**
-     * @param taskList The TaskList to be composed into String for saving
-     * @return Writeable save String of a TaskList
+     * Convert TaskList into a String.
+     *
+     * @param taskList The TaskList to be composed into String for saving.
+     * @return Writeable save String of a TaskList.
      */
     public static String composeTaskList(TaskList taskList) {
         StringBuilder builder = new StringBuilder();
@@ -50,8 +54,10 @@ public class Parser {
     }
 
     /**
-     * @param line Parses a line into a Command
-     * @return Command object
+     * Parses a line into a Command.
+     *
+     * @param line Parses a line into a Command.
+     * @return Command object.
      */
     public static Command parseCommand(String line) {
         return CommandParser.parse(line);

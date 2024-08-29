@@ -9,12 +9,17 @@ import oyster.tasks.ToDoTask;
 public class DeadlineCommand extends Command {
     private final Task task;
 
+    /**
+     * Creates a DeadlineCommand given an input String to parse.
+     *
+     * @param input Input to parse into DeadlineCommand.
+     */
     public DeadlineCommand(String input) {
         task = DeadlineTask.fromInput(input);
     }
 
     /**
-     * Adds a new DeadlineTask when executed
+     * Adds a new DeadlineTask when executed.
      */
     @Override
     public void execute() {

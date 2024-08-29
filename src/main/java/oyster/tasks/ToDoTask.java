@@ -6,15 +6,19 @@ public class ToDoTask extends Task {
     public static final String FILE_SYMBOL = "T";
 
     /**
-     * @param description The description of the Task
+     * Creates a ToDoTask given its values.
+     *
+     * @param description The description of the Task.
      */
     public ToDoTask(String description) {
         super(description);
     }
 
     /**
-     * @param input The string to parse into a ToDoTask
-     * @return ToDoTask object
+     * Creates a ToDoTask given an input String to parse.
+     *
+     * @param input The string to parse into a ToDoTask.
+     * @return ToDoTask object.
      */
     public static ToDoTask fromInput(String input) {
         input = input.trim();
