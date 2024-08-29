@@ -3,15 +3,7 @@ package monique.parser;
 import java.util.Arrays;
 import java.util.Set;
 
-import monique.command.AddCommand;
-import monique.command.ByeCommand;
-import monique.command.Command;
-import monique.command.DeleteCommand;
-import monique.command.GuideCommand;
-import monique.command.ListCommand;
-import monique.command.MarkCommand;
-import monique.command.UnknownCommand;
-import monique.command.UnmarkCommand;
+import monique.command.*;
 import monique.exception.IllegalDateFormatException;
 import monique.exception.ParseException;
 import monique.task.Deadline;
@@ -21,7 +13,7 @@ import monique.task.ToDo;
 
 public class Parser {
 
-    private static final Set<String> commands = Set.of("list", "mark", "unmark", "bye", "/commands", "delete");
+    private static final Set<String> commands = Set.of("list", "mark", "unmark", "bye", "/commands", "delete", "find");
     private static final Set<String> taskTypes = Set.of("todo", "deadline", "event");
 
     public static Command parse(String fullCommand){
@@ -86,6 +78,18 @@ public class Parser {
                         pe.advice();
                     } catch (NumberFormatException nfe) {
                         System.out.println("you have tried to use an invalid number");
+                    }
+                }
+                case "find" : {
+                    try {
+                        if (!hasSecondWord) {
+                            throw new ParseException();
+                        }
+                        String searchKey = fullCommand.split("find ")[1];
+                        command = new FindCommand(searchKey);
+                        break;
+                    } catch (ParseException pe) {
+                        pe.advice();
                     }
                 }
             }

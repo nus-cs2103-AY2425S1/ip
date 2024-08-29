@@ -6,6 +6,7 @@ import monique.task.Task;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Ui {
 
@@ -57,5 +58,16 @@ public class Ui {
 
     public void emptyListMessage(){
         System.out.println("There are no tasks in your List :)");
+    }
+
+    public void showFindResults(ArrayList<Task> resultList){
+        if (resultList.isEmpty()) {
+            System.out.println("There are no tasks matching your search");
+        } else {
+            System.out.println("Here are the matching tasks on your list:");
+            for (int i = 0; i < resultList.size(); i++) {
+                System.out.println(String.valueOf(i + 1) + ". " + resultList.get(i));
+            }
+        }
     }
 }
