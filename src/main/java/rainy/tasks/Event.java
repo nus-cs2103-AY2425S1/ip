@@ -1,6 +1,9 @@
+package rainy.tasks;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import rainy.database.*;
+import rainy.rainyexceptions.*;
 
 public class Event extends Task {
     private String date;

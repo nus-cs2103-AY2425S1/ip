@@ -1,5 +1,8 @@
+package rainy.database;
 import java.util.*;
 import java.io.*;
+import rainy.rainyexceptions.*;
+import rainy.tasks.*;
 
 public class Rainy {
     public static void main(String[] args) throws InvalidIndexException, InvalidMarkAndUnmarkException, IOException {

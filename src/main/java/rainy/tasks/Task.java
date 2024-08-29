@@ -1,5 +1,7 @@
+package rainy.tasks;
 import java.time.LocalDate;
-import java.util.*;
+import rainy.database.*;
+import rainy.rainyexceptions.*;
 
 public class Task implements Comparable<Task> {
     private boolean isDone;

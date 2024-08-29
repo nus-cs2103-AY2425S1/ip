@@ -1,4 +1,7 @@
+package rainy.tasks;
 import java.util.*;
+import rainy.database.*;
+import rainy.rainyexceptions.*;
 
 public class TaskTracker {
     private ArrayList<Task> taskList;
