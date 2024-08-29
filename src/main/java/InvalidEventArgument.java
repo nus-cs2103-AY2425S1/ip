@@ -1,6 +1,6 @@
 public class InvalidEventArgument extends FridayException {
     public InvalidEventArgument() {
-        super("OOPS!!! The description of an event, the start date and the end date cannot be empty." + "\n"
+        super("The description of an event, the start date and the end date cannot be empty." + "\n"
                 + "     Please enter a valid event command: event <description> /from <start date> /to <end date>");
     }
 }
