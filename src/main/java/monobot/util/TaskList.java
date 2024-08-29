@@ -3,6 +3,7 @@ package monobot.util;
 import monobot.task.Task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -45,5 +46,12 @@ public class TaskList {
 
     public ArrayList<Task> getTasks() {
         return new ArrayList<>(tasks);
+    }
+
+    public TaskList filterTasks(String filter) {
+        ArrayList<Task> filteredTasks = tasks.stream()
+                .filter(task -> task.toString().toLowerCase().contains(filter.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return new TaskList(filteredTasks);
     }
 }

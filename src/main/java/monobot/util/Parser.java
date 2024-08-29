@@ -22,6 +22,7 @@ public class Parser {
             case UNMARK -> new UnmarkCommand(getTaskIndex(input));
             case DELETE -> new DeleteCommand(getTaskIndex(input));
             case BYE -> new ExitCommand();
+            case FIND -> new FindCommand(getSearch(input));
             case INVALID -> new InvalidCommand();
         };
     }
@@ -36,6 +37,7 @@ public class Parser {
             case "event" -> CommandType.EVENT;
             case "delete" -> CommandType.DELETE;
             case "bye" -> CommandType.BYE;
+            case "find" -> CommandType.FIND;
             default -> CommandType.INVALID;
         };
     }
@@ -43,7 +45,7 @@ public class Parser {
     public static Task parseTask(String input) throws MonoBotException {
         String[] parts = input.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new MonoBotException("monobot.task.Task details are missing");
+            throw new MonoBotException("Task details are missing");
         }
 
         CommandType command = parseCommandType(parts[0]);
@@ -63,6 +65,14 @@ public class Parser {
             throw new MonoBotException("Please specify which task to process");
         }
         return Integer.parseInt(parts[1].trim()) - 1;
+    }
+
+    private static String getSearch(String input) throws MonoBotException {
+        String[] parts = input.split(" ", 2);
+        if (parts.length != 2 || parts[1].trim().isEmpty()) {
+            throw new MonoBotException("Please specify which task to process");
+        }
+        return parts[1];
     }
 
     private static Task parseDeadline(String details) throws MonoBotException {
