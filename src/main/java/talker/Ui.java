@@ -2,6 +2,7 @@ package talker;
 
 import talker.task.Task;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -136,5 +137,21 @@ public class Ui {
      */
     public void printTaskUnmarked(String unmark) {
         System.out.println(unmark);
+    }
+
+    /**
+     * Prints list of tasks that have matching keyword
+     *
+     * @param outputList list of tasks to be printed
+     */
+    public void printMatchingTasks(ArrayList<Task> outputList) throws TalkerException {
+        if (outputList.size() == 0) {
+            throw new TalkerException("No matching tasks found!");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < outputList.size(); i++) {
+                System.out.printf("%d.%s\n", i + 1, outputList.get(i));
+            }
+        }
     }
 }

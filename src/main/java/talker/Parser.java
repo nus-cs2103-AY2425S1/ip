@@ -5,6 +5,7 @@ import talker.command.Command;
 import talker.command.DateCommand;
 import talker.command.DeleteCommand;
 import talker.command.ExitCommand;
+import talker.command.FindCommand;
 import talker.command.ListCommand;
 import talker.command.MarkCommand;
 import talker.command.UnmarkCommand;
@@ -48,6 +49,8 @@ public class Parser {
             return new AddCommand(input, TaskType.EVENT);
         case "date":
             return new DateCommand(input);
+        case "find":
+            return new FindCommand(parsed);
         case "bye":
             return new ExitCommand();
         default:

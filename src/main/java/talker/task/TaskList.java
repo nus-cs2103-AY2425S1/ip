@@ -5,6 +5,7 @@ import talker.Ui;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -229,5 +230,21 @@ public class TaskList {
                     "Event format wrong. Try again with: event <description> " +
                             "/from <dd-MM-yyyy HH:mm> /to <dd-MM-yyyy HH:mm>");
         }
+    }
+
+    /**
+     * Finds certain keyword amongst descriptions of tasks
+     *
+     * @param keyword keyword to be searched through descriptions
+     * @param ui ui object to print output
+     */
+    public void findTask(String keyword, Ui ui) throws TalkerException {
+        ArrayList<Task> outputList = new ArrayList<>();
+        for (Task task: list) {
+            if (task.getDescription().contains(keyword)) {
+                outputList.add(task);
+            }
+        }
+        ui.printMatchingTasks(outputList);
     }
 }
