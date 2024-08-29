@@ -30,5 +30,9 @@ public class Task {
     public String toFileFormat() {
         return (isDone ? "1" : "0") + " | " + description;
     }
+
+    public String getDescription() {
+        return this.description;
+    }
 }
 
