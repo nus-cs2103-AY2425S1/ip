@@ -6,11 +6,22 @@ import sigma.Ui;
 import sigma.exception.SigmaException;
 import sigma.task.Task;
 
+/**
+ * Represents the command to mark a task as done.
+ */
 public class MarkCommand extends Commands {
 
     public MarkCommand(String[] split) {
         super(split);
     }
+
+    /**
+     * Marks a task as done in the task list.
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws SigmaException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
         if (split.length > 1) {

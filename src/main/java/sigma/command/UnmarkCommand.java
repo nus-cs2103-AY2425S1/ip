@@ -6,12 +6,22 @@ import sigma.Ui;
 import sigma.exception.SigmaException;
 import sigma.task.Task;
 
+/**
+ * Represents the command to unmark a task from the list.
+ */
 public class UnmarkCommand extends Commands {
 
     public UnmarkCommand(String[] split) {
         super(split);
     }
 
+    /**
+     * Unmarks a task from the task list.
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws SigmaException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
         if (split.length > 1) {

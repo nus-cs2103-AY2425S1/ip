@@ -5,11 +5,21 @@ import sigma.Ui;
 
 import java.util.List;
 
+/**
+ * Represents the command to list all tasks.
+ */
 public class ListCommand extends Commands {
 
     public ListCommand(String[] split) {
         super(split);
     }
+
+    /**
+     * Lists all tasks in the task list.
+     * @param tasks
+     * @param ui
+     * @param storage
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder s = new StringBuilder();

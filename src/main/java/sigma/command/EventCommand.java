@@ -8,11 +8,22 @@ import sigma.task.EventTask;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents the command to add an event task.
+ */
 public class EventCommand extends Commands {
 
     public EventCommand(String[] split) {
         super(split);
     }
+
+    /**
+     * Adds an event task to the task list.
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws SigmaException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SigmaException {
         Parser parser = new Parser();

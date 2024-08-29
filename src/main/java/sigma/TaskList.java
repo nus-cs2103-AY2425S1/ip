@@ -3,6 +3,11 @@ import sigma.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ * Contains operations to add, remove, and get tasks.
+ * Also contains operations to check if the list is empty and to get the size of the list.
+ */
 public class TaskList {
 
     private ArrayList<Task> tasks;

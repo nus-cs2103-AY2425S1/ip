@@ -4,6 +4,10 @@ import sigma.exception.SigmaException;
 
 import java.util.Scanner;
 
+/**
+ * Represents the user interface of Sigma.
+ * Contains methods to read user input and print messages.
+ */
 public class Ui {
 
     private Scanner input = new Scanner(System.in);
