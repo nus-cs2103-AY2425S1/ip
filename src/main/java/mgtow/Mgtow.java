@@ -6,7 +6,6 @@ import mgtow.task.TaskList;
 import mgtow.ui.Ui;
 import mgtow.util.InvalidTaskException;
 import mgtow.util.Parser;
-
 import java.time.LocalDate;
 
 public class Mgtow {
