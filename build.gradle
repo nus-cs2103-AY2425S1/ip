@@ -34,6 +34,7 @@ application {
 shadowJar {
     archiveBaseName = "NextGPT"
     archiveClassifier = null
+    dependsOn("distZip", "distTar")
 }
 
 run{

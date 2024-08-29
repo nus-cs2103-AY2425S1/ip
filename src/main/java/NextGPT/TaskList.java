@@ -6,8 +6,9 @@ import NextGPT.task.Deadline;
 import NextGPT.task.Event;
 import NextGPT.task.Task;
 public class TaskList {
-    static ArrayList<Task> todo_list;
+    ArrayList<Task> todo_list;
     public TaskList(){
+
         this.todo_list = new ArrayList<>();
     }
     public TaskList(Scanner sc) {
