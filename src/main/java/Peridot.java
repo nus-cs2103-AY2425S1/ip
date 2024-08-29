@@ -18,6 +18,6 @@ public class Peridot {
     }
 
     public static void main(String[] args) {
-        new Peridot("./src/main/java/chatData.txt").start();
+        new Peridot("./src/data/chatData.txt").start();
     }
 }
