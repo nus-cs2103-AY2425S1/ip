@@ -1,10 +1,26 @@
 package parser;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import commands.*;
-import exceptions.*;
+
+import commands.ByeCommand;
+import commands.Command;
+import commands.DeadlineCommand;
+import commands.DeleteCommand;
+import commands.EventCommand;
+import commands.HelpCommand;
+import commands.ListCommand;
+import commands.MarkCommand;
+import commands.TodoCommand;
+import commands.UnmarkCommand;
+
+import exceptions.DownyException;
+import exceptions.InvalidCommandException;
+import exceptions.InvalidFormatException;
+import exceptions.MissingArgumentException;
 
 public class ParserTest {
     @Test
@@ -31,7 +47,8 @@ public class ParserTest {
         Exception exception = assertThrows(MissingArgumentException.class, () -> {
             Parser.parse("mark");
         });
-        assertEquals("Mark command requires a task number.\n   Usage: mark <taskNumber> ", exception.getMessage());
+        assertEquals("Mark command requires a task number.\n"
+                + "   Usage: mark <taskNumber> ", exception.getMessage());
     }
 
     @Test
@@ -46,7 +63,8 @@ public class ParserTest {
         Exception exception = assertThrows(MissingArgumentException.class, () -> {
             Parser.parse("unmark");
         });
-        assertEquals("Unmark command requires a task number.\n   Usage: unmark <taskNumber> ", exception.getMessage());
+        assertEquals("Unmark command requires a task number.\n"
+                + "   Usage: unmark <taskNumber> ", exception.getMessage());
     }
 
     @Test
@@ -61,7 +79,8 @@ public class ParserTest {
         Exception exception = assertThrows(MissingArgumentException.class, () -> {
             Parser.parse("delete");
         });
-        assertEquals("Delete command requires a task number.\n   Usage: delete <taskNumber>", exception.getMessage());
+        assertEquals("Delete command requires a task number.\n"
+                + "   Usage: delete <taskNumber>", exception.getMessage());
     }
 
     @Test
@@ -76,7 +95,8 @@ public class ParserTest {
         Exception exception = assertThrows(MissingArgumentException.class, () -> {
             Parser.parse("todo");
         });
-        assertEquals("Todo command requires a task description.\n   todo <taskDescription>", exception.getMessage());
+        assertEquals("Todo command requires a task description.\n"
+                + "   todo <taskDescription>", exception.getMessage());
     }
 
     @Test
@@ -109,7 +129,8 @@ public class ParserTest {
         Exception exception = assertThrows(InvalidFormatException.class, () -> {
             Parser.parse("event team meeting /from 2024/08/30 0900");
         });
-        assertEquals("Event command must follow the format: <task> /from <startTime> /to <endTime>.", exception.getMessage());
+        assertEquals("Event command must follow the format:"
+                + " <task> /from <startTime> /to <endTime>.", exception.getMessage());
     }
 
     @Test
@@ -123,6 +144,6 @@ public class ParserTest {
         Exception exception = assertThrows(InvalidCommandException.class, () -> {
             Parser.parse("unknowncommand");
         });
-        assertEquals("Invalid command entered", exception.getMessage()); // Assuming this is the message in InvalidCommandException
+        assertEquals("Invalid command entered", exception.getMessage());
     }
 }

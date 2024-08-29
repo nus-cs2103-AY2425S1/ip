@@ -26,7 +26,8 @@ import java.util.stream.Collectors;
  * are created if they do not already exist.
  */
 public class Storage {
-    private static final String folderName = "data";
+
+    private static final String FOLDER_NAME = "data";
 
     private final String filePath;
 
@@ -205,7 +206,8 @@ public class Storage {
      */
     public void writeTodoToFile(Todo t) {
         try {
-            File dataFolder = new File(folderName);
+            File dataFolder = new File(FOLDER_NAME);
+
             if (!dataFolder.exists()) {
                 dataFolder.mkdirs(); // Create the folder if it doesn't exist
             }
@@ -226,7 +228,8 @@ public class Storage {
      */
     public void writeDeadlineToFile(Deadline t) {
         try {
-            File dataFolder = new File(folderName);
+            File dataFolder = new File(FOLDER_NAME);
+
             if (!dataFolder.exists()) {
                 dataFolder.mkdirs(); // Create the folder if it doesn't exist
             }
@@ -247,7 +250,8 @@ public class Storage {
      */
     public void writeEventToFile(Event t) {
         try {
-            File dataFolder = new File(folderName);
+            File dataFolder = new File(FOLDER_NAME);
+
             if (!dataFolder.exists()) {
                 dataFolder.mkdirs(); // Create the folder if it doesn't exist
             }
@@ -262,4 +266,5 @@ public class Storage {
             e.printStackTrace();
         }
     }
+
 }

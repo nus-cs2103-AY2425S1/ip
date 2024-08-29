@@ -85,4 +85,5 @@ public class EventCommand implements Command {
     public LocalDateTime getEndTime() {
         return this.endTime;
     }
+
 }

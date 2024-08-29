@@ -30,4 +30,5 @@ public interface Command {
      * @return {@code true} if the command signals the application's termination, {@code false} otherwise.
      */
     public boolean isExit();
+
 }
