@@ -1,12 +1,15 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+
 
 public class Lutchat {
     ArrayList<Task> taskList = new ArrayList<>();
     String userInput;
     private static final String FILE_PATH = "./data/lutchat.txt";
-
 
     //Start and End of conversation
 
@@ -207,25 +210,29 @@ public class Lutchat {
                         for (int j = i + 1; j < userInputArr.length; j++) {
                             by += userInputArr[j] + " ";
                         }
-                        by = by.substring(0, by.equals("") ? 0 : by.length()-1);
+                        by = by.substring(0, by.equals("") ? 0 : by.length() - 1);
                         break;
                     }
                     desc1 += userInputArr[i] + " ";
                 }
-                desc1 = desc1.substring(0, desc1.equals("") ? 0 : desc1.length()-1);
+                desc1 = desc1.substring(0, desc1.equals("") ? 0 : desc1.length() - 1);
 
                 if (desc1.length() == 0 || by.length() == 0) {
                     return invalidInputResponse("Deadline 'description' or 'by' input(s) is/are missing...");
                 }
 
-                Deadline deadline = new Deadline(desc1, by);
-                taskList.add(deadline);
-
-                System.out.print("Got it. I've added this task:\n");
-                System.out.print(deadline + "\n");
-                System.out.print("Now you have " + taskList.size() + " task(s) in the list.\n");
+                try {
+                    Deadline deadline = new Deadline(desc1, by);
+                    taskList.add(deadline);
+                    System.out.print("Got it. I've added this task:\n");
+                    System.out.print(deadline + "\n");
+                    System.out.print("Now you have " + taskList.size() + " task(s) in the list.\n");
+                } catch (IllegalArgumentException e) {
+                    return invalidInputResponse(e.getMessage());
+                }
                 System.out.print("______________________________________________\n");
                 return true;
+
             case "event":
                 String desc2 = "";
                 String from = "";
@@ -237,28 +244,31 @@ public class Lutchat {
                                 for (int k = j + 1; k < userInputArr.length; k++) {
                                     to += userInputArr[k] + " ";
                                 }
-                                to = to.substring(0, to.equals("") ? 0 : to.length()-1);
+                                to = to.substring(0, to.equals("") ? 0 : to.length() - 1);
                                 break;
                             }
                             from += userInputArr[j] + " ";
                         }
-                        from = from.substring(0, from.equals("") ? 0 : from.length()-1);
+                        from = from.substring(0, from.equals("") ? 0 : from.length() - 1);
                         break;
                     }
                     desc2 += userInputArr[i] + " ";
                 }
-                desc2 = desc2.substring(0, desc2.equals("") ? 0 : desc2.length()-1);
+                desc2 = desc2.substring(0, desc2.equals("") ? 0 : desc2.length() - 1);
 
                 if (desc2.length() == 0 || from.length() == 0 || to.length() == 0) {
                     return invalidInputResponse("Event 'description', 'from' or 'to' input(s) is/are missing...");
                 }
 
-                Event event = new Event(desc2, from, to);
-                taskList.add(event);
-
-                System.out.print("Got it. I've added this task:\n");
-                System.out.print(event + "\n");
-                System.out.print("Now you have " + taskList.size() + " task(s) in the list.\n");
+                try {
+                    Event event = new Event(desc2, from, to);
+                    taskList.add(event);
+                    System.out.print("Got it. I've added this task:\n");
+                    System.out.print(event + "\n");
+                    System.out.print("Now you have " + taskList.size() + " task(s) in the list.\n");
+                } catch (IllegalArgumentException e) {
+                    return invalidInputResponse(e.getMessage());
+                }
                 System.out.print("______________________________________________\n");
                 return true;
             default:

@@ -4,6 +4,7 @@ public abstract class Task {
 
     public Task(String d) {
         desc = d;
+        done = false;
     }
 
     public void markAsDone() {
