@@ -1,3 +1,12 @@
+package monobot;
+
+import monobot.command.Command;
+import monobot.exception.MonoBotException;
+import monobot.util.Parser;
+import monobot.util.Storage;
+import monobot.util.TaskList;
+import monobot.util.Ui;
+
 import java.util.Scanner;
 
 public class MonoBot {

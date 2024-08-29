@@ -1,3 +1,7 @@
+package monobot.util;
+
+import monobot.task.Task;
+
 public class Ui {
     public void printGreeting() {
         printHorizontalLine();

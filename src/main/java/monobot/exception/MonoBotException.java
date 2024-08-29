@@ -1,3 +1,5 @@
+package monobot.exception;
+
 public class MonoBotException extends Exception {
     String message;
     public MonoBotException(String message) {

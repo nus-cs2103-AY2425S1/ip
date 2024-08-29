@@ -1,3 +1,12 @@
+package monobot.util;
+
+import monobot.command.*;
+import monobot.exception.MonoBotException;
+import monobot.task.Deadline;
+import monobot.task.Event;
+import monobot.task.Task;
+import monobot.task.Todo;
+
 import java.time.format.DateTimeParseException;
 
 public class Parser {
@@ -34,7 +43,7 @@ public class Parser {
     public static Task parseTask(String input) throws MonoBotException {
         String[] parts = input.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new MonoBotException("Task details are missing");
+            throw new MonoBotException("monobot.task.Task details are missing");
         }
 
         CommandType command = parseCommandType(parts[0]);

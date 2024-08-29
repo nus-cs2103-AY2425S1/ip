@@ -1,3 +1,10 @@
+package monobot.command;
+
+import monobot.util.Storage;
+import monobot.util.TaskList;
+import monobot.util.Ui;
+import monobot.exception.MonoBotException;
+
 public abstract class Command {
     protected final CommandType type;
 

@@ -1,3 +1,7 @@
+package monobot.util;
+
+import monobot.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

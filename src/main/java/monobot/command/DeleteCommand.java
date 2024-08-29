@@ -1,3 +1,11 @@
+package monobot.command;
+
+import monobot.util.Storage;
+import monobot.task.Task;
+import monobot.util.TaskList;
+import monobot.util.Ui;
+import monobot.exception.MonoBotException;
+
 public class DeleteCommand extends Command {
     private final int index;
 
