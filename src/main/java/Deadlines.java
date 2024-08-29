@@ -31,13 +31,3 @@ public class Deadlines extends Task{
                 this.deadlineTime != null ? " " + this.deadlineTime : "");
     }
 }
-
-
-// 1.[T][ ] asdklj
-// 2.[D][ ] asd (by: Dec 19 2001 18:00)
-// 3.[D][ ] asd  (by: Dec 19 2002)
-// 4.[E][ ] asd (from: Dec 19 2003 19:00 to: Dec 22 2003 22:00)
-// 5.[E][ ] asd (from: Dec 19 2003 19:00 to: Dec 22 2003)
-// 6.[E][ ] asd (from: Dec 19 2003 19:00 to: Dec 22 2004)
-// 7.[E][ ] asd (from: Dec 19 2003 to: Dec 22 2003 22:00)
-// 8.[E][ ] asd (from: Dec 19 2003 to: Dec 22 2003)

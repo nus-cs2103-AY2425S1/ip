@@ -2,8 +2,57 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
 public class Parser {
+
+    public static Command parseCommand(String UserCommand, int maxSize) throws EmptyArgumentException, MissingArgumentException, InvalidInputException, InvalidTaskNumberException {
+        Scanner scanner = new Scanner(UserCommand);
+        String input = scanner.next();
+        Command command;
+        switch (input) {
+        case "bye":
+            command = new ByeCommand();
+            break;
+        case "list":
+            command = new ListCommand();
+            break;
+        case "mark":
+            int index = scanner.nextInt() - 1;
+            if (!(index < maxSize) || index < 0) {
+                throw new InvalidTaskNumberException();
+            }
+            command = new MarkCommand(index);
+            break;
+        case "unmark":
+            int ind = scanner.nextInt() - 1;
+            if (!(ind < maxSize) || ind < 0) {
+                throw new InvalidTaskNumberException();
+            }
+            command = new UnmarkCommand(ind);
+            break;
+        case "todo":
+            command = new AddTaskCommand(Parser.newToDo(scanner.nextLine().trim()));
+            break;
+        case "deadline":
+            command = new AddTaskCommand(Parser.newDeadline(scanner.nextLine().trim()));
+            break;
+        case "event":
+            command = new AddTaskCommand(Parser.newEvent(scanner.nextLine().trim()));
+            break;
+        case "delete":
+            int inde = scanner.nextInt() - 1;
+            if (!(inde < maxSize) || inde < 0) {
+                throw new InvalidTaskNumberException();
+            }
+            command = new DeleteCommand(inde);
+            break;
+        default:
+            throw new InvalidInputException();
+        }
+        return command;
+    }
+
     public static ToDos newToDo(String input) throws EmptyArgumentException {
         if (input.isEmpty()) {
             throw new EmptyArgumentException("description", "todo");

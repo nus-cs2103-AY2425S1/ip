@@ -33,16 +33,16 @@ public class Storage {
                     }
                     taskList.addTask(newTask);
                 } catch (MissingArgumentException | EmptyArgumentException | DateTimeParseException e) {
-                    System.out.println("Corrupted data found");
+                    UI.printMessage("Corrupted data found");
                 }
             }
             if (taskList.size() == 0) {
-                System.out.println("No data was loaded");
+                UI.printMessage("No data was loaded");
             } else {
-                System.out.printf("Successfully loaded %d entries from last save\n", taskList.size());
+                UI.printMessage(String.format("Successfully loaded %d entries from last save", taskList.size()));
             }
         } catch (FileNotFoundException e) {
-            System.out.println("No saved data found");
+            UI.printMessage("No saved data found");
         }
     }
 
@@ -52,7 +52,7 @@ public class Storage {
             writer.println(taskList.export());
             writer.close();
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
-            System.out.println("Failed to save data");
+            UI.printMessage("Failed to save data");
         }
 
     }
