@@ -35,11 +35,11 @@ public class Storage {
         this.filePath = p;
     }
 
-  /**
-   * Method to append data to the file.
-   * 
-   * @param data A string represnting the line to be added.
-   */
+    /**
+     * Method to append data to the file.
+     * 
+     * @param data A string represnting the line to be added.
+     */
     public void addToStorage(String data) {
         try {
             Files.write(this.filePath, (data + Utility.NEW_LINE).getBytes(),
@@ -49,12 +49,12 @@ public class Storage {
         }
     }
 
-  /**
-   * Method to overwrite the file.
-   * 
-   * @param data       A string representing the data to overwrite with.
-   * @param lineNumber An integer representing the line to be updated.
-   */
+    /**
+     * Method to overwrite the file.
+     * 
+     * @param data A string representing the data to overwrite with.
+     * @param lineNumber An integer representing the line to be updated.
+     */
     public void updateStorage(String data, int lineNumber) {
         try {
             List<String> lines = Files.readAllLines(this.filePath);
@@ -70,11 +70,11 @@ public class Storage {
         }
     }
 
-  /**
-   * Method to delete a line from the file.
-   * 
-   * @param lineNumber An integer representing the line to be deleted.
-   */
+    /**
+     * Method to delete a line from the file.
+     * 
+     * @param lineNumber An integer representing the line to be deleted.
+     */
     public void removeFromStorage(int lineNumber) {
         try {
             List<String> lines = Files.readAllLines(this.filePath);
@@ -90,12 +90,11 @@ public class Storage {
         }
     }
 
-  /**
-   * Utility method to represent the data in the form of an array.
-   * 
-   * @return An array of strings where each index corresponds to a line in the
-   *         stored file.
-   */
+    /**
+     * Utility method to represent the data in the form of an array.
+     * 
+     * @return An array of strings where each index corresponds to a line in the stored file.
+     */
     public String[] toArray() {
         try {
             List<String> lines = Files.readAllLines(this.filePath);
