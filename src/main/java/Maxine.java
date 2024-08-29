@@ -1,12 +1,9 @@
-
 import exception.MaxineException;
 import task.Deadline;
 import task.Task;
 import task.Event;
 import task.Todo;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -29,13 +26,6 @@ public class Maxine {
             System.out.println((i + 1) + ". " + list.get(i));
         }
     }
-//    public static void showList() {
-//        try {
-//            FileReading.printFileContents("data/maxine.txt");
-//        } catch (FileNotFoundException e) {
-//            System.out.println("File not found");
-//        }
-//    }
 
     /**
      * 
@@ -60,7 +50,7 @@ public class Maxine {
     /**
      * This method adds a todo task to the list
      */
-    public static void todo() throws IOException {
+    public static void todo() {
         Todo todo = new Todo();
         todo.addTodo(arr, list);
     }
@@ -90,7 +80,7 @@ public class Maxine {
      * This is the main method
      * @param args Command-line arguments passed to the program
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         System.out.println("Hi! Nice to meet you :) I am Maxine");
         FileReading.rememberFileContents("data/maxine.txt", list);
 
