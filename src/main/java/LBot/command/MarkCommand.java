@@ -17,7 +17,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute(Ui ui, Storage storage, TaskList tasks) throws ExecuteCommandException, FileException {
         Task task = tasks.getTask(taskID);
-        tasks.markTaskAsComplete(taskID);
+        tasks.markTask(taskID);
         storage.saveTaskToFile(tasks);
         ui.printTaskMarkedMessage(task);
     }

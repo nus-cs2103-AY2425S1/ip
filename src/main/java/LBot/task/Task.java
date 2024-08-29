@@ -15,8 +15,8 @@ public abstract class Task {
         this.isComplete = isComplete;
     }
 
-    public void setComplete(Boolean isCompleted) {
-        this.isComplete = true;
+    public void mark() {
+        this.isComplete = !this.isComplete;
     }
 
     protected String status() {
@@ -24,6 +24,10 @@ public abstract class Task {
             return "x";
         }
         return " ";
+    }
+
+    public boolean getStatus() {
+        return isComplete;
     }
 
     @Override

@@ -19,8 +19,8 @@ public class TaskList {
         this.taskList.add(task);
     }
 
-    public void markTaskAsComplete(int id) {
-        taskList.get(id - 1).setComplete(true);
+    public void markTask(int id) {
+        taskList.get(id - 1).mark();
     }
 
     public Task deleteTask(int id) {

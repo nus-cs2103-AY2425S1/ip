@@ -1,6 +1,7 @@
 package LBot.helper;
 
 import LBot.exception.FileException;
+import LBot.exception.InvalidCommandException;
 import LBot.exception.ParseCommandException;
 import LBot.task.Deadline;
 import LBot.task.Event;
@@ -63,7 +64,7 @@ public class Storage {
         return taskList.getTaskList();
     }
 
-    public static void addTaskToList(String input, TaskList taskList) throws ParseCommandException {
+    public static void addTaskToList(String input, TaskList taskList) throws ParseCommandException, InvalidCommandException {
         /**
          * Code adapted from ChatGPT, using regex to possibly avoid scenario where user uses reserved characters
          * regex updated after testing on regex101.com
