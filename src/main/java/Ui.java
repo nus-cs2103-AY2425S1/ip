@@ -1,12 +1,19 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Ui {
 
     private static final String LINE = "____________________________________________________________";
     private final String name;
+    private Scanner scanner;
 
     public Ui(String name) {
         this.name = name;
+        scanner = new Scanner(System.in);
+    }
+
+    public String readCommand() {
+        return scanner.nextLine();
     }
 
     public void printWelcome() {

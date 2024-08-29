@@ -18,7 +18,7 @@ public class Storage {
         this.filePath = Paths.get(filePath);
     }
 
-    public void writeFile(ArrayList<Task> list) throws TalkerException {
+    public void writeFile(TaskList list) throws TalkerException {
         try {
             if (!Files.exists(directoryPath) || !Files.isDirectory(directoryPath)) {
                 Files.createDirectory(directoryPath);
@@ -27,9 +27,7 @@ public class Storage {
                 Files.createFile(filePath);
             }
             FileWriter fileWriter = new FileWriter(filePath.toString());
-            for (Task task: list) {
-                fileWriter.write(task.getSaveFormat() + System.lineSeparator());
-            }
+            list.writeToFile(fileWriter);
             fileWriter.close();
         } catch (IOException e) {
             throw new TalkerException("Unable to write to file. Error occurred: " + e.getMessage());

@@ -1,31 +1,31 @@
 public class Parser {
 
-    public static void parseInput(String input) throws TalkerException {
+    public static void parseInput(String input, TaskList list, Ui ui) throws TalkerException {
         String[] parsed = input.split(" ");
         switch (parsed[0]) {
             case "list":
-                Talker.listTasks();
+                list.listTasks(ui);
                 break;
             case "mark":
-                Talker.markTaskComplete(parsed);
+                list.markTaskComplete(parsed, ui);
                 break;
             case "unmark":
-                Talker.unmarkTaskComplete(parsed);
+                list.unmarkTaskComplete(parsed, ui);
                 break;
             case "delete":
-                Talker.deleteTask(parsed);
+                list.deleteTask(parsed, ui);
                 break;
             case "todo":
-                Talker.createToDo(input);
+                list.createToDo(input, ui);
                 break;
             case "deadline":
-                Talker.createDeadline(input);
+                list.createDeadline(input, ui);
                 break;
             case "event":
-                Talker.createEvent(input);
+                list.createEvent(input, ui);
                 break;
             case "date":
-                Talker.printTasksOn(input);
+                list.printTasksOn(input, ui);
                 break;
             default:
                 throw new TalkerException("Unknown command!");
