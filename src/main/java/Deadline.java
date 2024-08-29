@@ -1,14 +1,28 @@
-public class Deadline extends Task {
-    protected String by;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String name, String by) {
+public class Deadline extends TaskWithDate {
+    protected String by;
+    protected LocalDate localDate;
+
+    public Deadline(String name, LocalDate localDate) {
         super(name);
-        this.by = by;
+        this.localDate = localDate;
+    }
+
+    @Override
+    public boolean overlapsWith(LocalDate localDate) {
+        return localDate.equals(this.localDate);
+    }
+
+    @Override
+    public String formatDate(LocalDate localDate) {
+        return localDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + formatDate(this.localDate) + ")";
     }
 
     @Override
@@ -16,7 +30,7 @@ public class Deadline extends Task {
         return "D, "
                 + (this.isCompleted ? "1, " : "0, ")
                 + this.name + ", "
-                + this.by
+                + this.localDate
                 + "\n";
     }
 }

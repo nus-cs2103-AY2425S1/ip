@@ -7,7 +7,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.IOException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Scanner;
@@ -122,17 +127,23 @@ public class Phenex {
             }
             name = taskDetails[2];
             String byDate = taskDetails[3];
-            taskToAdd = new Deadline(name, byDate);
+            System.out.println(byDate);
+            LocalDate date = LocalDate.parse(byDate);
+            taskToAdd = new Deadline(name, date);
             break;
         case "E":
             if (taskDetails.length != 5) {
                 throw new PhenexException("Error, corrupted memory.");
             }
             name = taskDetails[2];
-            String from = taskDetails[3];
-            String to = taskDetails[4];
-            taskToAdd = new Event(name, from, to);
-            break;
+            try {
+                LocalDate fromDate = LocalDate.parse(taskDetails[3]);
+                LocalDate toDate = LocalDate.parse(taskDetails[4]);
+                taskToAdd = new Event(name, fromDate, toDate);
+                break;
+            } catch (DateTimeParseException e) {
+                throw new PhenexException(e.getMessage());
+            }
         default:
             throw new PhenexException("Error, corrupted memory");
         }
@@ -178,16 +189,26 @@ public class Phenex {
                 throw new PhenexException("Error, invalid deadline name");
             }
             String deadlineBy = matcher.group(2);
-            taskToAdd = new Deadline(taskName, deadlineBy);
+            try {
+                LocalDate localDate = LocalDate.parse(deadlineBy);
+                taskToAdd = new Deadline(taskName, localDate);
+            } catch (DateTimeParseException e) {
+                throw new PhenexException(e.getMessage());
+            }
             break;
         case TASK_EVENT:
             if (emptyNameMatcher.matches()) {
                 throw new PhenexException("Error, invalid event name");
             }
-            String eventFrom = matcher.group(2);
-            String eventTo = matcher.group(3);
-            taskToAdd = new Event(taskName, eventFrom, eventTo);
-            break;
+            try {
+                LocalDate fromDate = LocalDate.parse(matcher.group(2));
+                LocalDate toDate = LocalDate.parse(matcher.group(3));
+                taskToAdd = new Event(taskName, fromDate, toDate);
+                break;
+            } catch (DateTimeParseException e) {
+                throw new PhenexException(e.getMessage());
+            }
+
         default:
             System.out.println("Unknown input");
             return;
@@ -248,6 +269,26 @@ public class Phenex {
         }
     }
 
+    public void printAllTasksOn(Matcher matcher) throws PhenexException {
+        LocalDate localDate;
+        try {
+            localDate = LocalDate.parse(matcher.group().substring(12));
+        } catch (DateTimeParseException e) {
+            throw new PhenexException(e.getMessage());
+        }
+
+        System.out.println("\tMissions on " + localDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " :\n");
+        for (Task task : this.tasks) {
+            if (task instanceof TaskWithDate) {
+                // ok to cast here due to type checking during run time
+                TaskWithDate taskWithDate = (TaskWithDate) task;
+                if (taskWithDate.overlapsWith(localDate)) {
+                    System.out.println("\t" + taskWithDate);
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Phenex p = new Phenex();
         p.greet();
@@ -278,6 +319,7 @@ public class Phenex {
         String markRegex = "^mark \\d+\\s*$";
         String unmarkRegex = "^unmark \\d+\\s*$";
         String deleteRegex = "^delete \\d+\\s*$";
+        String dateCheckRegex = "^missions on (.+)$";
 
         // regex's for commands which tell Phenex to add Task
         String todoRegex = "^(?i)todo (.+)";
@@ -293,6 +335,7 @@ public class Phenex {
         Pattern deadlinePattern = Pattern.compile(deadlineRegex);
         Pattern eventPattern = Pattern.compile(eventRegex);
         Pattern deletePattern = Pattern.compile(deleteRegex);
+        Pattern dateCheckPattern = Pattern.compile(dateCheckRegex);
 
         Matcher terminatingMatcher;
         Matcher listMatcher;
@@ -302,6 +345,7 @@ public class Phenex {
         Matcher deadlineMatcher;
         Matcher eventMatcher;
         Matcher deleteMatcher;
+        Matcher dateCheckMatcher;
 
         while (true) {
             // scan inputs
@@ -321,6 +365,7 @@ public class Phenex {
             deadlineMatcher = deadlinePattern.matcher(userInput);
             eventMatcher = eventPattern.matcher(userInput);
             deleteMatcher = deletePattern.matcher(userInput);
+            dateCheckMatcher = dateCheckPattern.matcher(userInput);
 
             p.printLine();
 
@@ -366,6 +411,12 @@ public class Phenex {
                 int idx = Integer.parseInt(deleteMatcher.group().substring(7)) - 1;
                 try {
                     p.deleteTask(idx);
+                } catch (PhenexException e) {
+                    System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
+                }
+            } else if (dateCheckMatcher.matches()) {
+                try {
+                    p.printAllTasksOn(dateCheckMatcher);
                 } catch (PhenexException e) {
                     System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
                 }
