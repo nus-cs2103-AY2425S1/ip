@@ -1,8 +1,14 @@
+import commands.Command;
+import exceptions.InvalidCommandException;
+import exceptions.TaskInputException;
+import exceptions.TaskOutOfBoundsException;
+import parser.Parser;
+import storage.Storage;
+import tasks.TaskList;
+import ui.Ui;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Moody {
     private final Storage storage;
@@ -36,7 +42,7 @@ public class Moody {
                 command.execute(tasks, ui, storage);
                 isExit = command.isExit();
             } catch (InvalidCommandException | IOException
-                    | TaskInputException | TaskOutOfBoundsException e) {
+                     | TaskInputException | TaskOutOfBoundsException e) {
                 ui.showError(e.getMessage());
             }
         }
