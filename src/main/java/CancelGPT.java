@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -184,7 +185,15 @@ public class CancelGPT {
         if (byDate.isEmpty()) {
             throw new InvalidTask("Missing by date for Deadline task");
         }
-        return new Deadline(taskDescription, byDate);
+
+        Task deadlineTask;
+
+        try {
+            deadlineTask = new Deadline(taskDescription, LocalDateTimeHandler.parseLocalDateTime(byDate));
+        } catch (DateTimeParseException e) {
+            throw new InvalidTask("Invalid deadline date");
+        }
+        return deadlineTask;
     }
 
     public Task parseEventTaskCreationCommand(String command) throws InvalidTask {
@@ -219,7 +228,14 @@ public class CancelGPT {
             throw new InvalidTask("Missing to date for Event task");
         }
 
-        return new Event(taskDescription, fromDate, toDate);
+        Task eventTask;
+        try {
+            eventTask = new Event(taskDescription, LocalDateTimeHandler.parseLocalDateTime(fromDate),
+                    LocalDateTimeHandler.parseLocalDateTime(toDate));
+        } catch (DateTimeParseException e) {
+            throw new InvalidTask("Invalid event date(s)");
+        }
+        return eventTask;
     }
 
     public void handleAddingTask(Task task) {
@@ -261,7 +277,11 @@ public class CancelGPT {
     public void readTaskStorageToTasksList() throws IOException {
         Scanner tasksStorageReader = new Scanner(this.tasksStoragePath);
         while (tasksStorageReader.hasNextLine()) {
-            this.TASKS_LIST.add(Task.getTaskFromSavedDataString(tasksStorageReader.nextLine()));
+            try {
+                this.TASKS_LIST.add(Task.getTaskFromSavedDataString(tasksStorageReader.nextLine()));
+            } catch (InvalidTask e) {
+                System.out.println(e.getMessage());
+            }
         }
         tasksStorageReader.close();
     }

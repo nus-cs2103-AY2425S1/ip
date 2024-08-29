@@ -1,14 +1,16 @@
-public class Event extends Task {
-    protected String from;
-    protected String to;
+import java.time.format.DateTimeParseException;
 
-    public Event(String description, String from, String to) {
+public class Event extends Task {
+    protected LocalDateTimeHandler from;
+    protected LocalDateTimeHandler to;
+
+    public Event(String description, LocalDateTimeHandler from, LocalDateTimeHandler to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    public Event(boolean isDone, String description, String from, String to) {
+    public Event(boolean isDone, String description, LocalDateTimeHandler from, LocalDateTimeHandler to) {
         super(isDone, description);
         this.from = from;
         this.to = to;
@@ -16,15 +18,18 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.getDisplayedLocalDateTime() + " to: " + to.getDisplayedLocalDateTime() + ")";
     }
 
     @Override
     public String getSavedDataString() {
-        return "E" + " | " + super.getSavedDataString() + " | " + from + " | " + to;
+        return "E" + " | " + super.getSavedDataString() + " | " + from.getLocalDateTimeOriginal() + " | "
+                + to.getLocalDateTimeOriginal();
     }
 
-    public static Task getTaskFromSavedDataStringArr(String[] savedDataArr) {
-        return new Event(getStatusBoolean(Integer.parseInt(savedDataArr[1])), savedDataArr[2], savedDataArr[3], savedDataArr[4]);
+    public static Task getTaskFromSavedDataStringArr(String[] savedDataArr) throws DateTimeParseException {
+        return new Event(getStatusBoolean(Integer.parseInt(savedDataArr[1])), savedDataArr[2],
+                LocalDateTimeHandler.parseLocalDateTime(savedDataArr[3]),
+                LocalDateTimeHandler.parseLocalDateTime(savedDataArr[4]));
     }
 }

@@ -1,27 +1,31 @@
-public class Deadline extends Task {
-    protected String by;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
-    public Deadline(String description, String by) {
+public class Deadline extends Task {
+    protected LocalDateTimeHandler by;
+
+    public Deadline(String description, LocalDateTimeHandler by) {
         super(description);
         this.by = by;
     }
 
-    public Deadline(boolean isDone, String description, String by) {
+    public Deadline(boolean isDone, String description, LocalDateTimeHandler by) {
         super(isDone, description);
         this.by = by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.getDisplayedLocalDateTime() + ")";
     }
 
     @Override
     public String getSavedDataString() {
-        return "D" + " | " + super.getSavedDataString() + " | " + by;
+        return "D" + " | " + super.getSavedDataString() + " | " + by.getLocalDateTimeOriginal();
     }
 
-    public static Task getTaskFromSavedDataStringArr(String[] savedDataArr) {
-        return new Deadline(getStatusBoolean(Integer.parseInt(savedDataArr[1])), savedDataArr[2], savedDataArr[3]);
+    public static Task getTaskFromSavedDataStringArr(String[] savedDataArr) throws DateTimeParseException {
+        return new Deadline(getStatusBoolean(Integer.parseInt(savedDataArr[1])),
+                savedDataArr[2], LocalDateTimeHandler.parseLocalDateTime(savedDataArr[3]));
     }
 }

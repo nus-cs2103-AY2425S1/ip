@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 public class Task {
@@ -48,17 +49,20 @@ public class Task {
         return this.getStatusInt() + " | " + this.getDescription();
     }
 
-    public static Task getTaskFromSavedDataString(String savedDataString) {
+    public static Task getTaskFromSavedDataString(String savedDataString) throws InvalidTask{
         String[] savedDataStringArr = savedDataString.split("\\s*\\|\\s*");
-
-        if (savedDataStringArr[0].equals("T")) {
-            return ToDo.getTaskFromSavedDataStringArr(savedDataStringArr);
-        }
-        if (savedDataStringArr[0].equals("D")) {
-            return Deadline.getTaskFromSavedDataStringArr(savedDataStringArr);
-        }
-        if (savedDataStringArr[0].equals("E")) {
-            return Event.getTaskFromSavedDataStringArr(savedDataStringArr);
+        try {
+            if (savedDataStringArr[0].equals("T")) {
+                return ToDo.getTaskFromSavedDataStringArr(savedDataStringArr);
+            }
+            if (savedDataStringArr[0].equals("D")) {
+                return Deadline.getTaskFromSavedDataStringArr(savedDataStringArr);
+            }
+            if (savedDataStringArr[0].equals("E")) {
+                return Event.getTaskFromSavedDataStringArr(savedDataStringArr);
+            }
+        } catch (DateTimeParseException e) {
+            throw new InvalidTask("Unable to read task from tasks storage due to incorrect format saved");
         }
         return null;
     }
