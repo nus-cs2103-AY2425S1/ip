@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.lang.StringBuilder;
@@ -64,7 +65,7 @@ public class Dudu {
                 if (marked) {
                     task.markCompleted();
                 }
-                addTask(task);
+                tasks.add(task);
             }
         } catch (FileNotFoundException e) {
             System.out.println(e);
@@ -101,7 +102,7 @@ public class Dudu {
                     } case DEADLINE: {
                         String content = getContent(input);
                         if (!content.matches(".*/by.*")) {
-                            throw new InvalidFormatException("Please use deadline [description] /by [time]");
+                            throw new InvalidFormatException("WHAT Please use deadline [description] /by [time]");
                         }
                         String[] details = content.split("/by", 2);
                         if (details[0].trim().isEmpty()) {
@@ -159,6 +160,8 @@ public class Dudu {
                 System.out.println(e);
             } catch (InvalidFormatException e) {
                 System.out.println(e);
+            } catch (java.io.IOException e) {
+                System.out.println(e);
             }
         }
     }
@@ -182,11 +185,12 @@ public class Dudu {
         }
     }
 
-    public static void addTask(Task task) throws java.io.IOException{
+    public static void addTask(Task task) throws java.io.IOException {
         tasks.add(task);
 
         FileWriter fw = new FileWriter("./data/dudu.txt", true);
-        fw.write(task.formatString());
+        fw.write("\n" + task.formatString());
+        fw.close();
 
         String output = LineWrapper.wrap(String.format("Got it. I've added this task:\n    %s\nNow you have %d tasks in the list.", task, tasks.size()));
         System.out.println(output);

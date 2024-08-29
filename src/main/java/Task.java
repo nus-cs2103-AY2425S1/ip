@@ -15,7 +15,7 @@ public class Task {
 
     public String formatString() {
         String status = this.marked ? "1" : "0";
-        return String.format("| %s | %s", status, this.description);
+        return String.format("%s | %s", status, this.description);
     }
 
     @Override
