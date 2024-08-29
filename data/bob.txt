@@ -1,3 +1,5 @@
 T | 0 | test
 T | 0 | test task1
-T | 0 | test task
+T | 1 | test task
+T | 0 | test
+D | 0 | watch lecture | 2024-08-29 1700
