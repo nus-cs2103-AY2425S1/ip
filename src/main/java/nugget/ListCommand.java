@@ -1,4 +1,8 @@
-public class ListCommand implements Command{
+package nugget;
+
+import nugget.Command;
+
+public class ListCommand implements Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NuggetException {
         int len = tasks.size();

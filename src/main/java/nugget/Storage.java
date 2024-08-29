@@ -1,3 +1,5 @@
+package nugget;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,7 +20,7 @@ public class Storage {
         try (Scanner scanner = new Scanner(filePath.toFile())) {
             while (scanner.hasNext()) {
                 String taskString = scanner.nextLine();
-                // Convert taskString back to a Task object and add to tasks
+                // Convert taskString back to a nugget.Task object and add to tasks
                 // Assume a parseTask method that handles this conversion
             }
         } catch (IOException e) {

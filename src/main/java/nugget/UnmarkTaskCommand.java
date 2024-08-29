@@ -1,7 +1,9 @@
-public class MarkTaskCommand implements Command {
+package nugget;
+
+public class UnmarkTaskCommand implements Command {
     private int index;
 
-    public MarkTaskCommand(int index) {
+    public UnmarkTaskCommand(int index) {
         this.index = index;
     }
 
@@ -10,8 +12,8 @@ public class MarkTaskCommand implements Command {
         if (index < 0 || index >= tasks.size()) {
             throw new InvalidTaskNumberException();
         }
-        tasks.markTask(index);
+        tasks.unmarkTask(index);
         storage.saveTasks(tasks.getTasks());
-        ui.showMarkedTask(tasks.getTask(index));
+        ui.showUnmarkedTask(tasks.getTask(index));
     }
 }

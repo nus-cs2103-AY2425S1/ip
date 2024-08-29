@@ -1,2 +1,2 @@
 [T][ ] sleep
-[T][X] wake
+[D][ ] finish work (by: Mar 23 2024, 03:00 pm)

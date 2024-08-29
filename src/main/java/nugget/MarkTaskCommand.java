@@ -1,7 +1,9 @@
-public class DeleteTaskCommand implements Command {
+package nugget;
+
+public class MarkTaskCommand implements Command {
     private int index;
 
-    public DeleteTaskCommand(int index) {
+    public MarkTaskCommand(int index) {
         this.index = index;
     }
 
@@ -10,9 +12,8 @@ public class DeleteTaskCommand implements Command {
         if (index < 0 || index >= tasks.size()) {
             throw new InvalidTaskNumberException();
         }
-        Task task = tasks.getTask(index);
-        tasks.deleteTask(index);
+        tasks.markTask(index);
         storage.saveTasks(tasks.getTasks());
-        ui.showTaskRemoved(task, tasks.size());
+        ui.showMarkedTask(tasks.getTask(index));
     }
 }
