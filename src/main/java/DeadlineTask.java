@@ -1,12 +1,18 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class DeadlineTask extends Task{
-    String deadline;
-    private DeadlineTask(String description, String deadline) {
+    LocalDateTime deadline;
+    private DeadlineTask(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
     }
 
     public static DeadlineTask of(String input) {
         String[] splitInput = input.split("\\s+");
+        LocalDateTime deadline;
+
         if (input.strip().equals("deadline")) {
             printLine();
             System.out.println("    Elster begs of you to have details for your task");
@@ -21,9 +27,27 @@ public class DeadlineTask extends Task{
 
         }
 
+        try {
+            String deadlineStr = input.substring(input.indexOf("/by") + 4).strip();
+
+            if (deadlineStr.length() == 10) {
+                deadline = LocalDate.parse(deadlineStr).atTime(23, 59);
+
+            } else {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                deadline = LocalDateTime.parse(deadlineStr, formatter);
+            }
+
+        } catch (Exception e) {
+            printLine();
+            System.out.println("    for /by, Elster requires a yyyy-mm-dd or yyyy-mm-dd HH:mm format please and thanks");
+            printLine();
+            return null;
+        }
+
         return new DeadlineTask(
                 input.substring(8, input.indexOf("/by")).strip(),
-                input.substring(input.indexOf("/by") + 4).strip()
+                deadline
         );
     }
 
