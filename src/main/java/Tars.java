@@ -1,5 +1,83 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
+
+class WritingFile {
+    public static void writeFile(String filePath, ArrayList<Task> tasks) throws IOException {
+        FileWriter fileWriter = new FileWriter(filePath);
+        for (Task task : tasks) {
+            fileWriter.write(task.toFileFormat() + System.lineSeparator());
+        }
+        fileWriter.close();
+    }
+
+    public static ArrayList<Task> readFile(String filePath) throws IOException {
+        File f = new File(filePath); // create a File for the given file path
+
+        if(!f.exists()){
+            f.getParentFile().mkdirs();
+            f.createNewFile();
+        }
+
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        ArrayList<Task> itemsList = new ArrayList<>();
+
+        while (s.hasNext()) {
+            String entry = s.nextLine(); //Task from each line
+            String[] entryParts = entry.split(" ");
+
+            if(entryParts[0].equals("T")) {
+                StringBuilder strBuild = new StringBuilder();
+                for (int i = 2; i < entryParts.length; i++) {
+                    strBuild.append(entryParts[i]).append(" ");
+                }
+                ToDos todo = new ToDos(strBuild.toString().trim());
+                if(entryParts[1].equals("1")){
+                    todo.mark();
+                }
+                itemsList.add(todo);
+            } else if (entryParts[0].equals("D")) {
+                StringBuilder strBuild = new StringBuilder();
+                StringBuilder dateStr = new StringBuilder();
+
+                for (int i = 2; i < entryParts.length - 2; i++) {
+                    if (i < entryParts.length - 3) {
+                        strBuild.append(entryParts[i]).append(" ");
+                    } else {
+                        dateStr.append(entryParts[entryParts.length - 2]);
+                    }
+                }
+                Deadline deadlineTask = new Deadline(strBuild.toString().trim(), dateStr.toString());
+                if(entryParts[1].equals("1")) {
+                    deadlineTask.mark();
+                }
+                itemsList.add(deadlineTask);
+            }else if (entryParts[0].equals("E")) {
+                StringBuilder strBuild = new StringBuilder();
+                StringBuilder toStr = new StringBuilder();
+                StringBuilder forStr = new StringBuilder();
+
+                for (int i = 2; i < entryParts.length; i++) {
+                    if (i < entryParts.length - 6) {
+                        strBuild.append(entryParts[i]).append(" ");
+                    } else if (i > entryParts.length - 6 && i < entryParts.length - 3) {
+                        forStr.append(entryParts[i]).append(" ");
+                    } else if (i > entryParts.length - 3 && i < entryParts.length - 1) {
+                        toStr.append(entryParts[i]);
+                    }
+                }
+                Event eventTask = new Event(strBuild.toString(), forStr.toString().trim(), toStr.toString());
+                if(entryParts[1].equals("1")) {
+                    eventTask.mark();
+                }
+                itemsList.add(eventTask);
+            }
+        }
+        return itemsList;
+    }
+}
 
 /**
  * Class represents a generic class with a Description and isDone status
@@ -56,6 +134,10 @@ class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    public String toFileFormat(){
+        return "";
+    }
 }
 /**
  * Class represents ToDos task, which only has a description
@@ -79,7 +161,16 @@ class ToDos extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[T] " + super.toString();
+    }
+
+    @Override
+    public String toFileFormat(){
+        if(isDone) {
+            return "T " + "1 " + description;
+        }else{
+            return "T " + "0 " + description;
+        }
     }
 }
 /**
@@ -107,7 +198,16 @@ class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D] " + super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String toFileFormat(){
+        if(isDone) {
+            return "D " + "1 " + description + " (by: " + by + " )";
+        }else{
+            return "D " + "0 " + description + " (by: " + by + " )";
+        }
     }
 }
 /**
@@ -138,7 +238,16 @@ class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E] " + super.toString() + "(from: " + from + " to: " + to + ")";
+    }
+
+    @Override
+    public String toFileFormat(){
+        if(isDone) {
+            return "E " + "1 " + description + "(from: " + from + " to: " + to + " )";
+        }else{
+            return "E " + "0 " + description + "(from: " + from + " to: " + to + " )";
+        }
     }
 }
 
@@ -153,26 +262,26 @@ class Event extends Task {
  */
 public class Tars {
     static String line = "    _____________________________________________";
+    static String filePath = "./data/Tars.txt";
 
     /**
      * Runs the Tars application, where it takes in users inputs until "bye" is entered by user
      *
      * @param args (command line arguments given by User)
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //welcome/introduction message
         System.out.println(line + "\n" + "    Hello! I'm Tars\n" + "    What can I do for you" + "\n" + line);
 
         Scanner scanner = new Scanner(System.in); //initalising input scanner
-        ArrayList<Task> itemsList = new ArrayList<>(); //store all input entries
-
+        ArrayList<Task> itemsList = WritingFile.readFile(filePath); //reads from text file
 
         //while loop to ensure termination of programme only when "bye" input
         while (true) {
             String entry = scanner.nextLine();
             String[] entryParts = entry.split(" ");
 
-            String task = itemsList.size() > 1 ? "tasks" : "task";
+            //String task = itemsList.size() > 1 ? "tasks" : "task";
 
             try {
                 if(entryParts.length < 2){
@@ -281,6 +390,8 @@ public class Tars {
                 System.out.println(e.getMessage());
             }
         }
+
+        WritingFile.writeFile("./data/Tars.txt", itemsList);
 
         //exit message when given input "bye"
         System.out.println(line + "\n" + "    Bye. Hope to see you again soon!" + "\n" + line);
