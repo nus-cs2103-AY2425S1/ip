@@ -1,17 +1,6 @@
 package util;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
-import command.AddCommand;
-import command.Command;
-import command.CommandType;
-import command.DeleteCommand;
-import command.ExitCommand;
-import command.ListCommand;
-import command.MarkCommand;
-import command.UnmarkCommand;
-import command.FindCommand;
+import command.*;
 import exception.InvalidCommandException;
 import exception.ScheduloException;
 import task.Deadline;
@@ -19,8 +8,24 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
+
+/**
+ * The Parser class is responsible for parsing user input commands into executable Command objects.
+ * It also provides methods to parse individual tasks from storage data.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input command and returns the corresponding Command object.
+     *
+     * @param fullCommand The full user input string.
+     * @return The corresponding Command object.
+     * @throws ScheduloException If the command is invalid or the input is malformed.
+     */
     public static Command parse(String fullCommand) throws ScheduloException {
         String[] splitWords = fullCommand.split(" ", 2);
 
@@ -31,7 +36,6 @@ public class Parser {
         } catch (IllegalArgumentException e) {
             throw new InvalidCommandException();
         }
-        
 
         switch (commandType) {
             case LIST:
@@ -58,6 +62,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the details of a deadline command and returns the corresponding Command object.
+     *
+     * @param details The details of the deadline command, including the task description and deadline.
+     * @return The corresponding Command object for the deadline.
+     * @throws ScheduloException If the input is invalid or the date format is incorrect.
+     */
     private static Command parseDeadlineCommand(String details) throws ScheduloException {
         String[] taskParts = details.split(" /by ", 2);
         if (taskParts.length < 2 || taskParts[0].trim().isEmpty()) {
@@ -86,6 +97,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the details of an event command and returns the corresponding Command object.
+     *
+     * @param details The details of the event command, including the task description and event period.
+     * @return The corresponding Command object for the event.
+     * @throws ScheduloException If the input is invalid or the date format is incorrect.
+     */
     private static Command parseEventCommand(String details) throws ScheduloException {
         String[] taskParts = details.split(" /from ", 2);
         if (taskParts.length < 2 || taskParts[0].trim().isEmpty()) {
@@ -133,10 +151,16 @@ public class Parser {
                 throw new ScheduloException("The /from and /to of an event should be in the format yyyy-MM-dd or yyyy-MM-dd HH:mm.");
             }
         } catch (DateTimeParseException e) {
-            throw new ScheduloException("Invalid date format. Please use 'yyyy-MM-dd' for dates or 'yyyy-MM-dd HH:mm' for date and time.");
+            throw new ScheduloException("Invalid date format. Please use 'yyyy-MM-dd' for dates or 'yyyy-MM-dd HH:mm'.");
         }
     }
 
+    /**
+     * Parses a task from a line in the storage file.
+     *
+     * @param taskLine A line from the storage file representing a task.
+     * @return The corresponding Task object.
+     */
     public static Task parseTask(String taskLine) {
         String[] taskParts = taskLine.split(",");
         String taskType = taskParts[0];
