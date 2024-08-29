@@ -1,5 +1,6 @@
-import bao.task.Task;
+package bao.main;
 
+import bao.task.Task;
 import java.util.ArrayList;
 
 public class TaskList {
