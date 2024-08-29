@@ -1,9 +1,12 @@
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.*;
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 class Task {
     private String tasktype = "T";
@@ -54,17 +57,19 @@ class Todo extends Task {
 }
 
 class Deadline extends Task {
-    private String date;
+    private LocalDateTime date;
     private String tasktype = "D";
 
-    public Deadline(boolean mark, String val, String date){
+    public Deadline(boolean mark, String val, LocalDateTime date){
         super(mark, val);
         this.date = date;
     }
 
     @Override
     public String toString() {
-        return "[" + this.tasktype + "]" + super.toString() + " (by: " + this.date + ")";
+        return "[" + this.tasktype + "]" + super.toString() +
+                " (by: " + this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
+                + ")";
     }
 }
 
@@ -121,11 +126,14 @@ public class Timo{
                     //get the important values to create the Deadline
                     String[] b = a.split(" \\(by: |\\)");
 
+                    LocalDateTime datetime = LocalDateTime.parse(b[1], DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+
+
                     //see if the task has been done or not
                     if (Character.compare(tmp.charAt(4), 'X') == 0) {
-                        arr.add(new Deadline(true, b[0], b[1]));
+                        arr.add(new Deadline(true, b[0], datetime));
                     } else {
-                        arr.add(new Deadline(false, b[0], b[1]));
+                        arr.add(new Deadline(false, b[0], datetime));
                     }
                 } else {
                     //removing the [E][?] from the line
@@ -251,7 +259,7 @@ public class Timo{
                             arr.add(task);
                             System.out.println("----------------------------");
                             System.out.println("Got it. I've added this task:");
-                            System.out.println(task.toString());
+                            System.out.println(task);
                             System.out.println("Now you have " + arr.size() + " tasks in the list.");
                             System.out.println("----------------------------");
                         } catch (TimoException ex) {
@@ -261,13 +269,25 @@ public class Timo{
                         }
                     } else if (input.startsWith("deadline")) {
                         String[] tmp = input.split("deadline |/by ");
-                        Deadline task = new Deadline(false, tmp[1], tmp[2]);
-                        arr.add(task);
-                        System.out.println("----------------------------");
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(task.toString());
-                        System.out.println("Now you have " + arr.size() + " tasks in the list.");
-                        System.out.println("----------------------------");
+                        String todo = tmp[1];
+                        String datetime = tmp[2].trim();
+                        DateTimeFormatter a = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+                        try {
+                            LocalDateTime date = LocalDateTime.parse(datetime, a);
+                            System.out.println(date);
+                            Deadline task = new Deadline(false, todo, date);
+                            arr.add(task);
+                            System.out.println("----------------------------");
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println(task);
+                            System.out.println("Now you have " + arr.size() + " tasks in the list.");
+                            System.out.println("----------------------------");
+                        } catch (DateTimeException e) {
+                            System.out.println("----------------------------");
+                            System.out.println("deadline usage: deadline <task> /by yyyy-mm-dd <time/24hr format>");
+                            System.out.println("----------------------------");
+                        }
                     } else if (input.startsWith("event")) {
                         String[] tmp = input.split("event |/from |/to ");
                         Event task = new Event(false, tmp[1], tmp[2], tmp[3]);

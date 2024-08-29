@@ -1,27 +1,14 @@
-class hmm {
-    private String a = "H";
-
-    public String get_a() {
-        return this.a;
-    }
-}
-
-class bye extends hmm {
-    private String a = "meow";
-}
-
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Hi {
 
-
-
     public static void main(String[] args) {
-        bye meow = new bye();
-        System.out.println(meow.get_a());
+        DateTimeFormatter a = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        LocalDateTime d1 = LocalDateTime.parse("2019-12-01 1800", a);
+        System.out.println(d1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
     }
 }
-
 
 
 
