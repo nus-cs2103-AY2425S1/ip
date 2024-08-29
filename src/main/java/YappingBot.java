@@ -86,7 +86,15 @@ public class YappingBot {
 
     // end of class methods
     public static void main(String[] args) {
-        YappingBot yp = new YappingBot("savefile");
+        String savefile;
+
+        // ability to give savefile path
+        if (args.length > 1) {
+            savefile = args[1];
+        } else {
+            savefile = "./savefile";
+        }
+        YappingBot yp = new YappingBot(savefile);
         yp.start();
     }
 }
