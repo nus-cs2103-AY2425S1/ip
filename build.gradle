@@ -28,14 +28,21 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("bocchi.Bocchi")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "bocchi"
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
+}
+
+// ChatGPT: Use UTF-8 encoding for special characters
+allprojects {
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
 }

@@ -1,13 +1,13 @@
-package task;
+package bocchi.task;
 
-import exception.BocchiException;
-import util.BocchiDateTimeFormatter;
+import bocchi.exception.BocchiException;
+import bocchi.util.BocchiDateTimeFormatter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents a deadline task.
+ * Represents a deadline bocchi.task.
  */
 public class Deadline extends Task {
     /**

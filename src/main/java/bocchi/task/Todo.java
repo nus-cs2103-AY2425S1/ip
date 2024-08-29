@@ -1,9 +1,9 @@
-package task;
+package bocchi.task;
 
-import exception.BocchiException;
+import bocchi.exception.BocchiException;
 
 /**
- * Represents a todo task.
+ * Represents a todo bocchi.task.
  */
 public class Todo extends Task {
 

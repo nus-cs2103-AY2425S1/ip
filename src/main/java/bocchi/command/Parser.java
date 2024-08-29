@@ -1,21 +1,21 @@
-package command;
+package bocchi.command;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Parser {
     /**
-     * Parses the input as a command.
+     * Parses the input as a bocchi.command.
      *
      * @param input The input to parse.
-     * @return The command.
+     * @return The bocchi.command.
      */
     static public Command parse(String input) {
         String name;
         String param;
         Map<String, String> keywordParams = new HashMap<>();
 
-        String[] commandAndParams = input.split(" +", 2); // split command and params
+        String[] commandAndParams = input.split(" +", 2); // split bocchi.command and params
         name = commandAndParams[0];
         if (commandAndParams.length == 1) { // no params at all
             param = null;
