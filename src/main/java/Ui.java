@@ -55,8 +55,9 @@ public class Ui {
         printLine();
     }
 
-    public void mainResponse(TaskList taskList, Parser parser, String reply,
-                             DateTimeParser dateTimeParser) throws TodoException, DeadlineException,
+    public void mainResponse(
+            TaskList taskList, Parser parser, String reply,
+            DateTimeParser dateTimeParser) throws TodoException, DeadlineException,
             EventException, WrongInputException {
         printLine();
         if (reply.length() == 4 && reply.startsWith("todo")) {
