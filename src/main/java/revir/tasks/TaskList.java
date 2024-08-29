@@ -73,6 +73,17 @@ public class TaskList {
         return str.toString();
     }
 
+    public String find(String keyword) {
+        StringBuilder str = new StringBuilder();
+        tasks.forEach(task -> {
+            if (task.toString().contains(keyword)) {
+                str.append(task.toString() + '\n');
+            }
+        });
+        if (!str.isEmpty()) str.deleteCharAt(str.length() - 1);
+        return str.toString();
+    }
+
     /**
      * Sets the completion status of a task at the specified index.
      *

@@ -13,7 +13,7 @@ import java.util.Map;
 public class Parser {
     // use java enum to define command types
     enum Action {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, INVALID
     }
 
     static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -29,6 +29,7 @@ public class Parser {
         actionMap.put("deadline", Action.DEADLINE);
         actionMap.put("event", Action.EVENT);
         actionMap.put("delete", Action.DELETE);
+        actionMap.put("find", Action.FIND);
     }
 
     public Command parse(String commandString) throws IllegalCommandException, InvalidFormatException {
@@ -54,6 +55,8 @@ public class Parser {
                 return parseEvent(args);
             case DELETE:
                 return parseDelete(args);
+            case FIND:
+                return parseFind(args);
             case INVALID:
                 throw new IllegalCommandException(commandWord);
             default:
@@ -69,6 +72,10 @@ public class Parser {
     Command parseUnmark(String args) {
         int taskIndex = Integer.parseInt(args);
         return new Mark(taskIndex, false);
+    }
+
+    Command parseFind(String args) throws InvalidFormatException {
+        return new Find(args);
     }
 
     Command parseTodo(String args) throws InvalidFormatException {
