@@ -1,9 +1,11 @@
 package boss;
 
-import boss.BossException;
-import boss.Task;
-
 import java.util.ArrayList;
+
+/**
+ * Represents the class that contains the task list and
+ * has operations to add/delete tasks from the list
+ */
 public class TaskList {
 
     private ArrayList<Task> tasks;
@@ -20,6 +22,11 @@ public class TaskList {
         tasks.add(task);
     }
 
+    /**
+     * Unmarks a task from the list.
+     * @param task the task that the user wants to unmark
+     * @return the text to replace text in file
+     */
     public String unmark(String task) {
         // replace all characters with nothing, in order to extract number!
         String taskNum = task.replaceAll("[^0-9]", "");
@@ -45,6 +52,11 @@ public class TaskList {
         return "";
     }
 
+    /**
+     * Unmarks a task from the list.
+     * @param task the task that the user wants to mark
+     * @return the text to replace text in file
+     */
     public String mark(String task) {
         String taskNum = task.replaceAll("[^0-9]", "");
         try {
@@ -70,6 +82,11 @@ public class TaskList {
         return "";
     }
 
+    /**
+     * Deletes a task from the list.
+     * @param task the task that the user wants to delete
+     * @return the text to replace text in file
+     */
     public String delete(String task) {
         try {
             String taskNum = task.replaceAll("[^0-9]", "");
@@ -94,6 +111,14 @@ public class TaskList {
         return "";
     }
 
+    /**
+     * rewrites text file
+     *
+     * @param tasks
+     * @param index
+     * @param toReplace
+     * @return
+     */
     private static String reWrite(ArrayList<Task> tasks, int index, String toReplace) {
         String s = "";
         int i = 1;
@@ -103,6 +128,11 @@ public class TaskList {
         return s;
     }
 
+
+    /**
+     * Prints user messages to the screen.
+     * @param len number of tasks in list
+     */
     public void printabstraction(int len) {
         System.out.println("Got it! I've added this task now");
         int size = tasks.size();

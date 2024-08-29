@@ -1,6 +1,4 @@
-package boss;// deals with loading tasks from the file and saving tasks in the file
-import boss.Deadline;
-import boss.Event;
+package boss;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,13 +10,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Storage {
 
+/**
+ * Represents the class that deals with loading tasks
+ * from the file and saving tasks in the file
+ */
+
+public class Storage {
     private String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+
+    /**
+     * Prints the tasks from the textfile when user
+     * uses the "list" command
+     * @throws FileNotFoundException throws an exception
+     * if file can not be found
+     */
 
     public void printFileContents() throws FileNotFoundException {
         File f = new File(filePath);
@@ -31,11 +42,23 @@ public class Storage {
         }
     }
 
+    /**
+     * Method to write data to file
+     * @param textToAdd text to write to file
+     * @param appendorNot boolean value to append to text or replace
+     * @throws IOException throws exception if error is caused
+     */
     public void writeToFile(String textToAdd, boolean appendorNot) throws IOException {
         FileWriter fw = new FileWriter(filePath, appendorNot);
         fw.write(textToAdd);
         fw.close();
     }
+
+    /**
+     * Returns the number of tasks
+     * @return num of tasks
+     * @throws FileNotFoundException throws error if file cannot be found
+     */
 
     public int numofTasks() throws FileNotFoundException {
         File f = new File(filePath);
@@ -47,6 +70,12 @@ public class Storage {
         }
         return i;
     }
+
+    /**
+     * Loads the content from text file into arraylist
+     * when program is rerun.
+     * @return an arraylist containing tasks from text file
+     */
 
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -70,6 +99,14 @@ public class Storage {
         }
         return tasks;
     }
+
+    /**
+     * Method to determine the type of task
+     * @param description description of task
+     * @param str string representation of task
+     * @param isDone status of task
+     * @return Task
+     */
 
     public Task typeOfTask(String description, String str, boolean isDone) {
         // todo

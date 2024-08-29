@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+
+/**
+ * Represents the class containing the tests
+ * to conduct on the Boss Chatbot to find bugs
+ * within the program.
+ */
 public class BossTest {
 
     // let us try to write a test that checks whether the load function works
