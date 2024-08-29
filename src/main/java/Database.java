@@ -41,4 +41,17 @@ public class Database {
             System.out.println("Error writing database: " + e.getMessage());
         }
     }
+
+    public List<String> readFromDatabase() throws IOException {
+        return Files.readAllLines(FILE_PATH);
+    }
+
+    public int getDatabaseSize() {
+        try {
+            List<String> txtLines = readFromDatabase();
+            return txtLines.size();
+        } catch (IOException e) {
+            return 0;
+        }
+    }
 }
