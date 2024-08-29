@@ -1,7 +1,5 @@
 package jeff.command;
 
-import jeff.Jeff;
-import jeff.command.AddCommand;
 import jeff.exception.JeffException;
 import jeff.storage.Storage;
 import jeff.task.DeadlineTask;

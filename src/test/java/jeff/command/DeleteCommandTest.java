@@ -1,14 +1,8 @@
 package jeff.command;
 
-import jeff.Jeff;
-import jeff.command.AddCommand;
-import jeff.command.DeleteCommand;
 import jeff.exception.JeffException;
 import jeff.storage.Storage;
-import jeff.task.DeadlineTask;
-import jeff.task.EventTask;
 import jeff.task.TaskList;
-import jeff.task.ToDoTask;
 import jeff.ui.Ui;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
