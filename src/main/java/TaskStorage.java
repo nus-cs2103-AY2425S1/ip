@@ -1,12 +1,21 @@
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class TaskStorage {
     private ArrayList<Task> tasks;
     private int count;
     private static final String FILE_PATH = "./data/MGTOW.txt";
     private File saveFile;
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public TaskStorage(){
         this.tasks = new ArrayList<>();
@@ -27,9 +36,14 @@ public class TaskStorage {
             }
         }
     }
-    public void loadTasks(){
-        try (Scanner sc = new Scanner(this.saveFile)){
-            while (sc.hasNextLine()){
+    private void loadTasks() {
+        if (!saveFile.exists()) {
+            System.out.println("\tNo existing task file found. Starting with an empty task list.");
+            return;
+        }
+
+        try (Scanner sc = new Scanner(saveFile)) {
+            while (sc.hasNextLine()) {
                 String line = sc.nextLine();
                 String[] parts = line.split("\\|");
                 if (parts.length >= 3) {
@@ -37,33 +51,38 @@ public class TaskStorage {
                     boolean isDone = parts[1].equals("1");
                     String desc = parts[2];
                     Task task;
-                    switch (type) {
-                        case "T":
-                            task = new ToDo(desc);
-                            break;
-                        case "D":
-                            String deadline = parts.length > 3 ? parts[3] : "";
-                            task = new Deadline(desc, deadline);
-                            break;
-                        case "E":
-                            String start = parts.length > 3 ? parts[3] : "";
-                            String end = parts.length > 4 ? parts[4] : "";
-                            task = new Event(desc, start, end);
-                            break;
-                        default:
-                            continue;
+                    try {
+                        switch (type) {
+                            case "T":
+                                task = new ToDo(desc);
+                                break;
+                            case "D":
+                                String deadline = parts.length > 3 ? parts[3] : "";
+                                task = new Deadline(desc, deadline);
+                                break;
+                            case "E":
+                                String start = parts.length > 3 ? parts[3] : "";
+                                String end = parts.length > 4 ? parts[4] : "";
+                                task = new Event(desc, start, end);
+                                break;
+                            default:
+                                continue;
+                        }
+                        if (isDone) {
+                            task.markDone();
+                        }
+                        tasks.add(task);
+                        count++;
+                    } catch (InvalidTaskException e) {
+                        System.out.println("\tError loading task: " + e.getMessage());
                     }
-                    if (isDone) {
-                        task.markDone();
-                    }
-                    this.tasks.add(task);
-                    this.count++;
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("\tNo existing task file found. Starting with an empty task list.");
+            System.out.println("\tError loading tasks: " + e.getMessage());
         }
     }
+
 
     public void saveTasks() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(saveFile))) {
@@ -90,7 +109,24 @@ public class TaskStorage {
         return sb.toString();
     }
 
-    public void addTask(Task task){
+    public ArrayList<Task> getTasksOnDate(LocalDate date) {
+        return tasks.stream()
+                .filter(task -> {
+                    if (task instanceof Deadline) {
+                        LocalDateTime deadlineDate = ((Deadline) task).getEnd();
+                        return deadlineDate.toLocalDate().equals(date);
+                    } else if (task instanceof Event) {
+                        // Assuming Event class has been updated to use LocalDateTime
+                        LocalDateTime eventStart = ((Event) task).getStartDateTime();
+                        LocalDateTime eventEnd = ((Event) task).getEndDateTime();
+                        return (eventStart.toLocalDate().equals(date) || eventEnd.toLocalDate().equals(date));
+                    }
+                    return false;
+                })
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public void addTask(Task task) throws InvalidTaskException{
         this.tasks.add(task);
         System.out.println("\tOk can. I've added this task:");
         System.out.println("\t  " + task);
