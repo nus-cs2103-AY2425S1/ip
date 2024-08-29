@@ -10,13 +10,29 @@
  |  Available commands: list, mark, unmark, todo, event, deadline.
 
 
- |  List is empty!
+ |  Here are the tasks in your list:
+ |   1.[T][ ] a
+ |   2.[T][X] b
+ |   3.[D][ ] adadsdd (by: Dec 12 2023)
+ |   4.[E][ ] abc (from: Dec 23 2023 to: Feb 1 2025)
 
 
- |  I'm sorry, but task number 1 does not exist!
+ |  Noted. I've deleted this task:
+ |  [T][ ] a
+ |  Now you have 3 tasks in the list.
+
+ |  Noted. I've deleted this task:
+ |  [D][ ] adadsdd (by: Dec 12 2023)
+ |  Now you have 2 tasks in the list.
+
+ |  I'm sorry, but task number 3 does not exist!
 
 
- |  I'm sorry, but task number 2 does not exist!
+ |  Nice! I've marked this task as done:
+ |  [E][X] abc (from: Dec 23 2023 to: Feb 1 2025)
+
+
+ |  I'm sorry, but task number 3 does not exist!
 
 
  |  I'm sorry, but task number -1 does not exist!
@@ -49,15 +65,17 @@
 
  |  Got it. I've added this task:
  |  [T][ ] This is a to-do
- |  Now you have 1 tasks in the list.
+ |  Now you have 2 tasks in the list.
 
  |  Got it. I've added this task:
  |  [T][ ] trailing spaces
- |  Now you have 2 tasks in the list.
+ |  Now you have 3 tasks in the list.
 
  |  Here are the tasks in your list:
- |   1.[T][ ] This is a to-do
- |   2.[T][ ] trailing spaces
+ |   1.[T][X] b
+ |   2.[E][X] abc (from: Dec 23 2023 to: Feb 1 2025)
+ |   3.[T][ ] This is a to-do
+ |   4.[T][ ] trailing spaces
 
 
  |  I'm sorry, I do not understand what 'deadline' is!
@@ -78,9 +96,9 @@
  |        DEADLINE  is the deadline for this task
 
 
- |  Got it. I've added this task:
- |  [D][ ] many trailing spaces in previous task (by: today)
- |  Now you have 3 tasks in the list.
+ |  I'm sorry, I do not understand what 'Text 'today' could not be parsed at index 0' is!
+ |  Time value must be given in any valid date-time format!
+
 
  |  I'm sorry, I do not understand what 'deadline this has no by-date' is!
  |  Here is the usage for the instruction 'deadline':
@@ -101,9 +119,10 @@
 
 
  |  Here are the tasks in your list:
- |   1.[T][ ] This is a to-do
- |   2.[T][ ] trailing spaces
- |   3.[D][ ] many trailing spaces in previous task (by: today)
+ |   1.[T][X] b
+ |   2.[E][X] abc (from: Dec 23 2023 to: Feb 1 2025)
+ |   3.[T][ ] This is a to-do
+ |   4.[T][ ] trailing spaces
 
 
  |  I'm sorry, I do not understand what 'event' is!
@@ -126,9 +145,9 @@
  |        END_DATE   is the end time/date for this event
 
 
- |  Got it. I've added this task:
- |  [E][ ] many trailing spaces in previous task (from: yesterday love was such an easy game to play to: never)
- |  Now you have 4 tasks in the list.
+ |  I'm sorry, I do not understand what 'Text 'yesterday love was such an easy game to play' could not be parsed at index 0' is!
+ |  Time value must be given in any valid date-time format!
+
 
  |  I'm sorry, I do not understand what 'event this has no tags' is!
  |  Here is the usage for the instruction 'event':
@@ -171,22 +190,22 @@
 
 
  |  Here are the tasks in your list:
- |   1.[T][ ] This is a to-do
- |   2.[T][ ] trailing spaces
- |   3.[D][ ] many trailing spaces in previous task (by: today)
- |   4.[E][ ] many trailing spaces in previous task (from: yesterday love was such an easy game to play to: never)
+ |   1.[T][X] b
+ |   2.[E][X] abc (from: Dec 23 2023 to: Feb 1 2025)
+ |   3.[T][ ] This is a to-do
+ |   4.[T][ ] trailing spaces
 
 
  |  Nice! I've marked this task as done:
- |  [T][X] This is a to-do
+ |  [T][X] b
 
 
  |  OK, I've marked this task as not done:
- |  [T][ ] trailing spaces
+ |  [E][ ] abc (from: Dec 23 2023 to: Feb 1 2025)
 
 
  |  OK, I've marked this task as not done:
- |  [T][ ] This is a to-do
+ |  [T][ ] b
 
 
  |  I'm sorry, but task number -1 does not exist!
@@ -208,29 +227,39 @@
 
 
  |  Noted. I've deleted this task:
- |  [T][ ] trailing spaces
+ |  [E][ ] abc (from: Dec 23 2023 to: Feb 1 2025)
  |  Now you have 3 tasks in the list.
 
  |  Here are the tasks in your list:
- |   1.[T][ ] This is a to-do
- |   2.[D][ ] many trailing spaces in previous task (by: today)
- |   3.[E][ ] many trailing spaces in previous task (from: yesterday love was such an easy game to play to: never)
+ |   1.[T][ ] b
+ |   2.[T][ ] This is a to-do
+ |   3.[T][ ] trailing spaces
 
 
  |  Noted. I've deleted this task:
- |  [T][ ] This is a to-do
+ |  [T][ ] b
  |  Now you have 2 tasks in the list.
 
  |  Noted. I've deleted this task:
- |  [D][ ] many trailing spaces in previous task (by: today)
+ |  [T][ ] This is a to-do
  |  Now you have 1 tasks in the list.
 
- |  Noted. I've deleted this task:
- |  [E][ ] many trailing spaces in previous task (from: yesterday love was such an easy game to play to: never)
- |  Now you have 0 tasks in the list.
+ |  Got it. I've added this task:
+ |  [E][ ] test1 (from: Dec 12 2023 to: Dec 23 2068)
+ |  Now you have 1 tasks in the list.
 
- |  List is empty!
+ |  Got it. I've added this task:
+ |  [D][ ] test2 (by: Dec 11 2033)
+ |  Now you have 2 tasks in the list.
+
+ |  Here are the tasks in your list:
+ |   1.[T][ ] trailing spaces
+ |   2.[E][ ] test1 (from: Dec 12 2023 to: Dec 23 2068)
+ |   3.[D][ ] test2 (by: Dec 11 2033)
 
 
  |  Bye. Hope to see you again soon!
 
+TODO:trailing spaces:false
+EVENT:test1:false:2023-12-12:2068-12-23
+DEADLINE:test2:false:2033-12-11
