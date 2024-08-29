@@ -19,6 +19,8 @@ public class Parser {
             return new UnmarkCommand(getIndexFromCommand(userCommand));
         } else if (userCommand.startsWith("delete")) {
             return new DeleteCommand(getIndexFromCommand(userCommand));
+        } else if (userCommand.startsWith("find")) {
+            return new FindCommand(userCommand.substring("find".length()));
         } else {
             return new AddCommand(userCommand.split(" "));
         }
