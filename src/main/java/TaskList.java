@@ -5,15 +5,12 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class Tasks {
+public class TaskList {
     private List<Task> tasks;
-    private List<String> taskLines;
-    public Tasks() {
+    public TaskList() {
         tasks = new ArrayList<>();
-        taskLines = new ArrayList<>();
     }
     public void addTask(String description, TaskType type, String info) {
         switch (type) {
@@ -26,88 +23,42 @@ public class Tasks {
             break;
         }
     }
+    public String getTasksToSave() {
+        String s = "";
+        for (Task t : tasks) {
+            s += t.getData() + "\n";
+        }
+        return s;
+    }
+    public void addTask(Task t) {
+        tasks.add(t);
+    }
     public void addDeadline(String description, LocalDate deadline) {
         tasks.add(new Deadline(description, deadline));
     }
-    public void writeToFile() {
-        String lineToWrite = tasks.get(this.getNumTasks() - 1).getData() + "\n";
-        FileWriter fw =  null;
-        try {
-            fw = new FileWriter("src/main/data/savedTasks.txt");
-            fw.write(lineToWrite);
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Failed to write to file");
-        }
-        taskLines.add(lineToWrite);
-    }
-    public void appendToFile() {
-        String lineToWrite = tasks.get(this.getNumTasks() - 1).getData() + "\n";
-        FileWriter fw =  null;
-        try {
-            fw = new FileWriter("src/main/data/savedTasks.txt",true);
-            fw.write(lineToWrite);
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Failed to write to file");
-        }
-        taskLines.add(lineToWrite);
-    }
-    public void printTasks() {
+    public String getTasksString() {
+        String tasksString = "";
         int count = 1;
         for (Task task : tasks) {
-            System.out.print(count + ". ");
-            task.printTask();
-            System.out.println();
+            tasksString += count + ". " + task.getTaskString() + "\n";
             count++;
         }
+        return tasksString;
     }
     public void markTask(int index) {
         tasks.get(index - 1).completeTask();
-
-        String lineToChange = taskLines.get(index - 1);
-        String[] parts = lineToChange.split("0", 2);
-        parts[0] += "1";
-        lineToChange = parts[0] + parts[1];
-        taskLines.set(index - 1, lineToChange);
-        try {
-            Files.write(Path.of("src/main/data/savedTasks.txt"), String.join("", taskLines).getBytes());
-        } catch (IOException e) {
-            System.out.println("Cannot write marked task to file.");
-        }
     }
-
-    public void printTask(int index) {
-        tasks.get(index - 1).printTask();
-        System.out.println();
+    public String getTaskString(int index) {
+        return tasks.get(index - 1).getTaskString() + "\n";
     }
     public void unmarkTask(int index) {
         tasks.get(index - 1).uncompleteTask();
-
-        String lineToChange = taskLines.get(index - 1);
-        String[] parts = lineToChange.split("1", 2);
-        parts[0] += "0";
-        lineToChange = parts[0] + parts[1];
-        taskLines.set(index - 1, lineToChange);
-        try {
-            Files.write(Path.of("src/main/data/savedTasks.txt"), String.join("", taskLines).getBytes());
-        } catch (IOException e) {
-            System.out.println("Cannot write marked task to file.");
-        }
     }
-
     public int getNumTasks() {
         return tasks.size();
     }
-
     public void deleteTask(int index) {
         tasks.remove(index - 1);
-        taskLines.remove(index - 1);
-        try {
-            Files.write(Path.of("src/main/data/savedTasks.txt"), String.join("", taskLines).getBytes());
-        } catch (IOException e) {
-            System.out.println("Cannot write deleted line to file.");
-        }
     }
 
     private class Task {
@@ -119,7 +70,7 @@ public class Tasks {
             this.type = type;
         }
 
-        public void printTask() {
+        public String getTaskString() {
             String msg = "[" + this.type.getTypeSymbol() + "] [";
             if (isComplete) {
                 msg += "X] ";
@@ -127,9 +78,11 @@ public class Tasks {
                 msg += " ] ";
             }
             msg += this.description;
-            System.out.print(msg);
+            return msg;
         }
-
+        public void printTask() {
+            System.out.print(this.getTaskString());
+        }
         private void completeTask() {
             this.isComplete = true;
         }
@@ -148,9 +101,16 @@ public class Tasks {
         }
 
         @Override
+        public String getTaskString() {
+            return super.getTaskString() +
+                String.format(
+                    " (by: %s)",
+                    this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                );
+        }
+        @Override
         public void printTask() {
-            super.printTask();
-            System.out.printf(" (by: %s)", this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+            System.out.println(this.getTaskString());
         }
 
         @Override
@@ -179,11 +139,18 @@ public class Tasks {
             this.end = end;
         }
         @Override
-        public void printTask() {
-            super.printTask();
-            System.out.printf(" (from: %s to: %s)", this.start, this.end);
+        public String getTaskString() {
+            return super.getTaskString() +
+                    String.format(
+                            " (from: %s to: %s)",
+                            this.start,
+                            this.end
+                    );
         }
-
+        @Override
+        public void printTask() {
+            System.out.println(this.getTaskString());
+        }
         @Override
         public String getData() {
             return super.getData() + " | " + this.start + "->" + this.end;
