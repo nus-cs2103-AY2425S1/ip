@@ -76,20 +76,97 @@ public class Listing extends Command{
         }
     }
 
-    public Listing readListingFromFile(File filePath) {
-        try {
-            FileInputStream fin = new FileInputStream(filePath);
-            ObjectInputStream in = new ObjectInputStream(fin);
-            try {
-                LinkedList<Task> lst = (LinkedList<Task>) in.readObject();
-                return new Listing(lst);
-            } catch (ClassNotFoundException e) {
-                System.err.println("ClassNotFound exception when reading from " + filePath);
+    public static Map<String, Listing> readListingFromFile(File filePath) {
+        Map<String, Listing> listings = new HashMap<>();
+
+        try (Scanner scanner = new Scanner(new FileInputStream(filePath))) {
+            Listing currentListing = null;
+            String currentTag = null;
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine().trim();
+                if (line.startsWith("——————————————————————————————————————————————————————————————————————————————")) {
+                    continue;
+                }
+
+                if (line.endsWith(":")) {
+                    // New listing found
+                    if (currentListing != null && currentTag != null) {
+                        // Save the current listing to the map before starting a new one
+                        listings.put(currentTag, currentListing);
+                    }
+                    currentTag = line.substring(0, line.length() - 1).trim();
+                    currentListing = new Listing(currentTag);
+                } else if (line.startsWith("No items found")) {
+                    // Listing with no tasks
+                    if (currentListing != null && currentTag != null) {
+                        listings.put(currentTag, currentListing);
+                    }
+                    currentListing = null;
+                    currentTag = null;
+                } else if (line.matches("\\d+\\. \\[.*\\] .*")) {
+                    // Task line found, parse it
+                    if (currentListing != null) {
+                        Task task = parseTask(line, scanner);
+                        currentListing.addItem(task);
+                    }
+                }
             }
+
+            // Add the last listing if it exists
+            if (currentListing != null && currentTag != null) {
+                listings.put(currentTag, currentListing);
+            }
+
         } catch (IOException e) {
-            System.err.println("Error reading from file" + filePath);
+            System.err.println("Error reading from file: " + filePath.getAbsolutePath());
+            e.printStackTrace(); // Print stack trace for better debugging
         }
-        return new Listing();
+
+        return listings;
+    }
+
+    private static Task parseTask(String taskLine, Scanner scanner) {
+        String[] parts = taskLine.split(" ", 3);
+        String typeIndicator = parts[1].substring(1, 2); // Extract the type between square brackets
+        String nameDescription = parts[2].split("\n\tDescription: ")[0].substring(4).trim();
+        System.out.println(nameDescription);
+        String description = scanner.nextLine().trim().replace("Description: ", "");
+        System.out.println(description);
+        switch (typeIndicator) {
+            case "T":
+                return new Todo(nameDescription, description);
+            case "E":
+                String startTime = "", endTime = "", location = "";
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine().trim();
+                    if (line.startsWith("Start Time:")) {
+                        startTime = line.substring(11).trim();
+                    } else if (line.startsWith("End Time:")) {
+                        endTime = line.substring(9).trim();
+                    } else if (line.startsWith("Location:")) {
+                        location = line.substring(9).trim();
+                    } else if (line.startsWith("——————————————————————————————————————————————————————————————————————————————")) {
+                        // End of task section
+                        break;
+                    }
+                }
+                return new Event(nameDescription, description, startTime, endTime, location);
+            case "D":
+                String byTime = "";
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine().trim();
+                    if (line.startsWith("By:")) {
+                        byTime = line.substring(3).trim();
+                    } else if (line.startsWith("——————————————————————————————————————————————————————————————————————————————")) {
+                        // End of task section
+                        break;
+                    }
+                }
+                return new Deadline(nameDescription, description, byTime);
+            default:
+                throw new IllegalArgumentException("Unknown task type: " + typeIndicator);
+        }
     }
     public String printList() {
         if (this.lst.isEmpty()) {

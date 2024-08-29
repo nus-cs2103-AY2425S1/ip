@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -47,15 +48,32 @@ public class SigmaBot {
     private void handleListInput(Scanner scanner, Map<String, Listing> lsts) {
         try {
             if (lsts.isEmpty()) {
-                System.out.println(HR_LINE + CYAN + "\tNo existing list found, would you like to start a new list?\n" +
-                        "\t\t[y/n]\n" + RESET + HR_LINE);
-                String response = scanner.nextLine().trim();
-                if (response.equalsIgnoreCase("y")) {
-                    Listing.createNewList(scanner, lsts);
-                } else if (!response.equalsIgnoreCase("n")) {
-                    throw new InvalidInputException("Invalid response");
+                File file = new File("../data/datafile.txt");
+                if (file.length() == 0) {
+                    System.out.println(HR_LINE + CYAN + "\tNo existing list found, would you like to start a new list?\n" +
+                            "\t\t[y/n]\n" + RESET + HR_LINE);
+                    String response = scanner.nextLine().trim();
+                    if (response.equalsIgnoreCase("y")) {
+                        Listing.createNewList(scanner, lsts);
+                    } else if (!response.equalsIgnoreCase("n")) {
+                        throw new InvalidInputException("Invalid response");
+                    } else {
+                        System.out.println(HR_LINE + CYAN + "\tOK.\n" + RESET + HR_LINE_OUT);
+                    }
                 } else {
-                    System.out.println(HR_LINE + CYAN + "\tOK.\n" + RESET + HR_LINE_OUT);
+                    Map<String, Listing> cache = Listing.readListingFromFile(file);
+                    System.out.println(HR_LINE + CYAN + "\tCreate new list? [a],\n" +
+                            "\tQuery an existing list? [b],\n" +
+                            "\tDelete an existing list? [c],\n" +
+                            "\tor Sort lists? [d]\n" + RESET + HR_LINE);
+                    String response = scanner.nextLine().trim();
+                    switch (response.toLowerCase()) {
+                        case "a" -> Listing.createNewList(scanner, cache);
+                        case "b" -> Listing.queryExistingList(scanner, cache);
+                        case "c" -> Listing.handleRemoveList(scanner, cache);
+                        case "d" -> lsts = Listing.handleSortLists(scanner, cache);
+                        default -> throw new InvalidInputException("Invalid response");
+                    }
                 }
             } else {
                 System.out.println(HR_LINE + CYAN + "\tCreate new list? [a],\n" +
