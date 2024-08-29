@@ -1,2 +1,7 @@
 D | X | test | 20-12-2024 22:00
 T | X | test
+T |   | apple
+T |   | orange
+T |   | apple orange
+T |   | banana
+T |   | apple orange banana

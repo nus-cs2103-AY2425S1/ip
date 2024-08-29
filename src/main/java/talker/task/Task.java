@@ -93,6 +93,15 @@ public class Task {
     }
 
     /**
+     * Returns String representation of description of task
+     *
+     * @return description
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Returns String representation of task
      *
      * @return String showing status and description
