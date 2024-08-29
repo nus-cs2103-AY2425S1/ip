@@ -1,5 +1,6 @@
 package knight2103.files;
 
+import knight2103.command.InstructionInvalid;
 import knight2103.tasks.*;
 
 import java.io.File;
@@ -17,6 +18,12 @@ public class Storage {
         this.taskFile = new File(filePath);
     }
 
+    /**
+     * Returns ArrayList<Task>. Reads the file that stores all the tasks and
+     * load them into an ArrayList<Task> to be stored in the bot's taskList.
+     *
+     * @return The ArrayList of task that can be stored in the bot's taskList.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> taskList = new ArrayList<Task>();
         try {
@@ -33,6 +40,13 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Appends the tasks added to the storage file. When the bot's taskList is
+     * changed due to the addition of tasks such as Todo, Deadline and Event,
+     * these changes are reflected in the storage file.
+     *
+     * @param taskToSave The added task to be saved to the storage file.
+     */
     public void save(Task taskToSave) {
         try {
             FileWriter taskListWriter = new FileWriter(this.taskFile, true);
@@ -43,6 +57,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates by overwriting the entire list of tasks in the storage file.
+     * When the task in bot's taskList is modified such as mark as done,
+     * unmark as done or deleted, these modifications are captured in the
+     * storage file as well. The newly updated taskList in the bot will be
+     * saved into the storage file.
+     *
+     * @param taskList The newly updated taskList to be saved into the Storage File.
+     */
     public void save (TaskList taskList) {
         try {
             FileWriter taskListWriter = new FileWriter(this.taskFile, false);
