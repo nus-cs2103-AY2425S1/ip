@@ -1,6 +1,7 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Makima {
@@ -84,6 +85,28 @@ public class Makima {
         }
     }
 
+    private LocalDateTime getDateAfter(LocalDateTime date, String prompt) {
+        System.out.println(prompt);
+        System.out.println(LINE_SEPERATOR);
+        return getDateAfter(date);
+    }
+
+    private LocalDateTime getDateAfter(LocalDateTime date) {
+        while (true) {
+            try {
+                LocalDateTime dateAfter = LocalDateTime.parse(getInput());
+                if (dateAfter.isAfter(date)) {
+                    return dateAfter;
+                } else {
+                    System.out.println("The specified date must be after the beginning of the event!");
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format! Please input the date as follows: YYYY-MM-DD HH:MM," +
+                        "replacing the space with a T");
+            }
+        }
+    }
+
     private void done() {
         editedTasks = true;
         System.out.println("Done!");
@@ -160,10 +183,11 @@ public class Makima {
                     break;
 
                 case "event":
+                    String name = getInput("What is the task name?");
+                    LocalDateTime startTime = getDate("When does it start?");
+                    LocalDateTime endTime = getDateAfter(startTime, "When does it end?");
                     tasks.add(new Event(
-                            getInput("What is the event name?"),
-                            getDate("When does it start?"),
-                            getDate("When does it end?")
+                            name, startTime, endTime
                     ));
                     done();
                     break;
