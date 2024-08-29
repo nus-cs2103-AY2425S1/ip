@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class SamTest {
     @Test
-    public void markItemDone() {
+    public void markItemDone_sam_success() {
         Item item = new Item("task");
         item.markAsDone();
         assertEquals("X", item.getStatusIcon());
