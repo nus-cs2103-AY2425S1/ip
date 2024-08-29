@@ -22,12 +22,20 @@ public class Event extends Task {
         String endDate = to.trim();
         try {
             LocalDate date = LocalDate.parse(startDate);
-            startDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             LocalDate date2 = LocalDate.parse(endDate);
+
+            if (date.isAfter(date2)) {
+                throw new EeveeException("Start date occurs before end date! Please check your input.");
+            }
+
+            startDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             endDate = date2.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         } catch(DateTimeException ignored) {
 
+        } catch (EeveeException e) {
+            throw new RuntimeException(e);
         }
+
         this.from = startDate;
         this.to = endDate;
     }
