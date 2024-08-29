@@ -37,6 +37,9 @@ public class Matcha {
      */
     public String getResponse(String input) {
         try {
+            if (input.isEmpty()) {
+                return "Please enter a command.";
+            }
             Command command = Parser.parseCommand(input);
             return command.execute(tasks, ui, storage);
         } catch (MatchaException e) {

@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * A dialog box to represent the dialog between the user and Matcha.
@@ -35,6 +36,10 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        displayPicture.setFitWidth(50.0);
+        displayPicture.setFitHeight(50.0);
+        Circle clip = new Circle(23, 23, 23);
+        displayPicture.setClip(clip);
     }
 
     /**
@@ -44,7 +49,8 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        setAlignment(Pos.CENTER_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
     /**
      * Returns a dialog box representing the user's dialog.
