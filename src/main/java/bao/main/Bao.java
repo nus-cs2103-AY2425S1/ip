@@ -71,12 +71,16 @@ public class Bao {
         ui.showWelcomeMessage();
         while (true) {
             try {
-                String command = ui.command();
+                String command = ui.command().trim();
                 Parser.parse(command, tasks, ui, storage);
             } catch (Exception e) {
                 ui.showMessage(e.getMessage());
             }
         }
+    }
+
+    public TaskList getTaskList() {
+        return this.tasks;
     }
 
     public static void main(String[] args) {
