@@ -1,9 +1,14 @@
+import java.io.IOException;
 import java.sql.Array;
 import java.util.*;
 import java.util.ArrayList;
 
 import static java.lang.System.exit;
 import java.util.regex.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class Momo {
 
@@ -27,6 +32,8 @@ public class Momo {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Hello! I'm Momo\nWhat can I do for you?");
+        loadListFile();
+        System.out.println("This is your current list");
         String input = sc.nextLine();
 
         while (true) {
@@ -53,7 +60,6 @@ public class Momo {
                     }
                     else if (command == Command.DEADLINE) {
                         addDeadline(input);
-
                     }
 
                     else if (command == Command.EVENT) {
@@ -62,7 +68,6 @@ public class Momo {
 
                     printTaskAdded();
                     count++;
-
                 }
 
             }
@@ -198,6 +203,32 @@ public class Momo {
         System.out.println(horizontalLine);
     }
 
+    public static void loadListFile() {
+        // Load file if it exists
+        try {
+            File f = new File("data/momo.txt"); // create a File for the given file path
+            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            while (s.hasNext()) {
+                System.out.println(s.nextLine());
+            }
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("File not found, creating a new file");
+            File f = new File("data/momo.txt");
+            File d = new File("data");
+
+            try {
+                boolean folderCreated = d.mkdir();
+                boolean fileCreated = f.createNewFile();
+                if (fileCreated) {
+                    System.out.println("File created successfully");
+                }
+            }
+            catch (IOException ioe) {
+                System.out.println("Error in adding a file");
+            }
+        }
+    }
     public static void changeCompletion(int index, Command command) {
         System.out.println(horizontalLine);
         Task task = list.get(index);
