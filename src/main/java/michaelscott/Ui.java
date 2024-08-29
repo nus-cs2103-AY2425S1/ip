@@ -1,4 +1,4 @@
-package michaelscott.ui;
+package michaelscott;
 
 import java.util.Scanner;
 

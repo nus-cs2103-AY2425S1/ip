@@ -1,7 +1,7 @@
 package MichaelScott.Command;
 
 import michaelscott.command.DeadlineCommand;
-import michaelscott.exception.MichaelScottException;
+import michaelscott.MichaelScottException;
 import michaelscott.task.TaskList;
 import michaelscott.task.Deadline;
 import org.junit.jupiter.api.Test;

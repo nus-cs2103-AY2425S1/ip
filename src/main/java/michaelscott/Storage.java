@@ -1,9 +1,9 @@
-package michaelscott.storage;
+package michaelscott;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import michaelscott.exception.MichaelScottException;
+
 import michaelscott.task.Task;
 
 public class Storage {

@@ -1,7 +1,7 @@
 package michaelscott.task;
 
 import java.util.ArrayList;
-import michaelscott.exception.MichaelScottException;
+import michaelscott.MichaelScottException;
 
 
 /**

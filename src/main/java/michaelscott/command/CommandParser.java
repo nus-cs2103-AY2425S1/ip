@@ -1,9 +1,8 @@
-package michaelscott.parser;
+package michaelscott.command;
 
-import michaelscott.command.*;
-import michaelscott.exception.MichaelScottException;
+import michaelscott.MichaelScottException;
 
-public class Parser {
+public class CommandParser {
     public Command parse(String fullCommand) throws MichaelScottException {
         String[] parts = fullCommand.split(" ", 2);
         String command = parts[0];

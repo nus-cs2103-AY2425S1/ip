@@ -1,22 +1,19 @@
 package michaelscott;
 
-import michaelscott.parser.Parser;
-import michaelscott.storage.Storage;
+import michaelscott.command.CommandParser;
 import michaelscott.task.TaskList;
 import michaelscott.command.Command;
-import michaelscott.exception.MichaelScottException;
-import michaelscott.ui.Ui;
 
 public class MichaelScott {
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
-    private final Parser parser;
+    private final CommandParser parser;
 
     public MichaelScott(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        parser = new Parser();
+        parser = new CommandParser();
         tasks = new TaskList();
     }
 
