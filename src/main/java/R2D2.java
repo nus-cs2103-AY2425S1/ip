@@ -3,60 +3,6 @@ import java.util.*;
 public class R2D2 {
     public static void main(String[] args) {
 
-        class Task {
-            protected String description;
-            protected boolean isDone;
-            public Task(String description) {
-                this.description = description;
-                this.isDone = false;
-            }
-            public String getStatusIcon() {
-                return (isDone ? "X" : " "); // mark done task with X
-            }
-            public void setDone(boolean setter) {
-                this.isDone = setter;
-            }
-            @Override
-            public String toString() {
-                return "[" + this.getStatusIcon() + "] " + this.description;
-            }
-        }
-
-        class Deadline extends Task {
-            protected String date;
-            public Deadline(String description, String date) {
-                super(description);
-                this.date = date;
-            }
-            @Override
-            public String toString() {
-                return "[D]" + super.toString() + " (by: " + this.date + ")";
-            }
-        }
-
-        class Event extends Task {
-            protected String startDate;
-            protected String endDate;
-            public Event(String description, String startDate, String endDate) {
-                super(description);
-                this.startDate = startDate;
-                this.endDate = endDate;
-            }
-            @Override
-            public String toString() {
-                return "[E]" + super.toString() + "(from: " + this.startDate + " to: " + this.endDate + ")";
-            }
-        }
-
-        class Todo extends Task {
-            public Todo(String description) {
-                super(description);
-            }
-            @Override
-            public String toString() {
-                return "[T]" + super.toString();
-            }
-        }
         //Opening dialogue for the bot
         String hline = "____________________________________________________________";
         System.out.println(hline);
