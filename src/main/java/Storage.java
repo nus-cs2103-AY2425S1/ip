@@ -22,7 +22,6 @@ public class Storage {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
             dir.mkdir();
-            System.out.println(dataPath.toString());
             if (!Files.exists(dataPath)) {
                  database.createNewFile();
             } else {
