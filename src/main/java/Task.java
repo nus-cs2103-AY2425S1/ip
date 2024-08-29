@@ -22,4 +22,8 @@ public class Task {
     public void markNotDone() {
         this.isDone = false;
     }
+
+    public String saveAsCSV() {
+        return this.getMark() + "," + this.task;
+    }
 }
