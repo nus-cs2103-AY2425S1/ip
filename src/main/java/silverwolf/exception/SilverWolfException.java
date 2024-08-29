@@ -1,4 +1,5 @@
 package silverwolf.exception;
+
 /**
  * Custom exception class to represent specific exceptions related to SilverWolf chat bot.
  */
