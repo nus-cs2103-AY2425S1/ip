@@ -12,14 +12,12 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * Represents a storage to store user's task
+ * Represents a storage space to store user's task
  *
  * @author Ernest Lim
  */
 public class Storage {
-
     private String filePath;
-
     /**
      * Constructor to create a Storage object
      *
