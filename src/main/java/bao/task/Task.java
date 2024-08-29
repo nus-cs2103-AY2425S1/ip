@@ -14,6 +14,14 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     public static Task fromString(String string) {
         String[] parts = string.split(" \\| ");
         if (parts.length < 3) {
@@ -75,9 +83,9 @@ public abstract class Task {
     @Override
     public String toString() {
         if (isDone) {
-            return "1 | " + description;
+            return "1 | " + description.trim();
         } else {
-            return "0 | " + description;
+            return "0 | " + description.trim();
         }
     }
 

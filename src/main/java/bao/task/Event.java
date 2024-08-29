@@ -18,6 +18,10 @@ public class Event extends Task {
         return from;
     }
 
+    public LocalDateTime getToDateTime() {
+        return to;
+    }
+
     @Override
     public String toString() {
         return "E | " + super.toString() + " | "
@@ -25,7 +29,7 @@ public class Event extends Task {
     }
     @Override
     public String toFileString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description
+        return "E | " + (isDone ? "1" : "0") + " | " + description.trim()
                 + " | " + from.format(Bao.fileDateFormat) + " - " + to.format(Bao.fileDateFormat);
     }
 }
