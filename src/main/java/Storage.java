@@ -16,13 +16,13 @@ public class Storage {
     }
 
     //Load tasks from the file
-    public List<Task> load() throws IOException {
-        List<Task> tasks = new ArrayList<>();
+    public TaskList load() throws IOException {
+        TaskList tasks = new TaskList();
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line;
         while((line = reader.readLine()) != null) {
             Task task = parseTask(line);
-            tasks.add(task);
+            tasks.addTask(task);
         }
         reader.close();
         return tasks;
@@ -69,31 +69,13 @@ public class Storage {
         }
     }
 
-    public void saveTasksToFile(List<Task> tasks) throws IOException {
+    public void saveTasksToFile(TaskList tasks) throws IOException {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath));
-            for (Task task : tasks) {
-                String line = taskToString(task);
-                writer.write(line);
-                writer.newLine();
-            }
-            writer.close();
+            tasks.write(this.filePath);
         } catch (FileNotFoundException e) {
             System.out.print("File cannot be found");
         }
     }
 
-    private String taskToString(Task task) {
 
-        if (task instanceof EventTask) {
-            EventTask eventTask = (EventTask) task;
-            return eventTask.toString();
-        } else if (task instanceof DeadlineTask) {
-            DeadlineTask deadlineTask = (DeadlineTask) task;
-            return deadlineTask.toString();
-        } else {
-            ToDoTask toDoTask = (ToDoTask) task;
-            return toDoTask.toString();
-        }
-    }
 }
