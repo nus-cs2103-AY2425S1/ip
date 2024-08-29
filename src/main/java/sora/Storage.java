@@ -19,7 +19,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public String saveTaskString(TaskList taskList) {
+    private String saveTaskString(TaskList taskList) {
         return taskList.getTaskList().stream()
                 .map(Task::getTaskDetails)
                 .map(x -> String.join(" | ", x) + "\n")
