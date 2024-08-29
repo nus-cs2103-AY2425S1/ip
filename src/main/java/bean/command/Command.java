@@ -1,3 +1,5 @@
+package bean.command;
+
 public class Command {
     private String type;
     private String details;

@@ -1,3 +1,7 @@
+package bean.ui;
+
+import bean.task.Task;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,7 +17,7 @@ public class Ui {
     }
     public void showGreeting() {
         System.out.println("______________________________");
-        System.out.println("Hello! I'm Bean");
+        System.out.println("Hello! I'm bean.Bean");
         System.out.println("What can I do for you?");
         System.out.println("______________________________");
     }

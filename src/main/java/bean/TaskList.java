@@ -1,3 +1,7 @@
+package bean;
+
+import bean.task.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 

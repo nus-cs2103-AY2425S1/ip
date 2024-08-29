@@ -1,3 +1,8 @@
+package bean.parser;
+
+import bean.command.Command;
+import bean.exception.UnknownCommandException;
+
 public class Parser {
     public Command parseCommand(String input) throws UnknownCommandException {
         String[] parts = input.split(" ", 2);

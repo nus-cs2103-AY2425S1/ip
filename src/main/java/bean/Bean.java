@@ -1,3 +1,14 @@
+package bean;
+
+import bean.command.Command;
+import bean.parser.Parser;
+import bean.storage.Storage;
+import bean.task.DeadlineTask;
+import bean.task.EventTask;
+import bean.task.Task;
+import bean.task.TodoTask;
+import bean.ui.Ui;
+
 public class Bean {
 
     private Storage storage;
@@ -61,7 +72,7 @@ public class Bean {
 
     private boolean isValidIndex(int index) {
         if (index < 0 || index >= tasks.size()) {
-            ui.showError("Task index is out of bounds.");
+            ui.showError("bean.task.Task index is out of bounds.");
             return false;
         }
         return true;
