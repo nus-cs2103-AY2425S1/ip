@@ -23,7 +23,7 @@ public class Parser {
         //this.t = t;
     }
 
-    public static Command parseInput(String input) throws DelphiException {
+    public Command parseInput(String input) throws DelphiException {
         if (input.equals("bye")) {
             return new BreakCommand();
         }
@@ -65,7 +65,7 @@ public class Parser {
  * @param comparison
  * @return
  */
-public static boolean checkStringPrefix(String original, int index, String comparison) {
+public boolean checkStringPrefix(String original, int index, String comparison) {
     // Ensure the index is within the bounds of the original string
     if (index > original.length()) {
         index = original.length();

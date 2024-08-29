@@ -17,7 +17,7 @@ public class Deadline extends Task {
      * @param description The description of the Tasks.Deadline task.
      * @throws EmptyInputException if the description is empty.
      */
-    public Deadline(String description) throws DelphiException {
+    public Deadline(String description, DateParser d) throws DelphiException {
         super(description);
         int slashIndex = description.indexOf("/");
 
@@ -25,7 +25,7 @@ public class Deadline extends Task {
 
         // Extract the substring after the slash and trim it
         String temp = description.substring(slashIndex + 1).trim();
-            String date = DateParser.parseAndFormatDateTime(temp.substring(3).trim());
+            String date = d.parseAndFormatDateTime(temp.substring(3).trim());
             if (date != null) {
                 deadline = "(by: " + date + ")";
             }

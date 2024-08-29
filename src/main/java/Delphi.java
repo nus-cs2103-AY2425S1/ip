@@ -33,14 +33,14 @@ public class Delphi {
         Scanner scanner = new Scanner(System.in);
         while (!isExitCommand) {
             try {
-                Command c = Parser.parseInput(scanner.nextLine());
+                Command c = p.parseInput(scanner.nextLine());
                 c.execute(taskList, storage, ui);
                 isExitCommand = c.exitBot();
             } catch (DelphiException e) {
                 System.out.println(e.getMessage());
             }
-        ui.goodbyeMessage();
         }
+        ui.goodbyeMessage();
     }
 
 

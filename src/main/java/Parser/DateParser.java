@@ -28,7 +28,7 @@ public class DateParser {
      * @param dateTimeString The date and time string to parse.
      * @return A formatted date and time string, or null if parsing fails.
      */
-    public static String parseAndFormatDateTime(String dateTimeString) {
+    public String parseAndFormatDateTime(String dateTimeString) {
         return parseAndFormatDateTime(dateTimeString, null); // Calls the overloaded method with default format
     }
 
@@ -39,7 +39,7 @@ public class DateParser {
      * @param outputPattern  The output format pattern.
      * @return A formatted date and time string, or null if parsing fails.
      */
-    public static String parseAndFormatDateTime(String dateTimeString, String outputPattern) {
+    public String parseAndFormatDateTime(String dateTimeString, String outputPattern) {
         DateTimeFormatter defaultOutputFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy, h:mma", Locale.ENGLISH);
         DateTimeFormatter defaultDateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH);
 

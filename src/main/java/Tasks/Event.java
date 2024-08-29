@@ -19,7 +19,7 @@ public class Event extends Task {
      * @param description The description of the Tasks.Event task.
      * @throws EmptyInputException if the description is empty.
      */
-    public Event(String description) throws DelphiException {
+    public Event(String description, DateParser d) throws DelphiException {
         super(description);
 
         int fromIndex = description.indexOf("/from");
@@ -39,16 +39,16 @@ public class Event extends Task {
         // Extract the end time
         String toPart = description.substring(toIndex + "/to".length()).trim();
 
-        String formattedFromPart = DateParser.parseAndFormatDateTime(fromPart);
+        String formattedFromPart = d.parseAndFormatDateTime(fromPart);
         if (formattedFromPart != null) {
             fromPart = "from: " + formattedFromPart;
         } else {
             fromPart = "from: " + fromPart;
         }
 
-        String formattedToPart = DateParser.parseAndFormatDateTime(toPart);
+        String formattedToPart = d.parseAndFormatDateTime(toPart);
         if (formattedFromPart != null) {
-            toPart = "from: " + formattedToPart;
+            toPart = "to: " + formattedToPart;
         } else {
             toPart = "to: " + toPart;
         }

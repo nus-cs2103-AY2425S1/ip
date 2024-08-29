@@ -1,6 +1,7 @@
 package Commands;
 import Exceptions.DelphiException;
 import Exceptions.EmptyInputException;
+import Parser.DateParser;
 import Storage.Storage;
 import TaskList.TaskList;
 import Tasks.Deadline;
@@ -11,7 +12,8 @@ public class AddDeadlineComand extends Command {
         super(s);
     }
     public void execute (TaskList t, Storage s, UI ui) throws DelphiException {
-        Deadline newDeadline = new Deadline(input.substring(9));
+        DateParser d = new DateParser();
+        Deadline newDeadline = new Deadline(input.substring(9), d);
         t.addTask(newDeadline);
         s.writeToHardDisk(t.getTasks());
         UI.taskMessage(newDeadline, t.getTasks().size());

@@ -4,6 +4,7 @@ import Exceptions.DelphiException;
 import Exceptions.InvalidInputException;
 import Exceptions.InvalidListItemException;
 import Parser.Parser;
+import Parser.DateParser;
 import Storage.Storage;
 import Tasks.Deadline;
 import Tasks.Event;
@@ -41,46 +42,48 @@ public class TaskList {
     }
 
     public void loadStorageToTasks(Storage s) {
+        Parser helperParser = new Parser();
+        DateParser helperDateParser = new DateParser();
         try {
             List<String> readTasks = s.readFromHardDisk();
             int counter = 0;
             while (counter < readTasks.size()) {
                 String line = readTasks.get(counter);
-                if (Parser.checkStringPrefix(line, 6, "[T][ ]")) {
+                if (helperParser.checkStringPrefix(line, 6, "[T][ ]")) {
                     try {
                         tasks.add(new Todo(line.substring(7)));
                     } catch (DelphiException e) {
                         //empty
                     }
-                } else if (Parser.checkStringPrefix(line, 6, "[T][X]")) {
+                } else if (helperParser.checkStringPrefix(line, 6, "[T][X]")) {
                     try {
                         tasks.add(new Todo(line.substring(7)));
                         markTaskAsDone(tasks.size());
                     } catch (DelphiException e) {
                         //empty
                     }
-                } else if (Parser.checkStringPrefix(line, 6, "[D][ ]")) {
+                } else if (helperParser.checkStringPrefix(line, 6, "[D][ ]")) {
                     try {
-                        tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7))));
+                        tasks.add(new Deadline(helperParser.formatStringDeadline(line.substring(7)), helperDateParser));
                     } catch (DelphiException e) {
                         //empty
                     }
-                } else if (Parser.checkStringPrefix(line, 6, "[D][X]")) {
+                } else if (helperParser.checkStringPrefix(line, 6, "[D][X]")) {
                     try {
-                        tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7))));
+                        tasks.add(new Deadline(helperParser.formatStringDeadline(line.substring(7)), helperDateParser));
                         markTaskAsDone(tasks.size());
                     } catch (DelphiException e) {
                         //empty
                     }
-                } else if (Parser.checkStringPrefix(line, 6, "[E][ ]")) {
+                } else if (helperParser.checkStringPrefix(line, 6, "[E][ ]")) {
                     try {
-                        tasks.add(new Event(Parser.formatStringEvent(line.substring(7))));
+                        tasks.add(new Event(helperParser.formatStringEvent(line.substring(7)), helperDateParser));
                     } catch (DelphiException e) {
                         //empty
                     }
-                } else if (Parser.checkStringPrefix(line, 6, "[E][X]")) {
+                } else if (helperParser.checkStringPrefix(line, 6, "[E][X]")) {
                     try {
-                        tasks.add(new Event(Parser.formatStringEvent(line.substring(7))));
+                        tasks.add(new Event(helperParser.formatStringEvent(line.substring(7)), helperDateParser));
                         markTaskAsDone(tasks.size());
                     } catch (DelphiException e) {
                         //empty
