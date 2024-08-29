@@ -11,8 +11,17 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Unit test for the AddCommand class.
+ */
 public class AddCommandTest {
 
+    /**
+     * Tests the execution of the AddCommand by adding a Todo task to the TaskList.
+     *
+     * @throws IOException        If an I/O error occurs during the execution of the command.
+     * @throws ScheduloException  If an application-specific error occurs during the execution of the command.
+     */
     @Test
     public void testAddCommand() throws IOException, ScheduloException {
         TaskList taskList = new TaskList();
@@ -26,4 +35,3 @@ public class AddCommandTest {
         assertEquals("Test task", taskList.getTasks().get(0).getName());
     }
 }
-

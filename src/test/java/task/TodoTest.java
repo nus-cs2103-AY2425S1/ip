@@ -4,8 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit test for the Todo class.
+ */
 public class TodoTest {
 
+    /**
+     * Tests the creation of a Todo task and verifies that the name is set correctly and the task is not marked as done.
+     */
     @Test
     public void testTodoCreation() {
         Todo todo = new Todo("Test task");
@@ -13,6 +19,9 @@ public class TodoTest {
         assertFalse(todo.isDone());
     }
 
+    /**
+     * Tests marking a Todo task as done.
+     */
     @Test
     public void testTodoMarking() {
         Todo todo = new Todo("Test task");
@@ -20,6 +29,9 @@ public class TodoTest {
         assertTrue(todo.isDone());
     }
 
+    /**
+     * Tests unmarking a Todo task as not done.
+     */
     @Test
     public void testTodoUnmarking() {
         Todo todo = new Todo("Test task");
