@@ -1,14 +1,5 @@
 package Winde;
 
-
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Scanner;
-import java.time.LocalDateTime;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class Winde {
 
     private static History history;
