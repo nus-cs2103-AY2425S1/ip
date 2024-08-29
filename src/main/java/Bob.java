@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.lang.StringBuilder;
 
 public class Bob {
     private static final String line = "____________________________________________________________";
@@ -93,7 +94,7 @@ public class Bob {
         Bob.prettyPrint(new String[] { "OK, I've marked this task as not done yet:", Bob.taskList.describeTask(idx) });
     }
 
-    private static void deleteTask(String input) {
+    private static void deleteTask(String[] input) {
         String[] inputs = Bob.splitInput(input, new String[] {"delete"});
         int idx;
         try {
@@ -110,30 +111,47 @@ public class Bob {
                 String.format("Now you have %d tasks in the list.", Bob.taskList.getSize())});
     }
 
-    private static String[] splitInput(String input, String[] splits) {
-        String[] result = new String[splits.length];
-        int[] splitIdxs = new int[splits.length + 1];
-        splitIdxs[splits.length] = input.length() + 1;
+    private static int findIndex(String[] input, String target, int startIndex) {
+        for (int i = startIndex;  i < input.length; i++) {
+            if (input[i].equals(target)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
+    private static String[] splitInput(String[] input, String[] splits) {
+        String[] result = new String[splits.length];
+        int[] indexes = new int[splits.length + 1];
+        indexes[splits.length] = input.length;
+
+        // find index of each split/parameter in the input array
         for (int i = 0; i < splits.length; i++) {
-            int splitIdx = input.indexOf(splits[i]);
-            if (splitIdx < 0 || input.length() < splitIdx + splits[i].length() + 2) {
+            int index = Bob.findIndex(input, splits[i], 0);
+            indexes[i] = index;
+            result[i] = "";
+        }
+
+        // detect if any parameters are missing
+        for (int i = 0; i < splits.length; i++) {
+            if (indexes[i] < 0 || indexes[i+1] - indexes[i] <= 1) {
                 throw new MissingParamException(splits[i]);
             }
-            splitIdxs[i] = splitIdx;
         }
 
         for (int i = 0; i < splits.length; i++) {
-            String split = splits[i];
-            int splitIdx = input.indexOf(split);
-            String text = input.substring(splitIdx + split.length() + 1, splitIdxs[i+1] - 1);
-            result[i] = text;
+            StringBuilder arg = new StringBuilder(input[indexes[i]+1]);
+            for (int j = indexes[i]+2; j < indexes[i+1]; j++) {
+                arg.append(' ');
+                arg.append(input[j]);
+            }
+            result[i] = arg.toString();
         }
 
         return result;
     }
 
-    private static void todo(String input) {
+    private static void todo(String[] input) {
         String[] inputs = Bob.splitInput(input, new String[] { "todo" });
         ToDo todo = Bob.taskList.todo(inputs[0]);
         Bob.prettyPrint(new String[] { "Got it. I've added this task:",
@@ -141,7 +159,7 @@ public class Bob {
                 String.format("Now you have %d tasks in the list.", Bob.taskList.getSize()) });
     }
 
-    private static void deadline(String input) {
+    private static void deadline(String[] input) {
         String[] inputs = Bob.splitInput(input, new String[] { "deadline", "/by" });
         Deadline deadline = Bob.taskList.deadline(inputs[0], inputs[1]);
         Bob.prettyPrint(new String[] { "Got it. I've added this task:",
@@ -149,7 +167,7 @@ public class Bob {
                 String.format("Now you have %d tasks in the list.", Bob.taskList.getSize()) });
     }
 
-    private static void event(String input) {
+    private static void event(String[] input) {
         String[] inputs = Bob.splitInput(input, new String[] { "event", "/from", "/to" });
         Event event = Bob.taskList.event(inputs[0], inputs[1], inputs[2]);
         Bob.prettyPrint(new String[] { "Got it. I've added this task:",
@@ -181,7 +199,7 @@ public class Bob {
                         Bob.listCommands();
                         continue;
                     case("mark"): {
-                        String[] inputs = Bob.splitInput(input, new String[] {"mark"});
+                        String[] inputs = Bob.splitInput(arguments, new String[] {"mark"});
                         int idx;
                         try {
                             idx = Integer.parseInt(inputs[0]);
@@ -195,7 +213,7 @@ public class Bob {
                         continue;
                     }
                     case("unmark"): {
-                        String[] inputs = Bob.splitInput(input, new String[] {"unmark"});
+                        String[] inputs = Bob.splitInput(arguments, new String[] {"unmark"});
                         int idx;
                         try {
                             idx = Integer.parseInt(inputs[0]);
@@ -209,18 +227,18 @@ public class Bob {
                         continue;
                     }
                     case("todo"):
-                        Bob.todo(input);
+                        Bob.todo(arguments);
                         continue;
                     case("deadline"): {
-                        Bob.deadline(input);
+                        Bob.deadline(arguments);
                         continue;
                     }
                     case("event"): {
-                        Bob.event(input);
+                        Bob.event(arguments);
                         continue;
                     }
                     case("delete"):
-                        Bob.deleteTask(input);
+                        Bob.deleteTask(arguments);
                         continue;
                     default:
                         throw new UnknownCommandException(arguments[0]);
