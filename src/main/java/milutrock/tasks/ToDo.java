@@ -1,3 +1,7 @@
+package milutrock.tasks;
+
+import milutrock.exceptions.InvalidTaskFormatException;
+
 public class ToDo extends Task {
     public ToDo(String name) {
         super(name);

@@ -1,4 +1,8 @@
+package milutrock;
+
 import java.util.Scanner;
+
+import milutrock.exceptions.UnknownCommandException;
 
 public class MiluTrock {
     private TaskList taskList;

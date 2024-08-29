@@ -1,3 +1,7 @@
+package milutrock.tasks;
+
+import milutrock.exceptions.InvalidTaskFormatException;
+
 public class Event extends Task {
     private String from;
     private String to;

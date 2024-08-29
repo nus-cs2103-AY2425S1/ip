@@ -1,3 +1,12 @@
+package milutrock;
+
+import milutrock.exceptions.InvalidTaskFormatException;
+import milutrock.exceptions.UnknownCommandException;
+import milutrock.tasks.Deadline;
+import milutrock.tasks.Event;
+import milutrock.tasks.Task;
+import milutrock.tasks.ToDo;
+
 public class Parser {
     private String stdin;
     private TaskList taskList;

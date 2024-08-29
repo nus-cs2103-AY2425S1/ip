@@ -1,3 +1,5 @@
+package milutrock;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -5,6 +7,8 @@ import java.io.PrintStream;
 import java.io.OutputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+import milutrock.exceptions.UnknownCommandException;
 
 public class Storage {
     private File file;

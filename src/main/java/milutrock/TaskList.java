@@ -1,4 +1,8 @@
+package milutrock;
+
 import java.util.ArrayList;
+
+import milutrock.tasks.Task;
 
 public class TaskList  {
     private ArrayList<Task> tasks = new ArrayList<Task>();
