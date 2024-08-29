@@ -9,10 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests for the {@link Parser} class.
- * <p>
  * This class contains unit tests for the methods in the {@link Parser} class,
  * specifically for parsing commands and reading tasks from a file.
- * </p>
  */
 public class ParserTest {
 
