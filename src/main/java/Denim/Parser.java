@@ -8,6 +8,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parses user input into executable commands.
+ * This class interprets the input from the user and returns
+ * the corresponding command to be executed.
+ */
 public class Parser {
 
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
@@ -17,7 +22,12 @@ public class Parser {
     public static final Pattern DEADLINE_ARGUMENT_FORMAT = Pattern.compile("(?<taskDescription>.+) /by (?<dateTime>\\d{2}/\\d{2}/\\d{4} \\d{4})");
     public static final Pattern MARK_UNMARK_DELETE_ARGUMENT_FORMAT = Pattern.compile("(?<taskNumber>\\d+)");
 
-
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param userInput The user input string.
+     * @return The command corresponding to the user input.
+     */
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 
@@ -61,6 +71,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Prepares the command for a deadline task.
+     *
+     * @param args The arguments for the deadline command.
+     * @return The deadline command or an invalid command if the arguments are incorrect.
+     */
     private Command prepareDeadline(String args) {
         final Matcher matcher = DEADLINE_ARGUMENT_FORMAT.matcher(args);
 
@@ -80,6 +96,12 @@ public class Parser {
         return new DeadlineCommand(taskDescription, deadline);
     }
 
+    /**
+     * Prepares the command for an event task.
+     *
+     * @param args The arguments for the event command.
+     * @return The event command or an invalid command if the arguments are incorrect.
+     */
     private Command prepareEvent(String args) {
         final Matcher matcher = EVENT_ARGUMENT_FORMAT.matcher(args);
 
@@ -103,6 +125,12 @@ public class Parser {
         return new EventCommand(taskDescription, startEvent, endEvent);
     }
 
+    /**
+     * Prepares the command for a todo task.
+     *
+     * @param args The arguments for the todo command.
+     * @return The todo command or an invalid command if the arguments are incorrect.
+     */
     private Command prepareTodo(String args) {
         final Matcher matcher = TODO_ARGUMENT_FORMAT.matcher(args);
 
@@ -113,6 +141,12 @@ public class Parser {
         return new TodoCommand(taskDescription);
     }
 
+    /**
+     * Prepares the command to mark a task as completed.
+     *
+     * @param args The arguments for the mark command.
+     * @return The mark command or an invalid command if the arguments are incorrect.
+     */
     private Command prepareMark(String args) {
         final Matcher matcher = MARK_UNMARK_DELETE_ARGUMENT_FORMAT.matcher(args);
 
@@ -123,6 +157,12 @@ public class Parser {
         return new MarkCommand(index - Ui.indexOffset);
     }
 
+    /**
+     * Prepares the command to unmark a task as incomplete.
+     *
+     * @param args The arguments for the unmark command.
+     * @return The unmark command or an invalid command if the arguments are incorrect.
+     */
     private Command prepareUnmark(String args) {
         final Matcher matcher = MARK_UNMARK_DELETE_ARGUMENT_FORMAT.matcher(args);
 
@@ -133,10 +173,21 @@ public class Parser {
         return new UnmarkCommand(index - Ui.indexOffset);
     }
 
+    /**
+     * Prepares the command to list all tasks.
+     *
+     * @return The list command.
+     */
     private Command prepareList() {
         return new ListCommand();
     }
 
+    /**
+     * Prepares the command to delete a task.
+     *
+     * @param args The arguments for the delete command.
+     * @return The delete command or an invalid command if the arguments are incorrect.
+     */
     private Command prepareDelete(String args) {
         final Matcher matcher = MARK_UNMARK_DELETE_ARGUMENT_FORMAT.matcher(args);
 
@@ -147,14 +198,31 @@ public class Parser {
         return new DeleteCommand(index - Ui.indexOffset);
     }
 
+    /**
+     * Prepares the command to exit the application.
+     *
+     * @return The exit command.
+     */
     private Command prepareBye() {
         return new ExitCommand();
     }
 
+    /**
+     * Prepares the help command.
+     *
+     * @return The help command.
+     */
     private Command prepareHelp() {
         return new HelpCommand();
     }
 
+    /**
+     * Checks if the provided date and time string represents a valid month of the year.
+     *
+     * @param formatter The date time formatter.
+     * @param args      The date time string.
+     * @return True if the date and time string is valid, false otherwise.
+     */
     private boolean isValidMonthOfYear(DateTimeFormatter formatter, String args) {
         try {
             LocalDateTime.parse(args, formatter);
