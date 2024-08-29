@@ -5,6 +5,9 @@ public class Ui {
         this.name = name;
     }
 
+    /**
+     * Greets the user.
+     */
     public void greet() {
         String greet =
                 " Hello! I'm " + this.name + "\n" +
@@ -12,10 +15,18 @@ public class Ui {
         System.out.println(formattedCommand(greet));
     }
 
+    /**
+     * Print the quit message.
+     */
     public void quit() {
         System.out.println(formattedCommand("Bye. Hope to see you again soon!"));
     }
 
+
+    /**
+     * Print the message in a nice format
+     * @param output The message to be printed
+     */
     public void output(String output) {
         System.out.println(formattedCommand(output));
     }

@@ -14,6 +14,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
+/**
+ * Represents the storage of tasks.
+ */
 public class Storage {
     private final Path folderPath;
     private final Path filePath;
@@ -23,6 +26,11 @@ public class Storage {
         this.filePath = Paths.get(folderName, fileName);
     }
 
+    /**
+     * Saves the tasks to the file.
+     * @param taskList The list of tasks to be saved.
+     * @throws DataIOException If there is an error saving the tasks.
+     */
     public void saveTasks(String taskList) throws DataIOException {
         try {
             // Create the folder if it does not exist
@@ -37,6 +45,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks from the file.
+     * @return The list of tasks loaded from the file.
+     * @throws DataIOException If there is an error loading the tasks.
+     * @throws InvalidDataFormatException If the data format is invalid.
+     */
     public ArrayList<Task> loadTasks() throws DataIOException, InvalidDataFormatException {
         try {
             ArrayList<Task> tasks = new ArrayList<>();

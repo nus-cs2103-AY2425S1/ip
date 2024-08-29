@@ -7,6 +7,9 @@ import task.Task;
 
 import java.util.Scanner;
 
+/**
+ * Jay is a personal assistant chatbot that helps users to keep track of various tasks.
+ */
 public class Jay {
     public static void main(String[] args) {
         Jay jay = new Jay("Jay");
@@ -21,6 +24,9 @@ public class Jay {
         this.ui = new Ui(name);
     }
 
+    /**
+     * Starts the chatbot.
+     */
     public void start() {
         ui.greet();
         Scanner scanner = new Scanner(System.in);
@@ -36,6 +42,12 @@ public class Jay {
         }
     }
 
+    /**
+     * Processes the command and returns the response.
+     *
+     * @param commandStr The command to be processed.
+     * @return The response to the command. Show to the user by the chatbot.
+     */
     private String processCommand(String commandStr) {
         Command command = new Command(commandStr);
         Command.CommandType commandType = command.getCommandType();
@@ -79,6 +91,11 @@ public class Jay {
         }
     }
 
+    /**
+     * Shows the tasks in the task list.
+     * If the task list is empty, a message will be shown to the user.
+     * @return The tasks in the task list or a message indicating that the task list is empty.
+     */
     private String showTasks() {
         if (this.tasks.isEmpty()) {
             return "You have no tasks in the list.";
@@ -87,6 +104,11 @@ public class Jay {
         }
     }
 
+    /**
+     * Adds a task to the task list.
+     * @param task The task to be added.
+     * @return The response to the user.
+     */
     private String addTask(Task task) {
         try {
             this.tasks.addTask(task);
@@ -96,6 +118,11 @@ public class Jay {
         }
     }
 
+    /**
+     * Deletes a task from the task list.
+     * @param taskNumber The number of the task to be deleted.
+     * @return The response to the user.
+     */
     private String deleteTask(int taskNumber) {
         try {
             Task task = this.tasks.removeTask(taskNumber);
