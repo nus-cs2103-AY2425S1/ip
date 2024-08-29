@@ -96,4 +96,65 @@ public class TaskListTest {
         assertThrows(IndexOutOfBoundsException.class, () -> taskList.getTask(0),
                 "Should throw IndexOutOfBoundsException for invalid index");
     }
+
+    /**
+     * Tests the {@code findTasks} method when tasks containing the keyword are present.
+     * Verifies that tasks containing the keyword "book" are correctly found.
+     */
+    @Test
+    void testFindTasks_withMatchingKeyword() {
+        taskList = new TaskList();
+        taskList.addTask(new Todo("read book"));
+        taskList.addTask(new Todo("return book by June 6th"));
+        taskList.addTask(new Todo("attend meeting"));
+        List<Task> foundTasks = taskList.findTasks("book");
+
+        assertEquals(2, foundTasks.size(), "Should find 2 tasks containing the keyword 'book'");
+        assertTrue(foundTasks.get(0).getDescription().contains("book"), "First task should contain the keyword 'book'");
+        assertTrue(foundTasks.get(1).getDescription().contains("book"), "Second task should contain the keyword 'book'");
+    }
+
+    /**
+     * Tests the {@code findTasks} method when no tasks contain the keyword.
+     * Verifies that no tasks are returned when the keyword "project" is not found in any task description.
+     */
+    @Test
+    void testFindTasks_withNoMatchingKeyword() {
+        taskList = new TaskList();
+        taskList.addTask(new Todo("read book"));
+        taskList.addTask(new Todo("return book by June 6th"));
+        taskList.addTask(new Todo("attend meeting"));
+        List<Task> foundTasks = taskList.findTasks("project");
+
+        assertEquals(0, foundTasks.size(), "Should find 0 tasks as no task contains the keyword 'project'");
+    }
+
+    /**
+     * Tests the {@code findTasks} method with a partial match on the keyword.
+     * Verifies that the method can find tasks containing part of the keyword "meet".
+     */
+    @Test
+    void testFindTasks_withPartialKeyword() {
+        taskList = new TaskList();
+        taskList.addTask(new Todo("read book"));
+        taskList.addTask(new Todo("return book by June 6th"));
+        taskList.addTask(new Todo("attend meeting"));
+        List<Task> foundTasks = taskList.findTasks("meet");
+        assertEquals(1, foundTasks.size(), "Should find 1 task containing the partial keyword 'meet'");
+        assertTrue(foundTasks.get(0).getDescription().contains("meet"), "Task should contain the keyword 'meet'");
+    }
+
+    /**
+     * Tests the {@code findTasks} method with an empty keyword.
+     * Verifies that all tasks in the list are returned when an empty keyword is provided.
+     */
+    @Test
+    void testFindTasks_withEmptyKeyword() {
+        taskList = new TaskList();
+        taskList.addTask(new Todo("read book"));
+        taskList.addTask(new Todo("return book by June 6th"));
+        taskList.addTask(new Todo("attend meeting"));
+        List<Task> foundTasks = taskList.findTasks("");
+        assertEquals(3, foundTasks.size(), "Should find all tasks when the keyword is empty");
+    }
 }
