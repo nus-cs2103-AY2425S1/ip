@@ -1,6 +1,6 @@
-import java.util.Arrays;
+package duke;
+
 import java.util.Scanner;
-import java.util.ArrayList;
 //merging
 
 public class Duck {
@@ -11,7 +11,7 @@ public class Duck {
         System.out.println("Hello! I'm DUCK\n What can I do for you?");
         boolean cont = true;
         while (cont) {
-            System.out.println(cmds.cmdNum);
+            //System.out.println(cmds.cmdNum);
             String userCmd = scan.nextLine();
             cont = Parser.parseCmd(cmds, userCmd);
         }

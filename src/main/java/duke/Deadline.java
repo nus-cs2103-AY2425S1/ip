@@ -1,6 +1,7 @@
+package duke;
 import java.time.LocalDate;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     LocalDate deadl;
     public Deadline(String descr, String dl) {
         super(descr);
