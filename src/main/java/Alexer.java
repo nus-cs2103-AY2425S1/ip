@@ -37,10 +37,16 @@ public class Alexer {
     public void promptLoop() {
         String input = scanner.nextLine();
 
-        if (!input.equals("bye")) {
+        if (!input.equals("bye") && !input.equals("list")) {
+            // create new task
+            tasks.add(input);
+
             System.out.println(BREAK);
-            System.out.println(input);
+            System.out.format("Added: %s\n", input);
             System.out.println(BREAK);
+            promptLoop();
+        } else if (input.equals("list")) {
+            printTasks();
             promptLoop();
         } else {
             printGoodbye();
