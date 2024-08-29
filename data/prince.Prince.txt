@@ -1,0 +1,2 @@
+T | 0 | print tasks
+T | 1 | mark papers

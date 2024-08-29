@@ -35,7 +35,7 @@ public class Parser {
             Task t = TaskList.getList().get(taskNum - 1);
 
             if (taskNum < 1 || taskNum > TaskList.getList().size()) {
-                return "task.Task number is out of range. Please retry.";
+                return "Task number is out of range. Please retry.";
             }
 
             if(stringList[0].equals("mark")) {
@@ -43,7 +43,7 @@ public class Parser {
             } else if(stringList[0].equals("unmark")){
                 return t.markIncomplete();
             } else {
-                TaskList.delTask(taskNum);
+                TaskList.delTask(taskNum - 1);
                 return Ui.taskDelDescription(taskNum, t);
             }
 

@@ -26,7 +26,6 @@ public class Ui {
     }
 
     public static String taskDelDescription(int num, Task task){
-        TaskList.getList().remove(num - 1);
         return "Noted. I've removed this task:\n" + "  " + task.printTask() + "\n" +
                 "Now you have " + TaskList.getList().size() + " tasks in the list";
     }
