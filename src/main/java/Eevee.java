@@ -187,7 +187,7 @@ public class Eevee {
                         appendToFile(FILE_PATH, "T" + "|" + t.getStatus() + "|"
                                 + s + "\n");
                     } catch (IOException e) {
-                        throw new EeveeException("Unable to store task!");
+                        throw new EeveeException("Unable to store task! Check that you have a file path 'data/tasks.txt'.");
                     }
                     System.out.println("Added the following task to your list:\n" + t);
                     break;
@@ -211,7 +211,7 @@ public class Eevee {
                         appendToFile(FILE_PATH, "D" + "|" + d.getStatus() + "|"
                                 + info[0] + "|" + d.getDeadline() + "\n");
                     } catch (IOException e) {
-                        throw new EeveeException("Unable to store task!");
+                        throw new EeveeException("Unable to store task! Check that you have a file path 'data/tasks.txt'.");
                     }
                     System.out.println("Added the following task to your list:\n" + d);
                     break;
@@ -236,7 +236,7 @@ public class Eevee {
                         appendToFile(FILE_PATH, "E" + "|" + e.getStatus() + "|"
                                 + info[0] + "|" + e.getFrom() + "|" + e.getTo() + "\n");
                     } catch (IOException exception) {
-                        throw new EeveeException("Unable to store task!");
+                        throw new EeveeException("Unable to store task! Check that you have a file path 'data/tasks.txt'.");
                     }
                     System.out.println("Added the following task to your list:\n" + e);
                     break;
