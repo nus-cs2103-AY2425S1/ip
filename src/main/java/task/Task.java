@@ -1,21 +1,29 @@
 package task;
 
-public abstract class Task {
-    private String description;
+import java.io.Serializable;
 
-    private boolean isDone = false;
+public abstract class Task implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private final String description;
+
+    private final boolean isDone;
 
     public Task(String description) {
         this.description = description;
-    }
-
-    public void setAsDone() {
-        this.isDone = true;
-    }
-
-    public void setAsUndone() {
         this.isDone = false;
     }
+
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
+    public abstract Task setAsDone();
+
+    public abstract Task setAsUndone();
+
+    public abstract Task setDescription(String description);
 
     public boolean isDone() {
         return this.isDone;
@@ -23,10 +31,6 @@ public abstract class Task {
 
     public String getDescription() {
         return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @Override
