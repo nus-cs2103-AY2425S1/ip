@@ -1,3 +1,4 @@
+package exception;
 public class InvalidCommandException extends ScheduloException {
     
     public InvalidCommandException() {

@@ -1,15 +1,24 @@
+package command;
 import java.io.IOException;
 
-public class MarkCommand extends Command {
+import task.TaskList;
+
+import exception.ScheduloException;
+
+import util.Storage;
+
+import util.Ui;
+
+public class UnmarkCommand extends Command {
     private int index;
 
-    public MarkCommand(int index) {
+    public UnmarkCommand(int index) {
         this.index = index;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ScheduloException, IOException {
-        tasks.mark(index - 1);
+        tasks.unmark(index - 1);
         storage.save(tasks);
     }
 }

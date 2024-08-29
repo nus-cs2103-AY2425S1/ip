@@ -1,3 +1,4 @@
+package exception;
 public class EmptyDescriptionException extends ScheduloException {
     
     public EmptyDescriptionException(String taskType) {

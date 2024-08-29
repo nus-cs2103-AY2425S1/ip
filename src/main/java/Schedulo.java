@@ -1,5 +1,12 @@
 import java.io.IOException;
 
+import command.Command;
+import exception.ScheduloException;
+import task.TaskList;
+import util.Parser;
+import util.Storage;
+import util.Ui;
+
 public class Schedulo {
     private Storage storage;
     private TaskList tasks;

@@ -1,3 +1,4 @@
+package task;
 public class Task {
 
     private boolean done;
