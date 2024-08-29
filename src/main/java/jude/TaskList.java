@@ -74,4 +74,16 @@ public class TaskList {
             throw new JudeException("You are trying to get an element of index out of the list size.");
         }
     }
+
+    public String search(String keyword) {
+        String matches = "";
+
+        for (int i = 0; i < size(); i++) {
+            Task task = list.get(i);
+            if (task.toString().contains(keyword)) {
+                matches += String.format("%d. %s\n", (i + 1), task.toStringDetails());
+            }
+        }
+        return matches;
+    }
 }

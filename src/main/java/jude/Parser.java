@@ -2,10 +2,16 @@ package jude;
 
 import java.lang.reflect.Array;
 
+<<<<<<< HEAD
+=======
+import javax.naming.directory.SearchControls;
+
+>>>>>>> branch-Level-9
 import jude.command.AddCommand;
 import jude.command.Command;
 import jude.command.DeleteCommand;
 import jude.command.ExitCommand;
+import jude.command.FindCommand;
 import jude.command.ListCommand;
 import jude.command.MarkCommand;
 import jude.command.UnmarkCommand;
@@ -23,7 +29,6 @@ import jude.task.Todo;
 public class Parser {
     private String command;
     private String[] descriptions;
-
 
     public Parser() {
     }
@@ -68,6 +73,8 @@ public class Parser {
             case "delete":
                 index = Integer.parseInt(split[1]);
                 return new DeleteCommand(index);
+            case "find":
+                return new FindCommand(split[1]);
             case "to-do":
                 return new AddCommand(new Todo(split[1]));
             case "deadline":
@@ -89,3 +96,4 @@ public class Parser {
         }
     }
 }
+
