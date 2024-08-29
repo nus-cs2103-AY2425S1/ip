@@ -1,13 +1,15 @@
 import exceptions.InvalidInputException;
-
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.util.Map;
-
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 public class Listing extends Command{
-    private List<Task> lst = new LinkedList<>();
+    private LinkedList<Task> lst = new LinkedList<>();
     private String tag;
 
     public Listing() {}
@@ -16,10 +18,62 @@ public class Listing extends Command{
         this.tag = tag;
     }
 
-    public void addItem(Task task) {
-        lst.add(task);
+    public Listing(LinkedList<Task> lst) {
+        this.lst = lst;
     }
 
+    public void addItem(Task task) {
+        this.lst.add(task);
+    }
+
+    public void clearList() {
+        lst.clear();
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public LinkedList<Task> getList() {
+        return lst;
+    }
+
+    public void setList(LinkedList<Task> lst) {
+        this.lst = lst;
+    }
+
+    @Override
+    public String toString() {
+        return printList();
+    }
+
+    public void writeListingToFile(File filePath) {
+        try (FileWriter writer = new FileWriter(filePath)) {
+            String content = printList() + "\n";
+            writer.write(content);
+        } catch (IOException e) {
+            System.err.println("Error writing to file " + filePath);
+        }
+    }
+    public Listing readListingFromFile(File filePath) {
+        try {
+            FileInputStream fin = new FileInputStream(filePath);
+            ObjectInputStream in = new ObjectInputStream(fin);
+            try {
+                LinkedList<Task> lst = (LinkedList<Task>) in.readObject();
+                return new Listing(lst);
+            } catch (ClassNotFoundException e) {
+                System.err.println("ClassNotFound exception when reading from " + filePath);
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading from file" + filePath);
+        }
+        return new Listing();
+    }
     public String printList() {
         if (this.lst.isEmpty()) {
             return SigmaBot.HR_LINE + "\tNo items found in current List\n" + SigmaBot.HR_LINE;
@@ -51,31 +105,6 @@ public class Listing extends Command{
         return result.toString();
     }
 
-    public void clearList() {
-        lst.clear();
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public List<Task> getList() {
-        return lst;
-    }
-
-    public void setList(List<Task> lst) {
-        this.lst = lst;
-    }
-
-    @Override
-    public String toString() {
-        return printList();
-    }
-
     public static Listing createListEventChain(Scanner sc, Map<String, Listing> lsts) {
         System.out.println(SigmaBot.HR_LINE + "\tEnter a tag for the new list (or press Enter to skip):\n" + SigmaBot.HR_LINE);
         String tag = sc.nextLine().trim();
@@ -101,13 +130,15 @@ public class Listing extends Command{
             System.out.println("\tEnter task type and name (format: [type] name, e.g., 'todo Buy milk') or EXIT to finish:\n" + SigmaBot.HR_LINE_DOUBLE);
             String input = sc.nextLine().trim();
             if (input.equalsIgnoreCase("EXIT")) {
+                writeListingToFile(new File("../data/datafile.txt"));
                 System.out.println(SigmaBot.HR_LINE + "\tComplete\n" + SigmaBot.HR_LINE_OUT);
                 break;
             }
 
             String[] parts = input.split(" ", 2);
             if (parts.length < 2) {
-                throw new InvalidInputException("Invalid response");
+                System.out.println(SigmaBot.HR_LINE + "\tInvalid format\n" + SigmaBot.HR_LINE_OUT);
+                continue;
             }
 
             String type = parts[0].toLowerCase();
@@ -136,26 +167,21 @@ public class Listing extends Command{
                 case "deadline":
                     System.out.println(SigmaBot.HR_LINE + "\tEnter deadline time:\n" + SigmaBot.HR_LINE);
                     String byTime = sc.nextLine().trim();
-
                     task = new Deadline(name, description, byTime);
                     break;
                 default:
                     System.out.println(SigmaBot.HR_LINE_IN + "\tInvalid task type. Please enter 'todo', 'event', or 'deadline'.\n" + SigmaBot.HR_LINE_OUT);
                     continue;
             }
-
             addItem(task);
             System.out.println(SigmaBot.HR_LINE + "\tTask added successfully. Total tasks in the list: " + getList().size() + "\n" + SigmaBot.HR_LINE);
         }
     }
-
-
     public void markDone(int idx) {
         if (idx < 0 || idx >= lst.size()) {
             System.out.println(SigmaBot.HR_LINE + "\tInvalid response: Index out of bounds\n" + SigmaBot.HR_LINE_OUT);
             return;
         }
-
         Task task = lst.get(idx);
         if (!task.isDone()) {
             task.markDone();
