@@ -41,6 +41,8 @@ public class Parser {
             return new DeadlineCommand(args);
         case "event":
             return new EventCommand(args);
+        case "find":
+            return new FindCommand(args);
 
         // Add more cases here for other commands
         default:
