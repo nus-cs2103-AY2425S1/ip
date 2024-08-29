@@ -1,9 +1,20 @@
-import java.util.Scanner;
+import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+
+import java.io.File;
+import java.nio.file.Paths;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
 public class Bimo {
     public static String name = "Bimo";
     public static String line = "    " + "___________________________________";
     public static Scanner scanner = new Scanner(System.in);
+
     public static ArrayList<Task> list = new ArrayList<>();
     public static void main(String[] args) {
         System.out.println(line);
@@ -11,9 +22,20 @@ public class Bimo {
         System.out.println("    " + "What can I do for you?");
         System.out.println(line);
         String input = scanner.nextLine();
-        boolean botIsActive = true;
 
+        boolean botIsActive = true;
         while (botIsActive) {
+            try {
+                File dataFile = new File("ip/data/Bimo.txt");
+                Scanner fileReader = new Scanner(dataFile);
+            } catch (InvalidPathException e) {
+                System.out.println("File path not found, unable to run chatbot due to error");
+                 break;
+            } catch (FileNotFoundException e) {
+                System.out.println(e.getMessage());
+                System.out.println("File not found, unable to run chatbot due to error");
+                break;
+            }
             Command command = null;
             String action = input.split(" ")[0].toLowerCase();
             try {
@@ -58,17 +80,19 @@ public class Bimo {
                     try {
                         Task task = new ToDo(getDetails(input));
                         printTaskInfo(task);
+                        writeToFile(task);
                     } catch (MissingDescriptionException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
                 case DEADLINE:
-                    String[] temp = input.split("/");
+                    String[] temp = input.split("/by ");
                     try {
                         String details = getDetails(temp[0]);
-                        String dueDate = processDate(true, temp);
+                        String dueDate = processDate(true, true, temp);
                         Task task = new Deadline(details, dueDate);
                         printTaskInfo(task);
+                        writeToFile(task);
                     } catch (MissingDescriptionException e) {
                         System.out.println(e.getMessage());
                     } catch (InvalidDateException e) {
@@ -77,12 +101,13 @@ public class Bimo {
                     break;
                 case EVENT:
                     try {
-                        String[] temp2 = input.split("/");
+                        String[] temp2 = input.split("/from ");
                         String details = getDetails(temp2[0]);
-                        String start = processDate(true, temp2);
-                        String end = processDate(false, temp2);
+                        String start = processDate(false, false, temp2);
+                        String end = processDate(false, true, temp2);
                         Task task = new Event(details, start, end);
                         printTaskInfo(task);
+                        writeToFile(task);
                     } catch (MissingDescriptionException e) {
                         System.out.println(e.getMessage());
                     } catch (InvalidDateException e) {
@@ -143,28 +168,30 @@ public class Bimo {
             throw new MissingDescriptionException("    Please key in description for your task");
         }
         temp[0] = "";
-        return String.join(" ", temp);
+        return removeSpace(temp);
     }
 
     /**
      *
-     * @param first To indicate whether its start or end date
-     * @param array An array of strings split by /
+     * @param isDeadline To indicate whether it has one or two dates
+     * @param isEnd To indicate whether to return first date or second
+     * @param array An array of strings split using delimter
      * @return the corresponding date portion of string
      * @throws InvalidDateException
      */
-    public static String processDate(boolean first, String[] array) throws InvalidDateException {
+    public static String processDate(boolean isDeadline, boolean isEnd,
+        String[] array) throws InvalidDateException {
         if (array.length <= 1) {
-            throw new InvalidDateException("    Please provide a date using /");
-        } else if (!first && array.length <= 2) {
-            throw new InvalidDateException("    Please provide a due date");
+            String type = isDeadline ? " /by" : " /from .... /to";
+            throw new InvalidDateException("    Please provide a date using" + type);
+        } else if (!isDeadline) {
+            array = array[1].split(" /to ");
+            if (array.length <= 1) {
+                throw new InvalidDateException("    Please provide a deadline using /to");
+            }
+
         }
-        String[] temp = first ? array[1].split(" ") : array[2].split(" ");
-        if (temp.length <= 1) {
-            throw new InvalidDateException("    Please provide by or from or to before date");
-        }
-        temp[0] = "";
-        return String.join(" ", temp);
+        return isEnd ? array[1] : array[0];
     }
 
     /**
@@ -220,5 +247,57 @@ public class Bimo {
         System.out.println("        " + task.toString());
         String word = list.size() == 1 ? "task" : "tasks";
         System.out.println(String.format("    Now you have %d %s in the list.", list.size(), word));
+    }
+
+    /**
+     * Format the type of task, status, description and dates into
+     * text format type|status|description|date1/date2
+     * Split by | , if length == 2 means todo,
+     * if length == 3 split by /, if length == 2 means event
+     * @param task Task object inside list
+     * @return Formatted text that can be written into data file
+     */
+    public static String convertTaskToText(Task task) {
+        String text = "";
+        String description = task.getTaskText();
+        if (task instanceof ToDo) {
+            text = "T|" + description;
+        } else if (task instanceof Deadline) {
+            //safe to cast since type checking is done
+            text = "D|" + description + ((Deadline) task).getDateAsText();
+        } else {
+            text = "E|" + description + ((Event) task).getDatesAsText();
+        }
+        return text;
+    }
+
+    /**
+     *
+     * @param input Array of words formed from splitting by " "
+     * @return String with empty space removed in front
+     */
+    public static String removeSpace(String[] input) {
+        String [] temp = new String[input.length - 1];
+        for (int i = 1; i < input.length; i++) {
+            temp[i - 1] = input[i];
+        }
+        return String.join(" ", temp);
+    }
+
+    /**
+     * Converts description of task to text in the form
+     * type|status|description|date1|date2
+     * @param task Task inside the list
+     */
+    public static void writeToFile(Task task) {
+        String text = convertTaskToText(task) + System.lineSeparator();
+        try {
+            FileWriter writer = new FileWriter("ip/data/Bimo.txt", true);
+            writer.write(text);
+            writer.close();
+
+        } catch (IOException e) {
+            System.out.println("Enable to write to file for task " + task.toString());
+        }
     }
 }

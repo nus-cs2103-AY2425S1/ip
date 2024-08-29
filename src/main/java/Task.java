@@ -15,13 +15,19 @@ public class Task {
     @Override
     public String toString() {
         String status = this.status ? "X": " ";
-        //need to compensate one space here because we set first word to ""
-
-        return String.format("[%s]%s", status, this.details);
+        return String.format("[%s] %s", status, this.details);
     }
 
     public String getDetails() {
         return this.details;
     }
 
+    /**
+     * Text formatter used to write a task into file
+     * @return Returns the text format of status and description separated by |
+     */
+    public String getTaskText() {
+        String state = this.status ? "1" : "0";
+        return state + "|" + this.details;
+    }
 }

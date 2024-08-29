@@ -8,9 +8,17 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * Format start and end date to write into file
+     * @return Returns start and end time as text
+     */
+    public String getDatesAsText() {
+        return "|" + start + "/" + end;
+    }
+
     @Override
     public String toString() {
-        return String.format("[E]%s (from:%s to:%s)", super.toString(), start, end);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), start, end);
     }
 
 
