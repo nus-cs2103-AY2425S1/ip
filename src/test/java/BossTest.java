@@ -16,11 +16,9 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 public class BossTest {
 
-    // let us try to write a test that checks whether the load function works
-    // done this with an example where one task was written to a text file
-    // after which the load function was called!
-
-    // note that text file should be empty before test is run
+    /**
+     * Conducts a test to check whether the load function works.
+     */
     @Test
     public void testLoad() {
         ArrayList<Task> expectedArray = new ArrayList<>();
@@ -38,6 +36,11 @@ public class BossTest {
     }
 
     // checks if tasks are correctly being marked
+
+    /**
+     * Conducts a test to check whether tasks are
+     * correctly marked.
+     */
     @Test
     public void testMarkTask() {
 
