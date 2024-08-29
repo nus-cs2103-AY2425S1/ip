@@ -5,16 +5,21 @@ import java.io.IOException;
 import java.io.FileWriter;
 
 public class Papagu {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TaskList taskList = new TaskList();
-        File file = new File("./Tasks.txt");
+        File file = new File("../Data/Tasks.txt");
+        file.getParentFile().mkdirs();
 
         System.out.println("____________________________________________________________");
         System.out.println("Hello from Papagu!");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
 
+        System.out.println("These are the current tasks in your list");
+        System.out.println("____________________________________________________________");
+        
         //Hanlde file creating if it dont exist
         if (!file.exists()) {
             try {
@@ -29,18 +34,40 @@ public class Papagu {
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNext()) {
                 String line = fileScanner.nextLine();
-                String[] type = line.split(" | ");
-                String taskType = type[0];
+                
+                //Take out first letter
+                String[] parts = line.split(" \\| ");
+                String taskType = parts[0];
+                String isDone = parts[1];
+                
+                //Todo task
                 if (taskType.equals("T")) {
-                    String[] data = type[1].split(" | ");
-                    String isDone = data[0];
                     if (isDone.equals("1")) {
-                        ToDos newToDo = new ToDos(data[1]);
+                        ToDos newToDo = new ToDos(parts[2]);
                         newToDo.markAsDone();
                         taskList.addTask(newToDo);
                     } else {
-                        ToDos newToDo = new ToDos(data[1]);
+                        ToDos newToDo = new ToDos(parts[2]);
                         taskList.addTask(newToDo);
+                    }    
+                } else if (taskType.equals("D")) {          //Deadline task                    
+                    if (isDone.equals("1")) {
+                        Deadlines newDeadline = new Deadlines(parts[2], parts[3]);
+                        newDeadline.markAsDone();
+                        taskList.addTask(newDeadline);
+                    } else {
+                        Deadlines newDeadline = new Deadlines(parts[2], parts[3]);
+                        taskList.addTask(newDeadline);
+                    }
+                } else if (taskType.equals("E")) {  
+                    String[] times = parts[3].split("-");      //Event task                    
+                    if (isDone.equals("1")) {
+                        Events newEvent = new Events(parts[2], times[0], times[1]);
+                        newEvent.markAsDone();
+                        taskList.addTask(newEvent);
+                    } else {
+                        Events newEvent = new Events(parts[2], times[0], times[1]);
+                        taskList.addTask(newEvent);
                     }
                 }
             }
@@ -65,6 +92,13 @@ public class Papagu {
                             System.out.println("____________________________________________________________");
                             taskList.markTaskAsDone(num);
                             System.out.println("____________________________________________________________");
+                            try {
+                                FileWriter writer = new FileWriter(file);
+                                writer.write(taskList.toString());
+                            } catch (IOException e) {
+                                System.out.println("An error occurred.");
+                                e.printStackTrace();
+                            }
                         } else if (word.equals("unmark")) {
                             System.out.println("____________________________________________________________");
                             taskList.markTaskAsNotDone(num);
