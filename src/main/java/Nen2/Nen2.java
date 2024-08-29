@@ -1,3 +1,5 @@
+package Nen2;
+
 import java.util.Scanner;
 
 /**
@@ -31,10 +33,6 @@ public class Nen2 {
         }
         storage.save(tasks.toDataStringArr());
         ui.exit();
-    }
-
-    public static void main(String[] args) {
-        new Nen2("data/nen2.txt").run();
     }
 
 }

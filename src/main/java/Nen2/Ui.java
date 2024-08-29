@@ -1,3 +1,5 @@
+package Nen2;
+
 /**
  * This class deal with user interaction and print out reaction to user input
  * @author Gan Ren Yick (A0276246X)
