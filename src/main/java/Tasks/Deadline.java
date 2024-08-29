@@ -2,7 +2,7 @@ package Tasks;
 
 import Exceptions.DelphiException;
 import Exceptions.EmptyInputException;
-import Parser.Parser;
+import Parser.DateParser;
 import Tasks.Task;
 
 /**
@@ -25,7 +25,7 @@ public class Deadline extends Task {
 
         // Extract the substring after the slash and trim it
         String temp = description.substring(slashIndex + 1).trim();
-            String date = Parser.DateParser.parseAndFormatDateTime(temp.substring(3).trim());
+            String date = DateParser.parseAndFormatDateTime(temp.substring(3).trim());
             if (date != null) {
                 deadline = "(by: " + date + ")";
             }

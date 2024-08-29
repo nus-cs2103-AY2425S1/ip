@@ -28,9 +28,9 @@ public class UI {
             System.out.println("      " + tsk);
         }
     }
-    public static void removingTask(TaskList t, int index, int num) throws InvalidListItemException {
+    public static void removingTask(Task removedTask, int num) {
         System.out.println("    Noted. I've removed this task:");
-        System.out.println("      " + t.removeTask(index));
-        System.out.println("    Now you have " + t.getSize() + " tasks in the list");
+        System.out.println("      " + removedTask);
+        System.out.println("    Now you have " + num + " tasks in the list");
     }
 }

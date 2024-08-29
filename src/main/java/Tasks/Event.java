@@ -4,10 +4,11 @@ import Exceptions.DelphiException;
 import Exceptions.EmptyInputException;
 import Exceptions.InvalidInputException;
 import Parser.Parser;
+import Parser.DateParser;
 import Tasks.Task;
 
 /**
- * Represents an Tasks.Event task with a specific time window.
+ * Represents a Tasks.Event task with a specific time window.
  */
 public class Event extends Task {
     private String window;
@@ -38,14 +39,14 @@ public class Event extends Task {
         // Extract the end time
         String toPart = description.substring(toIndex + "/to".length()).trim();
 
-        String formattedFromPart = Parser.DateParser.parseAndFormatDateTime(fromPart);
+        String formattedFromPart = DateParser.parseAndFormatDateTime(fromPart);
         if (formattedFromPart != null) {
             fromPart = "from: " + formattedFromPart;
         } else {
             fromPart = "from: " + fromPart;
         }
 
-        String formattedToPart = Parser.DateParser.parseAndFormatDateTime(toPart);
+        String formattedToPart = DateParser.parseAndFormatDateTime(toPart);
         if (formattedFromPart != null) {
             toPart = "from: " + formattedToPart;
         } else {

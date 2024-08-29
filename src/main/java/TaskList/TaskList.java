@@ -22,13 +22,12 @@ import java.util.List;
  */
 public class TaskList {
     private final List<Task> tasks;
-    Storage s;
     /**
      * Constructs an empty TaskList.TaskList.
      */
-    public TaskList(Storage s) {
+    public TaskList() {
         tasks = new ArrayList<>();
-        this.s = s;
+
     }
 
     /**
@@ -37,47 +36,11 @@ public class TaskList {
      * @param task The task description.
      * @throws DelphiException If the task is invalid or an error occurs.
      */
-    public void addTask(String task) throws DelphiException {
-        if (!task.equals("list")) {
-            if (Parser.checkStringPrefix(task, 4, "todo")) {
-                Task tsk;
-                if (task.length() > 4) {
-                    tsk = new Todo(task.substring(5));
-                } else {
-                    tsk = new Todo("");
-                }
-                tasks.add(tsk);
-                s.writeToHardDisk(this.tasks); // this line
-                UI.taskMessage(tsk, tasks.size());
-            } else if (Parser.checkStringPrefix(task, 8, "deadline")) {
-                Task tsk;
-                if (task.length() > 8) {
-                    tsk = new Deadline(task.substring(9));
-                } else {
-                    tsk = new Todo("");
-                }
-                tasks.add(tsk);
-                s.writeToHardDisk(this.tasks); // this line
-                UI.taskMessage(tsk, tasks.size());
-            } else if (Parser.checkStringPrefix(task, 5, "event")) {
-                Task tsk;
-                if (task.length() > 5) {
-                    tsk = new Event(task.substring(6));
-                } else {
-                    tsk = new Event("");
-                }
-                tasks.add(tsk);
-                s.writeToHardDisk(this.tasks); // this line
-                UI.taskMessage(tsk, tasks.size());
-            } else {
-                throw new InvalidInputException();
-            }
-        } else {
-            printTasks();
-        }
+    public void addTask(Task task) {
+        tasks.add(task);
     }
 
-    public void loadStorageToTasks() {
+    public void loadStorageToTasks(Storage s) {
         try {
             List<String> readTasks = s.readFromHardDisk();
             int counter = 0;
@@ -143,7 +106,7 @@ public class TaskList {
         if (i <= tasks.size()) {
             Task t = tasks.get(i - 1);
             tasks.remove(i - 1);
-            s.writeToHardDisk(this.tasks); // this line
+            // s.writeToHardDisk(this.tasks); // this line
             return t;
         } else {
             throw new InvalidListItemException(i);
@@ -168,7 +131,7 @@ public class TaskList {
         if (i <= tasks.size()) {
             tasks.get(i - 1).complete();
         }
-        s.writeToHardDisk(this.tasks); // this line
+        //s.writeToHardDisk(this.tasks); this line
         //may want to add error handling for invalid indexes here
     }
 
@@ -181,7 +144,7 @@ public class TaskList {
         if (i <= tasks.size()) {
             tasks.get(i - 1).uncomplete();
         }
-        s.writeToHardDisk(this.tasks); // this line
+        //s.writeToHardDisk(this.tasks); // this line
         //may want to add error handling for invalid indexes here
     }
 
@@ -197,6 +160,9 @@ public class TaskList {
         } else {
             return null;
         }
+    }
+    public List<Task> getTasks() {
+        return this.tasks;
     }
 
     /**
