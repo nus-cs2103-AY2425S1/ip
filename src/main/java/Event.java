@@ -1,14 +1,12 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 public class Event extends Task {
 
-    public boolean done;
-    public String text;
-    public LocalDate start;
-    public LocalDate end;
+    private boolean done;
+    private String text;
+    private LocalDate start;
+    private LocalDate end;
 
     public Event(String text, LocalDate start, LocalDate end) {
         super(text);
