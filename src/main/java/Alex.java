@@ -14,6 +14,7 @@ public class Alex {
 
     public static void main(String[] args) {
         createDataDirectory();  // Ensure data directory exists
+        loadTasks();  // Load tasks from file
 
         Scanner scanner = new Scanner(System.in);
 
@@ -95,6 +96,54 @@ public class Alex {
         File dataDir = new File("./data");
         if (!dataDir.exists()) {
             dataDir.mkdirs();
+        }
+    }
+
+    private static void loadTasks() {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            return;  // No tasks to load if file doesn't exist
+        }
+    
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                if (parts.length < 2) continue;  // Skip invalid lines
+    
+                TaskType type = TaskType.valueOf(parts[0]);
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+    
+                Task task = null;
+                switch (type) {
+                    case TODO:
+                        task = new Todo(description);
+                        break;
+                    case DEADLINE:
+                        if (parts.length == 4) {
+                            task = new Deadline(description, parts[3]);
+                        }
+                        break;
+                    case EVENT:
+                        if (parts.length == 5) { // Adjusted length to 5 for Event (with from and to)
+                            task = new Event(description, parts[3], parts[4]);
+                        }
+                        break;
+                    default:
+                        // Handle unexpected TaskType
+                        break;
+                }
+    
+                if (task != null) {
+                    if (isDone) {
+                        task.markAsDone();
+                    }
+                    tasks.add(task);
+                }
+            }
+        } catch (IOException | IllegalArgumentException e) {
+            printDividerWithMessage("Error loading tasks: " + e.getMessage());
         }
     }
     

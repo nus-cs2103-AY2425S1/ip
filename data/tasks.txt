@@ -5,3 +5,5 @@ TODO | 0 | cook dinner
 TODO | 0 | buy groceries
 TODO | 0 | cook dinner
 TODO | 0 | return books
+TODO | 0 | buy shoes
+TODO | 0 | water plants
