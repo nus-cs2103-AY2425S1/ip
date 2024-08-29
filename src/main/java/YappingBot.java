@@ -1,92 +1,39 @@
 import exceptions.*;
+import storage.Storage;
 import stringconstants.ReplyTextMessages;
 import tasks.*;
 import ui.Ui;
-
-import java.io.*;
 import java.util.*;
 
 import static commands.Commands.*;
 
 
 public class YappingBot {
+    private ArrayList<Task> userList;
+    private String savefilePath;
     // https://github.com/nus-cs2103-AY2425S1/forum/issues/22#issuecomment-2309939016
-    private final String savefilePath;
-    private final ArrayList<Task> userList;
     private YappingBot(String savefilePath) {
         this.savefilePath = savefilePath;
-        userList = new ArrayList<>();
-        try {
-            loadListFromFile();
-        } catch (YappingBotException e) {
-            System.out.println(Ui.quoteMultilineText(String.format(ReplyTextMessages.LOAD_FILE_ERROR_1s, e.getMessage())));
-        }
     }
 
-    private void loadListFromFile() throws YappingBotSaveFileNotFoundException, YappingBotInvalidSaveFileException {
-        StringBuilder error_list = new StringBuilder();
+    private void init(Storage storage) {
         try {
-            File saveFile = new File(savefilePath);
-            Scanner scanner = new Scanner(saveFile);
-            while (scanner.hasNext()) {
-                String[] s = scanner.nextLine().split(":");
-                Task t;
-                try {
-                    try {
-                        switch (TaskTypes.valueOf(s[0])) {
-                            case TODO:
-                                t = new Todo();
-                                t.deserialize(s);
-                                break;
-                            case DEADLINE:
-                                t = new Deadline();
-                                t.deserialize(s);
-                                break;
-                            case EVENT:
-                                t = new Event();
-                                t.deserialize(s);
-                                break;
-                            default:
-                                throw new YappingBotInvalidSaveFileException(String.format(ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s, s[0]));
-                        }
-                    } catch (IllegalArgumentException e) {
-                        // todo: add line number
-                        throw new YappingBotInvalidSaveFileException(String.format(ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s, e.getMessage()));
-                    }
-                    userList.add(t);
-                } catch (YappingBotException e) {
-                    error_list.append(Ui.quoteMultilineText(e.getMessage()));
-                }
-            }
-        } catch (FileNotFoundException e) {
-            throw new YappingBotSaveFileNotFoundException();
-        }
-        if (!error_list.isEmpty()) {
-            throw new YappingBotException(error_list.toString());
+            userList = storage.loadListFromFile();
+        } catch (YappingBotException e) {
+            System.out.println(Ui.quoteMultilineText(String.format(ReplyTextMessages.LOAD_FILE_ERROR_1s, e.getMessage())));
+            userList = new ArrayList<>();
         }
     }
-    private void start() {
-        mainLoop();
+    private void saveAndExit(Storage storage) {
         try {
-            saveListToFile();
+            storage.saveListToFile(userList);
         } catch (YappingBotException e) {
             System.out.println(Ui.quoteMultilineText(String.format(ReplyTextMessages.SAVE_FILE_ERROR_1s, e.getMessage())));
         }
         System.out.println(Ui.quoteMultilineText(ReplyTextMessages.EXIT_TEXT));
     }
-    private void saveListToFile() throws YappingBotSaveFileIOException {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(savefilePath))) {
-            for (Task t : userList) {
-                bw.write(t.serialize());
-                bw.newLine();
-            }
-        } catch (IOException e) {
-            throw new YappingBotSaveFileIOException(e.getMessage());
-        }
-    }
     private void mainLoop() {
-        Scanner userInputScanner;
-        userInputScanner = new Scanner(System.in);
+        Scanner userInputScanner = new Scanner(System.in);
         System.out.println(Ui.quoteMultilineText(ReplyTextMessages.GREETING_TEXT));
         programmeLoop: // to break out of loop
         while (userInputScanner.hasNextLine()) {
@@ -129,6 +76,12 @@ public class YappingBot {
                 System.out.println(Ui.quoteMultilineText(e.getMessage()));
             }
         }
+    }
+    private void start() {
+        Storage storage = new Storage(savefilePath);
+        init(storage);
+        mainLoop();
+        saveAndExit(storage);
     }
 
     // end of class methods
