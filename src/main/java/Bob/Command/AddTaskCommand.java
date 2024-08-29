@@ -1,4 +1,10 @@
-public class AddTaskCommand extends Command{
+package Bob.Command;
+
+import Bob.Tasks.Task;
+import Bob.Tasks.TaskList;
+import Bob.UI;
+
+public class AddTaskCommand extends Command {
 
     private final Task task;
     public AddTaskCommand(Task task) {

@@ -1,3 +1,8 @@
+package Bob.Command;
+
+import Bob.Tasks.TaskList;
+import Bob.UI;
+
 public class UnmarkCommand extends Command{
 
     private final int index;

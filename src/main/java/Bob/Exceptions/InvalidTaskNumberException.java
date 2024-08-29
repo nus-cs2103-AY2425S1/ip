@@ -1,3 +1,5 @@
+package Bob.Exceptions;
+
 public class InvalidTaskNumberException extends Exception {
 
     public InvalidTaskNumberException() {

@@ -1,3 +1,5 @@
+package Bob.Tasks;
+
 public abstract class Task {
     private final String taskName;
     private boolean isCompleted;

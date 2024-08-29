@@ -1,3 +1,8 @@
+package Bob.Command;
+
+import Bob.Tasks.Task;
+import Bob.Tasks.TaskList;
+import Bob.UI;
 public class DeleteCommand extends Command{
 
     private final int index;

@@ -1,3 +1,5 @@
+package Bob.Exceptions;
+
 public class MissingArgumentException extends Exception {
 
     public MissingArgumentException(String missing, String taskType) {

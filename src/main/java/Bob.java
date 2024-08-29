@@ -1,6 +1,15 @@
+import Bob.Command.Command;
+import Bob.Parser;
+import Bob.Storage;
+import Bob.Exceptions.EmptyArgumentException;
+import Bob.Exceptions.InvalidInputException;
+import Bob.Exceptions.InvalidTaskNumberException;
+import Bob.Exceptions.MissingArgumentException;
+import Bob.Tasks.TaskList;
+import Bob.UI;
+
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Bob {
 
@@ -17,7 +26,7 @@ public class Bob {
     }
 
     public static void main(String[] args) {
-        Bob myBot = new Bob("./userdata.txt");
+        Bob myBot = new Bob("../userdata.txt");
         myBot.initialize();
         myBot.startChatBot();
     }

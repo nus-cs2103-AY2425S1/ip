@@ -1,9 +1,15 @@
+package Bob;
+
+import Bob.Exceptions.EmptyArgumentException;
+import Bob.Exceptions.MissingArgumentException;
+import Bob.Tasks.Task;
+import Bob.Tasks.TaskList;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 

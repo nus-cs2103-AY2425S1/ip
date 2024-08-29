@@ -1,3 +1,7 @@
+package Bob.Command;
+
+import Bob.Tasks.TaskList;
+
 public abstract class Command {
     private final boolean isRunning;
 

@@ -1,3 +1,5 @@
+package Bob.Exceptions;
+
 public class EmptyArgumentException extends Exception {
 
     public EmptyArgumentException(String arg, String taskType) {

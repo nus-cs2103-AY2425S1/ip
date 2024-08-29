@@ -1,3 +1,8 @@
+package Bob;
+
+import Bob.Tasks.Task;
+import Bob.Tasks.TaskList;
+
 import java.util.Scanner;
 
 public class UI {
