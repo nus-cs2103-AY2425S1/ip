@@ -1,15 +1,28 @@
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Deadlines extends Task {
-    private String deadline;
+//    private String deadline;
+    private LocalDateTime deadline;
     public Deadlines(String description) throws CommandFoundButInvalidException {
         super(description);
         super.description = this.getValidString(description)[0].trim();
-        this.deadline = this.getValidString(description)[1].trim();
+        // restrict the usage to only "yyyy-mm-dd"
+        // replace all the occurrence of "/" into "-"
+        // check if is a valid LocalDate
+        String date = this.getValidString(description)[1].trim();
+        date = date.replace("/", "-");
+        try {
+            deadline = LocalDateTime.parse(date);
+        } catch (DateTimeException e) {
+            throw new InvalidSyntaxException("deadline, please use yyyy-mm-ddThh:mm. E.g. 2024-09-11T23:59");
+        }
     }
 
     public String toString() {
-        String str = " (by: " + deadline + ")";
+        String str = " (by: " + deadline.format(DateTimeFormatter.ofPattern("dd MMM yyy HH:mm")) + ")";
         return "[D]" + super.toString() + str;
     }
     public String[] getValidString(String description) throws CommandFoundButInvalidException {
