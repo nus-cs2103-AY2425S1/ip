@@ -1,3 +1,10 @@
+package nuffle.storage;
+
+import nuffle.task.Deadline;
+import nuffle.task.Event;
+import nuffle.task.Task;
+import nuffle.task.Todo;
+
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,14 +54,21 @@ public class Storage {
             if (Objects.equals(category, "T")) {
 
                 Todo task = new Todo(desc);
-                task.isDone = components[1].trim().equals("1");
-
+                if(components[1].trim().equals("1")) {
+                    task.markAsDone();
+                } else {
+                    task.markNotDone();
+                }
                 tasks.add(task);
                 eachLine = buffer.readLine();
             } else if (Objects.equals(category, "D")) {
                 LocalDateTime by = LocalDateTime.parse(components[3].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
                 Deadline deadline = new Deadline(desc, by);
-                deadline.isDone = components[1].trim().equals("1");
+                if(components[1].trim().equals("1")) {
+                    deadline.markAsDone();
+                } else {
+                    deadline.markNotDone();
+                }
 
                 tasks.add(deadline);
                 eachLine = buffer.readLine();
@@ -62,7 +76,11 @@ public class Storage {
                 LocalDateTime to = LocalDateTime.parse(components[3].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
                 LocalDateTime from = LocalDateTime.parse(components[4].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
                 Event event = new Event(desc, to, from);
-                event.isDone = components[1].trim().equals("1");
+                if(components[1].trim().equals("1")) {
+                    event.markAsDone();
+                } else {
+                    event.markNotDone();
+                }
 
                 tasks.add(event);
                 eachLine = buffer.readLine();

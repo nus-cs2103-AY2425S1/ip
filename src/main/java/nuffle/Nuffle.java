@@ -1,6 +1,14 @@
+package nuffle;
+
+import nuffle.exception.NuffleException;
+import nuffle.parser.Parser;
+import nuffle.task.Task;
+import nuffle.ui.Ui;
+import nuffle.storage.Storage;
+import nuffle.task.TaskList;
+
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Nuffle {
     private static Storage storage = new Storage("./data/Nuffle.txt");

@@ -1,3 +1,11 @@
+package nuffle.parser;
+
+import nuffle.exception.NuffleException;
+import nuffle.task.Deadline;
+import nuffle.task.Event;
+import nuffle.task.Task;
+import nuffle.task.Todo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
