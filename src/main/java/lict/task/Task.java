@@ -38,6 +38,9 @@ public abstract class Task {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 
+    public boolean containsKeyword(String keyword) {
+        return this.description.toLowerCase().contains(keyword.toLowerCase());
+    }
     /**
      * Converts the task to a string format suitable for saving to a data file.
      * This method must be implemented by subclasses to provide their specific data format.
@@ -78,9 +81,7 @@ public abstract class Task {
             task.isMarked(isDone);
             return task;
 
-        } catch (IllegalArgumentException i) {
-            return null;
-        } catch (LictException e) {
+        } catch (IllegalArgumentException | LictException e) {
             return null;
         }
     }

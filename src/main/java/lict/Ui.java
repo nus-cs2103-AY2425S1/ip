@@ -4,7 +4,7 @@ import lict.task.Task;
 import java.util.Scanner;
 
 public class Ui {
-    private Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
 
     public void startConversation() {
         showLine();
@@ -38,6 +38,29 @@ public class Ui {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < size; i++) {
                 System.out.println((i + 1) + ". " + tasks.get(i));
+            }
+        }
+    }
+
+    public void showFilteredTasks(TaskList tasks, String filter) {
+        TaskList filteredTasks = new TaskList();
+        int listSize = tasks.size();
+        if (listSize == 0 || filter.isEmpty()) {
+            System.out.println("There are no tasks in your list that matches the keyword '" + filter + "'.");
+        }
+        for (int j = 0; j < listSize; j++) {
+            Task t = tasks.get(j);
+            if (t.containsKeyword(filter)) {
+                filteredTasks.addTask(t);
+            }
+        }
+        int size = filteredTasks.size();
+        if (size == 0) {
+            System.out.println("There are no tasks in your list that matches the keyword '" + filter + "'.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < size; i++) {
+                System.out.println((i + 1) + ". " + filteredTasks.get(i));
             }
         }
     }

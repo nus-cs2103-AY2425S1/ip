@@ -14,6 +14,7 @@ public class Parser {
         DELETE,
         LIST,
         BYE,
+        FIND,
     }
 
     public static Command parse(String command) throws LictException {
@@ -59,6 +60,10 @@ public class Parser {
 
                 case BYE:
                     c = new ByeCommand();
+                    break;
+
+                case FIND:
+                    c = new FindCommand(info);
                     break;
 
                 default:
