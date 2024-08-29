@@ -12,4 +12,5 @@ delete 2
 list
 todo
 ANYHOW
+delete -1
 bye
