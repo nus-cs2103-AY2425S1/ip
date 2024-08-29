@@ -60,6 +60,28 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Displays all tasks containing input keyword.
+     * @param taskList List of tasks.
+     */
+    public void showMatchingTaskList(TaskList taskList) {
+        System.out.println("    Here are the matching tasks in your list:");
+        int length = taskList.size();
+        // print the list of inputs
+        for (int i = 0; i < length; i++) {
+            Task task = taskList.get(i);
+            // formatting for numbering of list
+            int listNum = i + 1;
+            String numDot = listNum + ".";
+            System.out.println("    " + numDot + task.toString());
+        }
+        showLine();
+    }
+
+    public void showNoMatchingTasks() {
+        System.out.println("    " + "There are no tasks that match your keyword!");
+    }
+
     public void showError(String msg) {
         System.out.println(msg);
     }
