@@ -6,9 +6,19 @@ import ekud.components.Ui;
 import ekud.task.Task;
 import ekud.components.TaskList;
 
+/**
+ * Represents the {@link Command} to delete a {@link Task} at some index in a {@link TaskList}.
+ *
+ * @author uniqly
+ */
 public class DeleteCommand extends Command {
+    /** The index to delete */
     private final int index;
 
+    /** Creates a {@link DeleteCommand}.
+     *
+     * @param index The index to delete.
+     */
     public DeleteCommand(int index) {
         this.index = index - 1;
     }

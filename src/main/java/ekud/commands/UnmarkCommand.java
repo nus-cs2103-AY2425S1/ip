@@ -6,9 +6,20 @@ import ekud.components.Ui;
 import ekud.task.Task;
 import ekud.components.TaskList;
 
+/**
+ * Represents the {@link Command} to mark a {@link Task} at some index in a {@link TaskList} as incomplete.
+ *
+ * @author uniqly
+ */
 public class UnmarkCommand extends Command {
+    /** The index to mark as incomplete */
     private final int index;
 
+    /**
+     * Creates a {@link UnmarkCommand}.
+     *
+     * @param index The index to mark as incomplete.
+     */
     public UnmarkCommand(int index) {
         this.index = index - 1;
     }

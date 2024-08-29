@@ -7,15 +7,34 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
+/**
+ * Represents a {@link Task} that spans over two dates.
+ *
+ * @author uniqly
+ */
 public class EventTask extends Task {
+    /** The {@link LocalDateTime} format when parsing input date Strings */
     public static DateTimeFormatter READ_FORMAT =
             DateTimeFormatter.ofPattern("d/M/yyyy HHmm", Locale.ENGLISH);
+
+    /** The {@link LocalDateTime} format when outputting date Strings */
     public static DateTimeFormatter PRINT_FORMAT =
             DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a", Locale.ENGLISH);
 
+    /** The start date of the event */
     protected LocalDateTime from;
+
+    /** The end date of the event */
     protected LocalDateTime to;
 
+    /**
+     * Constructs the event {@link Task} that spends over two days.
+     *
+     * @param description The description of the event.
+     * @param from A {@link String} representing the start date.
+     * @param to A {@link String} representing the end date.
+     * @throws EkudException If any inputs are empty, or {@code from} or {@code to} has the wrong date format.
+     */
     public EventTask(String description, String from, String to) throws EkudException {
         super(description);
         if (from == null || from.isEmpty()) {

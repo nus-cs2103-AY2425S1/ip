@@ -4,19 +4,45 @@ import ekud.task.Task;
 
 import java.io.*;
 
+/**
+ * The component of EKuD that manages the reading and writing of saved data.
+ *
+ * @author uniqly
+ * @see ekud.Ekud
+ */
 public class Storage {
+    /** The folder where data is stored */
     private final File directory;
+
+    /** The file corresponding to stored data */
     private final File dataFile;
 
+    /**
+     * Initializes a {@link Storage} with a given data file.
+     *
+     * @param filePath The {@link String} representing the path of the data file.
+     */
     public Storage(String filePath) {
         dataFile = new File(filePath);
         directory = dataFile.getParentFile();
     }
 
+    /**
+     * Returns {@code true} if {@link Storage#directory} is a valid folder
+     * and {@link Storage#dataFile} exists.
+     *
+     * @return If {@link Storage#directory} and {@link Storage#dataFile} exists.
+     */
     public boolean doesPathExists() {
         return (directory.exists() && dataFile.isFile());
     }
 
+    /**
+     * Creates {@link Storage#directory} and {@link Storage#dataFile} given that they do not exist.
+     *
+     * @param ui The {@link Ui} to print output to.
+     * @see Storage#doesPathExists()
+     */
     public void createPath(Ui ui) {
         try {
             if (!directory.exists()) {
@@ -32,6 +58,15 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads saved data as {@link Task Tasks} and store them into a given {@link TaskList}.
+     * <p/>
+     * If any invalid data is read, it will be removed from {@link Storage#dataFile} and no task will
+     * be added to {@code tasks}.
+     *
+     * @param tasks The {@link TaskList} to store the tasks into.
+     * @param ui The {@link Ui} to print output to.
+     */
     public void loadTasks(TaskList tasks, Ui ui) {
         File copy = new File(dataFile.getParent() + "/temp.txt");
 
@@ -71,6 +106,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends a given task at the end of the {@link Storage#dataFile}.
+     *
+     * @param task The {@link Task} to save.
+     * @param ui The {@link Ui} to print output to.
+     */
     public void saveNewTask(Task task, Ui ui) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile, true));
@@ -86,6 +127,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Searches and deletes a given task from the {@link Storage#dataFile}.
+     *
+     * @param task The {@link Task} to delete.
+     * @param ui The {@link Ui} to print output to.
+     */
     public void deleteTask(Task task, Ui ui) {
         String saveString = task.getSaveTaskString();
 
@@ -115,6 +162,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates the stored state of a given task from its previous task save-string to its
+     * current task save-string in the {@link Storage#dataFile}.
+     *
+     * @param task The {@link Task} to update.
+     * @param previousState The previous save-string of {@code task}.
+     * @param ui The {@link Ui} to print output to.
+     */
     public void updateTaskState(Task task, String previousState, Ui ui) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(dataFile));

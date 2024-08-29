@@ -2,7 +2,18 @@ package ekud.task;
 
 import ekud.exceptions.EkudException;
 
+/**
+ * Represents a {@link Task} that the user wants to do.
+ *
+ * @author uniqly
+ */
 public class TodoTask extends Task {
+    /**
+     * Constructs a {@link Task} the user wants to do.
+     *
+     * @param description The description of the task.
+     * @throws EkudException If the description is empty.
+     */
     public TodoTask(String description) throws EkudException {
         super(description);
     }

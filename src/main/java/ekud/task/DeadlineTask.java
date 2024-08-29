@@ -7,14 +7,30 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
+/**
+ * Represents a {@link Task} that has a deadline.
+ *
+ * @author uniqly
+ */
 public class DeadlineTask extends Task {
+    /** The {@link LocalDateTime} format when parsing input date Strings */
     public static DateTimeFormatter READ_FORMAT =
             DateTimeFormatter.ofPattern("d/M/yyyy HHmm", Locale.ENGLISH);
+
+    /** The {@link LocalDateTime} format when outputting date Strings */
     public static DateTimeFormatter PRINT_FORMAT =
             DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a", Locale.ENGLISH);
 
+    /** The deadline of the task */
     protected LocalDateTime deadline;
 
+    /**
+     * Constructs a {@link Task} with a deadline.
+     *
+     * @param description The description of the event.
+     * @param deadline A {@link String} representing the deadline.
+     * @throws EkudException If description is empty, or if deadline is empty or has invalid format.
+     */
     public DeadlineTask(String description, String deadline) throws EkudException {
         super(description);
         if (deadline == null || deadline.isEmpty()) {

@@ -6,9 +6,19 @@ import ekud.components.Ui;
 import ekud.task.Task;
 import ekud.components.TaskList;
 
+/**
+ * Represents the {@link Command} to mark a {@link Task} at some index in a {@link TaskList} as complete.
+ *
+ * @author uniqly
+ */
 public class MarkCommand extends Command {
+    /** The index to mark as complete */
     private final int index;
 
+    /**
+     * Creates a {@link MarkCommand}.
+     * @param index The index to mark as complete.
+     */
     public MarkCommand(int index) {
         this.index = index - 1;
     }
