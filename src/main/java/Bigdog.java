@@ -5,10 +5,9 @@ public class Bigdog {
 
     // Array to store tasks
     private static ArrayList<Task> toDoList = new ArrayList<>();
-
     private static FileSaver fileSaver = new FileSaver("./src/main/Bigdog.txt");
-    private static void editList(String str) throws BigdogException {
 
+    private static void editList(String str) throws BigdogException {
         if (str.isEmpty()) {
             throw new BigdogException("Please give me something to add!");
         }
