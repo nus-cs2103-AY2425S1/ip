@@ -16,13 +16,21 @@ abstract class Task {
 
     abstract Task markAsUndone();
 
+    abstract String getType();
+
+    abstract String getTime();
+
     public String getStatusIcon() {
         return (status ? "X" : " ");
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     @Override
     public String toString() {
-        return String.format("[%s] %s", this.getStatusIcon(), this.description);
+        return String.format("[%s] [%s] %s", this.getType(), this.getStatusIcon(), this.description);
     }
 
 }
