@@ -9,6 +9,7 @@ import java.io.PrintStream;
 import java.nio.file.Files;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.format.DateTimeParseException;
 
 public class Bill {
     private boolean directoryExists;
@@ -120,6 +121,8 @@ public class Bill {
             addTask(new Deadline(deadlineDescription, deadlineBy));
         } catch (ArrayIndexOutOfBoundsException ex) {
             throw new BillException("Please ensure to follow the format: deadline <task> /by <date> where <> suggest user input.");
+        } catch (DateTimeParseException ex) {
+            throw new BillException(ex.getMessage() + ". Please ensure to follow the format yyyy-MM-dd");
         }
     }
 
