@@ -41,7 +41,7 @@ public class Parser {
             return new MarkNotDoneCommand(extractTaskNumber(userInput));
         case "delete":
             return new DeleteCommand(extractTaskNumber(userInput));
-        case "exit":
+        case "bye":
             return new ExitCommand();
         default:
             throw new NetherException("the command: '" + userInput + "' is not in our database.");
@@ -69,7 +69,7 @@ public class Parser {
      * @throws NetherException If the input does not follow the expected format or required details are missing.
      */
 
-    private String[] extractInputDetails(String userInput, String taskType) throws NetherException {
+    public String[] extractInputDetails(String userInput, String taskType) throws NetherException {
         String[] preprocessArray;
         String[] resultArray = new String[]{};
 
