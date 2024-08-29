@@ -33,17 +33,18 @@ public class NewGreetBot {
 
         while (this.isRunning) {
             try {
-
                 String input = this.ui.readInput().strip();
                 System.out.println(this.getResponse(input));
             } catch (RandomInputException e) {
+                System.out.println(e.getMessage());
+            } catch (EmptyDescriptionException e) {
                 System.out.println(e.getMessage());
             }
         }
 
     }
 
-    public String getResponse(String input) throws RandomInputException{
+    public String getResponse(String input) throws RandomInputException, EmptyDescriptionException{
         String[] segment = Parser.parseCommand(input);
         String keyword = segment[0];
         if (keyword.equals("BYE")) {
@@ -58,12 +59,24 @@ public class NewGreetBot {
         } else if (keyword.equals("UNMARK")) {
             return this.markAsNotDone(Parser.parseMarkUnmarkDelete(segment[1]) - 1);
         } else if (keyword.equals("TODO")) {
+            if (segment.length == 1) {
+                throw new EmptyDescriptionException("OOPS!!! The description of todo cannot be empty.");
+            }
             return this.addTodo(Parser.parseTodo(segment[1]));
         } else if (keyword.equals("EVENT")) {
+            if (segment.length == 1) {
+                throw new EmptyDescriptionException("OOPS!!! The description of event cannot be empty.");
+            }
             return this.addEvent(Parser.parseEvent(segment[1]));
         } else if (keyword.equals("DEADLINE")) {
+            if (segment.length == 1) {
+                throw new EmptyDescriptionException("OOPS!!! The description of deadline cannot be empty.");
+            }
             return this.addDeadline(Parser.parseDeadline(segment[1]));
         } else if (keyword.equals("DELETE")) {
+            if (segment.length == 1) {
+                throw new EmptyDescriptionException("OOPS!!! The description of delete cannot be empty.");
+            }
             return this.deleteTask(Parser.parseMarkUnmarkDelete(segment[1]));
         } else if (keyword.isEmpty()){
             return "";

@@ -21,7 +21,6 @@ public class TaskList {
     }
 
     public void delete(int position) {
-        System.out.println(position);
         list.remove(position - 1);
     }
 
