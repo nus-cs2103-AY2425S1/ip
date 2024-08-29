@@ -9,7 +9,7 @@ public class MarkingCommand extends Command {
         this.taskNum = Integer.valueOf(details) - 1;
     }
 
-    public void execute(TaskList tasks, Storage storage) {
+    public void execute(TaskList tasks, Storage storage) throws InvalidInputException {
         if (type == 1) {
             System.out.println("Excellent I have marked it: " + tasks.mark(taskNum));
         } else {

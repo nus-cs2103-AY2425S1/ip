@@ -9,7 +9,7 @@ public class AddCommand extends Command {
         this.details = details;
     }
 
-    public void execute(TaskList tasks, Storage storage) {
+    public void execute(TaskList tasks, Storage storage) throws InvalidInputException {
         String addition = "";
         if (type == 3) {
             addition = tasks.add(new Todo(details));
