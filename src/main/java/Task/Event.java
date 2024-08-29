@@ -3,6 +3,10 @@ package Task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task that takes place during a particular duration.
+ * If the event duration given is not the correct format, throws an InvalidTaskException.
+ */
 public class Event extends Task {
     protected String from;
     protected String to;
@@ -25,10 +29,20 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Returns the string representation of the start time of the event.
+     *
+     * @return Start time of the event.
+     */
     public String getFrom() {
         return from;
     }
 
+    /**
+     * Returns the string representation of the end time of the event.
+     *
+     * @return End time of the event.
+     */
     public String getTo() {
         return to;
     }

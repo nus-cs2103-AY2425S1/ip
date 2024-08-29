@@ -4,6 +4,11 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task that has a deadline to be completed by. A Deadline object has a deadline represented by
+ * a string and a LocalDate or LocalDateTime.
+ * If the deadline given is not the correct format, throws an InvalidTaskException.
+ */
 public class Deadline extends Task {
 
     String by;
@@ -27,6 +32,11 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Returns the string representation of the deadline.
+     *
+     * @return String representation of the deadline.
+     */
     public String getBy() {
         return by;
     }

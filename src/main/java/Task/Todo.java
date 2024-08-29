@@ -1,5 +1,9 @@
 package Task;
 
+/**
+ * Represents a task that has no deadline to be completed by.
+ *
+ */
 public class Todo extends Task {
 
     public Todo(String description) {

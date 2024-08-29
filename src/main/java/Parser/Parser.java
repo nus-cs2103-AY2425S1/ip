@@ -13,17 +13,28 @@ import Task.InvalidTaskException;
 
 import Task.TaskList;
 
-
+/**
+ * Parses the input from the user to be passed into the commands.
+ */
 public class Parser {
 
     private TaskList tasks;
     private Storage storage;
+
 
     public Parser(TaskList tasks, Storage storage) {
         this.storage = storage;
         this.tasks = tasks;
     }
 
+    /**
+     * Parses the input from the user to determine whether it is a valid input.
+     * If input is valid, returns the command to be executed.
+     * Else, returns an InvalidCommand.
+     *
+     * @param input Input text from the user.
+     * @return Command to be executed.
+     */
     public Command parseInput(String input) {
         String command = input.split(" ")[0];
         switch (command) {
