@@ -10,6 +10,11 @@ public class AddTodoCommand extends Command{
         this.input = input;
     }
 
+    /**
+     * Processes input given by the user to build a todo Task
+     *
+     * @param input
+     */
     public Task process(String input) throws DukeException {
         ArrayList<String> commands = new ArrayList<>();
         commands.add("todo");
@@ -23,6 +28,13 @@ public class AddTodoCommand extends Command{
         return new ToDo(todoItems[1]);
     }
 
+    /**
+     * Executes the task
+     *
+     * @param tasks
+     * @param ui
+     * @param storage
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task task = this.process(this.input);

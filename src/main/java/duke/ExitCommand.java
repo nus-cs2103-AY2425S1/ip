@@ -8,6 +8,13 @@ public class ExitCommand extends Command{
         this.input = input;
     }
 
+    /**
+     * Executes the task
+     *
+     * @param tasks
+     * @param ui
+     * @param storage
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException, IOException {
         Command.exit = true;

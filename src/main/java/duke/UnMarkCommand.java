@@ -8,12 +8,24 @@ public class UnMarkCommand extends Command{
         this.input = input;
     }
 
+    /**
+     * Processes input given by the user to return the unmark index
+     *
+     * @param input
+     */
     Integer process(String input) throws DukeException, ParseException {
         ArrayList<String> commands = new ArrayList<>();
         commands.add("mark");
         return Parser.ParseIndex(input, commands);
     }
 
+    /**
+     * Executes the task
+     *
+     * @param tasks
+     * @param ui
+     * @param storage
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
 

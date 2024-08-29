@@ -10,7 +10,11 @@ public class AddEventCommand extends Command{
     AddEventCommand(String input) {
         this.input = input;
     }
-
+    /**
+     * Processes input given by the user to build an event Task
+     *
+     * @param input
+     */
     Task process(String input) throws DukeException, ParseException {
         ArrayList<String> commands = new ArrayList<>();
         commands.add("event");
@@ -41,6 +45,13 @@ public class AddEventCommand extends Command{
         return new Event(eventItems[1], from, to);
     }
 
+    /**
+     * Executes the task
+     *
+     * @param tasks
+     * @param ui
+     * @param storage
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
         Task task = this.process(this.input);

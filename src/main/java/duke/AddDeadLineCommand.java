@@ -11,6 +11,11 @@ public class AddDeadLineCommand extends Command {
         this.input = input;
     }
 
+    /**
+     * Processes input given by the user to build a deadLine Task
+     *
+     * @param input
+     */
     Task process(String input) throws DukeException, ParseException {
         ArrayList<String> commands = new ArrayList<>();
         commands.add("deadline");
@@ -29,6 +34,13 @@ public class AddDeadLineCommand extends Command {
         return new DeadLine(deadLineItems[1], Parser.parseDate(deadLineItems[2]));
     }
 
+    /**
+     * Executes the task
+     *
+     * @param tasks
+     * @param ui
+     * @param storage
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
         Task task = this.process(this.input);
