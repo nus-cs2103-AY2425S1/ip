@@ -1,0 +1,18 @@
+task
+task task 1
+deadline
+deadline task 2 /by June 06 2024 00:00
+list
+event task 2 /from June 07 2024 00:00 /to June 07 2024 03:00
+list
+mark 4
+mark 0
+mark 1
+unmark 0
+list
+delete 0
+list
+blah
+mark y
+help
+bye!

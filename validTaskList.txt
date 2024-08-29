@@ -1,0 +1,6 @@
+[T][ ] task 1
+
+empty test line above, this is an invalid line itself
+[D][ ] task 2 (by: 22/06)
+[E][X] task3 (from: 22/6 to: 23/6)
+[T][ ] task 4

@@ -2,7 +2,8 @@ package chatbot;
 
 /**
  * Formats string to standardise chatbot
- * output format
+ * input / output format
+ * Streamlines user interaction
  *
  * @author celeschai
  */

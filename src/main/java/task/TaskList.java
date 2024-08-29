@@ -32,15 +32,15 @@ public class TaskList {
     }
 
     public void markTaskAsDone(int taskInd) {
-        this.todoList.get(taskInd).markAsDone();
+        this.todoList.get(taskInd - 1).markAsDone();
     }
 
     public void markTaskAsIncomplete(int taskInd) {
-        this.todoList.get(taskInd).markAsIncomplete();
+        this.todoList.get(taskInd - 1).markAsIncomplete();
     }
 
     public Task getTask(int taskInd) {
-        return this.todoList.get(taskInd);
+        return this.todoList.get(taskInd - 1);
     }
 
     public int getTotalNumOfTasks() {
@@ -48,7 +48,7 @@ public class TaskList {
     }
 
     public Task removeTask(int taskIndex) {
-        return this.todoList.remove(taskIndex);
+        return this.todoList.remove(taskIndex - 1);
     }
 
     /**
@@ -59,23 +59,35 @@ public class TaskList {
      * @return if task exists
      */
     public boolean isTaskExist(int taskInd) {
-        return this.todoList.size() > taskInd;
+        return this.todoList.size() >= taskInd;
     }
 
     /**
      * Enumerates and separates each task in the
-     * todo list on different lines
+     * task list on different lines
      *
-     * @return string representation of todo list
+     * @return string representation of task list
      */
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
         int len = this.todoList.size();
-        for (int n = 0; n < len; n++) {
-            Task task = this.todoList.get(n);
+        for (int n = 1; n <= len; n++) {
+            Task task = getTask(n);
             str.append(String.format("%d. %s\n", n, task));
         }
+        return str.toString();
+    }
+
+    /**
+     * Formats task list into a String to be saved in .txt file
+     *
+     * @return text representation of task list
+     */
+    public String parseTaskListToTxt() {
+        StringBuilder str = new StringBuilder();
+        this.todoList.forEach(item -> str.append(String.format("%s\n", item)));
+
         return str.toString();
     }
 }
