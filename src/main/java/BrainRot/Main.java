@@ -1,7 +1,5 @@
 package BrainRot;
 
-import BrainRot.BrainRot;
-
 /**
  * The BrainRot.Main class serves as the entry point for the application.
  * It initializes the BrainRot.BrainRot instance with the file path where tasks are stored
