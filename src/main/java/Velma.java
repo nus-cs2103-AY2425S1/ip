@@ -1,21 +1,22 @@
-import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Velma {
     private static final String FILE_PATH = "./data/velma.txt";
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Initializes a new instance of the Velma class.
+     * Sets up the UI, storage, and task list.
+     * If loading tasks from storage fails, an empty task list is created.
+     *
+     * @param filePath The file path to the storage file.
+     */
     public Velma(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -39,6 +40,11 @@ public class Velma {
         UNKNOWN
     }
 
+    /**
+     * Checks user input to determine which command to carry out.
+     *
+     * @param input The command specified to the chatbot.
+     */
     public static Command getCommand(String input) {
         if (input.startsWith("todo")) {
             return Command.TODO;
@@ -61,59 +67,21 @@ public class Velma {
         }
     }
 
-
-    public static ArrayList<Task> loadTasks() {
-        ArrayList<Task> list = new ArrayList<>();
-        File file = new File("/Users/zeonchew04/ip/data/velma.txt");
-        if (!file.exists()) {
-            System.out.println("No previous tasks found.");
-            return list;
-        }
-
-        try (Scanner scanner = new Scanner(file)) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] parts = line.split(" ", 3);
-                Task task;
-                switch (parts[0].charAt(1)) { // Extract task type from the string
-                    case 'T':
-                        task = new Todo(parts[2]);
-                        break;
-                    case 'D':
-                        String[] deadlineParts = parts[2].split(" \\(by: ", 2);
-                        String deadlineDescription = deadlineParts[0];
-                        String byString = deadlineParts[1].substring(0, deadlineParts[1].length() - 1);
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");// Remove closing parenthesis
-                        LocalDateTime by = LocalDateTime.parse(byString, formatter);
-                        task = new Deadline(deadlineDescription, by);
-                        break;
-                    case 'E':
-                        String[] eventParts = parts[2].split(" \\(from: | to: ", 3);
-                        String eventDescription = eventParts[0];
-                        String startTimeString = eventParts[1];
-                        String endTimeString = eventParts[2].substring(0, eventParts[2].length() - 1);
-                        task = new Event(eventDescription, startTimeString, endTimeString);
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown task type: " + parts[0]);
-                }
-                if (parts[1].equals("[X]")) {
-                    task.changeIsDone();
-                }
-                list.add(task);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred while loading tasks.");
-        }
-        System.out.println(list);
-        return list;
-    }
-
+    /**
+     * The main entry point for the Velma application.
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         Velma velma = new Velma(FILE_PATH);
         velma.run();
     }
 
+    /**
+     * Runs the main loop of the Velma application.
+     * Displays the welcome message and processes user commands until the "bye" command is received.
+     * Handles various commands such as adding tasks, marking tasks as done, listing tasks, and deleting tasks.
+     * Saves the task list to storage after each modification.
+    */
     public void run() {
         ui.showWelcome();
         Scanner req = new Scanner(System.in);

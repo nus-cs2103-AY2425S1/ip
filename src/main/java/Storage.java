@@ -83,8 +83,14 @@ public class Storage {
         System.out.println(list);
         return list;
     }
-    
 
+
+    /**
+     * Saves the tasks in the list to a file located at "/Users/zeonchew04/ip/data/velma.txt".
+     * The tasks are written to the file in the same format as they are read from the file.
+     * @param list
+     * @throws IOException if an error occurs while writing to the file.
+     */
     public void save(ArrayList<Task> list) {
 
         File file = new File(filepath);
