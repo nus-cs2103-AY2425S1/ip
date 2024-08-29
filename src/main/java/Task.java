@@ -90,7 +90,7 @@ abstract class Task {
     }
 
     /* the subclass of Task */
-    private static class Deadline extends Task {
+    public static class Deadline extends Task {
         protected LocalDate by;
 
         public Deadline(String description, String by) {
@@ -122,7 +122,7 @@ abstract class Task {
         }
     }
 
-    private static class Todo extends Task {
+    public static class Todo extends Task {
         @Override
         public String getFrom() {
             return "";
@@ -152,7 +152,7 @@ abstract class Task {
         }
     }
 
-    private static class Event extends Task {
+    public static class Event extends Task {
         protected String from;
         protected String to;
 

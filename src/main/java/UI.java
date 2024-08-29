@@ -29,6 +29,12 @@ public class Ui {
                 "Now you have %d tasks in the list.", task.toString(), total);
     }
 
+    public String showAdd(Task task, int total) {
+        return String.format("Got it. I've added this task:\n" +
+                "%s\n" +
+                "Now you have %d tasks in the list.", task.toString(), total);
+    }
+
 
 
     public String readInput() {

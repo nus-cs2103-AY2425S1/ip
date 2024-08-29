@@ -1,5 +1,5 @@
 import java.io.IOException;
-
+//the design of the class is referring to https://github.com/david-eom/CS2103T-IP/blob/master/src/main/java/duke/Duke.java#L150
 public class NewGreetBot {
 
     private Storage storage;
@@ -51,9 +51,9 @@ public class NewGreetBot {
             return this.markAsDone(Parser.parseMarkUnmark(segment[1]) - 1);
         } else if (keyword.equals("UNMARK")) {
             return this.markAsNotDone(Parser.parseMarkUnmark(segment[1]) - 1);
-        } /*else if (keyword.equals("TODO")) {
-            return ui.addTodo()
-        } else if (keyword.equals("EVENT")) {
+        } else if (keyword.equals("TODO")) {
+            return this.addTodo(Parser.parseTodo(segment[1]));
+        }/* else if (keyword.equals("EVENT")) {
             return ui.addEvent()
         } else if (keyword.equals("DEADLINE")) {
             return ui.addDeadline()
@@ -72,6 +72,12 @@ public class NewGreetBot {
     private String markAsNotDone(int position) {
         this.tasks.get(position).unmark();
         return ui.showUnmarked(tasks.get(position), tasks.getLength());
+    }
+
+    private String addTodo(String description) {
+        Task todo = new Task.Todo(description);
+        this.tasks.add(todo);
+        return this.ui.showAdd(todo, this.tasks.getLength());
     }
 
     public static void main(String[] args) {

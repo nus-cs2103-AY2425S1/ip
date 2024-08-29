@@ -10,5 +10,9 @@ public class Parser {
         return Integer.parseInt(input.trim());
     }
 
+    public static String parseTodo(String input) {
+        return input.trim();
+    }
+
 
 }
