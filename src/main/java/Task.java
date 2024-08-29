@@ -1,12 +1,11 @@
 public class Task {
 
-    private final String markedInfo;
-    private final String unmarkedInfo;
-    private boolean isDone = false;
+    private final String taskInfo;
+    private boolean isDone;
 
     public Task(String taskInfo) {
-        this.markedInfo = String.format("[X] %s", taskInfo);
-        this.unmarkedInfo = String.format("[ ] %s", taskInfo);
+        this.taskInfo = taskInfo;
+        this.isDone = false;
     }
 
     public void markDone() {
@@ -17,12 +16,20 @@ public class Task {
         this.isDone = false;
     }
 
-    public String checkIsDone() {
+    public boolean checkIsDone() {
+        return this.isDone;
+    }
+
+    public String stringIsDone() {
         if (this.isDone) {
-            return this.markedInfo;
+            return String.format("[X] %s", this.taskInfo);
         } else {
-            return this.unmarkedInfo;
+            return String.format("[ ] %s", this.taskInfo);
         }
+    }
+
+    public String getTask() {
+        return this.taskInfo;
     }
 
 }
