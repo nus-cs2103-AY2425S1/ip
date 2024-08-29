@@ -19,7 +19,7 @@ abstract class Task {
     /**
      * Returns task description in String to write in the file.
      */
-    public String taskData() {
+    public String getTaskData() {
         String str = " " + deli;
         if (isDone) {
             str += " 1 " + deli + " " + name;

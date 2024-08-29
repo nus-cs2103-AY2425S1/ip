@@ -14,8 +14,8 @@ public class Event extends Task{
     }
 
     @Override
-    public String taskData() {
-        return String.format("E" + super.taskData() + deli +
+    public String getTaskData() {
+        return String.format("E" + super.getTaskData() + deli +
                 from.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")) + deli +
                 to.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")) + "\n");
     }

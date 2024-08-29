@@ -1,4 +1,3 @@
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,6 +8,7 @@ import java.io.IOException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 
 /**
@@ -39,13 +39,13 @@ public class Kitty {
 //                |____/ \\__,_|_|\\_\\___|
 //                """;
 //        System.out.println("Hello from\n" + logo);
-        Greet();
+        greet();
     }
 
     /**
      * Prints greetings and initializes the list.
      */
-    private static void Greet() {
+    private static void greet() {
         System.out.println("Hello! I'm " + NAME);
         System.out.println("What can I do for you?\n");
         System.out.println(DIVISION_LINE);
@@ -53,7 +53,6 @@ public class Kitty {
             if (!KITTY_TASKS_DATA.exists()) {
                 File dir = new File(DIR_PATH);
                 boolean isCreated = dir.mkdirs();
-//                System.out.println("create directory: " + isCreated);
                 isCreated = KITTY_TASKS_DATA.createNewFile();
             }
         } catch (IOException e) {
@@ -66,9 +65,8 @@ public class Kitty {
             }
         } catch(FileNotFoundException e) {
             System.out.println("No file available");
-            // deal with file/ folder not yet exist scenario
         }
-        Echo();
+        echo();
     }
 
     /**
@@ -101,16 +99,16 @@ public class Kitty {
     /**
      * Takes charge of the main interactions of ChatBot with user.
      */
-    private static void Echo() {
+    private static void echo() {
         String command = "";
         Scanner sc = new Scanner(System.in);
         while (true) {
             command = sc.nextLine();
             if (command.contains("bye")) {
-                Exit();
+                exit();
                 return;
             } else if (command.contains("list")) {
-                List();
+                list();
             } else if (command.contains("delete")) {
                 delete(extractFirstNumber(command));
             } else if (command.contains("unmark")) {
@@ -155,7 +153,7 @@ public class Kitty {
 
             // update data structure and file
             TASKS.add(tmp);
-            String data = tmp.taskData();
+            String data = tmp.getTaskData();
             try {
                 addLine(data);
             } catch (IOException e) {
@@ -196,7 +194,7 @@ public class Kitty {
             fw.write("");
             fw.close();
             for (Task task: TASKS) {
-                addLine(task.taskData());
+                addLine(task.getTaskData());
             }
         } catch (IOException e) {
             return;
@@ -247,7 +245,7 @@ public class Kitty {
     /**
      * Lists out the tasks in the list.
      */
-    private static void List() {
+    private static void list() {
         int count = 1;
         Task[] tmp = new Task[0];
         System.out.println(DIVISION_LINE);
@@ -275,8 +273,8 @@ public class Kitty {
             System.out.printf("Now you have %d tasks in the list\n\n", TASKS.size());
             System.out.println(DIVISION_LINE);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(DIVISION_LINE + "\nIndex out of bound, you can only input integer from 1 to "
-                    + TASKS.size() + ".\n\n" + DIVISION_LINE);
+            System.out.println(DIVISION_LINE + "\nIndex out of bound, you can only input integer from 1 to " +
+                    TASKS.size() + ".\n\n" + DIVISION_LINE);
         }
     }
 
@@ -295,8 +293,8 @@ public class Kitty {
             System.out.println(" " + tmp);
             System.out.println("\n" + DIVISION_LINE);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(DIVISION_LINE + "\nIndex out of bound, you can only input integer from 1 to "
-                    + TASKS.size() + ".\n\n" + DIVISION_LINE);
+            System.out.println(DIVISION_LINE + "\nIndex out of bound, you can only input integer from 1 to " +
+                    TASKS.size() + ".\n\n" + DIVISION_LINE);
         }
     }
 
@@ -315,8 +313,8 @@ public class Kitty {
             System.out.println("  " + tmp);
             System.out.println("\n" + DIVISION_LINE);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(DIVISION_LINE + "\nIndex out of bound, you can only input integer from 1 to "
-                    + TASKS.size() + ".\n\n" + DIVISION_LINE);
+            System.out.println(DIVISION_LINE + "\nIndex out of bound, you can only input integer from 1 to " +
+                    TASKS.size() + ".\n\n" + DIVISION_LINE);
         }
     }
 
@@ -350,7 +348,7 @@ public class Kitty {
     /**
      * Closes the ChatBot.
      */
-    private static void Exit() {
+    private static void exit() {
         System.out.println(DIVISION_LINE);
         System.out.println("Bye. Hope I can see you again soon!\nNext time bring me some cat food please!!!\n");
         System.out.println(DIVISION_LINE);
