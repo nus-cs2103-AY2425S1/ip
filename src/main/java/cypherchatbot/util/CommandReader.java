@@ -6,7 +6,7 @@ import cypherchatbot.command.*;
 public class CommandReader {
 
     private static enum Commands {
-        LIST, TODO, EVENT, DEADLINE, MARK, UNMARK, BYE,HELP, DELETE
+        LIST, TODO, EVENT, DEADLINE, MARK, UNMARK, BYE,HELP, DELETE, FIND
     }
 
     public static Command parse(String input) throws CypherException {
@@ -56,6 +56,8 @@ public class CommandReader {
                 case DELETE:
                     int delVal = Integer.parseInt(command[1]) - 1;
                     return new DeleteCommand(delVal);
+                case FIND:
+                    return new FindCommand(command[1]);
                 default:
                     System.out.printf("\"%s\" is not a valid command. Type help in order to see the list of valid commands (This feature is still under construction)\n", command[0]);
                     return new HelpCommand();
