@@ -1,5 +1,4 @@
 import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -111,10 +110,10 @@ public class Cypher {
                         String[] deadlineSplit = command[1].split("/by", 2);
 
                         if (deadlineSplit[0].isEmpty()) {
-                            throw new CypherException("No task is given. The format of the deadline command is:\n deadline <Description of task> /by <your preferred deadline>");
+                            throw new CypherException("No task is given. The format of the deadline command is:\n deadline <Description of task> /by yyyy-MM-dd HH:mm");
                         }
                         else if (deadlineSplit.length != 2 || deadlineSplit[1].trim().isEmpty()) {
-                            throw new CypherException("No deadline is given. The format of the deadline command is:\n deadline <Description of task> /by <your preferred deadline>");
+                            throw new CypherException("No deadline is given. The format of the deadline command is:\n deadline <Description of task> /by yyyy-MM-dd HH:mm");
                         }
                         LocalDateTime by = LocalDateTime.parse(deadlineSplit[1].trim(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                         Task deadline = new Deadline(deadlineSplit[0], by);
@@ -124,10 +123,10 @@ public class Cypher {
                     case EVENT:
                         String[] eventSplit = command[1].split("/from|/to ", 3);
                         if (eventSplit[0].isEmpty()) {
-                            throw new CypherException("No task is given. The format of the event command is:\n event <Description of task> /from <from time> /to <to time>");
+                            throw new CypherException("No task is given. The format of the event command is:\n event <Description of task> /from yyyy-MM-dd HH:mm> /to yyyy-MM-dd HH:mm");
                         }
                         else if (eventSplit.length != 3 || eventSplit[1].trim().isEmpty() || eventSplit[2].trim().isEmpty()) {
-                            throw new CypherException("To/from is not given properly. The format of the deadline command is:\n event <Description of task> /from <from time> /to <to time>");
+                            throw new CypherException("To/from is not given properly. The format of the deadline command is:\n event <Description of task> /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm");
                         }
                         LocalDateTime from = LocalDateTime.parse(eventSplit[1].trim(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                         LocalDateTime to = LocalDateTime.parse(eventSplit[2].trim(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
