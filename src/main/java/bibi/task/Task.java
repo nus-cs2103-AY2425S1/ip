@@ -8,7 +8,7 @@ public class Task {
         this.task = task;
     }
 
-    public String getTask() {
+    public String getDescription() {
         return task;
     }
     public void markAsDone() {
