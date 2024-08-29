@@ -1,3 +1,7 @@
+package bobby;
+
+import bobby.exception.EmptyDescriptionException;
+
 public class Todo extends Task {
 
     public Todo(String s) {

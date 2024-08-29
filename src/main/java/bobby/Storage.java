@@ -1,9 +1,14 @@
+package bobby;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import bobby.exception.BobbyException;
+import bobby.exception.EmptyDescriptionException;
 
 public class Storage {
 

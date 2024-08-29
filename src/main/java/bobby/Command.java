@@ -1,3 +1,5 @@
+package bobby;
+
 public enum Command {
     BYE,
     LIST,

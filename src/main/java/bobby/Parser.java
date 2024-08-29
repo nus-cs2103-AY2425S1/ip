@@ -1,6 +1,11 @@
+package bobby;
+
+import bobby.exception.BobbyException;
+import bobby.exception.UnknownCommandException;
+
 public class Parser {
 
-    public static Command parse(String userInput) throws UnknownCommandException{
+    public static Command parse(String userInput) throws UnknownCommandException {
         String[] splitInput = userInput.split(" ");
         if (splitInput[0].equalsIgnoreCase("bye")) {
             return Command.BYE;
