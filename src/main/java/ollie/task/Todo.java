@@ -11,5 +11,7 @@ public class Todo extends Task {
         return "[T]" + super.toString();
     }
 
-    public String getFormattedString() { return "T | " + super.getFormattedString();}
+    public String getFormattedString() {
+        return "T | " + super.getFormattedString();
+    }
 }

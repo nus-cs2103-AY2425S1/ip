@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
 
-    protected LocalDate by;
+    private LocalDate by;
 
     public Deadline(String description, LocalDate by) {
         super(description);
@@ -17,5 +17,7 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
-    public String getFormattedString() { return "D | " + super.getFormattedString() + " | " + this.by;}
+    public String getFormattedString() {
+        return "D | " + super.getFormattedString() + " | " + this.by;
+    }
 }

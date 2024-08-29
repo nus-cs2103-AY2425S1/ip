@@ -20,7 +20,9 @@ public class TaskList {
         return tasks.size();
     }
 
-    public ArrayList<Task> getTasks() {return tasks;}
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
 
     public void add(Task task) {
         tasks.add(task);
@@ -50,9 +52,9 @@ public class TaskList {
     @Override
     public String toString() {
         ArrayList<String> list = new ArrayList<>();
-        for(int i = 0; i < tasks.size(); i++) {
-            list.add(String.format("%d.%s%s", i + 1,tasks.get(i),i == tasks.size() - 1 ? "": "\n"));
+        for (int i = 0; i < tasks.size(); i++) {
+            list.add(String.format("%d.%s%s", i + 1, tasks.get(i), i == tasks.size() - 1 ? "" : "\n"));
         }
-        return String.join("",list);
+        return String.join("", list);
     }
 }

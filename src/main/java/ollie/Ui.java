@@ -11,6 +11,7 @@ public class Ui {
     public String readCommand() {
         return scanner.nextLine();
     }
+
     public void showGreeting() {
         Ui.printResponse("Hello! I'm Ollie!\nWhat can I do for you?");
     }
@@ -24,10 +25,11 @@ public class Ui {
                 + task.toString()
                 + "\nNow you have " + size + " tasks in the list.");
     }
+
     public void showRemoveTask(Task task, int size) {
         Ui.printResponse("Noted. I've removed this task:\n  "
                 + task.toString()
-                + "\nNow you have " +size + " tasks in the list.");
+                + "\nNow you have " + size + " tasks in the list.");
     }
 
     public void showMarkAsDone(Task task) {

@@ -12,10 +12,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
-
 public class Parser {
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    public static Command parse(String input) throws OllieException{
+
+    public static Command parse(String input) throws OllieException {
 
         if (input.matches("list")) {
             return new ListCommand();
@@ -49,13 +49,13 @@ public class Parser {
         Task task;
 
         // Input parser:
-        if (s.matches("^deadline.*$")){
+        if (s.matches("^deadline.*$")) {
             if (!s.contains("/by")) {
                 throw new OllieException("Use deadline with a \"/by\" keyword and a date/time.");
             }
             String[] splitString = s.split("/by", 2);
 
-            String desc = splitString[0].replaceFirst("deadline","").trim();
+            String desc = splitString[0].replaceFirst("deadline", "").trim();
             if (desc.isEmpty()) {
                 throw new OllieException("Description of deadline cannot be empty!");
             }
@@ -73,7 +73,7 @@ public class Parser {
             }
 
             task = new Deadline(desc, by);
-        } else if(s.matches("^event.*")) {
+        } else if (s.matches("^event.*")) {
             if (!s.contains("/from")) {
                 throw new OllieException("Use deadline with a \"/from\" keyword and a date/time.");
             }
@@ -85,7 +85,7 @@ public class Parser {
             }
             String[] splitString = s.split("/from|/to", 3);
 
-            String desc = splitString[0].replaceFirst("event","").trim();
+            String desc = splitString[0].replaceFirst("event", "").trim();
             if (desc.isEmpty()) {
                 throw new OllieException("Description of event cannot be empty!");
             }
@@ -99,7 +99,7 @@ public class Parser {
                 throw new OllieException("Date/Time after /to cannot be empty!");
             }
 
-            LocalDate from,to;
+            LocalDate from, to;
             try {
                 from = LocalDate.parse(fromInString, Parser.formatter);
                 to = LocalDate.parse(toInString, Parser.formatter);
@@ -109,7 +109,7 @@ public class Parser {
 
             task = new Event(desc, from, to);
         } else {
-            String desc = s.replaceFirst("todo","").trim();
+            String desc = s.replaceFirst("todo", "").trim();
             if (desc.isEmpty()) {
                 throw new OllieException("Description of todo cannot be empty!");
             }
