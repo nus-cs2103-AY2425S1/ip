@@ -6,6 +6,7 @@ public class MonoBot {
     private static ArrayList<Task> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
+        MonoBot.loadTasks();
         MonoBot.printGreeting();
 
         Scanner sc = new Scanner(System.in);
@@ -156,8 +157,17 @@ public class MonoBot {
         };
     }
 
+    private static void loadTasks() {
+        taskList = Storage.loadTasksFromFile();
+    }
+
+    private static void saveTasks() {
+        Storage.saveTasksToFile(taskList);
+    }
+
     private static void addTask(Task task) {
         MonoBot.taskList.add(task);
+        MonoBot.saveTasks();
         MonoBot.hLine();
         System.out.println("Added: " + task);
         System.out.println("Now you have " + MonoBot.taskList.size() + " task(s) in the list");
@@ -168,6 +178,7 @@ public class MonoBot {
         MonoBot.hLine();
         Task taskToDelete = MonoBot.taskList.get(i);
         MonoBot.taskList.remove(i);
+        MonoBot.saveTasks();
         System.out.println("Noted! I have removed this task:\n" + taskToDelete);
         System.out.println("Now you have " + MonoBot.taskList.size() + " task(s) in the list");
         MonoBot.hLine();
@@ -189,6 +200,7 @@ public class MonoBot {
     private static void markTask(int i) {
         Task curr = MonoBot.taskList.get(i);
         curr.markTask();
+        MonoBot.saveTasks();
         MonoBot.hLine();
         System.out.println("Nice! I have marked this task as completed:\n" + curr);
         MonoBot.hLine();
@@ -197,6 +209,7 @@ public class MonoBot {
     private static void unmarkTask(int i) {
         Task curr = MonoBot.taskList.get(i);
         curr.unmarkTask();
+        MonoBot.saveTasks();
         MonoBot.hLine();
         System.out.println("Ok! I have marked this task as incomplete:\n" + curr);
         MonoBot.hLine();

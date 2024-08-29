@@ -14,5 +14,7 @@ src/main/resources/docs/
 *.iml
 bin/
 
+data/monobot.txt
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
