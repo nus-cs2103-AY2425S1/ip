@@ -1,8 +1,8 @@
 public class Task {
     private boolean marked = false;
-    private String name;
-    public Task(String name) {
-        this.name = name;
+    private String description;
+    public Task(String description) {
+        this.description = description;
     }
 
     public void markCompleted() {
@@ -13,9 +13,14 @@ public class Task {
         this.marked = false;
     }
 
+    public String formatString() {
+        String status = this.marked ? "1" : "0";
+        return String.format("| %s | %s", status, this.description);
+    }
+
     @Override
     public String toString() {
         String status = this.marked ? "[X]" : "[ ]";
-        return String.format("%s %s", status, this.name);
+        return String.format("%s %s", status, this.description);
     }
 }
