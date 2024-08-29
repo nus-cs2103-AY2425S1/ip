@@ -2,14 +2,13 @@ package commands;
 
 import commands.parser.Parser;
 import models.Task;
-
-import java.util.List;
+import models.TaskList;
 
 public class DeleteCommand implements Command {
     private final int itemIndex;
-    private final List<Task> items;
+    private final TaskList items;
 
-    public DeleteCommand(List<Task> items, String message) {
+    public DeleteCommand(TaskList items, String message) {
         String messageArgs = Parser.parseMessage(message).args();
         int index = Parser.parseInt(messageArgs) - 1;
 

@@ -3,15 +3,14 @@ package commands;
 import commands.parser.MissingArgumentException;
 import commands.parser.Parser;
 import models.Task;
+import models.TaskList;
 import models.ToDo;
 
-import java.util.List;
-
 public class CreateToDoCommand implements Command {
-    private final List<Task> items;
+    private final TaskList items;
     private final String name;
 
-    public CreateToDoCommand(List<Task> items, String message) {
+    public CreateToDoCommand(TaskList items, String message) {
         this.items = items;
 
         // Remove the keyword from the message

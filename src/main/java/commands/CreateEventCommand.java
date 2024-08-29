@@ -3,16 +3,15 @@ package commands;
 import commands.parser.Parser;
 import models.Event;
 import models.Task;
-
-import java.util.List;
+import models.TaskList;
 
 public class CreateEventCommand implements Command {
-    private final List<Task> items;
+    private final TaskList items;
     private final String name;
     private final String from;
     private final String to;
 
-    public CreateEventCommand(List<Task> items, String message) {
+    public CreateEventCommand(TaskList items, String message) {
         this.items = items;
 
         // Remove the keyword from the message

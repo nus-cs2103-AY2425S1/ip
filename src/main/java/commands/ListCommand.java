@@ -1,13 +1,12 @@
 package commands;
 
 import models.Task;
-
-import java.util.List;
+import models.TaskList;
 
 public class ListCommand implements Command {
-    private final List<Task> items;
+    private final TaskList items;
 
-    public ListCommand(List<Task> items) {
+    public ListCommand(TaskList items) {
         this.items = items;
     }
 

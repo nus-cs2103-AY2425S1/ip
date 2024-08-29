@@ -3,15 +3,14 @@ package commands;
 import commands.parser.Parser;
 import models.Deadline;
 import models.Task;
-
-import java.util.List;
+import models.TaskList;
 
 public class CreateDeadlineCommand implements Command {
-    private final List<Task> items;
+    private final TaskList items;
     private final String name;
     private final String by;
 
-    public CreateDeadlineCommand(List<Task> items, String message) {
+    public CreateDeadlineCommand(TaskList items, String message) {
         this.items = items;
 
         // Remove the keyword from the message
