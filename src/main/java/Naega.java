@@ -9,7 +9,7 @@ public class Naega {
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         String userInput;
 
         // Echo loop until user types "bye"
@@ -22,19 +22,34 @@ public class Naega {
                 System.out.println("____________________________________________________________");
                 break;
             } else if (userInput.equals("list")) {
-                System.out.println("____________________________________________________________");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println(" " + (i + 1) + ". " + tasks.get(i));
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Here are the tasks in your list:");
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println(" " + (i + 1) + "." + tasks.get(i));
+                    }
+                    System.out.println("____________________________________________________________");
+                } else if (userInput.startsWith("mark ")) {
+                    int taskIndex = Integer.parseInt(userInput.substring(5)) - 1;
+                    tasks.get(taskIndex).markAsDone();
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Nice! I've marked this task as done:");
+                    System.out.println("   " + tasks.get(taskIndex));
+                    System.out.println("____________________________________________________________");
+                } else if (userInput.startsWith("unmark ")) {
+                    int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
+                    tasks.get(taskIndex).markAsNotDone();
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" OK, I've marked this task as not done yet:");
+                    System.out.println("   " + tasks.get(taskIndex));
+                    System.out.println("____________________________________________________________");
+                } else {
+                    Task newTask = new Task(userInput);
+                    tasks.add(newTask);
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" added: " + userInput);
+                    System.out.println("____________________________________________________________");
                 }
-                System.out.println("____________________________________________________________");
-            } else {
-                tasks.add(userInput);
-                System.out.println("____________________________________________________________");
-                System.out.println(" " + userInput);
-                System.out.println("____________________________________________________________");
             }
+            scanner.close();
         }
-
-        scanner.close();
-    }
 }
