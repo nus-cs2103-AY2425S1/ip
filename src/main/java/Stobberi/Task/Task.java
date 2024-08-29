@@ -9,7 +9,7 @@ public class Task {
     /**
      * The description of the task.
      */
-    private String description;
+    private final String description;
 
     /**
      * The status of the task; {@code true} if the task is done, {@code false} otherwise.

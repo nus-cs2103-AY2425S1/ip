@@ -80,7 +80,6 @@ public class TaskList {
                         + listOfTasks.get(listOfTasks.size() - 1)
                         + "Now you have " + listOfTasks.size() + " in the list.");
     }
-<<<<<<< HEAD
     public void filterListByWord(String word) {
         String list = "Here are the matching tasks in your list:";
         int n = 1;
@@ -93,14 +92,11 @@ public class TaskList {
         }
         Ui.displayForm(list);
     }
-=======
-
     /**
      * Filters and displays tasks by the specified date.
      *
      * @param date The date to filter tasks by.
      */
->>>>>>> branch-A-JavaDoc
     public void filterListByDate(String date) {
         String list = "Here are the tasks in your list that you have to do on " + date + ":\n";
         int n = 1;
@@ -127,7 +123,7 @@ public class TaskList {
      * @param task The task to be added.
      * @throws StobberiException If an error occurs while adding the task.
      */
-    public void addTask(Task task) throws StobberiException {
+    public void addTask(Task task) {
         listOfTasks.add(task);
         displayLastAdded();
     }

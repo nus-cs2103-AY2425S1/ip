@@ -9,7 +9,7 @@ public class ListCommand extends Command {
     /**
      * The list of tasks to be displayed.
      */
-    private TaskList taskList;
+    private final TaskList taskList;
 
     /**
      * Constructs a new {@code ListCommand} with the specified {@link TaskList}.

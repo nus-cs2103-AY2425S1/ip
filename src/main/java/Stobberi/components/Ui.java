@@ -7,7 +7,7 @@ import java.util.Scanner;
  * Handles user greetings, farewells, and command input/output for the chatbot.
  */
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
     private final String NAME_OF_CHATBOT = "Stobberi";
     private final String HELLO_GREETING =
             "Hello! I'm " + NAME_OF_CHATBOT + ".\n"
