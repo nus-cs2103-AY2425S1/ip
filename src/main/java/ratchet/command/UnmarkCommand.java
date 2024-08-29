@@ -1,12 +1,12 @@
-package command;
+package ratchet.command;
 
-import storage.Storage;
-import task.Task;
-import task.TaskList;
-import ui.Ui;
+import ratchet.storage.Storage;
+import ratchet.task.Task;
+import ratchet.task.TaskList;
+import ratchet.ui.Ui;
 
 public class UnmarkCommand extends Command {
-    private int number;
+    private final int number;
 
     public UnmarkCommand(int number) {
         this.number = number;

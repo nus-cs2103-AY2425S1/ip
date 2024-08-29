@@ -1,9 +1,9 @@
-package command;
+package ratchet.command;
 
-import storage.Storage;
-import task.Task;
-import task.TaskList;
-import ui.Ui;
+import ratchet.storage.Storage;
+import ratchet.task.Task;
+import ratchet.task.TaskList;
+import ratchet.ui.Ui;
 
 import java.io.FileWriter;
 import java.io.IOException;
