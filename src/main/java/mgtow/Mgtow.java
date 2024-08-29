@@ -6,14 +6,22 @@ import mgtow.task.TaskList;
 import mgtow.ui.Ui;
 import mgtow.util.InvalidTaskException;
 import mgtow.util.Parser;
-
 import java.time.LocalDate;
 
+/**
+ * Main class for the MGTOW (Man Going Their Own Way) task management application.
+ * This class initializes the application, handles user interactions, and manages tasks.
+ */
 public class Mgtow {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a new Mgtow application instance.
+     *
+     * @param filePath The file path for storing tasks.
+     */
     public Mgtow(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -25,6 +33,9 @@ public class Mgtow {
         }
     }
 
+    /**
+     * Runs the Mgtow application, handling user input and executing commands.
+     */
     public void run() {
         ui.showWelcome();
         boolean isFinished = false;

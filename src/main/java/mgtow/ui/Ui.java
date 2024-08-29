@@ -7,6 +7,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manages the Ui in the Mgtow application.
+ * This class provides methods for displaying responses to the user.
+ */
 public class Ui {
     private static final String LINE = "____________________________________________";
     private Scanner scanner;

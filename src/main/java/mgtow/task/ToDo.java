@@ -1,9 +1,11 @@
 package mgtow.task;
 
-import mgtow.task.Task;
-
 import java.time.LocalDate;
 
+/**
+ * Represents a todo task in the MGTOW application.
+ * This class extends the Task class.
+ */
 public class ToDo extends Task {
     public ToDo(String desc) {
         super(desc, "T");

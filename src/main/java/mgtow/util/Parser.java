@@ -7,6 +7,9 @@ import mgtow.task.ToDo;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Utility class for parsing user input and creating task objects.
+ */
 public class Parser {
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -15,6 +18,13 @@ public class Parser {
         return fullCommand.split(" ", 2);
     }
 
+    /**
+     * Creates a Task object based on the given command parts.
+     *
+     * @param commandParts An array of strings representing the command and its parameters.
+     * @return A Task object created based on the command.
+     * @throws InvalidTaskException If the command is invalid or incomplete.
+     */
     public static Task createTask(String[] commandParts) throws InvalidTaskException {
         if (commandParts.length < 2 || commandParts[1].trim().isEmpty()) {
             throw new InvalidTaskException("What you want me to add?");

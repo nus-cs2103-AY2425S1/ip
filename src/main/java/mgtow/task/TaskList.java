@@ -1,12 +1,14 @@
 package mgtow.task;
 
-import mgtow.task.Task;
 import mgtow.util.InvalidTaskException;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * Manages a list of tasks in the Mgtow application.
+ * This class provides methods for adding, deleting, and manipulating tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -18,6 +20,11 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Adds a new task to the list.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         tasks.add(task);
         System.out.println("\tOk can. I've added this task:");
@@ -25,6 +32,11 @@ public class TaskList {
         System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
     }
 
+    /**
+     * Deletes a new task from the list.
+     *
+     * @param index The index of the task to be deleted.
+     */
     public void deleteTask(int index) throws InvalidTaskException {
         if (index < 0 || index >= tasks.size()) {
             throw new InvalidTaskException("Don't bother, task non-existent");
@@ -35,6 +47,12 @@ public class TaskList {
         System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
     }
 
+    /**
+     * Marks the task as done.
+     *
+     * @param index The index of the task to be marked.
+     * @throws InvalidTaskException If there is no task in list or index is invalid.
+     */
     public void markTask(int index) throws InvalidTaskException {
         if (index < 0 || index >= tasks.size()) {
             throw new InvalidTaskException("Don't bother, task non-existent");
@@ -45,6 +63,12 @@ public class TaskList {
         System.out.println("\t  " + task);
     }
 
+    /**
+     * Marks the task as not done.
+     *
+     * @param index The index of the task to be marked.
+     * @throws InvalidTaskException If there is no task in list or index is invalid.
+     */
     public void unmarkTask(int index) throws InvalidTaskException {
         if (index < 0 || index >= tasks.size()) {
             throw new InvalidTaskException("Don't bother, task non-existent");
@@ -66,6 +90,12 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Retrieves all tasks scheduled for a specific date.
+     *
+     * @param date The date to check for tasks.
+     * @return An ArrayList of tasks scheduled for the given date.
+     */
     public ArrayList<Task> getTasksOnDate(LocalDate date) {
         return tasks.stream()
                 .filter(task -> task.isOnDate(date))
