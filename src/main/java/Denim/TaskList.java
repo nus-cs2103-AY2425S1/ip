@@ -50,6 +50,15 @@ public class TaskList {
         taskList.remove(index);
     }
 
+    public TaskList findTasks(String keyword) {
+        TaskList matchingTasks = new TaskList();
+        for (Task task : taskList) {
+            if (task.getDescription().contains(keyword)) {  // Assuming Task has a getName() method
+                matchingTasks.addTask(task);
+            }
+        }
+        return matchingTasks;
+    }
 
     /**
      * Returns the task at the specified index in the task list.
