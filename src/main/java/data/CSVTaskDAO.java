@@ -30,14 +30,12 @@ public class CSVTaskDAO implements TaskDAO {
 
         while ((line = br.readLine()) != null) {
             String[] fields = line.split(",");
-
             if (fields.length < 4) continue;
             int id = Integer.valueOf(fields[0]);
             String type = fields[1].trim();
             boolean isMarked = "1".equals(fields[2].trim());
             String description = fields[3].trim();
             String extraData = fields.length > 4 ? fields[4].trim() : "";
-
             Task task = null;
 
             switch (type) {
@@ -48,7 +46,7 @@ public class CSVTaskDAO implements TaskDAO {
                     task = new DeadlineTask(description, extraData);
                     break;
                 case "E":
-                    String[] eventTimes = extraData.split("-");
+                    String[] eventTimes = extraData.split("~");
                     if (eventTimes.length == 2) {
                         String startAt = eventTimes[0].trim();
                         String endAt = eventTimes[1].trim();
@@ -134,7 +132,7 @@ public class CSVTaskDAO implements TaskDAO {
             sb.append("E,");
             sb.append(task.getIsMarked() ? "1," : "0,");
             sb.append(task.getName()).append(",");
-            sb.append(((EventTask) task).getStartAt()).append("-").append(((EventTask) task).getEndAt());
+            sb.append(((EventTask) task).getStartAt()).append("~").append(((EventTask) task).getEndAt());
         }
         return sb.toString();
     }

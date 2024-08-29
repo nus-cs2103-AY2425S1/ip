@@ -1,11 +1,13 @@
 package features.task;
 
+import java.time.LocalDate;
+
 public class DeadlineTask extends Task {
-	private String deadline;
+	private LocalDate deadline;
 
 	public DeadlineTask(String name, String deadline) {
 		super(name);
-		this.deadline = deadline;
+		this.deadline = LocalDate.parse(deadline);
 	}
 
 	@Override
@@ -14,6 +16,6 @@ public class DeadlineTask extends Task {
 	}
 
 	public String getDeadline() {
-		return this.deadline;
+		return this.deadline.toString();
 	}
 }
