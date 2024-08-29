@@ -47,7 +47,7 @@ public class Storage {
     }
 
     public TaskList loadListFromFile() throws YappingBotSaveFileNotFoundException {
-        TaskList userList = new ArrayList<>();
+        TaskList userList = new TaskList();
         File saveFile;
         Scanner scanner;
         try {

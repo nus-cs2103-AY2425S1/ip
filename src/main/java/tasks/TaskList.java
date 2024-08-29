@@ -4,8 +4,11 @@ import exceptions.YappingBotInvalidTaskNumberException;
 import exceptions.YappingBotOOBException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
-public class TaskList {
+public class TaskList implements Iterable<Task> {
     private static ArrayList<Task> tasks;
     private int size;
     public TaskList() {
@@ -31,4 +34,19 @@ public class TaskList {
         return tasks.get(index);
     }
     public boolean isEmpty() { return size == 0; }
+
+    @Override
+    public Iterator<Task> iterator() {
+        return tasks.iterator();
+    }
+
+    @Override
+    public void forEach(Consumer<? super Task> action) {
+        tasks.forEach(action);
+    }
+
+    @Override
+    public Spliterator<Task> spliterator() {
+        return tasks.spliterator();
+    }
 }
