@@ -2,9 +2,6 @@ package skibidi;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Optional;
-
-import skibidi.command.AbstractCommand;
 
 public class Skibidi {
     TaskList taskList;
@@ -30,9 +27,9 @@ public class Skibidi {
                     ui.printExitMessage();
                     break;
                 }
-                Optional<AbstractCommand> command = parser.parseCommand(line);
-                Optional<String> result = command.flatMap(cmd -> cmd.execute(taskList, storage, ui));
-                result.ifPresent(msg -> System.out.println(msg));
+                parser.parseCommand(line)
+                        .flatMap(cmd -> cmd.execute(taskList, storage, ui))
+                        .ifPresent(msg -> System.out.println(msg));
                 storage.saveTasksToDisk(taskList);
             } catch (IOException err) {
                 System.out.println(err.toString());
