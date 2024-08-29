@@ -12,11 +12,11 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Storage {
-    private String filePath;
-    private TaskList taskList;
+    private final String filePath;
+    private final TaskList taskList;
     public Storage(String filePath) {
         this.filePath = filePath;
-        taskList = new TaskList();
+        this.taskList = new TaskList();
     }
     public TaskList load() throws EchoException {
         File savedTasks  = new File(filePath);
@@ -54,13 +54,21 @@ public class Storage {
             String taskType  = splitLines[0].trim();
             switch(taskType) {
                 case "T":
-                    taskList.addTask(splitLines[2].trim(), TaskType.TODO, "");
+                    taskList.addTask(
+                            splitLines[2].trim(),
+                            TaskType.TODO,
+                            "");
                     break;
                 case "D":
-                    taskList.addDeadline(splitLines[2].trim(), LocalDate.parse(splitLines[3].trim()));
+                    taskList.addDeadline(
+                            splitLines[2].trim(),
+                            LocalDate.parse(splitLines[3].trim()));
                     break;
                 case "E":
-                    taskList.addTask(splitLines[2].trim(), TaskType.EVENT, splitLines[3].trim());
+                    taskList.addTask(
+                            splitLines[2].trim(),
+                            TaskType.EVENT,
+                            splitLines[3].trim());
                     break;
             }
 
@@ -71,11 +79,11 @@ public class Storage {
         return this.taskList;
     }
     public void saveToFile() {
-        FileWriter fw =  null;
+        FileWriter fileWriter =  null;
         try {
-            fw = new FileWriter(filePath);
-            fw.write(taskList.getTasksToSave());
-            fw.close();
+            fileWriter = new FileWriter(filePath);
+            fileWriter.write(taskList.getTasksToSave());
+            fileWriter.close();
         } catch (IOException e) {
             System.out.println("Failed to write to file");
         }

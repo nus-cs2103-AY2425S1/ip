@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Parser {
-    private static List<String> dateTimeFormats =
+    private static final List<String> DATEFORMATS =
             new ArrayList<>(
                     Arrays.asList(
                             "yyyy-M-d",
@@ -79,17 +79,16 @@ public class Parser {
     }
     public LocalDate parseDateTime(String s) throws DateTimeParseException {
         DateTimeFormatter formatter;
-        for (String pattern : dateTimeFormats) {
+        for (String pattern : DATEFORMATS) {
             formatter = DateTimeFormatter.ofPattern(pattern);
             try {
-                LocalDate ld = LocalDate.parse(s, formatter);
-                return ld;
+                LocalDate localDate = LocalDate.parse(s, formatter);
+                return localDate;
             } catch (DateTimeParseException e) {
             }
         }
         throw new DateTimeParseException("Cannot parse string", s, 0);
     }
-
     private enum Command {
         MARK,
         UNMARK,
