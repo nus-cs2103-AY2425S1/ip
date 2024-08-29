@@ -22,6 +22,11 @@ public class Parser {
         this.taskList = taskList;
     }
 
+    /*
+     * Validates the command input
+     * @param String inputType
+     * @return String
+     */
     public String commandValidation(String inputType) throws Meowception {
         try {         
             String[] parts = inputType.split(" ");
@@ -34,6 +39,12 @@ public class Parser {
         }
     }
 
+    /*
+     * Outputs the task based on the command
+     * @param Commands cmd
+     * @param String inputType
+     * @return String
+     */
     private String outputTask(Commands cmd,String inputType) throws Meowception {
         //System.out.println(inputType.substring(5).trim());
         switch (cmd) {
@@ -135,10 +146,7 @@ public class Parser {
             } // Add this closing curly brace
             throw new Meowception("001");
         }
-            
-        
 
-    
     /*
      * Parses the input command and returns a todo task
      * @param String command
@@ -173,6 +181,11 @@ public class Parser {
         throw new Meowception("200");
     }
     
+    /*
+     * Parses the input command and returns an event task
+     * @param String command
+     * @return Event task
+     */
     private Task parseEventTask(String command) throws Meowception {
         if (!command.contains("/from ") || !command.contains("/to ")) {
             throw new Meowception("300");
@@ -193,6 +206,11 @@ public class Parser {
         }
     }
 
+    /*
+     * Parses the input command and returns the task to be unmarked
+     * @param String task
+     * @return String
+     */
     private String parseUnmarkTask(String task) throws Meowception {
         String numberString = task.substring(task.indexOf(" " + 1));
         int number = Integer.parseInt(numberString);
@@ -203,6 +221,11 @@ public class Parser {
         }
     }
 
+    /*
+     * Parses the input command and returns the task to be marked
+     * @param String task
+     * @return String
+     */
     private String parseMarkTask(String task) throws Meowception {
         String numberString = task.substring(task.indexOf(" " + 1)).trim();
         int number = Integer.parseInt(numberString);
@@ -213,6 +236,11 @@ public class Parser {
         }
     }
 
+    /*
+     * Parses the input command and returns the task to be deleted
+     * @param String task
+     * @return String
+     */
     private String parseDeleteTask(String task) throws Meowception {
         String numberString = task.substring(task.indexOf(" " + 1)).trim();
         int number = Integer.parseInt(numberString);
@@ -222,30 +250,6 @@ public class Parser {
             return taskList.deleteTask(number);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     /*

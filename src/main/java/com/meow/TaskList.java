@@ -98,8 +98,6 @@ public class TaskList {
             String icon = "[" + tasks.get(number - 1).getCompetionChar() +"]";
             return "    Meow has marked this task as done:\n        " + icon +tasks.get(number - 1).getTaskName();
         }
-        
-
     }
 
     /*
@@ -108,18 +106,14 @@ public class TaskList {
      * @return String message to be shown to user
      */
     public String unmarkTask(int index) throws Meowception {
-         // Check if the task is already unmarked and stuff...  
-            
+         // Check if the task is already unmarked and stuff...         
         if (!tasks.get(index - 1).isDone()) {
             return "    Meow THIS TASK IS ALREADY UNMARKED !!! ";
         } else {
             tasks.get(index - 1).setDone(false);
             String icon = "[" + tasks.get(index - 1).getCompetionChar() +"]";
             return "    Meow has unmarked this task as done:\n      " + icon +tasks.get(index - 1).getTaskName();
-        }
-            
-            
-        
+        }          
     }
 
     /*
@@ -152,14 +146,17 @@ public class TaskList {
         }
     }
 
+    // Returns the message to be shown when a new task is added
     private String addedNewTaskMessage(Task task) {
         return "    Meow has added this task hehe:\n            " + task.toString() + "\n            Neow you have " + tasks.size() + " tasks in the list";
     }
 
+    // Returns the size of the task list
     public int getSize() {
         return tasks.size();
     }
 
+    // Returns the task at the specified index
     public Task get(int index) {
         return tasks.get(index);
     }

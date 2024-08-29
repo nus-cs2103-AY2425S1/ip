@@ -26,6 +26,11 @@ public class Meow {
         }
     }
 
+    /*
+     * Runs the Meow chatbot
+     * @return void
+     * @throws Meowception
+     */
     public void run() {
         parser = new Parser(tasks);
         ui.printStartMessage();
@@ -46,6 +51,11 @@ public class Meow {
         
     }
 
+    /*
+     * Main method for Meow
+     * @param String[] args
+     * @return void
+     */
     public static final void main(String[] args) throws Meowception, IOException {
         new Meow().run();
     }

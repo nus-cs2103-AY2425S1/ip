@@ -74,6 +74,11 @@ public class Save {
         
     }
 
+    /*
+     * Loads the tasks from the file
+     * @Params None
+     * @Return void
+     */
     public void load() throws Meowception, java.io.IOException {
         Parser parser = new Parser(taskList);
         List<String> tasks = read();

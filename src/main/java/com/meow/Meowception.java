@@ -2,10 +2,17 @@ package com.meow;
 public class Meowception extends Exception {
     String code;
     
+    // public consturctor for Meowception
     public Meowception (String code) {
         this.code = code;
     }
 
+    /*
+     * Returns the error message based on the error code
+     * @param void
+     * @return String
+     */
+    @Override
     public String toString() {
         switch (code) {
             case "001":

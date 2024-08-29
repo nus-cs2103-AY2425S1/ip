@@ -18,17 +18,22 @@ public class Ui {
     + "\n    What can I do for you Meow?"
     + "\n    _____________________________________________________________________";
 
+
+
     /*
-     * Public constructor for Ui
+     * Prints the list of tasks
+     * @param TaskList tasks
+     * @return void
      */
-    public Ui() {
-        
-    }
     public void showTaskOutcomeMessage(String msg) {
         System.out.println("    " + "_____________________________________________________________________");
         System.out.println("     " + msg);
         System.out.println("    " + "_____________________________________________________________________\n");
     }
+
+    /*
+     * Prints the exit message
+     */
     public void printExitMessage() {
         System.out.println("    " + "_____________________________________________________________________");
         System.out.println("     " + "Fine. Leave me just like everybody does meow.");
