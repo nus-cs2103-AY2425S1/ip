@@ -9,7 +9,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public boolean hasTrue(String word) {
+    public boolean hasWord(String word) {
         return description.contains(word);
     }
 
