@@ -13,6 +13,10 @@ public class UnmarkCommand implements Command {
         String messageArgs = Parser.parseMessage(message).args();
         int index = Parser.parseInt(messageArgs) - 1;
 
+        if (index < 0 || index >= items.size()) {
+            throw new InvalidIndexException(items.size(), index);
+        }
+
         this.items = items;
         this.itemIndex = index;
     }
