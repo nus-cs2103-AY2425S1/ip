@@ -1,5 +1,8 @@
 package janet;
 
+/**
+ * Represents a Task
+ */
 public class Task {
     private final String description;
     private final String symbol;
