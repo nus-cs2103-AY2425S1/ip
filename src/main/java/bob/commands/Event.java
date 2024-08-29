@@ -1,7 +1,21 @@
-public class Todo extends Command {
+package bob.commands;
+
+import bob.data.TaskList;
+import bob.tasks.EventTask;
+import bob.tasks.Task;
+import bob.storage.Storage;
+import bob.ui.Ui;
+
+import java.time.LocalDateTime;
+
+public class Event extends Command {
     String description;
-    public Todo(String description) {
+    LocalDateTime from;
+    String to;
+    public Event(String description, LocalDateTime from, String to) {
         this.description = description;
+        this.from = from;
+        this.to = to;
     }
 
     private static void taskAdded(TaskList list, Task t) {
@@ -10,7 +24,7 @@ public class Todo extends Command {
     }
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
-        Task t = new TodoTask(description);
+        Task t = new EventTask(description, from, to);
         list.add(t);
         taskAdded(list, t);
     }

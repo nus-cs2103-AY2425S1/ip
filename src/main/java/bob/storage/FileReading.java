@@ -1,3 +1,11 @@
+package bob.storage;
+
+import bob.data.TaskList;
+import bob.tasks.DeadlineTask;
+import bob.tasks.EventTask;
+import bob.tasks.Task;
+import bob.tasks.TodoTask;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

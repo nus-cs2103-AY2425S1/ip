@@ -1,11 +1,15 @@
-import java.time.LocalDateTime;
+package bob.commands;
 
-public class Deadline extends Command {
+import bob.storage.Storage;
+import bob.data.TaskList;
+import bob.ui.Ui;
+import bob.tasks.Task;
+import bob.tasks.TodoTask;
+
+public class Todo extends Command {
     String description;
-    LocalDateTime by;
-    public Deadline(String description, LocalDateTime by) {
+    public Todo(String description) {
         this.description = description;
-        this.by = by;
     }
 
     private static void taskAdded(TaskList list, Task t) {
@@ -14,7 +18,7 @@ public class Deadline extends Command {
     }
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
-        Task t = new DeadlineTask(description, by);
+        Task t = new TodoTask(description);
         list.add(t);
         taskAdded(list, t);
     }

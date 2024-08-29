@@ -1,3 +1,5 @@
+package bob.ui;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -7,7 +9,7 @@ public class Ui {
         scanner = new Scanner(System.in);
     }
 
-    static void showWelcome() {
+    public static void showWelcome() {
         String logo = "Bob";
         System.out.println("Hello! I'm " + logo);
         System.out.println("What can I do for you?");
@@ -17,7 +19,7 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    static void showError(String message) {
+    public static void showError(String message) {
         System.out.println(message);
     }
 }

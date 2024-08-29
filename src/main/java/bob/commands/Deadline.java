@@ -1,13 +1,19 @@
+package bob.commands;
+
+import bob.data.TaskList;
+import bob.tasks.DeadlineTask;
+import bob.tasks.Task;
+import bob.storage.Storage;
+import bob.ui.Ui;
+
 import java.time.LocalDateTime;
 
-public class Event extends Command {
+public class Deadline extends Command {
     String description;
-    LocalDateTime from;
-    String to;
-    public Event(String description, LocalDateTime from, String to) {
+    LocalDateTime by;
+    public Deadline(String description, LocalDateTime by) {
         this.description = description;
-        this.from = from;
-        this.to = to;
+        this.by = by;
     }
 
     private static void taskAdded(TaskList list, Task t) {
@@ -16,7 +22,7 @@ public class Event extends Command {
     }
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
-        Task t = new EventTask(description, from, to);
+        Task t = new DeadlineTask(description, by);
         list.add(t);
         taskAdded(list, t);
     }
