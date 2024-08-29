@@ -94,14 +94,15 @@ public class Parser {
                 // GitHub Copilot suggested the following code snippet
                 String description = input.split(" ", 2)[1].split(" /from ")[0];
                 // from is between /from and /to
-                String from = input.split(" /from ")[1].split(" /to ")[0];
-                String to = input.split(" /to ")[1];
+                String from = formatDate(input.split(" /from ")[1].split(" /to ")[0]);
+                String to = formatDate(input.split(" /to ")[1]);
                 taskList.addItem(new Event(description, from, to));
                 FormattedPrint.addTask(taskList.getLastTask(), taskList.getSize());
             } catch (ArrayIndexOutOfBoundsException e) {
                 FormattedPrint.invalidEventCommand();
+            } catch (DateTimeParseException e) {
+                FormattedPrint.invalidDateFormat();
             }
-
         } else if (CommandParser.checkCommand(input, Command.TODO.toString())) {
             try {
                 String description = input.split(" ", 2)[1];
