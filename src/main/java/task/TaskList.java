@@ -23,7 +23,7 @@ public class TaskList {
     }
 
     /**
-     * Add a specific task into the list of tasks.
+     * Adds a specific task into the list of tasks.
      *
      * @param task task to be added.
      */
@@ -33,7 +33,7 @@ public class TaskList {
     }
 
     /**
-     * List out the string representation of the specified task.
+     * Lists out the string representation of the specified task.
      *
      * @param i the position of the task in the list to be listed.
      * @return String the string representation of the task.
@@ -72,7 +72,7 @@ public class TaskList {
     }
 
     /**
-     * Help to add the task from the file when the chatbot just starts.
+     * Helps to add the task from the file when the chatbot just starts.
      *
      * @param task task to be loaded into the list
      */
@@ -81,7 +81,7 @@ public class TaskList {
     }
 
     /**
-     * Help to mark the task from the file when the chatbot just starts.
+     * Helps to mark the task from the file when the chatbot just starts.
      *
      * @param i the index of the file that is being marked as complete.
      */

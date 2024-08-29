@@ -7,14 +7,14 @@ import parser.Parser;
 import java.util.Scanner;
 
 /**
- * Responsible for prompting users for input and also to output responses to them.
+ * Prompts users for input and also to output responses to them.
  */
 public class Ui {
 
     private static Scanner input = new Scanner(System.in);
 
     /**
-     * Greet the user when the chatbot just starts and ask them for an input.
+     * Greets the user when the chatbot just starts and ask them for an input.
      */
     public static void greet() {
 
@@ -31,8 +31,8 @@ public class Ui {
     }
 
     /**
-     * Prints out the list of tasks that the chatbot is keeping track of.
-     * Ask them for input after that.
+     * Prints out the list of tasks that the chatbot is keeping track of and
+     * ask them for input after that.
      */
     public static void printList() {
         System.out.println("Here are your list of tasks:");
@@ -43,8 +43,8 @@ public class Ui {
     }
 
     /**
-     * Prints out the message when the user added a task to the list.
-     * Ask them for input after that.
+     * Prints out the message when the user added a task to the list and
+     * ask them for input after that.
      *
      * @param task task that is being added to the list.
      */
@@ -57,8 +57,8 @@ public class Ui {
     }
 
     /**
-     * Prints out the message when the user mark a task on the list.
-     * Ask them for input after that.
+     * Prints out the message when the user mark a task on the list and
+     * ask them for input after that.
      *
      * @param task task that is being marked on the list.
      */
@@ -70,8 +70,8 @@ public class Ui {
     }
 
     /**
-     * Prints out the message when the user unmark a task on the list.
-     * Ask them for input after that.
+     * Prints out the message when the user unmark a task on the list and
+     * ask them for input after that.
      *
      * @param task task that is being unmark on the list.
      */
@@ -83,8 +83,8 @@ public class Ui {
     }
 
     /**
-     * Prints out the message when the user delete a task on the list.
-     * Ask them for input after that.
+     * Prints out the message when the user delete a task on the list and
+     * ask them for input after that.
      *
      * @param task task that is being deleted on the list.
      */
@@ -97,7 +97,7 @@ public class Ui {
     }
 
     /**
-     * Asking the user for the next input to the chatbot.
+     * Asks the user for the next input to the chatbot.
      */
     public static void promptInput() {
         String command = input.nextLine();

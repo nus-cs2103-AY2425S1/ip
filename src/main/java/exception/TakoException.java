@@ -8,6 +8,7 @@ public class TakoException extends Exception {
     String message;
 
     /**
+     * Creates an exception with the message to be printed.
      *
      * @param message the error message to be printed
      */

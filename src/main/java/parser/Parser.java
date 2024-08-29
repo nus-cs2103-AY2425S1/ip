@@ -11,14 +11,14 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
- * This class is responsible to parsing all commands that is
+ * Parse all commands that is
  * being input into Tako chatbot.
  */
 public class Parser {
     public static ArrayList<Task> listOfTask = new ArrayList<Task>();
 
     /**
-     * Check whether the input command is recognizable by Tako.
+     * Checks whether the input command is recognizable by Tako.
      *
      * @param command the string that is being input into Tako.
      * @throws TakoException if the command is not recognized.
@@ -51,7 +51,7 @@ public class Parser {
     }
 
     /**
-     * Mark the task as complete according to the input
+     * Marks the task as complete according to the input
      *
      * @param command
      * @throws TakoException if the mark command is not in the right form
@@ -74,7 +74,7 @@ public class Parser {
     }
 
     /**
-     * Mark the task as incomplete according to the input
+     * Marks the task as incomplete according to the input
      *
      * @param command
      * @throws TakoException if the unmark command is not in the right form
@@ -97,7 +97,7 @@ public class Parser {
     }
 
     /**
-     * Delete the task according to the input from the list
+     * Deletes the task according to the input from the list
      *
      * @param command
      * @throws TakoException if the delete command is not in the right form
@@ -120,7 +120,7 @@ public class Parser {
     }
 
     /**
-     * Break down the command into its description
+     * Breaks down the command into its description
      * Make the todo task according to the description
      *
      * @param command
@@ -141,7 +141,7 @@ public class Parser {
     }
 
     /**
-     * Break down the command into its description and when it is due
+     * Breaks down the command into its description and when it is due
      * Make the deadline task according to the description and its due date
      *
      * @param command
@@ -173,7 +173,7 @@ public class Parser {
     }
 
     /**
-     * Break down the command into its description, starting date and end date
+     * Breaks down the command into its description, starting date and end date
      * Make the event task according to the description, start and end date
      *
      * @param command
@@ -215,7 +215,7 @@ public class Parser {
     }
 
     /**
-     * Check whether the input is of the correct format and if so,
+     * Checks whether the input is of the correct format and if so,
      * whether it is an existing date
      *
      *
@@ -232,7 +232,7 @@ public class Parser {
     }
 
     /**
-     * Change the date from MONTH DD YYYY to a local date class
+     * Changes the date from MONTH DD YYYY to a local date class
      *
      * @param date
      * @return LocalDate object

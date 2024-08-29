@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
- * Responsible for opening the file, storing of the task into the
+ * Opens the file, storing of the task into the
  * file if added, and loading of the file when Tako just starts up.
  */
 public class Storage {
@@ -20,8 +20,8 @@ public class Storage {
     private File directoryFile;
 
     /**
-     * Checks if a directory exists and create one if it does not
-     * Checks if a text file exists and create one if it does not
+     * Checks if a directory exists and create one if it does not and
+     * checks if a text file exists and create one if it does not
      *
      * @param filePath destination of the file to load
      * @throws IOException if there is issue in opening/finding a file
@@ -71,7 +71,7 @@ public class Storage {
     }
 
     /**
-     * Write the lists of tasks into the text file and store it in the hard drive.
+     * Writes the lists of tasks into the text file and store it in the hard drive.
      *
      * @param tasks tasks to be stored into the file.
      * @throws IOException if the file to be stored to does not exist.
