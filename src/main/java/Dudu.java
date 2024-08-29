@@ -48,13 +48,13 @@ public class Dudu {
                         break;
                     case D: {
                         String description = content.split("\\|")[0];
-                        String date = content.split("\\|")[1];
+                        LocalDate date = LocalDate.parse(content.split("\\|")[1].trim());
                         task = new Deadline(description, date);
                         break;
                     } case E: {
                         String description = content.split("\\|")[0];
-                        String from = content.split("\\|")[1];
-                        String to = content.split("\\|")[2];
+                        LocalDate from = LocalDate.parse(content.split("\\|")[1].trim());
+                        LocalDate to = LocalDate.parse(content.split("\\|")[2].trim());
                         task = new Event(description, from, to);
                         break;
                     }
@@ -109,7 +109,8 @@ public class Dudu {
                         if (details.length == 1 || details[1].trim().isEmpty()) {
                             throw new MissingDateTimeException("Missing by time");
                         }
-                        Deadline task = new Deadline(details[0].trim(), details[1].trim());
+                        LocalDate by = LocalDate.parse(details[1].trim());
+                        Deadline task = new Deadline(details[0].trim(), by);
                         addTask(task);
                         break;
                     } case EVENT: {
@@ -129,7 +130,9 @@ public class Dudu {
                         if (date.length <= 1 || date[0].trim().isEmpty() || date[1].trim().isEmpty()) {
                             throw new MissingDateTimeException("Missing from/to time");
                         }
-                        Event task = new Event(description, date[0].trim(), date[1].trim());
+                        LocalDate from = LocalDate.parse(date[0].trim());
+                        LocalDate to = LocalDate.parse(date[1].trim());
+                        Event task = new Event(description, from, to);
                         addTask(task);
                         break;
                     } case MARK: {
