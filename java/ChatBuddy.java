@@ -8,9 +8,12 @@ class ChatBuddyException extends Exception {
 }
 
 public class ChatBuddy {
+    private static final String FILE_PATH = "./data/duke.txt";
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>(); // Using ArrayList instead of array
+        FileHandler fileHandler = new FileHandler(FILE_PATH);
+        ArrayList<Task> tasks = fileHandler.loadTasks(); //Load tasks from file
 
         try {
             System.out.println("_____________________________________________");
@@ -43,6 +46,7 @@ public class ChatBuddy {
                             System.out.println("Nice! I've marked this task as done:");
                             System.out.println(" " + tasks.get(taskNumber));
                             System.out.println("_____________________________________________");
+                            fileHandler.saveTasks(tasks); // Save changes
                         } else {
                             throw new ChatBuddyException("Task number out of range!");
                         }
@@ -56,6 +60,7 @@ public class ChatBuddy {
                             System.out.println("OK, I've marked this task as not done yet:");
                             System.out.println(" " + tasks.get(taskNumber));
                             System.out.println("_____________________________________________");
+                            fileHandler.saveTasks(tasks);
                         } else {
                             throw new ChatBuddyException("Task number out of range!");
                         }
@@ -73,6 +78,7 @@ public class ChatBuddy {
                         System.out.println(" " + tasks.get(tasks.size() - 1));
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("_____________________________________________");
+                        fileHandler.saveTasks(tasks);
 
                     } else if (userInput.startsWith("deadline")) {
                         // Add a Deadline task
@@ -92,6 +98,7 @@ public class ChatBuddy {
                         System.out.println(" " + tasks.get(tasks.size() - 1));
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("_____________________________________________");
+                        fileHandler.saveTasks(tasks);
 
                     } else if (userInput.startsWith("event")) {
                         // Add an Event task
@@ -112,6 +119,7 @@ public class ChatBuddy {
                         System.out.println(" " + tasks.get(tasks.size() - 1));
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("_____________________________________________");
+                        fileHandler.saveTasks(tasks);
 
                     } else if  (userInput.startsWith("delete ")) {
                         // Delete a task
@@ -123,6 +131,7 @@ public class ChatBuddy {
                             System.out.println(" " + removedTask);
                             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                             System.out.println("_____________________________________________");
+                            fileHandler.saveTasks(tasks);
                         } else {
                             throw new ChatBuddyException("Task number out of range!");
                         }
