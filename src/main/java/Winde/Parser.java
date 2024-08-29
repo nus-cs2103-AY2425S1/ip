@@ -33,6 +33,9 @@ public class Parser {
             case DATE:
                 commands = new TaskDateCommand();
                 break;
+            case FIND:
+                commands = new FindCommand();
+                break;
             case BYE:
                 commands = new ByeCommand();
                 break;
@@ -73,13 +76,15 @@ public class Parser {
             return subCommands.UNMARK;
         } else if (input.startsWith("date")) {
             return subCommands.DATE;
+        } else if (input.startsWith("find")) {
+            return subCommands.FIND;
         } else {
             return subCommands.UNKNOWN;
         }
     }
 
     enum subCommands {
-        TODO, DEADLINE, EVENT, LIST, DELETE, BYE, MARK, UNMARK, DATE, UNKNOWN
+        TODO, DEADLINE, EVENT, LIST, DELETE, BYE, MARK, UNMARK, DATE, FIND, UNKNOWN
     }
 
     static class UnsupportedCommandException extends Exception {

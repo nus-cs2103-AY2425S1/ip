@@ -34,6 +34,10 @@ class Task {
         return LocalDate.now();
     }
 
+    public String getAction() {
+        return action;
+    }
+
     @Override
     public String toString() {
         return (complete ? "X" : "O") + " | " + action;
