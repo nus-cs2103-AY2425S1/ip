@@ -1,4 +1,6 @@
-import TaskObj.Task;
+package Milo;
+
+import Milo.TaskObj.Task;
 import java.util.ArrayList;
 
 public class TaskList {

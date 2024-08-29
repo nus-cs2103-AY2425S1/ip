@@ -1,7 +1,9 @@
-import TaskObj.Deadlines;
-import TaskObj.Events;
-import TaskObj.Task;
-import TaskObj.Todos;
+package Milo;
+
+import Milo.TaskObj.Deadlines;
+import Milo.TaskObj.Events;
+import Milo.TaskObj.Task;
+import Milo.TaskObj.Todos;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

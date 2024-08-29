@@ -1,4 +1,4 @@
-package TaskObj;
+package Milo.TaskObj;
 public class Task {
     public static int taskNumber = 0;
     private final String description;
