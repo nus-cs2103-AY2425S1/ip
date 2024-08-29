@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class Parser {
     // https://github.com/nus-cs2103-AY2425S1/forum/issues/22#issuecomment-2309939016
-    public HashMap<String, CommandTypes> commandsHashMap;
+    public final HashMap<String, CommandTypes> commandsHashMap;
     public Parser() {
         commandsHashMap = new HashMap<>();
         commandsHashMap.put("list", CommandTypes.LIST);
@@ -32,7 +32,7 @@ public class Parser {
         }
     }
     public static int parseTaskNumberSelected(String userInputSlice, TaskList userList) throws YappingBotInvalidTaskNumberException {
-        int i = -1;
+        int i;
         try {
             i = Integer.parseInt(userInputSlice) - 1;
         } catch (NumberFormatException ex) {

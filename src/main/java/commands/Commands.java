@@ -7,9 +7,6 @@ import tasks.*;
 import ui.MultilineStringBuilder;
 import ui.Ui;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class Commands {
     public static void printUserList(TaskList userList) {
         if (userList.isEmpty()) {

@@ -7,7 +7,7 @@ public class MultilineStringBuilder {
     }
 
     public void print() {
-        System.out.println(toString());
+        System.out.println(this);
     }
     @Override
     public String toString() {

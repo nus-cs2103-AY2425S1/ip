@@ -71,7 +71,7 @@ public class Storage {
             for (Exception e : errorLists) {
                 msb.addLine(e.getMessage());
             }
-            Ui.printError(String.format(ReplyTextMessages.LOAD_FILE_ERROR_1s, msb.toString()));
+            Ui.printError(String.format(ReplyTextMessages.LOAD_FILE_ERROR_1s, msb));
         }
         return userList;
     }

@@ -1,6 +1,5 @@
 package tasks;
 
-import exceptions.YappingBotInvalidTaskNumberException;
 import exceptions.YappingBotOOBException;
 
 import java.util.ArrayList;
