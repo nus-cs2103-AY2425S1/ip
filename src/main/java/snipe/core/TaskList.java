@@ -43,6 +43,17 @@ public class TaskList {
         return this.tasks;
     }
 
+    public ArrayList<Task> findTasks(String keyWord) {
+        ArrayList<Task> filteredTasks = new ArrayList<Task>();
+        for (Task task: this.tasks) {
+            String text = task.getDescription();
+            if (text.contains(keyWord)) {
+                filteredTasks.add(task);
+            }
+        }
+        return filteredTasks;
+    }
+
     public String listLength() {
         return String.format("\n Now you have %d %s in the list.", tasks.size(), tasks.size() == 1 ? "task" : "tasks");
     }
