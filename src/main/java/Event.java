@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -16,7 +15,7 @@ public class Event extends Task{
     @Override
     public String toString() {
         String str = this.completed ? "[E][X] " : "[E][ ] ";
-        str += String.format("%s (from: %s to: %s)", this.description,
+        str += String.format("%s (from: %s || to: %s)", this.description,
                 this.from.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")),
                     this.to.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")));
         return str;
