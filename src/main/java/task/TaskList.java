@@ -1,9 +1,15 @@
+package task;
+
+import exceptions.AlreadyCompletedException;
+import exceptions.TaskDoesNotExistException;
+
 import java.util.ArrayList;
 
-public class HimList {
+
+public class TaskList {
     private ArrayList<Task> list;
 
-    public HimList() {
+    public TaskList() {
         this.list = new ArrayList<>();
     }
 

@@ -1,3 +1,7 @@
+package task;
+
+import exceptions.AlreadyCompletedException;
+
 public abstract class Task {
     private boolean isComplete = false;
     private String title;
