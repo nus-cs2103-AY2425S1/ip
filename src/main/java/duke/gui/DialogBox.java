@@ -41,11 +41,11 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        Circle shape = new Circle(50, 50, 50);
-
         dialog.setText(text);
         displayPicture.setImage(img);
-        displayPicture.setClip(shape);
+
+        Circle clip = new Circle(30, 30, 30);
+        displayPicture.setClip(clip);
     }
 
     /**

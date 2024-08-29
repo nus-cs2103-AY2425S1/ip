@@ -2,6 +2,7 @@ package duke.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -104,5 +105,91 @@ class TaskListTest {
         newOut.reset();
         e = assertThrows(DukeException.class, () -> taskList.deleteTask("2"));
         assertEquals("Invalid index provided.", e.getMessage());
+    }
+
+    /**
+     * Tests marking a task as done.
+     */
+    @Test
+    void testMarkTask() throws DukeException {
+        TaskList taskList = TaskList.getInstance();
+        taskList.createTask("todo", "task to mark");
+        newOut.reset();
+        taskList.mark("1");
+        String expected = "Nice! I've marked this task as done:\n"
+                + "[T][X] task to mark";
+        assertTrue(newOut.toString().trim().contains(expected));
+    }
+
+    /**
+     * Tests unmarking a task.
+     */
+    @Test
+    void testUnmarkTask() throws DukeException {
+        TaskList taskList = TaskList.getInstance();
+        taskList.createTask("todo", "task to unmark");
+        taskList.mark("1");
+        newOut.reset();
+        taskList.unmark("1");
+        String expected = "Ok, I've marked this task as not done yet:\n"
+                + "[T][ ] task to unmark";
+        assertTrue(newOut.toString().trim().contains(expected));
+    }
+
+    /**
+     * Tests listing tasks when the list is empty.
+     */
+    @Test
+    void testEmptyList() throws DukeException {
+        TaskList taskList = TaskList.getInstance();
+        taskList.printTaskList();
+        assertEquals("List is currently empty.", newOut.toString().trim());
+    }
+
+    /**
+     * Tests listing tasks when the list is not empty.
+     */
+    @Test
+    void testNonEmptyList() throws DukeException {
+        TaskList taskList = TaskList.getInstance();
+        taskList.createTask("todo", "test task");
+        newOut.reset();
+        taskList.printTaskList();
+        assertTrue(newOut.toString().contains("Here are the tasks in your list:\n1. [T][ ] test task"));
+    }
+
+    /**
+     * Tests finding tasks based on a keyword.
+     */
+    @Test
+    void testFindTask() throws DukeException {
+        TaskList taskList = TaskList.getInstance();
+        taskList.createTask("todo", "read book");
+        taskList.createTask("todo", "write report");
+        newOut.reset();
+        taskList.filter("book");
+        assertTrue(newOut.toString().contains("Here are the matching tasks in your list:"));
+        assertTrue(newOut.toString().contains("[T][ ] read book"));
+        assertTrue(!newOut.toString().contains("write report"));
+    }
+
+    /**
+     * Tests the behavior when trying to mark a task with an invalid index.
+     */
+    @Test
+    void testMarkInvalidTask() {
+        TaskList taskList = TaskList.getInstance();
+        DukeException e = assertThrows(DukeException.class, () -> taskList.mark("1"));
+        assertEquals("List is empty, no tasks to mark.", e.getMessage());
+    }
+
+    /**
+     * Tests the behavior when trying to unmark a task with an invalid index.
+     */
+    @Test
+    void testUnmarkInvalidTask() {
+        TaskList taskList = TaskList.getInstance();
+        DukeException e = assertThrows(DukeException.class, () -> taskList.unmark("1"));
+        assertEquals("List is empty, no tasks to unmark.", e.getMessage());
     }
 }
