@@ -62,11 +62,6 @@ public class Task {
         this.done = false;
     }
 
-    /**
-     * Returns a string representation of the Task, including its completion status and description.
-     *
-     * @return A string that represents the Task.
-     */
     @Override
     public String toString() {
         String complete = " ";

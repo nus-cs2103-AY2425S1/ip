@@ -24,11 +24,6 @@ public class ToDo extends Task {
         super(description, done);
     }
 
-    /**
-     * Returns a string representation of the ToDo task, including its type and completion status.
-     *
-     * @return A string representing the ToDo task.
-     */
     @Override
     public String toString() {
         return "T | " + super.toString();

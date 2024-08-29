@@ -35,12 +35,6 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    /**
-     * Returns a string representation of the Deadline task, including its type,
-     * description, completion status, and due date.
-     *
-     * @return A string that represents the Deadline task.
-     */
     @Override
     public String toString() {
         return "D | " + super.toString() + " | by: " + this.by.format(formatter);

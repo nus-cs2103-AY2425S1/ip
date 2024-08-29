@@ -160,6 +160,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds a task based on the entered keyword.
+     *
+     * @param keyword The keyword used to find results.
+     */
     public void findTask(String keyword) {
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {

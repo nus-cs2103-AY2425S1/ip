@@ -40,15 +40,9 @@ public class Event extends Task {
         this.to = to;
     }
 
-    /**
-     * Returns a string representation of the Event task, including its type,
-     * description, completion status, start time, and end time.
-     *
-     * @return A string that represents the Event task.
-     */
     @Override
     public String toString() {
         return "E | " + super.toString() + " | from: " + this.from.format(formatter) +
-                                              " to: " + this.to.format(formatter);
+                " to: " + this.to.format(formatter);
     }
 }

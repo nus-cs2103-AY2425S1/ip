@@ -35,7 +35,6 @@ public class Bruno {
 
     public static void main(String[] args) {
         Bruno bruno = new Bruno("src/main/data/", "src/main/data/bruno.txt");
-        
         bruno.run();
     }
 
@@ -47,13 +46,13 @@ public class Bruno {
      */
     public void run() {
         Ui.printGreetingMessage();
-        boolean running = true;
-        while (running) {
+        boolean isRunning = true;
+        while (isRunning) {
             String userResponse = Ui.readCommand();
             Command command = Parser.parse(userResponse, tasks);
             if (command != null) {
                 command.execute();
-                running = !command.isExit();
+                isRunning = !command.isExit();
             }
         }
     }
