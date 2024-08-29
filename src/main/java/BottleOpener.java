@@ -1,8 +1,10 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class BottleOpener {
     public static void main(String[] args) {
@@ -10,16 +12,61 @@ public class BottleOpener {
         String botName = "BottleOpener";
         String greeting = "Hello! I'm " + botName + ".\n" + "What can I do for you?\n";
         String goodbye = "Bye! See you next time!\n";
+        System.out.println(spacer + greeting + spacer);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println(spacer + greeting + spacer);
+        String filepath = "data/BottleOpener.txt";
+        Path path = Paths.get(filepath);
 
         int index = 0;
         ArrayList<Task> tasks = new ArrayList<Task>();
-        boolean flag = true;
 
+        try {
+            if (Files.exists(path)) {
+                String content = Files.readString(path);
+                String[] lines = content.split("\n");
+                for (String line : lines) {
+                    String[] word = line.split("\\|");
+                    String type = word[0];
+                    boolean status = word[1].contains("X");
+
+                    if (type.equals("T")) {
+                        Task newTask = new ToDo(word[2], status);
+                        tasks.add(newTask);
+                    } else if (type.equals("D")) {
+                        Task newTask = new Deadline(word[2], status, word[3]);
+                        tasks.add(newTask);
+                    } else if (type.equals("E")) {
+                        Task newTask = new Event(word[2], status, word[3], word[4]);
+                        tasks.add(newTask);
+                    }
+                    index++;
+
+                }
+            } else {
+                Files.createDirectories(path.getParent());
+                Files.createFile(path);
+            }
+        } catch (IOException e) {
+            System.out.println("Invalid");
+        }
+
+        boolean flag = true;
         while (flag) {
+
+            String outputFile = "";
+            for (int i = 0; i < tasks.size(); i++) {
+                Task curr = tasks.get(i);
+                outputFile = outputFile + String.format("%s|%s|%s|%s%n", curr.getType(), curr.getStatusIcon(),
+                        curr.getDescription(), curr.getTime());
+            }
+            try {
+                Files.writeString(path, outputFile);
+            } catch (IOException e) {
+                System.out.println("Invalid");
+            }
+
             String inp = "";
 
             try {
@@ -65,7 +112,7 @@ public class BottleOpener {
                         tasks.set(num - 1, mod);
                         System.out.println(spacer + "I have added it back to the list!\n" + spacer);
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println(spacer + "Please tell me which task to mark!\n" + spacer);
+                        System.out.println(spacer + "Please tell me which task to unmark!\n" + spacer);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println(spacer + "Please provide an appropriate number!\n" + spacer);
                     } catch (NumberFormatException e) {
@@ -130,9 +177,7 @@ public class BottleOpener {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println(spacer + "Please add a description!\n" + spacer);
                     }
-
             }
-
         }
     }
 }

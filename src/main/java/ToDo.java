@@ -16,9 +16,12 @@ public class ToDo extends Task {
         return new ToDo(this.description, false);
     }
 
-    @Override
-    public String toString() {
-        return String.format("[T] %s", super.toString());
+    public String getType() {
+        return "T";
+    }
+
+    public String getTime() {
+        return "";
     }
 
 }

@@ -19,9 +19,17 @@ public class Deadline extends Task {
         return new Deadline(this.description, false, this.deadline);
     }
 
+    public String getType() {
+        return "D";
+    }
+
+    public String getTime() {
+        return this.deadline;
+    }
+
     @Override
     public String toString() {
-        return String.format("[D] %s (%s)", super.toString(), this.deadline);
+        return String.format("%s (%s)", super.toString(), this.deadline);
     }
 
 }

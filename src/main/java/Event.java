@@ -22,9 +22,17 @@ public class Event extends Task {
         return new Event(this.description, false, this.start, this.end);
     }
 
+    public String getType() {
+        return "E";
+    }
+
+    public String getTime() {
+        return this.start + "|" + this.end;
+    }
+
     @Override
     public String toString() {
-        return String.format("[D] %s (%s %s)", super.toString(), this.start, this.end);
+        return String.format("%s (%s %s)", super.toString(), this.start, this.end);
     }
 
 }
