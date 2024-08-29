@@ -11,9 +11,10 @@ public class Parser {
             case "deadline" -> new DeadlineCommand(inputWords);
             case "event" -> new EventCommand(inputWords);
             case "delete" -> new DeleteCommand(inputWords);
-            case "add" -> new AddCommand(inputWords);
             case "mark" -> new MarkCommand(inputWords);
             case "unmark" -> new UnmarkCommand(inputWords);
+            case "list" -> new ListCommand(inputWords);
+            case "bye" -> new ExitCommand(inputWords);
             default -> new Command(inputWords);
         };
         return command;

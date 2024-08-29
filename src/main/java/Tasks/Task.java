@@ -1,6 +1,8 @@
 package Tasks;
 
 import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
 
 public class Task {
     protected final String name;
@@ -22,7 +24,11 @@ public class Task {
         this.isDone = false;
     }
 
-    public void writeToFile(FileWriter fileWriter) {
+    public void writeToFile(FileWriter fileWriter) throws IOException {
+        return;
+    }
+
+    public void writeToFile(Path filePath) throws IOException {
         return;
     }
 

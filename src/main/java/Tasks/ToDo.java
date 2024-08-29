@@ -4,6 +4,7 @@ import Tasks.Task;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 
 public class ToDo extends Task {
     public ToDo(String name) {
@@ -11,7 +12,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public void writeToFile(FileWriter fileWriter) {
+    public void writeToFile(FileWriter fileWriter) throws IOException {
         // Write event to file
         try {
             String toWrite = "T | ";
@@ -22,6 +23,24 @@ public class ToDo extends Task {
             }
             toWrite += this.name + "\n";
             fileWriter.write(toWrite);
+        } catch (IOException writeException) {
+            throw new RuntimeException(writeException);
+        }
+    }
+
+    @Override
+    public void writeToFile(Path filePath) throws IOException {
+        try {
+            FileWriter fileWriter = new FileWriter(String.valueOf(filePath), true);
+            String toWrite = "T | ";
+            if (this.isDone) {
+                toWrite += "1 | ";
+            } else {
+                toWrite += "0 | ";
+            }
+            toWrite += this.name + "\n";
+            fileWriter.write(toWrite);
+            fileWriter.close();
         } catch (IOException writeException) {
             throw new RuntimeException(writeException);
         }

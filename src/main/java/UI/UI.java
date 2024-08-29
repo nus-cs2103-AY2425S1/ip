@@ -1,5 +1,7 @@
 package UI;
 
+import Messages.ReturnMessage;
+
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -30,18 +32,25 @@ public class UI {
     }
 
     public String getUserInput() {
-        out.println(DIVIDER);
         String userInput = in.nextLine();
         while (userInput.trim().isEmpty()) {
             userInput = in.nextLine();
         }
+        out.println(DIVIDER);
         return userInput;
     }
 
-    public void showUserMessage(String... messages) {
-        for (String message : messages) {
-            out.println(message);
+    public void showUserMessage(ReturnMessage returnMessage) {
+        if (!returnMessage.isEmpty()) {
+            for (String message : returnMessage.getMessages()) {
+                out.println(message);
+            }
+            out.println(DIVIDER);
         }
+    }
+
+    public void byeMessage() {
+        out.println("  ~  Goodbye! Hope to see you again soon!");
         out.println(DIVIDER);
     }
 }

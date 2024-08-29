@@ -1,11 +1,12 @@
 package Commands;
 import TaskList.TaskList;
 import Messages.ReturnMessage;
-import java.io.FileWriter;
+
+import java.nio.file.Path;
 
 public class Command {
-    private TaskList taskList;
-    private String[] additionalInput;
+    protected TaskList taskList;
+    protected String[] additionalInput;
 
     public Command(String[] additionalInput) {
         this.additionalInput = additionalInput;
@@ -15,7 +16,15 @@ public class Command {
         this.taskList = taskList;
     }
 
+    public boolean isExit() {
+        return false;
+    }
+
+    public void write(Path filePath) {
+    }
+
     public ReturnMessage execute() {
-        throw new UnsupportedOperationException("You cannot execute a generic command, command must have a type.");
+        return new ReturnMessage("  ~  Sorry, that's not something I know how to do :(",
+                "  ~  Please specify either a To Do, a Deadline or an Event!");
     }
 }

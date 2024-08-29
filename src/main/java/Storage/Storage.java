@@ -28,21 +28,28 @@ public class Storage {
             // Check if file exists
             if (Files.exists(filePath)) {
                 // Load from storage
+                this.taskList = new TaskList(filePath);
                 this.taskList = readFileContents(filePath);
             } else {
-                // Create new empty task list
-                this.taskList = new TaskList();
-                // Create new file
-                File data = new File(String.valueOf(filePath));
+                try {
+                    // Create new empty task list
+                    this.taskList = new TaskList(filePath);
+                    // Create new file
+                    File data = new File(String.valueOf(filePath));
+                    data.createNewFile();
+                } catch (IOException makeFileIOException) {
+                    throw new RuntimeException(makeFileIOException);
+                }
             }
         } else {
             try {
                 // Create new empty task list
-                this.taskList = new TaskList();
+                this.taskList = new TaskList(filePath);
                 // Create data directory
                 Files.createDirectories(dataPath);
                 // Create new file
                 File data = new File(String.valueOf(filePath));
+                data.createNewFile();
             } catch (IOException makeFileIOException) {
                 throw new RuntimeException(makeFileIOException);
             }
@@ -56,10 +63,10 @@ public class Storage {
             commandInput = new String[] {"todo", taskLine[2]};
             return new ToDoCommand(commandInput);
         } else if (taskLine[0].equals("D")) {
-            commandInput = new String[] {"deadline", taskLine[2], taskLine[3]};
+            commandInput = new String[] {"deadline", taskLine[2], "/", taskLine[3]};
             return new DeadlineCommand(commandInput);
         } else {
-            commandInput = new String[] {"event", taskLine[2], taskLine[3], taskLine[4]};
+            commandInput = new String[] {"event", taskLine[2], "/", taskLine[3], "/", taskLine[4]};
             return new EventCommand(commandInput);
         }
     }
@@ -73,7 +80,9 @@ public class Storage {
 
         // Check if task was marked done
         if (Integer.parseInt(lineContent[1]) == 1) {
-            new MarkCommand(taskNumber);
+            Command markCommand = new MarkCommand(taskNumber);
+            markCommand.setData(taskList);
+            markCommand.execute();
         }
     }
 
