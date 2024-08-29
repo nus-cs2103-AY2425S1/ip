@@ -14,5 +14,7 @@ public class EventTask extends Task {
     }
 
     @Override
-    public String toSave() { return String.format("E | %s | %s | %s", super.toSave(), from, to); }
+    public String toSave() {
+        return String.format("E | %s | %s | %s", super.toSave(), from, to);
+    }
 }

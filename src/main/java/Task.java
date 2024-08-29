@@ -20,5 +20,7 @@ public class Task {
         return String.format("[%s] %s", getStatusIcon(), description);
     }
 
-    public String toSave() { return String.format("%s | %s", isDone ? "1" : "0", description); }
+    public String toSave() {
+        return String.format("%s | %s", isDone ? "1" : "0", description);
+    }
 }

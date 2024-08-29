@@ -10,5 +10,7 @@ public class ToDoTask extends Task {
     }
 
     @Override
-    public String toSave() { return String.format("T | %s", super.toSave()); }
+    public String toSave() {
+        return String.format("T | %s", super.toSave());
+    }
 }
