@@ -2,6 +2,7 @@ package echobot.command;
 
 import echobot.exception.EchoBotException;
 import echobot.exception.InvalidDeadlineFormatException;
+import echobot.exception.TaskNameEmptyException;
 import echobot.exception.TaskNotFoundException;
 import echobot.exception.UnknownCommandException;
 
@@ -35,9 +36,12 @@ public class CommandParser {
     }
 
     private AddCommand getAddCommand(String arguments) throws EchoBotException {
-        Pattern pattern = Pattern.compile("(?<type>\\S+) (?<description>.*?( /|$))");
+        Pattern pattern = Pattern.compile("(?<type>\\S+)\s?(?<description>.*?( /|$))");
         Matcher matcher = pattern.matcher(arguments);
 
+        if (matcher.groupCount() == 1) {
+            throw new TaskNameEmptyException();
+        }
         if (!matcher.find()) {
             throw new UnknownCommandException();
         }
@@ -53,7 +57,7 @@ public class CommandParser {
             pattern = Pattern.compile(".*?/by (?<deadline>\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2})");
             matcher = pattern.matcher(arguments);
             if (!matcher.find()) {
-                throw new InvalidDeadlineFormatException();
+                throw new InvalidDeadlineFormatException("dd-MM-yyyy HH:ss");
             }
             String deadline = matcher.group("deadline");
             return new AddCommand(description, deadline);
@@ -63,7 +67,7 @@ public class CommandParser {
             pattern = Pattern.compile(".*?/from (?<from>\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2}) /to (?<to>\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2})");
             matcher = pattern.matcher(arguments);
             if (!matcher.find()) {
-                throw new InvalidDeadlineFormatException();
+                throw new InvalidDeadlineFormatException("dd-MM-yyyy HH:ss");
             }
             String from = matcher.group("from");
             String to = matcher.group("to");
@@ -80,7 +84,7 @@ public class CommandParser {
         Pattern pattern = Pattern.compile("/on (?<on>\\d{2}-\\d{2}-\\d{4})");
         Matcher matcher = pattern.matcher(arguments);
         if (!matcher.find()) {
-            throw new InvalidDeadlineFormatException();
+            throw new InvalidDeadlineFormatException("dd-MM-yyyy");
         }
         String on = matcher.group("on");
         return new ListByDateCommand(on);

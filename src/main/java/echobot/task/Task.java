@@ -7,6 +7,10 @@ public class Task implements Saveable {
     private final String taskName;
     private boolean isDone;
 
+    public Task() {
+        this.taskName = "";
+    }
+
     public Task(boolean isDone, String taskName) throws TaskNameEmptyException {
         if (taskName.isBlank()) {
             throw new TaskNameEmptyException();

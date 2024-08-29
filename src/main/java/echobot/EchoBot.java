@@ -4,7 +4,6 @@ import echobot.command.Command;
 import echobot.command.CommandParser;
 import echobot.command.CommandResponse;
 import echobot.exception.EchoBotException;
-import echobot.exception.UnknownCommandException;
 import echobot.io.FileManagement;
 import echobot.task.TaskList;
 
