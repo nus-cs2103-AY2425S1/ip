@@ -1,8 +1,12 @@
+package ai.task;
+
+import ai.exception.AiException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     private final static String TASK_TYPE = "D";
     private LocalDate deadline;
     public Deadline(String input, String date) throws AiException {

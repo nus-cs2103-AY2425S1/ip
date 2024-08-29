@@ -1,4 +1,6 @@
-public class Event extends Task{
+package ai.task;
+
+public class Event extends Task {
     private final static String TASK_TYPE = "E";
     private String from;
     private String to;

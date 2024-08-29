@@ -1,11 +1,10 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
+package ai;
+
+import ai.command.Command;
+import ai.exception.AiException;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;  // Import the Scanner class
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 public class Ai {
     private TaskList tasks;

@@ -1,4 +1,6 @@
-public class ToDo extends Task{
+package ai.task;
+
+public class ToDo extends Task {
     private final static String TASK_TYPE = "T";
     public ToDo(String description){
         super(description);
