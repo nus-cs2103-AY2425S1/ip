@@ -100,8 +100,8 @@ public class TaskList {
             tasks.add(newTask);
             ui.showTaskAdded(newTask, tasks.size());
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new ChatBotException("Invalid format for deadline. " +
-                    "Correct format: deadline <description> /by <yyyy-MM-dd HHmm>");
+            throw new ChatBotException("Invalid format for deadline. "
+                    + "Correct format: deadline <description> /by <yyyy-MM-dd HHmm>");
         }
     }
 
@@ -115,8 +115,8 @@ public class TaskList {
             tasks.add(newTask);
             ui.showTaskAdded(newTask, tasks.size());
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new ChatBotException("Invalid format for event. " +
-                    "Correct format: event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
+            throw new ChatBotException("Invalid format for event. "
+                    + "Correct format: event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
         }
     }
 
@@ -129,7 +129,8 @@ public class TaskList {
         }
 
         ui.showLine();
-        System.out.println("Here are your tasks on " + searchDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+        System.out.println("Here are your tasks on "
+                + searchDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
         for (Task task : tasks) {
             if (task instanceof Deadline) {
                 LocalDate taskDate = ((Deadline) task).getDeadline().toLocalDate();

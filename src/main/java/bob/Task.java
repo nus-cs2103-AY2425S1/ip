@@ -1,9 +1,9 @@
 package bob;
 
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
-    protected TaskType type;
+    private String description;
+    private boolean isDone;
+    private TaskType type;
 
     public Task(String description, TaskType type) {
         this.description = description;
