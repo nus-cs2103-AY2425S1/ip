@@ -14,6 +14,12 @@ public class ToDo extends Task {
         super(description, TaskType.TODO);
     }
 
+    @Override
+    public String parseToFileFormat() {
+        String status = getStatus() ? "1" : "0";
+        return "T | " + status + " | " + this.description;
+    }
+
     /**
      * Returns a string representation of the ToDo task,
      * including its type indicator and description.

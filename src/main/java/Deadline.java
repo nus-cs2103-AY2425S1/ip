@@ -47,6 +47,13 @@ public class Deadline extends Task {
         return deadline != null ? deadline.format(OUTPUT_FORMAT) : "No deadline set";
     }
 
+    @Override
+    public String parseToFileFormat() {
+        String status = getStatus() ? "1" : "0";
+        String formattedDeadline = deadline != null ? deadline.format(INPUT_FORMAT) : "";
+        return "D | " + status + " | " + this.description + " | " + formattedDeadline;
+    }
+
     /**
      * Returns a string representation of the deadline task,
      * including its type indicator, description, and deadline.
