@@ -23,7 +23,7 @@ public abstract class Task {
         return this.name;
     }
 
-
+    
     @Override
     public String toString() {
         String checked = this.isDone? "[X] ":"[ ] ";
