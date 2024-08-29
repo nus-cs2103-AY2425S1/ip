@@ -42,6 +42,9 @@ public class Parser {
         }
         case 'D': {
           int byIdx = details.indexOf(" (by: ");
+          if (byIdx == -1) {
+            throw new MizzException("Invalid format for Deadline: " + details);
+          }
           String description = details.substring(0, byIdx);
           String by = details.substring(byIdx + 6, details.length() - 1);
           try {
@@ -56,6 +59,9 @@ public class Parser {
         case 'E': {
           int fromIdx = details.indexOf(" (from: ");
           int toIdx = details.indexOf(" to: ");
+          if (fromIdx == -1 || toIdx == -1) {
+            throw new MizzException("Invalid format for Event: " + details);
+          }
           String description = details.substring(0, fromIdx);
           String from = details.substring(fromIdx + 8, toIdx);
           String to = details.substring(toIdx + 5, details.length() - 1);
