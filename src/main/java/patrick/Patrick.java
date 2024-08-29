@@ -19,6 +19,8 @@ public class Patrick {
         } catch (Parser.PatrickException e) {
             Ui.showErrorMsg(e.toString());
             tasks = new TaskList();
+        } catch (Storage.StorageOperationException e) {
+            Ui.showErrorMsg(e.toString());
         }
     }
 
