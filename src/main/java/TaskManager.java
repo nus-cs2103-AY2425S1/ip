@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,13 +66,14 @@ public class TaskManager {
                 }
                 return todo;
             } else if (type.equals("D")) {
-                Task deadline = new Deadline(description, parts[3]);
+                Task deadline = new Deadline(description, LocalDateTime.parse(parts[3]) );
                 if (isDone) {
                     deadline.mark();
                 }
                 return deadline;
             } else {
-                Task event = new Event(description, parts[3], parts[4]);
+                Task event = new Event(description, LocalDateTime.parse(parts[3]) ,
+                        LocalDateTime.parse(parts[4]));
                 if (isDone) {
                     event.mark();
                 }

@@ -1,6 +1,10 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+
+    private final DateTimeParser dateTimeParser = new DateTimeParser();
 
     /**
      * Constructor for Event class.
@@ -8,8 +12,11 @@ public class Event extends Task {
      * @param from when the event begins
      * @param to when the event ends
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) throws IllegalArgumentException {
         super(description);
+        if (from == null || to == null) {
+            throw new IllegalArgumentException("Argument cannot be null.");
+        }
         this.from = from;
         this.to = to;
     }
@@ -27,6 +34,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (" + this.from + " " + this.to + ")";
+        return "[E]" + super.toString() + " (from " + this.dateTimeParser.formatOutput(this.from)
+                + " to " + this.dateTimeParser.formatOutput(this.to) + ")";
     }
 }
