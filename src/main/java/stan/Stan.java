@@ -4,18 +4,33 @@ import java.util.ArrayList;
 import stan.commands.*;
 import stan.exceptions.StanException;
 
+/**
+ * The main class for the Stan chatbot.
+ * Manages the initialization of the application, including loading tasks from storage,
+ * processing user commands, and saving tasks to storage.
+ */
 public class Stan {
     private static final String FILE_PATH = "data/stan.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for Stan.
+     * Initializes the UI, storage, and task list.
+     *
+     * @param filePath The file path for the task storage file.
+     */
     public Stan(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList(new ArrayList<>(storage.loadTasks()));
     }
 
+    /**
+     * Runs the main logic of the Stan chatbot.
+     * Continuously reads user commands, processes them, and executes the appropriate actions.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -31,6 +46,11 @@ public class Stan {
         }
     }
 
+    /**
+     * The main entry point for the Stan chatbot application.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         new Stan(FILE_PATH).run();
     }

@@ -1,4 +1,5 @@
 package stan.commands;
+
 import stan.TaskList;
 import stan.Ui;
 import stan.Storage;
@@ -8,10 +9,20 @@ import stan.exceptions.StanMissingArgumentException;
 import stan.exceptions.StanInvalidArgumentException;
 import stan.exceptions.StanInvalidDateTimeFormatException;
 
+/**
+ * Represents a command to add a deadline task.
+ */
 public class DeadlineCommand extends Command {
     private final String description;
     private final String by;
 
+    /**
+     * Constructs a DeadlineCommand.
+     *
+     * @param words The user input split into words.
+     * @throws StanMissingArgumentException If the description or '/by' clause is missing.
+     * @throws StanInvalidArgumentException If the description or time is empty, or if '/by' clause is missing.
+     */
     public DeadlineCommand(String[] words) throws StanMissingArgumentException, StanInvalidArgumentException {
         if (words.length < 2 || words[1].trim().isEmpty()) {
             throw new StanMissingArgumentException("The description of a deadline cannot be empty.");
@@ -30,6 +41,14 @@ public class DeadlineCommand extends Command {
         this.by = parts[1];
     }
 
+    /**
+     * Executes the command to add a deadline task to the task list.
+     *
+     * @param tasks The task list where the task will be added.
+     * @param ui The UI object to display feedback to the user.
+     * @param storage The storage object to save the updated task list.
+     * @throws StanInvalidDateTimeFormatException If the date and time format is incorrect.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws StanInvalidDateTimeFormatException {
         Task task = new Deadline(description, by);

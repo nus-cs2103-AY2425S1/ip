@@ -1,4 +1,5 @@
 package stan.commands;
+
 import stan.TaskList;
 import stan.Ui;
 import stan.Storage;
@@ -8,11 +9,21 @@ import stan.exceptions.StanMissingArgumentException;
 import stan.exceptions.StanInvalidArgumentException;
 import stan.exceptions.StanInvalidDateTimeFormatException;
 
+/**
+ * Represents a command to add an event task.
+ */
 public class EventCommand extends Command {
     private final String description;
     private final String from;
     private final String to;
 
+    /**
+     * Constructs an EventCommand.
+     *
+     * @param words The user input split into words.
+     * @throws StanMissingArgumentException If the description, '/from', or '/to' clause is missing.
+     * @throws StanInvalidArgumentException If the description, start time, or end time is empty.
+     */
     public EventCommand(String[] words) throws StanMissingArgumentException, StanInvalidArgumentException {
         if (words.length < 2 || words[1].trim().isEmpty()) {
             throw new StanMissingArgumentException("The description of an event cannot be empty.");
@@ -37,6 +48,14 @@ public class EventCommand extends Command {
         this.to = times[1];
     }
 
+    /**
+     * Executes the command to add an event task to the task list.
+     *
+     * @param tasks The task list where the task will be added.
+     * @param ui The UI object to display feedback to the user.
+     * @param storage The storage object to save the updated task list.
+     * @throws StanInvalidDateTimeFormatException If the date and time format is incorrect.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws StanInvalidDateTimeFormatException {
         Task task = new Event(description, from, to);
