@@ -5,7 +5,12 @@ public class Deadline extends Task {
         super(name);
         this.date = date;
     }
+
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + this.date + ")";
+        return "[D]" + super.toString() + " (by: " + this.date + ")";
+    }
+
+    public String convertToTxt() {
+        return String.format("%s,%s,%s","D", super.convertToTxt(), this.date);
     }
 }

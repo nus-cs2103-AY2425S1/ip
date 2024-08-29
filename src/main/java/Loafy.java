@@ -1,11 +1,21 @@
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
 
 public class Loafy {
     public static void main(String[] args) {
         greeting();
         Scanner input = new Scanner(System.in);
-        TaskList tl = new TaskList();
+        try {
+            new File("./data").mkdirs();
+            new File("./data/loafy.txt").createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error: file cannot be created");
+        }
+        TaskListSaver tls = new TaskListSaver("./data/loafy.txt");
+        TaskList tl = new TaskList(tls);
 
         while (true) {
             System.out.print("You: ");

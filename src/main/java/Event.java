@@ -13,4 +13,8 @@ public class Event extends Task {
                 "[E]%s (from: %s to: %s)",
                 super.toString(), this.from, this.to);
     }
+
+    public String convertToTxt() {
+        return String.format("%s,%s,%s,%s","E", super.convertToTxt(), this.from, this.to);
+    }
 }
