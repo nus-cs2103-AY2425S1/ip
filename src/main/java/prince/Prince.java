@@ -11,6 +11,7 @@ import task.DeadlinesTask;
 import task.ToDoTask;
 import ui.Ui;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class Prince {
@@ -33,11 +34,24 @@ public class Prince {
     }
 
     public Prince(String dirPath, String filePath) {
+        createDirectoryIfNotExists(dirPath);
         storage = new Storage(dirPath, filePath);
         ui = new Ui();
         parser = new Parser();
         taskList = new TaskList(storage.loadTasksFromFile());
     }
+
+    private void createDirectoryIfNotExists(String dirPath) {
+        File dir = new File(dirPath);
+        if (!dir.exists()) {
+            if (dir.mkdirs()) {
+                System.out.println("Directory has been created successfully: " + dirPath);
+            } else {
+                System.out.println("Failed to create directory: " + dirPath);
+            }
+        }
+    }
+
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
