@@ -1,117 +1,74 @@
 import java.util.Scanner;
 
+/**
+ * Entry point of the chatbot.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Flash {
-    public static void main(String[] args) throws UnknownCommandException {
-        /* create an instance of scanner class */
-        Scanner scanner = new Scanner(System.in);
+    private Ui ui;
+    private StoreList storeList;
+    private Storage storage;
+    private final static String FILE_PATH = "./data/flash.txt";
 
-        /* create an instance for Store list*/
-        StoreList storeList = new StoreList();
+    /* chatbot runs till user inputs bye */
+    public void run() {
+        start();
+        runLoopTillExitCommand();
+        exit();
 
-        /* load tasks first*/
-        storeList.loadTasks();
+    }
 
-        //Horizontal line for better readability
-        String line = "    __________________________________________";
+    /**
+     * Sets up the required objects,
+     * loads up the data from the storage file,
+     * prints the intro message.
+     *
+     */
+    private void start() {
+            //initiliaze ui
+            this.ui = new Ui();
 
-        // print intro
-        System.out.println(line);
-        System.out.println("    Hey! I'm Flash");
-        System.out.println("    What can I do for ya?");
-        System.out.println(line);
+            // list is instantiated with tasks loaded from storage
+            this.storeList = new StoreList(storage.loadTasks());
+            // show the starting message
+            ui.showIntroMessage();
+    }
 
-        String userInput = scanner.nextLine();
+    /* Prints goodbye and exits */
+    private void exit() {
+        // show exit message once user says bye
+        ui.showExitMessage();
+        ui.closeScanner();
+        System.exit(0);
 
-        //loop runs till user says bye
-        while (!userInput.equals("bye")) {
+    }
 
-            // Split the string by spaces
-            String[] words = userInput.split(" ");
+    /* Reads and Executes user input till user says bye */
+    private void runLoopTillExitCommand() {
+        Command command;
+        String userInput = ui.getUserInput();
+        command = new Parser().makeSenseOfUserInput(userInput);
 
-            //if user inputs mark, mark task and update file
-            if (words[0].equals("mark")) {
-                System.out.println(line);
-                storeList.markItem(Integer.parseInt(words[1]));
-                System.out.println(line);
-                storeList.saveTasksToFile();
-                userInput = scanner.nextLine();
-            }
-
-            //if user inputs unmark, unmark task and update file
-            else if (words[0].equals("unmark")) {
-                System.out.println(line);
-                storeList.UnmarkItem(Integer.parseInt(words[1]));
-                System.out.println(line);
-                storeList.saveTasksToFile();
-                userInput = scanner.nextLine();
-            }
-
-            //if user inputs list, display tasks and update file
-            else if (userInput.equals("list")) {
-                System.out.println(line);
-                storeList.displayItems();
-                System.out.println(line);
-                storeList.saveTasksToFile();
-                userInput = scanner.nextLine();
-            }
-
-            //if user inputs delete, delete task and update file
-            else if (words[0].equals("delete")) {
-                System.out.println(line);
-                storeList.deleteItem(Integer.parseInt(words[1]));
-                System.out.println(line);
-                storeList.saveTasksToFile();
-                userInput = scanner.nextLine();
-            }
-
-
-            //if user inputs to do, add item of type to do and update file
-            else if (words[0].equals("todo")) {
-                System.out.println(line);
-                storeList.addItem(userInput.substring(4), "todo");
-                System.out.println(line);
-                storeList.saveTasksToFile();
-                userInput = scanner.nextLine();
-
-                //if user inputs deadline, add item of type deadline and update file
-            } else if (words[0].equals("deadline")) {
-                System.out.println(line);
-                storeList.addItem(userInput.substring(8), "deadline");
-                System.out.println(line);
-                storeList.saveTasksToFile();
-                userInput = scanner.nextLine();
-
-                //if user inputs event, add item of type event and update file
-            } else if (words[0].equals("event")) {
-                System.out.println(line);
-                storeList.addItem(userInput.substring(5), "event");
-                System.out.println(line);
-                storeList.saveTasksToFile();
-                userInput = scanner.nextLine();
-
-                //if user inputs due, list of tasks due on date is given
-            } else if (words[0].equals("due")) {
-                System.out.println(line);
-                storeList.dueOnDate(userInput.substring(4).trim());
-                System.out.println(line);
-                userInput = scanner.nextLine();
-
-            } else {
-                //random input given, throw exception
-                try {
-                    throw new UnknownCommandException("     OOPS!!! Sorry leh, but IDK what that means :-");
-                } catch (UnknownCommandException e) {
-                    System.out.println(line);
-                    System.out.println(e.getMessage());
-                    System.out.println(line);
-                    userInput = scanner.nextLine();
-                }
-            }
-        }
-
-            //if user inputs bye, exit
-            System.out.println("    Bye. Hope to see ya again soon!");
-            System.out.println(line);
-            scanner.close();
+        // while the command is not equal to the exit command (the loop runs)
+        while (!command.isExit()) {
+            executeCommand(command);
+            userInput = ui.getUserInput();
+            command = new Parser().makeSenseOfUserInput(userInput);
         }
     }
+
+    /**
+     * Executes the command and outputs(prints) the result.
+     *
+     * @param command user command
+     */
+    private void executeCommand(Command command) {
+        command.setData(storeList);
+        command.execute();
+        storage.saveTasksToFile(storeList.getItems());
+    }
+
+    public static void main(String[] args) {
+        new Flash().run();
+    }
+}
