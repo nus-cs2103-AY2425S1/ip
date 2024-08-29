@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +37,11 @@ public class Bellroy {
                         String[] deadlineParts = remainder.split(" \\(by: ");
                         String deadlineDescription = deadlineParts[0].trim();
                         String by = deadlineParts[1].replace(")", "").trim();
-                        Task temp = new deadline(deadlineDescription, by);
+                        DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+                        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                        LocalDateTime dateTime = LocalDateTime.parse(by, inputFormat);
+                        String dueDate = dateTime.format(outputFormat);
+                        Task temp = new deadline(deadlineDescription, dueDate);
                         if (isDone) {
                             temp.markDone();
                         }

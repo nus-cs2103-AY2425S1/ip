@@ -1,7 +1,1 @@
-[T][ ] swim
-[D][X] homework (by: 2359)
-[E][ ] birthday party (from: 11pm to: 12am)
-[D][X] watch show (by: today)
-[D][ ] brush teeth (by: today)
-[E][ ] swim (from: 1pm to: 3pm)
-[T][X] work
+[D][ ] homework (by: Oct 15 2019, 6:00 pm)
