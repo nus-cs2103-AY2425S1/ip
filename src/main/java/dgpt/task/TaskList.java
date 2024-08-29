@@ -127,4 +127,20 @@ public class TaskList {
     public int getSize() {
         return this.taskList.size();
     }
+
+    /**
+     * Searches for tasks in the list that contain the specified keyword in their description.
+     *
+     * @param keyword The keyword to search for in the task descriptions.
+     * @return A list of tasks that contain the keyword in their description.
+     */
+    public List<Task> findTasks(String keyword) {
+        List<Task> res = new ArrayList<>();
+        for (Task t : this.taskList) {
+            if (t.getDescription().contains(keyword)) {
+                res.add(t);
+            }
+        }
+        return res;
+    }
 }

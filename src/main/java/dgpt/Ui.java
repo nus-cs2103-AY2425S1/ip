@@ -9,6 +9,7 @@ import java.util.List;
  * The Ui class is responsible for handling the user interface output for the DGPT application.
  * It contains methods to display various messages and information to the user.
  */
+
 public class Ui {
 
     /**
@@ -148,5 +149,21 @@ public class Ui {
      */
     public void showUser() {
         System.out.print("User> ");
+    }
+
+    /**
+     * Displays a list of tasks that match a search query.
+     *
+     * @param taskList A list of tasks that match the search query.
+     */
+    public void showFind(List<Task> taskList) {
+        System.out.println("-----------------------");
+        System.out.println("Here are the matching tasks in your list:");
+        int index = 1;
+        for (Task t : taskList) {
+            System.out.println(index + "." + t.toString());
+            index++;
+        }
+        System.out.println("-----------------------");
     }
 }
