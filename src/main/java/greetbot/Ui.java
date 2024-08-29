@@ -1,3 +1,4 @@
+package greetbot;
 import java.util.Scanner;
 
 public class Ui {

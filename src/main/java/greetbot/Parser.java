@@ -1,3 +1,5 @@
+package greetbot;
+
 public class Parser {
 
     public static String[] parseCommand(String input) {
