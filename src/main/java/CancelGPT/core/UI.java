@@ -1,3 +1,5 @@
+package CancelGPT.core;
+
 public class UI {
     public UI() {
     }

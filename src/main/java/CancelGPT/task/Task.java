@@ -1,5 +1,8 @@
+package CancelGPT.task;
+
+import CancelGPT.exception.task.InvalidTask;
+
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
 
 public class Task {
     protected String description;
@@ -49,7 +52,7 @@ public class Task {
         return this.getStatusInt() + " | " + this.getDescription();
     }
 
-    public static Task getTaskFromSavedDataString(String savedDataString) throws InvalidTask{
+    public static Task getTaskFromSavedDataString(String savedDataString) throws InvalidTask {
         String[] savedDataStringArr = savedDataString.split("\\s*\\|\\s*");
         try {
             if (savedDataStringArr[0].equals("T")) {
