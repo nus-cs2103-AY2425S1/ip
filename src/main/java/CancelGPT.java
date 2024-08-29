@@ -16,7 +16,7 @@ public class CancelGPT {
         try {
             this.tasksStorage = new TasksStorage(this);
         } catch (IOException e) {
-            System.out.println("Unable to use TASKS STORAGE. Exiting program");
+            UI.printMessageToConsole("Unable to use TASKS STORAGE. Exiting program");
             System.exit(1);
         }
         this.commandParser = new CommandParser(this);
@@ -32,23 +32,22 @@ public class CancelGPT {
     }
 
     public void run() {
-        String horizontalLine = "____________________________________________________________";
         Scanner sc = new Scanner(System.in);
 
-        System.out.println(horizontalLine);
+        UI.printHorizontalLineToConsole();
         greet();
-        System.out.println(horizontalLine);
+        UI.printHorizontalLineToConsole();
 
         String command = sc.nextLine();
         while (!command.equals(Command.BYE.toString())) {
-            System.out.println(horizontalLine);
+            UI.printHorizontalLineToConsole();
             handleCommand(command);
-            System.out.println(horizontalLine);
+            UI.printHorizontalLineToConsole();
 
             try {
                 saveTasks();
             } catch (IOException e) {
-                System.out.println("Unable to save tasks to TASKS STORAGE. Exiting program");
+                UI.printMessageToConsole("Unable to save tasks to TASKS STORAGE. Exiting program");
                 System.exit(1);
             }
 
@@ -56,18 +55,18 @@ public class CancelGPT {
         }
 
         sc.close();
-        System.out.println(horizontalLine);
+        UI.printHorizontalLineToConsole();
         exit();
-        System.out.println(horizontalLine);
+        UI.printHorizontalLineToConsole();
     }
 
     public void greet() {
-        System.out.println("Hello! I am " + CHATBOT_NAME);
-        System.out.println("What can I do for you?");
+        UI.printMessageToConsole("Hello! I am " + CHATBOT_NAME);
+        UI.printMessageToConsole("What can I do for you?");
     }
 
     public void exit() {
-        System.out.println("Good bye. Hope to see you again soon!");
+        UI.printMessageToConsole("Good bye. Hope to see you again soon!");
     }
 
     public void handleCommand(String command) {
@@ -79,9 +78,9 @@ public class CancelGPT {
     }
 
     public void handleAddingTask(Task task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(" " + this.addToTaskList(task));
-        System.out.println("Now you have " + this.TASKS_LIST.getSize() + " tasks in the list.");
+        UI.printMessageToConsole("Got it. I've added this task:");
+        UI.printMessageToConsole(" " + this.addToTaskList(task));
+        UI.printMessageToConsole("Now you have " + this.TASKS_LIST.getSize() + " tasks in the list.");
     }
 
     public void markTask(int taskNumber) throws TaskDoesNotExist {

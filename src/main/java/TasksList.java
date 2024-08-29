@@ -14,7 +14,7 @@ public class TasksList {
     }
 
     public void displayTasksList() {
-        System.out.println("Here are the tasks in your list:");
+        UI.printMessageToConsole("Here are the tasks in your list:");
         for (int i = 0; i < this.TASKS_LIST.size(); i++) {
             System.out.println(i + 1 + ". " + this.TASKS_LIST.get(i));
         }
@@ -33,9 +33,9 @@ public class TasksList {
             throw new TaskDoesNotExist();
         }
         Task taskDeleted = this.TASKS_LIST.remove(taskNumber - 1);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(" " + taskDeleted);
-        System.out.println("Now you have " + this.TASKS_LIST.size() + " tasks in the list.");
+        UI.printMessageToConsole("Noted. I've removed this task:");
+        UI.printMessageToConsole(" " + taskDeleted);
+        UI.printMessageToConsole("Now you have " + this.TASKS_LIST.size() + " tasks in the list.");
     }
 
     public void markTask(int taskNumber) throws TaskDoesNotExist {
@@ -43,8 +43,8 @@ public class TasksList {
             throw new TaskDoesNotExist();
         }
         this.TASKS_LIST.get(taskNumber - 1).mark();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(" " + this.TASKS_LIST.get(taskNumber - 1));
+        UI.printMessageToConsole("Nice! I've marked this task as done:");
+        UI.printMessageToConsole(" " + this.TASKS_LIST.get(taskNumber - 1));
     }
 
     public void unmarkTask(int taskNumber) throws TaskDoesNotExist {
@@ -52,7 +52,7 @@ public class TasksList {
             throw new TaskDoesNotExist();
         }
         this.TASKS_LIST.get(taskNumber - 1).unmark();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(" " + this.TASKS_LIST.get(taskNumber - 1));
+        UI.printMessageToConsole("OK, I've marked this task as not done yet:");
+        UI.printMessageToConsole(" " + this.TASKS_LIST.get(taskNumber - 1));
     }
 }
