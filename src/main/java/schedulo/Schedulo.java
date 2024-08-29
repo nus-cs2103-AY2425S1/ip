@@ -1,3 +1,4 @@
+package schedulo;
 import command.Command;
 import exception.ScheduloException;
 import task.TaskList;
