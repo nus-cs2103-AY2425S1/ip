@@ -56,6 +56,18 @@ public class Duke {
                 )
         );
     }
+
+    public static void delete(int index) {
+        Task task = taskList.remove(index - 1);
+        System.out.println(
+                addHorizontalLinesAndIndentation(
+                        String.format("Noted. I've removed this task:\n"
+                                + task
+                                + " Now you have %d tasks in the list.", taskList.size())
+                )
+        );
+    }
+
     public static void main(String[] args) {
         String hi = "Hello! I'm Foo\n" +
                 "What can I do for you?";
@@ -74,6 +86,9 @@ public class Duke {
                 } else if (line.startsWith("unmark")) {
                     int index = Integer.parseInt(line.substring(7));
                     unmark(index);
+                } else if (line.startsWith("delete")) {
+                    int index = Integer.parseInt(line.substring(7));
+                    delete(index);
                 } else {
                     addToList(line);
                 }
