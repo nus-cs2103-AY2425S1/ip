@@ -114,6 +114,12 @@ public class TaskList {
         return list.get(index - 1).toString();
     }
 
+    /**
+     * Finds the list of task that matches the keyword provided.
+     *
+     * @param keyword The keyword to search for.
+     * @return A list of filtered tasks that contains the keyword.
+     */
     public List<Task> findTasks(String keyword) {
         return list.stream()
                 .filter(task -> task.getDescription().contains(keyword))
