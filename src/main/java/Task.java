@@ -23,6 +23,9 @@ public class Task {
     public void markAsUndone() {
         this.isDone = false;
     }
+    public String getDescription() {
+        return description;
+    }
 
     public String changeDateTime(String input) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
@@ -57,8 +60,7 @@ public class Task {
 
     @Override
     public String toString() {
-        String onlyTask = description.split(" ", 2)[1].split("/")[0];
-        return onlyTask;
+        return "[" + getStatusIcon() + "] " + description;
     }
 
 }
