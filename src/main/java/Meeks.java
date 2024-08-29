@@ -4,8 +4,9 @@ public class Meeks {
 
         Scanner scanner = new Scanner(System.in);
         Echo echo = new Echo();
+        Ui ui = new Ui();
 
-        echo.greet();
+        ui.greet();
 
 
         while (true) {
