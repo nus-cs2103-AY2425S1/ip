@@ -3,7 +3,6 @@ package tissue;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,20 +14,17 @@ public class Storage {
     public Path path;
     public Path file;
 
-    public Storage(String path) {
+    public Storage(String path, String fileName) {
         this.path = Paths.get(path);
-        this.file = Paths.get(path + "tissue.csv");
+        this.file = Paths.get(path + fileName);
     }
 
     public void save(Task task) {
         String parsedTask = parseTask(task);
         try {
             Files.createDirectories(path);
-            Files.write(
-                    file,
-                    parsedTask.getBytes(StandardCharsets.UTF_8),
-                    StandardOpenOption.CREATE,
-                    StandardOpenOption.APPEND);
+            Files.writeString(
+                    file, parsedTask, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
             System.out.println(e);
         }
