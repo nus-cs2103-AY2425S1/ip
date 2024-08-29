@@ -93,6 +93,9 @@ public class Parser {
             }
             // idx 0: start time, idx 1: end time
             String[] eventTimeTokens = eventTokens[1].split(" /to ", 2);
+            if (eventTimeTokens.length < 2) {
+                throw new NixyException("BLAHH!!! The end time of an event task must be specified.");
+            }
             task = new EventTask(
                 eventTokens[0].trim(),
                 LocalDate.parse(eventTimeTokens[0].trim()),
