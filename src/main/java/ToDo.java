@@ -6,7 +6,10 @@ public class ToDo extends Task{
 
     @Override
     public String addTaskToString() {
-        return super.addTaskToString() + "\n" + " ".repeat(5) + "[T] [ ] " + description;
+        return super.addTaskToString() + "\n" +
+                " ".repeat(5) + "[T] [ ] " + description + "\n"
+                + "\n"
+                + "You can use the command \"list\" to view your list of tasks :D";
     }
 
     @Override

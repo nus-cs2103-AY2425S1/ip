@@ -44,7 +44,7 @@ public class Task {
 
     public String deleteTask() {
         taskCount--;
-        return "Alright! I have removed this task for you." + "\n" +
-                "You now have " + taskCount + " tasks left in your list.";
+        return "Alright! I have removed this task for you." + "\n"
+                + "You now have " + taskCount + " tasks left in your list.";
     }
 }
