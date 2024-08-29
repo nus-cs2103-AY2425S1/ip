@@ -4,19 +4,19 @@ import exceptions.YappingBotIncorrectCommandException;
 import exceptions.YappingBotInvalidSaveFileException;
 import stringconstants.ReplyTextMessages;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private LocalDate startTime;
+    private LocalDate endTime;
 
     public Event(String taskName, boolean taskDone) {
         super(taskName, taskDone);
         super.setTaskType(TaskTypes.EVENT);
-        this.startTime = LocalDateTime.now();
-        this.endTime = LocalDateTime.now();
+        this.startTime = LocalDate.now();
+        this.endTime = LocalDate.now();
     }
     public Event(String taskName, boolean taskDone, String startTime, String endTime) throws YappingBotIncorrectCommandException  {
         super(taskName, taskDone);
@@ -35,7 +35,7 @@ public class Event extends Task {
 
     public void setStartTime(String startTime) throws YappingBotIncorrectCommandException {
         try {
-            this.startTime = LocalDateTime.parse(startTime);
+            this.startTime = LocalDate.parse(startTime);
         } catch (DateTimeParseException e) {
             throw new YappingBotIncorrectCommandException(ReplyTextMessages.TIME_PARSE_HINT, e.getMessage());
         }
@@ -47,7 +47,7 @@ public class Event extends Task {
 
     public void setEndTime(String endTime) throws YappingBotIncorrectCommandException {
         try {
-            this.endTime = LocalDateTime.parse(endTime);
+            this.endTime = LocalDate.parse(endTime);
         } catch (DateTimeParseException e) {
             throw new YappingBotIncorrectCommandException(ReplyTextMessages.TIME_PARSE_HINT, e.getMessage());
         }

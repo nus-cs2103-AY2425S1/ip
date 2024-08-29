@@ -4,7 +4,7 @@ import exceptions.YappingBotIncorrectCommandException;
 import exceptions.YappingBotInvalidSaveFileException;
 import stringconstants.ReplyTextMessages;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -21,18 +21,18 @@ public class Deadline extends Task {
 
     public void setDeadline(String deadline) throws YappingBotIncorrectCommandException {
         try {
-            this.deadline = LocalDateTime.parse(deadline);
+            this.deadline = LocalDate.parse(deadline);
         } catch (DateTimeParseException e) {
             throw new YappingBotIncorrectCommandException(ReplyTextMessages.TIME_PARSE_HINT, e.getMessage());
         }
     }
 
-    private LocalDateTime deadline;
+    private LocalDate deadline;
 
     public Deadline(String taskName, boolean taskDone) {
         super(taskName, taskDone);
         super.setTaskType(TaskTypes.DEADLINE);
-        this.deadline = LocalDateTime.now();
+        this.deadline = LocalDate.now();
     }
     public Deadline(String taskName, boolean taskDone, String deadline) throws YappingBotIncorrectCommandException {
         super(taskName, taskDone);
