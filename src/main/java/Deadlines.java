@@ -6,8 +6,10 @@ import java.util.List;
 public class Deadlines extends Task {
 //    private String deadline;
     private LocalDateTime deadline;
+    private String initDesc;
     public Deadlines(String description) throws CommandFoundButInvalidException {
         super(description);
+        this.initDesc = description;
         super.description = this.getValidString(description)[0].trim();
         // restrict the usage to only "yyyy-mm-dd"
         // replace all the occurrence of "/" into "-"
@@ -40,5 +42,10 @@ public class Deadlines extends Task {
         String str1 = "Got it. I've added this task:\n";
         String str2 = String.format("Now you have %d tasks in the list", allTasks.size());
         return str1 + this.toString() + "\n" + str2;
+    }
+
+    public String getInitDesc() {
+        String str = super.isDone ? "1" : "0";
+        return String.format("D | %s | %s", str, this.initDesc);
     }
 }
