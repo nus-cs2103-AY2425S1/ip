@@ -12,4 +12,12 @@ public class Event extends Task {
     public String toString() {
         return String.format("%s | Event from %s to %s", super.toString(), this.startDate, this.endDate);
     }
+
+    public String getStart() {
+        return startDate;
+    }
+
+    public String getEnd() {
+        return endDate;
+    }
 }

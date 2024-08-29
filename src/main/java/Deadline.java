@@ -10,4 +10,8 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("%s | Deadline by %s", super.toString(), this.deadline);
     }
+
+    public String getDeadline() {
+        return deadline;
+    }
 }

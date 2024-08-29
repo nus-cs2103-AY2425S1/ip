@@ -1,14 +1,11 @@
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskList {
-    private List<Task> parent;
-    private static int completed;
-    private static int uncompleted;
+    private final ArrayList<Task> parent;
 
-    public TaskList(int size) {
-        this.parent = new ArrayList<Task>(size);
+    public TaskList(ArrayList<Task> list) {
+        this.parent = list;
     }
 
     public void addTask(String task) {
@@ -22,13 +19,12 @@ public class TaskList {
         switch(getInputFromUser(sc, "(1, 2 or 3) > ")) {
             case "1":
                 this.parent.add(new Todo(task));
-                uncompleted++;
+
                 System.out.println("Friday > Okay, I've added a todo: " + task);
                 break;
             case "2":
                 System.out.println("What is the deadline?");
                 this.parent.add(new Deadline(task, getInputFromUser(sc, "Deadline > ")));
-                uncompleted++;
                 System.out.println("Friday > Okay, I've added a deadline: " + task);
                 break;
             case "3":
@@ -36,7 +32,6 @@ public class TaskList {
                 String start = getInputFromUser(sc, "Start Date > ");
                 System.out.println("What is the end date?");
                 this.parent.add(new Event(task, start, getInputFromUser(sc, "End Date > ")));
-                uncompleted++;
                 System.out.println("Friday > Okay, I've added an event: " + task);
                 break;
             default:
@@ -47,19 +42,15 @@ public class TaskList {
     public void removeTask(int task) {
         Task temp = parent.get(task);
         this.parent.remove(task);
-        if (temp.isDone()) {
-            completed--;
-        } else {
-            uncompleted--;
-        }
-        System.out.println("Friday > Successfully removed: " + temp.toString());
+
+        System.out.println("Friday > Successfully removed: " + temp);
         System.out.println("Friday > You now have " + getSize() + " total tasks left.");
     }
 
     @Override
     public String toString() {
         String ans = "";
-        ans += String.format("Completed: %d tasks | Incomplete: %d tasks | Total: %d tasks%n%n", completed, uncompleted, parent.size());
+        ans += String.format("Completed: %d tasks | Incomplete: %d tasks | Total: %d tasks%n%n", countCompleted(true), countCompleted(false), parent.size());
         for (int i = 1; i <= parent.size(); i++) {
             ans += String.format("%d: %s%n", i, parent.get(i-1).toString());
         }
@@ -70,20 +61,20 @@ public class TaskList {
         return this.parent.size();
     }
 
+    public ArrayList<Task> getParent() {
+        return this.parent;
+    }
+
     public void doneTask(String action, int task) {
         Task temp = parent.get(task);
         if (action.equals("mark") || action.equals("Mark")) {
             if (!temp.isDone()) {
                 temp.setDone();
-                completed++;
-                uncompleted--;
             }
             System.out.println("Friday > Good job! Marked as done :)");
         } else {
             if (temp.isDone()) {
                 this.parent.get(task).setUndone();
-                uncompleted++;
-                completed--;
             }
             System.out.println("Friday > Oh man! Marked as undone :(");
         }
@@ -99,5 +90,23 @@ public class TaskList {
                 return str.trim();
             }
         }
+    }
+
+    public int countCompleted(boolean test) {
+        int count = 0;
+        if (test) {
+            for (Task task : this.parent) {
+                if (task.isDone()) {
+                    count++;
+                }
+            }
+        } else {
+            for (Task task : this.parent) {
+                if (!task.isDone()) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }
