@@ -3,7 +3,6 @@ package rex.util;
 import rex.command.Command;
 import rex.exception.InvalidInputException;
 import rex.task.Task;
-import rex.task.TaskList;
 
 import java.util.Scanner;
 
@@ -61,11 +60,17 @@ public class Ui {
     /**
      * Displays the current list of tasks.
      *
-     * @param list The {@code TaskList} containing the tasks to be displayed.
+     * @param output The list string to be displayed.
      */
-    public void displayList(TaskList list) {
+    public void displayList(String output) {
         printDivider();
-        System.out.print(list.getListDisplay());
+        System.out.print(output);
+    }
+
+
+    public void findTask(String output) {
+        printDivider();
+        System.out.print(output);
     }
 
     /**
