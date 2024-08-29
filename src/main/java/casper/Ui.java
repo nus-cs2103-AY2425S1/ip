@@ -62,6 +62,17 @@ public class Ui {
         }
     }
 
+    public void printMatchedTasks(TaskList taskList) throws CasperBotOutOfBoundsException {
+        if (taskList.isEmpty()) {
+            System.out.println("There are no matches in your list.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
+                System.out.printf("%d. %s%n", i + 1, taskList.getTask(i));
+            }
+        }
+    }
+
     public void exit() {
         System.out.println("Bye. Hope to see you again soon!");
     }
