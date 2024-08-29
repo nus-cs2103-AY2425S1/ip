@@ -2,6 +2,8 @@ package donna;
 
 import donna.task.Task;
 
+import java.util.List;
+
 public class Ui {
     static private void printDashedLine() {
         System.out.println("____________________________________________________________________");
@@ -86,6 +88,19 @@ public class Ui {
     public void printErrorMessage(String message) {
         printDashedLine();
         System.out.println(message);
+        printDashedLine();
+    }
+
+    public void printFindResults(List<Task> tasks) {
+        printDashedLine();
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks found matching the search criteria :(");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
+        }
         printDashedLine();
     }
 

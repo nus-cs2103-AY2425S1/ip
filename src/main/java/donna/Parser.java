@@ -21,6 +21,8 @@ public class Parser {
         case "deadline":
         case "event":
             return new ParsedCommand("add", command, arguments);
+        case "find":
+            return new ParsedCommand("find", arguments);
         default:
             throw DonnaException.invalidTaskType(command);
 

@@ -5,6 +5,7 @@ import donna.task.Event;
 import donna.task.Task;
 import donna.task.ToDo;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Donna {
@@ -40,26 +41,29 @@ public class Donna {
                 String commandType = result.getCommandType();
 
                 switch (commandType) {
-                    case "exit":
-                        ui.printGoodbyeMessage();
-                        storage.saveTasks(tasks);
-                        sc.close();
-                        return;
-                    case "list":
-                        ui.printTaskList(tasks);
-                        break;
-                    case "mark":
-                        handleMark(result.getArgument1());
-                        break;
-                    case "unmark":
-                        handleUnmark(result.getArgument1());
-                        break;
-                    case "delete":
-                        handleDelete(result.getArgument1());
-                        break;
-                    case "add":
-                        handleAdd(result.getArgument1(), result.getArgument2());
-                        break;
+                case "exit":
+                    ui.printGoodbyeMessage();
+                    storage.saveTasks(tasks);
+                    sc.close();
+                    return;
+                case "list":
+                    ui.printTaskList(tasks);
+                    break;
+                case "mark":
+                    handleMark(result.getArgument1());
+                    break;
+                case "unmark":
+                    handleUnmark(result.getArgument1());
+                    break;
+                case "delete":
+                    handleDelete(result.getArgument1());
+                    break;
+                case "add":
+                    handleAdd(result.getArgument1(), result.getArgument2());
+                    break;
+                case "find":
+                    List<Task> foundTasks = tasks.searchTasks(result.getArgument1());
+                    ui.printFindResults(foundTasks);
                 }
             } catch (DonnaException e) {
                 ui.printErrorMessage(e.getMessage());

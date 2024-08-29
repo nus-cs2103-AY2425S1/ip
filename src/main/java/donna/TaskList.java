@@ -3,6 +3,7 @@ package donna;
 import donna.task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
@@ -39,6 +40,17 @@ public class TaskList {
         } else {
             throw DonnaException.invalidTaskNumber();
         }
+    }
+
+    public List<Task> searchTasks(String keyword) {
+        List<Task> searchQuery = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.containsKeyword(keyword)) {
+                searchQuery.add(task);
+            }
+        }
+        return searchQuery;
     }
 
     public int getTaskCount() {
