@@ -46,7 +46,7 @@ public class Meow {
         
     }
 
-    public static void main(String[] args) throws Meowception, IOException {
+    public static final void main(String[] args) throws Meowception, IOException {
         new Meow().run();
     }
 }
