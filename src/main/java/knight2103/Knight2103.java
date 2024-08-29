@@ -13,7 +13,7 @@ public class Knight2103 {
     private TaskList tasks;
 
     public Knight2103(String filePath) {
-        this.name = "knight2103.Knight2103";
+        this.name = "Knight2103";
         this.ui = new Ui(this.name);
         storage = new Storage(filePath);
         try {
