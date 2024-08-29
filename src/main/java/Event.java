@@ -1,17 +1,27 @@
-public class Event extends Task {
-    private String from;
-    private String to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Event(String taskDescription, String from, String to) {
+public class Event extends Task {
+    private LocalDateTime from;
+    private LocalDateTime to;
+
+    public Event(String taskDescription, String from, String to) throws AlisaException {
         super(taskDescription);
-        this.from = from;
-        this.to = to;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm");
+            this.from = LocalDateTime.parse(from, formatter);
+            this.to = LocalDateTime.parse(to, formatter);
+        } catch (DateTimeParseException e) {
+            throw new AlisaException("Please write the deadline in the following format: yyyy-mm-dd hh:mm");
+        }
     }
 
     @Override
     public String toString() {
         String task = super.toString();
-        return "[E] " + task + " (from: " + from + " to: " + to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm");
+        return "[E] " + task + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
     @Override
     public String toFileString() {
