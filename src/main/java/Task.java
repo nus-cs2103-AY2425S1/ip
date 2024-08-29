@@ -1,7 +1,9 @@
 public class Task {
-
     protected String description;
     protected boolean isDone;
+    protected String date = null;
+    protected String startTime = null;
+    protected String endTime = null;
 
     public Task(String description, boolean isDone) {
         this.description = description;

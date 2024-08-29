@@ -59,7 +59,7 @@ public class ChaCha {
 
                             System.out.println("     ____________________________________________________________ \n" +
                                     "     Got it. I've added this task:\n" +
-                                    "       " + list.addToDo(description).printTask() + "\n" +
+                                    "       " + list.addToDo(description, writtenFile).printTask() + "\n" +
                                     "     Now you have " + list.getTotal() + " tasks in the list.\n" +
                                     "     ____________________________________________________________\n");
                         }
@@ -95,13 +95,14 @@ public class ChaCha {
 
                         System.out.println("     ____________________________________________________________ \n" +
                                 "     Got it. I've added this task:\n" +
-                                "       " + list.addDeadline(description, date).printTask() + "\n" +
+                                "       " + list.addDeadline(description, date, writtenFile).printTask() + "\n" +
                                 "     Now you have " + list.getTotal() + " tasks in the list.\n" +
                                 "     ____________________________________________________________ \n");
 
                     } catch (ChaChaException e) {
                         System.out.println(e.toString());
                     }
+
                 } else if (cmd.startsWith("event")) {
                     try {
                         if (cmd.length() <= 6) {
@@ -141,7 +142,7 @@ public class ChaCha {
                             String endTime = arr[3].substring(3);
                             System.out.println("     ____________________________________________________________ \n" +
                                     "     Got it. I've added this task:\n" +
-                                    "       " + list.addEvent(description, date, startTime, endTime).printTask() + "\n" +
+                                    "       " + list.addEvent(description, date, startTime, endTime, writtenFile).printTask() + "\n" +
                                     "     Now you have " + list.getTotal() + " tasks in the list.\n" +
                                     "     ____________________________________________________________ \n");
                         }
@@ -149,6 +150,7 @@ public class ChaCha {
                     } catch (ChaChaException e) {
                         System.out.println(e.toString());
                     }
+
                 } else if (cmd.startsWith("mark")) {
                     try {
                         if (cmd.length() <= 5) {
@@ -160,7 +162,7 @@ public class ChaCha {
                         }
 
                         int index = Integer.parseInt(cmd.substring(5));
-                        System.out.println(list.markDone(index));
+                        System.out.println(list.markDone(index, filePath));
                     } catch (IndexOutOfBoundsException e) {
                         // potential exception when index given exceeds total number of tasks
                         System.out.println("     ____________________________________________________________ \n" +
@@ -186,7 +188,7 @@ public class ChaCha {
                         }
 
                         int index = Integer.parseInt(cmd.substring(7));
-                        System.out.println(list.markUndone(index));
+                        System.out.println(list.markUndone(index, filePath));
                     } catch (IndexOutOfBoundsException e) {
                         // potential exception when index given exceeds total number of tasks
                         System.out.println("     ____________________________________________________________ \n" +
@@ -213,7 +215,7 @@ public class ChaCha {
                         int index = Integer.parseInt(cmd.substring(7));
                         System.out.println("     ____________________________________________________________ \n" +
                                 "     Okay! I've removed this task: \n" +
-                                "       " + list.deleteTask(index).printTask() + "\n" +
+                                "       " + list.deleteTask(index, filePath).printTask() + "\n" +
                                 "     Now you have " + list.getTotal() + " tasks in the list.\n" +
                                 "     ____________________________________________________________ \n");
                     } catch (IndexOutOfBoundsException e) {
@@ -241,6 +243,5 @@ public class ChaCha {
         } catch (IOException e) {
             System.out.println("An error occurred: " + e.getMessage());
         }
-
     }
 }

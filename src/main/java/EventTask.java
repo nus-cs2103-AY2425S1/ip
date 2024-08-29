@@ -1,7 +1,7 @@
 public class EventTask extends Task {
-    private String date;
-    private String startTime;
-    private String endTime;
+    protected String date;
+    protected String startTime;
+    protected String endTime;
 
     public EventTask(String description, boolean isDone, String date, String startTime, String endTime) {
         super(description, isDone);

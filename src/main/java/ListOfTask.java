@@ -1,5 +1,8 @@
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class ListOfTask {
@@ -14,7 +17,7 @@ public class ListOfTask {
             String line;
             while ((line = file.readLine()) != null) {
                 String[] arr = line.split(" \\| ");
-                boolean isDone = (arr[1] == "1 ");
+                boolean isDone = (arr[1].equals("1"));
 
                 if (arr[0].equals("T")) {
                     this.tasks.add(new ToDoTask(arr[2], isDone));
@@ -24,8 +27,7 @@ public class ListOfTask {
 
                 } else if (arr[0].equals("E")) {
                     String[] timings = arr[4].split("-");
-                    String timeOfDay = timings[1].substring(1);
-                    String startTime = timings[0] + timeOfDay;
+                    String startTime = timings[0];
                     String endTime = timings[1];
                     this.tasks.add(new EventTask(arr[2], isDone, arr[3], startTime, endTime));
                 }
@@ -39,38 +41,163 @@ public class ListOfTask {
         return this.tasks.size();
     }
 
-    public Task addToDo(String t) {
-        Task task = new ToDoTask(t, false);
-        this.tasks.add(task);
-        return task;
+    public Task addToDo(String description, FileWriter file) {
+        try {
+            Task task = new ToDoTask(description, false);
+            this.tasks.add(task);
+
+            String text = "T | 0 | " + description + "\n";
+            file.append(text);
+            file.flush();
+            return task;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Task addDeadline(String t, String date) {
-        Task task = new DeadlineTask(t, false, date);
-        this.tasks.add(task);
-        return task;
+    public Task addDeadline(String description, String date, FileWriter file) {
+        try {
+            Task task = new DeadlineTask(description, false, date);
+            this.tasks.add(task);
+
+            String text = "D | 0 | " + description + " | " + date + "\n";
+            file.append(text);
+            file.flush();
+            return task;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Task addEvent(String t, String date, String start, String end) {
-        Task task = new EventTask(t, false, date, start, end);
-        this.tasks.add(task);
-        return task;
+    public Task addEvent(String description, String date, String start, String end, FileWriter file) {
+        try {
+            Task task = new EventTask(description, false, date, start, end);
+            this.tasks.add(task);
+
+            String text = "D | 0 | " + description +
+                    " | " + date + " | " + start + "-" + end + "\n";
+            file.append(text);
+            file.flush();
+            return task;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Task deleteTask(int i) {
-        return this.tasks.remove(i - 1);
+    public Task deleteTask(int i, Path filePath) {
+        try {
+            File taskFile = new File(String.valueOf(filePath));
+            FileWriter overwrittenFile = new FileWriter(taskFile);
+
+            for (int j = 0; j < this.tasks.size(); j++) {
+                if (j == i - 1) {
+                    continue;
+                }
+                Task task = this.tasks.get(j);
+
+                String description = task.description;
+                String status = (task.isDone ? "1" : "0");
+
+                if (task.date == null && task.startTime == null) {
+                    String text = "T | " + status + " | " + description + "\n";
+                    overwrittenFile.write(text);
+                } else if (task.date != null && task.startTime == null) {
+                    String date = task.date;
+                    String text = "D | " + status + " | " + description +
+                            " | " + date + "\n";
+                    overwrittenFile.write(text);
+                } else {
+                    String date = task.date;
+                    String startTime = task.startTime;
+                    String endTime = task.endTime;
+                    String text = "E | " + status + " | " + description +
+                            " | " + date + " | " + startTime + " | " + endTime + "\n";
+                    overwrittenFile.write(text);
+                }
+            }
+            overwrittenFile.flush();
+            return this.tasks.remove(i - 1);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public String markDone(int i) {
-        return "     ____________________________________________________________ \n" +
-                this.tasks.get(i - 1).markDone() + "\n" +
-                "     ____________________________________________________________ \n";
+    public String markDone(int i, Path filePath) {
+        try {
+            String markedTask = this.tasks.get(i - 1).markDone();
+            File taskFile = new File(String.valueOf(filePath));
+            FileWriter overwrittenFile = new FileWriter(taskFile);
+
+            for (int j = 0; j < this.tasks.size(); j++) {
+                Task task = this.tasks.get(j);
+
+                String description = task.description;
+                String status = (task.isDone ? "1" : "0");
+
+                if (task.date == null && task.startTime == null) {
+                    String text = "T | " + status + " | " + description + "\n";
+                    overwrittenFile.write(text);
+                } else if (task.date != null && task.startTime == null) {
+                    String date = task.date;
+                    String text = "D | " + status + " | " + description +
+                            " | " + date + "\n";
+                    overwrittenFile.write(text);
+                } else {
+                    String date = task.date;
+                    String startTime = task.startTime;
+                    String endTime = task.endTime;
+                    String text = "E | " + status + " | " + description +
+                            " | " + date + " | " + startTime + " | " + endTime + "\n";
+                    overwrittenFile.write(text);
+                }
+            }
+            overwrittenFile.flush();
+
+            return "     ____________________________________________________________ \n" +
+                    markedTask + "\n" +
+                    "     ____________________________________________________________ \n";
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public String markUndone(int i) {
-        return "     ____________________________________________________________ \n" +
-                this.tasks.get(i - 1).markUndone() + "\n" +
-                "     ____________________________________________________________ \n";
+    public String markUndone(int i, Path filePath) {
+        try {
+            String unmarkedTask = this.tasks.get(i - 1).markUndone();
+            File taskFile = new File(String.valueOf(filePath));
+            FileWriter overwrittenFile = new FileWriter(taskFile);
+
+            for (int j = 0; j < this.tasks.size(); j++) {
+                Task task = this.tasks.get(j);
+
+                String description = task.description;
+                String status = (task.isDone ? "1" : "0");
+
+                if (task.date == null && task.startTime == null) {
+                    String text = "T | " + status + " | " + description + "\n";
+                    overwrittenFile.write(text);
+                } else if (task.date != null && task.startTime == null) {
+                    String date = task.date;
+                    String text = "D | " + status + " | " + description +
+                            " | " + date + "\n";
+                    overwrittenFile.write(text);
+                } else {
+                    String date = task.date;
+                    String startTime = task.startTime;
+                    String endTime = task.endTime;
+                    String text = "E | " + status + " | " + description +
+                            " | " + date + " | " + startTime + " | " + endTime + "\n";
+                    overwrittenFile.write(text);
+                }
+            }
+            overwrittenFile.flush();
+
+            return "     ____________________________________________________________ \n" +
+                    unmarkedTask + "\n" +
+                    "     ____________________________________________________________ \n";
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String printList() {
