@@ -107,7 +107,8 @@ public class MrYapper {
                 deletedTask, taskList.size()));
     }
 
-    private static void parseTaskData(String taskData) throws InvalidDataFormatException {
+    // reads the task data from the data file and adds task into the task ArrayList
+    private static void readTaskData(String taskData) throws InvalidDataFormatException {
         try {
             String[] processedData = taskData.split(" \\|\\|\\| ");
             Task task;
@@ -153,7 +154,7 @@ public class MrYapper {
             } else {
                 Scanner dataFileReader = new Scanner(taskData);
                 while (dataFileReader.hasNextLine()) {
-                    parseTaskData(dataFileReader.nextLine());
+                    readTaskData(dataFileReader.nextLine());
                 }
                 dataFileReader.close();
             }
