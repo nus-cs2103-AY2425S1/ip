@@ -25,7 +25,12 @@ public class Meow {
             ui.showMeowceptionError("Meowception 007: meow meow error creating file meow");
         }
     }
-
+    /*
+     * runs the main program loop
+     * inits parser 
+     * @param void
+     * @return void
+     */
     public void run() {
         parser = new Parser(tasks);
         ui.printStartMessage();
@@ -45,7 +50,11 @@ public class Meow {
         sc.close();
         
     }
-
+    /*
+     * main method to run the program
+     * @param String[] args
+     * @return void
+     */
     public static final void main(String[] args) throws Meowception, IOException {
         new Meow().run();
     }

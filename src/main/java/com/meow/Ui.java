@@ -19,16 +19,21 @@ public class Ui {
     + "\n    _____________________________________________________________________";
 
     /*
-     * Public constructor for Ui
+     * Prints the task outcome message
+     * @param String msg
+     * @return void
      */
-    public Ui() {
-        
-    }
     public void showTaskOutcomeMessage(String msg) {
         System.out.println("    " + "_____________________________________________________________________");
         System.out.println("     " + msg);
         System.out.println("    " + "_____________________________________________________________________\n");
     }
+
+    /*
+     * Prints the exit message
+     * @param None
+     * @return void
+     */
     public void printExitMessage() {
         System.out.println("    " + "_____________________________________________________________________");
         System.out.println("     " + "Fine. Leave me just like everybody does meow.");
