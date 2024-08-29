@@ -1,17 +1,26 @@
 package tudee.task;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ToDo extends Task {
-    public ToDo(String taskString) {
-        super(taskString);
+class ToDoTest {
+
+    private ToDo toDo;
+
+    @BeforeEach
+    void setUp() {
+        toDo = new ToDo("Play game");
     }
 
-    @Override
-    public String toFileString()  {
-        return "T | " + (done ? "1": "0") + " | " + taskString;
+    @Test
+    void testToString() {
+        String expectedString = "[T][ ] Play game";
+        assertEquals(expectedString, toDo.toString());
     }
 
-    @Override
-    public String toString() {
-        return "[T]" + super.toString();
+    @Test
+    void testToFileString() {
+        String expectedFileString = "T | 0 | Play game";
+        assertEquals(expectedFileString, toDo.toFileString());
     }
 }
