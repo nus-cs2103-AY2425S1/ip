@@ -3,3 +3,4 @@ public class RubyException extends Exception {
         super(message);
     }
 }
+
