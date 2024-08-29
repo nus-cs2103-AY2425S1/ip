@@ -20,6 +20,7 @@ public class Julie {
     }
     public static void main(String[] args) {
         Storage.start();
+        Storage.load(taskList);
         CommonFunctions.wrappedLinePrint("Hi!! My name is: " + NAME + "!\nHow may I help?");
         Scanner sc = new Scanner(System.in);
         while (run) {
@@ -61,6 +62,7 @@ public class Julie {
                         break;
                     case TODO:
                         t = new ToDo(input.substring(5));
+                        // Fallthrough
                     case DEADLINE:
                         if (t == null) {
                             tokens = input.split(" /by ");
@@ -69,6 +71,7 @@ public class Julie {
                             }
                             t = new Deadline(tokens[0].substring(9), tokens[1]);
                         }
+                        // Fallthrough
                     case EVENT:
                         if (t == null) {
                             tokens = input.split(" /from | /to ");
@@ -79,6 +82,7 @@ public class Julie {
                         }
                         taskList.add(t);
                         CommonFunctions.addedPrompt(t, taskList);
+                        Storage.save(t);
                         break;
                 }
 

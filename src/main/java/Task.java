@@ -1,5 +1,5 @@
-public class Task {
-    private final String taskString;
+public abstract class Task {
+    final String taskString;
     private boolean completed;
     public Task(String s) {
         this.taskString = s;
@@ -21,4 +21,6 @@ public class Task {
         }
         return String.format("%s %s", output, taskString);
     }
+
+    public abstract String toStorageString();
 }

@@ -8,4 +8,8 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("[D] %s (by: %s)", super.toString(), this.due);
     }
+
+    public String toStorageString() {
+        return String.format("D | %s | %s", this.taskString, this.due);
+    }
 }
