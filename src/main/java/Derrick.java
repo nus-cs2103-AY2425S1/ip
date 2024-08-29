@@ -21,27 +21,8 @@ public class Derrick {
     /**
      * Runs the chatbot where the user can input his/her commands.
      */
-    public void run() {
-
-        ui.greetings();
-        ui.showCommands();
-
-        Scanner scanner = new Scanner(System.in);
-        label:
-        while (true) {
-            String input = scanner.nextLine();
-            CommandHandler c = parser.returnCommand(input);
-            c.execute(input, this.tasks, this.storage, this.ui);
-            if (c.checkExit()) {
-                ui.exit();
-                break;
-            }
-        }
-    }
-
-
-    public static void main(String[] args) {
-        Derrick chatbot = new Derrick();
-        chatbot.run();
+    public void run(String input) {
+        CommandHandler c = parser.returnCommand(input);
+        c.execute(input, this.tasks, this.storage, this.ui);
     }
 }
