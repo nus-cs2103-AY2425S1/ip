@@ -42,6 +42,9 @@ public class Parser {
         case "delete":
             return parseDeleteCommand(arguments);
 
+        case "find":
+            return parseFindCommand(arguments);
+
         default:
             throw new InvalidCommandException("""
             Error: Command not found
@@ -122,4 +125,12 @@ public class Parser {
             throw new TaskInputException("Error: Invalid task number for delete command.\n");
         }
     }
+
+    private static Command parseFindCommand(String arguments) throws TaskInputException {
+        if (arguments.trim().isEmpty()) {
+            throw new TaskInputException("Error: The search keyword cannot be empty.\n");
+        }
+        return new FindCommand(arguments.trim());
+    }
+
 }

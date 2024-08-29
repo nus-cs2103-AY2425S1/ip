@@ -53,6 +53,12 @@ public class Ui {
         System.out.println(SPACER + message + SPACER);
     }
 
+    public void showMessage(String message) {
+        System.out.println(SPACER);
+        System.out.println(message);
+        System.out.println(SPACER);
+    }
+
     public String readCommand() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine().trim();
