@@ -1,16 +1,16 @@
-package Denim;
+package denim;
 
-import Denim.Commands.Command;
-import Denim.Commands.CommandResult;
-import Denim.Exceptions.DenimException;
-import Denim.Storage.TaskIO;
+import denim.commands.Command;
+import denim.commands.CommandResult;
+import denim.exceptions.DenimException;
+import denim.storage.TaskIo;
 
 import java.util.Scanner;
 
 public class Denim {
     static final String filePath = "data/denim.txt";
     private Ui ui;
-    private TaskIO taskIO;
+    private TaskIo taskIo;
 
     private TaskList taskList;
 
@@ -22,12 +22,12 @@ public class Denim {
     }
 
     private void start() {
-        this.taskIO = new TaskIO(filePath);
-        this.taskList = new TaskList();
+        taskIo = new TaskIo(filePath);
+        taskList = new TaskList();
 
         try {
             Scanner tempScanner = new Scanner(System.in);
-            taskIO.readTaskData(taskList, tempScanner);
+            taskIo.readTaskData(taskList, tempScanner);
         } catch (DenimException e) {
             System.out.println(e.getMessage());
             return;
@@ -41,7 +41,7 @@ public class Denim {
         do {
             String userCommandText = ui.getUserCommand();
             command = new Parser().parseCommand(userCommandText);
-            CommandResult result = command.execute(this.taskList, taskIO);
+            CommandResult result = command.execute(taskList, taskIo);
             ui.displayReplyMessage(result);
         } while (!command.isExit());
     }
@@ -49,10 +49,6 @@ public class Denim {
     private void exit() {
         System.exit(0);
     }
-
-
-
-
 }
 
 

@@ -1,7 +1,7 @@
-package Denim;
+package denim;
 
-import Denim.Tasks.Task;
-import Denim.Tasks.Todo;
+import denim.tasks.Task;
+import denim.tasks.Todo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

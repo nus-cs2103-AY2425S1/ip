@@ -28,7 +28,7 @@ public class TaskIo {
     private final File taskFile;
 
     public TaskIo(String pathname) {
-        this.taskFile = new File(pathname);
+        taskFile = new File(pathname);
     }
 
     private void createSavePoint(fileStatus status, Scanner sc) throws DenimException {
@@ -91,21 +91,21 @@ public class TaskIo {
     public void readTaskData(TaskList taskList, Scanner sc) throws DenimException {
 
         // Checks for Parent Directory ./data
-        File dataDirectory = this.taskFile.getParentFile();
+        File dataDirectory = taskFile.getParentFile();
         if (dataDirectory == null || !dataDirectory.isDirectory()) {
             createSavePoint(fileStatus.DIRECTORY_DOES_NOT_EXIST, sc);
             return;
         }
 
         //Checks for denim.txt file
-        if (!this.taskFile.exists()) {
+        if (!taskFile.exists()) {
             createSavePoint(fileStatus.FILE_DOES_NOT_EXIST, sc);
             return;
         }
 
         // Both data directory and denim.txt exists. Proceed to read from denim.txt
         try {
-            Scanner fileReader = new Scanner(this.taskFile);
+            Scanner fileReader = new Scanner(taskFile);
             while (fileReader.hasNext()) {
                 String taskDescription = fileReader.nextLine();
                 if (taskDescription.equals("")) {
@@ -121,7 +121,7 @@ public class TaskIo {
 
     public void writeTaskData(Task task) throws DenimException {
         try {
-            FileWriter taskWriter = new FileWriter(this.taskFile, true);
+            FileWriter taskWriter = new FileWriter(taskFile, true);
             taskWriter.write(task.toSimplifiedString());
             taskWriter.close();
         } catch (IOException e) {

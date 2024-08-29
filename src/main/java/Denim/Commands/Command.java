@@ -7,5 +7,4 @@ public abstract class Command {
     public abstract CommandResult execute(TaskList taskList, TaskIo taskIO);
 
     public abstract boolean isExit();
-
 }
