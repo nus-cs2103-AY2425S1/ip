@@ -111,7 +111,7 @@ public class TaskList {
         } else {
             System.out.println("Here are the matching tasks in your list:");
             IntStream.range(0, filtered.size())
-                    .forEach(i -> System.out.printf("%d.%s\n", i + 1, filtered.get(i)));
+                    .forEach(i -> System.out.printf("%d. %s\n", i + 1, filtered.get(i)));
         }
     }
 
