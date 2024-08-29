@@ -1,19 +1,19 @@
+package Bwead;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task {
-
+public class Deadline extends Task {
     private boolean done;
     private String text;
-    private LocalDate start;
-    private LocalDate end;
+    private LocalDate date;
 
-    public Event(String text, LocalDate start, LocalDate end) {
+    public Deadline(String text, LocalDate date) {
         super(text);
         this.text = text;
-        this.start = start;
-        this.end = end;
+        this.date = date;
     }
+
     public void setDone(boolean toset) {
         this.done = toset;
     }
@@ -25,7 +25,6 @@ public class Event extends Task {
         } else {
             str = " ";
         }
-        return "[E][" + str + "] " + text + "(from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: "
-                + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D][" + str + "] " + text + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
