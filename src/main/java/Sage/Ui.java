@@ -1,5 +1,8 @@
-import java.util.Scanner;
+package Sage;
 
+import Task.Task;
+
+import java.util.Scanner;
 
 public class Ui {
     public static final String NAME = "Sage";
