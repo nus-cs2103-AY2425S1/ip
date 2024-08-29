@@ -6,63 +6,51 @@ import java.util.ArrayList;
 public class Duck {
     public static void main(String[] args) throws DuckException {
         Scanner scan = new Scanner(System.in);
-        Task[] cmds = Storage.load();
+        Parser parser = new Parser();
+        TaskList cmds = new TaskList(Storage.load(), Storage.loadNum());
         int cmdNum = Storage.loadNum();
 
         System.out.println("Hello! I'm DUCK\n What can I do for you?");
-        while (true) {
+        boolean cont = true;
+        while (cont) {
+            System.out.println(cmds.cmdNum);
             String userCmd = scan.nextLine();
-            if (userCmd.toLowerCase().equals("bye")) {
-                System.out.print("Bye. Hope to see you again soon!");
+            cont = parser.parseCmd(cmds, userCmd);
+            /*if (Parser.parseCmd(userCmd).equals("bye")) {
+                Ui.printText("Bye. Hope to see you again soon!");
                 break;
-            } else if (userCmd.toLowerCase().equals("list")) {
+            } else if (Parser.parseCmd(userCmd).equals("list")) {
                 if (cmdNum==0) {
                     continue;
                 }
-                System.out.println("Here are the tasks in your list:");
-                for (int n = 1; n<=cmdNum; n++) {
-                    System.out.println(n + ". " + cmds[n - 1]);
-                }
-            } else if ((userCmd.length() >= 4) && (userCmd.substring(0,4).toLowerCase().equals("mark"))) {
+                cmds.printTasks();
+
+            } else if (Parser.parseCmd(userCmd).equals("mark")) {
                 int num = Integer.valueOf(userCmd.substring(5));
                 if (num < cmdNum + 1) {
-                    cmds[num-1].mark();
+                    cmds.get(num-1).mark();
                 } else {
                     throw new DuckException("There is no task with the given task number.");
                 }
-                System.out.println("Nice! I've marked this task as done:\n "+ cmds[num-1]);
-            } else if ((userCmd.length() >= 6) && (userCmd.substring(0,6).toLowerCase().equals("unmark"))) {
+                Ui.printText("Nice! I've marked this task as done:\n "+ cmds.get(num-1));
+            } else if (Parser.parseCmd(userCmd).equals("unmark")) {
+
+            } else if (Parser.parseCmd(userCmd).equals("delete")) {
                 int num = Integer.valueOf(userCmd.substring(7));
                 if (num < cmdNum + 1) {
-                    cmds[num-1].unmark();
-                } else {
-                    throw new DuckException("There is no task with the given task number.");
-                }
-                System.out.println("OK, I've marked this task as not done yet:\n "+ cmds[num-1]);
-            } else if ((userCmd.length() >= 6) && (userCmd.substring(0,6).toLowerCase().equals("delete"))) {
-                int num = Integer.valueOf(userCmd.substring(7));
-                if (num < cmdNum + 1) {
-                    System.out.println("Noted. I've removed this task:\n "+ cmds[num-1]);
-
-                    ArrayList<Task> newCmds = new ArrayList<Task>(Arrays.asList(cmds));
-                    newCmds.remove(num-1);
-                    cmds = newCmds.toArray(new Task[100]);
-                    cmdNum--;
-
-                    System.out.println("Now you have " + cmdNum + " tasks in the list.");
+                    cmds.delete(num);
+                    //cmdNum--;
                 } else {
                     throw new DuckException("There is no task with the given task number.");
                 }
 
-            } else if ((userCmd.length() >= 4) && (userCmd.substring(0,4).toLowerCase().equals("todo"))) {
-                if (userCmd.length() == 4) {
+            } else if (Parser.parseCmd(userCmd).equals("todo")) {
+                /*if (userCmd.length() == 4) {
                     throw new DuckException("The description of a todo cannot be empty.");
                 }
-                cmds[cmdNum] = new Todo(userCmd.substring(5));
-                System.out.println("Got it. I've added this task:\n  " + cmds[cmdNum]);
-                cmdNum++;
-                System.out.println("Now you have " + cmdNum + " tasks in the list.");
-            } else if ((userCmd.length() >= 8) && (userCmd.substring(0,8).toLowerCase().equals("deadline"))) {
+                cmds.add(new Todo(userCmd.substring(5)));
+                //cmdNum++;
+            } else if (Parser.parseCmd(userCmd).equals("deadline")) {
                 if (userCmd.length() == 8) {
                     throw new DuckException("The description of a deadline cannot be empty.");
                 }
@@ -71,11 +59,9 @@ public class Duck {
                 if ((n==-1) || (userCmd.substring(n + 4).isEmpty())) {
                     throw new DuckException("A deadline needs an end date.");
                 }
-                cmds[cmdNum] = new Deadline(userCmd.substring(0, n), userCmd.substring(n+4));
-                System.out.println("Got it. I've added this task:\n  " + cmds[cmdNum]);
-                cmdNum++;
-                System.out.println("Now you have " + cmdNum + " tasks in the list.");
-            } else if ((userCmd.length() >= 5) && (userCmd.substring(0,5).toLowerCase().equals("event"))) {
+                cmds.add(new Deadline(userCmd.substring(0, n), userCmd.substring(n+4)));
+                //cmdNum++;
+            } else if (Parser.parseCmd(userCmd).equals("event")) {
                 if (userCmd.length() == 5) {
                     throw new DuckException("The description of a event cannot be empty.");
                 }
@@ -85,18 +71,14 @@ public class Duck {
                 if ((start == -1) || (end == -1)) {
                     throw new DuckException("An event needs both a start and end date or time.");
                 }
-
-                cmds[cmdNum] = new Event(userCmd.substring(0, start),
+                cmds.add(new Event(userCmd.substring(0, start),
                         userCmd.substring(start+6, start+end),
-                        userCmd.substring(start+1+end+4));
-                System.out.println("Got it. I've added this task:\n  " + cmds[cmdNum]);
-                cmdNum++;
-                System.out.println("Now you have " + cmdNum + " tasks in the list.");
+                        userCmd.substring(start+1+end+4)));
+                //cmdNum++;
             } else {
                 throw new DuckException("Given command is not a valid user input.");
-            }
+            }*/
         }
-        Storage.save(cmds, cmdNum);
         scan.close();
     }
 
