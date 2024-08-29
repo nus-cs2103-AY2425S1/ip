@@ -1,6 +1,6 @@
 package sunny;
 /**
- * Break downm user messages for other classes
+ * Breaks down user messages for other classes
  */
 public class Parser {
     private String command;
