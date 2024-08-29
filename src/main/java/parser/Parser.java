@@ -7,7 +7,7 @@ import tasks.Task;
 
 public class Parser {
 
-    public Task parseDeadlineTask(String deadlineCommand) throws StringIndexOutOfBoundsException {
+    public DeadlineTask parseDeadlineTask(String deadlineCommand) throws StringIndexOutOfBoundsException {
         int byIndex = deadlineCommand.indexOf("/by");
         String desc = deadlineCommand.substring(0, byIndex);
         String deadline = deadlineCommand.substring(byIndex + 4);
