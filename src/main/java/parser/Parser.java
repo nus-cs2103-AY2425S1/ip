@@ -8,6 +8,7 @@ import tasks.ToDoTask;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.NoSuchElementException;
 
 public class Parser {
     // Deals with making sense of the user command
@@ -19,7 +20,8 @@ public class Parser {
         TODO("todo"),
         DEADLINE("deadline"),
         EVENT("event"),
-        DELETE("delete");
+        DELETE("delete"),
+        FIND("find");
 
         private String command;
         CommandType(String command) {
@@ -32,7 +34,8 @@ public class Parser {
                     return type;
                 }
             }
-            throw new PrimoException("Invalid command!\n(Expected Commands: todo, deadline, event, mark, unmark, delete, list, bye)\n");
+            throw new PrimoException("Invalid command!\n(Expected Commands: todo, deadline, event, mark, unmark, " +
+                    "delete, list, find, bye)\n");
         }
     }
 
@@ -137,6 +140,12 @@ public class Parser {
                 }
                 int deleteIndex = Integer.valueOf(words[1]) - 1;
                 return new DeleteCommand(deleteIndex);
+            case FIND:
+                String wordToFind = "";
+                if (words.length <= 1) {
+                    throw new PrimoException("Poor formatting! Expecting find <string>");
+                }
+                return new FindCommand(wordToFind);
         }
         return null; // should not reach here if exception handling is great
     }
