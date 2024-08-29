@@ -16,6 +16,7 @@ import java.util.Scanner;
 
 public class Storage {
     final static String FILE_PATH = "data/tasks.txt";
+
     public static void saveTasks(ArrayList<Task> tasks) {
         File file = new File(FILE_PATH);
 
@@ -52,18 +53,18 @@ public class Storage {
 
                 Task newTask = null;
                 switch (type) {
-                    case "T":
-                        newTask = new ToDo(description);
-                        break;
-                    case "D":
-                        LocalDate by = LocalDate.parse(splitInput[3]);
-                        newTask = new Deadline(description, by);
-                        break;
-                    case "E":
-                        LocalDateTime from = LocalDateTime.parse(splitInput[3]);
-                        LocalDateTime to = LocalDateTime.parse(splitInput[4]);
-                        newTask = new Event(description, from, to);
-                        break;
+                case "T":
+                    newTask = new ToDo(description);
+                    break;
+                case "D":
+                    LocalDate by = LocalDate.parse(splitInput[3]);
+                    newTask = new Deadline(description, by);
+                    break;
+                case "E":
+                    LocalDateTime from = LocalDateTime.parse(splitInput[3]);
+                    LocalDateTime to = LocalDateTime.parse(splitInput[4]);
+                    newTask = new Event(description, from, to);
+                    break;
                 }
                 if (isDone && newTask != null) {
                     newTask.markDone();

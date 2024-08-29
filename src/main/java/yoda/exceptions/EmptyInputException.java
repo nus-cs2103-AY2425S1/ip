@@ -1,7 +1,7 @@
 package yoda.exceptions;
 
 public class EmptyInputException extends InvalidInputException {
-    EmptyInputException() {
+    public EmptyInputException() {
         super("Hmm... You must speak to be heard...");
     }
 }

@@ -12,11 +12,12 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String getData(){
+    public String getData() {
         String isDone = this.isDone ? "1" : "0";
         return "D | " + isDone + " | " + this.description + " | " +
                 this.by;
     }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))

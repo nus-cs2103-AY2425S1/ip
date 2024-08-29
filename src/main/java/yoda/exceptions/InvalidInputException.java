@@ -1,7 +1,7 @@
 package yoda.exceptions;
 
 public class InvalidInputException extends Exception {
-    InvalidInputException(String s) {
+    public InvalidInputException(String s) {
         super(s);
     }
 
