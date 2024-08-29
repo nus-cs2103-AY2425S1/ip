@@ -9,7 +9,7 @@ public class AddCommand extends Command {
 
     private final Task task;
 
-    public AddCommand(Task task){
+    public AddCommand(Task task) {
         super();
         this.task = task;
     }
@@ -21,7 +21,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public boolean isActive(){
+    public boolean isActive() {
         return true;
     }
 

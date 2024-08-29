@@ -7,16 +7,16 @@ public class ToDo extends Task {
     }
 
     public ToDo(String description, boolean isComplete) {
-        super(description,isComplete);
+        super(description, isComplete);
     }
 
-    public ToDo(){
-        this("",true);
+    public ToDo() {
+        this("", true);
     }
 
     @Override
     public String toString() {
-        return String.format(formatString,this.isComplete?"X":" ",this.description);
+        return String.format(formatString, this.isComplete ? "X" : " ", this.description);
     }
 
     @Override

@@ -1,17 +1,17 @@
 package monique.task;
 
 public abstract class Task implements java.io.Serializable {
-    private static final long serialisableUid = 1L;
-    //instance fields
+    private static final long SERALIASABLEUID = 1L;
+
     public final String description;
     public boolean isComplete;
 
 
-    public Task(String description){
+    public Task(String description) {
         this.description = description;
         this.isComplete = false;
     }
-    public Task(String description, boolean isComplete){
+    public Task(String description, boolean isComplete) {
         this.description = description;
         this.isComplete = isComplete;
     }
