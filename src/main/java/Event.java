@@ -1,8 +1,10 @@
-public class Event extends Task {
-    private final String from;
-    private final String to;
+import java.time.LocalDateTime;
 
-    public Event(String task, String from, String to) {
+public class Event extends Task {
+    private final LocalDateTime from;
+    private final LocalDateTime to;
+
+    public Event(String task, LocalDateTime from, LocalDateTime to) {
         super(task);
         this.from = from;
         this.to = to;
