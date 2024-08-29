@@ -109,10 +109,4 @@ public class AddCommand extends Command {
         ui.showMessage("    " + task);
         ui.showMessage("You now have " + tasks.getSize() + " tasks in the list.");
     }
-
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

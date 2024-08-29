@@ -146,39 +146,11 @@ public class Neuro {
 //            } else if (input.equals("list")) {
 //                System.out.println("    ___________________________________________________");
 //
-//                if (taskList.isEmpty()) {
-//                    System.out.println("    You currently have no tasks.");
-//                } else {
-//                    System.out.println("    Here is a list of all your tasks:");
-//                    for (int i = 0; i < taskList.size(); i++) {
-//                        System.out.println("    " + (i + 1) + ". " + taskList.get(i));
-//                    }
-//                }
+
 //
 //                System.out.println("    ___________________________________________________");
 //            } else if (input.startsWith("mark")) {
-//                // String split inspired by https://www.w3schools.com/java/ref_string_split.asp
-//                String[] inputComponents = input.split(" ");
-//
-//                System.out.println("    ___________________________________________________");
-//                try {
-//                    int taskIndex = Integer.valueOf(inputComponents[1]);
-//                    Task task = taskList.get(taskIndex - 1);
-//                    task.markDone();
-//
-//                    System.out.println("    Nice! I've marked this task as done:");
-//                    System.out.println("    " + task);
-//                } catch (ArrayIndexOutOfBoundsException e) {
-//                    System.out.println("    UH OH! Missing index for 'mark' command! Add a valid index for a task" +
-//                            " to mark, like 'mark 2'.");
-//                } catch (IndexOutOfBoundsException e) {
-//                    System.out.println("    UH OH! Index out of bounds! Try calling the command 'list' to verify the" +
-//                            " index of the desired task.");
-//                } catch (NumberFormatException e) {
-//                    System.out.println("    UH OH! Invalid index for 'mark' command! Add a valid index for a task" +
-//                            " to mark, like 'mark 2'.");
-//                }
-//                System.out.println("    ___________________________________________________");
+
 //
 //            } else if (input.startsWith("unmark")) {
 //                // String split inspired by https://www.w3schools.com/java/ref_string_split.asp

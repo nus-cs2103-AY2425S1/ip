@@ -1,8 +1,6 @@
 package neuro;
 
-import neuro.command.AddCommand;
-import neuro.command.Command;
-import neuro.command.ExitCommand;
+import neuro.command.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,13 +12,13 @@ public class Parser {
         if (userCommand.equals("bye")) {
             return new ExitCommand();
         } else if (userCommand.equals("list")) {
-            return null;
+            return new ListCommand();
         } else if (userCommand.startsWith("mark")) {
-            return null;
+            return new MarkCommand(getIndexFromCommand(userCommand));
         } else if (userCommand.startsWith("unmark")) {
-            return null;
+            return new UnmarkCommand(getIndexFromCommand(userCommand));
         } else if (userCommand.startsWith("delete")) {
-            return null;
+            return new DeleteCommand(getIndexFromCommand(userCommand));
         } else {
             return new AddCommand(userCommand.split(" "));
         }
@@ -74,5 +72,15 @@ public class Parser {
                     "Try updating the command like 'deadline finish homework /by Mon 2359'.");
         }
         return byIndex;
+    }
+
+    private static int getIndexFromCommand(String userCommand) {
+        String[] commandComponents = userCommand.split(" ");
+
+        try {
+            return Integer.valueOf(commandComponents[1]);
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            return -1;
+        }
     }
 }

@@ -12,7 +12,19 @@ public class TaskList {
         taskList.add(task);
     }
 
-    public String getSize() {
-        return String.valueOf(taskList.size());
+    public int getSize() {
+        return taskList.size();
+    }
+
+    public boolean isEmpty() {
+        return taskList.isEmpty();
+    }
+
+    public Task getTask(int index) {
+        return taskList.get(index);
+    }
+
+    public Task removeTask(int index) {
+        return taskList.remove(index);
     }
 }
