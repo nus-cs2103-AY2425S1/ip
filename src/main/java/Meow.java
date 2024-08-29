@@ -25,30 +25,76 @@ public class Meow {
     public enum Command {
         TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, BYE
     }
-    public static void main(String[] args) throws Meowception, IOException {
-        System.out.println(openingMessage);
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-        
-        // User input cycle is here.
-        loadTasksFromFile();
-        while (!input.equals("bye")) {
-            commandValidation(input);
-            input = sc.nextLine();
+    private Save save;
+    private Ui ui;
+    private TaskList tasks;
+    private Parser parser;
+    
+    // Public constructor for Meow
+    public Meow() throws IOException, Meowception {
+        tasks = new TaskList();
+        ui = new Ui();
+        try {
+            
+            save = new Save(tasks);
+
+        } catch (Meowception e) {
+            ui.showMeowceptionError(e.toString());
+        } catch (IOException e) {
+            ui.showMeowceptionError("Meowception 007: meow meow error creating file meow");
         }
-        saveTasks();
-        System.out.println("Fine just leave me like everyone does hmph");
     }
 
-    static private void loadTasksFromFile() {
-        try {
-            readTasks();
-        } catch (Meowception e) {
-            errorMsg(e.toString());
-        } catch (IOException e) {
-            errorMsg("Meowception 007: meow meow error creating file meow");
+    public void run() {
+        parser = new Parser(tasks);
+        ui.printStartMessage();
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        while (!input.equals("bye")) {
+            try {
+                String msg = parser.commandValidation(input);
+                ui.showTaskOutcomeMessage(msg);
+            } catch (Meowception e) {
+                ui.showMeowceptionError(e.toString());
+            }
+            input = sc.nextLine();
         }
+        save.saveTasks(tasks);
+        ui.printExitMessage();
+
+        
     }
+
+    public static void main(String[] args) throws Meowception, IOException {
+        new Meow().run();
+    }
+
+
+
+    // public static void main(String[] args) throws Meowception, IOException {
+    //     System.out.println(openingMessage);
+    //     Scanner sc = new Scanner(System.in);
+    //     String input = sc.nextLine();
+        
+    //     // User input cycle is here.
+    //     loadTasksFromFile();
+    //     while (!input.equals("bye")) {
+    //         commandValidation(input);
+    //         input = sc.nextLine();
+    //     }
+    //     saveTasks();
+    //     System.out.println("Fine just leave me like everyone does hmph");
+    // }
+
+    // static private void loadTasksFromFile() {
+    //     try {
+    //         //readTasks();
+    //     } catch (Meowception e) {
+    //         errorMsg(e.toString());
+    //     } catch (IOException e) {
+    //         errorMsg("Meowception 007: meow meow error creating file meow");
+    //     }
+    // }
 
     static private void errorMsg(String msg) {
         System.out.println("    " + "_____________________________________________________________________");
@@ -161,6 +207,8 @@ public class Meow {
     
                 }
                 break;
+            default:
+                throw new Meowception("001");
                 
             // case DEFAULT:
             //     errorMsg(new Meowception("001").toString());
@@ -226,7 +274,7 @@ public class Meow {
                 String taskName = command.substring(0, command.indexOf("/from") - 1);
                 String timeframe = command.substring(command.indexOf("/from"));
                 System.out.println(timeframe);
-                taskList.add(new Event(taskName, timeframe));
+                //taskList.add(new Event(taskName, timeframe));
                 addingTaskMessage(command, taskList.get(taskList.size() - 1));
 
             }
@@ -331,28 +379,27 @@ public class Meow {
      * @param String: The command line containing index.
      * 
      */
-    static private void readTasks() throws Meowception, IOException {
-        Save save = new Save();
-        List<String> tasks = save.read();  
-        for (String task : tasks) {
-            String type = task.substring(0, 1);
-            commandValidation(task.substring(2));
-            if (type.equals("1")) {
-                taskList.get(taskList.size() - 1).setDone(true);
-            } 
-        }
-
-    }
+    // static private void readTasks() throws Meowception, IOException {
+    //     Save save = new Save();
+    //     List<String> tasks = save.read();  
+    //     for (String task : tasks) {
+    //         String type = task.substring(0, 1);
+    //         commandValidation(task.substring(2));
+    //         if (type.equals("1")) {
+    //             taskList.get(taskList.size() - 1).setDone(true);
+    //         } 
+    //     }
+    // }
 
     /*
      * This function is used to save tasks to a file.
      * @param List<Task>: The list of tasks to be saved.
      * 
      */
-    static private void saveTasks() throws IOException {
-        Save save = new Save(taskList);
+    // static private void saveTasks() throws IOException {
+    //     Save save = new Save(taskList);
         
-        save.saveTasks(taskList);
-    }
+    //     save.saveTasks(taskList);
+    // }
 
 }

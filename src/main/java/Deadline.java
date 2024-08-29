@@ -2,7 +2,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    private String by;
+    //private String by;
     private LocalDateTime byDateTime; 
     
     public Deadline(String taskName, String by) throws Meowception {
@@ -23,7 +23,8 @@ public class Deadline extends Task {
 
     @Override
     public String getExtra() {
-        return "/by " + byDateTime.toString();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return "/by " + byDateTime.format(formatter);
     }
     
     @Override

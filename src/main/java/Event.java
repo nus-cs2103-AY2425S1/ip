@@ -7,10 +7,13 @@ public class Event extends Task {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HHmm MMM dd yyyy");
-    public Event(String taskName, String timeframe) throws Meowception {
+
+    public Event(String taskName, String from, String to) throws Meowception {
         super(taskName);
-        this.start= timeframe.substring(timeframe.indexOf("/from") + 6, timeframe.indexOf("/to"));
-        this.end = timeframe.substring(timeframe.indexOf("/to") + 4);
+        //this.start= timeframe.substring(timeframe.indexOf("/from") + 6, timeframe.indexOf("/to"));
+        //this.end = timeframe.substring(timeframe.indexOf("/to") + 4);
+        this.start = from;
+        this.end = to;
         try {
             startDateTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
             endDateTime = LocalDateTime.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
@@ -28,7 +31,10 @@ public class Event extends Task {
 
     @Override
     public String getExtra() {
-        return "/from " + startDateTime.toString() + " /to " + endDateTime.toString();
+        DateTimeFormatter formatted = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        String startFormated = startDateTime.format(formatted);
+        String endFormated = endDateTime.format(formatted);
+        return "/from " + startFormated + " /to " + endFormated;
     }
 
     @Override

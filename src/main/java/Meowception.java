@@ -9,6 +9,8 @@ public class Meowception extends Exception {
         switch (code) {
             case "001":
                 return "Meowception ERROR 001: meow meow enter a valid command neow.";
+            case "007":
+                return "Meowception ERROR 007: meow meow file does not exist!";
             case "100":
                 return "Meowception ERROR 100: meow meow you need to enter a task and it cant be blank silly goose meow";
             case "200":
