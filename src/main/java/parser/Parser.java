@@ -46,6 +46,8 @@ public class Parser {
             return new EditCommand(remaining, EditCommand.Instruction.UNMARK);
         } else if (command.equals("delete")) {
             return new DeleteCommand(remaining);
+        } else if (command.equals("find")) {
+            return new ListCommand(remaining);
         }
 
         throw new LlamaException("Command not found, try again.");
