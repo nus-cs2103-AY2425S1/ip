@@ -40,44 +40,42 @@ public class AddTaskCommand extends Command {
      * @throws MatchaException If the task details are not provided or are invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MatchaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws MatchaException {
         if (inputWords.length < 2) {
             throw new MatchaException("Please include the " + commandType + " details!");
         }
         switch (commandType) {
         case "todo":
             Todo todo = new Todo(inputWords[1]);
-            System.out.println("Alright, I have added this Todo:");
             //add todos to task list
             tasks.addTask(todo);
-            tasks.printTask(todo);
             //save tasks to file
             storage.saveTasks(tasks.getTasks());
+            String todoMessage = "Alright, I have added this Todo:\n" + tasks.showTask(todo);
+            super.setResponse(todoMessage);
             break;
-
         case "deadline":
             Deadline deadline = createDeadline();
-            System.out.println("Alright, I have added this Deadline:");
             //add deadline to task list
             tasks.addTask(deadline);
-            tasks.printTask(deadline);
+            String deadlineMessage = "Alright, I have added this Deadline:\n" + tasks.showTask(deadline);
             //save tasks to file
             storage.saveTasks(tasks.getTasks());
+            super.setResponse(deadlineMessage);
             break;
-
         case "event":
             Event event = createEvent();
-            System.out.println("Alright, I have added this Event:");
             //add event to task list
             tasks.addTask(event);
-            tasks.printTask(event);
+            String eventMessage = "Alright, I have added this Event:\n" + tasks.showTask(event);
             //save tasks to file
             storage.saveTasks(tasks.getTasks());
+            super.setResponse(eventMessage);
             break;
-
         default:
             throw new MatchaException("Invalid command to add tasks!");
         }
+        return super.getResponse();
     }
 
     /**

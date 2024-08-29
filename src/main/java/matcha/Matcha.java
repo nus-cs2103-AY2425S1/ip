@@ -12,59 +12,62 @@ import matcha.ui.Ui;
  */
 public class Matcha {
     private static final String FILE_PATH = "./data/matcha.txt";
+    private static boolean isExit = false;
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
-
     /**
      * Constructor for Matcha class.
-     *
-     * @param filePath File path with saved task file.
      */
-    public Matcha(String filePath) {
-        storage = new Storage(filePath);
+    public Matcha() {
+        storage = new Storage(FILE_PATH);
         ui = new Ui();
         try {
             tasks = new TaskList(storage.loadTasks());
         } catch (MatchaException e) {
-            ui.showLoadingError();
             tasks = new TaskList();
         }
     }
-
     /**
-     * Runs the program to allow users to interact with Matcha.
-     */
-    public void run() {
-        //greet users
-        ui.greet();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                //read user input
-                String input = ui.readInput();
-                ui.printDivider();
-                Command command = Parser.parseCommand(input);
-                command.execute(tasks, ui, storage);
-                isExit = command.isExit();
-            } catch (MatchaException e) {
-                System.out.println(e);
-            } finally {
-                ui.printDivider();
-            }
-        }
-        //once user has exited program, close scanner
-        ui.closeScanner();
-    }
-
-    /**
-     * Main method to start the Matcha program.
+     * Returns the response of Matcha based on the user input.
      *
-     * @param args Command line arguments.
+     * @param input User input to Matcha via GUI.
+     * @return Response of Matcha based on user input.
      */
-    public static void main(String[] args) {
-        new Matcha(FILE_PATH).run();
+    public String getResponse(String input) {
+        try {
+            if (input.isEmpty()) {
+                return "Please enter a command.";
+            }
+            Command command = Parser.parseCommand(input);
+            return command.execute(tasks, ui, storage);
+        } catch (MatchaException e) {
+            return e.toString();
+        }
+    }
+    /**
+     * Returns the welcome message of Matcha.
+     *
+     * @return Welcome message of Matcha.
+     */
+    public String getWelcomeMessage() {
+        return "Hi there! I am Matcha, your personal chatbot.\nHow can I help you today?";
+    }
+    /**
+     * Returns the exit status of Matcha.
+     *
+     * @return Exit status of Matcha.
+     */
+    public boolean hasExit() {
+        return isExit;
+    }
+    /**
+     * Sets the exit status of Matcha.
+     *
+     * @param exit Exit status of Matcha.
+     */
+    public static void setExit(boolean exit) {
+        isExit = exit;
     }
 }

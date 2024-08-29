@@ -29,10 +29,11 @@ public class UpdateTaskCommand extends Command {
      * @param tasks Task list to update.
      * @param ui Ui object to interact with user.
      * @param storage Storage object to save tasks to file.
+     * @return The response to the user.
      * @throws MatchaException If the task number is not provided or is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MatchaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws MatchaException {
         if (inputWords.length != 2) {
             throw new MatchaException("Please enter the task number of the task you want to " + commandType + ".");
         }
@@ -51,6 +52,7 @@ public class UpdateTaskCommand extends Command {
         default:
             throw new MatchaException("Invalid command to update tasks!");
         }
+        return super.getResponse();
     }
 
     /**
@@ -71,11 +73,8 @@ public class UpdateTaskCommand extends Command {
         if (taskNum < 0 || taskNum >= tasks.getSize()) {
             throw new MatchaException("This task does not exist!");
         }
-
         tasks.getTask(taskNum).markDone();
-
-        System.out.println("I have successfully marked this task as done:");
-        System.out.println(tasks.getTask(taskNum).toString());
+        super.setResponse("I have successfully marked this task as done:\n" + tasks.getTask(taskNum).toString());
     }
 
     /**
@@ -98,8 +97,6 @@ public class UpdateTaskCommand extends Command {
         }
 
         tasks.getTask(taskNum).markNotDone();
-
-        System.out.println("Alright, I have marked this task as not done yet:");
-        System.out.println(tasks.getTask(taskNum).toString());
+        super.setResponse("I have successfully marked this task as not done:\n" + tasks.getTask(taskNum).toString());
     }
 }
