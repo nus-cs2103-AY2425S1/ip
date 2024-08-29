@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -253,27 +257,32 @@ public class Victor {
 
                 if (taskName.isEmpty()) {
                     System.out.println("  ~  Please give a name for the Deadline. The format should be \"deadline" +
-                            " (description) /by (deadline)\"");
+                            " (description) /by (deadline, in format yyyy-mm-dd or dd-mm-yyyy)\"");
                 } else if (deadline.isEmpty()) {
                     System.out.println("  ~  Please give a deadline for the Deadline. The format should be \"deadline" +
-                            " (description) /by (deadline)\"");
+                            " (description) /by (deadline, in format yyyy-mm-dd or dd-mm-yyyy)\"");
                 } else {
-                    Deadline task = new Deadline(taskName, deadline);
-                    inputs.add(task);
-
-                    // Write deadline to file
                     try {
-                        FileWriter addWriter = new FileWriter(String.valueOf(filePath), true);
-                        task.writeToFile(addWriter);
-                        addWriter.close();
-                    } catch (IOException writeIOException) {
-                        throw new RuntimeException(writeIOException);
-                    }
+                        Deadline task = new Deadline(taskName, deadline);
+                        inputs.add(task);
 
-                    System.out.println("  ~  Splendid! I added this Deadline:");
-                    System.out.println("  ~    " + task);
-                    System.out.println("  ~  You now have " + inputs.size() +
-                            ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
+                        // Write deadline to file
+                        try {
+                            FileWriter addWriter = new FileWriter(String.valueOf(filePath), true);
+                            task.writeToFile(addWriter);
+                            addWriter.close();
+                        } catch (IOException writeIOException) {
+                            throw new RuntimeException(writeIOException);
+                        }
+
+                        System.out.println("  ~  Splendid! I added this Deadline:");
+                        System.out.println("  ~    " + task);
+                        System.out.println("  ~  You now have " + inputs.size() +
+                                ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
+                    } catch (DateTimeParseException parseException) {
+                        System.out.println("  ~  Please format deadline as " + "\"deadline" +
+                                " (description) /by (deadline, in format yyyy-mm-dd or dd-mm-yyyy)\"");
+                    }
                 }
             } else if (inputWords[0].equalsIgnoreCase("event")) {
                 String[] parsed = userInput.trim().split(" ");
@@ -308,30 +317,44 @@ public class Victor {
 
                 if (taskName.isEmpty()) {
                     System.out.println("  ~  Please give a name for the Event. The format should be \"event" +
-                            " (description) /from (start) /to (end)\"");
+                            " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to" +
+                            " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
                 } else if (start.isEmpty()) {
                     System.out.println("  ~  Please give a start time for the Event. The format should be \"event" +
-                            " (description) /from (start) /to (end)\"");
+                            " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to" +
+                            " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
                 } else if (end.isEmpty()) {
                     System.out.println("  ~  Please give an end time for the Event. The format should be \"event" +
-                            " (description) /from (start) /to (end)\"");
+                            " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to" +
+                            " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
                 } else {
-                    Event task = new Event(taskName, start, end);
-                    inputs.add(task);
-
-                    // Write event to file
                     try {
-                        FileWriter addWriter = new FileWriter(String.valueOf(filePath), true);
-                        task.writeToFile(addWriter);
-                        addWriter.close();
-                    } catch (IOException writeIOException) {
-                        throw new RuntimeException(writeIOException);
-                    }
+                        Event task = new Event(taskName, start, end);
+                        inputs.add(task);
 
-                    System.out.println("  ~  Wonderful! I added this Event:");
-                    System.out.println("  ~    " + task);
-                    System.out.println("  ~  You now have " + inputs.size() +
-                            ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
+                        // Write event to file
+                        try {
+                            FileWriter addWriter = new FileWriter(String.valueOf(filePath), true);
+                            task.writeToFile(addWriter);
+                            addWriter.close();
+                        } catch (IOException writeIOException) {
+                            throw new RuntimeException(writeIOException);
+                        }
+
+                        System.out.println("  ~  Wonderful! I added this Event:");
+                        System.out.println("  ~    " + task);
+                        System.out.println("  ~  You now have " + inputs.size() +
+                                ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
+                    } catch (DateTimeParseException parseException) {
+                        System.out.println("  ~  Please format the event as \"event" +
+                                " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to" +
+                                " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
+                    } catch (DateTimeException dateException) {
+                        System.out.println("  ~  Please ensure end time is later than start time!");
+                        System.out.println("  ~  Format the event as \"event (description) /from" +
+                                " (start, in format yyyy-mm-dd or dd-mm-yyyy) /to" +
+                                " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
+                    }
                 }
             } else {
                 // User input does not match any specified command
