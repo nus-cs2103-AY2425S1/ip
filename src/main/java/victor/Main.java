@@ -21,12 +21,18 @@ public class Main {
         new Main().run();
     }
 
+    /**
+     * Starts program loop and calls initialising and ending functions.
+     */
     private void run() {
         start();
         runUntilExit();
         exit();
     }
 
+    /**
+     * Initialises parser, UI, storage, and task list elements for the whole program.
+     */
     private void start() {
         // On start, need to create parser, load data from storage to make Task List
         parser = new Parser();
@@ -36,6 +42,9 @@ public class Main {
         ui.showWelcomeMessage();
     }
 
+    /**
+     * Runs a program loop that continually received user input until the UI receives a "bye" command.
+     */
     private void runUntilExit() {
         Command nextCommand;
         do {
@@ -47,6 +56,9 @@ public class Main {
         } while (!nextCommand.isExit());
     }
 
+    /**
+     * Calls the UI to generate a parting message and terminates the program.
+     */
     private void exit() {
         ui.showByeMessage();
         System.exit(0);

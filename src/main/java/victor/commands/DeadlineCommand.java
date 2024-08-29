@@ -14,6 +14,13 @@ public class DeadlineCommand extends Command {
     public DeadlineCommand(String[] additionalInput) {
         super(additionalInput);
     }
+
+    /**
+     * Overrides the execute method from the Command class. Processes user input and handles
+     * inputs with incorrect date formats by returning user prompt messages that state the correct
+     * input format. Calls the addTask method of task list to add the task to the program-wide task list.
+     * @return A return message with the deadline action summary (successful) or a prompt to the user (unsuccessful).
+     */
     @Override
     public ReturnMessage execute() {
         String taskNameString = "";
@@ -55,6 +62,12 @@ public class DeadlineCommand extends Command {
         }
     }
 
+    /**
+     * Overrides the generic write method in the parent Command class. Handles the case where the deadline is null
+     * (has not been set or incorrectly generated) by not writing anything. Otherwise, calls the writeToFile method
+     * from the TaskList class with the given file path. Appends to file instead of overwriting.
+     * @param filePath The file path, relative to the project root directory, where to write the changes.
+     */
     @Override
     public void write(Path filePath) {
         try {

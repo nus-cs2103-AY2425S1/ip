@@ -21,6 +21,11 @@ public class MarkCommand extends Command {
         this.taskNumber = String.valueOf(task);
     }
 
+    /**
+     * Overrides the execute method from the Command class. Processes user input and handles
+     * inputs with invalid task number to mark by prompting the user to enter a valid number.
+     * @return A return message with the mark action summary (successful) or a prompt to the user (unsuccessful).
+     */
     @Override
     public ReturnMessage execute() {
         try {
@@ -30,6 +35,11 @@ public class MarkCommand extends Command {
         }
     }
 
+    /**
+     * Re-writes the task list to the output file at the file path specified by calling the writeToFile method
+     * from the TaskList class.
+     * @param filePath The file path, relative to the project root directory, where to write the changes.
+     */
     @Override
     public void write(Path filePath) {
         if (!taskNumber.trim().equals("-1")) {
