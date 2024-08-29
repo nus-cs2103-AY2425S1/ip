@@ -1,3 +1,5 @@
+package Mentos.MentosException;
+
 public class MentosException extends Exception{
     protected String err;
 

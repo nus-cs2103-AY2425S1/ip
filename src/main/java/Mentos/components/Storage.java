@@ -1,3 +1,8 @@
+package Mentos.components;
+
+import Mentos.MentosException.MentosException;
+import Mentos.task.*;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -18,7 +23,7 @@ public class Storage {
     public void saveTasksToFile(TaskList tasks) {
         /*
          * Saves the list of tasks to a file specified by {@code FILE_PATH}.
-         * This method writes each task in the {@code tasks} list to the file, with each task on a new line.
+         * This method writes each Mentos.task in the {@code tasks} list to the file, with each Mentos.task on a new line.
          * If the file specified by {@code FILE_PATH} does not exist, an error message will be printed to the console.
          * Note: The method uses a hard-coded file path. Ensure that the directory structure exists before calling this method.
          *
@@ -39,11 +44,11 @@ public class Storage {
     public ArrayList<Task> loadTasksFromFile() throws MentosException {
         /*
          * Loads the list of tasks from a file specified by {@code FILE_PATH}.
-         * This method reads each line from the file and attempts to parse it into a {@code Task} object,
-         * depending on the task type identified in the line. The supported task types are:
+         * This method reads each line from the file and attempts to parse it into a {@code Mentos.task.Task} object,
+         * depending on the Mentos.task type identified in the line. The supported Mentos.task types are:
          * To-Do (T)
-         * Event (E)
-         * Deadline (D)
+         * Mentos.task.Event (E)
+         * Mentos.task.Deadline (D)
          * If a line is not in the expected format, it will be skipped, and a warning message will be printed to the console.
          * If the file does not exist or an I/O error occurs, an error message will be printed instead.
 

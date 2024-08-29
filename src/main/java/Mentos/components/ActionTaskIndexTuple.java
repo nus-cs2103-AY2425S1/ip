@@ -1,3 +1,7 @@
+package Mentos.components;
+
+import Mentos.task.Task;
+
 public class ActionTaskIndexTuple {
     private final String action;
     private final Task task;

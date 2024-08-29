@@ -1,7 +1,14 @@
+package Mentos.components;
+
+import Mentos.MentosException.MentosException;
+import Mentos.task.Deadline;
+import Mentos.task.Event;
+import Mentos.task.Task;
+import Mentos.task.ToDo;
+
 import java.time.DateTimeException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 public class Parser {
     private final String MARKED = "mark";
     private final String UNMARKED = "unmark";
@@ -15,28 +22,28 @@ public class Parser {
 
     public ActionTaskIndexTuple taskHandler(String input) {
         /*
-         * Handles user input commands related to task management.
+         * Handles user input commands related to Mentos.task management.
          *
-         * This method processes various task-related commands such as listing tasks,
+         * This method processes various Mentos.task-related commands such as listing tasks,
          * marking tasks as done, unmarking tasks, deleting tasks, and adding new tasks
          * (todo, deadline, event). It uses regular expressions to parse and validate
-         * the input commands, and throws custom exceptions (`MentosException`)
+         * the input commands, and throws custom exceptions (`Mentos.MentosException.MentosException`)
          * when inputs are invalid.
          *
          * The following commands are supported:
          *   list - Lists all the current tasks.
-         *   mark X- Marks the task at index X as done.
-         *   unmark X - Unmarks the task at index X (marks it as not done).
-         *   delete X< - Deletes the task at index X.
-         *   todo DESCRIPTION - Adds a new ToDo task with the given description.
-         *   deadline DESCRIPTION /by DATETIME - Adds a new Deadline task with the given description and due date.
-         *   event DESCRIPTION /from DATETIME /to DATETIME - Adds a new Event task with the given description and time range.
+         *   mark X- Marks the Mentos.task at index X as done.
+         *   unmark X - Unmarks the Mentos.task at index X (marks it as not done).
+         *   delete X< - Deletes the Mentos.task at index X.
+         *   todo DESCRIPTION - Adds a new Mentos.task.ToDo Mentos.task with the given description.
+         *   deadline DESCRIPTION /by DATETIME - Adds a new Mentos.task.Deadline Mentos.task with the given description and due date.
+         *   event DESCRIPTION /from DATETIME /to DATETIME - Adds a new Mentos.task.Event Mentos.task with the given description and time range.
          *
          * If an unrecognized command is given, the method responds with a message indicating
          * that the command is not understood.
          *
          * @param input the user's input command as a string.
-         * @throws MentosException if the input is invalid or if the specified task index does not exist.
+         * @throws Mentos.MentosException.MentosException if the input is invalid or if the specified Mentos.task index does not exist.
          */
         try {
 
@@ -89,7 +96,7 @@ public class Parser {
             } else if (input.startsWith(EVENT)){
                 Matcher match = regexHandler(input,"event (.+) \\/from (\\d{4}-\\d{2}-\\d{2} \\d{4}) \\/to (\\d{4}-\\d{2}-\\d{2} \\d{4})$");
                 if (match == null){
-                    throw new MentosException("Invalid Event input! usage:event <desc> /from <datetime> yyyy-mm-dd hhmm /to <datetime> yyyy-mm-dd hhmm" );
+                    throw new MentosException("Invalid Mentos.task.Event input! usage:event <desc> /from <datetime> yyyy-mm-dd hhmm /to <datetime> yyyy-mm-dd hhmm" );
                 }
 
                 String eventDesc = match.group(1);

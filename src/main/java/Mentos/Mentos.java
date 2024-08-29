@@ -1,4 +1,11 @@
-import java.util.Scanner;
+package Mentos;
+
+import Mentos.MentosException.MentosException;
+import Mentos.components.ActionTaskIndexTuple;
+import Mentos.components.Parser;
+import Mentos.components.Storage;
+import Mentos.components.Ui;
+import Mentos.task.TaskList;
 
 public class Mentos
 {

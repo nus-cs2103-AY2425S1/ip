@@ -17,21 +17,21 @@ event Added
 [E] [ ] Put a mentos in coke (from: Mon 2pm to: 4pm)
 3 remaining tasks
 ____________________________
-Nicely done! This task is marked as done!
+Nicely done! This Mentos.task is marked as done!
 [T] [X] CS2103T Individual Project
 ____________________________
 1. [T] [X] CS2103T Individual Project
 2. [D] [ ] CS2103T Quiz (by: Sunday)
 3. [E] [ ] Put a mentos in coke (from: Mon 2pm to: 4pm)
 ____________________________
-Nicely done! This task is marked as done!
+Nicely done! This Mentos.task is marked as done!
 [D] [X] CS2103T Quiz (by: Sunday)
 ____________________________
 1. [T] [X] CS2103T Individual Project
 2. [D] [X] CS2103T Quiz (by: Sunday)
 3. [E] [ ] Put a mentos in coke (from: Mon 2pm to: 4pm)
 ____________________________
-Holdup this task is not done!
+Holdup this Mentos.task is not done!
 [T] [ ] CS2103T Individual Project
 ____________________________
 1. [T] [ ] CS2103T Individual Project

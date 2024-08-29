@@ -1,3 +1,5 @@
+package Mentos.task;
+
 public class Task {
     protected boolean isDone;
     protected String description;
