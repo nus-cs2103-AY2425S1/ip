@@ -1,5 +1,9 @@
 package katheryne;
 
+/**
+ * Task Class is to manage the status of a task and
+ * its description as given by the user.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

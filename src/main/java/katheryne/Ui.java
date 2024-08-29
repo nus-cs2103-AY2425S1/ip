@@ -2,6 +2,9 @@ package katheryne;
 
 import java.util.Scanner;
 
+/**
+ * Ui Class is to handle the interaction with user and response generation
+ */
 public class Ui {
     private Scanner sc;
 

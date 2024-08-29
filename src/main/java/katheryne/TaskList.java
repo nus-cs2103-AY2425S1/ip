@@ -2,6 +2,10 @@ package katheryne;
 
 import java.util.ArrayList;
 
+
+/**
+ * TaskList is used to store and manage tasks
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
 

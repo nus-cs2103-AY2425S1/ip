@@ -1,5 +1,9 @@
 package katheryne;
 
+/**
+ * ToDo Class is a child class of Task Class.
+ * It has same attributes as the Task Class.
+ */
 public class ToDo extends Task{
 
     public ToDo(String description) {
