@@ -22,7 +22,7 @@ public class Snipe {
 
     /**
      * Constructs a new {@code Snipe} instance.
-     * Initializes the storage, user interface, and task list by reading from the specified file path.
+     * Initialises the storage, user interface, and task list by reading from the specified file path.
      *
      * @param filePath The path to the file where tasks are stored.
      */
@@ -38,7 +38,7 @@ public class Snipe {
     }
 
     /**
-     * Initializes the chat interface with the user, greets the user, and handles user input in a loop.
+     * Initialises the chat interface with the user, greets the user, and handles user input in a loop.
      * The method continues to accept and execute commands until the user issues an exit command.
      *
      * @throws IOException    If an input or output exception occurs.
@@ -62,11 +62,11 @@ public class Snipe {
 
     /**
      * The main method that starts the Snipe application.
-     * Initializes the application with the path to the task list file and starts the user interface.
+     * Initialises the application with the path to the task list file and starts the user interface.
      *
      * @param args Command-line arguments (not used).
      * @throws IOException    If an input or output exception occurs.
-     * @throws SnipeException If an application-specific error occurs during initialization.
+     * @throws SnipeException If an application-specific error occurs during initialisation.
      */
     public static void main(String[] args) throws IOException, SnipeException {
         Snipe snipe = new Snipe("src/main/txt/taskList.txt");
