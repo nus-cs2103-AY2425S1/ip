@@ -1,3 +1,10 @@
+package Denim.Commands;
+
+import Denim.Exceptions.DenimException;
+import Denim.TaskList;
+import Denim.Storage.TaskIO;
+import Denim.Tasks.Task;
+
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     public static final String USAGE = "delete <taskNumber>";
@@ -10,17 +17,17 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(TaskList taskList, TaskIO taskIO) {
 
-        if (!taskList.isValidIndex(index - Ui.indexOffset)) {
+        if (!taskList.isValidIndex(index - Denim.Ui.indexOffset)) {
             return new CommandResult("The index chosen is invalid.");
         }
 
-        Task deletedTask = taskList.getTask(index - Ui.indexOffset);
-        taskList.deleteTaskAtIndex(index - Ui.indexOffset);
+        Task deletedTask = taskList.getTask(index - Denim.Ui.indexOffset);
+        taskList.deleteTaskAtIndex(index - Denim.Ui.indexOffset);
 
         try {
             taskIO.deleteTask(taskList);
         } catch (DenimException e) {
-            taskList.addTaskAtIndex(index - Ui.indexOffset, deletedTask);
+            taskList.addTaskAtIndex(index - Denim.Ui.indexOffset, deletedTask);
             return new CommandResult(e.getMessage() + "\n The task was not deleted.");
         }
 

@@ -1,3 +1,10 @@
+package Denim.Commands;
+
+import Denim.Exceptions.DenimException;
+import Denim.TaskList;
+import Denim.Storage.TaskIO;
+import Denim.Tasks.Task;
+
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
@@ -17,7 +24,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    boolean isExit() {
+    public boolean isExit() {
         return false;
     }
 }

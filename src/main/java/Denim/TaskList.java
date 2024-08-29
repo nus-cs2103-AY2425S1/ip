@@ -1,3 +1,7 @@
+package Denim;
+
+import Denim.Tasks.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +48,7 @@ public class TaskList {
 
     public String printList() {
         if (taskList.isEmpty()) {
-            return "Your Task List is Empty.\n";
+            return "Your Denim.Tasks.Task List is Empty.\n";
         }
 
         List<String> taskStrings = new ArrayList<>();

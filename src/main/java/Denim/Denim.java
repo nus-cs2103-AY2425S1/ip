@@ -1,3 +1,10 @@
+package Denim;
+
+import Denim.Commands.Command;
+import Denim.Commands.CommandResult;
+import Denim.Exceptions.DenimException;
+import Denim.Storage.TaskIO;
+
 import java.util.Scanner;
 
 public class Denim {
