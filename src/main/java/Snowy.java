@@ -7,55 +7,32 @@ import java.time.LocalDate;
 
 public class Snowy {
 
+    private TaskList tasks;
 
+    private Storage storage;
 
+    private boolean isRunning = true;
 
+    private Ui ui;
 
-    private static ArrayList<Task> tasks = new ArrayList<>();
-
-    private static File file;
-
-    private static boolean isRunning = true;
-
-
-
-
-
-
-
-
-
-    private static void updateFile() {
-        try {
-            FileWriter fileWriter = new FileWriter(file);
-            for (Task task : tasks) {
-                fileWriter.write(task.toFileStorage() + "\n");
-            }
-            fileWriter.close();
-        } catch (IOException e) {
+    private Snowy(String filePath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        try{
+            this.tasks = new TaskList(storage.load());
+        } catch (SnowyException e) {
+            this.tasks = new TaskList();
         }
-
     }
 
-    public static void main(String[] args) {
-        Scanner fileScanner;
+    private void run() {
         Scanner scanner = new Scanner(System.in);
-
-        file = new File("data/snowy.txt");
-        initializeFile();
-
-
-        System.out.print(GREETING);
+        ui.printGreeting();
         while (isRunning) {
-            String lastInput = scanner.nextLine();
-
-            int spaceIndex = lastInput.indexOf(" ");
-
-            String command = (spaceIndex == -1 ? lastInput: lastInput.substring(0, spaceIndex)).toLowerCase();
-
-            String description = spaceIndex == -1 ? "": lastInput.substring(spaceIndex + 1);
-
-            Task newTask;
+            String input = scanner.nextLine();
+            String[] parsedInput = Parser.parse(input);
+            String command = parsedInput[0];
+            String description = parsedInput[1];
 
             switch (command) {
                 case "bye":
@@ -63,58 +40,81 @@ public class Snowy {
                     break;
 
                 case "list":
-                    System.out.println(tasks.toString());
+                    ui.printList(this.tasks);
                     break;
 
                 case "mark":
                     try {
                         int index = Integer.parseInt(description);
-                        markTask(index);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid index format. Please try again");
+                        tasks.markTask(index);
+                    } catch (NumberFormatException | SnowyException e) {
+                        ui.printIndexError();
                     }
                     break;
 
                 case "unmark":
                     try {
                         int index = Integer.parseInt(description);
-                        unmarkTask(index);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid index format. Please try again");
+                        tasks.unmarkTask(index);
+                    } catch (NumberFormatException | SnowyException e) {
+                        ui.printIndexError();
                     }
                     break;
 
                 case "todo":
-                    addToDo(description);
+                    try {
+                        tasks.addToDo(description);
+                    } catch (SnowyException e) {
+                        ui.printTodoFormatError();
+                    }
                     break;
 
                 case "deadline":
-                    addDeadline(description);
+                    try {
+                        tasks.addDeadline(description);
+                    } catch (SnowyException e) {
+                        ui.printDeadlineFormatError();
+                    }
                     break;
 
                 case "event":
-                    addEvent(description);
+                    try {
+                        tasks.addEvent(description);
+                    } catch (SnowyException e) {
+                        ui.printEventFormatError();
+                    }
                     break;
 
                 case "delete":
                     try {
                         int index = Integer.parseInt(description);
-                        deleteEvent(index)
-                    } catch (NumberFormatException e) {
+                        tasks.deleteTask(index);
+                    } catch (NumberFormatException | SnowyException e) {
                         System.out.println("Invalid index format. Please try again");
                     }
                     break;
 
                 default:
-                    System.out.println("Command not recognized. Please try again");
+                    ui.printUnknownCommand();
                     break;
             }
-
-            System.out.print(LINE);
+            ui.printLine();
+        }
+        try {
+            storage.save(tasks.toSaveString());
+        } catch (SnowyException e) {
 
         }
+        ui.printEnding();
+    }
 
-        updateFile();
-        System.out.print(ENDING);
+
+
+
+
+
+    public static void main(String[] args) {
+        new Snowy("data/snowy.txt").run();
+
     }
 }

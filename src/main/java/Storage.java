@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,7 +11,7 @@ public class Storage {
         this.file = new File(filePath);
     }
     
-    public ArrayList<String> load() {
+    public ArrayList<String> load() throws SnowyException{
         ArrayList<String> lines = new ArrayList<>();
         try {
             file.createNewFile();
@@ -22,8 +23,19 @@ public class Storage {
 
 
         } catch (IOException e) {
+            throw new SnowyException();
         }
         return lines;
+    }
+
+    public void save(String saveLines) throws SnowyException{
+        try{
+            FileWriter writer = new FileWriter(file);
+            writer.write(saveLines);
+            writer.close();
+        } catch (IOException e) {
+            throw new SnowyException();
+        }
     }
 
 }

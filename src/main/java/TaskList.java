@@ -1,4 +1,6 @@
 import javax.management.StandardEmitterMBean;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -8,6 +10,10 @@ public class TaskList {
         for (String line : lines) {
             initializeTask(line);
         }
+    }
+
+    public TaskList(){
+
     }
 
     private void initializeTask(String description) {
@@ -152,4 +158,13 @@ public class TaskList {
         }
         return text.toString();
     }
+
+    public String toSaveString() {
+        StringBuilder text = new StringBuilder();
+        for (Task task : tasks) {
+            text.append(task.toFileStorage()).append("\n");
+        }
+        return text.toString();
+    }
+
 }
