@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Ui {
     static private void printDashedLine() {
         System.out.println("____________________________________________________________________");
@@ -55,7 +53,18 @@ public class Ui {
         printDashedLine();
     }
 
-    public void printTaskList(ArrayList<Task> tasks) {
+    public void printTaskMarkedMessage(Task task, boolean isMarked) {
+        printDashedLine();
+        if (isMarked) {
+            System.out.println("Nice! I've marked this task as done: ");
+        } else {
+            System.out.println("OK, I have marked this task as not done yet: ");
+        }
+        System.out.println("    " + task);
+        printDashedLine();
+    }
+
+    public void printTaskList(TaskList tasks) {
         printDashedLine();
         if (tasks.isEmpty()) {
             System.out.println("No tasks added to the list yet."+ "\n"
@@ -75,5 +84,5 @@ public class Ui {
         System.out.println(message);
         printDashedLine();
     }
-    
+
 }

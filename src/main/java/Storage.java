@@ -16,11 +16,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public void saveTasks(ArrayList<Task> tasks) { //writes into a text file
+    public void saveTasks(TaskList tasks) { //writes into a text file
         try {
             Files.createDirectories(Paths.get(this.directoryPath)); //ensure directory exists
             try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(this.filePath))) {
-                for (Task task : tasks) {
+                for (int i = 0; i < tasks.size(); i++) {
+                    Task task = tasks.get(i);
                     writer.write(task.toFileFormat());
                     writer.newLine();
                 }

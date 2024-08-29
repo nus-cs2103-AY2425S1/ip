@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -39,5 +39,17 @@ public class TaskList {
 
     public int getTaskCount() {
         return tasks.size();
+    }
+
+    public Task get(int idx) {
+        return this.tasks.get(idx);
+    }
+
+    public boolean isEmpty() {
+        return this.tasks.isEmpty();
+    }
+
+    public int size() {
+        return this.tasks.size();
     }
 }
