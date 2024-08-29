@@ -1,13 +1,25 @@
 package stan.commands;
+
 import stan.TaskList;
 import stan.Ui;
 import stan.Storage;
 import stan.tasks.Task;
 import stan.exceptions.StanMissingArgumentException;
 import stan.exceptions.StanInvalidArgumentException;
+
+/**
+ * Represents a command to unmark a task as done.
+ */
 public class UnmarkCommand extends Command {
     private final int taskIndex;
 
+    /**
+     * Constructs an UnmarkCommand.
+     *
+     * @param words The user input split into words.
+     * @throws StanMissingArgumentException If the task number is missing.
+     * @throws StanInvalidArgumentException If the task number is invalid.
+     */
     public UnmarkCommand(String[] words) throws StanMissingArgumentException, StanInvalidArgumentException {
         if (words.length < 2) {
             throw new StanMissingArgumentException("You need to specify the task number to unmark.");
@@ -19,6 +31,14 @@ public class UnmarkCommand extends Command {
         }
     }
 
+    /**
+     * Executes the command to unmark a task as done in the task list.
+     *
+     * @param tasks The task list containing the task to be unmarked.
+     * @param ui The UI object to display feedback to the user.
+     * @param storage The storage object to save the updated task list.
+     * @throws StanInvalidArgumentException If the task number is out of range.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws StanInvalidArgumentException {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
@@ -30,4 +50,3 @@ public class UnmarkCommand extends Command {
         storage.saveTasks(tasks.getTasks());
     }
 }
-
