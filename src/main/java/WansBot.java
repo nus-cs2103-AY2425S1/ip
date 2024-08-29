@@ -14,8 +14,8 @@ public class WansBot {
     private static final String HR = "----------------------------------------------------------------------";
     private static int numTasks = 0;
     private static TaskList userTaskList = new TaskList();
-    // Method that deals with empty inputs by throwing tasks.InputEmptyException
 
+    // Method that deals with empty inputs by throwing tasks.InputEmptyException
     private static void emptyInput(String userInput) throws InputEmptyException {
         if (userInput.strip().equalsIgnoreCase("todos") ||
             userInput.strip().equalsIgnoreCase("deadline") ||
@@ -68,6 +68,7 @@ public class WansBot {
         }
     }
 
+    // Method that abstracts Bot message when bot first starts
     private static void introduceToUser() {
         String logo ="                 __"
                 + "\n|  |  /\\  |\\ | /__` "
@@ -79,6 +80,7 @@ public class WansBot {
                 + "\nCan I help? (I can only manage a todo list so...)\n" + HR);
     }
 
+    // Handles listing tasks function
     private static void listTasks() {
         System.out.println(HR + "\nWans:"
                 + "\nHere are your tasks!\n"
@@ -86,6 +88,7 @@ public class WansBot {
         System.out.println("You have " + numTasks + " tasks!" + "\n" + HR);
     }
 
+    // Handles marking tasks function
     private static void markTasks(String userInput) {
         try {
             notNumInput(userInput, numTasks);
@@ -110,6 +113,7 @@ public class WansBot {
         }
     }
 
+    // Handles unmarking tasks function
     private static void unmarkTasks(String userInput) {
         try {
             notNumInput(userInput, numTasks);
@@ -130,6 +134,7 @@ public class WansBot {
                 }
     }
 
+    // Handles adding Todos to the task list
     private static void addTodos(String userInput) {
         Todos newTodo = new Todos(userInput.substring(5));
         userTaskList.add(newTodo);
@@ -139,6 +144,7 @@ public class WansBot {
         numTasks++;
     }
 
+    // Handles adding Deadlineds to the task list
     private static void addDeadlined(String userInput) {
         try {
             missingInputDeadline(userInput);
@@ -157,6 +163,7 @@ public class WansBot {
         }
     }
 
+    // Handles adding Events to the task list
     private static void addEvent(String userInput) {
         try {
             missingInputEvent(userInput);
@@ -177,6 +184,7 @@ public class WansBot {
         }
     }
 
+    // Handles remove function of bot
     private static void removeTask(String userInput) {
         try {
             notNumInput(userInput, numTasks);
@@ -201,6 +209,7 @@ public class WansBot {
         }
     }
 
+    // Handles saving of tasks into user machine
     private static void saveTasks() {
         try {
             if (!Files.exists(Paths.get("data"))) {
@@ -220,6 +229,7 @@ public class WansBot {
         }
     }
 
+    // Handles parsing of task list to load tasks
     private static void returnTask(String fileInput) {
         String[] splitInput = fileInput.split(" ");
         String typeTask = splitInput[1];
@@ -275,6 +285,7 @@ public class WansBot {
         }
     }
 
+    // Handles loading of task function from use machine
     private static void loadTasks() {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("./data/tasklist.txt"));

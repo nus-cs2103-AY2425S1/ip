@@ -18,23 +18,27 @@ public class TaskList {
         return this.listOfTasks.get(index);
     }
 
+    // finishes a task in a task list
     public void finish(int index) {
         listOfTasks.get(index).finish();
     }
 
+    // unchecks a finished task in a task list
     public void unfinish(int index) {
         listOfTasks.get(index).unfinish();
     }
 
+    // returns number of tasks currently in a tasklist
     public int numOfTasks() {
         return this.listOfTasks.size();
     }
 
+    // removes a specified task in a task list
     public void removeTask(int taskNum) {
         this.listOfTasks.remove(taskNum);
     }
 
-
+    // returns a task in  a task list
     public Task getTask(int i) {
         return this.listOfTasks.get(i);
     }

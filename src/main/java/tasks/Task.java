@@ -9,14 +9,17 @@ public class Task {
         this.finished = false;
     }
 
+    // Returns status of task
     public boolean isDone() {
         return this.finished;
     }
 
+    // finishes selected task
     public void finish() {
         this.finished = true;
     }
 
+    // unchecks a finished task
     public void unfinish() {
         this.finished = false;
     }
