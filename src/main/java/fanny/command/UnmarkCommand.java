@@ -15,7 +15,7 @@ public class UnmarkCommand extends Command {
         ui.showHorizontalLine();
         int taskId = Integer.parseInt(arguments);
         ui.showMessage("Fanny:\nOK, I've marked this task as not done yet:");
-        ui.showMessage(list.markAsNotDone(taskId - 1));
+        ui.showMessage(list.markAsNotDone(taskId));
         ui.showHorizontalLine();
     }
 

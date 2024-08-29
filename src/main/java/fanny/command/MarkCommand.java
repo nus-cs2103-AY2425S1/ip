@@ -15,7 +15,7 @@ public class MarkCommand extends Command {
         ui.showHorizontalLine();
         int taskId = Integer.parseInt(arguments);
         ui.showMessage("Fanny:\nNice! I've marked this task as done:");
-        ui.showMessage(list.markAsDone(taskId - 1));
+        ui.showMessage(list.markAsDone(taskId));
         ui.showHorizontalLine();
     }
 
