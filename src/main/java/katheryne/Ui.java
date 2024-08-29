@@ -32,8 +32,8 @@ public class Ui {
         return Message.MESSAGE_GOODBYE;
     }
 
-    public String getListMessage(TaskList l) {
-        return Message.MESSAGE_LIST + '\n' + l.toString();
+    public String getListMessage() {
+        return Message.MESSAGE_LIST + '\n';
     }
 
     public String getMarkMessage(Task t) {
