@@ -63,6 +63,9 @@ public class Parser {
             case DELETE:
                 ui.handleDelete(arg);
                 break;
+            case FIND:
+                ui.handleFind(arg);
+                break;
             case BYE:
                 ui.handleBye();
                 break;
@@ -98,6 +101,7 @@ public class Parser {
         EVENT,
         DELETE,
         LIST,
+        FIND,
         BYE,
         UNKNOWN;
         public static Command fromString(String command) {

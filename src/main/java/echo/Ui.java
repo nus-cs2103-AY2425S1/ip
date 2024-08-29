@@ -42,6 +42,14 @@ public class Ui {
     public void handleList() {
         printList(taskList.getTasksString());
     }
+    public void handleFind(String arg) {
+        System.out.printf(
+                "____________________________________________________________\n" +
+                "Here are the matching tasks in your list:\n" +
+                "%s" +
+                "____________________________________________________________\n",
+                taskList.getFoundTasks(arg));
+    }
     public void handleMark(String arg) {
         // Error handling
         if (arg.length() != 1) { // Arg of incorrect length

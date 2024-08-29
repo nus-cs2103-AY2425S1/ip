@@ -21,6 +21,18 @@ public class TaskList {
             break;
         }
     }
+    public String getFoundTasks(String stringToFind) {
+        String foundTasks = "";
+        int count = 1;
+        for (Task task: tasks) {
+            String taskString = task.getTaskString();
+            if (taskString.contains(stringToFind)) {
+                foundTasks += count + ". " + taskString + "\n";
+                count++;
+            }
+        }
+        return foundTasks;
+    }
     public String getTasksToSave() {
         String s = "";
         for (Task t : tasks) {
