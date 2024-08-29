@@ -5,7 +5,7 @@ public class Bao {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
-    private static final String file_Path = "./data/bao.txt";
+    private static final String file_Path = "./data/bao.json.txt";
     public static DateTimeFormatter inputDateFormat;
     public static DateTimeFormatter fileDateFormat;
     public static DateTimeFormatter dateOnlyFormat;
