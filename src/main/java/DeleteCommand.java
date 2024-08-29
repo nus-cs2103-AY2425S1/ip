@@ -11,4 +11,9 @@ public class DeleteCommand extends Command {
         ui.showMessage(message);
         storage.syncFile(taskList);
     }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

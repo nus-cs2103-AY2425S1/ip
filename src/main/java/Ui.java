@@ -11,7 +11,7 @@ public class Ui {
         return sc.nextLine();
     }
 
-    private void showDivider() {
+    public void showDivider() {
         System.out.println("------------------------------------------------------------------------------------");
     }
 

@@ -6,4 +6,9 @@ public class ListCommand extends Command {
         ui.showMessage(message);
         storage.syncFile(taskList);
     }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

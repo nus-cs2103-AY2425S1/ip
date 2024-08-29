@@ -7,6 +7,10 @@ public class TaskList {
         this.taskList = new ArrayList<>();
     }
 
+    public TaskList(ArrayList<Task> tasks) {
+        this.taskList = tasks;
+    }
+
     public String deleteTask(int index) {
         Task removedTask = taskList.remove(index-1);
         return "Noted. I've removed this task:\n" + removedTask + "\nNow you have " + taskList.size() + " tasks in the list.";

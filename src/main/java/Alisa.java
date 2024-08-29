@@ -2,139 +2,42 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Alisa {
-    public static void main(String[] args) throws AlisaException {
-        Scanner sc = new Scanner(System.in);
-        String divider = "------------------------------------------------------------------------------------";
-        String exitCommand = "bye";
-        String input = "";
-        Storage storage = new Storage("data/alisa.txt");
-        ArrayList<Task> taskList = new ArrayList<>();
+
+    private Storage storage;
+    private Ui ui;
+    private TaskList tasks;
+
+    public Alisa(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
         try {
-            taskList = storage.loadFile();
+            tasks = new TaskList(storage.loadFile());
         } catch (AlisaException e) {
-            e.getMessage();
+            ui.showErrorMessage(e.getMessage());
+            tasks = new TaskList();
         }
+    }
 
-        System.out.println("Hey, Alisa here! What do you need help with?");
-        System.out.println("BTW Say the word bye to get out of this conversation");
-        System.out.println(divider);
-
-        while (true) {
+    public void run() {
+        ui.showWelcomeMessage();
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                input = sc.nextLine();
-                System.out.println(divider);
-
-                if (input.equals(exitCommand)) {
-                    System.out.println("Since you technically said bye, see ya next time!");
-                    System.out.println(divider);
-                    sc.close();
-                    break;
-                } else if (input.startsWith("mark")) {
-                    String[] inputArray = input.split(" ");
-                    if (inputArray.length < 2) {
-                        throw new AlisaException("You didn't tell me which task to mark as done!");
-                    } else if (Integer.parseInt(inputArray[1]) > taskList.size() || Integer.parseInt(inputArray[1]) < 1) {
-                        throw new AlisaException("Task #" + inputArray[1] + " doesn't exist. Give me a task that does exist to mark as done.");
-                    } else {
-                        int index = Integer.parseInt(inputArray[1]) - 1;
-                        taskList.get(index).markAsDone();
-                        storage.syncFile(taskList.get(index).toFileString());
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(taskList.get(index));
-                        System.out.println(divider);
-                    }
-                } else if (input.startsWith("unmark")) {
-                    String[] inputArray = input.split(" ");
-                    if (inputArray.length < 2) {
-                        throw new AlisaException("You didn't tell me which task to mark as not done!");
-                    } else if (Integer.parseInt(inputArray[1]) > taskList.size() || Integer.parseInt(inputArray[1]) < 1) {
-                        throw new AlisaException("Task #" + inputArray[1] + " doesn't exist. Give me a task that does exist to mark as not done.");
-                    } else {
-                        int index = Integer.parseInt(inputArray[1]) - 1;
-                        taskList.get(index).markAsNotDone();
-                        storage.syncFile(taskList.get(index).toFileString());
-                        System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println(taskList.get(index));
-                        System.out.println(divider);
-                    }
-                } else if (input.startsWith("todo")) {
-                    if (input.length() < 5) {
-                        throw new AlisaException("Give me a description for your todo task!");
-                    }
-                    Todo newTodo = new Todo(input.substring(5));
-                    taskList.add(newTodo);
-                    storage.syncFile(newTodo.toFileString());
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(newTodo);
-                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-                    System.out.println(divider);
-                }
-                else if (input.startsWith("deadline")) {
-                    if (input.length() < 9) {
-                        throw new AlisaException("Give me a description for your deadline task!");
-                    }
-                    String[] inputArray = input.substring(9).split(" /by ");
-                    if (inputArray.length < 2) {
-                        throw new AlisaException("You got to give a deadline for your task!");
-                    }
-                    Deadline newDeadline = new Deadline(inputArray[0], inputArray[1]);
-                    taskList.add(newDeadline);
-                    storage.syncFile(newDeadline.toFileString());
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(newDeadline);
-                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-                    System.out.println(divider);
-                } else if (input.startsWith("event")) {
-                    if (input.length() < 6) {
-                        throw new AlisaException("Give me a description for your event!");
-                    }
-                    String[] inputArray = input.substring(6).split(" /from ");
-                    String[] fromToArray = inputArray[1].split(" /to ");
-                    if (fromToArray.length < 2) {
-                        throw new AlisaException("You got to give me a start and end timing for your event!");
-                    }
-                    Event newEvent = new Event(inputArray[0], fromToArray[0], fromToArray[1]);
-                    taskList.add(newEvent);
-                    storage.syncFile(newEvent.toFileString());
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(newEvent);
-                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-                    System.out.println(divider);
-                }
-                else if (input.equals("list")) {
-                    if (taskList.isEmpty()) {
-                        System.out.println("The list is empty, sorry :(");
-                        System.out.println(divider);
-                    } else {
-                        for (int i = 1; i <= taskList.size(); i++) {
-                            System.out.println(i + "." + taskList.get(i-1));
-                        }
-                        System.out.println(divider);
-                    }
-                } else if (input.startsWith("delete")) {
-                    String[] inputArray = input.split(" ");
-                    if (inputArray.length < 2) {
-                        throw new AlisaException("You didn't tell me which task to delete!");
-                    } else if (Integer.parseInt(inputArray[1]) > taskList.size() || Integer.parseInt(inputArray[1]) < 1) {
-                        throw new AlisaException("Task #" + inputArray[1] + " doesn't exist. Give me a task that does exist to mark as done.");
-                    } else {
-                        int index = Integer.parseInt(inputArray[1]) - 1;
-                        Task removedTask = taskList.remove(index);
-                        storage.syncFile(removedTask.toFileString());
-                        System.out.println("Noted. I've removed this task:");
-                        System.out.println(removedTask);
-                        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-                        System.out.println(divider);
-                    }
-                }
-                else {
-                    throw new AlisaException("Sorry, I didn't quite catch that. Put in a command that I understand");
-                }
+                String fullCommand = ui.readCommand();
+                ui.showDivider();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
             } catch (AlisaException e) {
-                System.out.print(e.getMessage());
+                ui.showErrorMessage(e.getMessage());
+            } finally {
+                ui.showDivider();
             }
         }
+    }
 
+    public static void main(String[] args) {
+        new Alisa("data/tasks.txt").run();
     }
 }
 
