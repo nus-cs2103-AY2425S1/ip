@@ -2,7 +2,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -12,21 +11,14 @@ import java.util.Scanner;
 public class Angel {
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final String FILE_PATH = "./data/Angel.txt";
-    private Storage storage;
-    private ArrayList<Task> tasks;
+    private TaskList taskList;
 
     /**
      * Constructs an Angel instance and initializes the task list.
      * Loads tasks from the storage file if it exists.
      */
     public Angel() {
-        storage = new Storage(FILE_PATH);
-        try {
-            tasks = storage.load();
-        } catch (IOException e) {
-            System.out.println("Error loading tasks: " + e.getMessage());
-            tasks = new ArrayList<>();
-        }
+        taskList = new TaskList(FILE_PATH);
     }
 
     /**
@@ -56,7 +48,8 @@ public class Angel {
                                 "The description of a todo cannot be empty. Please specify a task after 'todo'."
                         );
                     }
-                    addTask(new ToDo(parts[1]));
+                    taskList.addTask(new ToDo(parts[1]));
+                    System.out.println("Got it. I've added this task:\n  " + parts[1]);
                     break;
                 case "deadline":
                     if (parts.length < 2 || !parts[1].contains(" /by ")) {
@@ -66,7 +59,8 @@ public class Angel {
                     }
                     String[] deadlineDetails = parts[1].split(" /by ");
                     LocalDateTime deadlineDate = parseDate(deadlineDetails[1]);
-                    addTask(new Deadline(deadlineDetails[0], deadlineDate));
+                    taskList.addTask(new Deadline(deadlineDetails[0], deadlineDate));
+                    System.out.println("Got it. I've added this task:\n  " + deadlineDetails[0] + " by: " + deadlineDate.format(INPUT_FORMAT));
                     break;
                 case "event":
                     if (parts.length < 2 || !parts[1].contains(" /from ") || !parts[1].contains(" /to ")) {
@@ -78,7 +72,8 @@ public class Angel {
                     String[] times = eventDetails[1].split(" /to ");
                     LocalDateTime fromDate = parseDate(times[0]);
                     LocalDateTime toDate = parseDate(times[1]);
-                    addTask(new Event(eventDetails[0], fromDate, toDate));
+                    taskList.addTask(new Event(eventDetails[0], fromDate, toDate));
+                    System.out.println("Got it. I've added this task:\n  " + eventDetails[0] + " from: " + fromDate.format(INPUT_FORMAT) + " to: " + toDate.format(INPUT_FORMAT));
                     break;
                 case "mark":
                     if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -88,10 +83,8 @@ public class Angel {
                     }
                     try {
                         int taskIndex = Integer.parseInt(parts[1]) - 1;
-                        if (taskIndex < 0 || taskIndex >= tasks.size()) {
-                            throw new TaskNotFoundException("Task number " + (taskIndex + 1) + " does not exist.");
-                        }
-                        markTask(taskIndex);
+                        taskList.markTask(taskIndex);
+                        System.out.println("Nice! I've marked this task as done:\n  " + taskList.listTasks().get(taskIndex));
                     } catch (NumberFormatException e) {
                         throw new InvalidCommandException(
                                 "Invalid task number for 'mark'. Please enter a valid number after 'mark'."
@@ -106,10 +99,8 @@ public class Angel {
                     }
                     try {
                         int taskIndex = Integer.parseInt(parts[1]) - 1;
-                        if (taskIndex < 0 || taskIndex >= tasks.size()) {
-                            throw new TaskNotFoundException("Task number " + (taskIndex + 1) + " does not exist.");
-                        }
-                        unmarkTask(taskIndex);
+                        taskList.unmarkTask(taskIndex);
+                        System.out.println("OK, I've marked this task as not done yet:\n  " + taskList.listTasks().get(taskIndex));
                     } catch (NumberFormatException e) {
                         throw new InvalidCommandException(
                                 "Invalid task number for 'unmark'. Please enter a valid number after 'unmark'."
@@ -124,10 +115,8 @@ public class Angel {
                     }
                     try {
                         int taskIndex = Integer.parseInt(parts[1]) - 1;
-                        if (taskIndex < 0 || taskIndex >= tasks.size()) {
-                            throw new TaskNotFoundException("Task number " + (taskIndex + 1) + " does not exist.");
-                        }
-                        deleteTask(taskIndex);
+                        taskList.deleteTask(taskIndex);
+                        System.out.println("Noted. I've removed this task:\n  " + taskList.listTasks().get(taskIndex));
                     } catch (NumberFormatException e) {
                         throw new InvalidCommandException(
                                 "Invalid task number for 'delete'. Please enter a valid number after 'delete'."
@@ -169,78 +158,8 @@ public class Angel {
      */
     private void listTasks() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
-        }
-    }
-
-    /**
-     * Adds a new task to the list and saves the updated list.
-     *
-     * @param task The task to be added.
-     * @throws AngelException If there is an error while saving tasks.
-     */
-    private void addTask(Task task) throws AngelException {
-        tasks.add(task);
-        System.out.println("Got it. I've added this task:\n  " + task);
-        saveTasks();
-    }
-
-    /**
-     * Marks a task as done.
-     *
-     * @param index The index of the task to be marked.
-     * @throws AngelException If the task does not exist or if there is an error while saving tasks.
-     */
-    private void markTask(int index) throws AngelException {
-        if (index < 0 || index >= tasks.size()) {
-            throw new TaskNotFoundException("Task not found: " + (index + 1));
-        }
-        tasks.get(index).markAsDone();
-        System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(index));
-        saveTasks();
-    }
-
-    /**
-     * Unmarks a task as not done.
-     *
-     * @param index The index of the task to be unmarked.
-     * @throws AngelException If the task does not exist or if there is an error while saving tasks.
-     */
-    private void unmarkTask(int index) throws AngelException {
-        if (index < 0 || index >= tasks.size()) {
-            throw new TaskNotFoundException("Task not found: " + (index + 1));
-        }
-        tasks.get(index).unmark();
-        System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(index));
-        saveTasks();
-    }
-
-    /**
-     * Deletes a task from the list and saves the updated list.
-     *
-     * @param index The index of the task to be deleted.
-     * @throws AngelException If the task does not exist or if there is an error while saving tasks.
-     */
-    private void deleteTask(int index) throws AngelException {
-        if (index < 0 || index >= tasks.size()) {
-            throw new TaskNotFoundException("Task not found: " + (index + 1));
-        }
-        Task task = tasks.remove(index);
-        System.out.println("Noted. I've removed this task:\n  " + task);
-        saveTasks();
-    }
-
-    /**
-     * Saves the current task list to the storage file.
-     *
-     * @throws AngelException If there is an error while saving tasks.
-     */
-    private void saveTasks() throws AngelException {
-        try {
-            storage.save(tasks);
-        } catch (IOException e) {
-            throw new AngelException("Error saving tasks: " + e.getMessage());
+        for (int i = 0; i < taskList.listTasks().size(); i++) {
+            System.out.println((i + 1) + "." + taskList.listTasks().get(i));
         }
     }
 

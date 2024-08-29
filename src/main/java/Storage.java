@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class Storage {
     private String filePath;
-    private static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
 
     /**
      * Constructs a Storage object with the specified file path.
