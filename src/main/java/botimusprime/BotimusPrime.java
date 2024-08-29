@@ -5,6 +5,11 @@ import botimusprime.storage.Storage;
 import botimusprime.tasks.TaskList;
 import botimusprime.ui.Ui;
 
+/**
+ * The BotimusPrime class is the main class for the BotimusPrime chatbot.
+ * It manages the main components of the chatbot, including storage, UI, task management,
+ * and command parsing. This class also contains the main method to start the chatbot.
+ */
 public class BotimusPrime {
 
     private Storage storage;
@@ -12,6 +17,12 @@ public class BotimusPrime {
     private TaskList taskList;
     private Parser parser;
 
+    /**
+     * Constructs a new BotimusPrime instance with the specified file name.
+     * Initializes the UI, storage, task list, and parser components.
+     *
+     * @param fileName The name of the file where tasks are stored.
+     */
     public BotimusPrime(String fileName) {
         this.ui = new Ui();
         this.storage = new Storage(fileName);
@@ -19,10 +30,20 @@ public class BotimusPrime {
         parser = new Parser(taskList,ui, storage);
     }
 
+    /**
+     * Returns the TaskList associated with this BotimusPrime instance.
+     *
+     * @return The TaskList containing all tasks managed by this instance.
+     */
     public TaskList getTaskList() {
         return taskList;
     }
 
+    /**
+     * Starts the BotimusPrime chatbot.
+     * Displays a greeting message, then enters a loop to read and parse user commands.
+     * The loop continues until the user issues an exit command "bye".
+     */
     public void run() {
         ui.greet();
         boolean isExit = false;
@@ -40,6 +61,13 @@ public class BotimusPrime {
         ui.closeScanner();
     }
 
+    /**
+     * The main method for the BotimusPrime chatbot.
+     * Creates a new instance of BotimusPrime and starts the application using the specified
+     * task file ("todolist.txt").
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new BotimusPrime("todolist.txt").run();
     }

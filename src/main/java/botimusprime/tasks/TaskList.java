@@ -5,24 +5,49 @@ import botimusprime.storage.Storage;
 
 import java.util.ArrayList;
 
+/**
+ * The TaskList class manages a list of tasks, including operations for adding,
+ * marking, deleting, and displaying tasks. It also interacts with the Storage class
+ * to save changes to disk.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     private Storage storage;
 
+    /**
+     * Constructs a TaskList with an empty list of tasks and associates it with a file for storage.
+     *
+     * @param fileName The name of the file where tasks are stored.
+     */
     public TaskList(String fileName) {
         this.storage = new Storage(fileName);
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList with an existing list of tasks and associates it with a file for storage.
+     *
+     * @param tasks    The initial list of tasks.
+     * @param fileName The name of the file where tasks are stored.
+     */
     public TaskList(ArrayList<Task> tasks, String fileName) {
         this.tasks = tasks;
         this.storage = new Storage(fileName);
     }
 
+    /**
+     * Returns the list of tasks.
+     *
+     * @return The list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Displays the list of tasks.
+     * If the list is empty, it displays a message indicating that there are no tasks.
+     */
     public void showList() {
         if (tasks.isEmpty()) {
             System.out.println("congrats bro u got nth to do in the todolist, respect 100");
@@ -35,6 +60,12 @@ public class TaskList {
         System.out.println("____________________________________________________________\n");
     }
 
+    /**
+     * Marks a task as done based on the index provided in the input.
+     * If the input is invalid or the index is out of range, it displays an error message.
+     *
+     * @param input The user input containing the full command.
+     */
     public void markDone(String input) {
         String[] numFinder = input.split(" ");
 
@@ -50,6 +81,12 @@ public class TaskList {
                 tasks.get(idx));
     }
 
+    /**
+     * Marks a task as not done based on the index provided in the input.
+     * If the input is invalid or the index is out of range, it displays an error message.
+     *
+     * @param input The user input containing the full command.
+     */
     public void markUndone(String input) {
         String[] numFinder = input.split(" ");
 
@@ -65,6 +102,12 @@ public class TaskList {
                 tasks.get(idx));
     }
 
+    /**
+     * Deletes a task based on the index provided in the input.
+     * If the input is invalid or the index is out of range, it displays an error message.
+     *
+     * @param input The user input containing the full command.
+     */
     public void delete(String input) {
         String[] numFinder = input.split(" ");
 
@@ -82,6 +125,12 @@ public class TaskList {
                 "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
+    /**
+     * Adds a new To\Do task to the list based on the input.
+     * If the input does not contain a valid description, it displays an error message.
+     *
+     * @param input The user input containing the full command.
+     */
     public void addToDo(String input) {
         if (input.length() <= 5 || input.substring(5).isEmpty()) {
             System.out.println("eh bro udw to put ur description of ur task issit");
@@ -100,6 +149,12 @@ public class TaskList {
                         "____________________________________________________________\n");
     }
 
+    /**
+     * Adds a new Deadline task to the list based on the input.
+     * If the input does not contain a valid description or deadline, it displays an error message.
+     *
+     * @param input The user input containing the full command.
+     */
     public void addDeadline(String input) {
         if (input.length() <= 9 || input.substring(9).isEmpty() || !input.contains("/by")) {
             System.out.println("brother u forgot to type all the deadline task details plz.");
@@ -132,6 +187,12 @@ public class TaskList {
                         "____________________________________________________________\n");
     }
 
+    /**
+     * Adds a new Event task to the list based on the input.
+     * If the input does not contain valid times or description, it displays an error message.
+     *
+     * @param input The user input containing the full command.
+     */
     public void addEvent(String input) {
         if (input.length() <= 6 || input.substring(6).trim().isEmpty()) {
             System.out.println("brother u forgot to type all the event task details");
