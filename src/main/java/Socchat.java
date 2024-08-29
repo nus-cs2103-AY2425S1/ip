@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.io.File;
 
 
 public class Socchat {
@@ -11,7 +12,7 @@ public class Socchat {
         BYE, LIST, MARK, UNMARK, TODO, EVENT, DEADLINE, DELETE
     }
     public static void main(String[] args) {
-        ArrayList<Task> tasks = new ArrayList<>();
+        TaskList taskList = new TaskList();
         greet();
 
         while (true) {
@@ -25,28 +26,31 @@ public class Socchat {
                         exit();
                         break;
                     case LIST:
-                        list(tasks);
+                        taskList.list();
                         break;
                     case MARK:
-                        setMark(tasks, true);
+                        String taskIndexString = scanner.nextLine().trim();
+                        taskList.setMark(taskIndexString,true);
                         break;
                     case UNMARK:
-                        setMark(tasks, false);
+                        taskIndexString = scanner.nextLine().trim();
+                        taskList.setMark(taskIndexString, false);
                         break;
                     case TODO:
                         strToken = stringTokenize("TODO");
-                        addTodo(tasks, strToken);
+                        taskList.addTodo(strToken);
                         break;
                     case DEADLINE:
                         strToken = stringTokenize("DEADLINE");
-                        addDeadline(tasks, strToken);
+                        taskList.addDeadline(strToken);
                         break;
                     case EVENT:
                         strToken = stringTokenize("EVENT");
-                        addEvent(tasks, strToken);
+                        taskList.addEvent(strToken);
                         break;
                     case DELETE:
-                        delete(tasks);
+                        taskIndexString = scanner.nextLine().trim();
+                        taskList.delete(taskIndexString);
                         break;
                 }
             } catch (SocchatException e) {
@@ -76,89 +80,8 @@ public class Socchat {
     public static void exit() {
         System.out.println("Bye. Hope to see you again soon!");
     }
-    public static void setMark(ArrayList<Task> tasks, Boolean mark) throws SocchatException {
-        try {
-            String taskIndexString = scanner.nextLine().trim();
-            int taskIndex = Integer.parseInt(taskIndexString);
-            if (mark) {
-                tasks.get(taskIndex - 1).mark();
-            } else {
-                tasks.get(taskIndex - 1).unmark();
-            }
 
-        } catch (IndexOutOfBoundsException e) {
-            throw new SocchatException("Invalid task number.");
-        } catch (NumberFormatException e) {
-            throw new SocchatException("Please enter a valid task number.");
-        }
-    }
-    public static void delete(ArrayList<Task> tasks) throws SocchatException {
-        try {
-            String taskIndexString = scanner.nextLine().trim();
-            int taskIndex = Integer.parseInt(taskIndexString);
-            Task task = tasks.get(taskIndex - 1);
-            tasks.remove(taskIndex - 1);
-            System.out.println("Deleted "  + "\"" +  task.toString() + "\"");
-            System.out.println("Now you have " + tasks.size() + " task(s).");
-        } catch (IndexOutOfBoundsException e) {
-            throw new SocchatException("Invalid task number.");
-        } catch (NumberFormatException e) {
-            throw new SocchatException("Please enter a valid task number.");
-        }
-    }
-    public static void list(ArrayList<Task> tasks) {
-        System.out.println("Your task list:");
-        for(int i = 0; i < tasks.size(); i++) {
-            Task curr = tasks.get(i);
-            System.out.print((i + 1) + ": ");
-            System.out.println(curr.toString());
-        }
-    }
 
-    public static void addTodo(ArrayList<Task> tasks, String[] strToken) throws SocchatException {
-        try {
-            String des = strToken[0].substring("todo ".length());
-            Task t = new Todo(des);
-            tasks.add(t);
-            System.out.print("added: ");
-            System.out.println(t.toString());
-            System.out.println("Now you have " + tasks.size() + " task(s).");
-        } catch (IndexOutOfBoundsException e) {
-            // scanner.nextLine();
-            throw new SocchatException("Invalid Todo format: Description is empty");
-
-        }
-    }
-    public static void addEvent(ArrayList<Task> tasks, String[] strToken) throws SocchatException {
-        try {
-            String des = strToken[0].substring("event ".length());
-            String from = strToken[1].substring("from ".length());
-            String to = strToken[2].substring("to ".length());
-
-            Task t = new Event(des, from, to);
-            tasks.add(t);
-            System.out.print("added: ");
-            System.out.println(t.toString());
-            System.out.println("Now you have " + tasks.size() + " task(s).");
-        } catch (IndexOutOfBoundsException e) {
-
-            throw new SocchatException("Invalid Event format: event <description> /from <startTime> /to <endTime>");
-        }
-    }
-    public static void addDeadline(ArrayList<Task> tasks, String[] strToken) throws SocchatException {
-        try {
-            String des = strToken[0].substring("deadline ".length());
-            String by = strToken[1].substring("by ".length());
-            Task t = new Deadline(des, by);
-            tasks.add(t);
-            System.out.print("added: ");
-            System.out.println(t.toString());
-            System.out.println("Now you have " + tasks.size() + " task(s).");
-        } catch (IndexOutOfBoundsException e) {
-            throw new SocchatException("Invalid Deadline format: deadline <description> /by <deadline>");
-        }
-
-    }
 
 }
 
