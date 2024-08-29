@@ -4,6 +4,8 @@ import dgpt.exception.IncorrectInputException;
 import dgpt.exception.TaskNotFoundException;
 import dgpt.task.TaskList;
 
+import java.time.format.DateTimeParseException;
+
 public class Parser {
 
     public static void parse(String input, TaskList taskList, Ui ui) throws IncorrectInputException, TaskNotFoundException {
@@ -43,22 +45,30 @@ public class Parser {
             }
         }
         case "deadline" -> {
-            if (command.length == 2) {
-                String[] parts = command[1].split(" /by ");
-                ui.showTask(taskList.addDeadlineToList(parts[0], parts[1]), taskList.getSize());
-            } else {
-                throw new IncorrectInputException("OOPS!!! You should have a description after your request. " +
-                        "(e.g. \"todo your_description /by your_deadline\")");
+            try {
+                if (command.length == 2) {
+                    String[] parts = command[1].split(" /by ");
+                    ui.showTask(taskList.addDeadlineToList(parts[0], parts[1]), taskList.getSize());
+                } else {
+                    throw new IncorrectInputException("OOPS!!! You should have a description after your request. " +
+                            "(e.g. \"todo your_description /by your_deadline\")");
+                }
+            } catch (DateTimeParseException e) {
+                ui.showError(e);
             }
         }
         case "event" -> {
-            if (command.length == 2) {
-                String[] parts = command[1].split(" /");
-                ui.showTask(taskList.addEventToList(parts[0], parts[1].substring(5),
-                        parts[2].substring(3)), taskList.getSize());
-            } else {
-                throw new IncorrectInputException("OOPS!!! You should have a description after your request. " +
-                        "(e.g. \"todo your_description /from your_start_time /to your_end_time\")");
+            try {
+                if (command.length == 2) {
+                    String[] parts = command[1].split(" /");
+                    ui.showTask(taskList.addEventToList(parts[0], parts[1].substring(5),
+                            parts[2].substring(3)), taskList.getSize());
+                } else {
+                    throw new IncorrectInputException("OOPS!!! You should have a description after your request. " +
+                            "(e.g. \"todo your_description /from your_start_time /to your_end_time\")");
+                }
+            } catch (DateTimeParseException e) {
+                ui.showError(e);
             }
         }
         case "delete" -> {
