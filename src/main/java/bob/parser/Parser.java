@@ -9,6 +9,7 @@ import bob.commands.List;
 import bob.commands.Mark;
 import bob.commands.On;
 import bob.commands.Unmark;
+import bob.commands.Find;
 import bob.commands.Todo;
 import bob.commands.Deadline;
 import bob.tasks.DeadlineTask;
@@ -27,7 +28,7 @@ public class Parser {
      * Represents the different types of commands.
      */
     public enum CommandType {
-        LIST, UNMARK, MARK, ON, DELETE, TODO, DEADLINE, EVENT, INVALID, BYE
+        LIST, UNMARK, MARK, ON, DELETE, FIND, TODO, DEADLINE, EVENT, INVALID, BYE
     }
 
     /**
@@ -60,6 +61,8 @@ public class Parser {
                 return prepareOn(fullCommand);
             case DELETE:
                 return prepareDelete(fullCommand);
+            case FIND:
+                return prepareFine(fullCommand);
             case TODO:
                 return prepareTodo(fullCommand);
             case DEADLINE:
@@ -140,6 +143,14 @@ public class Parser {
             throw new BobException("Please enter a valid task number.");
         }
         return new Delete(index);
+    }
+
+    private static Find prepareFine(String fullCommand) throws BobException {
+        String[] parts = fullCommand.split(" ",2);
+        if (parts.length < 2) {
+            throw new BobException("Please provide a description.");
+        }
+        return new Find(parts[1]);
     }
 
     private static Todo prepareTodo(String fullCommand) throws BobException {
