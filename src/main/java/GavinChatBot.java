@@ -1,12 +1,24 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.IOException;
+
 
 public class GavinChatBot{
     // array to hold Task objects
     // static Task[] tasks = new Task[100];
     static ArrayList<Task> tasks = new ArrayList<>();
-    // static int taskCount = 0;
+    static Storage storage;
     public static void main(String[] args) {
+        String filePath = "./data/duke.txt";
+        storage = new Storage(filePath);
+
+        // Load tasks from file
+        try {
+            tasks = storage.load();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+            tasks = new ArrayList<>();
+        }
 
         String horizontalLine = "___________________________________________________________________________________\n";
 
@@ -28,14 +40,6 @@ public class GavinChatBot{
                 if (input.equalsIgnoreCase("list") || input.equalsIgnoreCase("bye") || input.startsWith("mark") || input.startsWith("unmark") || input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event") || input.startsWith("delete")) {
                     handleInput(input);
                 } else {
-                    /*
-                    System.out.println(horizontalLine);
-                    tasks[taskCount] = new Task(input);
-                    taskCount++;
-                    System.out.println("added: " + input);
-                    System.out.println(horizontalLine);
-                    handleInput(input);
-                     */
                     // throw an error for invalid input
                     throw new GavinException("Invalid input! Please start with 'todo', 'deadline', or 'event'.");
                 }
@@ -60,15 +64,9 @@ public class GavinChatBot{
             System.out.println(horizontalLine);
             System.out.println("Here are the tasks in your list: ");
             for (int i = 0; i < tasks.size(); i++) {
-                /*
-                if (tasks[i] == null) {
-                    break;
-                }
-                 */
                 System.out.println(i + 1 + ". " + tasks.get(i));
             }
             System.out.println(horizontalLine);
-            //System.exit(1);
         } else if (input.startsWith("mark")) {
             markTask(input);
         } else if (input.startsWith("unmark")) {
@@ -99,6 +97,12 @@ public class GavinChatBot{
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(" " + tasks.get(taskNumber));
         System.out.println(horizontalLine);
+
+        try {
+            storage.save(tasks);
+        } catch (IOException e){
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
     }
 
     public static void unmarkTask(String input) throws GavinException {
@@ -115,6 +119,12 @@ public class GavinChatBot{
         System.out.println("OK, I've marked this task as not done yet!");
         System.out.println(" " + tasks.get(taskNumber));
         System.out.println(horizontalLine);
+
+        try {
+            storage.save(tasks);
+        } catch (IOException e){
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
     }
 
     public static void toDoTask(String input) throws GavinException {
@@ -128,6 +138,12 @@ public class GavinChatBot{
         String taskDescription = inputParts[1];
         tasks.add(new ToDos(taskDescription));
         printAddTaskMessage(tasks.get(tasks.size() - 1));
+
+        try {
+            storage.save(tasks);
+        } catch (IOException e){
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
     }
 
     public static void deadlineTask(String input) throws GavinException {
@@ -146,6 +162,12 @@ public class GavinChatBot{
         }
         tasks.add(new Deadline(taskDescription, deadlineDay));
         printAddTaskMessage(tasks.get(tasks.size() - 1));
+
+        try {
+            storage.save(tasks);
+        } catch (IOException e){
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
     }
 
     public static void eventTask(String input) throws GavinException {
@@ -166,6 +188,12 @@ public class GavinChatBot{
         }
         tasks.add(new Event(taskDescription, fromTime, toTime));
         printAddTaskMessage(tasks.get(tasks.size() - 1));
+
+        try {
+            storage.save(tasks);
+        } catch (IOException e){
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
     }
 
     public static void deleteTask(String input) throws GavinException {
@@ -185,6 +213,12 @@ public class GavinChatBot{
         System.out.println(" " + removedTask);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(horizontalLine);
+
+        try {
+            storage.save(tasks);
+        } catch (IOException e){
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
     }
 
     private static void printAddTaskMessage(Task task) {
