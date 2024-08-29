@@ -1,7 +1,7 @@
 package rotodo.processes;
 
-import rotodo.commands.Command;
 import rotodo.commands.AddCommand;
+import rotodo.commands.Command;
 import rotodo.commands.DeleteCommand;
 import rotodo.commands.ExitCommand;
 import rotodo.commands.HelpCommand;
@@ -10,6 +10,13 @@ import rotodo.commands.MarkCommand;
 import rotodo.exception.IncompleteInputException;
 import rotodo.exception.InvalidInputException;
 
+/**
+ * This class parses user inputs and outputs a Command
+ * that can be executed.
+ *
+ * @author Ng Kay Hian
+ * @version CS2103T AY24/25 Semester 1
+ */
 public class Parser {
     /**
      * Different types of tasks
@@ -29,17 +36,14 @@ public class Parser {
     private static final String EXIT = "bye";
 
     /**
-     * Process user inputs
-     * 
+     * Parse user input, then outputs a Command that can be executed.
+     *
      * @param input user input
+     * @return Command based on user input
      * @throws InvalidInputException
      */
     public static Command process(String input) throws InvalidInputException {
         String[] token = input.split(" ", 2);
-        boolean delete = false;
-        boolean mark = false;
-        
-        String output = "";
         switch (token[0]) {
         case LIST:
             return new ListCommand();
@@ -54,13 +58,13 @@ public class Parser {
             }
             try {
                 int idx = Integer.parseInt(token[1].split(" ")[0]);
-                return new DeleteCommand(idx-1);
+                return new DeleteCommand(idx - 1);
             } catch (NumberFormatException e) {
                 throw new InvalidInputException(String.format("'%s' not a "
                     + "number RoTodo knows (and RoTodo know much numbers, "
                     + "like 1s and 0s)", token[1]));
             }
-        
+
         case MARK:
             if (token.length < 2) {
                 throw new IncompleteInputException(
@@ -68,7 +72,7 @@ public class Parser {
             }
             try {
                 int idx = Integer.parseInt(token[1].split(" ")[0]);
-                return new MarkCommand(idx-1, true);
+                return new MarkCommand(idx - 1, true);
             } catch (NumberFormatException e) {
                 throw new InvalidInputException(String.format("'%s' not a "
                     + "number RoTodo knows (and RoTodo know much numbers, "
@@ -82,7 +86,7 @@ public class Parser {
             }
             try {
                 int idx = Integer.parseInt(token[1].split(" ")[0]);
-                return new MarkCommand(idx-1, false);
+                return new MarkCommand(idx - 1, false);
             } catch (NumberFormatException e) {
                 throw new InvalidInputException(String.format("'%s' not a "
                     + "number RoTodo knows (and RoTodo know much numbers, "
@@ -97,7 +101,7 @@ public class Parser {
                     + "  RoTodo needs a task description");
             }
             return new AddCommand(AddCommand.TaskType.TODO, token[1]);
-        
+
         case DEADLINE:
             if (token.length < 2) {
                 throw new IncompleteInputException(
@@ -129,10 +133,10 @@ public class Parser {
                     + "  RoTodo needs a task description, from and to date/time");
             }
             return new AddCommand(AddCommand.TaskType.EVENT, token[0], token[1], token[2]);
-        
+
         case HELP:
             return new HelpCommand();
-    
+
         default:
             throw new InvalidInputException(
                 "Reep Roop... RoTodo Read No Understand?");

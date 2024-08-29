@@ -5,8 +5,15 @@ import rotodo.processes.Storage;
 import rotodo.processes.Ui;
 import rotodo.tasklist.TaskList;
 
+/**
+ * The DeleteCommand class encapsulates the specific
+ * type of Command that executes a delete action.
+ *
+ * @author Ng Kay Hian
+ * @version CS2103T AY24/25 Semester 1
+ */
 public class DeleteCommand extends Command {
-    int idx;
+    private int idx;
 
     public DeleteCommand(int i) {
         idx = i;
@@ -20,5 +27,4 @@ public class DeleteCommand extends Command {
             ui.addMessage(e.toString());
         }
     }
-    
 }

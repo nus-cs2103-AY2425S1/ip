@@ -1,16 +1,26 @@
 package rotodo.commands;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import rotodo.exception.IncompleteInputException;
 import rotodo.exception.InvalidInputException;
 import rotodo.processes.Storage;
 import rotodo.processes.Ui;
 import rotodo.tasklist.TaskList;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
-public class AddCommand extends Command{
+/**
+ * The AddCommand class encapsulates the specific
+ * type of Command that executes an add action. The
+ * type of task added depends on the initialised state
+ * of the command.
+ *
+ * @author Ng Kay Hian
+ * @version CS2103T AY24/25 Semester 1
+ */
+public class AddCommand extends Command {
+    /** Enum of TaskType */
     public enum TaskType {
         TODO, DEADLINE, EVENT
     };
@@ -21,6 +31,15 @@ public class AddCommand extends Command{
     private LocalDateTime byto;
     private boolean status;
 
+    /**
+     * Initialise AddCommand to be executed. Accepts
+     * a TaskType and performs rudimentary checks on
+     * validity of values provided.
+     *
+     * @param type TaskType to be added
+     * @param value values (including datetime) of task
+     * @throws InvalidInputException
+     */
     public AddCommand(TaskType type, String ...value) throws InvalidInputException {
         this.type = type;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -59,6 +78,9 @@ public class AddCommand extends Command{
                     this.byto = t1;
                 }
                 break;
+
+            default:
+                break;
             }
         } catch (DateTimeParseException e) {
             throw new InvalidInputException(
@@ -66,7 +88,6 @@ public class AddCommand extends Command{
                         + "RoTodo needs valid date/time in the form:\n"
                         + "  dd/MM/yyyy HHmm");
         }
-        
     }
 
     public void setStatus(boolean status) {
@@ -81,13 +102,16 @@ public class AddCommand extends Command{
         case TODO:
             msg = tl.addTask(value);
             break;
-        
+
         case DEADLINE:
-        msg = tl.addTask(value, byto);
+            msg = tl.addTask(value, byto);
             break;
 
         case EVENT:
             msg = tl.addTask(value, from, byto);
+            break;
+
+        default:
             break;
         }
         if (ui != null) {

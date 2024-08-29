@@ -1,22 +1,29 @@
 package rotodo.processes;
 
-import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * This class implements the CLI of RoTodo.
+ *
+ * @author Ng Kay Hian
+ * @version CS2103T AY24/25 Semester 1
+ */
 public class Ui {
-    String text;
-    Scanner sc;
+    private String text;
+    private Scanner sc;
 
+    /**
+     * Initialise Ui object
+     */
     public Ui() {
         text = "";
         this.banner();
-        sc = new Scanner(System.in);  // Create a Scanner object
+        sc = new Scanner(System.in); // Create a Scanner object
     }
 
     /**
-     * Wraps input string x with line text above and below.
-     * 
-     * @param x
+     * Displays output message stored in <code>text</code>.
+     * Output is wrapped by lines.
      */
     public void showMessage() {
         System.out.println("  " + new String(new char[100]).replace("\0", "-"));
@@ -29,11 +36,11 @@ public class Ui {
      * Prints chatbot banner.
      */
     public void banner() {
-        // Declaring ANSI_COLOR 
-        String ansiReset = "\u001B[0m"; 
-        String ansiRed = "\u001B[31m"; 
-        
-        text += "Hello! I'm \n" 
+        // Declaring ANSI_COLOR
+        String ansiReset = "\u001B[0m";
+        String ansiRed = "\u001B[31m";
+
+        text += "Hello! I'm \n"
             + ("R__________E       __________            __   _____\n"
             + "R\\______   \\E  ____\\__   ___/____    ___|  | /  _  \\   ____\n"
             + " R|       _/E /  _ \\ |   |  /  _ \\  /  _   ||  / \\  | /  _ \\   ___\n"
@@ -73,7 +80,7 @@ public class Ui {
     public void addMessage(String msg) {
         text += msg;
     }
-    
+
     /**
      * Exits program after printing goodbye text.
      */

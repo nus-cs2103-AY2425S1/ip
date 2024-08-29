@@ -6,6 +6,13 @@ import rotodo.processes.Storage;
 import rotodo.processes.Ui;
 import rotodo.tasklist.TaskList;
 
+/**
+ * The ExitCommand class encapsulates the specific
+ * type of Command that outputs the exit message.
+ *
+ * @author Ng Kay Hian
+ * @version CS2103T AY24/25 Semester 1
+ */
 public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tl, Ui ui, Storage st) {
@@ -15,7 +22,6 @@ public class ExitCommand extends Command {
         } catch (IOException e) {
             ui.addMessage("\nUnable to save list :(\n    RoTodo is sorry");
         }
-        
     }
 
     @Override
