@@ -1,11 +1,25 @@
-public class Event extends Task {
-    protected String startDate;
-    protected String endDate;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
-    public Event(String name, String start, String end) {
+public class Event extends TaskWithDate {
+    protected LocalDate startDate;
+    protected LocalDate endDate;
+
+    public Event(String name, LocalDate startDate, LocalDate endDate) {
         super(name);
-        this.startDate = start;
-        this.endDate = end;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    @Override
+    public boolean overlapsWith(LocalDate localDate) {
+        return (localDate.equals(this.startDate) || localDate.isAfter(this.startDate))
+                && (localDate.equals(this.endDate) || localDate.isBefore(this.endDate));
+    }
+
+    @Override
+    public String formatDate(LocalDate localDate) {
+        return localDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
     @Override
@@ -13,9 +27,9 @@ public class Event extends Task {
         return "[E]"
                 + super.toString()
                 + " (from: "
-                + this.startDate
+                + this.formatDate(this.startDate)
                 + " to: "
-                + this.endDate
+                + this.formatDate(this.endDate)
                 + ")";
     }
 
