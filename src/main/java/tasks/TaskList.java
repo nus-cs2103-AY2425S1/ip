@@ -1,5 +1,6 @@
-package Tasks;
+package tasks;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
@@ -8,6 +9,10 @@ public class TaskList {
 
     public TaskList(List<Task> loadedData) {
         this.list = loadedData;
+    }
+
+    public TaskList() {
+        this.list = new ArrayList<>();
     }
 
     public void add(Task task, boolean saved) {

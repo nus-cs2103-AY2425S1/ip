@@ -1,4 +1,4 @@
-import Tasks.TaskList;
+import tasks.TaskList;
 
 public class Peridot {
 
