@@ -1,3 +1,5 @@
+package snipe.task;
+
 /**
  * Represents a task with a description, status, and type.
  * The task can be of type TODO, DEADLINE, or EVENT, represented by the {@link TaskType} enum.
@@ -23,7 +25,7 @@ public abstract class Task {
     protected final TaskType type;
 
     /**
-     * Constructs a new {@code Task} with the specified description and type.
+     * Constructs a new {@code snipe.task.Task} with the specified description and type.
      * The task is initially not completed.
      *
      * @param description The description of the task.

@@ -1,3 +1,8 @@
+package snipe.core;
+
+import snipe.exception.SnipeException;
+import snipe.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

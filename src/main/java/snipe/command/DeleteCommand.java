@@ -1,3 +1,10 @@
+package snipe.command;
+
+import snipe.exception.SnipeException;
+import snipe.storage.Storage;
+import snipe.core.TaskList;
+import snipe.util.Ui;
+
 public class DeleteCommand extends Command{
     private int num;
 

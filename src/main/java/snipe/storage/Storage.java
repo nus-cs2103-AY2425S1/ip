@@ -1,3 +1,12 @@
+package snipe.storage;
+
+import snipe.core.TaskList;
+import snipe.exception.SnipeException;
+import snipe.task.Deadline;
+import snipe.task.Event;
+import snipe.task.Task;
+import snipe.task.ToDo;
+
 import java.util.ArrayList;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -7,7 +16,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 
 /**
- * The {@code Storage} class represents a storage class for a user's task list
+ * The {@code snipe.storage.Storage} class represents a storage class for a user's task list
  */
 public class Storage {
     private final Path filePath;
@@ -43,7 +52,7 @@ public class Storage {
             }
             return taskList;
         } else {
-            throw new SnipeException("Storage not initialised");
+            throw new SnipeException("snipe.storage.Storage not initialised");
         }
     }
 
@@ -65,7 +74,7 @@ public class Storage {
                 break;
             }
             if (task == null) {
-                throw new SnipeException("Task type must be T, D or E");
+                throw new SnipeException("snipe.task.Task type must be T, D or E");
             }
             if (split[1].equals("1")) {
                 task.changeStatus();
@@ -87,7 +96,7 @@ public class Storage {
                 writer.newLine();
             }
         } catch (Exception e) {
-            System.out.println("Task is not a valid task");
+            System.out.println("snipe.task.Task is not a valid task");
         }
     }
 }

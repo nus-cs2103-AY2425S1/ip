@@ -1,20 +1,20 @@
-import java.time.format.DateTimeParseException;
+package snipe.core;
+
+import snipe.util.Parser;
+import snipe.exception.SnipeException;
+import snipe.storage.Storage;
+import snipe.util.Ui;
+import snipe.command.Command;
+import snipe.task.Task;
+
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 /**
- * The {@code Snipe} class represents a task management system that interacts with the user via command-line input.
+ * The {@code snipe.core.Snipe} class represents a task management system that interacts with the user via snipe.command-line input.
  * It supports commands for adding, deleting, marking, unmarking, and listing tasks.
  */
 public class Snipe {
-    private static final String HORIZONTAL_LINE = "_".repeat(60);
-
-    /** The list of tasks managed by the application. */
-    private static ArrayList<Task> list = new ArrayList<Task>();
-
     private Storage taskListStorage;
     private TaskList tasks;
     private Ui ui;
@@ -52,7 +52,7 @@ public class Snipe {
     /**
      * The main method that starts the application.
      *
-     * @param args Command-line arguments (not used).
+     * @param args snipe.command.Command-line arguments (not used).
      */
     public static void main(String[] args) throws IOException, SnipeException {
         Snipe snipe = new Snipe("src/main/txt/taskList.txt");
