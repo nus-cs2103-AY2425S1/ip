@@ -1,7 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
 
     public static String horizontalLine = "----------------------------------------------------------";
+
+    public static ArrayList<String> addedMessages = new ArrayList<String>();
     public static void printOpening() {
         String openingText = "Hello! I'm Jeff\n " +
                 "What can I do for you?";
@@ -24,9 +27,27 @@ public class Duke {
         System.out.println(closingText);
         System.out.println(horizontalLine);
     }
+
+    public static void addMessage(String message) {
+        printMessage("added: " + message);
+        addedMessages.add(message);
+    }
+
+    public static void listMessages()
+    {
+        int numberOfMessages = addedMessages.size();
+
+        System.out.println(horizontalLine);
+        for(int i=0; i<numberOfMessages; i++) {
+            System.out.println((i+1) + ". " + addedMessages.get(i));
+        }
+        System.out.println(horizontalLine);
+    }
     public static void main(String[] args) {
 
         String exitCommand = "bye";
+        String listCommand = "list";
+
         Scanner inputReader = new Scanner(System.in);
 
         printOpening();
@@ -38,8 +59,10 @@ public class Duke {
             if(input.equals(exitCommand)) {
                 printClosing();
                 break;
+            } else if(input.equals("list")) {
+                listMessages();
             } else {
-                printMessage(input);
+                addMessage(input);
             }
         }
     }
