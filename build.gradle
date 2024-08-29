@@ -32,7 +32,9 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    mainClassName = "src/main/java/evelyn/Evelyn.java"
+    archiveBaseName = "evelyn"
+    archiveFileName = "evelyn.jar"
     archiveClassifier = null
 }
 
