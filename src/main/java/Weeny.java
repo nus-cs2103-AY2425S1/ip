@@ -21,6 +21,11 @@ import java.time.LocalTime;
 public class Weeny {
 
     public static void main(String[] args) {
+        Ui ui = new Ui(); // Create Ui object
+        Storage storage = new Storage(); // Create storage object
+        Parser parser = new Parser(); // Create parser object
+        TaskList taskList = new TaskList(); // Create tasklist object
+
         // Check if data directory and TaskList.txt exist, create if not
         File dataDir = new File("./data");
         File taskFile = new File(dataDir, "TaskList.txt");
@@ -41,25 +46,16 @@ public class Weeny {
         List<Task> tasks = readFileIn("./data/TaskList.txt");
         boolean isFarewell = false;
 
-        printLine();
-        System.out.println("Hello! I'm Weeny\nWhat can I do for you?");
-        printLine();
-
-        Scanner userInput = new Scanner(System.in);
+        ui.showWelcomeMessage();
 
         while (!isFarewell) {
-            String input = userInput.nextLine();
-            String command = extractFirstWord(input);
+            String input = ui.readUserInput();
+            String command = parser.extractFirstWord(input);
 
             try {
                 switch (command) {
                 case "list":
-                    printLine();
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < tasks.size(); i++) {
-                        System.out.println((i + 1) + ". " + tasks.get(i).toString());
-                    }
-                    printLine();
+                    ui.showTaskList(tasks);
                     break;
 
                 case "bye":
@@ -67,23 +63,17 @@ public class Weeny {
                     break;
 
                 case "mark":
-                    int markIndex = extractEndNumber(input) - 1;
+                    int markIndex = parser.extractEndNumber(input) - 1;
                     validateIndex(markIndex, tasks.size(), "mark");
                     tasks.get(markIndex).setMark();
-                    printLine();
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(tasks.get(markIndex).toString());
-                    printLine();
+                    ui.showMarkMessage(tasks.get(markIndex));
                     break;
 
                 case "unmark":
-                    int unmarkIndex = extractEndNumber(input) - 1;
+                    int unmarkIndex = parser.extractEndNumber(input) - 1;
                     validateIndex(unmarkIndex, tasks.size(), "unmark");
                     tasks.get(unmarkIndex).setUnmark();
-                    printLine();
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(tasks.get(unmarkIndex).toString());
-                    printLine();
+                    ui.showUnmarkMessage(tasks.get(unmarkIndex));
                     break;
 
                 case "todo":
@@ -91,53 +81,45 @@ public class Weeny {
                     printLine();
                     Task todoTask = new Todo(input.substring(5).trim());
                     tasks.add(todoTask);
-                    printTaskAddedMessage(todoTask, tasks.size());
+                    ui.printTaskAddedMessage(todoTask, tasks.size());
                     printLine();
                     break;
 
                 case "event":
                     validateEventInput(input);
-                    Task eventTask = new Events(extractEventName(input),
-                            extractEventTimes(input)[0],
-                            extractEventTimes(input)[1]);
+                    Task eventTask = new Events(parser.extractEventName(input),
+                            parser.extractEventTimes(input)[0],
+                            parser.extractEventTimes(input)[1]);
                     tasks.add(eventTask);
-                    printTaskAddedMessage(eventTask, tasks.size());
+                    ui.printTaskAddedMessage(eventTask, tasks.size());
                     printLine();
                     break;
 
                 case "deadline":
                     validateDeadlineInput(input);
-                    Task deadlineTask = new Deadlines(extractDeadlineName(input),
-                            extractDeadlineTime(input));
+                    Task deadlineTask = new Deadlines(parser.extractDeadlineName(input),
+                            parser.extractDeadlineTime(input));
                     tasks.add(deadlineTask);
-                    printTaskAddedMessage(deadlineTask, tasks.size());
+                    ui.printTaskAddedMessage(deadlineTask, tasks.size());
                     printLine();
                     break;
 
                 case "delete":
-                    int deleteIndex = extractEndNumber(input) - 1;
+                    int deleteIndex = parser.extractEndNumber(input) - 1;
                     validateIndex(deleteIndex, tasks.size(), "delete");
                     Task removedTask = tasks.remove(deleteIndex);
-                    printLine();
-                    System.out.println("Spooof! The task magically disappeared:");
-                    System.out.println(removedTask.toString());
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    printLine();
+                    ui.showTaskDeletedMessage(removedTask, tasks.size());
                     break;
 
                 default:
                     throw new UnsupportedOperationException("Oopsies we don't understand that command");
                 }
             } catch (IllegalArgumentException | IndexOutOfBoundsException | UnsupportedOperationException e) {
-                printLine();
-                System.out.println("Error: " + e.getMessage());
-                printLine();
+                ui.showError(e.getMessage());
             }
         }
-        printLine();
-        System.out.println("Bye. Hope to see you soon!");
-        printLine();
-        userInput.close();
+        ui.showGoodbyeMessage();
+
 
         // Write to TaskList.txt
         writeFileIn("./Data/TaskList.txt", tasks);
@@ -257,18 +239,4 @@ public class Weeny {
             throw new IllegalArgumentException("What is a deadline without a date or a task? >:(");
         }
     }
-
-    /**
-     * Prints a message indicating that a task has been added.
-     *
-     * @param task The task that was added.
-     * @param size The current size of the task list.
-     */
-    private static void printTaskAddedMessage(Task task, int size) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + size + " tasks in the list.");
-    }
-
-
 }
