@@ -1,9 +1,10 @@
-import java.lang.IndexOutOfBoundsException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 public class TaskList {
     private ArrayList<Task> lst;
@@ -66,10 +67,10 @@ public class TaskList {
                     Todo td = new Todo(isDone, arr[2]);
                     this.lst.add(td);
                 } else if (arr[0].equals("D")) {
-                    Deadline dl = new Deadline(isDone, arr[2], arr[3]);
+                    Deadline dl = new Deadline(isDone, arr[2], LocalDateTime.parse(arr[3]));
                     this.lst.add(dl);
                 } else if (arr[0].equals("E")) {
-                    Event e = new Event(isDone, arr[2], arr[3], arr[4]);
+                    Event e = new Event(isDone, arr[2], LocalDateTime.parse(arr[3]), LocalDateTime.parse(arr[4]));
                     this.lst.add(e);
                 } else {
                     throw new LoafyException();
@@ -79,6 +80,8 @@ public class TaskList {
             System.out.println("Error: Could not load previous list");
         } catch (IndexOutOfBoundsException | LoafyException e) {
             System.out.println("Error: Previous list corrupted");
+        } catch (DateTimeParseException e) {
+            System.out.println("Error: Could not parse DateTime");
         }
     }
 }

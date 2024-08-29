@@ -3,6 +3,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Loafy {
     public static void main(String[] args) {
@@ -70,7 +72,8 @@ public class Loafy {
                     if (name.isEmpty() || date.isEmpty()) {
                         reply(LoafyException.noDeadline());
                     } else {
-                        Task task = new Deadline(name, date);
+                        LocalDateTime dateTime = parseDate(date);
+                        Task task = new Deadline(name, dateTime);
                         String msg = tl.add(task);
                         reply(msg);
                     }
@@ -87,7 +90,9 @@ public class Loafy {
                     if (name.isEmpty() || from.isEmpty() || to.isEmpty()) {
                         reply(LoafyException.noEventDates());
                     } else {
-                        Task task = new Event(name, from, to);
+                        LocalDateTime fromDateTime = parseDate(from);
+                        LocalDateTime toDateTime = parseDate(to);
+                        Task task = new Event(name, fromDateTime, toDateTime);
                         String msg = tl.add(task);
                         reply(msg);
                     }
@@ -116,5 +121,10 @@ public class Loafy {
 
     static void exit() {
         reply("Byeee see you soon! ;)");
+    }
+
+    static LocalDateTime parseDate(String date) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        return LocalDateTime.parse(date, dtf);
     }
 }
