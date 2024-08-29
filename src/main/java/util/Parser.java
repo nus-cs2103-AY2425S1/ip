@@ -16,8 +16,17 @@ import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
 
+/**
+ * Utility class to parse data.
+ */
 public class Parser {
-
+  /**
+   * Method to read the items in the Storage class.
+   * 
+   * @param storage The Storage object being used.
+   * @return A List<Task> of the tasks stored in the Storage.
+   * @throws MizzException if entries in the Storage are wrongly formatted.
+   */
   public static List<Task> parseFromStorage(Storage storage) throws MizzException {
     List<Task> result = new ArrayList<>();
 
@@ -98,6 +107,8 @@ public class Parser {
    *         event</li>
    *         <li>parsedString[3] -> to if event else ""</li>
    *         </ul>
+   * @throws MizzException if input string is wrongly formatted or missing
+   *                       information.
    */
   public static String[] parseStringInput(String inpuString) throws MizzException {
     String[] result = new String[4];
@@ -137,6 +148,14 @@ public class Parser {
     return result;
   }
 
+  /**
+   * Helper method to parse a todo command.
+   * 
+   * @param parts  Split input string.
+   * @param result Extra details inside the input string.
+   * @return An array of strings containing the broken up and cleaned command.
+   * @throws ToDoException if verification of the command fails.
+   */
   private static String[] parseTodo(String[] parts, String[] result) throws ToDoException {
     Validator.verifyTodo(parts);
     result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));

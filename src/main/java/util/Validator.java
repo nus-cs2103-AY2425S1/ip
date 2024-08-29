@@ -1,7 +1,14 @@
 package util;
 
-import MizzExceptions.*;
+import MizzExceptions.ToDoException;
+import MizzExceptions.DeadlineException;
+import MizzExceptions.EventException;
+import MizzExceptions.UpdateMarkedException;
+import MizzExceptions.DeleteException;
 
+/**
+ * Utility class containing validation functions.
+ */
 public class Validator {
   /**
    * Method to validate the todo command.
