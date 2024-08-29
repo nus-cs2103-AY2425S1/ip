@@ -65,18 +65,23 @@ public class Parser {
         } catch (NumberFormatException ne) {
             throw new JudeException("Number format exception has occurred.");
         } catch (IndexOutOfBoundsException ie) {
-            throw new JudeException("the index is not applicable to the current list size.");
+            throw new JudeException("the index is not provided or not applicable to the current list size.");
         }
 
         if (command.equals("to-do")) {
             // Create an array with 1 element (without using split.)
-            return new AddCommand(new Todo(split[1]));
+            try {
+                return new AddCommand(new Todo(split[1]));
+            } catch (ArrayIndexOutOfBoundsException ae) {
+                throw new JudeException("No description was provided.");
+            }
+
         } else if (command.equals("deadline")) {
 
             descriptions = split[1].split(" /by ", 2);
 
             if (descriptions.length != 2) {
-                throw new JudeException("Poyo,  the jude.command "
+                throw new JudeException("Poyo, the jude.command "
                         + command + " must be provided with a description with the use of /by jude.command.");
             }
             return new AddCommand(new Deadline(descriptions[0], descriptions[1]));
@@ -86,7 +91,7 @@ public class Parser {
             descriptions = split[1].split(" /from | /to ", 3);
 
             if (descriptions.length != 3) {
-                throw new JudeException("Poyo,  the jude.command " + command
+                throw new JudeException("Poyo, the jude.command " + command
                         + " must be provided with a description with the use of /from followed by /to jude.command.");
             }
             return new AddCommand(new Event(descriptions[0], descriptions[1], descriptions[2]));

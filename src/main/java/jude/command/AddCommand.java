@@ -19,4 +19,9 @@ public class AddCommand extends Command {
         ui.showMessage("jude.task.Task " + task + " has been added.");
         storage.save(list);
     }
+
+    @Override
+    public String toString() {
+        return "AddCommand";
+    }
 }

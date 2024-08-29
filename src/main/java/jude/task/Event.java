@@ -28,7 +28,8 @@ public class Event extends Task {
             DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             this.toDateTime = LocalDateTime.parse(to, dateFormat);
         } catch (DateTimeParseException de) {
-            throw new JudeException("wrong Date or Time format was provided.");
+            throw new JudeException("wrong date or time format was provided."
+                    + " Provide: day/month/year time (e.g. 1/1/2000 1800).");
         }
     }
 
