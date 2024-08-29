@@ -46,6 +46,8 @@ public class Parser {
             return new DeleteCommand(split);
         case "bye":
             return new ByeCommand(split);
+        case "find":
+            return new FindCommand(split);
         default:
             return new UnrecognisedCommand(split);
         }
