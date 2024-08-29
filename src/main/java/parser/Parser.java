@@ -71,8 +71,12 @@ public class Parser {
         return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 
-    public static String timeToString(LocalTime time) {
+    public static String timeToStorageString(LocalTime time) {
         return time.format(DateTimeFormatter.ofPattern("HHmm"));
+    }
+
+    public static String timeToString(LocalTime time) {
+        return time.format(DateTimeFormatter.ofPattern("hh:mm a"));
     }
 
     public static LocalTime parseTime(String time) throws InvalidTimeException {

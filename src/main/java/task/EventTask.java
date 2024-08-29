@@ -23,12 +23,12 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + Parser.dateToString(this.date) +
-                " " + this.startTime + " to: " + this.endTime + ")";
+                " " + Parser.timeToString(this.startTime) + " to: " + Parser.timeToString(this.endTime) + ")";
     }
 
     @Override
     public String simpleFormat() {
         return "E | " + super.simpleFormat() + " | " + Parser.dateToStorageString(this.date)
-                + " | " + Parser.timeToString(this.startTime) + " | " + Parser.timeToString(this.endTime);
+                + " | " + Parser.timeToStorageString(this.startTime) + " | " + Parser.timeToStorageString(this.endTime);
     }
 }

@@ -36,7 +36,19 @@ shadowJar {
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
     standardOutput = System.out
 }
+
+tasks.register('cleanTestFiles', Delete) {
+    delete file("/data/test1.txt")
+    delete file("/data/test2.txt")
+    delete file("/data/test3.txt")
+    delete file("/data/test4.txt")
+    delete file("/data/test5.txt")
+    delete file("/data/test6.txt")
+    delete file("/data/test7.txt")
+}
+
+clean.dependsOn("cleanTestFiles")

@@ -20,7 +20,6 @@ public class TaskList {
         try {
             this.loadTasks();
         } catch (DataIOException | InvalidDataFormatException e) {
-            System.out.println(e.getMessage());
             this.tasks.clear();
             this.taskCount = 0;
         }

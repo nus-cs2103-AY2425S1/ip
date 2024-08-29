@@ -19,7 +19,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    private String getStatusIcon() {
         return this.isDone ? "X" : " ";
     }
 
@@ -28,7 +28,7 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
-    public String getSimpleStatusIcon() {
+    private String getSimpleStatusIcon() {
         return this.isDone ? "1" : "0";
     }
 
