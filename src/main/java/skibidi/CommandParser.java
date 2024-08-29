@@ -1,8 +1,6 @@
 package skibidi;
 
-import java.lang.management.OperatingSystemMXBean;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Optional;
 
@@ -65,7 +63,9 @@ public class CommandParser {
                 if (cmdArgs.length != 2) {
                     throw new CommandParseException("COMMAND deadline REQUIRES ARGUMENT /by");
                 }
-                Deadline deadline = new Deadline(cmdArgs[0].strip(), LocalDate.parse(cmdArgs[1].strip()));
+                Deadline deadline = new Deadline(
+                        cmdArgs[0].strip(),
+                        LocalDate.parse(cmdArgs[1].strip()));
                 successMessage = String.format("\tADDED DEADLINE: %s\n", deadline.toString());
                 return Optional.of(new AddCommand(deadline, successMessage));
             case EVENT:
@@ -74,7 +74,10 @@ public class CommandParser {
                 if (cmdArgs.length != 3) {
                     throw new CommandParseException("COMMAND event REQUIRES ARGUMENTS /from AND /to");
                 }
-                Event event = new Event(cmdArgs[0].strip(), LocalDate.parse(cmdArgs[1].strip()), LocalDate.parse(cmdArgs[2].strip()));
+                Event event = new Event(
+                        cmdArgs[0].strip(),
+                        LocalDate.parse(cmdArgs[1].strip()),
+                        LocalDate.parse(cmdArgs[2].strip()));
                 successMessage = String.format("\tADDED EVENT: %s\n", event.toString());
                 return Optional.of(new AddCommand(event, successMessage));
             case DELETE:
