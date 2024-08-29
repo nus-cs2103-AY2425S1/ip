@@ -1,4 +1,6 @@
-import TaskObj.*;
+package Milo;
+
+import Milo.TaskObj.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -89,6 +91,9 @@ public class Parser {
                         }
                     }
                 }
+                break;
+            case "bye":
+                // Do nothing
                 break;
             default:
                 Ui.printError(TaskType.taskType.INVALID, "");

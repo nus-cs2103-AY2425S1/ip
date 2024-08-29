@@ -1,3 +1,4 @@
+package Milo;
 
 public class Milo {
     private final Storage storage;

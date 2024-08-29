@@ -1,4 +1,4 @@
-package TaskObj;
+package Milo.TaskObj;
 
 public class Todos extends Task {
 

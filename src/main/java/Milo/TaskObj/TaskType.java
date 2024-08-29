@@ -1,4 +1,4 @@
-package TaskObj;
+package Milo.TaskObj;
 
 public class TaskType {
     public static enum taskType {

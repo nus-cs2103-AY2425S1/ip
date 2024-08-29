@@ -1,5 +1,7 @@
-import TaskObj.Task;
-import TaskObj.TaskType;
+package Milo;
+
+import Milo.TaskObj.Task;
+import Milo.TaskObj.TaskType;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,7 +20,7 @@ public class Ui {
                 /    づ♡
                 """;
     private static final String hLine = "____________________________________________________________\n";
-    String greeting = "Hello! I'm Milo\nWhat can I do for you?\n" + cat0;
+    String greeting = "Hello! I'm Milo.Milo\nWhat can I do for you?\n" + cat0;
     String bye = "Bye. Hope to see you again soon!\n" + cat1;
     String greetingMessage = hLine + greeting + hLine;
     String byeMessage = hLine + bye + hLine;
