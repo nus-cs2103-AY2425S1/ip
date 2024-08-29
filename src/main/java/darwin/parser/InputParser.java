@@ -28,24 +28,24 @@ public class InputParser {
         String args = parts.length == 2 ? parts[1] : InputParser.EMPTY_ARGS;
 
         switch (cmd) {
-            case ExitCommand.CMD_WORD -> {
-                return this.parseExit(args);
-            }
-            case ListCommand.CMD_WORD -> {
-                return this.parseList(args);
-            }
-            case MarkCommand.CMD_WORD -> {
-                return this.parseMark(args);
-            }
-            case UnmarkCommand.CMD_WORD -> {
-                return this.parseUnmark(args);
-            }
-            case DeleteCommand.CMD_WORD -> {
-                return this.parseDelete(args);
-            }
-            default -> {
-                return this.parseAddTask(cmd, args);
-            }
+        case ExitCommand.CMD_WORD -> {
+            return this.parseExit(args);
+        }
+        case ListCommand.CMD_WORD -> {
+            return this.parseList(args);
+        }
+        case MarkCommand.CMD_WORD -> {
+            return this.parseMark(args);
+        }
+        case UnmarkCommand.CMD_WORD -> {
+            return this.parseUnmark(args);
+        }
+        case DeleteCommand.CMD_WORD -> {
+            return this.parseDelete(args);
+        }
+        default -> {
+            return this.parseAddTask(cmd, args);
+        }
         }
     }
 
