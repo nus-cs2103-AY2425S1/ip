@@ -58,7 +58,8 @@ public class Katheryne {
                 } else if (commandWord.equals("delete")) {
                     System.out.println(c.executeDelete(str));
                 } else {
-                    throw new InvalidInputException("Katheryne: " + "I'm sorry, Katheryne is unable to comprehend your request.");
+                    throw new InvalidInputException("Katheryne: " +
+                            "I'm sorry, Katheryne is unable to comprehend your request.");
                 }
                 storage.save(taskList);
             } catch (InvalidInputException e) {
