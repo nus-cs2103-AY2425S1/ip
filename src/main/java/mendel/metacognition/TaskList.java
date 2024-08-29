@@ -153,6 +153,12 @@ public class TaskList extends Command{
         return finalMessage;
     }
 
+    /**
+     * Finds tasks that match the description provided in the command string.
+     *
+     * @param fullCommand The full command string containing the description to search for.
+     * @return A message listing all tasks that match the description.
+     */
     public String findDescription(String fullCommand) {
         String[] segments = fullCommand.split("find ");
         String matchString = "";
