@@ -2,10 +2,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.File;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.AbstractSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -35,8 +33,8 @@ public class Storage {
 
     }
 
-    public ArrayList<Task> getStorage () {
-        try {
+    public ArrayList<Task> load () throws FileNotFoundException {
+
             ArrayList<Task> taskList = new ArrayList<>();
             File file = new File(this.filepath);
 
@@ -71,10 +69,8 @@ public class Storage {
             }
             fileScanner.close();
             return taskList;
-        } catch (FileNotFoundException e) {
-            System.out.println(e.toString());
-        }
-        return new ArrayList<>();
+
+
     }
 
     public void addToStorage (String data) {

@@ -5,8 +5,8 @@ public class CypherException extends Exception{
         this.message = msg;
     }
 
-    @Override
-    public String toString() {
+
+    public String getMessage() {
         return this.message;
     }
 }
