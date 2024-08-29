@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.stan.Stan")
+    mainClass.set("stan.Stan")
 }
 
 shadowJar {
@@ -37,6 +37,6 @@ shadowJar {
     archiveFileName = 'stan.jar'
 }
 
-run{
+run {
     standardInput = System.in
 }

@@ -21,7 +21,7 @@ public class Ui {
 
     public void showWelcome() {
         showLine();
-        System.out.println(" Hello! I'm stan.Stan");
+        System.out.println(" Hello! I'm Stan");
         System.out.println(" What can I do for you today?");
         showLine();
     }
