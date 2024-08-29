@@ -3,3 +3,4 @@
 3.[D][X] jump (by: Dec 10 2024)
 4.[T][X] fly
 5.[T][X] sad
+6.[T][X] cryhard
