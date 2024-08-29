@@ -2,69 +2,98 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ChatGPT {
-    private static String NAME = "ChatGPT";
-    private static String LINE = "________________________________________________";
+    private final static String NAME = "ChatGPT";
+    private final static String LINE = "________________________________________________";
     private static ArrayList<Task> list = new ArrayList<Task>();
     private static int taskAmt = 0;
+    private enum Commands {
+        BYE,
+        LIST,
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE;
+
+        public static Commands getCommand(String s) throws NoSuchMethodException {
+            try {
+                return Commands.valueOf(s);
+            } catch (IllegalArgumentException e) {
+                throw new NoSuchMethodException("\t Oops!! I don't understand what that means :((");
+            }
+        }
+    }
     public static void main(String[] args) {
         Scanner userInput = new Scanner(System.in);
-
         sendGreeting();
         do {
             try {
-                String command = userInput.next();
-                if (command.equals("bye")) {
-                    break;
-                }
-                if (command.equals("list")) {
+                switch(Commands.getCommand(userInput.next().toUpperCase())) {
+                case BYE:
+                    sendExit();
+                    return;
+
+                case LIST:
                     printList();
-                } else if (command.equals("todo")) {
+                    break;
+
+                case TODO:
                     String input = userInput.nextLine();
 
                     Task newTask = new ToDos(input);
                     list.add(newTask);
                     taskAmt++;
                     sendAddTaskMsg(newTask);
-                } else if (command.equals("deadline")) {
-                    String input = userInput.nextLine();
+                    break;
+
+                case DEADLINE:
+                    input = userInput.nextLine();
 
                     String task = input.split("/by")[0];
                     String deadline = input.split("/by")[1];
-                    Task newTask = new Deadlines(task, deadline);
+                    newTask = new Deadlines(task, deadline);
 
                     list.add(newTask);
                     taskAmt++;
                     sendAddTaskMsg(newTask);
-                } else if (command.equals("event")) {
-                    String input = userInput.nextLine();
-                    String task = input.split("/from")[0];
+                    break;
+
+                case EVENT:
+                    input = userInput.nextLine();
+                    task = input.split("/from")[0];
 
                     String date = input.split("/from")[1];
                     String startDate = date.split("/to")[0];
                     String endDate = date.split("/to")[1];
-                    Task newTask = new Events(task, startDate, endDate);
+                    newTask = new Events(task, startDate, endDate);
 
                     list.add(newTask);
                     taskAmt++;
                     sendAddTaskMsg(newTask);
-                } else if (command.equals("mark")) {
+                    break;
+
+                case MARK:
                     int index = userInput.nextInt();
                     System.out.println("\t" + LINE);
                     System.out.println(list.get(index-1).setCompleted(true));
                     System.out.println("\t" + LINE);
-                } else if (command.equals("unmark")) {
-                    int index = userInput.nextInt();
+                    break;
+
+                case UNMARK:
+                    index = userInput.nextInt();
                     System.out.println("\t" + LINE);
                     System.out.println(list.get(index-1).setCompleted(false));
                     System.out.println("\t" + LINE);
-                } else if (command.equals("delete")) {
-                   int index = userInput.nextInt();
-                   Task task = list.get(index-1);
-                   list.remove(index-1);
-                   taskAmt--;
-                   sendDeleteMsg(task);
-                } else {
-                    throw new NoSuchMethodException("\t Oops!! I don't understand what that means :((");
+                    break;
+
+                case DELETE:
+                    index = userInput.nextInt();
+                    Task deletedTask = list.get(index-1);
+                    list.remove(index-1);
+                    taskAmt--;
+                    sendDeleteMsg(deletedTask);
+                    break;
                 }
             } catch (IllegalArgumentException | NoSuchMethodException e) {
                 System.out.println("\t" + LINE);
@@ -77,7 +106,6 @@ public class ChatGPT {
                 System.out.println("\t" + LINE);
             }
         } while (true);
-        sendExit();
     }
 
     private static void sendGreeting() {
