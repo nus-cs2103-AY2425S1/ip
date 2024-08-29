@@ -19,7 +19,7 @@ public class Storage {
 
 
     /**
-     * This method loads tasks from the Molly.txt file, creating new tasks for each line and adding them to the botMemory ArrayList.
+     * Loads tasks from the Molly.txt file, creating new tasks for each line and adding them to the botMemory ArrayList.
      * @return
      */
     public ArrayList<Task> loadTasks() {
@@ -45,7 +45,7 @@ public class Storage {
     }
 
     /**
-     * This method parses tasks when reading the Molly.txt file, returning the tasks so that they
+     * Parses tasks when reading the Molly.txt file, returning the tasks so that they
      * can be added to the botMemory ArrayList.
      * @param taskData
      * @return
@@ -89,7 +89,7 @@ public class Storage {
 
 
     /**
-     * This method saves all the tasks from the botMemory ArrayList into the Molly.txt file
+     * Saves all the tasks from the botMemory ArrayList into the Molly.txt file
      * @param taskList
      */
     public void saveTasks(TaskList taskList) {

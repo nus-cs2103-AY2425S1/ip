@@ -1,7 +1,7 @@
 package mollyexception;
 
 /**
- * Added mollyexception.MollyException class
+ * Throws MollyException whenever necessary.
  */
 
 public class MollyException extends Exception {

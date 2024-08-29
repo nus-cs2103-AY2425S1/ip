@@ -17,7 +17,7 @@ public class Deadline extends Task {
     public final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
 
     /**
-     * This Deadline constructor checks if the deadline can be parsed to LocalDateTime object
+     * Checks if the deadline can be parsed to LocalDateTime object
      * @param description
      * @param deadline
      */

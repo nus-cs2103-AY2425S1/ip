@@ -27,7 +27,7 @@ public class Molly {
 
 
     /**
-     * This is an assistUser method for the Molly bot that processes user inputs and manipulates the task array accordingly.
+     * Processes user inputs and manipulates the task array accordingly.
      */
     public void assistUser() throws MollyException {
         //ArrayList<task.Task> botMemory = new ArrayList<>();

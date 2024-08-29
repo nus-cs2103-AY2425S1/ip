@@ -13,7 +13,7 @@ public class TaskList {
     }
 
     /**
-     * This function returns all the items in the ArrayList as a task list.
+     * Returns all the items in the ArrayList as a task list.
      * @return String
      */
     public String listToString() {
@@ -36,7 +36,7 @@ public class TaskList {
 
 
     /**
-     * This function toggles the boolean value corresponding to whether the task is finished or not.
+     * Toggles the boolean value corresponding to whether the task is finished or not.
      * @param taskNumber
      */
 
@@ -46,7 +46,7 @@ public class TaskList {
     }
 
     /**
-     * This function removes tasks from the ArrayList and informs the user.
+     * Removes tasks from the ArrayList and informs the user.
      * @param taskToRemove
      */
     public void removeTask(int taskToRemove) {
@@ -59,7 +59,7 @@ public class TaskList {
     }
 
     /**
-     * This function adds tasks to the ArrayList and informs the user.
+     * Adds tasks to the ArrayList and informs the user.
      * @param newTask
      */
     public void addTask(Task newTask) {
