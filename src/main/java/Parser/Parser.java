@@ -2,7 +2,6 @@ package Parser;
 
 import Commands.*;
 import exceptions.InvalidTaskException;
-import exceptions.NoTaskDescriptionException;
 
 public class Parser {
 
