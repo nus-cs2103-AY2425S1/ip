@@ -1,3 +1,7 @@
+package TheBotFather.Command;
+
+import TheBotFather.util.TheBotFatherException;
+
 public enum CommandList {
     MARK, UNMARK, DELETE, TODO, LIST, DEADLINE, EVENT, BYE;
 

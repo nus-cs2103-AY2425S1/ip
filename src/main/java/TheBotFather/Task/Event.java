@@ -1,3 +1,7 @@
+package TheBotFather.Task;
+
+import TheBotFather.util.TheBotFatherException;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
@@ -8,13 +12,13 @@ public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
-    protected Event(String description, LocalDateTime from, LocalDateTime to) throws TheBotFatherException {
+    public Event(String description, LocalDateTime from, LocalDateTime to) throws TheBotFatherException {
         super(description, "E");
         this.from = from;
         this.to = to;
     }
 
-    protected static Event makeEvent(StringTokenizer tokens) throws TheBotFatherException {
+    public static Event makeEvent(StringTokenizer tokens) throws TheBotFatherException {
         try {
             StringBuilder description = new StringBuilder();
             StringBuilder from = new StringBuilder();
@@ -64,7 +68,7 @@ public class Event extends Task {
     }
 
     @Override
-    protected String toFile() {
+    public String toFile() {
         return super.toFile() + " | " + this.from + " | " + this.to;
     }
 }

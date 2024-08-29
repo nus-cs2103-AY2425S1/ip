@@ -1,8 +1,16 @@
+package TheBotFather.util;
+
+import TheBotFather.Command.*;
+import TheBotFather.Task.Deadline;
+import TheBotFather.Task.Event;
+import TheBotFather.Task.Task;
+import TheBotFather.Task.Todo;
+
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 public class Parser {
-    protected static Command parse(String completeLine, Ui ui) throws TheBotFatherException {
+    public static Command parse(String completeLine, Ui ui) throws TheBotFatherException {
         StringTokenizer tokens;
         String command = "";
         try {

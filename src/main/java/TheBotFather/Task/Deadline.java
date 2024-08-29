@@ -1,3 +1,7 @@
+package TheBotFather.Task;
+
+import TheBotFather.util.TheBotFatherException;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
@@ -8,13 +12,13 @@ public class Deadline extends Task {
 
     protected LocalDateTime by;
 
-    protected Deadline(String description, LocalDateTime by) throws TheBotFatherException {
+    public Deadline(String description, LocalDateTime by) throws TheBotFatherException {
         super(description, "D");
         this.by = by;
 
     }
 
-    protected static Deadline makeDeadline(StringTokenizer tokens) throws TheBotFatherException {
+    public static Deadline makeDeadline(StringTokenizer tokens) throws TheBotFatherException {
         try {
             StringBuilder description = new StringBuilder();
             StringBuilder by = new StringBuilder();
@@ -45,7 +49,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    protected String toFile() {
+    public String toFile() {
         return super.toFile() + " | " + this.by;
     }
 }

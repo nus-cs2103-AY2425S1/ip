@@ -1,3 +1,11 @@
+package TheBotFather.Command;
+
+import TheBotFather.Task.Task;
+import TheBotFather.util.Storage;
+import TheBotFather.util.TaskList;
+import TheBotFather.util.TheBotFatherException;
+import TheBotFather.util.Ui;
+
 public class DeleteCommand extends Command {
 
     private int index;
@@ -11,7 +19,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    protected void execute(TaskList taskList, Ui ui, Storage storage) throws TheBotFatherException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws TheBotFatherException {
         Task deletedTask = taskList.delete(index);
         storage.toFile(taskList);
         ui.printDeleted(deletedTask);

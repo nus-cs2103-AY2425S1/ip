@@ -1,3 +1,10 @@
+package TheBotFather.Command;
+
+import TheBotFather.util.Storage;
+import TheBotFather.util.TaskList;
+import TheBotFather.util.TheBotFatherException;
+import TheBotFather.util.Ui;
+
 public class MarkCommand extends Command {
 
     private int index;
@@ -13,7 +20,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    protected void execute(TaskList taskList, Ui ui, Storage storage) throws TheBotFatherException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws TheBotFatherException {
         if (isDone) {
             taskList.markAsDone(index);
             ui.printMarked(taskList.getTaskDescAtIndex(index));

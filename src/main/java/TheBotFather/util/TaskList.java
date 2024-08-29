@@ -1,3 +1,7 @@
+package TheBotFather.util;
+
+import TheBotFather.Task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -8,7 +12,7 @@ public class TaskList {
         this.taskArrayList = taskArrayList;
     }
 
-    protected void addTask(Task task) {
+    public void addTask(Task task) {
         taskArrayList.add(task);
         COUNT++;
     }
@@ -66,7 +70,7 @@ public class TaskList {
         return dataInFile.toString();
     }
 
-    protected String getTaskDescAtIndex(int index) {
+    public String getTaskDescAtIndex(int index) {
         return taskArrayList.get(index).toString();
     }
 }

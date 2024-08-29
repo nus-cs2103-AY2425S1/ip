@@ -1,3 +1,10 @@
+package TheBotFather.util;
+
+import TheBotFather.Task.Deadline;
+import TheBotFather.Task.Event;
+import TheBotFather.Task.Task;
+import TheBotFather.Task.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,11 +16,11 @@ import java.util.Scanner;
 public class Storage {
     private String pathName = "";
 
-    protected Storage(String pathName) {
+    public Storage(String pathName) {
         this.pathName = pathName;
     }
 
-    protected TaskList load() throws TheBotFatherException {
+    public TaskList load() throws TheBotFatherException {
         TaskList taskList = new TaskList(new ArrayList<Task>());
         try {
             File file = new File(this.pathName);
@@ -49,7 +56,7 @@ public class Storage {
         return taskList;
     }
 
-    protected void toFile(TaskList taskList) throws TheBotFatherException {
+    public void toFile(TaskList taskList) throws TheBotFatherException {
 
         try {
             File file = new File(this.pathName);
