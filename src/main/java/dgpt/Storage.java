@@ -21,11 +21,14 @@ public class Storage {
     public List<Task> load() throws IOException, DgptFileNotFoundException {
         List<Task> res = new ArrayList<>();
         try {
+
             File f = new File(this.filePath);
             Scanner s = new Scanner(f);
+
             while (s.hasNext()) {
                 String curr = s.nextLine();
                 String[] parts = curr.split(" \\| ");
+
                 switch (parts[0]) {
                 case "T" -> {
                     ToDo i = new ToDo(parts[2]);
@@ -49,16 +52,20 @@ public class Storage {
                     }
                     res.add(i);
                 }
-                default -> throw new IOException("File format is invalid");
+                default -> {
+                    throw new IOException("File format is invalid");
+                }
                 }
             }
         } catch (FileNotFoundException e) {
             throw new DgptFileNotFoundException("Could not find existing data");
         }
+
         return res;
     }
 
     public void save(TaskList taskList) throws IOException {
+
         File file = new File(this.filePath);
 
         // Handle the case where parent directory does not exist
@@ -72,6 +79,7 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter(filePath);
             StringBuilder s = new StringBuilder();
+
             for (Task t : taskList.getTaskList()) {
                 if (t instanceof ToDo) {
                     s.append("T | ")
@@ -96,6 +104,7 @@ public class Storage {
                             .append("\n");
                 }
             }
+
             fw.write(s.toString());
             fw.close();
         } catch (IOException e) {
