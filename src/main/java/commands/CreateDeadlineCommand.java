@@ -7,12 +7,12 @@ import models.Task;
 import java.util.List;
 
 public class CreateDeadlineCommand implements Command {
-    private final List<Task> items;
+    private final List<Task> tasks;
     private final String name;
     private final String by;
 
-    public CreateDeadlineCommand(List<Task> items, String message) {
-        this.items = items;
+    public CreateDeadlineCommand(List<Task> tasks, String message) {
+        this.tasks = tasks;
 
         // Remove the keyword from the message
         String messageArgs = Parser.parseMessage(message).args();
@@ -25,10 +25,10 @@ public class CreateDeadlineCommand implements Command {
     @Override
     public void execute() {
         Task task = new Deadline(this.name, this.by);
-        items.add(task);
+        tasks.add(task);
 
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", this.items.size());
+        System.out.printf("Now you have %d tasks in the list.\n", this.tasks.size());
     }
 }
