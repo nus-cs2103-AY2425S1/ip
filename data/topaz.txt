@@ -4,3 +4,4 @@ E | 0 | sleep | 2024-08-28T23:00 | 2024-08-29T08:00
 E | 0 | project meeting | 2024-08-28T09:03 | 2024-08-28T12:30
 E | 0 | project meeting | 2024-08-28T09:03 | 9999-01-01T12:59
 E | 0 | project meeting | 2024-01-01T00:00 | 9999-01-01T12:59
+T | 1 | read book

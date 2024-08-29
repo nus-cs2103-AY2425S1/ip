@@ -1,7 +1,7 @@
-public class TopazException extends Exception {
+public class InvalidCommandException extends Exception {
 
     private String input;
-    public TopazException(String input) {
+    public InvalidCommandException(String input) {
         super();
         this.input = input;
     }
