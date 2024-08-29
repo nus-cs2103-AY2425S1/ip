@@ -90,16 +90,11 @@ public class Storage {
         File currentDir = new File(System.getProperty("user.dir"));
         FileWriter writer;
 
-        if (currentDir.getName().equals("ip")) {
-            writer = new FileWriter(FILE_PATH);
+        if (currentDir.getName().equals("text-ui-test")) {
+            writer = new FileWriter("../data/friday.txt");
         }
         else {
-            currentDir = new File("../data/friday.txt");
-            if (!currentDir.exists()) { // If file is still not found, create the file and directory
-                currentDir.getParentFile().mkdirs();
-                currentDir.createNewFile();
-            }
-            writer = new FileWriter("../data/friday.txt");
+            writer = new FileWriter(FILE_PATH);
         }
 
         for (Task task : tasks) {

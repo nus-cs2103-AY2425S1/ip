@@ -1,3 +1,5 @@
+package friday;
+
 import friday.command.Command;
 import friday.task.TaskList;
 import friday.util.FridayException;
@@ -8,7 +10,7 @@ import friday.util.Ui;
 import java.io.IOException;
 
 /**
- * Represents the main application logic for the Friday task manager.
+ * Represents the main application logic for the friday.Friday task manager.
  * Handles task management, user input parsing, and file I/O.
  */
 public class Friday {
