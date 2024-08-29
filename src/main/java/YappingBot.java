@@ -1,3 +1,4 @@
+import commands.Parser;
 import exceptions.*;
 import storage.Storage;
 import stringconstants.ReplyTextMessages;
@@ -32,21 +33,19 @@ public class YappingBot {
         } catch (YappingBotException e) {
             Ui.printError(String.format(ReplyTextMessages.SAVE_FILE_ERROR_1s, e.getMessage()));
         }
-        Ui.print(ReplyTextMessages.EXIT_TEXT);
     }
 
     private void mainLoop() {
         Scanner userInputScanner = new Scanner(System.in);
-        Ui.print(ReplyTextMessages.GREETING_TEXT);
-        programmeLoop: // to break out of loop
+        Parser parser = new Parser();
         while (userInputScanner.hasNextLine()) {
             String userInput = userInputScanner.nextLine();
             String[] userInputSlices = userInput.split(" ");
             try {
                 int taskListIndexPtr; // task list pointer
-                switch (parseCommand(userInputSlices[0])) {
+                switch (parser.parseCommand(userInputSlices[0])) {
                     case EXIT:
-                        break programmeLoop;
+                        return;
                     case LIST:
                         printUserList(userList);
                         break;
@@ -84,7 +83,9 @@ public class YappingBot {
     private void start() {
         Storage storage = new Storage(savefilePath);
         init(storage);
+        Ui.print(ReplyTextMessages.GREETING_TEXT);
         mainLoop();
+        Ui.print(ReplyTextMessages.EXIT_TEXT);
         saveAndExit(storage);
     }
 

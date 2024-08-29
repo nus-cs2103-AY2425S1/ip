@@ -11,22 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Commands {
-    public static final HashMap<String, CommandTypes> COMMANDS_HASH_MAP;
-
-    static {
-        // initialization
-        COMMANDS_HASH_MAP = new HashMap<>();
-        COMMANDS_HASH_MAP.put("list", CommandTypes.LIST);
-        COMMANDS_HASH_MAP.put("mark", CommandTypes.MARK);
-        COMMANDS_HASH_MAP.put("unmark", CommandTypes.UNMARK);
-        COMMANDS_HASH_MAP.put("delete", CommandTypes.DELETE);
-        COMMANDS_HASH_MAP.put("todo", CommandTypes.TODO);
-        COMMANDS_HASH_MAP.put("event", CommandTypes.EVENT);
-        COMMANDS_HASH_MAP.put("deadline", CommandTypes.DEADLINE);
-        COMMANDS_HASH_MAP.put("bye", CommandTypes.EXIT);
-    }
-
-
     public static void printUserList(ArrayList<Task> userList) {
         if (userList.isEmpty()) {
             Ui.println("List is empty!");
@@ -199,16 +183,5 @@ public class Commands {
         msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
         msb.print();
         return newTask;
-    }
-    public static CommandTypes parseCommand(String commandString) throws YappingBotUnknownCommandException {
-        if (commandString.toLowerCase().trim().isEmpty()) {
-            throw new YappingBotUnknownCommandException();
-        } else {
-            if (Commands.COMMANDS_HASH_MAP.containsKey(commandString)) {
-                return Commands.COMMANDS_HASH_MAP.get(commandString);
-            } else {
-                throw new YappingBotUnknownCommandException(commandString);
-            }
-        }
     }
 }
