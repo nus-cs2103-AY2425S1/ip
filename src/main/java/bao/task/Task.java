@@ -4,10 +4,20 @@ import bao.main.Bao;
 
 import java.time.LocalDateTime;
 
+/**
+ * The Task class represents a task with a description and a completion status.
+ * It is an abstract class that provides methods applicable for all types of tasks.
+ */
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a new Task with the given description and sets it as not done.
+     *
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -21,6 +31,14 @@ public abstract class Task {
         return this.isDone;
     }
 
+    /**
+     * Creates a Task object from a string input.
+     * The string should be formatted in a specific way to be parsed and for the task to be created correctly.
+     *
+     * @param string String representation of the task.
+     * @return Task object created from the string.
+     * @throws IllegalArgumentException Ff the string format is invalid or unknown task type is provided.
+     */
     public static Task fromString(String string) {
         String[] parts = string.split(" \\| ");
         if (parts.length < 3) {
@@ -72,14 +90,25 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void mark() {
         this.isDone = true;
     }
 
+    /**
+     * Un-arks the task as not done.
+     */
     public void unmark() {
         this.isDone = false;
     }
 
+    /**
+     * Returns a string representation of the task.
+     *
+     * @return String representation of the task.
+     */
     @Override
     public String toString() {
         if (isDone) {
@@ -89,5 +118,11 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Returns the string representation of the task to be saved to a file.
+     * This method must be implemented by all subclasses.
+     *
+     * @return String representation of the task to be saved to a file.
+     */
     public abstract String toFileString();
 }

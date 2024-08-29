@@ -3,6 +3,10 @@ package bao.main;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
+/**
+ * The Bao class represents the main application that manages the tasks.
+ * Initialises the UI, handles storage, and manages the list of tasks.
+ */
 public class Bao {
     private Ui ui;
     private Storage storage;
@@ -13,6 +17,12 @@ public class Bao {
     public static DateTimeFormatter dateOnlyFormat;
     public static DateTimeFormatter outputDateFormat;
 
+    /**
+     * Constructs a new Bao instance with the specified file path for storage.
+     * Initialises the UI, storage, and loads the list of tasks.
+     *
+     * @param filePath Path of the file used for storage of tasks.
+     */
     public Bao(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -66,6 +76,9 @@ public class Bao {
         outputDateFormat = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
     }
 
+    /**
+     * Runs the main application, processes user input until application is terminated.
+     */
     public void run() {
         ui.showWelcomeMessage();
         while (true) {
@@ -82,6 +95,12 @@ public class Bao {
         return this.tasks;
     }
 
+    /**
+     * The main entry point of the application.
+     * Creates an instance of Bao and runs it.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         new Bao(file_Path).run();
     }

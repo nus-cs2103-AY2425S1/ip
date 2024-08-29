@@ -11,7 +11,20 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * The Parser class is responsible for interpreting user input and executing the needed actions, such as adding,
+ * listing, marking and un-marking or deleting tasks.
+ */
 public class Parser {
+
+    /**
+     * Parses the user command and executes the appropriate action.
+     *
+     * @param command Full user command string.
+     * @param tasks TaskList object containing all current tasks.
+     * @param ui Ui object for user display and interaction.
+     * @param storage Storage object for saving and loading tasks.
+     */
     public static void parse(String command, TaskList tasks, Ui ui, Storage storage) {
         String[] parts = command.split(" ", 2);
         String commandType = parts[0];
