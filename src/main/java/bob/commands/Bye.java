@@ -7,7 +7,20 @@ import bob.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Exits the program.
+ */
 public class Bye extends Command {
+
+    /**
+     * Saves the list of tasks to the file.
+     * Exits the program.
+     *
+     * @param list The list of tasks.
+     * @param ui The user interface.
+     * @param storage The storage of tasks.
+     * @throws RuntimeException if there is an error saving the tasks to the file.
+     */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
         try {

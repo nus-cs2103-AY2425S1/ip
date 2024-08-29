@@ -4,6 +4,9 @@ import bob.storage.Storage;
 import bob.data.TaskList;
 import bob.ui.Ui;
 
+/**
+ * Marks a task as done.
+ */
 public class Mark extends Command {
     private final int index;
 

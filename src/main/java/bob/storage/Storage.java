@@ -7,18 +7,37 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * Handles the storage of tasks.
+ */
 public class Storage {
     protected static String filePath;
 
+    /**
+     * Creates a new Storage instance.
+     *
+     * @param filePath The path to the file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Creates a new Storage instance if the file does not exist.
+     *
+     * @throws IOException If the file cannot be created.
+     */
     public Storage() throws IOException {
         FileReading.createDirectory(getDirectoryName());
         FileReading.createFile(filePath);
     }
 
+    /**
+     * Loads the tasks from the file.
+     *
+     * @return TaskList The list of tasks.
+     * @throws BobException If the file cannot be loaded.
+     */
     public TaskList load() throws BobException {
         try {
             return FileReading.loadTasks(filePath);
@@ -33,6 +52,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns the directory path of the file.
+     *
+     * @return The directory path.
+     */
     private String getDirectoryName() {
         return new File(filePath).getParent(); // Extracts the directory path
     }

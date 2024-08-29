@@ -8,6 +8,9 @@ import bob.ui.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Lists tasks on a specific date.
+ */
 public class On extends Command {
     LocalDate date;
     public On(LocalDate date) {

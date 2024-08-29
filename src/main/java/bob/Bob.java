@@ -13,6 +13,11 @@ public class Bob {
     private TaskList tasks;
 
 
+    /**
+     * Creates a new Bob instance.
+     *
+     * @param filePath The path to the file where the tasks are stored.
+     */
     public Bob(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,6 +28,9 @@ public class Bob {
         }
     }
 
+    /**
+     * Runs the bob chatbot.
+     */
     public void run(){
         ui.showWelcome();
         boolean isExit = false;

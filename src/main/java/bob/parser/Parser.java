@@ -19,12 +19,24 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses user input and returns an object of the appropriate type.
+ */
 public class Parser {
-
+    /**
+     * Represents the different types of commands.
+     */
     public enum CommandType {
         LIST, UNMARK, MARK, ON, DELETE, TODO, DEADLINE, EVENT, INVALID, BYE
     }
 
+    /**
+     * Parses user input and returns a Command object.
+     *
+     * @param fullCommand The user input with the command word and arguments.
+     * @return A Command object.
+     * @throws BobException If the user input is invalid.
+     */
     public static Command parse(String fullCommand) throws BobException {
         String[] commandParts = fullCommand.split(" "); // Split into command and arguments
         String commandWord = commandParts[0].toUpperCase();
