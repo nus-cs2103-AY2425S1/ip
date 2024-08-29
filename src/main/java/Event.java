@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task{
     private LocalDateTime start;
     private LocalDateTime end;
-    private final String PATTERN = "MMM d yyyy";
+    private final String PATTERN = "MMM d yyyy HHmm";
     public Event(String desc, Boolean mark, LocalDateTime start, LocalDateTime end) throws MissingDescriptionException{
         super(desc, mark);
         this.start = start;
@@ -20,7 +20,7 @@ public class Event extends Task{
     @Override
     public String toFileFormat() {
         return String.format("E | %s | %s | %s", super.toFileFormat(),
-                start.format(DateTimeFormatter.ofPattern(PATTERN)),
-                end.format(DateTimeFormatter.ofPattern(PATTERN)));
+                start,
+                end);
     }
 }
