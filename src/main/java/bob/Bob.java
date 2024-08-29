@@ -1,7 +1,12 @@
 package bob;
-import exceptions.*;
-import task.*;
-import misc.*;
+import exceptions.CommandNotFoundException;
+import exceptions.MissingParamsException;
+import exceptions.PositionException;
+import task.Tasklist;
+import misc.Parser;
+import misc.Storage;
+import misc.Ui;
+
 
 public class Bob {
     Storage storage;
@@ -28,47 +33,47 @@ public class Bob {
             ui.retBlank();
             try {
                 switch (strArr[0].toLowerCase()) {
-                    case "bye":
-                        exit = true;
-                        ui.endGame();
-                        break;
+                case "bye":
+                    exit = true;
+                    ui.endGame();
+                    break;
 
-                    case "list":
-                        ui.replyGetList(tasklist);
-                        break;
+                case "list":
+                    ui.replyGetList(tasklist);
+                    break;
 
-                    case "mark":
-                        tasklist = ui.replyMarkDone(Integer.parseInt(strArr[1]) - 1, tasklist);
-                        storage.updateDataFile(tasklist.getList());
-                        break;
+                case "mark":
+                    tasklist = ui.replyMarkDone(Integer.parseInt(strArr[1]) - 1, tasklist);
+                    storage.updateDataFile(tasklist.getList());
+                    break;
 
-                    case "unmark":
-                        tasklist = ui.replyMarkUndone(Integer.parseInt(strArr[1]) - 1, tasklist);
-                        storage.updateDataFile(tasklist.getList());
-                        break;
+                case "unmark":
+                    tasklist = ui.replyMarkUndone(Integer.parseInt(strArr[1]) - 1, tasklist);
+                    storage.updateDataFile(tasklist.getList());
+                    break;
 
-                    case "todo":
-                        ui.replyTodo(strArr[1], tasklist);
-                        storage.updateDataFile(tasklist.getList());
-                        break;
+                case "todo":
+                    ui.replyTodo(strArr[1], tasklist);
+                    storage.updateDataFile(tasklist.getList());
+                    break;
 
-                    case "event":
-                        ui.replyEvent(strArr[1], tasklist);
-                        storage.updateDataFile(tasklist.getList());
-                        break;
+                case "event":
+                    ui.replyEvent(strArr[1], tasklist);
+                    storage.updateDataFile(tasklist.getList());
+                    break;
 
-                    case "deadline":
-                        ui.replyDeadline(strArr[1], tasklist);
-                        storage.updateDataFile(tasklist.getList());
-                        break;
+                case "deadline":
+                    ui.replyDeadline(strArr[1], tasklist);
+                    storage.updateDataFile(tasklist.getList());
+                    break;
 
-                    case "delete":
-                        ui.replyDelete(Integer.parseInt(strArr[1]) - 1, tasklist);
-                        storage.updateDataFile(tasklist.getList());
-                        break;
-                        
-                    default:
-                        throw new CommandNotFoundException();
+                case "delete":
+                    ui.replyDelete(Integer.parseInt(strArr[1]) - 1, tasklist);
+                    storage.updateDataFile(tasklist.getList());
+                    break;
+                    
+                default:
+                    throw new CommandNotFoundException();
                 }
             } catch (CommandNotFoundException | MissingParamsException | PositionException c) {
                 System.out.println(c + "\n" + ui.retBlank());

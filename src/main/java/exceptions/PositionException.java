@@ -1,4 +1,5 @@
 package exceptions;
+
 public class PositionException extends Exception{
 
     int pos;

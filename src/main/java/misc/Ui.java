@@ -1,9 +1,14 @@
 package misc;
 import java.util.Objects;
-import java.time.*;
+import java.time.LocalDate;
+import java.time.DateTimeException;
 import exceptions.MissingParamsException;
 import exceptions.PositionException;
-import task.*;
+import task.Tasklist;
+import task.Event;
+import task.Deadline;
+import task.Todo;
+import task.Task;
 
 public class Ui {
     String blankline = "____________________________________________________________ \s";
@@ -51,7 +56,11 @@ public class Ui {
     }
 
     public Tasklist replyTodo(String s, Tasklist tasklist) throws MissingParamsException {
-        if (Objects.equals(s, "")) throw new MissingParamsException("todo");
+        if (Objects.equals(s, "")) { 
+            throw new MissingParamsException("todo"); 
+        
+        }
+
         tasklist.add(new Todo(s));
         System.out.println(String.format(" Got it. I've added this task:" + "\n"
                 + tasklist.getLast() + "\n"
@@ -110,5 +119,4 @@ public class Ui {
                 + "Now you have %s tasks in the list", tasklist.getSize()) + "\n" + blankline);
         return tasklist;
     }
-
 }
