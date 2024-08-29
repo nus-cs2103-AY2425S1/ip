@@ -21,7 +21,7 @@ public class Storage {
     public Task[] load() throws PrimoException, IOException {
         ArrayList<Task> list = new ArrayList<>();
         try {
-            Path filePath = Paths.get("./data/data.txt");
+            Path filePath = Paths.get(this.filePath);
             List<String> lines = Files.readAllLines(filePath);
             for (String s : lines) {
                 String[] words = s.split(" ");
@@ -31,39 +31,39 @@ public class Storage {
                 String from = "";
                 String to = "";
                 switch (words[0].charAt(3)) {
-                    case 'T':
-                        int todoFromIndex = 9;
-                        String todoDescription = s.substring(todoFromIndex).trim();
-                        isDone = s.charAt(6) == 'X';
-                        Task newToDoTask = new ToDoTask(todoDescription);
-                        if (isDone) {
-                            newToDoTask.markAsDone();
-                        }
-                        list.add(newToDoTask);
-                        break;
-                    case 'D':
-                        int deadlineFromIndex = 9;
-                        int deadlineToIndex = s.indexOf("(by:");
-                        String deadlineDescription = s.substring(deadlineFromIndex, deadlineToIndex).trim();
-                        String dueTime = s.substring(deadlineToIndex + 4, s.indexOf(')')).trim();
-                        isDone = s.charAt(6) == 'X';
-                        Task newDeadlineTask = new DeadlineTask(deadlineDescription, dueTime);
-                        if (isDone) {
-                            newDeadlineTask.markAsDone();
-                        }
-                        list.add(newDeadlineTask);
-                        break;
-                    case 'E':
-                        String eventDescription = s.substring(9, s.indexOf("(from:")).trim();
-                        String eventFromTime = s.substring(s.indexOf("from: ") + 6, s.indexOf("to: ")).trim();
-                        String eventToTime = s.substring(s.indexOf("to: ") + 4, s.indexOf(")")).trim();
-                        isDone = s.charAt(6) == 'X';
-                        Task newEventTask = new EventTask(eventDescription, eventFromTime, eventToTime);
-                        if (isDone) {
-                            newEventTask.markAsDone();
-                        }
-                        list.add(newEventTask);
-                        break;
+                case 'T':
+                    int todoFromIndex = 9;
+                    String todoDescription = s.substring(todoFromIndex).trim();
+                    isDone = s.charAt(6) == 'X';
+                    Task newToDoTask = new ToDoTask(todoDescription);
+                    if (isDone) {
+                        newToDoTask.markAsDone();
+                    }
+                    list.add(newToDoTask);
+                    break;
+                case 'D':
+                    int deadlineFromIndex = 9;
+                    int deadlineToIndex = s.indexOf("(by:");
+                    String deadlineDescription = s.substring(deadlineFromIndex, deadlineToIndex).trim();
+                    String dueTime = s.substring(deadlineToIndex + 4, s.indexOf(')')).trim();
+                    isDone = s.charAt(6) == 'X';
+                    Task newDeadlineTask = new DeadlineTask(deadlineDescription, dueTime);
+                    if (isDone) {
+                        newDeadlineTask.markAsDone();
+                    }
+                    list.add(newDeadlineTask);
+                    break;
+                case 'E':
+                    String eventDescription = s.substring(9, s.indexOf("(from:")).trim();
+                    String eventFromTime = s.substring(s.indexOf("from: ") + 6, s.indexOf("to: ")).trim();
+                    String eventToTime = s.substring(s.indexOf("to: ") + 4, s.indexOf(")")).trim();
+                    isDone = s.charAt(6) == 'X';
+                    Task newEventTask = new EventTask(eventDescription, eventFromTime, eventToTime);
+                    if (isDone) {
+                        newEventTask.markAsDone();
+                    }
+                    list.add(newEventTask);
+                    break;
                 }
             }
             return list.toArray(new Task[0]);

@@ -1,7 +1,7 @@
 package commands;
 
-import tasks.DeadlineTask;
 import storage.Storage;
+import tasks.DeadlineTask;
 import tasks.Task;
 import tasks.TaskList;
 import ui.Ui;

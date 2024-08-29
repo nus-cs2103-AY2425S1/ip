@@ -14,14 +14,13 @@ public class Primo {
     private Ui ui;
 
     public Primo(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load()); // throws PE
+            this.tasks = new TaskList(storage.load()); // throws PE
         } catch (PrimoException | IOException e) {
-            System.out.println(e);
             ui.showLoadingError();
-            tasks = new TaskList();
+            this.tasks = new TaskList();
         }
     }
 
