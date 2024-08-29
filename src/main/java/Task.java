@@ -7,8 +7,21 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(boolean isDone, String description) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public int getStatusInt() {
+        return (isDone ? 1 : 0);
+    }
+
+    public static boolean getStatusBoolean(int statusInt) {
+        return (statusInt == 1);
     }
 
     public String getDescription() {
@@ -29,33 +42,26 @@ public class Task {
                 + "] " + this.getDescription();
     }
 
-    public Task createToDoTask(String taskDescription) throws InvalidTask {
-        if (taskDescription == null || taskDescription.isEmpty()) {
-            throw new InvalidTask("Missing description for ToDo task");
-        }
-        return new ToDo(taskDescription);
+    public String getSavedDataString() {
+        return this.getStatusInt() + " | " + this.getDescription();
     }
 
-    public Task createDeadlineTask(String taskDescription, String byDate) throws InvalidTask {
-        if (taskDescription == null || taskDescription.isEmpty()) {
-            throw new InvalidTask("Missing description for Deadline task");
+    public static Task getTaskFromSavedDataString(String savedDataString) {
+        String[] savedDataStringArr = savedDataString.split("\\|");
+        // Trim empty space in each element in savedDataStringArr
+        for (int i = 0; i < savedDataStringArr.length; i++) {
+            savedDataStringArr[i] = savedDataStringArr[i].trim();
         }
-        if (byDate == null || byDate.isEmpty()) {
-            throw new InvalidTask("Missing by date for Deadline task");
-        }
-        return new Deadline(taskDescription, byDate);
-    }
 
-    public Task createEventTask(String taskDescription, String fromDate, String toDate) throws InvalidTask {
-        if (taskDescription == null || taskDescription.isEmpty()) {
-            throw new InvalidTask("Missing description for Event task");
+        if (savedDataStringArr[0].equals("T")) {
+            return ToDo.getTaskFromSavedDataStringArr(savedDataStringArr);
         }
-        if (fromDate == null || fromDate.isEmpty()) {
-            throw new InvalidTask("Missing from date for Event task");
+        if (savedDataStringArr[0].equals("D")) {
+            return Deadline.getTaskFromSavedDataStringArr(savedDataStringArr);
         }
-        if (toDate == null || toDate.isEmpty()) {
-            throw new InvalidTask("Missing to date for Event task");
+        if (savedDataStringArr[0].equals("E")) {
+            return Event.getTaskFromSavedDataStringArr(savedDataStringArr);
         }
-        return new Event(taskDescription, fromDate, toDate);
+        return null;
     }
 }
