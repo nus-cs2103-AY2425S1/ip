@@ -1,2 +1,3 @@
-[T][X] read
-[E][ ] project (From:  today | To:  tomorrow)
+T / 1 / leetcode
+D / 0 / project /  tomorrow
+E / 0 / group discussion /  today /  tomorrow

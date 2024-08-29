@@ -1,3 +1,5 @@
+package task;
+import exception.MaxineException;
 import java.util.ArrayList;
 
 public class Event extends Task {
@@ -59,8 +61,13 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + "[" + getStatusIcon() + "] " + description
+        return "[E]" + getStatusIcon() + description
                 + " (From: " + start + " | To: " + end + ")";
+    }
+
+    @Override
+    public String writeToFile() {
+        return "E" + super.writeToFile() + " / " + start + " / " + end;
     }
 
 }

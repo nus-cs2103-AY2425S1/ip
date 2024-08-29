@@ -1,3 +1,5 @@
+package task;
+import exception.MaxineException;
 import java.util.ArrayList;
 
 public class Deadline extends Task {
@@ -46,7 +48,12 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + "[" + getStatusIcon() + "] " + description + " (by: " + ddl + ")";
+        return "[D]" + getStatusIcon() + description + " (by: " + ddl + ")";
+    }
+
+    @Override
+    public String writeToFile() {
+        return "D" + super.writeToFile() + " / " + ddl;
     }
 
 }

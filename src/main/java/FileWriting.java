@@ -1,3 +1,5 @@
+import task.Task;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
@@ -12,13 +14,13 @@ public class FileWriting {
         // nothing
     }
 
-    public static void refreshFile(ArrayList<Task> list) throws IOException {
+    public static void refreshFile(ArrayList<Task> list) {
         File file = new File(path);
         
         try (BufferedWriter writer = 
                      new BufferedWriter(new FileWriter(file, false))) {
             for (Task item : list) {
-                writer.write(item.toString());
+                writer.write(item.writeToFile());
                 writer.newLine();
             }
         } catch (IOException e) {

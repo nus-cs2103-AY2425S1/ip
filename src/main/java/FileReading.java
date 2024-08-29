@@ -1,3 +1,5 @@
+import task.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -24,7 +26,8 @@ public class FileReading {
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         while (s.hasNextLine()) {
-            list.add(new Task());
+            String task = s.nextLine();
+            TaskParser.parseTask(task, list);
         }
     }
 }
