@@ -135,29 +135,29 @@ public class Storage {
 
         Task task;
         switch (taskType) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                if (parts.length < 4) {
-                    System.out.println("Invalid deadline format in file: " + line);
-                    return null;
-                }
-                LocalDateTime deadlineDate = LocalDateTime.parse(parts[3], FILE_DATE_FORMAT);
-                task = new Deadline(description, deadlineDate.format(PARSER));
-                break;
-            case "E":
-                if (parts.length < 5) {
-                    System.out.println("Invalid event format in file: " + line);
-                    return null;
-                }
-                LocalDateTime startTime = LocalDateTime.parse(parts[3], FILE_DATE_FORMAT);
-                LocalDateTime endTime = LocalDateTime.parse(parts[4], FILE_DATE_FORMAT);
-                task = new Event(description, startTime.format(PARSER), endTime.format(PARSER));
-                break;
-            default:
-                System.out.println("Unknown task type in file: " + line);
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            if (parts.length < 4) {
+                System.out.println("Invalid deadline format in file: " + line);
                 return null;
+            }
+            LocalDateTime deadlineDate = LocalDateTime.parse(parts[3], FILE_DATE_FORMAT);
+            task = new Deadline(description, deadlineDate.format(PARSER));
+            break;
+        case "E":
+            if (parts.length < 5) {
+                System.out.println("Invalid event format in file: " + line);
+                return null;
+            }
+            LocalDateTime startTime = LocalDateTime.parse(parts[3], FILE_DATE_FORMAT);
+            LocalDateTime endTime = LocalDateTime.parse(parts[4], FILE_DATE_FORMAT);
+            task = new Event(description, startTime.format(PARSER), endTime.format(PARSER));
+            break;
+        default:
+            System.out.println("Unknown task type in file: " + line);
+            return null;
         }
 
         if (isDone) {
