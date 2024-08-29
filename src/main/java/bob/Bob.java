@@ -18,7 +18,7 @@ public class Bob {
         this.storage = new Storage("src/main/data/dataFile.txt");
         this.tasklist = new Tasklist();
         this.parser = new Parser();
-        this.ui = new Ui(tasklist);
+        this.ui = new Ui();
     }
 
     public void run() throws CommandNotFoundException, MissingParamsException, PositionException {

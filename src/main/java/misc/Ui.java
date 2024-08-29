@@ -12,12 +12,6 @@ import task.Task;
 
 public class Ui {
     String blankline = "____________________________________________________________ \s";
-    int markPos;
-    Tasklist tasklist;
-
-    public Ui(Tasklist tasklist) {
-        this.tasklist = tasklist;
-    }
     
     public void endGame() {
         System.out.println(blankline + "\n" + "Bye. Hope to see you again soon!");
@@ -109,11 +103,11 @@ public class Ui {
     }
 
     public Tasklist replyDelete(int pos, Tasklist tasklist) throws PositionException{
-        if (pos >= tasklist.getSize() || markPos < 0) {
-            throw new PositionException(markPos);
+        if (pos >= tasklist.getSize() || pos < 0) {
+            throw new PositionException(pos);
         }
-        Task currTask = tasklist.getStr(markPos);
-        tasklist.delete(markPos);
+        Task currTask = tasklist.getStr(pos);
+        tasklist.delete(pos);
         System.out.println(String.format("Noted. I've removed this task:" + "\n"
                 + currTask + "\n"
                 + "Now you have %s tasks in the list", tasklist.getSize()) + "\n" + blankline);
