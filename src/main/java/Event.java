@@ -12,4 +12,12 @@ public class Event extends Task{
         return super.toString() +
                 "(from: " + this.start + "to: " + this.end + ")";
     }
+
+    public String getStart() {
+        return start;
+    }
+
+    public String getEnd(){
+        return end;
+    }
 }

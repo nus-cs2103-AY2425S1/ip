@@ -20,6 +20,15 @@ public class Task {
     public String getStatus(){
         return (done ?  "X" : " ");
     }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public String getDesc(){
+        return this.desc;
+    }
+
     @Override
     public String toString(){
         return String.format("[%s][%s] %s", this.type, this.getStatus(), this.desc);

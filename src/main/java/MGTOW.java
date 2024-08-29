@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MGTOW {
-    private static TaskStorage tasks = new TaskStorage();
+    private static TaskStorage tasks;
+
     public static void printMsg(String str){
         System.out.println("\t" + str);
     }
@@ -52,14 +53,16 @@ public class MGTOW {
         printMsg("What can I do for you?");
         printMsg(line);
 
-        Boolean finished = false;
+        tasks = new TaskStorage();
 
-        while (!finished){
+        Boolean isFinished = false;
+
+        while (!isFinished){
             String input = sc.nextLine();
             printMsg(line);
 
             if (input.equals("bye")){
-                finished = true;
+                isFinished = true;
                 sc.close();
             } else {
                 String cmd = input;
