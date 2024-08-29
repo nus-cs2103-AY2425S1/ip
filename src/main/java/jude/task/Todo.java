@@ -1,5 +1,8 @@
 package jude.task;
 
+/**
+ * Represents the simple Task with no deadline or duration.
+ */
 public class Todo extends Task {
 
     public Todo (String description) {

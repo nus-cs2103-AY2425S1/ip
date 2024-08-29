@@ -13,6 +13,14 @@ import jude.task.Event;
 import jude.task.Task;
 import jude.task.Todo;
 
+/**
+ * Handles the save file of the Tasks.
+ *
+ * This class loads the previous data by reading from the save file to remember the TaskList created
+ * in the previous run.
+ * It creates a new save file if the save file does not exist.
+ * It saves the file by writing the task datas in the save file, so that it can be loaded the next time.
+ */
 public class Storage {
     String filePath;
     Scanner fileReader;
@@ -22,6 +30,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the save file. Creates the file if the file does not exist in the filePath.
+     * @return TaskList containing the information read from the save file.
+     * @throws JudeException if there was error loading the file.
+     */
     public List<Task> load() throws JudeException {
         File file = new File(filePath);
         List<Task> list = new ArrayList<>();
@@ -76,6 +89,11 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Saves the current Tasklist to the save file.
+     * @param list the TaskList created during the execution of Jude chatbot program.
+     * @throws JudeException if there was an error while creating a save file.
+     */
     public void save(TaskList list) throws JudeException {
         File save = new File(filePath);
 
