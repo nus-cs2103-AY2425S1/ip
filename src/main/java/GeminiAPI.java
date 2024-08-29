@@ -10,8 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GeminiAPI {
-    public static void main(String[] a) {
-        // Load environment variables from .env file
+    public static String query(String input){
+        if (input.isBlank()) return null;
+        // Load environmnt variables from .env file
         Map<String, String> envVars = loadEnvVars(".env");
         String apiKey = envVars.get("API_KEY");
 
@@ -22,29 +23,40 @@ public class GeminiAPI {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setDoOutput(true);
-            String jsonPayload = "{\"contents\":[{\"parts\":[{\"text\":\"Format this date into YYYY-MM-DD. If there is no day, month, or year, or no such date, return null: 31 feb 1830\"}]}]}";
+            String jsonPayload = "{\"contents\":[{\"parts\":[{\"text\":\"" + input + "\"}]}]}";
             try (OutputStream os = conn.getOutputStream()) {
                 os.write(jsonPayload.getBytes("UTF-8"));
                 os.flush();
             }
             int responseCode = conn.getResponseCode();
-//            System.out.println("Response Code: " + responseCode);
-            String dateString;
-            LocalDateTime date;
+
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     if (line.contains("text")) {
-                        dateString = line.substring(line.indexOf(":")+3);
-                        System.out.println("dateString=" + dateString);
-                        break;
+                        return line.substring(line.indexOf(":")+3);
+
                     }
                 }
             }
             conn.disconnect();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            return null;
         }
+        return null;
+    }
+
+    public static LocalDateTime formatDateTime (String dateInput) {
+        String res = query("""
+Format this date into {YYYY}-{MM}-{DD}T{Hour}:{Minute}:{Second}. 
+If there is a missing time, put T00:00:00. Else if there is a missing field or no such date, just return 'null'. 
+Don't give any explanation or any other answer other than 'null' or '{YYYY}-{MM}-{DD}T{Hour}:{Minute}:{Second}'. \n 
+""" + dateInput);
+        if (res == null || res.contains("null")) return null;
+        String dateString;
+        dateString = res.substring(0, 19);
+        return LocalDateTime.parse(dateString);
+
     }
 
     // Method to load environment variables from .env file
