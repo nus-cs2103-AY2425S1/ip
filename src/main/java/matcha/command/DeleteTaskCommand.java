@@ -22,16 +22,16 @@ public class DeleteTaskCommand extends Command {
     }
 
     /**
-     * Deletes the given task. Prints out the task details and saves
-     * the updated task list to file.
+     * Deletes the given task and saves the updated task list to file.
      *
      * @param tasks Task list to delete task from.
      * @param ui Ui object to interact with user.
      * @param storage Storage object to save tasks to file.
+     * @return The response to the user.
      * @throws MatchaException If the task number is not provided or is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws MatchaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws MatchaException {
         if (inputWords.length != 2) {
             throw new MatchaException("Please enter the task number of the task you want to delete.");
         }
@@ -46,11 +46,13 @@ public class DeleteTaskCommand extends Command {
         if (taskNum < 0 || taskNum >= tasks.getSize()) {
             throw new MatchaException("This task does not exist!");
         }
-
-        System.out.println("Alright, I have removed this task for you:");
+        //delete task from task list
         Task taskToRemove = tasks.getTask(taskNum);
         tasks.deleteTask(taskNum);
-        tasks.printTask(taskToRemove);
+        String deleteMessage = "Alright, I have removed this task:\n" + tasks.showTask(taskToRemove);
+        //update tasks to file
         storage.saveTasks(tasks.getTasks());
+        super.setResponse(deleteMessage);
+        return super.getResponse();
     }
 }

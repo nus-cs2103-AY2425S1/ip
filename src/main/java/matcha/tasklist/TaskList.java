@@ -74,19 +74,20 @@ public class TaskList {
     }
 
     /**
-     * Prints the list of tasks in the list. Indicates if
-     * the list is empty.
+     * Returns a string representation of the tasks in the list.
+     *
+     * @return String representation of the tasks in the list.
      */
-    public void listTasks() {
+    public String listTasks() {
         if (tasks.size() <= 0) {
-            System.out.println("You have no tasks in the list.");
-            return;
+            return "You have no tasks in the list.";
         }
-        System.out.println("Here are your tasks:");
+        String str = ("Here are your tasks:");
         for (int i = 0; i < tasks.size(); i++) {
             String task = (i + 1) + ". " + tasks.get(i);
-            System.out.println("\t" + task);
+            str += ("\n\t" + task);
         }
+        return str;
     }
 
     /**
@@ -106,13 +107,13 @@ public class TaskList {
     }
 
     /**
-     * Prints the task that was updated in the list. Indicates
+     * Shows the task that was updated in the list. Indicates
      * the number of tasks in the list after updating.
      *
      * @param task Task that was updated.
+     * @return String representation of the updated task.
      */
-    public void printTask(Task task) {
-        System.out.println(task);
-        System.out.println("You have " + tasks.size() + " tasks in the list.");
+    public String showTask(Task task) {
+        return task.toString() + "\n" + "You have " + tasks.size() + " tasks in the list.";
     }
 }

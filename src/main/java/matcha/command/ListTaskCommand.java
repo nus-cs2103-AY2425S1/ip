@@ -15,9 +15,11 @@ public class ListTaskCommand extends Command {
      * @param tasks The task list to list all tasks from.
      * @param ui Ui object to interact with user.
      * @param storage Storage object to save tasks to file.
+     * @return The response to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.listTasks();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        super.setResponse(tasks.listTasks());
+        return super.getResponse();
     }
 }
