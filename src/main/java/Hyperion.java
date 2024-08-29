@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Hyperion {
     private Storage storage;
-    private List<Task> allTasks;
+    private TaskList allTasks;
     private Ui ui;
     boolean carryOn = true;
     // takes in a filepath for the storage
@@ -14,8 +14,8 @@ public class Hyperion {
             this.ui = new Ui();
             this.ui.showWelcome();
             this.storage = new Storage(filePath);
-            this.allTasks = storage.load();
-            this.ui.showList(this.allTasks);
+            this.allTasks = new TaskList(storage.load());
+            this.ui.showList(this.allTasks.getAllTasks());
         } catch (CommandFoundButInvalidException e ) {
             System.out.print("There is an error" + e.getMessage());
         }
@@ -28,7 +28,7 @@ public class Hyperion {
             input = scanner.nextLine();
 
             try {
-                Parser parser = new Parser(input, allTasks, this.storage);
+                Parser parser = new Parser(input, allTasks, this.storage, this.ui);
                 carryOn = parser.carryOn();
             } catch (EmptyStringException |
                      CommandFoundButInvalidException |
