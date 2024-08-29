@@ -1,3 +1,7 @@
+package command;
+
+import task.TaskList;
+
 public class ErrorCommand extends Command {
     private String errorMsg;
 

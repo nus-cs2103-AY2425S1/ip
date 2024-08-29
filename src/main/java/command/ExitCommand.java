@@ -1,3 +1,6 @@
+package command;
+
+import task.TaskList;
 public class ExitCommand extends Command {
     public ExitCommand() {
         super(0, null);

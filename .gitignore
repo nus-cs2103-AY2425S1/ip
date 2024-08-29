@@ -17,3 +17,5 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 src/main/java/input.txt
 src/main/java/Fret_og.java
+
+data/*.txt

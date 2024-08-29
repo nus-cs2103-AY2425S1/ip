@@ -1,4 +1,8 @@
+package command;
+
 import java.util.Random;
+import task.Task;
+import task.TaskList;
 
 public abstract class Command {
     private final Random RNG = new Random();

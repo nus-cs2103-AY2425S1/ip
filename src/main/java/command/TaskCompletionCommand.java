@@ -1,3 +1,7 @@
+package command;
+
+import task.TaskList;
+
 public class TaskCompletionCommand extends Command {
     private boolean isCompleted;
     private final String[] TASK_COMPLETED_PREFIXES = new String[] {

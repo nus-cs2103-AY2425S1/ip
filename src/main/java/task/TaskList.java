@@ -1,3 +1,4 @@
+package task;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -42,7 +43,7 @@ public class TaskList {
     public String taskListToString() {
         int numTasks = this.tasks.size();
         if (numTasks == 0) {
-            return "\tempty";
+            return "\tNo tasks";
         }
 
         try {

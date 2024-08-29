@@ -1,3 +1,8 @@
+package command;
+
+import task.Task;
+import task.TaskList;
+
 public class AddTaskCommand extends Command {
     private final String[] ADD_TASK_PREFIXES = new String[] {
         "\tYou got it! Adding task:\n\t",

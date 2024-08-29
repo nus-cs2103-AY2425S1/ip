@@ -1,3 +1,7 @@
+package command;
+
+import task.TaskList;
+
 public class DeleteTaskCommand extends Command {
     private final String[] TASK_DELETED_PREFIXES = new String[] {
         "\tO-Okay, deleting task now.\n",

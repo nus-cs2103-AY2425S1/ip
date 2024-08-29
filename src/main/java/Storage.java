@@ -12,6 +12,11 @@ import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+
 public class Storage {
     private static final Pattern TODO_PATTERN = Pattern.compile("\\[T\\]\\[( |X)\\] (.+)");
     private static final Pattern DEADLINE_PATTERN = Pattern.compile("\\[D\\]\\[( |X)\\] (.+) \\(by: (.+)\\)");

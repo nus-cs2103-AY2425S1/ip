@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import command.Command;
+
 public class Ui {
     private Scanner uinput;
     private Parser inputParser;
