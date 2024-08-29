@@ -1,21 +1,43 @@
-public class Task {
+/**
+ * Represents a generic task with a description and a completion status.
+ * Provides methods to mark the task as done or not done, and to get the task's status.
+ */
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a new Task with the specified description.
+     *
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
-    /* getStatusIcon returns status of the Task, checking
-    if its marked or unmarked
+    /**
+     * Returns the status icon of the task.
+     * "X" if the task is done, otherwise a space character.
+     *
+     * @return A string representing the status icon of the task.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
-    /* markAsDone function marks the Task status from
-    undone to done
+    /**
+     * Returns the status icon of the task.
+     * "1" if the task is done, otherwise a space character.
+     *
+     * @return A string representing the status icon of the task.
+     */
+    public String getStatus() {
+        return (isDone ? "1" : "0");
+    }
+    /**
+     * Marks the task as done. If the task is already done, a message indicating
+     * that it is already completed is displayed.
      */
     public void markAsDone() {
         if (!this.isDone) {
@@ -28,8 +50,9 @@ public class Task {
 
     }
 
-    /* markAsDone function marks the Task status from
-    done to undone
+    /**
+     * Marks the task as not done. If the task is already not done, a message indicating
+     * that it is not marked yet is displayed.
      */
     public void unMark() {
         if (this.isDone) {
@@ -46,4 +69,11 @@ public class Task {
         return "[" + getStatusIcon() + "] " +  this.description;
     }
 
+    /**
+     * Abstract method to get a string representation of the task for storing in a file.
+     * Concrete subclasses should provide their own implementation.
+     *
+     * @return A string representation of the task for storage purposes.
+     */
+    public abstract String toStore();
 }

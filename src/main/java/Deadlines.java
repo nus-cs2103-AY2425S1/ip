@@ -11,4 +11,9 @@ public class Deadlines extends Task {
         return "[D]" + super.toString() + " (by: " + by + ")" ;
     }
 
+    @Override
+    public String toStore(){
+        return "D/"+ super.getStatus()+ "/" + description + "/" + by;
+    }
+
 }

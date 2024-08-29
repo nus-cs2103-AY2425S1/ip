@@ -9,6 +9,11 @@ public class Events extends Task{
     }
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (from: " + start + " to: " + end + ")" ;
+        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")" ;
+    }
+
+    @Override
+    public String toStore(){
+        return "E/" + super.getStatus() + "/" + description + "/" + start + "/" + end;
     }
 }
