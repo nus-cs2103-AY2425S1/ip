@@ -20,6 +20,12 @@ public class Items {
         this.dataHandler.updateData(this.items);
     }
 
+    /**
+     * Marks the specified item as done.
+     *
+     * @param input the input string containing the item number to mark as done
+     * @throws SamException if the item number is not provided or does not exist
+     */
     public void  markItemDone(String input) throws SamException {
         try {
             String[] parts = input.split(" ");
@@ -31,6 +37,12 @@ public class Items {
         }
     }
 
+    /**
+     * Marks the specified item as undone.
+     *
+     * @param input the input string containing the item number to mark as undone
+     * @throws SamException if the item number is not provided or does not exist
+     */
     public void  markItemUndone(String input) throws SamException {
         try {
             String[] parts = input.split(" ");
@@ -42,6 +54,12 @@ public class Items {
         }
     }
 
+    /**
+     * Deletes an item from the list of items.
+     *
+     * @param input the input string containing the item number to delete
+     * @throws SamException if the input is invalid or the item number does not exist
+     */
     public void deleteItem(String input) throws SamException {
         try {
             String[] parts = input.split(" ");

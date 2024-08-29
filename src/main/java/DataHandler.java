@@ -4,6 +4,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+/**
+ * The DataHandler class is responsible for loading and updating data from a file.
+ */
 public class DataHandler {
     
     private String filePath;    
@@ -12,19 +15,22 @@ public class DataHandler {
         this.filePath = "./data/Sam.txt";   
     }
 
+    /**
+     * Loads data from the file and populates the given ArrayList with items.
+     *
+     * @param items The ArrayList to populate with items.
+     */
     public void loadData(ArrayList<Item> items){
         File file = new File(filePath);
         if (!file.exists()) {
             System.out.println("File does not exist at path: " + filePath);
             System.exit(0);
-            
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(" \\| ");
-                //System.out.println(parts[1]);
                 switch (parts[0]) {
                 case "T":
                     ToDo todo = new ToDo(parts[2]);
@@ -47,10 +53,8 @@ public class DataHandler {
                     }
                     items.add(event); 
                     break;
-
                 default:
                     throw new IOException("Data in file is not in correct format");
-                    
                 }
             }
         } catch (IOException e) {
@@ -59,7 +63,11 @@ public class DataHandler {
         }
     }
 
-
+    /**
+     * Updates the file with the data from the given ArrayList of items.
+     *
+     * @param items The ArrayList of items to update the file with.
+     */
     public void updateData(ArrayList<Item> items) {
         try (FileWriter writer = new FileWriter(this.filePath)) {
             for (Item item : items) {
