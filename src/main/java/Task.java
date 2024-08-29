@@ -2,8 +2,21 @@ abstract class Task {
     private final String name;
     private boolean isDone = false;
 
+    protected final String deli = "~!!";
+
     public Task(String name) {
         this.name = name;
+    }
+
+
+    public String taskData() {
+        String str = " " + deli;
+        if (isDone) {
+            str += " 1 " + deli + " " + name;
+        } else {
+            str += " 0 " + deli + " " + name;
+        }
+        return str;
     }
 
     public void mark() {
