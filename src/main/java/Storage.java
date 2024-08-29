@@ -8,17 +8,17 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class Storage {
-    private File taskStore;
+    private final File taskFile;
     Storage(String filePath) {
-        this.taskStore = new File(filePath);
+        this.taskFile = new File(filePath);
     }
 
     public ArrayList<Task> load() {
         ArrayList<Task> taskList = new ArrayList<Task>();
         try {
-            Scanner scanner = new Scanner(this.taskStore);
+            Scanner scanner = new Scanner(this.taskFile);
             while (scanner.hasNextLine()) {
-                formatToTask(scanner.nextLine()).ifPresent(
+                formatLineToTask(scanner.nextLine()).ifPresent(
                         item -> taskList.add(item)
                 );
                 System.out.println(taskList);
@@ -31,7 +31,7 @@ public class Storage {
 
     public void save(Task taskToSave) {
         try {
-            FileWriter taskListWriter = new FileWriter(this.taskStore, true);
+            FileWriter taskListWriter = new FileWriter(this.taskFile, true);
             taskListWriter.write("\n" + taskToSave.saveToFileFormat());
             taskListWriter.close();
         } catch (IOException e) {
@@ -41,7 +41,7 @@ public class Storage {
 
     public void save (TaskList taskList) {
         try {
-            FileWriter taskListWriter = new FileWriter(this.taskStore, false);
+            FileWriter taskListWriter = new FileWriter(this.taskFile, false);
             taskListWriter.write(taskList.printToFile());
             taskListWriter.close();
         } catch (IOException e) {
@@ -49,65 +49,57 @@ public class Storage {
         }
     }
 
+private Task checkForMarkedFormat(String[] lineArray, Task taskToAdd) throws FileContentsInvalid {
+    if (lineArray[1].equals("0")) {
+        return taskToAdd;
+    } else if (lineArray[1].equals("1")) {
+        taskToAdd.markDone();
+        return taskToAdd;
+    } else {
+        throw new FileContentsInvalid("the value of the 2nd column should only be 1 or 2");
+    }
+}
 
 // to simplify
-public static Optional<Task> formatToTask(String lineInFile) {
-    String[] inputArray = lineInFile.split(" \\| ");
+private Optional<Task> formatLineToTask(String lineInFile) {
+    String[] lineArray = lineInFile.split(" \\| ");
     try {
         Task taskToAdd;
-        switch (inputArray[0]) {
+        switch (lineArray[0]) {
             case "T":
-                if (inputArray.length != 3) {
+                if (lineArray.length != 3) {
                     throw new FileContentsInvalid("Number of columns mismatch. There should be 3 for Todo");
                 }
-                taskToAdd = new Todo(inputArray[2]);
-                if (inputArray[1].equals("0")) {
-                    return Optional.of(taskToAdd);
-                } else if (inputArray[1].equals("1")) {
-                    taskToAdd.markDone();
-                    return Optional.of(taskToAdd);
-                } else {
-                    throw new FileContentsInvalid("the value of the 2nd column should only be 1 or 2");
-                }
+                taskToAdd = new Todo(lineArray[2]);
+                return Optional.of(checkForMarkedFormat(lineArray, taskToAdd));
             case "D":
-                if (inputArray.length != 4) {
+                if (lineArray.length != 4) {
                     throw new FileContentsInvalid("Number of columns mismatch. There should be 4 for Deadline");
                 }
                 try {
-                    taskToAdd = new Deadline(inputArray[2], inputArray[3]);
-                    if (inputArray[1].equals("0")) {
-                        return Optional.of(taskToAdd);
-                    } else if (inputArray[1].equals("1")) {
-                        taskToAdd.markDone();
-                        return Optional.of(taskToAdd);
-                    } else {
-                        throw new FileContentsInvalid("the value of the 2nd column should only be 1 or 2");
-                    }
+                    taskToAdd = new Deadline(lineArray[2], lineArray[3]);
+                    return Optional.of(checkForMarkedFormat(lineArray, taskToAdd));
                 } catch (DateTimeParseException e) {
-                    System.out.println("Deadline format is wrong in the file contents");
+                    System.out.println("Deadline format is wrong in the file contents. For deadline, it should be yyyy-MM-dd format.");
                 }
                 break;
             case "E":
-                if (inputArray.length != 5) {
+                if (lineArray.length != 5) {
                     throw new FileContentsInvalid("Number of columns mismatch. There should be 5 for Events");
                 }
-                taskToAdd = new Event(inputArray[2], inputArray[3], inputArray[4]);
-                if (inputArray[1].equals("0")) {
-                    return Optional.of(taskToAdd);
-                } else if (inputArray[1].equals("1")) {
-                    taskToAdd.markDone();
-                    return Optional.of(taskToAdd);
-                } else {
-                    throw new FileContentsInvalid("the value of the 2nd column should only be 1 or 2");
+                try {
+                    taskToAdd = new Event(lineArray[2], lineArray[3], lineArray[4]);
+                    return Optional.of(checkForMarkedFormat(lineArray, taskToAdd));
+                } catch (DateTimeParseException e) {
+                        System.out.println("Deadline format is wrong in the file contents. For events, it should be yyyy-MM-ddThh:mm format");
                 }
-                //break;
+                break;
             default:
                 throw new FileContentsInvalid("Only T, E, D accepted but others found");
         }
     } catch (FileContentsInvalid e) {
         System.out.println(e);
     }
-    return Optional.empty(); // code will be problematic
-}
-
+    return Optional.empty();
+    }
 }
