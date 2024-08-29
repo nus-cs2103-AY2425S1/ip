@@ -24,7 +24,7 @@ public class Storage {
      * @param task Task object inside tasks
      * @return Formatted text that can be written into data file
      */
-    public String convertTaskToText(Task task) {
+    private String convertTaskToText(Task task) {
         String text = "";
         String description = task.getTaskText();
         if (task instanceof ToDo) {
@@ -44,7 +44,7 @@ public class Storage {
      * @param text line of code inside Bimo.txt
      * @return Task object
      */
-    public Task convertTextToTask(String text) {
+    private Task convertTextToTask(String text) {
         String[] details = text.split("\\|");
         String type = details[0];
         Task task= null;
@@ -69,7 +69,7 @@ public class Storage {
      * type|status|description|date1|date2
      * @param task Task inside the tasks
      */
-    private void appendToFile(Task task) {
+    public void appendToFile(Task task) {
         String text = this.convertTaskToText(task) + System.lineSeparator();
         try {
             FileWriter writer = new FileWriter("ip/data/Bimo.txt", true);
@@ -83,13 +83,13 @@ public class Storage {
 
     /**
      * To re-write file when user marks, unmarks or delete a task
-     * @param tasks List of tasks inside TaskLists arraylist
+     * @param tasks List of tasks
      */
-    private void overwriteFile(ArrayList<Task> tasks) {
+    public void overwriteFile(TaskList tasks) {
         try {
             FileWriter writer = new FileWriter("ip/data/Bimo.txt");
-            for (int i = 0; i < tasks.size(); i++) {
-                String text = convertTaskToText(tasks.get(i));
+            for (int i = 0; i < tasks.getLength(); i++) {
+                String text = convertTaskToText(tasks.getTask(i));
                 writer.write(text + System.lineSeparator());
             }
             writer.close();
@@ -98,7 +98,13 @@ public class Storage {
         }
     }
 
-    public void loadFile(ArrayList<Task> tasks) throws BimoException {
+    /**
+     *
+     * @return Returns a list of tasks
+     * @throws BimoException
+     */
+    public ArrayList<Task> loadFile() throws BimoException {
+        ArrayList<Task> tasks = new ArrayList<>();
         try {
             Scanner fileReader = new Scanner(this.dataFile);
             while (fileReader.hasNext()) {
@@ -110,5 +116,6 @@ public class Storage {
             System.out.println(e.getMessage());
             throw new BimoException("File not found, tasks cannot be loaded");
         }
+        return tasks;
     }
 }
