@@ -7,7 +7,6 @@ import java.io.IOException;
 public class Boss {
     private Storage storage;
     private TaskList tasks;
-
     private Ui ui;
 
     public enum Types {
