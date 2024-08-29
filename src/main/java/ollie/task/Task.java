@@ -42,6 +42,10 @@ public class Task {
         return String.format("%d | %s", isDone ? 1 : 0, this.description);
     }
 
+    public boolean doesDescContain(String findQuery) {
+        return this.description.contains(findQuery);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
