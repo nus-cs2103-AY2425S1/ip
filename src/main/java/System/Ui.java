@@ -6,6 +6,9 @@ import Commands.TaskList;
 import Commands.ToDos;
 
 public class Ui {
+    /**
+     * Displays messages greeting the user as well as providing instructions to use the chatbot.
+     */
     public void greet() {
         line();
         System.out.println("Hello! I'm Tanjiro!");
@@ -19,44 +22,65 @@ public class Ui {
         line();
     }
 
+    /**
+     * Displays a message saying goodbye as a salutation.
+     */
     public void goodbye() {
         System.out.println("Bye! Hope to see you again!");
         line();
     }
 
+    /**
+     * Displays a message indicating that the task list is currently empty.
+     */
     public void emptyList() {
         System.out.println("There are currently zero tasks in the list!");
     }
 
+    /**
+     * Displays a message indicating that the task does not exist.
+     */
     public void doesNotExist() {
         System.out.println("Task does not exist!");
     }
-    public void alreadyMarked(){
+
+    /**
+     * Displays a message indicating that the task has already been marked.
+     */
+    public void alreadyMarked() {
         System.out.println("Task has already been marked!");
     }
 
-    public void alreadyUnmarked(){
+    /**
+     * Displays a message indicating that the task has already been unmarked.
+     */
+    public void alreadyUnmarked() {
         System.out.println("Task has already been unmarked!");
     }
-    //    public void added_task_message(String s) {
-//        System.out.println("added: " + s);
-//    }
+
+    /**
+     * Displays a message indicating that a task has been removed from the task list.
+     * The method outputs details about the removed task, such as the name, status, and relevant date information whenever applicable.
+     * It also displays the updated number of tasks in the list.
+     *
+     * @param t Task that has been removed, which can be an instance of ToDos, Deadlines, or Events.
+     */
     public void delete_message(TaskList t) {
         System.out.println("Noted. I've removed this task:");
         if (t instanceof ToDos) {
-            if (t.getCurrent_status()== TaskList.status.MARKED) {
+            if (t.getCurrent_status() == TaskList.status.MARKED) {
                 System.out.println("[T][X] " + t.getName());
             } else {
                 System.out.println("[T][ ] " + t.getName());
             }
         } else if (t instanceof Deadlines) {
-            if (t.getCurrent_status()== TaskList.status.MARKED) {
+            if (t.getCurrent_status() == TaskList.status.MARKED) {
                 System.out.println("[D][X] " + t.getName() + "(by: " + t.getDate() + ")");
             } else {
                 System.out.println("[D][ ] " + t.getName() + "(by: " + t.getDate() + ")");
             }
         } else if (t instanceof Events) {
-            if (t.getCurrent_status()== TaskList.status.MARKED) {
+            if (t.getCurrent_status() == TaskList.status.MARKED) {
                 System.out.println("[E][X] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
             } else {
                 System.out.println("[E][ ] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
@@ -65,76 +89,69 @@ public class Ui {
         System.out.println("Now you have " + t.get_list_size() + " tasks in the list.");
     }
 
+    /**
+     * Displays a message indicating that the date provided is invalid.
+     */
     public void date() {
         System.out.println("The date provided is invalid!");
     }
+
+    /**
+     * Displays a message containing the list of tasks in a given specific format.
+     *
+     * @param information Information string containing the list of tasks.
+     */
     public void list_task_message(String information) {
-//        int counter = 1;
-//        for (Task t : task_list) {
-//            if (t.getCurrent_status()== Task.status.MARKED) {
-//                if (t.getTag().equals("T")) {
-//                    if (t instanceof Commands.ToDos) {
-//                        System.out.println(counter + ".[T][X] " + t.getName());
-//                    }
-//                } else if (t.getTag().equals("D")) {
-//                    if (t instanceof Commands.Deadlines) {
-//                        System.out.println(counter + ".[D][X] " + t.getName() + "(by: " + t.getDay() + ")");
-//                    }
-//                } else if (t.getTag().equals("E")) {
-//                    if (t instanceof Commands.Events) {
-//                        System.out.println(counter + ".[E][X] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
-//                    }
-//                } else {
-//                    System.out.println(counter + ".[-][X] " + t.getName());
-//                }
-//            } else {
-//                if (t.getTag().equals("T")) {
-//                    if (t instanceof Commands.ToDos) {
-//                        System.out.println(counter + ".[T][ ] " + t.getName());
-//                    }
-//                } else if (t.getTag().equals("D")) {
-//                    if (t instanceof Commands.Deadlines) {
-//                        System.out.println(counter + ".[D][ ] " + t.getName() + "(by: " + t.getDay() + ")");
-//                    }
-//                } else if (t.getTag().equals("E")) {
-//                    if (t instanceof Commands.Events) {
-//                        System.out.println(counter + ".[E][ ] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
-//                    }
-//                } else {
-//                    System.out.println(counter + ".[-][ ] " + t.getName());
-//                }
-//            }
-//            counter++;
-//        }
         System.out.println(information);
     }
 
+    /**
+     * Displays a message indicating that the task has been marked.
+     */
     public void mark_message(String s) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("[X] " + s);
     }
 
+    /**
+     * Displays a message indicating that the task has been unmarked.
+     */
     public void unmark_message(String s) {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("[_] " + s);
     }
 
+    /**
+     * Displays a message indicating the line separator.
+     */
     private void line() {
         System.out.println("========================================");
     }
 
+    /**
+     * Displays a message indicating that the todotask cannot be empty.
+     */
     public void empty_todo() {
         System.out.println("OOPS!!! The description of a todo cannot be empty.");
     }
 
+    /**
+     * Displays a message indicating that the deadline format is invalid.
+     */
     public void empty_deadline() {
         System.out.println("OOPS!!! The format of a deadline is wrong.");
     }
 
+    /**
+     * Displays a message indicating that the event format is invalid.
+     */
     public void empty_event() {
         System.out.println("OOPS!!! The format of a event is wrong.");
     }
 
+    /**
+     * Displays a message indicating that the input format is not understandable.
+     */
     public void invalid_input() {
         System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
     }

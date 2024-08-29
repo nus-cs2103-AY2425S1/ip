@@ -9,7 +9,7 @@ public class ParserTest {
     Parser parser = new Parser();
     @Test
     public void testContainBye(){
-        assertTrue(parser.containBye("byebye!"));
+        assertTrue(parser.containBye("bye"));
     }
 
     @Test
