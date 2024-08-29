@@ -1,7 +1,10 @@
+package tudee.ui;
+
+import tudee.task.Task;
 import java.util.Scanner;
 import java.util.List;
 
-class Ui {
+public class Ui {
     private Scanner sc;
     private static final String STRAIGHTLINE = "____________________________________________________________ \n";
 

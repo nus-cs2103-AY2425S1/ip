@@ -1,7 +1,15 @@
-class DeleteCommand extends Command {
+package tudee.command;
+
+import tudee.task.TaskList;
+import tudee.task.Task;
+import tudee.ui.Ui;
+import tudee.storage.Storage;
+import tudee.TudeeException;
+
+public class DeleteCommand extends Command {
     private int index;
 
-    DeleteCommand(int index) {
+    public DeleteCommand(int index) {
         this.index = index;
     }
 

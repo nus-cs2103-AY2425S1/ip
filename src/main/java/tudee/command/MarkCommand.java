@@ -1,7 +1,14 @@
-class MarkCommand extends Command {
+package tudee.command;
+
+import tudee.task.TaskList;
+import tudee.ui.Ui;
+import tudee.storage.Storage;
+import tudee.task.Task;
+
+public class MarkCommand extends Command {
     private int index;
 
-    MarkCommand(int index) {
+    public MarkCommand(int index) {
         this.index = index;
     }
 

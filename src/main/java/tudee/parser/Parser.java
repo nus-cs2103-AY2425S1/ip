@@ -1,4 +1,20 @@
-class Parser {
+package tudee.parser;
+
+import tudee.command.Command;
+import tudee.command.AddTaskCommand;
+import tudee.command.ListCommand;
+import tudee.command.ByeCommand;
+import tudee.command.DeleteCommand;
+import tudee.command.MarkCommand;
+import tudee.command.UnmarkCommand;
+import tudee.command.DateCommand;
+import tudee.command.UnknownCommand;
+import tudee.task.ToDo;
+import tudee.task.Deadline;
+import tudee.task.Events;
+import tudee.TudeeException;
+
+public class Parser {
     public static Command parse(String input) throws TudeeException {
         String[] inputList = input.split(" ", 2);
         String command = inputList[0];
