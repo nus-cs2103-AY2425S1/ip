@@ -4,21 +4,33 @@ import gavinchatbot.task.Deadline;
 import gavinchatbot.task.Event;
 import gavinchatbot.task.Task;
 import gavinchatbot.task.ToDos;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the storage of tasks in the file system.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    // load tasks from file
+    /**
+     * Loads tasks from the specified file.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws IOException If there is an error reading the file.
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -61,7 +73,13 @@ public class Storage {
         scanner.close();
         return tasks;
     }
-    // save tasks to file
+
+    /**
+     * Saves the list of tasks to the specified file.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws IOException If there is an error writing to the file.
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
         FileWriter writer = new FileWriter(filePath);
         for (Task task : tasks) {

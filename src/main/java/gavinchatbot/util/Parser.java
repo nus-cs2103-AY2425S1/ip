@@ -4,8 +4,18 @@ import gavinchatbot.command.*;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a parser that interprets user input and returns the appropriate command.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param input The user input as a string.
+     * @return The command corresponding to the user input.
+     * @throws GavinException If the user input is invalid or cannot be parsed.
+     */
     public Command parse(String input) throws GavinException {
         if (input.equalsIgnoreCase("bye")) {
             return new ExitCommand();

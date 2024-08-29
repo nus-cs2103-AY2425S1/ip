@@ -3,10 +3,20 @@ package gavinchatbot.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task {
 
     protected LocalDate by;
 
+    /**
+     * Constructs a Deadline task with the specified description and deadline date.
+     *
+     * @param description The description of the task.
+     * @param by The deadline date in the format yyyy-MM-dd.
+     * @throws IllegalArgumentException If the date format is invalid.
+     */
     public Deadline(String description, String by) {
         super(description);
         // to ensure no leading/trailing spaces
@@ -18,11 +28,21 @@ public class Deadline extends Task {
         this.by = LocalDate.parse(by, formatter);
     }
 
+    /**
+     * Returns the string representation of the task in the format used for saving to a file.
+     *
+     * @return The string representation of the task in save format.
+     */
     @Override
     public String toSaveFormat() {
         return "D | " + super.toSaveFormat() + " | " + by;
     }
 
+    /**
+     * Returns the string representation of the task, including the deadline date.
+     *
+     * @return The string representation of the task.
+     */
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
