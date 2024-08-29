@@ -2,13 +2,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 public class Deadlines extends Task {
+    Parser parser = new Parser();
     private LocalDate endDate;
     private LocalTime endTime;
     public Deadlines(String description, String date) {
         super(description, TaskType.DEADLINE);
         String[] splitDate = date.split(" ");
-        this.endDate = Weeny.convertDate(splitDate[0]);
-        this.endTime = Weeny.convertTime(splitDate[1]);
+        this.endDate = parser.convertDate(splitDate[0]);
+        this.endTime = parser.convertTime(splitDate[1]);
     }
 
     public String toOutput() {
