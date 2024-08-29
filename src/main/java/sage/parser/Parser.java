@@ -1,3 +1,8 @@
+package sage.parser;
+
+import sage.command.*;
+import sage.exception.SageException;
+
 public class Parser {
     public Command parse(String input) throws SageException {
         String parts[] = input.split(" ", 2);

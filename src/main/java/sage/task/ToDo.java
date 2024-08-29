@@ -1,3 +1,7 @@
+package sage.task;
+
+import sage.exception.SageException;
+
 public class ToDo extends Task {
     public ToDo(String description) throws SageException {
         super(description);

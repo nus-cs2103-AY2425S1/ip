@@ -1,3 +1,12 @@
+package sage.command;
+
+import sage.exception.SageException;
+import sage.ui.Ui;
+import sage.storage.Storage;
+import sage.task.Task;
+import sage.task.TaskList;
+import sage.task.Deadline;
+
 public class DeadlineCommand extends Command {
     private String description;
     private String by;

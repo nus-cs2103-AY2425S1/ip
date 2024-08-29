@@ -1,3 +1,7 @@
+package sage.ui;
+
+import sage.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {

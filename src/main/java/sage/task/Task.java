@@ -1,3 +1,5 @@
+package sage.task;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -9,11 +11,11 @@ public abstract class Task {
         return (isDone ? "[X]" : "[ ]"); //Mark done task with X
     }
 
-    void markAsDone() {
+    public void markAsDone() {
         this.isDone = true;
     }
 
-    void markAsNotDone() {
+    public void markAsNotDone() {
         this.isDone = false;
     }
 

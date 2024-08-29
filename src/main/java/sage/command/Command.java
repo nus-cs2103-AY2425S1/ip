@@ -1,3 +1,10 @@
+package sage.command;
+
+import sage.exception.SageException;
+import sage.task.TaskList;
+import sage.ui.Ui;
+import sage.storage.Storage;
+
 public abstract class Command {
     /**
      * Executes the user command

@@ -1,6 +1,17 @@
+package sage;
+
+import sage.storage.Storage;
+import sage.ui.Ui;
+import sage.task.TaskList;
+import sage.parser.Parser;
+import sage.command.Command;
+import sage.exception.SageException;
+
 import java.util.Scanner;
 
 public class Sage {
+    public static final String DIRECTORY_PATH = "data/";
+    public static final String FILE_PATH = DIRECTORY_PATH + "/sage.txt";
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
@@ -33,11 +44,10 @@ public class Sage {
                 ui.showMessage(e.getMessage());
             }
         }
-
-        scanner.close();
     }
 
     public static void main(String[] args) {
-        new Sage("./data/sage.txt").run();
+        Sage chatbot = new Sage(FILE_PATH);
+        chatbot.run();
     }
 }
