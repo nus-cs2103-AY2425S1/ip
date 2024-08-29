@@ -1,7 +1,7 @@
-package Alfred.ui;
+package alfred.ui;
 
-import Alfred.task.Task;
-import Alfred.exception.AlfredException;
+import alfred.task.Task;
+import alfred.exception.AlfredException;
 
 import java.io.IOException;
 import java.util.List;

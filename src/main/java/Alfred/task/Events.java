@@ -1,6 +1,6 @@
-package Alfred.task;
+package alfred.task;
 
-import Alfred.exception.AlfredException;
+import alfred.exception.AlfredException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

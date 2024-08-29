@@ -1,8 +1,8 @@
-package Alfred.storage;
+package alfred.storage;
 
-import Alfred.ui.Ui;
-import Alfred.task.Task;
-import Alfred.exception.AlfredException;
+import alfred.ui.Ui;
+import alfred.task.Task;
+import alfred.exception.AlfredException;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

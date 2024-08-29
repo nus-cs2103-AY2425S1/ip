@@ -1,11 +1,11 @@
-package Alfred;
+package alfred;
 
-import Alfred.parser.Parser;
-import Alfred.storage.Storage;
-import Alfred.task.Task;
-import Alfred.exception.AlfredException;
-import Alfred.task.TaskList;
-import Alfred.ui.Ui;
+import alfred.parser.Parser;
+import alfred.storage.Storage;
+import alfred.task.Task;
+import alfred.exception.AlfredException;
+import alfred.task.TaskList;
+import alfred.ui.Ui;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -45,10 +45,17 @@ public class Alfred {
                 break;
             case "mark":
             case "unmark":
-                tasks.updateTaskStatus(input, command.equals("mark"));
+                boolean isMark = command.equals("mark");
+                if (Parser.isValidCommand(input, command, tasks.getTasksCount())) {
+                    int taskNumber = Parser.getTaskNumberFromInput(input);
+                    tasks.updateTaskStatus(taskNumber, isMark);
+                }
                 break;
             case "delete":
-                tasks.deleteTask(input);
+                if (Parser.isValidCommand(input, "delete", tasks.getTasksCount())) {
+                    int taskNumber = Parser.getTaskNumberFromInput(input);
+                    tasks.deleteTask(taskNumber);
+                }
                 break;
             default:
                 if (Task.isCreateTaskCommand(input)) {

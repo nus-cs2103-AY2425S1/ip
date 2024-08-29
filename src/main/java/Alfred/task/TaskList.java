@@ -1,7 +1,7 @@
-package Alfred.task;
+package alfred.task;
 
-import Alfred.ui.Ui;
-import Alfred.parser.Parser;
+import alfred.ui.Ui;
+import alfred.parser.Parser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,26 +29,13 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public void deleteTask(String input) {
-        if (!Parser.isValidCommand(input, "delete", this.getTasksCount())) {
-            return;
-        }
-
-        int taskNumber = Parser.getTaskNumberFromInput(input);
+    public void deleteTask(int taskNumber) {
         Task task = tasks.remove(taskNumber - 1);
         Ui.showTaskDeleted(task, tasks.size());
     }
 
-    public void updateTaskStatus(String input, boolean mark) {
-        String action = mark ? "mark" : "unmark";
-
-        if (!Parser.isValidCommand(input, action, getTasksCount())) {
-            return;
-        }
-
-        int taskNumber = Parser.getTaskNumberFromInput(input);
+    public void updateTaskStatus(int taskNumber, boolean mark) {
         Task task = tasks.get(taskNumber - 1);
-
         if (mark) {
             task.markAsDone();
             Ui.showTaskMarked(task);
