@@ -157,6 +157,15 @@ public class Ponder_Pika {
                         System.out.println("\n----------------------------------------------------------");
                         io.saveData(this.myList);
                         break;
+                    case "find":
+                        String keyword = commands[1].trim();
+                        for (int i = 0; i < myList.size(); i++) {
+                            if(myList.get(i).getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                                System.out.println(i + 1 + ". " + myList.get(i).toString());
+                            }
+                        }
+                        printDivider();
+                        break;
                     default:
                         throw new PonderPikaException("Invalid Command, Please Try Again!");
                 }
