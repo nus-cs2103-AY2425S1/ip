@@ -1,9 +1,10 @@
 public class Task {
     String task;
-    boolean isComplete = false;
+    boolean isComplete;
 
-    public Task(String task) {
+    public Task(String task, boolean isComplete) {
         this.task = task;
+        this.isComplete = isComplete;
     }
 
     public void markComplete() {
@@ -16,6 +17,10 @@ public class Task {
         this.isComplete = false;
         System.out.println("OK, I've marked this task as not done yet");
         System.out.println(this);
+    }
+
+    public String toFileString() {
+        return isComplete ? "0|" + task : "1|" + task;
     }
 
     @Override
