@@ -3,7 +3,7 @@ package silverwolf.task;
  * Represents a task of type "Event", which includes a description, start time, and end time.
  * An Event task tracks a specific time frame in addition to the task's description and status.
  */
-public class Event extends Task{
+public class Event extends Task {
     private String to; // The start time or date of the event
     private String from; // The end time or date of the event
 
@@ -14,8 +14,8 @@ public class Event extends Task{
      * @param from The start time or date of the event.
      * @param to The end time or date of the event.
      */
-    public Event(String description, String from, String to){
-        super(description,TaskType.EVENT);
+    public Event(String description, String from, String to) {
+        super(description, TaskType.EVENT);
         this.to = to;
         this.from = from;
     }
@@ -25,7 +25,7 @@ public class Event extends Task{
      *
      * @return The start time or date of the event as a string.
      */
-    public String getFrom(){
+    public String getFrom() {
         return this.from;
     }
 
@@ -34,7 +34,7 @@ public class Event extends Task{
      *
      * @param from The new start time or date of the event.
      */
-    public void setForm(String from){
+    public void setForm(String from) {
         this.from = from;
     }
 
@@ -55,8 +55,9 @@ public class Event extends Task{
      * @return A string in the format "[TaskType][StatusIcon] Description (from: start to: end)".
      */
     @Override
-    public String toString(){
-        return " ["+this.type()+"]["+this.getStatusIcon()+"] "+ this.getDescription()+" (from: "+this.from + " to: " + this.to+ ")";
+    public String toString() {
+        return " [" + this.type() + "][" + this.getStatusIcon() + "] "
+                + this.getDescription() + " (from: " + this.from + " to: " + this.to + ")";
     }
 
     /**
@@ -67,6 +68,7 @@ public class Event extends Task{
      */
     @Override
     public String toFileString() {
-        return this.type()+" | "+this.getFileIcon()+" | "+ this.getDescription()+" | "+this.from + "-" + this.to;
+        return this.type() + " | " + this.getFileIcon() + " | "
+                + this.getDescription() + " | " + this.from + "-" + this.to;
     }
 }

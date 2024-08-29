@@ -10,7 +10,7 @@ import silverwolf.ui.Ui;
  * The MarkCommand class represents a command to mark a task as completed in the task list.
  * It extends the abstract Command class and implements the logic to update the status of a task.
  */
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     private final int taskIndex;
 
     /**
@@ -47,7 +47,7 @@ public class MarkCommand extends Command{
             // Mark the task as not done
             specificTask.markAsDone();
             // Provide feedback to the user
-            ui.showMarkTask(specificTask);  // Assuming `Ui` has a method to show unmarked task
+            ui.showMarkTask(specificTask); // Assuming `Ui` has a method to show unmarked task
             // Save the updated task list to storage
             storage.save(tasks.getTasks());
         } catch (IndexOutOfBoundsException e) {

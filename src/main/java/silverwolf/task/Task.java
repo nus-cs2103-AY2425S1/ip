@@ -7,17 +7,16 @@ import silverwolf.exception.SilverWolfException;
  * a Task can be marked as done or undone and has a specific TaskType.
  */
 public abstract class Task {
+    protected TaskType type;
     private String description;
     private boolean isDone;
-    protected TaskType type;
-
     /**
      * constructs a Task with the specified description and type.
      *
      * @param description The description of the task.
      * @param type The type of the task, defined by the TaskType enum.
      */
-    public Task(String description, TaskType type){
+    public Task(String description, TaskType type) {
         this.description = description;
         this.type = type;
     }
@@ -76,14 +75,14 @@ public abstract class Task {
     /**
      * Marks this task as done by setting its completion status to true.
      */
-    public void markAsDone(){
+    public void markAsDone() {
         this.isDone = true;
     }
 
     /**
      * Unmarks this task, setting its completion status to false.
      */
-    public void unmarkTask(){
+    public void unmarkTask() {
         this.isDone = false;
     }
 
@@ -104,7 +103,7 @@ public abstract class Task {
      *
      * @return The description of the task.
      */
-    public String getDescription(){
+    public String getDescription() {
         return this.description;
     }
 

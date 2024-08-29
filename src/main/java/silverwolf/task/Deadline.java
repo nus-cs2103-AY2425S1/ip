@@ -1,10 +1,9 @@
 package silverwolf.task;
-
 /**
  * Represents a task of type "Deadline", which includes a description and a due date or time.
  * A Deadline task must be completed by a specified date or time.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected String by; // The due date or time for the deadline
 
     /**
@@ -14,7 +13,7 @@ public class Deadline extends Task{
      * @param by The due date or time for the task.
      */
     public Deadline(String description, String by) {
-        super(description,TaskType.DEADLINE);
+        super(description, TaskType.DEADLINE);
         this.by = by;
     }
 
@@ -23,7 +22,7 @@ public class Deadline extends Task{
      *
      * @return The due date or time as a string.
      */
-    public String getBy(){
+    public String getBy() {
         return this.by;
     }
 
@@ -32,7 +31,7 @@ public class Deadline extends Task{
      *
      * @param by The new due date or time as a string.
      */
-    public void setBy(String by){
+    public void setBy(String by) {
         this.by = by;
     }
 
@@ -53,8 +52,9 @@ public class Deadline extends Task{
      * @return A string in the format "[TaskType][StatusIcon] Description (by: due date)".
      */
     @Override
-    public String toString(){
-        return " ["+this.type()+"]["+this.getStatusIcon()+"] "+ this.getDescription()+" (by: "+this.by +")";
+    public String toString() {
+        return " [" + this.type() + "][" + this.getStatusIcon() + "] "
+                + this.getDescription() + " (by: " + this.by + ")";
     }
 
     /**
@@ -65,7 +65,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toFileString() {
-        return this.type()+" | "+this.getFileIcon()+" | "+ this.getDescription()+" | "+this.by;
+        return this.type() + " | " + this.getFileIcon() + " | " + this.getDescription() + " | " + this.by;
     }
 
 }

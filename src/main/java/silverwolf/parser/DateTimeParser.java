@@ -1,11 +1,12 @@
 package silverwolf.parser;
 
-import silverwolf.exception.SilverWolfException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 import java.util.List;
+
+import silverwolf.exception.SilverWolfException;
 
 /**
  * The DateTimeParser class provides utilities for parsing date/time strings into LocalDateTime objects
@@ -13,7 +14,7 @@ import java.util.List;
  * different input styles.
  */
 public class DateTimeParser {
-    private static java.util.Arrays Arrays;
+
     // List of possible date formats
     private static final List<DateTimeFormatter> formatters = Arrays.asList(
             DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
@@ -64,5 +65,4 @@ public class DateTimeParser {
     public String formatDateTime(LocalDateTime dateTime) {
         return dateTime.format(dateTimeOutputFormatter);
     }
-    
 }

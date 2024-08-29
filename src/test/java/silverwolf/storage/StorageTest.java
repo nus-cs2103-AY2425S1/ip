@@ -1,17 +1,20 @@
 package silverwolf.storage;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
-import silverwolf.exception.SilverWolfException;
-import silverwolf.task.Task;
-import silverwolf.task.Todo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import silverwolf.exception.SilverWolfException;
+import silverwolf.task.Task;
+import silverwolf.task.Todo;
 
 /**
  * Tests for the Storage class to verify reading and writing of data to and from file.
@@ -76,7 +79,8 @@ class StorageTest {
         // Verify that the saved tasks are the same as the loaded tasks
         assertEquals(tasksToSave.size(), loadedTasks.size(), "The number of tasks should be the same");
         for (int i = 0; i < tasksToSave.size(); i++) {
-            assertEquals(tasksToSave.get(i).toFileString(), loadedTasks.get(i).toFileString(), "Tasks should be the same");
+            assertEquals(tasksToSave.get(i).toFileString(),
+                    loadedTasks.get(i).toFileString(), "Tasks should be the same");
         }
     }
 
