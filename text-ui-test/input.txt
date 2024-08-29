@@ -1,17 +1,17 @@
 todo Borrow book
 todo Read Book
 todo
-deadline Return book /by Sunday
+deadline Return book /by 2024-07-12
 deadline return book /by
 deadline /by Sunday
 deadline /by
 deadline
-event project meeting /from Mon 2pm /to 4pm
-event project meeting /from Mon 2pm /to
-event project meeting /from  /to 4pm
-event project meeting /from /to 4pm
-event  /from Mon 2pm /to 4pm
-event /from Mon 2pm /to 4pm
+event project meeting /from 2024-07-12 /to 2024-07-13
+event project meeting /from 2024-07-12 /to
+event project meeting /from  /to 2024-07-12
+event project meeting /from /to 2024-07-12
+event  /from 2024-07-12 /to 2024-07-12
+event /from 2024-07-12 /to 2024-07-12
 event  /from  /to
 event /from  /to
 list

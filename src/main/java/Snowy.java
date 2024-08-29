@@ -1,9 +1,9 @@
-import java.io.FileNotFoundException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileWriter;
+import java.time.LocalDate;
 
 public class Snowy {
 
@@ -79,7 +79,6 @@ public class Snowy {
             }
 
         } catch (IOException e) {
-            System.out.println("Error: data file cannot be created");
         }
 
     }
@@ -108,7 +107,7 @@ public class Snowy {
             System.out.println("Error: Please include name, /by and deadline separated by space.");
             return;
         }
-        String deadlineName = description.substring(0, byIndex);
+        String deadlineName = description.substring(0, byIndex).trim();
         String date = description.substring(byIndex + 4);
 
         if (deadlineName.isEmpty()) {
@@ -143,7 +142,7 @@ public class Snowy {
         }
 
         String eventName = description.substring(0, fromIndex);
-        String fromDate = description.substring(fromIndex + 6, toIndex);
+        String fromDate = description.substring(fromIndex + 6, toIndex).trim();
         String toDate = description.substring(toIndex + 4);
         if (eventName.isEmpty()) {
             System.out.println("Error: eventName of deadlines cannot be empty.\n"
@@ -173,7 +172,6 @@ public class Snowy {
             }
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("Error trying to update the file");
         }
 
     }
@@ -264,12 +262,12 @@ public class Snowy {
                     System.out.println("Command not recognized. Please try again");
                     break;
             }
-            updateFile();
+
             System.out.print(LINE);
 
         }
 
-
+        updateFile();
         System.out.print(ENDING);
     }
 }
