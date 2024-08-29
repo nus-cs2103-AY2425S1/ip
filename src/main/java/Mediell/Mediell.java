@@ -13,9 +13,13 @@ public class Mediell {
         TaskList items = storage.loadData();
         Ui ui = new Ui(items);
         ui.printGreeting();
-        do {
+        while (true) {
             message = scanner.nextLine();
-        } while (ui.main(message));
+            if (!ui.main(message)) {
+                break;
+            }
+            storage.saveData(ui.getTasks());
+        }
         ui.printFarewell();
     }
 }
