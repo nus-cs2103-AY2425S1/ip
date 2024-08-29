@@ -1,7 +1,0 @@
-T | X | read book
-D | O | return book | Dec 2 2019 1800
-E | O | project meeting | Aug 6 2020 1400-1600
-T | X | join sports club
-D | O | CS2103 | Aug 30 2024 1800
-E | O | work | Aug 6 2024 1500-1800
-E | O | work | Aug 6 2024 1500-1800

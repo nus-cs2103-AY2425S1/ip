@@ -15,6 +15,8 @@ public class Ui {
     static String NUM_TASK_MSG_2 = " tasks in the list.\n";
     private final Scanner in;
     private final PrintStream out;
+    private static ByteArrayOutputStream capturedOutput;
+    private static PrintStream originalOut;
 
     public Ui() {
         this(System.in, System.out);
@@ -29,6 +31,11 @@ public class Ui {
         System.out.println(GREETING_MSG);
         printFileContents();
     }
+
+    public PrintStream getOut() {
+        return this.out;
+    }
+
 
     public String getUserCommand() {
         out.print(HORIZONTAL_LINE + "What do you want to do: \n");
@@ -79,5 +86,4 @@ public class Ui {
         System.out.println("MMM dd yyyy HHmm");
         System.out.println("MMM d yyyy HHmm");
     }
-
 }

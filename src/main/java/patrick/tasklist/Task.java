@@ -21,8 +21,12 @@ public class Task extends TaskList {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     @Override
     public String toString() {
-        return  getStatusIcon() + " |" + this.description;
+        return  getStatusIcon() + " | " + this.description;
     }
 }

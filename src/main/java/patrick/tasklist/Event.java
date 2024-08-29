@@ -27,7 +27,7 @@ public class Event extends Task {
     }
 
     public static void eventTask(String input) throws Parser.PatrickException {
-        String newInput = input.replace("event", "");
+        String newInput = input.replace("event ", "");
         Task task;
         if (newInput.isEmpty()) {
             throw new Parser.PatrickException("Event Task Details cannot be empty!!");

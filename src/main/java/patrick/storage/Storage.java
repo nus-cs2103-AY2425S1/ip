@@ -1,6 +1,7 @@
 package patrick.storage;
 
 import patrick.tasklist.*;
+import patrick.ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,10 +14,14 @@ public class Storage {
     static ArrayList<Task> list = new ArrayList<>();
     static String filePath;
 
-    public Storage(String filePath) {
-        Storage.filePath = filePath;
+    public Storage(String filePath) throws NullPointerException {
+        if (filePath != null) {
+            Storage.filePath = filePath;
+        } else {
+            throw new NullPointerException("FilePath cannot be null");
+        }
     }
-    public ArrayList<Task> load() {
+    public ArrayList<Task> load() throws StorageOperationException {
         try {
             readTasks(filePath);
         } catch (FileNotFoundException e) {
@@ -24,9 +29,10 @@ public class Storage {
             try {
                 newFile.createNewFile();
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                throw new StorageOperationException(ex.getMessage());
             }
-            System.out.println("File created!");
+        } catch (IllegalValueException e) {
+            throw new StorageOperationException(e.getMessage());
         }
         return list;
     }
@@ -43,32 +49,32 @@ public class Storage {
         list.remove(index - 1);
     }
 
-    private static void readTasks(String filePath) throws FileNotFoundException {
+    private static void readTasks(String filePath) throws FileNotFoundException, IllegalValueException {
         File file = new File(filePath);
         Scanner s = new Scanner(file);
         Task currTask;
         while (s.hasNext()) {
             String taskString = s.nextLine();
-            if (taskString.startsWith("T")) {
-                String taskDescription = taskString.substring(7);
+            if (taskString.startsWith("T ")) {
+                String taskDescription = taskString.substring(8);
                 currTask = new ToDo(taskDescription);
                 list.add(currTask);
                 if (taskString.substring(4).startsWith("X")) {
                     currTask.markAsDone();
                 }
-            } else if (taskString.startsWith("D")) {
-                String taskDescription = taskString.substring(7);
+            } else if (taskString.startsWith("D ")) {
+                String taskDescription = taskString.substring(8);
                 taskDescription = taskDescription.substring(0, taskDescription.indexOf("|") - 1);
-                String deadline = taskString.substring(7).replace(taskDescription, "").replace(" | ", "");
+                String deadline = taskString.substring(8).replace(taskDescription, "").replace(" | ", "");
                 currTask = new Deadline(taskDescription, deadline);
                 list.add(currTask);
                 if (taskString.substring(4).startsWith("X")) {
                     currTask.markAsDone();
                 }
-            } else if (taskString.startsWith("E")) {
-                String taskDescription = taskString.substring(7);
+            } else if (taskString.startsWith("E ")) {
+                String taskDescription = taskString.substring(8);
                 taskDescription = taskDescription.substring(0, taskDescription.indexOf("|") - 1);
-                String tempFrom = taskString.substring(7).replace(taskDescription + " ", "").substring(2);
+                String tempFrom = taskString.substring(8).replace(taskDescription + " ", "").substring(2);
                 String to = tempFrom.substring(tempFrom.indexOf("-") + 1);
                 String from = tempFrom.replace("-" + to, "");
                 currTask = new Event(taskDescription, from, to);
@@ -76,6 +82,8 @@ public class Storage {
                 if (taskString.substring(4).startsWith("X")) {
                     currTask.markAsDone();
                 }
+            } else {
+                throw new IllegalValueException("Invalid File");
             }
         }
     }
@@ -98,5 +106,20 @@ public class Storage {
             }
         }
         fileWriter.close();
+    }
+
+    public static class StorageOperationException extends Exception {
+        public StorageOperationException(String message) {
+            super(message);
+        }
+    }
+
+    public static class IllegalValueException extends Exception {
+        /**
+         * @param message should contain relevant information on the failed constraint(s)
+         */
+        public IllegalValueException(String message) {
+            super(message);
+        }
     }
 }
