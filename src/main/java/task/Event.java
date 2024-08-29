@@ -29,4 +29,14 @@ public class Event extends Task{
                 Parser.parseDateTimeToString(this.from),
                 Parser.parseDateTimeToString(this.to));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Event event)) {
+            return false;
+        }
+        return super.equals(event) &&
+                this.to.equals(event.to) &&
+                this.from.equals(event.from);
+    }
 }

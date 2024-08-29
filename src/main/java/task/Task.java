@@ -25,7 +25,17 @@ public abstract class Task {
     @Override
     public String toString() {
         return String.format("[%c] %s",
-                this.status ? 'X' : ' ',
+                this.status
+                        ? 'X'
+                        : ' ',
                 this.name);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Task task)) {
+            return false;
+        }
+        return this.name.equals(task.name);
     }
 }

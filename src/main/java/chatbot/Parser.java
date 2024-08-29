@@ -5,6 +5,7 @@ import task.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,8 +34,9 @@ public class Parser {
      *
      * @param dateTime string representation of date time
      * @return LocalDateTime object for Task objects
+     * @throws DateTimeParseException for incorrectly formatted input string
      */
-    public static LocalDateTime parseStringToDateTime(String dateTime) {
+    public static LocalDateTime parseStringToDateTime(String dateTime) throws DateTimeParseException {
         final DateTimeFormatter formatter = builder.toFormatter().withResolverStyle(ResolverStyle.LENIENT);
         return LocalDateTime.parse(dateTime, formatter);
     }
@@ -45,7 +47,7 @@ public class Parser {
      * @param dateTime LocalDateTime object from Task objects
      * @return readable date time string for user
      */
-    public static String parseDateTimeToString(LocalDateTime dateTime) {
+    public static String parseDateTimeToString(LocalDateTime dateTime){
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
         return dateTime.format(formatter);
     }
@@ -103,6 +105,7 @@ public class Parser {
                     }
                 }
             }
+
             System.out.println("this line is in an invalid format");
         }
         sc.close();

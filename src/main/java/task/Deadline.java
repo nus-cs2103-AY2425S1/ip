@@ -25,4 +25,12 @@ public class Deadline extends Task{
                 super.toString(),
                 Parser.parseDateTimeToString(this.deadline));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Deadline deadline)) {
+            return false;
+        }
+        return super.equals(deadline) && this.deadline.equals(deadline.deadline);
+    }
 }
