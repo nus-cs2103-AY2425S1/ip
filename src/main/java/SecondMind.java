@@ -47,7 +47,7 @@ public class SecondMind {
         return ldt;
     }
 
-    private static String convertLocatDateTime(LocalDateTime ldt) {
+    private static String convertLocalDateTime(LocalDateTime ldt) {
         DateTimeFormatter formatter 
                 = DateTimeFormatter.ofPattern(
                         "yyyy-MM-dd HH:mm:ss a");
