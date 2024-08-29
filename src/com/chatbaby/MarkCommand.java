@@ -1,3 +1,5 @@
+package com.chatbaby;
+
 public class MarkCommand extends Command {
     public MarkCommand(String commandBody) {
         super(commandBody);

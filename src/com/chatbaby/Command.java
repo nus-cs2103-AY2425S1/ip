@@ -1,3 +1,5 @@
+package com.chatbaby;
+
 public abstract class Command {
     String commandBody;
 

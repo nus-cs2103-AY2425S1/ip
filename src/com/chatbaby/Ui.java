@@ -1,3 +1,5 @@
+package com.chatbaby;
+
 import java.util.Scanner;
 
 public class Ui {
