@@ -7,7 +7,6 @@ import features.task.TodoTask;
 import features.task.Task;
 import utils.Utils;
 import config.Config;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -15,33 +14,33 @@ import java.util.stream.Collectors;
  * Handles user commands related to task management.
  */
 public class CommandHandler {
-    private TaskManagement tm;
+	private TaskManagement tm;
 
 	/**
 	 * Constructs a CommandHandler with the specified TaskManagement instance.
 	 *
 	 * @param tm the TaskManagement instance used to manage tasks
 	 */
-    public CommandHandler(TaskManagement tm) {
-        this.tm = tm;
-    }
+	public CommandHandler(TaskManagement tm) {
+		this.tm = tm;
+	}
 
 	/**
 	 * Processes the given command and executes the appropriate action.
 	 *
 	 * @param cmd the command to be processed
 	 */
-    public void handleCommand(Command cmd) {
+	public void handleCommand(Command cmd) {
 		String command = cmd.getName();
-        try {
+		try {
 			if (command.equals(CommandType.LIST.getType())) {
 				handleList();
 			} else if (command.startsWith(CommandType.MARK.getType())
 					|| command.startsWith(CommandType.UNMARK.getType())) {
 				handleMark(command);
 			} else if (command.startsWith(CommandType.TODO.getType()) ||
-						command.startsWith(CommandType.DEADLINE.getType()) ||
-						command.startsWith(CommandType.EVENT.getType())) {
+					command.startsWith(CommandType.DEADLINE.getType()) ||
+					command.startsWith(CommandType.EVENT.getType())) {
 				handleAddTask(command);
 			} else if (command.startsWith(CommandType.DELETE.getType())) {
 				handleDeleteTask(command);
@@ -51,17 +50,17 @@ public class CommandHandler {
 		} catch (Exception ex) {
 			Utils.printItem(ex.getMessage());
 		}
-    }
+	}
 
 	/**
 	 * Handles the 'list' command by printing all tasks.
 	 */
-    private void handleList() {
-        StringBuilder s = new StringBuilder();
-        s.append("Here are the tasks in your list:");
-        s.append("\n" + tm.getPrintTasks());
-        Utils.printItem(s.toString());
-    }
+	private void handleList() {
+		StringBuilder s = new StringBuilder();
+		s.append("Here are the tasks in your list:");
+		s.append("\n" + tm.getPrintTasks());
+		Utils.printItem(s.toString());
+	}
 
 	/**
 	 * Handles the 'mark' or 'unmark' command by marking or unmarking a task.
@@ -69,25 +68,25 @@ public class CommandHandler {
 	 * @param command the command string containing the action and task ID
 	 * @throws Exception if the command is invalid or the task ID is not found
 	 */
-    private void handleMark(String command) throws Exception {
-        String[] parts = command.split(" ");
-        if (parts.length != 2) {
+	private void handleMark(String command) throws Exception {
+		String[] parts = command.split(" ");
+		if (parts.length != 2) {
 			throw new Exception("Invalid command. Usage: mark/unmark <id>");
-        }
+		}
 
-        String action = parts[0];
-        int id = Integer.parseInt(parts[1]);
-        tm.handleItem(action, id);
+		String action = parts[0];
+		int id = Integer.parseInt(parts[1]);
+		tm.handleItem(action, id);
 
-        StringBuilder res = new StringBuilder();
-        if (action.equals("mark")) {
-            res.append("Nice! I've marked this task as done:");
-        } else if (action.equals("unmark")) {
-            res.append("OK, I've marked this task as not done yet:");
-        }
-        tm.findTaskById(id).ifPresent(t -> res.append("\n" + Config.INDENTATION + "  " + t.toString()));
-        Utils.printItem(res.toString());
-    }
+		StringBuilder res = new StringBuilder();
+		if (action.equals("mark")) {
+			res.append("Nice! I've marked this task as done:");
+		} else if (action.equals("unmark")) {
+			res.append("OK, I've marked this task as not done yet:");
+		}
+		tm.findTaskById(id).ifPresent(t -> res.append("\n" + Config.INDENTATION + "  " + t.toString()));
+		Utils.printItem(res.toString());
+	}
 
 	/**
 	 * Handles the 'delete' command by removing a task.
@@ -112,7 +111,7 @@ public class CommandHandler {
 	 * @param task the command string containing the task details
 	 * @throws Exception if the command is invalid or the task details are incomplete
 	 */
-    private void handleAddTask(String task) throws Exception {
+	private void handleAddTask(String task) throws Exception {
 		String[] parts = task.split(" ");
 		String type = parts[0];
 
@@ -120,8 +119,8 @@ public class CommandHandler {
 
 		if (type.equals("todo")) {
 			String taskDescription = Arrays.stream(parts)
-										.skip(1)
-										.collect(Collectors.joining(" "));
+					.skip(1)
+					.collect(Collectors.joining(" "));
 			if (taskDescription.equals("")) {
 				throw new Exception("Invalid command. Usage: todo <description>.");
 			}
@@ -131,13 +130,13 @@ public class CommandHandler {
 			int index = Arrays.asList(parts).indexOf("/by");
 
 			String taskDescription = Arrays.stream(parts)
-											.skip(1)
-											.limit(index - 1)
-											.collect(Collectors.joining(" "));
+					.skip(1)
+					.limit(index - 1)
+					.collect(Collectors.joining(" "));
 
 			String deadline = Arrays.stream(parts)
-									.skip(index + 1)
-									.collect(Collectors.joining(" "));
+					.skip(index + 1)
+					.collect(Collectors.joining(" "));
 
 			if (taskDescription.equals("") || deadline.equals("")) {
 				throw new Exception("Invalid command. Usage: deadline <description> /by <deadline>.");
@@ -149,18 +148,18 @@ public class CommandHandler {
 			int indexTo = Arrays.asList(parts).indexOf("/to");
 
 			String taskDescription = Arrays.stream(parts)
-											.skip(1)
-											.limit(indexFrom - 1)
-											.collect(Collectors.joining(" "));
+					.skip(1)
+					.limit(indexFrom - 1)
+					.collect(Collectors.joining(" "));
 
 			String from = Arrays.stream(parts)
-								.skip(indexFrom + 1)
-								.limit(indexTo - indexFrom - 1)
-								.collect(Collectors.joining(" "));
+					.skip(indexFrom + 1)
+					.limit(indexTo - indexFrom - 1)
+					.collect(Collectors.joining(" "));
 
 			String to = Arrays.stream(parts)
-								.skip(indexTo + 1)
-								.collect(Collectors.joining(" "));
+					.skip(indexTo + 1)
+					.collect(Collectors.joining(" "));
 
 			if (taskDescription.equals("") || from.equals("") || to.equals("")) {
 				throw new Exception("Invalid command. Usage: event <description> /from <start> /to <end>.");
@@ -172,8 +171,8 @@ public class CommandHandler {
 		}
 
 		tm.add(t);
-	    printAfterEditList("Got it. I've added the following task:", t);
-    }
+		printAfterEditList("Got it. I've added the following task:", t);
+	}
 
 	/**
 	 * Prints a message after a task is added or removed, and shows the updated list of tasks.
@@ -183,12 +182,12 @@ public class CommandHandler {
 	 */
 	private void printAfterEditList(String message, Task t) {
 		StringBuilder res = new StringBuilder();
-        res.append(message);
+		res.append(message);
 		res.append("\n  " + Config.INDENTATION + t.toString());
 		String taskString = tm.length == 1 ? "task" : "tasks";
 		res.append("\n" + Config.INDENTATION + "Now you have " + tm.length + " " + taskString + " in the list.");
 
-        Utils.printItem(res.toString());
+		Utils.printItem(res.toString());
 	}
 }
 
