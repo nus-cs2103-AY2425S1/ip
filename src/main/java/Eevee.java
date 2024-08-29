@@ -42,19 +42,57 @@ public class Eevee {
         }
     }
 
+    private static void loadTasks(String filePath, ArrayList<Task> tasks) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner scanner = new Scanner(f);
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            String[] taskData = line.split("\\|");
+
+            String type = taskData[0];
+            boolean isDone = taskData[1].equals("1");
+            String description = taskData[2];
+
+            switch (type) {
+            case "T":
+                Todo t = new Todo(description);
+                tasks.add(t);
+                break;
+
+            case "D":
+                String deadline = taskData[3];
+                Deadline d = new Deadline(description, deadline);
+                tasks.add(d);
+                break;
+
+            case "E":
+                String from = taskData[3];
+                String to = taskData[4];
+                Event e = new Event(description, from, to);
+                tasks.add(e);
+                break;
+
+            default:
+                System.out.println("Invalid task found!");
+                break;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         ArrayList<Task> tasks = new ArrayList<>();
         String divider = "____________________________________________________________\n";
         String greeting = "Hello! I'm Eevee\nWhat can I do for you?\n";
         String exit = "Bye. Hope to see you again soon!\n";
 
+        try {
+            loadTasks(FILE_PATH, tasks);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+        }
+
         System.out.print(divider + greeting + divider);
-//        try {
-//            printFileContents(FILE_PATH);
-//            System.out.print(divider);
-//        } catch (FileNotFoundException e) {
-//            System.out.println("File not found!");
-//        }
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -65,30 +103,6 @@ public class Eevee {
                 Command command = Command.enumerate(input);
                 switch (command) {
                 case BYE:
-                    // Save tasks to hard disk before exiting
-                    try {
-                        for (Task task : tasks) {
-                            String type;
-                            // Check the type of task
-                            if (task instanceof Todo) {
-                                type = "T";
-                                appendToFile(FILE_PATH, type + "|" + task.getStatus() + "|"
-                                        + task.getDescription() + "\n");
-                            } else if (task instanceof Deadline) {
-                                type = "D";
-                                appendToFile(FILE_PATH, type + "|" + task.getStatus() + "|"
-                                        + task.getDescription() + "|" + ((Deadline) task).getDeadline() + "\n");
-                            } else if (task instanceof Event) {
-                                type = "E";
-                                appendToFile(FILE_PATH, type + "|" + task.getStatus() + "|"
-                                        + task.getDescription() + "|" + ((Event) task).getTimeline() + "\n");
-                            } else {
-                                throw new EeveeException("There is a task of unknown type!");
-                            }
-                        }
-                    } catch (IOException e) {
-                        System.out.println("Unable to store tasks!");
-                    }
                     System.out.println(exit);
                     return;
                 case LIST:
@@ -148,6 +162,12 @@ public class Eevee {
                     }
                     Todo t = new Todo(s);
                     tasks.add(t);
+                    try {
+                        appendToFile(FILE_PATH, "T" + "|" + t.getStatus() + "|"
+                                + t.getDescription() + "\n");
+                    } catch (IOException e) {
+                        throw new EeveeException("Unable to store task!");
+                    }
                     System.out.println("Added the following task to your list:\n" + t);
                     break;
                 }
@@ -164,6 +184,12 @@ public class Eevee {
                     }
                     Deadline d = new Deadline(info[0], info[1]);
                     tasks.add(d);
+                    try {
+                        appendToFile(FILE_PATH, "D" + "|" + d.getStatus() + "|"
+                                + d.getDescription() + "|" + ((Deadline) d).getDeadline() + "\n");
+                    } catch (IOException e) {
+                        throw new EeveeException("Unable to store task!");
+                    }
                     System.out.println("Added the following task to your list:\n" + d);
                     break;
                 }
@@ -181,6 +207,12 @@ public class Eevee {
                     }
                     Event e = new Event(info[0], info[1], info[2]);
                     tasks.add(e);
+                    try {
+                        appendToFile(FILE_PATH, "E" + "|" + e.getStatus() + "|"
+                                + e.getDescription() + "|" + ((Event) e).getFrom() + "|" + ((Event) e).getTo() + "\n");
+                    } catch (IOException exception) {
+                        throw new EeveeException("Unable to store task!");
+                    }
                     System.out.println("Added the following task to your list:\n" + e);
                     break;
                 }
