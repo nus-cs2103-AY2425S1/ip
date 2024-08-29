@@ -1,20 +1,24 @@
-package Nah;
+package nah;
 
-import Nah.Command.*;
-import Nah.Exceptions.*;
-import Nah.Storage.Storage;
-import Nah.TaskList.TaskList;
-import Nah.UI.UI;
-import Nah.Parser.Parser;
-
+import nah.command.Command;
+import nah.exceptions.NahException;
+import nah.storage.Storage;
+import nah.tasklist.TaskList;
+import nah.ui.UI;
+import nah.parser.Parser;
 import java.nio.file.Paths;
 
 public class Nah {
+    private static final String hardDisk
+            = Paths.get("D:", "cs2103T_week_2", "Data", "Nah.Nah.txt").toString();
     private Storage storage;
     private UI ui;
     private TaskList tasks;
 
-    private static final String hardDisk = Paths.get("D:","cs2103T_week_2", "Data", "Nah.Nah.txt").toString();
+    /**
+     * Build Nah chatbot based on a file of tasks
+     * @param filePath
+     */
     public Nah(String filePath) {
         ui = new UI();
         storage = new Storage(filePath);
@@ -27,6 +31,10 @@ public class Nah {
         }
 
     }
+
+    /**
+     * Run the program
+     */
     public void run() {
         ui.greet();
         boolean isExit = false;
@@ -45,6 +53,10 @@ public class Nah {
         }
     }
 
+    /**
+     * main method
+     * @param args
+     */
     public static void main(String[] args) {
 
 

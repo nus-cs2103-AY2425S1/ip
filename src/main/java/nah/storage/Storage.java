@@ -1,4 +1,4 @@
-package Nah.Storage;
+package nah.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,8 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Scanner;
-import Nah.Data.Task;
-import Nah.Exceptions.*;
+import nah.data.Task;
+import nah.exceptions.NahException;
 
 public class Storage {
     private String filePath;
@@ -15,7 +15,13 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    private static void writeToFile(String filePath, String textToAdd) throws NahException{
+    /**
+     * Write to a file
+     * @param filePath
+     * @param textToAdd
+     * @throws NahException
+     */
+    private static void writeToFile(String filePath, String textToAdd) throws NahException {
         try {
             FileWriter fw = new FileWriter(filePath);
             fw.write(textToAdd);
@@ -29,17 +35,16 @@ public class Storage {
     /**
      * Return a Link list of tasks extracted from the file at filePath
      * @return
-     * @throws FileNotFoundException
-     * @throws InvalidFileValueException
+     * @throws NahException
      */
-    public LinkedList<Task> load() throws NahException{
+    public LinkedList<Task> load() throws NahException {
         LinkedList<Task> t = new LinkedList<Task>();
         File f;
         Scanner s;
         try {
             f = new File(filePath);
             s = new Scanner(f   );
-        } catch (FileNotFoundException | NullPointerException e){
+        } catch (FileNotFoundException | NullPointerException e) {
             throw new NahException(" Nahh!!! Something is wrong with the filePath");
         }
 

@@ -1,15 +1,14 @@
-package Nah.TaskList;
+package nah.tasklist;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 
-import Nah.Data.Deadlines;
-import Nah.Data.Events;
-import Nah.Exceptions.InvalidTaskNumberException;
-import Nah.Data.Task;
+import nah.data.Task;
+import nah.exceptions.NahException;
+
 public class TaskList {
-    LinkedList<Task> tasks;
-    int taskCount = 0;
+    private LinkedList<Task> tasks;
+    private int taskCount = 0;
 
     public TaskList(LinkedList<Task> tasks) {
         this.tasks = tasks;
@@ -32,7 +31,7 @@ public class TaskList {
      */
     public String add(Task newTask) {
         tasks.add(newTask);
-        taskCount ++;
+        taskCount++;
         return " Got it. I've added this task:\n"
                 + "   " + newTask.toString() + "\n"
                 + " Now you have " + taskCount + " tasks in the list.\n";
@@ -42,14 +41,14 @@ public class TaskList {
      * Mark task i as done
      * @param i
      * @return
-     * @throws InvalidTaskNumberException
+     * @throws NahException.InvalidTaskNumberException
      */
-    public String mark(int i) throws InvalidTaskNumberException {
+    public String mark(int i) throws NahException.InvalidTaskNumberException {
         if (taskCount == 0) {
-            throw new InvalidTaskNumberException();
+            throw new NahException.InvalidTaskNumberException();
         }
         if (i <= 0 || i > taskCount) {
-            throw new InvalidTaskNumberException(i, taskCount);
+            throw new NahException.InvalidTaskNumberException(i, taskCount);
         }
         tasks.get(i - 1).mark();
         return " Nice! I've marked this task as done:\n"
@@ -61,14 +60,14 @@ public class TaskList {
      * Unmark the task i
      * @param i
      * @return
-     * @throws InvalidTaskNumberException
+     * @throws NahException.InvalidTaskNumberException
      */
-    public String unMark(int i) throws InvalidTaskNumberException {
+    public String unMark(int i) throws NahException.InvalidTaskNumberException {
         if (taskCount == 0) {
-            throw new InvalidTaskNumberException();
+            throw new NahException.InvalidTaskNumberException();
         }
         if (i <= 0 || i > taskCount) {
-            throw new InvalidTaskNumberException(i, taskCount);
+            throw new NahException.InvalidTaskNumberException(i, taskCount);
         }
         tasks.get(i - 1).unMark();
         return " OK, I've marked this task as not done yet:\n"
@@ -80,16 +79,16 @@ public class TaskList {
      * Delete task i
      * @param i
      * @return
-     * @throws InvalidTaskNumberException
+     * @throws NahException.InvalidTaskNumberException
      */
-    public String delete(int i) throws InvalidTaskNumberException {
+    public String delete(int i) throws NahException.InvalidTaskNumberException {
         if (taskCount == 0) {
-            throw new InvalidTaskNumberException();
+            throw new NahException.InvalidTaskNumberException();
         }
         if (i <= 0 || i >= taskCount) {
-            throw new InvalidTaskNumberException(i, taskCount);
+            throw new NahException.InvalidTaskNumberException(i, taskCount);
         }
-        taskCount --;
+        taskCount--;
         String s = " Noted. I've removed this task:\n"
                 + "   " + tasks.get(i - 1).toString() + "\n"
                 + " Now you have " + taskCount + " tasks in the list.\n";
@@ -103,7 +102,7 @@ public class TaskList {
      */
     public String readTask() {
         String s = " Here are the tasks in your list:\n";
-        for (int i = 1; i <= taskCount; i ++) {
+        for (int i = 1; i <= taskCount; i++) {
             s += " " + i + ". " + tasks.get(i - 1).toString() + "\n";
         }
         return s;
@@ -119,7 +118,7 @@ public class TaskList {
         String s = " Here are the tasks in your list that ends before the due:\n";
         int i = 1;
         for (Task t : tasks) {
-            if (t instanceof Deadlines || t instanceof Events) {
+            if (t instanceof Task.Deadlines || t instanceof Task.Events) {
                 if (t.endTime().isBefore(due)) {
                     s += " " + i + ". " + t.toString() + "\n";
                 }
@@ -128,9 +127,13 @@ public class TaskList {
         return s;
     }
 
+    /**
+     * A brief description of task list to store in a txt file
+     * @return
+     */
     public String brief() {
         String s = "";
-        for (int i = 1; i <= taskCount; i ++) {
+        for (int i = 1; i <= taskCount; i++) {
             s += " " + i + ". " + tasks.get(i - 1).brief() + "\n";
         }
         return s;

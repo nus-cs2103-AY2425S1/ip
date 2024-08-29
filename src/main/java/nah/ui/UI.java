@@ -1,4 +1,4 @@
-package Nah.UI;
+package nah.ui;
 
 import java.util.Scanner;
 
@@ -13,10 +13,12 @@ public class UI {
             + " Hello! I'm NAH\n"
             + " What can I do for you?\n"
             + "________________________________________________________________________________\n";
-    private static final String line = "________________________________________________________________________________\n";
+    private static final String line =
+            "________________________________________________________________________________\n";
     private static final String byeLine = " Bye. Hope to see you again soon!\n";
 
-    private static final String unknown = " Nahhhhh!!! Please give me a valid command, such as list, mark, todo,...\n";
+    private static final String unknown =
+            " Nahhhhh!!! Please give me a valid command, such as list, mark, todo,...\n";
 
     private Scanner scanner = new Scanner(System.in);
     /**
@@ -37,6 +39,9 @@ public class UI {
         return "";
     }
 
+    /**
+     * Print out a line
+     */
     public void showLine() {
         System.out.println(line);
     }
@@ -58,6 +63,10 @@ public class UI {
         System.out.println(s);
 
     }
+
+    /**
+     * Print out the unknown line
+     */
     public void unknownLine() {
 
         System.out.println(unknown);
