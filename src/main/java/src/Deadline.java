@@ -12,7 +12,7 @@ public class Deadline extends Task {
     @Override
     public String toPrettierString() {
 
-        return "D" + super.toPrettierString();
+        return "D" + super.toPrettierString() + "/by: " + by;
     }
 
 

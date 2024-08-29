@@ -7,7 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-
+import java.io.BufferedWriter;
+import java.util.Objects;
 
 public class Storage {
 
@@ -39,40 +40,50 @@ public class Storage {
             try {
                 String content = new String(Files.readAllBytes(Paths.get(filePath)));
                 String[] parts = content.split("\n");
-                for (int i = 0; i < parts.length - 1; i++) {
-                    String stringifiedTask = parts[i];
 
-                    boolean isDone = stringifiedTask.charAt(4) == '1';
-                    String description = stringifiedTask.substring(8);
-                    Task taskToAdd = null;
+                if (!content.isBlank()) {
+                    for (String stringifiedTask : parts) {
+                        boolean isDone = stringifiedTask.charAt(4) == '1';
+                        Task taskToAdd = getTask(stringifiedTask, isDone);
 
-                    switch (stringifiedTask.charAt(0)){
-                        case 'T': {
-                           taskToAdd = new ToDo(description);
-                        }
-                        case 'D': {
-                            String[] segments = description.split("/");
-                            taskToAdd = new Deadline(segments[0], segments[1].substring(4));
-                        }
-                        case 'E': {
-                            String[] segments = description.split("/");
-                            taskToAdd = new Event(segments[0], segments[1].substring(6), segments[2].substring(4));
-                        }
+                        tasks.add(taskToAdd);
                     }
-
-                    if (isDone) {
-                        taskToAdd.setStatusIcon(true);
-                    } else {
-                        taskToAdd.setStatusIcon(false);
-                    }
-
-                    tasks.add(taskToAdd);
                 }
+
             } catch (IOException e) {
                 System.out.println("An error occurred while reading the file.");
                 e.printStackTrace();
             }
         }
+    }
+
+    private static Task getTask(String stringifiedTask, boolean isDone) {
+        String description = stringifiedTask.substring(8);
+        Task taskToAdd = null;
+
+        switch (stringifiedTask.charAt(0)) {
+            case 'T': {
+                taskToAdd = new ToDo(description);
+                break;
+            }
+            case 'D': {
+                String[] segments = description.split("/");
+                taskToAdd = new Deadline(segments[0], segments[1].substring(4));
+                break;
+            }
+            case 'E': {
+                String[] segments = description.split("/");
+                taskToAdd = new Event(segments[0], segments[1].substring(6), segments[2].substring(4));
+                break;
+            }
+        }
+
+        if (isDone) {
+            taskToAdd.setStatusIcon(true);
+        } else {
+            taskToAdd.setStatusIcon(false);
+        }
+        return taskToAdd;
     }
 
     public void writeTasks() {
@@ -83,8 +94,10 @@ public class Storage {
                 throw new FileNotFoundException();
             } else {
                 try {
-                    FileWriter writer = new FileWriter(filePath);
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+
                     String formattedString = "";
+
 
                     for (Task task : tasks) {
                         formattedString += task.toPrettierString();
@@ -92,6 +105,8 @@ public class Storage {
                     }
 
                     writer.write(formattedString);
+                    writer.flush();
+
 
                 } catch (IOException e) {
                     System.out.println("An error occurred while saving the file.");

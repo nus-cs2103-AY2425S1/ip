@@ -14,7 +14,7 @@ public class Event extends Task {
     @Override
     public String toPrettierString() {
 
-        return "E" + super.toPrettierString();
+        return "E" + super.toPrettierString() + "/from: " + from + "/to: " + this.to ;
     }
 
 

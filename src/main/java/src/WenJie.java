@@ -16,7 +16,7 @@ public class WenJie {
 
             String greeting =
                     "____________________________________________________________\n" +
-                            "Eh wasusp la bro, my name is Wen Jie.\n" +
+                            "Eh wassup la bro, my name is Wen Jie.\n" +
                             "What you want?\n" +
                             "____________________________________________________________\n";
 
