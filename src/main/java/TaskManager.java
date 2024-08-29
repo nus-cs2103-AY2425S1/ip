@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TaskManager {
 
-    private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FILE_PATH = "./data/broski.txt";
 
     public void saveTasks(List<Task> tasks) {
         try {
