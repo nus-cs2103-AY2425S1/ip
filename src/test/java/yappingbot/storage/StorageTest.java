@@ -6,7 +6,6 @@ import yappingbot.tasks.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Collection;
 import java.util.Scanner;
 
 class StorageTest {
@@ -29,7 +28,7 @@ class StorageTest {
     }
 
     @Test
-    void testSaveListFromFile() throws FileNotFoundException {
+    void testSaveListToFile() throws FileNotFoundException {
         String savefile_path = "src/test/resources/savefile_test";
         Storage s = new Storage(savefile_path);
         TaskList t = new TaskList();
