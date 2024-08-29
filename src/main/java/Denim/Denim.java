@@ -7,6 +7,10 @@ import Denim.Storage.TaskIO;
 
 import java.util.Scanner;
 
+/**
+ * The main class for the Denim application.
+ * This class initializes the necessary components, starts the application, and runs the command loop until the exit command is received.
+ */
 public class Denim {
     static final String filePath = "data/denim.txt";
     private Ui ui;
@@ -14,6 +18,11 @@ public class Denim {
 
     private TaskList taskList;
 
+    /**
+     * The main method that serves as the entry point of the Denim application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         Denim denim = new Denim();
         denim.start();
@@ -36,6 +45,9 @@ public class Denim {
         ui.displayGreetingMessage();
     }
 
+    /**
+     * Runs the command loop, repeatedly reading user input, executing commands, and displaying results until the exit command is given.
+     */
     private void runCommandLoopUntilExitCommand() {
         Command command;
         do {
@@ -46,13 +58,12 @@ public class Denim {
         } while (!command.isExit());
     }
 
+    /**
+     * Exits the application by terminating the program.
+     */
     private void exit() {
         System.exit(0);
     }
-
-
-
-
 }
 
 

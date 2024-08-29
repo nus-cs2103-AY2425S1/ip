@@ -14,8 +14,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * Handles the input and output operations for task data in the Denim application.
+ * This class is responsible for reading tasks from and writing tasks to a file,
+ * managing file creation, and processing task data.
+ */
 public class TaskIO {
 
+    /**
+     * Represents the status of the file or directory during task I/O operations.
+     */
     enum fileStatus {
         DIRECTORY_DOES_NOT_EXIST,
         FILE_DOES_NOT_EXIST
@@ -27,10 +35,22 @@ public class TaskIO {
 
     private final File taskFile;
 
+    /**
+     * Constructs a TaskIO object associated with the specified file path.
+     *
+     * @param pathname The path to the file where tasks are stored.
+     */
     public TaskIO(String pathname) {
         this.taskFile = new File(pathname);
     }
 
+    /**
+     * Creates a save point by handling directory or file creation based on the provided status.
+     *
+     * @param status The status indicating whether the directory or file does not exist.
+     * @param sc     The scanner to receive user input for creating the necessary files.
+     * @throws DenimException If an error occurs during file or directory creation.
+     */
     private void createSavePoint(fileStatus status, Scanner sc) throws DenimException {
         switch (status) {
         case DIRECTORY_DOES_NOT_EXIST:
@@ -44,6 +64,13 @@ public class TaskIO {
         }
     }
 
+/**
+ * Handles the case where the directory is not found.
+ * Prompts the user to create the directory and the corresponding file.
+ *
+ * @param sc The scanner to receive user input for directory and file creation.
+ * @throws DenimException If the directory or file cannot be created.
+ */
     private void handleDirectoryNotFound(Scanner sc) throws DenimException {
         System.out.println("data directory and corresponding denim.txt not found. Create both? (y / n)\n");
         String input = sc.nextLine();
@@ -67,6 +94,13 @@ public class TaskIO {
         }
     }
 
+    /**
+     * Handles the case where the file is not found.
+     * Prompts the user to create the file within an existing directory.
+     *
+     * @param sc The scanner to receive user input for file creation.
+     * @throws DenimException If the file cannot be created.
+     */
     private void handleFileNotFound(Scanner sc) throws DenimException{
         System.out.println("denim.txt not found in data directory. Create denim.txt? (y / n)\n");
         String input = sc.nextLine();
@@ -86,8 +120,13 @@ public class TaskIO {
         }
     }
 
-
-
+    /**
+     * Reads task data from the file and populates the provided task list.
+     *
+     * @param taskList The task list to populate with data from the file.
+     * @param sc       The scanner to receive user input for file creation if needed.
+     * @throws DenimException If an error occurs during file reading or if the file/directory does not exist.
+     */
     public void readTaskData(TaskList taskList, Scanner sc) throws DenimException {
 
         // Checks for Parent Directory ./data
@@ -119,6 +158,12 @@ public class TaskIO {
         }
     }
 
+    /**
+     * Writes the specified task to the file.
+     *
+     * @param task The task to be written to the file.
+     * @throws DenimException If an error occurs during writing to the file.
+     */
     public void writeTaskData(Task task) throws DenimException {
         try {
             FileWriter taskWriter = new FileWriter(this.taskFile, true);
@@ -129,6 +174,12 @@ public class TaskIO {
         }
     }
 
+    /**
+     * Deletes all tasks from the file and rewrites the current task list.
+     *
+     * @param taskList The task list containing the tasks to be written to the file.
+     * @throws DenimException If an error occurs during file overwriting.
+     */
     public void deleteTask(TaskList taskList) throws DenimException {
         File overridingFile = new File("data","denim.txt");
         Task task;
@@ -145,6 +196,12 @@ public class TaskIO {
         }
     }
 
+    /**
+     * Marks the specified tasks in the task list and updates the file.
+     *
+     * @param taskList The task list containing the tasks to be marked.
+     * @throws DenimException If an error occurs during file overwriting.
+     */
     public void markTask(TaskList taskList) throws DenimException {
         File overridingFile = new File("data","denim.txt");
         Task task;
@@ -161,6 +218,12 @@ public class TaskIO {
         }
     }
 
+    /**
+     * Unmarks the specified tasks in the task list and updates the file.
+     *
+     * @param taskList The task list containing the tasks to be unmarked.
+     * @throws DenimException If an error occurs during file overwriting.
+     */
     public void unmarkTask(TaskList taskList) throws DenimException {
         File overridingFile = new File("data","denim.txt");
         Task task;
@@ -177,6 +240,13 @@ public class TaskIO {
         }
     }
 
+    /**
+     * Processes a task description from the file and adds it to the task list.
+     *
+     * @param taskList The task list to which the task will be added.
+     * @param task     The task description to be processed.
+     * @throws DenimException If the task type is unknown or if there is a formatting error.
+     */
     private void processTask(TaskList taskList, String task) throws DenimException {
         String[] taskComponents = task.split("\\|");
         String taskType = taskComponents[0].trim();
