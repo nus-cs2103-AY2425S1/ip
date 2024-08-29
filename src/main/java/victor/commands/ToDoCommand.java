@@ -21,7 +21,7 @@ public class ToDoCommand extends Command {
         todoMessage = todoMessage.trim();
         if (todoMessage.isBlank()) {
             return new ReturnMessage("  ~  Please give a name for the To Do.",
-                    "The format should be \"todo (description)\"");
+                    "  ~  The format should be \"todo (description)\"");
         } else {
             this.toDo = new ToDo(todoMessage);
             return new ReturnMessage(super.taskList.addTask(toDo));
