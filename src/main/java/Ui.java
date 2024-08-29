@@ -4,6 +4,15 @@ public class Ui {
 
     static final String HORIZONTAL_LINE = "____________________________________________________________";
 
+    /**
+     * Read input from the user.
+     */
+    public static String readInput() {
+        Scanner in = new Scanner(System.in);
+        String input = in.nextLine();
+        return input;
+    }
+
     public static void showWelcome() {
         PrintUtility.wrapPrintWithHorizontalLines("Hello! I'm Nixy", "What can I do for you?");
     }

@@ -23,7 +23,7 @@ public class Nixy {
         ui.showWelcome();
         Boolean isExit = false;
         while (!isExit) {
-            String input = readInput();
+            String input = ui.readInput();
             Parser p;
             try {
                 p = new Parser(input);
