@@ -1,15 +1,20 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task{
 
     private LocalDateTime from;
     private LocalDateTime to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws DateTimeFormatException {
         super(description);
-        this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("d/M/yyyy H:mm"));
-        this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("d/M/yyyy H:mm"));
+        try {
+            this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("d/M/yyyy H:mm"));
+            this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("d/M/yyyy H:mm"));
+        } catch (DateTimeParseException e) {
+            throw new DateTimeFormatException();
+        }
     }
 
     @Override

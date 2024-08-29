@@ -30,11 +30,15 @@ public class Easton {
         Action action;
 
         try {
+            System.out.println("Retrieving Data...");
             retrieveData();
+            System.out.println("DONE!");
         } catch (IOException e) {
             System.out.println("There was an error in retrieving my storage. ABORTING!!!");
             isFinished = true;
         }
+        printDivider();
+
 
         while (!isFinished) {
             input = prompt(scanner);
@@ -76,7 +80,7 @@ public class Easton {
                 try {
                     addTask(createDeadline(input));
                     saveData();
-                } catch (EmptyDescriptionException | InvalidFormatException e) {
+                } catch (EmptyDescriptionException | InvalidFormatException | DateTimeFormatException e) {
                     System.out.println(e.getMessage());
                 }
                 break;
@@ -84,7 +88,7 @@ public class Easton {
                 try {
                     addTask(createEvent(input));
                     saveData();
-                } catch (EmptyDescriptionException | InvalidFormatException e) {
+                } catch (EmptyDescriptionException | InvalidFormatException | DateTimeFormatException e) {
                     System.out.println(e.getMessage());
                 }
                 break;
@@ -159,7 +163,9 @@ public class Easton {
         }
     }
 
-    private static Deadline createDeadline(String input) throws EmptyDescriptionException, InvalidFormatException {
+    private static Deadline createDeadline(String input) throws EmptyDescriptionException,
+            InvalidFormatException,
+            DateTimeFormatException {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length != 2) {
             throw new EmptyDescriptionException();
@@ -173,7 +179,9 @@ public class Easton {
         return new Deadline(content[0], content[1]);
     }
 
-    private static Event createEvent(String input) throws EmptyDescriptionException, InvalidFormatException {
+    private static Event createEvent(String input) throws EmptyDescriptionException,
+            InvalidFormatException,
+            DateTimeFormatException {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length != 2) {
             throw new EmptyDescriptionException();
@@ -245,10 +253,24 @@ public class Easton {
                 task = new ToDo(data[2]);
                 break;
             case "D":
-                task = new Deadline(data[2], data[3]);
+                try {
+                    task = new Deadline(data[2], data[3]);
+                } catch (DateTimeFormatException e) {
+                    System.out.println("Deadline (" +
+                            data[2] +
+                            ") is using the wrong DateTime Format, the record is voided.");
+                    continue;
+                }
                 break;
             case "E":
+                try {
                 task = new Event(data[2], data[3], data[4]);
+                } catch (DateTimeFormatException e) {
+                    System.out.println("Event ("+
+                            data[2] +
+                            ") is using the wrong DateTime Format, the record is voided.");
+                    continue;
+                }
                 break;
             default:
                 continue;
