@@ -10,11 +10,11 @@ import java.util.ArrayList;
  * methods for interacting with this list.
  */
 public class ListManager {
-    private ArrayList<Task> ItemList = new ArrayList<>();
+    private ArrayList<Task> itemList = new ArrayList<>();
 
     public Task createItem(TaskBuilder builder) {
         Task task = builder.build();
-        ItemList.add(builder.build());
+        itemList.add(builder.build());
         return task;
     }
 
@@ -24,11 +24,9 @@ public class ListManager {
      */
     public String listItems(String item) {
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < ItemList.size(); i++) {
-            Task task = ItemList.get(i);
-            if (task.toString().contains(item)) {  // Check if the task contains the item
-                result.append(i + 1).append(". ").append(task.toString()).append("\n");
-            }
+        for (int i = 0; i < itemList.size(); i++) {
+            Task task = itemList.get(i);
+            result.append(i + 1).append(". ").append(task.toString()).append("\n");
         }
         return result.toString();
     }
@@ -40,19 +38,19 @@ public class ListManager {
      * @param index The index of the task in the itemList (1-based index).
      */
     public void setDone(boolean done, int index) {
-        if (index > 0 && index <= ItemList.size()) {
-            ItemList.get(index - 1).setDone(done);
+        if (index > 0 && index <= itemList.size()) {
+            itemList.get(index - 1).setDone(done);
         }
     }
 
     public void delete(int index) {
-        if (index > 0 && index <= ItemList.size()) {
-            ItemList.remove(index-1);
+        if (index > 0 && index <= itemList.size()) {
+            itemList.remove(index-1);
         }
     }
 
     public int getItemSize() {
-        return ItemList.size();
+        return itemList.size();
     }
 
     /**
@@ -62,8 +60,8 @@ public class ListManager {
      * @return The string representation of the task, or an empty string if the index is invalid.
      */
     public String getItem(int index) {
-        if (index > 0 && index <= ItemList.size()) {
-            Task task = ItemList.get(index - 1);
+        if (index > 0 && index <= itemList.size()) {
+            Task task = itemList.get(index - 1);
             return task.toString();
         }
         return "";

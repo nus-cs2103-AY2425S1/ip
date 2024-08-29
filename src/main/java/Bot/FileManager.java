@@ -7,10 +7,10 @@ import java.util.Scanner;
 
 public class FileManager {
 
-    private String FilePath = "src/main/java/data";
+    private String filePath = "src/main/java/data";
 
     public FileManager(String pathname) {
-        this.FilePath = pathname;
+        this.filePath = pathname;
     }
 
 
@@ -50,7 +50,7 @@ public class FileManager {
     // Create a new file if it doesn't exist
     public void writeFile(String textToAdd) {
         try {
-            FileWriter fw = new FileWriter(this.FilePath, true);
+            FileWriter fw = new FileWriter(this.filePath, true);
             fw.write(textToAdd + "\n");
             fw.close();
         } catch (IOException exception) {
