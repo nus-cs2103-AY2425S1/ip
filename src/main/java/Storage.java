@@ -27,6 +27,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the list of tasks from the local storage to the TaskList.
+     *
+     * @return the list of tasks.
+     */
     public List<Task> load() {
         try {
             Scanner dataReader = new Scanner(data);
@@ -61,6 +66,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the list of tasks from the TaskList to the local storage.
+     *
+     * @param newData List of tasks to write to local storage.
+     */
     public void write(List<Task> newData) {
         try {
             FileWriter data = new FileWriter("./src/data/chatData.txt");

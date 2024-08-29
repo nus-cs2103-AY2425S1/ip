@@ -20,6 +20,11 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    /**
+     * Returns string format of the Task.
+     *
+     * @return String format of the Task.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: "
@@ -27,6 +32,11 @@ public class Event extends Task {
                 + " to: " + endTime.format(DateTimeFormatter.ofPattern("E, MMM dd yyyy")) + ")";
     }
 
+    /**
+     * Returns data format of the Task.
+     *
+     * @return Data format of the Task.
+     */
     @Override
     public String toData() {
         return "E" + super.toData() + "%" + this.startTime + "|" + this.endTime;

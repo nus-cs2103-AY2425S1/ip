@@ -12,6 +12,9 @@ public class Peridot {
         ui = new Ui(taskList, storage);
     }
 
+    /**
+     * Starts the chatbot "Peridot"
+     */
     public void start() {
         ui.run();
         storage.write(taskList.getTaskList());

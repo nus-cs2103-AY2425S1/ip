@@ -17,12 +17,22 @@ public class Deadline extends Task {
         this.endTime = endTime;
     }
 
+    /**
+     * Returns string format of the Task.
+     *
+     * @return String format of the Task.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "
                 + endTime.format(DateTimeFormatter.ofPattern("E, MMM dd yyyy")) + ")";
     }
 
+    /**
+     * Returns data format of the Task.
+     *
+     * @return Data format of the Task.
+     */
     @Override
     public String toData() {
         return "D" + super.toData() + "%" + this.endTime;
