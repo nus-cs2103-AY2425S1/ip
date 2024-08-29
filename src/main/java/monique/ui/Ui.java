@@ -114,7 +114,7 @@ public class Ui {
         System.out.println("There are no tasks in your List :)");
     }
 
-    public void showFindResults(ArrayList<Task> resultList){
+    public void showFindResults(ArrayList<Task> resultList) {
         if (resultList.isEmpty()) {
             System.out.println("There are no tasks matching your search");
         } else {
@@ -123,7 +123,7 @@ public class Ui {
                 System.out.println(String.valueOf(i + 1) + ". " + resultList.get(i));
             }
         }
-
+    }
     public void printGuide() {
         System.out.println(GuideText.GUIDE);
     }
