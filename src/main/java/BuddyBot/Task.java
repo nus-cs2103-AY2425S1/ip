@@ -1,3 +1,5 @@
+package BuddyBot;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -5,7 +7,7 @@ import java.time.format.DateTimeParseException;
 public class Task {
     protected String description;
     protected TaskStatus status;
-    protected  TaskType type;
+    protected TaskType type;
 
     public Task(String description, TaskType type) {
         this.description = description;

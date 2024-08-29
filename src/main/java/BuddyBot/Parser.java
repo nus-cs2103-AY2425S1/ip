@@ -1,3 +1,5 @@
+package BuddyBot;
+
 public class Parser {
         public static Commands parseCmd(String input) throws BuddyBotException {
             String command = input.split(" ", 2)[0];

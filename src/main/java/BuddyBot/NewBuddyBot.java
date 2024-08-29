@@ -1,8 +1,8 @@
-import java.io.IOException;
+package BuddyBot;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 public class NewBuddyBot {
     private final FileStorage storage;
@@ -69,7 +69,7 @@ public class NewBuddyBot {
             this.taskList.add(todo);
             this.ui.addTask(todo, this.taskList.size());
         } catch (IndexOutOfBoundsException e) {
-            throw new BuddyBotException("Todo error");
+            throw new BuddyBotException("BuddyBot.Todo error");
         }
     }
 
@@ -92,7 +92,7 @@ public class NewBuddyBot {
             this.taskList.add(event);
             this.ui.addTask(event, this.taskList.size());
         } catch (IndexOutOfBoundsException e) {
-            throw new BuddyBotException("Event error");
+            throw new BuddyBotException("BuddyBot.Event error");
         } catch (DateTimeParseException e) {
             this.ui.showInvalidDateFormat();
         }
@@ -109,7 +109,7 @@ public class NewBuddyBot {
             this.taskList.add(deadline);
             this.ui.addTask(deadline, this.taskList.size());
         } catch (IndexOutOfBoundsException e) {
-            throw new BuddyBotException("Deadline error");
+            throw new BuddyBotException("BuddyBot.Deadline error");
         } catch (DateTimeParseException e) {
             this.ui.showInvalidDateFormat();
         }

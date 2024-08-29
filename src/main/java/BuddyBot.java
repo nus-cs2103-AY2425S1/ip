@@ -1,15 +1,9 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Objects;
 import java.util.Scanner;
-import java.util.regex.Pattern;
-import java.util.ArrayList;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 
-public class BuddyBot {
+/*public class BuddyBot {
     static FileStorage store = new FileStorage("./data/BuddyBot.txt");
     public static void main(String[] args) {
         //Scanner object
@@ -44,7 +38,7 @@ public class BuddyBot {
                     if (num > myList.size() || num <= 0) {
                         throw new BuddyBotException("Invalid input!");
                     }
-                    myList.get(num - 1).status = TaskStatus.DONE;
+                    myList.get(num - 1).status = BuddyBot.TaskStatus.DONE;
                     System.out.println("Nice! I've marked this task as done:");
                     read(myList);
                 } catch (NumberFormatException | BuddyBotException e) {
@@ -107,7 +101,7 @@ public class BuddyBot {
                         i--;
                         input = myObj.nextLine();
                     } else {
-                        Task additionT = new Todo(description);
+                        Task additionT = new BuddyBot.Todo(description);
                         myList.add(additionT);
                         System.out.println("Got it. I've added this task: \n" + additionT);
                         System.out.println("Now you have " + count(myList) + " tasks in the list.");
@@ -182,4 +176,4 @@ public class BuddyBot {
         System.out.println(result);
     }
 
-}
+}*/

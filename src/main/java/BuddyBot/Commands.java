@@ -1,3 +1,5 @@
+package BuddyBot;
+
 public enum Commands {
     BYE, LIST,
     TODO, EVENT, DEADLINE,
