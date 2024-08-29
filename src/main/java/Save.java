@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.List;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,22 +10,9 @@ public class Save {
     TaskList taskList;
     /*
      * Constructor for Save class
-     * @Params String filePath
+     * @Params TaskList tasks
      * @Return None
-     */
-    // public Save(TaskList tasks) {
-    //     try {
-    //         file = new File("meow.txt");
-    //         file.createNewFile();
-    //         System.out.println("File created: " + file.getName());
-            
-    //         saveTasks(tasks);
-    //     } catch (java.io.IOException e) {
-    //         System.out.println("Meowception 007: meow meow error creating file meow");
-    //         e.printStackTrace();
-    //     }
-    // }
-
+    */
     public Save(TaskList tasks) throws java.io.IOException, Meowception {
         file = new File("meow.txt");
         taskList = tasks;
@@ -103,16 +89,5 @@ public class Save {
         }
 
     }
-    // static private void readTasks() throws Meowception, IOException {
-    //     Save save = new Save();
-    //     List<String> tasks = save.read();  
-    //     for (String task : tasks) {
-    //         String type = task.substring(0, 1);
-    //         parsercommandValidation(task.substring(2));
-    //         if (type.equals("1")) {
-    //             taskList.get(taskList.size() - 1).setDone(true);
-    //         } 
-    //     }
-    // }
     
 }
