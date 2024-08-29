@@ -6,9 +6,28 @@ import java.util.Scanner;
 
 public class FileManager {
 
-    public static final String DATA_PATH = "./data/duke.txt";
+    public static final String DATA_FOLDER = "./data";
+    public static final String DATA_PATH = "./data/makima.txt";
 
     public static boolean loadFile(Makima makima) {
+        File folder = new File(DATA_FOLDER);
+        if (!folder.exists()) {
+            if (folder.mkdir()) {
+                File file = new File(DATA_PATH);
+                try {
+                    if (!file.createNewFile()) {
+                        System.out.println("An unexpected error occurred.");
+                        return false;
+                    }
+                } catch (IOException e) {
+                    System.out.println("An error occurred while creating a new data file!");
+                    return false;
+                }
+            } else {
+                System.out.println("An error occurred while creating a new data file!");
+                return false;
+            };
+        }
         File file = new File(DATA_PATH);
         if (file.exists()) {
             ArrayList<String> lines = new ArrayList<>();
@@ -79,7 +98,7 @@ public class FileManager {
                     return false;
                 }
             } catch (IOException e) {
-                System.out.println("An error occurred while creating a new file!");
+                System.out.println("An error occurred while creating a new data file!");
                 return false;
             }
 
