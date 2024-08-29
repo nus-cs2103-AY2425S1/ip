@@ -1,3 +1,5 @@
+package agave;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
