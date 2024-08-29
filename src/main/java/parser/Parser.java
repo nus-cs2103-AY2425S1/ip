@@ -1,6 +1,23 @@
+package parser;
+import task.TaskList;
+import ui.Ui;
+
+import exception.IncompleteDescException;
+import exception.UnknownWordException;
+import exception.InvalidDeadlineException;
+
+import task.DeadlinesTask;
+import task.EventTask;
+import task.Task;
+import task.ToDoTask;
+
+import prince.Prince;
+
+
+
 public class Parser {
 
-    public static String parseConversation(String command) throws UnknownWordException, IncompleteDescException{
+    public static String parseConversation(String command) throws UnknownWordException, IncompleteDescException {
         /*if(command.equals("bye")) { //string cannot do ==
             return "Bye! Hope to see you again soon!";*/
         if(command.equals("list")) {
@@ -18,7 +35,7 @@ public class Parser {
             Task t = TaskList.getList().get(taskNum - 1);
 
             if (taskNum < 1 || taskNum > TaskList.getList().size()) {
-                return "Task number is out of range. Please retry.";
+                return "task.Task number is out of range. Please retry.";
             }
 
             if(stringList[0].equals("mark")) {

@@ -1,3 +1,6 @@
+package task;
+import prince.Prince;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;

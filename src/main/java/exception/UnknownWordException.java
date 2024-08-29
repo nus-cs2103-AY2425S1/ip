@@ -1,3 +1,6 @@
+package exception;
+import prince.Prince;
+
 public class UnknownWordException extends Exception {
     public UnknownWordException(String message) {
         super(message);

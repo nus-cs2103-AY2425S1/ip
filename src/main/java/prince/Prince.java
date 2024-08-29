@@ -1,3 +1,16 @@
+package prince;
+
+import exception.IncompleteDescException;
+import exception.UnknownWordException;
+import parser.Parser;
+import storage.Storage;
+import task.TaskList;
+import task.Task;
+import task.EventTask;
+import task.DeadlinesTask;
+import task.ToDoTask;
+import ui.Ui;
+
 import java.util.Scanner;
 
 public class Prince {
@@ -30,7 +43,7 @@ public class Prince {
         Scanner scanner = new Scanner(System.in);
         String line = "";
 
-        System.out.println("Hello! I'm Prince!");
+        System.out.println("Hello! I'm prince.Prince!");
         System.out.println("What would you like me to add to your TODO list today?");
 
 
@@ -52,7 +65,7 @@ public class Prince {
         scanner.close();
     }
     public static void main(String[] args) {
-        new Prince("./data","data/Prince.txt").run();
+        new Prince("./data","data/prince.Prince.txt").run();
 
         //createListFile();
         //loadTasksFromFile(filePath);
@@ -61,9 +74,9 @@ public class Prince {
 
         /*try {
             System.out.println(conversation(line));
-        } catch (IncompleteDescException e) {
+        } catch (exception.IncompleteDescException e) {
             System.out.println(e.getMessage());
-        } catch (UnknownWordException e) {
+        } catch (exception.UnknownWordException e) {
             System.out.println(e.getMessage());
         }*/
     }
