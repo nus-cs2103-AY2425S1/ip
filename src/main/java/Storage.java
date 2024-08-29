@@ -12,12 +12,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> load() throws IOException {
+    public TaskList load() throws IOException {
         File file = new File(this.filePath);
 
         file.getParentFile().mkdirs();
 
-        ArrayList<Task> taskList = new ArrayList<>();
+        TaskList taskList = new TaskList();
 
         if (!file.createNewFile()) {
             Scanner sc = new Scanner(file);
@@ -31,10 +31,10 @@ public class Storage {
                         curr = new ToDo(keywords[1]);
                         break;
                     case 3:
-                        curr = new Deadline(keywords[1], keywords[2]);
+                        curr = new Deadline(new String[] {keywords[1], keywords[2]});
                         break;
                     case 4:
-                        curr = new Event(keywords[1], keywords[2], keywords[3]);
+                        curr = new Event(new String[] {keywords[1], keywords[2], keywords[3]});
                         break;
                     default:
                         System.out.println("error");
@@ -51,17 +51,13 @@ public class Storage {
         return taskList;
     }
 
-    public void save(ArrayList<Task> taskList) {
-        try {
-            BufferedWriter taskWriter = new BufferedWriter(new FileWriter(this.filePath));
-            String tasks = "";
-            for (Task task : taskList) {
-                tasks += task.fileString() + "\n";
-            }
-            taskWriter.write(tasks);
-            taskWriter.close();
-        } catch (IOException e) {
-            Message.error(e.getMessage());
+    public void save(TaskList taskList) throws IOException {
+        BufferedWriter taskWriter = new BufferedWriter(new FileWriter(this.filePath));
+        String tasks = "";
+        for (int i = 0; i < taskList.size(); i++) {
+            tasks += taskList.get(i).fileString() + "\n";
         }
+        taskWriter.write(tasks);
+        taskWriter.close();
     }
 }

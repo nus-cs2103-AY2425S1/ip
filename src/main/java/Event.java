@@ -8,35 +8,20 @@ public class Event extends Task {
     private LocalDate from;
     private LocalDate to;
 
-    public Event(String description) throws UnknownTimeException {
-        super(description.substring(0, description.indexOf("/from") - 1));
-        this.from = this.stringToDate(description.substring(description.indexOf("/from") + 6,
-                description.indexOf("/to") - 1));
-        this.to = this.stringToDate(description.substring(description.indexOf("/to") + 4));
-    }
-
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = this.stringToDate(from);
-        this.to = this.stringToDate(to);
+    public Event(String[] details) {
+        super(details[0]);
+        this.from = Parser.stringToDate(details[1]);
+        this.to = Parser.stringToDate(details[2]);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.dateToString(this.from)
-                + " to: " + this.dateToString(this.to) + ")";
+        return "[E]" + super.toString() + " (from: " + Parser.dateToString(this.from)
+                + " to: " + Parser.dateToString(this.to) + ")";
     }
 
     public String fileString() {
         return super.fileString() + " | " + this.from + " | " + this.to;
-    }
-
-    private LocalDate stringToDate(String s) {
-        return LocalDate.parse(s);
-    }
-
-    private String dateToString(LocalDate date) {
-        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     public String getDay() {
