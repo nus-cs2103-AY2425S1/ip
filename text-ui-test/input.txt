@@ -6,3 +6,5 @@ event sport /from 2024-09-09 /to 2024-09-09
 event sport /from 2024-09-09 18:00 /to 2024-09-09 19:00
 deadline coding /by 2024-0909
 deadline coding /by 2024-09-09 22:00
+event video game /from 2024-09-10 18:00 /to 2024-09-10 19:00
+listEndingOn 2024-09-09
