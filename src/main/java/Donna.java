@@ -1,9 +1,3 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +6,16 @@ public class Donna {
     private static int taskNum = 0;
     private static final String DIRECTORY_PATH = "data";
     private static final String FILE_PATH = DIRECTORY_PATH + "/donna-tasks.txt";
+    private static Storage storage;
+
+    public Donna() {
+        storage = new Storage(DIRECTORY_PATH, FILE_PATH);
+        try {
+            tasks = storage.loadTasks();
+        } catch (DonnaException e) {
+            System.out.println("No file found starting in a new file...");
+        }
+    }
 
     static private void printDashedLine() {
         System.out.println("____________________________________________________________________");
@@ -24,69 +28,6 @@ public class Donna {
         System.out.println("| |_| | (_) | | | | | | | (_| |");
         System.out.println("|____/ \\___/|_| |_|_| |_|\\__,_|");
         System.out.println();
-    }
-
-    private static void saveTasks() { //writes into a text file
-        try {
-            Files.createDirectories(Paths.get(DIRECTORY_PATH)); //ensure directory exists
-            try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(FILE_PATH))) {
-                for (Task task : tasks) {
-                    writer.write(task.toFileFormat());
-                    writer.newLine();
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("An error has occurred in saving the tasks: " + e.getMessage());
-        }
-    }
-
-    private static boolean loadTasks() {
-        try {
-            Path filePath = Paths.get(FILE_PATH);
-            if (!Files.exists(filePath)) { //ensure that the directory exists- if not, it will be created
-                return false;
-            }
-
-            File f = new File(String.valueOf(filePath));
-            Scanner s = new Scanner(f);
-
-            while (s.hasNext()) {
-                String line = s.nextLine();
-                String[] inWords = line.split(" \\| ");
-                String taskType = inWords[0];
-                boolean isDone = inWords[1].equals("1");
-                Task task = null;
-                int count = 0;
-                switch (taskType) {
-                case "T":
-                    task = new ToDo(inWords[2]);
-                    count ++;
-                    break;
-                case "D":
-                    task = new Deadline(inWords[2], inWords[3]);
-                    count ++;
-                    break;
-                case "E":
-                    task = new Event(inWords[2], inWords[3], inWords[4]);
-                    count ++;
-                    break;
-                }
-
-                if (task != null) {
-                    if (isDone) {
-                        task.markDone();
-                    }
-                    tasks.add(task);
-                    taskNum += count;
-                }
-            }
-
-        } catch (IOException | ArrayIndexOutOfBoundsException |DonnaException e) {
-            // file data is corrupted, start in a new file
-//            System.out.println("No existing file found / File is corrupted. Starting in a new file.");
-            return false;
-        }
-        return true;
     }
 
     private static void addTask(String desc) throws DonnaException {
@@ -222,18 +163,17 @@ public class Donna {
     }
 
     public static void main(String[] args) {
+        new Donna();
+        taskNum = tasks.size();
         Scanner sc = new Scanner(System.in);
-
-        //load tasks before asking the user for inputs
-        boolean wasLoaded = loadTasks();
 
         //greeting
         printDashedLine();
         printDonnaLogo();
         System.out.println("Hello! I'm Donna");
-        if (wasLoaded) {
+        if (!tasks.isEmpty()) {
             System.out.println("We have had a chat before! Let's resume :)");
-        } else {
+        } else { //empty arrayList indicates a fresh start
             System.out.println("What can I do for you?");
         }
         printDashedLine();
@@ -249,9 +189,9 @@ public class Donna {
                     printDashedLine();
                     System.out.println("Bye. Hope to see you again soon!");
                     printDashedLine();
-                    saveTasks();
+                    storage.saveTasks(tasks);
                     break;
-                } else if (input.equals("list")) { //display list
+                } else if (input.trim().equals("list")) { //display list
                     printDashedLine();
                     if (taskNum == 0) {
                         System.out.println("No tasks added to the list yet."+ "\n"
@@ -264,7 +204,7 @@ public class Donna {
                         }
                     }
                     printDashedLine();
-                } else if (inputWords[0].equals("mark") && inputWords.length == 2) { //request to mark a task as done
+                } else if (inputWords[0].trim().equals("mark") && inputWords.length == 2) { //request to mark a task as done
                     try {
                         int taskToMark = Integer.parseInt(inputWords[1]); //not index
                         updateTaskStatus(taskToMark, true);
