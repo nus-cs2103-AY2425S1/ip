@@ -1,8 +1,8 @@
 
 public class Todo extends Task {
 
-    public boolean done;
-    public String text;
+    private boolean done;
+    private String text;
 
     public Todo(String text) {
         super(text);
