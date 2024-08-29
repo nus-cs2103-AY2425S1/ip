@@ -1,7 +1,5 @@
 package Azir;
 
-import Azir.Task;
-
 /**
  * Todo is a child of the Task class to indicate a task
  * with only a description

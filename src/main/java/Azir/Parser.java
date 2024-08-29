@@ -1,7 +1,5 @@
 package Azir;
 
-import Azir.AzirException;
-
 /**
  * Parser deals with manipulating the user's input
  * for easy use
