@@ -28,12 +28,13 @@ test {
 }
 
 application {
-    mainClass.set("src.main.java.Susan")
+    mainClass.set("Susan")
 }
 
 shadowJar {
     archiveBaseName = "susan"
     archiveClassifier = null
+    archiveFileName = "susan.jar"
 }
 
 run{
