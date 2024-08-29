@@ -9,8 +9,17 @@ import tasks.ToDoTask;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class is responsible for interpreting user commands and converting
+ * them into corresponding {@link Command} objects. It parses the input command string
+ * and creates commands like {@link TodoCommand}, {@link DeadlineCommand}, {@link EventCommand},
+ * {@link MarkCommand}, {@link UnmarkCommand}, and {@link DeleteCommand} based on the command type.
+ */
 public class Parser {
-    // Deals with making sense of the user command
+
+    /**
+     * Enum to represent different types of commands.
+     */
     enum CommandType {
         BYE("bye"),
         LIST("list"),
@@ -22,10 +31,18 @@ public class Parser {
         DELETE("delete");
 
         private String command;
+
         CommandType(String command) {
             this.command = command;
         }
 
+        /**
+         * Gets the CommandType corresponding to the given command string.
+         *
+         * @param s The command string to be matched with an enum value.
+         * @return The corresponding CommandType.
+         * @throws PrimoException If the command string does not match any known command type.
+         */
         public static CommandType getCommandType(String s) throws PrimoException {
             for (CommandType type : values()) {
                 if (type.command.equals(s)) {
@@ -36,10 +53,19 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the full command string and returns the appropriate {@link Command} object.
+     *
+     * @param fullCommand The full command string input by the user.
+     * @return The corresponding Command object based on the parsed command string.
+     * @throws PrimoException If the command format is invalid or parameters are missing/incorrect.
+     */
     public static Command parse(String fullCommand) throws PrimoException {
-        // throw error when wrong formats
+        // Split the full command into parts
         String[] words = fullCommand.split(" ");
+        // Determine the command type
         CommandType type = CommandType.getCommandType(words[0]);
+
         switch (type) {
             case BYE:
                 return new ByeCommand();
@@ -103,7 +129,7 @@ public class Parser {
                 int eventFinalIndex = fullCommand.indexOf("/to");
                 String eventDescription = fullCommand.substring(eventFromIndex, eventToIndex).trim();
                 if (eventDescription.isEmpty()) {
-                    throw new PrimoException("Description cannot be empty! Expected deadline <string> /by <string>");
+                    throw new PrimoException("Description cannot be empty! Expected event <string> /from <string> /to <string>");
                 }
                 String from = fullCommand.substring(eventToIndex + 5, eventFinalIndex).trim();
                 LocalDate parsedFromDate = null;
@@ -125,7 +151,7 @@ public class Parser {
                     to = "";
                 }
                 if (to.isEmpty()) {
-                    throw new PrimoException("'To' parameter cannot be empty! Expected deadline YYYY-MM-DD /by YYYY-MM-DD");
+                    throw new PrimoException("'To' parameter cannot be empty! Expected event YYYY-MM-DD /from YYYY-MM-DD /to YYYY-MM-DD");
                 }
                 EventTask newEventTask = new EventTask(eventDescription, parsedFromDate, parsedToDate);
                 return new EventCommand(newEventTask);
@@ -138,6 +164,6 @@ public class Parser {
                 int deleteIndex = Integer.valueOf(words[1]) - 1;
                 return new DeleteCommand(deleteIndex);
         }
-        return null; // should not reach here if exception handling is great
+        return null; // should not reach here if exception handling is correct
     }
 }
