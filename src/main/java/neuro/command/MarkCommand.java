@@ -5,6 +5,9 @@ import neuro.Ui;
 import neuro.task.Task;
 import neuro.task.TaskList;
 
+/**
+ * The {@code MarkCommand} class represents a command to mark a task as done in the task list.
+ */
 public class MarkCommand extends Command {
     private final int index;
 
@@ -12,6 +15,13 @@ public class MarkCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Executes the mark command to mark the task at the index from the task list.
+     *
+     * @param tasks the task list on which the command operates
+     * @param ui the user interface for interacting with the user
+     * @param storage the storage for saving and loading tasks
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.index < 0) {

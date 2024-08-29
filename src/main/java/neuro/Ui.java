@@ -2,6 +2,11 @@ package neuro;
 
 import java.util.Scanner;
 
+/**
+ * The {@code Ui} class handles the user interface (UI) for the Neuro chatbot.
+ * It provides methods to display messages, including welcome and goodbye messages,
+ * and to read user input from the console.
+ */
 public class Ui {
     private final Scanner scanner;
 
@@ -9,9 +14,16 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Shows a horizontal line divider for the text UI.
+     */
     public void showLine() {
         System.out.println("    ___________________________________________________");
     }
+
+    /**
+     * Shows the Welcome message for Neuro.
+     */
     public void showWelcome() {
         showLine();
         System.out.println("    Hii, I'm Neuro, your chatbot assistant!");
@@ -19,6 +31,9 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Shows the Goodbye message for Neuro.
+     */
     public void showGoodbye() {
         System.out.println("    Goodbyeee!");
         System.out.println("""
@@ -69,14 +84,29 @@ public class Ui {
                 """);
     }
 
+    /**
+     * Displays the given message with indentation.
+     *
+     * @param message the message to be shown
+     */
     public void showMessage(String message) {
         System.out.println("    " + message);
     }
 
+    /**
+     * Displays the error message with indentation.
+     *
+     * @param errorMessage the error message to be shown
+     */
     public void showError(String errorMessage) {
         System.out.println("    Oops! " + errorMessage);
     }
 
+    /**
+     * Reads the user's input for their commands.
+     *
+     * @return the user's input string
+     */
     public String readCommand() {
         System.out.print("$ ");
         return scanner.nextLine();

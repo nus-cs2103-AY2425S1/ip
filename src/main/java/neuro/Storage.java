@@ -10,12 +10,22 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The {@code Storage} class handles the storage logic for the Neuro Chatbot.
+ * It provides methods to load Neuro's save file data and to update it.
+ */
 public class Storage {
     private final String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the save file data for Neuro.
+     *
+     * @return a {@code TaskList} object containing the tasks from the save file data
+     * @throws FileNotFoundException If file cannot be created nor found
+     */
     public TaskList load() throws FileNotFoundException {
         File f = new File(filePath);
         try {
@@ -76,6 +86,11 @@ public class Storage {
         return taskToAdd;
     }
 
+    /**
+     * Updates the save file data with the tasks given.
+     *
+     * @param tasks the updated TaskList to be saved
+     */
     public void updateTaskFile(TaskList tasks) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);

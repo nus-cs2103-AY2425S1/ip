@@ -6,6 +6,9 @@ import neuro.Storage;
 import neuro.task.Task;
 import neuro.task.TaskList;
 
+/**
+ * The {@code DeleteCommand} class represents a command to delete a task from the task list.
+ */
 public class DeleteCommand extends Command {
     private int index;
 
@@ -13,6 +16,13 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Executes the delete command to delete the task at the index from the task list.
+     *
+     * @param tasks the task list on which the command operates
+     * @param ui the user interface for interacting with the user
+     * @param storage the storage for saving and loading tasks
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.index < 0) {

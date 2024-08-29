@@ -1,7 +1,10 @@
 package neuro.task;
 
-import neuro.task.Task;
-
+/**
+ * The {@code Event} class represents an event task, which is a type of task with a description,
+ * beginning and ending time/date.
+ * It extends the {@link Task} class, inheriting its properties and methods.
+ */
 public class Event extends Task {
     private String from;
     private String to;
