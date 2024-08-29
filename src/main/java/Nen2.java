@@ -4,7 +4,6 @@ import java.util.Scanner;
  * This class represents a chatbot, name Nen2
  * @author Gan Ren Yick (A0276246X)
  */
-
 public class Nen2 {
     private final Storage storage;
     private final TaskList tasks;
@@ -18,6 +17,9 @@ public class Nen2 {
         parser = new Parser(tasks, ui);
     }
 
+    /**
+     * Runs the Nen2
+     */
     public void run() {
         Scanner messageReader = new Scanner(System.in);
 
@@ -34,14 +36,5 @@ public class Nen2 {
     public static void main(String[] args) {
         new Nen2("data/nen2.txt").run();
     }
-
-
-
-
-
-
-
-
-
 
 }

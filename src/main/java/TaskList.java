@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
+/**
+ * This class represents list of tasks
+ * @author Gan Ren Yick (A0276246X)
+ */
 public class TaskList {
     private static final ArrayList<Task> listOfTasks = new ArrayList<>();
 
@@ -20,27 +24,49 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns an array of strings which represent all the tasks which will be saved in file
+     * @return array of task string
+     */
     public String[] toDataStringArr() {
         String[] out = new String[listOfTasks.size()];
         return listOfTasks.stream().map(Task::toData).toArray(String[]::new);
     }
 
+    /**
+     * Returns amount of tasks
+     * @return amount of tasks
+     */
     public int size() {
         return listOfTasks.size();
     }
 
+    /**
+     * Returns task of the given index
+     * @param index of tasks
+     * @return Task
+     */
     public Task get(int index) {
         return listOfTasks.get(index);
     }
 
+    /**
+     * Remove task of the given index
+     * @param index of task
+     */
     public void remove(int index) {
         listOfTasks.remove(index);
     }
 
+    /**
+     * Adds given task to the list
+     * @param t task to be added
+     */
     public void add(Task t) {
         listOfTasks.add(t);
     }
 
+    @Override
     public String toString() {
         String str = "";
         for (int i = 0; i < listOfTasks.size(); i++) {

@@ -1,3 +1,7 @@
+/**
+ * This class deal with user interaction and print out reaction to user input
+ * @author Gan Ren Yick (A0276246X)
+ */
 public class Ui {
     private final static String logo = " _   _                 __\n"
             + "| \\ | |  ___  _ ___   |_  \\ \n"
@@ -6,13 +10,6 @@ public class Ui {
             + "|_| \\_| \\___||_| |_|  |____|\n";
     private static final String separator = "--------------------------------------------";
 
-    public Ui() {
-
-    }
-
-    public void showError(Exception e) {
-        System.out.println(e);
-    }
 
     /**
      * Greets user by printing out logo and greeting messages
@@ -24,20 +21,27 @@ public class Ui {
     }
 
     /**
-     * End the conversation with ending messages
+     * Ends the conversation with ending messages
      */
     public void exit() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(separator);
     }
 
+    /**
+     * Prints separator
+     */
     public void separate() {
         System.out.println(separator);
     }
 
-    public void print(String react) {
+    /**
+     * Prints out message with separators
+     * @param message to be printed
+     */
+    public void print(String message) {
         separate();
-        System.out.print(react);
+        System.out.print(message);
         separate();
     }
 

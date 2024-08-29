@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class represents storage for Nen2
+ * @author Gan Ren Yick (A0276246X)
+ */
 public class Storage {
     private final String DATA_ADDRESS;
 
@@ -12,6 +16,10 @@ public class Storage {
         DATA_ADDRESS = address;
     }
 
+    /**
+     * Reads and returns the string representation of tasks in file
+     * @return Array of Task String representation
+     */
     public String[] load() {
         ArrayList<String> out = new ArrayList<>();
         try {
@@ -27,6 +35,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves given array of string into file
+     * @param arr of string to be stored into file
+     */
     public void save(String[] arr) {
         try {
             FileWriter fw = new FileWriter(DATA_ADDRESS);
