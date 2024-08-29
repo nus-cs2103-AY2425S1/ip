@@ -1,69 +1,74 @@
+import java.util.ArrayList;
+import java.time.LocalDate;
+
 public class Ui {
-    public static void showWelcome() {
+    public void showWelcome() {
         System.out.println("Hello! I'm Velma\nWhat can I do for you?");
     }
 
-    public static void showGoodbye() {
+    public void showGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void showLoadingError() {
+    public void showLoadingError() {
         System.out.println("Error loading file");
     }
 
-//    public static void showLoadingSuccess() {
-//        System.out.println("File loaded successfully");
-//    }
-
-    public static void showSavingError() {
+    public void showSavingError() {
         System.out.println("Error saving file");
     }
 
-    public static void showSavingSuccess() {
-        System.out.println("File saved successfully");
-    }
-
-    public static void showTaskAdded(Task task, int taskCount) {
+    public void showTaskAdded(Task task, int taskCount) {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
-    public static void showTaskDeleted(Task task, int taskCount) {
+    public void showTaskDeleted(Task task, int taskCount) {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
-    public static void showTaskDone(Task task) {
+    public void showTaskDone(Task task) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + task);
     }
 
-    public static void showTaskList(TaskList tasks) {
+    public void showAllTasks(ArrayList<Task> tasks) {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.getSize(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
     }
 
-    public static void showMatchingTasks(TaskList tasks) {
-        System.out.println("Here are the matching tasks in your list:");
-        for (int i = 0; i < tasks.getSize(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+    public void showTasksOnDate(ArrayList<Task> tasks, LocalDate date) {
+        System.out.println("Here are the tasks on " + date + ":");
+        boolean found = false;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) task;
+                if (deadlineTask.by.toLocalDate().isEqual(date)) {
+                    System.out.println((i + 1) + ". " + task);
+                    found = true;
+                }
+            }
+        }
+        if (!found) {
+            System.out.println("No tasks found on this date.");
         }
     }
 
-    public static void showTaskNotFound() {
-        System.out.println("Task not found");
+    public void showMarkUnmarkTask(Task task, boolean isMarked) {
+        if (isMarked) {
+            System.out.println("Nice! I have marked this task as done:");
+        } else {
+            System.out.println("OK! I have marked this task as not done yet:");
+        }
+        System.out.println("  " + "[" + task.getStatusIcon() + "] " + task.description);
     }
-
-    public static void showTaskAlreadyDone() {
-        System.out.println("Task is already done");
+    public void showError(String message) {
+        System.out.println(message);
     }
-
-    public static void showTaskAlreadyUndone() {
-        System.out.println("Task is already undone");
-    }
-
 }

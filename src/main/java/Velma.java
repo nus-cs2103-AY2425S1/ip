@@ -11,13 +11,6 @@ import java.time.format.DateTimeFormatter;
 
 public class Velma {
     private static final String FILE_PATH = "./data/velma.txt";
-    public static void printLine() {
-        for (int i = 0; i < 50; i++) {
-            System.out.print("_");
-        }
-        System.out.print("\n");
-    }
-
 
     private Storage storage;
     private TaskList tasks;
@@ -28,7 +21,7 @@ public class Velma {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (VelmaException e) {
+        } catch (Exception e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
@@ -45,6 +38,7 @@ public class Velma {
         BYE,
         UNKNOWN
     }
+
     public static Command getCommand(String input) {
         if (input.startsWith("todo")) {
             return Command.TODO;
@@ -68,7 +62,6 @@ public class Velma {
     }
 
 
-
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> list = new ArrayList<>();
         File file = new File("/Users/zeonchew04/ip/data/velma.txt");
@@ -83,26 +76,26 @@ public class Velma {
                 String[] parts = line.split(" ", 3);
                 Task task;
                 switch (parts[0].charAt(1)) { // Extract task type from the string
-                case 'T':
-                    task = new Todo(parts[2]);
-                    break;
-                case 'D':
-                    String[] deadlineParts = parts[2].split(" \\(by: ", 2);
-                    String deadlineDescription = deadlineParts[0];
-                    String byString = deadlineParts[1].substring(0, deadlineParts[1].length() - 1);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");// Remove closing parenthesis
-                    LocalDateTime by = LocalDateTime.parse(byString, formatter);
-                    task = new Deadline(deadlineDescription, by);
-                    break;
-                case 'E':
-                    String[] eventParts = parts[2].split(" \\(from: | to: ", 3);
-                    String eventDescription = eventParts[0];
-                    String startTimeString = eventParts[1];
-                    String endTimeString = eventParts[2].substring(0, eventParts[2].length() - 1);
-                    task = new Event(eventDescription, startTimeString, endTimeString);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unknown task type: " + parts[0]);
+                    case 'T':
+                        task = new Todo(parts[2]);
+                        break;
+                    case 'D':
+                        String[] deadlineParts = parts[2].split(" \\(by: ", 2);
+                        String deadlineDescription = deadlineParts[0];
+                        String byString = deadlineParts[1].substring(0, deadlineParts[1].length() - 1);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");// Remove closing parenthesis
+                        LocalDateTime by = LocalDateTime.parse(byString, formatter);
+                        task = new Deadline(deadlineDescription, by);
+                        break;
+                    case 'E':
+                        String[] eventParts = parts[2].split(" \\(from: | to: ", 3);
+                        String eventDescription = eventParts[0];
+                        String startTimeString = eventParts[1];
+                        String endTimeString = eventParts[2].substring(0, eventParts[2].length() - 1);
+                        task = new Event(eventDescription, startTimeString, endTimeString);
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Unknown task type: " + parts[0]);
                 }
                 if (parts[1].equals("[X]")) {
                     task.changeIsDone();
@@ -132,320 +125,112 @@ public class Velma {
 
             try {
                 switch (command) {
-                case TODO:
-                    String todoDescription = request.replaceFirst("todo\\s*", "").trim();
-                    if (todoDescription.isEmpty()) {
-                        throw new VelmaException("Sorry boss! Where is your todo description?");
-                    }
-                    printLine();
-                    System.out.println("Got it. I've added this task:");
-                    Task newTodo = new Todo(todoDescription);
-                    tasks.addTask(newTodo);
-                    ui.showTaskAdded(newTodo, tasks.getSize());
-                    storage.save(tasks);
-                    break;
+                    case TODO:
+                        String todoDescription = request.replaceFirst("todo\\s*", "").trim();
+                        if (todoDescription.isEmpty()) {
+                            throw new VelmaException("Sorry boss! Where is your todo description?");
+                        }
+                        System.out.println("Got it. I've added this task:");
+                        Task newTodo = new Todo(todoDescription);
+                        tasks.addTask(newTodo);
+                        ui.showTaskAdded(newTodo, tasks.getSize());
+                        storage.save(tasks.getTasks());
+                        break;
 
-                case DEADLINE:
-                    String[] parts = request.replaceFirst("deadline\\s*", "").split(" /by ");
-                    if (parts.length < 2) {
-                        throw new VelmaException("Sorry boss! Your deadline task needs a deadline!");
-                    }
-                    String description = parts[0];
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-                    LocalDateTime deadline;
-                    try {
-                        deadline = LocalDateTime.parse(parts[1], formatter);
-                    } catch (DateTimeParseException e) {
-                        throw new VelmaException("Sorry boss! The date format is incorrect. Please use d/M/yyyy HHmm.");
-                    }
-                    printLine();
-                    System.out.println("Got it. I've added this task:");
-                    Task newDeadline = new Deadline(description, deadline);
-                    list.add(newDeadline);
-                    System.out.println("  " + newDeadline.toString());
-                    System.out.println("Now you have " + list.size() + " tasks in the list");
-                    printLine();
-                    saveTasks(list);
-                    break;
-
-                case EVENT:
-                    parts = request.replaceFirst("event\\s+", "").split(" /from | /to ");
-                    if (parts.length < 3) {
-                        throw new VelmaException("Sorry boss! An event needs a valid start time and end time!");
-                    }
-                    description = parts[0];
-                    String startTime = parts[1];
-                    String endTime = parts[2];
-                    printLine();
-                    System.out.println("Got it. I've added this task:");
-                    Task newEvent = new Event(description, startTime, endTime);
-                    list.add(newEvent);
-                    System.out.println("  " + newEvent.toString());
-                    System.out.println("Now you have " + list.size() + " tasks in the list.");
-                    printLine();
-                    saveTasks(list);
-                    break;
-
-                case LIST:
-                    parts = request.split(" ");
-                    if (parts.length == 2) {
-                        String dateString = parts[1];
-                        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                        LocalDate date;
+                    case DEADLINE:
+                        String[] parts = request.replaceFirst("deadline\\s*", "").split(" /by ");
+                        if (parts.length < 2) {
+                            throw new VelmaException("Sorry boss! Your deadline task needs a deadline!");
+                        }
+                        String description = parts[0];
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                        LocalDateTime deadline;
                         try {
-                            date = LocalDate.parse(dateString, dateFormatter);
+                            deadline = LocalDateTime.parse(parts[1], formatter);
                         } catch (DateTimeParseException e) {
-                            throw new VelmaException("Sorry boss! The date format is incorrect. Please use yyyy-MM-dd.");
+                            throw new VelmaException("Sorry boss! The date format is incorrect. Please use d/M/yyyy HHmm.");
                         }
 
-                        printLine();
-                        System.out.println("Here are the tasks on " + dateString + ":");
-                        boolean found = false;
-                        for (Task task : list) {
-                            if (task instanceof Deadline) {
-                                Deadline deadlineTask = (Deadline) task;
-                                if (deadlineTask.by.toLocalDate().isEqual(date)) {
-                                    System.out.println(count + "." + task.toString());
-                                    count++;
-                                    found = true;
-                                }
+                        Task newDeadline = new Deadline(description, deadline);
+                        tasks.addTask(newDeadline);
+                        ui.showTaskAdded(new Deadline(description, deadline), tasks.getSize());
+                        storage.save(tasks.getTasks());
+                        break;
+
+                    case EVENT:
+                        parts = request.replaceFirst("event\\s+", "").split(" /from | /to ");
+                        if (parts.length < 3) {
+                            throw new VelmaException("Sorry boss! An event needs a valid start time and end time!");
+                        }
+                        description = parts[0];
+                        String startTime = parts[1];
+                        String endTime = parts[2];
+                        Task newEvent = new Event(description, startTime, endTime);
+                        tasks.addTask(newEvent);
+                        ui.showTaskAdded(new Event(description, startTime, endTime), tasks.getSize());
+                        storage.save(tasks.getTasks());
+                        break;
+
+                    case LIST:
+                        parts = request.split(" ");
+                        if (parts.length == 2) {
+                            String dateString = parts[1];
+                            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                            LocalDate date;
+                            try {
+                                date = LocalDate.parse(dateString, dateFormatter);
+                            } catch (DateTimeParseException e) {
+                                throw new VelmaException("Sorry boss! The date format is incorrect. Please use yyyy-MM-dd.");
                             }
+                            ui.showTasksOnDate(tasks.getTasks(), date);
+                        } else {
+                            ui.showAllTasks(tasks.getTasks());
                         }
-                        if (!found) {
-                            System.out.println("No tasks found on this date.");
+                        break;
+
+                    case MARK:
+                    case UNMARK:
+                        parts = request.split(" ");
+                        if (parts.length < 2) {
+                            throw new VelmaException("Sorry boss! Please specify which task.");
                         }
-                        printLine();
-                        count = 1;
-                    } else {
-                        printLine();
-                        System.out.println("Here are the tasks in your list:");
-                        for (Task task : list) {
-                            System.out.println(count + "." + task.toString());
-                            count++;
+                        int taskNumber = Integer.parseInt(parts[1]) - 1;
+                        Task task = tasks.getTask(taskNumber);
+                        task.changeIsDone();
+                        if (command == Command.MARK) {
+                            System.out.println("Nice! I have marked this task as done:");
+                        } else {
+                            System.out.println("OK! I have marked this task as not done yet:");
                         }
-                        printLine();
-                        count = 1;
-                    }
-                    break;
+                        ui.showMarkUnmarkTask(task, task.isDone);
+                        storage.save(tasks.getTasks());
+                        break;
 
-                case MARK:
-                case UNMARK:
-                    parts = request.split(" ");
-                    if (parts.length < 2) {
-                        throw new VelmaException("Sorry boss! Please specify which task.");
-                    }
-                    int taskNumber = Integer.parseInt(parts[1]) - 1;
-                    list.get(taskNumber).changeIsDone();
-                    printLine();
-                    if (command == Command.MARK) {
-                        System.out.println("Nice! I have marked this task as done:");
-                    } else {
-                        System.out.println("OK! I have marked this task as not done yet:");
-                    }
-                    System.out.println("  " + "[" + list.get(taskNumber).getStatusIcon() + "] " + list.get(taskNumber).description);
-                    printLine();
-                    saveTasks(list);
-                    break;
+                    case DELETE:
+                        parts = request.split(" ");
+                        if (parts.length < 2) {
+                            throw new VelmaException("Sorry boss! Please specify which task to delete.");
+                        }
+                        taskNumber = Integer.parseInt(parts[1]) - 1;
+                        Task deletedTask = tasks.getTask(taskNumber);
+                        tasks.deleteTask(taskNumber);
+                        ui.showTaskDeleted(deletedTask, tasks.getSize());
+                        storage.save(tasks.getTasks());
+                        break;
 
-                case DELETE:
-                    parts = request.split(" ");
-                    if (parts.length < 2) {
-                        throw new VelmaException("Sorry boss! Please specify which task to delete.");
-                    }
-                    taskNumber = Integer.parseInt(parts[1]) - 1;
-                    printLine();
-                    System.out.println("Noted. I've removed this task: ");
-                    System.out.println("  " + list.get(taskNumber).toString());
-                    list.remove(taskNumber);
-                    System.out.println("Now you have " + list.size() + " tasks in the list.");
-                    printLine();
-                    saveTasks(list);
-                    break;
+                    case BYE:
+                        ui.showGoodbye();
+                        break;
 
-                case BYE:
-                    printLine();
-                    System.out.println("Bye. Hope to see you again soon!");
-                    printLine();
-                    end = true;
-                    break;
-
-                case UNKNOWN:
-                default:
-                    throw new VelmaException("Sorry boss! What are you talking about?");
+                    case UNKNOWN:
+                    default:
+                        throw new VelmaException("Sorry boss! What are you talking about?");
                 }
             } catch (VelmaException e) {
-                printLine();
-                System.out.println(e.getMessage());
-                printLine();
+               ui.showError(e.getMessage());
             }
 
 
+        }
     }
-
-//    public static void main(String[] args) {
-//        int count = 1;
-//        ArrayList<Task> list = loadTasks();
-//        boolean end = false;
-//        printLine();
-//        System.out.println("Hello! I am Velma!");
-//        System.out.println("What can I do for you?");
-//        Scanner req = new Scanner(System.in);
-//        printLine();
-//
-//        while (!end) {
-//            String request = req.nextLine();
-//            Command command = getCommand(request);
-//
-//            try {
-//                switch (command) {
-//                case TODO:
-//                    String todoDescription = request.replaceFirst("todo\\s*", "").trim();
-//                    if (todoDescription.isEmpty()) {
-//                        throw new VelmaException("Sorry boss! Where is your todo description?");
-//                    }
-//                    printLine();
-//                    System.out.println("Got it. I've added this task:");
-//                    Task newTodo = new Todo(todoDescription);
-//                    list.add(newTodo);
-//                    System.out.println("  " + newTodo.toString());
-//                    System.out.println("Now you have " + list.size() + " tasks in the list");
-//                    printLine();
-//                    saveTasks(list);
-//                    break;
-//
-//                case DEADLINE:
-//                    String[] parts = request.replaceFirst("deadline\\s*", "").split(" /by ");
-//                    if (parts.length < 2) {
-//                        throw new VelmaException("Sorry boss! Your deadline task needs a deadline!");
-//                    }
-//                    String description = parts[0];
-//                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-//                    LocalDateTime deadline;
-//                    try {
-//                        deadline = LocalDateTime.parse(parts[1], formatter);
-//                    } catch (DateTimeParseException e) {
-//                        throw new VelmaException("Sorry boss! The date format is incorrect. Please use d/M/yyyy HHmm.");
-//                    }
-//                    printLine();
-//                    System.out.println("Got it. I've added this task:");
-//                    Task newDeadline = new Deadline(description, deadline);
-//                    list.add(newDeadline);
-//                    System.out.println("  " + newDeadline.toString());
-//                    System.out.println("Now you have " + list.size() + " tasks in the list");
-//                    printLine();
-//                    saveTasks(list);
-//                    break;
-//
-//                case EVENT:
-//                    parts = request.replaceFirst("event\\s+", "").split(" /from | /to ");
-//                    if (parts.length < 3) {
-//                        throw new VelmaException("Sorry boss! An event needs a valid start time and end time!");
-//                    }
-//                    description = parts[0];
-//                    String startTime = parts[1];
-//                    String endTime = parts[2];
-//                    printLine();
-//                    System.out.println("Got it. I've added this task:");
-//                    Task newEvent = new Event(description, startTime, endTime);
-//                    list.add(newEvent);
-//                    System.out.println("  " + newEvent.toString());
-//                    System.out.println("Now you have " + list.size() + " tasks in the list.");
-//                    printLine();
-//                    saveTasks(list);
-//                    break;
-//
-//                case LIST:
-//                    parts = request.split(" ");
-//                    if (parts.length == 2) {
-//                        String dateString = parts[1];
-//                        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//                        LocalDate date;
-//                        try {
-//                            date = LocalDate.parse(dateString, dateFormatter);
-//                        } catch (DateTimeParseException e) {
-//                            throw new VelmaException("Sorry boss! The date format is incorrect. Please use yyyy-MM-dd.");
-//                        }
-//
-//                        printLine();
-//                        System.out.println("Here are the tasks on " + dateString + ":");
-//                        boolean found = false;
-//                        for (Task task : list) {
-//                            if (task instanceof Deadline) {
-//                                Deadline deadlineTask = (Deadline) task;
-//                                if (deadlineTask.by.toLocalDate().isEqual(date)) {
-//                                    System.out.println(count + "." + task.toString());
-//                                    count++;
-//                                    found = true;
-//                                }
-//                            }
-//                        }
-//                        if (!found) {
-//                            System.out.println("No tasks found on this date.");
-//                        }
-//                        printLine();
-//                        count = 1;
-//                    } else {
-//                        printLine();
-//                        System.out.println("Here are the tasks in your list:");
-//                        for (Task task : list) {
-//                            System.out.println(count + "." + task.toString());
-//                            count++;
-//                        }
-//                        printLine();
-//                        count = 1;
-//                    }
-//                    break;
-//
-//                case MARK:
-//                case UNMARK:
-//                    parts = request.split(" ");
-//                    if (parts.length < 2) {
-//                        throw new VelmaException("Sorry boss! Please specify which task.");
-//                    }
-//                    int taskNumber = Integer.parseInt(parts[1]) - 1;
-//                    list.get(taskNumber).changeIsDone();
-//                    printLine();
-//                    if (command == Command.MARK) {
-//                        System.out.println("Nice! I have marked this task as done:");
-//                    } else {
-//                        System.out.println("OK! I have marked this task as not done yet:");
-//                    }
-//                    System.out.println("  " + "[" + list.get(taskNumber).getStatusIcon() + "] " + list.get(taskNumber).description);
-//                    printLine();
-//                    saveTasks(list);
-//                    break;
-//
-//                case DELETE:
-//                    parts = request.split(" ");
-//                    if (parts.length < 2) {
-//                        throw new VelmaException("Sorry boss! Please specify which task to delete.");
-//                    }
-//                    taskNumber = Integer.parseInt(parts[1]) - 1;
-//                    printLine();
-//                    System.out.println("Noted. I've removed this task: ");
-//                    System.out.println("  " + list.get(taskNumber).toString());
-//                    list.remove(taskNumber);
-//                    System.out.println("Now you have " + list.size() + " tasks in the list.");
-//                    printLine();
-//                    saveTasks(list);
-//                    break;
-//
-//                case BYE:
-//                    printLine();
-//                    System.out.println("Bye. Hope to see you again soon!");
-//                    printLine();
-//                    end = true;
-//                    break;
-//
-//                case UNKNOWN:
-//                default:
-//                    throw new VelmaException("Sorry boss! What are you talking about?");
-//                }
-//            } catch (VelmaException e) {
-//                printLine();
-//                System.out.println(e.getMessage());
-//                printLine();
-//            }
-//        }
-//    }
 }

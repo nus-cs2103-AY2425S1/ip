@@ -83,13 +83,14 @@ public class Storage {
         System.out.println(list);
         return list;
     }
+    
 
-    public static void saveTasks(ArrayList<Task> list) {
+    public void save(ArrayList<Task> list) {
 
-        File file = new File("/Users/zeonchew04/ip/data/velma.txt");
+        File file = new File(filepath);
         file.getParentFile().mkdirs();
 
-        try (FileWriter writer = new FileWriter("/Users/zeonchew04/ip/data/velma.txt")) {
+        try (FileWriter writer = new FileWriter(filepath)) {
             for (Task task : list) {
                 writer.write(task.toString() + System.lineSeparator());
             }
