@@ -8,7 +8,7 @@ public class Ui {
 
     public void startConversation() {
         showLine();
-        System.out.println("Hello! I'm Lict.Lict");
+        System.out.println("Hello! I'm Lict");
         System.out.println("What can I do for you?");
         showLine();
     }

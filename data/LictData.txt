@@ -1,3 +1,4 @@
 DEADLINE | 0 | tjoef | 2019-10-14 1400
-DEADLINE | 0 | aksmd | 2019-10-01
 TODO | 0 | aslmdf
+TODO | 0 | somadf
+TODO | 0 | somf
