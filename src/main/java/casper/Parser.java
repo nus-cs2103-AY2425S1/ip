@@ -5,6 +5,10 @@ import java.util.HashMap;
 public class Parser {
     public Parser() {}
 
+    /**
+     * Splits the given string into an array of 2 strings, separated by the first space
+     * @return String[] of length 2, if input has no space, the second string is the empty string
+     */
     public String[] splitInputIntoTwo(String input) {
         int firstSpaceIndex = input.indexOf(" ");
 
@@ -20,6 +24,11 @@ public class Parser {
         return new String[] { part1, part2 };
     }
 
+    /**
+     * Parses the given input by slashes, storing them as key-value pairs in the hashmap
+     * For each parsed input, the input is further split into 2, separated by the first space.
+     * The first string is the key, and the second string is the value.
+     */
     public void parseBySlash(String input, HashMap<String, String> hashMap) {
         String[] parsedInput = input.split("/");
         hashMap.put("description", parsedInput[0].trim());

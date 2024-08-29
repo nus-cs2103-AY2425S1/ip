@@ -34,6 +34,10 @@ public class Ui {
     }
 
 
+    /**
+     * Prints all tasks in the task list provided
+     * @throws CasperBotOutOfBoundsException If getTask calls an index out of bounds
+     */
     public void displayTaskList(TaskList taskList) throws CasperBotOutOfBoundsException {
         if (taskList.isEmpty()) {
             System.out.println("You currently have no tasks in your list!");

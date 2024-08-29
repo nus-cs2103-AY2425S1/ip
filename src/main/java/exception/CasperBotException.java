@@ -7,6 +7,9 @@ public class CasperBotException extends Exception {
         this.solution = solution;
     }
 
+    /**
+     * Returns the exception message to be displayed to the user
+     */
     @Override
     public String getMessage() {
         return String.format("Problem: %s%s%s", super.getMessage(), System.lineSeparator(), this.solution);

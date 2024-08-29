@@ -17,6 +17,13 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Opens the file based on filepath
+     * After opening file, it will parse the file contents to add them to the task list
+     * If file does not exist, it will create a new file
+     * @param taskList Task list where file contents will be added to
+     * @throws CasperBotIOException If there is an IOException while reading or opening the file
+     */
     public void openFile(TaskList taskList) throws CasperBotIOException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
@@ -52,6 +59,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Write a task description to a file for persistent storage
+     * @throws CasperBotIOException f there is an IOException while writing to the file
+     */
     public void writeToFile(Task task) throws CasperBotIOException {
         try {
             FileWriter writer = new FileWriter(filePath, true);
@@ -79,6 +90,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes a line in the file, specified by line number
+     * @param line The line number to delete
+     * @throws CasperBotIOException If there is an IOException when handling the file (read/write)
+     * @throws CasperBotOutOfBoundsException If the line number specified does not exist
+     */
     public void deleteFromFile(int line) throws CasperBotIOException, CasperBotOutOfBoundsException {
         try {
             Path path = Paths.get(filePath);
@@ -95,6 +112,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates the file contents to mark or unmark the done status of a task
+     * @param line The line to be updated
+     * @param isDone Boolean value of whether the task is done or not
+     * @throws CasperBotIOException If there is an IOException when handling the file (read/write)
+     * @throws CasperBotOutOfBoundsException If the line number specified does not exist
+     */
     public void updateDoneStatus(int line, boolean isDone) throws CasperBotIOException, CasperBotOutOfBoundsException {
         try {
             Path path = Paths.get(filePath);
