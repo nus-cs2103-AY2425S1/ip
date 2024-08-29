@@ -1,18 +1,4 @@
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.Path;
-import java.nio.charset.StandardCharsets;
-import java.io.IOException;
-import java.io.FileWriter;
-import java.io.File;
-import java.util.Collections;
-import java.util.Iterator;
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 
 /**
  * Main class for the Weeny task management application.
@@ -28,21 +14,6 @@ public class Weeny {
 
         // Check if data directory and TaskList.txt exist, create if not
         storage.createFileIfNotExist("./data", "TaskList.txt");
-
-//        File dataDir = new File("./data");
-//        File taskFile = new File(dataDir, "TaskList.txt");
-//        try {
-//            if (dataDir.mkdir()) {
-//                // Create directory successful
-//            }
-//            if (taskFile.createNewFile()) {
-//                // Create file successful
-//            }
-//        } catch (IOException e) {
-//            System.err.println("Error creating directory or file" + e.getMessage());
-//            e.printStackTrace();
-//        }
-
 
         // Read TaskList file to resume TaskList
         List<Task> tasks = storage.loadTask("./data/TaskList.txt");
@@ -121,8 +92,7 @@ public class Weeny {
             }
         }
         ui.showGoodbyeMessage();
-
-
+        
         // Write to TaskList.txt
         storage.saveTask("./Data/TaskList.txt", tasks);
     }
