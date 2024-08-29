@@ -50,6 +50,15 @@ public abstract class Task {
         }
     }
 
+    /**
+     * @param keyword: the task should contain this keyword
+     * @return <code>true</code> if the Task description contains this keyword,
+     * otherwise <code>false</code>.
+     */
+    public boolean contains(String keyword) {
+        return taskDescription.contains(keyword);
+    }
+
     private boolean isDone() {
         return this.isDone;
     }
