@@ -5,6 +5,7 @@ import java.util.Objects;
 public class Task {
     private String taskName;
     private boolean completed;
+
     public Task(String taskName) {
         this.taskName = taskName;
         completed = false;

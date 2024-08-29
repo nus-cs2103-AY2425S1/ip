@@ -1,8 +1,6 @@
 package Mediell;
 
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Mediell {

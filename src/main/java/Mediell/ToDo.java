@@ -1,7 +1,5 @@
 package Mediell;
 
-import java.util.Objects;
-
 public class ToDo extends Task{
     public ToDo() {
         super("");
