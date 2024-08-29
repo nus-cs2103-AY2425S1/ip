@@ -28,11 +28,12 @@ public class Parser {
             if (markParts.length == 2) {
                 try {
                     int taskToMark = Integer.parseInt(markParts[1]) - 1;
-                    if (taskToMark > taskList.getBotMemory().size()) {
+                    if (taskToMark > taskList.getBotMemory().size() - 1) {
                         throw new MollyException("Please select a valid task number.");
+                    } else {
+                        taskList.toggleTaskDone(taskToMark);
+                        storage.saveTasks(taskList);
                     }
-                    taskList.toggleTaskDone(taskToMark);
-                    storage.saveTasks(taskList);
 
                 } catch (NumberFormatException e) {
                     Ui.printLine();
