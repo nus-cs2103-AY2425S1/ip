@@ -2,6 +2,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +19,9 @@ public class Bob {
     public static void main(String[] args) {
 
         List<Task> myTasks = readData();
+        LocalDate test1 = LocalDate.parse("19/12/2001", DateTimeFormatter.ofPattern("dd/MM/uuuu"));
+        System.out.println(test1);
+
 
         System.out.print(DIVIDER + GREETINGS + DIVIDER);
 
@@ -49,7 +56,7 @@ public class Bob {
                         newTask.mark();
                     }
                     myTasks.add(newTask);
-                } catch (MissingArgumentException | EmptyArgumentException e) {
+                } catch (MissingArgumentException | EmptyArgumentException | DateTimeParseException e) {
                     System.out.println("Corrupted data found");
                 }
             }
@@ -102,15 +109,15 @@ public class Bob {
                     unmarkTask(myTasks.get(ind));
                     break;
                 case "todo":
-                    myTasks.add(printAddTask(newToDo(scanner.nextLine().trim())));
+                    myTasks.add(printAddTask(newToDo(scanner.nextLine().trim().replace("  ", " "))));
                     System.out.printf(" Now you have %d tasks in the list.%n", myTasks.size());
                     break;
                 case "deadline":
-                    myTasks.add(printAddTask(newDeadline(scanner.nextLine().trim())));
+                    myTasks.add(printAddTask(newDeadline(scanner.nextLine().trim().replace("  ", " "))));
                     System.out.printf(" Now you have %d tasks in the list.%n", myTasks.size());
                     break;
                 case "event":
-                    myTasks.add(printAddTask(newEvent(scanner.nextLine().trim())));
+                    myTasks.add(printAddTask(newEvent(scanner.nextLine().trim().replace("  ", " "))));
                     System.out.printf(" Now you have %d tasks in the list.%n", myTasks.size());
                     break;
                 case "delete":
@@ -130,6 +137,8 @@ public class Bob {
             } catch (EmptyArgumentException | MissingArgumentException |
                      InvalidTaskNumberException | InvalidInputException e) {
                 System.out.println(e.getMessage());
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date/time has been entered. Please key in with a DD/MM/YYYY format or DD/MM/YYYY HHMM format");
             }
 
             System.out.print(DIVIDER);
@@ -148,7 +157,7 @@ public class Bob {
         return new ToDos(input);
     }
 
-    public static Deadlines newDeadline(String input) throws EmptyArgumentException, MissingArgumentException {
+    public static Deadlines newDeadline(String input) throws EmptyArgumentException, MissingArgumentException, DateTimeParseException {
 
         if (!input.matches("^\\S{1}.+")) {
             throw new EmptyArgumentException("description", "deadline");
@@ -161,10 +170,16 @@ public class Bob {
         }
 
         String[] inputs = input.split("/by", 2);
-        return new Deadlines(inputs[0], inputs[1]);
+        String[] dateTime = inputs[1].trim().split(" ");
+        if (dateTime.length == 2) {
+            return new Deadlines(inputs[0].trim(),
+                    LocalDate.parse(dateTime[0], DateTimeFormatter.ofPattern("dd/MM/uuuu")),
+                    LocalTime.parse(dateTime[1], DateTimeFormatter.ofPattern("HHmm")));
+        }
+        return new Deadlines(inputs[0].trim(), LocalDate.parse(dateTime[0], DateTimeFormatter.ofPattern("dd/MM/uuuu")));
     }
 
-    public static EventTask newEvent(String input) throws EmptyArgumentException, MissingArgumentException {
+    public static EventTask newEvent(String input) throws EmptyArgumentException, MissingArgumentException, DateTimeParseException {
 
         if (!input.matches("^\\S{1}.+")) {
             throw new EmptyArgumentException("description", "event");
@@ -182,8 +197,28 @@ public class Bob {
 
         String[] inputs = input.split("/from", 2);
         String[] dates = inputs[1].split("/to", 2);
-
-        return new EventTask(inputs[0], dates[0], dates[1]);
+        String[] startDateTime = dates[0].trim().split(" ");
+        String[] endDateTime = dates[1].trim().split(" ");
+        if (startDateTime.length == 1 && endDateTime.length == 1) {
+            return new EventTask(inputs[0].trim(),
+                    LocalDate.parse(startDateTime[0], DateTimeFormatter.ofPattern("dd/MM/uuuu")),
+                    LocalDate.parse(endDateTime[0], DateTimeFormatter.ofPattern("dd/MM/uuuu")));
+        } else if (startDateTime.length == 1 && endDateTime.length == 2) {
+            return new EventTask(inputs[0].trim(),
+                    LocalDate.parse(startDateTime[0], DateTimeFormatter.ofPattern("dd/MM/uuuu")),
+                    LocalDate.parse(endDateTime[0], DateTimeFormatter.ofPattern("dd/MM/uuuu")),
+                    LocalTime.parse(endDateTime[1], DateTimeFormatter.ofPattern("HHmm")));
+        } else if (startDateTime.length == 2 && endDateTime.length == 1) {
+            return new EventTask(inputs[0].trim(),
+                    LocalDate.parse(startDateTime[0], DateTimeFormatter.ofPattern("dd/MM/uuuu")),
+                    LocalTime.parse(startDateTime[1], DateTimeFormatter.ofPattern("HHmm")),
+                    LocalDate.parse(endDateTime[0], DateTimeFormatter.ofPattern("dd/MM/uuuu")));
+        }
+        return new EventTask(inputs[0].trim(),
+                LocalDate.parse(startDateTime[0], DateTimeFormatter.ofPattern("dd/MM/uuuu")),
+                LocalTime.parse(startDateTime[1], DateTimeFormatter.ofPattern("HHmm")),
+                LocalDate.parse(endDateTime[0], DateTimeFormatter.ofPattern("dd/MM/uuuu")),
+                LocalTime.parse(endDateTime[1], DateTimeFormatter.ofPattern("HHmm")));
     }
 
     public static void markTask(Task task) {
