@@ -48,7 +48,7 @@ public class Bibi {
             isExit = cmd.isExit();
         }
     }
-    
+
     public static void main(String[] args) {
         // Insert path to saveFile
         new Bibi("data/list.txt").run();
