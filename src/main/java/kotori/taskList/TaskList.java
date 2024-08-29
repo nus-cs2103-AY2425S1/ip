@@ -47,6 +47,16 @@ public class TaskList {
         }
     }
 
+    public TaskList findAll(String description) {
+        TaskList result = new TaskList();
+        for (Task t : list) {
+            if (t.hasDescription(description)) {
+                result.add(t);
+            }
+        }
+        return result;
+    }
+
     @Override
      public String toString() {
         String result = "";

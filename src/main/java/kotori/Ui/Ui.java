@@ -29,6 +29,17 @@ public class Ui {
         printLine();
     }
 
+    public static void printListWithMessages(TaskList list, String... inputs) {
+        printLine();
+        for (String s : inputs){
+            System.out.println("    " + s);
+        }
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(String.format("    %s. %s",i + 1, list.get(i).toString()));
+        }
+        printLine();
+    }
+
     public static void printGreeting() {
         printMessage("Hello! I'm Kotori.\n    What can I do for you?");
     }

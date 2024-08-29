@@ -140,7 +140,7 @@ public class KotoriTest {
     }
 
     @Test
-    public void findTest() {
+    public void searchTest() {
         TaskList list = new TaskList();
         try {
             list.add(Task.of("deadline something /by 2020-10-11") );
@@ -149,12 +149,31 @@ public class KotoriTest {
         final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         final PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
-        new FindCommand(list, "2020-10-10").execute();
+        new SearchCommand(list, "2020-10-10").execute();
         System.setOut(originalOut);
         assertEquals("    ___________________________________________\n" +
                 "    These are the tasks related to this date 2020-10-10\n" +
                 "    [D][ ] something  (by: 2020-10-11)\n" +
                 "    [E][ ] project meeting  (from: 2020-10-08 to: 2020-10-26)\n" +
+                "    ___________________________________________\n", outContent.toString());
+    }
+
+    @Test
+    public void findTest() {
+        TaskList list = new TaskList();
+        try {
+            list.add(Task.of("deadline something /by 2020-10-11") );
+            list.add(Task.of("event project meeting for something/from 2020-10-08/to 2020-10-26"));
+        } catch (Exception e) {}{}
+        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        final PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+        new FindCommand(list, "something").execute();
+        System.setOut(originalOut);
+        assertEquals("    ___________________________________________\n" +
+                "    These are(is) the task(s) that match the description\n" +
+                "    1. [D][ ] something  (by: 2020-10-11)\n" +
+                "    2. [E][ ] project meeting for something (from: 2020-10-08 to: 2020-10-26)\n" +
                 "    ___________________________________________\n", outContent.toString());
     }
 
@@ -195,9 +214,11 @@ public class KotoriTest {
         assertEquals((command4 instanceof MarkCommand),true);
         Command command5 = parser.parse("unmark 1");
         assertEquals((command5 instanceof UnmarkCommand),true);
-        Command command6 = parser.parse("find 2020-11-11");
-        assertEquals((command6 instanceof FindCommand),true);
+        Command command6 = parser.parse("search 2020-11-11");
+        assertEquals((command6 instanceof SearchCommand),true);
         Command command7 = parser.parse("delete 1");
         assertEquals((command7 instanceof DeleteCommand),true);
+        Command command8 = parser.parse("find book");
+        assertEquals(true, (command8 instanceof FindCommand));
     }
 }
