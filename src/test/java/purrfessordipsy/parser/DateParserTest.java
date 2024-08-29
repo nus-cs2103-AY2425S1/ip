@@ -9,14 +9,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DateParserTest{
     @Test
-    public void testParseDate_ValidDate() {
+    public void parseDate_ValidDate() {
         String dateStr = "2024-08-28";
         LocalDate parsedDate = DateParser.parseDate(dateStr);
         assertEquals(LocalDate.of(2024, 8, 28), parsedDate);
     }
 
     @Test
-    public void testParseDate_InvalidDate() {
+    public void parseDate_InvalidDate() {
         String dateStrOutOfBounds = "2024-02-30"; // Date does not exist
         String dateStrWrongFormat = "2024/08/28"; // Incorrect format
 
@@ -25,14 +25,14 @@ public class DateParserTest{
     }
 
     @Test
-    public void testFormatDateForDisplay() {
+    public void formatDateForDisplay() {
         LocalDate date = LocalDate.of(2024, 8, 28);
         String formattedDate = DateParser.formatDateForDisplay(date);
         assertEquals("Aug 28 2024", formattedDate);
     }
 
     @Test
-    public void testFormatDateForStorage() {
+    public void formatDateForStorage() {
         LocalDate date = LocalDate.of(2024, 8, 28);
         String formattedDate = DateParser.formatDateForStorage(date);
         assertEquals("2024-08-28", formattedDate);
