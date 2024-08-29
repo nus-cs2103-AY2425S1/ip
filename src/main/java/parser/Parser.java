@@ -48,6 +48,8 @@ public class Parser {
             return new UnmarkCommand(Integer.parseInt(arguments));
         case "delete":
             return new DeleteCommand(Integer.parseInt(arguments));
+        case "find":
+            return new FindCommand(arguments);
         case "bye":
             return new ExitCommand();
         default:
