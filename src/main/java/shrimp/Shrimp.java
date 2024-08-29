@@ -37,7 +37,8 @@ public class Shrimp {
         try {
             taskList = Storage.loadTasks();
         } catch (IOException | ShrimpException e) {
-            System.out.println("Oh nyoo~ Couldn't load tasks... Starting with an empty list.");
+            ui.printError("Couldn't load tasks... Starting with an empty list.");
+            System.out.println(AnsiCode.CYAN);
             taskList = new TaskList();
         }
 
@@ -143,9 +144,11 @@ public class Shrimp {
                 Storage.saveTasks(taskList);
 
             } catch (ShrimpException e) {
-                System.out.println(AnsiCode.RED + e.getMessage() + String.format(" (%s)", e.getErrorCode()) + AnsiCode.CYAN);
+                ui.printError(e.getMessage() + String.format(" (%s)", e.getErrorCode()));
+                System.out.println(AnsiCode.CYAN);
             } catch (Exception e) {
-                System.out.println(AnsiCode.RED + "Oh nyoo~ Something went wrong... Try again!" + AnsiCode.CYAN);
+                ui.printError("Something went wrong... Try again!");
+                System.out.println(AnsiCode.CYAN);
             }
         }
     }
@@ -157,7 +160,7 @@ public class Shrimp {
     }
 
     // Helper method to extract shrimp.task number for MARK/UNMARK/DELETE
-    private static int getTaskNumber(String userInput, Parser.CommandType type) throws ShrimpException {
+    static int getTaskNumber(String userInput, Parser.CommandType type) throws ShrimpException {
         try {
             return Integer.parseInt(userInput.split(" ")[1]) - 1;
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -167,7 +170,7 @@ public class Shrimp {
         }
     }
 
-    private static LocalDateTime getDateTime(String input) throws ShrimpException {
+    static LocalDateTime getDateTime(String input) throws ShrimpException {
         try {
             return LocalDateTime.parse(input, Parser.PATTERN);
         } catch (DateTimeParseException e) {
