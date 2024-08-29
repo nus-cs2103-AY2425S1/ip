@@ -1,3 +1,10 @@
+package alisa;
+
+import alisa.command.*;
+import alisa.task.Deadline;
+import alisa.task.Event;
+import alisa.task.Todo;
+
 public class Parser {
 
     public static Command parse(String command) throws AlisaException {

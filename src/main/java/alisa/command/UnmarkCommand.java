@@ -1,13 +1,20 @@
-public class MarkCommand extends Command {
+package alisa.command;
+
+import alisa.AlisaException;
+import alisa.Storage;
+import alisa.task.TaskList;
+import alisa.Ui;
+
+public class UnmarkCommand extends Command {
     private int index;
 
-    public MarkCommand(int index) {
+    public UnmarkCommand(int index) {
         this.index = index;
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws AlisaException {
-        String message = taskList.markTask(index);
+        String message = taskList.unmarkTask(index);
         ui.showMessage(message);
         storage.syncFile(taskList);
     }

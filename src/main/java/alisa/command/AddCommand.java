@@ -1,3 +1,9 @@
+package alisa.command;
+
+import alisa.*;
+import alisa.task.Task;
+import alisa.task.TaskList;
+
 public class AddCommand extends Command {
 
     private Task task;

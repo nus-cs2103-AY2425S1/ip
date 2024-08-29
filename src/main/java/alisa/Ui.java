@@ -1,3 +1,5 @@
+package alisa;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -21,7 +23,7 @@ public class Ui {
     }
 
     public void showWelcomeMessage() {
-        System.out.println("Hey, Alisa here! What do you need help with?");
+        System.out.println("Hey, alisa.Alisa here! What do you need help with?");
         System.out.println("BTW Say the word bye to get out of this conversation");
         showDivider();
     }
