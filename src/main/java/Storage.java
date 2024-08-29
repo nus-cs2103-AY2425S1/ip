@@ -95,9 +95,9 @@ public class Storage {
         if (task instanceof ToDo) {
             return "T | " + status + " | " + task.getDescription();
         } else if (task instanceof Deadline) {
-            return "D | " + status + " | " + task.getDescription() + " | " + ((Deadline) task).getDeadline();
+            return "D | " + status + " | " + task.getDescription() + " | " + ((Deadline) task).getFormattedDeadline();
         } else if (task instanceof Event) {
-            String[] startAndEnd = ((Event) task).getStartAndEnd();
+            String[] startAndEnd = ((Event) task).getFormattedStartAndEnd();
             return "E | " + status + " | " + task.getDescription() + " | " + startAndEnd[0] + " | " + startAndEnd[1];
         }
         throw new SnipeException("Task is not a valid task");
