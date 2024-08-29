@@ -32,13 +32,9 @@ public class FindCommand extends Command {
 
         for (Task task : tasks.getTasks()) {
             String sentence = task.toString();
-            String[] words = sentence.split(" ");
-
-            for (String word : words) {
-                if (word.equals(itemToFind)) {
-                    result.add(task);
-                    break;
-                }
+            if (sentence.contains(itemToFind)) {
+                result.add(task);
+                break;
             }
         }
 
