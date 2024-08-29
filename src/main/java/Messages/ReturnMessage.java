@@ -1,7 +1,9 @@
+package Messages;
+
 public class ReturnMessage {
     private String[] message;
 
-    public ReturnMessage(String[] messages) {
+    public ReturnMessage(String... messages) {
         this.message = messages;
     }
 

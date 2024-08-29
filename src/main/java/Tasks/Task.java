@@ -1,3 +1,5 @@
+package Tasks;
+
 import java.io.FileWriter;
 
 public class Task {

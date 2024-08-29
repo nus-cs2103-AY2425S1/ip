@@ -1,13 +1,15 @@
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.ToDo;
+
 import java.io.File;
-import java.lang.reflect.Array;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -256,10 +258,10 @@ public class Victor {
                 deadline = deadline.trim();
 
                 if (taskName.isEmpty()) {
-                    System.out.println("  ~  Please give a name for the Deadline. The format should be \"deadline" +
+                    System.out.println("  ~  Please give a name for the Tasks.Deadline. The format should be \"deadline" +
                             " (description) /by (deadline, in format yyyy-mm-dd or dd-mm-yyyy)\"");
                 } else if (deadline.isEmpty()) {
-                    System.out.println("  ~  Please give a deadline for the Deadline. The format should be \"deadline" +
+                    System.out.println("  ~  Please give a deadline for the Tasks.Deadline. The format should be \"deadline" +
                             " (description) /by (deadline, in format yyyy-mm-dd or dd-mm-yyyy)\"");
                 } else {
                     try {
@@ -275,7 +277,7 @@ public class Victor {
                             throw new RuntimeException(writeIOException);
                         }
 
-                        System.out.println("  ~  Splendid! I added this Deadline:");
+                        System.out.println("  ~  Splendid! I added this Tasks.Deadline:");
                         System.out.println("  ~    " + task);
                         System.out.println("  ~  You now have " + inputs.size() +
                                 ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
@@ -316,15 +318,15 @@ public class Victor {
                 end = end.trim();
 
                 if (taskName.isEmpty()) {
-                    System.out.println("  ~  Please give a name for the Event. The format should be \"event" +
+                    System.out.println("  ~  Please give a name for the Tasks.Event. The format should be \"event" +
                             " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to" +
                             " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
                 } else if (start.isEmpty()) {
-                    System.out.println("  ~  Please give a start time for the Event. The format should be \"event" +
+                    System.out.println("  ~  Please give a start time for the Tasks.Event. The format should be \"event" +
                             " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to" +
                             " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
                 } else if (end.isEmpty()) {
-                    System.out.println("  ~  Please give an end time for the Event. The format should be \"event" +
+                    System.out.println("  ~  Please give an end time for the Tasks.Event. The format should be \"event" +
                             " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to" +
                             " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
                 } else {
@@ -341,7 +343,7 @@ public class Victor {
                             throw new RuntimeException(writeIOException);
                         }
 
-                        System.out.println("  ~  Wonderful! I added this Event:");
+                        System.out.println("  ~  Wonderful! I added this Tasks.Event:");
                         System.out.println("  ~    " + task);
                         System.out.println("  ~  You now have " + inputs.size() +
                                 ((inputs.size() == 1) ? " task" : " tasks") + " in your list.");
@@ -359,7 +361,7 @@ public class Victor {
             } else {
                 // User input does not match any specified command
                 System.out.println("  ~  Sorry, that's not something I know how to do :( Please specify either a " +
-                        "To Do, a Deadline or an Event!");
+                        "To Do, a Tasks.Deadline or an Tasks.Event!");
             }
             System.out.println("============================================================");
             userInput = inp.nextLine();
