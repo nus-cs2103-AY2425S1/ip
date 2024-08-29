@@ -66,6 +66,7 @@ public class Storage {
     public static void addTaskToList(String input, TaskList taskList) throws ParseCommandException {
         /**
          * Code adapted from ChatGPT, using regex to possibly avoid scenario where user uses reserved characters
+         * regex updated after testing on regex101.com
          * Prompt used:
          * Can you build me a regex string to detect the following pattern in java
          * [T][x] Task
@@ -77,19 +78,19 @@ public class Storage {
          * [D][x] Deadline (by: 11)
          * [D][ ] Deadline (by: 12/08/1203)
          */
-        String regex = "\\[(T|E|D)]\\[( x?)\\] (.*?)(?: \\(from: ([^)]*?) to: ([^)]*?)\\)| \\(by: ([^)]*?)\\))?$";
+        String regex = "\\[([TED])]\\[(x|\\s?)] (.*?)(?: \\(from: ([^)]*?) to: ([^)]*?)\\)| \\(by: ([^)]*?)\\))?$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
-        String type = matcher.group(1);
-        boolean isComplete = Objects.equals(matcher.group(2), "x");
-        String description = matcher.group(3);
+        if (matcher.find()) {
+            String type = matcher.group(1);
+            boolean isComplete = Objects.equals(matcher.group(2), "x");
+            String description = matcher.group(3);
 
-        // Conditional captures for event/deadline
-        String start = matcher.group(4); // start datetime (matches from:...)
-        String end = matcher.group(5); // end datetime (matches to:...)
-        String dueDate = matcher.group(6); // due datetime (matches by:...)
+            // Conditional captures for event/deadline
+            String start = matcher.group(4); // start datetime (matches from:...)
+            String end = matcher.group(5); // end datetime (matches to:...)
+            String dueDate = matcher.group(6); // due datetime (matches by:...)
 
-        try {
             switch (type) {
                 case "T":
                     taskList.addTask(new Todo(description, isComplete));
@@ -101,10 +102,8 @@ public class Storage {
                     taskList.addTask(new Event(description, isComplete, LocalDateTime.parse(start, dateTimeFormat), LocalDateTime.parse(end, dateTimeFormat)));
                     break;
                 default:
-                    break;
+                    throw new ParseCommandException("Error reading file. Recreating task file.");
             }
-        } catch (Exception e) {
-            throw new ParseCommandException(e.getMessage());
         }
     }
 

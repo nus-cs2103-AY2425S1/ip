@@ -18,4 +18,9 @@ public class ToDoCommand extends Command {
         tasks.addTask(new Todo(this.description));
         // TODO: need to print smt?
     }
+
+    @Override
+    public String toString() {
+        return "todo command " + description;
+    }
 }

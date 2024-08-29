@@ -24,4 +24,10 @@ public class EventCommand extends Command {
         tasks.addTask(new Event(description, startDateTime, endDateTime));
         // TODO: Add smt??
     }
+
+    @Override
+    public String toString() {
+        return "event command " + description + " " + startDateTime + " " + endDateTime;
+    }
+
 }

@@ -12,4 +12,9 @@ public class ByeCommand extends Command{
         // say bye bye
         System.exit(0);
     }
+
+    @Override
+    public String toString() {
+        return "bye command ";
+    }
 }

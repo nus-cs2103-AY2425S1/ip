@@ -16,4 +16,9 @@ public class DeleteCommand extends Command {
         tasks.deleteTask(taskID);
         // TODO: RETURN SMT??
     }
+
+    @Override
+    public String toString() {
+        return "del command " + taskID;
+    }
 }

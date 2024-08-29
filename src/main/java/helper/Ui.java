@@ -16,4 +16,7 @@ public class Ui {
         return "Deleted: " + task;
     }
 
+    public void print(String output) {
+        System.out.println(output);
+    }
 }

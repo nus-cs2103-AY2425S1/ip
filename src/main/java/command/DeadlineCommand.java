@@ -22,4 +22,9 @@ public class DeadlineCommand extends Command {
         tasks.addTask(new Deadline(description, dueDate));
         // TODO: return smt??
     }
+
+    @Override
+    public String toString() {
+        return "deadline command " + description + " " + dueDate;
+    }
 }

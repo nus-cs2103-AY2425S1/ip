@@ -20,13 +20,13 @@ public class TaskList {
     }
 
     public Task markTaskAsComplete(int id) {
-        Task task = taskList.get(id);
+        Task task = taskList.get(id - 1);
         task.setComplete(true);
         return task;
     }
 
     public Task deleteTask(int id) {
-        Task task = taskList.get(id);
+        Task task = taskList.get(id - 1);
         taskList.remove(id);
         return task;
     }

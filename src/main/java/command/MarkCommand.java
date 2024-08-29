@@ -17,4 +17,9 @@ public class MarkCommand extends Command {
         tasks.markTaskAsComplete(taskID);
         // TODO: RETURN SMT??
     }
+
+    @Override
+    public String toString() {
+        return "mark command " + taskID;
+    }
 }
