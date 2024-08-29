@@ -1,4 +1,5 @@
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -15,6 +16,7 @@ public class WansBot {
     private static int numTasks = 0;
     private static TaskList userTaskList = new TaskList();
     // Method that deals with empty inputs by throwing tasks.InputEmptyException
+
     private static void emptyInput(String userInput) throws InputEmptyException {
         if (userInput.strip().equalsIgnoreCase("todos") ||
             userInput.strip().equalsIgnoreCase("deadline") ||
@@ -202,7 +204,10 @@ public class WansBot {
 
     private static void saveTasks() {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("tasklist.txt"));
+            File directory = new File("./data");
+            directory.mkdirs();
+            File file = new File("data", "tasklist.txt");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             for (int i = 0; i < userTaskList.numOfTasks(); i++) {
                 writer.write(userTaskList.getTask(i) + "\n");
             }
@@ -264,6 +269,9 @@ public class WansBot {
                     break;
                 case "remove":
                     removeTask(userInput);
+                    break;
+                case "save":
+                    saveTasks();
                     break;
                 case "bye":
                     sayGoodbye();
