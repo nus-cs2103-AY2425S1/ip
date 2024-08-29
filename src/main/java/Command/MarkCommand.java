@@ -5,6 +5,9 @@ import Task.InvalidTaskException;
 
 import Ui.Ui;
 
+/**
+ * Represents a command to mark a task as done.
+ */
 public class MarkCommand extends Command {
 
     private TaskList tasks;
@@ -15,8 +18,13 @@ public class MarkCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Marks the task at the given index of the TaskList as done.
+     *
+     * @throws InvalidTaskException If the given index is out of bounds of the TaskList.
+     */
     @Override
-    public void execute() {
+    public void execute() throws InvalidTaskException {
         try {
             tasks.mark(index);
             Ui.printText("Marked that as done for you.\n" + tasks.get(index).toString());
@@ -25,6 +33,11 @@ public class MarkCommand extends Command {
         }
     }
 
+    /**
+     * Always returns false.
+     *
+     * @return False.
+     */
     @Override
     public boolean isTerminated() {
         return false;

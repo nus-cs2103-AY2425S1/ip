@@ -15,12 +15,21 @@ import java.io.FileNotFoundException;
 
 import java.util.ArrayList;
 
-
+/**
+ * Class to read a .txt file to load into an ArrayList and read from an ArrayList to write to a .txt file.
+ * If the .txt file to be read is not found, create new file and write to it.
+ *
+ */
 public class Storage {
 
     protected String filePath;
     protected File file;
 
+    /**
+     * Takes the filePath to open the file to be read and written to.
+     *
+     * @param filePath Path of file to be opened.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.file = new File(this.filePath);
@@ -37,6 +46,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads from a .txt file to store an ArrayList of tasks.
+     * If file cannot be found or read, prints an error message.
+     *
+     * @return ArrayList of tasks
+     */
     public ArrayList<Task> readFile() {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -81,6 +96,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Writes the tasks in the TaskList to the .txt file.
+     * If writing to file is successfully, print a success message, else print error message.
+     *
+     * @param tasks List of tasks to write into file
+     */
     public void writeFile(TaskList tasks) {
         try {
             FileWriter fileWriter = new FileWriter(this.file);

@@ -11,7 +11,9 @@ import Ui.Ui;
 
 import java.time.format.DateTimeParseException;
 
-
+/**
+ * Represents the command to add a new task into the TaskList.
+ */
 public class AddCommand extends Command {
 
     private TaskList tasks;
@@ -22,6 +24,12 @@ public class AddCommand extends Command {
         this.input = input;
     }
 
+    /**
+     * Checks the task to be added into the TaskList.
+     * If the task is valid with correct parameters, adds the task in the TaskList.
+     *
+     * @throws RasputinException If task has incorrect parameters such as empty description or invalid time and date.
+     */
     @Override
     public void execute() throws RasputinException {
         String[] cmdSplit = input.split(" ");
@@ -81,6 +89,11 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Will always return false.
+     *
+     * @return False.
+     */
     @Override
     public boolean isTerminated() {
         return false;
