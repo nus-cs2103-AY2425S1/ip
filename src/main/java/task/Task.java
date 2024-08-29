@@ -38,4 +38,14 @@ public abstract class Task {
     public String toData() {
         return description + " | " + isDone;
     }
+
+    /**
+     * Checks if the task description matches the given search string.
+     *
+     * @param searchString Search string to compare.
+     * @return True if the task description contains the search string, false otherwise.
+     */
+    protected boolean isMatch(String searchString) {
+        return description.toLowerCase().contains(searchString.toLowerCase());
+    }
 }
