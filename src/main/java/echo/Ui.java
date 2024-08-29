@@ -1,3 +1,8 @@
+package echo;
+
+import echo.backend.Parser;
+import echo.task.TaskList;
+import echo.task.TaskType;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
@@ -101,7 +106,7 @@ public class Ui {
             description = temp[0];
         }
 
-        while (description.isEmpty()) { // No task description, start date provided
+        while (description.isEmpty()) { // No echo.task description, start date provided
             System.out.println("Enter task description: ");
             description = sc.nextLine().trim();
         }
@@ -176,7 +181,7 @@ public class Ui {
     public void printWelcome() {
         String welcomeMsg =
                 "____________________________________________________________\n" +
-                "Hello! I'm Echo!\n" +
+                "Hello! I'm echo.Echo!\n" +
                 "What can I do for you?\n" +
                 "____________________________________________________________\n";
         System.out.print(welcomeMsg);
@@ -224,7 +229,7 @@ public class Ui {
     public void printDelete(String task) {
         System.out.println(
             "____________________________________________________________\n" +
-            "Noted. I've removed this task:\n" +
+            "Noted. I've removed this etask:\n" +
             task +
             "____________________________________________________________"
         );
