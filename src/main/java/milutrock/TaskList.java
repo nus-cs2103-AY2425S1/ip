@@ -71,6 +71,12 @@ public class TaskList {
         return tasks.get(i).toString();
     }
 
+    /**
+     * Return list of tasks with names that contain a specific query string.
+     * 
+     * @param query String to search for.
+     * @return ArrayList of tasks that match the query.
+     */
     public ArrayList<Task> getTasksFromSearchString(String query) {
         ArrayList<Task> matchingTasks = new ArrayList<Task>();
         for (Task task : this.tasks) {

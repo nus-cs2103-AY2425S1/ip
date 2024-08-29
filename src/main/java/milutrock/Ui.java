@@ -102,6 +102,11 @@ public class Ui {
         System.out.println("Now you have " + taskList.getNumberOfTasks() + " tasks in the list.");
     }
 
+    /**
+     * Print a list of tasks that match the search query with their corresponding index numbers.
+     * 
+     * @param tasks The list of tasks to print.
+     */
     public void printFindMessage(ArrayList<Task> tasks) {
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
