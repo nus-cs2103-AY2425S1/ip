@@ -1,10 +1,59 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Joe {
+    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static final String DATA_PATH = "./data/joe.txt";
+    private static void saveData() {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(Joe.DATA_PATH));
+            for (Task task : Joe.tasks) {
+                writer.write(task.serialize());
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException x) {
+            System.err.format("IOException: %s%n", x);
+        }
+    }
+
+    private static void loadData() {
+        try {
+            File file = new File(Joe.DATA_PATH);
+            if (!file.exists() || !file.canRead()) {
+                return;
+            }
+            BufferedReader reader = new BufferedReader(new FileReader(Joe.DATA_PATH));
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                String[] lineArr = line.split("\\|");
+                String taskType = lineArr[0];
+                boolean isDone = Boolean.parseBoolean(lineArr[1]);
+                String taskDesc = lineArr[2];
+                switch (taskType) {
+                    case "T" -> {
+                        Joe.tasks.add(new Todo(taskDesc, isDone));
+                    }
+                    case "D" -> {
+                        String deadlineBy = lineArr[3];
+                        Joe.tasks.add(new Deadline(taskDesc, deadlineBy, isDone));
+                    }
+                    case "E" -> {
+                        String eventFrom = lineArr[3];
+                        String eventTo = lineArr[4];
+                        Joe.tasks.add(new Event(taskDesc, eventFrom, eventTo, isDone));
+                    }
+                }
+            }
+        } catch (IOException x) {
+            System.err.format("IOException: %s%n", x);
+        }
+
+    }
     public static void main(String[] args) {
-        ArrayList<Task> tasks = new ArrayList<>();
+        Joe.loadData();
         System.out.println("\t" + "Hello! I'm Joe");
         System.out.println("\t" + "What can I do for you?");
         Scanner scanner = new Scanner(System.in);
@@ -23,6 +72,7 @@ public class Joe {
             }
             switch (command) {
                 case BYE:
+                    Joe.saveData();
                     System.out.println("\t" + "Bye. Hope to see you again soon!");
                     return;
                 case LIST:
@@ -88,12 +138,13 @@ public class Joe {
                             }
                             String eventDesc = String.join(" ", Arrays.copyOfRange(inputArr, 1, fromIdx));
                             if (toIdx != -1) {
+                                // to date exists
                                 String eventFrom = String.join(" ", Arrays.copyOfRange(inputArr, fromIdx + 1, toIdx));
                                 String eventTo = String.join(" ", Arrays.copyOfRange(inputArr, toIdx + 1, inputArr.length));
                                 newTask = new Event(eventDesc, eventFrom, eventTo);
                             } else {
                                 String eventFrom = String.join(" ", Arrays.copyOfRange(inputArr, fromIdx + 1, inputArr.length));
-                                newTask = new Event(eventDesc, eventFrom);
+                                newTask = new Event(eventDesc, eventFrom, "MAX_DATE");
                             }
                             break;
                     }
