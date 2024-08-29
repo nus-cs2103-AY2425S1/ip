@@ -6,6 +6,9 @@ public class Event extends Task {
         this.startDate = startDate;
         this.endDate = endDate;
     }
+    public String toFileFormat() {
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + startDate + " | " + endDate;
+    }
     @Override
     public String toString() {
         return "[E]" + super.toString() + "(from: " + this.startDate + " to: " + this.endDate + ")";
