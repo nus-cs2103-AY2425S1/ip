@@ -1,3 +1,2 @@
-T | true | eat food
-D | false | CS2103T IP | Tomorrow
-E | true | Onam | 9AM | 3PM
+E | true | Onam | 2024-09-01 09:00 | 2024-09-01 13:00
+T | false | eat api

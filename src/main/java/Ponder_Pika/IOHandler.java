@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -51,6 +53,7 @@ public class IOHandler {
 
     public ArrayList<Task> loadData() {
         ArrayList<Task> list = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         try {
             if (!file.exists()) {
                 return list;
@@ -62,14 +65,14 @@ public class IOHandler {
                 String[] split = line.split("\\|");
                 switch (split[0].trim()) {
                     case "D":
-                        Deadline d = new Deadline(split[2].trim(), split[3].trim());
+                        Deadline d = new Deadline(split[2].trim(), LocalDateTime.parse(split[3].trim(),formatter));
                         if (split[1].trim().equals("true")) {
                             d.markDone();
                         }
                         list.add(d);
                         break;
                     case "E":
-                        Event e = new Event(split[2].trim(),split[3].trim(), split[4].trim());
+                        Event e = new Event(split[2].trim(), LocalDateTime.parse(split[3].trim(),formatter), LocalDateTime.parse(split[4].trim(),formatter));
                         if (split[1].trim().equals("true")) {
                             e.markDone();
                         }
