@@ -2,8 +2,6 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
 
 public class MrYapper {
     private static final String GREETING_MESSAGE = " Hello! I'm MrYapper\n"
@@ -90,9 +88,40 @@ public class MrYapper {
                 deletedTask, taskList.size()));
     }
 
+    private static void parseTaskData(String taskData) throws InvalidDataFormatException {
+        try {
+            String[] processedData = taskData.split(" \\|\\|\\| ");
+            Task task;
+            String taskDescription = processedData[2];
+
+            switch (processedData[0]) {
+            case "T":
+                task = new Todo(taskDescription);
+                break;
+            case "D":
+                task = new Deadline(taskDescription, processedData[3]);
+                break;
+            case "E":
+                task = new Event(taskDescription, processedData[3], processedData[4]);
+                break;
+            default:
+                throw new InvalidDataFormatException(taskData);
+            }
+
+            boolean taskIsDone;
+            taskIsDone = Integer.parseInt(processedData[1]) > 0;
+            if (taskIsDone) {
+                task.markAsDone();
+            }
+
+            taskList.add(task);
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw new InvalidDataFormatException(taskData);
+        }
+    }
+
     public static void main(String[] args) {
         boolean conversationIsOngoing = false;
-        Scanner userInputReader = new Scanner(System.in);
 
         // check if the tasks data file exists
         try {
@@ -102,14 +131,23 @@ public class MrYapper {
                 if (fileCreationSuccessful) {
                     System.out.println("Data file creation successful");
                 }
+            } else {
+                Scanner dataFileReader = new Scanner(taskData);
+                while (dataFileReader.hasNextLine()) {
+                    parseTaskData(dataFileReader.nextLine());
+                }
+                dataFileReader.close();
             }
+
             say(GREETING_MESSAGE);
             conversationIsOngoing = true;
         } catch (IOException e) {
-            userInputReader.close();
-            System.out.println("It seems something is wrong when creating data file :(");
+            say("It seems something is wrong when creating data file :(");
+        } catch (InvalidDataFormatException e) {
+            say(e.getMessage());
         }
 
+        Scanner userInputReader = new Scanner(System.in);
         while (conversationIsOngoing) {
             String userInput = userInputReader.nextLine();
             String[] processedInput = userInput.trim().split("\\s+", 2);
@@ -183,5 +221,6 @@ public class MrYapper {
                 say("Hmm... I'm not sure what you're trying to do :(");
             }
         }
+        userInputReader.close();
     }
 }
