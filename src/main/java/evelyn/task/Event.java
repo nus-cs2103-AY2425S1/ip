@@ -1,4 +1,4 @@
-package evelyn.tasks;
+package evelyn.task;
 
 import java.time.LocalDate;
 

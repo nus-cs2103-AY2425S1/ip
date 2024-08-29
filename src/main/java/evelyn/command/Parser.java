@@ -2,10 +2,11 @@ package evelyn.command;
 
 import evelyn.exception.InvalidInputException;
 import evelyn.exception.NoInputException;
-import evelyn.tasks.Deadline;
-import evelyn.tasks.Event;
-import evelyn.tasks.Todo;
+import evelyn.task.Deadline;
+import evelyn.task.Event;
+import evelyn.task.Todo;
 
+import java.time.DateTimeException;
 import java.util.Objects;
 
 public class Parser {
@@ -16,7 +17,7 @@ public class Parser {
         this.horizontalLine = Ui.horizontalLine;
     }
 
-    public void parse(String text) throws NoInputException {
+    public void parse(String text) throws NoInputException, DateTimeException {
         if ((Objects.equals(text, "bye")) || (Objects.equals(text, "BYE")) || (Objects.equals(text, "Bye"))) {
             this.lst.saveTasks();
         } else if (text.startsWith("delete")) {

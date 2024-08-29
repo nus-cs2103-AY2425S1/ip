@@ -1,6 +1,6 @@
 package evelyn.command;
 
-import evelyn.tasks.Task;
+import evelyn.task.Task;
 
 import java.io.File;
 import java.io.FileWriter;

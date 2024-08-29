@@ -3,6 +3,7 @@ package evelyn.command;
 import evelyn.exception.InvalidInputException;
 import evelyn.exception.NoInputException;
 
+import java.time.DateTimeException;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -61,6 +62,12 @@ public class Ui {
                 System.out.println("todo [task description]");
                 System.out.println("deadline [task description] /by [date]");
                 System.out.println("event [task description] /from [start date and time] /to [end date and time");
+                System.out.println(horizontalLine);
+            } catch (DateTimeException e) {
+                System.out.println(horizontalLine);
+                System.out.println("It seems like you entered an invalid date!");
+                System.out.println("We only accept dates in the form of YYYY-MM-DD.");
+                System.out.println("Please try again!");
                 System.out.println(horizontalLine);
             }
         }
