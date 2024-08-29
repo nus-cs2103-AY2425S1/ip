@@ -9,6 +9,7 @@ import enums.TaskType;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -163,7 +164,7 @@ public class Chatgpt {
     }
 
     private static void addDeadlineTask(String input) throws EmptyDescriptionException, MissingDateException {
-        String[] parts = input.split(" / ");
+        String[] parts = input.split(" by ");
         if (parts.length < 2) {
             throw new MissingDateException("OPS!!! The date of a deadline cannot be empty.");
         }
@@ -171,16 +172,20 @@ public class Chatgpt {
         if (description.isEmpty()) {
             throw new EmptyDescriptionException("OPS!!! The description of a deadline cannot be empty.");
         }
-        String by = parts[1].trim();
-        tasks.add(new Deadline(description, by));
-        saveTasksToFile();
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + new Deadline(description, by));
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        try {
+            String by = parts[1].trim();
+            tasks.add(new Deadline(description, by));
+            saveTasksToFile();
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + tasks.get(tasks.size() - 1));
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        } catch (DateTimeParseException e) {
+            System.out.println("Error: Invalid date format. Please use yyyy-MM-dd HHmm.");
+        }
     }
 
     private static void addEventTask(String input) throws EmptyDescriptionException, MissingDateException {
-        String[] parts = input.split(" / | / ");
+        String[] parts = input.split(" from | to ");
         if (parts.length < 3) {
             throw new MissingDateException("OPS!!! The start or end time of an event cannot be missing.");
         }
