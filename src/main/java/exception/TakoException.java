@@ -2,7 +2,7 @@ package exception;
 
 public class TakoException extends Exception {
 
-    String message;
+    private String message;
 
     public TakoException(String message) {
         this.message = message;
