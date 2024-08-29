@@ -118,7 +118,7 @@ public class Parser {
                 tasklist.filter(args);
                 break;
             default:
-                throw new DukeException("Invalid command");
+                throw new DukeException("Invalid command provided.");
             }
             System.out.flush();
             System.setOut(sysstream);
