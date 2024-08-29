@@ -1,3 +1,7 @@
+package Tasks;
+
+import Exceptions.*;
+
 public abstract class Task {
     private String taskname;
     private boolean done;

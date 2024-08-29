@@ -1,3 +1,5 @@
+package Exceptions;
+
 public class EventNoTimeException extends TestamentException {
 
     public EventNoTimeException() {

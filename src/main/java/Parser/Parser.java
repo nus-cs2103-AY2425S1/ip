@@ -1,5 +1,12 @@
+package Parser;
+
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
+import Tasks.*;
+import Exceptions.*;
+import Ui.Ui;
+import Storage.Storage;
 
 public class Parser {
 

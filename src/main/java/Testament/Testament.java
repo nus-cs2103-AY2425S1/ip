@@ -1,7 +1,9 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.time.format.DateTimeParseException;
+package Testament;
+
+import Tasks.*;
+import Ui.Ui;
+import Storage.Storage;
+import Parser.Parser;
 
 public class Testament {
 

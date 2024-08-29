@@ -1,3 +1,5 @@
+package Exceptions;
+
 public class NotInTaskListException extends TestamentException {
 
     public NotInTaskListException() {

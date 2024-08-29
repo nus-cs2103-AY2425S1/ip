@@ -1,3 +1,5 @@
+package Exceptions;
+
 public class TestamentException extends Exception {
 
     public TestamentException() {

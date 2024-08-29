@@ -1,3 +1,5 @@
+package Exceptions;
+
 public class CommandNotRecognisedException extends TestamentException {
 
     public CommandNotRecognisedException() {
