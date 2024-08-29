@@ -3,18 +3,16 @@ package Tasks;
 import Exceptions.DelphiException;
 import Exceptions.EmptyInputException;
 import Exceptions.InvalidInputException;
-import Parser.Parser;
 import Parser.DateParser;
-import Tasks.Task;
 
 /**
  * Represents a Tasks.Event task with a specific time window.
  */
 public class Event extends Task {
-    private String window;
+    private final String window;
 
     /**
-     * Constructs an Tasks.Event task with a given description.
+     * Constructs a Tasks.Event task with a given description.
      *
      * @param description The description of the Tasks.Event task.
      * @throws EmptyInputException if the description is empty.

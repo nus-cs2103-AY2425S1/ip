@@ -1,7 +1,6 @@
 package TaskList;
 
 import Exceptions.DelphiException;
-import Exceptions.InvalidInputException;
 import Exceptions.InvalidListItemException;
 import Parser.Parser;
 import Parser.DateParser;
@@ -10,7 +9,6 @@ import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
-import UI.UI;
 
 import java.util.ArrayList;
 import java.io.IOException;
@@ -28,19 +26,22 @@ public class TaskList {
      */
     public TaskList() {
         tasks = new ArrayList<>();
-
     }
 
     /**
      * Adds a task to the task list based on the input string.
      *
-     * @param task The task description.
-     * @throws DelphiException If the task is invalid or an error occurs.
+     * @param task The task object.
      */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Converts all the strings that represent tasks from the hard drive .txt file and adds them to the task list.
+     *
+     * @param s The storage object that Delphi uses to interact with the hard disk .txt file.
+     */
     public void loadStorageToTasks(Storage s) {
         Parser helperParser = new Parser();
         DateParser helperDateParser = new DateParser();
@@ -64,26 +65,26 @@ public class TaskList {
                     }
                 } else if (helperParser.checkStringPrefix(line, 6, "[D][ ]")) {
                     try {
-                        tasks.add(new Deadline(helperParser.formatStringDeadline(line.substring(7)), helperDateParser));
+                        tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7)), helperDateParser));
                     } catch (DelphiException e) {
                         //empty
                     }
                 } else if (helperParser.checkStringPrefix(line, 6, "[D][X]")) {
                     try {
-                        tasks.add(new Deadline(helperParser.formatStringDeadline(line.substring(7)), helperDateParser));
+                        tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7)), helperDateParser));
                         markTaskAsDone(tasks.size());
                     } catch (DelphiException e) {
                         //empty
                     }
                 } else if (helperParser.checkStringPrefix(line, 6, "[E][ ]")) {
                     try {
-                        tasks.add(new Event(helperParser.formatStringEvent(line.substring(7)), helperDateParser));
+                        tasks.add(new Event(Parser.formatStringEvent(line.substring(7)), helperDateParser));
                     } catch (DelphiException e) {
                         //empty
                     }
                 } else if (helperParser.checkStringPrefix(line, 6, "[E][X]")) {
                     try {
-                        tasks.add(new Event(helperParser.formatStringEvent(line.substring(7)), helperDateParser));
+                        tasks.add(new Event(Parser.formatStringEvent(line.substring(7)), helperDateParser));
                         markTaskAsDone(tasks.size());
                     } catch (DelphiException e) {
                         //empty
@@ -91,7 +92,7 @@ public class TaskList {
                 }
                 counter++;
             }
-            if (readTasks.size()==0) {
+            if (readTasks.isEmpty()) {
                 System.out.println("    no tasks in hard drive");
             }
         } catch (IOException e) {
@@ -109,7 +110,6 @@ public class TaskList {
         if (i <= tasks.size()) {
             Task t = tasks.get(i - 1);
             tasks.remove(i - 1);
-            // s.writeToHardDisk(this.tasks); // this line
             return t;
         } else {
             throw new InvalidListItemException(i);
@@ -134,8 +134,6 @@ public class TaskList {
         if (i <= tasks.size()) {
             tasks.get(i - 1).complete();
         }
-        //s.writeToHardDisk(this.tasks); this line
-        //may want to add error handling for invalid indexes here
     }
 
     /**
@@ -147,8 +145,6 @@ public class TaskList {
         if (i <= tasks.size()) {
             tasks.get(i - 1).uncomplete();
         }
-        //s.writeToHardDisk(this.tasks); // this line
-        //may want to add error handling for invalid indexes here
     }
 
     /**
@@ -164,6 +160,11 @@ public class TaskList {
             return null;
         }
     }
+
+    /**
+     *
+     * @return The task list as Collection.
+     */
     public List<Task> getTasks() {
         return this.tasks;
     }

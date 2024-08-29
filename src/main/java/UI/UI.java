@@ -1,12 +1,8 @@
 package UI;
 
-import Exceptions.InvalidListItemException;
-import TaskList.TaskList;
 import Tasks.Task;
 
 public class UI {
-
-
     public void welcomeMessage() {
         System.out.println("Hello! I'm Delphi, the greatest oracle in all of the classical world.");
         System.out.println("To quote a very famous person who will arrive a bit later, ask and ye shall find");
