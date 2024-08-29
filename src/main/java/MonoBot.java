@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -42,8 +43,12 @@ public class MonoBot {
                                     "Note that format for adding a DEADLINE task is \n" +
                                     "deadline <task description> /by <due date/time>");
                         }
-                        Task deadline = new Deadline(deadlineDetails[0], deadlineDetails[1]);
-                        MonoBot.addTask(deadline);
+                        try {
+                            Task deadline = new Deadline(deadlineDetails[0].trim(), deadlineDetails[1].trim());
+                            MonoBot.addTask(deadline);
+                        } catch (DateTimeParseException e) {
+                            throw new MonoBotException("Invalid date/time format. Please use d/M/yyyy HHmm format.");
+                        }
                         break;
 
                     case EVENT:
@@ -57,8 +62,12 @@ public class MonoBot {
                                     "Note that format for adding an event is \n" +
                                     "event <task description> /from <start date/time> /to <end date/time>");
                         }
-                        Task event = new Event(eventDetails[0], eventDetails[1], eventDetails[2]);
-                        MonoBot.addTask(event);
+                        try {
+                            Task event = new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2].trim());
+                            MonoBot.addTask(event);
+                        } catch (DateTimeParseException e) {
+                            throw new MonoBotException("Invalid date/time format. Please use d/M/yyyy HHmm format for both start and end times.");
+                        }
                         break;
 
                     case MARK:

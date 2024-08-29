@@ -19,6 +19,10 @@ public class Task {
         return this.isDone;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     @Override
     public String toString() {
         String str = this.isDone ? "[X]" : "[ ]";
