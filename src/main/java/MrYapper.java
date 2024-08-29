@@ -1,11 +1,16 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
 
 public class MrYapper {
     private static final String GREETING_MESSAGE = " Hello! I'm MrYapper\n"
             + " What can I do for you?";
     private static final String GOODBYE_MESSAGE = " Bye. Hope to see you again soon!";
     private static final ArrayList<Task> taskList = new ArrayList<>(100);
+    private static final String TASK_DATA_PATH = "src/data/tasks.txt";
 
     // Inserts line indentation in response messages
     private static void say(String message) {
@@ -86,11 +91,26 @@ public class MrYapper {
     }
 
     public static void main(String[] args) {
-        say(GREETING_MESSAGE);
-        boolean conversationIsOngoing = true;
+        boolean conversationIsOngoing = false;
         Scanner userInputReader = new Scanner(System.in);
 
-        do {
+        // check if the tasks data file exists
+        try {
+            File taskData = new File(TASK_DATA_PATH);
+            if (!taskData.exists()) {
+                boolean fileCreationSuccessful = taskData.createNewFile();
+                if (fileCreationSuccessful) {
+                    System.out.println("Data file creation successful");
+                }
+            }
+            say(GREETING_MESSAGE);
+            conversationIsOngoing = true;
+        } catch (IOException e) {
+            userInputReader.close();
+            System.out.println("It seems something is wrong when creating data file :(");
+        }
+
+        while (conversationIsOngoing) {
             String userInput = userInputReader.nextLine();
             String[] processedInput = userInput.trim().split("\\s+", 2);
             String command = processedInput[0];
@@ -162,6 +182,6 @@ public class MrYapper {
             default:
                 say("Hmm... I'm not sure what you're trying to do :(");
             }
-        } while (conversationIsOngoing);
+        }
     }
 }
