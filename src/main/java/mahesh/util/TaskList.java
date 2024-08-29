@@ -35,7 +35,7 @@ public class TaskList {
         try {
             Task task = this.list.get(index);
             this.list.remove(index);
-            Ui.printTaskDeleted(task, index);
+            Ui.printTaskDeleted(task, this.list.size());
         } catch (IndexOutOfBoundsException err) {
             Ui.printNoSuchTaskErr(this.list.size());
         }
