@@ -49,6 +49,8 @@ public class DGPT {
                     Parser.parse(input, tasks, ui);
                 } catch (TaskNotFoundException | IncorrectInputException e) {
                     ui.showError(e);
+                } catch (Exception e) {
+                    ui.showUnknownError();
                 }
             }
         }
