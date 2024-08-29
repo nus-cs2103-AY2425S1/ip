@@ -149,6 +149,16 @@ public abstract class Task {
     }
 
     /**
+     * Returns {@code true} if the description contains the keyword.
+     *
+     * @param keyword The {@link String} to look for.
+     * @return If the description contains the keyword.
+     */
+    public boolean hasMatchingDescription(String keyword) {
+        return (description.contains(keyword));
+    }
+
+    /**
      * Returns the {@link String} representation of the Task.
      *
      * @return A String representation of the task.
