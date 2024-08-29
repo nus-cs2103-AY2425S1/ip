@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -42,7 +43,7 @@ public class James {
                             throw new MissingDescriptionException("Missing deadline information in line: " + line);
                         }
                         String deadline = parts[3];
-                        taskList.add(new Deadline(description, isMarked, deadline));
+                        taskList.add(new Deadline(description, isMarked, LocalDateTime.parse(deadline)));
                         break;
 
                     case "E":
@@ -51,7 +52,8 @@ public class James {
                         }
                         String start = parts[3];
                         String end = parts[4];
-                        taskList.add(new Event(description, isMarked, start, end));
+                        taskList.add(new Event(description, isMarked, LocalDateTime.parse(start),
+                                LocalDateTime.parse(end)));
                         break;
 
                     default:
@@ -131,7 +133,8 @@ public class James {
                         case "deadline":
                             String deadlineDescription = command.substring(8, command.lastIndexOf("/by")).trim();
                             String deadline = command.substring(command.lastIndexOf("/by") + 4).trim();
-                            Task deadlineTask = new Deadline(deadlineDescription, false, deadline);
+                            Task deadlineTask = new Deadline(deadlineDescription, false,
+                                    LocalDateTime.parse(deadline));
                             tasks.add(deadlineTask);
                             System.out.println("Task added:" + "\n" + deadlineTask.printTask());
                             System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
@@ -143,7 +146,8 @@ public class James {
                             String start = command.substring(command.lastIndexOf("/from") + 6,
                                     command.lastIndexOf("/to")).trim();
                             String end = command.substring(command.lastIndexOf("/to") + 4).trim();
-                            Task eventTask = new Event(eventDescription, false, start, end);
+                            Task eventTask = new Event(eventDescription, false, LocalDateTime.parse(start),
+                                    LocalDateTime.parse(end));
                             tasks.add(eventTask);
                             System.out.println("Task added:" + "\n" + eventTask.printTask());
                             System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
