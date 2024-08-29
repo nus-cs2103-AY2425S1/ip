@@ -12,8 +12,8 @@ public class Deadline extends Task{
     }
 
     @Override
-    public String taskData() {
-        return String.format("D" + super.taskData() + deli + by.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")) + "\n");
+    public String getTaskData() {
+        return String.format("D" + super.getTaskData() + deli + by.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")) + "\n");
     }
 
     @Override

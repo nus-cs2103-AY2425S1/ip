@@ -7,8 +7,8 @@ public class Todo extends Task{
     }
 
     @Override
-    public String taskData() {
-        return String.format("T" + super.taskData() + "\n");
+    public String getTaskData() {
+        return String.format("T" + super.getTaskData() + "\n");
     }
 
     @Override
