@@ -66,7 +66,7 @@ public class TaskList {
      */
     public ArrayList<Task> searchKeyword(String keyword) {
         ArrayList<Task> matches = new ArrayList<>();
-        for (Task task : taskArray) {
+        for (Task task : tasks) {
             if (task.getTask().contains(keyword)) {
                 matches.add(task);
             }
