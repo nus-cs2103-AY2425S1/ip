@@ -64,7 +64,7 @@ public class Storage {
             }
             sc.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Sorry Boss, file not found: " + e.getMessage());
+            System.out.println("Sorry, Katheryne cannot find the file: " + e.getMessage());
         }
         return list;
     }

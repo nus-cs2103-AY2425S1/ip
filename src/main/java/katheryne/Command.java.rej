@@ -1,0 +1,16 @@
+diff a/src/main/java/katheryne/Command.java b/src/main/java/katheryne/Command.java	(rejected hunks)
+@@ -16,10 +16,12 @@
+         return ui.getListMessage(l);
+     }
+ 
+-    public String executeMark(String string) throws MissingInformationException, IndexOutOfBoundsException {
++    public String executeMark(String string)
++            throws MissingInformationException, IndexOutOfBoundsException {
+         String[] fullCommand = Parser.parseCommand(string);
+         if (fullCommand.length < 2) {
+-            throw new MissingInformationException("You need to specify the task number to mark.");
++            String msg = "You need to specify the task number to mark.";
++            throw new MissingInformationException(msg);
+         }
+         if (Integer.parseInt(fullCommand[1])> taskList.getTaskList().size()) {
+             throw new IndexOutOfBoundsException(Message.MESSAGE_INDEX_ERROR);
