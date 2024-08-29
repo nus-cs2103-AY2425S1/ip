@@ -99,9 +99,8 @@ public class TheBotFather {
                     Ui.print("Leave the gun, take the cannoli.");
                     Ui.print("    " + task);
                     taskList.printCount();
-                } catch (NoSuchElementException e) {
-                    Ui.print("Why do you want to do a todo if there is no todo to do!");
                 } catch (TheBotFatherException e) {
+                    Ui.print("Why do you want to do a todo if there is no todo to do!");
                     Ui.print(e.getMessage());
                 } finally {
                     Ui.printLine();
@@ -115,10 +114,8 @@ public class TheBotFather {
                     Ui.print("Look how they massacred my boy.");
                     Ui.print("    " + task);
                     taskList.printCount();
-                } catch (NoSuchElementException e) {
-                    Ui.print("Son, if there is no Deadline.. GO HOME");
-                    Ui.print("If you have a deadline type deadline description /by date");
                 } catch (TheBotFatherException e) {
+                    Ui.print("Son, if there is no Deadline.. GO HOME");
                     Ui.print(e.getMessage());
                 } finally {
                     Ui.printLine();
@@ -132,17 +129,13 @@ public class TheBotFather {
                     Ui.print("That's my family, Kay, that's not me.");
                     Ui.print("    " + task);
                     taskList.printCount();
-                } catch (NoSuchElementException e) {
-                    Ui.print("Kiddo, go sleep, this is not a valid event!");
-                    Ui.print("If you have an event type event description /from start /to end");
                 } catch (TheBotFatherException e) {
+                    Ui.print("Kiddo, go sleep, this is not a valid event!");
                     Ui.print(e.getMessage());
-                    Ui.print("If you have an event type event description /from start /to end");
                 } finally {
                     Ui.printLine();
                 }
                 break;
-
 
             default:
                 Ui.print("OOPS!!! I'm sorry, but I don't know what that means :-(. Use \"bye\" if you want to exit the program");

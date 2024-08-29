@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -29,10 +30,13 @@ public class Storage {
                         taskList.addTask(new Todo(instructions[2]));
                         break;
                     case "D":
-                        taskList.addTask(new Deadline(instructions[2], instructions[3]));
+                        taskList.addTask(new Deadline(instructions[2],
+                                LocalDateTime.parse(instructions[3])));
                         break;
                     case "E":
-                        taskList.addTask(new Event(instructions[2], instructions[3], instructions[4]));
+                        taskList.addTask(new Event(instructions[2],
+                                LocalDateTime.parse(instructions[3]),
+                                LocalDateTime.parse(instructions[4])));
                         break;
                     default:
                         throw new Exception("Error");
