@@ -44,4 +44,12 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!");
         showLine();
     }
+    /**
+     * Displays a message to the user.
+     *
+     * @param message The message to display.
+     */
+    public void showMessage(String message) {
+        System.out.println(message);
+    }
 }

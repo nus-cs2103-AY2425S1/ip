@@ -14,6 +14,9 @@ public class Parser {
         String arguments = words.length > 1 ? words[1] : "";
 
         switch (commandWord) {
+            case "find":
+                String keyword = arguments.trim();  // Extract and trim the keyword
+                return new FindCommand(keyword);
             case "todo":
                 return new AddCommand(new Todo(arguments));
             case "deadline":
