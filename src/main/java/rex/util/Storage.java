@@ -16,8 +16,8 @@ import java.nio.file.StandardCopyOption;
  * the file with the current state of the {@code TaskList}.
  */
 public class Storage {
-    private String filepath = "./data/rex.txt";  // Path to the main file for storing tasks
-    private String temppath = "./data/tmp.txt";  // Path to a temporary file used during updates
+    private static final String FILE_PATH = "./data/rex.txt";
+    private static final String TEMP_PATH = "./data/tmp.txt";
 
     /**
      * Loads tasks from the file specified by {@code filepath} into the provided {@code TaskList}.
@@ -27,7 +27,8 @@ public class Storage {
      * @throws IOException If an I/O error occurs while reading the file or creating directories/files.
      */
     public void loadFile(TaskList list) throws IOException {
-        File file = new File(filepath);
+        // Create new file and directory for filepath
+        File file = new File(FILE_PATH);
         File dir = file.getParentFile();
 
         createDirectory(dir);
@@ -45,11 +46,12 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to or copying files.
      */
     public void updateFile(TaskList list) throws IOException {
-        File file = new File(filepath);
-        File temp = new File(temppath);
+        File file = new File(FILE_PATH);
+        File temp = new File(TEMP_PATH);
 
-        // Delete the temp file if it exists and create a new temp file
-        Files.deleteIfExists(Paths.get(temppath));
+
+        // Create temp file to copy taskList from
+        Files.deleteIfExists(Paths.get(TEMP_PATH));
         createFile(temp);
 
         try (FileWriter writer = new FileWriter(temp, true)) {
@@ -61,18 +63,19 @@ public class Storage {
         }
 
         // Replace the main file with the updated temp file
-        Files.copy(Paths.get(temppath), Paths.get(filepath), StandardCopyOption.REPLACE_EXISTING);
-        Files.delete(Paths.get(temppath));
+        Files.copy(Paths.get(TEMP_PATH), Paths.get(FILE_PATH), StandardCopyOption.REPLACE_EXISTING);
+        Files.delete(Paths.get(TEMP_PATH));
     }
 
     /**
      * Creates the specified directory if it does not already exist.
      *
-     * @param f The directory to be created.
+     * @param dir The directory to be created.
      */
-    private void createDirectory(File f) {
-        if (!f.isDirectory()) {
-            f.mkdirs();
+    private void createDirectory(File dir) {
+        // Create new directory if it does not exist
+        if (!dir.isDirectory()) {
+            dir.mkdirs();
         }
     }
 

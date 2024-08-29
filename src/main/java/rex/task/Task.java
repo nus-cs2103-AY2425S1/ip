@@ -7,7 +7,7 @@ package rex.task;
  */
 public class Task {
     private static int numberOfTasks = 0;
-    private String description;
+    private final String description;
     private boolean isDone;
 
     /**
@@ -41,7 +41,7 @@ public class Task {
      * @return "X" if the task is done, otherwise a blank space.
      */
     private String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return isDone ? "X" : " ";
     }
 
     /**
@@ -68,9 +68,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String output = "[" + getStatusIcon() + "] ";
-        output += description;
-        return output;
+        return "[" + getStatusIcon() + "] " + description;
     }
 
     /**
@@ -80,6 +78,6 @@ public class Task {
      * @return A formatted string representing the task.
      */
     public String formatted() {
-        return ((isDone) ? "1" : "0") + " | " + description;
+        return (isDone ? "1" : "0") + " | " + description;
     }
 }
