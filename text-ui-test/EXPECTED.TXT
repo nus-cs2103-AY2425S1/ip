@@ -17,20 +17,20 @@ Now you have 1 task in the list
 
 ==================================================
 Got it! I have added this task:
-[D][ ] Watch CS2100 Week 2 Pre-Recordings (by 2024-08-23 Friday)
+[D][ ] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
 Now you have 2 tasks in the list
 ==================================================
 
 ==================================================
 Got it! I have added this task:
-[E][ ] Orientation Week (from 2024-08-19 Monday to 2024-08-23 Friday)
+[E][ ] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
 Now you have 3 tasks in the list
 ==================================================
 
 ==================================================
 1. [T][ ] Wash Clothes
-2. [D][ ] Watch CS2100 Week 2 Pre-Recordings (by 2024-08-23 Friday)
-3. [E][ ] Orientation Week (from 2024-08-19 Monday to 2024-08-23 Friday)
+2. [D][ ] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
+3. [E][ ] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
 ==================================================
 
 ==================================================
@@ -40,30 +40,30 @@ Nice! I've marked this task as done:
 
 ==================================================
 1. [T][X] Wash Clothes
-2. [D][ ] Watch CS2100 Week 2 Pre-Recordings (by 2024-08-23 Friday)
-3. [E][ ] Orientation Week (from 2024-08-19 Monday to 2024-08-23 Friday)
+2. [D][ ] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
+3. [E][ ] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
 ==================================================
 
 ==================================================
 Nice! I've marked this task as done:
-[D][X] Watch CS2100 Week 2 Pre-Recordings (by 2024-08-23 Friday)
+[D][X] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
 ==================================================
 
 ==================================================
 1. [T][X] Wash Clothes
-2. [D][X] Watch CS2100 Week 2 Pre-Recordings (by 2024-08-23 Friday)
-3. [E][ ] Orientation Week (from 2024-08-19 Monday to 2024-08-23 Friday)
+2. [D][X] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
+3. [E][ ] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
 ==================================================
 
 ==================================================
 Nice! I've marked this task as done:
-[E][X] Orientation Week (from 2024-08-19 Monday to 2024-08-23 Friday)
+[E][X] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
 ==================================================
 
 ==================================================
 1. [T][X] Wash Clothes
-2. [D][X] Watch CS2100 Week 2 Pre-Recordings (by 2024-08-23 Friday)
-3. [E][X] Orientation Week (from 2024-08-19 Monday to 2024-08-23 Friday)
+2. [D][X] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
+3. [E][X] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
 ==================================================
 
 ==================================================
@@ -73,30 +73,30 @@ Ok, I've marked this task as not done yet:
 
 ==================================================
 1. [T][ ] Wash Clothes
-2. [D][X] Watch CS2100 Week 2 Pre-Recordings (by 2024-08-23 Friday)
-3. [E][X] Orientation Week (from 2024-08-19 Monday to 2024-08-23 Friday)
+2. [D][X] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
+3. [E][X] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
 ==================================================
 
 ==================================================
 Ok, I've marked this task as not done yet:
-[D][ ] Watch CS2100 Week 2 Pre-Recordings (by 2024-08-23 Friday)
+[D][ ] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
 ==================================================
 
 ==================================================
 1. [T][ ] Wash Clothes
-2. [D][ ] Watch CS2100 Week 2 Pre-Recordings (by 2024-08-23 Friday)
-3. [E][X] Orientation Week (from 2024-08-19 Monday to 2024-08-23 Friday)
+2. [D][ ] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
+3. [E][X] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
 ==================================================
 
 ==================================================
 Ok, I've marked this task as not done yet:
-[E][ ] Orientation Week (from 2024-08-19 Monday to 2024-08-23 Friday)
+[E][ ] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
 ==================================================
 
 ==================================================
 1. [T][ ] Wash Clothes
-2. [D][ ] Watch CS2100 Week 2 Pre-Recordings (by 2024-08-23 Friday)
-3. [E][ ] Orientation Week (from 2024-08-19 Monday to 2024-08-23 Friday)
+2. [D][ ] Watch CS2100 Week 2 Pre-Recordings (by Aug 23 2024 00:00)
+3. [E][ ] Orientation Week (from Aug 19 2024 12:00 to Aug 23 2024 16:00)
 ==================================================
 
 Unknown Command: add
