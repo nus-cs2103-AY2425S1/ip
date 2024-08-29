@@ -1,3 +1,5 @@
+package main.java.angel;
+
 /**
  * Represents an exception that is thrown when an invalid command is entered in the Angel application.
  * This exception extends the general {@link AngelException} to provide specific error handling

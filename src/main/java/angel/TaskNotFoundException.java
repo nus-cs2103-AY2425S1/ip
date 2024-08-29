@@ -1,3 +1,5 @@
+package main.java.angel;
+
 /**
  * Exception thrown when a specified task is not found.
  * This class extends the {@link AngelException} class.

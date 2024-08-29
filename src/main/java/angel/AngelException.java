@@ -1,3 +1,5 @@
+package main.java.angel;
+
 /**
  * Represents an exception that is thrown by the Angel application.
  * This exception is used for general errors that occur within the application.
