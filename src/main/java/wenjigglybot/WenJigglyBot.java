@@ -15,7 +15,6 @@ public class WenJigglyBot {
      * Initializes the TaskList and Ui, and attempts to load tasks from storage.
      */
     public WenJigglyBot() {
-
         tasks = new TaskList();
         ui = new Ui();
         try {
