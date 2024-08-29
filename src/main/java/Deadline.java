@@ -1,3 +1,7 @@
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a type of Task that has a deadline.
  */
@@ -12,7 +16,19 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+
+        String dueDate = by.trim();
+        try {
+            LocalDate date = LocalDate.parse(dueDate);
+            dueDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        } catch(DateTimeException ignored) {
+
+        }
+        this.by = dueDate;
+    }
+
+    public String getDeadline() {
+        return this.by;
     }
 
     @Override

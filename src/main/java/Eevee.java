@@ -204,23 +204,12 @@ public class Eevee {
                                 + "Please input a deadline denoted by '/by' or use task type 'todo' instead.");
                     }
 
-                    String description = info[0];
-                    String dueDate = info[1].trim();
-
-                    // Check if deadline is a date, if so handle it
-                    try {
-                        LocalDate date = LocalDate.parse(dueDate);
-                        dueDate = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-                    } catch(DateTimeException ignored) {
-
-                    }
-
                     // Create and store task
-                    Deadline d = new Deadline(info[0], dueDate);
+                    Deadline d = new Deadline(info[0], info[1]);
                     tasks.add(d);
                     try {
                         appendToFile(FILE_PATH, "D" + "|" + d.getStatus() + "|"
-                                + description + "|" + dueDate + "\n");
+                                + info[0] + "|" + d.getDeadline() + "\n");
                     } catch (IOException e) {
                         throw new EeveeException("Unable to store task!");
                     }
