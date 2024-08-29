@@ -11,304 +11,25 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Scanner;
 
 
 public class Phenex {
-    private final String line = "\t____________________________________________________________\n";
-    private final ArrayList<Task> tasks;
-    private final String logo = "  _____    _    _   ______   _   _   ______  __   __\n"
-            + " |  __ \\  | |  | | |  ____| | \\ | | |  ____| \\ \\ / /\n"
-            + " | |__) | | |__| | | |__    |  \\| | | |__     \\ V /\n"
-            + " | |      | |  | | | |____  | |\\  | | |____   / . \\\n"
-            + " |_|      |_|  |_| |______| |_| \\_| |______| /_/ \\_\\\n";
-    private final String greetMsg = "Hello! I'm\n"
-            + logo
-            + "Your favourite solid gold mobile suit!\n"
-            + line
-            + "\tWhat can I do for you?\n"
-            + line;
-    private final String farewellMsg = "\t Goodbye. Extinguish the Zeon forces on your way out!\n" + line;
-    private final Path filePath;
-
-    public enum TaskType {
-        TASK_TODO, TASK_DEADLINE, TASK_EVENT;
-    }
+    private Ui ui;
+    private TaskList tasks;
+    private Storage storage;
 
     public Phenex() {
-        this.tasks = new ArrayList<>();
-        String home = System.getProperty("user.home");
-        this.filePath = Paths.get(home, "Downloads", "CS2103T_AY2425", "iP", "data", "phenex.txt");
-        try {
-            this.readMemory();
-        } catch (FileNotFoundException e) {
-            System.out.println("404 Error, Memory Not Found: " + e.getMessage());
-        }
-    }
-
-    public void greet() {
-        System.out.print(greetMsg);
-    }
-
-    public void sayFarewell() {
-        System.out.println(farewellMsg);
-    }
-
-    public void printLine() {
-        System.out.print(line);
-    }
-
-    public void printTasks() {
-        int size = this.tasks.size();
-        if (size == 0) {
-            System.out.println("\t No scheduled missions. Rest up for the next battle, soldier!");
-            return;
-        }
-
-        System.out.println("\t Outstanding missions:");
-        for (int i = 0; i < size; i++) {
-            String row = "\t "
-                    + (i + 1)
-                    + "."
-                    + tasks.get(i);
-            System.out.println(row);
-        }
-    }
-
-    public void markTaskCompleted(int idx) throws PhenexException {
-        if (idx >= this.tasks.size()) {
-            throw new PhenexException("\t Invalid input, no such mission!");
-        } else {
-            System.out.println("\t Mission marked as complete. Good job, soldier!");
-            Task taskToMark = this.tasks.get(idx);
-            taskToMark.setCompleted();
-            System.out.println("\t\t" + taskToMark);
-        }
-    }
-
-    public void markTaskIncomplete(int idx) throws PhenexException {
-        if (idx >= this.tasks.size()) {
-            throw new PhenexException("\t Invalid input, no such mission!");
-        } else {
-            System.out.println("\t Mission marked as incomplete.");
-            Task taskToUnmark = this.tasks.get(idx);
-            taskToUnmark.setUncompleted();
-            System.out.println("\t\t" + taskToUnmark);
-        }
-    }
-
-    public void addTaskFromMemory(String data) throws PhenexException {
-        String[] taskDetails = data.split(", ");
-
-        if (taskDetails.length <= 1) {
-            throw new PhenexException("Error, corrupted memory.");
-        }
-
-        String symbol = taskDetails[0];
-        String status = taskDetails[1];
-        String name;
-        Task taskToAdd;
-
-        switch (symbol) {
-        case "T":
-            if (taskDetails.length != 3) {
-                throw new PhenexException("Error, corrupted memory.");
-            }
-            name = taskDetails[2];
-            taskToAdd = new ToDo(name);
-            break;
-        case "D":
-            if (taskDetails.length != 4) {
-                throw new PhenexException("Error, corrupted memory.");
-            }
-            name = taskDetails[2];
-            String byDate = taskDetails[3];
-            System.out.println(byDate);
-            LocalDate date = LocalDate.parse(byDate);
-            taskToAdd = new Deadline(name, date);
-            break;
-        case "E":
-            if (taskDetails.length != 5) {
-                throw new PhenexException("Error, corrupted memory.");
-            }
-            name = taskDetails[2];
-            try {
-                LocalDate fromDate = LocalDate.parse(taskDetails[3]);
-                LocalDate toDate = LocalDate.parse(taskDetails[4]);
-                taskToAdd = new Event(name, fromDate, toDate);
-                break;
-            } catch (DateTimeParseException e) {
-                throw new PhenexException(e.getMessage());
-            }
-        default:
-            throw new PhenexException("Error, corrupted memory");
-        }
-
-        if (status.equals("1")) {
-            taskToAdd.setCompleted();
-        }
-        this.tasks.add(taskToAdd);
-    }
-
-    public void storeTasksToMemory() {
-
-        // write into file from tasks
-        try {
-            FileWriter fileWriter = new FileWriter(this.filePath.toString());
-            for (Task task : this.tasks) {
-                String line = task.parseTaskInfo();
-                fileWriter.write(line);
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void addTask(Matcher matcher, TaskType tt) throws PhenexException {
-        String taskName = matcher.group(1);
-        String emptyNameRegex = "\\s*";
-        Pattern emptyNamePattern = Pattern.compile(emptyNameRegex);
-        Matcher emptyNameMatcher = emptyNamePattern.matcher(taskName);
-
-        Task taskToAdd;
-
-        switch (tt) {
-        case TASK_TODO:
-            if (emptyNameMatcher.matches()) {
-                throw new PhenexException("Error, invalid todo name");
-            }
-            taskToAdd = new ToDo(taskName);
-            break;
-        case TASK_DEADLINE:
-            if (emptyNameMatcher.matches()) {
-                throw new PhenexException("Error, invalid deadline name");
-            }
-            String deadlineBy = matcher.group(2);
-            try {
-                LocalDate localDate = LocalDate.parse(deadlineBy);
-                taskToAdd = new Deadline(taskName, localDate);
-            } catch (DateTimeParseException e) {
-                throw new PhenexException(e.getMessage());
-            }
-            break;
-        case TASK_EVENT:
-            if (emptyNameMatcher.matches()) {
-                throw new PhenexException("Error, invalid event name");
-            }
-            try {
-                LocalDate fromDate = LocalDate.parse(matcher.group(2));
-                LocalDate toDate = LocalDate.parse(matcher.group(3));
-                taskToAdd = new Event(taskName, fromDate, toDate);
-                break;
-            } catch (DateTimeParseException e) {
-                throw new PhenexException(e.getMessage());
-            }
-
-        default:
-            System.out.println("Unknown input");
-            return;
-        }
-
-        this.tasks.add(taskToAdd);
-        this.printTaskAdded(taskToAdd);
-        this.storeInMemory(taskToAdd.parseTaskInfo());
-    }
-
-    public void deleteTask(int idx) throws PhenexException {
-        if (idx >= this.tasks.size()) {
-            throw new PhenexException("Error, no such mission exists");
-        }
-        Task taskToDelete = this.tasks.get(idx);
-        this.tasks.remove(idx);
-        System.out.println("\t OK. Mission aborted, retreat!");
-        System.out.println("\t  " + taskToDelete);
-        System.out.println("\t " + this.tasks.size() + " missions remaining. Destroy the enemy!");
-    }
-
-    public void printTaskAdded(Task task) {
-        System.out.println("\t Mission " + task.name + " added:");
-        System.out.println("\t   " + task);
-        System.out.println("\t Total upcoming missions: " + this.tasks.size());
-    }
-
-    public void validateFilePath() throws PhenexException {
-        boolean filePathExists = Files.exists(this.filePath);
-        if (!filePathExists) {
-            throw new PhenexException("404 Error: Memory not found! Abort.");
-        }
-    }
-
-    protected void readMemory() throws FileNotFoundException {
-        File memFile = new File(this.filePath.toString());
-        Scanner scanner = new Scanner(memFile);
-        while (scanner.hasNextLine()) {
-            String data = scanner.nextLine();
-            try {
-                addTaskFromMemory(data);
-            } catch (PhenexException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        scanner.close();
-    }
-
-    protected void storeInMemory(String memoryToAdd) {
-        String pathString = this.filePath.toString();
-        try {
-            FileWriter fw = new FileWriter(pathString, true);
-            fw.write(memoryToAdd);
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
-
-    public void printAllTasksOn(Matcher matcher) throws PhenexException {
-        LocalDate localDate;
-        try {
-            localDate = LocalDate.parse(matcher.group().substring(12));
-        } catch (DateTimeParseException e) {
-            throw new PhenexException(e.getMessage());
-        }
-
-        System.out.println("\tMissions on " + localDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " :\n");
-        for (Task task : this.tasks) {
-            if (task instanceof TaskWithDate) {
-                // ok to cast here due to type checking during run time
-                TaskWithDate taskWithDate = (TaskWithDate) task;
-                if (taskWithDate.overlapsWith(localDate)) {
-                    System.out.println("\t" + taskWithDate);
-                }
-            }
-        }
+        this.storage = new Storage();
+        this.tasks = new TaskList(this.storage);
+        this.ui = new Ui();
     }
 
     public static void main(String[] args) {
         Phenex p = new Phenex();
-        p.greet();
-
-        if (!Files.exists(p.filePath)) {
-            // create file if it doesn't exist
-            try {
-                Files.createFile(p.filePath);
-                System.out.println("Memory initialised.");
-            } catch (IOException e) {
-                System.out.println("Error, unable to initialise memory: " + e.getMessage());
-            }
-        }
-
-        // check if file path is valid
-        try {
-            p.validateFilePath();
-        } catch (PhenexException e) {
-            System.out.println(e.getMessage());
-        }
+        p.ui.greet();
 
         Scanner scanner = new Scanner(System.in);
         String userInput;
@@ -367,68 +88,45 @@ public class Phenex {
             deleteMatcher = deletePattern.matcher(userInput);
             dateCheckMatcher = dateCheckPattern.matcher(userInput);
 
-            p.printLine();
+            p.ui.printLine();
 
-            if (listMatcher.find()) {
-                p.printTasks();
-            } else if (markMatcher.find()) {
-                // mark task as done
-                int taskNumber = Integer.parseInt(markMatcher.group().substring(5));
-                int idx = taskNumber - 1;
-                try {
-                    p.markTaskCompleted(idx);
-                } catch (PhenexException e) {
-                    System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
+            try {
+                if (listMatcher.find()) {
+                    p.ui.printTaskList(p.tasks);
+                } else if (markMatcher.find()) {
+                    // mark task as done
+                    int taskNumber = Integer.parseInt(markMatcher.group().substring(5));
+                    int idx = taskNumber - 1;
+                    p.tasks.markTaskCompleted(idx);
+                } else if (unmarkMatcher.find()) {
+                    // unmark task as done
+                    int taskNumber = Integer.parseInt(unmarkMatcher.group().substring(7));
+                    int idx = taskNumber - 1;
+                    p.tasks.markTaskIncomplete(idx);
+                } else if (todoMatcher.matches()) {
+                    p.tasks.addTask(todoMatcher, TaskList.TaskType.TASK_TODO);
+                } else if (deadlineMatcher.matches()) {
+                    p.tasks.addTask(deadlineMatcher, TaskList.TaskType.TASK_DEADLINE);
+                } else if (eventMatcher.matches()) {
+                    p.tasks.addTask(eventMatcher, TaskList.TaskType.TASK_EVENT);
+                } else if (deleteMatcher.matches()) {
+                    int idx = Integer.parseInt(deleteMatcher.group().substring(7)) - 1;
+                    p.tasks.deleteTask(idx);
+                } else if (dateCheckMatcher.matches()) {
+                    p.ui.printAllTasksOn(dateCheckMatcher, p.tasks);
+                } else {
+                    System.out.println("\tError, invalid input.");
                 }
-            } else if (unmarkMatcher.find()) {
-                // unmark task as done
-                int taskNumber = Integer.parseInt(unmarkMatcher.group().substring(7));
-                int idx = taskNumber - 1;
-                try {
-                    p.markTaskIncomplete(idx);
-                } catch (PhenexException e) {
-                    System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
-                }
-            } else if (todoMatcher.matches()) {
-                try {
-                    p.addTask(todoMatcher, TaskType.TASK_TODO);
-                } catch (PhenexException e) {
-                    System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
-                }
-            } else if (deadlineMatcher.matches()) {
-                try {
-                    p.addTask(deadlineMatcher, TaskType.TASK_DEADLINE);
-                } catch (PhenexException e) {
-                    System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
-                }
-            } else if (eventMatcher.matches()) {
-                try {
-                    p.addTask(eventMatcher, TaskType.TASK_EVENT);
-                } catch (PhenexException e) {
-                    System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
-                }
-            } else if (deleteMatcher.matches()) {
-                int idx = Integer.parseInt(deleteMatcher.group().substring(7)) - 1;
-                try {
-                    p.deleteTask(idx);
-                } catch (PhenexException e) {
-                    System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
-                }
-            } else if (dateCheckMatcher.matches()) {
-                try {
-                    p.printAllTasksOn(dateCheckMatcher);
-                } catch (PhenexException e) {
-                    System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
-                }
-            } else {
-                System.out.println("\tError, invalid input.");
+            } catch (PhenexException e) {
+                System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
             }
 
-            p.printLine();
+
+            p.ui.printLine();
         }
 
-        p.storeTasksToMemory();
+        p.storage.storeTasksToMemory(p.tasks);
         scanner.close();
-        p.sayFarewell();
+        p.ui.sayFarewell();
     }
 }
