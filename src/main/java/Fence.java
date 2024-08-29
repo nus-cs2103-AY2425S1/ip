@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -69,9 +71,7 @@ public class Fence {
     public void saveRewrite() {
         File taskFile = new File("./data/fence.txt");
         try {
-            if (taskFile.delete()) {
-                System.out.println("deleted");
-            }
+            taskFile.delete();
             taskFile.createNewFile();
             FileWriter fw = new FileWriter(taskFile, true);
             for (Task item : items) {
@@ -127,7 +127,7 @@ public class Fence {
                             desc = desc + " " + nextWord;
                         }
                     }
-                    Deadline deadline = new Deadline(desc, by);
+                    Deadline deadline = new Deadline(desc, LocalDate.parse(by));
                     this.items.add(deadline);
                     if (isDone) {
                         this.items.get(this.items.size() - 1).complete();
@@ -216,10 +216,14 @@ public class Fence {
                         desc = desc + " " + nextWord;
                     }
                 }
-                Deadline deadline = new Deadline(desc, by);
-                fence.add(deadline);
-                fence.count();
-                fence.saveAppend(deadline);
+                try {
+                    Deadline deadline = new Deadline(desc, LocalDate.parse(by));
+                    fence.add(deadline);
+                    fence.count();
+                    fence.saveAppend(deadline);
+                } catch (DateTimeParseException e) {
+                    System.out.println("fence only understands yyyy-mm-dd");
+                }
             } else if (firstWord.equals("event")) {
                 String desc = st.nextToken();
                 String from = "";
