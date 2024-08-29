@@ -17,53 +17,19 @@ public class Storage {
      * Loads tasks from the file at the specified file path
      *
      * @return Lists of tasks loaded from the file
-     * @throws IOException if an I/O error occurs during file reading
+     * @throws SageException If there is an error loading the tasks
      */
-    public List<Task> loadTasks() throws IOException {
+    public List<Task> load() throws SageException {
         List<Task> tasks = new ArrayList<>();
-        File file = new File(filePath);
 
-        if (!file.exists()) {
-            file.getParentFile().mkdirs(); //Create directory if file does not exist
-            file.createNewFile(); //Create file if file does not exist
-            return tasks;
-        }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                try {
-                    String[] parts = line.split(" \\| ");
-                    String type = parts[0];
-                    boolean isDone = parts[1].equals("1");
-                    String description = parts[2];
-
-                    Task task = null;
-                    switch (type) {
-                        case "T":
-                            task = new ToDo(description);
-                            break;
-                        case "D":
-                            String by = parts[3];
-                            task = new Deadline(description, by);
-                            break;
-                        case "E":
-                            String from = parts[3];
-                            String to = parts[4];
-                            task = new Event(description, from, to);
-                            break;
-                        default:
-                            throw new SageException("Unknown task type: " + type);
-                    }
-                    if (isDone) {
-                        task.markAsDone();
-                    }
-                    tasks.add(task);
-                } catch (SageException | ArrayIndexOutOfBoundsException e) {
-                    // Handle corrupted lines or invalid task format
-                    System.out.println("Skipping corrupted task entry: " + line);
-                }
+                Task task = parseTask(line);
+                tasks.add(task);
             }
+        } catch (IOException e) {
+            throw new SageException("Error loading tasks from file");
         }
         return tasks;
     }
@@ -71,16 +37,49 @@ public class Storage {
     /**
      * Save the lists of tasks to the file at the specified file path
      *
-     * @param tasks the list of tasks to be saved
+     * @param tasks TaskList containing the tasks to be saved
+     * @throws SageException If there is an error saving the tasks
      */
-    public void saveTasks(List<Task> tasks) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (Task task : tasks) {
-                writer.write(task.toFileFormat());
-                writer.newLine();
+    public void saveTasks(TaskList tasks) throws SageException{
+        try (FileWriter writer = new FileWriter(filePath)) {
+            for (Task task : tasks.getAllTasks()) {
+                writer.write(task.toFileFormat() + System.lineSeparator());
             }
         } catch (IOException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
+            throw new SageException("Error writing to file");
+        }
+    }
+
+    private Task parseTask(String line) throws SageException {
+        String parts[] = line.split(" \\| ");
+        String taskType = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        switch(taskType) {
+            case "T":
+                Task todo = new ToDo(description);
+                if (isDone) {
+                    todo.markAsDone();
+                }
+                return todo;
+            case "D":
+                String by = parts[3];
+                Task deadline = new Deadline(description, by);
+                if (isDone) {
+                    deadline.markAsDone();
+                }
+                return deadline;
+            case "E":
+                String from = parts[3];
+                String to = parts[4];
+                Task event = new Event(description, from, to);
+                if (isDone) {
+                    event.markAsDone();
+                }
+                return event;
+            default:
+                throw new SageException("Invalid task type");
         }
     }
 }
