@@ -36,6 +36,17 @@ abstract public class Task {
         return (isDone ? "X" : " ");
     }
 
+
+    /**
+     * Checks if the task description contains the specified keyword.
+     *
+     * @param keyword The keyword to search for in the task description.
+     * @return True if the description contains the keyword, false otherwise.
+     */
+    public boolean containsKeyword(String keyword) {
+        return description.contains(keyword);
+    }
+
     /**
      * Marks the task as completed by setting its status to done.
      */

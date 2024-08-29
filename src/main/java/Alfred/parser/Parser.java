@@ -61,4 +61,14 @@ public class Parser {
         }
         return true;
     }
+
+    /**
+     * Extracts and returns the keyword from the user's find command input.
+     *
+     * @param input The full user input string.
+     * @return The keyword to search for.
+     */
+    public static String getKeyword(String input) {
+        return input.substring(input.indexOf(" ") + 1).trim();
+    }
 }
