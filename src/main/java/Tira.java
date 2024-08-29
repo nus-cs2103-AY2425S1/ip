@@ -2,16 +2,42 @@ import java.util.Scanner;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.lang.Exception;
+import java.util.List;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.File;
 
 public class Tira {
-
-    public static void main(String[] args) throws TiraException {
+    private static final String Directory = "./data";
+    private static final String FileName = "./data/Tira.txt";
+    public static void main(String[] args) throws TiraException, IOException {
         // variable declarations
         Scanner scanner = new Scanner(new InputStreamReader(System.in));
         PrintWriter printer = new PrintWriter(System.out);
         String logo = "TIRAMISU THE CAT (TIRA)";
         ArrayList<Task> taskList = new ArrayList<Task>();
+        //Solution for Save below (Level-6)  inspired by https://github.com/hansneddyanto/ip/blob/master/src/main/java/Hana.java
+        File directory = new File(Directory);
+        File file = new File(FileName);
+        FileReader fileReader = null;
+        try {
+            if (!file.exists()) { // if the file exists;
+                file.mkdirs();
+            }
+            fileReader = new FileReader(file);
+            System.out.println("File can be opened");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+            // if file not found, create a new file
+            file.createNewFile();
+            System.out.println("File is being created");
+        } catch (IOException a) {
+            System.out.println(a.getMessage());
+        }
+        // try loading the file to the list, if it fails, then the file doesn't exist
+        // if it doesn't exist, then create a new file.
         // printing
         System.out.println("MIAO (Hello) from\n" + logo + "\n" +
                 "What can I do for you, miao?\n");
@@ -98,7 +124,8 @@ public class Tira {
         printer.close();
     }
 
-    public static void addTask(Task task, ArrayList<Task> taskList) {
+
+    private static void addTask(Task task, ArrayList<Task> taskList) {
         taskList.add(task);
         System.out.println("Miao! Got it. I've added this task to my cat brain:\n" +
                 task.toString() + "\nNow you have " + taskList.size() + " task(s) in the list!");
