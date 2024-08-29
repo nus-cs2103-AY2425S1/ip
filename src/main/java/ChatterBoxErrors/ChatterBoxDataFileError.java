@@ -8,8 +8,9 @@ public class ChatterBoxDataFileError extends ChatterBoxError {
     }
 
     public ChatterBoxDataFileError() {
-        super("____________________________________________________________\n"
-                + "The file is not found\n"
-                + "____________________________________________________________");
+        super("""
+              ____________________________________________________________
+              The file is not found
+              ____________________________________________________________""");
     }
 }

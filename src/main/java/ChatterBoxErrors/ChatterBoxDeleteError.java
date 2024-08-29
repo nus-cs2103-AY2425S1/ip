@@ -2,8 +2,9 @@ package ChatterBoxErrors;
 
 public class ChatterBoxDeleteError extends ChatterBoxError {
     public ChatterBoxDeleteError() {
-        super("____________________________________________________________\n"
-                + "delete Usage: delete {Integer taskNo}\n"
-                + "____________________________________________________________");
+        super("""
+              ____________________________________________________________
+              delete Usage: delete {Integer taskNo}
+              ____________________________________________________________""");
     }
 }

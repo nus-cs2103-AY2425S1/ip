@@ -4,21 +4,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
 
     public Event (String name, LocalDateTime start, LocalDateTime end) {
         super(name);
-        this.start = start;
-        this.end = end;
+        this.startTime = start;
+        this.endTime = end;
     }
 
     @Override
     public String storeTask() {
         StringBuilder saveTaskInfo = new StringBuilder();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        String startDate = this.start.format(formatter);
-        String endDate = this.end.format(formatter);
+        String startDate = this.startTime.format(formatter);
+        String endDate = this.endTime.format(formatter);
         if (this.getCompleted()) {
             saveTaskInfo.append("done, ");
         }
@@ -38,8 +38,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
-        String startDate = this.start.format(formatter);
-        String endDate = this.end.format(formatter);
+        String startDate = this.startTime.format(formatter);
+        String endDate = this.endTime.format(formatter);
         return "[E] " + super.toString() + " (from: " + startDate + " to: " + endDate + ")";
     }
 }

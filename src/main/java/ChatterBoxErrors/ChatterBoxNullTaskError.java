@@ -2,9 +2,10 @@ package ChatterBoxErrors;
 
 public class ChatterBoxNullTaskError extends ChatterBoxError {
     public ChatterBoxNullTaskError() {
-        super("____________________________________________________________\n"
-                + "There is no such task in the list.\n"
-                + "Use the list command to check available task.\n"
-                + "____________________________________________________________");
+        super("""
+              ____________________________________________________________
+              There is no such task in the list.
+              Use the list command to check available task.
+              ____________________________________________________________""");
     }
 }

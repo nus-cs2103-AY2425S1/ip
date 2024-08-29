@@ -3,7 +3,7 @@ package Tasks;
 import ChatterBoxErrors.ChatterBoxMarkError;
 
 public class Task {
-    private String name;
+    private final String name;
     private Boolean isCompleted;
 
     public Task (String name) {

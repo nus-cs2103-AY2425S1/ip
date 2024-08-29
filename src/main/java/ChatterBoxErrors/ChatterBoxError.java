@@ -2,9 +2,10 @@ package ChatterBoxErrors;
 
 public class ChatterBoxError extends Exception {
     public ChatterBoxError() {
-        super("____________________________________________________________\n"
-                + "ChatterBox does not understand you :(\n"
-                + "____________________________________________________________");
+        super("""
+              ____________________________________________________________
+              ChatterBox does not understand you :(
+              ____________________________________________________________""");
     }
 
     public ChatterBoxError(String message) {
