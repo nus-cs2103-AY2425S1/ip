@@ -1,2 +1,5 @@
-D | 0 | return book | 2024-09-22
 E | 0 | Natlan Livestream | 2024-10-11 | 2024-10-11
+T | 0 | pay Hu Tao a visit
+T | 0 | claim primogems! 
+D | 0 | do daily commisions | 2024-10-11
+D | 0 | return book to Lisa else she'll electrocute me to death | 2024-10-01
