@@ -30,12 +30,15 @@ public class Storage {
     }
 
     public TaskList loadData() throws IOException {
+        TaskList temp = new TaskList();
         if (Files.exists(dataFilePath)) {
             String data = new String(Files.readAllBytes(dataFilePath));
-            TaskList temp = new TaskList();
+            if (data.equals("")) {
+                return temp;
+            }
             temp.initTasks(data.split("\n"));
             return temp;
         }
-        return new TaskList();
+        return temp;
     }
 }
