@@ -25,7 +25,7 @@ class ChatData {
         }
     }
 
-    public ArrayList<Task> toList() {
+    public TaskList toTaskList() {
         ArrayList<Task> list = new ArrayList<Task>();
         try {
             FileReader fileReader = new FileReader(this.filename);
@@ -43,7 +43,7 @@ class ChatData {
                 }
             }
             fileReader.close();
-            return list;
+            return new TaskList(list);
         } catch (IOException e) {
             throw new ChatHistoryFileMissingException();
         }
