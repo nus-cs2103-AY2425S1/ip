@@ -13,6 +13,7 @@ public class Parser {
     private static final Pattern DEADLINE_PATTERN = Pattern.compile("deadline (.+?) /by (.+)");
     private static final Pattern EVENT_PATTERN = Pattern.compile("event (.+?) /from (.+) /to (.+)");
     private static final Pattern DATETIME_PATTERN = Pattern.compile("(\\d+)[ \\/\\\\\\|\\-\\_](\\d+)[ \\/\\\\\\|\\-\\_](\\d+)[ tT]([\\d:]+) *(am|pm)");
+    private static final Pattern FIND_CMD_PATTERN = Pattern.compile("find (.+)");
 
     /**
      * Takes in a string representing a date and time and returns a representative LocalDateTime object
@@ -159,8 +160,16 @@ public class Parser {
                     // if no integer found, reprompt for input
                     return new ErrorCommand("\tUhhh sorry which task did you wish to delete?");
                 }
-            }
-            else {
+            } else if (userInput.startsWith("find")) {
+                Matcher searchTermMatch = FIND_CMD_PATTERN.matcher(userInput);
+
+                if (searchTermMatch.find()) {
+                    String searchTerm = searchTermMatch.group(1);
+                    return new SearchTaskCommand(searchTerm);
+                } else {
+                    return new ErrorCommand("\tHang on, what do I need to look for?");
+                }
+            } else {
                 return new ErrorCommand("\tUhhh I did not get that so I'm just gonna say yes!");
             }
         } else {

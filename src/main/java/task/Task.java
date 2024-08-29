@@ -44,4 +44,14 @@ public class Task {
     public String toEasyString() {
         return this.toString();
     }
+
+    /**
+     * checks if the particular term is present in the task name
+     * 
+     * @param term the term to check
+     * @return true if the term is present, false otherwise
+     */
+    public boolean contains(String term) {
+        return this.taskName.toLowerCase().contains(term.toLowerCase());
+    }
 }

@@ -70,4 +70,10 @@ public class TaskList {
                 ).reduce("----TASKS----", (x, y) -> x + "\n" + y);
     }
 
+    public TaskList search(String query) {
+        return new TaskList(
+            new ArrayList<>(this.tasks.stream().filter(t -> t.contains(query)).toList())
+        );
+    }
+
 }
