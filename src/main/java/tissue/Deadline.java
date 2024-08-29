@@ -8,13 +8,13 @@ public class Deadline extends Task {
 
     private LocalDate by;
 
-    public Deadline(boolean done, String task, String by) throws DateTimeParseException {
-        super(done, task);
+    public Deadline(boolean isDone, String task, String by) throws DateTimeParseException {
+        super(isDone, task);
         this.by = LocalDate.parse(by);
     }
 
-    public Deadline(int done, String task, String by) throws DateTimeParseException {
-        super(done == 1, task);
+    public Deadline(int isDone, String task, String by) throws DateTimeParseException {
+        super(isDone == 1, task);
         this.by = LocalDate.parse(by);
     }
 
@@ -35,6 +35,6 @@ public class Deadline extends Task {
                         + " "
                         + String.format(
                                 "(by: %s)", by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
-        return super.getDone() ? "[D][X] " + task : "[D][ ] " + task;
+        return super.getIsDone() ? "[D][X] " + task : "[D][ ] " + task;
     }
 }

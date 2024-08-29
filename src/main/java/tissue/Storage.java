@@ -71,18 +71,18 @@ public class Storage {
     private String parseTask(Task task) {
         String temp = "";
         if (task instanceof ToDo) {
-            temp = String.format("T,%s,%s\n", task.getDone() ? 1 : 0, task.getTask());
+            temp = String.format("T,%s,%s\n", task.getIsDone() ? 1 : 0, task.getTask());
 
         } else if (task instanceof Event event) {
             temp =
                     String.format(
                             "E,%s,%s,%s,%s\n",
-                            event.getDone() ? 1 : 0,
+                            event.getIsDone() ? 1 : 0,
                             event.getTask(),
                             event.getFrom(),
                             event.getTo());
         } else if (task instanceof Deadline dl) {
-            temp = String.format("D,%s,%s,%s\n", dl.getDone() ? 1 : 0, dl.getTask(), dl.getBy());
+            temp = String.format("D,%s,%s,%s\n", dl.getIsDone() ? 1 : 0, dl.getTask(), dl.getBy());
         }
         return temp;
     }
