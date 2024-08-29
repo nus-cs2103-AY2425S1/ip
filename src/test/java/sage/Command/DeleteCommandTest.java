@@ -21,8 +21,8 @@ public class DeleteCommandTest {
         tasks = new TaskList();
         ui = new Ui();
         storage = new Storage("test.txt");
-        tasks.add(new ToDoTask("Task 1"));
-        tasks.add(new ToDoTask("Task 2"));
+        tasks.addTask(new ToDoTask("Task 1"));
+        tasks.addTask(new ToDoTask("Task 2"));
     }
 
     @Test
@@ -30,7 +30,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand("1");
         deleteCommand.execute(tasks, ui, storage);
 
-        assertEquals(1, tasks.size(), "The task list size should be reduced to 1.");
+        assertEquals(1, tasks.getSize(), "The task list size should be reduced to 1.");
         assertEquals("[T][ ] Task 2", tasks.getTasks().get(0).toString(), "The remaining task should be 'Task 2'.");
     }
 

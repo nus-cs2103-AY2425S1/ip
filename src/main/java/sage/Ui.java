@@ -35,11 +35,13 @@ public class Ui {
     }
 
     public void showAddedTask(Task addedTask, int size) {
-        showResponse(String.format("Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.", addedTask, size));
+        showResponse(String.format(
+                "Got it. I've added this task:\n  %s\nNow you have %d tasks in the list.", addedTask, size));
     }
 
     public void showDeletedTask(Task deletedTask, int size) {
-        showResponse(String.format("Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.", deletedTask, size));
+        showResponse(String.format(
+                "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.", deletedTask, size));
     }
 
     public void showError(String errorMessage) {

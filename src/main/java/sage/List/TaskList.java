@@ -18,7 +18,7 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-    public int size() {
+    public int getSize() {
         return tasks.size();
     }
 
@@ -26,22 +26,23 @@ public class TaskList {
         return tasks;
     }
 
-    public void add(Task task) {
+    public void addTask(Task task) {
         tasks.add(task);
     }
 
-    public Task delete(int index) throws SageException {
+    public Task deleteTask(int index) throws SageException {
         if (index < 0 || index >= tasks.size()) {
             throw new SageException("Invalid task index.");
         }
         return tasks.remove(index);
     }
 
-    public void mark(int index, boolean isDone) throws SageException {
+    public void markTask(int index, boolean isDone) throws SageException {
         if (index < 0 || index >= tasks.size()) {
             throw new SageException("Invalid task index.");
         }
-        StringBuilder confirmationMessage = new StringBuilder(isDone ? "Nice! I've marked this task as done:\n"
+        StringBuilder confirmationMessage = new StringBuilder(isDone
+                ? "Nice! I've marked this task as done:\n"
                 : "OK, I've marked this task as not done yet:\n");
 
         Task task = tasks.get(index);
