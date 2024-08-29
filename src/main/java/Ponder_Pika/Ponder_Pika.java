@@ -10,7 +10,9 @@ import Ponder_Pika.Task.Todo;
 
 public class Ponder_Pika {
 
-    private final List<Task> myList = new ArrayList<>();
+
+    private final IOHandler io = new IOHandler();
+    private final List<Task> myList = io.loadData();
 
     public void printDivider() {
         System.out.println("...........................................................");
@@ -150,6 +152,7 @@ public class Ponder_Pika {
                         System.out.println("------------------------------------------------------------");
                         Ponder_Pika.bidBye();
                         System.out.println("\n----------------------------------------------------------");
+                        io.saveData(this.myList);
                         break;
                     default:
                         throw new PonderPikaException("Invalid Command, Please Try Again!");

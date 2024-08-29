@@ -11,6 +11,11 @@ public class Event extends Task{
     }
 
     @Override
+    public String saveFullDetails() {
+        return String.format("E | %b | %s | %s | %s", isDone(), getDescription(), this.from, this.to);
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + String.format(" (from: %s to: %s)", from, to);
     }

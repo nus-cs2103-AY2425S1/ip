@@ -22,6 +22,16 @@ public abstract class Task {
         return (this.isDone ? "X" : " ");
     }
 
+    public boolean isDone() {
+        return (this.isDone);
+    }
+
+    public String getDescription() {
+        return (this.description);
+    }
+
+    public abstract String saveFullDetails();
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.taskStatus(), this.description);
