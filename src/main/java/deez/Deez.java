@@ -9,6 +9,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+/**
+ * Deez class
+ */
 public class Deez implements Serializable {
     private static final long serialVersionUID = 1L;
     private static Storage storage = new Storage("./data");
@@ -17,6 +20,12 @@ public class Deez implements Serializable {
     protected TaskList taskList = new TaskList(new ArrayList<>());
     protected boolean isActive = true;
 
+    /**
+     * Parse an integer from a given string
+     *
+     * @param s the input string
+     * @return the parsed integer or throws DeezException if invalid
+     */
     static int parseInt(String s) throws DeezException {
         try {
             return Integer.parseInt(s);
@@ -25,19 +34,36 @@ public class Deez implements Serializable {
         }
     }
 
-    private void exit() {
+    /**
+     * Handle the exit command
+     */
+    private void handleExit() {
         isActive = false;
     }
 
-    private void listTasks() {
+    /**
+     * List all tasks
+     */
+    private void handleListTasks() {
         Ui.printList(taskList.getTasks());
     }
 
+    /**
+     * Handle an invalid command
+     *
+     * @throws DeezException
+     */
     private void invalidCommand() throws DeezException {
         throw new DeezException("Please enter a valid command.");
     }
 
-    private void addTodo(Properties props) throws DeezException {
+    /**
+     * Add a todo task
+     *
+     * @param props the properties to use for adding the task
+     * @throws DeezException if any issue occurs during addition
+     */
+    private void handleAddTodo(Properties props) throws DeezException {
         String name = props.getProperty("name");
         if (name.isBlank()) {
            throw new DeezException("Please provide a description for the todo.");
@@ -50,7 +76,13 @@ public class Deez implements Serializable {
                         "list");
     }
 
-    private void addDeadline(Properties props) throws DeezException {
+    /**
+     * Add a deadline task
+     *
+     * @param props the properties to use for adding the task
+     * @throws DeezException if any issue occurs during addition
+     */
+    private void handleAddDeadline(Properties props) throws DeezException {
         try {
             LocalDateTime byDateTime = LocalDateTime.parse(props.getProperty("by"), dateTimeInputFormatter);
             Deadline d = new Deadline(props.getProperty("name"), byDateTime);
@@ -64,10 +96,15 @@ public class Deez implements Serializable {
                     "return book" +
                     " /by 2019-10-15 1800");
         }
-
     }
 
-    private void addEvent(Properties props) throws DeezException {
+    /**
+     * Add an event task
+     *
+     * @param props the properties to use for adding the task
+     * @throws DeezException if any issue occurs during addition
+     */
+    private void handleAddEvent(Properties props) throws DeezException {
         try {
             LocalDateTime startDate = LocalDateTime.parse(props.getProperty("from"), dateTimeInputFormatter);
             LocalDateTime endDate = LocalDateTime.parse(props.getProperty("to"), dateTimeInputFormatter);
@@ -87,6 +124,13 @@ public class Deez implements Serializable {
         }
     }
 
+    /**
+     * Mark or unmark a task as done
+     *
+     * @param isMarkDone whether to mark or unmark the task
+     * @param props      the properties to use for marking/unmarking
+     * @throws DeezException if any issue occurs during marking/unmarking
+     */
     private void handleMarkUnmarkDone(boolean isMarkDone, Properties props) throws DeezException {
         int taskIdx = parseInt(props.getProperty("index"));
         try {
@@ -102,7 +146,7 @@ public class Deez implements Serializable {
         }
     }
 
-    private void deleteTask(Properties props) throws DeezException {
+    private void handleDeleteTask(Properties props) throws DeezException {
         int taskIdx = parseInt(props.getProperty("index"));
         try {
             Task t = taskList.get(taskIdx - 1);
@@ -113,19 +157,33 @@ public class Deez implements Serializable {
         }
     }
 
+    private void handleFind(Properties props) throws DeezException {
+        String keyword = props.getProperty("keyword");
+        if (keyword == null || keyword.isEmpty()) {
+            throw new DeezException("No keyword provided.", "Usage:", "find book", "Please try again.");
+        }
+        ArrayList<Task> foundTasks = taskList.getTasks(keyword);
+        Ui.printList(foundTasks);
+    }
+    /**
+     * Handle a command
+     *
+     * @param inputPair the pair of command and properties to handle
+     */
     protected void handleCommand(Pair<Command, Properties> inputPair) {
         Command cmd = inputPair.getKey();
         Properties props = inputPair.getValue();
         switch (cmd) {
-            case EXIT -> exit();
-            case LIST -> listTasks();
-            case TODO -> addTodo(props);
-            case DEADLINE -> addDeadline(props);
-            case EVENT -> addEvent(props);
+            case EXIT -> handleExit();
+            case LIST -> handleListTasks();
+            case TODO -> handleAddTodo(props);
+            case DEADLINE -> handleAddDeadline(props);
+            case EVENT -> handleAddEvent(props);
             case MARK -> handleMarkUnmarkDone(true, props);
             case UNMARK -> handleMarkUnmarkDone(false, props);
-            case DELETE -> deleteTask(props);
+            case DELETE -> handleDeleteTask(props);
             case SAVE -> save();
+            case FIND -> handleFind(props);
             case UNKNOWN -> invalidCommand();
         }
     }

@@ -5,11 +5,20 @@ import javafx.util.Pair;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
+/**
+ * This class is used for parsing user input.
+ */
 public class Parser {
 
     private static final DateTimeFormatter dateTimeInputFormatter =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
+    /**
+     * This method parses the given string and returns a pair containing the command and properties.
+     *
+     * @param input The input string to be parsed.
+     * @return A pair containing the command and properties.
+     */
     static Pair<Command, Properties> parse(String input) {
         String[] inputStringSplit = input.split(" ", 2);
         String cmdString = inputStringSplit[0];
@@ -26,6 +35,7 @@ public class Parser {
             case "event" -> Command.EVENT;
             case "delete" -> Command.DELETE;
             case "save" -> Command.SAVE;
+            case "find" -> Command.FIND;
             default -> Command.UNKNOWN;
         };
 
@@ -34,10 +44,17 @@ public class Parser {
             case EVENT -> parseEventProps(propString);
             case DEADLINE -> parseDeadlineProps(propString);
             case MARK, UNMARK, DELETE -> parseTaskIndexProp(propString);
+            case FIND -> parseTextInputProps(propString);
             case EXIT, LIST, SAVE, UNKNOWN -> new Properties();
         };
 
         return new Pair<>(cmd, props);
+    }
+
+    private static Properties parseTextInputProps(String propString) {
+        Properties props = new Properties();
+        props.setProperty("keyword", propString.strip());
+        return props;
     }
 
     private static Properties parseTaskIndexProp(String propString) {
