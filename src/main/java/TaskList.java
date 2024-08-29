@@ -1,8 +1,10 @@
+import java.util.ArrayList;
+
 public class TaskList {
     private Task[] tasks;
     private int size;
 
-    public TaskList() {
+    public TaskList(ArrayList<Task> tasks) {
         this.tasks = new Task[100];
         this.size = 0;
     }
@@ -25,5 +27,9 @@ public class TaskList {
             tasks[i] = tasks[i + 1];
         }
         size--;
+    }
+
+    public Task get(int index) {
+        return tasks[index];
     }
 }
