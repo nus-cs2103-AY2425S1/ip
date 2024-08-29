@@ -26,6 +26,12 @@ public class Parser {
         } else if (task.contains("delete")) {
             String newFileData = tasks.delete(task);
             storage.writeToFile(newFileData, false);
+        } else if (task.contains("find")) {
+            String[] str = task.split(" ");
+            if (str[0].equals("find")) {
+                String description = task.split("find ")[1];
+                tasks.find(description);
+            }
         }
         // it must be a command to create a task (of some type)
         else {
