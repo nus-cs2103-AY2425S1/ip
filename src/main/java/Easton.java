@@ -8,44 +8,37 @@ import java.util.Scanner;
 public class Easton {
 
     public static final String CHATBOT_NAME = "Easton";
-    public static ArrayList<Task> tasks = new ArrayList<>();
+    private final ArrayList<Task> tasks = new ArrayList<>();;
+    private String userInput;
+    private boolean isFinished;
+    private String fileName;
 
-    public static void main(String[] args) {
-        String logo = " _______  _______  _______  _______  _______  __    _\n"
-                + "|       ||   _   ||       ||       ||       ||  |  | |\n"
-                + "|    ___||  |_|  ||  _____||_     _||   _   ||   |_| |\n"
-                + "|   |___ |       || |_____   |   |  |  | |  ||       |\n"
-                + "|    ___||       ||_____  |  |   |  |  |_|  ||  _    |\n"
-                + "|   |___ |   _   | _____| |  |   |  |       || | |   |\n"
-                + "|_______||__| |__||_______|  |___|  |_______||_|  |__|\n";
-        System.out.println("Hello from\n" + logo);
-        printDivider();
-        System.out.println("Hello! I'm " + CHATBOT_NAME);
-        System.out.println("What can I do for you?");
-        printDivider();
-
-        Scanner scanner = new Scanner(System.in);
-        boolean isFinished = false;
-        String input;
-        Action action;
-
+    public Easton(String fileName) {
+        this.fileName = fileName;
+        userInput = "";
         try {
             System.out.println("Retrieving Data...");
-            retrieveData();
+            retrieveData(fileName);
             System.out.println("DONE!");
+            isFinished = false;
         } catch (IOException e) {
             System.out.println("There was an error in retrieving my storage. ABORTING!!!");
             isFinished = true;
         }
-        printDivider();
+    }
 
+    public void run() {
+        printWelcome();
+
+        Scanner scanner = new Scanner(System.in);
+        Action action;
 
         while (!isFinished) {
-            input = prompt(scanner);
+            userInput = scanner.nextLine();;
             printDivider();
 
             try {
-                action = getActionFromInput(input);
+                action = getActionFromInput(userInput);
             } catch (IllegalActionException e) {
                 System.out.println(e.getMessage());
                 action = Action.INVALID;
@@ -61,54 +54,78 @@ public class Easton {
                 printList();
                 break;
             case MARK:
-                changeTaskStatus(input, true, "Nice! I've marked this task as done:");
-                saveData();
+                changeTaskStatus(userInput, true, "Nice! I've marked this task as done:");
+                saveData(fileName);
                 break;
             case UNMARK:
-                changeTaskStatus(input, false, "OK, I've marked this task as not done yet:");
-                saveData();
+                changeTaskStatus(userInput, false, "OK, I've marked this task as not done yet:");
+                saveData(fileName);
                 break;
             case TODO:
                 try {
-                    addTask(createToDo(input));
-                    saveData();
+                    addTask(createToDo(userInput));
+                    saveData(fileName);
                 } catch (EmptyDescriptionException e) {
                     System.out.println(e.getMessage());
                 }
                 break;
             case DEADLINE:
                 try {
-                    addTask(createDeadline(input));
-                    saveData();
+                    addTask(createDeadline(userInput));
+                    saveData(fileName);
                 } catch (EmptyDescriptionException | InvalidFormatException | DateTimeFormatException e) {
                     System.out.println(e.getMessage());
                 }
                 break;
             case EVENT:
                 try {
-                    addTask(createEvent(input));
-                    saveData();
+                    addTask(createEvent(userInput));
+                    saveData(fileName);
                 } catch (EmptyDescriptionException | InvalidFormatException | DateTimeFormatException e) {
                     System.out.println(e.getMessage());
                 }
                 break;
             case DELETE:
-                deleteTask(input);
-                saveData();
+                deleteTask(userInput);
+                saveData(fileName);
                 break;
             }
 
             printDivider();
         }
+
     }
 
-    private static void printList() {
+    private static void printDivider() {
+        System.out.println("____________________________________________________________");
+    }
+
+    private static void printWelcome() {
+        String logo = " _______  _______  _______  _______  _______  __    _\n"
+                + "|       ||   _   ||       ||       ||       ||  |  | |\n"
+                + "|    ___||  |_|  ||  _____||_     _||   _   ||   |_| |\n"
+                + "|   |___ |       || |_____   |   |  |  | |  ||       |\n"
+                + "|    ___||       ||_____  |  |   |  |  |_|  ||  _    |\n"
+                + "|   |___ |   _   | _____| |  |   |  |       || | |   |\n"
+                + "|_______||__| |__||_______|  |___|  |_______||_|  |__|\n";
+        System.out.println("Hello from\n" + logo);
+        printDivider();
+        System.out.println("Hello! I'm " + CHATBOT_NAME);
+        System.out.println("What can I do for you?");
+        printDivider();
+    }
+
+    public static void main(String[] args) {
+        new Easton("task.csv").run();
+    }
+
+    private void printList() {
         for (int i = 0; i < tasks.size(); i ++) {
             System.out.println((i + 1) + "." + tasks.get(i));
         }
     }
 
-    private static void changeTaskStatus(String input, boolean isDone, String message) {
+    private void changeTaskStatus(String input, boolean isDone, String message) {
         try {
             int index = getIndexFromInput(input);
             Task task = tasks.get(index - 1);
@@ -121,7 +138,7 @@ public class Easton {
         }
     }
 
-    private static void deleteTask(String input) {
+    private void deleteTask(String input) {
         try {
             int index = getIndexFromInput(input);
             Task task = tasks.remove(index - 1);
@@ -134,7 +151,7 @@ public class Easton {
         }
     }
 
-    private static int getIndexFromInput(String input) throws InvalidIndexException, EmptyDescriptionException {
+    private int getIndexFromInput(String input) throws InvalidIndexException, EmptyDescriptionException {
         int index;
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length != 2) {
@@ -204,25 +221,19 @@ public class Easton {
         }
     }
 
-    private static void addTask(Task task) {
+    private void addTask(Task task) {
         tasks.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    private static void printDivider() {
-        System.out.println("____________________________________________________________");
-    }
 
-    private static String prompt(Scanner scanner) {
-        return scanner.nextLine();
-    }
 
-    private static Path getFilePath() throws IOException{
+    private Path getFilePath(String fileName) throws IOException{
         String currentDirectory = System.getProperty("user.dir");
         Path folder = Paths.get(currentDirectory, "data");
-        Path filePath = Paths.get(folder.toString(), "tasks.csv");
+        Path filePath = Paths.get(folder.toString(), fileName);
 
         if (Files.notExists(folder)) {
             Files.createDirectory(folder);
@@ -235,8 +246,8 @@ public class Easton {
         return filePath;
     }
 
-    private static void retrieveData() throws IOException {
-        Path filePath = getFilePath();
+    private void retrieveData(String fileName) throws IOException {
+        Path filePath = getFilePath(fileName);
         String line;
         Task task;
 
@@ -281,9 +292,9 @@ public class Easton {
         }
     }
 
-    private static void saveData() {
+    private void saveData(String fileName) {
         try {
-            Path filePath = getFilePath();
+            Path filePath = getFilePath(fileName);
             FileWriter fileWriter = new FileWriter(filePath.toFile());
             for (Task task : tasks) {
                 fileWriter.write(task.getCsvFormat() + "\n");
@@ -292,7 +303,5 @@ public class Easton {
         } catch (IOException e) {
             System.out.println("Updated list was not saved properly.");
         }
-
-
     }
 }
