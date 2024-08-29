@@ -40,13 +40,7 @@ public class Ui {
             // empty listOfTasks
             System.out.println(currentList + "*** Current list is empty ***\n" + horizontalLine);
         } else {
-            for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
-                if (i == taskList.getNumberOfTasks() - 1) {
-                    currentList += (i+1) + ". " + taskList.getTask(i) + "\n" + horizontalLine;
-                    break;
-                }
-                currentList += (i+1) + ". " + taskList.getTask(i) + "\n";
-            }
+            currentList += displayTasksInList(taskList) + "\n" + horizontalLine;
             System.out.println(currentList);
         }
     }
@@ -81,7 +75,7 @@ public class Ui {
                 + displayTasksInList(taskList) + "\n" + horizontalLine);
     }
 
-    public String displayTasksInList(TaskList taskList) {
+    public static String displayTasksInList(TaskList taskList) {
         String tasks = "";
         for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
             if (i == taskList.getNumberOfTasks() - 1) {
