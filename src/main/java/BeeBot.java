@@ -1,4 +1,7 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,7 +28,6 @@ class TaskNotFoundException extends Exception {
         super(message);
     }
 }
-
 
 public class BeeBot {
     public static void main(String[] args) {
@@ -84,7 +86,7 @@ public class BeeBot {
                             throw new EmptyDescriptionException("Enter a description for the Deadline Task.\n");
                         }
                         String deadlineName = concatenateUntil(parts, "/by");
-                        String deadlineDate = getFollowingDate(parts, "/by");
+                        String deadlineDate = dateConverter(getFollowingDate(parts, "/by"));
                         Deadline newDeadline = new Deadline(deadlineName, deadlineDate);
                         taskList.add(newDeadline);
                         speakTaskAdded(newDeadline, taskList.size());
@@ -94,8 +96,8 @@ public class BeeBot {
                             throw new EmptyDescriptionException("Enter a description for the Event Task.\n");
                         }
                         String eventName = concatenateUntil(parts, "/from");
-                        String startTime = getFollowingDate(parts, "/from", "/to");
-                        String endTime = getFollowingDate(parts, "/to", "");
+                        String startTime = dateConverter(getFollowingDate(parts, "/from", "/to"));
+                        String endTime = dateConverter(getFollowingDate(parts, "/to", ""));
                         Event newEvent = new Event(eventName, startTime, endTime);
                         taskList.add(newEvent);
                         speakTaskAdded(newEvent, taskList.size());
@@ -277,5 +279,20 @@ public class BeeBot {
             return type + " | " + status + " | " + description + " | " + from + " | " + to;
         }
         return "";
+    }
+
+    public static String dateConverter(String date) {
+        try {
+            String[] words = date.split("\\s+");
+            LocalDate parsedDate = LocalDate.parse(words[0]);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+            String formattedDate = parsedDate.format(formatter);
+            words[0] = formattedDate;
+            String finalDate = String.join(" ", words);
+            return finalDate;
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Enter date in YYYY-MM-DD format");
+            return null;
+        }
     }
 }
