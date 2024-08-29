@@ -46,8 +46,8 @@ public class Storage {
         return t;
     }
 
-    public ArrayList<Task> loadListFromFile() throws YappingBotSaveFileNotFoundException {
-        ArrayList<Task> userList = new ArrayList<>();
+    public TaskList loadListFromFile() throws YappingBotSaveFileNotFoundException {
+        TaskList userList = new ArrayList<>();
         File saveFile;
         Scanner scanner;
         try {
@@ -75,7 +75,7 @@ public class Storage {
         }
         return userList;
     }
-    public void saveListToFile(ArrayList<Task> userList) throws YappingBotSaveFileIOException {
+    public void saveListToFile(TaskList userList) throws YappingBotSaveFileIOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(savefilePath))) {
             for (Task t : userList) {
                 bw.write(t.serialize());

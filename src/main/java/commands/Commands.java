@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Commands {
-    public static void printUserList(ArrayList<Task> userList) {
+    public static void printUserList(TaskList userList) {
         if (userList.isEmpty()) {
             Ui.println("List is empty!");
             return;
@@ -36,22 +36,7 @@ public class Commands {
         }
         msb.print();
     }
-    public static int parseTaskNumberSelected(String userInputSlice, ArrayList<Task> userList) throws YappingBotOOBException, YappingBotInvalidTaskNumberException {
-        int i = -1;
-        try {
-            i = Integer.parseInt(userInputSlice) - 1;
-        } catch (NumberFormatException ex) {
-            throw new YappingBotInvalidTaskNumberException(userInputSlice);
-        }
-
-        // OOB
-        if (i < 0 || i >= userList.size()) {
-            throw new YappingBotOOBException(i);
-        }
-
-        return i;
-    }
-    public static void changeTaskListStatus(int i, boolean isTaskDone, ArrayList<Task> userList) {
+    public static void changeTaskListStatus(int i, boolean isTaskDone, TaskList userList) {
         Task t = userList.get(i);
         t.setTaskDone(isTaskDone);
         MultilineStringBuilder msb = new MultilineStringBuilder();
@@ -70,9 +55,8 @@ public class Commands {
         );
         msb.print();
     }
-    public static void deleteTask(int i, ArrayList<Task> userList) {
-        Task t = userList.get(i);
-        userList.remove(i);
+    public static void deleteTask(int i, TaskList userList) {
+        Task t = userList.delete(i);
         MultilineStringBuilder msb = new MultilineStringBuilder();
         msb.addLine(ReplyTextMessages.DELETED_TEXT);
         msb.addLine(
@@ -83,7 +67,7 @@ public class Commands {
         );
         msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
     }
-    public static Task addTaskToList(String[] userInputSpliced, TaskTypes taskTypes, ArrayList<Task> userList) throws YappingBotIncorrectCommandException {
+    public static Task addTaskToList(String[] userInputSpliced, TaskTypes taskTypes, TaskList userList) throws YappingBotIncorrectCommandException {
         Task newTask;
         String taskName = null;
         String command = null;

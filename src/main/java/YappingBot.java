@@ -10,10 +10,9 @@ import static commands.Commands.*;
 
 
 public class YappingBot {
-    private ArrayList<Task> userList;
+    private TaskList userList;
     private final String savefilePath;
 
-    // https://github.com/nus-cs2103-AY2425S1/forum/issues/22#issuecomment-2309939016
     private YappingBot(String savefilePath) {
         this.savefilePath = savefilePath;
     }
@@ -23,7 +22,7 @@ public class YappingBot {
             userList = storage.loadListFromFile();
         } catch (YappingBotException e) {
             Ui.printError(e);
-            userList = new ArrayList<>();
+            userList = new TaskList();
         }
     }
 
@@ -50,15 +49,15 @@ public class YappingBot {
                         printUserList(userList);
                         break;
                     case MARK:
-                        taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1], userList);
+                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1], userList);
                         changeTaskListStatus(taskListIndexPtr, true, userList);
                         break;
                     case UNMARK:
-                        taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1], userList);
+                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1], userList);
                         changeTaskListStatus(taskListIndexPtr, false, userList);
                         break;
                     case DELETE:
-                        taskListIndexPtr = parseTaskNumberSelected(userInputSlices[1], userList);
+                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1], userList);
                         deleteTask(taskListIndexPtr, userList);
                         break;
                     case TODO:
@@ -99,6 +98,7 @@ public class YappingBot {
         } else {
             savefile = "./savefile";
         }
+
         YappingBot yp = new YappingBot(savefile);
         yp.start();
     }
