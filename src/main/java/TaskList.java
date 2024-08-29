@@ -55,4 +55,30 @@ public class TaskList {
         }
         this.tls.writeToFile(s);
     }
+
+    void loadFromTxt(Path filePath) {
+        try {
+            List<String> txt = Files.readAllLines(filePath);
+            for (String line : txt) {
+                String[] arr = line.split(",");
+                boolean isDone = arr[1].equals("true");
+                if (arr[0].equals("T")) {
+                    Todo td = new Todo(isDone, arr[2]);
+                    this.lst.add(td);
+                } else if (arr[0].equals("D")) {
+                    Deadline dl = new Deadline(isDone, arr[2], arr[3]);
+                    this.lst.add(dl);
+                } else if (arr[0].equals("E")) {
+                    Event e = new Event(isDone, arr[2], arr[3], arr[4]);
+                    this.lst.add(e);
+                } else {
+                    throw new LoafyException();
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error: Could not load previous list");
+        } catch (IndexOutOfBoundsException | LoafyException e) {
+            System.out.println("Error: Previous list corrupted");
+        }
+    }
 }

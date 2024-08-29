@@ -3,6 +3,10 @@ public class Todo extends Task {
         super(name);
     }
 
+    Todo(boolean isDone, String name) {
+        super(isDone, name);
+    }
+
     public String toString() {
         return "[T]" + super.toString();
     }

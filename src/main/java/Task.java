@@ -2,9 +2,13 @@ abstract class Task {
     private boolean isDone;
     private String name;
 
-    Task(String name) {
-        this.isDone = false;
+    Task(boolean isDone, String name) {
+        this.isDone = isDone;
         this.name = name;
+    }
+
+    Task(String name) {
+        this(false, name);
     }
 
     public void changeStatus(boolean isDone) {

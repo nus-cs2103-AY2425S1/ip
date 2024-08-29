@@ -6,8 +6,6 @@ import java.io.IOException;
 
 public class Loafy {
     public static void main(String[] args) {
-        greeting();
-        Scanner input = new Scanner(System.in);
         try {
             new File("./data").mkdirs();
             new File("./data/loafy.txt").createNewFile();
@@ -16,6 +14,10 @@ public class Loafy {
         }
         TaskListSaver tls = new TaskListSaver("./data/loafy.txt");
         TaskList tl = new TaskList(tls);
+        tl.loadFromTxt(Paths.get("./data/loafy.txt"));
+
+        greeting();
+        Scanner input = new Scanner(System.in);
 
         while (true) {
             System.out.print("You: ");
