@@ -155,6 +155,33 @@ public class Command {
             }
 
             break;
+        case "find":
+            ui.printHorizontalLine();
+
+            // No pattern specified
+            if (args.isEmpty()) {
+                ui.printInvalidSyntaxMessage("Please use \"find <pattern>\"");
+            } else {
+                Task task;
+                int count = 0;
+                for (int i = 1; i <= tasks.getTaskCount(); i++) {
+                    if ((task = tasks.getTask(i - 1)).getDescription().contains(args)) {
+                        if (count == 0) {
+                            System.out.println("Here are the matching tasks I found:");
+                        }
+                        System.out.printf("%d: %s%n", i, task);
+                        count++;
+                    }
+                }
+
+                // Message for when there are no matching tasks
+                if (count == 0) {
+                    System.out.println("No matching tasks found. Paranoid?");
+                }
+            }
+            ui.printHorizontalLine();
+
+            break;
         default:
             ui.printUnknownCommandMessage(cmd);
         }
