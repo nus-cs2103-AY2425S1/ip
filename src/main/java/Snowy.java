@@ -1,7 +1,9 @@
 import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File;
+import java.io.FileWriter;
 
 public class Snowy {
 
@@ -17,62 +19,67 @@ public class Snowy {
 
     private static ArrayList<Task> tasks = new ArrayList<>();
 
+    private static File file;
+
     private static boolean isRunning = true;
 
-    private static void initializeFile(File file) {
-        Scanner fileScanner;
-        try {
-            fileScanner = new Scanner(file);
+    private static void initializeTask(String description) {
+        String status;
+        String name;
 
-        } catch (FileNotFoundException e) {
-            System.out.println("Error: file not found");
-            isRunning = false;
-            return;
+        String[] dataArray = description.split("[|]");
+        String type = dataArray[0];
+        switch (type) {
+            case "T":
+                status = dataArray[1];
+                name = dataArray[2];
+                Task newToDo = new ToDo(name);
+                tasks.add(newToDo);
+                if (status.equals("1")) {
+                    newToDo.markComplete();
+                }
+                break;
+
+            case "D":
+                status = dataArray[1];
+                name = dataArray[2];
+                String dueDate = dataArray[3];
+                Task newDateline = new Deadline(name, dueDate);
+                tasks.add(newDateline);
+                if (status.equals("1")) {
+                    newDateline.markComplete();
+                }
+                break;
+
+            case "E":
+                status = dataArray[1];
+                name = dataArray[2];
+                String fromDate = dataArray[3];
+                String toDate = dataArray[4];
+                Task newEvent = new Event(name, fromDate, toDate);
+                tasks.add(newEvent);
+                if (status.equals("1")) {
+                    newEvent.markComplete();
+                }
+                break;
+
+            default:
+                System.out.println("Error: task type not found");
         }
-        while (fileScanner.hasNext()) {
-            String status;
-            String name;
+    }
 
-            String data = fileScanner.nextLine();
-            String[] dataArray = data.split("[|]");
-            String type = dataArray[0];
-            switch (type) {
-                case "T":
-                    status = dataArray[1];
-                    name = dataArray[2];
-                    Task newToDo = new ToDo(name);
-                    tasks.add(newToDo);
-                    if (status.equals("1")) {
-                        newToDo.markComplete();
-                    }
-                    break;
 
-                case "D":
-                    status = dataArray[1];
-                    name = dataArray[2];
-                    String dueDate = dataArray[3];
-                    Task newDateline = new Deadline(name, dueDate);
-                    tasks.add(newDateline);
-                    if (status.equals("1")) {
-                        newDateline.markComplete();
-                    }
-                    break;
-
-                case "E":
-                    status = dataArray[1];
-                    name = dataArray[2];
-                    String fromDate = dataArray[3];
-                    String toDate = dataArray[4];
-                    Task newEvent = new Event(name, fromDate, toDate);
-                    tasks.add(newEvent);
-                    if (status.equals("1")) {
-                        newEvent.markComplete();
-                    }
-                    break;
-
-                default:
-                    System.out.println("Error: task type not found");
+    private static void initializeFile() {
+        try {
+            file.createNewFile();
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                String nextLine = scanner.nextLine();
+                initializeTask(nextLine);
             }
+
+        } catch (IOException e) {
+            System.out.println("Error: data file cannot be created");
         }
 
     }
@@ -158,12 +165,26 @@ public class Snowy {
         System.out.println("New Event task added:\n " + newTask);
     }
 
+    private static void updateFile() {
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            for (Task task : tasks) {
+                fileWriter.write(task.toFileStorage() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error trying to update the file");
+        }
+
+    }
+
     public static void main(String[] args) {
         Scanner fileScanner;
         Scanner scanner = new Scanner(System.in);
 
-        File file = new File("data/snowy.txt");
-        initializeFile(file);
+        file = new File("data/snowy.txt");
+        initializeFile();
+
 
         System.out.print(GREETING);
         while (isRunning) {
@@ -243,7 +264,7 @@ public class Snowy {
                     System.out.println("Command not recognized. Please try again");
                     break;
             }
-
+            updateFile();
             System.out.print(LINE);
 
         }
