@@ -1,3 +1,5 @@
+package sirpotato;
+
 public class AddCommand extends Command {
     private Task task;
 
