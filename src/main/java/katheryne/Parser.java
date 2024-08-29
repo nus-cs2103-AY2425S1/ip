@@ -4,6 +4,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+
+/**
+ * Parser class to parse the user input.
+ * Contains methods to parse the user input into commands and descriptions.
+ * Contains methods to parse the user input into date and time.
+ * Contains methods to format the date and time.
+ * Contains methods to check if the date is valid.
+ */
 public class Parser {
     public static String[] parseCommand(String input) {
         return input.split(" ",2);

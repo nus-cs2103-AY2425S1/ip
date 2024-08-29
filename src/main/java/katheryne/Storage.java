@@ -9,6 +9,10 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Storage Class handles the loading and save of tasks in the local hard disk
+ */
+
 public class Storage {
     private String path;
 

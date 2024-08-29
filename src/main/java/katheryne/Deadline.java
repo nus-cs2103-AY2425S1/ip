@@ -3,6 +3,12 @@ package katheryne;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Deadline Class is a child class of Task Class.
+ * It has an additional attribute of time, which specify
+ * the time of the deadline.
+ * The time attribute is a LocalDate object.
+ */
 public class Deadline extends Task{
     protected LocalDate time;
 

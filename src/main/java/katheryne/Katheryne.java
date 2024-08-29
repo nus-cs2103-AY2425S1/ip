@@ -4,6 +4,11 @@ import katheryne.exceptions.InvalidInputException;
 import katheryne.exceptions.MissingInformationException;
 
 
+/**
+ * Katheryne Class is the main class that will run based on different commands
+ * given by users. It has attribute of storage for loading and saving of tasks;
+ * taskList to manage the tasks on record; and ui to handle interation with users.
+ */
 public class Katheryne {
     private Storage storage;
     private TaskList taskList;
