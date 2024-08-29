@@ -1,4 +1,4 @@
-package Denim.Commands;
+package denim.commands;
 
 public class CommandResult {
     private final String reply;

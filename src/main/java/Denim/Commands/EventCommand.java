@@ -1,15 +1,16 @@
-package Denim.Commands;
+package denim.commands;
 
-import Denim.Tasks.Event;
-import Denim.Exceptions.DenimException;
-import Denim.TaskList;
-import Denim.Storage.TaskIO;
+import denim.TaskList;
+import denim.exceptions.DenimException;
+import denim.storage.TaskIO;
+import denim.tasks.Event;
 
 import java.time.LocalDateTime;
 
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
-    public static final String USAGE = "event <eventDescription> /from <startDateTime /to <endDateTime>\nWhere startDateTime and endDateTime is in dd/MM/yyyy HHmm";
+    public static final String COMMAND_USAGE = "event <eventDescription> /from <startDateTime /to <endDateTime>\n"
+            + "Where startDateTime and endDateTime is in dd/MM/yyyy HHmm";
     private Event eventTask;
 
     public EventCommand(String eventDescription, LocalDateTime from, LocalDateTime to) {
@@ -26,7 +27,8 @@ public class EventCommand extends Command {
         taskList.addTask(eventTask);
         int taskListSize = taskList.getTaskListSize();
 
-        String returnMessage = String.format("Got it. I've added this task:%n %s %nNow you have %d tasks in the list.", eventTask, taskListSize);
+        String returnMessage = String.format("Got it. I've added this task:%n %s %n"
+                + "Now you have %d tasks in the list.", eventTask, taskListSize);
         return new CommandResult(returnMessage);
     }
 

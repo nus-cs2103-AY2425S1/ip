@@ -1,22 +1,20 @@
-package Denim.Commands;
+package denim.commands;
 
-
-import Denim.TaskList;
-import Denim.Storage.TaskIO;
-
+import denim.TaskList;
+import denim.storage.TaskIO;
 
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 
     public final String returnFormat = String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s",
-            DeadlineCommand.USAGE,
-            TodoCommand.USAGE,
-            EventCommand.USAGE,
-            DeleteCommand.USAGE,
-            ListCommand.USAGE,
-            MarkCommand.USAGE,
-            UnmarkCommand.USAGE);
+            DeadlineCommand.COMMAND_USAGE,
+            TodoCommand.COMMAND_USAGE,
+            EventCommand.COMMAND_USAGE,
+            DeleteCommand.COMMAND_USAGE,
+            ListCommand.COMMAND_USAGE,
+            MarkCommand.COMMAND_USAGE,
+            UnmarkCommand.COMMAND_USAGE);
 
     @Override
     public CommandResult execute(TaskList taskList, TaskIO taskIO) {

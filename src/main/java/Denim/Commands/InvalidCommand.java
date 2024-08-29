@@ -1,11 +1,11 @@
-package Denim.Commands;
+package denim.commands;
 
-import Denim.TaskList;
-import Denim.Storage.TaskIO;
+import denim.TaskList;
+import denim.storage.TaskIO;
 
 public class InvalidCommand extends Command {
-    private String error;
-    private String feedback;
+    private final String error;
+    private final String feedback;
 
     public InvalidCommand(String error, String feedback) {
         this.error = error;

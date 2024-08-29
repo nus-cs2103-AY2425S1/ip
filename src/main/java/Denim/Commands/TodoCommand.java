@@ -1,15 +1,15 @@
-package Denim.Commands;
+package denim.commands;
 
-import Denim.Tasks.Todo;
-import Denim.Exceptions.DenimException;
-import Denim.TaskList;
-import Denim.Storage.TaskIO;
-import Denim.Tasks.Task;
+import denim.tasks.Todo;
+import denim.exceptions.DenimException;
+import denim.TaskList;
+import denim.storage.TaskIO;
+import denim.tasks.Task;
 
 public class TodoCommand extends Command {
 
     public static final String COMMAND_WORD = "todo";
-    public static final String USAGE = "todo <taskDescription>";
+    public static final String COMMAND_USAGE = "todo <taskDescription>";
     private Task todoTask;
 
     public TodoCommand(String taskDescription) {

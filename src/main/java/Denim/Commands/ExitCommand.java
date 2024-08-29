@@ -1,7 +1,7 @@
-package Denim.Commands;
+package denim.commands;
 
-import Denim.TaskList;
-import Denim.Storage.TaskIO;
+import denim.TaskList;
+import denim.storage.TaskIO;
 
 public class ExitCommand extends Command {
 

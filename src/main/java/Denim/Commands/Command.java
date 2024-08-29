@@ -1,7 +1,7 @@
-package Denim.Commands;
+package denim.commands;
 
-import Denim.Storage.TaskIO;
-import Denim.TaskList;
+import denim.TaskList;
+import denim.storage.TaskIO;
 
 public abstract class Command {
     public abstract CommandResult execute(TaskList taskList, TaskIO taskIO);
