@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.lang.ClassNotFoundException;
+import java.time.format.DateTimeParseException;
 
 public class Elliot {
     public static void main(String[] args) {
@@ -80,9 +81,14 @@ public class Elliot {
                         continue;
                     }
                     if (commandOptions.length < 2) {
-                        taskToAdd = new DeadlineTask(commandOptions[0]);
-                    } else {
+                        say("when is this due by?\n");
+                        continue;
+                    }
+                    try {
                         taskToAdd = new DeadlineTask(commandOptions[0], commandOptions[1]);
+                    } catch (DateTimeParseException e) {
+                        say("date format incorrect. try dd-MM-yyyy hhmm (24-hour)\n");
+                        continue;
                     }
                     break;
                 case "event":
@@ -92,10 +98,15 @@ public class Elliot {
                         continue;
                     }
                     if (commandOptions.length < 3) {
-                        taskToAdd = new EventTask(commandOptions[0]);
-                    } else {
+                        say("from when to when is this event?\n");
+                        continue;
+                    }
+                    try {
                         taskToAdd = new EventTask(commandOptions[0], commandOptions[1], 
                                 commandOptions[2]);
+                    } catch (DateTimeParseException e) {
+                        say("date format incorrect. try dd-MM-yyyy hhmm (24-hour)\n");
+                        continue;
                     }
                     break;
                 default:
@@ -164,6 +175,7 @@ public class Elliot {
             } else {
                 file.createNewFile();
                 say("created new save file for task list\n");
+                saveTaskList(new TaskList());
                 return new TaskList();
             }
         } catch (IOException | ClassNotFoundException e) {

@@ -1,41 +1,45 @@
-public class EventTask extends Task {
-    private final String from;
-    private final String to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
-    public EventTask(String taskDescription) {
-        super(taskDescription);
-        this.from = "---";
-        this.to = "---";
-    }
+public class EventTask extends Task {
+    private final LocalDateTime fromDateTime;
+    private final LocalDateTime toDateTime;
 
     public EventTask(String taskDescription, String from, String to) {
         super(taskDescription);
-        this.from = from;
-        this.to = to;
+        try {
+            this.fromDateTime = LocalDateTime.parse(from, dateTimeFormatter);
+            this.toDateTime = LocalDateTime.parse(to, dateTimeFormatter);
+        } catch (DateTimeParseException e) {
+            throw e;
+        }
     }
 
-    private EventTask(boolean isDone, String taskDescription, String from, String to) {
+    private EventTask(boolean isDone, String taskDescription,
+            LocalDateTime from, LocalDateTime to) {
         super(isDone, taskDescription);
-        this.from = from;
-        this.to = to;
+        this.fromDateTime = from;
+        this.toDateTime = to;
     }
 
     @Override
     public Task markAsDone() {
         return super.isDone
             ? this 
-            : new EventTask(true, super.taskDescription, this.from, this.to);
+            : new EventTask(true, super.taskDescription, this.fromDateTime, this.toDateTime);
     }
 
     @Override 
     public Task markAsUndone() {
         return super.isDone
-            ? new EventTask(super.taskDescription, this.from, this.to)
+            ? new EventTask(false, super.taskDescription, this.fromDateTime, this.toDateTime)
             : this;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " 
+            + fromDateTime.format(prettyDateTimeFormatter) + " to: " 
+            + toDateTime.format(prettyDateTimeFormatter)+ ")";
     }
 }
