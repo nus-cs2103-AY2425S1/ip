@@ -178,13 +178,13 @@ public class Primo {
         }
     }
 
-    private static void readData() {
+    private static void readData() throws IOException {
         try {
             Path filePath = Paths.get("./data/data.txt");
             List<String> lines = Files.readAllLines(filePath);
             for (String s : lines) {
                 String[] words = s.split(" ");
-                boolean isDone = false;
+                boolean isDone;
                 String name = "";
                 String deadline = "";
                 String from = "";
@@ -224,11 +224,18 @@ public class Primo {
                 }
             }
         } catch (IOException e) {
-            System.out.println(e);
+            fixCorruptedFile();
         }
     }
 
-    public static void main(String[] args) {
+    private static void fixCorruptedFile() throws IOException {
+        Path directoryPath = Paths.get("./data");
+        Path filePath = directoryPath.resolve("data.txt");
+        Files.createDirectories(directoryPath);
+        Files.createFile(filePath);
+    }
+
+    public static void main(String[] args) throws IOException {
         System.out.println("""
                 El Primo:
                 Hello! I'm El Primo!!
