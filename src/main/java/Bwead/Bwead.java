@@ -28,6 +28,6 @@ public class Bwead {
     }
 
     public static void main(String[] args) throws BweadException, IOException {
-        new Bwead("./src/main/java/historyFile.txt").run();
+        new Bwead("./src/main/java/Bwead/historyFile.txt").run();
     }
 }
