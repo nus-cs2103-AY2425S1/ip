@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
+//merging
 
 public class Duck {
     public static void main(String[] args) throws DuckException {
