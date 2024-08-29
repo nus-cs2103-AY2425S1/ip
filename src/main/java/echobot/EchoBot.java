@@ -16,11 +16,17 @@ public class EchoBot {
      * @param args Command line arguments (not used).
      */
     public static void main(String[] args) {
-        Storage.loadTasksFromFile(tasks); // Load tasks when starting
-        Parser parser = new Parser(tasks); // Initialize parser
+        // Load tasks when starting
+        Storage.loadTasksFromFile(tasks);
+
+        // Initialize parser and UI
+        Parser parser = new Parser(tasks);
         Ui ui = new Ui();
 
+        // Start the user interface
         ui.start();
+
+        // Process user commands
         while (true) {
             String userInput = ui.nextInput();
             Command command = parser.parse(userInput);
@@ -29,6 +35,8 @@ public class EchoBot {
                 break;
             }
         }
+
+        // Exit the user interface
         ui.exit();
     }
 }
