@@ -1,5 +1,6 @@
 T | 1 | read book
-E | 1 | project meeting | Aug 6th 2pm | 4pm
+E | 1 | project meeting | 01-08-2024 | 01-08-2024
 T | 0 | join sports club
 T | 1 | run
-D | 0 | homework | 01-02-2024
+D | 1 | assignment | 06-09-2024
+E | 0 | bootcamp | 07-10-2024 | 10-10-2024

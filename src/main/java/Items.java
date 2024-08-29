@@ -1,96 +1,95 @@
 import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Represents a task list.
+ */
 public class Items {
 
-    private DataHandler dataHandler;
-    private ArrayList<Item> items;
+    private List<Item> items;
 
+    /**
+     * Constructs an empty Items object.
+     */
     public Items() {
         this.items = new ArrayList<>();
-        this.dataHandler = new DataHandler();
-        this.dataHandler.loadData(this.items);
     }
 
+    /**
+     * Constructs an Items object with pre-loaded items from storage.
+     *
+     * @param items The list of items to be loaded.
+     */
+    public Items(List<Item> items) {
+        this.items = items;
+    }
 
+    /**
+     * Adds an item to the task list.
+     *
+     * @param item The item to be added.
+     */
     public void addItem(Item item) {
-        this.items.add(item);
-    }
-
-    public void updateData() {
-        this.dataHandler.updateData(this.items);
+        items.add(item);
     }
 
     /**
-     * Marks the specified item as done.
+     * Deletes an item from the task list.
      *
-     * @param input the input string containing the item number to mark as done
-     * @throws SamException if the item number is not provided or does not exist
+     * @param index The index of the item to be deleted.
      */
-    public void  markItemDone(String input) throws SamException {
-        try {
-            String[] parts = input.split(" ");
-            this.items.get(Integer.parseInt(parts[1])-1).markAsDone();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new SamException("Please indicate the item number to mark done");
-        } catch (IndexOutOfBoundsException e) {
-            throw new SamException("Item number does not exist");
-        }
+    public void deleteItem(int index) {
+        items.remove(index);
     }
 
     /**
-     * Marks the specified item as undone.
+     * Retrieves an item from the task list.
      *
-     * @param input the input string containing the item number to mark as undone
-     * @throws SamException if the item number is not provided or does not exist
+     * @param index The index of the item to be retrieved.
+     * @return The item at the specified index.
      */
-    public void  markItemUndone(String input) throws SamException {
-        try {
-            String[] parts = input.split(" ");
-            this.items.get(Integer.parseInt(parts[1])-1).markAsUndone();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new SamException("Please indicate the item number to mark undone");
-        } catch (IndexOutOfBoundsException e) {
-            throw new SamException("Item number does not exist");
-        }
+    public Item getItem(int index) {
+        return items.get(index);
     }
 
     /**
-     * Deletes an item from the list of items.
+     * Gets the number of items in the task list.
      *
-     * @param input the input string containing the item number to delete
-     * @throws SamException if the input is invalid or the item number does not exist
+     * @return The size of the task list.
      */
-    public void deleteItem(String input) throws SamException {
-        try {
-            String[] parts = input.split(" ");
-            Item task_to_remove = this.items.get(Integer.parseInt(parts[1])-1);
-            this.items.remove(task_to_remove);
-            System.out.println("Noted, I have removed this task:\n" + task_to_remove.toString());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new SamException("Please indicate the item number to delete");
-        } catch (IndexOutOfBoundsException e) {
-            throw new SamException("Item number does not exist");
-        }
-    }
-    public String getLastAdded() {
-        return this.items.get(this.items.size() - 1).toString();
-    }
-
     public int getSize() {
-        return this.items.size();
+        return items.size();
     }
 
+    /**
+     * Retrieves the last added item from the task list.
+     *
+     * @return The last added item.
+     */
+    public Item getLastAdded() {
+        return items.get(items.size() - 1);
+    }
 
+    /**
+     * Gets all the items in the task list.
+     *
+     * @return The list of items.
+     */
+    public List<Item> getItems() {
+        return items;
+    }
+
+    /**
+     * Returns a string representation of the Items object.
+     *
+     * @return The string representation of the Items object.
+     */
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < this.items.size(); i++) {
-            result.append(i + 1)
-                  .append(".")
-                  .append(this.items.get(i).toString())
-                  .append("\n");
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < items.size(); i++) {
+            output.append(i + 1).append(". ").append(items.get(i)).append("\n");
         }
-        return result.toString();
+        return output.toString();
     }
-
 }
