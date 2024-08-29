@@ -15,7 +15,7 @@ then
 fi
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/Darwin.java ../src/main/java/exception/*.java ../src/main/java/storage/*.java ../src/main/java/task/*.java
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/darwin/*/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1

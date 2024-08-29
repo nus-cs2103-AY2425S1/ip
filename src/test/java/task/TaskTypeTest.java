@@ -1,6 +1,7 @@
 package task;
 
-import exception.IllegalTaskTypeException;
+import darwin.exception.IllegalTaskTypeException;
+import darwin.task.TaskType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
