@@ -1,4 +1,4 @@
-package kotori.Ui;
+package kotori.ui;
 
 import kotori.taskList.TaskList;
 

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-import kotori.Ui.Ui;
+import kotori.ui.Ui;
 
 /**
  * This class represent the Storage of the chatbot.

@@ -1,7 +1,7 @@
 package kotori.command;
 
 import kotori.taskList.TaskList;
-import static kotori.Ui.Ui.printExit;
+import static kotori.ui.Ui.printExit;
 
 /**
  * This class represents a command of exiting the chatbot.

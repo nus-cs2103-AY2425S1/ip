@@ -3,7 +3,7 @@ import kotori.storage.Storage;
 import kotori.taskList.IncorrectStateException;
 import kotori.taskList.TaskList;
 
-import static kotori.Ui.Ui.printMessage;
+import static kotori.ui.Ui.printMessage;
 
 /**
  * This represents a command of trying to mark a task

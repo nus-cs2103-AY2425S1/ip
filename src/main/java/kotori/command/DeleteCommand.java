@@ -4,8 +4,8 @@ import kotori.storage.Storage;
 import kotori.taskList.Task;
 import kotori.taskList.TaskList;
 
-import static kotori.Ui.Ui.printMessage;
-import static kotori.Ui.Ui.printMessages;
+import static kotori.ui.Ui.printMessage;
+import static kotori.ui.Ui.printMessages;
 
 /**
  * This class represents a command of trying to

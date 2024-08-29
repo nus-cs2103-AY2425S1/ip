@@ -1,8 +1,8 @@
 package kotori.command;
 
 import kotori.taskList.TaskList;
-import static kotori.Ui.Ui.printMessage;
-import static kotori.Ui.Ui.printListWithMessages;
+import static kotori.ui.Ui.printMessage;
+import static kotori.ui.Ui.printListWithMessages;
 
 public class FindCommand extends Command{
     private TaskList taskList;

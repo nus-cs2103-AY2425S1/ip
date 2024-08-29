@@ -2,7 +2,7 @@ package kotori.command;
 
 import kotori.taskList.TaskList;
 
-import static kotori.Ui.Ui.printList;
+import static kotori.ui.Ui.printList;
 
 /**
  * This class represents the command of printing the list.

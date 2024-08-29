@@ -1,6 +1,6 @@
 package kotori.command;
 
-import kotori.Ui.Ui;
+import kotori.ui.Ui;
 
 /**
  * This represents a command of greeting the user.
