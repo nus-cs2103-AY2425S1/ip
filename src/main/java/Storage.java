@@ -1,0 +1,63 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Scanner;
+
+public class Storage {
+    private String pathName = "";
+
+    protected Storage(String pathName) {
+        this.pathName = pathName;
+    }
+
+    protected TaskList loadFromFile() throws TheBotFatherException {
+        TaskList taskList = new TaskList(new ArrayList<Task>());
+        try {
+            File file = new File(this.pathName);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            Scanner parser = new Scanner(file);
+            while (parser.hasNextLine()) {
+                String line = parser.nextLine();
+                String[] instructions = line.split(" \\| ");
+                switch (instructions[0]) {
+                    case "T":
+                        taskList.addTask(new Todo(instructions[2]));
+                        break;
+                    case "D":
+                        taskList.addTask(new Deadline(instructions[2], instructions[3]));
+                        break;
+                    case "E":
+                        taskList.addTask(new Event(instructions[2], instructions[3], instructions[4]));
+                        break;
+                    default:
+                        throw new Exception("Error");
+                }
+                if (Objects.equals(instructions[1], "1")) taskList.markAsDone(TaskList.COUNT - 1);
+            }
+        } catch (Exception e) {
+            throw new TheBotFatherException("The file is corrupted");
+        }
+        return taskList;
+    }
+
+    protected void toFile(TaskList taskList) throws TheBotFatherException{
+
+        try {
+            File file = new File(this.pathName);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
+            fw.write(taskList.toFile());
+            fw.close();
+        } catch (IOException e) {
+            throw new TheBotFatherException("Check the file path, I am sure you messed it up somehow");
+        }
+    }
+}
