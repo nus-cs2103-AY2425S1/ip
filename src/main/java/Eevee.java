@@ -222,17 +222,19 @@ public class Eevee {
                         throw new EeveeException("No task found :( "
                                 + "Please input the task details and description correctly");
                     }
-                    String[] info = s.split("/", 3);
+                    String[] info = s.split("/from|/to", 3);
                     if (info.length < 3) {
                         throw new EeveeException("Event start and/or end timings not provided."
                                 + "Please input a start time denoted by '/from' "
                                 + "and an end time denoted by '/to' when using task type Event");
                     }
+
+                    // Create and store task
                     Event e = new Event(info[0], info[1], info[2]);
                     tasks.add(e);
                     try {
                         appendToFile(FILE_PATH, "E" + "|" + e.getStatus() + "|"
-                                + info[0] + "|" + info[1] + "|" + info[2] + "\n");
+                                + info[0] + "|" + e.getFrom() + "|" + e.getTo() + "\n");
                     } catch (IOException exception) {
                         throw new EeveeException("Unable to store task!");
                     }
