@@ -1,13 +1,13 @@
 package elster;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
+
 import elster.tasks.DeadlineTask;
 import elster.tasks.EventTask;
 import elster.tasks.Task;
 import elster.tasks.ToDoTask;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Scanner;
 
 public class Elster {
     private TaskList taskList;

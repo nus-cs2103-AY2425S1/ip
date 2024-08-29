@@ -1,8 +1,8 @@
 package elster;
 
-import elster.tasks.Task;
-
 import java.util.ArrayList;
+
+import elster.tasks.Task;
 
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
@@ -47,7 +47,7 @@ public class TaskList {
         return task.unmarkAsUndone();
     }
 
-    public Task  deleteTask(int index) throws Elseption {
+    public Task deleteTask(int index) throws Elseption {
         Task task;
 
         try {
