@@ -1,19 +1,21 @@
 package task;
 
-public class Deadline extends Task {
-    private String dueBy;
+import java.time.LocalDate;
 
-    public Deadline(String description, String dueBy) {
+public class Deadline extends Task {
+    private LocalDate dueBy;
+
+    public Deadline(String description, LocalDate dueBy) {
         super(description);
         this.dueBy = dueBy;
     }
 
-    public String getDueBy() {
+    public LocalDate getDueBy() {
         return this.dueBy;
     }
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.dueBy);
+        return String.format("[D]%s (by: %s)", super.toString(), getDueBy());
     }
 }
