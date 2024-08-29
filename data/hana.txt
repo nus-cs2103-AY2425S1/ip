@@ -1,2 +1,3 @@
-D | 1 | submit Thai writing homework | Aug 30 2024
-E | 0 | LH Family Day | Aug 31 2024 | Aug 31 2024
+T | 1 | laugh
+D | 0 | homework | Dec 13 2020
+T | 0 | hehe
