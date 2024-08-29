@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 import java.time.LocalDate;
@@ -50,7 +51,7 @@ public class Azir {
                 String[] result = Parser.parse(fullCommand, tasks.getSize());
                 switch (result[0]) {
                 case "list":
-                    ui.showCommandEndMessage();
+                    ui.showCommandEndMessage(fullCommand);
                     for (int i = 0; i < tasks.getSize(); i++) {
                         System.out.printf("%d. %s\n", i + 1, tasks.getTask(i));
                     }
@@ -102,6 +103,17 @@ public class Azir {
                     tasks.addTask(eventTask);
                     ui.showCommandEndMessage(result[0], eventTask.toString());
                     ui.showTaskNumber(tasks.getSize());
+                    break;
+
+                case "find":
+                    ui.showCommandEndMessage(result[0]);
+                    for (int i = 0; i < tasks.getSize(); i++) {
+                        String description = tasks.getTask(i).getDescription();
+                        String[] arr = description.split(" ");
+                        if (Arrays.stream(arr).anyMatch(str -> str.equals(result[1]))) {
+                            System.out.printf("%d. %s\n", i + 1, tasks.getTask(i));
+                        }
+                    }
                     break;
 
                 case "bye":
