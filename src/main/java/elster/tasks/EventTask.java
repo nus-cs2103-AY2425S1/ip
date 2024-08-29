@@ -87,9 +87,9 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         if (this.status) {
-            return "[E][X] " + this.description + " (from: " + start  + " to: " + end + ")";
+            return "[E][X] " + this.description + " (from: " + start + " to: " + end + ")";
         } else {
-            return "[E][ ] " + this.description + " (from: " + start  + " to: " + end + ")";
+            return "[E][ ] " + this.description + " (from: " + start + " to: " + end + ")";
         }
     }
 

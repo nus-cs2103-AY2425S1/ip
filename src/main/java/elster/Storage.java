@@ -1,19 +1,16 @@
 package elster;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Scanner;
+
 import elster.tasks.DeadlineTask;
 import elster.tasks.EventTask;
 import elster.tasks.Task;
 import elster.tasks.ToDoTask;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import java.util.Arrays;
-import java.util.Scanner;
 
 public class Storage {
     private Path dirPath;
@@ -59,7 +56,7 @@ public class Storage {
                     task = DeadlineTask.of("deadline " + description + " /by " + row[3].strip());
 
                 } else if (taskType.equals("E")) {
-                    task = EventTask.of("event " +description + " /from " + row[3].strip()
+                    task = EventTask.of("event " + description + " /from " + row[3].strip()
                             + " /to " + row[4].strip());
                 }
 

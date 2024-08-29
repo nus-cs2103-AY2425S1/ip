@@ -1,8 +1,8 @@
 package elster;
 
-import elster.tasks.Task;
-
 import java.util.ArrayList;
+
+import elster.tasks.Task;
 
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
@@ -79,6 +79,7 @@ public class TaskList {
         return task.unmarkAsUndone();
     }
 
+
     /**
      * Deletes a task from the task list.
      *
@@ -86,7 +87,8 @@ public class TaskList {
      * @return Boolean representing success or failure in deletion.
      * @throws Elseption If the index is out of bounds of the task list.
      */
-    public Task  deleteTask(int index) throws Elseption {
+
+    public Task deleteTask(int index) throws Elseption {
         Task task;
 
         try {
