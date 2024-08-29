@@ -1,4 +1,9 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,7 +22,7 @@ public class Froggy {
                 + "_______________________________";
         String exit = "Bye. Hope to see you again soon!\n"
                 + "_______________________________";
-        String line = "_______________________________";
+        String LINE = "_______________________________";
 
         System.out.println(greeting);
         tasks = loadTasks();
@@ -37,7 +42,7 @@ public class Froggy {
             } else if (input.toLowerCase().startsWith("mark ") || input.equalsIgnoreCase("mark")) {
                 if (input.length() <= 5) {
                     System.out.println("Error: Please enter the index of the task to be marked.");
-                    System.out.println(line);
+                    System.out.println(LINE);
                 } else {
                     try {
                         int index = Integer.parseInt(input.substring(5)) - 1;
@@ -45,20 +50,20 @@ public class Froggy {
                             tasks.get(index).setStatus(true);
                             System.out.println("Marked the following task as done:");
                             System.out.println(tasks.get(index).toString());
-                            System.out.println(line);
+                            System.out.println(LINE);
                         } else {
                             System.out.println("Error: Invalid index. Please enter an index in range.");
-                            System.out.println(line);
+                            System.out.println(LINE);
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("Error: Please enter a valid index after 'mark'.");
-                        System.out.println(line);
+                        System.out.println(LINE);
                     }
                 }
             } else if (input.toLowerCase().startsWith("unmark ") || input.equalsIgnoreCase("unmark")) {
                 if (input.length() <= 7) {
                     System.out.println("Error: Please enter the index of the task to be unmarked.");
-                    System.out.println(line);
+                    System.out.println(LINE);
                 } else {
                     try {
                         int index = Integer.parseInt(input.substring(7)) - 1;
@@ -66,35 +71,35 @@ public class Froggy {
                             tasks.get(index).setStatus(false);
                             System.out.println("Marked the following task as undone:");
                             System.out.println(tasks.get(index).toString());
-                            System.out.println(line);
+                            System.out.println(LINE);
                         } else {
                             System.out.println("Error: Invalid index. Please enter an index in range.");
-                            System.out.println(line);
+                            System.out.println(LINE);
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("Error: Please enter a valid index after 'unmark'.");
-                        System.out.println(line);
+                        System.out.println(LINE);
                     }
                 }
             } else if (input.toLowerCase().startsWith("delete ") || input.equalsIgnoreCase("delete")){
                 if (input.length() <= 7) {
                     System.out.println("Error: Please enter the index of the task to be deleted.");
-                    System.out.println(line);
+                    System.out.println(LINE);
                 } else {
                     try {
                         int index = Integer.parseInt(input.substring(7)) - 1;
                         if (index >= 0 && index < tasks.size()) {
                             System.out.println("Deleted the following task:");
                             System.out.println(tasks.get(index).toString());
-                            System.out.println(line);
+                            System.out.println(LINE);
                             tasks.remove(index);
                         } else {
                             System.out.println("Error: Invalid index. Please enter an index in range.");
-                            System.out.println(line);
+                            System.out.println(LINE);
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("Error: Please enter a valid index after 'delete'.");
-                        System.out.println(line);
+                        System.out.println(LINE);
                     }
                 }
             } else {
@@ -103,14 +108,14 @@ public class Froggy {
                     if (input.length() == 5) {
                         System.out.println("Error: No description for ToDo task.");
                         System.out.println("Please input a description for the task");
-                        System.out.println(line);
+                        System.out.println(LINE);
                     } else {
                         String desc = input.substring(5);
                         Todo current = new Todo(desc);
                         tasks.add(current);
                         System.out.println("Added this task:");
                         System.out.println(current.toString());
-                        System.out.println(line);
+                        System.out.println(LINE);
                     }
                 } else if (input.toLowerCase().startsWith("deadline ")) {
                     int index = input.toLowerCase().indexOf("/by ");
@@ -121,7 +126,7 @@ public class Froggy {
                         tasks.add(current);
                         System.out.println("Added this task:");
                         System.out.println(current.toString());
-                        System.out.println(line);
+                        System.out.println(LINE);
                     }
                 } else if (input.toLowerCase().startsWith("event ")) {
                     int index = input.toLowerCase().indexOf("/from ");
@@ -134,12 +139,12 @@ public class Froggy {
                         tasks.add(current);
                         System.out.println("Added this task:");
                         System.out.println(current.toString());
-                        System.out.println(line);
+                        System.out.println(LINE);
                     }
                 } else {
                     System.out.println("Input not recognised. Please input a valid action:");
                     System.out.println("todo, event, deadline, mark, unmark, list, bye");
-                    System.out.println(line);
+                    System.out.println(LINE);
                 }
             }
             saveTasks(tasks);
