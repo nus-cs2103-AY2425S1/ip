@@ -4,10 +4,20 @@ import revir.system.Storage;
 import revir.user.Ui;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ * This class manages the tasks and provides methods to add, remove, list, and mark tasks as completed.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     private Storage storage;
 
+    /**
+     * Constructs a TaskList object.
+     * 
+     * @param storage the storage object used to load tasks from a file
+     * @param ui the user interface object used to display error messages
+     */
     public TaskList(Storage storage, Ui ui) {
         this.tasks = new ArrayList<Task>();
         this.storage = storage;
@@ -19,11 +29,25 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task the task to be added
+     * @throws IOException if an I/O error occurs while saving the task list to a file
+     */
     public void add(Task task) throws IOException {
         tasks.add(task);
         storage.saveToFile(this.tasks);
     }
 
+    /**
+     * Removes a task from the task list at the specified index.
+     *
+     * @param index the index of the task to be removed
+     * @return a string indicating the task that was deleted
+     * @throws IndexOutOfBoundsException if the index is out of range (index < 1 || index > tasks.size())
+     * @throws IOException if an I/O error occurs while saving the task list to a file
+     */
     public String remove(int index) throws IndexOutOfBoundsException, IOException {
         if (index < 1 || index > tasks.size()) {
             throw new IndexOutOfBoundsException(
@@ -35,6 +59,11 @@ public class TaskList {
         return "Task deleted: " + task.toString();
     }
 
+    /**
+     * Returns a string representation of the task list.
+     *
+     * @return A string containing the string representation of each task in the list, separated by a newline character.
+     */
     public String list() {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
@@ -44,6 +73,15 @@ public class TaskList {
         return str.toString();
     }
 
+    /**
+     * Sets the completion status of a task at the specified index.
+     *
+     * @param index the index of the task to set the completion status for
+     * @param status the completion status to set for the task
+     * @return a string indicating the updated completion status of the task
+     * @throws IndexOutOfBoundsException if the index is out of range (index < 1 || index > tasks.size())
+     * @throws IOException if an I/O error occurs while saving the tasks to a file
+     */
     public String setCompleted(int index, boolean status) throws IndexOutOfBoundsException, IOException {
         if (index < 1 || index > tasks.size()) {
             throw new IndexOutOfBoundsException(

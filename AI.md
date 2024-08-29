@@ -6,3 +6,4 @@ Tool: GitHub Copilot
 - With the copilot as a vscode extension it was really easy to use. No need to click away from the code editor
 - Useful for writing boilerplate code. For example, when declaring a constructor, it would automatically definte the required parameters and store them accordingly. 
 - Not so useful when trying to large chunks of code. 
+- Super useful for writing documentation. Especially JavaDoc annotations of params, and exceptions which are straightforward to add, but tedious work.
