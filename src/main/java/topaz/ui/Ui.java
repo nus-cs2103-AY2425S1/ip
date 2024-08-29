@@ -1,6 +1,7 @@
 package topaz.ui;
 
 import topaz.exception.InvalidStateException;
+import topaz.main.TaskList;
 import topaz.task.Task;
 
 import java.io.IOException;
@@ -122,5 +123,14 @@ public class Ui {
         System.out.println(" Noted. I've removed this task:");
         System.out.println("    " + task.getStatus());
         System.out.println(" Now you have " + size + " tasks in the list.");
+    }
+
+    public void showTargetTask(TaskList taskList) {
+        if (taskList.getSize() == 0) {
+            System.out.println("No matching task found. Enter \"list\" to see current tasks.");
+        } else {
+            System.out.println("Here are matching tasks in your list:");
+            System.out.println(taskList);
+        }
     }
 }

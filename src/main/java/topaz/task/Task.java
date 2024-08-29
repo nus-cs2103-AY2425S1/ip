@@ -30,7 +30,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return description + " isDone: " + isDone;
+        return description;
     }
 
     public String getStatusIcon() {
@@ -53,7 +53,4 @@ public class Task {
         return "type" + " | " + "state" + " | " + description;
     }
 
-    public void addToList(ArrayList<Task> list) {
-        list.add(this);
-    }
 }

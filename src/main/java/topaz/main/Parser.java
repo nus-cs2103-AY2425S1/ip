@@ -3,6 +3,7 @@ package topaz.main;
 import topaz.command.CreateCommand;
 import topaz.command.DeleteCommand;
 import topaz.command.Command;
+import topaz.command.FindCommand;
 import topaz.command.MarkCommand;
 import topaz.command.TextCommand;
 import topaz.exception.InvalidCommandException;
@@ -16,6 +17,8 @@ public class Parser {
             return new TextCommand("bye");
         } else if (prompt.equals("list")) {
             return new TextCommand("list");
+        } else if (prompt.startsWith("find")) {
+            return new FindCommand(prompt);
 
         } else if (prompt.startsWith("mark")) {
             int index = Integer.parseInt(prompt.substring(5));

@@ -52,6 +52,21 @@ public class TaskList {
             fw.write(t.toFileRecord() + "\n");
         }
     }
+
+    /**
+     * Find a task by searching for a keyword.
+     * @param filter
+     * @return task conatins the filter keyword in description
+     */
+    public TaskList find(String filter) {
+        ArrayList<Task> targetTasks = new ArrayList<>();
+        for (Task t: tasks) {
+            if (t.toString().contains(filter)) {
+                targetTasks.add(t);
+            }
+        }
+        return new TaskList(targetTasks);
+    }
     @Override
     public boolean equals(Object object) {
         if (object instanceof TaskList) {
@@ -64,5 +79,14 @@ public class TaskList {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            result += (i + 1) + ". " + tasks.get(i).getStatus() + "\n";
+        }
+        return result;
     }
 }
