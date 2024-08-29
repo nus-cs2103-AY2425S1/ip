@@ -1,4 +1,10 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Primo {
@@ -26,7 +32,7 @@ public class Primo {
                     return type;
                 }
             }
-            throw new PrimoException("Invalid command!\n(Expected Commands: todo, deadline, event, mark, unmark, list, bye)\n");
+            throw new PrimoException("Invalid command!\n(Expected Commands: todo, deadline, event, mark, unmark, delete, list, bye)\n");
         }
     }
 
@@ -36,6 +42,17 @@ public class Primo {
             String output = String.valueOf(i + 1) + "." + list.get(i);
             System.out.println(output);
         }
+    }
+
+    private static String getList() {
+        int len = list.size();
+        StringBuilder data = new StringBuilder();
+        for (int i = 0; i < len; i++) {
+            String output = String.valueOf(i + 1) + "." + list.get(i);
+            data.append(output);
+            data.append("\n");
+        }
+        return data.toString();
     }
 
     private static void sayBye() {
@@ -71,6 +88,7 @@ public class Primo {
                 System.out.println("\nEl Primo:");
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(list.get(markIndex));
+                writeToData(getList());
                 break;
             case UNMARK:
                 try {
@@ -86,6 +104,7 @@ public class Primo {
                 System.out.println("\nEl Primo:");
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(list.get(unmarkIndex));
+                writeToData(getList());
                 break;
             case TODO:
                 int todoFromIndex = input.indexOf("todo ") + 5;
@@ -99,6 +118,7 @@ public class Primo {
                 System.out.println("Got it. I've added this task:");
                 System.out.println(newToDoTask);
                 System.out.printf("Now you have %d tasks in the list.%n", list.size());
+                writeToData(getList());
                 break;
             case DEADLINE:
                 if (!input.contains("/by")) {
@@ -120,6 +140,7 @@ public class Primo {
                 System.out.println("Got it. I've added this task:");
                 System.out.println(newDeadlineTask);
                 System.out.printf("Now you have %d tasks in the list.%n", list.size());
+                writeToData(getList());
                 break;
             case EVENT:
                 if (!input.contains("/from") || !input.contains("/to")) {
@@ -146,6 +167,7 @@ public class Primo {
                 System.out.println("Got it. I've added this task:");
                 System.out.println(newEventTask);
                 System.out.printf("Now you have %d tasks in the list.%n", list.size());
+                writeToData(getList());
                 break;
             case DELETE:
                 try {
@@ -161,6 +183,8 @@ public class Primo {
                 System.out.println("Noted. I've removed this task:");
                 System.out.println(list.get(deleteIndex));
                 list.remove(deleteIndex);
+                writeToData(getList());
+                break;
         }
     }
     private static void readInput() {
@@ -173,11 +197,82 @@ public class Primo {
         }
     }
 
-    public static void main(String[] args) {
+    private static void readData() throws IOException {
+        try {
+            Path filePath = Paths.get("./data/data.txt");
+            List<String> lines = Files.readAllLines(filePath);
+            for (String s : lines) {
+                String[] words = s.split(" ");
+                boolean isDone;
+                String name = "";
+                String deadline = "";
+                String from = "";
+                String to = "";
+                switch (words[0].charAt(3)) {
+                case 'T':
+                    int todoFromIndex = 9;
+                    String todoDescription = s.substring(todoFromIndex).trim();
+                    isDone = s.charAt(6) == 'X';
+                    Task newToDoTask = new ToDoTask(todoDescription);
+                    if (isDone) {
+                        newToDoTask.markAsDone();
+                    }
+                    list.add(newToDoTask);
+                    break;
+                case 'D':
+                    int deadlineFromIndex = 9;
+                    int deadlineToIndex = s.indexOf("(by:");
+                    String deadlineDescription = s.substring(deadlineFromIndex, deadlineToIndex).trim();
+                    String dueTime = s.substring(deadlineToIndex + 4, s.indexOf(')')).trim();
+                    isDone = s.charAt(6) == 'X';
+                    Task newDeadlineTask = new DeadlineTask(deadlineDescription, dueTime);
+                    if (isDone) {
+                        newDeadlineTask.markAsDone();
+                    }
+                    list.add(newDeadlineTask);
+                    break;
+                case 'E':
+                    String eventDescription = s.substring(9, s.indexOf("(from:")).trim();
+                    String eventFromTime = s.substring(s.indexOf("from: ") + 6, s.indexOf("to: ")).trim();
+                    String eventToTime = s.substring(s.indexOf("to: ") + 4, s.indexOf(")")).trim();
+                    isDone = s.charAt(6) == 'X';
+                    Task newEventTask = new EventTask(eventDescription, eventFromTime, eventToTime);
+                    if (isDone) {
+                        newEventTask.markAsDone();
+                    }
+                    list.add(newEventTask);
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            fixCorruptedFile();
+        }
+    }
+
+    private static void writeToData(String s) {
+        try (FileWriter writer = new FileWriter("./data/data.txt")) {
+            writer.write(s);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    private static void fixCorruptedFile() throws IOException {
+        Path directoryPath = Paths.get("./data");
+        Path filePath = directoryPath.resolve("data.txt");
+        Files.createDirectories(directoryPath);
+        Files.createFile(filePath);
+    }
+
+    public static void main(String[] args) throws IOException {
         System.out.println("""
                 El Primo:
                 Hello! I'm El Primo!!
                 What can I do for you?""");
+
+        readData();
+        System.out.println("Current Tasks: ");
+        printList();
 
         while (!ended) {
             readInput();
