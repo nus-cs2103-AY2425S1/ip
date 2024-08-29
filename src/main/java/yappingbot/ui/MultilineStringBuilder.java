@@ -1,4 +1,4 @@
-package ui;
+package yappingbot.ui;
 
 public class MultilineStringBuilder {
     private final StringBuilder sb = new StringBuilder();

@@ -1,16 +1,17 @@
 package yappingbot;
-import commands.Parser;
-import exceptions.YappingBotException;
-import exceptions.YappingBotUnknownCommandException;
-import storage.Storage;
-import stringconstants.ReplyTextMessages;
-import tasks.TaskList;
-import tasks.TaskTypes;
-import ui.Ui;
+import yappingbot.commands.Parser;
+import yappingbot.exceptions.YappingBotException;
+import yappingbot.exceptions.YappingBotSaveFileNotFoundException;
+import yappingbot.exceptions.YappingBotUnknownCommandException;
+import yappingbot.storage.Storage;
+import yappingbot.stringconstants.ReplyTextMessages;
+import yappingbot.tasks.TaskList;
+import yappingbot.tasks.TaskTypes;
+import yappingbot.ui.Ui;
 
 import java.util.Scanner;
 
-import static commands.Commands.*;
+import static yappingbot.commands.Commands.*;
 
 
 public class YappingBot {
@@ -24,7 +25,7 @@ public class YappingBot {
     private void init(Storage storage) {
         try {
             userList = storage.loadListFromFile();
-        } catch (YappingBotException e) {
+        } catch (YappingBotSaveFileNotFoundException e) {
             Ui.printError(e);
             userList = new TaskList();
         }

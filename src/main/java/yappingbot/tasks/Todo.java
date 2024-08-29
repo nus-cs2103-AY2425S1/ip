@@ -1,4 +1,4 @@
-package tasks;
+package yappingbot.tasks;
 
 public class Todo extends Task {
     public Todo(String taskName, boolean taskDone) {

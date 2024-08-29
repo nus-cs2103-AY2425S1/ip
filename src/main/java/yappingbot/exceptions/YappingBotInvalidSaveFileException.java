@@ -1,6 +1,6 @@
-package exceptions;
+package yappingbot.exceptions;
 
-import static stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_1s;
+import static yappingbot.stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_1s;
 
 public class YappingBotInvalidSaveFileException extends YappingBotException {
 

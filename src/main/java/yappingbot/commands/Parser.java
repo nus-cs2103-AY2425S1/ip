@@ -1,8 +1,8 @@
-package commands;
+package yappingbot.commands;
 
-import exceptions.YappingBotInvalidTaskNumberException;
-import exceptions.YappingBotUnknownCommandException;
-import tasks.TaskList;
+import yappingbot.exceptions.YappingBotInvalidTaskNumberException;
+import yappingbot.exceptions.YappingBotUnknownCommandException;
+import yappingbot.tasks.TaskList;
 
 import java.util.HashMap;
 

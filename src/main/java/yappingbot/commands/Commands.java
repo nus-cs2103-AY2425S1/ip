@@ -1,11 +1,11 @@
-package commands;
+package yappingbot.commands;
 
-import exceptions.*;
-import stringconstants.ReplyTextMessages;
-import tasks.*;
+import yappingbot.exceptions.*;
+import yappingbot.stringconstants.ReplyTextMessages;
+import yappingbot.tasks.*;
 
-import ui.MultilineStringBuilder;
-import ui.Ui;
+import yappingbot.ui.MultilineStringBuilder;
+import yappingbot.ui.Ui;
 
 public class Commands {
     public static void printUserList(TaskList userList) {

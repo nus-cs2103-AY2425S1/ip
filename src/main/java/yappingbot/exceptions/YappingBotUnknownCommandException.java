@@ -1,5 +1,5 @@
-package exceptions;
-import stringconstants.ReplyTextMessages;
+package yappingbot.exceptions;
+import yappingbot.stringconstants.ReplyTextMessages;
 
 public class YappingBotUnknownCommandException extends YappingBotException {
     public YappingBotUnknownCommandException() {

@@ -1,13 +1,13 @@
-package storage;
+package yappingbot.storage;
 
-import exceptions.YappingBotException;
-import exceptions.YappingBotInvalidSaveFileException;
-import exceptions.YappingBotSaveFileIOException;
-import exceptions.YappingBotSaveFileNotFoundException;
-import stringconstants.ReplyTextMessages;
-import tasks.*;
-import ui.MultilineStringBuilder;
-import ui.Ui;
+import yappingbot.exceptions.YappingBotException;
+import yappingbot.exceptions.YappingBotInvalidSaveFileException;
+import yappingbot.exceptions.YappingBotSaveFileIOException;
+import yappingbot.exceptions.YappingBotSaveFileNotFoundException;
+import yappingbot.stringconstants.ReplyTextMessages;
+import yappingbot.tasks.*;
+import yappingbot.ui.MultilineStringBuilder;
+import yappingbot.ui.Ui;;
 
 import java.io.*;
 import java.util.ArrayList;

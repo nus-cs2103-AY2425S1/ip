@@ -1,6 +1,6 @@
-package ui;
+package yappingbot.ui;
 
-import exceptions.YappingBotException;
+import yappingbot.exceptions.YappingBotException;
 
 public class Ui {
     private static String quoteSinglelineText(String line) {

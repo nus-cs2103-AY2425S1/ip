@@ -1,4 +1,4 @@
-package exceptions;
+package yappingbot.exceptions;
 
 public class YappingBotException extends RuntimeException {
     public YappingBotException() {

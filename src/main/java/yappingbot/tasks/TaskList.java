@@ -1,6 +1,6 @@
-package tasks;
+package yappingbot.tasks;
 
-import exceptions.YappingBotOOBException;
+import yappingbot.exceptions.YappingBotOOBException;
 
 import java.util.ArrayList;
 import java.util.Iterator;
