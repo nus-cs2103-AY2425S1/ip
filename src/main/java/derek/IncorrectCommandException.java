@@ -1,3 +1,5 @@
+package derek;
+
 /**
  * The IncorrectCommandException class is a custom exception that is thrown when a user
  * enters a command that is not valid or does not meet the expected format.

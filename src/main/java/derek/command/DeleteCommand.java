@@ -1,3 +1,10 @@
+package derek.command;
+
+import derek.Storage;
+import derek.task.Task;
+import derek.task.TaskList;
+import derek.Ui;
+
 public class DeleteCommand extends Command {
 
     public DeleteCommand(String command) {

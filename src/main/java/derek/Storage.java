@@ -1,3 +1,10 @@
+package derek;
+
+import derek.task.DeadlineTask;
+import derek.task.EventTask;
+import derek.task.Task;
+import derek.task.TaskList;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

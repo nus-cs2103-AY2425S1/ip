@@ -1,3 +1,7 @@
+package derek.command;
+
+import derek.command.Command;
+
 public class TaskCommand extends Command {
     public TaskCommand(String command) {
         super(command);

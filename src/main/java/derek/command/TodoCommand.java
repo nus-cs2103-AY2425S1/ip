@@ -1,5 +1,12 @@
-public class DeadlineCommand extends TaskCommand {
-    public DeadlineCommand(String command) {
+package derek.command;
+
+import derek.Storage;
+import derek.Ui;
+import derek.task.Task;
+import derek.task.TaskList;
+
+public class TodoCommand extends TaskCommand {
+    public TodoCommand(String command) {
         super(command);
     }
 
@@ -9,6 +16,5 @@ public class DeadlineCommand extends TaskCommand {
         ui.addTask(task);
 
     }
-
 
 }

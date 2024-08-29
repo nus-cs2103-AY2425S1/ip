@@ -1,3 +1,9 @@
+package derek.command;
+
+import derek.Storage;
+import derek.Ui;
+import derek.command.Command;
+
 public class LeavingCommand extends Command {
 
     public LeavingCommand(String command) {

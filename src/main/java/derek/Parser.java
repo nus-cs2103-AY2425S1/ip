@@ -1,3 +1,8 @@
+package derek;
+
+import derek.command.*;
+import derek.task.Task;
+
 import java.time.format.DateTimeParseException;
 
 public class Parser {
@@ -31,6 +36,7 @@ public class Parser {
                         }
                         DeleteCommand deleteCommand = new DeleteCommand(this.command);
                         deleteCommand.execute(taskNumber, this.storage, this.ui);
+                        return;
                     } else if (words[0].equals("mark")) {
                         int taskNumber = Integer.valueOf(words[1]);
                         if (taskNumber < size || taskNumber > size) {
@@ -38,6 +44,7 @@ public class Parser {
                         }
                         CompleteCommand completeCommand = new CompleteCommand(this.command);
                         completeCommand.execute(this.storage, taskNumber, this.ui);
+                        return;
                     } else if (words[0].equals("unmark")) {
                         int taskNumber = Integer.valueOf(words[1]);
                         if (taskNumber < size || taskNumber > size) {
@@ -45,7 +52,10 @@ public class Parser {
                         }
                         IncompleteCommand incompleteCommand = new IncompleteCommand(this.command);
                         incompleteCommand.execute(this.storage, taskNumber, this.ui);
+                        return;
                     }
+                } else {
+                    throw new IncorrectCommandException("Please enter your commands correctly for Derek (e.g. todo (task)), he keeps throwing tantrums");
                 }
                 this.getTask();
             }

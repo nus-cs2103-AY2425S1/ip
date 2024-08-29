@@ -1,10 +1,6 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Random;
-import java.io.File;
-import java.io.FileWriter;
+package derek;
+
+import derek.task.TaskList;
 
 /**
  * Derek is a bot that interacts with the user, manages tasks, and provides functionalities like
