@@ -1,3 +1,9 @@
+package xbot.storage;
+
+import xbot.task.Task;
+import xbot.TaskList;
+import xbot.parser.Parser;
+
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,7 +18,7 @@ public class Storage {
     public void loadTask() throws IOException {
         TaskList list = new TaskList();
         if (Files.exists(DATA_PATH)) {
-            //Add all task in data/XBot.txt to the list
+            //Add all xbot.task in data/XBot.txt to the list
             try (Scanner scanner = new Scanner(DATA_PATH.toFile())) {
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
@@ -31,7 +37,6 @@ public class Storage {
     }
 
     public void saveTask(TaskList taskList) {
-        //Save all task to XBot.txt
         try (FileWriter writer = new FileWriter(DATA_PATH.toFile())) {
             for (Task task : taskList.getAllTask()) {
                 writer.write(Parser.taskToFileString(task) + System.lineSeparator());

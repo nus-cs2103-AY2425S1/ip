@@ -1,9 +1,14 @@
+package xbot;
+
+import xbot.ui.Ui;
+import xbot.storage.Storage;
+import xbot.parser.Parser;
 import java.io.IOException;
 
 public class XBot {
     private static TaskList list = new TaskList();
     private static Storage storage = new Storage();
-    private static UI ui = new UI();
+    private static Ui ui = new Ui();
     private static Parser parser = new Parser();
     public static void main(String[] args) {
         try {

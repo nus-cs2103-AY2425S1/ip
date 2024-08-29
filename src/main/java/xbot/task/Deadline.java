@@ -1,18 +1,23 @@
+package xbot.task;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Event extends Task {
-    protected String from, to;
+public class Deadline extends Task {
 
-    public Event(String description, String from, String to) {
-        super(description, TaskType.E);
-        this.from = from;
-        this.to = to;
+    protected String by;
+
+    public Deadline(String description, String by) {
+        super(description, TaskType.D);
+        this.by = by;
+    }
+
+    public String getBy() {
+        return by;
     }
 
     public String changeDateFormat(String by) {
@@ -41,6 +46,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + changeDateFormat(from) + " to: " + changeDateFormat(to) + ")";
+        return "[D]" + super.toString() + " (by: " + changeDateFormat(by) + ")";
     }
 }

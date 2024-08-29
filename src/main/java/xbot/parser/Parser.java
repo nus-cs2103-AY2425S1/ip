@@ -1,3 +1,14 @@
+package xbot.parser;
+
+import xbot.storage.Storage;
+import xbot.task.Task;
+import xbot.TaskList;
+import xbot.ui.Ui;
+import xbot.task.Deadline;
+import xbot.task.ToDo;
+import xbot.task.Event;
+import xbot.XBotException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,7 +41,7 @@ public class Parser {
                     if (isDone) eventTask.setIsDone();
                     return eventTask;
                 default:
-                    System.out.println("Unknown task type: " + type);
+                    System.out.println("Unknown xbot.task type: " + type);
             }
         }
         return null;
@@ -60,18 +71,18 @@ public class Parser {
 
     public static String taskToFileString(Task task) {
         StringBuilder sb = new StringBuilder();
-        sb.append(task.type + " | ");
+        sb.append(task.getType() + " | ");
         sb.append(task.isDone() ? "1 | " : "0 | ");
-        sb.append(task.description);
+        sb.append(task.getDescription());
         if (task instanceof Deadline) {
-            sb.append(" | ").append(((Deadline) task).by);
+            sb.append(" | ").append(((Deadline) task).getBy());
         } else if (task instanceof Event) {
-            sb.append(" | ").append(((Event) task).from)
-                    .append(" | ").append(((Event) task).to);
+            sb.append(" | ").append(((Event) task).getFrom())
+                    .append(" | ").append(((Event) task).getTo());
         }
         return sb.toString();
     }
-    public void processInput(String input, TaskList list, UI ui, Storage storage) throws XBotException {
+    public void processInput(String input, TaskList list, Ui ui, Storage storage) throws XBotException {
         String[] words = input.split("\\s+", 2);
         String command = words[0].toLowerCase();
         String rest = words.length > 1 ? words[1] : "";
@@ -110,7 +121,7 @@ public class Parser {
                 break;
             case "delete":
                 if (rest.isEmpty()) {
-                    throw new XBotException("The task number to be deleted cannot be empty!");
+                    throw new XBotException("The xbot.task number to be deleted cannot be empty!");
                 }
                 list.deleteTask(rest);
                 storage.saveTask(list);

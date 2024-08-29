@@ -1,3 +1,10 @@
+package xbot;
+
+import xbot.task.Task;
+import xbot.task.ToDo;
+import xbot.task.Event;
+import xbot.task.Deadline;
+import xbot.parser.Parser;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -28,20 +35,20 @@ public class TaskList {
         try {
             int taskNumber = Integer.parseInt(rest.trim());
             if (taskNumber > 0 && taskNumber <= list.size()) {
-                System.out.println("Noted. I've removed this task:");
+                System.out.println("Noted. I've removed this xbot.task:");
                 System.out.print(list.get(taskNumber - 1).toString() + "\n");
                 list.remove(taskNumber - 1);
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
             } else {
-                throw new XBotException("This task number do not exist.");
+                throw new XBotException("This xbot.task number do not exist.");
             }
         } catch (NumberFormatException e) {
-            throw new XBotException("Invalid task number!");
+            throw new XBotException("Invalid xbot.task number!");
         }
     }
 
     public void addTodo(String rest) {
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Got it. I've added this xbot.task:");
         Task newTask = new ToDo(rest);
         list.add(newTask);
         System.out.println(newTask.toString());
@@ -57,14 +64,14 @@ public class TaskList {
                 Task newTask = new Deadline(taskDescription, deadline);
                 list.add(newTask);
 
-                System.out.println("Got it. I've added this task:");
+                System.out.println("Got it. I've added this xbot.task:");
                 System.out.println(newTask.toString());
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
             } else {
                 throw new XBotException("Invalid date input format. Please use the format: D/M/YYYY");
             }
         } else {
-            throw new XBotException("Invalid input format. Please use the format: 'deadline <task> /by <date>'");
+            throw new XBotException("Invalid input format. Please use the format: 'deadline <xbot.task> /by <date>'");
         }
     }
 
@@ -83,7 +90,7 @@ public class TaskList {
                     Task newTask = new Event(taskDescription, from, to);
                     list.add(newTask);
 
-                    System.out.println("Got it. I've added this task:");
+                    System.out.println("Got it. I've added this xbot.task:");
                     System.out.println(newTask.toString());
                     System.out.println("Now you have " + list.size() + " tasks in the list.");
                 } else {
@@ -91,7 +98,7 @@ public class TaskList {
                 }
             }
         } else {
-            throw new XBotException("Invalid input format. Please use the format: 'event <task> /from <start time> /to <end time>'");
+            throw new XBotException("Invalid input format. Please use the format: 'event <xbot.task> /from <start time> /to <end time>'");
         }
     }
 
@@ -101,10 +108,10 @@ public class TaskList {
             if (taskNumber > 0 && taskNumber <= list.size()) {
                 list.get(taskNumber - 1).markAsDone();
             } else {
-                throw new XBotException("This task number do not exist.");
+                throw new XBotException("This xbot.task number do not exist.");
             }
         } catch (NumberFormatException e) {
-            throw new XBotException("Invalid task number!");
+            throw new XBotException("Invalid xbot.task number!");
         }
     }
 
@@ -114,10 +121,10 @@ public class TaskList {
             if (taskNumber > 0 && taskNumber <= list.size()) {
                 list.get(taskNumber - 1).markAsUndone();
             } else {
-                throw new XBotException("This task number do not exist.");
+                throw new XBotException("This xbot.task number do not exist.");
             }
         } catch (NumberFormatException e) {
-            throw new XBotException("Invalid task number!");
+            throw new XBotException("Invalid xbot.task number!");
         }
     }
 

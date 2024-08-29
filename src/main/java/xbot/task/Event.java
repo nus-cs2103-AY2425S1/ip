@@ -1,3 +1,5 @@
+package xbot.task;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -5,13 +7,13 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Deadline extends Task {
+public class Event extends Task {
+    protected String from, to;
 
-    protected String by;
-
-    public Deadline(String description, String by) {
-        super(description, TaskType.D);
-        this.by = by;
+    public Event(String description, String from, String to) {
+        super(description, TaskType.E);
+        this.from = from;
+        this.to = to;
     }
 
     public String changeDateFormat(String by) {
@@ -38,8 +40,16 @@ public class Deadline extends Task {
         return "TimeDate cannot be converted to another format :'0";
     }
 
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + changeDateFormat(by) + ")";
+        return "[E]" + super.toString() + " (from: " + changeDateFormat(from) + " to: " + changeDateFormat(to) + ")";
     }
 }
