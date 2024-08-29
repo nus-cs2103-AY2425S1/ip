@@ -4,8 +4,12 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.IOException;
 
-public class FileUtils {
-    private static final String DATA_PATH = "./data.txt";
+public class Storage {
+    private final String dataPath;
+
+    public Storage(String dataPath) {
+        this.dataPath = dataPath;
+    }
 
     private static void processTaskString(String taskString, TaskList taskList) {
         try {
@@ -38,15 +42,16 @@ public class FileUtils {
                 break;
             }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Error loading task: The saved task is in an invalid format.");
+            Ui ui = new Ui();
+            ui.errorLoadingTask();
         }
     }
 
-    private static void createFileIfNotExists() {
+    private void createFileIfNotExists() throws MeepException {
         // This method is created with use of ChatGPT
 
         // Create a File object for the file
-        File file = new File(DATA_PATH);
+        File file = new File(this.dataPath);
         try {
             // Check if the file exists, if not, create it
             if (!file.exists()) {
@@ -55,34 +60,34 @@ public class FileUtils {
                 }
             }
         } catch (IOException e) {
-            System.out.println("An error occurred." + e.getMessage());
+            throw new MeepException("An error occurred." + e.getMessage());
         }
     }
 
-    public static TaskList loadTasks() {
+    public TaskList loadTasks() throws MeepException {
         // Load tasks from file
         createFileIfNotExists();
         TaskList taskList = new TaskList();
         try {
-            File f = new File(FileUtils.DATA_PATH); // create a File for the given file path
+            File f = new File(this.dataPath); // create a File for the given file path
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
             while (s.hasNext()) {
                 processTaskString(s.nextLine(), taskList);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e.getMessage());
+            throw new MeepException("File not found: " + e.getMessage());
         }
         return taskList;
     }
 
-    public static void saveTasks(TaskList taskList) {
+    public void saveTasks(TaskList taskList) throws MeepException {
         // Save tasks to file
         try {
-            FileWriter fw = new FileWriter(FileUtils.DATA_PATH);
+            FileWriter fw = new FileWriter(this.dataPath);
             fw.write(taskList.getSaveFormatList());
             fw.close();
         } catch (IOException e) {
-            System.out.println("An error occurred: " + e.getMessage());
+            throw new MeepException("An error occurred: " + e.getMessage());
         }
     }
 }
