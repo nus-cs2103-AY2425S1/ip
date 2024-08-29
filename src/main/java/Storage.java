@@ -7,10 +7,12 @@ import java.nio.file.Paths;
 public class Storage {
     Path dirPath;
     Path filePath;
+    Ui ui;
 
-    public Storage(Path filePath) {
+    public Storage(Path filePath, Ui ui) {
         this.dirPath = filePath;
         this.filePath = dirPath.resolve("data.txt");
+        this.ui = ui;
     }
 
     public void writeToFile(TaskList taskList) {
@@ -24,7 +26,7 @@ public class Storage {
             }
 
         } catch (IOException e) {
-            Elseptions.saveFileError();
+            ui.saveFileErrorMessage();
         }
 
         try {
@@ -33,7 +35,7 @@ public class Storage {
             fw.close();
 
         } catch (IOException e) {
-            Elseptions.saveFileError();
+            ui.saveFileErrorMessage();
         }
     }
 }
