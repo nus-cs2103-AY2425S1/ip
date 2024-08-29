@@ -4,18 +4,21 @@ public class Tecna {
     private Storage storage;
     private TaskList taskList;
     private CommandScanner commandScanner;
+    private Ui ui;
     /**
      * A constructor of Tecna chatbot
      */
     public Tecna() {
         this.taskList = new TaskList();
         this.commandScanner = new CommandScanner();
+        this.ui = new Ui();
     }
 
     public Tecna(String taskData) {
         this.storage = new Storage(taskData);
         this.taskList = new TaskList(storage.load());
         this.commandScanner = new CommandScanner();
+        this.ui = new Ui();
     }
 
     /**
@@ -24,9 +27,9 @@ public class Tecna {
     public void exitChatBot() {
         storage.setFilePath("src/main/data/tecna1.json");
         storage.save(this.taskList);
-        System.out.println("----------------------------------------------");
-        System.out.println("Pleased to help you! See you again ^_^");
-        System.out.println("----------------------------------------------");
+        ui.printSectionLine();
+        ui.printGoodbyeMsg();
+        ui.printSectionLine();
     }
 
     /**
@@ -39,9 +42,9 @@ public class Tecna {
         if (input.equalsIgnoreCase("bye")) {
             this.exitChatBot();
         } else {
-            System.out.println("----------------------------------------------");
+            ui.printSectionLine();
             System.out.println(input);
-            System.out.println("----------------------------------------------");
+            ui.printSectionLine();
         }
         sc.close();
     }
@@ -54,7 +57,7 @@ public class Tecna {
         CommandType command = this.commandScanner.getRequest();
 
         while (!command.equals(CommandType.BYE)) {
-            System.out.println("----------------------------------------------");
+            ui.printSectionLine();
             switch (command) {
             case LIST:
                 this.taskList.listItems();
@@ -62,14 +65,12 @@ public class Tecna {
             case MARK:
                 int index = commandScanner.markIndex();
                 taskList.mark(index);
-                System.out.println("Nice job! I've mark this as done. You deserve a short break <3");
-                System.out.println(taskList.getTask(index));
+                ui.printMarkMsg(taskList.getTask(index));
                 break;
             case UNMARK:
                 index = commandScanner.markIndex();
                 taskList.unmark(index);
-                System.out.println("I've mark this as undone. Keep going, my friend!");
-                System.out.println(taskList.getTask(index));
+                ui.printUnmarkMsg(taskList.getTask(index));
                 break;
             case DELETE:
                 index = commandScanner.markIndex();
@@ -82,13 +83,13 @@ public class Tecna {
                 try {
                     this.taskList.addItem(commandScanner.getInput());
                 } catch (InvalidRequestException ive) {
-                    System.out.println("Oops! Your request sounds strange for me. Please enter a valid request ^^");
+                    ui.printInvalidCmdError();
                 } catch (TodoWrongFormatException tde) {
-                    System.out.println(tde.getMessage());
+                    ui.printError(tde.getMessage());
                 }
                 break;
             }
-            System.out.println("----------------------------------------------");
+            ui.printSectionLine();
             command = this.commandScanner.getRequest();
         }
         this.exitChatBot();
@@ -96,25 +97,15 @@ public class Tecna {
 
     }
 
+    public void greet() {
+        ui.printLogo();
+        ui.printHelloMsg();
+        ui.printSectionLine();
+    }
+
     public static void main(String[] args) {
-        String logo = " **          **\n" +
-                      "*  *        *  *\n" +
-                      "*   *      *   *\n" +
-                      "*    *    *    *\n" +
-                      "*     *  *     *\n" +
-                      " *     **     *\n" +
-                      "  *    **    *\n" +
-                      "   *   **   *\n" +
-                      "    *  **  *\n" +
-                      "     ******\n" +
-                      "      ****\n" +
-                      "     * ** *\n" +
-                      "    *  **  *\n" +
-                      "    ***  ***\n";
-        System.out.println(logo);
-        System.out.println("I'm Tecna!\nHow can I help you?");
-        System.out.println("----------------------------------------------");
         Tecna tecna = new Tecna("src/main/data/tecna.json");
+        tecna.greet();
         tecna.getRequest();
         // tecna.echo();
     }
