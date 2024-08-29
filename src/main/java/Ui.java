@@ -14,10 +14,6 @@ public class Ui {
         System.out.println("Error loading file");
     }
 
-    public void showSavingError() {
-        System.out.println("Error saving file");
-    }
-
     public void showTaskAdded(Task task, int taskCount) {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
@@ -28,11 +24,6 @@ public class Ui {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
-    }
-
-    public void showTaskDone(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task);
     }
 
     public void showAllTasks(ArrayList<Task> tasks) {

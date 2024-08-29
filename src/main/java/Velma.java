@@ -130,7 +130,6 @@ public class Velma {
                         if (todoDescription.isEmpty()) {
                             throw new VelmaException("Sorry boss! Where is your todo description?");
                         }
-                        System.out.println("Got it. I've added this task:");
                         Task newTodo = new Todo(todoDescription);
                         tasks.addTask(newTodo);
                         ui.showTaskAdded(newTodo, tasks.getSize());
