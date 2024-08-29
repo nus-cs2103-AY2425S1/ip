@@ -136,8 +136,8 @@ public class Kitty {
         Task tmp;
         try {
             // input check
-            if (aux.length == 1 ||
-                    (!type.equals("todo") && !type.equals("deadline") && !type.equals("event"))) {
+            if (aux.length == 1
+                    || (!type.equals("todo") && !type.equals("deadline") && !type.equals("event"))) {
                 System.out.println(DIVISION_LINE);
                 System.out.println("Oooops... I don't know what you want to do though...");
                 throw new TaskException();
@@ -273,8 +273,8 @@ public class Kitty {
             System.out.printf("Now you have %d tasks in the list\n\n", TASKS.size());
             System.out.println(DIVISION_LINE);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(DIVISION_LINE + "\nIndex out of bound, you can only input integer from 1 to " +
-                    TASKS.size() + ".\n\n" + DIVISION_LINE);
+            System.out.println(DIVISION_LINE + "\nIndex out of bound, you can only input integer from 1 to "
+                    + TASKS.size() + ".\n\n" + DIVISION_LINE);
         }
     }
 
@@ -293,8 +293,8 @@ public class Kitty {
             System.out.println(" " + tmp);
             System.out.println("\n" + DIVISION_LINE);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(DIVISION_LINE + "\nIndex out of bound, you can only input integer from 1 to " +
-                    TASKS.size() + ".\n\n" + DIVISION_LINE);
+            System.out.println(DIVISION_LINE + "\nIndex out of bound, you can only input integer from 1 to "
+                    + TASKS.size() + ".\n\n" + DIVISION_LINE);
         }
     }
 
@@ -313,8 +313,8 @@ public class Kitty {
             System.out.println("  " + tmp);
             System.out.println("\n" + DIVISION_LINE);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(DIVISION_LINE + "\nIndex out of bound, you can only input integer from 1 to " +
-                    TASKS.size() + ".\n\n" + DIVISION_LINE);
+            System.out.println(DIVISION_LINE + "\nIndex out of bound, you can only input integer from 1 to "
+                    + TASKS.size() + ".\n\n" + DIVISION_LINE);
         }
     }
 

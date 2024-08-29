@@ -15,15 +15,15 @@ public class Event extends Task{
 
     @Override
     public String getTaskData() {
-        return String.format("E" + super.getTaskData() + deli +
-                from.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")) + deli +
-                to.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")) + "\n");
+        return String.format("E" + super.getTaskData() + deli
+                + from.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")) + deli
+                + to.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")) + "\n");
     }
 
     @Override
     public String toString() {
-        return String.format("[E]" + super.toString() +
-                " (from: " + from.format(DateTimeFormatter.ofPattern("yyyy MMM dd  HH:mm")) +
-                " to: " + to.format(DateTimeFormatter.ofPattern("yyyy MMM dd  HH:mm")) + ")");
+        return String.format("[E]" + super.toString()
+                + " (from: " + from.format(DateTimeFormatter.ofPattern("yyyy MMM dd  HH:mm"))
+                + " to: " + to.format(DateTimeFormatter.ofPattern("yyyy MMM dd  HH:mm")) + ")");
     }
 }
