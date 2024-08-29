@@ -56,6 +56,9 @@ public class Parser {
                 case "delete":
                     tm.deleteTask(args);
                     break;
+                case "find":
+                    tm.findTask(args);
+                    break;
                 default:
                     throw new GuyException("Maybe put in an actual command next time, shitass.");
                 }

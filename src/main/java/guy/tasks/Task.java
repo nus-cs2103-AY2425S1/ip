@@ -15,21 +15,21 @@ public abstract class Task {
      */
     public Task(String name) {
         this.name = name;
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
      * Flags the Task as complete.
      */
     public void markComplete() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**
      * Flags the Task as incomplete.
      */
     public void markIncomplete() {
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
@@ -47,7 +47,7 @@ public abstract class Task {
      * @return completion status of tht Task
      */
     public boolean isComplete() {
-        return this.isDone;
+        return isDone;
     }
 
     /**
@@ -66,6 +66,6 @@ public abstract class Task {
      * @return string representation of the Task
      */
     public String saveFormat() {
-        return (" | " + (this.isDone ? 1 : 0) + " | " + this.name);
+        return (" | " + (isDone ? 1 : 0) + " | " + name);
     }
 }

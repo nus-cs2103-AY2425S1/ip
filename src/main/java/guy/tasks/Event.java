@@ -26,14 +26,14 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E] " + super.toString() + " (from: "
-                + this.start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + " to: "
-                + this.end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + ")";
+                + start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + " to: "
+                + end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + ")";
     }
 
     @Override
     public String saveFormat() {
         return "E" + super.saveFormat() + " | "
-                + this.start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + " | "
-                + this.end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                + start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + " | "
+                + end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 }

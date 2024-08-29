@@ -20,7 +20,7 @@ public class TaskManager {
      * Constructs a new TaskManager object.
      */
     public TaskManager() {
-        this.tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -233,6 +233,29 @@ public class TaskManager {
             }
         } catch (GuyException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Retrieves a list of tasks matching the given keywords.
+     *
+     * @param input keywords used in the search
+     * @throws GuyException if no task matches the input
+     */
+    public void findTask(String input) throws GuyException {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task t: tasks) {
+            if (t.toString().contains(input)) {
+                matchingTasks.add(t);
+            }
+        }
+        if (matchingTasks.isEmpty()) {
+            throw new GuyException("You really tried to give me keywords that match NONE of your tasks. Shame on you.");
+        } else {
+            System.out.println("These are your damned tasks, that actually match the keywords:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.printf("%d.%s\n", i+1, matchingTasks.get(i).toString());
+            }
         }
     }
 }
