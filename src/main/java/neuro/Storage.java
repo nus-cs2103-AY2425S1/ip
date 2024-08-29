@@ -64,17 +64,17 @@ public class Storage {
 
         try {
             switch (taskType) {
-                case ("T"):
-                    taskToAdd = new Todo(taskComponents[2]);
-                    break;
-                case ("D"):
-                    taskToAdd = new Deadline(taskComponents[2], LocalDateTime.parse(taskComponents[3]));
-                    break;
-                case ("E"):
-                    taskToAdd = new Event(taskComponents[2], taskComponents[3], taskComponents[4]);
-                    break;
-                default:
-                    break;
+            case ("T"):
+                taskToAdd = new Todo(taskComponents[2]);
+                break;
+            case ("D"):
+                taskToAdd = new Deadline(taskComponents[2], LocalDateTime.parse(taskComponents[3]));
+                break;
+            case ("E"):
+                taskToAdd = new Event(taskComponents[2], taskComponents[3], taskComponents[4]);
+                break;
+            default:
+                break;
             }
         } catch (ArrayIndexOutOfBoundsException ignored) {
             // Corrupted line in save file
