@@ -26,6 +26,11 @@ public abstract class Task {
         isDone = false;
     }
 
+    // New getter method for isDone
+    public boolean isDone() {
+        return isDone;
+    }
+
     public abstract String toFileFormat();
 
     public static Task fromFileFormat(String data) throws ArtsException {
