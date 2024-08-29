@@ -1,18 +1,18 @@
 _________________________________________
-Hello! I'm KieTwoForOne
+Hello! I'm KieTwoForOne.
 What can I do for you?
 _________________________________________
 Got it. I've added this task:
     [T] [ ] read book
-Now you have 1 tasks in the list
+Now you have 1 tasks in the list.
 _________________________________________
 Got it. I've added this task:
     [D] [ ] return book (by: Sunday)
-Now you have 2 tasks in the list
+Now you have 2 tasks in the list.
 _________________________________________
 Got it. I've added this task:
     [E] [ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in the list
+Now you have 3 tasks in the list.
 _________________________________________
 Nice! I've marked this task as done:
     [T] [X] read book
@@ -37,12 +37,34 @@ _________________________________________
 Ok. I've marked this task as not done yet:
     [E] [ ] project meeting (from: Mon 2pm to: 4pm)
 _________________________________________
+Your instruction is incomplete!
+_________________________________________
+Please input a deadline!
+_________________________________________
+Please input a start and end time!
+_________________________________________
+Please input a start and end time!
+_________________________________________
+Task does not exist!
+_________________________________________
+Task does not exist!
+_________________________________________
 Here are the tasks in your list:
 1. [T] [ ] read book
 2. [D] [ ] return book (by: Sunday)
 3. [E] [ ] project meeting (from: Mon 2pm to: 4pm)
 _________________________________________
-blah
+Noted. I've removed the task
+    [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 2 tasks in the list.
+_________________________________________
+Here are the tasks in your list:
+1. [T] [ ] read book
+2. [D] [ ] return book (by: Sunday)
+_________________________________________
+Task does not exist!
+_________________________________________
+Invalid input!
 _________________________________________
 Bye. Hope to see you again soon!
 _________________________________________

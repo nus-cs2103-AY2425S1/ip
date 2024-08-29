@@ -8,6 +8,15 @@ list
 unmark 1
 unmark 2
 unmark 3
+todo
+deadline return book
+event project meeting /from Mon 2pm
+event project meeting /to 4pm
+mark 4
+unmark 4
 list
+delete 3
+list
+delete 3
 blah
 bye
