@@ -1,8 +1,8 @@
 package topaz.main;
 
+import topaz.command.Command;
 import topaz.command.CreateCommand;
 import topaz.command.DeleteCommand;
-import topaz.command.Command;
 import topaz.command.MarkCommand;
 import topaz.command.TextCommand;
 import topaz.exception.InvalidCommandException;

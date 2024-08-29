@@ -33,17 +33,17 @@ public class CreateCommand extends Command {
         try {
             Task task;
             switch (super.keyword) {
-                case "todo":
-                    task = addTodo(tasks);
-                    break;
-                case "deadline":
-                    task = addDeadline(tasks);
-                    break;
-                case "event":
-                    task = addEvent(tasks);
-                    break;
-                default:
-                    return;
+            case "todo":
+                task = addTodo(tasks);
+                break;
+            case "deadline":
+                task = addDeadline(tasks);
+                break;
+            case "event":
+                task = addEvent(tasks);
+                break;
+            default:
+                return;
             }
             ui.showAddTask(task, tasks.getSize());
             storage.save(tasks);

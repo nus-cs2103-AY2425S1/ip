@@ -38,17 +38,17 @@ public class Storage {
             boolean isDone = Integer.parseInt(parts[1]) == 1 ? true : false;
             Topaz.TaskType type = Topaz.TaskType.valueOf(parts[0]);
             switch (type) {
-                case T:
-                    task = new Todo(parts[2], isDone);
-                    break;
-                case D:
-                    task = new Deadline(parts[2], isDone, LocalDateTime.parse(parts[3]));
-                    break;
-                case E:
-                    task = new Event(parts[2], isDone, LocalDateTime.parse(parts[3]), LocalDateTime.parse(parts[4]));
-                    break;
-                default:
-                    throw new IOException();
+            case T:
+                task = new Todo(parts[2], isDone);
+                break;
+            case D:
+                task = new Deadline(parts[2], isDone, LocalDateTime.parse(parts[3]));
+                break;
+            case E:
+                task = new Event(parts[2], isDone, LocalDateTime.parse(parts[3]), LocalDateTime.parse(parts[4]));
+                break;
+            default:
+                throw new IOException();
             }
             tasks.add(task);
         }

@@ -1,8 +1,8 @@
 package topaz.task;
 
-import topaz.exception.InvalidStateException;
-
 import java.util.ArrayList;
+
+import topaz.exception.InvalidStateException;
 
 public class Task {
     protected String description;

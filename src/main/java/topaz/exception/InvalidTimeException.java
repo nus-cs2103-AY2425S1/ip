@@ -1,13 +1,13 @@
 package topaz.exception;
 
-import topaz.main.Topaz;
-
 import java.time.LocalDateTime;
+
+import topaz.main.Topaz;
 
 public class InvalidTimeException extends InvalidTaskException {
 
-    LocalDateTime from;
-    LocalDateTime to;
+    private LocalDateTime from;
+    private LocalDateTime to;
     public InvalidTimeException(Topaz.TaskType type, LocalDateTime from, LocalDateTime to) {
         super(type);
         this.from = from;

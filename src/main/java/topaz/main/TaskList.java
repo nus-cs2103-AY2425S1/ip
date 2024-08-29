@@ -1,10 +1,10 @@
 package topaz.main;
 
-import topaz.task.Task;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import topaz.task.Task;
 
 public class TaskList {
     private ArrayList<Task> tasks;
