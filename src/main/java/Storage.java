@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,6 +17,7 @@ public class Storage {
     /**
      * Loads the tasks from the file 
      * @return ArrayList<Task> of tasks from the file
+     * @throws InvalidStorageFileException
      */
     public ArrayList<Task> load() throws InvalidStorageFileException {
         try {
@@ -32,6 +34,26 @@ public class Storage {
             sc.close();
 
             return tasks;
+        } catch (IOException e) {
+            throw new InvalidStorageFileException();
+        }
+    }
+
+    /**
+     * Updates the tasks from an ArrayList of tasks
+     * @param taskList ArrayList<Task> of tasks
+     * @throws InvalidStorageFileException
+     */
+    public void update(ArrayList<Task> taskList) throws InvalidStorageFileException {
+        try {
+            StringBuilder s = new StringBuilder();
+            for (Task t: taskList) {
+                s.append(t + System.lineSeparator());
+            }
+            String tasks = s.toString();
+            FileWriter fw = new FileWriter(this.path);
+            fw.write(tasks);
+            fw.close();
         } catch (IOException e) {
             throw new InvalidStorageFileException();
         }

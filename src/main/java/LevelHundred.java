@@ -76,6 +76,7 @@ public class LevelHundred {
         try {
             Task newTask = createTask(words, command);
             this.taskList.addTask(newTask);
+            this.storage.update(this.taskList.getTaskList());
             this.ui.printAddTask(newTask, this.taskList.size());
         } catch (LevelHundredException e) {
             this.ui.printException(e);
@@ -103,6 +104,7 @@ public class LevelHundred {
                 t.unmark();
                 this.ui.printSuccessfulUnmark(t);
             }
+            this.storage.update(this.taskList.getTaskList());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             this.ui.printException(new InvalidArgumentException("task index", words[1]));
         }
@@ -122,6 +124,7 @@ public class LevelHundred {
         try {
             int idx = Integer.parseInt(words[1]) - 1;
             Task t = this.taskList.removeTask(idx);
+            this.storage.update(this.taskList.getTaskList());
             this.ui.printDeleteTask(t, this.taskList.size());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             this.ui.printException(new InvalidArgumentException("task index", words[1]));

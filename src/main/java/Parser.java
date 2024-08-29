@@ -20,7 +20,7 @@ public class Parser {
                     throw new InvalidStorageFileException();
                 }
                 taskDescription = line.substring(START_IDX, byIdx);
-                String deadline = line.substring(byIdx + byDelimeter.length());
+                String deadline = line.substring(byIdx + byDelimeter.length(), line.length() - 1);
                 t = new Deadline(taskDescription, deadline);
                 break;
             case 'E':
@@ -33,7 +33,7 @@ public class Parser {
                 }
                 taskDescription = line.substring(START_IDX, fromIdx);
                 String from = line.substring(fromIdx + fromDelimeter.length(), toIdx);
-                String to = line.substring(toIdx);
+                String to = line.substring(toIdx, line.length() - 1);
                 t = new Event(taskDescription, from, to);
                 break;
             default:
