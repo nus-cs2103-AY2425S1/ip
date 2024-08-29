@@ -1,8 +1,12 @@
+import java.util.Date;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class MrYapper {
     private static final String GREETING_MESSAGE = " Hello! I'm MrYapper\n"
@@ -41,7 +45,8 @@ public class MrYapper {
             } else if (deadlineTime.isEmpty()) {
                 throw new InvalidTaskException(type, " Your deadline cannot be empty!");
             } else {
-                newTask = new Deadline(deadlineDescription, deadlineTime);
+                newTask = new Deadline(deadlineDescription,
+                        DateTimeParser.parseDateTime(deadlineTime));
             }
             break;
         case "event":
@@ -64,7 +69,9 @@ public class MrYapper {
             } else if (timings[1].trim().isEmpty()) {
                 throw new InvalidTaskException(type, " Your end time cannot be empty!");
             } else {
-                newTask = new Event(eventDescription, eventStart, eventEnd);
+                newTask = new Event(eventDescription,
+                        DateTimeParser.parseDateTime(eventStart),
+                        DateTimeParser.parseDateTime(eventEnd));
             }
             break;
         default:
