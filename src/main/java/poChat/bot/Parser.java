@@ -1,6 +1,10 @@
-package poChat;
+package poChat.bot;
 
 import poChat.exceptions.TaskDescriptionEmptyException;
+import poChat.tasks.Deadline;
+import poChat.tasks.Event;
+import poChat.tasks.Task;
+import poChat.tasks.ToDo;
 
 class Parser {
     private final TaskList taskList;
@@ -79,7 +83,7 @@ class Parser {
         return isChatOver;
     }
 
-    public void sayGoodbye() {
+    private void sayGoodbye() {
         String introMessage = "Bye. Hope to see you again soon!";
         System.out.println(introMessage);
     }
@@ -90,43 +94,43 @@ class Parser {
                 + this.getNumTasks() + " pochat.tasks in the list.");
     }
 
-    public void addToListAndReply(String textInput) {
+    private void addToListAndReply(String textInput) {
         Task task = new ToDo(textInput);
         this.addTaskToList(task);
     }
 
-    public void addToListAndReply(String textInput, String deadline) {
+    private void addToListAndReply(String textInput, String deadline) {
         Task task = new Deadline(textInput, deadline);
         this.addTaskToList(task);
     }
 
-    public void addToListAndReply(String textInput, String startDate, String endDate) {
+    private void addToListAndReply(String textInput, String startDate, String endDate) {
         Task task = new Event(textInput, startDate, endDate);
         this.addTaskToList(task);
     }
 
-    public void replyWithListOfTextsEntered() {
+    private void replyWithListOfTextsEntered() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.taskList.size(); i++) {
             System.out.println((i + 1) + ". " + this.taskList.get(i));
         }
     }
 
-    public void markTaskDone(int index) {
+    private void markTaskDone(int index) {
         Task task = this.taskList.get(index);
         task.markAsDone();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task);
     }
 
-    public void unmarkTaskDone(int index) {
+    private void unmarkTaskDone(int index) {
         Task task = this.taskList.get(index);
         task.unmarkAsDone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task);
     }
 
-    public void replyToInvalidInput() {
+    private void replyToInvalidInput() {
         String errorMessage = "Please enter a valid input and try again! Some examples of valid inputs are:\n" +
                 "todo [description]\ndeadline [description] /by [deadline]\n" +
                 "event [description] /from [start time] /to [end time]";
@@ -137,7 +141,7 @@ class Parser {
         return this.taskList.size();
     }
 
-    public void deleteTask(int index) {
+    private void deleteTask(int index) {
         Task task = this.taskList.get(index);
         this.taskList.remove(task);
 
