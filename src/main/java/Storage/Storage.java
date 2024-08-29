@@ -96,17 +96,6 @@ public class Storage {
         fwA.close();
     }
 
-    public int getLineNumber() throws FileNotFoundException {
-        int count = 1;
-        sc = new Scanner(f);
-        while (sc.hasNextLine()) {
-            count++;
-            sc.nextLine();
-        }
-
-        return count;
-    }
-
     private void clear() throws IOException {
         fw = new FileWriter(path);
         fw.write("");

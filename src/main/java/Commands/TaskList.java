@@ -187,10 +187,35 @@ public abstract class TaskList {
         }
     }
 
+    public static void findTask(String input) throws FileNotFoundException {
+        StringBuilder sb = fs.read();
+        String temp = sb.toString();
+        String[] lineTokens = temp.split("\n");
+        StringBuilder finalSb = new StringBuilder();
+        int count = 1;
+        for (int i = 0; i < lineTokens.length; i++) {
+            String name = "";
+            if (lineTokens[i].contains("\\(")) {
+                System.out.println("==DEBUG==" + lineTokens[i]);
+                String[] charTokens = lineTokens[i].split("\\(");
+                name = charTokens[0].substring(10);
+            } else {
+                name = lineTokens[i].substring(10);
+            }
+
+            if (name.contains(input)) {
+                //Get the entire line and print it out using stringbuilder
+                finalSb.append(count).append(".").append(lineTokens[i].substring(3)).append("\n");
+                count++;
+            }
+        }
+
+        r.findTaskMessage(finalSb);
+    }
+
     public static void list_task() throws FileNotFoundException {
         StringBuilder temp = fs.read();
         r.list_task_message(String.valueOf(temp));
-//        System.out.println("===DEBUG=== list size: " + task_list.size());
     }
 
     public static void mark_task(int index) throws IOException {

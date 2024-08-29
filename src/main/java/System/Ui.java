@@ -38,9 +38,11 @@ public class Ui {
     public void alreadyUnmarked(){
         System.out.println("Task has already been unmarked!");
     }
-    //    public void added_task_message(String s) {
-//        System.out.println("added: " + s);
-//    }
+
+    public void findTaskMessage(StringBuilder sb) {
+        System.out.println("Here are the matching tasks in your list:");
+        System.out.println(sb.toString());
+    }
     public void delete_message(TaskList t) {
         System.out.println("Noted. I've removed this task:");
         if (t instanceof ToDos) {

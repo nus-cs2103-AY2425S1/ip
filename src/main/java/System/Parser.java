@@ -4,7 +4,9 @@ import Commands.Deadlines;
 import Commands.Events;
 import Commands.TaskList;
 import Commands.ToDos;
+import javafx.concurrent.Task;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
@@ -26,6 +28,19 @@ public class Parser {
 
     public boolean containUnmark(String input) {
         return input.contains("unmark");
+    }
+
+    public boolean containFind(String input) {
+        return input.contains("find");
+    }
+
+    public void performFind(String input) throws FileNotFoundException {
+        String name = input.substring(5);
+        TaskList.findTask(name);
+    }
+
+    public void performListTasks() throws FileNotFoundException {
+        TaskList.list_task();
     }
 
     public void performMark(String input) throws IOException {
