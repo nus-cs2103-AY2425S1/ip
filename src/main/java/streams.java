@@ -1,10 +1,20 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class streams {
     private static final String FILE_PATH = "data" + File.separator + "streams.txt";
     private static ArrayList<Task> todo = new ArrayList<>();
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public static void main(String[] args) {
         loadTasks();
@@ -29,6 +39,12 @@ public class streams {
                     handleEvent(cmd);
                 } else if (cmd.startsWith("delete")) {
                     handleDelete(cmd);
+                } else if (cmd.startsWith("list-date")) {
+                    handleListDate(cmd);
+                } else if (cmd.equals("list-week")) {
+                    handleListWeek();
+                } else if (cmd.equals("sort-deadline")) {
+                    handleSortDeadline();
                 } else if (cmd.equals("bye")) {
                     System.out.println("bye. hope to see you again soon!");
                 } else {
@@ -56,7 +72,7 @@ public class streams {
         }
 
         if (!file.exists()) {
-            System.out.println("oops!!! no existing task file has been found:) starting with an empty task list.");
+            System.out.println("oops!!! no existing task file has been found :) starting with an empty task list.");
             return;
         }
 
@@ -76,11 +92,14 @@ public class streams {
                         break;
                     case "D":
                         if (parts.length < 4) continue;
-                        task = new DeadlineTask(description, parts[3]);
+                        LocalDateTime by = LocalDateTime.parse(parts[3], INPUT_FORMATTER);
+                        task = new DeadlineTask(description, by);
                         break;
                     case "E":
                         if (parts.length < 5) continue;
-                        task = new EventTask(description, parts[3], parts[4]);
+                        LocalDateTime from = LocalDateTime.parse(parts[3], INPUT_FORMATTER);
+                        LocalDateTime to = LocalDateTime.parse(parts[4], INPUT_FORMATTER);
+                        task = new EventTask(description, from, to);
                         break;
                     default:
                         continue;
@@ -90,7 +109,7 @@ public class streams {
                 todo.add(task);
             }
             System.out.println("tasks have been loaded successfully");
-        } catch (IOException e) {
+        } catch (IOException | DateTimeParseException e) {
             System.out.println("an error occurred while reading the file: " + e.getMessage());
         }
     }
@@ -105,9 +124,9 @@ public class streams {
                 String taskString = taskType + " | " + isDone + " | " + task.description;
 
                 if (task instanceof DeadlineTask) {
-                    taskString += " | " + ((DeadlineTask) task).by;
+                    taskString += " | " + ((DeadlineTask) task).by.format(INPUT_FORMATTER);
                 } else if (task instanceof EventTask) {
-                    taskString += " | " + ((EventTask) task).from + " | " + ((EventTask) task).to;
+                    taskString += " | " + ((EventTask) task).from.format(INPUT_FORMATTER) + " | " + ((EventTask) task).to.format(INPUT_FORMATTER);
                 }
 
                 writer.write(taskString);
@@ -172,20 +191,25 @@ public class streams {
             }
             String[] sub = cmd.substring(9).trim().split(" /by ");
             if (sub.length != 2) {
-                System.out.println("the format for deadlines is 'deadline [description] /by [date]'");
+                System.out.println("the format for deadlines is 'deadline [description] /by yyyy-MM-dd HH:mm'");
                 return;
             }
             String description = sub[0].trim();
-            String by = sub[1].trim();
+            String byString = sub[1].trim();
             if (description.isEmpty()) {
                 System.out.println("the description of a deadline cannot be empty");
             } else {
-                todo.add(new DeadlineTask(description, by));
-                System.out.println("added deadline: " + description + " (by: " + by + ")");
-                saveTasks();
+                try {
+                    LocalDateTime by = LocalDateTime.parse(byString, INPUT_FORMATTER);
+                    todo.add(new DeadlineTask(description, by));
+                    System.out.println("added deadline: " + description + " (by: " + by.format(OUTPUT_FORMATTER) + ")");
+                    saveTasks();
+                } catch (DateTimeParseException e) {
+                    System.out.println("invalid date format. Please use yyyy-MM-dd HH:mm");
+                }
             }
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("the format for deadlines is 'deadline [description] /by [date]'");
+            System.out.println("the format for deadlines is 'deadline [description] /by yyyy-MM-dd HH:mm'");
         }
     }
 
@@ -197,26 +221,32 @@ public class streams {
             }
             String[] sub = cmd.substring(6).trim().split(" /from ");
             if (sub.length != 2) {
-                System.out.println("the format for events is 'event [description] /from [date] /to [date]'");
+                System.out.println("the format for events is 'event [description] /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'");
                 return;
             }
             String description = sub[0].trim();
             String[] time = sub[1].split(" /to ");
             if (time.length != 2) {
-                System.out.println("the format for events is 'event [description] /from [date] /to [date]'");
+                System.out.println("the format for events is 'event [description] /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'");
                 return;
             }
-            String from = time[0].trim();
-            String to = time[1].trim();
+            String fromString = time[0].trim();
+            String toString = time[1].trim();
             if (description.isEmpty()) {
                 System.out.println("the description of an event cannot be empty");
             } else {
-                todo.add(new EventTask(description, from, to));
-                System.out.println("added event: " + description + " (from: " + from + " to: " + to + ")");
-                saveTasks();
+                try {
+                    LocalDateTime from = LocalDateTime.parse(fromString, INPUT_FORMATTER);
+                    LocalDateTime to = LocalDateTime.parse(toString, INPUT_FORMATTER);
+                    todo.add(new EventTask(description, from, to));
+                    System.out.println("added event: " + description + " (from: " + from.format(OUTPUT_FORMATTER) + " to: " + to.format(OUTPUT_FORMATTER) + ")");
+                    saveTasks();
+                } catch (DateTimeParseException e) {
+                    System.out.println("invalid date format. Please use yyyy-MM-dd HH:mm");
+                }
             }
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("the format for events is 'event [description] /from [date] /to [date]'");
+            System.out.println("the format for events is 'event [description] /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'");
         }
     }
 
@@ -233,6 +263,89 @@ public class streams {
             }
         } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
             System.out.println("error parsing task number");
+        }
+    }
+
+    private static void handleListDate(String cmd) {
+        try {
+            String dateString = cmd.substring(10).trim();
+            LocalDate date = LocalDate.parse(dateString, DATE_FORMATTER);
+            List<Task> tasksOnDate = todo.stream()
+                    .filter(task -> {
+                        if (task instanceof DeadlineTask) {
+                            return ((DeadlineTask) task).by.toLocalDate().equals(date);
+                        } else if (task instanceof EventTask) {
+                            return ((EventTask) task).from.toLocalDate().equals(date) ||
+                                    ((EventTask) task).to.toLocalDate().equals(date);
+                        }
+                        return false;
+                    })
+                    .collect(Collectors.toList());
+
+            if (tasksOnDate.isEmpty()) {
+                System.out.println("no tasks on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
+            } else {
+                System.out.println("tasks on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+                for (int i = 0; i < tasksOnDate.size(); i++) {
+                    System.out.println((i + 1) + ". " + tasksOnDate.get(i));
+                }
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("invalid date format. Please use yyyy-MM-dd");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("the format for listing tasks on a date is 'list-date yyyy-MM-dd'");
+        }
+    }
+
+    private static void handleListWeek() {
+        LocalDate today = LocalDate.now();
+        LocalDate oneWeekLater = today.plusDays(7);
+
+        List<Task> tasksThisWeek = todo.stream()
+                .filter(task -> {
+                    if (task instanceof DeadlineTask) {
+                        LocalDate deadlineDate = ((DeadlineTask) task).by.toLocalDate();
+                        return !deadlineDate.isBefore(today) && !deadlineDate.isAfter(oneWeekLater);
+                    } else if (task instanceof EventTask) {
+                        LocalDate eventStartDate = ((EventTask) task).from.toLocalDate();
+                        LocalDate eventEndDate = ((EventTask) task).to.toLocalDate();
+                        return !(eventEndDate.isBefore(today) || eventStartDate.isAfter(oneWeekLater));
+                    }
+                    return false;
+                })
+                .sorted(Comparator.comparing(task -> {
+                    if (task instanceof DeadlineTask) {
+                        return ((DeadlineTask) task).by;
+                    } else if (task instanceof EventTask) {
+                        return ((EventTask) task).from;
+                    }
+                    return LocalDateTime.MAX;
+                }))
+                .collect(Collectors.toList());
+
+        if (tasksThisWeek.isEmpty()) {
+            System.out.println("no tasks in the upcoming week");
+        } else {
+            System.out.println("tasks in the upcoming week:");
+            for (int i = 0; i < tasksThisWeek.size(); i++) {
+                System.out.println((i + 1) + ". " + tasksThisWeek.get(i));
+            }
+        }
+    }
+
+    private static void handleSortDeadline() {
+        List<Task> sortedTasks = todo.stream()
+                .filter(task -> task instanceof DeadlineTask)
+                .sorted(Comparator.comparing(task -> ((DeadlineTask) task).by))
+                .collect(Collectors.toList());
+
+        if (sortedTasks.isEmpty()) {
+            System.out.println("no deadline tasks to sort");
+        } else {
+            System.out.println("deadline tasks sorted by due date:");
+            for (int i = 0; i < sortedTasks.size(); i++) {
+                System.out.println((i + 1) + ". " + sortedTasks.get(i));
+            }
         }
     }
 
@@ -271,24 +384,24 @@ public class streams {
     }
 
     static class DeadlineTask extends Task {
-        protected String by;
+        protected LocalDateTime by;
 
-        public DeadlineTask(String description, String by) {
+        public DeadlineTask(String description, LocalDateTime by) {
             super(description);
             this.by = by;
         }
 
         @Override
         public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
+            return "[D]" + super.toString() + " (by: " + by.format(OUTPUT_FORMATTER) + ")";
         }
     }
 
     static class EventTask extends Task {
-        protected String from;
-        protected String to;
+        protected LocalDateTime from;
+        protected LocalDateTime to;
 
-        public EventTask(String description, String from, String to) {
+        public EventTask(String description, LocalDateTime from, LocalDateTime to) {
             super(description);
             this.from = from;
             this.to = to;
@@ -296,7 +409,7 @@ public class streams {
 
         @Override
         public String toString() {
-            return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+            return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMATTER) + " to: " + to.format(OUTPUT_FORMATTER) + ")";
         }
     }
 }
