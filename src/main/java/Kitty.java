@@ -23,7 +23,7 @@ public class Kitty {
     private static final File KITTY_TASKS_DATA = new File(KITTY_DATA_PATH);
 
 
-    private static final ArrayList<Task> TASKS = new ArrayList<Task>(100);
+    private static final ArrayList<Task> Tasks = new ArrayList<Task>(100);
 
     /**
      * Starts the ChatBot.
@@ -89,7 +89,7 @@ public class Kitty {
             }
         }
 
-        TASKS.add(tmp);
+        Tasks.add(tmp);
         if (aux[1].trim().equals("1")) {
             tmp.mark();
         }
@@ -104,7 +104,9 @@ public class Kitty {
         Scanner sc = new Scanner(System.in);
         while (true) {
             command = sc.nextLine();
-            if (command.contains("bye")) {
+            if (command.contains("find")) {
+                find(command);
+            } else if (command.contains("bye")) {
                 exit();
                 return;
             } else if (command.contains("list")) {
@@ -123,6 +125,31 @@ public class Kitty {
                 System.out.println(DIVISION_LINE);
             }
         }
+    }
+
+    /**
+     * Searches for the Task with keyword in the name.
+     * 
+     * @param str The keyword.
+     */
+    public static void find(String str) {
+        try {
+            String[] aux = str.split(" ");
+            if (aux.length != 2) {
+                throw new FindException();
+            }
+
+            System.out.println(DIVISION_LINE);
+            System.out.println("Meow~ Here you are!");
+            Tasks.stream().filter(task -> task.containsKeyword(aux[1]))
+                    .forEach(System.out::println);
+            System.out.println("\n" + DIVISION_LINE);
+
+        } catch (FindException e) {
+            System.out.println(e);
+            System.out.println("\n" + DIVISION_LINE);
+        }
+
     }
 
     /**
@@ -152,7 +179,7 @@ public class Kitty {
                     : createEvent(name);
 
             // update data structure and file
-            TASKS.add(tmp);
+            Tasks.add(tmp);
             String data = tmp.getTaskData();
             try {
                 addLine(data);
@@ -164,7 +191,7 @@ public class Kitty {
             System.out.println(DIVISION_LINE);
             System.out.println("Okie, I added it into the list:");
             System.out.println("  " + tmp);
-            System.out.printf("Now you have %d tasks in the list.\n\n", TASKS.size());
+            System.out.printf("Now you have %d tasks in the list.\n\n", Tasks.size());
             System.out.println(DIVISION_LINE);
         } catch (KittyException e) {
             System.out.println(e);
@@ -193,7 +220,7 @@ public class Kitty {
             FileWriter fw = new FileWriter(KITTY_DATA_PATH);
             fw.write("");
             fw.close();
-            for (Task task: TASKS) {
+            for (Task task: Tasks) {
                 addLine(task.getTaskData());
             }
         } catch (IOException e) {
@@ -250,7 +277,7 @@ public class Kitty {
         Task[] tmp = new Task[0];
         System.out.println(DIVISION_LINE);
         System.out.println("Meow~ Here you are!");
-        for (Task item: TASKS.toArray(tmp)) {
+        for (Task item: Tasks.toArray(tmp)) {
             System.out.println(count++ + "." + item);
         }
         System.out.println("\n" + DIVISION_LINE);
@@ -263,18 +290,18 @@ public class Kitty {
      */
     private static void delete(int index) {
         try {
-            Task tmp = TASKS.get(index - 1);
+            Task tmp = Tasks.get(index - 1);
             String note = tmp.toString();
-            TASKS.remove(index - 1);
+            Tasks.remove(index - 1);
             rewriteFile();
             System.out.println(DIVISION_LINE);
             System.out.println("I have removed it from the list :)");
             System.out.println("  " + note);
-            System.out.printf("Now you have %d tasks in the list\n\n", TASKS.size());
+            System.out.printf("Now you have %d tasks in the list\n\n", Tasks.size());
             System.out.println(DIVISION_LINE);
         } catch (IndexOutOfBoundsException e) {
             System.out.println(DIVISION_LINE + "\nIndex out of bound, you can only input integer from 1 to "
-                    + TASKS.size() + ".\n\n" + DIVISION_LINE);
+                    + Tasks.size() + ".\n\n" + DIVISION_LINE);
         }
     }
 
@@ -285,7 +312,7 @@ public class Kitty {
      */
     private static void mark(int index) {
         try {
-            Task tmp = TASKS.get(index - 1);
+            Task tmp = Tasks.get(index - 1);
             tmp.mark();
             rewriteFile();
             System.out.println(DIVISION_LINE);
@@ -294,7 +321,7 @@ public class Kitty {
             System.out.println("\n" + DIVISION_LINE);
         } catch (IndexOutOfBoundsException e) {
             System.out.println(DIVISION_LINE + "\nIndex out of bound, you can only input integer from 1 to "
-                    + TASKS.size() + ".\n\n" + DIVISION_LINE);
+                    + Tasks.size() + ".\n\n" + DIVISION_LINE);
         }
     }
 
@@ -305,7 +332,7 @@ public class Kitty {
      */
     private static void unmark(int index) {
         try {
-            Task tmp = TASKS.get(index - 1);
+            Task tmp = Tasks.get(index - 1);
             tmp.unmark();
             rewriteFile();
             System.out.println(DIVISION_LINE);
@@ -314,7 +341,7 @@ public class Kitty {
             System.out.println("\n" + DIVISION_LINE);
         } catch (IndexOutOfBoundsException e) {
             System.out.println(DIVISION_LINE + "\nIndex out of bound, you can only input integer from 1 to "
-                    + TASKS.size() + ".\n\n" + DIVISION_LINE);
+                    + Tasks.size() + ".\n\n" + DIVISION_LINE);
         }
     }
 
