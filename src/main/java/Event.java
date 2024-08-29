@@ -1,15 +1,20 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    private final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
 
-    public Event(String description, String from, String to) {
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    public Event(String description, boolean isDone, String from, String to) {
+    public Event(String description, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(description, isDone);
         this.from = from;
         this.to = to;
@@ -17,13 +22,13 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + this.to.format(dateFormatter) + " to: " + this.to.format(dateFormatter) + ")";
     }
 
     @Override
     public String toSimplifiedString() {
         String formattedString = String.format("E | %d | %s | %s | %s\n", super.getIsDone() ? 1 : 0,
-                super.getDescription(), this.from, this.to);
+                super.getDescription(), this.to.format(dateFormatter), this.to.format(dateFormatter));
         return formattedString;
     }
 }
