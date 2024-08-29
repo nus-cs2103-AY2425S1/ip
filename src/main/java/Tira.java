@@ -17,63 +17,67 @@ public class Tira {
         Scanner scanner = new Scanner(new InputStreamReader(System.in));
         PrintWriter printer = new PrintWriter(System.out);
         String logo = "TIRAMISU THE CAT (TIRA)";
+        System.out.println("MIAO (Hello) from\n" + logo + "\n" +
+                "What can I do for you, miao?\n");
+        // check the user input
         ArrayList<Task> taskList = new ArrayList<Task>();
         //Solution for Save below (Level-7)  inspired by https://github.com/hansneddyanto/ip/blob/master/src/main/java/Hana.java
         File directory = new File(Directory);
         File file = new File(FileName);
         FileReader fileReader = null;
         try {
-            if (!file.exists()) { // if the file exists;
-                file.mkdirs();
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
             }
             fileReader = new FileReader(file);
-            System.out.println("File can be opened");
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-            // if file not found, create a new file
-            file.createNewFile();
-            System.out.println("File is being created");
+        } catch (FileNotFoundException e) {// if file not found, create a new file
         } catch (IOException a) {
             System.out.println(a.getMessage());
         }
-        // try loading the file to the list, if it fails, then the file doesn't exist
-        // if it doesn't exist, then create a new file.
-        // printing
-        System.out.println("MIAO (Hello) from\n" + logo + "\n" +
-                "What can I do for you, miao?\n");
-        // check the user input
-        while (true) {
-            String command = scanner.nextLine();
-            String[] splitCommand = command.split(" ");
-            String firstWord = splitCommand[0];
-            if (command.equals("bye")) { //BYE
-                break;
-            } else if (firstWord.equals("list")) { //LIST
-                Tira.getList(printer, taskList);
-            } else if (firstWord.equals("mark")) { //MARK
-                Tira.markTask(printer, taskList, splitCommand);
-            } else if (firstWord.equals("unmark")) { //UNMARK
-                Tira.unmarkTask(printer, taskList, splitCommand);// ;
-            } else if (firstWord.equals("todo")) {//todo
-                Tira.addToDo(taskList, splitCommand);
-            } else if (firstWord.equals("deadline")) { // DEADLINE
-                Tira.addDeadline(taskList, splitCommand, command);
-            } else if (firstWord.equals("event")) { // EVENT
-                Tira.addEvent(taskList, splitCommand, command);
-            } else if (firstWord.equals("delete")){
-                Tira.delete(printer, taskList, splitCommand);
-            } else {
-                throw new TiraException("MRA..OW? I think your brain is not braining. Rethink what you want of me...");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            // try loading the file to the list, if it fails, then the file doesn't exist
+            // if it doesn't exist, then create a new file.
+            // printing
+            while (true) {
+                String command = scanner.nextLine();
+                String[] splitCommand = command.split(" ");
+                String firstWord = splitCommand[0];
+                if (command.equals("bye")) { //BYE
+                    break;
+                } else if (firstWord.equals("list")) { //LIST
+                    Tira.getList(printer, taskList);
+                } else if (firstWord.equals("mark")) { //MARK
+                    Tira.markTask(printer, taskList, splitCommand);
+                    fileWriter.write(taskList.toString());
+                } else if (firstWord.equals("unmark")) { //UNMARK
+                    Tira.unmarkTask(printer, taskList, splitCommand);// ;
+                    fileWriter.write(taskList.toString());
+                } else if (firstWord.equals("todo")) {//todo
+                    Tira.addToDo(taskList, splitCommand);
+                    fileWriter.write(taskList.toString());
+                } else if (firstWord.equals("deadline")) { // DEADLINE
+                    Tira.addDeadline(taskList, splitCommand, command);
+                    fileWriter.write(taskList.toString());
+                } else if (firstWord.equals("event")) { // EVENT
+                    Tira.addEvent(taskList, splitCommand, command);
+                    fileWriter.write(taskList.toString());
+                } else if (firstWord.equals("delete")) {
+                    Tira.delete(printer, taskList, splitCommand);
+                    fileWriter.write(taskList.toString());
+                } else {
+                    throw new TiraException("MRA..OW? I think your brain is not braining. Rethink what you want of me...");
+                }
+                fileWriter.write(taskList.toString());
+                fileWriter.flush();
             }
-        }
-        // NO SPECIFIC COMMAND
-//            Task task = new Task(command);
-//            printer.print("added: " + task.toString() + "\n");
-//            printer.flush();
-//            taskList.add(task);
         printer.println("Bye. Come back with treats, MIAO!");
         printer.close();
-    }
+    } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        }
     private static void getList(PrintWriter printer, ArrayList<Task> taskList) {
         printer.println("HERE ARE THE CURRENT TASKS:");
         printer.flush();
