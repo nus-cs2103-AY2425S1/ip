@@ -1,3 +1,8 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Deadline extends Task {
     private String type = "D";
 
@@ -5,16 +10,17 @@ public class Deadline extends Task {
         if (des.length() == 0) {
             throw new TaskException("OH NO!!! The description of Deadline cannot be empty!");
         }
-        String[] arr = des.split(" ");
-        String result = "";
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i].equals("/by")) {
-                result += "(by: ";
-            } else {
-                result += arr[i] + " ";
-            }
+        String regex = "(.*?) /by (.*)";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(des);
+        if (matcher.find()) {
+            String initalDes = matcher.group(1);
+            DateTimeParser time = new DateTimeParser(matcher.group(2));
+            return String.format("%s by: %s", initalDes,
+                    time);
+        } else {
+            throw new TaskException("Event should be of this format: {description} /by {date}");
         }
-        return result.strip() + ")";
     }
 
     public Deadline(String description) throws TaskException {

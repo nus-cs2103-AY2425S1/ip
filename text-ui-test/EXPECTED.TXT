@@ -1,5 +1,10 @@
     ____________________________________________________________
-    Hello! I'm PX
+    data.txt (No such file or directory)
+    Creating a new file!
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Hello! I'm Pixel
     What can I do for you?
     ____________________________________________________________
 
@@ -11,72 +16,72 @@
 
     ____________________________________________________________
     Here are the tasks in your list:
-    1. [T][ ]  borrow book
+    1. [T][ ] borrow book
     ____________________________________________________________
 
     ____________________________________________________________
     Got it. I've added this task:
-      [D][ ]return book (by: Sunday)
+      [D][ ] return book by: 25 May 2024
     Now you have 2 tasks in the list.
     ____________________________________________________________
 
     ____________________________________________________________
     Got it. I've added this task:
-      [E][ ]project meeting (from: Mon 2pm to: 4pm)
+      [E][ ] project meeting (from: 25 May 2024 to: 26 May 2024)
     Now you have 3 tasks in the list.
     ____________________________________________________________
 
     ____________________________________________________________
     Got it. I've added this task:
-      [D][ ]do homework (by: no idea :-p)
+      [D][ ] do homework by: 25 May 2024
     Now you have 4 tasks in the list.
     ____________________________________________________________
 
     ____________________________________________________________
     Here are the tasks in your list:
-    1. [T][ ]  borrow book
-    2. [D][ ] return book (by: Sunday)
-    3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-    4. [D][ ] do homework (by: no idea :-p)
+    1. [T][ ] borrow book
+    2. [D][ ] return book by: 25 May 2024
+    3. [E][ ] project meeting (from: 25 May 2024 to: 26 May 2024)
+    4. [D][ ] do homework by: 25 May 2024
     ____________________________________________________________
 
     ____________________________________________________________
     Nice! I've marked this task as done:
-    [X] project meeting (from: Mon 2pm to: 4pm)
+     [E][X] project meeting (from: 25 May 2024 to: 26 May 2024)
     ____________________________________________________________
 
     ____________________________________________________________
     Here are the tasks in your list:
-    1. [T][ ]  borrow book
-    2. [D][ ] return book (by: Sunday)
-    3. [E][X] project meeting (from: Mon 2pm to: 4pm)
-    4. [D][ ] do homework (by: no idea :-p)
+    1. [T][ ] borrow book
+    2. [D][ ] return book by: 25 May 2024
+    3. [E][X] project meeting (from: 25 May 2024 to: 26 May 2024)
+    4. [D][ ] do homework by: 25 May 2024
     ____________________________________________________________
 
     ____________________________________________________________
     OK, I've marked this task as not done yet:
-    [ ] project meeting (from: Mon 2pm to: 4pm)
+     [E][ ] project meeting (from: 25 May 2024 to: 26 May 2024)
     ____________________________________________________________
 
     ____________________________________________________________
     Here are the tasks in your list:
-    1. [T][ ]  borrow book
-    2. [D][ ] return book (by: Sunday)
-    3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-    4. [D][ ] do homework (by: no idea :-p)
+    1. [T][ ] borrow book
+    2. [D][ ] return book by: 25 May 2024
+    3. [E][ ] project meeting (from: 25 May 2024 to: 26 May 2024)
+    4. [D][ ] do homework by: 25 May 2024
     ____________________________________________________________
 
     ____________________________________________________________
     Noted. I've removed this task:
-      [D][ ]return book (by: Sunday)
+      [D][ ] return book by: 25 May 2024
     Now you have 3 tasks in the list.
     ____________________________________________________________
 
     ____________________________________________________________
     Here are the tasks in your list:
-    1. [T][ ]  borrow book
-    2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-    3. [D][ ] do homework (by: no idea :-p)
+    1. [T][ ] borrow book
+    2. [E][ ] project meeting (from: 25 May 2024 to: 26 May 2024)
+    3. [D][ ] do homework by: 25 May 2024
     ____________________________________________________________
 
     ____________________________________________________________

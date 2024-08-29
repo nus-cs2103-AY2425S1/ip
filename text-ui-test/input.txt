@@ -1,8 +1,8 @@
 todo borrow book
 list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-deadline do homework /by no idea :-p
+deadline return book /by 25-05-2024
+event project meeting /from 25-05-2024 /to 26-05-2024
+deadline do homework /by 25-05-2024
 list
 mark 2
 list

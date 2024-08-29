@@ -1,3 +1,8 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Event extends Task {
     private String type = "E";
 
@@ -5,18 +10,19 @@ public class Event extends Task {
         if (des.length() == 0) {
             throw new TaskException("OH NO!!! The description of Event cannot be empty!");
         }
-        String[] arr = des.split(" ");
-        String result = "";
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i].equals("/from")) {
-                result += "(from: ";
-            } else if (arr[i].equals("/to")) {
-                result += "to: ";
-            } else {
-                result += arr[i] + " ";
-            }
+        String regex = "(.*?) /from (.*?) /to (.*)";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(des);
+        if (matcher.find()) {
+            String initalDes = matcher.group(1);
+            DateTimeParser fromTime = new DateTimeParser(matcher.group(2));
+            DateTimeParser toTime = new DateTimeParser(matcher.group(3));
+            return String.format("%s (from: %s to: %s)", initalDes,
+                    fromTime,
+                    toTime);
+        } else {
+            throw new TaskException("Event should be of this format: {description} /from {date} /to {date}");
         }
-        return result.strip() + ")";
     }
 
     public Event(String description) throws TaskException {
