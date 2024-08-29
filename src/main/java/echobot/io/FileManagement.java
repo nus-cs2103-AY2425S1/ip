@@ -41,6 +41,9 @@ public class FileManagement {
         }
     }
 
+    /**
+     * Saves the task list as a file.
+     */
     public void save() {
         try {
             FileWriter fw = new FileWriter(String.valueOf(this.path));
@@ -51,6 +54,11 @@ public class FileManagement {
         }
     }
 
+    /**
+     * Loads the task list from the file.
+     *
+     * @return The task list loaded from the file.
+     */
     public TaskList load() {
         TaskList taskList = new TaskList();
         try {

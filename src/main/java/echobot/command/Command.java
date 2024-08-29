@@ -16,6 +16,12 @@ public class Command {
         this.fileManagement = fileManagement;
     }
 
+    /**
+     * Executes the command from users.
+     *
+     * @return The result of the command after being executed.
+     * @throws EchoBotException If there is any error during the execution.
+     */
     public CommandResponse execute() throws EchoBotException {
         return null;
     }

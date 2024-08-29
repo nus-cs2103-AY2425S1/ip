@@ -1,6 +1,5 @@
 package echobot.task;
 
-import echobot.exception.InvalidDeadlineFormatException;
 import echobot.exception.TaskNotFoundException;
 import echobot.io.Saveable;
 
@@ -15,10 +14,22 @@ public class TaskList implements Saveable {
         this.taskList = new ArrayList<>();
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         this.taskList.add(task);
     }
 
+    /**
+     * Deletes a task by index from the task list.
+     *
+     * @param index The index of the task to be deleted.
+     * @return The task that is deleted.
+     * @throws TaskNotFoundException If the index if out of bound.
+     */
     public Task deleteTaskByIndex(int index) throws TaskNotFoundException {
         try {
             return this.taskList.remove(index);
@@ -27,10 +38,22 @@ public class TaskList implements Saveable {
         }
     }
 
+    /**
+     * Returns the task list.
+     *
+     * @return The task list.
+     */
     public List<Task> getTaskList() {
         return this.taskList;
     }
 
+    /**
+     * Marks a task done by index.
+     *
+     * @param index The index of the task to be deleted.
+     * @return The task that is marked as done.
+     * @throws TaskNotFoundException If the index if out of bound.
+     */
     public Task markTaskByIndex(int index) throws TaskNotFoundException {
         try {
             Task task = this.taskList.get(index);
@@ -41,6 +64,13 @@ public class TaskList implements Saveable {
         }
     }
 
+    /**
+     * Marks a task undone by index.
+     *
+     * @param index The index of the task to be deleted.
+     * @return The task that is marked as undone.
+     * @throws TaskNotFoundException If the index if out of bound.
+     */
     public Task unmarkTaskByIndex(int index) throws TaskNotFoundException {
         try {
             Task task = this.taskList.get(index);
@@ -51,6 +81,14 @@ public class TaskList implements Saveable {
         }
     }
 
+    /**
+     * Returns those tasks that occurs on that date.
+     * For {@link Event}, it is being returned when the date is between from and to in the Event.
+     * For {@link Deadline}, it is being returned when the date is before the date.
+     *
+     * @param date The date to search.
+     * @return A list of tasks that occur on that date.
+     */
     public List<Task> getTasksOccurringOn(LocalDate date) {
         List<Task> taskList1 = new ArrayList<>();
 
@@ -63,6 +101,11 @@ public class TaskList implements Saveable {
         return taskList1;
     }
 
+    /**
+     * Returns the size of the list.
+     *
+     * @return The size of the list.
+     */
     public int size() {
         return this.taskList.size();
     }
