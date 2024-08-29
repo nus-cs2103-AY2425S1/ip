@@ -15,6 +15,10 @@ public class Task {
         this.doneStatus = false;
     }
 
+    public String getTaskDescription() {
+        return taskDescription;
+    }
+
     @Override
     public String toString() {
         if (this.doneStatus) {
