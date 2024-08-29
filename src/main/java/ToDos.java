@@ -27,4 +27,8 @@ public class ToDos extends Task{
         String str2 = String.format("Now you have %d tasks in the list", allTasks.size());
         return str1 + this.toString() + "\n" + str2;
     }
+    public String getInitDesc() {
+        String str = super.isDone ? "1" : "0";
+        return String.format("T | %s | %s", str, super.description);
+    }
 }
