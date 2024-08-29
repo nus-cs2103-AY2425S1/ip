@@ -1,4 +1,4 @@
-package TrackBot.ui;
+package TrackBot.task;
 
 import TrackBot.task.Task;
 import TrackBot.ui.Parser;

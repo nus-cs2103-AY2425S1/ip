@@ -8,6 +8,8 @@ import TrackBot.commands.ExitCommand;
 import TrackBot.commands.ListCommand;
 import TrackBot.commands.MarkCommand;
 import TrackBot.commands.UnmarkCommand;
+import TrackBot.task.Deadline;
+import TrackBot.task.Event;
 import TrackBot.task.Task;
 import TrackBot.task.ToDo;
 
@@ -24,66 +26,66 @@ public class Parser {
         String commandWord = splitInput[0].toLowerCase();
         String otherWord = splitInput.length > 1 ? splitInput[1].trim() : "";
 
-        switch (commandWord) {
-            case "list":
-                if (!otherWord.isEmpty()) {
-                    throw TrackBotException.invalidFormat("list", "list");
-                }
-                return new ListCommand();
-            case "todo":
-                if (otherWord.isEmpty()) {
-                    throw TrackBotException.invalidFormat("todo", "todo <task description>");
-                }
-                return new AddCommand(new ToDo(otherWord));
-            case "deadline":
-                String[] deadlineParts = otherWord.split(" /by ");
-                if (deadlineParts.length < 2) {
-                    throw TrackBotException.invalidFormat("deadline", "deadline <task description> /by <date/time>");
-                }
-                return new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]));
-            case "event":
-                String[] eventParts = otherWord.split(" /from | /to ");
-                if (eventParts.length < 3) {
-                    throw TrackBotException.invalidFormat("event", "event <description> /from <start> /to <end>");
-                }
-                return new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
-            case "delete":
-                if (otherWord.isEmpty()) {
-                    throw TrackBotException.invalidFormat("delete", "delete <task number>");
-                }
+    switch (commandWord) {
+        case "list":
+            if (!otherWord.isEmpty()) {
+                throw TrackBotException.invalidFormat("list", "list");
+            }
+            return new ListCommand();
+        case "todo":
+            if (otherWord.isEmpty()) {
+                throw TrackBotException.invalidFormat("todo", "todo <task description>");
+            }
+            return new AddCommand(new ToDo(otherWord));
+        case "deadline":
+            String[] deadlineParts = otherWord.split(" /by ");
+            if (deadlineParts.length < 2) {
+                throw TrackBotException.invalidFormat("deadline", "deadline <task description> /by <date/time>");
+            }
+            return new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]));
+        case "event":
+            String[] eventParts = otherWord.split(" /from | /to ");
+            if (eventParts.length < 3) {
+                throw TrackBotException.invalidFormat("event", "event <description> /from <start> /to <end>");
+            }
+            return new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
+        case "delete":
+            if (otherWord.isEmpty()) {
+                throw TrackBotException.invalidFormat("delete", "delete <task number>");
+            }
+            try {
+                int num = Integer.parseInt(otherWord) - 1;
+                return new DeleteCommand(num);
+            } catch (NumberFormatException e) {
+                throw TrackBotException.invalidFormat("delete", "delete <task number>");
+            }
+        case "mark":
+            if (otherWord.isEmpty()) {
+                throw TrackBotException.invalidFormat("mark", "mark <task number>");
+            } else {
                 try {
                     int num = Integer.parseInt(otherWord) - 1;
-                    return new DeleteCommand(num);
+                    return new MarkCommand(num);
                 } catch (NumberFormatException e) {
-                    throw TrackBotException.invalidFormat("delete", "delete <task number>");
-                }
-            case "mark":
-                if (otherWord.isEmpty()) {
                     throw TrackBotException.invalidFormat("mark", "mark <task number>");
-                } else {
-                    try {
-                        int num = Integer.parseInt(otherWord) - 1;
-                        return new MarkCommand(num);
-                    } catch (NumberFormatException e) {
-                        throw TrackBotException.invalidFormat("mark", "mark <task number>");
-                    }
                 }
-            case "unmark":
-                if (otherWord.isEmpty()) {
+            }
+        case "unmark":
+            if (otherWord.isEmpty()) {
+                throw TrackBotException.invalidFormat("unmark", "unmark <task number>");
+            } else {
+                try {
+                    int num = Integer.parseInt(otherWord) - 1;
+                    return new UnmarkCommand(num);
+                } catch (NumberFormatException e) {
                     throw TrackBotException.invalidFormat("unmark", "unmark <task number>");
-                } else {
-                    try {
-                        int num = Integer.parseInt(otherWord) - 1;
-                        return new UnmarkCommand(num);
-                    } catch (NumberFormatException e) {
-                        throw TrackBotException.invalidFormat("unmark", "unmark <task number>");
-                    }
                 }
-            case "bye":
-                return new ExitCommand();
-            default:
-                throw new TrackBotException("Sorry, I did not understand that command.");
-        }
+            }
+        case "bye":
+            return new ExitCommand();
+        default:
+            throw new TrackBotException("Sorry, I did not understand that command.");
+    }
     }
 
     public static Task parseTask(String line) {
