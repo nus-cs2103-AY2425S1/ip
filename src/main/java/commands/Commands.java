@@ -4,6 +4,7 @@ import exceptions.*;
 import stringconstants.ReplyTextMessages;
 import tasks.*;
 
+import ui.MultilineStringBuilder;
 import ui.Ui;
 
 import java.util.ArrayList;
@@ -28,15 +29,15 @@ public class Commands {
 
     public static void printUserList(ArrayList<Task> userList) {
         if (userList.isEmpty()) {
-            System.out.println(Ui.quoteSinglelineText("List is empty!"));
+            Ui.println("List is empty!");
             return;
         }
 
-        StringBuilder sb = new StringBuilder();
-        Ui.quoteSinglelineText(ReplyTextMessages.LIST_TEXT, sb);
+        MultilineStringBuilder msb = new MultilineStringBuilder();
+        msb.addLine(ReplyTextMessages.LIST_TEXT);
         for (int i = 0; i < userList.size(); i++) {
             Task t = userList.get(i);
-            Ui.quoteSinglelineText(
+            msb.addLine(
                     String.format(
                             "%2d.%s",
                             i+1,
@@ -46,12 +47,10 @@ public class Commands {
                                     t.getTaskDoneCheckmark(),
                                     t
                             )
-                    ),
-                    sb
+                    )
             );
         }
-        sb.append("\n");
-        System.out.println(sb);
+        msb.print();
     }
     public static int parseTaskNumberSelected(String userInputSlice, ArrayList<Task> userList) throws YappingBotOOBException, YappingBotInvalidTaskNumberException {
         int i = -1;
@@ -71,38 +70,34 @@ public class Commands {
     public static void changeTaskListStatus(int i, boolean isTaskDone, ArrayList<Task> userList) {
         Task t = userList.get(i);
         t.setTaskDone(isTaskDone);
-        StringBuilder sb = new StringBuilder();
+        MultilineStringBuilder msb = new MultilineStringBuilder();
         if (isTaskDone) {
-            Ui.quoteSinglelineText(ReplyTextMessages.MARKED_TASK_AS_DONE_TEXT, sb);
+            msb.addLine(ReplyTextMessages.MARKED_TASK_AS_DONE_TEXT);
         } else {
-            Ui.quoteSinglelineText(ReplyTextMessages.UNMARKED_TASK_AS_DONE_TEXT, sb);
+            msb.addLine(ReplyTextMessages.UNMARKED_TASK_AS_DONE_TEXT);
         }
-        Ui.quoteSinglelineText(
+        msb.addLine(
                 String.format(
                         ReplyTextMessages.TASK_PRINT_TEXT_3s,
                         t.getTaskTypeSymbol(),
                         t.getTaskDoneCheckmark(),
                         t
-                ),
-                sb
+                )
         );
-        sb.append("\n");
-        System.out.println(sb);
+        msb.print();
     }
     public static void deleteTask(int i, ArrayList<Task> userList) {
         Task t = userList.get(i);
         userList.remove(i);
-        StringBuilder sb = new StringBuilder();
-        Ui.quoteSinglelineText(ReplyTextMessages.DELETED_TEXT, sb);
-        Ui.quoteSinglelineText(
+        MultilineStringBuilder msb = new MultilineStringBuilder();
+        msb.addLine(ReplyTextMessages.DELETED_TEXT);
+        msb.addLine(
                 String.format(ReplyTextMessages.TASK_PRINT_TEXT_3s,
                         t.getTaskTypeSymbol(),
                         t.getTaskDoneCheckmark(),
-                        t),
-                sb
+                        t)
         );
-        Ui.quoteSinglelineText(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()), sb);
-        System.out.println(sb);
+        msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
     }
     public static Task addTaskToList(String[] userInputSpliced, TaskTypes taskTypes, ArrayList<Task> userList) throws YappingBotIncorrectCommandException {
         Task newTask;
@@ -185,8 +180,7 @@ public class Commands {
                 } else if (fromTime == null) {
                     fromTime = sb.toString();
                 }
-                //noinspection ReassignedVariable
-                if (fromTime == null || toTime == null || taskName == null) {
+                if (fromTime == null) {
                     throw YappingBotIncorrectCommandException.withUserInputArray(ReplyTextMessages.EVENT_USAGE, userInputSpliced);
                 }
                 newTask = new Event(taskName.trim(), false, fromTime.trim(), toTime.trim());
@@ -194,17 +188,16 @@ public class Commands {
             default:
                 throw YappingBotIncorrectCommandException.withUserInputArray(ReplyTextMessages.EVENT_USAGE, userInputSpliced);
         }
-        sb = new StringBuilder();
-        Ui.quoteSinglelineText(ReplyTextMessages.ADDED_TEXT, sb);
-        Ui.quoteSinglelineText(
+        MultilineStringBuilder msb = new MultilineStringBuilder();
+        msb.addLine(ReplyTextMessages.ADDED_TEXT);
+        msb.addLine(
                 String.format(ReplyTextMessages.TASK_PRINT_TEXT_3s,
                         newTask.getTaskTypeSymbol(),
                         newTask.getTaskDoneCheckmark(),
-                        newTask),
-                sb
+                        newTask)
         );
-        Ui.quoteSinglelineText(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()), sb);
-        System.out.println(sb);
+        msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
+        msb.print();
         return newTask;
     }
     public static CommandTypes parseCommand(String commandString) throws YappingBotUnknownCommandException {

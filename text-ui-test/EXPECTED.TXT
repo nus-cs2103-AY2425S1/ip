@@ -2,8 +2,7 @@
  |  Error encountered while loading savefile:
  |
  |   |  Error Reading save file! The following error was encountered: Unable to parse value - No enum constant tasks.TaskTypes.Ajdskljdas
- |
- |   |  Error Reading save file! The following error was encountered: Missing Data Values
+ |   |  Error Reading save file! The following error was encountered: Unable to parse value - Error Reading save file! The following error was encountered: Missing Data Values
 
 
  |  Hello! I'm YappingBot
@@ -23,21 +22,11 @@
  |   3.[D][ ] adadsdd (by: Dec 12 2023)
  |   4.[E][ ] abc (from: Dec 23 2023 to: Feb 1 2025)
 
-
- |  Noted. I've deleted this task:
- |  [T][ ] a
- |  Now you have 3 tasks in the list.
-
- |  Noted. I've deleted this task:
- |  [D][ ] adadsdd (by: Dec 12 2023)
- |  Now you have 2 tasks in the list.
-
  |  I'm sorry, but task number 3 does not exist!
 
 
  |  Nice! I've marked this task as done:
  |  [E][X] abc (from: Dec 23 2023 to: Feb 1 2025)
-
 
  |  I'm sorry, but task number 3 does not exist!
 
@@ -84,7 +73,6 @@
  |   3.[T][ ] This is a to-do
  |   4.[T][ ] trailing spaces
 
-
  |  I'm sorry, I do not understand what 'deadline' is!
  |  Here is the usage for the instruction 'deadline':
  |
@@ -130,7 +118,6 @@
  |   2.[E][X] abc (from: Dec 23 2023 to: Feb 1 2025)
  |   3.[T][ ] This is a to-do
  |   4.[T][ ] trailing spaces
-
 
  |  I'm sorry, I do not understand what 'event' is!
  |  Here is the usage for the instruction 'event':
@@ -202,19 +189,15 @@
  |   3.[T][ ] This is a to-do
  |   4.[T][ ] trailing spaces
 
-
  |  Nice! I've marked this task as done:
  |  [T][X] b
 
-
  |  OK, I've marked this task as not done:
  |  [E][ ] abc (from: Dec 23 2023 to: Feb 1 2025)
-
 
  |  OK, I've marked this task as not done:
  |  [T][ ] b
 
-
  |  I'm sorry, but task number -1 does not exist!
 
 
@@ -232,24 +215,11 @@
 
  |  I'm sorry, but task number -1 does not exist!
 
-
- |  Noted. I've deleted this task:
- |  [E][ ] abc (from: Dec 23 2023 to: Feb 1 2025)
- |  Now you have 3 tasks in the list.
 
  |  Here are the tasks in your list:
  |   1.[T][ ] b
  |   2.[T][ ] This is a to-do
  |   3.[T][ ] trailing spaces
-
-
- |  Noted. I've deleted this task:
- |  [T][ ] b
- |  Now you have 2 tasks in the list.
-
- |  Noted. I've deleted this task:
- |  [T][ ] This is a to-do
- |  Now you have 1 tasks in the list.
 
  |  Got it. I've added this task:
  |  [E][ ] test1 (from: Dec 12 2023 to: Dec 23 2068)
@@ -263,7 +233,6 @@
  |   1.[T][ ] trailing spaces
  |   2.[E][ ] test1 (from: Dec 12 2023 to: Dec 23 2068)
  |   3.[D][ ] test2 (by: Dec 11 2033)
-
 
  |  Bye. Hope to see you again soon!
 

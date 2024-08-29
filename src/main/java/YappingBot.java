@@ -10,7 +10,8 @@ import static commands.Commands.*;
 
 public class YappingBot {
     private ArrayList<Task> userList;
-    private String savefilePath;
+    private final String savefilePath;
+
     // https://github.com/nus-cs2103-AY2425S1/forum/issues/22#issuecomment-2309939016
     private YappingBot(String savefilePath) {
         this.savefilePath = savefilePath;
@@ -20,21 +21,23 @@ public class YappingBot {
         try {
             userList = storage.loadListFromFile();
         } catch (YappingBotException e) {
-            System.out.println(Ui.quoteMultilineText(String.format(ReplyTextMessages.LOAD_FILE_ERROR_1s, e.getMessage())));
+            Ui.printError(e);
             userList = new ArrayList<>();
         }
     }
+
     private void saveAndExit(Storage storage) {
         try {
             storage.saveListToFile(userList);
         } catch (YappingBotException e) {
-            System.out.println(Ui.quoteMultilineText(String.format(ReplyTextMessages.SAVE_FILE_ERROR_1s, e.getMessage())));
+            Ui.printError(String.format(ReplyTextMessages.SAVE_FILE_ERROR_1s, e.getMessage()));
         }
-        System.out.println(Ui.quoteMultilineText(ReplyTextMessages.EXIT_TEXT));
+        Ui.print(ReplyTextMessages.EXIT_TEXT);
     }
+
     private void mainLoop() {
         Scanner userInputScanner = new Scanner(System.in);
-        System.out.println(Ui.quoteMultilineText(ReplyTextMessages.GREETING_TEXT));
+        Ui.print(ReplyTextMessages.GREETING_TEXT);
         programmeLoop: // to break out of loop
         while (userInputScanner.hasNextLine()) {
             String userInput = userInputScanner.nextLine();
@@ -73,10 +76,11 @@ public class YappingBot {
                         throw new YappingBotUnknownCommandException();
                 }
             } catch (YappingBotException e){
-                System.out.println(Ui.quoteMultilineText(e.getMessage()));
+                Ui.printError(e);
             }
         }
     }
+
     private void start() {
         Storage storage = new Storage(savefilePath);
         init(storage);

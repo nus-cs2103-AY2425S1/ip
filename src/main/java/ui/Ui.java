@@ -1,7 +1,9 @@
 package ui;
 
+import exceptions.YappingBotException;
+
 public class Ui {
-    public static String quoteSinglelineText(String line) {
+    private static String quoteSinglelineText(String line) {
         if (line == null || line.trim().isEmpty()) {
             return "\n |";
         } else {
@@ -16,7 +18,7 @@ public class Ui {
             sb.append(line);
         }
     }
-    public static String quoteMultilineText(String text) {
+    private static String quoteMultilineText(String text) {
         // annotates text with pipe to denote speech from bot
         if (text == null) {
             return quoteSinglelineText("");
@@ -29,4 +31,19 @@ public class Ui {
         sb.append("\n"); // pad the end with another newline
         return sb.toString();
     }
+
+    public static void printError(YappingBotException e) {
+        printError(e.getErrorMessage());
+    }
+    public static void printError(String msg) {
+        System.out.println(Ui.quoteMultilineText(msg));
+    }
+
+    public static void print(String msg) {
+        System.out.println(Ui.quoteMultilineText(msg));
+    }
+    public static void println(String msg) {
+        System.out.println(Ui.quoteSinglelineText(msg));
+    }
+
 }
