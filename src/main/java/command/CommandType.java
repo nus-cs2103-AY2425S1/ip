@@ -41,6 +41,12 @@ public enum CommandType {
     EVENT,
 
     /**
+     * Command to find tasks containing a specific word.
+     */
+    FIND,
+
+
+    /**
      * Represents the command to exit the application.
      */
     BYE,
