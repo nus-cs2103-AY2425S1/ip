@@ -19,7 +19,8 @@ public class Storage {
     }
 
     public Deez load() throws IOException, ClassNotFoundException {
-        FileInputStream fileInputStream = new FileInputStream(filePath + File.separator + fileName);
+        FileInputStream fileInputStream =
+                new FileInputStream(filePath + File.separator + fileName);
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
         return (Deez) objectInputStream.readObject();
     }

@@ -159,7 +159,7 @@ public class Deez implements Serializable {
             try {
                 deez = storage.load();
             } catch (Exception e) {
-                System.out.println("ERROR: Failed to load save-file, it might possibly be corrupted!");
+                System.out.println("Failed to load save-file, it might possibly be corrupted!");
             }
         }
         deez.run();
