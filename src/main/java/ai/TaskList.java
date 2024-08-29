@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Manages the task list.
+ */
 public class TaskList {
     private Ui ui = new Ui();
     ArrayList<Task> tasks;
@@ -21,6 +24,11 @@ public class TaskList {
         this.tasks = new ArrayList<Task>();
     }
 
+    /**
+     * Saves the task list for the next time user boots up Ai.
+     *
+     * @param filePath Path where the task list is to be written.
+     */
     public void save(String filePath) {
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -41,6 +49,11 @@ public class TaskList {
         return tasks.get(i);
     }
 
+    /**
+     * Prints a list of Deadline Tasks that is due on the given date.
+     *
+     * @param date Date to be matched.
+     */
     public void isDue(LocalDate date) {
         for(int i = 0; i < tasks.size(); i++) {
             Task temp = tasks.get(i);
@@ -54,6 +67,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints all the tasks stored.
+     */
     public void list() {
         for(int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i) + "\n");

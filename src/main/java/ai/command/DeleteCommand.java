@@ -11,6 +11,9 @@ public class DeleteCommand extends Command {
         i = Integer.parseInt(index) - 1;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws AiException {
         if (i < 0 || i >= tasks.size()) {
@@ -25,6 +28,9 @@ public class DeleteCommand extends Command {
         System.out.println("You have "+ tasks.size() + " tasks in your list :p\n");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;

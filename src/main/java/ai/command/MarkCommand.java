@@ -11,6 +11,9 @@ public class MarkCommand extends Command{
         i = Integer.parseInt(index) - 1;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws AiException {
         if (i < 0 || i >= tasks.size()) {
@@ -23,6 +26,10 @@ public class MarkCommand extends Command{
         System.out.println("Marked as done... since you have time, how about a drink ;)");
         System.out.println(temp + "\n");
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;

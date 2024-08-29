@@ -6,7 +6,18 @@ import ai.task.Deadline;
 import ai.task.Event;
 import ai.task.ToDo;
 
+/**
+ * Parses the user input.
+ */
 public class Parser {
+
+    /**
+     * Parses the fullCommand and initialises the correct type of command.
+     *
+     * @param fullCommand String that contains unparsed command.
+     * @return Command subtypes that can be executed.
+     * @throws AiException if formatting is incorrect.
+     */
     public static Command parse(String fullCommand) throws AiException {
         String[] parsedCommand = fullCommand.split(" ", 2);
         String command = parsedCommand[0];
