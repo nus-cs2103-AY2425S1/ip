@@ -1,3 +1,5 @@
+package exception;
+
 public class TakoException extends Exception {
 
     String message;

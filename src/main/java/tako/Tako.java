@@ -1,3 +1,8 @@
+package tako;
+
+import storage.Storage;
+import ui.Ui;
+
 public class Tako {
 
     private Storage storage;
