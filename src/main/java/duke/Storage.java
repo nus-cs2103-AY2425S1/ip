@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 public class Storage {
     private final String filePath;
+
     Storage(String _filePath) {
         this.filePath = _filePath;
     }
@@ -29,7 +30,7 @@ public class Storage {
 
             switch (type) {
                 case "T" -> data.add(new ToDo(split[2]));
-                case "D" -> data.add(new DeadLine(split[2],  Parser.parseDate(split[3])));
+                case "D" -> data.add(new DeadLine(split[2], Parser.parseDate(split[3])));
                 case "E" -> data.add(new Event(split[2], Parser.parseDate(split[3]), Parser.parseDate(split[4])));
             }
 

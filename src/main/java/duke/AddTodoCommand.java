@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class AddTodoCommand extends Command{
+public class AddTodoCommand extends Command {
 
     AddTodoCommand(String input) {
         this.input = input;
@@ -21,7 +21,7 @@ public class AddTodoCommand extends Command{
 
         String[] todoItems = Arrays.stream(Parser.ParseString(input, commands)).map(String::trim).toArray(String[]::new);
 
-        if(todoItems.length == 0 || Objects.equals(todoItems[1], "")) {
+        if (todoItems.length == 0 || Objects.equals(todoItems[1], "")) {
             throw new DukeException("Task must be specified!");
         }
 

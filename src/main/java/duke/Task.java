@@ -5,7 +5,7 @@ public class Task {
     private boolean completed;
 
     public Task(String _description) {
-        description =_description;
+        description = _description;
         completed = false;
     }
 
@@ -20,19 +20,21 @@ public class Task {
     public boolean isCompleted() {
         return completed;
     }
+
     public String getDescription() {
         return description;
     }
+
     @Override
     public String toString() {
-        if(completed) {
+        if (completed) {
             return "[X] " + description;
         }
         return "[] " + description;
     }
 
     public String saveFormat() {
-        if(completed) {
+        if (completed) {
             return "1 | " + description;
         }
         return "0 | " + description;

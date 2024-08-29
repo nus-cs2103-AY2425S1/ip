@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class AddEventCommand extends Command{
+public class AddEventCommand extends Command {
     AddEventCommand(String input) {
         this.input = input;
     }
+
     /**
      * Processes input given by the user to build an event Task
      *
@@ -23,15 +24,15 @@ public class AddEventCommand extends Command{
 
         String[] eventItems = Arrays.stream(Parser.ParseString(input, commands)).map(String::trim).toArray(String[]::new);
 
-        if(eventItems.length == 0 || Objects.equals(eventItems[1], "")) {
+        if (eventItems.length == 0 || Objects.equals(eventItems[1], "")) {
             throw new DukeException("Task must be specified!");
         }
 
-        if(eventItems.length == 2) {
+        if (eventItems.length == 2) {
             throw new DukeException("from must be specified!");
         }
 
-        if(eventItems.length == 3) {
+        if (eventItems.length == 3) {
             throw new DukeException("to must be specified!");
         }
 

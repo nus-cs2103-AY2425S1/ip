@@ -3,7 +3,7 @@ package duke;
 import java.io.IOException;
 import java.text.ParseException;
 
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
     ExitCommand(String input) {
         this.input = input;
     }

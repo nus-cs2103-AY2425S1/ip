@@ -3,7 +3,7 @@ package duke;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     ListCommand(String input) {
         this.input = input;
     }
@@ -17,6 +17,6 @@ public class ListCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, ParseException {
-       ui.showAllTasks(tasks);
+        ui.showAllTasks(tasks);
     }
 }

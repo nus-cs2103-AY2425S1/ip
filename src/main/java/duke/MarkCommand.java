@@ -3,7 +3,7 @@ package duke;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
 
     MarkCommand(String input) {
         this.input = input;

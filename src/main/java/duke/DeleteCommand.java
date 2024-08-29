@@ -3,7 +3,7 @@ package duke;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
 
     DeleteCommand(String input) {
         this.input = input;

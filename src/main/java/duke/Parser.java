@@ -10,9 +10,9 @@ import java.util.stream.Stream;
 public class Parser {
 
     public static Command ParseCommand(String userInput) {
-        if(userInput.contains("bye")){
+        if (userInput.contains("bye")) {
             return new ExitCommand(userInput);
-        }else if (userInput.contains("list")) {
+        } else if (userInput.contains("list")) {
             return new ListCommand(userInput);
         } else if (userInput.contains("unmark")) {
             return new UnMarkCommand(userInput);
@@ -22,11 +22,11 @@ public class Parser {
             return new AddTodoCommand(userInput);
         } else if (userInput.contains("deadline")) {
             return new AddDeadLineCommand(userInput);
-        }else if (userInput.contains("event")) {
+        } else if (userInput.contains("event")) {
             return new AddEventCommand(userInput);
         } else if (userInput.contains("delete")) {
             return new DeleteCommand(userInput);
-        }else {
+        } else {
             System.out.println("Command does not exist!");
         }
         return null;
@@ -35,6 +35,7 @@ public class Parser {
     public static String[] ParseString(String input, ArrayList<String> splitters) {
         return TrimArray(ParseStringHelper(input, splitters));
     }
+
     private static String[] ParseStringHelper(String input, ArrayList<String> splitters) {
         String[] split = input.split(splitters.get(0));
         if (split.length == 0) {
@@ -42,7 +43,7 @@ public class Parser {
         }
         if (splitters.size() == 1) {
             return split;
-        }else {
+        } else {
             splitters.remove(0);
             return Stream
                     .of(new String[]{split[0].trim()},
@@ -61,7 +62,7 @@ public class Parser {
     public static int ParseIndex(String input, ArrayList<String> commands) throws DukeException {
         String[] markItems = TrimArray(ParseString(input, commands));
 
-        if(markItems.length == 0 || Objects.equals(markItems[1], "")) {
+        if (markItems.length == 0 || Objects.equals(markItems[1], "")) {
             throw new DukeException("Number must be specified!");
         }
         Integer num;

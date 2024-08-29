@@ -23,11 +23,11 @@ public class AddDeadLineCommand extends Command {
 
         String[] deadLineItems = Arrays.stream(Parser.ParseString(input, commands)).map(String::trim).toArray(String[]::new);
 
-        if(deadLineItems.length == 0 || Objects.equals(deadLineItems[1], "")) {
+        if (deadLineItems.length == 0 || Objects.equals(deadLineItems[1], "")) {
             throw new DukeException("Task must be specified!");
         }
 
-        if(deadLineItems.length < 3) {
+        if (deadLineItems.length < 3) {
             throw new DukeException("DeadLine must be specified!");
         }
 

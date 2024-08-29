@@ -23,7 +23,7 @@ public class TaskList {
     }
 
     public Task getLast(int index) {
-        return tasks.get(tasks.size() -1);
+        return tasks.get(tasks.size() - 1);
     }
 
     public ArrayList<Task> getList() {

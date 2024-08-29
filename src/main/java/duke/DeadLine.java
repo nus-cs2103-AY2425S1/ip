@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class DeadLine extends Task{
+public class DeadLine extends Task {
 
     private final LocalDateTime date;
 
@@ -19,11 +19,11 @@ public class DeadLine extends Task{
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (by: " +  this.getDate() + ")";
+        return "[D] " + super.toString() + " (by: " + this.getDate() + ")";
     }
 
     @Override
     public String saveFormat() {
-        return "D | " + super.saveFormat() + " | " +  this.date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")) + "\n";
+        return "D | " + super.saveFormat() + " | " + this.date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")) + "\n";
     }
 }

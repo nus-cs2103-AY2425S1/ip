@@ -3,7 +3,7 @@ package duke;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class UnMarkCommand extends Command{
+public class UnMarkCommand extends Command {
     UnMarkCommand(String input) {
         this.input = input;
     }

@@ -28,7 +28,7 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.ParseCommand(fullCommand);
-                if(c != null){
+                if (c != null) {
                     c.execute(tasks, ui, storage);
                 }
                 isExit = Command.isExit();

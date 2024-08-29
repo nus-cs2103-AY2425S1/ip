@@ -3,7 +3,7 @@ package duke;
 import java.io.IOException;
 import java.text.ParseException;
 
-abstract class Command{
+abstract class Command {
 
     String input;
     static boolean exit;
