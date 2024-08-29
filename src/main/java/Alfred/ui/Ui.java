@@ -51,6 +51,26 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays a message listing all tasks that match the search keyword.
+     *
+     * @param foundTasks The list of tasks that match the search keyword.
+     */
+    public static void showFoundTasks(List<Task> foundTasks) {
+        System.out.println("____________________________________________________________");
+        if (foundTasks.isEmpty()) {
+            System.out.println("No matching tasks found Sir.");
+        } else {
+            System.out.println("Of course Sir, here are the matching tasks in your list:");
+            int counter = 1;
+            for (Task task : foundTasks) {
+                System.out.println(counter + ". " + task);
+                counter++;
+            }
+        }
+        System.out.println("____________________________________________________________");
+    }
+
     public static void showTaskMarked(Task task) {
         System.out.println("____________________________________________________________");
         System.out.println("Indeed, Sir, the task has been duly completed:");

@@ -8,6 +8,7 @@ import alfred.task.TaskList;
 import alfred.ui.Ui;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Alfred {
@@ -56,6 +57,11 @@ public class Alfred {
                     int taskNumber = Parser.getTaskNumberFromInput(input);
                     tasks.deleteTask(taskNumber);
                 }
+                break;
+            case "find":
+                String keyword = Parser.getKeyword(input);
+                List<Task> foundTasks = tasks.findTasks(keyword);
+                Ui.showFoundTasks(foundTasks);
                 break;
             default:
                 if (Task.isCreateTaskCommand(input)) {

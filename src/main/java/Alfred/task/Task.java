@@ -20,6 +20,10 @@ abstract public class Task {
         return (isDone ? "X" : " "); // mark done Alfred.task with X
     }
 
+    public boolean containsKeyword(String keyword) {
+        return description.contains(keyword);
+    }
+
     public void markAsDone() {
         isDone = true;
     }

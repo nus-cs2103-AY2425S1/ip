@@ -44,4 +44,20 @@ public class TaskList {
             Ui.showTaskUnmarked(task);
         }
     }
+
+    /**
+     * Finds and returns tasks that contain the given keyword in their description.
+     *
+     * @param keyword The keyword to search for.
+     * @return A list of tasks that match the keyword.
+     */
+    public List<Task> findTasks(String keyword) {
+        List<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.containsKeyword(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
+    }
 }
