@@ -22,8 +22,8 @@ public class Deadline extends Task {
     }
     @Override
     public String toString(){
-        String checkbox = this.done ? "[X]" : "[ ]";
-        String result = String.format(" %s %s %s\n", checkbox, this.name, this.getDeadline());
+        String checkbox = this.isDone() ? "[X]" : "[ ]";
+        String result = String.format(" %s %s %s\n", checkbox, this.getName(), this.getDeadline());
         return "[D]" + result;
     }
 }

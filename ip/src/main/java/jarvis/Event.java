@@ -33,9 +33,9 @@ public class Event extends Task {
                 : end;
     }
     public String toString(){
-        String checkbox = this.done ? "[X]" : "[ ]";
+        String checkbox = this.isDone() ? "[X]" : "[ ]";
         String result = String.format(" %s %s  from: %s, to %s\n",
-                checkbox, this.name, this.getStart(), this.getEnd());
+                checkbox, this.getName(), this.getStart(), this.getEnd());
         return "[E]" + result;
     }
 }

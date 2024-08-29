@@ -1,10 +1,22 @@
 package jarvis;
 
+/**
+ * The {@code Parser} class is responsible for parsing user input and executing
+ * the corresponding commands on the {@link TaskList}.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and executes the corresponding command on the given {@code TaskList}.
+     *
+     * @param input    the user input string to be parsed.
+     * @param tasklist the {@code TaskList} object on which the commands will be executed.
+     */
     public static void parse(String input, TaskList tasklist) {
         if (input.equals("list")) {
             tasklist.list();
-        } else if (!input.equals("bye")) { // Only print if it's not "bye"
+        } else if (!input.equals("bye")) {
+            // Only print if it's not "bye"
             if (input.startsWith("mark") || input.startsWith("unmark") ||
                     input.startsWith("delete")) {
                 String[] parts = input.split(" ");
@@ -23,6 +35,9 @@ public class Parser {
                     System.out.println("index error!");
                 }
 
+            } else if (input.startsWith("find")) {
+                String toFind = input.substring(5);
+                tasklist.find(toFind);
             } else {
                 try {
                     tasklist.add(input);
