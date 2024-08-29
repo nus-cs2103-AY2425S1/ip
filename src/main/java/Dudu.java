@@ -182,8 +182,12 @@ public class Dudu {
         }
     }
 
-    public static void addTask(Task task) {
+    public static void addTask(Task task) throws java.io.IOException{
         tasks.add(task);
+
+        FileWriter fw = new FileWriter("./data/dudu.txt", true);
+        fw.write(task.formatString());
+
         String output = LineWrapper.wrap(String.format("Got it. I've added this task:\n    %s\nNow you have %d tasks in the list.", task, tasks.size()));
         System.out.println(output);
     }
