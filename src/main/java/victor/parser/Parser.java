@@ -5,6 +5,7 @@ import victor.commands.DeadlineCommand;
 import victor.commands.DeleteCommand;
 import victor.commands.EventCommand;
 import victor.commands.ExitCommand;
+import victor.commands.FindCommand;
 import victor.commands.ListCommand;
 import victor.commands.MarkCommand;
 import victor.commands.ToDoCommand;
@@ -29,6 +30,7 @@ public class Parser {
         case "unmark" -> new UnmarkCommand(inputWords);
         case "list" -> new ListCommand(inputWords);
         case "bye" -> new ExitCommand(inputWords);
+        case "find" -> new FindCommand(inputWords);
         default -> new Command(inputWords);
         };
         return command;

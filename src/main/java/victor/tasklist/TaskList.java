@@ -129,6 +129,26 @@ public class TaskList {
         return this.tasks.size();
     }
 
+    public String[] findMatches(String toMatch) {
+        ArrayList<String> matches = new ArrayList<String>();
+        int count = 1;
+        for (Task task : tasks) {
+            if (task.toString().contains(toMatch)) {
+                matches.add("     " + count + ". " + task);
+                count += 1;
+            }
+        }
+        if (count > 1) {
+            String[] matchesArray = new String[matches.size()];
+            for (int i = 0; i < matches.size(); i++) {
+                matchesArray[i] = matches.get(i);
+            }
+            return matchesArray;
+        } else {
+            return new String[] {};
+        }
+    }
+
     public ArrayList<Task> getTaskList() {
         return this.tasks;
     }
