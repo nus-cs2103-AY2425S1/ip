@@ -6,20 +6,16 @@ import Stobberi.components.TaskList;
 
 import java.time.format.DateTimeParseException;
 
-public class DateCommand extends Command {
+public class FindCommand extends Command {
     private TaskList taskList;
-    private String date;
-    public DateCommand(TaskList taskList, String date) {
+    private String word;
+    public FindCommand(TaskList taskList, String word) {
         this.taskList = taskList;
-        this.date = date;
+        this.word = word;
     }
 
     @Override
     public void execute() throws StobberiException {
-        try {
-            taskList.filterListByDate(date);
-        } catch (DateTimeParseException e) {
-            throw new WrongDateTimeStobberiException("Date needs to be in the format dd-MM-yyyy\n Example: 27-12-2004\n" + e.getMessage());
-        }
+        taskList.filterListByWord(word);
     }
 }
