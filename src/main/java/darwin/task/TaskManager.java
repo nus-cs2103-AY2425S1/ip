@@ -54,10 +54,30 @@ public class TaskManager {
         }
         return this.taskList.get(taskIdx);
     }
+
+    /**
+     * Finds tasks that contain the keyword.
+     * @param keyword A string to search for in the task description.
+     * @return A string of the tasks that contain the keyword.
+     */
+    public String findTasksStr(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : this.taskList) {
+            if (task.getTaskInfo().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        return this.getTaskListStr(foundTasks);
+    }
+
     public String getTaskListStr() {
+        return this.getTaskListStr(this.taskList);
+    }
+
+    private String getTaskListStr(ArrayList<Task> taskList) {
         StringBuilder taskListStr = new StringBuilder();
-        for (int i = 0; i < this.taskList.size(); i++) {
-            Task task = this.taskList.get(i);
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
             String taskInfo = String.format("%d.%s", i + 1, task.getTaskInfo());
             taskListStr.append(taskInfo).append("\n");
         }

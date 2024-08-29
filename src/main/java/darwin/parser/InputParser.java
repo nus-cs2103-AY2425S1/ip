@@ -6,6 +6,7 @@ import darwin.command.ListCommand;
 import darwin.command.MarkCommand;
 import darwin.command.UnmarkCommand;
 import darwin.command.DeleteCommand;
+import darwin.command.FindCommand;
 import darwin.command.AddTaskCommand;
 import darwin.exception.IllegalTaskArgumentException;
 import darwin.exception.IllegalTaskTypeException;
@@ -36,6 +37,9 @@ public class InputParser {
             case DeleteCommand.CMD_WORD -> {
                 return this.parseDelete(args);
             }
+            case FindCommand.CMD_WORD -> {
+                return this.parseFind(args);
+            }
             default -> {
                 return this.parseAddTask(cmd, args);
             }
@@ -60,6 +64,10 @@ public class InputParser {
 
     private Command parseDelete(String args) throws IllegalTaskArgumentException {
         return new DeleteCommand(parseTaskIdx(args));
+    }
+
+    private Command parseFind(String args) {
+        return new FindCommand(args);
     }
 
     private Command parseAddTask(String cmd, String args) throws IllegalTaskTypeException, IllegalTaskArgumentException {
