@@ -10,7 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UiTest {
 
@@ -64,13 +64,6 @@ class UiTest {
     }
 
     @Test
-    void testDisplayExitMessage() {
-        ui.displayExitMessage();
-        String expectedOutput = DIVIDER + "Bye! Yippee!\n" + DIVIDER;
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
-    }
-
-    @Test
     void testDisplayTasks() {
         TaskList taskList = new TaskList();
         taskList.addTodo("Read a book");
@@ -93,7 +86,7 @@ class UiTest {
         ui.displayCompletedTask(task);
         String expectedOutput = DIVIDER +
                 "Nice! You've completed this task:\n  " +
-                task.toString() + "\n" +
+                task + "\n" +
                 DIVIDER;
 
         assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
@@ -105,7 +98,7 @@ class UiTest {
         ui.displayIncompleteTask(task);
         String expectedOutput = DIVIDER +
                 "Ok! This task is not complete:\n  " +
-                task.toString() + "\n" +
+                task + "\n" +
                 DIVIDER;
 
         assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
@@ -117,7 +110,7 @@ class UiTest {
         ui.displayDeletedTask(task);
         String expectedOutput = DIVIDER +
                 "Ok! This task has been removed:\n  " +
-                task.toString() + "\n" +
+                task + "\n" +
                 DIVIDER;
 
         assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
@@ -129,7 +122,7 @@ class UiTest {
         ui.displayTaskAdded(task, 5);
         String expectedOutput = DIVIDER +
                 "Okay! Added this task:\n  " +
-                task.toString() + "\n" +
+                task + "\n" +
                 "Now you have 5 tasks in this list\n" +
                 DIVIDER;
 

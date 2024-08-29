@@ -15,7 +15,9 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class StorageTest {
 
@@ -139,7 +141,8 @@ class StorageTest {
         // Verify the task is written to the file
         List<String> lines = Files.readAllLines(tempFile);
         assertEquals(1, lines.size(), "There should be one task in the file");
-        assertTrue(lines.get(0).contains("D | 0 | Submit report | 2024-08-30T18:00"), "The task should be written as a Deadline");
+        assertTrue(lines.get(0).contains("D | 0 | Submit report | 2024-08-30T18:00"),
+                "The task should be written as a Deadline");
     }
 
     @Test
