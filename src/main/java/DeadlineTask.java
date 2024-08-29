@@ -38,6 +38,10 @@ public class DeadlineTask extends Task{
 
     @Override
     public String toFileString() {
-        return "DeadlineTask";
+        if (this.status) {
+            return "D | 1 | " + this.description + " | " + this.deadline;
+        } else {
+            return "D | 0 | " + this.description + " | " + this.deadline;
+        }
     }
 }

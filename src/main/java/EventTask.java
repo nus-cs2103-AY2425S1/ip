@@ -47,6 +47,10 @@ public class EventTask extends Task {
 
     @Override
     public String toFileString() {
-        return "EventTask";
+        if (this.status) {
+            return "D | 1 | " + this.description + " | " + this.start + " | " + this.end;
+        } else {
+            return "D | 0 | " + this.description + " | " + this.start + " | " + this.end;
+        }
     }
 }

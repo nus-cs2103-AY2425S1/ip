@@ -106,32 +106,34 @@ public class TaskList {
         printLine();
     }
 
-    public void writeToFile() throws IOException {
+    public void writeToFile() {
         Path dataDir = Paths.get( "data");
         Path dataTxt = Paths.get( "data", "data.txt");
-        System.out.println("break 1");
 
-        if (Files.notExists(dataDir)) {
-            try {
+        try {
+            if (Files.notExists(dataDir)) {
                 Files.createDirectory(dataDir);
                 Files.createFile(dataTxt);
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        } else if (Files.notExists(dataTxt)) {
-            try {
-                Files.createFile(dataTxt);
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
-        System.out.println("break 2");
 
-        FileWriter fw = new FileWriter(dataTxt.toString());
-        for (Task task : list) {
-            fw.write(task.toFileString() + System.lineSeparator());
+            } else if (Files.notExists(dataTxt)) {
+                Files.createFile(dataTxt);
+            }
+
+        } catch (IOException e) {
+            System.out.println("    there hath been a failure in saving your work");
         }
-        fw.close();
+
+        try {
+            FileWriter fw = new FileWriter(dataTxt.toString());
+            for (Task task : list) {
+                fw.write(task.toFileString() + System.lineSeparator());
+
+            }
+            fw.close();
+
+        } catch (IOException e) {
+            System.out.println("    there hath been a failure in saving your work");
+        }
 
     }
 
