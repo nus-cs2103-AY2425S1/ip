@@ -16,6 +16,6 @@ public class Todo extends Task {
 
     @Override
     public String toFile() {
-        return "D | " + (isDone ? "1" : "0") + " | " + desc;
+        return "T | " + (isDone ? "1" : "0") + " | " + desc;
     }
 }

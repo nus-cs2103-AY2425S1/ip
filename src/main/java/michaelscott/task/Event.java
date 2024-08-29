@@ -1,6 +1,9 @@
 package michaelscott.task;
 
+import java.text.Format;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Formatter;
 
 /**
  * Represents an event task in the MichaelScott.MichaelScott task-tracking program.
@@ -9,6 +12,7 @@ import java.time.LocalDateTime;
 public class Event extends Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Constructs an Event task with the specified description, start time, and end time.
@@ -68,7 +72,7 @@ public class Event extends Task {
      */
     @Override
     public String toFile() {
-        return "D | " + (isDone ? "1" : "0") + " | "
-                + desc + " | " + this.from + " | " + this.to;
+        return "E | " + (isDone ? "1" : "0") + " | "
+                + desc + " | " + this.from.format(formatter) + " | " + this.to.format(formatter);
     }
 }

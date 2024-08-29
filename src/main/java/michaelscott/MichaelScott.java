@@ -10,11 +10,11 @@ public class MichaelScott {
     private final Ui ui;
     private final CommandParser parser;
 
-    public MichaelScott(String filePath) {
+    public MichaelScott() {
         ui = new Ui();
-        storage = new Storage(filePath);
         parser = new CommandParser();
         tasks = new TaskList();
+        storage = new Storage(tasks);
     }
 
     public void run() {
@@ -30,12 +30,12 @@ public class MichaelScott {
                 storage.saveTasks(tasks.getTasks());
                 isRunning = !cmd.isExit();
             } catch (MichaelScottException e) {
-                ui.showError(e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
     }
 
     public static void main(String[] args) {
-        new MichaelScott("./userdata/Todo.txt").run();
+        new MichaelScott().run();
     }
 }

@@ -24,7 +24,7 @@ public class Ui {
         this.sc.close();
     }
 
-    public void showError(String message) {
+    public static void showError(String message) {
         printLine();
         println(message);
         printLine();
