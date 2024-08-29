@@ -1,9 +1,11 @@
+package broski;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Constructor for Task class but should not be used as there are its children classes.
+     * Constructor for broski.Task class but should not be used as there are its children classes.
      * @param description the description of the task
      */
     public Task(String description) {

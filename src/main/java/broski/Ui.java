@@ -1,3 +1,5 @@
+package broski;
+
 public class Ui {
     private static final String LINE = "_________________________________________";
 
@@ -7,7 +9,7 @@ public class Ui {
 
     public void greeting() {
         printLine();
-        System.out.println("Wassup! I'm Broski!");
+        System.out.println("Wassup! I'm broski.Broski!");
         System.out.println("What can I do for you bro?");
         printLine();
     }

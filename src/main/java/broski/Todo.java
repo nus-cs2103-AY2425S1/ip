@@ -1,6 +1,8 @@
+package broski;
+
 public class Todo extends Task {
     /**
-     * Constructor for Todo class.
+     * Constructor for broski.Todo class.
      * @param description the description of the task
      */
     public Todo(String description) {
