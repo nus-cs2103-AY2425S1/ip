@@ -117,32 +117,32 @@ public class Bob {
         String[] inputWords = input.split("\s+");
         String taskDescription = this.getInputDescription(input); //gets the specific task description based on keyword.
         switch (keyword) {
-            case "todo":
-                if (taskDescription.equals("")) {
-                    throw new InvalidTaskException("OOPS!!! The description of a todo cannot be empty.");
-                }
-                newTask = new Todo(taskDescription);
-                break;
-            case "deadline":
-                if (taskDescription.equals("")) {
-                    throw new InvalidTaskException("OOPS!!! The description of a deadline cannot be empty.");
-                }
+        case "todo":
+            if (taskDescription.equals("")) {
+                throw new InvalidTaskException("OOPS!!! The description of a todo cannot be empty.");
+            }
+            newTask = new Todo(taskDescription);
+            break;
+        case "deadline":
+            if (taskDescription.equals("")) {
+                throw new InvalidTaskException("OOPS!!! The description of a deadline cannot be empty.");
+            }
 
-                String deadline = inputWords[Arrays.asList(inputWords).indexOf("/by") + 1];
+            String deadline = inputWords[Arrays.asList(inputWords).indexOf("/by") + 1];
 
-                newTask = new Deadline(taskDescription, deadline);
-                break;
-            case "event":
-                if (taskDescription.equals("")) {
-                    throw new InvalidTaskException("OOPS!!! The description of a event cannot be empty.");
-                }
+            newTask = new Deadline(taskDescription, deadline);
+            break;
+        case "event":
+            if (taskDescription.equals("")) {
+                throw new InvalidTaskException("OOPS!!! The description of a event cannot be empty.");
+            }
 
-                String startDateTime = inputWords[Arrays.asList(inputWords).indexOf("/from") + 1];
-                String endDateTime = inputWords[Arrays.asList(inputWords).indexOf("/to") + 1];
-                newTask = new Event(taskDescription, startDateTime, endDateTime);
-                break;
-            default:
-                throw new InvalidTaskException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            String startDateTime = inputWords[Arrays.asList(inputWords).indexOf("/from") + 1];
+            String endDateTime = inputWords[Arrays.asList(inputWords).indexOf("/to") + 1];
+            newTask = new Event(taskDescription, startDateTime, endDateTime);
+            break;
+        default:
+            throw new InvalidTaskException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         return newTask;
     }
@@ -156,48 +156,48 @@ public class Bob {
     public String getInputDescription(String input) throws InvalidTaskException {
         String[] separateKeyword = input.split(" ", 2); //separate the keyword from the rest of string
         switch (separateKeyword[0]) {
-            case "todo":
-                if (separateKeyword.length == 1) {
-                    throw new InvalidTaskException("OOPS!!! The description of todo cannot be empty.");
-                }
-                return separateKeyword[1];
-            case "deadline":
-                if (separateKeyword.length == 1) {
-                    throw new InvalidTaskException("OOPS!!! The description of deadline cannot be empty.");
-                }
-                String[] subString1 = separateKeyword[1].split("/by");
-                if (subString1.length <= 1) {
-                    throw new InvalidTaskException("Invalid use of deadline. Should be '... /by ...'.");
-                }
-                return subString1[0].trim() + " (by:" + subString1[1] + ")";
-            case "event":
-                if (separateKeyword.length == 1) {
-                    throw new InvalidTaskException("OOPS!!! The description of event cannot be empty.");
-                }
+        case "todo":
+            if (separateKeyword.length == 1) {
+                throw new InvalidTaskException("OOPS!!! The description of todo cannot be empty.");
+            }
+            return separateKeyword[1];
+        case "deadline":
+            if (separateKeyword.length == 1) {
+                throw new InvalidTaskException("OOPS!!! The description of deadline cannot be empty.");
+            }
+            String[] subString1 = separateKeyword[1].split("/by");
+            if (subString1.length <= 1) {
+                throw new InvalidTaskException("Invalid use of deadline. Should be '... /by ...'.");
+            }
+            return subString1[0].trim() + " (by:" + subString1[1] + ")";
+        case "event":
+            if (separateKeyword.length == 1) {
+                throw new InvalidTaskException("OOPS!!! The description of event cannot be empty.");
+            }
 
-                String[] subString2 = separateKeyword[1].split("/from");
-                if (subString2.length <= 1) {
-                    if (subString2.length == 0) {
-                        throw new InvalidTaskException("OOPS!!! The event description cannot be empty.");
-                    }
-                    throw new InvalidTaskException("Invalid use of event format. Should be  '... /from ...'");
+            String[] subString2 = separateKeyword[1].split("/from");
+            if (subString2.length <= 1) {
+                if (subString2.length == 0) {
+                    throw new InvalidTaskException("OOPS!!! The event description cannot be empty.");
                 }
+                throw new InvalidTaskException("Invalid use of event format. Should be  '... /from ...'");
+            }
 
-                String[] subString3 = subString2[1].split("/to");
-                if (subString3.length <= 1) {
-                    throw new InvalidTaskException("Invalid use of event format. Should be '... /to ...'.");
-                }
-                if (subString3[0].trim().isEmpty()) {
-                    throw new InvalidTaskException("OOPS!!! The start time for the event cannot be empty.");
-                }
-                if (subString3[1].trim().isEmpty()) {
-                    throw new InvalidTaskException("OOPS!!! The end time for the event cannot be empty.");
-                }
+            String[] subString3 = subString2[1].split("/to");
+            if (subString3.length <= 1) {
+                throw new InvalidTaskException("Invalid use of event format. Should be '... /to ...'.");
+            }
+            if (subString3[0].trim().isEmpty()) {
+                throw new InvalidTaskException("OOPS!!! The start time for the event cannot be empty.");
+            }
+            if (subString3[1].trim().isEmpty()) {
+                throw new InvalidTaskException("OOPS!!! The end time for the event cannot be empty.");
+            }
 
-                return subString2[0].trim() + " (from:" + subString3[0] + " to:" + subString3[1] + ")";
+            return subString2[0].trim() + " (from:" + subString3[0] + " to:" + subString3[1] + ")";
 
-            default:
-                return input;
+        default:
+            return input;
         }
     }
 
