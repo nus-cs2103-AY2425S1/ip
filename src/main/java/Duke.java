@@ -192,6 +192,21 @@ public class Duke {
         return message.substring(startIndex, ptr);
     }
 
+    public static boolean isEmptyString(String str) {
+        for(int i=0; i<str.length(); i++) {
+            if(str.charAt(i) != ' ')
+                return false;
+        }
+
+        return true;
+    }
+
+    public static void printError(String str) {
+        System.out.println(horizontalLine);
+        System.out.println(str);
+        System.out.println(horizontalLine);
+    }
+
     public static void main(String[] args) {
 
         String exitCommand = "bye";
@@ -227,32 +242,97 @@ public class Duke {
 
             } else if(command.equals("todo")) {
 
+                if(input.length() == 4) {
+                    printError("Error: The description of a todo cannot be empty. Terminating program.");
+                    break;
+                }
+
                 String taskName = input.substring(5);
+                if(isEmptyString(taskName)) {
+                    printError("Error: The description of a todo cannot be empty. Terminating program.");
+                    break;
+                }
                 addTask(new Task(taskName, TODO));
 
             } else if(command.equals("deadline")) {
 
+                if(input.length() <= 9) {
+                    printError("Error: The description of a deadline cannot be empty. Terminating program.");
+                    break;
+                }
+
                 String taskName = getCommand(input, 9, '/');
+
+                if(isEmptyString(taskName)) {
+                    printError("Error: The description of a deadline cannot be empty. Terminating program.");
+                    break;
+                }
+
+                if(input.length() <= 9 + taskName.length() + 4) {
+                    printError("Error: No deadline provided. Terminating program.");
+                    break;
+                }
+
                 String deadline = getCommand(input, 9 + taskName.length() + 4, ' ');
+
+                if(isEmptyString(deadline)) {
+                    printError("Error: No deadline provided. Terminating program.");
+                    break;
+                }
+
                 taskName = taskName.substring(0, taskName.length() - 1);
+
                 addTask(new Task(taskName, DEADLINE, deadline));
 
             } else if(command.equals("event")) {
 
+                if(input.length() <= 5) {
+                    printError("Error: The description of an event cannot be empty. Terminating program.");
+                    break;
+                }
+
                 String taskName = getCommand(input, 6, '/');
+
+                if(isEmptyString(taskName)) {
+                    printError("Error: The description of an event cannot be empty. Terminating program.");
+                    break;
+                }
+
+                if(input.length() <= 6 + taskName.length() + 6) {
+                    printError("Error: No start time provided for event. Terminating program.");
+                    break;
+                }
+
                 String startTime = getCommand(input, 6 + taskName.length() + 6, '/');
+
+                if(isEmptyString(startTime)) {
+                    printError("Error: No start time provided for event. Terminating program.");
+                    break;
+                }
+
+                if(input.length() <= 6 + taskName.length() + 6 + startTime.length() + 4) {
+                    printError("Error: No end time provided for event. Terminating program.");
+                    break;
+                }
+
                 String endTime = getCommand(input, 6 + taskName.length() + 6 + startTime.length() + 4, ' ');
+
+                if(isEmptyString(endTime)) {
+                    printError("Error: No end time provided for event. Terminating program.");
+                    break;
+                }
 
                 taskName = taskName.substring(0, taskName.length() - 1);
                 startTime = startTime.substring(0, startTime.length() - 1);
 
                 String[] eventTimings = new String[] {startTime, endTime};
 
+
                 addTask(new Task(taskName, EVENT, eventTimings));
 
             } else {
 
-                System.out.println("Invalid input, terminating program.");
+                System.out.println("Error: Invalid input, terminating program.");
                 break;
 
             }
