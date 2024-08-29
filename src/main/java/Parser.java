@@ -3,6 +3,15 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
+
+    /**
+     * Parses a user input line and returns a Command object with logic encapsulated
+     * within it to be executed.
+     *
+     * @param inputLine String that user inputted.
+     * @return Command Subclass Objects
+     * @throws GarfieldException An exception for Garfield chatbot
+     */
     public static Command parse(String inputLine) throws GarfieldException {
         inputLine = inputLine.strip();
 
@@ -71,6 +80,14 @@ public class Parser {
         throw new GarfieldException(inputLine + "? I’m not sure what that means. Can you give me a bit more to work with?");
     }
 
+    /**
+     * Extracts the first integer after the command keyword.
+     * For commands of the form: [keyword] [integer].
+     *
+     * @param fullInput String that user inputted.
+     * @return Integer after the keyword.
+     * @throws GarfieldException An exception for Garfield chatbot.
+     */
     private static int getIntegerArg(String fullInput) throws GarfieldException {
         String[] output = fullInput.trim().split("\\s+");
         if (output.length != 2) {
@@ -79,6 +96,13 @@ public class Parser {
         return Integer.parseInt(output[1]);
     }
 
+    /**
+     * Parses the user input for a todo command and returns a Todo object.
+     *
+     * @param fullInput String that user inputted.
+     * @return Todo object.
+     * @throws GarfieldException An exception for Garfield chatbot.
+     */
     private static Todo parseTodo(String fullInput) throws GarfieldException {
         if (fullInput.length() <= 5) {
             throw new GarfieldException("You are missing a description!");
@@ -92,6 +116,13 @@ public class Parser {
         return new Todo(todoDescription);
     }
 
+    /**
+     * Parses the user input for a deadline command and returns a Deadline object.
+     *
+     * @param fullInput String that user inputted.
+     * @return Deadline object.
+     * @throws GarfieldException An exception for Garfield chatbot.
+     */
     private static Deadline parseDeadline(String fullInput) throws GarfieldException{
         if (fullInput.length() <= 9) {
             throw new GarfieldException("You are missing a description!");
@@ -116,6 +147,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the user input for a event command and returns a Event object.
+     *
+     * @param fullInput String that user inputted.
+     * @return Event object.
+     * @throws GarfieldException An exception for Garfield chatbot.
+     */
     private static Event parseEvent(String fullInput) throws GarfieldException {
         if (fullInput.length() <= 6) {
             throw new GarfieldException("You are missing a description!");
@@ -149,6 +187,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a LocalDateTime object after parsing a String representation of a date and time.
+     *
+     * @param dateInput String representing the date and time of a Task.
+     * @return LocalDateTime object.
+     * @throws DateTimeParseException Error thrown if date time format is wrong in the input.
+     */
     private static LocalDateTime parseDateTime(String dateInput) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.parse(dateInput, formatter);
