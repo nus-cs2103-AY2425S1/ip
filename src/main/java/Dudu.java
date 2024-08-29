@@ -37,19 +37,30 @@ public class Dudu {
 
         try {
             Scanner sc = new Scanner(file);
-            while (!terminate && sc.hasNext()) {
+            while (sc.hasNext()) {
                 String[] input = sc.nextLine().split("\\|", 3);
                 TaskType type = TaskType.valueOf(input[0].trim());
-                System.out.println(input[1]);
                 boolean marked = Integer.parseInt(input[1].trim()) == 1;
+                String content = input[2].trim();
+                Task task = null;
                 switch (type) {
                     case T:
-                        ToDo task = new ToDo(input[2].trim());
-                        if (marked) {
-                            task.markCompleted();
-                        }
-                        addTask(task);
+                        task = new ToDo(content);
+                        break;
+                    case D: {
+                        String description = content.split("\\|")[0];
+                        String date = content.split("\\|")[1];
+                        task = new Deadline(description, date);
+                    } case E: {
+                        String description = content.split("\\|")[0];
+                        String date = content.split("\\|")[1];
+                        task = new Event(description, date, date);
+                    }
                 }
+                if (marked) {
+                    task.markCompleted();
+                }
+                addTask(task);
             }
         } catch (FileNotFoundException e) {
             System.out.println(e);
