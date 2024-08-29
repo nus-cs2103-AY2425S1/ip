@@ -23,6 +23,7 @@ public class AddTaskCommand extends Command {
         super(0, t);
     }
 
+    @Override
     public String execute(TaskList tasks) {
         tasks.addTask(this.getTask());
         return generateRandomPrefix(ADD_TASK_PREFIXES) + this.getTask().toString();

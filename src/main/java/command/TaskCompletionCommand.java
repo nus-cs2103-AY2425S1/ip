@@ -36,6 +36,7 @@ public class TaskCompletionCommand extends Command {
         this.isCompleted = isCompleted;
     }
 
+    @Override
     public String execute(TaskList tasks) {
         try {
             if (this.isCompleted) {

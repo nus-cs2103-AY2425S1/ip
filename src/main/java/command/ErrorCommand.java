@@ -10,6 +10,7 @@ public class ErrorCommand extends Command {
         this.errorMsg = e;
     }
 
+    @Override
     public String execute(TaskList tasks) {
         return this.errorMsg;
     }
