@@ -15,6 +15,10 @@ public class Command {
         this.tasks = tasks;
     }
 
+    public String getCommand() {
+        return this.command;
+    }
+
     public boolean isExit() {
         return this.command.equals("bye");
     }

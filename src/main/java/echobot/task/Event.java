@@ -23,6 +23,10 @@ public class Event extends Task {
         formatters.add(DateTimeFormatter.ofPattern("dd/M/yyyy"));
         formatters.add(DateTimeFormatter.ofPattern("d/M/yyyy"));
         formatters.add(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        formatters.add(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        formatters.add(DateTimeFormatter.ofPattern("yyyy-M-d"));
+        formatters.add(DateTimeFormatter.ofPattern("yyyy-MM-d"));
+        formatters.add(DateTimeFormatter.ofPattern("yyyy-M-dd"));
         // Add more patterns as needed
 
         for (DateTimeFormatter formatter : formatters) {

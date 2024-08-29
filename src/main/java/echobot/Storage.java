@@ -61,6 +61,7 @@ public class Storage {
                     tasks.addTask(task);
                 } catch (Exception e) {
                     System.out.println("Corrupted line in file: " + line);
+                    System.out.println(e.getMessage());
                     // Optionally, delete or reset the file if corruption detected:
                     // new File(FILE_PATH).delete(); // Resets the file
                     // System.out.println("File reset due to corruption.");
