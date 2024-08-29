@@ -1,7 +1,9 @@
+package hana.task;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    public String from;
+    public String to;
 
     public Event(String description, String from, String to) {
         super(description);
