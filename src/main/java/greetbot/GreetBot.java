@@ -1,8 +1,6 @@
 package greetbot;
 
-import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
 
 //the design of the class is referring to https://github.com/david-eom/CS2103T-IP/blob/master/src/main/java/duke/Duke.java#L150
 public class GreetBot {

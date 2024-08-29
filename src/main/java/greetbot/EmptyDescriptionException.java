@@ -1,14 +1,14 @@
 package greetbot;
 public class EmptyDescriptionException extends Exception {
     
-    final private String message;
+    final private String MESSAGE;
 
     public EmptyDescriptionException(String message) {
         super();
-        this.message = message;
+        this.MESSAGE = message;
     }
 
     public String getMessage() {
-        return this.message;
+        return this.MESSAGE;
     }
 }

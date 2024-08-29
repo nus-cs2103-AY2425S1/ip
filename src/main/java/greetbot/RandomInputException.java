@@ -2,14 +2,14 @@ package greetbot;
 
 public class RandomInputException extends Exception {
 
-    final private String message;
+    final private String MESSAGE;
 
     public RandomInputException(String message) {
         super();
-        this.message = message;
+        this.MESSAGE = message;
     }
 
     public String getMessage() {
-        return this.message;
+        return this.MESSAGE;
     }
 }
