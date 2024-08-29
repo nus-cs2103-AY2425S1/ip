@@ -24,3 +24,4 @@ text-ui-test/data/Kotori.Kotori.txt
 # Ignore Gradle build output directory
 build
 Kotori.txt
+Add.txt

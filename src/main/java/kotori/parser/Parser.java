@@ -1,9 +1,16 @@
 package kotori.parser;
 
-import kotori.command.*;
+import kotori.command.AddCommand;
+import kotori.command.Command;
+import kotori.command.DeleteCommand;
+import kotori.command.ExitCommand;
+import kotori.command.FindCommand;
+import kotori.command.MarkCommand;
+import kotori.command.PrintListCommand;
+import kotori.command.UnmarkCommand;
+import kotori.command.SearchCommand;
 import kotori.storage.Storage;
-import kotori.taskList.*;
-
+import kotori.taskList.TaskList;
 /**
  * This class represents a parser that will
  * parse a String of command line into a command Object
