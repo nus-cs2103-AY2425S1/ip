@@ -1,3 +1,9 @@
+package ui;
+
+import task.*;
+import storage.Storage;
+import parser.Parser;
+
 import java.util.Scanner;
 
 public class Ui {
