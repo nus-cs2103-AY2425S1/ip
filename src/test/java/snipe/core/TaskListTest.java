@@ -18,6 +18,7 @@ public class TaskListTest {
         Task taskOne = new ToDo("todo read book");
         Task taskTwo = new Event("Career Fair", "2024-08-27 0800", "2024-08-29 1700");
         Task taskThree = new Deadline("deadline finish work", "2024-09-23 1800");
+
         TaskList dummyTaskList = new TaskList();
 
         dummyTaskList.addTask(taskOne);
@@ -30,12 +31,14 @@ public class TaskListTest {
     @Test
     public void deleteTaskTest() throws SnipeException {
         ArrayList<Task> dummyTasks = new ArrayList<Task>();
+
         dummyTasks.add(new ToDo("todo read book"));
         dummyTasks.add(new Event("Career Fair", "2024-08-27 0800", "2024-08-29 1700"));
         dummyTasks.add(new Deadline("deadline finish work", "2024-09-23 1800"));
-        TaskList dummyTaskList = new TaskList(dummyTasks);
 
+        TaskList dummyTaskList = new TaskList(dummyTasks);
         dummyTaskList.deleteTask(1);
+
         assertEquals(2, dummyTaskList.size());
         assertEquals("deadline finish work", dummyTaskList.getTask(1).getDescription());
     }
