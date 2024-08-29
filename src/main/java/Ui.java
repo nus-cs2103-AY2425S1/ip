@@ -25,7 +25,6 @@ public class Ui {
 
     public void printGoodBye() {
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.print(LINE);
     }
 
     public void printLine() {

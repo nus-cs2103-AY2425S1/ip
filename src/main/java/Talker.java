@@ -5,40 +5,42 @@ public class Talker {
     private static final String DIRECTORY_PATH = "./data";
     private static final String FILE_PATH ="./data/talker.txt";
 
-    private static Ui ui = new Ui(NAME);
-    private static Storage storage = new Storage(DIRECTORY_PATH, FILE_PATH);
-    private static TaskList list;
+    private Ui ui;
+    private Storage storage;
+    private TaskList list;
 
-
-    public static void main(String[] args) {
-
+    public Talker() {
+        ui = new Ui(NAME);
+        storage = new Storage(DIRECTORY_PATH, FILE_PATH);
         list = new TaskList();
-
         try {
             list.setTasks(storage.readFile());
         } catch (TalkerException e) {
             ui.printError(e);
         }
+    }
 
+    public void run() {
         ui.printWelcome();
-        // read user input
-        String input = ui.readCommand();
-        ui.printLine();
-
-        // if command "bye" entered, exit
-        while (!input.equals("bye")) {
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                Parser.parseInput(input, list, ui);
-                storage.writeFile(list);
+                String fullCommand = ui.readCommand();
+                ui.printLine();
+                Command c = Parser.parseInput(fullCommand);
+                c.execute(list, ui, storage);
+                isExit = c.isExit();
             } catch (TalkerException e) {
                 ui.printError(e);
             } finally {
                 ui.printLine();
-                input = ui.readCommand();
-                ui.printLine();
             }
         }
-        ui.printGoodBye();
     }
+
+    public static void main(String[] args) {
+        new Talker().run();
+    }
+
 }
 

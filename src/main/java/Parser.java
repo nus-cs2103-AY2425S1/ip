@@ -1,34 +1,30 @@
+import java.util.Date;
+
 public class Parser {
 
-    public static void parseInput(String input, TaskList list, Ui ui) throws TalkerException {
+    public static Command parseInput(String input) throws TalkerException {
         String[] parsed = input.split(" ");
         switch (parsed[0]) {
-            case "list":
-                list.listTasks(ui);
-                break;
-            case "mark":
-                list.markTaskComplete(parsed, ui);
-                break;
-            case "unmark":
-                list.unmarkTaskComplete(parsed, ui);
-                break;
-            case "delete":
-                list.deleteTask(parsed, ui);
-                break;
-            case "todo":
-                list.createToDo(input, ui);
-                break;
-            case "deadline":
-                list.createDeadline(input, ui);
-                break;
-            case "event":
-                list.createEvent(input, ui);
-                break;
-            case "date":
-                list.printTasksOn(input, ui);
-                break;
-            default:
-                throw new TalkerException("Unknown command!");
+        case "list":
+            return new ListCommand();
+        case "mark":
+            return new MarkCommand(parsed);
+        case "unmark":
+            return new UnmarkCommand(parsed);
+        case "delete":
+            return new DeleteCommand(parsed);
+        case "todo":
+            return new AddCommand(input, TaskType.TODO);
+        case "deadline":
+            return new AddCommand(input, TaskType.DEADLINE);
+        case "event":
+            return new AddCommand(input, TaskType.EVENT);
+        case "date":
+            return new DateCommand(input);
+        case "bye":
+            return new ExitCommand();
+        default:
+            throw new TalkerException("Unknown command!");
         }
     }
 
