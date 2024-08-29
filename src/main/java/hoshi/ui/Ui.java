@@ -49,12 +49,13 @@ public class Ui {
      * Displays default prompt with options for user to select from
      */
     public void displayPrompt() {
-        System.out.println("- Add ToDo/Deadline/Event \n" +
-                            "- List \n" +
-                            "- Mark/Unmark \n" +
-                            "- Delete \n" +
-                            "- Bye \n " +
-                "____________________________________________________________");
+        System.out.println("""
+                - Add ToDo/Deadline/Event\s
+                - List\s
+                - Mark/Unmark\s
+                - Delete\s
+                - Bye\s
+                 ____________________________________________________________""");
     }
 
     /**

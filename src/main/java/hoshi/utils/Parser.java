@@ -17,7 +17,7 @@ import java.util.Scanner;
  */
 public class Parser {
 
-    private Storage storage = new Storage("./data/Hoshi.txt");
+    private final Storage storage = new Storage("./data/Hoshi.txt");
 
     /**
      * Parses all user commands into their respective methods as well as display the bye message once
@@ -89,7 +89,8 @@ public class Parser {
                 // if specified index is not out of bounds
                 if (markIndex <= taskList.size() - 1) {
 
-                    taskList.get(markIndex).setIsDone(true);
+                    taskList.setMark(markIndex);
+                    //taskList.get(markIndex).setIsDone(true);
                     ui.displayTaskMarked(taskList.get(markIndex));
 
                     handleSave(ui, taskList);

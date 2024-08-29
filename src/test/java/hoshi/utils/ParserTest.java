@@ -1,6 +1,5 @@
 package hoshi.utils;
 
-import hoshi.Hoshi;
 import hoshi.task.Task;
 import hoshi.task.TaskList;
 import hoshi.task.Todo;
@@ -26,6 +25,9 @@ public class ParserTest {
     private Parser parser;
 
 
+    /**
+     * Set up mocked objects for use in JUnit testing
+     */
     @BeforeEach
     void setUp() {
         taskList = mock(TaskList.class);
@@ -33,6 +35,9 @@ public class ParserTest {
         parser = new Parser();
     }
 
+    /**
+     * Tests the success case of handleMark function
+     */
     @Test
     public void handleMarkTest_success(){
 
@@ -62,6 +67,9 @@ public class ParserTest {
 
     }
 
+    /**
+     * Tests the invalid index case of handleMark function
+     */
     @Test
     public void handleMarkTest_invalidIndex(){
 
@@ -84,6 +92,9 @@ public class ParserTest {
 
     }
 
+    /**
+     * Tests the success case of handleUnmark function
+     */
     @Test
     public void handleUnmarkTest_success(){
 
@@ -112,6 +123,9 @@ public class ParserTest {
 
     }
 
+    /**
+     * Tests the invalidIndex case of handleUnmark function
+     */
     @Test
     public void handleUnMarkTest_invalidIndex(){
 
@@ -132,6 +146,9 @@ public class ParserTest {
 
     }
 
+    /**
+     * Tests the success case of handleDelete function
+     */
     @Test
     public void handleDeleteTest_success(){
 
@@ -159,6 +176,9 @@ public class ParserTest {
 
     }
 
+    /**
+     * Tests the invalidIndex case of handleDelete function
+     */
     @Test
     public void handleDeleteTest_invalidIndex(){
 
@@ -180,6 +200,9 @@ public class ParserTest {
 
     }
 
+    /**
+     * Tests the success case of handleAdd function for todo class
+     */
     @Test
     public void handleAddTest_success(){
 
@@ -200,6 +223,9 @@ public class ParserTest {
 
     }
 
+    /**
+     * Tests the emptyDescription case of handleMark function
+     */
     @Test
     public void handleAddTest_emptyDescription(){
 

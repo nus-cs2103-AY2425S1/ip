@@ -1,7 +1,5 @@
 package hoshi.task;
 
-import hoshi.task.Task;
-
 /**
  * This class represents a "to do" with a description and completion status.
  *
