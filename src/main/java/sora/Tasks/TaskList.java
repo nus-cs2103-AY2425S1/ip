@@ -1,12 +1,12 @@
 package sora.Tasks;
 
 import sora.Parser;
-import sora.Sora;
 import sora.SoraException;
 import sora.Ui;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -47,11 +47,13 @@ public class TaskList {
      */
     public void displayList() {
         if (this.taskList.isEmpty()) {
-            System.out.println("\tSeems like there are no tasks!");
+            System.out.println("\tSeems like there are no tasks found!");
             return;
         }
+        int index = 1;
         for (Task t : this.taskList) {
-            System.out.println("\t" + t.toString());
+            System.out.println("\t" + index + ". " + t.toString());
+            index++;
         }
     }
 
@@ -176,6 +178,24 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             throw new SoraException("\tPlease Enter Integer Value within List Size\n" + Ui.HORIZONTAL_LINE);
         }
+    }
+
+    /**
+     * Prints all tasks, containing the specified substring, of this TaskList instance.
+     *
+     * @param s User's Substring.
+     */
+    public void findTask(String s) {
+        HashMap<Integer, Task> taskListFound = new HashMap<>();
+        int index = 1;
+        for (Task t : this.taskList) {
+            if (t.descriptionContainsString(s)) {
+                taskListFound.put(index, t);
+            }
+            index++;
+        }
+        taskListFound.forEach(
+                (i, t) -> System.out.println("\t" + i++ + ". " + t.toString()));
     }
 
 }

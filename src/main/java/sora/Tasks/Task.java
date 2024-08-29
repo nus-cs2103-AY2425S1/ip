@@ -52,6 +52,17 @@ public abstract class Task {
     }
 
     /**
+     * Returns True if this description contains the substring.
+     * This description and substring's casing are ignored.
+     *
+     * @param s User's Substring.
+     * @return Boolean value.
+     */
+    public boolean descriptionContainsString(String s) {
+        return this.description.toLowerCase().contains(s.toLowerCase());
+    }
+
+    /**
      * Returns a list containing task details.
      *
      * @return List of String.

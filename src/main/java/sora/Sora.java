@@ -72,6 +72,9 @@ public class Sora {
                     case "delete":
                         this.taskList.deleteTask(parsedCommand.get(1));
                         break;
+                    case "find":
+                        this.taskList.findTask(parsedCommand.get(1));
+                        break;
                     case "":
                         throw new SoraException("\tPlease Enter a Command\n" + Ui.HORIZONTAL_LINE);
                     default:
