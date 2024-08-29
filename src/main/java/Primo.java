@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -130,11 +132,20 @@ public class Primo {
                 if (deadlineDescription.isEmpty()) {
                     throw new PrimoException("Description cannot be empty! Expected deadline <string> /by <string>");
                 }
+
                 String dueTime = input.substring(deadlineToIndex + 3).trim();
-                if (dueTime.isEmpty()) {
-                    throw new PrimoException("deadline time cannot be empty! Expected deadline <string> /by <string>");
+                LocalDate parsedDate = null;
+                try {
+                    parsedDate = LocalDate.parse(dueTime);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Deadline not in the form of YYYY-MM-DD or invalid DATE");
+                    dueTime = "";
                 }
-                Task newDeadlineTask = new DeadlineTask(deadlineDescription, dueTime);
+                if (dueTime.isEmpty()) {
+                    throw new PrimoException("deadline time empty or wrong formatting! Expected deadline <string> " +
+                            "/by YYYY-MM-DD");
+                }
+                Task newDeadlineTask = new DeadlineTask(deadlineDescription, parsedDate);
                 list.add(newDeadlineTask);
                 System.out.println("\nEl Primo:");
                 System.out.println("Got it. I've added this task:");
@@ -154,14 +165,29 @@ public class Primo {
                     throw new PrimoException("Description cannot be empty! Expected deadline <string> /by <string>");
                 }
                 String from = input.substring(eventToIndex + 5, eventFinalIndex).trim();
+                LocalDate parsedFromDate = null;
+                LocalDate parsedToDate = null;
+                try {
+                    parsedFromDate = LocalDate.parse(from);
+                } catch (DateTimeParseException e) {
+                    System.out.println("\"From\" date not in the form of YYYY-MM-DD or invalid DATE");
+                    from = "";
+                }
                 if (from.isEmpty()) {
-                    throw new PrimoException("'From' parameter cannot be empty! Expected deadline <string> /by <string>");
+                    throw new PrimoException("'From' parameter empty or wrong formatting! Expected event /from YYYY-MM-DD /to YYYY-MM-DD");
                 }
                 String to = input.substring(eventFinalIndex + 3).trim();
-                Task newEventTask = new EventTask(eventDescription, from, to);
-                if (to.isEmpty()) {
-                    throw new PrimoException("'To' parameter cannot be empty! Expected deadline <string> /by <string>");
+                try {
+                    parsedToDate = LocalDate.parse(to);
+                } catch (DateTimeParseException e) {
+                    System.out.println("\"To\" date not in the form of YYYY-MM-DD or invalid DATE");
+                    to = "";
                 }
+                if (to.isEmpty()) {
+                    throw new PrimoException("'To' parameter cannot be empty! Expected deadline YYYY-MM-DD /by YYYY-MM-DD");
+                }
+                Task newEventTask = new EventTask(eventDescription, parsedFromDate, parsedToDate);
+
                 list.add(newEventTask);
                 System.out.println("\nEl Primo:");
                 System.out.println("Got it. I've added this task:");
