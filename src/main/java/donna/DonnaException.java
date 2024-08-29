@@ -1,3 +1,5 @@
+package donna;
+
 public class DonnaException extends Exception{
     public DonnaException(String message) {
         super(message);

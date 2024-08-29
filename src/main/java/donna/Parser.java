@@ -1,3 +1,5 @@
+package donna;
+
 public class Parser {
     public ParsedCommand parse(String input) throws DonnaException {
         String[] inputWords = input.split(" ", 2);
