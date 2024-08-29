@@ -35,16 +35,6 @@ public class Deadline extends Task {
 
     /**
      * Serializes the deadline to a string.
-     * The string is in the format of "D | 1 | description | deadline".
-     * D is the task type, 1 is 1 if the task is done, description is the description of the task,
-     * deadline is the deadline of the task.
-     * The task type, is done status, description and deadline are separated by " | ".
-     * The task type is represented by the first character of the task type.
-     * For example, if the task type is task.Deadline, the task type is D.
-     * If the task is done, the second character is 1, otherwise it is 0.
-     * The description and deadline are the description and deadline of the task respectively.
-     * The task type, is done status, description and deadline are separated by " | ".
-     * The description and deadline are separated by " | ".
      *
      * @return Serialized deadline.
      */
