@@ -1,3 +1,5 @@
+package broski;
+
 public class Parser {
     public int parseLength(String reply) {
         return reply.split(" /").length;

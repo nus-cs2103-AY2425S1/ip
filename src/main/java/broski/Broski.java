@@ -1,3 +1,5 @@
+package broski;
+
 import java.util.Scanner;
 
 public class Broski {

@@ -1,3 +1,5 @@
+package broski;
+
 import java.time.LocalDateTime;
 
 public class Event extends Task {
@@ -7,7 +9,7 @@ public class Event extends Task {
     private final DateTimeParser dateTimeParser = new DateTimeParser();
 
     /**
-     * Constructor for Event class.
+     * Constructor for broski.Event class.
      * @param description the description of the task/event
      * @param from when the event begins
      * @param to when the event ends

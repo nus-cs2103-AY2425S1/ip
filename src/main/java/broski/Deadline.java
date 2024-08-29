@@ -1,3 +1,5 @@
+package broski;
+
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {
@@ -6,7 +8,7 @@ public class Deadline extends Task {
     private final DateTimeParser dateTimeParser = new DateTimeParser();
 
     /**
-     * Constructor for Deadline class.
+     * Constructor for broski.Deadline class.
      * @param description the description of the task
      * @param by the deadline of the task
      */
