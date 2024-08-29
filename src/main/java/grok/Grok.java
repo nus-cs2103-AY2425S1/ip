@@ -1,7 +1,10 @@
+package grok;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Grok {
+    private static final String TEXT_FILE_DIRECTORY = "./data/duke.txt";
 
     private static String padHorizontalLines(String msg) {
         String horizontalLine = "_".repeat(80);
@@ -25,10 +28,10 @@ public class Grok {
     }
 
     public static void main(String[] args) {
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = TextFileReader.parseFile(TEXT_FILE_DIRECTORY);
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println(padMessage("Hello! I'm Grok\nWhat ya wanna do to grok your way to success?"));
+        System.out.println(padMessage("Hello! I'm Grok.Grok\nWhat ya wanna do to grok your way to success?"));
         while (true) {
             String userInput = scanner.nextLine();
             if (userInput.isEmpty()) {
@@ -186,7 +189,11 @@ public class Grok {
                                 + "\nNow you have " + tasks.size() + " tasks in the list."
                 ));
             } else {
-                System.out.println(padMessage("OOPS! Sorry, I don't recognize your input :(\n"));
+                System.out.println(padMessage(
+                        "OOPS! Sorry, I don't recognize your input :(\n" +
+                                "Available commands are: " +
+                                "bye, list, mark, unmark, todo, deadline, event, delete"
+                ));
             }
         }
 
