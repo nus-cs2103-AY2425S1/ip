@@ -1,6 +1,10 @@
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +37,7 @@ public class Asura {
                         taskList.add(event);
                         break;
                     case "D":
-                        Deadline deadline = new Deadline(task[2], task[3]);
+                        Deadline deadline = new Deadline(task[2], LocalDateTime.parse(task[3]));
                         taskList.add(deadline);
                         break;
                 }
@@ -141,7 +145,10 @@ public class Asura {
                         if (dateArray.isEmpty()) {
                             throw new AsuraException("The date cannot be empty.");
                         }
-                        Deadline newDeadline = new Deadline(String.join(" ", descriptionArray), String.join(" ", dateArray));
+                        String dateStr = String.join(" ", dateArray);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                        LocalDateTime dateTime = LocalDateTime.parse(dateStr, formatter);
+                        Deadline newDeadline = new Deadline(String.join(" ", descriptionArray), dateTime);
                         tasks.add(newDeadline);
                         saveTasks(tasks, savePath);
                         output.append("Got it. I've added this task:\n").append(newDeadline.toString()).append("\n").append("Now you have ").append(tasks.size()).append(" tasks in your list.\n");
