@@ -1,12 +1,19 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Events extends Task {
 
-    private String start;
-    private String end;
+    private LocalDate start;
+    private LocalDate end;
+
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     public Events(String s, String start, String end) {
         super(s);
-        this.start = start;
-        this.end = end;
+        System.out.println(start);
+        System.out.println(end);
+        this.start = LocalDate.parse(start);
+        this.end = LocalDate.parse(end);
     }
 
     public String infoForFile() {
@@ -21,7 +28,7 @@ public class Events extends Task {
         str = str + "[E]";
         str = str + super.toString();
         str = str + String.format("(from: %s to: %s)",
-                start, end);
+                formatter.format(start), formatter.format(end));
         return str;
     }
 }

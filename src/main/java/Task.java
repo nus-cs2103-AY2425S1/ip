@@ -35,7 +35,7 @@ public abstract class Task {
                 throw new EventNoTimeException();
             }
             String info = details[0];
-            String[] dates = details[1].split("/to ", 2);
+            String[] dates = details[1].split(" /to ", 2);
             if (dates.length < 2) {
                 throw new EventNoTimeException();
             }
