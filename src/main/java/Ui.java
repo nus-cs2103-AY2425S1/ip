@@ -1,5 +1,6 @@
-public class FormattedPrint {
-    public static void greeting() {
+public class Ui {
+
+    public void greeting() {
         System.out.println("""
                 -----------------------------------------
                 Hello! I'm Meep
@@ -8,7 +9,7 @@ public class FormattedPrint {
                 """);
     }
 
-    public static void bye() {
+    public void bye() {
         System.out.println("""
                 -----------------------------------------
                 Meep: Bye! Have a great day!
@@ -16,11 +17,11 @@ public class FormattedPrint {
                 """);
     }
 
-    public static void inputWaiting() {
+    public void inputWaiting() {
         System.out.print("You: ");
     }
 
-    public static void doneTask(String task) {
+    public void doneTask(String task) {
         System.out.println("""
                 -----------------------------------------
                 Meep: Nice! I've marked this task as done:
@@ -30,7 +31,7 @@ public class FormattedPrint {
 
     }
 
-    public static void undoneTask(String task) {
+    public void undoneTask(String task) {
         System.out.println("""
                 -----------------------------------------
                 Meep: OK, I've marked this task as not done yet:
@@ -39,7 +40,7 @@ public class FormattedPrint {
                 """);
     }
 
-    public static void addTask(String task, int size) {
+    public void addTask(String task, int size) {
         System.out.println("""
                 -----------------------------------------
                 Meep: Got it. I've added this task:
@@ -49,7 +50,7 @@ public class FormattedPrint {
         );
     }
 
-    public static void deleteTask(String task, int size) {
+    public void deleteTask(String task, int size) {
         System.out.println("""
                 -----------------------------------------
                 Meep: Noted. I've removed this task:
@@ -59,7 +60,7 @@ public class FormattedPrint {
         );
     }
 
-    public static void listTasks(String tasks) {
+    public void listTasks(String tasks) {
         System.out.println("""
                 -----------------------------------------
                 Meep: Here are the tasks in your list:
@@ -68,7 +69,7 @@ public class FormattedPrint {
         );
     }
 
-    public static void invalidCommand() {
+    public void invalidCommand() {
         System.out.println("""
                 -----------------------------------------
                 Meep: Sorry, I don't understand that command. Please try again.
@@ -76,7 +77,7 @@ public class FormattedPrint {
                 """);
     }
 
-    public static void invalidTodoCommand() {
+    public void invalidTodoCommand() {
         System.out.println("""
                 -----------------------------------------
                 Meep: Sorry, there is something wrong with your todo command.
@@ -85,7 +86,7 @@ public class FormattedPrint {
                 """);
     }
 
-    public static void invalidDeadlineCommand() {
+    public void invalidDeadlineCommand() {
         System.out.println("""
                 -----------------------------------------
                 Meep: Sorry, there is something wrong with your deadline command.
@@ -94,7 +95,7 @@ public class FormattedPrint {
                 """);
     }
 
-    public static void invalidEventCommand() {
+    public void invalidEventCommand() {
         System.out.println("""
                 -----------------------------------------
                 Meep: Sorry, there is something wrong with your event command.
@@ -103,7 +104,7 @@ public class FormattedPrint {
                 """);
     }
 
-    public static void invalidMarkCommand() {
+    public void invalidMarkCommand() {
         System.out.println("""
                 -----------------------------------------
                 Meep: Sorry, there is something wrong with your mark command.
@@ -113,7 +114,7 @@ public class FormattedPrint {
                 """);
     }
 
-    public static void invalidUnmarkCommand() {
+    public void invalidUnmarkCommand() {
         System.out.println("""
                 -----------------------------------------
                 Meep: Sorry, there is something wrong with your unmark command.
@@ -123,7 +124,7 @@ public class FormattedPrint {
                 """);
     }
 
-    public static void invalidDeleteCommand() {
+    public void invalidDeleteCommand() {
         System.out.println("""
                 -----------------------------------------
                 Meep: Sorry, there is something wrong with your delete command.
@@ -133,11 +134,27 @@ public class FormattedPrint {
                 """);
     }
 
-    public static void invalidDateFormat() {
+    public void invalidDateFormat() {
         System.out.println("""
                 -----------------------------------------
                 Meep: Sorry, there is something wrong with the date format.
                 Please use the format: d/M/yyyy HHmm
+                -----------------------------------------
+                """);
+    }
+
+    public void errorLoadingTask() {
+        System.out.println("""
+                -----------------------------------------
+                Meep: Error loading task: The saved task is in an invalid format.
+                -----------------------------------------
+                """);
+    }
+
+    public void error() {
+        System.out.println("""
+                -----------------------------------------
+                Meep: An error occurred. Please try again.
                 -----------------------------------------
                 """);
     }
