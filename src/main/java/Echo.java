@@ -10,7 +10,8 @@ public class Echo {
     private String word;
     private TaskList list;
     private final Storage storage;
-    private Ui ui;
+    private final Ui ui;
+    private final Parser parser;
 
     public Echo() {
         this.storage = new Storage("data/chatHistory.txt");
@@ -20,6 +21,7 @@ public class Echo {
             this.list = new TaskList();
         }
         this.ui = new Ui();
+        this.parser = new Parser();
     }
 
     public void setWord(String word) {
@@ -67,7 +69,7 @@ public class Echo {
 
             case "todo":
                 try {
-                    Task toDoTask = new ToDoTask(parts[1], false);
+                    Task toDoTask = parser.parseToDoTask(parts[1]);
                     list.addTask(toDoTask);
                     System.out.print(ui.affirm() + toDoTask.getDescription() + "\n" + ui.line() +
                             String.format("Now you have %d tasks in the list\n", list.size()));
@@ -78,14 +80,11 @@ public class Echo {
 
             case "deadline":
                 try {
-                    int byIndex = parts[1].indexOf("/by");
-                    String desc = parts[1].substring(0, byIndex);
-                    String deadline = parts[1].substring(byIndex + 4);
-                    Task deadlineTask = new DeadlineTask(desc, false, deadline);
+                    Task deadlineTask = parser.parseDeadlineTask(parts[1]);
                     list.addTask(deadlineTask);
                     System.out.print(ui.affirm() + deadlineTask.getDescription() +
                                     "\n" + ui.line() + String.format("Now you have %d tasks in the list\n", list.size()));
-                } catch  (StringIndexOutOfBoundsException e) {
+                } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("Incorrect format of adding deadline tasks. " +
                             "Use '/by to specify the deadline after the task description");
                 } catch (DateTimeParseException e) {
@@ -95,14 +94,7 @@ public class Echo {
                 break;
             case "event":
                 try {
-                    int fromIndex = parts[1].indexOf("/from");
-                    int toIndex = parts[1].indexOf("/to");
-
-                    String details = parts[1].substring(0, fromIndex);
-                    String start = parts[1].substring(fromIndex + 6, toIndex - 1);
-                    String end = parts[1].substring(toIndex + 4);
-
-                    Task eventTask = new EventTask(details, false, start, end);
+                    Task eventTask = parser.parseEventTask(parts[1]);
                     list.addTask(eventTask);
 
                     System.out.print(ui.affirm() + eventTask.getDescription() +
