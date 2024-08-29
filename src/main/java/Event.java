@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -39,5 +40,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return super.toString() + " (from: " + start.format(OUTPUT_FORMAT) + " to: " + end.format(OUTPUT_FORMAT) + ")";
+    }
+
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        return (getStartDateTime().toLocalDate().equals(date) || getEndDateTime().toLocalDate().equals(date));
     }
 }

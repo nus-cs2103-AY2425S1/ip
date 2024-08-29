@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,12 +20,18 @@ public class Deadline extends Task {
         return end;
     }
 
+    public String getDeadline() {
+        return end.format(INPUT_FORMAT);
+    }
+
     @Override
     public String toString(){
         return super.toString() + "(by: " + end.format(OUTPUT_FORMAT) + ")";
     }
-
-    public String getDeadline() {
-        return end.format(INPUT_FORMAT);
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        return getEnd().toLocalDate().equals(date);
     }
+
+
 }

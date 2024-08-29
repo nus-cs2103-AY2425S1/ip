@@ -1,4 +1,6 @@
-public class Task {
+import java.time.LocalDate;
+
+public abstract class Task {
     private String desc;
     private String type;
     private boolean done;
@@ -28,6 +30,8 @@ public class Task {
     public String getDesc(){
         return this.desc;
     }
+
+    public abstract boolean isOnDate(LocalDate date);
 
     @Override
     public String toString(){
