@@ -1,3 +1,5 @@
+package wenjigglybot;
+
 public class EventException extends Exception {
     @Override
     public String toString() {

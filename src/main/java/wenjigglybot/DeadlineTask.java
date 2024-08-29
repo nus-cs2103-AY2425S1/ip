@@ -1,8 +1,10 @@
+package wenjigglybot;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
-// Task with a deadline
+// wenjigglybot.Task with a deadline
 public class DeadlineTask extends Task {
     String deadlineString;
     LocalDate deadline;
@@ -19,7 +21,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public String taskType() {
-        return "Event Task";
+        return "Event wenjigglybot.Task";
     }
 
     @Override

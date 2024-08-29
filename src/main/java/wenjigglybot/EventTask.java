@@ -1,3 +1,5 @@
+package wenjigglybot;
+
 public class EventTask extends Task {
     String from;
     String to;
@@ -10,7 +12,7 @@ public class EventTask extends Task {
 
     @Override
     public String taskType() {
-        return "Event Task";
+        return "Event wenjigglybot.Task";
     }
 
     @Override

@@ -1,3 +1,5 @@
+package wenjigglybot;
+
 public class Ui {
 
     public void intro() {
@@ -20,7 +22,7 @@ public class Ui {
     }
 
     public void showCompletedTask(Task task) {
-        System.out.println("\tYay! Task Completed!");
+        System.out.println("\tYay! wenjigglybot.Task Completed!");
         System.out.println("\t" + task);
     }
 

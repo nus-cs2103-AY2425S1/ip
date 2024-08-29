@@ -1,6 +1,5 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+package wenjigglybot;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;

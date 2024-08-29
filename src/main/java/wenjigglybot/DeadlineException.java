@@ -1,3 +1,5 @@
+package wenjigglybot;
+
 public class DeadlineException extends Exception {
     @Override
     public String toString() {

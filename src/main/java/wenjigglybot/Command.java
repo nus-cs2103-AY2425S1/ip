@@ -1,3 +1,5 @@
+package wenjigglybot;
+
 public enum Command {
     LIST,
     MARK,

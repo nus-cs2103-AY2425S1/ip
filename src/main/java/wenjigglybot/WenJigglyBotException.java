@@ -1,3 +1,5 @@
+package wenjigglybot;
+
 public class WenJigglyBotException extends Exception {
     String s;
 
