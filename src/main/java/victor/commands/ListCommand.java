@@ -8,7 +8,7 @@ public class ListCommand extends Command {
     }
     @Override
     public ReturnMessage execute() {
-        if (taskList.size() == 0) {
+        if (taskList.getSize() == 0) {
             return new ReturnMessage("  ~  No tasks in the list, add some To Dos, Events,"
                 + " and Deadlines first :)");
         } else {

@@ -26,7 +26,7 @@ public class UI {
         this.out = System.out;
     }
 
-    public void welcomeMessage() {
+    public void showWelcomeMessage() {
         out.println(LOGO);
         out.println("Hello! My name is Victor!");
         out.println("What can I do for you?");
@@ -43,7 +43,7 @@ public class UI {
     }
 
     public void showUserMessage(ReturnMessage returnMessage) {
-        if (!returnMessage.isEmpty()) {
+        if (!returnMessage.checkIsEmpty()) {
             for (String message : returnMessage.getMessages()) {
                 out.println(message);
             }
@@ -51,7 +51,7 @@ public class UI {
         }
     }
 
-    public void byeMessage() {
+    public void showByeMessage() {
         out.println("  ~  Goodbye! Hope to see you again soon!");
         out.println(DIVIDER);
     }

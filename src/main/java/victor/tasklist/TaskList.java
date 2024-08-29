@@ -21,14 +21,14 @@ public class TaskList {
         this.tasks.add(task);
         return new String[] {"  ~  Cool! I added this task:",
             "  ~  " + task,
-            "  ~  You now have " + this.size() + ((this.size() == 1) ? " task" : " tasks") + " in your list."};
+            "  ~  You now have " + this.getSize() + ((this.getSize() == 1) ? " task" : " tasks") + " in your list."};
     }
 
     public String[] deleteTask(int taskNumber) {
         try {
             Task removed = tasks.remove(taskNumber - 1);
             return new String[] {"  ~  Deleting the task below now!",
-                "  ~  " + removed, "  ~  You now have " + this.size() + ((this.size() == 1) ? " task" : " tasks")
+                "  ~  " + removed, "  ~  You now have " + this.getSize() + ((this.getSize() == 1) ? " task" : " tasks")
                     + " in your list."};
         } catch (NumberFormatException e) {
             return new String[] {"  ~  Sorry, I don't think you entered a number for which task to delete!"};
@@ -86,7 +86,7 @@ public class TaskList {
         return outputList;
     }
 
-    public int size() {
+    public int getSize() {
         return this.tasks.size();
     }
 
