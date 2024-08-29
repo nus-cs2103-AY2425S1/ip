@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.purrfessordipsy.PurrfessorDipsy");
+    mainClass.set("purrfessordipsy.PurrfessorDipsy");
 }
 
 shadowJar {
