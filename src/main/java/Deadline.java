@@ -8,4 +8,9 @@ public class Deadline extends Task{
     public String printTask() {
         return String.format("[D]%s (by: %s)", super.printTask(), deadline);
     }
+
+    @Override
+    public String toFileFormat() {
+        return String.format("D | %s | %s", super.toFileFormat(), deadline);
+    }
 }

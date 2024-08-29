@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.FileWriter;
 
 public class James {
 
@@ -65,6 +66,16 @@ public class James {
         }
     }
 
+    public static void saveTasksToFile(ArrayList<Task> tasks, String filepath) {
+        try (FileWriter writer = new FileWriter(filepath)) {
+            for (Task task : tasks) {
+                writer.write(task.toFileFormat() + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks to the file: " + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         String greeting = "Hello Big Boy! I'm James \n" +
                 "How can I assist you today? \n";
@@ -99,12 +110,13 @@ public class James {
                         case "mark":
                             int markTaskNum = Integer.parseInt(command.substring(command.length() - 1));
                             tasks.get(markTaskNum - 1).mark();
-                            // Fallthrough if required, else break;
+                            saveTasksToFile(tasks, "data/james.txt");
                             break;
 
                         case "unmark":
                             int unmarkTaskNum = Integer.parseInt(command.substring(command.length() - 1));
                             tasks.get(unmarkTaskNum - 1).unMark();
+                            saveTasksToFile(tasks, "data/james.txt");
                             break;
 
                         case "todo":
@@ -113,6 +125,7 @@ public class James {
                             tasks.add(todoTask);
                             System.out.println("Task added:" + "\n" + todoTask.printTask());
                             System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+                            saveTasksToFile(tasks, "data/james.txt");
                             break;
 
                         case "deadline":
@@ -122,6 +135,7 @@ public class James {
                             tasks.add(deadlineTask);
                             System.out.println("Task added:" + "\n" + deadlineTask.printTask());
                             System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+                            saveTasksToFile(tasks, "data/james.txt");
                             break;
 
                         case "event":
@@ -133,6 +147,7 @@ public class James {
                             tasks.add(eventTask);
                             System.out.println("Task added:" + "\n" + eventTask.printTask());
                             System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+                            saveTasksToFile(tasks, "data/james.txt");
                             break;
 
                         case "delete":
@@ -140,6 +155,7 @@ public class James {
                             System.out.println("Task removed:" + "\n" + tasks.get(deleteTaskNum - 1).printTask());
                             tasks.remove(deleteTaskNum - 1);
                             System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+                            saveTasksToFile(tasks, "data/james.txt");
                             break;
 
                         default:
