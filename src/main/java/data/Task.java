@@ -4,7 +4,7 @@ package data;
  * Represents a task to be done
  */
 public abstract class Task {
-    private boolean completed;
+    private boolean isComplete;
     private String description;
 
     /**
@@ -26,14 +26,14 @@ public abstract class Task {
      * Method to mark the task as done
      */
     public void markDone() {
-        this.completed = true;
+        this.isComplete = true;
     }
 
     /**
      * Method to mark the task as not done
      */
     public void markNotDone() {
-        this.completed = false;
+        this.isComplete = false;
     }
 
     /**
@@ -42,7 +42,7 @@ public abstract class Task {
      * @return String in the correct format for file saving
      */
     public String getSaveTaskString() {
-        if (completed) {
+        if (this.isComplete) {
             return "|1|" + description;
         }
 
@@ -51,7 +51,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        if (completed) {
+        if (this.isComplete) {
             return "[X] " + description;
         } else {
             return "[ ] " + description;

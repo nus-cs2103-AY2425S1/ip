@@ -10,7 +10,8 @@ import java.util.Scanner;
  * Handles saving of tasks into file
  */
 public class Storage {
-    private final String filePath = "./data/taskFile.txt";
+
+    private final String FILE_PATH = "./data/taskFile.txt";
     private File taskFile;
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -22,7 +23,7 @@ public class Storage {
      * @throws IOException if there is an error opening saved file
      */
     public TaskList load() throws IOException {
-        taskFile = new File(filePath);
+        taskFile = new File(FILE_PATH);
         File folder = new File("./data");
         if (!folder.exists()) {
             folder.mkdirs();
