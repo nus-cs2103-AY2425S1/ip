@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -31,7 +33,9 @@ public class ChatBaby {
                 markTask(input, tasks);
             } else if (input.startsWith("unmark")) {
                 unmarkTask(input, tasks);
-            } else if (input.startsWith("todo")) {
+            } else if (input.startsWith("list that ends on")) {
+                listTasksOn(input.substring(18), tasks);
+            }else if (input.startsWith("todo")) {
                 handleTaskCommand(tasks, TaskType.TODO, input, 5);
             } else if (input.startsWith("deadline")) {
                 handleTaskCommand(tasks, TaskType.DEADLINE, input, 9);
@@ -88,6 +92,40 @@ public class ChatBaby {
         }
 
         return tasks;
+    }
+
+    public static void listTasksOn(String time, ArrayList<Task> tasks) {
+        System.out.println("____________________________________________________________");
+        try {
+            // Parse the input date
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate givenDate = LocalDate.parse(time, formatter);
+            System.out.println("Tasks that end on " + givenDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+
+            boolean hasTasks = false;
+            for (Task task : tasks) {
+                if (task instanceof Deadline) {
+                    Deadline deadlineTask = (Deadline) task;
+                    if (deadlineTask.getDeadline().toLocalDate().equals(givenDate)) {
+                        System.out.println(task.toString());
+                        hasTasks = true;
+                    }
+                } else if (task instanceof Event) {
+                    Event eventTask = (Event) task;
+                    if (eventTask.getTo().toLocalDate().equals(givenDate)) {
+                        System.out.println(task.toString());
+                        hasTasks = true;
+                    }
+                }
+            }
+
+            if (!hasTasks) {
+                System.out.println("No tasks ending on this date.");
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid date format. Please use yyyy-mm-dd.");
+        }
+        System.out.println("____________________________________________________________");
     }
 
     public static void greet() {

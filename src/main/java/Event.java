@@ -20,6 +20,10 @@ public class Event extends Task{
         this.to = to;
     }
 
+    public LocalDateTime getTo() {
+        return to;
+    }
+
     @Override
     public String toFileText() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");

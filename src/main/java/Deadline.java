@@ -16,6 +16,10 @@ public class Deadline extends Task{
         this.deadline = deadline;
     }
 
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
     @Override
     public String toFileText() {
         return "D | " + (isDone ? "1" : "0") + " | " + name + " | "
