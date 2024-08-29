@@ -30,6 +30,4 @@ public class MarkCommand extends Command {
             throw new LictException("Please enter a valid integer index. For eg. 'mark 1'");
         }
     }
-
-
 }

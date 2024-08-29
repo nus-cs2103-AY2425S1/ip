@@ -29,40 +29,40 @@ public class Parser {
             }
 
             switch (type) {
-                case LIST:
-                    c = new ListCommand();
-                    break;
+            case LIST:
+                c = new ListCommand();
+                break;
 
-                case MARK:
-                    c = new MarkCommand(info);
-                    break;
+            case MARK:
+                c = new MarkCommand(info);
+                break;
 
-                case UNMARK:
-                    c = new UnmarkCommand(info);
-                    break;
+            case UNMARK:
+                c = new UnmarkCommand(info);
+                break;
 
-                case DELETE:
-                    c = new DeleteCommand(info);
-                    break;
+            case DELETE:
+                c = new DeleteCommand(info);
+                break;
 
-                case TODO:
-                    c = new TodoCommand(info);
-                    break;
+            case TODO:
+                c = new TodoCommand(info);
+                break;
 
-                case DEADLINE:
-                    c = new DeadlineCommand(info);
-                    break;
+            case DEADLINE:
+                c = new DeadlineCommand(info);
+                break;
 
-                case EVENT:
-                    c = new EventCommand(info);
-                    break;
+            case EVENT:
+                c = new EventCommand(info);
+                break;
 
-                case BYE:
-                    c = new ByeCommand();
-                    break;
+            case BYE:
+                c = new ByeCommand();
+                break;
 
-                default:
-                    //Fallthrough
+            default:
+                //Fallthrough
             }
         } catch (IllegalArgumentException e) {
             throw new LictException("OOPS!!! I'm sorry, but I don't know what that means. Please only input tasks which start with these words: " + Arrays.toString(CommandType.values()).toLowerCase());
