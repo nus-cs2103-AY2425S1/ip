@@ -2,6 +2,9 @@ package dude;
 
 import dude.exception.DudeException;
 
+import dude.task.Task;
+import dude.task.TaskList;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

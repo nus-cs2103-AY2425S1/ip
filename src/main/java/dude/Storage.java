@@ -3,6 +3,12 @@ package dude;
 import dude.exception.DudeCorruptedDataException;
 import dude.exception.DudeDateTimeFormatException;
 
+import dude.task.Deadline;
+import dude.task.Event;
+import dude.task.Task;
+import dude.task.TaskList;
+import dude.task.ToDo;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;

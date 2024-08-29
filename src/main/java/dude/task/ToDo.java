@@ -1,4 +1,4 @@
-package dude;
+package dude.task;
 
 /**
  * Represents a task with only description.

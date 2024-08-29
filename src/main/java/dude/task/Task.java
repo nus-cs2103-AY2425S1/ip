@@ -1,4 +1,4 @@
-package dude;
+package dude.task;
 
 /**
  * Represents an abstract task for Dude.
