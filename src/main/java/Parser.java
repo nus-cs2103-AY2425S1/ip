@@ -7,8 +7,7 @@ public class Parser {
     private static final DateTimeFormatter dateTextFormatter
             = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
-    public static LocalDateTime parseDateString(String input)
-            throws IllegalArgumentException {
+    public static LocalDateTime parseDateString(String input) {
         if (input.isEmpty()) {
             throw new IllegalArgumentException();
         }
