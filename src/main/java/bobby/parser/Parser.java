@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
+
     public Command parseCommand(String userInput) {
         return Command.fromString(userInput);
     }
