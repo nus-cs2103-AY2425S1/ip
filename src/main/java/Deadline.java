@@ -36,7 +36,6 @@ public class Deadline extends Task{
         LocalTime time = LocalTime.parse(timing_msg[1]);
         String string_time = time.toString();
 
-        System.out.println(string_date + " " + string_time);
         return string_date + " " + string_time;
     }
 
