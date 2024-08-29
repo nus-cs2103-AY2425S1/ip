@@ -14,5 +14,13 @@ public class Parser {
         return input.trim();
     }
 
+    public static String[] parseEvent(String input) {
+        String[] args = input.trim().split("/");
+        args[0] = args[0].trim();
+        args[1] = args[1].trim().substring(5);
+        args[2] = args[2].trim().substring(3);
+        return args;
+    }
+
 
 }

@@ -86,7 +86,7 @@ abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", (isDone ? "X" : " "), this.description);
+        return String.format("[%s] %s ", (isDone ? "X" : " "), this.description.trim());
     }
 
     /* the subclass of Task */
@@ -184,7 +184,7 @@ abstract class Task {
 
         @Override
         public String toString() {
-            return String.format("[E]%s (from: %sto: %s)", super.toString(), this.from, this.to);
+            return String.format("[E]%s(from: %s to: %s)", super.toString(), this.from.trim(), this.to);
         }
     }
 

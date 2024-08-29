@@ -59,7 +59,7 @@ public class Storage {
                 taskList.get(taskList.size() - 1).mark();
             }
         } else if (typeOfTask == 'E') {
-            String command = "event" + fields[2] + "/from" + fields[3] + " /to" + fields[4];
+            String command = "event" + fields[2] + "/from" + fields[3] + "/to" + fields[4];
             Task.decideTask(command, taskList);
             if (fields[1].trim().equals("1")) {
                 taskList.get(taskList.size() - 1).mark();

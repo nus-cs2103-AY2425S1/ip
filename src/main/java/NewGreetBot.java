@@ -30,8 +30,6 @@ public class NewGreetBot {
 
         while (this.isRunning) {
             String input = this.ui.readInput().strip();
-            System.out.println(input);
-            //Parser.parseCommand(input);
             System.out.println(this.getResponse(input));
         }
 
@@ -53,9 +51,13 @@ public class NewGreetBot {
             return this.markAsNotDone(Parser.parseMarkUnmark(segment[1]) - 1);
         } else if (keyword.equals("TODO")) {
             return this.addTodo(Parser.parseTodo(segment[1]));
-        }/* else if (keyword.equals("EVENT")) {
-            return ui.addEvent()
-        } else if (keyword.equals("DEADLINE")) {
+        } else if (keyword.equals("EVENT")) {
+            String[] args = Parser.parseEvent(segment[1]);
+            for (int i = 0; i < args.length; i++) {
+                System.out.println(args[i]);
+            }
+            return this.addEvent(args);
+        }/* else if (keyword.equals("DEADLINE")) {
             return ui.addDeadline()
         } else if (keyword.equals("DELETE")) {
             return ui.delete()
@@ -78,6 +80,12 @@ public class NewGreetBot {
         Task todo = new Task.Todo(description);
         this.tasks.add(todo);
         return this.ui.showAdd(todo, this.tasks.getLength());
+    }
+
+    private String addEvent(String[] args) {
+        Task event = new Task.Event(args[0], args[1], args[2]);
+        this.tasks.add(event);
+        return this.ui.showAdd(event, this.tasks.getLength());
     }
 
     public static void main(String[] args) {
