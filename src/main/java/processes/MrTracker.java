@@ -1,5 +1,4 @@
-package main.java.processes;
-
+package processes;
 
 public class MrTracker {
 
