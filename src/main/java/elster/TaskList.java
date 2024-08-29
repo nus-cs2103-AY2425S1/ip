@@ -1,6 +1,7 @@
 package elster;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import elster.tasks.Task;
 
@@ -135,5 +136,17 @@ public class TaskList {
         }
 
         return returnStr.toString();
+    }
+
+    public List<Task> findByDescription(String input) {
+        ArrayList<Task> result = new ArrayList<>();
+
+        for (Task i : list) {
+            if (i.descContains(input)) {
+                result.add(i);
+            }
+        }
+        
+        return result;
     }
 }

@@ -9,6 +9,8 @@ import elster.tasks.EventTask;
 import elster.tasks.Task;
 import elster.tasks.ToDoTask;
 
+import java.util.List;
+
 public class Elster {
     private TaskList taskList;
     private final Ui ui;
@@ -136,6 +138,10 @@ public class Elster {
                 } catch (Elseption e) {
                     ui.saveFileErrorMessage();
                 }
+
+            } else if (input.startsWith("find")) {
+                List<Task> result = taskList.findByDescription(input.substring(5).strip());
+                ui.findByDescriptionMessage(result);
 
             } else {
                 ui.nonsenseErrorMessage();

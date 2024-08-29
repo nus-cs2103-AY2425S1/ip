@@ -1,6 +1,9 @@
 package elster;
 
+import java.util.List;
+
 import elster.tasks.Task;
+
 
 /**
  * Ui class that handles sending messages to interact with the user.
@@ -127,6 +130,16 @@ public class Ui {
     public void alreadyUndoneErrorMessage() {
         printLine();
         System.out.println("    So uh, the task already is not done");
+        printLine();
+    }
+
+
+    public void findByDescriptionMessage(List<Task> taskList) {
+        printLine();
+        System.out.println("    Elster has trudged through the archives for your results:");
+        for (int i = 0 ; i < taskList.size() ; i++) {
+            System.out.println("    " + (i + 1) + "." + taskList.get(i));
+        }
         printLine();
     }
 

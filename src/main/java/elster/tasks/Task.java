@@ -38,6 +38,11 @@ public abstract class Task {
         }
     }
 
+
+    public boolean descContains(String str) {
+        return description.contains(str);
+    }
+
     /**
      * Marks the task as undone.
      * The method returns false if the task was already undone.
