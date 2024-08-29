@@ -1,24 +1,23 @@
-import java.lang.reflect.Array;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Talker {
-
     private static final String NAME = "Talker";
     private static final String LINE = "____________________________________________________________";
-
     private static ArrayList<Task> list = new ArrayList<>();
-
+    private static Path directoryPath = Paths.get("./data");
+    private static Path filePath = Paths.get("./data/talker.txt");
     public static void main(String[] args) {
-
         System.out.println(LINE);
         System.out.printf("Hello! I'm %s\n", NAME);
         System.out.println("What can I do for you?");
         System.out.println(LINE);
-
         Scanner reader = new Scanner(System.in);
-
-
         // read user input
         String input = reader.nextLine();
         System.out.println(LINE);
@@ -26,7 +25,8 @@ public class Talker {
         // if command "bye" entered, exit
         while (!input.equals("bye")) {
             try {
-                inputManager(input);
+                manageInputs(input);
+                writeFile();
             } catch (TalkerException e) {
                 System.out.println("Error: " + e.getMessage());
             } finally {
@@ -40,9 +40,8 @@ public class Talker {
         System.out.print(LINE);
     }
 
-    private static void inputManager(String input) throws TalkerException {
+    private static void manageInputs(String input) throws TalkerException {
         String[] parsed = input.split(" ");
-
         switch (parsed[0]) {
             case "list":
                 listTasks();
@@ -68,6 +67,37 @@ public class Talker {
             default:
                 throw new TalkerException("Unknown command!");
         }
+    }
+
+    private static void writeFile() throws TalkerException {
+        try {
+            if (!Files.exists(directoryPath) || !Files.isDirectory(directoryPath)) {
+                Files.createDirectory(directoryPath);
+            }
+            if (!Files.exists(filePath) || !Files.isRegularFile(filePath)) {
+                Files.createFile(filePath);
+            }
+            FileWriter fileWriter = new FileWriter(filePath.toString());
+            String[] taskList = Talker.getTaskListToSave();
+            for (int i = 0; i < taskList.length; i++) {
+                fileWriter.write(taskList[i]);
+                if (i < taskList.length - 1) {
+                    fileWriter.write(System.lineSeparator());
+                }
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new TalkerException("Unable to write to file. Error occurred: " + e.getMessage());
+        }
+    }
+
+    private static String[] getTaskListToSave() {
+        int size = Talker.list.size();
+        String[] taskList = new String[size];
+        for (int i = 0; i < size; i++) {
+            taskList[i] = Talker.list.get(i).getSaveFormat();
+        }
+        return taskList;
     }
 
     private static void listTasks() throws TalkerException {

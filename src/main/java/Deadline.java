@@ -15,9 +15,20 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns string representation of Deadline for file writing
+     *
+     * @return String formatted by Task including deadline
+     */
+    @Override
+    public String getSaveFormat() {
+        return super.getSaveFormat() + " | " + by;
+    }
+
+    /**
      * Returns String representation of Deadline
      * @return "[D]" with string representation of Task and included deadline
      */
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }

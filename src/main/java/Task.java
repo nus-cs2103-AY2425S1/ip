@@ -7,7 +7,7 @@ public class Task {
     protected TaskType taskType;
 
     /**
-     * Constructor for Task, marks task as incomplete to start
+     * Constructs a new Task object, marks task as incomplete to start
      *
      * @param description description of task
      */
@@ -19,6 +19,7 @@ public class Task {
 
     /**
      * Returns string representing status of task
+     *
      * @return "X" if completed else " "
      */
     private String getComplete() {
@@ -43,6 +44,15 @@ public class Task {
     public String unmark() {
         this.complete = false;
         return String.format("OK, I've marked this task as not done yet:\n%s", this);
+    }
+
+    /**
+     * Returns String representation of task needed for file writing
+     *
+     * @return String in format specified to write to file
+     */
+    public String getSaveFormat() {
+        return String.format("T | %s | %s", this.getComplete(), this.description);
     }
 
     /**

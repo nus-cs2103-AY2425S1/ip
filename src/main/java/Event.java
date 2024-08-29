@@ -7,6 +7,7 @@ public class Event extends Task {
 
     /**
      * Constructor for Event
+     *
      * @param description description of task
      * @param from starting date/time
      * @param to ending date/time
@@ -18,9 +19,21 @@ public class Event extends Task {
     }
 
     /**
+     * Returns string representation of Event for file writing
+     *
+     * @return String formatted by Task including start and end date/time
+     */
+    @Override
+    public String getSaveFormat() {
+        return super.getSaveFormat() + " | " + from + " | " + to;
+    }
+
+    /**
      * Returns String representation of Event
+     *
      * @return "[E]" with String representation of task including start and end date/time
      */
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: "+ to + ")";
     }
