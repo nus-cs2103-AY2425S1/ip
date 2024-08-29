@@ -1,11 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.io.File;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 /**
  * Nayana is a class that demonstrates a simple console-based interaction.
  * It prints an ASCII logo and several lines of text to the console.
@@ -86,19 +82,17 @@ public class Nayana {
                     String[] parts = command.split(" /by ");
                     String description = parts[0].substring(8).trim();
                     String deadline = parts[1].trim();
-                    LocalDate d1 = LocalDate.parse(deadline);
-                    Deadlines nextTask = new Deadlines(description, d1);
+
+                    Deadlines nextTask = new Deadlines(description, deadline);
                     taskList.addTask(nextTask);
                 } else if (command.startsWith("event")) {
                     String[] fromParts = command.split(" /from ");
                     String description = fromParts[0].substring(5).trim();
                     String[] toParts = fromParts[1].split(" /to ");
                     String startTime = toParts[0].trim();
-                    LocalDate d1 = LocalDate.parse(startTime);
                     String endTime = toParts[1].trim();
-                    LocalDate d2 = LocalDate.parse(endTime);
 
-                    Event nextTask = new Event(description,d1,d2);
+                    Event nextTask = new Event(description, startTime, endTime);
                     taskList.addTask(nextTask);
                 } else if (command.startsWith("todo")) {
                     String[] parts = command.split("todo ");
@@ -144,12 +138,6 @@ public class Nayana {
                 throw new NayanaException("invalid format for deadline");
             } else if (parts[0].substring(8).trim().isEmpty() || parts[1].trim().isEmpty()) {
                 throw new NayanaException("description and deadline cannot be empty.");
-            } else {
-                String deadline = parts[1].trim();
-                if (!validDateFormat(deadline)) {
-                    System.out.println(deadline);
-                    throw new NayanaException("invalid date format");
-                }
             }
             return command;
         } else if (command.startsWith("event")) {
@@ -163,14 +151,6 @@ public class Nayana {
                 } else if (fromParts[0].substring(5).trim().isEmpty() ||
                       toParts[0].trim().isEmpty() || toParts[1].trim().isEmpty()) {
                     throw new NayanaException("description, start time and end time cannot be empty.");
-                } else {
-                    String startTime = toParts[0].trim();
-                    LocalDate d1 = LocalDate.parse(startTime);
-                    String endTime = toParts[1].trim();
-                    LocalDate d2 = LocalDate.parse(endTime);
-                    if (!validDateFormat(startTime) || !validDateFormat(endTime)) {
-                        throw new NayanaException("invalid date format");
-                    }
                 }
             }
             return command;
@@ -185,15 +165,6 @@ public class Nayana {
         } else {
             throw new NayanaException("Please use the correct format and start your prompts \nwith " +
                   "deadline, event, todo, mark, unmark, delete, list, bye ");
-        }
-    }
-
-    private static boolean validDateFormat(String deadline) {
-        try {
-            LocalDate d1 = LocalDate.parse(deadline);
-            return true;
-        } catch (DateTimeParseException e) {
-            return false;
         }
     }
 }

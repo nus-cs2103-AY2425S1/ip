@@ -1,22 +1,17 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 /**
  * Represents a task with a specific deadline.
  */
 public class Deadlines extends Task{
-    private LocalDate date;
+    private String end;
     /**
      * Constructs a deadline task with the given description and end time.
      *
      * @param description The description of the task.
-     * @param date The end time of the deadline.
+     * @param end The end time of the deadline.
      */
-    public Deadlines(String description, LocalDate date) {
+    public Deadlines(String description, String end) {
         super(description);
-        this.date = date;
-
-
+        this.end = end;
     }
 
     /**
@@ -36,7 +31,7 @@ public class Deadlines extends Task{
      */
     @Override
     public String getDates() {
-        return "| " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return "| " + this.end;
     }
 
     /**
@@ -46,7 +41,7 @@ public class Deadlines extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + this.end + ")";
     }
 
 }
