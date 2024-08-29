@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import task.Deadline;
@@ -135,7 +136,7 @@ public class Mummy {
       String description = tokens[0];
       String dueBy = tokens[1];
 
-      addTaskToStore(new Deadline(description, dueBy));
+      addTaskToStore(new Deadline(description, LocalDate.parse(dueBy)));
     } catch (IndexOutOfBoundsException exception) {
       throw new MummyException("Invalid argument: /by is required");
     }
