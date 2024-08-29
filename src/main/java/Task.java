@@ -12,13 +12,9 @@ public abstract class Task {
 
     public void mark() {
         this.marked = true;
-        System.out.println("Slay! marked it as done! \n"
-                + this.printTask());
     }
     public void unMark() {
         this.marked = false;
-        System.out.println("OK, I've marked it as not done yet \n"
-                + this.printTask());
     }
     public String printTask() {
         String mark = marked ? "X" : " ";
