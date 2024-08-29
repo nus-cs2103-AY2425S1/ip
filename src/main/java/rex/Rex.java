@@ -14,10 +14,21 @@ import rex.util.Ui;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The {@code Rex} class serves as the main entry point for the Rex application,
+ * a task management system that allows users to manage their tasks via various commands.
+ * It integrates storage, task management, and user interaction functionalities.
+ */
 public class Rex {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
+
+    /**
+     * The {@code Rex} class serves as the main entry point for the Rex application,
+     * a task management system that allows users to manage their tasks via various commands.
+     * It integrates storage, task management, and user interaction functionalities.
+     */
     public Rex() {
         try {
             this.storage = new Storage();
@@ -28,6 +39,24 @@ public class Rex {
         }
     }
 
+    /**
+     * Starts the Rex application, providing an interactive loop that continuously reads user input
+     * and processes it into various commands until the "BYE" command is issued.
+     *
+     * <p>The following commands are supported:</p>
+     * <ul>
+     *     <li>{@code HELP} - Displays help information.</li>
+     *     <li>{@code TODO} - Adds a new to-do task.</li>
+     *     <li>{@code DEADLINE} - Adds a new deadline task.</li>
+     *     <li>{@code EVENT} - Adds a new event task.</li>
+     *     <li>{@code LIST} - Displays all tasks in the task list.</li>
+     *     <li>{@code MARK} - Marks a task as done.</li>
+     *     <li>{@code UNMARK} - Unmarks a task (marks it as not done).</li>
+     *     <li>{@code DELETE} - Deletes a task from the list.</li>
+     *     <li>{@code RAWR} - Displays a special message.</li>
+     *     <li>{@code BYE} - Exits the application.</li>
+     * </ul>
+     */
     public void run() {
         ui.greeting();
 
@@ -103,6 +132,12 @@ public class Rex {
         }
     }
 
+    /**
+     * The main method serves as the entry point for the application.
+     * It creates a new {@code Rex} instance and starts the application.
+     *
+     * @param args Command-line arguments (unused).
+     */
     public static void main(String[] args) {
         Rex rex = new Rex();
         rex.run();

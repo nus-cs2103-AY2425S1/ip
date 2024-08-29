@@ -11,19 +11,37 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The {@code Parser} class provides utility methods to parse user input and save file content.
+ * It includes methods to parse commands, tasks, and dates, as well as handle input validation.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input into command and argument tokens.
+     *
+     * @param input The raw user input as a string.
+     * @return A string array where the first element is the command and the second is the argument.
+     * @throws InvalidInputException If the input is invalid based on the command.
+     */
     public static String[] parseInput(String input) throws InvalidInputException {
-        // Parse rex.command and rex.command argument
+        // Parse command and command argument
         String[] inputTokens = input.split(" ", 2);
 
-        // Error check input argument based on rex.command
+        // Error check input argument based on command
         parseInputError(inputTokens);
 
-        // Return rex.command if no error
+        // Return command if no error
         return inputTokens;
     }
 
+    /**
+     * Parses the contents of a file and loads tasks into the provided {@code TaskList}.
+     *
+     * @param list The {@code TaskList} instance where tasks will be loaded.
+     * @param f The file to be parsed.
+     * @throws IOException If an I/O error occurs while reading the file.
+     */
     public static void parseFile(TaskList list, File f) throws IOException {
         // Initialize reader to read from save file
         FileReader r = new FileReader(f);
@@ -39,7 +57,7 @@ public class Parser {
             int marked = Integer.parseInt(taskTokens[1]);
             boolean isMarked = marked == 1;
 
-            // Add to rex.task list
+            // Add to task list
             String description = taskTokens[2];
             switch (taskType) {
             case "T":
@@ -61,6 +79,13 @@ public class Parser {
         r.close();
     }
 
+    /**
+     * Parses the argument for a {@code Deadline} task to extract the description and deadline.
+     *
+     * @param argument The raw argument string containing the task description and deadline.
+     * @return A string array where the first element is the description and the second is the deadline.
+     * @throws InvalidInputException If the input is missing the "/by" keyword or other required elements.
+     */
     public static String[] parseDeadline(String argument) throws InvalidInputException {
         String[] descriptionBy = argument.split("/by ", 2);
         if (descriptionBy.length < 2) {
@@ -70,6 +95,13 @@ public class Parser {
         return descriptionBy;
     }
 
+    /**
+     * Parses the argument for an {@code Event} task to extract the description, start time, and end time.
+     *
+     * @param argument The raw argument string containing the task description, start time, and end time.
+     * @return A string array where the first element is the description, the second is the start time, and the third is the end time.
+     * @throws InvalidInputException If the input is missing the "/from" or "/to" keywords or other required elements.
+     */
     public static String[] parseEvent(String argument) throws InvalidInputException {
         String[] tokens = argument.split("/from ", 2);
         if (tokens.length < 2) {
@@ -86,6 +118,12 @@ public class Parser {
         return new String[] {description, fromTo[0], fromTo[1]};
     }
 
+    /**
+     * Parses a date and time string into a {@code LocalDateTime} object.
+     *
+     * @param dateTimeString The string containing the date and time in the format "dd-MM-yy HHmm".
+     * @return A {@code LocalDateTime} object representing the parsed date and time.
+     */
     public static LocalDateTime parseDateTime(String dateTimeString) {
         LocalDateTime dateTime = LocalDateTime.from(LocalDateTime.parse(dateTimeString,
                 DateTimeFormatter.ofPattern("dd-MM-yy HHmm")));
@@ -93,6 +131,12 @@ public class Parser {
         return dateTime;
     }
 
+    /**
+     * Validates the command input and its arguments, throwing an exception if invalid.
+     *
+     * @param inputTokens The array of command and argument tokens.
+     * @throws InvalidInputException If the input is invalid for the given command.
+     */
     private static void parseInputError(String[] inputTokens) throws InvalidInputException {
         Command command = Command.inputToCommand(inputTokens[0]);
         switch (command) {

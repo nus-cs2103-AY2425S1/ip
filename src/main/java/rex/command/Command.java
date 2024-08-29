@@ -2,11 +2,22 @@ package rex.command;
 
 import rex.exception.InvalidCommandException;
 
+/**
+ * The {@code Command} enum represents the various commands that can be issued in the Rex application.
+ * Each command corresponds to a specific action that the application can perform.
+ */
 public enum Command {
     TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, RAWR, BYE, HELP;
 
     private static Command lastCommand;
 
+    /**
+     * Converts a user input string into the corresponding {@code Command} enum.
+     *
+     * @param input The input string representing the command.
+     * @return The corresponding {@code Command} enum.
+     * @throws InvalidCommandException if the input string does not match any valid command.
+     */
     public static Command inputToCommand(String input) throws InvalidCommandException {
         switch (input) {
         case "help":
@@ -34,6 +45,13 @@ public enum Command {
         }
     }
 
+    /**
+     * Returns a usage message for the specified {@code Command}.
+     * The usage message provides a brief description of how to use the command.
+     *
+     * @param command The {@code Command} for which the usage message is requested.
+     * @return A string containing the usage message for the command.
+     */
     public static String usageMessage(Command command) {
         switch (command) {
         case HELP:
@@ -60,6 +78,11 @@ public enum Command {
         return null;
     }
 
+    /**
+     * Provides a list of all valid commands and their corresponding usage messages.
+     *
+     * @return A formatted string listing all valid commands and their usage instructions.
+     */
     public static String getCommandList() {
         String spaces = "  ";
         String output = "";
