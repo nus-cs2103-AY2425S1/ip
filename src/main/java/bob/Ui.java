@@ -44,6 +44,11 @@ public class Ui {
         System.out.println(unmark);
     }
 
+    /**
+     * Displays a list of tasks that match the search key.
+     *
+     * @param tasksWithKey An ArrayList of tasks that contain the keyword in their descriptions.
+     */
     public void showTasksFound(ArrayList<Task> tasksWithKey) {
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < tasksWithKey.size(); i++) {

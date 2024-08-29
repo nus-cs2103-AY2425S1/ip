@@ -145,6 +145,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches for tasks in the task list that contain the specified keyword in their descriptions.
+     *
+     * @param phrase The input phrase containing the find command and the keyword to search for.
+     * @param ui The user interface object used to display results to the user.
+     * @throws ChatBotException If the keyword is empty or if there is an error during the search.
+     */
     public void searchKeyword(String phrase, Ui ui) throws ChatBotException {
         if (phrase.length() <= 5) {
             throw new ChatBotException("The key of a find command cannot be empty.");
@@ -168,4 +175,5 @@ public class TaskList {
             ui.showError("No tasks found containing the key: " + key);
         }
     }
+
 }
