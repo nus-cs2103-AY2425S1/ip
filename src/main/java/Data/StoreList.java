@@ -165,4 +165,13 @@ public class StoreList {
             System.out.println("No tasks due on " + date);
         }
     }
+
+    public void displayItemsWithWord(String substring) {
+        System.out.println("    Here are the tasks in your list that match " + substring + ":");
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getTaskDesc().contains(substring)) {
+                System.out.println("    " + (i + 1) + "." + items.get(i).print());
+            }
+        }
+    }
 }

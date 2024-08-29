@@ -59,6 +59,10 @@ public class Parser {
         } else if (words[0].equals("bye")) {
             return new ExitCommand(userInput);
 
+            //if user inputs find
+        } else if (words[0].equals("find")) {
+            return new FindCommand(userInput);
+
         } else {
             return new DefaultCommand("     OOPS!!! Sorry leh, but IDK what that means :-");
         }
