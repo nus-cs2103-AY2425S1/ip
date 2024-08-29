@@ -1,8 +1,11 @@
 
 asdasd
 list
-mark 1
-unmark 2
+delete 1
+delete 2
+delete 3
+mark 2
+unmark 3
 mark -1
 unmark -1
 mark 1.23
@@ -39,6 +42,7 @@ delete 2
 list
 delete 1
 delete 1
-delete 1
+event test1 /from 2023-12-12 /to 2068-12-23
+deadline test2 /by 2033-12-11
 list
 bye
