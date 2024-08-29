@@ -9,7 +9,7 @@ public class SamTest {
      * It verifies that the status icon of an item is correctly updated to "X" when marked as done.
      */
     @Test
-    public void markItemDone() {
+    public void markItemDone_sam_success() {
         Item item = new Item("task");
         item.markAsDone();
         assertEquals("X", item.getStatusIcon());
