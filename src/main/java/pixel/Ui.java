@@ -1,3 +1,5 @@
+package pixel;
+
 import java.util.Scanner;
 
 public class Ui {

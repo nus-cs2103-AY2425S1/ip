@@ -1,4 +1,9 @@
+package pixel;
+
 import java.io.IOException;
+
+import pixel.command.Command;
+import pixel.task.TaskList;
 
 public class Pixel {
     private Storage storage;
@@ -28,7 +33,7 @@ public class Pixel {
                 c.execute(taskList, ui, storage);
                 storage.writeFile(taskList);
                 isExit = c.isExit();
-            } catch (TaskException e) {
+            } catch (PixelException e) {
                 ui.PixelSays(e.getMessage());
             } catch (IOException e) {
                 ui.PixelSays(e.getMessage());

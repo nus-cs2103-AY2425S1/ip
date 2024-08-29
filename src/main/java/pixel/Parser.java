@@ -1,5 +1,18 @@
+package pixel;
+
+import pixel.command.AddCommand;
+import pixel.command.Command;
+import pixel.command.DeleteCommand;
+import pixel.command.ExitCommand;
+import pixel.command.ListCommand;
+import pixel.command.MarkCommand;
+import pixel.command.PixelCommandEnum;
+import pixel.task.Deadline;
+import pixel.task.Event;
+import pixel.task.Todo;
+
 public class Parser {
-    public static Command parser(String fullCommand) throws TaskException {
+    public static Command parser(String fullCommand) throws PixelException {
         String cmdString = fullCommand.split(" ")[0].toUpperCase();
         PixelCommandEnum cmd;
 
@@ -11,7 +24,7 @@ public class Parser {
             }
         }
         if (!valid) {
-            throw new TaskException("OH NO!!! I don't understand this! Try Again!");
+            throw new PixelException("OH NO!!! I don't understand this! Try Again!");
         }
 
         cmd = PixelCommandEnum.valueOf(cmdString.toUpperCase());
@@ -39,7 +52,7 @@ public class Parser {
             case DELETE:
                 return new DeleteCommand(input.strip());
             default:
-                throw new TaskException("OH NO!!! I don't understand this! Try Again!");
+                throw new PixelException("OH NO!!! I don't understand this! Try Again!");
         }
     }
 }

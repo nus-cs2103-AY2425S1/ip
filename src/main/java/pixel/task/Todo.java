@@ -1,14 +1,18 @@
+package pixel.task;
+
+import pixel.PixelException;
+
 public class Todo extends Task {
     private String type = "T";
 
-    private static String modifyDescription(String des) throws TaskException {
+    private static String modifyDescription(String des) throws PixelException {
         if (des.length() == 0) {
-            throw new TaskException("OH NO!!! The description of Todo cannot be empty!");
+            throw new PixelException("OH NO!!! The description of Todo cannot be empty!");
         }
         return des;
     }
 
-    public Todo(String description) throws TaskException {
+    public Todo(String description) throws PixelException {
         super(modifyDescription(description));
     }
 

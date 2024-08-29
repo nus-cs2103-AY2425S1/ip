@@ -1,3 +1,5 @@
+package pixel.command;
+
 public enum PixelCommandEnum {
     BYE("BYE"),
     LIST("LIST"),

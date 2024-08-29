@@ -1,18 +1,26 @@
+package pixel.command;
+
+import pixel.Storage;
+import pixel.PixelException;
+import pixel.Ui;
+import pixel.task.Task;
+import pixel.task.TaskList;
+
 public class DeleteCommand extends Command {
     private int taskListIndex;
 
-    public DeleteCommand(String input) throws TaskException {
+    public DeleteCommand(String input) throws PixelException {
         super(false);
         if (!input.matches("-?(0|[1-9]\\d*)")) {
-            throw new TaskException(String.format("%s need to be a number", input));
+            throw new PixelException(String.format("%s need to be a number", input));
         }
         this.taskListIndex = Integer.parseInt(input) - 1;
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws TaskException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws PixelException {
         if (this.taskListIndex < 0 || this.taskListIndex >= taskList.size()) {
-            throw new TaskException(String
+            throw new PixelException(String
                     .format("%d is out of range of task list, index should be range between %d and %d inclusive",
                             this.taskListIndex + 1, 1, taskList.size()));
         }

@@ -1,6 +1,16 @@
+package pixel;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
+import pixel.task.Deadline;
+import pixel.task.Event;
+import pixel.task.Task;
+import pixel.task.TaskList;
+import pixel.task.TaskType;
+import pixel.task.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 
