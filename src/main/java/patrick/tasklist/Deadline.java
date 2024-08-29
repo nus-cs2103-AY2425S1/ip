@@ -25,7 +25,7 @@ public class Deadline extends Task {
     }
 
     public static void deadlineTask(String input) throws Parser.PatrickException {
-        String newInput = input.replace("deadline", "");
+        String newInput = input.replace("deadline ", "");
         if (newInput.isEmpty()) {
             throw new Parser.PatrickException("Deadline Task Details cannot be empty!!");
         }

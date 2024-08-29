@@ -17,17 +17,18 @@ public class ToDo extends Task {
     }
 
     public static void toDoTask(String input) throws Parser.PatrickException {
-        String taskDescription = input.replace("todo", "");
+        String taskDescription = input.replace("todo ", "");
         if (taskDescription.isEmpty()) {
             throw new Parser.PatrickException("Description of a todo cannot be empty!!");
         } else {
             Task task = new ToDo(taskDescription);
             Storage.addList(task);
             Ui.showUserMsg(task.toString());
+            System.out.println(task.toString());
             try {
-                Storage.appendToFile("\n" + task.toString());
+                Storage.appendToFile(task.toString());
             } catch (IOException e) {
-                System.out.println("There is an error: " + e.getMessage());
+                Ui.showErrorMsg("There is an error: " + e.getMessage());
             }
         }
     }
