@@ -7,6 +7,9 @@ import milutrock.tasks.Event;
 import milutrock.tasks.Task;
 import milutrock.tasks.ToDo;
 
+/**
+ * Parses user input commands to interact with a `TaskList` and `Ui`.
+ */
 public class Parser {
     private String stdin;
     private TaskList taskList;
@@ -18,10 +21,22 @@ public class Parser {
         this.ui = ui;
     }
 
+    /**
+     * Returns the value of the `stdin` variable.
+     * 
+     * @return The `stdin` variable.
+     */
     public String getStdin() {
         return this.stdin;
     }
 
+    /**
+     * Processes user input to execute different commands.
+     * Throws an `UnknownCommandException` for unknown commands.
+     * 
+     * @param input The command to execute.
+     * @return A boolean representing if the program should continue taking input.
+     */
     public boolean parseCommand(String input) throws UnknownCommandException {
         this.stdin += input + "\n";
 

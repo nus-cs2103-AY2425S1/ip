@@ -4,6 +4,10 @@ import java.util.Scanner;
 
 import milutrock.exceptions.UnknownCommandException;
 
+/**
+ * A task management program that interacts with users through a
+ * command-line interface.
+ */
 public class MiluTrock {
     private TaskList taskList;
     private Ui ui;
@@ -17,7 +21,7 @@ public class MiluTrock {
         storage = new Storage(path, parser);
     }
 
-    public void run() {
+    private void run() {
         ui.printBanner();
         
         storage.loadTasks();

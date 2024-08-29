@@ -2,6 +2,9 @@ package milutrock.tasks;
 
 import milutrock.exceptions.InvalidTaskFormatException;
 
+/**
+ * A task with a from and to date.
+ */
 public class Event extends Task {
     private String from;
     private String to;
@@ -12,6 +15,13 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Parse string input to create an Event object with a name, start
+     * date, and end date.
+     * 
+     * @param input String input from the user.
+     * @return An Event object created from the given input. 
+     */
     public static Event getEventFromInput(String input) throws InvalidTaskFormatException {
         if (input.length() < 6) {
             throw new InvalidTaskFormatException("Event");
