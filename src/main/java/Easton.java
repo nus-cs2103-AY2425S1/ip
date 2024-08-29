@@ -58,13 +58,16 @@ public class Easton {
                 break;
             case MARK:
                 changeTaskStatus(input, true, "Nice! I've marked this task as done:");
+                saveData();
                 break;
             case UNMARK:
                 changeTaskStatus(input, false, "OK, I've marked this task as not done yet:");
+                saveData();
                 break;
             case TODO:
                 try {
                     addTask(createToDo(input));
+                    saveData();
                 } catch (EmptyDescriptionException e) {
                     System.out.println(e.getMessage());
                 }
@@ -72,6 +75,7 @@ public class Easton {
             case DEADLINE:
                 try {
                     addTask(createDeadline(input));
+                    saveData();
                 } catch (EmptyDescriptionException | InvalidFormatException e) {
                     System.out.println(e.getMessage());
                 }
@@ -79,12 +83,14 @@ public class Easton {
             case EVENT:
                 try {
                     addTask(createEvent(input));
+                    saveData();
                 } catch (EmptyDescriptionException | InvalidFormatException e) {
                     System.out.println(e.getMessage());
                 }
                 break;
             case DELETE:
                 deleteTask(input);
+                saveData();
                 break;
             }
 
@@ -228,7 +234,7 @@ public class Easton {
 
         BufferedReader bufferedReader = new BufferedReader(
                 new FileReader(
-                        filePath.toString()
+                        filePath.toFile()
                 )
         );
 
@@ -251,5 +257,20 @@ public class Easton {
             task.setDone(data[1].equals("1"));
             tasks.add(task);
         }
+    }
+
+    private static void saveData() {
+        try {
+            Path filePath = getFilePath();
+            FileWriter fileWriter = new FileWriter(filePath.toFile());
+            for (Task task : tasks) {
+                fileWriter.write(task.getCsvFormat() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Updated List was not saved properly.");
+        }
+
+
     }
 }
