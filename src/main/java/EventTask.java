@@ -1,8 +1,8 @@
-public class Event extends Task {
+public class EventTask extends Task {
     private String from;
     private String to;
 
-    public Event(String description, String from, String to) {
+    public EventTask(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -11,5 +11,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E] " + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+    @Override
+    public String toFileString() {
+        return "E | " + super.getStatusIcon() + " | " + getDescription() + " | " + from + " | " + to;
     }
 }
