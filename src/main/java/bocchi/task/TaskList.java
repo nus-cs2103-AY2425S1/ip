@@ -16,14 +16,14 @@ public class TaskList {
     private List<Task> tasks;
 
     /**
-     * The bocchi.storage for saving and loading tasks.
+     * The storage for saving and loading tasks.
      */
     private Storage storage;
 
     /**
      * The constructor.
      *
-     * @param storage The bocchi.storage for saving and loading tasks.
+     * @param storage The storage for saving and loading tasks.
      */
     public TaskList(Storage storage) {
         this.storage = storage;
@@ -35,19 +35,19 @@ public class TaskList {
     }
 
     /**
-     * Adds a bocchi.task to the list.
+     * Adds a task to the list.
      *
-     * @param task The bocchi.task to be added.
+     * @param task The task to be added.
      */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
     /**
-     * Deletes a bocchi.task from the list.
+     * Deletes a task from the list.
      *
-     * @param index The index of the bocchi.task to be deleted.
-     * @return The bocchi.task that was deleted.
+     * @param index The index of the task to be deleted.
+     * @return The task that was deleted.
      */
     public Task removeTask(int index) {
         return tasks.remove(index);

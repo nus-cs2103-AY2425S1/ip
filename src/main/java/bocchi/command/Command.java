@@ -3,11 +3,11 @@ package bocchi.command;
 import java.util.Map;
 
 /**
- * Represents a bocchi.command that the user inputs.
+ * Represents a command that the user inputs.
  */
 public class Command {
     /**
-     * The bocchi.command name.
+     * The command name.
      */
     private final String name;
 
@@ -24,9 +24,9 @@ public class Command {
     /**
      * The constructor.
      *
-     * @param name          The name of the bocchi.command.
-     * @param param         The parameter of the bocchi.command.
-     * @param keywordParams The keyword parameters of the bocchi.command.
+     * @param name          The name of the command.
+     * @param param         The parameter of the command.
+     * @param keywordParams The keyword parameters of the command.
      */
     public Command(String name, String param, Map<String, String> keywordParams) {
         this.name = name;

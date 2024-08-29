@@ -3,7 +3,7 @@ package bocchi.task;
 import bocchi.exception.BocchiException;
 
 /**
- * Represents a todo bocchi.task.
+ * Represents a todo task.
  */
 public class Todo extends Task {
 

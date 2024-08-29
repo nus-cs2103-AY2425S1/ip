@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 /**
- * Represents an event bocchi.task.
+ * Represents an event task.
  */
 public class Event extends Task {
     /**

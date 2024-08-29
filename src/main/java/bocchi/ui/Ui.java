@@ -45,10 +45,10 @@ public class Ui {
     }
 
     /**
-     * Reads a bocchi.command.
+     * Reads a command.
      *
      * @param scanner The scanner to use.
-     * @return The bocchi.command.
+     * @return The command.
      */
     public Command readCommand(Scanner scanner) {
         System.out.print(">> ");
