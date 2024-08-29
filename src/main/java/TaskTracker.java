@@ -18,6 +18,10 @@ public class TaskTracker {
     public boolean getReceivedInputs() {
         return this.receivedInputs;
     }
+
+    public void toggleReceivedInputs() {
+        this.receivedInputs = !this.receivedInputs;
+    }
     public String getList() {
         if (this.counter == 0) {
             return "No tasks currently!";
@@ -71,6 +75,9 @@ public class TaskTracker {
     }
     public void sortList() {
         Collections.sort(this.taskList);
+        if (this.taskList.size() > 0) {
+            ui.sortDone();
+        }
     }
     public void updateListToDo(String s) {
         this.taskList.add(new ToDo(s));
