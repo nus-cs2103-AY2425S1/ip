@@ -112,25 +112,21 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
              String line;
              while ((line = reader.readLine()) != null) {
-                System.out.println("newline");
                 String[] taskDetails = line.split(" \\| ");
                 switch (taskDetails[0]) {
                 case "T":
-                    System.out.println("Adding todo");
                     this.addTodo(taskDetails[2]);
                     if (taskDetails[1].equals("1")) {
                         this.getRecentTask().mark();
                     }
                     break;
                 case "D":
-                    System.out.println("Adding deadline");
                     this.addDeadline(taskDetails[2], taskDetails[3]);
                     if (taskDetails[1].equals("1")) {
                         this.getRecentTask().mark();
                     }
                     break;
                 case "E":
-                    System.out.println("Adding event");
                     this.addEvent(taskDetails[2], taskDetails[3], taskDetails[4]);
                     if (taskDetails[1].equals("1")) {
                         this.getRecentTask().mark();
