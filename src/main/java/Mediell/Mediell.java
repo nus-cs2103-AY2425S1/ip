@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.Scanner;
 
+/** The main class Mediell. */
 public class Mediell {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);

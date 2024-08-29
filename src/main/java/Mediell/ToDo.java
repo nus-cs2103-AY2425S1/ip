@@ -2,6 +2,7 @@ package Mediell;
 
 import java.util.Objects;
 
+/** Represents a Task as a ToDo. */
 public class ToDo extends Task{
     public ToDo() {
         super("");
@@ -16,6 +17,11 @@ public class ToDo extends Task{
         return "[T]" + super.toString();
     }
 
+    /**
+     * Checks if the provided string is a valid ToDo.
+     * @param format String
+     * @return true if it is an ToDo else false
+     */
     public static boolean isToDoFormat(String format) {
         return format.startsWith("T");
     }

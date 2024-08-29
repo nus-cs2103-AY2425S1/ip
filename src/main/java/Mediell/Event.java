@@ -2,6 +2,7 @@ package Mediell;
 
 import java.time.LocalDate;
 
+/** Represents a Task as an Event. */
 public class Event extends Task{
     private LocalDate from;
     private LocalDate to;
@@ -23,6 +24,11 @@ public class Event extends Task{
         return "[E]" + super.toString() + "(from: " + from + " to: " + to + ")";
     }
 
+    /**
+     * Checks if the provided string is a valid Event.
+     * @param format String
+     * @return true if it is an Event else false
+     */
     public static boolean isEventFormat(String format) {
         return format.startsWith("E");
     }
