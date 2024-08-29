@@ -32,12 +32,6 @@ public class Skibidi {
         }
     }
 
-    static class InvalidCommandException extends SkibidiException {
-        public InvalidCommandException() {
-            super("INVALID COMMAND GIVEN");
-        }
-    }
-
     static class InvalidItemException extends SkibidiException {
         public InvalidItemException() {
             super("INVALID ITEM NUMBER GIVEN");
@@ -59,9 +53,15 @@ public class Skibidi {
 
     void saveTasksToDisk() {
         File file = new File(dataPath);
-        try (FileWriter writer = new FileWriter(file, false)) {
-            for (AbstractTask task : tasks) {
-                writer.write(task.serialize() + '\n');
+        try {
+            if (file.exists() || file.createNewFile()) {
+                FileWriter writer = new FileWriter(file, false);
+                for (AbstractTask task : tasks) {
+                    writer.write(task.serialize() + '\n');
+                }
+                writer.close();
+            } else {
+                System.out.println("Failed to save changes to file.");
             }
         } catch (IOException err) {
             System.out.println(err.toString());
@@ -137,18 +137,25 @@ public class Skibidi {
         }
         String[] cmdArgs;
         try {
-            switch (SkibidiCommand.valueOf(args[0].toUpperCase())) {
+            SkibidiCommand command = SkibidiCommand.valueOf(args[0].toUpperCase());
+            switch (command) {
                 case LIST:
                     printList();
                     break;
                 case MARK:
+                    if (args.length == 1) {
+                        throw new SkibidiException("COMMAND mark REQUIRES NUMBER ARGUMENT");
+                    }
                     markTask(Integer.parseInt(args[1].strip()) - 1);
                     break;
                 case UNMARK:
+                    if (args.length == 1) {
+                        throw new SkibidiException("COMMAND unmark REQUIRES NUMBER ARGUMENT");
+                    }
                     unmarkTask(Integer.parseInt(args[1].strip()) - 1);
                     break;
                 case TODO:
-                    if (args.length == 1) {
+                    if (args.length != 2 || args[1].isEmpty()) {
                         throw new SkibidiException("COMMAND todo REQUIRES DESCRIPTION ARGUMENT");
                     }
                     Todo todo = new Todo(args[1].strip());
@@ -181,13 +188,15 @@ public class Skibidi {
                     deleteTask(Integer.parseInt(args[1].strip()) - 1);
                     break;
                 default:
-                    throw new InvalidCommandException();
+                    throw new SkibidiException("UNKNOWN COMMAND GIVEN");
             }
             saveTasksToDisk();
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException err) {
             System.out.printf("\tERROR: INVALID NUMBER GIVEN FOR COMMAND: %s\n", args[0]);
-        } catch (SkibidiException e) {
-            System.out.printf("\t%s\n", e.getMessage());
+        } catch (SkibidiException err) {
+            System.out.printf("\t%s\n", err.getMessage());
+        } catch (IllegalArgumentException err) {
+            System.out.printf("\tERROR: INVALID COMMAND GIVEN %s\n", args[0]);
         }
         Skibidi.printSeparator();
     }
@@ -229,7 +238,7 @@ public class Skibidi {
     }
 
     public static void main(String[] args) {
-        Skibidi bot = new Skibidi("/data/tasks.txt");
+        Skibidi bot = new Skibidi("data/tasks.txt");
         bot.start();
     }
 }
