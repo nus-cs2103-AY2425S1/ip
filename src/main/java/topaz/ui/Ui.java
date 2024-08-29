@@ -1,11 +1,11 @@
 package topaz.ui;
 
-import topaz.exception.InvalidStateException;
-import topaz.task.Task;
-
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
+import topaz.exception.InvalidStateException;
+import topaz.task.Task;
 
 public class Ui {
 
