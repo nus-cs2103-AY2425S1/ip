@@ -10,14 +10,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class a storage where users can store their tasks.
+ * It enables users to save and load their tasks.
+ */
 public class Storage {
 
     private String filePath;
 
+    /**
+     * Constructs a Storage instance
+     *
+     * @param filePath The path of the file where the tasks are going to be stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the tasks in the file.
+     *
+     * @param listOfTasks The list of tasks that is in Bobby.
+     */
     public void saveData(ArrayList<Task> listOfTasks) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
 
@@ -27,6 +41,13 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Processes the file containing the tasks line-by-line and creates the tasks.
+     * The tasks are then added to the list of tasks into Bobby.
+     *
+     * @param listOfTasks The list of task that is in Bobby.
+     * @param line Each line in the file.
+     */
     public void processFileLines(ArrayList<Task> listOfTasks, String line) throws EmptyDescriptionException {
         String[] lineParts = line.split(" \\| ");
         switch (lineParts[0]) {
@@ -54,6 +75,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the data from the file to Bobby.
+     *
+     * @param listOfTasks The list of tasks in Bobby.
+     */
     public void loadData(ArrayList<Task> listOfTasks) throws BobbyException {
         File f = new File(this.filePath);
         try {
@@ -66,6 +92,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns an ArrayList of Task.
+     * If there was no file containing the tasks, a new file will be created and empty ArrayList would be returned.
+     *
+     * @return ArrayList of Task
+     */
     public ArrayList<Task> returnTaskList() throws IOException, BobbyException {
         File f = new File(this.filePath);
         ArrayList<Task> tasks = new ArrayList<>();

@@ -3,8 +3,18 @@ package bobby;
 import bobby.exception.BobbyException;
 import bobby.exception.UnknownCommandException;
 
+/**
+ * The Parser class deals with the input of the user.
+ */
 public class Parser {
 
+    /**
+     * Parses the user's input and returns the correct Command.
+     *
+     * @param userInput Input of the user.
+     * @return Command after parsing the user's input.
+     * @throws UnknownCommandException If the user does not input a valid command.
+     */
     public static Command parse(String userInput) throws UnknownCommandException {
         String[] splitInput = userInput.split(" ");
         if (splitInput[0].equalsIgnoreCase("bye")) {
@@ -37,6 +47,14 @@ public class Parser {
         throw new UnknownCommandException();
     }
 
+    /**
+     * Parses user's input and return the task number.
+     *
+     * @param input Input of the user.
+     * @param commandLength Length of the Command.
+     * @return The task number.
+     * @throws BobbyException If the user does not provide a number.
+     */
     public static int parseNumber(String input, int commandLength) throws BobbyException {
         try {
             String inputWithoutCommand = input.substring(commandLength).trim();

@@ -11,6 +11,11 @@ public class Bobby {
     private TaskList listOfTasks;
     private Ui ui;
 
+    /**
+     * Constructs a Bobby instance
+     *
+     * @param filePath Path of file where the data is to be stored.
+     */
     public Bobby(String filePath) {
         this.storage = new Storage(filePath);
         this.ui = new Ui();
@@ -21,6 +26,9 @@ public class Bobby {
         bobby.run();
     }
 
+    /**
+     * The method that is run when Bobby is launched
+     */
     public void run() {
         ui.showGreeting();
         this.initializeTaskList();
@@ -82,6 +90,9 @@ public class Bobby {
         }
     }
 
+    /**
+     * Initializes the TaskList in Bobby
+     */
     public void initializeTaskList() {
         try {
             this.listOfTasks = new TaskList(this.storage.returnTaskList());
