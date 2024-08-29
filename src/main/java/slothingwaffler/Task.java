@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  */
 public abstract class Task {
 
-    // For now, Deadline Tasks will take in dates only, while Event Tasks will take in dates and times
+    // For now, Deadline Tasks will take in dates only while Event Tasks will take in dates and times
     protected static final DateTimeFormatter DTF1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     protected static final DateTimeFormatter DTF2 = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
     protected static final DateTimeFormatter DTF3 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
