@@ -1,8 +1,8 @@
 package src;
 
-import java.io.File;
+import src.commands.Command;
+
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class WenJie {
 
@@ -19,8 +19,8 @@ public class WenJie {
 
     public void run() {
         ui.showWelcome();
-        boolean isActive = false;
-        while (!isActive) {
+        boolean isExit = false;
+        while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine(); // show the divider line ("_______")
