@@ -40,7 +40,7 @@ public class Topaz {
         try {
             taskList = storage.load();
         } catch (IOException e) {
-            ui.showInitializeIOEException(e);
+            ui.showInitializeIoeException(e);
             taskList = new TaskList();
         }
     }

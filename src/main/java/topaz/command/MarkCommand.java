@@ -38,9 +38,9 @@ public class MarkCommand extends Command {
             }
             storage.save(taskList);
         } catch (IndexOutOfBoundsException e) {
-            ui.showMarkIOBError(index);
+            ui.showMarkIobError(index);
         } catch (IOException e) {
-            ui.showSaveIOEException(e);
+            ui.showSaveIoeException(e);
         }
     }
 }

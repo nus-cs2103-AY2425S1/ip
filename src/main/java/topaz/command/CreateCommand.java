@@ -60,7 +60,7 @@ public class CreateCommand extends Command {
         } catch (InvalidTaskException e) {
             ui.showException(e);
         } catch (IOException e) {
-            ui.showSaveIOEException(e);
+            ui.showSaveIoeException(e);
         }
     }
 

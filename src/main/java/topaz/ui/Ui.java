@@ -38,12 +38,12 @@ public class Ui {
         showLine();
     }
 
-    public void showUserIOBError() {
+    public void showUserIobError() {
         System.out.println("Please enter valid information after the keyword!");
         System.out.println("Try again!");
     }
 
-    public void showMarkIOBError(int index) {
+    public void showMarkIobError(int index) {
         System.out.println("Invalid index number: " + index + " Please refer to your list.");
     }
     public void showException(Exception e) {
@@ -86,22 +86,19 @@ public class Ui {
     public void showTimeParseException(DateTimeParseException dateTimeParseException) {
         System.out.println("Invalid input date time: " + dateTimeParseException);
     }
-
     public void showFileIOBError(IndexOutOfBoundsException e) {
         System.out.println("Invalid input task file format: " + e
                 + " Remove the file and try again!");
     }
-
     public void showInvalidStateException(InvalidStateException e) {
         System.out.println("Invalid input task file format: " + e
                 + " Remove the file and try again!");
-   }
-
-    public void showInitializeIOEException(IOException e) {
+    }
+    public void showInitializeIoeException(IOException e) {
         System.out.println("Error in ininializing lists: " + e + " Try again!");
     }
 
-    public void showSaveIOEException(IOException e) {
+    public void showSaveIoeException(IOException e) {
         System.out.println("Error in creating file for current list: " + e);
     }
 
