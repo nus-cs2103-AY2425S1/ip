@@ -7,6 +7,12 @@ public class Hyperion {
     public static void main(String[] args) {
         System.out.println("Welcome to Hyperion!");
         List<Task> allTasks = FileUtil.loadTasks();
+        try {
+            String initialValues = new ListAll("", allTasks).message();
+            System.out.println(initialValues);
+        } catch (CommandFoundButInvalidException e ) {
+            System.out.print("");
+        }
 
         Scanner scanner = new Scanner(System.in);
         String input;
