@@ -4,6 +4,10 @@ import java.io.IOException;
 import revir.tasks.TaskList;
 import revir.user.Ui;
 
+/**
+ * Represents a command that can be executed by the user.
+ * Subclasses of this class should implement the execute method to perform specific operations.
+ */
 abstract public class Command {
     private boolean isExit = false;
 
@@ -11,6 +15,13 @@ abstract public class Command {
         this.isExit = isExit;
     }
 
+    /**
+     * Executes the command.
+     *
+     * @param ui The user interface to interact with the user.
+     * @param taskList The list of tasks to perform operations on.
+     * @throws IOException If an I/O error occurs.
+     */
     public abstract void execute(Ui ui, TaskList taskList) throws IOException;
 
     boolean isExit() {
