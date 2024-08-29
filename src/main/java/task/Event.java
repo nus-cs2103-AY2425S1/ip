@@ -1,19 +1,28 @@
 package task;
 
-public class Event extends Task {
-    private final String startDate;
-    private final String endDate;
+import java.time.LocalDateTime;
 
-    public Event(String description, String startDate, String endDate) {
+public class Event extends Task {
+    private final LocalDateTime startDateTime;
+    private final LocalDateTime endDateTime;
+    private final String taskType = "[E]";
+
+    public Event(String description, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         super(description);
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.type = "[E]";
-        super.outputTaskCount();
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        this.type = taskType;
+    }
+
+    public Event(String description, boolean isComplete, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        super(description, isComplete);
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        this.type = taskType;
     }
 
     @Override
     public String toString() {
-        return this.type + "[" + this.status + "] - " + this.description + "(" + this.startDate + " to " + this.endDate + ")";
+        return this.type + "[" + this.status() + "] " + this.description + "(from: " + this.startDateTime + " to: " + this.endDateTime + ")";
     }
 }

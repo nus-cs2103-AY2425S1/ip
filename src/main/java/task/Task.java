@@ -3,33 +3,31 @@ package task;
 public abstract class Task {
     protected String type;
     protected String description;
-    protected Status status;
-    private static int taskCount = 0;
+    protected boolean isCompelete;
 
-    public Task(String description) {
+    Task(String description) {
         this.description = description;
-        this.status = Status.INCOMPLETE;
-        taskCount++;
+        this.isCompelete = false;
+    }
+
+    Task(String description, boolean isComplete) {
+        this.description = description;
+        this.isCompelete = isCompelete;
     }
 
     public void setComplete(Boolean isCompleted) {
-        this.status = Status.COMPLETE;
+        this.isCompelete = true;
     }
 
-    public int getTaskCount() {
-        return taskCount;
-    }
-
-    public void outputTaskCount() {
-        System.out.println("You have " + taskCount + " tasks pending.");
-    }
-
-    public void deleteTask() {
-        taskCount--;
+    protected String status() {
+        if (isCompelete) {
+            return "x";
+        }
+        return " ";
     }
 
     @Override
     public String toString() {
-        return "[" + this.status + "]" + this.description;
+        return "[" + status() + "] " + this.description;
     }
 }
