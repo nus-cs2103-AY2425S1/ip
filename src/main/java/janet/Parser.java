@@ -137,17 +137,17 @@ public class Parser {
      * @return A boolean value indicating whether "/from" and "/to" were found in the user's input.
      */
     public static boolean fromOrToKeywordNotFound(String[] commandDetails) {
-        boolean fromFound = false;
-        boolean toFound = false;
+        boolean fromNotFound = false;
+        boolean toNotFound = false;
         for (String word : commandDetails) {
             if (word.equals("/from")) {
-                fromFound = true;
+                fromNotFound = true;
             }
             if (word.equals("/to")) {
-                toFound = true;
+                toNotFound = true;
             }
         }
-        return fromFound && toFound;
+        return fromNotFound && toNotFound;
     }
 
 
@@ -177,7 +177,7 @@ public class Parser {
     public static void validateEvent(String[] commandDetails) throws JanetException {
         if (commandDetails[0].equals("event") &&
                 commandDetails.length > 1 &&
-                fromOrToKeywordNotFound(commandDetails)
+                !fromOrToKeywordNotFound(commandDetails)
         ) {
             throw new JanetException("WHOOPS! Missing/Wrong keywords for creating event...");
         }

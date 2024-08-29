@@ -1,6 +1,7 @@
 package janet;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Janet {
@@ -26,11 +27,11 @@ public class Janet {
 
         while (input.hasNext()) {
             String userCommand = input.nextLine();
-            String[] commandDetails = Parser.getCommandDetails(userCommand);
+            String[] commandDetails = Parser.getCommandDetails(userCommand);    // converts user input into a String array
             try {
-                Parser.checkUserInput(commandDetails, tasks.getNumberOfTasks());
+                Parser.checkUserInput(commandDetails, tasks.getNumberOfTasks());    // runs all the checks to verify user input
 
-                CommandType commandType = Parser.getCommand(commandDetails);
+                CommandType commandType = Parser.getCommand(commandDetails);    // get the CommandType
                 switch (commandType) {
                 case BYE:
                     ui.exitMessage();
@@ -66,6 +67,11 @@ public class Janet {
                     Task event = new Event(userCommand);
                     tasks.addTaskToList(event);
                     ui.showSuccessfulTaskAddition(event, tasks.getNumberOfTasks());
+                    break;
+                case FIND:
+                    String keyword = String.join(" ",
+                            Arrays.copyOfRange(commandDetails, 1, commandDetails.length));
+                    ui.showFindMessage(tasks.findTask(keyword));
                     break;
                 }
                 if (hasTypedBye) {

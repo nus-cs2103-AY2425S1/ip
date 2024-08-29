@@ -67,13 +67,7 @@ public class Ui {
             // empty listOfTasks
             System.out.println(currentList + "*** Current list is empty ***\n" + horizontalLine);
         } else {
-            for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
-                if (i == taskList.getNumberOfTasks() - 1) {
-                    currentList += (i+1) + ". " + taskList.getListOfTasks().get(i) + "\n" + horizontalLine;
-                    break;
-                }
-                currentList += (i+1) + ". " + taskList.getListOfTasks().get(i) + "\n";
-            }
+            currentList += displayTasksInList(taskList) + "\n" + horizontalLine;
             System.out.println(currentList);
         }
     }
@@ -116,6 +110,29 @@ public class Ui {
         }
     }
 
+    public void showFindMessage(TaskList taskList) {
+        // taskList is a subset of the current total taskList
+        if (taskList.isEmpty()) {
+            System.out.println(horizontalLine + "\nHere are the matching tasks in your list:\n"
+                    + "OOPS! No tasks match what you were looking for!" + "\n" + horizontalLine);
+        } else {
+            System.out.println(horizontalLine + "\nHere are the matching tasks in your list:\n"
+                    + displayTasksInList(taskList) + "\n" + horizontalLine);
+        }
+    }
+
+    public static String displayTasksInList(TaskList taskList) {
+        String tasks = "";
+        for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
+            if (i == taskList.getNumberOfTasks() - 1) {
+                // reached last element in the list
+                tasks += (i+1) + ". " + taskList.getTask(i);
+                break;
+            }
+            tasks += (i+1) + ". " + taskList.getTask(i) + "\n";
+        }
+        return tasks;
+    }
 
     /**
      * Prints the message when task is deleted from the list.
