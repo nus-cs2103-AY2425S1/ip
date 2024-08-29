@@ -3,16 +3,17 @@ package commands;
 import commands.parser.Parser;
 import models.Event;
 import models.Task;
-import models.TaskList;
+
+import java.util.List;
 
 public class CreateEventCommand implements Command {
-    private final TaskList items;
+    private final List<Task> tasks;
     private final String name;
     private final String from;
     private final String to;
 
-    public CreateEventCommand(TaskList items, String message) {
-        this.items = items;
+    public CreateEventCommand(List<Task> tasks, String message) {
+        this.tasks = tasks;
 
         // Remove the keyword from the message
         String messageArgs = Parser.parseMessage(message).args();
@@ -26,10 +27,10 @@ public class CreateEventCommand implements Command {
     @Override
     public void execute() {
         Task task = new Event(this.name, this.from, this.to);
-        items.add(task);
+        tasks.add(task);
 
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", this.items.size());
+        System.out.printf("Now you have %d tasks in the list.\n", this.tasks.size());
     }
 }

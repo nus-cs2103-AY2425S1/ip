@@ -2,31 +2,32 @@ package commands;
 
 import commands.parser.Parser;
 import models.Task;
-import models.TaskList;
+
+import java.util.List;
 
 public class DeleteCommand implements Command {
-    private final int itemIndex;
-    private final TaskList items;
+    private final int taskIndex;
+    private final List<Task> tasks;
 
-    public DeleteCommand(TaskList items, String message) {
+    public DeleteCommand(List<Task> tasks, String message) {
         String messageArgs = Parser.parseMessage(message).args();
         int index = Parser.parseInt(messageArgs) - 1;
 
-        if (index < 0 || index >= items.size()) {
-            throw new InvalidIndexException(items.size(), index);
+        if (index < 0 || index >= tasks.size()) {
+            throw new InvalidIndexException(tasks.size(), index);
         }
 
-        this.items = items;
-        this.itemIndex = index;
+        this.tasks = tasks;
+        this.taskIndex = index;
     }
 
     @Override
     public void execute() {
-        Task task = items.get(itemIndex);
-        items.remove(itemIndex);
+        Task task = tasks.get(taskIndex);
+        tasks.remove(taskIndex);
 
         System.out.println("Noted. I've removed this task:");
         System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", this.items.size());
+        System.out.printf("Now you have %d tasks in the list.\n", this.tasks.size());
     }
 }

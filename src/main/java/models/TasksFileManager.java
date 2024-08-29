@@ -4,19 +4,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class TaskList {
-    private final List<Task> tasks = new ArrayList<>();
+public class TasksFileManager {
     private final String fileName;
-
-    public TaskList(String fileName) {
+    public TasksFileManager(String fileName) {
         this.fileName = fileName;
     }
 
-    public void loadFromFile() {
+    public void load(List<Task> tasks) {
         // Scanner with file inspired by https://www.digitalocean.com/community/tutorials/java-read-file-line-by-line
         try {
             Scanner scanner = new Scanner(new File(this.fileName));
@@ -33,35 +30,9 @@ public class TaskList {
         }
     }
 
-    public int size() {
-        return tasks.size();
-    }
-
-    public boolean isEmpty() {
-        return tasks.isEmpty();
-    }
-
-    public boolean add(Task task) {
-        boolean isAddSuccessful = tasks.add(task);
-        if (isAddSuccessful) {
-            // Writer inspired by https://www.baeldung.com/java-write-to-file
-            try (FileWriter fileWriter = new FileWriter(this.fileName, true)) {
-                fileWriter.write(task.serialize());
-                fileWriter.write('\n');
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        return isAddSuccessful;
-    }
-
-    public void remove(int index) {
-        Task removedTask = this.tasks.remove(index);
-
-        // Rewrite all tasks
+    public void save(List<Task> tasks) {
         try (FileWriter fileWriter = new FileWriter(this.fileName)) {
-            for (Task task : this.tasks) {
+            for (Task task : tasks) {
                 fileWriter.write(task.serialize());
                 fileWriter.write('\n');
             }
@@ -70,7 +41,13 @@ public class TaskList {
         }
     }
 
-    public Task get(int index) {
-        return tasks.get(index);
+    public void append(Task task) {
+        // Writer inspired by https://www.baeldung.com/java-write-to-file
+        try (FileWriter fileWriter = new FileWriter(this.fileName, true)) {
+            fileWriter.write(task.serialize());
+            fileWriter.write('\n');
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
