@@ -7,9 +7,7 @@ public class Event extends Task{
         todate = end;
     }
 
-    public String getDates() {
-        return " | " + fromdate + " | "+todate;
-    }
+
     public String toString() {
         return "[E]" + super.toString() + "(from: " + fromdate + " to: " + todate + ")";
     }
