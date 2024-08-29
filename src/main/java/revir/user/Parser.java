@@ -1,4 +1,5 @@
 package revir.user;
+
 import revir.system.Exceptions.IllegalCommandException;
 import revir.system.Exceptions.InvalidFormatException;
 import revir.tasks.*;
@@ -14,6 +15,7 @@ public class Parser {
     enum Action {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
     }
+
     static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     // create and statically define hashmap to map string to command type
@@ -34,7 +36,7 @@ public class Parser {
         String commandWord = split[0].toLowerCase();
         String args = split.length > 1 ? split[1] : "";
         Action action = Parser.actionMap.getOrDefault(commandWord, Action.INVALID);
-        // use switch case to return  different methods based on command type
+        // use switch case to return different methods based on command type
         switch (action) {
             case BYE:
                 return new Nop(true);
@@ -57,7 +59,7 @@ public class Parser {
             default:
                 return new Nop(false);
         }
-   }
+    }
 
     Command parseMark(String args) {
         int taskIndex = Integer.parseInt(args);

@@ -56,7 +56,7 @@ public class Create extends Command {
      * @throws IOException If there is an error adding the task.
      */
     @Override
-    public void execute(Ui ui, TaskList taskList) throws IOException{
+    public void execute(Ui ui, TaskList taskList) throws IOException {
         taskList.add(this.task);
         ui.showResult("Task added: " + this.task);
     }

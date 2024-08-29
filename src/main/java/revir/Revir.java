@@ -9,9 +9,10 @@ import revir.user.command.Command;
 
 public class Revir {
     static TaskList taskList;
-    static Storage storage; 
+    static Storage storage;
     static Ui ui;
     static Parser parser;
+
     public static void main(String[] args) {
         parser = new Parser();
         ui = new Ui("Revir");
@@ -23,7 +24,7 @@ public class Revir {
             try {
                 Command c = parser.parse(input);
                 c.execute(ui, taskList);
-                
+
             } catch (NumberFormatException e) {
                 ui.showError("Invalid task index. Expected a number.");
             } catch (IOException e) {
@@ -35,4 +36,4 @@ public class Revir {
         ui.showExit();
     }
 
-   }
+}
