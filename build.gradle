@@ -28,11 +28,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("NextGPT.NextGPT")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "NextGPT"
     archiveClassifier = null
 }
 
