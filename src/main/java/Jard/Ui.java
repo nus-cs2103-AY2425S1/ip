@@ -74,7 +74,7 @@ public class Ui {
 
     public void showError(String message) {
         System.out.println("____________________________________________________________");
-        System.out.println(" Error: Jard.Jard! " + message);
+        System.out.println("Jard! " + message);
         System.out.println("____________________________________________________________");
     }
 
