@@ -1,6 +1,8 @@
+package tissue;
+
 public class Task {
+    private final String task;
     private boolean done;
-    private String task;
 
     public Task(boolean done, String task) {
         this.done = done;
@@ -29,5 +31,4 @@ public class Task {
     public String toString() {
         return done ? "[X] " + task : "[ ] " + task;
     }
-
 }
