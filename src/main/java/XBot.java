@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -214,7 +215,7 @@ public class XBot {
         if (parts.length == 2) {
             String taskDescription = parts[0].trim();
             String deadline = parts[1].trim();
-            if (isValidDateFormat(deadline, "YYYY-MM-DD")) {
+            if (isValidDateFormat(deadline)) {
                 Task newTask = new Deadline(taskDescription, deadline);
                 list.add(newTask);
 
@@ -223,26 +224,37 @@ public class XBot {
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
                 saveTask();
             } else {
-                System.out.println("Invalid date input format. Please use the format: YYYY-MM-DD");
+                throw new XBotException("Invalid date input format. Please use the format: D/M/YYYY");
             }
         } else {
             throw new XBotException("Invalid input format. Please use the format: 'deadline <task> /by <date>'");
         }
     }
 
-    public static boolean isValidDateFormat(String date, String format) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-        try {
-            LocalDate.parse(date, formatter);
-            return true;
-        } catch (DateTimeParseException e) {
-            return false;
+    public static boolean isValidDateFormat(String date) {
+        List<String> formats = new ArrayList<>();
+        formats.add("yyyy-MM-dd");
+        formats.add("d/M/yyyy");
+        formats.add("d/M/yyyy HHmm");
+
+        for (String format : formats) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+            try {
+                if (format.contains("HHmm")) {
+                    LocalDateTime.parse(date, formatter);
+                } else {
+                    LocalDate.parse(date, formatter);
+                }
+                return true;
+            } catch (DateTimeParseException e) {
+                continue;
+            }
         }
+        return false;
     }
     public static void addEvent(String rest) throws XBotException{
         String[] parts = rest.split("/from", 2);
         if (parts.length == 2) {
-            System.out.println("Got it. I've added this task:");
             String taskDescription = parts[0].trim();
             String time = parts[1].trim();
             String[] timeParts = time.split("/to", 2);
@@ -251,6 +263,8 @@ public class XBot {
                 String to = timeParts[1].trim();
                 Task newTask = new Event(taskDescription, from, to);
                 list.add(newTask);
+
+                System.out.println("Got it. I've added this task:");
                 System.out.println(newTask.toString());
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
                 saveTask();
