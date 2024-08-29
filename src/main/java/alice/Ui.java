@@ -88,4 +88,17 @@ public class Ui {
         System.out.println(" Now you have " + size + " tasks in the list.");
         System.out.println(line);
     }
+
+    public void findMsg(TaskList list) {
+        System.out.println(line);
+        System.out.println("Here are the matching tasks in your list:");
+        System.out.println(list.toString());
+        System.out.println(line);
+    }
+
+    public void noFindMsg() {
+        System.out.println(line);
+        System.out.println("No matching tasks in your list");
+        System.out.println(line);
+    }
 }

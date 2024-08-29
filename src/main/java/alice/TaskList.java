@@ -20,6 +20,11 @@ public class TaskList {
         this.ui = new Ui();
     }
 
+    public TaskList(ArrayList<Task> list) {
+        this.list = list;
+        this.ui = new Ui();
+    }
+
     /**
      * Adds a task to the list and informs the user of the addition.
      *
@@ -86,6 +91,20 @@ public class TaskList {
      */
     public ArrayList<Task> getTask() {
         return this.list;
+    }
+
+    public int getSize() {
+        return this.list.size();
+    }
+
+    public TaskList findTask(String keyword) {
+        ArrayList<Task> temp = new ArrayList<>();
+        for (Task task : list) {
+            if (task.description.contains(keyword)) {
+                temp.add(task);
+            }
+        }
+        return new TaskList(temp);
     }
 
     /**

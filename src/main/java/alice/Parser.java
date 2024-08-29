@@ -43,7 +43,7 @@ public class Parser {
      */
     public enum CommandType {
         BYE, LIST, MARK, UNMARK, DELETE,
-        TODO, EVENT, DEADLINE, INVALID
+        TODO, EVENT, DEADLINE, FIND, INVALID
     }
 
     /**
@@ -78,6 +78,9 @@ public class Parser {
         case "deadline":
             return CommandType.DEADLINE;
             // Fallthrough
+        case "find": 
+            return CommandType.FIND;  
+            // Fallthrough  
         default:
             return CommandType.INVALID;
             // Fallthrough
@@ -129,6 +132,10 @@ public class Parser {
             handleDeadline(input);
             return true;
             // Fallthrough
+        case FIND:
+            handleFind(input);
+            return true;  
+            // Fallthrough  
         case INVALID:
             handleInvalid(input);
             return true;
@@ -270,5 +277,15 @@ public class Parser {
      */
     private void handleInvalid(String input) {
         ui.invalidMsg();
+    }
+
+    public void handleFind(String input) {
+        String keyword = input.split(" ", 2)[1].trim();
+        TaskList findList = list.findTask(keyword);
+        if (findList.getSize() == 0) {
+            ui.noFindMsg();
+        } else {
+            ui.findMsg(findList);
+        }
     }
 }
