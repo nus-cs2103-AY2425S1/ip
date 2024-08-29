@@ -1,22 +1,24 @@
-public class Deadline extends Task {
-    private String byTime;
+import java.time.LocalDate;
 
-    public Deadline(String name, String description, String byTime) {
+public class Deadline extends Task {
+    private LocalDate byTime;
+
+    public Deadline(String name, String description, LocalDate byTime) {
         super(name, description);
         this.byTime = byTime;
     }
 
-    public String getByTime() {
+    public LocalDate getByTime() {
         return byTime;
     }
 
-    public void setByTime(String byTime) {
+    public void setByTime(LocalDate byTime) {
         this.byTime = byTime;
     }
 
     @Override
     public String toString() {
         return "[D] " + super.toString() +
-                "\n\tBy: " + byTime;
+                "\n\tBy: " + byTime.getDayOfMonth() + "/" + byTime.getMonth().toString().substring(0, 3) + "/" + byTime.getYear();
     }
 }

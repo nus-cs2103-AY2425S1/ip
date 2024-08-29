@@ -2,6 +2,7 @@ import exceptions.InvalidInputException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
@@ -126,13 +127,56 @@ public class Listing extends Command{
         return listings;
     }
 
+    public static String toNumeric(String abbrev) {
+        switch (abbrev.toUpperCase()) {  // Ensure the input is in uppercase
+            case "JAN" -> {
+                return "01";
+            }
+            case "FEB" -> {
+                return "02";
+            }
+            case "MAR" -> {
+                return "03";
+            }
+            case "APR" -> {
+                return "04";
+            }
+            case "MAY" -> {
+                return "05";
+            }
+            case "JUN" -> {
+                return "06";
+            }
+            case "JUL" -> {
+                return "07";
+            }
+            case "AUG" -> {
+                return "08";
+            }
+            case "SEP" -> {
+                return "09";
+            }
+            case "OCT" -> {
+                return "10";
+            }
+            case "NOV" -> {
+                return "11";
+            }
+            case "DEC" -> {
+                return "12";
+            }
+            default -> {
+                throw new IllegalArgumentException("Invalid month abbreviation: " + abbrev);
+            }
+        }
+    }
+
+
     private static Task parseTask(String taskLine, Scanner scanner) {
         String[] parts = taskLine.split(" ", 3);
         String typeIndicator = parts[1].substring(1, 2); // Extract the type between square brackets
         String nameDescription = parts[2].split("\n\tDescription: ")[0].substring(4).trim();
-        System.out.println(nameDescription);
         String description = scanner.nextLine().trim().replace("Description: ", "");
-        System.out.println(description);
         switch (typeIndicator) {
             case "T":
                 return new Todo(nameDescription, description);
@@ -147,7 +191,6 @@ public class Listing extends Command{
                     } else if (line.startsWith("Location:")) {
                         location = line.substring(9).trim();
                     } else if (line.startsWith("——————————————————————————————————————————————————————————————————————————————")) {
-                        // End of task section
                         break;
                     }
                 }
@@ -159,11 +202,16 @@ public class Listing extends Command{
                     if (line.startsWith("By:")) {
                         byTime = line.substring(3).trim();
                     } else if (line.startsWith("——————————————————————————————————————————————————————————————————————————————")) {
-                        // End of task section
                         break;
                     }
                 }
-                return new Deadline(nameDescription, description, byTime);
+                String[] parsedDate = byTime.split("/");
+                String month = toNumeric(parsedDate[1]);
+                String day = parsedDate[0];
+                String year = parsedDate[2];
+                String date = year + "-" + month + "-" + day;
+                LocalDate formattedDate = LocalDate.parse(date);
+                return new Deadline(nameDescription, description, formattedDate);
             default:
                 throw new IllegalArgumentException("Unknown task type: " + typeIndicator);
         }
@@ -359,9 +407,9 @@ public class Listing extends Command{
                     task = new Event(name, description, startTime, endTime, location);
                     break;
                 case "deadline":
-                    System.out.println(SigmaBot.HR_LINE + "\tEnter deadline time:\n" + SigmaBot.HR_LINE);
+                    System.out.println(SigmaBot.HR_LINE + "\tEnter deadline time: (yyyy-mm-dd)\n" + SigmaBot.HR_LINE);
                     String byTime = sc.nextLine().trim();
-                    task = new Deadline(name, description, byTime);
+                    task = new Deadline(name, description, LocalDate.parse(byTime));
                     break;
                 default:
                     System.out.println(SigmaBot.HR_LINE_IN + "\tInvalid task type. Please enter 'todo', 'event', or 'deadline'.\n" + SigmaBot.HR_LINE_OUT);
