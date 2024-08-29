@@ -26,7 +26,7 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws JudeException {
         list.addTask(task);
-        ui.showMessage("jude.task.Task " + task + " has been added.");
+        ui.showMessage("Task " + task + " has been added.");
         storage.save(list);
     }
 

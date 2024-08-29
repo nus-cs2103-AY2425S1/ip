@@ -25,7 +25,7 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws JudeException {
         list.unmarkTask(index);
-        ui.showMessage("jude.task.Task " + list.getTask(index) + " been unmarked.");
+        ui.showMessage("Task " + list.getTask(index) + " been unmarked.");
         storage.save(list);
     }
 

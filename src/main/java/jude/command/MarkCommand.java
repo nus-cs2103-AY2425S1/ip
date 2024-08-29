@@ -25,7 +25,7 @@ public class MarkCommand extends Command {
      */
     public void execute(TaskList list, Ui ui, Storage storage) throws JudeException {
         list.markTask(index);
-        ui.showMessage("jude.task.Task " + list.getTask(index) + " has been marked.");
+        ui.showMessage("Task " + list.getTask(index) + " has been marked.");
         storage.save(list);
     }
 

@@ -34,7 +34,7 @@ public class ParserTest {
             assertEquals(new ListCommand().toString(), new Parser().parse(" list").toString());
             fail();
         } catch (JudeException je) {
-            assertEquals("No valid jude.command was provided.", je.getMessage());
+            assertEquals("No valid command was provided.", je.getMessage());
         }
     }
 
@@ -44,7 +44,7 @@ public class ParserTest {
             assertEquals(new ListCommand().toString(), new Parser().parse("list ").toString());
             fail();
         } catch (JudeException je) {
-            assertEquals("Poyo,  The description of a list must be empty.", je.getMessage());
+            assertEquals("Poyo, the description of a list must be empty.", je.getMessage());
         }
     }
 
@@ -54,7 +54,7 @@ public class ParserTest {
             assertEquals(new ListCommand(), new Parser().parse("list a"));
             fail();
         } catch (JudeException je) {
-            assertEquals("Poyo,  The description of a list must be empty.", je.getMessage());
+            assertEquals("Poyo, the description of a list must be empty.", je.getMessage());
         }
     }
 
@@ -75,7 +75,8 @@ public class ParserTest {
             fail();
         } catch (JudeException je) {
             assertEquals(
-                    "the index is not provided or not applicable to the current list size.", je.getMessage());
+                    "Poyo, the format of the command mark was not valid. The correct format: mark",
+                    je.getMessage());
         }
     }
 
@@ -85,7 +86,7 @@ public class ParserTest {
             assertEquals(new UnmarkCommand(1).toString(), new Parser().parse("unmark AAA".toString()));
             fail();
         } catch (JudeException je) {
-            assertEquals("Number format exception has occurred.", je.getMessage());
+            assertEquals("Invalid number format: expected an integer.", je.getMessage());
         }
     }
 
@@ -106,7 +107,8 @@ public class ParserTest {
             fail();
         } catch (JudeException je) {
             assertEquals(
-                    "the index is not provided or not applicable to the current list size.", je.getMessage());
+                    "Poyo, the format of the command unmark was not valid. The correct format: unmark",
+                    je.getMessage());
         }
     }
 
@@ -116,7 +118,7 @@ public class ParserTest {
             assertEquals(new UnmarkCommand(1).toString(), new Parser().parse("unmark AAA".toString()));
             fail();
         } catch (JudeException je) {
-            assertEquals("Number format exception has occurred.", je.getMessage());
+            assertEquals("Invalid number format: expected an integer.", je.getMessage());
         }
     }
 
@@ -137,7 +139,8 @@ public class ParserTest {
             fail();
         } catch (JudeException je) {
             assertEquals(
-                    "the index is not provided or not applicable to the current list size.", je.getMessage());
+                    "Poyo, the format of the command delete was not valid. The correct format: delete",
+                    je.getMessage());
         }
     }
 
@@ -147,7 +150,7 @@ public class ParserTest {
             assertEquals(new DeleteCommand(1).toString(), new Parser().parse("delete AAA".toString()));
             fail();
         } catch (JudeException je) {
-            assertEquals("Number format exception has occurred.", je.getMessage());
+            assertEquals("Invalid number format: expected an integer.", je.getMessage());
         }
     }
 
@@ -171,7 +174,8 @@ public class ParserTest {
                     new AddCommand(new Todo("AAA")).toString(), new Parser().parse("to-do".toString()));
             fail();
         } catch (JudeException je) {
-            assertEquals("No description was provided.", je.getMessage());
+            assertEquals("Poyo, the format of the command to-do was not valid."
+                    + " The correct format: to-do", je.getMessage());
         }
     }
 
@@ -182,7 +186,7 @@ public class ParserTest {
                     new AddCommand(new Todo("AAA")).toString(), new Parser().parse("todo AAA".toString()));
             fail();
         } catch (JudeException je) {
-            assertEquals("No valid jude.command was provided.", je.getMessage());
+            assertEquals("No valid command was provided.", je.getMessage());
         }
     }
 
@@ -222,8 +226,9 @@ public class ParserTest {
             );
             fail();
         } catch (JudeException je) {
-            assertEquals("Poyo, the jude.command deadline"
-                    + " must be provided with a description with the use of /by jude.command.", je.getMessage());
+            assertEquals("Poyo, the format of the command deadline was not valid. "
+                            + "The correct format: deadline",
+                    je.getMessage());
         }
     }
 
@@ -264,8 +269,9 @@ public class ParserTest {
             );
             fail();
         } catch (JudeException je) {
-            assertEquals("Poyo, the jude.command event must be provided "
-                    + "with a description with the use of /from followed by /to jude.command.", je.getMessage());
+            assertEquals("Poyo, the format of the command event was not valid."
+                    + " The correct format: event",
+                    je.getMessage());
         }
     }
 
@@ -278,8 +284,8 @@ public class ParserTest {
             );
             fail();
         } catch (JudeException je) {
-            assertEquals("Poyo, the jude.command event must be provided "
-                    + "with a description with the use of /from followed by /to jude.command.", je.getMessage());
+            assertEquals("Poyo, the format of the command event was not valid. "
+                    + "The correct format: event", je.getMessage());
         }
     }
 }
