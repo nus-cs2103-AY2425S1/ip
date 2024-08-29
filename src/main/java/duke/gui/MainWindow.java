@@ -24,13 +24,15 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private AnchorPane mainPane;
 
     private Duke duke;
     private Stage stage;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
-    private boolean isIntroSent = false;
+    private boolean isDarkMode = false;
 
     /**
      * Initializes the main window.
@@ -39,6 +41,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        mainPane.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
     }
 
     /**
@@ -49,6 +52,19 @@ public class MainWindow extends AnchorPane {
     public void sendIntro() {
         dialogContainer.getChildren().add(DialogBox.getDukeIntro(
                 duke.getGreeting(), dukeImage));
+    }
+
+    /**
+     * Toggles dark mode in the dialog container.
+     */
+    @FXML
+    private void toggleDarkMode() {
+        isDarkMode = !isDarkMode;
+        if (isDarkMode) {
+            mainPane.getStyleClass().add("dark-mode");
+        } else {
+            mainPane.getStyleClass().remove("dark-mode");
+        }
     }
 
     /**
