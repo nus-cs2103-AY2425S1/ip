@@ -1,22 +1,19 @@
 package revir.user.command;
 
 import java.io.IOException;
-
 import revir.tasks.TaskList;
 import revir.user.Ui;
 
-public class Mark extends Command {
+public class Delete extends Command{
     private int taskIndex;
-    private boolean state; 
 
-    public Mark(int taskIndex, boolean state) {
+    public Delete(int taskIndex) {
         super(false);
-        this.state = state;
+        this.taskIndex = taskIndex;
     }
 
     @Override
     public void execute(Ui ui, TaskList taskList) throws IOException {
-        ui.showResult(taskList.setCompleted(taskIndex, state));
+        ui.showResult(taskList.remove(this.taskIndex));
     }
-    
 }
