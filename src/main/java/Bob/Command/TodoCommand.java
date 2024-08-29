@@ -8,7 +8,7 @@ import Bob.Tasks.Todo;
 import Bob.Storage.Storage;
 import Bob.Ui.Ui;
 
-public class TodoCommand implements Command {
+public class TodoCommand extends Command {
     private final String taskDescription;
 
     public TodoCommand(String taskDescription) {

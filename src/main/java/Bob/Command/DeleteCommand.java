@@ -6,7 +6,7 @@ import Bob.Tasks.Task;
 import Bob.Storage.Storage;
 import Bob.Ui.Ui;
 
-public class DeleteCommand implements Command {
+public class DeleteCommand extends Command {
     private final int taskIndexDelete;
 
     public DeleteCommand(int taskIndexDelete) {

@@ -11,7 +11,7 @@ import Bob.Tasks.Task;
 import Bob.Tasks.Deadline;
 
 
-public class DeadlineCommand implements Command {
+public class DeadlineCommand extends Command {
     private final String taskDescription;
 
     public DeadlineCommand(String taskDescription) {

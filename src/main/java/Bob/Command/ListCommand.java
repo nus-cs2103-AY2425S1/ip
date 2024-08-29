@@ -5,7 +5,7 @@ import Bob.Ui.Ui;
 import java.util.ArrayList;
 import Bob.Tasks.Task;
 
-public class ListCommand implements Command {
+public class ListCommand extends Command {
 
     @Override
     public void execute(ArrayList<Task> tasks, Storage storage, Ui ui) {

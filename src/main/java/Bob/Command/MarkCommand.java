@@ -6,7 +6,7 @@ import Bob.Ui.Ui;
 import java.util.ArrayList;
 import Bob.Tasks.Task;
 
-public class MarkCommand implements Command {
+public class MarkCommand extends Command {
     private final int taskIndexMark;
 
     public MarkCommand(int taskIndexMark) {

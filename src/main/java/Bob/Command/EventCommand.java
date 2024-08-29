@@ -7,7 +7,7 @@ import Bob.Tasks.Event;
 import Bob.Storage.Storage;
 import Bob.Ui.Ui;
 
-public class EventCommand implements Command {
+public class EventCommand extends Command {
     private final String taskDescription;
 
     public EventCommand(String taskDescription) {

@@ -6,7 +6,7 @@ import Bob.Tasks.Task;
 import Bob.Storage.Storage;
 import Bob.Ui.Ui;
 
-public class UnmarkCommand implements Command {
+public class UnmarkCommand extends Command {
     private final int taskIndexUnmark;
 
     public UnmarkCommand(int taskIndexUnmark) {
