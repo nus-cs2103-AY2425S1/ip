@@ -52,7 +52,19 @@ public class Task {
      * @return String in format specified to write to file
      */
     public String getSaveFormat() {
-        return String.format("T | %s | %s", this.getComplete(), this.description);
+        String type = "";
+        switch (taskType) {
+        case TODO:
+            type = "T";
+            break;
+        case DEADLINE:
+            type = "D";
+            break;
+        case EVENT:
+            type = "E";
+            break;
+        }
+        return String.format("%s | %s | %s", type, this.getComplete(), this.description);
     }
 
     /**
