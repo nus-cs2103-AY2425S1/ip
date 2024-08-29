@@ -1,5 +1,11 @@
 package casper;
-import exception.*;
+
+import exception.CasperBotException;
+import exception.CasperBotIOException;
+import exception.CasperBotInvalidCommandException;
+import exception.CasperBotInvalidDateException;
+import exception.CasperBotMissingInputException;
+import exception.CasperBotNumberFormatException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -29,7 +35,7 @@ public class CasperBot {
         this.parser = new Parser();
     }
 
-    public static void main(String[] args) throws CasperBotException {
+    public static void main(String[] args) {
         new CasperBot("chatbot.txt").run();
     }
 
