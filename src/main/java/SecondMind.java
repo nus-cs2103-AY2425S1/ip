@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatter;
 
 public class SecondMind {
     private static final String line = "____________________________________________________________";
@@ -39,6 +42,15 @@ public class SecondMind {
         fw.close();
     }
 
+    private static String formatDateTime(String dateTime) throws DateTimeParseException {
+        LocalDateTime ldt = LocalDateTime.parse(dateTime);
+        DateTimeFormatter formatter 
+            = DateTimeFormatter.ofPattern(
+                    "d MMM yyyy HH:mm:ss a");
+    
+        return ldt.format(formatter);
+    }
+
     private static Task createToDo(String[] taskInfo) throws EmptyToDoException {
         if (taskInfo.length == 1) {
             throw new EmptyToDoException();
@@ -59,7 +71,7 @@ public class SecondMind {
         String[] taskInfo = task.split(" /by ");
         //Prefix of taskInfo[0] is "deadline "
         String taskDescription = taskInfo[0].substring(9);
-        String taskDeadline = taskInfo[1];
+        String taskDeadline = formatDateTime(taskInfo[1]);
         String data = "\nD|0|" + taskDescription + "|" + taskDeadline;
         try {
             appendToFile(data);
@@ -74,9 +86,9 @@ public class SecondMind {
         //Prefix of taskInfo[0] is "event "
         String taskDescription = taskInfo[0].substring(6);
         //Prefix of taskInfo[1] is "from "
-        String taskStart = taskInfo[1].substring(5);
+        String taskStart = formatDateTime(taskInfo[1].substring(5));
         //Prefix of taskInfo[2] is "to "
-        String taskEnd = taskInfo[2].substring(3);
+        String taskEnd = formatDateTime(taskInfo[2].substring(3));
         String data = "\nE|0|" + taskDescription + "|" + taskStart + "|" + taskEnd;
         try {
             appendToFile(data);
@@ -120,6 +132,12 @@ public class SecondMind {
             printErrorMessage(e);
         } catch (UnknownCommandException e) {
             printErrorMessage(e);
+        } catch (DateTimeParseException e) {
+            printLineSeparator();
+            System.out.println("Warning! Invalid dateTime format detected!");
+            System.out.println("Please use the following representation for dateTime strings:");
+            System.out.println("\tyyyy-MM-ddTHH:mm:ss");
+            printLineSeparator();
         }
     }
 
