@@ -85,6 +85,9 @@ public class CommandParser {
             case DELETE:
                 return Optional.of(new DeleteCommand(Integer.parseInt(args[1].strip())));
             case FIND:
+                if (args.length != 2 || args[1].isEmpty()) {
+                    throw new CommandParseException("COMMAND find REQUIRES A SEARCH QUERY");
+                }
                 return Optional.of(new FindCommand(args[1].strip()));
             default:
                 throw new CommandParseException("UNKNOWN COMMAND GIVEN");
