@@ -17,17 +17,17 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(TaskList taskList, TaskIO taskIO) {
 
-        if (!taskList.isValidIndex(index - Denim.Ui.indexOffset)) {
+        if (!taskList.isValidIndex(index)) {
             return new CommandResult("The index chosen is invalid.");
         }
 
-        Task deletedTask = taskList.getTask(index - Denim.Ui.indexOffset);
-        taskList.deleteTaskAtIndex(index - Denim.Ui.indexOffset);
+        Task deletedTask = taskList.getTask(index);
+        taskList.deleteTaskAtIndex(index);
 
         try {
             taskIO.deleteTask(taskList);
         } catch (DenimException e) {
-            taskList.addTaskAtIndex(index - Denim.Ui.indexOffset, deletedTask);
+            taskList.addTaskAtIndex(index, deletedTask);
             return new CommandResult(e.getMessage() + "\n The task was not deleted.");
         }
 

@@ -18,21 +18,21 @@ public class UnmarkCommand extends Command {
     @Override
     public CommandResult execute(TaskList taskList, TaskIO taskIO) {
 
-        if (!taskList.isValidIndex(index - Denim.Ui.indexOffset)) {
+        if (!taskList.isValidIndex(index)) {
             return new CommandResult("The index chosen is invalid.");
         }
 
-        boolean alreadyMarked = taskList.getTask(index - Denim.Ui.indexOffset).getIsDone();
+        boolean alreadyMarked = taskList.getTask(index).getIsDone();
 
         if (!alreadyMarked) {
             return new CommandResult("The task is already unmarked.");
         }
 
         try {
-            taskList.unmarkTask(index - Denim.Ui.indexOffset);
+            taskList.unmarkTask(index);
             taskIO.unmarkTask(taskList);
         } catch (DenimException e) {
-            taskList.markTask(index - Denim.Ui.indexOffset);
+            taskList.markTask(index);
             return new CommandResult(e.getMessage());
         }
         String returnMessage = String.format("Okay, I've marked this task as not done yet: \n %s\n", taskList.getTask(index));

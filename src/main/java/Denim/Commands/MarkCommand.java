@@ -16,21 +16,21 @@ public class MarkCommand extends Command {
     @Override
     public CommandResult execute(TaskList taskList, TaskIO taskIO) {
 
-        if (!taskList.isValidIndex(index - Denim.Ui.indexOffset)) {
+        if (!taskList.isValidIndex(index)) {
             return new CommandResult("The index chosen is invalid.");
         }
 
-        boolean alreadyMarked = taskList.getTask(index - Denim.Ui.indexOffset).getIsDone();
+        boolean alreadyMarked = taskList.getTask(index).getIsDone();
 
         if (alreadyMarked) {
             return new CommandResult("The task is already marked.");
         }
 
         try {
-            taskList.markTask(index - Denim.Ui.indexOffset);
+            taskList.markTask(index);
             taskIO.unmarkTask(taskList);
         } catch (DenimException e) {
-            taskList.unmarkTask(index - Denim.Ui.indexOffset);
+            taskList.unmarkTask(index);
             return new CommandResult(e.getMessage());
         }
         String returnMessage = String.format("Okay, I've marked this task as done: \n %s\n", taskList.getTask(index));
