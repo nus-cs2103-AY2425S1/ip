@@ -1,3 +1,5 @@
+package Jard;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -45,7 +47,7 @@ public class Storage {
         }
     }
 
-    private Task parseTask(String taskData) throws JardException {
+    private Task parseTask(String taskData) throws Jard.JardException {
         String[] parts = taskData.split(" \\| ");
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
@@ -66,7 +68,7 @@ public class Storage {
                 task = new Event(description, from, to);
                 break;
             default:
-                throw new JardException("Jartaloon! " + taskData);
+                throw new Jard.JardException("Jartaloon! " + taskData);
         }
         if (isDone) {
             task.markAsDone();

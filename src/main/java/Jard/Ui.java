@@ -1,3 +1,5 @@
+package Jard;
+
 import java.util.Scanner;
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class Ui {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Jard.");
+        System.out.println(" Hello! I'm Jard.Jard.");
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
     }
@@ -72,7 +74,7 @@ public class Ui {
 
     public void showError(String message) {
         System.out.println("____________________________________________________________");
-        System.out.println(" Error: Jard! " + message);
+        System.out.println(" Error: Jard.Jard! " + message);
         System.out.println("____________________________________________________________");
     }
 

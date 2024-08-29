@@ -1,3 +1,5 @@
+package Jard;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -6,7 +8,7 @@ public class Parser {
         return input.split(" ", 2);
     }
 
-    public static Task parseTask(String input) throws JardException {
+    public static Task parseTask(String input) throws Jard.JardException {
         String[] inputParts = input.split(" ", 2);
         String command = inputParts[0];
 
@@ -20,7 +22,7 @@ public class Parser {
             if (inputParts.length > 1) {
                 String[] details = inputParts[1].split("/by", 2);
                 if (details.length < 2) {
-                    throw new Jard.JardException("Invalid format! Deadline should be /by.");
+                    throw new Jard.JardException("Invalid format! Jard.Jard.Deadline should be /by.");
                 }
                 return new Deadline(details[0].trim(), details[1].trim());
             } else {
@@ -45,7 +47,7 @@ public class Parser {
         try {
             int taskIndex = Integer.parseInt(input) - 1;
             if (taskIndex < 0 || taskIndex >= taskListSize) {
-                throw new Jard.JardException("Task number does not exist!");
+                throw new Jard.JardException("Jard.Jard.Task number does not exist!");
             }
             return taskIndex;
         } catch (NumberFormatException e) {
