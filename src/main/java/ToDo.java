@@ -4,9 +4,9 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String stringify() {
+    public String toString() {
         String str = "[T]";
-        str += super.stringify();
+        str += super.toString();
         return str;
     }
 }

@@ -9,7 +9,7 @@ public class Task {
         this.name = name;
     }
 
-    public String stringify() {
+    public String toString() {
         String str = "";
         if (done) {
             str += "[X]";

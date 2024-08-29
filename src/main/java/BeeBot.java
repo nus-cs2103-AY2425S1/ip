@@ -1,14 +1,41 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+class EmptyDescriptionException extends Exception {
+    public EmptyDescriptionException(String message) {
+        super(message);
+    }
+}
+
+class MissingDeadlineException extends Exception {
+    public MissingDeadlineException(String message) {
+        super(message);
+    }
+}
+
+class MissingEventTimeException extends Exception {
+    public MissingEventTimeException(String message) {
+        super(message);
+    }
+}
+
+class TaskNotFoundException extends Exception {
+    public TaskNotFoundException(String message) {
+        super(message);
+    }
+}
+
 
 public class BeeBot {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Boolean exit_status = false;
+        boolean exit_status = false;
         String greet = "Hello! I'm BeeBot\n"
                 + "What can I do for you?\n";
         String exit = "Bye. Hope to see you again!\n";
-        ArrayList<Task> taskList = new ArrayList<>();
+        String filePath = "src/data/BeeBot.txt";
+        ArrayList<Task> taskList = loadTaskListFromFile(filePath);
 
         speak(greet);
         while (!exit_status) {
@@ -16,196 +43,84 @@ public class BeeBot {
             String[] parts = input.split(" ");
             String cmd = parts[0];
 
-            switch (cmd) {
-                case "bye":
-                    speak(exit);
-                    exit_status = true;
-                    break;
-                case "list":
-                    int size = taskList.size();
-                    String listStr = "";
-                    for (int i = 0; i < size; i++) {
-                        int num = i + 1;
-                        listStr += (num + "." + taskList.get(i).stringify());
-                    }
-                    speak(listStr);
-                    break;
-                case "mark":
-                    try {
+            try {
+                switch (cmd) {
+                    case "bye":
+                        speak(exit);
+                        exit_status = true;
+                        break;
+                    case "list":
+                        int size = taskList.size();
+                        String listStr = "";
+                        for (int i = 0; i < size; i++) {
+                            int num = i + 1;
+                            listStr += (num + "." + taskList.get(i).toString());
+                        }
+                        speak(listStr);
+                        break;
+                    case "mark":
                         int taskNum = Integer.parseInt(parts[1]);
-                        Task currTask = taskList.get(taskNum - 1);
+                        Task currTask = getTask(taskList, taskNum);
                         currTask.markAsDone();
-                        speak("Nice! I've marked this task as done:\n" + currTask.stringify());
-                    } catch (Exception e) {
-                        speak(e.getMessage());
-                    }
-                    break;
-                case "unmark":
-                    try {
+                        speak("Nice! I've marked this task as done:\n" + currTask.toString());
+                        break;
+                    case "unmark":
                         int taskNum2 = Integer.parseInt(parts[1]);
-                        Task curr = taskList.get(taskNum2 - 1);
+                        Task curr = getTask(taskList, taskNum2);
                         curr.markAsUndone();
-                        speak("Nice! I've marked this task as not done yet:\n" + curr.stringify());
-                    } catch (Exception e) {
-                        speak(e.getMessage());
-                    }
-                    break;
-                case "todo":
-                    int sizeOfTodo = parts.length;
-                    try {
-                        if (sizeOfTodo == 1) {
-                            throw new Exception("Enter a description for the Todo Task.\n");
+                        speak("Nice! I've marked this task as not done yet:\n" + curr.toString());
+                        break;
+                    case "todo":
+                        if (parts.length == 1) {
+                            throw new EmptyDescriptionException("Enter a description for the Todo Task.\n");
                         }
-                        String name = "";
-                        for (int i = 1; i < sizeOfTodo - 1; i++) {
-                            name += (parts[i] + " ");
-                        }
-                        name += parts[sizeOfTodo - 1];
+                        String name = concatenate(parts, 1);
                         ToDo newToDo = new ToDo(name);
                         taskList.add(newToDo);
-                        int currSize = taskList.size();
-
-                        if (currSize == 1) {
-                            speak("Got it. I've added this task:\n"
-                                    + newToDo.stringify()
-                                    + "Now you have "
-                                    + currSize + " task in the list.\n");
-                        } else {
-                            speak("Got it. I've added this task:\n"
-                                    + newToDo.stringify()
-                                    + "Now you have "
-                                    + currSize + " tasks in the list.\n");
-                        }
-                    } catch (Exception e) {
-                        speak(e.getMessage());
-                    }
-                    break;
-                case "deadline":
-                    try {
+                        speakTaskAdded(newToDo, taskList.size());
+                        break;
+                    case "deadline":
                         if (parts.length == 1) {
-                            throw new Exception("Enter a description for the Deadline Task.\n");
+                            throw new EmptyDescriptionException("Enter a description for the Deadline Task.\n");
                         }
-                        String deadlineName = "";
-                        int d = 1;
-                        int sizeOfCmd = parts.length;
-
-                        while (!parts[d].equals("/by")) {
-                            deadlineName += (parts[d] + " ");
-                            d++;
-                            if (d == sizeOfCmd) {
-                                throw new Exception("Enter `/by` followed by a deadline.\n");
-                            }
-                        }
-
-                        d++;
-                        if (d == sizeOfCmd) {
-                            throw new Exception("Enter a date for the Deadline Task.\n");
-                        }
-                        String deadlineDate = "";
-                        for (; d < parts.length - 1; d++) {
-                            deadlineDate += (parts[d] + " ");
-                        }
-                        deadlineDate += parts[d];
-
+                        String deadlineName = concatenateUntil(parts, "/by");
+                        String deadlineDate = getFollowingDate(parts, "/by");
                         Deadline newDeadline = new Deadline(deadlineName, deadlineDate);
                         taskList.add(newDeadline);
-                        int currSize2 = taskList.size();
-                        if (currSize2 == 1) {
-                            speak("Got it. I've added this task:\n"
-                                    + newDeadline.stringify()
-                                    + "Now you have "
-                                    + currSize2 + " task in the list.\n");
-                        } else {
-                            speak("Got it. I've added this task:\n"
-                                    + newDeadline.stringify()
-                                    + "Now you have "
-                                    + currSize2 + " tasks in the list.\n");
-                        }
-                    } catch (Exception e) {
-                        speak(e.getMessage());
-                    }
-                    break;
-                case "event":
-                    try {
+                        speakTaskAdded(newDeadline, taskList.size());
+                        break;
+                    case "event":
                         if (parts.length == 1) {
-                            throw new Exception("Enter a description for the Event Task.\n");
+                            throw new EmptyDescriptionException("Enter a description for the Event Task.\n");
                         }
-                        String eventName = "";
-                        int sizeOfEventCmd = parts.length;
-                        int e = 1;
-                        while (!parts[e].equals("/from")) {
-                            eventName += (parts[e] + " ");
-                            e++;
-                            if (e == sizeOfEventCmd) {
-                                throw new Exception("Enter `/from` followed by a start date/time.\n");
-                            }
-                        }
-                        e++;
-                        if (e == sizeOfEventCmd) {
-                            throw new Exception("Enter a start date/time.\n");
-                        }
-                        String startTime = "";
-                        while (!parts[e].equals("/to")) {
-                            startTime += (parts[e] + " ");
-                            e++;
-                            if (e == sizeOfEventCmd) {
-                                throw new Exception("Enter `/to` followed by an end time.\n");
-                            }
-                        }
-                        e++;
-                        if (e == sizeOfEventCmd) {
-                            throw new Exception("Enter an end time.\n");
-                        }
-                        String endTime = "";
-                        for (; e < parts.length - 1; e++) {
-                            endTime += (parts[e] + " ");
-                        }
-                        endTime += parts[e];
+                        String eventName = concatenateUntil(parts, "/from");
+                        String startTime = getFollowingDate(parts, "/from", "/to");
+                        String endTime = getFollowingDate(parts, "/to", "");
                         Event newEvent = new Event(eventName, startTime, endTime);
                         taskList.add(newEvent);
-                        int currSize3 = taskList.size();
+                        speakTaskAdded(newEvent, taskList.size());
+                        break;
 
-                        if (currSize3 == 1) {
-                            speak("Got it. I've added this task:\n"
-                                    + newEvent.stringify()
-                                    + "Now you have "
-                                    + currSize3 + " task in the list.\n");
-                        } else {
-                            speak("Got it. I've added this task:\n"
-                                    + newEvent.stringify()
-                                    + "Now you have "
-                                    + currSize3 + " tasks in the list.\n");
-                        }
-                    } catch (Exception e) {
-                        speak(e.getMessage());
-                    }
-                    break;
-                case "delete":
-                    try {
+                    case "delete":
                         int deletionNumber = Integer.parseInt(parts[1]) - 1;
                         if (deletionNumber >= taskList.size()) {
-                            throw new Exception("Task does not exist.\n");
+                            throw new TaskNotFoundException("Task does not exist.\n");
                         }
-                        String deletedDescription = taskList.get(deletionNumber).stringify();
+                        String deletedDescription = taskList.get(deletionNumber).toString();
                         taskList.remove(deletionNumber);
-                        int currSize4 = taskList.size();
-                        if (currSize4 == 1) {
-                            speak("Got it. I've added this task:\n"
-                                    + deletedDescription
-                                    + "Now you have "
-                                    + currSize4 + " task in the list.\n");
-                        } else {
-                            speak("Noted. I've removed this task:\n"
-                                    + deletedDescription
-                                    + "Now you have "
-                                    + currSize4 + " tasks in the list.\n");
-                        }
-                    } catch (Exception e) {
-                        speak(e.getMessage());
-                    }
-                    break;
-                default:
-                    speak("Invalid command.\n");
+                        speakTaskRemoved(deletedDescription, taskList.size());
+                        break;
+                    default:
+                        speak("Invalid command.\n");
+                }
+
+                saveTaskListToFile(filePath, taskList);
+            } catch (EmptyDescriptionException | MissingDeadlineException | MissingEventTimeException | TaskNotFoundException e) {
+                speak(e.getMessage());
+            } catch (NumberFormatException e) {
+                speak("Please enter a valid task number.\n");
+            } catch (Exception e) {
+                speak("An error occurred: " + e.getMessage() + "\n");
             }
         }
     }
@@ -214,5 +129,153 @@ public class BeeBot {
         System.out.println("________________________\n"
                 + cmd
                 + "________________________\n");
+    }
+
+
+    public static Task getTask(ArrayList<Task> taskList, int taskNum) throws TaskNotFoundException {
+        if (taskNum <= 0 || taskNum > taskList.size()) {
+            throw new TaskNotFoundException("Task not found.\n");
+        }
+        return taskList.get(taskNum - 1);
+    }
+
+    public static String concatenate(String[] parts, int start) {
+        StringBuilder result = new StringBuilder();
+        for (int i = start; i < parts.length - 1; i++) {
+            result.append(parts[i]).append(" ");
+        }
+        result.append(parts[parts.length - 1]);
+        return result.toString();
+    }
+
+    public static String concatenateUntil(String[] parts, String delimiter) throws MissingDeadlineException {
+        StringBuilder result = new StringBuilder();
+        int i = 1;
+        while (!parts[i].equals(delimiter)) {
+            result.append(parts[i]).append(" ");
+            i++;
+            if (i == parts.length) {
+                throw new MissingDeadlineException("Missing `" + delimiter + "` or incorrect format.\n");
+            }
+        }
+        return result.toString().trim();
+    }
+
+    public static String getFollowingDate(String[] parts, String delimiter) throws MissingEventTimeException {
+        int i = 0;
+        while (!parts[i].equals(delimiter)) {
+            i++;
+            if (i == parts.length) {
+                throw new MissingEventTimeException("Missing `" + delimiter + "` or incorrect format.\n");
+            }
+        }
+        i++;
+        if (i == parts.length) {
+            throw new MissingEventTimeException("Please provide a date/time after `" + delimiter + "`.\n");
+        }
+
+        return concatenate(parts, i);
+    }
+
+    public static String getFollowingDate(String[] parts, String delimiter, String stopDelimiter) throws MissingEventTimeException {
+        int i = 0;
+        while (!parts[i].equals(delimiter)) {
+            i++;
+            if (i == parts.length) {
+                throw new MissingEventTimeException("Missing `" + delimiter + "` or incorrect format.\n");
+            }
+        }
+        i++; // Move to the part after the delimiter
+        if (i == parts.length || parts[i].equals(stopDelimiter)) {
+            throw new MissingEventTimeException("Please provide a date/time after `" + delimiter + "`.\n");
+        }
+
+        StringBuilder date = new StringBuilder();
+        while (i < parts.length && !parts[i].equals(stopDelimiter)) {
+            date.append(parts[i]).append(" ");
+            i++;
+        }
+        return date.toString().trim();
+    }
+
+    public static void speakTaskAdded(Task task, int size) {
+        String msg = "Got it. I've added this task:\n" + task.toString();
+        msg += size == 1 ? "Now you have 1 task in the list.\n" : "Now you have " + size + " tasks in the list.\n";
+        speak(msg);
+    }
+
+    public static void speakTaskRemoved(String description, int size) {
+        String msg = "Noted. I've removed this task:\n" + description;
+        msg += size == 1 ? "Now you have 1 task in the list.\n" : "Now you have " + size + " tasks in the list.\n";
+        speak(msg);
+    }
+
+    public static ArrayList<Task> loadTaskListFromFile(String filePath) {
+        ArrayList<Task> taskList = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                String type = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+
+                switch (type) {
+                    case "ToDo":
+                        ToDo todo = new ToDo(description);
+                        if (isDone) todo.markAsDone();
+                        taskList.add(todo);
+                        break;
+                    case "Deadline":
+                        String by = parts[3];
+                        Deadline deadline = new Deadline(description, by);
+                        if (isDone) deadline.markAsDone();
+                        taskList.add(deadline);
+                        break;
+                    case "Event":
+                        String from = parts[3];
+                        String to = parts[4];
+                        Event event = new Event(description, from, to);
+                        if (isDone) event.markAsDone();
+                        taskList.add(event);
+                        break;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading the task list: " + e.getMessage());
+        }
+        return taskList;
+    }
+
+    public static void saveTaskListToFile(String filePath, ArrayList<Task> taskList) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Task task : taskList) {
+                writer.write(taskToString(task));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving the task list: " + e.getMessage());
+        }
+    }
+
+    public static String taskToString(Task task) {
+        String type = "";
+        String status = task.isDone() ? "1" : "0"; // 1 if the task is done, 0 if not done
+        String description = task.getName();
+
+        if (task instanceof ToDo) {
+            type = "ToDo";
+            return type + " | " + status + " | " + description;
+        } else if (task instanceof Deadline) {
+            type = "Deadline";
+            String by = ((Deadline) task).getBy();
+            return type + " | " + status + " | " + description + " | " + by;
+        } else if (task instanceof Event) {
+            type = "Event";
+            String from = ((Event) task).getFrom();
+            String to = ((Event) task).getTo();
+            return type + " | " + status + " | " + description + " | " + from + " | " + to;
+        }
+        return "";
     }
 }

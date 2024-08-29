@@ -9,17 +9,25 @@ public class Event extends Task {
     }
 
     @Override
-    public String stringify() {
+    public String toString() {
         String str = "[E]";
         if (super.isDone()) {
             str += "[X]";
         } else {
             str += "[ ]";
         }
-        str += (" " + super.getName()
-                + "(from: " + this.startTime
+        str += (" " + super.getName() + " "
+                + "(from: " + this.startTime + " "
                 + "to: " + this.endTime
                 + ")\n");
         return str;
+    }
+
+    public String getFrom() {
+        return this.startTime;
+    }
+
+    public String getTo() {
+        return this.endTime;
     }
 }
