@@ -197,6 +197,11 @@ public class TaskList {
         return taskList.get(index);
     }
 
+    /**
+     * Prints the tasks that contains the search query string provided by the user
+     *
+     * @param queryString the query made by the user to find tasks with matching descriptions
+     */
     public void find(String queryString) {
         System.out.println(line);
         System.out.println("Here are the matching tasks in the list:");
