@@ -2,14 +2,10 @@ package deez;
 
 import javafx.util.Pair;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 /** This class is used for parsing user input. */
 public class Parser {
-
-  private static final DateTimeFormatter dateTimeInputFormatter =
-      DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
   /**
    * This method parses the given string and returns a pair containing the command and properties.

@@ -1,6 +1,12 @@
 package deez;
 
-import java.io.*;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /** Storage class for reading and writing Deez objects to a file. */
 public class Storage {
