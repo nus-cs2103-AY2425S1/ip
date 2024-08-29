@@ -47,4 +47,5 @@ public class Ui {
     public static void throwError(String message) throws SigmaException {
         throw new SigmaException(message);
     }
+
 }

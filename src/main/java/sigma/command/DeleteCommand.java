@@ -38,4 +38,5 @@ public class DeleteCommand extends Commands {
             throw new SigmaException("What the skibidi? Invalid task number!");
         }
     }
+
 }

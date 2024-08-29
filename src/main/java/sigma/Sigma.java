@@ -1,7 +1,5 @@
 package sigma;
 
-import sigma.Storage;
-import sigma.Ui;
 import sigma.command.Commands;
 import sigma.exception.SigmaException;
 
