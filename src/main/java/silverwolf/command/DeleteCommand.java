@@ -40,7 +40,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SilverWolfException {
-        Task task = tasks.getTasks().get(index);  // Retrieve the task to be deleted based on the index.
+        Task task = tasks.getTasks().get(index); // Retrieve the task to be deleted based on the index.
         tasks.deleteTask(index); // Remove the task from the task list.
         storage.save(tasks.getTasks()); // Save the updated task list to storage.
         ui.showLine(); // Display confirmation messages to the user.

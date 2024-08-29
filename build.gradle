@@ -1,4 +1,5 @@
 plugins {
+    id 'checkstyle'
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
@@ -44,4 +45,16 @@ run{
 
 shadowJar {
     archiveFileName = 'silverWolf.jar'
+}
+
+
+checkstyle {
+    toolVersion = '10.13.0'
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'com.google.guava:guava:33.0.0-jre'
+        exclude group: 'com.google.collections', module: 'google-collections'
+    }
 }

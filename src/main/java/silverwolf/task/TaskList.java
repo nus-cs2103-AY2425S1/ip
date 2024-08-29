@@ -8,7 +8,7 @@ import java.util.List;
  * It provides methods to manage and access tasks, including adding, removing, and retrieving tasks.
  */
 public class TaskList {
-    private final List<Task> tasks;     // The list that stores all tasks
+    private final List<Task> tasks; // The list that stores all tasks
 
     /**
      * Default constructor that initializes an empty TaskList.

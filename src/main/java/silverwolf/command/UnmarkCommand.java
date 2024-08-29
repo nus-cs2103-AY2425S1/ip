@@ -10,7 +10,7 @@ import silverwolf.ui.Ui;
  * Represents a command to mark a task as not done.
  * The command takes an index of the task to be unmarked and updates the task status accordingly.
  */
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     private final int taskIndex;
 
     /**
@@ -47,7 +47,7 @@ public class UnmarkCommand extends Command{
             specificTask.unmarkTask();
 
             // Provide feedback to the user
-            ui.showUnmarkTask(specificTask);  // Assuming `Ui` has a method to show unmarked task
+            ui.showUnmarkTask(specificTask); // Assuming `Ui` has a method to show unmarked task
 
             // Save the updated task list to storage
             storage.save(tasks.getTasks());

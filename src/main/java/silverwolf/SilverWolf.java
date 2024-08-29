@@ -46,7 +46,7 @@ public class SilverWolf {
      * until the exit command is issued.
      */
     public void run() {
-        this.ui.showWelcome();  // Display the welcome message to the user
+        this.ui.showWelcome(); // Display the welcome message to the user
         boolean isExit = false;
         while (!isExit) {
             try {

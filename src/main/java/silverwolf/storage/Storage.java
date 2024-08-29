@@ -1,13 +1,18 @@
 package silverwolf.storage;
 
-import silverwolf.exception.SilverWolfException;
-import silverwolf.task.Task;
-
-import java.io.*;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+
+import silverwolf.exception.SilverWolfException;
+import silverwolf.task.Task;
 
 /**
  * The Storage class is responsible for handling file operations related to task storage.
@@ -44,16 +49,16 @@ public class Storage {
         try {
             // create directory if it doesnt exist
             File folder = new File(this.directoryPath);
-            if(!folder.exists()) {
+            if (!folder.exists()) {
                 folder.mkdirs();
             }
 
             // create file if it doesnt exist
             File saveFile = new File(this.filePath);
-            if(!saveFile.exists()){
+            if (!saveFile.exists()) {
                 saveFile.createNewFile();
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Hmmm, an error occurred while setting up list storage.");
             e.printStackTrace();
         }

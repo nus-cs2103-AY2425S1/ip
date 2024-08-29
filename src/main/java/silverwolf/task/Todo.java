@@ -1,7 +1,6 @@
 package silverwolf.task;
-
 /**
- * represents a task of type "Todo", which has no specific date or deadline.
+ * Represents a task of type "Todo", which has no specific date or deadline.
  * A Todo task simply contains a description and its completion status.
  */
 public class Todo extends Task {
@@ -11,7 +10,7 @@ public class Todo extends Task {
      *
      * @param todo The description of the Todo task.
      */
-    public Todo(String todo){
+    public Todo(String todo) {
         super(todo, TaskType.TODO);
     }
 
@@ -32,8 +31,8 @@ public class Todo extends Task {
      * @return A string in the format "[TaskType][StatusIcon] Description".
      */
     @Override
-    public String toString(){
-        return " ["+this.type()+"]["+this.getStatusIcon()+"] "+ this.getDescription();
+    public String toString() {
+        return " [" + this.type() + "][" + this.getStatusIcon() + "] " + this.getDescription();
     }
 
     /**
@@ -44,7 +43,7 @@ public class Todo extends Task {
      */
     @Override
     public String toFileString() {
-        return this.type()+" | "+this.getFileIcon()+" | "+ this.getDescription();
+        return this.type() + " | " + this.getFileIcon() + " | " + this.getDescription();
     }
 
 }
