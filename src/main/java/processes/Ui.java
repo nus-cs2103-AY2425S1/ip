@@ -1,6 +1,6 @@
-package main.java.processes;
+package processes;
 
-import main.java.tasks.Task;
+import tasks.Task;
 
 import java.util.Scanner;
 import java.util.ArrayList;

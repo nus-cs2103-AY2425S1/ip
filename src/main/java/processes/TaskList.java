@@ -1,10 +1,9 @@
-package main.java.processes;
+package processes;
 
-import main.java.exceptions.*;
-import main.java.tasks.DeadLine;
-import main.java.tasks.Event;
-import main.java.tasks.Task;
-import main.java.tasks.ToDo;
+import exceptions.*;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
 
 import java.util.ArrayList;
 
@@ -50,6 +49,7 @@ public class TaskList {
             System.out.println("You now have " + taskList.size() + " task(s)");
         } catch (InvalidTaskNameException | InvalidDateException ex) {
             System.out.println(ex.getMessage());
+            return;
         }
     }
 

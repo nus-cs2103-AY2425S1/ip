@@ -1,6 +1,6 @@
-package main.java.tasks;
+package tasks;
 
-import main.java.exceptions.*;
+import exceptions.*;
 
 import static java.lang.Integer.parseInt;
 

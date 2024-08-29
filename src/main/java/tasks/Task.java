@@ -1,4 +1,4 @@
-package main.java.tasks;
+package tasks;
 
 
 public abstract class Task {

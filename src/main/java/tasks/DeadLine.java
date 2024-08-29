@@ -1,5 +1,6 @@
-package main.java.tasks;
-import main.java.exceptions.*;
+package tasks;
+import exceptions.InvalidDateException;
+import exceptions.InvalidTaskNameException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

@@ -1,7 +1,7 @@
-package main.java.tasks;
+package tasks;
 
-import main.java.exceptions.InvalidDateException;
-import main.java.exceptions.InvalidTaskNameException;
+import exceptions.InvalidDateException;
+import exceptions.InvalidTaskNameException;
 
 import static java.lang.Integer.parseInt;
 
