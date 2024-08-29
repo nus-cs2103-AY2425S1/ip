@@ -11,50 +11,42 @@ Hello from
     /:/  /                     \:\__\     /:/  /       \::/  /
     \/__/                       \/__/     \/__/         \/__/
 
-
 ____________________________________________________________
 Hello! I'm Atlas
 What can I do for you?
 ____________________________________________________________
 
-
 ____________________________________________________________
 Got it. I've added this task:
-	[D] [ ] return book (by: Sunday 2pm)
+	[D] [ ] return book (by: Jul 15 2024 2:00 pm)
  Now you have 1 tasks in the list.
 ____________________________________________________________
 
-
 ____________________________________________________________
 Got it. I've added this task:
-	[E] [ ] CS2103T lecture (from: Friday 4pm to: 6pm)
+	[E] [ ] CS2103T lecture (from: Jul 16 2024 8:00 am to: Jul 16 2024 10:00 am)
  Now you have 2 tasks in the list.
 ____________________________________________________________
 
-
 ____________________________________________________________
 Nice! I've marked this task as done:
- 	[D] [X] return book (by: Sunday 2pm)
+ 	[D] [X] return book (by: Jul 15 2024 2:00 pm)
 ____________________________________________________________
 
-
 ____________________________________________________________
-1: [D] [X] return book (by: Sunday 2pm)
-2: [E] [ ] CS2103T lecture (from: Friday 4pm to: 6pm)
+1: [D] [X] return book (by: Jul 15 2024 2:00 pm)
+2: [E] [ ] CS2103T lecture (from: Jul 16 2024 8:00 am to: Jul 16 2024 10:00 am)
 ____________________________________________________________
-
 
 ____________________________________________________________
 OK, I've marked this task as not done yet:
- 	[D] [ ] return book (by: Sunday 2pm)
+ 	[D] [ ] return book (by: Jul 15 2024 2:00 pm)
 ____________________________________________________________
 
-
 ____________________________________________________________
-1: [D] [ ] return book (by: Sunday 2pm)
-2: [E] [ ] CS2103T lecture (from: Friday 4pm to: 6pm)
+1: [D] [ ] return book (by: Jul 15 2024 2:00 pm)
+2: [E] [ ] CS2103T lecture (from: Jul 16 2024 8:00 am to: Jul 16 2024 10:00 am)
 ____________________________________________________________
-
 
 ____________________________________________________________
 Got it. I've added this task:
@@ -62,34 +54,29 @@ Got it. I've added this task:
  Now you have 3 tasks in the list.
 ____________________________________________________________
 
-
 ____________________________________________________________
-1: [D] [ ] return book (by: Sunday 2pm)
-2: [E] [ ] CS2103T lecture (from: Friday 4pm to: 6pm)
+1: [D] [ ] return book (by: Jul 15 2024 2:00 pm)
+2: [E] [ ] CS2103T lecture (from: Jul 16 2024 8:00 am to: Jul 16 2024 10:00 am)
 3: [T] [ ] buy groceries
 ____________________________________________________________
-
 
 ____________________________________________________________
 Nice! I've marked this task as done:
  	[T] [X] buy groceries
 ____________________________________________________________
 
-
 ____________________________________________________________
 Got it. I've added this task:
-	[E] [ ] football match (from: Sunday 5pm to: Sunday 7pm)
+	[E] [ ] football match (from: Jul 20 2024 5:00 pm to: Jul 16 2024 7:00 pm)
  Now you have 4 tasks in the list.
 ____________________________________________________________
 
-
 ____________________________________________________________
-1: [D] [ ] return book (by: Sunday 2pm)
-2: [E] [ ] CS2103T lecture (from: Friday 4pm to: 6pm)
+1: [D] [ ] return book (by: Jul 15 2024 2:00 pm)
+2: [E] [ ] CS2103T lecture (from: Jul 16 2024 8:00 am to: Jul 16 2024 10:00 am)
 3: [T] [X] buy groceries
-4: [E] [ ] football match (from: Sunday 5pm to: Sunday 7pm)
+4: [E] [ ] football match (from: Jul 20 2024 5:00 pm to: Jul 16 2024 7:00 pm)
 ____________________________________________________________
-
 
 ____________________________________________________________
 Bye. Hope to see you again soon!
