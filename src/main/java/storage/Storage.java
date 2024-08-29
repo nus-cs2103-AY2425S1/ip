@@ -10,11 +10,22 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * Opens the file, storing of the task into the
+ * file if added, and loading of the file when Tako just starts up.
+ */
 public class Storage {
 
     private File textFile;
     private File directoryFile;
 
+    /**
+     * Checks if a directory exists and create one if it does not and
+     * checks if a text file exists and create one if it does not
+     *
+     * @param filePath destination of the file to load
+     * @throws IOException if there is issue in opening/finding a file
+     */
     public Storage(String filePath) {
         this.directoryFile = new File("data");
         this.textFile = new File(filePath);
@@ -32,6 +43,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Helps to load the tasks into the chatbot when it starts.
+     *
+     * @throws FileNotFoundException if there is no file to load from.
+     */
     public void load() {
         try {
             Scanner scanner = new Scanner(textFile);
@@ -54,6 +70,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the lists of tasks into the text file and store it in the hard drive.
+     *
+     * @param tasks tasks to be stored into the file.
+     * @throws IOException if the file to be stored to does not exist.
+     */
     public static void store(String tasks) {
         try {
             FileWriter fileWriter = new FileWriter("./data/Tako.txt");
@@ -64,6 +86,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Helps to load ToDo Task into the list of tasks when the chatbot starts.
+     *
+     * @param task ToDo Task to be loaded.
+     * @param isTaskDone Whether the ToDo task has already been completed.
+     */
     public void loadTodoTask(String task, char isTaskDone) {
         String description = task.substring(7);
         TaskList.addTaskLoad(new ToDo(description));
@@ -72,6 +100,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Helps to load Deadline Task into the list of tasks when the chatbot starts.
+     *
+     * @param task Deadline Task to be loaded.
+     * @param isTaskDone Whether the Deadline task has already been completed.
+     */
     public void loadDeadlineTask(String task, char isTaskDone) {
         int byPosition = task.indexOf("(by:");
         String description = task.substring(7, byPosition);
@@ -82,6 +116,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Helps to load Event Task into the list of tasks when the chatbot starts.
+     *
+     * @param task Event Task to be loaded
+     * @param isTaskDone Whether the Event task has already been completed
+     */
     public void loadEventTask(String task, char isTaskDone) {
         int fromPosition = task.indexOf("(from:");
         int toPosition = task.indexOf("to:");

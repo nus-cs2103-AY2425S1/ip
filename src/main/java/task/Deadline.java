@@ -3,6 +3,9 @@ package task;
 import java.time.LocalDate;
 import java.time.Month;
 
+/**
+ * Represents a Task which have a due date
+ */
 public class Deadline extends Task {
 
     protected LocalDate by;

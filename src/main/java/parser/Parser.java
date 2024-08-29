@@ -10,8 +10,19 @@ import java.time.Month;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Parse all commands that is
+ * being input into Tako chatbot.
+ */
 public class Parser {
     public static ArrayList<Task> listOfTask = new ArrayList<Task>();
+
+    /**
+     * Checks whether the input command is recognizable by Tako.
+     *
+     * @param command the string that is being input into Tako.
+     * @throws TakoException if the command is not recognized.
+     */
     public static void parse(String command) {
         try {
             if (command.equalsIgnoreCase("bye")) {
@@ -39,6 +50,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks the task as complete according to the input
+     *
+     * @param command
+     * @throws TakoException if the mark command is not in the right form
+     */
     public static void parseMark(String command) {
         try {
             if (command.length() > 4 && command.charAt(4) == ' ') {
@@ -56,6 +73,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks the task as incomplete according to the input
+     *
+     * @param command
+     * @throws TakoException if the unmark command is not in the right form
+     */
     public static void parseUnmark(String command) {
         try {
             if (command.length() > 6 && command.charAt(6) == ' ') {
@@ -73,6 +96,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Deletes the task according to the input from the list
+     *
+     * @param command
+     * @throws TakoException if the delete command is not in the right form
+     */
     public static void parseDelete(String command) {
         try {
             if (command.length() > 6 && command.charAt(6) == ' ') {
@@ -90,6 +119,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Breaks down the command into its description
+     * Make the todo task according to the description
+     *
+     * @param command
+     * @throws TakoException if the todo command is not in the right form
+     */
     public static void parseTodo(String command) {
         try {
             if (command.length() > 4 && command.charAt(4) == ' ' && !command.substring(5).isBlank()) {
@@ -104,6 +140,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Breaks down the command into its description and when it is due
+     * Make the deadline task according to the description and its due date
+     *
+     * @param command
+     * @throws TakoException if the deadline command is not in the right form
+     */
     public static void parseDeadline(String command) {
         try {
             if (command.length() > 8 && command.charAt(8) == ' ') {
@@ -129,6 +172,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Breaks down the command into its description, starting date and end date
+     * Make the event task according to the description, start and end date
+     *
+     * @param command
+     * @throws TakoException if the event command is not in the right form
+     */
     public static void parseEvent(String command) {
         try {
             int fromPosition = command.indexOf("/from");
@@ -164,6 +214,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks whether the input is of the correct format and if so,
+     * whether it is an existing date
+     *
+     *
+     * @param date
+     * @return boolean of whether the date is valid
+     */
     public static boolean isValidDate(String date) {
         try {
             LocalDate.parse(date);
@@ -173,6 +231,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Changes the date from MONTH DD YYYY to a local date class
+     *
+     * @param date
+     * @return LocalDate object
+     */
     public static LocalDate dateToLocalDate(String date) {
         int firstSpace = date.indexOf(' ');
         String month = date.substring(0, firstSpace);
