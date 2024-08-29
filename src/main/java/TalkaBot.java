@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -5,12 +6,16 @@ public class TalkaBot {
 
     private Scanner sc;
     private ArrayList<Task> list;
-    private int counter;
+    private Storage storage;
 
-    public TalkaBot() {
+    public TalkaBot(String filePath) {
+        storage = new Storage(filePath);
         this.sc = new Scanner(System.in);
-        this.list = new ArrayList<>();
-        this.counter = 0;
+        try {
+            this.list = storage.load();
+        } catch (IOException e) {
+            Message.error(e.getMessage());
+        }
     }
 
     private void run() {
@@ -24,7 +29,7 @@ public class TalkaBot {
                 } else if (input.equalsIgnoreCase("bye")) {
                     end = true;
                 } else if (input.equalsIgnoreCase("list")) {
-                    Message.displayList(this.list, counter);
+                    Message.displayList(this.list);
                 } else if (input.toLowerCase().startsWith("mark")) {
                     this.mark(input);
                 } else if (input.toLowerCase().startsWith("unmark")) {
@@ -35,9 +40,10 @@ public class TalkaBot {
                     if (input.length() < 6) {
                         throw new InvalidScheduleException();
                     }
-                    this.list.add(new ToDo(input.substring(5)));
-                    Message.echo(this.list.get(this.counter), this.counter + 1);
-                    this.counter++;
+                    Task curr = new ToDo(input.substring(5));
+                    this.list.add(curr);
+                    Message.echo(curr, this.list.size());
+                    storage.save(this.list);
                 } else if (input.toLowerCase().startsWith("deadline")) {
                     if (input.length() < 10) {
                         throw new InvalidScheduleException();
@@ -45,9 +51,10 @@ public class TalkaBot {
                     if (input.indexOf("/by") == -1) {
                         throw new UnknownTimeException("should be done by");
                     }
-                    this.list.add(new Deadline(input.substring(9)));
-                    Message.echo(this.list.get(this.counter), this.counter + 1);
-                    this.counter++;
+                    Task curr = new Deadline(input.substring(9));
+                    this.list.add(curr);
+                    Message.echo(curr, this.list.size());
+                    storage.save(this.list);
                 } else if (input.toLowerCase().startsWith("event")) {
                     if (input.length() < 7) {
                         throw new InvalidScheduleException();
@@ -58,9 +65,10 @@ public class TalkaBot {
                     if (input.indexOf("/to") == -1) {
                         throw new UnknownTimeException("ends");
                     }
-                    this.list.add(new Event(input.substring(6)));
-                    Message.echo(this.list.get(this.counter), this.counter + 1);
-                    this.counter++;
+                    Task curr = new Event(input.substring(6));
+                    this.list.add(curr);
+                    Message.echo(curr, this.list.size());
+                    storage.save(this.list);
                 } else {
                     if (input == "") {
                     } else {
@@ -68,7 +76,7 @@ public class TalkaBot {
                     }
                 }
             } catch (TalkaBotException e) {
-                Message.error(e);
+                Message.error(e.getMessage());
             }
         }
         Message.goodbye();
@@ -77,7 +85,7 @@ public class TalkaBot {
     private boolean isValidNumber(String str, int len) {
         try {
             return str.length() > len
-                    && Integer.parseInt(str.substring(len)) <= this.counter
+                    && Integer.parseInt(str.substring(len)) <= this.list.size()
                     && Integer.parseInt(str.substring(len)) >= 1;
         } catch(NumberFormatException e){
             return false;
@@ -91,6 +99,7 @@ public class TalkaBot {
         Task task = this.list.get(Integer.parseInt(input.substring(5)) - 1);
         task.markAsDone();
         Message.mark(task);
+        storage.save(this.list);
     }
 
     private void unmark(String input) throws InvalidEditException {
@@ -100,6 +109,7 @@ public class TalkaBot {
         Task task = this.list.get(Integer.parseInt(input.substring(7)) - 1);
         task.markAsUndone();
         Message.unmark(task);
+        storage.save(this.list);
     }
 
     private void delete(String input) throws InvalidEditException {
@@ -107,11 +117,11 @@ public class TalkaBot {
             throw new InvalidEditException("delete");
         }
         Task task = this.list.remove(Integer.parseInt(input.substring(7)) - 1);
-        this.counter--;
-        Message.delete(task, this.counter);
+        Message.delete(task, this.list.size());
+        storage.save(this.list);
     }
 
     public static void main(String[] args) {
-        new TalkaBot().run();
+        new TalkaBot("data/tasks.txt").run();
     }
 }

@@ -17,9 +17,9 @@ public class Message {
                         + "\nYou now have " + total + " tasks.", task));
     }
 
-    public static void displayList(ArrayList<Task> list, int counter) {
+    public static void displayList(ArrayList<Task> list) {
         String output = "Here's your to-do list:";
-        for (int i = 0; i < counter; i++) {
+        for (int i = 0; i < list.size(); i++) {
             output += String.format("\n%d. ", i + 1) + list.get(i);
         }
         System.out.println(output);
@@ -38,8 +38,8 @@ public class Message {
                 "\nYou now have " + total + " tasks in total!");
     }
 
-    public static void error(TalkaBotException e) {
-        System.out.println(e.getMessage());
+    public static void error(String message) {
+        System.out.println(message);
     }
 
 }
