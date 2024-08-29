@@ -1,7 +1,40 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Luffy {
+
+    public static void checkValidArguments(String[] textList, int expectedLength) throws LuffyException {
+        if (textList.length != expectedLength && expectedLength == 2) {
+            throw new LuffyException("Your deadline task requires a deadline!");
+        } else if (textList.length != expectedLength && expectedLength == 3) {
+            throw new LuffyException("Your event task requires a start time and end time!");
+        }
+    }
+
+    public static void validCommand(String command) throws LuffyException {
+        command = command.trim();
+        String[] validCommands = {"mark", "unmark", "todo", "deadline", "event"};
+        String[] parsedCommands = command.split(" ", 2);
+
+       if (Arrays.stream(validCommands).noneMatch(parsedCommands[0]::equals)) {
+           if (command.equals("bye") || command.equals("list")) {
+               return;
+           }
+           throw new LuffyException("Invalid command! This command either does not exist, or has not been implemented yet.");
+       } else if (parsedCommands.length <= 1) {
+            throw new LuffyException("Incomplete command! Please provide more information to your command.");
+       } else if (parsedCommands.length > 1){
+           String[] details = parsedCommands[1].split("/", 3);
+           if (parsedCommands[1].startsWith("deadline") && details.length < 1) {
+               throw new LuffyException("Your deadline tasks requires a deadline!");
+           } else if (parsedCommands[1].startsWith("event") && details.length < 2) {
+               throw new LuffyException("Your event tasks requires a start time and end time");
+           }
+       } else {
+           return;
+       }
+    }
 
     public static void main(String[] args) {
 
@@ -19,6 +52,14 @@ public class Luffy {
             Scanner echo = new Scanner(System.in);
             String echoPhrase = echo.nextLine();
 
+            try {
+                validCommand(echoPhrase);
+            } catch (LuffyException e) {
+                showLine();
+                System.out.println(e.getMessage());
+                showLine();
+                continue;
+            }
 
             if (echoPhrase.equals("bye")) {
 
@@ -66,6 +107,13 @@ public class Luffy {
 
                 showLine();
                 String[] taskAndDeadline = echoPhrase.substring(9).split("/");
+                try {
+                    checkValidArguments(taskAndDeadline, 2);
+                } catch (LuffyException e) {
+                    System.out.println(e.getMessage());
+                    showLine();
+                    continue;
+                }
                 Deadline deadlineTask = new Deadline(taskAndDeadline[0].trim(), taskAndDeadline[1].trim());
                 textList.add(deadlineTask);
                 System.out.println("Got it. I've added this task:");
@@ -77,6 +125,14 @@ public class Luffy {
 
                 showLine();
                 String[] eventDetails = echoPhrase.substring(6).split("/");
+                try {
+                    checkValidArguments(eventDetails, 3);
+                } catch (LuffyException e) {
+                    showLine();
+                    System.out.println(e.getMessage());
+                    showLine();
+                    continue;
+                }
                 Event eventTask = new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2]);
                 textList.add(eventTask);
                 System.out.println("Got it. I've added this task:");
