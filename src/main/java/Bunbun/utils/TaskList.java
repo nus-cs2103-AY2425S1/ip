@@ -1,8 +1,18 @@
 package Bunbun.utils;
-import Bunbun.exceptions.*;
-import Bunbun.tasks.*;
-import java.util.ArrayList;
+
+import Bunbun.exceptions.BunbunException;
+import Bunbun.exceptions.InvalidDateFormatException;
+import Bunbun.exceptions.InvalidTaskFormatException;
+import Bunbun.exceptions.MissingTaskException;
+import Bunbun.exceptions.TaskNumOutOfBoundsException;
+import Bunbun.tasks.Deadline;
+import Bunbun.tasks.Event;
+import Bunbun.tasks.Task;
+import Bunbun.tasks.ToDo;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+
 
 /**
  * This class implements a task list.
@@ -12,14 +22,14 @@ import java.time.LocalDate;
  */
 public class TaskList {
     private ArrayList<Task> taskList;
-    private UI ui;
+    private Ui ui;
     private int numOfTasks;
 
 
     /**
      * Constructor for a TaskList. Initializes number of Bunbun.tasks to 0.
      */
-    public TaskList(Storage s, UI ui) {
+    public TaskList(Storage s, Ui ui) {
         this.taskList = s.toArrayList();
         this.ui = ui;
         this.numOfTasks = this.taskList.size();
@@ -155,7 +165,7 @@ public class TaskList {
         this.ui.response("These are your tasks!");
         for (int i = 0; i < this.numOfTasks; i++) {
             Task currTask = this.taskList.get(i);
-            String res;
+            String res = "";
             if (currTask.isComplete()) {
                 res = String.format("%d.%s", i + 1, currTask);
             } else {

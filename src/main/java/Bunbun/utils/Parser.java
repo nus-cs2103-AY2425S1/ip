@@ -1,13 +1,15 @@
+package Bunbun.utils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
 /**
- * This class parses user input for Bunbun.Bunbun.
+ * This class parses user input for Bunbun.
  *
  * @author Eda Yeo
  * @version CS2103T AY24/25 Semester 1
  */
-package Bunbun.utils;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
 public class Parser {
 
     private static ArrayList<String> tokens = new ArrayList<>();

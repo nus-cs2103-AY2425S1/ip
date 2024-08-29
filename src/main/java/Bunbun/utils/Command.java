@@ -1,4 +1,5 @@
 package Bunbun.utils;
+
 import Bunbun.exceptions.BunbunException;
 
 import java.util.ArrayList;
@@ -6,9 +7,9 @@ import java.util.ArrayList;
 public class Command {
 
     private TaskList taskList;
-    private UI ui;
+    private Ui ui;
 
-    public Command(TaskList taskList, UI ui) {
+    public Command(TaskList taskList, Ui ui) {
         this.taskList = taskList;
         this.ui = ui;
     }

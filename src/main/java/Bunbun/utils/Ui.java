@@ -5,7 +5,7 @@
  * @version CS2103T AY24/25 Semester 1
  */
 package Bunbun.utils;
-public class UI {
+public class Ui {
 
     /**
      * Prints the start screen upon start.
