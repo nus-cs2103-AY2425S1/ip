@@ -59,7 +59,13 @@ public class Rex {
                     ui.addTask(event);
                     break;
                 case LIST:
-                    ui.displayList(taskList);
+                    String output = taskList.getListDisplay();
+                    ui.displayList(output);
+                    break;
+                case FIND:
+                    argument = inputTokens[1];
+                    output = taskList.findTasks(argument);
+                    ui.findTask(output);
                     break;
                 case MARK:
                     argument = inputTokens[1];

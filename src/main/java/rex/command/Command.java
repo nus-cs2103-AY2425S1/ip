@@ -3,7 +3,7 @@ package rex.command;
 import rex.exception.InvalidCommandException;
 
 public enum Command {
-    TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, RAWR, BYE, HELP;
+    TODO, DEADLINE, EVENT, LIST, FIND, MARK, UNMARK, DELETE, RAWR, BYE, HELP;
 
     private static Command lastCommand;
 
@@ -19,6 +19,8 @@ public enum Command {
             return EVENT;
         case "list":
             return LIST;
+        case "find":
+            return FIND;
         case "mark":
             return MARK;
         case "unmark":
@@ -46,6 +48,8 @@ public enum Command {
             return "event <description> /from <date: DD-MM-YY> <time: HHMM> /to <date: DD-MM-YY> <time: HHMM>";
         case LIST:
             return "list";
+        case FIND:
+            return "find <keyword>";
         case MARK:
             return "mark <task number>";
         case UNMARK:
@@ -74,6 +78,10 @@ public enum Command {
 
         output += spaces + "List all tasks:\n";
         output += spaces + "* " + usageMessage(LIST) + "\n";
+        output += "\n";
+
+        output += spaces + "Find tasks with description that matches keyword:\n";
+        output += spaces + "* " + usageMessage(FIND) + "\n";
         output += "\n";
 
         output += spaces + "Mark/Unmark/Delete tasks:\n";

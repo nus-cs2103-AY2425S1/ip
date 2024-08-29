@@ -87,6 +87,21 @@ public class TaskList {
         return size() == 0;
     }
 
+    public String findTasks(String keyword) {
+        int taskNumber = 1;
+        String output = "Here are the matching tasks in your list:\n";
+
+        for (int i = 1; i <= list.size(); i++) {
+            Task task = getTask(i);
+            if (task.getDescription().contains(keyword)) {
+                output += taskNumber + "." + task + "\n";
+                taskNumber++;
+            }
+        }
+
+        return output;
+    }
+
     public Task markTask(String argument) throws IOException {
         Task actionTask = getTask(argument);
         actionTask.markDone();
