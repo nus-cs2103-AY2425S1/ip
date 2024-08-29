@@ -7,17 +7,36 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class handles the parsing of user commands and the conversion of strings to date and time formats.
+ * It interacts with the TaskList, Ui, and Storage components to process user input and manage tasks.
+ */
 public class Parser {
     private botimusprime.tasks.TaskList taskList;
     private Ui ui;
     private botimusprime.storage.Storage storage;
 
+    /**
+     * Constructs a Parser instance with the specified TaskList, UI, and Storage.
+     *
+     * @param taskList The TaskList to keep track of tasks.
+     * @param ui       The Ui component that handles interactions with the user.
+     * @param storage  The Storage component to handle saving and loading tasks from disk.
+     */
     public Parser(botimusprime.tasks.TaskList taskList, Ui ui, botimusprime.storage.Storage storage) {
         this.taskList = taskList;
         this.ui = ui;
         this.storage = storage;
     }
 
+    /**
+     * Converts a date and time string into a LocalDateTime object.
+     * The method tries to parse the string using different date and time formats.
+     *
+     * @param timeString The date and/or time string to be converted.
+     * @return A LocalDateTime object representing the parsed date and time.
+     * @throws IllegalArgumentException if the string cannot be parsed into any known date format.
+     */
     public static LocalDateTime stringToDateTime(String timeString) {
         DateTimeFormatter withTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         DateTimeFormatter withoutTime = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -45,6 +64,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the user input and executes the corresponding command.
+     * The method recognizes commands such as "bye", "list", "mark", "unmark", "to\do", "deadline", "event", and "delete".
+     * If the command is not recognized, an error message is displayed.
+     *
+     * @param input The user input string to be parsed.
+     * @return true if the command is "bye" and false otherwise.
+     */
     public boolean parse(String input) {
         if (input.equals("bye")) {
             return true;
