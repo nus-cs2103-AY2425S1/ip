@@ -1,3 +1,7 @@
+package bobby;
+
+import bobby.exception.EmptyDescriptionException;
+
 public class Event extends Task {
     String start;
     String end;

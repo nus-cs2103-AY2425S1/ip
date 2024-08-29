@@ -1,7 +1,6 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+package bobby;
+
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Ui {
     static int lengthOfLine = 35;

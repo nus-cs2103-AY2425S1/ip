@@ -1,9 +1,9 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
+package bobby;
+
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
+
+import bobby.exception.BobbyException;
 
 public class Bobby {
     private static String filePath = "data.txt";
