@@ -1,3 +1,10 @@
+package bean.storage;
+
+import bean.task.DeadlineTask;
+import bean.task.EventTask;
+import bean.task.Task;
+import bean.task.TodoTask;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
