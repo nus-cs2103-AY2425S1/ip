@@ -11,9 +11,9 @@ import quack.exception.FailedUpdateException;
 public class TaskList {
 
     /** Track how many tasks are in the list */
-    private int length;
+    protected int length;
     /** List to store tasks */
-    private ArrayList<Task> toDoList;
+    protected ArrayList<Task> toDoList;
 
     /**
      * Constructor to create a TaskList object.
@@ -58,8 +58,8 @@ public class TaskList {
         idx = idx - 1;
 
         // Check if the index if out of bounds
-        if (idx < 0 || idx >= toDoList.size()) {
-            throw new IndexOutOfBoundsException("Oops looks like the index: " + idx + " entered is out of bounds!");
+        if (idx < 0 || idx >= length) {
+            throw new IndexOutOfBoundsException("Oops looks like the index: " + (idx + 1) + " entered is out of bounds!");
         }
 
         Task task = toDoList.get(idx);
@@ -105,7 +105,7 @@ public class TaskList {
         idx = idx - 1;
         // Check if the index if out of bounds
         if (idx < 0 || idx >= toDoList.size()) {
-            throw new IndexOutOfBoundsException("Oops looks like the index: " + idx + " entered is out of bounds!");
+            throw new IndexOutOfBoundsException("Oops looks like the index: " + (idx + 1) + " entered is out of bounds!");
         }
 
         // Remove the task from the list

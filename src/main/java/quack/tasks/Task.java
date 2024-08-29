@@ -61,6 +61,7 @@ public abstract class Task {
             task = new EventTask(taskDetails[1], startDate, endDate);
             break;
         }
+        
         return task;
     }
 

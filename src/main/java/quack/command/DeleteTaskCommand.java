@@ -1,8 +1,6 @@
 package quack.command;
 
-import quack.Quack;
 import quack.TaskList;
-import quack.Storage;
 import quack.Ui;
 import quack.exception.InvalidIndexException;
 import quack.tasks.Task;
@@ -12,18 +10,23 @@ import quack.tasks.Task;
  */
 public class DeleteTaskCommand extends Command{
 
+    private TaskList taskList;
+    private Ui ui;
+
     /**
      * Creates a DeleteTaskCommand object.
+     * @param taskList A list that stores all the tasks tracked by Quack.
+     * @param ui The ui object that handles user interface requests.
      */
-    public DeleteTaskCommand() {
-
+    public DeleteTaskCommand(TaskList taskList, Ui ui) {
+        this.taskList = taskList;
+        this.ui = ui;
     }
 
     @Override
-    public void execute(Quack quack, TaskList taskList, Storage storage, Ui ui) {
-        
-        Command listCommand = new ListCommand();
-        listCommand.execute(quack, taskList, storage, ui);
+    public void execute() {
+        Command listCommand = new ListCommand(taskList, ui);
+        listCommand.execute();
 
         if (taskList.getLength() != 0) {
             try {

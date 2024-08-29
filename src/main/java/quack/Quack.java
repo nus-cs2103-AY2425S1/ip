@@ -24,13 +24,21 @@ public class Quack {
     /**
      * Creates a Quack chatbot object.
      */
-    Quack() {
+    public Quack() {
 
         this.isRunning = true;
         this.toDoList = new TaskList();
         this.storage = new Storage(this.toDoList);
-        this.paser = new Paser();
         this.ui = new Ui();
+        this.paser = new Paser(this, toDoList, storage, ui);
+    }
+
+    /**
+     * Gets the running state of Quack.
+     * @return The running state of the chatbot as a boolean.
+     */
+    public boolean getIsRunning() {
+        return this.isRunning;
     }
 
     /**
@@ -39,7 +47,6 @@ public class Quack {
     public void shutDown() {
         this.isRunning = false;
     }
-
 
     /**
      * Runs the chatbot and start taking inputs from the user.
@@ -51,8 +58,8 @@ public class Quack {
         // Keep taking inputs from the user as long as the chatbot is running
         while (isRunning) {
             try {
-                Command command = paser.getUserInput(this.ui);
-                command.execute(this, toDoList, storage, ui);
+                Command command = paser.getUserInput();
+                command.execute();
             } catch (InvalidCommandException commandError) {
                 ui.printExceptionMessage(commandError);
             }

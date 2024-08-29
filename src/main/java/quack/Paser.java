@@ -13,19 +13,34 @@ import quack.exception.InvalidCommandException;
  */
 public class Paser {
     
+    /** Quack chatbot object */
+    private Quack quack;
+    /** Ui object to handle UI interface tasks */
+    private Ui ui;
+    /** To store all of the users tasks */
+    private TaskList taskList;
+    /** Sotrage object to load and save data */
+    private Storage storage;
+
     /**
      * Creates a Paser object.
+     * @param quack The chatbot object quack.
+     * @param taskList A list that stores all the tasks tracked by Quack.
+     * @param storage Storage object to save and load data from the save file.
+     * @param ui The ui object that handles user interface requests.
      */
-    public Paser() {
-
+    public Paser(Quack quack, TaskList taskList, Storage storage, Ui ui) {
+        this.quack = quack;
+        this.taskList = taskList;
+        this.storage = storage;
+        this.ui = ui;
     }
 
     /**
      * Retrieves the next input command by the user.
-     * @param sc A scanner object used to get the user input.
      * @throws InvalidCommandException Signals that the command given is invalid.
      */
-    public Command getUserInput(Ui ui) throws InvalidCommandException{
+    public Command getUserInput() throws InvalidCommandException{
         try {
             String userCommand = ui.requestUserCommand();
             return this.processCommand(userCommand.toLowerCase());
@@ -43,25 +58,25 @@ public class Paser {
         Command command;
         switch (userCommand) {
         case "list":
-            command = new ListCommand();
+            command = new ListCommand(taskList, ui);
             return command;
 
         case "bye":
         case "exit":
-            command = new ExitCommand();
+            command = new ExitCommand(quack, taskList, storage);
             return command;
         
         case "add":
-            command = new AddTaskCommand();
+            command = new AddTaskCommand(taskList, ui);
             return command;
 
         case "mark":
         case "unmark":
-            command = new UpdateTaskCommand(userCommand);
+            command = new UpdateTaskCommand(userCommand, taskList, ui);
             return command;
         
         case "delete":
-            command = new DeleteTaskCommand();
+            command = new DeleteTaskCommand(taskList, ui);
             return command;
         
         default:
