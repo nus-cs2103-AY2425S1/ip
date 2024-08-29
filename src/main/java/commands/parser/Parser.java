@@ -41,4 +41,12 @@ public class Parser {
 
         return values;
     }
+
+    public static int parseInt(String s) throws NumberFormatException {
+        try {
+            return Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException(String.format("%s is not an integer. Please enter an integer.", s));
+        }
+    }
 }
