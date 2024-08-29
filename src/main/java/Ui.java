@@ -26,6 +26,13 @@ public class Ui {
     }
 
     /**
+     * Displays the final closing message on the chatbot UI.
+     */
+    public void showEnding() {
+        this.showMessage("Finally. Try not to come back too soon.");
+    }
+
+    /**
      * Read the next line that the user inputs into the UI and return it.
      *
      * @return The whole line of String input that the user inputted.
@@ -42,6 +49,18 @@ public class Ui {
     public void showMessage(String message) {
         this.showLine(70);
         System.out.println(message);
+        this.showLine(70);
+    }
+
+    /**
+     * Displays an error message on the chatbot UI which will be wrapped between 2 horizontal lines.
+     *
+     * @param errorMessage Error message to be displayed.
+     */
+    public void showError(String errorMessage) {
+        this.showLine(70);
+        System.out.println("Something went wrong you doofus!");
+        System.out.println(errorMessage);
         this.showLine(70);
     }
 

@@ -20,10 +20,10 @@ public class Garfield {
                 c.execute(taskList, ui, storage);
                 isExit = c.isExit();
             } catch (GarfieldException e) {
-                this.ui.showMessage(e.getMessage());
+                this.ui.showError(e.getMessage());
             }
         }
-        this.ui.showMessage("Finally. Try not to come back too soon.");
+        this.ui.showEnding();
     }
 
     public static void main(String[] args) {
