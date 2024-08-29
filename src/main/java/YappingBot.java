@@ -1,3 +1,4 @@
+import commands.CommandTypes;
 import commands.Commands;
 import exceptions.*;
 import stringconstants.ReplyTextMessages;
@@ -12,22 +13,11 @@ import static stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_INVA
 public class YappingBot {
     // https://github.com/nus-cs2103-AY2425S1/forum/issues/22#issuecomment-2309939016
     private static final String LIST_SAVE_PATH = "savefile";
-    private static final HashMap<String, Commands> COMMANDS_HASH_MAP;
-    private static final Scanner userInputScanner;
-    private static final ArrayList<Task> userList;
-    static {
-        // initialization
+    private YappingBot(String SavefilePath) {
+        private final Scanner userInputScanner;
+        private final ArrayList<Task> userList;
         userInputScanner = new Scanner(System.in);
         userList = new ArrayList<>();
-        COMMANDS_HASH_MAP = new HashMap<>();
-        COMMANDS_HASH_MAP.put("list", Commands.LIST);
-        COMMANDS_HASH_MAP.put("mark", Commands.MARK);
-        COMMANDS_HASH_MAP.put("unmark", Commands.UNMARK);
-        COMMANDS_HASH_MAP.put("delete", Commands.DELETE);
-        COMMANDS_HASH_MAP.put("todo", Commands.TODO);
-        COMMANDS_HASH_MAP.put("event", Commands.EVENT);
-        COMMANDS_HASH_MAP.put("deadline", Commands.DEADLINE);
-        COMMANDS_HASH_MAP.put("bye", Commands.EXIT);
     }
     // end of class properties
 
@@ -241,12 +231,12 @@ public class YappingBot {
         quoteSinglelineText(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()), sb);
         System.out.println(sb);
     }
-    private static Commands parseCommand(String commandString) throws YappingBotUnknownCommandException {
+    private static CommandTypes parseCommand(String commandString) throws YappingBotUnknownCommandException {
         if (commandString.toLowerCase().trim().isEmpty()) {
             throw new YappingBotUnknownCommandException();
         } else {
-            if (COMMANDS_HASH_MAP.containsKey(commandString)) {
-                return COMMANDS_HASH_MAP.get(commandString);
+            if (Commands.COMMANDS_HASH_MAP.containsKey(commandString)) {
+                return Commands.COMMANDS_HASH_MAP.get(commandString);
             } else {
                 throw new YappingBotUnknownCommandException(commandString);
             }

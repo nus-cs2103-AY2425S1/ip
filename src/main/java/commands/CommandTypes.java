@@ -1,5 +1,5 @@
 package commands;
 
-public enum Commands {
+public enum CommandTypes {
     LIST, MARK, UNMARK, DELETE, TODO, EVENT, DEADLINE, EXIT, UNKNOWN
 }
