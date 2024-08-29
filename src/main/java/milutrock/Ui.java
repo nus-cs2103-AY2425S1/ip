@@ -1,5 +1,7 @@
 package milutrock;
 
+import java.util.ArrayList;
+
 import milutrock.tasks.Task;
 
 public class Ui {
@@ -55,5 +57,12 @@ public class Ui {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + taskList.getTaskAtIndexAsString(taskList.getNumberOfTasks() - 1));
         System.out.println("Now you have " + taskList.getNumberOfTasks() + " tasks in the list.");
+    }
+
+    public void printFindMessage(ArrayList<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
     }
 }
