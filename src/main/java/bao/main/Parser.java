@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 public class Parser {
     public static void parse(String command, TaskList tasks, Ui ui, Storage storage) {
@@ -151,6 +152,21 @@ public class Parser {
                     ui.showMessage("Bao needs a valid date format such as 2024-08-28");
                 }
                 break;
+            }
+            case "find" -> {
+                if (args.isEmpty()) {
+                    ui.showMessage("Bao needs a keyword to find in the tasks!");
+                } else {
+                    ArrayList<Task> foundTasks = tasks.findTasks(args.trim());
+                    if (foundTasks.isEmpty()) {
+                        ui.showMessage("Bao could not find any tasks with the keyword");
+                    } else {
+                        ui.showMessage("Bao found these tasks with the keyword!");
+                        for (int i = 0; i < foundTasks.size(); i++) {
+                            ui.showMessage((i + 1) + ". " + foundTasks.get(i).toString());
+                        }
+                    }
+                }
             }
             default -> {
                 ui.showMessage("Bao needs a proper command :(");
