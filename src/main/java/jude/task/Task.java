@@ -1,10 +1,10 @@
 package jude.task;
 
 /**
- * Represents a jude.task.Task with a description and completion status.
+ * Represents a Task with a description and completion status.
  *
- * This class allows for marking the jude.task as done or not done,
- * and provides a textual representation of the jude.task.
+ * Task can be in a state of as done or not done to keep track of the task status.
+ * Provides a textual representation of the task by getStatusIcon for better visualisation for the user.
  *
  * @author Judy Park
  */

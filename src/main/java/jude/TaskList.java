@@ -4,6 +4,13 @@ import jude.task.Task;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles storing and managing the Tasks.
+ *
+ * This class provides methods to add, remove, mark and unmark tasks.
+ * It stores tasks in a list and allows efficient management of different task types, ensuring the users
+ * to keep track of their pending tasks easily.
+ */
 public class TaskList {
     private List<Task> list;
 
@@ -19,6 +26,7 @@ public class TaskList {
         list.add(task);
     }
 
+    /** Delete the Task by taking in its index. Throws JudeException, if the index is not valid. */
     public void deleteTask(int index) throws JudeException {
         validateIndex(index);
         list.remove(index);
@@ -43,6 +51,7 @@ public class TaskList {
         return list.size();
     }
 
+    /** Returns the String representation of the TaskList to be written in the save file. */
     public String toFileFormat() {
         String text = "";
         for (Task task : list) {
@@ -51,6 +60,7 @@ public class TaskList {
         return text;
     }
 
+    /** Returns the String representation of the TaskList to be displayed on the Ui. */
     public String toUiFormat() {
         String string = "";
         for (int i = 0; i < list.size(); i++) {

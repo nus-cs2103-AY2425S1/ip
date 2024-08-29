@@ -4,11 +4,9 @@ import jude.command.Command;
 
 /**
  * Represents a jude.Jude, the personal assistant chatbot.
- * <p>
- * This class helps a person to keep track of various things.
  *
- * @author Judy Park
- **/
+ * This class helps a person to keep track of various things by simulating the chatbot features.    
+ */
 public class Jude {
 
     String name = "jude.Jude";
@@ -33,6 +31,7 @@ public class Jude {
         new Jude("data/jude.txt").run();
     }
 
+    /** Executes the chatbot program. */
     public void run() {
 
         ui.startChat();

@@ -4,13 +4,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * Handles the interaction with the user.
+ *
+ * Displays an instruction or result of user's input on the screen so that the user can keep track of the current state.
+ * Shows an error if there is any.
+ * Reads input from the user.
+ */
 public class Ui {
     private BufferedReader bi = new BufferedReader(new InputStreamReader(System.in));
 
-    public void showLoadingError() {
-        System.out.println("A loading error has occurred. Starting with a new list.");
-    }
-
+    /** Displays the error message. */
     public void showError(Exception e) {
         System.out.println(e.getMessage());
         e.printStackTrace();
@@ -30,6 +34,11 @@ public class Ui {
         System.out.println("Poyo. Hope to see you again soon!");
     }
 
+    /**
+     * Read the user input.
+     * @return the user input as String.
+     * @throws JudeException if there is any IOException.
+     */
     public String readCommand() throws JudeException {
         try {
             return bi.readLine();
