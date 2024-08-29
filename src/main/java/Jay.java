@@ -79,6 +79,11 @@ public class Jay {
                     return this.deleteTask(taskNumber);
                 }
 
+                case Find -> {
+                    String keyword = command.getKeyword();
+                    return this.findTasks(keyword);
+                }
+
                 case Exit -> {
                     return "Bye. Hope to see you again soon!";
                 }
@@ -129,6 +134,20 @@ public class Jay {
             return "Noted. I've removed this task:\n" + task + "\n" + this.tasks.getTaskCount();
         } catch (DataIOException | InvalidCommandException e) {
             return e.getMessage();
+        }
+    }
+
+    /**
+     * Finds tasks in the task list that contain the keyword.
+     * @param keyword The keyword to search for.
+     * @return The tasks that contain the keyword.
+     */
+    private String findTasks(String keyword) {
+        TaskList foundTasks = this.tasks.findTasks(keyword);
+        if (foundTasks.isEmpty()) {
+            return "There are no tasks that match the keyword.";
+        } else {
+            return "Here are the matching tasks in your list:\n" + foundTasks;
         }
     }
 }

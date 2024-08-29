@@ -123,4 +123,24 @@ public class TaskListTest {
                 2. [D][ ] test (by: 28 Jul 2024)
                 3. [E][ ] test (from: 28 Jul 2024 02:00 PM to: 06:00 PM)""", taskList.toString());
     }
+
+    @Test
+    public void testFindTasks() {
+        TaskList taskList = new TaskList("test8.txt");
+
+        try {
+            taskList.addTask(new ToDoTask("test", false));
+            taskList.addTask(new DeadlineTask("test", false, "28-07-2024"));
+            taskList.addTask(new EventTask("test", false, "28-07-2024", "1400",
+                    "1800"));
+        } catch (DataIOException | InvalidDateException | InvalidTimeException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals("""
+                1. [T][ ] test
+                2. [D][ ] test (by: 28 Jul 2024)
+                3. [E][ ] test (from: 28 Jul 2024 02:00 PM to: 06:00 PM)""",
+                taskList.findTasks("test").toString());
+    }
 }

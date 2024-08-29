@@ -26,7 +26,7 @@ public class StorageTest {
     @Test
     @AfterEach
     public void testLoadTasksFromExistsFile() {
-        Storage storage = new Storage("data", "tasks.txt");
+        Storage storage = new Storage("data", "test.txt");
 
         try {
             ArrayList<Task> tasks = storage.loadTasks();

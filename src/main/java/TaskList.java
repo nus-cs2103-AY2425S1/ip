@@ -5,6 +5,7 @@ import storage.Storage;
 import task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a list of tasks.
@@ -25,6 +26,12 @@ public class TaskList {
             this.tasks.clear();
             this.taskCount = 0;
         }
+    }
+
+    private TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+        this.taskCount = tasks.size();
+        this.storage = new Storage("data", "wildcard");
     }
 
     /**
@@ -160,5 +167,18 @@ public class TaskList {
     private void loadTasks() throws DataIOException, InvalidDataFormatException {
         this.tasks = this.storage.loadTasks();
         this.taskCount = tasks.size();
+    }
+
+    /**
+     * Finds tasks in the task list that contain the keyword.
+     * @param keyword The keyword to search for.
+     * @return The tasks that contain the keyword.
+     */
+    public TaskList findTasks(String keyword) {
+        List<Task> foundTasks = this.tasks.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .toList();
+
+        return new TaskList(new ArrayList<>(foundTasks));
     }
 }

@@ -49,6 +49,7 @@ tasks.register('cleanTestFiles', Delete) {
     delete file("/data/test5.txt")
     delete file("/data/test6.txt")
     delete file("/data/test7.txt")
+    delete file("/data/test8.txt")
 }
 
 clean.dependsOn("cleanTestFiles")

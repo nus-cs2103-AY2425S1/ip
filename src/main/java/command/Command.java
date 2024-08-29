@@ -7,7 +7,7 @@ import task.Task;
  */
 public class Command {
     public enum CommandType {
-        List, Add, Mark, Unmark, Delete, Exit
+        List, Add, Mark, Unmark, Delete, Find, Exit
     };
 
     private final String command;
@@ -30,6 +30,7 @@ public class Command {
             case "mark" -> CommandType.Mark;
             case "unmark" -> CommandType.Unmark;
             case "delete" -> CommandType.Delete;
+            case "find" -> CommandType.Find;
             default -> CommandType.Add;
         };
     }
@@ -96,6 +97,15 @@ public class Command {
      */
     public String getEndTime() {
         return this.command.split("/")[2].split(" ", 2)[1].trim();
+    }
+
+    /**
+     * Returns the keyword from the command.
+     *
+     * @return The keyword.
+     */
+    public String getKeyword() {
+        return this.command.split(" ", 2)[1];
     }
 }
 

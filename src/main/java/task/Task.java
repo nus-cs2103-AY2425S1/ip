@@ -49,4 +49,13 @@ public class Task {
     public String simpleFormat() {
         return this.getSimpleStatusIcon() + " | " + this.description;
     }
+
+    /**
+     * Returns the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
 }

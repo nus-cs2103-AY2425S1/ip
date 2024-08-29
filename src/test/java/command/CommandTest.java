@@ -11,6 +11,30 @@ public class CommandTest {
     public void testGetCommandType() {
         Command command = new Command("list");
         assertEquals(Command.CommandType.List, command.getCommandType());
+
+        command = new Command("bye");
+        assertEquals(Command.CommandType.Exit, command.getCommandType());
+
+        command = new Command("mark 1");
+        assertEquals(Command.CommandType.Mark, command.getCommandType());
+
+        command = new Command("unmark 1");
+        assertEquals(Command.CommandType.Unmark, command.getCommandType());
+
+        command = new Command("delete 1");
+        assertEquals(Command.CommandType.Delete, command.getCommandType());
+
+        command = new Command("find test");
+        assertEquals(Command.CommandType.Find, command.getCommandType());
+
+        command = new Command("todo test");
+        assertEquals(Command.CommandType.Add, command.getCommandType());
+
+        command = new Command("deadline test /by 30-07-2024 1400");
+        assertEquals(Command.CommandType.Add, command.getCommandType());
+
+        command = new Command("event test /from 30-07-2024 1400 /to 1600");
+        assertEquals(Command.CommandType.Add, command.getCommandType());
     }
 
     @Test
