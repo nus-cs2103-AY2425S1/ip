@@ -1,7 +1,6 @@
 package orion;
 
-import java.util.Scanner;
-
+import java.util.List;
 import orion.orionExceptions.FileInitializationException;
 import orion.orionExceptions.OrionException;
 import orion.storage.Storage;
@@ -10,44 +9,36 @@ import orion.task.EventDetails;
 import orion.task.Task;
 import orion.taskList.TaskList;
 import orion.parser.Parser;
-import orion.orionExceptions.*;
 import orion.commands.Command;
+import orion.ui.UI;
 
 public class Orion {
-    public static Scanner scanner = new Scanner(System.in);
-    public static TaskList manager;
-    public static Storage storage;
+    private static TaskList manager;
+    private static UI ui = new UI();
 
     static {
         try {
-            storage = new Storage();
+            Storage storage = new Storage();
             manager = new TaskList(storage);
         } catch (FileInitializationException e) {
-            System.err.println("Failed to initialize TaskList: " + e.getMessage());
-            System.exit(1);  // Exiting the application since TaskList is essential
+            ui.showError("Failed to initialize TaskList: " + e.getMessage());
+            System.exit(1);
         }
     }
 
     public static Parser parser = new Parser();
-    private static final String HORIZONTAL_LINE = "────────────────────────────────────────";
 
     public static void main(String[] args) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Hello! I'm Orion");
-        System.out.println("What can I do for you?");
-        System.out.println(HORIZONTAL_LINE);
+        ui.showWelcome();
 
         while (true) {
-
-            String input = scanner.nextLine();
+            String input = ui.readUserInput();
             String[] parts = input.split(" ", 2);
             Command command = Command.fromString(parts[0]);
 
-
             switch (command) {
                 case BYE:
-                    executeWithFormatting(() -> System.out.println("Bye. Hope to see you again soon!"));
-                    scanner.close();
+                    ui.showGoodbye();
                     return;
                 case LIST:
                     handleList(parts);
@@ -72,106 +63,78 @@ public class Orion {
                     break;
                 case UNKNOWN:
                 default:
-                    executeWithFormatting(() -> System.out.println("Unknown command: " + parts[0]));
+                    ui.showError("Unknown command: " + parts[0]);
             }
         }
     }
 
     private static void handleList(String[] parts) {
-        executeWithFormatting(() -> {
-            try {
-                parser.validateListCommand(parts);
-                manager.printTasks();
-            } catch (OrionException e) {
-                System.out.println(e.getMessage());
-            }
-        });
+        try {
+            parser.validateListCommand(parts);
+            List<Task> taskList = manager.loadTasksFromFile();
+            ui.showTaskList(taskList);
+        } catch (OrionException e) {
+            ui.showError(e.getMessage());
+        }
     }
 
     private static void handleEvent(String[] parts) {
-        executeWithFormatting(() -> {
-            try {
-                EventDetails details = parser.validateEventCommand(parts);
-                Task temp = manager.addEvent(details);
-                int taskLen = manager.getSize();
-                System.out.println("     Got it. I've added this task:\n" + temp + "\n" + "Now you have " + taskLen + " tasks in the list");
-            } catch (OrionException e) {
-                System.out.println(e.getMessage());
-            }
-        });
-
+        try {
+            EventDetails details = parser.validateEventCommand(parts);
+            Task temp = manager.addEvent(details);
+            ui.showTaskAdded(temp, manager.getSize());
+        } catch (OrionException e) {
+            ui.showError(e.getMessage());
+        }
     }
 
     private static void handleDeadline(String[] parts) {
-        executeWithFormatting(() -> {
-            try {
-                DeadlineDetails deadlineDetails = parser.validateDeadlineCommand(parts);
-                Task newDeadline = manager.addDeadline(deadlineDetails);
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + newDeadline);
-                System.out.println("Now you have " + manager.getSize() + " tasks in the list.");
-            } catch (OrionException e) {
-                System.out.println(e.getMessage());
-            }
-        });
+        try {
+            DeadlineDetails deadlineDetails = parser.validateDeadlineCommand(parts);
+            Task newDeadline = manager.addDeadline(deadlineDetails);
+            ui.showTaskAdded(newDeadline, manager.getSize());
+        } catch (OrionException e) {
+            ui.showError(e.getMessage());
+        }
     }
+
     private static void handleTodo(String[] parts) {
-        executeWithFormatting(() -> {
-            try {
-                String description = parser.validateTodoCommand(parts);
-
-                Task temp = manager.addTodo(description);
-                int taskLen = manager.getSize();
-                System.out.println("     Got it. I've added this task:\n" + temp + "\n" + "Now you have " + taskLen + " tasks in the list");
-            } catch (OrionException e) {
-                System.out.println(e.getMessage());
-            }
-        });
-
+        try {
+            String description = parser.validateTodoCommand(parts);
+            Task temp = manager.addTodo(description);
+            ui.showTaskAdded(temp, manager.getSize());
+        } catch (OrionException e) {
+            ui.showError(e.getMessage());
+        }
     }
 
     private static void handleMark(String[] parts) {
-        executeWithFormatting(() -> {
-            try {
-                int index = parser.validateMarkAndUnMarkCommand(parts, manager);
-                Task temp = manager.markAsDone(index);
-                System.out.println("Marked task as done: " + temp);
-            } catch (OrionException e) {
-                System.out.println(e.getMessage());
-            }
-        });
+        try {
+            int index = parser.validateMarkAndUnMarkCommand(parts, manager);
+            Task temp = manager.markAsDone(index);
+            ui.showTaskMarked(temp);
+        } catch (OrionException e) {
+            ui.showError(e.getMessage());
+        }
     }
 
     private static void handleUnmark(String[] parts) {
-        executeWithFormatting(() -> {
-            try {
-                int index = parser.validateMarkAndUnMarkCommand(parts, manager);
-                Task temp = manager.unmarkAsDone(index);
-                System.out.println("Unmarked task: " + temp);
-            } catch (OrionException e) {
-                System.out.println(e.getMessage());
-            }
-        });
+        try {
+            int index = parser.validateMarkAndUnMarkCommand(parts, manager);
+            Task temp = manager.unmarkAsDone(index);
+            ui.showTaskUnmarked(temp);
+        } catch (OrionException e) {
+            ui.showError(e.getMessage());
+        }
     }
 
     private static void handleDelete(String[] parts) {
-        executeWithFormatting(() -> {
-            try {
-                int index = parser.validateDeleteCommand(parts, manager);
-                Task deletedTask = manager.deleteTask(index);
-                System.out.println("Noted. I've removed this task:");
-                System.out.println("  " + deletedTask);
-                System.out.println("Now you have " + manager.getSize() + " tasks in the list.");
-            } catch (OrionException e) {
-                System.out.println(e.getMessage());
-            }
-        });
-    }
-
-
-    private static void executeWithFormatting(Runnable action) {
-        System.out.println(HORIZONTAL_LINE);
-        action.run();
-        System.out.println(HORIZONTAL_LINE);
+        try {
+            int index = parser.validateDeleteCommand(parts, manager);
+            Task deletedTask = manager.deleteTask(index);
+            ui.showTaskDeleted(deletedTask, manager.getSize());
+        } catch (OrionException e) {
+            ui.showError(e.getMessage());
+        }
     }
 }

@@ -11,9 +11,9 @@ There are no tasks.
 Now you have 1 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
-Got it. I've added this task:
-  [D][ ] Complete assignment (by: 28 Aug 2024 18:00)
-Now you have 2 tasks in the list.
+     Got it. I've added this task:
+[D][ ] Complete assignment (by: 28 Aug 2024 18:00)
+Now you have 2 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
      Got it. I've added this task:
@@ -54,9 +54,9 @@ Here are the tasks in your list:
 Now you have 3 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
-Got it. I've added this task:
-  [D][ ] Submit report (by: 30 Aug 2024 17:00)
-Now you have 4 tasks in the list.
+     Got it. I've added this task:
+[D][ ] Submit report (by: 30 Aug 2024 17:00)
+Now you have 4 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
      Got it. I've added this task:
@@ -92,9 +92,9 @@ Here are the tasks in your list:
 Now you have 5 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
-Got it. I've added this task:
-  [D][ ] Pay bills (by: 31 Aug 2024 23:59)
-Now you have 6 tasks in the list.
+     Got it. I've added this task:
+[D][ ] Pay bills (by: 31 Aug 2024 23:59)
+Now you have 6 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
      Got it. I've added this task:
