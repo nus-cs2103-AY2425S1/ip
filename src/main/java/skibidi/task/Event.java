@@ -1,16 +1,18 @@
 package skibidi.task;
 
-public class Event extends AbstractTask {
-    private final String from;
-    private final String to;
+import java.time.LocalDate;
 
-    public Event(String description, String from, String to) {
+public class Event extends AbstractTask {
+    private final LocalDate from;
+    private final LocalDate to;
+
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    public Event(String marker, String description, String from, String to) {
+    public Event(String marker, String description, LocalDate from, LocalDate to) {
         super(marker, description);
         this.from = from;
         this.to = to;
@@ -22,6 +24,6 @@ public class Event extends AbstractTask {
     }
 
     public String serialize() {
-        return String.join("|", new String[]{"E", getStatusIcon(), description, from, to});
+        return String.join("|", new String[]{"E", getStatusIcon(), description, from.toString(), to.toString()});
     }
 }

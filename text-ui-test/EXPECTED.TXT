@@ -26,32 +26,28 @@ skibidi.task.AbstractTask$TaskDeserializationException: TASK PARSING ERROR: No t
 > 	MARKING TASK
 	[T][X] first task
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> 	ADDED DEADLINE: [D][ ] second task (by: tomorrow)
-	NUMBER OF TASKS IN LIST: 2
+> 	ERROR: COULD NOT PARSE DATE ARGUMENT
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> 	ADDED EVENT: [E][ ] project meeting (from: Mon 2pm) (to: 4pm)
-	NUMBER OF TASKS IN LIST: 3
+> 	ADDED EVENT: [E][ ] project meeting (from: 2000-05-23) (to: 2012-07-22)
+	NUMBER OF TASKS IN LIST: 2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 	UNMARKING TASK
 	[T][ ] first task
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 	MARKING TASK
-	[D][X] second task (by: tomorrow)
+	[E][X] project meeting (from: 2000-05-23) (to: 2012-07-22)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 	LISTING ITEMS:
 	[T][ ] first task
-	[D][X] second task (by: tomorrow)
-	[E][ ] project meeting (from: Mon 2pm) (to: 4pm)
+	[E][X] project meeting (from: 2000-05-23) (to: 2012-07-22)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> 	MARKING TASK
-	[E][X] project meeting (from: Mon 2pm) (to: 4pm)
+> 	TASK WITH ITEM NUMBER NOT FOUND
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 	TASK WITH ITEM NUMBER NOT FOUND
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 	ERROR: INVALID COMMAND GIVEN invalid
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> 	ADDED EVENT: [E][ ] wrong order (from: tomorrow) (to: now)
-	NUMBER OF TASKS IN LIST: 4
+> 	ERROR: COULD NOT PARSE DATE ARGUMENT
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 	COMMAND deadline REQUIRES ARGUMENT /by
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -60,7 +56,7 @@ skibidi.task.AbstractTask$TaskDeserializationException: TASK PARSING ERROR: No t
 > 	TASK WITH ITEM NUMBER NOT FOUND
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 	DELETED TASK: [T][ ] first task
-	NUMBER OF TASKS IN LIST: 3
+	NUMBER OF TASKS IN LIST: 1
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
