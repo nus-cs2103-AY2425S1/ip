@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -65,14 +67,27 @@ public class Makima {
         return userInput;
     }
 
+    private LocalDateTime getDate(String prompt) {
+        System.out.println(prompt);
+        System.out.println(LINE_SEPERATOR);
+        return getDate();
+    }
+
+    private LocalDateTime getDate() {
+        while (true) {
+            try {
+                return LocalDateTime.parse(getInput());
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format! Please input the date as follows: YYYY-MM-DD HH:MM," +
+                        "replacing the space with a T");
+            }
+        }
+    }
+
     private void done() {
         editedTasks = true;
         System.out.println("Done!");
         System.out.println(LINE_SEPERATOR);
-    }
-
-    public static void main(String[] args) {
-        new Makima();
     }
 
     public void addTodo(ToDo toDo) {
@@ -93,6 +108,10 @@ public class Makima {
             output.append(task.toFileString());
         }
         return output.toString();
+    }
+
+    public static void main(String[] args) {
+        new Makima();
     }
 
     public Makima() {
