@@ -5,9 +5,9 @@ package bob;
  * for different types of tasks, such as ToDos, Deadlines, and Events.
  */
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
-    protected TaskType type;
+    private String description;
+    private boolean isDone;
+    private TaskType type;
 
     /**
      * Constructs a new Task with the given description and task type.
