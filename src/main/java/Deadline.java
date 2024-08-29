@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     private LocalDateTime dueDate;
@@ -7,13 +8,18 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
+    public String dateToString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        return dueDate.format(formatter);
+    }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.dueDate + ")";
+        return "[D]" + super.toString() + " (by: " + this.dateToString() + ")";
     }
 
     @Override
     public String saveAsCSV() {
-        return "D," + super.saveAsCSV() + "," + this.dueDate;
+        return "D," + super.saveAsCSV() + "," + this.dateToString();
     }
 }

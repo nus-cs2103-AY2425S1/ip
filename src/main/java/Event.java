@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
     private final LocalDateTime from;
@@ -10,13 +11,23 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public String fromDateToString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        return from.format(formatter);
+    }
+
+    public String toDateToString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        return to.format(formatter);
+    }
+
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + this.fromDateToString() + " to: " + this.toDateToString() + ")";
     }
 
     @Override
     public String saveAsCSV() {
-        return "E," + super.saveAsCSV() + "," + this.from + "," + this.to;
+        return "E," + super.saveAsCSV() + "," + this.fromDateToString() + "," + this.toDateToString();
     }
 }
