@@ -1,4 +1,0 @@
-T| |task1
-D|X|task2|tmr
-T| |task 3
-T| |task 4
