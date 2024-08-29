@@ -34,36 +34,39 @@ public class Parser {
         String arguments = parts.length > 1 ? parts[1] : ""; // Get the arguments
 
         switch (command) {
-            case "bye":
-                return new ExitCommand();
+        case "bye":
+            return new ExitCommand();
 
-            case "list":
-                return new ListCommand(); // No arguments needed
+        case "list":
+            return new ListCommand(); // No arguments needed
 
-            case "mark":
-                return parseMarkCommand(arguments);
+        case "mark":
+            return parseMarkCommand(arguments);
 
-            case "unmark":
-                return parseUnmarkCommand(arguments);
+        case "unmark":
+            return parseUnmarkCommand(arguments);
 
-            case "todo":
-                return parseTodoCommand(arguments);
+        case "todo":
+            return parseTodoCommand(arguments);
 
-            case "deadline":
-                return parseDeadlineCommand(arguments);
+        case "deadline":
+            return parseDeadlineCommand(arguments);
 
-            case "event":
-                return parseEventCommand(arguments);
+        case "event":
+            return parseEventCommand(arguments);
 
-            case "delete":
-                return parseDeleteCommand(arguments);
+        case "delete":
+            return parseDeleteCommand(arguments);
 
-            default:
-                throw new InvalidCommandException("""
-                        Error: Command not found
+        case "find":
+            return parseFindCommand(arguments);
 
-                        Please input a valid command
-                        """);
+        default:
+            throw new InvalidCommandException("""
+            Error: Command not found
+            
+            Please input a valid command
+            """);
         }
     }
 
@@ -159,7 +162,7 @@ public class Parser {
         if (parts.length != 3) {
             throw new TaskInputException("""
                     Error: The description and dates of an event cannot be empty.
-
+                    
                     Please use the following format: event <name> /from <date> <time> /to <date> <time>
                     """);
         }
@@ -187,4 +190,12 @@ public class Parser {
             throw new TaskInputException("Error: Invalid task number for delete command.\n");
         }
     }
+
+    private static Command parseFindCommand(String arguments) throws TaskInputException {
+        if (arguments.trim().isEmpty()) {
+            throw new TaskInputException("Error: The search keyword cannot be empty.\n");
+        }
+        return new FindCommand(arguments.trim());
+    }
+
 }

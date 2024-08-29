@@ -29,6 +29,10 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     /**
      * Marks the Task as done.
      * Updates the task status to indicate completion.

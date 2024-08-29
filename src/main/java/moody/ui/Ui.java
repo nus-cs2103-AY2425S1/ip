@@ -110,6 +110,12 @@ public class Ui {
         System.out.println(SPACER + message + SPACER);
     }
 
+    public void showMessage(String message) {
+        System.out.println(SPACER);
+        System.out.println(message);
+        System.out.println(SPACER);
+    }
+
     /**
      * Reads a command from the user input.
      * Reads a line of text input from the user and returns it as a trimmed string.
