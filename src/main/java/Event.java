@@ -1,23 +1,21 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
 
     protected LocalDateTime fromTime;
     protected LocalDateTime toTime;
 
-    public Event(String description, String fromTime, String toTime, boolean isDone) {
+    public Event(String description, String fromTime, String toTime, boolean isDone) throws DarkpoolException {
         super(description.trim(), isDone);
-        this.fromTime = LocalDateTime.parse(fromTime, formatter);
-        this.toTime = LocalDateTime.parse(toTime, formatter);
-    }
-
-    public Event(String description, String fromTime, String toTime) {
-        super(description.trim());
-        this.fromTime = LocalDateTime.parse(fromTime, formatter);
-        this.toTime = LocalDateTime.parse(toTime, formatter);
-        this.saveToFile();
+        try {
+            this.fromTime = LocalDateTime.parse(fromTime, formatter);
+            this.toTime = LocalDateTime.parse(toTime, formatter);
+        } catch (DateTimeParseException e) {
+            throw new DarkpoolException(e.getMessage());
+        }
     }
 
     @Override
@@ -26,13 +24,7 @@ public class Event extends Task {
     }
 
     @Override
-    public void saveToFile() {
-        try {
-            FileWriter fw = new FileWriter(FILE_PATH, true);
-            fw.write("E | " + (isDone ? "1" : "0") + " | " + this.description + " | " + this.fromTime.format(formatter) + " | " + this.toTime.format(formatter) + "\n");
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Something went wrong: "+ e.getMessage());
-        }
+    public String toFileString() {
+        return ("E | " + (isDone ? "1" : "0") + " | " + this.description + " | " + this.fromTime.format(formatter) + " | " + this.toTime.format(formatter) + "\n");
     }
 }
