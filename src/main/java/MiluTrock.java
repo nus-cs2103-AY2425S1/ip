@@ -1,16 +1,51 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.OutputStream;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class MiluTrock {
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static String stdin = "";
+
     public static void main(String[] args) {
         String name = "MiluTrock";
         System.out.println("Hello! I'm " + name + "!");
         System.out.println("What can I do for you?");
         
+        // Replay previous input without output. This is a dirty way to re-create the task list
+        PrintStream stdout = System.out;
+        System.setOut(new PrintStream(OutputStream.nullOutputStream()));
+
+        File f = new File("./data.txt");
+        try {
+            Scanner scanner = new Scanner(f);
+            inputLoop(scanner);
+        } catch (FileNotFoundException e) {}
+
+        System.setOut(stdout);
+        
+        // Handle stdin
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        inputLoop(scanner);
+
+        // Store input
+        try {
+            FileWriter fw = new FileWriter(f.getAbsoluteFile());
+            fw.write(stdin);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void inputLoop(Scanner scanner) {
         while (scanner.hasNext()) {
             String input = scanner.nextLine();
+            stdin += input + "\n";
             
             System.out.println("____________________________________________________________");
 
@@ -21,7 +56,7 @@ public class MiluTrock {
             }
 
             try {
-                handleInput(input, tasks);
+                handleInput(input);
             } catch (UnknownCommandException e) {
                 System.out.println(e.getMessage());
             }
@@ -31,7 +66,7 @@ public class MiluTrock {
         scanner.close();
     }
 
-    private static void handleInput(String input, ArrayList<Task> tasks) throws UnknownCommandException {
+    private static void handleInput(String input) throws UnknownCommandException {
         String[] words = input.split("\\s+");
         
         if (input.equals("list")) {
