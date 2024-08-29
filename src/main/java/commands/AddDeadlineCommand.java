@@ -16,14 +16,23 @@ public class AddDeadlineCommand extends Command {
     protected String description;
     protected LocalDateTime deadline;
 
+
     public AddDeadlineCommand(String description, String deadline) throws DateTimeParseException {
         this.description = description;
         this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
+    public String getDateTimeString() {
+        return deadline.format(INPUT_FORMATTER);
+    }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        Task newTask = new Deadline(description, deadline);
+        Task newTask = new Deadline(this.description, this.deadline);
         tasks.add(newTask);
         storage.save(tasks.toArrayList());
         ui.showTaskAdded(newTask, tasks.size());

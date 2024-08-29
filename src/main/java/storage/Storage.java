@@ -38,18 +38,18 @@ public class Storage {
             Task task;
 
             switch (taskType) {
-                case "T":
-                    task = new Todo(parts[2].trim());
-                    break;
-                case "D":
-                    task = new Deadline(parts[2].trim(), LocalDateTime.parse(parts[3].trim(), INPUT_FORMATTER));
-                    break;
-                case "E":
-                    task = new Event(parts[2].trim(), LocalDateTime.parse(parts[3].trim(), INPUT_FORMATTER),
-                            LocalDateTime.parse(parts[4].trim(), INPUT_FORMATTER));
-                    break;
-                default:
-                    continue;
+            case "T":
+                task = new Todo(parts[2].trim());
+                break;
+            case "D":
+                task = new Deadline(parts[2].trim(), LocalDateTime.parse(parts[3].trim(), INPUT_FORMATTER));
+                break;
+            case "E":
+                task = new Event(parts[2].trim(), LocalDateTime.parse(parts[3].trim(), INPUT_FORMATTER),
+                        LocalDateTime.parse(parts[4].trim(), INPUT_FORMATTER));
+                break;
+            default:
+                continue;
             }
 
             if (isTaskDone) {
