@@ -49,13 +49,13 @@ public class TaskList {
         return t;
     }
 
-    public Task addDeadline(String description, String end) throws BobException {
+    public Task addDeadline(String description, String end) {
         Task t = new Deadline(description, end);
         this.addTask(t);
         return t;
     }
 
-    public Task addEvent(String description, String start, String end) throws BobException {
+    public Task addEvent(String description, String start, String end) {
         Task t = new Event(description, start, end);
         this.addTask(t);
         return t;
