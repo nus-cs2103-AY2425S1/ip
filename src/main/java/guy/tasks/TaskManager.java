@@ -3,9 +3,9 @@ package guy.tasks;
 import java.time.LocalDateTime;
 import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
-import guy.exception.GuyException;
-import java.util.*;
+import java.util.ArrayList;
 
+import guy.exception.GuyException;
 import guy.storage.Storage;
 
 /**
@@ -14,7 +14,7 @@ import guy.storage.Storage;
  */
 public class TaskManager {
     private static TaskManager tm;
-    private final List<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructs a new TaskManager object.
@@ -25,6 +25,7 @@ public class TaskManager {
 
     /**
      * Retrieves the instance of this class.
+     *
      * @return the instance of TaskManager
      */
     public static TaskManager getInstance() {
@@ -36,6 +37,7 @@ public class TaskManager {
 
     /**
      * Loads a task from its string representation, adding it to the list.
+     *
      * @param data string representation of the task
      */
     public void loadData(String data) {
@@ -79,6 +81,7 @@ public class TaskManager {
 
     /**
      * Retrieves a copy of the task list.
+     *
      * @return an ArrayList with the current tasks
      */
     public ArrayList<Task> getTasks() {
@@ -87,6 +90,7 @@ public class TaskManager {
 
     /**
      * Marks a task as completed, screaming at the user if unable to do so.
+     *
      * @param input index of the task to mark as done
      * @throws GuyException if the input is missing/invalid/out of range, or the task list is empty
      */
@@ -117,6 +121,7 @@ public class TaskManager {
 
     /**
      * Marks a task as incomplete, screaming at the user if unable to do so.
+     *
      * @param input index of the task to mark as not done
      * @throws GuyException if the input is missing/invalid/out of range, or the task list is empty
      */
@@ -146,7 +151,8 @@ public class TaskManager {
     }
 
     /**
-     * Adds a new task to the list
+     * Adds a new task to the list.
+     *
      * @param cmd the type of task to add, can be a todo/deadline/event
      * @param input task description, including dates and times, where appropriate
      * @throws GuyException if the input is invalid
@@ -199,6 +205,7 @@ public class TaskManager {
 
     /**
      * Removes a task from the list.
+     *
      * @param input index of the task to remove
      * @throws GuyException if the input is missing/invalid/out of range, or the task list is already empty
      */

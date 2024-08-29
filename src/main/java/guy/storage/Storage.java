@@ -19,6 +19,7 @@ public class Storage {
 
     /**
      * Retrieves the instance of the Storage class.
+     *
      * @return the instance of the class
      */
     public static Storage getInstance() {

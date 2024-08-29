@@ -1,6 +1,6 @@
 package guy;
 
-import java.util.*;
+import java.util.Scanner;
 
 import guy.parser.Parser;
 import guy.tasks.TaskManager;
@@ -29,6 +29,7 @@ public class ThatOneGuy {
 
     /**
      * Starts the ThatOneGuy application.
+     *
      * @param args command-line arguments, currently unused
      */
     public static void main(String[] args) {

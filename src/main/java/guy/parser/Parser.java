@@ -14,6 +14,7 @@ public class Parser {
 
     /**
      * Creates a Parser object with the given Scanner.
+     *
      * @param sc Scanner to be used within the instance
      */
     public Parser(Scanner sc) {
@@ -22,6 +23,7 @@ public class Parser {
 
     /**
      * Handles user input until the user requests to quit.
+     *
      * @return false if the user requests to quit, true otherwise
      */
     public boolean cmd() {
@@ -34,28 +36,28 @@ public class Parser {
 
             try {
                 switch (cmd) {
-                    case "bye":
-                        sc.close();
-                        return false;
-                    case "list":
-                        tm.list();
-                        break;
-                    case "mark":
-                        tm.markTask(args);
-                        break;
-                    case "unmark":
-                        tm.unmarkTask(args);
-                        break;
-                    case "todo":
-                    case "deadline":
-                    case "event":
-                        tm.addTask(cmd, args);
-                        break;
-                    case "delete":
-                        tm.deleteTask(args);
-                        break;
-                    default:
-                        throw new GuyException("Maybe put in an actual command next time, shitass.");
+                case "bye":
+                    sc.close();
+                    return false;
+                case "list":
+                    tm.list();
+                    break;
+                case "mark":
+                    tm.markTask(args);
+                    break;
+                case "unmark":
+                    tm.unmarkTask(args);
+                    break;
+                case "todo":
+                case "deadline":
+                case "event":
+                    tm.addTask(cmd, args);
+                    break;
+                case "delete":
+                    tm.deleteTask(args);
+                    break;
+                default:
+                    throw new GuyException("Maybe put in an actual command next time, shitass.");
                 }
             } catch (GuyException e) {
                 System.out.println(e.getMessage());
