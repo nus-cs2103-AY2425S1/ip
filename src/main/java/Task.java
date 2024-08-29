@@ -40,5 +40,4 @@ public class Task {
         System.out.println(line + "OK, I've marked this task as not done yet:\n"
                 + this.displayTask() + line);
     }
-
 }
