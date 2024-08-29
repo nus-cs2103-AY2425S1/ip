@@ -1,3 +1,10 @@
+package morgana.commands;
+
+import morgana.task.Event;
+import morgana.exceptions.MorganaException;
+import morgana.parser.Parser;
+import morgana.task.Task;
+
 public class EventCommand extends AddCommand {
     public EventCommand(String args) {
         super(args);

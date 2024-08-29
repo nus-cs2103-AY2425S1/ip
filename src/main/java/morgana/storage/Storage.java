@@ -1,3 +1,10 @@
+package morgana.storage;
+
+import morgana.exceptions.MorganaException;
+import morgana.parser.Parser;
+import morgana.task.Task;
+import morgana.task.TaskList;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

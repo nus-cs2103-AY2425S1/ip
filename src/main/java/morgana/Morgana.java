@@ -1,3 +1,12 @@
+package morgana;
+
+import morgana.commands.Command;
+import morgana.exceptions.MorganaException;
+import morgana.parser.Parser;
+import morgana.storage.Storage;
+import morgana.task.TaskList;
+import morgana.ui.Ui;
+
 public class Morgana {
     private static final String NAME = "Morgana";
 
