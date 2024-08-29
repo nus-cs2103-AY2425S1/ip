@@ -9,15 +9,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles storage of tasks by reading from and writing to a file.
+ */
 public class Storage {
     private String filePath;
     private File referenceFile;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     * Initializes the file and reads its contents.
+     *
+     * @param filePath the path to the file where tasks are stored
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         initialiseFile();
     }
 
+    /**
+     * Initializes the file by creating it if it doesn't exist and reading its contents.
+     * Creates necessary directories if they do not exist.
+     */
     private void initialiseFile() {
         this.referenceFile = new File(this.filePath);
 
@@ -43,6 +56,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the tasks from the file and returns them as a list.
+     * Parses each line to create appropriate Task objects.
+     *
+     * @return an ArrayList of Task objects read from the file
+     * @throws YapperException if there is an issue with file format or other reading errors
+     */
     public ArrayList<Task> readFile() throws YapperException {
         ArrayList<Task> taskList = new ArrayList<>();
         try (Scanner fileScanner = new Scanner(this.referenceFile)) {

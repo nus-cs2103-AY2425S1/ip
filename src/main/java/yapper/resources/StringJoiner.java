@@ -2,11 +2,26 @@ package yapper.resources;
 
 import yapper.exceptions.*;
 
+/**
+ * Provides utility methods for joining strings with error handling.
+ */
 public class StringJoiner {
-    public static String join(String[] s, int start, int end, YapperConcern timeType) throws YapperException {
+
+    /**
+     * Joins a subset of strings from the specified start index to the end index, separated by spaces.
+     * Throws exceptions if the resulting string is empty and provides context-specific error messages.
+     *
+     * @param texts         the array of strings to join
+     * @param start     the starting index (inclusive)
+     * @param end       the ending index (exclusive)
+     * @param timeType  the type of time-related information being processed
+     * @return the joined string
+     * @throws YapperException if the joined string is empty and a specific error context is required
+     */
+    public static String join(String[] texts, int start, int end, YapperConcern timeType) throws YapperException {
         StringBuilder sb = new StringBuilder();
         for (int i = start; i < end; i++) {
-            sb.append(s[i]);
+            sb.append(texts[i]);
             if (i != end - 1) {
                 sb.append(' ');
             }

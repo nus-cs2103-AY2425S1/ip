@@ -9,6 +9,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with a description and completion status.
+ */
 public class Task {
     private String desc;
     private String isDone;
@@ -29,6 +32,12 @@ public class Task {
             "yyyy/MM/dd",
     };
 
+    /**
+     * Constructs a new Task with the specified description.
+     *
+     * @param desc the description of the task
+     * @throws YapperException if the description is empty
+     */
     public Task(String desc) {
         if (desc.isEmpty()) {
             throw new YapperException("Description cannot be empty");
@@ -37,14 +46,29 @@ public class Task {
         this.isDone = "[ ]";
     }
 
+    /**
+     * Marks the task as completed.
+     */
     public void mark() {
         this.isDone = "[X]";
     }
 
+    /**
+     * Unmarks the task as not completed.
+     */
     public void unmark() {
         this.isDone = "[ ]";
     }
 
+    /**
+     * Formats a date and/or time string into a human-readable format.
+     *
+     * The method first tries to parse the string as a date and time, then as a time only, and finally as a date only.
+     * It returns the formatted date/time or the original string if it cannot be parsed.
+     *
+     * @param time the date and/or time string to be formatted
+     * @return the formatted date/time string, or the original string if parsing fails
+     */
     public String formattedDate(String time) {
         for (String timeFormat : timeFormats) {
             for (String dateFormat : dateFormats) {
@@ -81,10 +105,20 @@ public class Task {
         return time;
     }
 
+    /**
+     * Returns the task description prefixed with its completion status.
+     *
+     * @return the task description with completion status
+     */
     public String getDesc() {
         return this.isDone.charAt(1) + " | " + this.desc;
     }
 
+    /**
+     * Returns a string representation of the task, including its completion status.
+     *
+     * @return a string representation of the task
+     */
     @Override
     public String toString() {
         return this.isDone + " " + this.desc;

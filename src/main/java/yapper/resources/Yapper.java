@@ -3,6 +3,9 @@ package yapper.resources;
 import yapper.exceptions.YapperException;
 import yapper.exceptions.YapperFormatException;
 
+/**
+ * The main class for the Yapper chatbot that stores ToDos, Deadlines, and Events in a taskLit
+ */
 public class Yapper {
 
     private static String divider = "------------------------------------------------------------------";
@@ -14,6 +17,11 @@ public class Yapper {
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Constructs a Yapper object with the specified file path for storage.
+     *
+     * @param filePath the file path for storing task data
+     */
     public Yapper(String filePath) {
         this.ui = new Ui();
         this.parser = new Parser();
@@ -21,6 +29,12 @@ public class Yapper {
         this.taskList = new TaskList(storage.readFile(), filePath);
     }
 
+    /**
+     * Starts the Yapper chatbot, providing an interactive command-line interface.
+     *
+     * The chatbot processes user input in a loop, handling various commands like adding, deleting,
+     * marking tasks, and responding to greetings. The loop continues until the user inputs the "bye" command.
+     */
     public void run() {
         ui.intro();
         while (true) {
@@ -106,14 +120,5 @@ public class Yapper {
 
     public static void main(String[] args) {
         new Yapper("./YappingData/YappingSession.txt").run();
-    }
-
-    // in yapper.main.TaskList
-    public static String taskPlural(int taskCount) {
-        String taskMessage = "task";
-        if (taskCount != 1) {
-            taskMessage += "s";
-        }
-        return taskMessage;
     }
 }
