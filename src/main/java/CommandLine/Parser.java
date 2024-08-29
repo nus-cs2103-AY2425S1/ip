@@ -6,7 +6,7 @@ import Task.Task;
 import static java.lang.Integer.parseInt;
 
 public class Parser {
-    public Parser(){
+    public Parser() {
 
     };
 
