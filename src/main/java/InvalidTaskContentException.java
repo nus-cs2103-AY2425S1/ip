@@ -12,8 +12,8 @@ public class InvalidTaskContentException extends Exception {
         "TODO:\n" +
         "todo [task name]\n" +
         "DEADLINE:\n" +
-        "deadline [task name] /by [due day, time, and/or date]\n" +
+        "deadline [task name] /[due day, time, and/or date]\n" +
         "EVENT\n" +
-        "event [task name] /from [start day, time and/or date] /to [start day, time and/or date]";
+        "event [task name] /[start day, time and/or date] /[start day, time and/or date]";
     }
 }

@@ -10,6 +10,6 @@ public class InvalidEventContentException extends InvalidTaskContentException {
     public String toString() {
         return
         "Please key in the following format:\n" +
-        "event [task name] /from [start day, time and/or date] /to [start day, time and/or date]";
+        "event [task name] /[start day, time and/or date] /[start day, time and/or date]";
     }
 }

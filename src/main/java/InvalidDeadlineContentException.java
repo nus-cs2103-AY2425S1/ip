@@ -11,7 +11,7 @@ public class InvalidDeadlineContentException extends InvalidTaskContentException
     public String toString() {
         return
         "Please key in the following format:\n" +
-        "deadline [task name] /by [due day, time, and/or date]";
+        "deadline [task name] /[due day, time, and/or date]";
     }
 
 }

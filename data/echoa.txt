@@ -1,0 +1,2 @@
+D | 0 | ip | fri
+E | 1 | tui | sat 12pm | 6pm
