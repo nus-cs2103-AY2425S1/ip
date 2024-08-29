@@ -32,8 +32,10 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "schedulo"
+    archiveFileName = "schedulo.jar"
     archiveClassifier = null
+    archiveVersion = "v0.1"
 }
 
 run{
