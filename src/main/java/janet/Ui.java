@@ -81,6 +81,14 @@ public class Ui {
                 + displayTasksInList(taskList) + "\n" + horizontalLine);
     }
 
+    public String displayTasksInList(TaskList taskList) {
+        String tasks = "";
+        for (int i = 0; i < taskList.getNumberOfTasks(); i++) {
+            tasks += (i + 1) + ". " + taskList.getTask(i) + "\n";
+        }
+        return tasks;
+    }
+
     public void showDeleteTaskMessage(Task deletedTask, int numberOfTasks) {
         System.out.println(horizontalLine + "\nNoted. I've removed this task:\n" +
                 String.format("    %s\nNow you have %d tasks in your list\n",
