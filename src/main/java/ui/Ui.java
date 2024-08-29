@@ -5,6 +5,7 @@ import task.Task;
 import storage.Storage;
 import parser.Parser;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -104,5 +105,19 @@ public class Ui {
         String command = input.nextLine();
 
         Parser.parse(command);
+    }
+
+    public static void findTargetString(String targetString) {
+        ArrayList<Task> filteredTask = new ArrayList<>();
+        for (int i = 0; i < TaskList.length(); i++) {
+            if (TaskList.get(i).getDescription().contains(targetString)) {
+                filteredTask.add(TaskList.get(i));
+            }
+        }
+        System.out.println("Here are the matching results:");
+        for (int i = 0; i < filteredTask.size(); i++) {
+            System.out.println(filteredTask.get(i));
+        }
+        promptInput();
     }
 }
