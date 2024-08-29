@@ -1,9 +1,117 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
 
 public class Pixel {
+    public final static String DIRECTORY_PATH = "../data";
+    public final static String FILE_PATH = DIRECTORY_PATH + "/pixel.txt";
     public static String LINE = "\t" + "------------------------------------";
     public static ArrayList<Task> tasks = new ArrayList<>();
+
+    public static void printLine(String line) {
+        System.out.println(LINE);
+        System.out.println("\t" + line);
+        System.out.println(LINE);
+    }
+    public static void ensureFileExists() {
+        File file = new File(FILE_PATH);
+        File directory = new File(file.getParent());
+
+        // Create directory if it does not exist
+        if (!directory.exists()) {
+            if (directory.mkdirs()) {
+                printLine("New directory created: " + directory.getPath());
+            } else {
+                printLine("Failed to create new directory: " + directory.getPath());
+            }
+        }
+
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    printLine("New file created: " + file.getPath());
+                } else {
+                    printLine("Failed to create new file: " + file.getPath());
+                }
+            } catch (IOException e) {
+                printLine("Error creating new File");
+            }
+        }
+    }
+    public static void createListFromCurrentData() throws FileNotFoundException {
+        ensureFileExists();
+        File file = new File(FILE_PATH); // create a File for the given file path
+        Scanner scanner = new Scanner(file); // create a Scanner using the File as the source
+        while (scanner.hasNext()) {
+            String dataLine = scanner.nextLine();
+            String[] inputs = dataLine.split(" | ");
+            String taskType = inputs[0];
+            String doneStatus = inputs[1];
+            String taskDescription = inputs[2];
+            switch(taskType) {
+            case "T":
+                ToDo currentTask = new ToDo(taskDescription);
+                if (doneStatus.equals("1")) {
+                    currentTask.markAsDone();
+                }
+                tasks.add(currentTask);
+                break;
+            case "D":
+                String deadline = inputs[3];
+                Deadline currentDeadline = new Deadline(taskDescription, deadline);
+                if (doneStatus.equals("1")) {
+                    currentDeadline.markAsDone();
+                }
+                tasks.add(currentDeadline);
+                break;
+            case "E":
+                String fromToDate = inputs[3];
+                String[] fromToSplit = fromToDate.split("-");
+                String from = fromToSplit[0];
+                String to = fromToSplit[1];
+                Event currentEvent = new Event(taskDescription, from, to);
+                if (doneStatus.equals("1")) {
+                    currentEvent.markAsDone();
+                }
+                tasks.add(currentEvent);
+                break;
+            default:
+                System.out.println("\t" + "There is an error in the file!");
+            }
+        }
+    }
+
+    public static void updateFile() {
+        try {
+            FileWriter fileWriter = new FileWriter(FILE_PATH);
+            for (Task currentTask : tasks) {
+                fileWriter.write(currentTask.getFileString()+"\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            printLine("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    public static void printFile() {
+        try {
+            File file = new File(FILE_PATH); // create a File for the given file path
+            Scanner scanner = new Scanner(file); // create a Scanner using the File as the source
+            System.out.println(LINE);
+            while (scanner.hasNext()) {
+                System.out.println("\t" + scanner.nextLine());
+            }
+            System.out.println(LINE);
+        } catch (FileNotFoundException e) {
+            System.out.println(LINE);
+            System.out.println("\t" + "I'm sorry, but I can't find the data for the ToDos!");
+            System.out.println("\t" + "Please specify the correct file path.");
+            System.out.println(LINE);
+        }
+    }
     public static void printGreeting() {
         System.out.println(LINE);
         System.out.println("\t" + "Hello! I'm Pixel!");
@@ -42,6 +150,8 @@ public class Pixel {
             String command = scanner.nextLine();
             if (command.equals("list")) {
                 printList();
+            } else if (command.equals("file")) {
+                printFile();
             } else if (command.startsWith("todo")) {
                 String description = command.replace("todo", "").trim();
                 if (description.equals("")) {
@@ -49,6 +159,7 @@ public class Pixel {
                 } else {
                     ToDo newToDo = new ToDo(description);
                     tasks.add(newToDo);
+                    updateFile();
                     printAddConfirmation(newToDo.toString());
                 }
             } else if (command.startsWith("deadline")) {
@@ -57,6 +168,7 @@ public class Pixel {
                 String by = stringArray[1].replace("by", "").trim();
                 Deadline newDeadline = new Deadline(description, by);
                 tasks.add(newDeadline);
+                updateFile();
                 printAddConfirmation(newDeadline.toString());
             } else if (command.startsWith("event")) {
                 String[] stringArray = command.split("/", 0);
@@ -65,11 +177,13 @@ public class Pixel {
                 String to = stringArray[2].replace("to", "").trim();
                 Event newEvent = new Event(description, from, to);
                 tasks.add(newEvent);
+                updateFile();
                 printAddConfirmation(newEvent.toString());
             } else if (command.startsWith("mark")) {
                 String[] stringArray = command.split(" ", 0);
                 Task currentTask = tasks.get(Integer.parseInt(stringArray[1]) - 1);
                 currentTask.markAsDone();
+                updateFile();
                 System.out.println(LINE);
                 System.out.println("\t" + "Nice! I've marked this task as done:");
                 System.out.println("\t  " + currentTask);
@@ -78,6 +192,7 @@ public class Pixel {
                 String[] stringArray = command.split(" ", 0);
                 Task currentTask = tasks.get(Integer.parseInt(stringArray[1]) - 1);
                 currentTask.markAsUndone();
+                updateFile();
                 System.out.println(LINE);
                 System.out.println("\t" + "OK, I've marked this task as not done yet:");
                 System.out.println("\t  " + currentTask);
@@ -87,6 +202,7 @@ public class Pixel {
                 Integer index = Integer.parseInt(stringArray[1]) - 1;
                 Task removedTask = tasks.get(index);
                 tasks.remove(removedTask);
+                updateFile();
                 System.out.println(LINE);
                 System.out.println("\t" + "Noted. I've removed this task:");
                 System.out.println("\t  " + removedTask);
@@ -102,6 +218,7 @@ public class Pixel {
     }
     public static void main(String[] args) {
         try {
+            createListFromCurrentData();
             printGreeting();
             processResponse();
         } catch (IndexOutOfBoundsException e) {
@@ -118,6 +235,11 @@ public class Pixel {
             System.out.println(LINE);
             System.out.println("\t" + "I'm sorry, but I can't add a task if the description is empty!");
             System.out.println("\t" + "Type in a valid description!");
+            System.out.println(LINE);
+        } catch (FileNotFoundException e) {
+            System.out.println(LINE);
+            System.out.println("\t" + "I'm sorry, but I can't find the data for the ToDos!");
+            System.out.println("\t" + "Please specify the correct file path.");
             System.out.println(LINE);
         }
     }

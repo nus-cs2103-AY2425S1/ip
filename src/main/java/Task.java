@@ -19,6 +19,10 @@ public class Task {
         return isDone ? "X" : " ";
     }
 
+    public String getStatusNumber() {
+        return isDone ? "1" : "0";
+    }
+
     public String getDescription() {
         return this.description;
     }
@@ -26,5 +30,9 @@ public class Task {
     @Override
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), getDescription());
+    }
+
+    public String getFileString() {
+        return String.format("Ta | %s | %s", getStatusNumber(), getDescription());
     }
 }
