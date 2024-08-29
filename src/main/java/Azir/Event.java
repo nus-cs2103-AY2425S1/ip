@@ -1,5 +1,8 @@
 package Azir;
 
+/**
+ * Event is a child of the Task class to indicate a task that has a start and end time
+ */
 public class Event extends Task {
     private String startDay;
     private String endDay;
@@ -9,6 +12,10 @@ public class Event extends Task {
         this.endDay = endDay;
     }
 
+    /**
+     * Formats event task into a special string format
+     * @return Special string format
+     */
     public String formatText() {
         return String.format("E | %s | %s | %s | %s", super.getDoneString(), super.getDescription(), this.startDay, this.endDay);
     }

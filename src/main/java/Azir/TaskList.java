@@ -4,6 +4,9 @@ import Azir.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks in the chatbot
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -15,10 +18,20 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Adds a task to the taskList
+     *
+     * @param task Task to be added
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Removes a task from the tasklist
+     *
+     * @param index Position of the task in the tasklist
+     */
     public void DeleteTask(int index) {
         tasks.remove(index);
     }

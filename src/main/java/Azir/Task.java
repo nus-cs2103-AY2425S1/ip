@@ -1,5 +1,9 @@
 package Azir;
 
+/**
+ * Representation of a task
+ * Able to set if a task has been completed
+ */
 public class Task {
     private String description;
     private boolean isDone;
