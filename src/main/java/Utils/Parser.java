@@ -17,6 +17,9 @@ public class Parser {
         userCommand[0] = command[0];
         switch (commandType) {
         case BYE, LIST:
+            if (command.length > 1) {
+                throw new ChatterBoxError();
+            }
             break;
         case MARK, UNMARK, DELETE:
             try {
@@ -24,12 +27,20 @@ public class Parser {
                 userCommand[1] = String.valueOf(taskNum);
                 break;
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                throw new ChatterBoxMarkError();
+                if (commandType.equals(Commands.DELETE)) {
+                    throw new ChatterBoxDeleteError();
+                } else {
+                    throw new ChatterBoxMarkError();
+                }
             }
         case TODO:
             try {
-                userCommand[1] = command[1];
-                break;
+                if (command[1] != "") {
+                    userCommand[1] = command[1];
+                    break;
+                } else {
+                    throw new ChatterBoxToDoError();
+                }
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new ChatterBoxToDoError();
             }

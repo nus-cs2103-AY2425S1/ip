@@ -26,7 +26,7 @@ public class Storage {
         saveDirectoryPath = saveFilePath.getParent();
     }
 
-    public StoredList readFromSave() {
+    public void readFromSave() {
         try {
             Files.createDirectories(saveDirectoryPath);
         } catch (IOException e) {
@@ -50,7 +50,6 @@ public class Storage {
             }
             fileReader.close();
             ui.printMessage("Save file " + saveFilePath + " loaded");
-            ui.printTasks(saveList);
         } catch (FileNotFoundException e) {
             try {
                 saveFile.createNewFile();
@@ -59,6 +58,9 @@ public class Storage {
                 ui.printMessage("Error Reading Chatterbox save file");
             }
         }
+    }
+
+    public StoredList getSaveList() {
         return saveList;
     }
 

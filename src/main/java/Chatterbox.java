@@ -9,11 +9,13 @@ public class Chatterbox {
     private final Storage storage;
     private final Ui ui;
 
-    public Chatterbox(String filePath) {
-        storage = new Storage("data/chatterbox_save.txt");
-        taskList = storage.readFromSave();
+    public Chatterbox(String saveFilePath) {
+        storage = new Storage(saveFilePath);
+        storage.readFromSave();
+        taskList = storage.getSaveList();
         ui = new Ui();
         ui.printWelcome();
+        ui.printTasks(taskList);
     }
 
     public void run() {
@@ -69,7 +71,7 @@ public class Chatterbox {
                 ui.printMessage(message);
                 break;
             }
-        } catch (ChatterBoxError e) {
+        } catch (ChatterBoxError    e) {
             throw e;
         }
         return true;
