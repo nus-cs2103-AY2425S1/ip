@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 public class TaskList implements Iterable<Task> {
     ArrayList<Task> taskList;
+
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }

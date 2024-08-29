@@ -1,7 +1,5 @@
 package neuro.task;
 
-import neuro.task.Task;
-
 public class Event extends Task {
     private String from;
     private String to;

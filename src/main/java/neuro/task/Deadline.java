@@ -1,7 +1,5 @@
 package neuro.task;
 
-import neuro.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

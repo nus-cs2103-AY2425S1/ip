@@ -12,6 +12,7 @@ public class Ui {
     public void showLine() {
         System.out.println("    ___________________________________________________");
     }
+
     public void showWelcome() {
         showLine();
         System.out.println("    Hii, I'm Neuro, your chatbot assistant!");
