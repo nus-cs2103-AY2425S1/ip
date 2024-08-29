@@ -9,16 +9,16 @@ import java.util.Scanner;
  */
 public class Bob {
 
-    // UI component for displaying messages and handling user interactions
+    /** UI component for displaying messages and handling user interactions */
     private static Ui ui = new Ui();
 
-    // Storage component for saving and loading tasks
+    /** UI component for displaying messages and handling user interactions */
     private static Storage storage;
 
-    // TaskList component to store and manage tasks
+    /** UI component for displaying messages and handling user interactions */
     private static TaskList taskList;
 
-    // Name of the chatbot
+    /** UI component for displaying messages and handling user interactions */
     private static final String NAME = "Bob";
 
     /**
