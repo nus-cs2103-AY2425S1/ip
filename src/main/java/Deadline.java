@@ -1,17 +1,22 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task{
     private final static String TASK_TYPE = "D";
     private LocalDate deadline;
-    public Deadline(String input, String date) {
+    public Deadline(String input, String date) throws AiException {
         super(input);
 
-        if(date.contains("/")) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            deadline = LocalDate.parse(date, formatter);
-        } else {
-            deadline = LocalDate.parse(date);
+        try {
+            if (date.contains("/")) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                deadline = LocalDate.parse(date, formatter);
+            } else {
+                deadline = LocalDate.parse(date);
+            }
+        } catch (DateTimeParseException e) {
+            throw new AiException("Awww shucksss, your date time format should either be d/M/yyyy HHmm or YYYY-MM-DD\n");
         }
     }
 
@@ -33,7 +38,6 @@ public class Deadline extends Task{
 
     @Override
     public String stringData() {
-        return String.format("%s | %s | %s", TASK_TYPE, super.stringData(),
-                deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        return String.format("%s | %s | %s", TASK_TYPE, super.stringData(), deadline);
     }
 }
