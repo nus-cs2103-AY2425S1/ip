@@ -42,6 +42,15 @@ public class TaskList {
         return listOfTasks.size();
     }
 
+    public String fileTaskInfo() {
+        StringBuilder str = new StringBuilder();
+        for (Task t : listOfTasks) {
+            str.append(t.infoForFile());
+            str.append("\n");
+        }
+        return str.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();

@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Testament {
@@ -6,10 +8,18 @@ public class Testament {
     public static void main(String[] args) {
 
         boolean powerOn = true;
-        taskList = new TaskList();
+        File taskListMemory;
+        Storage storage;
+
+        taskListMemory = new File("src/main/java/Memory/TaskList.txt");
+        printDialogue("Morning!\n Nice day for a stroll, don't you think?");
+        storage = new Storage(taskListMemory);
+        taskList = storage.load();
+
+
         Scanner scanner = new Scanner(System.in);
 
-        printDialogue("Morning!\n Nice day for a stroll, don't you think?");
+
         while (powerOn) {
             String userInput = scanner.nextLine();
             String[] splitUserInput = userInput.split(" ", 2);
@@ -113,6 +123,7 @@ public class Testament {
                                 latestTask, taskList.getSize())
                 );
             }
+            storage.save();
         }
     }
 
