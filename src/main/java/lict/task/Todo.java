@@ -23,6 +23,5 @@ public class Todo extends Task {
 
     public static Todo loadTask(String dataMessage) {
         return new Todo(dataMessage);
-
     }
 }

@@ -21,7 +21,7 @@ public class Event extends Task {
                 this.to = new DateTime(to);
             }
         } catch (DateTimeException e) {
-            throw new LictException("Invalid format for event start date or event end date. Please ensure that lict.task.Event date and time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.");
+            throw new LictException("Invalid format for event start date or event end date. Please ensure that Event date and time information is in the form 'yyyy-MM-dd' or 'yyyy-MM-dd HHmm'.");
         }
     }
 
@@ -40,7 +40,7 @@ public class Event extends Task {
         String[] messageParts = dataMessage.split("\\|", 3);
         String description = messageParts[0].trim();
         if (description.isEmpty() || messageParts.length != 3) {
-            throw new LictException();
+            throw new LictException("Data is faulty. Discarding...");
         }
         return new Event(messageParts[0].trim(), messageParts[1].trim(), messageParts[2].trim());
     }

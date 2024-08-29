@@ -1,7 +1,6 @@
 package lict;
 
 import lict.task.Task;
-import lict.TaskList;
 
 import java.io.File;
 import java.io.FileWriter;
