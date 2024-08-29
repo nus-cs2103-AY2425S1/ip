@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -69,7 +73,13 @@ public class Julie {
                             if (tokens.length != 2) {
                                 throw new InvalidInputException(commandToken);
                             }
-                            t = new Deadline(tokens[0].substring(9), tokens[1]);
+                            try {
+                                LocalDate due = LocalDate.parse(tokens[1]);
+
+                            } catch (DateTimeParseException e) {
+                                throw new InvalidInputException(input);
+                            }
+                            t = new Deadline(tokens[0].substring(9), LocalDate.parse(tokens[1]));
                         }
                         // Fallthrough
                     case EVENT:
@@ -78,7 +88,9 @@ public class Julie {
                             if (tokens.length != 3) {
                                 throw new InvalidInputException(commandToken);
                             }
-                            t = new Event(tokens[0].substring(6), tokens[1], tokens[2]);
+                            t = new Event(tokens[0].substring(6),
+                                    LocalDate.parse(tokens[1]),
+                                    LocalDate.parse(tokens[2]));
                         }
                         taskList.add(t);
                         CommonFunctions.addedPrompt(t, taskList);

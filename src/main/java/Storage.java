@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -38,9 +39,9 @@ public class Storage {
                 if (cmd.equals("T")) {
                     t = new ToDo(tokens[1]);
                 } else if (cmd.equals("D")) {
-                    t = new Deadline(tokens[1], tokens[2]);
+                    t = new Deadline(tokens[1], LocalDate.parse(tokens[2]));
                 } else if (cmd.equals("E")) {
-                    t = new Event(tokens[1], tokens[2], tokens[3]);
+                    t = new Event(tokens[1], LocalDate.parse(tokens[2]), LocalDate.parse(tokens[3]));
                 }
                 taskList.add(t);
             }
