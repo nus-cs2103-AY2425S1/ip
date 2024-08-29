@@ -54,93 +54,67 @@ public class Parser {
     }
 
     private static Todo parseTodoCommand(String command) {
-        try {
-            String description = command.substring(4).trim(); // Extract description
-            if (description.isEmpty()) {
-                throw new IllegalArgumentException("Description for 'todo' cannot be empty.");
-            }
-            return new Todo(description);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+        String description = command.substring(4).trim(); // Extract description
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("Description for 'todo' cannot be empty.");
         }
-        return null;
+        return new Todo(description);
     }
 
     private static Deadline parseDeadlineCommand(String command) {
-        try {
-            String[] parts = command.split("/by");
-            if (parts.length != 2) {
-                throw new IllegalArgumentException(
-                        "Deadline command must contain '/by' followed by a date-time.");
-            }
-
-            String description = parts[0].substring(8).trim();
-            if (description.isEmpty()) {
-                throw new IllegalArgumentException("Description for 'deadline' cannot be empty.");
-            }
-
-            String dateTimeString = parts[1].trim();
-            LocalDateTime by = convertStringToDate(dateTimeString);
-            if (by == null) {
-                return null;
-            }
-            return new Deadline(description, by);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+        String[] parts = command.split("/by");
+        if (parts.length != 2) {
+            throw new IllegalArgumentException(
+                    "Deadline command must contain '/by' followed by a date-time.");
         }
-        return null;
+
+        String description = parts[0].substring(8).trim();
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("Description for 'deadline' cannot be empty.");
+        }
+
+        String dateTimeString = parts[1].trim();
+        LocalDateTime by = convertStringToDate(dateTimeString);
+        return new Deadline(description, by);
     }
 
-    private static Event parseEventCommand(String command) {
-        try {
-            String[] partsFrom = command.split("/from");
-            if (partsFrom.length != 2) {
-                throw new IllegalArgumentException(
-                        "Event command must contain '/from' followed by a start date-time.");
-            }
-
-            String[] partsTo = partsFrom[1].split("/to");
-            if (partsTo.length != 2) {
-                throw new IllegalArgumentException(
-                        "Event command must contain '/to' followed by an end date-time.");
-            }
-
-            String description = partsFrom[0].substring(5).trim();
-            if (description.isEmpty()) {
-                throw new IllegalArgumentException("Description for 'event' cannot be empty.");
-            }
-
-            String fromDateTimeString = partsTo[0].trim(); // Extract start date-time
-            String toDateTimeString = partsTo[1].trim(); // Extract end date-time
-
-            LocalDateTime from = convertStringToDate(fromDateTimeString);
-            LocalDateTime to = convertStringToDate(toDateTimeString);
-            if (from == null || to == null) {
-                return null;
-            }
-            return new Event(description, from, to);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+    static Event parseEventCommand(String command) {
+        String[] partsFrom = command.split("/from");
+        if (partsFrom.length != 2) {
+            throw new IllegalArgumentException(
+                    "Event command must contain '/from' followed by a start date-time.");
         }
-        return null;
+
+        String[] partsTo = partsFrom[1].split("/to");
+        if (partsTo.length != 2) {
+            throw new IllegalArgumentException(
+                    "Event command must contain '/to' followed by an end date-time.");
+        }
+
+        String description = partsFrom[0].substring(5).trim();
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("Description for 'event' cannot be empty.");
+        }
+
+        String fromDateTimeString = partsTo[0].trim(); // Extract start date-time
+        String toDateTimeString = partsTo[1].trim(); // Extract end date-time
+
+        LocalDateTime from = convertStringToDate(fromDateTimeString);
+        LocalDateTime to = convertStringToDate(toDateTimeString);
+        return new Event(description, from, to);
     }
 
-    private static int parseIndexCommand(String[] getInstr) {
-        try {
-            int index;
-            if (getInstr.length <= 1) {
-                index = -1;
-            } else {
-                index = Integer.parseInt(getInstr[1]);
-            }
-            if (index - 1 < 0 || index - 1 >= TaskList.getSize()) {
-                throw new InvalidIndexException("Invalid index provided, please provide proper index.");
-            }
-            return index;
-        } catch (InvalidIndexException e) {
-            System.out.println(e.toString());
+    private static int parseIndexCommand(String[] getInstr) throws InvalidIndexException {
+        int index;
+        if (getInstr.length <= 1) {
+            throw new InvalidIndexException("Invalid index provided, please provide proper index.");
+        } else {
+            index = Integer.parseInt(getInstr[1]);
         }
-        return -1;
+        if (index - 1 < 0 || index - 1 >= TaskList.getSize()) {
+            throw new InvalidIndexException("Invalid index provided, please provide proper index.");
+        }
+        return index;
     }
 
     public static void parseCommand(String command) {
@@ -149,42 +123,54 @@ public class Parser {
         int index;
         switch (instr) {
             case "mark":
-                index = parseIndexCommand(getInstr);
-                if (index != -1) {
+                try {
+                    index = parseIndexCommand(getInstr);
                     TaskList.mark(index);
+                } catch (InvalidIndexException e) {
+                    System.out.println(e.toString());
                 }
                 break;
             case "unmark":
-                index = parseIndexCommand(getInstr);
-                if (index != -1) {
+                try {
+                    index = parseIndexCommand(getInstr);
                     TaskList.unmark(index);
+                } catch (InvalidIndexException e) {
+                    System.out.println(e.toString());
                 }
                 break;
             case "delete":
-                index = parseIndexCommand(getInstr);
-                if (index != -1) {
+                try {
+                    index = parseIndexCommand(getInstr);
                     TaskList.delete(index);
+                } catch (InvalidIndexException e) {
+                    System.out.println(e.toString());
                 }
                 break;
             case "list":
                 Ui.printList();
                 break;
             case "todo":
-                Task todo = parseTodoCommand(command);
-                if (todo != null) {
+                try {
+                    Task todo = parseTodoCommand(command);
                     TaskList.add(todo);
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
                 }
                 break;
             case "deadline":
-                Task deadline = parseDeadlineCommand(command);
-                if (deadline != null) {
+                try {
+                    Task deadline = parseDeadlineCommand(command);
                     TaskList.add(deadline);
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
                 }
                 break;
             case "event":
-                Task event = parseEventCommand(command);
-                if (event != null) {
+                try {
+                    Task event = parseEventCommand(command);
                     TaskList.add(event);
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
                 }
                 break;
             default:
