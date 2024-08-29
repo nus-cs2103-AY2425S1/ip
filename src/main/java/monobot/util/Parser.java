@@ -15,29 +15,49 @@ public class Parser {
         String commandString = parts[0].toLowerCase();
         CommandType type = parseCommandType(commandString);
 
-        return switch (type) {
-            case LIST -> new ListCommand();
-            case TODO, DEADLINE, EVENT -> new AddCommand(type, parseTask(input));
-            case MARK -> new MarkCommand(getTaskIndex(input));
-            case UNMARK -> new UnmarkCommand(getTaskIndex(input));
-            case DELETE -> new DeleteCommand(getTaskIndex(input));
-            case BYE -> new ExitCommand();
-            case INVALID -> new InvalidCommand();
-        };
+        switch (type) {
+        case LIST:
+            return new ListCommand();
+        case TODO:
+        case DEADLINE:
+        case EVENT:
+            return new AddCommand(type, parseTask(input));
+        case MARK:
+            return new MarkCommand(getTaskIndex(input));
+        case UNMARK:
+            return new UnmarkCommand(getTaskIndex(input));
+        case DELETE:
+            return new DeleteCommand(getTaskIndex(input));
+        case BYE:
+            return new ExitCommand();
+        case INVALID:
+            return new InvalidCommand();
+        default:
+            throw new IllegalArgumentException();
+        }
     }
 
     private static CommandType parseCommandType(String commandString) {
-        return switch (commandString) {
-            case "list" -> CommandType.LIST;
-            case "mark" -> CommandType.MARK;
-            case "unmark" -> CommandType.UNMARK;
-            case "todo" -> CommandType.TODO;
-            case "deadline" -> CommandType.DEADLINE;
-            case "event" -> CommandType.EVENT;
-            case "delete" -> CommandType.DELETE;
-            case "bye" -> CommandType.BYE;
-            default -> CommandType.INVALID;
-        };
+        switch (commandString) {
+        case "list":
+            return CommandType.LIST;
+        case "mark":
+            return CommandType.MARK;
+        case "unmark":
+            return CommandType.UNMARK;
+        case "todo":
+            return CommandType.TODO;
+        case "deadline":
+            return CommandType.DEADLINE;
+        case "event":
+            return CommandType.EVENT;
+        case "delete":
+            return CommandType.DELETE;
+        case "bye":
+            return CommandType.BYE;
+        default:
+            return CommandType.INVALID;
+        }
     }
 
     public static Task parseTask(String input) throws MonoBotException {
@@ -49,12 +69,16 @@ public class Parser {
         CommandType command = parseCommandType(parts[0]);
         String details = parts[1].trim();
 
-        return switch (command) {
-            case TODO -> new Todo(details);
-            case DEADLINE -> parseDeadline(details);
-            case EVENT -> parseEvent(details);
-            default -> throw new MonoBotException("Invalid task type");
-        };
+        switch (command) {
+        case TODO:
+            return new Todo(details);
+        case DEADLINE:
+            return parseDeadline(details);
+        case EVENT:
+            return parseEvent(details);
+        default:
+            throw new MonoBotException("Invalid task type");
+        }
     }
 
     private static int getTaskIndex(String input) throws MonoBotException {
