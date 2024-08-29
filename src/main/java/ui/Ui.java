@@ -25,7 +25,6 @@ public class Ui {
         for (int i = 0; i < TaskList.length(); i++) {
             System.out.println(TaskList.listTask(i));
         }
-
         promptInput();
     }
 
