@@ -194,7 +194,7 @@ public class Ui {
                 deadlineToParse = sc.nextLine();
             }
             try {
-                deadline = parser.parseDateTime(deadlineToParse);
+                deadline = parser.parseDate(deadlineToParse);
             } catch (DateTimeParseException e) {
                 System.out.println("No matching date formats");
                 deadlineToParse = null;
