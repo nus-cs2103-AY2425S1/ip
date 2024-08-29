@@ -11,10 +11,6 @@ public class TaskList {
         this.tasks = new ArrayList<>(taskList.tasks);
     }
 
-    public void addItem(String item) {
-        this.tasks.add(new Task(item));
-    }
-
     public void addItem(Task item) {
         this.tasks.add(item);
     }
