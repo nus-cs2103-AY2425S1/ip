@@ -13,11 +13,17 @@ public class ListManager {
         return task;
     }
 
-    public String listItems() {
+    /**
+     * Method that takes in a string and returns all tasks that includes that string. Can be used
+     * to list all items by just passing in a "" argument
+     */
+    public String listItems(String item) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < ItemList.size(); i++) {
             Task task = ItemList.get(i);
-            result.append(i + 1).append(". ").append(task.toString()).append("\n");
+            if (task.toString().contains(item)) {  // Check if the task contains the item
+                result.append(i + 1).append(". ").append(task.toString()).append("\n");
+            }
         }
         return result.toString();
     }
