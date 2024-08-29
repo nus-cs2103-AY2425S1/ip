@@ -42,7 +42,6 @@ public class Task {
         this.taskIsDone = !this.taskIsDone;
         System.out.println(this.toString());
 
-
     }
 
 }
