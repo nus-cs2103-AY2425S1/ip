@@ -12,17 +12,17 @@ public class MrYapper {
     private static final String GREETING_MESSAGE = " Hello! I'm MrYapper\n"
             + " What can I do for you?";
     private static final String GOODBYE_MESSAGE = " Bye. Hope to see you again soon!";
-    private static final ArrayList<Task> taskList = new ArrayList<>(100);
     private static final String TASK_DATA_PATH = "src/data/tasks.txt";
+    private TaskList tasks;
 
     // Inserts line indentation in response messages
-    private static void say(String message) {
+    private void say(String message) {
         System.out.println("____________________________________________________________\n"
                 + message
                 + "\n____________________________________________________________");
     }
 
-    private static void addTask(String type, String[] processedInput) throws InvalidTaskException {
+    private void addTask(String type, String[] processedInput) throws InvalidTaskException {
         if (processedInput.length < 2) {
             throw new InvalidTaskException(type, " You need to provide the task details!");
         }
@@ -79,32 +79,19 @@ public class MrYapper {
             return;
         }
 
-        taskList.add(newTask);
+        tasks.add(newTask);
         say(String.format(" Task added successfully!\n   %s\n Now you have %d tasks in the list",
-                newTask, taskList.size()));
+                newTask, tasks.count()));
     }
 
-    private static void listTask() {
-        int listSize = taskList.size();
-        String listInString = "";
-        for (int i = 0; i < listSize; i += 1) {
-            String taskString = String.format(" %d.%s", i + 1, taskList.get(i));
-            listInString += taskString;
-            if (i < listSize - 1) {
-                listInString += "\n";
-            }
-        }
-        say(listInString);
-    }
-
-    private static void deleteTask(int taskNumber) {
-        Task deletedTask = taskList.remove(taskNumber - 1);
+    private void deleteTask(int taskNumber) {
+        Task deletedTask = tasks.remove(taskNumber);
         say(String.format(" Task deleted successfully!\n   %s\n Now you have %d tasks in the list",
-                deletedTask, taskList.size()));
+                deletedTask, tasks.count()));
     }
 
     // reads the task data from the data file and adds task into the task ArrayList
-    private static void readTaskData(String taskData) throws InvalidDataFormatException {
+    private Task readTaskData(String taskData) throws InvalidDataFormatException {
         try {
             String[] processedData = taskData.split(" \\|\\|\\| ");
             Task task;
@@ -130,13 +117,13 @@ public class MrYapper {
                 task.markAsDone();
             }
 
-            taskList.add(task);
+            return task;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new InvalidDataFormatException(taskData);
         }
     }
 
-    public static void main(String[] args) {
+    public void run() {
         boolean conversationIsOngoing = false;
 
         // check if the tasks data file exists
@@ -147,12 +134,15 @@ public class MrYapper {
                 if (fileCreationSuccessful) {
                     System.out.println("Data file creation successful");
                 }
+                this.tasks = new TaskList();
             } else {
+                ArrayList<Task> taskList = new ArrayList<>(100);
                 Scanner dataFileReader = new Scanner(taskData);
                 while (dataFileReader.hasNextLine()) {
-                    readTaskData(dataFileReader.nextLine());
+                    taskList.add(readTaskData(dataFileReader.nextLine()));
                 }
                 dataFileReader.close();
+                this.tasks = new TaskList(taskList);
             }
 
             say(GREETING_MESSAGE);
@@ -176,7 +166,7 @@ public class MrYapper {
                 say(GOODBYE_MESSAGE);
                 break;
             case "list":
-                listTask();
+                say(tasks.toString());
                 break;
             case "delete":
                 try {
@@ -191,7 +181,7 @@ public class MrYapper {
                     say(" You have to give me a valid task number!\n e.g. delete 2");
                 } catch (IndexOutOfBoundsException e) {
                     String errorMessage = String.format(" There is no such task!\n "
-                            + "You currently have %d tasks in your list", taskList.size());
+                            + "You currently have %d tasks in your list", tasks.count());
                     say(errorMessage);
                 }
                 break;
@@ -200,16 +190,16 @@ public class MrYapper {
                 try {
                     if (processedInput.length > 1) {
                         int taskNumber = Integer.parseInt(processedInput[1]);
-                        Task task = taskList.get(taskNumber - 1);
 
                         switch (command) {
                         case "mark":
-                            task.markAsDone();
-                            say("Nice! I have marked this task as done:\n   " + task);
+                            say("Nice! I have marked this task as done:\n   "
+                                    + tasks.mark(taskNumber));
                             break;
                         case "unmark":
-                            task.markAsNotDone();
-                            say("OK, I've marked this task as not done yet:\n   " + task);
+                            tasks.unmark(taskNumber);
+                            say("OK, I've marked this task as not done yet:\n   "
+                                    + tasks.unmark(taskNumber));
                             break;
                         }
                     } else {
@@ -220,7 +210,7 @@ public class MrYapper {
                     say(" You have to give me a valid task number!\n e.g. mark 2");
                 } catch (IndexOutOfBoundsException e) {
                     String errorMessage = String.format(" There is no such task!\n "
-                            + "You currently have %d tasks in your list", taskList.size());
+                            + "You currently have %d tasks in your list", tasks.count());
                     say(errorMessage);
                 }
                 break;
@@ -239,14 +229,10 @@ public class MrYapper {
         }
 
         userInputReader.close();
-        try {
-            FileWriter fw = new FileWriter(TASK_DATA_PATH);
-            for (Task task: taskList) {
-                fw.write(task.getDataString());
-            }
-            fw.close();
-        } catch (IOException e) {
-            say(" Something went wrong when saving your changes to the task list :(");
-        }
+        tasks.saveToStorage();
+    }
+
+    public static void main(String[] args) {
+        new MrYapper().run();
     }
 }
