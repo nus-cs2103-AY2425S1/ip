@@ -2,15 +2,37 @@ package james;
 
 import java.time.LocalDateTime;
 
+/**
+ * Handles parsing and executing user commands.
+ * <p>
+ * The Parser class interprets user input, performs the necessary actions
+ * on the TaskList and Storage, and interacts with the Ui
+ * to provide feedback to the user.
+ * </p>
+ */
 public class Parser {
     private Ui ui;
     private Storage storage;
 
+    /**
+     * Creates a new Parser instance.
+     *
+     * @param ui The Ui instance used for user interactions
+     * @param storage The Storage instance used for loading and saving tasks
+     */
     public Parser(Ui ui, Storage storage) {
         this.ui = ui;
         this.storage = storage;
     }
 
+    /**
+     * Parses the user command and executes the appropriate action.
+     *
+     * @param command The user command to be parsed and executed
+     * @param taskList The TaskList instance to modify based on the command
+     * @return true if the command is "bye" and the application should exit, false otherwise
+     * @throws JamesException If an error occurs during command execution
+     */
     public boolean parseAndExecute(String command, TaskList taskList) throws JamesException {
         String[] words = command.split(" ");
         String action = words[0].toLowerCase();
