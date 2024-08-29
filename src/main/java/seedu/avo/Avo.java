@@ -10,12 +10,12 @@ import seedu.avo.storage.Storage;
 import seedu.avo.storage.TaskParser;
 import seedu.avo.tasks.Task;
 import seedu.avo.tasks.TaskManager;
-import seedu.avo.ui.UI;
+import seedu.avo.ui.AppUI;
 
 public class Avo {
-    private final UI ui;
+    private final AppUI ui;
     private final CommandParser parser;
-    private Avo(UI ui, CommandParser parser) {
+    private Avo(AppUI ui, CommandParser parser) {
         this.ui = ui;
         this.parser = parser;
     }
@@ -44,9 +44,10 @@ public class Avo {
     }
     public static void main(String[] args) {
         Storage<Task, String> storage = new FileStorage<Task>("data", new TaskParser());
-        TaskManager taskManager = new TaskManager(storage);
+        AppUI ui = new AppUI();
+        TaskManager taskManager = new TaskManager(storage, ui);
         CommandParser parser = new CommandParser(new CommandManager(taskManager));
-        Avo chatBot = new Avo(new UI(), parser);
+        Avo chatBot = new Avo(ui, parser);
         chatBot.start();
         chatBot.run();
         chatBot.stop();
