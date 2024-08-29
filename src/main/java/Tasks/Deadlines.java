@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+// Deadline class
 public class Deadlines extends Task {
 
     private LocalDateTime localDateTime; // Stores full date and time
