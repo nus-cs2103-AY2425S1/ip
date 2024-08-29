@@ -8,6 +8,11 @@ public class Deadlines extends Task{
     }
 
     @Override
+    public String export() {
+        return String.format("deadline %s /by %s", super.export(), this.deadline);
+    }
+
+    @Override
     public String toString() {
         return String.format("[%s]%s (by: %s)","D", super.toString(), this.deadline);
     }
