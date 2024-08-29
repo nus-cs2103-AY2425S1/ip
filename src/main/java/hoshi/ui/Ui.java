@@ -49,12 +49,14 @@ public class Ui {
      * Displays default prompt with options for user to select from
      */
     public void displayPrompt() {
-        System.out.println("- Add ToDo/Deadline/Event \n" +
-                            "- List \n" +
-                            "- Mark/Unmark \n" +
-                            "- Delete \n" +
-                            "- Bye \n " +
-                "____________________________________________________________");
+        System.out.println("____________________________________________________________ \n"
+                + "- Add ToDo/Deadline/Event \n"
+                + "- List \n"
+                + "- Mark/Unmark \n"
+                + "- Delete \n"
+                + "- Find \n"
+                + "- Bye \n"
+                + "____________________________________________________________");
     }
 
     /**
@@ -148,6 +150,13 @@ public class Ui {
      */
     public void displayTaskAdded(String input) {
         System.out.println("added: " + input);
+    }
+
+    /**
+     * Displays text indicating search has returned several tasks
+     */
+    public void displayMatchingList() {
+        System.out.println("Hoshi has found the following tasks matching your search!");
     }
 
     /**
