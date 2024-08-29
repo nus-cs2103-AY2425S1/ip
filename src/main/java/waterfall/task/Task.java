@@ -7,7 +7,7 @@ package waterfall.task;
  */
 public abstract class Task {
     private boolean isDone;
-    private String title;
+    private final String title;
 
     /**
      * Constructs a Task object with the specified title.

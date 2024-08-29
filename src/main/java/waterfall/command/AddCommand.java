@@ -14,7 +14,7 @@ import waterfall.task.*;
  */
 
 public class AddCommand extends Command {
-    private Task task;
+    private final Task task;
 
     /**
      * Constructs an AddCommand to add <code>ToDo</code> task with given title.

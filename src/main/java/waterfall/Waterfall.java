@@ -20,7 +20,7 @@ public class Waterfall {
 
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Initialises the Waterfall application with the specified storage file path.

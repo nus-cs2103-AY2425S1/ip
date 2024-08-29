@@ -13,8 +13,8 @@ import java.util.Scanner;
  */
 
 public class Ui {
-    String chatBotName = "Waterfall";
-    int indentSpace = 4;
+    private final String chatBotName = "Waterfall";
+    private final int indentSpace = 4;
 
     /**
      * Displays a welcome message to the user.

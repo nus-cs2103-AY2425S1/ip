@@ -14,7 +14,7 @@ import waterfall.task.*;
  */
 
 public class DeleteCommand extends Command {
-    int index;
+    final int index;
 
     /**
      * Constructs a command to delete task at specified index.
