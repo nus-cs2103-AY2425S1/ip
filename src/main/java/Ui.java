@@ -26,8 +26,4 @@ public class Ui {
     public void showLoadingError() {
         System.out.println("An error occurred while loading tasks from the file.");
     }
-
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
-    }
 }
