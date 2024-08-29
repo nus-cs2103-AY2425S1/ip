@@ -1,16 +1,18 @@
 package src;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class WenJie {
     public static void main(String[] args) {
+        String filePath = "./src/main/java/data/wenjie.txt";
+        Storage storage = new Storage(filePath);
 
         try {
             Scanner scanner = new Scanner(System.in);
             boolean active = true;
-//            Task[] taskList = new Task[100];
-            ArrayList<Task> taskList = new ArrayList<>(1);
+            ArrayList<Task> taskList = storage.getTasks();
 
             String greeting =
                     "____________________________________________________________\n" +
@@ -35,6 +37,7 @@ public class WenJie {
                                         "  Paiseh bro I zao liao, see you around ah bro.\n" +
                                         "____________________________________________________________\n";
                         System.out.println(farewell);
+                        storage.writeTasks();
                         break;
                     }
 

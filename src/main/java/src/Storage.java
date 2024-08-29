@@ -20,10 +20,14 @@ public class Storage {
         try {
             readTasks();
         } catch (FileNotFoundException e) {
-            System.out.println("Bro I can't find a file to store or retrieve the data, \n" +
+            System.out.println("Bro I can't find a file to retrieve the data, \n" +
                     " can help lobang me and create a file pls");
         }
 
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
 
     public void readTasks() throws FileNotFoundException {
@@ -35,7 +39,7 @@ public class Storage {
             try {
                 String content = new String(Files.readAllBytes(Paths.get(filePath)));
                 String[] parts = content.split("\n");
-                for (int i = 0; i < parts.length; i++) {
+                for (int i = 0; i < parts.length - 1; i++) {
                     String stringifiedTask = parts[i];
 
                     boolean isDone = stringifiedTask.charAt(4) == '1';
@@ -71,28 +75,34 @@ public class Storage {
         }
     }
 
-    public void writeTasks()  throws FileNotFoundException{
-        File file = new File(filePath);
+    public void writeTasks() {
+        try {
+            File file = new File(filePath);
 
-        if (!file.exists()) {
-            throw new FileNotFoundException();
-        } else {
-            try {
-                FileWriter writer = new FileWriter(filePath);
-                String formattedString = "";
+            if (!file.exists()) {
+                throw new FileNotFoundException();
+            } else {
+                try {
+                    FileWriter writer = new FileWriter(filePath);
+                    String formattedString = "";
 
-                for (Task task : tasks) {
-                    formattedString += task.toPrettierString();
-                    formattedString += "\n";
+                    for (Task task : tasks) {
+                        formattedString += task.toPrettierString();
+                        formattedString += "\n";
+                    }
+
+                    writer.write(formattedString);
+
+                } catch (IOException e) {
+                    System.out.println("An error occurred while saving the file.");
+                    e.printStackTrace();
                 }
-
-                writer.write(formattedString);
-
-            } catch (IOException e) {
-                System.out.println("An error occurred while saving the file.");
-                e.printStackTrace();
             }
+        } catch (FileNotFoundException e) {
+            System.out.println("Bro I can't find a file to store the data, \n" +
+                    " can help lobang me and create a file pls");
         }
+
 
 
 
