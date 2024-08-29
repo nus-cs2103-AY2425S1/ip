@@ -196,4 +196,19 @@ public class TaskList {
     public Task get(int index) {
         return taskList.get(index);
     }
+
+    public void find(String queryString) {
+        System.out.println(line);
+        System.out.println("Here are the matching tasks in the list:");
+
+        int foundStrings = 0;
+        for (int i = 0; i < taskList.size(); i++) {
+            Task t = taskList.get(i);
+            String description = t.getDescription();
+            if (description.contains(queryString)) {
+                System.out.printf("%d. %s\n", ++foundStrings, t);
+            }
+        }
+        System.out.println(line);
+    }
 }
