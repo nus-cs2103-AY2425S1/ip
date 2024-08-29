@@ -15,7 +15,7 @@ public class Echo {
     private final Parser parser;
 
     public Echo() {
-        this.storage = new Storage("data/chatHistory.txt");
+        this.storage = new Storage("ip/data/chatHistory.txt");
         try {
             this.list = storage.load();
         } catch (IOException e) {
