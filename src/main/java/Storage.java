@@ -4,18 +4,22 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Storage {
-    private static final String FILE_PATH = "./data/monobot.txt";
     private static final DateTimeFormatter FILE_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
     private static final DateTimeFormatter PARSER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private final String filePath;
 
-    public static void saveTasksToFile(ArrayList<Task> tasks) {
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public void save(ArrayList<Task> tasks) throws MonoBotException {
         try {
-            File file = new File(FILE_PATH);
+            File file = new File(filePath);
             file.getParentFile().mkdirs();
             FileWriter writer = new FileWriter(file);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
@@ -27,13 +31,13 @@ public class Storage {
 
             bufferedWriter.close();
         } catch (IOException e) {
-            System.out.println("An error occurred while saving tasks: " + e.getMessage());
+            throw new MonoBotException("Error saving tasks: " + e.getMessage());
         }
     }
 
-    public static ArrayList<Task> loadTasksFromFile() {
+    public ArrayList<Task> load() throws MonoBotException {
         ArrayList<Task> tasks = new ArrayList<>();
-        File file = new File(FILE_PATH);
+        File file = new File(filePath);
 
         if (!file.exists()) {
             return tasks;
@@ -53,7 +57,7 @@ public class Storage {
 
             bufferedReader.close();
         } catch (IOException e) {
-            System.out.println("An error occurred while loading tasks: " + e.getMessage());
+            throw new MonoBotException("Error loading tasks: " + e.getMessage());
         }
 
         return tasks;
