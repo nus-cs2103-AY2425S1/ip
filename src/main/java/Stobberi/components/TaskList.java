@@ -53,7 +53,7 @@ public class TaskList {
                         + "Now you have " + listOfTasks.size() + " in the list.");
     }
     public void filterListByWord(String word) {
-        String list = "Here are the tasks in your list:";
+        String list = "Here are the matching tasks in your list:";
         int n = 1;
         for (int i = 1; i < listOfTasks.size() + 1; i++) {
             Task task = listOfTasks.get(i - 1);
