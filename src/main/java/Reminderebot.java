@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -167,6 +169,7 @@ public class Reminderebot {
             try{
                 // executes command
                 checkInput(input);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HHmm");
                 System.out.println(topBuffer);
                 switch (Commands.valueOf(command)) {
                     case BYE:
@@ -206,7 +209,8 @@ public class Reminderebot {
                     case DEADLINE:
                         str = scan2.nextLine();
                         String[] dlInfo = str.split("/by ");
-                        Deadline deadline = new Deadline(dlInfo[0], dlInfo[1]);
+                        LocalDateTime byTime = LocalDateTime.parse(dlInfo[1].trim(), formatter);
+                        Deadline deadline = new Deadline(dlInfo[0], byTime);
                         tasklist.addTask(deadline);
                         System.out.println("Got it. I've added this task:\n" +
                                 deadline.toString() +
@@ -217,7 +221,9 @@ public class Reminderebot {
                         str = scan2.nextLine();
                         String[] eventInfo = str.split("/from ");
                         String[] eventTiming = eventInfo[1].split("/to ");
-                        Event event = new Event(eventInfo[0], eventTiming[0], eventTiming[1]);
+                        LocalDateTime fromTime = LocalDateTime.parse(eventTiming[0].trim(), formatter);
+                        LocalDateTime toTime = LocalDateTime.parse(eventTiming[1].trim(), formatter);
+                        Event event = new Event(eventInfo[0], fromTime, toTime);
                         tasklist.addTask(event);
                         System.out.println("Got it. I've added this task:\n" +
                                 event.toString() +

@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -40,15 +42,15 @@ public class Storage {
      */
     private Task readEntry(String entry) {
         String[] fields = entry.split("\\|");
-        System.out.println(Arrays.toString(fields));
+        //  System.out.println(Arrays.toString(fields));  // debug
         Task taskToAdd;
 
         switch (fields[0]) {
         case "E":
-            taskToAdd = new Event(fields[2], fields[3], fields[4]);
+            taskToAdd = new Event(fields[2], LocalDateTime.parse(fields[3]), LocalDateTime.parse(fields[4]));
             break;
         case "D":
-            taskToAdd = new Deadline(fields[2], fields[3]);
+            taskToAdd = new Deadline(fields[2], LocalDateTime.parse(fields[3]));
             break;
         default: // case "T":
             taskToAdd = new ToDo(fields[2]);
@@ -67,7 +69,7 @@ public class Storage {
 
     public void saveData(TaskList tasklist) {
         try {
-            System.out.println("Added tasklist to" + filePath);
+//            System.out.println("Added tasklist to" + filePath);
             File file = new File(filePath);
 //
 //            // This storage location is relative: If run from .bat script,
@@ -77,7 +79,7 @@ public class Storage {
             File dir = new File(file.getParent());
 
             boolean dirCreated = dir.mkdirs();
-            System.out.println(dirCreated);
+//            System.out.println(dirCreated);
             FileWriter fw = new FileWriter(filePath, false);
             BufferedWriter bw = new BufferedWriter(fw);
             for (int i = 0; i < tasklist.length(); i++) {

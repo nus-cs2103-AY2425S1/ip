@@ -1,4 +1,1 @@
-D| |return book|Sunday
-D| |return book|Sunday
-E| |project meeting|Mon 2pm|4pm
-E| |project meeting|Mon 2pm|4pm
+E| |project meeting|2024-08-29T14:00|2024-08-29T16:00

@@ -1,3 +1,5 @@
+import java.time.format.DateTimeFormatter;
+
 /**
  * Task is an abstract class that contains a description
  * and stores whether it is done.
@@ -5,6 +7,7 @@
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("MMM d yyyy hhmm a");
 
     public Task(String description) {
         this.description = description.trim();

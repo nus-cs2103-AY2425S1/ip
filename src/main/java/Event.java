@@ -1,17 +1,19 @@
+import java.time.LocalDateTime;
+
 /**
  * Event represents a Task with a duration from a datetime to a datetime.
  */
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     /**
      * Create an Event from the user input.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
-        this.from = from.trim();
-        this.to = to.trim();
+        this.from = from;
+        this.to = to;
     };
 
     /**
@@ -20,7 +22,8 @@ public class Event extends Task {
      */
     @Override
     public String toFile() {
-        return "E|" + getStatusIcon() + "|" + description + "|" + from + "|" + to ;
+        return "E|" + getStatusIcon() + "|" + description + "|" +
+                from + "|" + to;
     }
 
     /**
@@ -38,6 +41,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(formatter) +
+                " to: " + to.format(formatter) + ")";
     }
 }
