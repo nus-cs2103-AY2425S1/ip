@@ -42,7 +42,7 @@ public class Storage {
             String[] components = eachLine.split("\\|");
 
             String category =  components[0].trim();
-            String desc = components[2];
+            String desc = components[2].trim();
             // note that D contains a fourth component and E contains a fourth and fifth component
             if (Objects.equals(category, "T")) {
 

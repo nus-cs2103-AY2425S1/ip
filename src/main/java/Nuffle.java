@@ -5,22 +5,14 @@ import java.util.ArrayList;
 public class Nuffle {
     private static Storage storage = new Storage("./data/Nuffle.txt");
 
-    private static ArrayList<Task> inputList;
+    private static TaskList inputList;
 
     static {
         try {
-            inputList = storage.load();
+            inputList = new TaskList(storage.load());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private static void printLine() {
-        /**
-         * This method will print out a border
-         */
-        // This method will be used to print the border
-        System.out.println("---------------------------------------------");
     }
 
     private static void outputList() {
@@ -29,12 +21,12 @@ public class Nuffle {
          */
 
         // If there is no user input in the list
-        if (inputList.isEmpty()) {
+        if (inputList.getInputList().isEmpty()) {
             System.out.println("List is empty. No input added.");
         } else {
             // Iterate over the list to print out all the user inputs
-            for (int index = 0; index < inputList.size(); index++) {
-                System.out.println("" + (index + 1) + ". " + inputList.get(index));
+            for (int index = 0; index < inputList.getSize(); index++) {
+                System.out.println("" + (index + 1) + ". " + inputList.getTask(index));
             }
         }
     }
@@ -46,18 +38,13 @@ public class Nuffle {
          * @param index the index of the task to mark
          */
         // check that index is always more than or equals to 0 and index must be within the inputList size
-        if (index >= 0 && index < inputList.size()) {
-            Task currTask = inputList.get(index);
+        if (index >= 0 && index < inputList.getSize()) {
+            Task currTask = inputList.getTask(index);
             currTask.markAsDone();
-            printLine();
-            System.out.println("Nice! I have marked this task as done!");
-            System.out.println(" " + currTask);
-            printLine();
+            Ui.markTaskMessage(currTask);
         } else {
             // print as error message
-            printLine();
-            System.out.println("Opps! There appears to be an index error!");
-            printLine();
+            Ui.markTaskError();
         }
     }
     private static void unMarkTask(int index) {
@@ -67,18 +54,13 @@ public class Nuffle {
          * @param index the index of the task to unmark
          */
         // check that index is always more than or equals to 0 and index must be within the inputList size
-        if (index >= 0 && index < inputList.size()) {
-            Task currTask = inputList.get(index);
+        if (index >= 0 && index < inputList.getSize()) {
+            Task currTask = inputList.getTask(index);
             currTask.markNotDone();
-            printLine();
-            System.out.println("OK! I have marked this task as not done yet.");
-            System.out.println(" " + currTask);
-            printLine();
+            Ui.unmarkTaskMessage(currTask);
         } else {
             // print as error message
-            printLine();
-            System.out.println("Opps! There appears to be an index error!");
-            printLine();
+            Ui.unmarkTaskError();
         }
     }
 
@@ -88,12 +70,8 @@ public class Nuffle {
          *
          * @param task which is Task object
          */
-        inputList.add(task);
-        printLine();
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + inputList.size() + " tasks in the list.");
-        printLine();
+        inputList.addTask(task);
+        Ui.addTaskMessage(task, inputList.getSize());
     }
 
     private static void deleteTask(int index) {
@@ -104,36 +82,25 @@ public class Nuffle {
          */
 
         // first, check if the provided index is valid or not
-        if (index >= 0 && index < inputList.size()) {
-            Task remove = inputList.remove(index);
-            printLine();
-            System.out.println("Noted. I've removed this task:");
-            System.out.println("   " + remove);
-            System.out.println("Now you have " + inputList.size() + " tasks in the list.");
-            printLine();
+        if (index >= 0 && index < inputList.getSize()) {
+            Task remove = inputList.deleteTask(index);
+            Ui.deleteTaskMessage(remove, inputList.getSize());
         } else {
             // if the index is not in range, then print an error message
-            printLine();
-            System.out.println("Hmmm... The index provided seems to be out of range. Please try again.");
-            printLine();
+            Ui.deleteTaskError();
         }
     }
 
     public static void main(String[] args) throws IOException {
 
         // This will be starting point of the application
+        Ui.welcomeMessage();
 
         //Variable to store user inputs
         String userInput;
 
         // Create a scanner for user input
         Scanner user_s = new Scanner(System.in);
-
-        // Greeting the users
-        printLine();
-        System.out.println("Nuffle > Good day! I'm Nuffle.");
-        System.out.println("Nuffle > What can I do for you today?");
-        printLine();
 
         // Read the user input until the command "bye" is provided by the user
         while(true) {
@@ -143,16 +110,12 @@ public class Nuffle {
                 // Check if the user input provided is "bye", has to be lowercase
                 if (userInput.equals("bye")) {
                     // Program will exit
-                    printLine();
-                    System.out.println("Nuffle > Bye. Hope to see you again soon!");
-                    printLine();
+                    Ui.byeMessage();
                     break;
                 } else if (userInput.equals("list")) {
                     // Program will list all the tasks that was input by the user
                     System.out.println("Here are the tasks in your list: ");
-                    printLine();
                     outputList();
-                    printLine();
                 } else if (userInput.startsWith("mark")) {
                     // Program will mark the specified task based on the index provided
 
@@ -189,12 +152,10 @@ public class Nuffle {
                     throw NuffleException.unknown();
                 }
             } catch (NuffleException e) {
-                printLine();
-                System.out.println("Nuffle caught an error > " + e.getMessage());
-                printLine();
+                Ui.exceptionErrorMessage(e);
             }
         }
-        storage.save(inputList);
+        storage.save(inputList.getInputList());
         user_s.close();
     }
 }
