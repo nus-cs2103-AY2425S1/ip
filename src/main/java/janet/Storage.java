@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Represents the way Janet saves/read tasks into/from a text file.
+ */
 public class Storage {
     private final String filePath;  // "./janet.txt"
 

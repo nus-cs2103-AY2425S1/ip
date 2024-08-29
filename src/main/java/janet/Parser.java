@@ -1,18 +1,35 @@
 package janet;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
+/**
+ * Represents the way Janet makes sense of user commands.
+ */
 public class Parser {
 
+    /**
+     * Returns the corresponding CommandType based on the String value of commandDetails[0].
+     *
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @return Enum CommandType value
+     */
     public static CommandType getCommand(String[] commandDetails) {
         return CommandType.valueOf(commandDetails[0].toUpperCase());
     }
 
+
+    /**
+     * @param inputLine User's command that was typed into the command line.
+     * @return A String array, where each element corresponds to a word of the user input.
+     */
     public static String[] getCommandDetails(String inputLine) {
         return inputLine.split(" ");   // an array containing each word of the command
     }
 
+
+    /**
+     * @return An ArrayList<String>, containing the String values of all the CommandType values.
+     */
     public static ArrayList<String> getCommandTypes() {
         ArrayList<String> acceptableCommands = new ArrayList<String>();
         for (CommandType commandType : CommandType.values()) {
@@ -22,6 +39,14 @@ public class Parser {
     }
 
 
+    /**
+     * Runs all the checks to validate user input.
+     * If the user input is invalid, a JanetException will be thrown.
+     *
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @param numOfTasksInList Total number of tasks inside the list.
+     * @throws JanetException If user input is invalid.
+     */
     public static void checkUserInput(String[] commandDetails, int numOfTasksInList) throws JanetException {
         validateCommand(commandDetails, numOfTasksInList);
         checkInaccurateCommand(commandDetails);
@@ -36,8 +61,8 @@ public class Parser {
      * 1. mark/unmark/delete X, where X cannot be parsed into an Integer.
      * 2. mark/unmark/delete X, where X can be parsed into an Integer but, is <= 0 or > number of tasks in list.
      *
-     * @param commandDetails a String[], where each element corresponds to a word of the user input.
-     * @throws JanetException a custom exception class specific to Janet
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @throws JanetException If specified task number is out of bounds/unparsable to Integer.
      */
     public static void validateCommand(String[] commandDetails, int numOfTasksInList) throws JanetException {
         // when mark/unmark/delete X, where X is too big (out or bounds) OR <= 0 OR when the list is empty.
@@ -69,8 +94,8 @@ public class Parser {
      * 2. mark/unmark/delete and the task number is not specified.
      * 3. todo/event/deadline and the description is not stated.
      *
-     * @param commandDetails a String[], where each element corresponds to a word of the user input.
-     * @throws JanetException a custom exception class specific to Janet
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @throws JanetException If task number is not specified, task description is omitted, or unknown command.
      */
     public static void checkInaccurateCommand(String[] commandDetails) throws JanetException {
         // checks for inaccurate commands 1. rubbish, 2. without any task description, 3. no number for mark/unmark/delete.
@@ -89,6 +114,12 @@ public class Parser {
     }
 
 
+    /**
+     * Returns true if "/by" was NOT found, false otherwise.
+     *
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @return A boolean value indicating whether "/by" was found in user's input.
+     */
     public static boolean byKeywordNotFound(String[] commandDetails) {
         for (String word : commandDetails) {
             if (word.equals("/by")) {
@@ -98,6 +129,13 @@ public class Parser {
         return true;
     }
 
+
+    /**
+     * Returns true if "/from" and "/to" are BOTH found, false otherwise.
+     *
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @return A boolean value indicating whether "/from" and "/to" were found in the user's input.
+     */
     public static boolean fromOrToKeywordNotFound(String[] commandDetails) {
         boolean fromFound = false;
         boolean toFound = false;
@@ -113,6 +151,13 @@ public class Parser {
     }
 
 
+    /**
+     * Throws a new JanetException if "/by" keyword not found in input.
+     * Example: 'deadline return book 2024-08-30 18:00'
+     *
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @throws JanetException If "/by" word missing from user's command line input.
+     */
     public static void validateDeadline(String[] commandDetails) throws JanetException {
         if (commandDetails[0].equals("deadline") &&
                 commandDetails.length > 1 &&
@@ -122,6 +167,13 @@ public class Parser {
         }
     }
 
+
+    /**
+     * Throws a new JanetException if "/from" and "/to" keywords are not found in input.
+     *
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @throws JanetException If "/from" and "/to" are missing from user's command line input.
+     */
     public static void validateEvent(String[] commandDetails) throws JanetException {
         if (commandDetails[0].equals("event") &&
                 commandDetails.length > 1 &&
@@ -131,6 +183,13 @@ public class Parser {
         }
     }
 
+
+    /**
+     * Throws a new JanetException if text follows the commands: 'bye' and 'list'
+     *
+     * @param commandDetails A String[], where each element corresponds to a word of the user input.
+     * @throws JanetException If user's command is 'bye' or 'list' with additional texts behind it (eg. bye bye)
+     */
     public static void validateByeAndList(String[] commandDetails) throws JanetException {
         if ((commandDetails[0].equals("bye") || commandDetails[0].equals("list")) &&
                 commandDetails.length > 1

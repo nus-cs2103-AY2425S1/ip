@@ -6,6 +6,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
+/**
+ * Represents a Deadline, with a description, symbol and due date.
+ */
 public class Deadline extends Task {
     private final LocalDateTime dueDate;
 
@@ -55,6 +58,13 @@ public class Deadline extends Task {
     }
 
 
+    /**
+     * Returns a Deadline object that was created from the user's command.
+     * Based on the description and due date.
+     *
+     * @param inputLine User's command that was typed into the command line.
+     * @return new Deadline object.
+     */
     public static Deadline createDeadlineCommand(String inputLine) {
         String[] commandDetails = inputLine.split(" ");
         String[] deadlineDetails = findDeadlineDetails(commandDetails);     // (description, MMM dd yyyy hh:mm a)

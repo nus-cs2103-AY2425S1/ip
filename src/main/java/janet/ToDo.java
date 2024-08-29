@@ -2,6 +2,9 @@ package janet;
 
 import java.util.Arrays;
 
+/**
+ * Represents a ToDo, with a description and symbol.
+ */
 public class ToDo extends Task {
 
     ToDo(String inputLine) {
@@ -14,6 +17,14 @@ public class ToDo extends Task {
         super(description, symbol);
     }
 
+
+    /**
+     * Returns a ToDo object that was created from the user's command.
+     * Based on the description.
+     *
+     * @param inputLine User's command that was typed into the command line.
+     * @return A new ToDo object
+     */
     public static ToDo createToDo(String inputLine) {
         // get the todo description and create a new Todo object
         String[] commandDetails = inputLine.split(" ");

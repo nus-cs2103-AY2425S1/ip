@@ -6,6 +6,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
+/**
+ * Represents an Event, with a description, symbol, start date and end date.
+ */
 public class Event extends Task {
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
@@ -72,6 +75,13 @@ public class Event extends Task {
     }
 
 
+    /**
+     * Returns an Event object that was created from the user's command.
+     * Based on the description, start date and end date.
+     *
+     * @param inputLine User's command that was typed into the command line.
+     * @return new Event object.
+     */
     public static Event createEventCommand(String inputLine) {
         String[] commandDetails = inputLine.split(" ");
         String[] eventDetails = findEventDetails(commandDetails);
