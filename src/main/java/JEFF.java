@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.text.DateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -14,31 +15,43 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class JEFF {
-    private static final String LINE = "--------------------------------------------";
-    private static final Scanner sc = new Scanner(System.in); // Scanner object to detect user input
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static final String DIR_PATH = "./data";
     private static final String FILE_PATH = DIR_PATH + "/JEFF.txt";
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
-    public static void main(String[] args) {
-        // Init sequence
-        String logo =
-                """
-                                                                            ____._________________________________|
-                          _____ ___.__.   ____ _____    _____   ____       |    |\\_   _____/\\_   _____/\\_   _____/|
-                         /     <   |  |  /    \\\\__  \\  /     \\_/ __ \\      |    | |    __)_  |    __)   |    __)  |
-                        |  Y Y  \\___  | |   |  \\/ __ \\|  Y Y  \\  ___/  /\\__|    | |        \\ |     \\    |     \\   |
-                        |__|_|  / ____| |___|  (____  /__|_|  /\\___  > \\________|/_______  / \\___  /    \\___  /   |
-                              \\/\\/           \\/     \\/      \\/     \\/                    \\/      \\/         \\/    |
-                        """;
+    private Ui ui;
+    private Storage storage;
 
-        System.out.println("Hello there\n" + logo);
+    public JEFF() {
+        this.ui = new Ui();
+        this.storage = new Storage();
+    }
+
+    public static void main(String[] args) {
+        new JEFF().run();
+    }
+
+    public void run() {
         // Load saved files (if any)
         loadData();
+        ui.showWelcome();
 
-        // Chat loop
-        beginChat();
+        boolean continueChat = true;
+        while (continueChat) {
+            try {
+                String input = ui.readCommand();
+                ui.showLine();
+                // parse the command
+                String[] parts = input.split(" ", 2);
+                if (handleCommand(parts)) continueChat = false;
+            } catch (JEFFException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
+        }
+        ui.showExit();
     }
 
     public static void loadData() {
@@ -130,27 +143,6 @@ public class JEFF {
         }
 
         return file;
-    }
-
-    public static void beginChat() {
-        System.out.println("What can I do for you?");
-        boolean chatCont = true;
-        while (chatCont) {
-            chatCont = chatEvent();
-        }
-        exitChat();
-    }
-
-    private static boolean chatEvent() {
-        System.out.println(LINE);
-        String input = sc.nextLine().trim();
-        String[] parts = input.split(" ", 2);
-        try {
-            if (handleCommand(parts)) return false;
-        } catch (JEFFException e) {
-            System.out.println(e.getMessage());
-        }
-        return true;
     }
 
     private static boolean handleCommand(String[] parts) throws JEFFException {
@@ -325,9 +317,9 @@ public class JEFF {
             // Check if the file already has content
             boolean fileHasContent = Files.size(file) > 0;
             if (fileHasContent) {
-                Files.writeString(file, "\n" + taskAsCSV);
+                Files.writeString(file, "\n" + taskAsCSV, StandardOpenOption.APPEND);
             } else {
-                Files.writeString(file, taskAsCSV);
+                Files.writeString(file, taskAsCSV, StandardOpenOption.APPEND);
             }
         } catch (IOException e) {
             System.out.println("An error occurred saving the file");
@@ -366,9 +358,4 @@ public class JEFF {
         }
     }
 
-    public static void exitChat() {
-        System.out.println(LINE);
-        System.out.println("Bye for now!");
-        sc.close();
-    }
 }
