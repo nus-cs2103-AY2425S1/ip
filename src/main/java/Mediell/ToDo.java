@@ -1,7 +1,5 @@
 package Mediell;
 
-import java.util.Objects;
-
 /** Represents a Task as a ToDo. */
 public class ToDo extends Task{
     public ToDo() {
