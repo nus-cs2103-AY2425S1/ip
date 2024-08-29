@@ -176,36 +176,36 @@ public class Parser {
         String taskDescription = taskParts[2];
 
         switch (taskType) {
-            case "T":
-                return new Todo(taskDescription, isDone);
-            case "D":
-                if (taskParts[3].length() == 10) {
-                    LocalDate deadlineDate = LocalDate.parse(taskParts[3]);
-                    return new Deadline(taskDescription, deadlineDate, isDone);
-                } else {
-                    LocalDateTime deadlineDateTime = LocalDateTime.parse(taskParts[3].replace(" ", "T"));
-                    return new Deadline(taskDescription, deadlineDateTime, isDone);
-                }
-            case "E":
-                if (taskParts[3].length() == 10 && taskParts[4].length() == 10) {
-                    LocalDate from = LocalDate.parse(taskParts[3]);
-                    LocalDate to = LocalDate.parse(taskParts[4]);
-                    return new Event(taskDescription, from, to, isDone);
-                } else if (taskParts[3].length() != 10 && taskParts[4].length() != 10) {
-                    LocalDateTime from = LocalDateTime.parse(taskParts[3].replace(" ", "T"));
-                    LocalDateTime to = LocalDateTime.parse(taskParts[4].replace(" ", "T"));
-                    return new Event(taskDescription, from, to, isDone);
-                } else if (taskParts[3].length() == 10 && taskParts[4].length() != 10) {
-                    LocalDate from = LocalDate.parse(taskParts[3]);
-                    LocalDateTime to = LocalDateTime.parse(taskParts[4].replace(" ", "T"));
-                    return new Event(taskDescription, from, to, isDone);
-                } else {
-                    LocalDateTime from = LocalDateTime.parse(taskParts[3].replace(" ", "T"));
-                    LocalDate to = LocalDate.parse(taskParts[4]);
-                    return new Event(taskDescription, from, to, isDone);
-                }
-            default:
-                return null;
+        case "T":
+            return new Todo(taskDescription, isDone);
+        case "D":
+            if (taskParts[3].length() == 10) {
+                LocalDate deadlineDate = LocalDate.parse(taskParts[3]);
+                return new Deadline(taskDescription, deadlineDate, isDone);
+            } else {
+                LocalDateTime deadlineDateTime = LocalDateTime.parse(taskParts[3].replace(" ", "T"));
+                return new Deadline(taskDescription, deadlineDateTime, isDone);
+            }
+        case "E":
+            if (taskParts[3].length() == 10 && taskParts[4].length() == 10) {
+                LocalDate from = LocalDate.parse(taskParts[3]);
+                LocalDate to = LocalDate.parse(taskParts[4]);
+                return new Event(taskDescription, from, to, isDone);
+            } else if (taskParts[3].length() != 10 && taskParts[4].length() != 10) {
+                LocalDateTime from = LocalDateTime.parse(taskParts[3].replace(" ", "T"));
+                LocalDateTime to = LocalDateTime.parse(taskParts[4].replace(" ", "T"));
+                return new Event(taskDescription, from, to, isDone);
+            } else if (taskParts[3].length() == 10 && taskParts[4].length() != 10) {
+                LocalDate from = LocalDate.parse(taskParts[3]);
+                LocalDateTime to = LocalDateTime.parse(taskParts[4].replace(" ", "T"));
+                return new Event(taskDescription, from, to, isDone);
+            } else {
+                LocalDateTime from = LocalDateTime.parse(taskParts[3].replace(" ", "T"));
+                LocalDate to = LocalDate.parse(taskParts[4]);
+                return new Event(taskDescription, from, to, isDone);
+            }
+        default:
+            return null;
         }
     }
 }
