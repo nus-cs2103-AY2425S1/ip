@@ -55,8 +55,13 @@ public class Parser {
             }
             return eventArgs;
         case "delete":
-            if (args.length() != 1) {
+            if (args.split(" ").length != 1) {
                 throw new TalkyException("Follow this format: delete [index]");
+            }
+            return args.split(" ");
+        case "find":
+            if (args.split(" ").length != 1) {
+                throw new TalkyException("Follow this format: find [keyword]");
             }
             return args.split(" ");
         default:

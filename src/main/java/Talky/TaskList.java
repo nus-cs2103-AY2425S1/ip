@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskList {
-    private static ArrayList<Task> taskList;
+    private ArrayList<Task> taskList;
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
@@ -12,7 +12,7 @@ public class TaskList {
         this.taskList = taskList;
     }
 
-    public static String tolistFormat() {
+    public String toListFormat() {
         String result = "";
         int rank = 1;
         for (Task task : taskList) {
@@ -22,7 +22,7 @@ public class TaskList {
         return result;
     }
 
-    public static String toSaveFormat() {
+    public String toSaveFormat() {
         String saveFormat = "";
         for (Task task : taskList) {
             saveFormat += (task.toSaveFormat() + "\n");
@@ -52,5 +52,20 @@ public class TaskList {
         Task changedTask = taskList.get(index);
         taskList.remove(index);
         return changedTask.getName();
+    }
+
+    public TaskList find(String keyword) {
+        TaskList validTasks = new TaskList();
+        for (Task task: taskList) {
+            String taskName = task.getName();
+            if (taskName.contains(keyword)) {
+                validTasks.addTask(task);
+            }
+        }
+        return validTasks;
+    }
+
+    public void addTask(Task task) {
+        taskList.add(task);
     }
 }
