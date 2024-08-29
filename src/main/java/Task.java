@@ -3,9 +3,9 @@ public class Task {
     private final String taskInfo;
     private boolean isDone;
 
-    public Task(String taskInfo) {
+    public Task(String taskInfo, boolean isDone) {
         this.taskInfo = taskInfo;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public void markDone() {
@@ -32,4 +32,11 @@ public class Task {
         return this.taskInfo;
     }
 
+    public String dataToSave() {
+        if (this.isDone) {
+            return String.format("DONE: %s", this.taskInfo);
+        } else {
+            return String.format("UNDONE: %s", this.taskInfo);
+        }
+    }
 }

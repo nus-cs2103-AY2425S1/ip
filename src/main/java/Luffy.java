@@ -1,8 +1,18 @@
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import static java.lang.String.format;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+
 public class Luffy {
+
+    private static final String DEST_FILE = "./LuffyData/TaskData";
 
     public static void checkValidArguments(String[] textList, int expectedLength) throws LuffyException {
         if (textList.length != expectedLength && expectedLength == 2) {
@@ -22,7 +32,7 @@ public class Luffy {
                return;
            }
            throw new LuffyException("Invalid command! This command either does not exist, or has not been implemented yet.");
-       } else if (parsedCommands.length <= 1) {
+       } else if (parsedCommands.length == 1) {
             throw new LuffyException("Incomplete command! Please provide more information to your command.");
        } else if (parsedCommands.length > 1){
            String[] details = parsedCommands[1].split("/", 3);
@@ -31,15 +41,19 @@ public class Luffy {
            } else if (parsedCommands[1].startsWith("event") && details.length < 2) {
                throw new LuffyException("Your event tasks requires a start time and end time");
            }
-       } else {
-           return;
        }
     }
 
     public static void main(String[] args) {
 
         // Variables
+        Storage taskCache = new Storage(DEST_FILE);
         ArrayList<Task> textList = new ArrayList<>();
+        try {
+            textList = taskCache.loadFromFile();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
 
         // Interactions
         showLine();
@@ -66,12 +80,12 @@ public class Luffy {
                 showLine();
                 System.out.println(" Bye. Hope to see you again!");
                 showLine();
-                return;
+                break;
 
             } else if (echoPhrase.equals("list")) {
 
                 for (int i = 0; i < textList.size(); i++) {
-                    System.out.println(String.format(" %d.%s", i + 1, textList.get(i).stringIsDone()));
+                    System.out.println(format(" %d.%s", i + 1, textList.get(i).stringIsDone()));
                 }
                 showLine();
 
@@ -81,7 +95,7 @@ public class Luffy {
                 int index = Integer.parseInt(echoPhrase.substring(5)) - 1;
                 textList.get(index).markDone();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(String.format("  %s", textList.get(index).stringIsDone()));
+                System.out.println(format("  %s", textList.get(index).stringIsDone()));
                 showLine();
 
             } else if (echoPhrase.startsWith("unmark ")) {
@@ -90,17 +104,17 @@ public class Luffy {
                 int index = Integer.parseInt(echoPhrase.substring(7)) - 1;
                 textList.get(index).markUndone();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(String.format("  %s", textList.get(index).stringIsDone()));
+                System.out.println(format("  %s", textList.get(index).stringIsDone()));
                 showLine();
 
             } else if(echoPhrase.startsWith("todo ")) {
 
                 showLine();
-                Todo todoTask = new Todo(echoPhrase.substring(5));
+                Todo todoTask = new Todo(echoPhrase.substring(5), false);
                 textList.add(todoTask);
                 System.out.println("Got it. I've added this task:");
-                System.out.println(String.format("  %s", todoTask.stringIsDone()));
-                System.out.println(String.format("Now you have %d tasks in the list.", textList.size()));
+                System.out.println(format("  %s", todoTask.stringIsDone()));
+                System.out.println(format("Now you have %d tasks in the list.", textList.size()));
                 showLine();
 
             } else if (echoPhrase.startsWith("deadline ")) {
@@ -114,11 +128,11 @@ public class Luffy {
                     showLine();
                     continue;
                 }
-                Deadline deadlineTask = new Deadline(taskAndDeadline[0].trim(), taskAndDeadline[1].trim());
+                Deadline deadlineTask = new Deadline(taskAndDeadline[0].trim(), taskAndDeadline[1].trim(), false);
                 textList.add(deadlineTask);
                 System.out.println("Got it. I've added this task:");
-                System.out.println(String.format("  %s", deadlineTask.stringIsDone()));
-                System.out.println(String.format("Now you have %d tasks in the list.", textList.size()));
+                System.out.println(format("  %s", deadlineTask.stringIsDone()));
+                System.out.println(format("Now you have %d tasks in the list.", textList.size()));
                 showLine();
 
             } else if (echoPhrase.startsWith("event ")) {
@@ -133,11 +147,11 @@ public class Luffy {
                     showLine();
                     continue;
                 }
-                Event eventTask = new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2]);
+                Event eventTask = new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2], false);
                 textList.add(eventTask);
                 System.out.println("Got it. I've added this task:");
-                System.out.println(String.format("  %s", eventTask.stringIsDone()));
-                System.out.println(String.format("Now you have %d tasks in the list.", textList.size()));
+                System.out.println(format("  %s", eventTask.stringIsDone()));
+                System.out.printf(format("Now you have %d tasks in the list.", textList.size()));
                 showLine();
 
             } else if (echoPhrase.startsWith("delete ")) {
@@ -146,20 +160,28 @@ public class Luffy {
                 int index = Integer.parseInt(echoPhrase.substring(7)) - 1;
                 textList.get(index).markDone();
                 System.out.println("Noted. I've removed this task:");
-                System.out.println(String.format("  %s", textList.get(index).stringIsDone()));
+                System.out.println(format("  %s", textList.get(index).stringIsDone()));
                 textList.remove(index);
-                System.out.println(String.format("Now you have %d tasks in the list.", textList.size()));
+                System.out.println(format("Now you have %d tasks in the list.", textList.size()));
                 showLine();
 
             } else {
 
-                textList.add(new Task(echoPhrase));
+                textList.add(new Task(echoPhrase, false));
                 showLine();
-                System.out.println(String.format(" added: %s", echoPhrase));
+                System.out.println(format(" added: %s%n", echoPhrase));
                 showLine();
 
             }
         }
+
+        try {
+            Storage storageSystem = new Storage(DEST_FILE);
+            storageSystem.saveToFile(textList);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public static void showLine() {

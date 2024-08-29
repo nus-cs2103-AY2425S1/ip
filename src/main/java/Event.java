@@ -3,8 +3,8 @@ public class Event extends Task {
     private final String start;
     private final String end;
 
-    public Event(String taskInfo, String start, String end) {
-        super(taskInfo);
+    public Event(String taskInfo, String start, String end, boolean isDone) {
+        super(taskInfo, isDone);
         this.start = start;
         this.end = end;
     }
@@ -18,4 +18,12 @@ public class Event extends Task {
         }
     }
 
+    @Override
+    public String dataToSave() {
+        if (checkIsDone()) {
+            return String.format("EVENT         | 1 | %s | START: %s | END: %s", super.getTask(), this.start, this.end);
+        } else {
+            return String.format("EVENT         | 0 | %s | START: %s | END: %s", super.getTask(), this.start, this.end);
+        }
+    }
 }
