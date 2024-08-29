@@ -1,11 +1,27 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 
 public class Winner {
+    private static final String HOME = System.getProperty("user.home");
+    private static final Path FOLDER_PATH = Paths.get(HOME, "Winner");
+    private static final Path TASKLIST_PATH = Paths.get(HOME, "Winner", "tasklist.txt");
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
+        checkAndCreateFile();
+        loadTasks(tasks);
+        WinnerTaskBot(tasks);
+        saveTasks(tasks);
+    }
+
+    private static void WinnerTaskBot(ArrayList<Task> tasks) {
+        Scanner scanner = new Scanner(System.in);
 
         System.out.println(("-".repeat(100) + "\n" +
                 "Hello! I am Winner, your personal task trackBOT!" + "\n"
@@ -199,4 +215,77 @@ public class Winner {
         }
         scanner.close();
     }
+
+    private static void checkAndCreateFile() {
+        try {
+          if (Files.exists(FOLDER_PATH)) {
+                Files.createFile(TASKLIST_PATH);
+          } else {
+                Files.createDirectories(FOLDER_PATH);
+                Files.createFile(TASKLIST_PATH);
+          }
+        } catch (IOException e) {
+            System.out.println("Error creating file or directory: " + e.getMessage());
+        }
+    }
+
+    private static void loadTasks(ArrayList<Task> tasks) {
+        try (BufferedReader br = Files.newBufferedReader(TASKLIST_PATH)) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split("\\|");
+                String whichTask = parts[0].trim();
+                boolean isDone = parts[1].trim().equals("1");
+                String description = parts[2].trim();
+
+                Task task = null;
+                switch (whichTask) {
+                case "T":
+                    task = new ToDo(description);
+                    break;
+                case "D":
+                    String by = parts[3].trim();
+                    task = new Deadline(description, by);
+                    break;
+                case "E":
+                    String start = parts[3].trim();
+                    String end = parts[4].trim();
+                    task = new Event(description, start, end);
+                    break;
+                default:
+                    break;
+                }
+                if (task != null) {
+                    if (isDone) {
+                        task.markDone();
+                    }
+                    tasks.add(task);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
+    }
+
+    private static void saveTasks(ArrayList<Task> tasks) {
+        try (BufferedWriter bw = Files.newBufferedWriter(TASKLIST_PATH)) {
+            for (Task i : tasks) {
+                String description = i.description;
+                String isDone = i.isDone ? "1" : "0";
+                if (i instanceof ToDo) {
+                    bw.write(String.format("T | %s | %s%n", isDone, description));
+                } else if (i instanceof Deadline) {
+                    String by = ((Deadline) i).by;
+                    bw.write(String.format("D | %s | %s | %s%n", isDone, description, by));
+                } else if (i instanceof Event) {
+                    String start = ((Event) i).start;
+                    String end = ((Event) i).end;
+                    bw.write(String.format("E | %s | %s | %s | %s%n", isDone, description, start, end));
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing tasks to file: " + e.getMessage());
+        }
+    }
+
 }
