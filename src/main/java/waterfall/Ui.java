@@ -62,4 +62,14 @@ public class Ui {
         System.out.println(" ".repeat(indentSpace) + "Here's the tasks in your waterfall hualalala");
         taskList.printDetail(indentSpace + 1);
     }
+
+    /**
+     * Displays the list of tasks matching the string.
+     *
+     * @param taskList The list of filtered tasks to be displayed.
+     */
+    public void showSearchedTaskListMessage(TaskList taskList) {
+        System.out.println(" ".repeat(indentSpace) + "Here's the matching tasks in your waterfall hualalala");
+        taskList.printDetail(indentSpace + 1);
+    }
 }
