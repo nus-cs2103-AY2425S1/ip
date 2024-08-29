@@ -13,6 +13,12 @@ public class FileManager {
         this.FilePath = pathname;
     }
 
+
+    /**
+     * Reads the content of the file located at filePath.
+     * If the file does not exist, it creates a new file.
+     */
+
     public void readFile() {
         try {
             File file = new File("src/main/java/data");
@@ -33,6 +39,13 @@ public class FileManager {
 
     }
 
+
+    /**
+     * Writes the specified text to the file. This method appends the text to the file,
+     * ensuring that existing content is not overwritten. Every item added will end with a line break (to a new line)
+     *
+     * @param textToAdd The text to be added to the file.
+     */
     // File to write to will always exist as will call readFile method first always on boot up which would automatically
     // Create a new file if it doesn't exist
     public void writeFile(String textToAdd) {
