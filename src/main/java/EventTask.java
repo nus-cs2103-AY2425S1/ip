@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class EventTask extends Task {
     private final String SYMBOL = "E";
@@ -22,6 +23,6 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         return from != null ? String.format("[%s][%s] %s (from: %s to: %s)", this.SYMBOL, super.getStatusIcon(), super.description, this.from, this.to)
-                : String.format("[%s][%s] %s (from: %s to: %s)", this.SYMBOL, super.getStatusIcon(), super.description, this.fromDate, this.toDate);
+                : String.format("[%s][%s] %s (from: %s to: %s)", this.SYMBOL, super.getStatusIcon(), super.description, this.fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")), this.toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 }
