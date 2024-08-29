@@ -1,6 +1,7 @@
 package command;
 
 import exception.ExecuteCommandException;
+import exception.FileException;
 import helper.Storage;
 import helper.TaskList;
 import helper.Ui;
@@ -18,8 +19,9 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage, TaskList tasks) throws ExecuteCommandException {
+    public void execute(Ui ui, Storage storage, TaskList tasks) throws ExecuteCommandException, FileException {
         tasks.addTask(new Deadline(description, dueDate));
+        storage.saveTaskToFile(tasks);
         // TODO: return smt??
     }
 

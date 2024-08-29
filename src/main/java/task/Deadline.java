@@ -2,10 +2,12 @@ package task;
 
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     private final LocalDateTime dueDate;
     private final String taskType = "[D]";
+    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public Deadline(String description, LocalDateTime dueDate) {
         super(description);
@@ -21,6 +23,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return this.type + "[" + this.status() + "] " + this.description + "(by: " + this.dueDate + ")";
+        return this.type + "[" + this.status() + "] " + this.description + " (by: " + dueDate.format(dateTimeFormat) + ")";
     }
 }

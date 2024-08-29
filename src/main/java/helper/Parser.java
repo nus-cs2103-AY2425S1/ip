@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 // TAKES IN STRING CONTAINING WHOLE COMMAND
 // SWTICH CASE WILL THEN EXECUTE THE RESPECTIVE COMMANDS
 public class Parser {
-    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     // CONVERT LOCAL DATETIME here tyvm
     public static Command parse(String input) throws InvalidCommandException, ParseCommandException {
