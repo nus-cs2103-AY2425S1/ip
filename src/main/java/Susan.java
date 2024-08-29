@@ -1,8 +1,10 @@
 import config.Config;
 import data.CSVTaskDAO;
 import data.TaskDAO;
+import features.command.Command;
 import features.command.CommandHandler;
 import features.task.TaskManagement;
+import features.ui.Ui;
 import utils.Utils;
 
 import java.util.*;
@@ -11,11 +13,12 @@ public class Susan {
     private TaskManagement tm;
     private CommandHandler ch;
     private Scanner sc;
+    private Ui ui;
 
     private Susan(TaskDAO taskDAO) {
         tm = new TaskManagement(taskDAO);
-        sc = new Scanner(System.in);
         ch = new CommandHandler(tm);
+        ui = new Ui(new Scanner(System.in));
     }
 
     public static Susan init() throws Exception {
@@ -33,24 +36,15 @@ public class Susan {
     }
 
     public void run() {
-        intro();
+        ui.intro();
 
-        String command = sc.nextLine();
-        while (!command.equals("bye")) {
+        Command command = ui.readCommand();
+        while (!command.isExitCommand()) {
             ch.handleCommand(command);
-            command = sc.nextLine();
+            ui.updateCommand(command);
         }
 
-        outro();
-    }
-
-    private void intro() {
-        System.out.println(Config.logo);
-        Utils.printItem(Config.intro);
-    }
-
-    private void outro() {
-        Utils.printItem(Config.outro);
+        ui.outro();
     }
 }
 

@@ -18,7 +18,8 @@ public class CommandHandler {
         this.tm = tm;
     }
 
-    public void handleCommand(String command) {
+    public void handleCommand(Command cmd) {
+		String command = cmd.getName();
         try {
 			if (command.equals(CommandType.LIST.getType())) {
 				handleList();

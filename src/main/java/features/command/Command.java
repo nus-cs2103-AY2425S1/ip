@@ -1,11 +1,21 @@
 package features.command;
 
 public class Command {
-    public String syntax;
-    public String description;
-
-    public Command(String syntax, String description) {
-        this.syntax = syntax;
-        this.description = description;
+    private String name;
+    public Command(String name) {
+        this.name = name;
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isExitCommand() {
+        return name == "bye";
+    }
+
 }
