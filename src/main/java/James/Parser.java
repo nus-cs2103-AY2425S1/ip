@@ -61,9 +61,11 @@ class Parser {
 
         case "event":
             String eventDescription = command.substring(5, command.lastIndexOf("/from")).trim();
-            String start = command.substring(command.lastIndexOf("/from") + 6, command.lastIndexOf("/to")).trim();
+            String start = command.substring(command.lastIndexOf("/from") + 6,
+                    command.lastIndexOf("/to")).trim();
             String end = command.substring(command.lastIndexOf("/to") + 4).trim();
-            Task eventTask = new Event(eventDescription, false, LocalDateTime.parse(start), LocalDateTime.parse(end));
+            Task eventTask = new Event(eventDescription, false, LocalDateTime.parse(start),
+                    LocalDateTime.parse(end));
             taskList.addTask(eventTask);
             ui.showMessage("Task added:\n" + eventTask.printTask());
             ui.showMessage(String.format("Now you have %d tasks in the list.", taskList.size()));
@@ -79,7 +81,8 @@ class Parser {
             break;
 
         default:
-            throw new CommandNotFoundException("Sorry! I don't understand what you mean by (" + command + "). Please try a different command!");
+            throw new CommandNotFoundException("Sorry! I don't understand what you mean by (" + command + "). " +
+                    "Please try a different command!");
         }
         return false;
     }
