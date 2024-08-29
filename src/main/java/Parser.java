@@ -9,7 +9,7 @@ import processor.task.Delete;
 import java.util.Arrays;
 import java.util.List;
 
-public class MessageParser {
+public class Parser {
   public static Processor parse(String prompt) throws CommandInvalidException {
 
     final List<String> prompts = Arrays.asList(prompt.split(" "));

@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.List;
 
-public class IO {
+public class Ui {
   public static void print(String msg) {
     List<String> msgList = Arrays.asList(msg.split("\n"));
 
