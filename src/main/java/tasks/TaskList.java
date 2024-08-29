@@ -34,6 +34,11 @@ public class TaskList {
         this.listOfTasks.remove(taskNum);
     }
 
+
+    public Task getTask(int i) {
+        return this.listOfTasks.get(i);
+    }
+
     @Override
     public String toString() {
         if (this.listOfTasks.size() <= 0) {

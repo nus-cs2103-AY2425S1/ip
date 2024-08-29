@@ -1,8 +1,12 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import tasks.Deadlined;
 import tasks.Events;
 import tasks.InputEmptyException;
 import tasks.NotANumMarkingException;
+import tasks.Task;
 import tasks.TaskList;
 import tasks.Todos;
 
@@ -24,7 +28,7 @@ public class WansBot {
 
     // Method that throws NumberFormatException and custom tasks.NotANumMarkingException
     private static void notNumInput(String userInput, int taskListSize) throws NumberFormatException,
-            NotANumMarkingException {
+            NotANumMarkingException, NullPointerException {
         if (userInput.startsWith("unmark")) {
             int posTask = Integer.parseInt(userInput.substring(7));
             if (posTask > taskListSize || posTask < 1) {
@@ -82,21 +86,47 @@ public class WansBot {
     }
 
     private static void markTasks(String userInput) {
-        int posTask = Integer.parseInt(userInput.substring(5)) - 1;
-        userTaskList.number(posTask).finish();
-        System.out.println(HR + "\nWans:"
-                + "\nNice! I've marked\n"
-                + userTaskList.number(posTask).toString()
-                + " as completed\n" + HR);
+        try {
+            notNumInput(userInput, numTasks);
+            int posTask = Integer.parseInt(userInput.substring(5)) - 1;
+            userTaskList.number(posTask).finish();
+            System.out.println(HR + "\nWans:"
+                    + "\nNice! I've marked\n"
+                    + userTaskList.number(posTask).toString()
+                    + " as completed\n" + HR);
+        } catch (NullPointerException e) {
+            System.out.println(HR + "\nWans:\n"
+                    + "You need to put something in your Task List!"
+                    + "!\n" + HR);
+        } catch (NumberFormatException e) {
+            System.out.println(HR + "\nWans:\n"
+                    + "You need to input a single space, followed by a number after mark"
+                    + "!\n" + HR);
+        } catch (NotANumMarkingException e) {
+            System.out.println(HR + "\nWans:\n"
+                    + "You need to input a valid number that exists in your TaskList!"
+                    + "\n" + HR);
+        }
     }
 
     private static void unmarkTasks(String userInput) {
-        int posTask = Integer.parseInt(userInput.substring(7)) - 1;
-        userTaskList.number(posTask).unfinish();
-        System.out.println(HR + "\nWans:"
-                + "\nOkay, so you lied! I've marked\n"
-                + userTaskList.number(posTask).toString()
-                + " as uncompleted\n" + HR);
+        try {
+            notNumInput(userInput, numTasks);
+            int posTask = Integer.parseInt(userInput.substring(7)) - 1;
+            userTaskList.number(posTask).unfinish();
+            System.out.println(HR + "\nWans:"
+                    + "\nOkay, so you lied! I've marked\n"
+                    + userTaskList.number(posTask).toString()
+                    + " as uncompleted\n" + HR);
+        } catch (NumberFormatException e) {
+            System.out.println(HR + "\nWans:\n"
+                    + "You need to input a single space, followed by a number after mark"
+                    + "!\n" + HR);
+        } catch (NotANumMarkingException e) {
+            System.out.println(HR + "\nWans:\n"
+                    + "You need to input a valid number that exists in your TaskList!"
+                    + "\n" + HR);
+                }
     }
 
     private static void addTodos(String userInput) {
@@ -109,37 +139,80 @@ public class WansBot {
     }
 
     private static void addDeadlined(String userInput) {
-        String[] splitUser = userInput.split( " /by ", 2);
-        Deadlined newDeadlined = new Deadlined(splitUser[0].substring(8)
-                , splitUser[1]);
-        userTaskList.add(newDeadlined);
-        System.out.println(HR + "\nWans:\n"
-                + "Ok! I've added " + newDeadlined.toString()
-                + "\n" + HR);
-        numTasks++;
+        try {
+            missingInputDeadline(userInput);
+            String[] splitUser = userInput.split( " /by ", 2);
+            Deadlined newDeadlined = new Deadlined(splitUser[0].substring(8)
+                    , splitUser[1]);
+            userTaskList.add(newDeadlined);
+            System.out.println(HR + "\nWans:\n"
+                    + "Ok! I've added " + newDeadlined.toString()
+                    + "\n" + HR);
+            numTasks++;
+        } catch(InputEmptyException e) {
+            System.out.println(HR + "\nWans:\n"
+                    + "You need to input deadline, followed by /by, then the deadline!"
+                    + "\n" + HR);
+        }
     }
 
     private static void addEvent(String userInput) {
-        String[] splitUserStartDate = userInput.split(" /from ", 3);
-        String[] splitUserEndDate = splitUserStartDate[1].split( " /to ", 2);
-        Events newEvent = new Events(splitUserStartDate[0].substring(5),
-                splitUserEndDate[0], splitUserEndDate[1]);
-        userTaskList.add(newEvent);
-        System.out.println(HR + "\nWans:\n"
-                + "Ok! I've added " + newEvent.toString()
-                + "\n" + HR);
-        numTasks++;
+        try {
+            missingInputEvent(userInput);
+            String[] splitUserStartDate = userInput.split(" /from ", 3);
+            String[] splitUserEndDate = splitUserStartDate[1].split( " /to ", 2);
+            Events newEvent = new Events(splitUserStartDate[0].substring(5),
+                    splitUserEndDate[0], splitUserEndDate[1]);
+            userTaskList.add(newEvent);
+            System.out.println(HR + "\nWans:\n"
+                    + "Ok! I've added " + newEvent.toString()
+                    + "\n" + HR);
+            numTasks++;
+        } catch (InputEmptyException e) {
+            System.out.println(HR + "\nWans:\n"
+                    + "You need to input event, followed by /from, then your start time, then /to, then " +
+                    "your end time!"
+                    + "\n" + HR);
+        }
     }
 
     private static void removeTask(String userInput) {
-        int posTask = Integer.parseInt(userInput.substring(7)) - 1;
-        System.out.println(HR + "\nWans:\n"
-                + "Ok! I've removed " + userTaskList.number(posTask)
-                + "\n" + HR);
-        userTaskList.removeTask(posTask);
-        numTasks--;
+        try {
+            notNumInput(userInput, numTasks);
+            int posTask = Integer.parseInt(userInput.substring(7)) - 1;
+            System.out.println(HR + "\nWans:\n"
+                    + "Ok! I've removed " + userTaskList.number(posTask)
+                    + "\n" + HR);
+            userTaskList.removeTask(posTask);
+            numTasks--;
+        } catch (NullPointerException e) {
+            System.out.println(HR + "\nWans:\n"
+                    + "You need to put something in your Task List!"
+                    + "!\n" + HR);
+        }catch (NumberFormatException e) {
+            System.out.println(HR + "\nWans:\n"
+                    + "You need to input a single space, followed by a number after remove"
+                    + "!\n" + HR);
+        } catch (NotANumMarkingException e) {
+            System.out.println(HR + "\nWans:\n"
+                    + "You need to input a valid number that exists in your TaskList!"
+                    + "\n" + HR);
+        }
     }
 
+    private static void saveTasks() {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("tasklist.txt"));
+            for (int i = 0; i < userTaskList.numOfTasks(); i++) {
+                writer.write(userTaskList.getTask(i) + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(HR + "\nWans:\n"
+                    + "I can't seem to save your tasks!"
+                    + "\n" + HR);
+        }
+    }
     private static void sayGoodbye() {
         String exit = "|  _ \\ \\   / /  ____|"
                 + "\n| |_) \\ \\_/ /| |__"
@@ -151,6 +224,7 @@ public class WansBot {
                 + "\nI'll miss you :( (I really wanna go home)\n" + HR);
         System.exit(0);
     }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         introduceToUser();
@@ -167,95 +241,35 @@ public class WansBot {
                 continue;
             }
 
-            // User can open list of numbered Tasks
-            if (userInput.equalsIgnoreCase("list")) {
-                listTasks();
-                // User can mark Tasks
-            } else if (userInput.toLowerCase().startsWith("mark ")) {
-                try {
-                    notNumInput(userInput, numTasks);
-                } catch (NumberFormatException e) {
-                    System.out.println(HR + "\nWans:\n"
-                            + "You need to input a single space, followed by a number after mark"
-                            + "!\n" + HR);
-                    continue;
-                } catch (NotANumMarkingException e) {
-                    System.out.println(HR + "\nWans:\n"
-                            + "You need to input a valid number that exists in your tasks.TaskList!"
-                            + "\n" + HR);
-                    continue;
-                }
-                markTasks(userInput);
-                // User can unmark tasks
-            } else if (userInput.toLowerCase().startsWith("unmark ")) {
-                try {
-                    notNumInput(userInput, numTasks);
-                } catch (NumberFormatException e) {
-                    System.out.println(HR + "\nWans:\n"
-                            + "You need to input a single space, followed by a number after mark"
-                            + "!\n" + HR);
-                    continue;
-                } catch (NotANumMarkingException e) {
-                    System.out.println(HR + "\nWans:\n"
-                            + "You need to input a valid number that exists in your tasks.TaskList!"
-                            + "\n" + HR);
-                    continue;
-                }
-                unmarkTasks(userInput);
-                // User can add a todos to list
+            String command = userInput.split(" ")[0];
 
-            } else if (userInput.toLowerCase().startsWith("todos ")) {
-                addTodos(userInput);
-                // User can add a deadline task to list
-
-            } else if (userInput.toLowerCase().startsWith("deadline ")) {
-                try {
-                    missingInputDeadline(userInput);
-                } catch(InputEmptyException e) {
-                    System.out.println(HR + "\nWans:\n"
-                            + "You need to input deadline, followed by /by, then the deadline!"
-                            + "\n" + HR);
-                    continue;
-                }
-                addDeadlined(userInput);
-
-                // User can add a task with start and end date
-            } else if (userInput.toLowerCase().startsWith("event ")) {
-                try {
-                    missingInputEvent(userInput);
-                } catch (InputEmptyException e) {
-                    System.out.println(HR + "\nWans:\n"
-                            + "You need to input event, followed by /from, then your start time, then /to, then " +
-                            "your end time!"
-                            + "\n" + HR);
-                    continue;
-                }
-                addEvent(userInput);
-
-                // User can say goodbye
-            } else if (userInput.equalsIgnoreCase("bye")) {
-                sayGoodbye();
-
-                // User can remove tasks
-            } else if (userInput.startsWith("remove ")) {
-                try {
-                    notNumInput(userInput, numTasks);
-                } catch (NumberFormatException e) {
-                    System.out.println(HR + "\nWans:\n"
-                            + "You need to input a single space, followed by a number after remove"
-                            + "!\n" + HR);
-                    continue;
-                } catch (NotANumMarkingException e) {
-                    System.out.println(HR + "\nWans:\n"
-                            + "You need to input a valid number that exists in your tasks.TaskList!"
-                            + "\n" + HR);
-                    continue;
-                }
-                removeTask(userInput);
-
-                // Bot doesn't recognize command
-            } else {
-                System.out.println(HR + "\nWans: \n"
+            switch (command) {
+                case "list":
+                    listTasks();
+                    break;
+                case "mark":
+                    markTasks(userInput);
+                    break;
+                case "unmark":
+                    unmarkTasks(userInput);
+                    break;
+                case "todos":
+                    addTodos(userInput);
+                    break;
+                case "deadline":
+                    addDeadlined(userInput);
+                    break;
+                case "event":
+                    addEvent(userInput);
+                    break;
+                case "remove":
+                    removeTask(userInput);
+                    break;
+                case "bye":
+                    sayGoodbye();
+                    break;
+                default:
+                    System.out.println(HR + "\nWans: \n"
                                 + "I'm sorry I'm not that useful I don't know what "
                                 + userInput + " means!!!" + "\n" + HR);
             }
