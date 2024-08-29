@@ -1,10 +1,12 @@
+package knight2103.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
     protected final LocalDateTime startTime;
     protected final LocalDateTime endTime;
-    Event(String description, String startTime, String endTime) {
+    public Event(String description, String startTime, String endTime) {
         super(description);
         this.startTime = LocalDateTime.parse(startTime);
         this.endTime = LocalDateTime.parse(endTime);

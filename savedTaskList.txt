@@ -1,7 +1,5 @@
 T | 1 | book fair
 D | 0 | return book | 2024-12-03
 T | 1 | read book
-
-E | 0 | sports | 2007-12-03T22:00 | 2007-12-16T21:00T | 0 | read book
-T | 0 | jjjj
-D | 0 | teat | 2007-12-03
+D | 1 | teat | 2007-12-03
+E | 0 | read | 2024-12-13T22:00 | 2024-12-14T11:00

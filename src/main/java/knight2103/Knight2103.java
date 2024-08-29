@@ -1,3 +1,11 @@
+package knight2103;
+
+import knight2103.command.MissingCommand;
+import knight2103.command.Parser;
+import knight2103.command.Command;
+import knight2103.files.Storage;
+import knight2103.tasks.TaskList;
+
 public class Knight2103 {
     private String name;
     private Ui ui;
@@ -5,7 +13,7 @@ public class Knight2103 {
     private TaskList tasks;
 
     public Knight2103(String filePath) {
-        this.name = "Knight2103";
+        this.name = "knight2103.Knight2103";
         this.ui = new Ui(this.name);
         storage = new Storage(filePath);
         try {

@@ -1,3 +1,5 @@
+package knight2103.command;
+
 import java.util.Optional;
 
 public class Parser {
@@ -26,6 +28,9 @@ public class Parser {
             }
         } catch (InstructionInvalid e) {
             System.out.println("Invalid Instruction. Only valid Instructions are list, todo, deadline, event, mark, unmark, delete");
+            return Optional.empty();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("There's an issue in the instruction format. Please check that it is <knight2103.command.CommandVerb> <description> format");
             return Optional.empty();
         }
     }

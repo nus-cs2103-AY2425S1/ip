@@ -1,3 +1,9 @@
+package knight2103.command;
+
+import knight2103.tasks.TaskList;
+import knight2103.files.Storage;
+import knight2103.Ui;
+
 public abstract class Command {
     protected final CommandVerb verb;
     protected final String predicate;
@@ -7,7 +13,7 @@ public abstract class Command {
         this.predicate = predicate;
     }
 
-    Command(CommandVerb verb) {
+    public Command(CommandVerb verb) {
         this(verb, "");
     }
     public abstract void execute(TaskList taskList, Ui ui, Storage storage);
