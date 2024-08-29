@@ -3,7 +3,8 @@ import java.io.IOException;
 
 public class Parser {
 
-    public static void parse(String input, TaskList tasks, Ui ui, Storage storage) throws SerenityException, IOException {
+    public static void parse(String input, TaskList tasks, Ui ui, Storage storage)
+            throws SerenityException, IOException {
         String[] parts = input.split(" ", 2);
         String command = parts[0].strip();
         String message;
@@ -42,6 +43,5 @@ public class Parser {
     public static boolean isExit (String input) {
         return input.startsWith("bye");
     }
-
 
 }

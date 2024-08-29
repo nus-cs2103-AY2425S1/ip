@@ -1,13 +1,10 @@
 package serenity;
 
-import serenity.TaskList;
-
 import java.util.Scanner;
 
 public class Ui {
 
-    private static final String horizontalLine = "__________________________________________";
-
+    private static final String HORIZONTAL_LINE = "__________________________________________";
     protected Scanner sc;
 
     public Ui () {
@@ -15,16 +12,16 @@ public class Ui {
     }
 
     public void showWelcome() {
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
         System.out.println("Hi, I'm Serenity!\n" + "What can I do for you?");
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public void showGoodbye() {
         this.sc.close();
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
         System.out.println("Goodbye. Hope to see you again soon!");
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public String readCommand() {
@@ -36,18 +33,14 @@ public class Ui {
     }
 
     public void showMessage(String message) {
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
         System.out.println(message);
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     public void showTaskList(TaskList tasks) {
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
         System.out.println(tasks.toString());
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
     }
-
-
-
-
 }

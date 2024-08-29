@@ -117,8 +117,8 @@ public class TaskList {
 
     public String toDataFormat() {
         String data = "";
-        for (Task t: tasks) {
-            data += t.formatData() + "\n" ;
+        for (int i = 0; i < tasks.size(); i++) {
+            data += tasks.get(i).formatData() + "\n" ;
         }
         return data;
 

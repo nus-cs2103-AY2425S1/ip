@@ -1,14 +1,14 @@
 package serenity;
 
-import serenity.SerenityException;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,7 +19,6 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-
 
     public ArrayList<Task> loadFile() throws IOException, SerenityException {
         //create directory if directory does not exist
@@ -86,7 +85,8 @@ public class Storage {
     }
 
     public void writeToFile(TaskList tasks) throws IOException {
-        FileWriter fw = new FileWriter(filePath); //overwrite
+        //overwrite
+        FileWriter fw = new FileWriter(filePath);
         fw.write(tasks.toDataFormat());
         fw.close();
     }
