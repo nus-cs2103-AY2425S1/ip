@@ -1,5 +1,6 @@
 package boss;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.IOException;
@@ -45,13 +46,22 @@ public class Boss {
     /**
      * Creates a Boss Object
      * @param filePath The location of the file that the chatbot
-     *                 will read and write data from and to respectively.
+     *  will read and write data from and to respectively.
      */
 
     public Boss(String filePath) {
-        storage = new Storage(filePath);
-        tasks = new TaskList(storage.load());
-        ui = new Ui();
+        try {
+            ui = new Ui();
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+            storage = new Storage(filePath);
+            tasks = new TaskList(storage.load());
+        } catch (IOException e) {
+            ui.showLoadingError();
+        }
     }
 
 
