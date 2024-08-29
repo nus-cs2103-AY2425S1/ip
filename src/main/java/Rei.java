@@ -12,7 +12,7 @@ public class Rei {
         System.out.println("What can I do for you?");
         System.out.println("-----------YOU------------");
 
-        Task[] list = new Task[100];
+        Task[] listOfTasks = new Task[100];
         int count = 1;
         Scanner scanner = new Scanner(System.in);
 
@@ -22,17 +22,18 @@ public class Rei {
                 System.out.println("-----------REI♥-----------");
                 System.out.println("Here are the tasks in your list: ");
                 for (int i = 1; i < count; i++) {
-                    System.out.println(i + ". " + list[i]);
+                    System.out.println(i + ". " + listOfTasks[i]);
                 }
-                scanner.next();
+                scanner.nextLine();
             } else if (scanner.hasNext("mark")) {
                 System.out.println("-----------REI♥-----------");
                 scanner.next();
                 int id = scanner.nextInt();
+                scanner.nextLine();
                 if (id < count) {
-                    list[id].markAsDone();
+                    listOfTasks[id].markAsDone();
                     System.out.println("Okay! I've marked this task as done: ");
-                    System.out.println(list[id]);
+                    System.out.println(listOfTasks[id]);
                 } else {
                     System.out.println("No task found. Please retry!");
                 }
@@ -41,10 +42,11 @@ public class Rei {
                 System.out.println("-----------REI♥-----------");
                 scanner.next();
                 int id = scanner.nextInt();
+                scanner.nextLine();
                 if (id < count) {
-                    list[id].markAsUndone();
+                    listOfTasks[id].markAsUndone();
                     System.out.println("Okay! I've marked this task as not done yet: ");
-                    System.out.println(list[id]);
+                    System.out.println(listOfTasks[id]);
                 } else {
                     System.out.println("No task found. Please retry!");
                 }
@@ -58,17 +60,17 @@ public class Rei {
                 System.out.println("Got it. I've added this task:");
 
                 if (prompt.startsWith("todo")) {
-                    list[count++] = Task.createToDo(prompt.substring(5));
+                    listOfTasks[count++] = Task.createToDo(prompt.substring(5));
                 } else if (prompt.startsWith("deadline")) {
-                    list[count++] = Task.createDeadline(prompt.substring(9, prompt.indexOf("/by")),
+                    listOfTasks[count++] = Task.createDeadline(prompt.substring(9, prompt.indexOf("/by")),
                                                         prompt.substring(prompt.indexOf("/by") + 4));
                 } else { // event
-                    list[count++] = Task.createEvent(prompt.substring(6, prompt.indexOf("/from")),
+                    listOfTasks[count++] = Task.createEvent(prompt.substring(6, prompt.indexOf("/from")),
                                                      prompt.substring(prompt.indexOf("/from") + 6, prompt.indexOf("/to")),
                                                      prompt.substring(prompt.indexOf("/to") + 4));
                 }
 
-                System.out.println("    " + list[count - 1]);
+                System.out.println("    " + listOfTasks[count - 1]);
                 System.out.println(String.format("Now you have %d tasks in the list.", count - 1));
 
             } else {
