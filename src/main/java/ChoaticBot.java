@@ -1,98 +1,50 @@
 import java.util.Objects;
 import java.util.Scanner;
 
+import actions.ActionManager;
+import actions.Action;
+import inputs.InputProcessor;
+import inputs.ProcessedInput;
+import ui.Ui;
+import tasks.Deadlines;
+import tasks.Events;
+import tasks.TaskList;
+import tasks.ToDos;
+
+import static ui.Ui.printText;
+
 public class ChoaticBot {
-    private TaskList tasklist;
+    public TaskList tasklist;
 
     public ChoaticBot() {
         this.tasklist = new TaskList();
     }
-    public static void printLine() {
-        System.out.println("____________________________________________________________\n");
+
+    public static void welcome() {
+        String welcomeMsg = "Hello! I'm ChoaticBot\n" + "What can I do for you?\n";
+        printText(welcomeMsg);
+    }
+
+    public static void bye() {
+        String byeMsg = "Bye. Hope to see you again soon!\n";
+        printText(byeMsg);
     }
 
     public static void main(String[] args) {
         ChoaticBot chatBot = new ChoaticBot();
-        String welcomeMsg = "____________________________________________________________\n"
-                + "Hello! I'm ChoaticBot\n"
-                + "What can I do for you?\n"
-                + "____________________________________________________________\n";
-
-        String byeMsg = "____________________________________________________________\n"
-                + "Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________\n";
-
-        System.out.println(welcomeMsg);
+        InputProcessor processor = new InputProcessor();
         Scanner scanner = new Scanner(System.in);
+        ActionManager actionManager = new ActionManager();
+        boolean isEnd = false;
 
-        while (true) {
+        ChoaticBot.welcome();
+        while (!isEnd) {
             String userInput = scanner.nextLine();
-            String[] processInput = userInput.split(" ");
-            String action = processInput[0];
-            String otherText = "";
-
-            for (int i = 1; i < processInput.length; i++) {
-                otherText = otherText.concat(processInput[i] + " ");
-            }
-
-            otherText = otherText.trim();
-
-            if (Objects.equals(userInput, "bye")) {
-                System.out.println(byeMsg);
-                break;
-            }
-
-            // Listing out list
-            if (action.equals("list")) {
-                printLine();
-                chatBot.tasklist.listTask();
-                printLine();
-            } else if (action.equals("mark")) {
-                int index = Integer.parseInt(userInput.split(" ")[1]);
-                printLine();
-                chatBot.tasklist.markTask(index);
-                printLine();
-            } else if (action.equals("unmark")) {
-                int index = Integer.parseInt(userInput.split(" ")[1]);
-                printLine();
-                chatBot.tasklist.unmarkTask(index);
-                printLine();
-            } else if (action.equals("delete")) {
-                int index = Integer.parseInt(userInput.split(" ")[1]);
-                printLine();
-                chatBot.tasklist.deleteTask(index);
-                printLine();
-            } else if (action.equals("todo")) {
-                printLine();
-                if (otherText.isEmpty()) {
-                    System.out.println("OOPS!!! The description of a todo cannot be empty");
-                } else {
-                    ToDos newToDos = new ToDos(otherText);
-                    chatBot.tasklist.addTask(newToDos);
-                }
-                printLine();
-            } else if (action.equals("deadline")) {
-                printLine();
-                String[] processAgain = otherText.split("/");
-                String taskName = processAgain[0];
-                String deadline = processAgain[1];
-                Deadlines newDeadline = new Deadlines(taskName, deadline);
-                chatBot.tasklist.addTask(newDeadline);
-                printLine();
-            } else if (action.equals("event")) {
-                printLine();
-                String[] processAgain = otherText.split("/");
-                String taskName = processAgain[0];
-                String from = processAgain[1];
-                String to = processAgain[2];
-                Events newEvent = new Events(taskName, from, to);
-                chatBot.tasklist.addTask(newEvent);
-                printLine();
-            } else {
-                printLine();
-                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
-                printLine();
-            }
+            ProcessedInput processedInput = processor.processInput(userInput);
+            Action action = actionManager.createAction(processedInput, chatBot.tasklist);
+            action.execute();
+            isEnd = action.isEnd();
         }
+        ChoaticBot.bye();
     }
 }

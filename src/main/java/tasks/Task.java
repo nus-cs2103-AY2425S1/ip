@@ -1,4 +1,6 @@
-public class Task {
+package tasks;
+
+abstract public class Task {
     private String name;
     private Boolean isCompleted;
 
