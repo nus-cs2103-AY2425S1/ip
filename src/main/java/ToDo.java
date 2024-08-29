@@ -5,6 +5,11 @@ public class ToDo extends Task{
     }
 
     @Override
+    public String getCsvFormat() {
+        return "T,"+ super.getCsvFormat();
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }

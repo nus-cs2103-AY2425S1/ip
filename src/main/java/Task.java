@@ -15,6 +15,10 @@ public abstract class Task {
         return isDone ? "X" : " ";
     }
 
+    public String getCsvFormat() {
+        return (isDone ?  "1" : "0") + "," + description;
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

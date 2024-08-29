@@ -1,3 +1,7 @@
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,6 +29,13 @@ public class Easton {
         String input;
         Action action;
 
+        try {
+            retrieveData();
+        } catch (IOException e) {
+            System.out.println("There was an error in retrieving my storage. ABORTING!!!");
+            isFinished = true;
+        }
+
         while (!isFinished) {
             input = prompt(scanner);
             printDivider();
@@ -47,13 +58,16 @@ public class Easton {
                 break;
             case MARK:
                 changeTaskStatus(input, true, "Nice! I've marked this task as done:");
+                saveData();
                 break;
             case UNMARK:
                 changeTaskStatus(input, false, "OK, I've marked this task as not done yet:");
+                saveData();
                 break;
             case TODO:
                 try {
                     addTask(createToDo(input));
+                    saveData();
                 } catch (EmptyDescriptionException e) {
                     System.out.println(e.getMessage());
                 }
@@ -61,6 +75,7 @@ public class Easton {
             case DEADLINE:
                 try {
                     addTask(createDeadline(input));
+                    saveData();
                 } catch (EmptyDescriptionException | InvalidFormatException e) {
                     System.out.println(e.getMessage());
                 }
@@ -68,12 +83,14 @@ public class Easton {
             case EVENT:
                 try {
                     addTask(createEvent(input));
+                    saveData();
                 } catch (EmptyDescriptionException | InvalidFormatException e) {
                     System.out.println(e.getMessage());
                 }
                 break;
             case DELETE:
                 deleteTask(input);
+                saveData();
                 break;
             }
 
@@ -192,5 +209,68 @@ public class Easton {
 
     private static String prompt(Scanner scanner) {
         return scanner.nextLine();
+    }
+
+    private static Path getFilePath() throws IOException{
+        String currentDirectory = System.getProperty("user.dir");
+        Path folder = Paths.get(currentDirectory, "data");
+        Path filePath = Paths.get(folder.toString(), "tasks.csv");
+
+        if (Files.notExists(folder)) {
+            Files.createDirectory(folder);
+        }
+
+        if (Files.notExists(filePath)) {
+            Files.createFile(filePath);
+        }
+
+        return filePath;
+    }
+
+    private static void retrieveData() throws IOException {
+        Path filePath = getFilePath();
+        String line;
+        Task task;
+
+        BufferedReader bufferedReader = new BufferedReader(
+                new FileReader(
+                        filePath.toFile()
+                )
+        );
+
+        while ((line = bufferedReader.readLine()) != null) {
+            String[] data = line.split(",");
+            switch (data[0]) {
+            case "T":
+                task = new ToDo(data[2]);
+                break;
+            case "D":
+                task = new Deadline(data[2], data[3]);
+                break;
+            case "E":
+                task = new Event(data[2], data[3], data[4]);
+                break;
+            default:
+                continue;
+            }
+
+            task.setDone(data[1].equals("1"));
+            tasks.add(task);
+        }
+    }
+
+    private static void saveData() {
+        try {
+            Path filePath = getFilePath();
+            FileWriter fileWriter = new FileWriter(filePath.toFile());
+            for (Task task : tasks) {
+                fileWriter.write(task.getCsvFormat() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Updated list was not saved properly.");
+        }
+
+
     }
 }
