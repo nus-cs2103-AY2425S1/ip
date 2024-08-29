@@ -1,4 +1,5 @@
-3
+4
 T | 0 | asdasa
-D | 0 | asdasd  | adas
+D | 1 | asdasd  | adas
 E | 0 | fasda  | asda | adasas
+T | 0 | asa
