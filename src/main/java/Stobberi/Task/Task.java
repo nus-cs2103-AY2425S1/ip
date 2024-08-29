@@ -26,19 +26,14 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
-
-<<<<<<< HEAD
     public boolean hasWord(String word) {
         return description.contains(word);
     }
-
-=======
     /**
      * Returns the status icon of the task.
      *
      * @return {@code "X"} if the task is done, otherwise returns a single space {@code " "}.
      */
->>>>>>> branch-A-JavaDoc
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
