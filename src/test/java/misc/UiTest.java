@@ -55,6 +55,7 @@ public class UiTest {
     public void markDone_missingTask_exceptionThrown() {
         Tasklist dummyTl = new Tasklist();
 
-        assertThrows(IndexOutOfBoundsException.class, () -> { new Ui().replyMarkDone(0, dummyTl); });
+        assertThrows(IndexOutOfBoundsException.class, 
+            () -> { new Ui().replyMarkDone(0, dummyTl); });
     }
 }
