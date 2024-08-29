@@ -1,4 +1,7 @@
+package config;
+
 import java.util.*;
+import features.command.Command;
 
 public class Config {
     public static final String INDENTATION = "    "; 
@@ -35,20 +38,13 @@ public class Config {
 		}
 
 		return sb.toString();
-	
 	}
+
+	public static final String CSV_FILE_PATH = "src/main/java/data/susan.csv";
 
 	public static final String commands = makeCommandMessage(cmds); 
 }	
 
-class Command {
-	public String syntax;
-	public String description;
 
-	public Command(String syntax, String description) {
-		this.syntax = syntax;
-		this.description = description;
-	}
-}
 
 

@@ -15,21 +15,21 @@
     What can I do for you?
     ____________________________________________________________
     ____________________________________________________________
-    Got it. I've added this task:
+    Got it. I've added this features.task:
       [T][ ] borrow book
-    Now you have 1 task in the list.
+    Now you have 1 features.task in the list.
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks in your list:
     1. [T][ ] borrow book
     ____________________________________________________________
     ____________________________________________________________
-    Got it. I've added this task:
+    Got it. I've added this features.task:
       [D][ ] return book (by: Sunday)
     Now you have 2 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-    Got it. I've added this task:
+    Got it. I've added this features.task:
       [E][ ] project meeting (from: Mon 2pm to: 4pm)
     Now you have 3 tasks in the list.
     ____________________________________________________________
@@ -40,7 +40,7 @@
     3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
     ____________________________________________________________
     ____________________________________________________________
-    Got it. I've added this task:
+    Got it. I've added this features.task:
       [D][ ] group meeting (by: Monday)
     Now you have 4 tasks in the list.
     ____________________________________________________________
@@ -52,11 +52,11 @@
     4. [D][ ] group meeting (by: Monday)
     ____________________________________________________________
     ____________________________________________________________
-    Nice! I've marked this task as done:
+    Nice! I've marked this features.task as done:
       [D][x] return book (by: Sunday)
     ____________________________________________________________
     ____________________________________________________________
-    Nice! I've marked this task as done:
+    Nice! I've marked this features.task as done:
       [E][x] project meeting (from: Mon 2pm to: 4pm)
     ____________________________________________________________
     ____________________________________________________________

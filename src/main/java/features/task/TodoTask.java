@@ -1,3 +1,5 @@
+package features.task;
+
 public class TodoTask extends Task {
 	public TodoTask(String name) {
 		super(name);

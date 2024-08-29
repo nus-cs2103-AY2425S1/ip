@@ -1,3 +1,13 @@
+package features.command;
+
+import features.task.DeadlineTask;
+import features.task.EventTask;
+import features.task.TaskManagement;
+import features.task.TodoTask;
+import features.task.Task;
+import utils.Utils;
+import config.Config;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -97,7 +107,7 @@ public class CommandHandler {
 			if (taskDescription.equals("") || deadline.equals("")) {
 				throw new Exception("Invalid command. Usage: deadline <description> /by <deadline>.");
 			}
-			t = new DeadlineTask(taskDescription, deadline); 
+			t = new DeadlineTask(taskDescription, deadline);
 
 		} else if (type.equals("event")) {
 			int indexFrom = Arrays.asList(parts).indexOf("/from");
@@ -120,14 +130,14 @@ public class CommandHandler {
 			if (taskDescription.equals("") || from.equals("") || to.equals("")) {
 				throw new Exception("Invalid command. Usage: event <description> /from <start> /to <end>.");
 			}
-			t = new EventTask(taskDescription, from, to);	
+			t = new EventTask(taskDescription, from, to);
 		} else {
 			// not possible to reach here
 			throw new Exception("Invalid task type.");
 		}
 
 		tm.add(t);
-	    printAfterEditList("Got it. I've added the following task:", t);	
+	    printAfterEditList("Got it. I've added the following task:", t);
     }
 	
 	private void printAfterEditList(String message, Task t) {

@@ -1,3 +1,7 @@
+package utils;
+
+import config.Config;
+
 public class Utils {
     public static void printIndent(String item) {
         System.out.println(Config.INDENTATION + item);
