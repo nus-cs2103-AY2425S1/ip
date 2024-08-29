@@ -1,3 +1,6 @@
+package sam;
+
+import sam.Item;
 /**
  * Represents a to-do item.
  * Inherits from the Item class.

@@ -1,3 +1,4 @@
+package sam;
 /**
  * The Sam class represents a task management application.
  * It allows users to add, mark, unmark, and delete tasks.
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
+
 
 public class Sam {
     private Storage storage;

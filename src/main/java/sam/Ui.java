@@ -1,3 +1,4 @@
+package sam;
 /**
  * The Ui class handles the user interface of the application.
  * It is responsible for displaying messages and interacting with the user.
