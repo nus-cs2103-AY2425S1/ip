@@ -1,5 +1,9 @@
+import Parser.Parser;
+import Storage.Storage;
+import TaskList.TaskList;
+import UI.UI;
+
 import java.util.Scanner;
-import java.io.File;
 
 public class Delphi {
     private TaskList t;
@@ -33,6 +37,6 @@ public class Delphi {
 
 
     public static void main(String[] args) {
-        new Delphi("ip/src/main/HardDisk.txt").run();
+        new Delphi("../ip/src/main/HardDisk.txt").run();
     }
 }

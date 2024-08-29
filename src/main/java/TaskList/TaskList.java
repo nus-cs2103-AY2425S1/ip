@@ -1,16 +1,21 @@
+package TaskList;
+
 import Exceptions.DelphiException;
 import Exceptions.InvalidInputException;
 import Exceptions.InvalidListItemException;
+import Parser.Parser;
+import Storage.Storage;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
+import UI.UI;
 
 import java.util.ArrayList;
 import java.io.IOException;
 import java.util.List;
 /**
- * Represents a list of tasks. The TaskList class manages the creation,
+ * Represents a list of tasks. The TaskList.TaskList class manages the creation,
  * manipulation, and display of tasks, including Todos, Deadlines, and Events.
  *
  * @author Jordan Chan
@@ -19,7 +24,7 @@ public class TaskList {
     private final List<Task> tasks;
     Storage s;
     /**
-     * Constructs an empty TaskList.
+     * Constructs an empty TaskList.TaskList.
      */
     public TaskList(Storage s) {
         tasks = new ArrayList<>();
