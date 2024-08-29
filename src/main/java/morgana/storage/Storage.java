@@ -1,10 +1,5 @@
 package morgana.storage;
 
-import morgana.exceptions.MorganaException;
-import morgana.parser.Parser;
-import morgana.task.Task;
-import morgana.task.TaskList;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -12,6 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import morgana.exceptions.MorganaException;
+import morgana.parser.Parser;
+import morgana.task.Task;
+import morgana.task.TaskList;
 
 public class Storage {
     private final String filePath;
