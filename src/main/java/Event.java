@@ -18,6 +18,15 @@ public class Event extends Task {
         }
     }
 
+    public String getStartDateTime() {
+        return startDateTime.format(formatter);
+    }
+
+    public String getEndDateTime() {
+        return endDateTime.format(formatter);
+    }
+
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + startDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) +
