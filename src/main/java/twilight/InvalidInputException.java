@@ -1,3 +1,5 @@
+package twilight;
+
 public class InvalidInputException extends Exception {
     private final String message;
 
