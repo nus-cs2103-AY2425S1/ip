@@ -24,11 +24,11 @@ public class TaskList {
         listOfTasks.get(i - 1).undone();
     }
 
-    public String getTask(int i) throws NotInTaskListException {
+    public Task getTask(int i) throws NotInTaskListException {
         if (i > listOfTasks.size() || i < 1) {
             throw new NotInTaskListException();
         }
-        return listOfTasks.get(i - 1).toString();
+        return listOfTasks.get(i - 1);
     }
 
     public void deleteTask(int i) throws NotInTaskListException {
