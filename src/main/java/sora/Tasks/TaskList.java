@@ -130,6 +130,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints all tasks, containing the specified substring, of this TaskList instance.
+     *
+     * @param s User's Substring.
+     */
     public void findTask(String s) {
         HashMap<Integer, Task> taskListFound = new HashMap<>();
         int index = 1;
