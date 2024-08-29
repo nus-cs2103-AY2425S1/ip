@@ -56,6 +56,7 @@ public class Parser {
             case MARK -> new MarkCommand(parseInt(argument));
             case UNMARK -> new UnmarkCommand(parseInt(argument));
             case LIST -> new ListCommand();
+            case FIND -> new FindCommand(argument);
             case EXIT -> new ExitCommand();
         };
     }

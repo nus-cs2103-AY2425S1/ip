@@ -83,6 +83,16 @@ public abstract class Task {
         isDone = false;
     }
 
+    /**
+     * Returns {@code true} if the description contains the keyword.
+     *
+     * @param keyword The {@link String} to look for.
+     * @return If the description contains the keyword.
+     */
+    public boolean hasMatchingDescription(String keyword) {
+        return (description.contains(keyword));
+    }
+
     @Override
     public String toString() {
         // formats ekud.task as "[statusIcon] description"

@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public abstract class Command {
     public enum Type {
-        LIST, ADD, DELETE, MARK, UNMARK, EXIT;
+        LIST, ADD, DELETE, MARK, UNMARK, EXIT, FIND;
 
         public static Type getType(String type) throws EkudException {
             Type query = aliases.get(type.toLowerCase());
@@ -32,6 +32,7 @@ public abstract class Command {
             aliases.put("unmark", UNMARK);
             aliases.put("bye", EXIT);
             aliases.put("exit", EXIT);
+            aliases.put("find", FIND);
         }
     }
 
