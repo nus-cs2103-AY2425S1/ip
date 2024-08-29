@@ -1,0 +1,6 @@
+T | 1 | buy books
+E | 0 | thai 1 dance | 6pm | 8pm
+D | 0 | see ghost | end of hungry month festival
+T | 0 | haha
+D | 0 | homework | 4pm
+E | 0 | family day | 11am | 4pm
