@@ -1,10 +1,19 @@
 package skibidi;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import skibidi.task.AbstractTask;
+import skibidi.task.Deadline;
+import skibidi.task.Event;
+import skibidi.task.Todo;
 
 public class Skibidi {
     enum SkibidiCommand {
@@ -35,10 +44,47 @@ public class Skibidi {
         }
     }
 
-    List<Task> tasks = new ArrayList<>();
+    List<AbstractTask> tasks;
+    String dataPath;
 
     static void printSeparator() {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+
+    public Skibidi(String dataPath) {
+        this.dataPath = dataPath;
+        this.tasks = new ArrayList<>();
+        loadTasksFromDisk();
+    }
+
+    void saveTasksToDisk() {
+        File file = new File(dataPath);
+        try (FileWriter writer = new FileWriter(file, false)) {
+            for (AbstractTask task : tasks) {
+                writer.write(task.serialize() + '\n');
+            }
+        } catch (IOException err) {
+            System.out.println(err.toString());
+        }
+    }
+
+    void loadTasksFromDisk() {
+        File file = new File(dataPath);
+        tasks = new ArrayList<>();
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                tasks.add(AbstractTask.deserialize(line));
+            }
+            scanner.close();
+        } catch (FileNotFoundException err) {
+            System.out.println("No data file found, task list is empty!");
+        } catch (IOException err) {
+            System.out.println(err.toString());
+        } catch (AbstractTask.TaskDeserializationException err) {
+            System.out.println(err.toString());
+        }
     }
 
     void printList() {
@@ -56,7 +102,7 @@ public class Skibidi {
         if (taskId < 0 || taskId >= tasks.size()) {
             throw new InvalidItemException();
         }
-        Task task = tasks.get(taskId);
+        AbstractTask task = tasks.get(taskId);
         task.mark();
         System.out.printf("\tMARKING TASK\n");
         System.out.printf("\t%s\n", task.toString());
@@ -66,7 +112,7 @@ public class Skibidi {
         if (taskId < 0 || taskId >= tasks.size()) {
             throw new InvalidItemException();
         }
-        Task task = tasks.get(taskId);
+        AbstractTask task = tasks.get(taskId);
         task.unmark();
         System.out.printf("\tUNMARKING TASK\n");
         System.out.printf("\t%s\n", task.toString());
@@ -76,7 +122,7 @@ public class Skibidi {
         if (taskId < 0 || taskId >= tasks.size()) {
             throw new InvalidItemException();
         }
-        Task task = tasks.get(taskId);
+        AbstractTask task = tasks.get(taskId);
         tasks.remove(taskId);
         System.out.printf("\tDELETED TASK: %s\n", task.toString());
         System.out.printf("\tNUMBER OF TASKS IN LIST: %d\n", tasks.size());
@@ -137,6 +183,7 @@ public class Skibidi {
                 default:
                     throw new InvalidCommandException();
             }
+            saveTasksToDisk();
         } catch (NumberFormatException e) {
             System.out.printf("\tERROR: INVALID NUMBER GIVEN FOR COMMAND: %s\n", args[0]);
         } catch (SkibidiException e) {
@@ -182,7 +229,7 @@ public class Skibidi {
     }
 
     public static void main(String[] args) {
-        Skibidi bot = new Skibidi();
+        Skibidi bot = new Skibidi("/data/tasks.txt");
         bot.start();
     }
 }
