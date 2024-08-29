@@ -30,8 +30,6 @@ public class Storage {
         this.filePath = filePath;
     }
 
-
-
     /**
      * Loads tasks from hoshi txt file if user is not new else greets the user.
      *
@@ -51,6 +49,7 @@ public class Storage {
 
                 String taskType = parts[0];
                 Boolean isDone = Boolean.FALSE;
+
                 if (Objects.equals(parts[1], "D")) {
                     isDone = Boolean.TRUE;
                 }
@@ -66,7 +65,6 @@ public class Storage {
                 case "Deadline":
 
                     String deadlineEndTime = parts[3];
-
                     LocalDate deadlineDateTimeEnd = LocalDate.parse(deadlineEndTime);
 
                     Deadline deadline = new Deadline(description, isDone, deadlineDateTimeEnd);

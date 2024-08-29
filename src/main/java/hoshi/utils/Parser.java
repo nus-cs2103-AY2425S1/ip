@@ -17,7 +17,7 @@ import java.util.Scanner;
  */
 public class Parser {
 
-    private final Storage storage = new Storage("./data/Hoshi.txt");
+    private Storage storage = new Storage("./data/Hoshi.txt");
 
     /**
      * Parses all user commands into their respective methods as well as display the bye message once
@@ -48,7 +48,6 @@ public class Parser {
             break;
 
         case "delete":
-
             handleDelete(input, taskList, ui);
             break;
 
@@ -89,8 +88,8 @@ public class Parser {
                 // if specified index is not out of bounds
                 if (markIndex <= taskList.size() - 1) {
 
-                    taskList.setMark(markIndex);
-                    //taskList.get(markIndex).setIsDone(true);
+                    taskList.get(markIndex).setIsDone(true);
+
                     ui.displayTaskMarked(taskList.get(markIndex));
 
                     handleSave(ui, taskList);
@@ -158,8 +157,6 @@ public class Parser {
      * @param ui Ui that handles all user interaction
      */
     public void handleDelete(String input, TaskList taskList, Ui ui) {
-
-
 
         if (input.trim().length() < 7) {
             ui.displayError("Hoshi doesn't understand, try a different input?");
@@ -233,8 +230,6 @@ public class Parser {
 
                     ui.displayTaskAdded(input);
 
-
-
                 } catch (HoshiException e) {
                     ui.displayError(e.getMessage());
                 }
@@ -304,7 +299,6 @@ public class Parser {
 
                     ui.displayTaskAdded(input);
 
-
                 } catch (HoshiException e) {
                     ui.displayError(e.getMessage());
                 } catch (DateTimeParseException e) {
@@ -314,7 +308,7 @@ public class Parser {
             }
             default ->
 
-                // in event of invalid input
+                    // in event of invalid input
                     ui.displayError("Hoshi doesn't understand! Please try again with the above keywords");
 
             }
@@ -331,7 +325,5 @@ public class Parser {
             ui.displaySavingError(e.getMessage());
         }
     }
-
-
-
+    
 }
