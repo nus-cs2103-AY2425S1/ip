@@ -110,7 +110,7 @@ class Parser {
     }
 
     public void replyWithListOfTextsEntered() {
-        System.out.println("Here are the pochat.tasks in your list:");
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.taskList.size(); i++) {
             System.out.println((i + 1) + ". " + this.taskList.get(i));
         }
@@ -146,6 +146,6 @@ class Parser {
         this.taskList.remove(task);
 
         System.out.println("Noted. I've removed this task:\n" + task + "\nNow you have "
-                + this.getNumTasks() + " pochat.tasks in the list.");
+                + this.getNumTasks() + " tasks in the list.");
     }
 }
