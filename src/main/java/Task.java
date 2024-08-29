@@ -1,7 +1,10 @@
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
     static final String FILE_PATH = "./data/Darkpool.txt";
+    static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     public Task(String description) {
         this.description = description;

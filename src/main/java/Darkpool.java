@@ -1,4 +1,6 @@
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -92,7 +94,12 @@ public class Darkpool {
                         if (desc.isEmpty()) {
                             throw new DarkpoolException("whats the task of the deadline??");
                         }
-                        taskList.add(new Deadline(desc, by));
+                        try {
+                            taskList.add(new Deadline(desc, by));
+                        } catch (DateTimeParseException e) {
+                            throw new DarkpoolException("bro you know what a date time format is?");
+                        }
+
                         int size = taskList.size();
                         output("i have dumped this nonsense on the list\n\t\t" + taskList.get(size - 1).toString() + "\n\tNow you are stuck with " + size + " goddamn tasks");
                     }
@@ -109,7 +116,12 @@ public class Darkpool {
                         String desc = fromParts[0];
                         String from = toParts[0];
                         String to = toParts[1];
-                        taskList.add(new Event(desc, from, to));
+                        try {
+                            taskList.add(new Event(desc, from.trim(), to.trim()));
+                        } catch (DateTimeParseException e) {
+                            throw new DarkpoolException("bro you know what a date time format is?");
+                        }
+
                         int size = taskList.size();
                         output("i have dumped this nonsense on the list\n\t\t" + taskList.get(size - 1).toString() + "\n\tnow you are stuck with " + size + " goddamn tasks");
                     }
@@ -214,33 +226,34 @@ public class Darkpool {
         return taskList;
     }
 
-    private static Task parseTask(String task) {
+    private static Task parseTask(String task) throws DarkpoolException {
         String[] taskParts = task.split(" \\| ");
         String type = taskParts[0];
         boolean isDone = taskParts[1].equals("1");
         String description = taskParts[2];
         String from, to, by;
+        try {
+            switch (type) {
+                case "E" -> {
+                    from = taskParts[3];
+                    to = taskParts[4];
+                    return new Event(description, from, to, isDone);
+                }
+                case "D" -> {
+                    by = taskParts[3];
+                    return new Deadline(description, by, isDone);
+                }
+                case "T" -> {
+                    return new Todo(description, isDone);
+                }
 
-        switch (type) {
-            case "E" -> {
-                from = taskParts[3];
-                to = taskParts[4];
-                return new Event(description, from, to, isDone);
+                default -> {
+                    System.out.println("Unknown task type: " + type);
+                    return null;
+                }
             }
-            case "D" -> {
-                by = taskParts[3];
-                return new Deadline(description, by, isDone);
-            }
-            case "T" -> {
-                return new Todo(description, isDone);
-            }
-
-            default -> {
-                System.out.println("Unknown task type: " + type);
-                System.out.println(Arrays.toString(taskParts));
-                return null;
-            }
+        } catch (DateTimeParseException e) {
+            throw new DarkpoolException("bro you know what a date time format is?");
         }
-
     }
 }
