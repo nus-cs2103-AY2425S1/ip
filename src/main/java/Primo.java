@@ -25,14 +25,14 @@ public class Primo {
      * @param filePath The path to the file where tasks are stored.
      */
     public Primo(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load()); // Throws PrimoException and IOException
+            this.tasks = new TaskList(storage.load()); // Throws PrimoException and IOException
         } catch (PrimoException | IOException e) {
-            System.out.println(e);
             ui.showLoadingError();
             tasks = new TaskList(); // Initializes an empty task list on error
+            this.tasks = new TaskList();
         }
     }
 

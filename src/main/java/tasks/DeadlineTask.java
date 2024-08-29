@@ -20,7 +20,10 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        return dueTime != null ? String.format("[%s][%s] %s (by: %s)", this.SYMBOL, super.getStatusIcon(), super.description, this.dueTime)
-                : String.format("[%s][%s] %s (by: %s)", this.SYMBOL, super.getStatusIcon(), super.description, this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        return dueTime != null
+                ? String.format("[%s][%s] %s (by: %s)", this.SYMBOL, super.getStatusIcon(),
+                        super.description, this.dueTime)
+                : String.format("[%s][%s] %s (by: %s)", this.SYMBOL, super.getStatusIcon(),
+                        super.description, this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 }
