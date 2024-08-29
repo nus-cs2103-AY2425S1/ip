@@ -38,6 +38,10 @@ public class Deez implements Serializable {
     }
 
     private void addTodo(Properties props) throws DeezException {
+        String name = props.getProperty("name");
+        if (name.isBlank()) {
+           throw new DeezException("Please provide a description for the todo.");
+        }
         Todo t = new Todo(props.getProperty("name"));
         taskList.addTask(t);
         Ui.say("Easy. I have added your task.",

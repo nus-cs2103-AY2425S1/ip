@@ -34,7 +34,7 @@ public class Parser {
             case EVENT -> parseEventProps(propString);
             case DEADLINE -> parseDeadlineProps(propString);
             case MARK, UNMARK, DELETE -> parseTaskIndexProp(propString);
-            case EXIT, LIST, SAVE, UNKNOWN -> null;
+            case EXIT, LIST, SAVE, UNKNOWN -> new Properties();
         };
 
         return new Pair<>(cmd, props);
@@ -48,9 +48,6 @@ public class Parser {
 
     private static Properties parseTodoProps(String propString) {
         Properties props = new Properties();
-        if (propString.isBlank()) {
-            throw new DeezException("Please provide a description for the todo.");
-        }
         props.setProperty("name", propString.strip());
         return props;
     }
