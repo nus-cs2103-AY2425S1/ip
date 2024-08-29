@@ -12,6 +12,10 @@ public class Dudu {
         BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, HELP
     }
 
+    enum TaskType {
+        T, D, E
+    }
+
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static boolean terminate = false;
@@ -34,8 +38,18 @@ public class Dudu {
         try {
             Scanner sc = new Scanner(file);
             while (!terminate && sc.hasNext()) {
-//                String[] input = sc.nextLine().split(" ", 2);
-//                addTaskFrom(input);
+                String[] input = sc.nextLine().split("\\|", 3);
+                TaskType type = TaskType.valueOf(input[0].trim());
+                System.out.println(input[1]);
+                boolean marked = Integer.parseInt(input[1].trim()) == 1;
+                switch (type) {
+                    case T:
+                        ToDo task = new ToDo(input[2].trim());
+                        if (marked) {
+                            task.markCompleted();
+                        }
+                        addTask(task);
+                }
             }
         } catch (FileNotFoundException e) {
             System.out.println(e);
