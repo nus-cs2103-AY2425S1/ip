@@ -7,8 +7,13 @@ public class InvalidCommand extends Command {
         this.feedback = feedback;
     }
     @Override
-    public CommandResult execute(TaskList taskList) {
-        String returnMessage = String.format("error\nfeedback");
+    public CommandResult execute(TaskList taskList, TaskIO taskIO) {
+        String returnMessage = String.format("%s\n%s", error, feedback);
         return new CommandResult(returnMessage);
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
     }
 }

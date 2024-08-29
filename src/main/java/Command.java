@@ -1,3 +1,6 @@
 abstract class Command {
-    abstract CommandResult execute(TaskList taskList);
+    abstract CommandResult execute(TaskList taskList, TaskIO taskIO);
+
+    abstract boolean isExit();
+
 }
