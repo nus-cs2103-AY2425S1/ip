@@ -1,4 +1,11 @@
 
+ |  Error encountered while loading savefile:
+ |
+ |   |  Error Reading save file! The following error was encountered: Unable to parse value - No enum constant tasks.TaskTypes.Ajdskljdas
+ |
+ |   |  Error Reading save file! The following error was encountered: Missing Data Values
+
+
  |  Hello! I'm YappingBot
  |  What can I do for you?
 
