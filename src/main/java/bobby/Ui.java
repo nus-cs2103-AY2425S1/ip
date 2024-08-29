@@ -103,6 +103,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the matching task lists for Find functionality.
+     *
+     * @param matchingTaskList The list of tasks containing matching tasks.
+     */
     public void showFindTasks(ArrayList<Task> matchingTaskList) {
         horizontalLine(lengthOfLine);
         if (matchingTaskList.isEmpty()) {

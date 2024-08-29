@@ -10,10 +10,6 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> listOfTasks;
 
-    public TaskList() {
-        this.listOfTasks = new ArrayList<>();
-    }
-
     /**
      * Constructs a TaskList with the specified ArrayList of Task.
      *
@@ -96,6 +92,12 @@ public class TaskList {
         this.listOfTasks.remove(x - 1);
     }
 
+    /**
+     * Returns a lists of tasks that is matching with a certain keyword.
+     *
+     * @param keyword Keyword representing the tasks to match to.
+     * @return List of matching tasks.
+     */
     public ArrayList<Task> findMatchingTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
