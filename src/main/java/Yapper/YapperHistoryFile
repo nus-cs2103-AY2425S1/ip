@@ -1,0 +1,5 @@
+T N buy bread
+D N deadline1 /by 2024-12-31
+D D deadline2 /by 2024-12-31
+E N event1 /from 2024-11-30 /to 2024-12-31
+E D event1 /from 2024-11-30 /to 2024-12-31
