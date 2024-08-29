@@ -1,4 +1,7 @@
+package krona.ui;
+
 import java.util.Scanner;
+import krona.task.TaskList;
 
 public class Ui {
     private Scanner scanner;
@@ -12,7 +15,7 @@ public class Ui {
     }
 
     public void welcome() {
-        System.out.println("Hello! I'm Krona");
+        System.out.println("Hello! I'm krona.krona");
         System.out.println("What can I do for you?");
     }
 

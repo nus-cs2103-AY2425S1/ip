@@ -1,3 +1,5 @@
+package krona.exception;
+
 public class KronaException extends Exception {
 
     public KronaException(String message) {

@@ -1,3 +1,11 @@
+package krona.parser;
+
+import krona.command.*;
+import krona.task.Deadline;
+import krona.task.Event;
+import krona.task.Task;
+import krona.task.ToDo;
+
 public class Parser {
 
     public static Command parse(String input) {

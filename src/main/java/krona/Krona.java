@@ -1,3 +1,12 @@
+package krona;
+
+import krona.command.*;
+import krona.task.*;
+import krona.storage.Storage;
+import krona.ui.Ui;
+import krona.parser.Parser;
+import krona.exception.KronaException;
+
 public class Krona {
     private Storage storage;
     private TaskList tasks;

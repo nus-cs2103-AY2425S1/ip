@@ -1,3 +1,11 @@
+package krona.command;
+
+import krona.task.Task;
+import krona.task.TaskList;
+import krona.ui.Ui;
+import krona.storage.Storage;
+import krona.exception.KronaException;
+
 public class UnmarkCommand extends Command {
     private int taskIndex;
 
@@ -12,9 +20,9 @@ public class UnmarkCommand extends Command {
             task.markNotDone();
             ui.showMessage("OK, I've marked this task as not done yet:");
             ui.showMessage(task.toString());
-            storage.save(tasks);  
+            storage.save(tasks);
         } catch (IndexOutOfBoundsException e) {
-            throw new KronaException("Task index is out of bounds.");
+            throw new KronaException("krona.task.Task index is out of bounds.");
         }
     }
 }

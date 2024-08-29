@@ -1,3 +1,11 @@
+package krona.command;
+
+import krona.task.Task;
+import krona.task.TaskList;
+import krona.ui.Ui;
+import krona.storage.Storage;
+import krona.exception.KronaException;
+
 public class DeleteCommand extends Command {
     private int taskIndex;
 
@@ -15,7 +23,7 @@ public class DeleteCommand extends Command {
             ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
             storage.save(tasks);  // Save tasks after deleting
         } catch (IndexOutOfBoundsException e) {
-            throw new KronaException("Task index is out of bounds.");
+            throw new KronaException("krona.task.Task index is out of bounds.");
         }
     }
 }

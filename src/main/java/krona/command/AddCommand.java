@@ -1,3 +1,11 @@
+package krona.command;
+
+import krona.task.Task;
+import krona.task.TaskList;
+import krona.ui.Ui;
+import krona.storage.Storage;
+import krona.exception.KronaException;
+
 public class AddCommand extends Command {
     private Task task;
 
