@@ -1,6 +1,7 @@
 package processes;
 
 import exceptions.*;
+import tasks.DeadLine;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
