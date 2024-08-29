@@ -13,7 +13,7 @@ import java.util.Collections;
  */
 public class TaskList {
 
-    /** ArrayList of the tasks added to TaskList by the user*/
+    /** ArrayList of the tasks added to TaskList by the user */
     private ArrayList<Task> taskList;
     /**
      * Constructor for TaskList
