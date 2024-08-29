@@ -22,7 +22,7 @@ public class LevelHundred {
             if (taskDescription.equals("")) {
                 throw new MissingArgumentException(command, "description");
             }
-
+            
             return new Todo(taskDescription);
         } else if (command.equals("deadline")) {
             List<String> tmp = Arrays.asList(words);
@@ -30,18 +30,23 @@ public class LevelHundred {
             if (byIdx == -1) {
                 throw new MissingArgumentException(command, "by");
             }
-
+            
             String taskDescription = String.join(" ", Arrays.copyOfRange(words, 1, byIdx));
             if (taskDescription.equals("")) {
                 throw new MissingArgumentException(command, "description");
             }
-
+            
             String by = String.join(" ", Arrays.copyOfRange(words, byIdx + 1, words.length));
             if (by.equals("")) {
                 throw new MissingArgumentException(command, "by");
             }
-
-            return new Deadline(taskDescription, by);
+            try {
+                by = Parser.parseInputDate(by);
+                return new Deadline(taskDescription, by);
+            } catch (RuntimeException e) {
+                throw new InvalidArgumentException(command, "by");
+            }
+            
         } else {
             List<String> tmp = Arrays.asList(words);
             int fromIdx = tmp.indexOf("/from");
@@ -53,18 +58,32 @@ public class LevelHundred {
                 throw new MissingArgumentException(command, "to");
             }
 
+            // Get task description
             String taskDescription = String.join(" ", Arrays.copyOfRange(words, 1, fromIdx));
             if (taskDescription.equals("")) {
                 throw new MissingArgumentException(command, "description");
             }
+            
+            // Get from date
             String from = String.join(" ", Arrays.copyOfRange(words, fromIdx + 1, toIdx));
             if (from.equals("")) {
                 throw new MissingArgumentException(command, "from");
             }
-
+            try {
+                from = Parser.parseInputDate(from);
+            } catch (RuntimeException e) {
+                throw new InvalidArgumentException(command, "from");
+            }
+            
+            // Get to date
             String to = String.join(" ", Arrays.copyOfRange(words, toIdx + 1, words.length));
             if (to.equals("")) {
                 throw new MissingArgumentException(command, "to");
+            }
+            try {
+                to = Parser.parseInputDate(to);
+            } catch (RuntimeException e) {
+                throw new InvalidArgumentException(command, "to");
             }
 
             return new Event(taskDescription, from, to);
