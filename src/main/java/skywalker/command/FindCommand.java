@@ -14,6 +14,14 @@ public class FindCommand extends Command{
         this.keyword = keyword;
     }
 
+    /**
+     * Exceutes the find command, which finds the task that fulfills
+     * the matching and print it out.
+     *
+     * @param tasks   The task list on which the command will operate.
+     * @param ui      The UI object used to interact with the user.
+     * @param storage The storage object used to save or load the task list.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
@@ -25,10 +33,6 @@ public class FindCommand extends Command{
                 ui.showMessage((i + 1) + ". " + matchingTasks.get(i).toString());
             }
         }
-    }
-    @Override
-    public boolean isExit() {
-        return false;
     }
 
 }

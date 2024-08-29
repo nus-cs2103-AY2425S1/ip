@@ -7,6 +7,12 @@ public class Event extends Task {
     public LocalDateTime to;
 
 
+    /**
+     * Constructs an event with description, from time, and end time
+     * @param description The Description of the event
+     * @param from start time
+     * @param to end time
+     */
     public Event(String description, String from, String to) {
         super(description, TaskType.EVENT);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HHmm");

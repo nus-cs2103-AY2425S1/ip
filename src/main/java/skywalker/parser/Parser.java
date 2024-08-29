@@ -6,8 +6,19 @@ import skywalker.task.Event;
 import skywalker.task.Task;
 import skywalker.task.Todo;
 
+/**
+ * The Parser class is reponsible of receiving the user's input
+ * and to convert it to commands or tasks that can be executed by the app.
+ */
 public class Parser {
 
+    /**
+     * This method looks into what type of command the user input
+     * and then processes the remaining part of the input
+     * @param fullCommand The string inputted by the user
+     * @return The command object corresponding to the users' input
+     * @throws Exception If the command is unknown/invalid.
+     */
     public static Command parse(String fullCommand) throws Exception {
         String[] words = fullCommand.split(" ", 2);
         String commandWord = words[0];
@@ -40,6 +51,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a task string from the storage file and converts it into a Task object
+     * The task string is expected to be in the format used for storage
+     *
+     * @param fileString The string that represent the task, stored in the file.
+     * @return The Task object corresponding to the file string
+     */
     public static Task parseTaskFromFileString(String fileString) {
         String[] parts = fileString.split(" \\| ");
         String taskTypeCode = parts[0];
