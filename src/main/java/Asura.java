@@ -1,4 +1,6 @@
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,8 +23,30 @@ public class Asura {
         }
     }
 
+    public static void saveTasks(List<Task> tasks, String pathName) {
+        StringBuilder sb = new StringBuilder();
+        for (Task task : tasks) {
+            if (task instanceof Event) {
+                Event event = (Event) task;
+                sb.append("E | " + (event.isDone ? 1 : 0) + " | " + event.description + " | " + event.start + " | " + event.end + "\n");
+            }
+            else if (task instanceof Todo) {
+                Todo todo = (Todo) task;
+                sb.append("T | " + (todo.isDone ? 1 : 0) + " | " + todo.description + "\n");
+            }
+            else if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                sb.append("D | " + (deadline.isDone ? 1 : 0) + " | " + deadline.description + " | " + deadline.by + "\n");
+            }
+        }
+        try {
+            Files.write(Paths.get(pathName), sb.toString().getBytes());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-        public static void main(String[] args) throws AsuraException {
+    public static void main(String[] args) throws AsuraException {
         Scanner scanner = new Scanner(System.in);
         String introduction = """
                 Hello! I'm Asura!
@@ -30,7 +54,8 @@ public class Asura {
         String goodbye = """
                 Bye. Hope to see you again soon!""";
         List<Task> tasks = new ArrayList<>();
-        initializeData("./data/asura.txt");
+        String savePath = "./data/asura.txt";
+        initializeData(savePath);
 
         System.out.println(formatResponse(introduction));
         List<String> input = Arrays.asList(scanner.nextLine().split(" "));
@@ -53,6 +78,7 @@ public class Asura {
                     } else {
                         int selection = Integer.parseInt(input.get(1)) - 1;
                         tasks.get(selection).markAsDone();
+                        saveTasks(tasks, savePath);
                         output.append("Nice! I've marked this task as done:").append("\n").append(tasks.get(selection).toString());
                         System.out.println(formatResponse(output.toString()));
                     }
@@ -64,6 +90,7 @@ public class Asura {
                     } else {
                         int selection = Integer.parseInt(input.get(1)) - 1;
                         tasks.get(selection).markAsNotDone();
+                        saveTasks(tasks, savePath);
                         output.append("OK, I've marked this task as not done yet:").append("\n").append(tasks.get(selection).toString());
                         System.out.println(formatResponse(output.toString()));
                     }
@@ -75,6 +102,7 @@ public class Asura {
                     String taskString = String.join(" ", input.subList(1, input.size()));
                     Todo newTodo = new Todo(taskString);
                     tasks.add(newTodo);
+                    saveTasks(tasks, savePath);
                     output.append("Got it. I've added this task:\n").append(newTodo.toString()).append("\n").append("Now you have ").append(tasks.size()).append(" tasks in your list.\n");
                     System.out.println(formatResponse(output.toString()));
                     break;
@@ -91,6 +119,7 @@ public class Asura {
                         }
                         Deadline newDeadline = new Deadline(String.join(" ", descriptionArray), String.join(" ", dateArray));
                         tasks.add(newDeadline);
+                        saveTasks(tasks, savePath);
                         output.append("Got it. I've added this task:\n").append(newDeadline.toString()).append("\n").append("Now you have ").append(tasks.size()).append(" tasks in your list.\n");
                         System.out.println(formatResponse(output.toString()));
                     } catch (Exception e) {
@@ -115,6 +144,7 @@ public class Asura {
                         }
                         Event newEvent = new Event(String.join(" ", descriptionArray), String.join(" ", fromArray), String.join(" ", toArray));
                         tasks.add(newEvent);
+                        saveTasks(tasks, savePath);
                         output.append("Got it. I've added this task:\n").append(newEvent.toString()).append("\n").append("Now you have ").append(tasks.size()).append(" tasks in your list.\n");
                         System.out.println(formatResponse(output.toString()));
                     }
@@ -129,6 +159,7 @@ public class Asura {
                         int selection = Integer.parseInt(input.get(1)) - 1;
                         output.append("Noted! I've removed this task :").append("\n").append(tasks.get(selection).toString()).append("\n").append("Now you have ").append(tasks.size() - 1).append(" tasks in your list.\n");
                         tasks.remove(selection);
+                        saveTasks(tasks, savePath);
                         System.out.println(formatResponse(output.toString()));
                     }
                     break;
