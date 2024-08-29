@@ -1,3 +1,10 @@
+package nixy;
+
+import nixy.exceptions.NixyException;
+import nixy.task.TaskList;
+import nixy.task.Task;
+import nixy.ui.Ui;
+
 public class Nixy {
 
     private Storage storage;

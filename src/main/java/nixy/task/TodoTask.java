@@ -1,3 +1,5 @@
+package nixy.task;
+
 /**
  * Represents a Todo task.
  */

@@ -1,3 +1,5 @@
+package nixy.ui;
+
 /**
  * Utility class for printing messages to the console.
  * This class is used to print messages with horizontal lines and indentation.

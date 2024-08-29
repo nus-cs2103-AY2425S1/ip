@@ -1,3 +1,5 @@
+package nixy;
+
 public enum Command {
     BYE,
     LIST,

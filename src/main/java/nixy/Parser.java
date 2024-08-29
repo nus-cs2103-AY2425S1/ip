@@ -1,4 +1,11 @@
+package nixy;
+
 import java.time.LocalDate;
+import nixy.exceptions.NixyException;
+import nixy.task.DeadlineTask;
+import nixy.task.EventTask;
+import nixy.task.Task;
+import nixy.task.TodoTask;
 
 public class Parser {
     private Command command;

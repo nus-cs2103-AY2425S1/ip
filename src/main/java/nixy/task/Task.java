@@ -1,3 +1,5 @@
+package nixy.task;
+
 /**
  * Base class for all tasks, including TodoTask, DeadlineTask, and EventTask.
  * Provides basic functionality for marking tasks as done and getting the task description.
