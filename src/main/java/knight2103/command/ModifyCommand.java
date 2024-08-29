@@ -10,7 +10,6 @@ public class ModifyCommand extends Command {
     }
 
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-
         try {
             Task taskAffected;
             int taskIndex = Integer.parseInt(this.predicate) - 1;
@@ -25,16 +24,16 @@ public class ModifyCommand extends Command {
                 ui.showDelete(taskAffected, taskList);
             }
             storage.save(taskList);
-        } catch (NullPointerException e) { // only happen in mark and unmark I think due to knight2103.tasks.TaskList dynamic allocation specified
-            System.out.println("There aren't so many tasks. Please if the task number is keyed in correctly. To see all tasks, type list");
         } catch (NumberFormatException e) {
             System.out.println("Please state the task number in INTEGER. Definitely not the task name");
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("There's an issue in the instruction format. Please check that it is <knight2103.command.CommandVerb> <Integer> format");
+            System.out.println("There's an issue in the instruction format. " + "Please check that it is " +
+                    "<knight2103.command.CommandVerb> <Integer> format");
         } catch (IndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
         }
     }
+
     public boolean isExit() {
         return false;
     }

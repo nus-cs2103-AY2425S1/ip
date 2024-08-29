@@ -3,6 +3,7 @@ package knight2103.command;
 import knight2103.tasks.*;
 import knight2103.Ui;
 import knight2103.files.Storage;
+
 import java.time.format.DateTimeParseException;
 
 public class AddCommand extends Command {
@@ -26,7 +27,8 @@ public class AddCommand extends Command {
             storage.save(taskToAdd);
             ui.showAdd(taskToAdd, taskList);
         } catch (DateTimeParseException e) {
-            System.out.println("knight2103.tasks.Deadline format is wrong during input. Please follow yyyy-mm-dd or with the time format");
+            System.out.println("knight2103.tasks.Deadline format is wrong during input. " + "Please follow " +
+                    "yyyy-mm-dd or with the time format");
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("There's an issue in the instruction format. Please check.");
         }
