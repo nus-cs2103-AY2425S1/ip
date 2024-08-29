@@ -7,6 +7,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String toFileFormat() {
+        return "D | " + super.toFileFormat() + " | " + this.by;
+    }
+
+    @Override
     public String toString() {
         String timeframe = String.format("(by: %s)", this.by);
         return String.format("[D]%s %s", super.toString(), timeframe);
