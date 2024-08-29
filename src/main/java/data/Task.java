@@ -1,7 +1,7 @@
 package data;
 
 public abstract class Task {
-    private boolean completed;
+    private boolean isComplete;
     private String description;
 
     public Task(String description, boolean isDone) {
@@ -14,15 +14,15 @@ public abstract class Task {
     }
 
     public void markDone() {
-        this.completed = true;
+        this.isComplete = true;
     }
 
     public void markNotDone() {
-        this.completed = false;
+        this.isComplete = false;
     }
 
     public String getSaveTaskString() {
-        if (completed) {
+        if (this.isComplete) {
             return "|1|" + description;
         }
 
@@ -31,7 +31,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        if (completed) {
+        if (this.isComplete) {
             return "[X] " + description;
         } else {
             return "[ ] " + description;

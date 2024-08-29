@@ -9,13 +9,13 @@ import java.util.Scanner;
 public class Storage {
     private ArrayList<Task> taskList;
     private int numberOfTasks;
-    private final String filePath = "./data/taskFile.txt";
+    private final String FILE_PATH = "./data/taskFile.txt";
     private File taskFile;
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public TaskList load() throws IOException {
-        taskFile = new File(filePath);
+        taskFile = new File(FILE_PATH);
         File folder = new File("./data");
         if (!folder.exists()) {
             folder.mkdirs();
