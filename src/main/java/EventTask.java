@@ -1,8 +1,8 @@
-public class Event extends Task {
+public class EventTask extends Task {
     protected String from;
     protected String to;
 
-    public Event(String description, String from, String to) {
+    public EventTask(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -14,5 +14,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String toSave() { return String.format("E | %s | %s | %s", super.toSave(), from, to); }
+    public String toSave() {
+        return String.format("E | %s | %s | %s", super.toSave(), from, to);
+    }
 }
