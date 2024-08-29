@@ -4,8 +4,6 @@ import command.Command;
 import command.AddCommand;
 import exception.ScheduloException;
 import org.junit.jupiter.api.Test;
-import task.TaskList;
-import task.Todo;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
