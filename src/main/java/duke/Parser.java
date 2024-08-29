@@ -6,6 +6,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.DateTimeException;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Handles parsing of user input and execution of commands in the Meow application.
+ * Supports various commands such as adding/deleting tasks, marking/unmarking tasks,
+ * as well as viewing outstanding tasks.
+ */
 public class Parser {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -15,8 +20,19 @@ public class Parser {
     }
 
 
+    /**
+     * Parses a single user input command and executes the corresponding task management action.
+     *
+     * @param input The user input command.
+     * @param taskList The list of tasks to operate on.
+     * @param ui The UI instance to handle user interactions.
+     * @param storage The storage instance for saving and loading tasks.
+     * @throws IOException If an I/O error occurs during saving.
+     * @throws MeowException If an invalid command or task operation is encountered.
+     * @throws DateTimeParseException If the date format is incorrect.
+     */
     public void parse(String input, TaskList taskList, Ui ui, Storage storage)
-            throws IOException, MeowException, DateTimeParseException { // for one command only, not a full run
+            throws IOException, MeowException, DateTimeParseException {
         try {
             if (input.trim().equals("bye")) {
                 return;
