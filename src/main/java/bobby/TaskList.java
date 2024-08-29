@@ -50,4 +50,15 @@ public class TaskList {
     public void deleteTask(int x) {
         this.listOfTasks.remove(x - 1);
     }
+
+    public ArrayList<Task> findMatchingTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : this.listOfTasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 }

@@ -67,4 +67,15 @@ public class Ui {
             horizontalLine(lengthOfLine);
         }
     }
+
+    public void showFindTasks(ArrayList<Task> matchingTaskList) {
+        horizontalLine(lengthOfLine);
+        if (matchingTaskList.isEmpty()) {
+            System.out.println("There are no matching tasks!");
+        } else {
+            System.out.println("Here are the matching tasks:");
+            showTaskList(matchingTaskList);
+        }
+        horizontalLine(lengthOfLine);
+    }
 }
