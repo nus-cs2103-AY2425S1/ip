@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Sam {
@@ -59,8 +60,14 @@ public class Sam {
             } catch (SamException e) {
                 System.out.println(e.getMessage());
             } catch (StringIndexOutOfBoundsException e) {
-
-            }
+                
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Please include the date of the deadline/event task");
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please use dd-MM-yyyy.");
+            } catch (Exception e) {
+                System.out.println("An error occurred. Please try again.");
+            } 
         }
 
         scanner.close();

@@ -1,19 +1,30 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Item {
 
-    private String by;
-    
+    private LocalDate by;
+
     public Deadline(String newname, String by) {
         super(newname);
-        this.by = by;
+        // Parse the input string into a LocalDate object using the dd-MM-yyyy pattern
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        this.by = LocalDate.parse(by, formatter);
+        
     }
+
     @Override
     public String toData() {
-        String str = String.format("D | %s | %s\n", super.toData(), this.by);
+        // Format the date to be stored as yyyy-MM-dd
+        String str = String.format("D | %s | %s\n", super.toData(), this.by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         return str;
     }
+
     @Override
     public String toString() {
-        String str = String.format("[D] %s (by: %s)", super.toString(), this.by);
+        // Format the date as d MMMM yyyy (e.g., 1 June 2001)
+        String formattedDate = this.by.format(DateTimeFormatter.ofPattern("d MMMM yyyy"));
+        String str = String.format("[D] %s (by: %s)", super.toString(), formattedDate);
         return str;
     }
 }
