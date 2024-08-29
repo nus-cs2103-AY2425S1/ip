@@ -1,9 +1,14 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 
 
 public class Jeriel {
+
     public static void main(String[] args) {  
         String logo = "     _  ____  ___   _  ____  _      \n"
                     + "    | || ___|| _ \\ | || ___|| |     \n"
@@ -102,6 +107,7 @@ public class Jeriel {
                     }
                     String description = parts[0].trim();
                     String by = parts[1].trim();
+                    tasks.add(new Deadline(description, by));
                     System.out.println("____________________________________________________________");
                     System.out.println(" Got it. I've added this task:");
                     System.out.println("   " + tasks.get(tasks.size() - 1));
