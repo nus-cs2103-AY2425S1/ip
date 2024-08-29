@@ -2,6 +2,9 @@ package NextGPT.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class for tasks with type event.
+ */
 public class Event extends Task {
     protected LocalDate start;
     protected LocalDate end;

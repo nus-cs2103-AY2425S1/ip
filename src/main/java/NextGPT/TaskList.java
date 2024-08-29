@@ -5,11 +5,22 @@ import NextGPT.task.Todo;
 import NextGPT.task.Deadline;
 import NextGPT.task.Event;
 import NextGPT.task.Task;
+
+/**
+ * Class to hold tasks in a arraylist.
+ */
 public class TaskList {
     static ArrayList<Task> todo_list;
+
     public TaskList(){
         this.todo_list = new ArrayList<>();
     }
+
+    /**
+     * Initializes the saved task list.
+     *
+     * @param sc Scanner file containing contents of saved task list.
+     */
     public TaskList(Scanner sc) {
         this.todo_list = new ArrayList<>();
         while (sc.hasNextLine()) {
@@ -45,20 +56,43 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds task to task list.
+     *
+     * @param task Task to be added.
+     */
     public void add(Task task) {
 
         this.todo_list.add(task);
     }
 
+    /**
+     * Removes task at given index of task list.
+     *
+     * @param index Index of task to be removed in task list.
+     * @return Task that was removed.
+     */
     public Task remove(int index) {
 
         return this.todo_list.remove(index);
     }
+
+    /**
+     * Retrieves task at given index of task list.
+     *
+     * @param index Index of task to be retrieved in task list.
+     * @return Task that was retrieved.
+     */
     public Task get(int index) {
 
         return this.todo_list.get(index);
     }
 
+    /**
+     * Returns size of task list.
+     *
+     * @return Number of elements in task list.
+     */
     public int size() {
         return this.todo_list.size();
     }

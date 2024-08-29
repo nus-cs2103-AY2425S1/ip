@@ -3,7 +3,18 @@ import NextGPT.command.*;
 import NextGPT.task.Todo;
 import NextGPT.task.Deadline;
 import NextGPT.task.Event;
+
+/**
+ * Class to understand User Input when using bot.
+ */
 public class Parser {
+    /**
+     * Attempt to understand user input.
+     *
+     * @param fullCommand User input.
+     * @return Command that contains the properties of user input.
+     * @throws NextGPTException If user input is invalid.
+     */
     static Command parse(String fullCommand) throws NextGPTException{
         String[] split = fullCommand.trim().split(" ",2);
         String keyword = split[0];

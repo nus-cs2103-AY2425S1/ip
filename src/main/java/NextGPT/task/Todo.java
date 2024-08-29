@@ -1,4 +1,8 @@
 package NextGPT.task;
+
+/**
+ * Class for task type todo.
+ */
 public class Todo extends Task{
     public Todo (String name) {
         super(name);

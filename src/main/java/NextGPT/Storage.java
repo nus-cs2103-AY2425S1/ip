@@ -8,6 +8,10 @@ import java.util.Scanner;
 import NextGPT.task.Deadline;
 import NextGPT.task.Event;
 import NextGPT.task.Task;
+
+/**
+ * Storage class to load and add local saved task list.
+ */
 public class Storage {
     protected String filePath;
     public Storage(String filePath) {
@@ -15,6 +19,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads locally saved task list located at the file path.
+     *
+     * @return Locally saved task list.
+     * @throws IOException If file cannot be accessed.
+     */
     public Scanner load_tasks() throws IOException{
         File dir = new File("./data");
         if (!dir.exists()) {
@@ -24,6 +34,12 @@ public class Storage {
         return new Scanner(f);
     }
 
+    /**
+     * Adds the given tasklist to the local file path.
+     *
+     * @param taskList Task list to be saved.
+     * @throws IOException If error occurs while saving.
+     */
     public void add_to_memory(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
 

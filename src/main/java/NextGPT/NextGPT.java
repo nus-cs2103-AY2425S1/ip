@@ -2,12 +2,20 @@ package NextGPT;
 
 import java.io.IOException;
 import NextGPT.command.Command;
+
+/**
+ * Driver class for Next GPT chat bot.
+ */
 public class NextGPT {
     protected Storage storage;
     protected TaskList tasks;
     protected Ui ui;
 
-
+    /**
+     * Creates NextGPT given the file path of task list.
+     *
+     * @param filePath File path to local memory task list.
+     */
     public NextGPT(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -20,6 +28,9 @@ public class NextGPT {
         }
     }
 
+    /**
+     * Driver function to run chatbot.
+     */
     public void run() {
         boolean isExit = false;
         ui.openingMessage();
@@ -35,7 +46,9 @@ public class NextGPT {
         }
     }
 
-
+    /**
+     * Run chatbot.
+     */
     public static void main(String[] args) {
         new NextGPT("./data/tasks.txt").run();
     }
