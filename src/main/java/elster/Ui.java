@@ -33,18 +33,18 @@ public class Ui {
 
     public void loadFileErrorMessage() {
         printLine();
-        System.out.println("    there hath been a failure in loading your work\n" +
-                "    your list starts empty");
+        System.out.println("    there hath been a failure in loading your work\n"
+                + "    your list starts empty");
         printLine();
     }
 
     public void welcomeMessage() {
-        String logo = "___________.__            __\n" +
-                "\\_   _____/|  |   _______/  |_  ___________\n" +
-                " |    __)_ |  |  /  ___/\\   __\\/ __ \\_  __ \\\n" +
-                " |        \\|  |__\\___ \\  |  | \\  ___/|  | \\/\n" +
-                "/_______  /|____/____  > |__|  \\___  >__|\n" +
-                "        \\/           \\/            \\/";
+        String logo = "___________.__            __\n"
+                + "\\_   _____/|  |   _______/  |_  ___________\n"
+                + " |    __)_ |  |  /  ___/\\   __\\/ __ \\_  __ \\\n"
+                + " |        \\|  |__\\___ \\  |  | \\  ___/|  | \\/\n"
+                + "/_______  /|____/____  > |__|  \\___  >__|\n"
+                + "        \\/           \\/            \\/";
         System.out.println(logo);
         printLine();
         System.out.println("    Hello, \"greetings\" from your friendly neighbourhood chatbot Elster..");

@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class EventTask extends Task {
-    LocalDateTime start;
-    LocalDateTime end;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
     public EventTask(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
@@ -83,7 +83,7 @@ public class EventTask extends Task {
                     + " | " + this.end.format(formatter);
         } else {
             return "E | 0 | " + this.description + " | " + this.start.format(formatter)
-                    + " | " + this.end.format(formatter) ;
+                    + " | " + this.end.format(formatter);
         }
     }
 }

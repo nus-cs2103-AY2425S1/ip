@@ -8,20 +8,29 @@ import elster.tasks.ToDoTask;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Storage {
-    Path dirPath;
-    Path filePath;
+    private Path dirPath;
+    private Path filePath;
 
     public Storage(Path filePath, Ui ui) {
         this.dirPath = filePath;
         this.filePath = dirPath.resolve("data.txt");
     }
 
+    /**
+     * Loads the task list from the file where it is saved.
+     * In this case the save file is data/data.txt.
+     *
+     * @param taskList Task list where the tasks from the file are saved.
+     * @throws Elseption If something goes wrong while reading the file.
+     */
     public void loadFromFile(TaskList taskList) throws Elseption {
         try {
             if (Files.notExists(dirPath)) {
@@ -52,10 +61,10 @@ public class Storage {
                     System.out.println(description + " /by " + row[3].strip());
 
                 } else if (taskType.equals("E")) {
-                    task = EventTask.of("event " +description + " /from " + row[3].strip() +
-                            " /to " + row[4].strip());
-                    System.out.println(description + " /from " + row[3].strip() +
-                            " /to " + row[4].strip());
+                    task = EventTask.of("event " +description + " /from " + row[3].strip()
+                            + " /to " + row[4].strip());
+                    System.out.println(description + " /from " + row[3].strip()
+                            + " /to " + row[4].strip());
                 }
 
                 if (task != null) {
@@ -72,6 +81,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes task list to a save file.
+     * In this case the save file is data/data.txt.
+     *
+     * @param taskList Task list to be written to the save file.
+     * @throws Elseption If something goes wrong while writing to file.
+     */
     public void writeToFile(TaskList taskList) throws Elseption {
         try {
             if (Files.notExists(dirPath)) {

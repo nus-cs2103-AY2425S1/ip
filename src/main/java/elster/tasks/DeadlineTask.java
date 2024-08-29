@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class DeadlineTask extends Task{
-    LocalDateTime deadline;
+public class DeadlineTask extends Task {
+    private final LocalDateTime deadline;
     private DeadlineTask(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
@@ -42,7 +42,8 @@ public class DeadlineTask extends Task{
 
         } catch (Exception e) {
             printLine();
-            System.out.println("    for /by, Elster requires a yyyy-mm-dd or yyyy-mm-dd HH:mm format please and thanks");
+            System.out.println("    for /by, Elster requires a yyyy-mm-dd or yyyy-mm-dd HH:mm "
+                    + "format please and thanks");
             printLine();
             return null;
         }

@@ -75,7 +75,7 @@ public class Elster {
             } else if (input.startsWith("delete")) {
                 int index = Integer.parseInt(input.substring(7).strip());
 
-                try{
+                try {
                     Task task = taskList.deleteTask(index);
                     ui.deleteTaskMessage(taskList, task);
 
@@ -146,7 +146,7 @@ public class Elster {
     }
 
     public static void main(String[] args) {
-        Path dataDir = Paths.get( "data");
+        Path dataDir = Paths.get("data");
         new Elster(dataDir).run();
     }
 
