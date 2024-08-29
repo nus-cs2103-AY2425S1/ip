@@ -95,6 +95,6 @@ public class Nixy {
     }
 
     public static void main(String[] args) {
-        new Nixy("../../../data/tasks.txt").run();
+        new Nixy("data/tasks.txt").run();
     }
 }
