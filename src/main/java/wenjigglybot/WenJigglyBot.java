@@ -10,8 +10,11 @@ public class WenJigglyBot {
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Constructs a new WenJigglyBot instance.
+     * Initializes the TaskList and Ui, and attempts to load tasks from storage.
+     */
     public WenJigglyBot() {
-
         tasks = new TaskList();
         ui = new Ui();
         try {
@@ -23,10 +26,19 @@ public class WenJigglyBot {
         }
     }
 
+    /**
+     * The main method to start the WenJigglyBot application.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         new WenJigglyBot().run();
     }
 
+    /**
+     * Runs the main loop of the WenJigglyBot application.
+     * Continuously takes user input, parses commands, and executes the appropriate actions.
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         ui.intro();
@@ -107,13 +119,16 @@ public class WenJigglyBot {
             case BYE:
                 flag = false;
                 break;
-
             }
         }
         System.out.println("Goodbye!");
     }
 
-
+    /**
+     * Deletes the task at the specified index from the task list.
+     *
+     * @param idx The index of the task to delete.
+     */
     private void deleteTask(int idx) {
         if (idx < 0 || idx > tasks.size() - 1) {
             System.out.println("You entered an invalid index you fool!");
@@ -126,8 +141,14 @@ public class WenJigglyBot {
         ui.showLine();
     }
 
+    /**
+     * Toggles the completion status of the task at the specified index.
+     *
+     * @param action The action to perform ("mark" or "unmark").
+     * @param idx    The index of the task to toggle.
+     */
     private void toggleTask(String action, int idx) {
-        // handle invalid index
+        // Handle invalid index
         if (idx < 0 || idx > tasks.size() - 1) {
             System.out.println("You entered an invalid index you fool!");
             return;
@@ -146,6 +167,11 @@ public class WenJigglyBot {
         }
     }
 
+    /**
+     * Adds a new task to the task list and saves it to storage.
+     *
+     * @param task The task to add.
+     */
     private void addTask(Task task) {
         tasks.addTask(task);
         Storage.saveTasksToFile(tasks);
@@ -154,6 +180,4 @@ public class WenJigglyBot {
         ui.showTaskCount(tasks);
         ui.showLine();
     }
-
-
 }

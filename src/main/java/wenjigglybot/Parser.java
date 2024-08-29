@@ -4,6 +4,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Parser {
+
+    /**
+     * Processes the input string representing an event task.
+     * Extracts the event description, start time, and end time.
+     *
+     * @param task The input string containing the event details.
+     * @return A string array containing the event description, start time, and end time.
+     * @throws EventException If the input string does not contain the correct format.
+     */
     public static String[] processEventTask(String task) throws EventException {
         String[] fromParts = task.split("/from");
         if (fromParts.length != 2) {
@@ -20,11 +29,19 @@ public class Parser {
         return new String[]{event, startTime, endTime};
     }
 
+    /**
+     * Processes the input string representing a deadline task.
+     * Extracts the task name and deadline.
+     *
+     * @param task The input string containing the deadline details.
+     * @return A string array containing the task name and deadline.
+     * @throws DeadlineException If the input string does not contain the correct format.
+     */
     public static String[] processDeadlineTask(String task) throws DeadlineException {
-        // remove deadline tag
+        // Remove deadline tag
         String taskNameAndDeadline = task.replaceFirst("deadline", "").trim();
 
-        // split the title and deadline
+        // Split the title and deadline
         String[] parts = taskNameAndDeadline.split("/by");
         if (parts.length != 2) {
             throw new DeadlineException();
@@ -32,7 +49,13 @@ public class Parser {
         return parts;
     }
 
-
+    /**
+     * Parses the input command string to determine the corresponding command.
+     *
+     * @param command The input command string.
+     * @return The corresponding {@link Command} enum value.
+     * @throws InvalidCommandException If the command is not recognized.
+     */
     public static Command parseCommand(String command) throws InvalidCommandException {
         for (Command cmd : Command.values()) {
             if (command.startsWith(cmd.name().toLowerCase())) {
@@ -42,6 +65,12 @@ public class Parser {
         throw new InvalidCommandException();
     }
 
+    /**
+     * Parses a string representation of a task and returns the corresponding Task object.
+     *
+     * @param line The string representing the task.
+     * @return The corresponding {@link Task} object, or null if the task could not be parsed.
+     */
     public static Task parseTask(String line) {
         // Example format: 1. [T][X] task description
         String[] parts = line.split(" ", 3);
@@ -100,6 +129,6 @@ public class Parser {
             break;
         }
 
-        return null; // return null if the task could not be parsed
+        return null; // Return null if the task could not be parsed
     }
 }
