@@ -7,6 +7,12 @@ public class Deadline extends Task{
     }
 
     @Override
+    public String getCsvFormat() {
+        return "D,"+ super.getCsvFormat() + "," + by;
+    }
+
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
