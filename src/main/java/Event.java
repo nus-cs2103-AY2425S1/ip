@@ -11,4 +11,9 @@ public class Event extends Task{
     public String printTask() {
         return String.format("[E]%s (from: %s to: %s)", super.printTask(), start, end);
     }
+
+    @Override
+    public String toFileFormat() {
+        return String.format("E | %s | %s | %s", super.toFileFormat(), start, end);
+    }
 }

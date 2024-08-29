@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private String description;
     private Boolean marked;
 
@@ -24,4 +24,8 @@ public class Task {
         String mark = marked ? "X" : " ";
         return String.format("[%s] %s", mark, description);
     }
+
+    public String toFileFormat() {
+        return String.format("%d | %s", marked ? 1 : 0, description);
+    };
 }
