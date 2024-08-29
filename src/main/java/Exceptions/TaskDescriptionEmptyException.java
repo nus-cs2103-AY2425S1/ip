@@ -1,3 +1,5 @@
+package Exceptions;
+
 public class TaskDescriptionEmptyException extends TestamentException {
 
     public TaskDescriptionEmptyException(String s) {

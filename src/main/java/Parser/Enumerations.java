@@ -1,3 +1,5 @@
+package Parser;
+
 public enum Enumerations {
     BYE("bye"),
     SCHEDULE("schedule"),
