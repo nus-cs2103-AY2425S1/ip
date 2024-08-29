@@ -1,8 +1,45 @@
+import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Colby {
-    public static void main(String[] args) {
+    private static void appendToFile(String fileName, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(fileName, true);
+        fw.write(textToAppend);
+        fw.close();
+    }
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+    private static void printFileContents(File file) throws FileNotFoundException {
+        Scanner s = new Scanner(file); // create a Scanner using the File as the source
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
+    }
+
+    private static void checkFile(String fileName) {
+        try {
+            File myObj = new File(fileName);
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists: " + myObj.getName());
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> store = new ArrayList<Task>();
         int n = 0;
@@ -37,6 +74,7 @@ public class Colby {
                         System.out.println("  " + (i + 1) + ". " + store.get(i).toString());
                     }
 
+
                 } else if (task.split(" ")[0].equalsIgnoreCase("mark")) {
                     Integer change = Integer.parseInt(task.split(" ")[1]);
 
@@ -51,6 +89,7 @@ public class Colby {
 
                     System.out.println("  Alright, I have marked this task as not done yet.");
                     System.out.println("    [" + store.get(change - 1).getStatusIcon() + "] " + store.get(change - 1).description);
+
                 } else if (task.split(" ")[0].equalsIgnoreCase("todo")) {
                     if (task.length() < 5) {
                         throw new EmptyDescriptionException("WAIT!! You have to add in the description of your task as well");
@@ -61,11 +100,15 @@ public class Colby {
                     if (n == 0) {
                         lastWord = "task";
                     }
+                    checkFile("Data.text");
+                    String upload = store.get(n).toString() + "\n";
+                    appendToFile("Data.text", upload);
 
                     System.out.println("  Alright, I have added this task to the list:\n"
                             + "    " + store.get(n).toString() + "\n"
                             + "  Your list now has " + (n + 1) + " " + lastWord + " :)");
                     n++;
+
                 } else if (task.split(" ")[0].equalsIgnoreCase("deadline")) {
                     String[] parts = task.split("/");
                     if (parts.length < 2) {
@@ -81,10 +124,14 @@ public class Colby {
                         lastWord = "task";
                     }
 
+                    String upload = store.get(n).toString() + "\n";
+                    appendToFile("Data.text", upload);
+
                     System.out.println("  Alright, I have added this task to the list:\n"
                             + "    " + store.get(n).toString() + "\n"
                             + "  Your list now has " + (n + 1) + " " + lastWord + " :)");
                     n++;
+
                 } else if (task.split(" ")[0].equalsIgnoreCase("event")) {
                     String[] parts = task.split("/");
                     if (parts.length < 3) {
@@ -101,6 +148,10 @@ public class Colby {
                     if (n == 0) {
                         lastWord = "task";
                     }
+
+                    String upload = store.get(n).toString() + "\n";
+                    appendToFile("Data.text", upload);
+
                     System.out.println("  Alright, I have added this task to the list:\n"
                             + "    " + store.get(n).toString() + "\n"
                             + "  Your list now has " + (n + 1) + " " + lastWord + " :)");
