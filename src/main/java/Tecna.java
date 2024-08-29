@@ -1,44 +1,35 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import java.io.FileReader;
-import java.io.IOException;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-
 public class Tecna {
-    private ArrayList<Task> taskList;
-    private int todoSize;
-
+    private Storage storage;
+    private TaskList taskList;
+    private CommandScanner commandScanner;
+    private Ui ui;
     /**
      * A constructor of Tecna chatbot
      */
     public Tecna() {
-        this.taskList = new ArrayList<>();
-        this.todoSize = 0;
+        this.taskList = new TaskList();
+        this.commandScanner = new CommandScanner();
+        this.ui = new Ui();
     }
 
     public Tecna(String taskData) {
-        this.taskList = Tecna.taskParser(taskData);
-        assert taskList != null;
-        this.todoSize = taskList.size();
+        this.storage = new Storage(taskData);
+        this.taskList = new TaskList(storage.load());
+        this.commandScanner = new CommandScanner();
+        this.ui = new Ui();
     }
 
     /**
      * Exits the chatbot by printing the goodbye lines
      */
     public void exitChatBot() {
-        TaskWriter taskWriter = new TaskWriter();
-        taskWriter.saveTasks(this.taskList);
-        System.out.println("----------------------------------------------");
-        System.out.println("Pleased to help you! See you again ^_^");
-        System.out.println("----------------------------------------------");
+        storage.setFilePath("src/main/data/tecna1.json");
+        storage.save(this.taskList);
+        ui.printSectionLine();
+        ui.printGoodbyeMsg();
+        ui.printSectionLine();
     }
 
     /**
@@ -51,9 +42,9 @@ public class Tecna {
         if (input.equalsIgnoreCase("bye")) {
             this.exitChatBot();
         } else {
-            System.out.println("----------------------------------------------");
+            ui.printSectionLine();
             System.out.println(input);
-            System.out.println("----------------------------------------------");
+            ui.printSectionLine();
         }
         sc.close();
     }
@@ -63,168 +54,58 @@ public class Tecna {
      * Accepts string input and processes accordingly.
      */
     public void getRequest() {
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-        String[] input_words = input.split(" ");
-        while (!input.equalsIgnoreCase("bye")) {
-            System.out.println("----------------------------------------------");
-            if (input_words[0].equalsIgnoreCase("list")) {
-                this.listItems();
-            } else if (input_words[0].equalsIgnoreCase("mark")) {
-                int index = Integer.parseInt(input_words[1]);
-                taskList.get(index - 1).markAsDone();
-                System.out.println("Nice job! I've mark this as done. You deserve a short break <3");
-                System.out.println(taskList.get(index - 1));
-            } else if (input_words[0].equalsIgnoreCase("unmark")) {
-                int index = Integer.parseInt(input_words[1]);
-                taskList.get(index - 1).unMarkAsDone();
-                System.out.println("I've mark this as undone. Keep going, my friend!");
-                System.out.println(taskList.get(index - 1));
-            } else if (input_words[0].equalsIgnoreCase("delete")) {
-                int index = Integer.parseInt(input_words[1]);
-                this.deleteItem(index - 1);
-            } else {
+        CommandType command = this.commandScanner.getRequest();
+
+        while (!command.equals(CommandType.BYE)) {
+            ui.printSectionLine();
+            switch (command) {
+            case LIST:
+                this.taskList.listItems();
+                break;
+            case MARK:
+                int index = commandScanner.markIndex();
+                taskList.mark(index);
+                ui.printMarkMsg(taskList.getTask(index));
+                break;
+            case UNMARK:
+                index = commandScanner.markIndex();
+                taskList.unmark(index);
+                ui.printUnmarkMsg(taskList.getTask(index));
+                break;
+            case DELETE:
+                index = commandScanner.markIndex();
+                this.taskList.deleteItem(index);
+                break;
+            case TODO:
+            case EVENT:
+            case DEADLINE:
+            case TODO_WRONG_FORMAT:
                 try {
-                    this.addItem(input);
+                    this.taskList.addItem(commandScanner.getInput());
                 } catch (InvalidRequestException ive) {
-                    System.out.println("Oops! Your request sounds strange for me. Please enter a valid request ^^");
+                    ui.printInvalidCmdError();
                 } catch (TodoWrongFormatException tde) {
-                    System.out.println(tde.getMessage());
+                    ui.printError(tde.getMessage());
                 }
+                break;
             }
-
-            System.out.println("----------------------------------------------");
-
-            input = sc.nextLine();
-            input_words = input.split(" ");
+            ui.printSectionLine();
+            command = this.commandScanner.getRequest();
         }
         this.exitChatBot();
-        sc.close();
+        commandScanner.close();
+
     }
 
-    /**
-     * Adds new item to the list of tasks
-     * @param item extracted from the user input
-     */
-    public void addItem(String item) throws InvalidRequestException, TodoWrongFormatException {
-        Task task = getTask(item);
-        this.taskList.add(task);
-        ++this.todoSize;
-        System.out.println("Sure! I've added this task:");
-        System.out.println(task);
-        System.out.println(">> Now you have " + this.todoSize + (todoSize > 1 ? " tasks" : " task") + " in the list." );
-    }
-
-    /**
-     * Creates the appropriate type of task
-     * based on the input
-     * @param input including type of task and task description
-     * @return the corresponding task with correct type
-     */
-    private Task getTask(String input) throws InvalidRequestException,TodoWrongFormatException {
-        int boundary = input.indexOf(" ");
-        String category;
-        try {
-            category = input.substring(0, boundary);
-        } catch (StringIndexOutOfBoundsException e) {
-            category = input;
-        }
-        if (category.equalsIgnoreCase("todo")) {
-            if (boundary == -1) {
-                throw new TodoWrongFormatException("todo description cannot be empty!");
-            }
-            String des = input.substring(boundary + 1);
-            if (des.isBlank()) {
-                throw new TodoWrongFormatException("todo description cannot be empty!");
-            }
-            return new ToDo(des);
-        } else if (category.equalsIgnoreCase("deadline")) {
-            String[] description = input.substring(boundary + 1).split("/by");
-            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            LocalDateTime by = LocalDateTime.parse(description[1].trim(), pattern);
-
-            return new Deadline(description[0].trim(), by);
-        } else if (category.equalsIgnoreCase("event")) {
-            String[] description = input.substring(boundary + 1).split("/from | /to ");
-            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            return new Event(description[0].trim(), LocalDateTime.parse(description[1].trim(), pattern), LocalDateTime.parse(description[2].trim(), pattern));
-        } else {
-            throw new InvalidRequestException();
-        }
-    }
-
-    /**
-     * Displays all the tasks in the task list
-     */
-    public void listItems() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < this.todoSize; ++i) {
-            System.out.println(i + 1 + ". " + this.taskList.get(i));
-        }
-    }
-
-    public void deleteItem(int index) {
-        String item = this.taskList.get(index).toString();
-        this.taskList.remove(index);
-        this.todoSize--;
-        System.out.println("Sure! I've deleted this task:");
-        System.out.println(item);
-        System.out.println(">> Now you have " + this.todoSize + (todoSize > 1 ? " tasks" : " task") + " in the list." );
-    }
-
-    /**
-     * @author: https://dzone.com/articles/how-can-we-read-a-json-file-in-java
-     * Parses the tasks data in the tecna.json file into an ArrayList of Task(s)
-     * @return an ArrayList of Tasks
-     */
-    private static ArrayList<Task> taskParser(String taskData) {
-        try {
-            Object o = new JSONParser().parse(new java.io.FileReader(taskData));
-            JSONObject jsonObject = (JSONObject) o;
-            JSONArray jsonTasks = (JSONArray) jsonObject.get("taskList");
-
-            ArrayList<Task> tasks = new ArrayList<>();
-            for (int i = 0 ; i < jsonTasks.size(); ++i) {
-                org.json.simple.JSONObject rawTask = (org.json.simple.JSONObject) jsonTasks.get(i);
-                if (rawTask.get("type").equals("todo")) {
-                    tasks.add(new ToDoParser().parse(rawTask));
-                } else if (rawTask.get("type").equals("deadline")) {
-                    tasks.add(new DeadlineParser().parse(rawTask));
-                } else if (rawTask.get("type").equals("event")) {
-                    tasks.add(new EventParser().parse(rawTask));
-                } else {
-                    throw new TaskParseException();
-                }
-            }
-
-            return tasks;
-        } catch (java.io.IOException | org.json.simple.parser.ParseException | TaskParseException exception) {
-            System.out.println(exception.getMessage());
-        }
-
-        return null;
-
+    public void greet() {
+        ui.printLogo();
+        ui.printHelloMsg();
+        ui.printSectionLine();
     }
 
     public static void main(String[] args) {
-        String logo = " **          **\n" +
-                      "*  *        *  *\n" +
-                      "*   *      *   *\n" +
-                      "*    *    *    *\n" +
-                      "*     *  *     *\n" +
-                      " *     **     *\n" +
-                      "  *    **    *\n" +
-                      "   *   **   *\n" +
-                      "    *  **  *\n" +
-                      "     ******\n" +
-                      "      ****\n" +
-                      "     * ** *\n" +
-                      "    *  **  *\n" +
-                      "    ***  ***\n";
-        System.out.println(logo);
-        System.out.println("I'm Tecna!\nHow can I help you?");
-        System.out.println("----------------------------------------------");
         Tecna tecna = new Tecna("src/main/data/tecna.json");
+        tecna.greet();
         tecna.getRequest();
         // tecna.echo();
     }
