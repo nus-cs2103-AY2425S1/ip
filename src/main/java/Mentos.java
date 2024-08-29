@@ -80,7 +80,7 @@ public class Mentos
         }
 
     }
-    
+
     public static void main(String[] args) {
         new Mentos("/data/Mentos.txt").run();
     }
