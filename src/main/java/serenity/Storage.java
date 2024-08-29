@@ -5,8 +5,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -124,7 +126,8 @@ public class Storage {
      * @throws IOException If there are issues writing to file.
      */
     public void writeToFile(TaskList tasks) throws IOException {
-        FileWriter fw = new FileWriter(filePath); //overwrite
+        //overwrite
+        FileWriter fw = new FileWriter(filePath);
         fw.write(tasks.toDataFormat());
         fw.close();
     }

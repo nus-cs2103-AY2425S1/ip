@@ -1,4 +1,5 @@
 package serenity;
+
 import java.io.IOException;
 
 /**

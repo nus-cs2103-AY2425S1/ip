@@ -17,7 +17,6 @@ public class Parser {
      * @throws SerenityException If user input is invalid and task cannot be created.
      * @throws IOException If there is an issue writing to file that stores data.
      */
-
     public static void parse(String input, TaskList tasks, Ui ui, Storage storage)
             throws SerenityException, IOException {
         String[] parts = input.split(" ", 2);
@@ -65,6 +64,5 @@ public class Parser {
     public static boolean isExit (String input) {
         return input.startsWith("bye");
     }
-
 
 }
