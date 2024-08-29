@@ -19,6 +19,7 @@ public class Bro {
      * - "mark <task number>" to mark a task as completed.
      * - "unmark <task number>" to mark a task as not completed.
      * - "delete <task number>" to delete a task.
+     * - "find <word> to find any tasks that contain that particular keyword.
      * - "todo <task description>" to add a new to-do task.
      * - "deadline <task description> /by <date time>" to add a task with a deadline.
      * - "event <task description> /from <start date time> /to <end date time>" to add an event.
@@ -65,6 +66,9 @@ public class Bro {
                         case "delete":
                             tasks.deleteTask(Integer.parseInt(info));
                             storage.saveToFile();
+                            break;
+                        case "find":
+                            tasks.findTasks(info);
                             break;
                         case "todo":
                             tasks.addTodo(info);

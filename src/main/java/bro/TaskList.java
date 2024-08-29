@@ -43,6 +43,15 @@ public class TaskList {
     }
 
     /**
+     * Finds and prints tasks that contain a specific keyword.
+     *
+     * @param word The keyword to search for in the tasks list.
+     */
+    public void findTasks(String word) {
+        ui.printByWord(this, word);
+    }
+
+    /**
      * Adds a new Todo task to the list and prints a confirmation message.
      *
      * @param s The description of the Todo task.

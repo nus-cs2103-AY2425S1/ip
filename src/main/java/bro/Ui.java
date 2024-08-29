@@ -37,6 +37,25 @@ public class Ui {
     }
 
     /**
+     * Prints tasks from the given task list that contain a specified keyword.
+     *
+     * @param tasks The list of tasks to search through.
+     * @param s The keyword to search for in the task descriptions.
+     */
+    public void printByWord(TaskList tasks, String s) {
+        System.out.print(line + "   Here are the matching tasks in your list:\n");
+        int len = tasks.size();
+        int count = 1;
+        for (int i = 0; i < len; i++) {
+            if (tasks.get(i).toString().contains(s)) {
+                System.out.printf("   %d.%s\n", count, tasks.get(i));
+                count++;
+            }
+        }
+        System.out.println(line);
+    }
+
+    /**
      * Prints a default message when the user's input is not recognized or understood.
      */
     public void printDefault() {
