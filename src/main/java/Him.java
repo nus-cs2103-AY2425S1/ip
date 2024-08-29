@@ -1,8 +1,19 @@
+import exceptions.AlreadyCompletedException;
+import exceptions.TaskDoesNotExistException;
+import storage.Storage;
+import task.Deadline;
+import task.Event;
+import task.TaskList;
+import task.ToDo;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Him {
 
-    private static final HimList list = new HimList();
+    private static TaskList list = new TaskList();
+    private static final Storage storage = new Storage();
 
     private static void greet() {
         System.out.println("Him: Hello! I'm Him\n     What can I do for you?\n");
@@ -31,6 +42,14 @@ public class Him {
     }
 
     public static void main(String[] args) {
+        try {
+            list = storage.loadTaskList();
+        } catch (FileNotFoundException e) {
+            storage.initStorage();
+        } catch (AlreadyCompletedException e) {
+            System.out.println("Failed to load tasks make sure tasks file is not corrupted");
+            System.exit(1);
+        }
         Scanner scanner = new Scanner(System.in);
         greet();
         System.out.print("User: ");
@@ -74,7 +93,8 @@ public class Him {
                 case "event": {
                     try {
                         String[] details = input[1].split("/");
-                        Event newEvent = new Event(details[0].trim(), details[1].substring(details[1].indexOf(" ")).trim(),
+                        Event newEvent = new Event(details[0].trim(),
+                                details[1].substring(details[1].indexOf(" ")).trim(),
                                 details[2].substring(details[2].indexOf(" ")).trim());
                         list.add(newEvent);
                         System.out.println("\nHim: added \"" + newEvent + "\" to list\n");
@@ -97,10 +117,18 @@ public class Him {
                     System.out.println("\nHim: " + command + "? What are you saying????\n");
                 }
             }
+
+            try {
+                storage.saveTaskList(list);
+            } catch (IOException e) {
+                System.out.println("Tasks could not be saved! Please check tasks file");
+            }
+
             System.out.print("User: ");
             input = scanner.nextLine().split(" ", 2);
             command = input[0];
         }
+        scanner.close();
         exit();
     }
 }

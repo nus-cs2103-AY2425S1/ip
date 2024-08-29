@@ -1,19 +1,25 @@
+package task;
+
+import exceptions.AlreadyCompletedException;
+import exceptions.TaskDoesNotExistException;
+
 import java.util.ArrayList;
 
-public class HimList {
-    private ArrayList<Task> list;
 
-    public HimList() {
-        this.list = new ArrayList<>();
+public class TaskList {
+    private ArrayList<Task> tasks;
+
+    public TaskList() {
+        this.tasks = new ArrayList<>();
     }
 
     public void add(Task item) {
-        list.add(item);
+        tasks.add(item);
     }
 
     public void complete(int index) throws AlreadyCompletedException, TaskDoesNotExistException {
         try {
-            Task task = list.get(index);
+            Task task = tasks.get(index);
             if (task == null) throw new TaskDoesNotExistException(index);
             task.complete();
         } catch (IndexOutOfBoundsException e) {
@@ -22,29 +28,38 @@ public class HimList {
     }
 
     public String taskAt(int index) {
-        return list.get(index).toString();
+        return tasks.get(index).toString();
     }
 
     public boolean isEmpty() {
-        return list.isEmpty();
+        return tasks.isEmpty();
     }
 
     public String delete(int index) throws TaskDoesNotExistException {
         try {
-            Task task = list.get(index);
+            Task task = tasks.get(index);
             if (task == null) throw new TaskDoesNotExistException(index);
-            list.remove(index);
+            tasks.remove(index);
             return task.toString();
         } catch (IndexOutOfBoundsException e) {
             throw new TaskDoesNotExistException(index);
         }
     }
 
+    public String toData() {
+        StringBuilder data = new StringBuilder();
+        for (Task task : tasks) {
+            data.append(task.toData()).append("\n");
+        }
+        return data.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            output.append(String.format("%d.[%s][%s] %s\n", i + 1, list.get(i).getTypeIcon(), list.get(i).getStatusIcon(), list.get(i)));
+        for (int i = 0; i < tasks.size(); i++) {
+            output.append(String.format("%d.[%s][%s] %s\n", i + 1, tasks.get(i).getTypeIcon(),
+                    tasks.get(i).getStatusIcon(), tasks.get(i)));
         }
         return output.toString();
     }

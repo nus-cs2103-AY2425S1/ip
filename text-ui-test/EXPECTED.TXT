@@ -27,7 +27,7 @@ User:
 Him: LET'S GOOOOO! read book has been completed!
 
 User:
-Him: Task 4 does not exist
+Him: task 4 does not exist
 
 User:
 Him: the task has already been completed
@@ -51,6 +51,76 @@ Him: Sure! Here's your list!
 1.[T][X] read book
 2.[D][X] return book(by: Sunday)
 3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+
+User:
+Him: WAIT NO! DON'T LEAVE ME ALON-
+
+Him: Hello! I'm Him
+     What can I do for you?
+
+User:
+Him: Sure! Here's your list!
+
+1.[T][X] read book
+2.[D][X] return book(by: Sunday)
+3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+
+User:
+Him: nonsense? What are you saying????
+
+User:
+Him: added "read book" to list
+
+User:
+Him: added "return book(by: Sunday)" to list
+
+User:
+Him: added "project meeting (from: Mon 2pm to: 4pm)" to list
+
+User:
+Him: Sure! Here's your list!
+
+1.[T][X] read book
+2.[D][X] return book(by: Sunday)
+3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+4.[T][ ] read book
+5.[D][ ] return book(by: Sunday)
+6.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+User:
+Him: the task has already been completed
+
+User:
+Him: LET'S GOOOOO! read book has been completed!
+
+User:
+Him: the task has already been completed
+
+User:
+Him: Sure! Here's your list!
+
+1.[T][X] read book
+2.[D][X] return book(by: Sunday)
+3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+4.[T][X] read book
+5.[D][ ] return book(by: Sunday)
+6.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+User:
+Him: the task has already been completed
+
+User:
+Him: the task has already been completed
+
+User:
+Him: Sure! Here's your list!
+
+1.[T][X] read book
+2.[D][X] return book(by: Sunday)
+3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+4.[T][X] read book
+5.[D][ ] return book(by: Sunday)
+6.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 
 User:
 Him: WAIT NO! DON'T LEAVE ME ALON-
