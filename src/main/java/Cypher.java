@@ -1,3 +1,8 @@
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -66,8 +71,9 @@ public class Cypher {
         Cypher.lineBreak();
     }
 
-    private static void delTask(int i) {
+    private static void delTask(int i, Storage storage) {
         Task task = Cypher.taskList.remove(i);
+        storage.delTaskFromStorage(task.toStringinFile());
         Cypher.lineBreak();
         System.out.println("Noted! I have removed this task:\n " + task);
         System.out.printf("Now you have %d task in the list%n", Cypher.taskList.size());
@@ -110,7 +116,8 @@ public class Cypher {
                         else if (deadlineSplit.length != 2 || deadlineSplit[1].trim().isEmpty()) {
                             throw new CypherException("No deadline is given. The format of the deadline command is:\n deadline <Description of task> /by <your preferred deadline>");
                         }
-                        Task deadline = new Deadline(deadlineSplit[0], deadlineSplit[1]);
+                        LocalDateTime by = LocalDateTime.parse(deadlineSplit[1].trim(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                        Task deadline = new Deadline(deadlineSplit[0], by);
                         Cypher.addToList(deadline);
                         file.addToStorage(deadline.toStringinFile());
                         break;
@@ -122,7 +129,9 @@ public class Cypher {
                         else if (eventSplit.length != 3 || eventSplit[1].trim().isEmpty() || eventSplit[2].trim().isEmpty()) {
                             throw new CypherException("To/from is not given properly. The format of the deadline command is:\n event <Description of task> /from <from time> /to <to time>");
                         }
-                        Task task = new Event(eventSplit[0], eventSplit[1], eventSplit[2]);
+                        LocalDateTime from = LocalDateTime.parse(eventSplit[1].trim(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                        LocalDateTime to = LocalDateTime.parse(eventSplit[2].trim(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                        Task task = new Event(eventSplit[0], from, to);
                         Cypher.addToList(task);
                         file.addToStorage(task.toStringinFile());
                         break;
@@ -163,7 +172,8 @@ public class Cypher {
                         } else if (delVal < 0) {
                             throw new CypherException("Enter a value above 0");
                         }
-                        Cypher.delTask(delVal);
+                        Cypher.delTask(delVal, file);
+
                         break;
                     default:
                         System.out.printf("\"%s\" is not a valid command. Type --help in order to see the list of valid commands (This feature is still under construction)\n", command[0]);
@@ -175,6 +185,10 @@ public class Cypher {
             } catch (NumberFormatException exp) {
                 Cypher.lineBreak();
                 System.out.println("That is not a valid command. You need to enter a valid integer. Type --help in order to see the list of valid commands (This feature is still under construction)");
+                Cypher.lineBreak();
+            } catch (DateTimeException exp) {
+                Cypher.lineBreak();
+                System.out.println("Enter a valid date and time in the format of yyyy-MM-dd HH:mm");
                 Cypher.lineBreak();
             }
             catch (IllegalArgumentException exp) {

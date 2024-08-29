@@ -2,6 +2,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.AbstractSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,13 +52,17 @@ public class Storage {
                     }
                     taskList.add(task);
                 } else if (taskLine[0].equals("D")) {
-                    Task task = new Deadline(taskLine[2], taskLine[3]);
+                    LocalDateTime by = LocalDateTime.parse(taskLine[3],DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                    Task task = new Deadline(taskLine[2], by);
                     if (taskLine[1].equals("1")) {
                         task.completeTask();
                     }
                     taskList.add(task);
                 } else if (taskLine[0].equals("E")){
-                    Task task = new Event(taskLine[2], taskLine[3], taskLine[4]);
+                    LocalDateTime from = LocalDateTime.parse(taskLine[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                    LocalDateTime to = LocalDateTime.parse(taskLine[4],DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
+                    Task task = new Event(taskLine[2], from, to);
                     if (taskLine[1].equals("1")) {
                         task.completeTask();
                     }
@@ -103,7 +110,38 @@ public class Storage {
             // Rewrite the file line by line with new changes
             FileWriter newFile = new FileWriter(this.filepath);
             for(String line: entireFile) {
-                System.out.println(line);
+                newFile.write(line + "\n");
+            }
+            newFile.close();
+
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    public void delTaskFromStorage (String oldData) {
+        try {
+            // Read the file into an array
+            List<String> entireFile = new ArrayList<>();
+            File file = new File(this.filepath);
+
+            Scanner fileScanner = new Scanner(file);
+
+            while(fileScanner.hasNextLine()) {
+                entireFile.add(fileScanner.nextLine());
+            }
+            fileScanner.close();
+
+            // Find the line we want to replace and change it
+            for (int i = 0; i < entireFile.size(); i ++) {
+                if (entireFile.get(i).equals(oldData)) {
+                    entireFile.remove(i);
+                    break;
+                }
+            }
+            // Rewrite the file line by line with new changes
+            FileWriter newFile = new FileWriter(this.filepath);
+            for(String line: entireFile) {
                 newFile.write(line + "\n");
             }
             newFile.close();
