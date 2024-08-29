@@ -7,6 +7,7 @@ import mgtow.ui.Ui;
 import mgtow.util.InvalidTaskException;
 import mgtow.util.Parser;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * Main class for the MGTOW (Man Going Their Own Way) task management application.
@@ -70,9 +71,16 @@ public class Mgtow {
                         tasks.addTask(newTask);
                         storage.saveTasks(tasks.getTasks());
                         break;
-                    case "find":
+                    case "date":
                         LocalDate date = Parser.parseDate(commandParts[1]);
                         ui.showTasksOnDate(tasks.getTasksOnDate(date), date);
+                        break;
+                    case "find":
+                        if (commandParts.length < 2 || commandParts[1].trim().isEmpty()) {
+                            throw new InvalidTaskException("Please provide a keyword to search for.");
+                        }
+                        ArrayList<Task> foundTasks = tasks.findTasks(commandParts[1]);
+                        ui.showFoundTasks(foundTasks, commandParts[1]);
                         break;
                     default:
                         throw new InvalidTaskException("What you talking?");
