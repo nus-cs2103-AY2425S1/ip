@@ -1,10 +1,19 @@
 package guy.tasks;
-import java.time.*;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * Representation of a task with a deadline.
+ */
 
 public class Deadline extends Task {
     protected LocalDateTime by;
 
+    /**
+     * Constructs a new Deadline task.
+     * @param name description of the task
+     * @param by the task's deadline
+     */
     public Deadline(String name, LocalDateTime by) {
         super(name);
         this.by = by;

@@ -1,20 +1,32 @@
 package guy.tasks;
 
-import java.time.*;
+import java.time.LocalDateTime;
+import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
 import guy.exception.GuyException;
 import java.util.*;
 
 import guy.storage.Storage;
 
+/**
+ * Class responsible for managing a list of tasks in the ThatOneGuy application.
+ * Only one instance of this class exists at a time.
+ */
 public class TaskManager {
     private static TaskManager tm;
     private final List<Task> tasks;
 
+    /**
+     * Constructs a new TaskManager object.
+     */
     public TaskManager() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Retrieves the instance of this class.
+     * @return the instance of TaskManager
+     */
     public static TaskManager getInstance() {
         if (tm == null) {
             tm = new TaskManager();
@@ -22,6 +34,10 @@ public class TaskManager {
         return tm;
     }
 
+    /**
+     * Loads a task from its string representation, adding it to the list.
+     * @param data string representation of the task
+     */
     public void loadData(String data) {
         try {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -36,7 +52,7 @@ public class TaskManager {
             };
 
             if (line[1].equals("1")) {
-                task.mark();
+                task.markComplete();
             }
             tasks.add(task);
 
@@ -45,6 +61,9 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Displays the list of tasks, or a rather rude message if no task exists.
+     */
     public void list() {
         int len = tasks.size();
         if (len == 0) {
@@ -58,10 +77,19 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Retrieves a copy of the task list.
+     * @return an ArrayList with the current tasks
+     */
     public ArrayList<Task> getTasks() {
         return new ArrayList<>(tasks);
     }
 
+    /**
+     * Marks a task as completed, screaming at the user if unable to do so.
+     * @param input index of the task to mark as done
+     * @throws GuyException if the input is missing/invalid/out of range, or the task list is empty
+     */
     public void markTask(String input) throws GuyException {
         if (tasks.isEmpty()) {
             throw new GuyException("You have nothing to do. You lazy or what?");
@@ -79,7 +107,7 @@ public class TaskManager {
             if (tasks.get(id).isComplete()) {
                 System.out.println("You dingus. This task was already done:");
             } else {
-                tasks.get(id).mark();
+                tasks.get(id).markComplete();
                 System.out.println("Eh. Consider this task done:");
             }
             Storage.saveData();
@@ -87,6 +115,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Marks a task as incomplete, screaming at the user if unable to do so.
+     * @param input index of the task to mark as not done
+     * @throws GuyException if the input is missing/invalid/out of range, or the task list is empty
+     */
     public void unmarkTask(String input) throws GuyException {
         if (tasks.isEmpty()) {
             throw new GuyException("You have nothing to do. You lazy or what?");
@@ -104,7 +137,7 @@ public class TaskManager {
             if (!tasks.get(id).isComplete()) {
                 System.out.println("You dingus. This task still hasn't been done:");
             } else {
-                tasks.get(id).unmark();
+                tasks.get(id).markIncomplete();
                 System.out.println("Sucks to be you. Looks like you haven't done this task:");
             }
             Storage.saveData();
@@ -112,6 +145,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds a new task to the list
+     * @param cmd the type of task to add, can be a todo/deadline/event
+     * @param input task description, including dates and times, where appropriate
+     * @throws GuyException if the input is invalid
+     */
     public void addTask(String cmd, String input) throws GuyException {
         try {
             if (input.isEmpty()) {
@@ -158,7 +197,12 @@ public class TaskManager {
         }
     }
 
-    public void deleteTask(String input) {
+    /**
+     * Removes a task from the list.
+     * @param input index of the task to remove
+     * @throws GuyException if the input is missing/invalid/out of range, or the task list is already empty
+     */
+    public void deleteTask(String input) throws GuyException {
         try {
             if (tasks.isEmpty()) {
                 throw new GuyException("You have nothing to delete. You dumb or what?");

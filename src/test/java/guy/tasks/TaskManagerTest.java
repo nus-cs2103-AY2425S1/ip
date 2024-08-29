@@ -1,7 +1,6 @@
 package guy.tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -13,9 +12,9 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import guy.exception.GuyException;
-
-
+/**
+ * Test class for the TaskManager class.
+ */
 public class TaskManagerTest {
     private static final ByteArrayOutputStream outContent =
             new ByteArrayOutputStream();
@@ -24,18 +23,27 @@ public class TaskManagerTest {
     private static final PrintStream originalOut = System.out;
     private static final PrintStream originalErr = System.err;
 
+    /**
+     * Sets up the output streams for testing.
+     */
     @BeforeAll
     public static void start() {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
     }
 
+    /**
+     * Resets the output streams after testing.
+     */
     @AfterAll
     public static void end() {
         System.setOut(originalOut);
         System.setErr(originalErr);
     }
 
+    /**
+     * Tests the TaskManager's response to being given an input with no description.
+     */
     @Test
     public void fieldlessTest() {
         Parser p = new Parser(new Scanner(new ByteArrayInputStream("event".getBytes())));
