@@ -8,6 +8,8 @@ mark 4
 todo borrow book
 list
 todo
+find book
+find blah blah blah
 deadline
 event project meeting /from 2024-07-08
 blah

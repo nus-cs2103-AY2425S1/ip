@@ -10,7 +10,6 @@ import wiggly.util.Storage;
 import wiggly.util.Ui;
 
 public class Wiggly {
-
 	private final Storage storage;
 	private TaskList taskList;
 	private final Ui ui;

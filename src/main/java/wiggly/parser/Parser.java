@@ -8,6 +8,7 @@ import wiggly.commands.AddCommand;
 import wiggly.commands.Command;
 import wiggly.commands.DeleteCommand;
 import wiggly.commands.ExitCommand;
+import wiggly.commands.FindCommand;
 import wiggly.commands.InvalidCommand;
 import wiggly.commands.ListCommand;
 import wiggly.commands.MarkCommand;
@@ -63,6 +64,8 @@ public class Parser {
 					return new MarkCommand(Integer.parseInt(description.trim()), false);
 				case "delete":
 					return new DeleteCommand(Integer.parseInt(description.trim()));
+				case "find":
+					return new FindCommand(description.trim());
 				default:
 					return new InvalidCommand();
 				}

@@ -11,6 +11,7 @@ public class Ui {
 	public static final String GREETING = "Hello! I'm Wiggly\n" +
 	                                       "What can I do for you?";
 	public static final String TASK_HEADER = "Here are the tasks in your list:";
+	public static final String SEARCH_HEADER = "Here are the matching tasks in your list:";
 	public static final String EXIT = "Bye. Hope to see you again soon!";
 
 	private final Scanner sc = new Scanner(System.in);

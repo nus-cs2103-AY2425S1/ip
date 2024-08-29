@@ -118,4 +118,22 @@ public class TaskList {
 
         return sb.toString();
     }
+
+    /**
+     * Returns a String representation of a filtered task list with tasks that passed {@code task.contains(keyword)}
+     * @param keyword The string to check
+     * @return The String representation of the filtered task list
+     */
+    public String search(String keyword) {
+        StringBuilder sb = new StringBuilder();
+        int count = 1;
+        for (Task t : tasks) {
+            if (t.contains(keyword)) {
+                sb.append(count).append(". ").append(t).append("\n");
+            }
+            count++;
+        }
+        return sb.toString();
+    }
+
 }
