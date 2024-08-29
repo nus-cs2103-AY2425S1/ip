@@ -2,6 +2,7 @@ package wenjigglybot;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -91,6 +92,12 @@ public class WenJigglyBot {
                 } catch (EventException eventException) {
                     System.out.println(eventException);
                 }
+                break;
+            case FIND:
+                strings = task.split(" ");
+                String title = strings[1];
+                List<Task> matchingTasks = tasks.searchAndListTasks(title);
+                ui.displayTasks(new TaskList(matchingTasks));
                 break;
             case DELETE:
                 strings = task.split(" ");
