@@ -41,6 +41,15 @@ public class Task {
     }
 
     /**
+     * Returns boolean representing status of task
+     *
+     * @return true if complete else false
+     */
+    public boolean isComplete() {
+        return this.complete;
+    }
+
+    /**
      * Marks task as complete
      *
      * @return String describing task

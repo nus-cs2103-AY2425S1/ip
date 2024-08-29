@@ -3,6 +3,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +16,8 @@ public class Talker {
     private static ArrayList<Task> list = new ArrayList<>();
     private static Path directoryPath = Paths.get("./data");
     private static Path filePath = Paths.get("./data/talker.txt");
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static void main(String[] args) {
 
@@ -48,6 +54,37 @@ public class Talker {
         System.out.print(LINE);
     }
 
+    public static void printTasksOn(String date) throws TalkerException {
+        LocalDate targetDate;
+        try {
+            String[] parsed = date.split(" ");
+            targetDate = LocalDate.parse(parsed[1], INPUT_FORMAT);
+        } catch (DateTimeException e) {
+            throw new TalkerException("Incorrect date format. Try again with: yyyy/MM/dd");
+        }
+        System.out.println("These are your tasks on " + targetDate.format(OUTPUT_FORMAT) + ":");
+        for (Task task: list) {
+            if (task instanceof Deadline) {
+                LocalDate deadline = ((Deadline) task).getDeadline().toLocalDate();
+                if (targetDate.isBefore(deadline) || targetDate.isEqual(deadline)) {
+                    if (!task.isComplete()) {
+                        System.out.println(task);
+                    }
+                }
+            } else if (task instanceof Event) {
+                Event eventTask = (Event) task;
+                LocalDate start = eventTask.getFrom().toLocalDate();
+                LocalDate end = eventTask.getTo().toLocalDate();
+                if ((targetDate.isAfter(start) || targetDate.isEqual(start))
+                        && (targetDate.isBefore(end) || targetDate.isEqual(end))) {
+                    if (!task.isComplete()) {
+                        System.out.println(task);
+                    }
+                }
+            }
+        }
+    }
+
     public static void readFile() throws TalkerException {
         try {
             if (Files.exists(directoryPath) &&
@@ -67,7 +104,7 @@ public class Talker {
 
     public static void readTaskFromFile(String taskString) throws TalkerException{
         String[] parsed = taskString.split(" \\| ");
-        boolean isComplete = false;
+        boolean isComplete;
 
         if (parsed[1].equals("X") || parsed[1].equals(" ")) {
             isComplete = parsed[1].equals("X");
@@ -103,29 +140,32 @@ public class Talker {
     private static void manageInputs(String input) throws TalkerException {
         String[] parsed = input.split(" ");
         switch (parsed[0]) {
-            case "list":
-                listTasks();
-                break;
-            case "mark":
-                markTaskComplete(parsed);
-                break;
-            case "unmark":
-                unmarkTaskComplete(parsed);
-                break;
-            case "delete":
-                deleteTask(parsed);
-                break;
-            case "todo":
-                createToDo(input);
-                break;
-            case "deadline":
-                createDeadline(input);
-                break;
-            case "event":
-                createEvent(input);
-                break;
-            default:
-                throw new TalkerException("Unknown command!");
+        case "list":
+            listTasks();
+            break;
+        case "mark":
+            markTaskComplete(parsed);
+            break;
+        case "unmark":
+            unmarkTaskComplete(parsed);
+            break;
+        case "delete":
+            deleteTask(parsed);
+            break;
+        case "todo":
+            createToDo(input);
+            break;
+        case "deadline":
+            createDeadline(input);
+            break;
+        case "event":
+            createEvent(input);
+            break;
+        case "date":
+            printTasksOn(input);
+            break;
+        default:
+            throw new TalkerException("Unknown command!");
         }
     }
 
@@ -221,7 +261,7 @@ public class Talker {
             System.out.println(newTask);
             System.out.printf("Now you have %d tasks in the list.\n", list.size());
         } catch (IndexOutOfBoundsException e) {
-            throw new TalkerException("ToDo must have a description");
+            throw new TalkerException("ToDo format wrong. Try again with: todo <description>");
         }
     }
 
@@ -240,7 +280,8 @@ public class Talker {
             System.out.println(newTask);
             System.out.printf("Now you have %d tasks in the list.\n", list.size());
         } catch (IndexOutOfBoundsException e) {
-            throw new TalkerException("Deadline format wrong. Try again with: deadline <description> /by <deadline>");
+            throw new TalkerException(
+                    "Deadline format wrong. Try again with: deadline <description> /by <dd-MM-yyyy HH:mm>");
         }
     }
 
@@ -262,7 +303,8 @@ public class Talker {
             System.out.printf("Now you have %d tasks in the list.\n", list.size());
         } catch (IndexOutOfBoundsException e) {
             throw new TalkerException(
-                    "Event format wrong. Try again with: event <description> /from <start> /to <end>");
+                    "Event format wrong. Try again with: event <description> " +
+                            "/from <dd-MM-yyyy HH:mm> /to <dd-MM-yyyy HH:mm>");
         }
     }
 }
