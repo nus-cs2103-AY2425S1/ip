@@ -1,5 +1,9 @@
 package jarvis;
 
+/**
+ * Parser will parse the user input, and generate working
+ * text that is fed to the tasklist to generate tasks
+ */
 public class Parser {
     public static void parse(String input, TaskList tasklist) {
         if (input.equals("list")) {
