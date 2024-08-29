@@ -2,6 +2,9 @@ package Boombotroz;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Deals with DEADLINE typed task.
+ */
 public class Deadline extends Task {
     String time;
 
@@ -11,6 +14,9 @@ public class Deadline extends Task {
 
     }
 
+    /**
+     * @inheritDoc
+     */
     public void hasDate(Ui ui) throws BoomException {
         if (this.time.matches("\\d{4}-\\d{2}-\\d{2}")) {
             LocalDate d1 = LocalDate.parse(this.time);
@@ -21,6 +27,9 @@ public class Deadline extends Task {
 
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String toString() {
         String s;

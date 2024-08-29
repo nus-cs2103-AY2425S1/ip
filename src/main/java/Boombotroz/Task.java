@@ -1,5 +1,8 @@
 package Boombotroz;
 
+/**
+ * Deals with creation of task.
+ */
 public abstract class Task {
     boolean mark;
     String task;
@@ -10,8 +13,17 @@ public abstract class Task {
 
     }
 
+    /**
+     * Checks if time for the tasks is in yyyy-mm-dd format.
+     *
+     * @param ui handles errors that may occur.
+     * @throws BoomException If invalid deadline / time period given.
+     */
     public abstract void hasDate(Ui ui) throws BoomException;
 
+    /**
+     * Returns string representation of the task.
+     */
     @Override
     public String toString() {
         String s;

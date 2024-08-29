@@ -5,6 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Deals with loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
     String filePath;
 
@@ -13,6 +16,12 @@ public class Storage {
 
     }
 
+    /**
+     * Prints all the tasks stored in the text file.
+     *
+     * @param task_list list of all the tasks
+     * @throws FileNotFoundException If no such file in directory.
+     */
     public void printTasks(TaskList task_list) throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
@@ -72,6 +81,12 @@ public class Storage {
         s.close();
     }
 
+    /**
+     * Writes the task into the text file.
+     *
+     * @param task task to be written
+     * @throws IOException If writing to file has issue.
+     */
     public void writeTasks(String task) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(task);

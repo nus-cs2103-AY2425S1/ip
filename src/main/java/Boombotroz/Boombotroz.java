@@ -3,6 +3,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ Main class where execution occurs
+ */
+
 public class Boombotroz {
     private Ui ui;
     private Storage storage;
@@ -28,6 +32,9 @@ public class Boombotroz {
 
     }
 
+    /**
+     * Loads input to return corresponding output
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();

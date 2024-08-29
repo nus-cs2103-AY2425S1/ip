@@ -1,13 +1,33 @@
 package Boombotroz;
 import java.io.IOException;
 
+/**
+ * Deals with making sense of the user command.
+ */
 public class Parser {
 
+    /**
+     * Prints out all the tasks in task_list
+     *
+     * @param task_list list of all the tasks.
+     */
     public void getList(TaskList task_list) {
         task_list.printAll();
 
     }
 
+    /**
+     * Marks the specified task with X based on position given by input.
+     * Stores the task into txt file.
+     * If the position is invalid, will throw exception.
+     *
+     * @param task_list list of all the tasks.
+     * @param input input given by user.
+     * @param storage file that stores current state of task_list.
+     * @param ui handles errors that may occur.
+     * @throws BoomException If position not given OR position out of range.
+     * @throws IOException If writing to file has issue.
+     */
     public void markTask(TaskList task_list, String input,
             Storage storage, Ui ui)
                     throws BoomException, IOException {
@@ -17,6 +37,18 @@ public class Parser {
 
     }
 
+    /**
+     * Unmarks the specified task with based on position given by input.
+     * Stores the task into txt file.
+     * If the position is invalid, will throw exception.
+     *
+     * @param task_list list of all the tasks.
+     * @param input input given by user.
+     * @param storage file that stores current state of task_list.
+     * @param ui handles errors that may occur.
+     * @throws BoomException If position not given OR position out of range.
+     * @throws IOException If writing to file has issue.
+     */
     public void unmarkTask(TaskList task_list, String input,
             Storage storage, Ui ui)
                     throws BoomException, IOException {
@@ -26,6 +58,18 @@ public class Parser {
 
     }
 
+    /**
+     * Deletes the specified task based on position given by input.
+     * Stores the task into txt file.
+     * If the position is invalid, will throw exception.
+     *
+     * @param task_list list of all the tasks.
+     * @param input input given by user.
+     * @param storage file that stores current state of task_list.
+     * @param ui handles errors that may occur.
+     * @throws BoomException If position not given OR position out of range.
+     * @throws IOException If writing to file has issue.
+     */
     public void deleteTask(TaskList task_list, String input,
             Storage storage, Ui ui)
                     throws BoomException, IOException {
@@ -35,6 +79,18 @@ public class Parser {
 
     }
 
+    /**
+     * Creates TODO typed task.
+     * Stores the task into txt file.
+     * If the input is invalid, will throw exception.
+     *
+     * @param task_list list of all the tasks.
+     * @param input input given by user.
+     * @param storage file that stores current state of task_list.
+     * @param ui handles errors that may occur.
+     * @throws BoomException If no task details given.
+     * @throws IOException If writing to file has issue.
+     */
     public void toDoTask(TaskList task_list, String input,
             Storage storage, Ui ui)
                     throws BoomException, IOException {
@@ -50,6 +106,18 @@ public class Parser {
 
     }
 
+    /**
+     * Creates DEADLINE typed task.
+     * Stores the task into txt file.
+     * If the input is invalid, will throw exception.
+     *
+     * @param task_list list of all the tasks.
+     * @param input input given by user.
+     * @param storage file that stores current state of task_list.
+     * @param ui handles errors that may occur.
+     * @throws BoomException If no task details OR no deadline given.
+     * @throws IOException If writing to file has issue.
+     */
     public void deadlineTask(TaskList task_list, String input,
             Storage storage, Ui ui)
                     throws BoomException, IOException {
@@ -71,6 +139,18 @@ public class Parser {
 
     }
 
+    /**
+     * Creates EVENT typed task.
+     * Stores the task into txt file.
+     * If the input is invalid, will throw exception.
+     *
+     * @param task_list list of all the tasks.
+     * @param input input given by user.
+     * @param storage file that stores current state of task_list.
+     * @param ui handles errors that may occur.
+     * @throws BoomException If no task details OR invalid time period given.
+     * @throws IOException If writing to file has issue.
+     */
     public void eventTask(TaskList task_list, String input,
             Storage storage, Ui ui)
                     throws BoomException, IOException {

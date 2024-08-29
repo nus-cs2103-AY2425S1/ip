@@ -2,6 +2,9 @@ package Boombotroz;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Deals with Event typed task.
+ */
 public class Event extends Task {
     String time_start;
     String time_end;
@@ -14,6 +17,9 @@ public class Event extends Task {
 
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public void hasDate(Ui ui) throws BoomException {
         if (time_start.matches("\\d{4}-\\d{2}-\\d{2}")
@@ -28,6 +34,9 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String toString() {
         String s;
