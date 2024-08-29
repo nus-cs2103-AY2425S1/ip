@@ -8,13 +8,34 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manages the loading and saving of tasks to and from a file.
+ * <p>
+ * The Storage class handles reading tasks from a specified file and writing tasks back to the file.
+ * It ensures the file and its directories exist, and can handle errors related to file operations.
+ * </p>
+ */
 public class Storage {
     private String filepath;
 
+    /**
+     * Constructs a Storage object with the given file path.
+     *
+     * @param filepath The path to the file where tasks will be loaded from and saved to
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
     }
 
+    /**
+     * Loads saved tasks from the file into the provided task list.
+     * <p>
+     * Reads each line from the file, parses the task data, and adds the tasks to the provided TaskList.
+     * Handles different task types (Todo, Deadline, Event) and checks for missing information.
+     * </p>
+     *
+     * @param taskList The list to add the loaded tasks to and keep track of them
+     */
     public void loadSavedData(ArrayList<Task> taskList) {
         File savedData = new File(filepath);
         File dataDirectory = savedData.getParentFile();
@@ -75,6 +96,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the provided tasks to the file.
+     * <p>
+     * Writes each task's formatted string representation to the file.
+     * </p>
+     *
+     * @param tasks The list of Task objects to be saved to the file
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         try (FileWriter writer = new FileWriter(filepath)) {
             for (Task task : tasks) {
@@ -85,4 +114,3 @@ public class Storage {
         }
     }
 }
-
