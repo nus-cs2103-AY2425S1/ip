@@ -71,6 +71,10 @@ public class Bob {
                     ui.replyDelete(Integer.parseInt(strArr[1]) - 1, tasklist);
                     storage.updateDataFile(tasklist.getList());
                     break;
+
+                case "find":
+                    ui.replyFind(strArr[1], tasklist);
+                    break;
                     
                 default:
                     throw new CommandNotFoundException();
