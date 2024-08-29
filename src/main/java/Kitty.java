@@ -106,7 +106,9 @@ public class Kitty {
         Scanner sc = new Scanner(System.in);
         while (true) {
             command = sc.nextLine();
-            if (command.contains("bye")) {
+            if (command.contains("find")) {
+                find(command);
+            } else if (command.contains("bye")) {
                 Exit();
                 return;
             } else if (command.contains("list")) {
@@ -125,6 +127,31 @@ public class Kitty {
                 System.out.println(DIVISION_LINE);
             }
         }
+    }
+
+    /**
+     * Searches for the Task with keyword in the name.
+     * 
+     * @param str The keyword.
+     */
+    public static void find(String str) {
+        try {
+            String[] aux = str.split(" ");
+            if (aux.length != 2) {
+                throw new FindException();
+            }
+
+            System.out.println(DIVISION_LINE);
+            System.out.println("Meow~ Here you are!");
+            TASKS.stream().filter(task -> task.containsKeyword(aux[1]))
+                    .forEach(System.out::println);
+            System.out.println("\n" + DIVISION_LINE);
+
+        } catch (FindException e) {
+            System.out.println(e);
+            System.out.println("\n" + DIVISION_LINE);
+        }
+
     }
 
     /**

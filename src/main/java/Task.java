@@ -44,6 +44,15 @@ abstract class Task {
     }
 
     /**
+     * Checks if the Task contains the keyword to utilize searching.
+     *
+     * @param key The keyword to check.
+     */
+    public boolean containsKeyword(String key) {
+        return name.contains(key);
+    }
+
+    /**
      * Returns Task description in String for ChatBot interaction.
      */
     @Override
