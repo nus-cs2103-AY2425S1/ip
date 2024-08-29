@@ -1,14 +1,12 @@
 package bao.task;
 
 import bao.main.Bao;
-
 import java.time.LocalDateTime;
 
 /**
  * The Task class represents a task with a description and a completion status.
  * It is an abstract class that provides methods applicable for all types of tasks.
  */
-
 public abstract class Task {
     protected String description;
     protected boolean isDone;
