@@ -54,5 +54,5 @@ public abstract class Task {
         } else {
             return "0 | " + this.description;
         }
-    };
+    }
 }

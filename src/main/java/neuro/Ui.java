@@ -21,9 +21,12 @@ public class Ui {
         System.out.println("    ___________________________________________________");
     }
 
+<<<<<<< HEAD
     /**
      * Shows the Welcome message for Neuro.
      */
+=======
+>>>>>>> branch-A-CodingStandard
     public void showWelcome() {
         showLine();
         System.out.println("    Hii, I'm Neuro, your chatbot assistant!");
