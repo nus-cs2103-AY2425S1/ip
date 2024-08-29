@@ -1,7 +1,5 @@
 package src.main.java;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
@@ -10,7 +8,7 @@ public class Ui {
     public Ui () {
     }
 
-    protected static void init() {
+    protected static void init() throws DeadlineFormatException, EmptyTodoException, UnknownCommandException {
         System.out.println("Hello I'm Bonnie, what is your name?");
 
         Scanner scannerObj = new Scanner(System.in);
@@ -32,7 +30,7 @@ public class Ui {
         // Ui needs to continuously call Parser to parse tasks
         while (true) {
             String input = scannerObj.nextLine();
-
+            Parser.parseInput(input);
         }
     }
 

@@ -2,6 +2,7 @@ package src.main.java;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,6 +18,7 @@ public class Storage {
     public Storage() {
     }
 
+    // Prepare the file for reading and writing
     protected static void init() {
         f = new File("ip/src/main/java/Files/tasks.txt");
         try {
@@ -61,6 +63,19 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred when starting the app.");
+            e.printStackTrace();
+        }
+    }
+
+    protected static void updateFile() {
+        try {
+            FileWriter writer = new FileWriter("ip/src/main/java/Files/tasks.txt");
+            for (int i = 0; i < TaskList.getSize(); i++) {
+                writer.write(String.format("%s\n", TaskList.getTasks().get(i).toString()));
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error updating tasks file!");
             e.printStackTrace();
         }
     }
