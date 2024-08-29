@@ -1,9 +1,12 @@
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Tudee {
     enum Command {
-        LIST, BYE, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, UNKNOWN
+        LIST, BYE, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, DATE, UNKNOWN
     }
     public static void main(String[] args) {
         String logo = "____________________________________________________________ \n"
@@ -82,7 +85,39 @@ public class Tudee {
                     System.out.println(temp);
                     System.out.println("Now you have " + count + " tasks in the list. \n");
                     System.out.println("____________________________________________________________ \n");
-                } else {
+                } else if (cmd == Command.DATE) {
+                    if (inputArray.length <= 1) {
+                        throw new TudeeException("Tell me the date you want to check for.");
+                    } else {
+                        try {
+                            LocalDate inputDate = LocalDate.parse(inputArray[1]);
+                            boolean haveTask = false;
+                            for (Task task : list) {
+                                if (task instanceof Deadline) {
+                                    Deadline deadline = (Deadline) task;
+                                    if (deadline.getDateTime().isEqual(inputDate)) {
+                                        System.out.println(deadline);
+                                        haveTask = true;
+                                    }
+                                }
+                                else if (task instanceof Events) {
+                                    Events events = (Events) task;
+                                    if ((events.getStart().isBefore(inputDate) && events.getEnd().isAfter(inputDate)) || events.getStart().isEqual(inputDate) || events.getEnd().isEqual(inputDate)){
+                                        System.out.println(events);
+                                        haveTask = true;
+                                    }
+                                }
+                            }
+                            if (!haveTask) {
+                                System.out.println("You have no tasks on this date, " + inputDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ".");
+                            }
+                        }
+                        catch (DateTimeParseException e) {
+                            System.out.println("Invalid date format, Please use yyyy-MM-dd.");
+                        }
+                    }
+                }
+                else {
                     throw new TudeeException("Everything has limits, and this is my limit.");
                 }
                 storage.save(list);
@@ -119,6 +154,9 @@ public class Tudee {
         }
         else if (command.equalsIgnoreCase("delete")) {
             return Command.DELETE;
+        }
+        else if (command.equalsIgnoreCase("date")) {
+            return Command.DATE;
         }
         else {
             return Command.UNKNOWN;
