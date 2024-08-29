@@ -5,6 +5,7 @@ package dgpt.exception;
  * This exception is used by the {@code Storage} class when it cannot locate the file specified.
  */
 public class DgptFileNotFoundException extends Exception {
+
     public DgptFileNotFoundException(String message) {
         super(message);
     }

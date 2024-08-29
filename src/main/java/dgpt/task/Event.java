@@ -12,11 +12,11 @@ import java.time.format.DateTimeParseException;
  * </p>
  */
 public class Event extends Task {
+
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-
-    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy, h:mma");
+    private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy, h:mma");
 
     /**
      * Constructs a {@code Event} task with the specified description, start time and end time.
@@ -34,9 +34,13 @@ public class Event extends Task {
         this.endTime = LocalDateTime.parse(endTime, inputFormatter);
     }
 
-    public String getFromTime() { return this.startTime.format(outputFormatter); }
+    public String getFromTime() {
+        return this.startTime.format(outputFormatter);
+    }
 
-    public String getToTime() { return this.endTime.format(outputFormatter); }
+    public String getToTime() {
+        return this.endTime.format(outputFormatter);
+    }
 
     @Override
     public String toString() {
