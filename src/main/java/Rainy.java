@@ -7,30 +7,18 @@ public class Rainy {
         Storage storage = new Storage();
         ui.welcomeMessage();
         TaskTracker tm;
+        Parser ps = new Parser();
         File newFile = new File("src/main/java/Rainy.txt");
         tm = storage.copyPreviousFiles(newFile);
         tm.receivedFirstInput();
         Scanner sc = new Scanner(System.in);
         String messages = sc.nextLine();
-        String[] input = messages.split(" ");
-        String[] splitByTask = messages.split("/");
-        String message = input[0];
-        int count;
-        if ((message.equals("mark") || message.equals("unmark") || message.equals("delete")) && input.length == 2) {
-            try {
-                count = Integer.parseInt(input[1]);
-            } catch (Exception e) {
-                count = -1;
-            }
-        } else {
-            count = -1;
-        }
-        Instructions instruction;
-        try {
-            instruction = Instructions.valueOf(message.toUpperCase());
-        } catch(Exception e) {
-            instruction = Instructions.INVALID;
-        }
+        ps.firstInput(messages);
+        String[] input = ps.getInput();
+        String[] splitByTask = ps.getSplitByTask();
+        String message = ps.getMessage();
+        int count = ps.getCount();
+        Instructions instruction = ps.enumOperator(message);
         while(instruction != Instructions.BYE) {
             switch (instruction) {
                 case LIST:
@@ -75,6 +63,10 @@ public class Rainy {
                     } else {
                         tm.updateListToDo(splitByTask[0].substring(5));
                     }
+                    if (tm.getCounter() > 0) {
+                        File f = new File("src/main/java/Rainy.txt");
+                        storage.writeOverFile(f, tm);
+                    }
                     break;
                 case DEADLINE:
                     if (input.length == 1) {
@@ -87,6 +79,10 @@ public class Rainy {
                     else {
                         tm.updateListDeadline(splitByTask[0].substring(9), "" + splitByTask[3].substring(0, 4) + "-" + splitByTask[2] + "-" + splitByTask[1].substring(3, 5) + " " + splitByTask[3].substring(5, 9));
                     }
+                    if (tm.getCounter() > 0) {
+                        File f = new File("src/main/java/Rainy.txt");
+                        storage.writeOverFile(f, tm);
+                    }
                     break;
                 case EVENT:
                     if (input.length == 1) {
@@ -95,6 +91,10 @@ public class Rainy {
                         ui.invalidEventDate();
                     } else {
                         tm.updateListEvent(splitByTask[0].substring(6), splitByTask[3].substring(0, 4) + "-" + splitByTask[2] + "-" + splitByTask[1].substring(3, 5), splitByTask[4]);
+                    }
+                    if (tm.getCounter() > 0) {
+                        File f = new File("src/main/java/Rainy.txt");
+                        storage.writeOverFile(f, tm);
                     }
                     break;
                 case SORT:
@@ -106,23 +106,12 @@ public class Rainy {
                     break;
             }
             messages = sc.nextLine();
-            input = messages.split(" ");
-            splitByTask = messages.split("/");
-            message = input[0];
-            if ((message.equals("mark") || message.equals("unmark") || message.equals("delete")) && input.length == 2) {
-                try {
-                    count = Integer.parseInt(input[1]);
-                } catch (Exception e) {
-                    count = -1;
-                }
-            } else {
-                count = -1;
-            }
-            try {
-                instruction = Instructions.valueOf(message.toUpperCase());
-            } catch (Exception e) {
-                instruction = Instructions.INVALID;
-            }
+            ps.firstInput(messages);
+            input = ps.getInput();
+            splitByTask = ps.getSplitByTask();
+            message = ps.getMessage();
+            count = ps.getCount();
+            instruction = ps.enumOperator(message);
         }
         if (tm.getCounter() >= 0) {
             File f = new File("src/main/java/Rainy.txt");
