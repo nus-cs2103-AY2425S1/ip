@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -36,6 +37,8 @@ public class TalkaBot {
                     this.unmark(input);
                 } else if (input.toLowerCase().startsWith("delete")) {
                     this.delete(input);
+                } else if (input.toLowerCase().startsWith("get day")) {
+                    this.getDay(input);
                 } else if (input.toLowerCase().startsWith("todo")) {
                     if (input.length() < 6) {
                         throw new InvalidScheduleException();
@@ -77,6 +80,8 @@ public class TalkaBot {
                 }
             } catch (TalkaBotException e) {
                 Message.error(e.getMessage());
+            } catch (DateTimeException e) {
+                Message.error("Sorry, I need a valid date format! For example: yyyy-mm-dd");
             }
         }
         Message.goodbye();
@@ -119,6 +124,14 @@ public class TalkaBot {
         Task task = this.list.remove(Integer.parseInt(input.substring(7)) - 1);
         Message.delete(task, this.list.size());
         storage.save(this.list);
+    }
+
+    private void getDay(String input) throws InvalidEditException {
+        if (!isValidNumber(input, 8)) {
+            throw new InvalidEditException("get the day of");
+        }
+        Task task = this.list.get(Integer.parseInt(input.substring(8)) - 1);
+        Message.getDay(task);
     }
 
     public static void main(String[] args) {
