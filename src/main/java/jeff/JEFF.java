@@ -7,6 +7,11 @@ import jeff.task.Task;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Main class that runs the JEFF chatbot.
+ *
+ * JEFF is a task management application that allows users to create and manage tasks.
+ */
 public class JEFF {
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static final String DIR_PATH = "./data";
@@ -17,6 +22,9 @@ public class JEFF {
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructs a JEFF application with the specified file path for storage.
+     */
     public JEFF() {
         this.ui = new Ui();
         this.storage = new Storage(DIR_PATH, FILE_PATH);
@@ -26,6 +34,9 @@ public class JEFF {
         new JEFF().run();
     }
 
+    /**
+     * Runs the JEFF application, handling user input and executing commands.
+     */
     public void run() {
         // Load saved files (if any)
         tasks =  new TaskList(storage.loadData());

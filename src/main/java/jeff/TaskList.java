@@ -4,6 +4,11 @@ import jeff.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Manages the list of tasks.
+ *
+ * The TaskList class provides methods to add, delete, and retrieve tasks from the list.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -11,6 +16,11 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList object with an existing list of tasks.
+     *
+     * @param tasks The list of tasks to initialize the TaskList with.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }

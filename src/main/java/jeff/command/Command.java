@@ -5,6 +5,13 @@ import jeff.Ui;
 import jeff.Storage;
 import jeff.exceptions.JEFFException;
 
+/**
+ * Abstract base class for all commands.
+ *
+ * The Command class provides a common interface for all commands that can be executed
+ * by the JEFF application. Each specific command (e.g., MarkCommand, DeleteCommand)
+ * should extend this class and implement the execute method.
+ */
 public abstract class Command {
 
     /**
