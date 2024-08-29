@@ -1,4 +1,4 @@
-Hello! I'm Prince!
+Hello! I'm prince.Prince!
 What would you like me to add to your TODO list today?
 Got it. I've added this task:
   [T][ ] play basketball
