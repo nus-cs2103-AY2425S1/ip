@@ -7,14 +7,30 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and saving of tasks to and from a file for the Bob chatbot.
+ * The Storage class ensures that tasks are persistently stored and retrieved when needed.
+ */
 public class Storage {
 
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path where tasks are stored.
+     *
+     * @param filePath The file path where the tasks are saved.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by the file path.
+     * The method reads from the file, parses the stored tasks, and returns them as an ArrayList.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws ChatBotException If an error occurs during reading the file or parsing the tasks.
+     */
     public ArrayList<Task> load() throws ChatBotException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -35,6 +51,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the current list of tasks to the file specified by the file path.
+     * This method overwrites the file with the current tasks, ensuring persistence.
+     *
+     * @param tasks An ArrayList of Task objects to be saved to the file.
+     * @throws ChatBotException If an error occurs during writing the tasks to the file.
+     */
     public void save(ArrayList<Task> tasks) throws ChatBotException {
         try {
             String directoryPath = "./data";
