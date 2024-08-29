@@ -6,20 +6,77 @@ import Exception.MissingDateException;
 import Exception.EmptyDescriptionException;
 import enums.TaskType;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Chatgpt {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) throws EmptyDescriptionException {
+
+        File file = new File("./data/duke.txt");
+        try {
+            Scanner fileScanner = new Scanner(file);
+
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                String[] split = line.split(" \\| ");
+                switch (split[0]) {
+                    case "TODO":
+                        if (split[1] == "1") {
+                            Todo todo = new Todo(split[2]);
+                            todo.markDone();
+                            tasks.add(todo);
+                        } else {
+                            Todo todo = new Todo(split[2]);
+                            todo.markDone();
+                        };
+                        break;
+
+                    case "DEADLINE":
+                        if (split[1] == "1") {
+                            Deadline deadline = new Deadline(split[2], split[3]);
+                            deadline.markDone();
+                            tasks.add(deadline);
+                        } else {
+                            Deadline deadline = new Deadline(split[2], split[3]);
+                            tasks.add(deadline);
+                        }
+                        break;
+                    case "EVENT":
+                        if (split[1] == "1") {
+                            Event event = new Event(split[2], split[3], split[4]);
+                            event.markDone();
+                            tasks.add(event);
+                        } else {
+                            Event event = new Event(split[2], split[3], split[4]);
+                            tasks.add(event);
+                        }
+                        break;
+                }
+            }
+            fileScanner.close();
+        } catch (FileNotFoundException e) {
+            new File("./data").mkdirs();
+            try {
+                file.createNewFile();
+            } catch (Exception ex) {
+                System.out.println("Unable to create data file.");
+            }
+        }
+
         System.out.println("Hello! I'm chatbot lisWhat can I do for you?");
+
+        Scanner scanner = new Scanner(System.in);
 
         while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
             try {
                 if (input.equals("bye")) {
+                    saveTasksToFile();
                     System.out.println("Bye. Hope to see you again soon!");
                     break;
                 } else if (input.startsWith("delete")) {
@@ -42,6 +99,7 @@ public class Chatgpt {
                 } else {
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
+
             } catch (EmptyDescriptionException | MissingDateException e) {
                 System.out.println(e.getMessage());
             }
@@ -50,10 +108,16 @@ public class Chatgpt {
     }
 
     private static void deleteTask(int id) {
-        System.out.println("     Noted. I've removed this task:\n" +
-                tasks.get(id) + "\n" +
-                "     Now you have 4 tasks in the list.!");
-        tasks.remove(id);
+        if (id < 0 || id >= tasks.size()) {
+            System.out.println("Task ID is out of range!");
+            return;
+        }
+
+        Task removedTask = tasks.remove(id); // Removes the task and captures it for confirmation message
+        System.out.println("Noted. I've removed this task:\n  " + removedTask);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+
+        saveTasksToFile(); // Update the file after deleting the task
     }
 
     private static void listTasks() {
@@ -78,13 +142,28 @@ public class Chatgpt {
         }
         String description = input.substring(5).trim();
         tasks.add(new Todo(description));
+        saveTasksToFile();
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + new Todo(description));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void addMarkedTodoTask(String input) throws EmptyDescriptionException {
+        if (input.trim().length() <= 5) {
+            throw new EmptyDescriptionException("OPS!!! The description of a todo cannot be empty.");
+        }
+        String description = input.substring(5).trim();
+        Todo todo = new Todo(description);
+        todo.markDone();
+        tasks.add(todo);
+
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + new Todo(description));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     private static void addDeadlineTask(String input) throws EmptyDescriptionException, MissingDateException {
-        String[] parts = input.split(" /by ");
+        String[] parts = input.split(" / ");
         if (parts.length < 2) {
             throw new MissingDateException("OPS!!! The date of a deadline cannot be empty.");
         }
@@ -94,13 +173,14 @@ public class Chatgpt {
         }
         String by = parts[1].trim();
         tasks.add(new Deadline(description, by));
+        saveTasksToFile();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + new Deadline(description, by));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     private static void addEventTask(String input) throws EmptyDescriptionException, MissingDateException {
-        String[] parts = input.split(" /from | /to ");
+        String[] parts = input.split(" / | / ");
         if (parts.length < 3) {
             throw new MissingDateException("OPS!!! The start or end time of an event cannot be missing.");
         }
@@ -111,8 +191,25 @@ public class Chatgpt {
         String start = parts[1].trim();
         String end = parts[2].trim();
         tasks.add(new Event(description, start, end));
+        saveTasksToFile();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + new Event(description, start, end));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void saveTasksToFile() {
+        File file = new File("./data/duke.txt");  // Create a File object to handle file operations
+        try {
+            // Print the absolute path of the file
+            System.out.println("Saving tasks to file: " + file.getAbsolutePath());
+
+            PrintWriter writer = new PrintWriter(file);
+            for (Task task : tasks) {
+                writer.println(task.toFileFormat());
+            }
+            writer.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error writing to file.");
+        }
     }
 }

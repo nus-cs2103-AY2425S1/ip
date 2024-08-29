@@ -34,6 +34,11 @@ public class Task {
         isDone = true;
     }
 
+    public String toFileFormat() {
+        String marked = isDone ? "1" : "0";
+        return taskType.name()+ " | " + marked + " | " + description;
+    }
+
     public void unmarkDone() {
         isDone = false;
     }
