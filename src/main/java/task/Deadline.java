@@ -42,6 +42,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + " by " + dueDate;
+        return super.toString() + " (by: " + dueDate + ")";
     }
 }

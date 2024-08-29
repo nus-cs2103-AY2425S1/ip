@@ -18,6 +18,6 @@ public class TimeSpecificDeadline extends Deadline {
 
     @Override
     public String toString() {
-        return super.toString() + " at " + dueTime;
+        return super.toString().replaceFirst("\\)", " at " + dueTime + ")");
     }
 }
