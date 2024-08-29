@@ -1,6 +1,5 @@
 package hoshi.utils;
 
-import hoshi.Hoshi;
 import hoshi.task.Task;
 import hoshi.task.TaskList;
 import hoshi.task.Todo;
@@ -34,7 +33,7 @@ public class ParserTest {
     }
 
     @Test
-    public void handleMarkTest_success(){
+    public void handleMarkTest_markCompleted_success(){
 
         // prepare mocked objects/behaviour and input
 
@@ -63,7 +62,7 @@ public class ParserTest {
     }
 
     @Test
-    public void handleMarkTest_invalidIndex(){
+    public void handleMarkTest_invalidIndex_errorDisplayed(){
 
         // prepare mocked objects/behaviour and input
 
@@ -85,7 +84,7 @@ public class ParserTest {
     }
 
     @Test
-    public void handleUnmarkTest_success(){
+    public void handleUnmarkTest_unmarkCompleted_success(){
 
         // prepare mocked objects/behaviour and input
 
@@ -113,7 +112,7 @@ public class ParserTest {
     }
 
     @Test
-    public void handleUnMarkTest_invalidIndex(){
+    public void handleUnMarkTest_invalidIndex_errorDisplayed(){
 
         // prepare mocked objects/behaviour and input
 
@@ -133,7 +132,7 @@ public class ParserTest {
     }
 
     @Test
-    public void handleDeleteTest_success(){
+    public void handleDeleteTest_deleteCompleted_success(){
 
         // prepare mocked objects/behaviour and input
 
@@ -160,7 +159,7 @@ public class ParserTest {
     }
 
     @Test
-    public void handleDeleteTest_invalidIndex(){
+    public void handleDeleteTest_invalidIndex_errorDisplayed(){
 
         // prepare mocked objects/behaviour and input
 
@@ -181,7 +180,7 @@ public class ParserTest {
     }
 
     @Test
-    public void handleAddTest_success(){
+    public void handleAddTest_addCompleted_success(){
 
         // prepare mocked objects/behaviour and input
 
@@ -201,7 +200,7 @@ public class ParserTest {
     }
 
     @Test
-    public void handleAddTest_emptyDescription(){
+    public void handleAddTest_emptyDescription_errorDisplayed(){
 
         // prepare mocked objects/behaviour and input
 

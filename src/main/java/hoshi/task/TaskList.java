@@ -1,7 +1,5 @@
 package hoshi.task;
 
-import hoshi.task.Task;
-
 import java.util.ArrayList;
 
 public class TaskList {
