@@ -22,5 +22,11 @@ public class Parser {
         return args;
     }
 
+    public static String[] parseDeadline(String input) {
+        String[] args = input.trim().split("/");
+        args[0] = args[0].trim();
+        args[1] = args[1].trim().substring(3);
+        return args;
+    }
 
 }

@@ -26,10 +26,11 @@ public class TaskList {
 
     public String showTasks(){
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size() - 1; i++) {
             result.append(list.get(i));
             result.append("\n");
         }
+        result.append(list.get(list.size() - 1));
         return result.toString();
     }
 

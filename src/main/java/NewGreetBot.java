@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
+
 //the design of the class is referring to https://github.com/david-eom/CS2103T-IP/blob/master/src/main/java/duke/Duke.java#L150
 public class NewGreetBot {
 
@@ -52,14 +55,10 @@ public class NewGreetBot {
         } else if (keyword.equals("TODO")) {
             return this.addTodo(Parser.parseTodo(segment[1]));
         } else if (keyword.equals("EVENT")) {
-            String[] args = Parser.parseEvent(segment[1]);
-            for (int i = 0; i < args.length; i++) {
-                System.out.println(args[i]);
-            }
-            return this.addEvent(args);
-        }/* else if (keyword.equals("DEADLINE")) {
-            return ui.addDeadline()
-        } else if (keyword.equals("DELETE")) {
+            return this.addEvent(Parser.parseEvent(segment[1]));
+        } else if (keyword.equals("DEADLINE")) {
+            return this.addDeadline(Parser.parseDeadline(segment[1]));
+        }/* else if (keyword.equals("DELETE")) {
             return ui.delete()
         }*/ else {
             return "";
@@ -88,6 +87,15 @@ public class NewGreetBot {
         return this.ui.showAdd(event, this.tasks.getLength());
     }
 
+    private String addDeadline(String[] args) {
+        try {
+            Task deadline = new Task.Deadline(args[0], args[1]);
+            this.tasks.add(deadline);
+            return this.ui.showAdd(deadline, this.tasks.getLength());
+        } catch (DateTimeParseException e) {
+            return "wrong time format for deadline task!";
+        }
+    }
     public static void main(String[] args) {
         new NewGreetBot("data/greetbot.txt").run();
     }

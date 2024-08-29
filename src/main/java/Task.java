@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 abstract class Task {
@@ -95,8 +96,11 @@ abstract class Task {
 
         public Deadline(String description, String by) {
             super(description);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            this.by = LocalDate.parse(by.substring(by.indexOf(" ") + 1), formatter);
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                this.by = LocalDate.parse(by.substring(by.indexOf(" ") + 1), formatter);
+
+
         }
 
         public LocalDate getBy() {
