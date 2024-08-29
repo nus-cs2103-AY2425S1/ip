@@ -5,72 +5,35 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-/**
- * Represents a list of tasks. Supports task management, including adding,
- * deleting, marking, unmarking, listing tasks, and filtering by date.
- */
+
 public class TaskList {
 
     private ArrayList<Task> tasks;
 
-    /**
-     * Initializes an empty TaskList.
-     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
-    /**
-     * Initializes the TaskList with a provided list of tasks.
-     *
-     * @param tasks An ArrayList of existing tasks to initialize the list with.
-     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
-    /**
-     * Sets the tasks in the TaskList.
-     *
-     * @param tasks The ArrayList of tasks to set.
-     */
     public void setTasks(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
-    /**
-     * Returns the task at the specified index.
-     *
-     * @param index The index of the task to retrieve.
-     * @return The task at the specified index.
-     */
     public Task getTask(int index) {
         return tasks.get(index);
     }
 
-    /**
-     * Returns the list of tasks.
-     *
-     * @return An ArrayList of tasks.
-     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
-    /**
-     * Returns the number of tasks in the list.
-     *
-     * @return The size of the task list.
-     */
     public int size() {
         return tasks.size();
     }
 
-    /**
-     * Lists all tasks in the task list and prints them to the console.
-     *
-     * @param ui The Ui instance used to interact with the user.
-     */
     public void listTasks(Ui ui) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -78,13 +41,6 @@ public class TaskList {
         }
     }
 
-    /**
-     * Marks a task as done based on the index provided.
-     *
-     * @param index The index of the task to mark as done.
-     * @param ui The Ui instance used to interact with the user.
-     * @throws ChatBotException If the index is invalid.
-     */
     public void markTask(int index, Ui ui) throws ChatBotException {
         try {
             if (index >= 0 && index < tasks.size()) {
@@ -98,13 +54,6 @@ public class TaskList {
         }
     }
 
-    /**
-     * Unmarks a task as not done based on the index provided.
-     *
-     * @param index The index of the task to unmark as not done.
-     * @param ui The Ui instance used to interact with the user.
-     * @throws ChatBotException If the index is invalid.
-     */
     public void unmarkTask(int index, Ui ui) throws ChatBotException {
         try {
             if (index >= 0 && index < tasks.size()) {
@@ -118,13 +67,6 @@ public class TaskList {
         }
     }
 
-    /**
-     * Deletes a task based on the index provided.
-     *
-     * @param index The index of the task to delete.
-     * @param ui The Ui instance used to interact with the user.
-     * @throws ChatBotException If the index is invalid.
-     */
     public void deleteTask(int index, Ui ui) throws ChatBotException {
         try {
             if (index >= 0 && index < tasks.size()) {
@@ -139,13 +81,6 @@ public class TaskList {
         }
     }
 
-    /**
-     * Adds a new ToDo task to the task list.
-     *
-     * @param phrase The full command input by the user.
-     * @param ui The Ui instance used to interact with the user.
-     * @throws ChatBotException If the description of the todo is empty.
-     */
     public void addToDo(String phrase, Ui ui) throws ChatBotException {
         if (phrase.length() <= 5) {
             throw new ChatBotException("The description of a todo cannot be empty.");
@@ -156,13 +91,6 @@ public class TaskList {
         ui.showTaskAdded(newTask, tasks.size());
     }
 
-    /**
-     * Adds a new Deadline task to the task list.
-     *
-     * @param phrase The full command input by the user.
-     * @param ui The Ui instance used to interact with the user.
-     * @throws ChatBotException If the input format is invalid.
-     */
     public void addDeadline(String phrase, Ui ui) throws ChatBotException {
         try {
             String[] parts = phrase.split(" /by ");
@@ -172,18 +100,11 @@ public class TaskList {
             tasks.add(newTask);
             ui.showTaskAdded(newTask, tasks.size());
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new ChatBotException("Invalid format for deadline. "
-                    + "Correct format: deadline <description> /by <yyyy-MM-dd HHmm>");
+            throw new ChatBotException("Invalid format for deadline. " +
+                    "Correct format: deadline <description> /by <yyyy-MM-dd HHmm>");
         }
     }
 
-    /**
-     * Adds a new Event task to the task list.
-     *
-     * @param phrase The full command input by the user.
-     * @param ui The Ui instance used to interact with the user.
-     * @throws ChatBotException If the input format is invalid.
-     */
     public void addEvent(String phrase, Ui ui) throws ChatBotException {
         try {
             String[] parts = phrase.split(" /from | /to ");
@@ -194,18 +115,11 @@ public class TaskList {
             tasks.add(newTask);
             ui.showTaskAdded(newTask, tasks.size());
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new ChatBotException("Invalid format for event. "
-                    + "Correct format: event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
+            throw new ChatBotException("Invalid format for event. " +
+                    "Correct format: event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
         }
     }
 
-    /**
-     * Prints tasks occurring on a specified date. Supports Deadline and Event tasks.
-     *
-     * @param date The date to filter tasks by, in yyyy-MM-dd format.
-     * @param ui The Ui instance used to interact with the user.
-     * @throws ChatBotException If the input date format is invalid.
-     */
     public void printTasksOnDate(String date, Ui ui) throws ChatBotException {
         LocalDate searchDate;
         try {
@@ -215,8 +129,7 @@ public class TaskList {
         }
 
         ui.showLine();
-        System.out.println("Here are your tasks on "
-                + searchDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+        System.out.println("Here are your tasks on " + searchDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
         for (Task task : tasks) {
             if (task instanceof Deadline) {
                 LocalDate taskDate = ((Deadline) task).getDeadline().toLocalDate();
@@ -231,4 +144,36 @@ public class TaskList {
             }
         }
     }
+
+    /**
+     * Searches for tasks in the task list that contain the specified keyword in their descriptions.
+     *
+     * @param phrase The input phrase containing the find command and the keyword to search for.
+     * @param ui The user interface object used to display results to the user.
+     * @throws ChatBotException If the keyword is empty or if there is an error during the search.
+     */
+    public void searchKeyword(String phrase, Ui ui) throws ChatBotException {
+        if (phrase.length() <= 5) {
+            throw new ChatBotException("The key of a find command cannot be empty.");
+        }
+
+        String[] tmp = phrase.split(" ", 2);
+        String key = tmp[1];
+        boolean found = false;
+        ArrayList<Task> tasksWithKey = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(key.toLowerCase())) {
+                tasksWithKey.add(task);
+                found = true;
+            }
+        }
+
+        if (found) {
+            ui.showTasksFound(tasksWithKey);
+        } else {
+            ui.showError("No tasks found containing the key: " + key);
+        }
+    }
+
 }
