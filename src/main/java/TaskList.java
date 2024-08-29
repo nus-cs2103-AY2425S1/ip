@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
     private final ArrayList<Task> taskList;
@@ -10,27 +11,47 @@ public class TaskList {
     public void addTask(Task task) {
         this.taskList.add(task);
     }
+    public void addTaskAtIndex(int index, Task task) {
+        this.taskList.add(index, task);
+    }
 
-    public void deleteTask(int index) {
+    public void deleteTaskAtIndex(int index) {
         this.taskList.remove(index);
     }
 
+
+
+
     public Task getTask(int index) {
         return this.taskList.get(index);
+    }
+
+    public void markTask(int index) {
+        this.taskList.get(index).setIsDone(true);
+    }
+
+    public void unmarkTask(int index) {
+        this.taskList.get(index).setIsDone(false);
+    }
+
+    public boolean isValidIndex(int trueIndex) {
+        return trueIndex >= 0 && trueIndex < getTaskListSize();
     }
 
     public int getTaskListSize() {
         return this.taskList.size();
     }
 
-    public void enumerateList() {
+    public String printList() {
         if (taskList.isEmpty()) {
-            System.out.print("Your Task List is Empty.\n");
+            return "Your Task List is Empty.\n";
         }
 
+        List<String> taskStrings = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
-            String printFormat = String.format("%d %s", i + 1, this.getTask(i));
-            System.out.println(printFormat);
+            taskStrings.add(String.format("%d %s", i + 1, this.getTask(i)));
         }
+        String returnListMessage = String.join("\n", taskStrings);
+        return returnListMessage;
     }
 }
