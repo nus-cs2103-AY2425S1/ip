@@ -1,10 +1,15 @@
 package shrimp;
 
+import shrimp.command.AddCommand;
+import shrimp.command.DeleteCommand;
+import shrimp.command.ListCommand;
+import shrimp.command.MarkCommand;
 import shrimp.exception.ShrimpException;
 import shrimp.task.*;
 import shrimp.utility.AnsiCode;
 import shrimp.utility.Parser;
 import shrimp.utility.Storage;
+import shrimp.utility.Ui;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -21,26 +26,16 @@ public class Shrimp {
     }
 
     static void programStart() {
-        String greetings = "Domo! Same desu~ I am shrimp, and I am happy to assist you! Hewwo? <3\n";
-        String logo = """
-                
-                       .__          .__               \s
-                  _____|  |_________|__| _____ ______ \s
-                 /  ___/  |  \\_  __ \\  |/     \\\\____ \\\s
-                 \\___ \\|   Y  \\  | \\/  |  Y Y  \\  |_> >
-                /____  >___|  /__|  |__|__|_|  /   __/\s
-                     \\/     \\/               \\/|__|   \s
-                                                      \s
-                """;
-        String output = greetings + logo;
-        System.out.println(AnsiCode.CYAN + output);
-        chatBotRun();
+        Ui ui = new Ui();
+
+        ui.printLogo();
+        ui.printWelcome();
+
+        chatBotRun(ui);
     }
 
-    static void chatBotRun() {
-        //scans for user's command
-        Scanner sc = new Scanner(System.in);
-        String userInput, output;
+    static void chatBotRun(Ui ui) {
+        String userInput;
         TaskList taskList;
 
         try {
@@ -50,10 +45,9 @@ public class Shrimp {
             taskList = new TaskList();
         }
 
-
         while (true) {
             try {
-                userInput = sc.nextLine();  //read the next line of user input
+                userInput = ui.nextLine();  //read the next line of user input
                 if (userInput == null || userInput.isEmpty()) {
                     throw new ShrimpException.InvalidCommandException();
                 }
@@ -62,20 +56,15 @@ public class Shrimp {
 
                 switch (commandType) {
                     case BYE: //exits the program
-                        programExit();
+                        ui.printExit();
                         return;
 
                     case LIST:
                         if (taskList.getCount() == 0) {
                             throw new ShrimpException.EmptyArrayException();
                         }
-                        System.out.println("Gotchaaa~ Here's the list so far:");
-                        for (int i = 0; i < taskList.getCount(); i++) {
-                            Task task = taskList.getTask(i);
-                            output = String.format("    %s.%s", i + 1, task);
-                            System.out.println(AnsiCode.PURPLE + output + AnsiCode.CYAN);
-                        }
-                        System.out.printf("Lemme count~ You now have %s item(s) in your list!%n", taskList.getCount());
+                        ListCommand listCommand = new ListCommand();
+                        listCommand.run(taskList, ui);
                         break;
 
                     case MARK:
@@ -85,12 +74,8 @@ public class Shrimp {
                         } else if (taskList.getCount() == 0) {
                             throw new ShrimpException.EmptyArrayException();
                         }
-                        Task oldTaskMark = taskList.getTask(indexMark);
-                        Task updatedTaskMark = oldTaskMark.markAsDone();
-                        taskList.replaceTask(indexMark, updatedTaskMark);
-                        output = "heya~ I've checked this task as complete! Feels good, right?";
-                        System.out.println(output);
-                        System.out.println("    " + updatedTaskMark);
+                        MarkCommand markCommand = new MarkCommand(indexMark, true);
+                        markCommand.run(taskList, ui);
                         break;
 
                     case UNMARK:
@@ -100,12 +85,8 @@ public class Shrimp {
                         } else if (taskList.getCount() == 0) {
                             throw new ShrimpException.EmptyArrayException();
                         }
-                        Task oldTaskUnmark = taskList.getTask(indexUnmark);
-                        Task updatedTaskUnmark = oldTaskUnmark.markAsNotDone();
-                        taskList.replaceTask(indexUnmark, updatedTaskUnmark);
-                        output = "Whoops~ I've unchecked the task as incomplete! Be careful next time~";
-                        System.out.println(output);
-                        System.out.println("    " + updatedTaskUnmark);
+                        MarkCommand markUnmarkCommand = new MarkCommand(indexUnmark, false);
+                        markUnmarkCommand.run(taskList, ui);
                         break;
 
                     case DELETE:
@@ -115,12 +96,8 @@ public class Shrimp {
                         } else if (taskList.getCount() == 0) {
                             throw new ShrimpException.EmptyArrayException();
                         }
-                        Task taskDeleted = taskList.getTask(indexDelete);
-                        taskList.deleteTask(indexDelete);
-                        output = "Done! The task has been deleted!";
-                        System.out.println(output);
-                        System.out.println("    " + taskDeleted);
-                        System.out.printf("You now have %s item(s) in your list!%n", taskList.getCount());
+                        DeleteCommand deleteCommand = new DeleteCommand(indexDelete);
+                        deleteCommand.run(taskList, ui);
                         break;
 
                     case ADD:
@@ -129,9 +106,8 @@ public class Shrimp {
                         }
                         String input = userInput.substring(5);
                         Todo newTodo = new Todo(input, NEW_EVENT_NOT_DONE); //creates a new Task.Task object
-                        taskList.addTask(newTodo);
-                        output = "rawr! '" + input + "' has been added to the list~";
-                        System.out.println(output);
+                        AddCommand addTodo = new AddCommand(newTodo);
+                        addTodo.run(taskList, ui);
                         break;
 
                     case DEADLINE:
@@ -142,10 +118,8 @@ public class Shrimp {
                         String deadlineDescription = deadlineDetails[0].substring(9); // Extracting the task description
                         LocalDateTime by = getDateTime(deadlineDetails[1].trim());
                         Task newDeadline = new Deadline(deadlineDescription, by, NEW_EVENT_NOT_DONE);
-                        taskList.addTask(newDeadline);
-                        System.out.println("Gotchaa~ I've added this shrimp.task:");
-                        System.out.println("    " + newDeadline);
-                        System.out.println("You now have " + taskList.getCount() + " task(s) in the list~");
+                        AddCommand addDeadline = new AddCommand(newDeadline);
+                        addDeadline.run(taskList, ui);
                         break;
 
                     case EVENT:
@@ -157,10 +131,8 @@ public class Shrimp {
                         LocalDateTime from = getDateTime(eventDetails[1].trim());
                         LocalDateTime to = getDateTime(eventDetails[2].trim());
                         Task newEvent = new Event(eventDescription, from, to, NEW_EVENT_NOT_DONE);
-                        taskList.addTask(newEvent);
-                        System.out.println("Gotchaa~ I've added this task:");
-                        System.out.println("    " + newEvent);
-                        System.out.println("You now have " + taskList.getCount() + " task(s) in the list~");
+                        AddCommand addEvent = new AddCommand(newEvent);
+                        addEvent.run(taskList, ui);
                         break;
 
                     default:
