@@ -23,7 +23,7 @@ public class Parser {
 
     public enum CommandType {
         BYE, LIST, MARK, UNMARK, DELETE,
-        TODO, EVENT, DEADLINE, INVALID
+        TODO, EVENT, DEADLINE, FIND, INVALID
     }
 
     public static CommandType parseCommand(String input) {
@@ -36,6 +36,7 @@ public class Parser {
             case "todo": return CommandType.TODO;
             case "event": return CommandType.EVENT;
             case "deadline": return CommandType.DEADLINE;
+            case "find": return CommandType.FIND;
             default: return CommandType.INVALID;
         }
     }
@@ -69,6 +70,9 @@ public class Parser {
                 return true;
             case DEADLINE:
                 handleDeadline(input);
+                return true;
+            case FIND:
+                handleFind(input);
                 return true;
             case INVALID:
                 handleInvalid(input);
@@ -159,5 +163,15 @@ public class Parser {
 
     private void handleInvalid(String input) {
         ui.invalidMsg();
+    }
+
+    public void handleFind(String input) {
+        String keyword = input.split(" ", 2)[1].trim();
+        TaskList findList = list.findTask(keyword);
+        if (findList.getSize() == 0) {
+            ui.noFindMsg();
+        } else {
+            ui.findMsg(findList);
+        }
     }
 }
