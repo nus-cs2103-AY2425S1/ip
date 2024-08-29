@@ -28,14 +28,19 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("pixel.Pixel")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveClassifier = null
+    archiveFileName = "pixel.jar"
 }
 
 run{
     standardInput = System.in
+}
+
+task printJarFile {
+    doLast {
+        println "JAR file location: ${shadowJar.archiveFile.get().asFile.absolutePath}"
+    }
 }
