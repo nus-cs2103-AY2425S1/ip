@@ -31,7 +31,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     public void delete(int deleteNumber) {
-        tasks.remove(deleteNumber -1);
+        tasks.remove(deleteNumber - 1);
     }
 
     public boolean isEmpty() {

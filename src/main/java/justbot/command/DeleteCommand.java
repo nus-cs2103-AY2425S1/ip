@@ -12,6 +12,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int deleteNumber) {
         this.deleteNumber = deleteNumber;
     }
+
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {

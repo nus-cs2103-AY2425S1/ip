@@ -25,6 +25,7 @@ public class Justbot {
         }
 
     }
+
     public void run() {
         ui.botIntro();
         boolean isExit = false;

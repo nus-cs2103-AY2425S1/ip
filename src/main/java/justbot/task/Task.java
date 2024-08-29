@@ -18,9 +18,11 @@ public abstract class Task {
 
         return this.description;
     }
+
     public boolean getIsDone() {
         return this.isDone;
     }
+
     public String getIsDoneString() {
         if (this.isDone) {
             return "X";

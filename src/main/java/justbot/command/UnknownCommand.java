@@ -10,6 +10,7 @@ public class UnknownCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ui.invalidCommandMessage();
     }
+
     @Override
     public Task getTask() {
         return null;

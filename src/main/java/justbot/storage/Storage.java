@@ -67,7 +67,8 @@ public class Storage {
                             + "from " + event.getStart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"))
                             + " to " + event.getEnd().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
                 } else {
-                    taskString = "Todo | " + task.getIsDoneString() + " | " + task.getTaskDescription() + " | No time constraint";
+                    taskString = "Todo | " + task.getIsDoneString() + " | " + task.getTaskDescription() +
+                            " | No time constraint";
                 }
                 writeToFile(filePath, taskString + "\n", true);
             }
@@ -97,27 +98,27 @@ public class Storage {
                 Task task;
                 try {
                     switch (type) {
-                        case TODO:
-                            task = new Todo(description);
-                            break;
-                        case DEADLINE:
-                            String deadlineDateTimeString = timeConstraint.replace("by:", "").trim();
-                            LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineDateTimeString, formatter);
-                            task = new Deadline(description, deadlineDateTime);
-                            break;
-                        case EVENT:
-                            String[] timeParts = timeConstraint.split(" to ");
-                            if (timeParts.length < 2) {
-                                throw new IllegalArgumentException("Event time constraint is malformed: " + timeConstraint);
-                            }
-                            LocalDateTime start = LocalDateTime.parse(timeParts[0].replace("from ", "").trim(), formatter);
-                            LocalDateTime end = LocalDateTime.parse(timeParts[1].trim(), formatter);
-                            task = new Event(description, start, end);
-                            break;
-                        default:
-                            System.out.println(line);
-                            System.out.println("Skipping unknown task type: " + type);
-                            continue;
+                    case TODO:
+                        task = new Todo(description);
+                        break;
+                    case DEADLINE:
+                        String deadlineDateTimeString = timeConstraint.replace("by:", "").trim();
+                        LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineDateTimeString, formatter);
+                        task = new Deadline(description, deadlineDateTime);
+                        break;
+                    case EVENT:
+                        String[] timeParts = timeConstraint.split(" to ");
+                        if (timeParts.length < 2) {
+                            throw new IllegalArgumentException("Event time constraint is malformed: " + timeConstraint);
+                        }
+                        LocalDateTime start = LocalDateTime.parse(timeParts[0].replace("from ", "").trim(), formatter);
+                        LocalDateTime end = LocalDateTime.parse(timeParts[1].trim(), formatter);
+                        task = new Event(description, start, end);
+                        break;
+                    default:
+                        System.out.println(line);
+                        System.out.println("Skipping unknown task type: " + type);
+                        continue;
                     }
 
                     if (isDoneString.equals("x")) {
