@@ -36,32 +36,14 @@ public class Toothless {
                 "See you soon!\n\n" + divider);
     }
 
+    /**
+     * Splits the task into two parts.
+     * @param task The task to be split.
+     * @return An array of strings containing the split task.
+     */
     public String[] splitFirst(String task) {
         String[] result = task.split(" ", 2);
         return result;
-    }
-    /**
-     * Adds a task to the task list.
-     * @param input The task to be added.
-     */
-    public void addTask(String input) {
-        String splitDescription[] = splitFirst(input);
-        String taskType = splitDescription[0];
-        String description = splitDescription[1];
-
-        if(taskType.equals("todo")) {
-            list.add(new ToDos(description));
-        } else if(taskType.equals("deadline")) {
-            String[] splitDeadline = description.split("/by");
-            list.add(new Deadline(splitDeadline[0], splitDeadline[1]));
-        } else if(taskType.equals("event")) {
-            String[] splitEvent = description.split("/from");
-            String[] splitTiming = splitEvent[1].split("/to");
-            list.add(new Events(splitEvent[0], splitTiming[0], splitTiming[1]));
-        }
-
-        System.out.println("Toothless:\nYour task [" + input + "] added to the quest board!\n" +
-                "Now there is " + list.size() + " quests in your quest board.\n\n" + divider);
     }
 
     /**
@@ -86,7 +68,7 @@ public class Toothless {
         int fixedIndex = index - 1;
         Task currentTask = list.get(fixedIndex);
         currentTask.markAsDone();
-        System.out.println("Toothless:\nGood job! You had completed this quest!:\n" +
+        System.out.println("Toothless:\nGood job! You had completed this quest!\n" +
               currentTask.toString() + "\n\n" + divider);
     }
 
@@ -98,8 +80,87 @@ public class Toothless {
         int fixedIndex = index - 1;
         Task currentTask = list.get(fixedIndex);
         currentTask.markAsUndone();
-        System.out.println("Toothless:\nOops! Quest is back in play! :\n" +
+        System.out.println("Toothless:\nOops! Quest is back in play!\n" +
                 currentTask.toString() + "\n\n" + divider);
+    }
+    public void addTask(String taskType, String description) throws ToothlessExceptions {
+        switch(taskType) {
+            case "todo":
+                if(description.isEmpty()) {
+                    throw new NoDescription("todo", "todo <description>");
+                }
+                list.add(new ToDos(description));
+                break;
+            case "deadline":
+                if(description.isEmpty()) {
+                    throw new NoDescription("deadline", "deadline <description> /by <timing>");
+                } else if(!description.contains("/by")) {
+                    throw new NoTimeline("deadline", "deadline <description> /by <timing>");
+                }
+                String[] splitDeadline = description.split("/by");
+                list.add(new Deadline(splitDeadline[0], splitDeadline[1]));
+                break;
+            case "event":
+                if(description.isEmpty()) {
+                    throw new NoDescription("event", "event <description> /from <start time> /to <end time>");
+                } else if(!description.contains("/from") || !description.contains("/to")) {
+                    throw new NoTimeline("event", "event <description> /from <start time> /to <end time>");
+                }
+                break;
+            default:
+                throw new ToothlessExceptions("I don't understand that command.\n" +
+                        "Please enter a valid command. :)\n\n" + divider);
+        }
+
+        System.out.println("Toothless:\nYour task [" + description + "] added to the quest board!\n" +
+                "Now there is " + list.size() + " quests in your quest board.\n\n" + divider);
+
+    }
+    /**
+     * Executes the commands given by the user.
+     * @param input The command given by the user.
+     * @throws ToothlessExceptions If the command is invalid.
+     */
+    public void commands(String input) throws ToothlessExceptions {
+        String[] splitInput = input.split(" ", 2);
+        String command = splitInput[0];
+        String description = splitInput.length < 2? "" : splitInput[1];
+
+        switch(command) {
+            case "todo" :
+            case "deadline" :
+            case "event":
+                addTask(command, description);
+                break;
+            case "list":
+                printTask();
+                break;
+            case "mark":
+                if(description.isEmpty()) {
+                    throw new MissingIndex("mark", "mark <index>");
+                }
+                int markIndex = Integer.parseInt(description);
+                if(markIndex > list.size() || markIndex < 1) {
+                    throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n" +
+                            divider);
+                }
+                markDone(markIndex);
+                break;
+            case "unmark":
+                if(description.isEmpty()) {
+                    throw new MissingIndex("unmark", "unmark <index>");
+                }
+                int unmarkIndex = Integer.parseInt(description);
+                if(unmarkIndex > list.size() || unmarkIndex < 1) {
+                    throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n" +
+                            divider);
+                }
+                markUndone(unmarkIndex);
+                break;
+            default:
+                throw new ToothlessExceptions("I don't understand that command.\n" +
+                        "Please enter a valid command. :)\n\n" + divider);
+        }
     }
 
     /**
@@ -117,21 +178,16 @@ public class Toothless {
             System.out.println("You :");
             String userInput = sc.nextLine();
             System.out.println("\n" + divider);
+
             if (userInput.equals("bye")) {
                 printGoodbyeMessage();
                 break;
-            } else if (userInput.equals("list")) {
-                printTask();
-            } else if (userInput.startsWith("mark")) {
-                String[] splitNum = userInput.split(" ");
-                int index = Integer.parseInt(splitNum[1]);
-                markDone(index);
-            } else if (userInput.startsWith("unmark")) {
-                String[] splitNum = userInput.split(" ");
-                int index = Integer.parseInt(splitNum[1]);
-                markUndone(index);
-            } else {
-                addTask(userInput);
+            }
+
+            try {
+                commands(userInput);
+            } catch (ToothlessExceptions e) {
+                System.out.println(e.getMessage());
             }
         }
 
