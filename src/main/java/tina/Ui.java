@@ -46,4 +46,12 @@ public class Ui {
         }
         sc.close();
     }
+
+    public String runInput(TaskList tasks, String input) {
+        try {
+            return Parser.parseInput(input, tasks);
+        } catch (TinaException e) {
+            return (e.getMessage());
+        }
+    }
 }

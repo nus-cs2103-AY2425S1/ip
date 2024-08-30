@@ -8,6 +8,7 @@ public class Tina {
     public Tina(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+        tasks = new TaskList(storage);
     }
 
     public void run() {
@@ -15,6 +16,10 @@ public class Tina {
         tasks = new TaskList(storage);
         ui.doTask(tasks);
         ui.exit();
+    }
+
+    public String getResponse(String input) {
+        return ui.runInput(tasks, input);
     }
 
     public static void main(String[] args) {
