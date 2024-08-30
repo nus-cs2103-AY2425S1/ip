@@ -1,9 +1,7 @@
+package easton;
+
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Easton {
 
@@ -215,7 +213,7 @@ public class Easton {
                 try {
                     task = new Deadline(data[2], data[3]);
                 } catch (DateTimeFormatException e) {
-                    Ui.displayText("Deadline (" +
+                    Ui.displayText("easton.Deadline (" +
                             data[2] +
                             ") is using the wrong DateTime Format, the record is voided.");
                     continue;
@@ -225,7 +223,7 @@ public class Easton {
                 try {
                     task = new Event(data[2], data[3], data[4]);
                 } catch (DateTimeFormatException e) {
-                    Ui.displayText("Event ("+
+                    Ui.displayText("easton.Event ("+
                             data[2] +
                             ") is using the wrong DateTime Format, the record is voided.");
                     continue;
