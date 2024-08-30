@@ -11,11 +11,15 @@ public class Ui {
         }
     }
     public static void quoteSinglelineText(String line, StringBuilder sb) {
+        String prefix = "\n|  ";
+        if (sb.isEmpty()) {
+            prefix = "|  ";
+        }
         if (line.trim().isEmpty()) {
-            sb.append("\n |");
+            sb.append(prefix.replaceAll(" ",""));
         } else {
-            sb.append("\n |  ");
-            sb.append(line);
+            sb.append(prefix);
+            sb.append(line.replaceAll("\n", ""));
         }
     }
     private static String quoteMultilineText(String text) {
