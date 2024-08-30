@@ -9,6 +9,8 @@ import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class Snowy {
@@ -55,32 +57,40 @@ public class Snowy {
 
     public static class Deadline extends Task {
 
-        protected String by;
+        protected LocalDateTime by;
 
         public Deadline(String description, String by) {
             super(description);
-            this.by = by;
+            this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         }
 
         @Override
         public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
+            String formattedDate = by.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a"));
+            return "[D]" + super.toString() + " (by: " + formattedDate + ")";
         }
     }
 
     public static class Event extends Task {
-        protected String from;
-        protected String to;
+        protected LocalDateTime from;
+        protected LocalDateTime to;
 
-        public Event(String description, String from, String to) {
+        public Event(String description, String from, String to) throws SnowyException {
             super(description);
-            this.from = from;
-            this.to = to;
+            this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+
+            if (!this.from.isBefore(this.to)) {
+                throw new SnowyException("The 'from' date must be before the 'to' date.");
+            }
+
         }
 
         @Override
         public String toString() {
-            return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+            String formattedFrom = from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a"));
+            String formattedTo = to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a"));
+            return "[E]" + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
         }
     }
 
@@ -100,12 +110,8 @@ public class Snowy {
             try {
                 if (Files.notExists(dataDirectoryPath)) {
                     Files.createDirectories(dataDirectoryPath);
-                    System.out.println("Directory created: " + dataDirectoryPath);
                 } if (Files.notExists(taskFilePath)) {
                     Files.createFile(taskFilePath);
-                    System.out.println("File created: " + taskFilePath.getFileName());
-                } else {
-                    System.out.println("File already exists");
                 }
 
                 BufferedWriter writer = new BufferedWriter(new FileWriter(taskFilePath.toString(), true));
@@ -189,7 +195,7 @@ public class Snowy {
             if (taskList.isEmpty()) {
                 throw new SnowyException("No tasks in list.");
             }
-            if (index >=0 && index < taskList.size()) {
+            if (index >=0 && index <= taskList.size()) {
                 Task task = taskList.get(index - 1);
                 System.out.println("Removed task:\n " + task);
                 taskList.remove(index - 1);
@@ -341,5 +347,7 @@ public class Snowy {
                 System.out.println(e.getMessage());
             }
         }  System.out.println("Bye. See you next time!");
+
+
     }
 }
