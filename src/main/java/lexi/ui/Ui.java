@@ -112,6 +112,19 @@ public class Ui {
     }
 
     /**
+     * Displays the list of matching tasks to the user.
+     *
+     * @param tasks The list of tasks to be displayed.
+     */
+    public void showListOfMatchingTasks(ArrayList<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currtask = tasks.get(i);
+            System.out.printf("  %d. %s%n", i + 1, currtask);
+        }
+    }
+
+    /**
      * Displays an error message to the user.
      *
      * @param message The error message to be displayed.

@@ -41,6 +41,16 @@ public class Task {
     }
 
     /**
+     * Checks if the task name contains the specified query string.
+     *
+     * @param query The string to search for within the task name.
+     * @return {@code true} if the task name contains the query string, {@code false} otherwise.
+     */
+    public boolean containsQuery(String query) {
+        return taskName.contains(query);
+    }
+
+    /**
      * Returns the string representation of the task.
      * The string includes the status of the task (done or not done) and the task's name.
      *
