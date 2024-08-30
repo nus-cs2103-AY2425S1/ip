@@ -9,6 +9,7 @@ public enum Command {
     EVENT,
     DELETE,
     BYE,
+    FIND,
     UNKNOWN;
 
     public static Command fromString(String command) {
