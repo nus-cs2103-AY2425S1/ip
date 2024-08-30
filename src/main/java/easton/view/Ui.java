@@ -1,12 +1,14 @@
+package easton.view;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui<T> {
 
-    private static final String CHATBOT_NAME = "Easton";
+    private static final String CHATBOT_NAME = "easton.Easton";
     private Scanner scanner;
 
-    Ui() {
+    public Ui() {
         scanner = new Scanner(System.in);
     }
 
