@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.DateTimeException;
@@ -5,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.*;
 import java.io.File;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 class Task {
@@ -98,11 +98,16 @@ class TimoException extends Exception {
 
 }
 
+//Storage: beginning I read from the file, end I update the file
+class Storage {
+    private final String filepath;
 
+    public Storage(String filepath) {
+        this.filepath = filepath;
+    }
 
-public class Timo{
-    public static void main(String[] args) throws TimoException, IOException {
-        File f = new File("list.txt");
+    public List<Task> load() throws FileNotFoundException {
+        File f = new File(this.filepath);
 
         //initialise array to store the values
         List<Task> arr = new ArrayList<Task>();
@@ -147,178 +152,298 @@ public class Timo{
                     } else {
                         arr.add(new Event(false, split_up[0], split_up[1], split_up[2]));
                     }
-
                 }
             }
+            return arr;
+        } else {
+            throw new FileNotFoundException("file not found!");
         }
 
-        //output the list at the start
-        System.out.println("----------------------------");
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 1; i <= arr.size(); i++) {
-            Task chosen = arr.get(i - 1);
-            System.out.println(i + ". " + chosen);
+    }
+
+    public void store(List<Task> arr) {
+        //create new file if file does not exist
+        File file = new File(this.filepath);
+
+
+        try {
+            boolean filecreated = file.createNewFile();
+            //delete all contents in the file
+            FileWriter fil = new FileWriter(this.filepath);
+            fil.write("");
+            fil.close();
+
+
+            //create filewriter to append to file
+            FileWriter fw = new FileWriter(this.filepath, true);
+            for (Task i: arr) {
+                fw.write(i + "\n");
+            }
+            fw.close();
+
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
         }
-        System.out.println("----------------------------");
 
 
 
+    }
+}
+
+//TaskList: operations to add and delete tasks in the list
+//has operations to return list
+class TaskList {
+    private List<Task> arr;
+
+    public TaskList(List<Task> arr) {
+        this.arr = arr;
+    }
+
+    public TaskList() {
+        this.arr = new ArrayList<Task>();
+    }
+
+    public void add(Task task) {
+        this.arr.add(task);
+    }
+
+    public Task delete(int number) {
+        return this.arr.remove(number);
+    }
+
+    public List<Task> showList() {
+        return this.arr;
+    }
+
+    public Task mark(int num) {
+        Task chosen = this.arr.get(num - 1);
+        chosen.markDone();
+        return chosen;
+    }
+
+    public Task unmark(int num) {
+        Task chosen = this.arr.get(num - 1);
+        chosen.markUndone();;
+        return chosen;
+    }
+}
 
 
-        //greet
+class UI {
+
+    public void greet() {
         System.out.println("----------------------------");
         System.out.println("Hello! I'm Timo\nWhat can I do for you?");
         System.out.println("----------------------------");
+    }
 
+    public void bye() {
+        System.out.println("----------------------------");
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("----------------------------");
+    }
 
+    public void printList(TaskList lst) {
+        System.out.println("----------------------------");
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 1; i <= lst.showList().size(); i++) {
+            Task chosen = lst.showList().get(i - 1);
+            System.out.println(i + ". " + chosen);
+        }
+        System.out.println("----------------------------");
+    }
 
-        //Scanner to receive input
+    public String readCommand() {
         Scanner echo = new Scanner(System.in);
+        return echo.nextLine();
+    }
+
+    public void printMark(Task chosen) {
+        System.out.println("----------------------------");
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(chosen);
+        System.out.println("----------------------------");
+    }
+
+    public void printUnmark(Task chosen) {
+        System.out.println("----------------------------");
+        System.out.println("Nice! I've marked this task as not done yet:");
+        System.out.println(chosen);
+        System.out.println("----------------------------");
+    }
+
+    public void printTodo(Task todo, int size) {
+        System.out.println("----------------------------");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(todo);
+        System.out.println("Now you have " + size + " tasks in the list.");
+        System.out.println("----------------------------");
+    }
+
+    public void printDeadline(Deadline deadline, int size) {
+        System.out.println("----------------------------");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(deadline);
+        System.out.println("Now you have " + size + " tasks in the list.");
+        System.out.println("----------------------------");
+    }
+
+    public void printDeadlineError() {
+        System.out.println("----------------------------");
+        System.out.println("deadline usage: deadline <task> /by yyyy-mm-dd <time/24hr format>");
+        System.out.println("----------------------------");
+    }
+
+    public void printEvent(Event event, int size) {
+        System.out.println("----------------------------");
+        System.out.println("Got it. I've added this task:");
+        System.out.println(event.toString());
+        System.out.println("Now you have " + size + " tasks in the list.");
+        System.out.println("----------------------------");
+    }
+
+    public void printDelete(Task task, int size) {
+        System.out.println("----------------------------");
+        System.out.println("Got it. I've removed this task:");
+        System.out.println(task.toString());
+        System.out.println("Now you have " + size + " tasks in the list.");
+        System.out.println("----------------------------");
+    }
+
+    public void printUnknownCommandError(TimoException e) {
+        System.out.println("----------------------------");
+        System.out.println(e);
+        System.out.println("----------------------------");
+    }
+
+}
 
 
+//Parser: deals with making sense of the commands
+//parser deal, then send commands to ui
+class Parser {
+    private UI ui;
+    private Storage storage;
+    private TaskList taskList;
+    public Parser(UI ui, Storage storage, TaskList taskList) {
+        this.ui = ui;
+        this.storage = storage;
+        this.taskList = taskList;
+    }
 
+    public void parse(String command) throws TimoException {
+        switch (command) {
+            case "bye":
+                this.ui.bye();
+                this.storage.store(this.taskList.showList());
+                break;
 
-        String input = "";
+            case "list":
+                this.ui.printList(this.taskList);
+                break;
 
-        //boolean to know whether input = bye
-        boolean is_bye = false;
-        while (!is_bye) {
-            input = echo.nextLine();
-            //determine actions based on input
-            switch (input) {
-                case "bye":
-                    System.out.println("----------------------------");
-                    System.out.println("Bye. Hope to see you again soon!");
-                    System.out.println("----------------------------");
-                    is_bye = true;
+            default:
+                if (command.startsWith("mark")) {
+                    //get the Task number to mark
+                    String num = String.valueOf(command.charAt(command.length() - 1));
+                    int target = Integer.parseInt(num);
 
-                    //create new file if file does not exist
-                    File file = new File("list.txt");
-                    boolean filecreated = file.createNewFile();
+                    //find the task to mark
+                    Task chosen = this.taskList.mark(target);
+                    this.ui.printMark(chosen);
+                } else if (command.startsWith("unmark")) {
+                    //get the Task number to unmark
+                    String num = String.valueOf(command.charAt(command.length() - 1));
+                    int target = Integer.parseInt(num);
+
+                    //find the task to unmark
+                    Task chosen = this.taskList.unmark(target);
+                    this.ui.printUnmark(chosen);
+                } else if (command.startsWith("todo")) {
+                        String[] tmp = command.split(" ", 2);
+                        if (tmp.length != 2) {
+                            throw new TimoException("Usage todo: todo <task> (need argument)");
+                        }
+                        Todo task = new Todo(false, tmp[1]);
+                        this.taskList.add(task);
+                        this.ui.printTodo(task, this.taskList.showList().size());
+                } else if (command.startsWith("deadline")) {
+                    String[] tmp = command.split("deadline |/by ");
+                    String todo = tmp[1];
+                    String datetime = tmp[2].trim();
+                    DateTimeFormatter a = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
                     try {
-                        //delete all contents in the file
-                        FileWriter fil = new FileWriter("list.txt");
-                        fil.write("");
-                        fil.close();
-                    } catch (Exception e) {
-                        System.out.println("Something went wrong: " + e.getMessage());
+                        LocalDateTime date = LocalDateTime.parse(datetime, a);
+                        System.out.println(date);
+                        Deadline task = new Deadline(false, todo, date);
+                        this.taskList.add(task);
+                        this.ui.printDeadline(task, this.taskList.showList().size());
+                    } catch (DateTimeException e) {
+                        this.ui.printDeadlineError();
                     }
+                } else if (command.startsWith("event")) {
+                    String[] tmp = command.split("event |/from |/to ");
+                    Event task = new Event(false, tmp[1], tmp[2], tmp[3]);
+                    this.taskList.add(task);
+                    this.ui.printEvent(task, this.taskList.showList().size());
+                } else if (command.startsWith("delete")) {
+                    String num = String.valueOf(command.charAt(command.length() - 1));
+                    int target = Integer.parseInt(num);
+
+                    //Task that is deleted
+                    Task task = this.taskList.delete(target);
+                    this.ui.printDelete(task, this.taskList.showList().size());
+                } else {
+                    throw new TimoException("I'm sorry, I do not know what that means");
+                }
+        }
+    }
+}
 
 
-                    //create filewriter to append to file
-                    FileWriter fw = new FileWriter("list.txt", true);
-                    for (Task i: arr) {
-                        fw.write(i + "\n");
-                    }
-                    fw.close();
+public class Timo {
 
-                    break;
+    private Storage storage;
+    private TaskList tasks;
+    private UI ui;
+
+    private Parser parser;
 
 
-                case "list":
-                    System.out.println("----------------------------");
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 1; i <= arr.size(); i++) {
-                        Task chosen = arr.get(i - 1);
-                        System.out.println(i + ". " + chosen);
-                    }
-                    System.out.println("----------------------------");
-                    break;
+    public Timo(String filepath) {
+        ui = new UI();
+        storage = new Storage(filepath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (IOException e) {
+            tasks = new TaskList();
+        }
+        parser = new Parser(ui, storage, tasks);
+    }
 
-                default:
-                    if (input.startsWith("mark")) {
-                        //to mark
-                        String num = String.valueOf(input.charAt(input.length() - 1));
-                        int target = Integer.parseInt(num);
-                        System.out.println(target);
-                        Task chosen = arr.get(target - 1);
-                        chosen.markDone();
-                        System.out.println("----------------------------");
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(chosen);
-                        System.out.println("----------------------------");
-                    } else if (input.startsWith("unmark")) {
-                        //to unmark
-                        String num = String.valueOf(input.charAt(input.length() - 1));
-                        int target = Integer.parseInt(num);
-                        Task chosen = arr.get(target - 1);
-                        chosen.markUndone();
-                        System.out.println("----------------------------");
-                        System.out.println("Nice! I've marked this task as not done yet:");
-                        System.out.println(chosen);
-                        System.out.println("----------------------------");
-                    } else if (input.startsWith("todo")) {
-                        //have an array that splits the input by space to obtain task
-                        try {
-                            String[] tmp = input.split(" ", 2);
-                            if (tmp.length != 2) {
-                                throw new TimoException("Usage todo: todo <task> (need argument)");
-                            }
-                            Todo task = new Todo(false, tmp[1]);
-                            arr.add(task);
-                            System.out.println("----------------------------");
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println(task);
-                            System.out.println("Now you have " + arr.size() + " tasks in the list.");
-                            System.out.println("----------------------------");
-                        } catch (TimoException ex) {
-                            System.out.println("----------------------------");
-                            System.out.println(ex);
-                            System.out.println("----------------------------");
-                        }
-                    } else if (input.startsWith("deadline")) {
-                        String[] tmp = input.split("deadline |/by ");
-                        String todo = tmp[1];
-                        String datetime = tmp[2].trim();
-                        DateTimeFormatter a = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    public void run() {
+        //welcome
+        ui.greet();
 
-                        try {
-                            LocalDateTime date = LocalDateTime.parse(datetime, a);
-                            System.out.println(date);
-                            Deadline task = new Deadline(false, todo, date);
-                            arr.add(task);
-                            System.out.println("----------------------------");
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println(task);
-                            System.out.println("Now you have " + arr.size() + " tasks in the list.");
-                            System.out.println("----------------------------");
-                        } catch (DateTimeException e) {
-                            System.out.println("----------------------------");
-                            System.out.println("deadline usage: deadline <task> /by yyyy-mm-dd <time/24hr format>");
-                            System.out.println("----------------------------");
-                        }
-                    } else if (input.startsWith("event")) {
-                        String[] tmp = input.split("event |/from |/to ");
-                        Event task = new Event(false, tmp[1], tmp[2], tmp[3]);
-                        arr.add(task);
-                        System.out.println("----------------------------");
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(task.toString());
-                        System.out.println("Now you have " + arr.size() + " tasks in the list.");
-                        System.out.println("----------------------------");
-                    } else if (input.startsWith("delete")) {
-                        String num = String.valueOf(input.charAt(input.length() - 1));
-                        int target = Integer.parseInt(num);
-                        Task task = arr.get(target - 1);
-                        arr.remove(target - 1);
-                        System.out.println("----------------------------");
-                        System.out.println("Got it. I've removed this task:");
-                        System.out.println(task.toString());
-                        System.out.println("Now you have " + arr.size() + " tasks in the list.");
-                        System.out.println("----------------------------");
+        //print list initially
+        ui.printList(this.tasks);
 
-                    } else {
-                        try {
-                            throw new TimoException("I'm sorry, I do not know what that means! Please try again with a different command!");
-                        } catch (TimoException ex) {
-                            System.out.println("----------------------------");
-                            System.out.println(ex);
-                            System.out.println("----------------------------");
-
-                        }
-                    }
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                if (fullCommand.equals("bye")) {
+                    isExit = true;
+                }
+                parser.parse(fullCommand);
+            } catch (TimoException e) {
+                this.ui.printUnknownCommandError(e);
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new Timo("list.txt").run();
     }
 }
