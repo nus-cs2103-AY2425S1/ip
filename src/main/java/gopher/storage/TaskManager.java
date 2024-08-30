@@ -1,10 +1,17 @@
+package gopher.storage;
+
+import gopher.exception.EmptyTaskDescriptionException;
+import gopher.exception.FileCorruptedException;
+import gopher.exception.MissingTokenException;
+import gopher.exception.UnknownCommandException;
+import gopher.task.Task;
+
 import java.io.IOException;
 import java.lang.StringBuilder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class TaskManager {
     private static final Path taskFile = Paths.get("./task/task.txt");
@@ -19,7 +26,7 @@ public class TaskManager {
     }
 
     private static ArrayList<Task> convertToTaskList(String taskString)
-            throws FileCorruptedException{
+            throws FileCorruptedException {
         ArrayList<Task> tasks = new ArrayList<>();
         String[] taskRows = taskString.split("\n");
         String[] tokens;
@@ -54,8 +61,8 @@ public class TaskManager {
                 }
                 tasks.add(newTask);
             } catch (UnknownCommandException
-            | EmptyTaskDescriptionException
-            | MissingTokenException e) {
+                     | EmptyTaskDescriptionException
+                     | MissingTokenException e) {
                 throw new FileCorruptedException("Task File is corrupted...");
             }
         }

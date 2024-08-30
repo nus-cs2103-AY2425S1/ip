@@ -1,7 +1,12 @@
-import java.time.format.DateTimeParseException;
-import java.util.List;
+package gopher;
+
+import gopher.parser.Parser;
+import gopher.storage.TaskManager;
+import gopher.task.Task;
+import gopher.task.TaskList;
+import gopher.ui.UI;
+
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Gopher {
     private static Scanner inputReader;

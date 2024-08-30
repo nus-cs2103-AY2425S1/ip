@@ -1,3 +1,5 @@
+package gopher.exception;
+
 public class EmptyTaskDescriptionException extends Exception{
     private String taskType;
     public EmptyTaskDescriptionException(String taskType) {

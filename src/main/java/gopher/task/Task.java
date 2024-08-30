@@ -1,5 +1,11 @@
+package gopher.task;
+
+import gopher.exception.EmptyTaskDescriptionException;
+import gopher.exception.MissingTokenException;
+import gopher.exception.UnknownCommandException;
 import java.lang.StringBuilder;
 import java.time.LocalDateTime;
+import gopher.parser.Parser;
 
 public abstract class Task {
     private static class ToDo extends Task {
@@ -81,7 +87,7 @@ public abstract class Task {
     }
 
     public static Task of(String command) throws UnknownCommandException,
-            EmptyTaskDescriptionException, MissingTokenException{
+            EmptyTaskDescriptionException, MissingTokenException {
         String[] tokens = command.split(" ");
 
         String taskType = tokens[0];
