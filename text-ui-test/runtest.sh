@@ -17,10 +17,10 @@ if [ -e "./savefile" ]
 then
     rm savefile
 fi
-cp ./savefile_original ./savefile
+cp ../src/test/resources/savefile_original ./savefile
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/yappingbot/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1
