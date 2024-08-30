@@ -3,6 +3,12 @@ package duke;
 import java.util.Scanner;
 
 public class Duck {
+    /**
+     * Runs the chatbot DUCK.
+     *
+     * @return String task description and date.
+     * @throws DuckException if user inputs invalid input.
+     * */
     public static void main(String[] args) throws DuckException {
         Scanner scan = new Scanner(System.in);
         TaskList cmds = new TaskList(Storage.load(), Storage.loadNum());
