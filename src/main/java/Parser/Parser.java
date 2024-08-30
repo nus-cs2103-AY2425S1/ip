@@ -45,6 +45,8 @@ public class Parser {
             return new AddDeadlineCommand(input);
         } else if (checkStringPrefix(input, 5, "event")) {
             return new AddEventCommand(input);
+        } else if (checkStringPrefix(input, 4, "find")) {
+            return new FindCommand(input);
         } else {
             throw new InvalidInputException();
         }

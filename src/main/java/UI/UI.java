@@ -29,4 +29,8 @@ public class UI {
         System.out.println("      " + removedTask);
         System.out.println("    Now you have " + num + " tasks in the list");
     }
+
+    public void findingTask() {
+        System.out.println("    Here are the matching tasks in your list:");
+    }
 }
