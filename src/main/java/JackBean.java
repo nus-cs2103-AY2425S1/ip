@@ -13,16 +13,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class JackBean {
-    public static String horizontalLine = "____________________________________________________________";
-    public static String greeting = "Hello homie! I'm JackBean, a chatbot designed to help you with your daily tasks!\nHow may I help you today my homie?";
-    public static String exitMessage = "Bye homie! Come back if you need anything else. JackBean, signing off!";
-
-
     public static void main(String[] args) {
-        System.out.println(horizontalLine);
-        System.out.println(greeting);
-        System.out.println(horizontalLine);
-
+        Ui.greet();
         TaskList taskList = new TaskList();
         Storage.fetchStorage(taskList);
 
@@ -35,22 +27,20 @@ public class JackBean {
 
             // handle bye
             if (input.equalsIgnoreCase("bye")) { // I added equalsIgnoreCase() by myself
-                System.out.println(horizontalLine);
-                System.out.println(exitMessage);
-                System.out.println(horizontalLine);
+                Ui.sayGoodBye();
                 userInput.close();
                 break;
             }
 
             // handle other input
-            System.out.println(horizontalLine);
+            Ui.showLine();
             try {
                 String reply = Parser.parseUserInput(input, taskList);
                 System.out.println(reply);
             } catch (Exception e) {
                 System.out.println(e);
             }
-            System.out.println(horizontalLine);
+            Ui.showLine();
         }
 
     }
