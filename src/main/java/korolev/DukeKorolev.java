@@ -1,4 +1,4 @@
-package Korolev;
+package korolev;
 
 import ui.KorolevUI;
 
