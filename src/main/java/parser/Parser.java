@@ -112,7 +112,8 @@ public class Parser {
      * @return The concatenated date/time string between the delimiters.
      * @throws MissingEventTimeException If the delimiter or stop delimiter is missing or no date/time is provided.
      */
-    public static String getFollowingDate(String[] parts, String delimiter, String stopDelimiter) throws MissingEventTimeException {
+    public static String getFollowingDate(String[] parts, String delimiter, String stopDelimiter)
+            throws MissingEventTimeException {
         int i = 0;
         while (!parts[i].equals(delimiter)) {
             i++;
