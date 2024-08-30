@@ -1,3 +1,10 @@
+package kobe.command;
+
+import kobe.util.Storage;
+import kobe.task.Task;
+import kobe.task.TaskList;
+import kobe.util.Ui;
+
 import java.io.IOException;
 public class DeleteCommand extends Command {
     private final int taskIndex;

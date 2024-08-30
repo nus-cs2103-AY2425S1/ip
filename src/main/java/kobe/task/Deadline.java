@@ -1,7 +1,11 @@
+package kobe.task;
+
+import kobe.task.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-class Deadline extends Task {
+public class Deadline extends Task {
     private LocalDateTime byWhen;
 
     public Deadline(String name, LocalDateTime byWhen) {

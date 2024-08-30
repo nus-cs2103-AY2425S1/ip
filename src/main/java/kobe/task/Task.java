@@ -1,3 +1,5 @@
+package kobe.task;
+
 public class Task {
     public final String name;
     public boolean isDone;

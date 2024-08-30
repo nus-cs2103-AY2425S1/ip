@@ -1,3 +1,7 @@
+package kobe.task;
+
+import kobe.task.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 

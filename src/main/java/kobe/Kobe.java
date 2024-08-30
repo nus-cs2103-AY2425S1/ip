@@ -1,3 +1,11 @@
+package kobe;
+
+import kobe.command.Command;
+import kobe.task.TaskList;
+import kobe.util.Parser;
+import kobe.util.Storage;
+import kobe.util.Ui;
+
 import java.io.IOException;
 
 public class Kobe {
