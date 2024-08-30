@@ -1,15 +1,20 @@
 package zaibot.utils;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+
 import zaibot.exception.ZaibotException;
 import zaibot.task.DeadlineTask;
 import zaibot.task.EventTask;
 import zaibot.task.Task;
 import zaibot.task.ToDoTask;
-
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
 
 /**
  * This class is responsible for handling
@@ -18,23 +23,13 @@ import java.time.LocalDateTime;
  */
 public class Storage {
 
-    private enum Status {
-        INCOMPLETE(false),
-        COMPLETE(true);
+    private final String link;
 
-        private final boolean isComplete;
-
-        Status(boolean status) {
-            this.isComplete = status;
-        }
-
-        public boolean checkComplete() {
-            return isComplete;
-        }
-    }
-
-    private String link;
-
+    /**
+     * Initialises the storage, given a task list.
+     *
+     * @param taskList
+     */
     public Storage(TaskList taskList) {
         try {
             Files.createDirectories(Paths.get("data"));
@@ -103,6 +98,7 @@ public class Storage {
      * @return The Task object with data from the input line
      * @throws ZaibotException if the line is not formatted as expected.
      */
+    @SuppressWarnings("checkstyle:Indentation")
     public Task parseLine(String input) throws ZaibotException {
         String[] tokens = input.split(" \\| ");
 
@@ -125,5 +121,20 @@ public class Storage {
 
     public String convertTaskToString(Task task) {
         return task.toSaveString();
+    }
+
+    private enum Status {
+        INCOMPLETE(false),
+        COMPLETE(true);
+
+        private final boolean isComplete;
+
+        Status(boolean status) {
+            this.isComplete = status;
+        }
+
+        public boolean checkComplete() {
+            return isComplete;
+        }
     }
 }

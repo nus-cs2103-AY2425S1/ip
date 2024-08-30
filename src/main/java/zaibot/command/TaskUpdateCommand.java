@@ -1,12 +1,12 @@
 package zaibot.command;
 
+import java.util.HashMap;
+
+import zaibot.exception.ZaibotException;
+import zaibot.task.Task;
 import zaibot.utils.Storage;
 import zaibot.utils.TaskList;
 import zaibot.utils.Ui;
-import zaibot.exception.ZaibotException;
-import zaibot.task.Task;
-
-import java.util.HashMap;
 
 /**
  * This task represents the command used to update tasks in the list.
@@ -26,8 +26,8 @@ public class TaskUpdateCommand extends Command {
     private Integer getNumberForTask(TaskList tasks) throws ZaibotException {
         HashMap<String, String> optionMap = super.getOptionMap();
 
-        if (!(optionMap.containsKey("number") &&
-                optionMap.get("number").matches("-?\\d+"))) {
+        if (!(optionMap.containsKey("number")
+                && optionMap.get("number").matches("-?\\d+"))) {
             throw new ZaibotException("The correct syntax for this is: mark NUMBER");
         }
         Integer number = Integer.parseInt(optionMap.get("number"));
