@@ -10,7 +10,9 @@ public abstract class Task {
         this.description = description;
     }
 
-
+    public boolean isDone() {
+        return this.isDone;
+    }
     /**
      * Mark the task as done by setting the {@code isDone} flag to {@code true}.
      */
@@ -119,9 +121,9 @@ public abstract class Task {
          */
         @Override
         public String brief() {
-            return "D | " + super.getStatus() + " | " + super.getTask() + " | "
+            return "E | " + super.getStatus() + " | " + super.getTask() + " | "
                     + this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"))
-                    + " | " + this.end.format(DateTimeFormatter.ofPattern("MM d yyy, h:mm a"));
+                    + " | " + this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
 
         }
 
@@ -152,7 +154,7 @@ public abstract class Task {
          */
         @Override
         public String brief() {
-            return "D | " + super.getStatus() + " | " + super.getTask();
+            return "T | " + super.getStatus() + " | " + super.getTask();
         }
 
         /**

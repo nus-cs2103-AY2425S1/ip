@@ -23,7 +23,16 @@ public class Parser {
         case "bye": {
             return new Command.ExitCommand();
         }
+        case "clean": {
+            if (cmd.length >= 2 && !cmd[1].trim().isEmpty()) {
+                throw new NahException(" Nahh!!! Do not type nonsense after 'list' command\n");
+            }
+            return new Command.CleanCommand();
+        }
         case "list": {
+            if (cmd.length >= 2 && !cmd[1].trim().isEmpty()) {
+                throw new NahException(" Nahh!!! Do not type nonsense after 'list' command\n");
+            }
             return new Command.ListCommand();
         }
         case "mark": {

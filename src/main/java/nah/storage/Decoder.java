@@ -14,37 +14,56 @@ public class Decoder {
      * @throws NahException
      */
     public static Task decode(String s) throws NahException {
-        String[] Command = s.split("|", 2);
-        if (Command[0].trim() == "T") {
-            if (Command.length < 2 || Command[1].trim().isEmpty()) {
+        String[] command = s.split("\\|", 3);
+        if (command[0].trim().equals("T")) {
+
+            if (command.length < 3
+                    || (!command[1].trim().equals("0") && !command[1].trim().equals("1"))
+                    || command[2].trim().isEmpty()) {
                 throw new NahException.InvalidFileValueException();
             }
-            return new Task.ToDos(Command[1].trim());
+            Task t = new Task.ToDos(command[2].trim());
+            if (command[1].trim().equals("1")) {
+                t.mark();
+            }
+            return t;
         }
-        if (Command[0].trim() == "D") {
-            if (Command.length < 2 || Command[1].trim().isEmpty()) {
+        if (command[0].trim().equals("D")) {
+            if (command.length < 3
+                    || (!command[1].trim().equals("0") && !command[1].trim().equals("1"))
+                    || command[2].trim().isEmpty()) {
                 throw new NahException.InvalidFileValueException();
             }
-            String[] des = Command[1].split("|", 2);
+            String[] des = command[2].split("\\|", 2);
+            if (des.length < 2 || des[1].trim().isEmpty()) {
+                throw new NahException.InvalidFileValueException();
+            }
             try {
                 LocalDateTime time = LocalDateTime.
                         parse(des[1].trim(), DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
-                return new Task.Deadlines(des[0].trim(), time);
+                Task t = new Task.Deadlines(des[0].trim(), time);
+                if (command[1].trim().equals("1")) {
+                    t.mark();
+                }
+                return t;
             } catch (DateTimeParseException e) {
                 throw new NahException.InvalidFileValueException();
             }
 
         }
 
-        if (Command[0].trim() == "E") {
-            if (Command.length < 2 || Command[1].trim().isEmpty()) {
+        if (command[0].trim().equals("E")) {
+            if (command.length < 3
+                    || (!command[1].trim().equals("0") && !command[1].trim().equals("1"))
+                    || command[2].trim().isEmpty()) {
                 throw new NahException.InvalidFileValueException();
             }
-            String[] des = Command[1].split("|", 2);
+
+            String[] des = command[2].split("\\|", 2);
             if (des.length < 2 || des[1].trim().isEmpty()) {
                 throw new NahException.InvalidFileValueException();
             }
-            String[] time = des[1].split("|", 2);
+            String[] time = des[1].split("\\|", 2);
             if (time.length < 2 || time[1].trim().isEmpty()) {
                 throw new NahException.InvalidFileValueException();
             }
@@ -53,7 +72,11 @@ public class Decoder {
                         parse(time[0].trim(), DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
                 LocalDateTime end = LocalDateTime.
                         parse(time[1].trim(), DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
-                return new Task.Events(des[0].trim(), start, end);
+                Task t = new Task.Events(des[0].trim(), start, end);
+                if (command[1].trim().equals("1")) {
+                    t.mark();
+                }
+                return t;
             } catch (DateTimeParseException e) {
                 throw new NahException.InvalidFileValueException();
             }

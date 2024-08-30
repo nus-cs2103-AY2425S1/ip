@@ -11,7 +11,9 @@ public class TaskList {
     private int taskCount = 0;
 
     public TaskList(LinkedList<Task> tasks) {
+
         this.tasks = tasks;
+        this.taskCount = tasks.size();
     }
     public TaskList() {
         this.tasks = new LinkedList<Task>();
@@ -119,10 +121,12 @@ public class TaskList {
         int i = 1;
         for (Task t : tasks) {
             if (t instanceof Task.Deadlines || t instanceof Task.Events) {
-                if (t.endTime().isBefore(due)) {
+                if (t.endTime().isBefore(due) && !t.isDone()) {
                     s += " " + i + ". " + t.toString() + "\n";
                 }
+
             }
+            i ++;
         }
         return s;
     }
@@ -134,7 +138,7 @@ public class TaskList {
     public String brief() {
         String s = "";
         for (int i = 1; i <= taskCount; i++) {
-            s += " " + i + ". " + tasks.get(i - 1).brief() + "\n";
+            s += tasks.get(i - 1).brief() + "\n";
         }
         return s;
     }

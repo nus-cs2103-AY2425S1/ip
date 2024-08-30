@@ -27,6 +27,7 @@ public class Nah {
 
         } catch (NahException e) {
             ui.show(e.getMessage());
+            storage = new Storage();
             tasks = new TaskList();
         }
 

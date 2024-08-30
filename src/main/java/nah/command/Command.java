@@ -22,6 +22,22 @@ public abstract class Command {
      */
     public abstract void execute(TaskList task, UI ui, Storage storage) throws NahException;
 
+    public static class CleanCommand extends Command {
+        /**
+         * Process the command
+         * @param tasks
+         * @param ui
+         * @param storage
+         * @throws NahException
+         */
+        @Override
+        public void execute(TaskList tasks, UI ui, Storage storage) throws NahException {
+            ui.show(" Got it. I've cleaned the storage. Now you have no tasks in the list.\n");
+            storage.clean();
+        }
+
+    }
+
     public static class AddCommand extends Command {
         private Task task;
         public AddCommand(Task task) {

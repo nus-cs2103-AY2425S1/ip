@@ -1,2 +1,5 @@
-package nah.ui;public class UITest {
+package nah.ui;
+
+import java.util.Scanner;
+public class UITest {
 }
