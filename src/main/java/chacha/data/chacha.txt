@@ -1,0 +1,7 @@
+T | 0 | eat
+T | 0 | sleep
+E | 1 | bday | 2023-09-08 | 2pm-3pm
+D | 0 | submit | 2024-09-08
+T | 1 | read
+E | 0 | bday | 2023-09-20 | 2pm-3pm
+D | 0 | submit | 2023-09-02
