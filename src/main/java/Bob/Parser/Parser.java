@@ -24,6 +24,8 @@ public class Parser {
             return new EventCommand(taskDescription);
         case "delete":
             return new DeleteCommand(parseTaskIndex(taskDescription));
+        case "find":
+            return new FindCommand(taskDescription);
         case "bye":
             return new ExitCommand();
         default:

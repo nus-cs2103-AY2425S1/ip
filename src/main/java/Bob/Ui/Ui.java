@@ -66,7 +66,7 @@ public class Ui {
     public void showAddedTask(Task task, int size) {
         printLine();
         System.out.println("Got it. I've added this task:");
-        System.out.println("task.toString()");
+        System.out.println(task.toString());
         System.out.println("Now you have " + size + " task(s) in the list.");
         printLine();
     }
@@ -95,6 +95,15 @@ public class Ui {
         printLine();
         System.out.println("Alright, I've marked this task as not done yet:");
         System.out.println(task.toString());
+        printLine();
+    }
+
+    public void showMatchingTasks(ArrayList<Task> tasks) {
+        printLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i).toString());
+        }
         printLine();
     }
 

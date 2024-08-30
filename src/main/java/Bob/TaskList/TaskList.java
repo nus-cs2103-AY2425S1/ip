@@ -1,5 +1,6 @@
 package Bob.TaskList;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import Bob.Tasks.Task;
 import Bob.Exception.BobException;
@@ -29,5 +30,15 @@ public class TaskList {
         } else {
             throw new BobException("Invalid index :(");
         }
+    }
+
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if(task.toString().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 }
