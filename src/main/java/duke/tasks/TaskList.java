@@ -26,6 +26,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Initializes the `TaskList` if it hasn't been initialized yet.
+     *
+     * @param ui The `Ui` object used to interact with the user during task initialization.
+     * @return The initialized `TaskList` instance.
+     */
     public static TaskList init(Ui ui) {
         if (tasks == null) {
             tasks = new TaskList(ui);
@@ -34,9 +40,9 @@ public class TaskList {
     }
 
     /**
-     * Adds new task to todolist
+     * Adds new task to todolist.
      *
-     * @param task the name of task to be added
+     * @param task The name of task to be added.
      */
     public void addTask(Task task) {
         listOfTasks.add(task);
@@ -47,9 +53,9 @@ public class TaskList {
     }
 
     /**
-     * Mark specific task as done
+     * Marks specific task as done.
      *
-     * @param index the task number to be marked
+     * @param index The task number to be marked.
      */
     public void markTask(int index) throws TaskNotFoundException {
         if (index > 0 && index <= listOfTasks.size()) {
@@ -63,9 +69,9 @@ public class TaskList {
     }
 
     /**
-     * Mark specific task as not done
+     * Marks specific task as not done.
      *
-     * @param index the task number to be marked
+     * @param index The task number to be marked.
      */
     public void unmarkTask(int index) throws TaskNotFoundException {
         if (index > 0 && index <= listOfTasks.size()) {
@@ -78,6 +84,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task from the task list at the specified index.
+     *
+     * @param index The index of the task to be deleted (1-based index).
+     * @throws TaskNotFoundException If the index is out of bounds, meaning no task exists at the specified index.
+     */
     public void deleteTask(int index) throws TaskNotFoundException {
         if (index > 0 && index <= listOfTasks.size()) {
             Task removedTask = listOfTasks.remove(index - 1);
@@ -89,10 +101,11 @@ public class TaskList {
             throw new TaskNotFoundException();
         }
     }
+
     /**
-     * print all tasks added to the list
+     * Print all tasks added to the list.
      *
-     * @return description of all tasks added
+     * @return The description of all tasks added.
      */
     public String printList(){
         StringBuilder tasks = new StringBuilder("Here are the tasks in your list:" + "\n");

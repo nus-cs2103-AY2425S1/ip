@@ -1,7 +1,8 @@
-package duke.ui; /**
+/**
  * This class represents a reply from the chatbot.
  * It provides methods to print a reply, such as greeting.
  */
+package duke.ui;
 
 import java.util.Scanner;
 
@@ -16,10 +17,17 @@ public class Ui {
             + "|____/ \\__,_|_|\\_\\___|\n";
     private Scanner scanner;
 
+    /**
+     * Constructs a `Ui` object to handle output to user.
+     *
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Prints message in response to users' input.
+     */
     public void printMessage(String message) {
         System.out.println(INDENT + HORIZONTAL_LINE);
         String[] lines = message.split("\n");
@@ -30,7 +38,7 @@ public class Ui {
     }
 
     /**
-     * Print greeting message
+     * Prints greeting message.
      */
     public void printGreeting() {
         System.out.println(INDENT+ HORIZONTAL_LINE);
@@ -38,8 +46,9 @@ public class Ui {
         System.out.println(INDENT + " What can I do for you?");
         System.out.println(INDENT + HORIZONTAL_LINE);
     }
+
     /**
-     * Print goodbye message
+     * Prints goodbye message.
      */
     public void printGoodbye() {
         System.out.println(INDENT + HORIZONTAL_LINE);
@@ -47,10 +56,16 @@ public class Ui {
         System.out.println(INDENT + HORIZONTAL_LINE);
     }
 
+    /**
+     * Reads the next line of user input.
+     */
     public String readCommand() {
         return scanner.nextLine();
     }
 
+    /**
+     * Closes the scanner and stop reading user input.
+     */
     public void close() {
         scanner.close();
     }

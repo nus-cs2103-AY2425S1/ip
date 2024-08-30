@@ -9,13 +9,17 @@ import duke.tasks.Deadline;
 import duke.exceptions.InvalidDateException;
 import duke.ui.Ui;
 
+/**
+ * The `TaskDataBase` class provides methods to load and save tasks to and from a file.
+ */
 public class TaskDataBase {
 
     /**
-     * Returns a List of task that is within file tasklist.txt
+     * Loads tasks from a file and returns them as a list.
      *
-     * @return a list of Task.
-     * @throws IOException when error reading from file
+     * @return A list of tasks loaded from the file.
+     * @throws IOException If an I/O error occurs while reading the file.
+     * @throws InvalidDateException If a date in the file is invalid or cannot be parsed.
      */
     public static List<Task> load() throws IOException, InvalidDateException {
         List<Task> tasks = new ArrayList<>();
@@ -58,10 +62,10 @@ public class TaskDataBase {
     }
 
     /**
-     * Saves a list to tasklist.txt
+     * Saves a list of tasks to a file.
      *
-     * @param tasks a list of Task.
-     * @throws IOException when error reading from file
+     * @param tasks The list of tasks to be saved to the file.
+     * @param ui The `Ui` object used to print messages in case of an error.
      */
     public static void save(List<Task> tasks, Ui ui) {
         File file = new File("data/tasklist.txt");

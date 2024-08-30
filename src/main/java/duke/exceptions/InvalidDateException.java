@@ -1,9 +1,6 @@
 /**
- * This exception is thrown when the user inputs a invalid date for a task.
- * <p>
- * The {@code InvalidDateException} is a custom exception that extends the {@code Exception} class.
- * It is used to indicate that the user's input for date is not accepted by the program.
- * </p>
+ * The `InvalidDateException` class represents an exception that is thrown when a date
+ * is provided in an invalid format.
  */
 package duke.exceptions;
 public class InvalidDateException extends Exception {

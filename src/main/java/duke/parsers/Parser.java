@@ -1,3 +1,7 @@
+/**
+ * The `Parser` class is responsible for interpreting user input and executing
+ * the corresponding commands on the task list.
+ */
 package duke.parsers;
 import duke.tasks.Todo;
 import duke.tasks.Event;
@@ -14,10 +18,28 @@ public class Parser {
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Constructs a `Parser` object with the specified task list and user interface.
+     *
+     * @param taskList The `TaskList` object that stores the tasks.
+     * @param ui The `Ui` object used to interact with the user.
+     */
     public Parser(TaskList taskList, Ui ui) {
         this.taskList = taskList;
         this.ui = ui;
     }
+
+    /**
+     * Parses and processes the user's input command.
+     *
+     * @param userInput The input command provided by the user.
+     * @return `true` if the "bye" command is given, signaling the end of the session; `false` otherwise.
+     * @throws InvalidInputException If the input command is not recognized.
+     * @throws MissingTaskNameException If a task name is missing when adding a task.
+     * @throws MissingDateException If a date is missing when adding a deadline or event task.
+     * @throws TaskNotFoundException If a task is not found when attempting to mark, unmark, or delete it.
+     * @throws InvalidDateException If the date format is invalid when adding a deadline or event task.
+     */
     public boolean parse(String userInput) throws InvalidInputException,
             MissingTaskNameException, MissingDateException, TaskNotFoundException, InvalidDateException {
         if (userInput.equals("list")) {
@@ -42,12 +64,6 @@ public class Parser {
         return false;
     }
 
-    /**
-     * mark or mark specific task
-     *
-     * @param message input of user
-     * @param mark boolean to mark or unmark task
-     */
     private void handleMarkTask(String message, boolean mark) throws InvalidInputException,
             TaskNotFoundException {
         String[] split = message.split(" ");
@@ -67,11 +83,6 @@ public class Parser {
         }
     }
 
-    /**
-     * add todo
-     *
-     * @param message input of user
-     */
     private void handleAddTodo(String message) throws MissingTaskNameException {
         String taskName = message.replace("todo", "").trim();
         if (taskName.isEmpty()) {
@@ -80,11 +91,6 @@ public class Parser {
         taskList.addTask(new Todo(taskName));
     }
 
-    /**
-     * add deadline
-     *
-     * @param message input of user
-     */
     private void handleAddDeadline(String message) throws MissingDateException,
             MissingTaskNameException, InvalidDateException {
 
@@ -101,11 +107,6 @@ public class Parser {
 
     }
 
-    /**
-     * add event to list of Tasks
-     *
-     * @param message input of user
-     */
     private void handleAddEvent(String message) throws MissingDateException,
             MissingTaskNameException, InvalidDateException {
         String[] parts = message.split(" /from | /to ");
@@ -121,11 +122,6 @@ public class Parser {
         taskList.addTask(new Event(taskName, from, to));
     }
 
-    /**
-     * delete specific event to list of Tasks
-     *
-     * @param message input of user
-     */
     private void handleDeleteTask(String message) throws InvalidInputException,
             TaskNotFoundException {
         String[] split = message.split(" ");

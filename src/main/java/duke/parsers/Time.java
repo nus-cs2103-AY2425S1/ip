@@ -1,6 +1,7 @@
-package duke.parsers; /**
+/**
  * This class converts string format of date to local date time
  */
+package duke.parsers;
 import duke.exceptions.InvalidDateException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,16 +17,15 @@ public class Time {
     private boolean hasTime;
     private String originalFormat;
 
+    /**
+     * Constructs a `Time` object with the specified date and time.
+     *
+     * @param dateTimeString The date and time input from user.
+     */
     public Time(String dateTimeString) throws InvalidDateException {
             parseDateTime(dateTimeString);
     }
 
-    /**
-     * converts string format of date to localdate
-     * if time is included, convert to localdatetime
-     *
-     * @param dateTimeString time input from user
-     */
     private void parseDateTime(String dateTimeString) throws InvalidDateException {
         try {
             this.dateTime = LocalDateTime.parse(dateTimeString, DATE_TIME_FORMATTER);

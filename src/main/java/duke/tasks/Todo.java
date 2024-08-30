@@ -4,6 +4,11 @@
 package duke.tasks;
 public class Todo extends Task {
 
+    /**
+     * Constructs a `Todo` object with the specified name.
+     *
+     * @param name The name of the todo.
+     */
     public Todo(String name) {
         super(name);
     }

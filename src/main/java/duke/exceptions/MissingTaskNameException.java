@@ -1,9 +1,5 @@
 /**
  * This exception is thrown when a task is created without the necessary name.
- * <p>
- * The {@code MissingTaskNameException} is a custom exception that extends the {@code Exception} class.
- * It is used to indicate that a task is missing name.
- * </p>
  */
 package duke.exceptions;
 public class MissingTaskNameException extends Exception {
