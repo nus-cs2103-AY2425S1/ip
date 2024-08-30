@@ -1,5 +1,6 @@
 package ava.task;
 
+import ava.files.FileManager;
 import ava.task.Tasks.Deadline;
 import ava.task.Tasks.Event;
 import ava.task.Tasks.Todo;
@@ -9,6 +10,7 @@ import java.util.List;
 
 public class TaskManager {
     private final List<Task> tasks;
+    private final FileManager fileManager;
     public TaskManager() {
         this.tasks = new ArrayList<Task>(){
             @Override
@@ -23,6 +25,9 @@ public class TaskManager {
                 return out.toString();
             }
         };
+
+        this.fileManager = new FileManager();
+        this.tasks = fileManager.getTasks();
     }
 
     public List<Task> getTasks() {
@@ -54,5 +59,4 @@ public class TaskManager {
             throw new IllegalArgumentException("Trying to delete nonexistent task");
         }
     }
-
 }
