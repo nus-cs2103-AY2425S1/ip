@@ -10,8 +10,23 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses user input commands and returns the corresponding {@code Command} object.
+ * This class is responsible for interpreting various command formats and
+ * creating appropriate command instances to be executed by the chatbot.
+ */
 public class Parser {
 
+    /**
+     * Parses a string command and returns the corresponding {@code Command} object.
+     * Recognizes commands for adding, deleting, marking, and unmarking tasks,
+     * as well as listing tasks and exiting the application. Handles date and time
+     * formats for deadlines and events.
+     *
+     * @param fullCommand The command string input by the user.
+     * @return A {@code Command} object representing the user command.
+     * @throws LoloException If the command is invalid or the date/time format is incorrect.
+     */
     public static Command parse(String fullCommand) throws LoloException {
         String[] parts;
         try {
