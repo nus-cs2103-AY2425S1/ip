@@ -25,6 +25,6 @@ public class Testament {
     }
 
     public static void main(String[] args) {
-        new Testament("src/main/java/Memory/TaskList.txt").run();
+        new Testament("Memory.TaskList.txt").run();
     }
 }
