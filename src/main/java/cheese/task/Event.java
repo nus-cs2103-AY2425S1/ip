@@ -53,6 +53,10 @@ public class Event extends Task {
         return new Event(words[0].strip(), parseDate(dates[0].strip()), parseDate(dates[1].strip()));
     }
 
+    /**
+     * Calculate days till deadline
+     * @return int in days
+     */
     public long daysLeft() {
         return LocalDate.now().until(startDate, ChronoUnit.DAYS);
     }
