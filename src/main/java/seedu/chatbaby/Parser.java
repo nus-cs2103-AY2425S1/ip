@@ -1,4 +1,23 @@
-package com.chatbaby;
+package chatbaby;
+
+import chatbaby.Command;
+import chatbaby.Storage;
+import chatbaby.Task;
+import chatbaby.TaskType;
+import chatbaby.TaskList;
+import chatbaby.Ui;
+import chatbaby.Parser;
+import chatbaby.ChatBabyException;
+import chatbaby.Deadline;
+import chatbaby.Event;
+import chatbaby.ToDo;
+import chatbaby.AddCommand;
+import chatbaby.DeleteCommand;
+import chatbaby.ExitCommand;
+import chatbaby.ListCommand;
+import chatbaby.MarkCommand;
+import chatbaby.UnmarkCommand;
+import chatbaby.ListOnDateCommand;
 
 public class Parser {
     public static Command parse(String curCommand) throws ChatBabyException {

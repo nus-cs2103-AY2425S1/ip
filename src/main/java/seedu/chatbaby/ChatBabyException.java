@@ -1,4 +1,4 @@
-package com.chatbaby;
+package chatbaby;
 
 public class ChatBabyException extends Exception{
     public ChatBabyException(String message) {

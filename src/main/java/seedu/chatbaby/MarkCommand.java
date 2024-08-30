@@ -1,13 +1,24 @@
-package com.chatbaby;
+package chatbaby;
 
-public class UnmarkCommand extends Command{
-    public UnmarkCommand(String commandBody) {
+import chatbaby.Command;
+import chatbaby.Storage;
+import chatbaby.Task;
+import chatbaby.TaskType;
+import chatbaby.TaskList;
+import chatbaby.Ui;
+import chatbaby.Parser;
+import chatbaby.ChatBabyException;
+import chatbaby.Deadline;
+import chatbaby.Event;
+import chatbaby.ToDo;
+public class MarkCommand extends Command {
+    public MarkCommand(String commandBody) {
         super(commandBody);
     }
 
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ChatBabyException {
         try {
-            int index = Integer.parseInt(commandBody.substring(7).trim()) - 1;
+            int index = Integer.parseInt(commandBody.substring(5).trim()) - 1;
             if (index >= 0 && index < tasks.size()) {
                 tasks.taskAt(index).markAsDone();
                 System.out.println("Nice! I've marked this task as done:\n"
