@@ -54,7 +54,7 @@ public class Parser {
         }
         return null;
     }
-    private static String parseTaskName(Sentinel.CommandType commandType, String input, Ui ui) throws SentinelException {
+    public static String parseTaskName(Sentinel.CommandType commandType, String input, Ui ui) throws SentinelException {
         String[] stringArr = input.split(" ");
         String taskName = "";
 
@@ -90,7 +90,7 @@ public class Parser {
         return taskName;
     }
 
-    private static String parseTime(String input, String delimiter) {
+    public static String parseTime(String input, String delimiter) {
         String[] parts = input.split(delimiter);
         return parts.length > 1 ? parts[1].trim() : "";
     }
