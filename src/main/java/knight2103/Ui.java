@@ -33,16 +33,16 @@ public class Ui {
     }
 
     public void showLoadingError() {
-        System.out.println("File cannot be loaded. Create taskList instead.");
+        System.out.println("File cannot be loaded. Create list of tasks instead.");
     }
 
-    public void showList(TaskList taskList) {
-        System.out.println(showLine() + "\n" + taskList.printToList() + showLine());
+    public void showList(TaskList tasks) {
+        System.out.println(showLine() + "\n" + tasks.printToList() + showLine());
     }
 
-    public void showAdd(Task taskToAdd, TaskList taskList) {
+    public void showAdd(Task taskToAdd, TaskList tasks) {
         System.out.println(showLine() + "\nGot it. I've added this task:\n" + taskToAdd + "\n Now you have "
-                + taskList.getSize() + " tasks in the list.\n" + showLine());
+                + tasks.getSize() + " tasks in the list.\n" + showLine());
     }
 
     public void showMark(Task taskAffected) {
@@ -55,13 +55,13 @@ public class Ui {
                 + taskAffected + "\n" + showLine());
     }
 
-    public void showDelete(Task taskAffected, TaskList taskList) {
+    public void showDelete(Task taskAffected, TaskList tasks) {
         System.out.println(showLine() + "\nNoted. I've removed this task:\n" + taskAffected
-                + "\n Now you have " + taskList.getSize() + " tasks in the list.\n" + showLine());
+                + "\n Now you have " + tasks.getSize() + " tasks in the list.\n" + showLine());
     }
 
-    public void showFind(TaskList taskList, String searchWord) {
+    public void showFind(TaskList tasks, String searchWord) {
         System.out.println(showLine() + "\nHere are the matching tasks in your list:\n"
-                + taskList.searchPrintToList(searchWord) + showLine());
+                + tasks.searchPrintToList(searchWord) + showLine());
     }
 }

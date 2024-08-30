@@ -11,14 +11,14 @@ public class ListCommand extends Command {
 
     /**
      * Executes the ListCommand which list out all the tasks stored in
-     * the taskList in a certain format.
+     * the list of tasks in a certain format.
      *
-     * @param taskList The class storing the list of tasks found in the bot.
+     * @param tasks The class storing the list of tasks found in the bot.
      * @param ui The user interface of the bot.
      * @param storage The class containing the file that saves the list of tasks.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showList(taskList);
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        ui.showList(tasks);
     };
 
     /**

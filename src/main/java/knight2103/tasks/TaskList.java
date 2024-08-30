@@ -2,17 +2,15 @@ package knight2103.tasks;
 
 import java.util.ArrayList;
 
-// TASKLIST CANNOT HAVE UI
-
 public class TaskList {
-    private final ArrayList<Task> taskList;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructs an object containing an empty list of tasks stored as an ArrayList.
      * This list is called the taskList.
      */
     public TaskList() {
-        this.taskList = new ArrayList<Task>();
+        this.tasks = new ArrayList<Task>();
     }
 
     /**
@@ -20,7 +18,7 @@ public class TaskList {
      * This list is called the taskList.
      */
     public TaskList(ArrayList<Task> storageData) {
-        this.taskList = storageData;
+        this.tasks = storageData;
     }
 
     /**
@@ -29,7 +27,7 @@ public class TaskList {
      * @return Number of tasks in the bot's taskList.
      */
     public int getSize() {
-        return this.taskList.size();
+        return this.tasks.size();
     }
 
     /**
@@ -39,9 +37,9 @@ public class TaskList {
      */
     public String printToList() {
         String stringToPrint = "";
-        for (int i = 0; i < this.taskList.size(); i++) {
+        for (int i = 0; i < this.tasks.size(); i++) {
             int bulletPoint = i + 1;
-            stringToPrint += bulletPoint + ". " + this.taskList.get(i) + "\n";
+            stringToPrint += bulletPoint + ". " + this.tasks.get(i) + "\n";
         }
         return stringToPrint;
     }
@@ -53,8 +51,8 @@ public class TaskList {
      */
     public String printToFile() {
         String stringToWrite = "";
-        for (int i = 0; i < this.taskList.size(); i++) {
-            stringToWrite += this.taskList.get(i).saveToFileFormat() + "\n";
+        for (int i = 0; i < this.tasks.size(); i++) {
+            stringToWrite += this.tasks.get(i).saveToFileFormat() + "\n";
         }
         return stringToWrite;
     }
@@ -68,8 +66,8 @@ public class TaskList {
     public String searchPrintToList(String wordSearch) {
         String stringToPrint = "";
         int bulletPoint = 0;
-        for (int i = 0; i < this.taskList.size(); i++) {
-            Task searchedTask = this.taskList.get(i);
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task searchedTask = this.tasks.get(i);
             if (searchedTask.getDescription().contains(wordSearch)) {
                 bulletPoint++;
                 stringToPrint += bulletPoint + ". " + searchedTask + "\n";
@@ -87,7 +85,7 @@ public class TaskList {
      * @param newTask Task to be added to the taskList.
      */
     public void add(Task newTask) {
-        this.taskList.add(newTask);
+        this.tasks.add(newTask);
     }
 
     /**
@@ -100,8 +98,8 @@ public class TaskList {
      * of the taskList.
      */
     public Task mark(int index) throws IndexOutOfBoundsException {
-        taskList.get(index).markDone();
-        return taskList.get(index); // must be after markDone to return the newly updated one
+        tasks.get(index).markDone();
+        return tasks.get(index); // must be after markDone to return the newly updated one
     }
 
     /**
@@ -114,8 +112,8 @@ public class TaskList {
      * of the taskList.
      */
     public Task unmark(int index) throws IndexOutOfBoundsException {
-        taskList.get(index).unmarkDone();
-        return taskList.get(index); // must be after unmarkDone to return the newly updated one
+        tasks.get(index).unmarkDone();
+        return tasks.get(index); // must be after unmarkDone to return the newly updated one
     }
 
     /**
@@ -128,8 +126,8 @@ public class TaskList {
      * of the taskList.
      */
     public Task delete(int index) throws IndexOutOfBoundsException {
-        Task taskToDelete = taskList.get(index);
-        taskList.remove(index);
+        Task taskToDelete = tasks.get(index);
+        tasks.remove(index);
         return taskToDelete;
     }
 }

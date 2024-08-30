@@ -17,7 +17,7 @@ public abstract class Command {
         this(verb, "");
     }
 
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage);
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
 
     public abstract boolean isExit();
 }

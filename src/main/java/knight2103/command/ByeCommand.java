@@ -12,11 +12,11 @@ public class ByeCommand extends Command {
     /**
      * Executes the ByeCommand which shows a goodbye message.
      *
-     * @param taskList The class storing the list of tasks found in the bot.
+     * @param tasks The class storing the list of tasks found in the bot.
      * @param ui The user interface of the bot.
      * @param storage The class containing the file that saves the list of tasks.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showBye();
     };
 

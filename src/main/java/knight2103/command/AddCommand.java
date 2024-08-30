@@ -15,7 +15,19 @@ public class AddCommand extends Command {
         super(verb, description);
     }
 
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    /**
+     * Executes the Command which comes in three different variations:
+     * mark, unmark, delete to modify the selected task. Depending on the exact
+     * command used, the task will be modified accordingly.
+     *
+     * @param tasks The class storing the list of tasks found in the bot.
+     * @param ui The user interface of the bot.
+     * @param storage The class containing the file that saves the list of tasks.
+     * @throws IndexOutOfBoundsException If integer keyed in the command is
+     * out of range of the length of the list of tasks.
+     * @throws NumberFormatException If the predicate part of command is not an Integer.
+     */
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task taskToAdd;
         try {
             if (this.verb == CommandVerb.TODO) {
@@ -23,13 +35,13 @@ public class AddCommand extends Command {
             } else if (this.verb == CommandVerb.DEADLINE) {
                 String[] deadlineArray = this.predicate.split(" /by ");
                 taskToAdd = new Deadline(deadlineArray[0], deadlineArray[1]);
-            } else { // if (this.verb == knight2103.command.CommandVerb.EVENT)
+            } else { // CommandVerb.EVENT
                 String[] eventArray = this.predicate.split(" /from | /to ");
                 taskToAdd = new Event(eventArray[0], eventArray[1], eventArray[2]);
             }
-            taskList.add(taskToAdd); // need to check if it works...
+            tasks.add(taskToAdd);
             storage.save(taskToAdd);
-            ui.showAdd(taskToAdd, taskList);
+            ui.showAdd(taskToAdd, tasks);
         } catch (DateTimeParseException e) {
             System.out.println("knight2103.tasks.Deadline format is wrong during input. " + "Please follow " +
                     "yyyy-mm-dd or with the time format");

@@ -24,36 +24,36 @@ public class Storage {
 
     /**
      * Returns ArrayList<Task>. Reads the file that stores all the tasks and
-     * load them into an ArrayList<Task> to be stored in the bot's taskList.
+     * load them into an ArrayList<Task> to be stored in the bot's list of tasks.
      *
-     * @return The ArrayList of task that can be stored in the bot's taskList.
+     * @return The ArrayList of task that can be stored in the bot's list of tasks.
      */
     public ArrayList<Task> load() {
-        ArrayList<Task> taskList = new ArrayList<Task>();
+        ArrayList<Task> tasks = new ArrayList<Task>();
         try {
             Scanner scanner = new Scanner(this.taskFile);
             while (scanner.hasNextLine()) {
-                formatLineToTask(scanner.nextLine()).ifPresent(item -> taskList.add(item));
-                System.out.println(taskList);
+                formatLineToTask(scanner.nextLine()).ifPresent(item -> tasks.add(item));
+                System.out.println(tasks);
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
-        return taskList;
+        return tasks;
     }
 
     /**
-     * Appends the tasks added to the storage file. When the bot's taskList is
-     * changed due to the addition of tasks such as Todo, Deadline and Event,
+     * Appends the tasks added to the storage file. When the bot's list of tasks
+     * is changed due to the addition of tasks such as Todo, Deadline and Event,
      * these changes are reflected in the storage file.
      *
      * @param taskToSave The added task to be saved to the storage file.
      */
     public void save(Task taskToSave) {
         try {
-            FileWriter taskListWriter = new FileWriter(this.taskFile, true);
-            taskListWriter.write("\n" + taskToSave.saveToFileFormat());
-            taskListWriter.close();
+            FileWriter tasksWriter = new FileWriter(this.taskFile, true);
+            tasksWriter.write("\n" + taskToSave.saveToFileFormat());
+            tasksWriter.close();
         } catch (IOException e) {
             System.out.println("Problems creating an instance of FileWriter");
         }
@@ -61,18 +61,18 @@ public class Storage {
 
     /**
      * Updates by overwriting the entire list of tasks in the storage file.
-     * When the task in bot's taskList is modified such as mark as done,
+     * When the task in bot's list of task is modified such as mark as done,
      * unmark as done or deleted, these modifications are captured in the
-     * storage file as well. The newly updated taskList in the bot will be
+     * storage file as well. The newly updated list of task in the bot will be
      * saved into the storage file.
      *
-     * @param taskList The newly updated taskList to be saved into the Storage File.
+     * @param tasks The newly updated tasks to be saved into the Storage File.
      */
-    public void save(TaskList taskList) {
+    public void save(TaskList tasks) {
         try {
-            FileWriter taskListWriter = new FileWriter(this.taskFile, false);
-            taskListWriter.write(taskList.printToFile());
-            taskListWriter.close();
+            FileWriter tasksWriter = new FileWriter(this.taskFile, false);
+            tasksWriter.write(tasks.printToFile());
+            tasksWriter.close();
         } catch (IOException e) {
             System.out.println("Problems creating an instance of FileWriter");
         }
@@ -89,7 +89,6 @@ public class Storage {
         }
     }
 
-    // to simplify
     private Optional<Task> formatLineToTask(String lineInFile) {
         String[] lineArray = lineInFile.split(" \\| ");
         try {
