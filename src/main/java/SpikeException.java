@@ -1,5 +1,7 @@
 public class SpikeException extends Exception {
     public SpikeException(String message) {
-        super(message);
+        super("     _________________________________________________________\n"
+                + "     " + message
+                + "\n     _________________________________________________________");
     }
 }
