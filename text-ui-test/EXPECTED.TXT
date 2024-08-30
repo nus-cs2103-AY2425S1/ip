@@ -1,92 +1,57 @@
 Hello I'm YapMeister
 YAPYAPYAPYAP
 
-
 Added:
 You have 1 tasks
-
 Added:
 You have 2 tasks
-
 Added:
 You have 3 tasks
-
 Removed this task
 [T][ ] 2
 You have 2 tasks
-
 No task at that index
-
 No task at that index
-
 Invalid number format
-
 Removed this task
 [T][ ] 1
 You have 1 tasks
-
 Removed this task
 [T][ ] 3
 You have 0 tasks
-
-
 Added:
 You have 1 tasks
-
 1. [T][ ] borrow book
-
 Added:
 You have 2 tasks
-
 You did this:
 [D][X] return book (by: Sunday)
-
 Added:
 You have 3 tasks
-
 You did this:
 [E][X] project meeting (from: Mon 2pm to: 4pm)
-
 You undid this:
 [D][ ] return book (by: Sunday)
-
 You did this:
 [T][X] borrow book
-
 Added:
 You have 4 tasks
-
 1. [T][X] borrow book
 2. [D][ ] return book (by: Sunday)
 3. [E][X] project meeting (from: Mon 2pm to: 4pm)
 4. [D][ ] add book (by: never)
-
 No task at that index
-
 No task at that index
-
 Invalid number format
-
 Invalid number format
-
 Invalid Task description
-
 Invalid Task description
-
 Invalid Task description
-
 Invalid Task description
-
 Invalid Task description
-
 Invalid Task description
-
 Invalid Task description
-
 Invalid Task description
-
 Invalid input please yap yapology
-
 Invalid input please yap yapology
-
 Fine. Bye. Leave and never return
