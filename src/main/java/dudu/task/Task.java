@@ -15,6 +15,10 @@ public class Task {
         this.marked = false;
     }
 
+    public boolean includes(String query) {
+        return this.description.toLowerCase().contains(query.toLowerCase());
+    }
+
     public String formatString() {
         String status = this.marked ? "1" : "0";
         return String.format("%s | %s", status, this.description);

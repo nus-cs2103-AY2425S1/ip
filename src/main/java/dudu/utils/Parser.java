@@ -14,28 +14,21 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
     enum CommandType {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, HELP
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, HELP
     }
     public static Command parse(String command) {
         String[] input = command.split(" ", 2);
-        CommandType commandType = CommandType.valueOf(input[0].trim().toUpperCase());
-
         try {
+            CommandType commandType = CommandType.valueOf(input[0].trim().toUpperCase());
             switch (commandType) {
-                case BYE: {
+                case BYE:
                     return new CommandBye();
-                }
-                case LIST: {
+                case LIST:
                     return new CommandList();
-                }
-                case HELP: {
+                case HELP:
                     return new CommandHelp();
-                }
-                case TODO: {
-                    String description = getContent(input);
-                    Task task = new ToDo(description);
-                    return new CommandTodo(task);
-                }
+                case TODO:
+                    return new CommandTodo(new ToDo(getContent(input)));
                 case DEADLINE: {
                     String content = getContent(input);
                     if (!content.matches(".*/by.*")) {
@@ -74,21 +67,17 @@ public class Parser {
                     Event task = new Event(description, from, to);
                     return new CommandEvent(task);
                 }
-                case MARK: {
-                    int index = getIndex(input);
-                    return new CommandMark(index);
-                }
-                case UNMARK: {
-                    int index = getIndex(input);
-                    return new CommandUnmark(index);
-                }
-                case DELETE: {
-                    int index = getIndex(input);
-                    return new CommandDelete(index);
-                }
-                default: {
+                case MARK:
+                    return new CommandMark(getIndex(input));
+                case UNMARK:
+                    return new CommandUnmark(getIndex(input));
+                case DELETE:
+                    return new CommandDelete(getIndex(input));
+                case FIND:
+                    return new CommandFind(getContent(input));
+                default:
+                    System.out.println("help");
                     return new CommandHelp();
-                }
             }
         } catch (MissingDescriptionException e) {
             // TO BE REPLACED WITH dudu.utils.UI
@@ -99,7 +88,10 @@ public class Parser {
             System.out.println(e);
         } catch (MissingDateTimeException e) {
             System.out.println(e);
+        } catch (IllegalArgumentException e) {
+            return new CommandHelp();
         }
+        System.out.println("Why am i here");
         return new CommandHelp();
     }
 

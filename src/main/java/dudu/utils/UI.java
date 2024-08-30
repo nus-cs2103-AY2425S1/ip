@@ -69,4 +69,16 @@ public class UI {
             System.out.println(LineWrapper.wrap(output.toString()));
         }
     }
+
+    public void findTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println(LineWrapper.wrap("No matching tasks in your list"));
+        } else {
+            StringBuilder output = new StringBuilder("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                output.append("\n" + (i + 1) + ". " + tasks.get(i));
+            }
+            System.out.println(LineWrapper.wrap(output.toString()));
+        }
+    }
 }

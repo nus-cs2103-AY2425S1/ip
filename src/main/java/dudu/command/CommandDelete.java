@@ -18,7 +18,7 @@ public class CommandDelete extends Command {
     public void execute(TaskList taskList, UI ui, Storage storage) throws IOException {
         Task deletedTask = taskList.deleteTask(this.index);
         storage.rewriteFile(taskList);
-        ui.markTask(deletedTask);
+        ui.deleteTask(deletedTask);
     }
 
     @Override
