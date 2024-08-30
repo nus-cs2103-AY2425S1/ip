@@ -1,7 +1,6 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Toothless represents a simple chat application.
@@ -9,12 +8,15 @@ import java.io.IOException;
 public class Toothless {
 
     private final static String TOOTHLESS_LOGO =
-            " _____            _   _     _\n" +
-            "|_   _|___   ___ | |_| |__ | | ___  ___ ___\n" +
-            "  | |/ _ \\ / _ \\| __| '_ \\| |/ _ \\/ __/ __|\n" +
-            "  | | (_) | (_) | |_| | | | |  __/\\__ \\__ \\\n" +
-            "  |_|\\___/ \\___/ \\__|_| |_|_|\\___||___/___/\n";
+            """
+                     _____            _   _     _
+                    |_   _|___   ___ | |_| |__ | | ___  ___ ___
+                      | |/ _ \\ / _ \\| __| '_ \\| |/ _ \\/ __/ __|
+                      | | (_) | (_) | |_| | | | |  __/\\__ \\__ \\
+                      |_|\\___/ \\___/ \\__|_| |_|_|\\___||___/___/
+                    """;
     private final static String DIVIDER = "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
+    private static final String DATA_FILE_PATH = "src/data/tasks.txt";
     private final Scanner sc = new Scanner(System.in);
     private final ArrayList<Task> list;
 
@@ -86,31 +88,34 @@ public class Toothless {
      */
     public void addTask(String taskType, String description) throws ToothlessExceptions {
         switch(taskType) {
-            case "todo":
-                if(description.isEmpty()) {
-                    throw new NoDescription("todo", "todo <description>");
-                }
-                list.add(new ToDos(description));
-                break;
-            case "deadline":
-                if(description.isEmpty()) {
-                    throw new NoDescription("deadline", "deadline <description> /by <timing>");
-                } else if(!description.contains("/by")) {
-                    throw new NoTimeline("deadline", "deadline <description> /by <timing>");
-                }
-                String[] splitDeadline = description.split("/by");
-                list.add(new Deadline(splitDeadline[0], splitDeadline[1]));
-                break;
-            case "event":
-                if(description.isEmpty()) {
-                    throw new NoDescription("event", "event <description> /from <start time> /to <end time>");
-                } else if(!description.contains("/from") || !description.contains("/to")) {
-                    throw new NoTimeline("event", "event <description> /from <start time> /to <end time>");
-                }
-                break;
-            default:
-                throw new ToothlessExceptions("I don't understand that command.\n" +
-                        "Please enter a valid command. :)\n\n" + DIVIDER);
+        case "todo":
+            if(description.isEmpty()) {
+                throw new NoDescription("todo", "todo <description>");
+            }
+            list.add(new ToDos(description));
+            break;
+        case "deadline":
+            if(description.isEmpty()) {
+                throw new NoDescription("deadline", "deadline <description> /by <timing>");
+            } else if(!description.contains("/by")) {
+                throw new NoTimeline("deadline", "deadline <description> /by <timing>");
+            }
+            String[] splitDeadline = description.split("/by");
+            list.add(new Deadline(splitDeadline[0], splitDeadline[1]));
+            break;
+        case "event":
+            if(description.isEmpty()) {
+                throw new NoDescription("event", "event <description> /from <start time> /to <end time>");
+            } else if(!description.contains("/from") || !description.contains("/to")) {
+                throw new NoTimeline("event", "event <description> /from <start time> /to <end time>");
+            }
+            String[] splitEvent = description.split("/from");
+            String[] splitEventTime = splitEvent[1].split("/to");
+            list.add(new Events(splitEvent[0], splitEventTime[0], splitEventTime[1]));
+            break;
+        default:
+            throw new ToothlessExceptions("I don't understand that command.\n" +
+                    "Please enter a valid command. :)\n\n" + DIVIDER);
         }
 
         System.out.println("Toothless:\nYour task\n\t\t" +
@@ -154,6 +159,7 @@ public class Toothless {
             case DEADLINE :
             case EVENT :
                 addTask(command.name().toLowerCase(), description);
+                saveTask();
                 break;
             case LIST :
                 printTask();
@@ -168,6 +174,7 @@ public class Toothless {
                             DIVIDER);
                 }
                 markDone(markIndex);
+                saveTask();
                 break;
             case UNMARK :
                 if(description.isEmpty()) {
@@ -179,6 +186,7 @@ public class Toothless {
                             DIVIDER);
                 }
                 markUndone(unmarkIndex);
+                saveTask();
                 break;
             case DELETE :
                 if(description.isEmpty()) {
@@ -190,6 +198,7 @@ public class Toothless {
                             DIVIDER);
                 }
                 deleteTask(deleteIndex);
+                saveTask();
                 break;
             default:
                 throw new ToothlessExceptions("I don't understand that command.\n" +
@@ -198,10 +207,88 @@ public class Toothless {
     }
 
     /**
+     * Saves the tasks to a file.
+     */
+    public void saveTask() {
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE_PATH))) {
+            for(Task task : list) {
+                writer.write(getTaskData(task));
+                writer.newLine();
+            }
+        } catch(IOException e) {
+            System.out.println("Toothless:\nOh no! There is an error saving quests to file.");
+        }
+    }
+
+    /**
+     * Returns the data of the task to save in the text file.
+     * @param task The task to be saved.
+     * @return The data of the task to be saved in the text file.
+     */
+    private String getTaskData(Task task) {
+        String taskType = task instanceof ToDos ? "T" :
+                task instanceof Deadline ? "D" :
+                        task instanceof Events ? "E" : "";
+        String baseInfo = taskType + " | " + (task.isDone ? "1" : "0") + " | " + task.description;
+
+        if (task instanceof Deadline) {
+            return baseInfo + " | " + ((Deadline) task).deadline;
+        } else if (task instanceof Events) {
+            Events event = (Events) task;
+            return baseInfo + " | " + event.eventStart + " | " + event.eventEnd;
+        }
+        return baseInfo;
+    }
+
+    /**
+     * Loads the tasks from a file.
+     */
+    public void loadTasks() {
+        list.clear();
+        try (BufferedReader reader = new BufferedReader(new FileReader(DATA_FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = parseDataToTask(line);
+                if (task != null) {
+                    list.add(task);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Toothless:\nOh no! There is an error loading quests from file.");
+        }
+    }
+
+    /**
+     * Parses the data from the file to a task.
+     * @param taskData The data of the task.
+     * @return The task parsed from the data.
+     */
+    private Task parseDataToTask(String taskData) {
+        String[] splitData = taskData.split(" \\| ");
+
+        String taskType = splitData[0];
+        boolean isDone = splitData[1].equals("1");
+        String description = splitData[2];
+
+        switch(taskType) {
+            case "T":
+                return new ToDos(description, isDone);
+            case "D":
+                return new Deadline(description, splitData[3], isDone);
+            case "E":
+                return new Events(description, splitData[3], splitData[4], isDone);
+            default:
+                return null;
+        }
+    }
+
+    /**
      * Begins the chat application.
      * The user can add tasks to the task list.
      */
-    public void beginChat() {
+    public void beginChat() throws ToothlessExceptions {
+        loadTasks();
+
         System.out.println("Welcome to the dragon's den!\n" + TOOTHLESS_LOGO);
         System.out.println("Toothless:\n" +
                 "Greetings, Dragon Rider!\n\n" +
@@ -233,6 +320,10 @@ public class Toothless {
      */
     public static void main(String[] args) {
         Toothless toothless = new Toothless();
-        toothless.beginChat();
+        try {
+            toothless.beginChat();
+        } catch (ToothlessExceptions e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

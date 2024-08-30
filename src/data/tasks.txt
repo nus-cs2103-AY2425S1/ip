@@ -1,0 +1,3 @@
+D | 0 | assignment  |  tmr
+E | 1 | speech  |  2pm  |  4pm
+T | 0 | read 
