@@ -97,5 +97,10 @@ public abstract class Task {
      *
      * @return A string representation of the task.
      */
+
+    public boolean containsWord(String keyword) {
+        return this.desc.contains(keyword);
+    }
+
     public abstract String stringifyTask();
 }

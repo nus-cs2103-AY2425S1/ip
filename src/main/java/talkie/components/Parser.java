@@ -43,6 +43,8 @@ public class Parser {
                 return new DeadlineCommand(input);
             case EVENT:
                 return new EventCommand(input);
+            case FIND:
+                return new FindCommand(input);
             default:
                 throw new TalkieUnknownCommandException(input);
             }

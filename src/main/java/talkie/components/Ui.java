@@ -171,4 +171,43 @@ public class Ui {
     public void showTalkieException(TalkieException e) {
         System.out.println(String.format("%s\n", e));
     }
+
+    public void findTasks(TaskList tasks, String keyword) {
+
+        if (tasks.isEmpty()) {
+            String emptyMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
+                    + "There are no tasks your list! \n"
+                    + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
+            System.out.println(emptyMessage);
+        }
+
+        TaskList searchedList = new TaskList();
+        for (int i = 1; i <= tasks.size(); i++) {
+            Task currTask = tasks.getTask(i);
+            if (currTask.containsWord(keyword)) {
+                searchedList.addTask(currTask);
+            }
+        }
+
+        if (searchedList.isEmpty()) {
+            String noTaskMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
+                    + "There are no tasks your list! \n"
+                    + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
+            System.out.println(noTaskMessage);
+        }
+
+
+        StringBuilder searchedListMessage = new StringBuilder();
+        for (int i = 1; i <= searchedList.size(); i++) {
+            Task searchedTask = searchedList.getTask(i);
+            String description = (i) + ". " + searchedTask + "\n";
+            searchedListMessage.append(description);
+        }
+
+        String finalMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
+                + "Here are the matching tasks in your list:\n"
+                +  searchedListMessage
+                + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
+        System.out.println(finalMessage);
+    }
 }
