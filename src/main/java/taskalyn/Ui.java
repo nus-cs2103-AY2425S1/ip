@@ -1,5 +1,6 @@
 package taskalyn;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Ui {
@@ -21,10 +22,18 @@ public class Ui {
     }
 
     public String readCommand() {
-        return scanner.nextLine().trim();
+        if (scanner.hasNextLine()) {
+            return scanner.nextLine().trim();
+        } else {
+            return "unknown command";
+        }
     }
 
     public void close() {
         scanner.close();
+    }
+
+    public String getLastCommand() {
+        return readCommand();
     }
 }

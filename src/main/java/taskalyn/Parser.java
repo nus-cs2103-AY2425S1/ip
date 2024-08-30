@@ -8,7 +8,7 @@ public class Parser {
         this.ui = ui;
         this.taskManager = taskManager;
     }
-    public void parse(TaskManager taskManager) {
+    public boolean parse(TaskManager taskManager) {
         while (true) {
             String input = ui.readCommand();
             String[] items = input.split(" ", 2);
@@ -18,7 +18,7 @@ public class Parser {
                 switch (command) {
                 case "bye":
                     ui.printLines("Bye. Hope to see you again soon!");
-                    return;
+                    return false;
                 case "list":
                     taskManager.listTasks();
                     break;
@@ -147,6 +147,7 @@ public class Parser {
             } catch (NoSuchTaskException | CommandFormatException e) {
                 ui.printLines(e.getMessage());
             }
+            return true;
         }
     }
 }

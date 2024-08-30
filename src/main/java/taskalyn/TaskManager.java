@@ -10,7 +10,7 @@ public class TaskManager {
     private Ui ui;
 
     public TaskManager(Database database, Ui ui) {
-        this.database = new Database();
+        this.database = database;
         this.ui = ui;
         this.tasks = new ArrayList<>(100);
         loadDatabase();

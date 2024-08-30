@@ -12,6 +12,10 @@ public class Taskalyn {
 
         while (true) {
             parser.parse(taskManager);
+            String lastCommand = ui.getLastCommand();
+            if (lastCommand.equals("bye")) {
+                break;
+            }
         }
     }
 }
