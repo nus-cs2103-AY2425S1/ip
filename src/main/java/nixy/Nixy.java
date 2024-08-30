@@ -4,6 +4,8 @@ import nixy.exceptions.NixyException;
 import nixy.task.TaskList;
 import nixy.task.Task;
 import nixy.ui.Ui;
+import nixy.parse.Parser;
+import nixy.parse.Parsed;
 
 public class Nixy {
 
@@ -31,10 +33,10 @@ public class Nixy {
         Boolean isExit = false;
         while (!isExit) {
             String input = ui.readInput();
-            Parser p;
+            Parsed p;
             Command c;
             try {
-                p = new Parser(input);
+                p = Parser.parse(input);
                 c = p.getCommand();
             } catch (NixyException e) {
                 ui.showNixyException(e);
