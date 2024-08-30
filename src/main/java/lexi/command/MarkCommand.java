@@ -15,10 +15,10 @@ public class MarkCommand extends Command {
     }
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws LexiException {
-        Task taskToBeMarked = tasks.getTask(taskNumber);
         if(taskNumber > tasks.getSize() - 1) {
             throw new LexiException("Sorry! That task does not exist.\nPlease key in the correct task number");
         }
+        Task taskToBeMarked = tasks.getTask(taskNumber);
         if(isMark) {
             markTask(taskToBeMarked, tasks, ui);
         } else {
