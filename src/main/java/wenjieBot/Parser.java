@@ -1,12 +1,6 @@
 package wenjieBot;
 
-import wenjieBot.commands.Command;
-import wenjieBot.commands.MarkCommand;
-import wenjieBot.commands.DeleteCommand;
-import wenjieBot.commands.ByeCommand;
-import wenjieBot.commands.ListCommand;
-import wenjieBot.commands.UnmarkCommand;
-import wenjieBot.commands.AddCommand;
+import wenjieBot.commands.*;
 import wenjieBot.exceptions.UnknownCommandException;
 
 
@@ -54,6 +48,11 @@ public class Parser {
 
             case "deadline": {
                 response = new AddCommand(false, input, AddCommand.TypeOfEvent.DEADLINE);
+                break;
+            }
+
+            case "find": {
+                response = new FindCommand(false, input);
                 break;
             }
 

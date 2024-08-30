@@ -30,6 +30,10 @@ public class Task {
         }
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         if (isDone) {
