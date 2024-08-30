@@ -6,7 +6,7 @@ import java.time.temporal.ChronoField;
 
 public class Parser {
     public enum CommandType {
-        LIST, BYE, MARK, UNMARK, ADD, DEADLINE, EVENT, ERROR, DELETE, CLEAR
+        LIST, BYE, MARK, UNMARK, ADD, DEADLINE, EVENT, ERROR, DELETE, CLEAR, FIND
     }
 
     public static final DateTimeFormatter PATTERN = new DateTimeFormatterBuilder()
@@ -44,7 +44,9 @@ public class Parser {
             return CommandType.DELETE;
         } else if (userInput.startsWith("clear")) {
             return CommandType.CLEAR;
-        }else {
+        } else if (userInput.startsWith("find")) {
+            return CommandType.FIND;
+        } else {
             return CommandType.ERROR;
         }
     }
