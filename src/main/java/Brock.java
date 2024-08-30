@@ -5,6 +5,10 @@ import Tasks.Events;
 import Tasks.Task;
 import Tasks.ToDos;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,14 +17,17 @@ public class Brock {
         MARK,
         UNMARK
     }
-    private static final String horizontalLine = "________________________________________________\n";
+
+    private static final String HORIZONTAL_LINE = "________________________________________________\n";
+    private static final String FILE_PATH = "./src/main/java/saveFile.txt";
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
     // Helper function to display response with lines
     private static void displayResponse(String response) {
-        System.out.println(Brock.horizontalLine
+        System.out.println(Brock.HORIZONTAL_LINE
                 + response
-                + Brock.horizontalLine);
+                + '\n'
+                + Brock.HORIZONTAL_LINE);
     }
 
     // Helper function to get target index
@@ -34,7 +41,7 @@ public class Brock {
     private static boolean isNotInteger(String commandWord) {
         try {
             Integer.parseInt(commandWord);
-        } catch(NumberFormatException | NullPointerException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             return true;
         }
         return false;
@@ -53,13 +60,38 @@ public class Brock {
         return count;
     }
 
+    private static void createFile() throws IOException {
+        // TODO: Consider implementing some form of slight delay
+        File saveFile = new File(Brock.FILE_PATH);
+
+        displayResponse("Creating parent directories for save file...");
+        boolean directoryStatus = saveFile.getParentFile().mkdirs();
+        if (!directoryStatus) {
+            displayResponse("Parent directories already exists!");
+        } else {
+            displayResponse("Parent directories successfully created!");
+        }
+
+        displayResponse("Creating save file for tasks...");
+        boolean status = saveFile.createNewFile();
+        if (!status) {
+            displayResponse("Save file already exists!");
+        } else {
+            displayResponse("Save file successfully created");
+        }
+    }
+
+    private static void writeToFile() throws IOException {
+        // Creates a file writer object in append mode
+        FileWriter fw = new FileWriter(Brock.FILE_PATH, true);
+    }
+
     // Helper function to get task details as a string
     private static String getDetails(Task task) {
         return "[" + task.getTaskType() + "]"
                 + "[" + task.getStatusIcon() + "] "
                 + task.getDescription()
-                + task.getExtraInfo()
-                + '\n';
+                + task.getExtraInfo();
     }
 
     // Helper function to get task summary, detailing current number of tasks
@@ -68,8 +100,8 @@ public class Brock {
         return "Now you have "
                 + totalTasks
                 + (totalTasks == 1
-                ? " task in the list.\n"
-                : " tasks in the list.\n");
+                ? " task in the list."
+                : " tasks in the list.");
     }
 
     // Helper function to perform list command
@@ -83,13 +115,28 @@ public class Brock {
             }
             String itemNumber = i + 1 + ".";
             tasksString.append(itemNumber)
-                    .append(getDetails(currTask));
+                    .append(getDetails(currTask))
+                    .append('\n');
         }
+
+        if (!Brock.tasks.isEmpty()) {
+            // Remove last new line character
+            // To prevent duplicates when displaying response
+            tasksString.deleteCharAt(tasksString.length() - 1);
+        }
+
         int totalTasks = numTasks();
+        String responseBody;
+        if (totalTasks == 0) {
+            responseBody = "No current tasks!";
+        } else {
+            responseBody = tasksString.toString();
+        }
+
         displayResponse((totalTasks == 1
                 ? "Here is the task in your list:\n"
                 : "Here are the tasks in your list:\n")
-                + tasksString);
+                + responseBody);
     }
 
     // Helper function to validate the status (mark/unmark) command
@@ -101,19 +148,19 @@ public class Brock {
         int commandLength = commandWords.length;
 
         if (commandLength == 1) {
-            throw new BrockException("Missing task number!\n");
+            throw new BrockException("Missing task number!");
         }
         if (commandLength > 2 || isNotInteger(commandWords[1])) {
             throw new BrockException(actionName
                     + " command is in the form "
                     + actionName.toLowerCase()
-                    + " <task-number>!\n");
+                    + " <task-number>!");
         }
 
         int taskNumber = Integer.parseInt(commandWords[1]);
         int totalTasks = numTasks();
         if (taskNumber > totalTasks || taskNumber < 1) {
-            throw new BrockException("Task number does not exist!\n");
+            throw new BrockException("Task number does not exist!");
         }
     }
 
@@ -142,16 +189,16 @@ public class Brock {
         int commandLength = commandWords.length;
 
         if (commandLength == 1) {
-            throw new BrockException("Missing task number!\n");
+            throw new BrockException("Missing task number!");
         }
         if (commandLength > 2 || isNotInteger(commandWords[1])) {
-            throw new BrockException("Delete command is in the form delete <task-number>!\n");
+            throw new BrockException("Delete command is in the form delete <task-number>!");
         }
 
         int taskNumber = Integer.parseInt(commandWords[1]);
         int totalTasks = numTasks();
         if (taskNumber > totalTasks || taskNumber < 1) {
-            throw new BrockException("Task number does not exist!\n");
+            throw new BrockException("Task number does not exist!");
         }
 
     }
@@ -166,6 +213,7 @@ public class Brock {
         displayResponse("Noted. I've removed this task:\n"
                 + "  "
                 + getDetails(removedTask)
+                + '\n'
                 + getTaskSummary());
     }
 
@@ -183,6 +231,7 @@ public class Brock {
                         .append(" ");
             }
             task = new ToDos(description.toString());
+
 
         } else if (firstWord.equalsIgnoreCase("deadline")) {
             for (int i = 1; i < commandLength; i++) {
@@ -205,13 +254,13 @@ public class Brock {
             }
 
             if (dueDate.isEmpty()) {
-                throw new BrockException("Missing due date! Remember it is specified after /by!\n");
+                throw new BrockException("Missing due date! Remember it is specified after /by!");
             }
             // Trim away the trailing whitespace
             task = new Deadlines(description.toString(),
                     dueDate.toString().trim());
 
-        } else if (firstWord.equalsIgnoreCase("event")){
+        } else if (firstWord.equalsIgnoreCase("event")) {
             StringBuilder startDate = new StringBuilder();
             StringBuilder endDate = new StringBuilder();
             boolean startDateActive = false;
@@ -244,10 +293,10 @@ public class Brock {
             }
 
             if (startDate.isEmpty()) {
-                throw new BrockException("Missing start date! Remember it is specified after /from!\n");
+                throw new BrockException("Missing start date! Remember it is specified after /from!");
             }
             if (endDate.isEmpty()) {
-                throw new BrockException("Missing end date! Remember it is specified after /to!\n");
+                throw new BrockException("Missing end date! Remember it is specified after /to!");
             }
             // Trim away the trailing whitespace
             task = new Events(description.toString(),
@@ -255,11 +304,11 @@ public class Brock {
                     endDate.toString().trim());
 
         } else {
-            throw new BrockException("Invalid command!\n");
+            throw new BrockException("Invalid command!");
         }
 
         if (description.isEmpty()) {
-            throw new BrockException("Description is missing!\n");
+            throw new BrockException("Description is missing!");
         }
         return task;
     }
@@ -269,11 +318,18 @@ public class Brock {
         // Reads from standard system input
         Scanner scanner = new Scanner(System.in);
 
+        try {
+            createFile();
+        } catch (IOException e) {
+            displayResponse("Error creating file!\n "
+                    + "Please re-run the program and try again.");
+            return;
+        }
+
         // Initial message
-        displayResponse("""
-                Hello! I'm Brock
-                What can I do for you?
-                """);
+        String initialResponse = "Hello! I'm Brock\n"
+                + "What can I do for you?";
+        displayResponse(initialResponse);
 
         // Main loop
         while (true) {
@@ -283,13 +339,13 @@ public class Brock {
                     .trim()
                     .replaceAll(" +", " ");
             if (command.equalsIgnoreCase("bye")) {
-                displayResponse("Bye. Hope to see you again soon!\n");
+                displayResponse("Bye. Hope to see you again soon!");
                 break;
 
             } else if (command.equalsIgnoreCase("list")) {
                 handleList();
 
-            // Case-insensitive, convert to lower case then process
+                // Case-insensitive, convert to lower case then process
             } else if (command.toLowerCase().startsWith("mark")) {
                 try {
                     handleStatus(command, Action.MARK);
@@ -319,6 +375,7 @@ public class Brock {
                     displayResponse("Got it. I've added this task:\n"
                             + "  "
                             + getDetails(task)
+                            + '\n'
                             + getTaskSummary());
                 } catch (BrockException e) {
                     displayResponse(e.getMessage());
