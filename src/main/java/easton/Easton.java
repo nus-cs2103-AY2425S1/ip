@@ -144,8 +144,8 @@ public class Easton {
 
     public static ToDo createToDo(String input) throws EmptyDescriptionException {
         String[] splitInput = input.stripLeading()
-                .stripTrailing().
-                split(" ", 2);
+                .stripTrailing()
+                .split(" ", 2);
         if (splitInput.length == 2) {
             return new ToDo(splitInput[1]);
         } else {
@@ -153,10 +153,12 @@ public class Easton {
         }
     }
 
-    private static Deadline createDeadline(String input) throws EmptyDescriptionException,
+    public static Deadline createDeadline(String input) throws EmptyDescriptionException,
             InvalidFormatException,
             DateTimeFormatException {
-        String[] splitInput = input.split(" ", 2);
+        String[] splitInput = input.stripLeading()
+                .stripTrailing()
+                .split(" ", 2);
         if (splitInput.length != 2) {
             throw new EmptyDescriptionException();
         }
