@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -22,4 +22,36 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "]" + " " + this.description;
     }
+
+    public static Task fromFileString(String line) {
+        String[] parts = line.split(" \\| ");
+        if (parts.length < 3) {
+            return null; // Invalid format
+        }
+
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        switch (type) {
+            case "T":
+                return new Todo(description, isDone);
+            case "D":
+                if (parts.length == 4) {
+                    String by = parts[3];
+                    return new Deadline(description, by, isDone);
+                }
+                break;
+            case "E":
+                if (parts.length == 4) {
+                    String from = parts[3];
+                    String to = parts[4];
+                    return new Event(description, from, to, isDone);
+                }
+                break;
+        }
+        return null; // Invalid format
+    }
+
+    public abstract String toFileString();
 }
