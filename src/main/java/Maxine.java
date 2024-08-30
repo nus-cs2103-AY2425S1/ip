@@ -8,72 +8,63 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Maxine {
-
-    static ArrayList<Task> list = new ArrayList<>();
+    
     static String[] arr;
     static Scanner scanner = new Scanner(System.in);
     private Ui ui;
     private Storage storage;
-    
+    private TaskList tasks;
     
     public Maxine() {
         ui = new Ui();
-        storage = new Storage();
+        storage = new Storage("data/maxine.txt");
+        tasks = new TaskList(storage.load());
     }
     
     public void run() {
         ui.greet();
-        storage.load("data/maxine.txt", list);
+        storage.load();
 
         while (true) {
             String answer = ask();
             if (answer.equals("bye")) {
-                System.out.println("\nBye! I have been maxed out and am going to sleep. Hope to see you again soon!");
+                ui.goodbye();
                 break;
             } else if (answer.equals("list")) {
-                showList();
+                ui.showList(tasks);
             } else if (arr[0].equals("mark") || arr[0].equals("unmark")) {
                 changeMark();
-                storage.refreshStorage(list);
+                storage.refreshStorage(tasks);
             } else if (arr[0].equals("todo")) {
                 try {
-                    todo();
-                    storage.refreshStorage(list);
+                    tasks.addTodo(arr);
+                    storage.refreshStorage(tasks);
                 } catch (Exception e) {
                     System.out.println("Please follow this format: todo [enter task]");
                 }
             } else if (arr[0].equals("deadline")) {
                 try {
-                    deadline();
-                    storage.refreshStorage(list);
+                    tasks.addDeadline(arr);
+                    storage.refreshStorage(tasks);
                 } catch (Exception e) {
                     System.out.println("Please follow this format: deadline [enter task] /by [enter deadline]");
                 }
             } else if (arr[0].equals("event")) {
                 try {
-                    event();
-                    storage.refreshStorage(list);
+                    tasks.addEvent(arr);
+                    storage.refreshStorage(tasks);
                 } catch (Exception e) {
                     System.out.println("Please follow this format: event [enter event] /from [start date] /to [end date]");
                 }
             } else if (arr[0].equals("delete")) {
                 delete();
-                storage.refreshStorage(list);
+                storage.refreshStorage(tasks);
             } else {
                 System.out.println("please type in a command starting with todo, deadline, event, mark, unmark or list");
             }
         }
 
         scanner.close();
-    }
-
-    /**
-     * This method displays the list of tasks
-     */
-    public static void showList() {
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + ". " + list.get(i));
-        }
     }
 
     /**
@@ -90,39 +81,19 @@ public class Maxine {
     /**
      * This method helps to mark or unmark the task
      */
-    public static void changeMark() {
+    public void changeMark() {
         int mark = Integer.parseInt(arr[1]) - 1;
-        Task curr = list.get(mark);
+        Task curr = tasks.get(mark);
         curr.changeStatus();
-    }
-
-    /**
-     * This method adds a todo task to the list
-     */
-    public static void todo() {
-        Todo todo = new Todo();
-        todo.addTodo(arr, list);
-    }
-
-    /**
-     * This method adds a deadline task to the list
-     * @throws MaxineException
-     */
-    public static void deadline() throws MaxineException {
-        Deadline deadline = new Deadline();
-        deadline.addToDeadline(arr, list);
+        ui.changeMark(curr);
     }
     
-    public static void event() throws MaxineException {
-        Event event = new Event();
-        event.addToEvent(arr, list);
-    }
-    
-    public static void delete() {
+    public void delete() {
         int mark = Integer.parseInt(arr[1]) - 1;
-        Task curr = list.get(mark);
+        Task curr = tasks.get(mark);
         curr.delete();
-        list.remove(curr);
+        tasks.delete(curr);
+        ui.delete(curr);
     }
 
     /**

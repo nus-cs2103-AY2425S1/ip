@@ -1,30 +1,30 @@
+import exception.MaxineException;
 import task.Deadline;
-import task.Task;
 import task.Event;
+import task.Task;
 import task.Todo;
+
 import java.util.ArrayList;
 
-public class TaskParser {
-    public TaskParser() {
+public class Parser {
+    
+    public Parser() {
         // nothing
     }
-    
-    public static void parseTask(String str, ArrayList<Task> list) {
-        String[] input = str.split(" / ");
-        
+    public Task parse(String string) throws MaxineException {
+        String[] input = string.split(" / ");
+
         switch (input[0]) {
         case ("T"):
             Todo todo = new Todo(input[2]);
-            list.add(todo);
-            break;
+            return todo;
         case ("D"):
             Deadline deadline = new Deadline(input[2], input[3]);
-            list.add(deadline);
-            break;
+            return deadline;
         case ("E"):
             Event event = new Event(input[2], input[3], input[4]);
-            list.add(event);
-            break;
+            return event;
         }
+        throw new MaxineException("No Task found!");
     }
 }

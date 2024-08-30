@@ -1,3 +1,4 @@
+import exception.MaxineException;
 import task.Task;
 
 import java.io.*;
@@ -7,25 +8,32 @@ import java.util.Scanner;
 public class Storage {
     
     private String filePath;
+    private Parser parser;
     
-    public Storage() {
-        this.filePath = "data/maxine.txt";
+    public Storage(String filePath) {
+        this.filePath = filePath;
+        this.parser = new Parser();
     }
 
-    public void load(String filePath, ArrayList<Task> list) {
+    public ArrayList<Task> load() {
+        ArrayList<Task> list = new ArrayList<>();
         try {
             File f = new File(filePath); // create a File for the given file path
             Scanner s = new Scanner(f); // create a Scanner using the File as the source
             while (s.hasNextLine()) {
-                String task = s.nextLine();
-                TaskParser.parseTask(task, list);
+                String line = s.nextLine();
+                Task task = parser.parse(line);
+                list.add(task);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Oh no! I can't seem to find the file :(");
+        } catch (MaxineException e) {
+            System.out.println("Oh no! No tasks were found");
         }
+        return list;
     }
 
-    public void refreshStorage(ArrayList<Task> list) {
+    public void refreshStorage(TaskList list) {
         File file = new File(filePath);
 
         try (BufferedWriter writer =

@@ -41,14 +41,10 @@ public class Task {
 
     public void changeStatus() {
         this.isDone = !isDone;
-
-        if (isDone) {
-            System.out.println("Yay! You finally did something today");
-            System.out.println(this);
-        } else {
-            System.out.println("Skill issue...");
-            System.out.println(this);
-        }
+    }
+    
+    public boolean getStatus() {
+        return isDone;
     }
 
     public void delete() {

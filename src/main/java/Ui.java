@@ -21,8 +21,8 @@ public class Ui {
         System.out.println("Deleting this task: " + task);
     }
     
-    public void mark(Task task, Boolean isDone) {
-        if (isDone) {
+    public void changeMark(Task task) {
+        if (task.getStatus()) {
             System.out.println("Yay! You finally did something today");
             System.out.println(task);
         } else {
@@ -31,7 +31,7 @@ public class Ui {
         }
     }
     
-    public void showList(ArrayList<Task> list) {
+    public void showList(TaskList list) {
         for (int i = 0; i < list.size(); i++) {
             System.out.println((i + 1) + ". " + list.get(i));
         }
