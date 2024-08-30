@@ -1,7 +1,5 @@
 package chatbaby;
 
-import java.util.ArrayList;
-
 public class FindCommand extends Command {
     public FindCommand(String commandBody) {
         super(commandBody);
