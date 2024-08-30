@@ -3,6 +3,9 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Optimus {
     private static final String FILE_PATH = "./data/optimus.txt";
 
@@ -11,7 +14,7 @@ public class Optimus {
         System.out.println("What can I do for you?");
         Scanner stringScanner = new Scanner(System.in);
         List<Task> record = loadFile();
-        int count = 0;
+        int count = record.size();
 
         while (true) {
             String text = stringScanner.nextLine();
@@ -120,10 +123,9 @@ public class Optimus {
         }
     }
 
-    public static List<Task> loadFile() throws FileNotFoundException {
+    private static List<Task> loadFile() throws FileNotFoundException {
         File f = new File(FILE_PATH);
         List<Task> record = new ArrayList<>();
-        int count = 0;
         if (!f.exists()) {
             System.out.println("No existing data file found in given directory. A new record will be established");
             return record;
@@ -140,18 +142,15 @@ public class Optimus {
             switch (taskType) {
                 case "T":
                     task = new ToDos(description);
-                    count++;
                     break;
                 case "D":
                     String by = parts[3];
                     task = new Deadlines(description, by);
-                    count++;
                     break;
                 case "E":
                     String from = parts[3];
                     String to = parts[4];
                     task = new Events(description, from, to);
-                    count++;
                     break;
             }
 
@@ -164,6 +163,14 @@ public class Optimus {
         }
         s.close();
         return record;
+    }
+
+    public static void saveToFile(List<Task> record) throws IOException {
+        FileWriter writer = new FileWriter(FILE_PATH);
+        for (Task task : record) {
+            writer.write(task.toSaveString() + System.lineSeparator());
+        }
+        writer.close();
     }
 }
 
