@@ -1,4 +1,7 @@
+package BMO;
 import java.util.Scanner;
+
+import BMO.task.Task;
 
 public class BMO {
 
