@@ -11,11 +11,27 @@ import exceptions.MissingDeadlineException;
 import exceptions.TaskNotFoundException;
 import exceptions.MissingEventTimeException;
 
+/**
+ * Represents the main application for managing tasks.
+ * <p>
+ * This class handles user interactions, processes commands, and manages tasks in a list. It also loads and saves tasks
+ * from/to a specified file.
+ * </p>
+ */
 public class BeeBot {
     private static Storage storage;
     private static ArrayList<Task> taskList;
     private final String FILEPATH;
 
+    /**
+     * Constructs a {@code BeeBot} instance with the specified file path.
+     * <p>
+     * Initializes the storage and attempts to load the task list from the provided file path. If loading fails,
+     * initializes an empty task list.
+     * </p>
+     *
+     * @param filePath the path to the file used for loading and saving tasks
+     */
     public BeeBot(String filePath) {
         this.FILEPATH = filePath;
         storage = new Storage();
@@ -28,10 +44,25 @@ public class BeeBot {
         }
     }
 
+    /**
+     * The entry point of the application.
+     * <p>
+     * Creates an instance of {@code BeeBot} with a predefined file path and starts the main loop to handle user input.
+     * </p>
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         new BeeBot("/Users/beetee/Documents/NUS/CS/Y2S1/CS2103T/ip/data/BeeBot.txt").run();
     }
 
+    /**
+     * Starts the main loop for handling user input.
+     * <p>
+     * Reads commands from the user, processes them, and updates the task list accordingly. It handles various commands,
+     * such as adding, marking, and deleting tasks, and interacts with the {@code Ui} and {@code Parser} classes.
+     * </p>
+     */
     public void run() {
         boolean exit_status = false;
         while (!exit_status) {

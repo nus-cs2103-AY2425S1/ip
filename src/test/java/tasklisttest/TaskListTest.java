@@ -11,17 +11,29 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Unit tests for the {@code TaskList} class.
+ * <p>
+ * This class contains tests for the methods in the {@code TaskList} class, including adding and deleting tasks,
+ * and handling invalid operations.
+ * </p>
+ */
 public class TaskListTest {
     private ArrayList<Task> taskList;
 
+    /**
+     * Initializes a new {@code ArrayList} of {@code Task} objects before each test.
+     */
     @BeforeEach
     public void setUp() {
         taskList = new ArrayList<>();
     }
 
     /**
-     * Tests that the size of task list increases when a ToDo is created
-     * Tests that the name of the new task is correct
+     * Tests that the size of the task list increases when a {@code ToDo} task is created.
+     * <p>
+     * Also verifies that the name of the newly created task is correct.
+     * </p>
      */
     @Test
     public void testCreateToDo() {
@@ -35,8 +47,10 @@ public class TaskListTest {
     }
 
     /**
-     * Tests that the size of the task list decreases by 1 when a task is deleted
-     * Tests that the remaining tasks are correct
+     * Tests that the size of the task list increases when a {@code ToDo} task is created.
+     * <p>
+     * Also verifies that the name of the newly created task is correct.
+     * </p>
      */
     @Test
     public void testDeleteEvent() {
@@ -53,7 +67,10 @@ public class TaskListTest {
     }
 
     /**
-     * Tests that deleting a task with an invalid index throws IndexOutOfBoundsException
+     * Tests that attempting to delete a task with an invalid index throws an {@code IndexOutOfBoundsException}.
+     * <p>
+     * This verifies that the method handles invalid indices appropriately.
+     * </p>
      */
     @Test
     public void testDeleteEventWithInvalidIndex() {

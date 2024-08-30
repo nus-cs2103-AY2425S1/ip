@@ -11,7 +11,19 @@ import todo.ToDo;
 import deadline.Deadline;
 import event.Event;
 
+/**
+ * Handles the reading and writing of data from/to a specified file path.
+ * <p>
+ * Provides methods to load a task list from a file, save a task list to a file and to convert a task to a specified string format.
+ * </p>
+ */
 public class Storage {
+    /**
+     * Loads tasks from a specified file path into an array list of tasks.
+     *
+     * @param filePath The file path to read the data from.
+     * @return Returns an array list of tasks that has been read from the filePath.
+     */
     public ArrayList<Task> loadTaskListFromFile(String filePath) {
         ArrayList<Task> taskList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -49,6 +61,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves files from an array list of tasks to the specified file path.
+     *
+     * @param filePath The file path to save the array list of tasks to.
+     * @param taskList The array list of tasks to be saved in the specified file path.
+     */
     public void saveTaskListToFile(String filePath, ArrayList<Task> taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : taskList) {
@@ -60,6 +78,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a task to its respective String format.
+     *
+     * @param task The task to be converted.
+     * @return Returns a String corresponding to the specified Task.
+     */
     public static String taskToString(Task task) {
         String type = "";
         String status = task.isDone() ? "1" : "0";
