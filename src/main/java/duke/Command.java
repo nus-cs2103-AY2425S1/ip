@@ -199,14 +199,14 @@ public class Command {
         String[] message = msg.split(" ");
         String commandType = message[0].toLowerCase();
 
-        switch (CommandType.valueOf(commandType.toUpperCase())) {
-        case TODO:
+        switch (commandType) {
+        case "todo":
             result.append(processTodoCommand(message, tasks));
             break;
-        case DEADLINE:
+        case "deadline":
             result.append(processDeadlineCommand(message, tasks));
             break;
-        case EVENT:
+        case "event":
             result.append(processEventCommand(message, tasks));
             break;
         default:
