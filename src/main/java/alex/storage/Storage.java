@@ -5,7 +5,12 @@ import alex.task.Event;
 import alex.task.Task;
 import alex.task.Todo;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.BufferedWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -45,7 +50,6 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String desc;
             while ((desc = reader.readLine()) != null) {
-
                 Task task;
                 if (desc.startsWith("[T]")) {
                     String details = desc.substring(6).trim();
