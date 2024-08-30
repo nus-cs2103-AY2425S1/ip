@@ -2,22 +2,42 @@ package xizi.chatbot.task;
 
 import java.util.ArrayList;
 import java.util.List;
+
 // ArrayList implementation, auto-adjust the indexing after deletion
+
+/**
+ * Represents a list of tasks. Provides functionality to add, delete, mark, unmark,
+ * and display tasks in the list.
+ */
 public class TaskList {
 
     private final List<Task> items;
+
     private int size;
 
+    /**
+     * Constructs an empty {@code TaskList}.
+     */
     public TaskList(){
         this.items = new ArrayList<>();
         this.size = 0;
     }
 
+    /**
+     * Constructs a {@code TaskList} with the given list of tasks.
+     *
+     * @param tasks The list of tasks to initialize the {@code TaskList} with.
+     */
     public TaskList(List<Task> tasks){
         this.items = tasks;
         this.size = tasks.size();
     }
 
+    /**
+     * Adds a new task to the list.
+     *
+     * @param newTask The task to be added to the list.
+     */
     public void addTask(Task newTask) {
         this.items.add(newTask);
         this.size += 1;
@@ -31,6 +51,12 @@ public class TaskList {
         return this.items;
     }
 
+    /**
+     * Deletes the task at the specified index from the list.
+     *
+     * @param index The index of the task to be deleted.
+     * @return The task that was deleted.
+     */
     public Task deleteTask(int index) {
         Task deleted = this.items.get(index);
         this.items.remove(index);
@@ -38,13 +64,24 @@ public class TaskList {
         return deleted;
     }
 
-
+    /**
+     * Marks the task at the specified index as done.
+     *
+     * @param index The index of the task to be marked as done.
+     * @return A string representation of the marked task.
+     */
     public String markTask(int index){
         Task task = this.items.get(index);
         task.markDone();
         return task.toString();
     }
 
+    /**
+     * Unmarks the task at the specified index, setting its status to not done.
+     *
+     * @param index The index of the task to be unmarked.
+     * @return A string representation of the unmarked task.
+     */
     public String unmarkTask(int index){
         Task task = this.items.get(index);
         task.unmark();
@@ -52,7 +89,10 @@ public class TaskList {
     }
 
 
-
+    /**
+     * Prints all the tasks in the list, each prefixed by its index.
+     * If the list is empty, a message indicating that there are no tasks is printed.
+     */
     public void printActions() {
         for (int i = 1; i <= this.size; i++){
             System.out.printf("%,d. %s%n", i ,this.items.get(i-1).toString());
@@ -61,8 +101,6 @@ public class TaskList {
             System.out.println("There are no tasks in the list now");
         }
     }
-
-
 
 
 }
