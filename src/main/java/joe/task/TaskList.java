@@ -57,4 +57,14 @@ public class TaskList {
             System.out.println("\t" + msg);
         }
     }
+
+    public ArrayList<Task> find(String query) {
+        ArrayList<Task> matchedArr = new ArrayList<>();
+        for (Task task : this.taskList) {
+            if (task.contains(query)) {
+                matchedArr.add(task);
+            }
+        }
+        return matchedArr;
+    }
 }
