@@ -4,6 +4,10 @@ public class Task {
     protected final String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a task object which contains a description of the task.
+     * The task object by default has the completion status set as not done.
+     */
     Task(String description) {
         this.description = description;
         this.isDone = false;

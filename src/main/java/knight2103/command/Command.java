@@ -13,7 +13,7 @@ public abstract class Command {
         this.predicate = predicate;
     }
 
-    public Command(CommandVerb verb) {
+    Command(CommandVerb verb) {
         this(verb, "");
     }
     public abstract void execute(TaskList taskList, Ui ui, Storage storage);

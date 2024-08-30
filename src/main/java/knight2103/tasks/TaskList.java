@@ -2,15 +2,21 @@ package knight2103.tasks;
 
 import java.util.ArrayList;
 
-// TASKLIST CANNOT HAVE UI
-
 public class TaskList {
     private final ArrayList<Task> taskList;
 
+    /**
+     * Constructs an object containing an empty list of tasks stored as an ArrayList.
+     * This list is called the taskList.
+     */
     public TaskList() {
         this.taskList = new ArrayList<Task>();
     }
 
+    /**
+     * Constructs an object containing an existent list of tasks stored as an ArrayList.
+     * This list is called the taskList.
+     */
     public TaskList(ArrayList<Task> storageData) {
         this.taskList = storageData;
     }
