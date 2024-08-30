@@ -6,7 +6,7 @@ import jeff.task.TaskList;
 import jeff.ui.Ui;
 
 public abstract class Command {
-    String input;
+    private String input;
 
     public Command(String input) {
         this.input = input;

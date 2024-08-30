@@ -13,7 +13,7 @@ public class Parser {
      * This is continuously repeated until the user says "bye"
      */
     public static Command parse(String input) throws JeffException {
-        // Check for input == some keyword or starts with some keyword
+        // Filters the input based on the command given
         if (input.equals("list")) {
             return new ListCommand(input);
         } else if (input.equals("bye")) {

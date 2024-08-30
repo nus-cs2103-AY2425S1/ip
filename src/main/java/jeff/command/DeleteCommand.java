@@ -14,15 +14,16 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
-        // Get the task from taskList
+        // Get the task from the task list
         Task targetTask = tasks.getTask(this.getInput(), "delete ");
 
-        // Delete the task
+        // Delete the task from the task list
         tasks.remove(targetTask);
 
         // Update the storage
         storage.writeTaskList(tasks);
 
+        // Print out the statement
         ui.printText("Noted. I've removed this task:\n   " + targetTask.toString()
                 + "\n Now you have " + tasks.size() + " tasks in the list.");
     }

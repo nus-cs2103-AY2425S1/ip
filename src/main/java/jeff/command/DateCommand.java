@@ -17,13 +17,17 @@ public class DateCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
+        // Split the user input to get the date specified by the user
         String[] taskParts  = this.getInput().split(" ", 2);
         String taskPeriod = taskParts.length > 1 ? taskParts[1] : "";
+
         try {
             LocalDate taskDate = LocalDate.parse(taskPeriod);
+
+            // Filter the task list by the given date
             List<Task> filteredTasks = tasks.filterByDate(taskDate);
 
-            // Check if the list is empty
+            // Check if the filtered task list is empty
             if (filteredTasks.isEmpty()) {
                 throw new JeffException("No deadlines/events on " + taskPeriod + "!");
             }
@@ -42,7 +46,9 @@ public class DateCommand extends Command {
 
             }
 
+            // Print out the statement
             ui.printText(listString.toString());
+
         } catch (DateTimeParseException e) {
             throw new JeffException("The format is wrong! " + "It should be \"task yyyy-mm-dd\"!");
         }

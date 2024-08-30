@@ -4,6 +4,7 @@ import jeff.exception.JeffException;
 import jeff.storage.Storage;
 import jeff.task.TaskList;
 import jeff.ui.Ui;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,25 +36,25 @@ public class ListCommandTest {
         new AddCommand("deadline return book /by 2024-08-30 18:00").execute(tasks, ui, storage);
         new AddCommand("event project meeting /from 2024-08-27 08:00 /to 2024-08-27 20:00")
                 .execute(tasks, ui, storage);
+
         outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
+
         new ListCommand("list").execute(tasks, ui, storage);
 
-        assertEquals("_____________________________________________________________________________________\n" +
-                        "\t 1.[T][ ] borrow book\n" +
-                        "\t 2.[D][ ] return book (by: Aug 30 2024 06:00 pm)\n" +
-                        "\t 3.[E][ ] project meeting (from: Aug 27 2024 08:00 am to: Aug 27 2024 08:00 pm)\n" +
-                        "\t_____________________________________________________________________________________",
+        assertEquals("_____________________________________________________________________________________\n"
+                        + "\t 1.[T][ ] borrow book\n"
+                        + "\t 2.[D][ ] return book (by: Aug 30 2024 06:00 pm)\n"
+                        + "\t 3.[E][ ] project meeting (from: Aug 27 2024 08:00 am to: Aug 27 2024 08:00 pm)\n"
+                        + "\t_____________________________________________________________________________________",
                 outputStream.toString().trim());
     }
 
     @Test
-    public void execute_emptyList() throws JeffException {
+    public void execute_emptyList_throwException() throws JeffException {
         Command c = new ListCommand("list");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, ui, storage));
-        assertEquals(
-                "List is empty!",
-                exception.toString());
+        assertEquals("List is empty!", exception.toString());
     }
 }

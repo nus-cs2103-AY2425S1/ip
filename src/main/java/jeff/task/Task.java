@@ -42,6 +42,14 @@ public class Task {
         return getStatusIcon() + " " + description;
     }
 
+    public String toFileString() {
+        if (this.isDone) {
+            return "1 | " + this.description;
+        } else {
+            return "0 | " + this.description;
+        }
+    }
+
     /**
      * Mark the task as done
      */
@@ -63,14 +71,6 @@ public class Task {
      */
     public boolean isDone() {
         return this.isDone;
-    }
-
-    public String toFileString() {
-        if (this.isDone) {
-            return "1 | " + this.description;
-        } else {
-            return "0 | " + this.description;
-        }
     }
 
     public String getDateString(LocalDateTime date, String format) {

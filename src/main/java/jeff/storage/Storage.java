@@ -31,6 +31,7 @@ public class Storage {
             }
 
             return new Scanner(this.filePath);
+
         } catch (IOException e) {
             throw new JeffException("Something went wrong: " + e.getMessage());
         }
@@ -43,6 +44,7 @@ public class Storage {
 
             // Write the strings into the file
             Files.write(filePath, fileStringList);
+
         } catch (IOException e) {
             throw new JeffException("Something went wrong: " + e.getMessage());
         }

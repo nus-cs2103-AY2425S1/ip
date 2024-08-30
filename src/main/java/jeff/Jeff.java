@@ -16,6 +16,7 @@ public class Jeff {
         this.storage = new Storage(filePath);
         this.ui = new Ui();
 
+        // Load the task list from the task list text file
         try {
             this.tasks = new TaskList(this.storage.load());
         } catch (JeffException e) {
@@ -25,15 +26,25 @@ public class Jeff {
     }
 
     public void run() {
-        this.ui.showWelcome();
+        // Print out the greetings message
+        this.ui.printWelcome();
         boolean isExit = false;
 
+        // Continue asking for user input until the user says "bye"
         while (!isExit) {
             try {
+                // Read the user input
                 String fullCommand = this.ui.readCommand();
+
+                // Parse the user input into commands
                 Command c = Parser.parse(fullCommand);
+
+                // Execute the command
                 c.execute(this.tasks, this.ui, this.storage);
+
+                // Check if the program should exit
                 isExit = c.isExit();
+
             } catch (JeffException e) {
                 this.ui.showError(e.toString());
             }

@@ -7,6 +7,7 @@ import jeff.task.EventTask;
 import jeff.task.TaskList;
 import jeff.task.ToDoTask;
 import jeff.ui.Ui;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,11 +41,11 @@ public class AddCommandTest {
         assertEquals(1, tasks.size());
         assertInstanceOf(ToDoTask.class, tasks.get(0));
         assertEquals("[T][ ] read book", tasks.get(0).toString());
-        assertEquals("_____________________________________________________________________________________\n" +
-                "\t Got it. I've added this task:\n" +
-                "\t   [T][ ] read book\n" +
-                "\t Now you have 1 tasks in the list.\n" +
-                "\t_____________________________________________________________________________________",
+        assertEquals("_____________________________________________________________________________________\n"
+                        + "\t Got it. I've added this task:\n"
+                        + "\t   [T][ ] read book\n"
+                        + "\t Now you have 1 tasks in the list.\n"
+                        + "\t_____________________________________________________________________________________",
                 outputStream.toString().trim());
     }
 
@@ -56,11 +57,11 @@ public class AddCommandTest {
         assertEquals(1, tasks.size());
         assertInstanceOf(DeadlineTask.class, tasks.get(0));
         assertEquals("[D][ ] return book (by: Aug 30 2024 06:00 pm)", tasks.get(0).toString());
-        assertEquals("_____________________________________________________________________________________\n" +
-                        "\t Got it. I've added this task:\n" +
-                        "\t   [D][ ] return book (by: Aug 30 2024 06:00 pm)\n" +
-                        "\t Now you have 1 tasks in the list.\n" +
-                        "\t_____________________________________________________________________________________",
+        assertEquals("_____________________________________________________________________________________\n"
+                        + "\t Got it. I've added this task:\n"
+                        + "\t   [D][ ] return book (by: Aug 30 2024 06:00 pm)\n"
+                        + "\t Now you have 1 tasks in the list.\n"
+                        + "\t_____________________________________________________________________________________",
                 outputStream.toString().trim());
     }
 
@@ -72,11 +73,11 @@ public class AddCommandTest {
         assertEquals(1, tasks.size());
         assertInstanceOf(DeadlineTask.class, tasks.get(0));
         assertEquals("[D][ ] return book (by: Aug 30 2024 06:00 pm)", tasks.get(0).toString());
-        assertEquals("_____________________________________________________________________________________\n" +
-                        "\t Got it. I've added this task:\n" +
-                        "\t   [D][ ] return book (by: Aug 30 2024 06:00 pm)\n" +
-                        "\t Now you have 1 tasks in the list.\n" +
-                        "\t_____________________________________________________________________________________",
+        assertEquals("_____________________________________________________________________________________\n"
+                        + "\t Got it. I've added this task:\n"
+                        + "\t   [D][ ] return book (by: Aug 30 2024 06:00 pm)\n"
+                        + "\t Now you have 1 tasks in the list.\n"
+                        + "\t_____________________________________________________________________________________",
                 outputStream.toString().trim());
     }
 
@@ -89,11 +90,11 @@ public class AddCommandTest {
         assertInstanceOf(EventTask.class, tasks.get(0));
         assertEquals("[E][ ] project meeting (from: Aug 27 2024 08:00 am to: Aug 27 2024 08:00 pm)",
                 tasks.get(0).toString());
-        assertEquals("_____________________________________________________________________________________\n" +
-                        "\t Got it. I've added this task:\n" +
-                        "\t   [E][ ] project meeting (from: Aug 27 2024 08:00 am to: Aug 27 2024 08:00 pm)\n" +
-                        "\t Now you have 1 tasks in the list.\n" +
-                        "\t_____________________________________________________________________________________",
+        assertEquals("_____________________________________________________________________________________\n"
+                        + "\t Got it. I've added this task:\n"
+                        + "\t   [E][ ] project meeting (from: Aug 27 2024 08:00 am to: Aug 27 2024 08:00 pm)\n"
+                        + "\t Now you have 1 tasks in the list.\n"
+                        + "\t_____________________________________________________________________________________",
                 outputStream.toString().trim());
     }
 
@@ -106,16 +107,16 @@ public class AddCommandTest {
         assertInstanceOf(EventTask.class, tasks.get(0));
         assertEquals("[E][ ] project meeting (from: Aug 27 2024 08:00 am to: Aug 27 2024 08:00 pm)",
                 tasks.get(0).toString());
-        assertEquals("_____________________________________________________________________________________\n" +
-                        "\t Got it. I've added this task:\n" +
-                        "\t   [E][ ] project meeting (from: Aug 27 2024 08:00 am to: Aug 27 2024 08:00 pm)\n" +
-                        "\t Now you have 1 tasks in the list.\n" +
-                        "\t_____________________________________________________________________________________",
+        assertEquals("_____________________________________________________________________________________\n"
+                        + "\t Got it. I've added this task:\n"
+                        + "\t   [E][ ] project meeting (from: Aug 27 2024 08:00 am to: Aug 27 2024 08:00 pm)\n"
+                        + "\t Now you have 1 tasks in the list.\n"
+                        + "\t_____________________________________________________________________________________",
                 outputStream.toString().trim());
     }
 
     @Test
-    public void execute_invalidToDoTask() throws JeffException {
+    public void execute_invalidToDoTask_throwsException() throws JeffException {
         Command c = new AddCommand("todo");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, ui, storage));
@@ -123,7 +124,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_invalidDeadlineTask() throws JeffException {
+    public void execute_invalidDeadlineTask_throwsException() throws JeffException {
         Command c = new AddCommand("deadline");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, ui, storage));
@@ -131,7 +132,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_invalidEventTask() throws JeffException {
+    public void execute_invalidEventTask_throwsException() throws JeffException {
         Command c = new AddCommand("event");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, ui, storage));
@@ -139,7 +140,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_wrongFormatDeadlineTask() throws JeffException {
+    public void execute_wrongFormatDeadlineTask_throwsException() throws JeffException {
         // Needs to be HH:mm and not H:mm
         Command c = new AddCommand("deadline return book /by 2024-08-30 8:00");
 
@@ -149,7 +150,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_wrongFormatEventTask() throws JeffException {
+    public void execute_wrongFormatEventTask_throwsException() throws JeffException {
         // Needs to be am/pm and not AM/PM
         Command c = new AddCommand("event project meeting /from 2024-08-27 08:00 AM /to 2024-08-27 08:00 PM");
 
