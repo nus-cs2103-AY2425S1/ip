@@ -1,8 +1,8 @@
-import Commands.TaskList;
-import Storage.Storage;
-import System.Ui;
-import System.InputProcessor;
-import System.Parser;
+import commands.TaskList;
+import storage.Storage;
+import system.Ui;
+import system.InputProcessor;
+import system.Parser;
 
 import java.io.IOException;
 

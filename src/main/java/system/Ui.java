@@ -1,9 +1,9 @@
-package System;
+package system;
 
-import Commands.Deadlines;
-import Commands.Events;
-import Commands.TaskList;
-import Commands.ToDos;
+import commands.Deadlines;
+import commands.Events;
+import commands.TaskList;
+import commands.ToDos;
 
 public class Ui {
     public void greet() {

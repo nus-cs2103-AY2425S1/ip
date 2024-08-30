@@ -1,10 +1,9 @@
-package System;
+package system;
 
-import Commands.Deadlines;
-import Commands.Events;
-import Commands.TaskList;
-import Commands.ToDos;
-import javafx.concurrent.Task;
+import commands.Deadlines;
+import commands.Events;
+import commands.TaskList;
+import commands.ToDos;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
