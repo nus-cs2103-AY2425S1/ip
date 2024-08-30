@@ -1,0 +1,139 @@
+//        while (true) {
+//
+//            Scanner echo = new Scanner(System.in);
+//            String echoPhrase = echo.nextLine();
+//
+//            try {
+//                validCommand(echoPhrase);
+//            } catch (LuffyException e) {
+//                showLine();
+//                System.out.println(e.getMessage());
+//                showLine();
+//                continue;
+//            }
+//
+//            if (echoPhrase.equals("bye")) {
+//
+//                showLine();
+//                System.out.println(" Bye. Hope to see you again!");
+//                showLine();
+//                break;
+//
+//            } else if (echoPhrase.equals("list")) {
+//
+//                for (int i = 0; i < textList.size(); i++) {
+//                    System.out.println(format(" %d.%s", i + 1, textList.get(i).stringIsDone()));
+//                }
+//                showLine();
+//
+//            } else if (echoPhrase.startsWith("mark ")) {
+//
+//                showLine();
+//                int index = Integer.parseInt(echoPhrase.substring(5)) - 1;
+//                textList.get(index).markDone();
+//                System.out.println("Nice! I've marked this task as done:");
+//                System.out.println(format("  %s", textList.get(index).stringIsDone()));
+//                showLine();
+//
+//            } else if (echoPhrase.startsWith("unmark ")) {
+//
+//                showLine();
+//                int index = Integer.parseInt(echoPhrase.substring(7)) - 1;
+//                textList.get(index).markUndone();
+//                System.out.println("OK, I've marked this task as not done yet:");
+//                System.out.println(format("  %s", textList.get(index).stringIsDone()));
+//                showLine();
+//
+//            } else if(echoPhrase.startsWith("todo ")) {
+//
+//                showLine();
+//                Todo todoTask = new Todo(echoPhrase.substring(5), false);
+//                textList.add(todoTask);
+//                System.out.println("Got it. I've added this task:");
+//                System.out.println(format("  %s", todoTask.stringIsDone()));
+//                System.out.println(format("Now you have %d tasks in the list.", textList.size()));
+//                showLine();
+//
+//            } else if (echoPhrase.startsWith("deadline ")) {
+//
+//                showLine();
+//                String[] taskAndDeadline = echoPhrase.substring(9).split("/", 2);
+//                try {
+//                    checkValidArguments(taskAndDeadline, 2);
+//                } catch (LuffyException e) {
+//                    System.out.println(e.getMessage());
+//                    showLine();
+//                    continue;
+//                }
+//
+//                luffy.Deadline deadlineTask = null;
+//
+//                if (taskAndDeadline[1].startsWith("by") || taskAndDeadline[1].startsWith("By")) {
+//                    String dateAndTime = taskAndDeadline[1].substring(3).trim();
+//
+//                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+//                    LocalDateTime timeObj = LocalDateTime.parse(dateAndTime, formatter);
+//                    String dateTime = timeObj.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+//                    deadlineTask = new luffy.Deadline(taskAndDeadline[0].trim(), dateTime + "HRS", false);
+//                    textList.add(deadlineTask);
+//                } else {
+//                    deadlineTask = new luffy.Deadline(taskAndDeadline[0].trim(), taskAndDeadline[1].trim(), false);
+//                    textList.add(deadlineTask);
+//                }
+//
+//                System.out.println("Got it. I've added this task:");
+//                System.out.println(format("  %s", deadlineTask.stringIsDone()));
+//                System.out.println(format("Now you have %d tasks in the list.", textList.size()));
+//                showLine();
+//
+//            } else if (echoPhrase.startsWith("event ")) {
+//
+//                showLine();
+//                String[] eventDetails = echoPhrase.substring(6).split("/");
+//                try {
+//                    checkValidArguments(eventDetails, 3);
+//                } catch (LuffyException e) {
+//                    showLine();
+//                    System.out.println(e.getMessage());
+//                    showLine();
+//                    continue;
+//                }
+//                Event eventTask = new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2], false);
+//                textList.add(eventTask);
+//                System.out.println("Got it. I've added this task:");
+//                System.out.println(format("  %s", eventTask.stringIsDone()));
+//                System.out.printf(format("Now you have %d tasks in the list.", textList.size()));
+//                showLine();
+//
+//            } else if (echoPhrase.startsWith("delete ")) {
+//
+//                showLine();
+//                int index = Integer.parseInt(echoPhrase.substring(7)) - 1;
+//                textList.get(index).markDone();
+//                System.out.println("Noted. I've removed this task:");
+//                System.out.println(format("  %s", textList.get(index).stringIsDone()));
+//                textList.remove(index);
+//                System.out.println(format("Now you have %d tasks in the list.", textList.size()));
+//                showLine();
+//
+//            } else {
+//
+//                textList.add(new Task(echoPhrase, false));
+//                showLine();
+//                System.out.println(format(" added: %s%n", echoPhrase));
+//                showLine();
+//
+//            }
+//        }
+//
+//        try {
+//            Storage storageSystem = new Storage(DEST_FILE);
+//            storageSystem.saveToFile(textList);
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
+//
+//    }
+//
+//    public static void showLine() {
+//        System.out.println("____________________________________________________________");
