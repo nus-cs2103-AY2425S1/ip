@@ -185,7 +185,7 @@ public class Dawn {
             default:
                 // corrupted data file case, i.e. content not in the expected format
                 // todo handle case where the content is not in the expected format
-                throw new DawnException("Tasks saved are not in the correct format!");
+                throw new DawnException("Invalid task type!");
         }
         if (isDone) {
             task.markAsDone();

@@ -1,15 +1,26 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
     String deadline;
+    LocalDate date;
+
     public Deadline(String desc, String deadline) {
         super(desc);
-        int indexOfSpace = deadline.indexOf(" ");
-        String temp = deadline.substring(indexOfSpace + 1); // remove "by"
-        this.deadline = temp.trim();
+        this.deadline = deadline;
     }
 
     @Override
     public String toString() {
-        return String.format("  [D][%s] %s (by: %s)", super.getStatusIcon(), super.toString(), this.deadline);
+        String[] strings = this.deadline.split(" "); // in the format of by, date, time
+        this.date = LocalDate.parse(strings[1]);
+        String d = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        if (strings.length > 2) {
+            for (int i = 2; i < strings.length; i++) {
+                d += " " + strings[i];
+            }
+        }
+        return String.format("  [D][%s] %s (by: %s)", super.getStatusIcon(), super.toString(), d);
     }
 
     public String getDeadline() {
