@@ -1,21 +1,19 @@
 package bot;
 
+import bot.enums.Command;
 import bot.exceptions.*;
 import bot.storage.Storage;
 import bot.tasks.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Bot {
     private final TaskList tasks;
     private final Ui ui;
-    private Parser parser;
+    private final Parser parser;
     private final Storage storage;
 
     public Bot() {
@@ -27,32 +25,6 @@ public class Bot {
             storage.loadTasks(tasks);
         } catch (FileNotFoundException e) {
             System.out.println("Failed to load task from disk" + e.getMessage());
-        }
-    }
-
-    private enum Command {
-        LIST("list"),
-        MARK("mark"),
-        UNMARK("unmark"),
-        DELETE("delete"),
-        BYE("bye"),
-        TODO("todo"),
-        DEADLINE("deadline"),
-        EVENT("event");
-
-        public final String name;
-
-        Command(String name) {
-            this.name = name;
-        }
-
-        public static Command fromString(String input) throws UnknownCommandException {
-            for (Command cmd : Command.values()) {
-                if (cmd.name.equals(input)) {
-                    return cmd;
-                }
-            }
-            throw new UnknownCommandException(input);
         }
     }
 
@@ -68,50 +40,43 @@ public class Bot {
     }
 
     private void handleInput(String input) {
-        Pattern regex = Pattern.compile("(\\w+)\\s*(.*)");
-        Matcher matcher = regex.matcher(input);
-        if (matcher.matches()) {
-            String cmd = matcher.group(1);
-            String args = matcher.group(2);
+        Parser.ParsedInput parsedInput;
+        try {
+            parsedInput = parser.parseInput(input);
+        } catch (InvalidCommandException e) {
+            ui.printMessage(e.getMessage());
+            return;
+        }
 
-            Command cmdEnum;
-            try {
-                cmdEnum = Command.fromString(cmd);
-            } catch (UnknownCommandException e) {
-                ui.printMessage(e.getMessage());
-                return;
-            }
+        Command cmd = parsedInput.getCmd();
+        String args = parsedInput.getArgs();
 
-            try {
-                switch (cmdEnum) {
-                case LIST:
-                    handleList();
-                    break;
-                case TODO, DEADLINE, EVENT:
-                    handleAddTask(cmd, args);
-                    break;
-                case MARK:
-                    handleMarkTask(args);
-                    break;
-                case UNMARK:
-                    handleUnmarkTask(args);
-                    break;
-                case DELETE:
-                    handleDeleteTask(args);
-                    break;
-                case BYE:
-                    ui.exit();
-                    System.exit(0);
-                default:
-                    // This should never happen
-                    ui.printMessage("Command not found");
-                }
-            } catch (BotException e) {
-                ui.printMessage(e.getMessage());
+        try {
+            switch (cmd) {
+            case LIST:
+                handleList();
+                break;
+            case TODO, DEADLINE, EVENT:
+                handleAddTask(cmd.name(), args);
+                break;
+            case MARK:
+                handleMarkTask(args);
+                break;
+            case UNMARK:
+                handleUnmarkTask(args);
+                break;
+            case DELETE:
+                handleDeleteTask(args);
+                break;
+            case BYE:
+                ui.exit();
+                System.exit(0);
+            default:
+                // This should never happen
+                ui.printMessage("Command not found");
             }
-        } else {
-            // This should never happen
-            ui.printMessage("Command not found");
+        } catch (BotException e) {
+            ui.printMessage(e.getMessage());
         }
     }
 
@@ -120,35 +85,20 @@ public class Bot {
     }
 
     private void handleAddTask(String cmd, String args) throws InvalidTaskDescriptionException, DateTimeParseException {
-        int newTaskIndex;
+        Task taskToAdd;
         if (cmd.equals(Command.TODO.name)) {
             if (args.isEmpty()) {
                 throw new EmptyTodoException();
             }
-            newTaskIndex = tasks.add(new Todo(args));
+            taskToAdd = new Todo(args);
         } else if (cmd.equals(Command.DEADLINE.name)) {
-            Pattern regex = Pattern.compile("(.*)\\s/by\\s(.*)");
-            Matcher matcher = regex.matcher(args);
-            if (matcher.matches()) {
-                String task = matcher.group(1);
-                String deadline = matcher.group(2);
-                newTaskIndex = tasks.add(new Deadline(task, LocalDate.parse(deadline)));
-            } else {
-                throw new InvalidTaskDescriptionException(args);
-            }
+            taskToAdd = parser.parseDeadlineTask(args);
         } else {
             // Last command is guaranteed to be "event" by the switch statement
-            Pattern regex = Pattern.compile("(.*)\\s/from\\s(.*)\\s/to\\s(.*)");
-            Matcher matcher = regex.matcher(args);
-            if (matcher.matches()) {
-                String task = matcher.group(1);
-                String from = matcher.group(2);
-                String to = matcher.group(3);
-                newTaskIndex = tasks.add(new Event(task, LocalDate.parse(from), LocalDate.parse(to)));
-            } else {
-                throw new InvalidTaskDescriptionException(args);
-            }
+            taskToAdd = parser.parseEventTask(args);
         }
+
+        int newTaskIndex = tasks.add(taskToAdd);
 
         // Save tasks to disk
         try {
