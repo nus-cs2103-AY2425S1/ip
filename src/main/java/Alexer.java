@@ -46,6 +46,16 @@ public class Alexer {
         System.out.println(BREAK);
     }
 
+    public void addTodo(List<String> arguments) {
+        Todo todo = new Todo(String.join(" ", arguments));
+        tasks.add(todo);
+
+        System.out.println(BREAK);
+        System.out.format("Sure! I’ve added the todo to your list:\n\n\t%s\n", todo);
+        System.out.format("\nYou have %d tasks now.\n", tasks.size());
+        System.out.println(BREAK);
+    }
+
     public void markTaskDone(int index) {
         // assume input here is valid, we will handle exceptions later
         tasks.get(index - 1).markAsDone();
@@ -89,6 +99,10 @@ public class Alexer {
         case "unmark":
             int taskNum = Integer.parseInt(arguments.get(0));
             unmarkTaskDone(taskNum);
+            promptLoop();
+            break;
+        case "todo":
+            addTodo(arguments);
             promptLoop();
             break;
         default:
