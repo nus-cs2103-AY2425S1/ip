@@ -3,13 +3,26 @@ package krona.ui;
 import java.util.Scanner;
 import krona.task.TaskList;
 
+/**
+ * The Ui class handles interactions with the user.
+ * It is responsible for displaying messages, receiving user input,
+ * and showing the list of tasks.
+ */
 public class Ui {
     private Scanner scanner;
 
+    /**
+     * Constructs a Ui object and initializes the scanner to read user input.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Reads the next command entered by the user.
+     *
+     * @return The command entered by the user as a String.
+     */
     public String readCommand() {
         return scanner.nextLine();
     }
@@ -31,6 +44,13 @@ public class Ui {
         System.out.println(message);
     }
 
+    /**
+     * Displays the list of tasks to the user.
+     * If the task list is empty, a message is shown indicating this.
+     * Otherwise, the tasks in the list are displayed.
+     *
+     * @param tasks The TaskList containing the tasks to be displayed.
+     */
     public void showTaskList(TaskList tasks) {
         if (tasks.isEmpty()) {
             System.out.println("Your list is currently empty.");

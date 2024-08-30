@@ -6,8 +6,17 @@ import krona.task.Event;
 import krona.task.Task;
 import krona.task.ToDo;
 
+/**
+ * Handles the parsing of user input and task data for the Krona chatbot.
+ */
 public class Parser {
 
+    /**
+     * Parses the user's input command and returns the corresponding Command object.
+     *
+     * @param input The user input as a string.
+     * @return The Command object corresponding to the user input.
+     */
     public static Command parse(String input) {
         String[] words = input.split(" ", 2);
         switch (words[0]) {
@@ -35,6 +44,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a string representing a task from the storage file and converts it into a Task object.
+     *
+     * @param line The string representing a task in the storage file.
+     * @return The Task object parsed from the string, or null if parsing fails.
+     */
     public static Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
         Task task = null;
@@ -59,6 +74,12 @@ public class Parser {
         return task;
     }
 
+    /**
+     * Converts a Task object into a string format suitable for storage in a file.
+     *
+     * @param task The Task object to be converted.
+     * @return The string representation of the Task, formatted for storage.
+     */
     public static String taskToString(Task task) {
         String type = task instanceof ToDo ? "T" :
                 task instanceof Deadline ? "D" : "E";

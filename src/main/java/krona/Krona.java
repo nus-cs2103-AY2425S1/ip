@@ -7,11 +7,21 @@ import krona.ui.Ui;
 import krona.parser.Parser;
 import krona.exception.KronaException;
 
+/**
+ * Main class for Krona chatbot
+ */
 public class Krona {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs the new Krona.
+     * Initializes the user interface, storage, and task list.
+     * Attempts to load existing tasks from the specified file path.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Krona(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,6 +33,10 @@ public class Krona {
         }
     }
 
+    /**
+     * Runs the main Krona application.
+     * Continuously reads and executes user commands until the bye command is given.
+     */
     public void run() {
         ui.welcome();
         boolean isExit = false;

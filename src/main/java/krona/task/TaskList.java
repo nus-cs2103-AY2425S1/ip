@@ -2,9 +2,16 @@ package krona.task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks.
+ * Supports add, delete methods.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Initializes the task list.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
