@@ -5,6 +5,14 @@ import java.util.Scanner;
 public class TextUI {
     //TODO: add verbose toggle
 
+    /**
+     * Provide a Text User Interface
+     *
+     * <br>
+     * This is the main function which keeps the interaction running between user and AVA
+     * <br>
+     * The model is separated into its own class for OOP
+     */
     public static void run(){
         Scanner scanner = new Scanner(System.in);
         AVA ava = new AVA(); //default ava.ava object
