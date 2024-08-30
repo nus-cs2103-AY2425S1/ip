@@ -1,4 +1,10 @@
-import java.util.ArrayList;
+package sentinel.storage;
+
+import sentinel.task.Deadline;
+import sentinel.task.Event;
+import sentinel.task.Task;
+import sentinel.utils.SentinelList;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -36,7 +42,7 @@ public class FileWriter {
         }
 
         try (FileOutputStream out = new FileOutputStream("tasks.properties")) {
-            masterFile.store(out, "Task Data");
+            masterFile.store(out, "sentinel.task.Task Data");
         } catch (IOException e) {
             e.printStackTrace();
         }

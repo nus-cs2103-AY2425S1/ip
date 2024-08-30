@@ -1,3 +1,7 @@
+package sentinel.utils;
+
+import sentinel.task.Task;
+
 import java.util.ArrayList;
 
 public class SentinelList extends ArrayList<Task>{

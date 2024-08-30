@@ -1,6 +1,6 @@
-# Sentinel Chatbot
+# sentinel.Sentinel Chatbot
 
-Sentinel is a personal chatbot inspired by the Duke project. It helps you manage tasks, events, and deadlines efficiently, all from the command line. This project is configured to use **JDK 17**.
+sentinel.Sentinel is a personal chatbot inspired by the Duke project. It helps you manage tasks, events, and deadlines efficiently, all from the sentinel.command line. This project is configured to use **JDK 17**.
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
@@ -11,7 +11,7 @@ Sentinel is a personal chatbot inspired by the Duke project. It helps you manage
 
 ## Prerequisites
 Ensure that your system is set up with the following:
-- **JDK 17**: Sentinel requires JDK 17 to compile and run. Follow the instructions [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk) to configure your project correctly.
+- **JDK 17**: sentinel.Sentinel requires JDK 17 to compile and run. Follow the instructions [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk) to configure your project correctly.
 
 ## Setup
 
@@ -21,8 +21,8 @@ Ensure that your system is set up with the following:
 3. In the same dialog, set the **Project language level** field to the `SDK default` option.
 
 ### 2. Run the Program
-1. Locate the `src/main/java/Sentinel.java` file in your project directory.
-2. Right-click on `Sentinel.java` and choose `Run Sentinel.main()`.
+1. Locate the `src/main/java/sentinel.Sentinel.java` file in your project directory.
+2. Right-click on `sentinel.Sentinel.java` and choose `Run sentinel.Sentinel.main()`.
 3. If the setup is correct, you should see the following output in your console:
 
 ```
@@ -45,18 +45,18 @@ Hello from
 ```
 
 ## Features
-- **Task Management**: Add, list, and mark tasks as done.
-- **Event Management**: Schedule events with start and end times.
-- **Deadline Tracking**: Set deadlines.
+- **sentinel.task.Task Management**: Add, list, and mark tasks as done.
+- **sentinel.task.Event Management**: Schedule events with start and end times.
+- **sentinel.task.Deadline Tracking**: Set deadlines.
 
 ## Usage
-These are some commands Sentinel has:
-1. `todo <task>`
-2. `deadline <task> /by <date>`
+These are some commands sentinel.Sentinel has:
+1. `todo <sentinel.task>`
+2. `deadline <sentinel.task> /by <date>`
 3. `event <event> /from <date> /to <date>`
 4. `list`
 5. `mark <index>`
 6. `bye`
 
 ## Credits
-Sentinel is based on the Duke project template. Special thanks to the original creators and the Java community for their contributions.
+sentinel.Sentinel is based on the Duke project template. Special thanks to the original creators and the Java community for their contributions.

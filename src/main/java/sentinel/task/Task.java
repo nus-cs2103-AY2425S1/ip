@@ -1,3 +1,5 @@
+package sentinel.task;
+
 import java.time.LocalDateTime;
 
 public abstract class Task {
@@ -14,7 +16,15 @@ public abstract class Task {
     @Override
     public String toString(){ return this.description; }
     public String getDescription(){ return this.description; }
-    public char getTaskType(){ return this.getClass().toString().charAt(6); }
+    public char getTaskType(){
+        if (this instanceof ToDo){
+            return 'T';
+        } else if (this instanceof Deadline) {
+            return 'D';
+        } else {
+            return 'E';
+        }
+    }
     public String listedString(){ return this.classFirstChar() + this.getStatusIcon() + " " + this; }
     public String classFirstChar() {return "[" + this.getTaskType() + "]";}
     public boolean isDone() {return this.isDone;}

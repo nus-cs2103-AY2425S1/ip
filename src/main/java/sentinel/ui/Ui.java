@@ -1,4 +1,9 @@
+package sentinel.ui;
+
 import java.util.Scanner;
+import sentinel.Sentinel;
+import sentinel.task.Task;
+import sentinel.utils.SentinelList;
 
 public class Ui {
     private final Scanner sc;
@@ -21,13 +26,13 @@ public class Ui {
                   (_____)                                                                                    (_____)""";
 
     private final static String helpText = """
-                    1. todo <task>                                Adds tasks without any date/time attached to list.
-                    2. deadline <task> /by <date>                 Adds tasks that need to be done before a specific date/time to list.
+                    1. todo <sentinel.task>                                Adds tasks without any date/time attached to list.
+                    2. deadline <sentinel.task> /by <date>                 Adds tasks that need to be done before a specific date/time to list.
                     3. event <event> /from <date> /to <date>      Adds tasks that start at a specific date/time and ends at a specific date/time to list.
                     4. list                                       List all tasks.
-                    5. mark <index>                               Mark task as done.
-                    6. unmark <index>                             Mark task as undone.
-                    7. delete <index>                             Deletes task.
+                    5. mark <index>                               Mark sentinel.task as done.
+                    6. unmark <index>                             Mark sentinel.task as undone.
+                    7. delete <index>                             Deletes sentinel.task.
                     8. bye                                        Ends the chatbot.
                     """;
 
@@ -51,7 +56,7 @@ public class Ui {
     }
 
     public void showError(Exception e) {
-        System.err.println("Sentinel just experienced an error! " + e.getMessage());
+        System.err.println("sentinel.Sentinel just experienced an error! " + e.getMessage());
         showLine();
     }
 
@@ -74,7 +79,7 @@ public class Ui {
         System.out.println("Please state the deadline using /by <date> (e.g., deadline return book /by 30 Aug 2024 5pm)");
     }
     public void showModifyGuidelines(){
-        System.out.println("Please state a valid index you wish to mark/unmark/delete with the command (e.g.: mark 1)");
+        System.out.println("Please state a valid index you wish to mark/unmark/delete with the sentinel.command (e.g.: mark 1)");
     }
     public void showNoItemExists() {
         System.out.println("No such item in the list!");
@@ -85,11 +90,11 @@ public class Ui {
     }
 
     public void showUnrecognisedCommand() {
-        System.out.println("Unrecognised command. Type \"help\" to list all commands.");
+        System.out.println("Unrecognised sentinel.command. Type \"help\" to list all commands.");
     }
 
     public void showTaskMark(Task t) {
-        System.out.println("Alright! I've marked this task as " + (t.isDone() ? "done" : "undone") + ":");
+        System.out.println("Alright! I've marked this sentinel.task as " + (t.isDone() ? "done" : "undone") + ":");
         System.out.println("\t" + t.getStatusIcon() + " " + t);
     }
 
@@ -101,7 +106,7 @@ public class Ui {
     }
 
     public void showRemovedAndRemaining(SentinelList list, Task removed) {
-        System.out.println("I have deleted the following task:\n\t" + removed.listedString() +
+        System.out.println("I have deleted the following sentinel.task:\n\t" + removed.listedString() +
                 "\nYou have " + list.size() + " remaining " + (list.sizeOne() ? "task" : "tasks") + ".");
     }
 
@@ -114,7 +119,7 @@ public class Ui {
     }
 
     public void showAddedTask(Task t) {
-        System.out.println("Got it. I've added this task: " + t);
+        System.out.println("Got it. I've added this sentinel.task: " + t);
         System.out.println("\t" + t.listedString());
     }
 }
