@@ -3,22 +3,52 @@ package tudee.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a Deadline task.
+ * A Deadline task is a task with a specific deadline
+ */
 public class Deadline extends Task {
+    /**
+     * The deadline date for this task.
+     */
     LocalDate deadline;
+
+    /**
+     * Constructs a new Deadline task with the specified task description and deadline date.
+     *
+     * @param taskString The task description.
+     * @param deadline The deadline date for the task, in the format yyyy-MM-dd.
+     */
     public Deadline(String taskString, String deadline) {
         super(taskString);
         this.deadline = LocalDate.parse(deadline);
     }
 
+    /**
+     * Returns the deadline date of this task.
+     *
+     * @return The deadline date as a LocalDate object.
+     */
     public LocalDate getDateTime() {
         return  this.deadline;
     }
 
+    /**
+     * Converts the Deadline task into a formatted string for saving to a file.
+     *
+     * @return A formatted string for the Deadline task.
+     */
     @Override
     public String toFileString() {
         return "D | " + (done ? 1 : 0) +" | " + taskString + " | " + deadline;
     }
 
+    /**
+     * Returns a string representation of the deadline task consisting
+     * its type, completion status and deadline.
+     *
+     * @return The string representation of the deadline task.
+     */
     @Override
     public String toString() {
         String convertedDeadline = deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
