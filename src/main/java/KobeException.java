@@ -1,7 +1,6 @@
-public class KobeException {
-    static class InvalidListNumberException extends Exception {
-        public InvalidListNumberException() {
-            super("Invalid list number entered!");
-        }
+public class KobeException extends Exception {
+
+    public KobeException(String message) {
+        super(message);
     }
 }
