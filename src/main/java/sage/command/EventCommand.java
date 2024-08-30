@@ -7,11 +7,23 @@ import sage.task.Task;
 import sage.task.TaskList;
 import sage.task.Event;
 
+/**
+ * Represents a command to add an event task to the task list
+ */
 public class EventCommand extends Command {
     private String description;
     private String from;
     private String to;
 
+    /**
+     * Constructs an EventCommand object by parsing the user's input
+     * The input string should contain a description of the event,
+     * followed by the start and end time in the format:
+     * "description /from start_time /to end_time
+     *
+     * @param input The user's input string containing the event details
+     * @throws SageException If the input format is incorrrect or missing required parts
+     */
     public EventCommand(String input) throws SageException {
         String[] parts = input.split(" /from ");
         if (parts.length < 2) {

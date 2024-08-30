@@ -3,7 +3,17 @@ package sage.parser;
 import sage.command.*;
 import sage.exception.SageException;
 
+/**
+ * Represents the parser that interprets user input and converts it into commands
+ */
 public class Parser {
+    /**
+     * Parses the user input and returns the corresponding command
+     *
+     * @param input The raw input string entered by the user
+     * @return The Command object representing the user intended action
+     * @throws SageException If the input command is not recognised or if the required arguments are invalid
+     */
     public Command parse(String input) throws SageException {
         String parts[] = input.split(" ", 2);
         String userCommand = parts[0].toLowerCase();

@@ -6,9 +6,18 @@ import sage.storage.Storage;
 import sage.task.Task;
 import sage.task.TaskList;
 
+/**
+ * Represents a command to delete a task from the list
+ */
 public class DeleteCommand extends Command {
     private int index;
 
+    /**
+     * Constructs a DeleteCommand object with the specified task index
+     *
+     * @param index The 1-based index of the task to be deleted in the task list
+     *              The index is decremented by 1 to match the 0-based indexing of the TaskList
+     */
     public DeleteCommand(int index) {
         this.index = index - 1;
     }

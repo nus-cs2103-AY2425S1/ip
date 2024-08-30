@@ -14,7 +14,9 @@ import java.util.List;
 public class Storage {
     private final String filePath;
 
-    // Constructor to initialise the storage with the given file path
+    /**
+     * Constructor to initialise the storage with the given file path
+      */
     public Storage(String filepath) {
         this.filePath = filepath;
     }
@@ -56,6 +58,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a line of text and converts it into a task object
+     *
+     * @param line The line of text representing the task
+     * @return The Task object represented by the input line
+     * @throws SageException If the task type is invalid or if the line format is incorrect
+     */
     private Task parseTask(String line) throws SageException {
         String parts[] = line.split(" \\| ");
         String taskType = parts[0];
