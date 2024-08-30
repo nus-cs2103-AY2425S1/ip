@@ -2,6 +2,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,21 +12,39 @@ public class Buddy {
 
     private static final String FILE_PATH = "./data/buddy.txt";
 
+    private static LocalDateTime formatDate (String date) throws BuddyException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+            return dateTime;
+        } catch (DateTimeParseException e) {
+            throw new BuddyException("you need to state the date in the format 'd/M/yyyy HHmm'");
+        }
+
+
+    }
+
+    private static String localDateTimeString (LocalDateTime date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        String formattedDate = date.format(formatter);
+        return formattedDate;
+    }
+
     private static void saveTasks(ArrayList<Task> list) {
         try {
             FileWriter writer = new FileWriter(FILE_PATH);
             for (Task task : list) {
                 String line = "";
-                if (task instanceof ToDos) {
+                if (task.getTaskType().equals("T")) {
                     line = String.format("T | %d | %s", task.isDone ? 1 : 0, task.description);
-                } else if (task instanceof Deadlines) {
+                } else if (task.getTaskType().equals("D")) {
                     Deadlines deadline = (Deadlines) task;
                     int index = task.description.indexOf("(by:");
-                    line = String.format("D | %d | %s | %s", task.isDone ? 1 : 0, deadline.description.substring(0, index).trim(), deadline.deadline);
-                } else if (task instanceof Events) {
+                    line = String.format("D | %d | %s | %s", task.isDone ? 1 : 0, deadline.description.substring(0, index).trim(), localDateTimeString(deadline.deadline));
+                } else if (task.getTaskType().equals("E")) {
                     Events event = (Events) task;
                     int index = task.description.indexOf("(from:");
-                    line = String.format("E | %d | %s | %s | %s", task.isDone ? 1 : 0, event.description.substring(0, index).trim(), event.start, event.end);
+                    line = String.format("E | %d | %s | %s | %s", task.isDone ? 1 : 0, event.description.substring(0, index).trim(), localDateTimeString(event.start), localDateTimeString(event.end));
                 }
                 writer.write(line + System.lineSeparator());
             }
@@ -53,12 +74,16 @@ public class Buddy {
                             break;
                         case "D":
                             String deadline = parts[3].trim();
-                            task = new Deadlines(description, deadline);
+                            LocalDateTime formatDeadline = formatDate(deadline);
+                            task = new Deadlines(description, formatDeadline);
                             break;
                         case "E":
                             String startTime = parts[3].trim();
                             String endTime = parts[4].trim();
-                            task = new Events(description, startTime, endTime);
+                            LocalDateTime formatStartDate = formatDate(startTime);
+                            LocalDateTime formatEndDate = formatDate(endTime);
+
+                            task = new Events(description, formatStartDate, formatEndDate);
                             break;
                         default:
                             throw new BuddyException("Unknown task type found in file.");
@@ -165,14 +190,15 @@ public class Buddy {
                     if (parts.length == 2) {
                         String desc = parts[0].trim();
                         String day = parts[1].trim();
-                        Task t = new Deadlines(desc, day);
+                        LocalDateTime date = formatDate(day);
+                        Task t = new Deadlines(desc, date);
                         list.add(t);
 
                         System.out.println("    Gotcha! I've added this task: ");
                         System.out.printf("         [%s][%s] %s%n", t.getTaskType(), t.getStatusIcon(), t.description);
                         System.out.printf("    Now, you have %d tasks in the list!", list.size());
                     } else {
-                        throw new BuddyException("When do ya need to get it done by?\n    (include '/by' followed by the deadline)");
+                        throw new BuddyException("When do ya need to get it done by?\n    (include '/by' after your description followed by the deadline in the format, 'd/M/yyyy HHmm')");
                     }
 
                 } else if (userInput.startsWith("event")) {
@@ -189,10 +215,11 @@ public class Buddy {
                         String[] dateTimeAndEndParts = dateTimeAndEnd.split("/to ", 2);
 
                         if (dateTimeAndEndParts.length == 2) {
-                            String dateTime = dateTimeAndEndParts[0].trim();
+                            String startTime = dateTimeAndEndParts[0].trim();
                             String endTime = dateTimeAndEndParts[1].trim();
-
-                            Task t = new Events(task, dateTime, endTime);
+                            LocalDateTime formattedStartTime = formatDate(startTime);
+                            LocalDateTime formattedEndTime = formatDate(endTime);
+                            Task t = new Events(task, formattedStartTime, formattedEndTime);
                             list.add(t);
 
                             System.out.println("    Gotcha! I've added this task: ");
