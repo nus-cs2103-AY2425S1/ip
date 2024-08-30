@@ -2,6 +2,9 @@ package atlas.ui;
 
 import java.util.Scanner;
 
+/**
+ * Represents a ui class containing the methods to display various ui designs on the chatbot.
+ */
 public class Ui {
     public static final String LINE = "____________________________________________________________";
     public final Scanner scanner = new Scanner(System.in);

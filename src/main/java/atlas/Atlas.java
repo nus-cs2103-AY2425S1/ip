@@ -7,6 +7,9 @@ import atlas.storage.Storage;
 import atlas.tasks.TaskList;
 import atlas.ui.Ui;
 
+/**
+ * Represents the Atlas chatbot containing the methods to instantiate it and run it.
+ */
 public class Atlas {
     private final Ui ui;
     private final Storage storage;

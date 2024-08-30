@@ -9,11 +9,18 @@ import atlas.tasks.TaskList;
 import atlas.ui.Ui;
 
 /**
- * Creates an deadline when this class is instantiated.
+ * Creates a deadline when this class is instantiated.
  */
 public class DeadlineCommand extends Command {
     private final String name;
     private final LocalDateTime deadline;
+
+    /**
+     * Instantiates a deadline command.
+     *
+     * @param name The name or description of the deadline.
+     * @param deadline The date and time to finish this deadline by.
+     */
     public DeadlineCommand(String name, LocalDateTime deadline) {
         this.name = name;
         this.deadline = deadline;

@@ -1,5 +1,8 @@
 package atlas.tasks;
 
+/**
+ * Represents an abstract task class whose methods and fields are inherited by other tasks.
+ */
 public abstract class Task {
     private final String name;
     private boolean isDone;

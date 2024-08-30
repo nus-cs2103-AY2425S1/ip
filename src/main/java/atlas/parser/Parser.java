@@ -9,13 +9,11 @@ import atlas.commands.DeleteCommand;
 import atlas.commands.EventCommand;
 import atlas.commands.ExitCommand;
 import atlas.commands.FindCommand;
-import atlas.commands.MarkCommand;
 import atlas.commands.ListCommand;
+import atlas.commands.MarkCommand;
 import atlas.commands.TodoCommand;
 import atlas.commands.UnmarkCommand;
-
 import atlas.exceptions.AtlasException;
-
 import atlas.utils.DateTime;
 
 /**

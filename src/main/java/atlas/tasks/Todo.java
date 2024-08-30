@@ -1,5 +1,8 @@
 package atlas.tasks;
 
+/**
+ * Represents a todo class containing the methods to create a todo and represent it as strings.
+ */
 public class Todo extends Task {
     /**
      * Creates a Todo object.

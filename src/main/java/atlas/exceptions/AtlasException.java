@@ -1,7 +1,7 @@
 package atlas.exceptions;
 
 /**
- * Exception class for the entire chatbot.
+ * Represents the exception class for the entire chatbot.
  */
 public class AtlasException extends Exception {
     /**

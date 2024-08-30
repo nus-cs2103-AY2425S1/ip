@@ -1,16 +1,15 @@
 package atlas.parser;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 import atlas.commands.Command;
 import atlas.commands.ExitCommand;
 import atlas.commands.ListCommand;
 import atlas.commands.MarkCommand;
 import atlas.commands.UnmarkCommand;
-
 import atlas.exceptions.AtlasException;
-
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ParserTest {
     @Test
@@ -26,7 +25,7 @@ public class ParserTest {
     }
 
     @Test
-    public void markCommand_IndexInput_success() throws AtlasException {
+    public void markCommand_indexInput_success() throws AtlasException {
         Command c = Parser.parse("mark 1");
         assert(c instanceof MarkCommand);
     }
@@ -42,7 +41,7 @@ public class ParserTest {
     }
 
     @Test
-    public void unmarkCommand_IndexInput_success() throws AtlasException {
+    public void unmarkCommand_indexInput_success() throws AtlasException {
         Command c = Parser.parse("unmark 1");
         assert(c instanceof UnmarkCommand);
     }

@@ -1,15 +1,18 @@
 package atlas.tasks;
 
-import atlas.utils.DateTime;
-
 import java.time.LocalDateTime;
 
+import atlas.utils.DateTime;
+
+/**
+ * Represents an event class containing the methods to create an event and represent it as strings.
+ */
 public class Event extends Task {
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
 
     /**
-     * Creates a deadline object.
+     * Creates an event object.
      *
      * @param name The name or description of the deadline.
      * @param startTime The date and time to start this event at.

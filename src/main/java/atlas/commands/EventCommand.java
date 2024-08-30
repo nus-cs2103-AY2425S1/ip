@@ -15,6 +15,14 @@ public class EventCommand extends Command {
     private final String name;
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
+
+    /**
+     * Instantiates the event command.
+     *
+     * @param name The name or description of the deadline.
+     * @param startTime The date and time to start this event at.
+     * @param endTime The date and time to finish this event by.
+     */
     public EventCommand(String name, LocalDateTime startTime, LocalDateTime endTime) {
         this.name = name;
         this.startTime = startTime;

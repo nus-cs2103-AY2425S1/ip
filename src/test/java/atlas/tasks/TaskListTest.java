@@ -1,16 +1,17 @@
 package atlas.tasks;
 
-import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
-    public ArrayList<Task> initialTaskList = new ArrayList<>();
+    private ArrayList<Task> initialTaskList = new ArrayList<>();
 
     @AfterEach
     public void cleanup() {
@@ -34,9 +35,8 @@ public class TaskListTest {
         TaskList tasks = new TaskList(this.initialTaskList);
         assertFalse(tasks.isEmpty());
         assertEquals(this.initialTaskList.size(), tasks.size());
-        String expectedListString = "1: [T] [ ] return book\n" +
-                "2: [D] [ ] finish assignment (by: Jun 15 2024 5:00 pm)";
+        String expectedListString = "1: [T] [ ] return book\n"
+                + "2: [D] [ ] finish assignment (by: Jun 15 2024 5:00 pm)";
         assertEquals(expectedListString, tasks.listAllTasks());
     }
-
 }

@@ -16,7 +16,7 @@ import atlas.tasks.Todo;
 import atlas.utils.DateTime;
 
 /**
- * Storage class which contains methods to load and save tasks from and into files.
+ * Represents the Storage class which contains methods to load and save tasks from and into files.
  */
 public class Storage {
     private final String filepath;
@@ -35,7 +35,8 @@ public class Storage {
     /**
      * Loads tasks from a previously saved list of tasks.
      *
-     * @return ArrayList<Task> The tasks loaded from a previously saved list of tasks or an empty ArrayList.
+     * @return {@link ArrayList} {@link Task} The tasks loaded from a previously saved list of tasks or an
+     *     empty ArrayList.
      * @throws AtlasException The exception to be thrown in the event of any error.
      */
     public ArrayList<Task> load() throws AtlasException {

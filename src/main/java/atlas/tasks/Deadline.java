@@ -1,9 +1,12 @@
 package atlas.tasks;
 
-import atlas.utils.DateTime;
-
 import java.time.LocalDateTime;
 
+import atlas.utils.DateTime;
+
+/**
+ * Represents a deadline class containing the methods to create a deadline and represent it as strings.
+ */
 public class Deadline extends Task {
     private final LocalDateTime deadline;
 

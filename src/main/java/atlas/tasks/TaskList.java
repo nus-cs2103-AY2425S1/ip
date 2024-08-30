@@ -3,6 +3,9 @@ package atlas.tasks;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a task list class containing the methods to interact with the list of tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
