@@ -1,10 +1,18 @@
 package Milo;
 
+/*
+* Represents the task bot programme
+* containing components such as
+* Storage, TaskList, Ui
+ */
 public class Milo {
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
 
+    /*
+    * Initialise Milo bot and its Ui, Storage, TaskList field
+     */
     public Milo() {
         this.ui = new Ui();
         this.storage = new Storage("./src/data/miloData.txt");
@@ -13,6 +21,9 @@ public class Milo {
 
     }
 
+    /*
+    * Running Milo
+     */
     public static void main(String[] args) {
         new Milo().run();
     }
