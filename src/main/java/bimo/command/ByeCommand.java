@@ -9,6 +9,4 @@ public class ByeCommand extends Command {
         System.out.println("    " +"Bye!!! Thanks for chatting!");
         super.quitBot();
     }
-
-
 }

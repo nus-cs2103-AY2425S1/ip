@@ -8,7 +8,6 @@ public class Event extends Task {
     private LocalDate startDate;
     private LocalDate endDate;
 
-
     public Event(String details, LocalDate startDate, LocalDate endDate) {
         super(details);
         this.startDate = startDate;

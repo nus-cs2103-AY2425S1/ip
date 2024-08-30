@@ -20,5 +20,4 @@ public class AddCommand extends Command {
         System.out.println(String.format("    Now you have %d %s in the tasks.", tasks.getLength(), word));
         storage.appendToFile(task);
     }
-
 }
