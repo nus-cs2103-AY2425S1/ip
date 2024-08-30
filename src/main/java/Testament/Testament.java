@@ -5,6 +5,9 @@ import Ui.Ui;
 import Storage.Storage;
 import Parser.Parser;
 
+/**
+ * Main class for Testament chatbot.
+ */
 public class Testament {
 
     private final Storage storage;
@@ -12,6 +15,11 @@ public class Testament {
     private final TaskList taskList;
     private final Parser parser;
 
+    /**
+     * Constructor for Testament.
+     *
+     * @param filePath filepath of memory file.
+     */
     public Testament(String filePath) {
         storage = new Storage(filePath);
         ui = new Ui();
@@ -19,6 +27,9 @@ public class Testament {
         parser = new Parser(ui, taskList, storage);
     }
 
+    /**
+     * Starts running the testament chatbot.
+     */
     public void run() {
         ui.welcome();
         parser.getUserInput();

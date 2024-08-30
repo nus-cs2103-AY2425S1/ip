@@ -8,12 +8,21 @@ import java.util.Scanner;
 
 import Tasks.*;
 
+/**
+ * Deals with loading tasks from memory and saving tasks into memory.
+ */
 public class Storage {
 
     File memory;
     File parent;
     TaskList taskList;
 
+    /**
+     * Constructor for Storage.
+     * Takes in a string as the filePath for the memory file.
+     *
+     * @param s FilePath for memory file.
+     */
     public Storage(String s) {
         memory = new File(s);
         parent = new File("src/main/java/Memory");
@@ -31,6 +40,9 @@ public class Storage {
 
     }
 
+    /**
+     * Writes taskList into memory file.
+     */
     public void save() {
         try {
             FileWriter fw = new FileWriter(memory);
@@ -41,6 +53,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads taskList from memory file, before returning the created taskList.
+     *
+     * @return taskList created from memory file.
+     */
     public TaskList load() {
         taskList = new TaskList();
         try{
