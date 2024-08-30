@@ -1,6 +1,6 @@
 package derek.command;
 
-import derek.IncorrectCommandException;
+import derek.exception.IncorrectCommandException;
 
 /**
  * The {@code Command} class processes user input commands and determines the type of command
