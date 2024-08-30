@@ -21,6 +21,14 @@ public class Parser {
         }
     }
 
+    public String getKey() throws AgaveException {
+        try {
+            return userInput.split(" ")[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new AgaveException("Please enter a keyword to search for.");
+        }
+    }
+
     public Task parseTodo() throws AgaveException {
         String description = userInput.substring(4).trim();
         if (description.isEmpty()) {

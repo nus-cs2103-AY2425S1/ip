@@ -82,4 +82,13 @@ public class Ui {
         System.out.println("Error loading tasks.");
         makeLine();
     }
+
+    public void searchResult(ArrayList<Task> result) {
+        makeLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < result.size(); i++) {
+            System.out.println((i + 1) + ". " + result.get(i).toString());
+        }
+        makeLine();
+    }
 }

@@ -1,6 +1,7 @@
 package agave;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Agave {
 
@@ -52,6 +53,10 @@ public class Agave {
                     ui.showTaskAdded(tasks.getLastTask(), tasks.size(), tasks.getTasks());
                 } else if (command.equals("delete")) {
                     tasks.deleteTask(parser.getTaskNumber());
+                } else if (command.equals("find")) {
+                    String key = parser.getKey();
+                    ArrayList<Task> result = tasks.findTasks(key);
+                    ui.searchResult(result);
                 } else {
                     throw new AgaveException("I'm sorry, but I don't understand the command: " + userInput);
                 }
