@@ -13,7 +13,7 @@ public class Deadline extends Task{
     }
 
     @Override
-    public String getSaveVersion() {
+    public String encode() {
         return "D/" + this.getStatusIcon() + "/" + description + "/" + by;
     }
 

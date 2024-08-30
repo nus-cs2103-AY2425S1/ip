@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -12,9 +12,7 @@ public class Task {
         this.isDone = isDone;
     }
 
-    public String getSaveVersion() {
-        return "NIL";
-    }
+    public abstract String encode();
 
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
