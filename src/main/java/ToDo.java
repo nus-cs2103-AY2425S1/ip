@@ -1,9 +1,15 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 public class ToDo extends Task{
-    public ToDo(String description) {
+    public ToDo(String description, File dataFile) {
         super(description);
+        this.write_to_datafile(dataFile);
+    }
+
+    public ToDo(String description, File dataFile, boolean done) {
+        super(description, done);
     }
 
     public ToDo(String description, boolean done) {

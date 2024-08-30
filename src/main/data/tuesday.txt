@@ -1,4 +1,0 @@
-E | 0 | do work  | 2pm-3pm
-T | 1 | work all day
-T | 0 | work 
-T | 1 | sleep all day

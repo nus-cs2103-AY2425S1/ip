@@ -1,15 +1,10 @@
-import java.sql.Array;
-import java.util.Scanner;  // Import the Scanner class
-import java.util.ArrayList; // import the ArrayList class
-import java.lang.ArrayIndexOutOfBoundsException;
-
 public class Tuesday {
     private Storage storage;
     private Task tasks;
     private Ui ui;
 
     /**
-     * Creates Ui, Storage & Task Object, and checks whether there exist a datafile
+     * Creates Tuesday.util.Ui, Tuesday.util.Storage & Tuesday.task.Task Object, and checks whether there exist a datafile
      */
     public Tuesday(String filePath) {
         ui = new Ui();
