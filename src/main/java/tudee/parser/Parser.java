@@ -11,6 +11,7 @@ import tudee.command.DeleteCommand;
 import tudee.command.MarkCommand;
 import tudee.command.UnmarkCommand;
 import tudee.command.DateCommand;
+import tudee.command.FindCommand;
 import tudee.command.UnknownCommand;
 import tudee.TudeeException;
 
@@ -54,6 +55,8 @@ public class Parser {
             return new DeleteCommand(Integer.parseInt(inputs[1]));
         } else if (command.equalsIgnoreCase("date")) {
             return new DateCommand(inputs[1]);
+        } else if (command.equalsIgnoreCase("find")) {
+            return new FindCommand(inputs[1]);
         } else {
             return new UnknownCommand();
         }

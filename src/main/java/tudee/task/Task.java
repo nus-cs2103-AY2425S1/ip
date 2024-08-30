@@ -21,6 +21,15 @@ public abstract class Task {
     }
 
     /**
+     * Returns a string representation of the task description.
+     *
+     * @return the task description.
+     */
+    public String getDescription() {
+        return this.taskString;
+    }
+
+    /**
      * Returns a string representation of the task's completion status.
      *
      * @return "[X]" if the task is done, otherwise "[ ]".
