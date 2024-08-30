@@ -11,14 +11,33 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles the loading and saving of tasks to and from a file for the Duke chatbot application.
+ * The Storage class provides methods to read tasks from a file and write tasks back to a file.
+ */
 public class Storage {
+    /** The path to the file where tasks are stored. */
     private final String filePath;
+
+    /** The date and time formatter used to parse and format task dates. */
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the specified file.
+     * If the file does not exist, it creates a new file and directory if necessary.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws IOException If an error occurs while reading from or creating the file.
+     */
     public List<Task> load() throws IOException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -64,6 +83,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the list of tasks to the specified file.
+     *
+     * @param tasks The list of tasks to be saved to the file.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     public void save(List<Task> tasks) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
         for (Task task : tasks) {
