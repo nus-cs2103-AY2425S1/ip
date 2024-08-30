@@ -1,9 +1,6 @@
 package donk;
 
-import donk.task.Deadline;
-import donk.task.Event;
-import donk.task.Task;
-import donk.task.TaskList;
+import donk.task.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,15 +19,15 @@ public class Storage {
 
     public List<Task> load() throws DonkException{
         try {
-            List<Task> tasks = readFile("./save.txt");
+            List<Task> tasks = readFile();
             return tasks;
         } catch(Exception e) {
             throw new DonkException("Couldn't find file");
         }
     }
 
-    private static List<Task> readFile(String filePath) throws FileNotFoundException {
-        File f = new File(filePath); // create a File for the given file path
+    private List<Task> readFile() throws FileNotFoundException {
+        File f = new File(this.filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         List<Task> tasks = new ArrayList<>();
         while (s.hasNext()) {

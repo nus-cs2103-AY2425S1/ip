@@ -1,4 +1,4 @@
-package donk;
+package donk.task;
 
 import donk.task.Task;
 
