@@ -8,33 +8,10 @@ import zaibot.task.Task;
  * Encompasses print messages and reading functions.
  */
 public class Ui {
-    private enum Message {
-        GOODBYE("See you whenever."),
-        MARK("Task done. Finally."),
-        UNMARK("Task unmarked. Seriously?"),
-        DELETE("Task removed. Bye bye."),
-        GREETING("Hi, or whatever. What do you want from me today?"),
-        ADD("Another day, another task. Added."),
-        TOTAL("You have %d task(s). Get moving."),
-        FILTER("Filtered the tasks for you. Good enough?");
-
-        private final String msg;
-
-        Message(String msg) {
-            this.msg = msg;
-        }
-
-        @Override
-        public String toString() {
-            return this.msg;
-        }
-    }
-
     /**
      * Prints the task list.
      *
      * @param taskList The task list
-     *
      * @return The task list
      */
     public static String printTaskList(TaskList taskList) {
@@ -54,12 +31,10 @@ public class Ui {
         return Message.GREETING.toString();
     }
 
-
     /**
      * Displays the number of tasks.
      *
      * @param taskList The list of tasks
-     *
      * @return The string displaying the amount of tasks.
      */
     public static String displayTasksNumber(TaskList taskList) {
@@ -72,13 +47,12 @@ public class Ui {
      * @param task     The task
      * @param type     Either "mark", "unmark", "add"
      * @param taskList The list of tasks
-     * @throws ZaibotException If the update task is not part of the values for task above.
-     *
      * @return The task
+     * @throws ZaibotException If the update task is not part of the values for task above.
      */
     public static String displayTask(Task task,
-                                   String type,
-                                   TaskList taskList) throws ZaibotException {
+                                     String type,
+                                     TaskList taskList) throws ZaibotException {
         switch (type) {
         case "mark":
         case "unmark":
@@ -88,6 +62,28 @@ public class Ui {
                     + "\n" + displayTasksNumber(taskList);
         default:
             throw new ZaibotException("Updating task not of correct format.");
+        }
+    }
+
+    private enum Message {
+        GOODBYE("See you whenever."),
+        MARK("Task done. Finally."),
+        UNMARK("Task unmarked. Seriously?"),
+        DELETE("Task removed. Bye bye."),
+        GREETING("Hi, or whatever. What do you want from me today?"),
+        ADD("Another day, another task. Added."),
+        TOTAL("You have %d task(s). Get moving."),
+        FILTER("Filtered the tasks for you. Good enough?");
+
+        private final String msg;
+
+        Message(String msg) {
+            this.msg = msg;
+        }
+
+        @Override
+        public String toString() {
+            return this.msg;
         }
     }
 }

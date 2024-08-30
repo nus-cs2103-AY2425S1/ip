@@ -1,5 +1,8 @@
 package zaibot.gui;
 
+import java.io.IOException;
+import java.util.Collections;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,9 +14,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-import java.io.IOException;
-import java.util.Collections;
-
+/**
+ * This class is used as the controller for the DialogBox.
+ * It displays the image as well as the message being sent out.
+ */
 public class DialogBox extends HBox {
 
     @FXML
@@ -36,16 +40,6 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
-    /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
-     */
-    private void flip() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        Collections.reverse(tmp);
-        getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
-    }
-
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
@@ -54,5 +48,15 @@ public class DialogBox extends HBox {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
+    }
+
+    /**
+     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     */
+    private void flip() {
+        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        Collections.reverse(tmp);
+        getChildren().setAll(tmp);
+        setAlignment(Pos.TOP_LEFT);
     }
 }

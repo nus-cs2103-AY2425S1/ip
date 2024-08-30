@@ -1,11 +1,10 @@
 package zaibot.command;
 
+import java.util.HashMap;
+
+import zaibot.exception.ZaibotException;
 import zaibot.utils.Storage;
 import zaibot.utils.TaskList;
-import zaibot.exception.ZaibotException;
-import zaibot.task.Task;
-
-import java.util.HashMap;
 
 /**
  * This class represents a command by its name (the command itself) and a collection of its objects,
@@ -17,6 +16,12 @@ public abstract class Command {
     private final HashMap<String, String> optionMap;
     private boolean willContinueLoop;
 
+    /**
+     * Initialises a Command object with a given name, and a set of options.
+     * This object is responsible for the execution of the logic.
+     * @param name Name of the command
+     * @param optionMap Options provided with the command
+     */
     public Command(String name, HashMap<String, String> optionMap) {
         this.name = name;
         this.optionMap = optionMap;
@@ -50,9 +55,8 @@ public abstract class Command {
      *
      * @param tasks   The task list
      * @param storage The storage object
-     * @throws ZaibotException if there are errors in the argument inputs
-     *
      * @return Gets the response from zaibot.
+     * @throws ZaibotException if there are errors in the argument inputs
      */
     public String execute(TaskList tasks, Storage storage) throws ZaibotException {
 

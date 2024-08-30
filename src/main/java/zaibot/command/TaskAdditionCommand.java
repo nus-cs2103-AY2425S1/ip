@@ -1,17 +1,17 @@
 package zaibot.command;
 
-import zaibot.utils.Storage;
-import zaibot.utils.TaskList;
-import zaibot.utils.Ui;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+
 import zaibot.exception.ZaibotException;
 import zaibot.task.DeadlineTask;
 import zaibot.task.EventTask;
 import zaibot.task.Task;
 import zaibot.task.ToDoTask;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
+import zaibot.utils.Storage;
+import zaibot.utils.TaskList;
+import zaibot.utils.Ui;
 
 /**
  * This class is used to represent the command for adding tasks into the task list.
@@ -70,9 +70,7 @@ public class TaskAdditionCommand extends Command {
             }
             String from = optionMap.get("from");
             String to = optionMap.get("to");
-            task = new EventTask(taskName,
-                    LocalDateTime.parse(from, formatter),
-                    LocalDateTime.parse(to, formatter));
+            task = new EventTask(taskName, LocalDateTime.parse(from, formatter), LocalDateTime.parse(to, formatter));
             break;
         default:
             throw new ZaibotException("Invalid task");
