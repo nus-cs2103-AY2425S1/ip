@@ -22,6 +22,7 @@ public abstract class Command {
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws JustbotException;
 
+
     /**
      * Indicates whether this command should terminate the application.
      *

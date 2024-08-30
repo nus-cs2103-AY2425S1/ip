@@ -65,7 +65,7 @@ public class TaskList implements Iterable<Task> {
      * @param deleteNumber The 1-based index of the task to be removed.
      */
     public void delete(int deleteNumber) {
-        tasks.remove(deleteNumber -1);
+        tasks.remove(deleteNumber - 1);
     }
 
     /**
