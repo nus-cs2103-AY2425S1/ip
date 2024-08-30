@@ -1,3 +1,5 @@
+package lutchat;
+
 public abstract class Task {
     boolean done;
     String desc;

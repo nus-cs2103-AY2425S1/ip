@@ -1,3 +1,5 @@
+package lutchat;
+
 import java.util.Scanner;
 
 public class Lutchat {

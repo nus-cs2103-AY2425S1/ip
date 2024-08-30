@@ -1,3 +1,5 @@
+package lutchat;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -10,7 +12,7 @@ public class Ui {
 
     public void greet() {
         showLine();
-        System.out.println("Hello! I'm Lutchat!");
+        System.out.println("Hello! I'm lutchat.Lutchat!");
         System.out.println("What can I do for you?");
         showLine();
     }
