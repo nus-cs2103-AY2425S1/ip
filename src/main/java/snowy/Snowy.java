@@ -36,71 +36,71 @@ public class Snowy {
             String description = parsedInput[1];
 
             switch (command) {
-                case "bye":
-                    isRunning = false;
-                    break;
+            case "bye":
+                isRunning = false;
+                break;
 
-                case "list":
-                    ui.printList(this.tasks);
-                    break;
+            case "list":
+                ui.printList(this.tasks);
+                break;
 
-                case "mark":
-                    try {
-                        int index = Integer.parseInt(description);
-                         Task task = tasks.markTask(index);
-                         ui.printMarkDone(task);
-                    } catch (NumberFormatException | SnowyException e) {
-                        ui.printIndexError();
-                    }
-                    break;
+            case "mark":
+                try {
+                    int index = Integer.parseInt(description);
+                     Task task = tasks.markTask(index);
+                     ui.printMarkDone(task);
+                } catch (NumberFormatException | SnowyException e) {
+                    ui.printIndexError();
+                }
+                break;
 
-                case "unmark":
-                    try {
-                        int index = Integer.parseInt(description);
-                        Task task = tasks.unmarkTask(index);
-                        ui.printMarkIncomplete(task);
-                    } catch (NumberFormatException | SnowyException e) {
-                        ui.printIndexError();
-                    }
-                    break;
+            case "unmark":
+                try {
+                    int index = Integer.parseInt(description);
+                    Task task = tasks.unmarkTask(index);
+                    ui.printMarkIncomplete(task);
+                } catch (NumberFormatException | SnowyException e) {
+                    ui.printIndexError();
+                }
+                break;
 
-                case "todo":
-                    try {
-                        tasks.addToDo(description);
-                    } catch (SnowyException e) {
-                        ui.printTodoFormatError();
-                    }
-                    break;
+            case "todo":
+                try {
+                    tasks.addToDo(description);
+                } catch (SnowyException e) {
+                    ui.printTodoFormatError();
+                }
+                break;
 
-                case "deadline":
-                    try {
-                        tasks.addDeadline(description);
-                    } catch (SnowyException e) {
-                        ui.printDeadlineFormatError();
-                    }
-                    break;
+            case "deadline":
+                try {
+                    tasks.addDeadline(description);
+                } catch (SnowyException e) {
+                    ui.printDeadlineFormatError();
+                }
+                break;
 
-                case "event":
-                    try {
-                        tasks.addEvent(description);
-                    } catch (SnowyException e) {
-                        ui.printEventFormatError();
-                    }
-                    break;
+            case "event":
+                try {
+                    tasks.addEvent(description);
+                } catch (SnowyException e) {
+                    ui.printEventFormatError();
+                }
+                break;
 
-                case "delete":
-                    try {
-                        int index = Integer.parseInt(description);
-                        Task task = tasks.deleteTask(index);
-                        ui.printDeleteTask(task);
-                    } catch (NumberFormatException | SnowyException e) {
-                        System.out.println("Invalid index format. Please try again");
-                    }
-                    break;
+            case "delete":
+                try {
+                    int index = Integer.parseInt(description);
+                    Task task = tasks.deleteTask(index);
+                    ui.printDeleteTask(task);
+                } catch (NumberFormatException | SnowyException e) {
+                    System.out.println("Invalid index format. Please try again");
+                }
+                break;
 
-                default:
-                    ui.printUnknownCommand();
-                    break;
+            default:
+                ui.printUnknownCommand();
+                break;
             }
             ui.printLine();
         }
