@@ -61,6 +61,30 @@ public class TaskList {
         }
     }
 
+    public void findTaskInList(String searchTerm) {
+        if (this.list.size() == 0) {
+            Ui.printEmptyListErr();
+            return;
+        }
+        StringBuilder result = new StringBuilder();
+        int count = 0;
+        for (Task task : this.list) {
+            if (task.toString().substring(7).contains(searchTerm)) {
+                count++;
+                result.append(count + "." + task + "\n");
+            }
+        }
+        if (count == 0) {
+            System.out.println("No matching tasks found!");
+            Ui.printDivider();
+            return;
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            System.out.print(result);
+            Ui.printDivider();
+        }
+    }
+
     /**
      * Prints all tasks in the list. Prints error message if the list is empty.
      */
