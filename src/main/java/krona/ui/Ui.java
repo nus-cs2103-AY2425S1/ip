@@ -15,7 +15,7 @@ public class Ui {
     }
 
     public void welcome() {
-        System.out.println("Hello! I'm krona.krona");
+        System.out.println("Hello! I'm Krona");
         System.out.println("What can I do for you?");
     }
 
