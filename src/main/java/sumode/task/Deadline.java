@@ -1,16 +1,11 @@
 package sumode.task;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 /**
  * A class for various tasks with deadlines
  */
 public class Deadline extends Task {
 
-    private final String due;
-    private LocalDate dueDate;
+    private final DueFromToFormat due;
 
     /**
      * Constructor for Deadline
@@ -20,12 +15,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String due) {
         super(name);
-        this.due = due;
-        try {
-            dueDate = LocalDate.parse(due);
-        } catch (DateTimeParseException e) {
-            dueDate = null;
-        }
+        this.due = new DueFromToFormat(due);
     }
 
     @Override
@@ -33,7 +23,7 @@ public class Deadline extends Task {
         return "[D]"
                 + super.toString()
                 + " (by: "
-                + (dueDate == null ? this.due : this.dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
+                + due
                 + ")";
     }
 

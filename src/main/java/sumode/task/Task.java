@@ -2,6 +2,7 @@ package sumode.task;
 
 import sumode.exception.AlreadyMarkedException;
 import sumode.exception.AlreadyUnmarkedException;
+import sumode.exception.EndBeforeStartException;
 import sumode.exception.UnknownCommandException;
 import sumode.exception.WrongSyntaxForCommandException;
 import sumode.util.Command;
@@ -33,20 +34,22 @@ public class Task {
      */
     public static Task createFromData(String inputFromFile) {
         String[] components = inputFromFile.split(" \\| ");
-        Task returned = switch (components[0]) {
-        case "T" -> new Todo(components[2]);
-        case "E" -> new Event(components[2], components[3], components[4]);
-        case "D" -> new Deadline(components[2], components[3]);
-        default -> throw new IllegalArgumentException();
-        };
-
-        if (components[1].equals("1")) {
-            try {
+        Task returned = null;
+        try {
+            returned = switch (components[0]) {
+            case "T" -> new Todo(components[2]);
+            case "E" -> new Event(components[2], components[3], components[4]);
+            case "D" -> new Deadline(components[2], components[3]);
+            default -> throw new IllegalArgumentException();
+            };
+            if (components[1].equals("1")) {
                 returned.mark();
-            } catch (AlreadyMarkedException e) {
-                //do nothing as this won't happen as this is just read
-                //however I need to handle it
             }
+        } catch (EndBeforeStartException e) {
+            throw new IllegalArgumentException(); // only happens when people manually edit end to be front
+        } catch (AlreadyMarkedException e) {
+            //do nothing as this won't happen as this is just read
+            //however I need to handle it
         }
         return returned;
     }
@@ -59,7 +62,7 @@ public class Task {
      * @return Task needed.
      */
     public static Task of(Command command, String item) throws WrongSyntaxForCommandException,
-            UnknownCommandException {
+            UnknownCommandException, EndBeforeStartException {
         switch(command) {
         case TODO:
             if (item.trim().isEmpty()) {

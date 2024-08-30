@@ -1,5 +1,11 @@
 package sumode.util;
 
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import sumode.exception.WrongSyntaxForCommandException;
 
 /**
@@ -8,6 +14,62 @@ import sumode.exception.WrongSyntaxForCommandException;
  * All methods are static so no initialisation required.
  */
 public class Parser {
+
+    public static final String[] DATE_PATTERNS = {
+        // Original patterns
+        "yyyy-MM-dd", "yyyy/MM/dd", "yyyy.MM.dd", "yyyyMMdd",
+        "dd-MM-yyyy", "dd/MM/yyyy", "dd.MM.yyyy", "ddMMyyyy",
+        "dd MMM yyyy", "dd MMMM yyyy", "MMM dd, yyyy", "MMMM dd, yyyy",
+        "yyyy-MM", "yyyy/MM", "yyyy.MM", "yyyyMM",
+        "MM-yyyy", "MM/yyyy", "MMyyyy",
+
+        // Additional patterns with single M and d
+        "yyyy-M-d", "yyyy/M/d", "yyyy.M.d",
+        "d-M-yyyy", "d/M/yyyy", "d.M.yyyy", "dMyyyy",
+        "d MMM yyyy", "d MMMM yyyy", "MMM d, yyyy", "MMMM d, yyyy",
+        "yyyy-M", "yyyy/M", "yyyy.M",
+        "M-yyyy", "M/yyyy", "Myyyy",
+
+        // Additional patterns with yy for two-digit year format after MM or dd
+        "dd-MM-yy", "dd/MM/yy", "dd.MM.yy", "ddMMyy",
+        "dd MMM yy", "dd MMMM yy", "MMM dd, yy", "MMMM dd, yy",
+        "MM-yy", "MM/yy", "MMyy",
+        "d-M-yy", "d/M/yy", "d.M.yy", "dMyy",
+        "d MMM yy", "d MMMM yy", "MMM d, yy", "MMMM d, yy",
+        "M-yy", "M/yy", "Myy"
+    };
+
+    public static final String[] DATE_TIME_PATTERNS = {
+        // Original patterns
+        "yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SSS",
+        "yyyy-MM-dd'T'HH:mm:ss.SSSSSS", "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS",
+        "yyyy/MM/dd HH:mm:ss", "yyyy.MM.dd HH:mm:ss", "yyyyMMdd HH:mm:ss",
+        "yyyy-MM-dd HH:mm:ss", "dd-MM-yyyy HH:mm:ss",
+        "yyyy-MM-dd HH:mm", "yyyy-MM-dd'T'HH:mm", "yyyy/MM/dd HH:mm",
+        "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm",
+        "dd MMM yyyy HH:mm:ss", "dd MMMM yyyy HH:mm:ss",
+        "MMMM dd, yyyy HH:mm:ss", "MMM dd, yyyy HH:mm:ss",
+
+        // Additional patterns with single M and d
+        "yyyy-M-d'T'HH:mm:ss", "yyyy-M-d'T'HH:mm:ss.SSS",
+        "yyyy-M-d'T'HH:mm:ss.SSSSSS", "yyyy-M-d'T'HH:mm:ss.SSSSSSSSS",
+        "yyyy/M/d HH:mm:ss", "yyyy.M.d HH:mm:ss", "yyyyMd HH:mm:ss",
+        "yyyy-M-d HH:mm:ss", "d-M-yyyy HH:mm:ss",
+        "yyyy-M-d HH:mm", "yyyy-M-d'T'HH:mm", "yyyy/M/d HH:mm",
+        "d-M-yyyy HH:mm", "d/M/yyyy HH:mm",
+        "d MMM yyyy HH:mm:ss", "d MMMM yyyy HH:mm:ss",
+        "MMMM d, yyyy HH:mm:ss", "MMM d, yyyy HH:mm:ss",
+
+        // Additional patterns with yy for two-digit year format after MM or dd
+        "dd-MM-yy HH:mm:ss", "dd/MM/yy HH:mm:ss", "dd.MM.yy HH:mm:ss", "ddMMyy HH:mm:ss",
+        "dd-MM-yy HH:mm", "dd/MM/yy HH:mm", "dd.MM.yy HH:mm",
+        "dd MMM yy HH:mm:ss", "dd MMMM yy HH:mm:ss",
+        "MMMM dd, yy HH:mm:ss", "MMM dd, yy HH:mm:ss",
+        "d-M-yy HH:mm:ss", "d/M/yy HH:mm:ss", "d.M.yy HH:mm:ss",
+        "d-M-yy HH:mm", "d/M/yy HH:mm", "d.M.yy HH:mm",
+        "d MMM yy HH:mm:ss", "d MMMM yy HH:mm:ss",
+        "MMMM d, yy HH:mm:ss", "MMM d, yy HH:mm:ss"
+    };
 
     /**
      * Returns an array of String of size 2 with first String being command and
@@ -88,5 +150,37 @@ public class Parser {
             throw new WrongSyntaxForCommandException(Command.EVENT);
         }
         return new String[] {name, start, end};
+    }
+
+    /**
+     * Returns a java LocalDate object
+     * @return a java LocalDate object
+     * @throws ParseException thrown when Wrong Syntax for localDate is given
+     */
+    public static LocalDate parseLocalDate(String str) throws ParseException {
+        for (String pattern : DATE_PATTERNS) {
+            try {
+                return LocalDate.parse(str, DateTimeFormatter.ofPattern(pattern));
+            } catch (DateTimeParseException e) {
+                // Fallthrough
+            }
+        }
+        throw new ParseException(str, 0);
+    }
+
+    /**
+     * Returns a java LocalDateTime object
+     * @return a java LocalDateTime object
+     * @throws ParseException thrown when Wrong Syntax for localDateTime is given
+     */
+    public static LocalDateTime parseLocalDateTime(String str) throws ParseException {
+        for (String pattern : DATE_TIME_PATTERNS) {
+            try {
+                return LocalDateTime.parse(str, DateTimeFormatter.ofPattern(pattern));
+            } catch (DateTimeParseException e) {
+                // Fallthrough
+            }
+        }
+        throw new ParseException(str, 0);
     }
 }

@@ -1,18 +1,13 @@
 package sumode.task;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
+import sumode.exception.EndBeforeStartException;
 /**
  * A class for tasks with specific timeframe.
  */
 public class Event extends Task {
 
-    private final String start;
-    private final String end;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private final DueFromToFormat start;
+    private final DueFromToFormat end;
 
     /**
      * Constructor for Event
@@ -21,22 +16,12 @@ public class Event extends Task {
      * @param start Starting date of task.
      * @param end Ending date of task
      */
-    public Event(String name, String start, String end) {
-
+    public Event(String name, String start, String end) throws EndBeforeStartException {
         super(name);
-        this.start = start;
-        this.end = end;
-
-        try {
-            startDate = LocalDate.parse(start);
-        } catch (DateTimeParseException e) {
-            startDate = null;
-        }
-
-        try {
-            endDate = LocalDate.parse(end);
-        } catch (DateTimeParseException e) {
-            endDate = null;
+        this.start = new DueFromToFormat(start);
+        this.end = new DueFromToFormat(end);
+        if (!DueFromToFormat.isValidRange(this.start, this.end)) {
+            throw new EndBeforeStartException();
         }
     }
 
@@ -45,9 +30,9 @@ public class Event extends Task {
         return "[E]"
                 + super.toString()
                 + " (from: "
-                + (startDate == null ? this.start : this.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
+                + start
                 + " to: "
-                + (endDate == null ? this.end : this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
+                + end
                 + ")";
     }
 
