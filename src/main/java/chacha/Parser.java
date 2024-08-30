@@ -1,6 +1,7 @@
 package chacha;
 
 import chacha.task.Task;
+
 import java.time.DateTimeException;
 
 public class Parser {
@@ -19,25 +20,25 @@ public class Parser {
             return this.ui.printExit();
 
         } else if (userInput.startsWith("list")) {
-            return this.listCommand();
+            return this.doListCommand();
 
         } else if (userInput.startsWith("todo")) {
-            return this.addToDoCommand(userInput);
+            return this.doAddToDoCommand(userInput);
 
         } else if (userInput.startsWith("deadline")) {
-            return this.addDeadlineCommand(userInput);
+            return this.doAddDeadlineCommand(userInput);
 
         } else if (userInput.startsWith("event")) {
-            return this.addEventCommand(userInput);
+            return this.doAddEventCommand(userInput);
 
         } else if (userInput.startsWith("mark")) {
-            return this.markCommand(userInput);
+            return this.doMarkCommand(userInput);
 
         } else if (userInput.startsWith("unmark")) {
-            return this.unmarkCommand(userInput);
+            return this.doUnmarkCommand(userInput);
 
         } else if (userInput.startsWith("delete")) {
-            return this.deleteCommand(userInput);
+            return this.doDeleteCommand(userInput);
 
         } else {
             String[] arr = {"Hmmm... I don't seem to understand this. Please input another command! "};
@@ -45,11 +46,11 @@ public class Parser {
         }
     }
 
-    public String listCommand() {
+    public String doListCommand() {
         return this.tasks.printList(this.ui);
     }
 
-    public String addToDoCommand(String userInput) {
+    public String doAddToDoCommand(String userInput) {
         try {
             Task taskAdded = this.tasks.addToDo(userInput, this.ui, this.storage);
 
@@ -60,7 +61,7 @@ public class Parser {
         }
     }
 
-    public String addDeadlineCommand(String userInput) {
+    public String doAddDeadlineCommand(String userInput) {
         try {
             Task taskAdded = this.tasks.addDeadline(userInput, this.ui, this.storage);
 
@@ -74,7 +75,7 @@ public class Parser {
         }
     }
 
-    public String addEventCommand(String userInput) {
+    public String doAddEventCommand(String userInput) {
         try {
             Task taskAdded = this.tasks.addEvent(userInput, this.ui, this.storage);
 
@@ -88,7 +89,7 @@ public class Parser {
         }
     }
 
-    public String deleteCommand(String userInput) {
+    public String doDeleteCommand(String userInput) {
         try {
             Task taskDeleted = this.tasks.deleteTask(userInput, this.ui, this.storage);
 
@@ -104,7 +105,7 @@ public class Parser {
         }
     }
 
-    public String markCommand(String userInput) {
+    public String doMarkCommand(String userInput) {
         try {
             Task taskMarked = this.tasks.markDone(userInput, this.ui, this.storage);
 
@@ -120,7 +121,7 @@ public class Parser {
         }
     }
 
-    public String unmarkCommand(String userInput) {
+    public String doUnmarkCommand(String userInput) {
         try {
             Task taskUnmarked = this.tasks.markUndone(userInput, this.ui, this.storage);
 

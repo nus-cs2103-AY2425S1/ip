@@ -19,8 +19,9 @@ public class EventTask extends Task {
     public String printTask() {
         String output = "[E]";
         String status = (super.isDone ? "X" : " ");
-        return output + "[" + status + "] " + super.description +
-                " (" + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " from: " + this.startTime + " to: " + this.endTime + ")";
+        return output + "[" + status + "] " + super.description
+                + " (" + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " from: " + this.startTime + " to: " + this.endTime + ")";
     }
 
     @Override

@@ -14,8 +14,8 @@ public class DeadlineTask extends Task {
     public String printTask() {
         String output = "[D]";
         String status = (super.isDone ? "X" : " ");
-        return output + "[" + status + "] " + super.description +
-                " (by: " + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return output + "[" + status + "] " + super.description
+                + " (by: " + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
     @Override
     public String writeTask() {
