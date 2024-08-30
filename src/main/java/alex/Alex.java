@@ -7,6 +7,9 @@ import java.time.format.DateTimeParseException;
 
 import alex.command.Command;
 
+/**
+ * Represents the chatbot Alex
+ */
 public class Alex {
     private Storage storage;
     private TaskList tasks;
@@ -22,6 +25,10 @@ public class Alex {
         }
     }
 
+    /**
+     * Starts the execution of the chatbot with a greeting and subsequently allows the user to
+     * enter inputs and responds according to user input.
+     */
     public void run() {
         this.ui.showWelcome();
         boolean isExit = false;
@@ -41,6 +48,9 @@ public class Alex {
         }
     }
 
+    /**
+     * Gets the program started as the entry point method of the chatbot application
+     */
     public static void main(String[] args) {
         new Alex("./data/Alex.txt").run();
     }

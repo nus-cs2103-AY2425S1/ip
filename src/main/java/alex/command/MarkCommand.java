@@ -9,6 +9,9 @@ import alex.Ui;
 import alex.Storage;
 import alex.AlexException;
 
+/**
+ * Represents the command by user to mark or unmark a Task.
+ */
 public class MarkCommand extends Command{
     private Scanner lineScanner;
     private String mark;
@@ -16,6 +19,19 @@ public class MarkCommand extends Command{
         this.lineScanner = lineScanner;
         this.mark = response;
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * Marks or unmarks a Task, save changes to file and inform user.
+     *
+     * @param tasks Tasklist that holds the list of Tasks.
+     * @param ui Ui object that displays messages to user based on action taken by chatbot.
+     * @param storage Storage object that saves changes to file.
+     * @throws AlexException If user enters wrong input, such as not providing a number or providing a
+     * number that is too big or too small.
+     * @throws IOException If there are issues saving changes to file.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AlexException, IOException {
         if (!lineScanner.hasNext()) {
@@ -49,6 +65,11 @@ public class MarkCommand extends Command{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return false as user is not done yet.
+     */
     @Override
     public boolean isExit() {
         return false;

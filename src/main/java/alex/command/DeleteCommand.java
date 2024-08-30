@@ -9,12 +9,28 @@ import alex.Ui;
 import alex.Storage;
 import alex.AlexException;
 
+/**
+ * Represents the command by user to delete a Task from Tasklist.
+ */
 public class DeleteCommand extends Command {
     private Scanner lineScanner;
 
     public DeleteCommand(Scanner lineScanner) {
         this.lineScanner = lineScanner;
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * Deletes the Task from TaskList, save the changes to file and informs user.
+     *
+     * @param tasks Tasklist that holds the list of Tasks.
+     * @param ui Ui object that displays messages to user based on action taken by chatbot.
+     * @param storage Storage object that saves changes to file.
+     * @throws AlexException If user provides wrong input such as not providing an integer number or
+     * providing a number that is too small or too big.
+     * @throws IOException If there are issues saving the changes to file.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AlexException, IOException {
         if (!lineScanner.hasNext()) {
@@ -44,6 +60,11 @@ public class DeleteCommand extends Command {
         tasks.delete(taskNumber, storage, ui);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return false as user is not done yet.
+     */
     @Override
     public boolean isExit() {
         return false;
