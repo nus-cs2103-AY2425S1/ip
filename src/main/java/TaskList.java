@@ -10,16 +10,6 @@ public class TaskList {
         this.taskList = taskList;
     }
 
-    private void printLineSeparator() {
-        System.out.println("____________________________________________________________");
-    }
-
-    private void printErrorMessage(Exception e) {
-        printLineSeparator();
-        System.out.println(e);
-        printLineSeparator();
-    }
-
     public int getTaskCount() {
         return taskList.size();
     }
@@ -29,7 +19,6 @@ public class TaskList {
         DateTimeFormatter formatter 
             = DateTimeFormatter.ofPattern(
                     "d MMM yyyy HH:mm:ss a");
-    
         return ldt.format(formatter);
     }
 
@@ -62,7 +51,8 @@ public class TaskList {
         return new EventTask(taskDescription, taskStart, taskEnd);
     }
 
-    private Task createTask(String task) throws EmptyCommandException, EmptyToDoException, UnknownCommandException {
+    private Task createTask(String task) 
+            throws EmptyCommandException, EmptyToDoException, UnknownCommandException {
         String[] taskInfo = task.split(" ");
         String taskType = taskInfo[0];
         if (taskInfo[0].equals("")) {
@@ -82,46 +72,19 @@ public class TaskList {
         }
     }
 
-    public Task addToTaskList(String task) {
-        try {
-            Task curr = createTask(task);
-            taskList.add(curr);
-            printLineSeparator();
-            System.out.println("Got it. I have added the following task:\n\t" + curr);
-            System.out.println("You have a grand total of " + getTaskCount() + " task(s)");
-            printLineSeparator();
-            return curr;
-        } catch (EmptyCommandException e) {
-            printErrorMessage(e);
-        } catch (EmptyToDoException e) {
-            printErrorMessage(e);
-        } catch (UnknownCommandException e) {
-            printErrorMessage(e);
-        } catch (DateTimeParseException e) {
-            printLineSeparator();
-            System.out.println("Warning! Invalid dateTime format detected!");
-            System.out.println("Please use the following representation for dateTime strings:");
-            System.out.println("\tyyyy-MM-ddTHH:mm:ss");
-            printLineSeparator();
-        }
-        return null;
+    public Task addToTaskList(String task) 
+            throws EmptyCommandException, EmptyToDoException,  UnknownCommandException, DateTimeParseException  {
+        Task curr = createTask(task);
+        taskList.add(curr);
+        return curr;
     }
 
-    public void printTaskList() {
-        printLineSeparator();
-        for (int i = 0; i < getTaskCount(); i++) {
-            System.out.println(String.format("%d. %s", i+1, this.taskList.get(i)));
-        }
-        printLineSeparator();
+    public ArrayList<Task> getTaskList() {
+        return this.taskList;
     }
 
     public void markAsDone(int taskNumber) throws InvalidTaskNumberException {
-        if (taskNumber <= 0) {
-            printLineSeparator();
-            System.out.println("Warning! Task numbering starts from 1!");
-            printLineSeparator();
-            return;
-        } else if (taskNumber > getTaskCount()) {
+        if (taskNumber <= 0 || taskNumber > getTaskCount()) {
             throw new InvalidTaskNumberException(taskNumber);
         } else {
             Task curr = this.taskList.get(taskNumber-1);
@@ -130,12 +93,7 @@ public class TaskList {
     }
 
     public void markAsUndone(int taskNumber) throws InvalidTaskNumberException {
-        if (taskNumber <= 0) {
-            printLineSeparator();
-            System.out.println("Warning! Task numbering starts from 1!");
-            printLineSeparator();
-            return;
-        } else if (taskNumber > getTaskCount()) {
+        if (taskNumber <= 0 || taskNumber > getTaskCount()) {
             throw new InvalidTaskNumberException(taskNumber);
         } else {
             Task curr = this.taskList.get(taskNumber-1);
