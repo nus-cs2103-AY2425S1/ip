@@ -85,7 +85,13 @@ public class Duck {
                 String command = lineBuffer.getWord();
 
                 // "mark" / "unmark" commands
-                if (Command.MARK.equalsName(command)) {
+                if (Command.FIND.equalsName(command)) {
+                    String pattern = lineBuffer.getRemainingLine();
+                    TaskList filteredTasks = TASKS.filterTasksByPattern(pattern);
+                    String response = "Here are the tasks in your list:\n"
+                            + filteredTasks.toString();
+                    printAsResponse(response);
+                } else if (Command.MARK.equalsName(command)) {
                     int taskLabel = lineBuffer.getInt();
                     Task task = TASKS.getItem(taskLabel);
                     task.markAsDone();

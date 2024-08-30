@@ -11,7 +11,7 @@ import tasks.Task;
 import tasks.Todo;
 
 public class TaskList {
-    private static final ArrayList<Task> LIST = new ArrayList<>();
+    private final ArrayList<Task> tasks = new ArrayList<>();
     // TODO: Refactor this
     // Path relative to project directory
     private static final String[] dirPathParts = { "store" };
@@ -26,7 +26,7 @@ public class TaskList {
      * @param task
      */
     public void addTask(Task task) {
-        LIST.add(task);
+        tasks.add(task);
         updateFileWithTaskList();
     }
 
@@ -37,7 +37,7 @@ public class TaskList {
      * @return task with the given label
      */
     public Task getItem(int label) {
-        return LIST.get(label - 1);
+        return tasks.get(label - 1);
     }
 
     /**
@@ -46,7 +46,7 @@ public class TaskList {
      * @param label
      */
     public void removeItem(int label) {
-        LIST.remove(label - 1);
+        tasks.remove(label - 1);
         updateFileWithTaskList();
     }
 
@@ -56,18 +56,7 @@ public class TaskList {
      * @return task count
      */
     public int getTaskCount() {
-        return LIST.size();
-    }
-
-    public String toString() {
-        StringBuilder output = new StringBuilder();
-        for (int i = 0; i < LIST.size(); i++) {
-            output.append(String.valueOf(i + 1))
-                    .append(". ")
-                    .append(LIST.get(i).toString())
-                    .append("\n");
-        }
-        return output.toString();
+        return tasks.size();
     }
 
     /**
@@ -112,7 +101,7 @@ public class TaskList {
     public void updateFileWithTaskList() {
         List<String> records = new ArrayList<>();
 
-        for (Task task : LIST) {
+        for (Task task : tasks) {
             records.add(task.getSaveString());
         }
 
@@ -126,4 +115,24 @@ public class TaskList {
         }
     }
 
+    public TaskList filterTasksByPattern(String pattern) {
+        TaskList filteredTasks = new TaskList();
+        for (Task task : tasks) {
+            if (task.toString().contains(pattern)) {
+                filteredTasks.addTask(task);
+            }
+        }
+        return filteredTasks;
+    }
+
+    public String toString() {
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            output.append(String.valueOf(i + 1))
+                    .append(". ")
+                    .append(tasks.get(i).toString())
+                    .append("\n");
+        }
+        return output.toString();
+    }
 }
