@@ -4,32 +4,32 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    private LocalDate from;
-    private LocalDate to;
+    private LocalDate fromDate;
+    private LocalDate toDate;
 
-    public Event(String name, String from, String to) {
+    public Event(String name, String fromDate, String toDate) {
         super(name);
 
-        this.from = LocalDate.parse(from);
-        this.to = LocalDate.parse(to);
+        this.fromDate = LocalDate.parse(fromDate);
+        this.toDate = LocalDate.parse(toDate);
     }
 
     @Override
     public String getSaveFormat() {
-        return "E | " + super.getSaveFormat() + " | " + this.from + " | " + this.to;
+        return "E | " + super.getSaveFormat() + " | " + this.fromDate + " | " + this.toDate;
     }
 
     @Override
     public boolean isDuring(String date) {
         LocalDate localdate = LocalDate.parse(date);
-        return !(localdate.isBefore(this.from) || localdate.isAfter(this.to));
+        return !(localdate.isBefore(this.fromDate) || localdate.isAfter(this.toDate));
     }
 
     @Override
     public String toString() {
         return "[E]" + super.toString() +
                 String.format(" (from: %s to: %s)",
-                        this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
-                        this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+                        this.fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
+                        this.toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 }
