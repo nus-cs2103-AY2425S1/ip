@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 class Ynch {
     String name;
-    ArrayList<Task> todoList;
+    TaskList taskList;
 
     Ynch() {
         this.name = "YNCH";
-        this.todoList = new ArrayList<Task>();
+        this.taskList = new TaskList();
     }
 
     void processInput(String userInput) {
@@ -38,59 +38,44 @@ class Ynch {
         }
     }
 
-    String addTodo(String task) {
-        Todo newTask = new Todo(task);
-        this.todoList.add(newTask);
+    String add(String task) {
+        this.taskList = this.taskList.add(task);
         return "Meow! I've added this task: \n" + newTask + 
-            "\n Now you have " + this.todoList.size() + " tasks in the list.";
+            "\n Now you have " + this.taskList.size() + " tasks in the list.";
     }
 
-    String addDeadline(String task, String deadline) {
-        Deadline newTask = new Deadline(task, deadline);
-        this.todoList.add(newTask);
+    String add(String task, String deadline) {
+        this.taskList = this.taskList.add(task);
         return "Meow! I've added this task: \n" + newTask + 
-            "\n Now you have " + this.todoList.size() + " tasks in the list."; 
+            "\n Now you have " + this.taskList.size() + " tasks in the list."; 
     }
 
-    String addEvent(String task, String from, String to) {
-        Event newTask = new Event(task, from, to);
-        this.todoList.add(newTask);
+    String add(String task, String from, String to) {
+        this.taskList = this.taskList.add(task);
         return "Meow! I've added this task: \n" + newTask + 
-            "\n Now you have " + this.todoList.size() + " tasks in the list."; 
+            "\n Now you have " + this.taskList.size() + " tasks in the list."; 
     }
+
+
 
     String delete(int i) {
-        int index = i - 1;
-        Task removedTask = this.todoList.get(index);
-        this.todoList.remove(index);
+        this.taskList = this.taskList.remove(index);
         return "Meow! I've removed this task: \n" + removedTask + 
-            "\n Now you have " + this.todoList.size() + " tasks in the list.";
+            "\n Now you have " + this.taskList.size() + " tasks in the list.";
     }
 
     String mark(int i) {
-        int index = i - 1;
-        Task taskToMark = this.todoList.get(index);
-        taskToMark.mark();
-        this.todoList.set(index, taskToMark);
+        this.taskList = this.taskList.mark(i);
         return "Meow! I've marked this task as done: \n" + taskToMark;
     }
 
     String unmark(int i) {
-        int index = i - 1;
-        Task taskToMark = this.todoList.get(index);
-        taskToMark.unmark();
-        this.todoList.set(index, taskToMark);
+        this.taskList = this.taskList.unmark(i);
         return "Meow! I've marked this task as not done yet: \n" + taskToMark;
     }
 
     String list() {
-        String list = "";
-        int index = 0;
-        for (int i = 0; i < this.todoList.size(); i++) {
-            index += 1;
-            list += index + ". " + this.todoList.get(i) + "\n";
-        }
-        return list;
+        return this.taskList.list();
     }
 
     String greet() {
