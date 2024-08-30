@@ -10,14 +10,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles the loading and saving of tasks from/to a file.
+ */
 public class Storage {
     private final String filePath;
     private static final ArrayList<Task> TASKS = new ArrayList<>();
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path of the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the current list of tasks to the file specified in filePath.
+     *
+     * @param tasks The TaskList containing tasks to be saved.
+     * @throws CharlotteException If an error occurs while saving the tasks.
+     */
     public void saveTasks(TaskList tasks) throws CharlotteException {
         try {
             File file = new File(filePath);
@@ -45,6 +59,12 @@ public class Storage {
 
     }
 
+    /**
+     * Loads tasks from the file specified in filePath.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws CharlotteException If the file does not exist or contains invalid data.
+     */
     public ArrayList<Task> loadTasks() throws CharlotteException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
