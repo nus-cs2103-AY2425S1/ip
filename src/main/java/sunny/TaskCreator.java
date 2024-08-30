@@ -9,7 +9,7 @@ public class TaskCreator {
     /**
      * Creates tasks by parsing user message
      * @param message
-     * @return
+     * @return One of the tasks class: todo deadline event
      * @throws Exception
      */
     public static Task create(String message) throws Exception{

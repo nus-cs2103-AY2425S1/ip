@@ -4,13 +4,13 @@ package sunny;
  */
 public class Parser {
     private String command;
-    private String message;
+    private String description;
 
     public Parser(String message) {
-        String[] words = message.trim().split("\\s+", 2);
+        String[] words = message.split("\\s+", 2);
         command = words[0];
         if (words.length > 1) {
-            message = words[1];
+            description = words[1];
         }
     }
 
@@ -19,6 +19,6 @@ public class Parser {
     }
 
     public String getMessage() {
-        return message;
+        return description;
     }
 }
