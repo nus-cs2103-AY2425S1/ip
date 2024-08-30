@@ -1,2 +1,2 @@
 E | 0 | project meeting | 2024-12-01 1400 | 2024-12-01 1600
-D | 0 | return book | 2019-12-02 1500
+D | 1 | return book | 2019-12-02 1500
