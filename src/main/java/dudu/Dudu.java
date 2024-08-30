@@ -1,3 +1,5 @@
+package dudu;
+
 import dudu.command.Command;
 import dudu.utils.Parser;
 import dudu.utils.Storage;
