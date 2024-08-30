@@ -208,7 +208,7 @@ public class TaskList {
 
         if (cmd.length() <= 7) {
             String[] arrOfString = {
-                    "You are missing the index of task you want to mark. ",
+                    "You are missing the index of task you want to delete. ",
                     "Please type again!"
             };
 
@@ -260,7 +260,7 @@ public class TaskList {
     public Task markUndone(String cmd, Ui ui, Storage storage) throws ChaChaException {
         if (cmd.length() <= 7) {
             String[] arrOfString = {
-                    "You are missing the index of task you want to mark. ",
+                    "You are missing the index of task you want to unmark. ",
                     "Please type again!"
             };
 
