@@ -9,15 +9,29 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to add an event task to the task list.
+ */
 public class EventCommand extends Command {
     private TaskList taskList;
     private String input;
 
+    /**
+     * Constructs an EventCommand with the specified task list and input.
+     *
+     * @param taskList Task list that the event will be added to.
+     * @param input User input containing the description, starting and ending time.
+     */
     public EventCommand(TaskList taskList, String input) {
         this.taskList = taskList;
         this.input = input;
     }
 
+    /**
+     * Executes the command to add a new event task to the task list.
+     *
+     * @throws InvalidInputException if the input or date format is invalid.
+     */
     public void run() throws InvalidInputException {
         if (!checkValidEvent(input)) {
             throw new InvalidInputException("An event must have a description, start time and end time, no...?");
@@ -42,6 +56,12 @@ public class EventCommand extends Command {
 
     }
 
+    /**
+     * Checks if the input and date format is valid.
+     *
+     * @param input User input to be validated.
+     * @return true if the input and date format is valid.
+     */
     public static boolean checkValidEvent(String input) {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length == 2) {

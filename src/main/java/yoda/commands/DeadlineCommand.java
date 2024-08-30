@@ -8,17 +8,31 @@ import yoda.tasks.ToDo;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command that adds a deadline task to the task list.
+ */
 public class DeadlineCommand extends Command {
     private TaskList taskList;
     private String input;
 
+    /**
+     * Constructurs a DeadlineCommand with the specified task list and input.
+     *
+     * @param taskList Task list to add new deadline task to.
+     * @param input User input containing task description and deadline.
+     */
     public DeadlineCommand(TaskList taskList, String input) {
         this.taskList = taskList;
         this.input = input;
     }
 
+    /**
+     * Executes the command to add a new deadline task to the tasklist.
+     *
+     * @throws InvalidInputException if input format was invalid.
+     */
     public void run() throws InvalidInputException {
-        if (!checkValidDeadline(input)) {
+        if (!checkValidDeadline()) {
             throw new InvalidInputException("A deadline must have a description and due by time, no...?");
         }
         String[] splitInput = input.split(" ", 2);
@@ -36,7 +50,12 @@ public class DeadlineCommand extends Command {
         }
     }
 
-    public boolean checkValidDeadline(String input) {
+    /**
+     * Checks if formatting of input is valid for the deadline command.
+     *
+     * @return true of formatting is valid.
+     */
+    public boolean checkValidDeadline() {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length == 2) {
             String[] splitTask = splitInput[1].split("/by ", 2);
