@@ -1,6 +1,6 @@
 package pebble;
 
-// Custom exception for invalid input format
+// // Custom exception for unknown commands (unused)
 class InvalidInputFormatException extends Exception {
     public InvalidInputFormatException(String message) {
         super(message);
