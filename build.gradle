@@ -29,7 +29,7 @@ test {
 }
 
 application {
-    mainClass.set("rainy.database.Rainy")
+    mainClass.set("src.main.java.rainy.database.Rainy")
 }
 
 checkstyle {
