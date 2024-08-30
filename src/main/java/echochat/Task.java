@@ -50,14 +50,18 @@ public class Task implements Serializable {
 
     /**
      * Returns description of task.
-     * @return task description
+     * @return Task description
      */
     public String getDesc() {
         return done.equals(true) ? "[" + taskType.name() + "]"+ "[X] " + this.desc
                                  : "[" + taskType.name() + "]"+ "[ ] " + this.desc;
     }
 
-    // Method to parse the input date and time string, accepting both formats
+    /**
+     * Returns date as a LocalDateTime object.
+     * @param dateTimeStr
+     * @return LocalDateTime object based on String passed to it
+     */
     public LocalDateTime parseDateTime(String dateTimeStr) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");

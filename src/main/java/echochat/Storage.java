@@ -10,8 +10,8 @@ public class Storage {
     private static final String FILE_NAME = "tasks.ser";
 
     /**
-     * Save the list of tasks to file.
-     * @param lst the list of tasks to save
+     * Saves the list of tasks to file.
+     * @param lst The list of tasks to save
      */
     public void save(ArrayList<Task> lst) {
         try (FileOutputStream fileOut = new FileOutputStream(FILE_NAME);
@@ -24,7 +24,7 @@ public class Storage {
 
     /**
      * Load the list of tasks from file.
-     * @return the list of tasks, or an empty list if the file does not exist or an error occurs
+     * @return The list of tasks, or an empty list if the file does not exist or an error occurs
      */
     public ArrayList<Task> load() {
         ArrayList<Task> lst = new ArrayList<>();

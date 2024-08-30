@@ -4,6 +4,13 @@ import Exceptions.InvalidCommandError;
 
 public class Parser {
 
+    /**
+     * Returns a mark/unmark/delete Command based on the first word of user input, or calls parseTask()
+     * @param input the entire user input to be parsed
+     * @return Command with task type mark/unmark/delete
+     * @throws EmptyDescriptionError
+     * @throws InvalidCommandError
+     */
     public Command parse(String input) throws EmptyDescriptionError, InvalidCommandError {
         String[] parts = input.split(" ", 2);
 
@@ -11,8 +18,7 @@ public class Parser {
             return new Command(CommandType.EXIT, null, 0);
         } else if (input.equals("list")) {
             return new Command(CommandType.LIST, null, 0);
-        }
-        else if (parts.length == 2) {
+        } else if (parts.length == 2) {
             switch (parts[0]) {
             case "find":
                 return new Command(CommandType.FIND, parts[1], 0);
@@ -36,6 +42,14 @@ public class Parser {
         throw new InvalidCommandError();
     }
 
+    /**
+     * Returns a Command with task type todo/deadline/event type with correct details.
+     * @param type either "todo", "deadline" or "event"
+     * @param details String that possible contains dates to be parsed
+     * @return Command with task type todo/deadline/event
+     * @throws InvalidCommandError
+     * @throws EmptyDescriptionError
+     */
     private Command parseTask(String type, String details) throws InvalidCommandError,EmptyDescriptionError {
 
         String description = "";
@@ -64,6 +78,10 @@ public class Parser {
         if (description.isEmpty()) {
             throw new EmptyDescriptionError();
         }
+//        System.out.println("by " + by);
+//        System.out.println("from " + from);
+//        System.out.println("to " + to);
+
 
         Task task = null;
         switch (type) {

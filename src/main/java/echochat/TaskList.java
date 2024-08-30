@@ -33,8 +33,13 @@ public class TaskList {
         }
     }
 
-    public Task delete(int i) {
-        Task task = lst.remove(i - 1);
+    /**
+     * Deletes task from tasklist.
+     * @param idx The index of the task to be removed
+     * @return The deleted task
+     */
+    public Task delete(int idx) {
+        Task task = lst.remove(idx - 1);
         saveTasksToFile();
         return task;
     }

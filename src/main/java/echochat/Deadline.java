@@ -12,6 +12,10 @@ public class Deadline extends Task{
         this.dt = parseDateTime(by);
     }
 
+    /**
+     * Get description of Deadline.
+     * @return Task description with date included.
+     */
     @Override
     public String getDesc() {
         if (dt != null) {
@@ -21,6 +25,10 @@ public class Deadline extends Task{
         return super.getDesc() + " (by: " + by + ")";
     }
 
+    /**
+     * Get the "by" String of the deadline
+     * @return String stating when deadline is
+     */
     public String getBy() {
         return this.by;
     }
