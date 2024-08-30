@@ -8,8 +8,8 @@ public class ToDo extends Task{
         this.write_to_datafile(dataFile);
     }
 
-    public ToDo(String description, File dataFile, boolean done) {
-        super(description, done);
+    public ToDo(String description) {
+        super(description);
     }
 
     public ToDo(String description, boolean done) {

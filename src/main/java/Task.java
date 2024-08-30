@@ -27,7 +27,7 @@ public class Task {
 
     public Task(Storage storage) {
         storage.create_new_datafile();
-
+    }
 
     public String getDoneX() {
         if (this.done)
@@ -55,9 +55,6 @@ public class Task {
         return this.description;
     }
 
-    public String write_to_datafile(File dataFile){
-        return this.task;
-    }
 
     @Override
     public String toString() {

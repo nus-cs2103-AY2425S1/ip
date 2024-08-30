@@ -34,6 +34,7 @@ public class Tuesday {
                 ui.showError(e.getMessage());
             }
         }
+        return;
     }
 
     public static void main(String[] args) {
