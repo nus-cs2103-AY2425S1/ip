@@ -1,3 +1,7 @@
+package atreides.task;
+
+import atreides.ui.AtreidesException;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -23,7 +27,7 @@ public class TaskList {
         return newTask;
     }
 
-    TaskList(ArrayList<String[]> tasks) {
+    public TaskList(ArrayList<String[]> tasks) {
         this.list = new ArrayList<>();
         for (String[] words : tasks) {
             Task newTask = new Task();
@@ -44,7 +48,7 @@ public class TaskList {
         }
     }
 
-    TaskList() {
+    public TaskList() {
         this.list = new ArrayList<>();
     }
 

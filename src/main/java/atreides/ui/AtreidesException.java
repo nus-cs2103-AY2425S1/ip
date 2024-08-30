@@ -1,3 +1,5 @@
+package atreides.ui;
+
 public class AtreidesException extends Exception{
     private String description;
 

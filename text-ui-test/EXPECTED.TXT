@@ -12,7 +12,7 @@
 
     ____________________________________________________________
 
-    Task added
+    atreides.task.Task added
     [T][ ] borrow book
     1 task in list
 
@@ -20,7 +20,7 @@
 
     ____________________________________________________________
 
-    Task added
+    atreides.task.Task added
     [D][ ] return book (by: Sunday)
     2 tasks in list
 

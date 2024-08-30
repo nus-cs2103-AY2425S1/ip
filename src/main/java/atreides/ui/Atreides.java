@@ -1,3 +1,8 @@
+package atreides.ui;
+
+import atreides.command.Command;
+import atreides.task.TaskList;
+
 public class Atreides {
 
     private Storage storage;
@@ -36,6 +41,6 @@ public class Atreides {
     }
 
     public static void main(String[] args) {
-        new Atreides("src/main/Atreides.txt").run();
+        new Atreides("src/main/atreides.ui.Atreides.txt").run();
     }
 }

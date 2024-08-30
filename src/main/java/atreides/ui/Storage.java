@@ -1,3 +1,7 @@
+package atreides.ui;
+
+import atreides.task.TaskList;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

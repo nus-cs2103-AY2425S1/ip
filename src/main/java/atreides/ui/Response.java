@@ -1,3 +1,5 @@
+package atreides.ui;
+
 public class Response {
     String msg;
     String LINE = "____________________________________________________________";

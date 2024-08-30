@@ -1,3 +1,5 @@
+package atreides.ui;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -12,28 +14,28 @@ public class Ui {
     private final String ERROR_STRING = "File cannot be found\n";
 
 
-    void showMessage(String message) {
+    public void showMessage(String message) {
         System.out.println(new Response(message));
     }
 
-    String readCommand() {
+    public String readCommand() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
-    void showWelcome() {
+    public void showWelcome() {
         showMessage(INTRO);
     }
 
-    void showError(String error) {
+    public void showError(String error) {
         showMessage(error);
     }
 
-    void showLoadingError() {
+    public void showLoadingError() {
         showError(ERROR_STRING);
     }
 
-    void showExit() {
+    public void showExit() {
         showMessage(OUTRO);
     }
 }

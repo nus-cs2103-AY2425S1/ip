@@ -1,3 +1,7 @@
+package atreides.ui;
+
+import atreides.command.*;
+
 import java.util.Set;
 
 public class Parser {

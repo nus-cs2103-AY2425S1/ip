@@ -1,3 +1,9 @@
+package atreides.command;
+
+import atreides.task.TaskList;
+import atreides.ui.Storage;
+import atreides.ui.Ui;
+
 public class ExitCommand implements Command {
 
     @Override
