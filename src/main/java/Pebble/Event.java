@@ -13,14 +13,18 @@ public class Event extends Task {
     public Event(String description, String from, String to) {
         super(description);
         try {
-            this.from = LocalDate.parse(from);
+            this.from = LocalDate.parse(from.trim());
         } catch (DateTimeException e) {
             this.stringFrom = from;
+        } catch (NullPointerException e) {
+            this.stringFrom = "null";
         }
         try {
-            this.to = LocalDate.parse(to);
+            this.to = LocalDate.parse(to.trim());
         } catch (DateTimeException e) {
             this.stringTo = to;
+        } catch (NullPointerException e) {
+            this.stringTo = "null";
         }
     }
 
