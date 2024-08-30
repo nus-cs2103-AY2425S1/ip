@@ -1,3 +1,7 @@
+package dudu.utils;
+
+import dudu.task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

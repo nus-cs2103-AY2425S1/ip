@@ -1,5 +1,9 @@
+package dudu.utils;
+
+import dudu.task.Task;
+import dudu.utils.LineWrapper;
+
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -27,9 +31,9 @@ public class TaskList {
         return this.tasks.size();
     }
 
-//    public int getIndex(String[] input) throws MissingDescriptionException {
+//    public int getIndex(String[] input) throws dudu.exception.MissingDescriptionException {
 //        if (input.length <= 1 || input[1].replaceAll("\\D+", "").isEmpty()) {
-//            throw new MissingDescriptionException("Please input a number");
+//            throw new dudu.exception.MissingDescriptionException("Please input a number");
 //        }
 //        int index = Integer.parseInt(input[1].replaceAll("\\D+", "")) - 1;
 //        if (index < 0 || index >= tasks.size()) {

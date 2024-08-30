@@ -1,3 +1,9 @@
+import dudu.command.Command;
+import dudu.utils.Parser;
+import dudu.utils.Storage;
+import dudu.utils.TaskList;
+import dudu.utils.UI;
+
 import java.io.IOException;
 
 public class Dudu {
@@ -10,9 +16,9 @@ public class Dudu {
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
 //        try {
-//            tasks = new TaskList(storage.load());
+//            tasks = new dudu.utils.TaskList(storage.load());
 //        } catch (Exception e) {
-//            tasks = new TaskList();
+//            tasks = new dudu.utils.TaskList();
 //        }
 
     }

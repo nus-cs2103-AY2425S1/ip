@@ -1,3 +1,11 @@
+package dudu.command;
+
+import dudu.command.Command;
+import dudu.task.Task;
+import dudu.utils.Storage;
+import dudu.utils.TaskList;
+import dudu.utils.UI;
+
 import java.io.IOException;
 
 public class CommandEvent extends Command {
