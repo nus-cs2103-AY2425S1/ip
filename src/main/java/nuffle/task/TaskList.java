@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> inputList;
 
+    public TaskList() {
+        this.inputList = new ArrayList<>();
+    }
+
     public TaskList(ArrayList<Task> inputList) {
         this.inputList = inputList;
     }
