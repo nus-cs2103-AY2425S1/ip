@@ -1,6 +1,14 @@
 package orion.parser;
 
-import orion.orionExceptions.*;
+import orion.orionExceptions.FileInitializationException;
+import orion.orionExceptions.InvalidDateFormatException;
+import orion.orionExceptions.InvalidDeadlineException;
+import orion.orionExceptions.InvalidDeleteException;
+import orion.orionExceptions.InvalidEventException;
+import orion.orionExceptions.InvalidIndexException;
+import orion.orionExceptions.InvalidListException;
+import orion.orionExceptions.InvalidMarkException;
+import orion.orionExceptions.InvalidTodoException;
 import orion.task.DeadlineDetails;
 import orion.task.EventDetails;
 import orion.taskList.TaskList;
@@ -223,4 +231,5 @@ public class Parser {
             }
         }
     }
+
 }

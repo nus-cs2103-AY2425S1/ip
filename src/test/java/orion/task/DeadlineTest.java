@@ -2,9 +2,9 @@ package orion.task;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.LocalDateTime;
 
 class DeadlineTest {
 
@@ -33,4 +33,3 @@ class DeadlineTest {
         assertEquals(expected, deadline.toString());
     }
 }
-
