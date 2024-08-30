@@ -24,6 +24,9 @@ public class Ui {
         this.isRunning = true;
     }
 
+    /**
+     * Initialises the UI.
+     */
     public void start() {
         try {
             List<String> lines = storage.loadData();
@@ -39,6 +42,10 @@ public class Ui {
         }
         acceptCommand();
     }
+
+    /**
+     * Defines a Scanner object to accept string input (which will be parsed into commands later).
+     */
     public void acceptCommand() {
         Scanner scanner = new Scanner(System.in);
         while (isRunning && scanner.hasNextLine()) {
@@ -49,6 +56,10 @@ public class Ui {
         scanner.close();
     }
 
+    /**
+     * Provides the user with the choice to create a save file if a save file cannot be found.
+     * Exits if an IOException is thrown or if the user chooses not to make a save file.
+     */
     private void handleMissingFile() {
         System.out.println("i couldn't find a saved task list. you will need to create one to continue using me.\n"
                 + "would you like to create one? (y/n)");
@@ -81,6 +92,11 @@ public class Ui {
         System.exit(0);
     }
 
+    /**
+     * Determines which procs to invoke depending on the command word.
+     * @param command command word and its associated args
+     * @param isLoadingFromDisk true if the command was loaded from save data
+     */
     public void handleCommand(Command command, boolean isLoadingFromDisk) {
 //        System.out.println("command: " + command.getCommand());
         switch (command.getCommand()) {
@@ -99,6 +115,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Marks or unmark tasks
+     * @param command the mark/unmark command word and its associated tasks
+     */
     public void handleTaskMarking(Command command) {
         int taskToMark = Integer.parseInt(command.getArgs());
         try {
@@ -116,6 +136,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Deletes a task from the task list
+     * @param command the "delete" command word and its arg -- the index of the relevant task in the task list
+     */
     public void handleDelete(Command command) {
         int taskToDelete = Integer.parseInt(command.getArgs());
         try {
@@ -126,6 +150,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Adds a task to the task list and catches possible errors stemming from this addition.
+     * @param command command word and its associated args
+     * @param isLoadingFromDisk true if the command was loaded from save data
+     */
     public void handleAddTask(Command command, boolean isLoadingFromDisk) {
 //        System.out.println("getMark: " + command.getMark());
         try {
@@ -144,6 +173,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints out the current state of the task list.
+     */
     public void showList() {
         System.out.println(Constants.DIVIDER + "here's everything that's in your list:");
         taskList.printList();
