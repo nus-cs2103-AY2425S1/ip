@@ -81,7 +81,6 @@ public class Chobo {
         }
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(line);
-
     }
 
     public static void saveTasks() {
