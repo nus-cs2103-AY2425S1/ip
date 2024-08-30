@@ -3,6 +3,7 @@ package dudu.task;
 import dudu.task.Task;
 
 public class ToDo extends Task {
+
     /**
      * Constructs a to-do task with the specified description and due date.
      * By default, the task is uncompleted.
