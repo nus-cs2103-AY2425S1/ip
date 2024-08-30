@@ -5,9 +5,15 @@ import storage.Storage;
 import task.TaskList;
 import ui.Ui;
 
-public class ListCommand extends Command {
+public class FindCommand extends Command {
+
+    private String search;
+
+    public FindCommand(String search) {
+        this.search = search;
+    }
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
-        ui.displayTasks(tasks.getTasks());
+        ui.displaySearchedTasks(tasks.getTasks(), search);
     }
 }

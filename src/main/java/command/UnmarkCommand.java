@@ -1,6 +1,5 @@
 package command;
 
-import command.Command;
 import exceptions.BuddyException;
 import storage.Storage;
 import task.TaskList;
@@ -8,7 +7,7 @@ import ui.Ui;
 
 public class UnmarkCommand extends Command {
 
-    private int taskIndex;
+    private final int taskIndex;
 
     public UnmarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
