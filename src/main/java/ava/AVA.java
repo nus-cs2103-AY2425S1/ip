@@ -1,23 +1,24 @@
-import Task.Task;
-import Task.TaskManager;
+package ava;
+
+import ava.task.Task;
+import ava.task.TaskManager;
 
 import java.io.PrintStream;
-import java.util.Scanner;
 import java.util.List;
 
 public class AVA {
 
     /**
      * Current user input being processed by AVA.
-     * Note this requires there be only 1 AVA instance
      */
     private String currentInput;
 
     /**
-     * Task.TaskManager for AVA
-     * its initialized on ava's creation
-     *
-     * final to avoid unnecessary modifications
+     * TaskManager for AVA
+     * <br>
+     * initialized on ava's creation
+     * <br><br>
+     * <code>final</code> to avoid unnecessary modifications
      */
     private final TaskManager taskManager;
 
@@ -29,7 +30,7 @@ public class AVA {
     }
 
     /**
-     * Main function which decides if AVA is running or not
+     * Decides if AVA is running or not
      * //TODO: switch to a state based system like Operating System Threads
      * @return <span color="green">true</span> if AVA is running <span color="red">false</span> otherwise
      */
@@ -38,7 +39,7 @@ public class AVA {
     }
 
     /**
-     * updates the currentInput with the user input
+     * Updates the currentInput with the user input
      * @param s the user input
      */
     public void tellAva(String s) {
@@ -47,7 +48,7 @@ public class AVA {
 
     //todo:have a non printstream version
     /**
-     * method to print AVA's response to given PrintStream
+     * Prints AVA's response to given PrintStream
      * @param out PrintStream to print AVA's response to
      * //TODO:refactor mark and unmark to remove redundancy
      */
@@ -104,36 +105,15 @@ public class AVA {
             out.println("----------------------------------------------------------------");
         }
     }
+
     /**
-     * Main Driver method running AVA
+     *  Runs AVA
+     *
+     *  <br>
+     *  Main driver method running AVA
      */
     public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-        AVA ava = new AVA(); //default AVA object
-
-        // Greet the user
-        System.out.println("""
-                          Hi,  I'm AVA (Artificial Virtual Assistant).
-                       I am a virtual personal assistant created by Nikhil.
-                        I am currently an infant and can't do much 🙁 but
-                          don't worry I should soon be very capable 😉.
-                
-                ----------------------------------------------------------------
-                       I'll add what you say to a list and show it to you when
-                                          you say list,
-                          but if you want to leave you can just say bye .🙂
-                            
-                ----------------------------------------------------------------
-                """);
-        ava.tellAva(scanner.nextLine());
-        // Process user input until user says bye
-        while(ava.isRunning()){
-            ava.respond(System.out);
-            ava.tellAva(scanner.nextLine());
-        }
-        //Exit
-        System.out.println("Byee!! It was nice talking to you. Hope to see you again soon.");
+        TextUI.run();
     }
 }
 

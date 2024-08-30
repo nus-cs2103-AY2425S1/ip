@@ -1,4 +1,8 @@
-package Task;
+package ava.task;
+
+import ava.task.Tasks.Deadline;
+import ava.task.Tasks.Event;
+import ava.task.Tasks.Todo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +36,15 @@ public class TaskManager {
     }
 
     public void addTask(String task) {
-        tasks.add(new Task(task));
+        tasks.add(new Todo(task));
+    }
+
+    public void addTask(String task,String time){
+        tasks.add(new Deadline(task, time));
+    }
+
+    public void addTask(String task,String startTime,String endTime){
+        tasks.add(new Event(task, startTime, endTime));
     }
 
     public void removeTask(int taskId) {

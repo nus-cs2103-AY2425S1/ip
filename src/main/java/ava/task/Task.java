@@ -1,6 +1,6 @@
-package Task;
+package ava.task;
 
-public class Task {
+abstract public class Task {
     private String title;
     private boolean done;
 
@@ -32,6 +32,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("%s: %s", title, this.done?"done":"not done");
+        return String.format("%s | %s", this.done?"✅ Done   ":"❌ Pending",title);
     }
 }
