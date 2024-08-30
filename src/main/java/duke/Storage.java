@@ -10,13 +10,19 @@ import java.util.List;
 import java.util.Objects;
 
 public class Storage {
-    private static final String path = "./data/duke.txt";
+    private static final String PATH = "./data/duke.txt";
 
     public Storage() {
     }
 
+    /**
+     * Loads all previous tasks that user has input before.
+     *
+     * @return Array of all  previous tasks.
+     * @throws DuckException if file is corrupted.
+     * */
     public static Task[] load() throws DuckException {
-        File file = new File(path);
+        File file = new File(PATH);
         Task[] tasks;
         try {
             if (!file.exists()) {
@@ -24,7 +30,7 @@ public class Storage {
                 file.createNewFile();
                 return new Task[100];
             } else {
-                List<String> tasklist = Files.readAllLines(Paths.get(path));
+                List<String> tasklist = Files.readAllLines(Paths.get(PATH));
                 int numTasks = 0;
                 if (!tasklist.isEmpty()) {
                     numTasks = Integer.parseInt(String.valueOf(tasklist.get(0)));
@@ -39,13 +45,20 @@ public class Storage {
             throw new DuckException("Cannot load tasks.");
         }
     }
+
+    /**
+     * Loads total number of previous tasks that user has input before.
+     *
+     * @return Integer total of number of previous tasks.
+     * @throws DuckException if file is corrupted.
+     * */
     public static int loadNum() throws DuckException {
-        File file = new File(path);
+        File file = new File(PATH);
         try {
             if (!file.exists()) {
                 return 0;
             } else {
-                List<String> tasklist = Files.readAllLines(Paths.get(path));
+                List<String> tasklist = Files.readAllLines(Paths.get(PATH));
                 int numTasks = 0;
                 if (!tasklist.isEmpty()) {
                     numTasks = Integer.parseInt(String.valueOf(tasklist.get(0)));
@@ -57,11 +70,19 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves current list of tasks after user has made his or her changes.
+     *
+     * @param tasks Current list of all tasks to be saved.
+     * @param n Number of tasks in the list to be saved.
+     * @throws DuckException if the list is not formatted correctly.
+     * */
     public static void save(Task[] tasks, int n) throws DuckException {
         try {
-            FileWriter writer = new FileWriter(path);
+            FileWriter writer = new FileWriter(PATH);
             writer.write(n + "\n");
-            for (int i =0; i<n; i++) {
+            for (int i = 0; i<n; i++) {
+                //System.out.println("Saved "+tasks[i].description);
                 writer.write(saveTask(tasks[i]) + "\n");
             }
             writer.close();
@@ -70,6 +91,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses through a line from the Storage file to convert it from String to its corresponding Task.
+     *
+     * @param line Line to be parsed through.
+     * @return Task that the input line corresponds to.
+     * @throws DuckException if the line is not in a recognisable format.
+     * */
     private static Task parser(String line) throws DuckException {
         String[] parts = line.split(" \\| ");
         if (Objects.equals(parts[0], "T")) {
