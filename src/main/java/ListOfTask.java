@@ -86,134 +86,134 @@ public class ListOfTask {
         }
     }
 
-    public Task deleteTask(int i, Path filePath) {
-        try {
-            File taskFile = new File(String.valueOf(filePath));
-            FileWriter overwrittenFile = new FileWriter(taskFile);
+//    public Task deleteTask(int i, Path filePath) {
+//        try {
+//            File taskFile = new File(String.valueOf(filePath));
+//            FileWriter overwrittenFile = new FileWriter(taskFile);
+//
+//            for (int j = 0; j < this.tasks.size(); j++) {
+//                if (j == i - 1) {
+//                    continue;
+//                }
+//                Task task = this.tasks.get(j);
+//
+//                String description = task.description;
+//                String status = (task.isDone ? "1" : "0");
+//
+//                if (task.date == null && task.startTime == null) {
+//                    String text = "T | " + status + " | " + description + "\n";
+//                    overwrittenFile.write(text);
+//                } else if (task.date != null && task.startTime == null) {
+//                    LocalDate date = task.date;
+//                    String text = "D | " + status + " | " + description +
+//                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n";
+//                    overwrittenFile.write(text);
+//                } else {
+//                    LocalDate date = task.date;
+//                    String startTime = task.startTime;
+//                    String endTime = task.endTime;
+//                    String text = "E | " + status + " | " + description +
+//                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
+//                            " | " + startTime + " | " + endTime + "\n";
+//                    overwrittenFile.write(text);
+//                }
+//            }
+//
+//            overwrittenFile.flush();
+//            return this.tasks.remove(i - 1);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
-            for (int j = 0; j < this.tasks.size(); j++) {
-                if (j == i - 1) {
-                    continue;
-                }
-                Task task = this.tasks.get(j);
-
-                String description = task.description;
-                String status = (task.isDone ? "1" : "0");
-
-                if (task.date == null && task.startTime == null) {
-                    String text = "T | " + status + " | " + description + "\n";
-                    overwrittenFile.write(text);
-                } else if (task.date != null && task.startTime == null) {
-                    LocalDate date = task.date;
-                    String text = "D | " + status + " | " + description +
-                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n";
-                    overwrittenFile.write(text);
-                } else {
-                    LocalDate date = task.date;
-                    String startTime = task.startTime;
-                    String endTime = task.endTime;
-                    String text = "E | " + status + " | " + description +
-                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
-                            " | " + startTime + " | " + endTime + "\n";
-                    overwrittenFile.write(text);
-                }
-            }
-
-            overwrittenFile.flush();
-            return this.tasks.remove(i - 1);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public String markDone(int i, Path filePath) {
-        try {
-            Task markedTask = this.tasks.get(i - 1).markDone();
-            File taskFile = new File(String.valueOf(filePath));
-            FileWriter overwrittenFile = new FileWriter(taskFile);
-
-            for (int j = 0; j < this.tasks.size(); j++) {
-                Task task = this.tasks.get(j);
-
-                String description = task.description;
-                String status = (task.isDone ? "1" : "0");
-
-                if (task.date == null && task.startTime == null) {
-                    String text = "T | " + status + " | " + description + "\n";
-                    overwrittenFile.write(text);
-                } else if (task.date != null && task.startTime == null) {
-                    LocalDate date = task.date;
-                    String text = "D | " + status + " | " + description +
-                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n";
-                    overwrittenFile.write(text);
-                } else {
-                    LocalDate date = task.date;
-                    String startTime = task.startTime;
-                    String endTime = task.endTime;
-                    String text = "E | " + status + " | " + description +
-                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
-                            " | " + startTime + " | " + endTime + "\n";
-                    overwrittenFile.write(text);
-                }
-            }
-            overwrittenFile.flush();
-
-            return "     ____________________________________________________________ \n" +
-                    markedTask + "\n" +
-                    "     ____________________________________________________________ \n";
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public String markUndone(int i, Path filePath) {
-        try {
-            Task unmarkedTask = this.tasks.get(i - 1).markUndone();
-            File taskFile = new File(String.valueOf(filePath));
-            FileWriter overwrittenFile = new FileWriter(taskFile);
-
-            for (int j = 0; j < this.tasks.size(); j++) {
-                Task task = this.tasks.get(j);
-
-                String description = task.description;
-                String status = (task.isDone ? "1" : "0");
-
-                if (task.date == null && task.startTime == null) {
-                    String text = "T | " + status + " | " + description + "\n";
-                    overwrittenFile.write(text);
-                } else if (task.date != null && task.startTime == null) {
-                    String date = task.date.toString();
-                    String text = "D | " + status + " | " + description +
-                            " | " + date + "\n";
-                    overwrittenFile.write(text);
-                } else {
-                    String date = task.date.toString();
-                    String startTime = task.startTime;
-                    String endTime = task.endTime;
-                    String text = "E | " + status + " | " + description +
-                            " | " + date + " | " + startTime + " | " + endTime + "\n";
-                    overwrittenFile.write(text);
-                }
-            }
-            overwrittenFile.flush();
-
-            return "     ____________________________________________________________ \n" +
-                    unmarkedTask + "\n" +
-                    "     ____________________________________________________________ \n";
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public String printList() {
-        String output = "     ____________________________________________________________ \n" +
-                "     Here are the tasks in your list: \n";
-        for (int i = 0; i < this.tasks.size(); i++) {
-            int label = i + 1;
-            output += "     " + label + ". " + this.tasks.get(i).printTask() + "\n";
-        }
-
-        return output +
-                "     ____________________________________________________________ \n";
-    }
+//    public String markDone(int i, Path filePath) {
+//        try {
+//            Task markedTask = this.tasks.get(i - 1).markDone();
+//            File taskFile = new File(String.valueOf(filePath));
+//            FileWriter overwrittenFile = new FileWriter(taskFile);
+//
+//            for (int j = 0; j < this.tasks.size(); j++) {
+//                Task task = this.tasks.get(j);
+//
+//                String description = task.description;
+//                String status = (task.isDone ? "1" : "0");
+//
+//                if (task.date == null && task.startTime == null) {
+//                    String text = "T | " + status + " | " + description + "\n";
+//                    overwrittenFile.write(text);
+//                } else if (task.date != null && task.startTime == null) {
+//                    LocalDate date = task.date;
+//                    String text = "D | " + status + " | " + description +
+//                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n";
+//                    overwrittenFile.write(text);
+//                } else {
+//                    LocalDate date = task.date;
+//                    String startTime = task.startTime;
+//                    String endTime = task.endTime;
+//                    String text = "E | " + status + " | " + description +
+//                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
+//                            " | " + startTime + " | " + endTime + "\n";
+//                    overwrittenFile.write(text);
+//                }
+//            }
+//            overwrittenFile.flush();
+//
+//            return "     ____________________________________________________________ \n" +
+//                    markedTask + "\n" +
+//                    "     ____________________________________________________________ \n";
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+//
+//    public String markUndone(int i, Path filePath) {
+//        try {
+//            Task unmarkedTask = this.tasks.get(i - 1).markUndone();
+//            File taskFile = new File(String.valueOf(filePath));
+//            FileWriter overwrittenFile = new FileWriter(taskFile);
+//
+//            for (int j = 0; j < this.tasks.size(); j++) {
+//                Task task = this.tasks.get(j);
+//
+//                String description = task.description;
+//                String status = (task.isDone ? "1" : "0");
+//
+//                if (task.date == null && task.startTime == null) {
+//                    String text = "T | " + status + " | " + description + "\n";
+//                    overwrittenFile.write(text);
+//                } else if (task.date != null && task.startTime == null) {
+//                    String date = task.date.toString();
+//                    String text = "D | " + status + " | " + description +
+//                            " | " + date + "\n";
+//                    overwrittenFile.write(text);
+//                } else {
+//                    String date = task.date.toString();
+//                    String startTime = task.startTime;
+//                    String endTime = task.endTime;
+//                    String text = "E | " + status + " | " + description +
+//                            " | " + date + " | " + startTime + " | " + endTime + "\n";
+//                    overwrittenFile.write(text);
+//                }
+//            }
+//            overwrittenFile.flush();
+//
+//            return "     ____________________________________________________________ \n" +
+//                    unmarkedTask + "\n" +
+//                    "     ____________________________________________________________ \n";
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+//
+//    public String printList() {
+//        String output = "     ____________________________________________________________ \n" +
+//                "     Here are the tasks in your list: \n";
+//        for (int i = 0; i < this.tasks.size(); i++) {
+//            int label = i + 1;
+//            output += "     " + label + ". " + this.tasks.get(i).printTask() + "\n";
+//        }
+//
+//        return output +
+//                "     ____________________________________________________________ \n";
+//    }
 }

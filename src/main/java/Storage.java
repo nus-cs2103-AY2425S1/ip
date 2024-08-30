@@ -67,27 +67,27 @@ public class Storage {
 
             for (int j = 0; j < tasks.getTotalNumber(); j++) {
                 Task task = tasks.getTask(j);
-
-                String description = task.description;
-                String status = (task.isDone ? "1" : "0");
-
-                if (task.date == null && task.startTime == null) {
-                    String text = "T | " + status + " | " + description + "\n";
-                    overwrittenFile.write(text);
-                } else if (task.date != null && task.startTime == null) {
-                    LocalDate date = task.date;
-                    String text = "D | " + status + " | " + description +
-                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n";
-                    overwrittenFile.write(text);
-                } else {
-                    LocalDate date = task.date;
-                    String startTime = task.startTime;
-                    String endTime = task.endTime;
-                    String text = "E | " + status + " | " + description +
-                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
-                            " | " + startTime + " | " + endTime + "\n";
-                    overwrittenFile.write(text);
-                }
+                overwrittenFile.write(task.writeTask());
+//                String description = task.description;
+//                String status = (task.isDone ? "1" : "0");
+//
+//                if (task.date == null && task.startTime == null) {
+//                    String text = "T | " + status + " | " + description + "\n";
+//                    overwrittenFile.write(text);
+//                } else if (task.date != null && task.startTime == null) {
+//                    LocalDate date = task.date;
+//                    String text = "D | " + status + " | " + description +
+//                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n";
+//                    overwrittenFile.write(text);
+//                } else {
+//                    LocalDate date = task.date;
+//                    String startTime = task.startTime;
+//                    String endTime = task.endTime;
+//                    String text = "E | " + status + " | " + description +
+//                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
+//                            " | " + startTime + " | " + endTime + "\n";
+//                    overwrittenFile.write(text);
+//                }
             }
             overwrittenFile.flush();
 

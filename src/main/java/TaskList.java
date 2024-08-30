@@ -93,7 +93,7 @@ public class TaskList {
         Task task = new EventTask(description, false, date, startTime, endTime);
         this.tasks.add(task);
 
-        storage.writeFile(ui.printDeadline(description, date));
+        storage.writeFile(ui.printEvent(description, date, startTime, endTime));
 
         return task;
     }

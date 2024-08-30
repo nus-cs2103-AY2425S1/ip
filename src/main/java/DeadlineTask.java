@@ -15,4 +15,11 @@ public class DeadlineTask extends Task {
         return output + "[" + status + "] " + super.description +
                 " (by: " + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
+    @Override
+    public String writeTask() {
+        String output = "D | ";
+        String status = (super.isDone ? "1" : "0");
+        output += status + " | ";
+        return output + description + " | " + date.toString() + "\n";
+    }
 }
