@@ -11,7 +11,7 @@ public class EastonTest {
 
     @Test
     public void createToDo_emptyDescription_exceptionThrown() {
-        String input = "todo ";
+        String input = " todo ";
         assertThrows(EmptyDescriptionException.class, () -> {
             Easton.createToDo(input);
         });
