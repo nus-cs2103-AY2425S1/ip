@@ -7,12 +7,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import yappingbot.tasks.*;
-
 class StorageTest {
 
     @Test
-    void testLoadListFromFile() throws IOException {
+    void testLoadListFromFile() {
         Storage s = new Storage("src/test/resources/savefile_original");
         ArrayList<String> actual = s.loadListFromFile();
         String[] expected = {
@@ -31,11 +29,11 @@ class StorageTest {
         String savefile_path = "src/test/resources/savefile_test";
         Storage s = new Storage(savefile_path);
         ArrayList<String> t = new ArrayList<>();
-        s.saveListToFile(t);
         t.add("TODO:a:false");
         t.add("TODO:b:true");
         t.add("DEADLINE:adadsdd:false:2023-12-12");
         t.add("EVENT:abc:false:2023-12-23:2025-02-01");
+        s.saveListToFile(t);
         String[] expected = {
                 "TODO:a:false",
                 "TODO:b:true",

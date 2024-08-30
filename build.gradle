@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'checkstyle'
 }
 
 repositories {
@@ -35,6 +34,8 @@ application {
 shadowJar {
     archiveBaseName = "yappingbot"
     archiveClassifier = null
+    mainClassName = "yappingbot.YappingBot"
+    archiveFileName = "yappingbot.jar"
 }
 
 run{
