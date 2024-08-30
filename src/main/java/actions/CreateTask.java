@@ -18,7 +18,7 @@ public class CreateTask extends Action{
             case "todo" -> new ToDos(this.details);
             case "deadline" -> {
                 //[0] = taskName, [1] = deadline
-                String[] deadlineDetails = this.details.split("/");
+                String[] deadlineDetails = this.details.split("/by ");
                 yield new Deadlines(deadlineDetails[0], deadlineDetails[1]);
             }
             case "event" -> {
