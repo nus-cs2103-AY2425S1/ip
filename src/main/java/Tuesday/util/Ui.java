@@ -2,6 +2,7 @@ package Tuesday.util;
 
 import Tuesday.task.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -96,6 +97,29 @@ public class Ui {
         System.out.println("    Got it. I've deleted this task:\n      "
                 + Task.taskArrayList.get(index).toString()
                 + "\n    Now you have " + (Task.count - 1) + " task(s) in the list.");
+        this.showLine();
+    }
+
+    /**
+     * Prints a list of tasks that matches the key
+     *
+     * @param keyMessageToFind Key to find
+     */
+    public void showFindMessage(String keyMessageToFind) {
+        this.showLine();
+        int n = 1;
+        for (Task tasks : Task.taskArrayList) {
+            if(tasks.getDescription().contains(keyMessageToFind)){
+                if (n == 1) {
+                    System.out.println("    Here are the matching tasks in your list");
+                }
+                System.out.println("    " + (n) + "." + tasks.toString());
+                n++;
+            }
+        }
+        if (n == 1) {
+            System.out.println("    There are no matching tasks in your list");
+        }
         this.showLine();
     }
 

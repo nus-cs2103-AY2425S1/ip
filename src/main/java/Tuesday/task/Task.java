@@ -54,6 +54,10 @@ public class Task {
         count--;
         Task.taskArrayList.remove(index);
     }
+
+    public String getDescription() {
+        return this.description;
+    }
     public String write_to_datafile(File dataFile){
         return this.description;
     }

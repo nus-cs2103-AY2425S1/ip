@@ -25,6 +25,8 @@ public class Parser {
             return new AddCommand(userInputArr[0], userInputArr[1]);
         } else if (userInputArr[0].equals("delete")){
             return new DeleteCommand(command, Integer.parseInt(userInputArr[1]));
+        } else if (userInputArr[0].equals("find")){
+            return new FindCommand(command, userInputArr[1]);
         } else {
             throw new TuesdayException("Hey there!! I do not know what you mean. Can you type it out differently?");
         }
