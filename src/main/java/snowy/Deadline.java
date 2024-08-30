@@ -12,14 +12,14 @@ public class Deadline extends Task{
         try {
             this.date = LocalDate.parse(date);
         } catch (DateTimeException e) {
-            throw new SnowyException();
+            throw new SnowyException("Wrong date format");
         }
     }
 
     @Override
     public String toString() {
         String temp = super.toString();
-        return String.format("[D]%s (by %s )", temp, date.format(super.FORMATTER));
+        return String.format("[D]%s (by %s)", temp, date.format(super.FORMATTER));
     }
 
     @Override

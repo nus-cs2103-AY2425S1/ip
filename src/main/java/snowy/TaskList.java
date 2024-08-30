@@ -73,7 +73,7 @@ public class TaskList {
 
     public  void addToDo(String description) throws SnowyException{
         if (description.isEmpty()) {
-            throw new SnowyException();
+            throw new SnowyException("Invalid input for Todo");
         }
         Task newTask = new ToDo(description);
         tasks.add(newTask);
@@ -82,23 +82,23 @@ public class TaskList {
 
     public void addDeadline(String description) throws SnowyException{
         if (description.isEmpty()) {
-            throw new SnowyException();
+            throw new SnowyException("Invalid input for Deadline");
         }
 
         int byIndex = description.indexOf("/by ");
 
         if (byIndex == -1) {
-            throw new SnowyException();
+            throw new SnowyException("Invalid input for Deadline");
         }
         String deadlineName = description.substring(0, byIndex).trim();
         String date = description.substring(byIndex + 4);
 
         if (deadlineName.isEmpty()) {
-            throw new SnowyException();
+            throw new SnowyException("Invalid input for Deadline");
         }
 
         if (date.isEmpty()) {
-            throw new SnowyException();
+            throw new SnowyException("Invalid input for Deadline");
         }
         Task newTask = new Deadline(deadlineName, date);
         tasks.add(newTask);
@@ -107,26 +107,26 @@ public class TaskList {
 
     public void addEvent(String description) throws SnowyException{
         if (description.isEmpty()) {
-            throw new SnowyException();
+            throw new SnowyException("Invalid input for Event");
         }
         int fromIndex = description.indexOf("/from ");
         int toIndex = description.indexOf("/to ");
 
         if (toIndex == -1 || fromIndex == -1) {
-            throw new SnowyException();
+            throw new SnowyException("Invalid input for Event");
         }
 
         String eventName = description.substring(0, fromIndex);
         String fromDate = description.substring(fromIndex + 6, toIndex).trim();
         String toDate = description.substring(toIndex + 4);
         if (eventName.isEmpty()) {
-            throw new SnowyException();
+            throw new SnowyException("Invalid input for Event");
         }
         if (fromDate.isEmpty()) {
-            throw new SnowyException();
+            throw new SnowyException("Invalid input for Event");
         }
         if (toDate.isEmpty()) {
-            throw new SnowyException();
+            throw new SnowyException("Invalid input for Event");
         }
         Task newTask = new Event(eventName, fromDate, toDate);
         tasks.add(newTask);
@@ -137,7 +137,7 @@ public class TaskList {
         try {
             return tasks.remove(index - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new SnowyException();
+            throw new SnowyException("Invalid index input");
         }
     }
 
@@ -146,7 +146,7 @@ public class TaskList {
             tasks.get(index - 1).markComplete();
             return tasks.get(index - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new SnowyException();
+            throw new SnowyException("Invalid index input");
         }
     }
 
@@ -155,7 +155,7 @@ public class TaskList {
             tasks.get(index - 1).markIncomplete();
             return tasks.get(index - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new SnowyException();
+            throw new SnowyException("Invalid index input");
         }
     }
 
