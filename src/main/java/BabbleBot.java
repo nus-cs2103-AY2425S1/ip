@@ -52,8 +52,6 @@ public class BabbleBot {
         scanner.close();
     }
 
-
-
     private static void printTasksInFile() throws FileNotFoundException {
         File f = new File(TASK_LIST_PATH);
         Scanner s = new Scanner(f);
