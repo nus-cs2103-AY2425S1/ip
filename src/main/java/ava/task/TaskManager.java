@@ -12,20 +12,6 @@ public class TaskManager {
     private final List<Task> tasks;
     private final FileManager fileManager;
     public TaskManager() {
-        this.tasks = new ArrayList<Task>(){
-            @Override
-            public String toString() {
-                StringBuilder out = new StringBuilder();
-                for(int i = 1; i <=size();i++){
-                    out.append(i);
-                    out.append(". ");
-                    out.append(get(i - 1));
-                    out.append("\n");
-                }
-                return out.toString();
-            }
-        };
-
         this.fileManager = new FileManager();
         this.tasks = fileManager.getTasks();
     }

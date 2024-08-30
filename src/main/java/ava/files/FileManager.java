@@ -5,6 +5,7 @@ import jdk.jshell.spi.ExecutionControl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FileManager {
@@ -63,6 +64,18 @@ public class FileManager {
 
     public List<Task> getTasks(){
         // TODO: implement reading from file
-        return null;
+        return new ArrayList<Task>(){
+            @Override
+            public String toString() {
+                StringBuilder out = new StringBuilder();
+                for(int i = 1; i <=size();i++){
+                    out.append(i);
+                    out.append(". ");
+                    out.append(get(i - 1));
+                    out.append("\n");
+                }
+                return out.toString();
+            }
+        };
     }
 }
