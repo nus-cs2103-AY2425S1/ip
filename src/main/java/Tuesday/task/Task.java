@@ -1,3 +1,6 @@
+package Tuesday.task;
+
+import Tuesday.util.Storage;
 
 import java.util.ArrayList;
 import java.io.File;
@@ -6,7 +9,7 @@ public class Task {
     private String description;
     private boolean done;
     public static ArrayList<Task> taskArrayList = new ArrayList<>();
-    protected static int count = 0;
+    public static int count = 0;
 
     public Task(String description) {
         if (description.isEmpty()){

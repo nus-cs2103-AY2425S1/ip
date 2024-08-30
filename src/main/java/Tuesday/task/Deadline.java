@@ -1,3 +1,5 @@
+package Tuesday.task;
+
 import java.io.File;  // Import the File class
 import java.io.FileWriter;
 import java.io.IOException;

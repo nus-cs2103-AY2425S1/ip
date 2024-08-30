@@ -1,23 +1,25 @@
+package Tuesday.command;
+
+import Tuesday.util.Storage;
+import Tuesday.task.Task;
+import Tuesday.util.Ui;
+
 import java.io.*;
 
-public class MarkCommand extends Command{
-    private String commandType;
-    private int taskIndex;
-    private boolean isMarked;
-    public MarkCommand(String commandType, int taskIndex, boolean isMarked) {
-        super(commandType);
-        this.commandType = commandType;
-        this.taskIndex = taskIndex;
-        this.isMarked = isMarked;
+public class DeleteCommand extends Command{
+    private int index;
+    public DeleteCommand(String command, int index) {
+        super(command);
+        this.index = index;
     }
     @Override
     public void execute(Task task, Ui ui, Storage storage) {
-        Task.taskArrayList.get(this.taskIndex - 1).changeDone(this.isMarked);
-        ui.showMarkMessage(this.taskIndex - 1, this.isMarked);
-        changeDataFromFile();
+        ui.showDeleteMessage(index - 1);
+        Task.deleteTask(index - 1);
+        this.deleteDataFromFile();
     }
 
-    public void changeDataFromFile() {
+    public void deleteDataFromFile() {
         int i = 0;
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/main/data/tuesday.txt"));
@@ -26,13 +28,8 @@ public class MarkCommand extends Command{
                 String line = br.readLine();
 
                 while (line != null) {
-                    if (i != (this.taskIndex-1)) {
+                    if (i != (this.index-1)) {
                         sb.append(line);
-                        sb.append(System.lineSeparator());
-                    } else {
-                        String newData = line.substring(0,4) + Task.taskArrayList.get(this.taskIndex - 1).getDone1()
-                                + line.substring(5);
-                        sb.append(newData);
                         sb.append(System.lineSeparator());
                     }
                     line = br.readLine();
@@ -54,7 +51,6 @@ public class MarkCommand extends Command{
             System.out.println("Error: IOException");
         }
     }
-
     @Override
     public boolean isExit() {
         return false;
