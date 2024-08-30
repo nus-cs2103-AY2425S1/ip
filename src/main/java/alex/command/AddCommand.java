@@ -47,7 +47,7 @@ public class AddCommand extends Command {
 
         }
         tasks.add(task, storage);
-        ui.message("Got it. I've added this task: ", task, tasks.getSize());
+        ui.showMessage("Got it. I've added this task: ", task, tasks.getSize());
     }
 
     @Override

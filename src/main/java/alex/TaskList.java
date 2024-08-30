@@ -24,7 +24,7 @@ public class TaskList {
         Task task = list.get(taskNumber - 1);
         list.remove(taskNumber - 1);
         storage.save(list);
-        ui.message("Noted. I've removed this task: ", task, this.list.size());
+        ui.showMessage("Noted. I've removed this task: ", task, this.list.size());
     }
 
     public void mark(int taskNumber, Storage storage, Ui ui) throws IOException {

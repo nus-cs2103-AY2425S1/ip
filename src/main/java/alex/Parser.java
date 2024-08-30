@@ -21,7 +21,6 @@ import alex.command.MarkCommand;
 public class Parser {
     public static Command parse(String fullCommand) throws AlexException {
         Scanner lineScanner = new Scanner(fullCommand);
-        //handle exception for no new line found
 
         //Obtain the first word of user input
         String response = lineScanner.next();

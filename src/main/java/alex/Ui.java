@@ -57,7 +57,7 @@ public class Ui {
         System.out.println(line + "\nOK, I've marked this task as not done yet: \n" + task + "\n" + line);
     }
 
-    public void message(String str, Task task, int size) {
+    public void showMessage(String str, Task task, int size) {
         System.out.println(this.line);
         System.out.println(str);
         System.out.println(task);

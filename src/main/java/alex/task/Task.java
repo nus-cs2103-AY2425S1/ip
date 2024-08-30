@@ -3,23 +3,23 @@ package alex.task;
 public class Task {
     private String taskName;
 
-    private boolean taskCompletionStatus;
-    public Task(String taskName, boolean taskCompletionStatus) {
+    private boolean isCompleted;
+    public Task(String taskName, boolean isCompleted) {
         this.taskName = taskName;
-        this.taskCompletionStatus = taskCompletionStatus;
+        this.isCompleted = isCompleted;
     }
 
     public void markAsDone() {
-        this.taskCompletionStatus = true;
+        this.isCompleted = true;
     }
 
     public void markAsUndone() {
-        this.taskCompletionStatus = false;
+        this.isCompleted = false;
     }
     @Override
     public String toString() {
         String box = "";
-        if (this.taskCompletionStatus) {
+        if (this.isCompleted) {
             box = "[X]";
         } else {
             box = "[ ]";
@@ -28,7 +28,7 @@ public class Task {
         return String.format("%s %s", box, this.taskName);
     }
 
-    public String storageString() {
+    public String toStorageString() {
         return "";
     }
 }
