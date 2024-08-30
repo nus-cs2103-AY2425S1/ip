@@ -65,7 +65,9 @@ public class TaskList {
 
     public String[] describeTasks() {
         ArrayList<String> results = new ArrayList<>();
-        this.tasklist.forEach((task) -> results.add(task.toString()));
+        for (int i = 0; i < this.tasklist.size(); i++) {
+            results.add(String.format("%d. ", i + 1) + this.tasklist.get(i).toString());
+        }
         return results.toArray(new String[0]);
     }
 
@@ -75,6 +77,16 @@ public class TaskList {
             res += this.tasklist.get(i).getSaveFormat() + "\n";
         }
         return res;
+    }
+
+    public String[] findTasksOn(String date) {
+        ArrayList<String> results = new ArrayList<>();
+        this.tasklist.forEach((task) -> {
+            if (task.isDuring(date)) {
+                results.add(task.toString());
+            }
+        });
+        return results.toArray(new String[0]);
     }
 
     public String toString() {

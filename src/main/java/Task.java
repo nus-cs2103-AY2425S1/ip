@@ -19,6 +19,10 @@ abstract public class Task {
         return s + this.name;
     }
 
+    public boolean isDuring(String date) {
+        return false;
+    }
+
     @Override
     public String toString() {
         String completedBox = this.completed ? "[X] " : "[ ] ";

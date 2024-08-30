@@ -13,7 +13,22 @@ public class Bob {
     private static final String[] greeting = { "Hello! I'm Bob", "What can I do for you?" };
     private static final String[] farewell = { " Bye. Hope to see you again soon!" };
     private static final String savedTasksFilename = "savedTasks.txt";
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
+    public Bob(String filePath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        try {
+            this.tasks = this.storage.loadFile();
+        } catch (IllegalInputException e) {
+//            ui.showLoadingError();
+            this.tasks = new TaskList();
+        }
+    }
+
+    // abstracted
     private static void prettyPrint(String[] texts) {
         String separator = Bob.lineIndent + Bob.line;
         System.out.println(separator);
@@ -24,6 +39,7 @@ public class Bob {
         System.out.println(separator);
     }
 
+    // abstracted
     private static void loadFile() {
         Scanner scanner;
         try {
@@ -51,12 +67,9 @@ public class Bob {
             prettyPrint(new String[] {"OOPS! There was a problem loading the saved tasks."});
             return;
         }
-
-        while (scanner.hasNextLine()) {
-
-        }
     }
 
+    // abstracted
     private static void saveFile() {
         FileWriter writer;
         try {
@@ -175,77 +188,116 @@ public class Bob {
                 String.format("Now you have %d tasks in the list.", Bob.taskList.getSize()) });
     }
 
-    public static void main(String[] args) {
-        Bob.prettyPrint(Bob.greeting);
-        Bob.loadFile();
-        String input = "";
-        String[] arguments;
-        Scanner scanner = new Scanner(System.in);
+    private static void occurs(String date) {
+        String[] tasks = Bob.taskList.findTasksOn(date);
+        String[] toPrint = new String[tasks.length + 2];
+        toPrint[0] = String.format("Here are the tasks occuring on %s:", date);
+        toPrint[tasks.length + 1] = String.format("Number of tasks found: %d", tasks.length);
+        for (int i = 0; i < tasks.length; i++) {
+            toPrint[i+1] = tasks[i];
+        }
 
-        outerLoop:
-        while(true) {
-            input = scanner.nextLine();
-            arguments = input.split(" ");
+        Bob.prettyPrint(toPrint);
+    }
+
+//    public static void main(String[] args) {
+//        Bob.prettyPrint(Bob.greeting);
+//        Bob.loadFile();
+//        String input = "";
+//        String[] arguments;
+//        Scanner scanner = new Scanner(System.in);
+//
+//        outerLoop:
+//        while (true) {
+//            input = scanner.nextLine();
+//            arguments = input.split(" ");
+//            try {
+//                switch(arguments[0]) {
+//                    case("bye"):
+//                        if (arguments.length > 1) throw new ExtraParamException(input.substring(4));
+//                        Bob.prettyPrint(new String[]{"Saving your task list..."});
+//                        saveFile();
+//                        Bob.prettyPrint(Bob.farewell);
+//                        break outerLoop;
+//                    case("list"):
+//                        if (arguments.length > 1) throw new ExtraParamException(input.substring(5));
+//                        Bob.listCommands();
+//                        continue;
+//                    case("mark"): {
+//                        String[] inputs = Bob.splitInput(arguments, new String[] {"mark"});
+//                        int idx;
+//                        try {
+//                            idx = Integer.parseInt(inputs[0]);
+//                        } catch(NumberFormatException e) {
+//                            throw new TaskIndexException(inputs[0]);
+//                        }
+//                        if (idx <= 0 || idx > Bob.taskList.getSize()) {
+//                            throw new TaskIndexException(inputs[0]);
+//                        }
+//                        Bob.markTask(idx);
+//                        continue;
+//                    }
+//                    case("unmark"): {
+//                        String[] inputs = Bob.splitInput(arguments, new String[] {"unmark"});
+//                        int idx;
+//                        try {
+//                            idx = Integer.parseInt(inputs[0]);
+//                        } catch(NumberFormatException e) {
+//                            throw new TaskIndexException(inputs[0]);
+//                        }
+//                        if (idx <= 0 || idx > Bob.taskList.getSize()) {
+//                            throw new TaskIndexException(inputs[0]);
+//                        }
+//                        Bob.unmarkTask(idx);
+//                        continue;
+//                    }
+//                    case("occurs"): {
+//                        String[] inputs = Bob.splitInput(arguments, new String[] {"occurs"});
+//                        Bob.occurs(inputs[0]);
+//                        continue;
+//                    }
+//                    case("todo"):
+//                        Bob.todo(arguments);
+//                        continue;
+//                    case("deadline"): {
+//                        Bob.deadline(arguments);
+//                        continue;
+//                    }
+//                    case("event"): {
+//                        Bob.event(arguments);
+//                        continue;
+//                    }
+//                    case("delete"):
+//                        Bob.deleteTask(arguments);
+//                        continue;
+//                    default:
+//                        throw new UnknownCommandException(arguments[0]);
+//                }
+//            } catch(MissingParamException | ExtraParamException | UnknownCommandException | TaskIndexException e) {
+//                Bob.prettyPrint(e.getLines());
+//            }
+//        }
+//    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                switch(arguments[0]) {
-                    case("bye"):
-                        if (arguments.length > 1) throw new ExtraParamException(input.substring(4));
-                        Bob.prettyPrint(new String[]{"Saving your task list..."});
-                        saveFile();
-                        Bob.prettyPrint(Bob.farewell);
-                        break outerLoop;
-                    case("list"):
-                        if (arguments.length > 1) throw new ExtraParamException(input.substring(5));
-                        Bob.listCommands();
-                        continue;
-                    case("mark"): {
-                        String[] inputs = Bob.splitInput(arguments, new String[] {"mark"});
-                        int idx;
-                        try {
-                            idx = Integer.parseInt(inputs[0]);
-                        } catch(NumberFormatException e) {
-                            throw new TaskIndexException(inputs[0]);
-                        }
-                        if (idx <= 0 || idx > Bob.taskList.getSize()) {
-                            throw new TaskIndexException(inputs[0]);
-                        }
-                        Bob.markTask(idx);
-                        continue;
-                    }
-                    case("unmark"): {
-                        String[] inputs = Bob.splitInput(arguments, new String[] {"unmark"});
-                        int idx;
-                        try {
-                            idx = Integer.parseInt(inputs[0]);
-                        } catch(NumberFormatException e) {
-                            throw new TaskIndexException(inputs[0]);
-                        }
-                        if (idx <= 0 || idx > Bob.taskList.getSize()) {
-                            throw new TaskIndexException(inputs[0]);
-                        }
-                        Bob.unmarkTask(idx);
-                        continue;
-                    }
-                    case("todo"):
-                        Bob.todo(arguments);
-                        continue;
-                    case("deadline"): {
-                        Bob.deadline(arguments);
-                        continue;
-                    }
-                    case("event"): {
-                        Bob.event(arguments);
-                        continue;
-                    }
-                    case("delete"):
-                        Bob.deleteTask(arguments);
-                        continue;
-                    default:
-                        throw new UnknownCommandException(arguments[0]);
-                }
-            } catch(MissingParamException | ExtraParamException | UnknownCommandException | TaskIndexException e) {
-                Bob.prettyPrint(e.getLines());
+                String fullCommand = ui.readCommand();
+//                ui.showLine(); // show the divider line ("_______")
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (IllegalInputException e) {
+                ui.showError(e.getMessage());
+            } finally {
+//                ui.showLine();
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new Bob("savedTasks.txt").run();
     }
 }
