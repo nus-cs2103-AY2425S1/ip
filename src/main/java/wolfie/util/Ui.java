@@ -133,11 +133,11 @@ public class Ui {
      * @param date the date to check for tasks
      * @param tasks the list of tasks due on that date
      */
-    public String showTasksOnDate(LocalDate date, List<Task> tasks) {
+    public String showTasksOnDate(LocalDate date, Task... tasks) {
         StringBuilder sb = new StringBuilder();
         sb.append(" Here are the tasks on ").append(date.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
                 .append(":\n");
-        if (tasks.isEmpty()) {
+        if (tasks.length == 0) {
             sb.append("   There are no tasks on this date.\n");
         } else {
             for (Task task : tasks) {
