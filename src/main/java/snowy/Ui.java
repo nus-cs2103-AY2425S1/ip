@@ -1,3 +1,5 @@
+package snowy;
+
 public class Ui {
     private static final String LINE = "-----------------------------------\n";
 
