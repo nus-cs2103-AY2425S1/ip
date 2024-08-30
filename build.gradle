@@ -51,8 +51,7 @@ test {
 }
 
 application {
-//    mainClass.set("duke.DailyTasks")
-    mainClass.set("duke.javafx.Main")
+    mainClass.set("duke.DailyTasks")
 }
 
 shadowJar {
