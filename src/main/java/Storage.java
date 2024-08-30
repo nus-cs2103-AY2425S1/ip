@@ -18,6 +18,13 @@ public class Storage {
         this.FILE_PATH = filePath;
     }
 
+    /**
+     * Reads from CSV and returns a list of lists.
+     * Each list corresponds to a row in the CSV file.
+     * 
+     * @return List of lists
+     * @throws IOException
+     */
     public List<List<String>> getRecords() throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
@@ -30,6 +37,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates CSV with records as a list of lists.
+     * Each list corresponds to a row in the CSV file.
+     * 
+     * @throws IOException
+     */
     public void updateRecords(List<List<String>> records) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (List<String> record : records) {
@@ -39,6 +52,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates CSV with records as a list of strings.
+     * Each String corresponds to a row in the CSV file.
+     * 
+     * @param records
+     * @throws IOException
+     */
     public void updateRecordsWithStrings(List<String> records) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (String record : records) {
