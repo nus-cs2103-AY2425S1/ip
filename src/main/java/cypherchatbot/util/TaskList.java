@@ -18,10 +18,6 @@ public class TaskList {
     public String addToList(Task task) {
         this.taskList.add(task);
         return String.format("Got it. I have added this task:\n  %s\nNow you have %d task in the list\n" ,task, this.taskList.size());
-//        Ui.lineBreak();
-//        System.out.println("Got it. I have added this task:\n  " + task);
-//        System.out.printf("Now you have %d task in the list%n", this.taskList.size());
-//        Ui.lineBreak();
     }
 
 
@@ -31,9 +27,7 @@ public class TaskList {
         task.completeTask();
         String newLine = task.toStringinFile();
         storage.editTask(oldLine,newLine);
-        // Ui.lineBreak();
         return "Nice! I have marked this task as completed:\n " + task;
-        // Ui.lineBreak();
     }
 
     public String unmarkTask(int i, Storage storage) {
