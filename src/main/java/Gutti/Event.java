@@ -33,13 +33,19 @@ public class Event extends Task {
      * @param from The start date/time of the event.
      * @param to The end date/time of the event.
      */
-
     public Event(String description, String from, String to,boolean isDone) {
         super(description,isDone);
         this.from = parseDateTime(from);
         this.to = parseDateTime(to);
     }
 
+    /**
+     * Parses the date/time string into a {@code LocalDateTime} object using multiple predefined formats.
+     * If none of the formats match, returns {@code null}.
+     *
+     * @param dateTime The date/time string to parse.
+     * @return The parsed {@code LocalDateTime} object or {@code null} if parsing fails.
+     */
     private LocalDateTime parseDateTime(String dateTime) {
         for (DateTimeFormatter formatter : FORMATTERS) {
             try {

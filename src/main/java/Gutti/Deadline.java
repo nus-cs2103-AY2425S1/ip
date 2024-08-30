@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class Deadline extends Task {
 
+    /** List of date/time formatters to parse various input formats for the deadline. */
     private static final List<DateTimeFormatter> FORMATTERS = Arrays.asList(
             DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
             DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"),
@@ -23,6 +24,7 @@ public class Deadline extends Task {
 
     /** The deadline by which the task should be completed. */
     protected LocalDateTime by;
+
     /**
      * Constructs a new {@code Deadline} task with the specified description and deadline.
      *
@@ -34,6 +36,14 @@ public class Deadline extends Task {
         this.by = parseDateTime(by);
 
     }
+
+    /**
+     * Parses the date/time string into a {@code LocalDateTime} object using multiple predefined formats.
+     * If none of the formats match, returns {@code null}.
+     *
+     * @param by The date/time string to parse.
+     * @return The parsed {@code LocalDateTime} object or {@code null} if parsing fails.
+     */
     private LocalDateTime parseDateTime(String by) {
         for (DateTimeFormatter formatter : FORMATTERS) {
             try {

@@ -1,5 +1,9 @@
 package Gutti;
 
+/**
+ * The main class for the Gutti application.
+ * Initializes the necessary components and manages the overall execution of the application.
+ */
 public class Gutti {
 
     private static final String FILE_PATH = "./data/gutti.txt";
@@ -7,6 +11,9 @@ public class Gutti {
     private Storage storage;
     private Ui ui;
 
+    /**
+     * Constructs a new {@code Gutti} instance and initializes the storage, UI, and task list.
+     */
     public Gutti() {
         storage = new Storage(FILE_PATH);
         ui = new Ui();
@@ -21,6 +28,9 @@ public class Gutti {
         new Gutti().run();
     }
 
+    /**
+     * Executes the main logic of the application, including reading commands and executing them.
+     */
     public void run() {
         boolean isExit = false;
         ui.greetings();
