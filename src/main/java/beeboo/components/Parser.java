@@ -1,11 +1,6 @@
 package beeboo.components;
 
-import beeboo.command.AddCommand;
-import beeboo.command.ExitCommand;
-import beeboo.command.ListCommand;
-import beeboo.command.DeleteCommand;
-import beeboo.command.MarkCommand;
-import beeboo.command.Command;
+import beeboo.command.*;
 import beeboo.exception.InvalidCommandException;
 
 /**
@@ -45,6 +40,8 @@ public class Parser {
             return new MarkCommand("u", rest);
         case "delete":
             return new DeleteCommand(rest);
+        case "find":
+            return new FindCommand(rest);
         default:
             throw new InvalidCommandException();
         }
