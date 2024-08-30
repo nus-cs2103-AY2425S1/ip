@@ -17,6 +17,10 @@ public class Event extends Task{
         this.dtTo = parseDateTime(to);
     }
 
+    /**
+     * Get description of the event.
+     * @return Event description, including its starting and ending dates
+     */
     @Override
     public String getDesc() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
@@ -25,10 +29,18 @@ public class Event extends Task{
         return super.getDesc() + " (from: " + fromOut + " to: " + toOut + ")";
     }
 
+    /**
+     * Get starting date of event.
+     * @return String representing start of event
+     */
     public String getFrom() {
         return from;
     }
 
+    /**
+     * Get ending date of event.
+     * @return String representing end of event
+     */
     public String getTo() {
         return to;
     }

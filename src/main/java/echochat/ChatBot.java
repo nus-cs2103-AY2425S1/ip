@@ -13,6 +13,9 @@ public class ChatBot {
         ui.greet();
     }
 
+    /**
+     * Starts the chatbot, awaiting user input.
+     */
     public void run() {
         while (true) {
             try {
@@ -48,7 +51,7 @@ public class ChatBot {
                     case TODO:
                     case DEADLINE:
                     case EVENT:
-                        Task newTask = command.createTask();
+                        Task newTask = command.getTask();
                         taskList.addToList(newTask);
                         ui.showTaskAdded(newTask, taskList.getTaskList().size());
                         break;

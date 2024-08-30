@@ -21,21 +21,27 @@ public class Command {
         this.task = task;
     }
 
+    /**
+     * Returns type of command.
+     * @return CommandType enum
+     */
     public CommandType getType() {
         return type;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
+    /**
+     * Returns command index,
+     * @return Integer representing command index
+     */
     public int getIndex() {
         return index;
     }
 
-    public Task createTask() {
+    /**
+     * Returns task of the command.
+     * @return Task
+     */
+    public Task getTask() {
         return task;
     }
-
-    public Task getTask() {return task; }
 }
