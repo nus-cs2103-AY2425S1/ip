@@ -42,6 +42,16 @@ public class TaskList {
         listOfTasks.remove(i - 1);
     }
 
+    public TaskList findDescription(String s) {
+        TaskList temp = new TaskList();
+        for (Task task : listOfTasks) {
+            if (task.taskname.contains(s)) {
+                temp.add(task);
+            }
+        }
+        return temp;
+    }
+
     public int getSize() {
         return listOfTasks.size();
     }
