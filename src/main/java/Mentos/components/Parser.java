@@ -96,7 +96,7 @@ public class Parser {
             } else if (input.startsWith(EVENT)){
                 Matcher match = regexHandler(input,"event (.+) \\/from (\\d{4}-\\d{2}-\\d{2} \\d{4}) \\/to (\\d{4}-\\d{2}-\\d{2} \\d{4})$");
                 if (match == null){
-                    throw new MentosException("Invalid Mentos.task.Event input! usage:event <desc> /from <datetime> yyyy-mm-dd hhmm /to <datetime> yyyy-mm-dd hhmm" );
+                    throw new MentosException("Invalid Event input! usage:event <desc> /from <datetime> yyyy-mm-dd hhmm /to <datetime> yyyy-mm-dd hhmm" );
                 }
 
                 String eventDesc = match.group(1);
