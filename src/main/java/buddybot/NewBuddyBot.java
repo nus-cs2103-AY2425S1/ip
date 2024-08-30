@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
  */
 public class NewBuddyBot { //test
     private final FileStorage storage;
-    private TaskList taskList;
+    private TaskList taskList; // test
     private final Ui ui;
 
     /**
