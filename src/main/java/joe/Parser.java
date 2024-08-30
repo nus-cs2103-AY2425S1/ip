@@ -41,7 +41,16 @@ public class Parser {
             case MARK,UNMARK -> {
                 return new ToggleCommand(command, inputArr);
             }
+            case FIND -> {
+                if (inputArr.length != 2) {
+                    throw new JoeException("Find currently only supports a single word query");
+                }
+                String query = inputArr[1];
+                return new FindCommand(query);
+            }
+            default -> {
+                return new UnknownCommand();
+            }
         }
-        return new UnknownCommand();
     }
 }
