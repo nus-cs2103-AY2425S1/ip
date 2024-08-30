@@ -9,16 +9,27 @@ import Ponder_Pika.Task.Deadline;
 import Ponder_Pika.Task.Task;
 import Ponder_Pika.Task.Todo;
 
+/**
+ * The {@code Ponder_Pika} class represents a task management system.
+ * It allows users to manage tasks including adding, listing, marking, unmarking, deleting tasks, and more.
+ */
 public class Ponder_Pika {
 
     private final IOHandler io = new IOHandler();
     private final List<Task> myList = io.loadData();
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
 
+    /**
+     * Prints a divider line for better readability in the console output.
+     */
     public void printDivider() {
         System.out.println("...........................................................");
     }
 
+
+    /**
+     * Prints a greeting message to the user with the bot's name.
+     */
     private void greet() {
         String logo = "Ponder_Pika";
 
@@ -28,10 +39,17 @@ public class Ponder_Pika {
         System.out.println("----------------------------------------------------------");
     }
 
+    /**
+     * Prints a goodbye message to the user.
+     */
     private static void bidBye() {
         System.out.println("\nBye! See you real soon!");
     }
 
+    /**
+     * Starts the command-line interface for interacting with the task management system.
+     * This method listens for user input (commands from user) and executes corresponding commands.
+     */
     public void echo() {
         greet();
         Scanner scan = new Scanner(System.in);

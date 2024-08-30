@@ -17,9 +17,19 @@ import Ponder_Pika.Task.Event;
 import Ponder_Pika.Task.Task;
 import Ponder_Pika.Task.Todo;
 
+/**
+ * This class is responsible for handling file operations.
+ * It includes methods for creating a file, saving task data to a file, and loading task data from a file.
+ */
 public class IOHandler {
     private static final File FILE = new File("./data/pika.txt");
 
+    /**
+     * Creates the necessary directories or the file if it does not exist.
+     * Throws a PonderPikaException if an I/O error.
+     *
+     * @throws PonderPikaException if an I/O error occurs while creating the file or directories
+     */
     public void create() throws PonderPikaException {
         Path path = Paths.get(FILE.getPath());
         try {
@@ -35,6 +45,14 @@ public class IOHandler {
         }
     }
 
+    /**
+     * Saves the provided list of tasks to the file.
+     * Creates the file if it does not already exist.
+     * Throws a PonderPikaException if an I/O error occurs.
+     *
+     * @param tasks the list of tasks to be saved
+     * @throws PonderPikaException if an I/O error occurs while writing to the file
+     */
     public void saveData(List<Task> tasks) throws PonderPikaException {
         try {
             if (!FILE.exists()) {
@@ -53,6 +71,12 @@ public class IOHandler {
         }
     }
 
+    /**
+     * Loads tasks from the file and returns them as a list.
+     * If the file does not exist or is empty, returns an empty list.
+     *
+     * @return an ArrayList of tasks loaded from the file
+     */
     public ArrayList<Task> loadData() {
         ArrayList<Task> list = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
