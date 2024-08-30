@@ -20,6 +20,9 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
+        if (from == null || to == null) {
+            throw new NullPointerException("Start and end times cannot be null.");
+        }
         this.from = from;
         this.to = to;
     }
