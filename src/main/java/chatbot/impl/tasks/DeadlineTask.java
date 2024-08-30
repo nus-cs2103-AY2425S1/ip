@@ -9,10 +9,22 @@ public class DeadlineTask extends AbstractTask {
         this.deadline = deadline;
     }
 
+    public static DeadlineTask deserialize(String line) {
+        String[] parts = line.split(" \\| ");
+
+        if (parts.length != 4 || !parts[0].equals("D")) {
+            throw new IllegalArgumentException("Invalid DeadlineTask format");
+        }
+
+        DeadlineTask deadlineTask = new DeadlineTask(parts[2], parts[3]);
+        deadlineTask.setDone(parts[1].equals("1"));
+
+        return deadlineTask;
+    }
 
     @Override
     public String serialize() {
-        return String.format("E | %d | %s | %s", isDone ? 1 : 0, description, deadline);
+        return String.format("D | %d | %s | %s", isDone ? 1 : 0, description, deadline);
     }
 
     @Override
