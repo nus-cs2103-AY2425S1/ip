@@ -1,17 +1,17 @@
-package main.java.park.parser;
+package park.parser;
 
-import main.java.park.exceptions.ParkException;
-import main.java.park.commands.AddCommand;
-import main.java.park.commands.Command;
-import main.java.park.commands.DeleteCommand;
-import main.java.park.commands.ExitCommand;
-import main.java.park.commands.ListCommand;
-import main.java.park.commands.MarkCommand;
-import main.java.park.commands.UnmarkCommand;
-import main.java.park.task.Deadline;
-import main.java.park.task.Event;
-import main.java.park.task.Task;
-import main.java.park.task.ToDo;
+import park.exceptions.ParkException;
+import park.commands.AddCommand;
+import park.commands.Command;
+import park.commands.DeleteCommand;
+import park.commands.ExitCommand;
+import park.commands.ListCommand;
+import park.commands.MarkCommand;
+import park.commands.UnmarkCommand;
+import park.task.Deadline;
+import park.task.Event;
+import park.task.Task;
+import park.task.ToDo;
 
 import java.time.format.DateTimeParseException;
 

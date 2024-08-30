@@ -1,4 +1,4 @@
-package main.java.park.task;
+package park.task;
 
 public class ToDo extends Task {
 

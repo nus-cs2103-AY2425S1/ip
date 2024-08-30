@@ -1,10 +1,10 @@
-package main.java.park.storage;
+package park.storage;
 
-import main.java.park.exceptions.ParkException;
-import main.java.park.task.Deadline;
-import main.java.park.task.Event;
-import main.java.park.task.Task;
-import main.java.park.task.ToDo;
+import park.exceptions.ParkException;
+import park.task.Deadline;
+import park.task.Event;
+import park.task.Task;
+import park.task.ToDo;
 
 import java.io.File;
 import java.io.FileWriter;

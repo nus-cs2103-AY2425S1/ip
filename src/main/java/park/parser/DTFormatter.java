@@ -1,4 +1,4 @@
-package main.java.park.parser;
+package park.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

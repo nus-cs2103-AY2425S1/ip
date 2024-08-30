@@ -1,4 +1,4 @@
-package main.java.park.ui;
+package park.ui;
 
 import java.io.InputStream;
 import java.io.PrintStream;

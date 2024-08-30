@@ -1,6 +1,6 @@
-package main.java.park.task;
+package park.task;
 
-import main.java.park.parser.DTFormatter;
+import park.parser.DTFormatter;
 
 import java.time.format.DateTimeParseException;
 

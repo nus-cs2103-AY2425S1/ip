@@ -1,11 +1,11 @@
-package main.java.park;
+package park;
 
-import main.java.park.commands.Command;
-import main.java.park.exceptions.ParkException;
-import main.java.park.parser.Parser;
-import main.java.park.storage.Storage;
-import main.java.park.storage.TaskList;
-import main.java.park.ui.Ui;
+import park.commands.Command;
+import park.exceptions.ParkException;
+import park.parser.Parser;
+import park.storage.Storage;
+import park.storage.TaskList;
+import park.ui.Ui;
 
 public class Park {
 

@@ -1,6 +1,6 @@
-package main.java.park.storage;
+package park.storage;
 
-import main.java.park.task.Task;
+import park.task.Task;
 
 import java.util.ArrayList;
 

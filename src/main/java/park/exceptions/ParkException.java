@@ -1,4 +1,4 @@
-package main.java.park.exceptions;
+package park.exceptions;
 
 public class ParkException extends Exception {
 

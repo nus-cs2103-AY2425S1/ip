@@ -1,9 +1,9 @@
-package main.java.park.commands;
+package park.commands;
 
-import main.java.park.exceptions.ParkException;
-import main.java.park.storage.Storage;
-import main.java.park.storage.TaskList;
-import main.java.park.ui.Ui;
+import park.exceptions.ParkException;
+import park.storage.Storage;
+import park.storage.TaskList;
+import park.ui.Ui;
 
 public abstract class Command {
 
