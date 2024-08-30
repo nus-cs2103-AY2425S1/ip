@@ -2,23 +2,41 @@ package zbot;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.FileNotFoundException;
+
 import zbot.task.Task;
 import zbot.task.ToDo;
 import zbot.task.Deadline;
 import zbot.task.Event;
 
+/**
+ * Represents the storage of tasks in a file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructor for Storage.
+     *
+     * @param filePath Path of the file to store tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Creates the file if it does not exist.
+     * 
+     * If the file does not exist, the folder containing the file will be created as
+     * well.
+     * If the file already exists, nothing will be done.
+     */
     public void createFileIfNotExists() {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -35,6 +53,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes text to the file.
+     * 
+     * Overwrites the file if it already exists.
+     * 
+     * @param text Text to write to the file.
+     */
     public void writeToFile(String text) {
         try {
             FileWriter fw = new FileWriter(filePath);
@@ -46,7 +71,14 @@ public class Storage {
         }
     }
 
-    // Save tasks to file using "," as delimiter
+    /**
+     * Saves tasks to file.
+     * 
+     * The tasks are saved in the following format:
+     * [task type],[status],[description],[task-specific details]
+     * 
+     * @param tasks Tasks to save.
+     */
     public void save(TaskList tasks) {
         StringBuilder sb = new StringBuilder();
         for (Task task : tasks) {
@@ -69,7 +101,15 @@ public class Storage {
         writeToFile(sb.toString());
     }
 
-    // Load tasks from file using "," as delimiter
+    /**
+     * Loads tasks from file.
+     * 
+     * The tasks are loaded in the following format:
+     * [task type],[status],[description],[task-specific details]
+     * 
+     * @return ArrayList of tasks loaded from file.
+     * @throws ZBotException If no saved data is found.
+     */
     public ArrayList<Task> load() throws ZBotException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
