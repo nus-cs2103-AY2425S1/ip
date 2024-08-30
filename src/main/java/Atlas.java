@@ -1,4 +1,5 @@
 import java.util.Scanner;  // Import the Scanner class
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -16,6 +17,13 @@ public class Atlas {
 
     public static void main(String[] args) {
         introduction();
+        try {
+            Storage.loadTasks(tasks);
+        } catch (IOException e) {
+            botMessage("Task file corrupted.  No tasks loaded :(");
+            botMessage("Overwriting files");
+            botMessage(SEP);
+        }
         String input = null;
         do {
             parse(input);
@@ -51,12 +59,14 @@ public class Atlas {
                     int index = Integer.parseInt(text[1]) - 1;
                     taskMark(index, status);
                     taskMarkLog(index, status);
+                    Storage.saveTasks(tasks);
                     break;
                 case "delete":
                     if (text.length < 2) {
                         throwMissingTask();
                     }
                     deleteTask(text);
+                    Storage.saveTasks(tasks);
                     break;
                 case "todo":
                 case "deadline":
@@ -77,6 +87,7 @@ public class Atlas {
                         default:
                     }
                     addTaskLog();
+                    Storage.saveTasks(tasks);
                     break;
                 default:
                     throwUnknownCommand();
@@ -276,10 +287,6 @@ public class Atlas {
     }
 
     /* --------- HELPER FUNCTIONS --------- */
-
-    private static void separate() {
-        System.out.println(SEP);
-    }
 
     private static void botMessage(String message) {
         String[] lines = message.split("\n");
