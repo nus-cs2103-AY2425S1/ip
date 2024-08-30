@@ -1,17 +1,13 @@
 package impl;
 
-import impl.interfaces.Task;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class TaskLoader {
+public class Storage {
     /**
      * Stores and Loads Tasks into a text file
      * <p>
@@ -23,7 +19,7 @@ public class TaskLoader {
     String filePath;
     Danny danny;
 
-    public TaskLoader(String path, Danny bot){
+    public Storage(String path, Danny bot){
         file = new File(path);
         filePath = path;
         danny = bot;
@@ -35,7 +31,7 @@ public class TaskLoader {
         while(s.hasNext()){
             line = s.nextLine();
             if(!line.isEmpty()){
-                danny.handleInput(line.split(" \\| ")[0]);
+                danny.parseString(line.split(" \\| ")[0]);
                 if (Objects.equals(line.split(" \\| ")[1], "true")) {
                     danny.setLastDone();
                 }
@@ -45,7 +41,7 @@ public class TaskLoader {
 
     public void saveTask() throws IOException {
         String write = danny.saveTasks();
-        FileWriter fw = new FileWriter(filePath);
+        FileWriter fw = new FileWriter(filePath, false);
         fw.write(String.valueOf(write));
         fw.close();
     }

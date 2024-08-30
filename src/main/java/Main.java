@@ -1,5 +1,5 @@
 import impl.Danny;
-import impl.TaskLoader;
+import impl.Storage;
 import impl.interfaces.Task;
 
 import java.util.ArrayList;
@@ -10,9 +10,9 @@ public class Main {
     public static void main(String[] args){
         Danny danny = new Danny();
         List<Task> savedTasks = new ArrayList<>();
-        TaskLoader loader = null;
+        Storage loader = null;
         try {
-            loader = new TaskLoader("src/main/java/data/tasks.txt",danny);
+            loader = new Storage("src/main/java/data/tasks.txt",danny);
             System.out.println("Loading previous lists...");
             loader.loadTask();
             System.out.println("Load Completed. Welcome back :)");
@@ -21,7 +21,7 @@ public class Main {
             System.out.println(e.getMessage());
             System.out.println("Save not found, starting off with new list.");
         }
-        danny.start();
+        danny.run();
         try {
             assert loader != null;
             loader.saveTask();

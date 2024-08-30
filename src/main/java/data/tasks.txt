@@ -1,3 +1,5 @@
 Todo abc | false
-event abc /from a/to a/to a | false
+event abc /from a/to a/to a/to a/to a/to a/to a | false
 deadline date /by Apr 06 2024 | false
+Todo task1 | false
+deadline task 3 /by 29/04/2002 | false
