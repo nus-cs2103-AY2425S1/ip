@@ -1,19 +1,24 @@
 package Joseph;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    private final String due;
+    private final LocalDateTime due;
 
     public Deadline(String desc, String due) {
         super(desc);
-        this.due = due;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        this.due = LocalDateTime.parse(due, formatter);
     }
 
-    public String getDue() {
+    public LocalDateTime getDue() {
         return this.due;
     }
 
     @Override
     public String getDetails() {
-        return super.getDesc() + " due: " + this.due;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        return super.getDesc() + " due: " + this.due.format(formatter);
     }
 }
