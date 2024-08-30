@@ -1,3 +1,7 @@
+package task;
+
+import exceptions.LightException;
+
 public class Todo extends Task {
 
     public Todo(String description) throws LightException {
