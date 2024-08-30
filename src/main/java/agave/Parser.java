@@ -39,7 +39,8 @@ public class Parser {
             }
             return new Deadline(description, by);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new AgaveException("Please enter the deadline in the correct format: 'deadline <description> /by <yyyy/MM/dd HHmm>'.");
+            throw new AgaveException("Please enter the deadline in the correct format:" +
+                    " 'deadline <description> /by <yyyy/MM/dd HHmm>'.");
         } catch (DateTimeParseException e) {
             throw new AgaveException("Please enter the date and time in the correct format: 'yyyy/MM/dd HHmm'.");
         }
@@ -56,7 +57,8 @@ public class Parser {
             }
             return new Event(description, from, to);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new AgaveException("Please enter the event in the correct format: 'event <description> /from <yyyy/MM/dd HHmm> /to <yyyy/MM/dd HHmm>'.");
+            throw new AgaveException("Please enter the event in the correct format: " +
+                    "'event <description> /from <yyyy/MM/dd HHmm> /to <yyyy/MM/dd HHmm>'.");
         } catch (DateTimeParseException e) {
             throw new AgaveException("Please enter the date and time in the correct format: 'yyyy/MM/dd HHmm'.");
         }
