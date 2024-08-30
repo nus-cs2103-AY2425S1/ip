@@ -28,6 +28,10 @@ public class Parser {
         return Integer.parseInt(matcher.group().substring(indexOfResult)) - 1;
     }
 
+    public String getNameOfTask(Matcher matcher) {
+        return matcher.group().substring(5);
+    }
+
 
     public static String parseTaskInfo(Task task) {
         String localDateString = "";
