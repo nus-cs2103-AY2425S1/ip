@@ -66,6 +66,15 @@ public abstract class Task {
     }
 
     /**
+     * Retrieves the task description of the specfic task.
+     * @return A string representation of the task description.
+     */
+    public String getDescription() {
+        
+        return this.description;
+    }
+
+    /**
      * Updates the task status to be marked.
      * <p>
      * The function checks if the task is already marked.

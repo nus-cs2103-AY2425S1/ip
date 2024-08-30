@@ -105,6 +105,22 @@ public class Ui {
     }
 
     /**
+     * Prints the results of the search.
+     * @param filteredTaskList Filtered task list to be printed.
+     */
+    public void printSearchResult(TaskList filteredTaskList) {
+        
+        if (filteredTaskList.getLength() == 0) {
+            System.out.println("Im sorry. Seems like no tasks in the task list fits the description");
+        } else {
+            System.out.println("Here are some tasks that I found that matches your description:");
+            System.out.println(filteredTaskList.toString());
+        }
+       
+        System.out.println(this.spacer);
+    }
+
+    /**
      * Prints a comfirmation message to the user once a task is updaed.
      * @param task The task that has been modified.
      * @param command The command that the user entered.
@@ -118,11 +134,24 @@ public class Ui {
 
     /**
      * Requests the user to input a command.
-     * @return A string representation of the command the user entered.
+     * @return A string representation of the search prompt the user entered.
      */
     public String requestUserCommand() {
 
-        System.out.print("What would you like me to do next: ");
+        System.out.println("What would you like me to do next: ");
+        String input = this.scanner.nextLine();
+        System.out.println(this.spacer);
+        return input;
+    }
+
+    /**
+     * Requests a search prompt from the user to begin searching
+     * for tasks that fot the prompt.
+     * @return A string representation of the command the user entered.
+     */
+    public String requestSearchPrompt() {
+
+        System.out.print("What task would you like to find? : ");
         String input = this.scanner.nextLine();
         System.out.println(this.spacer);
         return input;
@@ -138,10 +167,10 @@ public class Ui {
         
         String input = null;
         try {
-            System.out.println("Which task do you want to " + command + "? (Input the index of the task): ");
+            System.out.print("Which task do you want to " + command + "? (Input the index of the task): ");
             input = this.scanner.nextLine();
             int index = Integer.parseInt(input);
-            System.out.println(this.spacer);
+            System.out.println("\n" + this.spacer);
             return index;
         } catch (NumberFormatException numFormatError){
             throw new InvalidIndexException(input);

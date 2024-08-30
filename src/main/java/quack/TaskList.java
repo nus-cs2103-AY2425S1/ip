@@ -115,6 +115,27 @@ public class TaskList {
         return removedTask;
     }
 
+    /**
+     * Filters out tasks whos description does not contain the prompt.
+     * 
+     * @param prompt The search citera to find tasks in the task list.
+     * @return A list of tasks whos description matches the prompt.
+     */
+    public TaskList filterTasks(String prompt) {
+
+        TaskList filteredTasks = new TaskList();
+
+        // Get the description of the tasks and check if it has the keyword in it
+        for (Task task : this.toDoList) {
+            String description = task.getDescription().toLowerCase();
+            if (description.contains(prompt.toLowerCase())) {
+                filteredTasks.addTask(task);
+            }
+        }
+
+        return filteredTasks;
+    }
+
     @Override
     public String toString() {
         if (this.toDoList.size() == 0) {

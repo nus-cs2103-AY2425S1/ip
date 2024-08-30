@@ -4,6 +4,7 @@ import quack.command.Command;
 import quack.command.AddTaskCommand;
 import quack.command.DeleteTaskCommand;
 import quack.command.ExitCommand;
+import quack.command.FindTaskCommand;
 import quack.command.ListCommand;
 import quack.command.UpdateTaskCommand;
 import quack.exception.InvalidCommandException;
@@ -77,6 +78,10 @@ public class Paser {
         
         case "delete":
             command = new DeleteTaskCommand(taskList, ui);
+            return command;
+
+        case "find":
+            command = new FindTaskCommand(taskList, ui);
             return command;
         
         default:
