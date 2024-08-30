@@ -1,6 +1,6 @@
 | T |   | bye
 | T |   | hi
-| E |   | here | h ----- y
+| E | X | here | h ----- y
 | D | X | return book | Dec 2 2019
 | D | X | return book | Dec 2 2019
 | D |   | return book | Dec 2 2019
@@ -32,3 +32,4 @@
 | T |   | 1600
 | D |   | this | 11:59 pm
 | D |   | this | Saturday 2359
+| T |   | guy

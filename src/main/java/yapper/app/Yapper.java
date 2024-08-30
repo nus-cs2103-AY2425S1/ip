@@ -1,13 +1,12 @@
 package yapper.app;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.util.Duration;
 import yapper.exceptions.EmptyDescException;
 import yapper.exceptions.YapperException;
 import yapper.exceptions.YapperFormatException;
-
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
-import javafx.application.Platform;
 
 /**
  * The main class for the Yapper chatbot that stores ToDos, Deadlines, and Events in a taskLit
@@ -33,6 +32,7 @@ public class Yapper {
 
     /**
      * Generates a response for the user's chat message based on the command given.
+     * If user types "bye", the program will display a message before closing itself.
      */
     public String getResponse(String input) {
         try {
