@@ -13,9 +13,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import tecna.JsonLoadingExceptionType;
+
 public class Storage {
     private String filePath;
-    private static FileWriter fileWriter;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -34,32 +35,29 @@ public class Storage {
      * Parses the tasks data in the tecna.json file into an ArrayList of tecna.Task(s)
      * @return an ArrayList of Tasks
      */
-    public ArrayList<Task> load() {
-        try {
-            Object o = new JSONParser().parse(new FileReader(filePath));
-            JSONObject jsonObject = (JSONObject) o;
-            JSONArray jsonTasks = (JSONArray) jsonObject.get("taskList");
-
-            ArrayList<Task> tasks = new ArrayList<>();
-            for (Object taskObj : jsonTasks) {
-                JSONObject rawTask = (JSONObject) taskObj;
-                if (rawTask.get("type").equals("todo")) {
-                    tasks.add(new ToDoParser().parse(rawTask));
-                } else if (rawTask.get("type").equals("deadline")) {
-                    tasks.add(new DeadlineParser().parse(rawTask));
-                } else if (rawTask.get("type").equals("event")) {
-                    tasks.add(new EventParser().parse(rawTask));
-                } else {
-                    throw new TaskParseException();
-                }
-            }
-
-            return tasks;
-        } catch (IOException | ParseException | TaskParseException e) {
-            System.out.println(e.getMessage());
+    public ArrayList<Task> load() throws IOException, JsonLoadingException, ParseException, TaskParseException {
+        Object o = new JSONParser().parse(new FileReader(filePath));
+        JSONObject jsonObject = (JSONObject) o;
+        JSONArray jsonTasks = (JSONArray) jsonObject.get("taskList");
+        if (jsonTasks == null) {
+            throw new JsonLoadingException(JsonLoadingExceptionType.TASKLIST_NOT_FOUND);
         }
 
-        return null;
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (Object taskObj : jsonTasks) {
+            JSONObject rawTask = (JSONObject) taskObj;
+            if (rawTask.get("type").equals("todo")) {
+                tasks.add(new ToDoParser().parse(rawTask));
+            } else if (rawTask.get("type").equals("deadline")) {
+                tasks.add(new DeadlineParser().parse(rawTask));
+            } else if (rawTask.get("type").equals("event")) {
+                tasks.add(new EventParser().parse(rawTask));
+            } else {
+                throw new TaskParseException();
+            }
+        }
+
+        return tasks;
     }
 
     /**

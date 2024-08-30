@@ -2,6 +2,10 @@ package tecna;
 
 import java.util.Scanner;
 
+import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+
 public class Tecna {
     private Storage storage;
     private TaskList taskList;
@@ -18,9 +22,19 @@ public class Tecna {
 
     public Tecna(String taskData) {
         this.storage = new Storage(taskData);
-        this.taskList = new TaskList(storage.load());
         this.commandScanner = new CommandScanner();
         this.ui = new Ui();
+        try {
+            this.taskList = new TaskList(storage.load());
+        } catch (IOException ioException) {
+            this.ui.printError("Oops! I cannot open the data file!");
+        } catch (ParseException parseException) {
+            this.ui.printError("Oops! The data file is of the wrong format!");
+        } catch (TaskParseException taskParseException) {
+            this.ui.printError(taskParseException.getMessage());
+        } catch (JsonLoadingException jsonLoadingException) {
+            this.ui.printError(jsonLoadingException.getMessage());
+        }
     }
 
     /**
