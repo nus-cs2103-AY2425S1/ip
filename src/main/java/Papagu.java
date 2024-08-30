@@ -75,6 +75,8 @@ public class Papagu {
             System.out.println("File not found");
         }
 
+        System.out.println("____________________________________________________________");
+        
         String userInput = scanner.nextLine();
 
         while (!userInput.equals("bye")) {
@@ -176,6 +178,7 @@ public class Papagu {
                     if (userInput.equals("event")) {
                         throw new IllegalEventException("Good sir the description of an event cannot be empty.");
                     }
+
                     String[] input = userInput.split(" ", 2);
                     String[] parts = input[1].split(" /from ");
                     String description = parts[0];
@@ -184,11 +187,25 @@ public class Papagu {
                     String start = duration[0];
                     String end = duration[1];
                     Events newEvent = new Events(description, start, end);
+
+                    file.delete();
+                    File newFile = new File("./Data/Tasks.txt");
+
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
                     taskList.addTask(newEvent);
                     System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+
+                    for (int i = 0; i < taskList.getTaskCount(); i++) {
+                        try {
+                            FileWriter writer = new FileWriter(newFile, true);
+                            writer.write(taskList.getTask(i).toFile() + "\n");
+                            writer.close();
+                        } catch (IOException e) {
+                            System.out.println("Error writing to file");
+                        }
+                    }
                 } else if (userInput.contains("delete")) {
                     String[] parts = userInput.split(" ");
                     int num = Integer.parseInt(parts[1]) - 1;
