@@ -1,3 +1,5 @@
+package tecna;
+
 /**
  * Exception thrown at input not listed in the list.
  */

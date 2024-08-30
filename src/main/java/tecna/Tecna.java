@@ -1,3 +1,5 @@
+package tecna;
+
 import java.util.Scanner;
 
 public class Tecna {
@@ -6,7 +8,7 @@ public class Tecna {
     private CommandScanner commandScanner;
     private Ui ui;
     /**
-     * A constructor of Tecna chatbot
+     * A constructor of tecna.Tecna chatbot
      */
     public Tecna() {
         this.taskList = new TaskList();

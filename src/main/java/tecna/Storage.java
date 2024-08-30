@@ -1,3 +1,5 @@
+package tecna;
+
 import java.util.ArrayList;
 
 import java.io.FileReader;
@@ -29,7 +31,7 @@ public class Storage {
 
     /**
      * @author: https://dzone.com/articles/how-can-we-read-a-json-file-in-java
-     * Parses the tasks data in the tecna.json file into an ArrayList of Task(s)
+     * Parses the tasks data in the tecna.json file into an ArrayList of tecna.Task(s)
      * @return an ArrayList of Tasks
      */
     public ArrayList<Task> load() {
@@ -64,7 +66,7 @@ public class Storage {
      * @author Crunchify.com.
      * https://crunchify.com/how-to-write-json-object-to-file-in-java/.
      *
-     * Converts java Task objects into JSON object and write to a json file.
+     * Converts java tecna.Task objects into JSON object and write to a json file.
      * @param taskList
      */
     @SuppressWarnings("unchecked")

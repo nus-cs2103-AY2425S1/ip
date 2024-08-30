@@ -1,3 +1,5 @@
+package tecna;
+
 import java.util.Scanner;
 
 public class CommandScanner {
