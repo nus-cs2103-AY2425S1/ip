@@ -4,9 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Storage {
@@ -14,7 +12,7 @@ public class Storage {
     private BufferedReader readerFile;
     protected FileWriter writtenFile;
 
-    public Storage(String filePath) throws FileNotFoundException, IOException {
+    public Storage(String filePath) throws IOException {
         this.filePath = filePath;
 
         File taskFile = new File(String.valueOf(filePath));
@@ -68,26 +66,6 @@ public class Storage {
             for (int j = 0; j < tasks.getTotalNumber(); j++) {
                 Task task = tasks.getTask(j);
                 overwrittenFile.write(task.writeTask());
-//                String description = task.description;
-//                String status = (task.isDone ? "1" : "0");
-//
-//                if (task.date == null && task.startTime == null) {
-//                    String text = "T | " + status + " | " + description + "\n";
-//                    overwrittenFile.write(text);
-//                } else if (task.date != null && task.startTime == null) {
-//                    LocalDate date = task.date;
-//                    String text = "D | " + status + " | " + description +
-//                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n";
-//                    overwrittenFile.write(text);
-//                } else {
-//                    LocalDate date = task.date;
-//                    String startTime = task.startTime;
-//                    String endTime = task.endTime;
-//                    String text = "E | " + status + " | " + description +
-//                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
-//                            " | " + startTime + " | " + endTime + "\n";
-//                    overwrittenFile.write(text);
-//                }
             }
             overwrittenFile.flush();
 
