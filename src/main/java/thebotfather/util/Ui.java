@@ -113,7 +113,6 @@ public class Ui {
         for (String line : lines) {
             this.print(line);
         }
-        this.printCount();
     }
 
     /**

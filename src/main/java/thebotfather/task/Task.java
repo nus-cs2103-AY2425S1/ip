@@ -73,6 +73,10 @@ public abstract class Task {
         return this.done;
     }
 
+    public boolean isWordInDescription(String word) {
+        return description.contains(word);
+    }
+
     /**
      * Returns the status icon representing whether the task is done.
      *

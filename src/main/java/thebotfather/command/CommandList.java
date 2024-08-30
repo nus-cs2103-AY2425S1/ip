@@ -6,7 +6,7 @@ import thebotfather.util.TheBotFatherException;
  * Enumeration representing the list of possible commands in the application.
  */
 public enum CommandList {
-    MARK, UNMARK, DELETE, TODO, LIST, DEADLINE, EVENT, BYE;
+    MARK, UNMARK, DELETE, TODO, LIST, DEADLINE, EVENT, BYE, FIND;
 
     /**
      * Finds and returns the corresponding {@code CommandList} enum constant for the given command string.
