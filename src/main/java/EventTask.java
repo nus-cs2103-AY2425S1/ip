@@ -1,17 +1,28 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class EventTask extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+
     public EventTask(String taskName, String from, String to) {
         super(taskName);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from);
+        this.to = LocalDateTime.parse(to);
     }
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
+        return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
     @Override
     public String toFileFormat() {
+<<<<<<< HEAD
         return "E | " + (isDone() ? "1" : "0") + " | " + getTaskName() + " | " + from + " | " + to;
     }
 }
+=======
+        return "E | " + (isDone() ? "1" : "0") + " | " + getTaskName() + " | " + from.toString() + " | " + to.toString();
+    }
+}
+>>>>>>> branch-Level-8
