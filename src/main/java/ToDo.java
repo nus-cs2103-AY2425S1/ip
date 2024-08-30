@@ -5,7 +5,7 @@ public class ToDo extends Task{
     }
 
     @Override
-    public String getSaveVersion() {
+    public String encode() {
         return "T/" + this.getStatusIcon() + "/" + description;
     }
 

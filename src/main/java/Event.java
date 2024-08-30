@@ -15,7 +15,7 @@ public class Event extends Task{
     }
 
     @Override
-    public String getSaveVersion() {
+    public String encode() {
         return "E/" + this.getStatusIcon() + "/" + description + "/" + start + "/" + end;
     }
 
