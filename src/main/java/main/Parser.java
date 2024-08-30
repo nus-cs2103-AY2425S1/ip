@@ -14,6 +14,19 @@ public class Parser {
     private Storage storage;
     private boolean carryOn = true;
     private Ui ui;
+    /**
+     * Constructs a {@code Parser} instance which processes a given input String and performs
+     * an action depending on the first word (command)
+     *
+     * @param input the user input string containing the command and remaining arguments
+     * @param allTasks the {@code TaskList} instance where Tasks are stored and managed
+     * @param s the {@code Storage} instance used for saving that state of tasks
+     * @param ui the {@code Ui} instance for user interface
+     * @throws EmptyStringException if the input String is empty
+     * @throws CommandNotFoundException if the command is not recognized
+     * @throws CommandFoundButInvalidException if the command is recognized but the remaining string
+     *         are of invalid syntax
+     */
     public Parser(String input, TaskList allTasks, Storage s, Ui ui) throws EmptyStringException, CommandNotFoundException, CommandFoundButInvalidException {
         this.allTasks = allTasks;
         this.ui = ui;
@@ -72,6 +85,12 @@ public class Parser {
         }
     }
 
+
+    /**
+     * Returns a boolean to determine if hyperion should carry on
+     *
+     * @return a boolean value depending on the command of the user
+     */
     public boolean carryOn() {
         return this.carryOn;
     }
