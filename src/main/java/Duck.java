@@ -90,6 +90,7 @@ public class Duck {
                     int taskLabel = lineBuffer.getInt();
                     Task task = TASKS.getItem(taskLabel);
                     task.markAsDone();
+                    TASKS.updateTaskList();
 
                     String response = "Nice! I've marked this task as done:\n"
                             + indentText(task.toString(), 2);
@@ -98,6 +99,7 @@ public class Duck {
                     int taskLabel = lineBuffer.getInt();
                     Task task = TASKS.getItem(taskLabel);
                     task.markAsNotDone();
+                    TASKS.updateTaskList();
 
                     String response = "OK, I've marked this task as not done yet:\n"
                             + indentText(task.toString(), 2);
