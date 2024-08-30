@@ -99,4 +99,24 @@ public class Ui {
         }
     }
 
+    public void displaySearchedTasks(ArrayList<Task> tasks, String search) {
+        if (tasks.isEmpty()) {
+            displayUpperLineBreak();
+            System.out.println("    List is empty!!");
+            displayLowerLineBreak();
+        } else {
+            displayUpperLineBreak();
+            System.out.println("    Here are the matching tasks in your list: ");
+            int tracker = 0;
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.get(i).description.contains(search)) {
+                    System.out.printf("    %d. [%s][%s] %s%n", tracker + 1, tasks.get(i).getTaskType(), tasks.get(i).getStatusIcon(), tasks.get(i).description);
+                    tracker++;
+                }
+            }
+            displayLowerLineBreak();
+        }
+    }
+
+
 }

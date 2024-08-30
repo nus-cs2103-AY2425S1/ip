@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * Represents a list of tasks.
- * The TaskList class provides methods to add, delete, mark, and unmark tasks, as well as retrieve tasks.
+ * Provides methods to add, delete, mark, unmark tasks, and retrieve the list of tasks.
  */
 public class TaskList {
     private final ArrayList<Task> tasks;
@@ -45,7 +45,7 @@ public class TaskList {
         if (index >= 0 && index < tasks.size()) {
             tasks.remove(index);
         } else {
-            throw new BuddyException("I don't think that task is on your list, buddy");
+            throw new BuddyException("I don't think that task is on your list, buddy.");
         }
     }
 

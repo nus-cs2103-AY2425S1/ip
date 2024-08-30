@@ -10,7 +10,7 @@ import ui.Ui;
  */
 public class UnmarkCommand extends Command {
 
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * Constructs an UnmarkCommand with the specified index of the task to be unmarked as undone.

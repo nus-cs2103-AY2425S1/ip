@@ -9,7 +9,7 @@ import ui.Ui;
  * Represents a command to mark a task as done in the task list.
  */
 public class MarkCommand extends Command {
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * Constructs a MarkCommand with the specified index of the task to be marked as done.

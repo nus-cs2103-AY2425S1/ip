@@ -11,7 +11,7 @@ import ui.Ui;
  */
 public class DeleteCommand extends Command {
 
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * Constructs a DeleteCommand with the specified index of the task to be deleted.

@@ -8,13 +8,13 @@ import java.time.format.DateTimeFormatter;
  * A deadline task has a description and a deadline date/time by which the task must be completed.
  */
 public class Deadlines extends Task {
-    public LocalDateTime deadline;
+    private final LocalDateTime deadline;
 
     /**
      * Constructs a Deadlines task with the specified description and deadline.
      *
-     * @param description The description of the deadline task.
-     * @param deadline    The date and time by which the task should be completed.
+     * @param description The description of the task.
+     * @param deadline    The deadline by which the task must be completed.
      */
     public Deadlines(String description, LocalDateTime deadline) {
         super(description + " (by: " + formatDate(deadline) + ")", TaskType.DEADLINE);
@@ -32,31 +32,29 @@ public class Deadlines extends Task {
     }
 
     /**
-     * Formats a LocalDateTime object into a string in the format "MMM dd yyyy HHmm".
+     * Formats a LocalDateTime object into a string with the pattern "MMM dd yyyy HHmm".
      *
-     * @param date The LocalDateTime object to be formatted.
-     * @return A formatted date string.
+     * @param date The LocalDateTime object to format.
+     * @return The formatted date string.
      */
     public static String formatDate(LocalDateTime date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
-        String formattedDate = date.format(formatter);
-        return formattedDate;
+        return date.format(formatter);
     }
 
     /**
-     * Formats a LocalDateTime object into a string in the format "d/M/yyyy HHmm".
+     * Formats a LocalDateTime object into a string with the pattern "d/M/yyyy HHmm".
      *
-     * @param date The LocalDateTime object to be formatted.
-     * @return A formatted date string.
+     * @param date The LocalDateTime object to format.
+     * @return The formatted date string.
      */
     private static String localDateTimeString(LocalDateTime date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        String formattedDate = date.format(formatter);
-        return formattedDate;
+        return date.format(formatter);
     }
 
     /**
-     * Returns a string representation of the task in a format suitable for saving to a file.
+     * Returns a string representation of the task suitable for saving to a file.
      *
      * @return A formatted string representing the task for file storage.
      */
