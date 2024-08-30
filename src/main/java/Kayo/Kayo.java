@@ -14,68 +14,69 @@ import java.util.Scanner;
 public class Kayo {
     public static String filepath;
     public static Storage storage;
-    public static List<Task> taskList;
+    public static List<Task> listTasks;
     public static Ui ui;
     public static Parser parser;
+
     public Kayo(String filepath) {
         Kayo.filepath = filepath;
         storage = new Storage(filepath);
-        taskList = storage.load();
+        listTasks = storage.load();
         ui = new Ui();
         parser = new Parser();
-        ui.Greet();
+        ui.greet();
     }
     /**
      * Runs the Kayo chatbot
      */
-    public static void run() {
+    public static void run () {
         String inputString;
         Scanner input = new Scanner(System.in);
-        while(true) {
+        while (true) {
             inputString = input.nextLine();
             String[] splitList = parser.splitString(inputString);
-            if(inputString.equals("bye")) {
+            if (inputString.equals("bye")) {
                 break;
-            } else if(splitList[0].equals("list")) {
-                ui.ListItems(taskList);
+            } else if (splitList[0].equals("list")) {
+                ui.listItems(listTasks);
             } else if (splitList[0].equals("unmark")) {
                 int index = Integer.parseInt(splitList[1])-1;
-                taskList.get(index).setDone(false);
-                ui.unmarkTask(taskList.get(index));
-            } else if(splitList[0].equals("mark")) {
+                listTasks.get(index).setDone(false);
+                ui.unmarkTask(listTasks.get(index));
+            } else if (splitList[0].equals("mark")) {
                 int index = Integer.parseInt(splitList[1])-1;
-                taskList.get(index).setDone(true);
-                ui.markTask(taskList.get(index));
-            }else if(splitList[0].equals("todo")) {
-                if(splitList.length==1) {
+                listTasks.get(index).setDone(true);
+                ui.markTask(listTasks.get(index));
+            }else if (splitList[0].equals("todo")) {
+                if (splitList.length==1) {
                     new DukeException("OOPS !! The description of a todo can't be empty");
                 } else {
                     ToDo todo = new ToDo(splitList[1],false);
-                    taskList.add(todo);
+                    listTasks.add(todo);
                     ui.addTodo(todo);
-                    ui.showTotalTasks(taskList);
+                    ui.showTotalTasks(listTasks);
                 }
-            } else if(splitList[0].equals("deadline")) {
+            } else if (splitList[0].equals("deadline")) {
                 Deadline deadline = parser.addDeadline(inputString);
-                taskList.add(deadline);
+                listTasks.add(deadline);
                 ui.addDeadline(deadline);
-                ui.showTotalTasks(taskList);
-            } else if(splitList[0].equals("event")) {
+                ui.showTotalTasks(listTasks);
+            } else if (splitList[0].equals("event")) {
                 Event event = parser.addEvent(inputString);
-                taskList.add(event);
+                listTasks.add(event);
                 ui.addEvent(event);
-                ui.showTotalTasks(taskList);
-            }else if(splitList[0].equals("delete")) {
+                ui.showTotalTasks(listTasks);
+            }else if (splitList[0].equals("delete")) {
                 int index = Integer.parseInt(splitList[1])-1;
-                Task taskToDelete = taskList.get(index);
-                taskList.remove(index);
+                Task taskToDelete = listTasks.get(index);
+                listTasks.remove(index);
                 ui.deleteTask(taskToDelete);
             } else {
                 new DukeException("OOPS !! Sorry i dont know what that means!");
             }
-            storage.updateData(taskList);
+            storage.updateData(listTasks);
         }
-        ui.Exit();
+        ui.exit();
     }
     public static void main(String[] args) {
         Kayo kayo = new Kayo("data/kayo.txt");
@@ -106,8 +107,8 @@ public class Kayo {
         /**
          * shows total tasks in format
          */
-        public void showTotalTasks(List<Task> taskList) {
-            System.out.print("Now you have " + taskList.size() + " tasks in the list.\n");
+        public void showTotalTasks(List<Task> listTasks) {
+            System.out.print("Now you have " + listTasks.size() + " tasks in the list.\n");
         }
         /**
          * displays deleted task
@@ -124,17 +125,17 @@ public class Kayo {
             System.out.print("OK, I've marked this task as not done yet: \n");
             System.out.print(task + "\n");
         }
-        public void ListItems(List<Task> taskList) {
+        public void listItems(List<Task> listTasks) {
             System.out.println("Here are the tasks in your list:");
-            for(int i = 0; i < taskList.size(); i++) {
-                System.out.println(i+1 + ". "+ taskList.get(i));
+            for(int i = 0; i < listTasks.size(); i++) {
+                System.out.println(i+1 + ". "+ listTasks.get(i));
             }
         }
-        public void Greet() {
+        public void greet() {
             System.out.println("Hello! I'm Kayo! ");
             System.out.println("What can I do for you?");
         }
-        public void Exit(){
+        public void exit(){
             System.out.println("Bye. I hope to see you again soon!");
         }
     }
@@ -145,14 +146,14 @@ public class Kayo {
         public String filepath;
         /**
          * Handles the update of data
-         * @param taskList list of tasks to add to data
+         * @param listTasks list of tasks to add to data
          * */
-        private static void updateData(List<Task> taskList) {
+        private static void updateData(List<Task> listTasks) {
             try {
                 FileWriter fw = new FileWriter("data/kayo.txt");
                 String dataBody = "";
-                for (int i = 0; i < taskList.size(); i++) {
-                    dataBody += taskList.get(i).toString() + System.lineSeparator();
+                for (int i = 0; i < listTasks.size(); i++) {
+                    dataBody += listTasks.get(i).toString() + System.lineSeparator();
                 }
                 fw.write(dataBody);
                 fw.close();
@@ -169,19 +170,19 @@ public class Kayo {
          * @return List of tasks from database
          * */
         public List<Task> load () {
-            List<Task> taskList = new ArrayList<>();
+            List<Task> listTasks = new ArrayList<>();
             try {
                 File f = new File(filepath);
                 Scanner sc = new Scanner(f);
                 while (sc.hasNextLine()) {
                     String readString = sc.nextLine();
                     Task task = getTask(readString);
-                    taskList.add(task);
+                    listTasks.add(task);
                 }
             } catch (FileNotFoundException e) {
                 System.out.println("File not found");
             }
-            return taskList;
+            return listTasks;
         }
         private Task getTask(String readString) {
             String[] splitStrings = readString.split(" ");
