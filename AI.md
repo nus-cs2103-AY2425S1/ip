@@ -13,3 +13,6 @@ GitHub CoPilot is just helping me with the autocomplete and saving a lot of time
 I would say around 50% of the code was autocompleted by CoPilot, even though it is code that I understand and would have written myself.
 One thing that went well was that GitHub CoPilot helped me with the response to the "help" command.
 On the other hand, it was not able to help with personalised messages, so I had to write them myself.
+
+### Update(30/8/2024):
+GitHub Copilot helped to autocomplete the code for updating storage and reading storage. Main logic is still by me.
