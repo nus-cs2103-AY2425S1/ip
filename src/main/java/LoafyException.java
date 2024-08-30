@@ -19,12 +19,12 @@ public class LoafyException extends Exception {
 
     static LoafyException noDeadline() {
         return new LoafyException("It seems you did not specify the task or end date for your deadline\n" +
-                "   eg. deadline submit homework /by tomorrow");
+                "   eg. deadline submit homework /by 30/8/2024 4pm");
     }
 
     static LoafyException noEventDates() {
         return new LoafyException("It seems you did not specify the name, start date, or end date for your event\n" +
-                "   eg. CS2103 lecture /from fri 4pm /to fri 6pm");
+                "   eg. CS2103 lecture /from 30/8/2024 4pm /to 30/8/2024 6pm");
     }
 
     static LoafyException invalidCommand() {

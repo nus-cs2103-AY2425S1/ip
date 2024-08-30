@@ -75,7 +75,7 @@ public class TaskList {
     }
 
     boolean isValid(int taskID) {
-        return 0 <= taskID && taskID < this.lst.size();
+        return 0 <= taskID && taskID <= this.lst.size();
     }
 
     private void writeToFile() {
