@@ -28,7 +28,7 @@ public class Parser {
         } else if (check_delete_command(input)) {
             String[] arr = input.split(" ", 2);
             Integer taskNum = Integer.valueOf(arr[1]);
-            TaskList.removeTask(taskNum - 1);
+            TaskList.removeTask(taskNum);
         } else {
             // Want to parse and add task into task list
             parseTaskAddition(input);
