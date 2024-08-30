@@ -1,9 +1,6 @@
-import java.io.File;
-import java.io.IOException;
+package snowy;
+
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.FileWriter;
-import java.time.LocalDate;
 
 public class Snowy {
 
