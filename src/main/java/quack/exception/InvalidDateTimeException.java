@@ -3,7 +3,7 @@ package quack.exception;
 /**
  * This exception class indicates that the date time entered is invalid.
  */
-public class InvalidDateTimeException extends Exception{
+public class InvalidDateTimeException extends Exception {
 
     /**
      * Creates an InvalidDateTimeException exception object.

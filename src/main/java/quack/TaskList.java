@@ -1,8 +1,10 @@
 package quack;
 
 import java.util.ArrayList;
-import quack.tasks.Task;
+
 import quack.exception.FailedUpdateException;
+
+import quack.tasks.Task;
 
 /**
 * This class provides functionality to keep track of tasks.
@@ -19,6 +21,7 @@ public class TaskList {
      * Constructor to create a TaskList object.
      */
     TaskList () {
+
         this.toDoList = new ArrayList<Task>();
         length = 0;
     }
@@ -28,6 +31,7 @@ public class TaskList {
      * @return A list of tasks.
      */
     public ArrayList<Task> getToDoList() {
+
         return this.toDoList;
     }
 
@@ -36,6 +40,7 @@ public class TaskList {
      * @return A list of tasks.
      */
     public int getLength() {
+
         return this.length;
     }
 
@@ -78,7 +83,6 @@ public class TaskList {
         }
 
         return task;
-        
     }
 
     /**
@@ -86,6 +90,7 @@ public class TaskList {
      * @param task Task to be added into the list
      */
     public void addTask(Task task) {
+
         this.toDoList.add(task);
         length = this.toDoList.size();
     }
@@ -117,6 +122,7 @@ public class TaskList {
 
     @Override
     public String toString() {
+
         if (this.toDoList.size() == 0) {
             return "The list is empty, why not add something!";
         } else {

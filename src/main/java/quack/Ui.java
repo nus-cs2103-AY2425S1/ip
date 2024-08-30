@@ -1,9 +1,11 @@
 package quack;
 
 import java.util.Scanner;
-import quack.tasks.Task;
+
 import quack.exception.InvalidIndexException;
 import quack.exception.InvalidTaskTypeException;
+
+import quack.tasks.Task;
 
 /**
  * This class is responsible for displaying any UI interface,
@@ -112,8 +114,8 @@ public class Ui {
      */
     public void printUpdateSuccessfulMessage(Task task, String command, TaskList taskList) {
         
-        System.out.println("Success! I have " + command + "ed this task: " + task.toString() + "\n"+
-                            "You now have " + taskList.getLength() + " tasks in your list right now!\n" + this.spacer);
+        System.out.println("Success! I have " + command + "ed this task: " + task.toString() + "\n"
+            + "You now have " + taskList.getLength() + " tasks in your list right now!\n" + this.spacer);
     }
 
     /**
@@ -134,18 +136,13 @@ public class Ui {
      * @return The index the user entered as an integer.
      * @throws InvalidIndexException If the index entered is invalid.
      */
-    public int requestIndexFromUser(String command) throws InvalidIndexException{
+    public String requestIndexFromUser(String command){
+
+        System.out.println("Which task do you want to " + command + "? (Input the index of the task): ");
+        String input = this.scanner.nextLine();
+        System.out.println(this.spacer);
+        return input;
         
-        String input = null;
-        try {
-            System.out.println("Which task do you want to " + command + "? (Input the index of the task): ");
-            input = this.scanner.nextLine();
-            int index = Integer.parseInt(input);
-            System.out.println(this.spacer);
-            return index;
-        } catch (NumberFormatException numFormatError){
-            throw new InvalidIndexException(input);
-        }
     }
 
     /**
@@ -213,7 +210,8 @@ public class Ui {
      * @param taskType The type of tasks to be created.
      * @throws InvalidTaskTypeException If the user inputs a invalid task type.
      */
-    private void checkTaskType(String taskType) throws InvalidTaskTypeException{
+    private void checkTaskType(String taskType) throws InvalidTaskTypeException {
+        
         String upperCasedTaskType = taskType.toUpperCase();
         for (TaskTypes tasktypes : TaskTypes.values()) {
             if (tasktypes.name().equals(upperCasedTaskType)) {

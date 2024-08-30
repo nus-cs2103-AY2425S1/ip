@@ -1,11 +1,12 @@
 package quack;
 
-import quack.command.Command;
 import quack.command.AddTaskCommand;
+import quack.command.Command;
 import quack.command.DeleteTaskCommand;
 import quack.command.ExitCommand;
 import quack.command.ListCommand;
 import quack.command.UpdateTaskCommand;
+
 import quack.exception.InvalidCommandException;
 
 /**
@@ -40,7 +41,7 @@ public class Paser {
      * Retrieves the next input command by the user.
      * @throws InvalidCommandException Signals that the command given is invalid.
      */
-    public Command getUserInput() throws InvalidCommandException{
+    public Command getUserInput() throws InvalidCommandException {
         try {
             String userCommand = ui.requestUserCommand();
             return this.processCommand(userCommand.toLowerCase());

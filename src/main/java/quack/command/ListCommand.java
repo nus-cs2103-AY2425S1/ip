@@ -6,7 +6,7 @@ import quack.Ui;
 /**
  * This class is responsible for handling the list command in Quack.
  */
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     
     /** List to store all tasks by Quack */
     private TaskList taskList;

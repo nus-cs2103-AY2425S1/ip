@@ -3,7 +3,7 @@ package quack.exception;
 /**
  * This exception class indicates that the user has input an invalid command.
  */
-public class InvalidCommandException extends Exception{
+public class InvalidCommandException extends Exception {
     
     /**
      * Creates an InvalidCommandException exception object.
