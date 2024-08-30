@@ -12,9 +12,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+/**
+ * The {@code Storage} class handles saving and loading tasks to and from a file.
+ * It provides methods to save the current list of tasks and load tasks from a file.
+ */
 public class Storage {
     private static final String FILE_PATH = "./data/shrimp.txt";
 
+    /**
+     * Saves the list of tasks to a file.
+     *
+     * @param tasks The {@code TaskList} containing the tasks to be saved.
+     */
     public static void saveTasks(TaskList tasks) {
         File file = new File(FILE_PATH);
         file.getParentFile().mkdirs(); // Create the directory if it doesn't exist
@@ -29,6 +38,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from a file and returns them as a {@code TaskList}.
+     *
+     * @return A {@code TaskList} containing the tasks loaded from the file.
+     * @throws IOException     If an I/O error occurs while reading the file.
+     * @throws ShrimpException If an error occurs while parsing the tasks.
+     */
     public static TaskList loadTasks() throws IOException, ShrimpException {
         TaskList tasks = new TaskList();
         File file = new File(FILE_PATH);
@@ -43,6 +59,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Formats a {@code Task} object as a string suitable for saving to a file.
+     *
+     * @param task The {@code Task} to be formatted.
+     * @return A string representation of the task.
+     */
     private static String formatTaskForSaving(Task task) {
         String type = task.getType();
         switch (type) {
@@ -61,6 +83,13 @@ public class Storage {
         return "";
     }
 
+    /**
+     * Parses a string representation of a task and returns a {@code Task} object.
+     *
+     * @param line The string representation of the task.
+     * @return The parsed {@code Task} object.
+     * @throws ShrimpException If an error occurs while parsing the task.
+     */
     private static Task parseTask(String line) throws ShrimpException {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0];
@@ -82,6 +111,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a date-time string into a {@code LocalDateTime} object using the {@code Parser.PATTERN}.
+     *
+     * @param input The date-time string to be parsed.
+     * @return The parsed {@code LocalDateTime} object.
+     * @throws ShrimpException If the date-time string is invalid.
+     */
     private static LocalDateTime getDateTime(String input) throws ShrimpException {
         try {
             return LocalDateTime.parse(input, Parser.PATTERN);

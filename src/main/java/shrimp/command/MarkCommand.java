@@ -36,10 +36,12 @@ public class MarkCommand implements Command {
         Task task;
         if (toMark) {
             task = tasks.getTask(index).markAsDone();
+            ui.printMark(task);
         } else {
             task = tasks.getTask(index).markAsNotDone();
+            ui.printUnmark(task);
         }
         tasks.replaceTask(index, task);
-        ui.printMark(task);
+
     }
 }

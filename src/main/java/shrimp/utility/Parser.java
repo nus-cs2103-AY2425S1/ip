@@ -4,11 +4,23 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
+/**
+ * The {@code Parser} class provides methods to parse user commands and format date-time strings.
+ * It includes an enum {@code CommandType} to represent the different types of commands supported by the application.
+ */
 public class Parser {
+
+    /**
+     * Enum representing the various command types that can be parsed from user input.
+     */
     public enum CommandType {
         LIST, BYE, MARK, UNMARK, ADD, DEADLINE, EVENT, ERROR, DELETE, CLEAR
     }
 
+    /**
+     * A {@code DateTimeFormatter} that defines the pattern for parsing and formatting date-time strings.
+     * The pattern supports day/month/year format with optional time (HH:mm or HHmm).
+     */
     public static final DateTimeFormatter PATTERN = new DateTimeFormatterBuilder()
             // Day (single or double-digit)
             .appendValue(ChronoField.DAY_OF_MONTH)
@@ -25,6 +37,12 @@ public class Parser {
             .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
             .toFormatter();
 
+    /**
+     * Parses the user input to determine the type of command entered.
+     *
+     * @param userInput The input string entered by the user.
+     * @return The {@code CommandType} corresponding to the user input.
+     */
     public static CommandType parseCommand(String userInput) {
         if (userInput.equalsIgnoreCase("bye")) {
             return CommandType.BYE;
