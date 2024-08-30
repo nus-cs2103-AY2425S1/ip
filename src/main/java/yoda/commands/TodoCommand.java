@@ -2,7 +2,6 @@ package yoda.commands;
 
 import yoda.TaskList;
 import yoda.exceptions.InvalidInputException;
-import yoda.tasks.Task;
 import yoda.tasks.ToDo;
 
 public class TodoCommand extends Command {
@@ -15,7 +14,7 @@ public class TodoCommand extends Command {
     }
 
     public void run() throws InvalidInputException {
-        if (!checkValidToDo()) {
+        if (!hasValidFormat()) {
             throw new InvalidInputException("A todo must have a description, no...?");
         }
         String[] splitInput = input.split(" ", 2);
@@ -26,7 +25,7 @@ public class TodoCommand extends Command {
                 + String.format("Now you have %d tasks in the list", taskList.getLength()));
     }
 
-    public boolean checkValidToDo() {
+    public boolean hasValidFormat() {
         String[] splitInput = input.split(" ", 2);
         return splitInput.length == 2;
     }

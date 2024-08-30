@@ -3,7 +3,6 @@ package yoda.commands;
 import yoda.TaskList;
 import yoda.exceptions.InvalidInputException;
 import yoda.tasks.Event;
-import yoda.tasks.ToDo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +18,7 @@ public class EventCommand extends Command {
     }
 
     public void run() throws InvalidInputException {
-        if (!checkValidEvent(input)) {
+        if (!hasValidFormat(input)) {
             throw new InvalidInputException("An event must have a description, start time and end time, no...?");
         }
         String[] splitInput = input.split(" ", 2);
@@ -42,7 +41,7 @@ public class EventCommand extends Command {
 
     }
 
-    public static boolean checkValidEvent(String input) {
+    public static boolean hasValidFormat(String input) {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length == 2) {
             String[] splitTask = splitInput[1].split("/from ", 2);

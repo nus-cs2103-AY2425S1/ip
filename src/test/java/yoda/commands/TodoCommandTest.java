@@ -35,12 +35,12 @@ public class TodoCommandTest {
 
     @Test
     public void checkValidToDo_validInput_returnTrue() {
-        assertEquals(true, new TodoCommand(new TaskList(), "todo sleep").checkValidToDo());
+        assertEquals(true, new TodoCommand(new TaskList(), "todo sleep").hasValidFormat());
     }
     @Test
     public void checkValidToDo_invalidInput_returnFalse() {
-        assertEquals(false, new TodoCommand(new TaskList(), "todo").checkValidToDo());
-        assertEquals(false, new TodoCommand(new TaskList(), "").checkValidToDo());
-        assertEquals(false, new TodoCommand(new TaskList(), "deadline").checkValidToDo());
+        assertEquals(false, new TodoCommand(new TaskList(), "todo").hasValidFormat());
+        assertEquals(false, new TodoCommand(new TaskList(), "").hasValidFormat());
+        assertEquals(false, new TodoCommand(new TaskList(), "deadline").hasValidFormat());
     }
 }

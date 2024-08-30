@@ -14,7 +14,7 @@ public class DeleteCommand extends Command {
     }
 
     public void run() throws InvalidInputException {
-        if (!checkForValidInt(input)) {
+        if (!hasValidFormat(input)) {
             throw new InvalidInputException("Delete... which one?");
         }
         String[] splitInput = input.split(" ", 2);
@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
         System.out.println(String.format("Now you have %d tasks in the list\n", taskList.getLength()));
     }
 
-    public boolean checkForValidInt(String input) {
+    public boolean hasValidFormat(String input) {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length == 2) {
             if (splitInput[1].matches("\\d+")) {
