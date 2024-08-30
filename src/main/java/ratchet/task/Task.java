@@ -36,6 +36,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public boolean isMatch(String keyword) {
+        return description.contains(keyword);
+    }
+
     private String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done ratchet.task with X
     }
