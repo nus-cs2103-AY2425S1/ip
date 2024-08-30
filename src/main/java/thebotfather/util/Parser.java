@@ -7,6 +7,7 @@ import thebotfather.command.PrintTaskListCommand;
 import thebotfather.command.MarkCommand;
 import thebotfather.command.DeleteCommand;
 import thebotfather.command.AddCommand;
+import thebotfather.command.FindCommand;
 import thebotfather.task.Deadline;
 import thebotfather.task.Event;
 import thebotfather.task.Task;
@@ -52,6 +53,8 @@ public class Parser {
                     throw new TheBotFatherException("Skill issue: Atleast enter a number.\n" +
                             "\tTo unmark a task enter \"unmark <index>\"");
                 }
+            case FIND:
+                return new FindCommand(tokens);
             case TODO:
                 Task todo = Todo.makeTodo(tokens);
                 ui.printAddedTodo(todo);

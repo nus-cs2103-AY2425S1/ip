@@ -37,9 +37,12 @@ public class Deadline extends Task {
                 by.append(token).append(" ");
             }
 
-            return new Deadline(description.toString().trim(), LocalDateTime.parse(by.toString().trim(), Task.DATE_STRING_FORMATTER));
+            return new Deadline(description.toString().trim(),
+                    LocalDateTime.parse(by.toString().trim(),
+                            Task.DATE_STRING_FORMATTER));
         } catch (NoSuchElementException | DateTimeException e) {
-            throw new TheBotFatherException("If you have a deadline, type : \"deadline <description> /by DD-MM-YY HH:MM\"");
+            throw new TheBotFatherException("If you have a deadline, type : " +
+                    "\"deadline <description> /by DD-MM-YY HH:MM\"");
         }
     }
 

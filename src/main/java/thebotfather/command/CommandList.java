@@ -3,7 +3,7 @@ package thebotfather.command;
 import thebotfather.util.TheBotFatherException;
 
 public enum CommandList {
-    MARK, UNMARK, DELETE, TODO, LIST, DEADLINE, EVENT, BYE;
+    MARK, UNMARK, DELETE, TODO, LIST, DEADLINE, EVENT, BYE, FIND;
 
     public static CommandList findCommand(String command) throws TheBotFatherException {
         try {

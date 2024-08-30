@@ -67,6 +67,17 @@ public class TaskList {
         }
     }
 
+    public TaskList findWord(String word) {
+        TaskList taskList = new TaskList(new ArrayList<>());
+        for (Task task : taskArrayList) {
+            if (task.isWordInDescription(word)) {
+                taskList.addTask(task);
+            }
+        }
+
+        return taskList;
+    }
+
     public int numberOfElements() {
         return taskArrayList.size();
     }

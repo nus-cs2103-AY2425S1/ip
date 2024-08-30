@@ -7,8 +7,10 @@ import java.util.Objects;
 
 public abstract class Task {
 
-    protected static final DateTimeFormatter DATE_STRING_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-    protected static final DateTimeFormatter DATE_STRING_FORMATTER_PRINT = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
+    protected static final DateTimeFormatter DATE_STRING_FORMATTER =
+            DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    protected static final DateTimeFormatter DATE_STRING_FORMATTER_PRINT =
+            DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
 
     protected boolean done = false;
     protected String description;
@@ -31,6 +33,10 @@ public abstract class Task {
 
     public boolean isDone() {
         return this.done;
+    }
+
+    public boolean isWordInDescription(String word) {
+        return description.contains(word);
     }
 
     protected String getStatusIcon() {
