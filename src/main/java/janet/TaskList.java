@@ -97,7 +97,6 @@ public class TaskList {
      * Removes the task from the list of tasks.
      *
      * @param desiredTaskNum The task that the user specified.
-     * @return A String message to indicate successful deletion of the desired task.
      */
     public void deleteTask(int desiredTaskNum) {
         Task desiredTask = listOfTasks.get(desiredTaskNum - 1);
@@ -105,6 +104,12 @@ public class TaskList {
     }
 
 
+    /**
+     * Returns a TaskList with tasks' description containing the keyword.
+     *
+     * @param keyword The desired keyword to be matched to.
+     * @return A TaskList.
+     */
     public TaskList findTask(String keyword) {
         // returns a TaskList, where tasks have the keyword in their descriptions.
         TaskList taskList = new TaskList();
