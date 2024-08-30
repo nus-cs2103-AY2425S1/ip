@@ -1,13 +1,17 @@
 package Tasks;
 
-import Exceptions.*;
+import Exceptions.TestamentException;
+import Exceptions.CommandNotRecognisedException;
+import Exceptions.TaskDescriptionEmptyException;
+import Exceptions.DeadlineNoDateException;
+import Exceptions.EventNoTimeException;
 
 public abstract class Task {
     protected String taskname;
-    private boolean done;
+    private boolean isDone;
     public Task(String s) {
         taskname = s;
-        done = false;
+        isDone = false;
     }
 
     public static Task of(String userInput) throws TestamentException {
@@ -52,7 +56,7 @@ public abstract class Task {
 
     public String getDetails() {
         String str = "";
-        if (done) {
+        if (isDone) {
             str = "[D] / ";
         } else {
             str = "[N] / ";
@@ -63,17 +67,17 @@ public abstract class Task {
     public abstract String infoForFile();
 
     public void done() {
-        done = true;
+        isDone = true;
     }
 
     public void undone() {
-        done = false;
+        isDone = false;
     }
 
     @Override
     public String toString() {
         String str = "";
-        if (done) {
+        if (isDone) {
             str = "[X] ";
         } else {
             str = "[ ] ";
