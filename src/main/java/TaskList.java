@@ -1,16 +1,14 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
+import exceptions.UsageException;
+import tasks.DateAndTime;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
-import tasks.DateAndTime;
-
-import java.util.List;
-
-import exceptions.UsageException;
 
 public class TaskList {
     private static final ArrayList<Task> LIST = new ArrayList<>();
@@ -24,7 +22,7 @@ public class TaskList {
 
     /**
      * Adds a task to the list.
-     * 
+     *
      * @param task
      */
     public void addTask(Task task) {
@@ -34,7 +32,7 @@ public class TaskList {
 
     /**
      * Gets the task with the given label.
-     * 
+     *
      * @param label
      * @return task with the given label
      */
@@ -44,7 +42,7 @@ public class TaskList {
 
     /**
      * Removes the task with the given label.
-     * 
+     *
      * @param label
      */
     public void removeItem(int label) {
@@ -54,7 +52,7 @@ public class TaskList {
 
     /**
      * Gets the number of tasks in the list.
-     * 
+     *
      * @return task count
      */
     public int getTaskCount() {
@@ -91,7 +89,8 @@ public class TaskList {
                 } else if (taskType.equals("D")) {
                     task = new Deadline(description, new DateAndTime(record.get(3)));
                 } else if (taskType.equals("E")) {
-                    task = new Event(description, new DateAndTime(record.get(3)), new DateAndTime(record.get(3)));
+                    task = new Event(description,
+                            new DateAndTime(record.get(3)), new DateAndTime(record.get(3)));
                 }
 
                 if (isDone) {
