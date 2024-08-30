@@ -71,9 +71,11 @@ public class Ui {
     }
 
     public void printFoundTask(ArrayList<Task> foundTasks) {
+        int i = 1;
         System.out.println("Here are the matching tasks in your list:");
         for(Task task : foundTasks) {
-            System.out.println(task.toString());
+            System.out.println(i +". " + task.toString());
+            i++;
         }
     }
 }
