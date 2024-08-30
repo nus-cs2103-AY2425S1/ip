@@ -14,7 +14,7 @@ public class Deadline extends Task {
      * Instantiates the deadline with it being incomplete.
      *
      * @param description What the task is.
-     * @param deadline When the task is due in the formt YYYY-MM-DD.
+     * @param deadline When the task is due in the format YYYY-MM-DD.
      */
     public Deadline(String description, String deadline) {
         super(description);
@@ -26,7 +26,7 @@ public class Deadline extends Task {
      *
      * @param isDone Whether the task is complete.
      * @param description What the task is.
-     * @param deadline When the task is due in the formt YYYY-MM-DD.
+     * @param deadline When the task is due in the format YYYY-MM-DD.
      */
     public Deadline(boolean isDone, String description, String deadline) {
         super(description, isDone);
