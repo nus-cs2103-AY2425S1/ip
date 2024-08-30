@@ -1,11 +1,11 @@
 package rotodo.tasklist;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
     interface TaskInfo {}
@@ -13,7 +13,7 @@ public class TaskListTest {
         String value;
 
     }
-    public class DeadlineInfo implements TaskInfo{
+    public class DeadlineInfo implements TaskInfo {
         String value;
         LocalDateTime by;
     }
@@ -57,10 +57,10 @@ public class TaskListTest {
         } catch (Exception e) {
             // should not have exception here
         }
-        
+
         // Assert
         String actual = tasklist.toString();
-        assertEquals(expected, actual, 
+        assertEquals(expected, actual,
             String.format("Task should be marked as done, but is not."));
     }
 
@@ -78,10 +78,10 @@ public class TaskListTest {
         } catch (Exception e) {
             ;
         }
-        
+
         // Assert
         String actual = tasklist.toString();
-        assertEquals(expected, actual, 
+        assertEquals(expected, actual,
             String.format("Task should be marked as undone, but is not."));
     }
 }
