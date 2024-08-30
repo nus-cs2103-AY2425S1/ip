@@ -114,6 +114,16 @@ public class TaskList {
         }
     }
 
+    public List<Task> find(String str, List<Task> allTasks) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task t : allTasks) {
+            if (t.toString().contains(str)) {
+                result.add(t);
+            }
+        }
+        return result;
+    }
+
     public Task getLastUnmarked() {
         return this.unmarkedTasks.pop();
     }
