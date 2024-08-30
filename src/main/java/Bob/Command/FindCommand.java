@@ -7,7 +7,7 @@ import Bob.Ui.Ui;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.stream.Collectors; // collectors
 
 public class FindCommand implements Command {
     private final String keyword;
