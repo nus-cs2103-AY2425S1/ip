@@ -9,6 +9,9 @@ public class List {
         this.tasks = new ArrayList<>(100);
     }
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
     public String numOfTasks() {
         if (tasks.size() < 2) {
             return "Now you have " + tasks.size() + " task in the list.\n";

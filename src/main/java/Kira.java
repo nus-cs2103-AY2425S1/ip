@@ -1,10 +1,15 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Kira {
 
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+        File file = new File("data/kira.txt");
         List list = new List();
         String line = "____________________________________________________________\n";
 
@@ -95,9 +100,38 @@ public class Kira {
                         throw new UnreadableException();
                     }
                 }
+                save(list, file);
             } catch (UnreadableException | EmptyException | InvalidTaskException e) {
                 System.out.println(e.getMessage());
+            } catch (IOException e) {
+                System.out.println("File cannot be saved" + e.getMessage());
             }
+        }
+    }
+
+    public static void save(List list, File file) throws IOException {
+
+        FileWriter filewriter = new FileWriter(file, true);
+
+        for (int i=0; i < list.getTasks().size(); i++) {
+            String line = list.getTasks().get(i).displayTask();
+            System.out.println(line);
+            filewriter.write(line);
+        }
+
+        //System.out.println("saved");
+        System.out.println("Saving to file: " + file.getAbsolutePath());
+    }
+
+    public List retrieve(File file) {
+        try {
+            Scanner s = new Scanner(file);
+            while (s.hasNext()) {
+                System.out.println(s.nextLine());
+            }
+            return new List();
+        } catch (FileNotFoundException e) {
+            return new List();
         }
     }
 }
