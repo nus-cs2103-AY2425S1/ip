@@ -1,4 +1,4 @@
-package derek;
+package derek.exception;
 
 /**
  * The IncorrectCommandException class is a custom exception that is thrown when a user

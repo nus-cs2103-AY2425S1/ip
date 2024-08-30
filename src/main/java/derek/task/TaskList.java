@@ -1,5 +1,7 @@
 package derek.task;
 
+import derek.exception.TaskNotFoundException;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -33,6 +35,19 @@ public class TaskList {
 
     public void add(Task task) {
         this.taskList.add(task);
+    }
+
+    public Task find(String taskDescription) throws TaskNotFoundException {
+        for (int i = 0; i < this.size(); i++) {
+            Task task = this.taskList.get(i);
+            String name = task.getName();
+            if (name.contains(taskDescription)) {
+                return task;
+            }
+        }
+
+        throw new TaskNotFoundException("Sorry, Derek searched high and low but could not find your task!"
+                + "Maybe you are the problem!");
     }
 
     @Override

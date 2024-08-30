@@ -1,6 +1,7 @@
 package derek;
 
 import derek.command.*;
+import derek.exception.IncorrectCommandException;
 import derek.task.Task;
 
 import java.time.format.DateTimeParseException;
@@ -52,6 +53,10 @@ public class Parser {
                         }
                         IncompleteCommand incompleteCommand = new IncompleteCommand(this.command);
                         incompleteCommand.execute(this.storage, taskNumber, this.ui);
+                        return;
+                    } else if (words[0].equals("find")) {
+                        FindCommand findCommand = new FindCommand(this.command);
+                        findCommand.execute(this.storage, this.ui);
                         return;
                     }
                 } else {

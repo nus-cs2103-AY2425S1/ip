@@ -1,6 +1,7 @@
 package derek;
 
 import derek.command.Command;
+import derek.exception.IncorrectCommandException;
 import derek.task.Task;
 import derek.task.TaskList;
 
@@ -76,6 +77,7 @@ public class Ui {
                 + "mark (task number)\n"
                 + "unmark (task number)\n"
                 + "delete (task number)\n"
+                + "find (keyword)"
                 + "bye");
         this.acceptCommands();
     }
@@ -119,6 +121,10 @@ public class Ui {
     public void addTask(Task task) {
         String celebration = generateRandomCelebration();
         System.out.println(celebration + "\n" + task + "\n");
+    }
+
+    public void printTask(Task task) {
+        System.out.println("Here you are!" + "\n" + task);
     }
 
     public String generateRandomCelebration() {
