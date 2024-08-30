@@ -4,13 +4,29 @@ import chatbot.Task;
 
 public abstract class AbstractTask implements Task {
 
-    private final String description;
+    protected final String description;
 
-    private boolean isDone;
+    protected boolean isDone;
 
     public AbstractTask(String description) {
         this.description = description;
         isDone = false;
+    }
+
+    public static Task deserialize(String line) {
+        String[] parts = line.split(" \\| ");
+        if (parts.length < 3) {
+            throw new IllegalArgumentException("Invalid task format");
+        }
+
+        String type = parts[0];
+
+        return switch (type) {
+            case "T" -> TodoTask.deserialize(line);
+            case "D" -> DeadlineTask.deserialize(line);
+            case "E" -> EventTask.deserialize(line);
+            default -> throw new IllegalArgumentException("Unknown task type: " + type);
+        };
     }
 
     @Override
