@@ -2,6 +2,10 @@ package tecna;
 
 import java.util.Scanner;
 
+import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+
 public class Tecna {
     private Storage storage;
     private TaskList taskList;
@@ -18,9 +22,17 @@ public class Tecna {
 
     public Tecna(String taskData) {
         this.storage = new Storage(taskData);
-        this.taskList = new TaskList(storage.load());
         this.commandScanner = new CommandScanner();
         this.ui = new Ui();
+        try {
+            this.taskList = new TaskList(storage.load());
+        } catch (IOException ioException) {
+            this.ui.printError("I cannot open the data file!");
+        } catch (ParseException parseException) {
+            this.ui.printError("The data file is of the wrong format!");
+        } catch (JsonLoadingException jsonLoadingException) {
+            this.ui.printError(jsonLoadingException.getMessage());
+        }
     }
 
     /**
@@ -65,30 +77,38 @@ public class Tecna {
                 this.taskList.listItems();
                 break;
             case MARK:
-                int index = commandScanner.markIndex();
+                int index = commandScanner.getInputIndex();
                 taskList.mark(index);
                 ui.printMarkMsg(taskList.getTask(index));
                 break;
             case UNMARK:
-                index = commandScanner.markIndex();
+                index = commandScanner.getInputIndex();
                 taskList.unmark(index);
                 ui.printUnmarkMsg(taskList.getTask(index));
                 break;
             case DELETE:
-                index = commandScanner.markIndex();
+                index = commandScanner.getInputIndex();
                 this.taskList.deleteItem(index);
                 break;
             case TODO:
             case EVENT:
             case DEADLINE:
+                taskList.addItem(commandScanner.getInputTask());
+                break;
             case TODO_WRONG_FORMAT:
-                try {
-                    this.taskList.addItem(commandScanner.getInput());
-                } catch (InvalidRequestException ive) {
-                    ui.printInvalidCmdError();
-                } catch (TodoWrongFormatException tde) {
-                    ui.printError(tde.getMessage());
-                }
+                ui.printError("Wrong format! The command should be \"todo [task_description]\".");
+                break;
+            case DEADLINE_WRONG_FORMAT:
+                ui.printError("Wrong format! The command should be \"deadline [task_description] /by [deadline in the form of yyyy-MM-dd HHmm]\".");
+                break;
+            case EVENT_WRONG_FORMAT:
+                ui.printError("Wrong format! The command should be \"event [task_description] /from [start_time in the form of yyyy-MM-dd HHmm] /to [end time in the form of yyyy-MM-dd HHmm]\".");
+                break;
+            case INDEX_WRONG_FORMAT:
+                ui.printError("The parameter of this command must be a number from 1 to " + taskList.getSize());
+                break;
+            case INVALID:
+                ui.printInvalidCmdError();
                 break;
             }
             ui.printSectionLine();

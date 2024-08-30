@@ -48,6 +48,6 @@ public class Ui {
     }
 
     public void printError(String error) {
-        System.out.println(error);
+        System.out.println("Oops! " + error);
     }
 }
