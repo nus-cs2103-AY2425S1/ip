@@ -7,13 +7,27 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Handles creation of, reading from, and writing to textfile which stores the tasklist.
+ */
 public class Storage {
     private final String filePath;
 
+
+    /**
+     * Instantiates Storage.
+     *
+     * @param filePath Path to the storage file from root.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Overrides old file and saves the data stored in the tasklist.
+     * @param Tasks Tasklist to be stored.
+     * @throws IOException When there is an issue with the file preventing saving.
+     */
     public void saveData(ArrayList<Task> Tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task task : Tasks) {
@@ -23,7 +37,10 @@ public class Storage {
         fw.close();
     }
 
-    public ArrayList<String> readStoredContent() {
+    /**
+     * Returns an arraylist with the content in the file to be read upon start up of Twilight.
+     */
+    private ArrayList<String> readStoredContent() {
         try {
             File f = new File(filePath);
             Scanner s = new Scanner(f);
@@ -38,6 +55,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts the String format of the tasks in file to Arraylist</tasks>.
+     * @return Arraylist to be stored in TaskList
+     */
     public ArrayList<Task> getStoredTasks() {
         ArrayList<String> entries = readStoredContent();
         ArrayList<Task> Tasks = new ArrayList<Task>();

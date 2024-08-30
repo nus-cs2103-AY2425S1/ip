@@ -4,10 +4,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.lang.IndexOutOfBoundsException;
 
+/**
+ * Represents a class used for transforming user input to a command to be carried out by chatbot.
+ */
 public class Parser {
     private static final String[] COMMANDS = new String[]{"list", "mark", "unmark", "todo", "event", "deadline", "delete", "bye"};
     public Parser(){}
 
+    /**
+     * Parses the string input and returns a command to be executed.
+     *
+     * @param input The message from user.
+     * @return Command according to user desire.
+     * @throws InvalidInputException When the message from user is an invalid statement.
+     */
     public static Command parse(String input) throws InvalidInputException {
         try {
             String[] split = input.split(" ", 2);

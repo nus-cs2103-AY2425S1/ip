@@ -3,6 +3,9 @@ package twilight;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Acts as the main class for running the chatbot.
+ */
 public class Twilight {
     public static void main(String[] args) {
         Ui ui = new Ui();
