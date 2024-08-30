@@ -7,6 +7,12 @@ import java.io.IOException;
 
 public class Parser {
 
+    /**
+     * Checks if the given string is a valid integer.
+     *
+     * @param s The string to be checked.
+     * @return true if the string can be parsed as an integer, otherwise false.
+     */
     public static boolean validNum(String s) {
         try {
             Integer.parseInt(s);
@@ -16,6 +22,25 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the user's input command and executes the corresponding action.
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @param tasks The TaskList object containing the current list of tasks.
+     * @param storage The Storage object responsible for saving tasks to a file.
+     * @param ui The Ui object used to interact with the user.
+     * @throws Exception If the command is not recognized or if there are issues processing the command.
+     *
+     * Supported commands include:
+     * - "bye": Saves the current tasks to a file and exits the program.
+     * - "list": Displays all tasks.
+     * - "mark <index>": Marks the task at the given index as done.
+     * - "unmark <index>": Unmarks the task at the given index as not done.
+     * - "delete <index>": Deletes the task at the given index.
+     * - "todo <description>": Adds a new todo task with the given description.
+     * - "deadline <description> /by <date>": Adds a new deadline task with the given description and due date.
+     * - "event <description> /start <start> /end <end>": Adds a new event task with the given description, start time, and end time.
+     */
     public static void parse (String fullCommand, TaskList tasks, Storage storage, Ui ui) throws Exception {
         String[] inputArray = fullCommand.split("\\s+");
         String command = inputArray[0];

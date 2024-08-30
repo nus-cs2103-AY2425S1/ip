@@ -23,11 +23,24 @@ public class Deadline extends Task{
 
     }
 
+    /**
+     * Returns a string representation of the Deadline object.
+     *
+     * @return A string in the format "[D] description (due: dt)", where "description"
+     *         is the task description and "dt" is the due date and time.
+     */
     @Override
     public String toString() {
         return "[D] " + super.toString() + " (due: " + this.dt + ")";
     }
 
+    /**
+     * Returns a string representation of the Deadline object suitable for saving to a file.
+     *
+     * @return A string in the format "taskType|isDone|description|dt", where "taskType"
+     *         is the type of task, "isDone" is 1 if the task is completed, otherwise 0,
+     *         "description" is the task description, and "dt" is the due date and time.
+     */
     @Override
     public String toFileSaveString() {
         return this.taskType + "|" + (this.isDone ? "1" : "0") + "|" + this.description + "|" + this.dt.toString();

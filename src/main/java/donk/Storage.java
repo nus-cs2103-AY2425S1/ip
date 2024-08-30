@@ -13,10 +13,23 @@ import java.util.Scanner;
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructor for the Storage class.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     *
+     * Initializes the storage object with the specified file path.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by the file path.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws DonkException If the file cannot be found or an error occurs while loading the tasks.
+     */
     public List<Task> load() throws DonkException{
         try {
             List<Task> tasks = readFile();
@@ -26,6 +39,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads tasks from the file specified by the file path.
+     *
+     * @return A list of tasks read from the file.
+     * @throws FileNotFoundException If the file specified by the file path cannot be found.
+     */
     private List<Task> readFile() throws FileNotFoundException {
         File f = new File(this.filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -47,6 +66,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Writes the list of tasks to the file specified by the file path.
+     *
+     * @param filePath The path to the file where tasks will be saved.
+     * @param tasks The TaskList object containing the tasks to be saved.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     public static void writeToFile(String filePath, TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (int i = 0; i < tasks.size(); i++) {
