@@ -33,19 +33,19 @@ public class AddCommand extends Command{
             Events event = Events.createEvent(command);
             tasks.addList(event);
             ui.addList(event, tasks.getSize());
-            storage.saveItem(tasks.getList());
+            storage.saveItem(tasks);
             break;
         case "t":
             ToDos todo = ToDos.createToDo(command);
             tasks.addList(todo);
             ui.addList(todo, tasks.getSize());
-            storage.saveItem(tasks.getList());
+            storage.saveItem(tasks);
             break;
         case "d":
             Deadlines deadline = Deadlines.createDeadline(command);
             tasks.addList(deadline);
             ui.addList(deadline, tasks.getSize());
-            storage.saveItem(tasks.getList());
+            storage.saveItem(tasks);
             break;
         }
 

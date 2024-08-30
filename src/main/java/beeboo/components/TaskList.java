@@ -99,11 +99,11 @@ public class TaskList {
     }
 
     /**
-     * Returns the list of tasks.
+     * Returns task of specified index.
      *
-     * @return the ArrayList of tasks
+     * @return Tasks
      */
-    public ArrayList<Tasks> getList() {
-        return list;
+    public Tasks get(int index) {
+        return list.get(index);
     }
 }

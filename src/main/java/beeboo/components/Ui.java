@@ -23,7 +23,7 @@ public class Ui {
      *
      * @param task the task that has been marked as done
      */
-    public void markdoneMessage(Tasks task) {
+    public void markDoneMessage(Tasks task) {
         chatBox("Nice! I've marked this task as done:\n" + task);
     }
 

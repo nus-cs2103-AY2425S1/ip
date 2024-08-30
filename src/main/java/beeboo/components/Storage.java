@@ -35,7 +35,7 @@ public class Storage {
      * @param filePath the path to the file where task data is stored
      */
     public Storage(String filePath) {
-        this.filepath = filePath;
+        this.filePath = filePath;
     }
 
     /**
@@ -107,9 +107,10 @@ public class Storage {
      *
      * @param list the list of Tasks objects to be saved
      */
-    public void saveItem(ArrayList<Tasks> list) {
+    public void saveItem(TaskList list) {
         try (FileWriter writer = new FileWriter("./data/beeboo.txt")) {
-            for (Tasks task : list) {
+            for (int i = 0; i < list.getSize(); i++) {
+                Tasks task = list.get(i);
                 writer.write(task.saveFormat() + System.lineSeparator());
             }
         } catch (IOException e) {

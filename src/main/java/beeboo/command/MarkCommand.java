@@ -31,13 +31,13 @@ public class MarkCommand extends Command{
         switch(type) {
         case "m":
             Tasks done = tasks.markDone(index - 1);
-            ui.markdoneMessage(done);
-            storage.saveItem(tasks.getList());
+            ui.markDoneMessage(done);
+            storage.saveItem(tasks);
             break;
         case "u":
             Tasks undone = tasks.unmarkDone(index - 1);
             ui.unmarkDoneMessage(undone);
-            storage.saveItem(tasks.getList());
+            storage.saveItem(tasks);
             break;
         }
 
