@@ -13,9 +13,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * Handles loading and saving tasks to and from a file.
+ */
 public class Storage {
     private static final String FILE_PATH = "./data/tasks.txt";
 
+    /**
+     * Loads tasks from the file and returns them as an ArrayList.
+     *
+     * @return an ArrayList of tasks loaded from the file
+     */
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         Path path = Paths.get(FILE_PATH);
@@ -36,6 +44,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the list of tasks to the file.
+     *
+     * @param tasks the ArrayList of tasks to be saved
+     */
     public static void saveTasks(ArrayList<Task> tasks) {
         Path path = Paths.get(FILE_PATH);
         try {
@@ -51,6 +64,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a task from its string representation in the file format.
+     *
+     * @param line the string representation of a task
+     * @return the Task object parsed from the string
+     * @throws IllegalArgumentException if the task type is unsupported or the format is invalid
+     */
     private static Task parseTask(String line) throws IllegalArgumentException {
         String[] parts = line.split(" \\| ");
         String type = parts[0];

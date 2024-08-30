@@ -14,7 +14,14 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the InputManager class.
+ */
 public class InputManagerTest {
+
+    /**
+     * Tests handling of empty input.
+     */
     @Test
     public void testEmptyInput() {
         InputManager inputManager = new InputManager(new TaskManager(new ArrayList<>()), new MessageBuilder());
@@ -24,6 +31,9 @@ public class InputManagerTest {
         assertTrue(exception.getMessage().contains("OOPS!!! You need to enter a command."));
     }
 
+    /**
+     * Tests successful addition of a Todo task.
+     */
     @Test
     public void successfulTodoTest() {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -39,6 +49,9 @@ public class InputManagerTest {
         }
     }
 
+    /**
+     * Tests successful addition of a Deadline task.
+     */
     @Test
     public void successfulDeadlineTest() {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -54,6 +67,9 @@ public class InputManagerTest {
         }
     }
 
+    /**
+     * Tests successful addition of an Event task.
+     */
     @Test
     public void successfulEventTest() {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -69,6 +85,9 @@ public class InputManagerTest {
         }
     }
 
+    /**
+     * Tests that a Deadline task without a specified time throws an exception.
+     */
     @Test
     public void deadlineWithoutDateThrowsException() {
         TaskManager taskManager = new TaskManager(new ArrayList<>());
@@ -80,6 +99,9 @@ public class InputManagerTest {
         assertEquals("OOPS!!! The deadline must have a specified time.", exception.getMessage());
     }
 
+    /**
+     * Tests that an Event task missing either start or end time throws an exception.
+     */
     @Test
     public void eventWithoutStartOrEndTimeThrowsException() {
         TaskManager taskManager = new TaskManager(new ArrayList<>());
@@ -96,6 +118,9 @@ public class InputManagerTest {
         assertEquals("OOPS!!! An event must have both start and end times specified.", exception2.getMessage());
     }
 
+    /**
+     * Tests successful marking of a task.
+     */
     @Test
     public void markTaskSuccessfully() {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -112,6 +137,9 @@ public class InputManagerTest {
         }
     }
 
+    /**
+     * Tests successful unmarking of a task.
+     */
     @Test
     public void unMarkTaskSuccessfully() {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -129,6 +157,9 @@ public class InputManagerTest {
         }
     }
 
+    /**
+     * Tests that marking a task with an out-of-bounds index throws an exception.
+     */
     @Test
     public void markTaskIndexOutOfBounds() {
         TaskManager taskManager = new TaskManager(new ArrayList<>());
@@ -140,6 +171,9 @@ public class InputManagerTest {
         assertEquals("OOPS!!! The task number " + 2 + " is out of bounds.", exception.getMessage());
     }
 
+    /**
+     * Tests that a Deadline task with an incorrect date format throws an exception.
+     */
     @Test
     public void deadlineWithIncorrectDateFormatThrowsException() {
         TaskManager taskManager = new TaskManager(new ArrayList<>());
@@ -151,6 +185,9 @@ public class InputManagerTest {
         assertTrue(exception.getMessage().contains("Text '2024-01-01 1800' could not be parsed"));
     }
 
+    /**
+     * Tests that an Event task with incorrect date formats for start or end times throws an exception.
+     */
     @Test
     public void eventWithIncorrectDateFormatThrowsException() {
         TaskManager taskManager = new TaskManager(new ArrayList<>());
@@ -166,6 +203,4 @@ public class InputManagerTest {
         });
         assertTrue(exception2.getMessage().contains("Text '02-02-2024 1000' could not be parsed"));
     }
-
-
 }

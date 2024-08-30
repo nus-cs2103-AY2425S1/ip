@@ -13,15 +13,30 @@ import puke.exceptions.UnknownCommandException;
 import puke.tasklist.TaskManager;
 import puke.ui.MessageBuilder;
 
+/**
+ * Manages user input by parsing and executing commands.
+ */
 public class InputManager {
     private TaskManager taskManager;
     private MessageBuilder messageBuilder;
 
+    /**
+     * Constructs an InputManager with the specified TaskManager and MessageBuilder.
+     *
+     * @param taskManager the TaskManager to handle task operations
+     * @param messageBuilder the MessageBuilder to construct and send messages
+     */
     public InputManager(TaskManager taskManager, MessageBuilder messageBuilder) {
         this.taskManager = taskManager;
         this.messageBuilder = messageBuilder;
     }
 
+    /**
+     * Handles the input by parsing the command and its arguments, and executing the corresponding command.
+     *
+     * @param input the user input to be processed
+     * @throws PukeException if an error occurs during command execution
+     */
     public void handleInput(String input) throws PukeException {
         input = input.trim();
         if (input.isEmpty()) {
@@ -41,6 +56,14 @@ public class InputManager {
         }
     }
 
+    /**
+     * Parses the command string and its arguments to create the corresponding Command object.
+     *
+     * @param command the command string to be parsed
+     * @param args the arguments associated with the command
+     * @return the Command object corresponding to the parsed command
+     * @throws PukeException if the command is unknown or invalid
+     */
     private Command parseCommand(String command, String args) throws PukeException {
         switch (command.toLowerCase()) {
             case "todo":
