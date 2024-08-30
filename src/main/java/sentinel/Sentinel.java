@@ -1,3 +1,14 @@
+package sentinel;
+
+import sentinel.command.ByeCommand;
+import sentinel.command.Command;
+import sentinel.exception.SentinelException;
+import sentinel.storage.FileLoader;
+import sentinel.storage.FileWriter;
+import sentinel.ui.Ui;
+import sentinel.utils.Parser;
+import sentinel.utils.SentinelList;
+
 public class Sentinel {
     private static SentinelList list;
     private final Ui ui;
@@ -24,6 +35,8 @@ public class Sentinel {
                 command.execute(input);
             } catch (IllegalArgumentException e) {
                 ui.showUnrecognisedCommand();
+            } catch (SentinelException e){
+//                sentinel.ui.showError(e);
             }
             ui.showLine();
             new FileWriter(list).saveTasks();
