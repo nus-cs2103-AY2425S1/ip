@@ -22,11 +22,11 @@ public class InputManager {
         this.messageBuilder = messageBuilder;
     }
 
-    public void handleInput(String input) {
+    public void handleInput(String input) throws PukeException {
         input = input.trim();
         if (input.isEmpty()) {
             messageBuilder.sendMessage(new EmptyInputException().getMessage());
-            return;
+            throw new EmptyInputException();
         }
 
         String command = input.split("\\s+")[0];
@@ -37,6 +37,7 @@ public class InputManager {
             commandObject.execute(taskManager, messageBuilder);
         } catch (PukeException e) {
             messageBuilder.sendMessage(e.getMessage());
+            throw e;
         }
     }
 

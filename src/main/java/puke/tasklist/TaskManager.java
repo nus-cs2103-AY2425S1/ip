@@ -1,5 +1,7 @@
 package puke.tasklist;
 
+import puke.exceptions.InvalidTaskNumberFormatException;
+import puke.exceptions.TaskNumberOutOfBoundsException;
 import puke.storage.Storage;
 import puke.tasks.Deadline;
 import puke.tasks.Event;
@@ -9,10 +11,10 @@ import puke.tasks.Todo;
 import java.util.ArrayList;
 
 public class TaskManager {
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks;
 
-    public TaskManager() {
-        tasks = Storage.loadTasks(); // Load tasks on initialization
+    public TaskManager(ArrayList<Task> loadedFromStorage) {
+        this.tasks = loadedFromStorage;
     }
 
     public String addTask(String type, String description, String... timeInfo) {
@@ -74,5 +76,17 @@ public class TaskManager {
 
     public int getTaskCount() {
         return tasks.size();
+    }
+
+    private boolean isInvalidTaskNum(int taskNum) {
+        return taskNum < 0 || taskNum >= tasks.size();
+    }
+
+    public Task getTask(int taskNum) throws TaskNumberOutOfBoundsException {
+        if (isInvalidTaskNum(taskNum)) {
+            throw new TaskNumberOutOfBoundsException(taskNum);
+        } else {
+            return tasks.get(taskNum);
+        }
     }
 }

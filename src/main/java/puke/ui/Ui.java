@@ -1,6 +1,8 @@
 package puke.ui;
 
 import java.util.Scanner;
+
+import puke.exceptions.PukeException;
 import puke.handlers.InputManager;
 
 public class Ui {
@@ -12,7 +14,7 @@ public class Ui {
         this.inputManager = inputManager;
     }
 
-    public void start() {
+    public void start() throws PukeException {
         messageBuilder.sendGreetingMessage();
         Scanner scanner = new Scanner(System.in);
         String userInput;

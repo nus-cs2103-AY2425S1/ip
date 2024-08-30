@@ -2,8 +2,10 @@ package puke.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
-public class Event extends Task {    private LocalDateTime from;
+public class Event extends Task {
+    private LocalDateTime from;
     private LocalDateTime to;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
     private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -13,6 +15,15 @@ public class Event extends Task {    private LocalDateTime from;
         this.from = LocalDateTime.parse(from, inputFormatter);
         this.to = LocalDateTime.parse(to, inputFormatter);
         if (isDone) markAsDone();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!super.equals(obj)) return false;
+        if (getClass() != obj.getClass()) return false;
+        Event other = (Event) obj;
+        return Objects.equals(from, other.from) && Objects.equals(to, other.to);
     }
 
     @Override

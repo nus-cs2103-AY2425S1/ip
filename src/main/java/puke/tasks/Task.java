@@ -1,5 +1,7 @@
 package puke.tasks;
 
+import java.util.Objects;
+
 public abstract class Task {
     private String description;
     private boolean isDone;
@@ -34,4 +36,18 @@ public abstract class Task {
     }
 
     public abstract String toFileFormat();
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Task task = (Task) obj;
+        return isDone() == task.isDone() &&
+                Objects.equals(getDescription(), task.getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getDescription(), isDone());
+    }
 }

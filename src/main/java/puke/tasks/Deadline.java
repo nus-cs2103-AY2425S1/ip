@@ -2,6 +2,7 @@ package puke.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Deadline extends Task {
     private LocalDateTime by;
@@ -12,6 +13,15 @@ public class Deadline extends Task {
         super(description);
         this.by = LocalDateTime.parse(by, inputFormatter);
         if (isDone) markAsDone();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!super.equals(obj)) return false;
+        if (getClass() != obj.getClass()) return false;
+        Deadline deadline = (Deadline) obj;
+        return Objects.equals(by, deadline.by);
     }
 
     @Override
