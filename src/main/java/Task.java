@@ -25,6 +25,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public Task setIsDone(boolean isDone) {
+        this.isDone = isDone;
+        return this;
+    }
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
