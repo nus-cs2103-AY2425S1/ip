@@ -89,6 +89,10 @@ public class Parser {
 
                 getUserInput();
                 break;
+            case FIND:
+                findTask(splitUserInput);
+                getUserInput();
+                break;
             default:
                 try {
                     taskList.add(Task.of(userInput));
@@ -137,6 +141,17 @@ public class Parser {
         }
 
         return taskNumber;
+    }
+
+    private void findTask(String[] userInput) throws TestamentException {
+        //check if user has specified details
+        if (userInput.length < 2) {
+            throw new CommandNotRecognisedException("Please specify details");
+        }
+
+        String description = userInput[1];
+        TaskList relevantTasks = taskList.findDescription(description);
+        ui.find(relevantTasks);
     }
 
 }

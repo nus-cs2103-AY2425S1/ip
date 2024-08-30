@@ -9,6 +9,7 @@ public enum Enumerations {
     MARK("mark"),
     UNMARK("unmark"),
     DELETE("delete"),
+    FIND("find"),
     TASK("task");
 
     private final String text;

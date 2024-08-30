@@ -83,6 +83,22 @@ public class TaskList {
     }
 
     /**
+     * Finds tasks that contain the specified descriptions in their own descriptions.
+     *
+     * @param s Description to find.
+     * @return Subset taskList.
+     */
+    public TaskList findDescription(String s) {
+        TaskList temp = new TaskList();
+        for (Task task : listOfTasks) {
+            if (task.taskname.contains(s)) {
+                temp.add(task);
+            }
+        }
+        return temp;
+    }
+
+    /**
      * Returns size of tasklist.
      *
      * @return Size of tasklist.

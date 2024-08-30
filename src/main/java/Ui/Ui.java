@@ -81,6 +81,19 @@ public class Ui {
     }
 
     /**
+     * Prints find message and the tasks in the given taskList
+     *
+     * @param taskList taskList to print
+     */
+    public void find(TaskList taskList) {
+        if (taskList.getSize() == 0) {
+            printDialogue("There are no relevant tasks");
+            return;
+        }
+        printDialogue("Here are the relevant tasks:\n" + taskList.toString());
+    }
+
+    /**
      * Prints exception message for a specified exception.
      *
      * @param e Exception to retrieve message from.
