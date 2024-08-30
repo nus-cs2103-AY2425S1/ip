@@ -14,7 +14,7 @@ public class ShowListCommand extends Command{
         for (int i = 1; i <= tasks.size(); i++) {
             System.out.println(i + "." + tasks.get(i - 1));
         }
-        System.out.println("Tips: Tasks marked as [X] are already completed ～(∠・ω< )⌒★");
+        System.out.println("Tips: Tasks marked as [X] are already completed (∠・ω< )");
         return;
     }
 
