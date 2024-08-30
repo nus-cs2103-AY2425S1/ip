@@ -13,7 +13,19 @@ import charlotte.task.Event;
 import charlotte.task.Task;
 import charlotte.task.ToDo;
 
+/**
+ * The Parser class is responsible for interpreting user input
+ * and returning the appropriate command to be executed.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param userInput The input string entered by the user.
+     * @return The Command object corresponding to the user's input.
+     * @throws CharlotteException If the user input is not recognized or formatted incorrectly.
+     */
     public static Command parse(String userInput) throws CharlotteException {
         String[] inputParts = userInput.split(" ", 2);
         String command = inputParts[0];

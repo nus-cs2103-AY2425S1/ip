@@ -7,12 +7,20 @@ import charlotte.storage.Storage;
 import charlotte.task.TaskList;
 import charlotte.ui.Ui;
 
+/**
+ * Represents the main application class for Charlotte.
+ */
 public class Charlotte {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Charlotte chatbot instance with the specified file path for data storage.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Charlotte(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,6 +32,14 @@ public class Charlotte {
         }
     }
 
+    /**
+     * Starts and runs the Charlotte chatbot.
+     * <p>
+     * This method displays the welcome message, then enters a loop where it continuously reads user commands,
+     * parses them, and executes the corresponding commands. The loop continues until an exit command is received.
+     * If any exceptions are encountered during command execution, an error message is displayed to the user.
+     * </p>
+     */
     public void run() {
         ui.printWelcome();
         boolean isExit = false;
@@ -39,6 +55,15 @@ public class Charlotte {
         }
     }
 
+    /**
+     * The main method to start the Charlotte chatbot.
+     * <p>
+     * This method creates an instance of the Charlotte chatbot with the specified data file path and
+     * starts the application by calling the run method.
+     * </p>
+     *
+     * @param args Command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         new Charlotte("data/charlotte.txt").run();
     }
