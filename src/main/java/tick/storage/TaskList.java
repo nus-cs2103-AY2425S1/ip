@@ -1,5 +1,7 @@
 package tick.storage;
 
+import tick.Tick;
+import tick.exceptions.TickException;
 import tick.tasks.Task;
 
 import java.util.ArrayList;
@@ -41,8 +43,12 @@ public class TaskList {
      * @param index Index of the task to be deleted.
      * @return Task that was deleted.
      */
-    public Task deleteTask(int index) {
-        return this.tasks.remove(index);
+    public Task deleteTask(int index) throws TickException {
+        try {
+            return this.tasks.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new TickException("Invalid task number! Please enter a valid task number.");
+        }
     }
 
     /**
@@ -70,10 +76,14 @@ public class TaskList {
      * @param index Index of the task to be marked as done.
      * @return Task that was marked as done.
      */
-    public Task markTaskAsDone(int index) {
-        Task doneTask = this.tasks.get(index);
-        doneTask.markAsDone();
-        return doneTask;
+    public Task markTaskAsDone(int index) throws TickException {
+        try {
+            Task doneTask = this.tasks.get(index);
+            doneTask.markAsDone();
+            return doneTask;
+        } catch (IndexOutOfBoundsException e) {
+            throw new TickException("Invalid task number! Please enter a valid task number.");
+        }
     }
 
     /**
@@ -82,10 +92,14 @@ public class TaskList {
      * @param index Index of the task to be marked as undone.
      * @return Task that was marked as undone.
      */
-    public Task markTaskAsUndone(int index) {
-        Task undoneTask = this.tasks.get(index);
-        undoneTask.markAsUndone();
-        return undoneTask;
+    public Task markTaskAsUndone(int index) throws TickException {
+        try {
+            Task undoneTask = this.tasks.get(index);
+            undoneTask.markAsUndone();
+            return undoneTask;
+        } catch (IndexOutOfBoundsException e) {
+            throw new TickException("Invalid task number! Please enter a valid task number.");
+        }
     }
 
     /**

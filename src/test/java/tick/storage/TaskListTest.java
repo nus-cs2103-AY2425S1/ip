@@ -1,6 +1,7 @@
 package tick.storage;
 
 import org.junit.jupiter.api.Test;
+import tick.exceptions.TickException;
 import tick.tasks.ToDo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,14 +10,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TaskListTest {
     @Test
-    public void markTaskAsDoneTest() {
+    public void markTaskAsDoneTest() throws TickException {
         TaskList taskList = new TaskList();
         taskList.addTask(new ToDo("homework"));
         taskList.markTaskAsDone(0);
         assertTrue(taskList.getTask(0).getStatus());
     }
     @Test
-    public void markTaskAsUndoneTest() {
+    public void markTaskAsUndoneTest() throws TickException {
         TaskList taskList = new TaskList();
         taskList.addTask(new ToDo("homework"));
         taskList.markTaskAsDone(0);
@@ -32,7 +33,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void deleteTaskTest() {
+    public void deleteTaskTest() throws TickException {
         TaskList taskList = new TaskList();
         taskList.addTask(new ToDo("homework"));
         taskList.deleteTask(0);
