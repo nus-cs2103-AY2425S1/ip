@@ -1,3 +1,11 @@
+package phenex;
+
+import phenex.task.TaskList;
+import phenex.ui.Ui;
+import phenex.storage.Storage;
+import phenex.util.Parser;
+import phenex.exception.PhenexException;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -34,7 +42,7 @@ public class Phenex {
         Scanner scanner = new Scanner(System.in);
         String userInput;
 
-        // regex's for commands which tell Phenex to do actions
+        // regex's for commands which tell phenex.Phenex to do actions
         String terminatingRegex = "(?i)bye\\s*$";
         String listRegex = "(?i)list\\s*$";
         String markRegex = "^mark \\d+\\s*$";
@@ -42,7 +50,7 @@ public class Phenex {
         String deleteRegex = "^delete \\d+\\s*$";
         String dateCheckRegex = "^missions on (.+)$";
 
-        // regex's for commands which tell Phenex to add Task
+        // regex's for commands which tell phenex.Phenex to add Task.Task
         String todoRegex = "^(?i)todo (.+)";
         String deadlineRegex = "^(?i)deadline (.+) /by (.+)";
         String eventRegex = "^(?i)event (.+) /from (.+) /to (.+)$";
@@ -94,11 +102,11 @@ public class Phenex {
                 if (listMatcher.find()) {
                     p.ui.printTaskList(p.tasks);
                 } else if (markMatcher.find()) {
-                    // mark task as done
+                    // mark phenex.task as done
                     int idx = p.parser.getIndexOfTask(markMatcher, CommandType.COMMAND_MARK);
                     p.tasks.markTaskCompleted(idx);
                 } else if (unmarkMatcher.find()) {
-                    // unmark task as done
+                    // unmark phenex.task as done
                     int idx = p.parser.getIndexOfTask(unmarkMatcher, CommandType.COMMAND_UNMARK);
                     p.tasks.markTaskIncomplete(idx);
                 } else if (todoMatcher.matches()) {

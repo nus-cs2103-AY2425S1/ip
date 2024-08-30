@@ -1,3 +1,9 @@
+package phenex.task;
+
+import phenex.exception.PhenexException;
+import phenex.storage.Storage;
+import phenex.ui.Ui;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -8,10 +14,9 @@ import java.util.Scanner;
 
 public class TaskList {
     protected ArrayList<Task> tasks;
-    private Storage storage;
 
     public enum TaskType {
-        TASK_TODO, TASK_DEADLINE, TASK_EVENT;
+        TASK_TODO, TASK_DEADLINE, TASK_EVENT
     }
 
     public TaskList(Storage storage) {
@@ -21,6 +26,10 @@ public class TaskList {
 
     public TaskList() {
         this.tasks = new ArrayList<>();
+    }
+
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
     }
 
     public Task getTaskByIdx(int i) {
@@ -107,7 +116,7 @@ public class TaskList {
 
     private void readFromStorage(Storage storage) {
         try {
-            Scanner scanner = new Scanner(storage.file);
+            Scanner scanner = new Scanner(storage.getFile());
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
                 this.addTaskFromMemoryLine(line);

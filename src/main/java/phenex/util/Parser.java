@@ -1,3 +1,11 @@
+package phenex.util;
+
+import phenex.exception.PhenexException;
+import phenex.Phenex;
+import phenex.task.Deadline;
+import phenex.task.Event;
+import phenex.task.Task;
+
 import java.util.regex.Matcher;
 
 public class Parser {
@@ -25,14 +33,15 @@ public class Parser {
         String localDateString = "";
         if (task instanceof Deadline) {
             Deadline deadlineTask = (Deadline) task;
-            localDateString = deadlineTask.localDate.toString() + ", ";
+            localDateString = deadlineTask.getDeadlineDate().toString() + ", ";
         } else if (task instanceof Event) {
             Event eventTask = (Event) task;
-            localDateString = eventTask.startDate.toString() + ", " + eventTask.endDate.toString() + ", ";
+            localDateString = eventTask.getEventStartDate().toString()
+                    + ", " + eventTask.getEventEndDate().toString() + ", ";
         }
-        return task.symbol + ", "
-                + (task.isCompleted ? "1, " : "0, ")
-                + task.name + ", "
+        return task.getSymbol() + ", "
+                + (task.isCompleted() ? "1, " : "0, ")
+                + task.getName() + ", "
                 + localDateString
                 + "\n";
     }

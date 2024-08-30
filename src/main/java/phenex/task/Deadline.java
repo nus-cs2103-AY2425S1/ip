@@ -1,3 +1,5 @@
+package phenex.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -7,6 +9,10 @@ public class Deadline extends TaskWithDate {
     public Deadline(String name, LocalDate localDate) {
         super(name, "D");
         this.localDate = localDate;
+    }
+
+    public LocalDate getDeadlineDate() {
+        return this.localDate;
     }
 
     @Override

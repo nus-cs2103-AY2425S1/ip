@@ -1,3 +1,10 @@
+package phenex.storage;
+
+import phenex.task.Task;
+import phenex.task.TaskList;
+import phenex.ui.Ui;
+import phenex.util.Parser;
+
 import java.io.File;
 import java.io.FileWriter;
 
@@ -26,10 +33,14 @@ public class Storage {
         this.file = new File(this.filePath.toString());
     }
 
+    public File getFile() {
+        return this.file;
+    }
+
     public void storeTasksToMemory(TaskList taskList) {
         try {
             FileWriter fileWriter = new FileWriter(this.filePath.toString());
-            for (Task task : taskList.tasks) {
+            for (Task task : taskList.getTasks()) {
                 String line = Parser.parseTaskInfo(task);
                 fileWriter.write(line);
             }

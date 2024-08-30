@@ -1,3 +1,5 @@
+package phenex.task;
+
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
@@ -9,6 +11,14 @@ public class Event extends TaskWithDate {
         super(name, "E");
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public LocalDate getEventStartDate() {
+        return this.startDate;
+    }
+
+    public LocalDate getEventEndDate() {
+        return this.endDate;
     }
 
     @Override
