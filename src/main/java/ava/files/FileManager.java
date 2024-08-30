@@ -4,6 +4,8 @@ import ava.task.Task;
 import jdk.jshell.spi.ExecutionControl;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +62,20 @@ public class FileManager {
         }
     }
 
-    public List<Task> getTasks(){
+    public List<Task> getTasks() {
         // TODO: implement reading from file
+
+        // move file reader to an instance variable
+        // usebufferedReader
+        try {
+            FileReader reader = new FileReader(file);
+            reader.read();
+        } catch(FileNotFoundException e){
+            //TODO: log error
+            System.out.println("File not found");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return new ArrayList<Task>(){
             @Override
             public String toString() {
