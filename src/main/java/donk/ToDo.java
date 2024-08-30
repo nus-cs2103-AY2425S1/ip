@@ -1,4 +1,8 @@
-public class ToDo extends Task{
+package donk;
+
+import donk.task.Task;
+
+public class ToDo extends Task {
 
     public ToDo (String description) {
         super(description, "T");

@@ -1,3 +1,5 @@
+package donk.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -5,7 +7,7 @@ public class Deadline extends Task{
     protected LocalDateTime dt;
 
     /**
-     * Constructs a Deadline object with the specified description and deadline date-time.
+     * Constructs a donk.task.Deadline object with the specified description and deadline date-time.
      *
      * @param description The description of the task.
      * @param dt The deadline date-time in the specified format.

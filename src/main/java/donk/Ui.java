@@ -1,3 +1,8 @@
+package donk;
+
+import donk.task.Task;
+import donk.task.TaskType;
+
 public class Ui {
 
     public Ui() {
@@ -10,7 +15,7 @@ public class Ui {
 
     public void greet() {
         String greetMsg = " ____________________________________________________________\n" +
-                " Hello! I'm Donk, the super intelligent chatbot\n" +
+                " Hello! I'm donk.Donk, the super intelligent chatbot\n" +
                 " What can I do for you?\n" +
                 "____________________________________________________________\n";
 
@@ -23,6 +28,10 @@ public class Ui {
         System.out.println(byeMsg);
     }
 
+    /**
+     * Prints error message and indicates correct input format
+     * @param taskType
+     */
     public void invalidFormat(TaskType taskType) {
         if (taskType == TaskType.DEADLINE) {
             System.out.println("invalid format, require /by <date-time>");

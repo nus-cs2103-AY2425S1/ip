@@ -1,3 +1,5 @@
+package donk.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -6,7 +8,7 @@ public class Event extends Task{
     protected LocalDateTime endDt;
 
     /**
-     * Constructs an Event object with the specified description, start date-time, and end date-time.
+     * Constructs an donk.task.Event object with the specified description, start date-time, and end date-time.
      *
      * @param description The description of the event.
      * @param startDt The start date-time of the event in the specified format.
