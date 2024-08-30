@@ -20,7 +20,7 @@ public class Ui<T> {
         print("____________________________________________________________");
     }
 
-    public static boolean welcome() {
+    public static void welcome() {
         String logo = " _______  _______  _______  _______  _______  __    _\n"
                 + "|       ||   _   ||       ||       ||       ||  |  | |\n"
                 + "|    ___||  |_|  ||  _____||_     _||   _   ||   |_| |\n"
@@ -33,12 +33,10 @@ public class Ui<T> {
         print("Hello! I'm " + CHATBOT_NAME);
         print("What can I do for you?");
         divider();
-        return false;
     }
 
-    public static boolean goodbye() {
+    public static void goodbye() {
         print("Bye. Hope to see you again soon!");
-        return true;
     }
 
     public String input() {

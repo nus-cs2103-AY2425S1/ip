@@ -27,7 +27,8 @@ public class Easton {
     }
 
     public void run() {
-        boolean isFinished = Ui.welcome();;
+        Ui.welcome();
+        boolean isFinished = false;
         Action action;
         String userInput;
 
@@ -44,7 +45,8 @@ public class Easton {
 
             switch (action) {
             case BYE:
-                isFinished = Ui.goodbye();
+                Ui.goodbye();
+                isFinished = true;
                 break;
             case LIST:
                 ui.list(tasks);
