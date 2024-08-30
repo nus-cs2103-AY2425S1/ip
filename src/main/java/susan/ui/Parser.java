@@ -2,6 +2,9 @@ package susan.ui;
 
 import susan.command.*;
 
+/**
+ * Parses user input into commands.
+ */
 public class Parser {
 
     public static Command parse(String fullCommand) throws SusanException {
@@ -23,6 +26,8 @@ public class Parser {
                 return new MarkCommand(commandParts, true);
             case "unmark":
                 return new MarkCommand(commandParts, false);
+            case "find":
+                return new FindCommand(commandParts[1]);
             case "bye":
                 return new ExitCommand();
             default:
