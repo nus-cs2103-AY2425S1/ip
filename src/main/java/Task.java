@@ -19,6 +19,14 @@ public class Task {
         isDone = false;
     }
 
+    public String toFileFormat() {
+        if (getStatusIcon().equals("X")) {
+            return "1" + " | " + this.description;
+        } else {
+            return "0" + " | " + this.description;
+        }
+    }
+
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
