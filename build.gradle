@@ -41,6 +41,7 @@ application {
 shadowJar {
     archiveBaseName = "rotodo"
     archiveClassifier = null
+    archiveVersion = "v0.1"
 }
 
 run{
