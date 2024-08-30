@@ -1,3 +1,8 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents a task with a description and completion status.
  */
@@ -59,7 +64,7 @@ public class Task {
 
         } else if (taskString.charAt(4) == 'E') {
             String eventDesc = info.substring(11, info.toLowerCase().indexOf(" (from:"));
-            String from = info.substring(info.toLowerCase().indexOf(" (from:") + 8, info.toLowerCase().indexOf("to:"));
+            String from = info.substring(info.toLowerCase().indexOf(" (from:") + 8, info.toLowerCase().indexOf(" to:"));
             String to = info.substring(info.toLowerCase().indexOf("to:") + 4, info.length() - 1);
             Event event = new Event(eventDesc, from, to);
             event.setIsDone(isDone);
@@ -71,4 +76,44 @@ public class Task {
             return todo;
         }
     }
+
+    /**
+     * Parses the input string to a LocalDateTime if the input contains both date and time.
+     * If the input contains only a date, a default time of 0000 is appended and parsed.
+     * Supports multiple date and time formats.
+     *
+     * @param input The input string to be parsed.
+     * @return A LocalDateTime object representing the parsed date and time.
+     * @throws IllegalArgumentException If the input format is invalid.
+     */
+    protected static LocalDateTime parseDateTime(String input) {
+        DateTimeFormatter dateTimeFormatter1 = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        DateTimeFormatter dateTimeFormatter3 = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
+        DateTimeFormatter dateTimeFormatter4 = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma");
+
+        try {
+            return LocalDateTime.parse(input, dateTimeFormatter1);
+        } catch (DateTimeParseException e1) {
+            try {
+                return LocalDateTime.parse(input + " 0000", dateTimeFormatter1);
+            } catch (DateTimeParseException e2) {
+                try {
+                    LocalDate date = LocalDate.parse(input, dateTimeFormatter2);
+                    return date.atStartOfDay();
+                } catch (DateTimeParseException e3) {
+                    try {
+                        return LocalDateTime.parse(input, dateTimeFormatter3);
+                    } catch (DateTimeParseException e4) {
+                        try {
+                            return LocalDateTime.parse(input, dateTimeFormatter4);
+                        } catch (DateTimeParseException e5) {
+                            throw new IllegalArgumentException("Invalid date or time format. Please use formats like 'dd/MM/yyyy HHmm' or 'MMM dd yyyy'.");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
