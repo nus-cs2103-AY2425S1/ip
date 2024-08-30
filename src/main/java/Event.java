@@ -12,9 +12,9 @@ public class Event extends Task {
     @Override
     public String toFileFormat() {
         if (getStatusIcon().equals("X")) {
-            return "E" + " | " + "1" + " | " + this.description + " | " + this.from + " - " + this.to;
+            return "E" + " | " + "1" + " | " + this.description + " | " + this.from + " to " + this.to;
         } else {
-            return "E" + " | " + "0" + " | " + this.description + " | " + this.from + " - " + this.to;
+            return "E" + " | " + "0" + " | " + this.description + " | " + this.from + " to " + this.to;
         }
     }
 
