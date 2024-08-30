@@ -3,7 +3,6 @@ public class Task {
     private boolean isDone;
     private final String taskName;
 
-
     public Task(String taskName){
         this.isDone = false;
         this.taskName = taskName;
@@ -19,6 +18,9 @@ public class Task {
     }
     public String getTaskName() {
         return this.taskName;
+    }
+    public boolean containsQuery(String query) {
+        return taskName.contains(query);
     }
     @Override
     public String toString() {

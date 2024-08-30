@@ -7,6 +7,7 @@ public enum Commands {
         UNMARK("Unmarks a task."),
         DELETE("Deletes a task."),
         LIST("Lists all tasks."),
+        FIND("Finds all related tasks"),
         BYE("Exits the application.");
 
         private final String description;

@@ -30,6 +30,8 @@ public class Parser {
                 return handleDelete(parts);
             case LIST:
                 return listTasks();
+            case FIND:
+                return handleFind(parts);
             case BYE:
                 return handleBye();
             default:
@@ -38,6 +40,11 @@ public class Parser {
         } catch (IllegalArgumentException e) {
             throw new LexiException("Please enter one of the following commands:\n" + Commands.printCommands());
         }
+    }
+
+    private static FindCommand handleFind(String[] parts) {
+        String query = parts[1];
+        return new FindCommand(query);
     }
 
     private static ByeCommand handleBye() {

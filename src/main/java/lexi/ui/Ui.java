@@ -59,17 +59,19 @@ public class Ui {
     }
 
     public void showListOfTasks(ArrayList<Task> tasks) {
-
-        if (tasks.size() == 0) {
-            System.out.println("You have no tasks in your list!");
-        } else {
-            System.out.println(" Here are the tasks in your list:");
-            for (int i = 0; i < tasks.size(); i++) {
-                Task currTask = tasks.get(i);
-                System.out.printf("  %d. %s%n", i + 1, currTask);
-            }
+        System.out.println(" Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currTask = tasks.get(i);
+            System.out.printf("  %d. %s%n", i + 1, currTask);
         }
+    }
 
+    public void showListOfMatchingTasks(ArrayList<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currtask = tasks.get(i);
+            System.out.printf("  %d. %s%n", i + 1, currtask);
+        }
     }
     public void showError(String message) {
         System.out.println(message);
