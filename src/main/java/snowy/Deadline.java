@@ -1,14 +1,19 @@
 package snowy;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 
 public class Deadline extends Task{
     private LocalDate date;
 
-    public Deadline(String name, String date) {
+    public Deadline(String name, String date) throws SnowyException {
         super(name);
-        this.date = LocalDate.parse(date);
+        try {
+            this.date = LocalDate.parse(date);
+        } catch (DateTimeException e) {
+            throw new SnowyException();
+        }
     }
 
     @Override

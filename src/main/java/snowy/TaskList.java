@@ -36,11 +36,17 @@ public class TaskList {
                 status = dataArray[1];
                 name = dataArray[2];
                 String dueDate = dataArray[3];
-                Task newDateline = new Deadline(name, dueDate);
-                tasks.add(newDateline);
-                if (status.equals("1")) {
-                    newDateline.markComplete();
+                try {
+                    Task newDateline = new Deadline(name, dueDate);
+                    tasks.add(newDateline);
+                    if (status.equals("1")) {
+                        newDateline.markComplete();
+                    }
+                } catch (SnowyException ignored) {
+
                 }
+
+
                 break;
 
             case "E":
@@ -48,11 +54,16 @@ public class TaskList {
                 name = dataArray[2];
                 String fromDate = dataArray[3];
                 String toDate = dataArray[4];
-                Task newEvent = new Event(name, fromDate, toDate);
-                tasks.add(newEvent);
-                if (status.equals("1")) {
-                    newEvent.markComplete();
+                try {
+                    Task newEvent = new Event(name, fromDate, toDate);
+                    tasks.add(newEvent);
+                    if (status.equals("1")) {
+                        newEvent.markComplete();
+                    }
+                } catch (SnowyException ignored) {
+
                 }
+
                 break;
 
             default:

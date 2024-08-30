@@ -24,29 +24,29 @@ public class Ui {
     }
 
     public void printIndexError() {
-        System.out.println("Error: Invalid index input. Please try again.");
+        System.out.println("Invalid index input. Please try again.");
     }
 
     public void printTodoFormatError() {
-        System.out.println("Error: Invalid input for todo. Make sure that you are following the correct format.");
+        System.out.println("Invalid input for todo. Make sure that you are following the correct format.");
         System.out.println("Example:");
         System.out.println("todo Read Book");
     }
 
     public void printDeadlineFormatError() {
-        System.out.println("Error: Invalid input for Deadline. Make sure that you are following the correct format.");
+        System.out.println("Invalid input for Deadline. Make sure that you are following the correct format.");
         System.out.println("Example:");
         System.out.println("deadline Return Book /by 2024-09-01");
     }
 
     public void printEventFormatError() {
-        System.out.println("Error: Invalid input for Event. Make sure that you are following the correct format.");
+        System.out.println("Invalid input for Event. Make sure that you are following the correct format.");
         System.out.println("Example:");
         System.out.println("event Orientation Camp /from 2024-09-01 /to 20224-09-04");
     }
 
     public void printUnknownCommand() {
-        System.out.println("Error: Invalid command given. Please try again.");
+        System.out.println("Invalid command given. Please try again.");
     }
 
     public void printList(TaskList tasks) {

@@ -1,15 +1,21 @@
 package snowy;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 public class Event extends Task{
     private LocalDate fromDate;
     private LocalDate toDate;
 
-    public Event(String name, String fromDate, String toDate) {
+    public Event(String name, String fromDate, String toDate) throws SnowyException {
         super(name);
-        this.fromDate = LocalDate.parse(fromDate);
-        this.toDate = LocalDate.parse(toDate);
+        try {
+            this.fromDate = LocalDate.parse(fromDate);
+            this.toDate = LocalDate.parse(toDate);
+        } catch (DateTimeException e) {
+            throw new SnowyException();
+        }
+
     }
 
     @Override
