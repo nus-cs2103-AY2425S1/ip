@@ -13,6 +13,15 @@ public class MarkCommand extends Command {
         }
     }
 
+    /**
+     * Marks a task as done, and saves the task list to file.
+     * 
+     * @param tasks the task list to mark the task in
+     * @param ui the ui to display the result
+     * @param storage the storage to save to
+     * @throws JerielException if the task number is invalid
+     * @throws IOException if there is an error saving the task list
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JerielException, IOException {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {

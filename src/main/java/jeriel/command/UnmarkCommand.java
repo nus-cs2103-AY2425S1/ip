@@ -14,6 +14,15 @@ public class UnmarkCommand extends Command {
         }
     }
 
+    /**
+     * Unmarks the task with the given index as not done.
+     *
+     * @param tasks the task list to unmark the task from
+     * @param ui the ui to display the result
+     * @param storage the storage to save to
+     * @throws JerielException if the task index is invalid
+     * @throws IOException if there is an error saving the task list
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JerielException, IOException {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {

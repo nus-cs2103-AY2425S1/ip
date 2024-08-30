@@ -10,6 +10,15 @@ public class AddTodoCommand extends Command {
         this.description = arguments.trim();
     }
 
+    /**
+     * Adds a todo to the task list, and saves the task list to file.
+     *
+     * @param tasks the task list to add the todo to
+     * @param ui the ui to display the result
+     * @param storage the storage to save to
+     * @throws JerielException if the description is empty
+     * @throws IOException if there is an error saving the task list
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JerielException, IOException {
         if (description.isEmpty()) {
