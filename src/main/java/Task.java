@@ -1,21 +1,21 @@
 public class Task {
-    private String desc;
-    private boolean isDone;
+    protected String desc;
+    protected boolean isDone;
     
-    Task(String desc) {
+    public Task(String desc) {
         this.desc = desc;
         this.isDone = false;
     }
 
-    String getStatus() {
-        return (isDone ? "X" : " ");
-    }
-
-    String getDesc() {
-        return desc;
-    }
-
-    void changeStatus() {
+    public void toggleStatus() {
         isDone = isDone ? false : true;
+    }
+
+    public String getStatus() {
+        return (isDone ? "[X]" : "[ ]");
+    }
+
+    public String getDesc() {
+        return desc;
     }
 }
