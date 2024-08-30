@@ -29,11 +29,12 @@ public class TaskList {
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
                 try {
-//                    System.out.println("This is the formatted task: " + Parser.dataInputToUserInput(line));
                     Task newTask = Task.createTask(Parser.dataInputToUserInput(line));
                     inputHistory.add(newTask);
                 } catch (NoTaskDescriptionException e) {
                     System.out.println("Wah, no description then I record what?");
+                } catch (InvalidTaskException e) {
+                    System.out.println("This is not a valid task lah!!");
                 }
             }
         } catch (IOException e) {

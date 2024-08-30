@@ -1,9 +1,9 @@
 package Task;
 
 import Task.TaskType.Deadline;
+import Task.TaskType.Event;
 import Task.TaskType.TaskType;
 import Task.TaskType.Todo;
-import Task.TaskType.Event;
 import exceptions.InvalidTaskException;
 import exceptions.NoTaskDescriptionException;
 
@@ -17,11 +17,13 @@ public class Task {
     protected static HashSet<String> taskNames = new HashSet<>(Arrays.asList("todo", "deadline", "event"));
 
     public static Task createTask(String description)
-            throws NoTaskDescriptionException {
+            throws InvalidTaskException, NoTaskDescriptionException {
         String strippedDescription = description.trim().toLowerCase();
         String[] words = description.split(" ");
-
-        if (words.length == 1) {
+        if (!taskNames.contains(words[0])) {
+            throw new InvalidTaskException();
+        }
+        if (words.length == 1 || words[1].equals("/from") || words[1].equals("/by")) {
             throw new NoTaskDescriptionException();
         }
 
@@ -68,14 +70,6 @@ public class Task {
 
     public String getStatusIcon() {
         return isDone ? "X" : " ";
-    }
-
-    public void printDate() {
-
-    }
-
-    public TaskType getTaskType(){
-        return this.type;
     }
 
     @Override

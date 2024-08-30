@@ -26,6 +26,8 @@ public class AddTaskCommand extends Command {
                     "----------------\n");
         } catch (NoTaskDescriptionException e) {
             System.out.println("Wah, no description then I record what?");
+        } catch (InvalidTaskException e) {
+            System.out.println("THIS IS NOT A VALID TASK LAH");
         }
     }
 }
