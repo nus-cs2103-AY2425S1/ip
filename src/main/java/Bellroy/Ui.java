@@ -1,5 +1,6 @@
 package Bellroy;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -93,6 +94,19 @@ public class Ui {
                 "       " + task + "\n" +
                 "     Now you have %d tasks in the list.\n" +
                 "    ____________________________________________________________\n", size);
+    }
+
+    public void findTask(List<Task> matchingTask) {
+        System.out.println("    ____________________________________________________________");
+        if (matchingTask.isEmpty()) {
+            System.out.println("There are no matching tasks");
+        } else {
+            System.out.println("    Here are the matching tasks in your list:\n");
+            for (int i = 0; i < matchingTask.size(); i++) {
+                System.out.println("    " + (i + 1) + ". " + matchingTask.get(i).toString());
+            }
+            System.out.println("    ____________________________________________________________\n");
+        }
     }
 
 }

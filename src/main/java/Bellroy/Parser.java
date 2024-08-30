@@ -1,11 +1,17 @@
 package Bellroy;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Parser {
 
     public void parse(String userInput, TaskList taskList, Ui ui, Storage storage) {
-        String[] input = userInput.split(" /", 2);
+        String[] input;
+        if (userInput.startsWith("find ")) {
+            input = userInput.split(" ", 2);
+        } else {
+            input = userInput.split(" /", 2);
+        }
         String type = input[0].split(" ")[0].toLowerCase();
         String description = input[0].substring(type.length());
         try {
@@ -35,7 +41,7 @@ public class Parser {
                     ui.taskAddedMessage(todo, taskList.size());
                     storage.save(taskList);
                     break;
-                case("Bellroy.deadline"):
+                case("deadline"):
                     String dueDate = input[1].split(" ", 2)[1].trim();
                     Task deadline = new deadline(description, dueDate);
                     taskList.addTask(deadline);
@@ -57,6 +63,10 @@ public class Parser {
                     ui.taskDeleted(temp, taskList.size());
                     storage.save(taskList);
                     break;
+                case("find"):
+                    String keyword = input[1].trim();
+                    List<Task> output = taskList.findTask(keyword);
+                    ui.findTask(output);
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
