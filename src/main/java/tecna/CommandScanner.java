@@ -22,7 +22,7 @@ public class CommandScanner {
         String[] input_words = this.input.split(" ");
         if (input.equalsIgnoreCase("bye")) {
             return CommandType.BYE;
-        } else if (input_words[0].equalsIgnoreCase("list")) {
+        } else if (input.equalsIgnoreCase("list")) {
             return CommandType.LIST;
         } else if (input_words[0].equalsIgnoreCase("mark")) {
             return CommandType.MARK;
