@@ -3,9 +3,9 @@ package zaibot.command;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import zaibot.Storage;
-import zaibot.TaskList;
-import zaibot.Ui;
+import zaibot.utils.Storage;
+import zaibot.utils.TaskList;
+import zaibot.utils.Ui;
 import zaibot.task.ToDoTask;
 
 import java.io.ByteArrayOutputStream;
@@ -34,7 +34,7 @@ public class TaskFindCommandTest {
         try {
             command.execute(tasks, storage);
         } catch (Exception e) {
-            Ui.displayError(e);
+            e.printStackTrace();
         } finally {
             String expected = "Filtered the tasks for you. Good enough?\n";
             Assertions.assertEquals(expected.trim(),
@@ -70,7 +70,7 @@ public class TaskFindCommandTest {
         try {
             command.execute(tasks, storage);
         } catch (Exception e) {
-            Ui.displayError(e);
+            e.printStackTrace();
         } finally {
             String expected = """
                     Filtered the tasks for you. Good enough?
@@ -92,7 +92,7 @@ public class TaskFindCommandTest {
         try {
             command.execute(tasks, storage);
         } catch (Exception e) {
-            Ui.displayError(e);
+            e.printStackTrace();
         } finally {
             String expected = """
                     Filtered the tasks for you. Good enough?

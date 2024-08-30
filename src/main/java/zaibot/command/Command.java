@@ -1,6 +1,7 @@
 package zaibot.command;
 
-import zaibot.*;
+import zaibot.utils.Storage;
+import zaibot.utils.TaskList;
 import zaibot.exception.ZaibotException;
 import zaibot.task.Task;
 
@@ -45,17 +46,21 @@ public abstract class Command {
 
     /**
      * Executes the command, having effect on the tasks and storage. Throws exception when there are
-     * errors in the argument inputs.
+     * errors in the argument inputs. Returns the response.
      *
      * @param tasks   The task list
      * @param storage The storage object
      * @throws ZaibotException if there are errors in the argument inputs
+     *
+     * @return Gets the response from zaibot.
      */
-    public void execute(TaskList tasks, Storage storage) throws ZaibotException {
+    public String execute(TaskList tasks, Storage storage) throws ZaibotException {
         Task task;
 
-        this.runCommandSpecificLogic(tasks, storage);
+        String result = this.runCommandSpecificLogic(tasks, storage);
         storage.saveToFile(tasks);
+
+        return result;
     }
 
     /**
@@ -65,5 +70,5 @@ public abstract class Command {
      * @param storage The storage object
      * @throws ZaibotException if there is an issue processing the command.
      */
-    public abstract void runCommandSpecificLogic(TaskList tasks, Storage storage) throws ZaibotException;
+    public abstract String runCommandSpecificLogic(TaskList tasks, Storage storage) throws ZaibotException;
 }

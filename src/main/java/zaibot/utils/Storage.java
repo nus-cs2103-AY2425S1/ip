@@ -1,4 +1,4 @@
-package zaibot;
+package zaibot.utils;
 
 import zaibot.exception.ZaibotException;
 import zaibot.task.DeadlineTask;
@@ -37,11 +37,11 @@ public class Storage {
 
     public Storage(TaskList taskList) {
         try {
-            Files.createDirectories(Paths.get("../data"));
+            Files.createDirectories(Paths.get("data"));
         } catch (IOException e) {
-            Ui.displayError(e);
+            System.out.println(e.getMessage());
         }
-        this.link = "../data/tasks.txt";
+        this.link = "data/tasks.txt";
         readFromFile(taskList);
     }
 

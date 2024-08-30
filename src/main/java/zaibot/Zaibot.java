@@ -1,35 +1,26 @@
 package zaibot;
 
+import zaibot.utils.Parser;
+import zaibot.utils.Storage;
+import zaibot.utils.TaskList;
+import zaibot.utils.Ui;
 import zaibot.command.Command;
 import zaibot.exception.ZaibotException;
 
-class Zaibot {
+public class Zaibot {
 
     private final TaskList taskList = new TaskList();
     private final Storage storage = new Storage(taskList);
 
-    /**
-     * Runs the bot.
-     */
-    public void run() {
-        Ui.printGreeting();
-        boolean continueLoop = true;
-        Ui.printSeparator();
+    public String runCommand(String input) {
+        String endMessage;
+        try {
+            Command command = Parser.parse(input);
+            endMessage = command.execute(taskList, storage);
 
-        while (continueLoop) {
-            try {
-                String commandInput = Ui.readCommand();
-                Command command = Parser.parse(commandInput);
-                command.execute(taskList, storage);
-                continueLoop = command.checkContinue();
-                Ui.printSeparator();
-            } catch (ZaibotException e) {
-                Ui.displayError(e);
-            }
+        } catch (ZaibotException e) {
+            endMessage = e.getMessage();
         }
-    }
-
-    public static void main(String[] args) {
-        new Zaibot().run();
+        return endMessage;
     }
 }

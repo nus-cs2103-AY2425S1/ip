@@ -1,8 +1,8 @@
 package zaibot.command;
 
-import zaibot.Storage;
-import zaibot.TaskList;
-import zaibot.Ui;
+import zaibot.utils.Storage;
+import zaibot.utils.TaskList;
+import zaibot.utils.Ui;
 
 /**
  * This class is used to signify a command to exit from the application.
@@ -13,8 +13,8 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void runCommandSpecificLogic(TaskList tasks, Storage storage) {
-        Ui.printMessage("GOODBYE");
+    public String runCommandSpecificLogic(TaskList tasks, Storage storage) {
         super.setWillContinueLoop(false);
+        return Ui.printMessage("GOODBYE");
     }
 }
