@@ -35,5 +35,4 @@ public class ParserTest {
         assertNull(result.getTask());
         assertEquals(3, result.getIndex());
     }
-    
 }
