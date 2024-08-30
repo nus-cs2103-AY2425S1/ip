@@ -1,6 +1,7 @@
 package yapmeister.task;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 /**
  * Represents a TaskList that holds tasks
@@ -43,6 +44,16 @@ public class TaskList {
 
     public ArrayList<Task> getTaskArrayList() {
         return this.tasks;
+    }
+
+    public ArrayList<Task> getFilteredArrayList(Predicate<? super Task> predicate) {
+        ArrayList<Task> filteredList = new ArrayList<>();
+        for (Task task : tasks) {
+            if (predicate.test(task)) {
+                filteredList.add(task);
+            }
+        }
+        return filteredList;
     }
 
     /**

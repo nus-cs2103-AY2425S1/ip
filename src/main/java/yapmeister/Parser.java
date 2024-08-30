@@ -10,6 +10,7 @@ import yapmeister.task.InvalidMarkException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 import static java.lang.Integer.parseInt;
 
@@ -92,6 +93,14 @@ public class Parser {
                 System.out.println("Removed this task");
                 System.out.println(removedTask.toString());
                 System.out.println(String.format("You have %d tasks", tasks.getSize()));
+                break;
+            case "find":
+                ArrayList<Task> tasks2 = tasks.getFilteredArrayList(t -> t.getTaskName().contains(command[1]));
+                i = 0;
+                for (Task filteredTask : tasks2) {
+                    System.out.println(String.format("%d. %s", i + 1, filteredTask.toString()));
+                    i++;
+                }
                 break;
             default:
                 System.out.println("Invalid input please yap yapology");
