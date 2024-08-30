@@ -8,6 +8,9 @@ import Exceptions.*;
 import Ui.Ui;
 import Storage.Storage;
 
+/**
+ * In charge of retrieving, parsing, and handling user input.
+ */
 public class Parser {
 
     private final Ui ui;
@@ -15,12 +18,24 @@ public class Parser {
     private final Storage storage;
     private Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Constructor for Parser.
+     *
+     * @param ui Ui for testament chatbot.
+     * @param taskList taskList for testament chatbot.
+     * @param storage storage for testament chatbot.
+     */
     public Parser(Ui ui, TaskList taskList, Storage storage) {
         this.ui = ui;
         this.taskList = taskList;
         this.storage = storage;
     }
 
+    /**
+     * Parses user input, and then performs the corresponding actions based on user input.
+     *
+     * @param userInput User input.
+     */
     public void parse(String userInput) {
         String[] splitUserInput = userInput.split(" ", 2);
         String identifier = splitUserInput[0];
@@ -91,10 +106,22 @@ public class Parser {
 
     }
 
+    /**
+     * Retrieves user input using a scanner.
+     */
     public void getUserInput() {
         String userInput = scanner.nextLine();
         parse(userInput);
     }
+
+    /**
+     * Checks if user has properly entered a task number in their user input.
+     * If properly entered, converts user input into task number.
+     *
+     * @param splitUserInput User input.
+     * @return Task number.
+     * @throws TestamentException thrown if user did not enter task number in input, or if format is wrong.
+     */
     private int validateTaskNumber(String[] splitUserInput) throws TestamentException {
         //check if user has specified task number
         if (splitUserInput.length < 2) {
