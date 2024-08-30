@@ -5,7 +5,8 @@ package jeff.task;
  */
 public class ToDoTask extends Task {
     /**
-     * Constructor for the ToDoTask Class. Task is marked as not done.
+     * Constructor for the ToDoTask Class.
+     * Task is marked as not done.
      *
      * @param description Description of the task.
      */
@@ -14,7 +15,8 @@ public class ToDoTask extends Task {
     }
 
     /**
-     * Constructor for the ToDoTask Class. Task may be marked as done or not done depending on the input.
+     * Constructor for the ToDoTask Class.
+     * Task may be marked as done or not done depending on the input.
      *
      * @param description Description of the task.
      * @param isDone Whether the task is marked as done or not.
@@ -24,9 +26,9 @@ public class ToDoTask extends Task {
     }
 
     /**
-     * String representation of the task.
+     * Returns the string representation of the task.
      *
-     * @return The string representation of the task.
+     * @return String representation of the task.
      */
     @Override
     public String toString() {
@@ -36,7 +38,7 @@ public class ToDoTask extends Task {
     /**
      * Returns the file string representation of the task to be stored in the task list text file.
      *
-     * @return the file string representation of the task.
+     * @return File string representation of the task.
      */
     @Override
     public String toFileString() {

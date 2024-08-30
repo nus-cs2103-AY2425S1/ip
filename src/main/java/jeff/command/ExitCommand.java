@@ -10,7 +10,8 @@ import jeff.ui.Ui;
  */
 public class ExitCommand extends Command {
     /**
-     * Constructor for ExitCommand Class. Stores the user's input.
+     * Constructor for ExitCommand Class.
+     * Stores the user's input.
      *
      * @param input User's input.
      */

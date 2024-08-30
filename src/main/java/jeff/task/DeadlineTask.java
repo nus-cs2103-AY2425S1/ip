@@ -10,7 +10,8 @@ public class DeadlineTask extends Task {
     private LocalDateTime deadline;
 
     /**
-     * Constructor for the DeadlineTask Class. Marked as not done from the start.
+     * Constructor for the DeadlineTask Class.
+     * Marked as not done from the start.
      *
      * @param description Description of the task.
      * @param deadline Date and time of when the task is due.
@@ -21,7 +22,8 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * Constructor for the DeadlineTask Class. Whether the task is marked as done or not depends.
+     * Constructor for the DeadlineTask Class.
+     * Whether the task is marked as done or not depends.
      *
      * @param description Description of the task.
      * @param deadline Date and time of when the task is due.
@@ -33,7 +35,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * String representation of the task.
+     * Returns the string representation of the task.
      *
      * @return String representation of the task.
      */
@@ -44,7 +46,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * String representation of the task to store in the task list file.
+     * Returns the string representation of the task to store in the task list file.
      *
      * @return File string representation of the task.
      */

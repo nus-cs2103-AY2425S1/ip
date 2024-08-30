@@ -13,7 +13,8 @@ import java.time.format.DateTimeParseException;
  */
 public class AddCommand extends Command {
     /**
-     * Constructor for AddCommand Class. Stores the user's input.
+     * Constructor for AddCommand Class.
+     * Stores the user's input.
      *
      * @param input User's input.
      */
@@ -22,8 +23,8 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Categorises the task based on the user's input, adds it to the task list, then prints out a statement
-     * to tell the user the task has been added.
+     * Categorises the task based on the user's input and adds it to the task list.
+     * Also prints out a statement to tell the user the task has been added.
      *
      * @param tasks Task list.
      * @param ui UI to print statements.

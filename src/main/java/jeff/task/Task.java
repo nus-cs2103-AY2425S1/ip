@@ -13,6 +13,7 @@ public class Task {
 
     /**
      * Constructor for the Task Class.
+     * Marked as not done.
      *
      * @param description Description of the task. Marked as not done.
      */
@@ -22,7 +23,8 @@ public class Task {
     }
 
     /**
-     * Constructor for the Task Class. Could be marked as done or not done.
+     * Constructor for the Task Class.
+     * Could be marked as done or not done.
      *
      * @param description Description of the task.
      * @param isDone Whether the task is completed or not.
@@ -42,7 +44,7 @@ public class Task {
     }
 
     /**
-     * String representation of the task.
+     * Returns the string representation of the task.
      *
      * @return The string representation of the task.
      */
@@ -52,14 +54,14 @@ public class Task {
     }
 
     /**
-     * Mark the task as done.
+     * Marks the task as done.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Mark the task as not done.
+     * Marks the task as not done.
      */
     public void markAsNotDone() {
         this.isDone = false;

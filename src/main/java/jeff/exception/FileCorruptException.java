@@ -7,7 +7,7 @@ public class FileCorruptException extends Exception {
     private String message;
 
     /**
-     * Constructor that creates a FileCorruptException object
+     * Constructor that creates a FileCorruptException object.
      */
     public FileCorruptException() {
         super();
@@ -15,7 +15,7 @@ public class FileCorruptException extends Exception {
     }
 
     /**
-     * Returns the message of the error
+     * Returns the message of the error.
      *
      * @return the error message
      */

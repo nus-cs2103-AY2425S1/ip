@@ -16,7 +16,8 @@ public class Jeff {
     private Ui ui;
 
     /**
-     * Constructor for the Jeff Class. Uses the given file path input to get the task list from the text file.
+     * Constructor for the Jeff Class.
+     * Uses the given file path input to get the task list from the text file.
      * Also initialises the user interface.
      *
      * @param filePath File path of the task list text file.
@@ -34,7 +35,8 @@ public class Jeff {
     }
 
     /**
-     * Run the chatbot. The chatbot terminates when the user says "bye".
+     * Runs the chatbot.
+     * The chatbot terminates when the user says "bye".
      */
     public void run() {
         this.ui.showWelcome();

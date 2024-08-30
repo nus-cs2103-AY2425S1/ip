@@ -11,7 +11,8 @@ import jeff.ui.Ui;
  */
 public class UnmarkCommand extends Command {
     /**
-     * Constructor for UnmarkCommand Class. Stores the user's input.
+     * Constructor for UnmarkCommand Class.
+     * Stores the user's input.
      *
      * @param input User's input.
      */
@@ -20,8 +21,8 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Get the target task from the task list and mark it as not done yet. Also prints out a statement
-     * to inform the user.
+     * Gets the target task from the task list and mark it as not done yet.
+     * Also prints out a statement to inform the user.
      *
      * @param tasks Task list.
      * @param ui UI to print statements.

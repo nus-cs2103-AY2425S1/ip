@@ -11,7 +11,8 @@ public class EventTask extends Task {
     private LocalDateTime end;
 
     /**
-     * Constructor to create a EventTask object. Marked as not done from the start.
+     * Constructor to create a EventTask object.
+     * Marked as not done from the start.
      *
      * @param description Description of the task.
      * @param start Start date and time of the event.
@@ -24,7 +25,8 @@ public class EventTask extends Task {
     }
 
     /**
-     * Constructor to create a EventTask object. Whether the task is marked as done or not depends.
+     * Constructor to create a EventTask object.
+     * Whether the task is marked as done or not depends.
      *
      * @param description Description of the task.
      * @param start Start date and time of the event.
@@ -39,7 +41,7 @@ public class EventTask extends Task {
     }
 
     /**
-     * String representation of the task.
+     * Returns the string representation of the task.
      *
      * @return String representation of the task.
      */
@@ -50,7 +52,7 @@ public class EventTask extends Task {
     }
 
     /**
-     * String representation of the task to store in the task list file.
+     * Returns the string representation of the task to store in the task list file.
      *
      * @return File string representation of the task.
      */

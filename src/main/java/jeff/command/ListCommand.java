@@ -10,7 +10,8 @@ import jeff.ui.Ui;
  */
 public class ListCommand extends Command {
     /**
-     * Constructor for ListCommand Class. Stores the user's input.
+     * Constructor for ListCommand Class.
+     * Stores the user's input.
      *
      * @param input User's input.
      */

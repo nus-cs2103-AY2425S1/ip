@@ -17,7 +17,8 @@ public class Storage {
     private final Path filePath;
 
     /**
-     * Constructor for the Storage Class. Stores the file path string as a Path object.
+     * Constructor for the Storage Class.
+     * Stores the file path string as a Path object.
      *
      * @param filePath Task file path string.
      */
@@ -51,7 +52,7 @@ public class Storage {
     }
 
     /**
-     * Write the tasks given to the task list text file.
+     * Writes the tasks given to the task list text file.
      *
      * @param taskList List that contains the tasks.
      * @throws JeffException if something went wrong when getting the file.

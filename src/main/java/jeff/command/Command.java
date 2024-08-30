@@ -12,7 +12,8 @@ public abstract class Command {
     String input;
 
     /**
-     * Constructor for Command Class. Stores the user's input.
+     * Constructor for Command Class.
+     * Stores the user's input.
      *
      * @param input User's input.
      */

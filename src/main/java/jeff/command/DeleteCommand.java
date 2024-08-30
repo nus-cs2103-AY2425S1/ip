@@ -11,7 +11,8 @@ import jeff.ui.Ui;
  */
 public class DeleteCommand extends Command {
     /**
-     * Constructor for DeleteCommand Class. Stores the user's input.
+     * Constructor for DeleteCommand Class.
+     * Stores the user's input.
      *
      * @param input User's input.
      */
@@ -20,8 +21,8 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Gets the task to be deleted from the task list and delete it. Also prints out a statement to
-     * inform the user.
+     * Gets the task to be deleted from the task list and delete it.
+     * Also prints out a statement to inform the user.
      *
      * @param tasks Task list.
      * @param ui UI to print statements.

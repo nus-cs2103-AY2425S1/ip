@@ -20,8 +20,8 @@ public class TaskList {
     public TaskList() {}
 
     /**
-     * Constructor for the TaskList Class. Takes in a scanner, categorises the strings into their task types and
-     * adds the tasks to the task list.
+     * Constructor for the TaskList Class.
+     * Takes in a scanner, categorises the strings into their task types and adds the tasks to the task list.
      *
      * @param scanner Scanner with task strings.
      * @throws JeffException if the file is corrupt.
@@ -86,22 +86,48 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the task at the given index in the task list.
+     *
+     * @param index Index of the target task.
+     * @return Task at the given index.
+     */
     public Task get(int index) {
         return this.tasks.get(index);
     }
 
+    /**
+     * Adds the given task to the task list.
+     *
+     * @param task Task to be added to the task list.
+     */
     public void add(Task task) {
         this.tasks.add(task);
     }
 
+    /**
+     * Removes the given task from the task list.
+     *
+     * @param task Task to be removed from the task list.
+     */
     public void remove(Task task) {
         this.tasks.remove(task);
     }
 
+    /**
+     * Returns the size of the task list.
+     *
+     * @return Size of the task list.
+     */
     public int size() {
         return this.tasks.size();
     }
 
+    /**
+     * Checks if the task list is empty or not.
+     *
+     * @return true if the task list is empty and false otherwise.
+     */
     public boolean isEmpty() {
         return this.tasks.isEmpty();
     }

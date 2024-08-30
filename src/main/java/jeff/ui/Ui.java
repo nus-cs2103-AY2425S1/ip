@@ -11,7 +11,8 @@ public class Ui {
     private Scanner scanner;
 
     /**
-     * Constructor for the Ui Class. Initialises a scanner to scan for user's input.
+     * Constructor for the Ui Class.
+     * Initialises a scanner to scan for user's input.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
@@ -34,7 +35,7 @@ public class Ui {
     }
 
     /**
-     * Reads the user's input and return it as a string.
+     * Returns the user's input scanned by the scanner.
      *
      * @return User's input.
      */
@@ -53,7 +54,8 @@ public class Ui {
     }
 
     /**
-     * Returns the same text but indented. If the text has multiple lines, each line will be indented.
+     * Returns the same text but indented.
+     * If the text has multiple lines, each line will be indented.
      *
      * @param text The string to be indented.
      * @return Indented text.

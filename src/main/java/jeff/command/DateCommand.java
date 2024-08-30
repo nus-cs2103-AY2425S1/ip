@@ -15,7 +15,8 @@ import java.util.List;
  */
 public class DateCommand extends Command {
     /**
-     * Constructor for DateCommand Class. Stores the user's input.
+     * Constructor for DateCommand Class.
+     * Stores the user's input.
      *
      * @param input User's input.
      */
