@@ -33,15 +33,6 @@ public class TaskList {
         }
     }
 
-    public void showList() {
-        System.out.println("Here are the tasks in your list:");
-        int num = 1;
-        for (int i = 0; i < lst.size(); ++i) {
-            System.out.println(num + ". " + lst.get(i).getDesc());
-            num += 1;
-        }
-    }
-
     public Task delete(int i) {
         Task task = lst.remove(i - 1);
         saveTasksToFile();
