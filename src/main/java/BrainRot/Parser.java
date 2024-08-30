@@ -1,7 +1,23 @@
 package BrainRot;
 
+/**
+ * The Parser class is responsible for interpreting user input and breaking it down
+ * into commands and details that can be processed by the application.
+ * It categorizes the input into different command types such as "list", "bye", "mark", "unmark",
+ * "delete", and "add", and returns these as a structured array.
+ */
 public class Parser {
 
+    /**
+     * Parses the user's input and categorizes it into a command and its details.
+     * The method returns a string array where the first element is the command type
+     * and the second element (if applicable) contains additional details such as the index
+     * for "mark", "unmark", or "delete" commands, or the task details for "add" commands.
+     *
+     * @param userInput The raw input string from the user.
+     * @return A string array where the first element is the command type and the second
+     * element is the command's details or the task description.
+     */
     public static String[] parse(String userInput) {
         String[] result = new String[2];
 
