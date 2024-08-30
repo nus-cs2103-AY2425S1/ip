@@ -1,6 +1,7 @@
 package chacha;
 
 import chacha.task.Task;
+
 import java.time.DateTimeException;
 import java.util.ArrayList;
 
@@ -25,31 +26,31 @@ public class Parser {
      * @return String representation.
      */
     public String parseCommand(String userInput) {
-        if (userInput.startsWith("bye")) {
+        if (userInput.equals("bye")) {
             return this.ui.printExit();
 
-        } else if (userInput.startsWith("list")) {
-            return this.listCommand();
+        } else if (userInput.equals("list")) {
+            return this.doListCommand();
 
-        } else if (userInput.startsWith("todo")) {
-            return this.addToDoCommand(userInput);
+        } else if (userInput.startsWith("todo ")) {
+            return this.doAddToDoCommand(userInput);
 
-        } else if (userInput.startsWith("deadline")) {
-            return this.addDeadlineCommand(userInput);
+        } else if (userInput.startsWith("deadline ")) {
+            return this.doAddDeadlineCommand(userInput);
 
-        } else if (userInput.startsWith("event")) {
-            return this.addEventCommand(userInput);
+        } else if (userInput.startsWith("event ")) {
+            return this.doAddEventCommand(userInput);
 
-        } else if (userInput.startsWith("mark")) {
-            return this.markCommand(userInput);
+        } else if (userInput.startsWith("mark ")) {
+            return this.doMarkCommand(userInput);
 
-        } else if (userInput.startsWith("unmark")) {
-            return this.unmarkCommand(userInput);
+        } else if (userInput.startsWith("unmark ")) {
+            return this.doUnmarkCommand(userInput);
 
-        } else if (userInput.startsWith("delete")) {
-            return this.deleteCommand(userInput);
+        } else if (userInput.startsWith("delete ")) {
+            return this.doDeleteCommand(userInput);
 
-        } else if (userInput.startsWith("find")) {
+        } else if (userInput.startsWith("find ")) {
             return this.doFindCommand(userInput);
         } else {
             String[] arr = {"Hmmm... I don't seem to understand this. Please input another command! "};
@@ -62,7 +63,7 @@ public class Parser {
      *
      * @return String representation.
      */
-    public String listCommand() {
+    public String doListCommand() {
         return this.tasks.printList(this.ui);
     }
 
@@ -71,7 +72,7 @@ public class Parser {
      *
      * @return String representation.
      */
-    public String addToDoCommand(String userInput) {
+    public String doAddToDoCommand(String userInput) {
         try {
             Task taskAdded = this.tasks.addToDo(userInput, this.ui, this.storage);
 
@@ -87,7 +88,7 @@ public class Parser {
      *
      * @return String representation.
      */
-    public String addDeadlineCommand(String userInput) {
+    public String doAddDeadlineCommand(String userInput) {
         try {
             Task taskAdded = this.tasks.addDeadline(userInput, this.ui, this.storage);
 
@@ -106,7 +107,7 @@ public class Parser {
      *
      * @return String representation.
      */
-    public String addEventCommand(String userInput) {
+    public String doAddEventCommand(String userInput) {
         try {
             Task taskAdded = this.tasks.addEvent(userInput, this.ui, this.storage);
 
@@ -125,7 +126,7 @@ public class Parser {
      *
      * @return String representation.
      */
-    public String deleteCommand(String userInput) {
+    public String doDeleteCommand(String userInput) {
         try {
             Task taskDeleted = this.tasks.deleteTask(userInput, this.ui, this.storage);
 
@@ -133,7 +134,7 @@ public class Parser {
         } catch (ChaChaException e) {
             return e.toString();
         } catch (IndexOutOfBoundsException e) {
-            String[] arr = {"I can't find such a chacha.task number... You don't enough tasks!"};
+            String[] arr = {"I can't find such a task number... You don't enough tasks!"};
             return this.ui.printStrings(arr);
         } catch (NumberFormatException e) {
             String[] arr = {"The index does not seem to be a number... Please type again. "};
@@ -146,7 +147,7 @@ public class Parser {
      *
      * @return String representation.
      */
-    public String markCommand(String userInput) {
+    public String doMarkCommand(String userInput) {
         try {
             Task taskMarked = this.tasks.markDone(userInput, this.ui, this.storage);
 
@@ -154,7 +155,7 @@ public class Parser {
         } catch (ChaChaException e) {
             return e.toString();
         } catch (IndexOutOfBoundsException e) {
-            String[] arr = {"I can't find such a chacha.task number... You don't enough tasks!"};
+            String[] arr = {"I can't find such a task number... You don't enough tasks!"};
             return this.ui.printStrings(arr);
         } catch (NumberFormatException e) {
             String[] arr = {"The index does not seem to be a number... Please type again. "};
@@ -167,7 +168,7 @@ public class Parser {
      *
      * @return String representation.
      */
-    public String unmarkCommand(String userInput) {
+    public String doUnmarkCommand(String userInput) {
         try {
             Task taskUnmarked = this.tasks.markUndone(userInput, this.ui, this.storage);
 
@@ -175,7 +176,7 @@ public class Parser {
         } catch (ChaChaException e) {
             return e.toString();
         } catch (IndexOutOfBoundsException e) {
-            String[] arr = {"I can't find such a chacha.task number... You don't enough tasks!"};
+            String[] arr = {"I can't find such a task number... You don't enough tasks!"};
             return this.ui.printStrings(arr);
         } catch (NumberFormatException e) {
             String[] arr = {"The index does not seem to be a number... Please type again. "};
