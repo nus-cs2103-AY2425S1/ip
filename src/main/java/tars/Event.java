@@ -3,7 +3,15 @@ package tars;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-public class Event extends Task{
+/**
+ * Represents an event task with a specific start and end time.
+ *
+ * <p>The Event class extends the Task class and adds start and end times to the task.
+ * These times are stored as {@link LocalDateTime} objects and are formatted for display
+ * and storage. The class also provides methods to set and get these times, and handles
+ * parsing and formatting of date and time strings.
+ */
+public class Event extends Task {
 
     private LocalDateTime from;
     private LocalDateTime to;
@@ -19,7 +27,7 @@ public class Event extends Task{
      * @param to The end time of the event in the format "yyyy-MM-dd HHmm" or "dd MMM yyyy, HH:mm".
      * @throws TarsException If either the start or end time cannot be parsed into a {@link java.time.LocalDateTime}.
      */
-    public Event (String name, boolean done, String from, String to) throws TarsException{
+    public Event(String name, boolean done, String from, String to) throws TarsException {
         super(name, done);
         try {
             this.from = DateTimeParser.parse(from);
@@ -32,7 +40,7 @@ public class Event extends Task{
     public void setFrom(String newFrom) throws TarsException {
         try {
             this.from = DateTimeParser.parse(newFrom);
-        }catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new TarsException("Invalid date format. Please use the format: yyyy-MM-dd HHmm.");
         }
     }

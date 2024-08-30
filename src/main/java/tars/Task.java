@@ -1,5 +1,13 @@
 package tars;
 
+/**
+ * Represents a task with a name and a completion status.
+ *
+ * <p>The Task class is a simple representation of a task, consisting of a name or description
+ * and a boolean indicating whether the task is completed or not. It provides methods to
+ * get and set the name and completion status, as well as a method to return a formatted
+ * string representation of the task.
+ */
 public class Task {
     private String name;
     private boolean done;

@@ -1,15 +1,22 @@
 package tars;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.format.DateTimeParseException;
 
+/**
+ * Handles the loading and saving of tasks to and from a file.
+ *
+ * <p>The Storage class is responsible for reading tasks from a specified file and
+ * writing tasks back to that file. It supports task types such as Todo, Deadline,
+ * and Event, and ensures that tasks are stored in a consistent format.
+ */
 public class Storage {
     private final String filePath;
 
@@ -52,26 +59,26 @@ public class Storage {
 
                 try {
                     switch (type) {
-                        case "T":
-                            tasks.add(new Todo(description, isDone));
-                            break;
-                        case "D":
-                            if (parts.length < 4) {
-                                throw new TarsException("Corrupt deadline task data: " + line);
-                            }
-                            String by = parts[3];
-                            tasks.add(new Deadline(description, isDone, by));
-                            break;
-                        case "E":
-                            if (parts.length < 5) {
-                                throw new TarsException("Corrupt event task data: " + line);
-                            }
-                            String from = parts[3];
-                            String to = parts[4];
-                            tasks.add(new Event(description, isDone, from, to));
-                            break;
-                        default:
-                            throw new TarsException("Unknown task type: " + type);
+                    case "T":
+                        tasks.add(new Todo(description, isDone));
+                        break;
+                    case "D":
+                        if (parts.length < 4) {
+                            throw new TarsException("Corrupt deadline task data: " + line);
+                        }
+                        String by = parts[3];
+                        tasks.add(new Deadline(description, isDone, by));
+                        break;
+                    case "E":
+                        if (parts.length < 5) {
+                            throw new TarsException("Corrupt event task data: " + line);
+                        }
+                        String from = parts[3];
+                        String to = parts[4];
+                        tasks.add(new Event(description, isDone, from, to));
+                        break;
+                    default:
+                        throw new TarsException("Unknown task type: " + type);
                     }
                 } catch (DateTimeParseException e) {
                     throw new TarsException("Invalid date format in task data: " + line);

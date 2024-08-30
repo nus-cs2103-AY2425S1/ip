@@ -1,6 +1,13 @@
 package tars;
 
-public class Todo extends Task{
+/**
+ * Represents a simple task without any specific date or time associated with it.
+ *
+ * <p>The Todo class extends the Task class, providing a basic task type that
+ * only has a name and a completion status. Unlike other task types, such as
+ * Deadline or Event, a Todo task does not have a date or time associated with it.
+ */
+public class Todo extends Task {
 
     /**
      * Constructs a new Todo task with the specified name and completion status.
@@ -9,7 +16,7 @@ public class Todo extends Task{
      * @param done the completion status of the todo task; {@code true} if the task is done,
      *             {@code false} if the task is not done.
      */
-    public Todo (String name, boolean done) {
+    public Todo(String name, boolean done) {
         super(name, done);
     }
 
