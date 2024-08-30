@@ -34,6 +34,10 @@ public class TaskList implements Iterable<Task> {
         return tasks.size();
     }
 
+    public Boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
     @Override
     public Iterator<Task> iterator() {
         return tasks.iterator();
