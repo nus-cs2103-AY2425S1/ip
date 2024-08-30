@@ -60,6 +60,17 @@ public class Parser {
     }
 
     /**
+     * Parse user input command to generate the appropriate UserCommand to be executed
+     * @param userInput String representing the user input command
+     * @return UserCommand to be executed
+     * @throws InvalidCommandException
+     */
+    public static UserCommand parseUserCommand(String userInput) throws InvalidCommandException {
+        String commandName = userInput.split(" ")[0];
+        return UserCommand.toCommand(commandName);
+    }
+
+    /**
      * Parse user input date from yyyy-mm-dd hhmm format to d mmm yyyy format
      * @param date User input string representing the date
      * @return Output string representing date in d mmm yyyy format
