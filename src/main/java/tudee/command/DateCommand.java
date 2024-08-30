@@ -1,20 +1,19 @@
 package tudee.command;
 
 import tudee.task.TaskList;
-import tudee.ui.Ui;
-import tudee.storage.Storage;
 import tudee.task.Task;
 import tudee.task.Deadline;
 import tudee.task.Events;
+import tudee.ui.Ui;
+import tudee.storage.Storage;
 import tudee.TudeeException;
-
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class DateCommand extends Command {
-    private LocalDate date;
+    private final LocalDate date;
 
     public DateCommand(String dateStr) throws TudeeException {
         try {
@@ -31,14 +30,14 @@ public class DateCommand extends Command {
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
                 if (deadline.getDateTime().isEqual(date)) {
-                    System.out.println(deadline);
+                    ui.showTask(deadline);
                     haveTask = true;
                 }
             } else if (task instanceof Events) {
                 Events events = (Events) task;
                 if ((events.getStart().isBefore(date) && events.getEnd().isAfter(date))
                         || events.getStart().isEqual(date) || events.getEnd().isEqual(date)) {
-                    System.out.println(events);
+                    ui.showTask(events);
                     haveTask = true;
                 }
             }

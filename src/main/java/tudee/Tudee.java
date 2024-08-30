@@ -1,9 +1,9 @@
 package tudee;
 
 import tudee.storage.Storage;
+import tudee.task.TaskList;
 import tudee.ui.Ui;
 import tudee.parser.Parser;
-import tudee.task.TaskList;
 import tudee.command.Command;
 
 public class Tudee {
@@ -11,6 +11,11 @@ public class Tudee {
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Initializes the Tudee chatbot with the specified file path.
+     *
+     * @param filePath Path to the file where tasks are stored.
+     */
     public Tudee(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -21,6 +26,9 @@ public class Tudee {
         }
     }
 
+    /**
+     * Creates the Tudee chatbot main loop
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -37,6 +45,9 @@ public class Tudee {
         ui.close();
     }
 
+    /**
+     * Starts the Tudee chatbot
+     */
     public static void main(String[] args) {
         new Tudee("./data/tudee.txt").run();
     }

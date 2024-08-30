@@ -7,7 +7,7 @@ import tudee.storage.Storage;
 import tudee.TudeeException;
 
 public class DeleteCommand extends Command {
-    private int index;
+    private final int index;
 
     public DeleteCommand(int index) {
         this.index = index;
