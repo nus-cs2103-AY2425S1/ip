@@ -35,6 +35,8 @@ public class Parser {
                 return Optional.of(new ModifyCommand(CommandVerb.UNMARK, commandArray[1]));
             case "delete":
                 return Optional.of(new ModifyCommand(CommandVerb.DELETE, commandArray[1]));
+            case "find":
+                return Optional.of(new FindCommand(CommandVerb.FIND, commandArray[1]));
             case "bye":
                 return Optional.of(new ByeCommand());
             default:
@@ -42,7 +44,7 @@ public class Parser {
             }
         } catch (InstructionInvalid e) {
             System.out.println("Invalid Instruction. Only valid Instructions are "
-                    + "list, todo, deadline, event, mark, unmark, delete");
+                    + "list, todo, deadline, event, mark, unmark, delete, find");
             return Optional.empty();
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("There's an issue in the instruction format. "

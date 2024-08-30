@@ -2,6 +2,8 @@ package knight2103.tasks;
 
 import java.util.ArrayList;
 
+// TASKLIST CANNOT HAVE UI
+
 public class TaskList {
     private final ArrayList<Task> taskList;
 
@@ -55,6 +57,28 @@ public class TaskList {
             stringToWrite += this.taskList.get(i).saveToFileFormat() + "\n";
         }
         return stringToWrite;
+    }
+
+    /**
+     * Returns a String which represents a formatted list of tasks
+     * that contain the word to be searched.
+     *
+     * @return Formatted list of tasks that contain the search word.
+     */
+    public String searchPrintToList(String wordSearch) {
+        String stringToPrint = "";
+        int bulletPoint = 0;
+        for (int i = 0; i < this.taskList.size(); i++) {
+            Task searchedTask = this.taskList.get(i);
+            if (searchedTask.getDescription().contains(wordSearch)) {
+                bulletPoint++;
+                stringToPrint += bulletPoint + ". " + searchedTask + "\n";
+            }
+        }
+        if (bulletPoint == 0) {
+            stringToPrint = "NIL: There is no matching tasks.\n";
+        }
+        return stringToPrint;
     }
 
     /**

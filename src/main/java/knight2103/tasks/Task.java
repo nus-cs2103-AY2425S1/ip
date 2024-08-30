@@ -13,6 +13,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     /**
      * Marks the task as done.
      */
@@ -36,11 +40,6 @@ public class Task {
         return String.format("| %d | %s", this.isDone ? 1 : 0, this.description);
     }
 
-    /**
-     * Returns the output in String as a representation of Task object.
-     *
-     * @return String representation of Task object.
-     */
     @Override
     public String toString() {
         return String.format("[%s] %s", isDone ? "X" : " ", this.description);
