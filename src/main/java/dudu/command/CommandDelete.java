@@ -11,9 +11,24 @@ import java.io.IOException;
 public class CommandDelete extends Command {
     int index;
 
+    /**
+     * Constructs a CommandDelete with the specified task.
+     *
+     * @param index The index of the task to be deleted.
+     */
     public CommandDelete(int index) {
         this.index = index;
     }
+
+    /**
+     * Executes the command by deleting the task from the task list, updating
+     * the user interface with the deleted task, and saving the updated task list to storage.
+     *
+     * @param taskList The task list on which the command is executed.
+     * @param ui The user interface to interact with the user.
+     * @param storage The storage to save the task.
+     * @throws IOException If there is an error during saving the task to storage.
+     */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws IOException {
         Task deletedTask = taskList.deleteTask(this.index);
@@ -21,6 +36,11 @@ public class CommandDelete extends Command {
         ui.deleteTask(deletedTask);
     }
 
+    /**
+     * Indicates that this command will not cause the application to exit.
+     *
+     * @return false, as this command always does not cause the application to exit.
+     */
     @Override
     public boolean isExit() {
         return false;
