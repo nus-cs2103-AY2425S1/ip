@@ -327,6 +327,57 @@ public class Brock {
         writeToFile(fileContents, true);
     }
 
+    // Suppressed warnings for the text block suggestion, fuck that
+    @SuppressWarnings("TextBlockMigration")
+    private static String[] validateDateTime(String dateTimeString, int dateTimeWords) throws BrockException {
+        if (dateTimeWords > 2) {
+            throw new BrockException("Valid date is expected to follow one of the below formats\n"
+                    + "<yyyy-mm-dd> OR\n"
+                    + "<yyyy-mm-dd> <24hr-time>");
+        }
+
+        String dateStringFinal = "";
+        String timeStringFinal = "";
+        if (dateTimeWords == 1) {
+            String dateString = dateTimeString.trim();
+            String[] dateParts = dateString.split("-");
+
+            if (dateParts.length != 3) {
+                throw new BrockException("Date string is not in the <yyyy-mm-dd> format!");
+            }
+            dateStringFinal = dateString;
+        }
+        if (dateTimeWords == 2) {
+            String[] dateTimeParts = dateTimeString.trim()
+                    .split(" ");
+            String dateString = dateTimeParts[0];
+            String timeString = dateTimeParts[1];
+            String[] dateParts = dateString.split("-");
+
+            if (dateParts.length != 3) {
+                throw new BrockException("Date string is not in the <yyyy-mm-dd> format!");
+            }
+            if (isNotInteger(timeString)) {
+                throw new BrockException("Time string is not a number!");
+            } else {
+                int time = Integer.parseInt(timeString);
+                if (time < 0 || time > 2359) {
+                    throw new BrockException("Time string must be between 0000 - 2359!");
+                }
+                // Convert to string
+                // Force length == 4 with 0s as front-padding
+                timeStringFinal = String.format("%04d", time);
+            }
+            dateStringFinal = dateString;
+        }
+
+        if (timeStringFinal.isEmpty()) {
+            return new String[]{dateStringFinal};
+        } else {
+            return new String[]{dateStringFinal, timeStringFinal};
+        }
+    }
+
     // Helper function to create task and return the created task
     private static Task createTask(String command) throws BrockException {
         String[] commandWords = command.split(" ");
@@ -351,46 +402,59 @@ public class Brock {
                 description.append(commandWords[i])
                         .append(" ");
             }
-            StringBuilder dueDate = new StringBuilder();
-            boolean hasSeenDueDate = false;
+            StringBuilder dateTime = new StringBuilder();
+            boolean isSeeingDateTime = false;
+            int dateTimeWords = 0;
             for (String word : commandWords) {
-                if (hasSeenDueDate) {
-                    dueDate.append(word)
+                if (isSeeingDateTime) {
+                    dateTimeWords += 1;
+                    dateTime.append(word)
                             .append(" ");
                 }
                 if (word.equalsIgnoreCase("/by")) {
-                    hasSeenDueDate = true;
+                    isSeeingDateTime = true;
                 }
             }
 
-            if (dueDate.isEmpty()) {
+            if (dateTime.isEmpty()) {
                 throw new BrockException("Missing due date! Remember it is specified after /by!");
             }
-            // Trim away the trailing whitespace
-            task = new Deadlines(description.toString(),
-                    dueDate.toString().trim());
+            String[] dateTimeValues = validateDateTime(dateTime.toString()
+                    , dateTimeWords);
+            if (dateTimeValues.length == 1) {
+                return new Deadlines(description.toString()
+                        , dateTimeValues[0]);
+            } else {
+                return new Deadlines(description.toString()
+                        , dateTimeValues[0]
+                        , dateTimeValues[1]);
+            }
 
         } else if (firstWord.equalsIgnoreCase("event")) {
-            StringBuilder startDate = new StringBuilder();
-            StringBuilder endDate = new StringBuilder();
-            boolean hasSeenStartDate = false;
-            boolean hasSeenEndDate = false;
+            StringBuilder startDateTime = new StringBuilder();
+            StringBuilder endDateTime = new StringBuilder();
+            boolean isSeeingStartDateTime = false;
+            boolean isSeeingEndDateTime = false;
+            int startDateTimeWords = 0;
+            int endDateTimeWords = 0;
             for (String word : commandWords) {
                 if (word.equalsIgnoreCase("/from")) {
-                    hasSeenStartDate = true;
+                    isSeeingStartDateTime = true;
                     continue;
                 }
                 if (word.equalsIgnoreCase("/to")) {
-                    hasSeenStartDate = false;
-                    hasSeenEndDate = true;
+                    isSeeingStartDateTime = false;
+                    isSeeingEndDateTime = true;
                     continue;
                 }
-                if (hasSeenStartDate) {
-                    startDate.append(word)
+                if (isSeeingStartDateTime) {
+                    startDateTimeWords += 1;
+                    startDateTime.append(word)
                             .append(" ");
                 }
-                if (hasSeenEndDate) {
-                    endDate.append(word)
+                if (isSeeingEndDateTime) {
+                    endDateTimeWords += 1;
+                    endDateTime.append(word)
                             .append(" ");
                 }
             }
@@ -402,16 +466,31 @@ public class Brock {
                         .append(" ");
             }
 
-            if (startDate.isEmpty()) {
+            if (startDateTime.isEmpty()) {
                 throw new BrockException("Missing start date! Remember it is specified after /from!");
             }
-            if (endDate.isEmpty()) {
+            if (endDateTime.isEmpty()) {
                 throw new BrockException("Missing end date! Remember it is specified after /to!");
             }
-            // Trim away the trailing whitespace
-            task = new Events(description.toString(),
-                    startDate.toString(),
-                    endDate.toString().trim());
+            if (startDateTimeWords != endDateTimeWords) {
+                throw new BrockException("Both start and end dates must either include or exclude a time!");
+            }
+
+            String[] startDateTimeValues = validateDateTime(startDateTime.toString()
+                    , startDateTimeWords);
+            String[] endDateTimeValues = validateDateTime(endDateTime.toString()
+                    , endDateTimeWords);
+            if (startDateTimeWords == 1) {
+                return new Events(description.toString()
+                        , startDateTimeValues[0]
+                        , endDateTimeValues[0]);
+            } else {
+                return new Events(description.toString()
+                        , startDateTimeValues[0]
+                        , startDateTimeValues[1]
+                        , endDateTimeValues[0]
+                        , endDateTimeValues[1]);
+            }
 
         } else {
             throw new BrockException("Invalid command!");
