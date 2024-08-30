@@ -37,6 +37,13 @@ public abstract class Task {
      */
     public abstract String toFileString();
 
+
+    /**
+     *
+     * @param s String containing text to parse into a Task
+     * @return A <code>Task</code> corresponding to the parsed text
+     * @throws IllegalArgumentException if input string has invalid format
+     */
     public static Task fromFileString(String s) throws IllegalArgumentException{
         String[] params = s.split(" \\| ");
         String type = params[0];

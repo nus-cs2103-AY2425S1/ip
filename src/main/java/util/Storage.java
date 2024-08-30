@@ -53,7 +53,6 @@ public class Storage {
      *
      */
     public static List<Task> readFile() {
-        //TODO Read saved data and return List<Task>
         //Outer try/catch for file access errors
         try {
             List<String> readBuffer = Files.readAllLines(FILEPATH);
