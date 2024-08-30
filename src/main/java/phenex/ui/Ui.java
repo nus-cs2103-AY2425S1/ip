@@ -1,3 +1,10 @@
+package phenex.ui;
+
+import phenex.exception.PhenexException;
+import phenex.task.Task;
+import phenex.task.TaskList;
+import phenex.task.TaskWithDate;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -32,7 +39,7 @@ public class Ui {
     }
 
     public void printTaskList(TaskList taskList) {
-        int size = taskList.tasks.size();
+        int size = taskList.getTasks().size();
         if (size == 0) {
             System.out.println("\t No scheduled missions. Rest up for the next battle, soldier!");
             return;
@@ -57,7 +64,7 @@ public class Ui {
         }
 
         System.out.println("\tMissions on " + localDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " :\n");
-        for (Task task : taskList.tasks) {
+        for (Task task : taskList.getTasks()) {
             if (task instanceof TaskWithDate) {
                 // ok to cast here due to type checking during run time
                 TaskWithDate taskWithDate = (TaskWithDate) task;
@@ -93,7 +100,7 @@ public class Ui {
     }
 
     public static void printTaskAddedMessage(Task taskAdded, int taskListSize) {
-        System.out.println("\t Mission " + taskAdded.name + " added:");
+        System.out.println("\t Mission " + taskAdded.getName() + " added:");
         System.out.println("\t   " + taskAdded);
         System.out.println("\t Total upcoming missions: " + taskListSize);
     }

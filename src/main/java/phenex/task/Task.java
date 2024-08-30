@@ -1,3 +1,5 @@
+package phenex.task;
+
 public abstract class Task {
     protected final String name;
     protected boolean isCompleted;
@@ -7,6 +9,18 @@ public abstract class Task {
         this.name = name;
         this.isCompleted = false;
         this.symbol = symbol;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public boolean isCompleted() {
+        return this.isCompleted;
+    }
+
+    public String getSymbol() {
+        return this.symbol;
     }
 
     protected void setCompleted() {
