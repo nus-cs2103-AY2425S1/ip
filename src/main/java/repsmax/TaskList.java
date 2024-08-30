@@ -3,6 +3,7 @@ package repsmax;
 import java.util.List;
 import java.util.ArrayList;
 import repsmax.Task;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
@@ -76,5 +77,21 @@ public class TaskList {
      */
     public List<Task> getTasks() {
         return tasks;
+    }
+
+    /**
+     * Searches for tasks containing the specified keyword in their description.
+     * <p>
+     * This method filters the tasks and returns a list of tasks where the
+     * description contains the keyword (case-insensitive).
+     * </p>
+     *
+     * @param keyword the keyword to search for in task descriptions.
+     * @return a list of tasks that contain the keyword in their description.
+     */
+    public List<Task> find(String keyword) {
+        return tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
     }
 }

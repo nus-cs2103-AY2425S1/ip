@@ -1,5 +1,7 @@
 package repsmax;
 
+import java.util.List;
+
 /**
  * Parses user input and executes corresponding commands.
  * The <code>Parser</code> class is responsible for interpreting user input, managing tasks,
@@ -16,6 +18,7 @@ public class Parser {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_BYE = "bye";
+    private static final String COMMAND_FIND = "find";
 
     /**
      * Parses the user's input and executes the corresponding command.
@@ -60,6 +63,10 @@ public class Parser {
 
             case COMMAND_BYE:
                 handleByeCommand(tasks, ui, storage);
+                break;
+
+            case COMMAND_FIND:
+                handleFindCommand(splitInput, tasks, ui);
                 break;
 
             default:
@@ -229,6 +236,23 @@ public class Parser {
         ui.showMessage("Bye. Hope to see you again soon!");
         storage.save(tasks);
         System.exit(0);
+    }
+
+    /**
+     * Handles the "find" command, searching for tasks with the given keyword.
+     *
+     * @param splitInput The user's input split into command and arguments.
+     * @param tasks      The list of tasks to be searched.
+     * @param ui         The user interface to interact with the user.
+     */
+    private void handleFindCommand(String[] splitInput, TaskList tasks, Ui ui) {
+        if (splitInput.length > 1) {
+            String keyword = splitInput[1];
+            List<Task> results = tasks.find(keyword);
+            ui.showSearchResults(results);
+        } else {
+            ui.showError("OOPS!!! The find command must include a keyword.");
+        }
     }
 }
 
