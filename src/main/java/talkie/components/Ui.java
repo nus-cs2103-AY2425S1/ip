@@ -172,11 +172,21 @@ public class Ui {
         System.out.println(String.format("%s\n", e));
     }
 
+    /**
+     * Searches for tasks containing the specified keyword and displays the matching tasks.
+     * <p>
+     * This method iterates through the provided {@code TaskList}, checks each task for the presence of the keyword,
+     * and collects the tasks that match. It then displays the matching tasks or appropriate messages if no tasks
+     * are found or if the task list is empty.
+     * </p>
+     *
+     * @param tasks The {@code TaskList} containing all tasks to search through.
+     * @param keyword The keyword to search for in the task descriptions.
+     */
     public void findTasks(TaskList tasks, String keyword) {
-
         if (tasks.isEmpty()) {
             String emptyMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
-                    + "There are no tasks your list! \n"
+                    + "There are no tasks in your list! \n"
                     + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
             System.out.println(emptyMessage);
         }
@@ -191,11 +201,10 @@ public class Ui {
 
         if (searchedList.isEmpty()) {
             String noTaskMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
-                    + "There are no tasks your list! \n"
+                    + "There are no tasks found in your list! \n"
                     + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
             System.out.println(noTaskMessage);
         }
-
 
         StringBuilder searchedListMessage = new StringBuilder();
         for (int i = 1; i <= searchedList.size(); i++) {
@@ -206,8 +215,9 @@ public class Ui {
 
         String finalMessage = MessageType.HORIZONTAL_LINE.getMessage() + "\n"
                 + "Here are the matching tasks in your list:\n"
-                +  searchedListMessage
+                + searchedListMessage
                 + MessageType.HORIZONTAL_LINE.getMessage() + "\n";
         System.out.println(finalMessage);
     }
+
 }
