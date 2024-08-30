@@ -13,7 +13,7 @@ import nether.task.TodoTask;
 
 public class Parser {
     /**
-     * Parses the user input to identify the command and extracts details relevant to the command.
+     * Parses the user input to identify the {@code Command} and extracts details relevant to the {@code Command}.
      *
      * @param userInput The full input string provided by the user (without trailing or leading whiespaces).
      * @return An array of strings containing the parts of the user input necessary to create tasks.
@@ -50,7 +50,8 @@ public class Parser {
     }
 
     /**
-     * Extracts the command from the user's input string. The command is assumed to be the first word of the input.
+     * Extracts the {@code Command} from the user's input string. The command is assumed to be the
+     * first word of the input.
      *
      * @param userInput The full input string provided by the user.
      * @return The command in lowercase (e.g., "todo", "deadline", or "event").
@@ -60,8 +61,8 @@ public class Parser {
     }
 
     /**
-     * Processes the user input into parts, making it easier to instantiate the respective tasks.
-     * Splits the input based on the command and uses regex to identify task details.
+     * Processes the user input into parts, making it easier to instantiate the respective {@code Task} objects.
+     * Splits the input based on the command and uses regex to identify {@code Task} details.
      *
      * @param userInput The full input string provided by the user (without leading or trailing whitespaces).
      * @param taskType The type of task ("todo", "deadline", or "event").
@@ -116,8 +117,8 @@ public class Parser {
     }
 
     /**
-     * Returns the index/number of the task stated in the user input.
-     * Useful for commands like mark/unmark.
+     * Returns the index/number of the {@code Task} stated in the user input.
+     * Useful for commands like {@code mark} or {@code unmark}.
      *
      * @param userInput The input string provided by the user.
      * @return The task number (index + 1) to be marked/unmarked if successfully parsed; -1 otherwise.
