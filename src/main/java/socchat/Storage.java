@@ -15,14 +15,11 @@ import java.io.File;
 import java.util.Scanner;
 
 public class Storage {
-    private Parser parser = new Parser();
     private static String filePath;
-    private ArrayList<Task> savedTasks = new ArrayList<>();
-
     public Storage(String filePath) {
-        this.filePath = filePath;
+        Storage.filePath = filePath;
     }
-    public ArrayList<Task> load() throws SocchatException {
+    public static ArrayList<Task> load() throws SocchatException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             File file = new File(filePath);
@@ -48,12 +45,12 @@ public class Storage {
                 } else if (type.equals("E")) {
                     String date =strToken[3].trim();
                     String[] dateToken = date.split("to");
-                    LocalDateTime from = parser.parseDate(dateToken[0].trim());
-                    LocalDateTime to = parser.parseDate(dateToken[1].trim());
+                    LocalDateTime from = Parser.parseDate(dateToken[0].trim());
+                    LocalDateTime to = Parser.parseDate(dateToken[1].trim());
                     t = new Event(des, from, to, isDone);
                 } else {
                     String date =strToken[3].trim();
-                    LocalDateTime by = parser.parseDate(date);
+                    LocalDateTime by = Parser.parseDate(date);
 
                     t = new Deadline(des, by, isDone);
                 }

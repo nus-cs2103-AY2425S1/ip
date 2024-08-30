@@ -16,11 +16,6 @@ public class TaskList {
 
     public TaskList() {
         this.tasks = new ArrayList<>();
-        String fileName = "savedTasks.txt";
-        File file = new File(fileName); // delete the existing file
-        if (file.exists()) {
-            file.delete();
-        }
     }
 
     public TaskList(ArrayList<Task> tasks) {
@@ -36,7 +31,7 @@ public class TaskList {
             System.out.println("Deleted "  + "\"" +  task.toString() + "\"");
             System.out.println("Now you have " + tasks.size() + " task(s).");
 
-            storage.update(tasks, false);
+            Storage.update(tasks, false);
         } catch (IndexOutOfBoundsException e) {
             throw new SocchatException("Invalid task number.");
         } catch (NumberFormatException e) {
