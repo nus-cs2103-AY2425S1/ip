@@ -1,8 +1,9 @@
 package luke;
 
-import luke.command.Command;
 import java.util.List;
 import java.util.Arrays;
+
+import luke.command.Command;
 public class Parser {
     public Command parseSavedData(String input) {
         List<String> inputList = Arrays.asList(input.split("\\|"));

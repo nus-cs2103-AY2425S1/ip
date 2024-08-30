@@ -1,15 +1,15 @@
 package luke;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Scanner;
+
 import luke.command.Command;
 import luke.env.Constants;
 import luke.task.NoDescriptionException;
 import luke.task.UnknownCommandException;
 import luke.task.Task;
 import luke.task.TaskList;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Scanner;
 
 public class Ui {
     private Storage storage;

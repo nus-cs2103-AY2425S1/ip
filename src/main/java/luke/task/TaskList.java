@@ -1,8 +1,9 @@
 package luke.task;
 
+import java.util.ArrayList;
+
 import luke.env.Constants;
 
-import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
