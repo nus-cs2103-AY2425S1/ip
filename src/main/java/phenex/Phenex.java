@@ -35,9 +35,9 @@ public class Phenex {
     public static void main(String[] args) {
         String home = System.getProperty("user.home");
         Path filePath = Paths.get(home, "Downloads", "CS2103T_AY2425", "iP", "data", "phenex.txt");
-        Phenex p = new Phenex(filePath);
+        Phenex phenex = new Phenex(filePath);
 
-        p.ui.greet();
+        phenex.ui.greet();
 
         Scanner scanner = new Scanner(System.in);
         String userInput;
@@ -96,30 +96,30 @@ public class Phenex {
             deleteMatcher = deletePattern.matcher(userInput);
             dateCheckMatcher = dateCheckPattern.matcher(userInput);
 
-            p.ui.printLine();
+            phenex.ui.printLine();
 
             try {
                 if (listMatcher.find()) {
-                    p.ui.printTaskList(p.tasks);
+                    phenex.ui.printTaskList(phenex.tasks);
                 } else if (markMatcher.find()) {
                     // mark phenex.task as done
-                    int idx = p.parser.getIndexOfTask(markMatcher, CommandType.COMMAND_MARK);
-                    p.tasks.markTaskCompleted(idx);
+                    int idx = phenex.parser.getIndexOfTask(markMatcher, CommandType.COMMAND_MARK);
+                    phenex.tasks.markTaskCompleted(idx);
                 } else if (unmarkMatcher.find()) {
                     // unmark phenex.task as done
-                    int idx = p.parser.getIndexOfTask(unmarkMatcher, CommandType.COMMAND_UNMARK);
-                    p.tasks.markTaskIncomplete(idx);
+                    int idx = phenex.parser.getIndexOfTask(unmarkMatcher, CommandType.COMMAND_UNMARK);
+                    phenex.tasks.markTaskIncomplete(idx);
                 } else if (todoMatcher.matches()) {
-                    p.tasks.addTask(todoMatcher, TaskList.TaskType.TASK_TODO);
+                    phenex.tasks.addTask(todoMatcher, TaskList.TaskType.TASK_TODO);
                 } else if (deadlineMatcher.matches()) {
-                    p.tasks.addTask(deadlineMatcher, TaskList.TaskType.TASK_DEADLINE);
+                    phenex.tasks.addTask(deadlineMatcher, TaskList.TaskType.TASK_DEADLINE);
                 } else if (eventMatcher.matches()) {
-                    p.tasks.addTask(eventMatcher, TaskList.TaskType.TASK_EVENT);
+                    phenex.tasks.addTask(eventMatcher, TaskList.TaskType.TASK_EVENT);
                 } else if (deleteMatcher.matches()) {
-                    int idx = p.parser.getIndexOfTask(deleteMatcher, CommandType.COMMAND_DELETE);
-                    p.tasks.deleteTask(idx);
+                    int idx = phenex.parser.getIndexOfTask(deleteMatcher, CommandType.COMMAND_DELETE);
+                    phenex.tasks.deleteTask(idx);
                 } else if (dateCheckMatcher.matches()) {
-                    p.ui.printAllTasksOn(dateCheckMatcher, p.tasks);
+                    phenex.ui.printAllTasksOn(dateCheckMatcher, phenex.tasks);
                 } else {
                     Ui.printInvalidInputMessage();
                 }
@@ -127,11 +127,11 @@ public class Phenex {
                 Ui.printExceptionMessage(e);
             }
 
-            p.ui.printLine();
+            phenex.ui.printLine();
         }
 
-        p.storage.storeTasksToMemory(p.tasks);
+        phenex.storage.storeTasksToMemory(phenex.tasks);
         scanner.close();
-        p.ui.sayFarewell();
+        phenex.ui.sayFarewell();
     }
 }
