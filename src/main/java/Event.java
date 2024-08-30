@@ -17,6 +17,6 @@ public class Event extends Task{
     @Override
     public String toFileString() {
         int markedInt = this.isMarked() ? 1 : 0;
-        return String.format("E | %d | %s | %s", markedInt, this.from, this.to);
+        return String.format("E | %d | %s | %s | %s", markedInt, this.getName(), this.from, this.to);
     }
 }
