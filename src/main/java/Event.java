@@ -15,24 +15,22 @@ public class Event extends Task {
     }
 
     public void convertStringToTask(String[] slicedStr) {
-        String[] task = Arrays.copyOfRange(slicedStr, 1, slicedStr.length);
-        String taskDetail = String.join(" ", task);
-        String[] eventTask = taskDetail.split(" /");
-        this.description = eventTask[0];
-        System.out.println(eventTask[1].substring(5));
-        this.startTime = convertStringToDateTime(eventTask[1].substring(5));
-        this.endTime = convertStringToDateTime(eventTask[2].substring(3));
+        String taskDetails = String.join(" ",Arrays.copyOfRange(slicedStr, 1, slicedStr.length));
+        String[] taskParts = taskDetails.split(" /from | /to ");
+        this.description = taskParts[0];
+        this.startTime = parseDateTime(taskParts[1]);
+        this.endTime = parseDateTime(taskParts[2]);
     }
 
     public void convertSavedDataToTask(String[] dataArr) {
         this.setMarkStatus(dataArr[1].equals("1"));
         this.description = dataArr[2];
-        this.startTime = convertStringToDateTime(dataArr[3]);
-        this.endTime = convertStringToDateTime(dataArr[4]);
+        this.startTime = parseDateTime(dataArr[3]);
+        this.endTime = parseDateTime(dataArr[4]);
 
     }
 
-    public LocalDateTime convertStringToDateTime(String dateStr) {
+    public LocalDateTime parseDateTime(String dateStr) {
         List<DateTimeFormatter> dateTimeFormatters = Arrays.asList(
                 DateTimeFormatter.ofPattern("d MMM yyyy HHmm"),
                 DateTimeFormatter.ofPattern("d MMM yyyy ha"),
@@ -93,6 +91,12 @@ public class Event extends Task {
         }
 
         throw new IllegalArgumentException("Oops! Date format not recognized: " + dateStr + ". Have you entered the correct time?");
+    }
+    @Override
+    public String toSavedFormat(String separation) {
+        return super.toSavedFormat(separation)
+                + separation + startTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
+                + separation + endTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     @Override

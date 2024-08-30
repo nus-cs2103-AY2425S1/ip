@@ -17,6 +17,15 @@ public class Task {
         this.isDone = status;
     }
 
+    public String toSavedFormat(String separation) {
+        return type + separation + (isDone ? "1" : "0") + separation + description;
+    }
+
+    public void convertSavedDataToTask(String[] dataArr) {
+        this.isDone = dataArr[1].equals("1");
+        this.description = dataArr[2];
+    }
+
     @Override
     public String toString() {
         return this.description;

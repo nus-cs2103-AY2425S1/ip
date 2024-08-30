@@ -13,18 +13,18 @@ public class Deadline extends Task{
     public void convertStringToTask(String[] slicedStr) {
         String[] task = Arrays.copyOfRange(slicedStr, 1, slicedStr.length);
         String deadlineTaskDetail = String.join(" ", task);
-        String[] deadlineTask = deadlineTaskDetail.split(" /");
-        this.description = deadlineTask[0];
-        this.dueTime = convertStringToDate(deadlineTask[1].substring(3));
+        String[] taskParts = deadlineTaskDetail.split(" /by ");
+        this.description = taskParts[0];
+        this.dueTime = parseDate(taskParts[1]);
     }
 
     public void convertSavedDataToTask(String[] dataArr) {
         this.setMarkStatus(dataArr[1].equals("1"));
         this.description = dataArr[2];
-        this.dueTime = convertStringToDate(dataArr[3]);
+        this.dueTime = parseDate(dataArr[3]);
     }
 
-    public LocalDate convertStringToDate(String dateStr) {
+    public LocalDate parseDate(String dateStr) {
         List<DateTimeFormatter> formatters = Arrays.asList(
             DateTimeFormatter.ofPattern("d MMM yyyy"),
             DateTimeFormatter.ofPattern("yyyy-MM-dd"),
@@ -52,6 +52,11 @@ public class Deadline extends Task{
             }
         }
         throw new IllegalArgumentException("Oops! Date format not recognized: " + dateStr + " If you have entered a time, please remove it.");
+    }
+
+    @Override
+    public String toSavedFormat(String separation) {
+        return super.toSavedFormat(separation) + separation + dueTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     @Override
