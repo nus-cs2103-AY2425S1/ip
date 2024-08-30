@@ -15,6 +15,9 @@ public class TaskList {
     }
 
     public Task removeTaskAtIndex(int index) {
+        if (this.size() <= index) {
+            return null;
+        }
         return this.taskList.remove(index);
     }
 
@@ -23,11 +26,15 @@ public class TaskList {
     }
 
     public void markTaskAtIndex(int index) {
-        this.taskList.get(index).mark();
+        if (this.size() > index) {
+            this.taskList.get(index).mark();
+        }
     }
 
     public void unmarkTaskAtIndex(int index) {
-        this.taskList.get(index).unmark();
+        if (this.size() > index) {
+            this.taskList.get(index).unmark();
+        }
     }
 
     public String export() {

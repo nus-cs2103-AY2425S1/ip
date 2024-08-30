@@ -29,7 +29,7 @@ public class DeleteCommandTest {
         myTasks.addTask(new EventTask("Hello",
                 LocalDate.parse("18/12/2024", DateTimeFormatter.ofPattern("dd/MM/uuuu")),
                 LocalDate.parse("18/12/2025", DateTimeFormatter.ofPattern("dd/MM/uuuu"))));
-        DeleteCommand deleteCommand = new DeleteCommand(1);
+        DeleteCommand deleteCommand = new DeleteCommand(0);
         deleteCommand.execute(myTasks);
         assertEquals(myTasks.size(), 2);
         deleteCommand.execute(myTasks);
