@@ -2,6 +2,9 @@ package pebble;
 
 import java.util.ArrayList;
 
+/**
+ * List that stores all the tasks.
+ */
 public class TasksList {
     private ArrayList<Task> tasks;
 

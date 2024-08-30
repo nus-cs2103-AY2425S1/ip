@@ -2,6 +2,9 @@ package pebble;
 
 import java.util.ArrayList;
 
+/**
+ * User interface that currently handles output to screen
+ */
 public class Ui {
     public void showWelcome() {
         System.out.println("    ____________________________________________________________");
