@@ -31,4 +31,8 @@ abstract public class Task {
         String completeIcon = isCompleted ? "X" : " ";
         return "[" + completeIcon + "] " + this.name;
     }
+
+    public String getName() {
+        return this.name;
+    }
 }

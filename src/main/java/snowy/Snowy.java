@@ -1,5 +1,6 @@
 package snowy;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Snowy {
@@ -93,6 +94,12 @@ public class Snowy {
                     } catch (NumberFormatException | SnowyException e) {
                         System.out.println("Invalid index format. Please try again");
                     }
+                    break;
+
+            case "find":
+
+                    ArrayList<Task> foundTasks = tasks.findTask(description);
+                    ui.printFoundTask(foundTasks);
                     break;
 
                 default:

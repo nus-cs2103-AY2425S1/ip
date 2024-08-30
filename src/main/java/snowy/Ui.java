@@ -1,5 +1,7 @@
 package snowy;
 
+import java.util.ArrayList;
+
 public class Ui {
     private static final String LINE = "-----------------------------------\n";
 
@@ -66,5 +68,12 @@ public class Ui {
     public void printDeleteTask(Task task) {
         System.out.println("Ok, I've deleted this task:");
         System.out.println(task.toString());
+    }
+
+    public void printFoundTask(ArrayList<Task> foundTasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for(Task task : foundTasks) {
+            System.out.println(task.toString());
+        }
     }
 }
