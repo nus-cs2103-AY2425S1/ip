@@ -1,10 +1,17 @@
 package bimo;
 
-import bimo.command.*;
 import bimo.tasks.Deadline;
 import bimo.tasks.Event;
 import bimo.tasks.Task;
 import bimo.tasks.ToDo;
+
+import bimo.command.AddCommand;
+import bimo.command.ByeCommand;
+import bimo.command.Command;
+import bimo.command.DeleteCommand;
+import bimo.command.ListCommand;
+import bimo.command.MarkCommand;
+import bimo.command.UnmarkCommand;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -62,8 +69,10 @@ public class Parser {
         } else if (cmd.equals("delete")) {
             int index = Integer.valueOf(parsedArray[1]) - 1;
             return new DeleteCommand(index);
+
         } else if (cmd.equals("bye")){
             return new ByeCommand();
+
         } else {
             throw new BimoException("    Sorry, I do not understand you \n" +
                     "    as this is not a valid command");
