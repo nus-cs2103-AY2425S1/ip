@@ -30,4 +30,12 @@ public class Task {
 
         return String.format("[%s] %s", status, name);
     }
+
+    /**
+     * Returns a string used to store the task in a local file.
+     * @return String representation of task used for local storage.
+     */
+    public String toStorageString() {
+        return name;
+    }
 }

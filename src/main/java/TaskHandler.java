@@ -26,6 +26,10 @@ public class TaskHandler {
         return taskList.get(index);
     }
 
+    public ArrayList<Task> getTaskList() {
+        return taskList;
+    }
+
     /**
      * Removes the `Task` at the specified position in this list.
      *

@@ -22,4 +22,14 @@ public class TaskDeadline extends Task {
         // format based on the toString output of `Task`
         return String.format("[D]%s (by: %s)", super.toString(), by);
     }
+
+    @Override
+    public String toStorageString() {
+        return String.format(
+                "%s / %d / %s / %s",
+                "T",
+                isDone ? 1 : 0,
+                name,
+                by);
+    }
 }

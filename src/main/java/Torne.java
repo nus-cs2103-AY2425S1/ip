@@ -8,6 +8,7 @@ import java.util.*;
 public class Torne {
     private static final ChatOutput OUTPUT = new ChatOutput();
     private static TaskHandler taskHandler;
+    private static Storage storage;
     private static final String[] NO_ARGS = new String[0];
     private static final String[] DEFAULT_ARG = {""};
     private static final Map<String, String[]> COMMANDS = Map.of(
@@ -365,6 +366,7 @@ Aww, bye to you as well :c""";
         String input;
 
         taskHandler = new TaskHandler();
+        storage = new Storage();
 
         // greet user
         torne.showGreeting();
@@ -376,6 +378,10 @@ Aww, bye to you as well :c""";
             // first check if it's an exit (`bye`) command
             if (input.equals("bye")) {
                 torne.showExitMessage();
+
+                // save tasks
+                storage.saveTasks(taskHandler.getTaskList());
+
                 break;
             }
 

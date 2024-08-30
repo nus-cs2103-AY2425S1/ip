@@ -24,4 +24,15 @@ public class TaskEvent extends Task {
         // format based on the toString output of `Task`
         return String.format("[E]%s (from: %s to: %s)", super.toString(), from, to);
     }
+
+    @Override
+    public String toStorageString() {
+        return String.format(
+                "%s / %d / %s / %s / %s",
+                "T",
+                isDone ? 1 : 0,
+                name,
+                from,
+                to);
+    }
 }
