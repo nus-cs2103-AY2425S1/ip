@@ -23,6 +23,12 @@ public class ListOperation extends Command {
     private String filePath = "/Users/wxy/Desktop/ip/src/main/data/tasks.txt";
     private Map<String, Task> taskList = new HashMap<>();
 
+    /**
+     * Executes the main command loop, providing options to create, query, mark, unmark, or delete tasks.
+     * Also loads existing tasks from the file at startup.
+     *
+     * @param sc The {@code Scanner} object for reading user input.
+     */
     @Override
     public void execute(Scanner sc) {
         File file = new File(filePath);
@@ -77,6 +83,12 @@ public class ListOperation extends Command {
         }
     }
 
+    /**
+     * Creates a new task based on user input and adds it to the task list.
+     * The task list is then saved to the file.
+     *
+     * @param sc The {@code Scanner} object for reading user input.
+     */
     public void createNewTask(Scanner sc) {
         while (true) {
             System.out.println("Enter task type (todo, deadline, event) or '/exit' to finish: ");
@@ -107,6 +119,10 @@ public class ListOperation extends Command {
         writer.writeMapToFile(taskList, filePath);
     }
 
+    /**
+     * Displays all tasks in the current task list.
+     * If the task list is empty, prompts the user to create a new task.
+     */
     public void queryTasks() {
         if (taskList.isEmpty()) {
             System.out.println("No tasks available. You can create a new task.");
@@ -119,6 +135,7 @@ public class ListOperation extends Command {
     }
 
     /**
+
      * Finds and displays tasks that contain a specific substring in their names.
      *
      * @param sc The {@code Scanner} object for reading user input.
@@ -138,6 +155,12 @@ public class ListOperation extends Command {
         }
     }
 
+   /**
+     * Marks a specified task as done based on user input.
+     * The task list is then saved to the file.
+     *
+     * @param sc The {@code Scanner} object for reading user input.
+     */
     public void markDone(Scanner sc) {
         System.out.println("Enter the name of the task to mark as done: ");
         String taskName = sc.nextLine().trim();
@@ -151,6 +174,12 @@ public class ListOperation extends Command {
         writer.writeMapToFile(taskList, filePath);
     }
 
+    /**
+     * Marks a specified task as undone based on user input.
+     * The task list is then saved to the file.
+     *
+     * @param sc The {@code Scanner} object for reading user input.
+     */
     public void markUndone(Scanner sc) {
         System.out.println("Enter the name of the task to mark as undone: ");
         String taskName = sc.nextLine().trim();
@@ -164,6 +193,12 @@ public class ListOperation extends Command {
         writer.writeMapToFile(taskList, filePath);
     }
 
+    /**
+     * Deletes a specified task based on user input.
+     * The task list is then saved to the file.
+     *
+     * @param sc The {@code Scanner} object for reading user input.
+     */
     public void deleteTask(Scanner sc) {
         System.out.println("Enter the name of the task to delete: ");
         String taskName = sc.nextLine().trim();
@@ -175,14 +210,32 @@ public class ListOperation extends Command {
         writer.writeMapToFile(taskList, filePath);
     }
 
+    /**
+     * Handles the process of marking a task as done.
+     * Prompts the user to select the task to be marked as done.
+     *
+     * @param sc The {@code Scanner} object for reading user input.
+     */
     private void handleMarkDone(Scanner sc) {
         markDone(sc);
     }
 
+    /**
+     * Handles the process of marking a task as undone.
+     * Prompts the user to select the task to be marked as undone.
+     *
+     * @param sc The {@code Scanner} object for reading user input.
+     */
     private void handleMarkUndone(Scanner sc) {
         markUndone(sc);
     }
 
+    /**
+     * Handles the process of deleting a task.
+     * Prompts the user to select the task to be deleted.
+     *
+     * @param sc The {@code Scanner} object for reading user input.
+     */
     private void handleDeleteTask(Scanner sc) {
         deleteTask(sc);
     }
