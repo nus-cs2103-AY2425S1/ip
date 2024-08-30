@@ -1,9 +1,12 @@
 package momo.task;
 
+import momo.MomoException;
+import momo.Parser;
 import momo.command.CommandType;
 import momo.task.Deadline;
 import momo.task.Event;
 import momo.task.Task;
+import momo.task.Todo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -90,7 +93,7 @@ public class TaskList {
                         list.add(new Event(inputs[2], parser.parseDate(inputs[3]), parser.parseDate(inputs[4]), true));
                     }
                 }
-                case null, default -> throw new MomoException("Invalid file formatting....");
+                default -> throw new MomoException("Invalid file formatting....");
 
             }
 

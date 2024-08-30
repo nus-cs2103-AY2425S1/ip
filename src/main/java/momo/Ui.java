@@ -15,7 +15,7 @@ public class Ui {
 
     // Greeting
     public void showGreeting() {
-        System.out.println("Hello! I'm momo.Momo\nWhat can I do for you?");
+        System.out.println("Hello! I'm Momo.\nWhat can I do for you?");
     }
 
     public String getUserInput() {

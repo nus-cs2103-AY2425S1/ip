@@ -1,4 +1,4 @@
-package momo;
+package momo.task;
 
 import momo.task.Task;
 
