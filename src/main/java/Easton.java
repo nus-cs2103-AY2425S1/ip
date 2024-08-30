@@ -7,47 +7,43 @@ import java.util.Scanner;
 
 public class Easton {
 
-    public static final String CHATBOT_NAME = "Easton";
     private ArrayList<Task> tasks = new ArrayList<>();;
     private Storage storage;
+    private Ui<Task> ui;
 
     public Easton(String fileName) {
         try {
             storage = new Storage(fileName);
         } catch (IOException e) {
-            System.out.println("Cannot connect to the storage.");
+            Ui.displayText("Cannot connect to the storage.");
         }
 
         tasks = retrieveTasks();
+        ui = new Ui<>();
     }
 
     public void run() {
-        printWelcome();
-
-        Scanner scanner = new Scanner(System.in);
+        boolean isFinished = Ui.welcome();;
         Action action;
-        boolean isFinished = false;
         String userInput;
 
         while (!isFinished) {
-            userInput = scanner.nextLine();;
-            printDivider();
+            userInput = ui.input();
+            Ui.divider();
 
             try {
                 action = getActionFromInput(userInput);
             } catch (IllegalActionException e) {
-                System.out.println(e.getMessage());
+                Ui.displayText(e.getMessage());
                 action = Action.INVALID;
             }
 
             switch (action) {
             case BYE:
-                System.out.println("Bye. Hope to see you again soon!");
-                isFinished = true;
+                isFinished = Ui.goodbye();
                 break;
             case LIST:
-                System.out.println("Here are the tasks in your list:");
-                printList();
+                ui.list(tasks);
                 break;
             case MARK:
                 changeTaskStatus(userInput, true, "Nice! I've marked this task as done:");
@@ -62,7 +58,7 @@ public class Easton {
                     addTask(createToDo(userInput));
                     saveTasks();
                 } catch (EmptyDescriptionException e) {
-                    System.out.println(e.getMessage());
+                    Ui.displayText(e.getMessage());
                 }
                 break;
             case DEADLINE:
@@ -70,7 +66,7 @@ public class Easton {
                     addTask(createDeadline(userInput));
                     saveTasks();
                 } catch (EmptyDescriptionException | InvalidFormatException | DateTimeFormatException e) {
-                    System.out.println(e.getMessage());
+                    Ui.displayText(e.getMessage());
                 }
                 break;
             case EVENT:
@@ -78,7 +74,7 @@ public class Easton {
                     addTask(createEvent(userInput));
                     saveTasks();
                 } catch (EmptyDescriptionException | InvalidFormatException | DateTimeFormatException e) {
-                    System.out.println(e.getMessage());
+                    Ui.displayText(e.getMessage());
                 }
                 break;
             case DELETE:
@@ -87,38 +83,13 @@ public class Easton {
                 break;
             }
 
-            printDivider();
+            Ui.divider();
         }
 
-    }
-
-    private static void printDivider() {
-        System.out.println("____________________________________________________________");
-    }
-
-    private static void printWelcome() {
-        String logo = " _______  _______  _______  _______  _______  __    _\n"
-                + "|       ||   _   ||       ||       ||       ||  |  | |\n"
-                + "|    ___||  |_|  ||  _____||_     _||   _   ||   |_| |\n"
-                + "|   |___ |       || |_____   |   |  |  | |  ||       |\n"
-                + "|    ___||       ||_____  |  |   |  |  |_|  ||  _    |\n"
-                + "|   |___ |   _   | _____| |  |   |  |       || | |   |\n"
-                + "|_______||__| |__||_______|  |___|  |_______||_|  |__|\n";
-        System.out.println("Hello from\n" + logo);
-        printDivider();
-        System.out.println("Hello! I'm " + CHATBOT_NAME);
-        System.out.println("What can I do for you?");
-        printDivider();
     }
 
     public static void main(String[] args) {
         new Easton("task.csv").run();
-    }
-
-    private void printList() {
-        for (int i = 0; i < tasks.size(); i ++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
-        }
     }
 
     private void changeTaskStatus(String input, boolean isDone, String message) {
@@ -126,11 +97,11 @@ public class Easton {
             int index = getIndexFromInput(input);
             Task task = tasks.get(index - 1);
             task.setDone(isDone);
-            System.out.println(message);
-            System.out.println(task);
+            Ui.displayText(message);
+            ui.show(task);
 
         } catch (InvalidIndexException | EmptyDescriptionException e) {
-            System.out.println(e.getMessage());
+            Ui.displayText(e.getMessage());
         }
     }
 
@@ -138,12 +109,12 @@ public class Easton {
         try {
             int index = getIndexFromInput(input);
             Task task = tasks.remove(index - 1);
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(task);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            Ui.displayText("Noted. I've removed this task:");
+            ui.show(task);
+            Ui.displayText("Now you have " + tasks.size() + " tasks in the list.");
 
         } catch (InvalidIndexException | EmptyDescriptionException e) {
-            System.out.println(e.getMessage());
+            Ui.displayText(e.getMessage());
         }
     }
 
@@ -219,9 +190,9 @@ public class Easton {
 
     private void addTask(Task task) {
         tasks.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        Ui.displayText("Got it. I've added this task:");
+        ui.show(task);
+        Ui.displayText("Now you have " + tasks.size() + " tasks in the list.");
     }
 
 
@@ -249,7 +220,7 @@ public class Easton {
         try {
             records = storage.retrieve();
         } catch (IOException e) {
-            System.out.println("Could not retrieve tasks from storage.");
+            Ui.displayText("Could not retrieve tasks from storage.");
         }
 
         for (String record : records) {
@@ -262,7 +233,7 @@ public class Easton {
                 try {
                     task = new Deadline(data[2], data[3]);
                 } catch (DateTimeFormatException e) {
-                    System.out.println("Deadline (" +
+                    Ui.displayText("Deadline (" +
                             data[2] +
                             ") is using the wrong DateTime Format, the record is voided.");
                     continue;
@@ -272,7 +243,7 @@ public class Easton {
                 try {
                     task = new Event(data[2], data[3], data[4]);
                 } catch (DateTimeFormatException e) {
-                    System.out.println("Event ("+
+                    Ui.displayText("Event ("+
                             data[2] +
                             ") is using the wrong DateTime Format, the record is voided.");
                     continue;
