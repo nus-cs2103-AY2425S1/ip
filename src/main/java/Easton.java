@@ -8,23 +8,17 @@ import java.util.Scanner;
 public class Easton {
 
     public static final String CHATBOT_NAME = "Easton";
-    private final ArrayList<Task> tasks = new ArrayList<>();;
-    private String userInput;
-    private boolean isFinished;
-    private String fileName;
+    private ArrayList<Task> tasks = new ArrayList<>();;
+    private Storage storage;
 
     public Easton(String fileName) {
-        this.fileName = fileName;
-        userInput = "";
         try {
-            System.out.println("Retrieving Data...");
-            retrieveData(fileName);
-            System.out.println("DONE!");
-            isFinished = false;
+            storage = new Storage(fileName);
         } catch (IOException e) {
-            System.out.println("There was an error in retrieving my storage. ABORTING!!!");
-            isFinished = true;
+            System.out.println("Cannot connect to the storage.");
         }
+
+        tasks = retrieveTasks();
     }
 
     public void run() {
@@ -32,6 +26,8 @@ public class Easton {
 
         Scanner scanner = new Scanner(System.in);
         Action action;
+        boolean isFinished = false;
+        String userInput;
 
         while (!isFinished) {
             userInput = scanner.nextLine();;
@@ -55,16 +51,16 @@ public class Easton {
                 break;
             case MARK:
                 changeTaskStatus(userInput, true, "Nice! I've marked this task as done:");
-                saveData(fileName);
+                saveTasks();
                 break;
             case UNMARK:
                 changeTaskStatus(userInput, false, "OK, I've marked this task as not done yet:");
-                saveData(fileName);
+                saveTasks();
                 break;
             case TODO:
                 try {
                     addTask(createToDo(userInput));
-                    saveData(fileName);
+                    saveTasks();
                 } catch (EmptyDescriptionException e) {
                     System.out.println(e.getMessage());
                 }
@@ -72,7 +68,7 @@ public class Easton {
             case DEADLINE:
                 try {
                     addTask(createDeadline(userInput));
-                    saveData(fileName);
+                    saveTasks();
                 } catch (EmptyDescriptionException | InvalidFormatException | DateTimeFormatException e) {
                     System.out.println(e.getMessage());
                 }
@@ -80,14 +76,14 @@ public class Easton {
             case EVENT:
                 try {
                     addTask(createEvent(userInput));
-                    saveData(fileName);
+                    saveTasks();
                 } catch (EmptyDescriptionException | InvalidFormatException | DateTimeFormatException e) {
                     System.out.println(e.getMessage());
                 }
                 break;
             case DELETE:
                 deleteTask(userInput);
-                saveData(fileName);
+                saveTasks();
                 break;
             }
 
@@ -246,19 +242,18 @@ public class Easton {
         return filePath;
     }
 
-    private void retrieveData(String fileName) throws IOException {
-        Path filePath = getFilePath(fileName);
-        String line;
+    private ArrayList<Task> retrieveTasks() {
+        ArrayList<Task> taskArrayList = new ArrayList<>();
+        ArrayList<String> records = new ArrayList<>();
         Task task;
+        try {
+            records = storage.retrieve();
+        } catch (IOException e) {
+            System.out.println("Could not retrieve tasks from storage.");
+        }
 
-        BufferedReader bufferedReader = new BufferedReader(
-                new FileReader(
-                        filePath.toFile()
-                )
-        );
-
-        while ((line = bufferedReader.readLine()) != null) {
-            String[] data = line.split(",");
+        for (String record : records) {
+            String[] data = record.split(",");
             switch (data[0]) {
             case "T":
                 task = new ToDo(data[2]);
@@ -275,7 +270,7 @@ public class Easton {
                 break;
             case "E":
                 try {
-                task = new Event(data[2], data[3], data[4]);
+                    task = new Event(data[2], data[3], data[4]);
                 } catch (DateTimeFormatException e) {
                     System.out.println("Event ("+
                             data[2] +
@@ -286,22 +281,20 @@ public class Easton {
             default:
                 continue;
             }
-
             task.setDone(data[1].equals("1"));
-            tasks.add(task);
+            taskArrayList.add(task);
         }
+
+        return taskArrayList;
     }
 
-    private void saveData(String fileName) {
-        try {
-            Path filePath = getFilePath(fileName);
-            FileWriter fileWriter = new FileWriter(filePath.toFile());
-            for (Task task : tasks) {
-                fileWriter.write(task.getCsvFormat() + "\n");
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            System.out.println("Updated list was not saved properly.");
+    private void saveTasks() {
+        ArrayList<String> records = new ArrayList<>();
+
+        for (Task task : tasks) {
+            records.add(task.getCsvFormat() + "\n");
         }
+
+        storage.save(records);
     }
 }
