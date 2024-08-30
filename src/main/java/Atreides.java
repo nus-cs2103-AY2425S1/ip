@@ -1,4 +1,6 @@
-import java.sql.Array;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
@@ -14,11 +16,29 @@ public class Atreides {
 
         String intro = "Glory to house\n" + logo;
         System.out.println(new Response(intro));
+
+        ArrayList<Task> list = new ArrayList<>();
+
+        String filePathName = "src/main/Atreides.txt";
+
+        File file = new File(filePathName);
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" \\| ");
+                Task newTask = getTask(parts);
+                list.add(newTask);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(new Response(e.getMessage()));
+        }
+
         Scanner scanner = new Scanner(System.in);
         String msg = scanner.nextLine();
-        ArrayList<Task> list = new ArrayList<>();
+
         Set<String> commands = Set.of("mark", "unmark", "delete", "todo", "event", "deadline");
-        while (!(msg.toLowerCase().equals("bye"))) {
+        while (!(msg.equalsIgnoreCase("bye"))) {
             if (msg.equals("list")) {
                 String tasks = "";
                 for (int i = 0; i < list.size(); i++) {
@@ -69,22 +89,7 @@ public class Atreides {
 
 
                     } else {
-                        Task newTask = new Task("");
-                        if (words[0].equals("todo")) {
-                            newTask = new ToDo(msg.substring(5));
-                        } else if (words[0].equals("deadline")) {
-                            String[] parts = msg.split(" /by ");
-                            String by = parts[parts.length - 1];
-                            String description = parts[0].split("deadline ")[1];
-                            newTask = new Deadline(description, by);
-                        } else if (words[0].equals("event")) {
-                            String[] parts = msg.split(" /from ");
-                            String[] startEnd = parts[parts.length - 1].split(" /to ");
-                            String description = parts[0].split("event ")[1];
-                            newTask = new Events(description, startEnd);
-                        } else {
-                            throw new AtreidesException("I dont know what u mean, please give me a todo, event or deadline");
-                        }
+                        Task newTask = getTask(words, msg);
                         list.add(newTask);
                         String plural = list.size() == 1 ? " task" : " tasks";
                         String response = "Task added\n"
@@ -99,9 +104,63 @@ public class Atreides {
             }
             msg = scanner.nextLine();
         }
+        try {
+            PrintWriter pw = new PrintWriter(filePathName);
+            String tasks = "";
+            for (int i = 0; i < list.size(); i++) {
+                String writeLine = list.get(i).write();
+                if (i != list.size() - 1) {
+                    writeLine += "\n";
+                }
+                pw.print(writeLine);
+            }
+            pw.flush();
+            pw.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(new Response(e.getMessage()));
+        }
+
         String outro = "Praise be Muad Dib\n"
                        + "GoodBye\n";
         System.out.println(new Response(outro));
         scanner.close();
+    }
+
+    private static Task getTask(String[] words, String msg) throws AtreidesException {
+        Task newTask;
+        if (words[0].equals("todo")) {
+            newTask = new ToDo(msg.substring(5));
+        } else if (words[0].equals("deadline")) {
+            String[] parts = msg.split(" /by ");
+            String by = parts[parts.length - 1];
+            String description = parts[0].split("deadline ")[1];
+            newTask = new Deadline(description, by);
+        } else if (words[0].equals("event")) {
+            String[] parts = msg.split(" /from ");
+            String[] startEnd = parts[parts.length - 1].split(" /to ");
+            String description = parts[0].split("event ")[1];
+            newTask = new Events(description, startEnd);
+        } else {
+            throw new AtreidesException("I dont know what u mean, please give me a todo, event or deadline");
+        }
+        return newTask;
+    }
+
+    private static Task getTask(String[] words) {
+        Task newTask = new Task();
+        Boolean isDone = words[1].equals("1");
+        if (words[0].equals("T")) {
+            newTask = new ToDo(words[2]);
+        } else if (words[0].equals("D")) {;
+            String description = words[2];
+            String by = words[3];
+            newTask = new Deadline(description, by);
+        } else if (words[0].equals("E")) {
+            String description = words[2];
+            String[] startEnd = words[3].split("-");
+            newTask = new Events(description, startEnd);
+        }
+        newTask.markDone(isDone);
+        return newTask;
     }
 }

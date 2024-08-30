@@ -8,6 +8,11 @@ public class Events extends Task {
     }
 
     @Override
+    public String write() {
+        return "E" + super.write() + " | " + startDT + "-" + endDT;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.startDT + " to: " + this.endDT + ")";
     }
