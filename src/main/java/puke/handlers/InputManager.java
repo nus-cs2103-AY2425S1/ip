@@ -12,10 +12,7 @@ import puke.exceptions.EmptyInputException;
 import puke.exceptions.PukeException;
 import puke.exceptions.UnknownCommandException;
 import puke.tasklist.TaskManager;
-import puke.tasks.Task;
 import puke.ui.MessageBuilder;
-
-import java.util.ArrayList;
 
 /**
  * Manages user input by parsing and executing commands.
