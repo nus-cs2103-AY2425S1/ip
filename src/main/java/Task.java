@@ -26,16 +26,18 @@ public class Task {
         if (taskType == TaskType.TODO) {
             return new Todo(description);
         } else if (taskType == TaskType.DEADLINE) {
-            String[] splitStr = description.split("/");
-            String des = splitStr[0].trim();
-            String deadline = splitStr[1].split(" ")[1];
+            int firstSlashIndex = description.indexOf("/");
+            String des = description.substring(0, firstSlashIndex).trim();
+            String deadline = description.substring(description.indexOf("/by") + 4);
             return new Deadline(des, deadline);
         } else {
-            String[] splitStr = description.split("/");
-            String des = splitStr[0].trim();
-            String start = splitStr[1].replace("from ", "").trim();
-            String end = splitStr[2].replace("to ", "").trim();
-            return new Event(des, start, end);
+            int firstSlashIndex = description.indexOf("/");
+            String des = description.substring(0, firstSlashIndex).trim();
+            String timeDetails = description.substring(firstSlashIndex);
+
+            String startDateTime = timeDetails.substring(timeDetails.indexOf("/from") + 6, timeDetails.indexOf("/to")).trim();
+            String endDateTime = timeDetails.substring(timeDetails.indexOf("/to") + 4).trim();
+            return new Event(des, startDateTime, endDateTime);
         }
     }
 
@@ -64,7 +66,13 @@ public class Task {
         return isDone ? "X" : " ";
     }
 
-    public TaskType getTaskType(){return this.type;}
+    public void printDate() {
+
+    }
+
+    public TaskType getTaskType(){
+        return this.type;
+    }
 
     @Override
     public String toString() {

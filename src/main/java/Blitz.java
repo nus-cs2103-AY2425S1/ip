@@ -21,6 +21,7 @@ public class Blitz{
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
+            System.out.println("Input you next task! Please give dates in d/M/yyyy format! : ");
             String userInput = scanner.nextLine();
             String strippedInput = userInput.trim().toLowerCase();
             if (strippedInput.equals("bye")) {
