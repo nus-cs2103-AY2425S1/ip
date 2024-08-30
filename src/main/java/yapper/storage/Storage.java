@@ -1,3 +1,5 @@
+package yapper.storage;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -5,6 +7,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import yapper.task.Task;
+import yapper.task.Todo;
+import yapper.task.Deadline;
+import yapper.task.Event;
+import yapper.exception.YapperException;
 
 public class Storage {
 

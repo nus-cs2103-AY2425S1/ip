@@ -1,3 +1,19 @@
+package yapper.main;
+
+import yapper.task.Task;
+import yapper.task.Todo;
+import yapper.task.Deadline;
+import yapper.task.Event;
+import yapper.task.TaskList;
+import yapper.command.Parser;
+import yapper.command.CommandType;
+import yapper.exception.YapperException;
+import yapper.exception.EmptyDescriptionException;
+import yapper.exception.UnknownCommandException;
+import yapper.exception.InvalidTaskNumberException;
+import yapper.ui.Ui;
+import yapper.storage.Storage;
+
 import java.io.IOException;
 
 public class Yapper {

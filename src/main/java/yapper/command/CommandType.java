@@ -1,3 +1,5 @@
+package yapper.command;
+
 public enum CommandType {
     BYE,
     LIST,
