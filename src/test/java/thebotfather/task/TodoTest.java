@@ -8,8 +8,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * A test suite for the {@link Todo} class.
+ * This class tests the parsing and creation of Todo tasks, ensuring that they are correctly instantiated and exceptions are properly thrown for invalid inputs.
+ */
 public class TodoTest {
 
+    /**
+     * Tests the parsing of a valid Todo input string.
+     * Verifies that the {@link Todo} object is correctly created and formatted.
+     */
     @Test
     public void testParseTodo() {
         String input = "return book";
@@ -23,7 +31,12 @@ public class TodoTest {
         }
     }
 
-    @Test void testParseTodoWithIncompleteInput() {
+    /**
+     * Tests the parsing of a Todo input string with incomplete input.
+     * Verifies that a {@link TheBotFatherException} is thrown with the correct error message.
+     */
+    @Test
+    void testParseTodoWithIncompleteInput() {
         String input = "";
         StringTokenizer tokenizer = new StringTokenizer(input);
 

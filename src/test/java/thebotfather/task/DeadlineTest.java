@@ -8,8 +8,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * A test suite for the {@link Deadline} class.
+ * Tests the parsing and creation of deadlines, ensuring that deadlines are correctly instantiated and exceptions are properly thrown for invalid inputs.
+ */
 public class DeadlineTest {
 
+    /**
+     * Tests the parsing of a valid deadline input string.
+     * Verifies that the {@link Deadline} object is correctly created and formatted.
+     */
     @Test
     public void testParseDeadline() {
         String input = "Assignment /by 30-08-2024 16:00";
@@ -23,7 +31,12 @@ public class DeadlineTest {
         }
     }
 
-    @Test void testParseDeadlineWithIncompleteInput() {
+    /**
+     * Tests the parsing of an incomplete deadline input string.
+     * Verifies that a {@link TheBotFatherException} is thrown with the correct error message.
+     */
+    @Test
+    void testParseDeadlineWithIncompleteInput() {
         String input = "Assignment /by";
         StringTokenizer tokenizer = new StringTokenizer(input);
 
@@ -35,7 +48,12 @@ public class DeadlineTest {
                 exception.getMessage());
     }
 
-    @Test void testParseDeadlineWithIncorrectInput() {
+    /**
+     * Tests the parsing of a deadline input string with incorrect date format.
+     * Verifies that a {@link TheBotFatherException} is thrown when the date format is invalid.
+     */
+    @Test
+    void testParseDeadlineWithIncorrectInput() {
         String input = "Assignment /by Aug 30 2024, 16:00";
         StringTokenizer tokenizer = new StringTokenizer(input);
 
