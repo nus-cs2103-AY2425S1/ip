@@ -151,63 +151,63 @@ public class Parser {
         String instr = getInstr[0];
         int index;
         switch (instr) {
-        case "mark":
-            try {
-                index = parseIndexCommand(getInstr, taskList);
-                taskList.mark(index, storage);
-            } catch (InvalidIndexException e) {
-                System.out.println(e.toString());
-            }
-            break;
-        case "unmark":
-            try {
-                index = parseIndexCommand(getInstr, taskList);
-                taskList.unmark(index, storage);
-            } catch (InvalidIndexException e) {
-                System.out.println(e.toString());
-            }
-            break;
-        case "delete":
-            try {
-                index = parseIndexCommand(getInstr, taskList);
-                taskList.delete(index, storage);
-            } catch (InvalidIndexException e) {
-                System.out.println(e.toString());
-            }
-            break;
-        case "list":
-            ui.printList(taskList);
-            break;
-        case "todo":
-            try {
-                Task todo = parseTodoCommand(command);
-                taskList.add(todo, storage);
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-            break;
-        case "deadline":
-            try {
-                Task deadline = parseDeadlineCommand(command);
-                taskList.add(deadline, storage);
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-            break;
-        case "event":
-            try {
-                Task event = parseEventCommand(command);
-                taskList.add(event, storage);
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-            break;
-        default:
-            try {
-                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
+            case "mark":
+                try {
+                    index = parseIndexCommand(getInstr, taskList);
+                    taskList.mark(index, storage);
+                } catch (InvalidIndexException e) {
+                    System.out.println(e.toString());
+                }
+                break;
+            case "unmark":
+                try {
+                    index = parseIndexCommand(getInstr, taskList);
+                    taskList.unmark(index, storage);
+                } catch (InvalidIndexException e) {
+                    System.out.println(e.toString());
+                }
+                break;
+            case "delete":
+                try {
+                    index = parseIndexCommand(getInstr, taskList);
+                    taskList.delete(index, storage);
+                } catch (InvalidIndexException e) {
+                    System.out.println(e.toString());
+                }
+                break;
+            case "list":
+                ui.printList(taskList);
+                break;
+            case "todo":
+                try {
+                    Task todo = parseTodoCommand(command);
+                    taskList.add(todo, storage);
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "deadline":
+                try {
+                    Task deadline = parseDeadlineCommand(command);
+                    taskList.add(deadline, storage);
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "event":
+                try {
+                    Task event = parseEventCommand(command);
+                    taskList.add(event, storage);
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            default:
+                try {
+                    throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
         }
     }
 }
