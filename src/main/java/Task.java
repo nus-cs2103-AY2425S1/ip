@@ -36,4 +36,35 @@ public abstract class Task {
      *
      */
     public abstract String toFileString();
+
+    public static Task fromFileString(String s) throws IllegalArgumentException{
+        String[] params = s.split(" \\| ");
+        String type = params[0];
+
+        Task newTask = null;
+        boolean isMarked = params[1].equals("1");
+        String name = params[2];
+        switch (type) {
+        case "T":
+            newTask = new Todo(name);
+            break;
+        case "D":
+            String dueDate = params[3];
+            newTask = new Deadline(name, dueDate);
+            break;
+        case "E":
+            String from = params[4];
+            String to = params[5];
+            newTask = new Event(name, from, to);
+            break;
+        default:
+            throw new IllegalArgumentException();
+        }
+
+        if (isMarked) {
+            newTask.mark();
+        }
+
+        return newTask;
+    }
 }
