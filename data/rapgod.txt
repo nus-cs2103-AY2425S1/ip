@@ -1,0 +1,5 @@
+1. [T] [ ] do this
+2. [T] [ ] and that
+3. [E] [X] that  (from: now       to: later)
+4. [T] [ ] new task
+5. [D] [ ] do this  (by: noon)
