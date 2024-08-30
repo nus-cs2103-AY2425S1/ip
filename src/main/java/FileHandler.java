@@ -1,9 +1,13 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileHandler {
     private static final String FILE_PATH = "./data/kobee.txt";
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public static List<Task> loadTasks() {
         List<Task> tasks = new ArrayList<>();
@@ -29,17 +33,25 @@ public class FileHandler {
                             tasks.add(todo);
                             break;
                         case "D":
-                            String by = parts[3];
-                            Task deadline = new Deadline(name, by);
-                            if (isDone) deadline.markAsDone();
-                            tasks.add(deadline);
+                            try {
+                                LocalDateTime by = LocalDateTime.parse(parts[3], FORMATTER);
+                                Task deadline = new Deadline(name, by);
+                                if (isDone) deadline.markAsDone();
+                                tasks.add(deadline);
+                            } catch (DateTimeParseException e) {
+                                System.out.println("Error parsing date for deadline task: " + e.getMessage());
+                            }
                             break;
                         case "E":
-                            String from = parts[3];
-                            String to = parts[4];
-                            Task event = new Event(name, from, to);
-                            if (isDone) event.markAsDone();
-                            tasks.add(event);
+                            try {
+                                LocalDateTime from = LocalDateTime.parse(parts[3], FORMATTER);
+                                LocalDateTime to = LocalDateTime.parse(parts[4], FORMATTER);
+                                Task event = new Event(name, from, to);
+                                if (isDone) event.markAsDone();
+                                tasks.add(event);
+                            } catch (DateTimeParseException e) {
+                                System.out.println("Error parsing date for event task: " + e.getMessage());
+                            }
                             break;
                         default:
                             throw new IOException("Invalid task type in file: " + taskType);

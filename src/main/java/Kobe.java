@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,6 +22,7 @@ public class Kobe {
         Scanner scanner = new Scanner(System.in);
 
         ArrayList<Task> tasks = new ArrayList<>(FileHandler.loadTasks());
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
         while (true) {
             String userInput = scanner.nextLine();
@@ -98,13 +102,17 @@ public class Kobe {
                     System.out.println("OOPS!!! The description or deadline of a task cannot be empty.");
                 } else {
                     String name = parts[0].trim();
-                    String by = parts[1].trim();
-                    Deadline deadline = new Deadline(name, by);
-                    tasks.add(deadline);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + deadline);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    FileHandler.saveTasks(tasks);
+                    try {
+                        LocalDateTime by = LocalDateTime.parse(parts[1].trim(), inputFormatter);
+                        Deadline deadline = new Deadline(name, by);
+                        tasks.add(deadline);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + deadline);
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        FileHandler.saveTasks(tasks);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("OOPS!!! Please enter the date in the format yyyy-MM-dd HHmm.");
+                    }
                 }
             } else if (userInput.startsWith("event ")) {
                 String[] parts = userInput.substring(6).split("/from |/to ");
@@ -112,17 +120,21 @@ public class Kobe {
                     System.out.println("OOPS!!! The event description, start time, or end time cannot be empty.");
                 } else {
                     String name = parts[0].trim();
-                    String from = parts[1].trim();
-                    String to = parts[2].trim();
-                    Event event = new Event(name, from, to);
-                    tasks.add(event);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + event);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    FileHandler.saveTasks(tasks);
+                    try {
+                        LocalDateTime from = LocalDateTime.parse(parts[1].trim(), inputFormatter);
+                        LocalDateTime to = LocalDateTime.parse(parts[2].trim(), inputFormatter);
+                        Event event = new Event(name, from, to);
+                        tasks.add(event);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + event);
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        FileHandler.saveTasks(tasks);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("OOPS!!! Please enter the date and time in the format yyyy-MM-dd HHmm.");
+                    }
                 }
             } else {
-                System.out.println("Please Enter the right command, Sir.");
+                System.out.println("Please enter a valid command, Sir.");
             }
             System.out.println("____________________________________________________________");
         }
