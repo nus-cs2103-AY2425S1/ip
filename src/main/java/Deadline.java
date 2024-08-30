@@ -1,10 +1,14 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task that needs to be done before a specific date/time.
  * A Deadline object corresponds to a task with a deadline
  * in the Chobo chatbot.
  */
 public class Deadline extends Task {
-    private String date;
+    private String unformattedDate;
+    private LocalDateTime by;
     /**
      * Creates a new Deadline task.
      *
@@ -14,12 +18,14 @@ public class Deadline extends Task {
      */
     public Deadline(String name, boolean done, String date) {
         super(name, done);
-        this.date = date;
+        this.unformattedDate = date;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
+        this.by = LocalDateTime.parse(date.trim(), dateTimeFormatter);
     }
 
     @Override
     public String toFileString() {
-        return String.format("%s|%d|%s|%s", this.getType(), this.getIsDone() ? 1 : 0, this.getName(), date);
+        return String.format("%s|%d|%s|%s", this.getType(), this.getIsDone() ? 1 : 0, this.getName(), unformattedDate);
     }
 
     @Override
@@ -35,6 +41,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + date + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
+        return "[D]" + super.toString() + " (by: " + by.format(formatter) + ")";
     }
 }

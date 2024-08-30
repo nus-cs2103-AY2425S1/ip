@@ -26,6 +26,8 @@ public abstract class Task {
     public boolean getDone(){
         return this.isDone;
     }
+
+
     @Override
     public String toString() {
         String checked = this.isDone? "[X] ":"[ ] ";

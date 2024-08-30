@@ -1,11 +1,15 @@
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 /**
  * Represents an event that starts at a specific date/time and ends at a specific date/time.
  * An Event object corresponds to an event in the Chobo chatbot.
  */
 public class Event extends Task{
-    private String from;
-    private String to;
+    private String unformattedFrom;
+    private String unformattedTo;
+    private LocalDateTime from;
+    private LocalDateTime to;
     /**
      * Creates a new Event task.
      *
@@ -16,13 +20,16 @@ public class Event extends Task{
      */
     public Event (String name, boolean done, String from, String to) {
         super(name, done);
-        this.from = from;
-        this.to = to;
+        unformattedFrom = from;
+        unformattedTo = to;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
+        this.from = LocalDateTime.parse(from.trim(), dateTimeFormatter);
+        this.to = LocalDateTime.parse(to.trim(), dateTimeFormatter);
     }
 
     @Override
     public String toFileString() {
-        return String.format("%s|%d|%s|from %s|to %s", this.getType(), this.getIsDone() ? 1 : 0, this.getName(), from, to);
+        return String.format("%s|%d|%s|%s|%s", this.getType(), this.getIsDone() ? 1 : 0, this.getName(), unformattedFrom, unformattedTo);
     }
 
     public String getType() {
@@ -37,6 +44,7 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + "to: " + to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
+        return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
     }
 }

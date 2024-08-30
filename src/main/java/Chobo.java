@@ -1,11 +1,13 @@
 import java.io.File;
 import java.io.FileWriter;
-import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Chobo {
-    private static final String FILE_PATH = "./data";
+    private static final String FILE_PATH = "./data/chobo.txt";
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static String line = "----------------------------------------";
     private static int totalTask = 0;
@@ -84,6 +86,11 @@ public class Chobo {
 
     public static void saveTasks() {
         try {
+            File directory = new File("./data");
+            if (!directory.exists()) {
+                directory.mkdirs();
+                System.out.println("no dirc");
+            }
             FileWriter writer = new FileWriter(FILE_PATH);
             for (Task task : tasks) {
                 writer.write(task.toFileString()+ System.lineSeparator());
@@ -112,7 +119,6 @@ public class Chobo {
                     tasks.add(new Deadline(name,isDone,by));
                     totalTask++;
                 } else {
-                    System.out.println(parts[0]);
                     String from = parts[3];
                     String to = parts[4];
                     tasks.add(new Event(name,isDone,from, to));
