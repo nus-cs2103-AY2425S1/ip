@@ -65,7 +65,8 @@ public class Task {
         return new EventTask(name, startTime, endTime);
     }
 
-    public static Task eventTask(String name, String startTime, String endTime, String isCompleted) {
+    public static Task eventTask(String name, String startTime,
+                                 String endTime, String isCompleted) {
         return new EventTask(name, startTime, endTime, isCompleted);
     }
 

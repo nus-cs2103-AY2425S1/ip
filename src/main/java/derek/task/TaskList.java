@@ -11,7 +11,8 @@ public class TaskList {
             Task newTask = Task.deadlineTask(components[2], components[3], components[1]);
             taskList.add(newTask);
         } else if (components[0].equals("E")) {
-            Task newTask = Task.eventTask(components[2], components[3], components[4], components[1]);
+            Task newTask = Task.eventTask(components[2], components[3],
+                    components[4], components[1]);
             taskList.add(newTask);
         } else {
             Task newTask = Task.toDoTask(components[2], components[1]);

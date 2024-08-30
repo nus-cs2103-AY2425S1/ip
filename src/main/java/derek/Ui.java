@@ -66,7 +66,8 @@ public class Ui {
     }
 
     public void initiateUserInteraction() {
-        System.out.println("\n" + "Hi! " + this.user + "! So, I guess as a friend I become your little slave!\n"
+        System.out.println("\n" + "Hi! " + this.user
+                + "! So, I guess as a friend I become your little slave!\n"
                 + "What do you want me to do?\n"
                 + "----------------------------------------------------------------------\n"
                 + "Please enter your commands correctly for Derek (he's a little slow):\n"
@@ -100,11 +101,14 @@ public class Ui {
     }
 
     public void returnList() {
-        System.out.println("I think these are your tasks! Please don't leave me!!\n" + this.taskList);
+        System.out.println("I think these are your tasks! Please don't leave me!!\n"
+                + this.taskList);
     }
 
     public void removeTask(Task task) {
-        System.out.println( "phew! that list was looooonngggg... i was getting tired of remembering it!" + "\n" + task.toString());
+        System.out.println( "phew! that list was looooonngggg... i was getting tired of remembering it!"
+                + "\n"
+                + task.toString());
     }
 
     public void completeTask(Task task) {
