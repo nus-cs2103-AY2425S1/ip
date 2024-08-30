@@ -1,10 +1,12 @@
+package task;
+
 public abstract class Task {
 
     public enum TaskType{
         TODO, DEADLINE, EVENT
     }
-    protected String description;
-    protected boolean isDone;
+    public String description;
+    public boolean isDone;
     protected TaskType taskType;
 
 

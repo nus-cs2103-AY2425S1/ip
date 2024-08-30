@@ -1,3 +1,8 @@
+package parser;
+
+import command.*;
+import exceptions.BuddyException;
+
 public class Parser {
     public static Command parse(String command) throws BuddyException {
         if (command.startsWith("todo")) {

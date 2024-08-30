@@ -1,9 +1,13 @@
+package task;
+
+import task.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Events extends Task{
-    protected LocalDateTime start;
-    protected LocalDateTime end;
+public class Events extends Task {
+    public LocalDateTime start;
+    public LocalDateTime end;
     public Events(String description, LocalDateTime start, LocalDateTime end) {
         super(description + " (from: " + formatDate(start) + ", to: " + formatDate(end) + ")", TaskType.EVENT);
         this.start = start;

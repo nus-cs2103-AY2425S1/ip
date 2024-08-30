@@ -1,3 +1,8 @@
+package task;
+
+import exceptions.BuddyException;
+import task.Task;
+
 import java.util.ArrayList;
 public class TaskList {
     private final ArrayList<Task> tasks;

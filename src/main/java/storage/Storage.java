@@ -1,3 +1,11 @@
+package storage;
+
+import exceptions.BuddyException;
+import task.Deadlines;
+import task.Events;
+import task.Task;
+import task.ToDos;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -58,8 +66,8 @@ public class Storage {
                         task = new Deadlines(description, formattedDeadline);
                         break;
                     case "E":
-                        String startDate = details[4].trim();
-                        String endDate = details[5].trim();
+                        String startDate = details[3].trim();
+                        String endDate = details[4].trim();
                         LocalDateTime formattedStartDate = formatDate(startDate);
                         LocalDateTime formattedEndDate = formatDate(endDate);
                         task = new Events(description, formattedStartDate, formattedEndDate);
