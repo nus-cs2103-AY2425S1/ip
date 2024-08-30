@@ -1,5 +1,7 @@
 package luffy;
 
+import java.io.IOException;
+
 /**
  * Represents a command that deletes a task into the list of tasks
  */
@@ -23,6 +25,11 @@ public class DeleteCommand extends Command {
     public void executeCmd(LuffyUI ui, Storage taskStorage, TaskList taskList) {
         Task deletedTask = taskList.getTask(index);
         taskList.deleteTask(index);
+        try {
+            taskStorage.saveToFile(taskList);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         ui.showDeletedTask(deletedTask, taskList);
     }
 

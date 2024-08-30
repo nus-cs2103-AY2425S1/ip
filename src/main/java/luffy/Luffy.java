@@ -33,6 +33,7 @@ public class Luffy {
             Command userCommand = LuffyParser.parse(retrievedCommand);
             userCommand.executeCmd(luffyBot, taskCache, taskList);
 
+
             if (userCommand instanceof ExitCommand) {
                 wantToExit = true;
             }
