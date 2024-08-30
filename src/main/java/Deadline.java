@@ -4,11 +4,15 @@ public class Deadline extends Task {
         super(desc);
         int indexOfSpace = deadline.indexOf(" ");
         String temp = deadline.substring(indexOfSpace + 1); // remove "by"
-        this.deadline = temp;
+        this.deadline = temp.trim();
     }
 
     @Override
-    public String getDesc() {
-        return String.format("  [D][%s] %s (by: %s)", super.getStatusIcon(), super.getDesc(), this.deadline);
+    public String toString() {
+        return String.format("  [D][%s] %s (by: %s)", super.getStatusIcon(), super.toString(), this.deadline);
+    }
+
+    public String getDeadline() {
+        return this.deadline;
     }
 }

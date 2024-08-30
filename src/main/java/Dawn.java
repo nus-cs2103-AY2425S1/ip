@@ -1,5 +1,9 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Dawn {
     private static Scanner scanner = new Scanner(System.in);
@@ -16,9 +20,17 @@ public class Dawn {
     public static void main(String[] args) {
         String divider = "--".repeat(30);
 
+        // Handles folder-does-not-exist-yet case to save tasks
+        String currentDir = System.getProperty("user.dir");
+        String dirPath = currentDir + File.separator + "data";
+        File file = new File(dirPath);
+        file.mkdir();
+
         System.out.println(divider);
         System.out.println("Dawn 🌙 speaking, what can I do for you?");
+
         try {
+            loadPrevTasks("./data/dawn.txt"); //
             respond();
         } catch (DawnException ex) {
             System.err.print(ex);
@@ -28,7 +40,6 @@ public class Dawn {
         System.out.println(divider);
     }
     private static ArrayList<Task> tasks = new ArrayList<>();
-    private static int counter = 0;
 
     private static void respond() throws DawnException { //provide responses to the user input
         while (scanner.hasNextLine()) {
@@ -44,14 +55,15 @@ public class Dawn {
             switch (cmd) {
             case BYE:
                 System.out.println("Byeeee~ nice chatting with you! See you next time, Dawn 🌙 out");
+                saveTasks("./data/dawn.txt");
                 return;
             case LIST:
                 System.out.println("listing all tasks...");
-                if (counter <= 1) {
+                if (tasks.isEmpty()) {
                     System.out.println("There are no tasks in the list... \nPlease feed me some tasks!");
                 } else {
-                    for (int i = 0; i < counter; i++) {
-                        System.out.printf("%d. %s  \n", i + 1, tasks.get(i).getDesc());
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.printf("%d. %s  \n", i + 1, tasks.get(i));
                     }
                 }
                 break;
@@ -69,7 +81,7 @@ public class Dawn {
     }
 
     private static void mark(String cmd, String index) throws DawnException{ // mark the tasks accordingly
-        int ind = 0;
+        int ind;
         try {
             ind = Integer.parseInt(index);
         } catch (NumberFormatException e){
@@ -78,10 +90,12 @@ public class Dawn {
 
         if (cmd.equals("unmark")) {
             tasks.get(ind - 1).markAsNotDone(); // account for index starting at 0
+            System.out.println("  ok, I've unmarked this task :( ");
         } else {
             tasks.get(ind - 1).markAsDone();
+            System.out.println("  i've marked this task as done!: ");
         }
-        System.out.println(ind + ". " + tasks.get(ind - 1).getDesc());
+        System.out.println("  " + ind + ". " + tasks.get(ind - 1));
     }
 
     private static void addTask(Command cmd, String input) throws DawnException{
@@ -112,22 +126,114 @@ public class Dawn {
         }
 
         tasks.add(t);
-        counter++;
-        System.out.println("  Gotcha! I've added this task: \n" + counter + "." + t.getDesc());
-        System.out.printf("  Now you have %d task(s) in the list \n", counter);
+        System.out.println("  Gotcha! I've added this task: \n" + tasks.size() + "." + t);
+        System.out.printf("  Now you have %d task(s) in the list \n", tasks.size());
     }
 
     private static void delete(String index) throws DawnException {
-        int ind = 0;
+        int ind;
         try {
             ind = Integer.parseInt(index);
         } catch (NumberFormatException e){
             throw new DawnException("Please specify the index of the task to be deleted!\n");
         }
         Task t = tasks.get(ind - 1); // to account for index starting at 0
-        System.out.println("  OK! I have removed this task for you: \n" + ind + "." + t.getDesc());
+        System.out.println("  OK! I have removed this task for you: \n" + t);
         tasks.remove(ind - 1);
-        counter--;
-        System.out.printf("  Now you have %d task(s) in the list \n", counter);
+        System.out.printf("  Now you have %d task(s) in the list \n", tasks.size());
+    }
+
+    enum TaskType {
+        T,
+        D,
+        E
+    }
+    private static void loadPrevTasks(String filePath) throws DawnException {
+        File f;
+        try {
+            f = new File(filePath);
+            // handles case file-already-exists, and
+            // case file-does-not-exist-yet by creating a new text file
+            if (!f.createNewFile()) {
+                Scanner s = new Scanner(f);
+                while (s.hasNextLine()) {
+                    String[] taskContent = s.nextLine().split(" \\| ");
+                    TaskType type = TaskType.valueOf(taskContent[0]);
+                    Task task = generateSavedTask(taskContent, type);
+                    tasks.add(task);
+                }
+                clearSavedTask(filePath); // clear the previously saved tasks
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static Task generateSavedTask(String[] taskContent, TaskType type) throws DawnException {
+        boolean isDone = taskContent[1].equals("1"); // checks if the status of the task is 0 or 1
+        Task task;
+        switch (type) {
+            case T:
+                task = new ToDo(taskContent[2]);
+                break;
+            case D:
+                task = new Deadline(taskContent[2], taskContent[3]);
+                break;
+            case E:
+                task = new Event(taskContent[2], taskContent[3], taskContent[4]);
+                break;
+            default:
+                // corrupted data file case, i.e. content not in the expected format
+                // todo handle case where the content is not in the expected format
+                throw new DawnException("Tasks saved are not in the correct format!");
+        }
+        if (isDone) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
+    private static void clearSavedTask(String filePath) throws IOException {
+        FileWriter writer = new FileWriter(filePath, false);
+        writer.write(""); // to clear the content of the files
+        writer.close();
+    }
+
+    private static void saveTasks(String filePath) throws DawnException {
+        try {
+            for (int i = 0; i < tasks.size(); i++) {
+                writeToFile(filePath, tasks.get(i));
+            }
+        } catch (IOException e) {
+            throw new DawnException("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void writeToFile(String filePath, Task task) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        String separator = " | ";
+        String isDone = task.isDone() ? "1" : "0";
+        String desc = task.getDesc();
+        String deadline;
+        String from;
+        String to;
+
+        String textToAdd = "";
+
+        if (task instanceof ToDo) {
+            textToAdd = "T" + separator + isDone + separator + desc;
+        } else if (task instanceof Deadline) {
+            // We can safely typecast here since we already checked that task is an instance of Deadline
+            Deadline t = (Deadline) task;
+            deadline = (t).getDeadline();
+            textToAdd = "D" + separator + isDone + separator + desc + separator + deadline;
+        } else { // task instanceof Event
+            Event t = (Event) task;
+            from = t.getFromTime();
+            to = t.getToTime();
+            textToAdd = "E" + separator + isDone + separator + desc + separator + from + separator + to;
+        }
+        fw.write(textToAdd + System.lineSeparator());
+        fw.close();
     }
 }
