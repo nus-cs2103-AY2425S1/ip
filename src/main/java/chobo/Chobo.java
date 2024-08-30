@@ -1,3 +1,4 @@
+package chobo;
 import java.util.Scanner;
 public class Chobo {
     private Ui ui;

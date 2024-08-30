@@ -1,9 +1,10 @@
-import java.time.LocalDate;
+package chobo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 /**
  * Represents an event that starts at a specific date/time and ends at a specific date/time.
- * An Event object corresponds to an event in the Chobo chatbot.
+ * An chobo.Event object corresponds to an event in the Chobo chatbot.
  */
 public class Event extends Task{
     private String unformattedFrom;
@@ -11,7 +12,7 @@ public class Event extends Task{
     private LocalDateTime from;
     private LocalDateTime to;
     /**
-     * Creates a new Event task.
+     * Creates a new chobo.Event task.
      *
      * @param name The name of the task.
      * @param done The status of the task (true if done, false otherwise).
@@ -37,10 +38,10 @@ public class Event extends Task{
     }
 
     /**
-     * Returns a string representation of the Event task, including its type,
+     * Returns a string representation of the chobo.Event task, including its type,
      * status, name, start time, and end time.
      *
-     * @return A string representing the Event task.
+     * @return A string representing the chobo.Event task.
      */
     @Override
     public String toString() {

@@ -1,3 +1,5 @@
+package chobo;
+
 public class Parser {
     public static boolean parse(String fullCommand, TaskList taskList, Ui ui, Storage storage) throws InputException {
         String[] input = fullCommand.split(" ", 2);

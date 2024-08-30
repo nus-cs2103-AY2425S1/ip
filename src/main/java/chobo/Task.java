@@ -1,3 +1,4 @@
+package chobo;
 
 public abstract class Task {
     private static int totalTask;

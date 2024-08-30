@@ -1,16 +1,18 @@
+package chobo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task that needs to be done before a specific date/time.
- * A Deadline object corresponds to a task with a deadline
+ * A chobo.Deadline object corresponds to a task with a deadline
  * in the Chobo chatbot.
  */
 public class Deadline extends Task {
     private String unformattedDate;
     private LocalDateTime by;
     /**
-     * Creates a new Deadline task.
+     * Creates a new chobo.Deadline task.
      *
      * @param name The description of the task.
      * @param done The status of the task (true if done, false otherwise).
@@ -34,10 +36,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline task, including its type,
+     * Returns a string representation of the chobo.Deadline task, including its type,
      * status, name, and deadline.
      *
-     * @return A string representing the Deadline task.
+     * @return A string representing the chobo.Deadline task.
      */
     @Override
     public String toString() {

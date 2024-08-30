@@ -1,3 +1,5 @@
+package chobo;
+
 /**
  * Represents an exception thrown when there is invalid input in the Chobo chatbot.
  * This exception is used to handle various cases of incorrect or missing input.
@@ -8,7 +10,7 @@ public class InputException extends Exception{
     }
 
     /**
-     * Constructs a new InputException with a specific error message
+     * Constructs a new chobo.InputException with a specific error message
      * based on the type of input error encountered.
      *
      * @param msg The type of input error (e.g., "name", "todo", "event", "deadline", "id").

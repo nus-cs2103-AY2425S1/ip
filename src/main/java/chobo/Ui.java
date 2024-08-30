@@ -1,3 +1,5 @@
+package chobo;
+
 import java.util.ArrayList;
 public class Ui {
     private static final String LINE = "----------------------------------------";
