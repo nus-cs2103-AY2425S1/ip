@@ -249,5 +249,4 @@ public class Ui {
         }
         throw new InvalidTaskTypeException(taskType);
     }
-
 }

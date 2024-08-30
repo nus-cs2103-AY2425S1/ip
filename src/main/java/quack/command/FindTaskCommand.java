@@ -7,7 +7,7 @@ import quack.Ui;
  * This class is responsible for finding tasks similar
  * similar to the description entered by the user.
  */
-public class FindTaskCommand extends Command{
+public class FindTaskCommand extends Command {
     
     /** List to store all tasks by Quack */
     private TaskList taskList;
@@ -32,5 +32,4 @@ public class FindTaskCommand extends Command{
         ui.printSearchResult(filteredTask);
 
     }
-
 }
