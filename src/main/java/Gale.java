@@ -1,15 +1,37 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.IOException;
+
 public class Gale {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private ArrayList<Task> taskList;
+    private Storage storage;
 
     public Gale() {
-        this.taskList = new ArrayList<>();
+        this.storage = new Storage("src/main/java/data/galeTasks.txt");
+        loadTasks();
+
     }
     public static void main(String[] args) {
         Gale gale = new Gale();
         gale.run();
+    }
+
+    protected void loadTasks() {
+        try {
+            taskList = storage.loadTasks();
+        } catch (IOException e) {
+            System.out.println("Oops! The wind blew away your task files. Starting over.");
+            this.taskList = new ArrayList<>();
+        }
+    }
+
+    protected void saveTasks() {
+        try {
+            storage.saveTasks(taskList);
+        } catch (IOException e) {
+            System.out.println("Oops! The wind interfered with saving your tasks. Please try again.");
+        }
     }
 
     public void run() {
@@ -42,6 +64,7 @@ public class Gale {
                 } else {
                     throw new GaleException("Oops! That command got lost in the windy realm. Please try again!");
                 }
+                saveTasks();
             } catch (GaleException e) {
                 System.out.println(e.getMessage());
             }
