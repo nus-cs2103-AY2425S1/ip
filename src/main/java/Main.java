@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-
+    /**
+     * Overview of the whole program.
+     * Initialises Danny and Storage loader.
+     */
     public static void main(String[] args){
         Danny danny = new Danny();
         List<Task> savedTasks = new ArrayList<>();

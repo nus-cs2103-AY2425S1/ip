@@ -24,9 +24,21 @@ public class Parser {
         Unknown
     }
     TaskList list;
+    /**
+     * Initialises Parser.
+     *
+     * @param list TaskList used to store tasks.
+     */
     public Parser(TaskList list){
         this.list = list;
     }
+
+    /**
+     * Handles all String input by the user.
+     * Creates/mark/unmark/delete Tasks based on input
+     *
+     * @param in Input String.
+     */
     public void handleInput(String in){
         Command cmd = Command.Error;
         try {

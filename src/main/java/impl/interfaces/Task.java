@@ -3,7 +3,11 @@ package impl.interfaces;
 public class Task {
     protected String description;
     protected boolean isDone;
-
+    /**
+     * Stores Description and Status of a Task.
+     *
+     * @param description Description of class.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
