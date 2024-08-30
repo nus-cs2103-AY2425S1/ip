@@ -29,7 +29,7 @@ public class TaskList {
      */
     public void list() {
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("" + (i + 1) + ". " + tasks.get(i).toString());
+            System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
     }
 
@@ -83,6 +83,34 @@ public class TaskList {
             return "The task has been successfully removed leaving: " + tasks.size() + " tasks";
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidInputException("Task " + (taskNum + 1) + " does not exist");
+        }
+    }
+
+    /**
+     * Queries the tasklist for tasks which match and returns a list of them.
+     *
+     * @param q The query.
+     * @return A list of all entries which match the query.
+     */
+    public String query(String q) {
+        TaskList match = new TaskList();
+        for (Task t: this.tasks) {
+            if (t.toString().contains(q)) {
+                match.add(t);
+            }
+        }
+        if (match.tasks.isEmpty()) {
+            return "No matches found";
+        } else {
+            String results = "";
+            int numMatches = match.tasks.size();
+            if (numMatches > 2) {
+                for (int i = 0; i < match.tasks.size() - 1; i++) {
+                    results += (i + 1) + ". " + match.tasks.get(i).toString()+ "\n";
+                }
+            }
+            results += numMatches + ". " + match.tasks.get(numMatches - 1).toString();
+            return "Here are the matches:\n" + results;
         }
     }
 }
