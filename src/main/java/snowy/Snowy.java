@@ -1,5 +1,6 @@
 package snowy;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -98,9 +99,16 @@ public class Snowy {
                 }
                 break;
 
+            case "find":
+
+                ArrayList<Task> foundTasks = tasks.findTask(description);
+                ui.printFoundTask(foundTasks);
+                break;
+
             default:
                 ui.printUnknownCommand();
                 break;
+
             }
             ui.printLine();
         }
@@ -111,11 +119,6 @@ public class Snowy {
         }
         ui.printEnding();
     }
-
-
-
-
-
 
     public static void main(String[] args) {
         new Snowy("data/snowy.txt").run();

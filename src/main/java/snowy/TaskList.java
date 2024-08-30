@@ -229,4 +229,15 @@ public class TaskList {
         return text.toString();
     }
 
+    public ArrayList<Task> findTask(String description) {
+        int i = 0;
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getName().contains(description)) {
+                result.add(task);
+            }
+        }
+        return result;
+    }
+
 }

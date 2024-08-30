@@ -97,5 +97,12 @@ public class TaskListTest {
         }
     }
 
+    @Test
+    public void findTask_correctInput_success() {
+        TaskList tasks = new TaskList();
+        tasks.addToDo("Read Book");
+        assertEquals("[T][ ] Read Book", tasks.findTask("Book").get(0).toString());
+    }
+
 
 }

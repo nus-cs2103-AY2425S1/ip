@@ -1,5 +1,7 @@
 package snowy;
 
+import java.util.ArrayList;
+
 /**
  * Represents the main object which prints out the user interface.
  */
@@ -69,5 +71,14 @@ public class Ui {
     public void printDeleteTask(Task task) {
         System.out.println("Ok, I've deleted this task:");
         System.out.println(task.toString());
+    }
+
+    public void printFoundTask(ArrayList<Task> foundTasks) {
+        int i = 1;
+        System.out.println("Here are the matching tasks in your list:");
+        for(Task task : foundTasks) {
+            System.out.println(i +". " + task.toString());
+            i++;
+        }
     }
 }
