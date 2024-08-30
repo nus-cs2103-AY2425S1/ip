@@ -1,206 +1,40 @@
 package reo;
 
-public class Ui {
-    /** The current user tasks. */
-    private TaskList tasks;
-    public Ui (TaskList tasks) {
-        this.tasks = tasks;
-    }
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
-    /**
-     * Displays the welcome message.
-     */
-    public void welcome() {
-        System.out.println("----------------------\n" +
-                "Hello! I'm reo.Reo.\nWhat can I do for you?\n"
-                + "----------------------");
-    }
+import java.io.IOException;
+import java.util.ArrayList;
 
-    /**
-     * Displays the current tasks, in a formatted manner.
-     */
-    public void list() {
-        String toPrint = "";
-        toPrint += "----------------------\n";
-        toPrint += tasks.toString();
-        toPrint += "----------------------";
-        System.out.println(toPrint);
-    }
+/**
+ * A GUI for Duke using FXML.
+ */
+public class Ui extends Application {
 
-    /**
-     * Displays the confirmation message after adding a reo.Todo object.
-     *
-     * @param t the reo.Todo object that was added
-     */
-    public void addTodo(Todo t) {
-        String toPrint = "";
-        toPrint += "----------------------\n";
-        toPrint += "I've added this todo:\n " + t.toString() + "\n";
-        toPrint += "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
-        toPrint += "----------------------";
-        System.out.println(toPrint);
-    }
+    private Reo reo = new Reo();
 
-    /**
-     * Displays the error message from attempting to add a reo.Todo object.
-     */
-    public void addTodoError() {
-        String toPrint = "";
-        toPrint += "----------------------\n";
-        toPrint += "Please enter a valid task name.\n";
-        toPrint += "----------------------";
-        System.out.println(toPrint);
-    }
-
-    /**
-     * Displays the confirmation message after marking a task as completed.
-     */
-    public void mark(Task t) {
-        String toPrint = "";
-        toPrint += "----------------------\n";
-        toPrint += "Good job! I've marked this item as done:\n";
-        toPrint += t.toString() + "\n";
-        toPrint += "----------------------";
-        System.out.println(toPrint);
-    }
-
-    /**
-     * Displays the error message from attempting to mark a reo.Task as complete.
-     */
-    public void markError() {
-        String toPrint;
-        toPrint = "----------------------\nPlease enter a valid task number.\n" +
-                "----------------------";
-        System.out.println(toPrint);
-    }
-
-    /**
-     * Displays the confirmation message after marking a task as incomplete.
-     */
-    public void unmark(Task t) {
-        String toPrint;
-        toPrint = "----------------------\n";
-        toPrint += "Get better, I've marked this item as not done:\n";
-        toPrint += t.toString() + "\n";
-        toPrint += "----------------------";
-        System.out.println(toPrint);
-    }
-
-    /**
-     * Displays the error message from attempting to mark a reo.Task as incomplete.
-     */
-    public void unmarkError() {
-        String toPrint;
-        toPrint = "----------------------\nPlease enter a valid task number.\n" +
-                "----------------------";
-        System.out.println(toPrint);
-    }
-
-    /**
-     * Displays the confirmation message after adding a reo.Deadline object.
-     *
-     * @param d The deadline object that was added.
-     */
-    public void addDeadline(Deadline d) {
-        String toPrint = "";
-        toPrint += "----------------------\n";
-        toPrint += "I've added this deadline:\n";
-        toPrint += d.toString() + "\n";
-        toPrint += "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
-        toPrint += "----------------------";
-        System.out.println(toPrint);
-    }
-
-    /**
-     * Displays the error message from attempting to add a reo.Deadline object.
-     */
-    public void addDeadlineError() {
-        String toPrint;
-        toPrint = "----------------------\nPlease enter a valid task name and deadline.\n" +
-                "----------------------";
-        System.out.println(toPrint);
-    }
-
-    /**
-     * Displays the confirmation message after adding an reo.Event object.
-     *
-     * @param e The deadline object that was added.
-     */
-    public void addEvent(Event e) {
-        String toPrint = "";
-        toPrint += "----------------------\n";
-        toPrint += "I've added this event:\n";
-        toPrint += e.toString() + "\n";
-        toPrint += "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
-        toPrint += "----------------------";
-        System.out.println(toPrint);
-    }
-
-    /**
-     * Displays the error message from attempting to add an reo.Event object.
-     */
-    public void addEventError() {
-        String toPrint;
-        toPrint = "----------------------\nPlease enter a valid task name and " +
-                "to & from dates.\n----------------------";
-        System.out.println(toPrint);
-    }
-
-    /**
-     * Displays the confirmation message after deleting a task.
-     *
-     * @param t The reo.Task object that was deleted.
-     */
-    public void delete(Task t) {
-        String toPrint = "";
-        toPrint += "----------------------\n";
-        toPrint += "I've deleted this task:\n";
-        toPrint += t.toString() + "\n";
-        toPrint += "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
-        toPrint += "----------------------";
-        System.out.println(toPrint);
-    }
-
-    /**
-     * Displays the error message from attempting to delete a reo.Task.
-     */
-    public void deleteError() {
-        String toPrint;
-        toPrint = "----------------------\nPlease enter a valid task number.\n" +
-                "----------------------";
-        System.out.println(toPrint);
-    }
-
-    /**
-     * Displays the error message from entering an invalid command.
-     */
-    public void enterCommandError() {
-        String toPrint;
-        toPrint = "----------------------\nERROR: Please enter a valid command.\n" +
-                "----------------------";
-        System.out.println(toPrint);
-    }
-
-    public void find(TaskList filtered) {
-        String toPrint = "";
-        toPrint += "----------------------\n";
-        toPrint += "Here are the matching tasks in your list:\n";
-        toPrint += filtered.toString() + "\n";
-        toPrint += "----------------------";
-        System.out.println(toPrint);
-    }
-
-    public void findError() {
-        String toPrint;
-        toPrint = "----------------------\nERROR: Please enter a valid keyword to search for.\n" +
-                "----------------------";
-        System.out.println(toPrint);
-    }
-
-    /**
-     * Displays the goodbye message.
-     */
-    public void exit() {
-        System.out.println("Bye!");
+    @Override
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            Storage storage = new Storage("./data/reo.txt");
+            TaskList tasklist;
+            try {
+                tasklist = new TaskList(storage.readFile());
+            } catch (Exception e) {
+                tasklist = new TaskList(new ArrayList<Task>());
+            }
+            storage = new Storage("./data/reo.txt");
+            fxmlLoader.<MainWindow>getController().setProperties(tasklist, storage);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
