@@ -1,3 +1,5 @@
+package froggy;
+
 /**
  * Parses user input
  */

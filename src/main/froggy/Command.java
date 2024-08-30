@@ -1,3 +1,5 @@
+package froggy;
+
 public abstract class Command {
     /**
      * Executes given command based on command type.

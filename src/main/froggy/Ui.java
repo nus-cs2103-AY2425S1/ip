@@ -1,3 +1,5 @@
+package froggy;
+
 import java.util.Scanner;
 
 public class Ui {

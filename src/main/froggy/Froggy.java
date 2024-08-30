@@ -1,3 +1,5 @@
+package froggy;
+
 public class Froggy {
     private static final String FILE_PATH = "./data/taskList.txt";
     private Storage storage;
