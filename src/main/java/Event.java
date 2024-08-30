@@ -28,6 +28,10 @@ public class Event extends Task {
 
     @Override
     public String getFileString() {
+<<<<<<< HEAD
         return String.format("E | %s | %s | %s to %s", getStatusNumber(), getDescription(), getFrom(), getTo());
+=======
+        return String.format("E | %s | %s | %s to %s", getStatusNumber(), getDescription(), from, to);
+>>>>>>> branch-A-MoreOOP
     }
 }

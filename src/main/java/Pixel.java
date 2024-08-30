@@ -1,18 +1,21 @@
+<<<<<<< HEAD
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
+=======
+>>>>>>> branch-A-MoreOOP
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 
 public class Pixel {
-    public final static String DIRECTORY_PATH = "../data";
-    public final static String FILE_PATH = DIRECTORY_PATH + "/pixel.txt";
-    public static String LINE = "\t" + "------------------------------------";
-    public static ArrayList<Task> tasks = new ArrayList<>();
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
+<<<<<<< HEAD
     public static void printLine(String line) {
         System.out.println(LINE);
         System.out.println("\t" + line);
@@ -88,27 +91,15 @@ public class Pixel {
     }
 
     public static void updateFile() {
+=======
+    public Pixel(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+>>>>>>> branch-A-MoreOOP
         try {
-            FileWriter fileWriter = new FileWriter(FILE_PATH);
-            for (Task currentTask : tasks) {
-                fileWriter.write(currentTask.getFileString()+"\n");
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            printLine("Something went wrong: " + e.getMessage());
-        }
-    }
-
-    public static void printFile() {
-        try {
-            File file = new File(FILE_PATH); // create a File for the given file path
-            Scanner scanner = new Scanner(file); // create a Scanner using the File as the source
-            System.out.println(LINE);
-            while (scanner.hasNext()) {
-                System.out.println("\t" + scanner.nextLine());
-            }
-            System.out.println(LINE);
+            tasks = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
+<<<<<<< HEAD
             System.out.println(LINE);
             System.out.println("\t" + "I'm sorry, but I can't find the data for the ToDos!");
             System.out.println("\t" + "Please specify the correct file path.");
@@ -233,26 +224,23 @@ public class Pixel {
             createListFromCurrentData();
             printGreeting();
             processResponse();
+=======
+            Ui.handleFileNotFoundException();
+>>>>>>> branch-A-MoreOOP
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(LINE);
-            System.out.println("\t" + "I'm sorry, but there is no such index that exists");
-            System.out.println("\t" + "Type in a valid index!");
-            System.out.println(LINE);
-        } catch (InvalidCommandException e) {
-            System.out.println(LINE);
-            System.out.println("\t" + "I'm sorry, but I don't know what that means");
-            System.out.println("\t" + "Type in a valid command!");
-            System.out.println(LINE);
-        } catch (EmptyDescriptionException e) {
-            System.out.println(LINE);
-            System.out.println("\t" + "I'm sorry, but I can't add a task if the description is empty!");
-            System.out.println("\t" + "Type in a valid description!");
-            System.out.println(LINE);
-        } catch (FileNotFoundException e) {
-            System.out.println(LINE);
-            System.out.println("\t" + "I'm sorry, but I can't find the data for the ToDos!");
-            System.out.println("\t" + "Please specify the correct file path.");
-            System.out.println(LINE);
+            Ui.handleIndexOutOfBoundsException();
         }
+    }
+
+    public void run() {
+        Ui.printGreeting();
+        while (true) {
+            String command = Ui.getCommand();
+            Parser.parse(command, tasks, storage);
+        }
+    }
+
+    public static void main(String[] args) {
+        new Pixel("../data/pixel.txt").run();
     }
 }
