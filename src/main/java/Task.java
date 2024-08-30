@@ -3,25 +3,26 @@ import java.time.LocalDate;
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected LocalDate date = null;
-    protected String startTime = null;
-    protected String endTime = null;
+    protected LocalDate date;
+    protected String startTime;
+    protected String endTime;
 
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
+        this.date = null;
+        this.startTime = null;
+        this.endTime = null;
     }
 
-    public String markDone() {
+    public Task markDone() {
         this.isDone = true;
-        return "     Nice! I've marked this task as done: \n" +
-                "       " + this.printTask();
+        return this;
     }
 
-    public String markUndone() {
+    public Task markUndone() {
         this.isDone = false;
-        return "     OK, I've marked this task as not done yet: \n" +
-                "       " + this.printTask();
+        return this;
     }
 
     public String printTask() {

@@ -128,7 +128,7 @@ public class ListOfTask {
 
     public String markDone(int i, Path filePath) {
         try {
-            String markedTask = this.tasks.get(i - 1).markDone();
+            Task markedTask = this.tasks.get(i - 1).markDone();
             File taskFile = new File(String.valueOf(filePath));
             FileWriter overwrittenFile = new FileWriter(taskFile);
 
@@ -168,7 +168,7 @@ public class ListOfTask {
 
     public String markUndone(int i, Path filePath) {
         try {
-            String unmarkedTask = this.tasks.get(i - 1).markUndone();
+            Task unmarkedTask = this.tasks.get(i - 1).markUndone();
             File taskFile = new File(String.valueOf(filePath));
             FileWriter overwrittenFile = new FileWriter(taskFile);
 
