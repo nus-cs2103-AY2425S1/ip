@@ -16,7 +16,7 @@ public abstract class Command {
      * @param storage The {@code Storage} object used for saving task data.
      * @throws StrandException If there is an error during command execution.
      */
-    public abstract void execute(strand.TaskList tasks, strand.Ui ui, strand.Storage storage) throws StrandException;
+    public abstract String execute(strand.TaskList tasks, strand.Ui ui, strand.Storage storage) throws StrandException;
 
     /**
      * Indicates whether the command should continue running.

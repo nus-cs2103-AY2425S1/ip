@@ -61,4 +61,17 @@ public class Strand {
             }
         }
     }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            return c.execute(tasks, ui, storage);
+        } catch (StrandException e) {
+            return ui.showError(e.getMessage());
+        }
+    }
+
+    public String getWelcomeMessage() {
+        return ui.welcome();
+    }
 }
