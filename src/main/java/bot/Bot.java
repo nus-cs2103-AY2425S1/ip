@@ -7,6 +7,8 @@ import bot.utils.Formatter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -21,7 +23,7 @@ public class Bot {
         try {
             tasks = storage.loadTasks();
         } catch (FileNotFoundException e) {
-            System.out.println("Failed to load task from disk");
+            System.out.println("Failed to load task from disk" + e.getMessage());
             System.exit(0);
         }
     }
@@ -55,7 +57,6 @@ public class Bot {
     public static void main(String[] args) {
         // Initialization
         Bot bot = new Bot();
-        bot.storage.init();
 
         printBotMessage("Hello! I'm ChadGPT. What can I do for you?");
 
@@ -118,7 +119,7 @@ public class Bot {
         printBotMessage("Here are the tasks in your list:\n" + Formatter.formatList(tasks));
     }
 
-    private void handleAddTask(String cmd, String args) throws InvalidTaskDescriptionException {
+    private void handleAddTask(String cmd, String args) throws InvalidTaskDescriptionException, DateTimeParseException {
         if (cmd.equals(Command.TODO.name)) {
             if (args.isEmpty()) {
                 throw new EmptyTodoException();
@@ -130,7 +131,7 @@ public class Bot {
             if (matcher.matches()) {
                 String task = matcher.group(1);
                 String deadline = matcher.group(2);
-                tasks.add(new Deadline(task, deadline));
+                tasks.add(new Deadline(task, LocalDate.parse(deadline)));
             } else {
                 throw new InvalidTaskDescriptionException(args);
             }
@@ -142,7 +143,7 @@ public class Bot {
                 String task = matcher.group(1);
                 String from = matcher.group(2);
                 String to = matcher.group(3);
-                tasks.add(new Event(task, from, to));
+                tasks.add(new Event(task, LocalDate.parse(from), LocalDate.parse(to)));
             } else {
                 throw new InvalidTaskDescriptionException(args);
             }

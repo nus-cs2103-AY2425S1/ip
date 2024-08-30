@@ -1,15 +1,17 @@
 package bot.tasks;
 
+import java.time.LocalDate;
+
 public class Deadline extends Task {
 
-    protected String by;
+    protected final LocalDate by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
 
-    public Deadline(String description, Boolean isDone, String by) {
+    public Deadline(String description, Boolean isDone, LocalDate by) {
         super(description, isDone);
         this.by = by;
     }
