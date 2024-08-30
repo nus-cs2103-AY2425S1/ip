@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
+
+import Ponder_Pika.Storage.IOHandler;
 import Ponder_Pika.Task.Event;
 import Ponder_Pika.Task.Deadline;
 import Ponder_Pika.Task.Task;
@@ -190,10 +192,5 @@ public class Ponder_Pika {
                 break;
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Ponder_Pika bot = new Ponder_Pika();
-        bot.echo();
     }
 }
