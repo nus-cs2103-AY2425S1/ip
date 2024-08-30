@@ -2,6 +2,7 @@ package chacha;
 
 import chacha.task.Task;
 import java.time.DateTimeException;
+import java.util.ArrayList;
 
 public class Parser {
     private Storage storage;
@@ -39,6 +40,8 @@ public class Parser {
         } else if (userInput.startsWith("delete")) {
             return this.deleteCommand(userInput);
 
+        } else if (userInput.startsWith("find")) {
+            return this.doFindCommand(userInput);
         } else {
             String[] arr = {"Hmmm... I don't seem to understand this. Please input another command! "};
             return this.ui.printStrings(arr);
@@ -136,4 +139,12 @@ public class Parser {
         }
     }
 
+    public String doFindCommand(String userInput) {
+        try {
+            ArrayList<Task> results = this.tasks.find(userInput, this.ui);
+            return this.ui.printList(results, "Here are the matching tasks in your list: \n");
+        } catch (ChaChaException e) {
+            return e.toString();
+        }
+    }
 }

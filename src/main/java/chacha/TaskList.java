@@ -143,14 +143,7 @@ public class TaskList {
     }
 
     public String printList(Ui ui) {
-        String[] arrOfTasks = new String[this.getTotalNumber()];
-
-        for (int i = 0; i < this.getTotalNumber(); i++) {
-            String index = String.valueOf(i + 1);
-            arrOfTasks[i] = index + ". " + this.getTask(i).printTask();
-        }
-
-        return ui.printList(arrOfTasks);
+        return ui.printList(this.tasks, "Here are the tasks in your list: \n");
     }
 
     public Task deleteTask(String cmd, Ui ui, Storage storage) throws ChaChaException {
@@ -203,5 +196,26 @@ public class TaskList {
         Task unmarkedTask = this.tasks.get(index - 1).markUndone();
         storage.overwriteFile(this);
         return unmarkedTask;
+    }
+
+    public ArrayList<Task> find(String cmd, Ui ui) throws ChaChaException {
+        if (cmd.length() <= 5) {
+            String[] arrOfString = {
+                    "You are missing the text you want to find. ",
+                    "Please type again!"
+            };
+
+            throw new ChaChaException(ui.printStrings(arrOfString));
+        }
+
+        String inputText = cmd.substring(5);
+        ArrayList<Task> listOfResult = new ArrayList<>();
+        for (int i = 0; i < this.getTotalNumber(); i++) {
+            Task task = this.getTask(i);
+            if (task.compareText(inputText)) {
+                listOfResult.add(task);
+            }
+        }
+        return listOfResult;
     }
 }
