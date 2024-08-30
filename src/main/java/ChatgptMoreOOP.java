@@ -1,5 +1,3 @@
-package application;
-
 import Exception.EmptyDescriptionException;
 import Tools.Parser;
 import Tools.Storage;
