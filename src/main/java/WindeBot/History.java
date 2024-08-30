@@ -14,17 +14,38 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * The History class handles saving and loading the reminder list to and from a text file.
+ * It is used to persist the task data across different sessions of the application.
+ */
+
 public class History {
     private static final String WINDE_FILE = "./src/main/java/WindeTasks.txt";
     private static String filePath;
+
+    /**
+     * Constructs a History object with the specified file path.
+     *
+     * @param filePath The path to the file where the reminder list is stored.
+     */
 
     History(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Constructs a History object with the default file path.
+     */
+
     History() {
         this.filePath = WINDE_FILE;
     }
+
+    /**
+     * Loads the reminder list from the text file.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     */
 
     public static ArrayList<Task> load() {
         File file = new File(filePath);
@@ -67,6 +88,12 @@ public class History {
         }
         return taskList;
     }
+
+    /**
+     * Saves the reminder list to the text file.
+     *
+     * @param reminder The list of tasks to be saved.
+     */
 
     public static void save(ArrayList<Task> reminder) {
         try {

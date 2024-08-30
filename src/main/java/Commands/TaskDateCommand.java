@@ -11,7 +11,24 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * The TaskDateCommand class represents a command to list tasks on a specific date.
+ * This command searches through the list of tasks and displays any tasks that match the specified date.
+ */
+
 public class TaskDateCommand extends Command {
+
+    /**
+     * Executes the TaskDateCommand, displaying tasks that occur on the specified date.
+     *
+     * @param input The user input string containing the date to search for tasks.
+     * @param reminder The Reminder object that manages the task list.
+     * @param ui The Ui object used to interact with the user.
+     * @return true if the command was executed successfully.
+     * @throws EmptyDescriptionException If no date is provided in the input.
+     * @throws TooManyParametersException If too many parameters are provided in the input.
+     */
+
     public boolean execute(String input, Reminder reminder, Ui ui) throws EmptyDescriptionException, TooManyParametersException {
         String[] command = input.split(" ");
         if (command.length == 2) {

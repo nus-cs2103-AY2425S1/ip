@@ -14,7 +14,20 @@ import Commands.ByeCommand;
 import Commands.ErrorCommand;
 import Exceptions.UnsupportedCommandException;
 
+/**
+ * The Parser class interprets the user input and returns the corresponding Command object.
+ * It acts as an interface between the user's input and the application's command execution.
+ */
+
 public class Parser {
+
+    /**
+     * Parses the user input and returns the appropriate Command object.
+     *
+     * @param input The user input string.
+     * @return The Command object corresponding to the user's input.
+     * @throws UnsupportedCommandException If the command is not recognized.
+     */
 
     public static Command parse(String input) throws UnsupportedCommandException {
         String[] parts = input.split(" ", 2);
@@ -65,6 +78,13 @@ public class Parser {
         return commands;
     }
 
+    /**
+     * Determines the command type based on the user input.
+     *
+     * @param input The command keyword from the user input.
+     * @return The subCommands enum corresponding to the command keyword.
+     */
+
     private static subCommands getCommandType(String input) {
         if (input.startsWith("todo")) {
             return subCommands.TODO;
@@ -97,7 +117,11 @@ public class Parser {
         }
     }
 
-    enum subCommands {
+    /**
+     * Enumeration representing the possible command types.
+     */
+
+    private enum subCommands {
         TODO, DEADLINE, EVENT, LIST, DELETE, BYE, MARK, UNMARK, DATE, FIND, UNKNOWN
     }
 }
