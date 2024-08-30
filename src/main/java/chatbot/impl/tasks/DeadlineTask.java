@@ -2,7 +2,7 @@ package chatbot.impl.tasks;
 
 public class DeadlineTask extends AbstractTask {
 
-    private String deadline;
+    private final String deadline;
 
     public DeadlineTask(String description, String deadline) {
         super(description);

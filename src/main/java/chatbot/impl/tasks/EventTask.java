@@ -2,9 +2,9 @@ package chatbot.impl.tasks;
 
 public class EventTask extends AbstractTask {
 
-    private String startTime;
+    private final String startTime;
 
-    private String endTime;
+    private final String endTime;
 
     public EventTask(String description, String startTime, String endTime) {
         super(description);
