@@ -48,4 +48,8 @@ public class Task {
     public String toString() {
         return (isDone ? "[X]" : "[ ]") + " " + name;
     }
+
+    public String getName() {
+        return this.name;
+    }
 }
