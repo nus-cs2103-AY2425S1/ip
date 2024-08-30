@@ -1,27 +1,29 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
-    private LocalDateTime from;
-    private LocalDateTime to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
-    // Using a date-time format
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws YapperException {
         super(description);
-        this.from = LocalDateTime.parse(from, DATE_TIME_FORMATTER);
-        this.to = LocalDateTime.parse(to, DATE_TIME_FORMATTER);
+        try {
+            this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new YapperException("Boss, the date and time format seems off! Please use yyyy-MM-dd HHmm.");
+        }
     }
 
     @Override
     public String toSaveFormat() {
-        return "E | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + from.format(DATE_TIME_FORMATTER) + " | " + to.format(DATE_TIME_FORMATTER);
+        return "E | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " + to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a")) +
-                " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a")) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma")) +
+                " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma")) + ")";
     }
 }
