@@ -1,13 +1,22 @@
 package friday.util;
 
-import friday.command.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import friday.command.AddCommand;
+import friday.command.Command;
+import friday.command.DeleteCommand;
+import friday.command.ExitCommand;
+import friday.command.FindCommand;
+import friday.command.InvalidCommand;
+import friday.command.ListCommand;
+import friday.command.MarkCommand;
+import friday.command.OnCommand;
+import friday.command.UnmarkCommand;
 import friday.task.Deadline;
 import friday.task.Event;
 import friday.task.Todo;
-
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.LocalDate;
 
 /**
  * The Parser class handles parsing user input and converting it into commands that
@@ -29,28 +38,28 @@ public class Parser {
         String arguments = parts.length > 1 ? parts[1] : "";
 
         switch (command) {
-            case "todo":
-                return parseTodo(arguments);
-            case "deadline":
-                return parseDeadline(arguments);
-            case "event":
-                return parseEvent(arguments);
-            case "list":
-                return new ListCommand();
-            case "mark":
-                return parseMark(arguments);
-            case "unmark":
-                return parseUnmark(arguments);
-            case "delete":
-                return parseDelete(arguments);
-            case "on":
-                return parseOn(arguments);
-            case "find":
-                return parseFind(arguments);
-            case "bye":
-                return new ExitCommand();
-            default:
-                return new InvalidCommand("I'm sorry, but I don't know what that means :-(");
+        case "todo":
+            return parseTodo(arguments);
+        case "deadline":
+            return parseDeadline(arguments);
+        case "event":
+            return parseEvent(arguments);
+        case "list":
+            return new ListCommand();
+        case "mark":
+            return parseMark(arguments);
+        case "unmark":
+            return parseUnmark(arguments);
+        case "delete":
+            return parseDelete(arguments);
+        case "on":
+            return parseOn(arguments);
+        case "find":
+            return parseFind(arguments);
+        case "bye":
+            return new ExitCommand();
+        default:
+            return new InvalidCommand("I'm sorry, but I don't know what that means :-(");
         }
     }
 

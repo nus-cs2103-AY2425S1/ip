@@ -1,11 +1,11 @@
 package friday.command;
 
+import java.io.IOException;
+
 import friday.task.Task;
 import friday.util.Storage;
 import friday.util.TaskList;
 import friday.util.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a command to mark a task as done.

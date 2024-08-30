@@ -1,15 +1,15 @@
 package friday.util;
 
-import friday.task.Deadline;
-import friday.task.Event;
-import friday.task.Task;
-import friday.task.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import friday.task.Deadline;
+import friday.task.Event;
+import friday.task.Task;
+import friday.task.Todo;
 
 /**
  * The Storage class handles loading and saving tasks to and from a file.
@@ -48,15 +48,17 @@ public class Storage {
                 String description = parts[2];
 
                 switch (type) {
-                    case "T":
-                        tasks.add(new Todo(description, isDone));
-                        break;
-                    case "D":
-                        tasks.add(new Deadline(description, parts[3], isDone));
-                        break;
-                    case "E":
-                        tasks.add(new Event(description, parts[3], parts[4], isDone));
-                        break;
+                case "T":
+                    tasks.add(new Todo(description, isDone));
+                    break;
+                case "D":
+                    tasks.add(new Deadline(description, parts[3], isDone));
+                    break;
+                case "E":
+                    tasks.add(new Event(description, parts[3], parts[4], isDone));
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown task type: " + type);
                 }
             }
             scanner.close();

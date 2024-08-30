@@ -1,8 +1,8 @@
 package friday.task;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a Deadline task. A Deadline is a task with a due date and time.

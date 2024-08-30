@@ -1,8 +1,8 @@
 package friday.task;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents an Event task. An Event is a task that occurs over a specified time period.

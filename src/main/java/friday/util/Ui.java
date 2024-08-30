@@ -1,10 +1,10 @@
 package friday.util;
 
-import friday.task.Task;
-
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
+import friday.task.Task;
 
 /**
  * The Ui class handles all interactions with the user.
@@ -17,10 +17,10 @@ public class Ui {
      */
     public void greet() {
         System.out.println(
-                "    ____________________________________________________________\n" +
-                        "     Hello! I'm Friday\n" +
-                        "     What can I do for you?\n" +
-                        "    ____________________________________________________________"
+                "    ____________________________________________________________\n"
+                        + "     Hello! I'm Friday\n"
+                        + "     What can I do for you?\n"
+                        + "    ____________________________________________________________"
         );
     }
 
@@ -31,9 +31,9 @@ public class Ui {
      */
     public void showError(String message) {
         System.out.println(
-                "    ____________________________________________________________\n" +
-                        "     " + message + "\n" +
-                        "    ____________________________________________________________"
+                "    ____________________________________________________________\n"
+                        + "     " + message + "\n"
+                        + "    ____________________________________________________________"
         );
     }
 
@@ -62,11 +62,11 @@ public class Ui {
      */
     public void showAddedTask(Task task, int noOfTasks) {
         System.out.println(
-                "    ____________________________________________________________\n" +
-                        "     Got it. I've added this task:\n" +
-                        "       " + task + "\n" +
-                        "     Now you have " + noOfTasks + " tasks in the list.\n" +
-                        "    ____________________________________________________________"
+                "    ____________________________________________________________\n"
+                        + "     Got it. I've added this task:\n"
+                        + "       " + task + "\n"
+                        + "     Now you have " + noOfTasks + " tasks in the list.\n"
+                        + "    ____________________________________________________________"
         );
     }
 
@@ -78,11 +78,11 @@ public class Ui {
      */
     public void showDeletedTask(Task task, int noOfTasks) {
         System.out.println(
-                "    ____________________________________________________________\n" +
-                        "     Noted. I've removed this task:\n" +
-                        "       " + task + "\n" +
-                        "     Now you have " + noOfTasks + " tasks in the list.\n" +
-                        "    ____________________________________________________________"
+                "    ____________________________________________________________\n"
+                        + "     Noted. I've removed this task:\n"
+                        + "       " + task + "\n"
+                        + "     Now you have " + noOfTasks + " tasks in the list.\n"
+                        + "    ____________________________________________________________"
         );
     }
 
@@ -93,10 +93,10 @@ public class Ui {
      */
     public void showMarkedTask(Task task) {
         System.out.println(
-                "    ____________________________________________________________\n" +
-                        "     Nice! I've marked this task as done:\n" +
-                        "       " + task + "\n" +
-                        "    ____________________________________________________________"
+                "    ____________________________________________________________\n"
+                        + "     Nice! I've marked this task as done:\n"
+                        + "       " + task + "\n"
+                        + "    ____________________________________________________________"
         );
     }
 
@@ -107,10 +107,10 @@ public class Ui {
      */
     public void showUnmarkedTask(Task task) {
         System.out.println(
-                "    ____________________________________________________________\n" +
-                        "     OK, I've marked this task as not done yet:\n" +
-                        "       " + task + "\n" +
-                        "    ____________________________________________________________"
+                "    ____________________________________________________________\n"
+                        + "     OK, I've marked this task as not done yet:\n"
+                        + "       " + task + "\n"
+                        + "    ____________________________________________________________"
         );
     }
 
@@ -143,7 +143,8 @@ public class Ui {
         if (tasks.isTaskListEmpty()) {
             System.out.println("     No tasks found on this date.");
         } else {
-            System.out.println("     Here are your tasks on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+            System.out.println("     Here are your tasks on "
+                    + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
             for (int i = 0; i < tasks.getSize(); i++) {
                 System.out.println("     " + (i + 1) + "." + tasks.getTask(i));
             }
@@ -174,9 +175,9 @@ public class Ui {
      */
     public void sayGoodbye() {
         System.out.println(
-                "    ____________________________________________________________\n" +
-                        "     Bye. Hope to see you again soon!\n" +
-                        "    ____________________________________________________________"
+                "    ____________________________________________________________\n"
+                        + "     Bye. Hope to see you again soon!\n"
+                        + "    ____________________________________________________________"
         );
     }
 }
