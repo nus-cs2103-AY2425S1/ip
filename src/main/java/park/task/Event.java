@@ -1,6 +1,11 @@
+package main.java.park.task;
+
+import main.java.park.parser.DTFormatter;
+
 import java.time.format.DateTimeParseException;
 
-public class Event extends Task{
+public class Event extends Task {
+
     protected String start;
     protected String end;
 

@@ -1,4 +1,7 @@
+package main.java.park.task;
+
 public abstract class Task {
+
     protected String description;
     protected boolean isDone;
 
@@ -16,10 +19,6 @@ public abstract class Task {
 
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public void mark() {

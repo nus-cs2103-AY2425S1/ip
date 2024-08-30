@@ -1,8 +1,11 @@
+package main.java.park.ui;
+
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Ui {
+
     private final Scanner in;
     private final PrintStream out;
 

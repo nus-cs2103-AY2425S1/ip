@@ -1,3 +1,11 @@
+package main.java.park.commands;
+
+import main.java.park.exceptions.ParkException;
+import main.java.park.storage.Storage;
+import main.java.park.storage.TaskList;
+import main.java.park.task.Task;
+import main.java.park.ui.Ui;
+
 public class AddCommand extends Command {
 
     private final Task t;
