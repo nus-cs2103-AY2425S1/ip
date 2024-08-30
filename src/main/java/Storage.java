@@ -2,14 +2,30 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class FileReadWrite {
-    public static void createFile(String fileName) {
-        File f = new File(fileName);
+public class Storage {
+    private String filePath;
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public ArrayList<Task> load() throws IOException{
+        try {
+            ArrayList<String> stringList = readFile();
+            return getTasksFromFileString(stringList);
+        } catch (FileNotFoundException e ) {
+            createFile();
+            return new ArrayList<>();
+        }
+    }
+
+    private void createFile() {
+        File f = new File(this.filePath);
         try {
             if (!f.getParentFile().exists()) {
                 f.getParentFile().mkdirs();
@@ -23,29 +39,32 @@ public class FileReadWrite {
         }
     }
 
-    public static void writeFile(String filePath, String text) {
+    public void writeFile(String text) {
         try {
-            FileWriter fw = new FileWriter(filePath); // create a FileWriter in append mode
+            FileWriter fw = new FileWriter(this.filePath); // create a FileWriter in append mode
             fw.write(text );
             fw.close();
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
-
     }
 
-    public static ArrayList<Task> getTaskListFromFile(ArrayList<String> taskString) throws FileNotFoundException {
-        return taskString.stream().map(str -> {
+    private ArrayList<Task> getTasksFromFileString(ArrayList<String> taskString) throws IOException{
+        ArrayList<Task> arrayList = taskString.stream().map(str -> {
             try {
-                return FileReadWrite.fromFileStringToTask(str);
-            } catch (InputFormatException e) {
+                return this.getTaskFromString(str);
+            } catch (IOException e) {
                 System.out.println(e.getMessage());
                 return null;
             }
         }).collect(Collectors.toCollection(ArrayList<Task>::new));
+        if (arrayList.contains(null)) {
+            throw new IOException("Error parsing file");
+        }
+        return arrayList;
     }
 
-    public static ArrayList<String> readFile(String filePath) throws FileNotFoundException {
+    private ArrayList<String> readFile() throws FileNotFoundException {
         ArrayList<String> taskString = new ArrayList<>();
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -56,23 +75,24 @@ public class FileReadWrite {
     }
 
 
-    private static Task fromFileStringToTask(String str) throws InputFormatException{
+    private Task getTaskFromString(String str) throws IOException {
         try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             if (str.startsWith("T")) {
                 String[] strings = str.split("[|]");
-                Task tmp = new Todo(String.format("todo %s", strings[2].trim()));
+                Task tmp = new Todo(strings[2].trim());
                 if (strings[1].equals("1")) tmp.markAsDone();
                 return tmp;
             }
             if (str.startsWith("E")) {
                 String[] strings = str.split("[|]");
-                Task tmp = new Event(String.format("event %s /from %s /to %s", strings[2], strings[3],strings[4]));
+                Task tmp = new Event(strings[2], LocalDateTime.parse(strings[3].trim(), formatter),LocalDateTime.parse(strings[4].trim(), formatter));
                 if (strings[1].equals("1")) tmp.markAsDone();
                 return tmp;
             }
             if (str.startsWith("D")) {
                 String[] strings = str.split("[|]");
-                Task tmp = new Deadline(String.format("deadline %s /by %s ", strings[2], strings[3]));
+                Task tmp = new Deadline(strings[2], LocalDateTime.parse(strings[3].trim(), formatter));
                 if (strings[1].equals("1")) tmp.markAsDone();
                 return tmp;
             }
@@ -80,14 +100,7 @@ public class FileReadWrite {
                 throw new InputFormatException("");
             }
         }  catch (InputFormatException e) {
-            throw new InputFormatException("Trouble getting data from database");
+            throw new IOException("Trouble getting data from database :" + e.getMessage());
         }
     }
-
-//    public static void main (String[] args) {
-//        String file2 = "data/lines.txt";
-//        createFile(file2);
-//        appendToFile(file2, "first line" + System.lineSeparator() + "second line");
-//
-//    }
 }
