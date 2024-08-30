@@ -11,7 +11,9 @@ import quack.exception.FailedUpdateException;
  */
 public class UpdateTaskCommand extends Command{
     
+    /** List to store all tasks by Quack */
     private TaskList taskList;
+    /** Ui to handle all user display interactions */
     private Ui ui;
     /** Update command that the user wants to execute */
     private String command;

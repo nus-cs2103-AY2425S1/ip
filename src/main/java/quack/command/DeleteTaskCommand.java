@@ -10,7 +10,9 @@ import quack.tasks.Task;
  */
 public class DeleteTaskCommand extends Command{
 
+    /** List to store all tasks by Quack */
     private TaskList taskList;
+    /** Ui to handle all user display interactions */
     private Ui ui;
 
     /**

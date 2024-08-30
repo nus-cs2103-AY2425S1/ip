@@ -13,7 +13,9 @@ import quack.exception.InvalidDateTimeException;
  */
 public class AddTaskCommand extends Command{
     
+    /** List to store all tasks by Quack */
     private TaskList taskList;
+    /** List to store all tasks by Quack */
     private Ui ui;
 
     /**
