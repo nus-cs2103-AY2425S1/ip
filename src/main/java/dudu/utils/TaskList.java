@@ -23,11 +23,6 @@ public class TaskList {
 
     public int addTask(Task task) throws java.io.IOException {
         tasks.add(task);
-        FileWriter fw = new FileWriter("./data/dudu.txt", true);
-        fw.write("\n" + task.formatString());
-        fw.close();
-        String output = LineWrapper.wrap(String.format("Got it. I've added this task:\n    %s\nNow you have %d tasks in the list.", task, tasks.size()));
-        System.out.println(output);
         return this.tasks.size();
     }
 
