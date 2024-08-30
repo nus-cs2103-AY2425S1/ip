@@ -45,6 +45,20 @@ public class TaskList {
         tasks.remove(removedTask);
     }
 
+    public void printMatchingTasks(String searchKey) {
+        TaskList matchingTasks = new TaskList(new ArrayList<>());
+        for (Task currentTask : tasks) {
+            if (currentTask.getDescription().contains(searchKey)) {
+                matchingTasks.addTask(currentTask);
+            }
+        }
+        if (matchingTasks.getSize() > 0) {
+            matchingTasks.printTasks();
+        } else {
+            System.out.println("\t" + "No tasks match your search key. Try another search key.");
+        }
+    }
+
     /**
      * Prints all tasks in the ArrayList
      */

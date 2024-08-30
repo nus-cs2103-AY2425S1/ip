@@ -100,6 +100,17 @@ public class Ui {
     }
 
     /**
+     * Prints tasks that contains the keyword provided
+     * @param keyword search key
+     */
+    public static void printMatchingTasks(String keyword, TaskList tasks) {
+        System.out.println(LINE);
+        System.out.println("\t" + "Here are the matching tasks in your list:");
+        tasks.printMatchingTasks(keyword);
+        System.out.println(LINE);
+    }
+
+    /**
      * returns command from user's input
      *
      * @return String of command
