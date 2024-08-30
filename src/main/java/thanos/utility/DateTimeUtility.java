@@ -71,7 +71,7 @@ public class DateTimeUtility {
             }
         }
 
-        // Try parsing as LocalDate if LocalDateTime parsing fails
+        // If LocalDateTime parsing fails, try parsing as LocalDate
         for (DateTimeFormatter formatter : dateFormatters) {
             try {
                 return LocalDate.parse(s, formatter).atStartOfDay();
