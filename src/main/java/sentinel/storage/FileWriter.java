@@ -8,14 +8,20 @@ import sentinel.utils.SentinelList;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 /**
  * The FileWriter class is responsible for saving tasks from a SentinelList to a properties file.
- * It writes the tasks to a file named "tasks.properties" in a format that can be read by the FileLoader.
+ * It writes the tasks to a file named "tasks.properties" in the "sentinel-saves" directory in a format that can be read by the FileLoader.
  */
 public class FileWriter {
     private final SentinelList arrayList;
+
+    private static final Path DIRECTORY_PATH = Paths.get("sentinel-saves");
+    private static final Path FILE_PATH = DIRECTORY_PATH.resolve("tasks.properties");
 
     /**
      * Constructs a FileWriter with the specified SentinelList.
@@ -24,6 +30,14 @@ public class FileWriter {
      */
     public FileWriter(SentinelList arrayList) {
         this.arrayList = arrayList;
+
+        try {
+            if (!Files.exists(DIRECTORY_PATH)) {
+                Files.createDirectories(DIRECTORY_PATH);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -57,7 +71,7 @@ public class FileWriter {
             }
         }
 
-        try (FileOutputStream out = new FileOutputStream("tasks.properties")) {
+        try (FileOutputStream out = new FileOutputStream(FILE_PATH.toFile())) {
             masterFile.store(out, "Task Data");
         } catch (IOException e) {
             e.printStackTrace();

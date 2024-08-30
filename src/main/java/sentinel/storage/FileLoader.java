@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Properties;
 import sentinel.utils.SentinelList;
@@ -14,9 +17,23 @@ import sentinel.task.Deadline;
 
 /**
  * The FileLoader class is responsible for loading tasks from a properties file into a SentinelList.
- * It reads tasks from a file named "tasks.properties", parses the properties for each task, and creates corresponding Task objects.
+ * It reads tasks from a file named "tasks.properties" in the "sentinel-saves" directory, parses the properties for each task, and creates corresponding Task objects.
  */
 public class FileLoader {
+
+    private static final Path DIRECTORY_PATH = Paths.get("sentinel-saves");
+    private static final Path FILE_PATH = DIRECTORY_PATH.resolve("tasks.properties");
+
+    static {
+        try {
+            // Ensure the directory exists
+            if (!Files.exists(DIRECTORY_PATH)) {
+                Files.createDirectories(DIRECTORY_PATH);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Loads tasks from the "tasks.properties" file into a SentinelList.
@@ -27,7 +44,13 @@ public class FileLoader {
         SentinelList tasks = new SentinelList();
         Properties masterFile = new Properties();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("tasks.properties"))) {
+        // Check if the file exists before attempting to read
+        if (!Files.exists(FILE_PATH)) {
+            System.out.println("No tasks file found. Starting with an empty list.");
+            return tasks;  // Return an empty list if the file doesn't exist
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH.toFile()))) {
             masterFile.load(reader);
         } catch (IOException e) {
             e.printStackTrace();
