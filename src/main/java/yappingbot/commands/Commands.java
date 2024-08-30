@@ -7,7 +7,17 @@ import yappingbot.tasks.*;
 import yappingbot.ui.MultilineStringBuilder;
 import yappingbot.ui.Ui;
 
+/**
+ * Class of implemented commands and their functions.
+ */
 public class Commands {
+
+    /**
+     * Prints the contents of the task list in a human-friendly format.
+     * Example: [T][X] Marked To-do task
+     *
+     * @param userList TaskList to be printed
+     */
     public static void printUserList(TaskList userList) {
         if (userList.isEmpty()) {
             Ui.println("List is empty!");
@@ -33,6 +43,14 @@ public class Commands {
         }
         msb.print();
     }
+
+    /**
+     * Marks or Unmarks a task in a task list.
+     *
+     * @param i integer index of task in list.
+     * @param isTaskDone boolean of whether to mark or unmark the task.
+     * @param userList TaskList to be searched.
+     */
     public static void changeTaskListStatus(int i, boolean isTaskDone, TaskList userList) {
         Task t = userList.get(i);
         t.setTaskDone(isTaskDone);
@@ -52,6 +70,13 @@ public class Commands {
         );
         msb.print();
     }
+
+    /**
+     * Deletes a task in the user list, and prints that task out.
+     *
+     * @param i integer index of task in list.
+     * @param userList TaskList to be searched.
+     */
     public static void deleteTask(int i, TaskList userList) {
         Task t = userList.delete(i);
         MultilineStringBuilder msb = new MultilineStringBuilder();
@@ -64,6 +89,17 @@ public class Commands {
         );
         msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
     }
+
+
+    /**
+     * Creates a new task and inserts it into the task list.
+     *
+     * @param userInputSpliced String Array to be interpreted as the task to be created
+     * @param taskTypes taskTypes type of the task to be created.
+     * @param userList TaskList to be searched
+     * @return Task that is newly created. This task is already added to the list.
+     * @throws YappingBotIncorrectCommandException Exception if creating the task failed.
+     */
     public static Task createNewTask(String[] userInputSpliced, TaskTypes taskTypes, TaskList userList) throws YappingBotIncorrectCommandException {
         Task newTask;
         String taskName = null;
