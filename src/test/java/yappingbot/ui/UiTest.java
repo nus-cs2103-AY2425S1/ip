@@ -1,8 +1,6 @@
 package yappingbot.ui;
 
 import org.junit.jupiter.api.Test;
-import yappingbot.exceptions.YappingBotException;
-import yappingbot.exceptions.YappingBotOOBException;
 import yappingbot.testHelper;
 
 import java.io.IOException;
