@@ -11,7 +11,7 @@ import java.io.File;
 import java.time.format.DateTimeFormatter;
 
 class Task {
-    private String tasktype = "T";
+    private String taskype = "T";
     private boolean mark;
     private String val;
     public Task(boolean mark, String val) {
