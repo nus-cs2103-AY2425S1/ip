@@ -11,6 +11,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * The Storage class encapsulates fields and methods which involves the file
+ * the program is retrieving and saving data into.
+ */
+
 public class Storage {
     private String filePath;
     private File file;
@@ -24,6 +29,14 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * The method creates a LocalDateTime with the given dateString and timeString.
+     *
+     * @param dateString String representation of date.
+     * @param timeString Time representation of date.
+     * @return LocalDateTime of the dateString and timeString.
+     * @throws DateTimeParseException when dateString and timeString are not in the correct format.
+     */
     public static LocalDateTime createDateTime(String dateString, String timeString) throws DateTimeParseException {
         LocalDate date = LocalDate.parse(dateString, DATE_FORMATTER);
         LocalTime time = LocalTime.parse(timeString, TIME_FORMATTER);
