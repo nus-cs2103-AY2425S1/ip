@@ -1,9 +1,14 @@
 package bmo;
+
 public class Parser {
 
-    public Parser() {
-    }
-
+    /**
+     * Parses the user input and returns an array of strings containing the command and its arguments.
+     * 
+     * @param userInput The user input to be parsed.
+     * @return An array of strings containing the command and its arguments.
+     * @throws BMOException If the user input is invalid or missing arguments.
+     */
     public String[] parse(String userInput) throws BMOException {
         String[] parsedInput = new String[5];
         String[] userInputArr = userInput.split(" ");

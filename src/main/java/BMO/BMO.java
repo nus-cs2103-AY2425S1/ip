@@ -1,7 +1,7 @@
 package bmo;
-import java.util.Scanner;
-
 import bmo.task.Task;
+
+import java.util.Scanner;
 
 public class BMO {
 
@@ -9,7 +9,7 @@ public class BMO {
     private Ui ui;
     private Parser parser;
     private TaskList taskList;
-    private static String FILEPATH = "ip/data/BMO.txt";
+    private static String FILE_PATH = "ip/data/BMO.txt";
 
     public BMO(String filePath) throws Exception {
         try {
@@ -17,15 +17,20 @@ public class BMO {
             this.ui = new Ui();
             this.parser = new Parser();
             this.taskList = new TaskList();
-            FILEPATH = filePath;
+            BMO.FILE_PATH = filePath;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    //Logic loop to run chatbot
+    /**
+     * Runs the BMO chatbot program
+     * 
+     * @throws IOException if unable to read or write to file
+     * @throws BMOException if the user input is invalid
+     */
     public void run() throws Exception {
-        storage.readStorageFile(taskList, FILEPATH);
+        storage.readStorageFile(taskList, FILE_PATH);
         ui.printWelcome();
         Scanner sc = new Scanner(System.in);
 
@@ -118,7 +123,7 @@ public class BMO {
 
     public static void main(String[] args) { 
         try {  
-            new BMO(FILEPATH).run();
+            new BMO(FILE_PATH).run();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

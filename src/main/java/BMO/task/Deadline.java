@@ -1,4 +1,5 @@
 package bmo.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -25,16 +26,23 @@ public class Deadline extends Task{
         return "[D]" + super.toString() + " (by: " + this.getPrintedDeadline() + ")";
     }
 
+    /**
+     * Returns the deadline in the format MMM-dd-yyyy to be printed in the console.
+     */
     public String getPrintedDeadline() {
         return this.by.format(this.outputFormatter);
     }
 
-    public String getStorageDeadline() {
+    /**
+     * Returns the deadline in the format dd/MM/yyyy to be stored in the file.
+     */
+    private String getStorageDeadline() {
         return this.by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     @Override
     public String getSavedFormat() {
-        return "D | " + (this.getIsDone() ? "1" : "0") + " | " + this.getDescription() + " | " + this.getStorageDeadline() +"\n";
+        return "D | " + (this.getIsDone() ? "1" : "0") + " | " + this.getDescription() + " | " 
+            + this.getStorageDeadline() +"\n";
     }
 }

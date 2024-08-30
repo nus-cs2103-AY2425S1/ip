@@ -1,4 +1,5 @@
 package bmo.task;
+
 abstract public class Task {
     private String description;
     private boolean isDone;
@@ -8,7 +9,11 @@ abstract public class Task {
         this.isDone = false;
     }
 
-    //Marks completed tasks with an 'X'
+    /**
+     * Returns the status icon of the task
+     * 
+     * @return "X" if the task is done, " " if the task is not done
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
@@ -34,5 +39,10 @@ abstract public class Task {
         return this.isDone;
     }
 
+    /**
+     * Returns the string format of the task to be saved in the file
+     * 
+     * @return "[task type] | [isDone] | [description] | [timings if applicable]"
+     */
     abstract public String getSavedFormat();
 }

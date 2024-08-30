@@ -1,4 +1,5 @@
 package bmo.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -28,18 +29,30 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + this.getPrintedFrom() + " to: " + this.getPrintedTo() + ")";
     }
     
+    /**
+     * Returns the start date in the format MMM-dd-yyyy to be printed in the console.
+     */
     private String getPrintedFrom() {
         return this.from.format(this.outputFormatter);
     }
 
+    /**
+     * Returns the end date in the format MMM-dd-yyyy to be printed in the console.
+     */
     private String getPrintedTo() {
         return this.to.format(this.outputFormatter);
     }
 
+    /**
+     * Returns the start date in the format dd/MM/yyyy to be stored in the file.
+     */
     public String getStorageFrom() {
         return this.from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
+    /**
+     * Returns the end date in the format dd/MM/yyyy to be stored in the file.
+     */
     public String getStorageTo() {
         return this.to.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }

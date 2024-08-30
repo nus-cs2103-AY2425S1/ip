@@ -1,14 +1,14 @@
 package bmo;
+import bmo.task.Task;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
-import bmo.task.Task;
-
-import java.io.FileWriter;
-
 public class Storage {
+
     private FileWriter writer = null;
 
     public Storage(String filePath) throws IOException {
@@ -24,14 +24,16 @@ public class Storage {
         this.writer = new FileWriter(filePath, true);
     }
 
-    public FileWriter getWriter() {
-        return this.writer;
-    }
-
     public void closeWriter() throws IOException {
         this.writer.close();
     }
 
+    /**
+     * Updates the storage file with the tasks in the task list
+     * 
+     * @param TaskList object containing all current tasks
+     * @throws IOException if unable to write to file
+     */
     public void updateStorageFile(TaskList tasks) throws IOException {
         this.writer.close();
         FileWriter writer = new FileWriter("ip/data/BMO.txt");
@@ -41,6 +43,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the storage file and loads the saved tasks into the task list
+     * 
+     * @param TaskList object to store the tasks
+     * @param filePath the path of the storage file
+     * @throws IOException if unable to read the file
+     */
     public void readStorageFile(TaskList tasks, String filePath) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
              String line;
@@ -70,6 +79,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves a task to the storage file
+     * 
+     * @param Task object to be saved
+     * @throws IOException if unable to write to file
+     */
     public void saveTask(Task task) throws IOException {
         this.writer.write(task.getSavedFormat());
     }

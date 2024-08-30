@@ -1,11 +1,12 @@
 package bmo;
-import java.io.IOException;
-import java.util.ArrayList;
-
 import bmo.task.Deadline;
 import bmo.task.Event;
 import bmo.task.Task;
 import bmo.task.ToDo;
+
+import java.io.IOException;
+
+import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> TasksList;
@@ -14,49 +15,96 @@ public class TaskList {
         this.TasksList = new ArrayList<>(100);
     }
 
-    //Adds the input task to the storage array
-    public void addTask(Task task) throws IOException{
+    /**
+     * Adds a task to the task list.
+     * 
+     * @param task the task to be added.
+     */
+    public void addTask(Task task) {
         this.TasksList.add(task);
     }
 
-    //Returns the ArrayList containing all the tasks 
+    /**
+     * Returns the list of tasks.
+     * 
+     * @return ArrayList of all tasks.
+     */ 
     public ArrayList<Task> getTasks() {
         return this.TasksList;
     }
 
-    //Return a specific task from the storage array based on the index
+    /**
+     * Returns the task at the specified index.
+     * 
+     * @param index of the task to be retrieved.
+     * @return Task object at the specified index.
+     */
     public Task getTask(int index) {
         return this.TasksList.get(index);
     }
 
-    //Returns the size of the storage array
+    /**
+     * Returns the number of tasks in the list.
+     */
     public int getSize() {
         return this.TasksList.size();
     }
 
-    //Deletes a task from the storage array based on the index
-    public void deleteTask(int index) throws IOException{
+    /**
+     * Deletes a task from the list
+     * 
+     * @param index of the task to be deleted.
+     */
+    public void deleteTask(int index) {
         this.TasksList.remove(index);
     }
 
-    public void markTask(int index) throws IOException {
+    /**
+     * Marks a task as completed
+     * 
+     * @param index of the task to be marked as completed.
+     */
+    public void markTask(int index) {
         this.getTask(index).mark();
     }
 
-    public void unmarkTask(int index) throws IOException {
+    /**
+     * Unmarks a task as incomplete.
+     * 
+     * @param index of the task to be unmarked.
+     */
+    public void unmarkTask(int index) {
         this.getTask(index).unmark();
     }
 
-    public void addTodo(String description) throws IOException {
+    /**
+     * Adds a todo task to the list.
+     * 
+     * @param description of the todo task.
+     */
+    public void addTodo(String description) {
         Task todo = new ToDo(description);
         this.addTask(todo);
     }
 
-    public void addDeadline(String description, String by) throws IOException {
+    /**
+     * Adds a deadline task to the list.
+     * 
+     * @param description of the deadline task.
+     * @param by the deadline of the task. Format: "dd/MM/yyyy"
+     */
+    public void addDeadline(String description, String by) {
         Task deadline = new Deadline(description, by);
         this.addTask(deadline);
     }
 
+    /**
+     * Adds an event task to the list.
+     * 
+     * @param description of the event task.
+     * @param from the start date of the event. Format: "dd/MM/yyyy"
+     * @param to the end date of the event. Format: "dd/MM/yyyy"
+     */
     public void addEvent(String description, String from, String to) throws IOException {
         Task event = new Event(description, from, to);
         this.addTask(event);
