@@ -9,7 +9,6 @@ public class Friday {
         String farewell = "Bye. Hope to see you again soon!";
         Scanner scanner = new Scanner(System.in); 
         ArrayList<Tasks> tasks = new ArrayList<>();
-        int taskAdded = 0;
         String line = "_________________________________________";
         System.out.println(greeting + line);
 
@@ -36,7 +35,7 @@ public class Friday {
                         throw new FridayException("I'm sorry, but I don't know what that means :(((\n Please enter a valid task description.");
                     }
                     String remainingInput = inputString.substring(inputString.indexOf(" ") + 1);
-                    String[] deadlineParts = remainingInput.substring(taskAdded).split(" /by ");
+                    String[] deadlineParts = remainingInput.split(" /by ");
                     Tasks deadline = new Deadline(deadlineParts[0] , deadlineParts[1]);
                     tasks.add(deadline);
                     System.out.println("Got it. I've added this task:\n  " + deadline.getTypeIcon() 
