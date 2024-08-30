@@ -8,6 +8,11 @@ public class Todo extends Task {
         super(name, description);
     }
 
+    public Todo(String name, String description, boolean isDone) {
+        super(name, description);
+        this.isDone = isDone;
+    }
+
     public static Todo createTodo(Scanner sc) {
         System.out.println("Enter name: ");
         String name = sc.nextLine().trim();

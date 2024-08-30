@@ -12,6 +12,12 @@ public class Deadline extends Task {
         this.byTime = byTime;
     }
 
+    public Deadline(String name, String description, LocalDate byTime, boolean isDone) {
+        super(name, description);
+        this.byTime = byTime;
+        this.isDone = isDone;
+    }
+
     public static Deadline createDeadline(Scanner sc) {
         System.out.println("Enter name: ");
         String name = sc.nextLine().trim();

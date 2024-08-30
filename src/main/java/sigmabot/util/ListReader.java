@@ -57,19 +57,17 @@ public class ListReader {
      * @throws IOException If an I/O error occurs reading from the BufferedReader.
      */
     private Task parseTodoTask(String line, BufferedReader br) throws IOException {
-        String[] parts = line.split(" ", 4);
-        boolean isDone = parts[2].equals("[X]");
-        String name = parts[3].trim();  // Get task name
-
-        // Read the description line
-        String descriptionLine = br.readLine().trim();
-        String description = descriptionLine.replaceFirst("Description: ", "").trim();  // Remove "Description: " prefix
-
-        Task task = new Todo(name, description);
-        if (isDone) {
-            task.markDone();
+        boolean isDone = line.contains("[X]");
+        String[] parts = line.split("]", 2);
+        if (parts.length < 2) {
+            throw new IllegalArgumentException("Invalid format for Todo task: " + line);
         }
-        return task;
+
+        String name = parts[1].trim();
+        String descriptionLine = br.readLine().trim();
+        String description = descriptionLine.replaceFirst("Description: ", "").trim();
+
+        return new Todo(name, description, isDone);
     }
 
     /**
@@ -81,25 +79,22 @@ public class ListReader {
      * @throws IOException If an I/O error occurs reading from the BufferedReader.
      */
     private Task parseDeadlineTask(String line, BufferedReader br) throws IOException {
-        String[] parts = line.split(" ", 4);
-        boolean isDone = parts[2].equals("[X]");
-        String name = parts[3].trim();
+        boolean isDone = line.contains("[X]");
+        String[] parts = line.split("]", 2);
+        if (parts.length < 2) {
+            throw new IllegalArgumentException("Invalid format for Deadline task: " + line);
+        }
 
+        String name = parts[1].trim();
         String descriptionLine = br.readLine().trim();
         String description = descriptionLine.replaceFirst("Description: ", "").trim();
 
         String byTimeLine = br.readLine().trim();
         String byTimeStr = byTimeLine.replaceFirst("By: ", "").trim();
-
-        // Use DateParser to convert the date format
         String formattedByTimeStr = DateParser.parseDate(byTimeStr);
         LocalDate byTime = LocalDate.parse(formattedByTimeStr);
 
-        Task task = new Deadline(name, description, byTime);
-        if (isDone) {
-            task.markDone();
-        }
-        return task;
+        return new Deadline(name, description, byTime, isDone);
     }
 
     /**
@@ -111,10 +106,13 @@ public class ListReader {
      * @throws IOException If an I/O error occurs reading from the BufferedReader.
      */
     private Task parseEventTask(String line, BufferedReader br) throws IOException {
-        String[] parts = line.split(" ", 4);
-        boolean isDone = parts[2].equals("[X]");
-        String name = parts[3].trim();
+        boolean isDone = line.contains("[X]");
+        String[] parts = line.split("]", 2);
+        if (parts.length < 2) {
+            throw new IllegalArgumentException("Invalid format for Event task: " + line);
+        }
 
+        String name = parts[1].trim();
         String descriptionLine = br.readLine().trim();
         String description = descriptionLine.replaceFirst("Description: ", "").trim();
 
@@ -131,10 +129,6 @@ public class ListReader {
         String locationLine = br.readLine().trim();
         String location = locationLine.replaceFirst("Location: ", "").trim();
 
-        Task task = new Event(name, description, startTime, endTime, location);
-        if (isDone) {
-            task.markDone();
-        }
-        return task;
+        return new Event(name, description, startTime, endTime, location, isDone);
     }
 }

@@ -16,6 +16,14 @@ public class Event extends Task {
         this.location = location;
     }
 
+    public Event(String name, String description, LocalDate startTime, LocalDate endTime, String location, boolean isDone) {
+        super(name, description);
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.location = location;
+        this.isDone = isDone;
+    }
+
     public static Event createEvent(Scanner sc) {
         System.out.println("Enter name: ");
         String name = sc.nextLine().trim();
