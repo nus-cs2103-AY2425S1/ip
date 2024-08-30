@@ -1,3 +1,5 @@
+package Bot;
+
 import exceptions.AlreadyCompletedException;
 import exceptions.StartAfterEndException;
 import exceptions.TaskDoesNotExistException;
