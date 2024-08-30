@@ -13,7 +13,7 @@ import Exceptions.TooManyParametersException;
  * If the input is invalid or the task cannot be found, an exception is thrown.
  */
 
-public class RemoveTask extends Command {
+public class RemoveCommand extends Command {
 
     /**
      * Executes the RemoveTask command, removing a task from the reminder list.
@@ -25,7 +25,6 @@ public class RemoveTask extends Command {
      * @throws EmptyDescriptionException If no index is provided in the input.
      * @throws TooManyParametersException If too many parameters are provided in the input.
      */
-
     public boolean execute(String input, Reminder reminder, Ui ui) throws EmptyDescriptionException, TooManyParametersException {
         String[] command = input.split(" ");
         if (command.length == 2) {

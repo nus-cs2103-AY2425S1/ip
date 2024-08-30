@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * This command searches through the list of tasks and displays any tasks that match the specified date.
  */
 
-public class TaskDateCommand extends Command {
+public class DateCommand extends Command {
 
     /**
      * Executes the TaskDateCommand, displaying tasks that occur on the specified date.
@@ -28,7 +28,6 @@ public class TaskDateCommand extends Command {
      * @throws EmptyDescriptionException If no date is provided in the input.
      * @throws TooManyParametersException If too many parameters are provided in the input.
      */
-
     public boolean execute(String input, Reminder reminder, Ui ui) throws EmptyDescriptionException, TooManyParametersException {
         String[] command = input.split(" ");
         if (command.length == 2) {
