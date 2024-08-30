@@ -10,7 +10,8 @@ public enum Commands {
     LIST("list"),
     MARK("mark"),
     UNMARK("unmark"),
-    BYE("bye");
+    BYE("bye"),
+    FIND("find");
 
     private final String value;
     Commands(String value) {

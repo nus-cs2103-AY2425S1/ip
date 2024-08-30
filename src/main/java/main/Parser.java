@@ -3,6 +3,9 @@ package main;
 import exception.CommandFoundButInvalidException;
 import exception.CommandNotFoundException;
 import exception.EmptyStringException;
+import task.Task;
+
+import java.util.List;
 
 public class Parser {
     /* goal of the parser class is to take in a string input and determine the
@@ -77,6 +80,12 @@ public class Parser {
                 allTasks.unmark(remainder, allTasks.getAllTasks());
                 s.put(allTasks.getAllTasks());
                 System.out.println(ui.unmarkedMessage(allTasks.getLastUnmarked()));
+                break;
+            case FIND:
+                // returns an ArrayList of task
+                List<Task> found = allTasks.find(remainder, allTasks.getAllTasks());
+                // print out the task using Ui
+                ui.showList(found);
                 break;
             case BYE:
                 System.out.println(ui.bye());
