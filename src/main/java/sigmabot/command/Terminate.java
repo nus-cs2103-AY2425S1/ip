@@ -1,11 +1,10 @@
 package sigmabot.command;
 
-import sigmabot.ui.UiComponent;
+import java.util.Scanner;
 
 public class Terminate extends Command {
     @Override
-    public void execute(UiComponent ui) {
-        System.out.println("Bye");
-        ui.closeScanner();
+    public void execute(Scanner sc) {
+        System.out.println("Goodbye!");
     }
 }
