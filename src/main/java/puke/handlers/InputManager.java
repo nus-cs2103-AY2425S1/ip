@@ -1,17 +1,14 @@
 package puke.handlers;
 
-import puke.commands.AddDeadlineCommand;
-import puke.commands.AddEventCommand;
-import puke.commands.AddTodoCommand;
-import puke.commands.Command;
-import puke.commands.DeleteTaskCommand;
-import puke.commands.ListTasksCommand;
-import puke.commands.MarkTaskCommand;
+import puke.commands.*;
 import puke.exceptions.EmptyInputException;
 import puke.exceptions.PukeException;
 import puke.exceptions.UnknownCommandException;
 import puke.tasklist.TaskManager;
+import puke.tasks.Task;
 import puke.ui.MessageBuilder;
+
+import java.util.ArrayList;
 
 public class InputManager {
     private TaskManager taskManager;
@@ -57,6 +54,8 @@ public class InputManager {
                 return new MarkTaskCommand(args, false);
             case "list":
                 return new ListTasksCommand();
+            case "find":
+                return new FindTaskCommand(args);
             default:
                 throw new UnknownCommandException();
         }
