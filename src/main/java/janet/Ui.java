@@ -124,11 +124,11 @@ public class Ui {
     public void showFindMessage(TaskList taskList) {
         // taskList is a subset of the current total taskList
         if (taskList.isEmpty()) {
-            System.out.println(horizontalLine + "\nHere are the matching tasks in your list:\n"
-                    + "OOPS! No tasks match what you were looking for!" + "\n" + horizontalLine);
+            System.out.println(HORIZONTAL_LINE + "\nHere are the matching tasks in your list:\n"
+                    + "OOPS! No tasks match what you were looking for!" + "\n" + HORIZONTAL_LINE);
         } else {
-            System.out.println(horizontalLine + "\nHere are the matching tasks in your list:\n"
-                    + displayTasksInList(taskList) + "\n" + horizontalLine);
+            System.out.println(HORIZONTAL_LINE + "\nHere are the matching tasks in your list:\n"
+                    + displayTasksInList(taskList) + "\n" + HORIZONTAL_LINE);
         }
     }
 
