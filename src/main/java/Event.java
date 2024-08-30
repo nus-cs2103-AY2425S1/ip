@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -27,12 +26,6 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.getPrintedFrom() + " to: " + this.getPrintedTo() + ")";
     }
-
-    @Override
-    protected void save() throws IOException {
-        Storage.getWriter().write("E | " + (super.getIsDone() ? "1" : "0") + " | " + super.getDescription() + " | " 
-            + this.getStorageFrom() + " | " + this.getStorageTo() + "\n");
-    }
     
     private String getPrintedFrom() {
         return this.from.format(this.outputFormatter);
@@ -42,11 +35,16 @@ public class Event extends Task {
         return this.to.format(this.outputFormatter);
     }
 
-    private String getStorageFrom() {
+    public String getStorageFrom() {
         return this.from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
-    private String getStorageTo() {
+    public String getStorageTo() {
         return this.to.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+
+    @Override
+    public String getSavedFormat() {
+        return "E | " + (this.getIsDone() ? "1" : "0") + " | " + this.getDescription() + " | " + this.getStorageFrom() + " | " + this.getStorageTo() + "\n";
     }
 }

@@ -1,5 +1,3 @@
-import java.io.IOException;
-
 abstract public class Task {
     private String description;
     private boolean isDone;
@@ -8,8 +6,6 @@ abstract public class Task {
         this.description = description;
         this.isDone = false;
     }
-
-    abstract protected void save() throws IOException;
 
     //Marks completed tasks with an 'X'
     public String getStatusIcon() {
@@ -36,4 +32,6 @@ abstract public class Task {
     public boolean getIsDone() {
         return this.isDone;
     }
+
+    abstract public String getSavedFormat();
 }

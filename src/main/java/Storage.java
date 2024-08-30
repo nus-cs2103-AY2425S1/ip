@@ -1,144 +1,72 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileWriter;
-import java.util.ArrayList;
 
 public class Storage {
-    private ArrayList<Task> storage;
-    private static FileWriter writer = null;
-    private Task recentTask;
+    private FileWriter writer = null;
 
-    public Storage() {
-        this.storage = new ArrayList<>(100);
-    }
-
-    //Adds the input task to the storage array
-    public void addTask(Task task) throws IOException{
-        this.storage.add(task);
-        task.save();
-    }
-
-    //Returns a string containing all the tasks in the storage array
-    public String getTasks() {
-        String taskList = "";
-        int i = 1;
-        for (Task task : this.storage) {
-            taskList += i + "." + task.toString() + "\n";
-            i++;
+    public Storage(String filePath) throws IOException {
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            throw new IOException("File not found");
         }
-        return taskList;
+        this.writer = new FileWriter(filePath, true);
     }
 
-    //Return a specific task from the storage array based on the index
-    public Task getTask(int index) {
-        return this.storage.get(index);
+    public FileWriter getWriter() {
+        return this.writer;
     }
 
-    //Returns the size of the storage array
-    public int getSize() {
-        return this.storage.size();
+    public void closeWriter() throws IOException {
+        this.writer.close();
     }
 
-    //Returns a string with the number of tasks remaining
-    public String getNumOfTasks() {
-        return "Now you have " + this.getSize() + " tasks in the list.";
-    }
-
-    //Deletes a task from the storage array based on the index
-    public void deleteTask(int index) throws IOException{
-        this.storage.remove(index);
-        this.updateStorageFile();
-    }
-
-    public static void setWriter(FileWriter writer) {
-        Storage.writer = writer;
-    }
-
-    public static FileWriter getWriter() {
-        return Storage.writer;
-    }
-
-    public static void closeWriter() throws IOException {
-        Storage.writer.close();
-    }
-
-    public void updateStorageFile() throws IOException {
-        Storage.closeWriter();
+    public void updateStorageFile(TaskList tasks) throws IOException {
+        this.writer.close();
         FileWriter writer = new FileWriter("ip/data/BMO.txt");
-        Storage.setWriter(writer);
-        for (Task task : this.storage) {
-            task.save();
+        this.writer = writer;
+        for (Task task : tasks.getTasks()) {
+            this.writer.write(task.getSavedFormat());
         }
     }
 
-    public void markTask(int index) throws IOException {
-        this.getTask(index).mark();
-        this.updateStorageFile();
-    }
-
-    public void unmarkTask(int index) throws IOException {
-        this.getTask(index).unmark();
-        this.updateStorageFile();
-    }
-
-    public void addTodo(String description) throws IOException {
-        Task todo = new ToDo(description);
-        this.addTask(todo);
-        setRecentTask(todo);
-    }
-
-    public void addDeadline(String description, String by) throws IOException {
-        Task deadline = new Deadline(description, by);
-        this.addTask(deadline);
-        setRecentTask(deadline);
-    }
-
-    public void addEvent(String description, String from, String to) throws IOException {
-        Task event = new Event(description, from, to);
-        this.addTask(event);
-        setRecentTask(event);
-    }
-
-    private void setRecentTask(Task task) {
-        this.recentTask = task;
-    }
-
-    public Task getRecentTask() {
-        return this.recentTask;
-    }
-
-    public void readStorageFile(String filePath) throws IOException {
+    public void readStorageFile(TaskList tasks, String filePath) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
              String line;
              while ((line = reader.readLine()) != null) {
                 String[] taskDetails = line.split(" \\| ");
                 switch (taskDetails[0]) {
                 case "T":
-                    this.addTodo(taskDetails[2]);
-                    if (taskDetails[1].equals("1")) {
-                        this.getRecentTask().mark();
-                    }
+                    tasks.addTodo(taskDetails[2]);
                     break;
                 case "D":
-                    this.addDeadline(taskDetails[2], taskDetails[3]);
-                    if (taskDetails[1].equals("1")) {
-                        this.getRecentTask().mark();
-                    }
+                    tasks.addDeadline(taskDetails[2], taskDetails[3]);
                     break;
                 case "E":
-                    this.addEvent(taskDetails[2], taskDetails[3], taskDetails[4]);
-                    if (taskDetails[1].equals("1")) {
-                        this.getRecentTask().mark();
-                    }
+                    tasks.addEvent(taskDetails[2], taskDetails[3], taskDetails[4]);
                     break;
                 default:
                     break;
                 }
-                this.updateStorageFile();
+           
+                if (taskDetails[1].equals("1")) {
+                    tasks.getTask(tasks.getSize() - 1).mark();
+                }
+                this.updateStorageFile(tasks);
              }
         } catch (IOException e) {
             throw new IOException("File not found");
         }
+    }
+
+    public void saveTask(Task task) throws IOException {
+        this.writer.write(task.getSavedFormat());
     }
 }

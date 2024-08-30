@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -25,17 +24,16 @@ public class Deadline extends Task{
         return "[D]" + super.toString() + " (by: " + this.getPrintedDeadline() + ")";
     }
 
-    @Override
-    protected void save() throws IOException {
-        Storage.getWriter().write("D | " + (super.getIsDone() ? "1" : "0") + " | " + super.getDescription() 
-            + " | " + this.getStorageDeadline() + "\n");
-    }
-
-    private String getPrintedDeadline() {
+    public String getPrintedDeadline() {
         return this.by.format(this.outputFormatter);
     }
 
-    private String getStorageDeadline() {
+    public String getStorageDeadline() {
         return this.by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+
+    @Override
+    public String getSavedFormat() {
+        return "D | " + (this.getIsDone() ? "1" : "0") + " | " + this.getDescription() + " | " + this.getStorageDeadline() +"\n";
     }
 }

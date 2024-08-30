@@ -1,5 +1,3 @@
-import java.io.IOException;
-
 public class ToDo extends Task {
 
     public ToDo(String description) {
@@ -12,7 +10,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public void save() throws IOException {
-        Storage.getWriter().write("T | " + (super.getIsDone() ? "1" : "0") + " | " + super.getDescription() + "\n");
+    public String getSavedFormat() {
+        return "T | " + (this.getIsDone() ? "1" : "0") + " | " + this.getDescription() + "\n";
     }
 }
