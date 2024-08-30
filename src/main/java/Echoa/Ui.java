@@ -1,5 +1,7 @@
 package Echoa;
 
+import java.util.List;
+
 public class Ui {
     public static final String[] INSTRUCTION_LIST = {"todo", "deadline", "event", "mark", "unmark", "delete", "list", "bye"};
 
@@ -58,6 +60,10 @@ public class Ui {
     }
 
     public void printInvalidEventContentException(InvalidEventContentException e) {
+        System.out.println(e.getMessage());
+    }
+
+    public void printListOutOfBoundsException(ListOutOfBoundsException e) {
         System.out.println(e.getMessage());
     }
 

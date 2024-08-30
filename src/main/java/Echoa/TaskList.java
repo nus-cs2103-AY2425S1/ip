@@ -35,16 +35,25 @@ public class TaskList {
         this.tasks.add(task);
     }
 
-    public void deleteTask(int index) {
+    public void deleteTask(int index) throws ListOutOfBoundsException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new ListOutOfBoundsException(index);
+        }
         this.tasks.remove(index);
     }
 
-    public void markTaskAsDone(int index) {
+    public void markTaskAsDone(int index) throws ListOutOfBoundsException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new ListOutOfBoundsException(index);
+        }
         Task task = this.tasks.get(index);
         task.markAsDone();
     }
 
-    public void markTaskAsUndone(int index) {
+    public void markTaskAsUndone(int index) throws ListOutOfBoundsException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new ListOutOfBoundsException(index);
+        }
         Task task = this.tasks.get(index);
         task.unmarkAsUndone();
     }

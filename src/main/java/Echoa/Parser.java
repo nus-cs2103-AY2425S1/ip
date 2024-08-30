@@ -39,9 +39,10 @@ public class Parser {
 
     public String parseCommand(String line) {
         String command;
+        line = line.trim();
         if (line.isBlank()) {
             command = "";
-        } else if (line.equals("list")) {
+        } else if (line.startsWith("list")) {
             command = "list";
         } else if (line.startsWith("mark")) {
             command = "mark";
@@ -55,7 +56,7 @@ public class Parser {
             command = "deadline";
         } else if (line.startsWith("event")) {
             command = "event";
-        } else if (line.equals("bye")) {
+        } else if (line.startsWith("bye")) {
             command = "bye";
         } else {
             command = line;
