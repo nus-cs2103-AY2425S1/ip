@@ -25,16 +25,21 @@ public class Lexi {
     }
 
     public void run() {
+        ui.showLine();
         ui.showWelcome();
+        ui.showLine();
         boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
+                ui.showLine();
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (LexiException e) {
                 ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
             }
         }
     }
