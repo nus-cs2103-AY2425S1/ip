@@ -29,12 +29,12 @@ public class Ui {
 
     public void error(String message) {
         printLine();
-        printWithIndent("ERROR: " + message);
+        printWithIndent(message);
         printLine();
     }
 
     public void printLine() {
-        System.out.println("    ________________________________________________________");
+        System.out.println("   ________________________________________________________");
     }
 
     public void printWithIndent(String message) {

@@ -20,8 +20,8 @@ import ratchet.task.TodoTask;
 
 public class Parser {
     public Command parse(String input) throws RatchetException {
-        String command = input.split(" ")[0].toUpperCase();
-        switch (command) {
+        String command = input.split(" ")[0];
+        switch (command.toUpperCase()) {
         case "LIST":
             return new ListCommand();
         case "MARK":
@@ -98,18 +98,25 @@ public class Parser {
         return new AddCommand(task);
     }
 
-    private Command mark(String input) {
-        int num = Integer.parseInt(input.split(" ")[1]) - 1;
-        return new MarkCommand(num);
+    private Command mark(String input) throws InvalidCommandArgumentException {
+        return new MarkCommand(parseIndex(input));
     }
 
-    private Command unmark(String input) {
-        int num = Integer.parseInt(input.split(" ")[1]) - 1;
-        return new UnmarkCommand(num);
+    private Command unmark(String input) throws InvalidCommandArgumentException {
+        return new UnmarkCommand(parseIndex(input));
     }
 
-    private Command delete(String input) {
-        int num = Integer.parseInt(input.split(" ")[1]) - 1;
-        return new DeleteCommand(num);
+    private Command delete(String input) throws InvalidCommandArgumentException {
+        return new DeleteCommand(parseIndex(input));
+    }
+
+    private int parseIndex(String input) throws InvalidCommandArgumentException {
+        try {
+            return Integer.parseInt(input.split(" ")[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandArgumentException("Task index must be a number!");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidCommandArgumentException("An index must be given to this command!");
+        }
     }
 }
