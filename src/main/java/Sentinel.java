@@ -1,8 +1,6 @@
-import java.time.LocalDateTime;
-
 public class Sentinel {
     private static SentinelList list;
-    private Ui ui;
+    private final Ui ui;
 
     public Sentinel() {
         ui = new Ui();

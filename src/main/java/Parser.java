@@ -46,10 +46,8 @@ public class Parser {
         String taskName = "";
 
         switch (commandType) {
-            case todo -> {
-                // For 'todo', taskName is everything after the command
-                taskName = String.join(" ", Arrays.copyOfRange(stringArr, 1, stringArr.length)).trim();
-            }
+            case todo -> taskName = String.join(" ", Arrays.copyOfRange(stringArr, 1, stringArr.length)).trim();
+
             case deadline -> {
                 // For 'deadline', taskName is everything after the command and before "/by"
                 int byIndex = Arrays.asList(stringArr).indexOf("/by");
