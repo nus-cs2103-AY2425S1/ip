@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
@@ -113,9 +114,13 @@ public class Gale {
         }
         String description = strA[0].trim();
         String by = strA[1].trim();
-        Task task = new Deadline(description, by);
-        taskList.add(task);
-        printAddedTask(task);
+        try {
+            Task task = new Deadline(description, by);
+            taskList.add(task);
+            printAddedTask(task);
+        } catch (DateTimeParseException e) {
+            throw new GaleException("Oops! The wind blew away your date. Please use 'yyyy-MM-dd HH:mm' or 'd/M/yyyy HH:mm'");
+        }
     }
 
     public void addEvent(String input) throws GaleException {
@@ -130,9 +135,13 @@ public class Gale {
         String description = strA[0].trim();
         String from = strA[1].trim();
         String to = strA[2].trim();
-        Task task = new Event(description, from, to);
-        taskList.add(task);
-        printAddedTask(task);
+        try {
+            Task task = new Event(description, from, to);
+            taskList.add(task);
+            printAddedTask(task);
+        } catch (DateTimeParseException e) {
+            throw new GaleException("Oops! The wind blew away your date. Please use 'yyyy-MM-dd HH:mm' or 'd/M/yyyy HH:mm'");
+        }
     }
 
     public void deleteTask(String input) {

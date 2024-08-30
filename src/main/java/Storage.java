@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Storage {
@@ -45,27 +46,29 @@ public class Storage {
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
         String desc = parts[2];
-
-        switch (type) {
-        case "T":
-            task = new ToDo(desc);
-            break;
-        case "D":
-            if (parts.length < 4) {
+        try {
+            switch (type) {
+            case "T":
+                task = new ToDo(desc);
+                break;
+            case "D":
+                if (parts.length < 4) {
+                    return null;
+                }
+                task = new Deadline(desc, parts[3]);
+                break;
+            case "E":
+                if (parts.length < 5) {
+                    return null;
+                }
+                task = new Event(desc, parts[3], parts[4]);
+                break;
+            default:
                 return null;
             }
-            task = new Deadline(desc, parts[3]);
-            break;
-        case "E":
-            if (parts.length < 5) {
-                return null;
-            }
-            task = new Event(desc, parts[3], parts[4]);
-            break;
-        default:
+        } catch (DateTimeParseException e) {
             return null;
         }
-
         if (isDone) task.markAsDone();
         return task;
     }
