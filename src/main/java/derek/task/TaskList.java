@@ -2,9 +2,21 @@ package derek.task;
 
 import java.util.ArrayList;
 
+
+/**
+ * The {@code TaskList} class represents a list of tasks. It provides methods to add,
+ * remove, retrieve, and display tasks. It also supports populating the task list from
+ * a string representation.
+ */
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
 
+    /**
+     * Populates the task list based on a string representation of a task.
+     * The string should be in the format used for storing tasks.
+     *
+     * @param task the string representation of the task
+     */
     public void populateTaskList(String task) {
         String[] components = task.split("\\|");
         if (components[0].equals("D")) {
@@ -35,6 +47,12 @@ public class TaskList {
         this.taskList.add(task);
     }
 
+    /**
+     * Returns a string representation of the task list.
+     * Each task is numbered and displayed in the format "index. task".
+     *
+     * @return a formatted string representing the task list
+     */
     @Override
     public String toString(){
         String list = "";

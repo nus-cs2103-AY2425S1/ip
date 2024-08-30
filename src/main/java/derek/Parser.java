@@ -5,18 +5,34 @@ import derek.task.Task;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * The {@code Parser} class handles the interpretation and execution of user commands.
+ * It processes commands and directs them to the appropriate command classes.
+ */
 public class Parser {
 
     private String command;
     private Storage storage;
     private Ui ui;
 
+    /**
+     * Constructs a {@code Parser} object with the specified command, storage, and UI.
+     *
+     * @param command the user command input
+     * @param storage the storage object containing the task list
+     * @param ui the UI object to interact with the user
+     */
     public Parser(String command, Storage storage, Ui ui) {
         this.command = command;
         this.storage = storage;
         this.ui = ui;
     }
 
+    /**
+     * Parses and executes the user command.
+     * It determines the type of command and calls the appropriate command class.
+     * If the command is invalid, an error message is printed.
+     */
     public void getCommand() {
         try {
             if (this.command.equals("bye")) {
@@ -64,6 +80,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Processes the task-related commands such as "todo", "deadline", and "event".
+     * It parses the command to extract the task details and then executes the appropriate command.
+     */
     public void getTask() {
         try {
             String[] words = command.split("\\s+");

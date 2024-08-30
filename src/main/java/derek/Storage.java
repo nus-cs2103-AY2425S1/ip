@@ -11,13 +11,30 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * The {@code Storage} class handles the reading and writing of task data to and from a file.
+ * It interacts with the {@code TaskList} to manage tasks persistently.
+ */
 public class Storage {
     private String dataFilePathName = "./data/derek.txt";
     private TaskList taskList;
 
+    /**
+     * Constructs a {@code Storage} object with the specified {@code TaskList}.
+     *
+     * @param taskList the task list that will be managed by this storage
+     */
     public Storage(TaskList taskList) {
         this.taskList = taskList;
     }
+
+    /**
+     * Reads the task data from the file specified by {@code dataFilePathName} and populates the task list.
+     * If the file does not exist or is a directory, a {@code FileNotFoundException} is thrown.
+     * The file is then overwritten to clear its contents.
+     *
+     * @return the populated {@code TaskList}
+     */
     public TaskList readFile() {
         try {
             File tasks = new File(dataFilePathName);
@@ -41,6 +58,11 @@ public class Storage {
 
     }
 
+    /**
+     * Overrides the task data file by clearing its contents.
+     *
+     * @throws IOException if an I/O error occurs during file writing
+     */
     public void overrideFile() throws IOException {
         FileWriter writer = new FileWriter(dataFilePathName);
         writer.write("");
@@ -48,6 +70,10 @@ public class Storage {
 
     }
 
+    /**
+     * Stores the current tasks from the {@code TaskList} into the data file.
+     * Each task is written to the file in a specific format based on its type (e.g., DeadlineTask, EventTask).
+     */
     public void storeInFile() {
         try {
             for (int i = 0; i < taskList.size(); i++) {
@@ -74,6 +100,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes a given string to the task data file.
+     *
+     * @param textToAdd the string to be added to the file
+     * @throws IOException if an I/O error occurs during file writing
+     */
     public void writeToFile(String textToAdd) throws IOException{
         FileWriter writer = new FileWriter(dataFilePathName, true);
         writer.write(textToAdd);

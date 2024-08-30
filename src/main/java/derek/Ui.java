@@ -7,6 +7,10 @@ import derek.task.TaskList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * The {@code Ui} class handles user interaction in the application.
+ * It manages input/output operations and facilitates communication between the user and the system.
+ */
 public class Ui {
     private static String logo = " ---    ---\n"
             +"| # |  | # |\n"
@@ -26,6 +30,13 @@ public class Ui {
     private boolean isRunning;
     private Storage storage;
     private TaskList taskList;
+
+    /**
+     * Constructs a {@code Ui} object with the specified storage and task list.
+     *
+     * @param storage the storage object that manages task persistence
+     * @param taskList the task list that holds the tasks
+     */
     public Ui(Storage storage, TaskList taskList) {
         this.storage = storage;
         this.taskList = taskList;
@@ -57,6 +68,9 @@ public class Ui {
 
     }
 
+    /**
+     * Prompts the user to enter their name and starts the main user interaction loop.
+     */
     public void getUserName() {
         System.out.println("Great! I have always wanted a friend!\n"
                 + "What do I call you?");
@@ -65,6 +79,10 @@ public class Ui {
         initiateUserInteraction();
     }
 
+    /**
+     * Displays a welcome message and provides instructions for the user to enter commands.
+     * It then starts accepting user commands.
+     */
     public void initiateUserInteraction() {
         System.out.println("\n" + "Hi! " + this.user + "! So, I guess as a friend I become your little slave!\n"
                 + "What do you want me to do?\n"
