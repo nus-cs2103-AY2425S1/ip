@@ -1,7 +1,15 @@
+package Bimo;
+
+import Bimo.Command.*;
+import Bimo.Tasks.Deadline;
+import Bimo.Tasks.Event;
+import Bimo.Tasks.Task;
+import Bimo.Tasks.ToDo;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 public class Parser {
-    public static Command parse(String input) throws BimoException{
+    public static Command parse(String input) throws BimoException {
         String[] parsedArray = input.split(" ");
         String cmd = parsedArray[0].toLowerCase();
         if (cmd.equals("list")) {

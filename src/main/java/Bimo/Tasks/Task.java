@@ -1,3 +1,5 @@
+package Bimo.Tasks;
+
 public class Task {
     private boolean status = false;
     private String details;

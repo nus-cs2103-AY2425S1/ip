@@ -1,3 +1,10 @@
+package Bimo;
+
+import Bimo.Tasks.Deadline;
+import Bimo.Tasks.Event;
+import Bimo.Tasks.Task;
+import Bimo.Tasks.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,19 +16,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private String filePath;
     private File dataFile;
 
     public Storage(String filePath) {
-        this.filePath = filePath;
-        this.dataFile = new File("ip/data/Bimo.txt");
+        this.dataFile = new File(filePath);
     }
     /**
      * Format the type of task, status, description and dates into
      * text format type|status|description|date1/date2
      * Split by | , if length == 2 means todo,
      * if length == 3 split by /, if length == 2 means event
-     * @param task Task object inside tasks
+     * @param task Bimo.Tasks.Task object inside tasks
      * @return Formatted text that can be written into data file
      */
     private String convertTaskToText(Task task) {
@@ -40,7 +45,7 @@ public class Storage {
 
 
     /**
-     * Converts line of text in Bimo.txt to its corresponding Task object
+     * Converts line of text in Bimo.txt to its corresponding Bimo.Tasks.Task object
      * @param text line of code inside Bimo.txt
      * @return Task object
      */
@@ -67,7 +72,7 @@ public class Storage {
     /**
      * Converts description of task to text in the form
      * type|status|description|date1|date2
-     * @param task Task inside the tasks
+     * @param task Bimo.Tasks.Task inside the tasks
      */
     public void appendToFile(Task task) {
         String text = this.convertTaskToText(task) + System.lineSeparator();

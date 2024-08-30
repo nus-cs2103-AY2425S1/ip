@@ -1,11 +1,18 @@
-public class AddCommand extends Command{
+package Bimo.Command;
+
+import Bimo.Storage;
+import Bimo.Tasks.Task;
+import Bimo.TaskList;
+import Bimo.Ui;
+
+public class AddCommand extends Command {
     private Task task;
 
     public AddCommand(Task task) {
         this.task = task;
     }
 
-    public void execute(TaskList tasks,Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         System.out.println("    Got it. I've added this task:");
         tasks.addTask(task);
         System.out.println("        " + task.toString());

@@ -1,3 +1,5 @@
+package Bimo;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -35,7 +37,7 @@ public class Ui {
     }
 
     public void showTaskNotFoundError() {
-        System.out.println("    Task not found in list");
+        System.out.println("    Bimo.Tasks.Task not found in list");
     }
 
     public void showErrorMessage() {

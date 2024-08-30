@@ -1,3 +1,7 @@
+package Bimo;
+
+import Bimo.Command.Command;
+
 public class Bimo {
     public static String NAME = "Bimo";
     private Storage storage;
@@ -28,7 +32,6 @@ public class Bimo {
                 ui.showLine();
             }
         }
-
     }
     public static void main(String[] args) {
         new Bimo("ip/data/Bimo.txt").run();
