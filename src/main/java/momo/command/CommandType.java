@@ -1,3 +1,5 @@
+package momo.command;
+
 public enum CommandType {
     BYE,
     LIST,

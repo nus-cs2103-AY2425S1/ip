@@ -1,8 +1,12 @@
+package momo;
+
+import momo.task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    // Ui class should handle greeting, scanning user input, farewell
+    // momo.Ui class should handle greeting, scanning user input, farewell
     public static void showHorizontalLine() {
         System.out.println("____________________________________________________________");
     }
@@ -11,7 +15,7 @@ public class Ui {
 
     // Greeting
     public void showGreeting() {
-        System.out.println("Hello! I'm Momo\nWhat can I do for you?");
+        System.out.println("Hello! I'm momo.Momo\nWhat can I do for you?");
     }
 
     public String getUserInput() {
