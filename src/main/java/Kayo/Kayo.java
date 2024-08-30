@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Kayo {
     public static String filepath;
@@ -62,11 +63,16 @@ public class Kayo {
                 taskList.add(event);
                 ui.addEvent(event);
                 ui.showTotalTasks(taskList);
-            }else if(splitList[0].equals("delete")) {
+            } else if(splitList[0].equals("delete")) {
                 int index = Integer.parseInt(splitList[1])-1;
                 Task taskToDelete = taskList.get(index);
                 taskList.remove(index);
                 ui.deleteTask(taskToDelete);
+            } else if(splitList[0].equals("find")) {
+                List<Task> filteredList = taskList.stream()
+                                  .filter(c -> c.getTask().contains(splitList[1]))
+                                  .collect(Collectors.toList());
+                ui.find(filteredList);
             } else {
                 new DukeException("OOPS !! Sorry i dont know what that means!");
             }
@@ -118,6 +124,12 @@ public class Kayo {
         }
         public void Exit(){
             System.out.println("Bye. I hope to see you again soon!");
+        }
+        public void find(List<Task> taskList) {
+            System.out.println("Here are the matching tasks in your list:");
+            for(int i = 0; i < taskList.size(); i++) {
+                System.out.println(i+1 + ". "+ taskList.get(i));
+            }
         }
     }
     public static class Storage{
@@ -187,6 +199,9 @@ public class Kayo {
         }
         public void setDone(boolean isDone){
             this.isDone = isDone;
+        }
+        public String getTask() {
+            return task;
         }
         public String toString(){
             String taskString = (isDone) ? "[X] ": "[ ] ";
