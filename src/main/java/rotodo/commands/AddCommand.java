@@ -61,7 +61,7 @@ public class AddCommand extends Command {
                 break;
 
             case EVENT:
-                if (value.length < 2) {
+                if (value.length < 3) {
                     throw new IncompleteInputException(
                         "RoTodo can't read you mind, otherwise "
                         + "RoTodo's creator would be rich!\n"
@@ -84,7 +84,7 @@ public class AddCommand extends Command {
             }
         } catch (DateTimeParseException e) {
             throw new InvalidInputException(
-                        "  Whaaaatt? RoTodo has no idea what date that is\n"
+                        "Whaaaatt? RoTodo has no idea what date that is\n"
                         + "RoTodo needs valid date/time in the form:\n"
                         + "  dd/MM/yyyy HHmm");
         }
