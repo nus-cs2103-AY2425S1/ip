@@ -29,6 +29,10 @@ public class Task {
         System.out.println("     _________________________________________________________");
     }
 
+    public String toFileString() {
+        return " | " + (isDone ? "1" : "0") + " | " + this.description;
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;

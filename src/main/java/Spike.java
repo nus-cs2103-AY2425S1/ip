@@ -1,6 +1,12 @@
-import java.lang.reflect.Array;
-import java.util.Scanner;
+// General imports
 import java.util.ArrayList;
+
+// IO imports
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 enum InputType {
     BYE,
@@ -18,6 +24,7 @@ enum InputType {
 public class Spike {
 
     private static ArrayList<Task> toDoList = new ArrayList<>();
+    public static final String FILE_PATH = "data/spike.txt";
 
     public static void helloMessage() {
         System.out.println("     _________________________________________________________");
@@ -77,9 +84,7 @@ public class Spike {
                     break;
                 }
             } catch (SpikeException e) {
-                System.out.println("     _________________________________________________________");
-                System.out.println("     " + e.getMessage());
-                System.out.println("     _________________________________________________________");
+                System.out.println(e.getMessage());
             }
         }
         scanner.close();
@@ -214,8 +219,75 @@ public class Spike {
         System.out.println("     _________________________________________________________");
     }
 
-    public static void main(String[] args) {
+    public static void writeToFile() throws SpikeException {
+        try {
+            File file = new File(FILE_PATH);
+            FileWriter writer = new FileWriter(file);
+            for (Task task : toDoList) {
+                writer.write(task.toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            throw new SpikeException("An error occurred while writing to file");
+        }
+    }
+
+    public static ArrayList<Task> loadFromFile() throws SpikeException {
+        ArrayList<Task> loadedTasks = new ArrayList<>();
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+                return loadedTasks;
+            }
+
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" \\| ");
+                Task task;
+                switch (parts[0]) {
+                    case "T":
+                        task = new ToDo(parts[2]);
+                        break;
+                    case "D":
+                        task = new Deadline(parts[2], parts[3]);
+                        break;
+                    case "E":
+                        task = new Event(parts[2], parts[3], parts[4]);
+                        break;
+                    default:
+                        throw new SpikeException("An error occurred while reading from file");
+                }
+                if (parts[1].equals("1")) {
+                    task.markAsDone();
+                }
+                loadedTasks.add(task);
+            }
+            scanner.close();
+        } catch (IOException e) {
+            throw new SpikeException("An error occurred while reading from file");
+        }
+        return loadedTasks;
+    }
+
+    public static void run() {
+        try {
+            toDoList = loadFromFile();
+        } catch (SpikeException e) {
+            System.out.println(e.getMessage());
+        }
         helloMessage();
         echo();
+        try {
+            writeToFile();
+        } catch (SpikeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        run();
     }
 }
