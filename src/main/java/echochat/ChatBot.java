@@ -28,35 +28,35 @@ public class ChatBot {
                 }
 
                 switch (command.getType()) {
-                    case EXIT:
-                        ui.goodbye();
-                        return;
-                    case LIST:
-                        ui.showTaskList(taskList.getTaskList());
-                        break;
-                    case MARK:
-                        Task taskToMark = taskList.getTaskList().get(command.getIndex() - 1);
-                        taskToMark.markDone();
-                        ui.showTaskMarked(taskToMark);
-                        break;
-                    case UNMARK:
-                        Task taskToUnmark = taskList.getTaskList().get(command.getIndex() - 1);
-                        taskToUnmark.markUndone();
-                        ui.showTaskUnmarked(taskToUnmark);
-                        break;
-                    case DELETE:
-                        Task removedTask = taskList.delete(command.getIndex());
-                        ui.showTaskDeleted(removedTask, taskList.getTaskList().size());
-                        break;
-                    case TODO:
-                    case DEADLINE:
-                    case EVENT:
-                        Task newTask = command.getTask();
-                        taskList.addToList(newTask);
-                        ui.showTaskAdded(newTask, taskList.getTaskList().size());
-                        break;
-                    default:
-                        ui.showError("Unknown command.");
+                case EXIT:
+                    ui.goodbye();
+                    return;
+                case LIST:
+                    ui.showTaskList(taskList.getTaskList());
+                    break;
+                case MARK:
+                    Task taskToMark = taskList.getTaskList().get(command.getIndex() - 1);
+                    taskToMark.markDone();
+                    ui.showTaskMarked(taskToMark);
+                    break;
+                case UNMARK:
+                    Task taskToUnmark = taskList.getTaskList().get(command.getIndex() - 1);
+                    taskToUnmark.markUndone();
+                    ui.showTaskUnmarked(taskToUnmark);
+                    break;
+                case DELETE:
+                    Task removedTask = taskList.delete(command.getIndex());
+                    ui.showTaskDeleted(removedTask, taskList.getTaskList().size());
+                    break;
+                case TODO:
+                case DEADLINE:
+                case EVENT:
+                    Task newTask = command.getTask();
+                    taskList.addToList(newTask);
+                    ui.showTaskAdded(newTask, taskList.getTaskList().size());
+                    break;
+                default:
+                    ui.showError("Unknown command.");
                 }
 
             } catch (Exception e) {
