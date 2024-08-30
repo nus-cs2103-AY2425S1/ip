@@ -2,6 +2,7 @@ package nixy.ui;
 
 import java.util.Iterator;
 import java.util.Scanner;
+
 import nixy.exceptions.NixyException;
 import nixy.task.Task;
 import nixy.task.TaskList;

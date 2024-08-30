@@ -1,12 +1,13 @@
 package nixy.parse;
 
 import java.time.LocalDate;
+
+import nixy.Command;
 import nixy.exceptions.NixyException;
 import nixy.task.DeadlineTask;
 import nixy.task.EventTask;
 import nixy.task.Task;
 import nixy.task.TodoTask;
-import nixy.Command;
 
 /**
  * Parser holds the static method that parses the user input.
