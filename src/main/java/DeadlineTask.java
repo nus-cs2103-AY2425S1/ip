@@ -1,6 +1,9 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class DeadlineTask extends Task {
-    protected String date;
-    public DeadlineTask(String description, boolean isDone, String date) {
+    protected LocalDate date;
+    public DeadlineTask(String description, boolean isDone, LocalDate date) {
         super(description, isDone);
         this.date = date;
     }
@@ -9,6 +12,7 @@ public class DeadlineTask extends Task {
     public String printTask() {
         String output = "[D]";
         String status = (super.isDone ? "X" : " ");
-        return output + "[" + status + "] " + super.description + " (by: " + this.date + ")";
+        return output + "[" + status + "] " + super.description +
+                " (by: " + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

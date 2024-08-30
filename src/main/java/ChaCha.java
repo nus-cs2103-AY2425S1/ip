@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.Scanner;
 public class ChaCha {
     public static void main(String[] args) {
@@ -66,6 +68,7 @@ public class ChaCha {
                     } catch (ChaChaException e) {
                         System.out.println(e.toString());
                     }
+
                 } else if (cmd.startsWith("deadline")) {
                     try {
                         if (cmd.length() <= 9) {
@@ -91,7 +94,7 @@ public class ChaCha {
                                     "     Please type deadline in the form of \'by ...\'. \n" +
                                     "     ____________________________________________________________ \n");
                         }
-                        String date = arr[1].substring(3);
+                        LocalDate date = LocalDate.parse(arr[1].substring(3));
 
                         System.out.println("     ____________________________________________________________ \n" +
                                 "     Got it. I've added this task:\n" +
@@ -101,6 +104,10 @@ public class ChaCha {
 
                     } catch (ChaChaException e) {
                         System.out.println(e.toString());
+                    } catch (DateTimeException e) {
+                        System.out.println("     ____________________________________________________________ \n" +
+                                "     Please input the date in the format YYYY-MM-DD. \n" +
+                                "     ____________________________________________________________");
                     }
 
                 } else if (cmd.startsWith("event")) {
@@ -137,7 +144,7 @@ public class ChaCha {
                                         "     ____________________________________________________________ \n");
                             }
 
-                            String date = arr[1];
+                            LocalDate date = LocalDate.parse(arr[1]);
                             String startTime = arr[2].substring(5);
                             String endTime = arr[3].substring(3);
                             System.out.println("     ____________________________________________________________ \n" +
@@ -149,6 +156,10 @@ public class ChaCha {
 
                     } catch (ChaChaException e) {
                         System.out.println(e.toString());
+                    } catch (DateTimeException e) {
+                        System.out.println("     ____________________________________________________________ \n" +
+                                "     Please input the date in the format YYYY-MM-DD. \n" +
+                                "     ____________________________________________________________");
                     }
 
                 } else if (cmd.startsWith("mark")) {
