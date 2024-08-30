@@ -1,9 +1,10 @@
-import exceptions.InvalidCommandException;
-import tasks.TaskList;
+package chatbot;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import tasks.TaskList;
 
 public class ParserTest {
 
