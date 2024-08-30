@@ -38,17 +38,20 @@ public class AddCommand extends Command{
             ToDo taskItem = new ToDo(this.commandPostfix);
             storage.saveToDatafile(taskItem);
             ui.showTaskCount();
+            break;
         case "deadline":
             String[] commandPostfixSplitBy = this.commandPostfix.split("/by ", 2);
             Deadline deadlineItem = new Deadline(commandPostfixSplitBy[0], commandPostfixSplitBy[1]);
             storage.saveToDatafile(deadlineItem);
             ui.showTaskCount();
+            break;
         case "event":
             String[] SplitFrom = this.commandPostfix.split("/from ", 2);
             String[] SplitTo = SplitFrom[1].split(" /to ", 2);
             Event eventItem = new Event(SplitFrom[0], SplitTo[0], SplitTo[1]);
             storage.saveToDatafile(eventItem);
             ui.showTaskCount();
+            break;
         }
     }
 
