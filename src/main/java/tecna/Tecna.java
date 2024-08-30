@@ -27,9 +27,9 @@ public class Tecna {
         try {
             this.taskList = new TaskList(storage.load());
         } catch (IOException ioException) {
-            this.ui.printError("Oops! I cannot open the data file!");
+            this.ui.printError("I cannot open the data file!");
         } catch (ParseException parseException) {
-            this.ui.printError("Oops! The data file is of the wrong format!");
+            this.ui.printError("The data file is of the wrong format!");
         } catch (JsonLoadingException jsonLoadingException) {
             this.ui.printError(jsonLoadingException.getMessage());
         }
@@ -77,17 +77,17 @@ public class Tecna {
                 this.taskList.listItems();
                 break;
             case MARK:
-                int index = commandScanner.markIndex();
+                int index = commandScanner.getInputIndex();
                 taskList.mark(index);
                 ui.printMarkMsg(taskList.getTask(index));
                 break;
             case UNMARK:
-                index = commandScanner.markIndex();
+                index = commandScanner.getInputIndex();
                 taskList.unmark(index);
                 ui.printUnmarkMsg(taskList.getTask(index));
                 break;
             case DELETE:
-                index = commandScanner.markIndex();
+                index = commandScanner.getInputIndex();
                 this.taskList.deleteItem(index);
                 break;
             case TODO:
@@ -102,6 +102,8 @@ public class Tecna {
                     ui.printError(tde.getMessage());
                 }
                 break;
+            case INDEX_WRONG_FORMAT:
+                ui.printError("The parameter of this command must be a number from 1 to " + taskList.getSize());
             }
             ui.printSectionLine();
             command = this.commandScanner.getRequest();

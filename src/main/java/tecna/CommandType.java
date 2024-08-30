@@ -10,5 +10,6 @@ public enum CommandType {
     MARK,
     UNMARK,
     INVALID,
-    TODO_WRONG_FORMAT
+    TODO_WRONG_FORMAT,
+    INDEX_WRONG_FORMAT
 }

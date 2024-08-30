@@ -1,8 +1,5 @@
 package tecna;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 

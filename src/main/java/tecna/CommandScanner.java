@@ -5,9 +5,14 @@ import java.util.Scanner;
 public class CommandScanner {
     private Scanner scanner;
     private String input;
+    private int inputIndex;
 
     public CommandScanner() {
         this.scanner = new Scanner(System.in);
+    }
+
+    public int getInputIndex() {
+        return this.inputIndex;
     }
 
     /**
@@ -17,7 +22,7 @@ public class CommandScanner {
         return this.input;
     }
 
-    public CommandType getRequest() {
+    public CommandType getRequest() throws NumberFormatException {
         this.input = this.scanner.nextLine().trim();
         String[] input_words = this.input.split(" ");
         if (input.equalsIgnoreCase("bye")) {
@@ -25,11 +30,11 @@ public class CommandScanner {
         } else if (input.equalsIgnoreCase("list")) {
             return CommandType.LIST;
         } else if (input_words[0].equalsIgnoreCase("mark")) {
-            return CommandType.MARK;
+            return this.markIndex() ? CommandType.MARK : CommandType.INDEX_WRONG_FORMAT;
         } else if (input_words[0].equalsIgnoreCase("unmark")) {
-            return CommandType.UNMARK;
+            return this.markIndex() ? CommandType.UNMARK : CommandType.INDEX_WRONG_FORMAT;
         } else if (input_words[0].equalsIgnoreCase("delete")) {
-            return CommandType.DELETE;
+            return this.markIndex() ? CommandType.DELETE : CommandType.INDEX_WRONG_FORMAT;
         } else if (input_words[0].equalsIgnoreCase("todo")) {
             if (input_words.length <= 1) {
                 return CommandType.TODO_WRONG_FORMAT;
@@ -45,9 +50,14 @@ public class CommandScanner {
         }
     }
 
-    public int markIndex() {
+    public boolean markIndex() {
         String[] input_words = this.input.split(" ");
-        return Integer.parseInt(input_words[1]) - 1;
+        try {
+            this.inputIndex = Integer.parseInt(input_words[1]) - 1;
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     public void close() {
