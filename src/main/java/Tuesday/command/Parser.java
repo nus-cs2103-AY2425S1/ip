@@ -7,6 +7,13 @@ public class Parser {
 
     }
 
+    /**
+     * Takes in the command and allocates the corresponding method
+     *
+     * @param command The command description
+     * @return Command method
+     * @throws TuesdayException Throws when an unknown command is made
+     */
     public static Command parse(String command) throws TuesdayException {
         String[] userInputArr = command.split(" ", 2); // separate the command by " " into 2
         if (userInputArr[0].equals("bye")) {

@@ -10,11 +10,24 @@ import java.util.Scanner; // Import the Scanner class
 import java.io.File;
 
 public class Storage {
+    // variable
     private String filePath;
+
+    /**
+     * Constructor for Storage
+     *
+     * @param filePath File directory for data file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Used to load all the data from the datafile
+     *
+     * @return Empty String
+     * @throws TuesdayException Throws when the program does not understand the data
+     */
     public String load() throws TuesdayException {
         File dataFile = new File(filePath);
         if (!dataFile.exists()) {
@@ -59,11 +72,20 @@ public class Storage {
         return "";
     }
 
+    /**
+     * Saves the data into the data file
+     *
+     * @param taskItem Task added to data file
+     */
+
     public void saveToDatafile(Task taskItem) {
         File dataFile = new File(filePath);
         taskItem.writeToDatafile(dataFile);
     }
 
+    /**
+     * Creates a new data file if one does not exist
+     */
     public void createNewDatafile() {
         try {
             File dataFile = new File(filePath);

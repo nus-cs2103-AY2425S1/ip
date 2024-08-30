@@ -6,7 +6,8 @@ import Tuesday.util.Ui;
 
 import java.io.*;
 
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
+    // variable
     private int taskIndex;
     private boolean isMarked;
     public MarkCommand(String commandType, int taskIndex, boolean isMarked) {
@@ -14,6 +15,14 @@ public class MarkCommand extends Command{
         this.taskIndex = taskIndex;
         this.isMarked = isMarked;
     }
+
+    /**
+     * Marks the specific task and prints the message
+     *
+     * @param task The Task object
+     * @param ui The UI object
+     * @param storage The Storage object
+     */
     @Override
     public void execute(Task task, Ui ui, Storage storage) {
         Task.taskArrayList.get(this.taskIndex - 1).changeDone(this.isMarked);
@@ -21,6 +30,10 @@ public class MarkCommand extends Command{
         changeDataFromFile();
     }
 
+
+    /**
+     * Replaces a specific line in the data file and update the mark
+     */
     public void changeDataFromFile() {
         int i = 0;
         try {
@@ -59,6 +72,11 @@ public class MarkCommand extends Command{
         }
     }
 
+    /**
+     * Use to exit the program
+     *
+     * @return false and do not exit
+     */
     @Override
     public boolean isExit() {
         return false;

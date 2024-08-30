@@ -10,18 +10,41 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task{
     protected String byMsg;
 
+    /**
+     * Constructor for Deadline
+     * Used for new task created
+     *
+     * @param description Description of the command
+     * @param by_msg Postfix after /by
+     */
     public Deadline(String description, String byMsg) {
+
         super(description);
         byMsg = this.handleByMsg(byMsg);
         this.byMsg = byMsg;
     }
 
+    /**
+     * Constructor for Deadline
+     * Used for data collected from data file
+     *
+     * @param description Description of the command
+     * @param by_msg Postfix after /by
+     * @param done Marked data from data file
+     */
     public Deadline(String description, String byMsg, boolean done) {
+
         super(description, done);
         byMsg = this.handleByMsg(byMsg);
         this.byMsg = byMsg;
     }
 
+    /**
+     * Handles the date and time of the by_msg
+     *
+     * @param by_msg Postfix after /by
+     * @return Formated string of the date and time
+     */
     private String handleByMsg(String byMsg) {
         //deadline readbook /by 2019-10-23 10:30
         String[] timing_msg = byMsg.split(" ");
@@ -50,6 +73,12 @@ public class Deadline extends Task{
         return string_date + " " + string_time;
     }
 
+    /**
+     * Writes the date to the datafile
+     *
+     * @param dataFile The data file object
+     * @return Empty string
+     */
     @Override
     public String writeToDatafile(File dataFile) {
         try {
@@ -71,6 +100,11 @@ public class Deadline extends Task{
         return "";
     }
 
+    /**
+     * Used for an output message
+     *
+     * @return Output message
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.byMsg + ")";
