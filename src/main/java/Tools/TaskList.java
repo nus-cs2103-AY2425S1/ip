@@ -101,5 +101,23 @@ public class TaskList {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
+    public void findTask(String input) {
+        TaskList foundTasks = new TaskList();
+        for (Task task : tasks) {
+            if (task.toString().contains(input)) {
+                foundTasks.add(task);
+            }
+        }
+        if (foundTasks.isEmpty()) {
+            System.out.println("Task not found!");
+        } else {
+            foundTasks.listTasks();
+        }
+    }
+
 
 }
