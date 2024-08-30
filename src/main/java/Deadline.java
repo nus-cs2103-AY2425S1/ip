@@ -1,4 +1,5 @@
 public class Deadline extends Task {
+    private static final String TYPE = "D";
     private String by;
 
     public Deadline(String description, String by) {
@@ -12,7 +13,11 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[" + TYPE + "]" + super.toString() + " (by: " + by + ")";
     }
     
+    @Override
+    public String toStorage() {
+        return TYPE + "|" + super.toStorage() + "|" + by;
+    }
 }

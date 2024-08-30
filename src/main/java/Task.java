@@ -20,4 +20,8 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    public String toStorage() {
+        return this.getStatusIcon() + "|" + this.description;
+    }
+
 }
