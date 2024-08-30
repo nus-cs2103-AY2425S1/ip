@@ -1,10 +1,8 @@
-import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-public class Action {
+public class Ui {
     public void drawLine() {
         System.out.println("\t -------------------------------------------------------");
     }
@@ -28,40 +26,40 @@ public class Action {
         drawLine();
     }
 
-    public void listTasks(ArrayList<Task> list) {
+    public void listTasks(TaskList list) {
         drawLine();
         if (list.isEmpty()) {
             System.out.println("\t There are no tasks in your list.");
         } else {
             System.out.println("\t Here are the tasks in your list:");
-            for (int i = 0; i < list.size(); i++) {
-                System.out.println(String.format("\t %d.", i + 1) + list.get(i).toString());
+            for (int i = 0; i < list.listSize(); i++) {
+                System.out.println(String.format("\t %d.", i + 1) + list.getTask(i).toString());
             }
         }
         drawLine();
     }
 
-    public void markTask(int index, ArrayList<Task> list) {
+    public void markTask(int index, TaskList list) {
         drawLine();
-        if (list.get(index).getIsDone()) {
+        if (list.getIsDone(index)) {
             System.out.println("\t Task is already marked as done:");
         } else {
             System.out.println("\t Nice! I've marked this task as done:");
-            list.get(index).setDone();
+            list.markDone(index);
         }
-        System.out.println("\t " + list.get(index).toString());
+        System.out.println("\t " + list.getTask(index).toString());
         drawLine();
     }
 
-    public void unmarkTask(int index, ArrayList<Task> list) {
+    public void unmarkTask(int index, TaskList list) {
         drawLine();
-        if (!list.get(index).getIsDone()) {
+        if (!list.getIsDone(index)) {
             System.out.println("\t Task is already not marked as done:");
         } else {
             System.out.println("\t OK, I've marked this task as not done yet:");
-            list.get(index).setNotDone();
+            list.markNotDone(index);
         }
-        System.out.println("\t " + list.get(index).toString());
+        System.out.println("\t " + list.getTask(index).toString());
         drawLine();
     }
 
@@ -75,7 +73,7 @@ public class Action {
         drawLine();
     }
 
-    public void addToDo(String[] inputArr, ArrayList<Task> list) throws ElonException {
+    public void addToDo(String[] inputArr, TaskList list) throws ElonException {
         if (inputArr.length <= 1) {
             throw new ElonException("Error. Description for ToDo task not specified.");
         }
@@ -85,12 +83,12 @@ public class Action {
         }
         task = task.strip();
         ToDo todo = new ToDo(task, false);
-        list.add(todo);
+        list.addTask(todo);
         startAddTask();
         System.out.println("\t " + todo.toString());
     }
 
-    public void addDeadline(String[] inputArr, ArrayList<Task> list) throws ElonException {
+    public void addDeadline(String[] inputArr, TaskList list) throws ElonException {
         if (inputArr.length <= 1) {
             throw new ElonException("Error. Description and By date for Deadline task not specified.");
         }
@@ -111,12 +109,12 @@ public class Action {
         by = by.strip();
         LocalDate byDate = LocalDate.parse(by);
         Deadline deadline = new Deadline(task, false, byDate);
-        list.add(deadline);
+        list.addTask(deadline);
         startAddTask();
         System.out.println("\t " + deadline.toString());
     }
 
-    public void addEvent(String[] inputArr, ArrayList<Task> list) throws ElonException {
+    public void addEvent(String[] inputArr, TaskList list) throws ElonException {
         if (inputArr.length <= 1) {
             throw new ElonException("Error. Description, From and To date for Event task not specified.");
         }
@@ -149,16 +147,16 @@ public class Action {
         to = to.strip();
         LocalDate toDate = LocalDate.parse(to);
         Event event = new Event(task, false, fromDate, toDate);
-        list.add(event);
+        list.addTask(event);
         startAddTask();
         System.out.println("\t " + event.toString());
     }
 
-    public void deleteTask(int index, ArrayList<Task> list) {
+    public void deleteTask(int index, TaskList list) {
         drawLine();
         System.out.println("\t Noted. I've removed this task:");
-        System.out.println("\t " + list.get(index));
-        list.remove(index);
-        endAddTask(list.size());
+        System.out.println("\t " + list.getTask(index));
+        list.removeTask(index);
+        endAddTask(list.listSize());
     }
 }
