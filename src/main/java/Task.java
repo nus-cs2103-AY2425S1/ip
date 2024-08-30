@@ -1,21 +1,33 @@
+
+import java.util.ArrayList;
 import java.io.File;
 
 public class Task {
-    private String task;
+    private String description;
     private boolean done;
+    public static ArrayList<Task> taskArrayList = new ArrayList<>();
     protected static int count = 0;
 
-    public Task(String task) {
-        this.task = task;
+    public Task(String description) {
+        if (description.isEmpty()){
+            return;
+        }
+        this.description = description;
         this.done = false;
+        Task.taskArrayList.add(this);
         count++;
     }
 
-    public Task(String task, boolean done) {
-        this.task = task;
+    public Task(String description, boolean done) {
+        this.description = description;
         this.done = done;
+        Task.taskArrayList.add(this);
         count++;
     }
+
+    public Task(Storage storage) {
+        storage.create_new_datafile();
+
 
     public String getDoneX() {
         if (this.done)
@@ -35,8 +47,12 @@ public class Task {
         this.done = state;
     }
 
-    public static void deleteTask() {
+    public static void deleteTask(int index) {
         count--;
+        Task.taskArrayList.remove(index);
+    }
+    public String write_to_datafile(File dataFile){
+        return this.description;
     }
 
     public String write_to_datafile(File dataFile){
@@ -45,6 +61,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "["+ this.getDoneX()+"] "+ this.task;
+        return "["+ this.getDoneX() +"] "+ this.description;
     }
 }

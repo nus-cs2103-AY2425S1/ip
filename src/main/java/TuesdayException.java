@@ -1,5 +1,6 @@
 public class TuesdayException extends Exception{
-    public TuesdayException() {
-
+    private String error_message;
+    public TuesdayException(String error_message) {
+        this.error_message = error_message;
     }
 }
