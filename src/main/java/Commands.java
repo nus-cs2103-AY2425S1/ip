@@ -8,6 +8,7 @@ public class Commands {
         UNMARK,
         BYE,
         HELP,
+        DELETE,
     }
 
     public static Types checkType(String command) {
@@ -50,6 +51,9 @@ public class Commands {
                         break;
                     case UNMARK:
                         unmark(taskList, input);
+                        break;
+                    case DELETE:
+                        delete(taskList, input);
                         break;
                     default:
                         throw new RuntimeException();
@@ -148,5 +152,17 @@ public class Commands {
                              -HELP
                              """;
         System.out.print(helpMessage);
+    }
+
+    public static void delete(TaskList taskList, String input) {
+        try {
+            int i = Integer.parseInt(input);
+            System.out.printf("Task %d: [%s] has been deleted", i, taskList.get(i - 1));
+            taskList.remove( i- 1);
+        } catch (NumberFormatException e) {
+            System.out.println("Param given for marking a task is wrong, please try again");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Index out of bound, please try again");
+        }
     }
 }
