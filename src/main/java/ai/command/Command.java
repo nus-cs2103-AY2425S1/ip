@@ -12,7 +12,7 @@ public abstract class Command {
      * Executes the command given.
      *
      * @param tasks TaskList to be modified.
-     * @param ui Ui to print any UI elements.
+     * @param ui    Ui to print any UI elements.
      * @throws AiException if the command fails to execute.
      */
     public abstract void execute(TaskList tasks, Ui ui) throws AiException;

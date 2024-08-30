@@ -20,6 +20,7 @@ public class Storage {
     private ArrayList<Task> tasks = new ArrayList<Task>();
     private String filePath;
     private Ui ui = new Ui();
+
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -32,35 +33,35 @@ public class Storage {
      * @throws AiException if the line in the .txt file cannot be read.
      */
     public ArrayList<Task> load() throws IOException, AiException {
-            Path path = Paths.get(filePath);
-            Path directory = path.getParent();
+        Path path = Paths.get(filePath);
+        Path directory = path.getParent();
 
-            File dir = new File(directory.toString());
+        File dir = new File(directory.toString());
 
-            dir.mkdirs();
+        dir.mkdirs();
 
-            if (!dir.exists()) {
-                System.out.println("Path created");
-            }
+        if (!dir.exists()) {
+            System.out.println("Path created");
+        }
 
-            File f = new File(filePath);
-            Scanner s = new Scanner(f);
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
 
 
-            f.createNewFile();
-            // Check if file exists
-            if (!f.exists()) {
-                // Create file
-                System.out.println("File created");
-            }
+        f.createNewFile();
+        // Check if file exists
+        if (!f.exists()) {
+            // Create file
+            System.out.println("File created");
+        }
 
-            // File exists, read from file
-            while (s.hasNext()) {
-                tasks.add(readFileLine(s.nextLine()));
-            }
+        // File exists, read from file
+        while (s.hasNext()) {
+            tasks.add(readFileLine(s.nextLine()));
+        }
 
-            s.close();
-            return tasks;
+        s.close();
+        return tasks;
     }
 
     /**
@@ -90,7 +91,7 @@ public class Storage {
                 String descEvent = parsedFromToDesc[0];
                 String fromTo = parsedFromToDesc[1];
 
-                String[] parsedDate = fromTo.split(" - ",2);
+                String[] parsedDate = fromTo.split(" - ", 2);
                 String from = parsedDate[0];
                 String to = parsedDate[1];
 
