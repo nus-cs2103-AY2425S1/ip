@@ -10,9 +10,6 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
     }
-    public String getDescription() {
-        return description;
-    }
 
     public String getFormattedDeadline() {
         return by.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a"));

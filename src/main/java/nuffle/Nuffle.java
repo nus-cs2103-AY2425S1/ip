@@ -7,6 +7,7 @@ import nuffle.ui.Ui;
 import nuffle.storage.Storage;
 import nuffle.task.TaskList;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Nuffle {
@@ -155,6 +156,10 @@ public class Nuffle {
                     if (newTask != null) {
                         addTaskToList(newTask);
                     }
+                } else if (userInput.startsWith("find")) {
+                    // get the description and parse as argument to the find function
+                    ArrayList<Task> foundTasks = Parser.parseFindCommand(userInput, inputList);
+                    Ui.displayFoundTasks(foundTasks);
                 } else {
                     throw NuffleException.unknown();
                 }
