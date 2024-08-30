@@ -1,14 +1,17 @@
-public class Deadline extends Task{
-    protected String endDate;
+import java.time.LocalDateTime;
 
-    public Deadline(String description, String endDate){
+public class Deadline extends Task{
+    protected LocalDateTime endDate;
+
+    public Deadline(String description, LocalDateTime endDate){
         super(description);
         this.endDate = endDate;
     }
     @Override
     public String listedString(){
-        return super.listedString() + " [by " + this.endDate + "]";
+        return super.listedString() + " [by " + super.localDateTimeToString(this.getEndDate()) + "]";
     }
-    public String getEndDate(){ return endDate; }
+    public LocalDateTime getEndDate(){ return endDate; }
+
 
 }

@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Properties;
 public class FileWriter {
-    private final ArrayList<Task> arrayList;
-    public FileWriter(ArrayList<Task> arrayList){this.arrayList = arrayList;}
+    private final SentinelList arrayList;
+    public FileWriter(SentinelList arrayList){
+        this.arrayList = arrayList;
+    }
     public void saveTasks() {
         Properties masterFile = new Properties();
 
@@ -18,11 +20,11 @@ public class FileWriter {
             properties.setProperty("description", task.getDescription());
             properties.setProperty("isDone", task.isDone() ? "T" : "F");
             if (task instanceof Deadline) {
-                properties.setProperty("endDate", ((Deadline) task).getEndDate());
+                properties.setProperty("endDate", ((Deadline) task).getEndDate().toString());
             }
             if (task instanceof Event) {
-                properties.setProperty("endDate", ((Event) task).getEndDate());
-                properties.setProperty("startDate", ((Event) task).getStartDate());
+                properties.setProperty("endDate", ((Event) task).getEndDate().toString());
+                properties.setProperty("startDate", ((Event) task).getStartDate().toString());
             }
 
             try (StringWriter sw = new StringWriter()) {
