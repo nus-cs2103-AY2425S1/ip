@@ -1,10 +1,10 @@
 package citadel.commands;
 
 import citadel.Task.Task;
-import citadel.Task.ToDo;
 import citadel.Task.TaskList;
-import citadel.ui.TextUI;
+import citadel.Task.ToDo;
 import citadel.exception.CitadelTaskNoInput;
+import citadel.ui.TextUI;
 
 /**
  * Represents the command to handle the creation of a to-do task in the Citadel application.

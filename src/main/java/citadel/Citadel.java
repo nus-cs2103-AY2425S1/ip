@@ -35,7 +35,15 @@ public class Citadel {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Citadel heard: " + input;
+        try {
+            return handleInput(input);
+        } catch (CitadelException e) {
+            return ui.printCitadelException(e);
+        } catch (DateTimeParseException e) {
+            return ui.printDateTimeParseException();
+        } catch (Exception e) {
+            return ui.printException(e);
+        }
     }
 
 
@@ -45,7 +53,7 @@ public class Citadel {
      * @param input The user's input command as a string.
      * @throws CitadelException If there is an error processing the input.
      */
-    public static void handleInput(String input) throws CitadelException {
+    public static String handleInput(String input) throws CitadelException {
         Commands command = Parser.parseCommand(input);
 
         switch (command) {
@@ -53,40 +61,34 @@ public class Citadel {
             break;
 
         case LIST:
-            ui.printTasks(items);
-            break;
+            return ui.printTasks(items);
 
         case MARK:
-            new MarkTask(input, items).run();
-            break;
+            return new MarkTask(input, items).run();
 
         case UNMARK:
-            new UnmarkTask(input, items).run();
-            break;
+            return new UnmarkTask(input, items).run();
 
         case DELETE:
-            new DeleteTask(input, items).run();
-            break;
+            return new DeleteTask(input, items).run();
 
         case DEADLINE:
-            new HandleDeadline(input, items).run();
-            break;
+            return new HandleDeadline(input, items).run();
 
         case EVENT:
-            new HandleEvent(input, items).run();
-            break;
+            return new HandleEvent(input, items).run();
 
         case TODO:
-            new HandleTodo(input, items).run();
-            break;
+            return new HandleTodo(input, items).run();
 
         case FIND:
-            new FindTask(input, items).run();
-            break;
+            return new FindTask(input, items).run();
 
         default:
             throw new CitadelInvalidCommandException();
         }
+
+        return null;
     }
 
     /**
