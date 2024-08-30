@@ -1,6 +1,7 @@
 package atlas.tasks;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
@@ -38,13 +39,18 @@ public class TaskList {
     }
 
     public void add(Task task) {
-        tasks.add(task);
+        this.tasks.add(task);
     }
 
     public Task delete(int index) {
         Task task = this.tasks.get(index);
-        tasks.remove(index);
+        this.tasks.remove(index);
         return task;
+    }
+
+    public String find(String pattern) {
+        List<Task> filteredTasks = this.tasks.stream().filter(task -> task.toString().contains(pattern)).toList();
+        return new TaskList(new ArrayList<>(filteredTasks)).listAllTasks();
     }
 
     public boolean isEmpty() {

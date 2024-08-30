@@ -1,15 +1,6 @@
 package atlas.parser;
 
-import atlas.commands.Command;
-import atlas.commands.AllCommand;
-import atlas.commands.ExitCommand;
-import atlas.commands.ListCommand;
-import atlas.commands.MarkCommand;
-import atlas.commands.UnmarkCommand;
-import atlas.commands.TodoCommand;
-import atlas.commands.DeadlineCommand;
-import atlas.commands.EventCommand;
-import atlas.commands.DeleteCommand;
+import atlas.commands.*;
 
 import atlas.exceptions.AtlasException;
 import atlas.utils.DateTime;
@@ -90,14 +81,25 @@ public class Parser {
 
                 int deleteIndex = Integer.parseInt(commandsArray[1]) - 1;
                 return new DeleteCommand(deleteIndex);
+
+            case FIND:
+                commandsArray = fullCommand.split("find ");
+                if (commandsArray.length == 1) {
+                    throw new AtlasException("Finding tasks requires the task description.");
+                } else if (commandsArray.length > 2) {
+                    throw new AtlasException("Invalid task description.");
+                }
+
+                return new FindCommand(commandsArray[1]);
+
+            default:
+                throw new AtlasException("Unknown command.");
             }
         } catch (IllegalArgumentException e) {
             throw new AtlasException("Unknown command.");
         } catch (DateTimeException e) {
             throw new AtlasException("Invalid DateTime format. Please use yyyy-mm-dd HHmm");
         }
-
-        return new ExitCommand();
     }
 
     public static boolean isNotNumber(String s) {
