@@ -5,7 +5,6 @@ public abstract class Task {
     private boolean isDone;
 
     public Task(String description) {
-
         this.description = description;
         this.isDone = false;
     }
@@ -19,7 +18,7 @@ public abstract class Task {
     }
 
     public String taskStatus() {
-        return (this.isDone ? "X" : " ");
+        return ((this.isDone) ? "X" : " ");
     }
 
     public boolean isDone() {
