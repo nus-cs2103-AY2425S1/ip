@@ -13,21 +13,21 @@ public class Parser {
             return new Command(CommandType.LIST, null, 0);
         } else if (parts.length == 2) {
             switch (parts[0]) {
-                case "mark":
-                    return new Command(CommandType.MARK, null, Integer.parseInt(parts[1]));
-                case "unmark":
-                    return new Command(CommandType.UNMARK, null, Integer.parseInt(parts[1]));
-                case "delete":
-                    return new Command(CommandType.DELETE, null, Integer.parseInt(parts[1]));
-                case "todo":
-                case "deadline":
-                case "event":
-                    if (parts[1].equals("")) {
-                        throw new EmptyDescriptionError();
-                    }
-                    return parseTask(parts[0], parts[1]);
-                default:
-                    throw new InvalidCommandError();
+            case "mark":
+                return new Command(CommandType.MARK, null, Integer.parseInt(parts[1]));
+            case "unmark":
+                return new Command(CommandType.UNMARK, null, Integer.parseInt(parts[1]));
+            case "delete":
+                return new Command(CommandType.DELETE, null, Integer.parseInt(parts[1]));
+            case "todo":
+            case "deadline":
+            case "event":
+                if (parts[1].equals("")) {
+                    throw new EmptyDescriptionError();
+                }
+                return parseTask(parts[0], parts[1]);
+            default:
+                throw new InvalidCommandError();
             }
         }
         throw new InvalidCommandError();
@@ -68,23 +68,23 @@ public class Parser {
 
         Task task = null;
         switch (type) {
-            case "todo":
-                task = new Todo(description);
-                break;
-            case "deadline":
-                if (by == null) {
-                    throw new InvalidCommandError();
-                }
-                task = new Deadline(by, description);
-                break;
-            case "event":
-                if (to == null || from == null) {
-                    throw new InvalidCommandError();
-                }
-                task = new Event(from, to, description);
-                break;
-            default:
-                break;
+        case "todo":
+            task = new Todo(description);
+            break;
+        case "deadline":
+            if (by == null) {
+                throw new InvalidCommandError();
+            }
+            task = new Deadline(by, description);
+            break;
+        case "event":
+            if (to == null || from == null) {
+                throw new InvalidCommandError();
+            }
+            task = new Event(from, to, description);
+            break;
+        default:
+            break;
         }
         return new Command(type.equals("todo") ? CommandType.TODO : type.equals("deadline") ? CommandType.DEADLINE : CommandType.EVENT, description, 0, task);
     }
