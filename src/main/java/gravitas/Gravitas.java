@@ -5,14 +5,21 @@ import gravitas.storage.Storage;
 import gravitas.tasklist.TaskList;
 import gravitas.ui.Ui;
 
-import java.nio.file.Paths;
 
+/**
+ * Represents the main class of the program.
+ */
 public class Gravitas {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for Gravitas.
+     *
+     * @param filePath File path to load file
+     */
     public Gravitas(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -23,13 +30,16 @@ public class Gravitas {
         }
     }
 
+    /**
+     * Runs the program.
+     */
     public void run() {
         this.ui.greet();
-        while(this.ui.display(tasks)) {
+        while (this.ui.display(tasks)) {
             try {
                 this.storage.saveTask(this.tasks);
             } catch (DukeException e) {
-                ui.showLoadingError();
+                Ui.showLoadingError();
             }
         }
     }

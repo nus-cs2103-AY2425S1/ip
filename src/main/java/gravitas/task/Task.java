@@ -37,7 +37,7 @@ public abstract class Task {
     /**
      * Returns the status icon of the task.
      *
-     * @return "X" if the task is mark
+     * @return "X" if the task is mark.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
@@ -57,5 +57,4 @@ public abstract class Task {
     public void unMarkTask() {
         this.isDone = false;
     }
-
 }

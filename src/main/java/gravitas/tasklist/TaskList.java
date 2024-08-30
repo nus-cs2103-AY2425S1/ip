@@ -1,14 +1,16 @@
 package gravitas.tasklist;
 
-import gravitas.task.Task;
 import java.util.ArrayList;
+
+import gravitas.task.Task;
+
 
 /**
  * Represents a list of tasks.
  */
 public class TaskList {
 
-    ArrayList<Task> tasklist;
+    private ArrayList<Task> tasklist;
 
     /**
      * Constructor for TaskList.
@@ -53,8 +55,8 @@ public class TaskList {
         Task currentTask;
         for (int i = 0; i < this.tasklist.size(); i++) {
             currentTask = this.tasklist.get(i);
-            System.out.println((i + 1) + ". [" + currentTask.getEventType() +
-                    "][" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
+            System.out.println((i + 1) + ". [" + currentTask.getEventType()
+                    + "][" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
         }
     }
 
@@ -81,8 +83,8 @@ public class TaskList {
         for (int i = 0; i < this.tasklist.size(); i++) {
             currentTask = this.tasklist.get(i);
             if (currentTask.getDescription().contains(keyword)) {
-                System.out.println(count + ". [" + currentTask.getEventType() +
-                        "][" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
+                System.out.println(count + ". [" + currentTask.getEventType()
+                        + "][" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
                 count++;
             }
         }

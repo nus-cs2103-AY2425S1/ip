@@ -1,11 +1,13 @@
 package gravitas.task;
 
-import gravitas.exception.DukeException;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import gravitas.exception.DukeException;
+
+
 
 /**
  * Represents a Deadline task.
@@ -22,7 +24,7 @@ public class Deadline extends Task {
      * @param endDate     End date of the deadline task.
      * @throws DukeException If the date and time format is invalid.
      */
-    public Deadline(String description, String endDate) throws DukeException{
+    public Deadline(String description, String endDate) throws DukeException {
         super(description, "D");
 
         try {
@@ -32,7 +34,7 @@ public class Deadline extends Task {
             String formattedEndTime = EndTimeArr[1].substring(0, 2) + ":" + EndTimeArr[1].substring(2, 4);
             this.endDate = localEndDate;
             this.endTime = LocalTime.parse(formattedEndTime);
-        } catch(DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new DukeException("Please enter a valid date and time.");
         }
     }
@@ -49,8 +51,8 @@ public class Deadline extends Task {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
         String mark = this.isDone ? "1" : "0";
-        return (this.eventType + " | " + mark + " | " + this.description +
-                " | " + this.endDate.format(dateFormatter) + " | "
+        return (this.eventType + " | " + mark + " | " + this.description
+                + " | " + this.endDate.format(dateFormatter) + " | "
                 + this.endTime.format(timeFormatter) + "\n");
     }
 }
