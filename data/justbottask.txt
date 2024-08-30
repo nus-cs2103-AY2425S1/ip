@@ -1,1 +1,4 @@
 Event | 0 | meeting | from 26/09/2024 1400 to 26/09/2024 1600
+Todo | 0 | swim | No time constraint
+Todo | 0 | swims | No time constraint
+Todo | 0 | meeting tonight | No time constraint

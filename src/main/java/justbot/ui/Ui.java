@@ -34,6 +34,7 @@ public class Ui {
         System.out.println("5. todo [task description]");
         System.out.println("6. deadline [task description] /by [dd/MM/yyyy HH:mm]");
         System.out.println("7. event [task description] /from [dd/MM/yyyy HH:mm] /to [dd/MM/yyyy HH:mm]");
+        System.out.println("8. find [task description]");
         System.out.println("What can I do for you?");
         System.out.println("------------------------------------------");
     }
@@ -49,6 +50,7 @@ public class Ui {
         System.out.println("5. todo [task description]");
         System.out.println("6. deadline [task description] /by [dd/MM/yyyy HH:mm]");
         System.out.println("7. event [task description] /from [dd/MM/yyyy HH:mm] /to [dd/MM/yyyy HH:mm]");
+        System.out.println("8. find [task description]");
         System.out.println("What can I do for you?");
         System.out.println("------------------------------------------");
     }
@@ -60,6 +62,24 @@ public class Ui {
             int taskListCount = i + 1;
             Task currTask = taskList.get(i);
             System.out.print(taskListCount + ". " + currTask.toString() + "\n");
+        }
+        System.out.println("------------------------------------------");
+    }
+
+    public void findMessage(TaskList taskList, String keyword) {
+        System.out.println("------------------------------------------");
+        System.out.println("Hey man here are the matching tasks in your list:\n");
+        int count = 1;
+        for (int i = 0; i < taskList.size(); i++) {
+            Task currTask = taskList.get(i);
+            if (currTask.getTaskDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                System.out.println(count + ". " + taskList.get(i));
+                count++;
+            }
+        }
+
+        if (count == 1) {
+            System.out.println("No matching tasks found.");
         }
         System.out.println("------------------------------------------");
     }

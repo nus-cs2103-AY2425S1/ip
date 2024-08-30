@@ -1,10 +1,10 @@
 package justbot.parser;
 
-import justbot.exception.JustbotException;
 import justbot.command.MarkCommand;
 import justbot.command.UnmarkCommand;
 import justbot.command.DeleteCommand;
 import justbot.command.ListCommand;
+import justbot.command.FindCommand;
 import justbot.command.TodoCommand;
 import justbot.command.EventCommand;
 import justbot.command.DeadlineCommand;
@@ -12,6 +12,8 @@ import justbot.command.UnknownCommand;
 import justbot.command.ByeCommand;
 import justbot.command.Command;
 import justbot.command.CommandType;
+
+import justbot.exception.JustbotException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -67,6 +69,12 @@ public class Parser {
                 return new EventCommand(eventDescription, startDateTime, endDateTime);
             case LIST:
                 return new ListCommand();
+            case FIND:
+                if (words.length < 2) {
+                    throw new JustbotException("Hey man, follow the format:\n" + "find [task description]");
+                }
+                String keyword = words[1];
+                return new FindCommand(keyword);
             case MARK:
                 try {
                     int markNumber = Integer.parseInt(words[1].trim());
