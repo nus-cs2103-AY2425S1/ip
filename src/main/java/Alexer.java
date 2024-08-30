@@ -48,7 +48,15 @@ public class Alexer {
     }
 
     public void addTodo(List<String> arguments) {
-        Todo todo = new Todo(String.join(" ", arguments));
+        String description = String.join(" ", arguments);
+        if (description.isEmpty()) {
+            System.out.println(BREAK);
+            System.out.println("Oh-no! You forgot to include a description for your task!");
+            System.out.println(BREAK);
+            return;
+        }
+
+        Todo todo = new Todo(description);
         tasks.add(todo);
 
         System.out.println(BREAK);
@@ -157,7 +165,9 @@ public class Alexer {
             promptLoop();
             break;
         default:
-            addTask(input);
+            System.out.println(BREAK);
+            System.out.println("Uh-oh, I did not understand what you are trying to do.");
+            System.out.println(BREAK);
             promptLoop();
             break;
         }
