@@ -173,6 +173,20 @@ public class Ui {
     }
 
     /**
+     * Displays the filtered list of tasks.
+     *
+     * @param lst The list of tasks to filter from.
+     */
+    public void showFileredList(SentinelList lst, String keyword) {
+        lst = lst.filter(keyword);
+        System.out.println("Here " + (lst.sizeOne() ? "is" : "are") + " the " + (lst.sizeOne() ? "task" : "tasks") +
+                " in your list that " + (lst.sizeOne() ? "contains" : "contain") + " the keyword \"" + keyword + "\":");
+        for (int i = 0; i < lst.size(); i++) {
+            System.out.println("\t" + (i + 1) + "." + lst.getListedString(i));
+        }
+    }
+
+    /**
      * Displays a message when a task is removed and shows the number of remaining tasks.
      *
      * @param list   The updated list of tasks.
