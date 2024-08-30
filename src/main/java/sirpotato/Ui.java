@@ -91,4 +91,22 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints all the tasks in the tasklist that match the search string 
+     * 
+     * @param tasks The Tasklist in which we wish to search
+     * @param searchString The string we wish to search for
+     */
+    public void findTasks(TaskList tasks, String searchString) {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println(INDENT + "Here are the matching tasks found:");
+
+        for (int i = 0; i < tasks.getList().size(); i++) {
+            if (tasks.getList().get(i).containsString(searchString)) {
+                System.out.println(INDENT + (i+1) + ". " + tasks.getList().get(i));
+            }
+        }
+        System.out.println(HORIZONTAL_LINE + "\n");
+    }
+
 }

@@ -23,6 +23,7 @@ public class TaskList {
 
     /**
      * Marks a certain item in the task list as finished
+     * 
      * @param itemNumber The item you wish to mark finished(starts with index 1 for item 1)
      */
     public void mark(int itemNumber) {
@@ -32,6 +33,7 @@ public class TaskList {
 
     /**
      * Unmarks a certain item in the task list as finished
+     * 
      * @param itemNumber The item you wish to unmark finished(starts with index 1 for item 1)
      */
     public void unmark(int itemNumber) {
@@ -41,6 +43,7 @@ public class TaskList {
 
     /**
      * Adds a task to the tasklist
+     * 
      * @param task The task you wish to add
      */
     public void addTask(Task task) {
@@ -50,6 +53,7 @@ public class TaskList {
 
     /**
      * Deletes a task from the task list
+     * 
      * @param taskNumber The number of the task you wish to delete
      * @param toDoList The ArrayList of the tasklist should you wish to specify
      */
@@ -60,10 +64,12 @@ public class TaskList {
 
     /**
      * Deletes a task from the task list
+     * 
      * @param taskNumber The number of the task you wish to delete
      */
     public void delete(int taskNumber) {
         ui.displayDeletionMessage(toDoList.get(taskNumber), this.toDoList);
         toDoList.remove(taskNumber);
     }
+
 }
