@@ -5,13 +5,28 @@ import java.util.ArrayList;
 
 import BrainRot.exceptions.*;
 
+/**
+ * The Storage class handles the reading and writing of tasks to and from a file.
+ * It allows tasks to be saved persistently and loaded when the application is started.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path of the file where tasks will be saved and loaded from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the list of tasks from the file.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws IOException If an I/O error occurs while reading the file.
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> arr = new ArrayList<>();
         File myData = new File(filePath);
@@ -53,6 +68,12 @@ public class Storage {
         return arr;
     }
 
+    /**
+     * Saves the list of tasks to the file.
+     *
+     * @param tasks An ArrayList of Task objects to be saved to the file.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
         try (FileWriter dataW = new FileWriter(filePath)) {
             for (Task task : tasks) {
