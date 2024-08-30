@@ -10,6 +10,14 @@ import java.util.regex.Matcher;
 
 public class Parser {
 
+    /**
+     * Returns the index of a task in task list
+     *
+     * @param matcher, matcher to parse command from
+     * @param commandType, the command type which will determine how to retrieve index
+     * @return index of task
+     * @throws PhenexException, if invalid command
+     */
     public int getIndexOfTask(Matcher matcher, Phenex.CommandType commandType) throws PhenexException {
         int indexOfResult;
         switch (commandType) {
@@ -28,7 +36,12 @@ public class Parser {
         return Integer.parseInt(matcher.group().substring(indexOfResult)) - 1;
     }
 
-
+    /**
+     * Returns a formatted string representation of a task for storage in memory
+     *
+     * @param task, task to format string representation
+     * @return formatted string representation of task
+     */
     public static String parseTaskInfo(Task task) {
         String localDateString = "";
         if (task instanceof Deadline) {

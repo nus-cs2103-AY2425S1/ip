@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import java.util.Scanner;
 
 public class TaskList {
+    /** Encapsulates all tasks in the TaskList */
     protected ArrayList<Task> tasks;
 
     public enum TaskType {
@@ -36,6 +37,12 @@ public class TaskList {
         return this.tasks.get(i);
     }
 
+    /**
+     * Marks a task as complete
+     *
+     * @param idx, the index of the task to mark as complete
+     * @throws PhenexException, if invalid index
+     */
     public void markTaskCompleted(int idx) throws PhenexException {
         if (idx >= this.tasks.size()) {
             throw new PhenexException("\t Invalid input, no such mission!");
@@ -46,6 +53,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as incomplete
+     *
+     * @param idx, the index of the task to mark as complete
+     * @throws PhenexException, if invalid index
+     */
     public void markTaskIncomplete(int idx) throws PhenexException {
         if (idx >= this.tasks.size()) {
             throw new PhenexException("\t Invalid input, no such mission!");
@@ -56,7 +69,14 @@ public class TaskList {
         }
     }
 
-    public void addTask(Matcher matcher, TaskType tt) throws PhenexException {
+    /**
+     * Adds a task to task list
+     *
+     * @param matcher, the matcher to get the task from
+     * @param taskType, the task type of the task to add
+     * @throws PhenexException, if invalid string
+     */
+    public void addTask(Matcher matcher, TaskType taskType) throws PhenexException {
         String taskName = matcher.group(1);
         String emptyNameRegex = "\\s*";
         Pattern emptyNamePattern = Pattern.compile(emptyNameRegex);
@@ -64,7 +84,7 @@ public class TaskList {
 
         Task taskToAdd;
 
-        switch (tt) {
+        switch (taskType) {
         case TASK_TODO:
             if (emptyNameMatcher.matches()) {
                 throw new PhenexException("Error, invalid todo name");
@@ -105,6 +125,12 @@ public class TaskList {
         Ui.printTaskAddedMessage(taskToAdd, this.tasks.size());
     }
 
+    /**
+     * Deletes a task
+     *
+     * @param idx, index of task to delete
+     * @throws PhenexException, if invalid index
+     */
     public void deleteTask(int idx) throws PhenexException {
         if (idx >= this.tasks.size()) {
             throw new PhenexException("Error, no such mission exists");
@@ -114,6 +140,11 @@ public class TaskList {
         Ui.printTaskDeletedMessage(taskToDelete, this.tasks.size());
     }
 
+    /**
+     * Fills up data from storage into task list
+     *
+     * @param storage, the Storage to read from
+     */
     private void readFromStorage(Storage storage) {
         try {
             Scanner scanner = new Scanner(storage.getFile());
@@ -128,6 +159,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds task from line from memory
+     *
+     * @param data, the data to add
+     * @throws PhenexException, if invalid line
+     */
     private void addTaskFromMemoryLine(String data) throws PhenexException {
         String[] taskDetails = data.split(", ");
         if (taskDetails.length <= 1) {

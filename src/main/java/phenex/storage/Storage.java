@@ -13,7 +13,9 @@ import java.nio.file.Path;
 import java.io.IOException;
 
 public class Storage {
+    /** Encapsulates the filePath in storage */
     protected final Path filePath;
+    /** Encapsulates the File in storage */
     protected File file;
 
     public Storage(Path filePath) {
@@ -37,6 +39,11 @@ public class Storage {
         return this.file;
     }
 
+    /**
+     * Stores tasks from a task list
+     *
+     * @param taskList, the task list to store tasks from
+     */
     public void storeTasksToMemory(TaskList taskList) {
         try {
             FileWriter fileWriter = new FileWriter(this.filePath.toString());
