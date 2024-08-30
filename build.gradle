@@ -31,8 +31,9 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "bimo"
     archiveClassifier = null
+    archiveFileName = 'bimo.jar'
 }
 
 run{
