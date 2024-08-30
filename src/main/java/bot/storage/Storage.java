@@ -1,17 +1,12 @@
 package bot.storage;
 
-import bot.tasks.Deadline;
-import bot.tasks.Event;
-import bot.tasks.Task;
-import bot.tasks.Todo;
+import bot.tasks.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -23,6 +18,7 @@ public class Storage {
     private static final String DIR_PATH = "data";
     private static final String TASK_FILE_PATH = DIR_PATH + "/tasks.txt";
 
+    // TODO: Allow constructor to take in file path
     public Storage() {
         init();
     }
@@ -65,28 +61,24 @@ public class Storage {
      * @param tasks List of tasks to save.
      * @throws IOException If file cannot be saved.
      */
-    public void saveTaskList(List<Task> tasks) throws IOException {
+    public void saveTaskList(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(TASK_FILE_PATH);
-        for (Task t : tasks) {
-            fw.write(t.toData() + "\n");
-        }
+        fw.write(tasks.toData());
         fw.close();
     }
 
     /**
      * Load tasks from data file
      *
-     * @return ArrayList of tasks
+     * @param tasks <code>TaskList</code> to add the tasks to.
      * @throws FileNotFoundException If data file is not found.
      */
-    public List<Task> loadTasks() throws FileNotFoundException {
-        List<Task> tasks = new ArrayList<>();
+    public void loadTasks(TaskList tasks) throws FileNotFoundException {
         File f = new File(TASK_FILE_PATH);
         Scanner s = new Scanner(f);
         while (s.hasNextLine()) {
             tasks.add(parseData(s.nextLine()));
         }
-        return tasks;
     }
 
     private Task parseData(String data) {

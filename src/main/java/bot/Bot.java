@@ -9,22 +9,25 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Bot {
-    private List<Task> tasks;
+    private final TaskList tasks;
+    private Ui ui;
+    private Parser parser;
     private final Storage storage;
 
     public Bot() {
+        tasks = new TaskList();
+        ui = new Ui();
+        parser = new Parser();
         storage = new Storage();
         try {
-            tasks = storage.loadTasks();
+            storage.loadTasks(tasks);
         } catch (FileNotFoundException e) {
             System.out.println("Failed to load task from disk" + e.getMessage());
-            System.exit(0);
         }
     }
 
@@ -54,16 +57,13 @@ public class Bot {
         }
     }
 
-    public static void main(String[] args) {
-        // Initialization
-        Bot bot = new Bot();
-
+    public void run() {
         printBotMessage("Hello! I'm ChadGPT. What can I do for you?");
 
         Scanner sc = new Scanner(System.in);
 
         while (sc.hasNextLine()) {
-            bot.handleInput(sc.nextLine());
+            handleInput(sc.nextLine());
         }
     }
 
@@ -116,22 +116,23 @@ public class Bot {
     }
 
     private void handleList() {
-        printBotMessage("Here are the tasks in your list:\n" + Formatter.formatList(tasks));
+        printBotMessage("Here are the tasks in your list:\n" + tasks.toString());
     }
 
     private void handleAddTask(String cmd, String args) throws InvalidTaskDescriptionException, DateTimeParseException {
+        int newTaskIndex;
         if (cmd.equals(Command.TODO.name)) {
             if (args.isEmpty()) {
                 throw new EmptyTodoException();
             }
-            tasks.add(new Todo(args));
+            newTaskIndex = tasks.add(new Todo(args));
         } else if (cmd.equals(Command.DEADLINE.name)) {
             Pattern regex = Pattern.compile("(.*)\\s/by\\s(.*)");
             Matcher matcher = regex.matcher(args);
             if (matcher.matches()) {
                 String task = matcher.group(1);
                 String deadline = matcher.group(2);
-                tasks.add(new Deadline(task, LocalDate.parse(deadline)));
+                newTaskIndex = tasks.add(new Deadline(task, LocalDate.parse(deadline)));
             } else {
                 throw new InvalidTaskDescriptionException(args);
             }
@@ -143,7 +144,7 @@ public class Bot {
                 String task = matcher.group(1);
                 String from = matcher.group(2);
                 String to = matcher.group(3);
-                tasks.add(new Event(task, LocalDate.parse(from), LocalDate.parse(to)));
+                newTaskIndex = tasks.add(new Event(task, LocalDate.parse(from), LocalDate.parse(to)));
             } else {
                 throw new InvalidTaskDescriptionException(args);
             }
@@ -154,15 +155,14 @@ public class Bot {
             storage.saveTaskList(tasks);
         } catch (IOException e) {
             // Revert add task
-            tasks.remove(tasks.size() - 1);
+            tasks.remove(newTaskIndex);
             System.out.println("Task failed to be added: " + e.getMessage());
             return;
         }
 
-        Task newTask = tasks.get(tasks.size()-1);
         String response = String.format(
                 "Got it. I've added this task:\n  %s\nNow you have %d task(s) in the list.",
-                newTask.toString(),
+                tasks.get(newTaskIndex).toString(),
                 tasks.size()
         );
         printBotMessage(response);
@@ -173,22 +173,21 @@ public class Bot {
         if (index < 0 || index > tasks.size() - 1) {
             throw new InvalidTaskIdException(index + 1);
         }
-        Task taskToDelete = tasks.get(index);
-        tasks.remove(taskToDelete);
+        Task deletedTask = tasks.remove(index);
 
         // Save tasks to disk
         try {
             storage.saveTaskList(tasks);
         } catch (IOException e) {
             // Revert delete task
-            tasks.add(taskToDelete);
+            tasks.add(deletedTask);
             System.out.println("Task failed to be deleted: " + e.getMessage());
             return;
         }
 
         String response = String.format(
                 "Noted. I've removed this task:\n  %s\nNow you have %d task(s) in the list.",
-                taskToDelete.toString(),
+                deletedTask.toString(),
                 tasks.size()
         );
         printBotMessage(response);
@@ -199,24 +198,24 @@ public class Bot {
         if (index < 0 || index > tasks.size() - 1) {
             throw new InvalidTaskIdException(index + 1);
         }
-        boolean isPrevDone = tasks.get(index).isDone();
-        tasks.get(index).markAsDone();
+        boolean isPrevMarked = tasks.isMarked(index);
+        Task markedTask = tasks.mark(index);
 
         // Save tasks to disk
         try {
             storage.saveTaskList(tasks);
         } catch (IOException e) {
             // Revert mark task
-            if (isPrevDone) {
-                tasks.get(index).markAsDone();
+            if (isPrevMarked) {
+                tasks.mark(index);
             } else {
-                tasks.get(index).markAsIncomplete();
+                tasks.unmark(index);
             }
             System.out.println("Task failed to be mark: " + e.getMessage());
             return;
         }
 
-        printBotMessage("Nice! I've marked this task as done:\n" + tasks.get(index));
+        printBotMessage("Nice! I've marked this task as done:\n" + markedTask);
     }
 
     private void handleUnmarkTask(String args) throws InvalidTaskIdException {
@@ -224,24 +223,24 @@ public class Bot {
         if (index < 0 || index > tasks.size() - 1) {
             throw new InvalidTaskIdException(index + 1);
         }
-        boolean isPrevDone = tasks.get(index).isDone();
-        tasks.get(index).markAsIncomplete();
+        boolean isPrevMarked = tasks.isMarked(index);
+        Task unmarkedTask = tasks.unmark(index);
 
         // Save tasks to disk
         try {
             storage.saveTaskList(tasks);
         } catch (IOException e) {
             // Revert unmark task
-            if (isPrevDone) {
-                tasks.get(index).markAsDone();
+            if (isPrevMarked) {
+                tasks.mark(index);
             } else {
-                tasks.get(index).markAsIncomplete();
+                tasks.unmark(index);
             }
             System.out.println("Task failed to be unmarked: " + e.getMessage());
             return;
         }
 
-        printBotMessage("OK, I've marked this task as not done yet:\n" + tasks.get(index));
+        printBotMessage("OK, I've marked this task as not done yet:\n" + unmarkedTask);
     }
 
     private int getTaskIndex(String input) {
@@ -255,5 +254,9 @@ public class Bot {
      */
     private static void printBotMessage(String msg) {
         System.out.println(Formatter.formatBotMessage(msg));
+    }
+
+    public static void main(String[] args) {
+        new Bot().run();
     }
 }
