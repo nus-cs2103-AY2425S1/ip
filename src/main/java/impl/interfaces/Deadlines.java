@@ -12,4 +12,9 @@ public class Deadlines extends Task{
         return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
 
+    @Override
+    public String loadString(){
+        return "deadline" + this.description + "/by " + this.by + " | " + this.isDone;
+    }
+
 }
