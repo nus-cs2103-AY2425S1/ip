@@ -1,8 +1,8 @@
 package zaibot.command;
 
-import zaibot.Storage;
-import zaibot.TaskList;
-import zaibot.Ui;
+import zaibot.utils.Storage;
+import zaibot.utils.TaskList;
+import zaibot.utils.Ui;
 
 /**
  * This class represents the command used for listing all the tasks.
@@ -13,7 +13,7 @@ public class TaskListingCommand extends Command {
     }
 
     @Override
-    public void runCommandSpecificLogic(TaskList tasks, Storage storage) {
-        Ui.printTaskList(tasks);
+    public String runCommandSpecificLogic(TaskList tasks, Storage storage) {
+        return Ui.printTaskList(tasks);
     }
 }

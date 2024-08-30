@@ -1,6 +1,8 @@
 package zaibot.command;
 
-import zaibot.*;
+import zaibot.utils.Storage;
+import zaibot.utils.TaskList;
+import zaibot.utils.Ui;
 import zaibot.exception.ZaibotException;
 import zaibot.task.Task;
 
@@ -36,21 +38,18 @@ public class TaskUpdateCommand extends Command {
     }
 
     @Override
-    public void runCommandSpecificLogic(TaskList tasks, Storage storage) throws ZaibotException {
+    public String runCommandSpecificLogic(TaskList tasks, Storage storage) throws ZaibotException {
         Task task;
         switch (super.getName()) {
         case "mark":
             task = tasks.markTask(this.getNumberForTask(tasks));
-            Ui.displayTask(task, "mark", tasks);
-            break;
+            return Ui.displayTask(task, "mark", tasks);
         case "unmark":
             task = tasks.unmarkTask(this.getNumberForTask(tasks));
-            Ui.displayTask(task, "unmark", tasks);
-            break;
+            return Ui.displayTask(task, "unmark", tasks);
         case "delete":
             tasks.removeTask(this.getNumberForTask(tasks));
-            Ui.displayTasksNumber(tasks);
-            break;
+            return Ui.displayTasksNumber(tasks);
         default:
             throw new ZaibotException("Invalid command.\n");
         }

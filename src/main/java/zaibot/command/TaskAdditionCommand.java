@@ -1,6 +1,8 @@
 package zaibot.command;
 
-import zaibot.*;
+import zaibot.utils.Storage;
+import zaibot.utils.TaskList;
+import zaibot.utils.Ui;
 import zaibot.exception.ZaibotException;
 import zaibot.task.DeadlineTask;
 import zaibot.task.EventTask;
@@ -21,7 +23,7 @@ public class TaskAdditionCommand extends Command {
     }
 
     @Override
-    public void runCommandSpecificLogic(TaskList tasks, Storage storage) throws ZaibotException {
+    public String runCommandSpecificLogic(TaskList tasks, Storage storage) throws ZaibotException {
         Task task;
 
         switch (super.getName()) {
@@ -29,8 +31,7 @@ public class TaskAdditionCommand extends Command {
         case "deadline":
         case "event":
             task = createTask(tasks);
-            Ui.displayTask(task, "add", tasks);
-            break;
+            return Ui.displayTask(task, "add", tasks);
         default:
             throw new ZaibotException("Invalid command.\n");
         }
