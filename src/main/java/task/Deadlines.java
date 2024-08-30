@@ -13,6 +13,14 @@ public class Deadlines extends Task {
 //    private String deadline;
     private LocalDateTime deadline;
     private String initDesc;
+
+    /**
+     * Constructs a {@code Deadlines} object with the specified description
+     *
+     * @param description the description of the task, including the deadline
+     * @throws CommandFoundButInvalidException if the description format is incorrect
+     * @throws InvalidSyntaxException if the deadline is not in the correct format
+     */
     public Deadlines(String description) throws CommandFoundButInvalidException {
         super(description);
         this.initDesc = description;
@@ -29,10 +37,24 @@ public class Deadlines extends Task {
         }
     }
 
+    /**
+     * Returns a strinf representation of the deadline task in a user-readable format
+     *
+     * @return a string representation of the deadline task
+     */
     public String toString() {
         String str = " (by: " + deadline.format(DateTimeFormatter.ofPattern("dd MMM yyy HH:mm")) + ")";
         return "[D]" + super.toString() + str;
     }
+
+    /**
+     * Checks the input string and splits the string into the task description and deadline components
+     *
+     * @param description the description of the task, including the deadline
+     * @return an array of string where the first element is the task description and the second is the
+     *         deadline
+     * @throws CommandFoundButInvalidException if the description format is incorrect
+     */
     public String[] getValidString(String description) throws CommandFoundButInvalidException {
         if (description.isEmpty()) {
             throw new EmptyDescriptionException("deadline");
@@ -42,12 +64,6 @@ public class Deadlines extends Task {
             return inputArray;
         }
         throw new InvalidSyntaxException("deadline");
-    }
-
-    public String message(List<Task> allTasks) {
-        String str1 = "Got it. I've added this task:\n";
-        String str2 = String.format("Now you have %d tasks in the list", allTasks.size());
-        return str1 + this.toString() + "\n" + str2;
     }
 
     public String getInitDesc() {

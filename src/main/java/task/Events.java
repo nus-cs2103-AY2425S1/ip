@@ -13,6 +13,14 @@ public class Events extends Task {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String initDesc;
+
+    /**
+     * Constructs a {@code Events} object with the specified description
+     *
+     * @param description the description of the event, including the start and end times
+     * @throws CommandFoundButInvalidException if the description format is incorrect
+     * @throws InvalidSyntaxException if the description is not empty but is of incorrect syntax
+     */
     public Events(String description) throws CommandFoundButInvalidException {
         super(description);
         this.initDesc = description;
@@ -27,12 +35,29 @@ public class Events extends Task {
             throw new InvalidSyntaxException("event, please use yyyy-mm-ddThh:mm. E.g. 2024-09-11T23:59");
         }
     }
+
+    /**
+     * Returns a string representation of the event in a user redable format
+     *
+     * @return a string representation of the evnt
+     */
     public String toString() {
         String startString = startDate.format(DateTimeFormatter.ofPattern("dd MMM yyy HH:mm"));
         String endString = endDate.format(DateTimeFormatter.ofPattern("dd MMM yyy HH:mm"));
         String str = " (from: " + startString + " to: " + endString + ")";
         return "[E]" + super.toString() + str;
     }
+
+    /**
+     * Checks the input and splits the description string into task description, start date, and end date
+     *
+     * @param description the description specified by the user
+     * @return an array where the first element is the task description, the second is the start string,
+     *         the thrid is the end string
+     * @throws CommandFoundButInvalidException if there is an error with the syntax of the description
+     * @throws EmptyDescriptionException if the description string is empty
+     * @throws InvalidSyntaxException if the description is not empty but there is error with the syntax
+     */
     public String[] getValidString(String description) throws CommandFoundButInvalidException{
         if (description.isEmpty()) {
             throw new EmptyDescriptionException("event");
@@ -49,12 +74,6 @@ public class Events extends Task {
             throw new InvalidSyntaxException("event");
         }
         throw new InvalidSyntaxException("event");
-    }
-
-    public String message(List<Task> allTasks) {
-        String str1 = "Got it. I've added this task:\n";
-        String str2 = String.format("Now you have %d tasks in the list", allTasks.size());
-        return str1 + this.toString() + "\n" + str2;
     }
 
     public String getInitDesc() {
