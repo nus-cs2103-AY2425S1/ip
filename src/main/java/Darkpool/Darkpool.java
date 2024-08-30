@@ -1,8 +1,13 @@
+package Darkpool;
+
+import Darkpool.Command.Command;
+import Darkpool.util.*;
+
 public class Darkpool {
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList taskList;
-    private Ui ui;
+    private final Ui ui;
 
     public Darkpool(String filePath) {
         ui = new Ui();

@@ -1,8 +1,12 @@
+package Darkpool.util;
+
+import Darkpool.Task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
 
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     public TaskList(ArrayList<Task> tasks) {
         this.taskList = tasks;
@@ -12,7 +16,7 @@ public class TaskList {
         this.taskList = new ArrayList<>();
     }
 
-    protected int getSize() {
+    public int getSize() {
         return this.taskList.size();
     }
 
@@ -24,22 +28,22 @@ public class TaskList {
         return this.taskList.get(index);
     }
 
-    protected void addTask(Task task) {
+    public void addTask(Task task) {
         this.taskList.add(task);
     }
 
-    protected String deleteTask(int index) {
+    public String deleteTask(int index) {
         Task task = getTask(index);
         this.taskList.remove(index);
         return task.toString();
     }
 
-    protected String markTask(int index) {
+    public String markTask(int index) {
         getTask(index).markDone();
         return getTaskString(index);
     }
 
-    protected String unmarkTask(int index) {
+    public String unmarkTask(int index) {
         getTask(index).markUndone();
         return getTaskString(index);
     }

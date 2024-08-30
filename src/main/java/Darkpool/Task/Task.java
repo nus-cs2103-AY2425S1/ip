@@ -1,3 +1,5 @@
+package Darkpool.Task;
+
 import java.time.format.DateTimeFormatter;
 
 public abstract class Task {

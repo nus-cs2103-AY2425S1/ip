@@ -1,3 +1,10 @@
+package Darkpool.Command;
+
+import Darkpool.util.Storage;
+import Darkpool.util.TaskList;
+import Darkpool.util.Ui;
+import Darkpool.util.DarkpoolException;
+
 public class MarkCommand extends Command {
 
     private final int index;

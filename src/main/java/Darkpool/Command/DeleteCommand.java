@@ -1,3 +1,9 @@
+package Darkpool.Command;
+
+import Darkpool.util.Storage;
+import Darkpool.util.TaskList;
+import Darkpool.util.Ui;
+
 public class DeleteCommand extends Command {
     private final int index;
 

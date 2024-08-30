@@ -1,3 +1,10 @@
+package Darkpool.Command;
+
+import Darkpool.Task.Task;
+import Darkpool.util.Storage;
+import Darkpool.util.TaskList;
+import Darkpool.util.Ui;
+
 public class AddCommand extends Command {
 
     Task task;

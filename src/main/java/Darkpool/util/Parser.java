@@ -1,10 +1,16 @@
+package Darkpool.util;
+
+import Darkpool.Command.*;
+import Darkpool.Task.Deadline;
+import Darkpool.Task.Event;
+import Darkpool.Task.Todo;
+
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Parser {
 
-    protected static Command parse(String input) throws DarkpoolException {
+    public static Command parse(String input) throws DarkpoolException {
         String[] userInput = input.split(" ", 2);
 
         if (userInput.length == 2) {
@@ -54,8 +60,8 @@ public class Parser {
                     throw new DarkpoolException("bruh might as well use todo");
                 }
                 String[] array = getStrings(text);
-                String desc = array[0].trim();  // Task description
-                String by = array[1].trim();    // Deadline date
+                String desc = array[0].trim();  // Darkpool.Darkpool.Darkpool.Task.Darkpool.Darkpool.Darkpool.Task description
+                String by = array[1].trim();    // Darkpool.Task.Deadline date
                 if (desc.isEmpty()) {
                     throw new DarkpoolException("whats the task of the deadline??");
                 }

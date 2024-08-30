@@ -1,3 +1,5 @@
+package Darkpool.util;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -5,40 +7,40 @@ public class Ui {
     final String greeting = "\tit’s darkpool. what twisted reason dragged me into your misery?";
     final String bye = "\tcontact me again and you'll regret it.";
 
-    protected String readCommand() {
+    public String readCommand() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
-    protected void greeting() {
+    public void greeting() {
         upperLine();
         output(greeting);
         lowerLine();
     }
 
-    protected void goodbye() {
+    public void goodbye() {
         upperLine();
         output(bye);
         lowerLine();
     }
 
-    protected void list(TaskList taskList) {
+    public void list(TaskList taskList) {
         output(taskList.toString());
     }
 
-    protected void mark(String task) {
+    public void mark(String task) {
         output("\twhy do i have to mark this mess\n\t\t" + task);
     }
 
-    protected void unmark(String task) {
+    public void unmark(String task) {
         output("\twhy do i have to unmark this mess\n\t\t" + task);
     }
 
-    protected void delete(String task) {
+    public void delete(String task) {
         output("\twhy do i have to delete this mess\n\t\t" + task);
     }
 
-    protected void add(String task, int size) {
+    public void add(String task, int size) {
         output("\ti have dumped this nonsense on the list\n\t\t" + task + "\n\tnow you are stuck with " + size + " goddamn tasks");
     }
 
@@ -46,15 +48,15 @@ public class Ui {
         System.out.println("\u001B[31m" + input + "\u001B[0m");
     }
 
-    protected void showError(String input) {
+    public void showError(String input) {
         System.out.println("\t\u001B[36m" + input + "\u001B[0m");
     }
 
-    protected void upperLine() {
+    public void upperLine() {
         System.out.println("\u001B[34m\t—————————————————————————————————————————————————————————————————\t\u001B[0m");
     }
 
-    protected void lowerLine() {
+    public void lowerLine() {
         System.out.println("\u001B[34m\t—————————————————————————————————————————————————————————————————\u001B[0m");
     }
 }

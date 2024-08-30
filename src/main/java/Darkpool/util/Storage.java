@@ -1,3 +1,10 @@
+package Darkpool.util;
+
+import Darkpool.Task.Deadline;
+import Darkpool.Task.Event;
+import Darkpool.Task.Task;
+import Darkpool.Task.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,7 +32,7 @@ public class Storage {
         return dataFile;
     }
 
-    protected ArrayList<Task> loadData() throws DarkpoolException {
+    public ArrayList<Task> loadData() throws DarkpoolException {
         ArrayList<Task> taskList = new ArrayList<>();
         String curTask;
         File dataFile = fileAndDirCheck();
@@ -43,7 +50,7 @@ public class Storage {
         return taskList;
     }
 
-    protected void saveData(TaskList taskList) throws DarkpoolException {
+    public void saveData(TaskList taskList) throws DarkpoolException {
         try {
             java.io.FileWriter fileWriter = new java.io.FileWriter(filePath);
             fileWriter.write(taskList.toFileString());
