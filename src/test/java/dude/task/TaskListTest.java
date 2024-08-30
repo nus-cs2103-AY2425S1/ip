@@ -3,6 +3,7 @@ package dude.task;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -101,5 +102,29 @@ public class TaskListTest {
         assertEquals(2, tasks.size());
         assertEquals(task1, tasks.get(0));
         assertEquals(task2, tasks.get(1));
+    }
+
+    @Test
+    public void testFindAllTask_exactMatch() {
+        ArrayList<Task> result = taskList.findAllTask("task 1");
+
+        assertEquals(1, result.size());
+        assertEquals(task1, result.get(0));
+    }
+
+    @Test
+    public void testFindAllTask_partialMatch() {
+        ArrayList<Task> result = taskList.findAllTask("ask");
+
+        assertEquals(2, result.size());
+        assertTrue(result.contains(task1));
+        assertTrue(result.contains(task2));
+    }
+
+    @Test
+    public void testFindAllTask_noMatch() {
+        ArrayList<Task> result = taskList.findAllTask("dummy");
+
+        assertTrue(result.isEmpty());
     }
 }
