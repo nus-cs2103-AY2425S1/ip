@@ -1,6 +1,14 @@
-import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
+
+
+
+
+    private String dateTimeString;
+    private LocalDateTime dateTime;
+
 
     public static Deadline newObjectFromData(String data) {
         String[] parts = data.split(",");
@@ -8,28 +16,28 @@ public class Deadline extends Task {
 
 
     }
-
-    private String by;
-
-    public Deadline(String content, Boolean status, String by) {
+    public Deadline(String content, Boolean status,String dateTimeString) {
         super(content, status);
-        this.by = by;
+this.dateTimeString = dateTimeString;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        this.dateTime = LocalDateTime.parse(dateTimeString, formatter);
+
 
 
     }
 
     public String getDataForStorage() {
-        return "Deadline:" + super.getContent() + "," + super.getStatusString() + "," + by;
+        return "Deadline:" + super.getContent() + "," + super.getStatusString()  + "," + dateTimeString;
     }
 
 
     public String getBy() {
-        return by;
+        return dateTimeString;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + dateTimeString + ")";
     }
 
 

@@ -45,9 +45,7 @@ public class TxtStorage {
             Scanner myReader = new Scanner(file);
             while (myReader.hasNextLine()) {
                 String[] data = myReader.nextLine().split(":");
-                System.out.println(data[0]);
 
-                System.out.println(data[1]);
 
 
                 if (data.length == 0) {

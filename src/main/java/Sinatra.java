@@ -14,9 +14,9 @@ public class Sinatra {
         this.printIntro();
         this.txtStorage = new TxtStorage("tasks.txt");
         this.tasks = txtStorage.loadTasksFromFile();
-        for (Task task : tasks) {
-            System.out.println(task);
-        }
+//        for (Task task : tasks) {
+//            System.out.println(task);
+//        }
 
         this.sinatraScanner();
 
@@ -89,8 +89,9 @@ public class Sinatra {
 
                 String[] parts = message.substring(9).split(" /by ");
                 String content = parts[0];
-                String by = parts[1];
-                Deadline deadline = new Deadline(content, false, by);
+                String dateTimeString = parts[1];
+
+                Deadline deadline = new Deadline(content, false, dateTimeString);
                 deadline.appendToStorage("tasks.txt");
                 tasks.add(deadline);
                 System.out.println("Got it. I've added this task:");
