@@ -42,6 +42,7 @@ public class Alexer {
 
         System.out.println(BREAK);
         System.out.format("Got it! I’ve added the task to your list:\n\n\t%s\n", task);
+        System.out.format("\nYou have %d tasks now.\n", tasks.size());
         System.out.println(BREAK);
     }
 
