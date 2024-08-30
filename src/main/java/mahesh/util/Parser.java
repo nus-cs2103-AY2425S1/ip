@@ -13,16 +13,32 @@ import mahesh.task.Deadline;
 import mahesh.task.Event;
 import mahesh.task.Todo;
 
+/**
+ * Parses user input and returns the corresponding Command object.
+ */
 public class Parser {
 
     private TaskList list;
     private Storage store;
 
+    /**
+     * Constructs a Parser with the specified TaskList and Storage.
+     *
+     * @param list  the TaskList to be managed by the parser
+     * @param store the Storage to be managed by the parser
+     */
     public Parser(TaskList list, Storage store) {
         this.list = list;
         this.store = store;
     }
 
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param originalInput the user input to be parsed
+     * @return the Command object corresponding to the user input
+     * @throws MaheshException if there is an error in parsing the input
+     */
     public Command parse(String originalInput) throws MaheshException {
         StringTokenizer tokenizedInput = new StringTokenizer(originalInput);
         String commandString = tokenizedInput.nextToken();

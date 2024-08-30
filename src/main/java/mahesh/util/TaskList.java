@@ -4,13 +4,24 @@ import java.util.ArrayList;
 
 import mahesh.task.Task;
 
+/**
+ * Manages a list of tasks, providing methods to add, delete, mark, unmark, and print tasks.
+ */
 public class TaskList {
     private ArrayList<Task> list;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.list = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList with the specified list of tasks.
+     *
+     * @param list the ArrayList of tasks to initialize the TaskList with
+     */
     public TaskList(ArrayList<Task> list) {
         this.list = list;
     }
@@ -41,6 +52,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks the task at the specified index as done and prints a confirmation message.
+     * If the index is out of bounds, prints an error message.
+     *
+     * @param index the index of the task to be marked as done
+     */
     public void markTaskAsDone(int index) {
         try {
             Task task = this.list.get(index);
@@ -51,6 +68,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks the task at the specified index as done and prints a confirmation message.
+     * If the index is out of bounds, prints an error message.
+     *
+     * @param index the index of the task to be unmarked as done
+     */
     public void unmarkTaskAsDone(int index) {
         try {
             Task task = this.list.get(index);
@@ -78,6 +101,11 @@ public class TaskList {
         Ui.printDivider();
     }
 
+    /**
+     * Converts the TaskList to a string format suitable for saving to a file.
+     *
+     * @return a string representation of the TaskList for file storage
+     */
     public String toFileData() {
         StringBuilder fileData = new StringBuilder();
         for (Task task : list) {
