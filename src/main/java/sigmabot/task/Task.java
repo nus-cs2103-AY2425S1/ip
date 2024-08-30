@@ -27,9 +27,12 @@ public abstract class Task {
         this.isDone = true;
     }
 
+    public void markUndone() {
+        this.isDone = false;
+    }
+
     @Override
     public String toString() {
-        return "[" + (isDone ? "X" : " ") + "] " + name +
-                "\n\tDescription: " + description;
+        return "[" + (isDone ? "X" : " ") + "] " + name + "\n\tDescription: " + description;
     }
 }
