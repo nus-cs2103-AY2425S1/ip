@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -22,11 +23,14 @@ public class Storage {
     private static final String DIR_PATH = "data";
     private static final String TASK_FILE_PATH = DIR_PATH + "/tasks.txt";
 
+    public Storage() {
+        init();
+    }
     /**
      * Initialises data directory and an empty data file(s) if they do not exist.
      * If the directory or file(s) cannot be initialised, the program exits.
      */
-    public void init() {
+    private void init() {
         File d = new File(DIR_PATH);
         if (!d.exists() || !d.isDirectory()) {
             // Initialize directory
@@ -91,8 +95,13 @@ public class Storage {
         return switch (args[0]) {
             // TODO: Replace with enums
             case "T" -> new Todo(args[1], Boolean.parseBoolean(args[2]));
-            case "D" -> new Deadline(args[1], Boolean.parseBoolean(args[2]), args[3]);
-            case "E" -> new Event(args[1], Boolean.parseBoolean(args[2]), args[3], args[4]);
+            case "D" -> new Deadline(args[1], Boolean.parseBoolean(args[2]), LocalDate.parse(args[3]));
+            case "E" -> new Event(
+                    args[1],
+                    Boolean.parseBoolean(args[2]),
+                    LocalDate.parse(args[3]),
+                    LocalDate.parse(args[4])
+            );
             default -> null;
         };
     }
