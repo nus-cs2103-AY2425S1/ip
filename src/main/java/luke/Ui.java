@@ -95,8 +95,15 @@ public class Ui {
         case "list" -> showList();
         case "mark", "unmark" -> handleTaskMarking(command);
         case "delete" -> handleDelete(command);
+        case "find" -> handleFind(command);
         default -> handleAddTask(command, isLoadingFromDisk);
         }
+    }
+
+    public void showList() {
+        System.out.println(Constants.DIVIDER + "here's everything that's in your list:");
+        taskList.printList();
+        System.out.println(Constants.DIVIDER);
     }
 
     public void handleTaskMarking(Command command) {
@@ -126,6 +133,16 @@ public class Ui {
         }
     }
 
+    public void handleFind(Command command) {
+        List<Task> matchingTasks = taskList.findTasks(command.getArgs());
+        System.out.println(Constants.DIVIDER);
+        System.out.println("here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + ". " + matchingTasks.get(i).taskDescription());
+        }
+        System.out.println(Constants.DIVIDER);
+    }
+
     public void handleAddTask(Command command, boolean isLoadingFromDisk) {
 //        System.out.println("getMark: " + command.getMark());
         try {
@@ -142,11 +159,5 @@ public class Ui {
             System.out.println("hmm... i don't quite recognise that command. try again?");
             System.out.println(Constants.DIVIDER);
         }
-    }
-
-    public void showList() {
-        System.out.println(Constants.DIVIDER + "here's everything that's in your list:");
-        taskList.printList();
-        System.out.println(Constants.DIVIDER);
     }
 }

@@ -1,8 +1,10 @@
 package luke.task;
 
+import luke.command.Command;
 import luke.env.Constants;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
@@ -107,6 +109,16 @@ public class TaskList {
             }
         }
         }
+    }
+
+    public List<Task> findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.name.contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 
     public void printList() {
