@@ -1,12 +1,11 @@
 package Parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
 public class ParserTest {
-    Parser p = new Parser();
+    private Parser p = new Parser();
 
     @Test
     public void checkStringPrefix() {

@@ -1,12 +1,11 @@
 package Parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
 public class DateParserTest {
-    DateParser d = new DateParser();
+    private DateParser d = new DateParser();
 
     @Test
     public void parseAndFormatDateTime() {

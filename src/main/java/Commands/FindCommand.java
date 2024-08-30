@@ -12,7 +12,7 @@ public class FindCommand extends Command {
         super(s);
     }
 
-    public void execute (TaskList t, Storage s, Ui ui) {
+    public void execute(TaskList t, Storage s, Ui ui) {
         List<Task> taskList = t.getTasks();
         TaskList res = new TaskList();
         String taskToFind = getInput().substring(5);

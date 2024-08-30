@@ -1,10 +1,12 @@
 package Tasks;
 
-import Parser.DateParser;
-import Exceptions.DelphiException;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import Exceptions.DelphiException;
+import Parser.DateParser;
 
 public class EventTest {
 
@@ -18,7 +20,7 @@ public class EventTest {
             }
         }
     }
-    DateParserStub d = new DateParserStub();
+    private DateParserStub d = new DateParserStub();
     @Test
     public void eventDescription_formatting_exceptionThrown() {
         try {
@@ -30,8 +32,8 @@ public class EventTest {
 
             fail(); // should not reach here
         } catch (DelphiException e) {
-            assertEquals("the input you have provided me is not formatted correctly. " +
-                    "Please give me an input starting with todo, deadline or event", e.getMessage());
+            assertEquals("the input you have provided me is not formatted correctly. "
+                    + "Please give me an input starting with todo, deadline or event", e.getMessage());
         }
     }
 }
