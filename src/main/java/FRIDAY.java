@@ -30,6 +30,7 @@ public class FRIDAY {
 
         //variable to store user input
         userInput = "";
+
         //variable to store output
         output = "";
     }
