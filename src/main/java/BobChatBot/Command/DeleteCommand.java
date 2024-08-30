@@ -1,8 +1,8 @@
-package Bob.Command;
+package BobChatBot.Command;
 
-import Bob.Tasks.Task;
-import Bob.Tasks.TaskList;
-import Bob.UI;
+import BobChatBot.Tasks.Task;
+import BobChatBot.Tasks.TaskList;
+import BobChatBot.UI;
 public class DeleteCommand extends Command{
 
     private final int index;

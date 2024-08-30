@@ -1,7 +1,7 @@
-package Bob.Command;
+package BobChatBot.Command;
 
-import Bob.Tasks.TaskList;
-import Bob.UI;
+import BobChatBot.Tasks.TaskList;
+import BobChatBot.UI;
 
 public class ByeCommand extends Command{
 

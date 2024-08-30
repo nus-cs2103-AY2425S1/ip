@@ -1,6 +1,6 @@
-package Bob.Command;
+package BobChatBot.Command;
 
-import Bob.Tasks.TaskList;
+import BobChatBot.Tasks.TaskList;
 
 public abstract class Command {
     private final boolean isRunning;

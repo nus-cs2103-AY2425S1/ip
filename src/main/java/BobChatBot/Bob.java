@@ -1,12 +1,11 @@
-import Bob.Command.Command;
-import Bob.Parser;
-import Bob.Storage;
-import Bob.Exceptions.EmptyArgumentException;
-import Bob.Exceptions.InvalidInputException;
-import Bob.Exceptions.InvalidTaskNumberException;
-import Bob.Exceptions.MissingArgumentException;
-import Bob.Tasks.TaskList;
-import Bob.UI;
+package BobChatBot;
+
+import BobChatBot.Command.Command;
+import BobChatBot.Exceptions.EmptyArgumentException;
+import BobChatBot.Exceptions.InvalidInputException;
+import BobChatBot.Exceptions.InvalidTaskNumberException;
+import BobChatBot.Exceptions.MissingArgumentException;
+import BobChatBot.Tasks.TaskList;
 
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
@@ -19,16 +18,11 @@ public class Bob {
     public Bob(String filePath) {
         this.myTasks = new TaskList();
         this.filePath = filePath;
+        this.initialize();
     }
 
     private void initialize() {
         Storage.readData(this.myTasks, this.filePath);
-    }
-
-    public static void main(String[] args) {
-        Bob myBot = new Bob("../userdata.txt");
-        myBot.initialize();
-        myBot.startChatBot();
     }
 
     public void startChatBot() {
@@ -52,7 +46,6 @@ public class Bob {
             } finally {
                 UI.printLine();
             }
-
         }
     }
 

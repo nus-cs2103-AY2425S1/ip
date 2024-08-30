@@ -1,9 +1,9 @@
-package Bob;
+package BobChatBot;
 
-import Bob.Exceptions.EmptyArgumentException;
-import Bob.Exceptions.MissingArgumentException;
-import Bob.Tasks.Task;
-import Bob.Tasks.TaskList;
+import BobChatBot.Exceptions.EmptyArgumentException;
+import BobChatBot.Exceptions.MissingArgumentException;
+import BobChatBot.Tasks.Task;
+import BobChatBot.Tasks.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package Bob.Tasks;
+package BobChatBot.Tasks;
 
 public abstract class Task {
     private final String taskName;

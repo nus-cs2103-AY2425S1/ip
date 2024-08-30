@@ -1,4 +1,4 @@
-package Bob.Exceptions;
+package BobChatBot.Exceptions;
 
 public class InvalidInputException extends Exception {
     public InvalidInputException() {

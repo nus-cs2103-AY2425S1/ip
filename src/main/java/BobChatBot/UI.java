@@ -1,7 +1,7 @@
-package Bob;
+package BobChatBot;
 
-import Bob.Tasks.Task;
-import Bob.Tasks.TaskList;
+import BobChatBot.Tasks.Task;
+import BobChatBot.Tasks.TaskList;
 
 import java.util.Scanner;
 
@@ -18,7 +18,7 @@ public class UI {
 
     public static void printGreetings() {
         printLine();
-        System.out.println("Hello! I'm Bob\n"
+        System.out.println("Hello! I'm Bob.Bob\n"
                     + "What can I do for you?");
         printLine();
     }

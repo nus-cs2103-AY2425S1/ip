@@ -1,13 +1,13 @@
-package Bob;
+package BobChatBot;
 
-import Bob.Command.*;
-import Bob.Exceptions.EmptyArgumentException;
-import Bob.Exceptions.InvalidInputException;
-import Bob.Exceptions.InvalidTaskNumberException;
-import Bob.Exceptions.MissingArgumentException;
-import Bob.Tasks.Deadlines;
-import Bob.Tasks.EventTask;
-import Bob.Tasks.ToDos;
+import BobChatBot.Command.*;
+import BobChatBot.Exceptions.EmptyArgumentException;
+import BobChatBot.Exceptions.InvalidInputException;
+import BobChatBot.Exceptions.InvalidTaskNumberException;
+import BobChatBot.Exceptions.MissingArgumentException;
+import BobChatBot.Tasks.Deadlines;
+import BobChatBot.Tasks.EventTask;
+import BobChatBot.Tasks.ToDos;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
