@@ -1,10 +1,12 @@
 package processes;
 
-import exceptions.*;
+import exceptions.InvalidDateException;
+import exceptions.InvalidTaskNameException;
 import tasks.DeadLine;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
+
 
 import java.util.ArrayList;
 
@@ -20,7 +22,9 @@ public class TaskList {
         return taskList;
     }
 
-    public void addTodo(String arg) {
+
+    public void addTodo (String arg) {
+        Ui.printLine();
         try {
             ToDo newToDo = new ToDo(arg);
             taskList.add(newToDo);
@@ -31,7 +35,9 @@ public class TaskList {
         }
     }
 
-    public void addDeadline(String arg) {
+
+    public void addDeadline (String arg) {
+        Ui.printLine();
         try {
             Task newDeadline = new DeadLine(arg);
             taskList.add(newDeadline);
@@ -42,7 +48,9 @@ public class TaskList {
         }
     }
 
-    public void addEvent(String arg) {
+
+    public void addEvent (String arg) {
+        Ui.printLine();
         try {
             Task newEvent = new Event(arg);
             taskList.add(newEvent);
@@ -80,6 +88,24 @@ public class TaskList {
             } else {
                 curr.unMark();
                 System.out.println("task\n  " + curr.toString() + "\nis unmarked!");
+            }
+        }
+    }
+
+    public void find (String prompt) {
+        Ui.printLine();
+        ArrayList<Task> output = new ArrayList<>();
+        for (Task item: this.taskList) {
+            if (item.getName().contains(prompt)) {
+                output.add(item);
+            }
+        }
+        if (output.size() == 0) {
+            System.out.println("There are no tasks in your list that match " + "'prompt'");
+        } else {
+            System.out.println("Here are the matching task(s) in your list: ");
+            for (int i = 0; i < output.size(); i++) {
+                System.out.println((i + 1) + ". " + output.get(i).toString());
             }
         }
     }

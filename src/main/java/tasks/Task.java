@@ -5,6 +5,9 @@ public abstract class Task {
     protected String name;
     protected boolean isDone = false;
 
+    public String getName () {
+        return this.name;
+    }
 
     public abstract String toSave();
 
