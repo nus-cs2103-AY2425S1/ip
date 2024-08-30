@@ -17,8 +17,13 @@ abstract public class Task {
     public void markAsDone(boolean done) {
         this.isDone = done;
     }
+    public boolean getStatus() {
+        return this.isDone;
+    }
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
+
+
 }

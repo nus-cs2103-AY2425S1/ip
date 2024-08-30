@@ -11,10 +11,15 @@ public class Deadlines extends Task {
         super(description);
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
+        // Try parsing with inputFormatter first, then try alternativeFormatter if parsing fails
         try {
             this.dueDateTime = LocalDateTime.parse(by.trim(), inputFormatter);
         } catch (DateTimeParseException e) {
-            this.dueDateTime = LocalDateTime.parse(by.trim(), displayFormatter);
+            try {
+                this.dueDateTime = LocalDateTime.parse(by.trim(), displayFormatter);
+            } catch (DateTimeParseException ex) {
+                throw new IllegalArgumentException("Invalid date format: " + by);
+            }
         }
     }
 
