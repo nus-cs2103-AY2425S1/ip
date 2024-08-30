@@ -43,6 +43,14 @@ public class Ui {
         printDialogue("This task has been deleted:\n" + task.toString());
     }
 
+    public void find(TaskList taskList) {
+        if (taskList.getSize() == 0) {
+            printDialogue("There are no relevant tasks");
+            return;
+        }
+        printDialogue("Here are the relevant tasks:\n" + taskList.toString());
+    }
+
     public void exception(TestamentException e) {
         printDialogue(e.getMessage());
     }
