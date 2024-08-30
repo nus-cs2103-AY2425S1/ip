@@ -109,6 +109,7 @@ public class Ui {
         showToUser("Noted. I've removed this task:\n  " + taskDetails + LS);
     }
 
+
     /**
      * Shows a message when a task is added.
      *
@@ -124,6 +125,7 @@ public class Ui {
      *
      * @return The command entered by the user.
      */
+
     public String getUserCommand() {
         out.print("Enter command: ");
         String fullInputLine = in.nextLine();
@@ -135,6 +137,24 @@ public class Ui {
 
         showToUser("[Command entered:" + fullInputLine + "]");
         return fullInputLine;
+    }
+
+    /**
+     * Displays the list of tasks that match the search criteria to the user.
+     *
+     * @param matchingTasks The TaskList containing tasks that match the search criteria.
+     */
+    public void showFind(TaskList matchingTasks) {
+        if (matchingTasks.size() == 0) {
+            showToUser(LINE + "No matching tasks found." + LS + LINE);
+        } else {
+            StringBuilder sb = new StringBuilder(LINE + "Here are the matching tasks in your list:\n");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                sb.append((i + 1)).append(". ").append(matchingTasks.getTask(i).toString()).append(LS);
+            }
+            sb.append(LINE);
+            showToUser(sb.toString());
+        }
     }
 
     /**

@@ -4,7 +4,7 @@ import BrainRot.exceptions.*;
 import java.io.IOException;
 
 /**
- * The BrainRot.BrainRot class is the main controller for the task management system.
+ * BrainRot class is the main controller for the task management system.
  * It coordinates between the UI, task storage, and task operations.
  * This class handles user commands, manages the task list, and ensures data is saved to storage.
  */
@@ -52,6 +52,9 @@ public class BrainRot {
                     case "bye":
                         ui.showExit();
                         return;
+                    case "find":
+                        findTask(details);
+                        break;
                     case "mark":
                         markTask(details);
                         break;
@@ -98,6 +101,24 @@ public class BrainRot {
         tasks.getTask(unmarkIndex).unmark();
         storage.save(tasks.getTasks());
         ui.showUnMarkMsg(tasks.getTask(unmarkIndex).toString());
+    }
+
+    /**
+     * Finds and displays tasks that match the given search criteria.
+     * If no matching tasks are found, the UI will notify the user.
+     *
+     * @param details The search term used to match against task descriptions.
+     * @throws IOException If an I/O error occurs during the task searching process.
+     */
+    private void findTask(String details) throws IOException {
+        TaskList matchingTasks = new TaskList();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task unchecked = tasks.getTask(i);
+            if (unchecked.description.contains(details)) {  // Use contains for partial matches
+                matchingTasks.addTask(unchecked);
+            }
+        }
+        ui.showFind(matchingTasks);
     }
 
     /**

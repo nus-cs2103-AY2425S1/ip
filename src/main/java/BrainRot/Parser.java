@@ -9,6 +9,9 @@ public class Parser {
             result[0] = "list";
         } else if (userInput.equals("bye")) {
             result[0] = "bye";
+        } else if (userInput.startsWith("find")) {
+            result[0] = "find";
+            result[1] = userInput.substring(5).trim();
         } else if (userInput.startsWith("mark")) {
             result[0] = "mark";
             result[1] = userInput.substring(5).trim();  // Get the index
