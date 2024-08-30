@@ -1,3 +1,7 @@
+package yapmeister;
+
+import yapmeister.task.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -86,21 +90,21 @@ public class Parser {
         case "todo":
             format = input.split("todo ");
             if (format.length <= 1) {
-                throw new InvalidDescriptionException("Invalid Task description");
+                throw new InvalidDescriptionException("Invalid yapmeister.task.Task description");
             }
             task = new ToDo(format[1]);
             break;
         case "deadline":
             format = input.split("deadline | /by ");
             if (format.length <= 2) {
-                throw new InvalidDescriptionException("Invalid Task description");
+                throw new InvalidDescriptionException("Invalid yapmeister.task.Task description");
             }
             task = new Deadline(format[1], format[2]);
             break;
         case "event":
             format = input.split("event | /from | /to ");
             if (format.length <= 3) {
-                throw new InvalidDescriptionException("Invalid Task description");
+                throw new InvalidDescriptionException("Invalid yapmeister.task.Task description");
             }
             task = new Event(format[1], format[2], format[3]);
             break;

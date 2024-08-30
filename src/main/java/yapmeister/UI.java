@@ -1,3 +1,7 @@
+package yapmeister;
+
+import yapmeister.task.TaskList;
+
 import java.util.Scanner;
 
 public class UI {

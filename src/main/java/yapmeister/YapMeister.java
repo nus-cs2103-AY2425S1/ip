@@ -1,3 +1,6 @@
+package yapmeister;
+
+import yapmeister.task.TaskList;
 
 public class YapMeister {
     final static int MAX_TASKS = 100;
