@@ -1,3 +1,5 @@
+package froggy;
+
 public class ExitCommand extends Command {
 
     public ExitCommand() {

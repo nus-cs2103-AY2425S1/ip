@@ -1,3 +1,5 @@
+package froggy;
+
 public class AddEventCommand extends Command {
 
     private String input;

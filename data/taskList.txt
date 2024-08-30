@@ -1,0 +1,7 @@
+T 0 xdd
+D 1 2103t | 2024/01/01
+D 0 idk | 24/01/01
+T 0 test1
+T 1 test2
+D 0 idk | 2024/01/30
+E 0 tut | 7pm | 9pm
