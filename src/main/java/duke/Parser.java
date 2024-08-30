@@ -6,7 +6,20 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
 
-    public static Task convertStringToTask(String line) {
+    /**
+     * Constructs a new Parser instance.
+     */
+    public Parser() {
+    }
+
+    /**
+     * Converts a string representation of a task to a Task object.
+     *
+     * @param line the string representation of a task, formatted as
+     *             "type | status | description | time"
+     * @return the Task object corresponding to the string
+     */
+    public Task convertStringToTask(String line) {
         Task task;
         String[] parts = line.split(" \\| ");
         String taskType = parts[0];
@@ -41,7 +54,15 @@ public class Parser {
         return task;
     }
 
-    public static LocalDateTime convertStringToDate(String dateTimeString) {
+    /**
+     * Converts a string representation of a date and time to a LocalDateTime object.
+     *
+     * @param dateTimeString the string representation of the date and time,
+     *                       formatted as "yyyy-MM-dd HH:mm"
+     * @return the LocalDateTime object parsed from the string,
+     * or null if the format is invalid
+     */
+    public LocalDateTime convertStringToDate(String dateTimeString) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             return LocalDateTime.parse(dateTimeString, formatter);
@@ -53,7 +74,7 @@ public class Parser {
         return null;
     }
 
-    private static Todo parseTodoCommand(String command) {
+    private Todo parseTodoCommand(String command) {
         String description = command.substring(4).trim(); // Extract description
         if (description.isEmpty()) {
             throw new IllegalArgumentException("Description for 'todo' cannot be empty.");
@@ -61,7 +82,7 @@ public class Parser {
         return new Todo(description);
     }
 
-    private static Deadline parseDeadlineCommand(String command) {
+    private Deadline parseDeadlineCommand(String command) {
         String[] parts = command.split("/by");
         if (parts.length != 2) {
             throw new IllegalArgumentException(
@@ -78,7 +99,7 @@ public class Parser {
         return new Deadline(description, by);
     }
 
-    static Event parseEventCommand(String command) {
+    protected Event parseEventCommand(String command) {
         String[] partsFrom = command.split("/from");
         if (partsFrom.length != 2) {
             throw new IllegalArgumentException(
@@ -104,55 +125,63 @@ public class Parser {
         return new Event(description, from, to);
     }
 
-    private static int parseIndexCommand(String[] getInstr) throws InvalidIndexException {
+    private int parseIndexCommand(String[] getInstr, TaskList taskList) throws InvalidIndexException {
         int index;
         if (getInstr.length <= 1) {
             throw new InvalidIndexException("Invalid index provided, please provide proper index.");
         } else {
             index = Integer.parseInt(getInstr[1]);
         }
-        if (index - 1 < 0 || index - 1 >= TaskList.getSize()) {
+        if (index - 1 < 0 || index - 1 >= taskList.getSize()) {
             throw new InvalidIndexException("Invalid index provided, please provide proper index.");
         }
         return index;
     }
 
-    public static void parseCommand(String command) {
+    /**
+     * Parses a user command and executes the corresponding operation on the task list.
+     *
+     * @param command  the user command to parse
+     * @param taskList the TaskList object on which to perform the operation
+     * @param storage  the Storage object to handle file operations
+     * @param ui       the Ui object to interact with the user
+     */
+    public void parseCommand(String command, TaskList taskList, Storage storage, Ui ui) {
         String[] getInstr = command.split(" ", 2);
         String instr = getInstr[0];
         int index;
         switch (instr) {
             case "mark":
                 try {
-                    index = parseIndexCommand(getInstr);
-                    TaskList.mark(index);
+                    index = parseIndexCommand(getInstr, taskList);
+                    taskList.mark(index, storage);
                 } catch (InvalidIndexException e) {
                     System.out.println(e.toString());
                 }
                 break;
             case "unmark":
                 try {
-                    index = parseIndexCommand(getInstr);
-                    TaskList.unmark(index);
+                    index = parseIndexCommand(getInstr, taskList);
+                    taskList.unmark(index, storage);
                 } catch (InvalidIndexException e) {
                     System.out.println(e.toString());
                 }
                 break;
             case "delete":
                 try {
-                    index = parseIndexCommand(getInstr);
-                    TaskList.delete(index);
+                    index = parseIndexCommand(getInstr, taskList);
+                    taskList.delete(index, storage);
                 } catch (InvalidIndexException e) {
                     System.out.println(e.toString());
                 }
                 break;
             case "list":
-                Ui.printList();
+                ui.printList(taskList);
                 break;
             case "todo":
                 try {
                     Task todo = parseTodoCommand(command);
-                    TaskList.add(todo);
+                    taskList.add(todo, storage);
                 } catch (IllegalArgumentException e) {
                     System.out.println(e.getMessage());
                 }
@@ -160,7 +189,7 @@ public class Parser {
             case "deadline":
                 try {
                     Task deadline = parseDeadlineCommand(command);
-                    TaskList.add(deadline);
+                    taskList.add(deadline, storage);
                 } catch (IllegalArgumentException e) {
                     System.out.println(e.getMessage());
                 }
@@ -168,7 +197,7 @@ public class Parser {
             case "event":
                 try {
                     Task event = parseEventCommand(command);
-                    TaskList.add(event);
+                    taskList.add(event, storage);
                 } catch (IllegalArgumentException e) {
                     System.out.println(e.getMessage());
                 }

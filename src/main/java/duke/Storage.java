@@ -7,25 +7,49 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * The Storage class is responsible for handling file operations such as
+ * loading tasks from a file, writing tasks to a file, and modifying the contents
+ * of the file as needed by the Duke application.
+ */
 public class Storage {
 
-    private static final String FILE_PATH = "duke.txt";
-    private static final String DATA_DIR = "data/";
+    private String dataDir;
+    private String filePath;
 
-    public static void loadFile() {
+    /**
+     * Constructs a new Storage instance with the specified data directory
+     * and file path.
+     *
+     * @param dataDir  the directory where the data file is stored
+     * @param filePath the name of the data file
+     */
+    public Storage(String dataDir, String filePath) {
+        this.dataDir = dataDir;
+        this.filePath = filePath;
+    }
+
+    /**
+     * Loads tasks from the file specified by file path into the given TaskList.
+     * If the file or directory does not exist, they are created.
+     *
+     * @param taskList the TaskList to populate with tasks
+     * @param parser   the Parser to use for converting strings to tasks
+     */
+    public void loadFile(TaskList taskList, Parser parser) {
         try {
-            File fileDir = new File(DATA_DIR);
+            File fileDir = new File(this.dataDir);
             if (!fileDir.exists()) {
                 boolean isDirCreated = fileDir.mkdir();
             }
-            File file = new File(DATA_DIR + FILE_PATH);
+            File file = new File(this.dataDir + this.filePath);
             if (!file.exists()) {
                 boolean isFileCreated = file.createNewFile();
             }
-            BufferedReader reader = new BufferedReader(new FileReader(DATA_DIR + FILE_PATH));
+            BufferedReader reader = new BufferedReader(new FileReader(this.dataDir + this.filePath));
             String line;
             while ((line = reader.readLine()) != null) {
-                TaskList.load(Parser.convertStringToTask(line));
+                taskList.load(parser.convertStringToTask(line));
             }
             reader.close();
         } catch (IOException e) {
@@ -33,9 +57,14 @@ public class Storage {
         }
     }
 
-    public static void writeToFile(Task task) {
+    /**
+     * Appends a new task to the file.
+     *
+     * @param task the Task to write to the file
+     */
+    public void writeToFile(Task task) {
         try (BufferedWriter writer = new BufferedWriter(
-                new FileWriter(DATA_DIR + FILE_PATH, true))) {
+                new FileWriter(this.dataDir + this.filePath, true))) {
             String taskString = convertTaskToString(task);
             writer.write(taskString);
             writer.newLine();
@@ -44,7 +73,7 @@ public class Storage {
         }
     }
 
-    private static String convertTaskToString(Task task) {
+    private String convertTaskToString(Task task) {
         if (task instanceof Todo) {
             return "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
         } else if (task instanceof Deadline) {
@@ -58,9 +87,15 @@ public class Storage {
         return "";
     }
 
-    public static void replaceLineInFile(int index) {
-        File inputFile = new File(DATA_DIR + FILE_PATH);
-        File tempFile = new File(DATA_DIR + "temp.txt");
+    /**
+     * Replaces a specific line in the file with the updated task string.
+     *
+     * @param taskList the TaskList containing tasks
+     * @param index    the index of the task to replace in the file
+     */
+    public void replaceLineInFile(TaskList taskList, int index) {
+        File inputFile = new File(this.dataDir + this.filePath);
+        File tempFile = new File(this.dataDir + "temp.txt");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
              BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
@@ -73,7 +108,7 @@ public class Storage {
                     writer.write(currentLine);
                     writer.newLine();
                 } else {
-                    String replacedLine = convertTaskToString(TaskList.getTask(index));
+                    String replacedLine = convertTaskToString(taskList.getTask(index));
                     writer.write(replacedLine);
                     writer.newLine();
                 }
@@ -86,9 +121,14 @@ public class Storage {
         boolean isRenamed = tempFile.renameTo(inputFile);
     }
 
-    public static void deleteLineFromFile(int index) {
-        File inputFile = new File(DATA_DIR + FILE_PATH);
-        File tempFile = new File(DATA_DIR + "temp.txt");
+    /**
+     * Deletes a specific line from the file.
+     *
+     * @param index the index of the line to delete from the file
+     */
+    public void deleteLineFromFile(int index) {
+        File inputFile = new File(this.dataDir + this.filePath);
+        File tempFile = new File(this.dataDir + "temp.txt");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
              BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {

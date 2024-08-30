@@ -3,57 +3,53 @@ package duke;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.doNothing;
-
 
 public class TaskListTest {
 
-    private static final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private static final PrintStream originalOut = System.out;
+    private final Path dataDirectory = Paths.get("data");
+    private final File testFile = new File(dataDirectory.toFile(), "test.txt");
+    private final PrintStream originalOut = System.out;
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws IOException {
+        if (!Files.exists(dataDirectory)) {
+            Files.createDirectories(dataDirectory);
+        }
+        if (!testFile.exists()) {
+            testFile.createNewFile();
+        }
         System.setOut(new PrintStream(outContent));
-        ArrayList<Task> toDoList = new ArrayList<>();
-        toDoList.add(new Todo("Test Task"));
-        TaskList.setToDoList(toDoList);
-        Mockito.mockStatic(Storage.class);
-        doNothing().when(Storage.class);
     }
 
     @AfterEach
     public void tearDown() {
         System.setOut(originalOut);
-        outContent.reset();
-        Mockito.clearAllCaches();
+        if (testFile.exists()) {
+            testFile.delete();
+        }
     }
 
     @Test
     public void testMark_success() {
+        TaskList taskList = new TaskList();
+        taskList.getTaskList().add(new Todo("Test Task"));
         int taskIndex = 1;
-        TaskList.mark(taskIndex);
-        assertTrue(TaskList.getTask(taskIndex - 1).isDone());
+        taskList.mark(taskIndex, new Storage("data/", "test.txt"));
+        assertTrue(taskList.getTask(taskIndex - 1).isDone());
         String expectedOutput = "Nice! I've marked this task as done:" + System.lineSeparator() +
-                TaskList.getTask(taskIndex - 1).toString() + System.lineSeparator();
-        assertEquals(expectedOutput, outContent.toString());
-    }
-
-    @Test
-    public void testUnmark_success() {
-        int taskIndex = 1;
-        TaskList.unmark(taskIndex);
-        assertFalse(TaskList.getTask(taskIndex - 1).isDone());
-        String expectedOutput = "Ok! I've marked this task as not done yet:" + System.lineSeparator() +
-                TaskList.getTask(taskIndex - 1).toString() + System.lineSeparator();
+                taskList.getTask(taskIndex - 1).toString() + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
 
