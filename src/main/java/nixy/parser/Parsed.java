@@ -17,11 +17,21 @@ public class Parsed {
         command = c;
     }
 
+    /**
+     * Creates a Parsed object with a command and task number.
+     * @param c The command from the user input.
+     * @param n The task number from the user input.
+     */
     public Parsed(Command c, int n) {
         command = c;
         taskNumber = n;
     }
 
+    /**
+     * Creates a Parsed object with a command and task.
+     * @param c The command from the user input.
+     * @param t The task from the user input.
+     */
     public Parsed(Command c, Task t) {
         command = c;
         task = t;
