@@ -1,6 +1,7 @@
 package donk;
 
 import donk.task.Task;
+import donk.task.TaskList;
 import donk.task.TaskType;
 
 public class Ui {
@@ -86,6 +87,19 @@ public class Ui {
         System.out.println("    Alright bro I deleted that for you");
         System.out.println("    deleted: " + task.toString());
         System.out.println("    You now have " + size + " tasks");
+    }
+
+    /**
+     * Show list of tasks, if empty, show message
+     * @param tasks TaskList to display
+     */
+    public void listTasks(TaskList tasks) {
+        if (tasks.size() == 0) {
+            System.out.println("    You've got not tasks yet bro. Add todo, deadline, or event tasks.");
+        }
+        for (int i = 1; i <= tasks.size(); i++) {
+            System.out.println("    " + i + ": " + tasks.getTask(i - 1).toString());
+        }
     }
 
 

@@ -63,4 +63,12 @@ public class TaskList {
     public void add(Task t) {
         tasks.add(t);
     }
+
+    public TaskList find(String searchTerm) {
+        List<Task> filteredList = this.tasks
+                .stream()
+                .filter(t -> t.getDescription().contains(searchTerm))
+                .toList();
+        return new TaskList(filteredList);
+    }
 }

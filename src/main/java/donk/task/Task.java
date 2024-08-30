@@ -72,6 +72,14 @@ abstract public class Task {
         return "[" + this.getStatusIcon() + "] " + description;
     }
 
+
+    /**
+     * Returns task description
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
     /**
      * Abstract method to be implemented by subclasses to return a string representation
      * of the task suitable for saving to a file.
@@ -79,4 +87,6 @@ abstract public class Task {
      * @return A string representation of the task for file storage.
      */
     abstract public String toFileSaveString();
+
+
 }

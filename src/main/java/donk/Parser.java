@@ -67,12 +67,7 @@ public class Parser {
             ui.bye();
             return;
         } else if (fullCommand.equals("list")) {
-            if (tasks.size() == 0) {
-                System.out.println("    You've got not tasks yet bro. Add todo, deadline, or event tasks.");
-            }
-            for (int i = 1; i <= tasks.size(); i++) {
-                System.out.println("    " + i + ": " + tasks.getTask(i - 1).toString());
-            }
+            ui.listTasks(tasks);
         } else if (inputArray[0].equals("mark") && inputArray[1].matches("\\d+")) {
             int index = Integer.parseInt(inputArray[1]) - 1;
             Task temp = tasks.getTask(index);
@@ -135,6 +130,10 @@ public class Parser {
             System.out.println("    Got it. I've added this task:");
             System.out.println("        " + t.toString());
             System.out.println("    You now have " + tasks.size() + " tasks");
+        } else if(command.equals("find")) {
+            String searchTerm = fullCommand.substring(5);
+            TaskList results = tasks.find(searchTerm);
+            ui.listTasks(results);
         } else {
             throw new Exception("Ehhh not sure what this is man");
         }
