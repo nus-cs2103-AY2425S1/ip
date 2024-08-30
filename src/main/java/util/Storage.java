@@ -12,7 +12,8 @@ import java.util.List;
 import main.java.Task;
 
 public class Storage {
-    private static final Path FILEPATH = Paths.get("/main/java/data/Karen.txt");
+    private static final Path DIRPATH = Paths.get("./data");
+    private static final Path FILEPATH = Paths.get("./data/Karen.txt");
     private Storage() {
         return;
     }
@@ -23,11 +24,15 @@ public class Storage {
      */
     public static void initFile() {
         try {
+            if (!Files.exists(DIRPATH)) {
+                Files.createDirectory(DIRPATH);
+            }
+
             if (!Files.exists(FILEPATH)) {
                 Files.createFile(FILEPATH);
             }
         } catch (IOException e) {
-            System.out.println("Error occured when opening the file");
+            System.out.println("Error occurred when initializing the file");
         }
     }
 
