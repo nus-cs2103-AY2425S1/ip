@@ -90,4 +90,18 @@ public class Ui {
         }
         printLine();
     }
+
+    /**
+     * Prints the message when a task is found.
+     * 
+     * @param task the task that was found
+     */
+    public void printMatchingTasks(TaskList tasks) {
+        printLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.getSize(); i++) {
+            System.out.println((i + 1) + ". " + tasks.getTask(i));
+        }
+        printLine();
+    }
 }

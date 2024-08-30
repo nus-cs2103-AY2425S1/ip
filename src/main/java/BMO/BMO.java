@@ -108,6 +108,12 @@ public class BMO {
                 storage.updateStorageFile(taskList);
                 ui.printTaskRemoved(taskToDelete, taskList.getSize());
                 break;
+            
+            //Finds tasks with descriptions containing the keyword
+            case "find":
+                TaskList matchingTasks = taskList.findMatchingTasks(input[1]);
+                ui.printMatchingTasks(matchingTasks);
+                break;
 
             case "bye":
                 ui.printGoodbye();

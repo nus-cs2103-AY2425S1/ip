@@ -81,6 +81,14 @@ public class Parser {
             parsedInput[1] = userInputArr[1];
             return parsedInput;
 
+        case "find":
+            parsedInput[0] = "find";
+            if (userInputArr.length < 2) {
+                throw new BMOException("\nOh no! Please specify a keyword to search for! e.g 'find book'");
+            }
+            parsedInput[1] = userInput.substring(5);
+            return parsedInput;
+
         case "bye":
             parsedInput[0] = "bye";
             return parsedInput;

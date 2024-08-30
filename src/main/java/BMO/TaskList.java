@@ -109,4 +109,14 @@ public class TaskList {
         Task event = new Event(description, from, to);
         this.addTask(event);
     }
+
+    public TaskList findMatchingTasks(String keyword) {
+        TaskList matchingTasks = new TaskList();
+        for (Task task : this.tasks) {
+            if (task.hasMatchingDescription(keyword)) {
+                matchingTasks.addTask(task);
+            }
+        }
+        return matchingTasks;
+    }
 }

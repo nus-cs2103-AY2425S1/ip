@@ -45,4 +45,14 @@ abstract public class Task {
      * @return "[task type] | [isDone] | [description] | [timings if applicable]"
      */
     abstract public String getSavedFormat();
+
+    /**
+     * Returns true if the task description contains the keyword
+     * 
+     * @param keyword the keyword to search for
+     * @return true if the task description contains the keyword
+     */
+    public boolean hasMatchingDescription(String keyword) {
+        return this.description.contains(keyword);
+    }
 }
