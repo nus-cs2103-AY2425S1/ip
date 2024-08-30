@@ -1,15 +1,15 @@
 package alfred;
 
-import alfred.parser.Parser;
-import alfred.storage.Storage;
-import alfred.task.Task;
-import alfred.exception.AlfredException;
-import alfred.task.TaskList;
-import alfred.ui.Ui;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
+
+import alfred.exception.AlfredException;
+import alfred.parser.Parser;
+import alfred.storage.Storage;
+import alfred.task.Task;
+import alfred.task.TaskList;
+import alfred.ui.Ui;
 
 /**
  * Represents the main class that manages the operations and interactions within

@@ -1,10 +1,10 @@
 package alfred.ui;
 
-import alfred.task.Task;
-import alfred.exception.AlfredException;
-
 import java.io.IOException;
 import java.util.List;
+
+import alfred.exception.AlfredException;
+import alfred.task.Task;
 
 /**
  * Handles all user interface interactions in the Alfred application.

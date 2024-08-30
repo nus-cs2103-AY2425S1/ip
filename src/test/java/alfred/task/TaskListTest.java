@@ -1,11 +1,14 @@
 package alfred.task;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class TaskListTest {
 
@@ -21,14 +24,14 @@ class TaskListTest {
     }
 
     @Test
-    void testAddTask() {
+    void addTask() {
         taskList.addTask(task1);
         assertEquals(1, taskList.getTasksCount());
         assertEquals(task1, taskList.getTasks().get(0));
     }
 
     @Test
-    void testGetTasks() {
+    void getTasks() {
         taskList.addTask(task1);
         taskList.addTask(task2);
 
@@ -39,7 +42,7 @@ class TaskListTest {
     }
 
     @Test
-    void testGetTasksCount() {
+    void getTasksCount() {
         assertEquals(0, taskList.getTasksCount());
 
         taskList.addTask(task1);
@@ -49,7 +52,7 @@ class TaskListTest {
     }
 
     @Test
-    void testDeleteTask_Valid() {
+    void deleteTask_valid() {
         taskList.addTask(task1);
         taskList.addTask(task2);
 
@@ -59,31 +62,29 @@ class TaskListTest {
     }
 
     @Test
-    void testDeleteTask_OutOfBounds() {
+    void deleteTask_outOfBounds() {
         taskList.addTask(task1);
         taskList.addTask(task2);
 
         // No tasks should be deleted if command invalid
-        assertThrows(IndexOutOfBoundsException.class,
-                () -> taskList.deleteTask(3));
+        assertThrows(IndexOutOfBoundsException.class, () -> taskList.deleteTask(3));
         assertEquals(2, taskList.getTasksCount());
         assertEquals(task1, taskList.getTasks().get(0));
         assertEquals(task2, taskList.getTasks().get(1));
     }
 
     @Test
-    void testMarkTask_Valid() {
+    void markTask_valid() {
         taskList.addTask(task1);
         taskList.updateTaskStatus(1, true);
         assertTrue(task1.isDone);
     }
 
     @Test
-    void testMarkTask_OutOfBounds() {
+    void markTask_outOfBounds() {
         taskList.addTask(task1);
 
-        assertThrows(IndexOutOfBoundsException.class,
-                () -> taskList.updateTaskStatus(3, true));
+        assertThrows(IndexOutOfBoundsException.class, () -> taskList.updateTaskStatus(3, true));
         assertFalse(task1.isDone);
     }
 }
