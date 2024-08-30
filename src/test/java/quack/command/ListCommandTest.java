@@ -53,7 +53,9 @@ public class ListCommandTest {
         // Execute the command  
         listCommand.execute();
 
-        assertEquals(expected, actualOutput.toString().replaceAll("\r", ""), "Test if the list command prints the task list correctly");
+        String actual = actualOutput.toString().replaceAll("\r", "");
+
+        assertEquals(expected, actual, "List command did not display the task list correctly");
     }
 
     /** 
@@ -72,7 +74,9 @@ public class ListCommandTest {
         // Execute the command  
         listCommand.execute();
 
-        assertEquals(expected, actualOutput.toString().replaceAll("\r", ""), "Test if the list command prints an empty task list correctly");
+        String actual = actualOutput.toString().replaceAll("\r", "");
+
+        assertEquals(expected, actual, "List command did not display an empty task list correctly");
     }
 
 }

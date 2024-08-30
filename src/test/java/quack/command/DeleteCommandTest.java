@@ -59,14 +59,16 @@ public class DeleteCommandTest {
             "2. [E][X] Dummy 2 (From: 01/01/2024 10:59:30 To: 10/01/2024 14:00:59)\n" +
             "3. [D][ ] Dummy 3 (Due by: 10/01/2024 14:00:59)\n" + 
             "-".repeat(65) + "\n" +
-            "Which task do you want to delete? (Input the index of the task): \n" + 
+            "Which task do you want to delete? (Input the index of the task): " + 
             "-".repeat(65) + "\n" +
             "Success! I have deleteed this task: [T][ ] Dummy 1\n" +
             "You now have 2 tasks in your list right now!\n" +
             "-".repeat(65) + "\n";
         
-        assertEquals(expected, actualOutput.toString().replaceAll("\r", ""), "Test if the delete command delets and prints the correct message");
-        assertEquals(taskList.getLength(), 2);
+        String actual = actualOutput.toString().replaceAll("\r", "");
+        
+        assertEquals(expected, actual, "The delete command did not display the correct prompt");
+        assertEquals(taskList.getLength(), 2, "The delete command did not delete a task");
     }
 
     /** 
@@ -91,13 +93,15 @@ public class DeleteCommandTest {
             "2. [E][X] Dummy 2 (From: 01/01/2024 10:59:30 To: 10/01/2024 14:00:59)\n" +
             "3. [D][ ] Dummy 3 (Due by: 10/01/2024 14:00:59)\n" + 
             "-".repeat(65) + "\n" +
-            "Which task do you want to delete? (Input the index of the task): \n" + 
+            "Which task do you want to delete? (Input the index of the task): " + 
             "-".repeat(65) + "\n" +
             "Oops looks like the index: 10 entered is out of bounds!\n" +
             "-".repeat(65) + "\n";
-        
-        assertEquals(expected, actualOutput.toString().replaceAll("\r", ""), "Test if the delete command prints the correcr message when the index is invalid");
-        assertEquals(taskList.getLength(), 3);
+
+        String actual = actualOutput.toString().replaceAll("\r", "");
+
+        assertEquals(expected, actual, "The delete command did not display the correct prompt");
+        assertEquals(taskList.getLength(), 3, "The delete command deleted something when it is not supposed to");
     }
 
     /** 
@@ -116,6 +120,8 @@ public class DeleteCommandTest {
         String expected = "The list is empty, why not add something!\n"+
             "-".repeat(65) + "\n";
         
-        assertEquals(expected, actualOutput.toString().replaceAll("\r", ""), "Test if the delete command prints the correcr message when the list is empty"); 
+        String actual = actualOutput.toString().replaceAll("\r", "");
+
+        assertEquals(expected, actual, "The delete command did not show the correct prompt when deleting from an empty list"); 
     }
 }
