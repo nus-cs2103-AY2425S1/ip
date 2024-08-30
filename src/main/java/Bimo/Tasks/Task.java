@@ -20,10 +20,6 @@ public class Task {
         return String.format("[%s] %s", status, this.details);
     }
 
-    public String getDetails() {
-        return this.details;
-    }
-
     /**
      * Text formatter used to write a task into file
      * @return Returns the text format of status and description separated by |
