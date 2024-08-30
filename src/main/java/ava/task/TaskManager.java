@@ -23,6 +23,13 @@ public class TaskManager {
         return tasks;
     }
 
+
+    public List<Task> getTasks(String s) {
+        // in the future return a view of the list
+        // rather than the list to avoid errors
+        return tasks;
+    }
+
     public void addTask(Task task) {
         tasks.add(task);
     }
@@ -38,6 +45,8 @@ public class TaskManager {
     public void addTask(String task,String startTime,String endTime){
         tasks.add(new Event(task, startTime, endTime));
     }
+
+
 
     public void removeTask(int taskId) {
         if(taskId > 0 && taskId <= tasks.size()) {
