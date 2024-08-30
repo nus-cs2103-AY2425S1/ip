@@ -22,52 +22,52 @@ public class TaskList {
         String[] dataArray = description.split("[|]");
         String type = dataArray[0];
         switch (type) {
-            case "T":
-                status = dataArray[1];
-                name = dataArray[2];
-                Task newToDo = new ToDo(name);
-                tasks.add(newToDo);
+        case "T":
+            status = dataArray[1];
+            name = dataArray[2];
+            Task newToDo = new ToDo(name);
+            tasks.add(newToDo);
+            if (status.equals("1")) {
+                newToDo.markComplete();
+            }
+            break;
+
+        case "D":
+            status = dataArray[1];
+            name = dataArray[2];
+            String dueDate = dataArray[3];
+            try {
+                Task newDateline = new Deadline(name, dueDate);
+                tasks.add(newDateline);
                 if (status.equals("1")) {
-                    newToDo.markComplete();
+                    newDateline.markComplete();
                 }
-                break;
+            } catch (SnowyException ignored) {
 
-            case "D":
-                status = dataArray[1];
-                name = dataArray[2];
-                String dueDate = dataArray[3];
-                try {
-                    Task newDateline = new Deadline(name, dueDate);
-                    tasks.add(newDateline);
-                    if (status.equals("1")) {
-                        newDateline.markComplete();
-                    }
-                } catch (SnowyException ignored) {
+            }
 
+
+            break;
+
+        case "E":
+            status = dataArray[1];
+            name = dataArray[2];
+            String fromDate = dataArray[3];
+            String toDate = dataArray[4];
+            try {
+                Task newEvent = new Event(name, fromDate, toDate);
+                tasks.add(newEvent);
+                if (status.equals("1")) {
+                    newEvent.markComplete();
                 }
+            } catch (SnowyException ignored) {
 
+            }
 
-                break;
+            break;
 
-            case "E":
-                status = dataArray[1];
-                name = dataArray[2];
-                String fromDate = dataArray[3];
-                String toDate = dataArray[4];
-                try {
-                    Task newEvent = new Event(name, fromDate, toDate);
-                    tasks.add(newEvent);
-                    if (status.equals("1")) {
-                        newEvent.markComplete();
-                    }
-                } catch (SnowyException ignored) {
-
-                }
-
-                break;
-
-            default:
-                System.out.println("Error: task type not found");
+        default:
+            System.out.println("Error: task type not found");
         }
     }
 
