@@ -199,10 +199,12 @@ class TaskList {
     }
 
     public TaskList() {
+
         this.arr = new ArrayList<Task>();
     }
 
     public void add(Task task) {
+
         this.arr.add(task);
     }
 
@@ -232,7 +234,7 @@ class UI {
 
     public void greet() {
         System.out.println("----------------------------");
-        System.out.println("Hello! I'm Timo.Timo\nWhat can I do for you?");
+        System.out.println("Hello! I'm Timo.\nWhat can I do for you?");
         System.out.println("----------------------------");
     }
 
