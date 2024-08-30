@@ -33,12 +33,16 @@ public class Storage {
 
     /**
      * Writes the string list textToSave to /data/Karen.txt
-     * @param textToSave
+     * @param taskList
      */
-    public static void saveToFile(List<String> textToSave) {
-        //TODO Convert List<Task> into String format for file w
+    public static void saveToFile(List<Task> taskList) {
+        List<String> writeBuffer = new ArrayList<>();
         try {
-            Files.write(FILEPATH, textToSave, StandardCharsets.UTF_8);
+            for (int i = 0; i < taskList.size(); i++) {
+                Task t = taskList.get(i);
+                writeBuffer.add(t.toFileString());
+            }
+            Files.write(FILEPATH, writeBuffer, StandardCharsets.UTF_8);
         } catch (IOException e) {
             System.out.println("Error while saving to file");
         }
