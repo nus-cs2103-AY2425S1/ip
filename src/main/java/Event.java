@@ -1,6 +1,9 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task{
-    protected String startDt;
-    protected String endDt;
+    protected LocalDateTime startDt;
+    protected LocalDateTime endDt;
 
     /**
      * Constructs an Event object with the specified description, start date-time, and end date-time.
@@ -11,13 +14,20 @@ public class Event extends Task{
      */
     public Event(String description, String startDt, String endDt) {
         super(description, "E");
-        this.startDt = startDt;
-        this.endDt = endDt;
+        try {
+            this.startDt = LocalDateTime.parse(startDt);
+            this.endDt = LocalDateTime.parse(endDt);
+        } catch (Exception e) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+            this.startDt = LocalDateTime.parse(startDt, formatter);
+            this.endDt = LocalDateTime.parse(endDt, formatter);
+        }
+
     }
 
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + this.startDt + " to " + this.endDt + ")";
+        return "[E] " + super.toString() + " (from: " + this.startDt.toString() + " to " + this.endDt.toString() + ")";
     }
 
     @Override

@@ -1,5 +1,8 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task{
-    protected String dt;
+    protected LocalDateTime dt;
 
     /**
      * Constructs a Deadline object with the specified description and deadline date-time.
@@ -9,7 +12,13 @@ public class Deadline extends Task{
      */
     public Deadline(String description, String dt) {
         super(description, "D");
-        this.dt = dt;
+        try {
+            this.dt = LocalDateTime.parse(dt);
+        } catch(Exception e) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+            this.dt = LocalDateTime.parse(dt, formatter);
+        }
+
     }
 
     @Override
@@ -19,7 +28,9 @@ public class Deadline extends Task{
 
     @Override
     public String toFileSaveString() {
-        return this.taskType + "|" + (this.isDone ? "1" : "0") + "|" + this.description + "|" + this.dt;
+        return this.taskType + "|" + (this.isDone ? "1" : "0") + "|" + this.description + "|" + this.dt.toString();
     }
 
 }
+
+

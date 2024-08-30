@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class Donk {
@@ -107,12 +109,12 @@ public class Donk {
                     } else if (inputArray[0].equals("deadline")) {
                         String[] split = userInput.split("/by");
                         if (split.length < 2) {
-                            System.out.println("invalid format, require /by");
+                            System.out.println("invalid format, require /by <date-time>");
                             continue;
                         }
                         String bef = split[0].substring(9);
                         String aft = split[1];
-                        t = new Deadline(bef, aft);
+                        t = new Deadline(bef, aft.strip());
                         tasks.add(t);
 
                     } else {
@@ -129,7 +131,7 @@ public class Donk {
                         String start = split2[0];
                         String end = split2[1];
                         String description = split1[0].substring(6);
-                        t = new Event(description, start, end);
+                        t = new Event(description, start.strip(), end.strip());
                         tasks.add(t);
 
                     }
