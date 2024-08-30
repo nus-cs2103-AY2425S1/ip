@@ -34,11 +34,13 @@ public class AddTaskCommand extends Command {
      * @param storage The storage system responsible for saving and loading tasks.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             taskList.addTask(this.userInput);
+            return "Your task has been added";
         } catch (UnknownMessageException | InvalidTodoDescriptionException e) {
-            ui.showMessage(ui.formatOutputMessage("Please enter a valid task!"));
+            // ui.showMessage(ui.formatOutputMessage("Please enter a valid task!"));
+            return "Please enter a valid task!";
         }
     }
 }

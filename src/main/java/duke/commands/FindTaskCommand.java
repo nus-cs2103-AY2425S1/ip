@@ -42,7 +42,7 @@ public class FindTaskCommand extends Command {
      *                loading tasks (not used in this implementation).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         List<Task> tasks = taskList.getTasks();
         List<Task> foundTasks = new ArrayList<>();
 
@@ -53,6 +53,7 @@ public class FindTaskCommand extends Command {
             }
         }
 
-        ui.showMessage(ui.formatTaskListings(foundTasks, false));
+        // ui.showMessage(ui.formatTaskListings(foundTasks, false));
+        return ui.formatTaskListings(foundTasks, false);
     }
 }

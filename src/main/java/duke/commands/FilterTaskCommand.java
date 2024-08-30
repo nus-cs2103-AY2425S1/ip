@@ -36,8 +36,9 @@ public class FilterTaskCommand extends Command {
      * @param storage The storage system responsible for saving and loading tasks (not used in this implementation).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         List<Task> tasks = taskList.getTasksOccurring(dateTime);
-        ui.showMessage(ui.formatTaskListings(tasks, true));
+        // ui.showMessage(ui.formatTaskListings(tasks, true));
+        return ui.formatTaskListings(tasks, true);
     }
 }

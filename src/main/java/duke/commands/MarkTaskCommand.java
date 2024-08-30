@@ -38,16 +38,19 @@ public class MarkTaskCommand extends Command {
      * @param storage The storage system responsible for saving and loading tasks (not used in this implementation).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         if (this.taskIndex != -1) {
             Task task = taskList.getTask(this.taskIndex);
             if (this.markAsDone) {
                 task.setDone();
-                ui.showMessage(ui.formatMarkTask(task));
+                // ui.showMessage(ui.formatMarkTask(task));
+                return ui.formatMarkTask(task);
             } else {
                 task.setNotDone();
-                ui.showMessage(ui.formatUnmarkTask(task));
+                // ui.showMessage(ui.formatUnmarkTask(task));
+                return ui.formatUnmarkTask(task);
             }
         }
+        return "Please enter a valid task!";
     }
 }

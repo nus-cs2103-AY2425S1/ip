@@ -26,5 +26,5 @@ public abstract class Command {
      * @param ui The user interface to interact with the user.
      * @param storage The storage object to read from or write to the file system.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage);
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage);
 }

@@ -40,10 +40,12 @@ public class DeleteTaskCommand extends Command {
      *                loading tasks (not used in this implementation).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         if (this.taskIndex != -1) {
             Task task = taskList.deleteTask(this.taskIndex);
-            ui.showMessage(ui.formatDeleteTask(task, taskList.getTasks().size()));
+            // ui.showMessage(ui.formatDeleteTask(task, taskList.getTasks().size()));
+            return ui.formatDeleteTask(task, taskList.getTasks().size());
         }
+        return "Please enter a valid task!";
     }
 }
