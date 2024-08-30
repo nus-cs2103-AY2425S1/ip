@@ -104,11 +104,12 @@ public class BeeBot {
                 }
 
                 storage.saveTaskListToFile(FILEPATH, taskList);
-            } catch (EmptyDescriptionException | MissingDeadlineException | MissingEventTimeException | TaskNotFoundException e) {
+            } catch (EmptyDescriptionException | MissingDeadlineException
+                     | MissingEventTimeException | TaskNotFoundException e) {
                 Parser.speak(e.getMessage());
             } catch (DateTimeParseException e) {
                 System.out.println("Invalid date format. Enter date in YYYY-MM-DD format");
-            }catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 Parser.speak("Please enter a valid task number.\n");
             } catch (Exception e) {
                 Parser.speak("An error occurred: " + e.getMessage() + e + "\n");

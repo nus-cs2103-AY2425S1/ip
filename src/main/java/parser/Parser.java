@@ -60,7 +60,8 @@ public class Parser {
         return concatenate(parts, i);
     }
 
-    public static String getFollowingDate(String[] parts, String delimiter, String stopDelimiter) throws MissingEventTimeException {
+    public static String getFollowingDate(String[] parts, String delimiter, String stopDelimiter)
+            throws MissingEventTimeException {
         int i = 0;
         while (!parts[i].equals(delimiter)) {
             i++;
