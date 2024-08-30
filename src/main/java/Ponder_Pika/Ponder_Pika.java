@@ -2,7 +2,6 @@ package Ponder_Pika;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import Ponder_Pika.Task.Event;
@@ -11,7 +10,6 @@ import Ponder_Pika.Task.Task;
 import Ponder_Pika.Task.Todo;
 
 public class Ponder_Pika {
-
 
     private final IOHandler io = new IOHandler();
     private final List<Task> myList = io.loadData();
@@ -39,133 +37,133 @@ public class Ponder_Pika {
         Scanner scan = new Scanner(System.in);
         String userCommand;
 
-        while(scan.hasNext()) {
+        while (scan.hasNext()) {
             userCommand = scan.nextLine().trim();
-
             String[] commands = userCommand.split(" ", 2);
 
             try {
-
                 switch (commands[0].toLowerCase()) {
+                case "list":
+                    for (int i = 0; i < myList.size(); i++) {
+                        System.out.println(i + 1 + ". " + myList.get(i).toString());
+                    }
+                    printDivider();
+                    break;
 
-                    case "list":
-                        for (int i = 0; i < myList.size(); i++) {
-                            System.out.println(i + 1 + ". " + myList.get(i).toString());
-                        }
+                case "mark":
+                    int markIndex = Integer.parseInt(commands[1]);
+
+                    if (markIndex > 0 && markIndex <= myList.size()) {
+                        myList.get(markIndex - 1).markDone();
+                        System.out.println("Your task has been marked as done.");
+                        System.out.println(myList.get(markIndex - 1).toString());
                         printDivider();
-                        break;
+                    } else {
+                        throw new PonderPikaException("No task available at given index!");
+                    }
+                    break;
 
-                    case "mark":
-                        int markIndex = Integer.parseInt(commands[1]);
+                case "unmark":
+                    int unMarkIndex = Integer.parseInt(commands[1]);
 
-                        if (markIndex > 0 && markIndex <= myList.size()) {
-                            myList.get(markIndex - 1).markDone();
-                            System.out.println("Your task has been marked as done.");
-                            System.out.println(myList.get(markIndex - 1).toString());
-                            printDivider();
-                        } else {
-                            throw new PonderPikaException("No task available at given index!");
-                        }
-                        break;
+                    if (unMarkIndex > 0 && unMarkIndex <= myList.size()) {
+                        myList.get(unMarkIndex - 1).markUndone();
+                        System.out.println("Your task has been undone.");
+                        System.out.println(myList.get(unMarkIndex - 1).toString());
+                        printDivider();
+                    } else {
+                        throw new PonderPikaException("No task available at given index!");
+                    }
+                    break;
 
-                    case "unmark":
-                        int unMarkIndex = Integer.parseInt(commands[1]);
+                case "todo":
+                    if (commands.length == 1) {
+                        throw new PonderPikaException("Missing Description for Todo Task!");
+                    }
 
-                        if (unMarkIndex > 0 && unMarkIndex <= myList.size()) {
-                            myList.get(unMarkIndex - 1).markUndone();
-                            System.out.println("Your task has been undone.");
-                            System.out.println(myList.get(unMarkIndex - 1).toString());
-                            printDivider();
-                        } else {
-                            throw new PonderPikaException("No task available at given index!");
-                        }
-                        break;
+                    Task todo = new Todo(commands[1]);
+                    myList.add(todo);
+                    System.out.println("        Pika! I have added your todo: " + commands[1]);
+                    System.out.println("\nPeek-A-Boo! We have " + myList.size() + " tasks in our list");
+                    printDivider();
+                    break;
 
-                    case "todo":
-                        if (commands.length == 1) {
-                            throw new PonderPikaException("Missing Description for Todo Task!");
-                        }
+                case "deadline":
+                    String[] args = commands[1].split("/by ");
 
-                        Task todo = new Todo(commands[1]);
-                        myList.add(todo);
-                        System.out.println("        Pika! I have added your todo: " + commands[1]);
+                    if (args.length == 1) {
+                        throw new PonderPikaException("Missing Deadline time for Deadline Task!");
+                    }
+
+                    if (args[0].trim().isEmpty()) {
+                        throw new PonderPikaException("Missing Description for Deadline Task!");
+                    }
+
+                    Task deadline = new Deadline(args[0].trim(), LocalDateTime.parse(args[1].trim(), formatter));
+                    myList.add(deadline);
+                    System.out.println("        Pika! I have added a deadline: " + args[0].trim()
+                            + " by " + args[1].trim());
+                    System.out.println("\nPeek-A-Boo! We have " + myList.size() + " tasks in our list");
+                    printDivider();
+                    break;
+
+                case "event":
+                    String eventDetails = commands[1].trim();
+                    String[] desc = eventDetails.split("/from");
+
+                    if (desc[0].trim().isEmpty()) {
+                        throw new PonderPikaException("Missing Description for Event Task!");
+                    }
+
+                    String detail = desc[1].trim();
+                    String[] time = detail.split("/to");
+
+                    if (time.length == 1) {
+                        throw new PonderPikaException("Missing \"To\" timeline for Event Task!");
+                    }
+
+                    if (time[0].trim().isEmpty()) {
+                        throw new PonderPikaException("Missing \"From\" timeline for Event Task!");
+                    }
+
+                    Task event = new Event(desc[0].trim(), LocalDateTime.parse(time[0].trim(), formatter),
+                            LocalDateTime.parse(time[1].trim(), formatter));
+                    myList.add(event);
+                    System.out.println("        Pika! I have added your event: " + desc[0].trim()
+                            + " from " + time[0].trim() + " to " + time[1].trim());
+                    System.out.println("\nPeek-A-Boo! We have " + myList.size() + " tasks in our list");
+                    printDivider();
+                    break;
+
+                case "delete":
+                    int deleteIndex = Integer.parseInt(commands[1]);
+
+                    if (deleteIndex > 0 && deleteIndex <= myList.size()) {
+                        Task deletedItem = myList.remove(deleteIndex - 1);
+                        System.out.println("Your task has been deleted.");
+                        System.out.println(deletedItem.toString());
                         System.out.println("\nPeek-A-Boo! We have " + myList.size() + " tasks in our list");
                         printDivider();
-                        break;
+                    } else {
+                        throw new PonderPikaException("No task available at given index to be deleted!");
+                    }
+                    break;
 
-                    case "deadline":
-                        String[] args = commands[1].split("/by ");
-
-                        if (args.length == 1) {
-                            throw new PonderPikaException("Missing Deadline time for Deadline Task!");
-                        }
-
-                        if (args[0].trim().isEmpty()) {
-                            throw new PonderPikaException("Missing Description for Deadline Task!");
-                        }
-
-                        Task deadline = new Deadline(args[0].trim(), LocalDateTime.parse(args[1].trim(), formatter));
-                        myList.add(deadline);
-                        System.out.println("        Pika! I have added a deadline: " + args[0].trim() + " by " + args[1].trim());
-                        System.out.println("\nPeek-A-Boo! We have " + myList.size() + " tasks in our list");
-                        printDivider();
-                        break;
-
-                    case "event":
-                        String eventDetails = commands[1].trim();
-                        String[] desc = eventDetails.split("/from");
-
-                        if (desc[0].trim().isEmpty()) {
-                            throw new PonderPikaException("Missing Description for Event Task!");
-                        }
-
-                        String detail = desc[1].trim();
-                        String[] time = detail.split("/to");
-
-                        if (time.length == 1) {
-                            throw new PonderPikaException("Missing \"To\" timeline for Event Task!");
-                        }
-
-                        if (time[0].trim().isEmpty()) {
-                            throw new PonderPikaException("Missing \"From\" timeline for Event Task!");
-                        }
-
-                        Task event = new Event(desc[0].trim(), LocalDateTime.parse(time[0].trim(), formatter), LocalDateTime.parse(time[1].trim(), formatter));
-                        myList.add(event);
-                        System.out.println("        Pika! I have added your event: " + desc[0].trim() + " from " + time[0].trim() + " to " + time[1].trim());
-                        System.out.println("\nPeek-A-Boo! We have " + myList.size() + " tasks in our list");
-                        printDivider();
-                        break;
-
-                    case "delete":
-                        int deleteIndex = Integer.parseInt(commands[1]);
-
-                        if (deleteIndex > 0 && deleteIndex <= myList.size()) {
-                            Task deletedItem = myList.remove(deleteIndex - 1);
-                            System.out.println("Your task has been deleted.");
-                            System.out.println(deletedItem.toString());
-                            System.out.println("\nPeek-A-Boo! We have " + myList.size() + " tasks in our list");
-                            printDivider();
-                        } else {
-                            throw new PonderPikaException("No task available at given index to be deleted!");
-                        }
-                        break;
-
-                    case "bye":
-                        System.out.println("------------------------------------------------------------");
-                        Ponder_Pika.bidBye();
-                        System.out.println("\n----------------------------------------------------------");
-                        io.saveData(this.myList);
-                        break;
-                    default:
-                        throw new PonderPikaException("Invalid Command, Please Try Again!");
+                case "bye":
+                    System.out.println("------------------------------------------------------------");
+                    Ponder_Pika.bidBye();
+                    System.out.println("\n----------------------------------------------------------");
+                    io.saveData(this.myList);
+                    break;
+                default:
+                    throw new PonderPikaException("Invalid Command, Please Try Again!");
                 }
             } catch (PonderPikaException  e) {
                 System.out.println(e.toString());
                 printDivider();
             }
 
-            if(userCommand.equals("bye")) {
+            if (userCommand.equals("bye")) {
                 break;
             }
         }
