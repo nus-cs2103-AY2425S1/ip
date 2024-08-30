@@ -24,6 +24,10 @@ public abstract class Task {
     public void markAsUndone() {
         isDone = false;
     }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
     public abstract String toFileFormat();
 
     public String toString() {
