@@ -4,7 +4,7 @@ public class Task {
     private final String description;
     private Boolean isCompleted = false;
 
-    private Boolean deleted = false;
+    private Boolean isDeleted = false;
 
     public Task(String desc) {
         this.description = desc;
@@ -30,7 +30,7 @@ public class Task {
     }
 
     public void delete() {
-        this.deleted = true;
+        this.isDeleted = true;
         taskNumber--;
     }
 
