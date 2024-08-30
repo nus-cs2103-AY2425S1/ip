@@ -15,6 +15,10 @@ public class Parser {
                 return new ListCommand();
             } else if (splitText[0].equals("todo")) {
                 throw new EmptyDescriptionException();
+            } else if (splitText[0].equals("deadline")) {
+                throw new EmptyDescriptionException();
+            } else if (splitText[0].equals("event")) {
+                throw new EmptyDescriptionException();
             }
             throw new UnknownCommandException();
         }
