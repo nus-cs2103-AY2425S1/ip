@@ -1,5 +1,6 @@
 package buddybot;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -13,7 +14,7 @@ public class Ui {
      * @return
      */
     public String readInput() {
-        return this.myObj.nextLine();
+            return this.myObj.nextLine();
     }
 
     /**
