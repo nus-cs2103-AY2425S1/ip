@@ -1,5 +1,9 @@
 package yapyap;
 
+/**
+ * Main class for the YapperBot application. This class initialises the necessary components
+ * and runs the application, handling user input and executing commands.
+ */
 public class YapperBot {
     private Storage storage;
     private TaskList tasks;
@@ -7,6 +11,11 @@ public class YapperBot {
     private Parser parser;
     private static final String FILE_PATH = "./data/savedFile.txt";
 
+    /**
+     * Creates a YapperBot instance, initializing the user interface, storage, parser,
+     * and task list. Loads tasks from the specified file path if available.
+     * If loading fails, starts with an empty task list.
+     */
     public YapperBot() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
@@ -20,6 +29,10 @@ public class YapperBot {
         }
     }
 
+    /**
+     * Runs the YapperBot application, displaying the start message and entering
+     * a loop to continuously read and execute user commands until the "bye" command is given.
+     */
     public void run() {
         ui.printStartMessage();
 
@@ -31,13 +44,19 @@ public class YapperBot {
         }
     }
 
-    // takes in both command and original input cuz parser need to parse original input for each command case
+    /**
+     * Executes the given command based on user input.
+     *
+     * @param command The command to execute.
+     * @param userInput The raw input from the user.
+     * @return A boolean indicating whether the application should continue running.
+     */
     private boolean executeCommand(Commands command, String userInput) {
         switch (command) {
         case BYE:
             storage.saveTasks(tasks.getTasks());
             ui.printEndMessage();
-            return false;
+            return false; // terminates loop
         case LIST:
             ui.showTaskList(tasks);
             break;
@@ -59,12 +78,20 @@ public class YapperBot {
         case DELETE:
             parser.deleteCommand(tasks, userInput, storage);
             break;
+        case FIND:
+            parser.findCommand(tasks, userInput, ui);
+            break;
         default:
             ui.printInvalidCommandMessage();
         }
         return true;
     }
 
+    /**
+     * The main entry point of the application. Creates a new YapperBot instance and runs it.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         new YapperBot().run();
     }

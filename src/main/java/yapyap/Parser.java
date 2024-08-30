@@ -1,7 +1,18 @@
 package yapyap;
 
+import java.util.ArrayList;
+
+/**
+ * The Parser class is responsible for interpreting user input and executing the appropriate commands.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding command as a {@link Commands} enum.
+     *
+     * @param userInput The input string from the user.
+     * @return The corresponding command as a {@link Commands} enum.
+     */
     public Commands parseCommand(String userInput) {
         if (userInput.equals("bye")) {
             return Commands.BYE;
@@ -19,11 +30,20 @@ public class Parser {
             return Commands.EVENT;
         } else if (userInput.startsWith("delete")) {
             return Commands.DELETE;
+        } else if (userInput.startsWith("find")){
+            return Commands.FIND;
         } else {
             return Commands.OTHERS;
         }
     }
 
+    /**
+     * Marks a class done based on user input, updates the storage and displays the results.
+     *
+     * @param tasks The current list of tasks.
+     * @param userInput The input string by the user.
+     * @param storage The storage used to save the updated tasks list.
+     */
     public void markCommand(TaskList tasks, String userInput, Storage storage) {
         try {
             int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
@@ -40,6 +60,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Unmarks a task as not done based on the user input, updates the storage, and displays the result.
+     *
+     * @param tasks The current list of tasks.
+     * @param userInput The input string from the user.
+     * @param storage The storage to save the updated tasks list.
+     */
     public void unmarkCommand(TaskList tasks, String userInput, Storage storage) {
         try {
             int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
@@ -56,6 +83,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds a new Todo task based on the user input, updates the storage, and displays the result.
+     *
+     * @param tasks The current list of tasks.
+     * @param userInput The input string from the user.
+     * @param storage The storage to save the updated tasks list.
+     */
     public void todoCommand(TaskList tasks, String userInput, Storage storage) {
         try {
             String todoDescription = userInput.substring(5).trim();
@@ -73,9 +107,21 @@ public class Parser {
             System.out.println("________________________________");
             System.out.println(e.getMessage());
             System.out.println("________________________________");
+        } catch (StringIndexOutOfBoundsException e2) {
+            System.out.println("________________________________");
+            System.out.println("The description for a Todo task cannot be empty.");
+            System.out.println("________________________________");
         }
     }
 
+    /**
+     * Adds a new Deadline task based on the user input, updates the storage, and displays the result.
+     * The input must include a description and a valid deadline format.
+     *
+     * @param tasks The current list of tasks.
+     * @param userInput The input string from the user.
+     * @param storage The storage to save the updated tasks list.
+     */
     public void deadlineCommand(TaskList tasks, String userInput, Storage storage) {
         try {
             String[] deadlineInput = userInput.substring(9).split(" /by ");
@@ -97,9 +143,21 @@ public class Parser {
             System.out.println("________________________________");
             System.out.println(e.getMessage());
             System.out.println("________________________________");
+        } catch (StringIndexOutOfBoundsException e2) {
+            System.out.println("________________________________");
+            System.out.println("The description for a Deadline task cannot be empty.");
+            System.out.println("________________________________");
         }
     }
 
+    /**
+     * Adds a new Event task based on the user input, updates the storage, and displays the result.
+     * The input must include a description and valid time frames for the event.
+     *
+     * @param tasks The current list of tasks.
+     * @param userInput The input string from the user.
+     * @param storage The storage to save the updated tasks list.
+     */
     public void eventCommand(TaskList tasks, String userInput, Storage storage) {
         try {
             String[] eventInput = userInput.substring(6).split(" /from | /to ");
@@ -122,9 +180,20 @@ public class Parser {
             System.out.println("________________________________");
             System.out.println(e.getMessage());
             System.out.println("________________________________");
+        } catch (StringIndexOutOfBoundsException e2) {
+            System.out.println("________________________________");
+            System.out.println("The description for a Event task cannot be empty.");
+            System.out.println("________________________________");
         }
     }
 
+    /**
+     * Deletes a task based on the user input, updates the storage, and displays the result.
+     *
+     * @param tasks The current list of tasks.
+     * @param userInput The input string from the user.
+     * @param storage The storage to save the updated tasks list.
+     */
     public void deleteCommand(TaskList tasks, String userInput, Storage storage) {
         try {
             int deleteTaskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
@@ -139,6 +208,32 @@ public class Parser {
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             System.out.println("________________________________");
             System.out.println("Invalid task number! Please enter a valid task number, between 1 - " + tasks.size());
+            System.out.println("________________________________");
+        }
+    }
+
+    /**
+     * Handles the find command by searching for tasks containing the specified keyword.
+     *
+     * @param tasks The list of tasks to search within.
+     * @param userInput The user input containing the find command and keyword.
+     * @param ui The Ui instance for displaying results.
+     */
+    public void findCommand(TaskList tasks, String userInput, Ui ui) {
+        try {
+            String keyword = userInput.split(" ")[1].trim();
+            ArrayList<Task> matchingTasks = new ArrayList<>();
+
+            for (Task task: tasks.getTasks()) {
+                if (task.getDescription().contains(keyword)) {
+                    matchingTasks.add(task);
+                }
+            }
+
+            ui.showMatchingTasks(matchingTasks);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("________________________________");
+            System.out.println("You must enter a keyword after find to match tasks!");
             System.out.println("________________________________");
         }
     }
