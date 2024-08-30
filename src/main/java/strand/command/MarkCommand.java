@@ -33,9 +33,10 @@ public class MarkCommand extends Command {
      * @throws StrandException If there is an error during task addition, UI update, or storage operation.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws StrandException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws StrandException {
         Task task = tasks.mark(this.index, this.mark);
-        ui.markTask(task, this.mark);
+        String output = ui.markTask(task, this.mark);
         storage.save(tasks.toFile());
+        return output;
     }
 }
