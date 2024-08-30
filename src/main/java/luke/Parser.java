@@ -4,6 +4,11 @@ import luke.command.Command;
 import java.util.List;
 import java.util.Arrays;
 public class Parser {
+    /**
+     * Parses strings from save data
+     * @param input string input from a line in save data
+     * @return a command object that stores the mark, task type (command), and args of tasks from save data
+     */
     public Command parseSavedData(String input) {
         List<String> inputList = Arrays.asList(input.split("\\|"));
 //        System.out.println("inputList: " + inputList);
@@ -13,6 +18,11 @@ public class Parser {
         return new Command(mark, command, args);
     }
 
+    /**
+     * Parses string input from Scanner objects
+     * @param input string input from a Scanner line
+     * @return a command object that stores the mark, task type (command), and args of tasks from save data
+     */
     public Command parseInputData(String input) {
         List<String> inputList = Arrays.asList(input.split(" "));
 //        System.out.println("inputList: " + inputList);
