@@ -1,21 +1,20 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * A class that handles user commands for task management using the List Bot.
+ * A class that handles user commands for task management using the ListBot Bot.
  * It supports commands to list, mark, unmark, delete tasks, and add deadlines, events, or todos.
  */
-public class List {
+public class ListBot {
 
     /**
-     * Runs the List Bot, which processes user commands to manage tasks.
+     * Runs the ListBot Bot, which processes user commands to manage tasks.
      * It initializes the bot, processes user input in a loop, and handles various commands to manage tasks.
      */
     public static void run() {
 
         String initialise = """
                 -----------------------------------------------
-                Initialising List Bot...
+                Initialising ListBot Bot...
                 Special commands:
                 'LIST' -> Show full list
                 'MARK n' -> Marks nth task as complete
@@ -23,6 +22,7 @@ public class List {
                 'DELETE n' -> Deletes the nth task
                 '/BY z' -> Used to specify a deadline z
                 '/FROM x /TO y' -> Used to specify bounds of an event from x to y
+                Time format: dd/MM/yyyy OR dd/MM/yyyy HHHH
                 -----------------------------------------------
                 """;
 
@@ -48,7 +48,7 @@ public class List {
                 switch (command) {
                     case LIST:
                         System.out.println("-----------------------------------------------");
-                        System.out.println("Displaying List:");
+                        System.out.println("Displaying ListBot:");
                         for (int i = 0; i < list.size(); i++) {
                             System.out.printf("%d. %s\n", i + 1, list.get(i));
                         }
@@ -95,7 +95,7 @@ public class List {
 
                     case EVENT:
                         String eventDesc = input.substring(0, input.toLowerCase().indexOf("/from"));
-                        String from = input.substring(input.toLowerCase().indexOf("/from") + 6, input.toLowerCase().indexOf("/to"));
+                        String from = input.substring(input.toLowerCase().indexOf("/from") + 6, input.toLowerCase().indexOf("/to") - 1);
                         String to = input.substring(input.toLowerCase().indexOf("/to") + 4);
                         list.add(new Event(eventDesc, from, to));
                         System.out.println("-----------------------------------------------");
@@ -134,6 +134,8 @@ public class List {
                 System.out.println("-----------------------------------------------");
                 System.out.println("RapGod:\n" + exc.getMessage());
                 System.out.println("-----------------------------------------------");
+            } catch(IllegalArgumentException exc) {
+                System.out.println(exc.getMessage());
             }
         }
     }
@@ -191,4 +193,5 @@ public class List {
             }
         }
     }
+
 }

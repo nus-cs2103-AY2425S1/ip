@@ -60,10 +60,10 @@ public class RapGod {
             }
 
             if (option.equalsIgnoreCase("echo bot")) {
-                Echo.run();
+                EchoBot.run();
                 break;
             } else if (option.equalsIgnoreCase("list bot")) {
-                List.run();
+                ListBot.run();
                 break;
             } else if (option.equalsIgnoreCase("Bye")) {
                 System.out.println("-----------------------------------------------");

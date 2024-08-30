@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Echo {
+public class EchoBot {
     public static void run() {
 
         String initialise = """

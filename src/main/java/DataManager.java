@@ -51,8 +51,8 @@ public class DataManager {
             }
 
             System.out.println("-----------------------------------------------");
-            System.out.println("Current Task List: ");
-            System.out.println("Displaying List:");
+            System.out.println("Current Task ListBot: ");
+            System.out.println("Displaying ListBot:");
             for (int i = 0; i < list.size(); i++) {
                 System.out.printf("%d. %s\n", i + 1, list.get(i));
             }
