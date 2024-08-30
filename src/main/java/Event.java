@@ -1,12 +1,19 @@
 package main.java;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task{
-    private String from, to;
+    private LocalDateTime from, to;
 
     public Event(String name, String from, String to) {
         super(name);
-        this.from = from;
-        this.to = to;
+
+        System.out.println(from);
+        System.out.println(to);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        this.from = LocalDateTime.parse(from, formatter);
+        this.to = LocalDateTime.parse(to, formatter);
     }
 
     @Override
