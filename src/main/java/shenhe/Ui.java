@@ -46,6 +46,17 @@ public class Ui {
     }
 
 
+    /**
+     * Displays a message indicating that the following tasks in the list match the user's search criteria.
+     * This method is typically called when a search or filter operation is performed, and matching tasks
+     * are about to be listed.
+     */
+    public void showMatchingMessage() {
+        System.out.println("Here are the matching tasks in your list:");
+    }
+
+
+
     public String readCommand() {
         return scanner.nextLine();
     }
