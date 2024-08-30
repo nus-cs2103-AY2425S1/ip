@@ -18,7 +18,7 @@ public class Ui {
                 + " K  K   O     O  B    B  E     \n"
                 + " K   K   OOOOO   BBBBB   EEEEE \n";
         System.out.println("____________________________________________________________");
-        System.out.println("Greetings! I am kobe.Kobe Bryant. \n" + logo);
+        System.out.println("Greetings! I am Kobe Bryant. \n" + logo);
         System.out.println("How can I help you, my man?");
         System.out.println("____________________________________________________________");
     }
