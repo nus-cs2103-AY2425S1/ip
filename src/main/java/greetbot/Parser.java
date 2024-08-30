@@ -32,4 +32,8 @@ public class Parser {
         return args;
     }
 
+    public static String parseFind(String input) {
+        return input.trim();
+    }
+
 }
