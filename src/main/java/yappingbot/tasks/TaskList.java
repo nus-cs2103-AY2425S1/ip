@@ -1,17 +1,44 @@
 package yappingbot.tasks;
 
+import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotOOBException;
+import yappingbot.stringconstants.ReplyTextMessages;
+import yappingbot.ui.MultilineStringBuilder;
+import yappingbot.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
+import static yappingbot.tasks.TaskParser.parseSingleTask;
+
 public class TaskList implements Iterable<Task> {
     private static ArrayList<Task> tasks;
     private int size;
     public TaskList() {
         tasks = new ArrayList<>();
+    }
+
+    public static TaskList generateFromRaw(ArrayList<String> tasksRaw) {
+        TaskList userList = new TaskList();
+        ArrayList<Exception> errorLists = new ArrayList<>();
+        for (String taskIndividualRaw : tasksRaw) {
+            String[] s = taskIndividualRaw.split(":");
+            try {
+                userList.add(parseSingleTask(s));
+            } catch (YappingBotException e) {
+                errorLists.add(e);
+            }
+        }
+        if (!errorLists.isEmpty()) {
+            MultilineStringBuilder msb = new MultilineStringBuilder();
+            for (Exception e : errorLists) {
+                msb.addLine(e.getMessage());
+            }
+            Ui.printError(String.format(ReplyTextMessages.LOAD_FILE_ERROR_1s, msb));
+        }
+        return userList;
     }
 
     public void add(Task task) {
@@ -48,5 +75,13 @@ public class TaskList implements Iterable<Task> {
     @Override
     public Spliterator<Task> spliterator() {
         return tasks.spliterator();
+    }
+
+    public ArrayList<String> toRawFormat() {
+        ArrayList<String> taskListRaw = new ArrayList<>();
+        for (Task t : tasks) {
+            taskListRaw.add(t.serialize());
+        }
+        return taskListRaw;
     }
 }

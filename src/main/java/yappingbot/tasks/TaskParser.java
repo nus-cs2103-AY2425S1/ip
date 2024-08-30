@@ -1,10 +1,15 @@
 package yappingbot.tasks;
 
+import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotInvalidSaveFileException;
 import yappingbot.stringconstants.ReplyTextMessages;
+import yappingbot.ui.MultilineStringBuilder;
+import yappingbot.ui.Ui;
+
+import java.util.ArrayList;
 
 public class TaskParser {
-    public static Task parseTask(String[] s) throws YappingBotInvalidSaveFileException {
+    public static Task parseSingleTask(String[] s) throws YappingBotInvalidSaveFileException {
         Task t;
         try {
             switch (TaskTypes.valueOf(s[0])) {
