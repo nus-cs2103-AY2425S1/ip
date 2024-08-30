@@ -19,7 +19,7 @@ public class FindTaskCommand extends Command{
      * @param taskList A list that stores all the tasks tracked by Quack.
      * @param ui The ui object that handles user interface requests.
      */
-     public FindTaskCommand(TaskList taskList, Ui ui) {
+    public FindTaskCommand(TaskList taskList, Ui ui) {
         this.taskList = taskList;
         this.ui = ui;
     }

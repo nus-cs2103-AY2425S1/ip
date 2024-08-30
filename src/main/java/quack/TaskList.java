@@ -16,7 +16,7 @@ public class TaskList {
     protected ArrayList<Task> toDoList;
 
     /**
-     * Constructor to create a TaskList object.
+     * Creates a empty TaskList object.
      */
     TaskList () {
         this.toDoList = new ArrayList<Task>();
