@@ -1,8 +1,8 @@
-package src.commands;
+package wenjieBot.commands;
 
-import src.Storage;
-import src.TaskList;
-import src.Ui;
+import wenjieBot.Storage;
+import wenjieBot.TaskList;
+import wenjieBot.Ui;
 
 public class ByeCommand extends Command {
 

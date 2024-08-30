@@ -1,9 +1,9 @@
-package src.commands;
+package wenjieBot.commands;
 
-import src.exceptions.DukeException;
-import src.Storage;
-import src.TaskList;
-import src.Ui;
+import wenjieBot.exceptions.DukeException;
+import wenjieBot.Storage;
+import wenjieBot.TaskList;
+import wenjieBot.Ui;
 
 public abstract class Command {
 

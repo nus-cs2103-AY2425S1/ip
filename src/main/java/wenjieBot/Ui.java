@@ -1,4 +1,4 @@
-package src;
+package wenjieBot;
 
 import java.util.Scanner;
 

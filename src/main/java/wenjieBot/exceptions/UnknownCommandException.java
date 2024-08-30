@@ -1,6 +1,4 @@
-package src.exceptions;
-
-import src.exceptions.DukeException;
+package wenjieBot.exceptions;
 
 public class UnknownCommandException extends DukeException {
     public UnknownCommandException() {

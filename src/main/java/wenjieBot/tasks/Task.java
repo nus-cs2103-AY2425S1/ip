@@ -1,4 +1,4 @@
-package src.tasks;
+package wenjieBot.tasks;
 
 public class Task {
     protected String description;

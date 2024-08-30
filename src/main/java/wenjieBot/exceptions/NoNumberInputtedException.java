@@ -1,4 +1,4 @@
-package src.exceptions;
+package wenjieBot.exceptions;
 
 public class NoNumberInputtedException extends DukeException {
     public NoNumberInputtedException() {

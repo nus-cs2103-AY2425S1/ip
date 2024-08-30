@@ -1,9 +1,9 @@
-package src.commands;
+package wenjieBot.commands;
 
-import src.Storage;
-import src.tasks.Task;
-import src.TaskList;
-import src.Ui;
+import wenjieBot.Storage;
+import wenjieBot.tasks.Task;
+import wenjieBot.TaskList;
+import wenjieBot.Ui;
 
 import java.util.ArrayList;
 

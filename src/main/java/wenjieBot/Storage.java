@@ -1,10 +1,10 @@
-package src;
+package wenjieBot;
 
-import src.tasks.Deadline;
-import src.tasks.Event;
-import src.tasks.Task;
-import src.tasks.ToDo;
-import src.exceptions.NoFileException;
+import wenjieBot.tasks.Deadline;
+import wenjieBot.tasks.Event;
+import wenjieBot.tasks.Task;
+import wenjieBot.tasks.ToDo;
+import wenjieBot.exceptions.NoFileException;
 
 import java.io.File;
 import java.nio.file.Paths;
