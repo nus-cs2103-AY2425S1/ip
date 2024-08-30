@@ -13,8 +13,8 @@ public class Task {
 
     public void appendToStorage(String filename) {
 
-        TxtStorage txtStorage = new TxtStorage(filename);
-        txtStorage.appendLine(getDataForStorage());
+        Storage storage = new Storage(filename);
+        storage.appendLine(getDataForStorage());
 
 
     }

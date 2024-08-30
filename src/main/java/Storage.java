@@ -2,17 +2,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
 //stores only 1 object
-public class TxtStorage {
+public class Storage {
 
     private String fileName = "";
 
-    public TxtStorage(String fileName) {
+    public Storage(String fileName) {
         this.fileName = fileName;
         
     }

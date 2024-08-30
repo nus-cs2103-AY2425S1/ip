@@ -7,13 +7,13 @@ public class Sinatra {
 
 
     private ArrayList<Task> tasks;
-    private TxtStorage txtStorage;
+    private Storage storage;
 
     public Sinatra() {
         this.tasks = new ArrayList<Task>();
         this.printIntro();
-        this.txtStorage = new TxtStorage("tasks.txt");
-        this.tasks = txtStorage.loadTasksFromFile();
+        this.storage = new Storage("tasks.txt");
+        this.tasks = storage.loadTasksFromFile();
 //        for (Task task : tasks) {
 //            System.out.println(task);
 //        }
