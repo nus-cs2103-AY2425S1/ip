@@ -10,8 +10,8 @@ import Mentos.task.TaskList;
 public class Mentos
 {
     private TaskList tasks;
-    private Storage storage;
-    private Ui ui;
+    private final Storage storage;
+    private final Ui ui;
 
     public Mentos(String FILE_PATH){
         this.storage = new Storage(FILE_PATH);
