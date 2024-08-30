@@ -5,7 +5,19 @@ import java.time.format.DateTimeFormatter;
 
 import org.json.simple.JSONObject;
 
+/**
+ * Parses the task of Event type from a JSONObject.
+ *
+ * @author DennieDan.
+ */
 public class EventParser {
+
+    /**
+     * Parses a JSONObject into an Event instance.
+     * @param jsonObject is a json object with the value of "type" is "devent".
+     * @return an Event instance.
+     * @throws JsonLoadingException when there is error parsing some attributes of Event.
+     */
     public Event parse(JSONObject jsonObject) throws JsonLoadingException {
         String start = jsonObject.get("from").toString();
         String end = jsonObject.get("to").toString();
