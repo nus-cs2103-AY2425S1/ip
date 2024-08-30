@@ -1,9 +1,59 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
 public class Axel {
-    private static List<Task> taskList = new ArrayList<>();
+    private static final String FILE_PATH = "./data/axel.txt";
+    private static final List<Task> taskList = new ArrayList<>();
+    private static void loadTasksFromFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            } else {
+                try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        String[] parts = line.split(" \\| ");
+                        Task task;
+                        String type = parts[0];
+                        boolean isDone = parts[1].equals("1");
+                        String description = parts[2];
+
+                        switch (type) {
+                        case "T":
+                            task = new ToDoTask(description);
+                            break;
+                        case "D":
+                            String by = parts[3];
+                            task = new DeadlineTask(description, by);
+                            break;
+                        case "E":
+                            String from = parts[3];
+                            String to = parts[4];
+                            task = new EventTask(description, from, to);
+                            break;
+                        default:
+                            throw new CorruptedFileException("Invalid task type in file: " + type);
+                        }
+                        if (isDone) {
+                            task.markAsDone();
+                        }
+                        taskList.add(task);
+                    }
+                }
+            }
+        } catch (IOException | CorruptedFileException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
+    }
     public static void main(String[] args) {
+        loadTasksFromFile();
         Scanner scanner = new Scanner(System.in);
         String userInput;
         //Greeting message
@@ -56,6 +106,15 @@ public class Axel {
         }
         scanner.close();
     }
+    private static void saveTasksToFile() {
+        try (FileWriter writer = new FileWriter(FILE_PATH)) {
+            for (Task task : taskList) {
+                writer.write(task.toFileFormat() + System.lineSeparator());
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
     private static void toDo(String userInput) throws TaskException {
         if (userInput.length() <= 5) {
             throw new TaskException("Come on now, I need a task name...");
@@ -65,6 +124,7 @@ public class Axel {
             throw new TaskException("Come on now, I need a task name...");
         }
         addTask(new ToDoTask(taskName));
+        saveTasksToFile();
     }
     private static void deadline(String userInput) throws TaskException {
         String[] splittedString = userInput.split(" /by ");
@@ -77,6 +137,7 @@ public class Axel {
             throw new TaskException("I can't work with an empty task name and deadline...");
         }
         addTask(new DeadlineTask(taskName, by));
+        saveTasksToFile();
     }
     private static void event(String userInput) throws TaskException {
         String[] splittedString = userInput.split(" /from | /to ");
@@ -90,9 +151,11 @@ public class Axel {
             throw new TaskException("You may have forgotten to provide me your task name, start and end time...");
         }
         addTask(new EventTask(taskName, from, to));
+        saveTasksToFile();
     }
     private static void addTask(Task task) {
         taskList.add(task);
+        saveTasksToFile();
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
@@ -115,6 +178,7 @@ public class Axel {
             throw new InvalidTaskNumberException("Invalid task number. The number must be between 1 and " + taskList.size() + "!");
         }
         Task removedTask = taskList.remove(taskIndex);
+        saveTasksToFile();
         System.out.println("____________________________________________________________");
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + removedTask);
@@ -128,6 +192,7 @@ public class Axel {
             throw new InvalidTaskNumberException("Invalid task number. The number is between 1 and " + taskList.size()+ "!");
         }
         taskList.get(taskIndex).markAsDone();
+        saveTasksToFile();
         System.out.println("____________________________________________________________");
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + taskList.get(taskIndex));
@@ -140,6 +205,7 @@ public class Axel {
             throw new InvalidTaskNumberException("Invalid task number. The number is between 1 and " + taskList.size() + "!");
         }
         taskList.get(taskIndex).markAsNotDone();
+        saveTasksToFile();
         System.out.println("____________________________________________________________");
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + taskList.get(taskIndex));

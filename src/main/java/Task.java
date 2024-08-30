@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String taskName;
     protected boolean isDone;
 
@@ -9,6 +9,7 @@ public class Task {
     public String getTaskName() {
         return this.taskName;
     }
+    public abstract String toFileFormat();
     public boolean isDone() {
         return this.isDone;
     }
