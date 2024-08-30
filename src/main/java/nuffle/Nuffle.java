@@ -6,7 +6,6 @@ import nuffle.task.Task;
 import nuffle.ui.Ui;
 import nuffle.storage.Storage;
 import nuffle.task.TaskList;
-
 import java.io.IOException;
 import java.util.Scanner;
 
