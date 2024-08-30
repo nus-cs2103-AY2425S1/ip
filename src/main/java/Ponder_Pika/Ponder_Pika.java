@@ -174,7 +174,7 @@ public class Ponder_Pika {
                 printDivider();
             }
 
-            if(userCommand.equals("bye")) {
+            if (userCommand.equals("bye")) {
                 break;
             }
         }
