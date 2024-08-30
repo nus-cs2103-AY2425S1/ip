@@ -34,6 +34,7 @@ public class TaskList {
                 int byIndex = taskDescription.indexOf("/by");
                 String taskName = taskDescription.substring(9, byIndex);
                 String deadline = taskDescription.substring(byIndex + 4);
+                
                 taskList.add(new DeadlineTask(taskName, deadline));
             } else if (taskDescription.startsWith("event")) {
                 String temp = taskDescription.substring(5).trim();
