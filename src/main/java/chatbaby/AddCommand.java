@@ -1,25 +1,22 @@
 package chatbaby;
 
-import chatbaby.Command;
-import chatbaby.Storage;
-import chatbaby.Task;
-import chatbaby.TaskType;
-import chatbaby.TaskList;
-import chatbaby.Ui;
-import chatbaby.Parser;
-import chatbaby.ChatBabyException;
-import chatbaby.Deadline;
-import chatbaby.Event;
-import chatbaby.ToDo;
-
-
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
+/**
+ * Represents a command to add a task to the task list.
+ * This command handles adding ToDo, Deadline, and Event tasks.
+ */
 public class AddCommand extends Command {
     int prefixLength;
     TaskType type;
 
+    /**
+     * Constructs an AddCommand with the given command body and task type.
+     *
+     * @param commandBody The body of the command entered by the user.
+     * @param type The type of task (ToDo, Deadline, Event).
+     * @throws ChatBabyException If the task description is empty or invalid.
+     */
     public AddCommand(String commandBody, TaskType type) throws ChatBabyException {
         super(commandBody);
         this.type = type;
@@ -36,6 +33,15 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Executes the AddCommand by adding the corresponding task (ToDo, Deadline, or Event)
+     * to the task list.
+     *
+     * @param tasks The task list where the new task will be added.
+     * @param ui The UI object to handle user interactions.
+     * @param storage The storage object to handle saving the task to a file.
+     * @throws ChatBabyException If the task description is empty or invalid, or if the date format is incorrect.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ChatBabyException {
         Task newTask;
@@ -88,6 +94,5 @@ public class AddCommand extends Command {
         System.out.println("Got it. I've added this task:\n"
                 + newTask.toString() + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.");
-
     }
 }
