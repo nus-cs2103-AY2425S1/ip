@@ -1,6 +1,6 @@
 package Testament;
 
-import Tasks.*;
+import Tasks.TaskList;
 import Ui.Ui;
 import Storage.Storage;
 import Parser.Parser;

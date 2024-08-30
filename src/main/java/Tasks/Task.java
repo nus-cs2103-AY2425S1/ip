@@ -1,13 +1,18 @@
 package Tasks;
 
-import Exceptions.*;
+import Exceptions.TestamentException;
+import Exceptions.CommandNotRecognisedException;
+import Exceptions.TaskDescriptionEmptyException;
+import Exceptions.DeadlineNoDateException;
+import Exceptions.EventNoTimeException;
 
 /**
  * Represents a task stored in the testament chatbot.
  */
 public abstract class Task {
     protected String taskname;
-    private boolean done;
+
+    private boolean isDone;
 
     /**
      * Constructor for task.
@@ -16,7 +21,7 @@ public abstract class Task {
      */
     public Task(String s) {
         taskname = s;
-        done = false;
+        isDone = false;
     }
 
     /**
@@ -74,7 +79,7 @@ public abstract class Task {
      */
     public String getDetails() {
         String str = "";
-        if (done) {
+        if (isDone) {
             str = "[D] / ";
         } else {
             str = "[N] / ";
@@ -93,14 +98,14 @@ public abstract class Task {
      * Sets done to true.
      */
     public void done() {
-        done = true;
+        isDone = true;
     }
 
     /**
      * Sets done to false.
      */
     public void undone() {
-        done = false;
+        isDone = false;
     }
 
     /**
@@ -111,7 +116,7 @@ public abstract class Task {
     @Override
     public String toString() {
         String str = "";
-        if (done) {
+        if (isDone) {
             str = "[X] ";
         } else {
             str = "[ ] ";

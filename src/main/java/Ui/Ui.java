@@ -1,7 +1,9 @@
 package Ui;
 
-import Tasks.*;
-import Exceptions.*;
+import Tasks.TaskList;
+import Tasks.Task;
+import Exceptions.TestamentException;
+import Exceptions.NotInTaskListException;
 
 /**
  * Prints outputs of the testament chatbot to the screen.

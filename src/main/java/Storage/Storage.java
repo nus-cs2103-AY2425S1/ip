@@ -6,7 +6,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import Tasks.*;
+import Tasks.TaskList;
+import Tasks.Task;
+import Tasks.ToDo;
+import Tasks.Deadline;
+import Tasks.Events;
 
 /**
  * Deals with loading tasks from memory and saving tasks into memory.
