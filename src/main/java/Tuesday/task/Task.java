@@ -95,6 +95,9 @@ public class Task {
         Task.taskArrayList.remove(index);
     }
 
+    public String getDescription() {
+        return this.description;
+    }
     /**
      * Write to the date file
      *
@@ -102,6 +105,7 @@ public class Task {
      * @return Description of the command
      */
     public String writeToDatafile(File dataFile){
+
         return this.description;
     }
 
