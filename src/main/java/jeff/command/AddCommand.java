@@ -51,6 +51,7 @@ public class AddCommand extends Command {
             case "todo":
                 targetTask = new ToDoTask(taskDescription);
                 break;
+
             case "deadline":
                 // Split the description into content and deadline
                 String[] deadlineParts = taskDescription.split(" /by ", 2);
@@ -80,9 +81,8 @@ public class AddCommand extends Command {
                     targetTask = new EventTask(
                             eventContent, Parser.getLocalDateTime(startPeriod), Parser.getLocalDateTime(endPeriod));
                 } catch (DateTimeParseException e) {
-                    throw new JeffException(
-                            "The format is wrong! " +
-                                    "It should be \"event xx /from yyyy-mm-dd HH:mm /to yyyy-mm--dd HH:mm\"!");
+                    throw new JeffException("The format is wrong! "
+                            + "It should be \"event xx /from yyyy-mm-dd HH:mm /to yyyy-mm--dd HH:mm\"!");
                 }
                 break;
 
@@ -95,14 +95,16 @@ public class AddCommand extends Command {
                 tasks.add(targetTask);
                 storage.writeTaskList(tasks);
 
-                ui.printText("Got it. I've added this task:\n   " +
-                        targetTask.toString() +
-                        "\n Now you have " + tasks.size() + " tasks in the list.");
+                // Print out the statement
+                ui.printText("Got it. I've added this task:\n   " + targetTask.toString()
+                        + "\n Now you have " + tasks.size() + " tasks in the list.");
+
             } else {
                 throw new JeffException();
             }
 
         } else {
+            // Check if the input is just the command without any description
             if (this.getInput().equals("todo") || this.getInput().equals("todo ")) {
                 throw new JeffException("Sorry, the description of a todo cannot be empty!");
             } else if (this.getInput().equals("deadline") || this.getInput().equals("deadline ")) {

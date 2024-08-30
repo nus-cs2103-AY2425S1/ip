@@ -19,7 +19,7 @@ public class Parser {
      * @throws JeffException if the user's input is not a command available.
      */
     public static Command parse(String input) throws JeffException {
-        // Check for input == some keyword or starts with some keyword
+        // Filters the input based on the command given
         if (input.equals("list")) {
             return new ListCommand(input);
         } else if (input.equals("bye")) {

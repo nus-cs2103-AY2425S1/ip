@@ -19,6 +19,16 @@ public class Ui {
     }
 
     /**
+     * Returns the user's input scanned by the scanner.
+     *
+     * @return User's input.
+     */
+    public String readCommand() {
+        System.out.print("");
+        return scanner.nextLine();
+    }
+
+    /**
      * Prints a loading error message if the tasks fail to load.
      */
     public void showLoadingError() {
@@ -35,13 +45,18 @@ public class Ui {
     }
 
     /**
-     * Returns the user's input scanned by the scanner.
-     *
-     * @return User's input.
+     * Prints out a greeting message.
      */
-    public String readCommand() {
-        System.out.print("");
-        return scanner.nextLine();
+    public void printWelcome() {
+        printText("Hello! I'm Jeff.\n What can I do for you?");
+    }
+
+    /**
+     * Prints out a farewell message and close the scanner.
+     */
+    public void printFarewell() {
+        this.scanner.close();
+        printText("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -77,18 +92,5 @@ public class Ui {
 
     }
 
-    /**
-     * Prints out a greeting message.
-     */
-    public void showWelcome() {
-        printText("Hello! I'm Jeff.\n What can I do for you?");
-    }
 
-    /**
-     * Prints out a farewell message.
-     */
-    public void printFarewell() {
-        this.scanner.close();
-        printText("Bye. Hope to see you again soon!");
-    }
 }

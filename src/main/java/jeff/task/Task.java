@@ -54,6 +54,19 @@ public class Task {
     }
 
     /**
+     * Returns the file string representation of the task to be stored in the task list text file.
+     *
+     * @return the file string representation of the task.
+     */
+    public String toFileString() {
+        if (this.isDone) {
+            return "1 | " + this.description;
+        } else {
+            return "0 | " + this.description;
+        }
+    }
+
+    /**
      * Marks the task as done.
      */
     public void markAsDone() {
@@ -74,19 +87,6 @@ public class Task {
      */
     public boolean isDone() {
         return this.isDone;
-    }
-
-    /**
-     * Returns the file string representation of the task to be stored in the task list text file.
-     *
-     * @return the file string representation of the task.
-     */
-    public String toFileString() {
-        if (this.isDone) {
-            return "1 | " + this.description;
-        } else {
-            return "0 | " + this.description;
-        }
     }
 
     /**

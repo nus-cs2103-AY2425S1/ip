@@ -48,6 +48,7 @@ public class ListCommand extends Command {
 
         }
 
+        // Print out the statement
         ui.printText(listString.toString());
     }
 }

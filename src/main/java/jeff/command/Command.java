@@ -9,7 +9,7 @@ import jeff.ui.Ui;
  * An abstract class to put all command types under one class
  */
 public abstract class Command {
-    String input;
+    private String input;
 
     /**
      * Constructor for Command Class.

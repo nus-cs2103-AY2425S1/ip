@@ -4,6 +4,7 @@ import jeff.exception.JeffException;
 import jeff.storage.Storage;
 import jeff.task.TaskList;
 import jeff.ui.Ui;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,9 +38,9 @@ public class DateCommandTest {
     public void execute_deadlineDate() throws JeffException {
         new DateCommand("task 2024-08-30").execute(tasks, ui, storage);
 
-        assertEquals("_____________________________________________________________________________________\n" +
-                        "\t 1.[D][ ] return book (by: Aug 30 2024 06:00 pm)\n" +
-                        "\t_____________________________________________________________________________________",
+        assertEquals("_____________________________________________________________________________________\n"
+                        + "\t 1.[D][ ] return book (by: Aug 30 2024 06:00 pm)\n"
+                        + "\t_____________________________________________________________________________________",
                 outputStream.toString().trim());
     }
 
@@ -47,39 +48,33 @@ public class DateCommandTest {
     public void execute_eventDate() throws JeffException {
         new DateCommand("task 2024-08-27").execute(tasks, ui, storage);
 
-        assertEquals("_____________________________________________________________________________________\n" +
-                        "\t 1.[E][ ] project meeting (from: Aug 27 2024 08:00 am to: Aug 27 2024 08:00 pm)\n" +
-                        "\t_____________________________________________________________________________________",
+        assertEquals("_____________________________________________________________________________________\n"
+                        + "\t 1.[E][ ] project meeting (from: Aug 27 2024 08:00 am to: Aug 27 2024 08:00 pm)\n"
+                        + "\t_____________________________________________________________________________________",
                 outputStream.toString().trim());
     }
 
     @Test
-    public void execute_randomDate() throws JeffException {
+    public void execute_randomDate_throwException() throws JeffException {
         Command c = new DateCommand("task 2024-08-28");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, ui, storage));
-        assertEquals(
-                "No deadlines/events on 2024-08-28!",
-                exception.toString());
+        assertEquals("No deadlines/events on 2024-08-28!", exception.toString());
     }
 
     @Test
-    public void execute_empty() throws JeffException {
+    public void execute_empty_throwException() throws JeffException {
         Command c = new DateCommand("task");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, ui, storage));
-        assertEquals(
-                "The format is wrong! It should be \"task yyyy-mm-dd\"!",
-                exception.toString());
+        assertEquals("The format is wrong! It should be \"task yyyy-mm-dd\"!", exception.toString());
     }
 
     @Test
-    public void execute_wrongFormat() throws JeffException {
+    public void execute_wrongFormat_throwException() throws JeffException {
         Command c = new DateCommand("task 28 Aug");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, ui, storage));
-        assertEquals(
-                "The format is wrong! It should be \"task yyyy-mm-dd\"!",
-                exception.toString());
+        assertEquals("The format is wrong! It should be \"task yyyy-mm-dd\"!", exception.toString());
     }
 }

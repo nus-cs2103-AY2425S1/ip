@@ -28,6 +28,7 @@ public class TaskList {
      */
     public TaskList(Scanner scanner) throws JeffException {
         try {
+            // Read every line in the scanner
             while (scanner.hasNext()) {
                 // Get the task information
                 String[] taskParts = scanner.nextLine().split(" \\| ");
@@ -49,6 +50,7 @@ public class TaskList {
                         // To Do Task
                         currentTask = new ToDoTask(taskDescription, isDone);
                         break;
+
                     case "D":
                         // Deadline Task
                         if (taskParts.length >= 4) {
@@ -57,6 +59,7 @@ public class TaskList {
                                     isDone);
                         }
                         break;
+
                     case "E":
                         // Event Task
                         if (taskParts.length >= 5) {
@@ -66,6 +69,7 @@ public class TaskList {
                                     isDone);
                         }
                         break;
+
                     default:
                         break;
                     }
