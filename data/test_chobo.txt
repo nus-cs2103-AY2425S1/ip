@@ -1,0 +1,2 @@
+T|0|read
+D|0|assignment|9-12-2023 0800
