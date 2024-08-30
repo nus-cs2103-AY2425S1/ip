@@ -7,6 +7,9 @@ import java.nio.file.Path;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import main.java.Task;
 
 public class Storage {
     private static final Path FILEPATH = Paths.get("/main/java/data/Karen.txt");
@@ -28,11 +31,26 @@ public class Storage {
         }
     }
 
-    public static void saveToFile(ArrayList<String> textToSave) {
+    /**
+     * Writes the string list textToSave to /data/Karen.txt
+     * @param textToSave
+     */
+    public static void saveToFile(List<String> textToSave) {
+        //TODO Convert List<Task> into String format for file w
         try {
             Files.write(FILEPATH, textToSave, StandardCharsets.UTF_8);
         } catch (IOException e) {
             System.out.println("Error while saving to file");
+        }
+    }
+
+    public static List<String> readFile() {
+        //TODO Read saved data and return List<Task>
+        try {
+            return Files.readAllLines(FILEPATH);
+        } catch (IOException e) {
+            System.out.println("Error trying to read file");
+            return new ArrayList<String>();
         }
     }
 }
