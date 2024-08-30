@@ -6,12 +6,13 @@ import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
-import java.util.*;
 import java.io.File;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 class Task {
-    private String tasktype = "T";
+    private String TASKTYPE = "T";
     private boolean mark;
     private String val;
     public Task(boolean mark, String val) {
@@ -30,7 +31,7 @@ class Task {
     }
 
     public String getTask() {
-        return this.tasktype;
+        return TASKTYPE;
     }
 
     public String getStatusIcon() {
@@ -44,23 +45,22 @@ class Task {
 }
 
 class Todo extends Task {
-    private String tasktype = "T";
+    private String TASKTYPE = "T";
 
 
     public Todo(boolean mark, String val) {
         super(mark, val);
     }
 
-
     @Override
     public String toString() {
-        return "[" + this.tasktype + "]" + super.toString();
+        return "[" + TASKTYPE + "]" + super.toString();
     }
 }
 
 class Deadline extends Task {
     private LocalDateTime date;
-    private String tasktype = "D";
+    private String TASKTYPE = "D";
 
     public Deadline(boolean mark, String val, LocalDateTime date){
         super(mark, val);
@@ -69,7 +69,7 @@ class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[" + this.tasktype + "]" + super.toString() +
+        return "[" + TASKTYPE + "]" + super.toString() +
                 " (by: " + this.date.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
                 + ")";
     }
@@ -78,7 +78,7 @@ class Deadline extends Task {
 class Event extends Task {
     private String from;
     private String to;
-    private String tasktype = "E";
+    private String TASKTYPE = "E";
 
     public Event(boolean mark, String val, String from, String to) {
         super(mark, val);
@@ -88,7 +88,7 @@ class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + this.tasktype + "]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[" + TASKTYPE + "]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
 }
 
@@ -102,21 +102,21 @@ class TimoException extends Exception {
 
 //Timo.Storage: beginning I read from the file, end I update the file
 class Storage {
-    private final String filepath;
+    private final String filePath;
 
-    public Storage(String filepath) {
-        this.filepath = filepath;
+    public Storage(String filePath) {
+        this.filePath = filePath;
     }
 
     public List<Task> load() throws FileNotFoundException {
-        File f = new File(this.filepath);
+        File file = new File(this.filePath);
 
         //initialise array to store the values
         List<Task> arr = new ArrayList<Task>();
 
         //check if the file exists
-        if (f.exists()) {
-            Scanner s = new Scanner(f);
+        if (file.exists()) {
+            Scanner s = new Scanner(file);
             while (s.hasNext()) {
                 String tmp = s.nextLine();
                 if (tmp.startsWith("[T]")) {
@@ -165,19 +165,19 @@ class Storage {
 
     public void store(List<Task> arr) {
         //create new file if file does not exist
-        File file = new File(this.filepath);
+        File file = new File(this.filePath);
 
 
         try {
             boolean filecreated = file.createNewFile();
             //delete all contents in the file
-            FileWriter fil = new FileWriter(this.filepath);
+            FileWriter fil = new FileWriter(this.filePath);
             fil.write("");
             fil.close();
 
 
             //create filewriter to append to file
-            FileWriter fw = new FileWriter(this.filepath, true);
+            FileWriter fw = new FileWriter(this.filePath, true);
             for (Task i: arr) {
                 fw.write(i + "\n");
             }
@@ -412,9 +412,9 @@ public class Timo {
     private Parser parser;
 
 
-    public Timo(String filepath) {
+    public Timo(String filePath) {
         ui = new UI();
-        storage = new Storage(filepath);
+        storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (IOException e) {
