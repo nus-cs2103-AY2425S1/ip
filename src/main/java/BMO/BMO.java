@@ -39,9 +39,9 @@ public class BMO {
             String userInput = sc.nextLine();
             String[] input = parser.parse(userInput);
         
-        //Switch statement to handle different commands
-        switch (input[0]) {
-        
+            //Switch statement to handle different commands
+            switch (input[0]) {
+            
             //Lists all the tasks in the list
             case "list":
                 ui.printList(taskList.getTasks());

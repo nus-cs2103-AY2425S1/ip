@@ -9,10 +9,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> TasksList;
+    private ArrayList<Task> tasks;
 
     public TaskList() {
-        this.TasksList = new ArrayList<>(100);
+        this.tasks = new ArrayList<>(100);
     }
 
     /**
@@ -21,7 +21,7 @@ public class TaskList {
      * @param task the task to be added.
      */
     public void addTask(Task task) {
-        this.TasksList.add(task);
+        this.tasks.add(task);
     }
 
     /**
@@ -30,7 +30,7 @@ public class TaskList {
      * @return ArrayList of all tasks.
      */ 
     public ArrayList<Task> getTasks() {
-        return this.TasksList;
+        return this.tasks;
     }
 
     /**
@@ -40,14 +40,14 @@ public class TaskList {
      * @return Task object at the specified index.
      */
     public Task getTask(int index) {
-        return this.TasksList.get(index);
+        return this.tasks.get(index);
     }
 
     /**
      * Returns the number of tasks in the list.
      */
     public int getSize() {
-        return this.TasksList.size();
+        return this.tasks.size();
     }
 
     /**
@@ -56,7 +56,7 @@ public class TaskList {
      * @param index of the task to be deleted.
      */
     public void deleteTask(int index) {
-        this.TasksList.remove(index);
+        this.tasks.remove(index);
     }
 
     /**
