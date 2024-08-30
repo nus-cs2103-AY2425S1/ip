@@ -35,7 +35,6 @@ public class Gutti {
         boolean isExit = false;
         ui.greetings();
         storage.loadTasksFromFile(tasks);
-
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
@@ -46,7 +45,6 @@ public class Gutti {
                 ui.generateError(e);
             }
         }
-
         ui.goodBye();
     }
 }

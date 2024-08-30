@@ -16,13 +16,11 @@ public class DateTimeUtil {
             return LocalDateTime.parse(dateTimeString, FORMAT1);
         } catch (DateTimeParseException e) {
             // Continue to next formatter
-        }
-        try {
+        } try {
             return LocalDateTime.parse(dateTimeString, FORMAT2);
         } catch (DateTimeParseException e) {
             // Continue to next formatter
-        }
-        try {
+        } try {
             return LocalDateTime.parse(dateTimeString, FORMAT3);
         } catch (DateTimeParseException e) {
             // Continue to next formatter

@@ -68,7 +68,6 @@ public class Storage {
                 } else if (line.startsWith("[D]")) {
                     int byIndex = line.indexOf("(by: ") + 5;
                     int byEndIndex = line.indexOf(')');
-
                     if (byIndex != -1) {
                         String description = line.substring(6, line.indexOf("(by:")).trim();
                         String by = line.substring(byIndex, byEndIndex).trim();

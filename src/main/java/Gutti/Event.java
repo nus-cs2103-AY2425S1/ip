@@ -70,6 +70,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
-        return "[E][" + (isDone ? "X" : " ") + "] " + description + " (from: " + (from != null ? from.format(formatter) : "Invalid date") + " to: " + (to != null ? to.format(formatter) : "Invalid date") + ")";
+        return "[E][" + (isDone ? "X" : " ") + "] " + description + " (from: " +
+                (from != null ? from.format(formatter) : "Invalid date")
+                        + " to: " + (to != null ? to.format(formatter) : "Invalid date") + ")";
     }
 }
