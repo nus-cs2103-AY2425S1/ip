@@ -2,6 +2,12 @@ package Joseph;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 public class Joseph {
     public static void main(String[] args) {
         final String NAME = "Joseph";
@@ -14,7 +20,7 @@ public class Joseph {
         final String DEADLINE = "deadline "; // note that it includes a space character
         final String EVENT = "event "; // note that it includes a space character
         final String DELETE = "delete "; // note that it includes a space character
-        ArrayList<Task> list = new ArrayList<>();
+        ArrayList<Task> list = loadTasks();
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("----------------------------------");
@@ -29,13 +35,14 @@ public class Joseph {
                     System.out.println("----------------------------------");
                     System.out.println("Bye! Have a nice day :)");
                     System.out.println("----------------------------------");
+                    saveTasks(list);
                     scanner.close();
                     break;
                 } else if (input.equals(LIST)) {
                     System.out.println("----------------------------------");
                     for (int i = -0; i < list.size(); i++) {
                         String done = "[" + list.get(i).getDone() + "] ";
-                        System.out.println(i+1 + ". " + done + list.get(i).getDesc());
+                        System.out.println(i+1 + ". " + done + list.get(i).getDetails());
                     }
                     System.out.println("----------------------------------");
                 } else if (input.equals(HELP)) {
@@ -61,12 +68,14 @@ public class Joseph {
                 } else if (input.startsWith(MARK)) {
                     int num = Integer.parseInt(input.substring(5).trim());
                     list.get(num-1).setDone();
-                    System.out.println("Great, I've marked " + list.get(num-1).getDesc() +
+                    saveTasks(list);
+                    System.out.println("Great, I've marked " + list.get(num-1).getDetails() +
                             " as done!");
                 } else if (input.startsWith(UNMARK)) {
                     int num = Integer.parseInt(input.substring(7).trim());
                     list.get(num-1).unDone();
-                    System.out.println("Okay, I've unmarked " + list.get(num-1).getDesc() +
+                    saveTasks(list);
+                    System.out.println("Okay, I've unmarked " + list.get(num-1).getDetails() +
                             " as not done!");
                 } else if (input.startsWith(TODO)) {
                     input = input.substring(5).trim();
@@ -75,12 +84,13 @@ public class Joseph {
                     }
                     ToDo todo = new ToDo(input);
                     list.add(todo);
+                    saveTasks(list);
                     System.out.println("----------------------------------");
                     System.out.println("I've added the todo: " + input);
                     System.out.println("----------------------------------");
                 } else if (input.startsWith(DEADLINE)) {
                     input = input.substring(9).trim();
-                    String[] details = input.split("/");
+                    String[] details = input.split(" /");
                     if (details.length < 2) {
                         throw new InsufficientDetailsException("You gotta provide more details!");
                     }
@@ -88,12 +98,13 @@ public class Joseph {
                     String due = details[1];
                     Deadline deadline = new Deadline(task, due);
                     list.add(deadline);
+                    saveTasks(list);
                     System.out.println("----------------------------------");
                     System.out.println("I've added the deadline: " + input);
                     System.out.println("----------------------------------");
                 } else if (input.startsWith(EVENT)) {
                     input = input.substring(6).trim();
-                    String[] details = input.split("/");
+                    String[] details = input.split(" /");
                     if (details.length < 3) {
                         throw new InsufficientDetailsException("You gotta provide more details!");
                     }
@@ -102,19 +113,106 @@ public class Joseph {
                     String end = details[2];
                     JEvent event = new JEvent(task, start, end);
                     list.add(event);
+                    saveTasks(list);
                     System.out.println("----------------------------------");
                     System.out.println("I've added the event: " + input);
                     System.out.println("----------------------------------");
                 } else if (input.startsWith(DELETE)) {
                     int num = Integer.parseInt(input.substring(7).trim());
-                    System.out.println("Alright, I've deleted " + list.get(num-1).getDesc());
+                    System.out.println("Alright, I've deleted " + list.get(num-1).getDetails());
                     list.remove(num -1);
+                    saveTasks(list);
                 } else {
                     throw new UnknownCommandException("That is not a recognised command!");
                 }
             } catch (UnknownCommandException | InsufficientDetailsException e) {
                 System.out.println(e.getMessage());
+            } catch (IOException e) {
+                System.out.println("We couldn't load the tasks!");
             }
         }
+    }
+
+    private static String taskToString(Task task) {
+        String taskType = "";
+        String status = task.getDone().equals("X") ? "1" : "0";
+        String desc = task.getDesc();
+
+        if (task instanceof ToDo) {
+            taskType = "T";
+        } else if (task instanceof Deadline) {
+            taskType = "D";
+            desc += " /" + ((Deadline) task).getDue();
+        } else if (task instanceof JEvent) {
+            taskType = "E";
+            desc += " /" + ((JEvent) task).getStart() + " /" + ((JEvent) task).getEnd();
+        }
+
+        return taskType + " | " + status + " | " + desc;
+    }
+
+
+    // used ChatGPT for saveTasks and loadTasks with following questions
+    // how to write/read from a file
+    // differences between FileWriter/Reader and their Buffered versions
+    public static void saveTasks(ArrayList<Task> list) throws IOException {
+        File file = new File("./data/joseph.txt");
+        file.getParentFile().mkdirs();
+
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+        for (Task task : list) {
+            writer.write(taskToString(task));
+            writer.newLine();
+        }
+        writer.close();
+    }
+
+    public static ArrayList<Task> loadTasks() {
+        ArrayList<Task> list = new ArrayList<>();
+        File file = new File("./data/joseph.txt");
+
+        if (!file.exists()) {
+            System.out.println("No existing task file found. We'll create one from scratch!");
+            return list;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                String taskType = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String desc = parts[2];
+
+                switch (taskType) {
+                    case "T":
+                        ToDo todo = new ToDo(desc);
+                        if (isDone) {
+                            todo.setDone();
+                        }
+                        list.add(todo);
+                        break;
+                    case "D":
+                        String[] deadlineDesc = desc.split(" /");
+                        Deadline deadline = new Deadline(deadlineDesc[0], deadlineDesc[1]);
+                        if (isDone) {
+                            deadline.setDone();
+                        }
+                        list.add(deadline);
+                        break;
+                    case "E":
+                        String[] eventDesc = desc.split(" /");
+                        JEvent event = new JEvent(eventDesc[0], eventDesc[1], eventDesc[2]);
+                        if (isDone) {
+                            event.setDone();
+                        }
+                        list.add(event);
+                        break;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("We couldn't load the tasks!");
+        }
+        return list;
     }
 }

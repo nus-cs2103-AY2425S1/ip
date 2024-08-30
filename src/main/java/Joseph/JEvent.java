@@ -18,7 +18,7 @@ public class JEvent extends Task {
     }
 
     @Override
-    public String getDesc() {
-        return super.getDesc() + "start: " + this.start + "end: "  + this.end;
+    public String getDetails() {
+        return super.getDesc() + " start: " + this.start + " end: "  + this.end;
     }
 }

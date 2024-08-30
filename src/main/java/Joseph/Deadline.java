@@ -13,7 +13,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String getDesc() {
-        return super.getDesc() + "due: " + this.due;
+    public String getDetails() {
+        return super.getDesc() + " due: " + this.due;
     }
 }

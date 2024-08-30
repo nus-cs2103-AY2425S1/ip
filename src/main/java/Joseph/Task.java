@@ -13,6 +13,9 @@ public abstract class Task {
     public String getDesc() {
         return this.desc;
     }
+    public String getDetails() {
+        return this.desc;
+    }
     public void setDone() {
         this.isDone = true;
     }
