@@ -1,7 +1,13 @@
 package yapper.app;
 
+import yapper.exceptions.EmptyDescException;
 import yapper.exceptions.YapperException;
 import yapper.exceptions.YapperFormatException;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+import javafx.application.Platform;
 
 /**
  * The main class for the Yapper chatbot that stores ToDos, Deadlines, and Events in a taskLit
@@ -26,7 +32,7 @@ public class Yapper {
     }
 
     /**
-     * Generates a response for the user's chat message.
+     * Generates a response for the user's chat message based on the command given.
      */
     public String getResponse(String input) {
         try {
@@ -34,7 +40,14 @@ public class Yapper {
             String command = parsedLine[0];
 
             if (command.equals("bye")) {
-                return Ui.wrapText("Bye bye! :)");
+                String response = Ui.wrapText("Bye bye! :)");
+                Timeline timeline = new Timeline(new KeyFrame(
+                        Duration.seconds(1),
+                        event -> Platform.exit()
+                ));
+                timeline.setCycleCount(1);
+                timeline.play();
+                return response;
             } else if (command.equals("hi") || command.equals("hello")) {
                 return Ui.wrapText("Hello! :)");
             } else if (command.equals("list")) {
@@ -52,59 +65,41 @@ public class Yapper {
                 String taskNumber = parsedLine[1];
                 return taskList.deleteTask(taskNumber);
             } else if (command.equals("todo")) {
-                String desc = StringJoiner.join(parsedLine, 1, parsedLine.length, YapperConcern.DESC);
-                Task task = new ToDo(desc);
-                return taskList.addTask(task);
+                try {
+                    String desc = input.split("todo")[1].trim();
+                    return taskList.addTask(new ToDo(desc));
+                } catch (IndexOutOfBoundsException e) {
+                    throw new YapperFormatException("(Format: todo [DESC])");
+                }
             } else if (command.equals("deadline")) {
                 try {
-                    int byIndex = -1;
-                    for (int i = 0; i < parsedLine.length; i++) {
-                        if (parsedLine[i].equals("/by")) {
-                            byIndex = i;
-                        }
-                    }
-                    if (byIndex == -1) {
-                        throw new YapperFormatException("(Format: deadline [DESC] /by [DEADLINE_BY])");
-                    }
-                    String desc = StringJoiner.join(parsedLine, 1, byIndex, YapperConcern.DESC);
-                    String deadline = StringJoiner.join(parsedLine, byIndex + 1, parsedLine.length,
-                            YapperConcern.DEADLINE_BY);
-                    Task task = new Deadline(desc, deadline);
-                    taskList.addTask(task);
-                } catch (YapperException e) {
-                    Ui.errorCaught(e.getMessage());
+                    String[] deadline = input.split("/by");
+                    String[] desc = deadline[0].split(" ");
+                    return taskList.addTask(new Deadline(desc[1].trim(), deadline[1].trim()));
+                } catch (IndexOutOfBoundsException e) {
+                    throw new YapperFormatException("(Format: deadline [DESC] /by [DEADLINE_BY])");
                 }
             } else if (command.equals("event")) {
                 try {
-                    int fromIndex = -1;
-                    int toIndex = -1;
-                    for (int i = 0; i < parsedLine.length; i++) {
-                        if (parsedLine[i].equals("/from")) {
-                            fromIndex = i;
-                        } else if (parsedLine[i].equals("/to")) {
-                            toIndex = i;
-                        }
-                    }
-                    if (fromIndex == -1 || toIndex == -1) {
-                        throw new YapperFormatException("(Format: event [DESC] /from [FROM] /to [TO])");
-                    }
-                    String desc = StringJoiner.join(parsedLine, 1, fromIndex, YapperConcern.DESC);
-                    String from = StringJoiner.join(parsedLine, fromIndex + 1, toIndex, YapperConcern.FROM);
-                    String to = StringJoiner.join(parsedLine, toIndex + 1, parsedLine.length, YapperConcern.TO);
-                    Task task = new Event(desc, from, to);
-                    taskList.addTask(task);
-                } catch (YapperException e) {
-                    Ui.errorCaught(e.getMessage());
+                    String[] toDate = input.split("/to");
+                    String[] fromDate = toDate[0].split("/from");
+                    String[] desc = fromDate[0].split(" ");
+                    return taskList.addTask(new Event(desc[1].trim(), fromDate[1].trim(), toDate[1].trim()));
+                } catch (IndexOutOfBoundsException e) {
+                    throw new YapperFormatException("(Format: event [DESC] /from [FROM] /to [TO])");
                 }
             } else if (command.equals("find")) {
-                String keyword = StringJoiner.join(parsedLine, 1, parsedLine.length, YapperConcern.KEYWORD);
-                return taskList.findTasks(keyword);
+                try {
+                    String keyword = input.split("find")[1].trim();
+                    return taskList.findTasks(keyword);
+                } catch (IndexOutOfBoundsException e) {
+                    throw new EmptyDescException("(Format: event find [KEYWORD])");
+                }
             } else {
                 throw new YapperException("Sorry! I don't know what you said. :(");
             }
         } catch (YapperException e) {
             return Ui.errorCaught(e.getMessage());
         }
-        return "";
     }
 }

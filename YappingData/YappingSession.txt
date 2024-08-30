@@ -1,9 +1,8 @@
 | T |   | bye
 | T |   | hi
-| E |   | here | h       -----       y
+| E |   | here | h ----- y
 | D | X | return book | Dec 2 2019
 | D | X | return book | Dec 2 2019
-| D |   | return book | Dec 2 2019
 | D |   | return book | Dec 2 2019
 | D |   | return book | Dec 2 2019
 | D |   | that | May 2 2002
@@ -13,9 +12,23 @@
 | D |   | return book | Dec 2 2019
 | D | X | p | May 5 1995
 | T |   | this
-| E |   | y | x       -----       z
+| E |   | y | x ----- z
 | T |   | timeskip
 | D |   | this | 06: 00 pm
 | D |   | this | 06: 00 pm
 | T | X | this
 | T |   | eat
+| D |   | t | 6
+| D |   | s | 7
+| E |   | hi | this ----- that
+| D |   | thing | fri
+| T |   | this
+| T |   | this thing
+| D |   | from | now
+| D |   | from | oefd j j j j nj
+| D |   | this | Feb 2 2002
+| E |   | g | now ----- then and later
+| E |   | this | maybe tomorrow or sometime later ----- years later after graduation
+| T |   | 1600
+| D |   | this | 11:59 pm
+| D |   | this | Saturday 2359

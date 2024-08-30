@@ -78,17 +78,17 @@ public class Storage {
                 Task task = null;
                 switch (taskType) {
                 case "T":
-                    task = new ToDo(taskDesc);
+                    task = new ToDo(taskDesc.trim());
                     break;
                 case "D":
-                    task = new Deadline(taskDesc, taskInfo[4].trim());
+                    task = new Deadline(taskDesc.trim(), taskInfo[4].trim());
                     break;
                 case "E":
                     String[] timeRange = taskInfo[4].trim().split("-----");
                     if (timeRange.length != 2) {
                         throw new YapperFileFormatException("Invalid event range detected");
                     }
-                    task = new Event(taskDesc, timeRange[0], timeRange[1]);
+                    task = new Event(taskDesc.trim(), timeRange[0].trim(), timeRange[1].trim());
                     break;
                 default:
                     throw new YapperFileFormatException("yapper.main.Task type not recognised: " + taskType);

@@ -1,6 +1,6 @@
 package yapper.app;
 
-import java.util.Scanner;
+import java.util.Random;
 
 import yapper.exceptions.YapperException;
 
@@ -9,10 +9,21 @@ import yapper.exceptions.YapperException;
  */
 public class Parser {
 
+    private static final String[] NO_RESPONSE = {
+        "Huh?",
+        "What?",
+        "I didn't catch that.",
+        "Speak up please.",
+        "Uh?",
+        "You there?",
+        "..."
+    };
+    private Random random;
     /**
      * Constructs a Parser that reads from the text box.
      */
     public Parser() {
+        this.random = new Random();
     }
 
     /**
@@ -25,7 +36,7 @@ public class Parser {
      */
     public String[] parseLine(String input) throws YapperException {
         if (input.isEmpty()) {
-            throw new YapperException("Huh?");
+            throw new YapperException(NO_RESPONSE[random.nextInt(NO_RESPONSE.length)]);
         }
         return input.split("\\s+");
     }

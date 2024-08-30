@@ -22,9 +22,12 @@ public class MainWindow extends AnchorPane {
 
     private Yapper yapper;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/you.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/icon.png"));
 
+    /**
+     * Initialises the program to run
+     */
     @FXML
     public void initialize() {
         displayIntro();
