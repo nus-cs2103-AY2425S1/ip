@@ -26,6 +26,8 @@ public class Parser {
                 return new AddCommand(fullCommand);
             case "event":
                 return new AddCommand(fullCommand);
+            case "find":
+                return new FindCommand(words[1]);
             default:
                 throw new KobeException("I'm sorry, but I don't know what that means :-(");
         }
