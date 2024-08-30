@@ -9,7 +9,14 @@ public class Event extends Task{
         this.to = to;
     }
 
+    @Override
     public String toString() {
         return "[E]" + super.toString() + String.format("(from: %s to: %s)", this.from, this.to);
+    }
+
+    @Override
+    public String toFileString() {
+        int markedInt = this.isMarked() ? 1 : 0;
+        return String.format("E | %d | %s | %s", markedInt, this.from, this.to);
     }
 }
