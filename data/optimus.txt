@@ -1,0 +1,5 @@
+T | 1 | borrow book
+D | 0 | return book | Sunday
+E | 0 | project meeting | Mon 2pm | 4pm
+D | 1 | return book | June 6th
+E | 0 | project sitting | Aug 6th 2pm | 4pm
