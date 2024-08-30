@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Wolfie wolfie = new Wolfie("data/tasks.txt");
+    private final Wolfie wolfie = new Wolfie("data/tasks.txt");
 
     @Override
     public void start(Stage stage) {
