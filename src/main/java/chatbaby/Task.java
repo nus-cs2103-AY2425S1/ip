@@ -1,31 +1,41 @@
 package chatbaby;
 
-import chatbaby.Command;
-import chatbaby.Storage;
-import chatbaby.Task;
-import chatbaby.TaskType;
-import chatbaby.TaskList;
-import chatbaby.Ui;
-import chatbaby.Parser;
-import chatbaby.ChatBabyException;
-import chatbaby.Deadline;
-import chatbaby.Event;
-import chatbaby.ToDo;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a name and completion status.
+ * Subclasses define specific types of tasks (e.g., ToDo, Deadline, Event).
+ */
 public abstract class Task {
     public String name;
     public boolean isDone;
 
+    /**
+     * Constructs a Task with the specified name. The task is initially marked as not done.
+     *
+     * @param name The name of the task.
+     */
     public Task(String name) {
-        this.name =name;
+        this.name = name;
         this.isDone = false;
     }
 
+    /**
+     * Converts the task to a string format suitable for saving to a file.
+     *
+     * @return A string representation of the task in file format.
+     */
     public abstract String toFileText();
 
+    /**
+     * Creates a Task object from a string formatted for file storage.
+     *
+     * @param fileFormat The string representation of the task in file format.
+     * @return The Task object corresponding to the string.
+     * @throws Exception If the task type is invalid or if parsing fails.
+     */
     public static Task fromFileText(String fileFormat) throws Exception {
         String[] text = fileFormat.split(" \\| ");
         String taskType = text[0];
@@ -54,14 +64,26 @@ public abstract class Task {
         return task;
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         isDone = true;
     }
 
+    /**
+     * Marks the task as not done.
+     */
     public void unMarkAsDone() {
         isDone = false;
     }
 
+    /**
+     * Checks if the task is on a specific date.
+     *
+     * @param date The date to check.
+     * @return True if the task is on the specified date, otherwise false.
+     */
     public boolean isOnDate(LocalDate date) {
         if (this instanceof Deadline) {
             Deadline deadlineTask = (Deadline) this;
@@ -77,6 +99,11 @@ public abstract class Task {
         return false;
     }
 
+    /**
+     * Returns a string representation of the task for display.
+     *
+     * @return A string indicating the task's completion status and name.
+     */
     @Override
     public String toString() {
         return isDone ? "[X] " + name : "[ ] " + name;

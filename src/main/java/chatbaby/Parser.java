@@ -1,25 +1,18 @@
 package chatbaby;
 
-import chatbaby.Command;
-import chatbaby.Storage;
-import chatbaby.Task;
-import chatbaby.TaskType;
-import chatbaby.TaskList;
-import chatbaby.Ui;
-import chatbaby.Parser;
-import chatbaby.ChatBabyException;
-import chatbaby.Deadline;
-import chatbaby.Event;
-import chatbaby.ToDo;
-import chatbaby.AddCommand;
-import chatbaby.DeleteCommand;
-import chatbaby.ExitCommand;
-import chatbaby.ListCommand;
-import chatbaby.MarkCommand;
-import chatbaby.UnmarkCommand;
-import chatbaby.ListOnDateCommand;
-
+/**
+ * Parses user input into commands that the ChatBaby application can execute.
+ * This class interprets the command string and returns the corresponding Command object.
+ */
 public class Parser {
+
+    /**
+     * Parses the given command string into a Command object.
+     *
+     * @param curCommand The command string input by the user.
+     * @return A Command object corresponding to the user input.
+     * @throws ChatBabyException If the command is not recognized or cannot be parsed.
+     */
     public static Command parse(String curCommand) throws ChatBabyException {
         String[] parts = curCommand.split(" ", 2);
         String commandWord = parts[0];

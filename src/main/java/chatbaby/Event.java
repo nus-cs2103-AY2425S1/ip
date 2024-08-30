@@ -1,25 +1,23 @@
 package chatbaby;
 
-import chatbaby.Command;
-import chatbaby.Storage;
-import chatbaby.Task;
-import chatbaby.TaskType;
-import chatbaby.TaskList;
-import chatbaby.Ui;
-import chatbaby.Parser;
-import chatbaby.ChatBabyException;
-import chatbaby.Deadline;
-import chatbaby.Event;
-import chatbaby.ToDo;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
-public class Event extends Task{
+/**
+ * Represents an event in the ChatBaby application.
+ * Extends the Task class to include details about the event's duration.
+ */
+public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
+    /**
+     * Constructs an Event with the specified name, start, and end times.
+     *
+     * @param name The name of the event.
+     * @param from The start time of the event in "yyyy-MM-dd HH:mm" format.
+     * @param to The end time of the event in "yyyy-MM-dd HH:mm" format.
+     */
     public Event(String name, String from, String to) {
         super(name);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -27,16 +25,33 @@ public class Event extends Task{
         this.to = LocalDateTime.parse(to, formatter);
     }
 
+    /**
+     * Constructs an Event with the specified name, start, and end times.
+     *
+     * @param name The name of the event.
+     * @param from The start time of the event as a LocalDateTime object.
+     * @param to The end time of the event as a LocalDateTime object.
+     */
     public Event(String name, LocalDateTime from, LocalDateTime to) {
         super(name);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Gets the end time of the event.
+     *
+     * @return The end time of the event as a LocalDateTime object.
+     */
     public LocalDateTime getTo() {
         return to;
     }
 
+    /**
+     * Converts the event to a string format suitable for saving to a file.
+     *
+     * @return A string representing the event in file format.
+     */
     @Override
     public String toFileText() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
@@ -44,6 +59,11 @@ public class Event extends Task{
                 + from.format(formatter) + " | " + to.format(formatter);
     }
 
+    /**
+     * Converts the event to a string format suitable for displaying to the user.
+     *
+     * @return A string representing the event in user-friendly format.
+     */
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
