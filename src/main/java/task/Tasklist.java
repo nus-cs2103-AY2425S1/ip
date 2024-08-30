@@ -23,14 +23,20 @@ public class Tasklist {
         return retString;
     }
 
+    /** 
+     * Returns a string of all the tasks matching regex
+     * @return String
+     */
     public String getMatchRegex(String s) {
         String retString = "";
         Pattern pattern = Pattern.compile(s);
+        int counter = 1;
 
         for (int i = 0; i < taskList.size(); i++) {
             Matcher matcher = pattern.matcher(taskList.get(i).toString());
             if (matcher.find()) {
-                retString += (i + 1) + ". " + taskList.get(i) + "\n";
+                retString += counter + ". " + taskList.get(i) + "\n";
+                counter++;
             }
         }
         return retString;
