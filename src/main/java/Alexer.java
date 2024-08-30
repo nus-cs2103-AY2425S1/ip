@@ -23,7 +23,7 @@ public class Alexer {
         System.out.println("Sure thing! Here is your task list:\n");
 
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.format("%d: %s\n", i + 1, tasks.get(i));
+            System.out.format("\t%d: %s\n", i + 1, tasks.get(i));
         }
 
         System.out.println(BREAK);
