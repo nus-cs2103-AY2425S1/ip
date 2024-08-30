@@ -23,4 +23,34 @@ public class Ui {
         System.out.println(byeMsg);
     }
 
+    public void invalidFormat(TaskType taskType) {
+        if (taskType == TaskType.DEADLINE) {
+            System.out.println("invalid format, require /by <date-time>");
+            return;
+        }
+        if (taskType == TaskType.EVENT) {
+            System.out.println("    Invalid Format man. You need a /start and a /end");
+            return;
+        }
+    }
+
+    public void markedDone(Task task) {
+        System.out.println("    Yo I've marked this thingy as done");
+        System.out.println("    " + task.toString());
+
+    }
+
+    public void unmarkedDone(Task task) {
+        System.out.println("    Aights now it's unmarked again");
+        System.out.println("    " + task.toString());
+
+    }
+
+    public void delete (Task task, int size) {
+        System.out.println("    Alright bro I deleted that for you");
+        System.out.println("    deleted: " + task.toString());
+        System.out.println("    You now have " + size + " tasks");
+    }
+
+
 }

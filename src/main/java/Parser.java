@@ -47,14 +47,14 @@ public class Parser {
             }
         } else if (inputArray[0].equals("mark") && inputArray[1].matches("\\d+")) {
             int index = Integer.parseInt(inputArray[1]) - 1;
-            System.out.println("    Yo I've marked this thingy as done");
-            tasks.getTask(index).markDone();
-            System.out.println("    " + tasks.getTask(index).toString());
+            Task temp = tasks.getTask(index);
+            temp.markDone();
+            ui.markedDone(temp);
         } else if (inputArray[0].equals("unmark") && inputArray[1].matches("\\d+")) {
             int index = Integer.parseInt(inputArray[1]) - 1;
-            System.out.println("    Aights now it's unmarked again");
-            tasks.getTask(index).unmarkDone();
-            System.out.println("    " + tasks.getTask(index).toString());
+            Task temp = tasks.getTask(index);
+            temp.unmarkDone();
+            ui.unmarkedDone(temp);
         } else if (command.equals("delete")) {
             if (inputArray.length < 2) {
                 throw new IllegalArgumentException ("Please provide the index of the task to delete");
@@ -63,11 +63,8 @@ public class Parser {
                 throw new IllegalArgumentException("Please provide a valid index");
             }
             int index = Integer.parseInt(inputArray[1]) - 1;
-            String temp = tasks.getTask(index).toString();
             tasks.remove(index);
-            System.out.println("    Alright bro I deleted that for you");
-            System.out.println("    deleted: " + temp);
-            System.out.println("    You now have " + tasks.size() + " tasks");
+            ui.delete(tasks.getTask(index), tasks.size());
         }else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
 
             Task t;
@@ -81,7 +78,7 @@ public class Parser {
             } else if (inputArray[0].equals("deadline")) {
                 String[] split = fullCommand.split("/by");
                 if (split.length < 2) {
-                    System.out.println("invalid format, require /by <date-time>");
+                    ui.invalidFormat(TaskType.DEADLINE);
                     return;
                 }
                 String bef = split[0].substring(9);
@@ -92,12 +89,12 @@ public class Parser {
             } else {
                 String[] split1 = fullCommand.split("/start");
                 if (split1.length < 2) {
-                    System.out.println("    Invalid Format man. You need a /start and a /end");
+
                     return;
                 }
                 String[] split2 = split1[1].split("/end");
                 if (split1.length < 2 || split2.length < 2) {
-                    System.out.println("    Invalid Format man. You need a /start and a /end");
+                    ui.invalidFormat(TaskType.EVENT);
                     return;
                 }
                 String start = split2[0];
