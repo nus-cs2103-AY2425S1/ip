@@ -1,4 +1,4 @@
-package stringconstants;
+package yappingbot.stringconstants;
 
 public final class ReplyTextMessages {
     // Text strings

@@ -1,5 +1,5 @@
-package exceptions;
-import stringconstants.ReplyTextMessages;
+package yappingbot.exceptions;
+import yappingbot.stringconstants.ReplyTextMessages;
 
 public class YappingBotIncorrectCommandException extends YappingBotException {
     public YappingBotIncorrectCommandException (String UsageMessage, String userInput) {

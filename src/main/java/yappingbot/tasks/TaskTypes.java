@@ -1,4 +1,4 @@
-package tasks;
+package yappingbot.tasks;
 
 public enum TaskTypes {
     DEADLINE,

@@ -1,22 +1,25 @@
-package ui;
+package yappingbot.ui;
 
-import exceptions.YappingBotException;
+import yappingbot.exceptions.YappingBotException;
 
 public class Ui {
+    private static final String PREFIX = "|  ";
+    private static final String PREFIX_EMPTY = "|";
     private static String quoteSinglelineText(String line) {
         if (line == null || line.trim().isEmpty()) {
-            return "\n |";
+            return PREFIX_EMPTY + "\n";
         } else {
-            return String.format("\n |  %s\n", line);
+            return PREFIX + line.replaceAll("\n","") + "\n";
         }
     }
     public static void quoteSinglelineText(String line, StringBuilder sb) {
         if (line.trim().isEmpty()) {
-            sb.append("\n |");
+            sb.append(PREFIX_EMPTY);
         } else {
-            sb.append("\n |  ");
-            sb.append(line);
+            sb.append(PREFIX);
+            sb.append(line.replaceAll("\n", ""));
         }
+        sb.append("\n");
     }
     private static String quoteMultilineText(String text) {
         // annotates text with pipe to denote speech from bot
@@ -28,7 +31,6 @@ public class Ui {
         for (String l : lines) {
             quoteSinglelineText(l, sb);
         }
-        sb.append("\n"); // pad the end with another newline
         return sb.toString();
     }
 
@@ -36,14 +38,15 @@ public class Ui {
         printError(e.getErrorMessage());
     }
     public static void printError(String msg) {
-        System.out.println(Ui.quoteMultilineText(msg));
+        System.out.print(Ui.quoteMultilineText(msg));
     }
 
     public static void print(String msg) {
-        System.out.println(Ui.quoteMultilineText(msg));
+        System.out.print(Ui.quoteMultilineText(msg));
     }
     public static void println(String msg) {
-        System.out.println(Ui.quoteSinglelineText(msg));
+        System.out.print(Ui.quoteSinglelineText(msg));
     }
 
 }
+

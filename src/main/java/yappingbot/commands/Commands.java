@@ -1,11 +1,11 @@
-package commands;
+package yappingbot.commands;
 
-import exceptions.*;
-import stringconstants.ReplyTextMessages;
-import tasks.*;
+import yappingbot.exceptions.*;
+import yappingbot.stringconstants.ReplyTextMessages;
+import yappingbot.tasks.*;
 
-import ui.MultilineStringBuilder;
-import ui.Ui;
+import yappingbot.ui.MultilineStringBuilder;
+import yappingbot.ui.Ui;
 
 public class Commands {
     public static void printUserList(TaskList userList) {
@@ -64,7 +64,7 @@ public class Commands {
         );
         msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
     }
-    public static Task addTaskToList(String[] userInputSpliced, TaskTypes taskTypes, TaskList userList) throws YappingBotIncorrectCommandException {
+    public static Task createNewTask(String[] userInputSpliced, TaskTypes taskTypes, TaskList userList) throws YappingBotIncorrectCommandException {
         Task newTask;
         String taskName = null;
         String command = null;

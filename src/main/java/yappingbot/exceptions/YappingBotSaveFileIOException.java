@@ -1,6 +1,6 @@
-package exceptions;
+package yappingbot.exceptions;
 
-import static stringconstants.ReplyTextMessages.SAVEFILE_IO_EXCEPTION_1s;
+import static yappingbot.stringconstants.ReplyTextMessages.SAVEFILE_IO_EXCEPTION_1s;
 
 public class YappingBotSaveFileIOException extends YappingBotException {
     public YappingBotSaveFileIOException(String s) {
