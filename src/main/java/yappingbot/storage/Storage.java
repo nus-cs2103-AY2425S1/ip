@@ -11,13 +11,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage class to keep track, load, and save data to disk.
+ */
 public class Storage {
     private final String savefilePath;
 
+    /**
+     * Creates a Storage class.
+     *
+     * @param savefilePath the absolute or relative path this Storage object will interface the disk with.
+     */
     public Storage(String savefilePath) {
         this.savefilePath = savefilePath;
     }
 
+    /**
+     * Loads any file pointed by the savefile path, line by line, into an ArrayList of Strings.
+     *
+     * @return ArrayList of Strings of each line retrieved from the file.
+     * @throws YappingBotSaveFileNotFoundException Exception if file is missing or not accessible.
+     */
     public ArrayList<String> loadListFromFile() throws YappingBotSaveFileNotFoundException {
         ArrayList<String> taskListRaw = new ArrayList<>();
         File saveFile;
@@ -33,6 +47,14 @@ public class Storage {
         }
         return taskListRaw;
     }
+
+    /**
+     * Saves ArrayList of Strings as a file pointed by the savefile path, line by line.
+     * Overrides file if exits.
+     *
+     * @param userListRaw ArrayList of Strings to be saved.
+     * @throws YappingBotSaveFileIOException Exception if file is not accessible.
+     */
     public void saveListToFile(ArrayList<String> userListRaw) throws YappingBotSaveFileIOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(savefilePath))) {
             for (String t : userListRaw) {
