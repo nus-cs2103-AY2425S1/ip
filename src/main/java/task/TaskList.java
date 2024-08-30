@@ -121,4 +121,16 @@ public class TaskList {
             s.saveTask(t.toSave());
         }
     }
+
+    public void findTasks(String name) {
+        int i = 1;
+        for (Task t: this.tasks) {
+            if (t.getDescription().toLowerCase().contains(name.toLowerCase())) {
+                this.ui.sendMessage((i++) + ". " + t);
+            }
+        }
+        if (i == 0) {
+            this.ui.sendMessage("No items yet!");
+        }
+    }
 }

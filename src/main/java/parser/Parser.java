@@ -64,7 +64,7 @@ public class Parser {
         if (!message.matches("^todo.*")) {
             throw new BobException("Invalid format");
         }
-        String x = message.replaceFirst("todo", "").trim();
+        String x = message.replaceFirst("todo ", "");
         if (x.isEmpty()) {
             throw new BobException("OOPS!!! The description of a todo cannot be empty.");
         }
@@ -82,7 +82,7 @@ public class Parser {
         if (!message.matches("^deadline .* \\/by \\d{4}-\\d{2}-\\d{2}$")) {
             throw new BobException("Invalid format");
         }
-        String x = message.replaceFirst("deadline", "").trim();
+        String x = message.replaceFirst("deadline ", "");
         String[] parts = x.split(" /by ");
         if (parts.length != 2) {
             throw new BobException("OOPS!!! The description/start time of a deadline cannot be empty.");
@@ -101,11 +101,20 @@ public class Parser {
         if (!message.matches("^event .* \\/from \\d{4}-\\d{2}-\\d{2} \\/to \\d{4}-\\d{2}-\\d{2}$")) {
             throw new BobException("Invalid format");
         }
-        String x = message.replaceFirst("event", "").trim();
-        String[] parts = x.split(" /from | /to ");
+        String x = message.replaceFirst("event ", "");
+        String[] parts = x.split(" /from | /to");
         if (parts.length != 3) {
             throw new BobException("OOPS!!! The description/start time/end time of an event cannot be empty.");
         }
         t.addEvent(parts[0].trim(), parts[1].trim(), parts[2].trim());
+    }
+
+    public void findParser(String message, TaskList t) throws BobException {
+        String[] words = message.split(" ",2);
+        if (words.length < 2) {
+            throw new BobException("Text after find cannot be empty!");
+        }
+        String name = words[1];
+        t.findTasks(name);
     }
 }

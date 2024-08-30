@@ -84,6 +84,9 @@ public class Bob {
             case "event":
                 this.parser.addEventParser(message, this.tasks);
                 break;
+            case "find":
+                this.parser.findParser(message, this.tasks);
+                break;
             default:
                 throw new BobException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
