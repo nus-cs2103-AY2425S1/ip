@@ -41,6 +41,9 @@ public class Parser {
             return new MarkNotDoneCommand(extractTaskNumber(userInput));
         case "delete":
             return new DeleteCommand(extractTaskNumber(userInput));
+        case "find":
+            processedInput = extractInputDetails(userInput, "find");
+            return new FindCommand(processedInput[0]);
         case "bye":
             return new ExitCommand();
         default:
@@ -71,7 +74,7 @@ public class Parser {
 
     public String[] extractInputDetails(String userInput, String taskType) throws NetherException {
         String[] preprocessArray;
-        String[] resultArray = new String[]{};
+        String[] resultArray;
 
         switch (taskType) {
         case "todo":
@@ -106,8 +109,14 @@ public class Parser {
                 throw new NetherException(
                         "the description, start time, or end time of an event cannot be empty.");
             }
-
             resultArray = new String[]{eventParts[0], eventParts[1], eventParts[2]};
+            break;
+        case "find":
+            preprocessArray = userInput.split("(?i)find", 2);
+            if (preprocessArray.length < 2 || preprocessArray[1].trim().isEmpty()) {
+                throw new NetherException("please enter a keyword for me to search.");
+            }
+            resultArray = new String[]{preprocessArray[1].trim()};
             break;
         default:
             throw new NetherException("the command: '" + userInput + "' is not in our database");

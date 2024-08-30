@@ -1,6 +1,7 @@
 package nether;
 
 import nether.task.Task;
+import nether.task.TaskList;
 
 import java.util.Scanner;
 
@@ -74,5 +75,16 @@ public class Ui {
     public void printMarkMessage(Task taskToMark, String markMessage) {
         System.out.println(markMessage);
         System.out.println("  " + taskToMark.toString());
+    }
+
+    public void printMatchingTasks(TaskList matchingTasks) {
+        if (matchingTasks.getSize() > 0) {
+            System.out.println("Here are the tasks that match your search in your list:");
+            for (int i = 0; i < matchingTasks.getSize(); i++) {
+                System.out.println((i + 1) + "." + matchingTasks.getTask(i));
+            }
+        } else {
+            System.out.println("No matching tasks found in your list.");
+        }
     }
 }
