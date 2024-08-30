@@ -36,7 +36,11 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ScheduloException, IOException {
-        tasks.mark(index - 1);
+        try {
+            tasks.mark(this.index - 1);;
+        } catch (IndexOutOfBoundsException e) {
+            throw new ScheduloException("The task index provided is invalid.");
+        }
         storage.save(tasks);
     }
 }

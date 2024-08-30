@@ -35,13 +35,14 @@ public class Parser {
      * @throws ScheduloException If the command is invalid or the input is malformed.
      */
     public static Command parse(String fullCommand) throws ScheduloException {
-        String[] splitWords = fullCommand.split(" ", 2);
 
         CommandType commandType;
+        String[] splitWords;
 
         try {
+            splitWords = fullCommand.trim().split(" ", 2);
             commandType = CommandType.valueOf(splitWords[0].toUpperCase());
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             throw new InvalidCommandException();
         }
 
@@ -49,23 +50,90 @@ public class Parser {
         case LIST:
             return new ListCommand();
         case MARK:
-            return new MarkCommand(Integer.parseInt(splitWords[1]));
+            return parseMarkCommand(splitWords);
         case UNMARK:
-            return new UnmarkCommand(Integer.parseInt(splitWords[1]));
+            return parseUnmarkCommand(splitWords);
         case DELETE:
-            return new DeleteCommand(Integer.parseInt(splitWords[1]));
+            return parseDeleteCommand(splitWords); 
         case TODO:
+            if (splitWords.length < 2 || splitWords[1].trim().isEmpty()) {
+                throw new InvalidCommandException();
+            }
             return new AddCommand(new Todo(splitWords[1]));
         case DEADLINE:
+            if (splitWords.length < 2 || splitWords[1].trim().isEmpty()) {
+                throw new InvalidCommandException();
+            }
             return parseDeadlineCommand(splitWords[1]);
         case EVENT:
+            if (splitWords.length < 2 || splitWords[1].trim().isEmpty()) {
+                throw new InvalidCommandException();
+            }
             return parseEventCommand(splitWords[1]);
+        case FIND:
+            if (splitWords.length < 2 || splitWords[1].trim().isEmpty()) {
+                throw new InvalidCommandException();
+            }
+            return new FindCommand(splitWords[1]);
         case BYE:
             return new ExitCommand();
-        // Returns a FindCommand to search for tasks containing the specified word
-        case FIND:
-            return new FindCommand(splitWords[1]);
         default:
+            throw new InvalidCommandException();
+        }
+    }
+
+    /**
+     * Parses the details of a mark command and returns the corresponding Command object.
+     * @param splitWords
+     * @return
+     * @throws ScheduloException
+     */
+    private static Command parseMarkCommand(String[] splitWords) throws ScheduloException {
+        if (splitWords.length < 2 || splitWords[1].trim().isEmpty()) {
+            throw new InvalidCommandException();
+        }
+        try {
+            int index = Integer.parseInt(splitWords[1]);
+            return new MarkCommand(index);
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandException();
+        }
+    }
+
+    /**
+     * Parses the details of an unmark command and returns the corresponding Command object.
+     * @param splitWords
+     * @return
+     * @throws ScheduloException
+     */
+
+    private static Command parseUnmarkCommand(String[] splitWords) throws ScheduloException {
+        if (splitWords.length < 2 || splitWords[1].trim().isEmpty()) {
+            throw new InvalidCommandException();
+        }
+        try {
+            int index = Integer.parseInt(splitWords[1]);
+            return new UnmarkCommand(index);
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandException();
+        }
+    }
+
+    /**
+     * Parses the details of a delete command and returns the corresponding Command object.
+     * @param splitWords
+     * @return
+     * @throws ScheduloException
+     */
+
+    private static Command parseDeleteCommand(String[] splitWords) throws ScheduloException {
+        if (splitWords.length < 2 || splitWords[1].trim().isEmpty()) {
+            throw new InvalidCommandException();
+        }
+        try {
+            int index = Integer.parseInt(splitWords[1]);
+            return new DeleteCommand(index);
+        } catch (NumberFormatException e) {
             throw new InvalidCommandException();
         }
     }
@@ -104,6 +172,8 @@ public class Parser {
             throw new ScheduloException("Invalid date format. Please use 'yyyy-MM-dd' for dates or 'yyyy-MM-dd HH:mm' for date and time.");
         }
     }
+    
+    
 
     /**
      * Parses the details of an event command and returns the corresponding Command object.
