@@ -54,9 +54,9 @@ public class Storage {
     }
 
     /**
-     * Loads taskList from memory file, before returning the created taskList
+     * Loads taskList from memory file, before returning the created taskList.
      *
-     * @return taskList created from memory file
+     * @return taskList created from memory file.
      */
     public TaskList load() {
         taskList = new TaskList();
