@@ -4,8 +4,14 @@ import java.util.Scanner;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
+/**
+ * Scans and processes the user's input.
+ * An <code>inputIndex</code> is the index of the corresponding task if the command is <i>mark, unmark, or delete</i>.
+ * An <code>inputTask</code> is the task required to be added via <i>todo, deadline, or event</i> commands.
+ *
+ * @author DennieDan.
+ */
 public class CommandScanner {
     private Scanner scanner;
     private String input;
@@ -31,7 +37,11 @@ public class CommandScanner {
         return this.input;
     }
 
-    public CommandType getRequest() throws NumberFormatException {
+    /**
+     * Gets the user's input and parses into the chatbot's valid type command.
+     * @return the corresponding command type in <code>CommandType enum</code>.
+     */
+    public CommandType getRequest() {
         this.input = this.scanner.nextLine().trim();
         String[] input_words = this.input.split(" ");
         if (input.equalsIgnoreCase("bye")) {
@@ -39,11 +49,11 @@ public class CommandScanner {
         } else if (input.equalsIgnoreCase("list")) {
             return CommandType.LIST;
         } else if (input_words[0].equalsIgnoreCase("mark")) {
-            return this.markIndex() ? CommandType.MARK : CommandType.INDEX_WRONG_FORMAT;
+            return this.generateIndex() ? CommandType.MARK : CommandType.INDEX_WRONG_FORMAT;
         } else if (input_words[0].equalsIgnoreCase("unmark")) {
-            return this.markIndex() ? CommandType.UNMARK : CommandType.INDEX_WRONG_FORMAT;
+            return this.generateIndex() ? CommandType.UNMARK : CommandType.INDEX_WRONG_FORMAT;
         } else if (input_words[0].equalsIgnoreCase("delete")) {
-            return this.markIndex() ? CommandType.DELETE : CommandType.INDEX_WRONG_FORMAT;
+            return this.generateIndex() ? CommandType.DELETE : CommandType.INDEX_WRONG_FORMAT;
         } else if (input_words[0].equalsIgnoreCase("todo")) {
             if (input_words.length <= 1) {
                 return CommandType.TODO_WRONG_FORMAT;
@@ -75,7 +85,11 @@ public class CommandScanner {
         }
     }
 
-    public boolean markIndex() {
+    /**
+     * Generates the required index and stores in the <code>inputIndex</code> attribute.
+     * @return <code>true</code> if the parsing process is success and <code>false</code> otherwise.
+     */
+    public boolean generateIndex() {
         String[] input_words = this.input.split(" ");
         try {
             this.inputIndex = Integer.parseInt(input_words[1]) - 1;
