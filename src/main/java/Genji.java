@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -37,15 +39,18 @@ public class Genji {
                         }
                     } else if (input.startsWith("D")) {
                         String name = input.substring(8, input.lastIndexOf(" |"));
-                        String from = input.substring(input.lastIndexOf(" |") + 3);
+                        LocalDateTime from = LocalDateTime.parse(input.substring(input.lastIndexOf(" |") + 3),
+                                DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
                         list.add(new Deadline(name, from));
                         if (input.substring(4).startsWith("1")) {
                             list.get(list.size() - 1).mark();
                         }
                     } else {
                         String name = input.substring(8, input.lastIndexOf(" |"));
-                        String from = input.substring(input.lastIndexOf(" |") + 3, input.lastIndexOf(" to"));
-                        String to = input.substring(input.lastIndexOf(" to") + 4);
+                        LocalDateTime from = LocalDateTime.parse(input.substring(input.lastIndexOf(" |") + 3,
+                                input.lastIndexOf(" to")), DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
+                        LocalDateTime to = LocalDateTime.parse(input.substring(input.lastIndexOf(" to") + 4),
+                                DateTimeFormatter.ofPattern("MMM d yyy HH:mm"));
                         list.add(new Event(name, from, to));
                         if (input.substring(4).startsWith("1")) {
                             list.get(list.size()- 1).mark();
@@ -150,7 +155,8 @@ public class Genji {
                 } else {
                     try {
                         String name = input.substring(9, input.lastIndexOf(" /"));
-                        String time = input.substring(input.lastIndexOf(" /") + 5);
+                        LocalDateTime time = LocalDateTime.parse(input.substring(input.lastIndexOf(" /") + 5),
+                                DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
                         Deadline ddl = new Deadline(name, time);
                         addList(ddl);
                         saveList();
@@ -167,8 +173,10 @@ public class Genji {
                 } else {
                     try {
                         String name = input.substring(6, input.lastIndexOf(" /from"));
-                        String from = input.substring(input.lastIndexOf(" /from") + 7, input.lastIndexOf(" /to"));
-                        String to = input.substring(input.lastIndexOf(" /to") + 5);
+                        LocalDateTime from = LocalDateTime.parse(input.substring(input.lastIndexOf(" /from") + 7,
+                                input.lastIndexOf(" /to")), DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
+                        LocalDateTime to = LocalDateTime.parse(input.substring(input.lastIndexOf(" /to") + 5),
+                                DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
                         Event evt = new Event(name, from, to);
                         addList(evt);
                         saveList();
