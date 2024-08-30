@@ -1,10 +1,14 @@
+package julie.misc;
+
+import julie.task.Task;
+
 import java.util.List;
 
 /**
- * A class that holds commonly used functions within the Chat Bot
+ * A class that holds the User Interaction functions of the Chat Bot.
  * @author Colin Hia Qingxuan
  */
-public class CommonFunctions {
+public class UI {
     /**
      * Public method that prints a string between two horizontal lines.
      * @param s The string to be wrapped in horizontal lines.
@@ -34,22 +38,7 @@ public class CommonFunctions {
      * @param <E> The generic type parameter.
      */
     public static <E> void addedPrompt(Task t, List<E> list) {
-        CommonFunctions.wrappedLinePrint(String.format("Nice! I've added it to the list!\n" +
+        UI.wrappedLinePrint(String.format("Nice! I've added it to the list!\n" +
                 "   %s\n %d tasks left!!" , t, list.size()));
     }
-
-    /**
-     * Public method that extracts the first word from a string and returns it in uppercase
-     * @param s the string to be extracted from
-     * @return the first word in the line
-     */
-    public static String getFirstWord(String s) {
-        int index = s.indexOf(' ');
-        if (index > -1) { // Check if there is more than one word.
-            return s.substring(0, index).trim(); // Extract first word.
-        } else {
-            return s; // Text is the first word itself.
-        }
-    }
-
 }

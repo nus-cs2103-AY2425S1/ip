@@ -1,3 +1,10 @@
+package julie.misc;
+
+import julie.task.Deadline;
+import julie.task.Event;
+import julie.task.Task;
+import julie.task.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
