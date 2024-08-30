@@ -8,30 +8,54 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Event extends Task{
-    protected String from_msg;
-    protected String to_msg;
+    // variable
+    protected String fromMsg;
+    protected String toMsg;
 
-    public Event(String description, String from_msg, String to_msg) {
+    /**
+     * Constructor for Event
+     * Used for new task created
+     *
+     * @param description Description of the command
+     * @param from_msg Postfix after /from before /to
+     * @param to_msg Postfix after /to
+     */
+    public Event(String description, String fromMsg, String toMsg) {
         super(description);
-        this.from_msg = from_msg;
-        this.to_msg = to_msg;
+        this.fromMsg = fromMsg;
+        this.toMsg = toMsg;
     }
 
-    public Event(String description, String from_msg, String to_msg, boolean done) {
+    /**
+     * Constructor for Event
+     * Used for data collected from data file
+     *
+     * @param description Description of the command
+     * @param from_msg Postfix after /from before /to
+     * @param to_msg Postfix after /to
+     * @param done Marked task
+     */
+    public Event(String description, String fromMsg, String toMsg, boolean done) {
         super(description, done);
-        this.from_msg = from_msg;
-        this.to_msg = to_msg;
+        this.fromMsg = fromMsg;
+        this.toMsg = toMsg;
     }
-  
+
+    /**
+     * Writes the date to the datafile
+     *
+     * @param dataFile Data file object
+     * @return empty string
+     */
     @Override
-    public String write_to_datafile(File dataFile) {
+    public String writeToDatafile(File dataFile) {
         try {
             if (dataFile.exists()) {
                 // boolean if true, then data will be written to the end of the file rather than the beginning.
                 FileWriter wr = new FileWriter(dataFile, true);
 
-                String builder = "E | "+ this.getDone1() + " | " + super.write_to_datafile(dataFile)
-                        + " | " + this.from_msg + "-" + this.to_msg + "\n";
+                String builder = "E | "+ this.getDone1() + " | " + super.writeToDatafile(dataFile)
+                        + " | " + this.fromMsg + "-" + this.fromMsg + "\n";
                 wr.write(builder);
 
                 //flushing & closing the writer
@@ -43,7 +67,13 @@ public class Event extends Task{
         }
         return "";
     }
-  
+
+    /**
+     * Handles the date and time of the by_msg
+     *
+     * @param by_msg Postfix after /by
+     * @return Formated string of the date and time
+     */
     private String handleByMsg(String by_msg) {
         String[] timing_msg = by_msg.split(" ");
 
@@ -71,8 +101,13 @@ public class Event extends Task{
         return string_date + " " + string_time;
     }
 
+    /**
+     * Used for an output message
+     *
+     * @return Output message
+     */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from_msg + " to: " + this.to_msg +")";
+        return "[E]" + super.toString() + " (from: " + this.fromMsg + " to: " + this.toMsg +")";
     }
 }

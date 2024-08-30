@@ -10,11 +10,24 @@ import java.util.Scanner; // Import the Scanner class
 import java.io.File;
 
 public class Storage {
+    // variable
     private String filePath;
+
+    /**
+     * Constructor for Storage
+     *
+     * @param filePath File directory for data file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Used to load all the data from the datafile
+     *
+     * @return Empty String
+     * @throws TuesdayException Throws when the program does not understand the data
+     */
     public String load() throws TuesdayException {
         File dataFile = new File(filePath);
         if (!dataFile.exists()) {
@@ -34,21 +47,20 @@ public class Storage {
                     userInputArr = line.split(" \\| ");
 
                     switch (userInputArr[0]) {
-                        case "T":
-                            ToDo taskItem = new ToDo(userInputArr[2], userInputArr[1].equals("1"));
-                            break;
-                        case "D":
-                            Deadline deadlineItem = new Deadline(userInputArr[2],
+                    case "T":
+                        ToDo taskItem = new ToDo(userInputArr[2], userInputArr[1].equals("1"));
+                        break;
+                    case "D":
+                        Deadline deadlineItem = new Deadline(userInputArr[2],
                                     userInputArr[3], userInputArr[1].equals("1"));
-                            break;
-                        case "E":
-                            //System.out.println("test "+ userInputArr[2]);
-                            String[] userInputArrEvent = userInputArr[3].split("-");
-                            Event eventItem = new Event(userInputArr[2],
+                        break;
+                    case "E":
+                        String[] userInputArrEvent = userInputArr[3].split("-");
+                        Event eventItem = new Event(userInputArr[2],
                                     userInputArrEvent[0], userInputArrEvent[1], userInputArr[1].equals("1"));
-                            break;
-                        default:
-                            break label;
+                        break;
+                    default:
+                        break label;
                     }
                 }
             } finally {
@@ -60,12 +72,21 @@ public class Storage {
         return "";
     }
 
-    public void save_to_datafile(Task taskItem) {
+    /**
+     * Saves the data into the data file
+     *
+     * @param taskItem Task added to data file
+     */
+
+    public void saveToDatafile(Task taskItem) {
         File dataFile = new File(filePath);
-        taskItem.write_to_datafile(dataFile);
+        taskItem.writeToDatafile(dataFile);
     }
 
-    public void create_new_datafile() {
+    /**
+     * Creates a new data file if one does not exist
+     */
+    public void createNewDatafile() {
         try {
             File dataFile = new File(filePath);
             dataFile.getParentFile().mkdirs(); // Make the directory
