@@ -2,7 +2,11 @@ package chatbot.impl.tasks;
 
 import chatbot.Task;
 
+import java.time.format.DateTimeFormatter;
+
 public abstract class AbstractTask implements Task {
+
+    protected static final DateTimeFormatter DATE_OUTPUT_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     protected final String description;
 

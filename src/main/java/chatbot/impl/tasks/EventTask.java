@@ -1,15 +1,25 @@
 package chatbot.impl.tasks;
 
+import chatbot.exceptions.InvalidMessageException;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class EventTask extends AbstractTask {
 
-    private final String startTime;
+    private final LocalDate startTime;
 
-    private final String endTime;
+    private final LocalDate endTime;
 
-    public EventTask(String description, String startTime, String endTime) {
+    public EventTask(String description, String startTime, String endTime) throws InvalidMessageException {
         super(description);
-        this.startTime = startTime;
-        this.endTime = endTime;
+
+        try {
+            this.startTime = LocalDate.parse(startTime);
+            this.endTime = LocalDate.parse(endTime);
+        } catch (DateTimeParseException e) {
+            throw new InvalidMessageException("Sorry, date should be in yyyy-mm-dd format. :(");
+        }
     }
 
     public static EventTask deserialize(String line) {
@@ -19,8 +29,13 @@ public class EventTask extends AbstractTask {
             throw new IllegalArgumentException("Invalid EventTask format");
         }
 
-        EventTask eventTask = new EventTask(parts[2], parts[3], parts[4]);
-        eventTask.setDone(parts[1].equals("1"));
+        EventTask eventTask = null;
+        try {
+            eventTask = new EventTask(parts[2], parts[3], parts[4]);
+            eventTask.setDone(parts[1].equals("1"));
+        } catch (InvalidMessageException e) {
+            e.printStackTrace();
+        }
 
         return eventTask;
     }
@@ -32,7 +47,10 @@ public class EventTask extends AbstractTask {
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), startTime, endTime);
+        return String.format("[E]%s (from: %s to: %s)",
+                super.toString(),
+                startTime.format(DATE_OUTPUT_FORMAT),
+                endTime.format(DATE_OUTPUT_FORMAT));
     }
 
 }
