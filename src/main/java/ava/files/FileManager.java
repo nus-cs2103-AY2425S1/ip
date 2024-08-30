@@ -66,6 +66,7 @@ public class FileManager {
         // TODO: implement reading from file
 
         // move file reader to an instance variable
+        // usebufferedReader
         try {
             FileReader reader = new FileReader(file);
             reader.read();
