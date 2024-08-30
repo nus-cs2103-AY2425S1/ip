@@ -4,8 +4,16 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Contains methods to parse user input and validate user input
+ */
 class Parser {
 
+    /**
+     * Validates the date that user inputs
+     * If not in dd-MM-yyyy format, will throw an exception
+     * @param date the date(in string format) that the user types in
+     */
     public static void validateDateFormat(String date) throws DukeException {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         try {
@@ -54,6 +62,12 @@ class Parser {
         return LocalDate.parse(dateToParse, formatter);
     }
 
+    /**
+     * Parses the user input and returns the command to be executed
+     * @param userInput User's input to the chatbot
+     * @return Command object to be executed i.e AddCommand or MarkCommand
+     * @throws DukeException if the input is not valid 
+     */
     public static Command parseCommand(String userInput) throws DukeException {
         checkForErrors(userInput);
 

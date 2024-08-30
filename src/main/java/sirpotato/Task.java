@@ -9,6 +9,10 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the status icon indicating whether a task is complete
+     * @return Status icon 
+     */
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); //return tick or X symbols
     }
