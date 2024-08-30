@@ -1,3 +1,10 @@
+package susan.command;
+
+import susan.task.*;
+import susan.ui.Storage;
+import susan.ui.SusanException;
+import susan.ui.Ui;
+
 import java.io.IOException;
 
 public class AddCommand extends Command {

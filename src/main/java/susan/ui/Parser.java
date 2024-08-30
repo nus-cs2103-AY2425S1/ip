@@ -1,3 +1,7 @@
+package susan.ui;
+
+import susan.command.*;
+
 public class Parser {
 
     public static Command parse(String fullCommand) throws SusanException {

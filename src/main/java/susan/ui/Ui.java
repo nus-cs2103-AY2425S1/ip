@@ -1,3 +1,8 @@
+package susan.ui;
+
+import susan.task.Task;
+import susan.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {

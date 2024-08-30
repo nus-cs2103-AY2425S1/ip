@@ -1,6 +1,9 @@
+package susan.ui;
+
+import susan.task.TaskList;
+
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 
 public class Storage {
     final String FILE_PATH = "../SusanToDoList.txt";
