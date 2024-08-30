@@ -1,10 +1,14 @@
 import java.io.IOException;
 import java.sql.Array;
+import java.sql.SQLOutput;
+import java.time.DateTimeException;
 import java.util.*;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import static java.lang.System.exit;
 import java.util.regex.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,6 +34,7 @@ public class Momo {
     static int count = 0;
 
     public static void main(String[] args) throws MomoException {
+
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Hello! I'm Momo\nWhat can I do for you?");
@@ -69,7 +74,7 @@ public class Momo {
                     }
 
                     printTaskAdded();
-                    count++;
+
                 }
 
             }
@@ -151,7 +156,7 @@ public class Momo {
                 try {
                     String desc = input.split(" ", 2)[1];
                     String task = desc.split("/", 2)[0];
-                    String by = desc.split("/", 2)[1];
+                    String by = desc.split("/by", 2)[1];
                     return Command.DEADLINE;
                 }
                 catch (Exception e) {
@@ -162,8 +167,8 @@ public class Momo {
                 try {
                     String desc = input.split(" ",2)[1];
                     String task =  desc.split("/",2)[0];
-                    String from = desc.split("/",3)[1];
-                    String to = desc.split("/",3)[2];
+                    String from = desc.split("/from")[1].split("/to ")[0];
+                    String to = desc.split("/to")[1];
                     return Command.EVENT;
                 }
                 catch (Exception e) {
@@ -224,18 +229,18 @@ public class Momo {
                 }
                 else if (Objects.equals(inputs[0], "D")) {
                     if (Objects.equals(inputs[1], "1")) {
-                        list.add(new Deadline(inputs[2], inputs[3], false));
+                        list.add(new Deadline(inputs[2], parseDate(inputs[3]), false));
                     }
                     else {
-                        list.add(new Deadline(inputs[2], inputs[3], true));
+                        list.add(new Deadline(inputs[2], parseDate(inputs[3]), true));
                     }
                 }
                 else if (Objects.equals(inputs[0], "E")) {
                     if (Objects.equals(inputs[1], "1")) {
-                        list.add(new Event(inputs[2], inputs[3], inputs[4], false));
+                        list.add(new Event(inputs[2], parseDate(inputs[3]), parseDate(inputs[4]), false));
                     }
                     else {
-                        list.add(new Event(inputs[2], inputs[3], inputs[4], true));
+                        list.add(new Event(inputs[2], parseDate(inputs[3]), parseDate(inputs[4]), true));
                     }
 
                 }
@@ -244,6 +249,7 @@ public class Momo {
                 }
             }
             count = list.size();
+            System.out.println(count);
             s.close();
 
         }
@@ -290,12 +296,15 @@ public class Momo {
     }
 
     public static void addToDo(String input) {
-        String task = input.split(" ",2)[1];
+        String task = input.split(" ",2)[1].trim();
         list.add(new Todo(task, false));
+
 
         String file2 = "data/momo.txt";
         try {
             writeToFile(file2, new Todo(task, false).toFileString());
+            count++;
+
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
@@ -303,13 +312,20 @@ public class Momo {
 
     public static void addDeadline(String input) {
         String desc = input.split(" ",2)[1];
-        String task =  desc.split("/",2)[0];
-        String by = desc.split("/",2)[1];
-        list.add(new Deadline(task, by, false));
+        String task =  desc.split("/",2)[0].trim();
+        String by = desc.split("/by",2)[1].trim();
+
+        try {
+            list.add(new Deadline(task, parseDate(by), false));
+        } catch (DateTimeException de) {
+            System.out.println("Please format your dates in yyyy-mm-dd with valid numbers: " + de.getMessage());
+            return;
+        }
 
         String file2 = "data/momo.txt";
         try {
-            writeToFile(file2, new Deadline(task, by, false).toFileString());
+            writeToFile(file2, new Deadline(task, parseDate(by), false).toFileString());
+            count++;
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
@@ -317,23 +333,38 @@ public class Momo {
 
     public static void addEvent(String input) {
         String desc = input.split(" ",2)[1];
-        String task =  desc.split("/",2)[0];
-        String from = desc.split("/",3)[1];
-        String to = desc.split("/",3)[2];
-        list.add(new Event(task, from, to, false));
+        String task =  desc.split("/",2)[0].trim();
+        String from = desc.split("/from")[1].split("/to")[0].trim();
+        String to = desc.split("/to")[1].trim();
+
+
+        try {
+            list.add(new Event(task, parseDate(from), parseDate(to), false));
+        } catch (DateTimeException de) {
+            System.out.println("Please format your dates in yyyy-mm-dd with valid numbers: " + de.getMessage());
+            return;
+        }
 
         String file2 = "data/momo.txt";
         try {
-            writeToFile(file2, new Event(task, from, to, false).toFileString());
+            writeToFile(file2, new Event(task, parseDate(from), parseDate(to), false).toFileString());
+            count++;
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
     }
     public static void printTaskAdded() {
-        System.out.println(horizontalLine);
-        System.out.println("Noted. I've added this task:\n " + list.get(count));
-        System.out.println(String.format("Now you have %d task(s) in the list", count + 1));
-        System.out.println(horizontalLine);
+        try {
+            System.out.println(horizontalLine);
+
+            System.out.println("Noted. I've added this task:\n " + list.get(count - 1));
+            System.out.println(String.format("Now you have %d task(s) in the list", count));
+            System.out.println(horizontalLine);
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("This task has not been added: " + e.getMessage());
+            System.out.println(horizontalLine);
+        }
     }
 
     public static void deleteTask(int index) {
@@ -348,6 +379,10 @@ public class Momo {
         catch (IOException e) {
             System.out.println("Tasks not written successfully:" + e.getMessage());
         }
+    }
+
+    public static LocalDate parseDate(String input) throws DateTimeException {
+        return LocalDate.parse(input);
     }
 
     public static void RewriteTasksToFile(String filePath) throws IOException {

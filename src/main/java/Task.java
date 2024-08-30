@@ -25,6 +25,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return isComplete ? "[X] " + task : "[ ] " + task;
+        return isComplete ? "[X] " + task  + " ": "[ ] " + task + " ";
     }
 }
