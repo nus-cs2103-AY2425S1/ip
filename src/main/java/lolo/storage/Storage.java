@@ -16,14 +16,31 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles the loading and saving of tasks from/to a file.
+ * The tasks are represented in a specific format for persistence.
+ */
 public class Storage {
     private String filePath;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are saved and loaded from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by the file path.
+     * Creates the file and directory if they do not exist.
+     * Parses the file content to reconstruct the tasks.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws LoloException If there is an error loading tasks or parsing the file content.
+     */
     public ArrayList<Task> load() throws LoloException {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -79,6 +96,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the specified list of tasks to the file.
+     * Overwrites the existing content in the file.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws LoloException If there is an error saving the tasks to the file.
+     */
     public void save(ArrayList<Task> tasks) throws LoloException {
         try {
             FileWriter writer = new FileWriter(filePath);
@@ -93,3 +117,4 @@ public class Storage {
         }
     }
 }
+
