@@ -218,7 +218,7 @@ public class Parser {
     /**
      * Method to handle Event tasks by user
      * @param str Input string from user
-     * @throws handleException Handles invalid tasks
+     * @throws HandleException Handles invalid tasks
      */
     private String handleEvent(String str) throws HandleException {
         if (str.trim().equalsIgnoreCase("event")) {
