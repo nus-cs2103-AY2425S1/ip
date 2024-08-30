@@ -1,3 +1,5 @@
+package Sinatra;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -7,10 +9,10 @@ public class TaskList {
 
     }
     public void addTask(Task task){
-        System.out.println("Task added");
+        System.out.println("Sinatra.Task added");
     }
     public void removeTask(Task task){
-        System.out.println("Task removed");
+        System.out.println("Sinatra.Task removed");
     }
     public void extend(ArrayList<Task> tasks){
         this.tasks.addAll(tasks);

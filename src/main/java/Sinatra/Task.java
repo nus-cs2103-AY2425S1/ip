@@ -1,3 +1,4 @@
+package Sinatra;
 
 public class Task {
 
@@ -45,7 +46,7 @@ public class Task {
     }
 
     public String getDataForStorage() {
-        return "Task:" + content + "," + getStatusString();
+        return "Sinatra.Task:" + content + "," + getStatusString();
     }
 
 

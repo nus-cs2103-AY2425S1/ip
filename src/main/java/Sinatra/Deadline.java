@@ -1,3 +1,5 @@
+package Sinatra;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -27,7 +29,7 @@ this.dateTimeString = dateTimeString;
     }
 
     public String getDataForStorage() {
-        return "Deadline:" + super.getContent() + "," + super.getStatusString()  + "," + dateTimeString;
+        return "Sinatra.Deadline:" + super.getContent() + "," + super.getStatusString()  + "," + dateTimeString;
     }
 
 

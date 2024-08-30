@@ -1,3 +1,4 @@
+package Sinatra;
 
 public class ToDo extends Task {
 
@@ -16,7 +17,7 @@ public class ToDo extends Task {
     }
 
     public String getDataForStorage() {
-        return "ToDo:" + super.getContent() + "," + super.getStatusString();
+        return "Sinatra.ToDo:" + super.getContent() + "," + super.getStatusString();
     }
 
 

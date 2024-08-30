@@ -1,6 +1,6 @@
-import java.io.IOException;
+package Sinatra;
+
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Sinatra {
@@ -14,7 +14,7 @@ public class Sinatra {
         this.printIntro();
         this.storage = new Storage("tasks.txt");
         this.tasks = storage.loadTasksFromFile();
-//        for (Task task : tasks) {
+//        for (Sinatra.Task task : tasks) {
 //            System.out.println(task);
 //        }
 
@@ -23,7 +23,7 @@ public class Sinatra {
     }
 
     private void printIntro() {
-        String initial = "Hello! I'm Sinatra \nWhat can I do for you? ";
+        String initial = "Hello! I'm Sinatra.Sinatra \nWhat can I do for you? ";
 
         //print intro
         System.out.println(initial);

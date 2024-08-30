@@ -1,3 +1,5 @@
+package Sinatra;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -51,11 +53,11 @@ public class Storage {
                     break;
                 }
                 String className = data[0];
-                if (className.equals("ToDo")) {
+                if (className.equals("Sinatra.ToDo")) {
                     tasks.add(ToDo.newObjectFromData(data[1]));
-                } else if (className.equals("Event")) {
+                } else if (className.equals("Sinatra.Event")) {
                     tasks.add(Event.newObjectFromData(data[1]));
-                } else if (className.equals("Deadline")) {
+                } else if (className.equals("Sinatra.Deadline")) {
                     tasks.add(Deadline.newObjectFromData(data[1]));
                 }
 

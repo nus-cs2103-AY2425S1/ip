@@ -1,3 +1,4 @@
+package Sinatra;
 
 public class Event extends Task {
 
@@ -22,7 +23,7 @@ public class Event extends Task {
     }
 
     public String getDataForStorage() {
-        return "Event:" + super.getContent() + "," + super.getStatusString() + "," + from + "," + to;
+        return "Sinatra.Event:" + super.getContent() + "," + super.getStatusString() + "," + from + "," + to;
     }
 
 
