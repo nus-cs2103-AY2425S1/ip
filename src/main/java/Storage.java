@@ -69,10 +69,13 @@ public class Storage {
         return taskList;
     }
 
-    public void saveFile(ArrayList<Task> taskList) throws IOException {
+    public void saveFile(TaskList list) throws IOException {
         try(FileWriter fileWriter = new FileWriter(this.file)) {
-            for (Task task : taskList) {
+            int i = 0;
+            while (i < list.listSize()) {
+                Task task = list.getTask(0);
                 fileWriter.write(task.toFileString() + "\n");
+                i++;
             }
         } catch (IOException e) {
             System.out.println(e);
