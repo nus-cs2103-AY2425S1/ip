@@ -73,6 +73,16 @@ public abstract class Task {
         return this.done;
     }
 
+    /**
+     * Checks if the task description contains the specified word.
+     * <p>
+     * This method evaluates whether the task's description includes the given word as a substring.
+     * The comparison is case-sensitive, meaning that the method will only return true if the exact
+     * word (with the same casing) is found in the description.
+     *
+     * @param word The word to search for within the task's description.
+     * @return {@code true} if the description contains the specified word; {@code false} otherwise.
+     */
     public boolean isWordInDescription(String word) {
         return description.contains(word);
     }

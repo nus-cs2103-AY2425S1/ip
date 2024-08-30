@@ -119,6 +119,16 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches for tasks in the list that contain the specified word in their description.
+     * <p>
+     * This method iterates through the list of tasks and checks if each task's description contains
+     * the given word. If a task's description contains the word, that task is added to a new {@link TaskList}.
+     * The method then returns this new {@link TaskList} containing all tasks that matched the search criteria.
+     *
+     * @param word The word to search for in the descriptions of the tasks.
+     * @return A {@link TaskList} containing all tasks whose descriptions include the specified word.
+     */
     public TaskList findWord(String word) {
         TaskList taskList = new TaskList(new ArrayList<>());
         for (Task task : taskArrayList) {
