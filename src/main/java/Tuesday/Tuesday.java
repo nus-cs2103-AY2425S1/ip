@@ -1,10 +1,19 @@
+package Tuesday;
+
+import Tuesday.command.Command;
+import Tuesday.command.Parser;
+import Tuesday.task.Task;
+import Tuesday.util.Storage;
+import Tuesday.util.TuesdayException;
+import Tuesday.util.Ui;
+
 public class Tuesday {
     private Storage storage;
     private Task tasks;
     private Ui ui;
 
     /**
-     * Creates Tuesday.util.Ui, Tuesday.util.Storage & Tuesday.task.Task Object, and checks whether there exist a datafile
+     * Creates Tuesday.Tuesday.util.Tuesday.util.Ui, Tuesday.Tuesday.util.Tuesday.util.Storage & Tuesday.Tuesday.task.Tuesday.task.Task Object, and checks whether there exist a datafile
      */
     public Tuesday(String filePath) {
         ui = new Ui();

@@ -1,3 +1,7 @@
+package Tuesday.command;
+
+import Tuesday.util.TuesdayException;
+
 public class Parser {
     public Parser() {
 

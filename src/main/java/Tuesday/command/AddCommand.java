@@ -1,3 +1,12 @@
+package Tuesday.command;
+
+import Tuesday.task.Deadline;
+import Tuesday.task.Event;
+import Tuesday.task.Task;
+import Tuesday.task.ToDo;
+import Tuesday.util.Storage;
+import Tuesday.util.Ui;
+
 public class AddCommand extends Command{
     private final String commandType;
     private final String commandPostfix;

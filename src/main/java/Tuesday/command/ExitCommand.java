@@ -1,3 +1,9 @@
+package Tuesday.command;
+
+import Tuesday.util.Storage;
+import Tuesday.task.Task;
+import Tuesday.util.Ui;
+
 public class ExitCommand extends Command{
 
     public ExitCommand(String command) {
