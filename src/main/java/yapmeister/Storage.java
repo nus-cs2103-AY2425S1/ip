@@ -1,6 +1,10 @@
 package yapmeister;
 
-import yapmeister.task.*;
+import yapmeister.task.Task;
+import yapmeister.task.ToDo;
+import yapmeister.task.TaskList;
+import yapmeister.task.Deadline;
+import yapmeister.task.Event;
 
 import java.io.File;
 import java.io.FileNotFoundException;

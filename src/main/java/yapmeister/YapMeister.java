@@ -22,23 +22,23 @@ public class YapMeister {
      * @param filepath Save file for Tasks created with YapMeister.
      */
     public YapMeister(String filepath) {
-        ui = new UI();
-        storage = new Storage(filepath);
+        this.ui = new UI();
+        this.storage = new Storage(filepath);
         try {
-            tasks = new TaskList(storage.load());
+            this.tasks = new TaskList(storage.load());
         } catch (StorageException e) {
             //ui.showLoadingError();
-            tasks = new TaskList();
+            this.tasks = new TaskList();
         }
-        Parser parser = new Parser(storage, tasks);
-        ui.setParser(parser);
+        Parser parser = new Parser(this.storage, this.tasks);
+        this.ui.setParser(parser);
     }
 
     /**
      * Starts YapMeister through UI.process()
      */
     public void run() {
-        ui.process();
+        this.ui.process();
     }
 
     public static void main(String[] args) {
