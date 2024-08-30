@@ -64,10 +64,6 @@ public class Parser {
         if (description.isEmpty()) {
             throw new EmptyDescriptionError();
         }
-//        System.out.println("by " + by);
-//        System.out.println("from " + from);
-//        System.out.println("to " + to);
-
 
         Task task = null;
         switch (type) {
