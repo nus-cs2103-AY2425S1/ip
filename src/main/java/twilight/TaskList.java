@@ -9,6 +9,10 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    public TaskList() {
+        this.tasks = new ArrayList<Task>();
+    }
+
     public void list() {
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println("" + (i + 1) + ". " + tasks.get(i).toString());
