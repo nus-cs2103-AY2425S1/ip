@@ -19,11 +19,9 @@ public class TaskList {
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
-
     public boolean isOutOfBounds(int x) {
         return x > tasks.size();
     }
-
     private String getCurrTask(int taskNumber) {
         return taskNumber + ". " + tasks.get(taskNumber - 1);
     }
@@ -34,19 +32,31 @@ public class TaskList {
     }
 
     public String checkTask(int taskNumber) {
-        Task task = tasks.get(taskNumber - 1);
-        task.check();
-        return getCurrTask(taskNumber);
+        try {
+            Task task = tasks.get(taskNumber - 1);
+            task.check();
+            return getCurrTask(taskNumber);
+        } catch (IndexOutOfBoundsException e) {
+            return "";
+        }
     }
 
     public String uncheckTask(int taskNumber) {
-        Task task = tasks.get(taskNumber - 1);
-        task.uncheck();
-        return getCurrTask(taskNumber);
+        try {
+            Task task = tasks.get(taskNumber - 1);
+            task.uncheck();
+            return getCurrTask(taskNumber);
+        } catch (IndexOutOfBoundsException e) {
+            return "";
+        }
     }
 
     public void deleteTask(int taskNumber) {
-        tasks.remove(taskNumber - 1);
+        try {
+            tasks.remove(taskNumber - 1);
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
     }
 
     public String retrieveTasks() {
