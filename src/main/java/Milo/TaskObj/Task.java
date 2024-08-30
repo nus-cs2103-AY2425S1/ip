@@ -10,7 +10,7 @@ public class Task {
     private final String description;
     private Boolean isCompleted = false;
 
-    private Boolean deleted = false;
+    private Boolean isDeleted = false;
 
     /*
      * initialise a task object
@@ -59,7 +59,7 @@ public class Task {
      * decrementing taskNumber by one
      */
     public void delete() {
-        this.deleted = true;
+        this.isDeleted = true;
         taskNumber--;
     }
 
