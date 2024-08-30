@@ -117,6 +117,16 @@ public class TaskList {
         return result;
     }
 
+    public void handleDelete(int i) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Noted. I've removed this task:");
+        System.out.printf(" %s", this.list.get(i - 1));
+        System.out.printf("Now you have %d tasks in the list.\n", this.list.size() - 1);
+        System.out.println("____________________________________________________________");
+        this.list.remove(i - 1);
+        storage.delete(i - 1);
+    }
+
     /**
      * Finds tasks in the TaskList that match the given search string.
      *
