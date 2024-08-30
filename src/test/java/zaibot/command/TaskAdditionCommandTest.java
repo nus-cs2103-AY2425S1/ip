@@ -12,13 +12,11 @@ import java.io.PrintStream;
 import java.util.HashMap;
 
 public class TaskAdditionCommandTest {
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     private final TaskList tasks = new TaskList();
     private final Storage storage = new Storage(tasks);
 
     @BeforeEach
     public void setUp() {
-        System.setOut(new PrintStream(outputStreamCaptor));
         tasks.clearTasks();
     }
 
@@ -26,14 +24,15 @@ public class TaskAdditionCommandTest {
     public void execute_testInvalidAdditionType() {
         TaskAdditionCommand command = new TaskAdditionCommand("random",
                 new HashMap<String, String>());
+
+        String outputMessage;
         try {
-            command.execute(tasks, storage);
+            outputMessage = command.execute(tasks, storage);
         } catch (Exception e) {
-            Ui.displayError(e);
-        } finally {
-            Assertions.assertEquals("Invalid command.",
-                    outputStreamCaptor.toString().trim());
+            outputMessage = e.getMessage();
         }
+        Assertions.assertEquals("Invalid command.".trim(),
+                outputMessage.trim());
     }
 
     @Test
@@ -43,19 +42,18 @@ public class TaskAdditionCommandTest {
 
         TaskAdditionCommand command = new TaskAdditionCommand("todo",
                 optionMap);
+
+        String expected = "[T][ ] test\n"
+                + "Another day, another task. Added.\n"
+                + "You have 1 task(s). Get moving.\n";
+
+        String outputMessage;
         try {
-            command.execute(tasks, storage);
+            outputMessage = command.execute(tasks, storage);
         } catch (Exception e) {
-            Ui.displayError(e);
-        } finally {
-            String expected = "-----------------------------------------------------------\n"
-                    + "[T][ ] test\n"
-                    + "Another day, another task. Added.\n"
-                    + "You have 1 task(s). Get moving.\n"
-                    + "-----------------------------------------------------------\n";
-            Assertions.assertEquals(expected.trim(),
-                    outputStreamCaptor.toString().trim());
+            outputMessage = e.getMessage();
         }
+        Assertions.assertEquals(expected.trim(), outputMessage.trim());
     }
 
     @Test
@@ -65,15 +63,16 @@ public class TaskAdditionCommandTest {
 
         TaskAdditionCommand command = new TaskAdditionCommand("deadline",
                 optionMap);
+
+        String expected = "Deadline must have option /by.";
+
+        String outputMessage;
         try {
-            command.execute(tasks, storage);
+            outputMessage = command.execute(tasks, storage);
         } catch (Exception e) {
-            Ui.displayError(e);
-        } finally {
-            String expected = "Deadline must have option /by.";
-            Assertions.assertEquals(expected.trim(),
-                    outputStreamCaptor.toString().trim());
+            outputMessage = e.getMessage();
         }
+        Assertions.assertEquals(expected.trim(), outputMessage.trim());
     }
 
     @Test
@@ -84,19 +83,18 @@ public class TaskAdditionCommandTest {
 
         TaskAdditionCommand command = new TaskAdditionCommand("deadline",
                 optionMap);
+
+        String expected = "[D][ ] test (by: Dec 01 2024 1800)\n"
+                + "Another day, another task. Added.\n"
+                + "You have 1 task(s). Get moving.\n";
+
+        String outputMessage;
         try {
-            command.execute(tasks, storage);
+            outputMessage = command.execute(tasks, storage);
         } catch (Exception e) {
-            Ui.displayError(e);
-        } finally {
-            String expected = "-----------------------------------------------------------\n"
-                    + "[D][ ] test (by: Dec 01 2024 1800)\n"
-                    + "Another day, another task. Added.\n"
-                    + "You have 1 task(s). Get moving.\n"
-                    + "-----------------------------------------------------------\n";
-            Assertions.assertEquals(expected.trim(),
-                    outputStreamCaptor.toString().trim());
+            outputMessage = e.getMessage();
         }
+        Assertions.assertEquals(expected.trim(), outputMessage.trim());
     }
 
     @Test
@@ -107,15 +105,16 @@ public class TaskAdditionCommandTest {
 
         TaskAdditionCommand command = new TaskAdditionCommand("event",
                 optionMap);
+
+        String expected = "Event must have option /from and /to.";
+
+        String outputMessage;
         try {
-            command.execute(tasks, storage);
+            outputMessage = command.execute(tasks, storage);
         } catch (Exception e) {
-            Ui.displayError(e);
-        } finally {
-            String expected = "Event must have option /from and /to.";
-            Assertions.assertEquals(expected.trim(),
-                    outputStreamCaptor.toString().trim());
+            outputMessage = e.getMessage();
         }
+        Assertions.assertEquals(expected.trim(), outputMessage.trim());
     }
 
     @Test
@@ -127,18 +126,17 @@ public class TaskAdditionCommandTest {
 
         TaskAdditionCommand command = new TaskAdditionCommand("event",
                 optionMap);
+
+        String expected = "[E][ ] test (from: Dec 01 2024 1800 to: Dec 01 2024 2000)\n"
+                + "Another day, another task. Added.\n"
+                + "You have 1 task(s). Get moving.\n";
+
+        String outputMessage;
         try {
-            command.execute(tasks, storage);
+            outputMessage = command.execute(tasks, storage);
         } catch (Exception e) {
-            Ui.displayError(e);
-        } finally {
-            String expected = "-----------------------------------------------------------\n"
-                    + "[E][ ] test (from: Dec 01 2024 1800 to: Dec 01 2024 2000)\n"
-                    + "Another day, another task. Added.\n"
-                    + "You have 1 task(s). Get moving.\n"
-                    + "-----------------------------------------------------------\n";
-            Assertions.assertEquals(expected.trim(),
-                    outputStreamCaptor.toString().trim());
+            outputMessage = e.getMessage();
         }
+        Assertions.assertEquals(expected.trim(), outputMessage.trim());
     }
 }

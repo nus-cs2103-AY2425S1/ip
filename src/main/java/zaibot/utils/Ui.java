@@ -85,7 +85,9 @@ public class Ui {
         case "mark":
         case "unmark":
         case "add":
-            return task.toString() + "\n" + displayTasksNumber(taskList);
+            return task.toString()
+                    + "\n" + Message.valueOf(type.toUpperCase())
+                    + "\n" + displayTasksNumber(taskList);
         default:
             throw new ZaibotException("Updating task not of correct format.");
         }

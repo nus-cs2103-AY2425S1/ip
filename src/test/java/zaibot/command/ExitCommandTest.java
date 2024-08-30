@@ -11,24 +11,20 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 public class ExitCommandTest {
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
-    @BeforeEach
-    public void setUp() {
-        System.setOut(new PrintStream(outputStreamCaptor));
-    }
 
     @Test
     public void execute_success() {
         TaskList tasks = new TaskList();
         Storage storage = new Storage(tasks);
         ExitCommand exitCommand = new ExitCommand();
+        String endString;
         try {
-            exitCommand.execute(tasks, storage);
+            endString = exitCommand.execute(tasks, storage);
         } catch (Exception e) {
-            Ui.displayError(e);
+            endString = e.getMessage();
         }
-        Assertions.assertEquals("See you whenever.", outputStreamCaptor.toString().trim());
+        Assertions.assertEquals(endString, "See you whenever.");
     }
 
 }

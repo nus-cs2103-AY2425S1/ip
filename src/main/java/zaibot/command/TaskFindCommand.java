@@ -23,7 +23,7 @@ public class TaskFindCommand extends Command {
             throw new ZaibotException("No name given");
         } else {
             String name = optionMap.get("name");
-            return (Ui.printMessage("FILTER") + Ui.printTaskList(tasks.filterTasks(name)));
+            return Ui.printMessage("FILTER") + "\n" + Ui.printTaskList(tasks.filterTasks(name));
         }
     }
 }
