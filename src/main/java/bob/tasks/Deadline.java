@@ -4,16 +4,16 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadlines extends Task{
+public class Deadline extends Task{
 
     private final LocalDate deadlineDate;
     private LocalTime deadlineTime;
 
-    public Deadlines(String taskName, LocalDate deadlineDate) {
+    public Deadline(String taskName, LocalDate deadlineDate) {
         super(taskName);
         this.deadlineDate = deadlineDate;
     }
-    public Deadlines(String taskName, LocalDate deadlineDate, LocalTime deadlineTime) {
+    public Deadline(String taskName, LocalDate deadlineDate, LocalTime deadlineTime) {
         super(taskName);
         this.deadlineDate = deadlineDate;
         this.deadlineTime = deadlineTime;

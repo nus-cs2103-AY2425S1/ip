@@ -5,7 +5,7 @@ import bob.exceptions.EmptyArgumentException;
 import bob.exceptions.InvalidInputException;
 import bob.exceptions.InvalidTaskNumberException;
 import bob.exceptions.MissingArgumentException;
-import bob.tasks.Deadlines;
+import bob.tasks.Deadline;
 import bob.tasks.EventTask;
 import bob.tasks.ToDos;
 
@@ -71,7 +71,7 @@ public class Parser {
         return new ToDos(input);
     }
 
-    public static Deadlines newDeadline(String input) throws EmptyArgumentException, MissingArgumentException, DateTimeParseException {
+    public static Deadline newDeadline(String input) throws EmptyArgumentException, MissingArgumentException, DateTimeParseException {
 
         if (!input.matches("^\\S{1}.+")) {
             throw new EmptyArgumentException("description", "deadline");
@@ -86,11 +86,11 @@ public class Parser {
         String[] inputs = input.split("/by", 2);
         String[] dateTime = inputs[1].trim().split(" ");
         if (dateTime.length == 2) {
-            return new Deadlines(inputs[0].trim(),
+            return new Deadline(inputs[0].trim(),
                     LocalDate.parse(dateTime[0], DateTimeFormatter.ofPattern("dd/MM/uuuu")),
                     LocalTime.parse(dateTime[1], DateTimeFormatter.ofPattern("HHmm")));
         }
-        return new Deadlines(inputs[0].trim(), LocalDate.parse(dateTime[0], DateTimeFormatter.ofPattern("dd/MM/uuuu")));
+        return new Deadline(inputs[0].trim(), LocalDate.parse(dateTime[0], DateTimeFormatter.ofPattern("dd/MM/uuuu")));
     }
 
     public static EventTask newEvent(String input) throws EmptyArgumentException, MissingArgumentException, DateTimeParseException {
