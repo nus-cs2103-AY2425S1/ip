@@ -1,3 +1,6 @@
+package sigmabot.util;
+
+import sigmabot.task.Task;
 import sigmabot.ui.UiComponent;
 
 import java.io.File;
@@ -6,14 +9,9 @@ import java.io.IOException;
 import java.util.Map;
 import java.io.BufferedWriter;
 
-public class ListMapWriter extends Writer {
+public class ListMapWriter {
 
-    @Override
-    public void write(String filePath, UiComponent ui) {
-        File listData = new File(filePath);
-    }
-
-    public static void writeMapToFile(Map<String, Map<String, Task>> map, String directoryPath, UiComponent ui) {
+    public void writeMapToFile(Map<String, Map<String, Task>> map, String directoryPath, UiComponent ui) {
         File directory = new File(directoryPath);
         if (!directory.exists()) {
             directory.mkdirs();
@@ -30,6 +28,7 @@ public class ListMapWriter extends Writer {
                     writer.newLine();
                 }
             } catch (IOException e) {
+                ui.printDialogue("Error writing to file: " + file.getName());
                 e.printStackTrace();
             }
         }

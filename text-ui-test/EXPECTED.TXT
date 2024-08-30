@@ -26,7 +26,7 @@
 ——————————————————————————————————————————————————————————————————————————————
 
 ——————————————————————————————————————————————————————————————————————————————
-	Task added successfully. Total tasks in the list: 1
+	sigmabot.task.Task added successfully. Total tasks in the list: 1
 ——————————————————————————————————————————————————————————————————————————————
 
 	Enter task type and name (format: [type] name, e.g., 'todo Buy milk') or EXIT to finish:
@@ -49,7 +49,7 @@
 ——————————————————————————————————————————————————————————————————————————————
 
 ——————————————————————————————————————————————————————————————————————————————
-	Task added successfully. Total tasks in the list: 2
+	sigmabot.task.Task added successfully. Total tasks in the list: 2
 ——————————————————————————————————————————————————————————————————————————————
 
 	Enter task type and name (format: [type] name, e.g., 'todo Buy milk') or EXIT to finish:
@@ -64,7 +64,7 @@
 ——————————————————————————————————————————————————————————————————————————————
 
 ——————————————————————————————————————————————————————————————————————————————
-	Task added successfully. Total tasks in the list: 3
+	sigmabot.task.Task added successfully. Total tasks in the list: 3
 ——————————————————————————————————————————————————————————————————————————————
 
 	Enter task type and name (format: [type] name, e.g., 'todo Buy milk') or EXIT to finish:
@@ -104,7 +104,7 @@
 ——————————————————————————————————————————————————————————————————————————————
 
 ——————————————————————————————————————————————————————————————————————————————
-	Task added successfully. Total tasks in the list: 1
+	sigmabot.task.Task added successfully. Total tasks in the list: 1
 ——————————————————————————————————————————————————————————————————————————————
 
 	Enter task type and name (format: [type] name, e.g., 'todo Buy milk') or EXIT to finish:
@@ -155,11 +155,11 @@ my todo list:
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-	Task marked as done: Team meeting
+	sigmabot.task.Task marked as done: Team meeting
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-	Task marked as done: Submit assignment
+	sigmabot.task.Task marked as done: Submit assignment
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

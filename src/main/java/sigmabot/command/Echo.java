@@ -1,4 +1,5 @@
-package command;
+package sigmabot.command;
+import sigmabot.ui.UiComponent;
 
 public class Echo extends Command {
     @Override

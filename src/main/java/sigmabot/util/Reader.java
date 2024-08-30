@@ -1,3 +1,5 @@
+package sigmabot.util;
+
 import sigmabot.ui.UiComponent;
 
 public abstract class Reader {

@@ -1,15 +1,19 @@
 package sigmabot;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import exceptions.InvalidInputException;
-
 public class SigmaBot {
     private Dialogue dialogue;
+    public SigmaBot() {
+        // Initialize the Dialogue object
+        this.dialogue = Dialogue.defaultDialogue();
+    }
+    public void start() {
+        // Start the dialogue
+        this.dialogue.run();
+    }
     public static void main(String[] args) {
-
+        // Create an instance of SigmaBot
+        SigmaBot bot = new SigmaBot();
+        // Start the bot
+        bot.start();
     }
 }

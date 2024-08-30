@@ -1,4 +1,4 @@
-package exceptions;
+package sigmabot.exceptions;
 
 public class InvalidTaskTypeException extends SigmaBotExceptions {
     public InvalidTaskTypeException(String message) {

@@ -1,3 +1,5 @@
+package sigmabot.command;
+
 import sigmabot.ui.UiComponent;
 
 public class Terminate extends Command {

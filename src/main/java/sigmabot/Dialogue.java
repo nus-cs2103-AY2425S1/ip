@@ -1,3 +1,8 @@
+package sigmabot;
+import sigmabot.command.Command;
+import sigmabot.command.Terminate;
+import sigmabot.command.Greeting;
+import sigmabot.task.Task;
 import sigmabot.ui.UiComponent;
 
 import java.util.Map;
@@ -18,12 +23,15 @@ public class Dialogue {
     }
 
     public void run() {
-        Greeting.greet();
-        Command command = ui.readCommand();
-        while (!(command instanceof Terminate)) {
-            command.execute(ui);
-            command = ui.readCommand();
-        }
-        ui.closeScanner();
+        Greeting.greet(ui); // Initial greeting to the user
+        Command command;
+        // Loop until a Terminate command is encountered
+        do {
+            ui.printDialogue("Enter a command: ");
+            command = ui.readCommand(); // Read command from user input
+            command.execute(ui); // Execute the command
+        } while (!(command instanceof Terminate)); // Continue until the command is Terminate
+
+        ui.closeScanner(); // Close the scanner before exiting
     }
 }

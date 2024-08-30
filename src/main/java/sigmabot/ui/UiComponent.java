@@ -1,12 +1,13 @@
-package ui;
-import sigmabot.command;
+package sigmabot.ui;
 
-import exceptions.InvalidInputException;
+import sigmabot.command.Command;
+import sigmabot.command.Exit;
+import sigmabot.command.Joke;
+import sigmabot.command.ListOperation;
+import sigmabot.exceptions.InvalidInputException;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class UiComponent {
@@ -39,10 +40,10 @@ public class UiComponent {
                 case "/exit" -> new Exit();
                 case "/list" -> new ListOperation();
                 case "/joke" -> new Joke();
-                default -> throw new InvalidInputException("Unknown command: " + input);
+                default -> throw new InvalidInputException("Unknown sigmabot.command: " + input);
             };
         } catch (InvalidInputException e) {
-            System.err.println("Unknown command");
+            System.err.println("Unknown sigmabot.command");
         }
         return new Exit();
     }
@@ -66,6 +67,21 @@ public class UiComponent {
                 System.err.println("Invalid Date format. Please enter a valid date in yyyy-mm-dd format.");
             }
         }
+    }
+
+    public Command readListCommand() {
+        try {
+            String input = scanner.nextLine().trim();
+            return switch (input) {
+                case "/exit" -> new Exit();
+                case "/list" -> new ListOperation();
+                case "/joke" -> new Joke();
+                default -> throw new InvalidInputException("Unknown command: " + input);
+            };
+        } catch (InvalidInputException e) {
+            System.err.println("Unknown command");
+        }
+        return new Exit();
     }
 
 }

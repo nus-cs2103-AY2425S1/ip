@@ -1,4 +1,4 @@
-package exceptions;
+package sigmabot.exceptions;
 
 public class ListNotFoundException extends SigmaBotExceptions {
     public ListNotFoundException(String message) {

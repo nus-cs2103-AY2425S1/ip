@@ -1,4 +1,8 @@
+package sigmabot.util;
+
+import sigmabot.task.Task;
 import sigmabot.ui.UiComponent;
+import sigmabot.util.Reader;
 
 import java.io.BufferedReader;
 import java.io.File;
