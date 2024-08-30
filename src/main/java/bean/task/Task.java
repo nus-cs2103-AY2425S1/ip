@@ -17,6 +17,10 @@ public abstract class Task {
         return this.icon;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public void completeTask() {
         this.isDone = true;
         this.icon = "X";
