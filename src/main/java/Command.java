@@ -7,7 +7,7 @@ public abstract class Command {
         this.list = list;
     }
 
-    public abstract void execute(String input);
+    public abstract void execute(String input) throws SentinelException;
 
     public static Command createCommand(Sentinel.CommandType commandType, Ui ui, SentinelList list) {
         return switch (commandType) {
@@ -82,7 +82,7 @@ class CreateTaskCommand extends Command {
     }
 
     @Override
-    public void execute(String input) {
+    public void execute(String input) throws SentinelException {
         Task newTask = Parser.parseTask(commandType, input, ui);
         if (newTask != null) {
             list.add(newTask);

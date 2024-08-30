@@ -7,8 +7,8 @@ public class Parser {
         return Sentinel.CommandType.valueOf(arr[0].toLowerCase());
     }
 
-    public static Task parseTask(Sentinel.CommandType commandType, String input, Ui ui) {
-        String taskName = parseTaskName(commandType, input);
+    public static Task parseTask(Sentinel.CommandType commandType, String input, Ui ui) throws SentinelException {
+        String taskName = parseTaskName(commandType, input, ui);
         if (taskName.isEmpty()) {
             ui.showEmptyTaskNameError(commandType);
             return null;
@@ -41,27 +41,42 @@ public class Parser {
         }
         return null;
     }
-    private static String parseTaskName(Sentinel.CommandType commandType, String input) {
+    private static String parseTaskName(Sentinel.CommandType commandType, String input, Ui ui) throws SentinelException {
         String[] stringArr = input.split(" ");
         String taskName = "";
 
         switch (commandType) {
-            case todo -> taskName = String.join(" ", Arrays.copyOfRange(stringArr, 1, stringArr.length)).trim();
+            case todo -> {
+                // taskName is everything after the command
+                taskName = String.join(" ", Arrays.copyOfRange(stringArr, 1, stringArr.length)).trim();
+            }
 
             case deadline -> {
                 // For 'deadline', taskName is everything after the command and before "/by"
                 int byIndex = Arrays.asList(stringArr).indexOf("/by");
-                taskName = String.join(" ", Arrays.copyOfRange(stringArr, 1, byIndex)).trim();
+                if (byIndex != -1) {
+                    taskName = String.join(" ", Arrays.copyOfRange(stringArr, 1, byIndex)).trim();
+                } else {
+                    ui.showDeadlineCommandGuidelines();
+                    throw new DeadlineException("Deadline Command");
+                }
             }
+
             case event -> {
                 // For 'event', taskName is everything after the command and before "/from"
                 int fromIndex = Arrays.asList(stringArr).indexOf("/from");
-                taskName = String.join(" ", Arrays.copyOfRange(stringArr, 1, fromIndex)).trim();
+                if (fromIndex != -1) {
+                    taskName = String.join(" ", Arrays.copyOfRange(stringArr, 1, fromIndex)).trim();
+                } else {
+                    ui.showEventCommandGuidelines();
+                    throw new EventException("Event Command");
+                }
             }
         }
 
         return taskName;
     }
+
     private static String parseTime(String input, String delimiter) {
         String[] parts = input.split(delimiter);
         return parts.length > 1 ? parts[1].trim() : "";

@@ -24,6 +24,8 @@ public class Sentinel {
                 command.execute(input);
             } catch (IllegalArgumentException e) {
                 ui.showUnrecognisedCommand();
+            } catch (SentinelException e){
+//                ui.showError(e);
             }
             ui.showLine();
             new FileWriter(list).saveTasks();
