@@ -1,5 +1,5 @@
-import impl.Danny;
-import impl.Storage;
+import impl.chatbot.Danny;
+import impl.storage.Storage;
 import impl.interfaces.Task;
 
 import java.util.ArrayList;

@@ -1,4 +1,6 @@
-package impl;
+package impl.storage;
+
+import impl.chatbot.Danny;
 
 import java.io.File;
 import java.io.FileWriter;

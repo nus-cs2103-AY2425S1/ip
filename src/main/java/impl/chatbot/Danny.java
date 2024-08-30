@@ -1,4 +1,8 @@
-package impl;
+package impl.chatbot;
+
+import impl.storage.TaskList;
+import impl.ui.Parser;
+import impl.ui.Ui;
 
 import java.util.Scanner;
 

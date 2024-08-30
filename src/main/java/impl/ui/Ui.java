@@ -1,4 +1,4 @@
-package impl;
+package impl.ui;
 
 public class Ui {
     static String cat = """
