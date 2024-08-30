@@ -1,10 +1,15 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A class that handles user commands for task management using the List Bot.
+ * It supports commands to list, mark, unmark, delete tasks, and add deadlines, events, or todos.
+ */
 public class List {
 
     /**
      * Runs the List Bot, which processes user commands to manage tasks.
+     * It initializes the bot, processes user input in a loop, and handles various commands to manage tasks.
      */
     public static void run() {
 
@@ -25,7 +30,7 @@ public class List {
 
         Scanner scanner = RapGod.scanner;
         String input = "";
-        ArrayList<Task> list = new ArrayList<>();
+        java.util.List<Task> list = DataManager.readMemory();
 
         while (true) {
             System.out.print("Task:\n");
@@ -103,7 +108,7 @@ public class List {
                         String todoDesc = input;
                         list.add(new ToDo(todoDesc));
                         System.out.println("-----------------------------------------------");
-                        System.out.printf("Got it. I've added this event: \n%s\n", list.get(list.size() - 1));
+                        System.out.printf("Got it. I've added this task: \n%s\n", list.get(list.size() - 1));
                         System.out.printf("Now you have %d tasks in the list\n", list.size());
                         System.out.println("-----------------------------------------------");
                         break;
@@ -119,6 +124,7 @@ public class List {
                         break;
                 }
 
+                DataManager.updateMemory(list);
 
             } catch (NumberFormatException exc) {
                 System.out.println("Enter a valid number after 'Mark ', 'Unmark ', or 'Delete '. Eg. Mark 4");
@@ -133,7 +139,7 @@ public class List {
     }
 
     /**
-     * Enum representing the types of commands that can be issued.
+     * Enum representing the types of commands that can be issued to manage tasks.
      */
     public enum CommandType {
         LIST, MARK, UNMARK, DELETE, BYE, EVENT, DEADLINE, TODO;
