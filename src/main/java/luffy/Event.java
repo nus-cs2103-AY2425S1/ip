@@ -1,5 +1,8 @@
 package luffy;
 
+/**
+ * Represents a task that has a start time and an end time
+ */
 public class Event extends Task {
 
     private final String start;

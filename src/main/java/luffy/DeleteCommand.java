@@ -1,5 +1,8 @@
 package luffy;
 
+/**
+ * Represents a command that deletes a task into the list of tasks
+ */
 public class DeleteCommand extends Command {
 
     int index;
@@ -8,6 +11,14 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * This method adds an executable command to delete a
+     * task from the task list by the UI
+     *
+     * @param ui user interface for Chat Bot
+     * @param taskStorage storage location for file
+     * @param taskList array list of existing tasks
+     */
     @Override
     public void executeCmd(LuffyUI ui, Storage taskStorage, TaskList taskList) {
         Task deletedTask = taskList.getTask(index);

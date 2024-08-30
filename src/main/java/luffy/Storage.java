@@ -2,7 +2,10 @@ package luffy;
 
 import java.io.*;
 
-
+/**
+ * Represents a file storing system that
+ * writes and loads from existing file to restore data
+ */
 public class Storage {
 
     private final String filePath;
@@ -11,6 +14,13 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * This method reads a task list and saves the content of the
+     * task list into a text file
+     *
+     * @param taskList the task list to be saved
+     * @throws IOException if there is issues with the input to file
+     */
     public void saveToFile(TaskList taskList) throws IOException {
 
         int counter = 1;
@@ -26,6 +36,13 @@ public class Storage {
         fileInfo.close();
     }
 
+    /**
+     * Returns a task list that contains all previous tasks that user
+     * has saved into the text file
+     *
+     * @return the task list with the data from the existing save file
+     * @throws FileNotFoundException if file does not exist in the directory
+     */
     public TaskList loadFromFile() throws FileNotFoundException {
 
         TaskList loadedTasks = new TaskList();

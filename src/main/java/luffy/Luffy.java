@@ -2,6 +2,10 @@ package luffy;
 
 import java.io.FileNotFoundException;
 
+/**
+ * Represents a chatbot that has various commands
+ * for users to note down tasks and check them off
+ */
 public class Luffy {
 
     private static final String DEST_FILE = "./LuffyData/TaskData";
@@ -20,7 +24,7 @@ public class Luffy {
             System.out.println(e.getMessage());
         }
 
-        // luffy.Luffy greets the user!
+        // Luffy greets the user!
         luffyBot.showWelcomeMessage();
 
         while (!wantToExit) {
@@ -34,7 +38,7 @@ public class Luffy {
             }
         }
 
-        // luffy.Luffy says goodbye!
+        // Luffy says goodbye!
         luffyBot.showExitMessage();
     }
 }

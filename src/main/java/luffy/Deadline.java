@@ -1,5 +1,8 @@
 package luffy;
 
+/**
+ * Represents a task that has a deadline
+ */
 public class Deadline extends Task {
 
     private final String deadline;

@@ -1,5 +1,8 @@
 package luffy;
 
+/**
+ * Represents a task that has no start time, end time nor deadline
+ */
 public class Todo extends Task{
 
     public Todo(String taskInfo, boolean isDone) {

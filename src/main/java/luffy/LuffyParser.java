@@ -3,8 +3,18 @@ package luffy;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a command parser that ensures user commands
+ * are of valid expressions
+ */
 public class LuffyParser {
 
+    /**
+     * Returns a Command object that contains the corresponding action
+     * to be executed by the chatbot
+     *
+     * @param fullCommand the command inputted by the user retrieved from the scanner
+     */
     public static Command parse(String fullCommand) {
 
         String[] commandDetails = fullCommand.split(" ", 2);
@@ -83,6 +93,13 @@ public class LuffyParser {
         return new InvalidCommand();
     }
 
+    /**
+     * This method checks if the length of the text list matches the expected length
+     *
+     * @param textList the split command for checking
+     * @param expectedLength the expected length of the textList parameter
+     * @throws LuffyException If the expectedLength does not equal to the length of the textList
+     */
     public static void checkValidArguments(String[] textList, int expectedLength) throws LuffyException {
         if (textList.length != expectedLength && expectedLength == 2) {
             throw new LuffyException("Your deadline task requires a deadline!");
