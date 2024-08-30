@@ -9,7 +9,7 @@ public class DateTime {
     private final String textValue;
     private final LocalDate dateValue;
     private final LocalDateTime dateTimeValue;
-    private final InputType type;
+    final InputType type;
 
     // Private constructor to initialize DateTime
     private DateTime(String textValue, LocalDate dateValue, LocalDateTime dateTimeValue, InputType type) {
