@@ -73,7 +73,14 @@ public class Storage {
             }
             case 'D': {
                 String[] segments = description.split("/");
-                taskToAdd = new Deadline(segments[0], segments[1].substring(4));
+                int index = 0;
+                for(int i = 0; i < description.length(); i++) {
+                    if (description.charAt(i) == '/') {
+                        index = i + 5;
+                        break;
+                    }
+                }
+                taskToAdd = new Deadline(segments[0], description.substring(index));
                 break;
             }
             case 'E': {
