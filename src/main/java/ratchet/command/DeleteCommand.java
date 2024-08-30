@@ -6,9 +6,17 @@ import ratchet.task.Task;
 import ratchet.task.TaskList;
 import ratchet.ui.Ui;
 
+/**
+ * Command to delete task from task list.
+ */
 public class DeleteCommand extends Command {
     private final int index;
 
+    /**
+     * Constructor for DeleteCommand.
+     *
+     * @param index Index of task to be deleted.
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }

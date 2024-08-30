@@ -6,9 +6,17 @@ import ratchet.task.Task;
 import ratchet.task.TaskList;
 import ratchet.ui.Ui;
 
+/**
+ * Command to unmark a task as done.
+ */
 public class UnmarkCommand extends Command {
     private final int index;
 
+    /**
+     * Constructor for UnmarkCommand.
+     *
+     * @param index Index of task to be unmarked.
+     */
     public UnmarkCommand(int index) {
         this.index = index;
     }

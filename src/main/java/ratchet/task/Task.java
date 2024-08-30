@@ -1,14 +1,28 @@
 package ratchet.task;
 
+/**
+ * Abstract class representing a task.
+ */
 public abstract class Task {
     private final String description;
     private boolean isDone;
 
+    /**
+     * Constructor for a new task.
+     *
+     * @param description The description of the task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Constructor for an old task.
+     *
+     * @param description The description of the task
+     * @param isDone The status of the task.
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;

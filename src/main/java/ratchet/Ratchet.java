@@ -7,12 +7,18 @@ import ratchet.storage.Storage;
 import ratchet.task.TaskList;
 import ratchet.ui.Ui;
 
+/**
+ * Class that is the entry point for the program.
+ */
 public class Ratchet {
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
     private final Parser parser;
 
+    /**
+     * Constructor for Ratchet
+     */
     public Ratchet() {
         ui = new Ui();
         storage = new Storage();
@@ -25,6 +31,9 @@ public class Ratchet {
         new Ratchet().run();
     }
 
+    /**
+     * Runs the program.
+     */
     public void run() {
         ui.greet();
         boolean isExit = false;

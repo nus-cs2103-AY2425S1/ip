@@ -18,7 +18,17 @@ import ratchet.task.EventTask;
 import ratchet.task.Task;
 import ratchet.task.TodoTask;
 
+/**
+ * Class to handle parsing of user input.
+ */
 public class Parser {
+    /**
+     * Parses user input and returns a Command.
+     *
+     * @param input User input.
+     * @return Command to be executed.
+     * @throws RatchetException If Ratchet is unable to handle command or arguments are wrong.
+     */
     public Command parse(String input) throws RatchetException {
         String command = input.split(" ")[0];
         switch (command.toUpperCase()) {

@@ -6,9 +6,17 @@ import ratchet.task.Task;
 import ratchet.task.TaskList;
 import ratchet.ui.Ui;
 
+/**
+ * Command to mark a task as done.
+ */
 public class MarkCommand extends Command {
     private final int index;
 
+    /**
+     * Constructor for MarkCommand.
+     *
+     * @param index Index of task to be marked.
+     */
     public MarkCommand(int index) {
         this.index = index;
     }
