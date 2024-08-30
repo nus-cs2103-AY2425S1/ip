@@ -1,3 +1,5 @@
+package dudu.task;
+
 public class Task {
     private boolean marked = false;
     private String description;

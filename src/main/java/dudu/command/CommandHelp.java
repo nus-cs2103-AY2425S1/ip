@@ -1,3 +1,10 @@
+package dudu.command;
+
+import dudu.command.Command;
+import dudu.utils.Storage;
+import dudu.utils.TaskList;
+import dudu.utils.UI;
+
 import java.io.IOException;
 
 public class CommandHelp extends Command {

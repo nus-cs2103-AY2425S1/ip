@@ -1,3 +1,5 @@
+package dudu.utils;
+
 public class LineWrapper {
     static final String lineRule = "--------------------------------------------";
 

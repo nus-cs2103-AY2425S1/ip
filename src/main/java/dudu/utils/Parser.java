@@ -1,3 +1,14 @@
+package dudu.utils;
+
+import dudu.command.*;
+import dudu.exception.InvalidFormatException;
+import dudu.exception.MissingDateTimeException;
+import dudu.exception.MissingDescriptionException;
+import dudu.task.Deadline;
+import dudu.task.Event;
+import dudu.task.Task;
+import dudu.task.ToDo;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -22,7 +33,7 @@ public class Parser {
                 }
                 case TODO: {
                     String description = getContent(input);
-                    ToDo task = new ToDo(description);
+                    Task task = new ToDo(description);
                     return new CommandTodo(task);
                 }
                 case DEADLINE: {
@@ -80,7 +91,7 @@ public class Parser {
                 }
             }
         } catch (MissingDescriptionException e) {
-            // TO BE REPLACED WITH UI
+            // TO BE REPLACED WITH dudu.utils.UI
             System.out.println(e);
         } catch (InvalidFormatException e) {
             System.out.println(e);
