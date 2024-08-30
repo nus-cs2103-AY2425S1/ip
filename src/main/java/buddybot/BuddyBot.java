@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 /**
  * This is the class for the chat bot with OOP added
  */
-public class NewBuddyBot {
+public class BuddyBot {
 
     private final FileStorage storage;
     private TaskList taskList;
@@ -18,7 +18,7 @@ public class NewBuddyBot {
      * Constructor for BuddyBot
      * @param filePath
      */
-    public NewBuddyBot(String filePath) {
+    public BuddyBot(String filePath) {
         this.storage = new FileStorage(filePath);
         this.ui = new Ui();
         try {
@@ -188,6 +188,6 @@ public class NewBuddyBot {
      * @param args
      */
     public static void main(String[] args) {
-        new NewBuddyBot("./data/BuddyBot.txt").run();
+        new BuddyBot("./data/BuddyBot.txt").run();
     }
 }
