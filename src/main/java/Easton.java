@@ -195,24 +195,6 @@ public class Easton {
         Ui.displayText("Now you have " + tasks.size() + " tasks in the list.");
     }
 
-
-
-    private Path getFilePath(String fileName) throws IOException{
-        String currentDirectory = System.getProperty("user.dir");
-        Path folder = Paths.get(currentDirectory, "data");
-        Path filePath = Paths.get(folder.toString(), fileName);
-
-        if (Files.notExists(folder)) {
-            Files.createDirectory(folder);
-        }
-
-        if (Files.notExists(filePath)) {
-            Files.createFile(filePath);
-        }
-
-        return filePath;
-    }
-
     private ArrayList<Task> retrieveTasks() {
         ArrayList<Task> taskArrayList = new ArrayList<>();
         ArrayList<String> records = new ArrayList<>();
