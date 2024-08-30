@@ -232,4 +232,12 @@ public class Parser {
         }
     }
 
+    public String validateFindCommand(String[] parts) throws InvalidListException {
+        if (parts == null || parts.length < 2 || !parts[0].equals("find")) {
+            throw new InvalidListException(parts == null ? "null" : String.join(" ", parts));
+        }
+
+        return parts[1].trim();
+    }
+
 }

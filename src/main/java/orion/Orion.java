@@ -1,15 +1,16 @@
 package orion;
 
 import java.util.List;
+
+import orion.commands.Command;
 import orion.orionExceptions.FileInitializationException;
 import orion.orionExceptions.OrionException;
+import orion.parser.Parser;
 import orion.storage.Storage;
 import orion.task.DeadlineDetails;
 import orion.task.EventDetails;
 import orion.task.Task;
 import orion.taskList.TaskList;
-import orion.parser.Parser;
-import orion.commands.Command;
 import orion.ui.UI;
 
 /**
@@ -71,6 +72,9 @@ public class Orion {
                     break;
                 case DELETE:
                     handleDelete(parts);
+                    break;
+                case FIND:
+                    handleFind(parts);
                     break;
                 case UNKNOWN:
                 default:
@@ -190,4 +194,15 @@ public class Orion {
             ui.showError(e.getMessage());
         }
     }
+
+    private static void handleFind(String[] parts) {
+        try {
+            String keyword = parser.validateFindCommand(parts);
+            List<Task> matchingTasks = manager.findTasks(keyword);
+            ui.showTaskList(matchingTasks, true);
+        } catch (OrionException e) {
+            ui.showError(e.getMessage());
+        }
+    }
+
 }

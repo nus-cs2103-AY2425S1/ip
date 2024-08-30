@@ -1,22 +1,21 @@
-list
-todo Read a book
-deadline Complete assignment /by 28/08/2024 1800
-event Team meeting /from 25/08/2024 1400 /to 25/08/2024 1600
+todo Finish homework
+deadline Submit report /by 10/09/2024 1800
+event Company retreat /from 15/09/2024 0900 /to 17/09/2024 1700
+todo Buy groceries
+deadline Pay utility bills /by 05/09/2024 1200
+event Friend's wedding /from 12/09/2024 1500 /to 12/09/2024 2100
 list
 mark 2
+mark 5
+delete 4
 list
 unmark 2
-delete 1
+todo Prepare presentation
+event Conference /from 20/09/2024 0900 /to 22/09/2024 1700
+find report
+find wedding
+find non-existent
 list
-todo Buy groceries
-deadline Submit report /by 30/08/2024 1700
-event Birthday party /from 31/08/2024 1800 /to 01/09/2024 0200
-list
-mark 3
-delete 2
-list
-todo Walk the dog
-deadline Pay bills /by 31/08/2024 2359
-event Family dinner /from 01/09/2024 1900 /to 01/09/2024 2100
-list
+delete 3
+find retreat
 bye
