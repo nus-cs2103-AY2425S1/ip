@@ -24,17 +24,17 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.unmarkTaskAsDone(index);
         if (task != null) {
-            ui.showUnmarkedTask(task);
             try {
                 storage.save(tasks.getTasks());
             } catch (IOException e) {
                 ui.showError("An error occurred while saving the task.");
             }
+            return ui.showUnmarkedTask(task);
         } else {
-            ui.showError("Task not found.");
+            return ui.showError("Task not found.");
         }
     }
 

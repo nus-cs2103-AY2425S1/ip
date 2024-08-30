@@ -11,8 +11,8 @@ import friday.util.Ui;
 public class ExitCommand extends Command {
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.sayGoodbye();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.sayGoodbye();
     }
 
     @Override

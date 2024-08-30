@@ -11,8 +11,8 @@ import friday.util.Ui;
 public class ListCommand extends Command {
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showTasks(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showTasks(tasks);
     }
 
     @Override

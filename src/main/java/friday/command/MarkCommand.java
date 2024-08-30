@@ -24,17 +24,17 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.markTaskAsDone(index);
         if (task != null) {
-            ui.showMarkedTask(task);
             try {
                 storage.save(tasks.getTasks());
             } catch (IOException e) {
                 ui.showError("An error occurred while saving the task.");
             }
+            return ui.showMarkedTask(task);
         } else {
-            ui.showError("Task not found.");
+            return ui.showError("Task not found.");
         }
     }
 

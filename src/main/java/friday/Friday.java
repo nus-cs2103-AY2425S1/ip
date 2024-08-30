@@ -59,4 +59,27 @@ public class Friday {
         Friday friday = new Friday("./data/friday.txt");
         friday.run();
     }
+
+    /**
+     * Generates a response to the user input.
+     *
+     * @param input The user input as a string.
+     * @return The response from the Friday application.
+     */
+    public String getResponse(String input) {
+        try {
+            if (input == "") {
+                return ui.greet();
+            } else {
+                Command c = Parser.parse(input);
+                String response = c.execute(tasks, ui, storage);
+                if (c.isExit()) {
+                    return response + "\nEXIT";
+                }
+                return response;
+            }
+        } catch (Exception e) {
+            return ui.showError(e.getMessage());
+        }
+    }
 }

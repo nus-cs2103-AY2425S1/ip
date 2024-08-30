@@ -92,7 +92,8 @@ public class Parser {
         try {
             return new AddCommand(new Deadline(description, by));
         } catch (DateTimeParseException e) {
-            return new InvalidCommand("OOPS!!! The date format for the deadline is incorrect.");
+            return new InvalidCommand("OOPS!!! The date format for the deadline is incorrect. "
+                    + "Please use yyyy-MM-dd HHmm.");
         }
     }
 
@@ -117,7 +118,8 @@ public class Parser {
             String to = dateTimeParts[1];
             return new AddCommand(new Event(description, from, to));
         } catch (DateTimeParseException e) {
-            return new InvalidCommand("OOPS!!! The date/time format for the event is incorrect.");
+            return new InvalidCommand("OOPS!!! The date/time format for the event is incorrect. "
+                    + "Please use yyyy-MM-dd HHmm.");
         }
     }
 

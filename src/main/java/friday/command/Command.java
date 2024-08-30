@@ -17,8 +17,9 @@ public abstract class Command {
      * @param tasks  The TaskList containing the tasks to be manipulated by the command.
      * @param ui     The Ui object for interacting with the user and providing feedback.
      * @param storage The Storage object for saving or loading tasks from storage.
+     * @return A String containing the result of the command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage);
 
     /**
      * Determines whether the command indicates the termination of the application.
