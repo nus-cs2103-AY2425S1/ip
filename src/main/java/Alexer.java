@@ -165,11 +165,11 @@ public class Alexer {
 
     public static void main(String[] args) {
         String logo = """
-                     .     .                           \s
-                    /|     |     ___  _  .-   ___  .___\s
+                     .     .                           
+                    /|     |     ___  _  .-   ___  .___
                    /  \\    |   .'   `  \\,'  .'   ` /   \\
                   /---'\\   |   |----'  /\\   |----' |   '
-                ,'      \\ /\\__ `.___, /  \\  `.___, /   \s""";
+                ,'      \\ /\\__ `.___, /  \\  `.___, /   """;
         System.out.println(BREAK);
         System.out.println(logo);
 
