@@ -1,3 +1,5 @@
+package bob;
+
 public class DeadlineCommand  extends Command {
     protected static String[] params = new String[] { "deadline" };
     protected static int paramCount = 2;

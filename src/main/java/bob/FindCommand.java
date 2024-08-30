@@ -1,3 +1,5 @@
+package bob;
+
 public class FindCommand  extends Command {
     protected static String[] params = new String[] { "find" };
     protected static int paramCount = 1;

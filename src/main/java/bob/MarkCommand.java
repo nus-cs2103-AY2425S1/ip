@@ -1,18 +1,20 @@
-public class UnmarkCommand  extends Command {
+package bob;
+
+public class MarkCommand  extends Command {
     protected static String[] params = new String[] { "mark" };
     protected static int paramCount = 1;
     protected static String identifier = "mark";
     private final int idx;
 
-    public UnmarkCommand(int idx) {
+    public MarkCommand(int idx) {
         this.idx = idx;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.unmark(idx);
+        tasks.mark(idx);
         Printer.prettyPrint(new String[] {
-                "OK, I've marked this task as not done yet:",
+                "Nice! I've marked this task as done:",
                 tasks.describeTask(idx) });
     }
 }

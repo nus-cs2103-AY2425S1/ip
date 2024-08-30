@@ -1,3 +1,5 @@
+package bob;
+
 public class ExtraParamException extends IllegalInputException {
     public ExtraParamException(String offender) {
         super("Your instructions had too many parameters:",

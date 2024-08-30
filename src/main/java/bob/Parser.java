@@ -1,3 +1,5 @@
+package bob;
+
 public class Parser {
     private static final String[] PARAMS_BYE = new String[] { "bye" };
     private static final String[] PARAMS_LIST = new String[] { "list" };
@@ -28,7 +30,7 @@ public class Parser {
             } catch (NumberFormatException e) {
                 throw new TaskIndexException(arguments[0]);
             }
-//            if (idx <= 0 || idx > Bob.taskList.getSize()) {
+//            if (idx <= 0 || idx > bob.Bob.taskList.getSize()) {
 //                throw new TaskIndexException(inputs[0]);
 //            }
             return new MarkCommand(idx);
@@ -41,7 +43,7 @@ public class Parser {
             } catch (NumberFormatException e) {
                 throw new TaskIndexException(arguments[0]);
             }
-//            if (idx <= 0 || idx > Bob.taskList.getSize()) {
+//            if (idx <= 0 || idx > bob.Bob.taskList.getSize()) {
 //                throw new TaskIndexException(arguments[0]);
 //            }
             return new UnmarkCommand(idx);
@@ -70,7 +72,7 @@ public class Parser {
             } catch (NumberFormatException e) {
                 throw new TaskIndexException(arguments[0]);
             }
-//            if (idx <= 0 || idx > Bob.taskList.getSize()) {
+//            if (idx <= 0 || idx > bob.Bob.taskList.getSize()) {
 //                throw new TaskIndexException(inputs[0]);
 //            }
             return new DeleteCommand(idx);

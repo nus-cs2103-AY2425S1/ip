@@ -1,3 +1,5 @@
+package bob;
+
 public class ListCommand extends Command {
     protected static String[] params = new String[] { "list" };
     protected static int paramCount = 0;

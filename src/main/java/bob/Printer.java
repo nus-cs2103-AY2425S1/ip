@@ -1,3 +1,5 @@
+package bob;
+
 public class Printer {
     private static final String line = "____________________________________________________________";
     private static final String lineIndent = "    ";

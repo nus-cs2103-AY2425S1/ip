@@ -1,3 +1,5 @@
+package bob;
+
 public class IllegalInputException extends RuntimeException {
     private String desc;
     private String offender;

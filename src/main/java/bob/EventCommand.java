@@ -1,3 +1,5 @@
+package bob;
+
 public class EventCommand  extends Command {
     protected static String[] params = new String[] { "event" };
     protected static int paramCount = 3;

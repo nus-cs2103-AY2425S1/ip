@@ -1,3 +1,5 @@
+package bob;
+
 public class DeleteCommand  extends Command {
     protected static String[] params = new String[] { "delete" };
     protected static int paramCount = 1;
