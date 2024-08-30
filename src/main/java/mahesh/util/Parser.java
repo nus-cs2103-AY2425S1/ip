@@ -7,6 +7,7 @@ import mahesh.command.Command;
 import mahesh.command.CommandNames;
 import mahesh.command.DeleteCommand;
 import mahesh.command.ExitCommand;
+import mahesh.command.FindCommand;
 import mahesh.command.MarkCommand;
 import mahesh.command.PrintCommand;
 import mahesh.task.Deadline;
@@ -77,6 +78,13 @@ public class Parser {
                 Ui.printIncompleteCommandErr(new MaheshException("Please follow the given format: delete <index>, index must be an integer"));
                 return null;
             }
+        case FIND:
+        try {
+            return new FindCommand(list, tokenizedInput.nextToken());
+        } catch (NumberFormatException err) {
+            Ui.printIncompleteCommandErr(new MaheshException("Please follow the given format: find <search_term>"));
+            return null;
+        }
         default:
             return null;
         }

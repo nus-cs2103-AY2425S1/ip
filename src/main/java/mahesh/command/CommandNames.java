@@ -6,7 +6,7 @@ import mahesh.util.MaheshException;
  * Enum representing the various commands that can be issued to the Mahesh bot.
  */
 public enum CommandNames {
-    LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE;
+    LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND;
 
     /**
      * Converts a string to its corresponding Command enum value.
