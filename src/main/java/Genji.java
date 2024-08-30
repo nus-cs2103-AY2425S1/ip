@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -37,15 +40,18 @@ public class Genji {
                         }
                     } else if (input.startsWith("D")) {
                         String name = input.substring(8, input.lastIndexOf(" |"));
-                        String from = input.substring(input.lastIndexOf(" |") + 3);
+                        LocalDateTime from = LocalDateTime.parse(input.substring(input.lastIndexOf(" |") + 3),
+                                DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
                         list.add(new Deadline(name, from));
                         if (input.substring(4).startsWith("1")) {
                             list.get(list.size() - 1).mark();
                         }
                     } else {
                         String name = input.substring(8, input.lastIndexOf(" |"));
-                        String from = input.substring(input.lastIndexOf(" |") + 3, input.lastIndexOf(" to"));
-                        String to = input.substring(input.lastIndexOf(" to") + 4);
+                        LocalDateTime from = LocalDateTime.parse(input.substring(input.lastIndexOf(" |") + 3,
+                                input.lastIndexOf(" to")), DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+                        LocalDateTime to = LocalDateTime.parse(input.substring(input.lastIndexOf(" to") + 4),
+                                DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
                         list.add(new Event(name, from, to));
                         if (input.substring(4).startsWith("1")) {
                             list.get(list.size()- 1).mark();
@@ -77,6 +83,22 @@ public class Genji {
         for(Task task : list) {
             System.out.println(String.format("%d. ", index)+ task);
             index++;
+        }
+    }
+
+    public static void checkDate(String date) {
+        for (Task t : list) {
+            if (t instanceof Deadline) {
+                Deadline temp  = (Deadline) t;
+                if (temp.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(date)) {
+                    System.out.println(t);
+                }
+            } else if (t instanceof Event) {
+                Event temp = (Event) t;
+                if (temp.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(date)) {
+                    System.out.println(t);
+                }
+            }
         }
     }
 
@@ -150,7 +172,7 @@ public class Genji {
                 } else {
                     try {
                         String name = input.substring(9, input.lastIndexOf(" /"));
-                        String time = input.substring(input.lastIndexOf(" /") + 5);
+                        LocalDateTime time = LocalDateTime.parse(input.substring(input.lastIndexOf(" /") + 5));
                         Deadline ddl = new Deadline(name, time);
                         addList(ddl);
                         saveList();
@@ -159,6 +181,8 @@ public class Genji {
                         System.out.println("Now you have " + list.size() + " tasks in the list");
                     } catch (StringIndexOutOfBoundsException s) {
                         System.out.println("Due date not provided or not in the proper form");
+                    } catch (DateTimeParseException d) {
+                        System.out.println("Please provide date time in this format\"yyyy-mm-ddThh:mm\"");
                     }
                 }
             } else if (input.startsWith("event")) {
@@ -167,8 +191,9 @@ public class Genji {
                 } else {
                     try {
                         String name = input.substring(6, input.lastIndexOf(" /from"));
-                        String from = input.substring(input.lastIndexOf(" /from") + 7, input.lastIndexOf(" /to"));
-                        String to = input.substring(input.lastIndexOf(" /to") + 5);
+                        LocalDateTime from = LocalDateTime.parse(input.substring(input.lastIndexOf(" /from") + 7,
+                                input.lastIndexOf(" /to")));
+                        LocalDateTime to = LocalDateTime.parse(input.substring(input.lastIndexOf(" /to") + 5));
                         Event evt = new Event(name, from, to);
                         addList(evt);
                         saveList();
@@ -177,6 +202,8 @@ public class Genji {
                         System.out.println("Now you have " + list.size() + " tasks in the list");
                     } catch (StringIndexOutOfBoundsException s) {
                         System.out.println("Time period not provided or not in the proper form");
+                    } catch (DateTimeParseException d) {
+                        System.out.println("Please provide date time in this format\"yyyy-mm-ddThh:mm\"");
                     }
                 }
             } else if (input.startsWith("delete")) {
@@ -197,9 +224,19 @@ public class Genji {
                         System.out.println("Please input a integer smaller than the number of tasks");
                     }
                 }
+            } else if (input.startsWith("date")) {
+                if (input.length() < 6) {
+                    System.out.println("No descriptions detected, try again");
+                } else {
+                    try {
+                        checkDate(input.substring(5));
+                    } catch (DateTimeParseException d) {
+                        System.out.println("Please provide date time in this format\"yyyy-mm-dd\"");
+                    }
+                }
             } else {
                 System.out.println("Invalid command, try to start with \"todo\" \"deadline\"" +
-                        " \"event\", type \"list\", or type \"bye\" to end");
+                        " \"event\", type \"list\" \"date\", or type \"bye\" to end");
             }
             System.out.println(LINE);
         }
