@@ -11,8 +11,18 @@ import sentinel.task.Task;
 import sentinel.task.ToDo;
 import sentinel.task.Event;
 import sentinel.task.Deadline;
+
+/**
+ * The FileLoader class is responsible for loading tasks from a properties file into a SentinelList.
+ * It reads tasks from a file named "tasks.properties", parses the properties for each task, and creates corresponding Task objects.
+ */
 public class FileLoader {
 
+    /**
+     * Loads tasks from the "tasks.properties" file into a SentinelList.
+     *
+     * @return A SentinelList containing the tasks read from the file, or null if an error occurs.
+     */
     public SentinelList loadTasks() {
         SentinelList tasks = new SentinelList();
         Properties masterFile = new Properties();
@@ -41,7 +51,7 @@ public class FileLoader {
                 case "T" -> new ToDo(properties.getProperty("description"));
                 case "D" -> new Deadline(properties.getProperty("description"), LocalDateTime.parse(properties.getProperty("endDate")));
                 case "E" -> new Event(properties.getProperty("description"), LocalDateTime.parse(properties.getProperty("endDate")), LocalDateTime.parse(properties.getProperty("startDate")));
-                default -> throw new IllegalArgumentException("Unknown sentinel.task type: " + taskType);
+                default -> throw new IllegalArgumentException("Unknown task type: " + taskType);
             };
             if (properties.getProperty("isDone").equals("T")) task.setDone();
             tasks.add(task);

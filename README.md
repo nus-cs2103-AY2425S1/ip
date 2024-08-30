@@ -45,9 +45,9 @@ Hello from
 ```
 
 ## Features
-- **sentinel.task.Task Management**: Add, list, and mark tasks as done.
-- **sentinel.task.Event Management**: Schedule events with start and end times.
-- **sentinel.task.Deadline Tracking**: Set deadlines.
+- **Task Management**: Add, list, and mark tasks as done.
+- **Event Management**: Schedule events with start and end times.
+- **Deadline Tracking**: Set deadlines.
 
 ## Usage
 These are some commands sentinel.Sentinel has:

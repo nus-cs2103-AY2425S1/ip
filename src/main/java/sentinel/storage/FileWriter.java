@@ -9,11 +9,27 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Properties;
+
+/**
+ * The FileWriter class is responsible for saving tasks from a SentinelList to a properties file.
+ * It writes the tasks to a file named "tasks.properties" in a format that can be read by the FileLoader.
+ */
 public class FileWriter {
     private final SentinelList arrayList;
-    public FileWriter(SentinelList arrayList){
+
+    /**
+     * Constructs a FileWriter with the specified SentinelList.
+     *
+     * @param arrayList The SentinelList containing tasks to be saved.
+     */
+    public FileWriter(SentinelList arrayList) {
         this.arrayList = arrayList;
     }
+
+    /**
+     * Saves tasks from the SentinelList to the "tasks.properties" file.
+     * Each task is saved with its type, description, and status, and additional fields for Deadline and Event tasks.
+     */
     public void saveTasks() {
         Properties masterFile = new Properties();
 
@@ -42,7 +58,7 @@ public class FileWriter {
         }
 
         try (FileOutputStream out = new FileOutputStream("tasks.properties")) {
-            masterFile.store(out, "sentinel.task.Task Data");
+            masterFile.store(out, "Task Data");
         } catch (IOException e) {
             e.printStackTrace();
         }
