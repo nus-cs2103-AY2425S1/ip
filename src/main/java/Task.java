@@ -28,7 +28,7 @@ public class Task {
         }
     }
 
-    public String getTask() {
+    public String getTaskInfo() {
         return this.taskInfo;
     }
 

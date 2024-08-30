@@ -7,18 +7,18 @@ public class Todo extends Task{
     @Override
     public String stringIsDone() {
         if (checkIsDone()) {
-            return String.format("[T][X] %s", super.getTask());
+            return String.format("[T][X] %s", super.getTaskInfo());
         } else {
-            return String.format("[T][ ] %s", super.getTask());
+            return String.format("[T][ ] %s", super.getTaskInfo());
         }
     }
 
     @Override
     public String dataToSave() {
         if (checkIsDone()) {
-            return String.format("TO-DO         | 1 | %s", super.getTask());
+            return String.format("TO-DO         | 1 | %s", super.getTaskInfo());
         } else {
-            return String.format("TO-DO         | 0 | %s", super.getTask());
+            return String.format("TO-DO         | 0 | %s", super.getTaskInfo());
         }
     }
 

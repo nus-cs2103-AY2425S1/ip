@@ -1,9 +1,6 @@
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+
 
 public class Storage {
 
@@ -13,26 +10,24 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public void saveToFile(ArrayList<Task> taskList) throws IOException {
+    public void saveToFile(TaskList taskList) throws IOException {
 
         int counter = 1;
         File saveFile = new File(this.filePath);
         FileWriter fileStream = new FileWriter(saveFile);
         BufferedWriter fileInfo = new BufferedWriter(fileStream);
 
-        for (Task task : taskList) {
+        for (Task task : taskList.getTasks()) {
             fileInfo.write(String.format("%s%n", task.dataToSave()));
-            System.out.println("Written " + counter + " tasks.");
-            counter++;
         }
 
         fileInfo.flush();
         fileInfo.close();
     }
 
-    public ArrayList<Task> loadFromFile() throws FileNotFoundException {
+    public TaskList loadFromFile() throws FileNotFoundException {
 
-        ArrayList<Task> loadedTasks = new ArrayList<>();
+        TaskList loadedTasks = new TaskList();
         BufferedReader fileReader = new BufferedReader(new FileReader(this.filePath));
 
         try {
@@ -45,16 +40,16 @@ public class Storage {
 
                 switch (taskInfo[0].trim()) {
                     case "TO-DO":
-                        loadedTasks.add(new Todo(taskToDo, isDone));
+                        loadedTasks.addTask(new Todo(taskToDo, isDone));
                         break;
                     case "DEADLINE":
                         String deadline = taskInfo[3].trim().substring(4);
-                        loadedTasks.add(new Deadline(taskToDo, deadline, isDone));
+                        loadedTasks.addTask(new Deadline(taskToDo, deadline, isDone));
                         break;
                     case "EVENT":
                         String start = taskInfo[3].trim().substring(7);
                         String end = taskInfo[4].trim().substring(5);
-                        loadedTasks.add(new Event(taskToDo, start, end, isDone));
+                        loadedTasks.addTask(new Event(taskToDo, start, end, isDone));
                         break;
                 }
                 currentLine = fileReader.readLine();
