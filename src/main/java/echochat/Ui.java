@@ -60,4 +60,15 @@ public class Ui {
     public void showError(String message) {
         System.out.println(message);
     }
+
+    public void showFoundTasks(String description, ArrayList<Task> tasks) {
+        System.out.println("Here are the matching tasks in you list:");
+        int idx = 0;
+        for (Task task : tasks) {
+            String desc = task.getDesc();
+            if (desc.contains(description)) {
+                System.out.println(idx + "." + desc);
+            }
+        }
+    }
 }

@@ -11,8 +11,11 @@ public class Parser {
             return new Command(CommandType.EXIT, null, 0);
         } else if (input.equals("list")) {
             return new Command(CommandType.LIST, null, 0);
-        } else if (parts.length == 2) {
+        }
+        else if (parts.length == 2) {
             switch (parts[0]) {
+            case "find":
+                return new Command(CommandType.FIND, parts[1], 0);
             case "mark":
                 return new Command(CommandType.MARK, null, Integer.parseInt(parts[1]));
             case "unmark":

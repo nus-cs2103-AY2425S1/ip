@@ -45,12 +45,17 @@ public class ChatBot {
                     Task removedTask = taskList.delete(command.getIndex());
                     ui.showTaskDeleted(removedTask, taskList.getTaskList().size());
                     break;
+                case FIND:
+                    ui.showFoundTasks(command.getDescription(), taskList.getTaskList());
+                    break;
                 case TODO:
                 case DEADLINE:
                 case EVENT:
                     Task newTask = command.createTask();
                     taskList.addToList(newTask);
                     ui.showTaskAdded(newTask, taskList.getTaskList().size());
+                    break;
+                case UNKNOWN:
                     break;
                 default:
                     ui.showError("Unknown command.");
