@@ -87,6 +87,27 @@ public class Parser {
     }
 
     /**
+     * The method searches for tasks in the taskList that contains the specified keyword.
+     *
+     * @param taskList taskList to be searched.
+     * @param keyword keyword to be searched.
+     * @return TaskList containing tasks containing the keyword.
+     */
+    public TaskList parseFindTask(TaskList taskList, String keyword) {
+
+        TaskList tasks = new TaskList();
+
+        for (int i = 0; i < taskList.getSize(); i++) {
+            Task t = taskList.getSpecificTask(i);
+            if (t.getDescription().contains(keyword)) {
+                tasks.addTask(t);
+            }
+        }
+
+        return tasks;
+    }
+
+    /**
      * The method parses for description from the task line.
      *
      * @param task task line.
