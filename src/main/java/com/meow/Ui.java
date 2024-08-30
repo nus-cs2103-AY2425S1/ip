@@ -21,8 +21,8 @@ public class Ui {
 
 
     /*
-     * Prints the list of tasks
-     * @param TaskList tasks
+     * Prints the task outcome message
+     * @param String msg
      * @return void
      */
     public void showTaskOutcomeMessage(String msg) {

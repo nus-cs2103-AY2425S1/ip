@@ -39,7 +39,7 @@ public class Save {
             for (int i = 0; i < tasks.getSize(); i++) {
                 Task task = tasks.get(i);
                 String completed = task.isDone() ? "1" : "0";
-                writer.write(completed + " " + task.getType() + " " + task.getTaskName() + " " + task.getExtra() +"\n");
+                writer.write(completed + " " + task.getTaskName() + " " + task.getExtra() +"\n");
             }
             // for (Task task : tasks) {
             //     String completed = task.isDone() ? "1" : "0";
@@ -64,7 +64,7 @@ public class Save {
             Path path = Paths.get("meow.txt");
             List<String> tasks_String = Files.readAllLines(path);
             //java.util.Scanner reader = new java.util.Scanner(file);
-            System.out.println(tasks_String);
+            //System.out.println(tasks_String);
             
             //reader.close();
             return tasks_String;
@@ -85,13 +85,12 @@ public class Save {
         for (String task : tasks) {
             try {
                 String type = task.substring(0, 1);
-                
                 parser.commandValidation(task.substring(2));
                 if (type.equals("1")) {
                     taskList.get(taskList.getSize() - 1).setDone(true);
                 } 
             } catch (Meowception e) {
-                System.out.println(e.getMessage());
+                throw e;
             } catch (java.lang.StringIndexOutOfBoundsException e) {
                 //pass
             }

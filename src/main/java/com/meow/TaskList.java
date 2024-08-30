@@ -126,7 +126,7 @@ public class TaskList {
         if (tasks.isEmpty()) {
             return "    Meow has no tasks in the list hehe";
         }
-        String outputList = "Meow Meow Tasks in the list:\n     ";
+        String outputList = "Meow Meow Tasks in the list:\n       ";
         for (int i = 0; i < tasks.size(); i++) {
             outputList += (i + 1) + ". " + tasks.get(i) + "\n       ";
         }
@@ -146,6 +146,24 @@ public class TaskList {
             return "    Meow has removed this task hehe";
         }
     }
+
+    /*
+     * Find tasks with the specified keyword
+     * Searches all tasks and returns if contains it
+     * @param String keyword
+     * @return TaskList
+     */
+    public TaskList findTasks(String keyword) throws Meowception {
+        TaskList foundTasks = new TaskList();
+        for (Task task : tasks) {
+            if (task.getTaskName().contains(keyword)) {
+                foundTasks.addTask(task);
+            }
+        }
+        return foundTasks;
+    }
+
+    
 
     // Returns the message to be shown when a new task is added
     private String addedNewTaskMessage(Task task) {
