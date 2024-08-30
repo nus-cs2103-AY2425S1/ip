@@ -11,6 +11,7 @@ public class CommandScanner {
     private String input;
     private int inputIndex;
     private Task inputTask;
+    private String keyword;
 
     public CommandScanner() {
         this.scanner = new Scanner(System.in);
@@ -22,6 +23,10 @@ public class CommandScanner {
 
     public Task getInputTask() {
         return this.inputTask;
+    }
+
+    public String getKeyword() {
+        return this.keyword;
     }
 
     /**
@@ -44,6 +49,9 @@ public class CommandScanner {
             return this.markIndex() ? CommandType.UNMARK : CommandType.INDEX_WRONG_FORMAT;
         } else if (input_words[0].equalsIgnoreCase("delete")) {
             return this.markIndex() ? CommandType.DELETE : CommandType.INDEX_WRONG_FORMAT;
+        } else if (input_words[0].equalsIgnoreCase("find")) {
+            this.keyword = input_words[1];
+            return CommandType.FIND;
         } else if (input_words[0].equalsIgnoreCase("todo")) {
             if (input_words.length <= 1) {
                 return CommandType.TODO_WRONG_FORMAT;
@@ -57,7 +65,7 @@ public class CommandScanner {
                 String[] description = input.split("deadline | /by");
                 DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
                 this.inputTask = new Deadline(description[1].trim(), LocalDateTime.parse(description[2].trim(), pattern));
-            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
                 return CommandType.DEADLINE_WRONG_FORMAT;
             }
             return CommandType.DEADLINE;
@@ -66,7 +74,7 @@ public class CommandScanner {
                 String[] description = input.split("event | /from | /to ");
                 DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
                 this.inputTask =  new Event(description[1].trim(), LocalDateTime.parse(description[2].trim(), pattern), LocalDateTime.parse(description[3].trim(), pattern));
-            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
                 return CommandType.EVENT_WRONG_FORMAT;
             }
             return CommandType.EVENT;
