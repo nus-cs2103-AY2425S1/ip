@@ -35,7 +35,11 @@ public class ParserTest {
         StorageStub storageStub = new StorageStub("dummyPath");
         Ui ui = new Ui();
         TaskList tasks = new TaskList();
-        Parser.parse("todo new task 1", tasks, storageStub, ui);
-        assertEquals(1, tasks.size());
+        String[] commands = {"todo book task 1", "event bookFair /start 1/1/2024 /end 1/2/2024", "todo something else"};
+        for (String command : commands) {
+            Parser.parse(command, tasks, storageStub, ui);
+        }
+        assertEquals(3, tasks.size());
+        assertEquals(2, tasks.find("book").size());
     }
 }
