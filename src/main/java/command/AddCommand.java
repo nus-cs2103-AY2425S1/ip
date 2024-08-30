@@ -64,8 +64,7 @@ public class AddCommand extends Command {
             throw new BuddyException("Unknown task type.");
         }
     }
-<<<<<<< HEAD
-=======
+
 
     private void addTodoTask(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
         String taskDesc = command.substring(4).trim();
@@ -126,5 +125,5 @@ public class AddCommand extends Command {
             throw new BuddyException("There's no start date? (Include '/from' after your description)");
         }
     }
->>>>>>> branch-Level-9
+
 }
