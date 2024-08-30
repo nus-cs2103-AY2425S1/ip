@@ -32,13 +32,13 @@ public class SentinelListTest {
         singleTaskList.add(new ToDo("Single Task"));
 
         // Act & Assert
-        assertTrue(singleTaskList.sizeOne());
+        assertTrue(singleTaskList.isSizeOne());
     }
 
     @Test
     public void testSizeOneWhenSizeIsNotOne() {
         // Act & Assert
-        assertFalse(sentinelList.sizeOne());
+        assertFalse(sentinelList.isSizeOne());
     }
 
     @Test
@@ -80,7 +80,7 @@ public class SentinelListTest {
     public void testTaskIsDone() {
         // Act
         sentinelList.toggleMark(0);
-        boolean isDone = sentinelList.taskIsDone(0);
+        boolean isDone = sentinelList.isTaskDone(0);
 
         // Assert
         assertTrue(isDone);
