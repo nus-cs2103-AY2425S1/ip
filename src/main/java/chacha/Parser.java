@@ -134,7 +134,7 @@ public class Parser {
         } catch (ChaChaException e) {
             return e.toString();
         } catch (IndexOutOfBoundsException e) {
-            String[] arr = {"I can't find such a task number... You don't enough tasks!"};
+            String[] arr = {"I can't find such a task number... You don't enough tasks! "};
             return this.ui.printStrings(arr);
         } catch (NumberFormatException e) {
             String[] arr = {"The index does not seem to be a number... Please type again. "};
@@ -184,6 +184,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the string representation of response to finding a Task.
+     *
+     * @return String representation.
+     */
     public String doFindCommand(String userInput) {
         try {
             ArrayList<Task> results = this.tasks.find(userInput, this.ui);

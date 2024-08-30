@@ -84,7 +84,7 @@ public class TaskList {
         if (cmd.length() <= 6) {
             String[] arrOfString = {
                     "You are missing some info needed (task description, date, start time, end time).",
-                    "Please type again!"
+                    "Please type again! "
             };
 
             throw new ChaChaException(ui.printStrings(arrOfString));
@@ -274,6 +274,15 @@ public class TaskList {
         return unmarkedTask;
     }
 
+    /**
+     * Checks through the list of tasks to filter out the ones that contain the keyword given.
+     * Returns the Tasks in ArrayList.
+     *
+     * @param cmd Command
+     * @param ui UI
+     * @return List of Task.
+     * @throws ChaChaException if the command is not inputted correctly.
+     */
     public ArrayList<Task> find(String cmd, Ui ui) throws ChaChaException {
         if (cmd.length() <= 5) {
             String[] arrOfString = {
