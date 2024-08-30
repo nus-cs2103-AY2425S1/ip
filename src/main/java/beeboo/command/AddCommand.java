@@ -10,14 +10,22 @@ import beeboo.task.Events;
 import beeboo.task.ToDos;
 
 public class AddCommand extends Command{
-    String type;
-    String command;
+    private String type;
+    private String command;
     public AddCommand(String type, String command) {
         super(command);
         this.command = command;
         this.type = type;
     }
 
+    /**
+     *
+     * @param tasks tasklist of the chatbot
+     * @param ui ui of the chatbot
+     * @param storage storage function of chatbot
+     * @throws InvalidDateException if date formatting is wrong
+     * @throws NoDescriptionException if there is no description
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidDateException, NoDescriptionException {
         switch(type) {
@@ -43,6 +51,10 @@ public class AddCommand extends Command{
 
     }
 
+    /**
+     *
+     * @return true if is exit command false if not exit command
+     */
     @Override
     public boolean isExit() {
         return false;

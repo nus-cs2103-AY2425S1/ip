@@ -18,11 +18,33 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles the reading and writing of task data to and from a file.
+ * It provides methods for loading tasks from a file and saving tasks to a file.
+ */
 public class Storage {
+
+    /**
+     * The path to the file used for storing task data.
+     */
     String filepath;
+
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath the path to the file where task data is stored
+     */
     public Storage(String filePath) {
         this.filepath = filePath;
     }
+
+    /**
+     * Loads task data from the file specified by the file path.
+     * It reads the file line by line, parses the task data, and creates Task objects.
+     *
+     * @return an ArrayList of Tasks objects loaded from the file
+     * @throws NoFileException if the file does not exist
+     */
     public ArrayList<Tasks> load() throws NoFileException {
         File file = new File(filepath);
         ArrayList<Tasks> list = new ArrayList<>();
@@ -34,42 +56,43 @@ public class Storage {
                 while (scanner.hasNextLine()) {
                     String task = scanner.nextLine();
                     String[] splitted = task.split("\\|");
-                    if(splitted.length < 3 || splitted.length > 6) {
+                    if (splitted.length < 3 || splitted.length > 6) {
                         continue;
                     }
                     boolean isDone = splitted[1].trim().equals("1");
                     Tasks newTask = null;
                     switch (splitted[0].trim()) {
-                        case "T":
-                            newTask = new ToDos(splitted[2].trim());
-                            if(isDone) {
-                                newTask.markDone();
-                            }
-                            break;
-                        case "D":
-                            String[]dateTime = splitted[3].split("T");
-                            LocalDateTime dates = LocalDateTime.of(LocalDate.parse(dateTime[0].trim()), LocalTime.parse(dateTime[1].trim()));
-                            newTask = new Deadlines(splitted[2].trim(), dates);
-                            if(isDone) {
-                                newTask.markDone();
-                            }
-                            break;
-                        case "E":
-                            String[] startDateTime = splitted[3].split("T");
-                            String[] endDateTime = splitted[4].split("T");
-                            LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(startDateTime[0].trim()), LocalTime.parse(startDateTime[1].trim()));
-                            LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(endDateTime[0].trim()), LocalTime.parse(endDateTime[1].trim()));
+                    case "T":
+                        newTask = new ToDos(splitted[2].trim());
+                        if (isDone) {
+                            newTask.markDone();
+                        }
+                        break;
+                    case "D":
+                        String[] dateTime = splitted[3].split("T");
+                        LocalDateTime dates = LocalDateTime.of(LocalDate.parse(dateTime[0].trim()), LocalTime.parse(dateTime[1].trim()));
+                        newTask = new Deadlines(splitted[2].trim(), dates);
+                        if (isDone) {
+                            newTask.markDone();
+                        }
+                        break;
+                    case "E":
+                        String[] startDateTime = splitted[3].split("T");
+                        String[] endDateTime = splitted[4].split("T");
+                        LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(startDateTime[0].trim()), LocalTime.parse(startDateTime[1].trim()));
+                        LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(endDateTime[0].trim()), LocalTime.parse(endDateTime[1].trim()));
 
-                            newTask = new Events(splitted[2].trim(), startDate,
-                                    endDate);
-                            if(isDone) {
-                                newTask.markDone();
-                            }
-                            break;
-                        default:
-                            break;
+                        newTask = new Events(splitted[2].trim(), startDate, endDate);
+                        if (isDone) {
+                            newTask.markDone();
+                        }
+                        break;
+                    default:
+                        break;
                     }
-                    list.add(newTask);
+                    if (newTask != null) {
+                        list.add(newTask);
+                    }
                 }
             } catch (IOException e) {
                 System.out.println("Error has occurred while reading the file");
@@ -78,6 +101,12 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Saves the specified list of tasks to the file specified by the file path.
+     * Each task is saved in a format suitable for storage.
+     *
+     * @param list the list of Tasks objects to be saved
+     */
     public void saveItem(ArrayList<Tasks> list) {
         try (FileWriter writer = new FileWriter("./data/beeboo.txt")) {
             for (Tasks task : list) {
@@ -88,15 +117,18 @@ public class Storage {
         }
     }
 
-        protected static void createFile() {
-           Path path = Paths.get("./data");
-           if(Files.notExists(path)) {
-               try{
-                   Files.createDirectories(path);
-               } catch (IOException e) {
-                   System.out.println("Unable to create directory");
-               }
-           }
+    /**
+     * Creates the directory for storing task data if it does not already exist.
+     * This method ensures that the directory structure is in place for saving task data.
+     */
+    protected static void createFile() {
+        Path path = Paths.get("./data");
+        if (Files.notExists(path)) {
+            try {
+                Files.createDirectories(path);
+            } catch (IOException e) {
+                System.out.println("Unable to create directory");
+            }
         }
     }
-
+}

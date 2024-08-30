@@ -12,6 +12,13 @@ public class DeleteCommand extends Command{
        this.command = command;
     }
 
+    /**
+     *
+     * @param tasks tasklist of chatbot
+     * @param ui ui of the chatbot
+     * @param storage storage function of the chatbot
+     * @throws InvalidIndexException if index is < 0 or is more than the size of tasklist
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
         int index = Integer.parseInt(command);
@@ -23,6 +30,10 @@ public class DeleteCommand extends Command{
         storage.saveItem(tasks.getList());
     }
 
+    /**
+     *
+     * @return true if is exit command false if not exit command
+     */
     @Override
     public boolean isExit() {
         return false;
