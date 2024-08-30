@@ -1,14 +1,17 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class Event extends Task {
 
-    String startDate;
-    String endDate;
+    LocalDate startDate;
+    LocalDate endDate;
 
     public Event(String name, String[] startDate, String[] endDate) {
         super(validateString(name, startDate, endDate));
 
         //Valid input: (name, [from, startDate], [to, endDate])
-        this.startDate = startDate[1].trim();
-        this.endDate = endDate[1].trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy");
+        this.startDate = LocalDate.parse(startDate[1].trim(), formatter);
+        this.endDate = LocalDate.parse(endDate[1].trim(), formatter);
     }
 
     private static String validateString(String name, String[] startDate, String[] endDate) {
@@ -67,12 +70,12 @@ public class Event extends Task {
     @Override
     public String saveTask() {
 
-        return String.format("E|%s|%s|%s|%s", super.getStatus(), super.getTask(), startDate, endDate);
+        return String.format("E|%s|%s|%s|%s", super.getStatus(), super.getTask(), startDate.format(DateTimeFormatter.ofPattern("dd-MM-yy")), endDate.format(DateTimeFormatter.ofPattern("dd-MM-yy")));
     }
 
 
     @Override
     public String toString() {
-        return String.format("[E] %s (from: %s to: %s)", super.toString(), startDate, endDate);
+        return String.format("[E] %s (from: %s to: %s)", super.toString(), startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")), endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 }
