@@ -31,7 +31,8 @@ public class DeadlineTest {
             Deadline.makeDeadline(tokenizer);
         });
 
-        assertEquals("If you have a deadline, type : \"deadline <description> /by DD-MM-YY HH:MM\"", exception.getMessage());
+        assertEquals("If you have a deadline, type : \"deadline <description> /by DD-MM-YY HH:MM\"",
+                exception.getMessage());
     }
 
     @Test void testParseDeadlineWithIncorrectInput() {

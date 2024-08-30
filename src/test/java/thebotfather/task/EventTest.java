@@ -17,7 +17,8 @@ public class EventTest {
 
         try {
             Event event = Event.makeEvent(tokenizer);
-            assertEquals("[E][ ] read book (from: 30 Aug 2024, 16:00 to: 31 Aug 2024, 23:59)", event.toString());
+            assertEquals("[E][ ] read book (from: 30 Aug 2024, 16:00 to: 31 Aug 2024, 23:59)",
+                    event.toString());
         } catch (TheBotFatherException e) {
             fail("Exception should not be thrown for valid input");
         }
@@ -32,7 +33,8 @@ public class EventTest {
         });
 
         assertEquals("Kid, look at what you have  written... is that a valid event?? *sigh*\n" +
-                "\tIf you have an event, type \"event <description> /from DD-MM-YY HH:MM /to DD-MM-YY HH:MM\"", exception.getMessage());
+                "\tIf you have an event, type \"event <description> /from DD-MM-YY HH:MM /to DD-MM-YY HH:MM\"",
+                exception.getMessage());
     }
 
     @Test void testParseEventWithIncorrectInput() {
