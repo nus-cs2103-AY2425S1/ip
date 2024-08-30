@@ -13,13 +13,34 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles the loading and saving of tasks from and to a file.
+ * It provides methods to read tasks from a file and convert them into a TaskList object,
+ * as well as to write the current TaskList back to the file.
+ */
 public class Storage {
+
+    /**
+     * The path of the file to store the task list.
+     */
     private String pathName = "";
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param pathName The path of the file to store the task list.
+     */
     public Storage(String pathName) {
         this.pathName = pathName;
     }
 
+    /**
+     * Loads the task list from the specified file.
+     * If the file does not exist, it creates a new file and returns an empty TaskList.
+     *
+     * @return The TaskList object containing tasks read from the file.
+     * @throws TheBotFatherException If the file is corrupted or cannot be read properly.
+     */
     public TaskList load() throws TheBotFatherException {
         TaskList taskList = new TaskList(new ArrayList<Task>());
         try {
@@ -56,6 +77,13 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the current task list to the specified file.
+     * If the file does not exist, it creates a new file.
+     *
+     * @param taskList The TaskList object containing tasks to be saved.
+     * @throws TheBotFatherException If there is an error writing to the file.
+     */
     public void toFile(TaskList taskList) throws TheBotFatherException {
 
         try {

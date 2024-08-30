@@ -7,17 +7,38 @@ import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
+/**
+ * Represents a task with a deadline.
+ * A Deadline is a type of Task that has a specific date and time by which it must be completed.
+ */
 public class Deadline extends Task {
 
-
+    /**
+     * The deadline date and time by which the task should be completed.
+     */
     protected LocalDateTime by;
 
+    /**
+     * Constructs a Deadline task with the specified description and deadline date/time.
+     *
+     * @param description The description of the task.
+     * @param by          The date and time by which the task must be completed.
+     * @throws TheBotFatherException If the task description or deadline is invalid.
+     */
     public Deadline(String description, LocalDateTime by) throws TheBotFatherException {
         super(description, "D");
         this.by = by;
 
     }
 
+    /**
+     * Creates a new Deadline object from a StringTokenizer input.
+     * The input should contain the task description followed by "/by" and the deadline date/time.
+     *
+     * @param tokens The StringTokenizer containing the input string.
+     * @return A new Deadline object.
+     * @throws TheBotFatherException If the input format is incorrect or if the deadline date/time is invalid.
+     */
     public static Deadline makeDeadline(StringTokenizer tokens) throws TheBotFatherException {
         try {
             StringBuilder description = new StringBuilder();

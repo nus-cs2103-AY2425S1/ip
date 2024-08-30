@@ -15,10 +15,25 @@ import thebotfather.task.Todo;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
+/**
+ * The Parser class is responsible for interpreting user input and converting it into a Command.
+ * It parses the string input to determine which command the user wants to execute and returns the corresponding Command object.
+ */
 public class Parser {
+
+    /**
+     * Parses the user's input and returns the corresponding Command object.
+     *
+     * @param completeLine The full line of input entered by the user.
+     * @param ui           The Ui object used to interact with the user interface.
+     * @return The Command object corresponding to the user's input.
+     * @throws TheBotFatherException If the input is invalid or does not correspond to any known command.
+     */
     public static Command parse(String completeLine, Ui ui) throws TheBotFatherException {
+
         StringTokenizer tokens;
         String command = "";
+
         try {
             tokens = new StringTokenizer(completeLine);
             command = tokens.nextToken();

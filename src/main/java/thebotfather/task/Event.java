@@ -8,16 +8,45 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.StringTokenizer;
 
+/**
+ * Represents a task that occurs during a specific time interval.
+ * An Event is a type of Task that has a start time and an end time.
+ */
 public class Event extends Task {
+
+    /**
+     * The start date and time of the event.
+     */
     protected LocalDateTime from;
+
+    /**
+     * The end date and time of the event.
+     */
     protected LocalDateTime to;
 
+    /**
+     * Constructs an Event task with the specified description, start time, and end time.
+     *
+     * @param description The description of the task.
+     * @param from        The start date and time of the event.
+     * @param to          The end date and time of the event.
+     * @throws TheBotFatherException If the task description, start time, or end time is invalid.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) throws TheBotFatherException {
         super(description, "E");
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Creates a new Event object from a StringTokenizer input.
+     * The input should contain the task description followed by "/from" and the start time,
+     * then "/to" and the end time.
+     *
+     * @param tokens The StringTokenizer containing the input string.
+     * @return A new Event object.
+     * @throws TheBotFatherException If the input format is incorrect or if the start/end times are invalid.
+     */
     public static Event makeEvent(StringTokenizer tokens) throws TheBotFatherException {
         try {
             StringBuilder description = new StringBuilder();
@@ -44,7 +73,7 @@ public class Event extends Task {
             }
 
             if (Objects.equals(from.toString(), "")) {
-                throw new TheBotFatherException("Kid, look at what you have  written... is that a valid event?? *sigh*\n" +
+                throw new TheBotFatherException("Kid, look at what you have written... is that a valid event?? *sigh*\n" +
                         "\tIf you have an event, type \"event <description> /from DD-MM-YY HH:MM /to DD-MM-YY HH:MM\"");
             }
 
@@ -52,7 +81,7 @@ public class Event extends Task {
                     LocalDateTime.parse(from.toString().trim(), Task.DATE_STRING_FORMATTER),
                     LocalDateTime.parse(to.toString().trim(), Task.DATE_STRING_FORMATTER));
         } catch (NoSuchElementException | DateTimeException e) {
-            throw new TheBotFatherException("Kid, look at what you have  written... is that a valid event?? *sigh*\n" +
+            throw new TheBotFatherException("Kid, look at what you have written... is that a valid event?? *sigh*\n" +
                     "\tIf you have an event, type \"event <description> /from DD-MM-YY HH:MM /to DD-MM-YY HH:MM\"");
         }
     }
