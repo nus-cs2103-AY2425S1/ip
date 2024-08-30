@@ -5,6 +5,8 @@ import impl.interfaces.Events;
 import impl.interfaces.Task;
 import impl.interfaces.ToDos;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -100,7 +102,7 @@ public class Danny {
     private void handleDeadline(String in){
         String[] deadlineSplit = in.split("/by ");
         String description = deadlineSplit[0].substring(8);
-        String by = deadlineSplit[1];
+        String by = handleDate(deadlineSplit[1]);
         Task add = new Deadlines(description,by);
         arr.add(add);
         System.out.println("added: " + add.toString());
@@ -109,8 +111,8 @@ public class Danny {
     private void handleEvent(String in){
         String[] eventSplit = in.split("/from ");
         String description = eventSplit[0].substring(5);
-        String from = eventSplit[1].split(" /to ")[0];
-        String by = eventSplit[1].split("/to ")[1];
+        String from = handleDate(eventSplit[1].split(" /to ")[0]);
+        String by = handleDate(eventSplit[1].split("/to ")[1]);
         Task add = new Events(description,by,from);
         arr.add(add);
         System.out.println("added: " + add.toString());
@@ -151,5 +153,16 @@ public class Danny {
             lines.append(System.lineSeparator());
         }
         return String.valueOf(lines);
+    }
+
+    private String handleDate(String date){
+        try{
+            LocalDate d1 = LocalDate.parse(date);
+            date = d1.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        }
+        catch(Exception e){
+            System.out.println("Not in accepted date format, saving it as is");
+        }
+        return date;
     }
 }
