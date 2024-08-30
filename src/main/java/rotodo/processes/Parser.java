@@ -4,6 +4,7 @@ import rotodo.commands.AddCommand;
 import rotodo.commands.Command;
 import rotodo.commands.DeleteCommand;
 import rotodo.commands.ExitCommand;
+import rotodo.commands.FindCommand;
 import rotodo.commands.HelpCommand;
 import rotodo.commands.ListCommand;
 import rotodo.commands.MarkCommand;
@@ -33,6 +34,7 @@ public class Parser {
     private static final String UNMARK = "unmark";
     private static final String DELETE = "delete";
     private static final String LIST = "list";
+    private static final String FIND = "find";
     private static final String EXIT = "bye";
 
     /**
@@ -50,6 +52,13 @@ public class Parser {
 
         case EXIT:
             return new ExitCommand();
+
+        case FIND:
+            if (token.length < 2) {
+                throw new IncompleteInputException(
+                    "RoTodo need keyword to search for");
+            }
+            return new FindCommand(token[1]);
 
         case DELETE:
             if (token.length < 2) {

@@ -8,7 +8,7 @@ package rotodo.tasklist;
  * @version CS2103T AY24/25 Semester 1
  */
 public abstract class Task {
-    private String name;
+    private String value;
     private boolean done = false;
 
     /**
@@ -18,7 +18,7 @@ public abstract class Task {
      * @param status done status (for loading data only)
      */
     public Task(String value, boolean status) {
-        this.name = value;
+        this.value = value;
         this.done = status;
     }
 
@@ -44,12 +44,23 @@ public abstract class Task {
         return "Did something happen? RoTodo is confused... Task undone:\n  " + this.toString();
     }
 
+    public boolean matchDescription(String keyword, boolean padding) {
+        if (padding) {
+            return value.toLowerCase().contains(" " + keyword.toLowerCase() + " ")
+                || value.toLowerCase().startsWith(keyword.toLowerCase() + " ")
+                || value.toLowerCase().endsWith(" " + keyword.toLowerCase())
+                || value.toLowerCase().equals(keyword);
+        } else {
+            return value.toLowerCase().contains(keyword.toLowerCase());
+        }
+    }
+
     @Override
     public String toString() {
-        return "[" + (done ? "X" : " ") + "] " + name;
+        return "[" + (done ? "X" : " ") + "] " + value;
     }
 
     public String saveString() {
-        return (done ? "1" : "0") + " | " + name;
+        return (done ? "1" : "0") + " | " + value;
     }
 }

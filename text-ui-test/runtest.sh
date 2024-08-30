@@ -19,7 +19,7 @@ then
 fi
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java/ -Xlint:none -d ../bin ../src/main/java/*.java
+if ! javac -cp ../src/main/java/ -Xlint:none -d ../bin ../src/main/java/rotodo/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1
@@ -30,7 +30,7 @@ echo "| First pass (no save file) |"
 echo "+---------------------------+"
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin RoTodo < input_1.txt > ACTUAL_1.TXT
+java -classpath ../bin rotodo/RoTodo < input_1.txt > ACTUAL_1.TXT
 
 # convert to UNIX format
 cp EXPECTED_1.TXT EXPECTED-UNIX.TXT
@@ -51,7 +51,7 @@ echo "| Second pass (w save file) |"
 echo "+---------------------------+"
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin RoTodo < input_2.txt > ACTUAL_2.TXT
+java -classpath ../bin rotodo/RoTodo < input_2.txt > ACTUAL_2.TXT
 
 # convert to UNIX format
 cp EXPECTED_2.TXT EXPECTED-UNIX.TXT
