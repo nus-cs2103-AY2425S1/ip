@@ -18,10 +18,6 @@ public class TaskList {
     public String addToList(Task task) {
         this.taskList.add(task);
         return String.format("Got it. I have added this task:\n  %s\nNow you have %d task in the list\n" ,task, this.taskList.size());
-//        Ui.lineBreak();
-//        System.out.println("Got it. I have added this task:\n  " + task);
-//        System.out.printf("Now you have %d task in the list%n", this.taskList.size());
-//        Ui.lineBreak();
     }
 
 
@@ -31,9 +27,7 @@ public class TaskList {
         task.completeTask();
         String newLine = task.toStringinFile();
         storage.editTask(oldLine,newLine);
-        // Ui.lineBreak();
         return "Nice! I have marked this task as completed:\n " + task;
-        // Ui.lineBreak();
     }
 
     public String unmarkTask(int i, Storage storage) {
@@ -51,6 +45,26 @@ public class TaskList {
         return "Noted! I have removed this task:\n " + task + String.format("Now you have %d task in the list%n", this.taskList.size());
     }
 
+    public String filterTasks(String filter) {
+        ArrayList<Task> filteredList = new ArrayList<>();
+        for (int i = 0; i < this.taskList.size(); i++) {
+            if (this.taskList.get(i).toString().toLowerCase().contains(filter)) {
+                filteredList.add(this.taskList.get(i));
+            }
+        }
+
+        if (filteredList.isEmpty()) {
+            return "You have no items in your list matching the given string";
+        } else {
+            String str = "";
+            str += "\nHere are the items in your list that match the search:\n";
+            for (int i = 0; i < filteredList.size(); i++) {
+                str += (i + 1) + ". " + filteredList.get(i) + "\n";
+            }
+            return str;
+        }
+
+    }
     public int size() {
        return this.taskList.size();
     }
