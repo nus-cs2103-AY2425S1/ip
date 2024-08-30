@@ -14,6 +14,10 @@ public class Task {
         this.done = done;
     }
 
+    public boolean match(String search) {
+        return name.toLowerCase().contains(search.toLowerCase());
+    }
+
     public void mark() {
         done = true;
     }
