@@ -5,7 +5,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/*
+* Represents Milo's logic system, how the commands are interpreted
+* these commands include: list, mark, unmark, delete, to-do, deadline, event,
+* bye
+ */
 public class Parser {
+    /*
+    * Interprets user input as one of the aforementioned command
+    * subsequently, executes the respective command
+    * given that it is formatted correctly
+    * else an error is thrown and printed
+     */
     public static void readInput(String userInput, ArrayList<Task> todoList) {
         String[] arrOfInput = userInput.split(" ", 2);
         String action = arrOfInput[0];

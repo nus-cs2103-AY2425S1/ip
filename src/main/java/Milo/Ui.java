@@ -6,6 +6,11 @@ import Milo.TaskObj.TaskType;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/*
+* Milo Ui system
+* sets how Milo interacts with user
+* as well as passing on user input to Parser
+ */
 public class Ui {
     private final Scanner myScanner = new Scanner(System.in);
     private final String cat0 = """
@@ -25,18 +30,33 @@ public class Ui {
     String greetingMessage = hLine + greeting + hLine;
     String byeMessage = hLine + bye + hLine;
 
+    /*
+    * Milo greets user
+     */
     public void greetUser() {
         // Greet user
         System.out.println(greetingMessage);
     }
 
+    /*
+     * Milo gets user input
+     */
     public String getUserInput() {
         return myScanner.nextLine();
     }
 
+    /*
+     * Milo says bye to user
+     */
     public void byeUser() {
         System.out.print(byeMessage);
     }
+
+    /*
+     * Milo prints all task in the array list
+     *
+     * @param array of task
+     */
     public static void printList(ArrayList<Task> todoList) {
         System.out.print(hLine);
         System.out.println("Here are the tasks in your list:");
@@ -46,6 +66,11 @@ public class Ui {
         System.out.println(hLine);
     }
 
+    /*
+     * Milo prints feedback message on marking completion
+     *
+     * @param task object that system marked as done
+     */
     public static void printMark(Task curTask) {
         System.out.print(hLine);
         System.out.println("Nice! I've marked this task as done:");
@@ -53,6 +78,11 @@ public class Ui {
         System.out.print(hLine);
     }
 
+    /*
+     * Milo prints feedback message on marking task as incomplete
+     *
+     * @param task object that system marked as not done
+     */
     public static void printUnmark(Task curTask) {
         System.out.print(hLine);
         System.out.println("Ok, I've marked this as not done yet:");
@@ -60,6 +90,11 @@ public class Ui {
         System.out.print(hLine);
     }
 
+    /*
+     * Milo prints feedback message on marking task as incomplete
+     *
+     * @param task object that system deleted
+     */
     public static void printDelete(Task curTask) {
         System.out.print(hLine);
         System.out.println("Noted. I've removed this task:");
@@ -73,6 +108,11 @@ public class Ui {
         System.out.print(hLine);
     }
 
+    /*
+    * Milo prints task details
+    *
+    * @param task object that system wants to print to user
+     */
     public static void printTask(Task curTask) {
         System.out.print(hLine);
         System.out.println("Got it. I've added this task:");
@@ -86,6 +126,12 @@ public class Ui {
         System.out.print(hLine);
     }
 
+    /*
+    * Milo prints error
+    *
+    * @param task type of the task that caused the error
+    * @param error description
+     */
     public static void printError(TaskType.taskType tasktype, String desc) {
         String oops = "OOPS!!! ";
         switch (tasktype) {

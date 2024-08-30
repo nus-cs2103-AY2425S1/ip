@@ -11,13 +11,24 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/*
+ * Represents the Milo's storage system
+ * including fields such as filePath and task list
+ */
 public class Storage {
     private final String filePath;
-    private ArrayList<Task> todoList = new ArrayList<>();
+    private final ArrayList<Task> todoList = new ArrayList<>();
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+    /*
+     * transform string into task object, taking into account
+     * the different types of tasks
+     *
+     * @param string containing details of the task
+     */
     private Task formatterToTask(String task) {
         String[] taskDesc = task.split("\\|");
         Boolean curIsCompleted = Integer.parseInt(taskDesc[1].strip()) == 1;
@@ -39,11 +50,20 @@ public class Storage {
         }
     }
 
+    /*
+     * transform task into string (formatted for Storage)
+     *
+     * @param task object that is to be converted to a String representation
+     */
     private String formatterToText(Task task) {
         return task.toTextString();
     }
 
-    // When start up program, read from miloData.txt -> add to array list
+    /*
+     * Reads data of the storage file, i.e. miloData.txt, and iterate
+     * through the String representation of task, transforming them into
+     * respective task objects and then adding them to the array list
+     */
     public ArrayList<Task> readData() {
         try {
             File f = new File(this.filePath);
@@ -62,10 +82,14 @@ public class Storage {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        return null;
+        return new ArrayList<Task>();
     }
 
-    // When any changes made
+    /*
+     * Iterates through task array transforming them each task into
+     * String representation (for Storage) and then adding them to
+     * the data file, miloData.txt
+     */
     public void saveData(ArrayList<Task> todoList) {
         try {
             FileWriter fw = new FileWriter(this.filePath);
@@ -74,7 +98,7 @@ public class Storage {
             }
             fw.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
 }
