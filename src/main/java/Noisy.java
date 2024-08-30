@@ -6,8 +6,8 @@ public class Noisy {
 
     public static void main(String[] args) {
         Storage storage = new Storage();
-        ArrayList<Task> taskList = storage.loadTasks();
-        int currentPointer = taskList.size();
+        TaskList taskList = new TaskList(storage.loadTasks());
+        int currentPointer = taskList.getListSize();
         Task task = null;
         String welcomeMessage = "____________________________________________________________\n"
                 + " Hello! I'm Noisy\n"
@@ -32,7 +32,7 @@ public class Noisy {
                         "Here are the tasks in your list\n";
                 for (int i = 0; i < currentPointer; i++) {
                     int taskIndex = i + 1;
-                    echoMessage += taskIndex + ". " + taskList.get(i) + "\n";
+                    echoMessage += taskIndex + ". " + taskList.getTask(i) + "\n";
                 }
                 System.out.println(echoMessage + "____________________________________________________________");
                 continue;
@@ -40,10 +40,10 @@ public class Noisy {
             if (input.startsWith("mark ")) {
                 String[] string = input.split(" ");
                 Integer index = Integer.parseInt(string[1]);
-                taskList.get(index - 1).markDone();
+                taskList.markDoneFromList(index - 1);
                 String markString = "____________________________________________________________\n" +
                         "Nice! I've marked this task as done:\n" +
-                        taskList.get(index - 1) + "\n" +
+                        taskList.getTask(index - 1) + "\n" +
                         "____________________________________________________________\n";
                 System.out.println(markString);
                 continue;
@@ -69,8 +69,8 @@ public class Noisy {
                     case "delete":
                         String[] deleteString = input.split(" ");
                         Integer index = Integer.parseInt(deleteString[1]);
-                        Task deletedTask = taskList.get(index - 1);
-                        taskList.remove(index - 1);
+                        Task deletedTask = taskList.getTask(index - 1);
+                        taskList.deleteFromList(index - 1);
                         currentPointer--;
                         String deleteMessage = "____________________________________________________________\n" +
                                                " Noted. I've removed this task:\n" +
@@ -88,8 +88,8 @@ public class Noisy {
             }
 
 
-            taskList.add(task);
-            storage.saveTasks(taskList);
+            taskList.addToList(task);
+            storage.saveTasks(taskList.getTasks());
             currentPointer++;
             String taskAdd = "____________________________________________________________\n" +
                     " Got it. I've added this task:\n" +

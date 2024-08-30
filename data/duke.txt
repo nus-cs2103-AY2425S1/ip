@@ -1,3 +1,5 @@
-T |  dssda  | 0
-T |  dsdsa  | 0
-D | sdsad | 0 | sdsad | dsdsa
+T |   dssda   | 0
+T |   dsdsa   | 0
+D |  sdsad  | 0 |  sdsad  |  sdsad 
+T | dsdas | 0
+T | dsdasad | 0
