@@ -11,5 +11,4 @@ public class MakimaTest {
         assertEquals(2,2);
     }
 
-    
 }

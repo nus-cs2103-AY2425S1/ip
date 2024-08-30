@@ -91,7 +91,7 @@ public class FileManager {
                         return false;
                     }
 
-                    makima.addEvent(new Event(name, startTime, endTime, done));
+                    makima.addTask(new Event(name, startTime, endTime, done));
                     lineNumber += 5;
                     break;
                 case "D":
@@ -109,7 +109,7 @@ public class FileManager {
                         return false;
                     }
 
-                    makima.addDeadline(new Deadline(name, endTime, done));
+                    makima.addTask(new Deadline(name, endTime, done));
                     lineNumber += 4;
                     break;
                 case "T":
@@ -121,7 +121,7 @@ public class FileManager {
                     name = lines.get(lineNumber + 1);
                     done = Boolean.parseBoolean(lines.get(lineNumber + 2));
 
-                    makima.addTodo(new ToDo(name, done));
+                    makima.addTask(new ToDo(name, done));
                     lineNumber += 3;
                     break;
                 case "":

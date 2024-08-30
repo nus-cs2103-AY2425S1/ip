@@ -82,16 +82,8 @@ public class Makima {
         System.out.println(LINE_SEPERATOR);
     }
 
-    public void addTodo(ToDo toDo) {
-        tasks.add(toDo);
-    }
-
-    public void addDeadline(Deadline deadline) {
-        tasks.add(deadline);
-    }
-
-    public void addEvent(Event event) {
-        tasks.add(event);
+    public void addTask(Task task) {
+        tasks.add(task);
     }
 
     public String convertTaskstoFileString() {
