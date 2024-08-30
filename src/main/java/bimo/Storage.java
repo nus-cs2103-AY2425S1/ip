@@ -26,12 +26,12 @@ public class Storage {
         this.dataFile = new File(filePath);
     }
     /**
-     * Format the type of task, status, description and dates into
-     * text format type|status|description|date1/date2
-     * Split by | , if length == 2 means todo,
-     * if length == 3 split by /, if length == 2 means event
-     * @param task Bimo.Tasks.Task object inside tasks
-     * @return Formatted text that can be written into data file
+     * Converts the type of task, status, description and dates
+     * into text.
+     *
+     * @param task Task object inside Tasklists.
+     * @return Formatted text that can be written into data file in the
+     * form type|1|description|yyyy-mm-dd/yyyy-mm-dd.
      */
     public String convertTaskToText(Task task) {
         String text = "";
@@ -49,9 +49,10 @@ public class Storage {
 
 
     /**
-     * Converts line of text in Bimo.txt to its corresponding Bimo.Tasks.Task object
-     * @param text line of code inside Bimo.txt
-     * @return Task object
+     * Converts text to its corresponding Task object.
+     *
+     * @param text line of code inside data/Bimo.txt.
+     * @return Task object.
      */
     private Task convertTextToTask(String text) {
         String[] details = text.split("\\|");
@@ -74,9 +75,9 @@ public class Storage {
     }
 
     /**
-     * Converts description of task to text in the form
-     * type|status|description|date1|date2
-     * @param task Bimo.Tasks.Task inside the tasks
+     * Adds text value of task into data/Bimo.txt.
+     *
+     * @param task Task object inside the tasks.
      */
     public void appendToFile(Task task) {
         String text = this.convertTaskToText(task) + System.lineSeparator();
@@ -91,8 +92,9 @@ public class Storage {
     }
 
     /**
-     * To re-write file when user marks, unmarks or delete a task
-     * @param tasks List of tasks
+     * Re-writes file when user marks, unmarks or deletes a task.
+     *
+     * @param tasks List of tasks.
      */
     public void overwriteFile(TaskList tasks) {
         try {
@@ -108,9 +110,10 @@ public class Storage {
     }
 
     /**
+     * Loads tasks stored inside data file into TaskList.
      *
-     * @return Returns a list of tasks
-     * @throws BimoException
+     * @return List of tasks.
+     * @throws BimoException If file path is invalid.
      */
     public ArrayList<Task> loadFile() throws BimoException {
         ArrayList<Task> tasks = new ArrayList<>();

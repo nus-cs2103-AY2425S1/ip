@@ -4,11 +4,20 @@ package bimo.tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Creates a Task with Start date and deadline.
+ */
 public class Event extends Task {
     private LocalDate startDate;
     private LocalDate endDate;
 
-
+    /**
+     * Instantiates an Event object.
+     *
+     * @param details Description of task.
+     * @param startDate Start date of task.
+     * @param endDate End date of task.
+     */
     public Event(String details, LocalDate startDate, LocalDate endDate) {
         super(details);
         this.startDate = startDate;
@@ -16,13 +25,21 @@ public class Event extends Task {
     }
 
     /**
-     * Format start and end date to write into file
-     * @return Returns start and end time as text
+     * Formats start and end date as texts to write into file.
+     *
+     * @return Start and end time as text separated
+     * by |.
      */
     public String getDatesAsText() {
         return "|" + this.startDate.toString() + "/" + this.endDate.toString();
     }
 
+    /**
+     * Converts task to string value with task type, description,
+     * start and due date.
+     *
+     * @return String value of task.
+     */
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(),
