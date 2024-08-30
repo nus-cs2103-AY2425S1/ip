@@ -18,6 +18,11 @@ public class ListAll {
         this.allTask = allTask;
     }
 
+    /**
+     * Returns a string that represents all the tasks present in the ArrayList
+     *
+     * @return string that represents all tasks in the ArrayList
+     */
     public String message() {
         String s1 = "Here are the tasks in your list:";
         for (int i = 0; i < allTask.size(); i++) {

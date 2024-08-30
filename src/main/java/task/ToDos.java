@@ -6,19 +6,31 @@ import exception.EmptyDescriptionException;
 import java.util.List;
 
 public class ToDos extends Task{
-    // essentially a task.Task without time
-    // add into ArrayList, and then print the statements
+    /**
+     * Constructs a {@code ToDos} object with the specified time
+     *
+     * @param description the description of the to-do-task specified by user
+     * @throws CommandFoundButInvalidException if the description syntax is wrong
+     */
     public ToDos(String description) throws CommandFoundButInvalidException {
         super(description);
-        // check if description is valid here
-        // if empty description is empty we throw
         super.description = this.getValidString(description);
     }
 
+    /**
+     * Returns a string representation of the to-do task
+     * @return a string representation of the to-do task
+     */
     public String toString() {
         return "[T]" + super.toString();
     }
-    // passes in a String description
+
+    /**
+     * Checks the description of the to-do-task
+     * @param description the string input by the user
+     * @return the validated description
+     * @throws EmptyDescriptionException if the description is empty
+     */
     private String getValidString(String description) throws EmptyDescriptionException {
         if (description.isEmpty()) {
             throw new EmptyDescriptionException("todo");
@@ -27,11 +39,6 @@ public class ToDos extends Task{
         }
     }
 
-    public String message(List<Task> allTasks) {
-        String str1 = "Got it. I've added this task:\n";
-        String str2 = String.format("Now you have %d tasks in the list", allTasks.size());
-        return str1 + this.toString() + "\n" + str2;
-    }
     public String getInitDesc() {
         String str = super.isDone ? "1" : "0";
         return String.format("T | %s | %s", str, super.description);
