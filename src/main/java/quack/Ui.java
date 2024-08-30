@@ -111,7 +111,7 @@ public class Ui {
     public void printSearchResult(TaskList filteredTaskList) {
         
         if (filteredTaskList.getLength() == 0) {
-            System.out.println("Im sorry. Seems like no tasks in the task list fits the description");
+            System.out.println("Im sorry. Seems like no tasks in the task list fits the description!");
         } else {
             System.out.println("Here are some tasks that I found that matches your description:");
             System.out.println(filteredTaskList.toString());
@@ -138,7 +138,7 @@ public class Ui {
      */
     public String requestUserCommand() {
 
-        System.out.println("What would you like me to do next: ");
+        System.out.print("What would you like me to do next: ");
         String input = this.scanner.nextLine();
         System.out.println(this.spacer);
         return input;
@@ -170,7 +170,7 @@ public class Ui {
             System.out.print("Which task do you want to " + command + "? (Input the index of the task): ");
             input = this.scanner.nextLine();
             int index = Integer.parseInt(input);
-            System.out.println("\n" + this.spacer);
+            System.out.println(this.spacer);
             return index;
         } catch (NumberFormatException numFormatError){
             throw new InvalidIndexException(input);
@@ -184,7 +184,7 @@ public class Ui {
      */
     public String requestTaskType() throws InvalidTaskTypeException{
 
-        System.out.println("What is the type of task you would like to add: ");
+        System.out.print("What is the type of task you would like to add: ");
         String input = this.scanner.nextLine();
         System.out.println(this.spacer);
 
@@ -203,7 +203,7 @@ public class Ui {
      */
     public String requestTaskDescription(String taskType) {
 
-        System.out.println("What is the description for the " + taskType + " task: ");
+        System.out.print("What is the description for the " + taskType + " task: ");
         String input = this.scanner.nextLine();
         System.out.println(this.spacer);
         return input;

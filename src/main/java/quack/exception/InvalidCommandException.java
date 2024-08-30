@@ -11,7 +11,7 @@ public class InvalidCommandException extends Exception{
      */
     public InvalidCommandException (String command) {
         
-        super("This command: " + command + ", is invalid!");
+        super("This command: " + command + ", is unfortunatly not supported by Quack!");
     }
 
 }

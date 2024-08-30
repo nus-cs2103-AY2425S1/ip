@@ -60,7 +60,7 @@ public class UpdateTaskCommandTest {
         "2. [E][X] Dummy 2 (From: 01/01/2024 10:59:30 To: 10/01/2024 14:00:59)\n" +
         "3. [D][ ] Dummy 3 (Due by: 10/01/2024 14:00:59)\n" +
         "-".repeat(65) + "\n" +
-        "Which task do you want to mark? (Input the index of the task): \n" +
+        "Which task do you want to mark? (Input the index of the task): " +
         "-".repeat(65) + "\n" +
         "Success! I have marked this task: [T][X] Dummy 1\n" +
         "You now have 3 tasks in your list right now!\n" +
@@ -99,7 +99,7 @@ public class UpdateTaskCommandTest {
         "2. [E][X] Dummy 2 (From: 01/01/2024 10:59:30 To: 10/01/2024 14:00:59)\n" +
         "3. [D][ ] Dummy 3 (Due by: 10/01/2024 14:00:59)\n" +
         "-".repeat(65) + "\n" +
-        "Which task do you want to unmark? (Input the index of the task): \n" +
+        "Which task do you want to unmark? (Input the index of the task): " +
         "-".repeat(65) + "\n" +
         "Success! I have unmarked this task: [E][ ] Dummy 2 (From: 01/01/2024 10:59:30 To: 10/01/2024 14:00:59)\n" +
         "You now have 3 tasks in your list right now!\n" +

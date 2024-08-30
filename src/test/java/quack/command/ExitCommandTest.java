@@ -42,7 +42,7 @@ import quack.TaskListStub;
         exitCommand = new ExitCommand(quack, taskList, storage);
         exitCommand.execute();
 
-        assertEquals(quack.getIsRunning(), false, "The command did not exit");
+        assertEquals(quack.getIsRunning(), false, "The command did not stop the Quack from running");
 
     }
 
