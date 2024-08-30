@@ -139,5 +139,18 @@ public class Ui {
             System.out.println("    " + task);
         }
     }
+
+    /**
+     * Displays tasks that match the keyword.
+     *
+     * @param keyword The keyword used for searching.
+     * @param tasks The list of tasks that match the keyword.
+     */
+    public void showTasksByKeyword(String keyword, TaskList tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i).toString());
+        }
+    }
 }
 

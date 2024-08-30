@@ -60,6 +60,9 @@ public class Parser {
             } else if (fullCommand.startsWith("on ")) {
                 LocalDateTime date = LocalDateTime.parse(fullCommand.substring(3) + " 0000", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
                 return new ListOnDateCommand(date);
+            } else if (fullCommand.startsWith("find ")) {
+                String keyword = fullCommand.substring(5);
+                return new FindCommand(keyword);
             } else {
                 throw new LoloException("I'm sorry, but I don't know what that means :-(");
             }
