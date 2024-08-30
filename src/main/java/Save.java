@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class Save {
-    final String FILE_PATH = "../SusanToDoList.txt";
+    final String FILE_PATH = "SusanToDoList.txt";
 
     public Save() {
     }
@@ -14,6 +14,7 @@ public class Save {
             StringBuilder updatedList = new StringBuilder();
             for (Task task : newList) {
                 updatedList.append(task.toString());
+                updatedList.append("\n");
             }
             fw.write(updatedList.toString());
             fw.close();

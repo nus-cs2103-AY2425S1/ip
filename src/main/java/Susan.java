@@ -1,7 +1,8 @@
+import java.io.IOException;
 import java.util.*;
 
 public class Susan {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // Greet
         System.out.println("Hi there, Susan's at your service!");
         System.out.println("How may I assist you?");
