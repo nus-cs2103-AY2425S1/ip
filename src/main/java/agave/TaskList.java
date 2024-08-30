@@ -3,6 +3,7 @@ package agave;
 import java.util.ArrayList;
 
 public class TaskList {
+
     private ArrayList<Task> tasks;
 
     public TaskList() {
@@ -59,6 +60,16 @@ public class TaskList {
 
     public void showNumberOfTasks() {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    public ArrayList<Task> findTasks(String key) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(key)) {
+                result.add(task);
+            }
+        }
+        return result;
     }
 
     public int size() {
