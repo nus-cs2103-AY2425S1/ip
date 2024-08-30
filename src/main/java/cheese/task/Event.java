@@ -64,11 +64,10 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " in " + daysLeft() + " days " +
-                   "(" +
-                   startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "-" +
-                   endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
-                   ")";
+        String s = "[E]" + super.toString() + " in " + daysLeft() + " days ";
+        s += "(" + startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "-";
+        s += endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return s;
     }
 
     /**
