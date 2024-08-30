@@ -76,7 +76,7 @@ public class Storage {
                 int index = 0;
                 for(int i = 0; i < description.length(); i++) {
                     if (description.charAt(i) == '/') {
-                        index = i + 5;
+                        index = i + 4;
                         break;
                     }
                 }

@@ -10,7 +10,7 @@ public abstract class Command {
     private boolean isExit = false;
     private String input = "";
 
-    public Command(boolean isActive, String input) {
+    public Command(boolean isExit, String input) {
         this.isExit = isExit;
         this.input = input;
     }

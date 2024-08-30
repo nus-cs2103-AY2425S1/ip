@@ -41,32 +41,26 @@ public class StorageTest {
     }
 
     @Test
-    public void testLoadEmptyFile() {
-        ArrayList<Task> tasks = storage.load();
-        assertTrue(tasks.isEmpty());
-    }
+    public void testReadTasksFromFile() throws IOException, NoFileException {
+        String fileContent = "T | 1 | read book\n" +
+                "D | 0 | return book /by 2/12/2019 1800\n" +
+                "E | 1 | project meeting /from: Mon 2pm /to: 4pm\n";
 
-//    @Test
-//    public void testReadTasksFromFile() throws IOException, NoFileException {
-//        String fileContent = "T | 1 | read book\n" +
-//                "D | 0 | return book /by 2/12/2019 1800\n" +
-//                "E | 1 | project meeting /from: Mon 2pm /to: 4pm\n";
-//
-//        Files.write(new File(TEST_FILE_PATH).toPath(), fileContent.getBytes());
-//
-//        storage.readTasks();
-//
-//        ArrayList<Task> tasks = storage.load();
-//        assertEquals(3, tasks.size());
-//
-//        assertTrue(tasks.get(0) instanceof ToDo);
-//        assertTrue(tasks.get(1) instanceof Deadline);
-//        assertTrue(tasks.get(2) instanceof Event);
-//
-//        assertTrue(tasks.get(0).isDone());
-//        assertFalse(tasks.get(1).isDone());
-//        assertTrue(tasks.get(2).isDone());
-//    }
+        Files.write(new File(TEST_FILE_PATH).toPath(), fileContent.getBytes());
+
+        storage.readTasks();
+
+        ArrayList<Task> tasks = storage.load();
+        assertEquals(3, tasks.size());
+
+        assertTrue(tasks.get(0) instanceof ToDo);
+        assertTrue(tasks.get(1) instanceof Deadline);
+        assertTrue(tasks.get(2) instanceof Event);
+
+        assertTrue(tasks.get(0).isDone());
+        assertFalse(tasks.get(1).isDone());
+        assertTrue(tasks.get(2).isDone());
+    }
 
     @Test
     public void testWriteTasksToFile() throws IOException {
