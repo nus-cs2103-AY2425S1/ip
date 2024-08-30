@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class TaskDateCommand extends Command {
+public class DateCommand extends Command {
     public boolean execute(String input, Reminder reminder, Ui ui) throws EmptyDescriptionException, TooManyParametersException {
         String[] command = input.split(" ");
         if (command.length == 2) {

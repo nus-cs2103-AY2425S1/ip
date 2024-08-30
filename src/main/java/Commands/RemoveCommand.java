@@ -7,7 +7,7 @@ import WindeBot.Ui;
 import Exceptions.EmptyDescriptionException;
 import Exceptions.TooManyParametersException;
 
-public class RemoveTask extends Command {
+public class RemoveCommand extends Command {
     public boolean execute(String input, Reminder reminder, Ui ui) throws EmptyDescriptionException, TooManyParametersException {
         String[] command = input.split(" ");
         if (command.length == 2) {

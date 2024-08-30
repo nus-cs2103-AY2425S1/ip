@@ -2,13 +2,13 @@ package WindeBot;
 
 import Commands.Command;
 import Commands.ListCommand;
-import Commands.RemoveTask;
+import Commands.RemoveCommand;
 import Commands.AddMark;
 import Commands.AddUnmark;
 import Commands.AddTodo;
 import Commands.AddDeadline;
 import Commands.AddEvent;
-import Commands.TaskDateCommand;
+import Commands.DateCommand;
 import Commands.FindCommand;
 import Commands.ByeCommand;
 import Commands.ErrorCommand;
@@ -27,7 +27,7 @@ public class Parser {
                 commands = new ListCommand();
                 break;
             case DELETE:
-                commands = new RemoveTask();
+                commands = new RemoveCommand();
                 break;
             case MARK:
                 commands = new AddMark();
@@ -45,7 +45,7 @@ public class Parser {
                 commands = new AddEvent();
                 break;
             case DATE:
-                commands = new TaskDateCommand();
+                commands = new DateCommand();
                 break;
             case FIND:
                 commands = new FindCommand();
