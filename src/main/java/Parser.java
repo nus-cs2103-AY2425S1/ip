@@ -1,17 +1,7 @@
 public class Parser {
     public Parser() {}
 
-    private void printLineSeparator() {
-        System.out.println("____________________________________________________________");
-    }
-
-    private void printErrorMessage(Exception e) {
-        printLineSeparator();
-        System.out.println(e);
-        printLineSeparator();
-    }
-
-    public String[] processInput(String input) {
+    public String[] processInput(String input) throws NumberFormatException {
         String[] newInput = input.split(" ");
         String[] ignoreInstruction = new String[] {"ignore"};
         String command = newInput[0];
@@ -22,29 +12,26 @@ public class Parser {
                 int taskNumber = Integer.parseInt(newInput[1]);
                 return new String[] {"mark", String.valueOf(taskNumber)};
             } catch (NumberFormatException e) {
-                printErrorMessage(new Exception("Warning! Invalid number format has been detected!"));
-                return ignoreInstruction;
+                throw e;
             } 
         } else if (command.equals("unmark")) {
             try {
                 int taskNumber = Integer.parseInt(newInput[1]);
                 return new String[] {"unmark", String.valueOf(taskNumber)};
             } catch (NumberFormatException e) {
-                printErrorMessage(new Exception("Warning! Invalid number format has been detected!"));
-                return ignoreInstruction;
+                throw e;
             } 
         } else if (command.equals("delete")) {
             try {
                 int taskNumber = Integer.parseInt(newInput[1]);
                 return new String[] {"delete", String.valueOf(taskNumber)};
             } catch (NumberFormatException e) {
-                printErrorMessage(new Exception("Warning! Invalid number format has been detected!"));
+                throw e;
             } 
         } else if (command.equals("list")) {
             return new String[] {"list"};
         } else {
             return new String[] {"add", input};
         }
-        return ignoreInstruction;
     }
 }

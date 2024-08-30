@@ -1,40 +1,40 @@
-import java.util.Scanner;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 public class SecondMind {
-    private static final String line = "____________________________________________________________";
     private static final String logo = "SecondMind";
     private static final String DATA_FILE_PATH = "../../../SecondMind.txt";
     private Storage storage;
     private TaskList taskList;
     private Parser parser;
+    private UI ui;
 
     public SecondMind() {
-        storage = new Storage(DATA_FILE_PATH);
-        taskList = new TaskList(storage.loadTaskList());
-        parser = new Parser();
-    }
-
-    private void printLineSeparator() {
-        System.out.println(line);
-    }
-
-    private void printErrorMessage(Exception e) {
-        printLineSeparator();
-        System.out.println(e);
-        printLineSeparator();
+        this.ui = new UI();
+        this.storage = new Storage(DATA_FILE_PATH);
+        this.taskList = null;
+        try {
+            this.taskList = new TaskList(storage.loadTaskList());
+        } catch (FileNotFoundException e) {
+            this.ui.output(e.toString());
+        } catch (IOException e) {
+            this.ui.output(e.toString());
+        }
+        if (this.taskList == null) {
+            this.taskList = new TaskList(new ArrayList<Task>());
+        }
+        this.parser = new Parser();
     }
 
     private void greetUser() {
-        printLineSeparator();
-        System.out.println("Hello from\n" + logo);
-        System.out.println("What can I do for you?");
-        printLineSeparator();
+        String greetings = "Hello from\n" + logo
+                + "\n" + "What can I do for you?";
+        this.ui.output(greetings);
     }
 
     private void execute(String[] instruction) {
@@ -44,82 +44,104 @@ public class SecondMind {
                 int taskNumber = Integer.parseInt(instruction[1]);
                 taskList.markAsDone(taskNumber);
                 storage.updateTaskInDataFile(taskNumber, true, taskList.getTaskCount());
-                printLineSeparator();
-                System.out.println("Well done! You have completed the following task:");
-                System.out.println(taskList.getTask(taskNumber));
-                printLineSeparator();
+                String message = "Well done! You have completed the following task:\n"
+                        + taskList.getTask(taskNumber).toString();
+                this.ui.output(message);
             } catch (InvalidTaskNumberException e) {
-                printLineSeparator();
-                System.out.println(e);
-                System.out.println("There are " + taskList.getTaskCount() + " tasks in your task list.");
-                printLineSeparator();
+                String errorMessage = e.toString() + "\nThere are " 
+                        + taskList.getTaskCount() + " tasks in your task list.";
+                this.ui.output(errorMessage);
                 return;
+            } catch (FileNotFoundException e) {
+                this.ui.output(e.toString());
+            } catch (IOException e) {
+                this.ui.output(e.toString());
             }
         } else if (command.equals("unmark")) {
             try {
                 int taskNumber = Integer.parseInt(instruction[1]);
                 taskList.markAsUndone(taskNumber);
                 storage.updateTaskInDataFile(taskNumber, false, taskList.getTaskCount());
-                printLineSeparator();
-                System.out.println("I've marked the following task as incomplete:");
-                System.out.println(taskList.getTask(taskNumber));
-                printLineSeparator();
+                String message = "I've marked the following task as incomplete:\n"
+                        + taskList.getTask(taskNumber).toString();
+                this.ui.output(message);
             } catch (InvalidTaskNumberException e) {
-                printLineSeparator();
-                System.out.println(e);
-                System.out.println("There are " + taskList.getTaskCount() + " tasks in your task list.");
-                printLineSeparator();
+                String errorMessage = e.toString() + "\nThere are " 
+                        + taskList.getTaskCount() + " tasks in your task list.";
+                this.ui.output(errorMessage);
                 return;
+            } catch (FileNotFoundException e) {
+                this.ui.output(e.toString());
+            } catch (IOException e) {
+                this.ui.output(e.toString());
             }
         } else if (command.equals("delete")) {
             try {
                 int taskNumber = Integer.parseInt(instruction[1]);
                 storage.delete(taskNumber, taskList.getTaskCount());
-                printLineSeparator();
-                System.out.println("I've removed the following task:");
-                System.out.println("\t" + taskList.getTask(taskNumber));
-                System.out.println("You have a grand total of " + taskList.getTaskCount() + " task(s)");
-                printLineSeparator();
+                String message = "I've removed the following task:\n"
+                        + "\t" + taskList.getTask(taskNumber)
+                                + "\nYou have a grand total of " + (taskList.getTaskCount()-1) + " task(s)";
+                this.ui.output(message);
                 taskList.delete(taskNumber);
             } catch (InvalidTaskNumberException e) {
-                printLineSeparator();
-                System.out.println(e);
-                System.out.println("There are " + taskList.getTaskCount() + " tasks in your task list.");
-                printLineSeparator();
+                String errorMessage = e.toString() + "\nThere are " 
+                        + taskList.getTaskCount() + " tasks in your task list.";
+                this.ui.output(errorMessage);
+                return;
+            } catch (FileNotFoundException e) {
+                this.ui.output(e.toString());
+            } catch (IOException e) {
+                this.ui.output(e.toString());
             }
         } else if (command.equals("list")) {
-            taskList.printTaskList();
+            this.ui.printTaskList(this.taskList.getTaskList(), this.taskList.getTaskCount());
         } else {
-            Task curr = taskList.addToTaskList(instruction[1]);
-            if (curr == null) {
-                return;
-            } else {
-                try {
-                    storage.appendToFile(curr.getStorageRepresentation(), taskList.getTaskCount());
-                } catch (IOException e) {
-                    printErrorMessage(e);
+            try {
+                Task curr = taskList.addToTaskList(instruction[1]);
+                if (curr == null) {
+                    return;
+                } else {
+                    try {
+                        storage.appendToFile(curr.getStorageRepresentation(), taskList.getTaskCount());
+                        System.out.println("here");
+                        String message = "Got it. I have added the following task:\n\t" + curr + "\n"
+                                + "You have a grand total of " + this.taskList.getTaskCount() + " task(s)";
+                        this.ui.output(message);
+                    } catch (IOException e) {
+                        this.ui.output(e.toString());
+                    }
                 }
+            } catch (EmptyCommandException | EmptyToDoException | UnknownCommandException e) {
+                this.ui.output(e.toString());
+            } catch (DateTimeParseException e) {
+                String errorMessage = "Warning! Invalid dateTime format detected!\n"
+                        + "Please use the following representation for dateTime strings:\n"
+                        + "\tyyyy-MM-ddTHH:mm:ss";
+                this.ui.output(errorMessage);
             }
         }
     }
 
     private void run() {
-        Scanner reader = new Scanner(System.in);
         while (true) {
-            String[] instruction = parser.processInput(reader.nextLine());
-            if (instruction[0].equals("bye")) {
-                break;
-            } else {
-                execute(instruction);
+            String input = ui.getInput();
+            try {
+                String[] instruction = parser.processInput(input);
+                if (instruction[0].equals("bye")) {
+                    break;
+                } else {
+                    execute(instruction);
+                }
+            } catch (NumberFormatException e) {
+                this.ui.output("Warning! Invalid number format has been detected!");
             }
         }
-        reader.close();
     }
 
     private void exitProgram() {
-        printLineSeparator();
-        System.out.println("Bye. Hope to see you again soon!");
-        printLineSeparator();
+        String exitMessage = "Bye. Hope to see you again soon!";
+        this.ui.output(exitMessage);
     }
 
     public static void main(String[] args) {

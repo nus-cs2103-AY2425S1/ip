@@ -13,15 +13,6 @@ public class Storage {
         this.DATA_FILE_PATH = DATA_FILE_PATH;
     }
 
-    private void printLineSeparator() {
-        System.out.println("____________________________________________________________");
-    }
-    private void printErrorMessage(Exception e) {
-        printLineSeparator();
-        System.out.println(e);
-        printLineSeparator();
-    }
-
     public void appendToFile(String data, int taskCount) throws IOException {
         File f = new File(DATA_FILE_PATH);
         FileWriter fw = new FileWriter(f, true);
@@ -29,88 +20,71 @@ public class Storage {
         fw.close();
     }
 
-    public void updateTaskInDataFile(int taskNumber, boolean done, int taskCount) {
+    public void updateTaskInDataFile(int taskNumber, boolean done, int taskCount) throws FileNotFoundException, IOException {
         int lineNumber = 1;
-        try {
-            File oldFile = new File(DATA_FILE_PATH);
-            File newFile = new File("../../../tempDataFile.txt");
-            FileWriter fw = new FileWriter("../../../tempDataFile.txt", true);
-            Scanner s = new Scanner(oldFile);
-            while (s.hasNext()) {
-                String currentLine = s.nextLine();
-                if (lineNumber == taskNumber) {
-                    StringBuilder sb = new StringBuilder();
-                    //Add task type and "|" to stringbuilder
-                    sb.append(currentLine.substring(0,2));
-                    if (done) {
-                        sb.append("1");
-                    } else {
-                        sb.append("0");
-                    }
-                    //Add rest of line
-                    sb.append(currentLine.substring(3));
-                    if (lineNumber < taskCount) {
-                        fw.write(sb.toString() + "\n");
-                    } else {
-                        fw.write(sb.toString());
-                    }
-                    lineNumber++;
-                    continue;
-                }
-                if (lineNumber < taskCount) {
-                    fw.write(currentLine + "\n");
+        File oldFile = new File(DATA_FILE_PATH);
+        File newFile = new File("../../../tempDataFile.txt");
+        FileWriter fw = new FileWriter("../../../tempDataFile.txt", true);
+        Scanner s = new Scanner(oldFile);
+        while (s.hasNext()) {
+            String currentLine = s.nextLine();
+            if (lineNumber == taskNumber) {
+                StringBuilder sb = new StringBuilder();
+                //Add task type and "|" to stringbuilder
+                sb.append(currentLine.substring(0,2));
+                if (done) {
+                    sb.append("1");
                 } else {
-                    fw.write(currentLine);
+                    sb.append("0");
+                }
+                //Add rest of line
+                sb.append(currentLine.substring(3));
+                if (lineNumber < taskCount) {
+                    fw.write(sb.toString() + "\n");
+                } else {
+                    fw.write(sb.toString());
                 }
                 lineNumber++;
+                continue;
             }
-            s.close();
-            fw.close();
-            newFile.renameTo(oldFile);
-        } catch (FileNotFoundException e) {
-            printErrorMessage(e);
-        } catch (IOException e) {
-            printErrorMessage(e);
+            if (lineNumber < taskCount) {
+                fw.write(currentLine + "\n");
+            } else {
+                fw.write(currentLine);
+            }
+            lineNumber++;
         }
+        s.close();
+        fw.close();
+        newFile.renameTo(oldFile);
     }
 
-    public void delete(int taskNumber, int taskCount) throws InvalidTaskNumberException {
-        if (taskNumber <= 0) {
-            printLineSeparator();
-            System.out.println("Warning! Task numbering starts from 1!");
-            printLineSeparator();
-            return;
-        } else if (taskNumber > taskCount) {
+    public void delete(int taskNumber, int taskCount) throws InvalidTaskNumberException, FileNotFoundException, IOException {
+        if (taskNumber <= 0 || taskNumber > taskCount) {
             throw new InvalidTaskNumberException(taskNumber);
         }
         //Remove line "taskNumber" from data file
         int lineNumber = 1;
-        try {
-            File oldFile = new File(DATA_FILE_PATH);
-            File newFile = new File("../../../tempDataFile.txt");
-            FileWriter fw = new FileWriter("../../../tempDataFile.txt", true);
-            Scanner s = new Scanner(oldFile);
-            while (s.hasNext()) {
-                String currentLine = s.nextLine();
-                if (lineNumber == taskNumber) {
-                    lineNumber++;
-                    continue;
-                }
-                if (lineNumber < taskCount) {
-                    fw.write(currentLine + "\n");
-                } else {
-                    fw.write(currentLine);
-                }
+        File oldFile = new File(DATA_FILE_PATH);
+        File newFile = new File("../../../tempDataFile.txt");
+        FileWriter fw = new FileWriter("../../../tempDataFile.txt", true);
+        Scanner s = new Scanner(oldFile);
+        while (s.hasNext()) {
+            String currentLine = s.nextLine();
+            if (lineNumber == taskNumber) {
                 lineNumber++;
+                continue;
             }
-            s.close();
-            fw.close();
-            newFile.renameTo(oldFile);
-        } catch (FileNotFoundException e) {
-            printErrorMessage(e);
-        } catch (IOException e) {
-            printErrorMessage(e);
+            if (lineNumber < taskCount) {
+                fw.write(currentLine + "\n");
+            } else {
+                fw.write(currentLine);
+            }
+            lineNumber++;
         }
+        s.close();
+        fw.close();
+        newFile.renameTo(oldFile);
     }
 
     private Task textToTask(String text) {
@@ -130,24 +104,17 @@ public class Storage {
         return curr;
     }
 
-    public ArrayList<Task> loadTaskList() {
-        try {
-            ArrayList<Task> taskList = new ArrayList<>();
-            File f = new File(DATA_FILE_PATH);
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                Task curr = textToTask(s.nextLine());
-                taskList.add(curr);
-            }
-            return taskList;
-        } catch (FileNotFoundException e) {
-            try {
-                File newFile = new File(DATA_FILE_PATH);
-                newFile.createNewFile();
-            } catch (IOException error2) {
-                printErrorMessage(error2);
-            }
-            return loadTaskList();
+    public ArrayList<Task> loadTaskList() throws FileNotFoundException, IOException {
+        ArrayList<Task> taskList = new ArrayList<>();
+        File f = new File(DATA_FILE_PATH);
+        if (!f.exists()) {
+            f.createNewFile();
         }
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            Task curr = textToTask(s.nextLine());
+            taskList.add(curr);
+        }
+        return taskList;
     }
 }
