@@ -1,17 +1,20 @@
 package Bwead;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     private boolean done;
     private String text;
     private LocalDate date;
+    private LocalTime time;
 
-    public Deadline(String text, LocalDate date) {
+    public Deadline(String text, LocalDate date, LocalTime time) {
         super(text);
         this.text = text;
         this.date = date;
+        this.time = time;
     }
 
     public void setDone(boolean toset) {
@@ -25,6 +28,7 @@ public class Deadline extends Task {
         } else {
             str = " ";
         }
-        return "[D][" + str + "] " + text + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D][" + str + "] " + text + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
+                ", " + time.format(DateTimeFormatter.ofPattern("HH:mm")) + ")";
     }
 }

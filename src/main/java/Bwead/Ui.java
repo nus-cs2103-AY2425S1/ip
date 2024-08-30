@@ -74,13 +74,15 @@ public class Ui {
                 System.out.println("Got it. I've added this task: " + task.toString());
                 System.out.println("Now you have " + taskList.getCurrentList().size() + " tasks in the list.");
             } else if (input.startsWith("deadline ")) {
-                Deadline task = new Deadline(parser.getDeadlineName(), parser.getDeadlineDate());
+                Deadline task = new Deadline(parser.getDeadlineName(), parser.getDeadlineDate(),
+                        parser.getDeadlineTime());
                 taskList.getCurrentList().add(task);
                 history.updateFile(taskList.getCurrentList());
                 System.out.println("Got it. I've added this task: " + task.toString());
                 System.out.println("Now you have " + taskList.getCurrentList().size() + " tasks in the list.");
             } else if (input.startsWith("event ")) {
-                Event task = new Event(parser.getDeadlineName(), parser.getEventStart(), parser.getEventEnd());
+                Event task = new Event(parser.getEventName(), parser.getEventStart(), parser.getEventEnd(),
+                        parser.getEventStartTime(), parser.getEventEndTime());
                 taskList.getCurrentList().add(task);
                 history.updateFile(taskList.getCurrentList());
                 System.out.println("Got it. I've added this task: " + task.toString());

@@ -31,3 +31,4 @@ public class Bwead {
         new Bwead("./src/main/java/Bwead/historyFile.txt").run();
     }
 }
+

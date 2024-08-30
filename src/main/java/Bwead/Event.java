@@ -1,6 +1,7 @@
 package Bwead;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
@@ -9,12 +10,16 @@ public class Event extends Task {
     private String text;
     private LocalDate start;
     private LocalDate end;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
-    public Event(String text, LocalDate start, LocalDate end) {
+    public Event(String text, LocalDate start, LocalDate end, LocalTime startTime, LocalTime endTime) {
         super(text);
         this.text = text;
         this.start = start;
         this.end = end;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
     public void setDone(boolean toset) {
         this.done = toset;
@@ -27,7 +32,9 @@ public class Event extends Task {
         } else {
             str = " ";
         }
-        return "[E][" + str + "] " + text + "(from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: "
-                + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[E][" + str + "] " + text + "(from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ", "
+                + startTime.format(DateTimeFormatter.ofPattern("HH.mm")) + " to: " +
+                end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ", " +
+                endTime.format(DateTimeFormatter.ofPattern("HH.mm")) + ")";
     }
 }
