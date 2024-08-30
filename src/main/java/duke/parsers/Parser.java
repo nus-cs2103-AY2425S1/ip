@@ -40,8 +40,8 @@ public class Parser {
      * @throws TaskNotFoundException If a task is not found when attempting to mark, unmark, or delete it.
      * @throws InvalidDateException If the date format is invalid when adding a deadline or event task.
      */
-    public boolean parse(String userInput) throws InvalidInputException,
-            MissingTaskNameException, MissingDateException, TaskNotFoundException, InvalidDateException {
+    public boolean parse(String userInput) throws InvalidInputException, MissingTaskNameException,
+            MissingDateException, TaskNotFoundException, InvalidDateException {
         if (userInput.equals("list")) {
             ui.printMessage(taskList.printList());
         } else if (userInput.equals("bye")) {
@@ -77,9 +77,9 @@ public class Parser {
                 taskList.unmarkTask(Integer.parseInt(split[1]));
             }
         } catch (NumberFormatException e ) {
-            ui.printMessage("Invalid number");
+            ui.printMessage("Invalid number.");
         } catch (IndexOutOfBoundsException e) {
-            ui.printMessage("Index number does not exist");
+            ui.printMessage("Index number does not exist.");
         }
     }
 

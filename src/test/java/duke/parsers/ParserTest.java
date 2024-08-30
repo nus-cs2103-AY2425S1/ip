@@ -1,12 +1,14 @@
 package duke.parsers;
-import duke.exceptions.InvalidDateException;
-import duke.exceptions.MissingDateException;
-import duke.exceptions.MissingTaskNameException;
-import duke.tasks.TaskListStub;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
+
+import duke.exceptions.InvalidDateException;
+import duke.exceptions.MissingDateException;
+import duke.exceptions.MissingTaskNameException;
+import duke.tasks.TaskListStub;
 import duke.ui.Ui;
 
 public class ParserTest {
@@ -46,8 +48,8 @@ public class ParserTest {
             parser.parse(message);
         });
 
-        assertEquals("OOPS!!! Events needs to be followed by both a start and end date/time in the format: " +
-                        "'team project meeting /from 2/10/2019 17:00 /to 2/10/2019 19:00'.",
+        assertEquals("OOPS!!! Events needs to be followed by both a start and end date/time in the format: "
+                        + "'team project meeting /from 2/10/2019 17:00 /to 2/10/2019 19:00'.",
                 exception.toString());
     }
 

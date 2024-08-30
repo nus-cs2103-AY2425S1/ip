@@ -1,8 +1,10 @@
 package duke.parsers;
-import duke.exceptions.InvalidDateException;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import duke.exceptions.InvalidDateException;
 
 public class TimeTest {
     @Test
