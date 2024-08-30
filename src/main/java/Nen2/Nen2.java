@@ -7,10 +7,10 @@ import java.util.Scanner;
  * @author Gan Ren Yick (A0276246X)
  */
 public class Nen2 {
-    private final Storage storage;
-    private final TaskList tasks;
-    private final Ui ui;
-    private final Parser parser;
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+    private Parser parser;
 
     public Nen2(String filePath) {
         ui = new Ui();
@@ -27,7 +27,7 @@ public class Nen2 {
 
         ui.greet();
         while (true) {
-            if(!parser.parseInput(messageReader.nextLine())) {
+            if(!parser.continueParsing(messageReader.nextLine())) {
                 break;
             }
         }
