@@ -9,7 +9,7 @@ public class Papagu {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TaskList taskList = new TaskList();
-        File file = new File("../Data/Tasks.txt");
+        File file = new File("./Data/Tasks.txt");
         file.getParentFile().mkdirs();
 
         System.out.println("____________________________________________________________");
@@ -86,24 +86,37 @@ public class Papagu {
                     System.out.println("____________________________________________________________");
                 } else if (userInput.contains("mark")){
                     String[] parts = userInput.split(" ");
-                        String word = parts[0];
-                        int num = Integer.parseInt(parts[1]) - 1;
-                        if (word.equals("mark")) {
-                            System.out.println("____________________________________________________________");
-                            taskList.markTaskAsDone(num);
-                            System.out.println("____________________________________________________________");
+                    String word = parts[0];
+                    int num = Integer.parseInt(parts[1]) - 1;
+                    file.delete();
+                    File newFile = new File("./Data/Tasks.txt");
+                    if (word.equals("mark")) {
+                        System.out.println("____________________________________________________________");
+                        taskList.markTaskAsDone(num);
+                        System.out.println("____________________________________________________________");
+                        for (int i = 0; i < taskList.getTaskCount(); i++) {
                             try {
-                                FileWriter writer = new FileWriter(file);
-                                writer.write(taskList.toString());
+                                FileWriter writer = new FileWriter(newFile, true);
+                                writer.write(taskList.getTask(i).toFile() + "\n");
+                                writer.close();
                             } catch (IOException e) {
-                                System.out.println("An error occurred.");
-                                e.printStackTrace();
+                                System.out.println("Error writing to file");
                             }
-                        } else if (word.equals("unmark")) {
-                            System.out.println("____________________________________________________________");
-                            taskList.markTaskAsNotDone(num);
-                            System.out.println("____________________________________________________________");
-                        }    
+                        }
+                    } else if (word.equals("unmark")) {
+                        System.out.println("____________________________________________________________");
+                        taskList.markTaskAsNotDone(num);
+                        System.out.println("____________________________________________________________");
+                        for (int i = 0; i < taskList.getTaskCount(); i++) {
+                            try {
+                                FileWriter writer = new FileWriter(newFile, true);
+                                writer.write(taskList.getTask(i).toFile() + "\n");
+                                writer.close();
+                            } catch (IOException e) {
+                                System.out.println("Error writing to file");
+                            }
+                        }
+                    }    
                 } else if (userInput.contains("todo")) {
                     if (userInput.equals("todo")) {
                         throw new IllegalTodoException("Good sir your the description of a todo cannot be empty.");
