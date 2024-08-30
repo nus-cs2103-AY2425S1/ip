@@ -7,17 +7,24 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
 
-    public Event(String title, String start, String end) throws StartAfterEndException {
+    public Event(String title, String start, String end) throws StartAfterEndException, DateTimeParseException {
         super(title);
         String[] startArgs = start.split("/at");
         String[] endArgs = end.split("/at");
-        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.parse(startArgs[0].trim()), LocalTime.parse(startArgs[1].trim()));
-        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.parse(endArgs[0].trim()), LocalTime.parse(endArgs[1].trim()));
+        String startDate = startArgs[0].trim();
+        String endDate = endArgs[0].trim();
+        String startTime = startArgs[1].trim();
+        String endTime = endArgs[1].trim();
+        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.parse(startDate),
+                LocalTime.parse(startTime));
+        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.parse(endDate),
+                LocalTime.parse(endTime));
         if (startDateTime.isAfter(endDateTime)) {
             throw new StartAfterEndException();
         }

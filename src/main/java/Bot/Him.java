@@ -11,6 +11,7 @@ import task.ToDo;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Him {
@@ -109,6 +110,9 @@ public class Him {
                                 "/end [end date] /at [end time]\"\n");
                     } catch (StartAfterEndException e) {
                         System.out.println("\nHim: Events need to end after they start!\n");
+                    } catch (DateTimeParseException e) {
+                        System.out.println("\nHim: Invalid Date or Time format!\n     " +
+                                "Date format: yyyy-MM-dd\n     Time format: HH:mm\n");
                     } finally {
                         break;
                     }
