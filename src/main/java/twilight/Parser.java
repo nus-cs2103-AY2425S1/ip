@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.lang.IndexOutOfBoundsException;
 
 public class Parser {
-    private static final String[] COMMANDS = new String[]{"list", "mark", "unmark", "todo", "event", "deadline", "delete", "bye"};
+    private static final String[] COMMANDS = new String[]{"list", "mark", "unmark", "todo", "event", "deadline", "delete", "find", "bye"};
     public Parser(){}
 
     public static Command parse(String input) throws InvalidInputException {
@@ -23,8 +23,10 @@ public class Parser {
                 return new MarkingCommand(i, details);
             } else if (i <= 5) {
                 return new AddCommand(i, details);
-            } else {
+            } else if (i < 7){
                 return new DeleteCommand(details);
+            } else {
+                return new SearchCommand(details);
             }
         } catch (IndexOutOfBoundsException e) {
             if (input.equals("list")) {
