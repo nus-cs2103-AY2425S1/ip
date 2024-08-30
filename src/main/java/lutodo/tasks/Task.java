@@ -43,6 +43,15 @@ public class Task {
     }
 
     /**
+     * Returns the description of the task.
+     *
+     * @return  The description of the task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Parses the date message to the date.
      *
      * @param dateMessage the String message of the date
