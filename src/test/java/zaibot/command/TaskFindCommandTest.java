@@ -5,11 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import zaibot.utils.Storage;
 import zaibot.utils.TaskList;
-import zaibot.utils.Ui;
 import zaibot.task.ToDoTask;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.HashMap;
 
 public class TaskFindCommandTest {

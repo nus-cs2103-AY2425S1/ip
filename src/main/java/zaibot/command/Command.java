@@ -55,7 +55,6 @@ public abstract class Command {
      * @return Gets the response from zaibot.
      */
     public String execute(TaskList tasks, Storage storage) throws ZaibotException {
-        Task task;
 
         String result = this.runCommandSpecificLogic(tasks, storage);
         storage.saveToFile(tasks);

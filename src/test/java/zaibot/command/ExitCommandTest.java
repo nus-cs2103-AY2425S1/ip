@@ -1,14 +1,9 @@
 package zaibot.command;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import zaibot.utils.Storage;
 import zaibot.utils.TaskList;
-import zaibot.utils.Ui;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 public class ExitCommandTest {
 

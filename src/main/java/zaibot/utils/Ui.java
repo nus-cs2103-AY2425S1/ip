@@ -3,8 +3,6 @@ package zaibot.utils;
 import zaibot.exception.ZaibotException;
 import zaibot.task.Task;
 
-import java.util.Scanner;
-
 /**
  * This class is responsible for all the user interactions.
  * Encompasses print messages and reading functions.

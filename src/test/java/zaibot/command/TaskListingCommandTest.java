@@ -5,11 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import zaibot.utils.Storage;
 import zaibot.utils.TaskList;
-import zaibot.utils.Ui;
 import zaibot.task.ToDoTask;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 public class TaskListingCommandTest {
     private final TaskList tasks = new TaskList();
@@ -54,9 +50,10 @@ public class TaskListingCommandTest {
         tasks.addTask(new ToDoTask("two"));
         tasks.addTask(new ToDoTask("three"));
         TaskListingCommand command = new TaskListingCommand();
-        String expected = "1. [T][ ] one\n" +
-                "2. [T][ ] two\n" +
-                "3. [T][ ] three";
+        String expected = """
+                1. [T][ ] one
+                2. [T][ ] two
+                3. [T][ ] three""";
 
         String outputMessage;
         try {

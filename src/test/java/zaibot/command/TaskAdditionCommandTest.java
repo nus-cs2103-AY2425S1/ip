@@ -5,10 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import zaibot.utils.Storage;
 import zaibot.utils.TaskList;
-import zaibot.utils.Ui;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.HashMap;
 
 public class TaskAdditionCommandTest {
@@ -23,7 +20,7 @@ public class TaskAdditionCommandTest {
     @Test
     public void execute_testInvalidAdditionType() {
         TaskAdditionCommand command = new TaskAdditionCommand("random",
-                new HashMap<String, String>());
+                new HashMap<>());
 
         String outputMessage;
         try {
@@ -37,15 +34,17 @@ public class TaskAdditionCommandTest {
 
     @Test
     public void execute_todo_success() {
-        HashMap<String, String> optionMap = new HashMap<String, String>();
+        HashMap<String, String> optionMap = new HashMap<>();
         optionMap.put("name", "test");
 
         TaskAdditionCommand command = new TaskAdditionCommand("todo",
                 optionMap);
 
-        String expected = "[T][ ] test\n"
-                + "Another day, another task. Added.\n"
-                + "You have 1 task(s). Get moving.\n";
+        String expected = """
+                [T][ ] test
+                Another day, another task. Added.
+                You have 1 task(s). Get moving.
+                """;
 
         String outputMessage;
         try {
@@ -58,7 +57,7 @@ public class TaskAdditionCommandTest {
 
     @Test
     public void execute_deadline_wrongArguments() {
-        HashMap<String, String> optionMap = new HashMap<String, String>();
+        HashMap<String, String> optionMap = new HashMap<>();
         optionMap.put("name", "test");
 
         TaskAdditionCommand command = new TaskAdditionCommand("deadline",
@@ -77,16 +76,18 @@ public class TaskAdditionCommandTest {
 
     @Test
     public void execute_deadline_success() {
-        HashMap<String, String> optionMap = new HashMap<String, String>();
+        HashMap<String, String> optionMap = new HashMap<>();
         optionMap.put("name", "test");
         optionMap.put("by", "2024-12-01 18:00");
 
         TaskAdditionCommand command = new TaskAdditionCommand("deadline",
                 optionMap);
 
-        String expected = "[D][ ] test (by: Dec 01 2024 1800)\n"
-                + "Another day, another task. Added.\n"
-                + "You have 1 task(s). Get moving.\n";
+        String expected = """
+                [D][ ] test (by: Dec 01 2024 1800)
+                Another day, another task. Added.
+                You have 1 task(s). Get moving.
+                """;
 
         String outputMessage;
         try {
@@ -100,7 +101,7 @@ public class TaskAdditionCommandTest {
     @Test
     public void execute_event_wrongArguments() {
 
-        HashMap<String, String> optionMap = new HashMap<String, String>();
+        HashMap<String, String> optionMap = new HashMap<>();
         optionMap.put("name", "test");
 
         TaskAdditionCommand command = new TaskAdditionCommand("event",
@@ -119,7 +120,7 @@ public class TaskAdditionCommandTest {
 
     @Test
     public void execute_event_success() {
-        HashMap<String, String> optionMap = new HashMap<String, String>();
+        HashMap<String, String> optionMap = new HashMap<>();
         optionMap.put("name", "test");
         optionMap.put("from", "2024-12-01 18:00");
         optionMap.put("to", "2024-12-01 20:00");
@@ -127,9 +128,11 @@ public class TaskAdditionCommandTest {
         TaskAdditionCommand command = new TaskAdditionCommand("event",
                 optionMap);
 
-        String expected = "[E][ ] test (from: Dec 01 2024 1800 to: Dec 01 2024 2000)\n"
-                + "Another day, another task. Added.\n"
-                + "You have 1 task(s). Get moving.\n";
+        String expected = """
+                [E][ ] test (from: Dec 01 2024 1800 to: Dec 01 2024 2000)
+                Another day, another task. Added.
+                You have 1 task(s). Get moving.
+                """;
 
         String outputMessage;
         try {

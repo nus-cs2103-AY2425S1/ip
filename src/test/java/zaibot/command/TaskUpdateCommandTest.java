@@ -5,12 +5,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import zaibot.utils.Storage;
 import zaibot.utils.TaskList;
-import zaibot.utils.Ui;
 import zaibot.task.Task;
 import zaibot.task.ToDoTask;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.HashMap;
 
 public class TaskUpdateCommandTest {
@@ -31,9 +28,11 @@ public class TaskUpdateCommandTest {
 
         TaskUpdateCommand command = new TaskUpdateCommand("mark", optionMap);
 
-        String expected = "[T][X] one\n"
-                + "Task done. Finally.\n"
-                + "You have 1 task(s). Get moving.\n";
+        String expected = """
+                [T][X] one
+                Task done. Finally.
+                You have 1 task(s). Get moving.
+                """;
 
         String outputMessage;
 
@@ -58,9 +57,11 @@ public class TaskUpdateCommandTest {
 
         TaskUpdateCommand command = new TaskUpdateCommand("unmark", optionMap);
 
-        String expected ="[T][ ] one\n"
-                + "Task unmarked. Seriously?\n"
-                + "You have 1 task(s). Get moving.\n";
+        String expected = """
+                [T][ ] one
+                Task unmarked. Seriously?
+                You have 1 task(s). Get moving.
+                """;
 
         String outputMessage;
 

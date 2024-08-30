@@ -3,7 +3,6 @@ package zaibot;
 import zaibot.utils.Parser;
 import zaibot.utils.Storage;
 import zaibot.utils.TaskList;
-import zaibot.utils.Ui;
 import zaibot.command.Command;
 import zaibot.exception.ZaibotException;
 
