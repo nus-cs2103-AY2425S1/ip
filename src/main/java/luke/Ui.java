@@ -7,9 +7,9 @@ import java.util.Scanner;
 import luke.command.Command;
 import luke.env.Constants;
 import luke.task.NoDescriptionException;
-import luke.task.UnknownCommandException;
 import luke.task.Task;
 import luke.task.TaskList;
+import luke.task.UnknownCommandException;
 
 public class Ui {
     private Storage storage;
@@ -60,7 +60,7 @@ public class Ui {
      * Provides the user with the choice to create a save file if a save file cannot be found.
      * Exits if an IOException is thrown or if the user chooses not to make a save file.
      */
-    private void handleMissingFile() {
+    public void handleMissingFile() {
         System.out.println("i couldn't find a saved task list. you will need to create one to continue using me.\n"
                 + "would you like to create one? (y/n)");
         Scanner scanner = new Scanner(System.in);
@@ -98,7 +98,6 @@ public class Ui {
      * @param isLoadingFromDisk true if the command was loaded from save data
      */
     public void handleCommand(Command command, boolean isLoadingFromDisk) {
-//        System.out.println("command: " + command.getCommand());
         switch (command.getCommand()) {
         case "bye" -> {
             System.out.println("""
@@ -173,7 +172,6 @@ public class Ui {
      * @param isLoadingFromDisk true if the command was loaded from save data
      */
     public void handleAddTask(Command command, boolean isLoadingFromDisk) {
-//        System.out.println("getMark: " + command.getMark());
         try {
             taskList.addToList(command.getCommand(),
                     command.getArgs(),
