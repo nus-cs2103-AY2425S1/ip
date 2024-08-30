@@ -33,7 +33,7 @@ application {
 }
 
 checkstyle {
-    toolVersion = '10.4'
+    toolVersion = '10.2'
     configFile = rootProject.file('config/checkstyle/checkstyle.xml')
 }
 
