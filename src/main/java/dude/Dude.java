@@ -259,9 +259,14 @@ public class Dude {
      * Finds tasks in the task list that match the provided description.
      *
      * @param taskDes The task description.
+     * @throws DudeNullDescriptionException If the provided task description is empty.
      * @throws DudeTaskNotFoundException If no tasks matching the description are found.
      */
-    public void find(String taskDes) throws DudeTaskNotFoundException {
+    public void find(String taskDes) throws DudeException {
+        if (taskDes.isEmpty()) {
+            throw new DudeNullDescriptionException("find");
+        }
+
         ArrayList<Task> filteredList = taskList.findAllTask(taskDes);
 
         if (filteredList.isEmpty()) {
