@@ -17,8 +17,7 @@ public class Makima {
     private boolean isRunning = true;
     private boolean editedTasks;
     private ArrayList<Task> tasks = new ArrayList<>();
-
-
+    
     private void greeting() {
         System.out.println("Yahallo! I'm your friendly chatbot, makima.Makima!");
         System.out.println("What can I do for you? *_*");
@@ -36,12 +35,24 @@ public class Makima {
         }
     }
 
+    /**
+     * Prints a prompt and returns a valid list index.
+     *
+     * @param prompt
+     * @return list index
+     */
     private int getListIndex(String prompt) {
         System.out.println(prompt);
         System.out.println(LINE_SEPERATOR);
         return getListIndex();
     }
 
+    /**
+     * Returns a 1-indexed list index.
+     * Repeatedly scans user input until a valid index is written.
+     *
+     * @return list index
+     */
     private int getListIndex() {
         while (true) {
             String userInput = Parser.getInput();
@@ -58,24 +69,49 @@ public class Makima {
         }
     }
 
+    /**
+     * Returns a non-empty user input.
+     *
+     * @param prompt
+     * @return user input
+     */
     private String getInput(String prompt) {
         System.out.println(prompt);
         System.out.println(LINE_SEPERATOR);
         return Parser.getInput();
     }
 
+    /**
+     * Returns a local date time.
+     * Repeatedly scans user input until a valid date time is written.
+     * Date time is in the format YYYY-MM-DDTHH:MM
+     *
+     * @param prompt
+     * @return date time
+     */
     private LocalDateTime getDate(String prompt) {
         System.out.println(prompt);
         System.out.println(LINE_SEPERATOR);
         return Parser.getDate();
     }
 
+    /**
+     * Returns a local date time that is AFTER the specified date.
+     *
+     * @param date
+     * @param prompt
+     * @return date time
+     */
     private LocalDateTime getDateAfter(LocalDateTime date, String prompt) {
         System.out.println(prompt);
         System.out.println(LINE_SEPERATOR);
         return Parser.getDateAfter(date);
     }
 
+    /**
+     * Prints a confirmation for completion of commands which
+     * edit the tasks array.
+     */
     private void done() {
         editedTasks = true;
         System.out.println("Done!");
@@ -86,6 +122,12 @@ public class Makima {
         tasks.add(task);
     }
 
+    /**
+     * Returns a string representing the lists of current tasks
+     * for writing to save file
+     *
+     * @return current tasks
+     */
     public String convertTaskstoFileString() {
         StringBuilder output = new StringBuilder();
         for (Task task : tasks) {
