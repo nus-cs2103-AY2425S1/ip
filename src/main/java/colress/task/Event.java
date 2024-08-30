@@ -1,13 +1,13 @@
 package colress.task;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    LocalDate date;
-    LocalTime from;
-    LocalTime to;
+    private LocalDate date;
+    private LocalTime from;
+    private LocalTime to;
     public Event(String description, LocalDate date, LocalTime from, LocalTime to) {
         super(description);
         this.date = date;

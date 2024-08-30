@@ -1,12 +1,12 @@
 package colress;
 
-import colress.command.Command;
-import colress.exception.UnknownCommandException;
-import colress.exception.UnknownTaskTypeException;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
+
+import colress.command.Command;
+import colress.exception.UnknownCommandException;
+import colress.exception.UnknownTaskTypeException;
 
 public final class Ui {
     private static final String MESSAGE_FAREWELL = "Well then, I'll see you soon.";
@@ -15,10 +15,10 @@ public final class Ui {
     private static final String MESSAGE_GREETING = "Hello. My name is Colress.\n"
             + "What brings you here?";
     private static final String MESSAGE_LIST_EMPTY = "Your list is empty.";
-    private static final String MESSAGE_NOT_A_VALID_DATE_TIME_ERROR
-            = "You did not seem to have entered a valid date/time. Try Again.";
-    private static final String MESSAGE_NOT_A_VALID_NUMBER_ERROR
-            = "You did not seem to have entered a valid number. Try Again.";
+    private static final String MESSAGE_NOT_A_VALID_DATE_TIME_ERROR =
+            "You did not seem to have entered a valid date/time. Try Again.";
+    private static final String MESSAGE_NOT_A_VALID_NUMBER_ERROR =
+            "You did not seem to have entered a valid number. Try Again.";
     private static final String PROMPT_DATE = "Enter the date (in the form yyyy-mm-dd).";
     private static final String PROMPT_DEADLINE = "Enter the deadline (in the form yyyy-mm-dd).";
     private static final String PROMPT_DEADLINE_DESCRIPTION = "Enter the description of the deadline.";

@@ -1,8 +1,8 @@
 package colress;
 
-import colress.exception.FileCorruptedException;
-
 import java.io.IOException;
+
+import colress.exception.FileCorruptedException;
 
 public final class Colress {
     private final Ui ui;

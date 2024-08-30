@@ -1,14 +1,21 @@
 package colress;
 
-import colress.command.*;
-import colress.exception.UnknownCommandException;
-import colress.exception.UnknownTaskTypeException;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.Scanner;
+
+import colress.command.AddCommand;
+import colress.command.CheckCommand;
+import colress.command.Command;
+import colress.command.DateCommand;
+import colress.command.DeleteCommand;
+import colress.command.ExitCommand;
+import colress.command.ListCommand;
+import colress.command.UncheckCommand;
+import colress.exception.UnknownCommandException;
+import colress.exception.UnknownTaskTypeException;
 
 public final class Parser {
     private final Scanner SCANNER = new Scanner(System.in);

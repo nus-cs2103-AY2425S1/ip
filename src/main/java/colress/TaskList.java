@@ -1,9 +1,9 @@
 package colress;
 
-import colress.task.Task;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import colress.task.Task;
 
 public class TaskList {
     private final ArrayList<Task> TASKS;
@@ -55,11 +55,11 @@ public class TaskList {
             return result;
         }
 
-        for(int i = 0; i < TASKS.size(); i++) {
+        for (int i = 0; i < TASKS.size(); i++) {
             result += String.format("\n%d. " + TASKS.get(i), i + 1);
         }
 
-        if(result.isEmpty()) {
+        if (result.isEmpty()) {
             return result;
         } else {
             return "Here is your list:" + result;
@@ -71,7 +71,7 @@ public class TaskList {
         if (TASKS.isEmpty()) {
             return result;
         } else {
-            for(int i = 0; i < TASKS.size(); i++) {
+            for (int i = 0; i < TASKS.size(); i++) {
                 Task currTask = TASKS.get(i);
                 if (!currTask.fallsOnDate(date)) {
                     continue;
@@ -80,7 +80,7 @@ public class TaskList {
             }
         }
 
-        if(result.isEmpty()) {
+        if (result.isEmpty()) {
             return result;
         }
         return "Here is your list:" + result;

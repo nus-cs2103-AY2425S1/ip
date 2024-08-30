@@ -1,10 +1,5 @@
 package colress;
 
-import colress.exception.FileCorruptedException;
-import colress.task.Deadline;
-import colress.task.Event;
-import colress.task.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,6 +9,11 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.Scanner;
+
+import colress.exception.FileCorruptedException;
+import colress.task.Deadline;
+import colress.task.Event;
+import colress.task.ToDo;
 
 public final class Storage {
     private final File TASK_FILE;
@@ -92,7 +92,7 @@ public final class Storage {
     }
     public void writeToTaskFile(TaskList taskList) throws IOException {
         String result = "";
-        for(int i = 0; i < taskList.size(); i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             result += String.format(taskList.get(i).toTextFile() + "\n", i + 1);
         }
         initialiseFileWriter();
