@@ -19,7 +19,7 @@ public class Brock {
         UNMARK
     }
 
-    private static final String HORIZONTAL_LINE = "________________________________________________\n";
+    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     private static final String FILE_PATH = "./src/main/java/saveFile.txt";
 
     private static final File saveFile = new File(FILE_PATH);
@@ -172,6 +172,60 @@ public class Brock {
         FileWriter fw = new FileWriter(Brock.FILE_PATH, isAppendMode);
         fw.write(writeContent);
         fw.close();
+    }
+
+    private static Task convertToTaskObject(String taskString) throws BrockException {
+        // Split by ". "
+        String[] taskParts = taskString.split("\\. ", 2);
+        String details = taskParts[1];
+        char taskType = details.charAt(1);
+
+        String description;
+        String[] detailPartsV1;
+        String[] detailPartsV2;
+        String[] detailPartsV3;
+        switch (taskType) {
+        case 'T':
+            description = details.substring(7);
+            return new ToDos(description);
+
+        case 'D':
+            detailPartsV1 = details.split(" ");
+            description = detailPartsV1[1];
+
+            detailPartsV2 = details.split("\\(by: ");
+            // Exclude the closing bracket
+            String dueDate = detailPartsV2[1].substring(0, detailPartsV2[1].length() - 2);
+            return new Deadlines(description, dueDate);
+
+        case 'E':
+            detailPartsV1 = details.split(" ");
+            description = detailPartsV1[1];
+
+            detailPartsV2 = details.split("\\(from: ");
+            detailPartsV3 = detailPartsV2[1].split("to: ");
+            String startDate = detailPartsV3[0];
+            // Exclude the closing bracket
+            String endDate = detailPartsV3[1].substring(0, detailPartsV3[1].length() - 2);
+            return new Events(description, startDate, endDate);
+
+        default:
+            throw new BrockException("Unrecognized task type!");
+        }
+    }
+
+    private static void loadTasksFromFile() throws BrockException {
+        try {
+            Scanner s = new Scanner(Brock.saveFile);
+            while (s.hasNext()) {
+                String taskString = s.nextLine();
+                Task task = convertToTaskObject(taskString);
+                Brock.tasks.add(task);
+            }
+        } catch (FileNotFoundException e) {
+            throw new BrockException("Unable to find and read from save file!");
+        }
+
     }
 
     // Helper function to perform list command
@@ -369,11 +423,6 @@ public class Brock {
         return task;
     }
 
-
-//    private static void loadTasks() {
-//
-//    }
-
     public static void main(String[] args) {
         // Create a scanner object
         // Reads from standard system input
@@ -387,8 +436,15 @@ public class Brock {
             return;
         }
 
-        // Initialize the ArrayList with any pre-existing tasks from save file
-        
+        // Initialize the ArrayList
+        // With any pre-existing tasks from save file
+        try {
+            loadTasksFromFile();
+        } catch (BrockException e) {
+            displayResponse(e.getMessage());
+            return;
+        }
+
         // Initial message
         String initialResponse = "Hello! I'm Brock\n"
                 + "What can I do for you?";
@@ -403,11 +459,6 @@ public class Brock {
                     .replaceAll(" +", " ");
             if (command.equalsIgnoreCase("bye")) {
                 displayResponse("Bye. Hope to see you again soon!");
-                try {
-                    writeToFile("", false);
-                } catch (IOException e) {
-                    displayResponse("Failed to reset save file!");
-                }
                 break;
 
             } else if (command.equalsIgnoreCase("list")) {
