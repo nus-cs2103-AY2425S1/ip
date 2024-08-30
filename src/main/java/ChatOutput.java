@@ -4,7 +4,7 @@
  * class that handles text outputs for the chatbot.
  */
 public class ChatOutput {
-    private static final String BORDER_LINE = "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+    private static final String BORDER_LINE = "-------------------------------------------------------------";
 
     /**
      * Takes in a text string, wraps it inside a pair of borderlines, and outputs it to the console
