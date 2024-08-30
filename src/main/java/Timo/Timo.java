@@ -11,7 +11,7 @@ import java.io.File;
 import java.time.format.DateTimeFormatter;
 
 class Task {
-    private String tasktype = "T";
+    private String taskype = "T";
     private boolean mark;
     private String val;
     public Task(boolean mark, String val) {
@@ -108,6 +108,22 @@ class Storage {
         this.filepath = filepath;
     }
 
+    /**
+     * Loads tasks from a file specified by the `filepath` and returns them as a list of `Task` objects.
+     * <p>
+     * The tasks in the file are expected to be in a specific format, indicating the type of task
+     * (Todo, Deadline, or Event) and its completion status.
+     * </p>
+     *
+     * @return A `List` of `Task` objects representing the tasks stored in the file.
+     *
+     * @throws FileNotFoundException if the file at the specified `filepath` does not exist.
+     *
+     * @see Task
+     * @see Todo
+     * @see Deadline
+     * @see Event
+     */
     public List<Task> load() throws FileNotFoundException {
         File f = new File(this.filepath);
 
@@ -163,6 +179,17 @@ class Storage {
 
     }
 
+    /**
+     * Stores a list of tasks to a file specified by the `filepath`.
+     * <p>
+     * If the file does not exist, it will be created. The method overwrites any existing content
+     * in the file and writes each task in the provided list to the file, with each task on a new line.
+     * </p>
+     *
+     * @param arr A `List` of `Task` objects to be stored in the file.
+     *
+     * @see Task
+     */
     public void store(List<Task> arr) {
         //create new file if file does not exist
         File file = new File(this.filepath);
@@ -203,25 +230,48 @@ class TaskList {
         this.arr = new ArrayList<Task>();
     }
 
+    /**
+     * adds a Task to the array
+     * @param task
+     */
     public void add(Task task) {
 
         this.arr.add(task);
     }
 
+    /**
+     * removes the Task given the Task number and returns the Task that is removed
+     * @param number
+     * @return Task
+     */
     public Task delete(int number) {
         return this.arr.remove(number);
     }
 
+    /**
+     * displays the Task in the array
+     * @return List<Task>
+     */
     public List<Task> showList() {
         return this.arr;
     }
 
+    /**
+     * Marks the Task given the Task number, and returns the Task
+     * @param num
+     * @return Task
+     */
     public Task mark(int num) {
         Task chosen = this.arr.get(num - 1);
         chosen.markDone();
         return chosen;
     }
 
+    /**
+     * Unmark the Task given the Task number, and returns the Task
+     * @param num
+     * @return Task
+     */
     public Task unmark(int num) {
         Task chosen = this.arr.get(num - 1);
         chosen.markUndone();;
@@ -232,18 +282,30 @@ class TaskList {
 
 class UI {
 
+    /**
+     * greets the user
+     */
     public void greet() {
         System.out.println("----------------------------");
         System.out.println("Hello! I'm Timo.\nWhat can I do for you?");
         System.out.println("----------------------------");
     }
 
+    /**
+     * says goodbye to the user
+     */
     public void bye() {
         System.out.println("----------------------------");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("----------------------------");
     }
 
+    /**
+     * given a TaskList, prints our the list items
+     * @param lst
+     *
+     * @see TaskList
+     */
     public void printList(TaskList lst) {
         System.out.println("----------------------------");
         System.out.println("Here are the tasks in your list:");
@@ -254,11 +316,19 @@ class UI {
         System.out.println("----------------------------");
     }
 
+    /**
+     * reads user input, and returns it
+     * @return String
+     */
     public String readCommand() {
         Scanner echo = new Scanner(System.in);
         return echo.nextLine();
     }
 
+    /**
+     * given Task, prints out that the Task is marked
+     * @param chosen
+     */
     public void printMark(Task chosen) {
         System.out.println("----------------------------");
         System.out.println("Nice! I've marked this task as done:");
@@ -266,6 +336,10 @@ class UI {
         System.out.println("----------------------------");
     }
 
+    /**
+     * given Task, prints out that the Task is unmarked
+     * @param chosen
+     */
     public void printUnmark(Task chosen) {
         System.out.println("----------------------------");
         System.out.println("Nice! I've marked this task as not done yet:");
@@ -273,6 +347,11 @@ class UI {
         System.out.println("----------------------------");
     }
 
+    /**
+     * given Todo and size, prints out that Todo task has been added, and prints out the total size of array
+     * @param todo
+     * @param size
+     */
     public void printTodo(Task todo, int size) {
         System.out.println("----------------------------");
         System.out.println("Got it. I've added this task:");
@@ -281,6 +360,11 @@ class UI {
         System.out.println("----------------------------");
     }
 
+    /**
+     * given Deadline and size, prints out that Deadline task has been added, and prints out the total size of array
+     * @param deadline
+     * @param size
+     */
     public void printDeadline(Deadline deadline, int size) {
         System.out.println("----------------------------");
         System.out.println("Got it. I've added this task:");
@@ -289,12 +373,20 @@ class UI {
         System.out.println("----------------------------");
     }
 
+    /**
+     * prints our Deadline error
+     */
     public void printDeadlineError() {
         System.out.println("----------------------------");
         System.out.println("deadline usage: deadline <task> /by yyyy-mm-dd <time/24hr format>");
         System.out.println("----------------------------");
     }
 
+    /**
+     * given Event task and size, prints out that Event task has been added, and prints out the total size of the array
+     * @param event
+     * @param size
+     */
     public void printEvent(Event event, int size) {
         System.out.println("----------------------------");
         System.out.println("Got it. I've added this task:");
@@ -303,6 +395,11 @@ class UI {
         System.out.println("----------------------------");
     }
 
+    /**
+     * given the task and the size, prints out the task that was deleted and the size of the array
+     * @param task
+     * @param size
+     */
     public void printDelete(Task task, int size) {
         System.out.println("----------------------------");
         System.out.println("Got it. I've removed this task:");
@@ -311,6 +408,10 @@ class UI {
         System.out.println("----------------------------");
     }
 
+    /**
+     * prints out the error
+     * @param e
+     */
     public void printUnknownCommandError(TimoException e) {
         System.out.println("----------------------------");
         System.out.println(e);
@@ -332,6 +433,25 @@ class Parser {
         this.taskList = taskList;
     }
 
+    /**
+     * Parses and executes a given command string.
+     * <p>
+     * The method interprets the command and performs the corresponding action, such as marking tasks,
+     * adding tasks (Todo, Deadline, Event), deleting tasks, printing the task list, or exiting the application.
+     * If the command is not recognized or lacks necessary arguments, a `TimoException` is thrown.
+     * </p>
+     *
+     * @param command The command string input by the user.
+     *
+     * @throws TimoException If the command is invalid or does not include the necessary arguments.
+     *
+     * @see TaskList
+     * @see Task
+     * @see Todo
+     * @see Deadline
+     * @see Event
+     * @see TimoException
+     */
     public void parse(String command) throws TimoException {
         switch (command) {
             case "bye":
@@ -344,9 +464,10 @@ class Parser {
                 break;
 
             default:
+                String s = String.valueOf(command.charAt(command.length() - 1));
                 if (command.startsWith("mark")) {
                     //get the Timo.Task number to mark
-                    String num = String.valueOf(command.charAt(command.length() - 1));
+                    String num = s;
                     int target = Integer.parseInt(num);
 
                     //find the task to mark
@@ -354,7 +475,7 @@ class Parser {
                     this.ui.printMark(chosen);
                 } else if (command.startsWith("unmark")) {
                     //get the Timo.Task number to unmark
-                    String num = String.valueOf(command.charAt(command.length() - 1));
+                    String num = s;
                     int target = Integer.parseInt(num);
 
                     //find the task to unmark
@@ -389,7 +510,7 @@ class Parser {
                     this.taskList.add(task);
                     this.ui.printEvent(task, this.taskList.showList().size());
                 } else if (command.startsWith("delete")) {
-                    String num = String.valueOf(command.charAt(command.length() - 1));
+                    String num = s;
                     int target = Integer.parseInt(num);
 
                     //Timo.Task that is deleted
