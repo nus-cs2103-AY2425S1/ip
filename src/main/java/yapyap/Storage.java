@@ -8,13 +8,30 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * The storage class handles reading and writing task information to a file.
+ * It provides functionality to load tasks and save tasks from a file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Creates a Storage object with the specified file path.
+     *
+     * @param filePath The path of the file where tasks will be saved and loaded from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the specified file. If the file does not exist, an empty task list is returned.
+     * Each line in the file is expected to be in the format:
+     * TaskType | isDone | description [| additional details...].
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws YapperBotException If there is an error loading tasks from the file.
+     */
     public ArrayList<Task> loadTasks() throws YapperBotException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -51,6 +68,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the current list of tasks to the specified file.
+     * Each task is converted to a save format string as specified in the relevant task class and written to the file.
+     *
+     * @param tasks The list of tasks to be saved to the file.
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         try {
             Path dataFilePath = Paths.get(filePath);
