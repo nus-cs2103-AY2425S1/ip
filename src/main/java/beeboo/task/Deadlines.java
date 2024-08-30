@@ -71,10 +71,10 @@ public class Deadlines extends Tasks {
     }
 
     /**
-     * Returns a {@code String} representation of the {@code Deadlines} instance, including the
+     * Returns a String representation of the {@code Deadlines} instance, including the
      * description and formatted deadline date.
      *
-     * @return a {@code String} representation of the deadline
+     * @return a String representation of the deadline
      */
     @Override
     public String toString() {

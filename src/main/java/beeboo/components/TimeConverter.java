@@ -24,7 +24,8 @@ public class TimeConverter {
         LocalDate res = LocalDate.parse(arr[0]);
         LocalTime time;
         if (arr.length == 2) {
-            time = LocalTime.of(Integer.parseInt(arr[1].substring(0, 2)), Integer.parseInt(arr[1].substring(2)));
+            time = LocalTime.of(Integer.parseInt(arr[1].substring(0, 2)),
+                    Integer.parseInt(arr[1].substring(2)));
         } else {
             time = LocalTime.of(0, 0);
         }

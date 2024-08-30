@@ -43,7 +43,8 @@ public class Ui {
      * @param size the number of tasks left in the list
      */
     public void deleteItemMessage(Tasks task, int size) {
-        chatBox("Ok I have removed the following item\n" + task + "\n" + "You have " + size + " tasks left");
+        chatBox("Ok I have removed the following item\n" + task
+                + "\n" + "You have " + size + " tasks left");
     }
 
     /**

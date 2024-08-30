@@ -27,7 +27,7 @@ public class Storage {
     /**
      * The path to the file used for storing task data.
      */
-    String filepath;
+    String filePath;
 
     /**
      * Constructs a Storage instance with the specified file path.
@@ -46,7 +46,7 @@ public class Storage {
      * @throws NoFileException if the file does not exist
      */
     public ArrayList<Tasks> load() throws NoFileException {
-        File file = new File(filepath);
+        File file = new File(filePath);
         ArrayList<Tasks> list = new ArrayList<>();
         if (!file.exists()) {
             throw new NoFileException("");
