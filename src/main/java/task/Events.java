@@ -14,6 +14,12 @@ public class Events extends Task {
         this.end = end;
     }
 
+    private static String localDateTimeString (LocalDateTime date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        String formattedDate = date.format(formatter);
+        return formattedDate;
+    }
+
     @Override
     public String getTaskType() {
         return "E";
@@ -21,7 +27,8 @@ public class Events extends Task {
 
     @Override
     public String toFileString() {
-        return String.format("E | %d | %s", isDone ? 1 : 0, description);
+        int index = description.indexOf("(from:");
+        return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description.substring(0, index).trim(), localDateTimeString(start), localDateTimeString(end));
     }
 
     public static String formatDate(LocalDateTime date) {

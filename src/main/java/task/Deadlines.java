@@ -1,9 +1,8 @@
 package task;
 
-import task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 
 public class Deadlines extends Task {
     public LocalDateTime deadline;
@@ -24,8 +23,15 @@ public class Deadlines extends Task {
         return formattedDate;
     }
 
+    private static String localDateTimeString (LocalDateTime date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        String formattedDate = date.format(formatter);
+        return formattedDate;
+    }
+
     @Override
     public String toFileString() {
-        return String.format("D | %d | %s", isDone ? 1 : 0, description);
+        int index = description.indexOf("(by:");
+        return String.format("D | %d | %s | %s", isDone ? 1 : 0, description.substring(0, index).trim(), localDateTimeString(deadline));
     }
 }

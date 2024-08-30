@@ -105,11 +105,10 @@ public class Storage {
             for (Task task : list) {
                 String line = "";
                 if (task.getTaskType().equals("T")) {
-                    line = String.format("T | %d | %s", task.isDone ? 1 : 0, task.description);
+                    line = task.toFileString();
                 } else if (task.getTaskType().equals("D")) {
                     Deadlines deadline = (Deadlines) task;
-                    int index = task.description.indexOf("(by:");
-                    line = String.format("D | %d | %s | %s", task.isDone ? 1 : 0, deadline.description.substring(0, index).trim(), localDateTimeString(deadline.deadline));
+                    line = deadline.toFileString();
                 } else if (task.getTaskType().equals("E")) {
                     Events event = (Events) task;
                     int index = task.description.indexOf("(from:");
