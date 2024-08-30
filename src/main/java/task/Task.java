@@ -1,9 +1,13 @@
+package task;
+
+import exceptions.LightException;
+
 public class Task {
 
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) throws LightException{
+    public Task(String description) throws LightException {
         if (description.isEmpty()) {
             throw new LightException("Description cannot be empty");
         }

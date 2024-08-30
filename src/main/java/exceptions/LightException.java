@@ -1,6 +1,8 @@
+package exceptions;
+
 public class LightException extends Exception{
     String message;
-    LightException(String message) {
+    public LightException(String message) {
         super(message);
         this.message = message;
     }

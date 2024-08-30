@@ -1,3 +1,10 @@
+package command;
+
+import components.Storage;
+import components.Ui;
+import exceptions.LightException;
+import task.TaskList;
+
 abstract public class Command {
 
     protected boolean isExit = false;

@@ -1,9 +1,16 @@
+package command;
+
+import components.Storage;
+import components.Ui;
+import exceptions.LightException;
+import task.TaskList;
+
 public class MarkCommand extends Command{
 
     private int taskNumber;
     private boolean isMark;
 
-    MarkCommand(int taskNumber, boolean isMark) {
+    public MarkCommand(int taskNumber, boolean isMark) {
         super();
         this.taskNumber = taskNumber;
         this.isMark = isMark;
