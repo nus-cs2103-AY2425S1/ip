@@ -31,4 +31,6 @@ public abstract class Task {
             return "[ ] " + this.taskName;
         }
     }
+
+    public abstract String toFileFormat();
 }

@@ -1,4 +1,8 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.Scanner;
+
 
 public class Edith {
     private static final String horizontal = "____________________________________________________________";
@@ -9,6 +13,7 @@ public class Edith {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ToDoList todoList = new ToDoList();
+        todoList.loadTasks();
 
         // print out greeting when bot first starts up
         System.out.println(horizontal + linebreak +
@@ -41,7 +46,7 @@ public class Edith {
                 }
             }
 
-            else if (Objects.equals(words.get(0), "todo") || Objects.equals(words.get(0), "deadline") ||
+            else if (Objects.equals((words).get(0), "todo") || Objects.equals(words.get(0), "deadline") ||
                     Objects.equals(words.get(0), "event")) {
                 try {
                     addTask(command, words.get(0), todoList);
@@ -110,7 +115,6 @@ public class Edith {
     public static void addTask(String fullCommand, String firstCommand, ToDoList toDoList)
             throws MissingTaskNameException, MissingDeadlineException, MissingEventDurationException {
         // System.out.println("addTask block running");
-        Task task = null;
 
         if (Objects.equals(firstCommand, "todo")) {
             // System.out.println("todo block running");
@@ -118,7 +122,13 @@ public class Edith {
             // System.out.println(commandToArray);
             try {
                 String taskName = commandToArray.get(1);
-                task = new ToDoTask(taskName);
+                ToDoTask task = new ToDoTask(taskName);
+                toDoList.add(task);
+                System.out.println(horizontal + linebreak +
+                        " " + "nice! i've added this task:" + linebreak +
+                        " " + task.toString() + linebreak +
+                        " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + linebreak +
+                        horizontal);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new MissingTaskNameException();
             }
@@ -133,7 +143,13 @@ public class Edith {
                 try {
                     String taskName = taskAndDeadline.split(" /by ")[0];
                     String deadline = taskAndDeadline.split(" /by ")[1];
-                    task = new DeadlineTask(taskName, deadline);
+                    DeadlineTask task = new DeadlineTask(taskName, deadline);
+                    toDoList.add(task);
+                    System.out.println(horizontal + linebreak +
+                            " " + "nice! i've added this task:" + linebreak +
+                            " " + task.toString() + linebreak +
+                            " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + linebreak +
+                            horizontal);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new MissingDeadlineException();
                 }
@@ -157,7 +173,13 @@ public class Edith {
                     // System.out.println(durationArray);
                     String start = durationArray.get(0);
                     String end = durationArray.get(1);
-                    task = new EventTask(taskName, start, end);
+                    EventTask task = new EventTask(taskName, start, end);
+                    toDoList.add(task);
+                    System.out.println(horizontal + linebreak +
+                            " " + "nice! i've added this task:" + linebreak +
+                            " " + task.toString() + linebreak +
+                            " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + linebreak +
+                            horizontal);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new MissingEventDurationException();
                 }
@@ -165,13 +187,6 @@ public class Edith {
                 throw new MissingTaskNameException();
             }
         }
-
-        toDoList.add(task);
-        System.out.println(horizontal + linebreak +
-                " " + "nice! i've added this task:" + linebreak +
-                " " + task.toString() + linebreak +
-                " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + linebreak +
-                horizontal);
 
     }
 
