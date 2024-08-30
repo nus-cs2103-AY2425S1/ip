@@ -1,12 +1,12 @@
 import java.util.StringJoiner;
 import java.util.StringTokenizer;
 
-public class CommandBuffer {
+public class Parser {
     private final String line;
     private final StringTokenizer st;
     private String token;
 
-    public CommandBuffer(String line) {
+    public Parser(String line) {
         this.line = line;
         this.st = new StringTokenizer(line);
     }

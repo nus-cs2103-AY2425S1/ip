@@ -71,7 +71,7 @@ public class Duck {
         // User input loop
         while (true) {
             String line = sc.nextLine();
-            CommandBuffer lineBuffer = new CommandBuffer(line);
+            Parser lineBuffer = new Parser(line);
 
             // "bye" and "list" will only work if they are the only word in the line
             // e.g. "bye bye" would not work
