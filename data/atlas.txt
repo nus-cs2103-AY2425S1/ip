@@ -2,4 +2,5 @@ D | 0 | return book | 2024-05-30 1700
 E | 1 | play football | 2024-11-01 1700 to 2024-11-01 1900
 D | 0 | submit assignment | 2024-10-30 1000
 E | 1 | join marathon | 2024-06-12 0500 to 2024-06-12 1200
-T | 0 | buy groceries
+T | 1 | buy groceries
+D | 0 | buy gift | 2024-09-30 1200
