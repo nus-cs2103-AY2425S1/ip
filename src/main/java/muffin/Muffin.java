@@ -95,7 +95,7 @@ public class Muffin {
 
             case TODO:
                 if (parts[1].isEmpty()) {
-                    throw new MuffinException("Oh no! You must have a description for a todo task!");
+                    throw new MuffinException("Oh no! You must have a description for a todo task.");
                 }
                 list.add(new Todo(parts[1]));
                 System.out.println("Ok. Added this task:\n" + "\t" + list.get(len));
