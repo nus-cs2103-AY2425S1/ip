@@ -11,8 +11,11 @@ public class Ui {
     }
 
     public String read() {
-        String input = scanner.nextLine();
-        return input;
+        if (scanner.hasNextLine()) {
+            String input = scanner.nextLine();
+            return input;
+        }
+        return "bye";
     }
 
     public void greet() {
