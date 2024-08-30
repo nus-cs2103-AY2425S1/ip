@@ -1,5 +1,6 @@
 package knight2103;
 
+import knight2103.command.InstructionInvalid;
 import knight2103.command.MissingCommand;
 import knight2103.command.Parser;
 import knight2103.command.Command;
@@ -36,6 +37,8 @@ public class Knight2103 {
                 isExit = c.isExit();
             } catch (MissingCommand e) {
                 System.out.println(e);
+            } catch (InstructionInvalid e) {
+                System.out.println("Instruction wrong format.");
             }
         }
     }

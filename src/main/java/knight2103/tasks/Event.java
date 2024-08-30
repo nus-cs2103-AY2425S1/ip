@@ -6,6 +6,12 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     protected final LocalDateTime startTime;
     protected final LocalDateTime endTime;
+
+    /**
+     * Constructs a task Event object which contains a description of the event task.
+     * The object by default has the completion status set as not done.
+     * The object also contains information of the start and end time of event task.
+     */
     public Event(String description, String startTime, String endTime) {
         super(description);
         this.startTime = LocalDateTime.parse(startTime);
