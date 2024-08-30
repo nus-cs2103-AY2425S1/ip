@@ -2,6 +2,9 @@ package snowy;
 
 import java.util.Scanner;
 
+/**
+ * Represents a chatbot with the ability to keep track of tasks.
+ */
 public class Snowy {
 
     private TaskList tasks;
