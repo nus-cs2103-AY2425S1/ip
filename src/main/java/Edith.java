@@ -148,8 +148,8 @@ public class Edith {
                     System.out.println(horizontal + linebreak +
                             " " + "nice! i've added this task:" + linebreak +
                             " " + task.toString() + linebreak +
-                            " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + linebreak +
-                            horizontal);
+                            " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list."
+                            + linebreak + horizontal);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new MissingDeadlineException();
                 }

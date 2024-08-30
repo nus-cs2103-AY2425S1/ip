@@ -49,6 +49,7 @@ public class ToDoList {
             throw new InvalidTaskNumberException();
         }
         toDoList.remove(taskNumber - 1);
+        saveTasks();
     }
 
     public void saveTasks() {
