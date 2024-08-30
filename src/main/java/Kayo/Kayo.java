@@ -120,7 +120,7 @@ public class Kayo {
             System.out.println("Bye. I hope to see you again soon!");
         }
     }
-    private static class Storage{
+    public static class Storage{
         public String filepath;
         private static void updateData(List<Task> taskList) {
             try {
@@ -175,7 +175,7 @@ public class Kayo {
             return task;
         }
     }
-    private static class Task{
+    public static class Task{
 
         private String task;
         protected String typeOfTask = "T";
