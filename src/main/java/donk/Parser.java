@@ -93,7 +93,8 @@ public class Parser {
             Task t;
             if (inputArray[0].equals("todo")) {
                 if (inputArray.length < 2 || fullCommand.length() < 5) {
-                    throw new TodoException("Bruh todo task cannot be empty.\nExample:\n    todo homework");
+                    ui.invalidFormat(TaskType.TODO);
+                    return;
                 }
                 t = new ToDo(fullCommand.substring(5));
 
@@ -112,7 +113,7 @@ public class Parser {
             } else {
                 String[] split1 = fullCommand.split("/start");
                 if (split1.length < 2) {
-
+                    ui.invalidFormat(TaskType.EVENT);
                     return;
                 }
                 String[] split2 = split1[1].split("/end");

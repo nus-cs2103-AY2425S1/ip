@@ -52,6 +52,9 @@ public class Ui {
             System.out.println("    Invalid Format man. You need a /start and a /end");
             return;
         }
+        if (taskType == TaskType.TODO) {
+            System.out.println("    Bruh todo task cannot be empty.\nExample:\n    todo homework");
+        }
     }
 
     /**
