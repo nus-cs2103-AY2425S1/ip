@@ -1,12 +1,21 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Murphy {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private Storage storage;
+    private TaskList tasks;
+
+    public Murphy(String filepath) {
+        try {
+            storage = new Storage(filepath);
+            tasks = new TaskList(storage.load());
+        } catch (MurphyException e) {
+            System.err.printf("Error loading Murphy up: %s\n", e.getMessage());
+        }
+    }
     public static void main(String[] args) {
         /*
             String logo = " ____        _        \n"
@@ -171,52 +180,6 @@ public class Murphy {
 
     private static void bye() {
         System.out.println("Bye. Hope to see you again soon!");
-        prLine();
-    }
-
-    private static void list() {
-        int sz = Murphy.tasks.size();
-        if (sz == 0) {
-            System.out.println("Your list is currently empty. Add some tasks to get started!");
-            prLine();
-            return;
-        }
-        for (int i = 0; i < sz; i++) {
-            System.out.println((i+1) + ". " + Murphy.tasks.get(i));
-        }
-        prLine();
-    }
-
-    private static void addItem(Task task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        Murphy.tasks.add(task);
-        System.out.println("Now you have " + Murphy.tasks.size() + " task(s) in the list.");
-        prLine();
-    }
-
-    private static void markItem(int index) {
-        Murphy.tasks.get(index - 1).mark();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(Murphy.tasks.get(index - 1));
-        prLine();
-    }
-
-    private static void unmarkItem(int index) {
-        Murphy.tasks.get(index - 1).unmark();
-        System.out.println("I've unmarked this task. Guess Murphy struck?");
-        System.out.println(Murphy.tasks.get(index - 1));
-        prLine();
-    }
-
-    private static void deleteItem(int index) throws MurphyException {
-        if (index <= 0 || index > Murphy.tasks.size()) {
-            throw new MurphyException("The task number you chose is out of the range of tasks!");
-        }
-        Task task = Murphy.tasks.remove(index - 1);
-        System.out.println("Got it. I've deleted this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + Murphy.tasks.size() + " task(s) in the list.");
         prLine();
     }
 

@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    private String filepath;
-    private File file;
+    private final String filepath;
+    private final File file;
 
     public Storage(String filepath) throws MurphyException {
         this.filepath = filepath;
