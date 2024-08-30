@@ -8,6 +8,16 @@ import krona.storage.Storage;
  * Represents a command that is invalid or not recognized by the Krona chatbot.
  */
 public class InvalidCommand extends Command {
+    private final String errorMessage;
+
+    /**
+     * Constructs an InvalidCommand with a specific error message.
+     *
+     * @param errorMessage The error message to display.
+     */
+    public InvalidCommand(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
 
     /**
      * Executes the command by displaying an error message indicating that the command is not recognized.
@@ -18,6 +28,8 @@ public class InvalidCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMessage("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        ui.showMessage(errorMessage != null && !errorMessage.isEmpty()
+                ? errorMessage
+                : "OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 }

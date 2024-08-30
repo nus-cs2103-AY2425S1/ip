@@ -19,20 +19,39 @@ public class Parser {
      */
     public static Command parse(String input) {
         String[] words = input.split(" ", 2);
+
         switch (words[0]) {
             case "bye":
                 return new ExitCommand();
             case "list":
                 return new ListCommand();
             case "todo":
-                return new AddCommand(new ToDo(words[1]));
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    return new InvalidCommand("The description of a todo cannot be empty.");
+                }
+                return new AddCommand(new ToDo(words[1].trim()));
             case "deadline":
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    return new InvalidCommand("The description and time of a deadline cannot be empty.");
+                }
                 String[] deadlineParts = words[1].split("/by ", 2);
-                return new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]));
+                if (deadlineParts.length < 2 || deadlineParts[1].trim().isEmpty()) {
+                    return new InvalidCommand("The time of a deadline cannot be empty.");
+                }
+                return new AddCommand(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
             case "event":
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    return new InvalidCommand("The description and times of an event cannot be empty.");
+                }
                 String[] eventParts = words[1].split("/from ", 2);
+                if (eventParts.length < 2 || eventParts[1].trim().isEmpty()) {
+                    return new InvalidCommand("The start time of an event cannot be empty.");
+                }
                 String[] timeParts = eventParts[1].split("/to ", 2);
-                return new AddCommand(new Event(eventParts[0], timeParts[0], timeParts[1]));
+                if (timeParts.length < 2 || timeParts[1].trim().isEmpty()) {
+                    return new InvalidCommand("The end time of an event cannot be empty.");
+                }
+                return new AddCommand(new Event(eventParts[0].trim(), timeParts[0].trim(), timeParts[1].trim()));
             case "mark":
                 return new MarkCommand(Integer.parseInt(words[1]) - 1);
             case "unmark":
@@ -40,9 +59,12 @@ public class Parser {
             case "delete":
                 return new DeleteCommand(Integer.parseInt(words[1]) - 1);
             case "find":
-                return new FindCommand(words[1]);
+                if (words.length < 2 || words[1].trim().isEmpty()) {
+                    return new InvalidCommand("The search keyword cannot be empty.");
+                }
+                return new FindCommand(words[1].trim());
             default:
-                return new InvalidCommand();
+                return new InvalidCommand("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
