@@ -3,7 +3,8 @@ package tasks;
 import exceptions.EventUsageException;
 
 public class Event extends Task {
-    private final DateAndTime from, to;
+    private final DateAndTime from;
+    private final DateAndTime to;
 
     public Event(String description, DateAndTime from, DateAndTime to) throws EventUsageException {
         super(description);

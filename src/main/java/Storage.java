@@ -9,13 +9,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Storage {
-    private final File FILE_PATH;
+    private final File filePath;
     private static final String COMMA_DELIMITER = ",";
 
     private List<List<String>> records = new ArrayList<>();
 
     public Storage(File filePath) {
-        this.FILE_PATH = filePath;
+        this.filePath = filePath;
     }
 
     /**
@@ -26,7 +26,7 @@ public class Storage {
      * @throws IOException
      */
     public List<List<String>> getRecords() throws IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(COMMA_DELIMITER);
@@ -44,7 +44,7 @@ public class Storage {
      * @throws IOException
      */
     public void updateRecords(List<List<String>> records) throws IOException {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             for (List<String> record : records) {
                 bw.write(String.join(",", record) + "\n");
             }
@@ -60,7 +60,7 @@ public class Storage {
      * @throws IOException
      */
     public void updateRecordsWithStrings(List<String> records) throws IOException {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             for (String record : records) {
                 bw.write(record + "\n");
             }

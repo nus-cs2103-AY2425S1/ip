@@ -16,7 +16,7 @@ public class TaskList {
     // Path relative to project directory
     private static final String[] dirPathParts = { "store" };
     private static final String[] filePathParts = { "store", "tasks.csv" };
-    private final File SAVE_DIR = new File(String.join(File.separator, dirPathParts));
+    private final File saveDir = new File(String.join(File.separator, dirPathParts));
     private static final Storage CSV_HANDLER = new Storage(
             new File(String.join(File.separator, filePathParts)));
 
@@ -117,8 +117,8 @@ public class TaskList {
         }
 
         try {
-            if (!SAVE_DIR.exists()) {
-                SAVE_DIR.mkdirs();
+            if (!saveDir.exists()) {
+                saveDir.mkdirs();
             }
             CSV_HANDLER.updateRecordsWithStrings(records);
         } catch (IOException e) {

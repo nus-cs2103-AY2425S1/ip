@@ -103,10 +103,8 @@ public class Duck {
                     String response = "OK, I've marked this task as not done yet:\n"
                             + indentText(task.toString(), 2);
                     printAsResponse(response);
-                }
-
-                // Delete
-                else if (Command.DELETE.equalsName(command)) {
+                } else if (Command.DELETE.equalsName(command)) {
+                    // Delete
                     int taskLabel = lineBuffer.getInt();
                     Task task = TASKS.getItem(taskLabel);
                     TASKS.removeItem(taskLabel);
@@ -115,11 +113,10 @@ public class Duck {
                             + indentText(task.toString(), 2) + "\n"
                             + String.format("Now you have %s tasks in the list.", TASKS.getTaskCount());
                     printAsResponse(response);
-                }
+                } else if (Command.TODO.equalsName(command)) {
+                    // Tasks
+                    // TODO: Reduce duplicate code
 
-                // Tasks
-                // TODO: Reduce duplicate code
-                else if (Command.TODO.equalsName(command)) {
                     String taskPart = lineBuffer.getRemainingLine();
                     try {
                         Task task = new Todo(taskPart);

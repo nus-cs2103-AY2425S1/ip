@@ -11,7 +11,7 @@ public abstract class Task {
 
     /**
      * Gets the UI representation of whether task is done
-     * 
+     *
      * @return "X" if task is done, " " otherwise
      */
     public String getStatusIcon() {

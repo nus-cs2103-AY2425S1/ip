@@ -17,7 +17,7 @@ public enum Command {
     /**
      * Check if the name of the command (its String form)
      * equals the given String.
-     * 
+     *
      * @param str String to be compared against.
      * @return a boolean
      */
@@ -27,7 +27,7 @@ public enum Command {
 
     /**
      * Returns the name of the command.
-     * 
+     *
      * @return the name of the command
      */
     public String toString() {
