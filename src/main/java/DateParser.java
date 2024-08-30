@@ -16,6 +16,14 @@ public class DateParser {
         }
     }
 
+    public static LocalDateTime parseFile(String dateTimeStr) {
+        try {
+            return LocalDateTime.parse(dateTimeStr, OUTPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date/time format.");
+            return null;
+        }
+    }
     public static String format(LocalDateTime dateTime) {
         return dateTime.format(OUTPUT_FORMATTER);
     }
