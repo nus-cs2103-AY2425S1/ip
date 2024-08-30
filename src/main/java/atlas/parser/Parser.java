@@ -17,6 +17,13 @@ import atlas.utils.DateTime;
 import java.time.DateTimeException;
 
 public class Parser {
+    /**
+     * Parses the command typed into the chatbot by the user.
+     *
+     * @param fullCommand The full command a user types into the chatbot through the command line.
+     * @return Command The command to be executed by the chatbot.
+     * @throws AtlasException The exception to be thrown in the event of any error.
+     */
     public static Command parse(String fullCommand) throws AtlasException {
         String[] commandsArray = fullCommand.split(" ");
         String command = commandsArray[0].toUpperCase();
@@ -100,6 +107,12 @@ public class Parser {
         return new ExitCommand();
     }
 
+    /**
+     * Checks if the string provided is not a number.
+     *
+     * @param s The string to be checked.
+     * @return boolean The boolean value of whether the string is not a number.
+     */
     public static boolean isNotNumber(String s) {
         try {
             Integer.parseInt(s);

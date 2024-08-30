@@ -11,6 +11,13 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int index) {
         this.index = index;
     }
+
+    /**
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws AtlasException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AtlasException {
         if (this.index < 0 || this.index >= tasks.size()) {

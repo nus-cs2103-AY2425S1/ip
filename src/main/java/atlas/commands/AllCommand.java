@@ -1,5 +1,8 @@
 package atlas.commands;
 
+/**
+ *
+ */
 public enum AllCommand {
     BYE,
     LIST,
