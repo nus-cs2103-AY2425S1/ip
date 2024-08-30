@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class Storage {
 
     private final String filePath;
@@ -34,7 +33,7 @@ public class Storage {
         return tasks;
     }
 
-    private static Task getTask(String[] parts, String taskType, boolean isDone) {
+    private Task getTask(String[] parts, String taskType, boolean isDone) {
         String description = parts[2];
         Task task = null;
         switch (taskType) {
@@ -62,10 +61,11 @@ public class Storage {
         file.getParentFile().mkdirs();
         FileWriter fw = new FileWriter(filePath);
         for (Task task : tasks) {
-            fw.write(taskToFileFormat(task) +  System.lineSeparator());
+            fw.write(taskToFileFormat(task) + System.lineSeparator());
         }
         fw.close();
     }
+
     public String taskToFileFormat(Task task) {
         if (task instanceof ToDos) {
             return "T | " + task.getStatusIcon() + " | " + task.getDescription();
@@ -78,5 +78,4 @@ public class Storage {
         }
         return "";
     }
-
 }
