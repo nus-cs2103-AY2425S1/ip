@@ -3,5 +3,10 @@ deadline presentation /by Monday
 event project meeting /from 4pm /to 6pm
 list
 mark 1
+todo
+todo collect markers
+mark 4
+list
+delete 4
 list
 bye

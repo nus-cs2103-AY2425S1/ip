@@ -40,6 +40,34 @@ Great job completing the task! Keep up the great work!
 	[T] [X] individual project
 ____________________________________________________________
 ____________________________________________________________
+Oh-no! You forgot to include a description for your task!
+____________________________________________________________
+____________________________________________________________
+Sure! I’ve added the todo to your list:
+
+	[T] [ ] collect markers
+
+You have 4 tasks now.
+____________________________________________________________
+____________________________________________________________
+Great job completing the task! Keep up the great work!
+	[T] [X] collect markers
+____________________________________________________________
+____________________________________________________________
+Sure thing! Here is your task list:
+
+	1: [T] [X] individual project
+	2: [D] [ ] presentation (by: Monday)
+	3: [E] [ ] project meeting (from: 4pm to: 6pm)
+	4: [T] [X] collect markers
+____________________________________________________________
+____________________________________________________________
+Don't want to see that task anymore? I got you!
+	[T] [X] collect markers
+
+You have 3 tasks remaining.
+____________________________________________________________
+____________________________________________________________
 Sure thing! Here is your task list:
 
 	1: [T] [X] individual project
