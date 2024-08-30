@@ -34,7 +34,7 @@ public class Bimo {
         }
     }
     public static void main(String[] args) {
-        new Bimo("ip/data/Bimo.txt").run();
+        new Bimo("data/Bimo.txt").run();
     }
 }
 
