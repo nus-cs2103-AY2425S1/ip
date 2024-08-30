@@ -49,6 +49,11 @@ public class Parser {
                 throw new GuttiException("Delete command requires an index.");
             }
             return new DeleteCommand(commandString.substring(7).trim());
+        } else if (commandString.startsWith("find")) {
+            if (commandString.length() <= 5) {
+                throw new GuttiException("Delete command requires an index.");
+            }
+            return new FindCommand(commandString.substring(4).trim());
         } else {
             throw new GuttiException("Unknown command.");
         }
