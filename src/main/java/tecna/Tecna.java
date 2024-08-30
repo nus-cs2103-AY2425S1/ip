@@ -30,8 +30,6 @@ public class Tecna {
             this.ui.printError("Oops! I cannot open the data file!");
         } catch (ParseException parseException) {
             this.ui.printError("Oops! The data file is of the wrong format!");
-        } catch (TaskParseException taskParseException) {
-            this.ui.printError(taskParseException.getMessage());
         } catch (JsonLoadingException jsonLoadingException) {
             this.ui.printError(jsonLoadingException.getMessage());
         }

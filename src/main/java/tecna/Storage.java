@@ -35,7 +35,7 @@ public class Storage {
      * Parses the tasks data in the tecna.json file into an ArrayList of tecna.Task(s)
      * @return an ArrayList of Tasks
      */
-    public ArrayList<Task> load() throws IOException, JsonLoadingException, ParseException, TaskParseException {
+    public ArrayList<Task> load() throws IOException, JsonLoadingException, ParseException {
         Object o = new JSONParser().parse(new FileReader(filePath));
         JSONObject jsonObject = (JSONObject) o;
         JSONArray jsonTasks = (JSONArray) jsonObject.get("taskList");
@@ -53,7 +53,7 @@ public class Storage {
             } else if (rawTask.get("type").equals("event")) {
                 tasks.add(new EventParser().parse(rawTask));
             } else {
-                throw new TaskParseException();
+                throw new JsonLoadingException(JsonLoadingExceptionType.INVALID_TASK_TYPE);
             }
         }
 
