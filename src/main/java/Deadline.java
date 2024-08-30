@@ -8,6 +8,15 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String toFileFormat() {
+        if (getStatusIcon().equals("X")) {
+            return "D" + " | " + "1" + " | " + this.description + " | " + this.by;
+        } else {
+            return "D" + " | " + "0" + " | " + this.description + " | " + this.by;
+        }
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }
