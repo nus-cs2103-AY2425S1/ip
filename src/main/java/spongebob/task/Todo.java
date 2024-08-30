@@ -26,7 +26,7 @@ public class Todo extends Task {
      * @return String version of the task
      */
     @Override
-    public String save()  {
+    public String save() {
         return super.save();
     }
 }

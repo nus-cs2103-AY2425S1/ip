@@ -1,11 +1,11 @@
 package spongebob.storage;
 
-import spongebob.exception.SpongebobException;
-import spongebob.task.Task;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+
+import spongebob.exception.SpongebobException;
+import spongebob.task.Task;
 
 /**
  * Storage class to keep tasks for the user
@@ -26,7 +26,7 @@ public class TaskList {
         return this.cache;
     }
 
-    public void update(int index, Task task) throws IndexOutOfBoundsException{
+    public void update(int index, Task task) throws IndexOutOfBoundsException {
         cache.set(index, task);
     }
 

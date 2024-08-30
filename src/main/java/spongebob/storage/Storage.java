@@ -1,11 +1,5 @@
 package spongebob.storage;
 
-import spongebob.exception.SpongebobException;
-import spongebob.task.Deadline;
-import spongebob.task.Event;
-import spongebob.task.Task;
-import spongebob.task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,6 +8,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+
+import spongebob.exception.SpongebobException;
+import spongebob.task.Deadline;
+import spongebob.task.Event;
+import spongebob.task.Task;
+import spongebob.task.Todo;
+
+
 
 /**
  * Main storage class to read and write data into a txtfile to save tasks,
@@ -57,29 +59,33 @@ public class Storage {
                 args = Arrays.asList(line.split("\\|"));
 
                 switch (args.get(0)) {
-                    case "TODO":
-                        newTask = new Todo(args.get(2));
-                        if (args.get(1).equals("true")) {
-                            newTask.markAsDone();
-                        }
-                        res.add(newTask);
-                        break;
 
-                    case "DEADLINE":
-                        newTask = new Deadline(args.get(2), args.get(3));
-                        if (args.get(1).equals("true")) {
-                            newTask.markAsDone();
-                        }
-                        res.add(newTask);
-                        break;
+                case "TODO":
+                    newTask = new Todo(args.get(2));
+                    if (args.get(1).equals("true")) {
+                        newTask.markAsDone();
+                    }
+                    res.add(newTask);
+                    break;
 
-                    case "EVENT":
-                        newTask = new Event(args.get(2), args.get(3), args.get(4));
-                        if (args.get(1).equals("true")) {
-                            newTask.markAsDone();
-                        }
-                        res.add(newTask);
-                        break;
+                case "DEADLINE":
+                    newTask = new Deadline(args.get(2), args.get(3));
+                    if (args.get(1).equals("true")) {
+                        newTask.markAsDone();
+                    }
+                    res.add(newTask);
+                    break;
+
+                case "EVENT":
+                    newTask = new Event(args.get(2), args.get(3), args.get(4));
+                    if (args.get(1).equals("true")) {
+                        newTask.markAsDone();
+                    }
+                    res.add(newTask);
+                    break;
+
+                default:
+                    break;
                 }
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Some parts are corrupted!");
@@ -113,7 +119,7 @@ public class Storage {
      * @param task A task created by the user
      * @throws IndexOutOfBoundsException occurs when index given is greater than size of tasklist or a negative number
      */
-    public void update(int index, Task task) throws IndexOutOfBoundsException{
+    public void update(int index, Task task) throws IndexOutOfBoundsException {
         this.data.set(index, task.save());
         this.write();
     }

@@ -1,8 +1,8 @@
 package spongebob.command;
 
+import spongebob.Ui;
 import spongebob.storage.Storage;
 import spongebob.storage.TaskList;
-import spongebob.Ui;
 import spongebob.task.Task;
 
 /**

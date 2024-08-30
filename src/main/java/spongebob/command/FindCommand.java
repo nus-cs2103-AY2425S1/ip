@@ -1,11 +1,13 @@
 package spongebob.command;
 
+import java.util.ListIterator;
+
 import spongebob.Ui;
 import spongebob.storage.Storage;
 import spongebob.storage.TaskList;
 import spongebob.task.Task;
 
-import java.util.ListIterator;
+
 
 /**
  * Command to find keyword in task list
@@ -29,7 +31,6 @@ public class FindCommand extends Command {
         String keyword = arguments[1];
         StringBuilder builder = new StringBuilder();
         ListIterator<Task> iter = taskList.find(keyword).listIterator();
-        
         while (iter.hasNext()) {
             Task cur = iter.next();
             builder.append((iter.previousIndex() + 1) + "." + cur + "\n");

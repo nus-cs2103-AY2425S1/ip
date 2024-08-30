@@ -1,10 +1,11 @@
 package spongebob.task;
 
-import spongebob.exception.SpongebobException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import spongebob.exception.SpongebobException;
+
 
 /**
  * An Event task, contains a dateTime for start and enddate
@@ -69,7 +70,7 @@ public class Event extends Task {
      * @return String version of the task
      */
     @Override
-    public String save()  {
+    public String save() {
 
         return super.save() + "|"
                 + this.from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "|"

@@ -1,7 +1,13 @@
 package spongebob;
 
-import spongebob.command.*;
-
+import spongebob.command.AddCommand;
+import spongebob.command.Command;
+import spongebob.command.DeleteCommand;
+import spongebob.command.DisplayCommand;
+import spongebob.command.ExitCommand;
+import spongebob.command.FindCommand;
+import spongebob.command.MarkCommand;
+import spongebob.command.UnknownCommand;
 /**
  * object to parse user input into commands that can be executed by Spongebob
  */

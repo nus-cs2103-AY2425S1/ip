@@ -1,17 +1,16 @@
 package spongebob.task;
 
-import spongebob.exception.SpongebobException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import spongebob.exception.SpongebobException;
 
 /**
  * A deadline task, contains a dateTime for due date
  */
 public class Deadline extends Task {
 
-    public String type;
     protected LocalDate by;
 
     /**

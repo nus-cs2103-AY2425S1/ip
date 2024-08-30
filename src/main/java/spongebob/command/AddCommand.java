@@ -1,9 +1,9 @@
 package spongebob.command;
 
+import spongebob.Ui;
 import spongebob.exception.SpongebobException;
 import spongebob.storage.Storage;
 import spongebob.storage.TaskList;
-import spongebob.Ui;
 import spongebob.task.Deadline;
 import spongebob.task.Event;
 import spongebob.task.Task;
@@ -43,10 +43,14 @@ public class AddCommand extends Command {
             case "deadline":
                 newTask = new Deadline(arguments[1], arguments[2]);
                 break;
+
             case "event":
                 newTask = new Event(arguments[1],
-                            arguments[2],
-                            arguments[3]);
+                        arguments[2],
+                        arguments[3]);
+                break;
+
+            default:
                 break;
             }
 

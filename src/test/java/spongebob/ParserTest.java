@@ -1,9 +1,10 @@
 package spongebob;
 
-import spongebob.exception.SpongebobException;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import spongebob.exception.SpongebobException;
 
 public class ParserTest {
 
@@ -14,13 +15,13 @@ public class ParserTest {
 
     @Test
     public void parser_correctDeadlineInput_success() {
-        assertArrayEquals(new String[]{"deadline","test","10/10/1010"," "},
+        assertArrayEquals(new String[]{"deadline", "test", "10/10/1010", " "},
                 new Parser().parse("deadline test /by 10/10/1010").getArgs());
     }
 
     @Test
     public void parser_correctEventInput_success() {
-        assertArrayEquals(new String[]{"event","test","10/10/1010","11/11/1111"},
+        assertArrayEquals(new String[]{"event", "test", "10/10/1010", "11/11/1111"},
                 new Parser().parse("event test /from 10/10/1010 /to 11/11/1111").getArgs());
     }
 
