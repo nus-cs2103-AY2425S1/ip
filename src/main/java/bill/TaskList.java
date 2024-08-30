@@ -3,9 +3,15 @@ package bill;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The TaskList class allows for initialising and storing and modifying the lists of tasks during the program's run.
+ */
 public class TaskList {
     private ArrayList<Task> userList;
 
+    /**
+     * Initializes the userList of tasks.
+     */
     public TaskList() {
         userList = new ArrayList<>();
     }
@@ -14,6 +20,14 @@ public class TaskList {
         return userList;
     }
 
+    /**
+     * Adds task to list to userList and calls storage to save current state of list of tasks.
+     *
+     * @param newTask Task the user is attempting to add to the userList.
+     * @param userList Current accessible state of mutable list.
+     * @param storage Storage to save the updated list to bill.txt persistent data.
+     * @throws IOException If there is an error writing to the bill.txt file.
+     */
     public void addTask(Task newTask, ArrayList<Task> userList, Storage storage) throws IOException {
         userList.add(newTask);
         System.out.println("added: " + newTask);
@@ -22,12 +36,24 @@ public class TaskList {
         storage.saveList(userList);
     }
 
+    /**
+     * Deletes task from userList and calls storage to save current state of list of tasks.
+     *
+     * @param targetTaskNumber The index of the targeted task from the userList to remove it.
+     * @param storage Storage to save the updated list to bill.txt persistent data.
+     * @throws IOException If there is an error writing to the bill.txt file.
+     */
     public void deleteTask(int targetTaskNumber, Storage storage) throws IOException {
         Task targetTask = userList.get(targetTaskNumber);
         userList.remove(targetTaskNumber);
         storage.saveList(userList);
     }
 
+    /**
+     * Shows task from userList.
+     *
+     * @param userList Current accessible state of mutable list.
+     */
     public void showList(ArrayList<Task> userList) {
         if (userList.isEmpty()) {
             System.out.println("List is empty");
@@ -39,7 +65,12 @@ public class TaskList {
         }
     }
 
-    // mark tasks then clean up ui
+    /**
+     * Marks or unmarks tasks in userList.
+     *
+     * @param targetTaskNumber The index of the targeted task from the userList to mark or unmark it.
+     * @param markOrUnmark Identifier of mark or unmark, which determines if the target task will be marked or unmarked.
+     */
     public void markOrUnmarkTask(int targetTaskNumber, String markOrUnmark) {
         Task targetTask = userList.get(targetTaskNumber);
         if (markOrUnmark.equals("mark")) {

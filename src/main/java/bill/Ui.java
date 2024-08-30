@@ -7,6 +7,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The UI class allows the user to interact with the chatbot Bill, and handles routing of user requests.
+ */
 public class Ui {
     private Scanner userScanner;
     private Parser parser;
@@ -15,6 +18,9 @@ public class Ui {
         LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
     }
 
+    /**
+     * Initializes Ui.
+     */
     public Ui() {
         userScanner = new Scanner(System.in);
         parser = new Parser();
@@ -133,8 +139,8 @@ public class Ui {
         }
     }
 
-    // load data in, but silence print messages, as leveraging custom functions which have print statements
     public void silentLoadingData(Storage storage, ArrayList<Task> userList, TaskList tasks) {
+        // load data in, but silence print messages, as leveraging custom functions which have print statements
         PrintStream originalOutput = System.out;
         // temp output to hide print messages, so can leverage previously built methods which have print statements
         OutputStream silence = new OutputStream() {

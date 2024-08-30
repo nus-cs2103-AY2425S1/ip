@@ -6,15 +6,23 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import java.util.ArrayList;
 
+/**
+ * The Storage class stores the relevant file and directories paths, and loads and writes to the persistent data of tasks.
+ */
 public class Storage {
     private Path pathStorageDirectory;
     private Path pathStorageFile;
 
+    /**
+     * Initializes Storage, reading and writing from persistent data to save and update list of task state.
+     */
     public Storage () {
         // set directory for output, and output file, in this case <>\Desktop\CS2103T_IP\data, where <> is the autodetected home directory
         String home = System.getProperty("user.home");
@@ -22,6 +30,12 @@ public class Storage {
         pathStorageFile = Paths.get(home, "Desktop", "CS2103T_IP", "data", "bill.txt");
     }
 
+    /**
+     * Saves updated list to bill.txt.
+     *
+     * @param userList Current accessible state of mutable list.
+     * @throws IOException If there is an error writing to the bill.txt file.
+     */
     public void saveList(ArrayList<Task> userList) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(String.valueOf(pathStorageFile)));
         for (int i = 0; i < userList.size(); i++) {
@@ -31,6 +45,15 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Loads bill.txt tasks into a mutable userlist.
+     *
+     * @param ui User Interface access to leverage in built methods to handle parsing of tasks from bill.txt to mutable userlist.
+     * @param userList Current accessible state of mutable list
+     * @param tasks All helper methods associated with userList, such as getters.
+     * @throws IOException If there is an error reading from the bill.txt file.
+     * @throws BillException If there is an unrecognisable format in the bill.txt file.
+     */
     public void loadStorage(Ui ui, ArrayList<Task> userList, TaskList tasks) throws IOException, BillException {
         boolean directoryExists = Files.exists(pathStorageDirectory);
         boolean fileExists  = Files.exists(pathStorageFile);
