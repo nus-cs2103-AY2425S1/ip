@@ -40,8 +40,22 @@ public class TaskList {
     }
 
     // similar to show list but filter by description to contains the keyword searched by the user
-    public void filterList(ArrayList<Task> userList) {
-
+    public void showFilterList(String keyWord) {
+        if (userList.isEmpty()) {
+            System.out.println("List is empty, no matching tasks");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            boolean hasNoMatch = true;
+            for (int i = 0; i < userList.size(); i++) {
+                if (userList.get(i).getDescription().contains(keyWord)) {
+                    System.out.println((i + 1) + "." + userList.get(i));
+                    hasNoMatch = false;
+                }
+            }
+            if (hasNoMatch) {
+                System.out.println("There are no matching tasks in your list currently matching the keyword " + keyWord);
+            }
+        }
     }
 
     // mark tasks then clean up ui
