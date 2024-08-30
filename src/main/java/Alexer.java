@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Alexer {
     private static final String GOODBYE = "Goodbye! If you ever want to chat again, I'll be here.\nHave a great day!";
@@ -56,6 +57,25 @@ public class Alexer {
         System.out.println(BREAK);
     }
 
+    public void addDeadline(List<String> arguments) {
+        int keywordIndex = 0;
+        for (int i = 0; i < arguments.size(); i++) {
+            if (arguments.get(i).equals("/by")) keywordIndex = i;
+        }
+
+        String description = arguments.stream().limit(keywordIndex)
+                .collect(Collectors.joining(" "));
+        String by = arguments.stream().skip(keywordIndex + 1).collect(Collectors.joining(" "));
+
+        Deadline deadline = new Deadline(description, by);
+        tasks.add(deadline);
+
+        System.out.println(BREAK);
+        System.out.format("No problems! I’ve added the task to your list:\n\n\t%s\n", deadline);
+        System.out.format("\nYou have %d tasks now.\n", tasks.size());
+        System.out.println(BREAK);
+    }
+
     public void markTaskDone(int index) {
         // assume input here is valid, we will handle exceptions later
         tasks.get(index - 1).markAsDone();
@@ -103,6 +123,10 @@ public class Alexer {
             break;
         case "todo":
             addTodo(arguments);
+            promptLoop();
+            break;
+        case "deadline":
+            addDeadline(arguments);
             promptLoop();
             break;
         default:
