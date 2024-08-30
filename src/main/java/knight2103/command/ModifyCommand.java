@@ -38,6 +38,9 @@ public class ModifyCommand extends Command {
             storage.save(taskList);
         } catch (NumberFormatException e) {
             System.out.println("Please state the task number in INTEGER. Definitely not the task name");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("There's an issue in the instruction format. " + "Please check that it is " +
+                    "<knight2103.command.CommandVerb> <Integer> format");
         } catch (IndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
             System.out.println("There aren't so many tasks. Please check if the task number is keyed in correctly. To see all tasks, type list");

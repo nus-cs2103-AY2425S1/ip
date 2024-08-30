@@ -77,7 +77,7 @@ public class TaskList {
      */
     public Task mark(int index) throws IndexOutOfBoundsException {
         taskList.get(index).markDone();
-        return taskList.get(index); // must be after to return the newly updated one
+        return taskList.get(index); // must be after markDone to return the newly updated one
     }
 
     /**
@@ -91,7 +91,7 @@ public class TaskList {
      */
     public Task unmark(int index) throws IndexOutOfBoundsException {
         taskList.get(index).unmarkDone();
-        return taskList.get(index); // must be after to return the newly updated one
+        return taskList.get(index); // must be after unmarkDone to return the newly updated one
     }
 
     /**

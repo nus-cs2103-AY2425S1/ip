@@ -1,9 +1,9 @@
 package knight2103;
 
 import knight2103.command.InstructionInvalid;
-import knight2103.command.MissingCommand;
 import knight2103.command.Parser;
 import knight2103.command.Command;
+import knight2103.command.MissingCommand;
 import knight2103.files.Storage;
 import knight2103.tasks.TaskList;
 
@@ -19,7 +19,7 @@ public class Knight2103 {
         storage = new Storage(filePath);
         try {
             this.tasks = new TaskList(storage.load());
-        } catch (Exception e) { // file cannot be loaded exception
+        } catch (Exception e) { // file be loaded regardless
             ui.showLoadingError();
             this.tasks = new TaskList();
         }
@@ -30,8 +30,8 @@ public class Knight2103 {
         boolean isExit = false;
         while (!isExit) {
             try {
-            String fullCommand = this.ui.readCommand();
-            this.ui.showLine();
+                String fullCommand = this.ui.readCommand();
+                this.ui.showLine();
                 Command c = Parser.parse(fullCommand).orElseThrow(() -> new MissingCommand());
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
@@ -42,7 +42,8 @@ public class Knight2103 {
             }
         }
     }
+
     public static void main(String[] args) {
-        new Knight2103("./savedTaskList.txt").run(); // in ip folder, not java folder
+        new Knight2103("./savedTaskList.txt").run(); // in ip folder, not main/java folder
     }
 }
