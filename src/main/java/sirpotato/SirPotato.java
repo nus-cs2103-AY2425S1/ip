@@ -1,16 +1,16 @@
 package sirpotato;
 
-import java.util.Scanner;  // For user inputs
-import java.util.ArrayList; //To create the to-do list
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
+
+import java.util.ArrayList; 
+import java.util.Scanner;  
 
 /**
 * SirPotato is the name of the chatbot 
