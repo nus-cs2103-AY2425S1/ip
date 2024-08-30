@@ -9,13 +9,20 @@ public class Slave {
 
     public Slave(String filePath) {
         storage = new Storage(list, filePath);
-        ui = new Ui(list, storage);
+        ui = new Ui(list);
         storage.load();
     }
 
     public void run() {
         ui.welcome();
-        ui.getUserInputs(storage);
+        boolean hasMoreInputs;
+        do {
+            Pair<Boolean, Boolean> result = ui.getUserInputs();
+            if (result.getSecond()) {
+                storage.save();
+            }
+            hasMoreInputs = result.getFirst();
+        } while (hasMoreInputs);
         ui.goodbye();
     }
 
