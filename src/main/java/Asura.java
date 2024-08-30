@@ -11,12 +11,30 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Asura {
-    public static String formatResponse(String msg) {
-        String startBorder = "---------------------------------------\n";
-        String endBorder = "\n---------------------------------------";
-        String formattedMsg = startBorder + msg + endBorder;
-        return formattedMsg.indent(3);
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Asura(String filepath) {
+        ui = new Ui();
+        storage = new Storage(filepath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (AsuraException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
     }
+
+    public void run() {
+        boolean isExit = false;
+
+        while (!isExit) {
+
+        }
+    }
+
     public static List<Task> initializeData(String pathname) {
         List<Task> taskList = new ArrayList<>();
         File data = new File(pathname);
@@ -76,16 +94,11 @@ public class Asura {
     }
 
     public static void main(String[] args) throws AsuraException {
+        new Asura("data/asura.txt").run();
         Scanner scanner = new Scanner(System.in);
-        String introduction = """
-                Hello! I'm Asura!
-                What can I do for you?""";
-        String goodbye = """
-                Bye. Hope to see you again soon!""";
         String savePath = "./data/asura.txt";
         List<Task> tasks = initializeData(savePath);
 
-        System.out.println(formatResponse(introduction));
         List<String> input = Arrays.asList(scanner.nextLine().split(" "));
         String prefix = input.get(0);
 
@@ -201,6 +214,5 @@ public class Asura {
             input = Arrays.asList(scanner.nextLine().split(" "));
             prefix = input.get(0);
         }
-        System.out.println(formatResponse(goodbye));
     }
 }
