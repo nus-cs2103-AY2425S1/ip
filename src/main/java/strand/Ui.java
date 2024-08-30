@@ -7,7 +7,8 @@ import strand.task.Task;
  * and prompts.
  */
 public class Ui {
-    private static final String horizontalLine = "～～～～～～～～～～～～～～～～～～～～～～～～><>";
+    private static final String HORIZONTAL_LINE = "～～～～～～～～～～～～～～～～～～～～～～～～><>";
+    private static final Integer INDENTATION = 4;
 
     /**
      * Prints a string with an indentation of 4 spaces.
@@ -16,9 +17,9 @@ public class Ui {
      */
     private static void print(String str) {
         if (str == null || str.isEmpty()) {
-            System.out.println(" ".indent(4));
+            System.out.println(" ".indent(INDENTATION));
         } else {
-            System.out.println(str.indent(4));
+            System.out.println(str.indent(INDENTATION));
         }
     }
 
@@ -33,7 +34,7 @@ public class Ui {
      * Displays a horizontal line to separate sections of output.
      */
     public void showLine() {
-        print(horizontalLine);
+        print(HORIZONTAL_LINE);
     }
 
     /**
