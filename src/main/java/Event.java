@@ -1,19 +1,21 @@
+import java.time.LocalDate;
+
 public class Event extends Task{
-    protected String from;
-    protected String to;
+    protected LocalDate from;
+    protected LocalDate to;
 
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    public Event(String description, String from, String to, boolean isDone) {
-        super(description);
-        this.from = from;
-        this.to = to;
-        this.isDone = isDone;
-    }
+//    public Event(String description, String from, String to, boolean isDone) {
+//        super(description);
+//        this.from = from;
+//        this.to = to;
+//        this.isDone = isDone;
+//    }
 
     @Override
     public String serialize() {
@@ -22,8 +24,7 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        // TODO change this.to to maxdate
-        String toStr = this.to.equals("MAX_DATE") ? "" : " to: " + this.to;
+        String toStr = this.to.equals(LocalDate.MAX) ? "" : " to: " + this.to;
         return String.format("[E]%s (from: %s%s)", super.toString(), this.from, toStr);
     }
 }
