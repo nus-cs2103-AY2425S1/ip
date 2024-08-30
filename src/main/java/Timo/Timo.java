@@ -1,3 +1,5 @@
+package Timo;
+
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -98,7 +100,7 @@ class TimoException extends Exception {
 
 }
 
-//Storage: beginning I read from the file, end I update the file
+//Timo.Storage: beginning I read from the file, end I update the file
 class Storage {
     private final String filepath;
 
@@ -128,7 +130,7 @@ class Storage {
                     //remove the [D][?] from the line
                     String a = tmp.split("] ")[1];
 
-                    //get the important values to create the Deadline
+                    //get the important values to create the Timo.Deadline
                     String[] b = a.split(" \\(by: |\\)");
 
                     LocalDateTime datetime = LocalDateTime.parse(b[1], DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
@@ -143,7 +145,7 @@ class Storage {
                 } else {
                     //removing the [E][?] from the line
                     String details = tmp.split("] ", 2)[1];
-                    //getting important values to create the Event
+                    //getting important values to create the Timo.Event
                     String[] split_up = details.split(" \\(from: | to: |\\)");
 
                     //see if the task has been done or not
@@ -187,7 +189,7 @@ class Storage {
     }
 }
 
-//TaskList: operations to add and delete tasks in the list
+//Timo.TaskList: operations to add and delete tasks in the list
 //has operations to return list
 class TaskList {
     private List<Task> arr;
@@ -230,7 +232,7 @@ class UI {
 
     public void greet() {
         System.out.println("----------------------------");
-        System.out.println("Hello! I'm Timo\nWhat can I do for you?");
+        System.out.println("Hello! I'm Timo.Timo\nWhat can I do for you?");
         System.out.println("----------------------------");
     }
 
@@ -316,7 +318,7 @@ class UI {
 }
 
 
-//Parser: deals with making sense of the commands
+//Timo.Parser: deals with making sense of the commands
 //parser deal, then send commands to ui
 class Parser {
     private UI ui;
@@ -341,7 +343,7 @@ class Parser {
 
             default:
                 if (command.startsWith("mark")) {
-                    //get the Task number to mark
+                    //get the Timo.Task number to mark
                     String num = String.valueOf(command.charAt(command.length() - 1));
                     int target = Integer.parseInt(num);
 
@@ -349,7 +351,7 @@ class Parser {
                     Task chosen = this.taskList.mark(target);
                     this.ui.printMark(chosen);
                 } else if (command.startsWith("unmark")) {
-                    //get the Task number to unmark
+                    //get the Timo.Task number to unmark
                     String num = String.valueOf(command.charAt(command.length() - 1));
                     int target = Integer.parseInt(num);
 
@@ -388,7 +390,7 @@ class Parser {
                     String num = String.valueOf(command.charAt(command.length() - 1));
                     int target = Integer.parseInt(num);
 
-                    //Task that is deleted
+                    //Timo.Task that is deleted
                     Task task = this.taskList.delete(target);
                     this.ui.printDelete(task, this.taskList.showList().size());
                 } else {
