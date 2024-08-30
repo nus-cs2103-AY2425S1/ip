@@ -28,11 +28,11 @@ test {
 }
 
 application {
-    mainClass.set("./src/main/java/Testament/Testament.java")
+    mainClass.set("Testament.Testament")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Testament"
     archiveClassifier = null
 }
 
