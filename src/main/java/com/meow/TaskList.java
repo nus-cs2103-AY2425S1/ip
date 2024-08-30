@@ -96,7 +96,8 @@ public class TaskList {
             System.out.println("ITS DONE");
             tasks.get(number - 1).setDone(true);
             String icon = "[" + tasks.get(number - 1).getCompetionChar() +"]";
-            return "    Meow has marked this task as done:\n        " + icon +tasks.get(number - 1).getTaskName();
+            return "    Meow has marked this task as done:\n        " 
+                    + icon +tasks.get(number - 1).getTaskName();
         }
     }
 
@@ -148,7 +149,9 @@ public class TaskList {
 
     // Returns the message to be shown when a new task is added
     private String addedNewTaskMessage(Task task) {
-        return "    Meow has added this task hehe:\n            " + task.toString() + "\n            Neow you have " + tasks.size() + " tasks in the list";
+        return "    Meow has added this task hehe:\n            " 
+                + task.toString() + "\n            Neow you have " 
+                + tasks.size() + " tasks in the list";
     }
 
     // Returns the size of the task list
