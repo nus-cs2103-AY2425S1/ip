@@ -11,6 +11,8 @@ import java.io.BufferedWriter;
 
 public class Barcus {
     public static void main(String[] args) {
+        Storage storage = new Storage("./data/savedTasks2.txt");
+
         // fixed dialogue
         String intro =
                 "Beep bop! Hello I am Barcus, ready to be of assistance!\n" +
@@ -23,7 +25,14 @@ public class Barcus {
         // list to save info
 //        String[] tasks = new String[100];
 //        Task[] tasks = new Task[100];
-        ArrayList<Task> tasks = downloadSaved();
+
+        ArrayList<Task> tasks;
+        try {
+            tasks = storage.load();
+
+        } catch (BarcusException e) {
+            tasks = new ArrayList<>();
+        }
         int curr = tasks.size();
 
         // start
@@ -38,7 +47,12 @@ public class Barcus {
             if (reply.equals("bye")) {
                 exit = true;
                 talk(goodbye);
-                uploadSaved(tasks);
+
+                try {
+                    storage.upload(tasks);
+                } catch (BarcusException e) {
+                    talk("Uh oh, " + e);
+                }
             } else if (reply.equals("list")) {
                 // for add list
                 talk("Okie, here are your tasks!");
@@ -174,66 +188,66 @@ public class Barcus {
      * Returns information from the save file formatted in a List of Tasks
      * @return ArrayList of Tasks in save folder
      */
-    private static ArrayList<Task> downloadSaved() {
-        File file = new File("./data/savedTasks.txt");
-        File dir = new File("./data");
-        if (!dir.exists()) {
-            dir.mkdir();
-        }
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+//    private static ArrayList<Task> downloadSaved() {
+//        File file = new File("./data/savedTasks.txt");
+//        File dir = new File("./data");
+//        if (!dir.exists()) {
+//            dir.mkdir();
+//        }
+//        if (!file.exists()) {
+//            try {
+//                file.createNewFile();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//
+//            }
+//        }
+//
+//        ArrayList<Task> tasks = new ArrayList<>();
+//        try {
+//            Scanner s = new Scanner(file);
+//            while (s.hasNextLine()) {
+////                String line = s.next();
+//                String[] lineSplit = s.nextLine().split(" \\| ");
+//
+//                if (lineSplit[0].equals("T")) {
+//                    tasks.add(new Todo(lineSplit[2], lineSplit[1].equals("1")));
+//                } else if (lineSplit[0].equals("D")) {
+//                    tasks.add(new Deadline(
+//                            lineSplit[2],
+//                            lineSplit[1].equals("1"),
+//                            lineSplit[3]
+//                    ));
+//                } else if (lineSplit[0].equals("E")) {
+//                    tasks.add(new Event(
+//                            lineSplit[2],
+//                            lineSplit[1].equals("1"),
+//                            lineSplit[3],
+//                            lineSplit[4]
+//                    ));
+//                }
+//            }
+//            s.close();
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        return tasks;
+//    }
 
-            }
-        }
-
-        ArrayList<Task> tasks = new ArrayList<>();
-        try {
-            Scanner s = new Scanner(file);
-            while (s.hasNextLine()) {
-//                String line = s.next();
-                String[] lineSplit = s.nextLine().split(" \\| ");
-
-                if (lineSplit[0].equals("T")) {
-                    tasks.add(new Todo(lineSplit[2], lineSplit[1].equals("1")));
-                } else if (lineSplit[0].equals("D")) {
-                    tasks.add(new Deadline(
-                            lineSplit[2],
-                            lineSplit[1].equals("1"),
-                            lineSplit[3]
-                    ));
-                } else if (lineSplit[0].equals("E")) {
-                    tasks.add(new Event(
-                            lineSplit[2],
-                            lineSplit[1].equals("1"),
-                            lineSplit[3],
-                            lineSplit[4]
-                    ));
-                }
-            }
-            s.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        return tasks;
-    }
-
-    /**
-     * Saves tasks into the save folder
-     * @param tasks
-     */
-    private static void uploadSaved(ArrayList<Task> tasks) {
-        try (FileWriter writer = new FileWriter("./data/savedTasks.txt");
-             BufferedWriter bfWriter = new BufferedWriter(writer)) {
-            for (Task task: tasks) {
-                bfWriter.write(task.convertToSavedString() + "\n");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    /**
+//     * Saves tasks into the save folder
+//     * @param tasks
+//     */
+//    private static void uploadSaved(ArrayList<Task> tasks) {
+//        try (FileWriter writer = new FileWriter("./data/savedTasks.txt");
+//             BufferedWriter bfWriter = new BufferedWriter(writer)) {
+//            for (Task task: tasks) {
+//                bfWriter.write(task.convertToSavedString() + "\n");
+//            }
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 }
 
