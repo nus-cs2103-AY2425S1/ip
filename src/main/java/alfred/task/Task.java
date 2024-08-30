@@ -1,20 +1,20 @@
 package alfred.task;
 
-import alfred.exception.AlfredException;
-
 import java.util.Arrays;
 import java.util.List;
+
+import alfred.exception.AlfredException;
 
 /**
  * Represents an abstract task with a description and completion status.
  * This class provides methods for marking tasks as done or undone,
  * and for handling different task types such as "ToDos", "Deadlines", and "Events".
  */
-abstract public class Task {
+public abstract class Task {
+    private static final List<String> TASKS = Arrays.asList("todo", "deadline", "event");
+
     protected String description;
     protected boolean isDone;
-
-    private static final List<String> TASKS = Arrays.asList("todo", "deadline", "event");
 
     /**
      * Constructs a new <code>Task</code> with the specified description.
@@ -35,7 +35,6 @@ abstract public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
-
 
     /**
      * Checks if the task description contains the specified keyword.

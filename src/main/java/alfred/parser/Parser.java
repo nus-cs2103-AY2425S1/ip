@@ -1,9 +1,9 @@
 package alfred.parser;
 
-import alfred.ui.Ui;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import alfred.ui.Ui;
 
 /**
  * Provides methods to parse user input commands and extract relevant information.

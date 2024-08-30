@@ -1,12 +1,12 @@
 package alfred.task;
 
-import alfred.exception.AlfredException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import alfred.exception.AlfredException;
 
 /**
  * Represents a Deadline task in the task management system.
@@ -19,7 +19,7 @@ public class Deadlines extends Task {
      * Constructs a Deadlines object with a description and a deadline date.
      *
      * @param description The description of the deadline task.
-     * @param deadline The deadline date in yyyy-MM-dd format.
+     * @param deadline    The deadline date in yyyy-MM-dd format.
      * @throws AlfredException If the deadline date is not in the correct format.
      */
     public Deadlines(String description, String deadline) throws AlfredException {
@@ -35,8 +35,8 @@ public class Deadlines extends Task {
      * Constructs a Deadlines object with a description, a deadline date, and a status.
      *
      * @param description The description of the deadline task.
-     * @param deadline The deadline date in yyyy-MM-dd format.
-     * @param isDone The completion status of the task.
+     * @param deadline    The deadline date in yyyy-MM-dd format.
+     * @param isDone      The completion status of the task.
      * @throws AlfredException If the deadline date is not in the correct format.
      */
     public Deadlines(String description, String deadline, boolean isDone) throws AlfredException {
@@ -56,8 +56,8 @@ public class Deadlines extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " +
-                deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     /**
@@ -79,15 +79,16 @@ public class Deadlines extends Task {
 
             return new Deadlines(description, deadline);
         } else {
-            throw new AlfredException("That is the wrong deadline format Sir. It goes deadline <task> " +
-                    "/by yyyy-mm-dd");
+            throw new AlfredException("That is the wrong deadline format Sir. It goes deadline <task> "
+                    + "/by yyyy-mm-dd");
         }
     }
 
     /**
      * Returns a string representation of the Deadlines task formatted for saving to a file.
      *
-     * @return A string representing the Deadlines task in file format, including the type, status, description, and deadline.
+     * @return A string representing the Deadlines task in file format,
+     *         including the type, status, description, and deadline.
      */
     @Override
     public String toFileFormat() {

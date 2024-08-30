@@ -1,12 +1,12 @@
 package alfred.task;
 
-import alfred.exception.AlfredException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import alfred.exception.AlfredException;
 
 /**
  * Represents an event task with a description, start date, and end date.
@@ -82,8 +82,8 @@ public class Events extends Task {
      * @throws AlfredException If the input string does not match the expected format.
      */
     public static Task createTask(String input) throws AlfredException {
-        String regex = "^event\\s+(.+?)\\s+/from\\s+" +
-                "(\\d{4}-\\d{2}-\\d{2})\\s+/to\\s+(\\d{4}-\\d{2}-\\d{2})$";
+        String regex = "^event\\s+(.+?)\\s+/from\\s+"
+                + "(\\d{4}-\\d{2}-\\d{2})\\s+/to\\s+(\\d{4}-\\d{2}-\\d{2})$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
 
@@ -94,8 +94,8 @@ public class Events extends Task {
 
             return new Events(description, from, to);
         } else {
-            throw new AlfredException("That is the wrong events format Sir. It goes event <task> " +
-                    "/from yyyy-mm-dd /to yyyy-mm-dd");
+            throw new AlfredException("That is the wrong events format Sir. It goes event <task> "
+                    + "/from yyyy-mm-dd /to yyyy-mm-dd");
         }
     }
 

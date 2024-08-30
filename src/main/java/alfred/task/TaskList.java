@@ -1,9 +1,9 @@
 package alfred.task;
 
-import alfred.ui.Ui;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import alfred.ui.Ui;
 
 /**
  * Manages a list of tasks. Provides methods for adding, deleting, and updating tasks.

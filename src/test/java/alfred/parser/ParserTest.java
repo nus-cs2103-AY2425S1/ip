@@ -1,20 +1,23 @@
 package alfred.parser;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class ParserTest {
 
     @Test
-    void testGetTaskNumberFromInput_ValidInput() {
+    void getTaskNumber_validInput() {
         String input = "mark 2";
         int taskNumber = Parser.getTaskNumberFromInput(input);
         assertEquals(2, taskNumber);
     }
 
     @Test
-    void testGetTaskNumberFromInput_InvalidInput() {
+    void getTaskNumber_invalidInput() {
         String input = "mark";
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
             Parser.getTaskNumberFromInput(input);
@@ -29,35 +32,35 @@ class ParserTest {
     }
 
     @Test
-    void testIsValidCommand_ValidInput() {
+    void isValidCommand_validInput() {
         String input = "mark 2";
         boolean isValid = Parser.isValidCommand(input, "mark", 3);
         assertTrue(isValid);
     }
 
     @Test
-    void testIsValidCommand_InvalidCommandFormat() {
+    void isValidCommand_invalidCommandFormat() {
         String input = "mark2";
         boolean isValid = Parser.isValidCommand(input, "mark", 3);
         assertFalse(isValid);
     }
 
     @Test
-    void testIsValidCommand_InvalidTaskNumber_TooHigh() {
+    void testInvalidTaskNumber_tooHigh() {
         String input = "mark 5";
         boolean isValid = Parser.isValidCommand(input, "mark", 3);
         assertFalse(isValid);
     }
 
     @Test
-    void testIsValidCommand_InvalidTaskNumber_TooLow() {
+    void testInvalidTaskNumber_tooLow() {
         String input = "mark 0";
         boolean isValid = Parser.isValidCommand(input, "mark", 3);
         assertFalse(isValid);
     }
 
     @Test
-    void testIsValidCommand_InvalidTaskNumber_Negative() {
+    void testInvalidTaskNumber_negative() {
         String input = "mark -1";
         boolean isValid = Parser.isValidCommand(input, "mark", 3);
         assertFalse(isValid);

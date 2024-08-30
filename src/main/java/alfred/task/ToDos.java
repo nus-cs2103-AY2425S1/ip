@@ -1,9 +1,9 @@
 package alfred.task;
 
-import alfred.exception.AlfredException;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import alfred.exception.AlfredException;
 
 /**
  * Represents a task of type "To-Do". This class extends the <code>Task</code> class
