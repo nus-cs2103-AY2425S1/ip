@@ -11,22 +11,34 @@ public class Parser {
 
         switch (userCommand) {
             case "list":
+                // Return a ListCommand to display the list of tasks
                 return new ListCommand();
             case "mark":
+                // Return a MarkCommand to mark a task as done, using the provided task index.
                 return new MarkCommand(Integer.parseInt(arguments));
             case "unmark":
+                // Return an UnmarkCommand to unmark a task, using the provided task index.
                 return new UnmarkCommand(Integer.parseInt(arguments));
             case "delete":
+                // Return a DeleteCommand to delete a task, using the provided task index.
                 return new DeleteCommand(Integer.parseInt(arguments));
             case "todo":
+                // Return a ToDoCommand to add a new todo task with the given description.
                 return new ToDoCommand(arguments);
             case "deadline":
+                // Return a DeadlineCommand to add a new deadline task with the given details.
                 return new DeadlineCommand(arguments);
             case "event":
+                // Return an EventCommand to add a new event task with the given details.
                 return new EventCommand(arguments);
+            case "find":
+                // Return a FindCommand to find tasks with the keyword
+                return new FindCommand(arguments);
             case "bye":
+                // Return an ExitCommand to terminate the application.
                 return new ExitCommand();
             default:
+                // Throw an exception if the command is not recognized.
                 throw new SageException("Sorry, what do you mean? :p");
         }
     }
