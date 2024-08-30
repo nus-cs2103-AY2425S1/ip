@@ -61,7 +61,8 @@ public class Alexer {
         tasks.get(index - 1).unmarkDone();
 
         System.out.println(BREAK);
-        System.out.println("Alright, it seems you are not done with that yet.\nI have unmarked it for you.");
+        System.out.println("Alright, it seems you are not done with that yet.");
+        System.out.println("I have unmarked it for you.");
         System.out.format("\t%s\n", tasks.get(index - 1));
         System.out.println(BREAK);
     }
