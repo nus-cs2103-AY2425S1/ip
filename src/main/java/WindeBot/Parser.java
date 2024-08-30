@@ -1,4 +1,18 @@
-package Winde;
+package WindeBot;
+
+import Commands.Command;
+import Commands.ListCommand;
+import Commands.RemoveTask;
+import Commands.AddMark;
+import Commands.AddUnmark;
+import Commands.AddTodo;
+import Commands.AddDeadline;
+import Commands.AddEvent;
+import Commands.TaskDateCommand;
+import Commands.FindCommand;
+import Commands.ByeCommand;
+import Commands.ErrorCommand;
+import Exceptions.UnsupportedCommandException;
 
 public class Parser {
 
@@ -85,11 +99,5 @@ public class Parser {
 
     enum subCommands {
         TODO, DEADLINE, EVENT, LIST, DELETE, BYE, MARK, UNMARK, DATE, FIND, UNKNOWN
-    }
-
-    static class UnsupportedCommandException extends Exception {
-        public UnsupportedCommandException(String message) {
-            super(message);
-        }
     }
 }

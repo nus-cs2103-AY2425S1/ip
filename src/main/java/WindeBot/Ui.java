@@ -1,4 +1,4 @@
-package Winde;
+package WindeBot;
 
 import java.util.Scanner;
 

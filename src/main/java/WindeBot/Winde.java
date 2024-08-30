@@ -1,4 +1,11 @@
-package Winde;
+package WindeBot;
+
+import Commands.Command;
+import Commands.ListCommand;
+
+import Exceptions.EmptyDescriptionException;
+import Exceptions.TooManyParametersException;
+import Exceptions.UnsupportedCommandException;
 
 public class Winde {
 
@@ -32,11 +39,11 @@ public class Winde {
                 ui.showLine();
                 c = Parser.parse(input);
                 shouldContinue = c.execute(input, reminder, ui);
-            } catch (Parser.UnsupportedCommandException e) {
+            } catch (UnsupportedCommandException e) {
                 throw new RuntimeException(e);
-            } catch (Command.EmptyDescriptionException e) {
+            } catch (EmptyDescriptionException e) {
                 throw new RuntimeException(e);
-            } catch (Command.TooManyParametersException e) {
+            } catch (TooManyParametersException e) {
                 throw new RuntimeException(e);
             } finally {
                 ui.showLine();
@@ -57,10 +64,6 @@ public class Winde {
 
      */
 
-    static class UnsupportedFilePathException extends Exception {
-        public UnsupportedFilePathException(String message) {
-            super(message);
-        }
-    }
+
 }
 

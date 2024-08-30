@@ -1,9 +1,13 @@
-package Winde;
+package WindeBot;
+
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.Todos;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 
 public class Reminder {
     private static ArrayList<Task> schedule;
@@ -37,26 +41,26 @@ public class Reminder {
     public static void addEvent(Event task) {
         schedule.add(task);
         ArrayList<Task> taskList;
-        if (calendar.containsKey(task.start.toLocalDate())) {
-            taskList = calendar.get(task.start.toLocalDate());
+        if (calendar.containsKey(task.getDate())) {
+            taskList = calendar.get(task.getDate());
         } else {
             taskList = new ArrayList<Task>();
         }
         taskList.add(task);
-        calendar.put(task.start.toLocalDate(), taskList);
+        calendar.put(task.getDate(), taskList);
         //return new Reminder(reminder, calendar);
     }
 
     public static void addDeadline(Deadline task) {
         schedule.add(task);
         ArrayList<Task> taskList;
-        if (calendar.containsKey(task.date.toLocalDate())) {
-            taskList = calendar.get(task.date.toLocalDate());
+        if (calendar.containsKey(task.getDate())) {
+            taskList = calendar.get(task.getDate());
         } else {
             taskList = new ArrayList<Task>();
         }
         taskList.add(task);
-        calendar.put(task.date.toLocalDate(), taskList);
+        calendar.put(task.getDate(), taskList);
     }
 
     public static void addTodo(Todos task) {

@@ -1,4 +1,9 @@
-package Winde;
+package WindeBot;
+
+import Tasks.Task;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Todos;
 
 import java.io.File;
 import java.io.FileReader;
@@ -63,7 +68,7 @@ public class History {
         return taskList;
     }
 
-    static void save(ArrayList<Task> reminder) {
+    public static void save(ArrayList<Task> reminder) {
         try {
             FileWriter fw = new FileWriter(WINDE_FILE);
             for (Task tasks : reminder) {
