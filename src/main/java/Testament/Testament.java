@@ -16,9 +16,9 @@ public class Testament {
     private final Parser parser;
 
     /**
-     * Constructor for Testament
+     * Constructor for Testament.
      *
-     * @param filePath filepath of memory file
+     * @param filePath filepath of memory file.
      */
     public Testament(String filePath) {
         storage = new Storage(filePath);
@@ -28,7 +28,7 @@ public class Testament {
     }
 
     /**
-     * Starts running the testament chatbot
+     * Starts running the testament chatbot.
      */
     public void run() {
         ui.welcome();
