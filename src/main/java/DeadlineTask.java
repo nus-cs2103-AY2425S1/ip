@@ -1,37 +1,40 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 public class DeadlineTask extends Task {
-    private final String dueBy;
+    private final LocalDateTime deadlineDateTime;
 
-    public DeadlineTask(String taskDescription) {
+    public DeadlineTask(String taskDescription, String deadlineString) {
         super(taskDescription);
-        this.dueBy = "---";
+        try {
+            this.deadlineDateTime = LocalDateTime.parse(deadlineString, dateTimeFormatter);
+        } catch (DateTimeParseException e) {
+            throw e;
+        }
     }
 
-    public DeadlineTask(String taskDescription, String dueBy) {
-        super(taskDescription);
-        this.dueBy = dueBy;
-    }
-
-    private DeadlineTask(boolean isDone, String taskDescription, String dueBy) {
+    private DeadlineTask(boolean isDone, String taskDescription, LocalDateTime deadlineDateTime) {
         super(isDone, taskDescription);
-        this.dueBy = dueBy;
+        this.deadlineDateTime = deadlineDateTime;
     }
 
     @Override
     public Task markAsDone() {
         return super.isDone
             ? this
-            : new DeadlineTask(true, super.taskDescription, this.dueBy);
+            : new DeadlineTask(true, super.taskDescription, this.deadlineDateTime);
     }
 
     @Override
     public Task markAsUndone() {
         return super.isDone
-            ? new DeadlineTask(super.taskDescription, this.dueBy)
+            ? new DeadlineTask(false, super.taskDescription, this.deadlineDateTime)
             : this;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + dueBy + ")";
+        return "[D]" + super.toString() + " (by: " + deadlineDateTime
+            .format(prettyDateTimeFormatter) + ")";
     }
 }

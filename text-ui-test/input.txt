@@ -1,27 +1,44 @@
 read book
+blah
+todo
 todo go japan
-event class /from may 41st 2 /to 4
-deadline ip /by tmr
+event
+event /from 02-02-2002 2200 /to 02-02-2002 2300
+event class /from tomorrow 2pm /to 3pm
+event class /from /to
+event lecture /to 03-02-2002 2300 /from 03-02-2002 2200
+event class /from 02-02-2002 2200 /to 02-02-2002 2300
 deadline
-deadline flock/bywed
-deadline /by idk
-aaaaaaa
+deadline /by 04-04-2004 2300
+deadline ip
+deadline ip /by tmr
+deadline ip /by 25-05-2002
+deadline ip /by 25-05-2002 1200
 list
 mark 100
-mark -1
+mark 0
+mark -100
 mark 1
 list
+mark 1
+list
+unmark 100
+unmark 0
+unmark -100
 unmark 1
-mark 2
-mark 3
 list
 unmark 2
-mark 4
 list
-unmark 3
-unmark 4
+delete 100
+delete 0
+delete -100
 list
 delete 5
-delete 1
+delete 4
+delete 4
+list
+delete 2
+delete 2
+delete 2
 list
 bye
