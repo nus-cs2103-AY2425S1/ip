@@ -17,8 +17,9 @@ public class Makima {
     private boolean isRunning = true;
     private boolean editedTasks;
     private ArrayList<Task> tasks = new ArrayList<>();
-    
-    private void greeting() {
+
+
+    private void greet() {
         System.out.println("Yahallo! I'm your friendly chatbot, makima.Makima!");
         System.out.println("What can I do for you? *_*");
         System.out.println(LINE_SEPERATOR);
@@ -141,7 +142,7 @@ public class Makima {
     }
 
     public Makima() {
-        greeting();
+        greet();
 
         isRunning = FileManager.loadFile(this);
 
@@ -150,58 +151,58 @@ public class Makima {
             editedTasks = false;
 
             switch (Parser.getInput()) {
-                case "bye":
-                    isRunning = false;
-                    break;
+            case "bye":
+                isRunning = false;
+                break;
 
-                case "list":
-                    displayList();
-                    System.out.println(LINE_SEPERATOR);
-                    break;
+            case "list":
+                displayList();
+                System.out.println(LINE_SEPERATOR);
+                break;
 
-                case "mark":
-                    displayList();
-                    tasks.get(getListIndex("Which item would you like to mark?")).mark();
-                    done();
-                    break;
+            case "mark":
+                displayList();
+                tasks.get(getListIndex("Which item would you like to mark?")).mark();
+                done();
+                break;
 
-                case "unmark":
-                    displayList();
-                    tasks.get(getListIndex("Which item would you like to mark?")).unmark();
-                    done();
-                    break;
+            case "unmark":
+                displayList();
+                tasks.get(getListIndex("Which item would you like to mark?")).unmark();
+                done();
+                break;
 
-                case "todo":
-                    tasks.add(new ToDo(getInput("What is the task name?")));
-                    done();
-                    break;
+            case "todo":
+                tasks.add(new ToDo(getInput("What is the task name?")));
+                done();
+                break;
 
-                case "deadline":
-                    tasks.add(new Deadline(
-                            getInput("What is the task name?"),
-                            getDate("When is it due?")
-                    ));
-                    done();
-                    break;
+            case "deadline":
+                tasks.add(new Deadline(
+                        getInput("What is the task name?"),
+                        getDate("When is it due?")
+                ));
+                done();
+                break;
 
-                case "event":
-                    String name = getInput("What is the task name?");
-                    LocalDateTime startTime = getDate("When does it start?");
-                    LocalDateTime endTime = getDateAfter(startTime, "When does it end?");
-                    tasks.add(new Event(
-                            name, startTime, endTime
-                    ));
-                    done();
-                    break;
+            case "event":
+                String name = getInput("What is the task name?");
+                LocalDateTime startTime = getDate("When does it start?");
+                LocalDateTime endTime = getDateAfter(startTime, "When does it end?");
+                tasks.add(new Event(
+                        name, startTime, endTime
+                ));
+                done();
+                break;
 
-                case "delete":
-                    tasks.remove(getListIndex("Which item would you like to delete?"));
-                    done();
-                    break;
+            case "delete":
+                tasks.remove(getListIndex("Which item would you like to delete?"));
+                done();
+                break;
 
-                default:
-                    System.out.println("Unknown command!");
-                    System.out.println(LINE_SEPERATOR);
+            default:
+                System.out.println("Unknown command!");
+                System.out.println(LINE_SEPERATOR);
             }
 
             if (editedTasks) {
