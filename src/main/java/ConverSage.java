@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,7 +20,7 @@ public class ConverSage {
         Scanner scanner = new Scanner(System.in);
         String input;
 
-        List<Task> taskList = new ArrayList<>();
+        List<Task> taskList = loadTasks();
 
         while (true) {
             input = scanner.nextLine();
@@ -50,6 +51,7 @@ public class ConverSage {
                         System.out.println("ERR " + e.getMessage());
                     }
 
+                    saveTasks(taskList);
                     System.out.println(horizontalLine);
 
 
@@ -68,6 +70,7 @@ public class ConverSage {
                         System.out.println("ERR: " + e.getMessage());
                     }
 
+                    saveTasks(taskList);
                     System.out.println(horizontalLine);
 
                 } else if (input.startsWith("todo")) {
@@ -86,6 +89,7 @@ public class ConverSage {
                         System.out.println("ERR: " + e.getMessage());
                     }
 
+                    saveTasks(taskList);
                     System.out.println(horizontalLine);
 
                 } else if (input.startsWith("deadline")) {
@@ -106,6 +110,7 @@ public class ConverSage {
                         System.out.println("ERR: " + e.getMessage());
                     }
 
+                    saveTasks(taskList);
                     System.out.println(horizontalLine);
                 } else if (input.startsWith("event")) {
                     try {
@@ -129,6 +134,7 @@ public class ConverSage {
                         System.out.println("ERR: " + e.getMessage());
                     }
 
+                    saveTasks(taskList);
                     System.out.println(horizontalLine);
                 } else if (input.startsWith("delete")) {
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
@@ -142,6 +148,8 @@ public class ConverSage {
                     System.out.println("Ok, I've deleted the following task: ");
                     System.out.println("  " + deletedTask);
                     System.out.println("You have " + taskList.size() + " tasks in your list" );
+
+                    saveTasks(taskList);
                     System.out.println(horizontalLine);
                 } else {
                     throw new ConverSageException("Invalid command, please try again");
@@ -152,5 +160,63 @@ public class ConverSage {
             }
 
         }
+    }
+
+    /*
+        method to save a list of tasks to a file myTasks.txt inside a folder called data
+     */
+    private static void saveTasks(List<Task> taskList) {
+        // File object representing the dir
+        // Note: ./ means directory is relative to wd
+        File dataDir = new File("./data");
+
+        // If dir doesn't exist, create!
+        if (!dataDir.exists()) {
+            dataDir.mkdir();
+        }
+
+        // Next, create the myTasks file inside this directory!
+        File myTasksFile = new File("./data/myTasks.txt");
+
+        // Now, we need to try to write to the file, create a FileWriter object using myTasksFile
+        try (FileWriter writer = new FileWriter(myTasksFile)) {
+            for (Task currTask : taskList) {
+                // write the currTask into file!
+                writer.write(currTask.toFileFormat() + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("ERR: Failed to save tasks to file.");
+        }
+
+    }
+
+    /*
+        This method is to load all the tasks from the file whenever application starts
+     */
+    private static List<Task> loadTasks() {
+        List<Task> taskList = new ArrayList<>();
+        File myTasksFile = new File("./data/myTasks.txt");
+
+        // if the above file doesn't exist, no tasks so return empty list
+        if (!myTasksFile.exists()) {
+            return taskList;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(myTasksFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                try {
+                    taskList.add(Task.fromFileFormat(line));
+                } catch (ConverSageException e) {
+                    System.out.println("ERR: Skipping corrupted line: " + line);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("ERR: Failed to load tasks from file!");
+        }
+
+
+
+        return taskList;
     }
 }
