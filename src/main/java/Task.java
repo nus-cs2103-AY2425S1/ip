@@ -21,6 +21,10 @@ public abstract class Task {
         return this.isDone;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     @Override
     public String toString() {
         String cross = this.isDone ? "X" : " ";
