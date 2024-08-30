@@ -18,15 +18,12 @@ import colress.exception.UnknownCommandException;
 import colress.exception.UnknownTaskTypeException;
 
 public final class Parser {
-    private final Scanner SCANNER = new Scanner(System.in);
-    private final String TASK_TYPE_DEADLINE = "deadline";
-    private final String TASK_TYPE_EVENT = "event";
-    private final String TASK_TYPE_TODO = "todo";
+    private Scanner scanner = new Scanner(System.in);
     private String input = "";
     public Parser() {}
 
     private String getInput() {
-        input = SCANNER.nextLine().toLowerCase();
+        input = scanner.nextLine().toLowerCase();
         return input;
     }
 
@@ -58,9 +55,9 @@ public final class Parser {
 
     public String getTaskType() throws UnknownTaskTypeException {
         String result = getInput();
-        if (Objects.equals(result, TASK_TYPE_DEADLINE)
-                || Objects.equals(result, TASK_TYPE_TODO)
-                || Objects.equals(result, TASK_TYPE_EVENT)) {
+        if (Objects.equals(result, "todo")
+                || Objects.equals(result, "deadline")
+                || Objects.equals(result, "event")) {
             return result;
         } else {
             throw new UnknownTaskTypeException();

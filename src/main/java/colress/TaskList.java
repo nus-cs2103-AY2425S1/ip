@@ -6,57 +6,57 @@ import java.util.ArrayList;
 import colress.task.Task;
 
 public class TaskList {
-    private final ArrayList<Task> TASKS;
+    private ArrayList<Task> tasks;
     public TaskList() {
-        this.TASKS = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
     public Task get(int index) {
-        return TASKS.get(index);
+        return tasks.get(index);
     }
     public int size() {
-        return TASKS.size();
+        return tasks.size();
     }
     public boolean isEmpty() {
-        return TASKS.isEmpty();
+        return tasks.isEmpty();
     }
 
     public boolean isOutOfBounds(int x) {
-        return x > TASKS.size();
+        return x > tasks.size();
     }
 
     private String getCurrTask(int taskNumber) {
-        return taskNumber + ". " + TASKS.get(taskNumber - 1);
+        return taskNumber + ". " + tasks.get(taskNumber - 1);
     }
 
     public String addTask(Task task) {
-        TASKS.add(task);
-        return getCurrTask(TASKS.size());
+        tasks.add(task);
+        return getCurrTask(tasks.size());
     }
 
     public String checkTask(int taskNumber) {
-        Task task = TASKS.get(taskNumber - 1);
+        Task task = tasks.get(taskNumber - 1);
         task.check();
         return getCurrTask(taskNumber);
     }
 
     public String uncheckTask(int taskNumber) {
-        Task task = TASKS.get(taskNumber - 1);
+        Task task = tasks.get(taskNumber - 1);
         task.uncheck();
         return getCurrTask(taskNumber);
     }
 
     public void deleteTask(int taskNumber) {
-        TASKS.remove(taskNumber - 1);
+        tasks.remove(taskNumber - 1);
     }
 
     public String retrieveTasks() {
         String result = "";
-        if (TASKS.isEmpty()) {
+        if (tasks.isEmpty()) {
             return result;
         }
 
-        for (int i = 0; i < TASKS.size(); i++) {
-            result += String.format("\n%d. " + TASKS.get(i), i + 1);
+        for (int i = 0; i < tasks.size(); i++) {
+            result += String.format("\n%d. " + tasks.get(i), i + 1);
         }
 
         if (result.isEmpty()) {
@@ -68,15 +68,15 @@ public class TaskList {
 
     public String retrieveTasks(LocalDate date) {
         String result = "";
-        if (TASKS.isEmpty()) {
+        if (tasks.isEmpty()) {
             return result;
         } else {
-            for (int i = 0; i < TASKS.size(); i++) {
-                Task currTask = TASKS.get(i);
+            for (int i = 0; i < tasks.size(); i++) {
+                Task currTask = tasks.get(i);
                 if (!currTask.fallsOnDate(date)) {
                     continue;
                 }
-                result += String.format("\n%d. " + TASKS.get(i), i + 1);
+                result += String.format("\n%d. " + tasks.get(i), i + 1);
             }
         }
 
