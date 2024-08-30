@@ -1,3 +1,5 @@
+package luffy;
+
 public class LuffyException extends Exception {
 
     public LuffyException() {

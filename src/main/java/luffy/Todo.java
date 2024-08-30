@@ -1,3 +1,5 @@
+package luffy;
+
 public class Todo extends Task{
 
     public Todo(String taskInfo, boolean isDone) {

@@ -1,3 +1,5 @@
+package luffy;
+
 public class Event extends Task {
 
     private final String start;

@@ -1,3 +1,5 @@
+package luffy;
+
 import java.io.FileNotFoundException;
 
 public class Luffy {
@@ -18,7 +20,7 @@ public class Luffy {
             System.out.println(e.getMessage());
         }
 
-        // Luffy greets the user!
+        // luffy.Luffy greets the user!
         luffyBot.showWelcomeMessage();
 
         while (!wantToExit) {
@@ -32,7 +34,7 @@ public class Luffy {
             }
         }
 
-        // Luffy says goodbye!
+        // luffy.Luffy says goodbye!
         luffyBot.showExitMessage();
     }
 }

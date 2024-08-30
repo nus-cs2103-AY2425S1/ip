@@ -1,4 +1,5 @@
-import java.util.Arrays;
+package luffy;
+
 import java.util.Scanner;
 
 import static java.lang.String.format;
@@ -17,7 +18,7 @@ public class LuffyUI {
 
     public void showWelcomeMessage() {
         showLine();
-        System.out.println(" Hello! I'm Luffy");
+        System.out.println(" Hello! I'm luffy.Luffy");
         System.out.println(" What can I do for you?");
         showLine();
     }

@@ -1,4 +1,4 @@
-import java.io.IOException;
+package luffy;
 
 public class DeleteCommand extends Command {
 
