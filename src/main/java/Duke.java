@@ -15,10 +15,10 @@ public class Duke {
         }
     }
 
-    private static void taskAddDisplay(Task task) {
-        System.out.println("Got it. I've added this task:");
+    private static void taskAddOrDeleteDisplay(Task task, String addOrDelete) {
+        System.out.println("Got it. I've" + addOrDelete + "ed this task:");
         System.out.println(task);
-        System.out.println("Now you have " + userInputs.size() + "tasks in the list.");
+        System.out.println("Now you have " + userInputs.size() + " tasks in the list.");
     }
 
     public static void processInput(String inp) throws EmptyTaskException, InvalidInstructionException {
@@ -44,13 +44,13 @@ public class Duke {
         } else if (instruction.equals("todo")){
             Todo task = new Todo(remainingInput);
             userInputs.add(task);
-            taskAddDisplay(task);
+            taskAddOrDeleteDisplay(task, "add");
         } else if (instruction.equals("deadline")) {
             String name = remainingInput.split(" /by ", 2)[0];
             String endDate = remainingInput.split(" /by ", 2)[1];
             Deadline task = new Deadline(name, endDate);
             userInputs.add(task);
-            taskAddDisplay(task);
+            taskAddOrDeleteDisplay(task, "add");
         } else if (instruction.equals("event")) {
             String name = remainingInput.split(" /from ", 2)[0];
             remainingInput = remainingInput.split(" /from ", 2)[1];
@@ -58,7 +58,12 @@ public class Duke {
             String end = remainingInput.split(" /to ", 2)[1];
             Event task = new Event(name, start, end);
             userInputs.add(task);
-            taskAddDisplay(task);
+            taskAddOrDeleteDisplay(task, "add");
+        } else if (instruction.equals("delete")) {
+            int idx = Integer.parseInt(remainingInput)-1;
+            Task taskToBeDeleted = userInputs.get(idx);
+            userInputs.remove(idx);
+            taskAddOrDeleteDisplay(taskToBeDeleted, "delet");
         } else {
             throw new InvalidInstructionException();
         }
