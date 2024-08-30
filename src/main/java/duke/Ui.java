@@ -1,6 +1,5 @@
 package duke;
 
-import java.util.Scanner;
 
 /**
  * The duke.Ui class handles all interactions with the user.
@@ -65,11 +64,10 @@ public class Ui {
     /**
      * Reads a command from the user.
      *
-     * @param scanner A Scanner object used to read input from the user.
+     * @param msg the message entered by the user.
      * @return The command entered by the user.
      */
-    public String readCommand(Scanner scanner) {
-        System.out.println("Enter your message:");
-        return scanner.nextLine();
+    public String readCommand(String msg) {
+        return msg;
     }
 }
