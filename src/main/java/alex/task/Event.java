@@ -1,6 +1,10 @@
 package alex.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * Represents a Task with a start and end date and time.
+ */
 public class Event extends Task {
     private LocalDateTime start;
 
@@ -11,6 +15,12 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Returns the String representation of the Task to be displayed to user
+     * that includes its completion status, description as well as start and end dates.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy h.mma"))
