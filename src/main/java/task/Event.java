@@ -12,11 +12,11 @@ import java.time.format.DateTimeParseException;
  *
  * @author celeschai
  */
-public class Event extends Task{
+public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
-    public Event(String name, String from, String to)  throws DateTimeParseException {
+    public Event(String name, String from, String to) throws DateTimeParseException {
         super(name);
         this.from = Parser.parseStringToDateTime(from);
         this.to = Parser.parseStringToDateTime(to);

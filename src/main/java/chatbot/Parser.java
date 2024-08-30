@@ -1,15 +1,18 @@
 package chatbot;
 
-import task.*;
+import task.Deadline;
+import task.Event;
+import task.TaskList;
+import task.Todo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.time.format.ResolverStyle;
 
 /**
  * Handles parsing of text representation of tasks
@@ -48,7 +51,7 @@ public class Parser {
      * @param dateTime LocalDateTime object from Task objects
      * @return readable date time string for user
      */
-    public static String parseDateTimeToString(LocalDateTime dateTime){
+    public static String parseDateTimeToString(LocalDateTime dateTime) {
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
         return dateTime.format(formatter);
     }
@@ -57,7 +60,7 @@ public class Parser {
      * Parses task list from text files to create
      * Task objects
      *
-     * @param sc scanner that reads source file
+     * @param sc       scanner that reads source file
      * @param taskList task list object used by chatbot
      */
     public static void parseFromTxtTaskList(Scanner sc, TaskList taskList) {

@@ -14,11 +14,11 @@ public class InvalidInputException extends BeeException {
      * Formats error message for different tasks
      *
      * @param missingItems parameters required for task creation
-     * @param taskType task type name
+     * @param taskType     task type name
      */
     public InvalidInputException(String missingItems, String taskType) {
         super(String.format(
-                    "Where is the %s of your %s?\n",
-                    missingItems, taskType));
+                "Where is the %s of your %s?\n",
+                missingItems, taskType));
     }
 }

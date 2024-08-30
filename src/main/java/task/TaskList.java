@@ -15,7 +15,8 @@ public class TaskList {
     /**
      * Instantiates empty task list
      */
-    public TaskList() {}
+    public TaskList() {
+    }
 
     /**
      * Instantiates new task list with
@@ -23,7 +24,7 @@ public class TaskList {
      *
      * @param tasks existing tasks to be added
      */
-    public TaskList(Task ...tasks) {
+    public TaskList(Task... tasks) {
         this.todoList.addAll(Arrays.asList(tasks));
     }
 
