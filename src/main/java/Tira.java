@@ -58,26 +58,8 @@ public class Tira {
                     break;
                 } else if (firstWord.equals("list")) { //LIST
                     tasks.getList();
-                } else if (firstWord.equals("mark")) { //MARK
-                    tasks.markTask(splitCommand);
-                    fileWriter.write(tasks.toString());
-                } else if (firstWord.equals("unmark")) { //UNMARK
-                    tasks.unmarkTask(splitCommand);// ;
-                    fileWriter.write(tasks.toString());
-                } else if (firstWord.equals("todo")) {//todo
-                    tasks.addToDo(splitCommand);
-                    fileWriter.write(tasks.toString());
-                } else if (firstWord.equals("deadline")) { // DEADLINE
-                    tasks.addDeadline(command, splitCommand);
-                    fileWriter.write(tasks.toString());
-                } else if (firstWord.equals("event")) { // EVENT
-                    tasks.addEvent(command, splitCommand);
-                    fileWriter.write(tasks.toString());
-                } else if (firstWord.equals("delete")) {
-                    tasks.delete(splitCommand);
-                    fileWriter.write(tasks.toString());
                 } else {
-                    throw new TiraException("MRA..OW? I think your brain is not braining. Rethink what you want of me...");
+                    tasks.modifyTask(firstWord, command, splitCommand);
                 }
                 fileWriter.write(tasks.toString());
                 fileWriter.flush();
