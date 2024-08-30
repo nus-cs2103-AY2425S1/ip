@@ -3,23 +3,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
-    private static final String TASK_DATA_PATH = "src/data/tasks.txt";
+    private final StorageManager storageSource;
     private final ArrayList<Task> taskList;
 
-    public TaskList() {
+    public TaskList(StorageManager storage) {
         this.taskList = new ArrayList<>(100);
+        this.storageSource = storage;
     }
 
-    public TaskList(ArrayList<Task> taskList) {
+    public TaskList(StorageManager storage, ArrayList<Task> taskList) {
         this.taskList = taskList;
+        this.storageSource = storage;
     }
 
     public void add(Task task) {
         this.taskList.add(task);
+        this.saveToStorage();
     }
 
     public Task remove(int taskNumber) {
-        return taskList.remove(taskNumber - 1);
+        Task taskRemoved = taskList.remove(taskNumber - 1);
+        this.saveToStorage();
+        return taskRemoved;
     }
 
     public int count() {
@@ -29,22 +34,20 @@ public class TaskList {
     public Task mark(int taskNumber) {
         Task task = taskList.get(taskNumber - 1);
         task.markAsDone();
+        this.saveToStorage();
         return task;
     }
 
     public Task unmark(int taskNumber) {
         Task task = taskList.get(taskNumber - 1);
         task.markAsNotDone();
+        this.saveToStorage();
         return task;
     }
 
     public void saveToStorage() {
         try {
-            FileWriter fw = new FileWriter(TASK_DATA_PATH);
-            for (Task task: taskList) {
-                fw.write(task.getDataString());
-            }
-            fw.close();
+            this.storageSource.saveTasks(this.taskList);
         } catch (IOException e) {
             System.out.println(" Something went wrong when saving your changes to the task list :(");
         }

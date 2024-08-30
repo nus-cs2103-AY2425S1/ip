@@ -1,22 +1,25 @@
-import java.util.Date;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.File;
 import java.io.IOException;
-import java.io.FileWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class MrYapper {
     private static final String GREETING_MESSAGE = " Hello! I'm MrYapper\n"
             + " What can I do for you?";
     private static final String GOODBYE_MESSAGE = " Bye. Hope to see you again soon!";
     private static final String TASK_DATA_PATH = "src/data/tasks.txt";
+    private final StorageManager storageManager;
     private TaskList tasks;
 
+    public MrYapper(String filePath) {
+        this.storageManager = new StorageManager(filePath);
+        try {
+            this.tasks = storageManager.retrieveData();
+        } catch (IOException e) {
+            System.out.println(" An error occurred when creating a new data file :(");
+        }
+    }
+
     // Inserts line indentation in response messages
-    private void say(String message) {
+    public void say(String message) {
         System.out.println("____________________________________________________________\n"
                 + message
                 + "\n____________________________________________________________");
@@ -90,67 +93,11 @@ public class MrYapper {
                 deletedTask, tasks.count()));
     }
 
-    // reads the task data from the data file and adds task into the task ArrayList
-    private Task readTaskData(String taskData) throws InvalidDataFormatException {
-        try {
-            String[] processedData = taskData.split(" \\|\\|\\| ");
-            Task task;
-            String taskDescription = processedData[2];
-
-            switch (processedData[0]) {
-            case "T":
-                task = new Todo(taskDescription);
-                break;
-            case "D":
-                task = new Deadline(taskDescription, processedData[3]);
-                break;
-            case "E":
-                task = new Event(taskDescription, processedData[3], processedData[4]);
-                break;
-            default:
-                throw new InvalidDataFormatException(taskData);
-            }
-
-            boolean taskIsDone;
-            taskIsDone = Integer.parseInt(processedData[1]) > 0;
-            if (taskIsDone) {
-                task.markAsDone();
-            }
-
-            return task;
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new InvalidDataFormatException(taskData);
-        }
-    }
-
     public void run() {
         boolean conversationIsOngoing = false;
-
-        // check if the tasks data file exists
-        try {
-            File taskData = new File(TASK_DATA_PATH);
-            if (!taskData.exists()) {
-                boolean fileCreationSuccessful = taskData.createNewFile();
-                if (fileCreationSuccessful) {
-                    System.out.println("Data file creation successful");
-                }
-                this.tasks = new TaskList();
-            } else {
-                ArrayList<Task> taskList = new ArrayList<>(100);
-                Scanner dataFileReader = new Scanner(taskData);
-                while (dataFileReader.hasNextLine()) {
-                    taskList.add(readTaskData(dataFileReader.nextLine()));
-                }
-                dataFileReader.close();
-                this.tasks = new TaskList(taskList);
-            }
-
+        if (tasks != null && storageManager != null) {
             say(GREETING_MESSAGE);
             conversationIsOngoing = true;
-        } catch (IOException e) {
-            say("It seems something is wrong when creating data file :(");
-        } catch (InvalidDataFormatException e) {
-            say(e.getMessage());
         }
 
         Scanner userInputReader = new Scanner(System.in);
@@ -229,10 +176,9 @@ public class MrYapper {
         }
 
         userInputReader.close();
-        tasks.saveToStorage();
     }
 
     public static void main(String[] args) {
-        new MrYapper().run();
+        new MrYapper(TASK_DATA_PATH).run();
     }
 }
