@@ -105,14 +105,14 @@ public class DateParser {
                 return TH.getSuffix();
             }
             switch (day % 10) {
-                case 1:
-                    return ST.getSuffix();
-                case 2:
-                    return ND.getSuffix();
-                case 3:
-                    return RD.getSuffix();
-                default:
-                    return TH.getSuffix();
+            case 1:
+                return ST.getSuffix();
+            case 2:
+                return ND.getSuffix();
+            case 3:
+                return RD.getSuffix();
+            default:
+                return TH.getSuffix();
             }
         }
     }
