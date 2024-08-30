@@ -10,7 +10,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+/**
+ * The command that handles the creation of a Deadline Task.
+ */
 public class DeadlineCommand extends Command {
+    /**
+     * Public constructor for a DeadlineCommand.
+     *
+     * @param commandString The string to be processed.
+     */
     public DeadlineCommand(String commandString) {
         super(commandString);
     }

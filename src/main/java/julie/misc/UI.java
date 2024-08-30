@@ -11,6 +11,7 @@ import java.util.List;
 public class UI {
     /**
      * Public method that prints a string between two horizontal lines.
+     *
      * @param s The string to be wrapped in horizontal lines.
      */
     public static void wrappedLinePrint(String s) {
@@ -20,6 +21,7 @@ public class UI {
 
     /**
      * Public method that prints a list in the specified format.
+     *
      * @param list The list to be printed.
      */
     public static <E> void printList(List<E> list) {
@@ -32,7 +34,8 @@ public class UI {
     }
 
     /**
-     * Public method that returns the prompt when a task is added
+     * Public method that returns the prompt when a task is added.
+     *
      * @param t The task that was added.
      * @param list The list of tasks to use.
      * @param <E> The generic type parameter.

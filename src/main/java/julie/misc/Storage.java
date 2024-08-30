@@ -4,7 +4,6 @@ import julie.task.Deadline;
 import julie.task.Event;
 import julie.task.Task;
 import julie.task.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,9 +12,18 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A class that encapsulates the storage functions supported by the Chat Bots.
+ */
 public class Storage {
+    /** The fixed relative data path that holds the storage file */
     public static final String DATA_PATH = "./data/julie.txt";
+    /** The data file used for storage */
     public static File data = new File(DATA_PATH);
+
+    /**
+     * Initialises the system, by ensuring that the directory and the file exists.
+     */
     public static void start() {
         try {
             File directory = new File(data.getParent());
@@ -32,8 +40,9 @@ public class Storage {
 
     /**
      * Loads the tasks present in the document at the given data path.
-     * Format of lines is T | Desc | From | To.
-     * @param taskList
+     * Format of lines is T | Desc | From | To (if applicable).
+     *
+     * @param taskList The list of Tasks to be loaded into.
      */
     public static void load(List<Task> taskList) {
         try {
@@ -57,6 +66,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the task given into the document at the given data path.
+     * Format of line is T | Desc | From | To (if applicable).
+     *
+     * @param t The task to be saved into the document.
+     */
     public static void save(Task t) {
         try {
             FileWriter fw = new FileWriter(DATA_PATH, true);

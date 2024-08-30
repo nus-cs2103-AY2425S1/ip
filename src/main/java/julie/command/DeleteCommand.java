@@ -4,7 +4,14 @@ import julie.task.Task;
 
 import java.util.List;
 
+/**
+ * The command that handles the deletion of a specified liner.
+ */
 public class DeleteCommand extends Command {
+    /**
+     * Public constructor for a DeleteCommand.
+     * @param commandString The string to be processed.
+     */
     public DeleteCommand(String commandString) {
         super(commandString);
     }
