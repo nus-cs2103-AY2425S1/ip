@@ -1,14 +1,21 @@
 package yappingbot.tasks;
 
-import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotInvalidSaveFileException;
 import yappingbot.stringconstants.ReplyTextMessages;
-import yappingbot.ui.MultilineStringBuilder;
-import yappingbot.ui.Ui;
 
-import java.util.ArrayList;
 
+/**
+ * TaskParser class for parsing strings to tasks.
+ */
 public class TaskParser {
+
+    /**
+     * Parse String array to determine which tasks to be created, creates them, and passes vales to be deserialized.
+     *
+     * @param s String array of String split by colon (:) that hold data for tasks to deserialize.
+     * @return Task based on the given String array.
+     * @throws YappingBotInvalidSaveFileException If an invalid task type is detected or unable to determine task type.
+     */
     public static Task parseSingleTask(String[] s) throws YappingBotInvalidSaveFileException {
         Task t;
         try {
