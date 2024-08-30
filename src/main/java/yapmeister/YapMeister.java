@@ -2,12 +2,14 @@ package yapmeister;
 
 import yapmeister.task.TaskList;
 
+/**
+ * YapMeister main entry point.
+ */
 public class YapMeister {
     final static int MAX_TASKS = 100;
     private UI ui;
     private Storage storage;
     private TaskList tasks;
-    private boolean isRunning;
     
     enum TaskType {
         ToDo,
@@ -15,8 +17,11 @@ public class YapMeister {
         Event
     }
 
+    /**
+     * Creates YapMeister program with specified save file at filepath
+     * @param filepath Save file for Tasks created with YapMeister.
+     */
     public YapMeister(String filepath) {
-        this.isRunning = true;
         ui = new UI();
         storage = new Storage(filepath);
         try {
@@ -29,6 +34,9 @@ public class YapMeister {
         ui.setParser(parser);
     }
 
+    /**
+     * Starts YapMeister through UI.process()
+     */
     public void run() {
         ui.process();
     }
