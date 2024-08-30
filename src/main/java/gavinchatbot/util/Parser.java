@@ -35,6 +35,9 @@ public class Parser {
         } else if (input.startsWith("delete")) {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             return new DeleteCommand(index);
+        } else if (input.startsWith("find")){
+            String find = input.substring(5).trim();
+            return new FindCommand(find);
         } else {
             throw new GavinException("Invalid input!!! \n" +
                     "To add a new task, please start with 'todo', 'deadline', or 'event'. \n" +
