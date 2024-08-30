@@ -1,11 +1,12 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Storage {
     private static final ChatOutput OUTPUT = new ChatOutput();
-
     private static final String TASKS_FILEPATH = "data/tasks.txt";
 
     /**
@@ -49,9 +50,30 @@ public class Storage {
         }
 
         ArrayList<Task> tasks = new ArrayList<>();
+        int errorTaskCount = 0;
 
+        try {
+            File f = new File(TASKS_FILEPATH);
+            Scanner s = new Scanner(f);
 
-        return tasks;
+            while (s.hasNext()) {
+                try {
+                    tasks.add(Task.fromStorageString(s.nextLine()));
+                } catch (TorneInvalidCommandException | TorneInvalidDataException e) {
+                    errorTaskCount++;
+                }
+            }
+
+            // show error if there are error tasks
+            if (errorTaskCount > 0) {
+                OUTPUT.error(String.format("Warning: %d tasks could not be loaded.", errorTaskCount));
+            }
+
+            return tasks;
+        } catch (FileNotFoundException e) {
+            OUTPUT.error("Task storage file not found: " + e.getMessage());
+            return tasks;
+        }
     }
 
     /**

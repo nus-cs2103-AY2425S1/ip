@@ -29,7 +29,7 @@ public class TaskEvent extends Task {
     public String toStorageString() {
         return String.format(
                 "%s / %d / %s / %s / %s",
-                "T",
+                "E",
                 isDone ? 1 : 0,
                 name,
                 from,

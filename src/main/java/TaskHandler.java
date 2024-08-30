@@ -5,7 +5,15 @@ import java.util.ArrayList;
  * This class does not interface with input or output.
  */
 public class TaskHandler {
-    private final ArrayList<Task> taskList = new ArrayList<>();
+    private final ArrayList<Task> taskList;
+
+    TaskHandler(ArrayList<Task> taskList) {
+        this.taskList = taskList;
+    }
+
+    TaskHandler() {
+        this.taskList = new ArrayList<>();
+    }
 
     /**
      * Adds a task to the task list.

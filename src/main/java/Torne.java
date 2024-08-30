@@ -365,8 +365,8 @@ Aww, bye to you as well :c""";
         Scanner scanner = new Scanner(System.in);
         String input;
 
-        taskHandler = new TaskHandler();
         storage = new Storage();
+        taskHandler = new TaskHandler(storage.loadTaskData());
 
         // greet user
         torne.showGreeting();

@@ -27,7 +27,7 @@ public class TaskDeadline extends Task {
     public String toStorageString() {
         return String.format(
                 "%s / %d / %s / %s",
-                "T",
+                "D",
                 isDone ? 1 : 0,
                 name,
                 by);
