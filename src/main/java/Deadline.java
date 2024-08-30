@@ -11,7 +11,6 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    // add a comment to test 
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(OUT_FORMATTER) + ")";
