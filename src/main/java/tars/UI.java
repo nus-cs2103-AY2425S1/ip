@@ -1,8 +1,17 @@
 package tars;
 
-import java.util.Scanner;
 import java.util.List;
+import java.util.Scanner;
 
+/**
+ * Handles the user interface for the TARS application, providing methods
+ * to read user input and display responses.
+ *
+ * <p>The UI class is responsible for interacting with the user, displaying
+ * messages, and receiving commands through the console. It provides various
+ * methods to print different types of messages, such as task updates, errors,
+ * and greetings.
+ */
 public class UI {
     private final Scanner scanner;
     private final String line = "____________________________________";

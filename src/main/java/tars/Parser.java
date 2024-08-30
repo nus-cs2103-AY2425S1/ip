@@ -1,5 +1,12 @@
 package tars;
 
+/**
+ * Provides utility methods to parse user input into commands and arguments for the TARS application.
+ *
+ * <p>The Parser class is responsible for taking raw input from the user and breaking it down
+ * into a command and its associated arguments. This allows the application to understand and
+ * execute the user's intended actions.
+ */
 public class Parser {
 
     /**

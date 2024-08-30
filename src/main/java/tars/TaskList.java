@@ -1,8 +1,14 @@
 package tars;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Manages a list of tasks and handles operations such as adding, removing,
+ * marking tasks as done or undone, and searching for tasks.
+ *
+ * <p>The TaskList class also interacts with the Storage class to persist the tasks to a file.
+ */
 public class TaskList {
     private List<Task> tasks;
     private Storage storage;
