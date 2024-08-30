@@ -1,25 +1,26 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
-    private LocalDateTime by;
+    protected LocalDateTime by;
 
-    // Using a date-time format
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws YapperException {
         super(description);
-        this.by = LocalDateTime.parse(by, DATE_TIME_FORMATTER);
+        try {
+            this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new YapperException("Boss, the date and time format seems off! Please use yyyy-MM-dd HHmm.");
+        }
     }
 
     @Override
     public String toSaveFormat() {
-        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + by.format(DATE_TIME_FORMATTER);
+        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a")) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma")) + ")";
     }
 }
-

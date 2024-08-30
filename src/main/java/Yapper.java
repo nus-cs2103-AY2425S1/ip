@@ -1,262 +1,149 @@
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.IOException;
 
 public class Yapper {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
-    private static final String FILE_PATH = "./data/yapper.txt";
 
-    public static void main(String[] args) {
-        loadTasksFromFile();
+    private final Storage storage;
+    private TaskList tasks;
+    private final Ui ui;
 
-        Scanner scanner = new Scanner(System.in);
-        printWelcomeMessage();
+    public Yapper(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (IOException e) {
+            ui.printLoadingError();
+            tasks = new TaskList();
+        }
+    }
 
-        while (true) {
+    public void run() {
+        ui.printWelcome();
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                String userInput = scanner.nextLine();
-                String[] userInputParts = userInput.split(" ", 2);
-                CommandType command = getCommandType(userInputParts[0]);
+                String fullCommand = ui.readCommand();
+                ui.printLine();
+                CommandType command = Parser.parseCommand(fullCommand);
 
                 switch (command) {
-                    case BYE:
-                        handleBye();
-                        saveTasksToFile();
-                        return;
-
                     case LIST:
-                        handleList();
+                        ui.printTasks(tasks);
                         break;
-
                     case MARK:
-                        handleMark(userInputParts);
-                        saveTasksToFile();
+                        handleMark(fullCommand);
                         break;
-
                     case UNMARK:
-                        handleUnmark(userInputParts);
-                        saveTasksToFile();
+                        handleUnmark(fullCommand);
                         break;
-
                     case TODO:
-                        handleTodo(userInputParts);
-                        saveTasksToFile();
+                        handleTodo(fullCommand);
                         break;
-
                     case DEADLINE:
-                        handleDeadline(userInputParts);
-                        saveTasksToFile();
+                        handleDeadline(fullCommand);
                         break;
-
                     case EVENT:
-                        handleEvent(userInputParts);
-                        saveTasksToFile();
+                        handleEvent(fullCommand);
                         break;
-
                     case DELETE:
-                        handleDelete(userInputParts);
-                        saveTasksToFile();
+                        handleDelete(fullCommand);
                         break;
-
+                    case BYE:
+                        isExit = true;
+                        ui.printGoodbye();
+                        break;
                     default:
-                        throw new UnknownCommandException();
+                        throw new YapperException("Unknown command");
                 }
-            } catch (YapperException e) {
-                printErrorMessage(e.getMessage());
+
+                storage.save(tasks.getTasks());
+            } catch (YapperException | IOException e) {
+                ui.printError(e.getMessage());
+            } finally {
+                ui.printLine();
             }
         }
     }
 
-    private static CommandType getCommandType(String command) {
-        switch (command.toLowerCase()) {
-            case "bye":
-                return CommandType.BYE;
-            case "list":
-                return CommandType.LIST;
-            case "mark":
-                return CommandType.MARK;
-            case "unmark":
-                return CommandType.UNMARK;
-            case "todo":
-                return CommandType.TODO;
-            case "deadline":
-                return CommandType.DEADLINE;
-            case "event":
-                return CommandType.EVENT;
-            case "delete":
-                return CommandType.DELETE;
-            default:
-                return CommandType.UNKNOWN;
+    private void handleMark(String fullCommand) throws YapperException {
+        String[] parts = fullCommand.split(" ");
+        if (parts.length < 2) {
+            throw new YapperException("The mark command requires a task number.");
         }
+        int taskIndex = Integer.parseInt(parts[1]) - 1;
+        if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
+            throw new YapperException("Invalid task number.");
+        }
+        Task task = tasks.getTask(taskIndex);
+        task.markAsDone();
+        ui.printTaskMarked(task);
     }
 
-    private static void printWelcomeMessage() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Yapper");
-        System.out.println(" What can I do for you Boss?");
-        System.out.println("____________________________________________________________");
+    private void handleUnmark(String fullCommand) throws YapperException {
+        String[] parts = fullCommand.split(" ");
+        if (parts.length < 2) {
+            throw new YapperException("The unmark command requires a task number.");
+        }
+        int taskIndex = Integer.parseInt(parts[1]) - 1;
+        if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
+            throw new YapperException("Invalid task number.");
+        }
+        Task task = tasks.getTask(taskIndex);
+        task.markAsNotDone();
+        ui.printTaskUnmarked(task);
     }
 
-    private static void printErrorMessage(String message) {
-        System.out.println("____________________________________________________________");
-        System.out.println(" " + message);
-        System.out.println("____________________________________________________________");
+    private void handleTodo(String fullCommand) throws YapperException {
+        String[] parts = fullCommand.split(" ", 2);
+        if (parts.length < 2) {
+            throw new YapperException("The todo command requires a description.");
+        }
+        Task task = new Todo(parts[1]);
+        tasks.addTask(task);
+        ui.printTaskAdded(task, tasks.getSize());
     }
 
-    private static void handleBye() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Bye Boss!. Yapper wants to see you again soon!");
-        System.out.println("____________________________________________________________");
+    private void handleDeadline(String fullCommand) throws YapperException {
+        String[] parts = fullCommand.split(" /by ");
+        if (parts.length < 2) {
+            throw new YapperException("The deadline command requires a description and a deadline with time.");
+        }
+        String description = parts[0].substring(9).trim(); 
+        Task task = new Deadline(description, parts[1]);  
+        tasks.addTask(task);
+        ui.printTaskAdded(task, tasks.getSize());
+    }
+    
+    private void handleEvent(String fullCommand) throws YapperException {
+        String[] parts = fullCommand.split(" /from ");
+        if (parts.length < 2) {
+            throw new YapperException("The event command requires a description and a start time.");
+        }
+        String[] times = parts[1].split(" /to ");
+        if (times.length < 2) {
+            throw new YapperException("The event command requires both a start and end time.");
+        }
+        String description = parts[0].substring(6).trim(); 
+        Task task = new Event(description, times[0], times[1]);  
+        tasks.addTask(task);
+        ui.printTaskAdded(task, tasks.getSize());
     }
 
-    private static void handleList() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Here are the tasks in your list Boss!:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(" " + (i + 1) + "." + tasks.get(i));
+    private void handleDelete(String fullCommand) throws YapperException {
+        String[] parts = fullCommand.split(" ");
+        if (parts.length < 2) {
+            throw new YapperException("The delete command requires a task number.");
         }
-        System.out.println("____________________________________________________________");
+        int taskIndex = Integer.parseInt(parts[1]) - 1;
+        if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
+            throw new YapperException("Invalid task number.");
+        }
+        Task task = tasks.getTask(taskIndex);
+        tasks.deleteTask(taskIndex);
+        ui.printTaskRemoved(task, tasks.getSize());
     }
 
-    private static void handleMark(String[] userInputParts) throws YapperException {
-        if (userInputParts.length < 2) {
-            throw new EmptyDescriptionException("mark");
-        }
-        int taskNumber = Integer.parseInt(userInputParts[1]) - 1;
-        if (taskNumber < 0 || taskNumber >= tasks.size()) {
-            throw new InvalidTaskNumberException(taskNumber);
-        }
-        tasks.get(taskNumber).markAsDone();
-        System.out.println("____________________________________________________________");
-        System.out.println(" Nice Boss! I've marked this task as done:");
-        System.out.println("   " + tasks.get(taskNumber));
-        System.out.println("____________________________________________________________");
-    }
-
-    private static void handleUnmark(String[] userInputParts) throws YapperException {
-        if (userInputParts.length < 2) {
-            throw new EmptyDescriptionException("unmark");
-        }
-        int taskNumber = Integer.parseInt(userInputParts[1]) - 1;
-        if (taskNumber < 0 || taskNumber >= tasks.size()) {
-            throw new InvalidTaskNumberException(taskNumber);
-        }
-        tasks.get(taskNumber).markAsNotDone();
-        System.out.println("____________________________________________________________");
-        System.out.println(" OK Boss! I've marked this task as not done yet:");
-        System.out.println("   " + tasks.get(taskNumber));
-        System.out.println("____________________________________________________________");
-    }
-
-    private static void handleTodo(String[] userInputParts) throws YapperException {
-        if (userInputParts.length < 2) {
-            throw new EmptyDescriptionException("todo");
-        }
-        Task task = new Todo(userInputParts[1]);
-        tasks.add(task);
-        System.out.println("____________________________________________________________");
-        System.out.println(" Got it Boss! I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Okay Boss! Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("____________________________________________________________");
-    }
-
-    private static void handleDeadline(String[] userInputParts) throws YapperException {
-        if (userInputParts.length < 2) {
-            throw new EmptyDescriptionException("deadline");
-        }
-        String[] details = userInputParts[1].split(" /by ");
-        if (details.length < 2) {
-            throw new YapperException("Please specify a deadline using the format: deadline [task] /by [date/time]");
-        }
-        Task task = new Deadline(details[0], details[1]);
-        tasks.add(task);
-        System.out.println("____________________________________________________________");
-        System.out.println(" Got it Boss. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Okay Boss! Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("____________________________________________________________");
-    }
-
-    private static void handleEvent(String[] userInputParts) throws YapperException {
-        if (userInputParts.length < 2) {
-            throw new EmptyDescriptionException("event");
-        }
-        String[] details = userInputParts[1].split(" /from ");
-        if (details.length < 2) {
-            throw new YapperException("Boss Please specify the event time using the format: event [task] /from [start time] /to [end time]");
-        }
-        String[] fromTo = details[1].split(" /to ");
-        if (fromTo.length < 2) {
-            throw new YapperException("Boss Please specify both the start and end time for the event dehhh");
-        }
-        Task task = new Event(details[0], fromTo[0], fromTo[1]);
-        tasks.add(task);
-        System.out.println("____________________________________________________________");
-        System.out.println(" Okay Boss! I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Okay look here Boss!" + tasks.size() + " tasks in the list.");
-        System.out.println("____________________________________________________________");
-    }
-
-    private static void handleDelete(String[] userInputParts) throws YapperException {
-        if (userInputParts.length < 2) {
-            throw new EmptyDescriptionException("delete");
-        }
-        int taskNumber = Integer.parseInt(userInputParts[1]) - 1;
-        if (taskNumber < 0 || taskNumber >= tasks.size()) {
-            throw new InvalidTaskNumberException(taskNumber);
-        }
-        Task removedTask = tasks.remove(taskNumber);
-        System.out.println("____________________________________________________________");
-        System.out.println(" Okay bOSS ur task got removed");
-        System.out.println("   " + removedTask);
-        System.out.println(" Okay Boss! Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("____________________________________________________________");
-    }
-
-    private static void loadTasksFromFile() {
-        File file = new File(FILE_PATH);
-        if (file.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split(" \\| ");
-                    Task task = null;
-                    switch (parts[0]) {
-                        case "T":
-                            task = new Todo(parts[2]);
-                            break;
-                        case "D":
-                            task = new Deadline(parts[2], parts[3]);
-                            break;
-                        case "E":
-                            task = new Event(parts[2], parts[3], parts[4]);
-                            break;
-                    }
-                    if (task != null) {
-                        if (parts[1].equals("1")) {
-                            task.markAsDone();
-                        }
-                        tasks.add(task);
-                    }
-                }
-            } catch (IOException e) {
-                System.out.println("Error loading tasks from file: " + e.getMessage());
-            }
-        }
-    }
-
-    private static void saveTasksToFile() {
-        File file = new File(FILE_PATH);
-        file.getParentFile().mkdirs(); 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            for (Task task : tasks) {
-                writer.write(task.toSaveFormat());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            System.out.println("Error saving tasks to file: " + e.getMessage());
-        }
+    public static void main(String[] args) {
+        new Yapper("data/tasks.txt").run();
     }
 }
