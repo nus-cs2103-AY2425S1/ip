@@ -10,7 +10,7 @@ public class Ui {
     }
 
     /**
-     *  prints an error message when there is no data file
+     *  Prints an error message when there is no data file
      */
     public void showLoadingError() {
         this.showLine();
@@ -19,7 +19,7 @@ public class Ui {
     }
 
     /**
-     *  prints a welcome message
+     *  Prints a welcome message
      */
     public void showWelcome() {
         this.showLine();
@@ -28,7 +28,7 @@ public class Ui {
     }
 
     /**
-     *  prints a goodbye message
+     *  Prints a goodbye message
      */
     public void showBye() {
         this.showLine();
@@ -37,7 +37,7 @@ public class Ui {
     }
 
     /**
-     *  reads the lines typed out & returns the command
+     *  Reads the lines typed out & returns the command
      */
     public String readCommand() {
         Scanner scannerObj = new Scanner(System.in); // Create a Scanner object
@@ -45,7 +45,7 @@ public class Ui {
     }
 
     /**
-     *  reads the lines typed out & returns the command
+     *  Reads the lines typed out & returns the command
      */
     public void showTaskCount() {
         this.showLine();
@@ -56,7 +56,7 @@ public class Ui {
     }
 
     /**
-     *  prints the current list of tasks
+     *  Prints the current list of tasks
      */
     public void showList() {
         this.showLine();
@@ -72,7 +72,7 @@ public class Ui {
     }
 
     /**
-     *  prints the current list of tasks
+     *  Prints the current list of tasks
      */
     public void showMarkMessage(int index, boolean isMarked) {
         this.showLine();
@@ -87,9 +87,9 @@ public class Ui {
     }
 
     /**
-     * prints the delete function message
+     * Prints the delete function message
      *
-     * @param index index of the object that will be deleted
+     * @param index Index of the object that will be deleted
      */
     public void showDeleteMessage(int index) {
         this.showLine();
@@ -100,16 +100,16 @@ public class Ui {
     }
 
     /**
-     *  prints a divider line
+     *  Prints a divider line
      */
     public void showLine() {
         System.out.println("    _______________________________");
     }
 
     /**
-     * prints the error message
+     * Prints the error message
      *
-     * @param error_msg
+     * @param error_msg Error message
      */
     public void showError(String error_msg) {
 
