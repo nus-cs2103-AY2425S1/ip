@@ -39,6 +39,8 @@ public class Parser {
                 return new UnmarkCommand(Integer.parseInt(words[1]) - 1);
             case "delete":
                 return new DeleteCommand(Integer.parseInt(words[1]) - 1);
+            case "find":
+                return new FindCommand(words[1]);
             default:
                 return new InvalidCommand();
         }
