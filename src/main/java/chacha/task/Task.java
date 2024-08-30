@@ -28,4 +28,8 @@ public class Task {
     public String writeTask() {
         return "|";
     }
+
+    public boolean compareText(String input) {
+        return this.description.contains(input);
+    }
 }

@@ -2,6 +2,7 @@ package chacha;
 
 import chacha.task.Task;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Ui {
     private final static String LINE = "     ____________________________________________________________ \n";
@@ -31,7 +32,7 @@ public class Ui {
     public String printAdd(Task task, TaskList tasks) {
         return LINE +
                 INDENTATION + "Got it. I've added this chacha.task: \n" +
-                INDENTATION + task.printTask() + "\n" +
+                INDENTATION + "  " + task.printTask() + "\n" +
                 INDENTATION + "Now you have " + tasks.getTotalNumber() + " tasks in the list. \n" +
                 LINE;
     }
@@ -39,7 +40,7 @@ public class Ui {
     public String printDelete(Task task, TaskList tasks) {
         return LINE +
                 INDENTATION + "Okay! I've removed this chacha.task: \n" +
-                INDENTATION + task.printTask() + "\n" +
+                INDENTATION + "  " + task.printTask() + "\n" +
                 INDENTATION + "Now you have " + tasks.getTotalNumber() + " tasks in the list. \n" +
                 LINE;
     }
@@ -47,22 +48,23 @@ public class Ui {
     public String printMark(Task task) {
         return LINE +
                 INDENTATION + "Nice! I've marked this chacha.task as done: \n" +
-                INDENTATION + task.printTask() + "\n" +
+                INDENTATION + "  " + task.printTask() + "\n" +
                 LINE;
     }
 
     public String printUnmark(Task task) {
         return LINE +
                 INDENTATION + "Nice! I've marked this chacha.task as not done yet: \n" +
-                INDENTATION + task.printTask() + "\n" +
+                INDENTATION + "  " + task.printTask() + "\n" +
                 LINE;
     }
 
-    public String printList(String[] arrOfTasks) {
+    public String printList(ArrayList<Task> arrOfTasks, String text) {
         String result = LINE +
-                INDENTATION + "Here are the tasks in your list: \n";
-        for (int i = 0; i < arrOfTasks.length; i++) {
-            result += INDENTATION + arrOfTasks[i] + "\n";
+                INDENTATION + text;
+        for (int i = 0; i < arrOfTasks.size(); i++) {
+            String index = String.valueOf(i + 1);
+            result += INDENTATION + index + ". " + arrOfTasks.get(i).printTask() + "\n";
         }
         return result + LINE;
     }
