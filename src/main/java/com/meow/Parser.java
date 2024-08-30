@@ -115,7 +115,6 @@ public class Parser {
                     throw err;
                 }
                 
-    
             case DELETE:
                 try {
                     if (!inputType.substring(6).trim().isEmpty()) {
@@ -130,14 +129,14 @@ public class Parser {
                     throw err;
     
                 }
+
             case BYE:
                 break;
-            } // Add this closing curly brace
+            } 
+
             throw new Meowception("001");
         }
             
-        
-
     
     /*
      * Parses the input command and returns a todo task
@@ -222,24 +221,6 @@ public class Parser {
             return taskList.deleteTask(number);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

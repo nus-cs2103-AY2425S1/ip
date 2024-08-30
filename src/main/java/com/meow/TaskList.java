@@ -96,7 +96,8 @@ public class TaskList {
             System.out.println("ITS DONE");
             tasks.get(number - 1).setDone(true);
             String icon = "[" + tasks.get(number - 1).getCompetionChar() +"]";
-            return "    Meow has marked this task as done:\n        " + icon +tasks.get(number - 1).getTaskName();
+            return "    Meow has marked this task as done:\n        " 
+                    + icon +tasks.get(number - 1).getTaskName();
         }
         
 
@@ -115,7 +116,8 @@ public class TaskList {
         } else {
             tasks.get(index - 1).setDone(false);
             String icon = "[" + tasks.get(index - 1).getCompetionChar() +"]";
-            return "    Meow has unmarked this task as done:\n      " + icon +tasks.get(index - 1).getTaskName();
+            return "    Meow has unmarked this task as done:\n      " 
+                    + icon +tasks.get(index - 1).getTaskName();
         }
             
             
@@ -153,7 +155,9 @@ public class TaskList {
     }
 
     private String addedNewTaskMessage(Task task) {
-        return "    Meow has added this task hehe:\n            " + task.toString() + "\n            Neow you have " + tasks.size() + " tasks in the list";
+        return "    Meow has added this task hehe:\n            " 
+                + task.toString() + "\n            Neow you have " 
+                + tasks.size() + " tasks in the list";
     }
 
     public int getSize() {
