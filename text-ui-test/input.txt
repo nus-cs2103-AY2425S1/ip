@@ -1,0 +1,9 @@
+donkey
+todo cs2100 homework
+deadline cs2103t ip level 6 /by 25th aug 12mn
+event buy spectacles with swiftie /from 7pm /to 9pm
+list
+mark 1
+list
+bye
+
