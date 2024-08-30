@@ -2,6 +2,10 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.nio.file.Paths;
@@ -27,7 +31,7 @@ public class Winner {
                 "Hello! I am Winner, your personal task trackBOT!" + "\n"
                 + "You can send me these commands in the form shown below so I can help you keep track of your tasks :" + "\n"
                 + " ".repeat(5) + "- todo (task) --> tasks without any date/time attached" + "\n"
-                + " ".repeat(5) + "- deadline (task) by (deadline) --> tasks with a deadline" + "\n"
+                + " ".repeat(5) + "- deadline (task) by (date) at (time) --> tasks with a deadline" + "\n"
                 + " ".repeat(5) + "- event (task) from (start) to (end) --> tasks with a start and end date/time" + "\n"
                 + "\n"
                 + "You can also use these additional commands:" + "\n"
@@ -66,27 +70,45 @@ public class Winner {
                         throw new WinnerException("""
                                 Oh no! You are missing a task and a deadline.
                                 Please tell me your task in this form :
-                                deadline (task) by (deadline)""");
+                                deadline (task) by (dd/mm/yyyy) at (time - 24 hour format)""");
                     }
                     if (parts[1].trim().isEmpty()) {
                         throw new WinnerException("""
                                 Oh no! Your task cannot be empty.
                                 Please tell me your task in this form :
-                                deadline (task) by (deadline)""");
+                                deadline (task) by (dd/mm/yyyy) at (time - 24 hour format)""");
                     }
                     if (parts[2].trim().isEmpty()) {
                         throw new WinnerException("""
                                 Oh no! We are going to need a deadline for this task.
                                 Please tell me your task in this form :
-                                deadline (task) by (deadline)""");
+                                deadline (task) by (dd/mm/yyyy) at (time - 24 hour format)""");
                     }
                     String description = parts[1].trim().toLowerCase();
-                    String by = parts[2].trim().toLowerCase();
-                    Deadline newDeadline = new Deadline(description, by);
-                    tasks.add(newDeadline);
-                    System.out.println(("-".repeat(100) + "\n"
-                            + newDeadline.addTaskToString() + "\n"
-                            + "-".repeat(100)).indent(10));
+                    Deadline newDeadline;
+                    try {
+                        if (parts[2].matches(".*\\bat\\b.*")) {
+                            String dateTime = parts[2].trim();
+                            DateTimeFormatter formattedDateTime = DateTimeFormatter.ofPattern("dd/MM/yyyy 'at' HHmm");
+                            LocalDateTime byDateTime = LocalDateTime.parse(dateTime, formattedDateTime);
+                            newDeadline = new Deadline(description, byDateTime);
+                        } else {
+                            String date = parts[2].trim();
+                            DateTimeFormatter formattedDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                            LocalDate byDate = LocalDate.parse(date, formattedDate);
+                            newDeadline = new Deadline(description, byDate);
+                        }
+                        tasks.add(newDeadline);
+                        System.out.println(("-".repeat(100) + "\n"
+                                + newDeadline.addTaskToString() + "\n"
+                                + "-".repeat(100)).indent(10));
+                    } catch (DateTimeParseException e) {
+                        System.out.println(("-".repeat(100) + "\n"
+                                + "Please format your date and time in this form: " + "\n"
+                                + "date - dd/mm/yyyy" + "\n"
+                                + "time - 24 hour format" + "\n"
+                                + "-".repeat(100)).indent(10));
+                    }
 
                 } else if (input.matches("(?i).*\\b+event\\b+.*")) {
                     String[] parts = input.split("(?i)\\b+event\\b+ | \\bfrom\\b | \\bto\\b");
@@ -244,8 +266,8 @@ public class Winner {
                     task = new ToDo(description);
                     break;
                 case "D":
-                    String by = parts[3].trim();
-                    task = new Deadline(description, by);
+                    LocalDateTime byDateTime = LocalDateTime.parse(parts[3].trim());
+                    task = new Deadline(description, byDateTime);
                     break;
                 case "E":
                     String start = parts[3].trim();
@@ -275,8 +297,8 @@ public class Winner {
                 if (i instanceof ToDo) {
                     bw.write(String.format("T | %s | %s%n", isDone, description));
                 } else if (i instanceof Deadline) {
-                    String by = ((Deadline) i).by;
-                    bw.write(String.format("D | %s | %s | %s%n", isDone, description, by));
+                    LocalDateTime byDateTime = ((Deadline) i).byDateTime;
+                    bw.write(String.format("D | %s | %s | %s%n", isDone, description, byDateTime));
                 } else if (i instanceof Event) {
                     String start = ((Event) i).start;
                     String end = ((Event) i).end;
