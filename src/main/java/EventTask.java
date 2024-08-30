@@ -20,4 +20,13 @@ public class EventTask extends Task {
         return output + "[" + status + "] " + super.description +
                 " (" + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " from: " + this.startTime + " to: " + this.endTime + ")";
     }
+
+    @Override
+    public String writeTask() {
+        String output = "E | ";
+        String status = (super.isDone ? "1" : "0");
+        output += status + " | ";
+        return output + description + " | " + date.toString() +
+                " | " + startTime + "-" + endTime + "\n";
+    }
 }

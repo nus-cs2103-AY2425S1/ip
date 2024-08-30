@@ -9,4 +9,12 @@ public class ToDoTask extends Task {
         String status = (super.isDone ? "X" : " ");
         return output + "[" + status + "] " + super.description;
     }
+
+    @Override
+    public String writeTask() {
+        String output = "T | ";
+        String status = (super.isDone ? "1" : "0");
+        output += status + " | ";
+        return output + description + "\n";
+    }
 }
