@@ -7,6 +7,11 @@ public class Task {
         this.completed = false;
     }
 
+    public Task(String taskName, boolean completed) {
+        this.taskName = taskName;
+        this.completed = completed;
+    }
+
     public void complete() {
         this.completed = true;
     }
@@ -17,6 +22,10 @@ public class Task {
 
     public boolean isCompleted() {
         return this.completed;
+    }
+
+    public String toFileFormat() {
+        return this.taskName;
     }
 
     @Override
