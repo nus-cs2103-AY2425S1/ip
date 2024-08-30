@@ -71,7 +71,7 @@ public class Janet {
                 case FIND:
                     String keyword = String.join(" ",
                             Arrays.copyOfRange(commandDetails, 1, commandDetails.length));
-                    ui.showFindMessage(tasks.findTask(keyword));
+                    ui.showFindMessage(tasks.findTasks(keyword));
                     break;
                 }
                 if (hasTypedBye) {
