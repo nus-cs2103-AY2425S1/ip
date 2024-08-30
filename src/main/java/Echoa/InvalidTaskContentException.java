@@ -3,7 +3,7 @@ package Echoa;
 /**
  * InvalidTaskContentException is a class that encapsulates errors relating to task
  */
-public class InvalidTaskContentException extends Exception {
+public abstract class InvalidTaskContentException extends Exception {
     public InvalidTaskContentException() {
         super();
     }

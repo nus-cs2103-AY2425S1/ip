@@ -1,5 +1,10 @@
 package Echoa;
 
+/**
+ * ListOutOfBoundsException is a class that encapsulates exceptions relating to
+ * exceeding the bounds of a TaskList.
+ */
+
 public class ListOutOfBoundsException extends Exception {
     private int index;
 

@@ -99,6 +99,8 @@ public class Echoa {
                         throw new InvalidInstructionException(command);
                 }
             }
+        } catch (InvalidToDoContentException e) {
+            ui.printInvalidToDoContentException(e);
         } catch (InvalidDeadlineContentException e) {
             ui.printInvalidDeadlineContentException(e);
         } catch (InvalidEventContentException e) {
