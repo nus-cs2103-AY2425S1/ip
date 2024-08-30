@@ -1,6 +1,7 @@
 package repsmax;
 
 import java.util.Scanner;
+import java.util.List;
 
 /**
  * Handles all user interactions in the application.
@@ -94,5 +95,19 @@ public class Ui {
      */
     public void showMessage(String message) {
         System.out.println(message);
+    }
+
+    /**
+     * Prompts the user for a search keyword and displays the results.
+     */
+    public void showSearchResults(List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            showMessage("No tasks found with the given keyword.");
+        } else {
+            showMessage("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                showMessage((i + 1) + ". " + tasks.get(i));
+            }
+        }
     }
 }
