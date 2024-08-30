@@ -1,4 +1,4 @@
-package BMO;
+package bmo;
 public class Parser {
 
     public Parser() {

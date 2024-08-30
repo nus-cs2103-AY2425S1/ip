@@ -1,7 +1,7 @@
-package BMO;
+package bmo;
 import java.util.ArrayList;
 
-import BMO.task.Task;
+import bmo.task.Task;
 
 public class Ui {
     public static void printLine() {

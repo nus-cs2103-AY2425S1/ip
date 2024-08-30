@@ -1,10 +1,10 @@
-package BMO;
+package bmo;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import BMO.task.Task;
+import bmo.task.Task;
 
 import java.io.FileWriter;
 

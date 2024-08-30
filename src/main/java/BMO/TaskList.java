@@ -1,11 +1,11 @@
-package BMO;
+package bmo;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import BMO.task.Deadline;
-import BMO.task.Event;
-import BMO.task.Task;
-import BMO.task.ToDo;
+import bmo.task.Deadline;
+import bmo.task.Event;
+import bmo.task.Task;
+import bmo.task.ToDo;
 
 public class TaskList {
     private ArrayList<Task> TasksList;
