@@ -1,6 +1,7 @@
 package task;
 
 import exceptions.AlreadyCompletedException;
+import exceptions.StartAfterEndException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,15 +12,20 @@ public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
 
-    public Event(String title, String start, String end) {
+    public Event(String title, String start, String end) throws StartAfterEndException {
         super(title);
         String[] startArgs = start.split("/at");
         String[] endArgs = end.split("/at");
-        this.start = LocalDateTime.of(LocalDate.parse(startArgs[0].trim()), LocalTime.parse(startArgs[1].trim()));
-        this.end = LocalDateTime.of(LocalDate.parse(endArgs[0].trim()), LocalTime.parse(endArgs[1].trim()));
+        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.parse(startArgs[0].trim()), LocalTime.parse(startArgs[1].trim()));
+        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.parse(endArgs[0].trim()), LocalTime.parse(endArgs[1].trim()));
+        if (startDateTime.isAfter(endDateTime)) {
+            throw new StartAfterEndException();
+        }
+        this.start = startDateTime;
+        this.end = endDateTime;
     }
 
-    public static Event of(String[] args) throws AlreadyCompletedException {
+    public static Event of(String[] args) throws AlreadyCompletedException, StartAfterEndException {
         Event event = new Event(args[2], args[3], args[4]);
         if (Boolean.parseBoolean(args[1])) {
             event.complete();
