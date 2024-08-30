@@ -9,8 +9,6 @@ public class Event extends Task{
     public Event(String name, String from, String to) {
         super(name);
 
-        System.out.println(from);
-        System.out.println(to);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         this.from = LocalDateTime.parse(from, formatter);
         this.to = LocalDateTime.parse(to, formatter);
@@ -18,7 +16,9 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format("(from: %s to: %s)", this.from, this.to);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mma");
+        return "[E]" + super.toString() + String.format("(from: %s to: %s)",
+                this.from.format(formatter), this.to.format(formatter));
     }
 
     @Override
