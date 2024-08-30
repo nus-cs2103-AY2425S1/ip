@@ -75,6 +75,29 @@ public class TaskList {
     public void unmark(int index) {
         this.tasks.get(index).unMarkAsDone();
     }
+
+    /**
+     * Finds and prints all the matching tasks.
+     * @param keyword is one word that user enters to filter the task.
+     */
+    public void findTasks(String keyword) {
+        int counter = 0;
+
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task task : this.tasks) {
+            String[] words = task.getTaskName().split(" ");
+
+            for (String word : words) {
+                if (word.toLowerCase().contains(keyword.toLowerCase())) {
+                    counter++;
+                    System.out.println(counter + "." + task);
+                    break;
+                }
+            }
+        }
+
+
+    }
 }
 
 

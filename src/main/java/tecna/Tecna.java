@@ -98,6 +98,9 @@ public class Tecna {
                 index = commandScanner.getInputIndex();
                 this.taskList.deleteItem(index);
                 break;
+            case FIND:
+                taskList.findTasks(commandScanner.getKeyword());
+                break;
             case TODO:
             case EVENT:
             case DEADLINE:
