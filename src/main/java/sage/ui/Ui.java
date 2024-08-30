@@ -33,6 +33,10 @@ public class Ui {
         System.out.println("______________________________________________________");
     }
 
+    public void showLine() {
+        System.out.println("______________________________________________________");
+    }
+
     public String readCommand(Scanner scanner) {
         return scanner.nextLine().trim();
     }
