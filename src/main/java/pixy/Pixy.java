@@ -1,3 +1,10 @@
+package pixy;
+
+import pixy.parser.Parser;
+import pixy.storage.Storage;
+import pixy.tasks.TaskList;
+import pixy.ui.Ui;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -49,6 +56,6 @@ public class Pixy {
     }
 
     public static void main(String[] args) {
-        new Pixy("data/tasks.txt").run();
+        new Pixy("./data/tasks.txt").run();
     }
 }

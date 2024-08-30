@@ -1,8 +1,10 @@
+package pixy.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 // class for Tasks which are events
-public class Event extends Task{
+public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");

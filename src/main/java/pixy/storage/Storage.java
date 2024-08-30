@@ -1,3 +1,10 @@
+package pixy.storage;
+
+import pixy.tasks.ToDos;
+import pixy.tasks.Deadlines;
+import pixy.tasks.Event;
+import pixy.tasks.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

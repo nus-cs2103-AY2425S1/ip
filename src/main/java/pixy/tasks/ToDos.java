@@ -1,5 +1,9 @@
 // class for Tasks which are ToDos
-public class ToDos extends Task{
+package pixy.tasks;
+
+import pixy.tasks.Task;
+
+public class ToDos extends Task {
     public ToDos(String description) {
         super(description);
     }

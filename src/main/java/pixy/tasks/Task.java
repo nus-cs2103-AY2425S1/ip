@@ -1,7 +1,5 @@
 // Task class
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+package pixy.tasks;
 abstract public class Task {
     protected final String description;
     protected boolean isDone;

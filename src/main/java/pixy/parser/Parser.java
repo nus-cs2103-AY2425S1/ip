@@ -1,3 +1,9 @@
+package pixy.parser;
+
+import pixy.PixyExceptions;
+import pixy.tasks.*;
+import pixy.ui.Ui;
+
 public class Parser {
 
     public boolean parseCommand(String command, TaskList tasks, Ui ui) {

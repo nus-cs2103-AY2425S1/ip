@@ -1,3 +1,7 @@
+package pixy.tasks;
+
+import pixy.tasks.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 
