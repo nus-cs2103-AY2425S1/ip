@@ -1,6 +1,6 @@
 abstract class Task {
     private boolean isDone;
-    private String name;
+    private final String name;
 
     Task(boolean isDone, String name) {
         this.isDone = isDone;

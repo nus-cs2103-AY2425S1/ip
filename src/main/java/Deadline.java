@@ -1,8 +1,8 @@
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class Deadline extends Task {
-    private LocalDateTime date;
+    private final LocalDateTime date;
 
     Deadline(String name, LocalDateTime date) {
         super(name);

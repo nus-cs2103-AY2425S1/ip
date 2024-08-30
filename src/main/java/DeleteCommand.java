@@ -9,7 +9,7 @@ public class DeleteCommand extends Command {
         if (taskList.isValid(this.taskId)) {
             ui.reply(taskList.delete(this.taskId));
         } else {
-            ui.errorMsg(LoafyException.invalidAction());
+            ui.errorMsg(LoafyException.ofInvalidAction());
         }
     }
 }

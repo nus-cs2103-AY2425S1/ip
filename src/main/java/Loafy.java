@@ -1,20 +1,17 @@
-import java.nio.file.Paths;
 import java.util.Scanner;
-import java.io.File;
-import java.io.IOException;
 
 public class Loafy {
-    private TaskList taskList;
+    private TaskList tasks;
     private final Ui ui;
 
     public Loafy(String filePath) {
         this.ui = new Ui();
         Storage storage = new Storage(filePath);
         try {
-            this.taskList = TaskList.ofLoadFromTxt(storage);
+            this.tasks = TaskList.ofLoadFromTxt(storage);
         } catch (LoafyException e) {
             ui.errorMsg(e);
-            this.taskList = new TaskList(storage);
+            this.tasks = new TaskList(storage);
         }
     }
 
@@ -29,7 +26,7 @@ public class Loafy {
             String line = input.nextLine();
             try {
                 Command command = Parser.parse(line);
-                command.execute(this.taskList, this.ui);
+                command.execute(this.tasks, this.ui);
                 exit = command.isExit();
             } catch (LoafyException e) {
                 this.ui.errorMsg(e);
