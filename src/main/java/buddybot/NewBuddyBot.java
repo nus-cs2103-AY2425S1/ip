@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
 /**
  * This is the class for the chat bot with OOP added
  */
-public class NewBuddyBot {
+public class NewBuddyBot { //test
     private final FileStorage storage;
     private TaskList taskList;
     private final Ui ui;
