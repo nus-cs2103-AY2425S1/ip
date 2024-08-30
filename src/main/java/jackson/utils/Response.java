@@ -13,9 +13,9 @@ public class Response {
     private Matcher matcher;
 
     /**
-     * Constructor for Response class.
-     * @param action {@code Actions.ActionType} object containing what type of action to take
-     * @param matcher {@code Matcher} object containing regex matches
+     * Constructs Response instance.
+     * @param action {@code Actions.ActionType} object containing what type of action to take.
+     * @param matcher {@code Matcher} object containing regex matches.
      */
     public Response(Actions.ActionType action, Matcher matcher) {
         this.action = action;
@@ -24,7 +24,7 @@ public class Response {
 
     /**
      * Returns action stored inside.
-     * @return {@code Actions.ACTIONS} enum type
+     * @return {@code Actions.ACTIONS} enum type.
      */
     public Actions.ActionType getAction() {
         return this.action;
@@ -32,7 +32,7 @@ public class Response {
 
     /**
      * Returns matcher stored inside.
-     * @return {@code Matcher} enum type
+     * @return {@code Matcher} enum type.
      */
     public Matcher getMatcher() {
         return this.matcher;

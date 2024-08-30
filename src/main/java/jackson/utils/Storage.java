@@ -23,6 +23,10 @@ public class Storage {
     /* String path to save file */
     private String path;
 
+    /**
+     * Constructs Storage instance.
+     * @param path save file path String to save and read from.
+     */
     public Storage(String path) {
         this.path = path;
     }
@@ -30,7 +34,7 @@ public class Storage {
     /**
      * Saves task list to specified save file.
      * if IOException raised, will print error statement.
-     * @param taskList {@code TaskList} object that the tasks are written from
+     * @param taskList {@code TaskList} object that the tasks are written from.
      */
     public void save(TaskList taskList) {
         File f = new File(this.path); // new file from path
@@ -53,7 +57,7 @@ public class Storage {
     /**
      * Loads task list from save file.
      * Will skip tasks if task format is wrong, will not load the full list if save file cannot be opened.
-     * @param taskList {@code TaskList} object to load tasks into
+     * @param taskList {@code TaskList} object to load tasks into.
      */
     public void load(TaskList taskList) {
         File f = new File(this.path); // new file object

@@ -4,13 +4,14 @@ package jackson.tasks;
  * Task class for task representation.
  */
 public abstract class Task {
+    /* variables to store task information */
     private String taskName;
     private Boolean completed;
 
     /**
-     * Constructor for Task abstract class.
+     * Constructs Task abstract class.
      * Used for subclasses to call only.
-     * @param name String name of the task
+     * @param name String name of the task.
      */
     public Task(String name) {
         this.taskName = name;
@@ -33,7 +34,7 @@ public abstract class Task {
 
     /**
      * Returns status of task; true if complete, false otherwise.
-     * @return String representation of complete or incomplete
+     * @return String representation of complete or incomplete.
      */
     public String getStatus() {
         return this.completed ? "X" : " ";
@@ -41,7 +42,7 @@ public abstract class Task {
 
     /**
      * Returns name of task.
-     * @return String representation of task name
+     * @return String representation of task name.
      */
     public String getName() {
         return this.taskName;

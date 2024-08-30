@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
  * Class used to handle LocalDate and LocalDateTime objects.
  * This is required as we want to allow flexibility in whether the user defines
  * a time or not, and both LocalDate and LocalDateTime strictly require no timing
- * and timing respectively
+ * and timing respectively.
  */
 public class Temporal {
     // DateTimeFormatters for reading (first 2) from save file and user input
@@ -31,8 +31,8 @@ public class Temporal {
     private LocalDateTime localDateTime;
 
     /**
-     * Constructor for Temporal class.
-     * @param dateTimeString String of dateTime to "parse"
+     * Constructs Temporal instance.
+     * @param dateTimeString String of dateTime to "parse".
      */
     public Temporal(String dateTimeString) {
         try {
@@ -45,7 +45,7 @@ public class Temporal {
 
     /**
      * String representation of {@code Temporal} object.
-     * @return LocalDateTime or LocalDate String format depending on which is stored
+     * @return LocalDateTime or LocalDate String format depending on which is stored.
      */
     @Override
     public String toString() {

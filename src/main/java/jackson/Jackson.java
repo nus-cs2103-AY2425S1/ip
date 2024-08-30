@@ -45,9 +45,9 @@ public class Jackson {
     private Scanner sc;
 
     /**
-     * Constructor class for Jackson
-     * @param expectedSize integer of how many tasks are expected to be stored
-     * @param path String path for save file
+     * Constructs Jackson instance.
+     * @param expectedSize integer of how many tasks are expected to be stored.
+     * @param path String path for save file.
      */
     public Jackson(int expectedSize, String path) {
         this.taskList = new TaskList(expectedSize);
@@ -58,7 +58,7 @@ public class Jackson {
 
     /**
      * Reads secret text from secret file and prints it.
-     * If secret file not found, handles exception and prints error message
+     * If secret file not found, handles exception and prints error message.
      */
     public void readSecret() {
         // get string builder to read line by line
@@ -94,7 +94,7 @@ public class Jackson {
     }
 
     /**
-     * Runs the main loop of the chatbot
+     * Runs the main loop of the chatbot.
      */
     public void run() {
         // Variables for main loop

@@ -9,10 +9,10 @@ public class Event extends Task {
     private Temporal to;
 
     /**
-     * Constructor for Event class.
-     * @param name String name of the task
-     * @param from String start date of the task
-     * @param to String end date of the task
+     * Constructs Event Task instance.
+     * @param name String name of the task.
+     * @param from String start date of the task.
+     * @param to String end date of the task.
      */
     public Event(String name, String from, String to) {
         super(name);

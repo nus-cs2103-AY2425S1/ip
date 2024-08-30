@@ -7,7 +7,7 @@ import jackson.actions.Actions;
 import jackson.exceptions.SyntaxException;
 
 /**
- * Parser class to handle regex checking and input parsing.
+ * Parser static class to handle regex checking and input parsing.
  */
 public class Parser {
 
@@ -27,10 +27,10 @@ public class Parser {
 
     /**
      * Parses the provided query and checks it against the relevant regex.
-     * Either throws an Exception if error is found, else returns a Response
-     * @param  query String containing user input
-     * @return Response containing Action Type and regex Matcher object
-     * @throws SyntaxException when unknown query is parsed
+     * Either throws an Exception if error is found, else returns a Response.
+     * @param  query String containing user input.
+     * @return Response containing Action Type and regex Matcher object.
+     * @throws SyntaxException when unknown query is parsed.
      */
     public static Response parse(String query) throws SyntaxException {
         Actions.ActionType a;

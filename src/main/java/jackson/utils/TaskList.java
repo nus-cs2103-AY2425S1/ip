@@ -13,16 +13,16 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     /**
-     * Constructor for task list.
-     * @param expectedSize expected number of tasks to store
+     * Constructs TaskList instance.
+     * @param expectedSize expected number of tasks to store.
      */
     public TaskList(int expectedSize) {
         this.tasks = new ArrayList<>(expectedSize);
     }
 
     /**
-     * Returns number of tasks in the list
-     * @return integer containing how many tasks are in the list
+     * Returns number of tasks in the list.
+     * @return integer containing how many tasks are in the list.
      */
     public int getSize() {
         return this.tasks.size();
@@ -30,16 +30,16 @@ public class TaskList {
 
     /**
      * Adds task to the list and prints list adding message.
-     * @param task {@code Task} object to be added
+     * @param task {@code Task} object to be added.
      */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
 
     /**
-     * Gets a specified task according to index
-     * @param index index of task (from 0) to get
-     * @return {@code Task} object at index {@code index}
+     * Gets a specified task according to index.
+     * @param index index of task (from 0) to get.
+     * @return {@code Task} object at index {@code index}.
      */
     public Task getTask(int index) {
         return this.tasks.get(index);
@@ -47,9 +47,9 @@ public class TaskList {
 
     /**
      * Deletes Task from the list at specified index.
-     * @param index Integer index to delete at
-     * @return {@code Task} object that was deleted
-     * @throws OutOfListException Thrown if invalid index is given, contains current task size
+     * @param index Integer index to delete at.
+     * @return {@code Task} object that was deleted.
+     * @throws OutOfListException Thrown if invalid index is given, contains current task size.
      */
     public Task deleteTask(int index) throws OutOfListException {
         if (index < 0 || index >= this.tasks.size()) {
@@ -61,9 +61,9 @@ public class TaskList {
 
     /**
      * Marks task as completed at specified index.
-     * @param index Integer index to mark task at
-     * @return {@code Task} object that was marked
-     * @throws OutOfListException Thrown if invalid index is given, contains current task size
+     * @param index Integer index to mark task at.
+     * @return {@code Task} object that was marked.
+     * @throws OutOfListException Thrown if invalid index is given, contains current task size.
      */
     public Task mark(int index) throws OutOfListException {
         if (index < 0 || index >= this.tasks.size()) {
@@ -75,9 +75,9 @@ public class TaskList {
     }
 
     /**
-     * Returns tasks that have names that contain keywords
-     * @param keywords String of keyword(s) to search for
-     * @return {@code ArrayList} of tasks that match the keyword
+     * Returns tasks that have names that contain keywords.
+     * @param keywords String of keyword(s) to search for.
+     * @return {@code ArrayList} of tasks that match the keyword.
      */
     public ArrayList<Task> findTasks(String keywords) {
         ArrayList<Task> filtered = new ArrayList<>(this.tasks);
@@ -87,9 +87,9 @@ public class TaskList {
 
     /**
      * Unmarks task as completed at specified index.
-     * @param index Integer index to unmark task at
-     * @return {@code Task} object that was unmarked
-     * @throws OutOfListException Thrown if invalid index is given, contains current task size
+     * @param index Integer index to unmark task at.
+     * @return {@code Task} object that was unmarked.
+     * @throws OutOfListException Thrown if invalid index is given, contains current task size.
      */
     public Task unmark(int index) throws OutOfListException {
         if (index < 0 || index >= this.tasks.size()) {
