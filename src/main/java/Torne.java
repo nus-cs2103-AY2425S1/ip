@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Torne {
     private static final ChatOutput OUTPUT = new ChatOutput();
-    private static final TaskHandler TASK_HANDLER = new TaskHandler();
+    private static TaskHandler taskHandler;
     private static final String[] NO_ARGS = new String[0];
     private static final String[] DEFAULT_ARG = {""};
     private static final Map<String, String[]> COMMANDS = Map.of(
@@ -201,8 +201,8 @@ Aww, bye to you as well :c""";
      * @param task task that is to be added
      */
     private void addTask(Task task) {
-        TASK_HANDLER.addTask(task);
-        int count = TASK_HANDLER.getTaskCount();
+        taskHandler.addTask(task);
+        int count = taskHandler.getTaskCount();
 
         String message = "Alright, I'll add this task:\n" + task
                 + String.format("\nNow you have %d task", count)
@@ -249,11 +249,11 @@ Aww, bye to you as well :c""";
      */
     private void listTasks() {
         String message;
-        if (TASK_HANDLER.getTaskCount() == 0) {
+        if (taskHandler.getTaskCount() == 0) {
             message = "You currently have no tasks!\nSo quiet...";
         } else {
-            message = String.format("You currently have %d tasks:\n", TASK_HANDLER.getTaskCount())
-                    + TASK_HANDLER.getTaskListString();
+            message = String.format("You currently have %d tasks:\n", taskHandler.getTaskCount())
+                    + taskHandler.getTaskListString();
         }
 
         OUTPUT.writeText(message);
@@ -273,14 +273,14 @@ Aww, bye to you as well :c""";
         try {
             int index = Integer.parseInt(indexStr.trim()) - 1;
 
-            if (index < 0 || index >= TASK_HANDLER.getTaskCount()) {
+            if (index < 0 || index >= taskHandler.getTaskCount()) {
                 // TODO I'm guessing task handler should be the one raising this exception! SAME AS THE OTHER TWO
                 OUTPUT.error("Invalid task index. Out of range.");
                 return;
             }
 
-            Task removed = TASK_HANDLER.removeTask(index);
-            int count = TASK_HANDLER.getTaskCount();
+            Task removed = taskHandler.removeTask(index);
+            int count = taskHandler.getTaskCount();
 
             String message = "Alright, I'll delete this task:\n" + removed
                     + String.format("\nNow you have %d task", count)
@@ -306,17 +306,17 @@ Aww, bye to you as well :c""";
         try {
             int index = Integer.parseInt(indexStr.trim()) - 1;
 
-            if (index < 0 || index >= TASK_HANDLER.getTaskCount()) {
+            if (index < 0 || index >= taskHandler.getTaskCount()) {
                 // TODO I'm guessing task handler should be the one raising this exception!
                 OUTPUT.error("Invalid task index. Out of range.");
                 return;
             }
 
-            if (TASK_HANDLER.getTask(index).getIsDone()) {
+            if (taskHandler.getTask(index).getIsDone()) {
                 OUTPUT.writeText("This task is already done, stop wasting my time.");
             } else {
-                TASK_HANDLER.getTask(index).markAsDone();
-                OUTPUT.writeText("Marking this task as done :)\n    " + TASK_HANDLER.getTask(index));
+                taskHandler.getTask(index).markAsDone();
+                OUTPUT.writeText("Marking this task as done :)\n    " + taskHandler.getTask(index));
             }
 
         } catch (NumberFormatException e) {
@@ -339,17 +339,17 @@ Aww, bye to you as well :c""";
         try {
             int index = Integer.parseInt(indexStr.trim()) - 1;
 
-            if (index < 0 || index >= TASK_HANDLER.getTaskCount()) {
+            if (index < 0 || index >= taskHandler.getTaskCount()) {
                 // TODO I'm guessing task handler should be the one raising this exception!
                 OUTPUT.error("Invalid task index. Out of range");
                 return;
             }
 
-            if (!TASK_HANDLER.getTask(index).getIsDone()) {
+            if (!taskHandler.getTask(index).getIsDone()) {
                 OUTPUT.writeText("Excuse me, this task is already not done. I can't make it even less done.");
             } else {
-                TASK_HANDLER.getTask(index).markAsNotDone();
-                OUTPUT.writeText("Unmarking this task :(\n    " + TASK_HANDLER.getTask(index));
+                taskHandler.getTask(index).markAsNotDone();
+                OUTPUT.writeText("Unmarking this task :(\n    " + taskHandler.getTask(index));
             }
 
         } catch (NumberFormatException e) {
@@ -363,6 +363,8 @@ Aww, bye to you as well :c""";
         Torne torne = new Torne();
         Scanner scanner = new Scanner(System.in);
         String input;
+
+        taskHandler = new TaskHandler();
 
         // greet user
         torne.showGreeting();
