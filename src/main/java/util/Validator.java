@@ -3,6 +3,7 @@ package util;
 import MizzExceptions.ToDoException;
 import MizzExceptions.DeadlineException;
 import MizzExceptions.EventException;
+import MizzExceptions.FindException;
 import MizzExceptions.UpdateMarkedException;
 import MizzExceptions.DeleteException;
 
@@ -17,7 +18,7 @@ public class Validator {
      * @throws ToDoException if the input is malformed.
      */
     public static void verifyTodo(String[] details) throws ToDoException {
-        if (details.length == 1) {
+        if (details.length <= 1) {
             throw new ToDoException("Missing a descrption for this todo!");
         }
     }
@@ -106,6 +107,12 @@ public class Validator {
             Integer.parseInt(details[1]);
         } catch (NumberFormatException e) {
             throw new DeleteException(String.format("Last I checked (%s)'s no int :/", details[1]));
+        }
+    }
+
+    public static void verifyFind(String[] details) throws FindException {
+        if (details.length <= 1) {
+            throw new FindException("Incomplete request! Too few argument, missing: keyword");
         }
     }
 }
