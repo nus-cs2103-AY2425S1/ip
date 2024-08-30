@@ -12,8 +12,6 @@ public class Deadline extends Task{
         this.dt = parseDateTime(by);
     }
 
-
-
     @Override
     public String getDesc() {
         if (dt != null) {
@@ -21,5 +19,9 @@ public class Deadline extends Task{
             return super.getDesc() + " (by: " + dt.format(outputFormatter) + ")";
         }
         return super.getDesc() + " (by: " + by + ")";
+    }
+
+    public String getBy() {
+        return this.by;
     }
 }

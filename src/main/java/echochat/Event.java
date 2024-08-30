@@ -24,4 +24,12 @@ public class Event extends Task{
         String toOut = (dtTo == null) ? to : dtTo.format(outputFormatter);
         return super.getDesc() + " (from: " + fromOut + " to: " + toOut + ")";
     }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
 }

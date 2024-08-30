@@ -1,6 +1,6 @@
 package echochat;
-import main.java.Exceptions.EmptyDescriptionError;
-import main.java.Exceptions.InvalidCommandError;
+import Exceptions.EmptyDescriptionError;
+import Exceptions.InvalidCommandError;
 
 public class Main {
     public static void main (String args[]) throws InvalidCommandError, EmptyDescriptionError {

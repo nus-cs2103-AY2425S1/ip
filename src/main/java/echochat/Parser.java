@@ -1,6 +1,6 @@
 package echochat;
-import main.java.Exceptions.EmptyDescriptionError;
-import main.java.Exceptions.InvalidCommandError;
+import Exceptions.EmptyDescriptionError;
+import Exceptions.InvalidCommandError;
 
 public class Parser {
 
@@ -22,6 +22,9 @@ public class Parser {
                 case "todo":
                 case "deadline":
                 case "event":
+                    if (parts[1].equals("")) {
+                        throw new EmptyDescriptionError();
+                    }
                     return parseTask(parts[0], parts[1]);
                 default:
                     throw new InvalidCommandError();
@@ -30,15 +33,17 @@ public class Parser {
         throw new InvalidCommandError();
     }
 
-    private Command parseTask(String type, String details) throws EmptyDescriptionError {
+    private Command parseTask(String type, String details) throws InvalidCommandError,EmptyDescriptionError {
+
         String description = "";
         String by = null;
         String from = null;
         String to = null;
 
-        if (details.contains(" /")) {
-            String[] splitDetails = details.split(" /");
+        if (details.contains("/")) {
+            String[] splitDetails = details.split("/");
             description = splitDetails[0].trim();
+
             for (int i = 1; i < splitDetails.length; i++) {
                 String detail = splitDetails[i].trim();
                 if (detail.startsWith("by ")) {
@@ -56,6 +61,10 @@ public class Parser {
         if (description.isEmpty()) {
             throw new EmptyDescriptionError();
         }
+//        System.out.println("by " + by);
+//        System.out.println("from " + from);
+//        System.out.println("to " + to);
+
 
         Task task = null;
         switch (type) {
@@ -63,9 +72,15 @@ public class Parser {
                 task = new Todo(description);
                 break;
             case "deadline":
+                if (by == null) {
+                    throw new InvalidCommandError();
+                }
                 task = new Deadline(by, description);
                 break;
             case "event":
+                if (to == null || from == null) {
+                    throw new InvalidCommandError();
+                }
                 task = new Event(from, to, description);
                 break;
             default:

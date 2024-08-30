@@ -1,4 +1,4 @@
-package main.java.Exceptions;
+package Exceptions;
 
 public class EmptyDescriptionError extends Exception {
     public EmptyDescriptionError() {
