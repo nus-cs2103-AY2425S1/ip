@@ -43,6 +43,7 @@ public class Storage {
 
     public void saveTask() throws IOException {
         String write = danny.saveTasks();
+        file.createNewFile();
         FileWriter fw = new FileWriter(filePath, false);
         fw.write(String.valueOf(write));
         fw.close();
