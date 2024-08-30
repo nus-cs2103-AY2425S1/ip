@@ -1,13 +1,14 @@
 package fridayproject;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Friday {
     public static void main(String[] args) throws FridayException {
         String greeting = "Hello! I'm Friday\nWhat can I do for you?\n";
         String farewell = "Bye. Hope to see you again soon!";
         Scanner scanner = new Scanner(System.in); 
-        Tasks[] tasks = new Tasks[100];
+        ArrayList<Tasks> tasks = new ArrayList<>();
         int taskAdded = 0;
         String line = "_________________________________________";
         System.out.println(greeting + line);
@@ -25,9 +26,10 @@ public class Friday {
                     if (inputString.length() < 6) {
                         throw new FridayException("I'm sorry, but I don't know what that means :(((\n Please enter a valid task description.");
                     }
-                    tasks[taskAdded++] = new Todo(inputString.substring(5));
-                    System.out.println("Got it. I've added this task:\n  " + tasks[taskAdded - 1].getTypeIcon() 
-                    + tasks[taskAdded - 1].toString() + "\nNow you have " + taskAdded + " tasks in the list.");
+                    Tasks todo = new Todo(inputString.substring(5)); 
+                    tasks.add(todo);
+                    System.out.println("Got it. I've added this task:\n  " + todo.getTypeIcon() 
+                    + todo.toString() + "\nNow you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                 } else if (inputString.startsWith("deadline")) {
                     if (inputString.length() < 10) {
@@ -35,39 +37,49 @@ public class Friday {
                     }
                     String remainingInput = inputString.substring(inputString.indexOf(" ") + 1);
                     String[] deadlineParts = remainingInput.substring(taskAdded).split(" /by ");
-                    tasks[taskAdded++] = new Deadline(deadlineParts[0] , deadlineParts[1]);
-                    System.out.println("Got it. I've added this task:\n  " + tasks[taskAdded - 1].getTypeIcon() 
-                    + tasks[taskAdded - 1].toString() + "\nNow you have " + taskAdded + " tasks in the list.");
+                    Tasks deadline = new Deadline(deadlineParts[0] , deadlineParts[1]);
+                    tasks.add(deadline);
+                    System.out.println("Got it. I've added this task:\n  " + deadline.getTypeIcon() 
+                    + deadline.toString() + "\nNow you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                 } else if (inputString.startsWith("event")) {
                     if (inputString.length() < 7) {
                         throw new FridayException("I'm sorry, but I don't know what that means :(((\n Please enter a valid task description.");
                     }
                     String[] eventParts = inputString.substring(6).split(" /from | /to ");
-                    tasks[taskAdded++] = new Event(eventParts[0], eventParts[1], eventParts[2]);
-                    System.out.println("Got it. I've added this task:\n  " + tasks[taskAdded - 1].getTypeIcon() 
-                    + tasks[taskAdded - 1].toString() + "\nNow you have " + taskAdded + " tasks in the list.");
+                    Tasks event = new Event(eventParts[0], eventParts[1], eventParts[2]);
+                    tasks.add(event);
+                    System.out.println("Got it. I've added this task:\n  " + event.getTypeIcon() 
+                    + event.toString() + "\nNow you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                 } else if (inputString.equals("list")) {
                     System.out.println("Here are the tasks in your list: ");
-                    for (int i = 0; i < tasks.length; i++) {
-                        if (tasks[i] != null) {
-                            System.out.println((i + 1) + ". " + tasks[i].getTypeIcon() + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        if (tasks.get(i) != null) {
+                            System.out.println((i + 1) + ". " + tasks.get(i).getTypeIcon() + tasks.get(i));
                         }
                     }
                     System.out.println(line);
                 } else if (inputString.startsWith("mark ")) {
                     int taskNum = Integer.parseInt(inputString.substring(5)) - 1;
-                    if (taskNum >= 0 && taskNum < tasks.length && tasks[taskNum] != null) {
-                        tasks[taskNum].markAsDone();
-                        System.out.println("Nice! I've marked this task as done:\n  [X] " + tasks[taskNum].description);
+                    if (taskNum >= 0 && taskNum < tasks.size() && tasks.get(taskNum) != null) {
+                        tasks.get(taskNum).markAsDone();
+                        System.out.println("Nice! I've marked this task as done:\n  [X] " + tasks.get(taskNum).description);
                     }
                     System.out.println(line);
                 } else if (inputString.startsWith("unmark ")) {
                     int taskNum = Integer.parseInt(inputString.substring(7)) - 1;
-                    if (taskNum >= 0 && taskNum < tasks.length && tasks[taskNum] != null) {
-                        tasks[taskNum].markAsUndone();
-                        System.out.println("OK, I've marked this task as not done yet:\n  [ ] " + tasks[taskNum].description);
+                    if (taskNum >= 0 && taskNum < tasks.size() && tasks.get(taskNum) != null) {
+                        tasks.get(taskNum).markAsUndone();
+                        System.out.println("OK, I've marked this task as not done yet:\n  [ ] " + tasks.get(taskNum).description);
+                    }
+                    System.out.println(line);
+                } else if (inputString.startsWith("delete")) {
+                    int taskNum = Integer.parseInt(inputString.substring(7)) - 1;
+                    if (taskNum >= 0 && taskNum < tasks.size() && tasks.get(taskNum) != null) {
+                        System.out.println("Noted. I've removed this task:\n  " + tasks.get(taskNum).getTypeIcon() + tasks.get(taskNum));
+                        tasks.remove(taskNum);
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     }
                     System.out.println(line);
                 } else {
