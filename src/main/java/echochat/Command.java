@@ -43,4 +43,8 @@ public class Command {
     public Task getTask() {
         return task;
     }
+
+    public String getDescription() {
+        return description;
+    }
 }
