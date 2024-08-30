@@ -6,16 +6,18 @@ import java.util.List;
 public class TaskManager {
     private List<Task> tasks;
     private Database database;
+    private Ui ui;
 
-    public TaskManager() {
+    public TaskManager(Database database, Ui ui) {
         this.database = new Database();
+        this.ui = ui;
         this.tasks = new ArrayList<>(100);
         loadDatabase();
     }
 
     public void addTask(Task task) {
         tasks.add(task);
-        printLines("Got it, I've added this task to your list!\n" +
+        ui.printLines("Got it, I've added this task to your list!\n" +
                 "      " + task.toString() + "\n" + "    Wah bro... " + getTaskSize() + (getTaskSize() > 1 ? " tasks already!" : " task already!"));
         updateDatabase();
     }
@@ -24,18 +26,14 @@ public class TaskManager {
         if (taskId <= tasks.size() + 1) {
             Task task = tasks.get(taskId - 1);
             tasks.remove(task);
-            printLines("Awesome bro! One task gone :D\n" +
+            ui.printLines("Awesome bro! One task gone :D\n" +
                     "      " + task.toString() + "\n" + "    Wah bro... " + getTaskSize() + (getTaskSize() > 1 ? " tasks already!" : " task already!"));
         }
         updateDatabase();
     }
 
     public int getTaskSize() {
-        if (this.database == null) {
-            return tasks.size();
-        } else {
-            return this.database.getDatabaseSize() + 1;
-        }
+        return tasks.size();
     }
 
     public void listTasks() {
@@ -57,13 +55,13 @@ public class TaskManager {
             taskString += "Nothing!";
         }
 
-        printLines(taskString);
+        ui.printLines(taskString);
     }
 
     public void completeTask(int taskId) {
         if (taskId <= tasks.size() + 1) {
             tasks.get(taskId - 1).setComplete();
-            printLines("Nice, I've marked this task as complete:\n" +
+            ui.printLines("Nice, I've marked this task as complete:\n" +
                     "       " + tasks.get(taskId - 1).toString());
         }
         updateDatabase();
@@ -72,16 +70,10 @@ public class TaskManager {
     public void incompleteTask(int taskId) {
         if (taskId <= tasks.size() + 1) {
             tasks.get(taskId - 1).setIncomplete();
-            printLines("Ok, I've marked this task as incomplete:\n" +
+            ui.printLines("Ok, I've marked this task as incomplete:\n" +
                     "       " + tasks.get(taskId - 1).toString());
         }
         updateDatabase();
-    }
-
-    public void printLines(String input) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    " + input);
-        System.out.println("    ____________________________________________________________\n");
     }
 
     private void loadDatabase() {
