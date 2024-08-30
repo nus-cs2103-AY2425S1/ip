@@ -1,14 +1,15 @@
 package Bob.Command;
 
 import Bob.Exception.BobException;
-import java.util.ArrayList;
-import Bob.TaskList.TaskList;
+import Bob.Storage.Storage;
 import Bob.Tasks.Task;
 import Bob.Tasks.Todo;
-import Bob.Storage.Storage;
 import Bob.Ui.Ui;
 
+import java.util.ArrayList;
+
 public class TodoCommand extends Command {
+
     private final String taskDescription;
 
     public TodoCommand(String taskDescription) {

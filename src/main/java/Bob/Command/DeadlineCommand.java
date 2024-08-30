@@ -2,14 +2,14 @@ package Bob.Command;
 
 import Bob.Exception.BobException;
 import Bob.Storage.Storage;
+import Bob.Tasks.Deadline;
+import Bob.Tasks.Task;
 import Bob.Ui.Ui;
-import java.util.ArrayList;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import Bob.Tasks.Task;
-import Bob.Tasks.Deadline;
-
+import java.util.ArrayList;
 
 public class DeadlineCommand extends Command {
     private final String taskDescription;

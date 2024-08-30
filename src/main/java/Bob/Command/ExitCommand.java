@@ -1,9 +1,11 @@
 package Bob.Command;
 
 import Bob.Storage.Storage;
-import Bob.Ui.Ui;
-import java.util.ArrayList;
 import Bob.Tasks.Task;
+import Bob.Ui.Ui;
+
+import java.util.ArrayList;
+
 
 public class ExitCommand extends Command {
 

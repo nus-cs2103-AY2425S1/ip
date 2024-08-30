@@ -1,10 +1,10 @@
 package Bob.Command;
 
 import Bob.Exception.BobException;
-import java.util.ArrayList;
-import Bob.Tasks.Task;
 import Bob.Storage.Storage;
 import Bob.Ui.Ui;
+import Bob.Tasks.Task;
+import java.util.ArrayList;
 
 public class UnmarkCommand extends Command {
     private final int taskIndexUnmark;
