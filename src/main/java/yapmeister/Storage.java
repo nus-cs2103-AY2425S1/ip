@@ -11,6 +11,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage that handles file loading and storing of tasks.
+ * @author BlazeChron
+ */
 public class Storage {
     private String filepath;
     private File tasksFile;
@@ -19,10 +23,20 @@ public class Storage {
         Deadline,
         Event
     }
+
+    /**
+     * Creates a new Storage at the given filepath.
+     * @param filepath Filepath of file.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
     }
 
+    /**
+     * Loads from the filepath the list of tasks and returns it.
+     * @return ArrayList<Task> of tasks loaded from the file at filepath.
+     * @throws StorageException Error when the file is inaccessible or does not exist.
+     */
     public ArrayList<Task> load() throws StorageException {
         ArrayList<Task> tasks = null;
         this.tasksFile = null;
@@ -79,6 +93,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks given into the file at filepath.
+     * @param tasks Tasks to be saved.
+     * @throws IOException Error when file is inaccessible.
+     */
     public void saveLoadedTasks(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(tasksFile);
         ArrayList<Task> taskList = tasks.getTaskArrayList();
