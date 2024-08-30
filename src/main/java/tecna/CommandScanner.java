@@ -7,13 +7,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class CommandScanner {
-    private Scanner scanner;
+    private final Scanner SCANNER;
     private String input;
     private int inputIndex;
     private Task inputTask;
 
     public CommandScanner() {
-        this.scanner = new Scanner(System.in);
+        this.SCANNER = new Scanner(System.in);
     }
 
     public int getInputIndex() {
@@ -32,18 +32,18 @@ public class CommandScanner {
     }
 
     public CommandType getRequest() throws NumberFormatException {
-        this.input = this.scanner.nextLine().trim();
+        this.input = this.SCANNER.nextLine().trim();
         String[] input_words = this.input.split(" ");
         if (input.equalsIgnoreCase("bye")) {
             return CommandType.BYE;
         } else if (input.equalsIgnoreCase("list")) {
             return CommandType.LIST;
         } else if (input_words[0].equalsIgnoreCase("mark")) {
-            return this.markIndex() ? CommandType.MARK : CommandType.INDEX_WRONG_FORMAT;
+            return this.generateIndex() ? CommandType.MARK : CommandType.INDEX_WRONG_FORMAT;
         } else if (input_words[0].equalsIgnoreCase("unmark")) {
-            return this.markIndex() ? CommandType.UNMARK : CommandType.INDEX_WRONG_FORMAT;
+            return this.generateIndex() ? CommandType.UNMARK : CommandType.INDEX_WRONG_FORMAT;
         } else if (input_words[0].equalsIgnoreCase("delete")) {
-            return this.markIndex() ? CommandType.DELETE : CommandType.INDEX_WRONG_FORMAT;
+            return this.generateIndex() ? CommandType.DELETE : CommandType.INDEX_WRONG_FORMAT;
         } else if (input_words[0].equalsIgnoreCase("todo")) {
             if (input_words.length <= 1) {
                 return CommandType.TODO_WRONG_FORMAT;
@@ -75,7 +75,7 @@ public class CommandScanner {
         }
     }
 
-    public boolean markIndex() {
+    public boolean generateIndex() {
         String[] input_words = this.input.split(" ");
         try {
             this.inputIndex = Integer.parseInt(input_words[1]) - 1;
@@ -86,7 +86,7 @@ public class CommandScanner {
     }
 
     public void close() {
-        this.scanner.close();
+        this.SCANNER.close();
     }
 
 }
