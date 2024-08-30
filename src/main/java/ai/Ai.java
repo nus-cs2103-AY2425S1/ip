@@ -59,6 +59,7 @@ public class Ai {
             }
         }
     }
+
     public static void main(String[] args) throws AiException {
         new Ai("./data/Ai.txt").run();
     }

@@ -12,6 +12,7 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     private final static String TASK_TYPE = "D";
     private LocalDate deadline;
+
     public Deadline(String input, String date) throws AiException {
         super(input);
 

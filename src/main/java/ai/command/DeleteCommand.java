@@ -1,12 +1,13 @@
 package ai.command;
 
-import ai.exception.AiException;
-import ai.task.Task;
 import ai.TaskList;
 import ai.Ui;
+import ai.exception.AiException;
+import ai.task.Task;
 
 public class DeleteCommand extends Command {
     private int i;
+
     public DeleteCommand(String index) {
         i = Integer.parseInt(index) - 1;
     }
@@ -25,7 +26,7 @@ public class DeleteCommand extends Command {
         tasks.delete(i);
         System.out.println("Gotchyaa, task removed!!\n");
         System.out.println(temp + "\n");
-        System.out.println("You have "+ tasks.size() + " tasks in your list :p\n");
+        System.out.println("You have " + tasks.size() + " tasks in your list :p\n");
     }
 
     /**

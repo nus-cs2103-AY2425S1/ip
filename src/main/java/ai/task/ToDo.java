@@ -5,11 +5,12 @@ package ai.task;
  */
 public class ToDo extends Task {
     private final static String TASK_TYPE = "T";
-    public ToDo(String description){
+
+    public ToDo(String description) {
         super(description);
     }
 
-    public ToDo(String description, Boolean isDone){
+    public ToDo(String description, Boolean isDone) {
         super(description, isDone);
     }
 

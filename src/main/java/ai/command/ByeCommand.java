@@ -1,8 +1,8 @@
 package ai.command;
 
-import ai.exception.AiException;
 import ai.TaskList;
 import ai.Ui;
+import ai.exception.AiException;
 
 public class ByeCommand extends Command {
     /**

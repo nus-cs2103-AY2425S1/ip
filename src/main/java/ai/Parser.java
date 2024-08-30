@@ -59,6 +59,8 @@ public class Parser {
                         + "Try something like \"due 2019-12-02\" instead!!!\n");
             }
             return new DueCommand(arguments);
+        case "find":
+            return new FindCommand(arguments);
         case "delete":
             return new DeleteCommand(arguments);
         case "bye":

@@ -1,12 +1,13 @@
 package ai.command;
 
-import ai.exception.AiException;
-import ai.task.Task;
 import ai.TaskList;
 import ai.Ui;
+import ai.exception.AiException;
+import ai.task.Task;
 
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     private int i;
+
     public UnmarkCommand(String index) {
         i = Integer.parseInt(index) - 1;
     }

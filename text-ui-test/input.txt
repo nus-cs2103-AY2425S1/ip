@@ -2,6 +2,7 @@ todo borrow book
 deadline return book /by 2019-10-15
 deadline hehe destress w Ai <333 /by 2/12/2019 1800
 event project meeting /from Mon 2pm /to 4pm
+find book
 mark 2
 list
 unmark 2

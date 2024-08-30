@@ -1,11 +1,11 @@
 package task;
 
-import ai.exception.AiException;
 import ai.task.Deadline;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
 public class DeadlineTest {
     @Test
     public void deadline_toStringNotDone_success() throws Exception {
@@ -26,7 +26,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void deadline_stringDataDone_success(){
+    public void deadline_stringDataDone_success() {
         assertEquals("D | 1 | buy gifts for ai | 2000-02-02",
                 new Deadline("buy gifts for ai", "2000-02-02", true).stringData());
     }

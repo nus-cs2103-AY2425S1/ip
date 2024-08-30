@@ -7,6 +7,7 @@ public class Event extends Task {
     private final static String TASK_TYPE = "E";
     private String from;
     private String to;
+
     public Event(String input) {
         super(input.substring(0, input.indexOf("/from") - 1));
         int indexFrom = input.indexOf("/from");
