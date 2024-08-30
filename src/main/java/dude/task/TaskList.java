@@ -1,8 +1,8 @@
 package dude.task;
 
-import dude.exception.DudeDuplicatedTaskException;
-
 import java.util.ArrayList;
+
+import dude.exception.DudeDuplicatedTaskException;
 
 /**
  * Represents a list of tasks.

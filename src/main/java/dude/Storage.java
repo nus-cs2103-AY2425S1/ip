@@ -1,24 +1,21 @@
 package dude;
 
-import dude.exception.DudeCorruptedDataException;
-import dude.exception.DudeDateTimeFormatException;
-
-import dude.task.Deadline;
-import dude.task.Event;
-import dude.task.Task;
-import dude.task.TaskList;
-import dude.task.ToDo;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.time.LocalDateTime;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import dude.exception.DudeCorruptedDataException;
+import dude.exception.DudeDateTimeFormatException;
+import dude.task.Deadline;
+import dude.task.Event;
+import dude.task.Task;
+import dude.task.TaskList;
+import dude.task.ToDo;
 
 /**
  * Represents a storage that handles the loading and saving of tasks to a file.
@@ -68,7 +65,7 @@ public class Storage {
      * Creates a new data file at the specified filePath.
      * Parent directories are created if they do not exist.
      */
-    public void createNewDataFile(){
+    public void createNewDataFile() {
         File dataFile = new File(filePath);
         File parent = new File(dataFile.getParent());
         parent.mkdirs();
@@ -113,7 +110,7 @@ public class Storage {
             throw new DudeCorruptedDataException();
         }
 
-        if (taskComponent[1].equals("X")){
+        if (taskComponent[1].equals("X")) {
             task.markAsDone();
         }
 
@@ -131,14 +128,14 @@ public class Storage {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             ArrayList<Task> tasks = taskList.getTasks();
 
-            for (Task task : tasks){
+            for (Task task : tasks) {
                 bufferedWriter.write(task.taskToStringData());
                 bufferedWriter.newLine();
             }
 
             bufferedWriter.close();
             fileWriter.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("There is something wrong while saving to data file:");
             System.out.println(e.getMessage());
         }

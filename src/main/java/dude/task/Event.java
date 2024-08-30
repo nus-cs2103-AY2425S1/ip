@@ -30,7 +30,7 @@ public class Event extends Task {
      * @return A string representing the Event task's data for saving.
      */
     @Override
-    public String taskToStringData(){
+    public String taskToStringData() {
         return "E" + super.taskToStringData() + "|"
                 + from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + "|"
                 + to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));

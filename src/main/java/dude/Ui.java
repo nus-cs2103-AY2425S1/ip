@@ -1,12 +1,11 @@
 package dude;
 
-import dude.exception.DudeException;
-
-import dude.task.Task;
-import dude.task.TaskList;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import dude.exception.DudeException;
+import dude.task.Task;
+import dude.task.TaskList;
 
 /**
  * Represents the user interface for interacting with the user.
@@ -53,7 +52,7 @@ public class Ui {
         System.out.println("Here are the tasks in your list:");
 
         ArrayList<Task> tasks = taskList.getTasks();
-        for (int i = 1; i <= taskList.getLength(); i ++) {
+        for (int i = 1; i <= taskList.getLength(); i++) {
             System.out.println(i + "." + tasks.get(i - 1));
         }
 

@@ -1,17 +1,16 @@
 package dude.task;
 
-import dude.exception.DudeDuplicatedTaskException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
-
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import dude.exception.DudeDuplicatedTaskException;
 
 public class TaskListTest {
 
@@ -33,8 +32,8 @@ public class TaskListTest {
 
     @Test
     public void testAddTask_success() {
-        Task newTask = new Event("task 3", LocalDateTime.of(2024, 9, 1, 9, 0)
-                , LocalDateTime.of(2024, 9, 1, 10, 0));
+        Task newTask = new Event("task 3", LocalDateTime.of(2024, 9, 1, 9, 0),
+                LocalDateTime.of(2024, 9, 1, 10, 0));
         try {
             taskList.addTask(newTask);
         } catch (DudeDuplicatedTaskException e) {
@@ -84,8 +83,8 @@ public class TaskListTest {
     public void testGetLength() {
         assertEquals(2, taskList.getLength());
 
-        Task newTask = new Event("task 3", LocalDateTime.of(2024, 9, 1, 9, 0)
-                , LocalDateTime.of(2024, 9, 1, 10, 0));
+        Task newTask = new Event("task 3", LocalDateTime.of(2024, 9, 1, 9, 0),
+                LocalDateTime.of(2024, 9, 1, 10, 0));
         try {
             taskList.addTask(newTask);
         } catch (DudeDuplicatedTaskException e) {

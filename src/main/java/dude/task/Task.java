@@ -47,7 +47,7 @@ public abstract class Task {
      *
      * @return A string representing the task's data for saving.
      */
-    public String taskToStringData(){
+    public String taskToStringData() {
         return "|" + getStatusIcon() + "|" + description;
     }
 
