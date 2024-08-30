@@ -3,7 +3,6 @@ package bot;
 import bot.exceptions.*;
 import bot.storage.Storage;
 import bot.tasks.*;
-import bot.utils.Formatter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,7 +14,7 @@ import java.util.regex.Pattern;
 
 public class Bot {
     private final TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
     private Parser parser;
     private final Storage storage;
 
@@ -58,8 +57,9 @@ public class Bot {
     }
 
     public void run() {
-        printBotMessage("Hello! I'm ChadGPT. What can I do for you?");
+        ui.start();
 
+        // TODO: Abstract scanner into Ui class as well
         Scanner sc = new Scanner(System.in);
 
         while (sc.hasNextLine()) {
@@ -78,7 +78,7 @@ public class Bot {
             try {
                 cmdEnum = Command.fromString(cmd);
             } catch (UnknownCommandException e) {
-                printBotMessage(e.getMessage());
+                ui.printMessage(e.getMessage());
                 return;
             }
 
@@ -100,23 +100,23 @@ public class Bot {
                     handleDeleteTask(args);
                     break;
                 case BYE:
-                    printBotMessage("Bye. Hope to see you again soon!");
+                    ui.exit();
                     System.exit(0);
                 default:
                     // This should never happen
-                    printBotMessage("Command not found");
+                    ui.printMessage("Command not found");
                 }
             } catch (BotException e) {
-                printBotMessage(e.getMessage());
+                ui.printMessage(e.getMessage());
             }
         } else {
             // This should never happen
-            printBotMessage("Command not found");
+            ui.printMessage("Command not found");
         }
     }
 
     private void handleList() {
-        printBotMessage("Here are the tasks in your list:\n" + tasks.toString());
+        ui.printMessage("Here are the tasks in your list:\n" + tasks.toString());
     }
 
     private void handleAddTask(String cmd, String args) throws InvalidTaskDescriptionException, DateTimeParseException {
@@ -165,7 +165,7 @@ public class Bot {
                 tasks.get(newTaskIndex).toString(),
                 tasks.size()
         );
-        printBotMessage(response);
+        ui.printMessage(response);
     }
 
     private void handleDeleteTask(String args) throws InvalidTaskIdException {
@@ -190,7 +190,7 @@ public class Bot {
                 deletedTask.toString(),
                 tasks.size()
         );
-        printBotMessage(response);
+        ui.printMessage(response);
     }
 
     private void handleMarkTask(String args) throws InvalidTaskIdException {
@@ -215,7 +215,7 @@ public class Bot {
             return;
         }
 
-        printBotMessage("Nice! I've marked this task as done:\n" + markedTask);
+        ui.printMessage("Nice! I've marked this task as done:\n" + markedTask);
     }
 
     private void handleUnmarkTask(String args) throws InvalidTaskIdException {
@@ -240,20 +240,11 @@ public class Bot {
             return;
         }
 
-        printBotMessage("OK, I've marked this task as not done yet:\n" + unmarkedTask);
+        ui.printMessage("OK, I've marked this task as not done yet:\n" + unmarkedTask);
     }
 
     private int getTaskIndex(String input) {
         return Integer.parseInt(input.split(" ")[0]) - 1;
-    }
-
-    /**
-     * Prints a formatted bot message
-     *
-     * @param msg the string message to be printed
-     */
-    private static void printBotMessage(String msg) {
-        System.out.println(Formatter.formatBotMessage(msg));
     }
 
     public static void main(String[] args) {
