@@ -1,10 +1,13 @@
+package Velma.task;
+
+
 import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> tasks;
 
     /**
-     * Constructor for TaskList if tasks are provided.
+     * Constructor for Velma.task.TaskList if tasks are provided.
      * @param tasks
      */
     public TaskList(ArrayList<Task> tasks) {
@@ -12,7 +15,7 @@ public class TaskList {
     }
 
     /**
-     * Constructor for TaskList.
+     * Constructor for Velma.task.TaskList.
      * Creates an empty list of tasks.
      */
     public TaskList() {
@@ -30,7 +33,7 @@ public class TaskList {
     /**
      * Gets a task from the list.
      * @param index
-     * @return Task from the specified list index.
+     * @return Velma.task.Task from the specified list index.
      */
     public Task getTask(int index) {
         return tasks.get(index);

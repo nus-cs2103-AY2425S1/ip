@@ -1,3 +1,5 @@
+package Velma.task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -32,4 +34,19 @@ public class Task {
         return "[" + this.getStatusIcon()+ "] " + this.description;
     }
 
+    /**
+     * Returns the description of the task.
+     * @return
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Returns the status of the task.
+     * @return
+     */
+    public boolean getIsDone() {
+        return isDone;
+    }
 }

@@ -1,3 +1,11 @@
+package Velma;
+
+import Velma.task.TaskList;
+import Velma.task.Task;
+import Velma.task.Todo;
+import Velma.task.Deadline;
+import Velma.task.Event;
+import Velma.exception.VelmaException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
@@ -169,7 +177,7 @@ public class Velma {
                         } else {
                             System.out.println("OK! I have marked this task as not done yet:");
                         }
-                        ui.showMarkUnmarkTask(task, task.isDone);
+                        ui.showMarkUnmarkTask(task, task.getIsDone());
                         storage.save(tasks.getTasks());
                         break;
 

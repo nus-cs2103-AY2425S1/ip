@@ -1,3 +1,5 @@
+package Velma;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -6,6 +8,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import Velma.task.Task;
+import Velma.task.Todo;
+import Velma.task.Deadline;
+import Velma.task.Event;
 
 public class Storage {
     private String filepath;
@@ -15,23 +21,23 @@ public class Storage {
 
 
     /**
-     * Loads tasks from a file located at "/Users/zeonchew04/ip/data/velma.txt" and returns them as an ArrayList of Task objects.
+     * Loads tasks from a file located at "/Users/zeonchew04/ip/data/velma.txt" and returns them as an ArrayList of Velma.task.Task objects.
      *
      * <p>If the file does not exist, an empty ArrayList is returned, and a message is printed to indicate
      * that no previous tasks were found. The tasks in the file are expected to be formatted in a specific way
-     * to distinguish between different types of tasks (To-Do, Deadline, Event). This method parses the file
-     * accordingly and recreates the Task objects.</p>
+     * to distinguish between different types of tasks (To-Do, Velma.task.Deadline, Velma.task.Event). This method parses the file
+     * accordingly and recreates the Velma.task.Task objects.</p>
      *
      * <p>Each task type is identified by the first character in the line:
      * <ul>
      *     <li>'T' for To-Do tasks</li>
-     *     <li>'D' for Deadline tasks, which include a deadline date and time</li>
-     *     <li>'E' for Event tasks, which include a start and end time</li>
+     *     <li>'D' for Velma.task.Deadline tasks, which include a deadline date and time</li>
+     *     <li>'E' for Velma.task.Event tasks, which include a start and end time</li>
      * </ul>
      *
      * If the task is marked as done (indicated by "[X]"), the task's status is updated accordingly.</p>
      *
-     * @return An ArrayList of Task objects that were stored in the file. If the file is not found, an empty list is returned.
+     * @return An ArrayList of Velma.task.Task objects that were stored in the file. If the file is not found, an empty list is returned.
      *
      * @throws IllegalArgumentException if an unknown task type is encountered in the file.
      */

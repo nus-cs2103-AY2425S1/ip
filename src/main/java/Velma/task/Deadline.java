@@ -1,3 +1,7 @@
+package Velma.task;
+
+import Velma.task.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -14,6 +18,10 @@ public class Deadline extends Task {
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         return "[D]" + super.toString() + " (by: " + by.format(formatter) + ")";
+    }
+
+    public LocalDateTime getBy() {
+        return by;
     }
 
 }

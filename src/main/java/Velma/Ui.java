@@ -1,4 +1,10 @@
+package Velma;
+
 import java.util.ArrayList;
+import Velma.task.Task;
+import Velma.task.TaskList;
+import Velma.task.Event;
+import Velma.task.Deadline;
 import java.time.LocalDate;
 
 public class Ui {
@@ -68,7 +74,7 @@ public class Ui {
             Task task = tasks.get(i);
             if (task instanceof Deadline) {
                 Deadline deadlineTask = (Deadline) task;
-                if (deadlineTask.by.toLocalDate().isEqual(date)) {
+                if (deadlineTask.getBy().toLocalDate().isEqual(date)) {
                     System.out.println((i + 1) + ". " + task);
                     found = true;
                 }
@@ -90,7 +96,7 @@ public class Ui {
         } else {
             System.out.println("OK! I have marked this task as not done yet:");
         }
-        System.out.println("  " + "[" + task.getStatusIcon() + "] " + task.description);
+        System.out.println("  " + "[" + task.getStatusIcon() + "] " + task.getDescription());
     }
 
     /**
