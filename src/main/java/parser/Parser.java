@@ -166,7 +166,6 @@ public class Parser {
             }
             int deleteIndex = Integer.valueOf(words[1]) - 1;
             return new DeleteCommand(deleteIndex);
-
         case FIND:
             String wordToFind = "";
             if (words.length <= 1) {
