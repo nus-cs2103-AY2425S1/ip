@@ -5,6 +5,9 @@ public class Deadlines extends Task{
         super(description);
         this.by = by;
     }
+    public String getDueDate() {
+        return this.by;
+    }
 
     @Override
     public String toString() {
