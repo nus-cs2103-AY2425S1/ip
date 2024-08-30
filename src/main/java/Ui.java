@@ -4,6 +4,7 @@ import Parser.Parser;
 import Task.TaskList;
 import exceptions.InvalidTaskException;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Ui {
@@ -33,6 +34,8 @@ public class Ui {
                 }
             } catch (InvalidTaskException e) {
                 System.out.println("THAT IS AN INVALID TASK LAH");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("A valid index has not been given!!");
             }
         }
     }

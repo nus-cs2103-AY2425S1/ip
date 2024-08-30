@@ -35,7 +35,7 @@ public class Parser {
         }
     }
 
-    public static Command inputToCommand(String userInput) throws  InvalidTaskException{
+    public static Command inputToCommand(String userInput) throws  InvalidTaskException, ArrayIndexOutOfBoundsException {
        String strippedInput= userInput.toLowerCase().trim();
        if (strippedInput.isEmpty()) {
            return null;

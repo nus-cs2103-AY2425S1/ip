@@ -62,13 +62,13 @@ public class TaskList {
         inputHistory.add(newTask);
     }
 
-    public Task removeTask(int deleteIndex) {
+    public Task removeTask(int deleteIndex) throws IndexOutOfBoundsException{
         Task taskToDelete = inputHistory.get(deleteIndex);
         inputHistory.remove(taskToDelete);
         return taskToDelete;
     }
 
-    public void changeTaskStatus(String action, int indexToChange) {
+    public void changeTaskStatus(String action, int indexToChange) throws IndexOutOfBoundsException {
         System.out.println("---------------");
         Task task = inputHistory.get(indexToChange);
         if (action.equals("mark")) {

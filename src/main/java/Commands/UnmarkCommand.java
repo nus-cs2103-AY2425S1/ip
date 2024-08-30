@@ -12,6 +12,10 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void execute(TaskList taskList) {
-        taskList.changeTaskStatus("unmark", indexToUnmark);
+        try {
+            taskList.changeTaskStatus("unmark", indexToUnmark);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("No valid index was given!!");
+        }
     }
 }

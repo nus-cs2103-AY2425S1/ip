@@ -11,6 +11,10 @@ public class MarkCommand extends Command{
 
     @Override
     public void execute(TaskList taskList) {
-        taskList.changeTaskStatus("mark", indexToMark);
+        try {
+            taskList.changeTaskStatus("mark", indexToMark);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("No valid index was given!!");
+        }
     }
 }
