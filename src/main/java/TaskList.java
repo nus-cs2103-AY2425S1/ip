@@ -1,12 +1,14 @@
 import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> taskList;
-    private int taskNum;
     private static String horizontalLine = "\n-------------------------------------------------";
 
     public TaskList() {
         this.taskList = new ArrayList<>(100);
-        this.taskNum = 0;
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return this.taskList;
     }
 
     public void addTask(String taskDescription)
@@ -41,17 +43,18 @@ public class TaskList {
 
                 int fromIndex = taskDescription.indexOf("/from");
                 int toIndex = taskDescription.indexOf("/to");
-                String taskName = taskDescription.substring(6, fromIndex);
-                String startTime = taskDescription.substring(fromIndex + 6, toIndex);
-                String endTime = taskDescription.substring(toIndex + 4);
+                String taskName = taskDescription.substring(6, fromIndex).trim();
+                String startTime = taskDescription.substring(fromIndex + 5, toIndex).trim();
+                String endTime = taskDescription.substring(toIndex + 3).trim();
+                System.out.println(startTime);
+                System.out.println(endTime);
                 taskList.add(new EventTask(taskName, startTime, endTime));
             } else {
                 System.out.println("Please use keywords: todo, deadline or event");
                 return;
             }
-            System.out.println("Nimbus added this: \n" + taskList.get(taskNum).toString() +
-                    "\n" + "Nimbus says you have " + (taskNum + 1) + " tasks in your list!" + horizontalLine);
-            taskNum += 1;
+            System.out.println("Nimbus added this: \n" + taskList.get(taskList.size() - 1).toString() +
+                    "\n" + "Nimbus says you have " + taskList.size() + " tasks in your list!" + horizontalLine);
         } catch (WrongInputException e) {
             System.out.println(e.toString());
         } catch (MissingDescriptionException u) {
@@ -63,25 +66,28 @@ public class TaskList {
         }
     }
 
+    public void add(Task task) {
+        this.taskList.add(task);
+    }
+
     public void deleteTask(int index) {
-        if (index >= taskNum) {
+        if (index >= taskList.size()) {
             System.out.println("There is no task " + (index + 1));
         } else {
             String temp = taskList.get(index).toString();
             taskList.remove(index);
-            taskNum -= 1;
             System.out.println("Nimbus has removed the task! \n" +
-                    "    " + temp + "\n" + "You have " + taskNum + " tasks left!" + horizontalLine);
+                    "    " + temp + "\n" + "You have " + taskList.size() + " tasks left!" + horizontalLine);
         }
     }
 
     public void completeTask(int index) {
         // check if task is already completed
-        if (index >= taskNum) {
+        if (index >= taskList.size()) {
             System.out.println("There is no task " + (index + 1));
         } else if (taskList.get(index).isCompleted()) {
             System.out.println("Already Marked");
-        } else if (index < taskNum) {
+        } else if (index < taskList.size()) {
             taskList.get(index).complete();
             System.out.println("Nimbus shall mark this as done:\n" +
                     "    " + taskList.get(index).toString() + horizontalLine);
@@ -90,11 +96,11 @@ public class TaskList {
 
     public void incompleteTask(int index) {
         // check if task is already incomplete
-        if (index >= taskNum) {
+        if (index >= taskList.size()) {
             System.out.println("There is no task " + (index + 1));
         } else if (!taskList.get(index).isCompleted()) {
             System.out.println("Already Unmarked");
-        } else if (index < taskNum) {
+        } else if (index < taskList.size()) {
             taskList.get(index).incomplete();
             System.out.println("Nimbus shall mark this as not done:\n" +
                     "    " + taskList.get(index).toString() + horizontalLine);
@@ -104,8 +110,8 @@ public class TaskList {
     @Override
     public String toString() {
         String output = "Nimbus says this is your list: \n";
-        for (int i = 0; i < taskNum; i++) {
-            if (i == taskNum - 1) {
+        for (int i = 0; i < taskList.size(); i++) {
+            if (i == taskList.size() - 1) {
                 output += (String.valueOf(i + 1) + ". " + taskList.get(i));
             } else {
                 output += (String.valueOf(i + 1) + ". " + taskList.get(i) + "\n");
