@@ -1,5 +1,8 @@
 package Bellroy;
 
+/**
+ * Encapsulates a Todo Task
+ */
 public class Todo extends Task {
 
     public Todo(String description) {

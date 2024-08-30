@@ -1,5 +1,8 @@
 package Bellroy;
 
+/**
+ * Encapsulates an Event Task
+ */
 public class Event extends Task {
 
     protected String startTime;

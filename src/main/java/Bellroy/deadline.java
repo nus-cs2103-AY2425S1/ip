@@ -3,6 +3,9 @@ package Bellroy;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Encapsulates a Deadline task
+ */
 public class deadline extends Task {
     protected LocalDateTime dueDate;
     public deadline(String description, String dueDate){
