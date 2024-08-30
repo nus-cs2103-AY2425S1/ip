@@ -10,7 +10,7 @@ public class Hyperion {
     private Storage storage;
     private TaskList allTasks;
     private Ui ui;
-    boolean carryOn = true;
+    boolean isOver = false;
     // takes in a filepath for the storage
     public Hyperion(String filePath) {
         try {
@@ -26,13 +26,13 @@ public class Hyperion {
         Scanner scanner = new Scanner(System.in);
         String input;
 
-        while(carryOn) {
+        while(!isOver) {
             System.out.println("> ");
             input = scanner.nextLine();
 
             try {
                 Parser parser = new Parser(input, allTasks, this.storage, this.ui);
-                carryOn = parser.carryOn();
+                isOver = parser.isOver();
             } catch (EmptyStringException |
                      CommandFoundButInvalidException |
                      CommandNotFoundException e) {

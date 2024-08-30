@@ -12,7 +12,7 @@ public class Parser {
     private TaskList allTasks;
     private String description;
     private Storage storage;
-    private boolean carryOn = true;
+    private boolean isOver = false;
     private Ui ui;
     /**
      * Constructs a {@code Parser} instance which processes a given input String and performs
@@ -80,18 +80,17 @@ public class Parser {
                 break;
             case BYE:
                 System.out.println(ui.bye());
-                this.carryOn = false;
+                this.isOver = true;
                 break;
         }
     }
-
 
     /**
      * Returns a boolean to determine if hyperion should carry on
      *
      * @return a boolean value depending on the command of the user
      */
-    public boolean carryOn() {
-        return this.carryOn;
+    public boolean isOver() {
+        return this.isOver;
     }
 }
