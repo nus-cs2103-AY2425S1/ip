@@ -1,10 +1,5 @@
 package processes;
 
-import tasks.DeadLine;
-import tasks.Event;
-import tasks.Task;
-import tasks.ToDo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,6 +9,11 @@ import java.util.Scanner;
 /**
  * Storage class that handles logic related to storing users' tasks in a file on their local machine
  */
+import tasks.DeadLine;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
+
 public class Storage {
     private String dirPath;
     private String filePath;
@@ -25,7 +25,7 @@ public class Storage {
      * @param dirPath The directory path that the file containing the saved user inputs should be in
      * @param filePath The path to the file where user inputs are saved.
      */
-    public Storage(String dirPath, String filePath) {
+    public Storage (String dirPath, String filePath) {
         this.dirPath = dirPath;
         this.filePath = filePath;
     }
@@ -38,7 +38,7 @@ public class Storage {
      *
      * @param taskList The location at which user info is stored for use in the programme
      */
-    public void loadData(ArrayList<Task> taskList) {
+    public void loadData (ArrayList<Task> taskList) {
         try {
             File dir = new File(dirPath);
             if (!dir.exists()) {
@@ -50,7 +50,7 @@ public class Storage {
                 }
             }
 
-            File file = new File(filePath);
+            File file = new File (filePath);
             if (!file.exists()) {
                 boolean doesFileExists = file.createNewFile();
                 if (doesFileExists) {

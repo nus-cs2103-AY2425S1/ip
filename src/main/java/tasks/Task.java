@@ -14,19 +14,19 @@ public abstract class Task {
      *
      * @return save format of task.
      */
-    public abstract String toSave();
+    public abstract String toSave ();
 
     /**
      * Marks the task as done by setting flag to true
      */
-    public void mark() {
+    public void mark () {
         this.isDone = true;
     }
 
     /**
      * Unmarks the task by setting flag to false
      */
-    public void unMark() {
+    public void unMark () {
         this.isDone = false;
     }
 

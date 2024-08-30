@@ -1,4 +1,5 @@
 package tasks;
+
 import exceptions.InvalidDateException;
 import exceptions.InvalidTaskNameException;
 
@@ -29,7 +30,7 @@ public class DeadLine extends Task {
         if (inputString.contains("/by ")) {
             int index = inputString.indexOf("/by ");
             String taskName = inputString.substring(0, index).trim();
-            String byDate = inputString.substring(index+4);
+            String byDate = inputString.substring(index + 4);
             if (taskName.length() == 0) {
                 throw new InvalidTaskNameException();
             }
@@ -56,7 +57,7 @@ public class DeadLine extends Task {
      *
      * @param input The array of strings, each string contains a field of the DeadLine task
      */
-    public DeadLine(String[] input) {
+    public DeadLine (String[] input) {
         int isDone = parseInt(input[0]);
         if (isDone == 0) {
             this.isDone = false;
@@ -74,7 +75,7 @@ public class DeadLine extends Task {
      * @return string representation of the DeadLine task.
      */
     @Override
-    public String toString() {
+    public String toString () {
         String res = "[D]";
         res += super.toString();
         res += " (by: " + this.endDate.toString() + ")";
@@ -88,7 +89,7 @@ public class DeadLine extends Task {
      * @return save format of DeadLine task.
      */
     @Override
-    public String toSave() {
+    public String toSave () {
         String res = "D|";
         res = res.concat(this.isDone ? "1|" : "0|");
         res = res.concat(this.name);

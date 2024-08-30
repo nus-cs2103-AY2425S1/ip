@@ -1,9 +1,8 @@
 package processes;
 
-import tasks.Task;
-
 import java.util.Scanner;
 import java.util.ArrayList;
+import tasks.Task;
 
 /**
  * The task that deals with user inputs.
@@ -17,7 +16,7 @@ public class Ui {
      * Constructor for Ui object.
      * Creates new scanner to take in user input
      */
-    public Ui() {
+    public Ui () {
         this.scanner = new Scanner(System.in);
     }
 
@@ -38,7 +37,7 @@ public class Ui {
      * Called when the programme just starts.
      * Prints the welcome message onto the terminal to greet the user.
      */
-    public void showWelcomeMessage(String name) {
+    public void showWelcomeMessage (String name) {
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you? \n");
         printLine();
@@ -48,7 +47,7 @@ public class Ui {
      * Called when the programme is terminated.
      * Prints the goodbye message onto the terminal for the user.
      */
-    public void showGoodbyeMessage() {
+    public void showGoodbyeMessage () {
         System.out.println("Bye. Hope to see you again soon! \n");
         printLine();
     }
@@ -58,7 +57,7 @@ public class Ui {
      *
      * @return The string of the user input.
      */
-    public String readCommand() {
+    public String readCommand () {
         return scanner.nextLine();
     }
 
@@ -67,7 +66,7 @@ public class Ui {
      *
      * @param taskList The current list of tasks
      */
-    public void showTaskList(ArrayList<Task> taskList) {
+    public void showTaskList (ArrayList<Task> taskList) {
         System.out.println("Your current tasks are: ");
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println(i + 1 + "." + taskList.get(i).toString());
@@ -80,7 +79,7 @@ public class Ui {
      *
      * @param message The message that should be printed onto the terminal
      */
-    public void showMessage(String message) {
+    public void showMessage (String message) {
         System.out.println(message);
         this.printLine();
     }
@@ -89,7 +88,7 @@ public class Ui {
      * Called when the programme terminates.
      * No longer need to take in user input, can close the scanner
      */
-    public void close() {
+    public void close () {
         scanner.close();
     }
 }

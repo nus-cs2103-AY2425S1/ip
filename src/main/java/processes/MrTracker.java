@@ -14,7 +14,7 @@ public class MrTracker {
      *
      * @param args No parameters are passed
      */
-    public static void main(String[] args) {
+    public static void main (String[] args) {
         Ui ui = new Ui();
         Storage storage = new Storage(DIRPATH, FILEPATH);
         Parser parser = new Parser();

@@ -13,7 +13,7 @@ public class Parser {
      * @param input The input string to compare with the PrefixString enum
      * @return The enum that matches the input string
      */
-    public PrefixString parseCommand(String input) {
+    public PrefixString parseCommand (String input) {
         return PrefixString.checkPrefixString(input);
     }
 
@@ -35,7 +35,7 @@ public class Parser {
         }
     }
 
-    public int checkIndex(String command, int start) {
+    public int checkIndex (String command, int start) {
         String trimmed = command.substring(start);
         try {
             return Integer.parseInt(trimmed);

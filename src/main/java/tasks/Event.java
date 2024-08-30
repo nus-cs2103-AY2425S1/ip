@@ -96,7 +96,7 @@ public class Event extends Task {
      * @return string representation of the Event task.
      */
     @Override
-    public String toString() {
+    public String toString () {
         String res = "[E]";
         res += super.toString();
         res += " (from: " + this.fromDate.toString() + " to: " + this.toDate.toString() + ")";
@@ -110,7 +110,7 @@ public class Event extends Task {
      * @return save format of Event task.
      */
     @Override
-    public String toSave() {
+    public String toSave () {
         String res = "E|";
         res = res.concat(this.isDone ? "1|" : "0|");
         res = res.concat(this.name);
