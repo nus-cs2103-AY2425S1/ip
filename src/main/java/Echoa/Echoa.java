@@ -46,7 +46,11 @@ public class Echoa {
 
                 switch (command) {
                     case "list":
-                        taskList.listTasks();
+                        ui.printListOfTasks(taskList);
+                        break;
+                    case "find":
+                        TaskList tasks = parser.parseFindTask(taskList, task);
+                        ui.printListOfTasks(tasks);
                         break;
                     case "mark":
                         int markIndex = parser.parseIndex(line);

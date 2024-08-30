@@ -33,6 +33,22 @@ public class Ui {
         System.out.println(taskList.getSpecificTask(index).toString() + "\n");
     }
 
+    /**
+     * The method prints the list of tasks in the taskList.
+     *
+     * @param taskList taskList to be printed.
+     */
+    public void printListOfTasks(TaskList taskList) {
+        for (int i = 0; i < taskList.getSize(); i++) {
+            int label = i + 1;
+            System.out.print(label + ". ");
+            System.out.println(taskList.getSpecificTask(i).toString());
+        }
+        if (taskList.getSize() == 0) {
+            System.out.println("No tasks in the requested list.");
+        }
+    }
+
     public void informNumberOfTasks(TaskList taskList) {
         System.out.println("Now you have " + (taskList.getSize()) + " task(s).\n");
     }

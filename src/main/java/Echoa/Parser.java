@@ -44,6 +44,8 @@ public class Parser {
             command = "";
         } else if (line.startsWith("list")) {
             command = "list";
+        } else if (line.startsWith("find")) {
+            command = "find";
         } else if (line.startsWith("mark")) {
             command = "mark";
         } else if (line.startsWith("unmark")) {
@@ -72,7 +74,23 @@ public class Parser {
      * @return
      */
     public int parseIndex(String line) {
-        return Integer.parseInt(line.split(" ")[1]) - 1;
+        int i = Integer.parseInt(line.split(" ")[1]) - 1;
+        System.out.println("Parsed index: " + i);
+        return i;
+    }
+
+    public TaskList parseFindTask(TaskList taskList, String keyword) {
+
+        TaskList tasks = new TaskList();
+
+        for (int i = 0; i < taskList.getSize(); i++) {
+            Task t = taskList.getSpecificTask(i);
+            if (t.getDescription().contains(keyword)) {
+                tasks.addTask(t);
+            }
+        }
+
+        return tasks;
     }
 
     public Object[] parseToDoTask(String task) {
