@@ -1,7 +1,8 @@
-package killua.util;
+package killua.parser;
 
 import killua.command.*;
 import killua.task.*;
+import killua.util.KilluaException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -1,6 +1,7 @@
 package killua.util;
 
 import killua.command.*;
+import killua.parser.Parser;
 import killua.task.Deadline;
 import killua.task.Event;
 import killua.task.Todo;

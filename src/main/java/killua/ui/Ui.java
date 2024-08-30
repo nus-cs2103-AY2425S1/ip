@@ -1,6 +1,7 @@
-package killua.util;
+package killua.ui;
 
 import killua.task.Task;
+import killua.util.TaskList;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -14,7 +15,6 @@ import java.util.Scanner;
 public class Ui {
 
     private final Scanner in;
-    private final PrintStream out;
     private static final String LINE = "______________________________________________________________________________";
 
     /**
@@ -32,7 +32,6 @@ public class Ui {
      */
     public Ui(InputStream in, PrintStream out) {
         this.in = new Scanner(in);
-        this.out = out;
     }
 
     /**

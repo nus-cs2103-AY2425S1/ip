@@ -2,9 +2,9 @@ package killua.command;
 
 import killua.task.Task;
 import killua.util.KilluaException;
-import killua.util.Storage;
+import killua.storage.Storage;
 import killua.util.TaskList;
-import killua.util.Ui;
+import killua.ui.Ui;
 
 import java.io.IOException;
 
