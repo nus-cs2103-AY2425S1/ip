@@ -166,7 +166,7 @@ public class Chatgpt {
     private static void addDeadlineTask(String input) throws EmptyDescriptionException, MissingDateException {
         String[] parts = input.split(" by ");
         if (parts.length < 2) {
-            throw new MissingDateException("OPS!!! The date of a deadline cannot be empty.");
+            throw new MissingDateException("OPS!!! The date of a deadline cannot be empty");
         }
         String description = parts[0].substring(9).trim();
         if (description.isEmpty()) {
