@@ -26,20 +26,20 @@ public class Parser {
         String action = splitText[0].trim();
         String details = splitText.length > 1 ? splitText[1].trim() : "";
         switch (action) {
-            case "mark":
-                return new MarkTaskCommand(parseIndex(details));
-            case "unmark":
-                return new UnmarkTaskCommand(parseIndex(details));
-            case "delete":
-                return new DeleteTaskCommand(parseIndex(details));
-            case "todo":
-                return new AddTaskCommand(new Todo(details));
-            case "deadline":
-                return new AddTaskCommand(parseDeadline(details));
-            case "event":
-                return new AddTaskCommand(parseEvent(details));
-            default:
-                throw new UnknownCommandException();
+        case "mark":
+            return new MarkTaskCommand(parseIndex(details));
+        case "unmark":
+            return new UnmarkTaskCommand(parseIndex(details));
+        case "delete":
+            return new DeleteTaskCommand(parseIndex(details));
+        case "todo":
+            return new AddTaskCommand(new Todo(details));
+        case "deadline":
+            return new AddTaskCommand(parseDeadline(details));
+        case "event":
+            return new AddTaskCommand(parseEvent(details));
+        default:
+            throw new UnknownCommandException();
         }
     }
 
