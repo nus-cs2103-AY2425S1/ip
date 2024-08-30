@@ -45,7 +45,7 @@ public class DeleteCommand extends Command {
         if (temp.length == 1) {
             throw new TalkieMissingArgumentException(temp[0], "The 'delete' command requires an integer as argument");
 
-            // Check if user included the correct int argument
+        // Check if user included the correct int argument
         } else if (this.isInteger(temp[1])) {
             int index = Integer.parseInt(this.fullCommand.split(" ")[1]);
 

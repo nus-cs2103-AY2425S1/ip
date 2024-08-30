@@ -44,7 +44,7 @@ public class UnMarkCommand extends Command {
         if (temp.length == 1) {
             throw new TalkieMissingArgumentException(temp[0], "The 'unmark' command requires an integer as argument");
 
-            // Check if the user included the correct integer argument
+        // Check if the user included the correct integer argument
         } else if (this.isInteger(temp[1])) {
             int index = Integer.parseInt(fullCommand.split(" ")[1]);
 

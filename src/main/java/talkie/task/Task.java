@@ -4,7 +4,7 @@ package talkie.task;
  * Represents a task in the Talkie application.
  * <p>
  * {@code Task} is an abstract class that defines the common attributes and methods for all types of tasks.
- * It provides functionality to manage the status and description of a task, and requires subclasses to
+ * It provides functionality to manage the status and description of a task and requires subclasses to
  * implement the {@code stringifyTask} method to specify how the task should be serialized.
  * </p>
  */
@@ -89,6 +89,19 @@ public abstract class Task {
     }
 
     /**
+     * Checks if the task description contains the specified keyword.
+     * <p>
+     * This method is used to determine if the task matches a search criterion.
+     * </p>
+     *
+     * @param keyword The keyword to search for in the task description.
+     * @return {@code true} if the description contains the keyword; {@code false} otherwise.
+     */
+    public boolean containsWord(String keyword) {
+        return this.desc.contains(keyword);
+    }
+
+    /**
      * Serializes the task to a string format.
      * <p>
      * This is an abstract method that must be implemented by subclasses to define how the task should be converted
@@ -97,10 +110,5 @@ public abstract class Task {
      *
      * @return A string representation of the task.
      */
-
-    public boolean containsWord(String keyword) {
-        return this.desc.contains(keyword);
-    }
-
     public abstract String stringifyTask();
 }

@@ -69,23 +69,20 @@ public class Storage {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
         switch(fields[0]) {
-            case "T":
-                taskToBeAdded = new ToDo(fields[2]);
-                break;
-
-            case "E":
-                taskToBeAdded = new Event(fields[2],
-                        LocalDateTime.parse(fields[3], formatter),
-                        LocalDateTime.parse(fields[4], formatter));
-                break;
-
-            case "D":
-                taskToBeAdded = new Deadline(fields[2],
-                        LocalDateTime.parse(fields[3], formatter));
-                break;
-
-            default:
-                throw new TalkieNoTaskFoundException();
+        case "T":
+            taskToBeAdded = new ToDo(fields[2]);
+            break;
+        case "E":
+            taskToBeAdded = new Event(fields[2],
+                    LocalDateTime.parse(fields[3], formatter),
+                    LocalDateTime.parse(fields[4], formatter));
+            break;
+        case "D":
+            taskToBeAdded = new Deadline(fields[2],
+                    LocalDateTime.parse(fields[3], formatter));
+            break;
+        default:
+            throw new TalkieNoTaskFoundException();
         }
 
         if (Integer.parseInt(fields[1]) == 1) {
@@ -105,6 +102,7 @@ public class Storage {
         File db = new File(this.filePath);
         File dir = new File(db.getParent());
         dir.mkdir();
+
         try {
             db.createNewFile();
         } catch (IOException e) {
@@ -129,6 +127,7 @@ public class Storage {
             bufferedWriter.write(taskList.getTask(i).stringifyTask());
             bufferedWriter.newLine();
         }
+
         bufferedWriter.close();
         writer.close();
     }

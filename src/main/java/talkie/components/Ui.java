@@ -44,6 +44,7 @@ public class Ui {
         }
     }
 
+    // Scanner for input
     private Scanner input = new Scanner(System.in);
 
     /**
