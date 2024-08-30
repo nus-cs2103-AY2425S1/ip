@@ -1,3 +1,6 @@
+package barcus.tasklist;
+
+import barcus.task.Task;
 import java.util.ArrayList;
 import java.util.List;
 
