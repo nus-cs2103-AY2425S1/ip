@@ -106,7 +106,7 @@ public class Commands {
         }
     }
     public static void list(TaskList taskList) {
-        System.out.println("TaskList: ");
+        System.out.println("TaskList:");
         System.out.print(taskList);
     }
     public static void mark(TaskList taskList, String input) {
@@ -132,25 +132,12 @@ public class Commands {
         }
     }
     public static void bye() {
-        String byeMessage = """
-                            Bye. Hope to see you again soon!
-                            ________________________________________________________________
-                            """;
+        String byeMessage = "Bye. Hope to see you again soon!";
         System.out.println(byeMessage);
         System.exit(0);
     }
     public static void help() {
-        String helpMessage = """
-                             Commands:
-                             -TODO
-                             -DEADLINE
-                             -EVENT
-                             -LIST
-                             -MARK
-                             -UNMARK
-                             -BYE
-                             -HELP
-                             """;
+        String helpMessage = "Commands:\n-TODO\n-DEADLINE\n-EVENT\n-LIST\n-MARK\n-UNMARK\n-BYE\n-HELP";
         System.out.print(helpMessage);
     }
 

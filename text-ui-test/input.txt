@@ -1,0 +1,11 @@
+deadline deadline /by Monday
+event event1 /from tdy /to tmr
+mark 1
+list
+mark 3
+list
+unmark 1
+list
+delete 2
+list
+bye

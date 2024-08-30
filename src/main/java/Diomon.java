@@ -2,12 +2,7 @@ import java.util.Scanner;
 
 public class Diomon {
     private static void greeting() {
-        String greetingMessage = """
-                           ________________________________________________________________
-                           Hello! I'm Diomon
-                           What do you need recorded?
-                           ________________________________________________________________
-                           """;
+        String greetingMessage = "________________________________________________________________\nHello! I'm Diomon\nWhat do you need recorded?\n________________________________________________________________\n";
         System.out.print(greetingMessage);
     }
     private static void echo() {
