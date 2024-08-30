@@ -17,7 +17,6 @@ public class Tira {
     private static final String Directory = "./data";
     private static final String FileName = "./data/Tira.txt";
     private static DateTimeFormatter IN_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private static DateTimeFormatter OUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
     public static void main(String[] args) throws TiraException, IOException {
         // variable declarations
