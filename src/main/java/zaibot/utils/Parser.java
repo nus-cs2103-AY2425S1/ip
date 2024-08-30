@@ -1,4 +1,4 @@
-package zaibot;
+package zaibot.utils;
 
 import zaibot.command.*;
 import zaibot.exception.ZaibotException;

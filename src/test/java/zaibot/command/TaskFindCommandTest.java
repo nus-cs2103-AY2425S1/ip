@@ -3,23 +3,18 @@ package zaibot.command;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import zaibot.Storage;
-import zaibot.TaskList;
-import zaibot.Ui;
+import zaibot.utils.Storage;
+import zaibot.utils.TaskList;
 import zaibot.task.ToDoTask;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.HashMap;
 
 public class TaskFindCommandTest {
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     private final TaskList tasks = new TaskList();
     private final Storage storage = new Storage(tasks);
 
     @BeforeEach
     public void setUp() {
-        System.setOut(new PrintStream(outputStreamCaptor));
         tasks.clearTasks();
     }
 
@@ -31,15 +26,16 @@ public class TaskFindCommandTest {
         options.put("name", "three");
 
         TaskFindCommand command = new TaskFindCommand("find", options);
+
+        String expected = "Filtered the tasks for you. Good enough?\n";
+
+        String outputMessage;
         try {
-            command.execute(tasks, storage);
+            outputMessage = command.execute(tasks, storage);
         } catch (Exception e) {
-            Ui.displayError(e);
-        } finally {
-            String expected = "Filtered the tasks for you. Good enough?\n";
-            Assertions.assertEquals(expected.trim(),
-                    outputStreamCaptor.toString().trim());
+            outputMessage = e.getMessage();
         }
+        Assertions.assertEquals(expected.trim(), outputMessage.trim());
     }
 
     @Test
@@ -48,15 +44,16 @@ public class TaskFindCommandTest {
         options.put("name", "three");
 
         TaskFindCommand command = new TaskFindCommand("find", options);
+
+        String expected = "Filtered the tasks for you. Good enough?\n";
+
+        String outputMessage;
         try {
-            command.execute(tasks, storage);
+            outputMessage = command.execute(tasks, storage);
         } catch (Exception e) {
-            Ui.displayError(e);
-        } finally {
-            String expected = "Filtered the tasks for you. Good enough?\n";
-            Assertions.assertEquals(expected.trim(),
-                    outputStreamCaptor.toString().trim());
+            outputMessage = e.getMessage();
         }
+        Assertions.assertEquals(expected.trim(), outputMessage.trim());
     }
 
     @Test
@@ -67,18 +64,19 @@ public class TaskFindCommandTest {
         options.put("name", "one");
 
         TaskFindCommand command = new TaskFindCommand("find", options);
-        try {
-            command.execute(tasks, storage);
-        } catch (Exception e) {
-            Ui.displayError(e);
-        } finally {
-            String expected = """
+
+        String expected = """
                     Filtered the tasks for you. Good enough?
                     1. [T][ ] one
                     """;
-            Assertions.assertEquals(expected.trim(),
-                    outputStreamCaptor.toString().trim());
+
+        String outputMessage;
+        try {
+            outputMessage = command.execute(tasks, storage);
+        } catch (Exception e) {
+            outputMessage = e.getMessage();
         }
+        Assertions.assertEquals(expected.trim(), outputMessage.trim());
     }
 
     @Test
@@ -89,18 +87,19 @@ public class TaskFindCommandTest {
         options.put("name", "one");
 
         TaskFindCommand command = new TaskFindCommand("find", options);
-        try {
-            command.execute(tasks, storage);
-        } catch (Exception e) {
-            Ui.displayError(e);
-        } finally {
-            String expected = """
+
+        String expected = """
                     Filtered the tasks for you. Good enough?
                     1. [T][ ] one
                     2. [T][ ] one more
                     """;
-            Assertions.assertEquals(expected.trim(),
-                    outputStreamCaptor.toString().trim());
+
+        String outputMessage;
+        try {
+            outputMessage = command.execute(tasks, storage);
+        } catch (Exception e) {
+            outputMessage = e.getMessage();
         }
+        Assertions.assertEquals(expected.trim(), outputMessage.trim());
     }
 }

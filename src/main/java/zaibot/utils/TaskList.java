@@ -1,9 +1,8 @@
-package zaibot;
+package zaibot.utils;
 
 import zaibot.task.Task;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.stream.Collectors;
 
 /**
