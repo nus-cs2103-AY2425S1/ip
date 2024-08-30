@@ -101,6 +101,16 @@ public class TaskList {
         return this.tasks.stream().filter(task -> task.isOnThisDate(date)).toList();
     }
 
+    /**
+     * Returns a list of tasks filtered by the given name.
+     *
+     * @param name Given name to filter.
+     * @return List of filtered tasks.
+     */
+    public List<Task> filterByName(String name) {
+        return this.tasks.stream().filter(task -> task.contains(name)).toList();
+    }
+
     public List<String> toFileStrings() {
         return this.tasks.stream().map(Task::toFileString).toList();
     }
