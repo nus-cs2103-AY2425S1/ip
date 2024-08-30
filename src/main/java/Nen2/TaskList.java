@@ -1,5 +1,6 @@
 package Nen2;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
@@ -8,9 +9,9 @@ import java.util.PriorityQueue;
  * @author Gan Ren Yick (A0276246X)
  */
 public class TaskList {
-    private static final ArrayList<Task> listOfTasks = new ArrayList<>();
+    private static ArrayList<Task> listOfTasks = new ArrayList<>();
 
-    private static final PriorityQueue<Task> listOfTasksWithDeadline = new PriorityQueue<>();
+    private static PriorityQueue<Task> listOfTasksWithDeadline = new PriorityQueue<>();
 
     public TaskList() {
 
@@ -33,6 +34,18 @@ public class TaskList {
     public String[] toDataStringArr() {
         String[] out = new String[listOfTasks.size()];
         return listOfTasks.stream().map(Task::toData).toArray(String[]::new);
+    }
+
+    public Task[] findTaskWithKeyword(String keyword) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (Task t : listOfTasks) {
+            for (String word : t.description.split(" ")) {
+                if (word.equals(keyword)) {
+                    tasks.add(t);
+                }
+            }
+        }
+        return tasks.toArray(new Task[0]);
     }
 
     /**

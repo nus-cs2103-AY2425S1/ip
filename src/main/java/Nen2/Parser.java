@@ -23,43 +23,56 @@ public class Parser {
      * @param input by user
      * @return a boolean which determined if nen2 should continue read user input
      */
-    public boolean parseInput(String input) {
+    public boolean continueParsing(String input) {
         int arg;
         String action = input.split(" ")[0];
         String react = "";
         try{
             switch(action) {
-                case "bye":
-                    return false;
-                case "mark":
-                    arg = getIndex(input);
-                    taskList.get(arg - 1).markAsDone();
-                    react += "Nice! I've marked this task as done:" + "\n" +
-                            taskList.get(arg - 1).toString() + "\n";
+            case "bye":
+                return false;
+            case "mark":
+                arg = getIndex(input);
+                taskList.get(arg - 1).markAsDone();
+                react += "Nice! I've marked this task as done:" + "\n" +
+                        taskList.get(arg - 1).toString() + "\n";
+                break;
+            case "unmark":
+                arg = getIndex(input);
+                taskList.get(arg - 1).markAsNotDone();
+                react += "OK, I've marked this task as not done yet:" + "\n" +
+                        taskList.get(arg - 1).toString() + "\n";
+                break;
+            case "delete":
+                arg = getIndex(input);
+                react += "Noted. I've removed this task:" + "\n" +
+                        taskList.get(arg - 1).toString() + "\n";
+                taskList.remove(arg - 1);
+                react += "Now you have " + taskList.size() + " tasks in the list." + "\n";
+                break;
+            case "list":
+                react += "Here are the tasks in your list:" + "\n" +
+                        taskList.toString();
+                break;
+            case "find":
+                try
+                {
+                    int count = 1;
+                    react += "Here are the matching tasks in your list:\n";
+                    for (Task t : taskList.findTaskWithKeyword(input.split(" ")[1])) {
+                        react += count + "." + t.toString() + "\n";
+                        count++;
+                    }
                     break;
-                case "unmark":
-                    arg = getIndex(input);
-                    taskList.get(arg - 1).markAsNotDone();
-                    react += "OK, I've marked this task as not done yet:" + "\n" +
-                            taskList.get(arg - 1).toString() + "\n";
-                    break;
-                case "delete":
-                    arg = getIndex(input);
-                    react += "Noted. I've removed this task:" + "\n" +
-                            taskList.get(arg - 1).toString() + "\n";
-                    taskList.remove(arg - 1);
-                    react += "Now you have " + taskList.size() + " tasks in the list." + "\n";
-                    break;
-                case "list":
-                    react += "Here are the tasks in your list:" + "\n" +
-                            taskList.toString();
-                    break;
-                default:
-                    Task t = Task.of(input);
-                    taskList.add(t);
-                    react += "Got it. I've added this task: \n" + t + "\n" +
-                            "Now you have " + taskList.size() +
-                            " tasks in the list." + "\n";
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new ArgumentMissingException("find what?");
+                }
+            default:
+                Task t = Task.of(input);
+                taskList.add(t);
+                react += "Got it. I've added this task: \n" + t + "\n" +
+                        "Now you have " + taskList.size() +
+                        " tasks in the list." + "\n";
             }
             ui.print(react);
         } catch (InvalidInputException |
