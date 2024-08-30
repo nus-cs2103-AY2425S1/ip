@@ -10,8 +10,19 @@ import duke.task.ToDo;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses user input and converts it into corresponding commands to be executed by the Duke application.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding command based on the input.
+     *
+     * @param input The user input string to be parsed.
+     * @return The command corresponding to the user input.
+     * @throws EmptyDescriptionException If the command requires a description and it is missing or empty.
+     * @throws UnknownCommandException If the command is unrecognized or if the input is in an invalid format.
+     */
     public static Command parse(String input) throws EmptyDescriptionException, UnknownCommandException {
         String[] words = input.split(" ", 2);
         String command = words[0];
@@ -71,7 +82,6 @@ public class Parser {
                 } catch (DateTimeParseException e) {
                     throw new UnknownCommandException("The date format is incorrect. Please use yyyy-MM-dd format.");
                 }
-
             default:
                 throw new UnknownCommandException("I'm sorry, but I don't know what that means.");
         }

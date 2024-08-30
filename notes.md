@@ -46,3 +46,19 @@ find cook
 ## running tests for gradle
 ./gradlew compileJava
 ./gradlew test
+
+# jar
+## create jar file
+./gradlew clean build
+
+This command will:
+
+	•	Clean any previous builds.
+	•	Compile your project.
+	•	Package your application as a JAR file.
+
+After running this command, the JAR file will be created in the build/libs/ directory, typically named something like your-project-name-version.jar.
+
+
+## java -jar ip.jar
+

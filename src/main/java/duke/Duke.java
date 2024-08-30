@@ -1,27 +1,29 @@
 package duke;
+
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import duke.command.Command;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.UnknownCommandException;
 import duke.parser.Parser;
 import duke.storage.Storage;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
 import duke.task.TaskList;
-import duke.task.ToDo;
 import duke.ui.Ui;
 
+/**
+ * Represents the main class of the Duke application, which manages tasks
+ * and handles user interactions through a command-line interface.
+ */
 public class Duke {
     private static final String FILE_PATH = "./duke/data/duke.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Duke object, initializing the user interface, storage, and task list.
+     * Attempts to load tasks from a specified file path.
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
@@ -33,6 +35,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the main loop of the Duke application, handling user input and executing commands
+     * until the user decides to exit.
+     */
     public void run() {
         ui.showWelcome();
 
@@ -51,6 +57,11 @@ public class Duke {
         }
     }
 
+    /**
+     * The main method that launches the Duke application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Duke().run();
     }
