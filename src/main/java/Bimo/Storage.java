@@ -77,12 +77,12 @@ public class Storage {
     public void appendToFile(Task task) {
         String text = this.convertTaskToText(task) + System.lineSeparator();
         try {
-            FileWriter writer = new FileWriter("ip/data/Bimo.txt", true);
+            FileWriter writer = new FileWriter("data/Bimo.txt", true);
             writer.write(text);
             writer.close();
 
         } catch (IOException e) {
-            System.out.println("Enable to write to file for task " + task.toString());
+            System.out.println("Unable to write to file for task " + task.toString());
         }
     }
 
@@ -92,7 +92,7 @@ public class Storage {
      */
     public void overwriteFile(TaskList tasks) {
         try {
-            FileWriter writer = new FileWriter("ip/data/Bimo.txt");
+            FileWriter writer = new FileWriter("data/Bimo.txt");
             for (int i = 0; i < tasks.getLength(); i++) {
                 String text = convertTaskToText(tasks.getTask(i));
                 writer.write(text + System.lineSeparator());
