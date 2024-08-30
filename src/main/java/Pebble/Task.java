@@ -1,7 +1,12 @@
 package pebble;
 
-public class Task {
+/**
+ * Class to abstract and encapsulate subclasses of tasks.
+ */
+public abstract class Task {
+    /** Description of task */
     protected String description;
+    /** Marker to track completion of task */
     protected boolean isDone;
 
     public Task(String description) {

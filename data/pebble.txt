@@ -1,2 +1,6 @@
+<<<<<<< Updated upstream
 [D][ ] lecture (by: tmr)
 [E][ ] eventA (from: tmr to: 2359)
+=======
+[T][ ] homeworkkk
+>>>>>>> Stashed changes
