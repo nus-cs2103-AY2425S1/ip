@@ -15,11 +15,11 @@ public class Events extends Task {
 
     /**
      * Takes in a string for description, string for start date, and string for end date.
-     * Converts string for start and end date to LocalDate
+     * Converts string for start and end date to LocalDate.
      *
-     * @param s Description of task
-     * @param start Start date
-     * @param end End date
+     * @param s Description of task.
+     * @param start Start date.
+     * @param end End date.
      */
     public Events(String s, String start, String end) {
         super(s);
