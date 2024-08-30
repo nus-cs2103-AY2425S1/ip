@@ -34,6 +34,12 @@ public class Parser {
         } else if (text.startsWith("unmark")) {
             int index = Integer.parseInt(text.substring(7)) - 1;
             lst.unmarkTask(index);
+        } else if (text.startsWith("find")) {
+            if (text.length() <= 5 || Character.isWhitespace(text.charAt(5))) {
+                throw new InvalidInputException("Invalid input for find command");
+            }
+            String keyword = text.substring(5);
+            lst.find(keyword);
         } else if (text.startsWith("todo")) {
             if (text.length() <= 5 || Character.isWhitespace(text.charAt(5))) {
                 throw new InvalidInputException("Invalid input for todo");

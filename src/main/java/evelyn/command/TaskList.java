@@ -91,8 +91,7 @@ public class TaskList {
      * @return Returns a task at the specified index.
      */
     public Task getTask(int index) {
-        Task task = (Task) list.get(index);
-        return task;
+        return (Task) list.get(index);
     }
 
     /**
@@ -138,6 +137,31 @@ public class TaskList {
         } catch (IOException e) {
             System.err.println("Error saving to file: " + e);
         }
+    }
+
+    /**
+     * Finds all tasks that contain the specified keyword
+     * @param keyword
+     */
+    public void find(String keyword) {
+        boolean foundSomething = false;
+       System.out.println(Ui.horizontalLine);
+       System.out.println("The following are all tasks and their indexes that contain the keyword: " + keyword);
+       for (int i = 0; i < list.size(); i++) {
+           String taskString = list.get(i).toString();
+           if (taskString.contains(keyword)) {
+               foundSomething = true;
+               System.out.println(i + ". " + taskString);
+           }
+       }
+
+       if (foundSomething) {
+           System.out.println(Ui.horizontalLine);
+       } else {
+           System.out.println("It seems like there is no task that matches your specified keyword." +
+                   " Try checking your spelling");
+           System.out.println(Ui.horizontalLine);
+       }
     }
 
     /**

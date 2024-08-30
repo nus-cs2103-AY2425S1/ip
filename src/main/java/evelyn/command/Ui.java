@@ -40,6 +40,11 @@ public class Ui {
         System.out.println("todo [task description]");
         System.out.println("deadline [task description] /by [date in YYYY-MM-DD] [Optional: time]");
         System.out.println("event [task description] /from [date in YYYY-MM-DD] [Optional: time] /to [date in YYYY-MM-DD] [Optional: time]");
+        System.out.println("list (Lists out all the current tasks)");
+        System.out.println("mark [index] (Marks the tasks at the specified index)");
+        System.out.println("unmark [index] (Unmarks the tasks at the specified index)");
+        System.out.println("delete [index] (deletes the tasks at the specified index)");
+        System.out.println("find [keyword] (Unmarks the tasks at the specified index)");
         System.out.println("\n");
         System.out.println("What can I do for you?");
         System.out.println(horizontalLine);
@@ -60,10 +65,14 @@ public class Ui {
             } catch (InvalidInputException e) {
                 System.out.println(horizontalLine);
                 System.out.println("You did not use the keywords properly!");
-                System.out.println("Please use the following key words:");
                 System.out.println("todo [task description]");
-                System.out.println("deadline [task description] /by [date]");
-                System.out.println("event [task description] /from [start date and time] /to [end date and time");
+                System.out.println("deadline [task description] /by [date in YYYY-MM-DD] [Optional: time]");
+                System.out.println("event [task description] /from [date in YYYY-MM-DD] [Optional: time] /to [date in YYYY-MM-DD] [Optional: time]");
+                System.out.println("list (Lists out all the current tasks)");
+                System.out.println("mark [index] (Marks the tasks at the specified index)");
+                System.out.println("unmark [index] (Unmarks the tasks at the specified index)");
+                System.out.println("delete [index] (deletes the tasks at the specified index)");
+                System.out.println("find [keyword] (Unmarks the tasks at the specified index)");
                 System.out.println(horizontalLine);
             } catch (NoInputException e) {
                 System.out.println(horizontalLine);
