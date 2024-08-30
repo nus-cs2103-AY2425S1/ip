@@ -7,15 +7,34 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Represents a task with a event in the XBot application.
+ * A {@code Event} task has a description, a start time and an end time.
+ */
 public class Event extends Task {
     protected String from, to;
 
+    /**
+     * Constructs a new {@code Event} task with the specified description, start time and end time.
+     *
+     * @param description The description of the task.
+     * @param from The start time of the task.
+     * @param to The end time of the task.
+     */
     public Event(String description, String from, String to) {
         super(description, TaskType.E);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Converts the deadline to a different date format.
+     * The method attempts to parse the deadline using multiple date formats.
+     * If successful, it returns the date in a standard format; otherwise, it returns an error message.
+     *
+     * @param by The original deadline string to be converted.
+     * @return The formatted deadline string, or an error message if the conversion fails.
+     */
     public String changeDateFormat(String by) {
 
         List<String> formats = new ArrayList<>();
@@ -40,10 +59,20 @@ public class Event extends Task {
         return "TimeDate cannot be converted to another format :'0";
     }
 
+    /**
+     * Returns the start time of event.
+     *
+     * @return The start time as a String.
+     */
     public String getFrom() {
         return from;
     }
 
+    /**
+     * Returns the end time of event.
+     *
+     * @return The end time as a String.
+     */
     public String getTo() {
         return to;
     }
