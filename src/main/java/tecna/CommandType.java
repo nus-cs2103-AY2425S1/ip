@@ -1,5 +1,10 @@
 package tecna;
 
+/**
+ * Represents different types of command including valid and invalid ones.
+ *
+ * @author DennieDan.
+ */
 public enum CommandType {
     BYE,
     TODO,
