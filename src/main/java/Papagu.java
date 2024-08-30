@@ -124,12 +124,25 @@ public class Papagu {
                     String[] input = userInput.split(" ", 2);
                     String description = input[1];
                     ToDos newToDo = new ToDos(description);
+
+                    file.delete();
+                    File newFile = new File("./Data/Tasks.txt");
+
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
                     taskList.addTask(newToDo);
                     System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
-                    
+
+                    for (int i = 0; i < taskList.getTaskCount(); i++) {
+                        try {
+                            FileWriter writer = new FileWriter(newFile, true);
+                            writer.write(taskList.getTask(i).toFile() + "\n");
+                            writer.close();
+                        } catch (IOException e) {
+                            System.out.println("Error writing to file");
+                        }
+                    }
                 } else if (userInput.contains("deadline")) {
                     if (userInput.equals("deadline")) {
                         throw new IllegalDeadlineException("Good sir the description of a deadline cannot be empty.");
