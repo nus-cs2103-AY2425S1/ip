@@ -1,8 +1,14 @@
-public class Event extends Task{
-    protected String start;
-    protected String end;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Event(String description, String start, String end) {
+public class Event extends Task{
+    protected LocalDate start;
+    protected LocalDate end;
+    private final DateTimeFormatter OUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
+
+
+    public Event(String description, LocalDate start, LocalDate end) {
         super(description);
         this.start = start;
         this.end = end;
@@ -11,6 +17,6 @@ public class Event extends Task{
     @Override
     public String toString() {
         return "[E]" + super.toString() +
-                " (from: " + start.substring(5)  + "to: " + end.substring(3) + ")";
+                " (from: " + start.format(OUT_FORMATTER) + " to: " + end.format(OUT_FORMATTER)+ ")";
     }
 }

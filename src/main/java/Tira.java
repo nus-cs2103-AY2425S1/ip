@@ -8,10 +8,17 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 
 public class Tira {
     private static final String Directory = "./data";
     private static final String FileName = "./data/Tira.txt";
+    private static DateTimeFormatter IN_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static DateTimeFormatter OUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
+
     public static void main(String[] args) throws TiraException, IOException {
         // variable declarations
         Scanner scanner = new Scanner(new InputStreamReader(System.in));
@@ -131,8 +138,13 @@ public class Tira {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         String[] dateCommands = command.split("/");
-        Task deadlineTask = new Deadline(dateCommands[0].substring(9), dateCommands[1]);
-        Tira.addTask(deadlineTask, taskList);
+        try {
+            LocalDate endDate = LocalDate.parse(dateCommands[1].substring(3).trim(), IN_FORMATTER);
+            Task deadlineTask = new Deadline(dateCommands[0], endDate);
+            Tira.addTask(deadlineTask, taskList);
+        } catch (DateTimeParseException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void addEvent(ArrayList<Task> taskList, String[] splitCommand, String command) throws TiraException {
@@ -140,8 +152,17 @@ public class Tira {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
         String[] dateCommands2 = command.split("/");
-        Task eventTask = new Event(dateCommands2[0].substring(6), dateCommands2[1], dateCommands2[2]);
-        Tira.addTask(eventTask, taskList);
+        try {
+            String startDateString = dateCommands2[1].substring(5);
+            String endDateString = dateCommands2[2].substring(3);
+            System.out.println(startDateString + endDateString);
+            LocalDate startDate = LocalDate.parse(dateCommands2[1].substring(5).trim(), IN_FORMATTER);
+            LocalDate endDate = LocalDate.parse(dateCommands2[2].substring(3).trim(), IN_FORMATTER);
+            Task eventTask = new Event(dateCommands2[0].substring(6), startDate, endDate);
+            Tira.addTask(eventTask, taskList);
+        } catch (DateTimeParseException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void delete(PrintWriter printer, ArrayList<Task> taskList, String[] splitCommand) throws TiraException {
