@@ -1,4 +1,4 @@
-package yapper.resources;
+package yapper.app;
 
 /**
  * Provides utility methods for interacting with the user via the command line.
@@ -7,7 +7,7 @@ package yapper.resources;
 public class Ui {
 
     private static final String DIVIDER = "-------------------------------------------------";
-    private static final String NAME = "yapper.main.Yapper";
+    private static final String NAME = "Yapper";
 
     /**
      * Constructs a Ui object.
@@ -18,19 +18,19 @@ public class Ui {
     /**
      * Displays the introduction message and prompts the user.
      */
-    public void intro() {
+    public static String intro() {
         String[] temp = {
             "Hello! I'm " + NAME,
             "What can I do for you?"
         };
-        wrapText(temp);
+        return wrapText(temp);
     }
 
     /**
      * Prints a line divider to the command line.
      */
-    public static void showLine() {
-        System.out.println(DIVIDER);
+    public static String showLine() {
+        return DIVIDER + "\n";
     }
 
     /**
@@ -38,10 +38,8 @@ public class Ui {
      *
      * @param text the message to be displayed
      */
-    public static void wrapText(String text) {
-        showLine();
-        System.out.println(text);
-        showLine();
+    public static String wrapText(String text) {
+        return showLine() + text + "\n" + showLine();
     }
 
     /**
@@ -49,12 +47,12 @@ public class Ui {
      *
      * @param texts an array of messages to be displayed
      */
-    public static void wrapText(String[] texts) {
-        System.out.println(DIVIDER);
+    public static String wrapText(String[] texts) {
+        StringBuilder sb = new StringBuilder(showLine());
         for (String s : texts) {
-            System.out.println(s);
+            sb.append(s).append("\n");
         }
-        System.out.println(DIVIDER);
+        return sb.append(showLine()).toString();
     }
 
     /**
@@ -62,8 +60,8 @@ public class Ui {
      *
      * @param errorMessage the error message to be displayed
      */
-    public static void errorCaught(String errorMessage) {
-        wrapText(errorMessage);
+    public static String errorCaught(String errorMessage) {
+        return wrapText(errorMessage);
     }
 
 }

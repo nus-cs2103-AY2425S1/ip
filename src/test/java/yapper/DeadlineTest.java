@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import yapper.exceptions.YapperException;
-import yapper.resources.Deadline;
+import yapper.app.Deadline;
 
 public class DeadlineTest {
 

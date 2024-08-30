@@ -1,4 +1,4 @@
-package yapper.resources;
+package yapper.app;
 
 /**
  * Represents a "To-Do" task.

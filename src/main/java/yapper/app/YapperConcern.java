@@ -1,4 +1,4 @@
-package yapper.resources;
+package yapper.app;
 
 /**
  * Enum class to help categorise the type of format error that occurred.

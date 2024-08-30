@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("yapper.resources.Yapper")
+    mainClass.set("yapper.app.Launcher")
 }
 
 shadowJar {

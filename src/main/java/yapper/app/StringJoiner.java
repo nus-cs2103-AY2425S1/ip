@@ -1,4 +1,4 @@
-package yapper.resources;
+package yapper.app;
 
 import yapper.exceptions.EmptyDescException;
 import yapper.exceptions.EndingTimeException;

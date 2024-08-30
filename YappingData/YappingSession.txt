@@ -1,6 +1,6 @@
 | T |   | bye
 | T |   | hi
-| E |   | here | h     -----     y
+| E |   | here | h       -----       y
 | D | X | return book | Dec 2 2019
 | D | X | return book | Dec 2 2019
 | D |   | return book | Dec 2 2019
@@ -13,9 +13,9 @@
 | D |   | return book | Dec 2 2019
 | D | X | p | May 5 1995
 | T |   | this
-| E |   | y | x     -----     z
+| E |   | y | x       -----       z
 | T |   | timeskip
 | D |   | this | 06: 00 pm
 | D |   | this | 06: 00 pm
-| D | X | desc | 07: 00 pm
-| T |   | this
+| T | X | this
+| T |   | eat

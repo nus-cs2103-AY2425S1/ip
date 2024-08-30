@@ -1,4 +1,4 @@
-package yapper.resources;
+package yapper.app;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -28,7 +28,7 @@ public class TaskList {
      *
      * @param task the task to be added
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         this.taskList.add(task);
         String[] texts = {
             "Task has been added:",
@@ -36,7 +36,7 @@ public class TaskList {
             "A total of " + getSize() + " " + taskPlural() + " are on the list."
         };
         writeToFile();
-        Ui.wrapText(texts);
+        return Ui.wrapText(texts);
     }
 
     /**
@@ -74,13 +74,16 @@ public class TaskList {
     /**
      * Lists all tasks currently in the task list, displaying their index and description.
      */
-    public void listTasks() {
-        Ui.showLine();
-        System.out.println("Your task list currently has " + getSize() + " tasks");
+    public String listTasks() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(Ui.showLine());
+        String header = "Your task list currently has " + getSize() + " tasks\n";
+        sb.append(header);
         for (int i = 1; i <= getSize(); i++) {
-            System.out.println(i + "." + getTask(i - 1));
+            String temp = i + "." + getTask(i - 1) + "\n";
+            sb.append(temp);
         }
-        Ui.showLine();
+        return sb.append(Ui.showLine()).toString();
     }
 
     /**
@@ -88,7 +91,7 @@ public class TaskList {
      *
      * @param taskNumber the number of the task to be deleted
      */
-    public void deleteTask(String taskNumber) {
+    public String deleteTask(String taskNumber) {
         Task task = null;
         try {
             int taskIndex = Integer.parseInt(taskNumber);
@@ -96,18 +99,16 @@ public class TaskList {
             this.taskList.remove(taskIndex - 1);
             writeToFile();
         } catch (NumberFormatException e) {
-            Ui.wrapText("That was NOT a valid number.");
-            return;
+            return Ui.wrapText("That was NOT a valid number.");
         } catch (IndexOutOfBoundsException e) {
-            Ui.wrapText("That task is not here, sorry! :(");
-            return;
+            return Ui.wrapText("That task is not here, sorry! :(");
         }
         String[] texts = {
             "The following task has been removed form the list:",
             "  " + task,
             "A total of " + getSize() + " " + taskPlural() + " are still left."
         };
-        Ui.wrapText(texts);
+        return Ui.wrapText(texts);
     }
 
     /**
@@ -116,17 +117,15 @@ public class TaskList {
      * @param command     the command specifying whether to mark or unmark the task
      * @param taskNumber  the number of the task to be marked or unmarked
      */
-    public void markTask(String command, String taskNumber) {
+    public String markTask(String command, String taskNumber) {
         Task task = null;
         try {
             int taskIndex = Integer.parseInt(taskNumber);
             task = getTask(taskIndex - 1);
         } catch (NumberFormatException e) {
-            Ui.wrapText("That was NOT a valid number.");
-            return;
+            return Ui.wrapText("That was NOT a valid number.");
         } catch (IndexOutOfBoundsException e) {
-            Ui.wrapText("Oopsie! Couldn't find that one! :)");
-            return;
+            return Ui.wrapText("Oopsie! Couldn't find that one! :)");
         }
         String message = "";
         if (command.equals("mark")) {
@@ -141,7 +140,7 @@ public class TaskList {
             message,
             " " + task,
         };
-        Ui.wrapText(texts);
+        return Ui.wrapText(texts);
     }
 
     /**
@@ -149,7 +148,7 @@ public class TaskList {
      *
      * @param keyword     the command specifying whether to mark or unmark the task
      */
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
         ArrayList<Task> foundMatches = new ArrayList<>();
         for (Task task : this.taskList) {
             if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
@@ -157,10 +156,9 @@ public class TaskList {
             }
         }
         if (foundMatches.isEmpty()) {
-            Ui.wrapText("Sorry, I couldn't find any tasks that had this keyword! :(");
-            return;
+            return Ui.wrapText("Sorry, I couldn't find any tasks that had this keyword! :(");
         }
-        new TaskList(foundMatches, "").listTasks();
+        return new TaskList(foundMatches, "").listTasks();
     }
 
     /**

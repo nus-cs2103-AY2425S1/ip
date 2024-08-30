@@ -1,4 +1,4 @@
-package yapper.resources;
+package yapper.app;
 
 import java.io.File;
 import java.io.FileNotFoundException;
