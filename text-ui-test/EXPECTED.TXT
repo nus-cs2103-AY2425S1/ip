@@ -11,49 +11,49 @@ Hey. I'm
 Let's get this over with. What do you want?
 ______________________________________________________________________
 ______________________________________________________________________
-Fine. I'll add 'task 1' to the list.
+Fine. I'll add 'garfield.tasks 1' to the list.
 
-        [T][ ] task 1
+        [T][ ] garfield.tasks 1
 
-Just what you needed to boost your list to a grand total of 1 task. Lucky you.
+Just what you needed to boost your list to a grand total of 1 garfield.tasks. Lucky you.
 ______________________________________________________________________
 ______________________________________________________________________
-Fine. I'll add 'task 2' to the list.
+Fine. I'll add 'garfield.tasks 2' to the list.
 
-        [D][ ] task 2 (by: Sunday)
+        [D][ ] garfield.tasks 2 (by: Sunday)
 
 Now your list is up to 2 tasks. Because who doesn't love more deadlines.
 ______________________________________________________________________
 ______________________________________________________________________
-Fine. I'll add 'task 3 ' to the list.
+Fine. I'll add 'garfield.tasks 3 ' to the list.
 
-        [E][ ] task 3 (from: Today to: next week)
+        [E][ ] garfield.tasks 3 (from: Today to: next week)
 
 Your list is now at 3 tasks. Maybe you'll get around to actually doing them.
 ______________________________________________________________________
 ______________________________________________________________________
-Nice. You actually did something. I've marked that task as done:
+Nice. You actually did something. I've marked that garfield.tasks as done:
 
-        [T][X] task 1
+        [T][X] garfield.tasks 1
 ______________________________________________________________________
 ______________________________________________________________________
-Oh, having second thoughts? OK, I've marked that task as not done yet:
+Oh, having second thoughts? OK, I've marked that garfield.tasks as not done yet:
 
-        [T][ ] task 1
+        [T][ ] garfield.tasks 1
 
 Clearly, you're still undecided.
 ______________________________________________________________________
 ______________________________________________________________________
-Nice. You actually did something. I've marked that task as done:
+Nice. You actually did something. I've marked that garfield.tasks as done:
 
-        [D][X] task 2 (by: Sunday)
+        [D][X] garfield.tasks 2 (by: Sunday)
 ______________________________________________________________________
 ______________________________________________________________________
 Ugh, here's what you've got so far:
 
-1. [T][ ] task 1
-2. [D][X] task 2 (by: Sunday)
-3. [E][ ] task 3 (from: Today to: next week)
+1. [T][ ] garfield.tasks 1
+2. [D][X] garfield.tasks 2 (by: Sunday)
+3. [E][ ] garfield.tasks 3 (from: Today to: next week)
 
 Can we be done now?
 ______________________________________________________________________

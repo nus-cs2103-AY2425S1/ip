@@ -1,3 +1,7 @@
+package garfield.storage;
+
+import garfield.tasks.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -12,7 +16,7 @@ public class Storage {
     private String saveFilePath;
 
     /**
-     * Constructor for the Storage class.
+     * Constructor for the garfield.storage.Storage class.
      *
      * @param saveFilePath Path to the save .txt file.
      */
@@ -97,7 +101,7 @@ public class Storage {
     /**
      * Returns a LocalDateTime object after parsing a String representation of a date and time.
      *
-     * @param dateInput String representing the date and time of a Task.
+     * @param dateInput String representing the date and time of a garfield.task.Task.
      * @return LocalDateTime object.
      * @throws DateTimeParseException Error thrown if date time format is wrong in the input.
      */

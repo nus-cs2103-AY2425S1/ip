@@ -1,3 +1,10 @@
+package garfield.commands;
+
+import garfield.tasks.Task;
+import garfield.tasks.TaskList;
+import garfield.ui.Ui;
+import garfield.storage.Storage;
+
 public class AddCommand extends Command {
 
     private Task task;

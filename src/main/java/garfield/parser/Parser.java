@@ -1,3 +1,11 @@
+package garfield.parser;
+
+import garfield.commands.*;
+import garfield.exceptions.GarfieldException;
+import garfield.tasks.Deadline;
+import garfield.tasks.Event;
+import garfield.tasks.Todo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -5,11 +13,11 @@ import java.time.format.DateTimeParseException;
 public class Parser {
 
     /**
-     * Parses a user input line and returns a Command object with logic encapsulated
+     * Parses a user input line and returns a garfield.commands.Command object with logic encapsulated
      * within it to be executed.
      *
      * @param inputLine String that user inputted.
-     * @return Command Subclass Objects
+     * @return garfield.commands.Command Subclass Objects
      * @throws GarfieldException An exception for Garfield chatbot
      */
     public static Command parse(String inputLine) throws GarfieldException {
@@ -27,7 +35,7 @@ public class Parser {
             try {
                 return new DeleteCommand(getIntegerArg(inputLine));
             } catch (GarfieldException e) {
-                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: delete <task id>");
+                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: delete <garfield.task id>");
             }
         }
 
@@ -35,7 +43,7 @@ public class Parser {
             try {
                 return new MarkCommand(getIntegerArg(inputLine));
             } catch (GarfieldException e) {
-                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: mark <task id>");
+                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: mark <garfield.task id>");
             }
         }
 
@@ -43,7 +51,7 @@ public class Parser {
             try {
                 return new UnmarkCommand(getIntegerArg(inputLine));
             } catch (GarfieldException e) {
-                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: unmark <task id>");
+                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: unmark <garfield.task id>");
             }
         }
 
@@ -52,7 +60,7 @@ public class Parser {
                 Todo newTodo = parseTodo(inputLine);
                 return new AddCommand(newTodo);
             } catch (GarfieldException e) {
-                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: todo <task description>");
+                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: todo <garfield.task description>");
             }
         }
 
@@ -62,7 +70,7 @@ public class Parser {
                 return new AddCommand(newDeadline);
             } catch (GarfieldException e) {
                 throw new GarfieldException(e.getMessage() + "\n\n"
-                        + "Correct Usage: deadline <task description> /by yyyy-MM-dd HH:mm (24h time)");
+                        + "Correct Usage: deadline <garfield.task description> /by yyyy-MM-dd HH:mm (24h time)");
             }
         }
 
@@ -72,7 +80,7 @@ public class Parser {
                 return new AddCommand(newEvent);
             } catch (GarfieldException e) {
                 throw new GarfieldException(e.getMessage() + "\n\n"
-                        + "Correct Usage: event <task description> /from yyyy-MM-dd HH:mm (24h time)"
+                        + "Correct Usage: event <garfield.task description> /from yyyy-MM-dd HH:mm (24h time)"
                         + " /to yyyy-MM-dd HH:mm (24h time)");
             }
         }
@@ -91,16 +99,16 @@ public class Parser {
     private static int getIntegerArg(String fullInput) throws GarfieldException {
         String[] output = fullInput.trim().split("\\s+");
         if (output.length != 2) {
-            throw new GarfieldException("No integer after the command to select a task!");
+            throw new GarfieldException("No integer after the command to select a garfield.task!");
         }
         return Integer.parseInt(output[1]);
     }
 
     /**
-     * Parses the user input for a todo command and returns a Todo object.
+     * Parses the user input for a todo command and returns a garfield.task.Todo object.
      *
      * @param fullInput String that user inputted.
-     * @return Todo object.
+     * @return garfield.task.Todo object.
      * @throws GarfieldException An exception for Garfield chatbot.
      */
     private static Todo parseTodo(String fullInput) throws GarfieldException {
@@ -117,10 +125,10 @@ public class Parser {
     }
 
     /**
-     * Parses the user input for a deadline command and returns a Deadline object.
+     * Parses the user input for a deadline command and returns a garfield.task.Deadline object.
      *
      * @param fullInput String that user inputted.
-     * @return Deadline object.
+     * @return garfield.task.Deadline object.
      * @throws GarfieldException An exception for Garfield chatbot.
      */
     private static Deadline parseDeadline(String fullInput) throws GarfieldException{
@@ -148,10 +156,10 @@ public class Parser {
     }
 
     /**
-     * Parses the user input for a event command and returns a Event object.
+     * Parses the user input for a event command and returns a garfield.task.Event object.
      *
      * @param fullInput String that user inputted.
-     * @return Event object.
+     * @return garfield.task.Event object.
      * @throws GarfieldException An exception for Garfield chatbot.
      */
     private static Event parseEvent(String fullInput) throws GarfieldException {
@@ -190,7 +198,7 @@ public class Parser {
     /**
      * Returns a LocalDateTime object after parsing a String representation of a date and time.
      *
-     * @param dateInput String representing the date and time of a Task.
+     * @param dateInput String representing the date and time of a garfield.task.Task.
      * @return LocalDateTime object.
      * @throws DateTimeParseException Error thrown if date time format is wrong in the input.
      */
