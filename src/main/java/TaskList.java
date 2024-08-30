@@ -13,13 +13,18 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public void addTask(Task task) throws java.io.IOException {
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
+
+    public int addTask(Task task) throws java.io.IOException {
         tasks.add(task);
         FileWriter fw = new FileWriter("./data/dudu.txt", true);
         fw.write("\n" + task.formatString());
         fw.close();
         String output = LineWrapper.wrap(String.format("Got it. I've added this task:\n    %s\nNow you have %d tasks in the list.", task, tasks.size()));
         System.out.println(output);
+        return this.tasks.size();
     }
 
 //    public int getIndex(String[] input) throws MissingDescriptionException {
@@ -33,15 +38,19 @@ public class TaskList {
 //        return index;
 //    }
 
-    public void markTask(int index) {
+    public Task markTask(int index) {
         tasks.get(index).markCompleted();
+        return tasks.get(index);
     }
 
-    public void unmarkTask(int index) {
+    public Task unmarkTask(int index) {
         tasks.get(index).markUncompleted();
+        return tasks.get(index);
     }
 
-    public void deleteTask(int index) {
+    public Task deleteTask(int index) {
+        Task removed = tasks.get(index);
         tasks.remove(index);
+        return removed;
     }
 }

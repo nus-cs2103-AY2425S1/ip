@@ -102,7 +102,8 @@ public class Storage {
         }
     }
 
-    public void rewriteFile(ArrayList<Task> tasks) throws IOException {
+    public void rewriteFile(TaskList taskList) throws IOException {
+        ArrayList<Task> tasks = taskList.getTasks();
         FileWriter fw = new FileWriter(this.filePath);
         for (Task task : tasks) {
             fw.write(String.format("%s\n", task.formatString()));
