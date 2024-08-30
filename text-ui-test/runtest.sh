@@ -12,6 +12,9 @@ then
     rm ACTUAL.TXT
 fi
 
+# reset input task list
+cp "taskListReset.txt" "validTaskList.txt"
+
 # compile the code into the bin folder, terminates if error occurred
 if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*/*.java
 then

@@ -1,18 +1,4 @@
-task
-task task 1
-deadline
-deadline task 2 /by June 06 2024 00:00
-list
-event task 2 /from June 07 2024 00:00 /to June 07 2024 03:00
-list
-mark 4
-mark 0
-mark 1
-unmark 0
-list
-delete 0
-list
-blah
-mark y
-help
-bye!
+[E][X] task 3 (from: 2024-06-22 04:00 pm to: 2024-06-22 06:00 pm)
+[T][X] task 4
+[D][X] task 6 (by: 2024-06-22 04:00 pm)
+[E][ ] task 7 (from: 2024-06-22 04:00 pm to: 2024-06-22 05:00 pm)
