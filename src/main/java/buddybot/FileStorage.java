@@ -5,18 +5,26 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class for accessing contents within the txt file
+ */
 public class FileStorage {
 
     public String filePath;
 
     /**
-     *
+     * Constructor for FilePath
      * @param filePath
      */
     public FileStorage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads the contents within the file and converts the String into an ArrayList of Tasks
+     * @return
+     * @throws BuddyBotException
+     */
     public ArrayList<Task> readFileContents() throws BuddyBotException {
         ArrayList<Task> contents = new ArrayList<>();
         try {
@@ -33,7 +41,7 @@ public class FileStorage {
     }
 
     /**
-     *
+     * Converts Strings to Tasks
      * @param entry
      * @return
      */
@@ -63,7 +71,7 @@ public class FileStorage {
     }
 
     /**
-     *
+     * Writes Strings to the txt file
      * @param myTasks
      */
     public void writeToTxt(String myTasks) { //Using this method

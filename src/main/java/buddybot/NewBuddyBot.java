@@ -4,13 +4,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 //A-jar added
+
+/**
+ * This is the class for the chat bot with OOP added
+ */
 public class NewBuddyBot {
     private final FileStorage storage;
     private TaskList taskList;
     private final Ui ui;
 
     /**
-     *
+     * Constructor for BuddyBot
      * @param filePath
      */
     public NewBuddyBot(String filePath) {
@@ -25,7 +29,7 @@ public class NewBuddyBot {
     }
 
     /**
-     *
+     * Method to run BuddyBot, taking in the user input and making sense of the commands
      */
     private void run() {
         this.ui.welcomeMsg();
@@ -64,7 +68,8 @@ public class NewBuddyBot {
     }
 
     /**
-     *
+     * Method to exit the chatbot
+     * Saves the existing list to a txt file
      */
     private void exit() {
         this.ui.closeInput();
@@ -72,7 +77,7 @@ public class NewBuddyBot {
     }
 
     /**
-     *
+     * Method to add a new To Do to the tasklist
      * @param description
      * @throws BuddyBotException
      */
@@ -87,7 +92,7 @@ public class NewBuddyBot {
     }
 
     /**
-     *
+     * Method to add a new event to the tasklist
      * @param args
      * @throws BuddyBotException
      */
@@ -116,7 +121,7 @@ public class NewBuddyBot {
     }
 
     /**
-     *
+     * Method to add a new deadline to the tasklist
      * @param args
      * @throws BuddyBotException
      */
@@ -137,7 +142,7 @@ public class NewBuddyBot {
     }
 
     /**
-     *
+     * Marks the given task as done with an "X"
      * @param args
      * @throws BuddyBotException
      */
@@ -157,7 +162,7 @@ public class NewBuddyBot {
     }
 
     /**
-     *
+     * Method to remove a task from the tasklist
      * @param args
      * @throws BuddyBotException
      */
@@ -177,7 +182,10 @@ public class NewBuddyBot {
         }
     }
 
-
+    /**
+     * Main method for BuddyBot
+     * @param args
+     */
     public static void main(String[] args) {
         new NewBuddyBot("./data/BuddyBot.txt").run();
     }

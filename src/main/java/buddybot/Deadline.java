@@ -3,12 +3,15 @@ package buddybot;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Clas for Deadline
+ */
 public class Deadline extends Task {
 
     protected LocalDate by;
 
     /**
-     *
+     * Constructor for Deadline
      * @param description
      * @param by
      */
@@ -18,7 +21,7 @@ public class Deadline extends Task {
     }
 
     /**
-     *
+     * Return a String of the Deadline in the format the file reader can recognise
      * @return
      */
     public String toFile() { //prototype in case of future modification
@@ -26,7 +29,7 @@ public class Deadline extends Task {
     }
 
     /**
-     *
+     * Return a String of the Deadline with its status and description and date
      * @return
      */
     @Override

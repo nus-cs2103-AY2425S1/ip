@@ -1,10 +1,18 @@
 package buddybot;
 
+/**
+ * Parent class for the Tasks To Do, Deadline and Event
+ */
 public class Task {
     protected String description;
     protected TaskStatus status;
     protected TaskType type;
 
+    /**
+     * Constructor for Task
+     * @param description
+     * @param type
+     */
     public Task(String description, TaskType type) {
         this.description = description;
         this.status = TaskStatus.NOT_DONE;
@@ -12,7 +20,7 @@ public class Task {
     }
 
     /**
-     *
+     * Return the status icon for each Task, to determine if they are done or not
      * @return
      */
     public String getStatusIcon() {
@@ -20,17 +28,25 @@ public class Task {
     }
 
     /**
-     *
+     * Mark the Task as done
      */
     public void mark() {
         this.status = TaskStatus.DONE;
     }
 
+    /**
+     * Return a String of the Task with its status and description
+     * @return
+     */
     @Override
     public String toString() {
         return " [" + this.getStatusIcon() + "] " + this.description;
     }
 
+    /**
+     * Return a String for the Task in the format the file reader recognises
+     * @return
+     */
     public String toFile() {
         if (status == TaskStatus.DONE) {
             return "|X|" + description;

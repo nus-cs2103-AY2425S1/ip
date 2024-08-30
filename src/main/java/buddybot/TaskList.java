@@ -2,22 +2,30 @@ package buddybot;
 
 import java.util.ArrayList;
 
+/**
+ * Class for TaskList
+ */
 public class TaskList {
     ArrayList<Task> myList;
 
+    /**
+     * Constructor for an empty TaskList
+     */
     public TaskList() {
         myList = new ArrayList<Task>();
     }
+
+    /**
+     * Constructor for a TaskList with a given ArrayList of Tasks
+     * @param taskList
+     */
     public TaskList(ArrayList<Task> taskList) {
         this.myList = taskList;
     }
 
-    public void addTask(Task task) {
-        myList.add(task);
-    }
 
     /**
-     *
+     * Return the number of tasks in TaskList
      * @return
      */
     public int size() {
@@ -25,7 +33,7 @@ public class TaskList {
     }
 
     /**
-     *
+     * Return the Task at the given index
      * @param i
      * @return
      */
@@ -33,18 +41,37 @@ public class TaskList {
         return myList.get(i-1);
     }
 
+    /**
+     * Ass a Task to TaskLst
+     * @param t
+     */
+
     public void add(Task t) {
         myList.add(t);
     }
+
+    /**
+     * Remove a Task from TaskList
+     * @param i
+     */
 
     public void delete(int i) {
         myList.remove(i);
     }
 
+    /**
+     * Check if the TaskList is empty
+     * @return
+     */
+
     public boolean isEmpty() {
         return myList.isEmpty();
     }
 
+    /**
+     * Return the TaskList as a String
+     * @return
+     */
     public String toString() {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < myList.size(); i++) {
@@ -55,6 +82,10 @@ public class TaskList {
         return result.toString();
     }
 
+    /**
+     * Return the TaskList as a String the file reader recognises
+     * @return
+     */
     public String toFile() {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < myList.size(); i++) {
