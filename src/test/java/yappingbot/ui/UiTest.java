@@ -20,7 +20,8 @@ class UiTest {
 |  Test
 |  Test2
 |
-|  multilineaccident""";
+|  multilineaccident
+""";
         assertEquals(expected, sb.toString());
     }
 
