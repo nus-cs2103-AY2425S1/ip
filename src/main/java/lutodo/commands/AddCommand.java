@@ -38,9 +38,9 @@ public class AddCommand extends Command{
                 String taskInfo = Parser.splitTaskInfo(taskMessage)[1];
                 TodoTask newTask = new TodoTask(taskInfo);
                 tasks.addTask(newTask);
-                System.out.print("Got it. I've added this task:\n  " +
-                        newTask.toString() +
-                        "\nNow you have " + tasks.size() + " tasks in the list.\n");
+                System.out.print("Got it. I've added this task:\n  "
+                        + newTask.toString()
+                        + "\nNow you have " + tasks.size() + " tasks in the list.\n");
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("The description of the todo task cannot be empty, please try again.");
             }
@@ -55,9 +55,9 @@ public class AddCommand extends Command{
             try {
                 DeadlineTask newTask = new DeadlineTask(taskInfo);
                 tasks.addTask(newTask);
-                System.out.print("Got it. I've added this task:\n  " +
-                        newTask.toString() +
-                        "\nNow you have " + tasks.size() + " tasks in the list.\n");
+                System.out.print("Got it. I've added this task:\n  "
+                        + newTask.toString()
+                        + "\nNow you have " + tasks.size() + " tasks in the list.\n");
             } catch (IndexOutOfBoundsException e) {
                 System.out.print("""
                         The description of the deadline task must include the ddl time, please try again.
@@ -77,9 +77,9 @@ public class AddCommand extends Command{
             try {
                 EventTask newTask = new EventTask(taskInfo);
                 tasks.addTask(newTask);
-                System.out.print("Got it. I've added this task:\n  " +
-                        newTask.toString() +
-                        "\nNow you have " + tasks.size() + " tasks in the list.\n");
+                System.out.print("Got it. I've added this task:\n  "
+                        + newTask.toString()
+                        + "\nNow you have " + tasks.size() + " tasks in the list.\n");
             } catch (IndexOutOfBoundsException e) {
                 System.out.print("""
                         The description of the event task must include the start time and the end time, please try again.

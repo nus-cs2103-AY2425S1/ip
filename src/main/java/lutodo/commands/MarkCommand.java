@@ -31,10 +31,12 @@ public class MarkCommand extends Command{
     public void execute(TaskList tasks, Storage storage) {
         if (isDone) {
             tasks.get(index).markAsDone();
-            System.out.println("Nice! I've marked this task as done:\n" + tasks.get(index));
+            System.out.println("Nice! I've marked this task as done:\n"
+                    + tasks.get(index));
         } else {
             tasks.get(index).markAsNotDone();
-            System.out.println("OK, I've marked this task as not done yet:\n" + tasks.get(index));
+            System.out.println("OK, I've marked this task as not done yet:\n"
+                    + tasks.get(index));
         }
         storage.save(tasks);
     }
