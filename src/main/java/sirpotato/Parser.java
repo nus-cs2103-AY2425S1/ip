@@ -52,7 +52,9 @@ class Parser {
             if (userInput.length() <= 7) {
                 throw new DukeException("You need to say which item to delete");
             }
-        } else if (!userInput.equals("bye") && !userInput.equals("list") && !userInput.startsWith("mark") && !userInput.startsWith("unmark")) {
+        } else if (!userInput.equals("bye") && !userInput.equals("list") && 
+                   !userInput.startsWith("mark") && !userInput.startsWith("unmark")
+                   && !userInput.startsWith("find")) {
             throw new DukeException("I'm sorry, that is not a valid input");
         }
     }
@@ -84,7 +86,10 @@ class Parser {
         } else if (userInput.startsWith("todo")) {
             String description = userInput.substring(5);
             return new AddCommand(new Todo(description));
-        } else if (userInput.startsWith("deadline")) {
+        } else if (userInput.startsWith("find")) {
+            String searchString = userInput.substring(5);
+            return new FindCommand(searchString);
+        }else if (userInput.startsWith("deadline")) {
             String[] sectionedString = userInput.split("/by ");
             String description = sectionedString[0].substring(9);
             LocalDate by = parseData(sectionedString[1].trim());
