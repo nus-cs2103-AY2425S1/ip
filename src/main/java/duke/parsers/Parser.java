@@ -36,6 +36,8 @@ public class Parser {
             handleAddEvent(userInput);
         } else if (userInput.startsWith("delete")) {
             handleDeleteTask(userInput);
+        } else if (userInput.startsWith("find")){
+            handleFindTask(userInput);
         } else {
             throw new InvalidInputException();
         }
@@ -139,6 +141,18 @@ public class Parser {
         } catch (IndexOutOfBoundsException e) {
             ui.printMessage("Index number does not exist");
         }
+    }
+
+    private void handleFindTask(String message) throws TaskNotFoundException, InvalidInputException {
+        String[] split = message.split(" ", 2);
+        if (split.length > 2 || split.length < 2) {
+            throw new InvalidInputException();
+        }
+        String keyword = split[1].trim();
+        if (keyword.isEmpty()) {
+            throw new InvalidInputException();
+        }
+        taskList.findTask(keyword);
     }
 
 }

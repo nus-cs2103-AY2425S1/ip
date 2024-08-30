@@ -8,6 +8,7 @@ import duke.data.TaskDataBase;
 import duke.exceptions.TaskNotFoundException;
 import duke.exceptions.InvalidDateException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import duke.tasks.Task;
 public class TaskList {
@@ -104,5 +105,28 @@ public class TaskList {
             }
         }
         return tasks.toString();
+    }
+
+    /**
+     * Prints all tasks matching user input.
+     */
+    public void findTask(String keyword) throws TaskNotFoundException {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            Task task = listOfTasks.get(i);
+            if (task.getName().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        if (matchingTasks.isEmpty()) {
+            throw new TaskNotFoundException();
+        }
+
+        StringBuilder result = new StringBuilder();
+        result.append("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            result.append((i + 1) + ". " + matchingTasks.get(i) + "\n");
+        }
+        ui.printMessage(result.toString());
     }
 }
