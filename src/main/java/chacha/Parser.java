@@ -97,7 +97,7 @@ public class Parser {
         } catch (ChaChaException e) {
             return e.toString();
         } catch (IndexOutOfBoundsException e) {
-            String[] arr = {"I can't find such a chacha.task number... You don't enough tasks!"};
+            String[] arr = {"I can't find such a task number... You don't enough tasks!"};
             return this.ui.printStrings(arr);
         } catch (NumberFormatException e) {
             String[] arr = {"The index does not seem to be a number... Please type again. "};
@@ -113,7 +113,7 @@ public class Parser {
         } catch (ChaChaException e) {
             return e.toString();
         } catch (IndexOutOfBoundsException e) {
-            String[] arr = {"I can't find such a chacha.task number... You don't enough tasks!"};
+            String[] arr = {"I can't find such a task number... You don't enough tasks!"};
             return this.ui.printStrings(arr);
         } catch (NumberFormatException e) {
             String[] arr = {"The index does not seem to be a number... Please type again. "};
@@ -129,7 +129,7 @@ public class Parser {
         } catch (ChaChaException e) {
             return e.toString();
         } catch (IndexOutOfBoundsException e) {
-            String[] arr = {"I can't find such a chacha.task number... You don't enough tasks!"};
+            String[] arr = {"I can't find such a task number... You don't enough tasks!"};
             return this.ui.printStrings(arr);
         } catch (NumberFormatException e) {
             String[] arr = {"The index does not seem to be a number... Please type again. "};

@@ -31,7 +31,7 @@ public class TaskList {
     public Task addToDo(String cmd, Ui ui, Storage storage) throws ChaChaException {
         if (cmd.length() <= 5) {
             String[] arrOfString = {
-                    "What chacha.task are you intending to add as a \'todo\'?",
+                    "What task are you intending to add as a \'todo\'?",
                     "Please type again!"
             };
 
@@ -50,7 +50,7 @@ public class TaskList {
     public Task addEvent(String cmd, Ui ui, Storage storage) throws ChaChaException {
         if (cmd.length() <= 6) {
             String[] arrOfString = {
-                    "You are missing some info needed (chacha.task description, date, start time, end time).",
+                    "You are missing some info needed (task description, date, start time, end time).",
                     "Please type again!"
             };
 
@@ -63,7 +63,7 @@ public class TaskList {
         if (arr.length < 4) {
             // potential exception when arr does not have all elements needed
             String[] arrOfString = {
-                    "You are missing some info needed (chacha.task description, date, start time, end time).",
+                    "You are missing some info needed (task description, date, start time, end time).",
                     "Please type again!"
             };
 
@@ -104,7 +104,7 @@ public class TaskList {
     public Task addDeadline(String cmd, Ui ui, Storage storage) throws ChaChaException {
         if (cmd.length() <= 9) {
             String[] arrOfString = {
-                    "You are missing some info needed (chacha.task description, deadline).",
+                    "You are missing some info needed (task description, deadline).",
                     "Please type again!"
             };
 
@@ -116,7 +116,7 @@ public class TaskList {
         if (arr.length < 2) {
             // potential exception when arr does not have all elements needed
             String[] arrOfString = {
-                    "You are missing some info needed (chacha.task description, deadline).",
+                    "You are missing some info needed (task description, deadline).",
                     "Please type again!"
             };
 
@@ -158,7 +158,7 @@ public class TaskList {
 
         if (cmd.length() <= 7) {
             String[] arrOfString = {
-                    "You are missing the index of chacha.task you want to mark. ",
+                    "You are missing the index of task you want to mark. ",
                     "Please type again!"
             };
 
@@ -175,7 +175,7 @@ public class TaskList {
     public Task markDone(String cmd, Ui ui, Storage storage) throws ChaChaException {
         if (cmd.length() <= 5) {
             String[] arrOfString = {
-                    "You are missing the index of chacha.task you want to mark. ",
+                    "You are missing the index of task you want to mark. ",
                     "Please type again!"
             };
 
@@ -192,7 +192,7 @@ public class TaskList {
     public Task markUndone(String cmd, Ui ui, Storage storage) throws ChaChaException {
         if (cmd.length() <= 7) {
             String[] arrOfString = {
-                    "You are missing the index of chacha.task you want to mark. ",
+                    "You are missing the index of task you want to mark. ",
                     "Please type again!"
             };
 

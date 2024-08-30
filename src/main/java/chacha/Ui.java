@@ -29,7 +29,7 @@ public class Ui {
 
     public String printAdd(Task task, TaskList tasks) {
         return LINE
-                + INDENTATION + "Got it. I've added this chacha.task: \n"
+                + INDENTATION + "Got it. I've added this task: \n"
                 + INDENTATION + task.printTask() + "\n"
                 + INDENTATION + "Now you have " + tasks.getTotalNumber() + " tasks in the list. \n"
                 + LINE;
@@ -37,7 +37,7 @@ public class Ui {
 
     public String printDelete(Task task, TaskList tasks) {
         return LINE
-                + INDENTATION + "Okay! I've removed this chacha.task: \n"
+                + INDENTATION + "Okay! I've removed this task: \n"
                 + INDENTATION + task.printTask() + "\n"
                 + INDENTATION + "Now you have " + tasks.getTotalNumber() + " tasks in the list. \n"
                 + LINE;
@@ -45,14 +45,14 @@ public class Ui {
 
     public String printMark(Task task) {
         return LINE
-                + INDENTATION + "Nice! I've marked this chacha.task as done: \n"
+                + INDENTATION + "Nice! I've marked this task as done: \n"
                 + INDENTATION + task.printTask() + "\n"
                 + LINE;
     }
 
     public String printUnmark(Task task) {
         return LINE
-                + INDENTATION + "Nice! I've marked this chacha.task as not done yet: \n"
+                + INDENTATION + "Nice! I've marked this task as not done yet: \n"
                 + INDENTATION + task.printTask() + "\n"
                 + LINE;
     }
