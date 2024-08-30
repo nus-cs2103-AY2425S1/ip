@@ -57,7 +57,7 @@ public class CommandScanner {
                 String[] description = input.split("deadline | /by");
                 DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
                 this.inputTask = new Deadline(description[1].trim(), LocalDateTime.parse(description[2].trim(), pattern));
-            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
                 return CommandType.DEADLINE_WRONG_FORMAT;
             }
             return CommandType.DEADLINE;
@@ -66,7 +66,7 @@ public class CommandScanner {
                 String[] description = input.split("event | /from | /to ");
                 DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
                 this.inputTask =  new Event(description[1].trim(), LocalDateTime.parse(description[2].trim(), pattern), LocalDateTime.parse(description[3].trim(), pattern));
-            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
                 return CommandType.EVENT_WRONG_FORMAT;
             }
             return CommandType.EVENT;
