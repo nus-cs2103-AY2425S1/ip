@@ -16,3 +16,4 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 savefile
+/src/test/resources/savefile_test

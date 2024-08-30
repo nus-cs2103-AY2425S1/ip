@@ -2,10 +2,11 @@ package yappingbot.storage;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import yappingbot.tasks.*;
 
 import java.io.*;
 import java.util.Scanner;
+
+import yappingbot.tasks.*;
 
 class StorageTest {
     @Test
