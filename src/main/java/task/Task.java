@@ -135,7 +135,6 @@ public abstract class Task {
                 } else {
                     e.setCurrentStatus(Status.UNMARKED);
                 }
-//                tasks.add(e);
                 TaskList.addTasks(e);
 
             }

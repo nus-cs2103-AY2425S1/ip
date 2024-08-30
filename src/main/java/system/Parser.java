@@ -153,7 +153,7 @@ public class Parser {
      *
      * @param input Input string containing the command to create a ToDoTask as well as the name of the task.
      * @throws StringIndexOutOfBoundsException If the input string is too short to contain a valid task name.
-     * @throws IOException If an I/O error occurs while adding the task.
+     * @throws IOException                     If an I/O error occurs while adding the task.
      */
     public void performToDo(String input) {
         try {
@@ -179,26 +179,45 @@ public class Parser {
     public void performDeadline(String input) {
         try {
             String[] deadline_arr = input.split("/");
-            String name = deadline_arr[0].substring(9);
-            String date = deadline_arr[1].substring(3);
 
-            String[] tokens = date.split(" ");
-            String[] dateTokens = tokens[0].split("-");
-            String time = tokens[1];
-            String year = dateTokens[0];
-            String month = dateTokens[1];
-            String day = dateTokens[2];
+            if (deadline_arr.length != 2 || deadline_arr[1].length() <= 3) {
+                ui.invalidDate();
+            } else {
+                String name = deadline_arr[0].substring(9);
+                String date = deadline_arr[1].substring(3);
 
-            LocalDateTime ldt = dateTimeSystem.createDate(year,month,day,time.substring(0,2),time.substring(2));
+                String[] tokens = date.split(" ");
+                String[] dateTokens = tokens[0].split("-");
 
-            Deadlines temp_deadline = new Deadlines(name, ldt);
-            temp_deadline.addTask(temp_deadline);
-        } catch (StringIndexOutOfBoundsException | IOException e) {
+                if (tokens.length == 2 && dateTokens.length == 3) {
+                    String time = tokens[1];
+                    String year = dateTokens[0];
+                    String month = dateTokens[1];
+                    String day = dateTokens[2];
+
+                    if (year.length() == 4 && !month.isEmpty() && month.length() <= 2 && !day.isEmpty() && day.length() <= 2) {
+                        if (time.length() == 4) {
+                            String hour = time.substring(0, 2);
+                            String minute = time.substring(2);
+
+                            LocalDateTime ldt = dateTimeSystem.createDate(year, month, day, hour, minute);
+                            Deadlines tempDeadline = new Deadlines(name, ldt);
+                            tempDeadline.addTask(tempDeadline);
+                        } else {
+                            ui.twentyFourHourClock();
+                        }
+                    } else {
+                        ui.invalidDate();
+                    }
+                } else {
+                    ui.invalidDate();
+                }
+            }
+        } catch (StringIndexOutOfBoundsException |
+                 IOException e) {
             ui.empty_deadline();
         }
     }
-
-
 
     /**
      * Creates a new Event task based on the input and adds it to the task list.
@@ -214,25 +233,50 @@ public class Parser {
      */
     public void performEvent(String input) {
         try {
-            String[] deadline_arr = input.split("/");
-            String name = deadline_arr[0].substring(6);
-            String start = deadline_arr[1].substring(5);
-            String end = deadline_arr[2].substring(3);
+            String[] deadlineArr = input.split("/");
+            if (deadlineArr.length != 3 || deadlineArr[0].length() <= 6 || deadlineArr[1].length() <= 5 || deadlineArr[2].length() <= 3) {
+                ui.invalidDate();
+            } else {
+                String name = deadlineArr[0].substring(6);
+                String start = deadlineArr[1].substring(5);
+                String end = deadlineArr[2].substring(3);
 
-            String[] full_date_token_start = start.split(" ");
-            String[] date_token_start = full_date_token_start[0].split("-");
+                String[] fullDateTokenStart = start.split(" ");
+                String[] dateTokenStart = fullDateTokenStart[0].split("-");
+                String[] fullDateTokenEnd = end.split(" ");
+                String[] dateTokenEnd = fullDateTokenEnd[0].split("-");
 
-            System.out.println("Start Date: " + date_token_start[0] + " / " + date_token_start[1] + " / " + date_token_start[2]);
+                if (dateTokenStart.length != 3 || dateTokenEnd.length != 3) {
+                    ui.invalidDate();
+                } else {
+                    String startYear = dateTokenStart[0];
+                    String startMonth = dateTokenStart[1];
+                    String startDay = dateTokenStart[2];
+                    String startHour = fullDateTokenStart[1].substring(0, 2);
+                    String startMinute = fullDateTokenStart[1].substring(2);
 
-            LocalDateTime ldt_start = dateTimeSystem.createDate(date_token_start[0],date_token_start[1],date_token_start[2],full_date_token_start[1].substring(0,2),full_date_token_start[1].substring(2));
+                    String endYear = dateTokenEnd[0];
+                    String endMonth = dateTokenEnd[1];
+                    String endDay = dateTokenEnd[2];
+                    String endHour = fullDateTokenEnd[1].substring(0, 2);
+                    String endMinute = fullDateTokenEnd[1].substring(2);
 
-            String[] full_date_token_end = end.split(" ");
-            String[] date_token_end = full_date_token_end[0].split("-");
+                    if (startYear.length() == 4 && !startMonth.isEmpty() && startMonth.length() <= 2 && !startDay.isEmpty() && startDay.length() <= 2
+                            && endYear.length() == 4 && !endMonth.isEmpty() && endMonth.length() <= 2 && !endDay.isEmpty() && endDay.length() <= 2) {
+                        if (fullDateTokenStart[1].length() == 4 && fullDateTokenEnd[1].length() == 4) {
+                            LocalDateTime ldtStart = dateTimeSystem.createDate(startYear, startMonth, startDay, startHour, startMinute);
+                            LocalDateTime ldtEnd = dateTimeSystem.createDate(endYear, endMonth, endDay, endHour, endMinute);
 
-            LocalDateTime ldt_end = dateTimeSystem.createDate(date_token_end[0],date_token_end[1],date_token_end[2],full_date_token_end[1].substring(0,2),full_date_token_end[1].substring(2));
-
-            Events temp_event = new Events(name, ldt_start, ldt_end);
-            temp_event.addTask(temp_event);
+                            Events temp_event = new Events(name, ldtStart, ldtEnd);
+                            temp_event.addTask(temp_event);
+                        } else {
+                            ui.twentyFourHourClock();
+                        }
+                    } else {
+                        ui.invalidDate();
+                    }
+                }
+            }
         } catch (StringIndexOutOfBoundsException | IOException e) {
             ui.empty_event();
         }

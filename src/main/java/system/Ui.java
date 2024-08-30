@@ -66,6 +66,7 @@ public class Ui {
      * @param t Task that has been removed, which can be an instance of ToDos, Deadlines, or Events.
      */
     public void delete_message(Task t) {
+        DateTimeSystem dateTimeSystem = new DateTimeSystem();
         System.out.println("Noted. I've removed this task:");
         if (t instanceof ToDos) {
             if (t.getCurrentStatus()== Task.Status.MARKED) {
@@ -75,9 +76,9 @@ public class Ui {
             }
         } else if (t instanceof Deadlines) {
             if (t.getCurrentStatus()== Task.Status.MARKED) {
-                System.out.println("[D][X] " + t.getName() + "(by: " + t.getDate() + ")");
+                System.out.println("[D][X] " + t.getName() + "(by: " + dateTimeSystem.format(t.getDate()) + ")");
             } else {
-                System.out.println("[D][ ] " + t.getName() + "(by: " + t.getDate() + ")");
+                System.out.println("[D][ ] " + t.getName() + "(by: " + dateTimeSystem.format(t.getDate()) + ")");
             }
         } else if (t instanceof Events) {
             if (t.getCurrentStatus()== Task.Status.MARKED) {
@@ -103,8 +104,12 @@ public class Ui {
     /**
      * Displays a message indicating that the date provided is invalid.
      */
-    public void date() {
+    public void invalidDate() {
         System.out.println("The date provided is invalid!");
+    }
+
+    public void twentyFourHourClock() {
+        System.out.println("Please enter the time in the 24-hour time format. Thanks!");
     }
 
     /**
