@@ -65,6 +65,7 @@ public class ShrimpException extends Exception {
         private static final String errorMessage_deadline = "I need a " + description + " and a " + by + " to make a DEADLINE...";
         private static final String errorMessage_event = "I need a " + description + ", a " + from + " and a " + to + " to make an EVENT...";
         private static final String errorMessage_delete = "You didn't indicate which task to delete...";
+        private static final String errorMessage_find = "I need something to search for...";
         private static final String errorMessage_default = "There seems to be an issue somewhere! :<";
 
         /**
@@ -84,6 +85,7 @@ public class ShrimpException extends Exception {
                 case DEADLINE -> errorMessage_deadline;
                 case EVENT -> errorMessage_event;
                 case DELETE -> errorMessage_delete;
+                case FIND  -> errorMessage_find;
                 default -> errorMessage_default;
             };
         }

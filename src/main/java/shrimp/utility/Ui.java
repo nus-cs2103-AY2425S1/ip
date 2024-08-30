@@ -140,6 +140,15 @@ public class Ui {
         printTaskCount(taskList);
     }
 
+    public void printFind(TaskList taskList) {
+        System.out.println("Heya~ Here's all the tasks I found matches your description~");
+        for (int i = 0; i < taskList.getCount(); i++) {
+            Task task = taskList.getTask(i);
+            String output = String.format("    %s.%s", i + 1, task);
+            System.out.println(AnsiCode.PURPLE + output + AnsiCode.CYAN);
+        }
+    }
+
     /**
      * Prints an error message to the console.
      * The message is displayed in red color.
