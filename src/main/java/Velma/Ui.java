@@ -106,4 +106,19 @@ public class Ui {
     public void showError(String message) {
         System.out.println(message);
     }
+
+    /**
+     * Prints message when task is found.
+     * @param tasks - the tasks found
+     */
+    public void showFoundTasks(ArrayList<Task> tasks) {
+        if (tasks.size() == 0) {
+            System.out.println("No tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
+            }
+        }
+    }
 }

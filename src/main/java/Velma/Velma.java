@@ -8,6 +8,7 @@ import Velma.task.Event;
 import Velma.exception.VelmaException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -36,17 +37,6 @@ public class Velma {
         }
     }
 
-    public enum Command {
-        TODO,
-        DEADLINE,
-        EVENT,
-        LIST,
-        MARK,
-        UNMARK,
-        DELETE,
-        BYE,
-        UNKNOWN
-    }
 
     /**
      * Checks user input to determine which command to carry out.
@@ -68,7 +58,11 @@ public class Velma {
             return Command.UNMARK;
         } else if (input.startsWith("delete")) {
             return Command.DELETE;
-        } else if (input.equals("bye")) {
+        } else if (input.startsWith("find")) {
+            return Command.FIND;
+        }
+
+        else if (input.equals("bye")) {
             return Command.BYE;
         } else {
             return Command.UNKNOWN;
@@ -200,6 +194,12 @@ public class Velma {
                         tasks.deleteTask(taskNumber);
                         ui.showTaskDeleted(deletedTask, tasks.getSize());
                         storage.save(tasks.getTasks());
+                        break;
+
+                    case FIND:
+                        String keyword = request.replaceFirst("find\\s*", "");
+                        ArrayList<Task> foundTasks = tasks.findTasks(keyword);
+                        ui.showFoundTasks(foundTasks);
                         break;
 
                     case BYE:
