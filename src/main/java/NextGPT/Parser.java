@@ -46,7 +46,6 @@ public class Parser {
                         + "Example: Deadline do homework /by 2024-09-01\n");
             }
             return new AddCommand(new Deadline(desc, by));
-
         case "event":
             String[] split2 = split[1].split("/from");
             if (split2.length != 2) {
@@ -79,7 +78,11 @@ public class Parser {
             return new EditCommand(false, Integer.parseInt(split[1].trim()) - 1);
         case "bye":
             return new ExitCommand();
-
+        case "find":
+            if (split.length != 2) {
+                throw new NextGPTException("Please input the keyword for me to find!");
+            }
+            return new FindCommand(split[1].trim());
         }
         throw new NextGPTException("Sorry, I do not understand what that means.");
     }

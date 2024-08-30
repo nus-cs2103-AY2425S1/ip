@@ -28,4 +28,14 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
                 " to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Event) {
+            return super.equals(o) &&
+                    ((Event) o).start.equals(this.end) && ((Event) o).start.equals(this.end);
+        }
+        return false;
+    }
 }

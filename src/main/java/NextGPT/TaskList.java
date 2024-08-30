@@ -10,9 +10,11 @@ import NextGPT.task.Task;
  * Class to hold tasks in a arraylist.
  */
 public class TaskList {
-    static ArrayList<Task> todo_list;
+
+    ArrayList<Task> todo_list;
 
     public TaskList(){
+
         this.todo_list = new ArrayList<>();
     }
 
