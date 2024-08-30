@@ -1,16 +1,17 @@
 import java.util.Scanner;
 public class Espresso {
-    private String[] tasks;
+    private Task[] tasks ;
     private int count;
 
     public Espresso() {
-        tasks = new String[100];
+        tasks = new Task[100];
         count = 0;
     }
 
     void addToList(String str) {
         if (count < tasks.length) {
-            tasks[count] = str;
+            Task task = new Task(str);
+            tasks[count] = task;
             System.out.println("____________________________________________________________");
             System.out.println("added: " + str);
             System.out.println("____________________________________________________________");
@@ -44,6 +45,14 @@ public class Espresso {
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________");
                 break;
+            } else if (str.startsWith("mark ")) {
+                String extractNum = str.substring(str.indexOf(' ') + 1).trim();
+                int pos = Integer.valueOf(extractNum);
+                markTask(pos - 1);
+            } else if (str.startsWith("unmark ")) {
+                String extractNum = str.substring(str.indexOf(' ') + 1).trim();
+                int pos = Integer.valueOf(extractNum);
+                unmarkTask(pos - 1);
             }else if (str.equals("list")) {
                 printList();
             } else {
@@ -52,6 +61,26 @@ public class Espresso {
         }
         sc.close();
     }
+    void markTask(int position) {
+        if (position >= 0 && position < count) {
+            tasks[position].mark();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("  " + tasks[position]);
+        } else {
+            System.out.println("Invalid task number.");
+        }
+    }
+
+    private void unmarkTask(int position) {
+        if (position >= 0 && position < count) {
+            tasks[position].unmark();
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println("  " + tasks[position]);
+        } else {
+            System.out.println("Invalid task number.");
+        }
+    }
+
     public static void main(String[] args) {
         Espresso esp = new Espresso();
         esp.process();
