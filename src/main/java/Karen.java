@@ -139,9 +139,9 @@ public class Karen {
                 break;
             case EVENT:
                 try {
-                    String[] params = command[1].split("/from ", 2);
+                    String[] params = command[1].split(" /from ", 2);
                     String name = params[0];
-                    String[] fromTo = params[1].split("/to ", 2);
+                    String[] fromTo = params[1].split(" /to ", 2);
                     task = new Event(name, fromTo[0], fromTo[1]);
                     hasPendingChanges = true;
                 } catch (Exception e) {
