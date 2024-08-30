@@ -1,3 +1,5 @@
+package colby;
+
 public class Event extends Task {
     private final String start;
     private final String end;

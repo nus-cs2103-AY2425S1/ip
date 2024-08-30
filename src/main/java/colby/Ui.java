@@ -1,3 +1,5 @@
+package colby;
+
 public class Ui {
     public void showWelcomeMessage() {
         String logo = "  ____      _ _\n"
