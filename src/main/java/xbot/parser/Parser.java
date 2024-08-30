@@ -126,6 +126,12 @@ public class Parser {
                 list.deleteTask(rest);
                 storage.saveTask(list);
                 break;
+            case "find":
+                if (rest.isEmpty()) {
+                    throw new XBotException("There is nothing to find!");
+                }
+                list.findTask(rest);
+                break;
             default:
                 throw new XBotException("I'm sorry, but I don't know what that means :-(");
         }

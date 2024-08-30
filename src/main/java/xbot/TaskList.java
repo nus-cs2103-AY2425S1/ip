@@ -5,6 +5,8 @@ import xbot.task.ToDo;
 import xbot.task.Event;
 import xbot.task.Deadline;
 import xbot.parser.Parser;
+import xbot.ui.Ui;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -128,5 +130,13 @@ public class TaskList {
         }
     }
 
-
+    public void findTask(String keyword) {
+        TaskList specificTasks = new TaskList();
+        for (Task task : list) {
+            if (task.getDescription().contains(keyword)) {
+                specificTasks.add(task);
+            }
+        }
+        Ui.showMatchingTaskList(specificTasks);
+    }
 }
