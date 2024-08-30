@@ -1,15 +1,16 @@
 package orion;
 
 import java.util.List;
+
+import orion.commands.Command;
 import orion.orionExceptions.FileInitializationException;
 import orion.orionExceptions.OrionException;
+import orion.parser.Parser;
 import orion.storage.Storage;
 import orion.task.DeadlineDetails;
 import orion.task.EventDetails;
 import orion.task.Task;
 import orion.taskList.TaskList;
-import orion.parser.Parser;
-import orion.commands.Command;
 import orion.ui.UI;
 
 public class Orion {
