@@ -1,4 +1,4 @@
-package michaelscott.task;
+package michaelscott.utils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -7,9 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import michaelscott.MichaelScottException;
-import michaelscott.Ui;
+import michaelscott.task.Task;
+import michaelscott.task.TaskList;
+import michaelscott.task.TaskParser;
 
 /**
  * Handles storage of tasks, including reading and loading data from file

@@ -1,14 +1,10 @@
 package michaelscott.task;
 
-import michaelscott.MichaelScottException;
+import michaelscott.utils.MichaelScottException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/*
- * This class is used to parse a Task from a file
- */
 public class TaskParser {
-
     public static Task parseTask(String line) throws MichaelScottException {
         String[] split = line.split(" \\| ");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

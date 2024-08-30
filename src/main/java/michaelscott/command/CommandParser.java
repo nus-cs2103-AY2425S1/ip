@@ -1,6 +1,6 @@
 package michaelscott.command;
 
-import michaelscott.MichaelScottException;
+import michaelscott.utils.MichaelScottException;
 
 public class CommandParser {
     public Command parse(String fullCommand) throws MichaelScottException {
@@ -8,7 +8,6 @@ public class CommandParser {
         String command = parts[0];
         String args = parts.length > 1 ? parts[1] : "";
 
-        //michaelscott.MichaelScott.task.Todo think enums
         return switch (command.toLowerCase()) {
             case "list" -> new ListCommand();
             case "bye" -> new ExitCommand();

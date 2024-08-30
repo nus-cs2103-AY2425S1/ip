@@ -1,9 +1,11 @@
 package michaelscott;
 
 import michaelscott.command.CommandParser;
-import michaelscott.task.Storage;
+import michaelscott.utils.MichaelScottException;
+import michaelscott.utils.Storage;
 import michaelscott.task.TaskList;
 import michaelscott.command.Command;
+import michaelscott.utils.Ui;
 
 public class MichaelScott {
     private final Storage storage;

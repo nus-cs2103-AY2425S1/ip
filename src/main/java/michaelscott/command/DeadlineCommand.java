@@ -2,7 +2,7 @@ package michaelscott.command;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import michaelscott.MichaelScottException;
+import michaelscott.utils.MichaelScottException;
 import michaelscott.task.Deadline;
 import michaelscott.task.TaskList;
 

@@ -1,6 +1,6 @@
 package michaelscott.command;
 
-import michaelscott.MichaelScottException;
+import michaelscott.utils.MichaelScottException;
 import michaelscott.task.TaskList;
 import michaelscott.task.Task;
 

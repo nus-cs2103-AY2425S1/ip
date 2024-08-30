@@ -1,4 +1,4 @@
-package michaelscott;
+package michaelscott.utils;
 
 import java.util.Scanner;
 

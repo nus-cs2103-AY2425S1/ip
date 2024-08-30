@@ -1,4 +1,4 @@
-package michaelscott;
+package michaelscott.utils;
 
 public class MichaelScottException extends Exception {
     public MichaelScottException(String errMessage) {
