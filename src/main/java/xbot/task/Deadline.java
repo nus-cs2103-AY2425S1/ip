@@ -1,5 +1,7 @@
 package xbot.task;
 
+import xbot.parser.Parser;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -35,40 +37,8 @@ public class Deadline extends Task {
         return by;
     }
 
-    /**
-     * Converts the deadline to a different date format.
-     * The method attempts to parse the deadline using multiple date formats.
-     * If successful, it returns the date in a standard format; otherwise, it returns an error message.
-     *
-     * @param by The original deadline string to be converted.
-     * @return The formatted deadline string, or an error message if the conversion fails.
-     */
-    public String changeDateFormat(String by) {
-
-        List<String> formats = new ArrayList<>();
-        formats.add("yyyy-MM-dd");
-        formats.add("d/M/yyyy");
-        formats.add("d/M/yyyy HHmm");
-
-        for (String format : formats) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-            try {
-                if (format.contains("HHmm")) {
-                    LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
-                    return dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma"));
-                } else {
-                    LocalDate date = LocalDate.parse(by, formatter);
-                    return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-                }
-            } catch (DateTimeParseException e) {
-                continue;
-            }
-        }
-        return "TimeDate cannot be converted to another format :'0";
-    }
-
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + changeDateFormat(by) + ")";
+        return "[D]" + super.toString() + " (by: " + Parser.changeDateFormat(by) + ")";
     }
 }

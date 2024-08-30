@@ -106,6 +106,38 @@ public class Parser {
     }
 
     /**
+     * Converts the deadline to a different date format.
+     * The method attempts to parse the deadline using multiple date formats.
+     * If successful, it returns the date in a standard format; otherwise, it returns an error message.
+     *
+     * @param by The original deadline string to be converted.
+     * @return The formatted deadline string, or an error message if the conversion fails.
+     */
+    public static String changeDateFormat(String by) {
+
+        List<String> formats = new ArrayList<>();
+        formats.add("yyyy-MM-dd");
+        formats.add("d/M/yyyy");
+        formats.add("d/M/yyyy HHmm");
+
+        for (String format : formats) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+            try {
+                if (format.contains("HHmm")) {
+                    LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+                    return dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma"));
+                } else {
+                    LocalDate date = LocalDate.parse(by, formatter);
+                    return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                }
+            } catch (DateTimeParseException e) {
+                continue;
+            }
+        }
+        return "TimeDate cannot be converted to another format :'0";
+    }
+
+    /**
      * Processes a user input string and executes the corresponding command.
      *
      * @param input The user's input string.
