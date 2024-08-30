@@ -61,7 +61,7 @@ public class ModifyCommand extends Command {
      * @param mark  Whether to mark (true) or unmark (false) the task.
      */
     private void toggleTaskMark(int index, boolean mark) {
-        if (mark == list.taskIsDone(index)) {
+        if (mark == list.isTaskDone(index)) {
             ui.showAlreadyMarked(list.get(index));
         } else {
             list.toggleMark(index);
