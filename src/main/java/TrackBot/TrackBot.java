@@ -28,29 +28,6 @@ public class TrackBot {
         }
     }
 
-//    public void run() {
-//        Scanner scanner = new Scanner(System.in);
-//        ui.showWelcome();
-//
-//        // Solution below inspired by https://www.javatpoint.com/chatbot-application-in-java
-//        while (true) {
-//            String userInput = scanner.nextLine();
-//            try {
-//                if (userInput.equalsIgnoreCase("bye")) {
-//                    break;
-//                }
-//                Parser.checkUserInput(userInput, trackList);
-//            } catch (TrackBotException e) {
-//                System.out.println(e.getMessage());
-//            } catch (Exception e) {
-//                System.out.println("An error occurred: " + e.getMessage());
-//            }
-//        }
-//
-//        // close scanner and exit with message
-//        scanner.close();
-//        ui.showBye();
-//    }
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
