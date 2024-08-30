@@ -12,8 +12,6 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-
-
     @Override
     public String toFileFormat() {
         return "D | " + getStatusIcon() + " | " + description + " | " + DateParser.format(by);

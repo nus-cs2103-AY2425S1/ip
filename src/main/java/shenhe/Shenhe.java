@@ -1,13 +1,31 @@
 package shenhe;
+
 import shenhe.command.Command;
 import shenhe.parser.Parser;
 
+/**
+ * Represents the main entry point for the Shenhe application.
+ * <p>
+ * The {@code Shenhe} class is responsible for initializing and running the application.
+ * It handles loading tasks from storage, reading user commands, executing commands,
+ * and managing the application state.
+ * </p>
+ */
 public class Shenhe {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a {@code Shenhe} object with the specified file path for storing tasks.
+     * <p>
+     * Initializes the user interface, storage, and loads the tasks from the specified file.
+     * If loading tasks fails, an empty task list is initialized.
+     * </p>
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Shenhe(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -19,6 +37,14 @@ public class Shenhe {
         }
     }
 
+    /**
+     * Starts the main loop of the application, which continuously reads and processes user commands
+     * until an exit command is issued.
+     * <p>
+     * In each iteration, a command is read from the user, parsed, and executed.
+     * The loop continues until the command indicates that the application should exit.
+     * </p>
+     */
     public void run() {
         ui.showLine();
         ui.showWelcome();
@@ -39,6 +65,12 @@ public class Shenhe {
         }
     }
 
+    /**
+     * The entry point of the application. Initializes a {@code Shenhe} instance
+     * with the specified file path and starts the application by calling {@link #run()}.
+     *
+     * @param args Command-line arguments. Not used in this implementation.
+     */
     public static void main(String[] args) {
         new Shenhe("data/Shenhe.txt").run();
     }
