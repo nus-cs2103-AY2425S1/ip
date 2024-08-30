@@ -3,7 +3,14 @@ package bill;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The Parser class offers helper functions to help parse user input based on the commands of the user and when reading from bill.txt.
+ */
 public class Parser {
+
+    /**
+     * Initializes Ui.
+     */
     public Parser() {
 
     }

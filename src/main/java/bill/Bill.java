@@ -1,12 +1,15 @@
 package bill;
 
+/**
+ * The Bill class provides a command line interface chatbot for users to interact with.
+ */
 public class Bill {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
 
     /**
-     * Initializes Bill chatbot
+     * Initializes Bill chatbot.
      */
     public Bill() {
         storage = new Storage();
@@ -15,7 +18,7 @@ public class Bill {
     }
 
     /**
-     * Starts Bill chatbot when called
+     * Starts Bill chatbot when called.
      */
     public void start() {
         ui.silentLoadingData(storage, tasks.getUserList(), tasks);
