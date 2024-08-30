@@ -1,20 +1,16 @@
-import java.util.Objects;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;
+import java.io.File;
 public class Optimus {
+    private static final String FILE_PATH = "./data/optimus.txt";
 
-
-    public static void main(String[] args) {
-        final String FILE_PATH = "./data/Optimus.txt";
-        File myFile = new File(FILE_PATH);
-        
+    public static void main(String[] args) throws FileNotFoundException {
         System.out.println("Hello! I'm Optimus");
         System.out.println("What can I do for you?");
         Scanner stringScanner = new Scanner(System.in);
-        List<Task> record = new ArrayList<>();
+        List<Task> record = loadFile();
         int count = 0;
 
         while (true) {
@@ -122,6 +118,52 @@ public class Optimus {
                 }
             }
         }
+    }
+
+    public static List<Task> loadFile() throws FileNotFoundException {
+        File f = new File(FILE_PATH);
+        List<Task> record = new ArrayList<>();
+        int count = 0;
+        if (!f.exists()) {
+            System.out.println("No existing data file found in given directory. A new record will be established");
+            return record;
+        }
+        Scanner s = new Scanner(f);
+        while (s.hasNextLine()) {
+            String line = s.nextLine();
+            String[] parts = line.split(" \\| ");
+            String taskType = parts[0];
+            boolean isDone = parts[1].equals("1");
+            String description = parts[2];
+
+            Task task = null;
+            switch (taskType) {
+                case "T":
+                    task = new ToDos(description);
+                    count++;
+                    break;
+                case "D":
+                    String by = parts[3];
+                    task = new Deadlines(description, by);
+                    count++;
+                    break;
+                case "E":
+                    String from = parts[3];
+                    String to = parts[4];
+                    task = new Events(description, from, to);
+                    count++;
+                    break;
+            }
+
+            if (task != null) {
+                if (isDone) {
+                    task.setDone();
+                }
+                record.add(task);
+            }
+        }
+        s.close();
+        return record;
     }
 }
 
