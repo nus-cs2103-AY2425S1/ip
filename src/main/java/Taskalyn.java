@@ -106,13 +106,18 @@ public class Taskalyn {
 
                 case "deadline":
                     if (completeString.length != 2) {
-                        throw new CommandFormatException("Aw... your deadline command is incomplete. Try this: deadline {task} /by {deadline}");
+                        throw new CommandFormatException("Aw... your deadline command is incomplete. Try this: deadline {task} /by {yyyy-MM-dd HHmm}");
                     }
                     try {
                         if (completeString[1].contains("/by")) {
                             String[] deadlineString = completeString[1].split(" /by ", 2);
                             if (deadlineString.length == 2) {
-                                taskManager.addTask(new DeadlineTask(deadlineString[0], deadlineString[1], false));
+                                String datePattern = "\\d{4}-\\d{2}-\\d{2} \\d{4}";
+                                if (deadlineString[1].matches(datePattern)) {
+                                    taskManager.addTask(new DeadlineTask(deadlineString[0], deadlineString[1], false));
+                                } else {
+                                    throw new CommandFormatException("Aw... the date format must be yyyy-MM-dd HHmm");
+                                }
                             } else {
                                 throw new CommandFormatException("Aw... your deadline command must contain the task, /by, and the deadline.");
                             }
@@ -120,7 +125,7 @@ public class Taskalyn {
                             throw new CommandFormatException("Aw... your deadline command doesn't have a deadline date set!");
                         }
                     } catch (Exception e) {
-                        throw new CommandFormatException("Aw... your deadline command is incorrect. Try this: deadline {task} /by {deadline}");
+                        throw new CommandFormatException("Aw... your deadline command is incorrect. Try this: deadline {task} /by {yyyy-MM-dd HHmm}");
                     }
                     break;
 
