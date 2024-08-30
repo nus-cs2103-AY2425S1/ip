@@ -60,8 +60,8 @@ public abstract class Task {
             newTask = new Deadline(name, dueDate);
             break;
         case "E":
-            String from = params[4];
-            String to = params[5];
+            String from = params[3];
+            String to = params[4];
             newTask = new Event(name, from, to);
             break;
         default:
