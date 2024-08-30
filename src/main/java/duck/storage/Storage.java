@@ -1,3 +1,8 @@
+package duck.storage;
+
+import duck.command.InvalidCommandException;
+import duck.task.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -6,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
- * Storage class deals with loading tasks from the file and saving tasks in the file.
+ * duck.storage.Storage class deals with loading tasks from the file and saving tasks in the file.
  */
 public class Storage {
 

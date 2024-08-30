@@ -1,7 +1,9 @@
+package duck.task;
+
 import java.util.ArrayList;
 
 /**
- * TaskList class contains the task list.
+ * duck.task.TaskList class contains the task list.
  */
 public class TaskList {
 

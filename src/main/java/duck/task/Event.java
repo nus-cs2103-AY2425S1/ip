@@ -1,3 +1,5 @@
+package duck.task;
+
 /**
  * Represents an event task with a description, start time, and end time.
  */
@@ -7,7 +9,7 @@ public class Event extends Task {
     protected String to;
 
     /**
-     * Constructs an Event task with description, start time, and end time.
+     * Constructs an duke.task.Event task with description, start time, and end time.
      *
      * @param description The description of the event.
      * @param from The start time of the event.

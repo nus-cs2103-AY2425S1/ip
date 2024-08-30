@@ -1,7 +1,12 @@
+package duck.ui;
+
+import duck.task.Task;
+import duck.task.TaskList;
+
 import java.util.Scanner;
 
 /**
- * Ui class deals with interactions with the user.
+ * duck.ui.Ui class deals with interactions with the user.
  */
 public class Ui {
     private static final String LINE = "____________________________________________________________";

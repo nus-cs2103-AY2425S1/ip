@@ -1,21 +1,23 @@
+package duck.task;
+
 /**
- * Represents a ToDo task with a description.
+ * Represents a duke.task.ToDo task with a description.
  */
 public class ToDo extends Task {
 
     /**
-     * Constructs a ToDo task with description.
+     * Constructs a duke.task.ToDo task with description.
      *
-     * @param description The description of the ToDo.
+     * @param description The description of the duke.task.ToDo.
      */
     public ToDo(String description) {
         super(description);
     }
 
     /**
-     * Returns a string representation of this ToDo task.
+     * Returns a string representation of this duke.task.ToDo task.
      *
-     * @return A string representation of this ToDo task.
+     * @return A string representation of this duke.task.ToDo task.
      */
     @Override
     public String toString() {
