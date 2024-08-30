@@ -21,10 +21,10 @@ public class AddEvent extends Command {
                 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
                 LocalDateTime start = LocalDateTime.parse(fillerName[0], dateFormatter);
                 LocalDateTime end = LocalDateTime.parse(fillerName[1], dateFormatter);
-                Event e = new Event(order[0], start, end);
-                reminder.addEvent(e);
+                Event eventTask = new Event(order[0], start, end);
+                reminder.addEvent(eventTask);
                 ui.print("Got it. I've added this task:");
-                ui.print("    " + e.toString());
+                ui.print("    " + eventTask.toString());
                 ui.print("Now you have " + reminder.size() + " tasks in the list.");
             } else {
                 throw new EmptyDescriptionException("WHEN EVENT DATE!");

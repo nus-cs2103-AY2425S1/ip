@@ -31,14 +31,14 @@ public class Winde {
 
     private static void run() {
         ui.greet();
-        Command c = new ListCommand();
+        Command currentCommand = new ListCommand();
         boolean shouldContinue = true;
         while (shouldContinue) {
             try {
                 String input = ui.read();
                 ui.showLine();
-                c = Parser.parse(input);
-                shouldContinue = c.execute(input, reminder, ui);
+                currentCommand = Parser.parse(input);
+                shouldContinue = currentCommand.execute(input, reminder, ui);
             } catch (UnsupportedCommandException e) {
                 throw new RuntimeException(e);
             } catch (EmptyDescriptionException e) {
@@ -49,7 +49,7 @@ public class Winde {
                 ui.showLine();
             }
         }
-        c.exit(history, reminder, ui);
+        currentCommand.exit(history, reminder, ui);
     }
 
     public void task(int i) {

@@ -18,7 +18,7 @@ public class Parser {
 
     public static Command parse(String input) throws UnsupportedCommandException {
         String[] parts = input.split(" ", 2);
-        subCommands command = getCommandType(parts[0]);
+        SubCommandType command = getCommandType(parts[0]);
         String arguments = (parts.length > 1) ? parts[1] : "";
         Command commands = new ErrorCommand();
         try {
@@ -65,39 +65,39 @@ public class Parser {
         return commands;
     }
 
-    private static subCommands getCommandType(String input) {
+    private static SubCommandType getCommandType(String input) {
         if (input.startsWith("todo")) {
-            return subCommands.TODO;
+            return SubCommandType.TODO;
         } else if (input.startsWith("T")) {
-            return subCommands.TODO;
+            return SubCommandType.TODO;
         } else if (input.startsWith("deadline")) {
-            return subCommands.DEADLINE;
+            return SubCommandType.DEADLINE;
         } else if (input.startsWith("D")) {
-            return subCommands.DEADLINE;
+            return SubCommandType.DEADLINE;
         } else if (input.startsWith("E")) {
-            return subCommands.EVENT;
+            return SubCommandType.EVENT;
         } else if (input.startsWith("event")) {
-            return subCommands.EVENT;
+            return SubCommandType.EVENT;
         } else if (input.equals("list")) {
-            return subCommands.LIST;
+            return SubCommandType.LIST;
         } else if (input.startsWith("delete")) {
-            return subCommands.DELETE;
+            return SubCommandType.DELETE;
         } else if (input.equals("bye")) {
-            return subCommands.BYE;
+            return SubCommandType.BYE;
         } else if (input.startsWith("mark")) {
-            return subCommands.MARK;
+            return SubCommandType.MARK;
         } else if (input.startsWith("unmark")) {
-            return subCommands.UNMARK;
+            return SubCommandType.UNMARK;
         } else if (input.startsWith("date")) {
-            return subCommands.DATE;
+            return SubCommandType.DATE;
         } else if (input.startsWith("find")) {
-            return subCommands.FIND;
+            return SubCommandType.FIND;
         } else {
-            return subCommands.UNKNOWN;
+            return SubCommandType.UNKNOWN;
         }
     }
 
-    enum subCommands {
+    enum SubCommandType {
         TODO, DEADLINE, EVENT, LIST, DELETE, BYE, MARK, UNMARK, DATE, FIND, UNKNOWN
     }
 }

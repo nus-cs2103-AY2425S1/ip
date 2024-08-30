@@ -39,7 +39,7 @@ public class Ui {
         System.out.println("---------------------");
     }
 
-    public static void print(String output) {
+    public void print(String output) {
         System.out.println(output);
     }
 }

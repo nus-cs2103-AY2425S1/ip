@@ -18,9 +18,9 @@ public class TaskDateCommand extends Command {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate date = LocalDate.parse(command[1], formatter);
             ui.print("These are the tasks you have for " + date.toString());
-            ArrayList<Task> taskList = reminder.getTasksOnDate(date);
-            if (taskList != null) {
-                for (Task task : taskList) {
+            ArrayList<Task> tasksOnDate = reminder.getTasksOnDate(date);
+            if (tasksOnDate != null) {
+                for (Task task : tasksOnDate) {
                     ui.print(task.toString());
                 }
             } else {

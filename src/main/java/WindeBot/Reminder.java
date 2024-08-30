@@ -48,7 +48,6 @@ public class Reminder {
         }
         taskList.add(task);
         calendar.put(task.getDate(), taskList);
-        //return new Reminder(reminder, calendar);
     }
 
     public static void addDeadline(Deadline task) {
