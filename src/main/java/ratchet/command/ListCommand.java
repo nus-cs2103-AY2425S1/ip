@@ -4,6 +4,9 @@ import ratchet.storage.Storage;
 import ratchet.task.TaskList;
 import ratchet.ui.Ui;
 
+/**
+ * Command to list the task list.
+ */
 public class ListCommand extends Command {
     @Override
     public void execute(Storage storage, TaskList tasks, Ui ui) {

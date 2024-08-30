@@ -5,9 +5,17 @@ import ratchet.task.Task;
 import ratchet.task.TaskList;
 import ratchet.ui.Ui;
 
+/**
+ * Command to add the task to task list.
+ */
 public class AddCommand extends Command {
     private final Task task;
 
+    /**
+     * Constructor for AddCommand.
+     *
+     * @param task Task to be added.
+     */
     public AddCommand(Task task) {
         this.task = task;
     }

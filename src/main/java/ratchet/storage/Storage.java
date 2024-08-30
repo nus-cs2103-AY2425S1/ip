@@ -13,10 +13,18 @@ import ratchet.task.Task;
 import ratchet.task.TaskList;
 import ratchet.task.TodoTask;
 
+/**
+ * Class to handle the storage of the bot.
+ */
 public class Storage {
     private static final String PATH_TO_DIRECTORY = "data";
     private static final String PATH_TO_TASK_FILE = "data/ratchet.txt";
 
+    /**
+     * Loads tasks into task list from specified destination.
+     *
+     * @param tasks The task list to load the tasks to.
+     */
     public void loadTasks(TaskList tasks) {
         File file = new File(PATH_TO_TASK_FILE);
         try (Scanner scanner = new Scanner(file)) {
@@ -45,6 +53,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Save tasks into specified destination from task list.
+     *
+     * @param tasks The task list to save the tasks from.
+     */
     public void saveTasks(TaskList tasks) {
         try (FileWriter fw = new FileWriter("data/ratchet.txt")) {
             for (Task task : tasks) {
