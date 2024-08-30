@@ -1,5 +1,10 @@
 package tecna;
 
+/**
+ * Represents the ToDo type of Task class.
+ *
+ * @author DennieDan.
+ */
 public class ToDo extends Task {
 
     public ToDo(String taskName) {

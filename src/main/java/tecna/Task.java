@@ -1,5 +1,12 @@
 package tecna;
 
+/**
+ * Represents a task entered by the user.
+ * A <code>taskName</code> is the description of the task.
+ * An <code>isDone</code> attribute showing the status of the task.
+ *
+ * @author DennieDan.
+ */
 public abstract class Task {
     private String taskName;
     private boolean isDone;
@@ -12,7 +19,7 @@ public abstract class Task {
     /**
      * Returns the description of the task
      * which is set as private.
-     * @return name of the task
+     * @return name of the task.
      */
     public String getTaskName() {
         return this.taskName;
@@ -24,8 +31,8 @@ public abstract class Task {
 
     /**
      * Returns an icon representing the status of the task
-     * a cross "X" for DONE and "empty" " " for UNDONE
-     * @return a status icon
+     * a cross "X" for DONE and "empty" " " for UNDONE.
+     * @return a status icon.
      */
     public String getStatusIcon() {
         return (this.isDone ? "X" : " ");
@@ -48,8 +55,8 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string describing the task
-     * @return a string containing the task's information
+     * Returns a string describing the task.
+     * @return a string containing the task's information.
      */
     @Override
     public String toString() {
