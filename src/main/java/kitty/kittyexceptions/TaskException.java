@@ -1,4 +1,6 @@
-public class TaskException extends KittyException{
+package kitty.kittyexceptions;
+
+public class TaskException extends KittyException {
 
     /**
      * Returns the Exception description in String.

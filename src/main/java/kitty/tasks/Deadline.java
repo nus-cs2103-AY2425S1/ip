@@ -1,8 +1,10 @@
+package kitty.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Provides the skeleton for a kind of Task named Deadline.
+ * Provides the skeleton for a kind of tasks.Task named tasks.Deadline.
  */
 public class Deadline extends Task{
     private final LocalDateTime by;

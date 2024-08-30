@@ -1,7 +1,9 @@
+package kitty.tasks;
+
 /**
- * Provides a skeleton for Task objects.
+ * Provides a skeleton for tasks.Task objects.
  */
-abstract class Task {
+public class Task {
     private final String name;
     private boolean isDone = false;
 
@@ -30,21 +32,21 @@ abstract class Task {
     }
 
     /**
-     * Marks the Task as done.
+     * Marks the tasks.Task as done.
      */
     public void mark() {
         isDone = true;
     }
 
     /**
-     * Marks the Task as undone.
+     * Marks the tasks.Task as undone.
      */
     public void unmark() {
         isDone = false;
     }
 
     /**
-     * Checks if the Task contains the keyword to utilize searching.
+     * Checks if the tasks.Task contains the keyword to utilize searching.
      *
      * @param key The keyword to check.
      */
@@ -53,7 +55,7 @@ abstract class Task {
     }
 
     /**
-     * Returns Task description in String for ChatBot interaction.
+     * Returns tasks.Task description in String for ChatBot interaction.
      */
     @Override
     public String toString() {

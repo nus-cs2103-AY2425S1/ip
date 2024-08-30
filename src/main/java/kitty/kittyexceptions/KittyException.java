@@ -1,3 +1,5 @@
+package kitty.kittyexceptions;
+
 /**
  * Provides Exception for ChatBot.
  */
