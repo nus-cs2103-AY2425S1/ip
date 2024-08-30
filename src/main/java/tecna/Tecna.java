@@ -6,20 +6,28 @@ import java.io.IOException;
 
 import org.json.simple.parser.ParseException;
 
+/**
+ * Runs the Tecna chatbot application.
+ *
+ * @author DennieDan.
+ */
 public class Tecna {
     private Storage storage;
     private TaskList taskList;
     private CommandScanner commandScanner;
     private Ui ui;
-    /**
-     * A constructor of tecna.Tecna chatbot
-     */
+
     public Tecna() {
         this.taskList = new TaskList();
         this.commandScanner = new CommandScanner();
         this.ui = new Ui();
     }
 
+    /**
+     * Constructs an instance of Tecna chatbot from a <b>json</b> file.
+     *
+     * @param taskData absolute path to the json file.
+     */
     public Tecna(String taskData) {
         this.storage = new Storage(taskData);
         this.commandScanner = new CommandScanner();
@@ -37,7 +45,7 @@ public class Tecna {
     }
 
     /**
-     * Exits the chatbot by printing the goodbye lines
+     * Exits the chatbot by printing the goodbye lines.
      */
     public void exitChatBot() {
         storage.setFilePath("src/main/data/tecna1.json");
@@ -48,7 +56,7 @@ public class Tecna {
     }
 
     /**
-     * Repeats the input entered by the user
+     * Repeats the input entered by the user.
      */
     public void echo() {
         Scanner sc = new Scanner(System.in);
@@ -65,8 +73,7 @@ public class Tecna {
     }
 
     /**
-     * Receives requests entered by the user.
-     * Accepts string input and processes accordingly.
+     * Receives requests entered by the user and controls other Tecna attributes to work accordingly.
      */
     public void getRequest() {
         CommandType command = this.commandScanner.getRequest();
@@ -120,6 +127,9 @@ public class Tecna {
 
     }
 
+    /**
+     * Greets the user by printing the logo.
+     */
     public void greet() {
         ui.printLogo();
         ui.printHelloMsg();

@@ -3,6 +3,12 @@ package tecna;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
+/**
+ * Represents the Event type of Task, which has the starting ending times.
+ * A <code>from</code> and <code>to</code> attributes stores and starting time and ending time, respectively.
+ *
+ * @author DennieDan.
+ */
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;

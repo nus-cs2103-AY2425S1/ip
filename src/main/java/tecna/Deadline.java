@@ -3,6 +3,12 @@ package tecna;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
+/**
+ * Represents the Deadline type of Task.
+ * A <code>by</code> attribute stores the due date of the task.
+ *
+ * @author DennieDan.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
 

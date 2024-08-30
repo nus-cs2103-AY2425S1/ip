@@ -1,5 +1,11 @@
 package tecna;
 
+/**
+ * Represents types of exceptions when parsing data from a json file.
+ * A <code>message</code> shows the error message of each exception.
+ *
+ * @author DennieDan.
+ */
 public enum JsonLoadingExceptionType {
     INVALID_TASK_TYPE("Invalid Task type!"),
     TASKLIST_NOT_FOUND("Cannot find the \"taskList\" array in the data file!"),
