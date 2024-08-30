@@ -25,7 +25,7 @@ public class StorageTest {
 
             fail();
         } catch (Exception e) {
-            assertEquals("Oops! Cannot find the \"taskList\" array in the data file!", e.getMessage());
+            assertEquals("Cannot find the \"taskList\" array in the data file!", e.getMessage());
         }
     }
 
@@ -41,7 +41,7 @@ public class StorageTest {
 
             fail();
         } catch (Exception e) {
-            assertEquals("Oops! Invalid Task type!", e.getMessage());
+            assertEquals("Invalid Task type!", e.getMessage());
         }
     }
 
@@ -58,7 +58,7 @@ public class StorageTest {
 
             fail();
         } catch (Exception e) {
-            assertEquals("Oops! There are missing values in the Deadline task(s) in the data file!", e.getMessage());
+            assertEquals("There are missing values in the Deadline task(s) in the data file!", e.getMessage());
         }
     }
 }
