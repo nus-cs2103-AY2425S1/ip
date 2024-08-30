@@ -12,7 +12,19 @@ import shenhe.task.Todo;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * The {@code Parser} class is responsible for interpreting user input and converting it into executable commands.
+ * It also handles the parsing of saved task data from file lines into {@code Task} objects.
+ */
 public class Parser {
+
+    /**
+     * Parses a line from the save file and converts it into a {@code Task} object.
+     * The line format determines the type of task (Todo, Deadline, Event) and its attributes.
+     *
+     * @param line A string representing a task in the save file.
+     * @return A {@code Task} object corresponding to the parsed line, or {@code null} if parsing fails or the task type is unknown.
+     */
     public static Task parseFile(String line) {
         // Check the first character to determine the task type
         if (line.startsWith("T")) {
@@ -48,8 +60,19 @@ public class Parser {
         // Handle unknown types by returning null
         return null;
     }
-    public static Command parse(String userInput) throws Exception {
 
+    /**
+     * Parses user input and returns the corresponding {@code Command} object.
+     * This method interprets the user's command and creates the appropriate command instance.
+     *
+     * @param userInput The user input string containing the command.
+     * @return A {@code Command} object that corresponds to the user input.
+     * @throws Exception Various exceptions that correspond to invalid commands or task descriptions:
+     *                   {@link EmptyTaskDescriptionException} if the task description is empty,
+     *                   {@link InvalidListEnquiry} if the list command is invalid,
+     *                   {@link UnknownTaskException} if the command is not recognized.
+     */
+    public static Command parse(String userInput) throws Exception {
         if (userInput.equals("bye")) {
             return new ExitCommand();
         } else if (userInput.startsWith("mark")) {
@@ -74,12 +97,16 @@ public class Parser {
             }
             return new EventCommand(userInput);
         } else if (userInput.startsWith("list")) {
-           if (userInput.trim().length() != 4) {
-               throw new InvalidListEnquiry();
-           }
+            if (userInput.trim().length() != 4) {
+                throw new InvalidListEnquiry();
+            }
             return new ListCommand(userInput);
+        } else if (userInput.startsWith("find")) {
+            if (userInput.trim().length() == 4) {
+                throw new EmptyTaskDescriptionException();
+            }
+            return new FindCommand(userInput);
         }
         throw new UnknownTaskException();
     }
-
 }
