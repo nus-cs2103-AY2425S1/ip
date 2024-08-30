@@ -14,7 +14,7 @@ public class EventTest {
     public void eventTestDateLegit() {
         try {
             Task test = Task.of(Command.EVENT, "parktour with my hand /from 2024-08-06 /to 2024-08-07");
-            assertEquals("E | 0 | parktour with my hand | 2024-08-06 | 2024-08-07", test.savedString());
+            assertEquals("E | 0 | parktour with my hand | Aug 6 2024 | Aug 7 2024", test.savedString());
             assertEquals("[E][ ]parktour with my hand (from: Aug 6 2024 to: Aug 7 2024)", test.toString());
         } catch (Exception e) {
             fail("Exception is thrown when is it not supposed to be. Exception message below\n"
@@ -26,7 +26,7 @@ public class EventTest {
     public void eventTestDateFlipped() {
         try {
             Task test = Task.of(Command.EVENT, "parktour with my hand /to 2024-08-07 /from 2024-08-06");
-            assertEquals("E | 0 | parktour with my hand | 2024-08-06 | 2024-08-07", test.savedString());
+            assertEquals("E | 0 | parktour with my hand | Aug 6 2024 | Aug 7 2024", test.savedString());
             assertEquals("[E][ ]parktour with my hand (from: Aug 6 2024 to: Aug 7 2024)", test.toString());
         } catch (Exception e) {
             fail("Exception is thrown when is it not supposed to be. Exception message below\n"
@@ -50,7 +50,7 @@ public class EventTest {
     public void eventTestDateFromData() {
         try {
             Task test = Task.createFromData("E | 0 | parktour with my hand | 2024-08-06 | 2024-08-07");
-            assertEquals("E | 0 | parktour with my hand | 2024-08-06 | 2024-08-07", test.savedString());
+            assertEquals("E | 0 | parktour with my hand | Aug 6 2024 | Aug 7 2024", test.savedString());
             assertEquals("[E][ ]parktour with my hand (from: Aug 6 2024 to: Aug 7 2024)", test.toString());
         } catch (Exception e) {
             fail("Exception is thrown when is it not supposed to be. Exception message below\n"

@@ -14,7 +14,7 @@ public class DeadlineTest {
     public void deadlineTestDate() {
         try {
             Task test = Task.of(Command.DEADLINE, "parktour with my hand /by 2024-08-06");
-            assertEquals("D | 0 | parktour with my hand | 2024-08-06", test.savedString());
+            assertEquals("D | 0 | parktour with my hand | Aug 6 2024", test.savedString());
             assertEquals("[D][ ]parktour with my hand (by: Aug 6 2024)", test.toString());
         } catch (Exception e) {
             fail("Exception is thrown when is it not supposed to be. Exception message below\n"
@@ -38,7 +38,7 @@ public class DeadlineTest {
     public void deadlineTestDateFromData() {
         try {
             Task test = Task.createFromData("D | 0 | parktour with my hand | 2024-08-06");
-            assertEquals("D | 0 | parktour with my hand | 2024-08-06", test.savedString());
+            assertEquals("D | 0 | parktour with my hand | Aug 6 2024", test.savedString());
             assertEquals("[D][ ]parktour with my hand (by: Aug 6 2024)", test.toString());
         } catch (Exception e) {
             fail("Exception is thrown when is it not supposed to be. Exception message below\n"

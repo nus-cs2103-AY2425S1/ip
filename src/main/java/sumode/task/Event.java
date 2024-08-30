@@ -9,10 +9,8 @@ import java.time.format.DateTimeParseException;
  */
 public class Event extends Task {
 
-    private final String start;
-    private final String end;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private final DueFromToFormat start;
+    private final DueFromToFormat end;
 
     /**
      * Constructor for Event
@@ -24,20 +22,9 @@ public class Event extends Task {
     public Event(String name, String start, String end) {
 
         super(name);
-        this.start = start;
-        this.end = end;
+        this.start = new DueFromToFormat(start);
+        this.end = new DueFromToFormat(end);
 
-        try {
-            startDate = LocalDate.parse(start);
-        } catch (DateTimeParseException e) {
-            startDate = null;
-        }
-
-        try {
-            endDate = LocalDate.parse(end);
-        } catch (DateTimeParseException e) {
-            endDate = null;
-        }
     }
 
     @Override
@@ -45,9 +32,9 @@ public class Event extends Task {
         return "[E]"
                 + super.toString()
                 + " (from: "
-                + (startDate == null ? this.start : this.startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
+                + start
                 + " to: "
-                + (endDate == null ? this.end : this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")))
+                + end
                 + ")";
     }
 
