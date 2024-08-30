@@ -9,7 +9,7 @@ public class Ui {
 
     public void greeting() {
         printLine();
-        System.out.println("Wassup! I'm broski.Broski!");
+        System.out.println("Wassup! I'm Broski!");
         System.out.println("What can I do for you bro?");
         printLine();
     }
@@ -65,16 +65,16 @@ public class Ui {
         if (reply.length() == 4 && reply.startsWith("todo")) {
             throw new TodoException();
         }
-        if ((reply.length() == 8 && reply.startsWith("deadline")) ||
-                (reply.startsWith("deadline") && parser.parseLength(reply) != 2)) {
+        if ((reply.length() == 8 && reply.startsWith("deadline"))
+                || (reply.startsWith("deadline") && parser.parseLength(reply) != 2)) {
             throw new DeadlineException();
         }
-        if ((reply.length() == 5 && reply.startsWith("event")) ||
-                (reply.startsWith("event") && parser.parseLength(reply) != 3)) {
+        if ((reply.length() == 5 && reply.startsWith("event"))
+                || (reply.startsWith("event") && parser.parseLength(reply) != 3)) {
             throw new EventException();
         }
-        if (!(reply.startsWith("todo") || reply.startsWith("deadline") ||
-                reply.startsWith("event"))) {
+        if (!(reply.startsWith("todo") || reply.startsWith("deadline")
+                || reply.startsWith("event"))) {
             throw new WrongInputException();
         }
         if (reply.length() > 5 && reply.startsWith("todo")) {
@@ -111,20 +111,20 @@ public class Ui {
     }
 
     public void deadlineException() {
-        System.out.println("Hey, your task description" +
-                " is either empty or your deadline is missing/wonky bro.");
+        System.out.println("Hey, your task description"
+                + " is either empty or your deadline is missing/wonky bro.");
         printLine();
     }
 
     public void eventException() {
-        System.out.println("Hey, your task description" +
-                " is either empty or your duration is missing/wonky bro.");
+        System.out.println("Hey, your task description"
+                + " is either empty or your duration is missing/wonky bro.");
         printLine();
     }
 
     public void wrongInputException() {
-        System.out.println("I'm sorry but I can't understand you bro." +
-                " Use todo, deadline or event please!");
+        System.out.println("I'm sorry but I can't understand you bro."
+                + " Use todo, deadline or event please!");
         printLine();
     }
 

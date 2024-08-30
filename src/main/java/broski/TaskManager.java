@@ -68,7 +68,7 @@ public class TaskManager {
                 }
                 return todo;
             } else if (type.equals("D")) {
-                Task deadline = new Deadline(description, LocalDateTime.parse(parts[3]) );
+                Task deadline = new Deadline(description, LocalDateTime.parse(parts[3]));
                 if (isDone) {
                     deadline.mark();
                 }
