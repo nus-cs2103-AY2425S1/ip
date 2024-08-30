@@ -3,6 +3,13 @@ package citadel.commands;
 import citadel.Task.TaskList;
 import citadel.ui.TextUI;
 
+/**
+ * The {@code FindTask} class represents a command that searches for tasks
+ * within a task list that match a specified keyword.
+ * <p>
+ * This command is used to find and display tasks containing the keyword provided by the user.
+ * </p>
+ */
 public class FindTask extends Command {
 
     /**

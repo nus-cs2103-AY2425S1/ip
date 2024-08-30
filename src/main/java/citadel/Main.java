@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Citadel citadel = new Citadel();
+    private final Citadel citadel = new Citadel();
 
     @Override
     public void start(Stage stage) {

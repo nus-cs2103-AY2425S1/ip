@@ -3,6 +3,7 @@ package citadel;
 import citadel.commands.HandleTodo;
 import citadel.Task.TaskList;
 import citadel.exception.CitadelException;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

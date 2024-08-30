@@ -1,7 +1,7 @@
 package citadel.commands;
 
-import citadel.exception.CitadelException;
 import citadel.Task.TaskList;
+import citadel.exception.CitadelException;
 
 /**
  * Represents an abstract command in the Citadel application.

@@ -1,8 +1,8 @@
 package citadel.commands;
 
+import citadel.Task.Event;
 import citadel.Task.Task;
 import citadel.Task.TaskList;
-import citadel.Task.Event;
 import citadel.exception.CitadelException;
 import citadel.exception.CitadelTaskNoInput;
 import citadel.ui.TextUI;
@@ -12,7 +12,8 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Represents the command to handle the creation of an event task in the Citadel application.
- * This class extends {@link Command} and provides functionality to add an event task to the task list.
+ * This class extends {@link Command} and provides functionality to add an event
+ * task to the task list.
  */
 public class HandleEvent extends Command {
 
@@ -21,7 +22,7 @@ public class HandleEvent extends Command {
      *
      * @param input The user input associated with the event command.
      * @param tasks The task list to which the event task will be added.
-     */
+     * */
     public HandleEvent(String input, TaskList tasks) {
         super(input, tasks);
     }
