@@ -76,6 +76,15 @@ public class Velma {
     }
 
     /**
+     * Gets the task list.
+     * @return
+     */
+
+    public TaskList getTasks() {
+        return tasks;
+    }
+
+    /**
      * The main entry point for the Velma application.
      * @param args The command line arguments.
      */
