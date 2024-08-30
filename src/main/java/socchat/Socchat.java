@@ -3,7 +3,7 @@ package socchat;
 import java.util.Scanner;
 
 public class Socchat {
-    private Parser parser;
+
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -12,11 +12,10 @@ public class Socchat {
         BYE, LIST, MARK, UNMARK, TODO, EVENT, DEADLINE, DELETE
     }
     public Socchat(String filePath) {
-        parser = new Parser();
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            taskList = new TaskList(storage.load());
+            taskList = new TaskList(Storage.load());
         } catch (SocchatException e) {
             System.out.println(e.getMessage());
             ui.showLoadingError();
@@ -51,17 +50,17 @@ public class Socchat {
                         break;
                     case TODO:
                         String str = command + scanner.nextLine();
-                        strToken = parser.tokenizeAdd(str);
+                        strToken = Parser.tokenizeAdd(str);
                         taskList.addTodo(strToken);
                         break;
                     case DEADLINE:
                         str = command + scanner.nextLine();
-                        strToken = parser.tokenizeAdd(str);
+                        strToken = Parser.tokenizeAdd(str);
                         taskList.addDeadline(strToken);
                         break;
                     case EVENT:
                         str = command + scanner.nextLine();
-                        strToken = parser.tokenizeAdd(str);
+                        strToken = Parser.tokenizeAdd(str);
                         taskList.addEvent(strToken);
                         break;
                     case DELETE:
