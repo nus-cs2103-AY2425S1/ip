@@ -2,14 +2,14 @@ package bobbybot;
 
 import bobbybot.commands.Command;
 import bobbybot.commands.CommandBye;
-import bobbybot.commands.CommandDelete;
-import bobbybot.commands.CommandList;
-import bobbybot.commands.CommandTodo;
-import bobbybot.commands.CommandEvent;
 import bobbybot.commands.CommandDeadline;
-import bobbybot.commands.CommandMark;
-import bobbybot.commands.CommandUnmark;
+import bobbybot.commands.CommandDelete;
+import bobbybot.commands.CommandEvent;
 import bobbybot.commands.CommandFind;
+import bobbybot.commands.CommandList;
+import bobbybot.commands.CommandMark;
+import bobbybot.commands.CommandTodo;
+import bobbybot.commands.CommandUnmark;
 
 /**
  * Represents a parser that parses user input, translating it to a Command.

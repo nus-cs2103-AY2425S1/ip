@@ -10,10 +10,9 @@ import java.time.format.DateTimeParseException;
  */
 public class Event extends Task {
 
+    private static final DateTimeFormatter EVENT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
     private final LocalDate start;
     private final LocalDate end;
-
-    private final DateTimeFormatter EVENT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     /**
      * Constructor for Event.

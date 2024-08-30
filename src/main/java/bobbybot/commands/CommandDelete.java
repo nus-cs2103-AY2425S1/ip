@@ -1,12 +1,14 @@
 package bobbybot.commands;
 
+import java.io.IOException;
+
 import bobbybot.BobbyBotException;
 import bobbybot.Storage;
 import bobbybot.Task;
 import bobbybot.TaskList;
 import bobbybot.ui.Ui;
 
-import java.io.IOException;
+
 
 /**
  * Represents a command to delete a task.
@@ -14,6 +16,12 @@ import java.io.IOException;
 public class CommandDelete extends Command {
     private final int index;
 
+    /**
+     * Creates a new CommandDelete object.
+     *
+     * @param argument The argument to the command.
+     * @throws BobbyBotException If the argument is invalid.
+     */
     public CommandDelete(String argument) throws BobbyBotException {
         String[] params = argument.split(" ");
         if (params.length != 1) {

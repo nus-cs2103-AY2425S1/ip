@@ -1,25 +1,32 @@
 package bobbybot.commands;
 
-import bobbybot.BobbyBotException;
-import bobbybot.Storage;
-import bobbybot.TaskList;
-import bobbybot.Task;
-import bobbybot.Deadline;
-import bobbybot.ui.Ui;
-
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import bobbybot.BobbyBotException;
+import bobbybot.Deadline;
+import bobbybot.Storage;
+import bobbybot.Task;
+import bobbybot.TaskList;
+import bobbybot.ui.Ui;
+
+
 /**
  * Represents a command to add a deadline task.
  */
-public class CommandDeadline extends Command{
+public class CommandDeadline extends Command {
 
     private final String description;
     private final String by;
 
 
+    /**
+     * Creates a new CommandDeadline object.
+     *
+     * @param argument The argument string to create the deadline task.
+     * @throws BobbyBotException If the argument is in the wrong format.
+     */
     public CommandDeadline(String argument) throws BobbyBotException {
         Pattern r = Pattern.compile("(.*) /by (.*)");
         Matcher m = r.matcher(argument);

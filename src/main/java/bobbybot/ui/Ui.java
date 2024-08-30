@@ -1,11 +1,11 @@
 package bobbybot.ui;
 
-import bobbybot.Task;
-import bobbybot.TaskList;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.IntStream;
+
+import bobbybot.Task;
+import bobbybot.TaskList;
 
 /**
  * Represents the user interface of BobbyBot.
@@ -68,10 +68,10 @@ public class Ui {
     public void listMatchingTasks(TaskList tasks) {
         ArrayList<String> taskListString = new ArrayList<>();
         taskListString.add("Here are the matching tasks in your list:");
-        IntStream.
-                range(0, tasks.getSize()).
-                mapToObj(i -> i + 1 + ". " + tasks.getTask(i)).
-                forEach(taskListString::add);
+        IntStream
+            .range(0, tasks.getSize())
+            .mapToObj(i -> i + 1 + ". " + tasks.getTask(i))
+            .forEach(taskListString::add);
         printInput(taskListString.toArray(String[]::new));
     }
 
@@ -83,10 +83,10 @@ public class Ui {
     public void listTasks(TaskList tasks) {
         ArrayList<String> taskListString = new ArrayList<>();
         taskListString.add("Here are the tasks in your list:");
-        IntStream.
-                range(0, tasks.getSize()).
-                mapToObj(i -> i + 1 + ". " + tasks.getTask(i)).
-                forEach(taskListString::add);
+        IntStream
+            .range(0, tasks.getSize())
+            .mapToObj(i -> i + 1 + ". " + tasks.getTask(i))
+            .forEach(taskListString::add);
         printInput(taskListString.toArray(String[]::new));
     }
 

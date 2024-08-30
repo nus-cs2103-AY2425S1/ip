@@ -1,12 +1,13 @@
 package bobbybot.commands;
 
+import java.io.IOException;
+
 import bobbybot.BobbyBotException;
 import bobbybot.Storage;
 import bobbybot.Task;
 import bobbybot.TaskList;
 import bobbybot.ui.Ui;
 
-import java.io.IOException;
 
 /**
  * Represents a command to mark a task as done.
@@ -14,6 +15,13 @@ import java.io.IOException;
 public class CommandMark extends Command {
 
     private final int index;
+
+    /**
+     * Creates a new CommandMark object.
+     *
+     * @param argument The argument to the command.
+     * @throws BobbyBotException If the argument is invalid.
+     */
     public CommandMark(String argument) throws BobbyBotException {
         String[] params = argument.split(" ");
         if (params.length != 1) {

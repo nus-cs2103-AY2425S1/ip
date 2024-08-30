@@ -1,18 +1,18 @@
 package bobbybot;
 
+import java.util.ArrayList;
+
 import bobbybot.commands.Command;
 import bobbybot.ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  *  BobbyBot is a chatbot that helps you keep track of your tasks.
  */
 public class BobbyBot {
+    private static final String chatBotName = "BobbyBot";
     private TaskList tasks;
     private final Ui ui;
     private final Storage storage;
-    private static final String chatBotName = "BobbyBot";
 
     /**
      * Creates an instance of BobbyBot.

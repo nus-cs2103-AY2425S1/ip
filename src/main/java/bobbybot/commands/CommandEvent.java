@@ -1,15 +1,16 @@
 package bobbybot.commands;
 
-import bobbybot.BobbyBotException;
-import bobbybot.Storage;
-import bobbybot.TaskList;
-import bobbybot.Event;
-import bobbybot.Task;
-import bobbybot.ui.Ui;
-
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import bobbybot.BobbyBotException;
+import bobbybot.Event;
+import bobbybot.Storage;
+import bobbybot.Task;
+import bobbybot.TaskList;
+import bobbybot.ui.Ui;
+
 
 /**
  * Represents a command to add an event task.
@@ -21,6 +22,12 @@ public class CommandEvent extends Command {
     private final String to;
 
 
+    /**
+     * Creates a new CommandEvent object.
+     *
+     * @param argument The argument string to create the event task.
+     * @throws BobbyBotException If the argument is in the wrong format.
+     */
     public CommandEvent(String argument) throws BobbyBotException {
         Pattern r = Pattern.compile("(.*) /from (.*) /to (.*)");
         Matcher m = r.matcher(argument);
@@ -29,7 +36,8 @@ public class CommandEvent extends Command {
             from = m.group(2).trim();
             to = m.group(3).trim();
         } else {
-            throw new BobbyBotException("Please specify it in this format 'event <description> /from <from> /to <to>.'");
+            throw new BobbyBotException("Please specify it in this format "
+                    + "'event <description> /from <from> /to <to>.'");
         }
     }
 
