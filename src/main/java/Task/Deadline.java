@@ -15,6 +15,7 @@ public class Deadline extends Task {
             deadline = LocalDateTime.parse(d, Task.toSelfFormatter);
         } catch (DateTimeParseException exception) {
             TaskList.mainTaskList.deleteTask(TaskList.mainTaskList.getNumTasks() - 1);
+            System.out.println(exception.getMessage());
             throw exception;
         }
         this.type = "[D]";
@@ -47,7 +48,7 @@ public class Deadline extends Task {
         } else {
             status = "0 | ";
         }
-        return "E | " + status + this.getTask() + " | " + this.getDeadline("in");
+        return "D | " + status + this.getTask() + " | " + this.getDeadline("in");
     }
     @Override
     public String toString() {

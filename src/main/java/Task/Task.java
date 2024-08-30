@@ -44,4 +44,8 @@ public abstract class Task {
         int b = this.task.indexOf(term);
         return (b != -1);
     }
+
+    public String getDescription() {
+        return this.task;
+    }
 }

@@ -1,6 +1,7 @@
 package Task;
 
 import java.util.ArrayList;
+import java.util.regex.PatternSyntaxException;
 
 public class TaskList {
 
@@ -53,5 +54,9 @@ public class TaskList {
 
     public String getTaskFileFormat(int i) {
         return tasks.get(i).saveFileFormat();
+    }
+
+    public Task getTask(int i) {
+        return this.tasks.get(i);
     }
 }

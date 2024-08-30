@@ -123,7 +123,7 @@ public class Parser {
         System.out.printf("You have %s tasks in your list.\n", TaskList.mainTaskList.getNumTasks());
     }
 
-    private static void handleDelete(String arguments) throws BotException {
+    static void handleDelete(String arguments) throws BotException {
         if (arguments.isEmpty()) throw new BotException("Please provide a task number.");
         int taskIndex = Integer.parseInt(arguments) - 1;
         if (taskIndex < 0 || taskIndex >= TaskList.mainTaskList.getNumTasks()) throw new BotException("That task does not exist!");

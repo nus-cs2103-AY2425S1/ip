@@ -29,6 +29,15 @@ public class Storage {
         return filePath;
     }
 
+    public void clearSave() {
+        try (FileWriter saveFile = new FileWriter(filePath)) {
+            saveFile.write("");
+        } catch (IOException e) {
+            System.out.println("There was an error clearing your saved data. Details can be found below.");
+            System.out.println(e.getMessage());
+        }
+    }
+
     // Method to save data to the file
     public void saveData() {
         try (FileWriter saveFile = new FileWriter(filePath)) {
