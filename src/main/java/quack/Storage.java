@@ -6,11 +6,14 @@ import java.io.File;
 import java.io.FileReader;  
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import quack.tasks.Task;
+
 import quack.exception.InvalidDateTimeException;
+
+import quack.tasks.Task;
 
 /**
  * This class is responsible for handling any
@@ -33,12 +36,13 @@ public class Storage {
      * Afterwards it will load the data from the save file.
      * @param taskList A list that stores all the tasks tracked by Quack. 
      */
-    public Storage(TaskList taskList){
+    public Storage(TaskList taskList) {
+
         try {
             Path filePath = Paths.get(DEFAULT_PATH);
             Files.createDirectories(filePath);
         } catch (Exception error) {
-
+            
         }
 
         this.loadData(taskList);
@@ -54,6 +58,7 @@ public class Storage {
 
         // Get the file path to the save file
         File dataFile = new File(DEFAULT_FILE_NAME);
+
         try {
             // Create the save file if it does not exist
             dataFile.createNewFile();
@@ -62,7 +67,7 @@ public class Storage {
             String dataLine = br.readLine();
 
             while (dataLine != null) {
-                Task task = this.parseCSVToTask(dataLine);
+                Task task = this.parseCsvToTask(dataLine);
                 if (task != null) {
                     taskList.addTask(task);
                 }
@@ -93,7 +98,7 @@ public class Storage {
         // Convert each task into a csv string format and write into the file
         ArrayList<Task> list = taskList.getToDoList();
         for (Task task : list) {
-            String taskData = this.parseTaskToCSV(task);
+            String taskData = this.parseTaskToCsv(task);
             fw.write(taskData + "\n");
         }
 
@@ -107,7 +112,7 @@ public class Storage {
      * @param dataLine A string of data of a task in csv format.
      * @return A task object based on the data from the save file.
      */
-    private Task parseCSVToTask(String dataLine) {
+    private Task parseCsvToTask(String dataLine) {
         
         String[] data = dataLine.split(",");
 
@@ -130,8 +135,9 @@ public class Storage {
      * @param task The task object to be converted.
      * @return A string representation of the task in a csv format.
      */
-    private String parseTaskToCSV(Task task) {
-        String taskData = task.toCSVFormat();
+    private String parseTaskToCsv(Task task) {
+
+        String taskData = task.toCsvFormat();
         return taskData;
       
     }

@@ -1,17 +1,21 @@
 package quack.command;
 
 import java.time.format.DateTimeParseException;
+
 import quack.TaskList;
 import quack.Ui;
-import quack.tasks.Task;
+
 import quack.exception.InvalidTaskTypeException;
 import quack.exception.InvalidDateTimeException;
+
+import quack.tasks.Task;
+
 
 /**
  * This class is responsible for handling addition of tasks to the task list,
  * based on what the user entered
  */
-public class AddTaskCommand extends Command{
+public class AddTaskCommand extends Command {
     
     /** List to store all tasks by Quack */
     private TaskList taskList;
@@ -24,13 +28,13 @@ public class AddTaskCommand extends Command{
      * @param ui The ui object that handles user interface requests.
      */
     public AddTaskCommand(TaskList taskList, Ui ui) {
-       this.taskList = taskList;
-       this.ui = ui;
+        this.taskList = taskList;
+        this.ui = ui;
     }
 
     @Override
-    public void execute(){
-
+    public void execute() {
+        
         try {
             String taskType = ui.requestTaskType();
             this.getTaskDetails(taskType.toUpperCase());

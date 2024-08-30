@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  * <p>
  * An event task has a start date and an end date.
  */
-public class EventTask extends Task{
+public class EventTask extends Task {
     
     /** The start date for the event */
     private LocalDateTime startDate;
@@ -28,15 +28,17 @@ public class EventTask extends Task{
     }
 
     @Override
-    public String toCSVFormat(){
+    public String toCsvFormat(){
         
-        return "EVENT," + super.toCSVFormat() + "," + this.startDate.format(Task.DATE_FORMAT) + "," + this.endDate.format(Task.DATE_FORMAT) + "," + this.isChecked;
+        return "EVENT," + super.toCsvFormat() + "," + this.startDate.format(Task.DATE_FORMAT)
+            + "," + this.endDate.format(Task.DATE_FORMAT) + "," + this.isChecked;
     }
 
     @Override
     public String toString() {
 
-        return "[E]" + super.toString() + " (From: " + this.startDate.format(Task.DATE_FORMAT) + " To: " + this.endDate.format(Task.DATE_FORMAT) + ")";
+        return "[E]" + super.toString() + " (From: " + this.startDate.format(Task.DATE_FORMAT)
+            + " To: " + this.endDate.format(Task.DATE_FORMAT) + ")";
     }
 }
 

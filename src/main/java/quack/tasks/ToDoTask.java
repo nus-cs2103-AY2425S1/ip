@@ -3,7 +3,7 @@ package quack.tasks;
 /**
  * This class defines and prodides functionality for todo tasks.
  */
-public class ToDoTask extends Task{
+public class ToDoTask extends Task {
     
     /**
      * Creates a ToDo task object based on its description.
@@ -14,8 +14,8 @@ public class ToDoTask extends Task{
     }
 
     @Override
-    public String toCSVFormat() {
-        return "TODO," + super.toCSVFormat() + "," + this.isChecked;
+    public String toCsvFormat() {
+        return "TODO," + super.toCsvFormat() + "," + this.isChecked;
     }
 
     @Override

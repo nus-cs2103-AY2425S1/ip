@@ -55,7 +55,7 @@ public abstract class Task {
             endDate = LocalDateTime.parse(taskDetails[3], Task.DATE_FORMAT);
 
             if (endDate.isBefore(startDate)) {
-                throw new InvalidDateTimeException("End date before start date? Noo way, please enter a start date before the end date!");
+                throw new InvalidDateTimeException("The end date before start date? Please enter a start date before the end date!");
             }
 
             task = new EventTask(taskDetails[1], startDate, endDate);
@@ -114,7 +114,7 @@ public abstract class Task {
      * 
      * @return A string representation of the task to be saved into a csv file.
      */
-    public String toCSVFormat() {
+    public String toCsvFormat() {
         
         return this.description;
     }

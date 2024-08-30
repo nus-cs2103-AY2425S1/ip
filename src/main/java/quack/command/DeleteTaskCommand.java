@@ -2,13 +2,15 @@ package quack.command;
 
 import quack.TaskList;
 import quack.Ui;
+
 import quack.exception.InvalidIndexException;
+
 import quack.tasks.Task;
 
 /**
  * This class is responsible for deleting tasks in the task list.
  */
-public class DeleteTaskCommand extends Command{
+public class DeleteTaskCommand extends Command {
 
     /** List to store all tasks by Quack */
     private TaskList taskList;
@@ -27,16 +29,21 @@ public class DeleteTaskCommand extends Command{
 
     @Override
     public void execute() {
+        
         Command listCommand = new ListCommand(taskList, ui);
         listCommand.execute();
 
+        String input = null;
+
         if (taskList.getLength() != 0) {
             try {
-                int index = ui.requestIndexFromUser("delete");
+                input = ui.requestIndexFromUser("delete");
+                // Convert the input into a integer
+                int index = Integer.parseInt(input);
                 Task removedTask = taskList.deleteTask(index);
                 ui.printUpdateSuccessfulMessage(removedTask, "delete", taskList);
-            } catch (InvalidIndexException invalidIdxError) {
-                ui.printExceptionMessage(invalidIdxError);
+            } catch (NumberFormatException invalidIdxError) {
+                ui.printExceptionMessage(new InvalidIndexException(input));
             } catch (IndexOutOfBoundsException indexError) {
                ui.printExceptionMessage(indexError);;
             }

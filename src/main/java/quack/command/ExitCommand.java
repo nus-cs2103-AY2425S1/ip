@@ -1,6 +1,7 @@
 package quack.command;
 
 import java.io.IOException;
+
 import quack.Quack;
 import quack.TaskList;
 import quack.Storage;
@@ -8,7 +9,7 @@ import quack.Storage;
 /**
  * This class is responsible for handling the stopping of Quack.
  */
-public class ExitCommand extends Command{
+public class ExitCommand extends Command {
     
     /** Quack chatbot object */
     private Quack quack;
