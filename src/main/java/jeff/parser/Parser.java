@@ -7,10 +7,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a filter to sort out the user's input.
+ */
 public class Parser {
     /**
-     * Gets the user input from the command line interface and figure out the action to take based on the input.
-     * This is continuously repeated until the user says "bye"
+     * Returns a Command based on the user's input.
+     *
+     * @param input User's input.
+     * @return a Command.
+     * @throws JeffException if the user's input is not a command available.
      */
     public static Command parse(String input) throws JeffException {
         // Check for input == some keyword or starts with some keyword
@@ -33,6 +39,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a LocalDateTime object based on the user's input.
+     *
+     * @param input User's input.
+     * @return a LocalDateTime object with the date and time specified by the user.
+     * @throws DateTimeParseException if the user's input is in the wrong format.
+     */
     public static LocalDateTime getLocalDateTime(String input) throws DateTimeParseException {
         try {
             return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a"));

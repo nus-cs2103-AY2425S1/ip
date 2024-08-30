@@ -11,11 +11,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks = new ArrayList<>();
 
     public TaskList() {}
 
+    /**
+     * Constructor for the TaskList Class.
+     * Takes in a scanner, categorises the strings into their task types and adds the tasks to the task list.
+     *
+     * @param scanner Scanner with task strings.
+     * @throws JeffException if the file is corrupt.
+     */
     public TaskList(Scanner scanner) throws JeffException {
         try {
             while (scanner.hasNext()) {
@@ -63,7 +73,6 @@ public class TaskList {
                     throw new FileCorruptException();
                 }
 
-
                 // Add task to task list if it exists
                 if (currentTask != null) {
                     this.tasks.add(currentTask);
@@ -77,42 +86,79 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the task at the given index in the task list.
+     *
+     * @param index Index of the target task.
+     * @return Task at the given index.
+     */
     public Task get(int index) {
         return this.tasks.get(index);
     }
 
+    /**
+     * Adds the given task to the task list.
+     *
+     * @param task Task to be added to the task list.
+     */
     public void add(Task task) {
         this.tasks.add(task);
     }
 
+    /**
+     * Removes the given task from the task list.
+     *
+     * @param task Task to be removed from the task list.
+     */
     public void remove(Task task) {
         this.tasks.remove(task);
     }
 
+    /**
+     * Returns the size of the task list.
+     *
+     * @return Size of the task list.
+     */
     public int size() {
         return this.tasks.size();
     }
 
+    /**
+     * Checks if the task list is empty or not.
+     *
+     * @return true if the task list is empty and false otherwise.
+     */
     public boolean isEmpty() {
         return this.tasks.isEmpty();
     }
 
+    /**
+     * Returns a list of tasks that only takes place on the given date.
+     *
+     * @param date Given date.
+     * @return A list of filtered tasks.
+     */
     public List<Task> filterByDate(LocalDate date) {
         return this.tasks.stream().filter(task -> task.isOnThisDate(date)).toList();
     }
 
+    /**
+     * Returns a list of the file string representation of the tasks.
+     *
+     * @return A list of the file string representation of the tasks.
+     */
     public List<String> toFileStrings() {
         return this.tasks.stream().map(Task::toFileString).toList();
     }
 
     /**
-     * Gets the target task from the task list based on the user input
+     * Returns the target task from the task list based on the user input.
      *
-     * @param input String that the user types into the command line interface
-     * @param prefix the action that the user wants to take
-     * @return the target task from the task list
+     * @param input User's input.
+     * @param prefix Action that the user wants to take.
+     * @return The target task from the task list.
      * @throws JeffException if the input is in the wrong format or if the task number specified by the user does not
-     *                       exist
+     *                       exist.
      */
     public Task getTask(String input, String prefix) throws JeffException {
         // Check if input is valid

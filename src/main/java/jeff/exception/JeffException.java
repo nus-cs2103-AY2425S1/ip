@@ -1,10 +1,13 @@
 package jeff.exception;
 
+/**
+ * Represents an exception for any errors in this package.
+ */
 public class JeffException extends Exception {
     private String message;
 
     /**
-     * Constructor that creates a JeffException object with a specific message
+     * Constructor that creates a JeffException object with a specific message.
      *
      * @param message that describes the error
      */
@@ -14,7 +17,7 @@ public class JeffException extends Exception {
     }
 
     /**
-     * Constructor that creates a JeffException object with a general message
+     * Constructor that creates a JeffException object with a general message.
      */
     public JeffException() {
         super();
@@ -22,7 +25,7 @@ public class JeffException extends Exception {
     }
 
     /**
-     * Gets the message of the error
+     * Returns the message of the error.
      *
      * @return the error message
      */

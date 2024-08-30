@@ -5,11 +5,28 @@ import jeff.storage.Storage;
 import jeff.task.TaskList;
 import jeff.ui.Ui;
 
+/**
+ * Represents a "Show task list" command.
+ */
 public class ListCommand extends Command {
+    /**
+     * Constructor for ListCommand Class.
+     * Stores the user's input.
+     *
+     * @param input User's input.
+     */
     public ListCommand(String input) {
         super(input);
     }
 
+    /**
+     * Prints out the task list.
+     *
+     * @param tasks Task list.
+     * @param ui UI to print statements.
+     * @param storage Place to get and write the task list to the tasks text file.
+     * @throws JeffException if the task list is empty.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
         // Check if the list is empty

@@ -8,11 +8,29 @@ import jeff.ui.Ui;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an "Add task" command.
+ */
 public class AddCommand extends Command {
+    /**
+     * Constructor for AddCommand Class.
+     * Stores the user's input.
+     *
+     * @param input User's input.
+     */
     public AddCommand(String input) {
         super(input);
     }
 
+    /**
+     * Categorises the task based on the user's input and adds it to the task list.
+     * Also prints out a statement to tell the user the task has been added.
+     *
+     * @param tasks Task list.
+     * @param ui UI to print statements.
+     * @param storage Place to get and write the task list to the tasks text file.
+     * @throws JeffException if the user's input is in the wrong format or if the task number does not exist.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
         // Check if the input is in the correct format
