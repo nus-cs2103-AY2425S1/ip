@@ -1,4 +1,1 @@
-[E] [X] asd (from: asd to: asd)
-[T] [ ] asd
-[D] [ ] asd (by Dec 1 2019)
 [T] [ ] asd
