@@ -1,22 +1,28 @@
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ScoobyDoo {
-    public static final String name = "Scooby-Doo";
-    public static TaskList taskList = new TaskList();
+    private final String name = "Scooby-Doo";
+    private TaskList taskList = new TaskList();
+    private Storage storage;
+    private UI ui;
 
-    public static final String FILE_NAME ="data/tasks.txt";
+    public ScoobyDoo(String FilePath) {
+        storage = new Storage(FilePath);
+        ui = new UI();
+    }
 
-    public static void main(String[] args) {
-        //greeting
-        printFormattedResponse(String.format("Hello! I'm %s\nWhat can I do for you?", name));
+    public void run () {
+        ui.printFormattedResponse(String.format("Hello! I'm %s\nWhat can I do for you?", name));
         try {
-            ArrayList<String> stringList = FileReadWrite.readFile(FILE_NAME);
-            taskList = new TaskList(FileReadWrite.getTaskListFromFile(stringList));
-        } catch (FileNotFoundException e) {
-            FileReadWrite.createFile(FILE_NAME);
+            taskList = new TaskList(storage.load());
+        } catch (IOException e) {
+            ui.printErrorMessage("cannot parse data from file");
+            taskList = new TaskList();
         }
         //loop
         String input;
@@ -24,40 +30,44 @@ public class ScoobyDoo {
         while (true) {
             input = scanIn.nextLine();
             if (input.equals("bye")) {
-                printFormattedResponse("Bye. Hope to see you again soon!");
-                FileReadWrite.writeFile(ScoobyDoo.FILE_NAME, taskList.toFileFormatString());
+                ui.printByeMessage();
+                storage.writeFile(taskList.toFileFormatString());
                 break;
             }
 
             if (input.equals("list")) {
-                printFormattedResponse(taskList.printList());
+                ui.printFormattedResponse(taskList.printList());
                 continue;
             }
 
             if (Todo.matchTodo(input)) {
                 try {
-                    printFormattedResponse(taskList.addTask(new Todo(input)));
+                    String description = Parser.getTodoDescription(input);
+                    ui.printFormattedResponse(taskList.addTask(new Todo(description)));
                 } catch (InputFormatException e) {
-                    printFormattedResponse(e.getMessage());
+                    ui.printErrorMessage(e.getMessage());
                 }
                 continue;
             }
 
             if (Deadline.matchDeadline(input)) {
                 try {
-                    printFormattedResponse(taskList.addTask(new Deadline(input)));
+                    String desription = Parser.getDeadlineDescription(input);
+                    LocalDateTime byDate = Parser.getDeadlineDate(input);
+                    ui.printFormattedResponse(taskList.addTask(new Deadline(desription, byDate)));
                 } catch (InputFormatException e) {
-                    printFormattedResponse(e.getMessage());
+                    ui.printErrorMessage(e.getMessage());
                 }
-
                 continue;
             }
 
             if (Event.matchEvent(input)) {
                 try {
-                    printFormattedResponse(taskList.addTask(new Event(input)));
+                    String description = Parser.getEventDescription(input);
+                    LocalDateTime[] fromToDate = Parser.getEventFromAndToDate(input);
+                    ui.printFormattedResponse(taskList.addTask(new Event(description, fromToDate[0], fromToDate[1])));
                 } catch (InputFormatException e) {
-                    printFormattedResponse(e.getMessage());
+                    ui.printErrorMessage(e.getMessage());
                 }
                 continue;
             }
@@ -65,9 +75,9 @@ public class ScoobyDoo {
             if (input.startsWith("mark")) {
                 try {
                     int num = Task.matchesMark(input);
-                    printFormattedResponse(taskList.markTask(num));
+                    ui.printFormattedResponse(taskList.markTask(num));
                 } catch (InputFormatException e) {
-                    printFormattedResponse(e.getMessage());
+                    ui.printErrorMessage(e.getMessage());
                 }
                 continue;
             }
@@ -75,9 +85,9 @@ public class ScoobyDoo {
             if (input.startsWith("unmark")) {
                 try {
                     int num = Task.matchesUnmark(input);
-                    printFormattedResponse(taskList.unmarkTask(num));
+                    ui.printFormattedResponse(taskList.unmarkTask(num));
                 } catch (InputFormatException e) {
-                    printFormattedResponse(e.getMessage());
+                    ui.printErrorMessage(e.getMessage());
                 }
                 continue;
             }
@@ -85,31 +95,25 @@ public class ScoobyDoo {
             if (input.startsWith("delete")) {
                 try {
                     int i = TaskList.getDeleteNumber(input);
-                    printFormattedResponse(taskList.deleteTask(i));
+                    ui.printFormattedResponse(taskList.deleteTask(i));
                 } catch (InputFormatException e) {
-                    printFormattedResponse(e.getMessage());
+                    ui.printErrorMessage(e.getMessage());
                 }
                 continue;
             }
 
             else {
-                printFormattedResponse("The available inputs are\n deadline\n event\n todo\n mark\n unmark\n list\n delete\n bye");
+                ui.printFormattedResponse("The available inputs are\n deadline\n event\n todo\n mark\n unmark\n list\n delete\n bye");
             }
         }
         scanIn.close();
     }
 
-    //will auto break
-    public static void printFormattedResponse(String response) {
-        for (int i = 0; i < 60; i++) {
-            System.out.print("_");
-        }
-        System.out.print("\n");
-        System.out.println(response);
-        for (int i = 0; i < 60; i++) {
-            System.out.print("_");
-        }
-        System.out.println("\n");
+
+
+
+    public static void main(String[] args) {
+        new ScoobyDoo("data/tasks.txt").run();
     }
 }
 
