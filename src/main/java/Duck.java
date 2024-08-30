@@ -60,7 +60,7 @@ public class Duck {
 
     public static void main(String[] args) {
         // Get saved tasks
-        TASKS.getTaskList();
+        TASKS.getTaskListFromFile();
 
         // Start scanner
         Scanner sc = new Scanner(System.in);
@@ -90,7 +90,7 @@ public class Duck {
                     int taskLabel = lineBuffer.getInt();
                     Task task = TASKS.getItem(taskLabel);
                     task.markAsDone();
-                    TASKS.updateTaskList();
+                    TASKS.updateFileWithTaskList();
 
                     String response = "Nice! I've marked this task as done:\n"
                             + indentText(task.toString(), 2);
@@ -99,7 +99,7 @@ public class Duck {
                     int taskLabel = lineBuffer.getInt();
                     Task task = TASKS.getItem(taskLabel);
                     task.markAsNotDone();
-                    TASKS.updateTaskList();
+                    TASKS.updateFileWithTaskList();
 
                     String response = "OK, I've marked this task as not done yet:\n"
                             + indentText(task.toString(), 2);

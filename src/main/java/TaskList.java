@@ -22,20 +22,41 @@ public class TaskList {
     private static final Storage CSV_HANDLER = new Storage(
             new File(String.join(File.separator, filePathParts)));
 
+    /**
+     * Adds a task to the list.
+     * 
+     * @param task
+     */
     public void addTask(Task task) {
         LIST.add(task);
-        updateTaskList();
+        updateFileWithTaskList();
     }
 
+    /**
+     * Gets the task with the given label.
+     * 
+     * @param label
+     * @return task with the given label
+     */
     public Task getItem(int label) {
         return LIST.get(label - 1);
     }
 
+    /**
+     * Removes the task with the given label.
+     * 
+     * @param label
+     */
     public void removeItem(int label) {
         LIST.remove(label - 1);
-        updateTaskList();
+        updateFileWithTaskList();
     }
 
+    /**
+     * Gets the number of tasks in the list.
+     * 
+     * @return task count
+     */
     public int getTaskCount() {
         return LIST.size();
     }
@@ -51,7 +72,10 @@ public class TaskList {
         return output.toString();
     }
 
-    public void getTaskList() {
+    /**
+     * Loads the task list from the data file.
+     */
+    public void getTaskListFromFile() {
         try {
             System.out.println("Working Directory = " + System.getProperty("user.dir"));
 
@@ -83,7 +107,10 @@ public class TaskList {
         }
     }
 
-    public void updateTaskList() {
+    /**
+     * Updates the data file with the current task list.
+     */
+    public void updateFileWithTaskList() {
         List<String> records = new ArrayList<>();
 
         for (Task task : LIST) {
