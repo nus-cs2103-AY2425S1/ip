@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
  *
  * @author celeschai
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     private LocalDateTime deadline;
 
     public Deadline(String name, String deadline) throws DateTimeParseException {

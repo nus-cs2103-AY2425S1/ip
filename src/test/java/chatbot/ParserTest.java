@@ -14,7 +14,14 @@ import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests Parser class.
+ */
 public class ParserTest {
+
+    /**
+     * Tests if date time string is parsed correctly.
+     */
     @Test
     public void parseStringToDateTime_formatting_success() {
         LocalDateTime actualDateTime = LocalDateTime.parse("2024-06-22T16:00");
@@ -25,12 +32,16 @@ public class ParserTest {
         assertEquals(actualDateTime, Parser.parseStringToDateTime("2024/06/22 04:00 PM"));
     }
 
+    /**
+     * Tests for exception thrown when common inputs in the wrong formats
+     * are passed to the function.
+     */
     @Test
     public void parseStringToDateTime_exceptionThrown() {
         // Tests for double digits for month
         try {
             Parser.parseStringToDateTime("2024-6-22 1600");
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             assertEquals(
                     "Text '2024-6-22 1600' could not be parsed, unparsed text found at index 0",
                     e.getMessage());
@@ -39,20 +50,28 @@ public class ParserTest {
         // Tests for time provided
         try {
             Parser.parseStringToDateTime("2024-06-22");
-        } catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             assertEquals(
                     "Text '2024-06-22' could not be parsed, unparsed text found at index 0",
                     e.getMessage());
         }
     }
 
+    /**
+     * Tests for correct parsing of java LocalDateTime object into String.
+     */
     @Test
     public void parseDateTimeToString_formatting_success() {
         LocalDateTime actualDateTime = LocalDateTime.parse("2024-06-22T16:00");
 
-        assertEquals(Parser.parseDateTimeToString(actualDateTime), "2024-06-22 04:00 pm");
+        assertEquals(
+                Parser.parseDateTimeToString(actualDateTime), "2024-06-22 04:00 pm");
     }
 
+    /**
+     * Tests for correct reading of local file into TaskList
+     * with only uncompleted tasks.
+     */
     @Test
     public void parseFromTxtTaskList_tasksIncomplete() {
         TaskList taskList = new TaskList();
@@ -77,6 +96,10 @@ public class ParserTest {
         sc3.close();
     }
 
+    /**
+     * Tests for correct reading of source file into TaskList
+     * with only completed tasks.
+     */
     @Test
     public void parseFromTxtTaskList_tasksCompleted() {
         TaskList taskList = new TaskList();
@@ -103,6 +126,11 @@ public class ParserTest {
         sc3.close();
     }
 
+    /**
+     * Tests for correct recognition and handling of
+     * empty strings and strings with invalid format
+     * in source file.
+     */
     @Test
     public void parseFromTxtTaskList_invalid_empty_input() {
         TaskList taskList = new TaskList();

@@ -71,7 +71,7 @@ public class Ui {
      * Formats chatbot response after adding a task
      * Informs user of total number of tasks in todolist
      *
-     * @param added string representation of task added
+     * @param added      string representation of task added
      * @param numOfTasks total number of tasks added
      */
     public static void addTaskResponse(String added, int numOfTasks) {
@@ -84,7 +84,7 @@ public class Ui {
      * Formats chatbot response after deleting a task
      * Informs user of total number of tasks in todolist
      *
-     * @param deleted string representation of task deleted
+     * @param deleted    string representation of task deleted
      * @param numOfTasks total number of tasks added
      */
     public static void deleteTaskResponse(String deleted, int numOfTasks) {
