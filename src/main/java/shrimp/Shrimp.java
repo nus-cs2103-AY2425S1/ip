@@ -137,6 +137,15 @@ public class Shrimp {
                         clearCommand.run(taskList, ui);
                         break;
 
+                case FIND:
+                    if (userInput.length() <= 5) {
+                        throw new ShrimpException.MissingArgumentException(commandType);
+                    }
+                    String keyword = userInput.substring(5).trim();
+                    FindCommand findCommand = new FindCommand(keyword);
+                    findCommand.run(taskList, ui);
+                    break;
+
                     default:
                         throw new ShrimpException.InvalidCommandException();
                 }
