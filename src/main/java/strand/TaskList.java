@@ -49,6 +49,7 @@ public class TaskList {
     }
 
     /**
+     * Mark or unmark a task from the strandList
      * @param index Index of task to be marked or unmarked.
      * @param mark  Whether task is to be marked or unmarked.
      */
@@ -65,6 +66,9 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Return number of tasks from the strandList
+     */
     public Integer getNumOfTasks() {
         return this.strandList.size();
     }
@@ -76,10 +80,17 @@ public class TaskList {
                 .reduce((a, b) -> a + b).orElse("");
     }
 
+    /**
+     * Return file representation of strandList to be saved in file
+     */
     public String toFile() {
         return strandList.stream().map((x) -> x.getFile() + "\n").reduce((a, b) -> a + b).orElse("");
     }
 
+    /**
+     * Shows all tasks with the segment in their description
+     * @param segment Segment that all shown tasks should contain in their description.
+     */
     public String getFoundTasks(String segment) {
         return strandList.stream().filter((x) -> x.containsSegment(segment))
                 .map((x) -> (this.strandList.indexOf(x) + 1) + "." + x + "\n")
