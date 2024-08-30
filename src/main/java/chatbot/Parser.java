@@ -1,25 +1,28 @@
 package chatbot;
 
-import task.*;
+import task.Deadline;
+import task.Event;
+import task.TaskList;
+import task.Todo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.time.format.ResolverStyle;
 
 /**
  * Handles parsing of text representation of tasks
- * from and to text files
+ * from and to text files.
  *
  * @author celeschai
  */
 public class Parser {
     /**
-     * Accepted formats for date string input
+     * Accepts multiple formats for date string input.
      */
     private static final DateTimeFormatterBuilder builder =
             new DateTimeFormatterBuilder()
@@ -30,11 +33,11 @@ public class Parser {
                     .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm a"));
 
     /**
-     * Parses date string input into java LocalDateTime objects
+     * Parses date string input into java LocalDateTime objects.
      *
-     * @param dateTime string representation of date time
-     * @return LocalDateTime object for Task objects
-     * @throws DateTimeParseException for incorrectly formatted input string
+     * @param dateTime String representation of date time.
+     * @return LocalDateTime object for Task objects.
+     * @throws DateTimeParseException For incorrectly formatted input string.
      */
     public static LocalDateTime parseStringToDateTime(String dateTime) throws DateTimeParseException {
         final DateTimeFormatter formatter = builder.toFormatter().withResolverStyle(ResolverStyle.LENIENT);
@@ -42,22 +45,22 @@ public class Parser {
     }
 
     /**
-     * Parses java LocalDateTime objects into date string input
+     * Parses java LocalDateTime objects into date string input.
      *
-     * @param dateTime LocalDateTime object from Task objects
-     * @return readable date time string for user
+     * @param dateTime LocalDateTime object from Task objects.
+     * @return Readable date time string for user.
      */
-    public static String parseDateTimeToString(LocalDateTime dateTime){
+    public static String parseDateTimeToString(LocalDateTime dateTime) {
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
         return dateTime.format(formatter);
     }
 
     /**
      * Parses task list from text files to create
-     * Task objects
+     * Task objects.
      *
-     * @param sc scanner that reads source file
-     * @param taskList task list object used by chatbot
+     * @param sc       Scanner that reads source file
+     * @param taskList TaskList object used by chatbot.
      */
     public static void parseFromTxtTaskList(Scanner sc, TaskList taskList) {
         while (sc.hasNextLine()) {

@@ -7,8 +7,7 @@ import java.time.format.DateTimeParseException;
 
 /**
  * A class representing individual events
- * happening within the interval
- * [from, to]
+ * happening within the interval [from, to].
  *
  * @author celeschai
  */

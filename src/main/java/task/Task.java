@@ -2,7 +2,7 @@ package task;
 
 /**
  * A class representing each individual task
- * Declared as abstract to prevent instantiation
+ * Declared as abstract to prevent instantiation.
  *
  * @author celeschai
  */
@@ -14,10 +14,16 @@ public abstract class Task {
         this.name = name;
     }
 
+    /**
+     * Marks task as completed.
+     */
     public void markAsDone() {
         this.status = true;
     }
 
+    /**
+     * Marks task as incomplete.
+     */
     public void markAsIncomplete() {
         this.status = false;
     }

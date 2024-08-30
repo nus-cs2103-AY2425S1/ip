@@ -1,7 +1,7 @@
 package task;
 
 /**
- * A class representing individual todos
+ * A class representing individual todos.
  *
  * @author celeschai
  */
