@@ -19,4 +19,10 @@ public class Event extends Task {
         s += this.getTaskInfo() + " (from: " + this.start + " to: " + this.end + ")";
         return s;
     }
+
+    @Override
+    public String dataDescription() {
+        int i = isDone() ? 1 : 0;
+        return "E | " + i + " | " + this.getTaskInfo() + " | " + start + " | " + end;
+    }
 }
