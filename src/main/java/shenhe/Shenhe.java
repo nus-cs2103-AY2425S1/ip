@@ -1,3 +1,7 @@
+package shenhe;
+import shenhe.command.Command;
+import shenhe.parser.Parser;
+
 public class Shenhe {
 
     private Storage storage;

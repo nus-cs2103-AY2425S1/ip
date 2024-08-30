@@ -1,4 +1,4 @@
-T | 1 | read book
+T | 0 | read book
 T | 0 | read books
 E | 0 | prepare for debate | 2pm | 4pm
 T | 0 | waef
@@ -6,4 +6,3 @@ T | 0 | asdfasadfsadf
 T | 0 | sdfawersdfasdfasf
 T | 0 | adfsafasdf
 D | 0 | sdfasdf | 09-30-2025 16:45
-E | 0 | sadfasdfasdfds | 2pm | 4pm

@@ -1,3 +1,10 @@
+package shenhe.command;
+
+import shenhe.TaskList;
+import shenhe.Ui;
+import shenhe.Storage;
+import shenhe.exception.EmptyTaskDescriptionException;
+
 public class DeleteCommand extends Command {
     private String userInput;
     public DeleteCommand(String userInput) {

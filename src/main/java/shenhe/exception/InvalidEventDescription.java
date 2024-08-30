@@ -1,3 +1,5 @@
+package shenhe.exception;
+
 public class InvalidEventDescription extends Exception {
     public InvalidEventDescription() {
         super("Sorry traveller. The event description must have 2 '/', with the first part being the description," +

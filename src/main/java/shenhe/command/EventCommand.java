@@ -1,4 +1,11 @@
-import java.time.LocalDateTime;
+package shenhe.command;
+
+import shenhe.TaskList;
+import shenhe.Ui;
+import shenhe.Storage;
+import shenhe.exception.EmptyTaskDescriptionException;
+import shenhe.task.Event;
+
 
 public class EventCommand extends Command {
     private String userInput;

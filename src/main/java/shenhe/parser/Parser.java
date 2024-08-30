@@ -1,3 +1,14 @@
+package shenhe.parser;
+
+import shenhe.command.*;
+import shenhe.exception.EmptyTaskDescriptionException;
+import shenhe.exception.InvalidListEnquiry;
+import shenhe.exception.UnknownTaskException;
+import shenhe.task.Deadline;
+import shenhe.task.Event;
+import shenhe.task.Task;
+import shenhe.task.Todo;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -8,7 +19,7 @@ public class Parser {
             // Assume the format is "T | isDone | description"
             String[] parts = line.split(" \\| ");
             boolean isDone = Objects.equals(parts[1], "1");
-            return new Todo(parts[2], isDone); // Adjust constructor as per your Todo class definition
+            return new Todo(parts[2], isDone); // Adjust constructor as per your shenhe.task.Todo class definition
         } else if (line.startsWith("D")) {
             // Assume the format is "D | isDone | description | by"
             String[] parts = line.split(" \\| ");
@@ -27,7 +38,7 @@ public class Parser {
             try {
                 String from = parts[3]; // Parse "from" date string
                 String to = parts[4];   // Parse "to" date string
-                return new Event(parts[2], isDone, from, to); // Adjust constructor as per your Event class definition
+                return new Event(parts[2], isDone, from, to); // Adjust constructor as per your shenhe.task.Event class definition
             } catch (Exception e) {
                 System.out.println("Invalid date/time format.");
                 return null; // Return null if parsing fails

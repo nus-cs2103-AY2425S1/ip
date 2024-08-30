@@ -1,18 +1,24 @@
-public class UnmarkCommand extends Command {
+package shenhe.command;
+
+import shenhe.TaskList;
+import shenhe.Ui;
+import shenhe.Storage;
+import shenhe.exception.EmptyTaskDescriptionException;
+public class MarkCommand extends Command {
     private String userInput;
-    public UnmarkCommand(String userInput) {
+    public MarkCommand(String userInput) {
         this.userInput = userInput;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyTaskDescriptionException {
-        if (userInput.trim().length() == 6) {
+        if (userInput.trim().length() == 4) {
             throw new EmptyTaskDescriptionException();
         } else {
-            int taskNumber = Integer.parseInt(userInput.substring(6).trim());
+            int taskNumber = Integer.parseInt(userInput.substring(4).trim());
             if (taskNumber >= 1 && taskNumber <= tasks.getSize()) {
-                ui.showUnmarkMessage();
-                tasks.getTask(taskNumber - 1).markAsUndone();
+                tasks.getTask(taskNumber - 1).markAsDone();
+                ui.showMarkMessage();
                 System.out.println(tasks.getTask(taskNumber - 1).toString());
                 storage.saveTasks(tasks);
             }
