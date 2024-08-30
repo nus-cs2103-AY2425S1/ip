@@ -84,4 +84,27 @@ public class TaskListTest {
         assertEquals(expected, actual, 
             String.format("Task should be marked as undone, but is not."));
     }
+
+    @Test
+    public void find_keyword_returnValidTaskList() {
+        // Arrange
+        TaskList tasklist = new TaskList();
+        tasklist.addTask("CAT starting");
+        tasklist.addTask("in the CAT middle");
+        tasklist.addTask("conCATenating tasks");
+        tasklist.addTask("doggy task");
+        tasklist.addTask("ending CAT");
+        String expected = "RoTodo worked hard, here's the list of matching task:\n"
+                        + "1.[T][ ] CAT starting\n"
+                        + "2.[T][ ] in the CAT middle\n"
+                        + "3.[T][ ] ending CAT\n"
+                        + "4.[T][ ] conCATenating tasks";
+
+        // Act
+        String actual = tasklist.findString("cat");
+        
+        // Assert
+        assertEquals(expected, actual, 
+            String.format("Should find all task with substring \'cat\' (case insensitive)."));
+    }
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import rotodo.exception.InvalidInputException;
 
@@ -124,6 +125,26 @@ public class TaskList {
         Task removed = list.remove(i);
         return "Deleting task? That's cheating... but whatever... removed:\n  " + removed
             + "\nNow you have " + list.size() + " tasks in the list.";
+    }
+
+    public String findString(String keyword) {
+        String output = "RoTodo worked hard, here's the list of matching task:\n";
+        String output2 = "";
+        int count = 1;
+        for (Task t : list) {
+            if (t.matchDescription(keyword, true)) {
+                output += count + "." + t.toString() + "\n";
+                count++;
+            } else if (t.matchDescription(keyword, false)) {
+                output2 += "%d." + t.toString() + "\n";
+            }
+        }
+        if (count == 1) {
+            return "Rotodo worked hard, but unable to find matching tasks...";
+        }
+        output2 = String.format(output2, 
+            (Object[]) IntStream.range(count, list.size()+1).mapToObj(x -> x).toArray());
+        return (output + output2).stripTrailing();
     }
 
     /**
