@@ -1,5 +1,13 @@
+package parser;
+
+import exceptions.EmptyTaskException;
+import exceptions.InvalidInputException;
+import exceptions.TaskIndexOutOfBound;
+import storage.Storage;
+import task.*;
+import ui.Ui;
+
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Parser {
@@ -67,10 +75,8 @@ public class Parser {
         if (slicedStr.length < 2) {
             throw new EmptyTaskException("todo");
         }
-
-        String[] taskData = Arrays.copyOfRange(slicedStr, 1, slicedStr.length);
         Todo newTodo = new Todo();
-        newTodo.convertStringToTask(taskData);
+        newTodo.convertStringToTask(slicedStr);
         taskList.addTask(newTodo);
         ui.showAddTask(newTodo, taskList.getTasks().size());
 
@@ -86,15 +92,16 @@ public class Parser {
             throw new EmptyTaskException("deadline");
         }
 
-        Deadline newDeadline = new Deadline();
-        newDeadline.convertStringToTask(slicedStr);
-        taskList.addTask(newDeadline);
-        ui.showAddTask(newDeadline, taskList.getTasks().size());
-
         try {
+            Deadline newDeadline = new Deadline();
+            newDeadline.convertStringToTask(slicedStr);
+            taskList.addTask(newDeadline);
+            ui.showAddTask(newDeadline, taskList.getTasks().size());
             storage.saveTasks(taskList.getTasks());
         } catch (IOException e) {
             ui.showErrorMessage("Error saving tasks: " + e.getMessage());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.showErrorMessage("Error saving tasks details: " + e.getMessage());
         }
     }
 
@@ -102,16 +109,16 @@ public class Parser {
         if (slicedStr.length < 2) {
             throw new EmptyTaskException("event");
         }
-
-        Event newEvent = new Event();
-        newEvent.convertStringToTask(slicedStr);
-        taskList.addTask(newEvent);
-        ui.showAddTask(newEvent, taskList.getTasks().size());
-
         try {
+            Event newEvent = new Event();
+            newEvent.convertStringToTask(slicedStr);
+            taskList.addTask(newEvent);
+            ui.showAddTask(newEvent, taskList.getTasks().size());
             storage.saveTasks(taskList.getTasks());
         } catch (IOException e) {
             ui.showErrorMessage("Error saving tasks: " + e.getMessage());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.showErrorMessage("Error saving tasks details. Please enter a valid description or date");
         }
     }
 
