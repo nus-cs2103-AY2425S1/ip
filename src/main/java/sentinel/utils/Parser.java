@@ -10,7 +10,6 @@ import sentinel.task.Task;
 import sentinel.task.ToDo;
 import sentinel.ui.Ui;
 import sentinel.Sentinel;
-
 import java.time.LocalDateTime;
 import java.util.Arrays;
 

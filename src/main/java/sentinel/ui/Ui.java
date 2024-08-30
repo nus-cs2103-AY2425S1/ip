@@ -166,7 +166,7 @@ public class Ui {
      * @param lst The list of tasks to display.
      */
     public void showList(SentinelList lst) {
-        System.out.println("Here " + (lst.sizeOne() ? "is" : "are") + " the " + (lst.sizeOne() ? "task" : "tasks") + " in your list:");
+        System.out.println("Here " + (lst.isSizeOne() ? "is" : "are") + " the " + (lst.isSizeOne() ? "task" : "tasks") + " in your list:");
         for (int i = 0; i < lst.size(); i++) {
             System.out.println("\t" + (i + 1) + "." + lst.getListedString(i));
         }
@@ -194,7 +194,7 @@ public class Ui {
      */
     public void showRemovedAndRemaining(SentinelList list, Task removed) {
         System.out.println("I have deleted the following task:\n\t" + removed.listedString() +
-                "\nYou have " + list.size() + " remaining " + (list.sizeOne() ? "task" : "tasks") + ".");
+                "\nYou have " + list.size() + " remaining " + (list.isSizeOne() ? "task" : "tasks") + ".");
     }
 
     /**

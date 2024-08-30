@@ -19,7 +19,7 @@ public class SentinelList extends ArrayList<Task> {
      *
      * @return true if the list contains one task, false otherwise.
      */
-    public boolean sizeOne() {
+    public boolean isSizeOne() {
         return size() == 1;
     }
 
@@ -65,7 +65,7 @@ public class SentinelList extends ArrayList<Task> {
      * @param index the index of the task.
      * @return true if the task is done, false otherwise.
      */
-    public boolean taskIsDone(int index) {
+    public boolean isTaskDone(int index) {
         return get(index).isDone();
     }
 
