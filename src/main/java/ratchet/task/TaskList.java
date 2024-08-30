@@ -21,6 +21,16 @@ public class TaskList extends ArrayList<Task> {
         return super.get(i);
     }
 
+    public TaskList filter(String keyword) {
+        TaskList filtered = new TaskList();
+        for (Task task : this) {
+            if (task.isMatch(keyword)) {
+                filtered.add(task);
+            };
+        }
+        return filtered;
+    }
+
     @Override
     public String toString() {
         if (super.isEmpty()) {

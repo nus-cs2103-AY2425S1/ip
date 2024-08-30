@@ -7,6 +7,7 @@ import ratchet.command.AddCommand;
 import ratchet.command.Command;
 import ratchet.command.DeleteCommand;
 import ratchet.command.ExitCommand;
+import ratchet.command.FindCommand;
 import ratchet.command.ListCommand;
 import ratchet.command.MarkCommand;
 import ratchet.command.UnmarkCommand;
@@ -24,6 +25,8 @@ public class Parser {
         switch (command.toUpperCase()) {
         case "LIST":
             return new ListCommand();
+        case "FIND":
+            return find(input);
         case "MARK":
             return mark(input);
         case "UNMARK":
@@ -37,6 +40,15 @@ public class Parser {
         default:
             throw new InvalidCommandException(
                     "Ratchet is unable to execute " + command + "!");
+        }
+    }
+
+    private Command find(String text) throws InvalidCommandArgumentException{
+        try {
+            String keyword = text.substring(5);
+            return new FindCommand(keyword);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidCommandArgumentException("Please provide the keyword you want to search for!");
         }
     }
 
