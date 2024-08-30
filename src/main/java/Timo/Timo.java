@@ -513,9 +513,22 @@ class Parser {
                     String num = s;
                     int target = Integer.parseInt(num);
 
-                    //Timo.Task that is deleted
+                    // Timo.Task that is deleted
                     Task task = this.taskList.delete(target);
                     this.ui.printDelete(task, this.taskList.showList().size());
+                } else if (command.startsWith("find")) {
+                    String phrase = command.split(" ", 2)[1];
+
+                    // TaskList to print out
+                    TaskList lst = new TaskList();
+
+                    for (Task task: this.taskList.showList()) {
+                        if (task.toString().contains(phrase)) {
+                            lst.add(task);
+                        }
+                    }
+                    this.ui.printList(lst);
+
                 } else {
                     throw new TimoException("I'm sorry, I do not know what that means");
                 }
