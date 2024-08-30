@@ -40,7 +40,7 @@ public class TaskList {
      * @return A string to user to indicate the change.
      */
     public String mark(int taskNum) {
-        tasks.get(taskNum).done();
+        tasks.get(taskNum).setDone();
         return tasks.get(taskNum).toString();
     }
 
@@ -51,7 +51,7 @@ public class TaskList {
      * @return A string which shows the task has been marked incomplete.
      */
     public String unmark(int taskNum) {
-        tasks.get(taskNum).unDone();
+        tasks.get(taskNum).SetUndone();
         return tasks.get(taskNum).toString();
     }
 

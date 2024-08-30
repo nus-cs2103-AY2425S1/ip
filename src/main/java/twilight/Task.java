@@ -5,7 +5,7 @@ package twilight;
  */
 public class Task {
     protected String description;
-    protected boolean status;
+    protected boolean isDone;
 //  false status indicates incomplete item
 
     /**
@@ -15,7 +15,7 @@ public class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.status = false;
+        this.isDone = false;
     }
 
     /**
@@ -26,12 +26,12 @@ public class Task {
      */
     public Task(String description, boolean status) {
         this.description = description;
-        this.status = status;
+        this.isDone = status;
     }
 
     @Override
     public String toString() {
-        if (this.status) {
+        if (this.isDone) {
             return "[X] " + this.description;
         } else {
             return "[ ] " + this.description;
@@ -43,24 +43,18 @@ public class Task {
      * 1 and 0 indicate the completion of the task with 1 being complete.
      */
     public String toStorage() {
-        if (status) {
+        if (isDone) {
             return "1," + this.description;
         } else {
             return "0," + this.description;
         }
     }
 
-    /**
-     * changes task status to complete.
-     */
-    public void done() {
-        this.status = true;
+    public void setDone() {
+        this.isDone = true;
     }
 
-    /**
-     * changes task status to incomplete.
-     */
-    public void unDone() {
-        this.status = false;
+    public void SetUndone() {
+        this.isDone = false;
     }
 }

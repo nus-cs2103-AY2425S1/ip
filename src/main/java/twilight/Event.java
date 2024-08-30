@@ -10,8 +10,8 @@ public class Event extends Task {
         this.endtime = endtime;
     }
 
-    public Event(boolean status, String description, String starttime, String endtime) {
-        super(description, status);
+    public Event(boolean isDone, String description, String starttime, String endtime) {
+        super(description, isDone);
         this.starttime = starttime;
         this.endtime = endtime;
     }
