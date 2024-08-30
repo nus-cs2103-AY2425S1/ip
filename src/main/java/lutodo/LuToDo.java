@@ -7,12 +7,20 @@ import lutodo.tasklist.TaskList;
 import lutodo.ui.Ui;
 
 
+/**
+ * Main class of the project.
+ */
 public class LuToDo {
 
     private Storage storage;
     private TaskList tasks;
 
 
+    /**
+     * Construct the chat box class with file path of the task list.
+     * 
+     * @param filePath The file path of the task list.
+     */
     public LuToDo(String filePath) {
         storage = new Storage(filePath);
         try {
@@ -23,6 +31,9 @@ public class LuToDo {
         }
     }
 
+    /**
+     * Runs the chat box.
+     */
     public void run() {
         Ui.showWelcome();
         boolean isExit = false;
