@@ -1,10 +1,12 @@
 public abstract class Task {
     protected final String name;
     protected boolean isCompleted;
+    protected String symbol;
 
-    public Task(String name) {
+    public Task(String name, String symbol) {
         this.name = name;
         this.isCompleted = false;
+        this.symbol = symbol;
     }
 
     protected void setCompleted() {
@@ -26,6 +28,4 @@ public abstract class Task {
                 + "] "
                 + this.name;
     }
-
-    public abstract String parseTaskInfo();
 }

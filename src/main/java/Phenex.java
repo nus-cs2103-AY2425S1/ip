@@ -10,11 +10,18 @@ public class Phenex {
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
+    private Parser parser;
+
+    public enum CommandType {
+        COMMAND_MARK, COMMAND_UNMARK, COMMAND_DELETE;
+    }
 
     public Phenex(Path filePath) {
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(this.storage);
         this.ui = new Ui();
+        this.parser = new Parser();
+
     }
 
     public static void main(String[] args) {
@@ -88,13 +95,11 @@ public class Phenex {
                     p.ui.printTaskList(p.tasks);
                 } else if (markMatcher.find()) {
                     // mark task as done
-                    int taskNumber = Integer.parseInt(markMatcher.group().substring(5));
-                    int idx = taskNumber - 1;
+                    int idx = p.parser.getIndexOfTask(markMatcher, CommandType.COMMAND_MARK);
                     p.tasks.markTaskCompleted(idx);
                 } else if (unmarkMatcher.find()) {
                     // unmark task as done
-                    int taskNumber = Integer.parseInt(unmarkMatcher.group().substring(7));
-                    int idx = taskNumber - 1;
+                    int idx = p.parser.getIndexOfTask(unmarkMatcher, CommandType.COMMAND_UNMARK);
                     p.tasks.markTaskIncomplete(idx);
                 } else if (todoMatcher.matches()) {
                     p.tasks.addTask(todoMatcher, TaskList.TaskType.TASK_TODO);
@@ -103,15 +108,15 @@ public class Phenex {
                 } else if (eventMatcher.matches()) {
                     p.tasks.addTask(eventMatcher, TaskList.TaskType.TASK_EVENT);
                 } else if (deleteMatcher.matches()) {
-                    int idx = Integer.parseInt(deleteMatcher.group().substring(7)) - 1;
+                    int idx = p.parser.getIndexOfTask(deleteMatcher, CommandType.COMMAND_DELETE);
                     p.tasks.deleteTask(idx);
                 } else if (dateCheckMatcher.matches()) {
                     p.ui.printAllTasksOn(dateCheckMatcher, p.tasks);
                 } else {
-                    System.out.println("\tError, invalid input.");
+                    Ui.printInvalidInputMessage();
                 }
             } catch (PhenexException e) {
-                System.out.println("WARNING! SYSTEM OVERLOAD " + e.getMessage());
+                Ui.printExceptionMessage(e);
             }
 
             p.ui.printLine();
