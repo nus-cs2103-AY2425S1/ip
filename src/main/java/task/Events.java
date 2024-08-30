@@ -1,9 +1,9 @@
-package commands;
+package task;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class Events extends TaskList {
+public class Events extends Task {
     LocalDateTime start;
     LocalDateTime end;
     public Events(String name, LocalDateTime start, LocalDateTime end) throws IOException {
@@ -13,8 +13,7 @@ public class Events extends TaskList {
     }
 
     public void addTask(Events e) throws IOException {
-        taskLists.add(e);
-//        super.update_saved_tasklist();
+        TaskList.addTasks(e);
         System.out.println("Got it. I've added this task:");
         System.out.println("[E][_] " + e.getName() + "(from: " + dateTimeSystem.format(this.start) + " to: " + dateTimeSystem.format(this.end) + ")");
         System.out.println("Now you have " + e.get_list_size() +" tasks in the list.");
@@ -24,7 +23,7 @@ public class Events extends TaskList {
     private void updateTasklist(Events e) throws IOException {
         String marked = "[X]";
         String unmarked = "[_]";
-        int index = taskLists.size();
+        int index = TaskList.getTasks().size();
         StringBuilder information;
         if (e.getCurrentStatus()== Status.MARKED) {
             information = new StringBuilder(index + ". [" + e.getTag() + "]" + marked + " " + e.getName());

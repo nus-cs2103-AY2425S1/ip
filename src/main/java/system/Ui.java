@@ -1,9 +1,9 @@
 package system;
 
-import commands.Deadlines;
-import commands.Events;
-import commands.TaskList;
-import commands.ToDos;
+import task.Deadlines;
+import task.Events;
+import task.Task;
+import task.ToDos;
 
 public class Ui {
     /**
@@ -65,22 +65,22 @@ public class Ui {
      *
      * @param t Task that has been removed, which can be an instance of ToDos, Deadlines, or Events.
      */
-    public void delete_message(TaskList t) {
+    public void delete_message(Task t) {
         System.out.println("Noted. I've removed this task:");
         if (t instanceof ToDos) {
-            if (t.getCurrentStatus()== TaskList.Status.MARKED) {
+            if (t.getCurrentStatus()== Task.Status.MARKED) {
                 System.out.println("[T][X] " + t.getName());
             } else {
                 System.out.println("[T][ ] " + t.getName());
             }
         } else if (t instanceof Deadlines) {
-            if (t.getCurrentStatus()== TaskList.Status.MARKED) {
+            if (t.getCurrentStatus()== Task.Status.MARKED) {
                 System.out.println("[D][X] " + t.getName() + "(by: " + t.getDate() + ")");
             } else {
                 System.out.println("[D][ ] " + t.getName() + "(by: " + t.getDate() + ")");
             }
         } else if (t instanceof Events) {
-            if (t.getCurrentStatus()== TaskList.Status.MARKED) {
+            if (t.getCurrentStatus()== Task.Status.MARKED) {
                 System.out.println("[E][X] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
             } else {
                 System.out.println("[E][ ] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");

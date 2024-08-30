@@ -1,4 +1,4 @@
-import commands.TaskList;
+import task.Task;
 import storage.Storage;
 import system.Ui;
 import system.InputProcessor;
@@ -14,7 +14,7 @@ public class Tanjiro {
         Parser parser = new Parser();
 
         storage.createFile();
-        TaskList.init_list();
+        Task.init_list();
 
         ui.greet();
 

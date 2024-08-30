@@ -1,9 +1,9 @@
 package system;
 
-import commands.Deadlines;
-import commands.Events;
-import commands.TaskList;
-import commands.ToDos;
+import task.Deadlines;
+import task.Events;
+import task.Task;
+import task.ToDos;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -116,7 +116,7 @@ public class Parser {
      */
     public void performFind(String input) throws FileNotFoundException {
         String name = input.substring(5);
-        TaskList.findTask(name);
+        Task.findTask(name);
     }
 
     /**
@@ -126,7 +126,7 @@ public class Parser {
      * @throws FileNotFoundException If the task file is not found when attempting to list tasks.
      */
     public void performListTasks() throws FileNotFoundException {
-        TaskList.list_task();
+        Task.list_task();
     }
 
     /**
@@ -140,9 +140,9 @@ public class Parser {
     public void performMark(String input) throws IOException {
         int list_no = Character.getNumericValue(input.charAt(input.length() - 1));
         if (containUnmark(input)) {
-            TaskList.unmark_task(list_no);
+            Task.unmark_task(list_no);
         } else {
-            TaskList.mark_task(list_no);
+            Task.mark_task(list_no);
         }
     }
 
@@ -248,6 +248,6 @@ public class Parser {
      */
     public void performDelete(String input) throws IOException {
         int list_no = Character.getNumericValue(input.charAt(input.length() - 1));
-        TaskList.delete_task(list_no);
+        Task.delete_task(list_no);
     }
 }

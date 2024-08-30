@@ -1,15 +1,15 @@
-package commands;
+package task;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class ToDos extends TaskList {
+public class ToDos extends Task {
     public ToDos(String name) throws IOException {
         super(name, "T");
     }
 
     public void addTask(ToDos t) throws IOException {
-        TaskList.taskLists.add(t);
+        TaskList.addTasks(t);
         System.out.println("Got it. I've added this task:");
         System.out.println("[T][_] " + t.getName());
         System.out.println("Now you have " + t.get_list_size() +" tasks in the list.");
@@ -20,7 +20,7 @@ public class ToDos extends TaskList {
     private void updateTaskList(ToDos t) throws IOException {
         String marked = "[X]";
         String unmarked = "[_]";
-        int index = TaskList.taskLists.size();
+        int index = TaskList.getTasks().size();
         StringBuilder information;
         if (t.getCurrentStatus()== Status.MARKED) {
             information = new StringBuilder(index + ". [" + t.getTag() + "]" + marked + " " + t.getName());
@@ -28,7 +28,7 @@ public class ToDos extends TaskList {
             information = new StringBuilder(index + ". [" + t.getTag() + "]" + unmarked + " " + t.getName());
         }
 
-        TaskList.storage.write(String.valueOf(information));
+        Task.storage.write(String.valueOf(information));
     }
 
     @Override

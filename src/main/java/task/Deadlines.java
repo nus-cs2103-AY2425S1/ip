@@ -1,9 +1,9 @@
-package commands;
+package task;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class Deadlines extends TaskList {
+public class Deadlines extends Task {
     LocalDateTime date;
 
     public Deadlines(String name, LocalDateTime date) throws IOException {
@@ -12,7 +12,7 @@ public class Deadlines extends TaskList {
     }
 
     public void addTask(Deadlines d) throws IOException {
-        taskLists.add(d);
+        TaskList.addTasks(d);
         System.out.println("Got it. I've added this task:");
         System.out.println("[D][_] " + d.getName() + "(by: " + dateTimeSystem.format(date) + ")");
         System.out.println("Now you have " + d.get_list_size() +" tasks in the list.");
@@ -22,7 +22,7 @@ public class Deadlines extends TaskList {
     private void updateTasklist(Deadlines d) throws IOException {
         String marked = "[X]";
         String unmarked = "[_]";
-        int index = taskLists.size();
+        int index = TaskList.getTasks().size();
         StringBuilder information;
         if (d.getCurrentStatus()== Status.MARKED) {
             information = new StringBuilder(index + ". [" + d.getTag() + "]" + marked + " " + d.getName());
