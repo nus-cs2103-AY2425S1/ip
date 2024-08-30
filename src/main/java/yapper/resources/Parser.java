@@ -1,8 +1,8 @@
 package yapper.resources;
 
-import yapper.exceptions.YapperException;
-
 import java.util.Scanner;
+
+import yapper.exceptions.YapperException;
 
 /**
  * Parses user input from the command line.

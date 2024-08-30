@@ -20,8 +20,8 @@ public class Ui {
      */
     public void intro() {
         String[] temp = {
-                "Hello! I'm " + NAME,
-                "What can I do for you?"
+            "Hello! I'm " + NAME,
+            "What can I do for you?"
         };
         wrapText(temp);
     }

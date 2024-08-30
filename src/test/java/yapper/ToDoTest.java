@@ -1,10 +1,11 @@
 package yapper;
-import yapper.exceptions.YapperException;
-import yapper.resources.ToDo;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import yapper.exceptions.YapperException;
+import yapper.resources.ToDo;
 
 public class ToDoTest {
 

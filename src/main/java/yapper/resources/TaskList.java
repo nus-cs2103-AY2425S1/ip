@@ -31,9 +31,9 @@ public class TaskList {
     public void addTask(Task task) {
         this.taskList.add(task);
         String[] texts = {
-                "Task has been added:",
-                "  " + task,
-                "A total of " + getSize() + " " + taskPlural() + " are on the list."
+            "Task has been added:",
+            "  " + task,
+            "A total of " + getSize() + " " + taskPlural() + " are on the list."
         };
         writeToFile();
         Ui.wrapText(texts);
@@ -103,9 +103,9 @@ public class TaskList {
             return;
         }
         String[] texts = {
-                "The following task has been removed form the list:",
-                "  " + task,
-                "A total of " + getSize() + " " + taskPlural() + " are still left."
+            "The following task has been removed form the list:",
+            "  " + task,
+            "A total of " + getSize() + " " + taskPlural() + " are still left."
         };
         Ui.wrapText(texts);
     }
@@ -138,8 +138,8 @@ public class TaskList {
         }
         writeToFile();
         String[] texts = {
-                message,
-                " " + task,
+            message,
+            " " + task,
         };
         Ui.wrapText(texts);
     }

@@ -1,13 +1,12 @@
 package yapper.resources;
 
-import yapper.exceptions.YapperException;
-import yapper.exceptions.YapperFormatException;
-
-import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import yapper.exceptions.YapperException;
 
 /**
  * Represents a task with a description and completion status.
@@ -16,20 +15,22 @@ public class Task {
     private String desc;
     private String isDone;
 
+    @SuppressWarnings("checkstyle:DeclarationOrder")
     private static String[] timeFormats = {
-            "HHmm",
-            "HH:mm[:ss]"
+        "HHmm",
+        "HH:mm[:ss]"
     };
 
+    @SuppressWarnings("checkstyle:DeclarationOrder")
     private static String[] dateFormats = {
-            "d/M/yyyy", // Date only
-            "d/MM/yyyy",
-            "dd/M/yyyy",
-            "dd/MM/yyyy",
-            "yyyy/M/d",
-            "yyyy/MM/d",
-            "yyyy/M/dd",
-            "yyyy/MM/dd",
+        "d/M/yyyy", // Date only
+        "d/MM/yyyy",
+        "dd/M/yyyy",
+        "dd/MM/yyyy",
+        "yyyy/M/d",
+        "yyyy/MM/d",
+        "yyyy/M/dd",
+        "yyyy/MM/dd",
     };
 
     /**
