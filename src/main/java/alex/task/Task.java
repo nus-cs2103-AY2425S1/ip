@@ -7,24 +7,24 @@ package alex.task;
 public class Task {
     private String taskName;
 
-    private boolean taskCompletionStatus;
-    public Task(String taskName, boolean taskCompletionStatus) {
+    private boolean isCompleted;
+    public Task(String taskName, boolean isCompleted) {
         this.taskName = taskName;
-        this.taskCompletionStatus = taskCompletionStatus;
+        this.isCompleted = isCompleted;
     }
 
     /**
      * Marks the Task as done.
      */
     public void markAsDone() {
-        this.taskCompletionStatus = true;
+        this.isCompleted = true;
     }
 
     /**
      * Marks the Task as not done yet.
      */
     public void markAsUndone() {
-        this.taskCompletionStatus = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -34,7 +34,7 @@ public class Task {
     @Override
     public String toString() {
         String box = "";
-        if (this.taskCompletionStatus) {
+        if (this.isCompleted) {
             box = "[X]";
         } else {
             box = "[ ]";
@@ -49,7 +49,7 @@ public class Task {
      * different String representation formats allow reuse of Parser functions to convert the text in
      * the file back to Task objects when the file is loaded at the start of every run.
      */
-    public String storageString() {
+    public String toStorageString() {
         return "";
     }
 }

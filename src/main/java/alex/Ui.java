@@ -93,7 +93,8 @@ public class Ui {
      * @param task Task object that was involved in the action taken by the chatbot.
      * @param size Number of tasks in the Tasklist.
      */
-    public void message(String str, Task task, int size) {
+
+    public void showMessage(String str, Task task, int size) {
         System.out.println(this.line);
         System.out.println(str);
         System.out.println(task);

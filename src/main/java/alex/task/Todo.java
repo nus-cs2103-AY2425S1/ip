@@ -4,8 +4,8 @@ package alex.task;
  * Represents the most basic Task that only has a description.
  */
 public class Todo extends Task {
-    public Todo(String taskName, boolean taskCompletionStatus) {
-        super(taskName, taskCompletionStatus);
+    public Todo(String taskName, boolean isCompleted) {
+        super(taskName, isCompleted);
     }
 
     @Override
@@ -14,7 +14,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public String storageString() {
+    public String toStorageString() {
         return "[T]" + super.toString();
     }
 }

@@ -19,6 +19,6 @@ public class EventTest {
         assertEquals("[E][ ] Hack and Roll 2024 /from 2024-08-29 1030 /to 2024-09-05 2311",
                 new Event("Hack and Roll 2024", false,
                         LocalDateTime.of(2024, 8, 29, 10, 30),
-                        LocalDateTime.of(2024, 9, 5, 23, 11)).storageString());
+                        LocalDateTime.of(2024, 9, 5, 23, 11)).toStorageString());
     }
 }

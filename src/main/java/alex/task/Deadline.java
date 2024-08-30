@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     private LocalDateTime deadline;
-    public Deadline (String taskName, boolean taskCompletionStatus, LocalDateTime deadline) {
-        super(taskName, taskCompletionStatus);
+    public Deadline (String taskName, boolean isCompleted, LocalDateTime deadline) {
+        super(taskName, isCompleted);
         this.deadline = deadline;
     }
 
@@ -21,11 +21,13 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy h.mma")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy h.mma")) + ")";
     }
 
     @Override
-    public String storageString() {
-        return "[D]" + super.toString() + " /by " + this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    public String toStorageString() {
+        return "[D]" + super.toString() + " /by "
+                + this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 }
