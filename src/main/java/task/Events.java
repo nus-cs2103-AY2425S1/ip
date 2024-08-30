@@ -21,7 +21,6 @@ public class Events extends Task {
      * @throws CommandFoundButInvalidException if the description format is incorrect
      * @throws InvalidSyntaxException if the description is not empty but is of incorrect syntax
      */
-    /
     public Events(String description) throws CommandFoundButInvalidException {
         super(description);
         this.initDesc = description;
