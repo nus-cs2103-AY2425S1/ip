@@ -1,3 +1,7 @@
+package jackbean.exception;
+
+import jackbean.task.TaskType;
+
 public class TooManyArgumentsException extends Exception {
     public TaskType type;
 

@@ -1,5 +1,5 @@
 ____________________________________________________________
-Hello homie! I'm JackBean, a chatbot designed to help you with your daily tasks!
+Hello homie! I'm jackbean.command.JackBean, a chatbot designed to help you with your daily tasks!
 How may I help you today my homie?
 ____________________________________________________________
 ____________________________________________________________
@@ -115,5 +115,5 @@ Yo homie!, here are the tasks in your list:
 1. [E][ ] hello there my bro im testing (from: yesterday to: tOdAy)
 ____________________________________________________________
 ____________________________________________________________
-Bye homie! Come back if you need anything else. JackBean, signing off!
+Bye homie! Come back if you need anything else. jackbean.command.JackBean, signing off!
 ____________________________________________________________

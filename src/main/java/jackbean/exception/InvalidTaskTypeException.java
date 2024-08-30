@@ -1,9 +1,11 @@
+package jackbean.exception;
+
 public class InvalidTaskTypeException extends Exception {
     public InvalidTaskTypeException(String message) {
         super(message);
     }
     public InvalidTaskTypeException() {
-        super("Invalid Task Type");
+        super("Invalid jackbean.task.Task Type");
     }
 
     @Override

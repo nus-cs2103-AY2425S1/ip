@@ -1,3 +1,5 @@
+package jackbean.task;
+
 import java.time.LocalDate;
 
 public class Event extends Task {
@@ -14,6 +16,14 @@ public class Event extends Task {
     public String getDateString(LocalDate date) {
         return date.getMonth().toString().substring(0, 1) + date.getMonth().toString().substring(1, 3).toLowerCase()
                 + " " + date.getDayOfMonth() + " " + date.getYear();
+    }
+
+    public LocalDate getFrom() {
+        return from;
+    }
+
+    public LocalDate getTo() {
+        return to;
     }
 
     @Override

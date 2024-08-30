@@ -1,3 +1,13 @@
+package jackbean.command;
+
+import jackbean.exception.InvalidTaskTypeException;
+import jackbean.exception.NotEnoughArgumentsException;
+import jackbean.exception.TooManyArgumentsException;
+import jackbean.task.Deadline;
+import jackbean.task.Event;
+import jackbean.task.TaskList;
+import jackbean.task.Todo;
+
 public class Parser {
     public static String parseUserInput(String input, TaskList taskList) throws NotEnoughArgumentsException, TooManyArgumentsException, InvalidTaskTypeException {
             if (input.equalsIgnoreCase("help")) {
@@ -26,7 +36,7 @@ public class Parser {
                 int taskNumber = Integer.parseInt(splitInput[1]);
 
                 // check if task is already done
-                if (taskList.getTask(taskNumber).isDone) {
+                if (taskList.getTask(taskNumber).isDone()) {
                     return "This task is already done my homie:\n" + taskList.getTask(taskNumber);
                 }
 
@@ -41,7 +51,7 @@ public class Parser {
                 int taskNumber = Integer.parseInt(splitInput[1]);
 
                 // check if task is already undone
-                if (!taskList.getTask(taskNumber).isDone) {
+                if (!taskList.getTask(taskNumber).isDone()) {
                     return "This task hasn't been marked done yet my homie:\n" + taskList.getTask(taskNumber);
                 }
 
