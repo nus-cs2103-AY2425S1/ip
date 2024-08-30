@@ -1,3 +1,12 @@
+package lutodo.commands;
+
+import lutodo.tasklist.TaskList;
+import lutodo.parser.Parser;
+import lutodo.tasks.Task;
+import lutodo.tasks.EventTask;
+import lutodo.tasks.DeadlineTask;
+import lutodo.tasks.TodoTask;
+import lutodo.storage.Storage;
 import java.util.NoSuchElementException;
 
 public class AddCommand extends Command{

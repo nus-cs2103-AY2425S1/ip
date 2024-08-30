@@ -1,3 +1,8 @@
+package lutodo.commands;
+
+import lutodo.tasklist.TaskList;
+import lutodo.storage.Storage;
+
 public class DeleteCommand extends Command{
     private int index;
 

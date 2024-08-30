@@ -1,7 +1,12 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
+package lutodo;
+
+import lutodo.commands.Command;
+import lutodo.parser.Parser;
+import lutodo.storage.Storage;
+import lutodo.tasklist.TaskList;
+import lutodo.ui.Ui;
+
+
 public class LuToDo {
 
     private Storage storage;
