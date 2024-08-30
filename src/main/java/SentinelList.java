@@ -23,4 +23,10 @@ public class SentinelList extends ArrayList<Task>{
     public boolean taskIsDone(int index){
         return get(index).isDone();
     }
+
+    @Override
+    public Task get(int index){
+        if (index < 0 || index > size()) return null;
+        return super.get(index);
+    }
 }
