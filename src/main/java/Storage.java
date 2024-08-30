@@ -36,7 +36,6 @@ public class Storage {
 
     private static Task getTask(String[] parts, String taskType, boolean isDone) {
         String description = parts[2];
-
         Task task = null;
         switch (taskType) {
             case "T":
@@ -72,11 +71,12 @@ public class Storage {
             return "T | " + task.getStatusIcon() + " | " + task.getDescription();
         } else if (task instanceof Deadlines) {
             Deadlines deadline = (Deadlines) task;
-            return "D | " + deadline.getStatusIcon() + " | " + deadline.getDescription() + " | " + deadline.getDueDate();
+            return "D | " + deadline.getStatusIcon() + " | " + deadline.getDescription() + " | " + deadline.getDueDateTime();
         } else if (task instanceof Event) {
             Event event = (Event) task;
             return "E | " + event.getStatusIcon() + " | " + event.getDescription() + " | " + event.getFrom() + " | " + event.getTo();
         }
         return "";
     }
+
 }
