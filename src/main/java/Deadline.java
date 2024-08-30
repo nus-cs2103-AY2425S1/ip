@@ -10,11 +10,11 @@ public class Deadline extends Task{
 
     @Override
     public String toListString() {
-        return "D" + super.toListString() + " | " + time.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
+        return "D" + super.toListString() + " | " + time.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
     }
 
     @Override
     public String toString() {
-        return "[D]" +super.toString() + " (by: " + time.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) +")";
+        return "[D]" +super.toString() + " (by: " + time.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) +")";
     }
 }
