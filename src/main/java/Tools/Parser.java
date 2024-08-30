@@ -21,7 +21,6 @@ public class Parser {
         try {
             if (input.equals("bye")) {
                 storage.saveTasks(tasks);
-                ui.close();
                 System.out.println("Bye. Hope to see you again soon!");
             } else if (input.startsWith("delete")) {
                 tasks.deleteTask(Integer.parseInt(input.substring(7)) - 1);

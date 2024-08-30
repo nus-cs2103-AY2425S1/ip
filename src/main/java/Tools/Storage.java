@@ -36,7 +36,6 @@ public class Storage {
                             Todo todo = new Todo(split[2]);
                             tasks.add(todo);
                         }
-                        ;
                         break;
 
                     case "D":
