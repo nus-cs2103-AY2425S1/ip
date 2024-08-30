@@ -8,7 +8,15 @@ import nixy.task.Task;
 import nixy.task.TodoTask;
 import nixy.Command;
 
+/**
+ * Parser holds the static method that parses the user input.
+ */
 public class Parser {
+    /**
+     * Parses the user input and returns a Parsed object.
+     * @param input The user input to be parsed.
+     * @return The Parsed object containing the command and task number or task.
+     */
     public static Parsed parse(String input) {
         Task task;
         input = input.trim();

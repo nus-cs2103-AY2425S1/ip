@@ -4,6 +4,10 @@ import nixy.exceptions.NixyException;
 import nixy.task.Task;
 import nixy.Command;
 
+/**
+ * Parsed class is a class that holds the parsed user input.
+ * Input contains a command and task number or task.
+ */
 public class Parsed {
     private Command command;
     private int taskNumber;
@@ -13,11 +17,21 @@ public class Parsed {
         command = c;
     }
 
+    /**
+     * Creates a Parsed object with a command and task number.
+     * @param c The command from the user input.
+     * @param n The task number from the user input.
+     */
     public Parsed(Command c, int n) {
         command = c;
         taskNumber = n;
     }
 
+    /**
+     * Creates a Parsed object with a command and task.
+     * @param c The command from the user input.
+     * @param t The task from the user input.
+     */
     public Parsed(Command c, Task t) {
         command = c;
         task = t;

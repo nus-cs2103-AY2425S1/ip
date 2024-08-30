@@ -6,6 +6,10 @@ import nixy.exceptions.NixyException;
 import nixy.task.Task;
 import nixy.task.TaskList;
 
+/**
+ * Ui class is responsible for handling user interface.
+ * It provides methods to read input from the user and display messages to the user.
+ */
 public class Ui {
 
     static final String HORIZONTAL_LINE = "____________________________________________________________";
@@ -27,6 +31,10 @@ public class Ui {
         PrintUtility.wrapPrintWithHorizontalLines("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Display the list of tasks to the user.
+     * @param tasks The list of tasks to display.
+     */
     public static void showList(TaskList tasks) {
         PrintUtility.indentPrint(HORIZONTAL_LINE);
         PrintUtility.indentPrint("Here are the tasks in your list:");
@@ -38,30 +46,55 @@ public class Ui {
         PrintUtility.indentPrint(HORIZONTAL_LINE);
     }
 
+    /**
+     * Show the message that the task has been marked as done.
+     * @param taskString The string represenation of task that was marked as done.
+     */
     public static void showMarkedAsDone(String taskString) {
         PrintUtility.wrapPrintWithHorizontalLines("Nice! I've marked this task as done:",
             "  " + taskString);
     }
 
+    /**
+     * Show the message that the task has been marked as not done.
+     * @param taskString The string represenation of task that was marked as not done.
+     */
     public static void showMarkedAsUndone(String taskString) {
         PrintUtility.wrapPrintWithHorizontalLines("OK, I've marked this task as not done yet:",
             "  " + taskString);
     }
 
+    /**
+     * Show the message that the task has been deleted.
+     * @param taskString The string represenation of task that was deleted.
+     * @param taskCount The number of tasks remaining in the list.
+     */
     public static void showDeletedTask(String taskString, int taskCount) {
         PrintUtility.wrapPrintWithHorizontalLines("Noted. I've removed this task:",
             "  " + taskString, String.format("Now you have %d tasks in the list.", taskCount));
     }
 
+    /**
+     * Display the NixyException message to the user.
+     * @param e The exception to display.
+     */
     public static void showNixyException(NixyException e) {
         PrintUtility.wrapPrintWithHorizontalLines(e.getMessage());
     }
 
+    /**
+     * Show the message that the task has been added.
+     * @param task The task that was added.
+     * @param taskCount The number of tasks in the list.
+     */
     public static void showAddedTask(Task task, int taskCount) {
         PrintUtility.wrapPrintWithHorizontalLines("Got it. I've added this task:",
             "  " + task, String.format("Now you have %d tasks in the list.", taskCount));
     }
 
+    /**
+     * Alert user that command is not recognized.
+     */
     public static void showUnknownWarning() {
         PrintUtility.wrapPrintWithHorizontalLines("HEY YOU ARE TYPING WEIRD THINGS! I don't understand.");
     }

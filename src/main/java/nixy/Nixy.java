@@ -7,12 +7,22 @@ import nixy.ui.Ui;
 import nixy.parse.Parser;
 import nixy.parse.Parsed;
 
+/**
+ * Todo list application that allows users to manage tasks.
+ * Iterative project for CS2103
+ */
 public class Nixy {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for Nixy.
+     * Initializes the user interface, storage, and task list.
+     *
+     * @param filePath The file path to store tasks data.
+     */
     public Nixy(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -77,7 +87,9 @@ public class Nixy {
                 }
                 break;
             case TODO:
+                // Fallthrough
             case DEADLINE:
+                // Fallthrough
             case EVENT:
                 try {
                     Task task = p.getTask();

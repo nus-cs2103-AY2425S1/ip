@@ -12,6 +12,9 @@ import nixy.task.Task;
 import nixy.task.TaskList;
 import nixy.task.TaskDecoder;
 
+/**
+ * Storage class is responsible for loading and saving tasks to a file.
+ */
 public class Storage {
     private String filePath;
 
@@ -19,6 +22,14 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from file into a list.
+     * List of task meant to be used to create a TaskList object.
+     * If file does not exist, an empty list is returned.
+     *
+     * @return The list of tasks loaded from file.
+     * @throws NixyException If there is an error loading tasks from file.
+     */
     public List<Task> load() throws NixyException {
         List<Task> tasks = new ArrayList<>();
         try {
@@ -39,6 +50,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves tasks to file.
+     * Overwrites the file if it already exists.
+     *
+     * @param taskList The task list to save.
+     * @throws NixyException If there is an error saving tasks to file.
+     */
     public void save(TaskList taskList) throws NixyException {
         try {
             File file = new File(filePath);

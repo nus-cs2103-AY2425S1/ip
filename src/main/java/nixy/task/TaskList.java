@@ -15,6 +15,9 @@ public class TaskList {
     private Storage storage;
     private List<Task> tasks;
 
+    /**
+     * Inner class that provides an iterator for tasks.
+     */
     private class TaskIterator implements Iterator<Task> {
         private int index = 0;
 
@@ -51,6 +54,11 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Returns an iterator for tasks.
+     * NOTE: Could potentially be used to modify existing tasks.
+     * @return An iterator for tasks.
+     */
     public Iterator<Task> getTasksIterator() {
         return new TaskIterator();
     }
