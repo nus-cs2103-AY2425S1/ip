@@ -20,6 +20,12 @@ public class Dawn {
     public static void main(String[] args) {
         String divider = "--".repeat(30);
 
+        // Handles folder-does-not-exist-yet case to save tasks
+        String currentDir = System.getProperty("user.dir");
+        String dirPath = currentDir + File.separator + "data";
+        File file = new File(dirPath);
+        file.mkdir();
+
         System.out.println(divider);
         System.out.println("Dawn 🌙 speaking, what can I do for you?");
 
@@ -186,6 +192,13 @@ public class Dawn {
         }
         return task;
     }
+
+    private static void clearSavedTask(String filePath) throws IOException {
+        FileWriter writer = new FileWriter(filePath, false);
+        writer.write(""); // to clear the content of the files
+        writer.close();
+    }
+
     private static void saveTasks(String filePath) throws DawnException {
         try {
             for (int i = 0; i < tasks.size(); i++) {
