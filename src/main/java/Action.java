@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -108,7 +109,8 @@ public class Action {
             by += inputArr[j] + " ";
         }
         by = by.strip();
-        Deadline deadline = new Deadline(task, false, by);
+        LocalDate byDate = LocalDate.parse(by);
+        Deadline deadline = new Deadline(task, false, byDate);
         list.add(deadline);
         startAddTask();
         System.out.println("\t " + deadline.toString());
@@ -135,6 +137,7 @@ public class Action {
             i++;
         }
         from = from.strip();
+        LocalDate fromDate = LocalDate.parse(from);
         i++;
         if (inputArr.length <= i) {
             throw new ElonException("Error. To date for Event task not specified.");
@@ -144,7 +147,8 @@ public class Action {
             to += inputArr[j] + " ";
         }
         to = to.strip();
-        Event event = new Event(task, false, from, to);
+        LocalDate toDate = LocalDate.parse(to);
+        Event event = new Event(task, false, fromDate, toDate);
         list.add(event);
         startAddTask();
         System.out.println("\t " + event.toString());

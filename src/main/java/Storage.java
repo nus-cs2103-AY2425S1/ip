@@ -2,8 +2,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class Storage {
     private final String path;
@@ -34,11 +36,11 @@ public class Storage {
             case "T":
                 return new ToDo(description, isDone);
             case "D":
-                String by = elements[3];
+                LocalDate by = LocalDate.parse(elements[3]);
                 return new Deadline(description, isDone, by);
             case "E":
-                String start = elements[3];
-                String end = elements[4];
+                LocalDate start = LocalDate.parse(elements[3]);
+                LocalDate end = LocalDate.parse(elements[4]);
                 return new Event(description, isDone, start, end);
             default:
                 throw new ElonException("Invalid task format.");
