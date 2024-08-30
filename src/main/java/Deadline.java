@@ -8,6 +8,10 @@ public class Deadline extends Task{
         this.time = time;
     }
 
+    public LocalDateTime getDate() {
+        return this.time;
+    }
+
     @Override
     public String toListString() {
         return "D" + super.toListString() + " | " + time.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));

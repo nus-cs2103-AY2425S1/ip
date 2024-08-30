@@ -86,6 +86,22 @@ public class Genji {
         }
     }
 
+    public static void checkDate(String date) {
+        for (Task t : list) {
+            if (t instanceof Deadline) {
+                Deadline temp  = (Deadline) t;
+                if (temp.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(date)) {
+                    System.out.println(t);
+                }
+            } else if (t instanceof Event) {
+                Event temp = (Event) t;
+                if (temp.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).equals(date)) {
+                    System.out.println(t);
+                }
+            }
+        }
+    }
+
     public static void echo(String echo) {
         System.out.println(echo);
     }
@@ -208,9 +224,19 @@ public class Genji {
                         System.out.println("Please input a integer smaller than the number of tasks");
                     }
                 }
+            } else if (input.startsWith("date")) {
+                if (input.length() < 6) {
+                    System.out.println("No descriptions detected, try again");
+                } else {
+                    try {
+                        checkDate(input.substring(5));
+                    } catch (DateTimeParseException d) {
+                        System.out.println("Please provide date time in this format\"yyyy-mm-dd\"");
+                    }
+                }
             } else {
                 System.out.println("Invalid command, try to start with \"todo\" \"deadline\"" +
-                        " \"event\", type \"list\", or type \"bye\" to end");
+                        " \"event\", type \"list\" \"date\", or type \"bye\" to end");
             }
             System.out.println(LINE);
         }
