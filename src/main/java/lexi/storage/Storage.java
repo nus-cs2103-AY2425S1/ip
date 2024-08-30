@@ -6,13 +6,13 @@ import lexi.task.Event;
 import lexi.task.Task;
 import lexi.task.Todo;
 
+import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -41,7 +41,6 @@ public class Storage {
                 throw new LexiException("Failed to create directory: " + directory.getAbsolutePath());
             }
         }
-
         // Ensure the file exists
         try {
             if (!dataFile.exists() && !dataFile.createNewFile()) {
@@ -70,7 +69,7 @@ public class Storage {
                 case "T":
                     Todo todoTask = new Todo(taskName);
                     if (parts[1].equals("1")) {
-                        todoTask.doTask();
+                        todoTask.setDone(true);
                     }
                     tasks.add(todoTask);
                     break;
@@ -79,7 +78,7 @@ public class Storage {
                     LocalDateTime by = LocalDateTime.parse(deadline, this.inputFormatter);
                     Deadline deadlineTask = new Deadline(taskName, by);
                     if (parts[1].equals("1")) {
-                        deadlineTask.doTask();
+                        deadlineTask.setDone(true);
                     }
                     tasks.add(deadlineTask);
                     break;
@@ -90,7 +89,7 @@ public class Storage {
                     LocalDateTime to = LocalDateTime.parse(end, this.inputFormatter);
                     Event eventTask = new Event(taskName, from, to);
                     if (parts[1].equals("1")) {
-                        eventTask.doTask();
+                        eventTask.setDone(true);
                     }
                     tasks.add(eventTask);
                     break;
@@ -103,7 +102,6 @@ public class Storage {
         }
         return tasks;
     }
-
 
     /**
      * Updates the file with the current list of tasks.

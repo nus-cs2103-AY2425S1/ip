@@ -18,19 +18,8 @@ public class Task {
         this.isDone = false;
         this.taskName = taskName;
     }
-
-    /**
-     * Marks the task as done.
-     */
-    public void doTask() {
-        this.isDone = true;
-    }
-
-    /**
-     * Marks the task as not done.
-     */
-    public void undoTask() {
-        this.isDone = false;
+    public void setDone(boolean value) {
+        this.isDone = value;
     }
 
     /**
