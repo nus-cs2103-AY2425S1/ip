@@ -1,5 +1,6 @@
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
     private static final DateTimeFormatter dateInputFormatter
@@ -28,5 +29,38 @@ public class Parser {
 
     public static String displayDate(LocalDateTime date) {
         return date.format(dateTextFormatter);
+    }
+
+    public static Task parseCreateTaskCommand(String command) {
+        try {
+            return Task.of(command);
+        } catch (UnknownCommandException e) {
+            UI.printUnknownCommandWarning(e);
+        } catch (DateTimeParseException e) {
+            UI.printInvalidDateWarning();
+        }
+        catch (EmptyTaskDescriptionException
+               | MissingTokenException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public static int parseMarkCommand(String command) {
+        String[] tokens = command.split(" ");
+        String taskNumber = tokens[1];
+        return Integer.parseInt(taskNumber);
+    }
+
+    public static int parseUnMarkCommand(String command) {
+        String[] tokens = command.split(" ");
+        String taskNumber = tokens[1];
+        return Integer.parseInt(taskNumber);
+    }
+
+    public static int parseDeleteCommand(String command) {
+        String[] tokens = command.split(" ");
+        String taskNumber = tokens[1];
+        return Integer.parseInt(taskNumber);
     }
 }
