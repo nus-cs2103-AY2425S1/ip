@@ -42,7 +42,7 @@ public class TaskList {
     void delTask(int taskNum) throws BobException {
         try {
             tasks.remove(taskNum - 1);
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new BobException("Invalid task number provided!");
         }
     }
@@ -60,7 +60,7 @@ public class TaskList {
         return sb.toString();
     }
 
-    String getRelevantTasks(String dateStr) throws BobException {
+    String printRelevantTasks(String dateStr) throws BobException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate date = LocalDate.parse(dateStr, formatter);

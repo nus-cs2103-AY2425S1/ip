@@ -1,5 +1,7 @@
 package bob.task;
 
+import bob.Parser;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,13 +23,8 @@ public class Deadline extends Task {
         return SYMBOL;
     }
 
-    String getDateTimeStr(LocalDateTime dateTimeStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return dateTimeStr.format(formatter);
-    }
-
     public String getTaskLine() {
-        return getSymbol() +  "," + isDoneBinary() + "," + description + "," + getDateTimeStr(by);
+        return getSymbol() +  "," + isDoneBinary() + "," + description + "," + Parser.getDateTimeStr(by);
     }
 
     public boolean isRelevant(LocalDate date) {

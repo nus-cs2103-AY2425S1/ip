@@ -59,8 +59,14 @@ public class Parser {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             return LocalDateTime.parse(dateTimeStr, formatter);
         } catch (DateTimeParseException e) {
-            throw new BobException("Please provide the correct date and 24-hour time format: yyyy-mm-dd HHmm"
-                    + "\nEg. 2024-08-27 1530 for Aug 27 2024 03.30pm");
+            throw new BobException("Please provide the correct date and 24-hour time format: " +
+                    "yyyy-mm-dd HHmm" +
+                    "\nEg. 2024-08-27 1530 for Aug 27 2024 03.30pm");
         }
+    }
+
+    public static String getDateTimeStr(LocalDateTime dateTimeStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return dateTimeStr.format(formatter);
     }
 }
