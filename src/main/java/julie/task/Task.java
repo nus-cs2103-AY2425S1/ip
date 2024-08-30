@@ -1,5 +1,7 @@
+package julie.task;
+
 public abstract class Task {
-    final String taskString;
+    public final String taskString;
     private boolean completed;
     public Task(String s) {
         this.taskString = s;
