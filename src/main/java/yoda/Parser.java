@@ -1,14 +1,6 @@
 package yoda;
 
-import yoda.commands.ByeCommand;
-import yoda.commands.ListCommand;
-import yoda.commands.MarkCommand;
-import yoda.commands.UnmarkCommand;
-import yoda.commands.DeleteCommand;
-import yoda.commands.TodoCommand;
-import yoda.commands.DeadlineCommand;
-import yoda.commands.EventCommand;
-import yoda.commands.Command;
+import yoda.commands.*;
 import yoda.exceptions.EmptyInputException;
 import yoda.exceptions.InvalidInputException;
 import yoda.exceptions.NonsenseInputException;
@@ -47,6 +39,9 @@ public class Parser {
             break;
         case "event":
             command = new EventCommand(tasks, input);
+            break;
+        case "find":
+            command = new FindCommand(tasks, input);
             break;
         default:
             throw new NonsenseInputException();
