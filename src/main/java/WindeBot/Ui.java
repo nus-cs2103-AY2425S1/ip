@@ -80,7 +80,7 @@ public class Ui {
      * @param output The string to print.
      */
 
-    public static void print(String output) {
+    public void print(String output) {
         System.out.println(output);
     }
 }
