@@ -1,3 +1,5 @@
+package myapp.storage;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,6 +9,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import myapp.task.*;
+import myapp.exception.RubyException;
 
 public class Storage {
     private final String filePath;
