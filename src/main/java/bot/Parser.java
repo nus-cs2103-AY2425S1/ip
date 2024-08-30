@@ -28,6 +28,14 @@ public class Parser {
             return this.args;
         }
     }
+
+    /**
+     * Parses the given string input from user
+     *
+     * @param input String input from user
+     * @return <code>ParsedInput</code> containing the Command enum and String arguments
+     * @throws InvalidCommandException Invalid command
+     */
     public ParsedInput parseInput(String input) throws InvalidCommandException {
         Pattern regex = Pattern.compile("(\\w+)\\s*(.*)");
         Matcher matcher = regex.matcher(input);
@@ -41,6 +49,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the given string input from user for creating a new deadline task.
+     *
+     * @param args String input from user
+     * @return <code>Deadline</code> task
+     * @throws InvalidTaskDescriptionException Invalid task description cannot be parsed
+     */
     public Deadline parseDeadlineTask(String args) throws InvalidTaskDescriptionException {
         Pattern regex = Pattern.compile("(.*)\\s/by\\s(.*)");
         Matcher matcher = regex.matcher(args);
@@ -53,6 +68,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the given string input from user for creating a new event task.
+     *
+     * @param args String input from user
+     * @return <code>Event</code> task
+     * @throws InvalidTaskDescriptionException Invalid task description cannot be parsed
+     */
     public Event parseEventTask(String args) throws InvalidTaskDescriptionException {
         Pattern regex = Pattern.compile("(.*)\\s/from\\s(.*)\\s/to\\s(.*)");
         Matcher matcher = regex.matcher(args);

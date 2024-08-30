@@ -22,6 +22,7 @@ public class Storage {
     public Storage() {
         init();
     }
+
     /**
      * Initialises data directory and an empty data file(s) if they do not exist.
      * If the directory or file(s) cannot be initialised, the program exits.
@@ -81,6 +82,11 @@ public class Storage {
         }
     }
 
+    /**
+     *
+     * @param data String data read from the local disk file.
+     * @return <code>Task</code> object parsed from the given data.
+     */
     private Task parseData(String data) {
         String[] args = data.split(" \\| ");
         // TODO: handle corrupted data
