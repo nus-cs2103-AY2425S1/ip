@@ -9,8 +9,8 @@ import java.util.Objects;
 import java.util.StringTokenizer;
 
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     public Event(String description, LocalDateTime from, LocalDateTime to) throws TheBotFatherException {
         super(description, "E");

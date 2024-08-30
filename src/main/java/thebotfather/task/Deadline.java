@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 public class Deadline extends Task {
 
 
-    protected LocalDateTime by;
+    private final LocalDateTime by;
 
     public Deadline(String description, LocalDateTime by) throws TheBotFatherException {
         super(description, "D");

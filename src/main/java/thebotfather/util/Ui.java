@@ -54,7 +54,7 @@ public class Ui {
     }
 
     public void printCount() {
-        this.print("You have " + TaskList.COUNT + " tasks left to do... think it's doable??");
+        this.print("You have " + TaskList.NUMBER_OF_REMAINING_TASKS + " tasks left to do... think it's doable??");
     }
 
     public void printTaskList(String taskListDesc) {

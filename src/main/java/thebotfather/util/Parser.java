@@ -18,7 +18,7 @@ import java.util.StringTokenizer;
 public class Parser {
     public static Command parse(String completeLine, Ui ui) throws TheBotFatherException {
         StringTokenizer tokens;
-        String command = "";
+        String command;
         try {
             tokens = new StringTokenizer(completeLine);
             command = tokens.nextToken();

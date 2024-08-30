@@ -8,7 +8,7 @@ import thebotfather.util.Ui;
 
 public class DeleteCommand extends Command {
 
-    private int index;
+    private final int index;
 
     public DeleteCommand(String stringIndex) throws TheBotFatherException {
         try {

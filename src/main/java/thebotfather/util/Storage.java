@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Storage {
-    private String pathName = "";
+    private final String pathName;
 
     public Storage(String pathName) {
         this.pathName = pathName;

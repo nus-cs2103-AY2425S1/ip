@@ -8,7 +8,7 @@ import thebotfather.util.Ui;
 
 public class AddCommand extends Command {
 
-    private Task task;
+    private final Task task;
 
     public AddCommand(Task task) {
         this.task = task;

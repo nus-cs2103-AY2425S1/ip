@@ -7,8 +7,8 @@ import thebotfather.util.Ui;
 
 public class MarkCommand extends Command {
 
-    private int index;
-    private boolean isDone;
+    private final int index;
+    private final boolean isDone;
 
     public MarkCommand(String stringIndex, boolean isDone) throws TheBotFatherException {
         try {
