@@ -25,4 +25,8 @@ public class Task {
         String formattedString = String.format("[%s] %s", this.getStatusIcon(), this.description);
         return formattedString;
     }
+
+    public boolean isCompleted() {
+        return this.isDone;
+    }
 }
