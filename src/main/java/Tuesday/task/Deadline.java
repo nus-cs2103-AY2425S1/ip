@@ -8,8 +8,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
-    // variable
-    protected String by_msg;
+    protected String byMsg;
 
     /**
      * Constructor for Deadline
@@ -18,10 +17,11 @@ public class Deadline extends Task{
      * @param description Description of the command
      * @param by_msg Postfix after /by
      */
-    public Deadline(String description, String by_msg) {
+    public Deadline(String description, String byMsg) {
+
         super(description);
-        by_msg = handleByMsg(by_msg);
-        this.by_msg = by_msg;
+        byMsg = this.handleByMsg(byMsg);
+        this.byMsg = byMsg;
     }
 
     /**
@@ -32,10 +32,11 @@ public class Deadline extends Task{
      * @param by_msg Postfix after /by
      * @param done Marked data from data file
      */
-    public Deadline(String description, String by_msg, boolean done) {
+    public Deadline(String description, String byMsg, boolean done) {
+
         super(description, done);
-        by_msg = handleByMsg(by_msg);
-        this.by_msg = by_msg;
+        byMsg = this.handleByMsg(byMsg);
+        this.byMsg = byMsg;
     }
 
     /**
@@ -44,9 +45,9 @@ public class Deadline extends Task{
      * @param by_msg Postfix after /by
      * @return Formated string of the date and time
      */
-    private String handleByMsg(String by_msg) {
+    private String handleByMsg(String byMsg) {
         //deadline readbook /by 2019-10-23 10:30
-        String[] timing_msg = by_msg.split(" ");
+        String[] timing_msg = byMsg.split(" ");
 
         timing_msg[0] = timing_msg[0].replaceAll("/", "-");
         String[] date_in_parts = timing_msg[0].split("-");
@@ -79,14 +80,14 @@ public class Deadline extends Task{
      * @return Empty string
      */
     @Override
-    public String write_to_datafile(File dataFile) {
+    public String writeToDatafile(File dataFile) {
         try {
             if (dataFile.exists()) {
                 // boolean if true, then data will be written to the end of the file rather than the beginning.
                 FileWriter wr = new FileWriter(dataFile, true);
 
-                String builder = "D | "+ this.getDone1() + " | " + super.write_to_datafile(dataFile)
-                        + " | " + this.by_msg + "\n";
+                String builder = "D | "+ this.getDone1() + " | " + super.writeToDatafile(dataFile)
+                        + " | " + this.byMsg + "\n";
                 wr.write(builder);
 
                 //flushing & closing the writer
@@ -106,6 +107,6 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by_msg + ")";
+        return "[D]" + super.toString() + " (by: " + this.byMsg + ")";
     }
 }
