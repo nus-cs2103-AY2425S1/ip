@@ -1,10 +1,15 @@
 package Milo.TaskObj;
 
+<<<<<<< HEAD
 /*
  * Represents a task event containing
  * completion status, deletion status and description
  * also contains a static count of the task number
  */
+=======
+import java.util.Objects;
+
+>>>>>>> branch-Level-9
 public class Task {
     public static int taskNumber = 0;
     private final String description;
@@ -63,11 +68,18 @@ public class Task {
         taskNumber--;
     }
 
+<<<<<<< HEAD
     /*
      * overrides the Object toString() method
      * provides completion and description information
      * format string for Ui
      */
+=======
+    public Boolean isSameTask(String taskDesc) {
+        return this.description != null && this.description.contains(taskDesc);
+    }
+
+>>>>>>> branch-Level-9
     @Override
     public String toString() {
         return isCompleted ? "[X] " + description : "[ ] " + description;

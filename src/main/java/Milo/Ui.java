@@ -126,12 +126,22 @@ public class Ui {
         System.out.print(hLine);
     }
 
+    public static void printFoundTask(ArrayList<Task> todoList, int tasksFounded) {
+        System.out.print(hLine);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasksFounded; i++) {
+            System.out.println(i+1 + "." + todoList.get(i).toString());
+        }
+        System.out.println(hLine);
+    }
+
     /*
     * Milo prints error
     *
     * @param task type of the task that caused the error
     * @param error description
      */
+
     public static void printError(TaskType.taskType tasktype, String desc) {
         String oops = "OOPS!!! ";
         switch (tasktype) {

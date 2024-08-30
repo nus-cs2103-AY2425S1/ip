@@ -25,6 +25,26 @@ public class Parser {
             case "list":
                 Ui.printList(todoList);
                 break;
+            // Find task
+            case "find":
+                // Check for proper formatting
+                if (arrOfInput.length != 2) {
+                    Ui.printError(TaskType.taskType.TODO, "The description of a find cannot be empty");
+                } else {
+                    String desc = arrOfInput[1].strip();
+                    int taskFounded = 0;
+                    ArrayList<Task> tempTaskList = new ArrayList<>();
+
+                    // Iterate through task
+                    for (int i = 0; i < Task.taskNumber; i++) {
+                        if (todoList.get(i).isSameTask(desc)) {
+                            tempTaskList.add(todoList.get(i));
+                            taskFounded++;
+                        }
+                    }
+                    Ui.printFoundTask(tempTaskList, taskFounded);
+                }
+                break;
             // Mark as complete
             case "mark":
                 Task curTask = todoList.get(Integer.parseInt(arrOfInput[1]) - 1);
