@@ -128,7 +128,7 @@ public class Joseph {
             } catch (UnknownCommandException | InsufficientDetailsException e) {
                 System.out.println(e.getMessage());
             } catch (IOException e) {
-                System.out.println("We couldn't load the tasks!");
+                System.out.println("We couldn't load/save the tasks!");
             }
         }
     }
@@ -211,7 +211,7 @@ public class Joseph {
                 }
             }
         } catch (IOException e) {
-            System.out.println("We couldn't load the tasks!");
+            System.out.println("We couldn't load/save the tasks!");
         }
         return list;
     }
