@@ -8,24 +8,23 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
-    protected String by_msg;
+    protected String byMsg;
 
-    public Deadline(String description, String by_msg) {
+    public Deadline(String description, String byMsg) {
         super(description);
-        by_msg = handleByMsg(by_msg);
-        this.by_msg = by_msg;
+        byMsg = this.handleByMsg(byMsg);
+        this.byMsg = byMsg;
     }
 
-    public Deadline(String description, String by_msg, boolean done) {
+    public Deadline(String description, String byMsg, boolean done) {
         super(description, done);
-        by_msg = handleByMsg(by_msg);
-        this.by_msg = by_msg;
+        byMsg = this.handleByMsg(byMsg);
+        this.byMsg = byMsg;
     }
 
-
-    private String handleByMsg(String by_msg) {
+    private String handleByMsg(String byMsg) {
         //deadline readbook /by 2019-10-23 10:30
-        String[] timing_msg = by_msg.split(" ");
+        String[] timing_msg = byMsg.split(" ");
 
         timing_msg[0] = timing_msg[0].replaceAll("/", "-");
         String[] date_in_parts = timing_msg[0].split("-");
@@ -51,16 +50,15 @@ public class Deadline extends Task{
         return string_date + " " + string_time;
     }
 
-
     @Override
-    public String write_to_datafile(File dataFile) {
+    public String writeToDatafile(File dataFile) {
         try {
             if (dataFile.exists()) {
                 // boolean if true, then data will be written to the end of the file rather than the beginning.
                 FileWriter wr = new FileWriter(dataFile, true);
 
-                String builder = "D | "+ this.getDone1() + " | " + super.write_to_datafile(dataFile)
-                        + " | " + this.by_msg + "\n";
+                String builder = "D | "+ this.getDone1() + " | " + super.writeToDatafile(dataFile)
+                        + " | " + this.byMsg + "\n";
                 wr.write(builder);
 
                 //flushing & closing the writer
@@ -75,6 +73,6 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by_msg + ")";
+        return "[D]" + super.toString() + " (by: " + this.byMsg + ")";
     }
 }

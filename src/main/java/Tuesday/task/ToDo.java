@@ -14,14 +14,14 @@ public class ToDo extends Task{
     }
 
     @Override
-    public String write_to_datafile(File dataFile) {
+    public String writeToDatafile(File dataFile) {
         String builder = "";
         try {
             if (dataFile.exists()) {
                 // boolean if true, then data will be written to the end of the file rather than the beginning.
                 FileWriter wr = new FileWriter(dataFile, true);
 
-                builder = "T | "+ this.getDone1() + " | " + super.write_to_datafile(dataFile)+ "\n";
+                builder = "T | "+ this.getDone1() + " | " + super.writeToDatafile(dataFile)+ "\n";
                 wr.write(builder);
 
                 //flushing & closing the writer

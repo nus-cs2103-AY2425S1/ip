@@ -7,12 +7,10 @@ import Tuesday.util.Ui;
 import java.io.*;
 
 public class MarkCommand extends Command{
-    private String commandType;
     private int taskIndex;
     private boolean isMarked;
     public MarkCommand(String commandType, int taskIndex, boolean isMarked) {
         super(commandType);
-        this.commandType = commandType;
         this.taskIndex = taskIndex;
         this.isMarked = isMarked;
     }

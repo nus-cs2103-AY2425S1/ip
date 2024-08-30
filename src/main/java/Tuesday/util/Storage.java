@@ -34,21 +34,20 @@ public class Storage {
                     userInputArr = line.split(" \\| ");
 
                     switch (userInputArr[0]) {
-                        case "T":
-                            ToDo taskItem = new ToDo(userInputArr[2], userInputArr[1].equals("1"));
-                            break;
-                        case "D":
-                            Deadline deadlineItem = new Deadline(userInputArr[2],
+                    case "T":
+                        ToDo taskItem = new ToDo(userInputArr[2], userInputArr[1].equals("1"));
+                        break;
+                    case "D":
+                        Deadline deadlineItem = new Deadline(userInputArr[2],
                                     userInputArr[3], userInputArr[1].equals("1"));
-                            break;
-                        case "E":
-                            //System.out.println("test "+ userInputArr[2]);
-                            String[] userInputArrEvent = userInputArr[3].split("-");
-                            Event eventItem = new Event(userInputArr[2],
+                        break;
+                    case "E":
+                        String[] userInputArrEvent = userInputArr[3].split("-");
+                        Event eventItem = new Event(userInputArr[2],
                                     userInputArrEvent[0], userInputArrEvent[1], userInputArr[1].equals("1"));
-                            break;
-                        default:
-                            break label;
+                        break;
+                    default:
+                        break label;
                     }
                 }
             } finally {
@@ -60,12 +59,12 @@ public class Storage {
         return "";
     }
 
-    public void save_to_datafile(Task taskItem) {
+    public void saveToDatafile(Task taskItem) {
         File dataFile = new File(filePath);
-        taskItem.write_to_datafile(dataFile);
+        taskItem.writeToDatafile(dataFile);
     }
 
-    public void create_new_datafile() {
+    public void createNewDatafile() {
         try {
             File dataFile = new File(filePath);
             dataFile.getParentFile().mkdirs(); // Make the directory
