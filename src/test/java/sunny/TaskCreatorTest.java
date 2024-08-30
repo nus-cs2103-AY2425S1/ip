@@ -6,8 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+/**
+ * Tests the TaskCreator class
+ */
 public class TaskCreatorTest {
 
+    /**
+     * Tests the todo scenario under TaskCreator
+     */
     @Test
     public void test1() {
         try {
@@ -20,6 +26,9 @@ public class TaskCreatorTest {
         }
     }
 
+    /**
+     * Tests the deadline scenario under TaskCreator
+     */
     @Test
     public void test2() {
         try {
@@ -32,6 +41,9 @@ public class TaskCreatorTest {
         }
     }
 
+    /**
+     * Tests if the user give the wrong input
+     */
     @Test
     public void test3() {
         try{
