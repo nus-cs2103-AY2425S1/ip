@@ -24,6 +24,7 @@ public class Dawn {
         System.out.println("Dawn 🌙 speaking, what can I do for you?");
 
         try {
+            loadPrevTasks("./data/dawn.txt"); //
             respond();
         } catch (DawnException ex) {
             System.err.print(ex);
@@ -48,6 +49,7 @@ public class Dawn {
             switch (cmd) {
             case BYE:
                 System.out.println("Byeeee~ nice chatting with you! See you next time, Dawn 🌙 out");
+                saveTasks("./data/dawn.txt");
                 return;
             case LIST:
                 System.out.println("listing all tasks...");
@@ -183,5 +185,42 @@ public class Dawn {
             task.markAsDone();
         }
         return task;
+    }
+    private static void saveTasks(String filePath) throws DawnException {
+        try {
+            for (int i = 0; i < tasks.size(); i++) {
+                writeToFile(filePath, tasks.get(i));
+            }
+        } catch (IOException e) {
+            throw new DawnException("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void writeToFile(String filePath, Task task) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        String separator = " | ";
+        String isDone = task.isDone() ? "1" : "0";
+        String desc = task.getDesc();
+        String deadline;
+        String from;
+        String to;
+
+        String textToAdd = "";
+
+        if (task instanceof ToDo) {
+            textToAdd = "T" + separator + isDone + separator + desc;
+        } else if (task instanceof Deadline) {
+            // We can safely typecast here since we already checked that task is an instance of Deadline
+            Deadline t = (Deadline) task;
+            deadline = (t).getDeadline();
+            textToAdd = "D" + separator + isDone + separator + desc + separator + deadline;
+        } else { // task instanceof Event
+            Event t = (Event) task;
+            from = t.getFromTime();
+            to = t.getToTime();
+            textToAdd = "E" + separator + isDone + separator + desc + separator + from + separator + to;
+        }
+        fw.write(textToAdd + System.lineSeparator());
+        fw.close();
     }
 }
