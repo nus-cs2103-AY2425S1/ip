@@ -1,3 +1,9 @@
+package joe.command;
+
+import joe.JoeException;
+import joe.Storage;
+import joe.Ui;
+import joe.task.TaskList;
 public class DeleteCommand extends Command {
     String[] inputArr;
     public DeleteCommand(String[] inputArr) {

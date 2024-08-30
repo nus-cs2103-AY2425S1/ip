@@ -1,5 +1,11 @@
-import java.io.IOException;
+package joe.command;
 
+import joe.JoeException;
+import joe.Storage;
+import joe.Ui;
+import joe.task.TaskList;
+
+import java.io.IOException;
 public class ExitCommand extends Command {
 
     @Override

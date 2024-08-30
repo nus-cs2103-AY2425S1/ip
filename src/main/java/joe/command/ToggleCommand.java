@@ -1,3 +1,10 @@
+package joe.command;
+
+import joe.Commands;
+import joe.JoeException;
+import joe.Storage;
+import joe.Ui;
+import joe.task.TaskList;
 public class ToggleCommand extends Command {
     String[] inputArr;
     Commands c;

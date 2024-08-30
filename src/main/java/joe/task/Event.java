@@ -1,6 +1,8 @@
+package joe.task;
+
 import java.time.LocalDate;
 
-public class Event extends Task{
+public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
 

@@ -1,3 +1,9 @@
+package joe;
+
+import joe.Commands;
+import joe.JoeException;
+import joe.command.*;
+
 public class Parser {
     //parse the user commands
 

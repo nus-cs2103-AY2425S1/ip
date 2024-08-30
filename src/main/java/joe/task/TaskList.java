@@ -1,3 +1,7 @@
+package joe.task;
+
+import joe.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {

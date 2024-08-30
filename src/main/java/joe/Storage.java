@@ -1,7 +1,10 @@
+package joe;
+
+import joe.task.*;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class Storage {
     //deals with loading tasks from the file and saving tasks in the file

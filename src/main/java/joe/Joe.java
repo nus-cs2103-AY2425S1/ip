@@ -1,7 +1,7 @@
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+package joe;
+
+import joe.command.Command;
+import joe.task.TaskList;
 
 public class Joe {
 //    private static final ArrayList<Task> tasks = new ArrayList<>();
