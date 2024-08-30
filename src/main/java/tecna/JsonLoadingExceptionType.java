@@ -2,6 +2,7 @@ package tecna;
 
 /**
  * Represents types of exceptions when parsing data from a json file.
+ * A <code>message</code> shows the error message of each exception.
  *
  * @author DennieDan.
  */
