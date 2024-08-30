@@ -170,7 +170,7 @@ public class Chatgpt {
         }
         String description = parts[0].substring(9).trim();
         if (description.isEmpty()) {
-            throw new EmptyDescriptionException("OPS!!! The description of a deadline cannot be empty.");
+            throw new EmptyDescriptionException("OPS!!! The description of a deadline cannot be empty");
         }
         try {
             String by = parts[1].trim();
