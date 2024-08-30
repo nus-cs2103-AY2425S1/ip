@@ -1,4 +1,11 @@
-import java.io.*;
+
+import java.sql.Array;
+import java.time.LocalTime;
+import java.util.Scanner;  // Import the Scanner class
+import java.util.ArrayList; // import the ArrayList class
+import java.lang.ArrayIndexOutOfBoundsException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Scanner; // Import the Scanner class
 import java.util.ArrayList; // import the ArrayList class
 import java.lang.ArrayIndexOutOfBoundsException;
@@ -21,8 +28,7 @@ public class Tuesday {
                 + "\nNow you have " + Task.count + " task(s) in the list.");
         Tuesday.print_line();
     }
-
-    private static void msg_welcome() {
+private static void msg_welcome() {
         Tuesday.print_line();
         System.out.println("Hello! I'm Tuesday, a randomly created bot.\n"
                 + "What can I do for you?");
@@ -182,7 +188,7 @@ public class Tuesday {
     }
     public static void main(String[] args) {
         msg_welcome();
-        Scanner myObj = new Scanner(System.in); // Create a Scanner object
+        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
         String userInput = "";
         String[] userInputArr;
 
@@ -228,8 +234,9 @@ public class Tuesday {
                     comm_deadline(msg_split_by[0], msg_split_by[1]);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Hey there! The 'deadline' function cannot be empty");
-                } catch (Exception e) {
-                    System.out.println("Hey there! Can you try typing differently ");
+                } catch(Exception e) {
+                    System.out.println("Hey there! Can you try typing differently " + e);
+
                 }
             } else if (userInputArr[0].equals("event")) {
                 try {
