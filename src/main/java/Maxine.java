@@ -12,10 +12,16 @@ public class Maxine {
     static ArrayList<Task> list = new ArrayList<>();
     static String[] arr;
     static Scanner scanner = new Scanner(System.in);
+    private Ui ui;
     
     
     public Maxine() {
-        // nothing
+        ui = new Ui();
+    }
+    
+    public void run() {
+        ui.greet();
+        FileReading.rememberFileContents("data/maxine.txt", list);
     }
 
     /**
@@ -81,8 +87,7 @@ public class Maxine {
      * @param args Command-line arguments passed to the program
      */
     public static void main(String[] args) {
-        System.out.println("Hi! Nice to meet you :) I am Maxine");
-        FileReading.rememberFileContents("data/maxine.txt", list);
+        new Maxine().run();
 
         while (true) {
             String answer = ask();

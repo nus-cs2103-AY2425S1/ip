@@ -53,7 +53,6 @@ public class Task {
 
     public void delete() {
         this.isDeleted = true;
-        System.out.println("Deleting this task: " + this);
     }
 
     public String getStatusIcon() {
