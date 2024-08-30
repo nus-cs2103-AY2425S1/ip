@@ -5,11 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class ToDo extends Task{
-    public ToDo(String description, File dataFile) {
-        super(description);
-        this.write_to_datafile(dataFile);
-    }
-
     public ToDo(String description) {
         super(description);
     }
@@ -20,12 +15,13 @@ public class ToDo extends Task{
 
     @Override
     public String write_to_datafile(File dataFile) {
+        String builder = "";
         try {
             if (dataFile.exists()) {
                 // boolean if true, then data will be written to the end of the file rather than the beginning.
                 FileWriter wr = new FileWriter(dataFile, true);
 
-                String builder = "T | "+ this.getDone1() + " | " + super.write_to_datafile(dataFile)+ "\n";
+                builder = "T | "+ this.getDone1() + " | " + super.write_to_datafile(dataFile)+ "\n";
                 wr.write(builder);
 
                 //flushing & closing the writer
@@ -35,7 +31,7 @@ public class ToDo extends Task{
         } catch (IOException e) {
             System.out.println("    An error occurred.");
         }
-        return "";
+        return builder;
     }
 
     @Override

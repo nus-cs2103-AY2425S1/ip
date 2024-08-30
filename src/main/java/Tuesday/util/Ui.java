@@ -23,7 +23,7 @@ public class Ui {
      */
     public void showWelcome() {
         this.showLine();
-        System.out.println("    Hello! I'm Tuesday.Tuesday, a randomly created bot.\n    What can I do for you?");
+        System.out.println("    Hello! I'm Tuesday, a randomly created bot.\n    What can I do for you?");
         this.showLine();
     }
 
