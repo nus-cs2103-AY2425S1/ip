@@ -14,14 +14,14 @@ import java.time.format.DateTimeParseException;
  * @author DennieDan.
  */
 public class CommandScanner {
-    private Scanner scanner;
+    private final Scanner SCANNER;
     private String input;
     private int inputIndex;
     private Task inputTask;
     private String keyword;
 
     public CommandScanner() {
-        this.scanner = new Scanner(System.in);
+        this.SCANNER = new Scanner(System.in);
     }
 
     public int getInputIndex() {
@@ -48,7 +48,7 @@ public class CommandScanner {
      * @return the corresponding command type in <code>CommandType enum</code>.
      */
     public CommandType getRequest() {
-        this.input = this.scanner.nextLine().trim();
+        this.input = this.SCANNER.nextLine().trim();
         String[] input_words = this.input.split(" ");
         if (input.equalsIgnoreCase("bye")) {
             return CommandType.BYE;
@@ -109,7 +109,7 @@ public class CommandScanner {
     }
 
     public void close() {
-        this.scanner.close();
+        this.SCANNER.close();
     }
 
 }
