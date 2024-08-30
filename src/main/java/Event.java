@@ -64,7 +64,11 @@ public class Event extends Task {
 
         return name;
     }
+    @Override
+    public String saveTask() {
 
+        return String.format("E|%s|%s|%s|%s", super.getStatus(), super.getTask(), startDate, endDate);
+    }
 
 
     @Override

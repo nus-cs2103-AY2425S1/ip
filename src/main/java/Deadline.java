@@ -36,7 +36,11 @@ public class Deadline extends Task {
 
         return name;
     }
+    @Override
+    public String saveTask() {
 
+        return String.format("D|%s|%s|%s", super.getStatus(), super.getTask(), deadlineDate);
+    }
 
     @Override
     public String toString() {

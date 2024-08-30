@@ -16,6 +16,18 @@ public class Task {
         completeStatus = false;
     }
 
+    public String getStatus() {
+        return completeStatus ? "1" : "0";
+    }
+
+    public String getTask() {
+        return taskName;
+    }
+
+    public String saveTask() {
+        return "";
+    }
+
     @Override
     public String toString() {
         String status;

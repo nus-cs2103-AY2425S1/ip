@@ -1,7 +1,10 @@
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.FileWriter;
 
 public class TaskList {
     List<Task> taskList = new ArrayList<>();
@@ -14,6 +17,9 @@ public class TaskList {
         return taskList.size();
     }
 
+    public void updateTaskList(List<Task> t) {
+        this.taskList = t;
+    }
 
     public Task addTask(String input) {
 
@@ -107,6 +113,21 @@ public class TaskList {
         }
 
         throw new TarsException("Provide a number at the end");
+    }
+
+    public void saveTasks(String path) {
+        try (FileWriter writer = new FileWriter(path);
+             BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
+
+            for (Task t : taskList) {
+                String taskInfo = t.saveTask();
+                bufferedWriter.write(taskInfo);
+                bufferedWriter.newLine();
+            }
+
+        } catch (IOException e) {
+            throw new TarsException("Unexpected error occurred when writing to file");
+        }
     }
 
     @Override
