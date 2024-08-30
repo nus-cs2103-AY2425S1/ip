@@ -10,7 +10,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> load() throws BarcusException {
+    public TaskList load() throws BarcusException {
         File file = new File(this.filePath);
         String[] temp = this.filePath.split("/");
         File dir = new File(String.join("/",
@@ -27,7 +27,7 @@ public class Storage {
             }
         }
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        TaskList tasks = new TaskList();
         try {
             Scanner s = new Scanner(file);
             while (s.hasNextLine()) {
@@ -35,15 +35,16 @@ public class Storage {
                 String[] lineSplit = s.nextLine().split(" \\| ");
 
                 if (lineSplit[0].equals("T")) {
-                    tasks.add(new Todo(lineSplit[2], lineSplit[1].equals("1")));
+                    tasks.addTask(new Todo(lineSplit[2], lineSplit[1].equals("1")));
+//                    System.out.println("added");
                 } else if (lineSplit[0].equals("D")) {
-                    tasks.add(new Deadline(
+                    tasks.addTask(new Deadline(
                             lineSplit[2],
                             lineSplit[1].equals("1"),
                             lineSplit[3]
                     ));
                 } else if (lineSplit[0].equals("E")) {
-                    tasks.add(new Event(
+                    tasks.addTask(new Event(
                             lineSplit[2],
                             lineSplit[1].equals("1"),
                             lineSplit[3],
@@ -59,12 +60,13 @@ public class Storage {
         return tasks;
     }
 
-    public void upload(ArrayList<Task> tasks) throws BarcusException {
+    public void upload(TaskList tasks) throws BarcusException {
         try (FileWriter writer = new FileWriter(this.filePath);
              BufferedWriter bfWriter = new BufferedWriter(writer)) {
-            for (Task task: tasks) {
-                bfWriter.write(task.convertToSavedString() + "\n");
-            }
+//            for (Task task: tasks) {
+//                bfWriter.write(task.convertToSavedString() + "\n");
+//            }
+            bfWriter.write(tasks.convertToSavable());
         } catch (IOException e) {
             throw new BarcusException("error updating txt save file");
         }

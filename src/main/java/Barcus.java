@@ -3,15 +3,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.io.File;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
 
 public class Barcus {
     public static void main(String[] args) {
-        Storage storage = new Storage("./data/savedTasks2.txt");
+        Storage storage = new Storage("./data/savedTasks.txt");
 
         // fixed dialogue
         String intro =
@@ -26,14 +21,14 @@ public class Barcus {
 //        String[] tasks = new String[100];
 //        Task[] tasks = new Task[100];
 
-        ArrayList<Task> tasks;
+        TaskList tasks;
         try {
             tasks = storage.load();
 
         } catch (BarcusException e) {
-            tasks = new ArrayList<>();
+            tasks = new TaskList();
         }
-        int curr = tasks.size();
+//        int curr = tasks.size();
 
         // start
         System.out.println(intro);
@@ -56,19 +51,21 @@ public class Barcus {
             } else if (reply.equals("list")) {
                 // for add list
                 talk("Okie, here are your tasks!");
-                for (int i = 0; i < curr; i++) {
-                    System.out.println(String.valueOf(i+1) + ". " + tasks.get(i).toString());
-                }
+//                for (int i = 0; i < tasks.getLength(); i++) {
+//                    System.out.println(String.valueOf(i+1) + ". " + tasks.get(i).toString());
+//                }
+                tasks.showTaskList();
             } else if (words[0].equals("unmark")) {
                 if (words.length != 2) {
                     talk("Uh oh, please have a number after 'unmark'");
                 } else {
                     int pos = Integer.parseInt(words[1]);
-                    if (pos > 0 && pos <= curr) {
-                        tasks.get(pos - 1).unmarkDone();
-                        talk("No prob, have marked as undone: " + tasks.get(pos - 1));
+                    if (pos > 0 && pos <= tasks.getLength()) {
+//                        tasks.get(pos - 1).unmarkDone();
+                        tasks.unmarkTask(pos - 1);
+                        talk("No prob, have marked as undone: " + tasks.getTaskString(pos - 1));
                     } else {
-                        talk("Uh oh, please choose a number between 1 and " + curr);
+                        talk("Uh oh, please choose a number between 1 and " + tasks.getLength());
                     }
                 }
 
@@ -77,11 +74,12 @@ public class Barcus {
                     talk("Uh oh, please have a number after 'mark'");
                 } else {
                     int pos = Integer.parseInt(words[1]);
-                    if (pos > 0 && pos <= curr) {
-                        tasks.get(pos - 1).markDone();
-                        talk("Good job! Have marked as done: " + tasks.get(pos - 1));
+                    if (pos > 0 && pos <= tasks.getLength()) {
+//                        tasks.get(pos - 1).markDone();
+                        tasks.markTask(pos - 1);
+                        talk("Good job! Have marked as done: " + tasks.getTaskString(pos - 1));
                     } else {
-                        talk("Uh oh, please choose a number between 1 and " + curr);
+                        talk("Uh oh, please choose a number between 1 and " + tasks.getLength());
                     }
                 }
 
@@ -89,9 +87,11 @@ public class Barcus {
                 if (words.length < 2) {
                     talk("Uh oh, please include a description of the todo");
                 } else {
-                    tasks.add(new Todo(String.join(" ", Arrays.copyOfRange(words, 1, words.length))));
-                    curr++;
-                    talk("Added task: " + tasks.get(curr - 1) + "\nThere are " + curr + " task(s) in the list.");
+                    tasks.addTask(new Todo(
+                            String.join(" ", Arrays.copyOfRange(words, 1, words.length))));
+//                    curr++;
+                    talk("Added task: " + tasks.getTaskString(tasks.getLength() - 1)
+                            + "\nThere are " + tasks.getLength() + " task(s) in the list.");
                 }
 
             } else if (words[0].equals("deadline")) {
@@ -104,11 +104,12 @@ public class Barcus {
                         //
 //                    String[] temp = reply.split(" /by ");
 //                    String by = temp[1];
-                        tasks.add(new Deadline(
+                        tasks.addTask(new Deadline(
                                 String.join(" ", Arrays.copyOfRange(words, 1, byI)),
                                 String.join(" ", Arrays.copyOfRange(words, byI + 1, words.length))));
-                        curr++;
-                        talk("Added task: " + tasks.get(curr - 1) + "\nThere are " + curr + " task(s) in the list.");
+//                        curr++;
+                        talk("Added task: " + tasks.getTaskString(tasks.getLength() - 1)
+                                + "\nThere are " + tasks.getLength() + " task(s) in the list.");
                     } catch (DateTimeParseException e) {
                         talk("Uh oh, please format date as dd/MM/yyyy HH:mm");
                     }
@@ -122,13 +123,14 @@ public class Barcus {
                     try {
                         int fromI = wordsList.indexOf("/from");
                         int toI = wordsList.indexOf("/to");
-                        tasks.add(new Event(
+                        tasks.addTask(new Event(
                                 String.join(" ", Arrays.copyOfRange(words, 1, fromI)),
                                 String.join(" ", Arrays.copyOfRange(words, fromI + 1, toI)),
                                 String.join(" ", Arrays.copyOfRange(words, toI + 1, words.length))
                         ));
-                        curr++;
-                        talk("Added task: " + tasks.get(curr - 1) + "\nThere are " + curr + " task(s) in the list.");
+//                        curr++;
+                        talk("Added task: " + tasks.getTaskString(tasks.getLength() - 1)
+                                + "\nThere are " + tasks.getLength() + " task(s) in the list.");
                     } catch (DateTimeParseException e) {
                         talk("Uh oh, please format date as dd/MM/yyyy HH:mm");
                     }
@@ -138,14 +140,15 @@ public class Barcus {
                     talk("Uh oh, please have a number after 'delete'");
                 } else {
                     int pos = Integer.parseInt(words[1]);
-                    if (pos > 0 && pos <= curr) {
+                    if (pos > 0 && pos <= tasks.getLength()) {
 //                        tasks.get(pos - 1).markDone();
 //                        talk("Good job! Have marked as done: " + tasks.get(pos - 1));
-                        Task temp = tasks.remove(pos - 1);
-                        curr--;
-                        talk("Removed task: " + temp + "\nThere are " + curr + " task(s) in the list.");
+                        Task temp = tasks.deleteTask(pos - 1);
+//                        curr--;
+                        talk("Removed task: " + temp + "\nThere are "
+                                + tasks.getLength() + " task(s) in the list.");
                     } else {
-                        talk("Uh oh, please choose a number between 1 and " + curr);
+                        talk("Uh oh, please choose a number between 1 and " + tasks.getLength());
                     }
                 }
             } else {
