@@ -1,4 +1,5 @@
 import exceptions.AlreadyCompletedException;
+import exceptions.StartAfterEndException;
 import exceptions.TaskDoesNotExistException;
 import storage.Storage;
 import task.Deadline;
@@ -46,9 +47,9 @@ public class Him {
             list = storage.loadTaskList();
         } catch (FileNotFoundException e) {
             storage.initStorage();
-        } catch (AlreadyCompletedException e) {
+        } catch (AlreadyCompletedException | StartAfterEndException e) {
             System.out.println("Failed to load tasks make sure tasks file is not corrupted");
-            System.exit(1);
+            System.exit(0);
         }
         Scanner scanner = new Scanner(System.in);
         greet();
@@ -73,7 +74,8 @@ public class Him {
                         list.add(newToDo);
                         System.out.println("\nHim: added \"" + newToDo + "\" to list\n");
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("\nHim: ToDos need a description!\n");
+                        System.out.println("\nHim: ToDos need a description!\n     " +
+                                "Use the format: \"todo [description]\"\n");
                     } finally {
                         break;
                     }
@@ -81,25 +83,30 @@ public class Him {
                 case "deadline": {
                     try {
                         String[] details = input[1].split("/by");
-                        Deadline newDeadline = new Deadline(details[0].trim(), details[1].trim());
+                        Deadline newDeadline = Deadline.of(details[0].trim(), details[1].trim());
                         list.add(newDeadline);
                         System.out.println("\nHim: added \"" + newDeadline + "\" to list\n");
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("\nHim: Deadlines need a description and a due date!\n");
+                        System.out.println("\nHim: Deadlines need a description and a due date!\n     " +
+                                "Use the format: \"deadline [description] /by [due date] /at [due time]\"\n     " +
+                                "Note: due times are optional!\n");
                     } finally {
                         break;
                     }
                 }
                 case "event": {
                     try {
-                        String[] details = input[1].split("/");
-                        Event newEvent = new Event(details[0].trim(),
-                                details[1].substring(details[1].indexOf(" ")).trim(),
-                                details[2].substring(details[2].indexOf(" ")).trim());
+                        String[] details = input[1].split("/start");
+                        String[] interval = details[1].split("/end");
+                        Event newEvent = new Event(details[0].trim(), interval[0].trim(), interval[1].trim());
                         list.add(newEvent);
                         System.out.println("\nHim: added \"" + newEvent + "\" to list\n");
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("\nHim: Events need a description, a start time and an end time!\n");
+                        System.out.println("\nHim: Events need a description, a start time and an end time!\n     " +
+                                "Use the format: \"event [description] /start [start date] /at [start time] " +
+                                "/end [end date] /at [end time]\"\n");
+                    } catch (StartAfterEndException e) {
+                        System.out.println("\nHim: Events need to end after they start!\n");
                     } finally {
                         break;
                     }

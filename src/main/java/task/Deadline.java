@@ -2,16 +2,28 @@ package task;
 
 import exceptions.AlreadyCompletedException;
 
-public class Deadline extends Task {
-    private String dueDate;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-    public Deadline(String title, String dueDate) {
+public class Deadline extends Task {
+    private LocalDate dueDate;
+
+    public Deadline(String title, LocalDate dueDate) {
         super(title);
         this.dueDate = dueDate;
     }
 
+    public static Deadline of(String title, String dueDateString) {
+        String[] args = dueDateString.split("/at");
+        LocalDate dueDate = LocalDate.parse(args[0].trim());
+        if (args.length > 1) {
+            return new TimeSpecificDeadline(title, dueDate, LocalTime.parse(args[1].trim()));
+        }
+        return new Deadline(title, dueDate);
+    }
+
     public static Deadline of(String[] args) throws AlreadyCompletedException {
-        Deadline deadline = new Deadline(args[2], args[3]);
+        Deadline deadline = Deadline.of(args[2], args[3]);
         if (Boolean.parseBoolean(args[1])) {
             deadline.complete();
         }
@@ -30,6 +42,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return super.toString() + "(by: " + dueDate + ")";
+        return super.toString() + " (by: " + dueDate + ")";
     }
 }

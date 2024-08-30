@@ -1,6 +1,7 @@
 package task;
 
 import exceptions.AlreadyCompletedException;
+import exceptions.StartAfterEndException;
 
 public abstract class Task {
     private boolean isCompleted = false;
@@ -10,7 +11,7 @@ public abstract class Task {
         this.title = title;
     }
 
-    public static Task of(String data) throws AlreadyCompletedException {
+    public static Task of(String data) throws AlreadyCompletedException, StartAfterEndException {
         String[] args = data.split("\\|");
         return switch (args[0]) {
             case "T" -> ToDo.of(args);

@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import exceptions.StartAfterEndException;
 import task.Task;
 import task.TaskList;
 
@@ -33,7 +34,7 @@ public class Storage {
         fw.close();
     }
 
-    public TaskList loadTaskList() throws FileNotFoundException, AlreadyCompletedException {
+    public TaskList loadTaskList() throws FileNotFoundException, AlreadyCompletedException, StartAfterEndException {
         File file = new File(FILE_PATH);
         TaskList list = new TaskList();
         Scanner sc = new Scanner(file);
