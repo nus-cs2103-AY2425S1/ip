@@ -2,10 +2,12 @@ package jeff.parser;
 
 import jeff.command.*;
 import jeff.exception.JeffException;
+import jeff.task.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 /**
  * Represents a filter to sort out the user's input.
@@ -34,6 +36,8 @@ public class Parser {
             return new AddCommand(input);
         } else if (input.startsWith("task")) {
             return new DateCommand(input);
+        } else if (input.startsWith("find")) {
+            return new FindCommand(input);
         } else {
             throw new JeffException();
         }
@@ -52,5 +56,23 @@ public class Parser {
         } catch (DateTimeParseException e) {
             return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         }
+    }
+
+    public static String listToString(List<Task> list) {
+        // Initialise a StringBuilder
+        StringBuilder listString = new StringBuilder();
+
+        // Loop through the inputList and add it to the StringBuilder
+        for (int i = 0; i < list.size(); i++) {
+            listString.append(Integer.toString(i + 1)).append(".").append(list.get(i).toString());
+
+            // Only add a new line when it is not the last task in the list
+            if (i != list.size() - 1) {
+                listString.append("\n ");
+            }
+
+        }
+
+        return listString.toString();
     }
 }

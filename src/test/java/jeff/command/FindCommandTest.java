@@ -14,7 +14,7 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DateCommandTest {
+public class FindCommandTest {
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
@@ -35,56 +35,69 @@ public class DateCommandTest {
     }
 
     @Test
-    public void execute_deadlineDate() throws JeffException {
-        new DateCommand("task 2024-08-30").execute(tasks, ui, storage);
+    public void execute_findWord_success() throws JeffException {
+        new FindCommand("find book").execute(tasks, ui, storage);
 
         assertEquals("_____________________________________________________________________________________\n"
-                        + "\t Here are the tasks for 2024-08-30:\n"
-                        + "\t 1.[D][ ] return book (by: Aug 30 2024 06:00 pm)\n"
+                        + "\t Here are the matching tasks in your list:\n"
+                        + "\t 1.[T][ ] borrow book\n"
+                        + "\t 2.[D][ ] return book (by: Aug 30 2024 06:00 pm)\n"
                         + "\t_____________________________________________________________________________________",
                 outputStream.toString().trim());
     }
 
     @Test
-    public void execute_eventDate() throws JeffException {
-        new DateCommand("task 2024-08-27").execute(tasks, ui, storage);
+    public void execute_findPhrase() throws JeffException {
+        new FindCommand("find borrow book").execute(tasks, ui, storage);
 
         assertEquals("_____________________________________________________________________________________\n"
-                        + "\t Here are the tasks for 2024-08-27:\n"
-                        + "\t 1.[E][ ] project meeting (from: Aug 27 2024 08:00 am to: Aug 27 2024 08:00 pm)\n"
+                        + "\t Here are the matching tasks in your list:\n"
+                        + "\t 1.[T][ ] borrow book\n"
                         + "\t_____________________________________________________________________________________",
                 outputStream.toString().trim());
     }
 
     @Test
-    public void execute_randomDate_throwException() throws JeffException {
-        Command c = new DateCommand("task 2024-08-28");
+    public void execute_findIncompleteWord() throws JeffException {
+        new FindCommand("find boo").execute(tasks, ui, storage);
 
-        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, ui, storage));
-        assertEquals("No deadlines/events on 2024-08-28!", exception.toString());
+        assertEquals("_____________________________________________________________________________________\n"
+                        + "\t Here are the matching tasks in your list:\n"
+                        + "\t 1.[T][ ] borrow book\n"
+                        + "\t 2.[D][ ] return book (by: Aug 30 2024 06:00 pm)\n"
+                        + "\t_____________________________________________________________________________________",
+                outputStream.toString().trim());
     }
 
     @Test
-    public void execute_empty_throwException() throws JeffException {
-        Command c = new DateCommand("task");
+    public void execute_findByWord_throwsException() throws JeffException {
+        Command c = new FindCommand("find by");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, ui, storage));
-        assertEquals("The format is wrong! It should be \"task yyyy-mm-dd\"!", exception.toString());
+        assertEquals("Sorry, no task contains the phrase by.", exception.toString());
     }
 
     @Test
-    public void execute_wrongFormat_throwException() throws JeffException {
-        Command c = new DateCommand("task 28 Aug");
+    public void execute_findWord_failure() throws JeffException {
+        Command c = new FindCommand("find food");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, ui, storage));
-        assertEquals("The format is wrong! It should be \"task yyyy-mm-dd\"!", exception.toString());
+        assertEquals("Sorry, no task contains the phrase food.", exception.toString());
     }
 
     @Test
-    public void execute_noSpace_throwsException() throws JeffException {
-        Command c = new DateCommand("task28Aug");
+    public void execute_wrongFormat_throwsException() throws JeffException {
+        Command c = new FindCommand("findfood");
 
         JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, ui, storage));
-        assertEquals("The format is wrong! It should be \"task yyyy-mm-dd\"!", exception.toString());
+        assertEquals("The format is wrong! It should be \"find xx\"!", exception.toString());
+    }
+
+    @Test
+    public void execute_emptyDescription_throwsException() throws JeffException {
+        Command c = new FindCommand("find");
+
+        JeffException exception = assertThrows(JeffException.class, () -> c.execute(tasks, ui, storage));
+        assertEquals("The format is wrong! It should be \"find xx\"!", exception.toString());
     }
 }

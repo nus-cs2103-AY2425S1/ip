@@ -147,6 +147,16 @@ public class TaskList {
     }
 
     /**
+     * Returns a list of tasks filtered by the given name.
+     *
+     * @param name Given name to filter.
+     * @return List of filtered tasks.
+     */
+    public List<Task> filterByName(String name) {
+        return this.tasks.stream().filter(task -> task.contains(name)).toList();
+    }
+
+    /**
      * Returns a list of the file string representation of the tasks.
      *
      * @return A list of the file string representation of the tasks.

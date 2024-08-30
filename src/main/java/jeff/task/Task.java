@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a task.
  */
 public class Task {
-    private final String description;
+    private String description;
     private boolean isDone;
 
     /**
@@ -108,5 +108,15 @@ public class Task {
      */
     public boolean isOnThisDate(LocalDate date) {
         return false;
+    }
+
+    /**
+     * Checks if the task description contains the given name.
+     *
+     * @param name Given name to check against.
+     * @return true if the task description contains the given name and false otherwise.
+     */
+    public boolean contains(String name) {
+        return this.description.toLowerCase().contains(name.toLowerCase().trim());
     }
 }
