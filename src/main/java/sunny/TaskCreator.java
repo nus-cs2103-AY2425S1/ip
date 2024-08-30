@@ -8,9 +8,9 @@ import java.util.Objects;
 public class TaskCreator {
     /**
      * Creates tasks by parsing user message
-     * @param message
+     * @param message include command, description and timing
      * @return One of the tasks class: todo deadline event
-     * @throws Exception
+     * @throws Exception if message does not fit the standard
      */
     public static Task create(String message) throws Exception{
         Parser p = new Parser(message);

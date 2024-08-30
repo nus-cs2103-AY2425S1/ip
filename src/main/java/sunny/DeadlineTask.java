@@ -14,7 +14,6 @@ public class DeadlineTask extends Task {
     String deadline = super.name.split("/by ", 2)[1];
     LocalDate d = LocalDate.parse(deadline.trim());
 
-
     @Override
     public String getTimeline() {
         return deadline;
