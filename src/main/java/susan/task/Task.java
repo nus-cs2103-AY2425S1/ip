@@ -14,19 +14,21 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks the task as undone.
+     */
     public void undoMark() {
         this.isDone = false;
     }
 
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
-    }
-
-    public boolean isInvalid() {
-        return description.isEmpty();
     }
 }
