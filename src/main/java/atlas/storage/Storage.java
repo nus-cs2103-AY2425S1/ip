@@ -19,11 +19,22 @@ public class Storage {
     private final String filepath;
     private final ArrayList<Task> tasks;
 
+    /**
+     * Initialises Storage.
+     *
+     * @param filepath The filepath of the file where tasks will be loaded from and saved to.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Loads tasks from a previously saved list of tasks.
+     *
+     * @return ArrayList<Task> The tasks loaded from a previously saved list of tasks or an empty ArrayList.
+     * @throws AtlasException The exception to be thrown in the event of any error.
+     */
     public ArrayList<Task> load() throws AtlasException {
         try {
             File file = new File(this.filepath);
@@ -52,6 +63,11 @@ public class Storage {
         return this.tasks;
     }
 
+    /**
+     * Adds a task read from the file into the tasks list.
+     *
+     * @param sections The array containing information about the task saved in the file.
+     */
     public void addTask(String[] sections) {
         Task task;
         if (sections[0].equals("T")) {
@@ -70,6 +86,11 @@ public class Storage {
         this.tasks.add(task);
     }
 
+    /**
+     * Saves tasks to file.
+     *
+     * @throws AtlasException The exception to be thrown in the event of any error.
+     */
     public void save() throws AtlasException {
         try {
             FileWriter fw = new FileWriter(this.filepath, false);
@@ -80,6 +101,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Formats and combines all tasks into an output that can be saved in a file.
+     *
+     * @return String The output that can be saved in a file.
+     */
     public String formatTasks() {
         StringBuilder output = new StringBuilder();
         for (Task task : this.tasks) {

@@ -11,6 +11,13 @@ public class TodoCommand extends Command {
     public TodoCommand(String name) {
         this.name = name;
     }
+
+    /**
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws AtlasException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AtlasException {
         Todo todo = new Todo(this.name);

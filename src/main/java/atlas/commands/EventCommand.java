@@ -17,6 +17,13 @@ public class EventCommand extends Command {
         this.startTime = startTime;
         this.endTime = endTime;
     }
+
+    /**
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws AtlasException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AtlasException {
         Event event = new Event(this.name, this.startTime, this.endTime);

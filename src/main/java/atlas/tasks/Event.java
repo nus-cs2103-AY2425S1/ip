@@ -8,12 +8,20 @@ public class Event extends Task {
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
 
+    /**
+     * @param name
+     * @param startTime
+     * @param endTime
+     */
     public Event(String name, LocalDateTime startTime, LocalDateTime endTime) {
         super(name);
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
+    /**
+     * @return
+     */
     @Override
     public String toFileString() {
         return String.format("E %s | %s to %s", super.toFileString(),

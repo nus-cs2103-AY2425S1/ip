@@ -15,6 +15,13 @@ public class DeadlineCommand extends Command {
         this.name = name;
         this.deadline = deadline;
     }
+
+    /**
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws AtlasException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AtlasException {
         Deadline deadline = new Deadline(this.name, this.deadline);

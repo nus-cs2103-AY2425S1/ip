@@ -12,6 +12,13 @@ public class Atlas {
     private final Storage storage;
     private TaskList tasks;
 
+    /**
+     * Initialises the Atlas chatbot with the filepath for Storage. Creates a new Ui instance.
+     * Attempts to load a previously saved list of tasks. If there are no previous tasks then it
+     * initialises an empty ArrayList. If there is any error, it will be caught and displayed.
+     *
+     * @param filepath The filepath of the file where tasks will be loaded from and saved to.
+     */
     public Atlas(String filepath) {
         this.storage = new Storage(filepath);
         this.ui = new Ui();
@@ -24,6 +31,10 @@ public class Atlas {
         }
     }
 
+    /**
+     * Starts the chatbot which greets the user. The chatbot will read the command, parse and execute
+     * it until the user exits the chatbot. If there is any error, it will be caught and displayed.
+     */
     public void run() {
         this.ui.greet();
         boolean isExit = false;
@@ -41,6 +52,11 @@ public class Atlas {
         }
     }
 
+    /**
+     * Starts the chatbot.
+     *
+     * @param args Arguments provided to the command line.
+     */
     public static void main(String[] args) {
         new Atlas("./data/atlas.txt").run();
     }
