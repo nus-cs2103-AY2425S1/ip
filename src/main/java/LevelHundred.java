@@ -16,139 +16,6 @@ public class LevelHundred {
         this.taskList = new TaskList();
     }
 
-    private Task createTask(String[] words, String command) throws LevelHundredException {
-        if (command.equals("todo")) {
-            String taskDescription = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
-            if (taskDescription.equals("")) {
-                throw new MissingArgumentException(command, "description");
-            }
-            
-            return new Todo(taskDescription);
-        } else if (command.equals("deadline")) {
-            List<String> tmp = Arrays.asList(words);
-            int byIdx = tmp.indexOf("/by");
-            if (byIdx == -1) {
-                throw new MissingArgumentException(command, "by");
-            }
-            
-            String taskDescription = String.join(" ", Arrays.copyOfRange(words, 1, byIdx));
-            if (taskDescription.equals("")) {
-                throw new MissingArgumentException(command, "description");
-            }
-            
-            String by = String.join(" ", Arrays.copyOfRange(words, byIdx + 1, words.length));
-            if (by.equals("")) {
-                throw new MissingArgumentException(command, "by");
-            }
-            try {
-                by = Parser.parseInputDate(by);
-                return new Deadline(taskDescription, by);
-            } catch (RuntimeException e) {
-                throw new InvalidArgumentException(command, "by");
-            }
-            
-        } else {
-            List<String> tmp = Arrays.asList(words);
-            int fromIdx = tmp.indexOf("/from");
-            int toIdx = tmp.indexOf("/to");
-            if (fromIdx == -1) {
-                throw new MissingArgumentException(command, "from");
-            }
-            if (toIdx == -1) {
-                throw new MissingArgumentException(command, "to");
-            }
-
-            // Get task description
-            String taskDescription = String.join(" ", Arrays.copyOfRange(words, 1, fromIdx));
-            if (taskDescription.equals("")) {
-                throw new MissingArgumentException(command, "description");
-            }
-            
-            // Get from date
-            String from = String.join(" ", Arrays.copyOfRange(words, fromIdx + 1, toIdx));
-            if (from.equals("")) {
-                throw new MissingArgumentException(command, "from");
-            }
-            try {
-                from = Parser.parseInputDate(from);
-            } catch (RuntimeException e) {
-                throw new InvalidArgumentException(command, "from");
-            }
-            
-            // Get to date
-            String to = String.join(" ", Arrays.copyOfRange(words, toIdx + 1, words.length));
-            if (to.equals("")) {
-                throw new MissingArgumentException(command, "to");
-            }
-            try {
-                to = Parser.parseInputDate(to);
-            } catch (RuntimeException e) {
-                throw new InvalidArgumentException(command, "to");
-            }
-
-            return new Event(taskDescription, from, to);
-        }
-    }
-
-    private void handleAddTask(String[] words, String command) {
-        try {
-            Task newTask = createTask(words, command);
-            this.taskList.addTask(newTask);
-            this.storage.update(this.taskList.getTaskList());
-            this.ui.printAddTask(newTask, this.taskList.size());
-        } catch (LevelHundredException e) {
-            this.ui.printException(e);
-        }
-    }
-
-    private void handleUpdateTaskStatus(String[] words, String command) {
-        if (words.length == 1) {
-            this.ui.printException(new MissingArgumentException(command, "task index"));
-            return;
-        }
-        if (words.length > 2) {
-            String invalidString = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
-            this.ui.printException(new InvalidArgumentException(command, invalidString));
-            return;
-        }
-
-        try {
-            int idx = Integer.parseInt(words[1]) - 1;
-            Task t = this.taskList.getTaskList().get(idx);
-            if (command.equals("mark")) {
-                t.mark();
-                this.ui.printSuccessfulMark(t);
-            } else {
-                t.unmark();
-                this.ui.printSuccessfulUnmark(t);
-            }
-            this.storage.update(this.taskList.getTaskList());
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            this.ui.printException(new InvalidArgumentException("task index", words[1]));
-        }
-    }
-
-    private void handleDeleteTask(String[] words) {
-        if (words.length == 1) {
-            this.ui.printException(new MissingArgumentException("delete", "task index"));
-            return;
-        }
-        if (words.length > 2) {
-            String invalidString = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
-            this.ui.printException(new InvalidArgumentException("delete", invalidString));
-            return;
-        }
-
-        try {
-            int idx = Integer.parseInt(words[1]) - 1;
-            Task t = this.taskList.removeTask(idx);
-            this.storage.update(this.taskList.getTaskList());
-            this.ui.printDeleteTask(t, this.taskList.size());
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            this.ui.printException(new InvalidArgumentException("task index", words[1]));
-        }
-    }
-
     private void initialiseTaskList() {
         try {
             ArrayList<Task> tasks = this.storage.load();
@@ -169,28 +36,12 @@ public class LevelHundred {
 
         while (isRunning) {
             userInput = sc.nextLine();
-            String[] words = userInput.split(" ");
-            String command = words[0];
-            switch(command) {
-                case "bye":
-                    isRunning = false;
-                    this.ui.exit();
-                    break;
-                case "list":
-                    ArrayList<Task> tasks = this.taskList.getTaskList();
-                    this.ui.printTasks(tasks);
-                    break;
-                case "mark": case "unmark":
-                    this.handleUpdateTaskStatus(words, command);
-                    break;
-                case "todo": case "deadline": case "event":
-                    this.handleAddTask(words, command);
-                    break;
-                case "delete":
-                    this.handleDeleteTask(words);
-                    break;
-                default:
-                    this.ui.printException(new InvalidCommandException());
+            try {
+                UserCommand c = Parser.parseUserCommand(userInput);
+                c.execute(userInput, this.ui, this.storage, this.taskList);
+                isRunning = c.continueRunning();
+            } catch (LevelHundredException e) {
+                this.ui.printException(e);
             }
         }
 
