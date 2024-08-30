@@ -1,10 +1,19 @@
 package chacha.task;
 
+/**
+ * Represents the Task that is a To Do for the user.
+ *
+ */
 public class ToDoTask extends Task {
     public ToDoTask(String description, boolean isDone) {
         super(description, isDone);
     }
 
+    /**
+     * Returns a string representation to be printed.
+     *
+     * @return String representation.
+     */
     @Override
     public String printTask() {
         String output = "[T]";
@@ -12,6 +21,11 @@ public class ToDoTask extends Task {
         return output + "[" + status + "] " + super.description;
     }
 
+    /**
+     * Returns a string representation to be written in chacha.txt.
+     *
+     * @return String representation.
+     */
     @Override
     public String writeTask() {
         String output = "T | ";

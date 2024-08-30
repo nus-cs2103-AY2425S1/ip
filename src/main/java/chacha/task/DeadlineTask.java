@@ -3,6 +3,10 @@ package chacha.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents the Task that is a Deadline for the user.
+ *
+ */
 public class DeadlineTask extends Task {
     protected LocalDate date;
     public DeadlineTask(String description, boolean isDone, LocalDate date) {
@@ -10,6 +14,11 @@ public class DeadlineTask extends Task {
         this.date = date;
     }
 
+    /**
+     * Returns a string representation to be printed.
+     *
+     * @return String representation.
+     */
     @Override
     public String printTask() {
         String output = "[D]";
@@ -17,6 +26,12 @@ public class DeadlineTask extends Task {
         return output + "[" + status + "] " + super.description +
                 " (by: " + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
+
+    /**
+     * Returns a string representation to be written in chacha.txt.
+     *
+     * @return String representation.
+     */
     @Override
     public String writeTask() {
         String output = "D | ";

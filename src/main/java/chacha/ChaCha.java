@@ -2,9 +2,11 @@ package chacha;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import java.util.Scanner;
 
 public class ChaCha {
@@ -24,6 +26,12 @@ public class ChaCha {
             System.out.println("An error occurred: " + e.getMessage());
         }
     }
+
+    /**
+     * Creates Parser object, Scanner object.
+     * Reads user inputs and calls respective methods to handle respective user inputs.
+     *
+     */
     public void run() {
         // make scanner and find commands --> parse commands
         Parser parser = new Parser(this);
@@ -42,6 +50,13 @@ public class ChaCha {
         }
     }
 
+    /**
+     * Checks if chacha.txt file exists in ./data.
+     * Create data directory and chacha.txt, whichever does not exist.
+     * Runs the chatbot.
+     *
+     * @throws IOException if an I/O exception occurs.
+     */
     public static void main(String[] args) {
         try {
             Path filePath = Paths.get("./src/main/java/chacha/data/chacha.txt");

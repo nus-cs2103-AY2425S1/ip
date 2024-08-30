@@ -13,6 +13,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Represents the object that handles the loading of and saving into chacha.txt.
+ *
+ */
 public class Storage {
     protected String filePath;
     private BufferedReader readerFile;
@@ -25,6 +29,14 @@ public class Storage {
         this.readerFile = new BufferedReader(new FileReader(taskFile));
         this.writtenFile = new FileWriter(taskFile, true);
     }
+
+    /**
+     * Loads the list of tasks saved in chacha.txt.
+     * Returns them as the list of <code>Task</code> as an <code>ArrayList</code>.
+     *
+     * @return ArrayList of Task.
+     * @throws IOException if an I/O exception occurs.
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> listOfTasks = new ArrayList<>();
         try {
@@ -54,6 +66,12 @@ public class Storage {
         return listOfTasks;
     }
 
+    /**
+     * Writes text into chacha.txt.
+     *
+     * @param text String that needs to be written.
+     * @return String representation.
+     */
     public void writeFile(String text) {
         try {
             this.writtenFile.append(text);
@@ -64,6 +82,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Overwrites the content in chacha.txt with new list of tasks.
+     *
+     * @param tasks List of tasks.
+     */
     public void overwriteFile(TaskList tasks) {
         try {
             File taskFile = new File(filePath);
