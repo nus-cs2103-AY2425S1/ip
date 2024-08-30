@@ -10,4 +10,9 @@ public class Deadlines extends Task{
     public String getTaskType() {
         return "D";
     }
+
+    @Override
+    public String toFileString() {
+        return String.format("D | %d | %s", isDone ? 1 : 0, description);
+    }
 }

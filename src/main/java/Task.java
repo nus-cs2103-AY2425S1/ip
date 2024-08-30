@@ -13,6 +13,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public String toFileString() {
+        return String.format("T | %d | %s", isDone ? 1 : 0, description);
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }

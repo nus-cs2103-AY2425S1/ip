@@ -1,11 +1,90 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Buddy {
 
+    private static final String FILE_PATH = "./data/buddy.txt";
+
+    private static void saveTasks(ArrayList<Task> list) {
+        try {
+            FileWriter writer = new FileWriter(FILE_PATH);
+            for (Task task : list) {
+                String line = "";
+                if (task instanceof ToDos) {
+                    line = String.format("T | %d | %s", task.isDone ? 1 : 0, task.description);
+                } else if (task instanceof Deadlines) {
+                    Deadlines deadline = (Deadlines) task;
+                    int index = task.description.indexOf("(by:");
+                    line = String.format("D | %d | %s | %s", task.isDone ? 1 : 0, deadline.description.substring(0, index).trim(), deadline.deadline);
+                } else if (task instanceof Events) {
+                    Events event = (Events) task;
+                    int index = task.description.indexOf("(from:");
+                    line = String.format("E | %d | %s | %s | %s", task.isDone ? 1 : 0, event.description.substring(0, index).trim(), event.start, event.end);
+                }
+                writer.write(line + System.lineSeparator());
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks.");
+            e.printStackTrace();
+        }
+    }
+
+    private static ArrayList<Task> loadTasks() {
+        ArrayList<Task> list = new ArrayList<>();
+        try {
+            File file = new File(FILE_PATH);
+            if (file.exists()) {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    String[] parts = line.split("\\|");
+                    String taskType = parts[0].trim();
+                    String description = parts[2].trim();
+
+                    Task task;
+                    switch (taskType) {
+                        case "T":
+                            task = new ToDos(description);
+                            break;
+                        case "D":
+                            String deadline = parts[3].trim();
+                            task = new Deadlines(description, deadline);
+                            break;
+                        case "E":
+                            String startTime = parts[3].trim();
+                            String endTime = parts[4].trim();
+                            task = new Events(description, startTime, endTime);
+                            break;
+                        default:
+                            throw new BuddyException("Unknown task type found in file.");
+                    }
+                    if (parts[1].trim().equals("1")) {
+                        task.markAsDone();
+                    }
+
+                    list.add(task);
+                }
+                scanner.close();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("    No previous task list found, starting fresh!");
+        } catch (BuddyException e) {
+            System.out.println("    OOPS!!! The task list file seems to be corrupted... ");
+        }
+
+        return list;
+    }
+
+
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> list = new ArrayList<>();
+        ArrayList<Task> list = loadTasks();
         System.out.println("    ---------------------------------------------------------");
         System.out.println("    Hey there! I'm Buddy\n    What do ya need help with?");
         System.out.println("    ---------------------------------------------------------\n");
@@ -149,6 +228,7 @@ public class Buddy {
         }
 
         scanner.close();
+        saveTasks(list);
     }
 }
 
