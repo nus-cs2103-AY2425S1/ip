@@ -8,7 +8,7 @@ public class InvalidCommandException extends BarneyException {
 
     /**
      * Constructs a new InvalidCommandException with the specified detail message.
-     * 
+     *
      * @param message The detail message.
      */
     public InvalidCommandException(String message) {

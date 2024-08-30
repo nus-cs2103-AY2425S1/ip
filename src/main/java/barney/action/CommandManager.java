@@ -25,15 +25,15 @@ public class CommandManager {
      * Represents the different types of commands that can be executed by the
      * CommandManager. Each command type has a command string, a regular expression
      * pattern, a command class, and optional command arguments.
-     * 
+     *
      * The command string represents the description of the command. The regular
      * expression pattern is used to validate the command input. The command class
      * is the class that implements the command logic. The command arguments are
      * optional and represent the required arguments for the command.
-     * 
+     *
      * This enum provides methods to convert a command string to its corresponding
      * CommandType and vice versa.
-     * 
+     *
      * @see CommandManager
      * @see Command
      */

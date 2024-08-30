@@ -7,7 +7,7 @@ import barney.data.datetime.BarneyDateTime;
 
 /**
  * Represents a task with a deadline.
- * 
+ *
  * This class extends the Task class and adds functionality to handle tasks with
  * deadlines.
  */
@@ -17,10 +17,10 @@ public class DeadlineTask extends Task {
 
     /**
      * Represents a task with a deadline.
-     * 
+     *
      * This class extends the Task class and adds functionality to handle tasks with
      * deadlines.
-     * 
+     *
      * @param description The description of the task.
      * @param byString    The deadline of the task in string format.
      */
@@ -33,7 +33,7 @@ public class DeadlineTask extends Task {
     /**
      * Converts the DeadlineTask object into an ArrayList of strings for saving
      * purposes.
-     * 
+     *
      * @return The ArrayList of strings representing the DeadlineTask object.
      */
     @Override

@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 /**
  * Represents a task.
- * 
+ *
  * This class encapsulates the properties and behaviors of a task. Each task has
  * a description and a status indicating whether it is marked as done or not.
  */
@@ -16,7 +16,7 @@ public class Task {
 
     /**
      * Constructor for Task.
-     * 
+     *
      * @param description
      */
     public Task(String description) {
@@ -36,7 +36,7 @@ public class Task {
 
     /**
      * Marks the task as done.
-     * 
+     *
      * @return void
      */
     public void mark() {

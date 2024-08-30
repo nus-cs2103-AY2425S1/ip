@@ -1,6 +1,7 @@
 package barney.data;
 
 import java.util.ArrayList;
+
 import barney.data.task.Task;
 
 /**

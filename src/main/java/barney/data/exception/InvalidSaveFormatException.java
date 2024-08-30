@@ -8,7 +8,7 @@ public class InvalidSaveFormatException extends BarneyException {
     /**
      * Constructs a new InvalidSaveFormatException with the specified detail
      * message.
-     * 
+     *
      * @param message The detail message.
      */
     public InvalidSaveFormatException(String message) {

@@ -25,7 +25,7 @@ public class Storage {
 
     /**
      * Constructs a Storage object with the specified file path.
-     * 
+     *
      * @param filePath The file path to save/load data from.
      */
     public Storage(String filePath) {
@@ -34,7 +34,7 @@ public class Storage {
 
     /**
      * Reads a file and returns an ArrayList of Task objects.
-     * 
+     *
      * @return The ArrayList of Task objects read from the file.
      * @throws FileNotFoundException      If the file specified by the filePath does
      *                                    not exist.
@@ -107,7 +107,7 @@ public class Storage {
 
     /**
      * Writes the given list of tasks to a file.
-     * 
+     *
      * @param taskList the list of tasks to be written
      * @throws FileNotFoundException if the file specified by the file path cannot
      *                               be found

@@ -36,7 +36,7 @@ public class EventTask extends Task {
     /**
      * Converts the EventTask object into an ArrayList of strings for saving
      * purposes.
-     * 
+     *
      * @return The ArrayList of strings representing the EventTask object.
      */
     @Override
