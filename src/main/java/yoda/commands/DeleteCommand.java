@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
      * @throws InvalidInputException if input formatting is invalid.
      */
     public void run() throws InvalidInputException {
-        if (!checkForValidInt()) {
+        if (!hasValidFormat(input)) {
             throw new InvalidInputException("Delete... which one?");
         }
         String[] splitInput = input.split(" ", 2);
@@ -46,7 +46,8 @@ public class DeleteCommand extends Command {
      *
      * @return true if input formatting is valid.
      */
-    public boolean checkForValidInt() {
+
+    public boolean hasValidFormat(String input) {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length == 2) {
             if (splitInput[1].matches("\\d+")) {

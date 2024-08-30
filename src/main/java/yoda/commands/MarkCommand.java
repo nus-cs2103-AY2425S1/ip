@@ -30,7 +30,7 @@ public class MarkCommand extends Command {
      * of bounds
      */
     public void run() throws InvalidInputException {
-        if (!checkForValidInt()) {
+        if (!hasValidFormat()) {
             throw new InvalidInputException("Mark... which one?");
         }
         String[] splitInput = input.split(" ", 2);
@@ -46,7 +46,7 @@ public class MarkCommand extends Command {
      *
      * @return true if input format is valid and index is in bounds of task list.
      */
-    public boolean checkForValidInt() {
+    public boolean hasValidFormat() {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length == 2) {
             if (splitInput[1].matches("\\d+")) {

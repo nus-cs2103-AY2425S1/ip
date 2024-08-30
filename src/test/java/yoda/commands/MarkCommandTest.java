@@ -62,15 +62,15 @@ public class MarkCommandTest {
     public void checkForValidInt_validInput_returnTrue() {
         TaskList taskList = new TaskList();
         taskList.add(new ToDo("sleep"));
-        assertTrue(new MarkCommand(taskList, "mark 1").checkForValidInt());
+        assertTrue(new MarkCommand(taskList, "mark 1").hasValidFormat());
     }
     @Test
     public void checkValidToDo_invalidInput_returnFalse() {
         TaskList taskList = new TaskList();
         taskList.add(new ToDo("sleep"));
 
-        assertFalse(new MarkCommand(taskList, "mark").checkForValidInt());
-        assertFalse(new MarkCommand(taskList, "").checkForValidInt());
-        assertFalse(new MarkCommand(taskList, "sleep").checkForValidInt());
+        assertFalse(new MarkCommand(taskList, "mark").hasValidFormat());
+        assertFalse(new MarkCommand(taskList, "").hasValidFormat());
+        assertFalse(new MarkCommand(taskList, "sleep").hasValidFormat());
     }
 }

@@ -4,7 +4,6 @@ import yoda.commands.*;
 import yoda.exceptions.EmptyInputException;
 import yoda.exceptions.InvalidInputException;
 import yoda.exceptions.NonsenseInputException;
-import java.util.Scanner;
 
 public class Parser {
 

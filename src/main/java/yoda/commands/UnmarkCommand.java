@@ -30,7 +30,7 @@ public class UnmarkCommand extends Command {
      * of bounds
      */
     public void run() throws InvalidInputException {
-        if (!checkForValidInt()) {
+        if (!hasValidFormat(input)) {
             throw new InvalidInputException("Unmark... which one?");
         }
         String[] splitInput = input.split(" ", 2);
@@ -46,7 +46,7 @@ public class UnmarkCommand extends Command {
      *
      * @return true if input format is valid and index is in bounds of task list.
      */
-    public boolean checkForValidInt() {
+    private boolean hasValidFormat(String input) {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length == 2) {
             if (splitInput[1].matches("\\d+")) {

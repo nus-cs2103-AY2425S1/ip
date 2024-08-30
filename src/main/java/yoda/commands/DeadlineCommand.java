@@ -3,7 +3,6 @@ package yoda.commands;
 import yoda.TaskList;
 import yoda.exceptions.InvalidInputException;
 import yoda.tasks.Deadline;
-import yoda.tasks.ToDo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -32,7 +31,7 @@ public class DeadlineCommand extends Command {
      * @throws InvalidInputException if input format was invalid.
      */
     public void run() throws InvalidInputException {
-        if (!checkValidDeadline()) {
+        if (!hasValidFormat(input)) {
             throw new InvalidInputException("A deadline must have a description and due by time, no...?");
         }
         String[] splitInput = input.split(" ", 2);
@@ -55,7 +54,7 @@ public class DeadlineCommand extends Command {
      *
      * @return true of formatting is valid.
      */
-    public boolean checkValidDeadline() {
+    public boolean hasValidFormat(String input) {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length == 2) {
             String[] splitTask = splitInput[1].split("/by ", 2);
