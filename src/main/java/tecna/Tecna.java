@@ -93,17 +93,23 @@ public class Tecna {
             case TODO:
             case EVENT:
             case DEADLINE:
+                taskList.addItem(commandScanner.getInputTask());
+                break;
             case TODO_WRONG_FORMAT:
-                try {
-                    this.taskList.addItem(commandScanner.getInput());
-                } catch (InvalidRequestException ive) {
-                    ui.printInvalidCmdError();
-                } catch (TodoWrongFormatException tde) {
-                    ui.printError(tde.getMessage());
-                }
+                ui.printError("Wrong format! The command should be \"todo [task_description]\".");
+                break;
+            case DEADLINE_WRONG_FORMAT:
+                ui.printError("Wrong format! The command should be \"deadline [task_description] /by [deadline in the form of yyyy-MM-dd HHmm]\".");
+                break;
+            case EVENT_WRONG_FORMAT:
+                ui.printError("Wrong format! The command should be \"event [task_description] /from [start_time in the form of yyyy-MM-dd HHmm] /to [end time in the form of yyyy-MM-dd HHmm]\".");
                 break;
             case INDEX_WRONG_FORMAT:
                 ui.printError("The parameter of this command must be a number from 1 to " + taskList.getSize());
+                break;
+            case INVALID:
+                ui.printInvalidCmdError();
+                break;
             }
             ui.printSectionLine();
             command = this.commandScanner.getRequest();

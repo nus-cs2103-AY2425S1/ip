@@ -2,10 +2,15 @@ package tecna;
 
 import java.util.Scanner;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class CommandScanner {
     private Scanner scanner;
     private String input;
     private int inputIndex;
+    private Task inputTask;
 
     public CommandScanner() {
         this.scanner = new Scanner(System.in);
@@ -13,6 +18,10 @@ public class CommandScanner {
 
     public int getInputIndex() {
         return this.inputIndex;
+    }
+
+    public Task getInputTask() {
+        return this.inputTask;
     }
 
     /**
@@ -39,11 +48,27 @@ public class CommandScanner {
             if (input_words.length <= 1) {
                 return CommandType.TODO_WRONG_FORMAT;
             } else {
+                String[] description = input.split("todo");
+                this.inputTask = new ToDo(description[1].trim());
                 return CommandType.TODO;
             }
         } else if (input_words[0].equalsIgnoreCase("deadline")) {
+            try {
+                String[] description = input.split("deadline | /by");
+                DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                this.inputTask = new Deadline(description[1].trim(), LocalDateTime.parse(description[2].trim(), pattern));
+            } catch (DateTimeParseException e) {
+                return CommandType.DEADLINE_WRONG_FORMAT;
+            }
             return CommandType.DEADLINE;
         } else if (input_words[0].equalsIgnoreCase("event")) {
+            try {
+                String[] description = input.split("event | /from | /to ");
+                DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                this.inputTask =  new Event(description[1].trim(), LocalDateTime.parse(description[2].trim(), pattern), LocalDateTime.parse(description[3].trim(), pattern));
+            } catch (DateTimeParseException e) {
+                return CommandType.EVENT_WRONG_FORMAT;
+            }
             return CommandType.EVENT;
         } else {
             return CommandType.INVALID;
