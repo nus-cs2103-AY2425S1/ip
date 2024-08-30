@@ -13,6 +13,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ * Saves and loads the data generated while the chatbot is running.
+ * A <code>filePath</code> is the path to the file saving app data.
+ *
+ * @author DennieDan.
+ */
 public class Storage {
     private String filePath;
 
@@ -29,9 +35,13 @@ public class Storage {
     }
 
     /**
-     * @author: https://dzone.com/articles/how-can-we-read-a-json-file-in-java
-     * Parses the tasks data in the tecna.json file into an ArrayList of tecna.Task(s)
-     * @return an ArrayList of Tasks
+     * Parses the tasks data in the tecna.json file into an ArrayList of Task(s).
+     * @return an ArrayList of Tasks.
+     * @throws IOException when there are problems accessing the data file.
+     * @throws JsonLoadingException when there are missing attributes required to fully parse the data.
+     * @throws ParseException when there are problem parsing the data file to a JSONObject.
+     *
+     * @author https://dzone.com/articles/how-can-we-read-a-json-file-in-java.
      */
     public ArrayList<Task> load() throws IOException, JsonLoadingException, ParseException {
         Object o = new JSONParser().parse(new FileReader(filePath));
@@ -59,11 +69,11 @@ public class Storage {
     }
 
     /**
+     * Converts java tecna.Task objects into JSON object and write to a json file.
+     * @param taskList storing the lists of all tasks currently in the app.
+     *
      * @author Crunchify.com.
      * https://crunchify.com/how-to-write-json-object-to-file-in-java/.
-     *
-     * Converts java tecna.Task objects into JSON object and write to a json file.
-     * @param taskList
      */
     @SuppressWarnings("unchecked")
     public void save(TaskList taskList) {
