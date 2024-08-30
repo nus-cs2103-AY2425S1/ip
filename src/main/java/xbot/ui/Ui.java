@@ -19,6 +19,18 @@ public class Ui {
         }
     }
 
+    public static void showMatchingTaskList(TaskList list) {
+        if (list.size() == 0) {
+            System.out.println("There is no task description containing this keyword :(");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < list.size(); i++) {
+                int index = i + 1;
+                System.out.println(index + ". " + list.get(i).toString());
+            }
+        }
+    }
+
     public void showWelcome() {
         System.out.println("Hello! I'm XBot\n" + "What can I do for you?");
     }
