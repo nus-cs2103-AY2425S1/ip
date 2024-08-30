@@ -23,6 +23,7 @@ public class Parser {
      */
     private static final DateTimeFormatterBuilder builder =
             new DateTimeFormatterBuilder()
+                    // Accepts both AM or am as input
                     .parseCaseInsensitive()
                     .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
                     .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm"))
@@ -73,6 +74,7 @@ public class Parser {
                 String taskDetails = matcher.group(3);
 
                 if (taskType.equals("T")) {
+                    // Handles todo tasks
                     Todo todo = new Todo(taskDetails);
                     if (taskMarkedDone) {
                         todo.markAsDone();
@@ -80,6 +82,7 @@ public class Parser {
                     taskList.addTask(todo);
                     continue;
                 } else if (taskType.equals("D")) {
+                    // Handles deadline tasks
                     Pattern patternD = Pattern.compile("(\\S.*) \\(by: (\\S.*)\\)");
                     Matcher matcherD = patternD.matcher(taskDetails);
 
@@ -92,6 +95,7 @@ public class Parser {
                         continue;
                     }
                 } else if (taskType.equals("E")) {
+                    // Handles event tasks
                     Pattern patternE = Pattern.compile("(\\S.*) \\(from: (\\S.*) to: (\\S.*)\\)");
                     Matcher matcherE = patternE.matcher(taskDetails);
 
@@ -105,7 +109,8 @@ public class Parser {
                     }
                 }
             }
-
+            // Handles invalid formatted string
+            // Unlikely to happen as text file is not user generated
             System.out.println("this line is in an invalid format");
         }
         sc.close();
