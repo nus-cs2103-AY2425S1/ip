@@ -14,9 +14,9 @@ public class Lexi {
     private Ui ui;
 
     public Lexi(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
         try {
+            ui = new Ui();
+            storage = new Storage(filePath);
             tasks = new TaskList(storage.load());
         } catch (LexiException e) {
             ui.showLoadingError();

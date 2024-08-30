@@ -11,4 +11,8 @@ public class ListCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws LexiException {
         ui.showListOfTasks(tasks.getTasks());
     }
+    @Override
+    public String getCommandName() {
+        return "LIST";
+    }
 }

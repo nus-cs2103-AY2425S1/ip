@@ -21,4 +21,8 @@ public class DeleteCommand extends Command {
         ui.showDeleteMessage(removedTask, tasks.getSize());
         storage.updateStorage(tasks.getTasks());
     }
+    @Override
+    public String getCommandName() {
+        return "DELETE";
+    }
 }
