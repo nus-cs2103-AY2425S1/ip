@@ -47,6 +47,18 @@ public class Alexer {
         System.out.println(BREAK);
     }
 
+    public void deleteTask(List<String> arguments) {
+        int index = Integer.parseInt(arguments.get(0)) - 1;
+        Task task = tasks.get(index);
+        tasks.remove(index);
+
+        System.out.println(BREAK);
+        System.out.println("Don't want to see that task anymore? I got you!");
+        System.out.format("\t%s\n", task);
+        System.out.format("\nYou have %d tasks remaining.\n", tasks.size());
+        System.out.println(BREAK);
+    }
+
     public void addTodo(List<String> arguments) {
         String description = String.join(" ", arguments);
         if (description.isEmpty()) {
@@ -162,6 +174,10 @@ public class Alexer {
             break;
         case "event":
             addEvent(arguments);
+            promptLoop();
+            break;
+        case "delete":
+            deleteTask(arguments);
             promptLoop();
             break;
         default:
