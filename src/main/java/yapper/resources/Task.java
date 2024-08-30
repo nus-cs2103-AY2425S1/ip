@@ -12,10 +12,6 @@ import yapper.exceptions.YapperException;
  * Represents a task with a description and completion status.
  */
 public class Task {
-    private String desc;
-    private String isDone;
-
-    @SuppressWarnings("checkstyle:DeclarationOrder")
     private static String[] timeFormats = {
         "HHmm",
         "HH:mm[:ss]"
@@ -32,6 +28,9 @@ public class Task {
         "yyyy/M/dd",
         "yyyy/MM/dd",
     };
+
+    private String desc;
+    private String isDone;
 
     /**
      * Constructs a new Task with the specified description.
