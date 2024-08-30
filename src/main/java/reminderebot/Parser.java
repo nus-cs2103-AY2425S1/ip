@@ -102,8 +102,7 @@ public class Parser {
         throw new ReminderebotException("I'm sorry, but I don't know what that means. :(\n" +
                     "Please enter a command below:\n" +
                     " bye\n list\n mark <int>\n unmark <int>\n todo <taskname>\n" +
-                    " deadline <taskname> /by <duedate>\n event <name> /from <datetime> /to <datetime>"
-        );
+                    " deadline <taskname> /by <duedate>\n event <name> /from <datetime> /to <datetime>");
     }
 
     /**
