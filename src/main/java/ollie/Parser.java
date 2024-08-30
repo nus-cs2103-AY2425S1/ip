@@ -11,10 +11,22 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-
-
+/**
+ * Represents a parser which interprets the user's inputs using regular
+ * expressions, and translate them into commands.
+ *
+ */
 public class Parser {
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    /**
+     * Parse user's input matches it to a command (if any).
+     * E.g. Parser.parse("todo homework") will return a AddCommand for adding of the Todo task.
+     *
+     * @param input User's input.
+     * @return Command to be executed.
+     * @throws OllieException If input cannot be appropriately mapped to any commands.
+     */
     public static Command parse(String input) throws OllieException{
 
         if (input.matches("list")) {

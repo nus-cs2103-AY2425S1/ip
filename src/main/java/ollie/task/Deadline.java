@@ -3,6 +3,11 @@ package ollie.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a deadline. It contains a date which represents
+ * when the task is due by.
+ *
+ */
 public class Deadline extends Task {
 
     protected LocalDate by;
@@ -17,5 +22,10 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
+    /**
+     * Return the formatted string for easy parsing and writing into file (database).
+     *
+     * @return Formatted String.
+     */
     public String getFormattedString() { return "D | " + super.getFormattedString() + " | " + this.by;}
 }

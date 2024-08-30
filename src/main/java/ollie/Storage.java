@@ -17,6 +17,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Responsible for all interactions (read & write) with our file (i.e. database).
+ */
 public class Storage {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private String filePath;
@@ -25,6 +28,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Read and parse the list of tasks from the text file specified by filepath.
+     *
+     * @return List of tasks.
+     * @throws OllieException If file is not found or file is corrupted.
+     */
     public ArrayList<Task> load() throws OllieException {
         try {
             File f = new File(this.filePath); // create a File for the given file path
@@ -71,6 +80,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Write the list of tasks to the text file specified by filepath.
+     *
+     * @param tasks ArrayList of tasks
+     * @throws OllieException If there are issues with writing to the file.
+     */
     public void save(ArrayList<Task> tasks) throws OllieException {
         try {
             FileWriter fw = new FileWriter(this.filePath);

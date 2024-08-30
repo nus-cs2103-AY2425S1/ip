@@ -1,5 +1,10 @@
 package ollie.task;
 
+/**
+ * Represents a task. A task contains a description and a boolean value
+ * which represents the task's completion status.
+ *
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -9,18 +14,30 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    private String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Set task to done.
+     *
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Set task to undone.
+     */
     public void markAsUndone() {
         this.isDone = false;
     }
 
+    /**
+     * Return the formatted string for easy parsing and writing into file (database).
+     *
+     * @return Formatted String.
+     */
     public String getFormattedString() {
         return String.format("%d | %s", isDone ? 1 : 0, this.description);
     }

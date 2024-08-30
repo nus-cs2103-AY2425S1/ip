@@ -1,5 +1,8 @@
 package ollie.task;
 
+/**
+ * Represents a Todo task.
+ */
 public class Todo extends Task {
 
     public Todo(String description) {
@@ -11,5 +14,10 @@ public class Todo extends Task {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Return the formatted string for easy parsing and writing into file (database).
+     *
+     * @return Formatted String.
+     */
     public String getFormattedString() { return "T | " + super.getFormattedString();}
 }
