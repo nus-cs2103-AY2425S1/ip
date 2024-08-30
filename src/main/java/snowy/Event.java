@@ -13,7 +13,7 @@ public class Event extends Task{
             this.fromDate = LocalDate.parse(fromDate);
             this.toDate = LocalDate.parse(toDate);
         } catch (DateTimeException e) {
-            throw new SnowyException();
+            throw new SnowyException("Wrong date format");
         }
 
     }

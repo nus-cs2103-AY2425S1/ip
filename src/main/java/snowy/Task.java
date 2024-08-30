@@ -3,7 +3,7 @@ package snowy;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
-public class Task {
+abstract public class Task {
     private boolean isCompleted = false;
 
     public final DateTimeFormatter FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);

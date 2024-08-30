@@ -1,4 +1,7 @@
 package snowy;
 
-public class SnowyException extends Exception {
+public class SnowyException extends RuntimeException {
+    public SnowyException(String message) {
+        super(message);
+    }
 }

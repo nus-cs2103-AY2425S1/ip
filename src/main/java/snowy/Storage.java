@@ -25,7 +25,7 @@ public class Storage {
 
 
         } catch (IOException e) {
-            throw new SnowyException();
+            throw new SnowyException("Unable to create new file");
         }
         return lines;
     }
@@ -36,7 +36,7 @@ public class Storage {
             writer.write(saveLines);
             writer.close();
         } catch (IOException e) {
-            throw new SnowyException();
+            throw new SnowyException("Unable to update file");
         }
     }
 

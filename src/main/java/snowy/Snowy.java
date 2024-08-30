@@ -19,6 +19,7 @@ public class Snowy {
             this.tasks = new TaskList(storage.load());
         } catch (SnowyException e) {
             this.tasks = new TaskList();
+            System.out.println(e.getMessage());
         }
     }
 
