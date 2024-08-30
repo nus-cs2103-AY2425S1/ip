@@ -19,6 +19,17 @@ public class Storage {
 
     
 
+    /**
+     * Loads the tasks from the file specified by the file path.
+     *
+     * The file is expected to have the following format:
+     * T | 0/1 | description
+     * D | 0/1 | description | by
+     * E | 0/1 | description | from | to
+     *
+     * @return a list of tasks
+     * @throws IOException if there is an error reading from the file
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);

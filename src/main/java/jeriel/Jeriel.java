@@ -25,6 +25,18 @@ public class Jeriel {
         }
     }
 
+    /**
+     * Runs the main loop of the application.
+     * 
+     * Shows the welcome message, and then enters a loop where it reads a command from the user,
+     * parses it, executes it, and then shows the result.
+     * 
+     * The loop continues until the user enters a command that causes the application to exit.
+     * 
+     * If an error occurs while parsing or executing the command, the error message is shown to the user.
+     * 
+     * The loop also shows a divider line after each command.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -43,6 +55,14 @@ public class Jeriel {
         }
     }
 
+        /**
+         * The entry point of the application.
+         * 
+         * Creates a new instance of Jeriel with the default file path, and calls its
+         * run method to start the application.
+         * 
+         * @param args the command line arguments
+         */
     public static void main(String[] args) {
         new Jeriel("data/tasks.txt").run();
     }
