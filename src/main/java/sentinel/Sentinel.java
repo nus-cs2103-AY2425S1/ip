@@ -48,6 +48,6 @@ public class Sentinel {
     }
 
     public enum CommandType {
-        list, mark, unmark, delete, todo, deadline, event, help, bye
+        todo, deadline, event, list, find, mark, unmark, delete,  help, bye
     }
 }
