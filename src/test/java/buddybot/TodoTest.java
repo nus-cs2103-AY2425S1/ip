@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * Test for Todo class
+ * Test for To Do class
  */
 public class TodoTest {
     /**
