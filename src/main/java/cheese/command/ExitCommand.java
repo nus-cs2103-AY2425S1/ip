@@ -28,7 +28,7 @@ public class ExitCommand extends Command {
      * @param storage store data
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.bye();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.bye();
     }
 }

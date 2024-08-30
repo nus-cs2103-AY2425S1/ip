@@ -29,9 +29,9 @@ public class AddCommand extends Command {
      * @throws CheeseException if Storage fails
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {
         storage.add(task);
         tasks.add(task);
-        ui.say(task, tasks, false);
+        return ui.say(task, tasks, false);
     }
 }

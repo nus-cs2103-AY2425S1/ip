@@ -9,7 +9,7 @@ import cheese.task.Task;
  */
 public class Ui {
     private static final String GREETING = "Hello! I'm Wheely Big Cheese\nWhat can I do for you?";
-    private static final String ENDING = "Schwooo Weeeeee!!! Shutting down.....";
+    private static final String ENDING = "Schwooo Weeeeee!!! Shutting down..... Window closing in 3s :)";
     private static final String ERROR = "Cheese.Command not gouda.... ";
     private final Scanner sc;
 
@@ -29,21 +29,22 @@ public class Ui {
      * Format the output of the bot
      * @param s String to say
      */
-    public static void say(String s) {
+    public String say(String s) {
         System.out.println("____________________________________________________________");
         System.out.println(s);
         System.out.println("____________________________________________________________");
+        return s;
     }
 
     /**
      * Say the task list
      */
-    public void say(TaskList tasks) {
+    public String say(TaskList tasks) {
         StringBuilder allItems = new StringBuilder("Got your cheese:");
         for (int i = 0; i < tasks.size(); i++) {
             allItems.append("\n").append(i + 1).append(". ").append(tasks.get(i).toString());
         }
-        say(String.valueOf(allItems));
+        return say(String.valueOf(allItems));
     }
 
     /**
@@ -52,7 +53,7 @@ public class Ui {
      * @param tasks tasklist
      * @param delete note delete/add task
      */
-    public void say(Task t, TaskList tasks, boolean delete) {
+    public String say(Task t, TaskList tasks, boolean delete) {
         String del;
         if (delete) {
             del = "Removed cheese :(\n";
@@ -60,7 +61,7 @@ public class Ui {
             del = "Added new cheese ;)\n";
         }
         String s = del + t.toString() + "\n" + tasks.size() + " cheese in the shelf";
-        say(s);
+        return say(s);
     }
 
     /**
@@ -68,30 +69,30 @@ public class Ui {
      * @param t updated task
      * @param tasks task list
      */
-    public void say(Task t, TaskList tasks) {
+    public String say(Task t, TaskList tasks) {
         String s = "Updated cheese :)\n" + t.toString() + "\n" + tasks.size() + " cheese in the shelf";
-        say(s);
+        return say(s);
     }
 
     /**
      * Say error
      * @param e custom exception
      */
-    public void say(CheeseException e) {
-        say(ERROR + e.getMessage());
+    public String say(CheeseException e) {
+        return say(ERROR + e.getMessage());
     }
 
     /**
      * Say greeting
      */
-    public void greet() {
-        say(GREETING);
+    public String greet() {
+        return say(GREETING);
     }
 
     /**
      * Say ending
      */
-    public void bye() {
-        say(ENDING);
+    public String bye() {
+        return say(ENDING);
     }
 }

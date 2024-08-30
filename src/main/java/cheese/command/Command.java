@@ -30,7 +30,7 @@ public class Command {
      * @param storage store data
      * @throws CheeseException in case something breaks
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {
-        Ui.say("Beeop... Unknown command");
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {
+        return ui.say("Beeop... Unknown command");
     }
 }

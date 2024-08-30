@@ -11,10 +11,12 @@ public class WheelyBigCheese {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
+    private boolean exitChat;
 
     WheelyBigCheese() {
         ui = new Ui();
         storage = new Storage(LIST_FILE_PATH);
+        exitChat = false;
         try {
             tasks = new TaskList(storage.loadTasks());
         } catch (CheeseException e) {
@@ -24,7 +26,34 @@ public class WheelyBigCheese {
     }
 
     /**
-     * Central logic for bot
+     * Command to start bot
+     * @return String greeting
+     */
+    public String start() {
+        return ui.greet();
+    }
+
+    /**
+     * Return bot response to input
+     * @param input String from user
+     * @return String response from bot
+     */
+    public String getResponse(String input) {
+        String response;
+        try {
+            //Get user input and basic manipulation of input
+            Command c = Parser.parse(input, tasks.size());
+            response = c.execute(tasks, ui, storage);
+            exitChat = c.isExit();
+        } catch (CheeseException e) {
+            exitChat = true;
+            return ui.say(e);
+        }
+        return response;
+    }
+
+    /**
+     * Run bot in command line
      */
     public void run() {
         ui.greet();
@@ -42,6 +71,14 @@ public class WheelyBigCheese {
                 ui.say(e);
             }
         } while (!exitChat);
+    }
+
+    /**
+     * Getter for exitChat
+     * @return boolean
+     */
+    public boolean isExit() {
+        return exitChat;
     }
 
     public static void main(String[] args) {

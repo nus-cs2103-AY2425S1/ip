@@ -32,9 +32,9 @@ public class MarkCommand extends UpdateCommand {
      * @throws CheeseException if UpdateCommand fails
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {
         Task t = tasks.get(idx);
         t.setDone(done);
-        super.execute(tasks, ui, storage);
+        return super.execute(tasks, ui, storage);
     }
 }
