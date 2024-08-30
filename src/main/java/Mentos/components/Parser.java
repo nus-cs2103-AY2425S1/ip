@@ -19,32 +19,31 @@ public class Parser {
 
 
 
-
+    /**
+     * Handles user input commands related to Mentos.task management.
+     *
+     * This method processes various Mentos.task-related commands such as listing tasks,
+     * marking tasks as done, unmarking tasks, deleting tasks, and adding new tasks
+     * (todo, deadline, event). It uses regular expressions to parse and validate
+     * the input commands, and throws custom exceptions (`Mentos.MentosException.MentosException`)
+     * when inputs are invalid.
+     *
+     * The following commands are supported:
+     *   list - Lists all the current tasks.
+     *   mark X- Marks the task at index X as done.
+     *   unmark X - Unmarks the task at index X (marks it as not done).
+     *   delete X< - Deletes the task at index X.
+     *   todo DESCRIPTION - Adds a new ToDo task with the given description.
+     *   deadline DESCRIPTION /by DATETIME - Adds a new Deadline task with the given description and due date.
+     *   event DESCRIPTION /from DATETIME /to DATETIME - Adds a new task.Event task with the given description and time range.
+     *
+     * If an unrecognized command is given, the method responds with a message indicating
+     * that the command is not understood.
+     *
+     * @param input the user's input command as a string.
+     * @throws Mentos.MentosException.MentosException if the input is invalid or if the specified task index does not exist.
+     */
     public ActionTaskIndexTuple taskHandler(String input) {
-        /*
-         * Handles user input commands related to Mentos.task management.
-         *
-         * This method processes various Mentos.task-related commands such as listing tasks,
-         * marking tasks as done, unmarking tasks, deleting tasks, and adding new tasks
-         * (todo, deadline, event). It uses regular expressions to parse and validate
-         * the input commands, and throws custom exceptions (`Mentos.MentosException.MentosException`)
-         * when inputs are invalid.
-         *
-         * The following commands are supported:
-         *   list - Lists all the current tasks.
-         *   mark X- Marks the Mentos.task at index X as done.
-         *   unmark X - Unmarks the Mentos.task at index X (marks it as not done).
-         *   delete X< - Deletes the Mentos.task at index X.
-         *   todo DESCRIPTION - Adds a new Mentos.task.ToDo Mentos.task with the given description.
-         *   deadline DESCRIPTION /by DATETIME - Adds a new Mentos.task.Deadline Mentos.task with the given description and due date.
-         *   event DESCRIPTION /from DATETIME /to DATETIME - Adds a new Mentos.task.Event Mentos.task with the given description and time range.
-         *
-         * If an unrecognized command is given, the method responds with a message indicating
-         * that the command is not understood.
-         *
-         * @param input the user's input command as a string.
-         * @throws Mentos.MentosException.MentosException if the input is invalid or if the specified Mentos.task index does not exist.
-         */
         try {
 
             if (input.equals("list")) {
@@ -121,18 +120,18 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Handles regular expression matching on a given input string.
+     * This method compiles the provided regular expression (regex) and
+     * attempts to find a match within the input string. If a match is found,
+     * it returns the `Matcher` object, allowing further operations like
+     * extracting matched groups. If no match is found, it returns `null`.
+     *
+     * @param input the string to be matched against the regular expression.
+     * @param regex the regular expression used for matching.
+     * @return `Matcher` object if a match is found; `null` otherwise.
+     */
     public Matcher regexHandler(String input,String regex){
-        /*
-         * Handles regular expression matching on a given input string.
-         * This method compiles the provided regular expression (regex) and
-         * attempts to find a match within the input string. If a match is found,
-         * it returns the `Matcher` object, allowing further operations like
-         * extracting matched groups. If no match is found, it returns `null`.
-         *
-         * @param input the string to be matched against the regular expression.
-         * @param regex the regular expression used for matching.
-         * @return `Matcher` object if a match is found; `null` otherwise.
-         */
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
         if (matcher.find()){

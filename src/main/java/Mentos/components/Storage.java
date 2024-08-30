@@ -20,16 +20,15 @@ public class Storage {
         this.FILE_PATH = System.getProperty("user.dir")+FILE_PATH;
     }
 
+    /**
+     * Saves the list of tasks to a file specified by {@code FILE_PATH}.
+     * This method writes each task in the {@code tasks} list to the file, with each task on a new line.
+     * If the file specified by {@code FILE_PATH} does not exist, an error message will be printed to the console.
+     * Note: The method uses a hard-coded file path. Ensure that the directory structure exists before calling this method.
+     *
+     * @throws IOException if an I/O error occurs while writing to the file.
+     */
     public void saveTasksToFile(TaskList tasks) {
-        /*
-         * Saves the list of tasks to a file specified by {@code FILE_PATH}.
-         * This method writes each Mentos.task in the {@code tasks} list to the file, with each Mentos.task on a new line.
-         * If the file specified by {@code FILE_PATH} does not exist, an error message will be printed to the console.
-         * Note: The method uses a hard-coded file path. Ensure that the directory structure exists before calling this method.
-         *
-         * @throws IOException if an I/O error occurs while writing to the file.
-         */
-
         try{
             FileWriter file = new FileWriter(FILE_PATH,false);
             for (Task task: tasks.getTasks()){
@@ -41,21 +40,21 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> loadTasksFromFile() throws MentosException {
-        /*
-         * Loads the list of tasks from a file specified by {@code FILE_PATH}.
-         * This method reads each line from the file and attempts to parse it into a {@code Mentos.task.Task} object,
-         * depending on the Mentos.task type identified in the line. The supported Mentos.task types are:
-         * To-Do (T)
-         * Mentos.task.Event (E)
-         * Mentos.task.Deadline (D)
-         * If a line is not in the expected format, it will be skipped, and a warning message will be printed to the console.
-         * If the file does not exist or an I/O error occurs, an error message will be printed instead.
+    /**
+     * Loads the list of tasks from a file specified by {@code FILE_PATH}.
+     * This method reads each line from the file and attempts to parse it into a {@code Task} object,
+     * depending on the task type identified in the line. The supported task types are:
+     * To-Do (T)
+     * Event (E)
+     * Deadline (D)
+     * If a line is not in the expected format, it will be skipped, and a warning message will be printed to the console.
+     * If the file does not exist or an I/O error occurs, an error message will be printed instead.
 
-         * Note: The method expects the file content to be in a specific format for parsing.
-         *
-         * @throws IOException if an I/O error occurs while reading the file.
-         */
+     * Note: The method expects the file content to be in a specific format for parsing.
+     *
+     * @throws IOException if an I/O error occurs while reading the file.
+     */
+    public ArrayList<Task> loadTasksFromFile() throws MentosException {
         ArrayList<Task> tasks = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
@@ -117,6 +116,15 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Converts a date and time string from one format to another.
+     *
+     * This method takes a date and time string in the format "MMM d yyyy, HH:mm",
+     * parses it into a {@code LocalDateTime} object, and then formats it into
+     * the desired output format "yyyy-MM-dd HHmm". The method returns the
+     * reformatted date and time string.
+     */
+
     public String changeFormat(String dateTimeStr){
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, inputFormatter);
@@ -124,18 +132,18 @@ public class Storage {
         return dateTime.format(outputFormatter);
     }
 
+    /**
+     * Handles regular expression matching on a given input string.
+     * This method compiles the provided regular expression (regex) and
+     * attempts to find a match within the input string. If a match is found,
+     * it returns the `Matcher` object, allowing further operations like
+     * extracting matched groups. If no match is found, it returns `null`.
+     *
+     * @param input the string to be matched against the regular expression.
+     * @param regex the regular expression used for matching.
+     * @return `Matcher` object if a match is found; `null` otherwise.
+     */
     public Matcher regexHandler(String input,String regex){
-        /*
-         * Handles regular expression matching on a given input string.
-         * This method compiles the provided regular expression (regex) and
-         * attempts to find a match within the input string. If a match is found,
-         * it returns the `Matcher` object, allowing further operations like
-         * extracting matched groups. If no match is found, it returns `null`.
-         *
-         * @param input the string to be matched against the regular expression.
-         * @param regex the regular expression used for matching.
-         * @return `Matcher` object if a match is found; `null` otherwise.
-         */
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
         if (matcher.find()){
