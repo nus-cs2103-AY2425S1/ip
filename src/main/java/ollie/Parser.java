@@ -1,6 +1,13 @@
 package ollie;
 
-import ollie.command.*;
+import ollie.command.AddCommand;
+import ollie.command.Command;
+import ollie.command.DeleteCommand;
+import ollie.command.ExitCommand;
+import ollie.command.FindCommand;
+import ollie.command.ListCommand;
+import ollie.command.MarkCommand;
+import ollie.command.UnmarkCommand;
 import ollie.exception.OllieException;
 import ollie.task.Deadline;
 import ollie.task.Event;
@@ -134,7 +141,7 @@ public class Parser {
     }
 
     private static String getBody(String prefix, String s) throws OllieException {
-        String body = s.replaceFirst(prefix,"").trim();
+        String body = s.replaceFirst(prefix, "").trim();
         if (body.isEmpty()) {
             throw new OllieException("Cannot have an empty body after command!");
         }

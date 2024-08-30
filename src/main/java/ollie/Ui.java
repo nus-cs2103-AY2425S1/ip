@@ -37,7 +37,9 @@ public class Ui {
     }
 
     /**
-     * Display list of tasks.
+     * Display list of task.
+     *
+     * @param tasks List of tasks.
      */
     public void showTaskList(TaskList tasks) {
         Ui.printResponse(tasks.toString());
