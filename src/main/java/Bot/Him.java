@@ -19,31 +19,24 @@ public class Him {
     private static TaskList list = new TaskList();
     private static final Storage storage = new Storage();
 
-    private static void greet() {
-        System.out.println("Him: Hello! I'm Him\n     What can I do for you?\n");
-    }
-
     private static void complete(int index) {
         try {
             list.complete(index);
-            System.out.println("\nHim: LET'S GOOOOO! " + list.taskAt(index) + " has been completed!\n");
+            Bot.Ui.sayCompleted(list.taskAt(index));
         } catch (AlreadyCompletedException | TaskDoesNotExistException e) {
-            System.out.println("\nHim: " + e.getMessage() + "\n");
+            Bot.Ui.say(e.getMessage());
         }
     }
 
     private static void delete(int index) {
         try {
             String task = list.delete(index);
-            System.out.println("\nHim: Got it. \"" + task + "\" has been snapped from existence\n");
+            Bot.Ui.sayDeleted(task);
         } catch (TaskDoesNotExistException e) {
-            System.out.println("\nHim: " + e.getMessage() + "\n");
+            Bot.Ui.say(e.getMessage());
         }
     }
 
-    private static void exit() {
-        System.out.println("\nHim: WAIT NO! DON'T LEAVE ME ALON-\n");
-    }
 
     public static void main(String[] args) {
         try {
@@ -51,21 +44,21 @@ public class Him {
         } catch (FileNotFoundException e) {
             storage.initStorage();
         } catch (AlreadyCompletedException | StartAfterEndException e) {
-            System.out.println("Failed to load tasks make sure tasks file is not corrupted");
+            Bot.Ui.showLoadingFailure();
             System.exit(0);
         }
         Scanner scanner = new Scanner(System.in);
-        greet();
-        System.out.print("User: ");
+        Bot.Ui.greet();
+        Bot.Ui.printUser();
         String[] input = scanner.nextLine().split(" ", 2);
         String command = input[0];
         while (!command.equals("bye")) {
             switch (command) {
                 case "list":
                     if (list.isEmpty()) {
-                        System.out.println("\nHim: How about you add some tasks first\n");
+                        Bot.Ui.sayEmptyList();
                     } else {
-                        System.out.println("\nHim: Sure! Here's your list!\n\n" + list);
+                        Bot.Ui.sayList(list);
                     }
                     break;
                 case "mark":
@@ -75,10 +68,9 @@ public class Him {
                     try {
                         ToDo newToDo = new ToDo(input[1]);
                         list.add(newToDo);
-                        System.out.println("\nHim: added \"" + newToDo + "\" to list\n");
+                        Bot.Ui.sayAdded(newToDo);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("\nHim: ToDos need a description!\n     " +
-                                "Use the format: \"todo [description]\"\n");
+                        Bot.Ui.sayInvalidTodoFormat();
                     } finally {
                         break;
                     }
@@ -88,11 +80,9 @@ public class Him {
                         String[] details = input[1].split("/by");
                         Deadline newDeadline = Deadline.of(details[0].trim(), details[1].trim());
                         list.add(newDeadline);
-                        System.out.println("\nHim: added \"" + newDeadline + "\" to list\n");
+                        Bot.Ui.sayAdded(newDeadline);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("\nHim: Deadlines need a description and a due date!\n     " +
-                                "Use the format: \"deadline [description] /by [due date] /at [due time]\"\n     " +
-                                "Note: due times are optional!\n");
+                        Bot.Ui.sayInvalidDeadlineFormat();
                     } finally {
                         break;
                     }
@@ -103,16 +93,13 @@ public class Him {
                         String[] interval = details[1].split("/end");
                         Event newEvent = new Event(details[0].trim(), interval[0].trim(), interval[1].trim());
                         list.add(newEvent);
-                        System.out.println("\nHim: added \"" + newEvent + "\" to list\n");
+                        Bot.Ui.sayAdded(newEvent);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("\nHim: Events need a description, a start time and an end time!\n     " +
-                                "Use the format: \"event [description] /start [start date] /at [start time] " +
-                                "/end [end date] /at [end time]\"\n");
+                        Bot.Ui.sayInvalidEventFormat();
                     } catch (StartAfterEndException e) {
-                        System.out.println("\nHim: Events need to end after they start!\n");
+                        Bot.Ui.sayEventStartAfterEnd();
                     } catch (DateTimeParseException e) {
-                        System.out.println("\nHim: Invalid Date or Time format!\n     " +
-                                "Date format: yyyy-MM-dd\n     Time format: HH:mm\n");
+                        Bot.Ui.sayInvalidDateTimeFormat();
                     } finally {
                         break;
                     }
@@ -121,27 +108,27 @@ public class Him {
                     try {
                         delete(Integer.parseInt(input[1]) - 1);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("\nHim: Tell me which task you want me to delete!!!! \n");
+                        Bot.Ui.sayDeleteNoTask();
                     } finally {
                         break;
                     }
                 }
                 default: {
-                    System.out.println("\nHim: " + command + "? What are you saying????\n");
+                    Bot.Ui.sayInvalidCommand(command);
                 }
             }
 
             try {
                 storage.saveTaskList(list);
             } catch (IOException e) {
-                System.out.println("Tasks could not be saved! Please check tasks file");
+                Bot.Ui.showSaveFailure();
             }
 
-            System.out.print("User: ");
+            Bot.Ui.printUser();
             input = scanner.nextLine().split(" ", 2);
             command = input[0];
         }
         scanner.close();
-        exit();
+        Bot.Ui.exit();
     }
 }
