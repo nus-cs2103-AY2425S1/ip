@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public class TheBotFather {
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList taskList;
-    private Ui ui;
+    private final Ui ui;
 
     public TheBotFather(String filePath) {
         ui = new Ui();
@@ -45,6 +45,4 @@ public class TheBotFather {
         new TheBotFather("./data/TheBotFather.txt").run();
 
     }
-
-
 }

@@ -14,7 +14,8 @@ public class MarkCommand extends Command {
         try {
             this.index = Integer.parseInt(stringIndex) - 1;
         } catch (NumberFormatException e) {
-            throw new TheBotFatherException("How do you not know what a number is, jeez");
+            throw new TheBotFatherException("How do you not know what a number is, jeez\n" +
+                    "\tTo mark/unmark a task enter \"mark/unmark <index>\"");
         }
         this.isDone = isDone;
     }

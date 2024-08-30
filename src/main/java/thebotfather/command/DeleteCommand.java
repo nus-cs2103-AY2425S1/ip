@@ -14,7 +14,8 @@ public class DeleteCommand extends Command {
         try {
             this.index = Integer.parseInt(stringIndex) - 1;
         } catch (NumberFormatException e) {
-            throw new TheBotFatherException("How do you not know what a number is, jeez");
+            throw new TheBotFatherException("How do you not know what a number is, jeez\n" +
+                    "\tTo delete a task enter \"delete <index>\"");
         }
     }
 

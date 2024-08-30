@@ -1,6 +1,12 @@
 package thebotfather.util;
 
-import thebotfather.command.*;
+import thebotfather.command.Command;
+import thebotfather.command.CommandList;
+import thebotfather.command.ExitCommand;
+import thebotfather.command.PrintTaskListCommand;
+import thebotfather.command.MarkCommand;
+import thebotfather.command.DeleteCommand;
+import thebotfather.command.AddCommand;
 import thebotfather.task.Deadline;
 import thebotfather.task.Event;
 import thebotfather.task.Task;

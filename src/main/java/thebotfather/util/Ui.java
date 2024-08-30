@@ -29,6 +29,7 @@ public class Ui {
         this.printLine();
         print("Hello! I'm The BotFather");
         print("I’m gonna make you an offer you can’t refuse.");
+        this.printLine();
         this.printHorse();
         this.printLine();
     }
