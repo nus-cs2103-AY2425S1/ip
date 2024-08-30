@@ -39,6 +39,10 @@ public class Task {
         return isDone ? "[X] " : "[ ] ";
     }
 
+    public boolean contains(String argument) {
+        return description.contains(argument);
+    }
+
     /**
      * {@inheritDoc}
      */

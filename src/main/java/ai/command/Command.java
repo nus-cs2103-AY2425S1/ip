@@ -1,8 +1,8 @@
 package ai.command;
 
-import ai.exception.AiException;
 import ai.TaskList;
 import ai.Ui;
+import ai.exception.AiException;
 
 /**
  * Class that executes user commands.

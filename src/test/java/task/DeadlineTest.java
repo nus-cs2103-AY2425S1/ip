@@ -1,6 +1,5 @@
 package task;
 
-import ai.exception.AiException;
 import ai.task.Deadline;
 import org.junit.jupiter.api.Test;
 
