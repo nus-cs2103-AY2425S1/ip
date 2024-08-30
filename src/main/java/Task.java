@@ -31,6 +31,26 @@ public class Task {
     }
 
     /**
+     * Returns if the task is done or not
+     * 
+     * @return true if the task is done, false otherwise
+     */
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    /**
+     * Returns the description of the task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    public String toFile() {
+        return " | " + (this.isDone ? "1" : "0") + " | " + this.description;
+    }
+
+    /**
      * Returns a string representation of the task.
      * The string includes the completion status and the description of the task.
      * 
