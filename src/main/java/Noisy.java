@@ -5,8 +5,9 @@ public class Noisy {
 
 
     public static void main(String[] args) {
-        ArrayList<Task> taskList = new ArrayList<Task>();
-        int currentPointer = 0;
+        Storage storage = new Storage();
+        ArrayList<Task> taskList = storage.loadTasks();
+        int currentPointer = taskList.size();
         Task task = null;
         String welcomeMessage = "____________________________________________________________\n"
                 + " Hello! I'm Noisy\n"
@@ -48,23 +49,23 @@ public class Noisy {
                 continue;
             }
 
-            task = new Task(input);
+            task = null;
             try {
                 switch (input.split(" ")[0]) {
                     case "todo":
                         if (input.split(" ", 2).length < 2) {
                             throw new NoisyException("OOPS!!! The description of a todo cannot be empty.");
                         }
-                        task = new Todo(input.split(" ", 2)[1]);
+                        task = new Todo(input.split(" ", 2)[1], false);
                         break;
                     case "Deadline":
                         String[] string = input.split(" ", 3);
-                        task = new Deadline(string[1], string[2]);
+                        task = new Deadline(string[1], false, string[2]);
                         break;
                     case "Event":
                         String[] eventString = input.split(" ", 4);
-                        task = new Event(eventString[1], eventString[2], eventString[3]);
-                        continue;
+                        task = new Event(eventString[1], false, eventString[2], eventString[3]);
+                        break;
                     case "delete":
                         String[] deleteString = input.split(" ");
                         Integer index = Integer.parseInt(deleteString[1]);
@@ -88,6 +89,7 @@ public class Noisy {
 
 
             taskList.add(task);
+            storage.saveTasks(taskList);
             currentPointer++;
             String taskAdd = "____________________________________________________________\n" +
                     " Got it. I've added this task:\n" +
