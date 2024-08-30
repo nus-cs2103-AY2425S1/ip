@@ -73,7 +73,6 @@ public class UI {
     public void addedTask() {
         System.out.println("Gotcha!! Added this task to your list:");
     }
-
     public void noTasksBeforeDelete() {
         System.out.println("You have currently added ZERO tasks to your list! Try telling me some of your tasks before deleting them.");
     }

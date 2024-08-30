@@ -5,7 +5,7 @@ import rainy.rainyexceptions.*;
 
 public class Task implements Comparable<Task> {
     private boolean isDone;
-    private String name;
+    protected String name;
     protected LocalDate compareDate;
     private UI ui;
 

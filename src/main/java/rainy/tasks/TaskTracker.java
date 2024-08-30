@@ -117,12 +117,14 @@ public class TaskTracker {
             this.ui.noTasksBeforeDelete();
         } else if (i < 0 || i >= this.counter) {
             throw new InvalidIndexException(this.ui.invalidTask());
+        } else {
+            this.ui.removedTask();
+            System.out.println(this.taskList.get(i));
+            this.taskList.remove(i);
+            counter--;
+            System.out.println("You currently have " + counter + " task/s on hand. Please remember to complete them!");
         }
-        this.ui.removedTask();
-        System.out.println(this.taskList.get(i));
-        this.taskList.remove(i);
-        counter--;
-        System.out.println("You currently have " + counter + " task/s on hand. Please remember to complete them!");
+
     }
     public void receivedFirstInput() {
         this.receivedInputs = true;
