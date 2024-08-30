@@ -19,6 +19,8 @@ public class Parser {
                 throw new EmptyDescriptionException();
             } else if (splitText[0].equals("event")) {
                 throw new EmptyDescriptionException();
+            } else if (splitText[0].equals("find")) {
+                throw new EmptyDescriptionException();
             }
             throw new UnknownCommandException();
         }
@@ -38,6 +40,8 @@ public class Parser {
                 return new AddTaskCommand(parseDeadline(details));
             case "event":
                 return new AddTaskCommand(parseEvent(details));
+            case "find":
+                return new FindTaskCommand(details);
             default:
                 throw new UnknownCommandException();
         }
