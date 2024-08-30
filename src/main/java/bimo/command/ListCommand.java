@@ -5,7 +5,7 @@ import bimo.TaskList;
 import bimo.Ui;
 
 /**
- * Creats a command that list all tasks.
+ * Creates a command that list all tasks.
  */
 public class ListCommand extends Command {
 

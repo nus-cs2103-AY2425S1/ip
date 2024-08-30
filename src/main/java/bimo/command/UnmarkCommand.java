@@ -5,7 +5,7 @@ import bimo.TaskList;
 import bimo.Ui;
 
 /**
- * Creaetes a command to unmark tasks.
+ * Creates a command to unmark tasks.
  */
 public class UnmarkCommand extends Command {
     private int index;

@@ -32,7 +32,7 @@ public class Deadline extends Task {
 
     /**
      * Converts task to string value with task type, description
-     * and due date
+     * and due date.
      *
      * @return String value of task.
      */

@@ -36,7 +36,7 @@ public class Event extends Task {
 
     /**
      * Converts task to string value with task type, description,
-     * start and due date
+     * start and due date.
      *
      * @return String value of task.
      */

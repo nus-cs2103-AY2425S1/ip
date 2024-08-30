@@ -12,7 +12,7 @@ public class DeleteCommand extends Command {
     private int index;
 
     /**
-     * Instantiate command object that deletes task.
+     * Instantiates command object that deletes task.
      *
      * @param index Index of task in list to be deleted.
      */

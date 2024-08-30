@@ -5,7 +5,7 @@ import bimo.TaskList;
 import bimo.Ui;
 
 /**
- * Create a command to set task as completed.
+ * Creates a command to set task as completed.
  */
 public class MarkCommand extends Command {
 
