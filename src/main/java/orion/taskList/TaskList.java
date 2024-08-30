@@ -1,22 +1,46 @@
 package orion.taskList;
 
 import orion.task.*;
-import orion.task.*;
-
-import java.io.*;
-import java.util.List;
 import orion.orionExceptions.FileInitializationException;
 import orion.storage.Storage;
 
+import java.io.*;
+import java.util.List;
+
+/**
+ * Manages a list of tasks, including loading, saving, adding, and modifying
+ * tasks.
+ * 
+ * <p>
+ * This class interacts with the {@link Storage} class to persist tasks in a
+ * file.
+ * It provides methods to manage tasks such as adding, deleting, and marking
+ * tasks
+ * as done or undone.
+ * </p>
+ */
 public class TaskList {
     private static final String DATA_FILE_PATH = "./data/tasks.csv";
     private Storage storage;
 
+    /**
+     * Constructs a TaskList instance with the specified storage.
+     * 
+     * @param storage the storage used to read and write tasks.
+     * @throws FileInitializationException if there is an issue with file
+     *                                     initialization.
+     */
     public TaskList(Storage storage) throws FileInitializationException {
         this.storage = storage;
         loadTasksFromFile();
     }
 
+    /**
+     * Retrieves the next task ID by finding the maximum existing ID and adding one.
+     * 
+     * @param tasks the list of existing tasks.
+     * @return the next available task ID.
+     */
     private int getNextTaskId(List<Task> tasks) {
         return tasks.stream()
                 .mapToInt(Task::getTaskID)
@@ -24,6 +48,13 @@ public class TaskList {
                 .orElse(0) + 1;
     }
 
+    /**
+     * Checks if the given list position is valid.
+     * 
+     * @param listPosition the position to check.
+     * @return true if the position is valid, false otherwise.
+     * @throws FileInitializationException if there is an issue with file reading.
+     */
     public boolean isValidIndex(int listPosition) throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         if (tasks.isEmpty()) {
@@ -32,10 +63,28 @@ public class TaskList {
         return listPosition > 0 && listPosition <= tasks.size();
     }
 
+    /**
+     * Loads tasks from the storage file into a list.
+     * 
+     * @return a list of tasks read from the file.
+     * @throws FileInitializationException if there is an issue reading from the
+     *                                     file.
+     */
     public List<Task> loadTasksFromFile() throws FileInitializationException {
         return storage.read();
     }
 
+    /**
+     * Prints all tasks to the console.
+     * 
+     * <p>
+     * If there are no tasks, a message indicating this is printed. Otherwise, each
+     * task is printed with its position in the list.
+     * </p>
+     * 
+     * @throws FileInitializationException if there is an issue reading the tasks
+     *                                     from the file.
+     */
     public void printTasks() throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         if (tasks.isEmpty()) {
@@ -48,6 +97,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Saves a list of tasks to the storage file.
+     * 
+     * @param tasks the list of tasks to be saved.
+     */
     public void saveTasksToFile(List<Task> tasks) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(DATA_FILE_PATH))) {
             for (Task task : tasks) {
@@ -72,6 +126,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Gets the type of a task as a string.
+     * 
+     * @param task the task for which the type is to be determined.
+     * @return a string representing the type of the task (e.g., "TODO", "DEADLINE",
+     *         "EVENT").
+     * @throws IllegalArgumentException if the task type is unknown.
+     */
     private String getTaskType(Task task) {
         if (task instanceof Todo) {
             return "TODO";
@@ -84,6 +146,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a TODO task to the task list.
+     * 
+     * @param description the description of the new TODO task.
+     * @return the newly created TODO task.
+     * @throws FileInitializationException if there is an issue with file reading or
+     *                                     writing.
+     */
     public Task addTodo(String description) throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         int newTaskId = getNextTaskId(tasks);
@@ -93,6 +163,14 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Adds a DEADLINE task to the task list.
+     * 
+     * @param temp an object containing details of the new DEADLINE task.
+     * @return the newly created DEADLINE task.
+     * @throws FileInitializationException if there is an issue with file reading or
+     *                                     writing.
+     */
     public Task addDeadline(DeadlineDetails temp) throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         int newTaskId = getNextTaskId(tasks);
@@ -102,6 +180,14 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Adds an EVENT task to the task list.
+     * 
+     * @param temp an object containing details of the new EVENT task.
+     * @return the newly created EVENT task.
+     * @throws FileInitializationException if there is an issue with file reading or
+     *                                     writing.
+     */
     public Task addEvent(EventDetails temp) throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         int newTaskId = getNextTaskId(tasks);
@@ -111,11 +197,25 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Returns the number of tasks in the list.
+     * 
+     * @return the number of tasks.
+     * @throws FileInitializationException if there is an issue with file reading.
+     */
     public int getSize() throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         return tasks.size();
     }
 
+    /**
+     * Marks a task as done based on its list position.
+     * 
+     * @param listPosition the position of the task to mark as done.
+     * @return the task that was marked as done, or null if the position is invalid.
+     * @throws FileInitializationException if there is an issue with file reading or
+     *                                     writing.
+     */
     public Task markAsDone(int listPosition) throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         int index = listPosition - 1;
@@ -128,6 +228,15 @@ public class TaskList {
         return null;
     }
 
+    /**
+     * Unmarks a task as done based on its list position.
+     * 
+     * @param listPosition the position of the task to unmark as done.
+     * @return the task that was unmarked as done, or null if the position is
+     *         invalid.
+     * @throws FileInitializationException if there is an issue with file reading or
+     *                                     writing.
+     */
     public Task unmarkAsDone(int listPosition) throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         int index = listPosition - 1;
@@ -140,6 +249,14 @@ public class TaskList {
         return null;
     }
 
+    /**
+     * Deletes a task based on its list position.
+     * 
+     * @param listPosition the position of the task to delete.
+     * @return the task that was deleted, or null if the position is invalid.
+     * @throws FileInitializationException if there is an issue with file reading or
+     *                                     writing.
+     */
     public Task deleteTask(int listPosition) throws FileInitializationException {
         List<Task> tasks = loadTasksFromFile();
         int index = listPosition - 1;
