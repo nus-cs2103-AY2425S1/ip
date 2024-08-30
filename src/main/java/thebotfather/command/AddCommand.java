@@ -14,7 +14,7 @@ public class AddCommand extends Command {
     /**
      * The task to be added to the task list.
      */
-    private Task task;
+    private final Task task;
 
     /**
      * Constructs an {@code AddCommand} with the specified task.

@@ -19,7 +19,7 @@ public class TaskList {
     /**
      * The count of tasks left to be completed
      */
-    protected static int COUNT = 0;
+    protected static int NUMBER_OF_REMAINING_TASKS = 0;
 
     /**
      * Constructs a TaskList instance with an initial list of tasks.
@@ -38,7 +38,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         taskArrayList.add(task);
-        COUNT++;
+        NUMBER_OF_REMAINING_TASKS++;
     }
 
     /**
@@ -68,7 +68,7 @@ public class TaskList {
         try {
             Task task = taskArrayList.get(index);
             if (!task.isDone()) {
-                COUNT--;
+                NUMBER_OF_REMAINING_TASKS--;
             }
             task.markAsDone();
         } catch (IndexOutOfBoundsException e) {
@@ -88,7 +88,7 @@ public class TaskList {
         try {
             Task task = taskArrayList.get(index);
             if (task.isDone()) {
-                COUNT++;
+                NUMBER_OF_REMAINING_TASKS++;
             }
             task.unmark();
         } catch (IndexOutOfBoundsException e) {
@@ -110,7 +110,7 @@ public class TaskList {
             Task task = taskArrayList.get(index);
             taskArrayList.remove(index);
             if (!task.isDone()) {
-                COUNT--;
+                NUMBER_OF_REMAINING_TASKS--;
             }
             return task;
         } catch (IndexOutOfBoundsException e) {

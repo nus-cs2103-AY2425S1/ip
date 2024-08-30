@@ -14,7 +14,7 @@ public class DeleteCommand extends Command {
     /**
      * The index of the task to be deleted from the task list.
      */
-    private int index;
+    private final int index;
 
     /**
      * Constructs a {@code DeleteCommand} with the specified task index.

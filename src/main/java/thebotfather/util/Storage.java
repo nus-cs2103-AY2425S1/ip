@@ -23,7 +23,7 @@ public class Storage {
     /**
      * The path of the file to store the task list.
      */
-    private String pathName = "";
+    private final String pathName;
 
     /**
      * Constructs a Storage instance with the specified file path.

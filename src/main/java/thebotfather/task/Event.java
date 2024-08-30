@@ -17,12 +17,12 @@ public class Event extends Task {
     /**
      * The start date and time of the event.
      */
-    protected LocalDateTime from;
+    private final LocalDateTime from;
 
     /**
      * The end date and time of the event.
      */
-    protected LocalDateTime to;
+    private final LocalDateTime to;
 
     /**
      * Constructs an Event task with the specified description, start time, and end time.

@@ -24,17 +24,17 @@ public abstract class Task {
     /**
      * Indicates whether the task is completed.
      */
-    protected boolean done = false;
+    private boolean done = false;
 
     /**
      * The description of the task.
      */
-    protected String description;
+    private final String description;
 
     /**
      * The type of the task, e.g., "T" for Todo, "D" for Deadline, "E" for Event.
      */
-    private String type = "";
+    private final String type;
 
     /**
      * Constructs a Task with the specified description and type.

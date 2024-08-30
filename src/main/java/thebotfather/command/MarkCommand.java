@@ -10,8 +10,8 @@ import thebotfather.util.Ui;
  */
 public class MarkCommand extends Command {
 
-    private int index;
-    private boolean isDone;
+    private final int index;
+    private final boolean isDone;
 
     /**
      * Constructs a MarkCommand object with the specified task index and marking status.

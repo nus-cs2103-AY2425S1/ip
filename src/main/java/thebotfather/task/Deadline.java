@@ -16,7 +16,7 @@ public class Deadline extends Task {
     /**
      * The deadline date and time by which the task should be completed.
      */
-    protected LocalDateTime by;
+    private final LocalDateTime by;
 
     /**
      * Constructs a Deadline task with the specified description and deadline date/time.
