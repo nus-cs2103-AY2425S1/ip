@@ -31,7 +31,7 @@ public class Event extends Task {
      *
      * @return A formatted string representing the end time of the event.
      */
-    public String printToDate() {
+    public String getToDate() {
         return to.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));
     }
 
@@ -40,20 +40,13 @@ public class Event extends Task {
      *
      * @return A formatted string representing the start time of the event.
      */
-    public String printFromDate() {
+    public String getFromDate() {
         return from.format(DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a"));
     }
 
-    /**
-     * Returns a string representation of the "Event" task.
-     * The string includes the task type indicator "[E]", followed by the status, description,
-     * and the start and end times.
-     *
-     * @return A string representation of the "Event" task.
-     */
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), printFromDate(), printToDate());
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), getFromDate(), getToDate());
     }
 
     /**

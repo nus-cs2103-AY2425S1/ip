@@ -32,13 +32,6 @@ public class Deadline extends Task {
         return doneBy.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
-    /**
-     * Returns a string representation of the "Deadline" task.
-     * The string includes the task type indicator "[D]", followed by the status, description,
-     * and the due date.
-     *
-     * @return A string representation of the "Deadline" task.
-     */
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), printDate());

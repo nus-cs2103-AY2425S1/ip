@@ -27,26 +27,16 @@ public abstract class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
-    /**
-     * Returns the description of the task.
-     *
-     * @return The description of the task as a string.
-     */
+
     public String getDescription() {
         return description;
     }
 
-    /**
-     * Marks the task as done.
-     */
-    public void markAsDone() {
+    public void setAsDone() {
         this.isDone = true;
     }
 
-    /**
-     * Unmarks the task (marks it as not done).
-     */
-    public void unmark() {
+    public void setAsNotDone() {
         this.isDone = false;
     }
 

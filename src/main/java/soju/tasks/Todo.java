@@ -17,12 +17,6 @@ public class Todo extends Task {
         super(description);
     }
 
-    /**
-     * Returns a string representation of the "Todo" task.
-     * The string includes the task type indicator "[T]" followed by the status and description.
-     *
-     * @return A string representation of the "Todo" task.
-     */
     @Override
     public String toString() {
         return String.format("[T]%s", super.toString());

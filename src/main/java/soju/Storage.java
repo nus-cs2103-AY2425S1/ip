@@ -30,7 +30,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
-        this.tasksFile = new File(filePath);
+        tasksFile = new File(filePath);
         try {
             boolean canMakeDirectory = tasksFile.getParentFile().mkdirs();
             boolean canCreateNewFile = tasksFile.createNewFile();
@@ -92,7 +92,7 @@ public class Storage {
 
                 if (newTask != null) {
                     if (isDone) {
-                        newTask.markAsDone();
+                        newTask.setAsDone();
                     }
                     taskList.add(newTask);
                 }

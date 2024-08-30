@@ -17,17 +17,17 @@ public class TaskList {
     /**
      * Constructs a {@code TaskList} with a given list of tasks.
      *
-     * @param tasks The list of tasks to initialize the task list with.
+     * @param t The list of tasks to initialize the task list with.
      */
-    public TaskList(List<Task> tasks) {
-        this.tasks = tasks;
+    public TaskList(List<Task> t) {
+        tasks = t;
     }
 
     /**
      * Constructs an empty {@code TaskList}.
      */
     public TaskList() {
-        this.tasks = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -59,7 +59,7 @@ public class TaskList {
      */
     public Task markTask(int taskNumber) {
         Task task = tasks.get(taskNumber - 1);
-        task.markAsDone();
+        task.setAsDone();
         return task;
     }
 
@@ -71,15 +71,10 @@ public class TaskList {
      */
     public Task unmarkTask(int taskNumber) {
         Task task = tasks.get(taskNumber - 1);
-        task.unmark();
+        task.setAsNotDone();
         return task;
     }
 
-    /**
-     * Retrieves the list of tasks.
-     *
-     * @return The list of tasks.
-     */
     public List<Task> getTasks() {
         return tasks;
     }
@@ -92,12 +87,7 @@ public class TaskList {
     public int size() {
         return tasks.size();
     }
-    /**
-     * Returns a string representation of the task list.
-     * Each task is listed with its position number and description.
-     *
-     * @return A string representation of the task list.
-     */
+
     @Override
     public String toString() {
         return tasks.stream()
