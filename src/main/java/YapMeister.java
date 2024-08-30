@@ -12,10 +12,16 @@ import static java.lang.Integer.parseInt;
 
 public class YapMeister {
     final static int MAX_TASKS = 100;
+    private UI ui;
+    
     enum TaskType {
         ToDo,
         Deadline,
         Event
+    }
+
+    public YapMeister(String filepath) {
+
     }
 
     public static void main(String[] args) {
