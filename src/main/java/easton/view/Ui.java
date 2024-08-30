@@ -1,4 +1,4 @@
-package easton;
+package easton.view;
 
 import java.util.ArrayList;
 import java.util.Scanner;
