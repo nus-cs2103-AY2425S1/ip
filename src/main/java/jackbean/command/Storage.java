@@ -1,3 +1,7 @@
+package jackbean.command;
+
+import jackbean.task.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -5,7 +9,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
@@ -55,11 +58,11 @@ public class Storage {
             for (int i = 0; i < taskList.getSize(); i++) {
                 Task task = taskList.getTask(i + 1);
                 if (task instanceof Todo) {
-                    storageWriter.write("T | " + task.description + " | " + task.getStatusIcon() + "\n");
+                    storageWriter.write("T | " + task.getDescription() + " | " + task.getStatusIcon() + "\n");
                 } else if (task instanceof Deadline) {
-                    storageWriter.write("D | " + task.description + " | " + ((Deadline) task).by + " | " + task.getStatusIcon() + "\n");
+                    storageWriter.write("D | " + task.getDescription() + " | " + ((Deadline) task).getBy() + " | " + task.getStatusIcon() + "\n");
                 } else if (task instanceof Event) {
-                    storageWriter.write("E | " + task.description + " | " + ((Event) task).from + " | " + ((Event) task).to + " | " + task.getStatusIcon() + "\n");
+                    storageWriter.write("E | " + task.getDescription() + " | " + ((Event) task).getFrom() + " | " + ((Event) task).getTo() + " | " + task.getStatusIcon() + "\n");
                 }
             }
             storageWriter.close();

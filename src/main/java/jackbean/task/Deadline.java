@@ -1,3 +1,5 @@
+package jackbean.task;
+
 import java.time.LocalDate;
 
 public class Deadline extends Task {
@@ -12,6 +14,10 @@ public class Deadline extends Task {
     public String getDateString(LocalDate date) {
         return date.getMonth().toString().substring(0, 1) + date.getMonth().toString().substring(1, 3).toLowerCase()
                 + " " + date.getDayOfMonth() + " " + date.getYear();
+    }
+
+    public LocalDate getBy() {
+        return by;
     }
 
     @Override

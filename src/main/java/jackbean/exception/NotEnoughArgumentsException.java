@@ -1,3 +1,7 @@
+package jackbean.exception;
+
+import jackbean.task.TaskType;
+
 public class NotEnoughArgumentsException extends Exception {
     public TaskType type;
     public NotEnoughArgumentsException(String type, String message) {
