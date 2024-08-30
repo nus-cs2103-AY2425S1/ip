@@ -1,7 +1,6 @@
 package lolo.command;
 
 import lolo.Ui;
-import lolo.LoloException;
 import lolo.storage.Storage;
 import lolo.task.TaskList;
 

@@ -1,7 +1,5 @@
 package lolo.task;
 
-import lolo.task.Task;
-
 /**
  * Represents a ToDo task in the Lolo application.
  * A ToDo is a specific type of task with its own string representation.
