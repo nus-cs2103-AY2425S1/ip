@@ -23,9 +23,19 @@ public class Parser {
     }
 
     public static String[] splitTaskInfo(String message) {
-        return message.trim().split("\\s+", 2);
+        String[] taskDescription = message.trim().split("\\s+", 2);
+        taskDescription[0].trim();
+        taskDescription[1].trim();
+        return taskDescription;
     }
 
+
+    /**
+     * Parses the command according to the message.
+     *
+     * @param fullCommand the entire command message user inputs.
+     * @return According command.
+     */
     public static Command parse(String fullCommand) {
         if (fullCommand.isBlank()) {
             return new UnknownCommand(fullCommand);

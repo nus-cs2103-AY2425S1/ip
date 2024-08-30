@@ -21,7 +21,7 @@ public class ParserTest {
         //
         String[] expected = {"taskType", "task information"};
         assertTrue(expected[0].equals(splitTaskInfo("taskType task information")[0]));
-        assertTrue(expected[1].equals(splitTaskInfo("taskType   task information  ")[1]));
+        assertTrue(expected[1].equals(splitTaskInfo("  taskType   task information  ")[1]));
     }
 
     @Test
