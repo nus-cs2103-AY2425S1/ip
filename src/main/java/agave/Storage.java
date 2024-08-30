@@ -8,10 +8,18 @@ import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 
+/**
+ * The Storage class manages the saving and loading of tasks to and from a file.
+ */
 public class Storage {
 
     private File file;
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath The file path where tasks will be stored and loaded from.
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
 
@@ -24,7 +32,12 @@ public class Storage {
             System.out.println("Error when creating file: " + e.getMessage());
         }
     }
-
+    /**
+     * Saves the list of tasks to the file.
+     *
+     * @param tasks The list of tasks to be saved.
+     * @throws IOException If an error occurs when writing to the file.
+     */
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
         BufferedWriter bufferedWriter = null;
         try {
@@ -43,6 +56,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the list of tasks from the file.
+     *
+     * @return The list of tasks loaded from the file.
+     * @throws IOException If an error occurs when reading from the file.
+     */
     public ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {

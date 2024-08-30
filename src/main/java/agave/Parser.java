@@ -2,17 +2,36 @@ package agave;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses the user input and creates the corresponding task.
+ */
 public class Parser {
     private String userInput;
 
+    /**
+     * Constructs a Parser with the specified user input.
+     *
+     * @param userInput The user input to be parsed.
+     */
     public Parser(String userInput) {
         this.userInput = userInput;
     }
 
+    /**
+     * Returns the command from the user input.
+     *
+     * @return The command from the user input.
+     */
     public String getCommand() {
         return userInput.split(" ")[0].toLowerCase();
     }
 
+    /**
+     * Returns the task number from the user input.
+     *
+     * @return The task number from the user input.
+     * @throws AgaveException If the task number is not a valid integer.
+     */
     public int getTaskNumber() throws AgaveException {
         try {
             return Integer.parseInt(userInput.split(" ")[1]);
@@ -21,14 +40,12 @@ public class Parser {
         }
     }
 
-    public String getKey() throws AgaveException {
-        try {
-            return userInput.split(" ")[1];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new AgaveException("Please enter a keyword to search for.");
-        }
-    }
-
+    /**
+     * Parses the user input and creates a todo task.
+     *
+     * @return The todo task created from the user input.
+     * @throws AgaveException If the description of the todo is empty.
+     */
     public Task parseTodo() throws AgaveException {
         String description = userInput.substring(4).trim();
         if (description.isEmpty()) {
@@ -37,6 +54,12 @@ public class Parser {
         return new ToDo(description);
     }
 
+    /**
+     * Parses the user input and creates a deadline task.
+     *
+     * @return The deadline task created from the user input.
+     * @throws AgaveException If the description or deadline of the deadline is empty.
+     */
     public Deadline parseDeadline() throws AgaveException {
         try {
             String[] split = userInput.split(" /by ");
@@ -47,13 +70,18 @@ public class Parser {
             }
             return new Deadline(description, by);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new AgaveException("Please enter the deadline in the correct format:" +
-                    " 'deadline <description> /by <yyyy/MM/dd HHmm>'.");
+            throw new AgaveException("Please enter the deadline in the correct format: 'deadline <description> /by <yyyy/MM/dd HHmm>'.");
         } catch (DateTimeParseException e) {
             throw new AgaveException("Please enter the date and time in the correct format: 'yyyy/MM/dd HHmm'.");
         }
     }
 
+    /**
+     * Parses the user input and creates an event task.
+     *
+     * @return The event task created from the user input.
+     * @throws AgaveException If the description or start time or end time of the event is empty.
+     */
     public Event parseEvent() throws AgaveException {
         try {
             String[] split = userInput.split(" /from | /to ");
@@ -65,8 +93,7 @@ public class Parser {
             }
             return new Event(description, from, to);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new AgaveException("Please enter the event in the correct format: " +
-                    "'event <description> /from <yyyy/MM/dd HHmm> /to <yyyy/MM/dd HHmm>'.");
+            throw new AgaveException("Please enter the event in the correct format: 'event <description> /from <yyyy/MM/dd HHmm> /to <yyyy/MM/dd HHmm>'.");
         } catch (DateTimeParseException e) {
             throw new AgaveException("Please enter the date and time in the correct format: 'yyyy/MM/dd HHmm'.");
         }
