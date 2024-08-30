@@ -26,7 +26,7 @@ public class Parser {
      * @return Whether the command has a valid integer index.
      */
     public boolean checkValidIndex(String command, int start) {
-        String trimmed = command.substring(start);
+        String trimmed = command.substring(start).trim();
         try {
             Integer.parseInt(trimmed);
             return true;
@@ -35,8 +35,9 @@ public class Parser {
         }
     }
 
+
     public int checkIndex (String command, int start) {
-        String trimmed = command.substring(start);
+        String trimmed = command.substring(start).trim();
         try {
             return Integer.parseInt(trimmed);
         } catch (Exception ex) {
