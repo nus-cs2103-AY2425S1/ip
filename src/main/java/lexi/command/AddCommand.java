@@ -19,4 +19,8 @@ public class AddCommand extends Command {
         int taskSize = tasks.getSize();
         ui.showAddMessage(task, taskSize);
     }
+    @Override
+    public String getCommandName() {
+        return "ADD";
+    }
 }

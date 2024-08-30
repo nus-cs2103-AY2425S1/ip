@@ -11,4 +11,8 @@ public class ByeCommand extends Command {
         super.setExit();
         ui.showBye();
     }
+    @Override
+    public String getCommandName() {
+        return "BYE";
+    }
 }

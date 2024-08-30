@@ -45,5 +45,9 @@ public class MarkCommand extends Command {
         tasks.updateTask(taskToBeMarked, this.taskNumber);
         ui.showMarkMessage(taskToBeMarked);
     }
+    @Override
+    public String getCommandName() {
+        return "MARK";
+    }
 
 }
