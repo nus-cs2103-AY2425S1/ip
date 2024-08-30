@@ -1,6 +1,5 @@
 package lutodo.tasks;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DeadlineTask extends Task{
