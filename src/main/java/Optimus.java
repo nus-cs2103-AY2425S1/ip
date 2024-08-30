@@ -9,16 +9,28 @@ import java.io.IOException;
 public class Optimus {
     private static final String FILE_PATH = "./data/optimus.txt";
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         System.out.println("Hello! I'm Optimus");
         System.out.println("What can I do for you?");
         Scanner stringScanner = new Scanner(System.in);
-        List<Task> record = loadFile();
+        List<Task> record = null;
+
+        try {
+            record = loadFile();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not in folder: " + e.getMessage());
+            record = new ArrayList<>();
+        }
         int count = record.size();
 
         while (true) {
             String text = stringScanner.nextLine();
             if (text.equals("bye")) {
+                try {
+                    saveToFile(record);
+                } catch (IOException e) {
+                    System.out.println("Error saving file: " + e.getMessage());
+                }
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
             }
@@ -31,7 +43,8 @@ public class Optimus {
                 try {
                     int taskNumber = Integer.parseInt(text.split(" ")[1]) - 1;
                     if (taskNumber < 0 || taskNumber >= count) {
-                        throw new OptimusException("Invalid task number. Please enter a number between 1 and " + count + ".");
+                        throw new OptimusException("Invalid task number. " +
+                                "Please enter a number between 1 and " + count + ".");
                     }
                     if (text.startsWith("mark ")) {
                         record.get(taskNumber).setDone();
@@ -48,14 +61,16 @@ public class Optimus {
                 try {
                     String description = text.substring(5).trim();
                     if (description.isEmpty()) {
-                        throw new OptimusException("Oops! The description of a todo cannot be empty. Please provide a task description.");
+                        throw new OptimusException("Oops! The description of a todo cannot be empty. " +
+                                "Please provide a task description.");
                     }
                     if (count < 100) {
                         record.add(count, new ToDos(description));
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + record.get(count).toString());
                         count++;
-                        System.out.println("Now you have " + count + (count == 1 ? " task" : " tasks") + " in the list.");
+                        System.out.println("Now you have " + count + (count == 1 ? " task" : " tasks") +
+                                " in the list.");
                     }
                 } catch (OptimusException e) {
                     System.out.println(e.getMessage());
@@ -65,7 +80,8 @@ public class Optimus {
                     String[] parts = text.split(" /by ");
                     String description = parts[0].substring(9).trim();
                     if (description.isEmpty()) {
-                        throw new OptimusException("Oops! The description of a deadline cannot be empty. Please provide a task description.");
+                        throw new OptimusException("Oops! The description of a deadline cannot be empty. " +
+                                "Please provide a task description.");
                     }
                     if (count < 100) {
                         String by = parts.length > 1 ? parts[1] : "";
@@ -73,7 +89,8 @@ public class Optimus {
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + record.get(count).toString());
                         count++;
-                        System.out.println("Now you have " + count + (count == 1 ? " task" : " tasks") + " in the list.");
+                        System.out.println("Now you have " + count + (count == 1 ? " task" : " tasks") +
+                                " in the list.");
                     }
                 } catch (OptimusException e) {
                     System.out.println(e.getMessage());
@@ -83,7 +100,8 @@ public class Optimus {
                     String[] parts = text.split(" /from | /to ");
                     String description = parts[0].substring(6).trim();
                     if (description.isEmpty()) {
-                        throw new OptimusException("Oops! The description of an event cannot be empty. Please provide a task description.");
+                        throw new OptimusException("Oops! The description of an event cannot be empty. " +
+                                "Please provide a task description.");
                     }
                     if (count < 100) {
                         String from = parts.length > 1 ? parts[1] : "";
@@ -92,7 +110,8 @@ public class Optimus {
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + record.get(count).toString());
                         count++;
-                        System.out.println("Now you have " + count + (count == 1 ? " task" : " tasks") + " in the list.");
+                        System.out.println("Now you have " + count + (count == 1 ? " task" : " tasks") +
+                                " in the list.");
                     }
                 } catch (OptimusException e) {
                     System.out.println(e.getMessage());
@@ -101,7 +120,7 @@ public class Optimus {
                 try {
                     int taskNumber = Integer.parseInt(text.split(" ")[1]) - 1;
                     if (taskNumber < 0 || taskNumber >= count) {
-                        throw new OptimusException("Invalid task number. Please enter a number between 1 and " + count + ".");
+                        throw new OptimusException("There are no more tasks");
                     }
                     String del_get = record.get(taskNumber).toString();
                     record.remove(taskNumber);
@@ -144,12 +163,12 @@ public class Optimus {
                     task = new ToDos(description);
                     break;
                 case "D":
-                    String by = parts[3];
+                    String by = parts.length > 3 ? parts[3] : "";
                     task = new Deadlines(description, by);
                     break;
                 case "E":
-                    String from = parts[3];
-                    String to = parts[4];
+                    String from = parts.length > 3 ? parts[3] : "";
+                    String to = parts.length > 4 ? parts[4] : "";
                     task = new Events(description, from, to);
                     break;
             }
