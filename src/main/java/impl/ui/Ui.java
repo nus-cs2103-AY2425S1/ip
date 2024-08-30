@@ -9,6 +9,12 @@ public class Ui {
             """;
     static String seperator = "____________________________________________________________";
     Parser parser;
+    /**
+     * Main UI of the program.
+     * Prints out all the statements in console
+     *
+     * @param parser parser for Danny to handle input string received.
+     */
     public Ui(Parser parser){
         this.parser = parser;
         System.out.println(seperator);

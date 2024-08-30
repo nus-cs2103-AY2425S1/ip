@@ -3,6 +3,13 @@ package impl.interfaces;
 public class Events extends Task{
     protected String to;
     protected String from;
+    /**
+     * @inheritDoc
+     * Stores start and end duration of event.
+     *
+     * @param to end of event.
+     * @param from start of event.
+     */
     public Events(String description, String to, String from){
         super(description);
         this.to = to;

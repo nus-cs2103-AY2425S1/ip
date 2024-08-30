@@ -15,7 +15,6 @@ public class Storage {
      * <p>
      * Tasks stored in this syntax:
      * type Description /By/From /To | Done
-     *
      */
     File file;
     String filePath;
