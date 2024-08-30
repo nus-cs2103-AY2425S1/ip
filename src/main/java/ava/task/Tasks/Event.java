@@ -2,15 +2,19 @@ package ava.task.Tasks;
 
 import ava.task.Task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    String startTime = "";
-    String endTime = "";
+    //TODO: Error handling
+    LocalDateTime startTime;
+    LocalDateTime endTime;
 
     public Event(String title, String startTime, String endTime) {
         super(title);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = LocalDateTime.parse(startTime);
+        this.endTime = LocalDateTime.parse(endTime);
     }
 
     @Override
@@ -19,9 +23,9 @@ public class Event extends Task {
         sb.append("Event: ");
         sb.append(super.toString());
         sb.append("[From :");
-        sb.append(startTime);
+        sb.append(startTime.format(DateTimeFormatter.ISO_DATE_TIME));
         sb.append(" To : ");
-        sb.append(endTime);
+        sb.append(endTime.format(DateTimeFormatter.ISO_DATE_TIME));
         sb.append("]");
         return sb.toString();
     }
