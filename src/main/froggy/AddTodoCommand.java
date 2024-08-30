@@ -1,5 +1,4 @@
-package froggy;
-
+package main.froggy;
 public class AddTodoCommand extends Command {
 
     private String input;

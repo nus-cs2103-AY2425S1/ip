@@ -1,4 +1,4 @@
-package froggy;
+package main.froggy;
 
 import java.util.ArrayList;
 import java.util.List;
