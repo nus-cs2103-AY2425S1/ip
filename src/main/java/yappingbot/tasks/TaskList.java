@@ -13,6 +13,7 @@ public class TaskList implements Iterable<Task> {
     public TaskList() {
         tasks = new ArrayList<>();
     }
+
     public void add(Task task) {
         tasks.add(task);
         size += 1;
