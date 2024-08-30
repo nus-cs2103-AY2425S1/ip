@@ -1,3 +1,9 @@
+package gopher.ui;
+
+import gopher.exception.UnknownCommandException;
+import gopher.task.Task;
+import gopher.task.TaskList;
+
 public class UI {
     public static void printGopherLogo() {
         System.out.println("""
