@@ -7,134 +7,118 @@ import java.util.Scanner;
 
 public class Easton {
 
-    public static final String CHATBOT_NAME = "Easton";
-    public static ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();;
+    private Storage storage;
+    private Ui<Task> ui;
 
-    public static void main(String[] args) {
-        String logo = " _______  _______  _______  _______  _______  __    _\n"
-                + "|       ||   _   ||       ||       ||       ||  |  | |\n"
-                + "|    ___||  |_|  ||  _____||_     _||   _   ||   |_| |\n"
-                + "|   |___ |       || |_____   |   |  |  | |  ||       |\n"
-                + "|    ___||       ||_____  |  |   |  |  |_|  ||  _    |\n"
-                + "|   |___ |   _   | _____| |  |   |  |       || | |   |\n"
-                + "|_______||__| |__||_______|  |___|  |_______||_|  |__|\n";
-        System.out.println("Hello from\n" + logo);
-        printDivider();
-        System.out.println("Hello! I'm " + CHATBOT_NAME);
-        System.out.println("What can I do for you?");
-        printDivider();
-
-        Scanner scanner = new Scanner(System.in);
-        boolean isFinished = false;
-        String input;
-        Action action;
-
+    public Easton(String fileName) {
         try {
-            System.out.println("Retrieving Data...");
-            retrieveData();
-            System.out.println("DONE!");
+            storage = new Storage(fileName);
         } catch (IOException e) {
-            System.out.println("There was an error in retrieving my storage. ABORTING!!!");
-            isFinished = true;
+            Ui.displayText("Cannot connect to the storage.");
         }
-        printDivider();
 
+        tasks = retrieveTasks();
+        ui = new Ui<>();
+    }
+
+    public void run() {
+        boolean isFinished = Ui.welcome();;
+        Action action;
+        String userInput;
 
         while (!isFinished) {
-            input = prompt(scanner);
-            printDivider();
+            userInput = ui.input();
+            Ui.divider();
 
             try {
-                action = getActionFromInput(input);
+                action = getActionFromInput(userInput);
             } catch (IllegalActionException e) {
-                System.out.println(e.getMessage());
+                Ui.displayText(e.getMessage());
                 action = Action.INVALID;
             }
 
             switch (action) {
             case BYE:
-                System.out.println("Bye. Hope to see you again soon!");
-                isFinished = true;
+                isFinished = Ui.goodbye();
                 break;
             case LIST:
-                System.out.println("Here are the tasks in your list:");
-                printList();
+                ui.list(tasks);
                 break;
             case MARK:
-                changeTaskStatus(input, true, "Nice! I've marked this task as done:");
-                saveData();
+                changeTaskStatus(userInput, true, "Nice! I've marked this task as done:");
+                saveTasks();
                 break;
             case UNMARK:
-                changeTaskStatus(input, false, "OK, I've marked this task as not done yet:");
-                saveData();
+                changeTaskStatus(userInput, false, "OK, I've marked this task as not done yet:");
+                saveTasks();
                 break;
             case TODO:
                 try {
-                    addTask(createToDo(input));
-                    saveData();
+                    addTask(createToDo(userInput));
+                    saveTasks();
                 } catch (EmptyDescriptionException e) {
-                    System.out.println(e.getMessage());
+                    Ui.displayText(e.getMessage());
                 }
                 break;
             case DEADLINE:
                 try {
-                    addTask(createDeadline(input));
-                    saveData();
+                    addTask(createDeadline(userInput));
+                    saveTasks();
                 } catch (EmptyDescriptionException | InvalidFormatException | DateTimeFormatException e) {
-                    System.out.println(e.getMessage());
+                    Ui.displayText(e.getMessage());
                 }
                 break;
             case EVENT:
                 try {
-                    addTask(createEvent(input));
-                    saveData();
+                    addTask(createEvent(userInput));
+                    saveTasks();
                 } catch (EmptyDescriptionException | InvalidFormatException | DateTimeFormatException e) {
-                    System.out.println(e.getMessage());
+                    Ui.displayText(e.getMessage());
                 }
                 break;
             case DELETE:
-                deleteTask(input);
-                saveData();
+                deleteTask(userInput);
+                saveTasks();
                 break;
             }
 
-            printDivider();
+            Ui.divider();
         }
+
     }
 
-    private static void printList() {
-        for (int i = 0; i < tasks.size(); i ++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
-        }
+    public static void main(String[] args) {
+        new Easton("task.csv").run();
     }
 
-    private static void changeTaskStatus(String input, boolean isDone, String message) {
+    private void changeTaskStatus(String input, boolean isDone, String message) {
         try {
             int index = getIndexFromInput(input);
             Task task = tasks.get(index - 1);
             task.setDone(isDone);
-            System.out.println(message);
-            System.out.println(task);
+            Ui.displayText(message);
+            ui.show(task);
 
         } catch (InvalidIndexException | EmptyDescriptionException e) {
-            System.out.println(e.getMessage());
+            Ui.displayText(e.getMessage());
         }
     }
 
-    private static void deleteTask(String input) {
+    private void deleteTask(String input) {
         try {
             int index = getIndexFromInput(input);
             Task task = tasks.remove(index - 1);
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(task);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            Ui.displayText("Noted. I've removed this task:");
+            ui.show(task);
+            Ui.displayText("Now you have " + tasks.size() + " tasks in the list.");
 
         } catch (InvalidIndexException | EmptyDescriptionException e) {
-            System.out.println(e.getMessage());
+            Ui.displayText(e.getMessage());
         }
     }
 
-    private static int getIndexFromInput(String input) throws InvalidIndexException, EmptyDescriptionException {
+    private int getIndexFromInput(String input) throws InvalidIndexException, EmptyDescriptionException {
         int index;
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length != 2) {
@@ -204,50 +188,25 @@ public class Easton {
         }
     }
 
-    private static void addTask(Task task) {
+    private void addTask(Task task) {
         tasks.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        Ui.displayText("Got it. I've added this task:");
+        ui.show(task);
+        Ui.displayText("Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    private static void printDivider() {
-        System.out.println("____________________________________________________________");
-    }
-
-    private static String prompt(Scanner scanner) {
-        return scanner.nextLine();
-    }
-
-    private static Path getFilePath() throws IOException{
-        String currentDirectory = System.getProperty("user.dir");
-        Path folder = Paths.get(currentDirectory, "data");
-        Path filePath = Paths.get(folder.toString(), "tasks.csv");
-
-        if (Files.notExists(folder)) {
-            Files.createDirectory(folder);
-        }
-
-        if (Files.notExists(filePath)) {
-            Files.createFile(filePath);
-        }
-
-        return filePath;
-    }
-
-    private static void retrieveData() throws IOException {
-        Path filePath = getFilePath();
-        String line;
+    private ArrayList<Task> retrieveTasks() {
+        ArrayList<Task> taskArrayList = new ArrayList<>();
+        ArrayList<String> records = new ArrayList<>();
         Task task;
+        try {
+            records = storage.retrieve();
+        } catch (IOException e) {
+            Ui.displayText("Could not retrieve tasks from storage.");
+        }
 
-        BufferedReader bufferedReader = new BufferedReader(
-                new FileReader(
-                        filePath.toFile()
-                )
-        );
-
-        while ((line = bufferedReader.readLine()) != null) {
-            String[] data = line.split(",");
+        for (String record : records) {
+            String[] data = record.split(",");
             switch (data[0]) {
             case "T":
                 task = new ToDo(data[2]);
@@ -256,7 +215,7 @@ public class Easton {
                 try {
                     task = new Deadline(data[2], data[3]);
                 } catch (DateTimeFormatException e) {
-                    System.out.println("Deadline (" +
+                    Ui.displayText("Deadline (" +
                             data[2] +
                             ") is using the wrong DateTime Format, the record is voided.");
                     continue;
@@ -264,9 +223,9 @@ public class Easton {
                 break;
             case "E":
                 try {
-                task = new Event(data[2], data[3], data[4]);
+                    task = new Event(data[2], data[3], data[4]);
                 } catch (DateTimeFormatException e) {
-                    System.out.println("Event ("+
+                    Ui.displayText("Event ("+
                             data[2] +
                             ") is using the wrong DateTime Format, the record is voided.");
                     continue;
@@ -275,24 +234,20 @@ public class Easton {
             default:
                 continue;
             }
-
             task.setDone(data[1].equals("1"));
-            tasks.add(task);
+            taskArrayList.add(task);
         }
+
+        return taskArrayList;
     }
 
-    private static void saveData() {
-        try {
-            Path filePath = getFilePath();
-            FileWriter fileWriter = new FileWriter(filePath.toFile());
-            for (Task task : tasks) {
-                fileWriter.write(task.getCsvFormat() + "\n");
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            System.out.println("Updated list was not saved properly.");
+    private void saveTasks() {
+        ArrayList<String> records = new ArrayList<>();
+
+        for (Task task : tasks) {
+            records.add(task.getCsvFormat() + "\n");
         }
 
-
+        storage.save(records);
     }
 }
