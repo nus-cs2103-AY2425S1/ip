@@ -22,10 +22,10 @@ public class DateTimeTest {
         // Invalid date, valid time → STRING
         assertEquals(DateTime.InputType.STRING, DateTime.parseInput("2024-00-25 1200").type);
 
-        // Valid date
+        // Valid date → DATE
         assertEquals(DateTime.InputType.DATE, DateTime.parseInput("2024-04-06").type);
 
-        // Valid date and time
+        // Valid date and time → DATETIME
         assertEquals(DateTime.InputType.DATETIME, DateTime.parseInput("2024-09-10 2359").type);
 
     }
