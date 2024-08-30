@@ -7,12 +7,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import yappingbot.tasks.*;
-
 class StorageTest {
 
     @Test
-    void testLoadListFromFile() throws IOException {
+    void testLoadListFromFile() {
         Storage s = new Storage("src/test/resources/savefile_original");
         ArrayList<String> actual = s.loadListFromFile();
         String[] expected = {
