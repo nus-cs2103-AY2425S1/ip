@@ -25,11 +25,26 @@ public class Storage {
         String str = "";
         for (Task t: ls) {
             if (t instanceof TodoTask) {
-                str += "todo " + t.getName() + "\n";
+                str += "todo " + t.getDescription();
+                if (t.isDone) {
+                    str += "|true" + "\n";
+                } else {
+                    str += "|false" + "\n";
+                }
             } else if (t instanceof DeadlineTask) {
-                str += "deadline " + t.getName() + "\n";
+                str += "deadline " + t.getDescription();
+                if (t.isDone) {
+                    str += "|true" + "\n";
+                } else {
+                    str += "|false" + "\n";
+                }
             } else {
-                str += "event " + t.getName() + '\n';
+                str += "event " + t.getDescription();
+                if (t.isDone) {
+                    str += "|true" + "\n";
+                } else {
+                    str += "|false" + "\n";
+                }
             }
         }
         try {

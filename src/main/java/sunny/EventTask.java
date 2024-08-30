@@ -1,18 +1,23 @@
 package sunny;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * Represent events
  */
 public class EventTask extends Task {
-    public EventTask(String message) {
-        super(message);
+    public EventTask(String description, boolean isDone) {
+
+        super(description, isDone);
     }
 
-    String m1 = super.name.split("/from", 2)[0];
-    String timeline = super.name.split("/from", 2)[1];
+    public EventTask(String description) {
+
+        super(description);
+    }
+
+    String m1 = super.description.split("/from", 2)[0];
+    String timeline = super.description.split("/from", 2)[1];
     String m2 = timeline.split("/to ", 2)[0];
     String m3 = timeline.split("/to ", 2)[1];
     LocalDate startTime = LocalDate.parse(m2.trim());

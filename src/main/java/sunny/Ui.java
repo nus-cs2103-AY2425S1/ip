@@ -91,8 +91,9 @@ public class Ui {
                     + String.format("Now you have %h tasks in the list \n", ls.size()) + line;
         } else {
             try {
-                Task t = TaskCreator.create(message);
+                Task t = TaskCreator.create(message + "|false");
                 ls.add(t);
+                store.write(ls);
                 return line + "\n     "
                         + "Got it! added the task: \n     "
                         + t + "\n     "

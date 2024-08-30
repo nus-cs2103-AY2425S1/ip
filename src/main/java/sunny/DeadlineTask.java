@@ -1,17 +1,22 @@
 package sunny;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * Represent tasks with deadlines
  */
 public class DeadlineTask extends Task {
-    public DeadlineTask(String message) {
-        super(message);
+    public DeadlineTask(String description, boolean isDone) {
+
+        super(description, isDone);
     }
-    String m1 = super.name.split("/by ", 2)[0];
-    String deadline = super.name.split("/by ", 2)[1];
+
+    public DeadlineTask(String description) {
+
+        super(description);
+    }
+    String m1 = super.description.split("/by ", 2)[0];
+    String deadline = super.description.split("/by ", 2)[1];
     LocalDate d = LocalDate.parse(deadline.trim());
 
     @Override

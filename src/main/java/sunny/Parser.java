@@ -14,6 +14,14 @@ public class Parser {
         }
     }
 
+    public Parser(String message, String parseBy) {
+        String[] words = message.split(parseBy, 2);
+        command = words[0];
+        if (words.length > 1) {
+            description = words[1];
+        }
+    }
+
     public String getCommand() {
         return command;
     }

@@ -15,22 +15,19 @@ public class TaskCreator {
     public static Task create(String message) throws Exception{
         Parser p = new Parser(message);
         String m1 = p.getCommand();
+        if (Objects.equals(p.getMessage(), null)) {
+            throw new WrongMessageException();
+        }
+        Parser q = new Parser(p.getMessage(), "\\|");
+        String description = q.getCommand();
+        String isDone = q.getMessage();
 
         if (Objects.equals(m1, "todo")) {
-            if (message.split(" ", 2).length == 1) {
-                throw new EmptyTextException();
-            }
-            return new TodoTask(message.split(" ", 2)[1]);
+            return new TodoTask(description, Objects.equals(isDone, "true"));
         } else if (Objects.equals(m1, "deadline")) {
-            if (message.split(" ", 2).length == 1) {
-                throw new EmptyTextException();
-            }
-            return new DeadlineTask(message.split(" ", 2)[1]);
+            return new DeadlineTask(description, Objects.equals(isDone, "true"));
         } else if (Objects.equals(m1, "event")) {
-            if (message.split(" ", 2).length == 1) {
-                throw new EmptyTextException();
-            }
-            return new EventTask(message.split(" ", 2)[1]);
+            return new EventTask(description, Objects.equals(isDone, "true"));
         } else {
             throw new WrongMessageException();
         }
