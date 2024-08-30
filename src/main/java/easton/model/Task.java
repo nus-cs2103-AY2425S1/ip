@@ -1,4 +1,4 @@
-package easton;
+package easton.model;
 
 public abstract class Task {
     private String description;

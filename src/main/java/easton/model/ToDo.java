@@ -1,4 +1,4 @@
-package easton;
+package easton.model;
 
 public class ToDo extends Task{
 

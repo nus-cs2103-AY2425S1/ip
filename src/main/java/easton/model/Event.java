@@ -1,4 +1,6 @@
-package easton;
+package easton.model;
+
+import easton.DateTimeFormatException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

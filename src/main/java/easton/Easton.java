@@ -1,5 +1,10 @@
 package easton;
 
+import easton.model.Deadline;
+import easton.model.Event;
+import easton.model.Task;
+import easton.model.ToDo;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -213,7 +218,7 @@ public class Easton {
                 try {
                     task = new Deadline(data[2], data[3]);
                 } catch (DateTimeFormatException e) {
-                    Ui.displayText("easton.Deadline (" +
+                    Ui.displayText("easton.model.Deadline (" +
                             data[2] +
                             ") is using the wrong DateTime Format, the record is voided.");
                     continue;
@@ -223,7 +228,7 @@ public class Easton {
                 try {
                     task = new Event(data[2], data[3], data[4]);
                 } catch (DateTimeFormatException e) {
-                    Ui.displayText("easton.Event ("+
+                    Ui.displayText("easton.model.Event ("+
                             data[2] +
                             ") is using the wrong DateTime Format, the record is voided.");
                     continue;
