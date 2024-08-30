@@ -1,17 +1,22 @@
 package impl.interfaces;
 
 public class Events extends Task{
-    protected String by;
+    protected String to;
     protected String from;
-    public Events(String description, String by, String from){
+    public Events(String description, String to, String from){
         super(description);
-        this.by = by;
+        this.to = to;
         this.from = from;
     }
 
     @Override
     public String toString(){
-        return "[D]" + super.toString() + " (from: " + this.from + " to " + this.by + ")";
+        return "[E]" + super.toString() + " (from: " + this.from + " to " + this.to + ")";
+    }
+
+    @Override
+    public String loadString(){
+        return "event" + this.description + "/from " + this.from + "/to " + this.to + " | " + this.isDone;
     }
 
 }

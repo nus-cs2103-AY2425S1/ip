@@ -26,4 +26,8 @@ public class Task {
         this.isDone = false;
     }
 
+    public String loadString(){
+        return this.description;
+    }
+
 }

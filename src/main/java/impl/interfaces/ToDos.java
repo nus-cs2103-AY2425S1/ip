@@ -10,4 +10,8 @@ public class ToDos extends Task{
         return "[T]" + super.toString();
     }
 
+    @Override
+    public String loadString(){
+        return "Todo" + this.description + " | " + this.isDone;
+    }
 }
