@@ -1,6 +1,6 @@
 package main.java;
 
-public class Task {
+public abstract class Task {
     private String name;
     private boolean isDone;
 
@@ -17,9 +17,19 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean isMarked() {
+        return this.isDone;
+    }
+
     @Override
     public String toString() {
         String cross = this.isDone ? "X" : " ";
         return String.format("[%s] %s", cross, this.name);
     }
+
+    /**
+     * Returns a readable string to be written into Karen.txt for storage
+     *
+     */
+    public abstract String toFileString();
 }
