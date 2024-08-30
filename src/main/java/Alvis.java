@@ -37,6 +37,15 @@ public class Alvis {
                     System.out.println("Please input a body for the task");
                 }
                 break;
+            case "delete":
+                try {
+                    int index = Integer.parseInt(userInput.substring(7)) - 1;
+                    tracker.remove(index);
+                    System.out.println("As requested, I have deleted the task");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("I cannot do that, the index is invalid");
+                }
+                break;
             case "deadline":
                 int byIndex = userInput.indexOf("/by");
                 Task deadline = new Deadline(userInput.substring(9, byIndex), userInput.substring(byIndex + 4));
