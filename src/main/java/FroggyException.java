@@ -1,4 +1,5 @@
-package PACKAGE_NAME;
-
-public class FroggyException {
+public class FroggyException extends Exception{
+    public FroggyException(String message) {
+        super(message);
+    }
 }
