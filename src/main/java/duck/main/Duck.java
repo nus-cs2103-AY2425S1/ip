@@ -1,3 +1,12 @@
+package duck.main;
+
+import duck.command.Command;
+import duck.command.InvalidCommandException;
+import duck.parser.Parser;
+import duck.storage.Storage;
+import duck.task.TaskList;
+import duck.ui.Ui;
+
 public class Duck {
 
     private Storage storage;

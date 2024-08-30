@@ -1,7 +1,9 @@
-import java.time.LocalDate;
+package duck.parser;
+
+import duck.command.*;
 
 /**
- * Parser class deals with making sense of the full command.
+ * duck.parser.Parser class deals with making sense of the full command.
  */
 public class Parser {
     public static Command parse(String fullCommand) throws InvalidCommandException {

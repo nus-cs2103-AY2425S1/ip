@@ -1,3 +1,9 @@
+package duck.command;
+
+import duck.task.TaskList;
+import duck.ui.Ui;
+import duck.storage.Storage;
+
 public class UnmarkCommand implements Command {
     private final String fullCommand;
 

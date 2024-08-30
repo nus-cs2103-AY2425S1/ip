@@ -1,3 +1,13 @@
+package duck.command;
+
+import duck.task.Deadline;
+import duck.task.EmptyToDoException;
+import duck.task.Event;
+import duck.task.Task;
+import duck.task.ToDo;
+import duck.task.TaskList;
+import duck.ui.Ui;
+import duck.storage.Storage;
 import java.time.LocalDate;
 
 public class TaskCommand implements Command {

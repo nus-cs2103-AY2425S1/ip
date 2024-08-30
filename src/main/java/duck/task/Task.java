@@ -1,3 +1,5 @@
+package duck.task;
+
 /**
  * Represents a task with a description and completion status.
  */
@@ -6,7 +8,7 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
-     * Constructs a Task with description.
+     * Constructs a duke.task.Task with description.
      *
      * @param description The description of the task.
      */

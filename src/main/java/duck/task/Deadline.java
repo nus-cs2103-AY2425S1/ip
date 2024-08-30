@@ -1,3 +1,5 @@
+package duck.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -9,7 +11,7 @@ public class Deadline extends Task {
     protected LocalDate by;
 
     /**
-     * Constructs a Deadline task with description and due date.
+     * Constructs a duke.task.Deadline task with description and due date.
      *
      * @param description The description of the deadline.
      * @param by The due date of the deadline.
