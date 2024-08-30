@@ -2,6 +2,8 @@ package nugget;
 
 import nugget.Task;
 
+import java.util.ArrayList;
+
 public class Ui {
 
     public void line() {
@@ -53,5 +55,15 @@ public class Ui {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task);
         System.out.println("________________________________________");
+    }
+
+    public void showFindResults(ArrayList<Task> matchingTasks) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            String formattedMessage = String.format("%d.%s", i + 1, matchingTasks.get(i));
+            System.out.println(formattedMessage);
+        }
+        System.out.println("____________________________________________________________");
     }
 }
