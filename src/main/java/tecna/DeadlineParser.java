@@ -8,8 +8,8 @@ import org.json.simple.JSONObject;
 public class DeadlineParser {
     public Deadline parse(JSONObject jsonObject) throws JsonLoadingException {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        String deadline = jsonObject.get("by").toString();
-        String taskName = jsonObject.get("taskName").toString();
+        String deadline = (String) jsonObject.get("by");
+        String taskName = (String) jsonObject.get("taskName");
         Boolean isDone = (Boolean) jsonObject.get("isDone");
 
         if (deadline == null || taskName == null || isDone == null) {
