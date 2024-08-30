@@ -85,6 +85,15 @@ public class Parser {
         case "list":
             taskList.listOut();
             break;
+        case "find":
+            try {
+                String keyword = response.substring(response.indexOf(' ') + 1);
+                TaskList filtered = new TaskList(taskList.filterByWord(keyword));
+                filtered.listOut();
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new InvalidCommandException();
+            }
+            break;
         default:
             throw new InvalidCommandException();
         }

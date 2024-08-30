@@ -8,6 +8,7 @@
 /build/
 /config/
 src/main/resources/docs/
+/config/
 
 # MacOS custom attributes files created by Finder
 .DS_Store

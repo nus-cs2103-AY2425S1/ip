@@ -33,6 +33,10 @@ public class Task {
         return this.done;
     }
 
+    public boolean containsWord(String word) {
+        return this.name.contains(word);
+    }
+
     /**
      * Returns string format of the Task.
      *

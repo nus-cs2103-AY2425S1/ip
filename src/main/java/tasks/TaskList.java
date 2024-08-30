@@ -81,4 +81,8 @@ public class TaskList {
     public List<Task> getTaskList() {
         return this.list;
     }
+
+    public List<Task> filterByWord(String word) {
+        return this.list.stream().filter(task -> task.containsWord(word)).toList();
+    }
 }
