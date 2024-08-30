@@ -31,7 +31,7 @@ test {
 }
 
 application {
-    mainClass.set("DukeKorolev")
+    mainClass.set("Korolev.DukeKorolev")
 }
 
 shadowJar {
