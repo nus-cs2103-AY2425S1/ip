@@ -1,9 +1,15 @@
 package bot;
 
 import bot.enums.Command;
-import bot.exceptions.*;
+import bot.exceptions.BotException;
+import bot.exceptions.InvalidCommandException;
+import bot.exceptions.EmptyTodoException;
+import bot.exceptions.InvalidTaskIdException;
+import bot.exceptions.InvalidTaskDescriptionException;
 import bot.storage.Storage;
-import bot.tasks.*;
+import bot.tasks.TaskList;
+import bot.tasks.Todo;
+import bot.tasks.Task;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -71,9 +77,11 @@ public class Bot {
             case BYE:
                 ui.exit();
                 System.exit(0);
+                // Fallthrough
             default:
                 // This should never happen
                 ui.printMessage("Command not found");
+                // Fallthrough
             }
         } catch (BotException e) {
             ui.printMessage(e.getMessage());
