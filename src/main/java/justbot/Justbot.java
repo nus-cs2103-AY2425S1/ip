@@ -7,12 +7,21 @@ import justbot.storage.Storage;
 import justbot.task.TaskList;
 import justbot.ui.Ui;
 
+/**
+ * Represents Justbot, a task management chatbot.
+ * It interacts with the user through the command line interface to manage tasks.
+ */
 public class Justbot {
     private Ui ui;
     private TaskList taskList;
     private Parser parser;
     private Storage storage;
 
+    /**
+     * Constructs a Justbot instance with the specified file path for task storage.
+     *
+     * @param filePath The file path where tasks are stored and loaded from.
+     */
     public Justbot(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -25,6 +34,11 @@ public class Justbot {
         }
 
     }
+
+    /**
+     * Runs the Justbot program. The program will continue accepting user commands
+     * until the exit command is given.
+     */
     public void run() {
         ui.botIntro();
         boolean isExit = false;
@@ -40,6 +54,11 @@ public class Justbot {
         }
     }
 
+    /**
+     * The main method that starts the Justbot application.
+     *
+     * @param args Command-line arguments passed during the start of the application.
+     */
     public static void main(String[] args) {
         new Justbot("/Users/justinyeo/Desktop/CS2103T-ip/data/justbottask.txt").run();
     }

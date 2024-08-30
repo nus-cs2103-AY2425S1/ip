@@ -17,7 +17,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class is responsible for interpreting user input and converting it
+ * into executable commands. It parses the input string, determines the command type,
+ * and constructs the corresponding Command object.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input string and returns the corresponding Command object.
+     *
+     * @param userInput The input string provided by the user.
+     * @return The Command object that corresponds to the user's input.
+     * @throws JustbotException if the command is invalid or the input format is incorrect.
+     */
     public Command parseCommand(String userInput) throws JustbotException {
         String[] words = userInput.split(" ", 2);
         CommandType commandType = CommandType.fromString(words[0].trim());
@@ -97,6 +110,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a date and time string and converts it into a LocalDateTime object.
+     *
+     * @param dateTimeStr The date and time string to parse, expected in the format "dd/MM/yyyy HH:mm".
+     * @return A LocalDateTime object representing the parsed date and time.
+     * @throws JustbotException if the date and time format is invalid.
+     */
     public LocalDateTime parseDateTime(String dateTimeStr) throws JustbotException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");

@@ -18,14 +18,28 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and saving of tasks to and from a file.
+ * The Storage class is responsible for creating the necessary file if it doesn't exist,
+ * saving tasks to the file, and loading tasks from the file.
+ */
 public class Storage {
     private String filePath;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     *
+     * @param filePath The path of the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Creates the file and its parent directories if they do not exist.
+     * If the file already exists, this method does nothing.
+     */
     public void createFileIfDoesNotExist() {
         try {
             File file = new File(filePath);
@@ -43,12 +57,27 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes text to the file specified by the file path.
+     * This method is private and used internally to write to the file.
+     *
+     * @param filePath The path of the file to write to.
+     * @param textToAdd The text to be added to the file.
+     * @param append If true, the text is added to the end of the file; if false, the file is overwritten.
+     * @throws IOException If an I/O error occurs.
+     */
     private static void writeToFile(String filePath, String textToAdd, boolean append) throws IOException {
         FileWriter fw = new FileWriter(filePath, append);
         fw.write(textToAdd);
         fw.close();
     }
 
+    /**
+     * Saves the tasks in the TaskList to the file.
+     * The tasks are saved in a specific format so they can be reloaded later.
+     *
+     * @param taskList The list of tasks to be saved.
+     */
     public void saveTasks(TaskList taskList) {
         try {
             writeToFile(filePath, "", false);
@@ -76,6 +105,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks from the file and returns them as an ArrayList of Task objects.
+     * The tasks are expected to be stored in a specific format.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws JustbotException If an error occurs while loading tasks.
+     */
     public ArrayList<Task> loadTasks() throws JustbotException {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -136,5 +172,4 @@ public class Storage {
 
         return tasks;
     }
-
 }
