@@ -39,6 +39,11 @@ public class TaskList {
         }
     }
 
+    // similar to show list but filter by description to contains the keyword searched by the user
+    public void filterList(ArrayList<Task> userList) {
+
+    }
+
     // mark tasks then clean up ui
     public void markOrUnmarkTask(int targetTaskNumber, String markOrUnmark) {
         Task targetTask = userList.get(targetTaskNumber);
