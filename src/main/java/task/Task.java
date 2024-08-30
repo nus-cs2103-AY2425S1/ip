@@ -24,18 +24,16 @@ public abstract class Task {
      * Mark as done
      * @return true
      */
-    public boolean markAsDone() {
+    public void markAsDone() {
         this.isDone = true;
-        return true;
     }
 
     /**
      * mark as not done
      * @return true
      */
-    public boolean markAsNotDone() {
+    public void markAsNotDone() {
         this.isDone = false;
-        return true;
     }
 
     /**

@@ -1,8 +1,5 @@
 package storage;
 
-import task.*;
-import ui.Ui;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,6 +7,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.TaskList;
+import task.ToDo;
+
+import ui.Ui;
+
 
 /**
  * The {@code Storage} class handles the loading and saving of tasks to and from a file.
@@ -65,11 +71,11 @@ public class Storage {
      */
     public void prepareSave() {
         try {
-            Files.createDirectories(Path.of("data")); // Ensure the directory exists
+            Files.createDirectories(Path.of("data")); // Hard-coded
             FileWriter fw = new FileWriter(FILE_PATH);
             fw.close(); // Clear the file contents by closing the newly created FileWriter
         } catch (IOException ignored) {
-            this.ui.savingError(); // Notify the user if an error occurs during preparation
+            this.ui.savingErrorUi();
         }
     }
 
@@ -85,7 +91,7 @@ public class Storage {
             fw.write(s + System.lineSeparator());
             fw.close();
         } catch (IOException ignored) {
-            this.ui.savingError(); // Notify the user if an error occurs during saving
+            this.ui.savingErrorUi();
         }
     }
 }

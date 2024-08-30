@@ -1,7 +1,7 @@
 package task;
 
-import parser.BobException;
 import storage.Storage;
+
 import ui.Ui;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * and delete tasks. It also interacts with the UI and storage components to display and save tasks.
  */
 public class TaskList {
-    private ArrayList<Task> TaskList = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
     private Ui ui = new Ui();
 
     /**
@@ -20,8 +20,8 @@ public class TaskList {
      * @param t The task to be added.
      */
     public void addTask(Task t) {
-        this.TaskList.add(t);
-        this.ui.addTaskUi(t, this.TaskList.size());
+        this.tasks.add(t);
+        this.ui.addTaskUi(t, this.tasks.size());
     }
 
     /**
@@ -29,11 +29,11 @@ public class TaskList {
      * a message is sent to the UI indicating that there are no tasks.
      */
     public void listTasks() {
-        if (this.TaskList.isEmpty()) {
+        if (this.tasks.isEmpty()) {
             this.ui.sendMessage("No items yet!");
         } else {
-            for (int i = 0; i < this.TaskList.size(); i++) {
-                this.ui.sendMessage((i + 1) + ". " + this.TaskList.get(i));
+            for (int i = 0; i < this.tasks.size(); i++) {
+                this.ui.sendMessage((i + 1) + ". " + this.tasks.get(i));
             }
         }
     }
@@ -44,9 +44,9 @@ public class TaskList {
      * @param num The index of the task to be marked as done (0-based index).
      */
     public void markTask(int num) {
-        Task t = this.TaskList.get(num);
+        Task t = this.tasks.get(num);
         t.markAsDone();
-        this.ui.markTaskUI(t);
+        this.ui.markTaskUi(t);
     }
 
     /**
@@ -55,9 +55,9 @@ public class TaskList {
      * @param num The index of the task to be unmarked as not done (0-based index).
      */
     public void unmarkTask(int num) {
-        Task t = this.TaskList.get(num);
+        Task t = this.tasks.get(num);
         t.markAsNotDone();
-        this.ui.unmarkTaskUI(t);
+        this.ui.unmarkTaskUi(t);
     }
 
     /**
@@ -66,9 +66,9 @@ public class TaskList {
      * @param num The index of the task to be deleted (0-based index).
      */
     public void deleteTask(int num) {
-        Task t = this.TaskList.get(num);
-        this.TaskList.remove(num);
-        this.ui.deleteTaskUI(t, this.TaskList.size());
+        Task t = this.tasks.get(num);
+        this.tasks.remove(num);
+        this.ui.deleteTaskUi(t, this.tasks.size());
     }
 
     /**
@@ -117,7 +117,7 @@ public class TaskList {
      */
     public void saveTask(Storage s) {
         s.prepareSave();
-        for (Task t : this.TaskList) {
+        for (Task t: this.tasks) {
             s.saveTask(t.toSave());
         }
     }

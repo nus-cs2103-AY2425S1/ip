@@ -1,10 +1,14 @@
+import java.util.Scanner;
+
 import parser.BobException;
 import parser.Parser;
+
 import storage.Storage;
+
 import task.TaskList;
+
 import ui.Ui;
 
-import java.util.Scanner;
 
 /**
  * Bob program keeps track of the users ToDos, Events, Deadlines.
@@ -53,14 +57,12 @@ public class Bob {
      * @return Whether Bob should still be active
      */
     public boolean receiveMessage(String message) {
-        boolean result = true;
         String command = message.split(" ")[0];
         try {
             switch (command) {
             case "bye":
                 exit();
-                result = false;
-                break;
+                return false;
             case "list":
                 this.tasks.listTasks();
                 break;
@@ -87,9 +89,8 @@ public class Bob {
             }
         } catch (BobException e) {
             this.ui.errorMessageUi(e);
-        } finally {
-            return result;
         }
+        return true;
     }
 
     public static void main(String[] args) {
