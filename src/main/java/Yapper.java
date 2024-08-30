@@ -1,4 +1,10 @@
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -167,15 +173,19 @@ public class Yapper {
         }
         String[] details = userInputParts[1].split(" /by ");
         if (details.length < 2) {
-            throw new YapperException("Please specify a deadline using the format: deadline [task] /by [date/time]");
+            throw new YapperException("Please specify a deadline using the format: deadline [task] /by [yyyy-MM-dd HHmm]");
         }
-        Task task = new Deadline(details[0], details[1]);
-        tasks.add(task);
-        System.out.println("____________________________________________________________");
-        System.out.println(" Got it Boss. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Okay Boss! Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("____________________________________________________________");
+        try {
+            Task task = new Deadline(details[0], details[1]);
+            tasks.add(task);
+            System.out.println("____________________________________________________________");
+            System.out.println(" Got it Boss. I've added this task:");
+            System.out.println("   " + task);
+            System.out.println(" Okay Boss! Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println("____________________________________________________________");
+        } catch (DateTimeParseException e) {
+            throw new YapperException("Boss, the date and time format seems off! Please use yyyy-MM-dd HHmm.");
+        }
     }
 
     private static void handleEvent(String[] userInputParts) throws YapperException {
@@ -184,19 +194,24 @@ public class Yapper {
         }
         String[] details = userInputParts[1].split(" /from ");
         if (details.length < 2) {
-            throw new YapperException("Boss Please specify the event time using the format: event [task] /from [start time] /to [end time]");
+            throw new YapperException("Boss Please specify the event time using the format: event [task] /from [yyyy-MM-dd HHmm] /to [yyyy-MM-dd HHmm]");
         }
         String[] fromTo = details[1].split(" /to ");
         if (fromTo.length < 2) {
             throw new YapperException("Boss Please specify both the start and end time for the event dehhh");
         }
-        Task task = new Event(details[0], fromTo[0], fromTo[1]);
-        tasks.add(task);
-        System.out.println("____________________________________________________________");
-        System.out.println(" Okay Boss! I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Okay look here Boss!" + tasks.size() + " tasks in the list.");
-        System.out.println("____________________________________________________________");
+
+        try {
+            Task task = new Event(details[0], fromTo[0], fromTo[1]);
+            tasks.add(task);
+            System.out.println("____________________________________________________________");
+            System.out.println(" Okay Boss! I've added this task:");
+            System.out.println("   " + task);
+            System.out.println(" Okay look here Boss!" + tasks.size() + " tasks in the list.");
+            System.out.println("____________________________________________________________");
+        } catch (DateTimeParseException e) {
+            throw new YapperException("Boss, the date and time format seems off! Please use yyyy-MM-dd HHmm.");
+        }
     }
 
     private static void handleDelete(String[] userInputParts) throws YapperException {
@@ -249,7 +264,7 @@ public class Yapper {
 
     private static void saveTasksToFile() {
         File file = new File(FILE_PATH);
-        file.getParentFile().mkdirs(); 
+        file.getParentFile().mkdirs();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (Task task : tasks) {
                 writer.write(task.toSaveFormat());
