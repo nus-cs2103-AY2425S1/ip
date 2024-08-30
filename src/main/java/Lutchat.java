@@ -7,8 +7,6 @@ public class Lutchat {
     ArrayList<Task> taskList = new ArrayList<>();
     String userInput;
 
-    //Reset
-
     void greet() {
         System.out.print("______________________________________________\n");
         System.out.print("Hello! I'm Lutchat!\n");
