@@ -7,8 +7,8 @@ import ollie.task.Task;
 /**
  * Represents a command for marking a particular task as undone.
  */
-public class UnmarkCommand extends Command{
-    int index;
+public class UnmarkCommand extends Command {
+    private int index;
 
     public UnmarkCommand(int index) {
         this.index = index;
@@ -17,8 +17,8 @@ public class UnmarkCommand extends Command{
     /**
      * Execute the marking of task at a particular index in the list as undone.
      *
-     * @param tasks List of tasks.
-     * @param ui User interface controller.
+     * @param tasks   List of tasks.
+     * @param ui      User interface controller.
      * @param storage Storage controller for file manipulation.
      */
     @Override

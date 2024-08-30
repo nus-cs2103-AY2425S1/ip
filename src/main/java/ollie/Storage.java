@@ -48,20 +48,20 @@ public class Storage {
 
                     Task task;
                     switch (splitString[0]) {
-                        case "D" -> {
-                            // Save as deadline
-                            String[] details = splitString[2].split(" \\| ", 2);
-                            task = new Deadline(details[0], LocalDate.parse(details[1], formatter));
-                        }
-                        case "E" -> {
-                            // Save as event
-                            String[] details = splitString[2].split(" \\| ", 3);
-                            task = new Event(details[0], LocalDate.parse(details[1], formatter), LocalDate.parse(details[2], formatter));
-                        }
-                        case "T" ->
-                            // Save as todo
-                                task = new Todo(splitString[2]);
-                        default -> throw new CorruptFileException(filePath);
+                    case "D" -> {
+                        // Save as deadline
+                        String[] details = splitString[2].split(" \\| ", 2);
+                        task = new Deadline(details[0], LocalDate.parse(details[1], formatter));
+                    }
+                    case "E" -> {
+                        // Save as event
+                        String[] details = splitString[2].split(" \\| ", 3);
+                        task = new Event(details[0], LocalDate.parse(details[1], formatter), LocalDate.parse(details[2], formatter));
+                    }
+                    case "T" ->
+                        // Save as todo
+                            task = new Todo(splitString[2]);
+                    default -> throw new CorruptFileException(filePath);
                     }
 
                     // Check for mark

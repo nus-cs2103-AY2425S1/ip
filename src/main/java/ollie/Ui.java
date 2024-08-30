@@ -24,7 +24,6 @@ public class Ui {
 
     /**
      * Display the greeting message.
-     *
      */
     public void showGreeting() {
         Ui.printResponse("Hello! I'm Ollie!\nWhat can I do for you?");
@@ -32,7 +31,6 @@ public class Ui {
 
     /**
      * Display the exit message.
-     *
      */
     public void showExit() {
         Ui.printResponse("Bye. Hope to see you again soon!");
@@ -40,7 +38,6 @@ public class Ui {
 
     /**
      * Display the task added and the current size of its list of tasks.
-     *
      */
     public void showAddTask(Task task, int size) {
         Ui.printResponse("Got it. I've added this task:\n  "
@@ -50,17 +47,16 @@ public class Ui {
 
     /**
      * Display the task removed and the current size of its list of tasks.
-     *
      */
+
     public void showRemoveTask(Task task, int size) {
         Ui.printResponse("Noted. I've removed this task:\n  "
                 + task.toString()
-                + "\nNow you have " +size + " tasks in the list.");
+                + "\nNow you have " + size + " tasks in the list.");
     }
 
     /**
      * Display the task that was marked as done.
-     *
      */
     public void showMarkAsDone(Task task) {
         Ui.printResponse("Nice! I've marked this task as done:\n  " + task.toString());
@@ -68,7 +64,6 @@ public class Ui {
 
     /**
      * Display the task that was marked as undone.
-     *
      */
     public void showMarkAsUndone(Task task) {
         Ui.printResponse("OK, I've marked this task as not done yet:\n  " + task.toString());
@@ -76,7 +71,6 @@ public class Ui {
 
     /**
      * Display the error message for any error during the loading of data from the file (database).
-     *
      */
     public void showLoadingError(OllieException e) {
         System.out.println("Loading Error:\n" + e.getMessage());
@@ -84,7 +78,6 @@ public class Ui {
 
     /**
      * Display the top and bottom dividers. Commonly used as a wrapper to wrap its message.
-     *
      */
     public static void printResponse(String s) {
         System.out.println("____________________________________________________________\n"

@@ -9,7 +9,8 @@ import ollie.Ui;
  * Represents a command for adding to task to the task list.
  */
 public class AddCommand extends Command {
-    Task task;
+    private Task task;
+
     public AddCommand(Task task) {
         this.task = task;
     }
@@ -17,8 +18,8 @@ public class AddCommand extends Command {
     /**
      * Execute the addition of task.
      *
-     * @param tasks List of tasks.
-     * @param ui User interface controller.
+     * @param tasks   List of tasks.
+     * @param ui      User interface controller.
      * @param storage Storage controller for file manipulation.
      */
     @Override

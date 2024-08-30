@@ -7,8 +7,8 @@ import ollie.task.Task;
 /**
  * Represents a command a particular task as done.
  */
-public class MarkCommand extends Command{
-    int index;
+public class MarkCommand extends Command {
+    private int index;
 
     public MarkCommand(int index) {
         this.index = index;
@@ -17,8 +17,8 @@ public class MarkCommand extends Command{
     /**
      * Execute the marking of a task at a particular index as done.
      *
-     * @param tasks List of tasks.
-     * @param ui User interface controller.
+     * @param tasks   List of tasks.
+     * @param ui      User interface controller.
      * @param storage Storage controller for file manipulation.
      */
     @Override

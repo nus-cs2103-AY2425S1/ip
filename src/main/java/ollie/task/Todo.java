@@ -19,5 +19,7 @@ public class Todo extends Task {
      *
      * @return Formatted String.
      */
-    public String getFormattedString() { return "T | " + super.getFormattedString();}
+    public String getFormattedString() {
+        return "T | " + super.getFormattedString();
+    }
 }
