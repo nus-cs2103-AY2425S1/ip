@@ -101,8 +101,6 @@ public class Bot {
 
     private void handleAddTask(Command cmd, String args) throws InvalidTaskDescriptionException, DateTimeParseException {
         Task taskToAdd;
-        System.out.println(cmd);
-        System.out.println(args);
         if (cmd.equals(Command.TODO)) {
             if (args.isEmpty()) {
                 throw new EmptyTodoException();
