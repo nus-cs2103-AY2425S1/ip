@@ -1,4 +1,6 @@
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -15,7 +17,8 @@ public class Dawn {
         UNMARK,
         DELETE,
         BYE,
-        LIST
+        LIST,
+        TODAY
     }
     public static void main(String[] args) {
         String divider = "--".repeat(30);
@@ -75,6 +78,9 @@ public class Dawn {
                 break;
             case TODO: case DEADLINE: case EVENT:
                 addTask(cmd, input);
+                break;
+            case TODAY:
+                doByToday();
                 break;
             }
         }
@@ -185,7 +191,7 @@ public class Dawn {
             default:
                 // corrupted data file case, i.e. content not in the expected format
                 // todo handle case where the content is not in the expected format
-                throw new DawnException("Tasks saved are not in the correct format!");
+                throw new DawnException("Invalid task type!");
         }
         if (isDone) {
             task.markAsDone();
@@ -235,5 +241,28 @@ public class Dawn {
         }
         fw.write(textToAdd + System.lineSeparator());
         fw.close();
+    }
+
+    private static void doByToday() {
+        System.out.println("Deadlines and events happening today: ");
+        Boolean haveTasks = false;
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i) instanceof Deadline) {
+                Deadline d = (Deadline) tasks.get(i);
+                if (d.getDate().equals(LocalDate.now())) {
+                    System.out.println(d);
+                    haveTasks = true;
+                }
+            } else if (tasks.get(i) instanceof Event) {
+                Event e = (Event) tasks.get(i);
+                if (e.getDate().equals(LocalDate.now())) {
+                    System.out.println(e);
+                    haveTasks = true;
+                }
+            }
+        }
+        if (!haveTasks) {
+            System.out.println("There are no deadlines and events happening today!");
+        }
     }
 }
