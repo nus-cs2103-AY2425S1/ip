@@ -18,7 +18,7 @@ public class Deadline extends Task {
 
     @Override
     public String toFileFormat() {
-        return super.toFileFormat() + " | " + deadline.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        return "D" + super.toFileFormat() + " | " + deadline.format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
 
     @Override

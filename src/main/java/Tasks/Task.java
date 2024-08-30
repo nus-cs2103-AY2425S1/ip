@@ -36,7 +36,7 @@ public class Task {
 
     public String toFileFormat() {
         String marked = isDone ? "1" : "0";
-        return taskType.name()+ " | " + marked + " | " + description;
+        return " | " + marked + " | " + description;
     }
 
     public void unmarkDone() {

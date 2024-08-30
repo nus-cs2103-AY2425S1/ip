@@ -69,7 +69,7 @@ public class Chatgpt {
             }
         }
 
-        System.out.println("Hello! I'm chatbot lisWhat can I do for you?");
+
 
         Scanner scanner = new Scanner(System.in);
 
@@ -144,20 +144,6 @@ public class Chatgpt {
         String description = input.substring(5).trim();
         tasks.add(new Todo(description));
         saveTasksToFile();
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + new Todo(description));
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-    }
-
-    private static void addMarkedTodoTask(String input) throws EmptyDescriptionException {
-        if (input.trim().length() <= 5) {
-            throw new EmptyDescriptionException("OPS!!! The description of a todo cannot be empty.");
-        }
-        String description = input.substring(5).trim();
-        Todo todo = new Todo(description);
-        todo.markDone();
-        tasks.add(todo);
-
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + new Todo(description));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
