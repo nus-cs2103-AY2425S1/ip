@@ -3,6 +3,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ListOfTask {
@@ -23,13 +25,13 @@ public class ListOfTask {
                     this.tasks.add(new ToDoTask(arr[2], isDone));
 
                 } else if (arr[0].equals("D")) {
-                    this.tasks.add(new DeadlineTask(arr[2], isDone, arr[3]));
+                    this.tasks.add(new DeadlineTask(arr[2], isDone, LocalDate.parse(arr[3])));
 
                 } else if (arr[0].equals("E")) {
                     String[] timings = arr[4].split("-");
                     String startTime = timings[0];
                     String endTime = timings[1];
-                    this.tasks.add(new EventTask(arr[2], isDone, arr[3], startTime, endTime));
+                    this.tasks.add(new EventTask(arr[2], isDone, LocalDate.parse(arr[3]), startTime, endTime));
                 }
             }
         } finally {
@@ -55,12 +57,12 @@ public class ListOfTask {
         }
     }
 
-    public Task addDeadline(String description, String date, FileWriter file) {
+    public Task addDeadline(String description, LocalDate date, FileWriter file) {
         try {
             Task task = new DeadlineTask(description, false, date);
             this.tasks.add(task);
 
-            String text = "D | 0 | " + description + " | " + date + "\n";
+            String text = "D | 0 | " + description + " | " + date.toString() + "\n";
             file.append(text);
             file.flush();
             return task;
@@ -69,13 +71,13 @@ public class ListOfTask {
         }
     }
 
-    public Task addEvent(String description, String date, String start, String end, FileWriter file) {
+    public Task addEvent(String description, LocalDate date, String start, String end, FileWriter file) {
         try {
             Task task = new EventTask(description, false, date, start, end);
             this.tasks.add(task);
 
-            String text = "D | 0 | " + description +
-                    " | " + date + " | " + start + "-" + end + "\n";
+            String text = "E | 0 | " + description +
+                    " | " + date.toString() + " | " + start + "-" + end + "\n";
             file.append(text);
             file.flush();
             return task;
@@ -102,19 +104,21 @@ public class ListOfTask {
                     String text = "T | " + status + " | " + description + "\n";
                     overwrittenFile.write(text);
                 } else if (task.date != null && task.startTime == null) {
-                    String date = task.date;
+                    LocalDate date = task.date;
                     String text = "D | " + status + " | " + description +
-                            " | " + date + "\n";
+                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n";
                     overwrittenFile.write(text);
                 } else {
-                    String date = task.date;
+                    LocalDate date = task.date;
                     String startTime = task.startTime;
                     String endTime = task.endTime;
                     String text = "E | " + status + " | " + description +
-                            " | " + date + " | " + startTime + " | " + endTime + "\n";
+                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
+                            " | " + startTime + " | " + endTime + "\n";
                     overwrittenFile.write(text);
                 }
             }
+
             overwrittenFile.flush();
             return this.tasks.remove(i - 1);
         } catch (IOException e) {
@@ -138,16 +142,17 @@ public class ListOfTask {
                     String text = "T | " + status + " | " + description + "\n";
                     overwrittenFile.write(text);
                 } else if (task.date != null && task.startTime == null) {
-                    String date = task.date;
+                    LocalDate date = task.date;
                     String text = "D | " + status + " | " + description +
-                            " | " + date + "\n";
+                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n";
                     overwrittenFile.write(text);
                 } else {
-                    String date = task.date;
+                    LocalDate date = task.date;
                     String startTime = task.startTime;
                     String endTime = task.endTime;
                     String text = "E | " + status + " | " + description +
-                            " | " + date + " | " + startTime + " | " + endTime + "\n";
+                            " | " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
+                            " | " + startTime + " | " + endTime + "\n";
                     overwrittenFile.write(text);
                 }
             }
@@ -177,12 +182,12 @@ public class ListOfTask {
                     String text = "T | " + status + " | " + description + "\n";
                     overwrittenFile.write(text);
                 } else if (task.date != null && task.startTime == null) {
-                    String date = task.date;
+                    String date = task.date.toString();
                     String text = "D | " + status + " | " + description +
                             " | " + date + "\n";
                     overwrittenFile.write(text);
                 } else {
-                    String date = task.date;
+                    String date = task.date.toString();
                     String startTime = task.startTime;
                     String endTime = task.endTime;
                     String text = "E | " + status + " | " + description +
