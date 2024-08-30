@@ -22,7 +22,7 @@ public class AddCommand extends Command {
                 String[] eventArray = this.predicate.split(" /from | /to ");
                 taskToAdd = new Event(eventArray[0], eventArray[1], eventArray[2]);
             }
-            taskList.add(taskToAdd); // need to check if it works...
+            taskList.add(taskToAdd);
             storage.save(taskToAdd);
             ui.showAdd(taskToAdd, taskList);
         } catch (DateTimeParseException e) {
