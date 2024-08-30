@@ -13,10 +13,16 @@ public class Torne {
     private static final Map<String, String[]> COMMANDS = Map.of(
             "bye", NO_ARGS,
             "list", NO_ARGS,
+            "help", NO_ARGS,
             "mark",DEFAULT_ARG,
             "unmark", DEFAULT_ARG,
-            "test", new String[]{"a", "b"}
+            "todo", NO_ARGS,
+            "deadline", new String[]{"", "by"},
+            "event", new String[]{"", "from", "to"},
+            "delete", DEFAULT_ARG
     );
+
+    private String helpMessage;
 
     /**
      * Parses the string command and arguments that the user entered. The correct operation is then called. If the input
@@ -25,7 +31,7 @@ public class Torne {
      *
      * @param input string input by the user
      */
-    private void parseCommand(String input) {
+    private void parseCommand(String input) throws TorneException {
         // empty command - do nothing
         if (input.isBlank()) {
             return;
@@ -42,13 +48,11 @@ public class Torne {
         // get command - first no-space phrase
         String command = parts[0];
 
-        // command exists check
-        // Level 2 - check if input is a command, if not, add as task
+        // command exists check:
+        // Check if input is a command, if not, give error message
         if (!COMMANDS.containsKey(command)) {
             // Command is not found in COMMANDS
-            // add whole input
-            addTask(input);
-            return;
+            throw new TorneInvalidCommandException(String.format("Command %s is not valid.", command));
         }
 
         // now get available arguments based on command
@@ -62,11 +66,11 @@ public class Torne {
         String argsStr = input.substring(command.length());
 
         // Split string to get arguments + their argument values
-        String[] args = argsStr.split("\s(?=\\\\)|$");
+        String[] args = argsStr.split("\s(?=/)|$");
 
         // add a default arg
         // System.out.println(args.length);
-        if (args.length > 0 && !args[0].isEmpty() && args[0].charAt(0) != '\\') {
+        if (args.length > 0 && !args[0].isEmpty() && args[0].charAt(0) != '/') {
             // the arg array is always nonEmpty, so, to determine the existence of a default arg,
             // we check if the first arg is nonEmpty does not start with a '\'
             argMap.put("", args[0]);
@@ -82,14 +86,13 @@ public class Torne {
             // TODO: what to do when only an argument flag provided - presumably that can be expected behavior...
             // For now, raise an error
             if (argParts.length == 1) {
-                OUTPUT.error("No value entered for flag \\" +argParts[0]);
-                return;
+                throw new TorneInvalidCommandException("No value entered for flag " + argParts[0]);
             }
 
             if (!availableArgs.contains(argParts[0].substring(1))) {
                 // argument flag is invalid for the given command
-                OUTPUT.error(String.format("Argument flag \\%s is invalid for command %s", argParts[0], command));
-                return;
+                throw new TorneInvalidCommandException(
+                        String.format("Argument flag %s is invalid for command %s", argParts[0], command));
             }
 
             // add to argMap
@@ -99,15 +102,32 @@ public class Torne {
         // OUTPUT.writeText(String.valueOf(argMap));
 
         // NOW ON TO ACTUALLY MATCHING THE FUNCS
+        String defaultArg = argMap.get("");
+
         switch (command) {
         case "list":
             listTasks();
             break;
+        case "help":
+            showHelp();
+            break;
         case "mark":
-            mark(argMap.get(""));
+            mark(defaultArg);
             break;
         case "unmark":
-            unmark(argMap.get(""));
+            unmark(defaultArg);
+            break;
+        case "delete":
+            deleteTask(defaultArg);
+            break;
+        case "todo":
+            addTaskTodo(defaultArg);
+            break;
+        case "deadline":
+            addTaskDeadline(defaultArg, argMap.get("by"));
+            break;
+        case "event":
+            addTaskEvent(defaultArg, argMap.get("from"), argMap.get("to"));
             break;
         default:
         }
@@ -141,25 +161,142 @@ Aww, bye to you as well :c""";
         OUTPUT.writeText(exitText);
     }
 
+    /**
+     * Shows a help message to the user.
+     * The help message lists out all available commands and their options
+     */
+    private void showHelp() {
+        if (helpMessage != null) {
+            // has already been generated
+            OUTPUT.writeText(helpMessage);
+            return;
+        }
+
+        StringBuilder helpMessageBuilder = new StringBuilder("This is the list of Torne commands and options:");
+
+        for (var entry : COMMANDS.entrySet()) {
+            String cmd = entry.getKey();
+            String[] args = entry.getValue();
+            helpMessageBuilder.append("\n").append(ChatOutput.INDENT).append(cmd);
+
+            for (String arg : args) {
+                if (arg.isEmpty()) {
+                    // default arg
+                    helpMessageBuilder.append(" [<value>]");
+                    continue;
+                }
+                helpMessageBuilder.append(String.format(" [/%s <value>]", arg));
+            }
+        }
+        // memoize
+        helpMessage = helpMessageBuilder.toString();
+        OUTPUT.writeText(helpMessage);
+    }
+
     // ==================== TASK RELATED ============================================
 
     /**
      * Adds a task and shows a message if the task was successfully added.
+     *
+     * @param task task that is to be added
+     */
+    private void addTask(Task task) {
+        TASK_HANDLER.addTask(task);
+        int count = TASK_HANDLER.getTaskCount();
+
+        String message = "Alright, I'll add this task:\n" + task
+                + String.format("\nNow you have %d task", count)
+                + ((count > 1) ? "s!" : "!");
+        OUTPUT.writeText(message);
+    }
+
+    /**
+     * Creates a new task with no date/time, with type `TaskTodo`.
+     *
      * @param name name of task to be added
      */
-    private void addTask(String name) {
-        TASK_HANDLER.addTask(new Task(name));
-        String message = "added: " + name;
-        OUTPUT.writeText(message);
+    private void addTaskTodo(String name) throws TorneException {
+        Task toAdd = new TaskTodo(name);
+        addTask(toAdd);
+    }
+
+    /**
+     * Creates a new task with a datetime as the deadline, with type `TaskDeadline`.
+     *
+     * @param name name of task to be added
+     * @param by date/time to do the task by
+     */
+    private void addTaskDeadline(String name, String by) throws TorneException {
+        Task toAdd = new TaskDeadline(name, by);
+        addTask(toAdd);
+    }
+
+    /**
+     * Creates a new task that starts at a datetime and ends at a datetime,
+     * with type `TaskEvent`.
+     *
+     * @param name name of task to be added
+     * @param from starting datetime
+     * @param to ending datetime
+     */
+    private void addTaskEvent(String name, String from, String to) throws TorneException {
+        Task toAdd = new TaskEvent(name, from, to);
+        addTask(toAdd);
     }
 
     /**
      * Shows the lists of tasks to the user.
      */
     private void listTasks() {
-        OUTPUT.writeText(TASK_HANDLER.getTaskListString());
+        String message;
+        if (TASK_HANDLER.getTaskCount() == 0) {
+            message = "You currently have no tasks!\nSo quiet...";
+        } else {
+            message = String.format("You currently have %d tasks:\n", TASK_HANDLER.getTaskCount())
+                    + TASK_HANDLER.getTaskListString();
+        }
+
+        OUTPUT.writeText(message);
     }
 
+    /**
+     * Deletes the task at the specified index.
+     *
+     * @param indexStr index of task to be marked as complete.
+     */
+    private void deleteTask(String indexStr) {
+        if (indexStr == null) {
+            OUTPUT.error("No task index specified.");
+            return;
+        }
+
+        try {
+            int index = Integer.parseInt(indexStr.trim()) - 1;
+
+            if (index < 0 || index >= TASK_HANDLER.getTaskCount()) {
+                // TODO I'm guessing task handler should be the one raising this exception! SAME AS THE OTHER TWO
+                OUTPUT.error("Invalid task index. Out of range.");
+                return;
+            }
+
+            Task removed = TASK_HANDLER.removeTask(index);
+            int count = TASK_HANDLER.getTaskCount();
+
+            String message = "Alright, I'll delete this task:\n" + removed
+                    + String.format("\nNow you have %d task", count)
+                    + ((count > 1) ? "s left!" : "left!");
+            OUTPUT.writeText(message);
+
+        } catch (NumberFormatException e) {
+            OUTPUT.error("Invalid task index. It is not an integer.");
+        }
+    }
+
+    /**
+     * Marks a particular task as complete.
+     *
+     * @param indexStr index of task to be marked as complete.
+     */
     private void mark(String indexStr) {
         if (indexStr == null) {
             OUTPUT.error("No task index specified.");
@@ -188,6 +325,11 @@ Aww, bye to you as well :c""";
 
     }
 
+    /**
+     * Marks a particular task as incomplete.
+     *
+     * @param indexStr index of task to be marked as incomplete.
+     */
     private void unmark(String indexStr) {
         if (indexStr == null) {
             OUTPUT.error("No task index specified.");
@@ -236,7 +378,12 @@ Aww, bye to you as well :c""";
             }
 
             // else, parse and handle the input :D
-            torne.parseCommand(input);
+            try {
+                torne.parseCommand(input);
+            } catch (TorneException e) {
+                OUTPUT.error(e.toString());
+            }
+
         }
 
     }

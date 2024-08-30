@@ -26,6 +26,19 @@ public class TaskHandler {
         return taskList.get(index);
     }
 
+    /**
+     * Removes the `Task` at the specified position in this list.
+     *
+     * @param index index of the desired task. index is in [0, n-1].
+     * @return Returns the removed task.
+     */
+    public Task removeTask(int index) {
+        Task removed = taskList.get(index);
+        taskList.remove(index);
+
+        return removed;
+    }
+
     public int getTaskCount() {
         return taskList.size();
     }

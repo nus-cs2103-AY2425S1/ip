@@ -1,12 +1,15 @@
 /**
- * Class that encapsulates a task that can be added to `Torne`
+ * Class that encapsulates a task that can be added to `Torne`.
  */
 public class Task {
-    private final String name;
-    private boolean isDone;
+    protected final String name;
+    protected boolean isDone;
 
-    Task(String name) {
-        this.name = name;
+    Task(String name) throws TorneInvalidCommandException {
+        if (name == null || name.isEmpty()) {
+            throw new TorneInvalidCommandException("Task cannot have an empty name");
+        }
+        this.name = name.trim();
     }
 
     public void markAsDone() {
