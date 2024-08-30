@@ -1,4 +1,6 @@
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 import task.Deadline;
 import task.Event;
@@ -135,9 +137,11 @@ public class Mummy {
       String description = tokens[0];
       String dueBy = tokens[1];
 
-      addTaskToStore(new Deadline(description, dueBy));
+      addTaskToStore(new Deadline(description, LocalDate.parse(dueBy)));
     } catch (IndexOutOfBoundsException exception) {
       throw new MummyException("Invalid argument: /by is required");
+    } catch (DateTimeParseException exception) {
+      throw new MummyException("Invalid date format: " + exception.getMessage());
     }
   }
 

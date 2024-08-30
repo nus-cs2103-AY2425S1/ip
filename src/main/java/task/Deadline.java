@@ -1,14 +1,16 @@
 package task;
 
-public class Deadline extends Task {
-    private final String dueBy;
+import java.time.LocalDate;
 
-    public Deadline(String description, String dueBy) {
+public class Deadline extends Task {
+    private final LocalDate dueBy;
+
+    public Deadline(String description, LocalDate dueBy) {
         super(description);
         this.dueBy = dueBy;
     }
 
-    public Deadline(String description, boolean isDone, String dueBy) {
+    public Deadline(String description, boolean isDone, LocalDate dueBy) {
         super(description, isDone);
         this.dueBy = dueBy;
     }
@@ -28,7 +30,7 @@ public class Deadline extends Task {
         return new Deadline(this.getDescription(), this.isDone(), this.getDueBy());
     }
 
-    public String getDueBy() {
+    public LocalDate getDueBy() {
         return this.dueBy;
     }
 
