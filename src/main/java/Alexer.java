@@ -55,6 +55,16 @@ public class Alexer {
         System.out.println(BREAK);
     }
 
+    public void unmarkTaskDone(int index) {
+        // assume input here is valid, we will handle exceptions later
+        tasks.get(index - 1).unmarkDone();
+
+        System.out.println(BREAK);
+        System.out.println("Alright, it seems you are not done with that yet.\nI have unmarked it for you.");
+        System.out.format("\t%s\n", tasks.get(index - 1));
+        System.out.println(BREAK);
+    }
+
     public void promptLoop() {
         String input = scanner.nextLine();
 
@@ -72,6 +82,11 @@ public class Alexer {
         case "mark":
             int index = Integer.parseInt(arguments.get(0));
             markTaskDone(index);
+            promptLoop();
+            break;
+        case "unmark":
+            int taskNum = Integer.parseInt(arguments.get(0));
+            unmarkTaskDone(taskNum);
             promptLoop();
             break;
         default:
