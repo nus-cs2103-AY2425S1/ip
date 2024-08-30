@@ -1,0 +1,2 @@
+[D][ ] lecture (by: tmr)
+[E][ ] eventA (from: tmr to: 2359)

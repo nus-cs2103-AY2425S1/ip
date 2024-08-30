@@ -5,8 +5,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ *  Parser class converts String inputs into usable commands and arguments
+ */
 public class Parser {
 
+    /**
+     * Parse strings into commands.
+     *
+     * @param input String inputs.
+     * @return Command output.
+     */
     public static Command parseCommand(String input) {
         String[] words = input.split(" ", 2);
         String command = words[0];
@@ -29,11 +38,19 @@ public class Parser {
             return new Command(CommandType.EVENT, arguments);
         case "delete":
             return new Command(CommandType.DELETE, arguments);
+        case "find":
+            return new Command(CommandType.FIND, arguments);
         default:
             return new Command(CommandType.UNKNOWN, arguments);
         }
     }
 
+    /**
+     * Parses saved tasks in pebble.txt and returns them as instances of Task object.
+     *
+     * @param line Line read from txt file.
+     * @return Instance of task corresponding to the saved line.
+     */
     public static Task parseTaskFromString(String line) {
         if (line.startsWith("[T]")) {
             String description = line.substring(line.indexOf("] ") + 2);

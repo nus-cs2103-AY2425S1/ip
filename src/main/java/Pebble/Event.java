@@ -4,11 +4,26 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Subclass of Tasks that has a start and end date.
+ */
 public class Event extends Task {
+    /** When start date is properly formatted */
     protected LocalDate from;
+    /** When end date is properly formatted */
     protected LocalDate to;
+    /** When start date cannot be formatted from string will be left as string */
     protected String stringFrom;
+    /** When end date cannot be formatted from string will be left as string */
     protected String stringTo;
+
+    /**
+     * Constructor for event instance
+     *
+     * @param description Description of event.
+     * @param from Start date/time.
+     * @param to End date/time.
+     */
 
     public Event(String description, String from, String to) {
         super(description);
