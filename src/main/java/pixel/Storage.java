@@ -7,14 +7,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class which deals with loading tasks from file and saving tasks in file
+ */
 public class Storage {
     public static String LINE = "\t" + "------------------------------------";
     private final String filePath;
 
+    /**
+     * Constructor method of Storage
+     *
+     * @param filePath file path of file storing tasks
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Creates the file at specified filepath if it does not exist
+     */
     public void ensureFileExists() {
         File file = new File(filePath);
         File directory = new File(file.getParent());
@@ -50,6 +61,13 @@ public class Storage {
             }
         }
     }
+
+    /**
+     * Returns an ArrayList of Tasks that has been populated from the data in the file
+     *
+     * @return ArrayList of Tasks to be saved in TaskList
+     * @throws FileNotFoundException Exception when File does not exist
+     */
     public ArrayList<Task> load() throws FileNotFoundException {
         ensureFileExists();
         ArrayList<Task> collatedTasks = new ArrayList<>();
@@ -95,6 +113,11 @@ public class Storage {
         return collatedTasks;
     }
 
+    /**
+     * Updates file after every operation
+     *
+     * @param tasks TaskList that contains all existing tasks to be saved in the file
+     */
     public void updateFile(TaskList tasks) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
@@ -109,6 +132,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Prints the content of the file
+     */
     public void printFile() {
         try {
             File file = new File(filePath); // create a File for the given file path

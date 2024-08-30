@@ -1,10 +1,23 @@
 package pixel;
 
+/**
+ * Class that deals with the control flow upon obtaining user command
+ */
 public class Parser {
 
+    /**
+     * Constructor method of Parser
+     */
     public Parser() {
     }
 
+    /**
+     * Act based on command given from the user's input
+     *
+     * @param command command obtained from Ui
+     * @param tasks TaskList for processing of tasks
+     * @param storage Storage for processing of files
+     */
     public static void parse(String command, TaskList tasks, Storage storage) {
         if (command.equals("list")) {
             Ui.printList(tasks);
