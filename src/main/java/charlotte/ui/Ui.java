@@ -83,5 +83,4 @@ public class Ui {
         System.out.println(message);
         printLine();
     }
-
 }
