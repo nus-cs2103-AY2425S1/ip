@@ -9,3 +9,4 @@ public class Bing {
         System.out.println(message);
     }
 }
+
