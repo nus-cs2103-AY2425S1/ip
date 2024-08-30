@@ -32,10 +32,13 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "donk"
+    archiveFileName = "donk.jar"
     archiveClassifier = null
 }
 
 run{
     standardInput = System.in
 }
+
+mainClassName = "donk.Donk"
