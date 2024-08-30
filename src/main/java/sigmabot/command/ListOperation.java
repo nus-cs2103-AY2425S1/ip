@@ -8,14 +8,13 @@ import sigmabot.util.ListMapWriter;
 import sigmabot.util.ListReader;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 /**
  * The {@code ListOperation} class provides functionality for managing a task list.
- * It includes methods for creating, querying, marking, unmarking, and deleting tasks.
+ * It includes methods for creating, querying, finding, marking, unmarking, and deleting tasks.
  * The tasks are read from and written to a file specified by the {@code filePath}.
  */
 public class ListOperation extends Command {
@@ -51,7 +50,7 @@ public class ListOperation extends Command {
         }
 
         while (true) {
-            System.out.println("Enter operation command (create, query, mark, unmark, delete, exit): ");
+            System.out.println("Enter operation command (create, query, find, mark, unmark, delete, exit): ");
             if (!sc.hasNextLine()) {
                 break;
             }
@@ -62,6 +61,9 @@ public class ListOperation extends Command {
                 break;
             case "query":
                 queryTasks();
+                break;
+            case "find":
+                findTasks(sc);
                 break;
             case "mark":
                 handleMarkDone(sc);
@@ -76,7 +78,7 @@ public class ListOperation extends Command {
                 System.out.println("Exiting List Operations...");
                 return;
             default:
-                System.out.println("Invalid command. Please enter 'create', 'query', 'mark', 'unmark', 'delete', or 'exit'.");
+                System.out.println("Invalid command. Please enter 'create', 'query', 'find', 'mark', 'unmark', 'delete', or 'exit'.");
             }
         }
     }
@@ -133,6 +135,27 @@ public class ListOperation extends Command {
     }
 
     /**
+
+     * Finds and displays tasks that contain a specific substring in their names.
+     *
+     * @param sc The {@code Scanner} object for reading user input.
+     */
+    public void findTasks(Scanner sc) {
+        System.out.println("Enter the substring to search for in task names: ");
+        String substring = sc.nextLine().trim().toLowerCase();
+        boolean found = false;
+        for (Task task : taskList.values()) {
+            if (task.getName().toLowerCase().contains(substring)) {
+                System.out.println(task.toString());
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No tasks found containing the substring: " + substring);
+        }
+    }
+
+   /**
      * Marks a specified task as done based on user input.
      * The task list is then saved to the file.
      *
