@@ -2,6 +2,7 @@ package echochat;
 
 public class Command {
 
+
     private CommandType type;
     private String description;
     private int index;
