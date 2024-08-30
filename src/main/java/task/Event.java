@@ -1,3 +1,5 @@
+package task;
+
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +29,6 @@ public class Event extends Task {
         this.description = dataArr[2];
         this.startTime = parseDateTime(dataArr[3]);
         this.endTime = parseDateTime(dataArr[4]);
-
     }
 
     public LocalDateTime parseDateTime(String dateStr) {

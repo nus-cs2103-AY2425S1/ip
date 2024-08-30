@@ -1,6 +1,8 @@
+package task;
+
 import java.util.Arrays;
 
-public class Todo extends Task{
+public class Todo extends Task {
     public Todo() {
         super("", "T");
     }
