@@ -105,6 +105,11 @@ public class Parser {
                 LocalDate.parse(eventTimeTokens[1].trim())
             );
             return new Parsed(Command.EVENT, task);
+        case "find":
+            if (tokens.length < 2) {
+                throw new NixyException("BLAHH!!! The keyword to search for cannot be empty.");
+            }
+            return new Parsed(Command.FIND, tokens[1].trim());
         default:
             throw new NixyException("BLAHH!!! I'm sorry, but I don't know what that means.");
         }

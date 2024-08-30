@@ -109,4 +109,14 @@ public class TaskList {
         Task task = tasks.remove(taskNumber - 1);
         return task.toString();
     }
+
+    public TaskList findTasks(String keyword) {
+        List<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        return new TaskList(foundTasks);
+    }
 }

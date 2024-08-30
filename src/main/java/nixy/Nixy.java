@@ -86,6 +86,14 @@ public class Nixy {
                     ui.showNixyException(e);
                 }
                 break;
+            case FIND:
+                try {
+                    TaskList foundTasks = tasks.findTasks(p.getStringParam());
+                    ui.showMatchingList(foundTasks);
+                } catch (NixyException e) {
+                    ui.showNixyException(e);
+                }
+                break;
             case TODO:
                 // Fallthrough
             case DEADLINE:
