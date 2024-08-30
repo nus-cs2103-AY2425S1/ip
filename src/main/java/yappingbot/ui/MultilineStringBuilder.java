@@ -1,6 +1,6 @@
 package yappingbot.ui;
 
-public class MultilineStringBuilder {
+public class MultilineStringBuilder extends Ui{
     private final StringBuilder sb = new StringBuilder();
     public void addLine(String s) {
         Ui.quoteSinglelineText(s, sb);
