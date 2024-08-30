@@ -18,4 +18,9 @@ public class Task {
     public String getDesc() {
         return desc;
     }
+
+    @Override
+    public String toString() {
+        return getStatus() + " " + desc;
+    }
 }
