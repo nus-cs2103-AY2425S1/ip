@@ -1,14 +1,12 @@
-public class Command {
-
+public abstract class Command {
+    private String command;
+    private boolean isExit;
     public Command(String command) {
-
+        this.command = command;
+        this.isExit = false;
     }
 
-    public void execute(Task task, Ui ui, Storage storage) {
+    public abstract void execute(Task task, Ui ui, Storage storage);
 
-    }
-
-    public boolean isExit() {
-        return false;
-    }
+    public abstract boolean isExit();
 }

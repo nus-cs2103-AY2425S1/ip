@@ -8,19 +8,24 @@ public class Tuesday {
     private Task tasks;
     private Ui ui;
 
+    /**
+     * Creates Ui, Storage & Task Object, and checks whether there exist a datafile
+     */
     public Tuesday(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-
         try {
             // Add all the tasks in the data file to the Tasks class
             tasks = new Task(storage.load());
         } catch (TuesdayException e) {
             ui.showLoadingError();
-            tasks = new Task();
+            tasks = new Task(storage); // Create a new data file
         }
     }
 
+    /**
+     * Main function
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -32,8 +37,6 @@ public class Tuesday {
                 isExit = c.isExit();
             } catch (TuesdayException e) {
                 ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
             }
         }
     }
