@@ -34,7 +34,7 @@ public class Storage {
         this.file.createNewFile();
     }
 
-    public FileReader getFileReader() throws  IOException{
+    public FileReader getFileReader() throws IOException{
         return new FileReader(dataPathFile);
     }
 }
