@@ -1,11 +1,11 @@
 package zaibot.command;
 
+import java.util.HashMap;
+
+import zaibot.exception.ZaibotException;
 import zaibot.utils.Storage;
 import zaibot.utils.TaskList;
 import zaibot.utils.Ui;
-import zaibot.exception.ZaibotException;
-
-import java.util.HashMap;
 
 /**
  * This class represents the command to find tasks.

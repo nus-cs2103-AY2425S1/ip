@@ -11,6 +11,11 @@ public class DeadlineTask extends Task {
 
     private LocalDateTime deadline;
 
+    /**
+     * Creates a DeadlineTask from the name, and a given deadline
+     * @param name A string representing the name of the event
+     * @param deadline A LocalDateTime object representing the datetime of the event
+     */
     public DeadlineTask(String name, LocalDateTime deadline) {
         super(name);
         this.deadline = deadline;

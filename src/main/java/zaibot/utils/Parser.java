@@ -1,9 +1,14 @@
 package zaibot.utils;
 
-import zaibot.command.*;
-import zaibot.exception.ZaibotException;
-
 import java.util.HashMap;
+
+import zaibot.command.Command;
+import zaibot.command.ExitCommand;
+import zaibot.command.TaskAdditionCommand;
+import zaibot.command.TaskFindCommand;
+import zaibot.command.TaskListingCommand;
+import zaibot.command.TaskUpdateCommand;
+import zaibot.exception.ZaibotException;
 
 /**
  * The Parser class is responsible for parsing the commands
@@ -23,12 +28,12 @@ public class Parser {
 
         if (command.indexOf(' ') == -1) {
             switch (command) {
-                case "bye":
-                    return new ExitCommand();
-                case "list":
-                    return new TaskListingCommand();
-                default:
-                    throw new ZaibotException("Are you missing arguments? Invalid command.");
+            case "bye":
+                return new ExitCommand();
+            case "list":
+                return new TaskListingCommand();
+            default:
+                throw new ZaibotException("Are you missing arguments? Invalid command.");
             }
 
         }
@@ -54,24 +59,24 @@ public class Parser {
             String optionString = command.substring(command.indexOf(' '));
             String[] options = optionString.split(" /");
 
-                if (optionString.isEmpty() || options[0].isEmpty()) {
-                    throw new ZaibotException("Name cannot be empty.");
-                }
+            if (optionString.isEmpty() || options[0].isEmpty()) {
+                throw new ZaibotException("Name cannot be empty.");
+            }
 
-                arguments.put("name", options[0].trim());
+            arguments.put("name", options[0].trim());
 
-                for (int i = 1; i < options.length; i++) {
-                    String option = options[i];
-                    String optionName = option.substring(0, option.indexOf(' ')).trim();
-                    String optionValue = option.substring(option.indexOf(' ')).trim();
-                    if (optionValue.isEmpty()) {
-                        throw new ZaibotException(String.format("Option %s cannot be empty.", optionName));
-                    }
-                    arguments.put(optionName, optionValue);
+            for (int i = 1; i < options.length; i++) {
+                String option = options[i];
+                String optionName = option.substring(0, option.indexOf(' ')).trim();
+                String optionValue = option.substring(option.indexOf(' ')).trim();
+                if (optionValue.isEmpty()) {
+                    throw new ZaibotException(String.format("Option %s cannot be empty.", optionName));
                 }
-                return new TaskAdditionCommand(commandName, arguments);
-            default:
-                throw new ZaibotException("Unknown command.");
+                arguments.put(optionName, optionValue);
+            }
+            return new TaskAdditionCommand(commandName, arguments);
+        default:
+            throw new ZaibotException("Unknown command.");
         }
     }
 }

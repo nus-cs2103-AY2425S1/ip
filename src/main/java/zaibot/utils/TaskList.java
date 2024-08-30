@@ -1,9 +1,9 @@
 package zaibot.utils;
 
-import zaibot.task.Task;
-
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import zaibot.task.Task;
 
 /**
  * This class is responsible for the
@@ -34,7 +34,6 @@ public class TaskList {
      * Retrieves the list of tasks, filtered by input
      *
      * @param input Any input
-     *
      * @return A filtered task list
      */
     public TaskList filterTasks(String input) {
