@@ -44,7 +44,7 @@ public class InputParser {
             return new DeleteTaskCommand(InputParser.parseTaskIndex(userInput));
         } else if (userInput.startsWith("filter")) {
             String dateString = InputParser.parseCommandArgument(userInput, "Invalid date format.");
-            LocalDateTime dateTime = DateTimeFormatEnum.parse(dateString)
+            LocalDateTime dateTime = duke.parser.DateTimeFormatEnum.parse(dateString)
                     .orElseThrow(() -> new InvalidInputException("Invalid date format."));
             return new FilterTaskCommand(dateTime);
         } else if (userInput.startsWith("find")) {
