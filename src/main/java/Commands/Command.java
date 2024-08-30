@@ -3,7 +3,7 @@ package Commands;
 import Exceptions.DelphiException;
 import Storage.Storage;
 import TaskList.TaskList;
-import UI.UI;
+import UI.Ui;
 
 /**
  * Abstract class representing a command.
@@ -12,8 +12,9 @@ import UI.UI;
  * @author jordanchan
  */
 public abstract class Command {
+
+    private String input;
     private boolean isExit;
-    public String input;
 
     /**
      * Constructs a Command with the given input.
@@ -32,7 +33,7 @@ public abstract class Command {
      * @param ui The user interface to interact with the user.
      * @throws DelphiException If an error occurs during execution.
      */
-    public abstract void execute(TaskList t, Storage s, UI ui) throws DelphiException;
+    public abstract void execute(TaskList t, Storage s, Ui ui) throws DelphiException;
 
     /**
      * Determines if the command should exit the application.
@@ -41,6 +42,10 @@ public abstract class Command {
      */
     public boolean exitBot() {
         return false;
+    }
+
+    public String getInput() {
+        return this.input;
     }
 }
 

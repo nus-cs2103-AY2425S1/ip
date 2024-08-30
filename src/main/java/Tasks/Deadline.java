@@ -24,13 +24,12 @@ public class Deadline extends Task {
 
         // Extract the substring after the slash and trim it
         String temp = description.substring(slashIndex + 1).trim();
-            String date = d.parseAndFormatDateTime(temp.substring(3).trim());
-            if (date != null) {
-                deadline = "(by: " + date + ")";
-            }
-            else {
-                deadline = "(by: " + temp.substring(3).trim() + ")";
-            }
+        String date = d.parseAndFormatDateTime(temp.substring(3).trim());
+        if (date != null) {
+            deadline = "(by: " + date + ")";
+        } else {
+            deadline = "(by: " + temp.substring(3).trim() + ")";
+        }
     }
 
     /**

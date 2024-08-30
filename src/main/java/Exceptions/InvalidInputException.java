@@ -12,6 +12,7 @@ public class InvalidInputException extends DelphiException {
      * The error message indicates that the input must start with 'todo', 'deadline', or 'event'.
      */
     public InvalidInputException() {
-        super("the input you have provided me is not formatted correctly. Please give me an input starting with todo, deadline or event");
+        super("the input you have provided me is not formatted correctly. "
+                + "Please give me an input starting with todo, deadline or event");
     }
 }

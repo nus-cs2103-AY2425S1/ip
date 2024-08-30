@@ -2,7 +2,7 @@ package Commands;
 
 import Storage.Storage;
 import TaskList.TaskList;
-import UI.UI;
+import UI.Ui;
 
 /**
  * Command to mark a specific task in the tasklist object as done.
@@ -31,9 +31,9 @@ public class MarkTaskCommand extends Command {
      * @param ui The user interface to reflect the task status change.
      */
     @Override
-    public void execute(TaskList t, Storage s, UI ui) {
+    public void execute(TaskList t, Storage s, Ui ui) {
         // Parse the task identifier from the input string
-        int taskId = Integer.parseInt(String.valueOf(input.charAt(5)));
+        int taskId = Integer.parseInt(String.valueOf(getInput().charAt(5)));
 
         // Mark the task as done
         t.markTaskAsDone(taskId);
@@ -42,7 +42,7 @@ public class MarkTaskCommand extends Command {
         s.writeToHardDisk(t.getTasks());
 
         // Update the user interface to reflect the task status change
-        UI.markingTask(true, t.getTask(taskId));
+        Ui.markingTask(true, t.getTask(taskId));
     }
 }
 

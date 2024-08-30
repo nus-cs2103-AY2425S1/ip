@@ -2,7 +2,7 @@ package Commands;
 
 import Storage.Storage;
 import TaskList.TaskList;
-import UI.UI;
+import UI.Ui;
 
 /**
  * Command that represents a break or exit command.
@@ -28,7 +28,7 @@ public class BreakCommand extends Command {
      * @param ui The user interface to interact with (not used in this command).
      */
     @Override
-    public void execute(TaskList t, Storage s, UI ui) {
+    public void execute(TaskList t, Storage s, Ui ui) {
         // do nothing
     }
 

@@ -1,15 +1,15 @@
 package Parser;
 
-import Commands.UnmarkTaskCommand;
-import Commands.MarkTaskCommand;
-import Commands.ListCommand;
-import Commands.DeleteTaskCommand;
-import Commands.BreakCommand;
-import Commands.AddTodoCommand;
 import Commands.AddDeadlineCommand;
 import Commands.AddEventCommand;
-import Commands.FindCommand;
+import Commands.AddTodoCommand;
+import Commands.BreakCommand;
 import Commands.Command;
+import Commands.DeleteTaskCommand;
+import Commands.FindCommand;
+import Commands.ListCommand;
+import Commands.MarkTaskCommand;
+import Commands.UnmarkTaskCommand;
 import Exceptions.DelphiException;
 import Exceptions.InvalidInputException;
 
@@ -78,7 +78,7 @@ public class Parser {
      * Formats a deadline string by extracting and reformatting the components.
      *
      * @param input The input string containing the deadline information.
-     * @return The formatted string where the deadline information is represented as "/by <date>".
+     * @return The formatted string where the deadline information is represented as "/by date".
      */
     public static String formatStringDeadline(String input) {
         // Extract the parts using regex
@@ -90,7 +90,7 @@ public class Parser {
      * Formats an event string by extracting and reformatting the components.
      *
      * @param input The input string containing the event information.
-     * @return The formatted string where the event information is represented as "/from <start> /to <end>".
+     * @return The formatted string where the event information is represented as "/from  start /to end".
      */
     public static String formatStringEvent(String input) {
         // Extract the parts using regex

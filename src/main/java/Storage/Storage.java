@@ -1,12 +1,12 @@
 package Storage;
 
-import Tasks.Task;
-
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
-import java.io.File;
 import java.nio.file.Files;
+import java.util.List;
+
+import Tasks.Task;
 
 /**
  * The Storage class handles reading and writing tasks to and from a file on the hard disk.
@@ -14,7 +14,7 @@ import java.nio.file.Files;
  * @author jordanchan
  */
 public class Storage {
-    File file;
+    private File file;
 
     /**
      * Constructs a Storage object that manages a file specified by the given file path.

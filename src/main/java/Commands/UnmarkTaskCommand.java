@@ -2,7 +2,7 @@ package Commands;
 
 import Storage.Storage;
 import TaskList.TaskList;
-import UI.UI;
+import UI.Ui;
 
 /**
  * Command to unmark a specific task as undone.
@@ -31,9 +31,9 @@ public class UnmarkTaskCommand extends Command {
      * @param ui The user interface to reflect the task status change.
      */
     @Override
-    public void execute(TaskList t, Storage s, UI ui) {
+    public void execute(TaskList t, Storage s, Ui ui) {
         // Extract the task identifier from the input string (assuming the task ID starts at index 7)
-        int taskId = Integer.parseInt(String.valueOf(input.charAt(7)));
+        int taskId = Integer.parseInt(String.valueOf(getInput().charAt(7)));
 
         // Unmark the task as undone
         t.markTaskAsUndone(taskId);
@@ -42,7 +42,7 @@ public class UnmarkTaskCommand extends Command {
         s.writeToHardDisk(t.getTasks());
 
         // Update the user interface to reflect the task status change
-        UI.markingTask(false, t.getTask(taskId));
+        Ui.markingTask(false, t.getTask(taskId));
     }
 }
 

@@ -2,9 +2,9 @@ package Commands;
 
 import Exceptions.InvalidListItemException;
 import Storage.Storage;
-import TaskList.TaskList;
-import UI.UI;
 import Tasks.Task;
+import TaskList.TaskList;
+import UI.Ui;
 
 /**
  * Command to delete a specific task from the task list.
@@ -32,9 +32,9 @@ public class DeleteTaskCommand extends Command {
      * @throws InvalidListItemException if the task identifier is invalid or the task cannot be found.
      */
     @Override
-    public void execute(TaskList t, Storage s, UI ui) throws InvalidListItemException {
+    public void execute(TaskList t, Storage s, Ui ui) throws InvalidListItemException {
         // Extract the task identifier from the input string (assuming the task ID starts at index 7)
-        int taskId = Integer.parseInt(String.valueOf(input.charAt(7)));
+        int taskId = Integer.parseInt(String.valueOf(getInput().charAt(7)));
 
         // Remove the task from the task list and get the removed task
         Task task = t.removeTask(taskId);
@@ -46,7 +46,7 @@ public class DeleteTaskCommand extends Command {
         int remainingTasks = t.getTasks().size();
 
         // Update the user interface to reflect the task removal
-        UI.removingTask(task, remainingTasks);
+        Ui.removingTask(task, remainingTasks);
     }
 }
 

@@ -2,7 +2,7 @@ package Commands;
 
 import Storage.Storage;
 import TaskList.TaskList;
-import UI.UI;
+import UI.Ui;
 
 /**
  * Command to list all tasks.
@@ -28,7 +28,7 @@ public class ListCommand extends Command {
      * @param ui The user interface to display the list of tasks.
      */
     @Override
-    public void execute(TaskList t, Storage s, UI ui) {
+    public void execute(TaskList t, Storage s, Ui ui) {
         // Print all tasks in the task list
         t.printTasks();
     }
