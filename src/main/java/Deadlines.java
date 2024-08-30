@@ -1,16 +1,27 @@
-// class for Tasks with Deadlines
-public class Deadlines extends Task{
-    protected String by;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+public class Deadlines extends Task {
+    private LocalDateTime dueDateTime;
+
     public Deadlines(String description, String by) {
         super(description);
-        this.by = by;
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
+        try {
+            this.dueDateTime = LocalDateTime.parse(by.trim(), inputFormatter);
+        } catch (DateTimeParseException e) {
+            this.dueDateTime = LocalDateTime.parse(by.trim(), displayFormatter);
+        }
     }
-    public String getDueDate() {
-        return this.by;
+
+    public String getDueDateTime() {
+        return dueDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by:" + by + ")";
+        return "[D]" + super.toString() + " (by: " + getDueDateTime() + ")";
     }
 }
