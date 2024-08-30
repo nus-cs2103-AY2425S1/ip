@@ -1,3 +1,6 @@
+package task;
+import exception.InputFormatException;
+
 public class Todo extends Task{
     public Todo(String description) throws InputFormatException{
         super(description);

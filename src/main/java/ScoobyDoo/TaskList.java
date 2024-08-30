@@ -1,4 +1,7 @@
+package ScoobyDoo;
 import java.util.ArrayList;
+import exception.InputFormatException;
+import task.Task;
 
 public class TaskList {
     private final ArrayList<Task> list;

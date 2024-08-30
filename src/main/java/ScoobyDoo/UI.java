@@ -1,3 +1,4 @@
+package ScoobyDoo;
 public class UI {
     public void printFormattedResponse(String response) {
         for (int i = 0; i < 60; i++) {

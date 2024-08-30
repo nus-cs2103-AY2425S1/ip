@@ -1,7 +1,8 @@
+package ScoobyDoo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
+import exception.InputFormatException;
 public class Parser {
     public static String getEventDescription(String input) throws InputFormatException{
         String[] splitDeadline = input.split(" ", 2);
