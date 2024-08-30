@@ -63,7 +63,7 @@ public class Bot {
                 handleList();
                 break;
             case TODO, DEADLINE, EVENT:
-                handleAddTask(cmd.name(), args);
+                handleAddTask(cmd, args);
                 break;
             case MARK:
                 handleMarkTask(args);
@@ -73,6 +73,9 @@ public class Bot {
                 break;
             case DELETE:
                 handleDeleteTask(args);
+                break;
+            case FIND:
+                handleFindTask(args);
                 break;
             case BYE:
                 ui.exit();
@@ -92,14 +95,20 @@ public class Bot {
         ui.printMessage("Here are the tasks in your list:\n" + tasks.toString());
     }
 
-    private void handleAddTask(String cmd, String args) throws InvalidTaskDescriptionException, DateTimeParseException {
+    private void handleFindTask(String args) {
+        ui.printMessage("Here are the tasks in your list:\n" + tasks.search(args));
+    }
+
+    private void handleAddTask(Command cmd, String args) throws InvalidTaskDescriptionException, DateTimeParseException {
         Task taskToAdd;
-        if (cmd.equals(Command.TODO.name)) {
+        System.out.println(cmd);
+        System.out.println(args);
+        if (cmd.equals(Command.TODO)) {
             if (args.isEmpty()) {
                 throw new EmptyTodoException();
             }
             taskToAdd = new Todo(args);
-        } else if (cmd.equals(Command.DEADLINE.name)) {
+        } else if (cmd.equals(Command.DEADLINE)) {
             taskToAdd = parser.parseDeadlineTask(args);
         } else {
             // Last command is guaranteed to be "event" by the switch statement
