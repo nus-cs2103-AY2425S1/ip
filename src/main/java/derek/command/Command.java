@@ -26,7 +26,8 @@ public class Command {
      * @throws IncorrectCommandException if the command is not 'Y' or 'N'
      */
     public void isConsent() throws IncorrectCommandException {
-        if (!(this.command.equalsIgnoreCase("Y") || this.command.equalsIgnoreCase("N"))) {
+        if (!(this.command.equalsIgnoreCase("Y")
+                || this.command.equalsIgnoreCase("N"))) {
             throw new IncorrectCommandException("Hate me just say! Answer my question RRRRAHHHH!!!");
         }
     }

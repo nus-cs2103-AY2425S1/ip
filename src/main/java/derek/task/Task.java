@@ -89,7 +89,8 @@ public class Task {
      * @param isCompleted the completion status of the task
      * @return a new {@code EventTask} object
      */
-    public static Task eventTask(String name, String startTime, String endTime, String isCompleted) {
+    public static Task eventTask(String name, String startTime,
+                                 String endTime, String isCompleted) {
         return new EventTask(name, startTime, endTime, isCompleted);
     }
 

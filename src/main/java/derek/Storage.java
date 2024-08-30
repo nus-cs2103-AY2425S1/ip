@@ -83,16 +83,33 @@ public class Storage {
                     DeadlineTask deadlineTask = (DeadlineTask) task;
                     String deadline = deadlineTask.getDeadline();
                     String taskName = deadlineTask.getName();
-                    writeToFile("D|" + isCompleted + "|" + taskName + "|" + deadline + "\n");
+                    writeToFile("D|"
+                            + isCompleted
+                            + "|"
+                            + taskName
+                            + "|"
+                            + deadline
+                            + "\n");
                 } else if (task instanceof EventTask) {
                     EventTask eventTask = (EventTask) task;
                     String startTime = eventTask.getStartTime();
                     String endTime = eventTask.getEndTime();
                     String taskName = eventTask.getName();
-                    writeToFile("E|" + isCompleted + "|" + taskName + "|" + startTime + "|" + endTime + "\n");
+                    writeToFile("E|"
+                            + isCompleted
+                            + "|"
+                            + taskName
+                            + "|"
+                            + startTime
+                            + "|"
+                            + endTime
+                            + "\n");
                 } else {
                     String taskName = task.getName();
-                    writeToFile("T|" + isCompleted + "|" + taskName + "\n");
+                    writeToFile("T|"
+                            + isCompleted
+                            + "|" + taskName
+                            + "\n");
                 }
             }
         } catch (IOException e) {
