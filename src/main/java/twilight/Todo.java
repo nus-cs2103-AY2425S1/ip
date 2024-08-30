@@ -6,8 +6,8 @@ public class Todo extends Task {
         super(description);
     }
 
-    public Todo(boolean status, String description) {
-        super(description, status);
+    public Todo(boolean isDone, String description) {
+        super(description, isDone);
     }
 
     public String toString() {

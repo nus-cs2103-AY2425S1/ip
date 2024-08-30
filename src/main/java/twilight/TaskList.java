@@ -20,12 +20,12 @@ public class TaskList {
     }
 
     public String mark(int taskNum) {
-        tasks.get(taskNum).done();
+        tasks.get(taskNum).setDone();
         return tasks.get(taskNum).toString();
     }
 
     public String unmark(int taskNum) {
-        tasks.get(taskNum).unDone();
+        tasks.get(taskNum).SetUndone();
         return tasks.get(taskNum).toString();
     }
 

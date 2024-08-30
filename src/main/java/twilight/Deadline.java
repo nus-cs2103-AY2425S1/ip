@@ -12,8 +12,8 @@ public class Deadline extends Task {
         this.deadline = LocalDate.parse(deadline);
     }
 
-    public Deadline(boolean status, String description, String deadline) {
-        super(description, status);
+    public Deadline(boolean isDone, String description, String deadline) {
+        super(description, isDone);
         this.deadline = LocalDate.parse(deadline);
     }
 
