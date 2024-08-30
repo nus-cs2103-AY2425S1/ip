@@ -43,7 +43,6 @@ public class Storage {
         return LocalDateTime.of(date, time);
     }
 
-
     /**
      * Sets ups the file to be used.
      * If the filepath exists, the file will be extracted and returned.
