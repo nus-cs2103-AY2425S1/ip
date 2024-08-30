@@ -1,3 +1,5 @@
+package socchat;
+
 public class Ui {
     public Ui() {
 
