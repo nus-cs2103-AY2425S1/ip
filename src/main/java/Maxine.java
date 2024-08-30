@@ -13,15 +13,58 @@ public class Maxine {
     static String[] arr;
     static Scanner scanner = new Scanner(System.in);
     private Ui ui;
+    private Storage storage;
     
     
     public Maxine() {
         ui = new Ui();
+        storage = new Storage();
     }
     
     public void run() {
         ui.greet();
-        FileReading.rememberFileContents("data/maxine.txt", list);
+        storage.load("data/maxine.txt", list);
+
+        while (true) {
+            String answer = ask();
+            if (answer.equals("bye")) {
+                System.out.println("\nBye! I have been maxed out and am going to sleep. Hope to see you again soon!");
+                break;
+            } else if (answer.equals("list")) {
+                showList();
+            } else if (arr[0].equals("mark") || arr[0].equals("unmark")) {
+                changeMark();
+                storage.refreshStorage(list);
+            } else if (arr[0].equals("todo")) {
+                try {
+                    todo();
+                    storage.refreshStorage(list);
+                } catch (Exception e) {
+                    System.out.println("Please follow this format: todo [enter task]");
+                }
+            } else if (arr[0].equals("deadline")) {
+                try {
+                    deadline();
+                    storage.refreshStorage(list);
+                } catch (Exception e) {
+                    System.out.println("Please follow this format: deadline [enter task] /by [enter deadline]");
+                }
+            } else if (arr[0].equals("event")) {
+                try {
+                    event();
+                    storage.refreshStorage(list);
+                } catch (Exception e) {
+                    System.out.println("Please follow this format: event [enter event] /from [start date] /to [end date]");
+                }
+            } else if (arr[0].equals("delete")) {
+                delete();
+                storage.refreshStorage(list);
+            } else {
+                System.out.println("please type in a command starting with todo, deadline, event, mark, unmark or list");
+            }
+        }
+
+        scanner.close();
     }
 
     /**
@@ -88,47 +131,6 @@ public class Maxine {
      */
     public static void main(String[] args) {
         new Maxine().run();
-
-        while (true) {
-            String answer = ask();
-            if (answer.equals("bye")) {
-                System.out.println("\nBye! I have been maxed out and am going to sleep. Hope to see you again soon!");
-                break;
-            } else if (answer.equals("list")) {
-                showList();
-            } else if (arr[0].equals("mark") || arr[0].equals("unmark")) {
-                changeMark();
-                FileWriting.refreshFile(list);
-            } else if (arr[0].equals("todo")) {
-                try {
-                    todo();
-                    FileWriting.refreshFile(list);
-                } catch (Exception e) {
-                    System.out.println("Please follow this format: todo [enter task]");
-                }
-            } else if (arr[0].equals("deadline")) {
-                try {
-                    deadline();
-                    FileWriting.refreshFile(list);
-                } catch (Exception e) {
-                    System.out.println("Please follow this format: deadline [enter task] /by [enter deadline]");
-                }
-            } else if (arr[0].equals("event")) {
-                try {
-                    event();
-                    FileWriting.refreshFile(list);
-                } catch (Exception e) {
-                    System.out.println("Please follow this format: event [enter event] /from [start date] /to [end date]");
-                }
-            } else if (arr[0].equals("delete")) {
-                delete();
-                FileWriting.refreshFile(list);
-            } else {
-                System.out.println("please type in a command starting with todo, deadline, event, mark, unmark or list");
-            }
-        }
-
-        scanner.close();
     }
     
 }
