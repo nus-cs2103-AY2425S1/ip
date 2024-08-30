@@ -1,5 +1,7 @@
 package dude;
 
+import java.time.LocalDateTime;
+
 import dude.exception.DudeDateTimeFormatException;
 import dude.exception.DudeException;
 import dude.exception.DudeInvalidArgumentException;
@@ -7,14 +9,11 @@ import dude.exception.DudeInvalidCommandException;
 import dude.exception.DudeNullDateTimeException;
 import dude.exception.DudeNullDescriptionException;
 import dude.exception.DudeNumberException;
-
 import dude.task.Deadline;
 import dude.task.Event;
 import dude.task.Task;
 import dude.task.TaskList;
 import dude.task.ToDo;
-
-import java.time.LocalDateTime;
 
 /**
  * Represents the main application class for the Dude chatbot system.
@@ -219,7 +218,7 @@ public class Dude {
      * @throws DudeException If an error occurs during processing.
      */
     public void delete(String taskDes) throws DudeException {
-        if(taskDes.isEmpty()){
+        if (taskDes.isEmpty()) {
             throw new DudeNullDescriptionException("delete");
         }
 
@@ -234,7 +233,7 @@ public class Dude {
      * @param s The input string representing a task number.
      * @return The integer value of the task index.
      * @throws DudeNumberException If the input string is not a valid number or if the number is out of the valid task
-     * index range.
+     *     index range.
      */
     public int checkAndConvertNumber(String s) throws DudeNumberException {
         int index;

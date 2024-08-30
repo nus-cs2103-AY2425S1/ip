@@ -8,7 +8,7 @@ public class DudeCorruptedDataException extends DudeException {
     /**
      * Constructs a DudeCorruptedDataException with no detail message.
      */
-    public DudeCorruptedDataException(){
+    public DudeCorruptedDataException() {
         super("Your data seems to be corrupted, corrupted data is ignored and will be deleted.");
     }
 }

@@ -20,7 +20,7 @@ public class ToDo extends Task {
      * @return A string representing the ToDo task's data for saving.
      */
     @Override
-    public String taskToStringData(){
+    public String taskToStringData() {
         return "T" + super.taskToStringData();
     }
 

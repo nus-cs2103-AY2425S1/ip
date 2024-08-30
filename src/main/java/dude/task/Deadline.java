@@ -27,7 +27,7 @@ public class Deadline extends Task {
      * @return A string representing the Deadline task's data for saving.
      */
     @Override
-    public String taskToStringData(){
+    public String taskToStringData() {
         return "D" + super.taskToStringData() + "|" + by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 

@@ -1,16 +1,16 @@
 package dude;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.time.LocalDateTime;
+
+import org.junit.jupiter.api.Test;
+
 import dude.exception.DudeDateTimeFormatException;
 import dude.exception.DudeException;
 import dude.exception.DudeInvalidCommandException;
 import dude.exception.DudeNullCommandException;
-
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ParserTest {
 
