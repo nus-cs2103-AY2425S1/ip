@@ -12,6 +12,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ListReader extends Reader {
+    /**
+     * Reads iteratively the entire list directory, and return
+     *
+     *
+     * @param
+     * @param
+     * @param
+     * @return
+     * @throws
+     */
     @Override
     public void readFile(String filePath, UiComponent ui) {
         ui.printDialogue("Generic readFile method called");

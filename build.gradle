@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.sigmaBot.Sigmabot")
+    mainClass.set("sigmabot.SigmaBot")
 }
 
 shadowJar {

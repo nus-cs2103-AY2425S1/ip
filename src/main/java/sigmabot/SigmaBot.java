@@ -6,6 +6,9 @@ public class SigmaBot {
         // Initialize the Dialogue object
         this.dialogue = Dialogue.defaultDialogue();
     }
+    /**
+     * Starts a new dialogue
+     **/
     public void start() {
         // Start the dialogue
         this.dialogue.run();

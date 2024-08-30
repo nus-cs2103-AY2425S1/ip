@@ -9,8 +9,13 @@ import java.io.IOException;
 import java.util.Map;
 import java.io.BufferedWriter;
 
-public class ListMapWriter {
-
+public class ListMapWriter extends Writer {
+    /**
+     * Writes a list of lists of tasks to static file(s).
+     * @param map Dialogue instance map of lists.
+     * @param directoryPath Directory path that files to be written in.
+     * @param ui Dialogue instance ui element.
+     */
     public void writeMapToFile(Map<String, Map<String, Task>> map, String directoryPath, UiComponent ui) {
         File directory = new File(directoryPath);
         if (!directory.exists()) {
@@ -32,5 +37,10 @@ public class ListMapWriter {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void write(String filePath, UiComponent ui) {
+        System.out.println("default write function, not to be called.");
     }
 }

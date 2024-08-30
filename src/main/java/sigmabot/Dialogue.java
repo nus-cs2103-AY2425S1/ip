@@ -21,7 +21,10 @@ public class Dialogue {
     public static Dialogue newNamedDialogue(String identifier) {
         return new Dialogue(identifier);
     }
-
+    /**
+     * Starts a dialogue session.
+     * This function uses Dialogue instance Ui elements to interact with users.
+     **/
     public void run() {
         Greeting.greet(ui); // Initial greeting to the user
         Command command;
