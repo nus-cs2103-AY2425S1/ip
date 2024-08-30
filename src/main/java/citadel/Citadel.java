@@ -23,13 +23,13 @@ import citadel.ui.TextUI;
 public class Citadel {
 
     /** The list of tasks managed by the application. */
-    public static TaskList items = new TaskList();
+    private static TaskList items = new TaskList();
 
     /** The storage system used to persist tasks between sessions. */
-    public static Storage db = new Storage("data/citadel");
+    private static final Storage db = new Storage("data/citadel");
 
     /** The user interface used to interact with the user. */
-    public static TextUI ui = new TextUI();
+    private static final TextUI ui = new TextUI();
 
     /**
      * Generates a response for the user's chat message.
