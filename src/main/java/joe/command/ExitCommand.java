@@ -6,6 +6,10 @@ import joe.Ui;
 import joe.task.TaskList;
 
 import java.io.IOException;
+
+/**
+ * Represents the command when the user exits the app with 'bye'.
+ */
 public class ExitCommand extends Command {
 
     @Override

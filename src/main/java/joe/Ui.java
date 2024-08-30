@@ -32,6 +32,10 @@ public class Ui {
         System.out.println("An error occurred while loading data file");
     }
 
+    /**
+     * Reads the input by the user on the cli.
+     * @return Raw string input by the user.
+     */
     public String readCommand() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
@@ -53,5 +57,10 @@ public class Ui {
             String msg = String.format("%d. %s", i + 1, task.toString());
             System.out.println("\t" + msg);
         }
+    }
+
+    public void printAddedTask(Task newTask, int size) {
+        System.out.println("\tGot it. I've added this task:\n\t  " + newTask);
+        System.out.printf("\tNow you have %d tasks in the list.%n", size);
     }
 }

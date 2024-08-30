@@ -1,12 +1,14 @@
 package joe.task;
 
-import joe.task.Task;
-
 import java.util.ArrayList;
 
+/**
+ * This class is used to represent the collection of tasks and
+ * provides methods to interact with it.
+ */
 public class TaskList {
     // contains the task list
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
@@ -47,15 +49,6 @@ public class TaskList {
         Task task = taskList.get(idx - 1);
         task.unmarkDone();
         System.out.printf("\tOK, I've marked this task as not done yet:\n\t  %s\n", task);
-    }
-
-    public void printTasks() {
-        // TODO can both to ui
-        for (int i = 0; i < this.taskList.size(); i++) {
-            Task task = this.taskList.get(i);
-            String msg = String.format("%d. %s", i + 1, task.toString());
-            System.out.println("\t" + msg);
-        }
     }
 
     public ArrayList<Task> find(String query) {
