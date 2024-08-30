@@ -19,7 +19,7 @@ public class FileManager {
     /**
      * Default path used to store tasks
      */
-    private static final String DEFAULT_PATH="~/../data/tasks.txt";
+    private static final String DEFAULT_PATH="./../data/tasks.txt";
 
     /**
      * Create a new FileManager with default path
@@ -42,17 +42,15 @@ public class FileManager {
         this.path = path;
         this.file = new File(path);
         try {
-            boolean dirExists = file.getParentFile().mkdirs();
-            if(!dirExists){
-                //TODO: log error
-                System.out.println("Error creating directories");
-                return;
+            boolean isDirCreated = file.getParentFile().mkdirs();
+            if(isDirCreated){
+                //TODO: log info
+                System.out.println("new dir created");
             }
             boolean fileExists = file.createNewFile();
             if(!fileExists){
                 //TODO: log error
                 System.out.println("Error creating file");
-                return;
             }
 
 
@@ -77,5 +75,10 @@ public class FileManager {
                 return out.toString();
             }
         };
+    }
+
+    public static void main(String[] args) {
+        FileManager fileManager = new FileManager();
+        System.out.println(fileManager.getTasks());
     }
 }
