@@ -12,9 +12,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles loading and saving tasks to and from a file in the XBot application.
+ * It manages file operations such as reading existing tasks, saving new tasks, and creating the necessary files and directories.
+ */
 public class Storage {
     private static final Path DATA_PATH = Paths.get("data", "XBot.txt");
 
+    /**
+     * Loads tasks from the data file into the TaskList.
+     * If the file does not exist, it will be created along with the necessary directories.
+     *
+     * @throws IOException If an I/O error occurs during the loading process.
+     */
     public void loadTask() throws IOException {
         TaskList list = new TaskList();
         if (Files.exists(DATA_PATH)) {
@@ -32,10 +42,16 @@ public class Storage {
                 throw new IOException("File not found", e);
             }
         } else {
-            addFile();
+            createFile();
         }
     }
 
+    /**
+     * Save tasks from the TaskList into the data file.
+     * Each task is saved as a string representation suitable for file storage.
+     *
+     * @param taskList The TaskList containing tasks to be saved.
+     */
     public void saveTask(TaskList taskList) {
         try (FileWriter writer = new FileWriter(DATA_PATH.toFile())) {
             for (Task task : taskList.getAllTask()) {
@@ -47,8 +63,11 @@ public class Storage {
         }
     }
 
-
-    public void addFile() {
+    /**
+     * Creates the necessary file and directory for storing tasks if they do not already exist.
+     * The directory is created at './data', and the file is named 'XBot.txt'.
+     */
+    public void createFile() {
         Path directoryPath = Paths.get("./data");
         Path filePath = directoryPath.resolve("XBot.txt");
 
@@ -67,6 +86,4 @@ public class Storage {
             e.printStackTrace();
         }
     }
-
-
 }
