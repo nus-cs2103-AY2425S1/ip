@@ -27,4 +27,9 @@ public class MarkCommand extends Command{
     public boolean isExit() {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "MarkCommand: " + isDone;
+    }
 }

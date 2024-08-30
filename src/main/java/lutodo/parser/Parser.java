@@ -34,12 +34,8 @@ public class Parser {
             if(taskType.equalsIgnoreCase("bye")) {
                 return new ExitCommand();
             } else if (taskType.equalsIgnoreCase("delete")) {
-                try {
-                    int taskIndex = parseInt(divideMessage(fullCommand)[1]) - 1;
-                    return new DeleteCommand(taskIndex);
-                } catch(IndexOutOfBoundsException e) {
-                    System.out.println("The task you want to delete is not in task list, please try again.");
-                }
+                int taskIndex = parseInt(divideMessage(fullCommand)[1]) - 1;
+                return new DeleteCommand(taskIndex);
             } else if (taskType.equalsIgnoreCase("list")) {
                 return new ShowListCommand();
             } else if (taskType.equalsIgnoreCase("mark")) {
@@ -56,6 +52,5 @@ public class Parser {
                 return new UnknownCommand(fullCommand);
             }
         }
-        return new UnknownCommand(fullCommand);
     }
 }
