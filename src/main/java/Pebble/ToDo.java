@@ -1,4 +1,4 @@
-package Pebble;
+package pebble;
 
 public class ToDo extends Task {
     public ToDo (String description) {

@@ -1,4 +1,4 @@
-package Pebble;
+package pebble;
 
 public class invalidTask extends Task{
     public invalidTask() {

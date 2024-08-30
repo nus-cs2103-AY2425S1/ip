@@ -1,4 +1,4 @@
-package Pebble;
+package pebble;
 
 public class Command {
     private CommandType commandType;

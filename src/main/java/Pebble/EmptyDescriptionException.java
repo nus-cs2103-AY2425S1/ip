@@ -1,4 +1,4 @@
-package Pebble;
+package pebble;
 
 // Custom exception for empty descriptions
 class EmptyDescriptionException extends Exception {

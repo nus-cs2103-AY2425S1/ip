@@ -1,4 +1,4 @@
-package Pebble;
+package pebble;
 
 import java.io.File;
 import java.io.FileWriter;

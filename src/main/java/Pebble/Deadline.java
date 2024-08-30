@@ -1,4 +1,4 @@
-package Pebble;
+package pebble;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;

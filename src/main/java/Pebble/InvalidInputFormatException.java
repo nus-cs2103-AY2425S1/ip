@@ -1,4 +1,4 @@
-package Pebble;
+package pebble;
 
 // Custom exception for invalid input format
 class InvalidInputFormatException extends Exception {

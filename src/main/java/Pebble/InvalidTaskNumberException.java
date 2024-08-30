@@ -1,4 +1,4 @@
-package Pebble;
+package pebble;
 
 public class InvalidTaskNumberException extends Exception {
         public InvalidTaskNumberException() {

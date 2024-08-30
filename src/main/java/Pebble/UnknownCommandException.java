@@ -1,4 +1,4 @@
-package Pebble;
+package pebble;
 
 // Custom exception for unknown commands
 class UnknownCommandException extends Exception {

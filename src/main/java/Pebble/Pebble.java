@@ -1,4 +1,4 @@
-package Pebble;
+package pebble;
 
 import java.io.IOException;
 import java.util.Scanner;
