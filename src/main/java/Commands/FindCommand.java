@@ -7,7 +7,24 @@ import WindeBot.Ui;
 import Exceptions.EmptyDescriptionException;
 import Exceptions.TooManyParametersException;
 
+/**
+ * The FindCommand class represents a command to find tasks containing a specific keyword.
+ * This command searches through the list of tasks and displays any tasks that match the keyword.
+ */
+
 public class FindCommand extends Command {
+
+    /**
+     * Executes the FindCommand, searching for tasks that contain the specified keyword.
+     *
+     * @param input The user input string containing the keyword to search for.
+     * @param reminder The Reminder object that manages the task list.
+     * @param ui The Ui object used to interact with the user.
+     * @return true if the command was executed successfully.
+     * @throws EmptyDescriptionException If no keyword is provided in the input.
+     * @throws TooManyParametersException If too many parameters are provided in the input.
+     */
+
     public boolean execute(String input, Reminder reminder, Ui ui) throws EmptyDescriptionException, TooManyParametersException {
         String[] command = input.split(" ", 2);
         if (command.length == 2) {

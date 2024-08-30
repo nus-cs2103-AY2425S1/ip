@@ -9,7 +9,23 @@ import Exceptions.EmptyDescriptionException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The AddEvent class represents a command to add an event task to the reminder list.
+ * This command parses the input to extract the event description, start time, and end time.
+ * If the input is invalid or incomplete, an exception is thrown.
+ */
+
 public class AddEvent extends Command {
+
+    /**
+     * Executes the AddEvent command, adding a new event task to the reminder.
+     *
+     * @param input The user input string containing the event description, start time, and end time.
+     * @param reminder The Reminder object that manages the task list.
+     * @param ui The Ui object used to interact with the user.
+     * @return true if the command was executed successfully.
+     * @throws EmptyDescriptionException If the input is incomplete or incorrectly formatted.
+     */
 
     public boolean execute(String input, Reminder reminder, Ui ui) throws EmptyDescriptionException {
         String[] command = input.split(" ", 2);
