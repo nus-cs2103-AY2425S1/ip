@@ -1,4 +1,4 @@
-package BobChatBot.Tasks;
+package bob.tasks;
 
 public class ToDos extends Task{
 

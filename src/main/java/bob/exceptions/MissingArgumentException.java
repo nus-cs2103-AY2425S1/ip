@@ -1,4 +1,4 @@
-package BobChatBot.Exceptions;
+package bob.exceptions;
 
 public class MissingArgumentException extends Exception {
 

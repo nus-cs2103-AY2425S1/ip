@@ -1,8 +1,8 @@
-package BobChatBot.Command;
+package bob.command;
 
-import BobChatBot.Tasks.Task;
-import BobChatBot.Tasks.TaskList;
-import BobChatBot.UI;
+import bob.tasks.Task;
+import bob.tasks.TaskList;
+import bob.UI;
 
 public class AddTaskCommand extends Command {
 

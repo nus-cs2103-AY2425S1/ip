@@ -1,7 +1,7 @@
-package BobChatBot;
+package bob;
 
-import BobChatBot.Tasks.Task;
-import BobChatBot.Tasks.TaskList;
+import bob.tasks.Task;
+import bob.tasks.TaskList;
 
 import java.util.Scanner;
 

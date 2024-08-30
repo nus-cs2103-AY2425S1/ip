@@ -1,7 +1,7 @@
-package BobChatBot.Command;
+package bob.command;
 
-import BobChatBot.Tasks.TaskList;
-import BobChatBot.UI;
+import bob.tasks.TaskList;
+import bob.UI;
 public class MarkCommand extends Command{
 
     private final int index;
