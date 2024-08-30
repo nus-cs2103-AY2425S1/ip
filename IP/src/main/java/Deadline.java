@@ -8,4 +8,17 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.duedate + ")";
     }
+
+    @Override
+    public String toParseableString() {
+        String s = "d,";
+        if (this.isCompleted()) {
+            s += "m,";
+        }
+        else {
+            s += "u,";
+        }
+        s += this.getName() + "," + this.duedate;
+        return s;
+    }
 }

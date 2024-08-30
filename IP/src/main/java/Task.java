@@ -24,4 +24,16 @@ public class Task {
         }
         return box + " " + this.name;
     }
+
+    public boolean isCompleted() {
+        return this.completed;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String toParseableString() {
+        return "hello";
+    }
 }

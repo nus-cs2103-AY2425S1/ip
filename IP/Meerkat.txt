@@ -1,3 +1,5 @@
-[T][X] eat
-[T][X] food
-[T][X] stop
+t,u,buy 1
+t,u,buy 1
+t,u,buy 3
+d,u,buy apples,tomorrow
+t,u,buy 5

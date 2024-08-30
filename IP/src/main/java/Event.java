@@ -10,4 +10,17 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
     }
+
+    @Override
+    public String toParseableString() {
+        String s = "e,";
+        if (this.isCompleted()) {
+            s += "m,";
+        }
+        else {
+            s += "u,";
+        }
+        s += this.getName() + "," + this.start + "," + this.end;
+        return s;
+    }
 }
