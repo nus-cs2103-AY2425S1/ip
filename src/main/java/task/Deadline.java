@@ -8,12 +8,25 @@ import java.util.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Deadline class represents a task with a deadline date.
+ * It extends the Task class.
+ */
 public class Deadline extends Task{
     protected LocalDate dueTime;
+
+    /**
+     * Constructs a Deadline object with an empty description and a type of "D".
+     */
     public Deadline() {
         super("", "D");
     }
 
+    /**
+     * Converts user input into a Deadline task.
+     *
+     * @param slicedStr The array of strings representing the user input.
+     */
     public void convertStringToTask(String[] slicedStr) {
         String[] task = Arrays.copyOfRange(slicedStr, 1, slicedStr.length);
         String deadlineTaskDetail = String.join(" ", task);
@@ -22,12 +35,24 @@ public class Deadline extends Task{
         this.dueTime = parseDate(taskParts[1]);
     }
 
+    /**
+     * Converts saved data into a Deadline task.
+     *
+     * @param dataArr The array of strings representing the saved data.
+     */
     public void convertSavedDataToTask(String[] dataArr) {
         this.setMarkStatus(dataArr[1].equals("1"));
         this.description = dataArr[2];
         this.dueTime = parseDate(dataArr[3]);
     }
 
+    /**
+     * Parses a date string into a LocalDate object.
+     *
+     * @param dateStr The date string to be parsed.
+     * @return The parsed LocalDate object.
+     * @throws IllegalArgumentException if the date string cannot be parsed.
+     */
     public LocalDate parseDate(String dateStr) {
         List<DateTimeFormatter> formatters = Arrays.asList(
             DateTimeFormatter.ofPattern("d MMM yyyy"),
