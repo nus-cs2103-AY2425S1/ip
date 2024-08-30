@@ -42,7 +42,7 @@ public class LuToDo {
     }
 
     public static void main(String[] args) {
-        new LuToDo("docs/taskListFile.txt").run();
+        new LuToDo("taskListFile.txt").run();
     }
 
 }
