@@ -105,19 +105,7 @@ public class Ui {
         System.out.println("Here are the tasks in your list:");
     }
 
-    public void showMatchingMessage() {
-        System.out.println("Here are the matching tasks in your list:");
-    }
-
     /**
-     * Reads a command from the user.
-     * <p>
-     * Reads a line of input from the command line.
-     * </p>
-     *
-     * @return The line of input entered by the user.
-     */
-=======
      * Displays a message indicating that the following tasks in the list match the user's search criteria.
      * This method is typically called when a search or filter operation is performed, and matching tasks
      * are about to be listed.
@@ -127,8 +115,14 @@ public class Ui {
     }
 
 
-
->>>>>>> branch-Level-9
+    /**
+     * Reads a command from the user.
+     * <p>
+     * Reads a line of input from the command line.
+     * </p>
+     *
+     * @return The line of input entered by the user.
+     */
     public String readCommand() {
         return scanner.nextLine();
     }
