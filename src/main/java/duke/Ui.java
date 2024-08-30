@@ -8,9 +8,6 @@ import java.util.ArrayList;
  */
 public class Ui {
 
-    /**
-     * Constructs a Ui object.
-     */
     public Ui() {
     }
 
