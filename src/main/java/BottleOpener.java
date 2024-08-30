@@ -6,6 +6,27 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * BottleOpener is a command-line chatbot that helps users manage tasks.
+ * <p>
+ * It supports ToDos, Deadlines, and Events, and allows users to
+ * add, list, mark, unmark, and delete tasks. The tasks are saved in a file and can be
+ * loaded back into chatbot.
+ * </p>
+ *
+ * <p>Command Syntax:</p>
+ * <ul>
+ *     <li>bye - Exits the application</li>
+ *     <li>list - Lists all tasks</li>
+ *     <li>mark [index] - Marks a task as done</li>
+ *     <li>unmark [index] - Unmarks a task</li>
+ *     <li>delete [index] - Deletes a task</li>
+ *     <li>todo [description] - Adds a ToDo task</li>
+ *     <li>deadline [description] /by [time] - Adds a Deadline task</li>
+ *     <li>event [description] /from [start] /to [end] - Adds an Event task</li>
+ * </ul>
+ *
+ */
 public class BottleOpener {
     public static void main(String[] args) {
         String spacer = "-----------------------------------\n";
@@ -24,25 +45,26 @@ public class BottleOpener {
 
         try {
             if (Files.exists(path)) {
-                String content = Files.readString(path);
-                String[] lines = content.split("\n");
-                for (String line : lines) {
-                    String[] word = line.split("\\|");
-                    String type = word[0];
-                    boolean status = word[1].contains("X");
+                String content = Files.readString(path).trim();
+                if (!content.isEmpty()) {
+                    String[] lines = content.split("\n");
+                    for (String line : lines) {
+                        String[] word = line.split("\\|");
+                        String type = word[0];
+                        boolean status = word[1].contains("X");
 
-                    if (type.equals("T")) {
-                        Task newTask = new ToDo(word[2], status);
-                        tasks.add(newTask);
-                    } else if (type.equals("D")) {
-                        Task newTask = new Deadline(word[2], status, word[3]);
-                        tasks.add(newTask);
-                    } else if (type.equals("E")) {
-                        Task newTask = new Event(word[2], status, word[3], word[4]);
-                        tasks.add(newTask);
+                        if (type.equals("T")) {
+                            Task newTask = new ToDo(word[2], status);
+                            tasks.add(newTask);
+                        } else if (type.equals("D")) {
+                            Task newTask = new Deadline(word[2], status, word[3]);
+                            tasks.add(newTask);
+                        } else if (type.equals("E")) {
+                            Task newTask = new Event(word[2], status, word[3], word[4]);
+                            tasks.add(newTask);
+                        }
+                        index++;
                     }
-                    index++;
-
                 }
             } else {
                 Files.createDirectories(path.getParent());
@@ -137,42 +159,42 @@ public class BottleOpener {
                     try {
                         String des = userInput[1];
                         switch (instruction) {
-                            case "todo":
-                                Task newTodo = new ToDo(des);
-                                tasks.add(index, newTodo);
+                        case "todo":
+                            Task newTodo = new ToDo(des);
+                            tasks.add(index, newTodo);
+                            index++;
+                            System.out.println(spacer + String.format("added: %s%n", newTodo) + spacer);
+                            break;
+                        case "deadline":
+                            try {
+                                String[] activity = des.split(" /by ", 2);
+                                String action = activity[0].trim();
+                                String due = activity[1].trim();
+                                Task newDeadline = new Deadline(action, due);
+                                tasks.add(index, newDeadline);
                                 index++;
-                                System.out.println(spacer + String.format("added: %s%n", newTodo) + spacer);
-                                break;
-                            case "deadline":
-                                try {
-                                    String[] activity = des.split(" /", 2);
-                                    String action = activity[0];
-                                    String due = activity[1];
-                                    Task newDeadline = new Deadline(action, due);
-                                    tasks.add(index, newDeadline);
-                                    index++;
-                                    System.out.println(spacer + String.format("added: %s%n", newDeadline) + spacer);
-                                } catch (ArrayIndexOutOfBoundsException e) {
-                                    System.out.println(spacer + "Please provide a deadline!\n" + spacer);
-                                }
-                                break;
-                            case "event":
-                                try {
-                                    String[] activity = des.split(" /", 3);
-                                    String action = activity[0];
-                                    String start = activity[1];
-                                    String end = activity[2];
-                                    Task newEvent = new Event(action, start, end);
-                                    tasks.add(index, newEvent);
-                                    index++;
-                                    System.out.println(spacer + String.format("added: %s%n", newEvent) + spacer);
-                                } catch (ArrayIndexOutOfBoundsException e) {
-                                    System.out.println(spacer + "Please provide start and end time!\n" + spacer);
-                                }
-                                break;
-                            default:
-                                System.out.println(spacer + "Invalid command!\n" + spacer);
-                                break;
+                                System.out.println(spacer + String.format("added: %s%n", newDeadline) + spacer);
+                            } catch (ArrayIndexOutOfBoundsException e) {
+                                System.out.println(spacer + "Please use /by to provide a deadline!\n" + spacer);
+                            }
+                            break;
+                        case "event":
+                            try {
+                                String[] activity = des.split(" /from | /to ", 3);
+                                String action = activity[0].trim();
+                                String start = activity[1].trim();
+                                String end = activity[2].trim();
+                                Task newEvent = new Event(action, start, end);
+                                tasks.add(index, newEvent);
+                                index++;
+                                System.out.println(spacer + String.format("added: %s%n", newEvent) + spacer);
+                            } catch (ArrayIndexOutOfBoundsException e) {
+                                System.out.println(spacer + "Please use /from and /to for start and end time!\n" + spacer);
+                            }
+                            break;
+                        default:
+                            System.out.println(spacer + "Invalid command!\n" + spacer);
+                            break;
                         }
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println(spacer + "Please add a description!\n" + spacer);
