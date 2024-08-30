@@ -37,5 +37,5 @@ public class Command {
         return task;
     }
 
-    public Task getTask() {return task; }
+    public Task getTask() { return task; }
 }
