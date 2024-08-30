@@ -7,7 +7,7 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) throws LightException {
         super(description);
-        this.by = Duke.dateTimeParser(by, DateTimeFormatter.ofPattern("[d/MM/yyyy HHmm][MMM d yyyy HHmm]"));
+        this.by = Parser.dateTimeParser(by, DateTimeFormatter.ofPattern("[d/MM/yyyy HHmm][MMM d yyyy HHmm]"));
     }
 
     @Override

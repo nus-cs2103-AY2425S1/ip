@@ -4,6 +4,8 @@ public class LightException extends Exception{
         super(message);
         this.message = message;
     }
+
+
     @Override
     public String toString() {
         return this.message;

@@ -8,8 +8,8 @@ public class Event extends Task {
 
     public Event(String description, String start, String end) throws LightException {
         super(description);
-        this.start = Duke.dateTimeParser(start, DateTimeFormatter.ofPattern("[d/MM/yyyy HHmm][MMM d yyyy HHmm]"));
-        this.end = Duke.dateTimeParser(end, DateTimeFormatter.ofPattern("[d/MM/yyyy HHmm][MMM d yyyy HHmm]"));
+        this.start = Parser.dateTimeParser(start, DateTimeFormatter.ofPattern("[d/MM/yyyy HHmm][MMM d yyyy HHmm]"));
+        this.end = Parser.dateTimeParser(end, DateTimeFormatter.ofPattern("[d/MM/yyyy HHmm][MMM d yyyy HHmm]"));
     }
 
     @Override
