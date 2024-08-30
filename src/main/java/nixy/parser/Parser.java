@@ -1,4 +1,4 @@
-package nixy;
+package nixy.parse;
 
 import java.time.LocalDate;
 import nixy.exceptions.NixyException;
@@ -6,25 +6,20 @@ import nixy.task.DeadlineTask;
 import nixy.task.EventTask;
 import nixy.task.Task;
 import nixy.task.TodoTask;
+import nixy.Command;
 
 public class Parser {
-    private Command command;
-    private int taskNumber;
-    private Task task;
-
-    public Parser(String input) {
+    public static Parsed parse(String input) {
+        Task task;
         input = input.trim();
         String[] tokens = input.split(" ", 2);
         tokens[0] = tokens[0].trim();
         switch (tokens[0]) {
         case "bye":
-            command = Command.BYE;
-            break;
+            return new Parsed(Command.BYE);
         case "list":
-            command = Command.LIST;
-            break;
+            return new Parsed(Command.LIST);
         case "mark":
-            command = Command.MARK;
             if (tokens.length < 2) {
                 throw new NixyException("BLAHH!!! The task number to mark as done cannot be empty.");
             }
@@ -33,13 +28,11 @@ public class Parser {
                 if (parsedInt < 1) {
                     throw new NixyException("BLAHH!!! The task number to mark as done must be a positive integer.");
                 }
-                taskNumber = parsedInt;
+                return new Parsed(Command.MARK, parsedInt);
             } catch (NumberFormatException e) {
                 throw new NixyException("BLAHH!!! The task number to mark as done must be an integer.");
             }
-            break;
         case "unmark":
-            command = Command.UNMARK;
             if (tokens.length < 2) {
                 throw new NixyException("BLAHH!!! The task number to mark as undone cannot be empty.");
             }
@@ -48,13 +41,11 @@ public class Parser {
                 if (parsedInt < 1) {
                     throw new NixyException("BLAHH!!! The task number to mark as undone must be a positive integer.");
                 }
-                taskNumber = parsedInt;
+                return new Parsed(Command.UNMARK, parsedInt);
             } catch (NumberFormatException e) {
                 throw new NixyException("BLAHH!!! The task number to mark as undone must be an integer.");
             }
-            break;
         case "delete":
-            command = Command.DELETE;
             if (tokens.length < 2) {
                 throw new NixyException("BLAHH!!! The task number to delete cannot be empty.");
             }
@@ -63,20 +54,17 @@ public class Parser {
                 if (parsedInt < 1) {
                     throw new NixyException("BLAHH!!! The task number to delete must be a positive integer.");
                 }
-                taskNumber = parsedInt;
+                return new Parsed(Command.DELETE, parsedInt);
             } catch (NumberFormatException e) {
                 throw new NixyException("BLAHH!!! The task number to delete must be an integer.");
             }
-            break;
         case "todo":
-            command = Command.TODO;
             if (tokens.length < 2) {
                 throw new NixyException("BLAHH!!! The task description cannot be empty.");
             }
             task = new TodoTask(tokens[1].trim());
-            break;
+            return new Parsed(Command.TODO, task);
         case "deadline":
-            command = Command.DEADLINE;
             if (tokens.length < 2) {
                 throw new NixyException("BLAHH!!! The task description cannot be empty.");
             }
@@ -87,9 +75,8 @@ public class Parser {
             }
             task = new DeadlineTask(deadlineTokens[0].trim(),
                 LocalDate.parse(deadlineTokens[1].trim()));
-            break;
+            return new Parsed(Command.DEADLINE, task);
         case "event":
-            command = Command.EVENT;
             if (tokens.length < 2) {
                 throw new NixyException("BLAHH!!! The task description cannot be empty.");
             }
@@ -108,42 +95,9 @@ public class Parser {
                 LocalDate.parse(eventTimeTokens[0].trim()),
                 LocalDate.parse(eventTimeTokens[1].trim())
             );
-            break;
+            return new Parsed(Command.EVENT, task);
         default:
-            command = Command.INVALID;
-            break;
+            throw new NixyException("BLAHH!!! I'm sorry, but I don't know what that means.");
         }
-    }
-
-    /**
-     * Returns the command from the user input.
-     * @return The command from the user input.
-     */
-    public Command getCommand() {
-        return command;
-    }
-
-    /**
-     * Returns the task number from the user input.
-     * Throws if task number does not exist for the command.
-     * @return The task number from the user input.
-     */
-    public int getTaskNumber() {
-        if (command != Command.MARK && command != Command.UNMARK && command != Command.DELETE) {
-            throw new NixyException("BLAHH!!! The task number does not exist for this command.");
-        }
-        return taskNumber;
-    }
-
-    /**
-     * Returns the task from the user input.
-     * Throws if task does not exist for the command.
-     * @return The task from the user input.
-     */
-    public Task getTask() {
-        if (command != Command.TODO && command != Command.DEADLINE && command != Command.EVENT) {
-            throw new NixyException("BLAHH!!! The task does not exist for this command.");
-        }
-        return task;
     }
 }
