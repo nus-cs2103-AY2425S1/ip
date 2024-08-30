@@ -110,6 +110,12 @@ public class TaskList {
         return task.toString();
     }
 
+    /**
+     * Returns a list of tasks that contain the specified keyword.
+     *
+     * @param keyword The keyword to search for in the task descriptions.
+     * @return A list of tasks that contain the specified keyword.
+     */
     public TaskList findTasks(String keyword) {
         List<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
