@@ -1,3 +1,4 @@
+package gale;
 import java.io.*;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
