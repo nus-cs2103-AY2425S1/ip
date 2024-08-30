@@ -1,3 +1,7 @@
+package myapp.task;
+
+import myapp.exception.RubyException;
+
 import java.util.ArrayList;
 import java.util.List;
 

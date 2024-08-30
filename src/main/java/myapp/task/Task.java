@@ -1,3 +1,5 @@
+package myapp.task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -19,12 +21,12 @@ public class Task {
         isDone = false;
     }
 
-    public boolean isDone() {
-        return isDone;
-    }
-
     public String getDescription() {
         return description;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
     }
 
     @Override
