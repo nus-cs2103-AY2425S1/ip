@@ -11,6 +11,7 @@ public class Ui {
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
+
     public void greeting() {
         System.out.println(DIVIDER + GREETING_MESSAGE + DIVIDER);
     }
@@ -36,5 +37,9 @@ public class Ui {
     }
     public String readUserInput() {
         return this.scanner.nextLine();
+    }
+
+    public boolean isActive() {
+        return this.scanner.hasNextLine();
     }
 }
