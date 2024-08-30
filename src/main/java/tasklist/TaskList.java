@@ -34,6 +34,33 @@ public class TaskList {
         return this.botMemory;
     }
 
+    public void findTerm(String searchTerm) {
+        ArrayList<Task> resultArray = new ArrayList<>();
+        if (this.botMemory.isEmpty()) {
+            Ui.printLine();
+            System.out.println("There are no items in the list at the moment, enter '/help' to find out how to enter them.");
+            Ui.printLine();
+        } else {
+            for (int i = 0; i < this.botMemory.size(); i++) {
+                if (this.botMemory.get(i).description.contains(searchTerm)) {
+                    resultArray.add(this.botMemory.get(i));
+                }
+            }
+        }
+
+        if (resultArray.size() > 0) {
+            Ui.printLine();
+            System.out.println("Here are the matching tasks in your list: ");
+            for (int j = 0; j < resultArray.size(); j++) {
+                System.out.println((j + 1) + ". " + resultArray.get(j).toString());
+            }
+            Ui.printLine();
+        } else {
+            System.out.println("No matching tasks found.");
+        }
+
+
+    }
 
     /**
      * This function toggles the boolean value corresponding to whether the task is finished or not.
