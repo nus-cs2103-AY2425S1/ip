@@ -3,6 +3,7 @@ package sumode.task;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import sumode.util.Parser;
@@ -52,5 +53,28 @@ public class DueFromToFormat {
         case LOCAL_DATE_TIME -> this.localDateTime.format(DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm:ss"));
         case STRING -> this.str;
         };
+    }
+
+    /**
+     * Compares 2 DueFromTo
+     *
+     * @return
+     */
+    public static boolean isValidRange(DueFromToFormat start, DueFromToFormat end) {
+        if (start.type == DueFromToType.STRING || end.type == DueFromToType.STRING) {
+            return true;
+        } else if (start.type == DueFromToType.LOCAL_DATE) {
+            if (end.type == DueFromToType.LOCAL_DATE) {
+                return !start.localDate.isAfter(end.localDate);
+            } else {
+                return !start.localDate.atStartOfDay().isAfter(end.localDateTime);
+            }
+        } else { // start.type is Local_Date_Time
+            if (end.type == DueFromToType.LOCAL_DATE_TIME) {
+                return !start.localDateTime.isAfter(end.localDateTime);
+            } else {
+                return !start.localDateTime.isAfter(end.localDate.atTime(LocalTime.MAX));
+            }
+        }
     }
 }

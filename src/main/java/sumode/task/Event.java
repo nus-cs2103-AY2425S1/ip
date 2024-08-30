@@ -1,5 +1,6 @@
 package sumode.task;
 
+import sumode.exception.EndBeforeStartException;
 /**
  * A class for tasks with specific timeframe.
  */
@@ -15,12 +16,13 @@ public class Event extends Task {
      * @param start Starting date of task.
      * @param end Ending date of task
      */
-    public Event(String name, String start, String end) {
-
+    public Event(String name, String start, String end) throws EndBeforeStartException {
         super(name);
         this.start = new DueFromToFormat(start);
         this.end = new DueFromToFormat(end);
-
+        if (!DueFromToFormat.isValidRange(this.start, this.end)) {
+            throw new EndBeforeStartException();
+        }
     }
 
     @Override
