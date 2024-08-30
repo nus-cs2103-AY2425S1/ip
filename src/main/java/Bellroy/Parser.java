@@ -1,3 +1,5 @@
+package Bellroy;
+
 import java.io.IOException;
 
 public class Parser {
@@ -33,7 +35,7 @@ public class Parser {
                     ui.taskAddedMessage(todo, taskList.size());
                     storage.save(taskList);
                     break;
-                case("deadline"):
+                case("Bellroy.deadline"):
                     String dueDate = input[1].split(" ", 2)[1].trim();
                     Task deadline = new deadline(description, dueDate);
                     taskList.addTask(deadline);

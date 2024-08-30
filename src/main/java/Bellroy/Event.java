@@ -1,4 +1,6 @@
-public class Event extends Task{
+package Bellroy;
+
+public class Event extends Task {
 
     protected String startTime;
     protected String endTime;

@@ -1,7 +1,9 @@
+package Bellroy;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class deadline extends Task{
+public class deadline extends Task {
     protected LocalDateTime dueDate;
     public deadline(String description, String dueDate){
         super("D", description);
