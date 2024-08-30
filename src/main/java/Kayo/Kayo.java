@@ -66,14 +66,14 @@ public class Kayo {
                 Event event = parser.addEvent(inputString);
                 listTasks.add(event);
                 ui.addEvent(event);
-                ui.showTotalTasks(taskList);
+                ui.showTotalTasks(listTasks);
             } else if(splitList[0].equals("delete")) {
                 int index = Integer.parseInt(splitList[1])-1;
                 Task taskToDelete = listTasks.get(index);
                 listTasks.remove(index);
                 ui.deleteTask(taskToDelete);
             } else if(splitList[0].equals("find")) {
-                List<Task> filteredList = taskList.stream()
+                List<Task> filteredList = listTasks.stream()
                                   .filter(c -> c.getTask().contains(splitList[1]))
                                   .collect(Collectors.toList());
                 ui.find(filteredList);
