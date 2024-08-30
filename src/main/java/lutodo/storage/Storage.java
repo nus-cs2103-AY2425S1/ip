@@ -15,13 +15,26 @@ import lutodo.tasks.EventTask;
 import lutodo.tasks.DeadlineTask;
 import lutodo.tasks.TodoTask;
 
+/**
+ * Represents the tool to manage storage of the task list.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage object with file path.
+     *
+     * @param filePath Represents the file path in which the task list is stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the task list from the file path.
+     *
+     * @return An ArrayList of Tasks containing the tasks.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> toDo = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
@@ -64,6 +77,11 @@ public class Storage {
         return toDo;
     }
 
+    /**
+     * Saves the task list to the file int the file path.
+     *
+     * @param toDo The TaskList to be saved.
+     */
     public void save(TaskList toDo) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);

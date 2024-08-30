@@ -10,18 +10,38 @@ import lutodo.commands.MarkCommand;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * Represents the tool to parse the message sent by users to the commands.
+ */
 public class Parser {
 
     private String command;
 
+    /**
+     * Constructs a Parser object with the message user sends.
+     *
+     * @param command The message user sends.
+     */
     public Parser(String command) {
         this.command = command;
     }
 
+    /**
+     * Divides the message into words.
+     *
+     * @param message The message to be divided.
+     * @return The array of words in the message.
+     */
     public static String[] divideMessage(String message) {
         return message.trim().split("\\s+");
     }
 
+    /**
+     * Splits the task type from the whole line of message. Other information is in the other string.
+     *
+     * @param message The message to be divided.
+     * @return The array containing the task type and other information.
+     */
     public static String[] splitTaskInfo(String message) {
         String trimmedMessage = message.trim();
         String[] taskDescription = trimmedMessage.split("\\s+", 2);
