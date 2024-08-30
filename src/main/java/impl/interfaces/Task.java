@@ -13,6 +13,7 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public String getDescription(){return this.description;}
     @Override
     public String toString(){
         return "[" + this.getStatusIcon() + "] " + this.description;

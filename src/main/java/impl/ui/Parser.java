@@ -19,6 +19,7 @@ public class Parser {
         Mark,
         Unmark,
         Delete,
+        Find,
         Error,
         Unknown
     }
@@ -57,6 +58,9 @@ public class Parser {
                 break;
             case Delete:
                 handleDelete(in);
+                break;
+            case Find:
+                handleFind(in);
                 break;
             case Error:
                 System.out.println("Error! Please try again :(");
@@ -125,6 +129,18 @@ public class Parser {
         System.out.println(text);
         list.remove(i);
     }
+    private void handleFind(String in){
+        String find = in.split(" ",2)[1];
+        String text;
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getDescription().toLowerCase().contains(find.toLowerCase())){
+                // The description contains what we are finding
+                text = (i+1) + "." + list.get(i).toString();
+                System.out.println(text);
+            }
+        }
+    }
+
 
     public static Command checkCommand(String in, int size) throws InvalidCommandException{
         String test = in.toLowerCase().split(" ")[0];
@@ -149,6 +165,8 @@ public class Parser {
             case "delete":
                 handleIntInput(in,size);
                 return Command.Delete;
+            case "find":
+                return Command.Find;
             default:
                 return Command.Unknown;
         }
