@@ -64,6 +64,10 @@ public class Deadline extends Task {
         return new Deadline(name, description, byTime);
     }
 
+    public LocalDate getByTime() {
+        return this.byTime;
+    }
+
     /**
      * Returns a string representation of the {@code Deadline} task.
      * The format includes the type of task (Deadline) and the information about its completion status, name, description, and deadline date.
