@@ -1,19 +1,13 @@
 package chatbaby;
 
-import chatbaby.Command;
-import chatbaby.Storage;
-import chatbaby.Task;
-import chatbaby.TaskType;
-import chatbaby.TaskList;
-import chatbaby.Ui;
-import chatbaby.Parser;
-import chatbaby.ChatBabyException;
-import chatbaby.Deadline;
-import chatbaby.Event;
-import chatbaby.ToDo;
 import java.io.File;
 import java.util.Locale;
 
+/**
+ * Main class for the ChatBaby chatbot application.
+ * Handles the initialization of the application, command execution loop,
+ * and saving/loading of tasks.
+ */
 public class ChatBaby {
     private static final String FILE_PATH = "." + File.separator +
             "data" + File.separator + "chatBaby.txt";
@@ -21,6 +15,10 @@ public class ChatBaby {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a ChatBaby instance and initializes the storage, UI, and task list.
+     * Loads tasks from the storage file, or creates a new empty task list if the file cannot be loaded.
+     */
     public ChatBaby() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
@@ -32,6 +30,10 @@ public class ChatBaby {
         }
     }
 
+    /**
+     * Starts the main execution loop of the ChatBaby chatbot.
+     * Continues processing user commands until the exit command is received.
+     */
     public void run() {
         ui.greet();
         boolean isExit = false;
@@ -55,6 +57,12 @@ public class ChatBaby {
         }
     }
 
+    /**
+     * Main method to run the ChatBaby application.
+     * Sets the default locale to English to avoid issues with date and time formatting in other languages.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         Locale.setDefault(Locale.ENGLISH);
         new ChatBaby().run();
