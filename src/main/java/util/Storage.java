@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.io.IOException;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +71,8 @@ public class Storage {
                 } catch (IllegalArgumentException e) {
                     //Current parsed line is invalid
                     System.out.println("Error reading line");
+                } catch (DateTimeParseException e) {
+                    System.out.println("Error. Bad date format from file");
                 }
             }
             return taskList;

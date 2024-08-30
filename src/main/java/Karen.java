@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -131,6 +132,10 @@ public class Karen {
                     String[] params = command[1].split("/by ", 2);
                     task = new Deadline(params[0], params[1]);
                     hasPendingChanges = true;
+                } catch (DateTimeParseException e) {
+                    output += LINE
+                            + "Invalid format! Datetime must be in this form: E.g. 2024-10-11 1200\n"
+                            + LINE;
                 } catch (Exception e) {
                     output += LINE
                             + "Invalid input! Deadlines must follow this syntax: deadline <name> /by <due date>\n"
@@ -139,11 +144,15 @@ public class Karen {
                 break;
             case EVENT:
                 try {
-                    String[] params = command[1].split("/from ", 2);
+                    String[] params = command[1].split(" /from ", 2);
                     String name = params[0];
-                    String[] fromTo = params[1].split("/to ", 2);
+                    String[] fromTo = params[1].split(" /to ", 2);
                     task = new Event(name, fromTo[0], fromTo[1]);
                     hasPendingChanges = true;
+                } catch (DateTimeParseException e) {
+                    output += LINE
+                            + "Invalid format! Datetime must be in this form: E.g. 2024-10-11 1200\n"
+                            + LINE;
                 } catch (Exception e) {
                     output += LINE
                             + "Error! Events must follow this syntax: " +
