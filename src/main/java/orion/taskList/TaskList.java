@@ -150,4 +150,16 @@ public class TaskList {
         }
         return null;
     }
+
+    public List<Task> findTasks(String keyword) throws FileInitializationException {
+        List<Task> tasks = loadTasksFromFile();
+
+        // Use stream to filter tasks
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .toList();
+
+        return matchingTasks;
+    }
+
 }

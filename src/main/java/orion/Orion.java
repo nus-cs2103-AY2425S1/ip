@@ -62,6 +62,9 @@ public class Orion {
                 case DELETE:
                     handleDelete(parts);
                     break;
+                case FIND:
+                    handleFind(parts);
+                    break;
                 case UNKNOWN:
                 default:
                     ui.showError("Unknown command: " + parts[0]);
@@ -138,4 +141,15 @@ public class Orion {
             ui.showError(e.getMessage());
         }
     }
+
+    private static void handleFind(String[] parts) {
+        try {
+            String keyword = parser.validateFindCommand(parts);
+            List<Task> matchingTasks = manager.findTasks(keyword);
+            ui.showTaskList(matchingTasks, true);
+        } catch (OrionException e) {
+            ui.showError(e.getMessage());
+        }
+    }
+
 }

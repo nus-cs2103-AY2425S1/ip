@@ -3,113 +3,104 @@ Hello! I'm Orion
 What can I do for you?
 ────────────────────────────────────────
 ────────────────────────────────────────
-There are no tasks.
-────────────────────────────────────────
-────────────────────────────────────────
      Got it. I've added this task:
-[T][ ] Read a book
+[T][ ] Finish homework
 Now you have 1 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
      Got it. I've added this task:
-[D][ ] Complete assignment (by: 28 Aug 2024 18:00)
+[D][ ] Submit report (by: 10 Sep 2024 18:00)
 Now you have 2 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
      Got it. I've added this task:
-[E][ ] Team meeting (from: 25 Aug 2024 14:00 to: 25 Aug 2024 16:00)
+[E][ ] Company retreat (from: 15 Sep 2024 09:00 to: 17 Sep 2024 17:00)
 Now you have 3 tasks in the list
-────────────────────────────────────────
-────────────────────────────────────────
-Here are the tasks in your list:
-1.[T][ ] Read a book
-2.[D][ ] Complete assignment (by: 28 Aug 2024 18:00)
-3.[E][ ] Team meeting (from: 25 Aug 2024 14:00 to: 25 Aug 2024 16:00)
-────────────────────────────────────────
-────────────────────────────────────────
-Marked task as done: [D][x] Complete assignment (by: 28 Aug 2024 18:00)
-────────────────────────────────────────
-────────────────────────────────────────
-Here are the tasks in your list:
-1.[T][ ] Read a book
-2.[D][x] Complete assignment (by: 28 Aug 2024 18:00)
-3.[E][ ] Team meeting (from: 25 Aug 2024 14:00 to: 25 Aug 2024 16:00)
-────────────────────────────────────────
-────────────────────────────────────────
-Unmarked task: [D][ ] Complete assignment (by: 28 Aug 2024 18:00)
-────────────────────────────────────────
-────────────────────────────────────────
-Noted. I've removed this task:
-  [T][ ] Read a book
-Now you have 2 tasks in the list.
-────────────────────────────────────────
-────────────────────────────────────────
-Here are the tasks in your list:
-1.[D][ ] Complete assignment (by: 28 Aug 2024 18:00)
-2.[E][ ] Team meeting (from: 25 Aug 2024 14:00 to: 25 Aug 2024 16:00)
 ────────────────────────────────────────
 ────────────────────────────────────────
      Got it. I've added this task:
 [T][ ] Buy groceries
-Now you have 3 tasks in the list
-────────────────────────────────────────
-────────────────────────────────────────
-     Got it. I've added this task:
-[D][ ] Submit report (by: 30 Aug 2024 17:00)
 Now you have 4 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
      Got it. I've added this task:
-[E][ ] Birthday party (from: 31 Aug 2024 18:00 to: 01 Sep 2024 02:00)
+[D][ ] Pay utility bills (by: 05 Sep 2024 12:00)
 Now you have 5 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
+     Got it. I've added this task:
+[E][ ] Friend's wedding (from: 12 Sep 2024 15:00 to: 12 Sep 2024 21:00)
+Now you have 6 tasks in the list
+────────────────────────────────────────
+────────────────────────────────────────
 Here are the tasks in your list:
-1.[D][ ] Complete assignment (by: 28 Aug 2024 18:00)
-2.[E][ ] Team meeting (from: 25 Aug 2024 14:00 to: 25 Aug 2024 16:00)
-3.[T][ ] Buy groceries
-4.[D][ ] Submit report (by: 30 Aug 2024 17:00)
-5.[E][ ] Birthday party (from: 31 Aug 2024 18:00 to: 01 Sep 2024 02:00)
+1.[T][ ] Finish homework
+2.[D][ ] Submit report (by: 10 Sep 2024 18:00)
+3.[E][ ] Company retreat (from: 15 Sep 2024 09:00 to: 17 Sep 2024 17:00)
+4.[T][ ] Buy groceries
+5.[D][ ] Pay utility bills (by: 05 Sep 2024 12:00)
+6.[E][ ] Friend's wedding (from: 12 Sep 2024 15:00 to: 12 Sep 2024 21:00)
 ────────────────────────────────────────
 ────────────────────────────────────────
-Marked task as done: [T][x] Buy groceries
+Marked task as done: [D][x] Submit report (by: 10 Sep 2024 18:00)
+────────────────────────────────────────
+────────────────────────────────────────
+Marked task as done: [D][x] Pay utility bills (by: 05 Sep 2024 12:00)
 ────────────────────────────────────────
 ────────────────────────────────────────
 Noted. I've removed this task:
-  [E][ ] Team meeting (from: 25 Aug 2024 14:00 to: 25 Aug 2024 16:00)
-Now you have 4 tasks in the list.
+  [T][ ] Buy groceries
+Now you have 5 tasks in the list.
 ────────────────────────────────────────
 ────────────────────────────────────────
 Here are the tasks in your list:
-1.[D][ ] Complete assignment (by: 28 Aug 2024 18:00)
-2.[T][x] Buy groceries
-3.[D][ ] Submit report (by: 30 Aug 2024 17:00)
-4.[E][ ] Birthday party (from: 31 Aug 2024 18:00 to: 01 Sep 2024 02:00)
+1.[T][ ] Finish homework
+2.[D][x] Submit report (by: 10 Sep 2024 18:00)
+3.[E][ ] Company retreat (from: 15 Sep 2024 09:00 to: 17 Sep 2024 17:00)
+4.[D][x] Pay utility bills (by: 05 Sep 2024 12:00)
+5.[E][ ] Friend's wedding (from: 12 Sep 2024 15:00 to: 12 Sep 2024 21:00)
+────────────────────────────────────────
+────────────────────────────────────────
+Unmarked task: [D][ ] Submit report (by: 10 Sep 2024 18:00)
 ────────────────────────────────────────
 ────────────────────────────────────────
      Got it. I've added this task:
-[T][ ] Walk the dog
-Now you have 5 tasks in the list
-────────────────────────────────────────
-────────────────────────────────────────
-     Got it. I've added this task:
-[D][ ] Pay bills (by: 31 Aug 2024 23:59)
+[T][ ] Prepare presentation
 Now you have 6 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
      Got it. I've added this task:
-[E][ ] Family dinner (from: 01 Sep 2024 19:00 to: 01 Sep 2024 21:00)
+[E][ ] Conference (from: 20 Sep 2024 09:00 to: 22 Sep 2024 17:00)
 Now you have 7 tasks in the list
 ────────────────────────────────────────
 ────────────────────────────────────────
+Here are the matching tasks in your list:
+1.[D][ ] Submit report (by: 10 Sep 2024 18:00)
+────────────────────────────────────────
+────────────────────────────────────────
+Here are the matching tasks in your list:
+1.[E][ ] Friend's wedding (from: 12 Sep 2024 15:00 to: 12 Sep 2024 21:00)
+────────────────────────────────────────
+────────────────────────────────────────
+No matching tasks found.
+────────────────────────────────────────
+────────────────────────────────────────
 Here are the tasks in your list:
-1.[D][ ] Complete assignment (by: 28 Aug 2024 18:00)
-2.[T][x] Buy groceries
-3.[D][ ] Submit report (by: 30 Aug 2024 17:00)
-4.[E][ ] Birthday party (from: 31 Aug 2024 18:00 to: 01 Sep 2024 02:00)
-5.[T][ ] Walk the dog
-6.[D][ ] Pay bills (by: 31 Aug 2024 23:59)
-7.[E][ ] Family dinner (from: 01 Sep 2024 19:00 to: 01 Sep 2024 21:00)
+1.[T][ ] Finish homework
+2.[D][ ] Submit report (by: 10 Sep 2024 18:00)
+3.[E][ ] Company retreat (from: 15 Sep 2024 09:00 to: 17 Sep 2024 17:00)
+4.[D][x] Pay utility bills (by: 05 Sep 2024 12:00)
+5.[E][ ] Friend's wedding (from: 12 Sep 2024 15:00 to: 12 Sep 2024 21:00)
+6.[T][ ] Prepare presentation
+7.[E][ ] Conference (from: 20 Sep 2024 09:00 to: 22 Sep 2024 17:00)
+────────────────────────────────────────
+────────────────────────────────────────
+Noted. I've removed this task:
+  [E][ ] Company retreat (from: 15 Sep 2024 09:00 to: 17 Sep 2024 17:00)
+Now you have 6 tasks in the list.
+────────────────────────────────────────
+────────────────────────────────────────
+No matching tasks found.
 ────────────────────────────────────────
 ────────────────────────────────────────
 Bye. Hope to see you again soon!

@@ -1,4 +1,5 @@
 package orion.parser;
+
 import orion.orionExceptions.*;
 import orion.orionExceptions.*;
 import orion.task.DeadlineDetails;
@@ -14,7 +15,7 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
 
-    public boolean validateListCommand(String[] parts) throws InvalidListException{
+    public boolean validateListCommand(String[] parts) throws InvalidListException {
         if (parts == null || parts.length > 1 || !parts[0].equals("list")) {
             throw new InvalidListException(parts == null ? "null" : String.join(" ", parts));
         } else {
@@ -34,21 +35,21 @@ public class Parser {
         return true;
     }
 
-
-    public int validateMarkAndUnMarkCommand(String[] parts, TaskList manager) throws InvalidMarkException, InvalidIndexException, FileInitializationException {
+    public int validateMarkAndUnMarkCommand(String[] parts, TaskList manager)
+            throws InvalidMarkException, InvalidIndexException, FileInitializationException {
         if (parts == null || parts.length < 2 || !(parts[0].equals("mark") || parts[0].equals("unmark"))) {
             throw new InvalidMarkException(parts == null ? "null" : String.join(" ", parts));
         }
         String joinedString = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
 
         String[] split_parts = joinedString.split(" ");
-        if (split_parts.length != 1 || ! isInteger(split_parts[0])) {
+        if (split_parts.length != 1 || !isInteger(split_parts[0])) {
             System.out.println(Arrays.toString(split_parts));
             throw new InvalidMarkException(joinedString);
         }
         int index = Integer.parseInt(split_parts[0]);
 
-        if (! manager.isValidIndex(index)) {
+        if (!manager.isValidIndex(index)) {
             throw new InvalidIndexException(index, manager.getSize());
         }
 
@@ -88,9 +89,11 @@ public class Parser {
         return new EventDetails(description, from, to);
     }
 
-    public DeadlineDetails validateDeadlineCommand(String[] parts) throws InvalidDeadlineException, InvalidDateFormatException {
+    public DeadlineDetails validateDeadlineCommand(String[] parts)
+            throws InvalidDeadlineException, InvalidDateFormatException {
         if (parts == null || parts.length < 2 || !parts[0].equals("deadline")) {
-            throw new InvalidDeadlineException("Invalid deadline command format. Use: deadline <description> /by <due date>");
+            throw new InvalidDeadlineException(
+                    "Invalid deadline command format. Use: deadline <description> /by <due date>");
         }
 
         String fullCommand = String.join(" ", parts);
@@ -112,7 +115,8 @@ public class Parser {
         return new DeadlineDetails(description, by);
     }
 
-    public int validateDeleteCommand(String[] parts, TaskList manager) throws InvalidDeleteException, InvalidIndexException, FileInitializationException {
+    public int validateDeleteCommand(String[] parts, TaskList manager)
+            throws InvalidDeleteException, InvalidIndexException, FileInitializationException {
         if (parts == null || parts.length < 2 || !parts[0].equals("delete")) {
             throw new InvalidDeleteException(parts == null ? "null" : String.join(" ", parts));
         }
@@ -149,7 +153,12 @@ public class Parser {
         }
     }
 
+    public String validateFindCommand(String[] parts) throws InvalidListException {
+        if (parts == null || parts.length < 2 || !parts[0].equals("find")) {
+            throw new InvalidListException(parts == null ? "null" : String.join(" ", parts));
+        }
 
-
-
+        return parts[1].trim();
     }
+
+}

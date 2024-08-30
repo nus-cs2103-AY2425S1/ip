@@ -33,7 +33,8 @@ public class UI {
 
     public void showTaskAdded(Task task, int totalTasks) {
         executeWithFormatting(() -> {
-            System.out.println("     Got it. I've added this task:\n" + task + "\nNow you have " + totalTasks + " tasks in the list");
+            System.out.println("     Got it. I've added this task:\n" + task + "\nNow you have " + totalTasks
+                    + " tasks in the list");
         });
     }
 
@@ -48,6 +49,23 @@ public class UI {
                 }
             }
         });
+    }
+
+    public void showTaskList(List<Task> tasks, boolean find) {
+        if (!find) {
+            showTaskList(tasks);
+        } else {
+            executeWithFormatting(() -> {
+                if (tasks.isEmpty()) {
+                    System.out.println("No matching tasks found.");
+                } else {
+                    System.out.println("Here are the matching tasks in your list:");
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + "." + tasks.get(i).toString());
+                    }
+                }
+            });
+        }
     }
 
     public void showTaskMarked(Task task) {
