@@ -24,6 +24,7 @@ public class Tecna {
         this.storage = new Storage(taskData);
         this.commandScanner = new CommandScanner();
         this.ui = new Ui();
+        this.taskList = new TaskList();
         try {
             this.taskList = new TaskList(storage.load());
         } catch (IOException ioException) {
