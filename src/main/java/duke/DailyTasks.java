@@ -2,100 +2,60 @@ package duke;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 
-import duke.commands.Command;
-import duke.exceptions.InvalidInputException;
-import duke.parser.InputParser;
+import duke.javafx.MainWindow;
 import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  * The main class for the DailyTasks application, which acts as a task manager.
- * It handles initializing the application, starting the task processing loop, and saving the state before exiting.
+ * It handles initializing the application, managing the task list, and saving
+ * the application state before exiting.
+ *
+ * <p>This class extends {@link javafx.application.Application} and serves as
+ * the entry point for the JavaFX application. It initializes core components
+ * such as the task list, storage, and user interface, and passes these
+ * components to the {@link duke.javafx.MainWindow} for UI management.</p>
  */
-public class DailyTasks {
-
-    /** The list of tasks managed by the application. */
-    private final TaskList taskList;
-
-    /** The user interface component for interacting with the user. */
-    private final Ui ui;
-
-    /** The storage component for saving and loading tasks from a file. */
-    private final Storage storage;
+public class DailyTasks extends Application {
+    private TaskList taskList;
+    private Ui ui;
+    private Storage storage;
 
     /**
-     * Constructs a new DailyTasks application and loads the tasks from storage.
-     * If there is an issue loading the tasks, an error message is printed.
+     * The entry point of the JavaFX application. This method is called after the
+     * application is launched and is responsible for initializing core components
+     * and setting up the main window.
+     *
+     * @param stage The primary stage for this application, onto which the main application scene can be set.
      */
-    public DailyTasks() {
+    @Override
+    public void start(Stage stage) {
+        this.storage = new Storage();
         this.taskList = new TaskList();
         this.ui = new Ui();
-        this.storage = new Storage();
 
         try {
             List<Task> tasks = storage.loadStateFileToTasksList();
             this.taskList.setTasks(tasks);
         } catch (IOException e) {
-            System.out.println("IOException occurred");
+            System.out.println("Cannot initialize task list!");
         }
+
+        MainWindow mainWindow = new MainWindow(stage, this.taskList, this.storage, this.ui);
     }
 
     /**
-     * The main method that starts the DailyTasks application.
-     * It initializes the application and starts the task input loop.
+     * The main method that serves as the entry point for the application.
+     * It calls the {@link #launch(String...)} method to start the JavaFX application.
      *
-     * @param args Command line arguments (not used).
+     * @param args The command line arguments.
      */
     public static void main(String[] args) {
-        DailyTasks dailyTasks = new DailyTasks();
-
-        try {
-            dailyTasks.start();
-        } finally {
-            dailyTasks.end();
-        }
-    }
-
-    /**
-     * Starts the main input loop for the DailyTasks application.
-     * This method listens for user input and executes the corresponding commands until the user exits.
-     */
-    private void start() {
-        Scanner scanner = new Scanner(System.in);
-        this.ui.showWelcome();
-
-        while (scanner.hasNextLine()) {
-            String userInput = scanner.nextLine().trim();
-
-            if (userInput.equals("bye")) {
-                this.ui.showGoodbye();
-                break;
-            }
-
-            try {
-                Command command = InputParser.parseUserInput(userInput);
-                command.execute(this.taskList, this.ui, this.storage);
-            } catch (InvalidInputException e) {
-                System.out.println(e.getMessage());
-                System.out.println("Please try entering your message again!");
-            }
-        }
-    }
-
-    /**
-     * Saves the current task list to a file and prints a message indicating success or failure.
-     * This method is called before the application terminates.
-     */
-    private void end() {
-        try {
-            Storage.saveTasksListToStateFile(this.taskList.getTasks());
-            System.out.println("saved");
-        } catch (IOException e) {
-            System.out.println("IOException occurred");
-        }
+        launch(args);
     }
 }
