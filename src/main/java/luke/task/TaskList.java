@@ -1,6 +1,7 @@
 package luke.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import luke.env.Constants;
 
@@ -11,11 +12,7 @@ public class TaskList {
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
-
-    public int getTaskListSize() {
-        return taskList.size();
-    }
-
+    
     public Task getTask(int index) {
         return taskList.get(index);
     }
@@ -108,6 +105,16 @@ public class TaskList {
             }
         }
         }
+    }
+
+    public List<Task> findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.name.contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 
     public void printList() {
