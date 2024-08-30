@@ -33,7 +33,7 @@ public class Storage {
 
     /**
      * Writes the string list textToSave to /data/Karen.txt
-     * @param taskList
+     * @param taskList A list of Tasks to save to file
      */
     public static void saveToFile(List<Task> taskList) {
         List<String> writeBuffer = new ArrayList<>();
@@ -48,13 +48,30 @@ public class Storage {
         }
     }
 
-    public static List<String> readFile() {
+    /**
+     * Returns a List of String from reading Karen.txt
+     *
+     */
+    public static List<Task> readFile() {
         //TODO Read saved data and return List<Task>
+        //Outer try/catch for file access errors
         try {
-            return Files.readAllLines(FILEPATH);
+            List<String> readBuffer = Files.readAllLines(FILEPATH);
+            List<Task> taskList = new ArrayList<>();
+            for (String line : readBuffer) {
+                //inner try catch to handle invalid lines without breaking loop
+                try {
+                    Task newTask = Task.fromFileString(line);
+                    taskList.add(newTask);
+                } catch (IllegalArgumentException e) {
+                    //Current parsed line is invalid
+                    System.out.println("Error reading line");
+                }
+            }
+            return taskList;
         } catch (IOException e) {
             System.out.println("Error trying to read file");
-            return new ArrayList<String>();
+            return new ArrayList<>();
         }
     }
 }
