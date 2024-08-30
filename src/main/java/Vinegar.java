@@ -36,12 +36,16 @@ public class Vinegar {
                         System.out.println("____________________________________________________________");
                         System.out.println("Bye. Hope to see you again soon!");
                         System.out.println("____________________________________________________________");
+
+                        // Save all tasks before exit
                         saveTasksToFile();
                         break chatLoop;
 
                     case "list":
                         System.out.println("____________________________________________________________");
                         System.out.println(" Here are the tasks in your list:");
+
+                        // List all tasks
                         for (int i = 0; i < tasks.size(); i++) {
                             System.out.println((i + 1) + "." + tasks.get(i));
                         }
@@ -50,6 +54,8 @@ public class Vinegar {
 
                     case "mark":
                         if (inputParts.length < 2) throw new VinegarException("Please specify which task to mark.");
+
+                        // Retrieve index
                         int markIndex = Integer.parseInt(inputParts[1]) - 1;
                         tasks.get(markIndex).markAsDone();
                         System.out.println("____________________________________________________________");
@@ -61,6 +67,8 @@ public class Vinegar {
 
                     case "unmark":
                         if (inputParts.length < 2) throw new VinegarException("Please specify which task to unmark.");
+
+                        // Retrieve index
                         int unmarkIndex = Integer.parseInt(inputParts[1]) - 1;
                         tasks.get(unmarkIndex).markAsNotDone();
                         System.out.println("____________________________________________________________");
@@ -72,6 +80,8 @@ public class Vinegar {
 
                     case "todo":
                         if (inputParts.length < 2) throw new VinegarException("Please specify the description.");
+
+                        // Create todoTask
                         Task todoTask = new Todo(inputParts[1]);
                         tasks.add(todoTask);
                         printTaskAdded(todoTask);
@@ -79,26 +89,38 @@ public class Vinegar {
                         break;
 
                     case "deadline":
-                        if (inputParts.length < 2) throw new VinegarException("Please specify the description and deadline.");
+                        if (inputParts.length < 2) throw new VinegarException(
+                                "Please specify the description and deadline.");
+
+                        // Segment taskName and taskDate
                         String[] deadlineParts = inputParts[1].split(" /by ");
-                        if (deadlineParts.length < 2) throw new VinegarException("Please specify the deadline using /by.");
+                        if (deadlineParts.length < 2) throw new VinegarException(
+                                "Please specify the deadline using /by in the format yyyy-MM-dd.");
+
+                        // Create deadlineTask
                         Task deadlineTask = new Deadline(deadlineParts[0], deadlineParts[1]);
                         tasks.add(deadlineTask);
                         printTaskAdded(deadlineTask);
-                        saveTasksToFile();
                         break;
 
                     case "event":
-                        if (inputParts.length < 2) throw new VinegarException("Please specify the description and event time.");
-                        String[] eventParts = inputParts[1].split("/from | /to ");
-                        if (eventParts.length < 3) throw new VinegarException("Please specify the event time using /from and /to.");
+                        if (inputParts.length < 2) throw new VinegarException(
+                                "Please specify the description and event time.");
+
+                        // Segment taskName, fromDateTime, toDateTime
+                        String[] eventParts = inputParts[1].split(" /from | /to ");
+                        if (eventParts.length < 3) throw new VinegarException(
+                                "Please specify the event time using /from and /to in the format yyyy-MM-dd HH:mm.");
+
+                        // Create eventTask
                         Task eventTask = new Event(eventParts[0], eventParts[1], eventParts[2]);
                         tasks.add(eventTask);
                         printTaskAdded(eventTask);
-                        saveTasksToFile();
                         break;
 
+
                     case "delete":
+                        // Delete selected tasks
                         handleDelete(inputParts);
                         saveTasksToFile();
                         break;
@@ -162,7 +184,7 @@ public class Vinegar {
             System.out.println(" OOPS!!! Unable to save tasks to file.");
         }
     }
-
+lis
     // Load tasks from file
     private static void loadTasksFromFile() {
         File file = new File(FILE_PATH);
