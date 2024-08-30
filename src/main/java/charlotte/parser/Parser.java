@@ -1,12 +1,13 @@
 package charlotte.parser;
 
+import charlotte.command.AddCommand;
 import charlotte.command.Command;
+import charlotte.command.DeleteCommand;
+import charlotte.command.ExitCommand;
+import charlotte.command.FindCommand;
 import charlotte.command.ListCommand;
 import charlotte.command.MarkCommand;
 import charlotte.command.UnmarkCommand;
-import charlotte.command.DeleteCommand;
-import charlotte.command.AddCommand;
-import charlotte.command.ExitCommand;
 import charlotte.exception.CharlotteException;
 import charlotte.task.Deadline;
 import charlotte.task.Event;
@@ -47,6 +48,8 @@ public class Parser {
         case "event":
             String[] eventParts = inputParts[1].split(" /from | /to ");
             return new AddCommand(new Event(eventParts[0], eventParts[1], eventParts[2]));
+        case "find":
+            return new FindCommand(inputParts[1]);
         case "bye":
             return new ExitCommand();
         default:
