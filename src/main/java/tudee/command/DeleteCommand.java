@@ -12,7 +12,7 @@ import tudee.TudeeException;
  * user interface and storage accordingly.
  */
 public class DeleteCommand extends Command {
-    private int index;
+    private final int index;
 
     /**
      * Constructs a DeleteCommand with the specified index.

@@ -1,9 +1,9 @@
 package tudee.command;
 
 import tudee.task.TaskList;
+import tudee.task.Task;
 import tudee.ui.Ui;
 import tudee.storage.Storage;
-import tudee.task.Task;
 
 /**
  * Represents a command to mark a task as not completed.
@@ -11,7 +11,7 @@ import tudee.task.Task;
  * and then updates the user interface and storage accordingly.
  */
 public class UnmarkCommand extends Command {
-    private int index;
+    private final int index;
 
     /**
      * Constructs an UnmarkCommand with the specified index.

@@ -1,16 +1,16 @@
 package tudee.command;
 
 import tudee.task.TaskList;
+import tudee.task.Task;
 import tudee.ui.Ui;
 import tudee.storage.Storage;
-import tudee.task.Task;
 
 /**
  * Represents a command to add a task to the task list.
  * This command updates the task list, user interface, and storage.
  */
 public class AddTaskCommand extends Command {
-    private Task task;
+    private final Task task;
 
     /**
      * Constructs an AddTaskCommand with the specified task.

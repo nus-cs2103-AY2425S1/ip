@@ -8,14 +8,15 @@ import java.time.format.DateTimeFormatter;
  * A Events task is a task with a specific start date and end date.
  */
 public class Events extends Task {
+
     /**
      * The start date for this task.
      */
-    LocalDate start;
+    private final LocalDate start;
     /**
      * The end date for this task.
      */
-    LocalDate end;
+    private final LocalDate end;
     /**
      * Constructs a new Events task with the specified task description, start date and end date.
      *

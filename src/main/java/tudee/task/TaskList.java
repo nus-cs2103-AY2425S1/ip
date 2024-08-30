@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Provides methods to add, retrieve, and delete tasks from the list.
  */
 public class TaskList {
-    private List<Task> taskList;
+    private List<Task> tasks;
 
     /**
      * Constructs a TaskList with a given list of tasks.
@@ -16,14 +16,14 @@ public class TaskList {
      * @param taskList The initial list of tasks.
      */
     public TaskList(List<Task> taskList) {
-        this.taskList = taskList;
+        this.tasks = taskList;
     }
 
     /**
      * Constructs an empty TaskList if no parameter specified.
      */
     public TaskList() {
-        this.taskList = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -32,7 +32,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void add(Task task) {
-        taskList.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -42,7 +42,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task get(int index) {
-        return taskList.get(index);
+        return tasks.get(index);
     }
 
     /**
@@ -51,7 +51,7 @@ public class TaskList {
      * @return The list of tasks.
      */
     public List<Task> get() {
-        return taskList;
+        return tasks;
     }
 
     /**
@@ -61,7 +61,7 @@ public class TaskList {
      * @return The deleted task.
      */
     public Task delete(int index) {
-        return taskList.remove(index);
+        return tasks.remove(index);
     }
 
     /**
@@ -70,6 +70,6 @@ public class TaskList {
      * @return The size of the task list.
      */
     public int size() {
-        return taskList.size();
+        return tasks.size();
     }
 }

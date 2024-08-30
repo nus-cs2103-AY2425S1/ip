@@ -8,10 +8,11 @@ import java.time.format.DateTimeFormatter;
  * A Deadline task is a task with a specific deadline
  */
 public class Deadline extends Task {
+
     /**
      * The deadline date for this task.
      */
-    LocalDate deadline;
+    private final LocalDate deadline;
 
     /**
      * Constructs a new Deadline task with the specified task description and deadline date.

@@ -1,6 +1,7 @@
 package tudee.ui;
 
 import tudee.task.Task;
+
 import java.util.Scanner;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * It manages input and output, displaying messages to the user,
  */
 public class Ui {
-    private Scanner sc;
+    private final Scanner sc;
     private static final String STRAIGHTLINE = "____________________________________________________________ \n";
 
     /**
@@ -48,12 +49,12 @@ public class Ui {
     /**
      * Displays the current list of tasks to the user.
      *
-     * @param list The list of tasks to be displayed.
+     * @param tasks The list of tasks to be displayed.
      */
-    public void showTaskList(List<Task> list) {
+    public void showTaskList(List<Task> tasks) {
         showLine();
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(i + 1 + ". " + list.get(i));
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(i + 1 + ". " + tasks.get(i));
         }
         showLine();
     }
@@ -127,8 +128,13 @@ public class Ui {
     }
 
     /**
-     * Closes the scanner used for reading user input.
+     * Displays the task name to the user.
+     * @param task The task we want to be displayed.
      */
+    public void showTask(Task task) {
+        System.out.println(task);
+    }
+
     public void close() {
         if (sc != null) {
             sc.close();

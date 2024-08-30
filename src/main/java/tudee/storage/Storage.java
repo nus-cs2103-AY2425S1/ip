@@ -5,6 +5,7 @@ import tudee.task.ToDo;
 import tudee.task.Deadline;
 import tudee.task.Events;
 import tudee.TudeeException;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,18 +14,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Handles loading and saving of tasks to and from a file.
+ * This class provides methods to read tasks from a file and write tasks to a file.
+ */
 public class Storage {
     private final String path;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param path the path to the file where tasks are stored
+     */
     public Storage(String path) {
         this.path = path;
     }
 
+    /**
+     * Loads the tasks from the file specified by the path.
+     * Tasks are read from the specified file and parsed into appropriate Task objects.
+     * If the file does not exist, an empty list is returned.
+     *
+     * @return a list of tasks loaded from the file
+     * @throws TudeeException if there is an error in processing the task list
+     */
     public List<Task> load() throws TudeeException {
-        List<Task> ls = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
         File currentFile = new File(path);
         if (!currentFile.exists()) {
-            return ls;
+            return tasks;
         }
 
         try (Scanner sc = new Scanner(currentFile)) {
@@ -49,22 +67,26 @@ public class Storage {
                     if (data[1].equals("1")) {
                         currentTask.markAsDone();
                     }
-                    ls.add(currentTask);
-                }
-                catch (TudeeException e) {
+                    tasks.add(currentTask);
+                } catch (TudeeException e) {
                     System.out.println("Error procesesing task list: " + e.getMessage());
                 }
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Error in loading tasks: " + e.getMessage());
         }
-        return ls;
+        return tasks;
     }
 
-    public void save(List<Task> ls) {
+    /**
+     * Saves the given list of tasks to the file specified by the path.
+     * Each task is written to the file in a standardised format.
+     *
+     * @param tasks the list of tasks to be saved
+     */
+    public void save(List<Task> tasks) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(path))) {
-            for (Task currentTask : ls) {
+            for (Task currentTask : tasks) {
                 pw.println(currentTask.toFileString());
             }
         }
