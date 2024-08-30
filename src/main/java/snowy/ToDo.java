@@ -1,6 +1,14 @@
 package snowy;
 
+/**
+ * Represents a simple task to be done.
+ */
 public class ToDo extends Task{
+
+    /**
+     * Creates a ToDo with the specified name.
+     * @param name the name of the ToDo.
+     */
     public ToDo(String name) {
         super(name);
     }

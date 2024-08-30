@@ -1,5 +1,8 @@
 package snowy;
 
+/**
+ * Represents the main object which prints out the user interface.
+ */
 public class Ui {
     private static final String LINE = "-----------------------------------\n";
 

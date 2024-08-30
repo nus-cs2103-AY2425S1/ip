@@ -3,10 +3,19 @@ package snowy;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
-
+/**
+ * Represents a task that have a deadline to be completed by.
+ * This class holds the deadline as a LocalDate.
+ */
 public class Deadline extends Task{
     private LocalDate date;
 
+    /**
+     * Creates a new Deadline with the specific name and date.
+     * @param name the name of the task.
+     * @param date the due date of the task, in the format of yyyy-mm-dd.
+     * @throws SnowyException if the date has the wrong format.
+     */
     public Deadline(String name, String date) throws SnowyException {
         super(name);
         try {

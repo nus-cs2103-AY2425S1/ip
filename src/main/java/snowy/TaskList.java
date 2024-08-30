@@ -2,15 +2,25 @@ package snowy;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of Tasks with the methods the add, remove and modify the tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
 
+    /**
+     * Creates a TaskList with tasks strings that are previously saved in a file.
+     * @param lines the ArrayList with each element containing the task as a string.
+     */
     public TaskList(ArrayList<String> lines) {
         for (String line : lines) {
             initializeTask(line);
         }
     }
 
+    /**
+     * Creates an empty TaskList.
+     */
     public TaskList(){
 
     }
@@ -71,6 +81,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a ToDo task with the given description.
+     * @param description the description of the task.
+     * @throws SnowyException if the description given is empty.
+     */
     public  void addToDo(String description) throws SnowyException{
         if (description.isEmpty()) {
             throw new SnowyException("Invalid input for Todo");
@@ -80,6 +95,12 @@ public class TaskList {
         System.out.println("New todo task added:\n" + newTask);
     }
 
+
+    /**
+     * Adds a deadline task with the given description.
+     * @param description the description of the deadline task.
+     * @throws SnowyException if the description is empty or invalid.
+     */
     public void addDeadline(String description) throws SnowyException{
         if (description.isEmpty()) {
             throw new SnowyException("Invalid input for Deadline");
@@ -105,6 +126,12 @@ public class TaskList {
         System.out.println("New Deadline task added:\n" + newTask);
     }
 
+
+    /**
+     * Adds an Event Task with the given description.
+     * @param description the description of the event.
+     * @throws SnowyException if the description is empty or invalid.
+     */
     public void addEvent(String description) throws SnowyException{
         if (description.isEmpty()) {
             throw new SnowyException("Invalid input for Event");
@@ -133,6 +160,12 @@ public class TaskList {
         System.out.println("New Event task added:\n " + newTask);
     }
 
+    /**
+     * Deletes the task with the current index.
+     * @param index the index of the task to be deleted.
+     * @return the Task that was deleted.
+     * @throws SnowyException if the given index is invalid.
+     */
     public Task deleteTask(int index) throws SnowyException {
         try {
             return tasks.remove(index - 1);
@@ -141,6 +174,13 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Marks the task with the given index as complete.
+     * @param index the index of the task.
+     * @return the Task after it is marked as complete.
+     * @throws SnowyException if the given index is invalid.
+     */
     public Task markTask(int index) throws SnowyException {
         try {
             tasks.get(index - 1).markComplete();
@@ -150,6 +190,13 @@ public class TaskList {
         }
     }
 
+
+    /**
+     * Marks the task with the given index as incomplete.
+     * @param index the index of the task.
+     * @return the Task after it is marked as incomplete.
+     * @throws SnowyException if the given index is invalid.
+     */
     public Task unmarkTask(int index) throws SnowyException {
         try {
             tasks.get(index - 1).markIncomplete();
@@ -169,6 +216,11 @@ public class TaskList {
         return text.toString();
     }
 
+
+    /**
+     * Converts all the tasks into the save string and separating each string to a new line.
+     * @return The overall String to be saved.
+     */
     public String toSaveString() {
         StringBuilder text = new StringBuilder();
         for (Task task : tasks) {
