@@ -1,7 +1,9 @@
+package garfield.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     private LocalDateTime deadline;
     private DateTimeFormatter saveFormatter;
     private DateTimeFormatter uiFormatter;

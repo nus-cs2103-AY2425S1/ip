@@ -1,4 +1,6 @@
-public class Todo extends Task{
+package garfield.tasks;
+
+public class Todo extends Task {
     public Todo(String taskDescription) {
         super(taskDescription);
     }

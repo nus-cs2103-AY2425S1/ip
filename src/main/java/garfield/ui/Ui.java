@@ -1,3 +1,5 @@
+package garfield.ui;
+
 import java.util.Scanner;
 
 public class Ui {

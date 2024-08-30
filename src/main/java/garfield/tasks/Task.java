@@ -1,3 +1,5 @@
+package garfield.tasks;
+
 public class Task {
     private String taskDescription;
     private boolean doneStatus;

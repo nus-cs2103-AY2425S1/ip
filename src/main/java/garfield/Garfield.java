@@ -1,3 +1,11 @@
+package garfield;
+
+import garfield.commands.Command;
+import garfield.exceptions.GarfieldException;
+import garfield.parser.Parser;
+import garfield.storage.Storage;
+import garfield.tasks.TaskList;
+import garfield.ui.Ui;
 
 public class Garfield {
     private Ui ui;
