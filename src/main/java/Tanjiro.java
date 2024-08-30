@@ -1,8 +1,9 @@
-import Commands.TaskList;
-import Storage.Storage;
-import System.Ui;
-import System.InputProcessor;
-import System.Parser;
+import commands.TaskList;
+import storage.Storage;
+import system.Ui;
+import system.InputProcessor;
+import system.Parser;
+
 import java.io.IOException;
 
 public class Tanjiro {
@@ -17,24 +18,26 @@ public class Tanjiro {
 
         ui.greet();
 
-        String user_input = inputProcessor.read().toLowerCase();
-        while (!parser.containBye(user_input)) {
-            if (parser.containList(user_input)) {
-                TaskList.list_task();
-            } else if (parser.containMark(user_input)) {
-                parser.performMark(user_input);
-            } else if (parser.containToDo(user_input)) {
-                parser.performToDo(user_input);
-            } else if (parser.containDeadline(user_input)) {
-                parser.performDeadline(user_input);
-            } else if (parser.containEvent(user_input)) {
-                parser.performEvent(user_input);
-            } else if (parser.containDelete(user_input)) {
-                parser.performDelete(user_input);
+        String userInput = inputProcessor.read().toLowerCase();
+        while (!parser.containBye(userInput)) {
+            if (parser.containList(userInput)) {
+                parser.performListTasks();
+            } else if (parser.containMark(userInput)) {
+                parser.performMark(userInput);
+            } else if (parser.containToDo(userInput)) {
+                parser.performToDo(userInput);
+            } else if (parser.containDeadline(userInput)) {
+                parser.performDeadline(userInput);
+            } else if (parser.containEvent(userInput)) {
+                parser.performEvent(userInput);
+            } else if (parser.containDelete(userInput)) {
+                parser.performDelete(userInput);
+            } else if (parser.containFind(userInput)) {
+                parser.performFind(userInput);
             } else {
                 ui.invalid_input();
             }
-            user_input = inputProcessor.read().toLowerCase();
+            userInput = inputProcessor.read().toLowerCase();
         }
 
         ui.goodbye();

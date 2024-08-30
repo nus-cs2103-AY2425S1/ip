@@ -1,4 +1,4 @@
-package Storage;
+package storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -146,6 +146,7 @@ public class Storage {
         fwA.close();
     }
 
+    //TODO Header Comment
     private void clear() throws IOException {
         fw = new FileWriter(PATH);
         fw.write("");

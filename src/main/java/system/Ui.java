@@ -1,9 +1,9 @@
-package System;
+package system;
 
-import Commands.Deadlines;
-import Commands.Events;
-import Commands.TaskList;
-import Commands.ToDos;
+import commands.Deadlines;
+import commands.Events;
+import commands.TaskList;
+import commands.ToDos;
 
 public class Ui {
     /**
@@ -87,6 +87,12 @@ public class Ui {
             }
         }
         System.out.println("Now you have " + t.get_list_size() + " tasks in the list.");
+    }
+
+    //TODO Header Comment
+    public void findTaskMessage(StringBuilder sb) {
+        System.out.println("Here are the matching tasks in your list:");
+        System.out.println(sb.toString());
     }
 
     /**

@@ -1,10 +1,11 @@
-package System;
+package system;
 
-import Commands.Deadlines;
-import Commands.Events;
-import Commands.TaskList;
-import Commands.ToDos;
+import commands.Deadlines;
+import commands.Events;
+import commands.TaskList;
+import commands.ToDos;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
@@ -92,7 +93,19 @@ public class Parser {
         return input.contains("delete");
     }
 
-
+    //TODO Header Comment
+    public boolean containFind(String input) {
+        return input.contains("find");
+    }
+    //TODO Header Comment
+    public void performFind(String input) throws FileNotFoundException {
+        String name = input.substring(5);
+        TaskList.findTask(name);
+    }
+    //TODO Header Comment
+    public void performListTasks() throws FileNotFoundException {
+        TaskList.list_task();
+    }
 
     /**
      * Performs a marking or unmarking operation on a task based on the provided input string.
