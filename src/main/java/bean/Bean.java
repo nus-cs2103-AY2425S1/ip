@@ -33,6 +33,10 @@ public class Bean {
         while (true) {
             try {
                 String input = ui.getUserInput();
+                if (input.equals("bye")) {
+                    ui.showGoodbye();
+                    break;
+                }
                 Command command = parser.parseCommand(input);
 
                 switch (command.getType()) {
