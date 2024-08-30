@@ -8,6 +8,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Note {
@@ -41,7 +44,7 @@ public class Note {
         }
     }
 
-    private void saveToFile() {
+    public void saveToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (Task task : myList) {
                 writer.write(task.toFileString());
@@ -56,35 +59,10 @@ public class Note {
         System.out.println(noOfTask);
     }
 
+
     public void addToList(String input) throws EmptyDescriptionException, InputErrorException {
         Task task;
-
-        // Check if input is in the file format (e.g., "T | 1 | read book")
-        if (input.contains(" | ")) {
-            String[] parts = input.split(" \\| ");
-            String taskType = parts[0].trim(); // T, D, or E
-            int isDone = Integer.parseInt(parts[1].trim()); // 0 or 1
-            String description = parts[2].trim();
-
-            if (taskType.equalsIgnoreCase("T")) {
-                task = new ToDoTask(description);
-            } else if (taskType.equalsIgnoreCase("D")) {
-                String by = parts[3].trim();
-                task = new DeadlineTask(description, by);
-            } else if (taskType.equalsIgnoreCase("E")) {
-                String from = parts[3].trim(); // "Aug 6th 2pm"
-                String to = parts[4].trim(); // "4pm"
-                task = new EventTask(description, from, to);
-            } else {
-                throw new InputErrorException();
-            }
-
-            if (isDone == 1) {
-                task.markAsDone();
-            }
-        }
         // Handle direct input format (e.g., "todo read book")
-        else {
             String[] inputParts = input.split(" ", 2);
             String taskType = inputParts[0].trim(); // todo, deadline, or event
 
@@ -98,7 +76,14 @@ public class Note {
                 if (descParts.length < 2) {
                     throw new InputErrorException("The deadline must be specified in the format: 'deadline <description> /by <date>'");
                 }
-                task = new DeadlineTask(descParts[0].trim(), descParts[1].trim());
+                try {
+                    // Parse the date string into LocalDateTime
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                    LocalDateTime deadline = LocalDateTime.parse(descParts[1].trim(), formatter);
+                    task = new DeadlineTask(descParts[0].trim(), deadline);
+                } catch (DateTimeParseException e) {
+                    throw new InputErrorException("The date format must be 'd/M/yyyy HHmm'. Example: '2/12/2019 1800'");
+                }
             } else if (taskType.equalsIgnoreCase("event")) {
                 String[] descParts = inputParts[1].split(" /from ", 2);
                 if (descParts.length < 2 || !descParts[1].contains(" /to ")) {
@@ -109,12 +94,10 @@ public class Note {
             } else {
                 throw new InputErrorException("Unknown task type.");
             }
-        }
 
         myList.add(task);
         noOfTask++;
         saveToFile(); // Save to file after adding a task
-
         System.out.println(task.toString());
     }
 

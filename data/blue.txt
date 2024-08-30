@@ -1,4 +1,7 @@
-D | 1 | return book | June 6th
+D | 1 | return book | Dec 2 2019 18:00
 E | 0 | project meeting | Aug 6th 2pm | 4pm
 T | 1 | Prepare for interview
-E | 1 | Tuition | Saturday 9am | 1pm
+T | 1 | Brush Teeth
+T | 0 | Tuition
+D | 0 | CS2105 Assignment | Dec 2 2024 18:00
+D | 0 | cs2100 tutorial | Oct 23 2020 13:30
