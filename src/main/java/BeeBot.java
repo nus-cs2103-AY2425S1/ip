@@ -130,6 +130,24 @@ public class BeeBot {
                     }
                     TaskList.deleteEvent(deletionNumber, taskList);
                     break;
+
+                case "find":
+                    String taskName = Parser.concatenate(parts, 1);
+                    ArrayList<Task> searchResults = new ArrayList<>();
+                    for (Task task: taskList) {
+                        if (task.getName().contains(taskName)) {
+                            searchResults.add(task);
+                        }
+                    }
+                    int searchSize = searchResults.size();
+                    String searchStr = "";
+                    for (int i = 0; i < searchSize; i++) {
+                        int num = i + 1;
+                        searchStr += (num + "." + searchResults.get(i).toString());
+                    }
+                    Parser.speak(searchStr);
+                    break;
+
                 default:
                     Parser.speak("Invalid command.\n");
                 }
