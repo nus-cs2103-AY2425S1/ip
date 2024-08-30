@@ -14,7 +14,8 @@ public class testHelper {
         uiPrintOut.close();
     }
 
-    public String getCapturedOutput() {
+    @Override
+    public String toString() {
         return uiPrintOut.toString();
     }
 }
