@@ -86,7 +86,7 @@ public class Genji {
 
     public static void run() {
         System.out.println(LINE);
-        System.out.println("Hello! I'm " + NAME + "\nWhat can I do for you?");
+        System.out.println("Hello! I'm " + NAME + "\nWhat can I do for you?  O.o?");
         loadList();
         System.out.println(LINE);
         while (true) {
