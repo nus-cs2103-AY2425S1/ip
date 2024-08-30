@@ -2,6 +2,10 @@ package agave;
 
 import java.io.IOException;
 
+/**
+ * The Agave class represents the main application that manages tasks.
+ * It handles user input, processes commands, and interacts with the storage system.
+ */
 public class Agave {
 
     private Ui ui;
@@ -9,6 +13,12 @@ public class Agave {
     private TaskList tasks;
     private boolean isRunning;
 
+
+    /**
+     * Constructs an Agave instance with the specified file path for storage.
+     *
+     * @param filePath The file path where tasks will be stored and loaded from.
+     */
     public Agave(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -21,6 +31,9 @@ public class Agave {
         }
     }
 
+    /**
+     * Starts the application, processes user commands, and manages the task list.
+     */
     public void run() {
         ui.showWelcome();
 

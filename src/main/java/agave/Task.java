@@ -2,61 +2,61 @@ package agave;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a task that can be added to the task list.
+ */
 public class Task {
     private String description;
     private ArrayList<Task> tasks;
     private boolean isDone;
 
-    public Task(String description, boolean isDone) {
-        this.description = description;
-        this.isDone = isDone;
-    }
-    public Task() {
-        this.tasks = new ArrayList<Task>();
-    }
+    /**
+     * Constructs a Task with the specified description.
+     *
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Returns the description of the task.
+     *
+     * @return The task's description.
+     */
     public String getDescription() {
         return description;
     }
 
-    public void setTasks(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-    }
-
+    /**
+     * Returns the status of the task as a string.
+     *
+     * @return A string representing whether the task is done or not.
+     */
     public String getStatus() {
         return isDone ? "[X] " : "[ ] ";
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         isDone = true;
     }
 
+    /**
+     * Unmarks the task as done.
+     */
     public void unmarkAsDone() {
         isDone = false;
     }
 
-    public void addTask(Task task) {
-        tasks.add(task);
-    }
-
-    public void deleteTask(int taskNumber) {
-        if(taskNumber > 0 && taskNumber <= tasks.size()) {
-            Task removed = tasks.remove(taskNumber - 1);
-            System.out.println("Removed: " + removed);
-            showNumberOfTasks();
-        } else {
-            System.out.println("Task number is not in range. Enter a valid task number.\n");
-        }
-    }
-
-    public void showNumberOfTasks() {
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-    }
-
+    /**
+     * Formats the task data for writing to a file.
+     *
+     * @return A string representing the task in a file-friendly format.
+     */
     public String toWriteFormat() {
         return String.format("%s | %d | %s",
                 this instanceof ToDo ? "T" : this instanceof Deadline ? "D" : "E",
@@ -65,6 +65,12 @@ public class Task {
         );
     }
 
+    /**
+     * Parses a task from a formatted string.
+     *
+     * @param data The string containing the task data.
+     * @return A Task object created from the string data.
+     */
     public static Task parseTask(String data) {
         String[] split = data.split(" \\| ");
         Task task = split[0].equals("T")
@@ -78,6 +84,11 @@ public class Task {
         return task;
     }
 
+    /**
+     * Returns the correct format of the task.
+     *
+     * @return A string representing the task in the correct format.
+     */
     public String getCorrectFormat() {
         return description;
     }

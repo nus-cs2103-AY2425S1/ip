@@ -1,5 +1,8 @@
 package agave;
 
+/**
+ * Represents a task that can be added to the task list.
+ */
 public class ToDo extends Task {
     public ToDo (String description) {
         super(description);
