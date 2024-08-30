@@ -8,45 +8,58 @@ New todo task added:
 New todo task added:
 [T][ ] Read Book
 -----------------------------------
-Error: Description of todos cannot be empty.
-Please try again.
+Error: Invalid input for todo. Make sure that you are following the correct format.
+Example:
+todo Read Book
 -----------------------------------
 New Deadline task added:
 [D][ ] Return book (by July 12, 2024 )
 -----------------------------------
-Error: Please include name, /by and deadline separated by space.
+Error: Invalid input for Deadline. Make sure that you are following the correct format.
+Example:
+deadline Return Book /by 2024-09-01
 -----------------------------------
-Error: name of deadlines cannot be empty.
-Please try again.
+Error: Invalid input for Deadline. Make sure that you are following the correct format.
+Example:
+deadline Return Book /by 2024-09-01
 -----------------------------------
-Error: Please include name, /by and deadline separated by space.
+Error: Invalid input for Deadline. Make sure that you are following the correct format.
+Example:
+deadline Return Book /by 2024-09-01
 -----------------------------------
-Error: Description of deadlines cannot be empty.
-Please try again.
+Error: Invalid input for Deadline. Make sure that you are following the correct format.
+Example:
+deadline Return Book /by 2024-09-01
 -----------------------------------
 New Event task added:
  [E][ ] project meeting  (from July 12, 2024 to: July 13, 2024)
 -----------------------------------
-Error: incorrect styling.
-Please include name, /from, fromDate, /to, toDate separated by space
+Error: Invalid input for Event. Make sure that you are following the correct format.
+Example:
+event Orientation Camp /from 2024-09-01 /to 20224-09-04
 -----------------------------------
-Error: fromDate of deadlines cannot be empty.
-Please try again.
+Error: Invalid input for Event. Make sure that you are following the correct format.
+Example:
+event Orientation Camp /from 2024-09-01 /to 20224-09-04
 -----------------------------------
-Error: fromDate of deadlines cannot be empty.
-Please try again.
+Error: Invalid input for Event. Make sure that you are following the correct format.
+Example:
+event Orientation Camp /from 2024-09-01 /to 20224-09-04
 -----------------------------------
 New Event task added:
  [E][ ]   (from July 12, 2024 to: July 12, 2024)
 -----------------------------------
-Error: eventName of deadlines cannot be empty.
-Please try again.
+Error: Invalid input for Event. Make sure that you are following the correct format.
+Example:
+event Orientation Camp /from 2024-09-01 /to 20224-09-04
 -----------------------------------
-Error: incorrect styling.
-Please include name, /from, fromDate, /to, toDate separated by space
+Error: Invalid input for Event. Make sure that you are following the correct format.
+Example:
+event Orientation Camp /from 2024-09-01 /to 20224-09-04
 -----------------------------------
-Error: incorrect styling.
-Please include name, /from, fromDate, /to, toDate separated by space
+Error: Invalid input for Event. Make sure that you are following the correct format.
+Example:
+event Orientation Camp /from 2024-09-01 /to 20224-09-04
 -----------------------------------
 1. [T][ ] Borrow book
 2. [T][ ] Read Book
@@ -54,14 +67,14 @@ Please include name, /from, fromDate, /to, toDate separated by space
 4. [E][ ] project meeting  (from July 12, 2024 to: July 13, 2024)
 5. [E][ ]   (from July 12, 2024 to: July 12, 2024)
 -----------------------------------
-Nice! I've marked this task as done:
+Ok, I've marked this task as completed:
 [T][X] Borrow book
 -----------------------------------
-Invalid index provided. Please try again
+Error: Invalid index input. Please try again.
 -----------------------------------
-Invalid index provided. Please try again
+Error: Invalid index input. Please try again.
 -----------------------------------
-Invalid index format. Please try again
+Error: Invalid index input. Please try again.
 -----------------------------------
 1. [T][X] Borrow book
 2. [T][ ] Read Book
@@ -69,14 +82,14 @@ Invalid index format. Please try again
 4. [E][ ] project meeting  (from July 12, 2024 to: July 13, 2024)
 5. [E][ ]   (from July 12, 2024 to: July 12, 2024)
 -----------------------------------
-Ok, I've marked this task as not done yet:
+Ok, I've marked this task as incomplete:
 [T][ ] Borrow book
 -----------------------------------
-Invalid index provided. Please try again
+Error: Invalid index input. Please try again.
 -----------------------------------
-Invalid index provided. Please try again
+Error: Invalid index input. Please try again.
 -----------------------------------
-Invalid index format. Please try again
+Error: Invalid index input. Please try again.
 -----------------------------------
 1. [T][ ] Borrow book
 2. [T][ ] Read Book
@@ -84,12 +97,12 @@ Invalid index format. Please try again
 4. [E][ ] project meeting  (from July 12, 2024 to: July 13, 2024)
 5. [E][ ]   (from July 12, 2024 to: July 12, 2024)
 -----------------------------------
-Ok, I've removed this task:
+Ok, I've deleted this task:
 [T][ ] Borrow book
 -----------------------------------
-Invalid index provided. Please try again
+Invalid index format. Please try again
 -----------------------------------
-Invalid index provided. Please try again
+Invalid index format. Please try again
 -----------------------------------
 Invalid index format. Please try again
 -----------------------------------
@@ -98,8 +111,9 @@ Invalid index format. Please try again
 3. [E][ ] project meeting  (from July 12, 2024 to: July 13, 2024)
 4. [E][ ]   (from July 12, 2024 to: July 12, 2024)
 -----------------------------------
-Command not recognized. Please try again
+Error: Invalid command given. Please try again.
 -----------------------------------
 -----------------------------------
 Bye! Hope to see you again soon!
 -----------------------------------
+g
