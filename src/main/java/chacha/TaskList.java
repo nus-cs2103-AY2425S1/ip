@@ -8,6 +8,10 @@ import chacha.task.ToDoTask;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks that the users wants to keep track of.
+ *
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -19,14 +23,34 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Returns the total number of tasks in the list.
+     *
+     * @return Total number of tasks.
+     */
     public int getTotalNumber() {
         return this.tasks.size();
     }
 
+    /**
+     * Returns the Task at the index.
+     *
+     * @param index Index.
+     * @return Task.
+     */
     public Task getTask(int index) {
         return this.tasks.get(index);
     }
 
+    /**
+     * Returns ToDoTask to be added in the list.
+     *
+     * @param cmd Command.
+     * @param ui Ui.
+     * @param storage Storage.
+     * @return ToDoTask.
+     * @throws ChaChaException if the command is not inputted correctly.
+     */
     public Task addToDo(String cmd, Ui ui, Storage storage) throws ChaChaException {
         if (cmd.length() <= 5) {
             String[] arrOfString = {
@@ -46,6 +70,15 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns EventTask to be added in the list.
+     *
+     * @param cmd Command.
+     * @param ui Ui.
+     * @param storage Storage.
+     * @return EventTask.
+     * @throws ChaChaException if the command is not inputted correctly.
+     */
     public Task addEvent(String cmd, Ui ui, Storage storage) throws ChaChaException {
         if (cmd.length() <= 6) {
             String[] arrOfString = {
@@ -100,6 +133,15 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Returns DeadlineTask to be added in the list.
+     *
+     * @param cmd Command.
+     * @param ui Ui.
+     * @param storage Storage.
+     * @return DeadlineTask.
+     * @throws ChaChaException if the command is not inputted correctly.
+     */
     public Task addDeadline(String cmd, Ui ui, Storage storage) throws ChaChaException {
         if (cmd.length() <= 9) {
             String[] arrOfString = {
@@ -142,10 +184,25 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Returns the string representation of the list of tasks.
+     *
+     * @param ui Ui.
+     * @return String representation.
+     */
     public String printList(Ui ui) {
         return ui.printList(this.tasks, "Here are the tasks in your list: \n");
     }
 
+    /**
+     * Returns Task that is deleted from the list.
+     *
+     * @param cmd Command.
+     * @param ui Ui.
+     * @param storage Storage.
+     * @return Task deleted.
+     * @throws ChaChaException if the command is not inputted correctly.
+     */
     public Task deleteTask(String cmd, Ui ui, Storage storage) throws ChaChaException {
 
         if (cmd.length() <= 7) {
@@ -164,6 +221,15 @@ public class TaskList {
         return deletedTask;
     }
 
+    /**
+     * Returns Task that is marked done in the list.
+     *
+     * @param cmd Command.
+     * @param ui Ui.
+     * @param storage Storage.
+     * @return Task marked done.
+     * @throws ChaChaException if the command is not inputted correctly.
+     */
     public Task markDone(String cmd, Ui ui, Storage storage) throws ChaChaException {
         if (cmd.length() <= 5) {
             String[] arrOfString = {
@@ -181,6 +247,15 @@ public class TaskList {
         return markedTask;
     }
 
+    /**
+     * Returns Task that is marked undone in the list.
+     *
+     * @param cmd Command.
+     * @param ui Ui.
+     * @param storage Storage.
+     * @return Task marked undone.
+     * @throws ChaChaException if the command is not inputted correctly.
+     */
     public Task markUndone(String cmd, Ui ui, Storage storage) throws ChaChaException {
         if (cmd.length() <= 7) {
             String[] arrOfString = {
