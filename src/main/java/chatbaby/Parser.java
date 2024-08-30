@@ -1,24 +1,5 @@
 package chatbaby;
 
-import chatbaby.Command;
-import chatbaby.Storage;
-import chatbaby.Task;
-import chatbaby.TaskType;
-import chatbaby.TaskList;
-import chatbaby.Ui;
-import chatbaby.Parser;
-import chatbaby.ChatBabyException;
-import chatbaby.Deadline;
-import chatbaby.Event;
-import chatbaby.ToDo;
-import chatbaby.AddCommand;
-import chatbaby.DeleteCommand;
-import chatbaby.ExitCommand;
-import chatbaby.ListCommand;
-import chatbaby.MarkCommand;
-import chatbaby.UnmarkCommand;
-import chatbaby.ListOnDateCommand;
-
 public class Parser {
     public static Command parse(String curCommand) throws ChatBabyException {
         String[] parts = curCommand.split(" ", 2);
@@ -43,6 +24,8 @@ public class Parser {
                 return new UnmarkCommand(curCommand);
             case "listEndingOn":
                 return new ListOnDateCommand(curCommand);
+            case "find":
+                return new FindCommand(curCommand);
             default:
                 throw new ChatBabyException("I'm sorry, but I don't know what that means.");
         }
