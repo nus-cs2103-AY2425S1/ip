@@ -23,24 +23,24 @@ public class Storage {
                 String description = parts[2];
 
                 switch (type) {
-                    case "ToDo":
-                        ToDo todo = new ToDo(description);
-                        if (isDone) todo.markAsDone();
-                        taskList.add(todo);
-                        break;
-                    case "Deadline":
-                        String by = parts[3];
-                        Deadline deadline = new Deadline(description, by);
-                        if (isDone) deadline.markAsDone();
-                        taskList.add(deadline);
-                        break;
-                    case "Event":
-                        String from = parts[3];
-                        String to = parts[4];
-                        Event event = new Event(description, from, to);
-                        if (isDone) event.markAsDone();
-                        taskList.add(event);
-                        break;
+                case "ToDo":
+                    ToDo todo = new ToDo(description);
+                    if (isDone) todo.markAsDone();
+                    taskList.add(todo);
+                    break;
+                case "Deadline":
+                    String by = parts[3];
+                    Deadline deadline = new Deadline(description, by);
+                    if (isDone) deadline.markAsDone();
+                    taskList.add(deadline);
+                    break;
+                case "Event":
+                    String from = parts[3];
+                    String to = parts[4];
+                    Event event = new Event(description, from, to);
+                    if (isDone) event.markAsDone();
+                    taskList.add(event);
+                    break;
                 }
             }
         } catch (IOException e) {
