@@ -1,4 +1,4 @@
-package Bimo.Tasks;
+package bimo.tasks;
 
 public class Task {
     private boolean status = false;

@@ -1,6 +1,6 @@
-package Bimo;
+package bimo;
 
-import Bimo.Tasks.Task;
+import bimo.tasks.Task;
 
 import java.util.ArrayList;
 

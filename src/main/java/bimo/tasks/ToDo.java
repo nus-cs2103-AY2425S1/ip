@@ -1,4 +1,4 @@
-package Bimo.Tasks;
+package bimo.tasks;
 
 public class ToDo extends Task {
 

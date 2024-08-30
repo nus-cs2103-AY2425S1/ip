@@ -1,9 +1,9 @@
-package Bimo.Command;
+package bimo.command;
 
-import Bimo.Storage;
-import Bimo.Tasks.Task;
-import Bimo.TaskList;
-import Bimo.Ui;
+import bimo.Storage;
+import bimo.tasks.Task;
+import bimo.TaskList;
+import bimo.Ui;
 
 public class DeleteCommand extends Command {
     private int index;

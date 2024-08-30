@@ -1,10 +1,10 @@
-package Bimo;
+package bimo;
 
-import Bimo.Command.*;
-import Bimo.Tasks.Deadline;
-import Bimo.Tasks.Event;
-import Bimo.Tasks.Task;
-import Bimo.Tasks.ToDo;
+import bimo.command.*;
+import bimo.tasks.Deadline;
+import bimo.tasks.Event;
+import bimo.tasks.Task;
+import bimo.tasks.ToDo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

@@ -1,9 +1,9 @@
-package Bimo;
+package bimo;
 
-import Bimo.Command.Command;
+import bimo.command.Command;
 
 public class Bimo {
-    public static String NAME = "Bimo";
+    public static String NAME = "bimo";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;

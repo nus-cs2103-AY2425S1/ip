@@ -1,9 +1,9 @@
-package Bimo;
+package bimo;
 
-import Bimo.Tasks.Deadline;
-import Bimo.Tasks.Event;
-import Bimo.Tasks.Task;
-import Bimo.Tasks.ToDo;
+import bimo.tasks.Deadline;
+import bimo.tasks.Event;
+import bimo.tasks.Task;
+import bimo.tasks.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,7 +29,7 @@ public class Storage {
      * @param task Bimo.Tasks.Task object inside tasks
      * @return Formatted text that can be written into data file
      */
-    private String convertTaskToText(Task task) {
+    public String convertTaskToText(Task task) {
         String text = "";
         String description = task.getTaskText();
         if (task instanceof ToDo) {
