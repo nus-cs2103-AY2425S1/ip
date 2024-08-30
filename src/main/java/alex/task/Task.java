@@ -52,4 +52,8 @@ public class Task {
     public String toStorageString() {
         return "";
     }
+
+    public boolean hasSearchString(String searchString) {
+        return this.taskName.contains(searchString);
+    }
 }

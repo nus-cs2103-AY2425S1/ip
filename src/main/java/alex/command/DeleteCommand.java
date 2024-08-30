@@ -49,7 +49,7 @@ public class DeleteCommand extends Command {
         try {
             taskNumber = Integer.valueOf(taskNumberStr);
         } catch (NumberFormatException e) {
-            throw new AlexException("Oh no! Please only provide an integer number after 'delete' indicating " +
+            throw new AlexException("Oh no! Please only provide an integer number after 'delete' indicating\n" +
                     "the task number to delete!");
         }
 

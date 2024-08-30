@@ -66,8 +66,8 @@ public class Ui {
      *
      * @param tasks TaskList that holds the list of Tasks to be displayed.
      */
-    public void showTasks(TaskList tasks) {
-        tasks.showTasks(this.line);
+    public void showTasks(TaskList tasks, String message) {
+        tasks.showTasks(this.line, message);
     }
 
     /**
