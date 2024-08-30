@@ -1,8 +1,9 @@
 package citadel.ui;
 
 import java.util.Scanner;
-import citadel.Task.TaskList;
+
 import citadel.Task.Task;
+import citadel.Task.TaskList;
 import citadel.exception.CitadelException;
 
 /**
@@ -24,7 +25,7 @@ public class TextUI {
     private static final String GOODBYE = "Bye. Hope to see you again soon!\n";
 
     /** The {@code Scanner} object used to read user input from the console. */
-    private final Scanner SCANNER = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     /**
      * Constructs a new {@code TextUI} object.
@@ -38,15 +39,16 @@ public class TextUI {
      * @return The next line of user input as a {@code String}.
      */
     public String nextLine() {
-        return this.SCANNER.nextLine();
+        return this.scanner.nextLine();
     }
 
     /**
      * Prints the start message when the application begins.
      */
-    public void printStart() {
+    public String printStart() {
         String start = INTRO + QUESTION;
         System.out.println(start);
+        return start;
     }
 
     /**
@@ -54,10 +56,14 @@ public class TextUI {
      *
      * @param items The {@link TaskList} containing the tasks to be printed.
      */
-    public void printTasks(TaskList items) {
+    public String printTasks(TaskList items) {
+        StringBuilder taskListToString = new StringBuilder();
         for (int i = 0; i < items.size(); i++) {
-            System.out.println((i + 1) + ". " + items.get(i).printTask());
+            String printString = (i + 1) + ". " + items.get(i).printTask();
+            System.out.println(printString);
+            taskListToString.append(printString).append("\n");
         }
+        return taskListToString.toString();
     }
 
     /**
@@ -65,9 +71,11 @@ public class TextUI {
      *
      * @param items The {@link TaskList} whose size is to be printed.
      */
-    public void printTaskCount(TaskList items) {
-        System.out.println("Now you have " + items.size()
-                + " tasks in the list");
+    public String printTaskCount(TaskList items) {
+        String printString = "Now you have " + items.size()
+                + " tasks in the list";
+        System.out.println(printString);
+        return printString;
     }
 
     /**
@@ -75,16 +83,19 @@ public class TextUI {
      *
      * @param e The {@link CitadelException} to be printed.
      */
-    public void printCitadelException(CitadelException e) {
+    public String printCitadelException(CitadelException e) {
         System.out.println(e.toString());
+        return e.toString();
     }
 
     /**
      * Prints an error message for date parsing errors.
      */
-    public void printDateTimeParseException() {
-        System.out.println("Incorrect Date Format! Please write the date "
-                + "in this format: dd/MM/yyyy HH:mm!");
+    public String printDateTimeParseException() {
+        String dateErrorString = "Incorrect Date Format! Please write the date "
+                + "in this format: dd/MM/yyyy HH:mm!";
+        System.out.println(dateErrorString);
+        return dateErrorString;
     }
 
     /**
@@ -92,16 +103,19 @@ public class TextUI {
      *
      * @param e The {@link Exception} to be printed.
      */
-    public void printException(Exception e) {
-        System.out.println("Error occurred: "
-                + e.getMessage());
+    public String printException(Exception e) {
+        String exceptionString = "Error occurred: "
+                + e.getMessage();
+        System.out.println(exceptionString);
+        return exceptionString;
     }
 
     /**
      * Prints the farewell message when the application exits.
      */
-    public void printGoodbye() {
+    public String printGoodbye() {
         System.out.println(GOODBYE);
+        return GOODBYE;
     }
 
     /**
@@ -110,10 +124,13 @@ public class TextUI {
      * @param t The {@link Task} that was added.
      * @param items The {@link TaskList} to which the task was added.
      */
-    public static void printTask(Task t, TaskList items) {
-        System.out.println("Got it! I have added: " + t);
-        System.out.println("Now you have " + items.size()
-                + " tasks in the list");
+    public static String printTask(Task t, TaskList items) {
+        String addedSuccess = "Got it! I have added: " + t;
+        String printTaskCount = "Now you have " + items.size()
+                + " tasks in the list";
+        System.out.println(addedSuccess);
+        System.out.println(printTaskCount);
+        return addedSuccess + "\n" + printTaskCount;
     }
 
     /**
@@ -122,9 +139,12 @@ public class TextUI {
      * @param tasks The {@link TaskList} containing the tasks.
      * @param index The index of the task that was marked as done.
      */
-    public static void printMark(TaskList tasks, int index) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks.get(index - 1));
+    public static String printMark(TaskList tasks, int index) {
+        String markSuccess = "Nice! I've marked this task as done:";
+        Task markedTask = tasks.get(index - 1);
+        System.out.println(markSuccess);
+        System.out.println(markedTask);
+        return markSuccess + "\n" + markedTask;
     }
 
     /**
@@ -133,9 +153,12 @@ public class TextUI {
      * @param tasks The {@link TaskList} containing the tasks.
      * @param index The index of the task that was unmarked.
      */
-    public static void printUnmark(TaskList tasks, int index) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(tasks.get(index - 1));
+    public static String printUnmark(TaskList tasks, int index) {
+        String unmarkSuccess = "Nice! I've marked this task as done:";
+        Task unmarkedTask = tasks.get(index - 1);
+        System.out.println(unmarkSuccess);
+        System.out.println(unmarkedTask);
+        return unmarkSuccess + "\n" + unmarkedTask;
     }
 
     /**
@@ -144,11 +167,14 @@ public class TextUI {
      * @param tasks The {@link TaskList} containing the tasks.
      * @param t The {@link Task} that was deleted.
      */
-    public static void printDelete(TaskList tasks, Task t) {
-        System.out.println("Noted. I've removed this task:");
+    public static String printDelete(TaskList tasks, Task t) {
+        String removeSuccess = "Noted. I've removed this task:";
+        String printTaskCount = "Now you have " + tasks.size()
+                + " tasks in the list";
+        System.out.println(removeSuccess);
         System.out.println(t);
-        System.out.println("Now you have " + tasks.size()
-                + " tasks in the list");
+        System.out.println(printTaskCount);
+        return removeSuccess + "\n" + t + "\n" + printTaskCount;
     }
 
     /**
@@ -156,8 +182,10 @@ public class TextUI {
      *
      * @param tasks The {@link TaskList} containing the matching tasks.
      */
-    public static void printFind(TaskList tasks) {
-        System.out.println(" Here are the matching tasks in your list:");
+    public static String printFind(TaskList tasks) {
+        String findMatches = " Here are the matching tasks in your list:";
+        System.out.println(findMatches);
         new TextUI().printTasks(tasks);
+        return findMatches + new TextUI().printTasks(tasks);
     }
 }

@@ -38,6 +38,57 @@ public class Citadel {
         return "Citadel heard: " + input;
     }
 
+
+    /**
+     * Processes the user's input command and executes the corresponding task.
+     *
+     * @param input The user's input command as a string.
+     * @throws CitadelException If there is an error processing the input.
+     */
+    public static void handleInput(String input) throws CitadelException {
+        Commands command = Parser.parseCommand(input);
+
+        switch (command) {
+        case BYE:
+            break;
+
+        case LIST:
+            ui.printTasks(items);
+            break;
+
+        case MARK:
+            new MarkTask(input, items).run();
+            break;
+
+        case UNMARK:
+            new UnmarkTask(input, items).run();
+            break;
+
+        case DELETE:
+            new DeleteTask(input, items).run();
+            break;
+
+        case DEADLINE:
+            new HandleDeadline(input, items).run();
+            break;
+
+        case EVENT:
+            new HandleEvent(input, items).run();
+            break;
+
+        case TODO:
+            new HandleTodo(input, items).run();
+            break;
+
+        case FIND:
+            new FindTask(input, items).run();
+            break;
+
+        default:
+            throw new CitadelInvalidCommandException();
+        }
+    }
+
     /**
      * The main method that starts the Citadel application.
      * <p>
@@ -56,49 +107,9 @@ public class Citadel {
         while (true) {
             try {
                 String input = ui.nextLine();
-                Commands command = Parser.parseCommand(input);
+                handleInput(input);
 
-                switch (command) {
-                case BYE:
-                    break;
-
-                case LIST:
-                    ui.printTasks(items);
-                    continue;
-
-                case MARK:
-                    new MarkTask(input, items).run();
-                    break;
-
-                case UNMARK:
-                    new UnmarkTask(input, items).run();
-                    break;
-
-                case DELETE:
-                    new DeleteTask(input, items).run();
-                    break;
-
-                case DEADLINE:
-                    new HandleDeadline(input, items).run();
-                    break;
-
-                case EVENT:
-                    new HandleEvent(input, items).run();
-                    break;
-
-                case TODO:
-                    new HandleTodo(input, items).run();
-                    break;
-
-                case FIND:
-                    new FindTask(input, items).run();
-                    break;
-
-                default:
-                    throw new CitadelInvalidCommandException();
-                }
-
-                if (command.equals(Commands.BYE)) {
+                if (Parser.parseCommand(input).equals(Commands.BYE)) {
                     break;
                 }
             } catch (CitadelException e) {
@@ -114,10 +125,3 @@ public class Citadel {
         db.saveData(items);
     }
 }
-
-
-
-
-
-
-
