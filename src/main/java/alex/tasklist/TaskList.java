@@ -10,6 +10,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Represents the list of tasks to be done. A TaskList object corresponds to
+ * a list of actions represented by an arraylist.
+ */
 public class TaskList {
     public static final String LINE = Ui.LINE;
     ArrayList<Task> list;
@@ -18,6 +22,9 @@ public class TaskList {
         this.list = tasks;
     }
 
+    /**
+    * Displays the list of tasks when commanded by the user.
+    */
     public void handleList() {
         System.out.println(LINE + "\n" +
                 "Here are the tasks in your list: ");
@@ -26,6 +33,11 @@ public class TaskList {
         }
         System.out.println(LINE);
     }
+    /**
+     * Displays the desired task as marked when commanded by the user.
+     *
+     * @param input input entered by the user
+     */
     public void handleMark(String input) {
         int index = Integer.parseInt(input.substring(5)) - 1;
         if (index >= 0 && index < list.size()) {
@@ -41,6 +53,11 @@ public class TaskList {
             System.out.println(LINE);
         }
     }
+    /**
+     * Displays the desired task as unmarked when commanded by the user.
+     *
+     * @param input input entered by the user
+     */
     public void handleUnmark(String input) {
         int index = Integer.parseInt(input.substring(7)) - 1;
         if (index >= 0 && index < list.size()) {
@@ -56,6 +73,13 @@ public class TaskList {
             System.out.println(LINE);
         }
     }
+    /**
+     * Adds the to-do to the list when commanded by the user.
+     * Displays the task as added into the list.
+     * If there is no description of the task, it will ask user to try again.
+     *
+     * @param input input entered by the user
+     */
     public void handleTodo(String input) {
         String description = input.substring(4).trim();
         if (description.isEmpty()) {
@@ -69,6 +93,14 @@ public class TaskList {
             System.out.println(LINE);
         }
     }
+    /**
+     * Adds the deadline to the list when commanded by the user.
+     * Displays the task as added into the list.
+     * If there is no description of the task, it will ask user to try again.
+     * If the date entered by the user is invalid, it will ask user to try again.
+     *
+     * @param input input entered by the user
+     */
     public void handleDeadline(String input) {
         String description = input.substring(8).trim();
         if (description.isEmpty()) {
@@ -95,6 +127,14 @@ public class TaskList {
             }
         }
     }
+    /**
+     * Adds the event to the list when commanded by the user.
+     * Displays the task as added into the list.
+     * If there is no description of the task, it will ask user to try again.
+     * If the date(s) entered by the user is invalid, it will ask user to try again.
+     *
+     * @param input input entered by the user
+     */
     public void handleEvent(String input) {
         String description = input.substring(5).trim();
         if (description.isEmpty()) {
@@ -123,6 +163,13 @@ public class TaskList {
             }
         }
     }
+    /**
+     * Deletes the desired task from the list when commanded by the user.
+     * Displays the task as removed into the list.
+     * If the index entered by the user is < -1 or > size of list, it will ask user to try again.
+     *
+     * @param input input entered by the user
+     */
     public void handleDelete(String input) {
         int index = Integer.parseInt(input.substring(7)) - 1;
         if (index >= 0 && index < list.size()) {
@@ -138,6 +185,12 @@ public class TaskList {
             System.out.println(LINE);
         }
     }
+    /**
+     * Displays the deadlines that are due on or events that end on the specified date.
+     * If the date entered by the user is invalid, it will ask user to try again.
+     *
+     * @param input input entered by the user
+     */
     public void handleDate(String input) {
         try {
             LocalDate dateToFind = LocalDate.parse(input.substring(9).trim());

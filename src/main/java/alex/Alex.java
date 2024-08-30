@@ -6,6 +6,11 @@ import alex.ui.Ui;
 
 import java.util.Scanner;
 
+/**
+ * Represents the chatbot that is able to respond to commands given by the user.
+ * An Alex object corresponds to a chatbot represented by a string referring to the
+ * data file where the bot will load the list of tasks from.
+ */
 public class Alex {
     private String filePath;
     private Storage storage;
@@ -22,6 +27,11 @@ public class Alex {
         tasks = new TaskList(storage.loadTasksFromFile(filePath));
     }
 
+    /**
+     * Allows the user to input a command for the chatbot to respond to.
+     * Handles all the commands given by the user.
+     * If the chatbot does not understand the command, it will ask the user to try again.
+     */
     public void scan() {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
