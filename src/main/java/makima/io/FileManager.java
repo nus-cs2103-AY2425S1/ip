@@ -19,6 +19,13 @@ public class FileManager {
     public static final String DATA_FOLDER = "./data";
     public static final String DATA_PATH = "./data/makima.txt";
 
+    /**
+     * Saves the current list of tasks to DATA_PATH.
+     * Returns true if successful
+     *
+     * @param makima State of chatbot
+     * @return outcome of save
+     */
     public static boolean saveFile(Makima makima) {
         File file = new File(DATA_PATH);
         try {
@@ -32,6 +39,13 @@ public class FileManager {
         return true;
     }
 
+    /**
+     * Loads the list of tasks saved in DATA_PATH
+     * Returns true if successful
+     *
+     * @param makima State of chatbot
+     * @return outcome of load
+     */
     public static boolean loadFile(Makima makima) {
         File folder = new File(DATA_FOLDER);
         if (!folder.exists()) {
