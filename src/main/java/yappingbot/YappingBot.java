@@ -77,15 +77,15 @@ public class YappingBot {
                         Commands.printUserList(userList);
                         break;
                     case MARK:
-                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1], userList);
+                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
                         Commands.changeTaskListStatus(taskListIndexPtr, true, userList);
                         break;
                     case UNMARK:
-                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1], userList);
+                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
                         Commands.changeTaskListStatus(taskListIndexPtr, false, userList);
                         break;
                     case DELETE:
-                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1], userList);
+                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
                         Commands.deleteTask(taskListIndexPtr, userList);
                         break;
                     case TODO:
