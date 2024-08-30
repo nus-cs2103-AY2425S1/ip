@@ -1,20 +1,22 @@
 package xbot.parser;
 
 import xbot.storage.Storage;
-import xbot.task.Task;
-import xbot.TaskList;
 import xbot.ui.Ui;
-import xbot.task.Deadline;
+import xbot.XBotException;
+import xbot.TaskList;
+
+import xbot.task.Task;
 import xbot.task.ToDo;
 import xbot.task.Event;
-import xbot.XBotException;
+import xbot.task.Deadline;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The Parser class provides utility methods to parse user input and tasks
@@ -35,23 +37,23 @@ public class Parser {
             boolean isDone = parts[1].trim().equals("1");
             String description = parts[2].trim();
             switch (type) {
-                case "T":
-                    Task todo = new ToDo(description);
-                    if (isDone) todo.setIsDone();
-                    return todo;
-                case "D":
-                    String deadline = parts[3].trim();
-                    Task deadlineTask = new Deadline(description, deadline);
-                    if (isDone) deadlineTask.setIsDone();
-                    return deadlineTask;
-                case "E":
-                    String from = parts[3].trim();
-                    String to = parts[4].trim();
-                    Task eventTask = new Event(description, from, to);
-                    if (isDone) eventTask.setIsDone();
-                    return eventTask;
-                default:
-                    System.out.println("Unknown task type: " + type);
+            case "T":
+                Task todo = new ToDo(description);
+                if (isDone) todo.setIsDone();
+                return todo;
+            case "D":
+                String deadline = parts[3].trim();
+                Task deadlineTask = new Deadline(description, deadline);
+                if (isDone) deadlineTask.setIsDone();
+                return deadlineTask;
+            case "E":
+                String from = parts[3].trim();
+                String to = parts[4].trim();
+                Task eventTask = new Event(description, from, to);
+                if (isDone) eventTask.setIsDone();
+                return eventTask;
+            default:
+                System.out.println("Unknown task type: " + type);
             }
         }
         return null;
@@ -79,7 +81,7 @@ public class Parser {
                 }
                 return true;
             } catch (DateTimeParseException e) {
-                continue;
+                //Do nothing
             }
         }
         return false;
@@ -151,53 +153,53 @@ public class Parser {
         String command = words[0].toLowerCase();
         String rest = words.length > 1 ? words[1] : "";
         switch(command) {
-            case "list":
-                ui.showTaskList(list);
-                break;
-            case "mark":
-                list.markDone(rest);
-                storage.saveTask(list);
-                break;
-            case "unmark":
-                list.markUndone(rest);
-                storage.saveTask(list);
-                break;
-            case "todo":
-                if (rest.isEmpty()) {
-                    throw new XBotException("The description of the todo cannot be empty!");
-                }
-                list.addTodo(rest);
-                storage.saveTask(list);
-                break;
-            case "event":
-                if (rest.isEmpty()) {
-                    throw new XBotException("The description of the event cannot be empty!");
-                }
-                list.addEvent(rest);
-                storage.saveTask(list);
-                break;
-            case "deadline":
-                if (rest.isEmpty()) {
-                    throw new XBotException("The description of the deadline cannot be empty!");
-                }
-                list.addDeadline(rest);
-                storage.saveTask(list);
-                break;
-            case "delete":
-                if (rest.isEmpty()) {
-                    throw new XBotException("The task number to be deleted cannot be empty!");
-                }
-                list.deleteTask(rest);
-                storage.saveTask(list);
-                break;
-            case "find":
-                if (rest.isEmpty()) {
-                    throw new XBotException("There is nothing to find!");
-                }
-                list.findTask(rest);
-                break;
-            default:
-                throw new XBotException("I'm sorry, but I don't know what that means :-(");
+        case "list":
+            ui.showTaskList(list);
+            break;
+        case "mark":
+            list.markDone(rest);
+            storage.saveTask(list);
+            break;
+        case "unmark":
+            list.markUndone(rest);
+            storage.saveTask(list);
+            break;
+        case "todo":
+            if (rest.isEmpty()) {
+                throw new XBotException("The description of the todo cannot be empty!");
+            }
+            list.addTodo(rest);
+            storage.saveTask(list);
+            break;
+        case "event":
+            if (rest.isEmpty()) {
+                throw new XBotException("The description of the event cannot be empty!");
+            }
+            list.addEvent(rest);
+            storage.saveTask(list);
+            break;
+        case "deadline":
+            if (rest.isEmpty()) {
+                throw new XBotException("The description of the deadline cannot be empty!");
+            }
+            list.addDeadline(rest);
+            storage.saveTask(list);
+            break;
+        case "delete":
+            if (rest.isEmpty()) {
+                throw new XBotException("The task number to be deleted cannot be empty!");
+            }
+            list.deleteTask(rest);
+            storage.saveTask(list);
+            break;
+        case "find":
+            if (rest.isEmpty()) {
+                throw new XBotException("There is nothing to find!");
+            }
+            list.findTask(rest);
+            break;
+        default:
+            throw new XBotException("I'm sorry, but I don't know what that means :-(");
         }
     }
 }
