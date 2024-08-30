@@ -17,12 +17,6 @@ public class Dudu {
         ui =  new UI();
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
-//        try {
-//            tasks = new dudu.utils.TaskList(storage.load());
-//        } catch (Exception e) {
-//            tasks = new dudu.utils.TaskList();
-//        }
-
     }
 
     public void run() {

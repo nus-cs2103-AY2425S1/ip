@@ -31,17 +31,6 @@ public class TaskList {
         return this.tasks.size();
     }
 
-//    public int getIndex(String[] input) throws dudu.exception.MissingDescriptionException {
-//        if (input.length <= 1 || input[1].replaceAll("\\D+", "").isEmpty()) {
-//            throw new dudu.exception.MissingDescriptionException("Please input a number");
-//        }
-//        int index = Integer.parseInt(input[1].replaceAll("\\D+", "")) - 1;
-//        if (index < 0 || index >= tasks.size()) {
-//            throw new IllegalArgumentException("Please input a valid count");
-//        }
-//        return index;
-//    }
-
     public Task markTask(int index) {
         tasks.get(index).markCompleted();
         return tasks.get(index);
@@ -56,5 +45,15 @@ public class TaskList {
         Task removed = tasks.get(index);
         tasks.remove(index);
         return removed;
+    }
+
+    public ArrayList<Task> findTasks(String query) {
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.includes(query)) {
+                filteredTasks.add(task);
+            }
+        }
+        return filteredTasks;
     }
 }
