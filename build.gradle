@@ -28,11 +28,11 @@ test {
 }
 
 application {
-    mainClass.set("BuddyBot")
+    mainClass.set("buddybot.NewBuddyBot")
 }
 
 shadowJar {
-    archiveBaseName = "BuddyBot"
+    archiveBaseName = "NewBuddyBot"
     archiveClassifier = null
 }
 

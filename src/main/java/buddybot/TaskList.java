@@ -1,4 +1,4 @@
-package BuddyBot;
+package buddybot;
 
 import java.util.ArrayList;
 
@@ -16,10 +16,19 @@ public class TaskList {
         myList.add(task);
     }
 
+    /**
+     *
+     * @return
+     */
     public int size() {
         return myList.size();
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     */
     public Task get(int i) {
         return myList.get(i-1);
     }

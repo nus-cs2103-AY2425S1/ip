@@ -1,4 +1,4 @@
-package BuddyBot;
+package buddybot;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -9,6 +9,10 @@ public class FileStorage {
 
     public String filePath;
 
+    /**
+     *
+     * @param filePath
+     */
     public FileStorage(String filePath) {
         this.filePath = filePath;
     }
@@ -27,8 +31,15 @@ public class FileStorage {
         }
         return contents;
     }
+
+    /**
+     *
+     * @param entry
+     * @return
+     */
     private Task readEntry(String entry) {
-        String[] fields = entry.split("\\|");
+        String trimmed = entry.trim().trim();
+        String[] fields = trimmed.split("\\|");
         //  System.out.println(Arrays.toString(fields));  // debug
         Task taskToAdd;
 //        for (String field: fields) {
@@ -42,7 +53,6 @@ public class FileStorage {
                 taskToAdd = new Deadline(fields[2], LocalDate.parse(fields[3]));
                 break;
             default: // case "T":
-                System.out.println(fields[2]);
                 taskToAdd = new Todo(fields[2]);
                 break;
         }
@@ -52,6 +62,10 @@ public class FileStorage {
         return taskToAdd;
     }
 
+    /**
+     *
+     * @param myTasks
+     */
     public void writeToTxt(String myTasks) { //Using this method
         try  {
             File file = new File(this.filePath);
@@ -60,7 +74,7 @@ public class FileStorage {
             FileWriter fw = new FileWriter(this.filePath, false);
             BufferedWriter bw = new BufferedWriter(fw);
            bw.write(myTasks);
-           bw.newLine();
+           //bw.newLine();
            bw.close();
            fw.close();
         } catch (IOException e) {

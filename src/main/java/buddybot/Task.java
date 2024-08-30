@@ -1,8 +1,4 @@
-package BuddyBot;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+package buddybot;
 
 public class Task {
     protected String description;
@@ -15,10 +11,17 @@ public class Task {
         this.type = type;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getStatusIcon() {
         return (status == TaskStatus.DONE ? "X" : " ");
     }
 
+    /**
+     *
+     */
     public void mark() {
         this.status = TaskStatus.DONE;
     }
@@ -29,7 +32,10 @@ public class Task {
     }
 
     public String toFile() {
-        return status == TaskStatus.DONE ? "|X|" : "|0|"
-                + description;
+        if (status == TaskStatus.DONE) {
+            return "|X|" + description;
+        } else {
+            return  "|0|" + description;
+        }
     }
 }

@@ -1,4 +1,4 @@
-package BuddyBot;
+package buddybot;
 
 import java.util.Scanner;
 

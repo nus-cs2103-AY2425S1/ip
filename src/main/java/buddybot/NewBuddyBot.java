@@ -1,4 +1,4 @@
-package BuddyBot;
+package buddybot;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,6 +9,10 @@ public class NewBuddyBot {
     private TaskList taskList;
     private final Ui ui;
 
+    /**
+     *
+     * @param filePath
+     */
     public NewBuddyBot(String filePath) {
         this.storage = new FileStorage(filePath);
         this.ui = new Ui();
@@ -16,10 +20,13 @@ public class NewBuddyBot {
             this.taskList = new TaskList(this.storage.readFileContents());
         } catch (BuddyBotException e) {
             this.ui.showBuddyBotException(e);
+            this.taskList = new TaskList();
         }
     }
 
-
+    /**
+     *
+     */
     private void run() {
         this.ui.welcomeMsg();
         running:
@@ -56,13 +63,19 @@ public class NewBuddyBot {
         this.ui.goodbyeMsg();
     }
 
-
+    /**
+     *
+     */
     private void exit() {
         this.ui.closeInput();
         this.storage.writeToTxt(this.taskList.toFile());
     }
 
-
+    /**
+     *
+     * @param description
+     * @throws BuddyBotException
+     */
     private void addTodo(String description) throws BuddyBotException {
         try {
             Task todo = new Todo(description);
@@ -73,7 +86,11 @@ public class NewBuddyBot {
         }
     }
 
-
+    /**
+     *
+     * @param args
+     * @throws BuddyBotException
+     */
     private void addEvent(String args) throws BuddyBotException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -98,7 +115,11 @@ public class NewBuddyBot {
         }
     }
 
-
+    /**
+     *
+     * @param args
+     * @throws BuddyBotException
+     */
     private void addDeadline(String args) throws BuddyBotException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -115,7 +136,11 @@ public class NewBuddyBot {
         }
     }
 
-
+    /**
+     *
+     * @param args
+     * @throws BuddyBotException
+     */
     private void markAsDone(String args) throws BuddyBotException {
         try {
             int taskNum = Integer.parseInt(args);
@@ -131,7 +156,11 @@ public class NewBuddyBot {
         }
     }
 
-
+    /**
+     *
+     * @param args
+     * @throws BuddyBotException
+     */
     private void delete(String args) throws BuddyBotException {
         try {
             int taskNum = Integer.parseInt(args);

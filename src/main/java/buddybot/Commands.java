@@ -1,4 +1,4 @@
-package BuddyBot;
+package buddybot;
 
 public enum Commands {
     BYE, LIST,
