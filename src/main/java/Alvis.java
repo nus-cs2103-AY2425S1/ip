@@ -30,8 +30,12 @@ public class Alvis {
                 }
                 break;
             case "todo":
-                Task toDo = new ToDo(userInput.substring(5));
-                addTask(toDo, tracker);
+                try {
+                    Task toDo = new ToDo(userInput.substring(5));
+                    addTask(toDo, tracker);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("Please input a body for the task");
+                }
                 break;
             case "deadline":
                 int byIndex = userInput.indexOf("/by");
@@ -41,7 +45,7 @@ public class Alvis {
             case "event":
                 int fromIndex = userInput.indexOf("/from");
                 int toIndex = userInput.indexOf("/to");
-                Task event = new Event(userInput.substring(6, fromIndex), userInput.substring(fromIndex + 5, toIndex),
+                Task event = new Event(userInput.substring(6, fromIndex), userInput.substring(fromIndex + 6, toIndex - 1),
                         userInput.substring(toIndex + 4));
                 addTask(event, tracker);
                 break;
