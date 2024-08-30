@@ -72,8 +72,4 @@ public class LuffyUI {
             System.out.println(format(" %d.%s", i + 1, taskList.getTask(i).stringIsDone()));
         }
     }
-
-
-
-
 }
