@@ -1,6 +1,10 @@
-import java.time.LocalDate;
+package socchat.task.event;
+
+
+import socchat.Parser;
+import socchat.task.Task;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
     private Parser parser = new Parser();

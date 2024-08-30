@@ -1,10 +1,13 @@
+package socchat;
+
+import socchat.task.Task;
+import socchat.task.deadline.Deadline;
+import socchat.task.event.Event;
+import socchat.task.todo.Todo;
+
 import java.io.File;
-import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.io.FileWriter;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class TaskList {
     private Parser parser = new Parser();
@@ -61,7 +64,7 @@ public class TaskList {
             storage.update(tasks, true);
         } catch (IndexOutOfBoundsException e) {
             // scanner.nextLine();
-            throw new SocchatException("Invalid Todo format: Description is empty");
+            throw new SocchatException("Invalid socchat.task.todo.Todo format: Description is empty");
 
         }
     }

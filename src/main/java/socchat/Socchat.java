@@ -1,10 +1,6 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import java.io.File;
+package socchat;
 
+import java.util.Scanner;
 
 public class Socchat {
     private Parser parser;
