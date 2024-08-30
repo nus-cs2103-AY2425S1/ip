@@ -12,6 +12,9 @@ public class Ui {
         this.storage = storage;
     }
 
+    /**
+     * Takes in user inputs and prints out chatbot's responses.
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         botSay("Hello I'm Peridot!!");
@@ -30,6 +33,9 @@ public class Ui {
         botSay("Bye!");
     }
 
+    /**
+     * Prints out the message with a "Peridot: " prefix.
+     */
     public static void botSay(String string) {
         System.out.println("Peridot: " + string);
     }

@@ -9,6 +9,14 @@ import java.time.LocalDate;
 
 public class Parser {
 
+    /**
+     * Processes the user input
+     *
+     * @param response Response to be processed.
+     * @param taskList Task List to be tracked.
+     * @throws InvalidCommandException If invalid command is given.
+     * @throws InvalidNumberException If requested mark/unmark command is out of bounds.
+     */
     public static void answer(String response, TaskList taskList) throws InvalidCommandException, InvalidNumberException {
         String command = response.contains(" ")
                 ? response.substring(0, response.indexOf(' '))
