@@ -2,11 +2,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends TaskWithDate {
-    protected String by;
     protected LocalDate localDate;
 
     public Deadline(String name, LocalDate localDate) {
-        super(name);
+        super(name, "D");
         this.localDate = localDate;
     }
 
@@ -22,15 +21,9 @@ public class Deadline extends TaskWithDate {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + formatDate(this.localDate) + ")";
-    }
-
-    @Override
-    public String parseTaskInfo() {
-        return "D, "
-                + (this.isCompleted ? "1, " : "0, ")
-                + this.name + ", "
-                + this.localDate
-                + "\n";
+        return "[" + this.symbol + "]"
+                + super.toString()
+                + " (by: "
+                + formatDate(this.localDate) + ")";
     }
 }

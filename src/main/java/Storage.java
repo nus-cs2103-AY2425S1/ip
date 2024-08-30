@@ -16,9 +16,10 @@ public class Storage {
             // create file if it doesn't exist
             try {
                 Files.createFile(this.filePath);
-                System.out.println("Memory initialised.");
+                Ui.printMemoryInitialisedMessage();
             } catch (IOException e) {
-                System.out.println("Error, unable to initialise memory: " + e.getMessage());
+                Ui.printMemoryInitialisingFailureMessage();
+                Ui.printExceptionMessage(e);
             }
         }
 
@@ -29,12 +30,12 @@ public class Storage {
         try {
             FileWriter fileWriter = new FileWriter(this.filePath.toString());
             for (Task task : taskList.tasks) {
-                String line = task.parseTaskInfo();
+                String line = Parser.parseTaskInfo(task);
                 fileWriter.write(line);
             }
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            Ui.printExceptionMessage(e);
         }
     }
 }

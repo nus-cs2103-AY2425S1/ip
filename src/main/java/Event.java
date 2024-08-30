@@ -6,7 +6,7 @@ public class Event extends TaskWithDate {
     protected LocalDate endDate;
 
     public Event(String name, LocalDate startDate, LocalDate endDate) {
-        super(name);
+        super(name, "E");
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -24,22 +24,12 @@ public class Event extends TaskWithDate {
 
     @Override
     public String toString() {
-        return "[E]"
+        return "[" + this.symbol + "]"
                 + super.toString()
                 + " (from: "
                 + this.formatDate(this.startDate)
                 + " to: "
                 + this.formatDate(this.endDate)
                 + ")";
-    }
-
-    @Override
-    public String parseTaskInfo() {
-        return "E, "
-                + (this.isCompleted ? "1, " : "0, ")
-                + this.name + ", "
-                + this.startDate + ", "
-                + this.endDate
-                + "\n";
     }
 }

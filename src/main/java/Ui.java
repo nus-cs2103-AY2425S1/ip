@@ -31,7 +31,6 @@ public class Ui {
         System.out.print(LINE);
     }
 
-
     public void printTaskList(TaskList taskList) {
         int size = taskList.tasks.size();
         if (size == 0) {
@@ -67,5 +66,43 @@ public class Ui {
                 }
             }
         }
+    }
+
+    public static void printInvalidInputMessage() {
+        System.out.println("\tUnknown input!");
+    }
+
+    public static void printExceptionMessage(Exception e) {
+        System.out.println(e.getMessage());
+    }
+
+    public static void printTaskMarkedCompleteMessage(Task taskMarked) {
+        System.out.println("\t Mission marked as complete. Good job, soldier!");
+        System.out.println("\t\t" + taskMarked);
+    }
+
+    public static void printTaskMarkedIncompleteMessage(Task taskMarked) {
+        System.out.println("\t Mission marked as incomplete.");
+        System.out.println("\t\t" + taskMarked);
+    }
+
+    public static void printTaskDeletedMessage(Task taskDeleted, int taskListSize) {
+        System.out.println("\t OK. Mission aborted, retreat!");
+        System.out.println("\t  " + taskDeleted);
+        System.out.println("\t " + taskListSize + " missions remaining. Destroy the enemy!");
+    }
+
+    public static void printTaskAddedMessage(Task taskAdded, int taskListSize) {
+        System.out.println("\t Mission " + taskAdded.name + " added:");
+        System.out.println("\t   " + taskAdded);
+        System.out.println("\t Total upcoming missions: " + taskListSize);
+    }
+
+    public static void printMemoryInitialisedMessage() {
+        System.out.println("\tMemory successful initialised.");
+    }
+
+    public static void printMemoryInitialisingFailureMessage() {
+        System.out.println("\tCorrupted memory detected. Aborting sequence!");
     }
 }

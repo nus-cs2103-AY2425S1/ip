@@ -31,10 +31,9 @@ public class TaskList {
         if (idx >= this.tasks.size()) {
             throw new PhenexException("\t Invalid input, no such mission!");
         } else {
-            System.out.println("\t Mission marked as complete. Good job, soldier!");
-            Task taskToMark = this.tasks.get(idx);
-            taskToMark.setCompleted();
-            System.out.println("\t\t" + taskToMark);
+            Task taskMarked = this.tasks.get(idx);
+            taskMarked.setCompleted();
+            Ui.printTaskMarkedCompleteMessage(taskMarked);
         }
     }
 
@@ -42,10 +41,9 @@ public class TaskList {
         if (idx >= this.tasks.size()) {
             throw new PhenexException("\t Invalid input, no such mission!");
         } else {
-            System.out.println("\t Mission marked as incomplete.");
-            Task taskToUnmark = this.tasks.get(idx);
-            taskToUnmark.setUncompleted();
-            System.out.println("\t\t" + taskToUnmark);
+            Task taskMarked = this.tasks.get(idx);
+            taskMarked.setUncompleted();
+            Ui.printTaskMarkedIncompleteMessage(taskMarked);
         }
     }
 
@@ -90,12 +88,12 @@ public class TaskList {
             }
 
         default:
-            System.out.println("Unknown input");
+            Ui.printInvalidInputMessage();
             return;
         }
 
         this.tasks.add(taskToAdd);
-        this.printTaskAdded(taskToAdd);
+        Ui.printTaskAddedMessage(taskToAdd, this.tasks.size());
     }
 
     public void deleteTask(int idx) throws PhenexException {
@@ -104,16 +102,7 @@ public class TaskList {
         }
         Task taskToDelete = this.tasks.get(idx);
         this.tasks.remove(idx);
-        System.out.println("\t OK. Mission aborted, retreat!");
-        System.out.println("\t  " + taskToDelete);
-        System.out.println("\t " + this.tasks.size() + " missions remaining. Destroy the enemy!");
-    }
-
-
-    public void printTaskAdded(Task task) {
-        System.out.println("\t Mission " + task.name + " added:");
-        System.out.println("\t   " + task);
-        System.out.println("\t Total upcoming missions: " + this.tasks.size());
+        Ui.printTaskDeletedMessage(taskToDelete, this.tasks.size());
     }
 
     private void readFromStorage(Storage storage) {
@@ -121,13 +110,11 @@ public class TaskList {
             Scanner scanner = new Scanner(storage.file);
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
-                System.out.println(line);
                 this.addTaskFromMemoryLine(line);
             }
         } catch (Exception e) {
             // reset memory if invalid input
-            e.printStackTrace();
-            System.out.println(e.getMessage());
+            Ui.printExceptionMessage(e);
             this.tasks = new ArrayList<>();
         }
     }
