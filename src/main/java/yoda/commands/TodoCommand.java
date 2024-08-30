@@ -15,7 +15,7 @@ public class TodoCommand extends Command {
     }
 
     public void run() throws InvalidInputException {
-        if (!checkValidToDo(input)) {
+        if (!checkValidToDo()) {
             throw new InvalidInputException("A todo must have a description, no...?");
         }
         String[] splitInput = input.split(" ", 2);
@@ -26,7 +26,7 @@ public class TodoCommand extends Command {
                 + String.format("Now you have %d tasks in the list", taskList.getLength()));
     }
 
-    public boolean checkValidToDo(String input) {
+    public boolean checkValidToDo() {
         String[] splitInput = input.split(" ", 2);
         return splitInput.length == 2;
     }

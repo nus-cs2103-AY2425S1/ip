@@ -29,7 +29,7 @@ public class UnmarkCommand extends Command {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length == 2) {
             if (splitInput[1].matches("\\d+")) {
-                return Integer.parseInt(splitInput[1]) >= taskList.getLength();
+                return Integer.parseInt(splitInput[1]) <= taskList.getLength();
             } else {
                 return false;
             }

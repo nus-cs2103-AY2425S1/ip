@@ -14,7 +14,7 @@ public class MarkCommand extends Command {
     }
 
     public void run() throws InvalidInputException {
-        if (!checkForValidInt(input)) {
+        if (!checkForValidInt()) {
             throw new InvalidInputException("Mark... which one?");
         }
         String[] splitInput = input.split(" ", 2);
@@ -25,11 +25,11 @@ public class MarkCommand extends Command {
         System.out.printf("%s\n", taskList.get(index - 1));
     }
 
-    public boolean checkForValidInt(String input) {
+    public boolean checkForValidInt() {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length == 2) {
             if (splitInput[1].matches("\\d+")) {
-                return Integer.parseInt(splitInput[1]) >= taskList.getLength();
+                return Integer.parseInt(splitInput[1]) <= taskList.getLength();
             } else {
                 return false;
             }
