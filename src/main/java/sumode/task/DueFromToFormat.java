@@ -7,19 +7,27 @@ import java.time.format.DateTimeFormatter;
 
 import sumode.util.Parser;
 
+/**
+ * A class made to store the 3 supported formats for due(in deadline) or from/to(in event)
+ */
 public class DueFromToFormat {
-    DueFromToType type;
-    LocalDate localDate;
-    LocalDateTime localDateTime;
-    String str;
+    private DueFromToType type;
+    private LocalDate localDate;
+    private LocalDateTime localDateTime;
+    private String str;
 
+    /**
+     * Constructor for Event
+     *
+     * @param dueFromTo may be in the form of localDate/localDateTime/others
+     */
     public DueFromToFormat(String dueFromTo) {
         // We test if it is of LocalDate Type
         try {
             localDate = Parser.parseLocalDate(dueFromTo);
             this.type = DueFromToType.LOCAL_DATE;
             return; //terminate early once confirmed type
-        } catch (ParseException e){
+        } catch (ParseException e) {
             // fall through
         }
 
@@ -28,7 +36,7 @@ public class DueFromToFormat {
             localDateTime = Parser.parseLocalDateTime(dueFromTo);
             this.type = DueFromToType.LOCAL_DATE_TIME;
             return;
-        } catch (ParseException e){
+        } catch (ParseException e) {
             //fall through
         }
 
@@ -40,9 +48,9 @@ public class DueFromToFormat {
     @Override
     public String toString() {
         return switch (this.type) {
-            case LOCAL_DATE -> this.localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-            case LOCAL_DATE_TIME -> this.localDateTime.format(DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm:ss"));
-            case STRING -> this.str;
+        case LOCAL_DATE -> this.localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        case LOCAL_DATE_TIME -> this.localDateTime.format(DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm:ss"));
+        case STRING -> this.str;
         };
     }
 }
