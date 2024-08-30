@@ -24,7 +24,8 @@ public class Storage {
      * Initializes Storage, reading and writing from persistent data to save and update list of task state.
      */
     public Storage () {
-        // set directory for output, and output file, in this case <>\Desktop\CS2103T_IP\data, where <> is the autodetected home directory
+        // set directory for output, and output file,
+        // in this case <>\Desktop\CS2103T_IP\data, where <> is the autodetected home directory
         String home = System.getProperty("user.home");
         pathStorageDirectory = Paths.get(home, "Desktop", "CS2103T_IP", "data");
         pathStorageFile = Paths.get(home, "Desktop", "CS2103T_IP", "data", "bill.txt");
@@ -97,19 +98,28 @@ public class Storage {
 
             // load storage into list var
             switch (route) {
-                case 'T':
-                    System.out.println("todo " + line.substring(firstSpace));
-                    ui.handleToDo("todo " + line.substring(firstSpace), userList, this, tasks);
-                    break;
-                case 'D':
-                    ui.handleDeadline("deadline " + line.substring(firstSpace).replace("(", "").replace(")", "").replace("by:", "/by"), userList, this, tasks);
-                    break;
-                case 'E':
-                    ui.handleEvent("event " + line.substring(firstSpace).replace("(", "").replace(")", "").replace("from:", "/from").replace("to:", "/to"), userList, this, tasks);
-                    break;
-                default:
-                    throw new BillException("Not a recognised command in bill.txt, please ensure that all lines in bill.txt have the template of the expected output based on user commands");
+            case 'T':
+                System.out.println("todo " + line.substring(firstSpace));
+                ui.handleToDo("todo " + line.substring(firstSpace), userList, this, tasks);
+                break;
+            case 'D':
+                ui.handleDeadline("deadline "
+                            + line.substring(firstSpace).replace("(", "")
+                            .replace(")", "")
+                            .replace("by:", "/by"), userList, this, tasks);
+                break;
+            case 'E':
+                ui.handleEvent("event "
+                            + line.substring(firstSpace).replace("(", "")
+                            .replace(")", "").replace("from:", "/from")
+                            .replace("to:", "/to"), userList, this, tasks);
+                break;
+            default:
+                throw new BillException("Not a recognised command in bill.txt,"
+                            + " please ensure that all lines in bill.txt have the template of the expected output"
+                            + " based on user commands");
             }
+
             if (isMarked) {
                 ui.handleMarkOfTask(new String[]{"mark", String.valueOf(index)}, userList, tasks, this);
             }

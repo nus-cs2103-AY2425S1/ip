@@ -1,7 +1,8 @@
 package bill;
 
 /**
- * The Event class extends the Task class, and allows creating tasks with a range of time, from a certain start period to a certain end period.
+ * The Event class extends the Task class, and allows creating tasks with a range of time,
+ * from a certain start period to a certain end period.
  */
 public class Event extends Task {
     private String from;

@@ -8,7 +8,6 @@ import java.time.format.DateTimeParseException;
  * The Deadline class extends the Task class, and allows creating tasks with date deadlines.
  */
 public class Deadline extends Task {
-
     private LocalDate by;
 
     /**
