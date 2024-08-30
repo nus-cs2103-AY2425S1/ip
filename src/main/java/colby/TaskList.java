@@ -1,10 +1,13 @@
 package colby;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
     private ArrayList<Task> tasks;
-
+    public TaskList(List<Task> tasks) {
+        this.tasks = new ArrayList<>(tasks);
+    }
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
