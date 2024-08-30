@@ -31,7 +31,7 @@ public class Parser {
                 if (words.length > 1) {
                     if (words[0].equals("delete")) {
                         int taskNumber = Integer.valueOf(words[1]);
-                        if (taskNumber < size || taskNumber > size) {
+                        if (taskNumber < 1 || taskNumber > size) {
                             throw new IncorrectCommandException("do you not know how to count????");
                         }
                         DeleteCommand deleteCommand = new DeleteCommand(this.command);
@@ -39,7 +39,7 @@ public class Parser {
                         return;
                     } else if (words[0].equals("mark")) {
                         int taskNumber = Integer.valueOf(words[1]);
-                        if (taskNumber < size || taskNumber > size) {
+                        if (taskNumber < 1 || taskNumber > size) {
                             throw new IncorrectCommandException("do you not know how to count????");
                         }
                         CompleteCommand completeCommand = new CompleteCommand(this.command);
@@ -47,7 +47,7 @@ public class Parser {
                         return;
                     } else if (words[0].equals("unmark")) {
                         int taskNumber = Integer.valueOf(words[1]);
-                        if (taskNumber < size || taskNumber > size) {
+                        if (taskNumber < 1 || taskNumber > size) {
                             throw new IncorrectCommandException("do you not know how to count????");
                         }
                         IncompleteCommand incompleteCommand = new IncompleteCommand(this.command);
