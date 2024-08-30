@@ -110,7 +110,7 @@ public class TaskList {
      * @param keyword The desired keyword to be matched to.
      * @return A TaskList.
      */
-    public TaskList findTask(String keyword) {
+    public TaskList findTasks(String keyword) {
         // returns a TaskList, where tasks have the keyword in their descriptions.
         TaskList taskList = new TaskList();
         for (Task task : listOfTasks) {
