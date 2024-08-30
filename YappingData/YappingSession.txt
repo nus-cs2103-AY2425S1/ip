@@ -32,4 +32,3 @@
 | T |   | 1600
 | D |   | this | 11:59 pm
 | D |   | this | Saturday 2359
-| T |   | guy
