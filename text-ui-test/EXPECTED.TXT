@@ -11,17 +11,17 @@ User:
 Him: added "read book" to list
 
 User:
-Him: added "return book(by: Sunday)" to list
+Him: added "return book (by: 2024-12-22)" to list
 
 User:
-Him: added "project meeting (from: Mon 2pm to: 4pm)" to list
+Him: added "project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)" to list
 
 User:
 Him: Sure! Here's your list!
 
 1.[T][ ] read book
-2.[D][ ] return book(by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][ ] return book (by: 2024-12-22)
+3.[E][ ] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
 
 User:
 Him: LET'S GOOOOO! read book has been completed!
@@ -36,21 +36,21 @@ User:
 Him: Sure! Here's your list!
 
 1.[T][X] read book
-2.[D][ ] return book(by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][ ] return book (by: 2024-12-22)
+3.[E][ ] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
 
 User:
-Him: LET'S GOOOOO! return book(by: Sunday) has been completed!
+Him: LET'S GOOOOO! return book (by: 2024-12-22) has been completed!
 
 User:
-Him: LET'S GOOOOO! project meeting (from: Mon 2pm to: 4pm) has been completed!
+Him: LET'S GOOOOO! project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00) has been completed!
 
 User:
 Him: Sure! Here's your list!
 
 1.[T][X] read book
-2.[D][X] return book(by: Sunday)
-3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+2.[D][X] return book (by: 2024-12-22)
+3.[E][X] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
 
 User:
 Him: WAIT NO! DON'T LEAVE ME ALON-
@@ -62,8 +62,8 @@ User:
 Him: Sure! Here's your list!
 
 1.[T][X] read book
-2.[D][X] return book(by: Sunday)
-3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+2.[D][X] return book (by: 2024-12-22)
+3.[E][X] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
 
 User:
 Him: nonsense? What are you saying????
@@ -72,20 +72,20 @@ User:
 Him: added "read book" to list
 
 User:
-Him: added "return book(by: Sunday)" to list
+Him: added "return book (by: 2024-12-22)" to list
 
 User:
-Him: added "project meeting (from: Mon 2pm to: 4pm)" to list
+Him: added "project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)" to list
 
 User:
 Him: Sure! Here's your list!
 
 1.[T][X] read book
-2.[D][X] return book(by: Sunday)
-3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+2.[D][X] return book (by: 2024-12-22)
+3.[E][X] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
 4.[T][ ] read book
-5.[D][ ] return book(by: Sunday)
-6.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+5.[D][ ] return book (by: 2024-12-22)
+6.[E][ ] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
 
 User:
 Him: the task has already been completed
@@ -100,11 +100,11 @@ User:
 Him: Sure! Here's your list!
 
 1.[T][X] read book
-2.[D][X] return book(by: Sunday)
-3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+2.[D][X] return book (by: 2024-12-22)
+3.[E][X] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
 4.[T][X] read book
-5.[D][ ] return book(by: Sunday)
-6.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+5.[D][ ] return book (by: 2024-12-22)
+6.[E][ ] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
 
 User:
 Him: the task has already been completed
@@ -116,11 +116,11 @@ User:
 Him: Sure! Here's your list!
 
 1.[T][X] read book
-2.[D][X] return book(by: Sunday)
-3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+2.[D][X] return book (by: 2024-12-22)
+3.[E][X] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
 4.[T][X] read book
-5.[D][ ] return book(by: Sunday)
-6.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+5.[D][ ] return book (by: 2024-12-22)
+6.[E][ ] project meeting (FROM: 2024-09-22 at 18:00 | TO: 2024-09-22 at 19:00)
 
 User:
 Him: WAIT NO! DON'T LEAVE ME ALON-
