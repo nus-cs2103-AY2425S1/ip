@@ -25,6 +25,9 @@ public class Kayo {
         parser = new Parser();
         ui.Greet();
     }
+    /**
+     * Runs the Kayo chatbot
+     */
     public static void run() {
         String inputString;
         Scanner input = new Scanner(System.in);
@@ -79,21 +82,36 @@ public class Kayo {
         run();
     }
     private static class Ui {
+        /**
+         * Prints deadline in format
+         */
         public void addDeadline(Deadline deadline) {
             System.out.print("Got it. I've added this task: \n");
             System.out.print(deadline + "\n");
         }
+        /**
+         * Prints event in format
+         */
         public void addEvent(Event event) {
             System.out.print("Got it. I've added this task: \n");
             System.out.print(event + "\n");
         }
+        /**
+         * Prints todo in format
+         */
         public void addTodo(ToDo todo) {
             System.out.print("Got it. I've added this task: \n");
             System.out.print(todo + "\n");
         }
+        /**
+         * shows total tasks in format
+         */
         public void showTotalTasks(List<Task> taskList) {
             System.out.print("Now you have " + taskList.size() + " tasks in the list.\n");
         }
+        /**
+         * displays deleted task
+         */
         public void deleteTask(Task task) {
             System.out.print("Noted. I've removed this task: \n");
             System.out.print(task + "\n");
@@ -120,8 +138,15 @@ public class Kayo {
             System.out.println("Bye. I hope to see you again soon!");
         }
     }
+    /**
+     * Handles the storage and access of data
+     * **/
     public static class Storage{
         public String filepath;
+        /**
+         * Handles the update of data
+         * @param taskList list of tasks to add to data
+         * */
         private static void updateData(List<Task> taskList) {
             try {
                 FileWriter fw = new FileWriter("data/kayo.txt");
@@ -135,9 +160,14 @@ public class Kayo {
                 System.out.println("File not found");
             }
         }
+
         public Storage(String filepath){
             this.filepath = filepath;
         }
+        /**
+         * Loads data from database
+         * @return List of tasks from database
+         * */
         public List<Task> load () {
             List<Task> taskList = new ArrayList<>();
             try {
@@ -175,6 +205,9 @@ public class Kayo {
             return task;
         }
     }
+    /**
+     * Handles Task details and state
+     */
     public static class Task{
 
         private String task;
@@ -185,6 +218,10 @@ public class Kayo {
             this.task = task;
             this.isDone = isDone;
         }
+        /**
+         * Sets the task as done
+         * @param isDone boolean to set state to
+         */
         public void setDone(boolean isDone){
             this.isDone = isDone;
         }
@@ -208,6 +245,9 @@ public class Kayo {
             return "[T] "+ super.toString();
         }
     }
+    /**
+     * Handles all deadline tasks
+     */
     public static class Deadline extends Task {
         protected LocalDate by;
         public Deadline(String task, boolean isDone, String by) {
@@ -219,26 +259,45 @@ public class Kayo {
             return "[D] "+super.toString() + " (by " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
         }
     }
+    /**
+     * Handles Exceptions in Chatbot
+     */
     public static class DukeException {
         public DukeException(String message) {
             System.out.println(message);
         }
     }
+    /**
+     * Handles Parsing of data in Chatbot
+     */
     public static class Parser {
         public String[] splitString(String inputString) {
             return inputString.split(" ");
         }
+        /**
+         * Parses formatted string to deadline
+         * @param parseString String to parse
+         * @return Deadline
+         */
         public Deadline addDeadline(String parseString) {
             String[] bySplit = parseString.split("/by");
             Deadline deadline = new Deadline(parseString.split(" ")[1],false,bySplit[1]);
             return deadline;
         }
+        /**
+         * Parses formatted string to event
+         * @param parseString String to parse
+         * @return Event
+         */
         public Event addEvent(String parseString) {
             String[] fromBySplit = parseString.split("/from|/to");
             Event event = new Event(parseString.split(" ")[1],false,fromBySplit[1],fromBySplit[2]);
             return event;
         }
     }
+    /**
+     * Handles all event tasks
+     */
     public static class Event extends Task {
         protected String typeOfTask = "E";
         protected String from;
@@ -247,10 +306,6 @@ public class Kayo {
             super(task, isDone);
             this.from = from.trim();
             this.to = to.trim();
-        }
-        public void setFromTo(String from, String to) {
-            this.from = from;
-            this.to = to;
         }
         @Override
         public String toString() {
