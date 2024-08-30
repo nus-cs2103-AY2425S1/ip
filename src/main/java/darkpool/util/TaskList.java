@@ -1,6 +1,6 @@
-package Darkpool.util;
+package darkpool.util;
 
-import Darkpool.Task.Task;
+import darkpool.task.Task;
 
 import java.util.ArrayList;
 

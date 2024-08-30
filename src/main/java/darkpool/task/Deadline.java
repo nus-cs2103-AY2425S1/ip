@@ -1,6 +1,6 @@
-package Darkpool.Task;
+package darkpool.task;
 
-import Darkpool.util.DarkpoolException;
+import darkpool.util.DarkpoolException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;

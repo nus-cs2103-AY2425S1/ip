@@ -1,9 +1,9 @@
-package Darkpool.util;
+package darkpool.util;
 
-import Darkpool.Command.*;
-import Darkpool.Task.Deadline;
-import Darkpool.Task.Event;
-import Darkpool.Task.Todo;
+import darkpool.command.*;
+import darkpool.task.Deadline;
+import darkpool.task.Event;
+import darkpool.task.Todo;
 
 import java.time.format.DateTimeParseException;
 import java.util.Objects;

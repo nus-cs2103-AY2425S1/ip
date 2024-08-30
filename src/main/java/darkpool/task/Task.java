@@ -1,4 +1,4 @@
-package Darkpool.Task;
+package darkpool.task;
 
 import java.time.format.DateTimeFormatter;
 

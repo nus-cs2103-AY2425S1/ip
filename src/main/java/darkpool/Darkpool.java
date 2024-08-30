@@ -1,7 +1,11 @@
-package Darkpool;
+package darkpool;
 
-import Darkpool.Command.Command;
-import Darkpool.util.*;
+import darkpool.command.Command;
+import darkpool.util.DarkpoolException;
+import darkpool.util.Storage;
+import darkpool.util.TaskList;
+import darkpool.util.Ui;
+import darkpool.util.Parser;
 
 public class Darkpool {
 

@@ -1,9 +1,9 @@
-package Darkpool.util;
+package darkpool.util;
 
-import Darkpool.Task.Deadline;
-import Darkpool.Task.Event;
-import Darkpool.Task.Task;
-import Darkpool.Task.Todo;
+import darkpool.task.Deadline;
+import darkpool.task.Event;
+import darkpool.task.Task;
+import darkpool.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

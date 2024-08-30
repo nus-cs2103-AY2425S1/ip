@@ -1,4 +1,4 @@
-package Darkpool.util;
+package darkpool.util;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package Darkpool.Task;
+package darkpool.task;
 
 public class Todo extends Task {
 

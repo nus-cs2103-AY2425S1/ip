@@ -1,9 +1,9 @@
-package Darkpool.Command;
+package darkpool.command;
 
-import Darkpool.util.Storage;
-import Darkpool.util.TaskList;
-import Darkpool.util.Ui;
-import Darkpool.util.DarkpoolException;
+import darkpool.util.Storage;
+import darkpool.util.TaskList;
+import darkpool.util.Ui;
+import darkpool.util.DarkpoolException;
 
 public abstract class Command {
 

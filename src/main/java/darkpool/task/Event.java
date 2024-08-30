@@ -1,8 +1,8 @@
-package Darkpool.Task;
+package darkpool.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import Darkpool.util.DarkpoolException;
+import darkpool.util.DarkpoolException;
 
 public class Event extends Task {
 
