@@ -1,8 +1,8 @@
 package sirpotato;
 
 import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
 
 /**
  * Contains methods to parse user input and validate user input
