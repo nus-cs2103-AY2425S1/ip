@@ -1,11 +1,22 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Pixy {
 
-    private List<Task> list = new ArrayList<>(); // Array List to store the tasks
+    private List<Task> list;
+    private Storage storage;
     Scanner sc = new Scanner(System.in);
+    public Pixy(String filePath) {
+        storage = new Storage(filePath);
+        try {
+            list = storage.load();
+        } catch (FileNotFoundException e) {
+            list = new ArrayList<>();
+        }
+    }
     private String inputTask() {    // method to input tasks
         return sc.nextLine();
     }
@@ -16,10 +27,14 @@ public class Pixy {
                 "\n____________________________________________________________\n");
     }
     private void printList() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < list.size(); i++) {
-            Task task = list.get(i);
-            System.out.println((i + 1) + ". " + task.toString());
+        if (list.isEmpty()) {
+            System.out.println("List is Empty! Add tasks to list.");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < list.size(); i++) {
+                Task task = list.get(i);
+                System.out.println((i + 1) + ". " + task.toString());
+            }
         }
     }
     private boolean isValidTaskNumber(int index) {  // method to check whether the task number is valid
@@ -44,6 +59,13 @@ public class Pixy {
                     "\n____________________________________________________________\n");
         } else {
             System.out.println("Invalid task number entered!Input again.");
+        }
+    }
+    private void saveTasks() {
+        try {
+            storage.save(list);
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks.");
         }
     }
     public void run() { // method to execute all the commands inputted by user until bye encountered
@@ -96,6 +118,7 @@ public class Pixy {
                         addToList(event);
                     }
                 }
+                saveTasks();
             } catch (PixyExceptions e) {
                 System.out.println(e.getMessage());
                 System.out.println("____________________________________________________________\n");
@@ -111,7 +134,8 @@ public class Pixy {
                 " Hello! I'm Pixy.\n" +
                 " What can I do for you?\n" +
                 "____________________________________________________________\n");
-        Pixy pixy = new Pixy();
+        String filePath = "./data/tasks.txt";
+        Pixy pixy = new Pixy(filePath);
         pixy.run();
     }
 }
