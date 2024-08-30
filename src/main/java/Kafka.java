@@ -8,7 +8,7 @@ public class Kafka {
     public void greet() {
         String message = """
               Hello. Kafka here.
-              I have been waiting for your arrival.
+              We meet again.
             """;
         System.out.println(message);
     }
@@ -37,7 +37,7 @@ public class Kafka {
     public void mark(int taskNumber) {
         Task t = this.tasks.get(taskNumber - 1);
         t.markAsDone();
-        String message = "  Nice! I've marked this task as done:\n"
+        String message = "  Good work on this task. Want a prize?:\n"
                 + "    " + t;
         System.out.println(message);
     }
@@ -45,7 +45,7 @@ public class Kafka {
     public void unmark(int taskNumber) {
         Task t = this.tasks.get(taskNumber - 1);
         t.markAsNotDone();
-        String message = "  OK, I've marked this task as not done yet:\n"
+        String message = "  Hurry up. This task is necessary for Elio's script:\n"
                 + "    " + t;
         System.out.println(message);
     }
@@ -56,7 +56,7 @@ public class Kafka {
         }
         Task t = this.tasks.get(taskNumber - 1);
         this.tasks.remove(taskNumber - 1);
-        String message = "  Noted. I've removed this task:\n"
+        String message = "  I've removed this task:\n"
                 + "    " + t;
         System.out.println(message);
         System.out.println("  Now you have " + this.tasks.size() + " task(s) in the list.");
@@ -99,32 +99,32 @@ public class Kafka {
                 } else {
                     if (userInput[0].equalsIgnoreCase("todo")) {
                         if (userInput.length < 2) {
-                            throw new KafkaException("OOPS!!! The description of a todo cannot be empty.");
+                            throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
                         }
                         Task todo = new Todo(userInput[1]);
                         kafka.addTask(todo);
                     } else if (userInput[0].equalsIgnoreCase("deadline")) {
                         if (userInput.length < 2) {
-                            throw new KafkaException("OOPS!!! The description of a deadline cannot be empty.");
+                            throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
                         }
                         String[] deadlineSplit = userInput[1].split("/by");
                         if (deadlineSplit.length < 2) {
-                            throw new KafkaException("OOPS!!! The description of a deadline is wrong.");
+                            throw new KafkaException("It appears the details for this deadline task are off. Let's give it another go, shall we?");
                         }
                         Task deadline = new Deadline(deadlineSplit[0], deadlineSplit[1]);
                         kafka.addTask(deadline);
                     } else if (userInput[0].equalsIgnoreCase("event")) {
                         if (userInput.length < 2) {
-                            throw new KafkaException("OOPS!!! The description of a event cannot be empty.");
+                            throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
                         }
                         String[] eventSplit = userInput[1].split("/from|/to");
                         if (eventSplit.length < 3) {
-                            throw new KafkaException("OOPS!!! The description of a event is wrong.");
+                            throw new KafkaException("It appears the details for this event task are off. Let's give it another go, shall we?");
                         }
                         Task event = new Event(eventSplit[0], eventSplit[1], eventSplit[2]);
                         kafka.addTask(event);
                     } else {
-                        throw new KafkaException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                        throw new KafkaException("Hmm... I'm not sure what you're getting at. Care to enlighten me?");
                     }
                 }
             } catch (KafkaException e) {
