@@ -33,7 +33,5 @@ public class ListCommand extends Command {
             }
             ui.printLine();
         }
-
     }
-
 }

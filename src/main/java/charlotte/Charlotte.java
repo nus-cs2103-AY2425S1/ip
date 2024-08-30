@@ -67,5 +67,4 @@ public class Charlotte {
     public static void main(String[] args) {
         new Charlotte("data/charlotte.txt").run();
     }
-
 }
