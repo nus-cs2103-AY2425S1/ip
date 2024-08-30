@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parser class has various methods to parse user input
+ */
 public  class Parser {
     public enum VALID_COMMAND {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID;
@@ -56,6 +59,11 @@ public  class Parser {
         return null;
     }
 
+    /**
+     * Parses a string of text to check if text has a valid command listed in VALID_COMMANDS by checking sthe started of text
+     * @param text to be parsed,
+     * @return corresponding VALID_COMMAND enum to the command in text
+     */
     public VALID_COMMAND parseCommand(String text) {
 
 
