@@ -35,8 +35,7 @@ public class Parser {
         case "BYE":
             return new ExitCommand();
         default:
-            throw new InvalidCommandException(
-                    "Ratchet is unable to execute " + command + "!");
+            throw new InvalidCommandException("Ratchet is unable to execute " + command + "!");
         }
     }
 
