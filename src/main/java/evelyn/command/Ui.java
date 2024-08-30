@@ -7,6 +7,9 @@ import java.time.DateTimeException;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Houses all the logic for Evelyn's UI
+ */
 
 public class Ui {
     public static String horizontalLine = "-----------------------------------------";
@@ -15,12 +18,19 @@ public class Ui {
     private Parser parser;
     private Scanner scanner;
 
+    /**
+     * Constructor of a Ui object.
+     * @param parser Parser used for the chatbot.
+     */
     public Ui(Parser parser) {
         this.isChatting = false;
         this.scanner = new Scanner(System.in);
         this.parser = parser;
     }
 
+    /**
+     * Begins running the Ui.
+     */
     public void start() {
         this.isChatting = true;
         System.out.println(horizontalLine);
@@ -73,11 +83,11 @@ public class Ui {
         }
     }
 
-    public void startChatting() {
-        this.isChatting = true;
-    }
-
-    public void stopChatting() {
-        this.isChatting = false;
-    }
+//    public void startChatting() {
+//        this.isChatting = true;
+//    }
+//
+//    public void stopChatting() {
+//        this.isChatting = false;
+//    }
 }

@@ -2,12 +2,22 @@ package evelyn.task;
 
 import java.time.LocalDate;
 
+/**
+ * Represents an Event task.
+ */
 public class Event extends Task{
     private LocalDate startDate;
     private String startTime = null;
     private LocalDate endDate;
     private String endTime = null;
 
+    /**
+     * Constructor of an Event task
+     * @param description Description of an Event.
+     * @param start Start of an Event.
+     * @param end End of an Event.
+     * @param isMaked Status of the Event.
+     */
     public Event(String description, String start, String end, Boolean isMaked) {
         super(description, isMaked);
 

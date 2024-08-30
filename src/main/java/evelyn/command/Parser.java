@@ -9,6 +9,9 @@ import evelyn.task.Todo;
 import java.time.DateTimeException;
 import java.util.Objects;
 
+/**
+ * Houses all the logic for parsing words that have been inputted
+ */
 public class Parser {
     private TaskList lst;
     private String horizontalLine;

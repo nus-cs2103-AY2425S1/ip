@@ -19,6 +19,9 @@ public class Evelyn {
         this.ui = new Ui(this.parser);
     }
 
+    /**
+     * Runs the chatbot.
+     */
     public void run() {
         this.ui.start();
     }

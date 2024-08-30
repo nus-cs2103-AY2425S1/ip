@@ -10,9 +10,17 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
+/**
+ * Houses all the logic for a Tasklist in the chatbot.
+ */
 public class TaskList {
     private Storage storage;
     private ArrayList<Task> list;
+
+    /**
+     * Constructor of a TaskList object.
+     * @param storage Storage used for the chatbot.
+     */
     public TaskList(Storage storage) {
         this.list = new ArrayList(100);
         try {
@@ -31,6 +39,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Lists all the tasks that have been input.
+     */
     public void listTask() {
         System.out.println(Ui.horizontalLine);
         System.out.println("Here are the tasks in your list: ");
@@ -40,6 +51,10 @@ public class TaskList {
         System.out.println(Ui.horizontalLine);
     }
 
+    /**
+     * Removes a task from the list at a particular index.
+     * @param index Index of the task
+     */
     public void removeTask(int index) {
         Task task = (Task) list.get(index);
         list.remove(index);
@@ -51,6 +66,10 @@ public class TaskList {
         System.out.println(Ui.horizontalLine);
     }
 
+    /**
+     * Adds a task to the list.
+     * @param task Task to be added to the list.
+     */
     public void addTask(Task task) {
         try {
             list.add(task);
@@ -66,11 +85,20 @@ public class TaskList {
         }
     }
 
+    /**
+     * Gets a Task at a particular index from the list.
+     * @param index Index of the task to get.
+     * @return Returns a task at the specified index.
+     */
     public Task getTask(int index) {
         Task task = (Task) list.get(index);
         return task;
     }
 
+    /**
+     * Marks the Task at a specified index as complete.
+     * @param index Index of the task in the list to be marked.
+     */
     public void markTask(int index) {
         Task task = (Task) list.get(index);
         System.out.println(Ui.horizontalLine);
@@ -78,16 +106,28 @@ public class TaskList {
         System.out.println(Ui.horizontalLine);
     }
 
+    /**
+     * Unmarks a completed Task at a specified index.
+     * @param index Index of the task to be unmarked.
+     */
     public void unmarkTask(int index) {
         Task task = (Task) list.get(index);
         System.out.println(Ui.horizontalLine);
         task.unmark();
         System.out.println(Ui.horizontalLine);
     }
+
+    /**
+     * Gets the size of the current list
+     * @return Returns the size of the current list of tasks.
+     */
     public int listSize() {
         return list.size();
     }
 
+    /**
+     * Saves all the tasks into a .txt file.
+     */
     public void saveTasks() {
         try {
             this.storage.saveData();
@@ -100,7 +140,12 @@ public class TaskList {
         }
     }
 
-    private  void fileDataToList(String data) throws IOException {
+    /**
+     * Deciphers the String data from the saved file and inputs it as a Task
+     * @param data String representation of a task form the save data.
+     * @throws IOException Exception thrown if the file data input is erroneous.
+     */
+    private void fileDataToList(String data) throws IOException {
         boolean isMarked;
         if (data.startsWith("[T]")) {
             if (data.contains("[X]")) {
