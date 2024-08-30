@@ -3,7 +3,7 @@
 | |\/| | || |  _|  _| | ' \
 |_|  |_|\_,_|_| |_| |_|_||_|
 
-Hello~ I am Muffin
+Hello~ I am muffin.Muffin
 What can I do for you?
 Ok. Added this task:
 	[T][ ] borrow book
@@ -38,7 +38,7 @@ Here are the tasks in your list:
 Ok. Marked as not done yet:
 	[E][ ] project meeting (from: Mon 2pm to: 4pm)
 Um... Not sure what you mean...
-Ok. Task has been removed:
+Ok. muffin.Task has been removed:
 	[D][ ] return book (by: Sunday)
 Now you have 3 tasks in your list.
 Here are the tasks in your list:

@@ -1,4 +1,4 @@
-import muffin.Todo;
+package muffin;
 
 import java.util.Scanner;
 

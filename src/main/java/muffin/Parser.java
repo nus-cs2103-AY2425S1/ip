@@ -1,3 +1,5 @@
+package muffin;
+
 public class Parser {
     public String[] parseInput(String input) {
         // Find the index of the first space
