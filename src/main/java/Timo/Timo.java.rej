@@ -1,0 +1,10 @@
+diff a/src/main/java/Timo/Timo.java b/src/main/java/Timo/Timo.java	(rejected hunks)
+@@ -11,7 +11,7 @@
+ import java.time.format.DateTimeFormatter;
+ 
+ class Task {
+-    private String tasktype = "T";
++    private String taskype = "T";
+     private boolean mark;
+     private String val;
+     public Task(boolean mark, String val) {
