@@ -18,8 +18,8 @@ public class Task {
         this.complete = complete;
     }
 
-    public String isCompleted() {
-        return (complete ? "X" : "O"); // mark done task with X
+    public boolean isCompleted() {
+        return complete;
     }
 
     public void mark() {
