@@ -9,8 +9,6 @@ import java.util.ArrayList;
  */
 public class Command {
 
-    private static final String INDENT = "      ";
-    private static final String SEPARATOR = "------------------------------";
     private String command;
     private String message;
 
@@ -82,14 +80,12 @@ public class Command {
 
             if (checkMarkOrUnmark.equals("mark")) {
                 curTask.markOrUnmark("mark");
-                result.append(INDENT)
-                        .append("Okays! I've marked this task as done:\n")
+                result.append("Okays! I've marked this task as done:\n")
                         .append(formatMessage(curTask, tasks.getListTask().size()))
                         .append("\n");
             } else if (checkMarkOrUnmark.equals("unmark")) {
                 curTask.markOrUnmark("unmark");
-                result.append(INDENT)
-                        .append("Okay! I've marked this task as not done:\n")
+                result.append("Okay! I've marked this task as not done:\n")
                         .append(formatMessage(curTask, tasks.getListTask().size()))
                         .append("\n");
             } else {
@@ -120,8 +116,7 @@ public class Command {
             result.append("Extracted Task number: ").append(number).append("\n");
             IndividualTask curTask = tasks.getListTask().get(number - 1);
             tasks.deleteTask(number - 1);
-            result.append(INDENT)
-                    .append("Alrighty! I will remove the task:\n")
+            result.append("Alrighty! I will remove the task:\n")
                     .append(formatMessage(curTask, tasks.getListTask().size()))
                     .append("\n");
         } else {
@@ -153,10 +148,10 @@ public class Command {
         }
 
         if (!matchingTasks.isEmpty()) {
-            result.append(INDENT).append("Here are your matching tasks!\n");
+            result.append("Here are your matching tasks!\n");
             result.append(tasks.getTasks(matchingTasks));
         } else {
-            result.append(INDENT).append("No matching tasks found.\n");
+            result.append("No matching tasks found.\n");
         }
 
         return result.toString();
@@ -174,10 +169,7 @@ public class Command {
             return processMessage(this.message, tasks, storage);
         } catch (MentalHealthException e) {
             StringBuilder result = new StringBuilder();
-            result.append(INDENT).append(SEPARATOR).append("\n")
-                    .append(INDENT).append("OOPS!!! ").append(e.getMessage()).append("\n")
-                    .append(INDENT).append(SEPARATOR);
-
+            result.append("OOPS!!! ").append(e.getMessage()).append("\n");
             return result.toString();
         }
     }
@@ -235,10 +227,8 @@ public class Command {
         String todo = this.message.substring(type.length()).trim();
         ToDo newTodo = new ToDo(todo);
         tasks.addTask(newTodo);
-        result.append(INDENT)
-                .append("Okays! I've added this task:\n")
-                .append(formatMessage(newTodo, tasks.getListTask().size()))
-                .append("\n");
+        result.append("Okays! I've added this task:\n")
+                .append(formatMessage(newTodo, tasks.getListTask().size()));
 
         return result.toString();
     }
@@ -261,10 +251,8 @@ public class Command {
             String by = parts[1].trim();
             Deadline newDeadline = new Deadline(description, by);
             tasks.addTask(newDeadline);
-            result.append(INDENT)
-                    .append("Okays! I've added this task:\n")
-                    .append(formatMessage(newDeadline, tasks.getListTask().size()))
-                    .append("\n");
+            result.append("Okays! I've added this task:\n")
+                    .append(formatMessage(newDeadline, tasks.getListTask().size()));
         } else {
             throw new MentalHealthException("The string doesn't contain the expected format for a deadline.");
         }
@@ -293,10 +281,8 @@ public class Command {
                 String to = secondPart[1].trim();
                 Event newEvent = new Event(description, from, to);
                 tasks.addTask(newEvent);
-                result.append(INDENT)
-                        .append("Okays! I've added this task:\n")
-                        .append(formatMessage(newEvent, tasks.getListTask().size()))
-                        .append("\n");
+                result.append("Okays! I've added this task:\n")
+                        .append(formatMessage(newEvent, tasks.getListTask().size()));
             } else {
                 throw new MentalHealthException("The string doesn't contain the '/to' part.");
             }
@@ -326,8 +312,6 @@ public class Command {
      * @return The formatted task message.
      */
     public String formatMessage(IndividualTask task, int num) {
-        return INDENT + SEPARATOR + "\n" + INDENT + task + "\n"
-                + INDENT + "Now you have " + num + " tasks in the list.\n"
-                + INDENT + SEPARATOR;
+        return  task + "\n" + "\n" + "Now you have " + num + " tasks in the list.\n";
     }
 }

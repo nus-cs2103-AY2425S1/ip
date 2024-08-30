@@ -13,8 +13,7 @@ public class TaskList {
 
 
     private String message = "";
-    private String indent = "      ";
-    private String separator = "------------------------------";
+
 
 
     /**
@@ -42,13 +41,11 @@ public class TaskList {
      */
     public String getTasks(ArrayList<IndividualTask> tasks) {
         StringBuilder result = new StringBuilder();
-        result.append(this.indent).append(this.separator).append("\n");
         for (int i = 0; i < tasks.size(); i++) {
             String number = String.valueOf(i + 1);
             String format = this.formatListMessage(number, tasks.get(i));
             result.append(format).append("\n");
         }
-        result.append(this.indent).append(this.separator);
 
         return result.toString();
     }
@@ -89,6 +86,6 @@ public class TaskList {
      * @return The formatted task message.
      */
     public String formatListMessage(String number, IndividualTask task) {
-        return this.indent + number + "." + task.toString();
+        return number + "." + task.toString();
     }
 }
