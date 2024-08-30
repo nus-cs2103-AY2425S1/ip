@@ -1,10 +1,13 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
 
-    String deadlineDate;
+    LocalDate deadlineDate;
     public Deadline(String name, String[] deadlineInfo) {
 
         super(validateString(name, deadlineInfo));
-        this.deadlineDate = deadlineInfo[1];
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yy");
+        this.deadlineDate = LocalDate.parse(deadlineInfo[1], formatter);
     }
 
     private static String validateString(String name, String[] deadlineInfo) {
@@ -39,11 +42,11 @@ public class Deadline extends Task {
     @Override
     public String saveTask() {
 
-        return String.format("D|%s|%s|%s", super.getStatus(), super.getTask(), deadlineDate);
+        return String.format("D|%s|%s|%s", super.getStatus(), super.getTask(), deadlineDate.format(DateTimeFormatter.ofPattern("dd-MM-yy")));
     }
 
     @Override
     public String toString() {
-        return String.format("[D] %s (by: %s)", super.toString(), deadlineDate);
+        return String.format("[D] %s (by: %s)", super.toString(), deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 }
