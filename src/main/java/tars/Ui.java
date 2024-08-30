@@ -1,3 +1,5 @@
+package tars;
+
 public class Ui {
     static String line = "    _____________________________________________";
 

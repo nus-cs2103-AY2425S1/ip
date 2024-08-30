@@ -1,3 +1,5 @@
+package tars;
+
 public class Parser {
     static String line = "    _____________________________________________";
 
