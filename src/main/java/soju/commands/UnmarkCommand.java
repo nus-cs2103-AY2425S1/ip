@@ -4,8 +4,11 @@ import soju.Storage;
 import soju.TaskList;
 import soju.Ui;
 
+/**
+ * UnmarkCommand handles commands starting with unmark
+ */
 public class UnmarkCommand extends Command {
-    int index;
+    private int index;
     public UnmarkCommand(String input) {
         index = Integer.parseInt(input.split(" ")[1]) - 1;
     }

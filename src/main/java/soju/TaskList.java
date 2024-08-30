@@ -1,10 +1,12 @@
 package soju;
 
-import soju.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import soju.tasks.Task;
+
+
 
 /**
  * The {@code TaskList} class represents a list of tasks.

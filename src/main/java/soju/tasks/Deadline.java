@@ -39,7 +39,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a string representation of the "Deadline" task formatted for saving to a file.
-     * The format is "D | <status> | <description> | <due date>", where <status> is 1 if the task is done
+     * The format is "D | status | description | due date", where status is 1 if the task is done
      * and 0 if the task is not done. The due date is represented as an ISO-8601 string.
      *
      * @return A string representation of the "Deadline" task formatted for file storage.

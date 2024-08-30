@@ -5,8 +5,11 @@ import soju.Storage;
 import soju.TaskList;
 import soju.Ui;
 
+/**
+ * FindCommand handles commands starting with find
+ */
 public class FindCommand extends Command {
-    String keyword;
+    private String keyword;
     public FindCommand(String input) {
         keyword = input.split(" ", 2)[1];
     }

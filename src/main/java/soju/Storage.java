@@ -1,10 +1,5 @@
 package soju;
 
-import soju.tasks.Deadline;
-import soju.tasks.Event;
-import soju.tasks.Task;
-import soju.tasks.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,6 +8,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import soju.tasks.Deadline;
+import soju.tasks.Event;
+import soju.tasks.Task;
+import soju.tasks.Todo;
+
+
+
 
 /**
  * The {@code Storage} class handles loading and saving tasks to a file.
@@ -66,28 +69,28 @@ public class Storage {
                 Task newTask = null;
 
                 switch (taskType) {
-                    case "T":
-                        // Create a new Todo task
-                        newTask = new Todo(description);
-                        break;
-                    case "D":
-                        // Create a new Deadline task
-                        String doneBy = parts[3];
-                        LocalDate localDate = LocalDate.parse(doneBy);
-                        newTask = new Deadline(description, localDate);
-                        break;
-                    case "E":
-                        // Create a new Event task
-                        String[] eventTimes = parts[3].split(" - ");
-                        String from = eventTimes[0];
-                        String to = eventTimes[1];
-                        LocalDateTime localFromDate = LocalDateTime.parse(from);
-                        LocalDateTime localToDate = LocalDateTime.parse(to);
-                        newTask = new Event(description, localFromDate, localToDate);
-                        break;
-                    default:
-                        System.out.println("Unknown task type: " + taskType);
-                        break;
+                case "T":
+                    // Create a new Todo task
+                    newTask = new Todo(description);
+                    break;
+                case "D":
+                    // Create a new Deadline task
+                    String doneBy = parts[3];
+                    LocalDate localDate = LocalDate.parse(doneBy);
+                    newTask = new Deadline(description, localDate);
+                    break;
+                case "E":
+                    // Create a new Event task
+                    String[] eventTimes = parts[3].split(" - ");
+                    String from = eventTimes[0];
+                    String to = eventTimes[1];
+                    LocalDateTime localFromDate = LocalDateTime.parse(from);
+                    LocalDateTime localToDate = LocalDateTime.parse(to);
+                    newTask = new Event(description, localFromDate, localToDate);
+                    break;
+                default:
+                    System.out.println("Unknown task type: " + taskType);
+                    break;
                 }
 
                 if (newTask != null) {

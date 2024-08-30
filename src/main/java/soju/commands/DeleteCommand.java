@@ -4,8 +4,11 @@ import soju.Storage;
 import soju.TaskList;
 import soju.Ui;
 
+/**
+ * DeleteCommand handles commands starting with delete
+ */
 public class DeleteCommand extends Command {
-    int index;
+    private int index;
     public DeleteCommand(String input) {
         index = Integer.parseInt(input.split(" ")[1]) - 1;
     }

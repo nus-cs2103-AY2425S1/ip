@@ -1,15 +1,25 @@
 package soju.commands;
 
+import java.time.LocalDate;
+
 import soju.SojuException;
 import soju.Storage;
 import soju.TaskList;
 import soju.Ui;
 import soju.tasks.Deadline;
 
-import java.time.LocalDate;
+/**
+ * DeadlineCommand handles commands starting with deadline
+ */
 
 public class DeadlineCommand extends Command {
-    Deadline deadlineTask;
+    private Deadline deadlineTask;
+
+    /**
+     * Returns a DeadlineCommand
+     * @param input command input as a String
+     * @throws SojuException if invalid input
+     */
     public DeadlineCommand(String input) throws SojuException {
         try {
             if (!input.startsWith("deadline ")) {

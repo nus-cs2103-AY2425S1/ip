@@ -4,6 +4,9 @@ import soju.Storage;
 import soju.TaskList;
 import soju.Ui;
 
+/**
+ * ListCommand handles commands starting with list
+ */
 public class ListCommand extends Command {
     public ListCommand(String input) {
     }

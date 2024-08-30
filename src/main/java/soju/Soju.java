@@ -3,8 +3,6 @@ package soju;
 import soju.commands.ByeCommand;
 import soju.commands.Command;
 
-import java.util.Scanner;
-
 /**
  * Represents the Soju chatbot application.
  * It handles the initialization of the application, loading tasks from storage,

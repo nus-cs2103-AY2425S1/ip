@@ -1,13 +1,27 @@
 package soju.commands;
 
-import soju.*;
-import soju.tasks.Event;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import soju.SojuException;
+import soju.Storage;
+import soju.TaskList;
+import soju.Ui;
+import soju.tasks.Event;
+
+
+
+/**
+ * EventCommand handles commands starting with event
+ */
 public class EventCommand extends Command {
-    Event eventTask;
+    private Event eventTask;
+
+    /**
+     * Returns an EventCommand
+     * @param input command input as a String
+     * @throws SojuException if invalid input
+     */
     public EventCommand(String input) throws SojuException {
         try {
             String[] parts = input.substring(6).split(" /from ", 2);

@@ -6,9 +6,17 @@ import soju.TaskList;
 import soju.Ui;
 import soju.tasks.Todo;
 
+/**
+ * TodoCommand handles commands starting with todo
+ */
 public class TodoCommand extends Command {
-    Todo todoTask;
+    private Todo todoTask;
 
+    /**
+     * Returns a TodoCommand
+     * @param input command input as a String
+     * @throws SojuException if invalid input
+     */
     public TodoCommand(String input) throws SojuException {
         if (!input.startsWith("todo ")) {
             throw new SojuException("The description of a todo cannot be empty.");

@@ -24,7 +24,7 @@ public class Todo extends Task {
 
     /**
      * Returns a string representation of the "Todo" task formatted for saving to a file.
-     * The format is "T | <status> | <description>", where <status> is 1 if the task is done
+     * The format is "T | status | description", where status is 1 if the task is done
      * and 0 if the task is not done.
      *
      * @return A string representation of the "Todo" task formatted for file storage.

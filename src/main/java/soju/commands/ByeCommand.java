@@ -4,7 +4,10 @@ import soju.Storage;
 import soju.TaskList;
 import soju.Ui;
 
-public class ByeCommand extends Command{
+/**
+ * ByeCommand handles commands starting with bye
+ */
+public class ByeCommand extends Command {
     public ByeCommand(String input) {
     }
     @Override

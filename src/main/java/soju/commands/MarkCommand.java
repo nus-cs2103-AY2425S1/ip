@@ -4,8 +4,11 @@ import soju.Storage;
 import soju.TaskList;
 import soju.Ui;
 
+/**
+ * MarkCommand handles commands starting with mark
+ */
 public class MarkCommand extends Command {
-    int index;
+    private int index;
     public MarkCommand(String input) {
         index = Integer.parseInt(input.split(" ")[1]) - 1;
     }
