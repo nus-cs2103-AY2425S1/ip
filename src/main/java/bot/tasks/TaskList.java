@@ -26,8 +26,8 @@ public class TaskList {
      * @return Index of the newly added <code>Task</code>.
      */
     public int add(Task task) {
-        boolean ok = tasks.add(task);
-        return ok ? this.size() - 1 : -1;
+        tasks.add(task);
+        return this.size() - 1;
     }
 
     /**
