@@ -1,13 +1,13 @@
-package src.commands;
+package wenjieBot.commands;
 
-import src.*;
-import src.tasks.Deadline;
-import src.tasks.Task;
-import src.tasks.ToDo;
-import src.exceptions.DukeException;
-import src.tasks.Event;
-import src.exceptions.InvalidInputException;
-import src.exceptions.NoFollowUpException;
+import wenjieBot.*;
+import wenjieBot.tasks.Deadline;
+import wenjieBot.tasks.Task;
+import wenjieBot.tasks.ToDo;
+import wenjieBot.exceptions.DukeException;
+import wenjieBot.tasks.Event;
+import wenjieBot.exceptions.InvalidInputException;
+import wenjieBot.exceptions.NoFollowUpException;
 
 import java.util.ArrayList;
 

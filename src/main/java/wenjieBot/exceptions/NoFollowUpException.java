@@ -1,4 +1,4 @@
-package src.exceptions;
+package wenjieBot.exceptions;
 
 public class NoFollowUpException extends DukeException {
     public NoFollowUpException() {

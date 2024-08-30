@@ -1,16 +1,16 @@
-package src.commands;
+package wenjieBot.commands;
 
-import src.exceptions.DukeException;
-import src.Storage;
-import src.TaskList;
-import src.Ui;
+import wenjieBot.exceptions.DukeException;
+import wenjieBot.Storage;
+import wenjieBot.TaskList;
+import wenjieBot.Ui;
 
 public abstract class Command {
 
     private boolean isExit = false;
     private String input = "";
 
-    public Command(boolean isActive, String input) {
+    public Command(boolean isExit, String input) {
         this.isExit = isExit;
         this.input = input;
     }

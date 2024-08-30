@@ -1,7 +1,7 @@
-package src;
+package wenjieBot;
 
-import src.commands.Command;
-import src.exceptions.DukeException;
+import wenjieBot.commands.Command;
+import wenjieBot.exceptions.DukeException;
 
 import java.util.Scanner;
 

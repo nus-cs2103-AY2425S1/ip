@@ -1,13 +1,13 @@
-package src;
+package wenjieBot;
 
-import src.commands.Command;
-import src.commands.MarkCommand;
-import src.commands.DeleteCommand;
-import src.commands.ByeCommand;
-import src.commands.ListCommand;
-import src.commands.UnmarkCommand;
-import src.commands.AddCommand;
-import src.exceptions.UnknownCommandException;
+import wenjieBot.commands.Command;
+import wenjieBot.commands.MarkCommand;
+import wenjieBot.commands.DeleteCommand;
+import wenjieBot.commands.ByeCommand;
+import wenjieBot.commands.ListCommand;
+import wenjieBot.commands.UnmarkCommand;
+import wenjieBot.commands.AddCommand;
+import wenjieBot.exceptions.UnknownCommandException;
 
 
 public class Parser {

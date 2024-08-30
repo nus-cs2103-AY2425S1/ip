@@ -1,18 +1,19 @@
-package src.commands;
+package wenjieBot.commands;
 
-import src.*;
-import src.tasks.Task;
-import src.exceptions.DukeException;
-import src.exceptions.NoNumberInputtedException;
-import src.exceptions.OutOfBoundsException;
+import wenjieBot.*;
+import wenjieBot.tasks.Task;
+import wenjieBot.exceptions.DukeException;
+import wenjieBot.exceptions.NoNumberInputtedException;
+import wenjieBot.exceptions.OutOfBoundsException;
 
 import java.util.ArrayList;
 
-public class DeleteCommand extends Command {
+public class UnmarkCommand extends Command {
 
-    public DeleteCommand(boolean isActive, String input) {
+    public UnmarkCommand(boolean isActive, String input) {
         super(isActive, input);
     }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         String[] parts = getInput().split(" ");
@@ -28,14 +29,10 @@ public class DeleteCommand extends Command {
             throw new OutOfBoundsException();
         }
 
-        Task taskToRemove = taskList.get(taskNo);
-        taskList.remove(taskNo);
+        taskList.get(taskNo).setStatusIcon(false);
 
         ui.showLine();
-        System.out.println(
-                "Noted. I've removed this task:\n" +
-                taskToRemove + "\n" +
-                "Now you have " + taskList.size() + " tasks in the list.");
+        System.out.println(" OK, I've marked this task as not done yet:\n " + taskList.get(taskNo));
         ui.showLine();
     }
 }

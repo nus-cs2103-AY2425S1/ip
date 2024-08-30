@@ -1,10 +1,10 @@
-package src.commands;
+package wenjieBot.commands;
 
-import src.*;
-import src.tasks.Task;
-import src.exceptions.DukeException;
-import src.exceptions.NoNumberInputtedException;
-import src.exceptions.OutOfBoundsException;
+import wenjieBot.*;
+import wenjieBot.tasks.Task;
+import wenjieBot.exceptions.DukeException;
+import wenjieBot.exceptions.NoNumberInputtedException;
+import wenjieBot.exceptions.OutOfBoundsException;
 
 import java.util.ArrayList;
 

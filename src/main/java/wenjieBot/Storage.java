@@ -1,10 +1,10 @@
-package src;
+package wenjieBot;
 
-import src.tasks.Deadline;
-import src.tasks.Event;
-import src.tasks.Task;
-import src.tasks.ToDo;
-import src.exceptions.NoFileException;
+import wenjieBot.tasks.Deadline;
+import wenjieBot.tasks.Event;
+import wenjieBot.tasks.Task;
+import wenjieBot.tasks.ToDo;
+import wenjieBot.exceptions.NoFileException;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -73,7 +73,14 @@ public class Storage {
             }
             case 'D': {
                 String[] segments = description.split("/");
-                taskToAdd = new Deadline(segments[0], segments[1].substring(4));
+                int index = 0;
+                for(int i = 0; i < description.length(); i++) {
+                    if (description.charAt(i) == '/') {
+                        index = i + 4;
+                        break;
+                    }
+                }
+                taskToAdd = new Deadline(segments[0], description.substring(index));
                 break;
             }
             case 'E': {

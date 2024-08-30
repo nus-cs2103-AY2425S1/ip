@@ -1,6 +1,6 @@
-package src;
+package wenjieBot;
 
-import src.tasks.Task;
+import wenjieBot.tasks.Task;
 
 import java.util.ArrayList;
 

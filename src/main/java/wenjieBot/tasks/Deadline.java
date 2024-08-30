@@ -1,4 +1,4 @@
-package src.tasks;
+package wenjieBot.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,12 +13,9 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
-        System.out.println(by);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        String s = "19/01/2004 1600";
-        LocalDateTime parsedDateTime = LocalDateTime.parse(s, formatter);
-        this.dateTime = parsedDateTime;
+        this.by = by.trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        this.dateTime = LocalDateTime.parse(by.trim(), formatter);
     }
 
     @Override

@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("src.WenJie")
+    mainClass.set("wenjieBot.WenJie")
 }
 
 shadowJar {

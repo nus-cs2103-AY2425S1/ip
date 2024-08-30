@@ -1,4 +1,4 @@
-package src.exceptions;
+package wenjieBot.exceptions;
 
 public class InvalidInputException extends DukeException {
     public InvalidInputException() {
