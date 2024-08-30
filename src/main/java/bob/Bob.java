@@ -108,7 +108,7 @@ public class Bob {
     }
 
     static void commandRelevant(String dateStr) throws BobException {
-        ui.showMessage(taskList.getRelevantTasks(dateStr));
+        ui.showMessage(taskList.printRelevantTasks(dateStr));
     }
 
     static void commandMark(String taskDetails) throws BobException {
