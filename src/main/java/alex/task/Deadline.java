@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
  * a piece of work represented by a string e.g., read book by Sunday
  */
 public class Deadline extends Task {
+    //public LocalDate dueDate;
 
     public Deadline(String description, LocalDate dueDate) {
         super(description);
