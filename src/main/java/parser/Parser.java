@@ -3,7 +3,18 @@ package parser;
 import command.*;
 import exceptions.BuddyException;
 
+/**
+ * Parses user input and returns the appropriate command.
+ */
 public class Parser {
+
+    /**
+     * Parses the given command string and returns a corresponding Command object.
+     *
+     * @param command The user input command string.
+     * @return The Command object corresponding to the user input.
+     * @throws BuddyException If the command is not recognized or is invalid.
+     */
     public static Command parse(String command) throws BuddyException {
         if (command.startsWith("todo")) {
             return new AddCommand(command);
@@ -28,5 +39,4 @@ public class Parser {
             throw new BuddyException("Unknown command?");
         }
     }
-
 }

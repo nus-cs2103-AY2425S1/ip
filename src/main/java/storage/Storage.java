@@ -16,14 +16,29 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles loading and saving of tasks from and to a file.
+ */
 public class Storage {
     private final String FILE_PATH;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The file path where tasks are stored and loaded from.
+     */
     public Storage(String filePath) {
         this.FILE_PATH = filePath;
     }
 
-    private static LocalDateTime formatDate (String date) throws BuddyException {
+    /**
+     * Formats a date string into a LocalDateTime object.
+     *
+     * @param date The date string in the format "d/M/yyyy HHmm".
+     * @return The formatted LocalDateTime object.
+     * @throws BuddyException If the date string is not in the correct format.
+     */
+    private static LocalDateTime formatDate(String date) throws BuddyException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
@@ -33,20 +48,31 @@ public class Storage {
         }
     }
 
-    private static String localDateTimeString (LocalDateTime date) {
+    /**
+     * Formats a LocalDateTime object into a string in the format "d/M/yyyy HHmm".
+     *
+     * @param date The LocalDateTime object to be formatted.
+     * @return The formatted date string.
+     */
+    private static String localDateTimeString(LocalDateTime date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        String formattedDate = date.format(formatter);
-        return formattedDate;
+        return date.format(formatter);
     }
 
+    /**
+     * Loads tasks from the file specified by the file path.
+     *
+     * @return An ArrayList containing the tasks loaded from the file.
+     * @throws BuddyException If the file is not found or if there is an error parsing the file contents.
+     */
     public ArrayList<Task> load() throws BuddyException {
         ArrayList<Task> list = new ArrayList<>();
         File file = new File(FILE_PATH);
         if (!file.exists()) {
-            throw new BuddyException("  No tasks founds, starting from scratch");
+            throw new BuddyException("  No tasks found, starting from scratch");
         }
 
-        // reading previously stored tasks in file
+        // Reading previously stored tasks from the file
         try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
@@ -93,6 +119,12 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Saves the list of tasks to the file specified by the file path.
+     *
+     * @param list The list of tasks to be saved.
+     * @throws BuddyException If an error occurs while saving the tasks to the file.
+     */
     public void save(ArrayList<Task> list) throws BuddyException {
         try {
             File file = new File(this.FILE_PATH);
@@ -122,5 +154,4 @@ public class Storage {
             throw new BuddyException("An error occurred when saving tasks");
         }
     }
-
 }

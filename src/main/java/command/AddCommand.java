@@ -9,13 +9,28 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to add a task (todo, deadline, event) to the task list.
+ */
 public class AddCommand extends Command {
     private String command;
 
+    /**
+     * Constructs an AddCommand with the specified command string.
+     *
+     * @param command The command string containing the details of the task to be added.
+     */
     public AddCommand(String command) {
         this.command = command;
     }
 
+    /**
+     * Parses and formats a date string into a LocalDateTime object.
+     *
+     * @param date The date string in the format "d/M/yyyy HHmm".
+     * @return The formatted LocalDateTime object.
+     * @throws BuddyException If the date string is not in the correct format.
+     */
     private static LocalDateTime formatDate(String date) throws BuddyException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -26,6 +41,14 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Executes the command to add a task to the task list.
+     *
+     * @param tasks   The TaskList object containing the current list of tasks.
+     * @param ui      The Ui object for interacting with the user.
+     * @param storage The Storage object for saving tasks to the storage file.
+     * @throws BuddyException If there is an error in the command, such as missing task descriptions or incorrect date formats.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
         if (command.startsWith("todo")) {
