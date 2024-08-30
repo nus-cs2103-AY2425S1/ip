@@ -7,7 +7,6 @@ import java.time.format.DateTimeParseException;
 import victor.messages.ReturnMessage;
 import victor.tasklist.TaskList;
 import victor.tasks.Deadline;
-import victor.tasks.ToDo;
 
 public class DeadlineCommand extends Command {
     private Deadline deadline;

@@ -4,7 +4,6 @@ import java.nio.file.Path;
 
 import victor.messages.ReturnMessage;
 import victor.tasklist.TaskList;
-import victor.tasks.ToDo;
 
 public class Command {
     protected TaskList taskList;

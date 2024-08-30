@@ -25,7 +25,7 @@ public class Storage {
      * Checks and creates, if necessary, necessary directories and files to save and load
      * tasks from. Creates a TaskList object to use for the entire program's tasks.
      * @return A TaskList object that is either blank, if no previous file existed or
-     * there were no saved tasks, or is populated with data loaded from the save file.
+     *     there were no saved tasks, or is populated with data loaded from the save file.
      */
     public TaskList load() {
         Path dataPath = filePath.getParent();

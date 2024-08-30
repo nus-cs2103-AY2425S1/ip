@@ -5,6 +5,9 @@ import java.util.Scanner;
 
 import victor.messages.ReturnMessage;
 
+/**
+ * Public UI class that handles input and output operations.
+ */
 public class UI {
     private static final String DIVIDER = "============================================================";
     private static final String LOGO = """
@@ -21,6 +24,10 @@ public class UI {
     private final Scanner in;
     private final PrintStream out;
 
+    /**
+     * UI Constructor method that sets standard keyboard scanner as input and standard
+     * output as output for all user prompts.
+     */
     public UI() {
         this.in = new Scanner(System.in);
         this.out = System.out;

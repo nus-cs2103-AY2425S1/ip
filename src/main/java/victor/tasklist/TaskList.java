@@ -35,7 +35,7 @@ public class TaskList {
      * Returns a string array of the output to be shown by the UI component to the user.
      * @param taskNumber An integer representing the number of the task meant to be deleted.
      * @return A string array with output to be shown to the user following deleting the task.
-     * Indicates success status of the deletion task.
+     *     Indicates success status of the deletion task.
      */
     public String[] deleteTask(int taskNumber) {
         try {
@@ -55,7 +55,7 @@ public class TaskList {
      * Returns a string array of the output to be shown by the UI component to the user.
      * @param taskNumber An integer representing the number of the task meant to be marked as done.
      * @return A string array with output to be shown to the user following marking the task as done.
-     * Indicates success status of the marking as done task.
+     *     Indicates success status of the marking as done task.
      */
     public String[] markDone(int taskNumber) {
         try {
@@ -73,7 +73,7 @@ public class TaskList {
      * Returns a string array of the output to be shown by the UI component to the user.
      * @param taskNumber An integer representing the number of the task meant to be unmarked as done.
      * @return A string array with output to be shown to the user following unmarking the task as done.
-     * Indicates success status of the unmarking as done task.
+     *     Indicates success status of the unmarking as done task.
      */
     public String[] unmarkDone(int taskNumber) {
         try {

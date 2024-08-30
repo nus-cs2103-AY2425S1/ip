@@ -4,6 +4,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 
+/**
+ * ToDo class that handles tasks without no associated times and only a name.
+ */
 public class ToDo extends Task {
     public ToDo(String name) {
         super(name);

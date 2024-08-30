@@ -7,9 +7,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Deadline class that handles task with a deadline.
+ */
 public class Deadline extends Task {
     protected String deadline;
     protected LocalDate deadlineDate;
+
+    /**
+     * Constructor for the deadline class that assigns the deadline a name and a deadline. Parses
+     * input and saves the deadline as a LocalDate object.
+     * @param name A string with the name of the deadline to be stored.
+     * @param deadline A string with the deadline of the deadline, should be either in format yyyy-mm-dd or dd-mm-yyyy.
+     * @throws DateTimeParseException Thrown if the start or end time cannot be parsed as a LocalDate object.
+     */
     public Deadline(String name, String deadline) throws DateTimeParseException {
         super(name);
         this.deadline = deadline;
