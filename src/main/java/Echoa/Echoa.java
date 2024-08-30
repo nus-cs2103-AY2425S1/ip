@@ -45,58 +45,58 @@ public class Echoa {
                 String task = line.replace(command, "").trim();
 
                 switch (command) {
-                    case "list":
-                        taskList.listTasks();
-                        break;
-                    case "mark":
-                        int markIndex = parser.parseIndex(line);
-                        taskList.markTaskAsDone(markIndex);
-                        ui.printMarkTaskMessage(taskList, markIndex);
-                        storage.handleChange(taskList);
-                        break;
-                    case "unmark":
-                        int unmarkIndex = parser.parseIndex(line);
-                        taskList.markTaskAsUndone(unmarkIndex);
-                        ui.printUnmarkTaskMessage(taskList, unmarkIndex);
-                        storage.handleChange(taskList);
-                        break;
-                    case "delete":
-                        int deleteIndex = parser.parseIndex(line);
-                        taskList.deleteTask(deleteIndex);
-                        ui.printDeleteTaskMessage(taskList, deleteIndex);
-                        storage.handleChange(taskList);
-                        break;
-                    case "todo":
-                        Object[] todo = parser.parseToDoTask(task);
-                        String todoDescription = (String) todo[0];
-                        taskList.addTask(new ToDo(todoDescription));
-                        ui.printAddTaskMessage(taskList);
-                        storage.handleChange(taskList);
-                        break;
-                    case "deadline":
-                        Object[] deadline = parser.parseDeadlineTask(task);
-                        String deadlineDescription = (String) deadline[0];
-                        LocalDateTime dateAndTime = (LocalDateTime) deadline[1];
-                        taskList.addTask(new Deadline(deadlineDescription, dateAndTime));
-                        ui.printAddTaskMessage(taskList);
-                        storage.handleChange(taskList);
-                        break;
-                    case "event":
-                        Object[] event = parser.parseEventTask(task);
-                        String eventDescription = (String) event[0];
-                        LocalDateTime startDateAndTime = (LocalDateTime) event[1];
-                        LocalDateTime endDateAndTime = (LocalDateTime) event[2];
-                        taskList.addTask(new Event(eventDescription, startDateAndTime, endDateAndTime));
-                        ui.printAddTaskMessage(taskList);
-                        storage.handleChange(taskList);
-                        break;
-                    case "bye":
-                        ui.greetUserEnd();
-                        break;
-                    case "":
-                        throw new InvalidInstructionException("Blank");
-                    default:
-                        throw new InvalidInstructionException(command);
+                case "list":
+                    taskList.listTasks();
+                    break;
+                case "mark":
+                    int markIndex = parser.parseIndex(line);
+                    taskList.markTaskAsDone(markIndex);
+                    ui.printMarkTaskMessage(taskList, markIndex);
+                    storage.handleChange(taskList);
+                    break;
+                case "unmark":
+                    int unmarkIndex = parser.parseIndex(line);
+                    taskList.markTaskAsUndone(unmarkIndex);
+                    ui.printUnmarkTaskMessage(taskList, unmarkIndex);
+                    storage.handleChange(taskList);
+                    break;
+                case "delete":
+                    int deleteIndex = parser.parseIndex(line);
+                    taskList.deleteTask(deleteIndex);
+                    ui.printDeleteTaskMessage(taskList, deleteIndex);
+                    storage.handleChange(taskList);
+                    break;
+                case "todo":
+                    Object[] todo = parser.parseToDoTask(task);
+                    String todoDescription = (String) todo[0];
+                    taskList.addTask(new ToDo(todoDescription));
+                    ui.printAddTaskMessage(taskList);
+                    storage.handleChange(taskList);
+                    break;
+                case "deadline":
+                    Object[] deadline = parser.parseDeadlineTask(task);
+                    String deadlineDescription = (String) deadline[0];
+                    LocalDateTime dateAndTime = (LocalDateTime) deadline[1];
+                    taskList.addTask(new Deadline(deadlineDescription, dateAndTime));
+                    ui.printAddTaskMessage(taskList);
+                    storage.handleChange(taskList);
+                    break;
+                case "event":
+                    Object[] event = parser.parseEventTask(task);
+                    String eventDescription = (String) event[0];
+                    LocalDateTime startDateAndTime = (LocalDateTime) event[1];
+                    LocalDateTime endDateAndTime = (LocalDateTime) event[2];
+                    taskList.addTask(new Event(eventDescription, startDateAndTime, endDateAndTime));
+                    ui.printAddTaskMessage(taskList);
+                    storage.handleChange(taskList);
+                    break;
+                case "bye":
+                    ui.greetUserEnd();
+                    break;
+                case "":
+                    throw new InvalidInstructionException("Blank");
+                default:
+                    throw new InvalidInstructionException(command);
                 }
             }
         } catch (InvalidDeadlineContentException e) {

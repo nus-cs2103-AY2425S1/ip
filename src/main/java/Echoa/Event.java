@@ -10,6 +10,7 @@ import java.time.LocalTime;
  * and contains additional characteristics of
  * startTime and endTime
  */
+
 public class Event extends Task {
 
     private LocalDateTime startDateAndTime;
@@ -59,8 +60,7 @@ public class Event extends Task {
      */
     public static String getReformattedDate(LocalDate date) {
         return date.getMonth() + " " +
-                date.getDayOfMonth() + " " +
-                date.getYear();
+               date.getDayOfMonth() + " " + date.getYear();
     }
 
     /**
@@ -84,6 +84,4 @@ public class Event extends Task {
                 " (from: " + getReformattedDate(this.getStartDate()) + " " + this.getStartTime().toString() +
                 " to: " + getReformattedDate(this.getEndDate()) + " " + this.getEndTime().toString() + ")";
     }
-
-
 }

@@ -43,8 +43,8 @@ public class Deadline extends Task {
      */
     public static String getReformattedDate(LocalDate date) {
         return date.getMonth() + " " +
-                date.getDayOfMonth() + " " +
-                date.getYear();
+               date.getDayOfMonth() + " " +
+               date.getYear();
     }
 
     /**

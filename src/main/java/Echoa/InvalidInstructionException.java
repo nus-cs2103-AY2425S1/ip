@@ -3,6 +3,7 @@ package Echoa;
 /**
  * InvalidInstructionsContentException is a class that encapsulates errors relating to instruction
  */
+
 public class InvalidInstructionException extends Exception {
     String instruction;
     public InvalidInstructionException(String instruction) {
@@ -21,7 +22,6 @@ public class InvalidInstructionException extends Exception {
         for (String i : Ui.INSTRUCTION_LIST) {
             message = message + "- " + i + "\n";
         }
-
         return message;
     }
 }

@@ -8,7 +8,6 @@ public class ListOutOfBoundsException extends Exception {
         this.index = index;
     }
 
-
     @Override
     public String getMessage() {
         return this.index + "is out of bounds. Please check your list again.";
