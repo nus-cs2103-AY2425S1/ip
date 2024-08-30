@@ -1,4 +1,6 @@
 package greetbot;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -63,6 +65,11 @@ public class Ui {
         return String.format("Noted. I've removed this task:\n" +
                 "%s\n" +
                 "Now you have %d tasks in the list.", task.toString(), total);
+    }
+
+    public String showFind(String searchItem, TaskList list) {
+        return String.format("Here are the matching tasks in your list:\n" +
+                "%s", list.findTasks(searchItem));
     }
 
     public String readInput() {

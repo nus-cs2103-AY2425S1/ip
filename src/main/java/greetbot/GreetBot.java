@@ -84,6 +84,11 @@ public class GreetBot {
                 throw new EmptyDescriptionException("OOPS!!! The description of delete cannot be empty.");
             }
             return this.deleteTask(Parser.parseMarkUnmarkDelete(segment[1]));
+        } else if (keyword.equals("FIND")) {
+            if (segment.length == 1) {
+                throw new EmptyDescriptionException("OOPS!!! The description of find cannot be empty.");
+            }
+            return this.findTask(Parser.parseFind(segment[1]));
         } else if (keyword.isEmpty()){
             return "";
         } else {
@@ -137,6 +142,10 @@ public class GreetBot {
         } catch (DateTimeParseException e) {
             return "wrong time format for deadline task!";
         }
+    }
+
+    private String findTask(String description) {
+        return this.ui.showFind(description, tasks);
     }
     public static void main(String[] args) {
         new GreetBot("data/greetbot.txt").run();
