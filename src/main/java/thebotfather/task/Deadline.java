@@ -1,6 +1,6 @@
-package TheBotFather.Task;
+package thebotfather.task;
 
-import TheBotFather.util.TheBotFatherException;
+import thebotfather.util.TheBotFatherException;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;

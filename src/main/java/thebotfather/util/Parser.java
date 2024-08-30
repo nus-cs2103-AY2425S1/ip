@@ -1,10 +1,10 @@
-package TheBotFather.util;
+package thebotfather.util;
 
-import TheBotFather.Command.*;
-import TheBotFather.Task.Deadline;
-import TheBotFather.Task.Event;
-import TheBotFather.Task.Task;
-import TheBotFather.Task.Todo;
+import thebotfather.command.*;
+import thebotfather.task.Deadline;
+import thebotfather.task.Event;
+import thebotfather.task.Task;
+import thebotfather.task.Todo;
 
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;

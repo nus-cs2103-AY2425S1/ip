@@ -1,9 +1,9 @@
-package TheBotFather.Command;
+package thebotfather.command;
 
-import TheBotFather.util.Storage;
-import TheBotFather.util.TaskList;
-import TheBotFather.util.TheBotFatherException;
-import TheBotFather.util.Ui;
+import thebotfather.util.Storage;
+import thebotfather.util.TaskList;
+import thebotfather.util.TheBotFatherException;
+import thebotfather.util.Ui;
 
 public class PrintTaskListCommand extends Command {
     @Override

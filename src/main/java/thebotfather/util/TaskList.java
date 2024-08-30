@@ -1,11 +1,11 @@
-package TheBotFather.util;
+package thebotfather.util;
 
-import TheBotFather.Task.Task;
+import thebotfather.task.Task;
 
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> taskArrayList;
+    private final ArrayList<Task> taskArrayList;
     protected static int COUNT = 0;
 
     public TaskList(ArrayList<Task> taskArrayList) {
@@ -22,7 +22,7 @@ public class TaskList {
         if (size < 1) throw new TheBotFatherException("How do I print what is not there?");
         StringBuilder string = new StringBuilder();
         for (int i = 0; i < size; i++) {
-            string.append(i + 1 + ". " + taskArrayList.get(i) + "\n");
+            string.append(i + 1).append(". ").append(taskArrayList.get(i)).append("\n");
         }
         return string.toString();
     }
@@ -30,7 +30,9 @@ public class TaskList {
     public void markAsDone(int index) throws TheBotFatherException {
         try {
             Task task = taskArrayList.get(index);
-            if (!task.isDone()) COUNT--;
+            if (!task.isDone()) {
+                COUNT--;
+            }
             task.markAsDone();
         } catch (IndexOutOfBoundsException e) {
             throw new TheBotFatherException("To be a real man you need to know how to count, you don't even have those many tasks son.\n" +
@@ -41,7 +43,9 @@ public class TaskList {
     public void unmark(int index) throws TheBotFatherException {
         try {
             Task task = taskArrayList.get(index);
-            if (task.isDone()) COUNT++;
+            if (task.isDone()) {
+                COUNT++;
+            }
             task.unmark();
         } catch (IndexOutOfBoundsException e) {
             throw new TheBotFatherException("To be a real man you need to know how to count, you don't even have those many tasks son.\n" +
@@ -53,7 +57,9 @@ public class TaskList {
         try {
             Task task = taskArrayList.get(index);
             taskArrayList.remove(index);
-            COUNT--;
+            if (!task.isDone()) {
+                COUNT--;
+            }
             return task;
         } catch (IndexOutOfBoundsException e) {
             throw new TheBotFatherException("To be a real man you need to know how to count, you don't even have those many tasks son.\n" +
@@ -61,10 +67,14 @@ public class TaskList {
         }
     }
 
+    public int numberOfElements() {
+        return taskArrayList.size();
+    }
+
     public String toFile() {
         StringBuilder dataInFile = new StringBuilder();
         for (Task task : taskArrayList) {
-            dataInFile.append(task.toFile() + System.lineSeparator());
+            dataInFile.append(task.toFile()).append(System.lineSeparator());
         }
 
         return dataInFile.toString();

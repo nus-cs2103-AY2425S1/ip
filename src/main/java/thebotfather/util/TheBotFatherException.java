@@ -1,4 +1,4 @@
-package TheBotFather.util;
+package thebotfather.util;
 
 public class TheBotFatherException extends Exception {
 

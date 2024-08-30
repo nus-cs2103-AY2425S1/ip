@@ -1,6 +1,6 @@
-package TheBotFather.util;
+package thebotfather.util;
 
-import TheBotFather.Task.Task;
+import thebotfather.task.Task;
 
 import java.util.Scanner;
 

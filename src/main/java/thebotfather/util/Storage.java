@@ -1,9 +1,9 @@
-package TheBotFather.util;
+package thebotfather.util;
 
-import TheBotFather.Task.Deadline;
-import TheBotFather.Task.Event;
-import TheBotFather.Task.Task;
-import TheBotFather.Task.Todo;
+import thebotfather.task.Deadline;
+import thebotfather.task.Event;
+import thebotfather.task.Task;
+import thebotfather.task.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -48,7 +48,7 @@ public class Storage {
                     default:
                         throw new Exception("Error");
                 }
-                if (Objects.equals(instructions[1], "1")) taskList.markAsDone(TaskList.COUNT - 1);
+                if (Objects.equals(instructions[1], "1")) taskList.markAsDone(taskList.numberOfElements() - 1);
             }
         } catch (Exception e) {
             throw new TheBotFatherException("The file is corrupted");

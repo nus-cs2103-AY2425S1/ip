@@ -1,6 +1,6 @@
-package TheBotFather.Task;
+package thebotfather.task;
 
-import TheBotFather.util.TheBotFatherException;
+import thebotfather.util.TheBotFatherException;
 
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
@@ -22,7 +22,8 @@ public class Todo extends Task {
             }
             return new Todo(description.toString().trim());
         } catch (NoSuchElementException e) {
-            throw new TheBotFatherException("If you have a todo, type : \"todo <description>\"");
+            throw new TheBotFatherException("Why to do a todo if there is no todo to do :/ \n" +
+                    "\tIf you have a todo, type : \"todo <description>\"");
         }
     }
 }

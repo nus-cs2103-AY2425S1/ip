@@ -1,6 +1,6 @@
-package TheBotFather.Task;
+package thebotfather.task;
 
-import TheBotFather.util.TheBotFatherException;
+import thebotfather.util.TheBotFatherException;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -44,7 +44,7 @@ public class Event extends Task {
             }
 
             if (Objects.equals(from.toString(), "")) {
-                throw new TheBotFatherException("Kid, look at what you have  written.. is that a valid event? *sigh*\n" +
+                throw new TheBotFatherException("Kid, look at what you have  written... is that a valid event?? *sigh*\n" +
                         "\tIf you have an event, type \"event <description> /from DD-MM-YY HH:MM /to DD-MM-YY HH:MM\"");
             }
 

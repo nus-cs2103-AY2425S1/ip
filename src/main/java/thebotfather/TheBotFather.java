@@ -1,10 +1,9 @@
-package TheBotFather;
+package thebotfather;
 
-import TheBotFather.Command.Command;
-import TheBotFather.Task.Task;
-import TheBotFather.util.*;
+import thebotfather.command.Command;
+import thebotfather.task.Task;
+import thebotfather.util.*;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class TheBotFather {
