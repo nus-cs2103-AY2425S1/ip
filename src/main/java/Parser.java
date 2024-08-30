@@ -14,7 +14,7 @@ public class Parser {
     /**
      * Returns true if the buffer has more tokens,
      * false otherwise.
-     * 
+     *
      * @return true if the buffer has more tokens,
      *         false otherwise
      */
@@ -25,7 +25,7 @@ public class Parser {
     /**
      * Returns the next token without removing it from
      * the buffer.
-     * 
+     *
      * @return the next token
      */
     public String peekToken() {
@@ -38,7 +38,7 @@ public class Parser {
     /**
      * Returns the next token and remove it from
      * the buffer.
-     * 
+     *
      * @return the next token
      */
     private String nextToken() {
@@ -50,7 +50,7 @@ public class Parser {
     /**
      * Returns the next token as an int and remove it from
      * the buffer.
-     * 
+     *
      * @return the next token
      */
     public int getInt() {
@@ -64,7 +64,7 @@ public class Parser {
 
     /**
      * Returns the whole line and purge the buffer.
-     * 
+     *
      * @return the whole line
      */
     public String getWholeLine() {
@@ -74,7 +74,7 @@ public class Parser {
 
     /**
      * Joins the remaining tokens in the line and purge the buffer.
-     * 
+     *
      * @return the remaining line
      */
     public String getRemainingLine() {
@@ -91,7 +91,7 @@ public class Parser {
     /**
      * Read tokens until before the pattern specified has been found
      * and joins them into a single line. (Excludes the pattern.)
-     * 
+     *
      * @return tokens until before the pattern joined into a single line
      */
     public String getUntil(String pattern) {
@@ -111,7 +111,7 @@ public class Parser {
      * Read tokens until before the pattern specified has been found
      * and joins them into a single line. (Excludes the pattern.) Then,
      * remove the pattern.
-     * 
+     *
      * @return tokens until before the pattern joined into a single line
      */
     public String getUntilAndRemovePattern(String pattern) {

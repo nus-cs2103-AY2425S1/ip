@@ -1,14 +1,13 @@
-import tasks.Task;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Todo;
-import tasks.DateAndTime;
-
 import java.util.Scanner;
 
 import exceptions.DeadlineUsageException;
 import exceptions.EventUsageException;
 import exceptions.TodoUsageException;
+import tasks.DateAndTime;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 public class Duck {
     private static final String CHATBOT_NAME = "Duck";

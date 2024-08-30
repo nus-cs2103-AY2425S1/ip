@@ -1,12 +1,12 @@
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.List;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Storage {
     private final File FILE_PATH;
@@ -21,7 +21,7 @@ public class Storage {
     /**
      * Reads from CSV and returns a list of lists.
      * Each list corresponds to a row in the CSV file.
-     * 
+     *
      * @return List of lists
      * @throws IOException
      */
@@ -40,7 +40,7 @@ public class Storage {
     /**
      * Updates CSV with records as a list of lists.
      * Each list corresponds to a row in the CSV file.
-     * 
+     *
      * @throws IOException
      */
     public void updateRecords(List<List<String>> records) throws IOException {
@@ -55,7 +55,7 @@ public class Storage {
     /**
      * Updates CSV with records as a list of strings.
      * Each String corresponds to a row in the CSV file.
-     * 
+     *
      * @param records
      * @throws IOException
      */
