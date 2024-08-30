@@ -33,7 +33,6 @@ public class Event extends Task {
      * @param from The start date/time of the event.
      * @param to The end date/time of the event.
      */
-
     public Event(String description, String from, String to,boolean isDone) {
         super(description,isDone);
         this.from = parseDateTime(from);
@@ -64,6 +63,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
-        return "[E][" + (isDone ? "X" : " ") + "] " + description + " (from: " + (from != null ? from.format(formatter) : "Invalid date") + " to: " + (to != null ? to.format(formatter) : "Invalid date") + ")";
+        return "[E][" + (isDone ? "X" : " ") + "] " + description + " (from: " +
+                (from != null ? from.format(formatter) : "Invalid date")
+                        + " to: " + (to != null ? to.format(formatter) : "Invalid date") + ")";
     }
 }

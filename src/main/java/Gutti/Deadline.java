@@ -23,6 +23,7 @@ public class Deadline extends Task {
 
     /** The deadline by which the task should be completed. */
     protected LocalDateTime by;
+
     /**
      * Constructs a new {@code Deadline} task with the specified description and deadline.
      *
@@ -32,8 +33,8 @@ public class Deadline extends Task {
     public Deadline(String description, String by, boolean isDone) {
         super(description,isDone);
         this.by = parseDateTime(by);
-
     }
+
     private LocalDateTime parseDateTime(String by) {
         for (DateTimeFormatter formatter : FORMATTERS) {
             try {
