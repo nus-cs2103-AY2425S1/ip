@@ -19,7 +19,7 @@ public class DeadlineTask extends Task{
 
     @Override
     public String toString() {
-        return "[D]" + "[" + getStatusIcon() + "] " + super.description + " /by: " +
-                deadLine.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return "[D]" + "[" + getStatusIcon() + "] " + super.description + " /by: "
+                + deadLine.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 }

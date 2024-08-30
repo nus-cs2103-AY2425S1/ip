@@ -12,8 +12,8 @@ public class UnknownCommand extends Command{
     }
     @Override
     public void execute(TaskList tasks, Storage storage) {
-        System.out.println("Sorry to say that I don't know what does \"" + commandMessage + "\" means. " +
-                "Anyway, have a good day :)");
+        System.out.println("Sorry to say that I don't know what does \"" + commandMessage + "\" means. "
+                + "Anyway, have a good day :)");
     }
 
     @Override

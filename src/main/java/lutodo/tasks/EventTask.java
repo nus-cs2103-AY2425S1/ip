@@ -23,8 +23,8 @@ public class EventTask extends Task{
 
     @Override
     public String toString() {
-        return "[E]" + "[" + getStatusIcon() + "] " + super.description +
-                " /from: " + start.format(DateTimeFormatter.ofPattern("HH:mm")) +
-                " /to: " + end.format(DateTimeFormatter.ofPattern("HH:mm"));
+        return "[E]" + "[" + getStatusIcon() + "] " + super.description
+                + " /from: " + start.format(DateTimeFormatter.ofPattern("HH:mm"))
+                + " /to: " + end.format(DateTimeFormatter.ofPattern("HH:mm"));
     }
 }

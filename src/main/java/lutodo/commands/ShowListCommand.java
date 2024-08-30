@@ -7,7 +7,7 @@ public class ShowListCommand extends Command{
     @Override
     public void execute(TaskList tasks, Storage storage) {
         if (tasks.isEmpty()) {
-            System.out.println("You don't have any task now ~(∠・ω< )⌒★");
+            System.out.println("You don't have any task now (∠・ω< )");
             return;
         }
         System.out.println("Here are the tasks in your list:");
