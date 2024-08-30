@@ -15,8 +15,9 @@ import exceptions.UsageException;
 public class TaskList {
     private static final ArrayList<Task> LIST = new ArrayList<>();
     // TODO: Refactor this
-    private static final String[] dirPathParts = { "..", "..", "..", "store" };
-    private static final String[] filePathParts = { "..", "..", "..", "store", "tasks.csv" };
+    // Path relative to project directory
+    private static final String[] dirPathParts = { "store" };
+    private static final String[] filePathParts = { "store", "tasks.csv" };
     private final File SAVE_DIR = new File(String.join(File.separator, dirPathParts));
     private static final Storage CSV_HANDLER = new Storage(
             new File(String.join(File.separator, filePathParts)));
