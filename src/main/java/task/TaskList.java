@@ -75,5 +75,8 @@ public class TaskList {
                 this.ui.sendMessage((i++) + ". " + t);
             }
         }
+        if (i == 0) {
+            this.ui.sendMessage("No items yet!");
+        }
     }
 }
