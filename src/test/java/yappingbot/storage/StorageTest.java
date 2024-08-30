@@ -31,11 +31,11 @@ class StorageTest {
         String savefile_path = "src/test/resources/savefile_test";
         Storage s = new Storage(savefile_path);
         ArrayList<String> t = new ArrayList<>();
-        s.saveListToFile(t);
         t.add("TODO:a:false");
         t.add("TODO:b:true");
         t.add("DEADLINE:adadsdd:false:2023-12-12");
         t.add("EVENT:abc:false:2023-12-23:2025-02-01");
+        s.saveListToFile(t);
         String[] expected = {
                 "TODO:a:false",
                 "TODO:b:true",
