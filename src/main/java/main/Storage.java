@@ -1,6 +1,7 @@
 package main;
 
 import exception.CommandFoundButInvalidException;
+import exception.CommandNotFoundException;
 import exception.InvalidSyntaxException;
 import task.Deadlines;
 import task.Events;
@@ -14,6 +15,13 @@ import java.util.List;
 public class Storage {
     private String filePath;
     private File file;
+
+    /**
+     * Constructs a {@code Storage} instance with the given filePath
+     *
+     * @param filePath the path to the file where data will be store. A new
+     *                 file is created if the file does not exist
+     */
     public Storage(String filePath) {
         // create the file if it does not exist
         filePath = filePath;
@@ -28,12 +36,13 @@ public class Storage {
             System.out.println("Error creating file: " + e.getMessage());
         }
     }
-    // retrieves the previously loaded arraylist
     /**
-     * T | 1 | read book
-     * D | 0 | return book | June 6th
-     * E | 0 | project meeting | Aug 6th 2-4pm
-     * T | 1 | join sports club
+     * Loads tasks from a file and return a list of tasks
+     *
+     * @return a {@code List} of {@code Task} objects read from the file. If the
+     *         file is empty, an empty {@code List} is returned
+     * @throws CommandFoundButInvalidException if the file content is corrupted and not
+     *         in the required format
      */
     public List<Task> load() throws CommandFoundButInvalidException {
         List<Task> allTasks = new ArrayList<>();
@@ -70,7 +79,11 @@ public class Storage {
         }
         return allTasks;
     }
-    // writes a new task into the file
+    /**
+     * Saves tasks from the input list of tasks into a file
+     *
+     * @param allTasks the {@code List} of {@code Tasks}
+     */
     public void put(List<Task> allTasks) {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(this.file));
