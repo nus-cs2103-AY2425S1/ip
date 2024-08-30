@@ -71,9 +71,7 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new LexiException("");
-        } catch (IOException e) {
-            throw new LexiException("");
+            throw new LexiException("File not found:" + dataFile.getAbsolutePath());
         }
         return tasks;
     }
@@ -81,7 +79,7 @@ public class Storage {
     public void updateStorage(ArrayList<Task> tasks) throws LexiException {
         this.tasks = tasks;
         try {
-            FileWriter fw = new FileWriter(data);
+            FileWriter fw = new FileWriter(dataFile);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             for (Task task: tasks) {
                 char taskType = task.toString().split(" ")[0].charAt(1);
