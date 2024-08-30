@@ -2,6 +2,8 @@ package donk.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class Event extends Task{
     protected LocalDateTime startDt;
@@ -16,16 +18,46 @@ public class Event extends Task{
      */
     public Event(String description, String startDt, String endDt) {
         super(description, "E");
-        try {
-            this.startDt = LocalDateTime.parse(startDt);
-            this.endDt = LocalDateTime.parse(endDt);
-        } catch (Exception e) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
-            this.startDt = LocalDateTime.parse(startDt, formatter);
-            this.endDt = LocalDateTime.parse(endDt, formatter);
+
+        this.startDt = parseDatetimeString(startDt);
+        this.endDt = parseDatetimeString(endDt);
+    }
+
+
+    /**
+     * Parse datetime string using various strategies
+     */
+    private LocalDateTime parseDatetimeString(String dtString) throws IllegalArgumentException{
+        if (dtString.split(" ").length == 1 ) {
+            dtString = dtString + " 2359";
+        }
+        List<DateTimeFormatter> formatters = List.of(
+                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
+                DateTimeFormatter.ISO_LOCAL_DATE_TIME,
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        );
+        LocalDateTime dateTime = null;
+
+        // Try each formatter until one succeeds
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                System.out.println("testing " + formatter.toString());
+                dateTime = LocalDateTime.parse(dtString, formatter);
+                break; // Exit the loop once parsing is successful
+            } catch (DateTimeParseException e) {
+                System.out.println("error " + e.getMessage());
+                // Ignore the exception and try the next formatter
+            }
         }
 
+        // Check if parsing was successful
+        if (dateTime == null) {
+            throw new IllegalArgumentException("invalid datetime input");
+        } else {
+            return dateTime;
+        }
     }
+
     /**
      * Returns a string representation of the Event object.
      *

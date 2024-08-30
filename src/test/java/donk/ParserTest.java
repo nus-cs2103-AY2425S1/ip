@@ -29,4 +29,13 @@ public class ParserTest {
             assertEquals(0, tasks.size());
         }
     }
+
+    @Test
+    public void parse_find_success() throws Exception{
+        StorageStub storageStub = new StorageStub("dummyPath");
+        Ui ui = new Ui();
+        TaskList tasks = new TaskList();
+        Parser.parse("todo new task 1", tasks, storageStub, ui);
+        assertEquals(1, tasks.size());
+    }
 }
