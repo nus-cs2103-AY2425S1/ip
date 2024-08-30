@@ -67,6 +67,9 @@ public class Parser {
             tasks.deleteTask(index);
             storage.updateFile(tasks);
             Ui.printDeleteConfirmation(removedTask, tasks);
+        } else if (command.startsWith("find")) {
+            String searchKey = command.replace("find ", "").trim();
+            Ui.printMatchingTasks(searchKey, tasks);
         } else if (command.equals("bye")) {
             Ui.printExit();
             System.exit(0);
