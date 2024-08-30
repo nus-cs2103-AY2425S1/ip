@@ -1,4 +1,4 @@
-package luke.main;
+package luke;
 
 import luke.command.Command;
 import luke.env.Constants;

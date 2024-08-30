@@ -1,4 +1,4 @@
-package luke.main;
+package luke;
 
 import luke.env.Constants;
 import luke.task.Task;

@@ -1,8 +1,5 @@
 package luke;
 
-import luke.main.Parser;
-import luke.main.Storage;
-import luke.main.Ui;
 import luke.task.TaskList;
 
 public class Luke {

@@ -1,4 +1,4 @@
-package luke.main;
+package luke;
 
 public class NoSaveDataFoundException extends Exception {
     public NoSaveDataFoundException() {
