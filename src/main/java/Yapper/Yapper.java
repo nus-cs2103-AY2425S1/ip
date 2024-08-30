@@ -1,4 +1,5 @@
 package Yapper;
+
 import java.io.File;
 
 public class Yapper {
@@ -14,19 +15,16 @@ public class Yapper {
         parser = new Parser(taskList);
         ui = new UI(parser);
     }
+
     public static void main(String[] args) {
         String fileName = "./src/main/java/Yapper/YapperHistoryFile";
-        new Yapper(fileName).run();
+        (new Yapper(fileName)).run();
     }
 
     public void run() {
-        // greeting message
-        System.out.println("""
-                Hello! I'm Yapper
-                What can I do for you?
-                """);
+        System.out.println("Hello! I'm Yapper\nWhat can I do for you?\n");
         taskList.returnList();
-
         ui.readInput();
     }
 }
+
