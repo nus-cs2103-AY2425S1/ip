@@ -6,7 +6,7 @@ public class OutOfBoundsException extends DukeException {
     }
 
     @Override
-    public String toString() {
+    public String getMessage() {
         return "wah shag bro, you input a list number that hasn't been added to the list yet ";
     }
 }

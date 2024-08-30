@@ -6,7 +6,7 @@ public class NoFileException extends DukeException {
     }
 
     @Override
-    public String toString() {
+    public String getMessage() {
         return "eh siao liao, i cant find the file to put my lobang in sia";
     }
 }
