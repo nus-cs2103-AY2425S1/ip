@@ -1,24 +1,30 @@
 package Joseph;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class JEvent extends Task {
-    private final String start;
-    private final String end;
+    private final LocalDateTime start;
+    private final LocalDateTime end;
 
     public JEvent (String desc, String start, String end) {
         super(desc);
-        this.start = start;
-        this.end = end;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(("dd/MM/yyyy HHmm"));
+        this.start = LocalDateTime.parse(start, formatter);
+        this.end = LocalDateTime.parse(end, formatter);
     }
 
-    public String getStart() {
+    public LocalDateTime getStart() {
         return this.start;
     }
 
-    public String getEnd() {
+    public LocalDateTime getEnd() {
         return this.end;
     }
 
     @Override
     public String getDetails() {
-        return super.getDesc() + " start: " + this.start + " end: "  + this.end;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        return super.getDesc() +
+                " start: " + this.start.format(formatter) +
+                " end: "  + this.end.format(formatter);
     }
 }

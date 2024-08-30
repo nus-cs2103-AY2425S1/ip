@@ -1,5 +1,6 @@
 package Joseph;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.BufferedWriter;
@@ -40,7 +41,7 @@ public class Joseph {
                     break;
                 } else if (input.equals(LIST)) {
                     System.out.println("----------------------------------");
-                    for (int i = -0; i < list.size(); i++) {
+                    for (int i = 0; i < list.size(); i++) {
                         String done = "[" + list.get(i).getDone() + "] ";
                         System.out.println(i+1 + ". " + done + list.get(i).getDetails());
                     }
@@ -142,10 +143,13 @@ public class Joseph {
             taskType = "T";
         } else if (task instanceof Deadline) {
             taskType = "D";
-            desc += " /" + ((Deadline) task).getDue();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            desc += " /" + ((Deadline) task).getDue().format(formatter);
         } else if (task instanceof JEvent) {
             taskType = "E";
-            desc += " /" + ((JEvent) task).getStart() + " /" + ((JEvent) task).getEnd();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            desc += " /" + ((JEvent) task).getStart().format(formatter) +
+                    " /" + ((JEvent) task).getEnd().format(formatter);
         }
 
         return taskType + " | " + status + " | " + desc;
