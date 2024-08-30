@@ -25,29 +25,27 @@ public class Event extends IndividualTask {
     /**
      * Returns the string representation of the event task in a format suitable for saving to a file.
      *
-     * @return The string representation of the task in the format
-     * "E | statusIcon | taskDescription | from | to".
+     * @return The string representation of the task in the format "E | statusIcon | taskDescription | from | to".
      */
     @Override
     public String saveToFileFormat() {
-        return "E | " +
-                this.getSaveIcon() +
-                " | " +
-                this.getTaskDescription() +
-                " | " + this.from +
-                " | " + this.to;
+        return "E | "
+                + this.getSaveIcon()
+                + " | "
+                + this.getTaskDescription()
+                + " | " + this.from
+                + " | " + this.to;
     }
 
     /**
      * Returns the string representation of the event task.
      *
-     * @return The string representation of the task, including the
-     * type, status, start time, and end time.
+     * @return The string representation of the task, including the type, status, start time, and end time.
      */
     @Override
     public String toString() {
-        return "[E]" +
-                super.toString() +
-                " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]"
+                + super.toString()
+                + " (from: " + this.from + " to: " + this.to + ")";
     }
 }

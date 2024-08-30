@@ -42,9 +42,8 @@ public class TaskList {
      */
     public void getTasks(ArrayList<IndividualTask> tasks) {
         System.out.println(this.indent + this.separator);
-
         for (int i = 0; i < tasks.size(); i++) {
-            String number = String.valueOf(i+1);
+            String number = String.valueOf(i + 1);
             String format = this.formatListMessage(number, tasks.get(i));
             System.out.println(format);
         }

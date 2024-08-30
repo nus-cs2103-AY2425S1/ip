@@ -17,8 +17,7 @@ public class Deadline extends IndividualTask {
      * Constructs a {@code Deadline} object with the specified task description and return by date/time.
      *
      * @param taskDescription The description of the task.
-     * @param returnBy The date and time by which the task should be completed,
-     * in the format "d/M/yyyy HHmm".
+     * @param returnBy The date and time by which the task should be completed in the format "d/M/yyyy HHmm".
      */
     public Deadline(String taskDescription, String returnBy) {
         super(taskDescription);
@@ -55,16 +54,15 @@ public class Deadline extends IndividualTask {
     /**
      * Returns the string representation of the deadline task in a format suitable for saving to a file.
      *
-     * @return The string representation of the task in the
-     * format "D | statusIcon | taskDescription | returnBy".
+     * @return The string representation of the task in the format "D | statusIcon | taskDescription | returnBy".
      */
     @Override
     public String saveToFileFormat() {
-        return "D | " +
-                this.getSaveIcon() +
-                " | " +
-                this.getTaskDescription() +
-                " | " + this.returnBy;
+        return "D | "
+                + this.getSaveIcon()
+                + " | "
+                + this.getTaskDescription()
+                + " | " + this.returnBy;
     }
 
     /**
@@ -74,8 +72,8 @@ public class Deadline extends IndividualTask {
      */
     @Override
     public String toString() {
-        return "[D]" +
-                super.toString() +
-                " (by: " + this.formatDateTime() + ")";
+        return "[D]"
+                + super.toString()
+                + " (by: " + this.formatDateTime() + ")";
     }
 }

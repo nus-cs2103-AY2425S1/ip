@@ -40,16 +40,16 @@ public class Storage {
         File file = new File(path);
         if (!directory.exists()) {
 
-            System.out.println("No existing directory found. " +
-                    "Create a directory data and a file 'duke.txt' inside that directory. " +
-                    "Starting with an empty task list.");
+            System.out.println("No existing directory found. "
+                    + "Create a directory data and a file 'duke.txt' inside that directory. "
+                    + "Starting with an empty task list.");
 
             return;
         }
         if (!file.exists()) {
-            System.out.println("No existing data file found. " +
-                    "Create a file 'duke.txt' in the data directory. " +
-                    "Starting with an empty task list.");
+            System.out.println("No existing data file found. "
+                    + "Create a file 'duke.txt' in the data directory. "
+                    + "Starting with an empty task list.");
             return;
         }
         try {
@@ -61,10 +61,10 @@ public class Storage {
                 boolean isTaskDone = parts[1].equals("1");
                 String descriptionOfTask = parts[2];
                 IndividualTask task = switch (typeOfTask) {
-                    case "T" -> new ToDo(descriptionOfTask);
-                    case "D" -> new Deadline(descriptionOfTask, parts[3]);
-                    case "E" -> new Event(descriptionOfTask, parts[3], parts[4]);
-                    default -> null;
+                case "T" -> new ToDo(descriptionOfTask);
+                case "D" -> new Deadline(descriptionOfTask, parts[3]);
+                case "E" -> new Event(descriptionOfTask, parts[3], parts[4]);
+                default -> null;
                 };
                 if (task != null) {
                     if (isTaskDone) {
