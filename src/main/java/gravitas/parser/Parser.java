@@ -27,10 +27,11 @@ public class Parser {
      * Constructor for Parser class.
      */
     public Parser() {
+
         this.outOfBound = "The task that you wish to mark is invalid! please try again!";
         this.emptyTodo = "OOPS!!! The description of a todo cannot be empty.";
-        this.emptyEvent = "OOPS!!! The description of a event cannot be empty " +
-                "and must contain /from and /to.";
+        this.emptyEvent = "OOPS!!! The description of a event cannot be empty "
+                + "and must contain /from and /to.";
         this.emptyDeadline = "OOPS!!! The description of a deadline cannot be empty and must contain /by ";
         this.emptyDelete = "OOPS!!! The description of a delete cannot be empty.";
         this.mark = "Nice! I've marked this task as done:";
@@ -143,6 +144,13 @@ public class Parser {
         tasklist.printTask(task);
     }
 
+    /**
+     * Parses the user input and find the respective task.
+     *
+     * @param tasklist TaskList object that contains the list of tasks.
+     * @param msg      User input.
+     * @throws DukeException If the user input is invalid.
+     */
     public void parseFind(TaskList tasklist, String msg) throws DukeException {
         String[] msgFrag = msg.split(" ", 2);
 

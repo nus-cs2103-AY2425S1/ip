@@ -1,12 +1,5 @@
 package gravitas.storage;
 
-import gravitas.exception.DukeException;
-import gravitas.task.Deadline;
-import gravitas.task.Event;
-import gravitas.task.Task;
-import gravitas.task.Todo;
-import gravitas.tasklist.TaskList;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,12 +9,20 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import gravitas.exception.DukeException;
+import gravitas.task.Deadline;
+import gravitas.task.Event;
+import gravitas.task.Task;
+import gravitas.task.Todo;
+import gravitas.tasklist.TaskList;
+
+
 /**
  * Represents the storage of the task list.
  */
 public class Storage {
 
-    public Path filePath;
+    private Path filePath;
 
     /**
      * Constructor for Storage.
@@ -71,7 +72,7 @@ public class Storage {
                             task.markTask();
                         }
                         t.add(task);
-                    } else if (frags[0].equals("D")){
+                    } else if (frags[0].equals("D")) {
                         String endDate = frags[3] + " " + frags[4];
                         Task task = new Deadline(frags[2], endDate);
                         if (frags[1].equals("1")) {
@@ -82,7 +83,7 @@ public class Storage {
                 }
 
                 return t;
-            } catch(IOException e) {
+            } catch (IOException e) {
                 throw new DukeException("Error in loading tasks!");
             }
         }
