@@ -2,7 +2,7 @@ package Tasks;
 
 import java.util.ArrayList;
 
-import Exceptions.*;
+import Exceptions.NotInTaskListException;
 
 public class TaskList {
     private ArrayList<Task> listOfTasks;
