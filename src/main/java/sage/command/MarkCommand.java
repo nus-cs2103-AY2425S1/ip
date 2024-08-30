@@ -6,9 +6,18 @@ import sage.ui.Ui;
 import sage.storage.Storage;
 import sage.exception.SageException;
 
+/**
+ * Represents a command to mark a task as done in the task list
+ */
 public class MarkCommand extends Command {
     private int index;
 
+    /**
+     * Constructs a MarkCommand object with the specified task index
+     *
+     * @param index The 1-based index of the task to be marked as done in the task list
+     *              The index is decremented by 1 to match the 0-based indexing of the task list
+     */
     public MarkCommand(int index) {
         this.index = index - 1;
     }
