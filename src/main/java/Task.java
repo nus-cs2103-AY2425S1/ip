@@ -3,32 +3,29 @@ public class Task {
     protected boolean isDone;
     protected TaskType taskType;
 
+    // Constructor
     public Task(String description, TaskType taskType) {
         this.description = description;
         this.isDone = false;
         this.taskType = taskType;
     }
 
-
-    public void markAsDone() {
-        isDone = true;
-    }
-
-    public void markAsNotDone() {
-        isDone = false;
-    }
-
-    public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]");
-    }
-
     public String getDescription() {
         return description;
     }
 
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    public void markAsNotDone() {
+        this.isDone = false;
+    }
+
     @Override
     public String toString() {
-        return getStatusIcon() + " " + description;
+        return "[" + (isDone ? "X" : " ") + "] " + description;
     }
 }
+
 

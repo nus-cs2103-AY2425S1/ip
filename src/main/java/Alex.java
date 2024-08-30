@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
 
 public class Alex {
 
@@ -63,13 +64,21 @@ public class Alex {
                     tasks.add(newTask);
                     printTaskAdded(newTask);
                     saveTasks();  // Save tasks after update
-                } else if (userInput.toLowerCase().startsWith("deadline ")) {
+                } // Inside the main method or wherever you handle the user input
+                else if (userInput.toLowerCase().startsWith("deadline ")) {
                     String[] parts = userInput.substring(9).split(" /by ");
                     Task newTask = new Deadline(parts[0], parts[1]);
                     tasks.add(newTask);
                     printTaskAdded(newTask);
                     saveTasks();  // Save tasks after update
                 } else if (userInput.toLowerCase().startsWith("event ")) {
+                    String[] parts = userInput.substring(6).split(" /from | /to ");
+                    Task newTask = new Event(parts[0], parts[1], parts[2]);
+                    tasks.add(newTask);
+                    printTaskAdded(newTask);
+                    saveTasks();  // Save tasks after update
+                }
+                 else if (userInput.toLowerCase().startsWith("event ")) {
                     String[] parts = userInput.substring(6).split(" /from | /to ");
                     Task newTask = new Event(parts[0], parts[1], parts[2]);
                     tasks.add(newTask);
@@ -147,16 +156,15 @@ public class Alex {
         }
     }
     
-
     private static void saveTasks() {
         File file = new File(FILE_PATH);
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
             for (Task task : tasks) {
                 String line = task.taskType + " | " + (task.isDone ? "1" : "0") + " | " + task.getDescription();
                 if (task instanceof Deadline) {
-                    line += " | " + ((Deadline) task).by;
+                    line += " | " + ((Deadline) task).by.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                 } else if (task instanceof Event) {
-                    line += " | " + ((Event) task).from + " | " + ((Event) task).to;
+                    line += " | " + ((Event) task).from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " | " + ((Event) task).to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 }
                 bw.write(line);
                 bw.newLine();
@@ -164,7 +172,7 @@ public class Alex {
         } catch (IOException e) {
             printDividerWithMessage("Error saving tasks: " + e.getMessage());
         }
-    }
+    }    
 
     private static void printTaskList() {
         StringBuilder taskList = new StringBuilder("Here are the tasks in your list:");
