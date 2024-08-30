@@ -1,3 +1,5 @@
+package tecna;
+
 public enum CommandType {
     BYE,
     TODO,

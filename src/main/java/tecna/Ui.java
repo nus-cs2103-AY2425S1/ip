@@ -1,3 +1,5 @@
+package tecna;
+
 public class Ui {
     public void printLogo() {
         String logo =
@@ -20,7 +22,7 @@ public class Ui {
     }
 
     public void printHelloMsg() {
-        System.out.println("I'm Tecna!\nHow can I help you?");
+        System.out.println("I'm tecna.Tecna!\nHow can I help you?");
     }
 
     public void printGoodbyeMsg() {

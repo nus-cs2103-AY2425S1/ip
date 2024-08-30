@@ -1,3 +1,5 @@
+package tecna;
+
 public class TodoWrongFormatException extends TaskWrongFormatException {
     private String cause;
     public TodoWrongFormatException(String cause) {
