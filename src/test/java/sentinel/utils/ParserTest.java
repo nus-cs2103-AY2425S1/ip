@@ -47,7 +47,7 @@ public class ParserTest {
         String input = "deadline Test Deadline";
         Sentinel.CommandType commandType = Sentinel.CommandType.deadline;
         Exception exception = assertThrows(DeadlineException.class, () -> Parser.parseTaskName(commandType, input, uiMock));
-        assertEquals("sentinel.task.Deadline sentinel.command.Command", exception.getMessage());
+        assertEquals("Deadline task command requires a '/by' date.", exception.getMessage());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class ParserTest {
         String input = "event Test Event";
         Sentinel.CommandType commandType = Sentinel.CommandType.event;
         Exception exception = assertThrows(EventException.class, () -> Parser.parseTaskName(commandType, input, uiMock));
-        assertEquals("sentinel.task.Event sentinel.command.Command", exception.getMessage());
+        assertEquals("Event task command requires a '/from' time.", exception.getMessage());
     }
 
     @Test

@@ -1,6 +1,6 @@
 # Sentinel Chatbot
 
-Sentinel is a personal chatbot inspired by the Duke project. It helps you manage tasks, events, and deadlines efficiently, all from the sentinel.command line. This project is configured to use **JDK 17**.
+Sentinel is a personal chatbot inspired by the Duke project. It helps you manage tasks, events, and deadlines efficiently, all from the command line. This project is configured to use **JDK 17**.
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
@@ -50,13 +50,13 @@ Hello from
 - **Deadline Tracking**: Set deadlines.
 
 ## Usage
-These are some commands sentinel.Sentinel has:
-1. `todo <sentinel.task>`
-2. `deadline <sentinel.task> /by <date>`
+These are some commands Sentinel has:
+1. `todo <task>`
+2. `deadline <task> /by <date>`
 3. `event <event> /from <date> /to <date>`
 4. `list`
 5. `mark <index>`
 6. `bye`
 
 ## Credits
-sentinel.Sentinel is based on the Duke project template. Special thanks to the original creators and the Java community for their contributions.
+sentinel is based on the Duke project template. Special thanks to the original creators and the Java community for their contributions.
