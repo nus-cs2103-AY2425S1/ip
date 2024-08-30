@@ -4,9 +4,17 @@ import ratchet.storage.Storage;
 import ratchet.task.TaskList;
 import ratchet.ui.Ui;
 
+/**
+ * Command to find task with keyword from task list.
+ */
 public class FindCommand extends Command {
     private final String keyword;
 
+    /**
+     * Constructor for FindCommand.
+     *
+     * @param keyword Keyword of tasks to find.
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }

@@ -10,7 +10,7 @@ public abstract class Task {
     /**
      * Constructor for a new task.
      *
-     * @param description The description of the task
+     * @param description The description of the task.
      */
     public Task(String description) {
         this.description = description;
@@ -20,22 +20,34 @@ public abstract class Task {
     /**
      * Constructor for an old task.
      *
-     * @param description The description of the task
-     * @param isDone The status of the task.
+     * @param description The description of the task.
+     * @param isDone      The status of the task.
      */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }
 
+    /**
+     * Marks task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks task as not done.
+     */
     public void markAsNotDone() {
         this.isDone = false;
     }
 
+    /**
+     * Returns true if description contains keyword.
+     *
+     * @param keyword The keyword of the task to be found.
+     * @return True if description contains keyword.
+     */
     public boolean isMatch(String keyword) {
         return description.contains(keyword);
     }
@@ -50,6 +62,11 @@ public abstract class Task {
         return check + " " + description;
     }
 
+    /**
+     * Returns the string representation of task in savable format.
+     *
+     * @return The string representation of task in savable format.
+     */
     public String toSave() {
         return description + "|" + isDone;
     }

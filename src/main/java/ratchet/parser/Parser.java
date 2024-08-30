@@ -52,7 +52,7 @@ public class Parser {
         }
     }
 
-    private Command find(String text) throws InvalidCommandArgumentException{
+    private Command find(String text) throws InvalidCommandArgumentException {
         try {
             String keyword = text.substring(5);
             return new FindCommand(keyword);
@@ -84,8 +84,8 @@ public class Parser {
             try {
                 description = split[0].split("deadline ")[1];
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidCommandArgumentException(
-                        "The description of a deadline task cannot be empty!");
+                throw new InvalidCommandArgumentException("The description of a deadline task cannot be "
+                        + "empty!");
             }
             task = new DeadlineTask(description, deadline);
         } else {
@@ -112,7 +112,7 @@ public class Parser {
                 description = split2[0].split("event ")[1];
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new InvalidCommandArgumentException(
-                        "The description of a deadline task cannot be empty!");
+                        "The description of a deadline task cannot be " + "empty!");
             }
             task = new EventTask(description, from, to);
         }
