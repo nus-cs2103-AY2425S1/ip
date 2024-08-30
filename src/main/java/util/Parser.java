@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import MizzExceptions.DeadlineException;
 import MizzExceptions.EventException;
+import MizzExceptions.FindException;
 import MizzExceptions.InvalidDateException;
 import MizzExceptions.MizzException;
 import MizzExceptions.ToDoException;
@@ -128,6 +129,11 @@ public class Parser {
             return result;
         }
 
+        if (result[0].equals("find")) {
+            Parser.parseFind(parts, result);
+            return result;
+        }
+
         if (result[0].equals("list") || result[0].equals("bye")) {
             return result;
         }
@@ -194,6 +200,12 @@ public class Parser {
         result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, fromIdx));
         result[2] = String.join(" ", Arrays.copyOfRange(parts, fromIdx + 1, toIdx));
         result[3] = String.join(" ", Arrays.copyOfRange(parts, toIdx + 1, parts.length));
+        return result;
+    }
+
+    private static String[] parseFind(String[] parts, String[] result) throws FindException {
+        Validator.verifyFind(result);
+        result[1] = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
         return result;
     }
 }

@@ -9,7 +9,7 @@ public abstract class Command {
     protected CommandTypes command;
 
     public static enum CommandTypes {
-        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE;
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, FIND;
 
         public static CommandTypes toCommandType(String type) throws MizzException {
             switch (type.strip().toLowerCase()) {
@@ -29,6 +29,8 @@ public abstract class Command {
                 return DELETE;
             case "bye":
                 return BYE;
+            case "find":
+                return FIND;
             default:
                 throw new MizzException("Unknown command type: " + type);
             }
@@ -45,12 +47,15 @@ public abstract class Command {
             case LIST:
                 return new ListCommand(type);
             case MARK:
+                // fall through
             case UNMARK:
                 return new MarkCommand(type);
             case DELETE:
                 return new DeleteCommand(type);
             case BYE:
                 return new ByeCommand(type);
+            case FIND:
+                return new FindCommand(type);
             default:
                 throw new MizzException("Unknown command type: " + type.toString());
             }
