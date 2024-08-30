@@ -1,7 +1,5 @@
 package cypherchatbot.task;
 
-import cypherchatbot.task.Task;
-
 import java.util.Objects;
 
 public class ToDo extends Task {
