@@ -50,4 +50,19 @@ public class Ui {
     public void printList(TaskList tasks) {
         System.out.print(tasks.toString());
     }
+
+    public void printMarkDone(Task task) {
+        System.out.println("Ok, I've marked this task as completed:");
+        System.out.println(task.toString());
+    }
+
+    public void printMarkIncomplete(Task task) {
+        System.out.println("Ok, I've marked this task as incomplete:");
+        System.out.println(task.toString());
+    }
+
+    public void printDeleteTask(Task task) {
+        System.out.println("Ok, I've deleted this task:");
+        System.out.println(task.toString());
+    }
 }

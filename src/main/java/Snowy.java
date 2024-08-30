@@ -46,7 +46,8 @@ public class Snowy {
                 case "mark":
                     try {
                         int index = Integer.parseInt(description);
-                        tasks.markTask(index);
+                         Task task = tasks.markTask(index);
+                         ui.printMarkDone(task);
                     } catch (NumberFormatException | SnowyException e) {
                         ui.printIndexError();
                     }
@@ -55,7 +56,8 @@ public class Snowy {
                 case "unmark":
                     try {
                         int index = Integer.parseInt(description);
-                        tasks.unmarkTask(index);
+                        Task task = tasks.unmarkTask(index);
+                        ui.printMarkIncomplete(task);
                     } catch (NumberFormatException | SnowyException e) {
                         ui.printIndexError();
                     }
@@ -88,7 +90,8 @@ public class Snowy {
                 case "delete":
                     try {
                         int index = Integer.parseInt(description);
-                        tasks.deleteTask(index);
+                        Task task = tasks.deleteTask(index);
+                        ui.printDeleteTask(task);
                     } catch (NumberFormatException | SnowyException e) {
                         System.out.println("Invalid index format. Please try again");
                     }
