@@ -1,9 +1,9 @@
-package System;
+package system;
 
-import Commands.Deadlines;
-import Commands.Events;
-import Commands.TaskList;
-import Commands.ToDos;
+import commands.Deadlines;
+import commands.Events;
+import commands.TaskList;
+import commands.ToDos;
 
 public class Ui {
     public void greet() {
@@ -38,25 +38,23 @@ public class Ui {
     public void alreadyUnmarked(){
         System.out.println("Task has already been unmarked!");
     }
-    //    public void added_task_message(String s) {
-//        System.out.println("added: " + s);
-//    }
+
     public void delete_message(TaskList t) {
         System.out.println("Noted. I've removed this task:");
         if (t instanceof ToDos) {
-            if (t.getCurrent_status()== TaskList.status.MARKED) {
+            if (t.getCurrentStatus()== TaskList.Status.MARKED) {
                 System.out.println("[T][X] " + t.getName());
             } else {
                 System.out.println("[T][ ] " + t.getName());
             }
         } else if (t instanceof Deadlines) {
-            if (t.getCurrent_status()== TaskList.status.MARKED) {
+            if (t.getCurrentStatus()== TaskList.Status.MARKED) {
                 System.out.println("[D][X] " + t.getName() + "(by: " + t.getDate() + ")");
             } else {
                 System.out.println("[D][ ] " + t.getName() + "(by: " + t.getDate() + ")");
             }
         } else if (t instanceof Events) {
-            if (t.getCurrent_status()== TaskList.status.MARKED) {
+            if (t.getCurrentStatus()== TaskList.Status.MARKED) {
                 System.out.println("[E][X] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
             } else {
                 System.out.println("[E][ ] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
@@ -69,43 +67,6 @@ public class Ui {
         System.out.println("The date provided is invalid!");
     }
     public void list_task_message(String information) {
-//        int counter = 1;
-//        for (Task t : task_list) {
-//            if (t.getCurrent_status()== Task.status.MARKED) {
-//                if (t.getTag().equals("T")) {
-//                    if (t instanceof Commands.ToDos) {
-//                        System.out.println(counter + ".[T][X] " + t.getName());
-//                    }
-//                } else if (t.getTag().equals("D")) {
-//                    if (t instanceof Commands.Deadlines) {
-//                        System.out.println(counter + ".[D][X] " + t.getName() + "(by: " + t.getDay() + ")");
-//                    }
-//                } else if (t.getTag().equals("E")) {
-//                    if (t instanceof Commands.Events) {
-//                        System.out.println(counter + ".[E][X] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
-//                    }
-//                } else {
-//                    System.out.println(counter + ".[-][X] " + t.getName());
-//                }
-//            } else {
-//                if (t.getTag().equals("T")) {
-//                    if (t instanceof Commands.ToDos) {
-//                        System.out.println(counter + ".[T][ ] " + t.getName());
-//                    }
-//                } else if (t.getTag().equals("D")) {
-//                    if (t instanceof Commands.Deadlines) {
-//                        System.out.println(counter + ".[D][ ] " + t.getName() + "(by: " + t.getDay() + ")");
-//                    }
-//                } else if (t.getTag().equals("E")) {
-//                    if (t instanceof Commands.Events) {
-//                        System.out.println(counter + ".[E][ ] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
-//                    }
-//                } else {
-//                    System.out.println(counter + ".[-][ ] " + t.getName());
-//                }
-//            }
-//            counter++;
-//        }
         System.out.println(information);
     }
 

@@ -1,6 +1,7 @@
-package System;
+package system;
 
 import org.junit.jupiter.api.Test;
+import system.Parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

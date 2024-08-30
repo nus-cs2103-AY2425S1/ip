@@ -1,4 +1,4 @@
-package Commands;
+package commands;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -13,10 +13,10 @@ public class Events extends TaskList {
     }
 
     public void add_task(Events e) throws IOException {
-        task_List_list.add(e);
+        taskLists.add(e);
 //        super.update_saved_tasklist();
         System.out.println("Got it. I've added this task:");
-        System.out.println("[E][_] " + e.getName() + "(from: " + ds.format(this.start) + " to: " + ds.format(this.end) + ")");
+        System.out.println("[E][_] " + e.getName() + "(from: " + dateTimeSystem.format(this.start) + " to: " + dateTimeSystem.format(this.end) + ")");
         System.out.println("Now you have " + e.get_list_size() +" tasks in the list.");
         update_tasklist(e);
     }
@@ -24,16 +24,16 @@ public class Events extends TaskList {
     private void update_tasklist(Events e) throws IOException {
         String marked = "[X]";
         String unmarked = "[_]";
-        int index = task_List_list.size();
+        int index = taskLists.size();
         StringBuilder information;
-        if (e.getCurrent_status()==status.MARKED) {
+        if (e.getCurrentStatus()== Status.MARKED) {
             information = new StringBuilder(index + ". [" + e.getTag() + "]" + marked + " " + e.getName());
         } else {
             information = new StringBuilder(index + ". [" + e.getTag() + "]" + unmarked + " " + e.getName());
         }
 
-        information.append(" (from: ").append(ds.format(e.getStart())).append(" to: ").append(ds.format(e.getEnd())).append(")");
-        fs.write(String.valueOf(information));
+        information.append(" (from: ").append(dateTimeSystem.format(e.getStart())).append(" to: ").append(dateTimeSystem.format(e.getEnd())).append(")");
+        storage.write(String.valueOf(information));
     }
 
     @Override

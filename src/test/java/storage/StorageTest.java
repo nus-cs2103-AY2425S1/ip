@@ -1,6 +1,7 @@
-package Storage;
+package storage;
 
 import org.junit.jupiter.api.Test;
+import storage.Storage;
 
 import java.io.File;
 import java.io.IOException;

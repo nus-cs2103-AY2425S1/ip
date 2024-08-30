@@ -1,7 +1,7 @@
-package Commands;
-import Storage.Storage;
-import System.Ui;
-import System.DateTimeSystem;
+package commands;
+import storage.Storage;
+import system.Ui;
+import system.DateTimeSystem;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -9,21 +9,21 @@ import java.util.ArrayList;
 public abstract class TaskList {
     public String name;
 
-    public enum status {
+    public enum Status {
         MARKED,
         UNMARKED
     }
 
-    public status current_status;
-    public static Ui r = new Ui();
+    public Status currentStatus;
+    public static Ui ui = new Ui();
     public String tag;
-    public static ArrayList<TaskList> task_List_list = new ArrayList<>();
-    static Storage fs;
-    static DateTimeSystem ds = new DateTimeSystem();
+    public static ArrayList<TaskList> taskLists = new ArrayList<>();
+    static Storage storage;
+    static DateTimeSystem dateTimeSystem = new DateTimeSystem();
 
     static {
         try {
-            fs = new Storage();
+            storage = new Storage();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -31,12 +31,12 @@ public abstract class TaskList {
 
     public TaskList(String name, String tag) throws IOException {
         this.name = name;
-        current_status = status.UNMARKED;
+        currentStatus = Status.UNMARKED;
         this.tag = tag;
     }
 
     public static void init_list() throws IOException {
-        StringBuilder sb = fs.read();
+        StringBuilder sb = storage.read();
         String[] lines = sb.toString().split("\n");
         for (String s : lines) {
             if (s.contains("[T]")) {
@@ -49,11 +49,11 @@ public abstract class TaskList {
 
                 TaskList t = new ToDos(name.toString());
                 if (s.contains("[X]")) {
-                    t.setCurrent_status(status.MARKED);
+                    t.setCurrentStatus(Status.MARKED);
                 } else {
-                    t.setCurrent_status(status.UNMARKED);
+                    t.setCurrentStatus(Status.UNMARKED);
                 }
-                task_List_list.add(t);
+                taskLists.add(t);
 //                System.out.println("===INIT=== " + t.getName());
 
             } else if (s.contains("[D]")) {
@@ -72,21 +72,19 @@ public abstract class TaskList {
                         full_date.append(tokens[i]).append(" ");
                     }
                 }
-//                System.out.println("FULL DATE: " + full_date.toString());
                 String[] full_date_token = full_date.toString().split(" ");
                 String[] date_token = full_date_token[0].split("-");
                 String[] time_token = full_date_token[1].split(":");
 
-                LocalDateTime ldt = ds.createDate(date_token[0],date_token[1],date_token[2],time_token[0],time_token[1]);
+                LocalDateTime ldt = dateTimeSystem.createDate(date_token[0],date_token[1],date_token[2],time_token[0],time_token[1]);
 
                 TaskList d = new Deadlines(name.toString(), ldt);
                 if (s.contains("[X]")) {
-                    d.setCurrent_status(status.MARKED);
+                    d.setCurrentStatus(Status.MARKED);
                 } else {
-                    d.setCurrent_status(status.UNMARKED);
+                    d.setCurrentStatus(Status.UNMARKED);
                 }
-                task_List_list.add(d);
-//                System.out.println("===INIT=== " + d.getName());
+                taskLists.add(d);
 
             } else if (s.contains("[E]")){
                 String[] tokens = s.split(" ");
@@ -122,23 +120,21 @@ public abstract class TaskList {
                 String[] date_token_start = full_date_token_start[0].split("-");
                 String[] time_token_start = full_date_token_start[1].split(":");
 
-                LocalDateTime ldt_start = ds.createDate(date_token_start[0],date_token_start[1],date_token_start[2],time_token_start[0],time_token_start[1]);
+                LocalDateTime ldt_start = dateTimeSystem.createDate(date_token_start[0],date_token_start[1],date_token_start[2],time_token_start[0],time_token_start[1]);
 
                 String[] full_date_token_end = end.toString().split(" ");
                 String[] date_token_end = full_date_token_end[0].split("-");
                 String[] time_token_end = full_date_token_end[1].split(":");
 
-                LocalDateTime ldt_end = ds.createDate(date_token_end[0],date_token_end[1],date_token_end[2],time_token_end[0],time_token_end[1]);
+                LocalDateTime ldt_end = dateTimeSystem.createDate(date_token_end[0],date_token_end[1],date_token_end[2],time_token_end[0],time_token_end[1]);
 
                 TaskList e = new Events(name.toString(), ldt_start, ldt_end);
                 if (s.contains("[X]")) {
-                    e.setCurrent_status(status.MARKED);
+                    e.setCurrentStatus(Status.MARKED);
                 } else {
-                    e.setCurrent_status(status.UNMARKED);
+                    e.setCurrentStatus(Status.UNMARKED);
                 }
-                task_List_list.add(e);
-//                System.out.println("===INIT=== " + e.getName());
-
+                taskLists.add(e);
             }
         }
     }
@@ -173,61 +169,60 @@ public abstract class TaskList {
 //        }
 //    }
     public static void delete_task(int index) throws IOException {
-        if (task_List_list.isEmpty()) {
-            r.emptyList();
+        if (taskLists.isEmpty()) {
+            ui.emptyList();
         } else {
-            if (task_List_list.size() > index) {
-                TaskList temp = task_List_list.get(index - 1);
-                task_List_list.remove(temp);
-                fs.delete(index);
-                r.delete_message(temp);
+            if (taskLists.size() > index) {
+                TaskList temp = taskLists.get(index - 1);
+                taskLists.remove(temp);
+                storage.delete(index);
+                ui.delete_message(temp);
             } else {
-                r.doesNotExist();
+                ui.doesNotExist();
             }
         }
     }
 
     public static void list_task() throws FileNotFoundException {
-        StringBuilder temp = fs.read();
-        r.list_task_message(String.valueOf(temp));
-//        System.out.println("===DEBUG=== list size: " + task_list.size());
+        StringBuilder temp = storage.read();
+        ui.list_task_message(String.valueOf(temp));
     }
 
     public static void mark_task(int index) throws IOException {
-        if (task_List_list.isEmpty()) {
-            r.emptyList();
+        if (taskLists.isEmpty()) {
+            ui.emptyList();
         } else {
-            if (task_List_list.size() >= index) {
-                TaskList temp = task_List_list.get(index - 1);
-                System.out.println("CURRENT STATUS IS : " + temp.getCurrent_status());
-                if (temp.getCurrent_status()==status.MARKED) {
-                    r.alreadyMarked();
+            if (taskLists.size() >= index) {
+                TaskList temp = taskLists.get(index - 1);
+                System.out.println("CURRENT STATUS IS : " + temp.getCurrentStatus());
+                if (temp.getCurrentStatus()== Status.MARKED) {
+                    ui.alreadyMarked();
                 } else {
-                    temp.setCurrent_status(status.MARKED);
-                    fs.mark(index);
-                    r.mark_message(temp.getName());
+                    temp.setCurrentStatus(Status.MARKED);
+                    storage.mark(index);
+                    ui.mark_message(temp.getName());
                 }
             } else {
-                r.doesNotExist();
+                ui.doesNotExist();
             }
         }
     }
 
     public static void unmark_task(int index) throws IOException {
-        if (task_List_list.isEmpty()) {
-            r.emptyList();
+        if (taskLists.isEmpty()) {
+            ui.emptyList();
         } else {
-            if (task_List_list.size() > index) {
-                TaskList temp = task_List_list.get(index - 1);
-                if (temp.getCurrent_status() == status.UNMARKED) {
-                    r.alreadyUnmarked();
+            if (taskLists.size() > index) {
+                TaskList temp = taskLists.get(index - 1);
+                if (temp.getCurrentStatus() == Status.UNMARKED) {
+                    ui.alreadyUnmarked();
                 } else {
-                    temp.setCurrent_status(status.UNMARKED);
-                    fs.unmark(index);
-                    r.unmark_message(temp.getName());
+                    temp.setCurrentStatus(Status.UNMARKED);
+                    storage.unmark(index);
+                    ui.unmark_message(temp.getName());
                 }
             } else {
-                r.doesNotExist();
+                ui.doesNotExist();
             }
         }
     }
@@ -236,12 +231,12 @@ public abstract class TaskList {
         return name;
     }
 
-    public status getCurrent_status() {
-        return current_status;
+    public Status getCurrentStatus() {
+        return currentStatus;
     }
 
-    public void setCurrent_status(status current_status) {
-        this.current_status = current_status;
+    public void setCurrentStatus(Status currentStatus) {
+        this.currentStatus = currentStatus;
     }
 
     public String getTag() {
@@ -249,7 +244,7 @@ public abstract class TaskList {
     }
 
     public int get_list_size() {
-        return task_List_list.size();
+        return taskLists.size();
     }
 
     public abstract LocalDateTime getDate();
