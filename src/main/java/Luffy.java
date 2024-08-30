@@ -131,16 +131,21 @@ public class Luffy {
                     continue;
                 }
 
+                Deadline deadlineTask = null;
+
                 if (taskAndDeadline[1].startsWith("by") || taskAndDeadline[1].startsWith("By")) {
                     String dateAndTime = taskAndDeadline[1].substring(3).trim();
 
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
                     LocalDateTime timeObj = LocalDateTime.parse(dateAndTime, formatter);
-
+                    String dateTime = timeObj.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+                    deadlineTask = new Deadline(taskAndDeadline[0].trim(), dateTime + "HRS", false);
+                    textList.add(deadlineTask);
+                } else {
+                    deadlineTask = new Deadline(taskAndDeadline[0].trim(), taskAndDeadline[1].trim(), false);
+                    textList.add(deadlineTask);
                 }
-
-                Deadline deadlineTask = new Deadline(taskAndDeadline[0].trim(), taskAndDeadline[1].trim(), false);
-                textList.add(deadlineTask);
+                
                 System.out.println("Got it. I've added this task:");
                 System.out.println(format("  %s", deadlineTask.stringIsDone()));
                 System.out.println(format("Now you have %d tasks in the list.", textList.size()));
