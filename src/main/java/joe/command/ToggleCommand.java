@@ -19,8 +19,8 @@ public class ToggleCommand extends Command {
             throw new JoeException("Please input a valid task index");
         }
         switch (c) {
-            case MARK -> taskList.markTask(idx);
-            case UNMARK -> taskList.unmarkTask(idx);
+        case MARK -> taskList.markTask(idx);
+        case UNMARK -> taskList.unmarkTask(idx);
         }
     }
 }
