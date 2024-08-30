@@ -15,7 +15,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Deals with writing and loading files.
+ */
 public class Storage {
+
     private File dataFile;
 
     public Storage(String filePath) {

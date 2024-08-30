@@ -8,7 +8,20 @@ import bimo.tasks.ToDo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+/**
+ * Deals with making sense of the user command.
+ */
 public class Parser {
+
+    /**
+     * Converts user input to the appropriate Command object.
+     *
+     * @param input Input that user typed in.
+     * @return Command object.
+     * @throws BimoException If there is an invalid command or
+     * invalid date.
+     */
     public static Command parse(String input) throws BimoException {
         String[] parsedArray = input.split(" ");
         String cmd = parsedArray[0].toLowerCase();
@@ -57,6 +70,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns description portion of user input.
+     *
+     * @param input Input typed in by user.
+     * @return String value of task description.
+     * @throws BimoException If there is no description typed in.
+     */
     public static String parseDescription(String input) throws BimoException{
         String[] parsedArray = input.split(" ");
         if (parsedArray.length <= 1) {
@@ -65,6 +85,13 @@ public class Parser {
         parsedArray[0] = "";
         return removeSpace(parsedArray);
     }
+
+    /**
+     * Removes spacing in front of String value of task description.
+     *
+     * @param input Array of words inside description separated by " ".
+     * @return String value of description with empty space removed.
+     */
     public static String removeSpace(String[] input) {
         String [] temp = new String[input.length - 1];
         for (int i = 1; i < input.length; i++) {
@@ -72,6 +99,16 @@ public class Parser {
         }
         return String.join(" ", temp);
     }
+
+    /**
+     * Retrieves date from user input in the form yyyy-mm-dd.
+     *
+     * @param isDeadline Determines if there is two dates.
+     * @param isEnd Determines if an end date is needed.
+     * @param array Array of Strings containing date.
+     * @return Date in the format yyyy-mm-dd.
+     * @throws BimoException If no date is provided.
+     */
     public static String parseDate(boolean isDeadline, boolean isEnd,
             String[] array) throws BimoException {
         if (array.length <= 1) {
@@ -86,6 +123,13 @@ public class Parser {
         return isEnd ? array[1] : array[0];
     }
 
+    /**
+     * Converts a String date input to a LocalDate object.
+     *
+     * @param date Date user keys in.
+     * @return LocalDate instance.
+     * @throws BimoException If invalid date input is given.
+     */
     public static LocalDate convertDate(String date) throws BimoException {
         try {
             LocalDate ld = LocalDate.parse(date);
