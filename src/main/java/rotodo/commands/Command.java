@@ -12,6 +12,14 @@ import rotodo.tasklist.TaskList;
  * @version CS2103T AY24/25 Semester 1
  */
 public abstract class Command {
+    /**
+     * Executes the command based on initialised state. Action
+     * will be applied to (one or more of) TaskList, Ui, and Storage.
+     *
+     * @param tl tasklist
+     * @param ui 
+     * @param st storage
+     */
     public abstract void execute(TaskList tl, Ui ui, Storage st);
 
     public boolean isExit() {

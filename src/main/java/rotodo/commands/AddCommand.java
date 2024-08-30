@@ -90,6 +90,7 @@ public class AddCommand extends Command {
         }
     }
 
+    /** Set Status of Task to be added */
     public void setStatus(boolean status) {
         this.status = status;
     }
