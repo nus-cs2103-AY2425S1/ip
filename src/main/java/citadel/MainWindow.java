@@ -1,5 +1,8 @@
 package citadel;
 
+import citadel.Task.TaskList;
+import citadel.ui.TextUI;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for the main GUI.
  */
@@ -20,7 +24,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
+    /** The main Citadel class that runs Main **/
     private Citadel citadel;
+
+    /** The user interface used to interact with the user. */
+    private static final TextUI ui = new TextUI();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Citadel.png"));
@@ -28,30 +36,42 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-    }
-
-    /** Injects the Duke instance */
-    public void setCitadel(Citadel d) {
-        citadel = d;
+        sendWelcomeMessage();
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Sets the Citadel instance.
+     */
+    public void setCitadel(Citadel c) {
+        citadel = c;
+    }
+
+    /**
+     * Creates a dialog box with a welcome message.
+     */
+    private void sendWelcomeMessage() {
+        String startMessage = ui.printStart();
+        Storage db = new Storage("data/citadel");
+        TaskList items = db.getTasks();
+        String tasksToString = ui.printTasks(items);
+        String welcomeMessage = startMessage + "\n"
+                                + tasksToString;
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(welcomeMessage, dukeImage)
+        );
+    }
+
+    /**
+     * Handles the user input and echoes the message along with a response.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        if (citadel != null) {
-            String response = citadel.getResponse(input);
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, dukeImage)
-            );
-        } else {
-            // Handle the null case, e.g., display an error or log the issue
-            System.err.println("Citadel instance is not set.");
-        }
+        String response = citadel.getResponse(input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(response, dukeImage)
+        );
         userInput.clear();
     }
 }

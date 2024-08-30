@@ -57,13 +57,13 @@ public class TextUI {
      * @param items The {@link TaskList} containing the tasks to be printed.
      */
     public String printTasks(TaskList items) {
-        StringBuilder taskListToString = new StringBuilder();
+        StringBuilder tasksToString = new StringBuilder();
         for (int i = 0; i < items.size(); i++) {
             String printString = (i + 1) + ". " + items.get(i).printTask();
             System.out.println(printString);
-            taskListToString.append(printString).append("\n");
+            tasksToString.append(printString).append("\n");
         }
-        return taskListToString.toString();
+        return tasksToString.toString();
     }
 
     /**

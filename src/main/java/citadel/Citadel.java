@@ -87,7 +87,6 @@ public class Citadel {
         default:
             throw new CitadelInvalidCommandException();
         }
-
         return null;
     }
 
