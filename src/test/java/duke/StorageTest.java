@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 
 public class StorageTest {
@@ -35,10 +34,10 @@ public class StorageTest {
         Storage storageReloaded = new Storage(path);
         ArrayList<IndividualTask> loadedTasks = storageReloaded.load();
 
-        assertEquals(tasksToSave.size(), loadedTasks.size());
+        Assertions.assertEquals(tasksToSave.size(), loadedTasks.size());
 
         for (int i = 0; i < tasksToSave.size(); i++) {
-            Assertions.assertEquals( tasksToSave.get(i).toString(), loadedTasks.get(i).toString());
+            Assertions.assertEquals(tasksToSave.get(i).toString(), loadedTasks.get(i).toString());
         }
     }
 

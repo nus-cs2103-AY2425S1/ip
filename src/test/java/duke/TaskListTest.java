@@ -1,12 +1,12 @@
 package duke;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskListTest {
 
@@ -43,15 +43,15 @@ public class TaskListTest {
         taskList.addTask(task1);
         taskList.addTask(task2);
         ArrayList<IndividualTask> tasks = taskList.getListTask();
-        assertEquals(2, tasks.size());
-        assertTrue(tasks.contains(task1));
-        assertTrue(tasks.contains(task2));
+        Assertions.assertEquals(2, tasks.size());
+        Assertions.assertTrue(tasks.contains(task1));
+        Assertions.assertTrue(tasks.contains(task2));
     }
 
     @Test
     public void testFormatListMessage() {
         String expected = "      1.[T][ ] Finish assignment";
         String formattedMessage = taskList.formatListMessage("1", task1);
-        assertEquals(expected, formattedMessage);
+        Assertions.assertEquals(expected, formattedMessage);
     }
 }

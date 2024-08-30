@@ -9,10 +9,11 @@ import java.util.ArrayList;
  */
 public class Command {
 
-    private String command;
-    private String message;
     private static final String INDENT = "      ";
     private static final String SEPARATOR = "------------------------------";
+    private String command;
+    private String message;
+
 
     /**
      * Constructs a {@code Command} object with the specified command and message.
@@ -41,24 +42,24 @@ public class Command {
         String[] parts = message.split(" ");
 
         switch (this.command) {
-            case "bye":
-                return;
-            case "list":
-                tasks.getTasks(tasks.getListTask());
-                return;
-            case "mark":
-                handleMarkCommand(parts, tasks, storage);
-                return;
-            case "delete":
-                handleDeleteCommand(parts, tasks, storage);
-                return;
-            case "find":
-                handleFindCommand(parts, tasks);
-                return;
-            default:
-                if (!this.message.isEmpty()) {
-                    processCustomCommand(tasks, storage);
-                }
+        case "bye":
+            return;
+        case "list":
+            tasks.getTasks(tasks.getListTask());
+            return;
+        case "mark":
+            handleMarkCommand(parts, tasks, storage);
+            return;
+        case "delete":
+            handleDeleteCommand(parts, tasks, storage);
+            return;
+        case "find":
+            handleFindCommand(parts, tasks);
+            return;
+        default:
+            if (!this.message.isEmpty()) {
+                processCustomCommand(tasks, storage);
+            }
         }
     }
 
@@ -81,14 +82,14 @@ public class Command {
             if (checkMarkOrUnmark.equals("mark")) {
                 curTask.markOrUnmark("mark");
                 System.out.println(
-                        INDENT + "Okays! I've marked this task as done:\n" +
-                                formatMessage(curTask, tasks.getListTask().size())
+                        INDENT + "Okays! I've marked this task as done:\n"
+                               + formatMessage(curTask, tasks.getListTask().size())
                 );
             } else if (checkMarkOrUnmark.equals("unmark")) {
                 curTask.markOrUnmark("unmark");
                 System.out.println(
-                        INDENT + "Okay! I've marked this task as not done:\n" +
-                                formatMessage(curTask, tasks.getListTask().size())
+                        INDENT + "Okay! I've marked this task as not done:\n"
+                               + formatMessage(curTask, tasks.getListTask().size())
                 );
             } else {
                 System.out.println("Not a valid command.");
@@ -112,8 +113,8 @@ public class Command {
             IndividualTask curTask = tasks.getListTask().get(number - 1);
             tasks.deleteTask(number - 1);
             System.out.println(
-                    INDENT + "Alrighty! I will remove the task:\n" +
-                            formatMessage(curTask, tasks.getListTask().size())
+                    INDENT + "Alrighty! I will remove the task:\n"
+                           + formatMessage(curTask, tasks.getListTask().size())
             );
         } else {
             System.out.println("No Task found.");
@@ -168,17 +169,17 @@ public class Command {
         String commandType = message[0].toLowerCase();
 
         switch (CommandType.valueOf(commandType.toUpperCase())) {
-            case TODO:
-                processTodoCommand(message, tasks);
-                break;
-            case DEADLINE:
-                processDeadlineCommand(message, tasks);
-                break;
-            case EVENT:
-                processEventCommand(message, tasks);
-                break;
-            default:
-                throw new MentalHealthException("I'm sorry, but I don't know what that means :-(");
+        case TODO:
+            processTodoCommand(message, tasks);
+            break;
+        case DEADLINE:
+            processDeadlineCommand(message, tasks);
+            break;
+        case EVENT:
+            processEventCommand(message, tasks);
+            break;
+        default:
+            throw new MentalHealthException("I'm sorry, but I don't know what that means :-(");
         }
         storage.saveTasksToFile(tasks.getListTask());
     }
@@ -200,8 +201,8 @@ public class Command {
         ToDo newTodo = new ToDo(todo);
         tasks.addTask(newTodo);
         System.out.println(
-                INDENT + "Okays! I've added this task:\n" +
-                        formatMessage(newTodo, tasks.getListTask().size())
+                INDENT + "Okays! I've added this task:\n"
+                       + formatMessage(newTodo, tasks.getListTask().size())
         );
     }
 
@@ -222,8 +223,8 @@ public class Command {
             Deadline newDeadline = new Deadline(description, by);
             tasks.addTask(newDeadline);
             System.out.println(
-                    INDENT + "Okays! I've added this task:\n" +
-                            formatMessage(newDeadline, tasks.getListTask().size())
+                    INDENT + "Okays! I've added this task:\n"
+                           + formatMessage(newDeadline, tasks.getListTask().size())
             );
         } else {
             throw new MentalHealthException("The string doesn't contain the expected format for a deadline.");
@@ -245,13 +246,13 @@ public class Command {
             String description = parts[0].substring(type.length()).trim();
             String[] secondPart = parts[1].split(" /to ", 2);
             if (secondPart.length == 2) {
-                String from =  secondPart[0].trim();
+                String from = secondPart[0].trim();
                 String to = secondPart[1].trim();
                 Event newEvent = new Event(description, from, to);
                 tasks.addTask(newEvent);
                 System.out.println(
-                        INDENT + "Okays! I've added this task:\n" +
-                                formatMessage(newEvent, tasks.getListTask().size())
+                        INDENT + "Okays! I've added this task:\n"
+                               + formatMessage(newEvent, tasks.getListTask().size())
                 );
             } else {
                 throw new MentalHealthException("The string doesn't contain the '/to' part.");
@@ -280,8 +281,8 @@ public class Command {
      * @return The formatted task message.
      */
     public String formatMessage(IndividualTask task, int num) {
-        return  INDENT + SEPARATOR + "\n" + INDENT + task + "\n" +
-                INDENT + "Now you have " + num + " tasks in the list.\n" +
-                INDENT + SEPARATOR;
+        return INDENT + SEPARATOR + "\n" + INDENT + task + "\n"
+                + INDENT + "Now you have " + num + " tasks in the list.\n"
+                + INDENT + SEPARATOR;
     }
 }

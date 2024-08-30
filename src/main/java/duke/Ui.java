@@ -7,13 +7,14 @@ import java.util.Scanner;
  * It is responsible for displaying messages and reading input from the user.
  */
 public class Ui {
-    private final static String SEPARATOR = "------------------------------";
-    private final static String GREETING_MESSAGE = "Hello! " +
-            "I'm your friendly ChatBot assistant called duke.MentalHealth :)\n" +
-            "What can I do for you?";
-    private final static String GOODBYE_MESSAGE = "Bye. " +
-            "Hope to see you again soon! " +
-            "If you ever need help don't forget to reach out :)";
+    private static final String SEPARATOR = "------------------------------";
+    private static final String GREETING_MESSAGE = "Hello! "
+            + "I'm your friendly ChatBot assistant called duke.MentalHealth :)\n"
+            + "What can I do for you?";
+    private static final String GOODBYE_MESSAGE = "Bye. "
+            + "Hope to see you again soon! "
+            + "If you ever need help don't forget to reach out :)";
+
 
     /**
      * Constructs a duke.Ui object.
@@ -58,7 +59,7 @@ public class Ui {
      * @return The formatted message with separators.
      */
     public String formatMessage(String msg) {
-         return SEPARATOR + "\n" + msg + "\n" + SEPARATOR;
+        return SEPARATOR + "\n" + msg + "\n" + SEPARATOR;
     }
 
     /**
