@@ -16,7 +16,7 @@ public class EventCommand implements Command {
         if (eventParts.length != 3) {
             throw new MichaelScottException(
                     "Please provide the event description, start time (/from), and end time(/to). "
-                            + "Example: michaelscott.MichaelScott.task."
+                            + "Example: "
                             + "Event Career fair /from 2024-02-02 12:00 /to 2024-02-02 17:00."
             );
         }

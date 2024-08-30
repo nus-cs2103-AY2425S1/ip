@@ -3,7 +3,6 @@ package michaelscott.task;
 import java.util.ArrayList;
 import michaelscott.MichaelScottException;
 
-
 /**
  * This class represents the list used to store all the tasks
  */

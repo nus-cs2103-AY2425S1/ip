@@ -1,9 +1,7 @@
 package michaelscott.task;
 
-import java.text.Format;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Formatter;
 
 /**
  * Represents an event task in the MichaelScott.MichaelScott task-tracking program.

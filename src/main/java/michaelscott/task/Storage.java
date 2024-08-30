@@ -1,21 +1,19 @@
-package michaelscott;
+package michaelscott.task;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import michaelscott.task.Deadline;
-import michaelscott.task.Task;
-import michaelscott.task.Event;
-import michaelscott.task.TaskList;
-import michaelscott.task.Todo;
 
+import michaelscott.MichaelScottException;
+import michaelscott.Ui;
+
+/**
+ * Handles storage of tasks, including reading and loading data from file
+ */
 public class Storage {
     private final String filePath;
 
@@ -61,41 +59,17 @@ public class Storage {
         Scanner sc;
         String line;
         try {
-            file.createNewFile();
+            if (!file.exists()) {
+                file.createNewFile();
+            }
             sc = new Scanner(file);
             while (sc.hasNext()) {
                 line = sc.nextLine();
-                taskList.addTask(parseTask(line));
+                taskList.addTask(TaskParser.parseTask(line));
             }
             sc.close();
         } catch (IOException | MichaelScottException e ) {
             Ui.showError(e.getMessage());
         }
-    }
-
-    public Task parseTask(String line) throws MichaelScottException {
-        String[] split = line.split(" \\| ");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        Task task;
-        int status = Integer.parseInt(split[1]);
-        String name = split[2];
-        String taskType = split[0].trim();
-        if (taskType.equals("T")) {
-            task = new Todo(name);
-        } else if (taskType.equals("D")) {
-            task = new Deadline(name, LocalDateTime.parse(split[3], formatter));
-        } else if (taskType.equals("E")) {
-            task = new Event(name, LocalDateTime.parse(split[3], formatter), LocalDateTime.parse(split[4], formatter));
-        } else {
-            throw new MichaelScottException("Wrong stuff");
-        }
-
-        if (status == 1) {
-            task.completeTask();
-        } else {
-            task.undoTask();
-        }
-
-        return task;
     }
 }

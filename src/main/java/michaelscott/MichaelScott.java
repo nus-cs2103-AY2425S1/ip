@@ -1,6 +1,7 @@
 package michaelscott;
 
 import michaelscott.command.CommandParser;
+import michaelscott.task.Storage;
 import michaelscott.task.TaskList;
 import michaelscott.command.Command;
 
@@ -30,7 +31,7 @@ public class MichaelScott {
                 storage.saveTasks(tasks.getTasks());
                 isRunning = !cmd.isExit();
             } catch (MichaelScottException e) {
-                System.out.println(e.getMessage());
+                Ui.showError(e.getMessage());
             }
         }
     }
