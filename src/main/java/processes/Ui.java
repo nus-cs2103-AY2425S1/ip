@@ -23,7 +23,7 @@ public class Ui {
     /**
      * Prints a line onto the terminal to separate lines of output text from the programme.
      */
-    public void printLine() {
+    public static void printLine () {
         int length = 75;
         for (int i = 0; i < length; i++) {
             System.out.print('-');
@@ -71,7 +71,6 @@ public class Ui {
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println(i + 1 + "." + taskList.get(i).toString());
         }
-        this.printLine();
     }
 
     /**
@@ -81,7 +80,7 @@ public class Ui {
      */
     public void showMessage (String message) {
         System.out.println(message);
-        this.printLine();
+        printLine();
     }
 
     /**

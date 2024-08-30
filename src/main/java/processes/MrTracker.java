@@ -69,6 +69,10 @@ public class MrTracker {
                     int index = parser.checkIndex(input, 7);
                     taskList.deleteTask(index);
                     break;
+                case FIND:
+                    String prompt = input.substring(5).trim();
+                    taskList.find(prompt);
+                    break;
                 default:
                     ui.showMessage("I am sorry, but I don't know what that means :-(");
                     break;

@@ -1,10 +1,12 @@
 package processes;
 
-import exceptions.*;
+import exceptions.InvalidDateException;
+import exceptions.InvalidTaskNameException;
 import tasks.DeadLine;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
+
 
 import java.util.ArrayList;
 
@@ -137,6 +139,32 @@ public class TaskList {
             } else {
                 curr.unMark();
                 System.out.println("task\n  " + curr.toString() + "\nis unmarked!");
+            }
+        }
+    }
+
+    /**
+     * Does not return anything.
+     * Receive the prompt from the user and searches the current list of tasks for task names that contain the prompt.
+     * After getting the list of matching tasks, print them out to the terminal
+     *
+     * @param prompt The prompt provided by the user.
+     *
+     */
+    public void find (String prompt) {
+        Ui.printLine();
+        ArrayList<Task> output = new ArrayList<>();
+        for (Task item: this.taskList) {
+            if (item.getName().contains(prompt)) {
+                output.add(item);
+            }
+        }
+        if (output.size() == 0) {
+            System.out.println("There are no tasks in your list that match " + "'prompt'");
+        } else {
+            System.out.println("Here are the matching task(s) in your list: ");
+            for (int i = 0; i < output.size(); i++) {
+                System.out.println((i + 1) + ". " + output.get(i).toString());
             }
         }
     }

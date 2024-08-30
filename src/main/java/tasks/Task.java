@@ -8,6 +8,9 @@ public abstract class Task {
     protected String name;
     protected boolean isDone = false;
 
+    public String getName () {
+        return this.name;
+    }
 
     /**
      * Returns the string representation of how a task should be saved
