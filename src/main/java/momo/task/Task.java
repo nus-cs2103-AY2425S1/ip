@@ -1,3 +1,5 @@
+package momo.task;
+
 public class Task {
     String task;
     boolean isComplete;
