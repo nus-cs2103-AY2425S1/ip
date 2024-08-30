@@ -2,7 +2,7 @@
 /.idea/
 /out/
 /*.iml
-
+data/
 *.class
 
 # Gradle build files
