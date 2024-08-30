@@ -1,5 +1,6 @@
 package duke;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -116,6 +117,22 @@ public class TaskList {
      */
     public ArrayList<Task> getTaskList() {
         return this.toDoList;
+    }
+
+    /**
+     * Searches for tasks in the task list that contain the specified keyword in their description.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return An ArrayList of tasks that contain the keyword in their description.
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> tasksFound = new ArrayList<>();
+        for (Task t : this.toDoList) {
+            if (t.getDescription().contains(keyword)) {
+                tasksFound.add(t);
+            }
+        }
+        return tasksFound;
     }
 
 }
