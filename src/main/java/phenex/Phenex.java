@@ -15,9 +15,13 @@ import java.util.Scanner;
 
 
 public class Phenex {
+    /** Encapsulates the Ui of Phenex */
     private Ui ui;
+    /** Encapsulates the task list of Phenex */
     private TaskList tasks;
+    /** Encapsulates the storage of Phenex */
     private Storage storage;
+    /** Encapsulates the parser of Phenex */
     private Parser parser;
 
     public enum CommandType {
