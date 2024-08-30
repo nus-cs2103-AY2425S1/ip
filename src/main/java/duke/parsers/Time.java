@@ -1,10 +1,13 @@
-package duke.parsers; /**
+/**
  * This class converts string format of date to local date time
- */
-import duke.exceptions.InvalidDateException;
+*/
+package duke.parsers;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import duke.exceptions.InvalidDateException;
 import java.time.format.DateTimeParseException;
 
 public class Time {

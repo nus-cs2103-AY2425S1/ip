@@ -41,9 +41,9 @@ public class TaskList {
     public void addTask(Task task) {
         listOfTasks.add(task);
         TaskDataBase.save(listOfTasks, ui);
-        ui.printMessage("Got it. I've added this task:" + "\n" +
-                "  " + task.toString() + "\n" +
-                "Now you have "  + listOfTasks.size() + " tasks in the list.");
+        ui.printMessage("Got it. I've added this task:" + "\n"
+                + "  " + task.toString() + "\n"
+                + "Now you have "  + listOfTasks.size() + " tasks in the list.");
     }
 
     /**
@@ -82,8 +82,8 @@ public class TaskList {
         if (index > 0 && index <= listOfTasks.size()) {
             Task removedTask = listOfTasks.remove(index - 1);
             TaskDataBase.save(listOfTasks, ui);
-            ui.printMessage("Noted. I've removed this task:" + "\n" + "  "
-                    + removedTask + "\n" + "Now you have "
+            ui.printMessage("Noted. I've removed this task:" + "\n" +
+                    "  " + removedTask + "\n" + "Now you have "
                     + listOfTasks.size() + " tasks in the list." );
         } else {
             throw new TaskNotFoundException();
