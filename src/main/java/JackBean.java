@@ -33,14 +33,12 @@ public class JackBean {
             }
 
             // handle other input
-            Ui.showLine();
             try {
                 String reply = Parser.parseUserInput(input, taskList);
-                System.out.println(reply);
+                Ui.showMessage(reply);
             } catch (Exception e) {
-                System.out.println(e);
+                Ui.showMessage("Homie! There was an error:\n" + e.toString());
             }
-            Ui.showLine();
         }
 
     }

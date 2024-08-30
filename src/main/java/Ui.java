@@ -15,7 +15,9 @@ public class Ui {
         System.out.println(horizontalLine);
     }
 
-    public static void showLine() {
+    public static void showMessage(String message) {
+        System.out.println(horizontalLine);
+        System.out.println(message);
         System.out.println(horizontalLine);
     }
 }
