@@ -7,19 +7,42 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Represents a task with a deadline in the XBot application.
+ * A {@code Deadline} task has a description and a deadline by which it should be completed.
+ */
 public class Deadline extends Task {
 
     protected String by;
 
+    /**
+     * Constructs a new {@code Deadline} task with the specified description and deadline.
+     *
+     * @param description The description of the task.
+     * @param by The deadline by which the task should be completed.
+     */
     public Deadline(String description, String by) {
         super(description, TaskType.D);
         this.by = by;
     }
 
+    /**
+     * Returns the deadline of the task.
+     *
+     * @return The deadline by which the task should be completed as a String.
+     */
     public String getBy() {
         return by;
     }
 
+    /**
+     * Converts the deadline to a different date format.
+     * The method attempts to parse the deadline using multiple date formats.
+     * If successful, it returns the date in a standard format; otherwise, it returns an error message.
+     *
+     * @param by The original deadline string to be converted.
+     * @return The formatted deadline string, or an error message if the conversion fails.
+     */
     public String changeDateFormat(String by) {
 
         List<String> formats = new ArrayList<>();
