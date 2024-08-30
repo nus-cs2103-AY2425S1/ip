@@ -32,7 +32,6 @@ public class Justbot {
         } catch (JustbotException e) {
             ui.getJustBotExceptionMessage(e);
         }
-
     }
 
     /**
@@ -62,5 +61,4 @@ public class Justbot {
     public static void main(String[] args) {
         new Justbot("/Users/justinyeo/Desktop/CS2103T-ip/data/justbottask.txt").run();
     }
-
 }
