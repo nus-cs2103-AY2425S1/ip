@@ -6,12 +6,28 @@ import Tuesday.util.Ui;
 
 import java.io.*;
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
+    // index to delete
     private int index;
+
+    /**
+     * Constructor for DeleteCommand
+     *
+     * @param command Description of the command
+     * @param index Index of the task to delete
+     */
     public DeleteCommand(String command, int index) {
         super(command);
         this.index = index;
     }
+
+    /**
+     * Deletes the task and prints the message
+     *
+     * @param task The Task object
+     * @param ui The UI object
+     * @param storage The Storage object
+     */
     @Override
     public void execute(Task task, Ui ui, Storage storage) {
         ui.showDeleteMessage(index - 1);
@@ -19,6 +35,9 @@ public class DeleteCommand extends Command{
         this.deleteDataFromFile();
     }
 
+    /**
+     * Deletes the task from the data file
+     */
     public void deleteDataFromFile() {
         int i = 0;
         try {
@@ -51,6 +70,12 @@ public class DeleteCommand extends Command{
             System.out.println("Error: IOException");
         }
     }
+
+    /**
+     * Use to exit the program
+     *
+     * @return false and do not exit
+     */
     @Override
     public boolean isExit() {
         return false;

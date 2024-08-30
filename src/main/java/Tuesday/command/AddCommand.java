@@ -8,13 +8,29 @@ import Tuesday.util.Storage;
 import Tuesday.util.Ui;
 
 public class AddCommand extends Command{
+    // variables
     private final String commandType;
     private final String commandPostfix;
+
+    /**
+     * Constructor for AddCommand
+     *
+     * @param commandType Type of command to be called
+     * @param commandPostfix The postfix of the command call
+     */
     public AddCommand(String commandType, String commandPostfix) {
         super(commandType);
         this.commandType = commandType;
         this.commandPostfix = commandPostfix;
     }
+
+    /**
+     * Checks the command type and invokes its corresponding methods
+     *
+     * @param task The Task object
+     * @param ui The UI object
+     * @param storage The Storage object
+     */
     @Override
     public void execute(Task task, Ui ui, Storage storage) {
         switch (this.commandType) {
@@ -38,6 +54,12 @@ public class AddCommand extends Command{
             }
         }
     }
+
+    /**
+     * Use to exit the program
+     *
+     * @return false and do not exit
+     */
     @Override
     public boolean isExit() {
         return false;

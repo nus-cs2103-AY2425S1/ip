@@ -8,21 +8,42 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
+    // variable
     protected String by_msg;
 
+    /**
+     * Constructor for Deadline
+     * Used for new task created
+     *
+     * @param description Description of the command
+     * @param by_msg Postfix after /by
+     */
     public Deadline(String description, String by_msg) {
         super(description);
         by_msg = handleByMsg(by_msg);
         this.by_msg = by_msg;
     }
 
+    /**
+     * Constructor for Deadline
+     * Used for data collected from data file
+     *
+     * @param description Description of the command
+     * @param by_msg Postfix after /by
+     * @param done Marked data from data file
+     */
     public Deadline(String description, String by_msg, boolean done) {
         super(description, done);
         by_msg = handleByMsg(by_msg);
         this.by_msg = by_msg;
     }
 
-
+    /**
+     * Handles the date and time of the by_msg
+     *
+     * @param by_msg Postfix after /by
+     * @return Formated string of the date and time
+     */
     private String handleByMsg(String by_msg) {
         //deadline readbook /by 2019-10-23 10:30
         String[] timing_msg = by_msg.split(" ");
@@ -51,7 +72,12 @@ public class Deadline extends Task{
         return string_date + " " + string_time;
     }
 
-
+    /**
+     * Writes the date to the datafile
+     *
+     * @param dataFile The data file object
+     * @return Empty string
+     */
     @Override
     public String write_to_datafile(File dataFile) {
         try {
@@ -73,6 +99,11 @@ public class Deadline extends Task{
         return "";
     }
 
+    /**
+     * Used for an output message
+     *
+     * @return Output message
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by_msg + ")";

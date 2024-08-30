@@ -8,6 +8,7 @@ import Tuesday.util.TuesdayException;
 import Tuesday.util.Ui;
 
 public class Tuesday {
+    // variable
     private Storage storage;
     private Task tasks;
     private Ui ui;
