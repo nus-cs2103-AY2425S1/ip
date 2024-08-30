@@ -1,6 +1,7 @@
 package Ponder_Pika.Task;
 
-/** * This class represents an abstract task with a description and status (done or not done).
+/**
+ * This class represents an abstract task with a description and status (done or not done).
  * It provides methods to mark the task as done or undone, check its status, and get its description.
  */
 public abstract class Task {
