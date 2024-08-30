@@ -62,6 +62,4 @@ public class TaskList {
     public void clearList() {
         this.tasks = new ArrayList<Task>();
     }
-
-//    Todo: Can add a function which removes all the marked tasks in the list
 }

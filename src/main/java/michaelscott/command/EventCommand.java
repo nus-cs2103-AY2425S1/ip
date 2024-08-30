@@ -15,9 +15,8 @@ public class EventCommand implements Command {
         String[] eventParts = args.split(" /from | /to ");
         if (eventParts.length != 3) {
             throw new MichaelScottException(
-                    "Please provide the event description, start time (/from), and end time(/to). "
-                            + "Example: "
-                            + "Event Career fair /from 2024-02-02 12:00 /to 2024-02-02 17:00."
+                    "Please provide the event description, start time (/from), and end time(/to). \n"
+                            + "Here is an example: Event Career fair /from 2024-02-02 12:00 /to 2024-02-02 17:00."
             );
         }
         description = eventParts[0];
@@ -27,7 +26,7 @@ public class EventCommand implements Command {
             fromDate = LocalDateTime.parse(eventParts[2], formatter);
         } catch (java.time.format.DateTimeParseException e) {
             throw new MichaelScottException(
-                    "Invalid date format. Please use the format YYYY-MM-DD HH:MM."
+                    "Invalid date format: Please use the format YYYY-MM-DD HH:MM."
             );
         }
     }

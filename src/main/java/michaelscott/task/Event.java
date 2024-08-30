@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Constructs an Event task with the specified description, start time, and end time.
@@ -60,7 +60,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + (isDone ? "[X] " : "[ ] ")
-                + desc + " (from: " + this.from + " to: " + this.to + ")";
+                + desc + " (from: " + this.from.format(FORMATTER) + " to: " + this.to.format(FORMATTER) + ")";
     }
 
     /**
@@ -71,6 +71,6 @@ public class Event extends Task {
     @Override
     public String toFile() {
         return "E | " + (isDone ? "1" : "0") + " | "
-                + desc + " | " + this.from.format(formatter) + " | " + this.to.format(formatter);
+                + desc + " | " + this.from.format(FORMATTER) + " | " + this.to.format(FORMATTER);
     }
 }

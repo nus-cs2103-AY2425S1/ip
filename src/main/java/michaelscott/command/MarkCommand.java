@@ -15,7 +15,7 @@ public class MarkCommand implements Command {
         try {
             this.taskIndex = Integer.parseInt(args.trim()) - 1;
         } catch (NumberFormatException e) {
-            throw new MichaelScottException("Please provide a valid task number.");
+            throw new MichaelScottException("If you tell me this is a number, you are fired.");
         }
     }
 
@@ -23,6 +23,7 @@ public class MarkCommand implements Command {
     public String execute(TaskList tasks) throws MichaelScottException {
         Task task = tasks.getTask(this.taskIndex);
         task.completeTask();
-        return "Nice! I've marked this task as done:\n" + task.toString();
+        return "Nice! I've marked this task as done:\n" + task.toString()
+                + "\n now go back to work and stop eating the company's time";
     }
 }

@@ -11,7 +11,9 @@ public class FindCommand implements Command{
 
     public FindCommand(String keyWord) throws MichaelScottException {
         if (keyWord.trim().isEmpty()) {
-            throw new MichaelScottException("The search keyword cannot be empty.");
+            throw new MichaelScottException(
+                    "You need to tell me what to search for! [find <Stuff>]"
+            );
         }
         this.keyWord = keyWord.trim().toLowerCase();
     }
@@ -27,7 +29,7 @@ public class FindCommand implements Command{
         }
 
         if (matchingTasks.isEmpty()) {
-            return "No matching tasks found.";
+            return "I cannot find any tasks with " + this.keyWord + " in their description.";
         }
 
         StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");

@@ -14,7 +14,7 @@ public class UnmarkCommand implements Command {
         try {
             this.taskIndex = Integer.parseInt(args.trim()) - 1;
         } catch (NumberFormatException e) {
-            throw new MichaelScottException("Please enter a valid number");
+            throw new MichaelScottException("If you tell me this is a number, you are fired.");
         }
     }
 

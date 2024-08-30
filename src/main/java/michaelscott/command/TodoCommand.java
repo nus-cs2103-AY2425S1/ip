@@ -23,7 +23,7 @@ public class TodoCommand implements Command {
     public TodoCommand(String args) throws MichaelScottException {
         this.description = args.trim();
         if (description.isEmpty()) {
-            throw new MichaelScottException("The description of a todo cannot be empty.");
+            throw new MichaelScottException("The description of a todo cannot be empty. [todo <Task Description>]");
         }
     }
 
