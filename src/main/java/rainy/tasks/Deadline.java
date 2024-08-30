@@ -21,13 +21,13 @@ public class Deadline extends Task {
     public String toString() {
         try {
             this.compareDate = LocalDate.parse(this.endDate.substring(0, 10));
-            return "[D] " + super.getName() + "(by " +
+            return "[D] " + super.getName() + " (by " +
                     this.compareDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " +
                     LocalTime.parse(this.endDate.substring(11, 13) + ":" + this.endDate.substring(13,15))
                             .format(DateTimeFormatter.ofPattern("HH:mm")) + ")";
         } catch (Exception e) {
             this.compareDate = LocalDate.parse(this.endDate.substring(3, 13), DateTimeFormatter.ofPattern("MMM d yyyy"));
-            return "[D] " + super.getName() + "(" + "by " + this.compareDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + this.endDate.substring(14, 19) + ")";
+            return "[D] " + super.getName() + " (" + "by " + this.compareDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + this.endDate.substring(14, 19) + ")";
         }
     }
 }
