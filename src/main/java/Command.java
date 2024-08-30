@@ -1,5 +1,6 @@
 public enum Command {
     LIST("list"),
+    FIND("find"),
     MARK("mark"),
     UNMARK("unmark"),
     DELETE("delete"),
