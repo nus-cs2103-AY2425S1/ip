@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ListReader {
-
     /**
      * Reads tasks from a file and parses them into a Map.
      *
@@ -30,7 +29,6 @@ public class ListReader {
                 if (line.isEmpty()) {
                     continue;  // Skip empty lines
                 }
-
                 if (line.startsWith("[T]")) {
                     Task task = parseTodoTask(line, br);
                     taskList.put(task.getName(), task);
@@ -50,7 +48,6 @@ public class ListReader {
 
     /**
      * Parses a Todo task from the input line.
-     *
      * @param line The line containing the task type and status.
      * @param br   The BufferedReader to read the next line for the description.
      * @return A Todo task.
@@ -62,11 +59,9 @@ public class ListReader {
         if (parts.length < 2) {
             throw new IllegalArgumentException("Invalid format for Todo task: " + line);
         }
-
         String name = parts[1].trim();
         String descriptionLine = br.readLine().trim();
         String description = descriptionLine.replaceFirst("Description: ", "").trim();
-
         return new Todo(name, description, isDone);
     }
 
@@ -111,24 +106,19 @@ public class ListReader {
         if (parts.length < 2) {
             throw new IllegalArgumentException("Invalid format for Event task: " + line);
         }
-
         String name = parts[1].trim();
         String descriptionLine = br.readLine().trim();
         String description = descriptionLine.replaceFirst("Description: ", "").trim();
-
         String startTimeLine = br.readLine().trim();
         String startTimeStr = startTimeLine.replaceFirst("Start Time: ", "").trim();
         String formattedStartTimeStr = DateParser.parseDate(startTimeStr);
         LocalDate startTime = LocalDate.parse(formattedStartTimeStr);
-
         String endTimeLine = br.readLine().trim();
         String endTimeStr = endTimeLine.replaceFirst("End Time: ", "").trim();
         String formattedEndTimeStr = DateParser.parseDate(endTimeStr);
         LocalDate endTime = LocalDate.parse(formattedEndTimeStr);
-
         String locationLine = br.readLine().trim();
         String location = locationLine.replaceFirst("Location: ", "").trim();
-
         return new Event(name, description, startTime, endTime, location, isDone);
     }
 }
