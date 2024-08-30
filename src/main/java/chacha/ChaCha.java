@@ -1,3 +1,5 @@
+package chacha;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -31,13 +33,18 @@ public class ChaCha {
             String userInput = scanner.nextLine();
             String output = parser.parseCommand(userInput);
             System.out.println(output);
+
+            if (output.equals(this.ui.printExit())) {
+                break;
+            }
+
             scanner = new Scanner(System.in);
         }
     }
 
     public static void main(String[] args) {
         try {
-            Path filePath = Paths.get("./src/main/java/data/chacha.txt");
+            Path filePath = Paths.get("./src/main/java/chacha/data/chacha.txt");
 
             Files.createDirectories(filePath.getParent());
             if (!Files.exists(filePath)) {

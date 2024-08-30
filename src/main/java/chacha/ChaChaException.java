@@ -1,3 +1,5 @@
+package chacha;
+
 public class ChaChaException extends Exception {
     private String msg;
     public ChaChaException(String msg) {

@@ -1,3 +1,6 @@
+package chacha;
+
+import chacha.task.Task;
 import java.time.DateTimeException;
 
 public class Parser {
@@ -12,10 +15,10 @@ public class Parser {
     }
 
     public String parseCommand(String userInput) {
-        if (userInput.equals("bye")) {
+        if (userInput.startsWith("bye")) {
             return this.ui.printExit();
 
-        } else if (userInput.equals("list")) {
+        } else if (userInput.startsWith("list")) {
             return this.listCommand();
 
         } else if (userInput.startsWith("todo")) {
@@ -93,7 +96,7 @@ public class Parser {
         } catch (ChaChaException e) {
             return e.toString();
         } catch (IndexOutOfBoundsException e) {
-            String[] arr = {"I can't find such a task number... You don't enough tasks!"};
+            String[] arr = {"I can't find such a chacha.task number... You don't enough tasks!"};
             return this.ui.printStrings(arr);
         } catch (NumberFormatException e) {
             String[] arr = {"The index does not seem to be a number... Please type again. "};
@@ -109,7 +112,7 @@ public class Parser {
         } catch (ChaChaException e) {
             return e.toString();
         } catch (IndexOutOfBoundsException e) {
-            String[] arr = {"I can't find such a task number... You don't enough tasks!"};
+            String[] arr = {"I can't find such a chacha.task number... You don't enough tasks!"};
             return this.ui.printStrings(arr);
         } catch (NumberFormatException e) {
             String[] arr = {"The index does not seem to be a number... Please type again. "};
@@ -125,7 +128,7 @@ public class Parser {
         } catch (ChaChaException e) {
             return e.toString();
         } catch (IndexOutOfBoundsException e) {
-            String[] arr = {"I can't find such a task number... You don't enough tasks!"};
+            String[] arr = {"I can't find such a chacha.task number... You don't enough tasks!"};
             return this.ui.printStrings(arr);
         } catch (NumberFormatException e) {
             String[] arr = {"The index does not seem to be a number... Please type again. "};

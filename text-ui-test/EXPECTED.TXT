@@ -4,23 +4,23 @@
      ____________________________________________________________
 
      ____________________________________________________________
-     What task are you intending to add as a 'todo'?
+     What chacha.task are you intending to add as a 'todo'?
      Please type again!
      ____________________________________________________________
 
      ____________________________________________________________
-     Got it. I've added this task:
+     Got it. I've added this chacha.task:
        [T][ ] read book
      Now you have 1 tasks in the list.
      ____________________________________________________________
 
      ____________________________________________________________
-     You are missing some info needed (task description, deadline).
+     You are missing some info needed (chacha.task description, deadline).
      Please type again!
      ____________________________________________________________
 
      ____________________________________________________________
-     You are missing either the task description or deadline.
+     You are missing either the chacha.task description or deadline.
      Please type again!
      ____________________________________________________________
 
@@ -29,23 +29,23 @@
      ____________________________________________________________
 
      ____________________________________________________________
-     Got it. I've added this task:
+     Got it. I've added this chacha.task:
        [D][ ] return book (by: Sunday)
      Now you have 2 tasks in the list.
      ____________________________________________________________
 
      ____________________________________________________________
-     You are missing some info needed (task description, start time, end time).
+     You are missing some info needed (chacha.task description, start time, end time).
      Please type again!
      ____________________________________________________________
 
      ____________________________________________________________
-     You are missing either the task description or start time or end time.
+     You are missing either the chacha.task description or start time or end time.
      Please type again!
      ____________________________________________________________
 
      ____________________________________________________________
-     You are missing either the task description or start time or end time.
+     You are missing either the chacha.task description or start time or end time.
      Please type again!
      ____________________________________________________________
 
@@ -54,25 +54,25 @@
      ____________________________________________________________
 
      ____________________________________________________________
-     Got it. I've added this task:
+     Got it. I've added this chacha.task:
        [E][ ] meeting (from: 2pm to: 3pm)
      Now you have 3 tasks in the list.
      ____________________________________________________________
 
      ____________________________________________________________
-     Got it. I've added this task:
+     Got it. I've added this chacha.task:
        [T][ ] tutorial
      Now you have 4 tasks in the list.
      ____________________________________________________________
 
      ____________________________________________________________
-     Got it. I've added this task:
+     Got it. I've added this chacha.task:
        [T][ ] lab
      Now you have 5 tasks in the list.
      ____________________________________________________________
 
      ____________________________________________________________
-     Got it. I've added this task:
+     Got it. I've added this chacha.task:
        [T][ ] grocery
      Now you have 6 tasks in the list.
      ____________________________________________________________
@@ -88,12 +88,12 @@
      ____________________________________________________________
 
      ____________________________________________________________
-     You are missing the index of task you want to mark.
+     You are missing the index of chacha.task you want to mark.
      Please type again!
      ____________________________________________________________
 
      ____________________________________________________________
-     OK, I've marked this task as done:
+     OK, I've marked this chacha.task as done:
        [D][X] return book (by: Sunday)
      ____________________________________________________________
 
@@ -102,16 +102,16 @@
      ____________________________________________________________
 
      ____________________________________________________________
-     OK, I've marked this task as done:
+     OK, I've marked this chacha.task as done:
        [T][X] tutorial
      ____________________________________________________________
 
      ____________________________________________________________
-     I can't find such a task number... You don't enough tasks!
+     I can't find such a chacha.task number... You don't enough tasks!
      ____________________________________________________________
 
      ____________________________________________________________
-     You are missing the index of task you want to unmark.
+     You are missing the index of chacha.task you want to unmark.
      Please type again!
      ____________________________________________________________
 
@@ -120,11 +120,11 @@
      ____________________________________________________________
 
      ____________________________________________________________
-     I can't find such a task number... You don't enough tasks!
+     I can't find such a chacha.task number... You don't enough tasks!
      ____________________________________________________________
 
      ____________________________________________________________
-     OK, I've marked this task as not done yet:
+     OK, I've marked this chacha.task as not done yet:
        [D][ ] return book (by: Sunday)
      ____________________________________________________________
 
@@ -139,7 +139,7 @@
      ____________________________________________________________
 
      ____________________________________________________________
-     You are missing the index of task you want to delete.
+     You are missing the index of chacha.task you want to delete.
      Please type again!
      ____________________________________________________________
 
@@ -148,11 +148,11 @@
      ____________________________________________________________
 
      ____________________________________________________________
-     I can't find such a task number... You don't enough tasks!
+     I can't find such a chacha.task number... You don't enough tasks!
      ____________________________________________________________
 
      ____________________________________________________________
-     Okay! I've removed this task:
+     Okay! I've removed this chacha.task:
        [T][ ] read book
      Now you have 5 tasks in the list.
      ____________________________________________________________
