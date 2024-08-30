@@ -16,7 +16,8 @@ public class Task {
         } else if (task.startsWith("event")) {
             return Event.of(task);
         } else {
-            throw new BigdogException("Sorry I only recognise todo, deadline, or event tasks!");
+            throw new BigdogException("Sorry the only keywords I recognise are \n1.todo\n2.deadline\n3.event" +
+                    "\n4.mark\n5.unmark\n6.delete\n7.list\n8.bye ");
         }
     }
 
@@ -29,7 +30,8 @@ public class Task {
         } else if (task.startsWith("E")) {
             return Event.of(task, marked);
         } else {
-            throw new BigdogException("Sorry I only recognise todo, deadline, or event tasks!");
+            throw new BigdogException("Sorry the only keywords I recognise are \n1.todo\n2.deadline\n3.event" +
+                    "\n4.mark\n5.unmark\n6.delete\n7.list\n8.bye ");
         }
     }
 
