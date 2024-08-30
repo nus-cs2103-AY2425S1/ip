@@ -95,8 +95,8 @@ public class Ui {
     }
 
     /**
-     * Prints the object in its string representation
-     * @param obj Object to be printed
+     * Prints the object in its string representation.
+     * @param obj Object to be printed.
      */
     public void printObject(Object obj) {
 

@@ -9,7 +9,7 @@ import quack.exception.InvalidDateTimeException;
 
 /**
  * This class is responsible for handling addition of tasks to the task list,
- * based on what the user entered
+ * based on what the user entered.
  */
 public class AddTaskCommand extends Command{
     
@@ -43,7 +43,7 @@ public class AddTaskCommand extends Command{
      * Retrieves the tasks details based on the task type the user input.
      * <p>
      * After retrieving the task details, the task will be created and added,
-     * into the tasklist
+     * into the tasklist.
      * @param taskType The type of tasks to be created. 
      */
     private void getTaskDetails(String taskType) {
