@@ -137,6 +137,19 @@ public class Makima {
         return output.toString();
     }
 
+    /**
+     * Displays list of tasks which contain the search term.
+     *
+     * @param search search term
+     */
+    private void displayListWithTerm(String search) {
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).match(search)) {
+                System.out.println(i+1 + ":" + tasks.get(i));
+            }
+        }
+    }
+
     public static void main(String[] args) {
         new Makima();
     }
@@ -198,6 +211,12 @@ public class Makima {
             case "delete":
                 tasks.remove(getListIndex("Which item would you like to delete?"));
                 done();
+                break;
+
+
+            case "find":
+                String search = getInput("What tasks are you searching for?");
+                displayListWithTerm(search);
                 break;
 
             default:
