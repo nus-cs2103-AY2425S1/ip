@@ -5,48 +5,94 @@ import myapp.exception.RubyException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The {@code TaskList} class manages a list of tasks.
+ * It provides methods to add, remove, retrieve, and list tasks.
+ */
 public class TaskList {
-    private final List<Task> tasks;
+    private List<Task> tasks;
 
+    /**
+     * Constructs an empty {@code TaskList}.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a {@code TaskList} with a specified list of tasks.
+     *
+     * @param tasks A {@code List} of {@code Task} objects to initialize the task list with.
+     */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The {@code Task} object to be added to the list.
+     */
     public void addTask(Task task) {
-        tasks.add(task);
+        this.tasks.add(task);
     }
 
+    /**
+     * Removes a task from the task list at the specified index.
+     *
+     * @param index The index of the task to be removed.
+     * @throws RubyException If the index is out of bounds (less than 0 or greater than or equal to the list size).
+     */
     public void removeTask(int index) throws RubyException {
-        if (index < 0 || index >= tasks.size()) {
+        if (index < 0 || index >= this.tasks.size()) {
             throw new RubyException("Invalid task number.");
         }
-        tasks.remove(index);
+        this.tasks.remove(index);
     }
 
+    /**
+     * Retrieves a task from the task list at the specified index.
+     *
+     * @param index The index of the task to be retrieved.
+     * @return The {@code Task} object at the specified index.
+     * @throws RubyException If the index is out of bounds (less than 0 or greater than or equal to the list size).
+     */
     public Task getTask(int index) throws RubyException {
-        if (index < 0 || index >= tasks.size()) {
+        if (index < 0 || index >= this.tasks.size()) {
             throw new RubyException("Invalid task number.");
         }
-        return tasks.get(index);
+        return this.tasks.get(index);
     }
 
+    /**
+     * Returns the number of tasks in the task list.
+     *
+     * @return An integer representing the size of the task list.
+     */
     public int size() {
-        return tasks.size();
+        return this.tasks.size();
     }
 
+    /**
+     * Returns the list of tasks.
+     *
+     * @return A {@code List} of {@code Task} objects contained in the task list.
+     */
     public List<Task> getTasks() {
-        return tasks;
+        return this.tasks;
     }
 
+    /**
+     * Returns a formatted string representation of all tasks in the task list.
+     * Each task is prefixed with its index in the list.
+     *
+     * @return A {@code String} representing the list of tasks with their indexes.
+     */
     public String listTasks() {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks in your list:\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append("     ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
+        for (int i = 0; i < this.tasks.size(); i++) {
+            sb.append("     ").append(i + 1).append(".").append(this.tasks.get(i)).append("\n");
         }
         return sb.toString();
     }
