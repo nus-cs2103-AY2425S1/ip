@@ -1,3 +1,5 @@
+package taskalyn;
+
 public class Parser {
     private TaskManager taskManager;
     private Ui ui;
