@@ -15,12 +15,13 @@ public class Ui {
      *
      * @param str The string to be printed.
      */
-    private static void print(String str) {
+    private static String print(String str) {
         if (str == null || str.isEmpty()) {
             System.out.println(" ".indent(INDENTATION));
         } else {
             System.out.println(str.indent(INDENTATION));
         }
+        return str;
     }
 
     /**
@@ -42,22 +43,22 @@ public class Ui {
      *
      * @param err The error message to be displayed.
      */
-    public void showError(String err) {
-        print(err);
+    public String showError(String err) {
+        return print(err);
     }
 
     /**
      * Displays a welcome message to the user.
      */
-    public void welcome() {
-        print("ヾ(⌐■_■)ノ♪ Welcome! I'm Strand\nWhat can I do for you?");
+    public String welcome() {
+        return print("ヾ(⌐■_■)ノ♪ Welcome! I'm Strand\nWhat can I do for you?");
     }
 
     /**
      * Displays a goodbye message to the user.
      */
-    public void goodbye() {
-        print("Adios. Hope to see you again soon! ヾ(＾ ∇ ＾)");
+    public String goodbye() {
+        return print("Adios. Hope to see you again soon! ヾ(＾ ∇ ＾)");
     }
 
     /**
@@ -67,8 +68,8 @@ public class Ui {
      * @param task The task that was added.
      * @param size The total number of tasks in the list after adding the new task.
      */
-    public void addTask(Task task, Integer size) {
-        print(String.format("""
+    public String addTask(Task task, Integer size) {
+        return print(String.format("""
                 (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧ ✧ﾟ･: Task added:
                   %s
                 Now you have %d tasks in the list.""", task.toString(), size));
@@ -81,8 +82,8 @@ public class Ui {
      * @param task The task that was removed.
      * @param size The total number of tasks in the list after removing the task.
      */
-    public void deleteTask(Task task, Integer size) {
-        print(String.format("""
+    public String deleteTask(Task task, Integer size) {
+        return print(String.format("""
                 (☞ﾟ∀ﾟ)☞ Task removed:
                 %s
                 Now you have %d tasks in the list.""", task.toString(), size));
@@ -94,11 +95,13 @@ public class Ui {
      * @param task The task that was marked.
      * @param mark {@code true} if the task was marked as done; {@code false} otherwise.
      */
-    public void markTask(Task task, Boolean mark) {
+    public String markTask(Task task, Boolean mark) {
         if (mark) {
-            print(String.format("( ﾟヮﾟ) You finished a task?! Congrats! I've marked this task as done:\n%s", task));
+            return print(String.format("( ﾟヮﾟ) You finished a task?! "
+                    + "Congrats! I've marked this task as done:\n%s", task));
         } else {
-            print(String.format("ಠ_ಠ ...OK, I've marked this task as not done yet:\n%s", task.toString()));
+            return print(String.format("ಠ_ಠ ...OK, I've marked this task as not done yet:\n"
+                    + "%s", task.toString()));
         }
     }
 
@@ -107,7 +110,7 @@ public class Ui {
      *
      * @param tasks The list of tasks to be displayed.
      */
-    public void list(String tasks) {
-        print(tasks);
+    public String list(String tasks) {
+        return print(tasks);
     }
 }

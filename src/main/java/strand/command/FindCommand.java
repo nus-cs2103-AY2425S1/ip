@@ -22,7 +22,7 @@ public class FindCommand extends Command {
      * @param storage The {@code Storage} object used for saving task data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.list(tasks.getFoundTasks(segment));
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.list(tasks.getFoundTasks(segment));
     }
 }

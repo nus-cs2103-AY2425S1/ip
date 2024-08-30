@@ -17,8 +17,8 @@ public class ByeCommand extends Command {
      * @param storage The {@code Storage} object responsible for saving/loading tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.goodbye();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.goodbye();
     }
 
     /**

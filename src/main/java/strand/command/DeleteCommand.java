@@ -31,9 +31,10 @@ public class DeleteCommand extends Command {
      * @throws StrandException If an error occurs while deleting the task or saving the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws StrandException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws StrandException {
         Task deleted = tasks.deleteTask(this.index);
-        ui.deleteTask(deleted, tasks.getNumOfTasks());
+        String output = ui.deleteTask(deleted, tasks.getNumOfTasks());
         storage.save(tasks.toFile());
+        return output;
     }
 }
