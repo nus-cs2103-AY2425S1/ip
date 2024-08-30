@@ -7,7 +7,7 @@ public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd HHmm");
-    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm");
 
     public Event(String description, String start, String end) {
         super(description);
@@ -28,6 +28,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return " [E] " + super.toString() + " (from: " + start.format(OUTPUT_FORMAT) + " to: " + end.format(OUTPUT_FORMAT) + ")";
+        return " [E] " + super.toString() + " (from: " + start.format(OUTPUT_FORMAT) + " to: "
+                + end.format(OUTPUT_FORMAT) + ")";
     }
 }
