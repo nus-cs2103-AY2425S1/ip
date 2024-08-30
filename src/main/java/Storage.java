@@ -79,7 +79,7 @@ public class Storage {
         } else if (task instanceof DeadlineTask) {
             DeadlineTask deadlineTask = (DeadlineTask) task;
             return String.format("{\"type\":\"%s\",\"name\":\"%s\",\"done\":\"%s\",\"deadline\":\"%s\"}",
-                    type, name, status, deadlineTask.deadline);
+                    type, name, status, deadlineTask.getDeadlineAsString());
         }
         return "{}";
     }
@@ -118,7 +118,7 @@ public class Storage {
                     break;
                 case "D":
                     String deadline = jsonObject.getString("deadline");
-                    task = new DeadlineTask(String.format("deadline /by %s", deadline));
+                    task = new DeadlineTask(name, deadline);
                     break;
                 }
 
