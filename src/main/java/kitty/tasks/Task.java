@@ -67,4 +67,8 @@ public class Task {
         str += "] " + name;
         return str;
     }
+
+    public boolean isDone() {
+        return isDone;
+    }
 }

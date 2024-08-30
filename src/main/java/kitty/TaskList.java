@@ -3,9 +3,10 @@ package kitty;
 import kitty.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class TaskList {
-    private static final ArrayList<Task> tasks = new ArrayList<Task>(100);
+    private final ArrayList<Task> tasks = new ArrayList<Task>(100);
 
     public int addTask(Task task) {
         return tasks.add(task)? tasks.size() : -1;
@@ -53,5 +54,9 @@ public class TaskList {
         for (Task item: tasks.toArray(tmp)) {
             System.out.println(count++ + "." + item);
         }
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
 }
