@@ -29,8 +29,9 @@ public class Ui {
     public void showSuccessfulTaskAddition(Task task, int numberOfTasks) {
         // when janet.TaskList.addTaskToList is called (addition of task into listOfTasks)
         // task = newly added janet.Task object
-        System.out.println(HORIZONTAL_LINE + "\nGot it. I've added this task:\n" +
-                "  " + task + "\n" + String.format("Now you have %d tasks in the list\n", numberOfTasks) + HORIZONTAL_LINE);
+        System.out.println(HORIZONTAL_LINE + "\nGot it. I've added this task:\n"
+                + "  " + task + "\n" + String.format("Now you have %d tasks in the list\n", numberOfTasks)
+                + HORIZONTAL_LINE);
     }
 
     public void showTasks(TaskList taskList) {
@@ -58,8 +59,8 @@ public class Ui {
             // the desired task is already marked as done
             System.out.println(HORIZONTAL_LINE + "\nThis task is already done!\n" + HORIZONTAL_LINE);
         } else {
-            System.out.println(HORIZONTAL_LINE + "\nNice! I've marked this task as done:\n" +
-                    String.format("  %s", task + "\n" + HORIZONTAL_LINE));
+            System.out.println(HORIZONTAL_LINE + "\nNice! I've marked this task as done:\n"
+                    + String.format("  %s", task + "\n" + HORIZONTAL_LINE));
         }
     }
 
@@ -70,14 +71,14 @@ public class Ui {
             // the desired task is already marked as done
             System.out.println(HORIZONTAL_LINE + "\nThis task is not already done!\n" + HORIZONTAL_LINE);
         } else {
-            System.out.println(HORIZONTAL_LINE + "\nOK, I've marked this task as not done yet:\n" +
-                    String.format("  %s", task + "\n" + HORIZONTAL_LINE));
+            System.out.println(HORIZONTAL_LINE + "\nOK, I've marked this task as not done yet:\n"
+                    + String.format("  %s", task + "\n" + HORIZONTAL_LINE));
         }
     }
 
     public void showDeleteTaskMessage(Task deletedTask, int numberOfTasks) {
-        System.out.println(HORIZONTAL_LINE + "\nNoted. I've removed this task:\n" +
-                String.format("    %s\nNow you have %d tasks in your list\n",
+        System.out.println(HORIZONTAL_LINE + "\nNoted. I've removed this task:\n"
+                + String.format("    %s\nNow you have %d tasks in your list\n",
                         deletedTask, numberOfTasks) + HORIZONTAL_LINE);
     }
 }
