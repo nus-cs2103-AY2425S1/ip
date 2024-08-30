@@ -1,3 +1,5 @@
+package fred;
+
 public class Parser {
     String[] parseInput(String input) throws FredException {
         input = input.strip();

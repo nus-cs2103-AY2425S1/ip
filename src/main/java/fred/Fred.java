@@ -1,3 +1,4 @@
+package fred;
 import java.util.ArrayList;
 
 public class Fred {
