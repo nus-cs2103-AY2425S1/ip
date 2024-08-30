@@ -34,11 +34,13 @@ public class Karen {
                 LINE;
         System.out.print(output);
 
-        //Handle file creation, if needed
+        //Initiate file and retrieve saved data
         Storage.initFile();
+        tasks = Storage.readFile();
 
         Scanner scanner = new Scanner(System.in);
         boolean loop = true;
+        boolean hasPendingChanges = false;
         while (loop) {
             String input = scanner.nextLine();
             String[] command = input.split(" ", 2); //[keyword, parameters;
@@ -48,7 +50,6 @@ public class Karen {
             } catch (IllegalArgumentException IAE) {
                 keyword = Keywords.UNKNOWN;
             }
-
 
             output = "";
             Task task = null;
@@ -83,6 +84,7 @@ public class Karen {
                             "Nice! I've marked this task as done:\n\t" +
                             marked_task + "\n" +
                             LINE;
+                    hasPendingChanges = true;
                 } catch (NumberFormatException NFE) {
                     output += LINE
                             + "Error! You must input a number after the 'mark' command\n"
@@ -103,6 +105,7 @@ public class Karen {
                             "Ok! This task is now marked undone:\n\t" +
                             unmarked_task + "\n" +
                             LINE;
+                    hasPendingChanges = true;
                 } catch (NumberFormatException NFE) {
                     output += LINE
                             + "Error! You must input a number after the 'unmark' command\n"
@@ -116,6 +119,7 @@ public class Karen {
             case TODO:
                 try {
                     task = new Todo(command[1]);
+                    hasPendingChanges = true;
                 } catch (IndexOutOfBoundsException e) {
                     output += LINE
                             + "Please enter a name for your todo!\n"
@@ -126,6 +130,7 @@ public class Karen {
                 try {
                     String[] params = command[1].split("/by ", 2);
                     task = new Deadline(params[0], params[1]);
+                    hasPendingChanges = true;
                 } catch (Exception e) {
                     output += LINE
                             + "Invalid input! Deadlines must follow this syntax: deadline <name> /by <due date>\n"
@@ -138,6 +143,7 @@ public class Karen {
                     String name = params[0];
                     String[] fromTo = params[1].split("/to ", 2);
                     task = new Event(name, fromTo[0], fromTo[1]);
+                    hasPendingChanges = true;
                 } catch (Exception e) {
                     output += LINE
                             + "Error! Events must follow this syntax: " +
@@ -154,6 +160,7 @@ public class Karen {
                             + "Alright! I've removed this task from your list:\n\t"
                             + t.toString() + "\n"
                             + LINE;
+                    hasPendingChanges = true;
                 } catch (NumberFormatException NFE) {
                     output += LINE
                             + "Error! Please enter a valid number after the `delete` command!\n"
@@ -178,6 +185,11 @@ public class Karen {
                         task + "\n" +
                         String.format("Now you have %d tasks in the list.\n", tasks.size()) +
                         LINE;
+            }
+
+            if (hasPendingChanges) {
+                Storage.saveToFile(tasks);
+                hasPendingChanges = false;
             }
 
             System.out.print(output);
