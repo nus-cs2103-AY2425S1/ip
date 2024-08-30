@@ -21,11 +21,14 @@ public class Duke {
         System.out.println("Now you have " + userInputs.size() + "tasks in the list.");
     }
 
-    public static void processInput(String inp) {
+    public static void processInput(String inp) throws EmptyTaskException, InvalidInstructionException {
         String instruction = inp.split(" ",2)[0];
         if (instruction.equals("list")) {
             display();
             return;
+        }
+        if (inp.split(" ",2).length==1) {
+            throw new EmptyTaskException();
         }
         String remainingInput = inp.split(" ",2)[1];
         if (instruction.equals("mark")) {
@@ -56,6 +59,8 @@ public class Duke {
             Event task = new Event(name, start, end);
             userInputs.add(task);
             taskAddDisplay(task);
+        } else {
+            throw new InvalidInstructionException();
         }
     }
 
@@ -74,7 +79,13 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String inp = scanner.nextLine();
         while (!inp.equals("bye")) {
-            processInput(inp);
+            try {
+                processInput(inp);
+            } catch (EmptyTaskException e) {
+                System.out.println("Remaining description of task cannot be empty.");
+            } catch (InvalidInstructionException e) {
+                System.out.println("Invalid instruction given.");
+            }
             inp = scanner.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!\n");
