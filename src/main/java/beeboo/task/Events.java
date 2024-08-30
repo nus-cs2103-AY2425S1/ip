@@ -62,7 +62,7 @@ public class Events extends Tasks {
      * @throws InvalidDateException if the dates are invalid or improperly formatted
      * @throws NoDescriptionException if the description is missing or empty
      */
-    public static Events CreateEvent(String text) throws InvalidDateException, NoDescriptionException {
+    public static Events createEvent(String text) throws InvalidDateException, NoDescriptionException {
         int descriptionEnd = text.indexOf('/');
         String description = text.substring(0, descriptionEnd).trim();
 
@@ -105,6 +105,7 @@ public class Events extends Tasks {
      */
     @Override
     public String saveFormat() {
-        return "E | " + (super.isDone ? "1 | " : "0 | ") + description + " | " + startDate + " | " + endDate;
+        return "E | " + (super.isDone ? "1 | " : "0 | ")
+                + description + " | " + startDate + " | " + endDate;
     }
 }

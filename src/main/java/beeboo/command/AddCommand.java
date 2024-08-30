@@ -30,7 +30,7 @@ public class AddCommand extends Command{
     public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidDateException, NoDescriptionException {
         switch(type) {
         case "e":
-            Events event = Events.CreateEvent(command);
+            Events event = Events.createEvent(command);
             tasks.addList(event);
             ui.addList(event, tasks.getSize());
             storage.saveItem(tasks.getList());

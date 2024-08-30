@@ -8,10 +8,10 @@ import beeboo.exception.BeeBooExceptions;
 public abstract class Command {
     private String command;
 
-    public Command(String command){
+    public Command(String command) {
         this.command = command;
     }
-    public Command(){
+    public Command() {
         command = null;
     }
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws BeeBooExceptions;

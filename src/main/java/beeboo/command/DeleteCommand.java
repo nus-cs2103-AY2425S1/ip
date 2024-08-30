@@ -9,7 +9,7 @@ import beeboo.exception.InvalidIndexException;
 public class DeleteCommand extends Command{
     private String command;
     public DeleteCommand(String command) {
-       this.command = command;
+        this.command = command;
     }
 
     /**
