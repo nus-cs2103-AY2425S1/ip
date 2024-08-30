@@ -6,13 +6,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The {@code Storage} class handles loading and saving of tasks to a file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a new {@code Storage} instance with the specified file path.
+     *
+     * @param filePath The path of the file where tasks will be stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the tasks to the specified file.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void saveTasksToFile(ArrayList<Task> tasks) {
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {
@@ -24,6 +37,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the tasks from the specified file into the provided {@code TaskList}.
+     *
+     * @param taskList The task list to load the tasks into.
+     */
     public void loadTasksFromFile(TaskList taskList) {
         try (Scanner sc = new Scanner(new File(filePath))) {
             while (sc.hasNextLine()) {

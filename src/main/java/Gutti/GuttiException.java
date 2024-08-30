@@ -8,6 +8,7 @@ package Gutti;
  * </p>
  */
 public class GuttiException extends Exception{
+
     /**
      * Constructs a new {@code GuttiException} with the specified detail message.
      * <p>

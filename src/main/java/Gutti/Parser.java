@@ -1,6 +1,17 @@
 package Gutti;
 
+/**
+ * The {@code Parser} class is responsible for interpreting user commands and returning the corresponding command object.
+ */
 public class Parser {
+
+    /**
+     * Parses the user's input and returns the appropriate {@code Command} object.
+     *
+     * @param commandString The input string from the user.
+     * @return A {@code Command} object corresponding to the user's input.
+     * @throws GuttiException If the command is not recognized or is improperly formatted.
+     */
     public static Command parse(String commandString) throws GuttiException {
         commandString = commandString.trim();
 
