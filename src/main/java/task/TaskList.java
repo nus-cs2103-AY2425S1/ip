@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Represents a task list
- * with a list of tasks
+ * Represents a task list with a list of tasks.
  *
  * @author celeschai
  */
@@ -13,43 +12,63 @@ public class TaskList {
     private ArrayList<Task> todoList = new ArrayList<>();
 
     /**
-     * Instantiates empty task list
+     * Instantiates empty task list.
      */
     public TaskList() {
     }
 
     /**
-     * Instantiates new task list with
-     * existing tasks
-     *
-     * @param tasks existing tasks to be added
+     * Adds Task to TaskList.
+     * @param task Task object to be added to the ArrayLst.
      */
-    public TaskList(Task... tasks) {
-        this.todoList.addAll(Arrays.asList(tasks));
-    }
-
     public void addTask(Task task) {
         this.todoList.add(task);
     }
 
+    /**
+     * Marks task as completed.
+     *
+     * @param taskInd Index of task to be marked. 1-indexed.
+     */
     public void markTaskAsDone(int taskInd) {
         this.todoList.get(taskInd - 1).markAsDone();
     }
 
+    /**
+     * Marks task as incomplete.
+     *
+     * @param taskInd Index of task to be marked. 1-indexed.
+     */
     public void markTaskAsIncomplete(int taskInd) {
         this.todoList.get(taskInd - 1).markAsIncomplete();
     }
 
+    /**
+     * Gets task by task index.
+     *
+     * @param taskInd Index of task to be retrieved. 1-indexed.
+     */
     public Task getTask(int taskInd) {
         return this.todoList.get(taskInd - 1);
     }
 
+    /**
+     * Gets total number of tasks in the ArrayList.
+     *
+     * @return Total number of tasks.
+     */
     public int getTotalNumOfTasks() {
         return this.todoList.size();
     }
 
-    public Task removeTask(int taskIndex) {
-        return this.todoList.remove(taskIndex - 1);
+    /**
+     * Removes task by task index.
+     *
+     * @param taskInd Index of task to be removed. 1-indexed.
+     * @return Task object removed.
+     */
+    public Task removeTask(int taskInd) {
+        return this.todoList.remove(taskInd - 1);
     }
 
     /**

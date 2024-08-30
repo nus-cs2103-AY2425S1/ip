@@ -11,7 +11,7 @@ import chatbot.BeeException;
 public class TaskIndexException extends BeeException {
 
     /**
-     * Formats missing task message for different tasks
+     * Formats missing task message for different tasks.
      */
     public TaskIndexException() {
         super("""

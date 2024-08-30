@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * Handles reading and writing to files
+ * Handles reading and writing to files.
  *
  * @author celeschai
  */
@@ -14,9 +14,9 @@ public class Storage {
     private Scanner sc;
 
     /**
-     * Gets scanner for parsing of text file contents
+     * Gets scanner for parsing of text file contents.
      *
-     * @return scanner
+     * @return Scanner that reads source file stored locally.
      */
     public Scanner getScanner() {
         return this.sc;
@@ -24,9 +24,9 @@ public class Storage {
 
     /**
      * Reads tasks from text file
-     * Creates new file if it does not exist
+     * Creates new file if it does not exist.
      *
-     * @return true if file is successfully read
+     * @return True if file is successfully read.
      */
     public boolean readFromTaskListFile() {
         try {
@@ -47,10 +47,10 @@ public class Storage {
     }
 
     /**
-     * Writes tasks to text file
+     * Writes tasks to text file.
      *
-     * @param taskList String representation of task list
-     * @return true if task list is successfully saved
+     * @param taskList String representation of task list.
+     * @return True if task list is successfully saved.
      */
     public boolean writeToTaskListFile(String taskList) {
         try {

@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 
 /**
  * A class representing individual tasks
- * with a deadline
+ * with a deadline.
  *
  * @author celeschai
  */

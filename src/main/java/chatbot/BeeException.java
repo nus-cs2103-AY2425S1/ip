@@ -10,9 +10,9 @@ public class BeeException extends Exception {
 
     /**
      * Prepends error message provided with
-     * chatbot personality specific wording
+     * chatbot personality specific wording.
      *
-     * @param msg error message to be shown
+     * @param msg Error message to be shown.
      */
     public BeeException(String msg) {
         super("Hey!!! " + msg + "\nType 'help' to see what you can do.");

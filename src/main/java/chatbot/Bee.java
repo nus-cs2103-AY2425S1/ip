@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 
 /**
- * Main entrypoint to the chatbot "Bee"
+ * Starts the chatbot "Bee".
  *
  * @author celeschai
  */
