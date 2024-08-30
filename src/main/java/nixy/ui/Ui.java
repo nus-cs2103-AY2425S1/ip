@@ -6,6 +6,10 @@ import nixy.exceptions.NixyException;
 import nixy.task.Task;
 import nixy.task.TaskList;
 
+/**
+ * Ui class is responsible for handling user interface.
+ * It provides methods to read input from the user and display messages to the user.
+ */
 public class Ui {
 
     static final String HORIZONTAL_LINE = "____________________________________________________________";

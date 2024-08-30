@@ -77,7 +77,9 @@ public class Nixy {
                 }
                 break;
             case TODO:
+                // Fallthrough
             case DEADLINE:
+                // Fallthrough
             case EVENT:
                 try {
                     Task task = p.getTask();
