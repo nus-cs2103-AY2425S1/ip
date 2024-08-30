@@ -28,4 +28,12 @@ public class Task {
         String state = this.status ? "1" : "0";
         return state + "|" + this.details;
     }
+
+    /**
+     * Returns details of tasks.
+     * @return Description of task.
+     */
+    public String getDetails() {
+        return this.details;
+    }
 }

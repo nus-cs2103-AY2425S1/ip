@@ -9,6 +9,7 @@ import bimo.tasks.ToDo;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+
 /**
  * Deals with making sense of the user command.
  */
@@ -62,8 +63,11 @@ public class Parser {
         } else if (cmd.equals("delete")) {
             int index = Integer.valueOf(parsedArray[1]) - 1;
             return new DeleteCommand(index);
-        } else if (cmd.equals("bye")){
+        } else if (cmd.equals("bye")) {
             return new ByeCommand();
+        } else if (cmd.equals("find")) {
+            String word = input.split(" ")[1];
+            return new FindCommand(word);
         } else {
             throw new BimoException("    Sorry, I do not understand you \n" +
                     "    as this is not a valid command");
