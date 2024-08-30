@@ -1,4 +1,13 @@
+package loafy.main;
+
 import java.util.Scanner;
+
+import loafy.command.Command;
+import loafy.loafyexception.LoafyException;
+import loafy.parser.Parser;
+import loafy.storage.Storage;
+import loafy.tasklist.TaskList;
+import loafy.ui.Ui;
 
 public class Loafy {
     private TaskList tasks;
@@ -8,15 +17,15 @@ public class Loafy {
         this.ui = new Ui();
         Storage storage = new Storage(filePath);
         try {
-            this.tasks = TaskList.ofLoadFromTxt(storage);
+            this.tasks = new TaskList(storage, storage.getList());
         } catch (LoafyException e) {
-            ui.errorMsg(e);
+            ui.showStartError(e);
             this.tasks = new TaskList(storage);
         }
     }
 
     public void run() {
-        this.ui.greeting();
+        this.ui.showGreeting();
 
         Scanner input = new Scanner(System.in);
         boolean exit = false;
@@ -29,11 +38,9 @@ public class Loafy {
                 command.execute(this.tasks, this.ui);
                 exit = command.isExit();
             } catch (LoafyException e) {
-                this.ui.errorMsg(e);
+                this.ui.showError(e);
             }
         }
-
-        this.ui.exit();
     }
 
     public static void main(String[] args) {

@@ -1,11 +1,26 @@
+package loafy.parser;
+
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.LocalDateTime;
 
 import java.util.Arrays;
 
+import loafy.command.AddCommand;
+import loafy.command.Command;
+import loafy.command.DeleteCommand;
+import loafy.command.ExitCommand;
+import loafy.command.ListCommand;
+import loafy.command.MarkCommand;
+import loafy.loafyexception.LoafyException;
+import loafy.task.Deadline;
+import loafy.task.Event;
+import loafy.task.Task;
+import loafy.task.Todo;
+
+
 public class Parser {
-    static Command parse(String line) throws LoafyException {
+    public static Command parse(String line) throws LoafyException {
         String[] arr = line.split(" ");
         if (arr.length == 0) {
             throw LoafyException.ofEmptyInput();
@@ -78,12 +93,12 @@ public class Parser {
         }
     }
 
-    static String joinRange(String[] arr, int start, int end) {
+    public static String joinRange(String[] arr, int start, int end) {
         String[] subArr = Arrays.copyOfRange(arr, start, end);
         return String.join(" ", subArr);
     }
 
-    static LocalDateTime parseDate(String date) throws LoafyException {
+    public static LocalDateTime parseDate(String date) throws LoafyException {
         try {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             return LocalDateTime.parse(date, dtf);

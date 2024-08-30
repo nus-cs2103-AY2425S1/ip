@@ -1,13 +1,15 @@
-abstract class Task {
+package loafy.task;
+
+public abstract class Task {
     private boolean isDone;
     private final String name;
 
-    Task(boolean isDone, String name) {
+    public Task(boolean isDone, String name) {
         this.isDone = isDone;
         this.name = name;
     }
 
-    Task(String name) {
+    public Task(String name) {
         this(false, name);
     }
 

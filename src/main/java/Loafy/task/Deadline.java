@@ -1,15 +1,17 @@
+package loafy.task;
+
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {
     private final LocalDateTime date;
 
-    Deadline(String name, LocalDateTime date) {
+    public Deadline(String name, LocalDateTime date) {
         super(name);
         this.date = date;
     }
 
-    Deadline(boolean isDone, String name, LocalDateTime date) {
+    public Deadline(boolean isDone, String name, LocalDateTime date) {
         super(isDone, name);
         this.date = date;
     }

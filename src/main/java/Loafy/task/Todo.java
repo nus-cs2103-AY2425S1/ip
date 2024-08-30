@@ -1,9 +1,11 @@
+package loafy.task;
+
 public class Todo extends Task {
-    Todo(String name) {
+    public Todo(String name) {
         super(name);
     }
 
-    Todo(boolean isDone, String name) {
+    public Todo(boolean isDone, String name) {
         super(isDone, name);
     }
 
