@@ -96,9 +96,10 @@ public class TaskList {
         }
         String[] dateCommands = command.split("/");
         try {
+            LocalDate startDate = LocalDate.parse(dateCommands[1].substring(5).trim(), IN_FORMATTER);
             LocalDate endDate = LocalDate.parse(dateCommands[1].substring(3).trim(), IN_FORMATTER);
-            Task deadlineTask = new Deadline(dateCommands[0], endDate);
-            tasks.add(deadlineTask);
+            Task eventTask = new Event(dateCommands[1], startDate, endDate);
+            tasks.add(eventTask);
         } catch (DateTimeParseException e) {
             System.out.println(e.getMessage());
         }

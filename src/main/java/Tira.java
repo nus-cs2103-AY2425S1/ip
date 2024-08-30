@@ -98,6 +98,8 @@ public class Tira {
             printer.flush();
         }
     }
+/*
+
 
     private static void markTask(PrintWriter printer, ArrayList<Task> taskList, String[] splitCommand) throws TiraException {
         if (splitCommand.length < 2) {
@@ -151,8 +153,18 @@ public class Tira {
     }
 
     private static void addEvent(ArrayList<Task> taskList, String[] splitCommand, String command) throws TiraException {
+        try {
+            String startDateString = dateCommands2[1].substring(5);
+            String endDateString = dateCommands2[2].substring(3);
+            System.out.println(startDateString + endDateString);
+            LocalDate startDate = LocalDate.parse(dateCommands2[1].substring(5).trim(), IN_FORMATTER);
+            LocalDate endDate = LocalDate.parse(dateCommands2[2].substring(3).trim(), IN_FORMATTER);
+            Task eventTask = new Event(dateCommands2[0].substring(6), startDate, endDate);
+            Tira.addTask(eventTask, taskList);
+        } catch (DateTimeParseException e) {
+            System.out.println(e.getMessage());
 
-    }
+        }
 
     private static void delete(PrintWriter printer, ArrayList<Task> taskList, String[] splitCommand) throws TiraException {
         if (splitCommand.length < 2) {
@@ -170,6 +182,8 @@ public class Tira {
         System.out.println("Miao! Got it. I've added this task to my cat brain:\n" +
                 task.toString() + "\nNow you have " + taskList.size() + " task(s) in the list!");
     }
+
+ */
 }
 
 
