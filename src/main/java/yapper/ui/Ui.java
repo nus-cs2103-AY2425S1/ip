@@ -1,3 +1,7 @@
+package yapper.ui;
+
+import yapper.task.Task;
+import yapper.task.TaskList;
 import java.util.Scanner;
 
 public class Ui {

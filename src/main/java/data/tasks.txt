@@ -1,5 +1,7 @@
-T | 0 | lol
 D | 1 | submit project | 2024-10-10 1800
 T | 0 | lol
+E | 1 | team meeting | 2024-11-10 1400 | 2024-11-10 1600
 E | 0 | team meeting | 2024-11-10 1400 | 2024-11-10 1600
-E | 0 | team meeting | 2024-11-10 1400 | 2024-11-10 1600
+T | 0 | 2
+T | 0 | 2
+T | 0 | Buy milk
