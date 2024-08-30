@@ -20,7 +20,7 @@ public class Storage {
 
     // Prepare the file for reading and writing
     protected static void init() {
-        f = new File("ip/src/main/java/Files/tasks.txt");
+        f = new File("src/main/java/Files/tasks.txt");
         try {
             if (!f.exists()) {
                 f.createNewFile();
