@@ -1,12 +1,26 @@
 package morgana.parser;
 
-import morgana.exceptions.MorganaException;
-import morgana.commands.*;
-import morgana.task.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import morgana.commands.ByeCommand;
+import morgana.commands.Command;
+import morgana.commands.DeadlineCommand;
+import morgana.commands.DeleteCommand;
+import morgana.commands.EventCommand;
+import morgana.commands.ListCommand;
+import morgana.commands.MarkCommand;
+import morgana.commands.TodoCommand;
+import morgana.commands.UnmarkCommand;
+
+import morgana.exceptions.MorganaException;
+
+import morgana.task.Deadline;
+import morgana.task.Event;
+import morgana.task.Task;
+import morgana.task.TaskList;
+import morgana.task.Todo;
 
 public class Parser {
     public static Command parse(String line) throws MorganaException {
