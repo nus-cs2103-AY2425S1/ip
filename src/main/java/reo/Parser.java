@@ -17,13 +17,11 @@ public class Parser {
     private String[] words;
     private Command command;
     private TaskList tasks;
-    private Ui ui;
     private Storage storage;
-    public Parser(String input, TaskList tasks, Ui ui, Storage storage) {
+    public Parser(String input, TaskList tasks, Storage storage) {
         this.input = input;
         this.tasks = tasks;
         this.words = input.split("\\s+");
-        this.ui = ui;
         this.storage = storage;
 
         try {
@@ -39,100 +37,99 @@ public class Parser {
      *
      * @return The String representation of the stored ArrayList so far.
      */
-    public void parse() {
+    public String parse() {
         switch (command) {
-        case LIST:
-            ui.list();
-            break;
-        case TODO:
-            try {
-                String[] parts1 = input.split(" ", 2);
-                Todo toPush = new Todo(parts1[1], false);
-                tasks.addTodo(toPush);
-                storage.writeFile(toPush);
-                ui.addTodo(toPush);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                ui.addTodoError();
-            }
-            break;
-        case MARK:
-            try {
-                tasks.markTask(Integer.valueOf(words[1]) - 1);
-                storage.editLine(Integer.valueOf(words[1]), "mark");
-                ui.mark(tasks.get(Integer.valueOf(words[1]) - 1));
-            } catch (ArrayIndexOutOfBoundsException e) {
-                ui.markError();
-            }
-            break;
-        case UNMARK:
-            try {
-                tasks.unmarkTask(Integer.valueOf(words[1]) - 1);
-                storage.editLine(Integer.valueOf(words[1]), "unmark");
-                ui.unmark(tasks.get(Integer.valueOf(words[1]) - 1));
-            } catch (ArrayIndexOutOfBoundsException e) {
-                ui.unmarkError();
-            }
-            break;
-        case DEADLINE:
-            try {
-                String[] parts = input.split("/by", 2);
-                String[] firstPart = parts[0].split(" ", 2);
+            case LIST:
+                return tasks.toString();
+            case TODO:
+                try {
+                    String[] parts1 = input.split(" ", 2);
+                    Todo toPush = new Todo(parts1[1], false);
+                    tasks.addTodo(toPush);
+                    storage.writeFile(toPush);
+                    return "I've added this todo:\n " + toPush.toString() + "\n"
+                            + "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    return "Please enter a valid task name.\n";
+                }
+            case MARK:
+                try {
+                    tasks.markTask(Integer.valueOf(words[1]) - 1);
+                    storage.editLine(Integer.parseInt(words[1]), "mark");
+                    Task toMark = tasks.get(Integer.parseInt(words[1]) - 1);
+                    return "Good job! I've marked this item as done:\n" + toMark.toString() + "\n";
+                } catch (IndexOutOfBoundsException e) {
+                    return "Please enter a valid task number.\n";
+                }
+            case UNMARK:
+                try {
+                    tasks.unmarkTask(Integer.valueOf(words[1]) - 1);
+                    storage.editLine(Integer.valueOf(words[1]), "unmark");
+                    Task toUnmark = tasks.get(Integer.valueOf(words[1]) - 1);
+                    return "Get better, I've marked this item as not done:\n" + toUnmark.toString() + "\n";
+                } catch (IndexOutOfBoundsException e) {
+                    return "Please enter a valid task number.\n";
+                }
+            case DEADLINE:
+                try {
+                    String[] parts = input.split("/by", 2);
+                    String[] firstPart = parts[0].split(" ", 2);
 
-                String name = firstPart[1];
-                String deadline = parts[1].trim();
+                    String name = firstPart[1];
+                    String deadline = parts[1].trim();
 
-                Deadline toPush1 = new Deadline(name, false, deadline);
-                tasks.addDeadline(toPush1);
-                storage.writeFile(toPush1);
-                ui.addDeadline(toPush1);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                ui.addDeadlineError();
-            }
-            break;
-        case EVENT:
-            try {
-                String[] parts = input.split("/from", 2);
-                String[] firstPart = parts[0].split(" ", 2);
-                String[] secondPart = parts[1].split("/to", 2);
+                    Deadline deadlineToPush = new Deadline(name, false, deadline);
+                    tasks.addDeadline(deadlineToPush);
+                    storage.writeFile(deadlineToPush);
+                    return "I've added this deadline:\n" + deadlineToPush.toString() + "\n"
+                            + "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    return "Please enter a valid task name and deadline.";
+                }
+            case EVENT:
+                try {
+                    String[] parts = input.split("/from", 2);
+                    String[] firstPart = parts[0].split(" ", 2);
+                    String[] secondPart = parts[1].split("/to", 2);
 
-                String name = firstPart[1];
-                String from = secondPart[0].trim();
-                String to = secondPart[1].trim();
+                    String name = firstPart[1];
+                    String from = secondPart[0].trim();
+                    String to = secondPart[1].trim();
 
-                Event toPush2 = new Event(name, false, to, from);
-                tasks.addEvent(toPush2);
-                storage.writeFile(toPush2);
-                ui.addEvent(toPush2);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                ui.addEventError();
+                    Event eventToPush = new Event(name, false, to, from);
+                    tasks.addEvent(eventToPush);
+                    storage.writeFile(eventToPush);
+                    return "I've added this event:\n" + eventToPush.toString() + "\n"
+                            + "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    return "Please enter a valid task name and to & from dates.";
+                }
+            case DELETE:
+                try {
+                    int index = Integer.valueOf(words[1]) - 1;
+                    // reo.Task toRemove = tasks.get(index);
+                    tasks.deleteTask(index);
+                    storage.removeLine(index + 1);
+                    Task toDelete = tasks.get(index);
+                    return "I've deleted this task:\n" + toDelete.toString() + "\n"
+                            + "Now, you have " + tasks.getSize() + " task(s) in your list.\n";
+                } catch (IndexOutOfBoundsException e) {
+                    return "Please enter a valid task number.\n";
+                }
+            case FIND:
+                try {
+                    String keyword = words[1];
+                    TaskList filtered = new TaskList(tasks.filter(keyword));
+                    return "Here are the matching tasks in your list:\n" + filtered.toString() + "\n";
+                } catch (IndexOutOfBoundsException e) {
+                    return "ERROR: Please enter a valid keyword to search for.";
+                }
+            case BYE:
+                return "Bye!";
+            case UNKNOWN:
+                return "ERROR: Please enter a valid command.\n";
+            default:
+                return "ERROR: Please enter a valid command.\n";
             }
-            break;
-        case DELETE:
-            try {
-                int index = Integer.valueOf(words[1]) - 1;
-                // reo.Task toRemove = tasks.get(index);
-                tasks.deleteTask(index);
-                storage.removeLine(index + 1);
-                ui.delete(tasks.get(index));
-            } catch (IndexOutOfBoundsException e) {
-                ui.deleteError();
-            }
-            break;
-        case FIND:
-            try {
-                String keyword = words[1];
-                TaskList filtered = new TaskList(tasks.filter(keyword));
-                ui.find(filtered);
-            } catch (IndexOutOfBoundsException e) {
-                ui.findError();
-            }
-            break;
-        case BYE:
-            ui.exit();
-            break;
-        case UNKNOWN:
-            ui.enterCommandError();
-            break;
-        }
     }
 }
