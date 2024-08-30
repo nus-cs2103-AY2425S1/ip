@@ -31,4 +31,8 @@ public class Task {
     public String storageString() {
         return "";
     }
+
+    public boolean hasSearchString(String searchString) {
+        return this.taskName.contains(searchString);
+    }
 }

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import alex.command.FindCommand;
 import alex.task.Deadline;
 import alex.task.Event;
 import alex.task.Task;
@@ -37,9 +38,11 @@ public class Parser {
             return new DeleteCommand(lineScanner);
         case "todo", "deadline", "event":
             return new AddCommand(lineScanner, response);
+        case "find":
+            return new FindCommand(lineScanner);
         default:
-            throw new AlexException("Sorry! Alex doesn't understand you. Please only start with 'todo', " +
-                    "'deadline', 'event', 'mark', 'unmark', 'list' or 'bye'!");
+            throw new AlexException("Sorry! Alex doesn't understand you. Please only start with\n'todo', " +
+                    "'deadline', 'event', 'mark', 'unmark', 'list', 'find'\nor 'bye'!");
         }
     }
     public static LocalDateTime convertDateTime(String deadline) throws DateTimeParseException {
@@ -54,7 +57,7 @@ public class Parser {
         }
         if (arrOfStr.isEmpty()) {
             throw new AlexException("Oh no! Alex doesn't like that the todo task is blank :( " +
-                    "You have to provide a task!");
+                    "\nYou have to provide a task!");
         }
         return new Todo(String.join(" ", arrOfStr), isDone);
     }
@@ -79,11 +82,11 @@ public class Parser {
 
         if ((!hasProvidedDeadline && !deadline.isEmpty() && description.isEmpty())
                 || (hasProvidedDeadline && !description.isEmpty() && deadline.isEmpty())) {
-            throw new AlexException("Oh no! Alex doesn't like that no deadline date is provided :( Please provide a " +
-                    "deadline date by writing '/by' followed by the deadline!");
+            throw new AlexException("Oh no! Alex doesn't like that no deadline date is provided :(\nPlease provide a " +
+                    "deadline date by writing '/by' followed by\nthe deadline!");
         }
         if (description.isEmpty() ) {
-            throw new AlexException("Oh no! Alex doesn't like that the deadline task is blank :( You have to provide " +
+            throw new AlexException("Oh no! Alex doesn't like that the deadline task is blank :( \nYou have to provide " +
                     "a task!");
         }
         return new Deadline(description, isDone, convertDateTime(deadline));
@@ -97,7 +100,7 @@ public class Parser {
         boolean isEnd = false;
 
         if (!lineScanner.hasNext()) {
-            throw new AlexException("Oh no! Alex doesn't like that the event task is blank :( You have to provide " +
+            throw new AlexException("Oh no! Alex doesn't like that the event task is blank :(\nYou have to provide " +
                     "a task!");
         }
 
@@ -110,7 +113,7 @@ public class Parser {
                     isStart = true;
                 }
                 if (isEnd) {
-                    throw new AlexException("Oh no! Alex doesn't like that /to comes before /from :( You should " +
+                    throw new AlexException("Oh no! Alex doesn't like that /to comes before /from :(\nYou should " +
                             "write the start time first before the end time");
                 }
             } else if (next.equals("/to")) {
@@ -124,15 +127,15 @@ public class Parser {
             }
         }
         if (!isStart || start.isEmpty()) {
-            throw new AlexException("Oh no! Alex doesn't like that no start time is provided :( You have to provide a " +
-                    "start time with '/from' followed by the time!");
+            throw new AlexException("Oh no! Alex doesn't like that no start time is provided :(\nYou have to " +
+                    "provide a start time with '/from' followed\nby the time!");
         }
         if (!isEnd) {
-            throw new AlexException("Oh no! Alex doesn't like that no end time is provided :( You have to provide " +
+            throw new AlexException("Oh no! Alex doesn't like that no end time is provided :(\nYou have to provide " +
                     "an end time with '/to' followed by the time!");
         }
         if (description.isEmpty()) {
-            throw new AlexException("Oh no! Alex doesn't like that the event task is blank :( You have to provide " +
+            throw new AlexException("Oh no! Alex doesn't like that the event task is blank :(\nYou have to provide " +
                     "a task!");
         }
         return new Event(description, isDone, convertDateTime(start),

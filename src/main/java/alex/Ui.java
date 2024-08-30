@@ -45,8 +45,8 @@ public class Ui {
         return inputScanner.nextLine();
     }
 
-    public void showTasks(TaskList tasks) {
-        tasks.showTasks(this.line);
+    public void showTasks(TaskList tasks, String message) {
+        tasks.showTasks(this.line, message);
     }
 
     public void showMark(Task task) {

@@ -41,11 +41,22 @@ public class TaskList {
         ui.showUnmark(task);
     }
 
-    public void showTasks(String line) {
-        System.out.println(line + "\nHere are the tasks in your list: ");
+    public void showTasks(String line, String message) {
+        System.out.println(line + message);
         for (int i = 1; i <= this.list.size(); i++) {
             System.out.println(i + "." + this.list.get(i - 1));
         }
         System.out.println(line);
+    }
+
+    public void findWord(String string, Ui ui) {
+        ArrayList<Task> list = new ArrayList<>();
+        for (int i = 0; i < this.list.size(); i++) {
+            Task task = this.list.get(i);
+            if (task.hasSearchString(string)) {
+                list.add(task);
+            }
+        }
+        ui.showTasks(new TaskList(list), "\nHere are the matching tasks in your list: ");
     }
 }
