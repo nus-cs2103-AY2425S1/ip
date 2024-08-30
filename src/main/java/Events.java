@@ -15,6 +15,6 @@ public class Events extends Task {
 
     @Override
     public String toSaveString() {
-        return "E | " + (isDone() ? "1" : "0") + " | " + getDescription();
+        return "E | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + from + " | " + to;
     }
 }

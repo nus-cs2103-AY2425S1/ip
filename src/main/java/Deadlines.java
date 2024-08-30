@@ -14,6 +14,6 @@ public class Deadlines extends Task {
 
     @Override
     public String toSaveString() {
-        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription();
+        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + by;
     }
 }
