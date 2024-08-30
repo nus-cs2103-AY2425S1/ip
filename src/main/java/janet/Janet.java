@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Represents the entry point of Janet.
+ */
 public class Janet {
     private TaskList tasks;
     private final Ui ui;
@@ -20,6 +23,9 @@ public class Janet {
         }
     }
 
+    /**
+     * Runs the Janet program.
+     */
     public void run() {
         ui.showWelcome();
         Scanner input = new Scanner(System.in);
