@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 /**
  * Duck class is a chatbot that helps with tasks such as todo, event and deadline.
@@ -63,7 +64,8 @@ public class Duck {
                 Duck.saveTasks(list);
             } else if (userCommand.startsWith("deadline")) {
                 String[] commandParts = userCommand.split("/by");
-                Task task = new Deadline(commandParts[0].split(" ", 2)[1], commandParts[1]);
+                LocalDate date = LocalDate.parse(commandParts[1]);
+                Task task = new Deadline(commandParts[0].split(" ", 2)[1], date);
                 list.add(task);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(task);
@@ -108,7 +110,7 @@ public class Duck {
                 String[] parts = line.split(" \\| ");
                 Task task = switch (parts[0]) {
                     case "T" -> new ToDo(parts[2]);
-                    case "D" -> new Deadline(parts[2], parts[3]);
+                    case "D" -> new Deadline(parts[2], LocalDate.parse(parts[3]));
                     case "E" -> new Event(parts[2], parts[3], parts[4]);
                     default -> throw new InvalidCommandException("Invalid task type in file");
                 };
