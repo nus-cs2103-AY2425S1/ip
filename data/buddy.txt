@@ -1,5 +1,1 @@
-E | 0 | team project | Mon 2pm | 4pm
-T | 1 | work
-T | 0 | project
-D | 1 | project work | Mon 2pm
-D | 0 | project | 2pm
+D | 0 | return book | 12/12/2024 1200
