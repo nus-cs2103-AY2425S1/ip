@@ -7,6 +7,12 @@ public class Parser {
     private Ui ui;
     private TaskList taskList;
 
+    /**
+     * Creates a parser which determined action of user input and make changes
+     * to taskList and give reaction to ui to print out
+     * @param taskList of tasks
+     * @param ui user interface to print out answer to user input
+     */
     public Parser(TaskList taskList, Ui ui) {
         this.taskList = taskList;
         this.ui = ui;
