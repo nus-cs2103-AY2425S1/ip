@@ -1,13 +1,16 @@
 package atlas.commands;
 
+import java.time.LocalDateTime;
+
 import atlas.exceptions.AtlasException;
 import atlas.storage.Storage;
 import atlas.tasks.Deadline;
 import atlas.tasks.TaskList;
 import atlas.ui.Ui;
 
-import java.time.LocalDateTime;
-
+/**
+ * Creates an deadline when this class is instantiated.
+ */
 public class DeadlineCommand extends Command {
     private final String name;
     private final LocalDateTime deadline;
@@ -17,10 +20,10 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * @param tasks
-     * @param ui
-     * @param storage
-     * @throws AtlasException
+     * @param tasks The current list of tasks in the chatbot.
+     * @param ui The current ui object the chatbot uses to display messages
+     * @param storage The storage object the chatbot uses to store and load tasks
+     * @throws AtlasException The exception to be thrown in the event of any error.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AtlasException {

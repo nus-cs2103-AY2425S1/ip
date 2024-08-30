@@ -8,8 +8,10 @@ public class Deadline extends Task {
     private final LocalDateTime deadline;
 
     /**
-     * @param name
-     * @param deadline
+     * Creates a deadline object.
+     *
+     * @param name The name or description of the deadline.
+     * @param deadline The date and time to finish this deadline by.
      */
     public Deadline(String name, LocalDateTime deadline) {
         super(name);
@@ -17,20 +19,20 @@ public class Deadline extends Task {
     }
 
     /**
-     * @return
+     * @return String The format in which this deadline is stored in a file.
      */
     @Override
     public String toFileString() {
         return String.format("D %s | %s", super.toFileString(),
-                this.deadline.format(DateTime.DateTimeFileOutputFormatter));
+                this.deadline.format(DateTime.DATE_TIME_FILE_OUTPUT_FORMATTER));
     }
 
     /**
-     * @return
+     * @return String The format in which this deadline is shown in the ui.
      */
     @Override
     public String toString() {
         return String.format("[D] %s (by: %s)", super.toString(),
-                this.deadline.format(DateTime.DateTimePrintOutputFormatter));
+                this.deadline.format(DateTime.DATE_TIME_PRINT_OUTPUT_FORMATTER));
     }
 }

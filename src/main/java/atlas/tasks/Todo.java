@@ -2,14 +2,16 @@ package atlas.tasks;
 
 public class Todo extends Task {
     /**
-     * @param name
+     * Creates a Todo object.
+     *
+     * @param name The name or description of the todo.
      */
     public Todo(String name) {
         super(name);
     }
 
     /**
-     * @return
+     * @return String The format in which this todo is stored in a file.
      */
     @Override
     public String toFileString() {
@@ -17,7 +19,7 @@ public class Todo extends Task {
     }
 
     /**
-     * @return
+     * @return String The format in which this todo is shown in the ui.
      */
     @Override
     public String toString() {

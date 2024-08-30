@@ -9,9 +9,11 @@ public class Event extends Task {
     private final LocalDateTime endTime;
 
     /**
-     * @param name
-     * @param startTime
-     * @param endTime
+     * Creates a deadline object.
+     *
+     * @param name The name or description of the deadline.
+     * @param startTime The date and time to start this event at.
+     * @param endTime The date and time to finish this event by.
      */
     public Event(String name, LocalDateTime startTime, LocalDateTime endTime) {
         super(name);
@@ -20,19 +22,22 @@ public class Event extends Task {
     }
 
     /**
-     * @return
+     * @return String The format in which this event is stored in a file.
      */
     @Override
     public String toFileString() {
         return String.format("E %s | %s to %s", super.toFileString(),
-                this.startTime.format(DateTime.DateTimeFileOutputFormatter),
-                this.endTime.format(DateTime.DateTimeFileOutputFormatter));
+                this.startTime.format(DateTime.DATE_TIME_FILE_OUTPUT_FORMATTER),
+                this.endTime.format(DateTime.DATE_TIME_FILE_OUTPUT_FORMATTER));
     }
 
+    /**
+     * @return String The format in which this event is shown in the ui.
+     */
     @Override
     public String toString() {
         return String.format("[E] %s (from: %s to: %s)", super.toString(),
-                this.startTime.format(DateTime.DateTimePrintOutputFormatter),
-                this.endTime.format(DateTime.DateTimePrintOutputFormatter));
+                this.startTime.format(DateTime.DATE_TIME_PRINT_OUTPUT_FORMATTER),
+                this.endTime.format(DateTime.DATE_TIME_PRINT_OUTPUT_FORMATTER));
     }
 }

@@ -1,12 +1,26 @@
 package atlas.parser;
 
-import atlas.commands.*;
-
-import atlas.exceptions.AtlasException;
-import atlas.utils.DateTime;
-
 import java.time.DateTimeException;
 
+import atlas.commands.AllCommand;
+import atlas.commands.Command;
+import atlas.commands.DeadlineCommand;
+import atlas.commands.DeleteCommand;
+import atlas.commands.EventCommand;
+import atlas.commands.ExitCommand;
+import atlas.commands.FindCommand;
+import atlas.commands.MarkCommand;
+import atlas.commands.ListCommand;
+import atlas.commands.TodoCommand;
+import atlas.commands.UnmarkCommand;
+
+import atlas.exceptions.AtlasException;
+
+import atlas.utils.DateTime;
+
+/**
+ * Parser class which contain methods to parse the command typed into the chatbot by the user.
+ */
 public class Parser {
     /**
      * Parses the command typed into the chatbot by the user.
@@ -24,7 +38,7 @@ public class Parser {
                 return new ExitCommand();
             case LIST:
                 if (commandsArray.length > 1) {
-                    throw new AtlasException("To view the list, the list command should not be called with any additional arguments.");
+                    throw new AtlasException("List command should not be called with any additional arguments.");
                 }
 
                 return new ListCommand();
@@ -34,7 +48,7 @@ public class Parser {
                 } else if (isNotNumber(commandsArray[1])) {
                     throw new AtlasException("Task number provided is not a number.");
                 } else if (commandsArray.length > 2) {
-                    throw new AtlasException("Marking a task as done only requires the task number without any additional arguments.");
+                    throw new AtlasException("Marking a task as done only requires the task number.");
                 }
 
                 int markIndex = Integer.parseInt(commandsArray[1]) - 1;
@@ -45,7 +59,7 @@ public class Parser {
                 } else if (isNotNumber(commandsArray[1])) {
                     throw new AtlasException("Task number provided is not a number.");
                 } else if (commandsArray.length > 2) {
-                    throw new AtlasException("Unmarking a task as undone only requires the task number without any additional arguments.");
+                    throw new AtlasException("Unmarking a task as undone only requires the task number.");
                 }
 
                 int unmarkIndex = Integer.parseInt(commandsArray[1]) - 1;
@@ -71,7 +85,7 @@ public class Parser {
                 if (commandsArray.length == 1) {
                     throw new AtlasException("The description of an event cannot be empty.");
                 } else if (commandsArray.length < 4) {
-                    throw new AtlasException("An event requires a description, start time and end time, in that order.");
+                    throw new AtlasException("An event requires a description, start and end times, in that order.");
                 }
 
                 return new EventCommand(commandsArray[1],
@@ -83,7 +97,7 @@ public class Parser {
                 } else if (isNotNumber(commandsArray[1])) {
                     throw new AtlasException("Task number provided is not a number.");
                 } else if (commandsArray.length > 2) {
-                    throw new AtlasException("Deleting a task only requires the task number without any additional arguments.");
+                    throw new AtlasException("Deleting a task only requires the task number.");
                 }
 
                 int deleteIndex = Integer.parseInt(commandsArray[1]) - 1;

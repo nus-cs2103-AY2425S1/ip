@@ -1,12 +1,5 @@
 package atlas.storage;
 
-import atlas.exceptions.AtlasException;
-import atlas.tasks.Deadline;
-import atlas.tasks.Event;
-import atlas.tasks.Task;
-import atlas.tasks.Todo;
-import atlas.utils.DateTime;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,6 +8,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import atlas.exceptions.AtlasException;
+import atlas.tasks.Deadline;
+import atlas.tasks.Event;
+import atlas.tasks.Task;
+import atlas.tasks.Todo;
+import atlas.utils.DateTime;
+
+/**
+ * Storage class which contains methods to load and save tasks from and into files.
+ */
 public class Storage {
     private final String filepath;
     private final ArrayList<Task> tasks;

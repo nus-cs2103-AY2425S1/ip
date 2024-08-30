@@ -7,8 +7,10 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class DateTime {
-    public static final DateTimeFormatter DateTimePrintOutputFormatter = DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
-    public static final DateTimeFormatter DateTimeFileOutputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    public static final DateTimeFormatter DATE_TIME_PRINT_OUTPUT_FORMATTER =
+            DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
+    public static final DateTimeFormatter DATE_TIME_FILE_OUTPUT_FORMATTER =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Generates LocalDateTime from the date and time entered by the user.
