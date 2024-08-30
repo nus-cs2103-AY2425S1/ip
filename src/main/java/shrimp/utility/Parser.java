@@ -62,8 +62,12 @@ public class Parser {
             return CommandType.DELETE;
         } else if (userInput.startsWith("clear")) {
             return CommandType.CLEAR;
-        }else {
+        } else {
             return CommandType.ERROR;
         }
+    }
+
+    public enum CommandType {
+        LIST, BYE, MARK, UNMARK, ADD, DEADLINE, EVENT, ERROR, DELETE, CLEAR
     }
 }

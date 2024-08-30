@@ -101,7 +101,8 @@ public class ShrimpException extends Exception {
          */
         public NumberFormatException() {
             super(errorMessage, errorCode);
-        };
+        }
+
     }
 
     /**
@@ -116,7 +117,8 @@ public class ShrimpException extends Exception {
          */
         public EmptyArrayException() {
             super(errorMessage, errorCode);
-        };
+        }
+
     }
 
     /**
@@ -131,7 +133,8 @@ public class ShrimpException extends Exception {
          */
         public ArrayIndexOutOfBoundException() {
             super(errorMessage, errorCode);
-        };
+        }
+
     }
 
     /**
@@ -146,6 +149,7 @@ public class ShrimpException extends Exception {
          */
         public InvalidDateTimeException() {
             super(errorMessage, errorCode);
-        };
+        }
+
     }
 }

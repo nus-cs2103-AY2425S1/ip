@@ -25,7 +25,7 @@ public abstract class Task {
      * @return "X" if the task is done, otherwise " ".
      */
     private String getIsDone() {
-        return (isDone ? "X" : " "); // mark done shrimp.task with X
+        return (isDone ? "X" : " "); // mark done task with X
     }
 
     /**
