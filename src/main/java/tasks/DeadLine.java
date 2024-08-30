@@ -42,13 +42,4 @@ public class DeadLine extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         return "D | " + super.toFileFormat() + " | " + by.format(formatter);
     }
-
-    /**
-     * Returns the deadline by which the task must be completed.
-     *
-     * @return The date and time of the task's deadline.
-     */
-    public LocalDateTime getBy() {
-        return by;
-    }
 }

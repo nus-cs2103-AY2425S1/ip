@@ -17,7 +17,7 @@ if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java; t
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Jar < input.txt > ACTUAL.TXT
+java -classpath ../bin jar.Jar < input.txt > ACTUAL.TXT
 
 # compare the output to the expected output
 diff ACTUAL.TXT EXPECTED.TXT

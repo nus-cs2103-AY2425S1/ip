@@ -128,6 +128,18 @@ public class TaskList {
         return this.tasks;
     }
 
+    /**
+     * Finds and returns a list of tasks that contain the specified keyword in their description.
+     * <p>
+     * This method searches through the list of tasks and collects all tasks whose string representation
+     * contains the provided keyword. If the keyword is null, empty, or only whitespace, a {@link JarException}
+     * is thrown to indicate that the search criteria is invalid.
+     * </p>
+     *
+     * @param keyword The keyword to search for in the task descriptions.
+     * @return An {@link ArrayList} of {@link Task} objects that match the keyword.
+     * @throws JarException If the keyword is null, empty, or only contains whitespace.
+     */
     public ArrayList<Task> findTasks(String keyword) throws JarException {
         if (keyword == null || keyword.trim().isEmpty()) {
             throw new JarException("Task cannot be empty!");

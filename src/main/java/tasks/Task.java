@@ -27,15 +27,6 @@ public class Task {
     }
 
     /**
-     * Returns the completion status of the task.
-     *
-     * @return True if the task is completed, false otherwise.
-     */
-    public boolean getStatus() {
-        return this.isDone;
-    }
-
-    /**
      * Returns a string representation of the task, including its completion status and description.
      *
      * @return A string representation of the task.

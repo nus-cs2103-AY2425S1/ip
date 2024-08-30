@@ -1,3 +1,5 @@
+package jar;
+
 import exceptions.JarException;
 import parser.Parser;
 import storage.Storage;
@@ -7,7 +9,7 @@ import ui.Ui;
 import java.io.IOException;
 
 /**
- * The main class that runs the Jar bot application.
+ * The main class that runs the jar.Jar bot application.
  * This class initializes the necessary components and controls the flow of the program.
  */
 public class Jar {
@@ -18,7 +20,7 @@ public class Jar {
     private Storage storage;
 
     /**
-     * Constructs a Jar bot with the specified file path for storage.
+     * Constructs a jar.Jar bot with the specified file path for storage.
      *
      * @param filePath The file path where tasks will be stored.
      */
@@ -35,22 +37,30 @@ public class Jar {
     }
 
     /**
-     * Runs the Jar bot, handling user input and processing commands in a loop until the user exits.
+     * Processes the user input and returns the response from the Jar bot.
+     * <p>
+     * This method handles the user's input command by passing it to the parser,
+     * which then executes the corresponding action. If the command is "exit",
+     * it saves the tasks and returns a goodbye message. If any exceptions occur
+     * during processing, an error message is returned.
+     * </p>
+     *
+     * @param input The user's input command as a string.
+     * @return The response from the Jar bot as a string. If the input command is "exit",
+     * the response will include the goodbye message after saving tasks.
+     * If an error occurs during processing, the response will contain an error message.
      */
-    public void runBot() {
-        ui.showWelcome();
-        boolean isRunning = true;
-        while (isRunning) {
-            String userInput = ui.readCommand();
-            ui.showLine();
-            try {
-                isRunning = parser.handleCommand(userInput, taskList, ui);
-            } catch (JarException e) {
-                ui.showResponse(e.getMessage());
+    public String getResponse(String input) {
+        try {
+            String output = parser.handleCommand(input, taskList, ui);
+            if (output.equalsIgnoreCase("exit")) {
+                saveTasksBeforeExit();
+                output = ui.showGoodbye();
             }
-            ui.showLine();
+            return output;
+        } catch (JarException e) {
+            return "Error: " + e.getMessage();
         }
-        saveTasksBeforeExit();
     }
 
     /**
@@ -64,15 +74,5 @@ public class Jar {
         } catch (IOException e) {
             ui.showResponse("Error saving tasks: " + e.getMessage());
         }
-    }
-
-    /**
-     * The main entry point of the Jar bot application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        Jar jar = new Jar("./data/jar.txt");
-        jar.runBot();
     }
 }

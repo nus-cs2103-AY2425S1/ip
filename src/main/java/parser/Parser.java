@@ -104,25 +104,26 @@ public class Parser {
      * @param command  The user command string.
      * @param taskList The list of tasks in the Jar Bot application.
      * @param ui       The user interface used to interact with the user.
-     * @return A boolean indicating whether the application should continue running.
+     * @return A string containing the response to the command.
      * @throws JarException If the command is unknown or if an error occurs during command handling.
      */
-    public boolean handleCommand(String command, TaskList taskList, Ui ui) throws JarException {
+    public String handleCommand(String command, TaskList taskList, Ui ui) throws JarException {
         CommandName commandType = parseCommandType(command);
+        String response = "";
 
         switch (commandType) {
         case EXIT:
-            ui.showGoodbye();
-            return false;
+            response = "exit";
+            break;
         case LIST:
-            ui.showTaskList(taskList.listTasks());
+            response = ui.showTaskList(taskList.listTasks());
             break;
         case MARK:
             int markNumber = getTaskNumber(command);
             Task markTask = taskList.getTask(markNumber);
             if (markTask != null) {
                 taskList.markTaskAsDone(markNumber);
-                ui.showTaskMarked(markTask);
+                response = ui.showTaskMarked(markTask);
             } else {
                 throw new JarException("Invalid task number.");
             }
@@ -132,7 +133,7 @@ public class Parser {
             Task unmarkTask = taskList.getTask(unmarkNumber);
             if (unmarkTask != null) {
                 taskList.markTaskAsUndone(unmarkNumber);
-                ui.showTaskUnmarked(unmarkTask);
+                response = ui.showTaskUnmarked(unmarkTask);
             } else {
                 throw new JarException("Invalid task number.");
             }
@@ -141,27 +142,25 @@ public class Parser {
             int deleteNumber = getTaskNumber(command);
             Task deleteTask = taskList.getTask(deleteNumber);
             taskList.deleteTask(deleteNumber);
-            ui.showDeleteTask(deleteTask);
-            ui.showTaskCount(taskList.getTaskCount());
+            response = ui.showDeleteTask(deleteTask) + "\n" + ui.showTaskCount(taskList.getTaskCount());
             break;
         case TODO:
-            //Fallthrough
+            // Fallthrough
         case DEADLINE:
-            //Fallthrough
+            // Fallthrough
         case EVENT:
             Task task = parseTask(command);
             taskList.addTask(task);
-            ui.showTaskAdded(task.toString());
-            ui.showTaskCount(taskList.getTaskCount());
+            response = ui.showTaskAdded(task.toString()) + "\n" + ui.showTaskCount(taskList.getTaskCount());
             break;
         case FIND:
             String keyword = command.substring(4).trim();
-            ui.showTaskList(taskList.findTasks(keyword));
+            response = ui.showTaskList(taskList.findTasks(keyword));
             break;
         default:
             throw new JarException("Unknown command: " + command + ". Please enter a valid command.");
         }
-        return true;
+        return response;
     }
 
     /**
@@ -193,5 +192,4 @@ public class Parser {
             return CommandName.UNKNOWN;
         }
     }
-
 }
