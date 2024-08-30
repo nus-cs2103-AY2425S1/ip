@@ -35,6 +35,12 @@ public class Parser {
             }
             return new Command.ListCommand();
         }
+        case "find": {
+            if (cmd.length < 2) {
+                return new Command.FindCommand("");
+            }
+            return new Command.FindCommand(cmd[1]);
+        }
         case "mark": {
             int i;
             try {

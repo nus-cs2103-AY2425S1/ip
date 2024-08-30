@@ -37,7 +37,25 @@ public abstract class Command {
         }
 
     }
+    public static class FindCommand extends Command {
+        private String keyWord;
+        public FindCommand(String keyWord) {
+            this.keyWord = keyWord;
+        }
 
+        /**
+         * Process the command
+         * @param tasks
+         * @param ui
+         * @param storage
+         * @throws NahException
+         */
+        @Override
+        public void execute(TaskList tasks, UI ui, Storage storage) throws NahException {
+            ui.show(tasks.find(keyWord));
+        }
+
+    }
     public static class AddCommand extends Command {
         private Task task;
         public AddCommand(Task task) {

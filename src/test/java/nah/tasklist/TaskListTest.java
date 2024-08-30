@@ -101,4 +101,33 @@ public class TaskListTest {
                     e.getMessage());
         }
     }
+
+    @Test
+    public void findTest1() {
+        TaskList tasks = new TaskList();
+        tasks.add(new Task.ToDos("go to school with Jonh"));
+        try {
+            LocalDateTime time1 = LocalDateTime.
+                    parse("2025-12-25 2400".trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            tasks.add(new Task.Deadlines("celebrate Noel", time1));
+
+            LocalDateTime start = LocalDateTime.
+                    parse("2025-10-10 1800".trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            LocalDateTime end = LocalDateTime.
+                    parse("2025-10-10 2000".trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            tasks.add(new Task.Events("dinner", start, end));
+            LocalDateTime time2 = LocalDateTime.
+                    parse("2026-01-01 0000".trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            tasks.add(new Task.Deadlines("celebrate new year", time2));
+
+
+        } catch (DateTimeParseException e) {
+            fail("Unexpected exception");
+        }
+        assertEquals(" Oke. Here are the task that match keywords:\n" +
+                        " 1. [T] [ ] go to school with Jonh\n" +
+                        " 2. [D] [ ] celebrate Noel (by: Dec 26 2025, 12:00 AM)\n" +
+                        " 4. [D] [ ] celebrate new year (by: Jan 1 2026, 12:00 AM)\n",
+                tasks.find("ToDo celebrate"));
+    }
 }

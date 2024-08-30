@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 public abstract class Task {
     private String description;
     private boolean isDone = false;
-    Task(String description) {
+    public Task(String description) {
         this.description = description;
     }
 
@@ -36,6 +36,51 @@ public abstract class Task {
     }
 
     /**
+     * Check if a word appear in the description
+     * @param word
+     * @return
+     */
+    public boolean isMatch(String word) {
+        if (isReferToTask(word)) {
+            return true;
+        }
+        word = word.toLowerCase();
+        String[] words = this.description.toLowerCase().split(" ", 2);
+        while (words.length >= 2 && !words[1].trim().isEmpty()) {
+            if (words[0].trim().equals(word)) {
+                return true;
+            }
+            words = words[1].split(" ", 2);
+        }
+        if (words[0].trim().equals(word)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check if one of these words match the description
+     * @param words
+     * @return
+     */
+    public boolean isOneMatch(String words) {
+        if (words.trim().isEmpty()) {
+            return true;
+        }
+        String[] wordsList = words.split(" ", 2);
+
+       while (wordsList.length >= 2 && !wordsList[1].trim().isEmpty()) {
+           if (isMatch(wordsList[0])) {
+               return true;
+           }
+           wordsList = wordsList[1].split(" ", 2);
+       }
+       if (isMatch((wordsList[0]))) {
+           return true;
+       }
+        return false;
+    }
+    /**
      * Return a brief description of task
      * @return
      */
@@ -44,7 +89,7 @@ public abstract class Task {
         return isDone ? "[X]" : "[ ]";
     }
     public abstract LocalDateTime endTime();
-
+    public abstract boolean isReferToTask(String s);
     /**
      * Return String representation
      * @return
@@ -81,7 +126,10 @@ public abstract class Task {
             return "D | " + super.getStatus() + " | " + super.getTask() + " | "
                    + this.time.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
         }
-
+        @Override
+        public boolean isReferToTask(String s) {
+            return s.trim().toLowerCase().equals("deadline");
+        }
         /**
          * String representation
          * @return
@@ -127,6 +175,11 @@ public abstract class Task {
 
         }
 
+        @Override
+        public boolean isReferToTask(String s) {
+            return s.trim().toLowerCase().equals("event");
+        }
+
         /**
          * Return String representation
          * @return
@@ -155,6 +208,11 @@ public abstract class Task {
         @Override
         public String brief() {
             return "T | " + super.getStatus() + " | " + super.getTask();
+        }
+
+        @Override
+        public boolean isReferToTask(String s) {
+            return s.trim().toLowerCase().equals("todo");
         }
 
         /**

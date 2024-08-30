@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 import nah.data.Task;
 import nah.exceptions.NahException;
+import org.graalvm.collections.Pair;
 
 public class TaskList {
     private LinkedList<Task> tasks;
@@ -141,6 +142,31 @@ public class TaskList {
             s += tasks.get(i - 1).brief() + "\n";
         }
         return s;
+    }
+
+
+    /**
+     * Return a list of task that description partially match a string (string can have more than 2 words)
+     * @param s
+     * @return
+     */
+    public String find(String s) {
+        String ret = "";
+        if (s.trim().isEmpty()) {
+            ret += " Please specify keywords. I show you all the tasks\n";
+        }
+        else {
+            ret += " Oke. Here are the task that match keywords:\n";
+        }
+        for (int i = 1; i <= taskCount; i ++) {
+            Task t = tasks.get(i - 1);
+            if (t.isOneMatch(s)) {
+                ret += " " + i + ". " + t.toString() + "\n";
+            }
+
+        }
+        return ret;
+
     }
 
 }
