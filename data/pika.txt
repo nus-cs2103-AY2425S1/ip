@@ -1,3 +1,0 @@
-E | true | Onam | 2024-09-01 09:00 | 2024-09-01 13:00
-T | false | eat api
-T | false | Onam Prep
