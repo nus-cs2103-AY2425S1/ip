@@ -4,6 +4,8 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+mainClassName = 'cloud.Cloud'
+
 repositories {
     mavenCentral()
 }
@@ -28,12 +30,13 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("cloud.Cloud")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "cloud"
     archiveClassifier = null
+    archiveFileName = "cloud.jar"
 }
 
 run{
