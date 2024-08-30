@@ -1,6 +1,7 @@
 package dude;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import dude.exception.DudeDateTimeFormatException;
 import dude.exception.DudeException;
@@ -9,6 +10,7 @@ import dude.exception.DudeInvalidCommandException;
 import dude.exception.DudeNullDateTimeException;
 import dude.exception.DudeNullDescriptionException;
 import dude.exception.DudeNumberException;
+import dude.exception.DudeTaskNotFoundException;
 import dude.task.Deadline;
 import dude.task.Event;
 import dude.task.Task;
@@ -87,6 +89,9 @@ public class Dude {
             break;
         case EVENT:
             addEvent(taskDes);
+            break;
+        case FIND:
+            find(taskDes);
             break;
         default:
             throw new DudeInvalidCommandException();
@@ -248,6 +253,22 @@ public class Dude {
         }
 
         return index;
+    }
+
+    /**
+     * Finds tasks in the task list that match the provided description.
+     *
+     * @param taskDes The task description.
+     * @throws DudeTaskNotFoundException If no tasks matching the description are found.
+     */
+    public void find(String taskDes) throws DudeTaskNotFoundException {
+        ArrayList<Task> filteredList = taskList.findAllTask(taskDes);
+
+        if (filteredList.isEmpty()) {
+            throw new DudeTaskNotFoundException();
+        } else {
+            ui.showFind(filteredList);
+        }
     }
 
     /**

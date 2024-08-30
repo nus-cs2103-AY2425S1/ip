@@ -112,6 +112,22 @@ public class Ui {
     }
 
     /**
+     * Displays the filtered list of tasks that match the description.
+     *
+     * @param filteredList The filtered list of tasks to display.
+     */
+    public void showFind(ArrayList<Task> filteredList) {
+        System.out.println(LINE);
+        System.out.println("Here are the matching tasks in your list:");
+
+        for (int i = 1; i <= filteredList.size(); i++) {
+            System.out.println(i + "." + filteredList.get(i - 1));
+        }
+
+        System.out.println(LINE);
+    }
+
+    /**
      * Displays an error message when a DudeException occurs.
      *
      * @param e The DudeException that occurred.
