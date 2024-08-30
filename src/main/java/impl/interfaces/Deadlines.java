@@ -14,7 +14,7 @@ public class Deadlines extends Task{
 
     @Override
     public String loadString(){
-        return "deadline" + this.description + "/by " + this.by + " | " + this.isDone;
+        return "deadline " + this.description + " /by " + this.by + " | " + this.isDone;
     }
 
 }

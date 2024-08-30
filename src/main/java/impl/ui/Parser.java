@@ -78,14 +78,14 @@ public class Parser {
     }
 
     private void handleToDo(String in){
-        String description = in.substring(4);
+        String description = in.substring(5);
         Task add = new ToDos(description);
         list.add(add);
         System.out.println("added: " + add.toString());
     }
     private void handleDeadline(String in){
-        String[] deadlineSplit = in.split("/by ");
-        String description = deadlineSplit[0].substring(8);
+        String[] deadlineSplit = in.split(" /by ");
+        String description = deadlineSplit[0].substring(9);
         String by = handleDate(deadlineSplit[1]);
         Task add = new Deadlines(description,by);
         list.add(add);
@@ -93,8 +93,8 @@ public class Parser {
     }
 
     private void handleEvent(String in){
-        String[] eventSplit = in.split("/from ");
-        String description = eventSplit[0].substring(5);
+        String[] eventSplit = in.split(" /from ");
+        String description = eventSplit[0].substring(6);
         String from = handleDate(eventSplit[1].split(" /to ")[0]);
         String by = handleDate(eventSplit[1].split("/to ")[1]);
         Task add = new Events(description,by,from);

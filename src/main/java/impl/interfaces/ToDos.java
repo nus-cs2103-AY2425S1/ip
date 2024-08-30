@@ -12,6 +12,6 @@ public class ToDos extends Task{
 
     @Override
     public String loadString(){
-        return "Todo" + this.description + " | " + this.isDone;
+        return "Todo " + this.description + " | " + this.isDone;
     }
 }

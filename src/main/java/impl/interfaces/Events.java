@@ -16,7 +16,7 @@ public class Events extends Task{
 
     @Override
     public String loadString(){
-        return "event" + this.description + "/from " + this.from + " /to " + this.to + " | " + this.isDone;
+        return "event " + this.description + "/from " + this.from + "/to " + this.to + " | " + this.isDone;
     }
 
 }
