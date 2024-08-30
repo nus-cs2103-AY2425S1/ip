@@ -56,6 +56,7 @@ public class Storage {
     public List<Task> loadTasks() {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
+
         if (!file.exists()) {
             return tasks; // return an empty arraylist of tasks if the file doesn't exist yet
         }
