@@ -38,6 +38,22 @@ public class EventTask extends Task {
     }
 
     /**
+     * Returns the start time of the task.
+     * @return The start time of the task.
+     */
+    public LocalDate getStartDate() {
+        return this.startDate;
+    }
+
+    /**
+     * Returns the end time of the task.
+     * @return The end time of the task.
+     */
+    public LocalDate getEndDate() {
+        return this.endDate;
+    }
+
+    /**
      * Returns the type label of the task.
      *
      * @return The type label of the task.

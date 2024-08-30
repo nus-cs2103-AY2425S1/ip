@@ -44,6 +44,15 @@ public class DeadlineTask extends Task {
     }
 
     /**
+     * Returns the deadline of the task.
+     *
+     * @return The deadline of the task.
+     */
+    public LocalDate getDeadline() {
+        return this.deadline;
+    }
+
+    /**
      * Returns the deadline label of the task.
      *
      * @return The deadline label of the task.
