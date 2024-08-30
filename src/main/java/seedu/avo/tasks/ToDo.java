@@ -1,5 +1,8 @@
 package seedu.avo.tasks;
 
+/**
+ * Represents a task with no deadlines
+ */
 public class ToDo extends Task {
     public ToDo(String name) {
         super(name);

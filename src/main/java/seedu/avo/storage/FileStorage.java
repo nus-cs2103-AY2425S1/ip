@@ -12,6 +12,10 @@ import java.util.Scanner;
 
 import seedu.avo.exceptions.AvoException;
 
+/**
+ * Represents a file storage
+ * @param <T> type of data stored
+ */
 public class FileStorage<T> extends Storage<T, String> {
     private final String filePath;
     private final FileParser<T> parser;

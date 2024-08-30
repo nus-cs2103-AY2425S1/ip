@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 
 import seedu.avo.utils.DateTime;
 
+/**
+ * Represents a task with a deadline
+ */
 public class Deadline extends Task {
     private final LocalDateTime dueDate;
     public Deadline(String name, LocalDateTime dueDate) {

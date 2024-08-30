@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 
 import seedu.avo.utils.DateTime;
 
+/**
+ * Represents a task with start and end times
+ */
 public class Event extends Task {
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;

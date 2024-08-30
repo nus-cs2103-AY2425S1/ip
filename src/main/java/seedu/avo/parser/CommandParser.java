@@ -3,6 +3,9 @@ package seedu.avo.parser;
 import seedu.avo.commands.Command;
 import seedu.avo.commands.CommandManager;
 
+/**
+ * Represents a parser that handles raw user input
+ */
 public class CommandParser {
     private final CommandManager manager;
     public CommandParser(CommandManager manager) {

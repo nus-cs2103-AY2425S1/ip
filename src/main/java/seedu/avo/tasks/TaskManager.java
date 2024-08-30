@@ -8,6 +8,10 @@ import java.util.stream.IntStream;
 import seedu.avo.storage.Storage;
 import seedu.avo.ui.AppUI;
 
+/**
+ * Represents a controller that perform
+ * actions on a list of tasks
+ */
 public class TaskManager {
     private final List<Task> tasks;
     private final Storage<Task, String> storage;

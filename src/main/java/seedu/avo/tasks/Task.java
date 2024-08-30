@@ -1,7 +1,6 @@
 package seedu.avo.tasks;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public abstract class Task {
      private boolean isCompleted;
