@@ -5,13 +5,17 @@ import puke.commands.AddEventCommand;
 import puke.commands.AddTodoCommand;
 import puke.commands.Command;
 import puke.commands.DeleteTaskCommand;
+import puke.commands.FindTaskCommand;
 import puke.commands.ListTasksCommand;
 import puke.commands.MarkTaskCommand;
 import puke.exceptions.EmptyInputException;
 import puke.exceptions.PukeException;
 import puke.exceptions.UnknownCommandException;
 import puke.tasklist.TaskManager;
+import puke.tasks.Task;
 import puke.ui.MessageBuilder;
+
+import java.util.ArrayList;
 
 /**
  * Manages user input by parsing and executing commands.
@@ -80,6 +84,8 @@ public class InputManager {
                 return new MarkTaskCommand(args, false);
             case "list":
                 return new ListTasksCommand();
+            case "find":
+                return new FindTaskCommand(args);
             default:
                 throw new UnknownCommandException();
         }

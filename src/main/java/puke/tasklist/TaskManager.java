@@ -8,6 +8,7 @@ import puke.tasks.Task;
 import puke.tasks.Todo;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskManager {
     private ArrayList<Task> tasks;
@@ -87,5 +88,17 @@ public class TaskManager {
         } else {
             return tasks.get(taskNum);
         }
+    }
+
+    /**
+     * Finds and returns a list of all tasks containing the specified keyword in their description.
+     *
+     * @param keyword the keyword to search for in the task descriptions
+     * @return an ArrayList of tasks that contain the keyword
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        return tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
