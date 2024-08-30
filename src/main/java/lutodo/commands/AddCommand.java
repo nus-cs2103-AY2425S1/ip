@@ -8,12 +8,28 @@ import lutodo.tasks.TodoTask;
 import lutodo.storage.Storage;
 import java.util.NoSuchElementException;
 
+/**
+ * Represents the command of adding new tasks to the task list.
+ */
 public class AddCommand extends Command{
 
     private String taskMessage;
+
+    /**
+     * Constructs an AddCommand object with the entire task message.
+     *
+     * @param taskMessage The entire message imputed, including task type.
+     */
     public AddCommand(String taskMessage) {
         this.taskMessage = taskMessage;
     }
+
+    /**
+     * Adds one of the 3 types of tasks to the task list.
+     *
+     * @param tasks The TaskList object that is to be added to.
+     * @param storage The Storage object used to save the new task list.
+     */
     @Override
     public void execute(TaskList tasks, Storage storage) {
         String taskType = Parser.splitTaskInfo(taskMessage)[0].trim();
@@ -75,11 +91,21 @@ public class AddCommand extends Command{
         storage.save(tasks);
     }
 
+    /**
+     * Returns false since this type of command is not exit command.
+     *
+     * @return whether this is an exit command.
+     */
     @Override
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * Returns the type of command and the message received.
+     *
+     * @return Command type and message
+     */
     @Override
     public String toString() {
         return "AddCommand: " + taskMessage;
