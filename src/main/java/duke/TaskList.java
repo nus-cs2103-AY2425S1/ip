@@ -40,15 +40,19 @@ public class TaskList {
      * Displays all tasks in the list with their corresponding numbers.
      * The tasks are printed with indentation and separated by a visual separator.
      */
-    public void getTasks(ArrayList<IndividualTask> tasks) {
-        System.out.println(this.indent + this.separator);
+    public String getTasks(ArrayList<IndividualTask> tasks) {
+        StringBuilder result = new StringBuilder();
+        result.append(this.indent).append(this.separator).append("\n");
         for (int i = 0; i < tasks.size(); i++) {
             String number = String.valueOf(i + 1);
             String format = this.formatListMessage(number, tasks.get(i));
-            System.out.println(format);
+            result.append(format).append("\n");
         }
-        System.out.println(this.indent + this.separator);
+        result.append(this.indent).append(this.separator);
+
+        return result.toString();
     }
+
 
     /**
      * Returns the list of tasks managed by this duke.TaskList.
