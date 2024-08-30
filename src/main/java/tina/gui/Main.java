@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class Main extends Application {
 
-    private Tina duke = new Tina("./data/tina.txt");
+    private final Tina tina = new Tina("./data/tina.txt");
 
     public static void exit() {
         Platform.exit();
@@ -31,7 +31,7 @@ public class Main extends Application {
             //ensure user unable to resize below min
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setTina(tina);  // inject the Duke instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -22,7 +22,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Tina duke;
+    private Tina tina;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -33,12 +33,23 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setDuke(Tina d) {
-        duke = d;
+    public void setTina(Tina d) {
+        tina = d;
+        displayGreeting();
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Displays a greeting message when the application starts.
+     */
+    private void displayGreeting() {
+        dialogContainer.getChildren().add(
+                DialogBox.getTinaDialog("Hello! I'm Tina, your friendly chatbot. How can I assist you today?", dukeImage)
+        );
+    }
+
+
+    /**
+     * Creates two dialog boxes, one echoing user input and the other containing Tina's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -47,10 +58,10 @@ public class MainWindow extends AnchorPane {
         if (input.equals("bye")){
             Main.exit();
         } else {
-            String response = duke.getResponse(input);
+            String response = tina.getResponse(input);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, dukeImage)
+                    DialogBox.getTinaDialog(response, dukeImage)
             );
             userInput.clear();
         }
