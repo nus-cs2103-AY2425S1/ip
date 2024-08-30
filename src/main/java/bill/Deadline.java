@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
-
     private LocalDate by;
 
     public Deadline(String description, String by) {
@@ -13,9 +12,10 @@ public class Deadline extends Task {
         this.by = parseUserDateHelper(by);
     }
 
-    // Allow two types of inputs, second format is what is from Bill.txt, user can use that format too for cml
-    // Can improve this, ideally don't use try catch as control flow, could also try just allowing one input
+
     private LocalDate parseUserDateHelper(String dateStr) {
+        // Allow two types of inputs, second format is what is from Bill.txt, user can use that format too for cml
+        // Can improve this, ideally don't use try catch as control flow, could also try just allowing one input
         DateTimeFormatter formatterUserInput = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter formatterFileInput = DateTimeFormatter.ofPattern("MMM dd yyyy");
         try {

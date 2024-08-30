@@ -52,7 +52,8 @@ public class Ui {
         }
     }
 
-    public void handleMarkOfTask(String[] parsedInput, ArrayList<Task> userList, TaskList tasks, Storage storage) throws BillException, IOException {
+    public void handleMarkOfTask(String[] parsedInput, ArrayList<Task> userList, TaskList tasks, Storage storage)
+                throws BillException, IOException {
         int targetTaskNumber = parser.handleMarkOfTaskParser(parsedInput, userList);
         tasks.markOrUnmarkTask(targetTaskNumber, parsedInput[0]);
 
@@ -60,12 +61,14 @@ public class Ui {
         storage.saveList(userList);
     }
 
-    public void handleToDo(String userCommand, ArrayList<Task> userList, Storage storage, TaskList tasks) throws BillException, IOException {
+    public void handleToDo(String userCommand, ArrayList<Task> userList, Storage storage, TaskList tasks)
+                throws BillException, IOException {
         String trimmedUserCommand = parser.handleToDoParser(userCommand, userList, storage, tasks);
         tasks.addTask(new ToDo(trimmedUserCommand), userList, storage);
     }
 
-    public void handleDeadline(String userCommand, ArrayList<Task> userList, Storage storage, TaskList tasks) throws BillException, IOException {
+    public void handleDeadline(String userCommand, ArrayList<Task> userList, Storage storage, TaskList tasks)
+                throws BillException, IOException {
         // data validation
         try {
             String[] trimmedUserCommand = parser.handleDeadlineParser(userCommand);
@@ -73,13 +76,17 @@ public class Ui {
             String deadlineBy = trimmedUserCommand[1];
             tasks.addTask(new Deadline(deadlineDescription, deadlineBy), userList, storage);
         } catch (ArrayIndexOutOfBoundsException ex) {
-            throw new BillException("Please ensure to follow the format: deadline <task> /by <date> where <> suggest user input.");
+            throw new BillException("Please ensure to follow the format:"
+                        + " deadline <task> /by <date> where <> suggest user input.");
         } catch (DateTimeParseException ex) {
-            throw new BillException(ex.getMessage() + ". Please ensure to follow the format yyyy-MM-dd (e.g 2024-10-12) or MMM dd yyyy (Dec 10 2024) with capitalize first letter");
+            throw new BillException(ex.getMessage()
+                        + ". Please ensure to follow the format yyyy-MM-dd (e.g 2024-10-12) or"
+                        + " MMM dd yyyy (Dec 10 2024) with capitalize first letter");
         }
     }
 
-    public void handleEvent(String userCommand, ArrayList<Task> userList, Storage storage, TaskList tasks) throws BillException, IOException {
+    public void handleEvent(String userCommand, ArrayList<Task> userList, Storage storage, TaskList tasks)
+                throws BillException, IOException {
        try {
            String[] trimmedUserCommand = parser.handleEventParser(userCommand);
            String eventDescription = trimmedUserCommand[0];
@@ -87,11 +94,13 @@ public class Ui {
            String eventTo = trimmedUserCommand[2];
            tasks.addTask(new Event(eventDescription, eventFrom, eventTo), userList, storage);
        } catch (ArrayIndexOutOfBoundsException ex) {
-           throw new BillException("Please ensure to follow the format: event <task> /from <date1> /to <date2>, where <> suggest user input");
+           throw new BillException("Please ensure to follow the format:"
+                    + " event <task> /from <date1> /to <date2>, where <> suggest user input");
        }
     }
 
-    private void handleDelete(String[] parsedInput, ArrayList<Task> userList, TaskList tasks, Storage storage) throws BillException, IOException {
+    private void handleDelete(String[] parsedInput, ArrayList<Task> userList, TaskList tasks, Storage storage)
+                throws BillException, IOException {
         int targetTaskNumber = parser.handleDeleteParser(parsedInput, userList);
         Task targetTask = userList.get(targetTaskNumber);
 
@@ -112,6 +121,7 @@ public class Ui {
                 tasks.showList(userList);
                 break;
             case MARK:
+                // Fallthrough
             case UNMARK:
                 handleMarkOfTask(parsedInput, userList, tasks, storage);
                 break;
