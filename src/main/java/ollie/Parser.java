@@ -42,6 +42,9 @@ public class Parser {
         } else if (input.matches("^delete.*")) {
             int index = Parser.getIndex(input);
             return new DeleteCommand(index);
+        } else if (input.matches("^find.*")) {
+            String findQuery = Parser.getBody("find", input);
+            return new FindCommand(findQuery);
         } else if (input.matches("bye")) {
             return new ExitCommand();
         } else {
@@ -128,5 +131,13 @@ public class Parser {
             task = new Todo(desc);
         }
         return task;
+    }
+
+    private static String getBody(String prefix, String s) throws OllieException {
+        String body = s.replaceFirst(prefix,"").trim();
+        if (body.isEmpty()) {
+            throw new OllieException("Cannot have an empty body after command!");
+        }
+        return body;
     }
 }

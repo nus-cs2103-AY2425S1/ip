@@ -37,6 +37,15 @@ public class Ui {
     }
 
     /**
+     * Display list of task.
+     *
+     * @param tasks List of tasks.
+     */
+    public void showTaskList(TaskList tasks) {
+        Ui.printResponse(tasks.toString());
+    }
+
+    /**
      * Display the task added and the current size of its list of tasks.
      */
     public void showAddTask(Task task, int size) {
