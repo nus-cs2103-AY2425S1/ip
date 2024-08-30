@@ -23,9 +23,8 @@ public class Parser {
     }
 
     public static String[] splitTaskInfo(String message) {
-        String[] taskDescription = message.trim().split("\\s+", 2);
-        taskDescription[0].trim();
-        taskDescription[1].trim();
+        String trimmedMessage = message.trim();
+        String[] taskDescription = trimmedMessage.split("\\s+", 2);
         return taskDescription;
     }
 
