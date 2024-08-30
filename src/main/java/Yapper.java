@@ -53,7 +53,7 @@ public class Yapper {
                         ui.printGoodbye();
                         break;
                     default:
-                        throw new YapperException("Unknown command");
+                        throw new UnknownCommandException();
                 }
 
                 storage.save(tasks.getTasks());
@@ -68,11 +68,11 @@ public class Yapper {
     private void handleMark(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ");
         if (parts.length < 2) {
-            throw new YapperException("The mark command requires a task number.");
+            throw new EmptyDescriptionException("mark");
         }
         int taskIndex = Integer.parseInt(parts[1]) - 1;
         if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
-            throw new YapperException("Invalid task number.");
+            throw new InvalidTaskNumberException(taskIndex);
         }
         Task task = tasks.getTask(taskIndex);
         task.markAsDone();
@@ -82,11 +82,11 @@ public class Yapper {
     private void handleUnmark(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ");
         if (parts.length < 2) {
-            throw new YapperException("The unmark command requires a task number.");
+            throw new EmptyDescriptionException("unmark");
         }
         int taskIndex = Integer.parseInt(parts[1]) - 1;
         if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
-            throw new YapperException("Invalid task number.");
+            throw new InvalidTaskNumberException(taskIndex);
         }
         Task task = tasks.getTask(taskIndex);
         task.markAsNotDone();
@@ -96,7 +96,7 @@ public class Yapper {
     private void handleTodo(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ", 2);
         if (parts.length < 2) {
-            throw new YapperException("The todo command requires a description.");
+            throw new EmptyDescriptionException("todo");
         }
         Task task = new Todo(parts[1]);
         tasks.addTask(task);
@@ -106,25 +106,25 @@ public class Yapper {
     private void handleDeadline(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" /by ");
         if (parts.length < 2) {
-            throw new YapperException("The deadline command requires a description and a deadline with time.");
+            throw new EmptyDescriptionException("deadline");
         }
-        String description = parts[0].substring(9).trim(); 
-        Task task = new Deadline(description, parts[1]);  
+        String description = parts[0].substring(9).trim();
+        Task task = new Deadline(description, parts[1]);
         tasks.addTask(task);
         ui.printTaskAdded(task, tasks.getSize());
     }
-    
+
     private void handleEvent(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" /from ");
         if (parts.length < 2) {
-            throw new YapperException("The event command requires a description and a start time.");
+            throw new EmptyDescriptionException("event");
         }
         String[] times = parts[1].split(" /to ");
         if (times.length < 2) {
             throw new YapperException("The event command requires both a start and end time.");
         }
-        String description = parts[0].substring(6).trim(); 
-        Task task = new Event(description, times[0], times[1]);  
+        String description = parts[0].substring(6).trim();
+        Task task = new Event(description, times[0], times[1]);
         tasks.addTask(task);
         ui.printTaskAdded(task, tasks.getSize());
     }
@@ -132,11 +132,11 @@ public class Yapper {
     private void handleDelete(String fullCommand) throws YapperException {
         String[] parts = fullCommand.split(" ");
         if (parts.length < 2) {
-            throw new YapperException("The delete command requires a task number.");
+            throw new EmptyDescriptionException("delete");
         }
         int taskIndex = Integer.parseInt(parts[1]) - 1;
         if (taskIndex < 0 || taskIndex >= tasks.getSize()) {
-            throw new YapperException("Invalid task number.");
+            throw new InvalidTaskNumberException(taskIndex);
         }
         Task task = tasks.getTask(taskIndex);
         tasks.deleteTask(taskIndex);
