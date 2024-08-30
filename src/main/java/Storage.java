@@ -9,8 +9,8 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public List<Task> loadTasks() {
-        List<Task> tasks = new ArrayList<>();
+    public TaskList loadTasks() {
+        TaskList tasks = new TaskList();
         File file = new File(filePath);
         if (!file.exists()) {
             return tasks; // Return empty list if file doesn't exist
@@ -20,8 +20,8 @@ public class Storage {
             String line;
             while ((line = reader.readLine()) != null) {
                 try {
-                    Task task = Task.parse(line);
-                    tasks.add(task);
+                    Task task = Parser.parseFile(line);
+                    tasks.addTask(task);
                 } catch (Exception e) {
                     System.out.println("Warning: Corrupted line ignored.");
                 }
@@ -33,13 +33,13 @@ public class Storage {
         return tasks;
     }
 
-    public void saveTasks(List<Task> tasks) {
+    public void saveTasks(TaskList tasks) {
         try {
             File file = new File(filePath);
             file.getParentFile().mkdirs(); // Create directory if it doesn't exist
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                for (Task task : tasks) {
-                    writer.write(task.toFileFormat() + System.lineSeparator());
+                for (int i = 0; i < tasks.getSize(); i++) {
+                    writer.write(tasks.getTask(i).toFileFormat() + System.lineSeparator());
                 }
             }
         } catch (IOException e) {

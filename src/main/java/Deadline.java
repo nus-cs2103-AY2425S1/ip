@@ -15,13 +15,13 @@ public class Deadline extends Task {
 
     @Override
     public String toFileFormat() {
-        return "D | " + getStatusIcon() + " | " + description + " | " + by;
+        return "D | " + getStatusIcon() + " | " + description + " | " + DateParser.format(by);
     }
 
     @Override
     public String toString() {
         if (by != null) {
-            return "[D]" + super.toString() + " (by: " + DateParser.format(LocalDateTime.from(by)) + ")";
+            return "[D]" + super.toString() + " (by: " + DateParser.format(by) + ")";
         }
         return null;
     }
