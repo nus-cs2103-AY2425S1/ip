@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
+/**
+ * This class represents commands that will add a new task to the task list, such as, 'todo', 'deadline' and 'event'.
+ */
 public class AddCommand extends Command {
     String[] inputArr;
     Commands c;

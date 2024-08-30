@@ -7,6 +7,11 @@ import joe.command.*;
 public class Parser {
     //parse the user commands
 
+    /**
+     * Parses the raw input by the user and returns a Command object to be executed.
+     * @param rawInput The raw string input by the user.
+     * @return A Command object that will be executed.
+     */
     public static Command parse(String rawInput) {
         if (rawInput.isEmpty()) {
             throw new JoeException("\tOOPS! You did not enter anything");
