@@ -3,8 +3,7 @@ package buddybot;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-//A-jar added
-//JavaDoc branch
+
 /**
  * This is the class for the chat bot with OOP added
  */
