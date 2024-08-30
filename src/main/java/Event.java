@@ -1,6 +1,11 @@
 public class Event extends Task {
-    public Event(String description) {
+    private String from;
+    private String to;
+
+    public Event(String description, String from, String to) {
         super(description);
+        this.from = from;
+        this.to = to;
     }
 
     protected String getTaskType() {
@@ -9,6 +14,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", getTaskType(), super.toString());
+        return String.format("[%s] %s (from: %s to: %s)",
+                getTaskType(), super.toString(), from, to);
     }
 }
