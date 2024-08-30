@@ -64,6 +64,16 @@ public class Parser {
                 throw new MollyException("Invalid  delete command. Please use 'delete (task number)'.");
             }
 
+        } else if (userInput.startsWith("find")) {
+            String[] queryParts = userInput.split(" ");
+            if (queryParts.length == 2) {
+                String searchTerm = queryParts[1];
+                taskList.findTerm(searchTerm);
+            } else {
+                Ui.printLine();
+                throw new MollyException("Invalid find command. Please use 'find (search term)'.");
+            }
+
         } else if (!userInput.toLowerCase().equals("list")) {
             if (userInput.startsWith("todo")) {
                 if (userInput.equals("todo")) {
