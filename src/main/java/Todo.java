@@ -17,6 +17,6 @@ public class Todo extends Task {
     }
 
     public String toSave() {
-        return "D" + " | " + super.getDoneStatus() + " | " + super.getDescription();
+        return "T" + " | " + super.getDoneStatus() + " | " + super.getDescription();
     }
 }

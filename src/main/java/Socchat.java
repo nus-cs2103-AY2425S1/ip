@@ -22,6 +22,7 @@ public class Socchat {
         try {
             taskList = new TaskList(storage.load());
         } catch (SocchatException e) {
+            System.out.println(e.getMessage());
             ui.showLoadingError();
             taskList = new TaskList();
         }

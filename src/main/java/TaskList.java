@@ -7,13 +7,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class TaskList {
-    private Parser parser;
+    private Parser parser = new Parser();
     private Storage storage;
     private ArrayList<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
-        parser = new Parser();
         String fileName = "savedTasks.txt";
         File file = new File(fileName); // delete the existing file
         if (file.exists()) {

@@ -1,0 +1,3 @@
+T | Not done | hey
+E | Done | tryevent | 2022-12-27 00:00 to 2022-12-27 00:00
+D | Done | try deadline | 2022-12-27 12:12

@@ -7,12 +7,11 @@ import java.io.File;
 import java.util.Scanner;
 
 public class Storage {
-    private Parser parser;
+    private Parser parser = new Parser();
     private static String filePath;
     private ArrayList<Task> savedTasks = new ArrayList<>();
 
     public Storage(String filePath) {
-        parser = new Parser();
         this.filePath = filePath;
     }
     public ArrayList<Task> load() throws SocchatException {
@@ -22,10 +21,13 @@ public class Storage {
             Scanner s = new Scanner(file);
             while(s.hasNextLine()) {
                 String line = s.nextLine();
-                String[] strToken = line.split("[ | ]");
+                String[] strToken = line.split("\\|");
                 String type = strToken[0].trim();
+
                 String done = strToken[1].trim();
+
                 String des = strToken[2].trim();
+
                 Task t;
                 Boolean isDone;
                 if (done.equals("Done")) {
@@ -37,9 +39,9 @@ public class Storage {
                     t = new Todo(des,isDone);
                 } else if (type.equals("E")) {
                     String date =strToken[3].trim();
-                    String[] dateToken = date.split(" to ");
-                    LocalDateTime from = parser.parseDate(dateToken[0]);
-                    LocalDateTime to = parser.parseDate(dateToken[0]);
+                    String[] dateToken = date.split("to");
+                    LocalDateTime from = parser.parseDate(dateToken[0].trim());
+                    LocalDateTime to = parser.parseDate(dateToken[1].trim());
                     t = new Event(des, from, to, isDone);
                 } else {
                     String date =strToken[3].trim();
