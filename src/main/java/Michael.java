@@ -1,5 +1,9 @@
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
 
 public class Michael {
     private static final String border = "--------------------------------------";
@@ -10,6 +14,8 @@ public class Michael {
     }
 
     private static ArrayList<Task> tasks = new ArrayList<>(); // store user inputs
+
+    private static File file = new File("src/main/data/save");
 
     public static void main(String[] args) {
         Scanner user = new Scanner(System.in); // scanner for user input
@@ -24,10 +30,14 @@ public class Michael {
                 break;
             }
             try {
+                PrintWriter writer = new PrintWriter(file);
                 processor(input);
+                writer.write(input);
             } catch (MichaelException e) {
                 System.out.println(e.getMessage());
-            } finally {}
+            } catch (FileNotFoundException e) {
+                System.out.println(e.getMessage());
+            }
         }
 
         // Exit
