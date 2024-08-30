@@ -1,6 +1,8 @@
 # Ignore class files as per CS2103T requirements
 *.class
 
+*.jar
+
 # IDEA files
 /.idea/
 /out/
