@@ -59,6 +59,15 @@ public class Ui {
                 s = s + String.format("     %h. %s \n", i, ls.get(i - 1));
             }
             return line + "\n" + s + "\n" + line;
+        } else if (Objects.equals(command,"find")) {
+            String m2 = p.getMessage();
+            String s = "";
+            for (int i = 1; i <= ls.size(); i++) {
+                if (ls.get(i - 1).toString().contains(m2.trim())) {
+                    s = s + String.format("     %h. %s \n", i, ls.get(i - 1));
+                }
+            }
+            return line + "\n" + s + "\n" + line;
         } else if (Objects.equals(command,"")) {
             return line;
         } else if (Objects.equals(command, "mark")) {
