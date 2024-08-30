@@ -5,6 +5,9 @@ import susan.task.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Deals with interactions with the user.
+ */
 public class Ui {
     private Scanner scanner;
 
@@ -35,6 +38,7 @@ public class Ui {
     }
 
     public void showTaskList(TaskList tasks) {
+        System.out.println(" Here are the tasks in your list:");
         System.out.println(tasks.printList());
     }
 
@@ -48,5 +52,14 @@ public class Ui {
         System.out.println(" Noted. I've removed this task:");
         System.out.println("   " + task);
         System.out.println(" You have " + size + " task(s) in the list.");
+    }
+
+    public void showMatchingTasks(TaskList tasks) {
+        if (tasks.size() == 0) {
+            System.out.println("No tasks found matching your keyword.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            System.out.println(tasks.printList());
+        }
     }
 }
