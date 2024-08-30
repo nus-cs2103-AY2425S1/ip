@@ -1,6 +1,5 @@
 package puke.tasklist;
 
-import puke.exceptions.InvalidTaskNumberFormatException;
 import puke.exceptions.TaskNumberOutOfBoundsException;
 import puke.storage.Storage;
 import puke.tasks.Deadline;
@@ -31,7 +30,7 @@ public class TaskManager {
                 break;
         }
         tasks.add(task);
-        Storage.saveTasks(tasks); // Save tasks after adding a new one
+        Storage.saveTasks(tasks);
 
         return "Roger that! I've added in this task:\n  " + task.toString() + "\nNow you have " + tasks.size() + " tasks in the list ~ !";
     }
@@ -41,7 +40,7 @@ public class TaskManager {
             return "OOPS!!! The task number " + taskNumber + " is out of bounds.";
         }
         Task removedTask = tasks.remove(taskNumber - 1);
-        Storage.saveTasks(tasks); // Save tasks after deleting
+        Storage.saveTasks(tasks);
 
         return "Noted. I've removed this task:\n  " + removedTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
@@ -62,12 +61,12 @@ public class TaskManager {
             Task task = tasks.get(taskNumber - 1);
 
             if (isDone) {
-                task.markAsDone(); // Mark the task as done
-                Storage.saveTasks(tasks); // Save tasks after marking as done/not done
+                task.markAsDone();
+                Storage.saveTasks(tasks);
                 return "Yippee~ *uweah* I've marked this task as done:\n  " + task;
             } else {
-                task.unmarkAsDone(); // Mark the task as not done
-                Storage.saveTasks(tasks); // Save tasks after marking as done/not done
+                task.unmarkAsDone();
+                Storage.saveTasks(tasks);
                 return "LOL I've marked this task as not done yet:\n  " + task;
             }
         }
