@@ -141,4 +141,15 @@ public class Parser {
             return -1;
         }
     }
+
+    /**
+     * Parses the keyword from the user input for the 'find' command.
+     *
+     * @param input The user's input string.
+     * @return The parsed keyword as a string.
+     */
+    public static String parseKeyword(String input) {
+        String[] parts = input.split(" ", 2);
+        return parts.length > 1 ? parts[1].trim() : "";
+    }
 }

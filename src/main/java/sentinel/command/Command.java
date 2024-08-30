@@ -44,6 +44,7 @@ public abstract class Command {
     public static Command createCommand(Sentinel.CommandType commandType, Ui ui, SentinelList list) {
         return switch (commandType) {
             case list -> new ListCommand(ui, list);
+            case find -> new FindCommand(ui, list);
             case mark, unmark, delete -> new ModifyCommand(ui, list, commandType);
             case todo, deadline, event -> new CreateTaskCommand(ui, list, commandType);
             case help -> new HelpCommand(ui, list);
