@@ -1,3 +1,0 @@
-[T][ ] borrow book
-[D][ ] return book (by: Dec 02 2019 6:00PM)
-[T][ ] store
