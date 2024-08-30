@@ -4,18 +4,16 @@ import java.util.List;
 
 public class Ui {
     private String user = "slave driver";
-    private boolean hasMoreInputs;
     private Parser parser;
 
-    public Ui(List<Task> tasklist, Storage activeStorage) {
-        parser = new Parser(tasklist, activeStorage);
-        hasMoreInputs = true;
+    public Ui(List<Task> tasklist) {
+        parser = new Parser(tasklist);
     }
 
-    public void getUserInputs(Storage storage) {
-        do {
-            hasMoreInputs = parser.getUserInput(hasMoreInputs);
-        } while (hasMoreInputs);
+    // TODO: FIX THIS TO RETURN A BOOLEAN / PAIR<BOOLEAN, BOOLEAN> FOR SLAVE TO CALL SAVE()
+    public Pair<Boolean, Boolean> getUserInputs() {
+        return parser.getUserInput();
+
     }
 
     /**
