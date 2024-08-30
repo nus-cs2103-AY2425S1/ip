@@ -7,14 +7,15 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
+
     private final String PATH = "src/main/data/task_list.txt";
-    File f;
-    Scanner sc;
-    FileWriter fwA;
-    FileWriter fw;
+    File file;
+    Scanner scanner;
+    FileWriter fileWriterAmend;
+    FileWriter fileWriterReplace;
 
     public Storage() throws IOException {
-        f = new File(PATH);
+        file = new File(PATH);
     }
 
     /**
@@ -24,7 +25,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs while creating the file.
      */
     public void createFile() throws IOException {
-        f.createNewFile();
+        file.createNewFile();
     }
 
     /**
@@ -35,10 +36,10 @@ public class Storage {
      * @throws FileNotFoundException If the file specified by the path does not exist.
      */
     public StringBuilder read() throws FileNotFoundException {
-        sc = new Scanner(f);
+        scanner = new Scanner(file);
         StringBuilder sb = new StringBuilder();
-        while (sc.hasNext()) {
-            sb.append(sc.nextLine() + "\n");
+        while (scanner.hasNext()) {
+            sb.append(scanner.nextLine() + "\n");
         }
 
         return sb;
@@ -54,11 +55,12 @@ public class Storage {
      */
     public void mark(int lineNo) throws IOException {
         int count = 1;
-        sc = new Scanner(f);
-        fwA = new FileWriter(PATH,true);
+
+        scanner = new Scanner(file);
+        fileWriterAmend = new FileWriter(PATH,true);
         StringBuilder updated_text = new StringBuilder();
-        while(sc.hasNextLine()) {
-            String s = sc.nextLine();
+        while(scanner.hasNextLine()) {
+            String s = scanner.nextLine();
             if (count == lineNo) {
                 String[] tokens = s.split("\\[_]");
                 String new_line = tokens[0] + "[X]" + tokens[1];
@@ -70,8 +72,8 @@ public class Storage {
         }
 
         clear();
-        fwA.write(updated_text.toString());
-        fwA.close();
+        fileWriterAmend.write(updated_text.toString());
+        fileWriterAmend.close();
     }
 
     /**
@@ -84,11 +86,13 @@ public class Storage {
      */
     public void unmark(int lineNo) throws IOException {
         int count = 1;
-        sc = new Scanner(f);
-        fwA = new FileWriter(PATH,true);
+
+        scanner = new Scanner(file);
+        fileWriterAmend = new FileWriter(PATH,true);
+
         StringBuilder updated_text = new StringBuilder();
-        while(sc.hasNextLine()) {
-            String s = sc.nextLine();
+        while(scanner.hasNextLine()) {
+            String s = scanner.nextLine();
             if (count == lineNo) {
                 String[] tokens = s.split("\\[X]");
                 String new_line = tokens[0] + "[_]" + tokens[1];
@@ -100,8 +104,8 @@ public class Storage {
         }
 
         clear();
-        fwA.write(updated_text.toString());
-        fwA.close();
+        fileWriterAmend.write(updated_text.toString());
+        fileWriterAmend.close();
     }
 
     /**
@@ -115,11 +119,12 @@ public class Storage {
     public void delete(int lineNo) throws IOException {
         int count = 1;
         int lineNumber = 1;
-        sc = new Scanner(f);
-        fwA = new FileWriter(PATH,true);
+
+        scanner = new Scanner(file);
+        fileWriterAmend = new FileWriter(PATH,true);
         StringBuilder updated_text = new StringBuilder();
-        while(sc.hasNextLine()) {
-            String s = sc.nextLine();
+        while(scanner.hasNextLine()) {
+            String s = scanner.nextLine();
             String[] tokens = s.split("\\.");
             if (count != lineNo) {
                 updated_text.append(lineNumber).append(".").append(tokens[1]).append("\n");
@@ -129,8 +134,8 @@ public class Storage {
         }
 
         clear();
-        fwA.write(updated_text.toString());
-        fwA.close();
+        fileWriterAmend.write(updated_text.toString());
+        fileWriterAmend.close();
     }
 
     /**
@@ -140,18 +145,23 @@ public class Storage {
      * @param text Text to be appended to the file.
      * @throws IOException If an I/O error occurs while writing to the file.
      */
+
     public void write(String text) throws IOException {
-        fwA = new FileWriter(PATH, true);
-        fwA.write(text + "\n");
-        fwA.close();
+        fileWriterAmend = new FileWriter(PATH, true);
+        fileWriterAmend.write(text + "\n");
+        fileWriterAmend.close();
     }
 
-    //TODO Header Comment
+    /**
+     * Clears the text in the file.
+     * The text is overwritten with nothing.
+     *
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     private void clear() throws IOException {
-        fw = new FileWriter(PATH);
-        fw.write("");
-        fw.close();
+        fileWriterReplace = new FileWriter(PATH);
+        fileWriterReplace.write("");
+        fileWriterReplace.close();
     }
-
 
 }

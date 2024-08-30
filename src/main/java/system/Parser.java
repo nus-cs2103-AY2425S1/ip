@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 
 public class Parser {
     Ui ui = new Ui();
-    DateTimeSystem ds = new DateTimeSystem();
+
+    DateTimeSystem dateTimeSystem = new DateTimeSystem();
 
     /**
      * Checks if the provided input string equals to the keyword "bye".
@@ -33,6 +34,7 @@ public class Parser {
         return input.equalsIgnoreCase("list");
     }
 
+
     /**
      * Checks if the provided input string contains the keyword "mark".
      *
@@ -53,11 +55,12 @@ public class Parser {
         return input.contains("unmark");
     }
 
+
     /**
-     * Checks if the provided input string contains the keyword "todo".
+     * Checks if the provided input string contains the keyword "todotask".
      *
      * @param input The String input to be checked.
-     * @return true if the input string contains the substring "todo"; false otherwise.
+     * @return true if the input string contains the substring "todotask"; false otherwise.
      */
     public boolean containToDo(String input) {
         return input.contains("todo");
@@ -93,16 +96,35 @@ public class Parser {
         return input.contains("delete");
     }
 
-    //TODO Header Comment
+    /**
+     * Checks if the provided input string contains the keyword "find".
+     *
+     * @param input Input string to be checked.
+     * @return true if the input string contains the substring "find"; false otherwise.
+     */
     public boolean containFind(String input) {
         return input.contains("find");
     }
-    //TODO Header Comment
+
+    /**
+     * Performs a search for a task based on the provided input.
+     * Input string is used to search for the task within the task list.
+     * The task name starts from the 5th character onwards until the last character.
+     *
+     * @param input A string containing the input command followed by the task name.
+     * @throws FileNotFoundException If the task file is not found during the search.
+     */
     public void performFind(String input) throws FileNotFoundException {
         String name = input.substring(5);
         TaskList.findTask(name);
     }
-    //TODO Header Comment
+
+    /**
+     * Lists all tasks in the task list.
+     * Retrieves and prints all the tasks stored in the task list.
+     *
+     * @throws FileNotFoundException If the task file is not found when attempting to list tasks.
+     */
     public void performListTasks() throws FileNotFoundException {
         TaskList.list_task();
     }
@@ -137,7 +159,7 @@ public class Parser {
         try {
             String name = input.substring(5);
             ToDos temp_todo = new ToDos(name);
-            temp_todo.add_task(temp_todo);
+            temp_todo.addTask(temp_todo);
         } catch (StringIndexOutOfBoundsException | IOException e) {
             ui.empty_todo();
         }
@@ -153,7 +175,6 @@ public class Parser {
      * @param input Input string containing the command to create a Deadline task.
      *              The format of the string should be "deadline <task name> /by <YYYY-MM-DD HHMM>".
      * @throws StringIndexOutOfBoundsException If the input string does not adhere to the expected format.
-     * @throws IOException If an I/O error occurs while adding the task.
      */
     public void performDeadline(String input) {
         try {
@@ -167,14 +188,16 @@ public class Parser {
             String year = dateTokens[0];
             String month = dateTokens[1];
             String day = dateTokens[2];
-            LocalDateTime ldt = ds.createDate(year,month,day,time.substring(0,2),time.substring(2));
+
+            LocalDateTime ldt = dateTimeSystem.createDate(year,month,day,time.substring(0,2),time.substring(2));
 
             Deadlines temp_deadline = new Deadlines(name, ldt);
-            temp_deadline.add_task(temp_deadline);
+            temp_deadline.addTask(temp_deadline);
         } catch (StringIndexOutOfBoundsException | IOException e) {
             ui.empty_deadline();
         }
     }
+
 
 
     /**
@@ -188,7 +211,6 @@ public class Parser {
      * @param input Input string containing the command to create an Event task.
      *              The format of the string should be "event <event name> /from <YYYY-MM-DD HHMM> /to <YYYY-MM-DD HHMM>".
      * @throws StringIndexOutOfBoundsException If the input string does not adhere to the expected format.
-     * @throws IOException If an I/O error occurs while adding the task.
      */
     public void performEvent(String input) {
         try {
@@ -202,19 +224,20 @@ public class Parser {
 
             System.out.println("Start Date: " + date_token_start[0] + " / " + date_token_start[1] + " / " + date_token_start[2]);
 
-            LocalDateTime ldt_start = ds.createDate(date_token_start[0],date_token_start[1],date_token_start[2],full_date_token_start[1].substring(0,2),full_date_token_start[1].substring(2));
+            LocalDateTime ldt_start = dateTimeSystem.createDate(date_token_start[0],date_token_start[1],date_token_start[2],full_date_token_start[1].substring(0,2),full_date_token_start[1].substring(2));
 
             String[] full_date_token_end = end.split(" ");
             String[] date_token_end = full_date_token_end[0].split("-");
 
-            LocalDateTime ldt_end = ds.createDate(date_token_end[0],date_token_end[1],date_token_end[2],full_date_token_end[1].substring(0,2),full_date_token_end[1].substring(2));
+            LocalDateTime ldt_end = dateTimeSystem.createDate(date_token_end[0],date_token_end[1],date_token_end[2],full_date_token_end[1].substring(0,2),full_date_token_end[1].substring(2));
 
             Events temp_event = new Events(name, ldt_start, ldt_end);
-            temp_event.add_task(temp_event);
+            temp_event.addTask(temp_event);
         } catch (StringIndexOutOfBoundsException | IOException e) {
             ui.empty_event();
         }
     }
+
 
     /**
      * Deletes a task from the task list based on the input.

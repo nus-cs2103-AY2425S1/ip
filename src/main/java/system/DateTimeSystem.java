@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 public class DateTimeSystem {
 
+
     /**
      * Creates a LocalDateTime object from the provided date and time components.
      * The components include year, month, day, hour, and minute, all provided as strings.
@@ -31,12 +32,12 @@ public class DateTimeSystem {
      * Formats the LocalDateTime object into a string representation based on a pattern, "yyyy-MM-dd HH:mm a".
      * The pattern specifies this format, year-month-day hour:minute AM/PM.
      *
-     * @param ldt LocalDateTime object to be formatted.
+     * @param localDateTime LocalDateTime object to be formatted.
      * @return String representation of the formatted date and time.
      */
-    public String format(LocalDateTime ldt) {
+    public String format(LocalDateTime localDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm a");
 
-        return ldt.format(formatter);
+        return localDateTime.format(formatter);
     }
 }

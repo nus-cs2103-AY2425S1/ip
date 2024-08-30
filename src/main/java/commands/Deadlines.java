@@ -11,29 +11,28 @@ public class Deadlines extends TaskList {
         this.date = date;
     }
 
-    public void add_task(Deadlines d) throws IOException {
-        task_List_list.add(d);
-//        super.update_saved_tasklist();
+    public void addTask(Deadlines d) throws IOException {
+        taskLists.add(d);
         System.out.println("Got it. I've added this task:");
-        System.out.println("[D][_] " + d.getName() + "(by: " + ds.format(date) + ")");
+        System.out.println("[D][_] " + d.getName() + "(by: " + dateTimeSystem.format(date) + ")");
         System.out.println("Now you have " + d.get_list_size() +" tasks in the list.");
-        update_tasklist(d);
+        updateTasklist(d);
     }
 
-    private void update_tasklist(Deadlines d) throws IOException {
+    private void updateTasklist(Deadlines d) throws IOException {
         String marked = "[X]";
         String unmarked = "[_]";
-        int index = task_List_list.size();
+        int index = taskLists.size();
         StringBuilder information;
-        if (d.getCurrent_status()==status.MARKED) {
+        if (d.getCurrentStatus()== Status.MARKED) {
             information = new StringBuilder(index + ". [" + d.getTag() + "]" + marked + " " + d.getName());
         } else {
             information = new StringBuilder(index + ". [" + d.getTag() + "]" + unmarked + " " + d.getName());
         }
 
-        information.append(" (by: ").append(ds.format(d.getDate())).append(")");
+        information.append(" (by: ").append(dateTimeSystem.format(d.getDate())).append(")");
 
-        fs.write(String.valueOf(information));
+        storage.write(String.valueOf(information));
     }
 
     public LocalDateTime getDate() {

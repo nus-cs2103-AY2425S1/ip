@@ -68,19 +68,19 @@ public class Ui {
     public void delete_message(TaskList t) {
         System.out.println("Noted. I've removed this task:");
         if (t instanceof ToDos) {
-            if (t.getCurrent_status() == TaskList.status.MARKED) {
+            if (t.getCurrentStatus()== TaskList.Status.MARKED) {
                 System.out.println("[T][X] " + t.getName());
             } else {
                 System.out.println("[T][ ] " + t.getName());
             }
         } else if (t instanceof Deadlines) {
-            if (t.getCurrent_status() == TaskList.status.MARKED) {
+            if (t.getCurrentStatus()== TaskList.Status.MARKED) {
                 System.out.println("[D][X] " + t.getName() + "(by: " + t.getDate() + ")");
             } else {
                 System.out.println("[D][ ] " + t.getName() + "(by: " + t.getDate() + ")");
             }
         } else if (t instanceof Events) {
-            if (t.getCurrent_status() == TaskList.status.MARKED) {
+            if (t.getCurrentStatus()== TaskList.Status.MARKED) {
                 System.out.println("[E][X] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
             } else {
                 System.out.println("[E][ ] " + t.getName() + "(from: " + t.getStart() + " to: " + t.getEnd() + ")");
@@ -89,7 +89,12 @@ public class Ui {
         System.out.println("Now you have " + t.get_list_size() + " tasks in the list.");
     }
 
-    //TODO Header Comment
+    /**
+     * Displays a message indicating the matching tasks in a list.
+     * This method prints a header message followed by the content of the StringBuilder object which contains the found tasks.
+     *
+     * @param sb StringBuilder object that holds the found tasks to be displayed.
+     */
     public void findTaskMessage(StringBuilder sb) {
         System.out.println("Here are the matching tasks in your list:");
         System.out.println(sb.toString());
