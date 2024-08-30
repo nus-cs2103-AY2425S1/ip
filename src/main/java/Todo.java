@@ -14,4 +14,10 @@ public class Todo extends Task {
         s += this.getTaskInfo();
         return s;
     }
+
+    @Override
+    public String dataDescription() {
+        int i = isDone() ? 1 : 0;
+        return "T | " + i + " | " + this.getTaskInfo();
+    }
 }

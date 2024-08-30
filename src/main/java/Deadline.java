@@ -17,4 +17,10 @@ public class Deadline extends Task {
         s += this.getTaskInfo() + " (by: " + this.deadline + ")";
         return s;
     }
+
+    @Override
+    public String dataDescription() {
+        int i = isDone() ? 1 : 0;
+        return "D | " + i + " | " + this.getTaskInfo() + " | " + deadline;
+    }
 }

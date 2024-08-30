@@ -34,4 +34,8 @@ public class Task {
         s += this.taskInfo;
         return s;
     }
+
+    public String dataDescription() {
+        return "";
+    }
 }
