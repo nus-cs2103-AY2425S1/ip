@@ -12,6 +12,7 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     private final static String TASK_TYPE = "D";
     private LocalDate deadline;
+
     public Deadline(String input, String date) throws AiException {
         super(input);
 
@@ -43,18 +44,12 @@ public class Deadline extends Task {
         return deadline.isEqual(date);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return String.format("[%s]%s (%s)", TASK_TYPE, super.toString(),
                 deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String stringData() {
         return String.format("%s | %s | %s", TASK_TYPE, super.stringData(), deadline);

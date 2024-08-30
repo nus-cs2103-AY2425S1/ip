@@ -5,15 +5,13 @@ import ai.task.Task;
 import ai.TaskList;
 import ai.Ui;
 
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     private int i;
+
     public UnmarkCommand(String index) {
         i = Integer.parseInt(index) - 1;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws AiException {
         if (i < 0 || i >= tasks.size()) {
@@ -27,9 +25,6 @@ public class UnmarkCommand extends Command{
         System.out.println(temp + "\n");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean isExit() {
         return false;
