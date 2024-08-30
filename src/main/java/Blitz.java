@@ -47,16 +47,24 @@ public class Blitz{
                 changeTaskStatus(words[0], inputHistory.get(taskNumber - 1));
             } catch (NumberFormatException e) {
                 System.out.println("Come on, that is not a number bro. Don't worry, try again.");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("A valid index has not been given!");
             }
         } else if (strippedInput.startsWith("delete")) {
-            int deleteIndex = Integer.parseInt(words[1]);
-            Task taskToDelete = inputHistory.get(deleteIndex - 1);
-            inputHistory.remove(taskToDelete);
-            System.out.println("----------------\n" +
-                    "WOOHOO! The following task has been ELIMINATED:\n " +
-                    taskToDelete + "\n" +
-                    "HUH you still have " + inputHistory.size() + " tasks remaining??\n" +
-                    "----------------\n");
+            try {
+                int deleteIndex = Integer.parseInt(words[1]);
+                Task taskToDelete = inputHistory.get(deleteIndex - 1);
+                inputHistory.remove(taskToDelete);
+                System.out.println("----------------\n" +
+                        "WOOHOO! The following task has been ELIMINATED:\n " +
+                        taskToDelete + "\n" +
+                        "HUH you still have " + inputHistory.size() + " tasks remaining??\n" +
+                        "----------------\n");
+            } catch (NumberFormatException e) {
+                System.out.println("Come on, that is not a number bro. Don't worry, try again.");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("A valid index has not been given!");
+            }
         } else {
             try {
                 Task newTask = Task.createTask(userInput);
@@ -99,9 +107,5 @@ public class Blitz{
     public static void main(String[] args) {
         Blitz blitz_jr = new Blitz();
         blitz_jr.start();
-    }
-
-    public int dummyMethod() {
-        return 2;
     }
 }

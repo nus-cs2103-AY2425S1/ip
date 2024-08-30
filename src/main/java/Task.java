@@ -17,7 +17,7 @@ public class Task {
         if (!taskNames.contains(words[0])) {
             throw new InvalidTaskException();
         }
-        if (words.length == 1) {
+        if (words.length == 1 || words[1].equals("/from") || words[1].equals("/by")) {
             throw new NoTaskDescriptionException();
         }
 
