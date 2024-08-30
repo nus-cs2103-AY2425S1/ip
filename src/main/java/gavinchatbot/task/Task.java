@@ -24,6 +24,10 @@ public class Task {
      *
      * @return The status icon of the task.
      */
+    public String getDescription() {
+        return description;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }

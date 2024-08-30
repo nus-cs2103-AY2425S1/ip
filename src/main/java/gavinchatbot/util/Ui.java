@@ -2,6 +2,7 @@ package gavinchatbot.util;
 
 import gavinchatbot.task.Task;
 import gavinchatbot.task.TaskList;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -134,6 +135,17 @@ public class Ui {
      *
      * @return The command input by the user.
      */
+
+    public void showFoundTasks(ArrayList<Task> tasks) {
+        String horizontalLine = "___________________________________________________________________________________\n";
+        System.out.println(horizontalLine);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+        System.out.println(horizontalLine);
+    }
+
     public String readCommand() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
