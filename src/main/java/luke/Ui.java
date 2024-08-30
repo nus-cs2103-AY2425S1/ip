@@ -59,15 +59,20 @@ public class Ui {
             case "y", "yes" -> {
                 try {
                     storage.createSaveFile();
+                    System.out.println(Constants.DIVIDER);
                     System.out.println("save file created! ok, i'm all ears now. tell me what you need.");
                     System.out.println(Constants.DIVIDER);
                 } catch (IOException e) {
+                    System.out.println(Constants.DIVIDER);
                     System.out.println("oof, i couldn't create the file. i'll exit first - try restarting me!");
+                    System.out.println(Constants.DIVIDER);
                     System.exit(0);
                 }
             }
             case "n", "no" -> {
+                System.out.println(Constants.DIVIDER);
                 System.out.println("alright then. cya ;)");
+                System.out.println(Constants.DIVIDER);
                 System.exit(0);
             }
             default -> System.out.println("didn't quite understand what you said there. try again?");
