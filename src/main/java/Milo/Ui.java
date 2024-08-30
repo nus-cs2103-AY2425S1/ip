@@ -86,6 +86,15 @@ public class Ui {
         System.out.print(hLine);
     }
 
+    public static void printFoundTask(ArrayList<Task> todoList, int tasksFounded) {
+        System.out.print(hLine);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasksFounded; i++) {
+            System.out.println(i+1 + "." + todoList.get(i).toString());
+        }
+        System.out.println(hLine);
+    }
+
     public static void printError(TaskType.taskType tasktype, String desc) {
         String oops = "OOPS!!! ";
         switch (tasktype) {

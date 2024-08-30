@@ -1,4 +1,7 @@
 package Milo.TaskObj;
+
+import java.util.Objects;
+
 public class Task {
     public static int taskNumber = 0;
     private final String description;
@@ -32,6 +35,10 @@ public class Task {
     public void delete() {
         this.deleted = true;
         taskNumber--;
+    }
+
+    public Boolean isSameTask(String taskDesc) {
+        return this.description != null && this.description.contains(taskDesc);
     }
 
     @Override
