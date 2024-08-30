@@ -1,4 +1,10 @@
-import java.io.*;
+package storage;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import task.Task;
 import todo.ToDo;
@@ -6,8 +12,8 @@ import deadline.Deadline;
 import event.Event;
 
 public class Storage {
-    public TaskList loadTaskListFromFile(String filePath) {
-        ArrayList<Task> taskArrayList = new ArrayList<>();
+    public ArrayList<Task> loadTaskListFromFile(String filePath) {
+        ArrayList<Task> taskList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -20,32 +26,32 @@ public class Storage {
                     case "ToDo":
                         ToDo todo = new ToDo(description);
                         if (isDone) todo.markAsDone();
-                        taskArrayList.add(todo);
+                        taskList.add(todo);
                         break;
                     case "Deadline":
                         String by = parts[3];
                         Deadline deadline = new Deadline(description, by);
                         if (isDone) deadline.markAsDone();
-                        taskArrayList.add(deadline);
+                        taskList.add(deadline);
                         break;
                     case "Event":
                         String from = parts[3];
                         String to = parts[4];
                         Event event = new Event(description, from, to);
                         if (isDone) event.markAsDone();
-                        taskArrayList.add(event);
+                        taskList.add(event);
                         break;
                 }
             }
         } catch (IOException e) {
             System.out.println("An error occurred while loading the task list: " + e.getMessage());
         }
-        return new TaskList(taskArrayList);
+        return taskList;
     }
 
-    public void saveTaskListToFile(String filePath, TaskList taskList) {
+    public void saveTaskListToFile(String filePath, ArrayList<Task> taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (Task task : taskList.getList()) {
+            for (Task task : taskList) {
                 writer.write(taskToString(task));
                 writer.newLine();
             }
@@ -56,7 +62,7 @@ public class Storage {
 
     public static String taskToString(Task task) {
         String type = "";
-        String status = task.isDone() ? "1" : "0"; // 1 if the task is done, 0 if not done
+        String status = task.isDone() ? "1" : "0";
         String description = task.getName();
 
         if (task instanceof ToDo) {
