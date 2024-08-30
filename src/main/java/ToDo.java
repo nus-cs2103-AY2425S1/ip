@@ -6,6 +6,11 @@ public class ToDo extends Task {
     }
 
     @Override
+    public String toFileFormat() {
+        return "ToDo | " + (isDone ? "Done" : "Not Done") + " | " + taskDesc;
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
