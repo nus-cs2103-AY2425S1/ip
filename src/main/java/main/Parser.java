@@ -12,7 +12,7 @@ public class Parser {
     private TaskList allTasks;
     private String description;
     private Storage storage;
-    private boolean carryOn = true;
+    private boolean isOver = false;
     private Ui ui;
     public Parser(String input, TaskList allTasks, Storage s, Ui ui) throws EmptyStringException, CommandNotFoundException, CommandFoundButInvalidException {
         this.allTasks = allTasks;
@@ -67,12 +67,12 @@ public class Parser {
                 break;
             case BYE:
                 System.out.println(ui.bye());
-                this.carryOn = false;
+                this.isOver = true;
                 break;
         }
     }
 
-    public boolean carryOn() {
-        return this.carryOn;
+    public boolean isOver() {
+        return this.isOver;
     }
 }
