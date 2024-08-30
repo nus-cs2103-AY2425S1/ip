@@ -33,12 +33,12 @@ public class DeleteTask extends Command {
      * @throws CitadelException If the specified index is invalid or an error occurs during deletion.
      */
     @Override
-    public void run() throws CitadelException {
+    public String run() throws CitadelException {
         try {
             String[] words = input.split(" ");
             int index = Integer.parseInt(words[1]);
             Task t = tasks.remove(index - 1);
-            TextUI.printDelete(tasks, t);
+            return TextUI.printDelete(tasks, t);
         } catch (IndexOutOfBoundsException e) {
             throw new CitadelInvalidArgException();
         }

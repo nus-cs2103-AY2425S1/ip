@@ -23,9 +23,9 @@ public class FindTask extends Command {
      * </p>
      */
     @Override
-    public void run() {
+    public String run() {
         String keyword = input.substring(5).trim();
         TaskList matchingTasks = tasks.findTasks(keyword);
-        TextUI.printFind(matchingTasks);
+        return TextUI.printFind(matchingTasks);
     }
 }

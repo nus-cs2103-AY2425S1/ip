@@ -33,7 +33,7 @@ public class HandleTodo extends Command {
      * @throws CitadelTaskNoInput If the input is empty or invalid.
      */
     @Override
-    public void run() throws CitadelTaskNoInput {
+    public String run() throws CitadelTaskNoInput {
         Task t;
         String todo = input.substring(5).trim();
         if (todo.isEmpty()) {
@@ -41,6 +41,6 @@ public class HandleTodo extends Command {
         }
         t = new ToDo(todo);
         tasks.add(t);
-        TextUI.printTask(t, tasks);
+        return TextUI.printTask(t, tasks);
     }
 }

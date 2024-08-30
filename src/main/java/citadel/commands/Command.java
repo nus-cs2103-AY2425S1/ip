@@ -33,5 +33,5 @@ public abstract class Command {
      *
      * @throws CitadelException If an error occurs during command execution.
      */
-    public abstract void run() throws CitadelException;
+    public abstract String run() throws CitadelException;
 }

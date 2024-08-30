@@ -37,7 +37,7 @@ public class HandleDeadline extends Command {
      * @throws CitadelException If the input is invalid or an error occurs during the creation of the deadline task.
      */
     @Override
-    public void run() throws CitadelException {
+    public String run() throws CitadelException {
         Task t;
         String[] words = input.split(" /by ");
 
@@ -54,6 +54,6 @@ public class HandleDeadline extends Command {
         LocalDateTime deadlineFormatted = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         t = new Deadline(task, deadlineFormatted);
         this.tasks.add(t);
-        TextUI.printTask(t, tasks);
+        return TextUI.printTask(t, tasks);
     }
 }

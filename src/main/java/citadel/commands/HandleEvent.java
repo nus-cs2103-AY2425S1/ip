@@ -38,7 +38,7 @@ public class HandleEvent extends Command {
      * @throws CitadelException If the input is invalid or an error occurs during the creation of the event task.
      */
     @Override
-    public void run() throws CitadelException {
+    public String run() throws CitadelException {
         Task t;
         String[] words = this.input.split(" /from ");
 
@@ -71,10 +71,11 @@ public class HandleEvent extends Command {
 
         if (fromFormatted.isAfter(toFormatted)) {
             System.out.println("The start time must be before the end time!");
+            return "The start time must be before the end time!";
         } else {
             t = new Event(task, fromFormatted, toFormatted);
             this.tasks.add(t);
-            TextUI.printTask(t, tasks);
+            return TextUI.printTask(t, tasks);
         }
     }
 }

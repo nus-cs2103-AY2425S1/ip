@@ -33,12 +33,12 @@ public class UnmarkTask extends Command {
      * @throws CitadelException If the specified index is invalid or an error occurs during task unmarking.
      */
     @Override
-    public void run() throws CitadelException {
+    public String run() throws CitadelException {
         try {
             String[] words = input.split(" ");
             int index = Integer.parseInt(words[1]);
             tasks.get(index - 1).unMark();
-            TextUI.printUnmark(tasks, index);
+            return TextUI.printUnmark(tasks, index);
         } catch (IndexOutOfBoundsException e) {
             throw new CitadelInvalidArgException();
         }

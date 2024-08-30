@@ -33,12 +33,12 @@ public class MarkTask extends Command {
      * @throws CitadelException If the specified index is invalid or an error occurs during task marking.
      */
     @Override
-    public void run() throws CitadelException {
+    public String run() throws CitadelException {
         try {
             String[] words = input.split(" ");
             int index = Integer.parseInt(words[1]);
             tasks.get(index - 1).markAsDone();
-            TextUI.printMark(tasks, index);
+            return TextUI.printMark(tasks, index);
         } catch (IndexOutOfBoundsException e) {
             throw new CitadelInvalidArgException();
         }
