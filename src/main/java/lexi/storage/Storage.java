@@ -16,23 +16,31 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private final String filepath;
-    private final File directory = new File("./data");
-    private File data;
+    private File dataFile;
     private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private ArrayList<Task> tasks = new ArrayList<>();
-    public Storage(String filepath) {
-        this.filepath = filepath;
+    public Storage(String filepath) throws LexiException{
+        this.dataFile = new File(filepath);
+        // Ensure the directory exists
+        File directory = dataFile.getParentFile();
+        if (directory != null && !directory.exists()) {
+            if (!directory.mkdirs()) {
+                throw new LexiException("Failed to create directory: " + directory.getAbsolutePath());
+            }
+        }
+
+        // Ensure the file exists
+        try {
+            if (!dataFile.exists() && !dataFile.createNewFile()) {
+                throw new LexiException("Failed to create file: " + filepath);
+            }
+        } catch (IOException e) {
+            throw new LexiException("Failed to create file: " + filepath);
+        }
     }
     public ArrayList<Task> load() throws LexiException {
         try {
-            if (!directory.exists()) {
-                directory.mkdirs(); // Create the directory if it doesn't exist
-            }
-            File file = new File(directory, "data.txt");
-            file.createNewFile();
-            data = file;
-            Scanner contents = new Scanner(data);
+            Scanner contents = new Scanner(dataFile);
             while (contents.hasNextLine()) {
                 String[] parts = contents.nextLine().split(" !- ");
                 String taskName = parts[2];
