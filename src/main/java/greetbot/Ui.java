@@ -46,7 +46,7 @@ public class Ui {
 
     public String showFind(String searchItem, TaskList list) {
         return String.format("Here are the matching tasks in your list:\n" +
-                "%s", "test");
+                "%s", list.findTasks(searchItem));
     }
 
     public String readInput() {
