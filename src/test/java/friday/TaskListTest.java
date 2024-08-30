@@ -1,15 +1,15 @@
 package friday;
 
-import friday.task.Task;
-import friday.task.Todo;
-import friday.util.TaskList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import friday.task.Task;
+import friday.task.Todo;
+import friday.util.TaskList;
 
 /**
  * Tests the functionality of the TaskList class.
@@ -35,7 +35,7 @@ public class TaskListTest {
      * Verifies that the task is correctly removed from the list and that the size of the list is updated.
      */
     @Test
-    public void testDeleteTask_ValidIndex() {
+    public void testDeleteTaskWithValidIndex() {
         Task removedTask = taskList.deleteTask(0);
         assertNotNull(removedTask);
         assertEquals("Task 1", removedTask.getDescription());
@@ -47,7 +47,7 @@ public class TaskListTest {
      * Verifies that no task is removed and the size of the list remains unchanged.
      */
     @Test
-    public void testDeleteTask_InvalidIndex() {
+    public void testDeleteTaskWithInvalidIndex() {
         Task removedTask = taskList.deleteTask(5);
         assertNull(removedTask);
         assertEquals(2, taskList.getSize());
