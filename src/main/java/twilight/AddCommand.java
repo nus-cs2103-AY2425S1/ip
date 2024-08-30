@@ -2,6 +2,9 @@ package twilight;
 
 import java.io.IOException;
 
+/**
+ * Represents a Command to add a particular instance of an event.
+ */
 public class AddCommand extends Command {
     protected int type;
     protected String details;
@@ -11,6 +14,7 @@ public class AddCommand extends Command {
         this.details = details;
     }
 
+    @Override
     public void execute(TaskList tasks, Storage storage) throws InvalidInputException {
         String addition = "";
         if (type == 3) {

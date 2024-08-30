@@ -6,6 +6,12 @@ public class MarkingCommand extends Command {
     protected int type;
     protected int taskNum;
 
+    /**
+     * Instantiates a marking command.
+     *
+     * @param type The type of marking command (mark or unmark) indicated by 1 or 2 respectively.
+     * @param details The number of the task to be affected.
+     */
     public MarkingCommand(int type, String details) {
         this.type = type;
         this.taskNum = Integer.valueOf(details) - 1;
