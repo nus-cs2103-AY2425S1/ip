@@ -12,15 +12,30 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The {@code Shrimp} class serves as the entry point for the Shrimp chatbot application.
+ * It handles the main program flow, including user interaction, task management,
+ * and command execution.
+ */
 public class Shrimp {
 
     private static final Boolean NEW_EVENT_NOT_DONE = false;
 
+    /**
+     * The main method of the application.
+     * It initializes and starts the program.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         //program initialise
         programStart();
     }
 
+    /**
+     * Initializes the program by displaying the logo and welcome message,
+     * and then starts the chatbot.
+     */
     static void programStart() {
         Ui ui = new Ui();
 
@@ -30,6 +45,12 @@ public class Shrimp {
         chatBotRun(ui);
     }
 
+    /**
+     * Runs the main loop of the chatbot, handling user input and executing commands.
+     * The loop continues until the user issues the "bye" command.
+     *
+     * @param ui The {@code Ui} instance for interacting with the user.
+     */
     static void chatBotRun(Ui ui) {
         String userInput;
         TaskList taskList;
@@ -153,14 +174,23 @@ public class Shrimp {
         }
     }
 
+    /**
+     * Prints out a {@code String} value when exiting the program.
+     */
     static void programExit() {
         String output = "Byebye~ It's time to say goodbye for the day~ Hope you enjoyed and had fuuun~ " +
                 "I'll see you later~";
         System.out.println(output);
     }
 
-    // Helper method to extract shrimp.task number for MARK/UNMARK/DELETE
-    static int getTaskNumber(String userInput, Parser.CommandType type) throws ShrimpException {
+    /**
+     * Extracts the task number from the user input for MARK, UNMARK, or DELETE commands.
+     *
+     * @param userInput The user's input containing the command and task number.
+     * @param type The type of command being processed.
+     * @return The task number (zero-based index).
+     * @throws ShrimpException If the task number is missing or not a valid integer.
+     */    static int getTaskNumber(String userInput, Parser.CommandType type) throws ShrimpException {
         try {
             return Integer.parseInt(userInput.split(" ")[1]) - 1;
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -170,6 +200,13 @@ public class Shrimp {
         }
     }
 
+    /**
+     * Parses a {@code String} into a {@code LocalDateTime} object using the defined date/time pattern.
+     *
+     * @param input The date/time string to be parsed.
+     * @return The parsed {@code LocalDateTime} object.
+     * @throws ShrimpException If the date/time format is invalid.
+     */
     static LocalDateTime getDateTime(String input) throws ShrimpException {
         try {
             return LocalDateTime.parse(input, Parser.PATTERN);
