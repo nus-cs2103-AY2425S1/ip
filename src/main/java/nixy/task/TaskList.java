@@ -1,11 +1,11 @@
 package nixy.task;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Iterator;
-import nixy.exceptions.TaskNotExistException;
-import nixy.task.Task;
+import java.util.List;
+
 import nixy.Storage;
+import nixy.exceptions.TaskNotExistException;
 
 /**
  * Class that manages tasks as a collection.
@@ -62,8 +62,9 @@ public class TaskList {
      * @return The task string that was marked as done.
      */
     public String markTaskAsDone(int taskNumber) {
-        if (taskNumber < 1 || taskNumber > this.getTaskCount()){
-            throw new TaskNotExistException(String.format("BLAHH!!! The task number %s to mark as done does not exist.", taskNumber));
+        if (taskNumber < 1 || taskNumber > this.getTaskCount()) {
+            throw new TaskNotExistException(
+                String.format("BLAHH!!! The task number %s to mark as done does not exist.", taskNumber));
         }
         Task task = tasks.get(taskNumber - 1);
         task.markAsDone();
@@ -78,7 +79,8 @@ public class TaskList {
      */
     public String markTaskAsUndone(int taskNumber) {
         if (taskNumber < 1 || taskNumber > this.getTaskCount()) {
-            throw new TaskNotExistException(String.format("BLAHH!!! The task number %s to mark as done does not exist.", taskNumber));
+            throw new TaskNotExistException(
+                String.format("BLAHH!!! The task number %s to mark as done does not exist.", taskNumber));
         }
         Task task = tasks.get(taskNumber - 1);
         task.markAsUndone();
@@ -93,7 +95,8 @@ public class TaskList {
      */
     public String deleteTask(int taskNumber) {
         if (taskNumber < 1 || taskNumber > this.getTaskCount()) {
-            throw new TaskNotExistException(String.format("BLAHH!!! The task number %s to delete does not exist.", taskNumber));
+            throw new TaskNotExistException(
+                String.format("BLAHH!!! The task number %s to delete does not exist.", taskNumber));
         }
         Task task = tasks.remove(taskNumber - 1);
         return task.toString();

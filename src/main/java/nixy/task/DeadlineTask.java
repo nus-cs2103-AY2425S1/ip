@@ -7,8 +7,10 @@ import java.time.format.DateTimeFormatter;
  * Represents a deadline task.
  */
 public class DeadlineTask extends Task {
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    private static final DateTimeFormatter SAVE_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER =
+        DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private static final DateTimeFormatter SAVE_DATE_TIME_FORMATTER =
+        DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private LocalDate deadline;
 
     /**
@@ -78,6 +80,7 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toDataString() {
-        return String.format("%s|%s|%s", this.getTypeLabel(), super.toDataString(), this.deadline.format(SAVE_DATE_TIME_FORMATTER));
+        return String.format("%s|%s|%s", this.getTypeLabel(), super.toDataString(),
+            this.deadline.format(SAVE_DATE_TIME_FORMATTER));
     }
 }

@@ -1,8 +1,8 @@
 package nixy.parse;
 
+import nixy.Command;
 import nixy.exceptions.NixyException;
 import nixy.task.Task;
-import nixy.Command;
 
 public class Parsed {
     private Command command;

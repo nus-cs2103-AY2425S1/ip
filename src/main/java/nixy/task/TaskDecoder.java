@@ -24,15 +24,15 @@ public class TaskDecoder {
         String taskMetadata = taskParts[2];
 
         switch (taskType) {
-            case "T":
-                // Metadata for todo tasks is just the description
-                return new TodoTask(taskMetadata, taskIsDone);
-            case "D":
-                return parseDeadlineTask(taskMetadata, taskIsDone);
-            case "E":
-                return parseEventTask(taskMetadata, taskIsDone);
-            default:
-                throw new IllegalArgumentException("Invalid task type: " + taskType);
+        case "T":
+            // Metadata for todo tasks is just the description
+            return new TodoTask(taskMetadata, taskIsDone);
+        case "D":
+            return parseDeadlineTask(taskMetadata, taskIsDone);
+        case "E":
+            return parseEventTask(taskMetadata, taskIsDone);
+        default:
+            throw new IllegalArgumentException("Invalid task type: " + taskType);
         }
     }
 

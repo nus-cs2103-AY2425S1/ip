@@ -1,11 +1,11 @@
 package nixy;
 
 import nixy.exceptions.NixyException;
-import nixy.task.TaskList;
-import nixy.task.Task;
-import nixy.ui.Ui;
-import nixy.parse.Parser;
 import nixy.parse.Parsed;
+import nixy.parse.Parser;
+import nixy.task.Task;
+import nixy.task.TaskList;
+import nixy.ui.Ui;
 
 public class Nixy {
 
@@ -90,6 +90,9 @@ public class Nixy {
                 break;
             case INVALID:
                 ui.showUnknownWarning();
+                break;
+            default:
+                // Should not reach here
                 break;
             }
         }
