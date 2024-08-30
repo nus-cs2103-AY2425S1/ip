@@ -76,6 +76,29 @@ public class Alexer {
         System.out.println(BREAK);
     }
 
+    public void addEvent(List<String> arguments) {
+        int fromIndex = 0;
+        int toIndex = 0;
+        for (int i = 0; i < arguments.size(); i++) {
+            if (arguments.get(i).equals("/from")) fromIndex = i;
+            if (arguments.get(i).equals("/to")) toIndex = i;
+        }
+
+        String description = arguments.stream().limit(fromIndex)
+                .collect(Collectors.joining(" "));
+        String from = arguments.stream().limit(toIndex).skip(fromIndex + 1)
+                .collect(Collectors.joining(" "));
+        String to = arguments.stream().skip(toIndex + 1).collect(Collectors.joining(" "));
+
+        Event event = new Event(description, from, to);
+        tasks.add(event);
+
+        System.out.println(BREAK);
+        System.out.format("Noted! I’ve added a new event to your tasks:\n\n\t%s\n", event);
+        System.out.format("\nYou have %d tasks now.\n", tasks.size());
+        System.out.println(BREAK);
+    }
+
     public void markTaskDone(int index) {
         // assume input here is valid, we will handle exceptions later
         tasks.get(index - 1).markAsDone();
@@ -127,6 +150,10 @@ public class Alexer {
             break;
         case "deadline":
             addDeadline(arguments);
+            promptLoop();
+            break;
+        case "event":
+            addEvent(arguments);
             promptLoop();
             break;
         default:
