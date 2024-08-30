@@ -5,10 +5,6 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
 public class Parser {
-    public enum CommandType {
-        LIST, BYE, MARK, UNMARK, ADD, DEADLINE, EVENT, ERROR, DELETE, CLEAR
-    }
-
     public static final DateTimeFormatter PATTERN = new DateTimeFormatterBuilder()
             // Day (single or double-digit)
             .appendValue(ChronoField.DAY_OF_MONTH)
@@ -44,8 +40,12 @@ public class Parser {
             return CommandType.DELETE;
         } else if (userInput.startsWith("clear")) {
             return CommandType.CLEAR;
-        }else {
+        } else {
             return CommandType.ERROR;
         }
+    }
+
+    public enum CommandType {
+        LIST, BYE, MARK, UNMARK, ADD, DEADLINE, EVENT, ERROR, DELETE, CLEAR
     }
 }

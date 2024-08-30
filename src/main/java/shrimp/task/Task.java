@@ -10,7 +10,7 @@ public abstract class Task {
     }
 
     private String getIsDone() {
-        return (isDone ? "X" : " "); // mark done shrimp.task with X
+        return (isDone ? "X" : " "); // mark done task with X
     }
 
     public String getDescription() {
@@ -27,6 +27,8 @@ public abstract class Task {
     }
 
     public abstract Task markAsDone();
+
     public abstract Task markAsNotDone();
+
     public abstract String getType();
 }

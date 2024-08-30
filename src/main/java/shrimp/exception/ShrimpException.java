@@ -25,6 +25,7 @@ public class ShrimpException extends Exception {
     public static class InvalidCommandException extends ShrimpException {
         private static final String errorCode = "ERR001";
         private static final String errorMessage = "I don't recognise that, can you try again?";
+
         public InvalidCommandException() {
             super(errorMessage, errorCode);
         }
@@ -60,32 +61,40 @@ public class ShrimpException extends Exception {
     public static class NumberFormatException extends ShrimpException {
         private static final String errorCode = "ERR003";
         private static final String errorMessage = "Your values seems wrong, maybe try again?";
+
         public NumberFormatException() {
             super(errorMessage, errorCode);
-        };
+        }
+
     }
 
     public static class EmptyArrayException extends ShrimpException {
         private static final String errorCode = "ERR004";
         private static final String errorMessage = "There's no tasks for me to interact with...";
+
         public EmptyArrayException() {
             super(errorMessage, errorCode);
-        };
+        }
+
     }
 
     public static class ArrayIndexOutOfBoundException extends ShrimpException {
         private static final String errorCode = "ERR005";
         private static final String errorMessage = "I cannot find the task that you're looking for... ";
+
         public ArrayIndexOutOfBoundException() {
             super(errorMessage, errorCode);
-        };
+        }
+
     }
 
     public static class InvalidDateTimeException extends ShrimpException {
         private static final String errorCode = "ERR006";
         private static final String errorMessage = "The datetime format you inserted is wrong (DD/MM/YYYY)... ";
+
         public InvalidDateTimeException() {
             super(errorMessage, errorCode);
-        };
+        }
+
     }
 }

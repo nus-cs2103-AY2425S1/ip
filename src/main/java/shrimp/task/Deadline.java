@@ -11,6 +11,16 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public LocalDateTime getBy() {
+        return by;
+    }
+
+    @Override
+    public String toString() {
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        return getType() + super.toString() + " (by: " + by.format(pattern) + ")";
+    }
+
     @Override
     public Deadline markAsDone() {
         return new Deadline(getDescription(), this.by, true);
@@ -23,15 +33,5 @@ public class Deadline extends Task {
 
     public String getType() {
         return "[D]";
-    }
-
-    public LocalDateTime getBy() {
-        return by;
-    }
-
-    @Override
-    public String toString() {
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        return getType() + super.toString() + " (by: " + by.format(pattern) + ")";
     }
 }

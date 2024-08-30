@@ -7,6 +7,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public String toString() {
+        return getType() + super.toString();
+    }
+
+    @Override
     public Todo markAsDone() {
         return new Todo(getDescription(), true);
     }
@@ -18,10 +23,5 @@ public class Todo extends Task {
 
     public String getType() {
         return "[T]";
-    }
-
-    @Override
-    public String toString() {
-        return getType() + super.toString();
     }
 }

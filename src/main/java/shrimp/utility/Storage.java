@@ -1,7 +1,11 @@
 package shrimp.utility;
 
 import shrimp.exception.ShrimpException;
-import shrimp.task.*;
+import shrimp.task.Deadline;
+import shrimp.task.Event;
+import shrimp.task.Task;
+import shrimp.task.TaskList;
+import shrimp.task.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -46,17 +50,17 @@ public class Storage {
     private static String formatTaskForSaving(Task task) {
         String type = task.getType();
         switch (type) {
-            case "[T]" -> {
-                return String.format("T | %d | %s", task.isDone() ? 1 : 0, task.getDescription());
-            }
-            case "[D]" -> {
-                Deadline deadline = (Deadline) task;
-                return String.format("D | %d | %s | %s", task.isDone() ? 1 : 0, task.getDescription(), deadline.getBy());
-            }
-            case "[E]" -> {
-                Event event = (Event) task;
-                return String.format("E | %d | %s | %s | %s", task.isDone() ? 1 : 0, task.getDescription(), event.getFrom(), event.getTo());
-            }
+        case "[T]" -> {
+            return String.format("T | %d | %s", task.isDone() ? 1 : 0, task.getDescription());
+        }
+        case "[D]" -> {
+            Deadline deadline = (Deadline) task;
+            return String.format("D | %d | %s | %s", task.isDone() ? 1 : 0, task.getDescription(), deadline.getBy());
+        }
+        case "[E]" -> {
+            Event event = (Event) task;
+            return String.format("E | %d | %s | %s | %s", task.isDone() ? 1 : 0, task.getDescription(), event.getFrom(), event.getTo());
+        }
         }
         return "";
     }
@@ -68,17 +72,17 @@ public class Storage {
         String description = parts[2];
 
         switch (taskType) {
-            case "T":
-                return new Todo(description, isDone);
-            case "D":
-                LocalDateTime by = getDateTime(parts[3]);
-                return new Deadline(description, by, isDone);
-            case "E":
-                LocalDateTime from = getDateTime(parts[3]);
-                LocalDateTime to = getDateTime(parts[4]);
-                return new Event(description, from, to, isDone);
-            default:
-                throw new IllegalStateException("Unexpected value: " + taskType);
+        case "T":
+            return new Todo(description, isDone);
+        case "D":
+            LocalDateTime by = getDateTime(parts[3]);
+            return new Deadline(description, by, isDone);
+        case "E":
+            LocalDateTime from = getDateTime(parts[3]);
+            LocalDateTime to = getDateTime(parts[4]);
+            return new Event(description, from, to, isDone);
+        default:
+            throw new IllegalStateException("Unexpected value: " + taskType);
         }
     }
 
