@@ -31,6 +31,14 @@ application {
     mainClass.set("BeeBot")
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
 shadowJar {
     archiveBaseName = "beebot"
     archiveClassifier = null

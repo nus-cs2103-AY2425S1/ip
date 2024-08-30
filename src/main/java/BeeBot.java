@@ -29,7 +29,7 @@ public class BeeBot {
     }
 
     public static void main(String[] args) {
-        new BeeBot("src/data/BeeBot.txt").run();
+        new BeeBot("/Users/beetee/Documents/NUS/CS/Y2S1/CS2103T/ip/data/BeeBot.txt").run();
     }
 
     public void run() {
