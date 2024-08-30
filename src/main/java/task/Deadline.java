@@ -1,15 +1,14 @@
 package task;
 
-import ui.Ui;
-
-import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task{
-    protected LocalDate dueTime;
+    private LocalDate dueTime;
     public Deadline() {
         super("", "D");
     }

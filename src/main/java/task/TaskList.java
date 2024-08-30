@@ -1,47 +1,48 @@
 package task;
 
 import exceptions.TaskIndexOutOfBound;
+
 import java.util.ArrayList;
 
 public class TaskList {
-    private final ArrayList<Task> tasks;
+    private final ArrayList<Task> TASKS;
     public TaskList(ArrayList<Task> TaskList) {
-        this.tasks = TaskList;
+        this.TASKS = TaskList;
     }
 
     public void addTask(Task task) {
-        tasks.add(task);
+        TASKS.add(task);
     }
 
     public void deleteTask(int index) throws TaskIndexOutOfBound {
-        if (index < 0 || index >= tasks.size()) {
+        if (index < 0 || index >= TASKS.size()) {
             throw new TaskIndexOutOfBound();
         }
-        tasks.remove(index);
+        TASKS.remove(index);
     }
 
     public void markTask(int index) throws TaskIndexOutOfBound {
-        if (index < 0 || index >= tasks.size()) {
+        if (index < 0 || index >= TASKS.size()) {
             throw new TaskIndexOutOfBound();
         }
-        tasks.get(index).setMarkStatus(true);
+        TASKS.get(index).setMarkStatus(true);
     }
 
     public void unmarkTask(int index) throws TaskIndexOutOfBound {
-        if (index < 0 || index >= tasks.size()) {
+        if (index < 0 || index >= TASKS.size()) {
             throw new TaskIndexOutOfBound();
         }
-        tasks.get(index).setMarkStatus(false);
+        TASKS.get(index).setMarkStatus(false);
     }
 
     public Task getTask(int index) throws TaskIndexOutOfBound {
-        if (index < 0 || index >= tasks.size()) {
+        if (index < 0 || index >= TASKS.size()) {
             throw new TaskIndexOutOfBound();
         }
-        return tasks.get(index);
+        return TASKS.get(index);
     }
 
     public ArrayList<Task> getTasks() {
-        return tasks;
+        return TASKS;
     }
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class StorageStub extends Storage {
     private ArrayList<Task> tasks = new ArrayList<>();
-    public boolean saveTasksCalled = false;
+    public boolean isSaveTasksCalled = false;
 
     public StorageStub() {
         super("");  // No need to specify a file path since it's a stub.
@@ -19,7 +19,7 @@ public class StorageStub extends Storage {
     @Override
     public void saveTasks(ArrayList<Task> taskList) {
         tasks = new ArrayList<>(taskList);  // Simulate saving tasks by storing them in the internal list.
-        saveTasksCalled = true;  // Indicate that saveTasks was called.
+        isSaveTasksCalled = true;  // Indicate that saveTasks was called.
     }
 
     // Additional method to manually set tasks (useful for setting up specific test scenarios)

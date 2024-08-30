@@ -11,15 +11,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private final String filePath;
+    private final String FILE_PATH;
 
     public Storage(String filePath) {
-        this.filePath = filePath;
+        this.FILE_PATH = filePath;
     }
 
     public ArrayList<Task> loadTasks() throws FileNotFoundException {
         ArrayList<Task> taskList = new ArrayList<>();
-        File dataSaved = new File(filePath);
+        File dataSaved = new File(FILE_PATH);
         Scanner s = new Scanner(dataSaved);
 
         while (s.hasNext()) {
@@ -31,7 +31,7 @@ public class Storage {
     }
 
     public void saveTasks(ArrayList<Task> taskList) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+        FileWriter fw = new FileWriter(FILE_PATH);
         String separation = " | ";
         for (Task task : taskList) {
             fw.write(task.toSavedFormat(separation) + "\n");
