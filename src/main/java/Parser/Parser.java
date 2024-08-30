@@ -8,6 +8,7 @@ import Commands.BreakCommand;
 import Commands.AddTodoCommand;
 import Commands.AddDeadlineCommand;
 import Commands.AddEventCommand;
+import Commands.FindCommand;
 import Commands.Command;
 import Exceptions.DelphiException;
 import Exceptions.InvalidInputException;
