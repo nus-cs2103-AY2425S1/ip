@@ -1,10 +1,5 @@
 package chatbaby;
 
-import chatbaby.Storage;
-import chatbaby.TaskList;
-import chatbaby.Ui;
-import chatbaby.ChatBabyException;
-
 /**
  * Represents an abstract command in the ChatBaby application.
  * Specific command types (e.g., AddCommand, DeleteCommand) extend this class
