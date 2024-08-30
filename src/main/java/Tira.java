@@ -23,11 +23,14 @@ public class Tira {
         // variable declarations
         Scanner scanner = new Scanner(new InputStreamReader(System.in));
         PrintWriter printer = new PrintWriter(System.out);
+        TaskList tasks = new TaskList();
         String logo = "TIRAMISU THE CAT (TIRA)";
         System.out.println("MIAO (Hello) from\n" + logo + "\n" +
                 "What can I do for you, miao?\n");
         // check the user input
+        /*
         ArrayList<Task> taskList = new ArrayList<Task>();
+         */
         //Solution for Save below (Level-7)  inspired by https://github.com/hansneddyanto/ip/blob/master/src/main/java/Hana.java
         File directory = new File(Directory);
         File file = new File(FileName);
@@ -54,29 +57,29 @@ public class Tira {
                 if (command.equals("bye")) { //BYE
                     break;
                 } else if (firstWord.equals("list")) { //LIST
-                    Tira.getList(printer, taskList);
+                    tasks.getList();
                 } else if (firstWord.equals("mark")) { //MARK
-                    Tira.markTask(printer, taskList, splitCommand);
-                    fileWriter.write(taskList.toString());
+                    tasks.markTask(splitCommand);
+                    fileWriter.write(tasks.toString());
                 } else if (firstWord.equals("unmark")) { //UNMARK
-                    Tira.unmarkTask(printer, taskList, splitCommand);// ;
-                    fileWriter.write(taskList.toString());
+                    tasks.unmarkTask(splitCommand);// ;
+                    fileWriter.write(tasks.toString());
                 } else if (firstWord.equals("todo")) {//todo
-                    Tira.addToDo(taskList, splitCommand);
-                    fileWriter.write(taskList.toString());
+                    tasks.addToDo(splitCommand);
+                    fileWriter.write(tasks.toString());
                 } else if (firstWord.equals("deadline")) { // DEADLINE
-                    Tira.addDeadline(taskList, splitCommand, command);
-                    fileWriter.write(taskList.toString());
+                    tasks.addDeadline(command, splitCommand);
+                    fileWriter.write(tasks.toString());
                 } else if (firstWord.equals("event")) { // EVENT
-                    Tira.addEvent(taskList, splitCommand, command);
-                    fileWriter.write(taskList.toString());
+                    tasks.addEvent(command, splitCommand);
+                    fileWriter.write(tasks.toString());
                 } else if (firstWord.equals("delete")) {
-                    Tira.delete(printer, taskList, splitCommand);
-                    fileWriter.write(taskList.toString());
+                    tasks.delete(splitCommand);
+                    fileWriter.write(tasks.toString());
                 } else {
                     throw new TiraException("MRA..OW? I think your brain is not braining. Rethink what you want of me...");
                 }
-                fileWriter.write(taskList.toString());
+                fileWriter.write(tasks.toString());
                 fileWriter.flush();
             }
         printer.println("Bye. Come back with treats, MIAO!");
@@ -148,21 +151,7 @@ public class Tira {
     }
 
     private static void addEvent(ArrayList<Task> taskList, String[] splitCommand, String command) throws TiraException {
-        if (splitCommand.length < 2) {
-            throw new TiraException("MRAW?? WHERE IS THE TASK?");
-        }
-        String[] dateCommands2 = command.split("/");
-        try {
-            String startDateString = dateCommands2[1].substring(5);
-            String endDateString = dateCommands2[2].substring(3);
-            System.out.println(startDateString + endDateString);
-            LocalDate startDate = LocalDate.parse(dateCommands2[1].substring(5).trim(), IN_FORMATTER);
-            LocalDate endDate = LocalDate.parse(dateCommands2[2].substring(3).trim(), IN_FORMATTER);
-            Task eventTask = new Event(dateCommands2[0].substring(6), startDate, endDate);
-            Tira.addTask(eventTask, taskList);
-        } catch (DateTimeParseException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 
     private static void delete(PrintWriter printer, ArrayList<Task> taskList, String[] splitCommand) throws TiraException {
