@@ -3,13 +3,12 @@ package Tasks;
 import Exceptions.DelphiException;
 import Exceptions.EmptyInputException;
 import Parser.DateParser;
-import Tasks.Task;
 
 /**
  * Represents a Tasks.Deadline task with a specific deadline.
  */
 public class Deadline extends Task {
-    private String deadline;
+    private final String deadline;
 
     /**
      * Constructs a Tasks.Deadline task with a given description.

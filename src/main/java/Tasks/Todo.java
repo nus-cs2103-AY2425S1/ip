@@ -2,7 +2,6 @@ package Tasks;
 
 import Exceptions.DelphiException;
 import Exceptions.EmptyInputException;
-import Tasks.Task;
 
 /**
  * Represents a Tasks.Todo task.

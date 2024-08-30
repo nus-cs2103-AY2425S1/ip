@@ -3,27 +3,22 @@ import Parser.Parser;
 import Storage.Storage;
 import TaskList.TaskList;
 import UI.UI;
-import Commands.BreakCommand;
 import Commands.Command;
-import Commands.MarkTaskCommand;
 
 import java.util.Scanner;
 
 public class Delphi {
-    private TaskList taskList;
-    private Storage storage;
-
-    private Parser p;
-
-    private UI ui;
+    private final TaskList taskList;
+    private final Storage storage;
+    private final Parser parser;
+    private final UI ui;
 
     public Delphi(String filePath) {
         storage = new Storage(filePath);
         taskList = new TaskList();
-        p = new Parser();
+        parser = new Parser();
         ui = new UI();
     }
-
     public void run() {
         boolean isExitCommand = false;
         ui.welcomeMessage();
@@ -33,7 +28,7 @@ public class Delphi {
         Scanner scanner = new Scanner(System.in);
         while (!isExitCommand) {
             try {
-                Command c = p.parseInput(scanner.nextLine());
+                Command c = parser.parseInput(scanner.nextLine());
                 c.execute(taskList, storage, ui);
                 isExitCommand = c.exitBot();
             } catch (DelphiException e) {
@@ -42,8 +37,6 @@ public class Delphi {
         }
         ui.goodbyeMessage();
     }
-
-
     public static void main(String[] args) {
         new Delphi("../ip/src/main/HardDisk.txt").run();
     }
