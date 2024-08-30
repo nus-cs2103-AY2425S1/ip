@@ -1,3 +1,5 @@
+package luke.command;
+
 public class Command {
     private final String mark;
     private final String command;

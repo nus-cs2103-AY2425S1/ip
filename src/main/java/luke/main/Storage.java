@@ -1,3 +1,9 @@
+package luke.main;
+
+import luke.env.Constants;
+import luke.task.Task;
+import luke.task.TaskList;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,7 +35,7 @@ public class Storage {
             fw.close();
         } catch (IOException e) {
             System.out.println("woops! i ran into an issue saving your list. your last saved list can be found "
-                    + "at Luke.txt. try launching me again to continue.");
+                    + "at luke.Luke.txt. try launching me again to continue.");
             System.exit(0);
         }
     }

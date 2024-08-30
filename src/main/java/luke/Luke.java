@@ -1,3 +1,10 @@
+package luke;
+
+import luke.main.Parser;
+import luke.main.Storage;
+import luke.main.Ui;
+import luke.task.TaskList;
+
 public class Luke {
     public static void main(String[] args) {
         String logo = " .____           __\n"
