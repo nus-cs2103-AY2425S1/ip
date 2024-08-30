@@ -28,8 +28,28 @@ public class Ui {
     }
 
     public static void showList(TaskList tasks) {
+        utilDisplayList(tasks, "Here are the tasks in your list:");
+    }
+
+    /**
+     * Displays the list of tasks that find retrieved.
+     *
+     * @param tasks The list of found tasks.
+     */
+    public static void showMatchingList(TaskList tasks) {
+        utilDisplayList(tasks, "Here are the matching tasks in your list:");
+    }
+
+    /**
+     * Helper method to display a list of tasks with a message.
+     * The list is displayed with a number prefix.
+     *
+     * @param tasks The list of tasks to display.
+     * @param message The message to display before the list.
+     */
+    private static void utilDisplayList(TaskList tasks, String message) {
         PrintUtility.indentPrint(HORIZONTAL_LINE);
-        PrintUtility.indentPrint("Here are the tasks in your list:");
+        PrintUtility.indentPrint(message);
         Iterator<Task> tasksIterator = tasks.getTasksIterator();
         for (int i = 0; tasksIterator.hasNext(); i++) {
             Task task = tasksIterator.next();

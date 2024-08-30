@@ -6,6 +6,7 @@ import nixy.Command;
 
 public class Parsed {
     private Command command;
+    private String stringParam;
     private int taskNumber;
     private Task task;
 
@@ -21,6 +22,16 @@ public class Parsed {
     public Parsed(Command c, Task t) {
         command = c;
         task = t;
+    }
+
+    /**
+     * Constructor for Parsed object with a command and a String parameter.
+     * @param c The command from the user input.
+     * @param s The String parameter from the user input.
+     */
+    public Parsed(Command c, String s) {
+        command = c;
+        stringParam = s;
     }
 
     /**
@@ -53,5 +64,17 @@ public class Parsed {
             throw new NixyException("BLAHH!!! The task does not exist for this command.");
         }
         return task;
+    }
+
+    /**
+     * Returns the String parameter from the user input.
+     * Throws if parameter does not exist for the command.
+     * @return The String parameter from the user input.
+     */
+    public String getStringParam() {
+        if (command != Command.FIND) {
+            throw new NixyException("BLAHH!!! The String parameter does not exist for this command.");
+        }
+        return stringParam;
     }
 }
