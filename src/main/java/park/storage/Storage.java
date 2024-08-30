@@ -1,13 +1,21 @@
+package main.java.park.storage;
+
+import main.java.park.exceptions.ParkException;
+import main.java.park.task.Deadline;
+import main.java.park.task.Event;
+import main.java.park.task.Task;
+import main.java.park.task.ToDo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
+
     private final String filePath;
 
     public Storage(String filePath) {
@@ -32,8 +40,8 @@ public class Storage {
             List<String> lines = Files.readAllLines(Path.of(filePath));
             TaskList tasklist = new TaskList();
             for (String line : lines) {
-                Task t = decode(line);
-                tasklist.add(t);
+                    Task t = decode(line);
+                    tasklist.add(t);
             }
             return tasklist;
         } catch (IOException e) {
@@ -108,10 +116,10 @@ public class Storage {
                     }
                     return t;
                 }
-                default -> throw new ParkException("file corrupted");
+                default -> throw new ParkException("file corrupted, loading new empty list");
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new ParkException("file corrupted");
+            throw new ParkException("file corrupted, loading new empty list");
         }
     }
 }
