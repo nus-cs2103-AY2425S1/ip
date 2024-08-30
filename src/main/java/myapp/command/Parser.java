@@ -43,6 +43,7 @@ public class Parser {
             case "deadline" -> handleDeadline(taskList, storage, words);
             case "event" -> handleEvent(taskList, storage, words);
             case "delete" -> handleDelete(taskList, storage, words);
+            case "find" -> handleFind(taskList, words);
             default -> throw new RubyException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         };
     }
@@ -202,6 +203,21 @@ public class Parser {
         taskList.removeTask(deleteIndex);
         storage.save(taskList.getTasks());
         return "Noted. I've removed this task:\n     " + deletedTask + "\nNow you have " + taskList.size() + " tasks in the list.";
+    }
+
+    /**
+     * Handles the 'find' command by searching for tasks that contain the specified keyword in their description.
+     *
+     * @param taskList The list of tasks to search within.
+     * @param words The keywords to search for in task descriptions.
+     * @return A string containing the matching tasks found in the task list.
+     */
+    private String handleFind(TaskList taskList, String[] words) throws RubyException {
+        if (words.length < 2) {
+            throw new RubyException("Please specify a keyword to find tasks.");
+        }
+        String keyword = words[1];
+        return taskList.findTasks(keyword);
     }
 
     /**
