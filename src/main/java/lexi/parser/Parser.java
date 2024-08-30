@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    private static DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     public static Command parse(String response) throws LexiException {
         String[] parts = response.split(" ");
         try {
@@ -86,7 +86,6 @@ public class Parser {
                     + "Please follow this format: DD/MM/YYYY HHmm like 13/01/2002 1700");
         }
     }
-
     private static AddCommand handleDeadline(String response) throws LexiException {
         String[] parts = response.split(" /by ");
         String errorMessage = "Please key in the command in this format\n"
@@ -105,7 +104,6 @@ public class Parser {
                     + "Please follow this format: DD/MM/YYYY HHmm like 13/01/2002 1700");
         }
     }
-
     private static AddCommand handleTodo(String response) throws LexiException{
         String errorMessage = "Sorry! The description of a todo cannot be empty\n" +
                 "Please write in this format \"todo <description>\"\n";

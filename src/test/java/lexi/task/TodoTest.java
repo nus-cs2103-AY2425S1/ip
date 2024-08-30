@@ -23,7 +23,7 @@ public class TodoTest {
         Todo task = new Todo("read book"); // Create test task
 
         // Mark the task as done
-        task.doTask();
+        task.setDone(true);
 
         // Verify that task is marked as done
         assertTrue(task.getIsDone());
@@ -38,7 +38,7 @@ public class TodoTest {
                 "The string representation should be '[T][ ] read book'.");
 
         // Mark the task as done
-        task.doTask();
+        task.setDone(true);
 
         // Verify the string representation after marking the task as done
         assertEquals("[T][X] read book", task.toString(),

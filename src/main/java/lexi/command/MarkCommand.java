@@ -32,7 +32,7 @@ public class MarkCommand extends Command {
         if(!taskToBeMarked.getIsDone()) {
             throw new LexiException("This task has already been unmarked!\n");
         }
-        taskToBeMarked.undoTask();
+        taskToBeMarked.setDone(false);
         tasks.updateTask(taskToBeMarked, this.taskNumber);
         ui.showUnmarkMessage(taskToBeMarked);
     }
@@ -41,7 +41,7 @@ public class MarkCommand extends Command {
         if(taskToBeMarked.getIsDone()) {
             throw new LexiException("This task has already been marked!\n");
         }
-        taskToBeMarked.doTask();
+        taskToBeMarked.setDone(true);
         tasks.updateTask(taskToBeMarked, this.taskNumber);
         ui.showMarkMessage(taskToBeMarked);
     }

@@ -2,7 +2,7 @@ package lexi.task;
 
 import java.time.LocalDateTime;;
 public class Deadline extends DatedTask{
-    protected LocalDateTime by;
+    private final LocalDateTime by;
 
     public Deadline(String taskName, LocalDateTime by) {
         super(taskName);

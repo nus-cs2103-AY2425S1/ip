@@ -1,5 +1,7 @@
 package lexi.task;
+
 import java.time.LocalDateTime;
+
 public class Event extends DatedTask {
     protected LocalDateTime from;
     protected LocalDateTime to;

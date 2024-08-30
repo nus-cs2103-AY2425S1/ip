@@ -6,19 +6,20 @@ import lexi.task.Event;
 import lexi.task.Task;
 import lexi.task.Todo;
 
+import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
     private File dataFile;
     private DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private ArrayList<Task> tasks = new ArrayList<>();
+
     public Storage(String filepath) throws LexiException{
         this.dataFile = new File(filepath);
         // Ensure the directory exists
@@ -28,7 +29,6 @@ public class Storage {
                 throw new LexiException("Failed to create directory: " + directory.getAbsolutePath());
             }
         }
-
         // Ensure the file exists
         try {
             if (!dataFile.exists() && !dataFile.createNewFile()) {
@@ -47,7 +47,7 @@ public class Storage {
                 if (parts[0].equals("T")) {
                     Todo task = new Todo(taskName);
                     if (parts[1].equals("1")) {
-                        task.doTask();
+                        task.setDone(true);
                     }
                     tasks.add(task);
                 } else if (parts[0].equals("D")) {
@@ -55,7 +55,7 @@ public class Storage {
                     LocalDateTime by = LocalDateTime.parse(deadline, this.inputFormatter);
                     Deadline task = new Deadline(taskName, by);
                     if (parts[1].equals("1")) {
-                        task.doTask();
+                        task.setDone(true);
                     }
                     tasks.add(task);
                 } else if (parts[0].equals("E")) {
@@ -65,7 +65,7 @@ public class Storage {
                     LocalDateTime to = LocalDateTime.parse(end, this.inputFormatter);
                     Event task = new Event(taskName, from, to);
                     if (parts[1].equals("1")) {
-                        task.doTask();
+                        task.setDone(true);
                     }
                     tasks.add(task);
                 }
@@ -75,7 +75,6 @@ public class Storage {
         }
         return tasks;
     }
-
     public void updateStorage(ArrayList<Task> tasks) throws LexiException {
         this.tasks = tasks;
         try {

@@ -1,18 +1,15 @@
 package lexi.task;
+
 public class Task {
     private boolean isDone;
     private final String taskName;
-
 
     public Task(String taskName){
         this.isDone = false;
         this.taskName = taskName;
     }
-    public void doTask() {
-        this.isDone = true;
-    }
-    public void undoTask() {
-        this.isDone = false;
+    public void setDone(boolean value) {
+        this.isDone = value;
     }
     public boolean getIsDone() {
         return this.isDone;
