@@ -1,24 +1,48 @@
-# Duke project template
+# 🧽 Spongebob : A Chatbot for your daily needs. 
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![alt text](https://i.imgur.com/IhjSup1.jpeg "Spongebot")
+---
 
-## Setting up in Intellij
+Spongebob fulfills **all** your needs for chatbot:
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+* 🅰️ Text-based
+* 📖 Easy to learn
+* ⌛ _Fast_ response time
+* 🧳 Coded in Java
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+---
+
+## ✨ Key Features
+
+-[ ] **Manages** and **tracks** your tasks for you.
+-[ ] Set different types of **tasks**, from deadlines to events.
+-[ ] Set and manages **deadlines**.
+-[ ] **Mark** tasks as done.
+-[ ] **Filter** tasks based on description. 
+
+--- 
+## 🛠️ Setup
+
+1. Download a version of Spongebob [here.](https://github.com/Jaynon/ip/releases)
+
+2. Then, run the included jar file in any terminal with the line below.
+```cmd
+java -jar spongebob.jar
+```
+
+---
+## 🧠 Contributions
+Feel free to clone this repository and make your own features!
+```cmd
+gh repo clone Jaynon/ip
+```
+> **Requirements**
+> <p> Have Java 17.0 and above</p>
+
+Here is an snippet of the codebase:
+
+```Java
+public static void main(String[] args) {
+        new Spongebob("data/spongebob.txt").run();
+    }
+```
