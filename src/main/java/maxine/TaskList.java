@@ -1,8 +1,10 @@
-import exception.MaxineException;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+package maxine;
+
+import maxine.exception.MaxineException;
+import maxine.task.Deadline;
+import maxine.task.Event;
+import maxine.task.Task;
+import maxine.task.Todo;
 import java.util.Iterator;
 import java.util.ArrayList;
 
@@ -38,7 +40,7 @@ public class TaskList implements Iterable<Task> {
             }
         }
         if (!isChecked || arr[1].equals("/by")) {
-            throw new MaxineException("Please follow this format: deadline [enter task] /by [enter deadline]");
+            throw new MaxineException("Please follow this format: deadline [enter maxine.task] /by [enter deadline]");
         }
         boolean hasBy = false;
         for (int i = 2; i < arr.length; i++) {

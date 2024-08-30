@@ -1,11 +1,8 @@
-import exception.MaxineException;
-import task.Deadline;
-import task.Task;
-import task.Event;
-import task.Todo;
+package maxine;
+
+import maxine.task.Task;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Maxine {
     
@@ -40,14 +37,14 @@ public class Maxine {
                     tasks.addTodo(arr);
                     storage.refreshStorage(tasks);
                 } catch (Exception e) {
-                    System.out.println("Please follow this format: todo [enter task]");
+                    System.out.println("Please follow this format: todo [enter maxine.task]");
                 }
             } else if (arr[0].equals("deadline")) {
                 try {
                     tasks.addDeadline(arr);
                     storage.refreshStorage(tasks);
                 } catch (Exception e) {
-                    System.out.println("Please follow this format: deadline [enter task] /by [enter deadline]");
+                    System.out.println("Please follow this format: deadline [enter maxine.task] /by [enter deadline]");
                 }
             } else if (arr[0].equals("event")) {
                 try {
@@ -79,7 +76,7 @@ public class Maxine {
     }
 
     /**
-     * This method helps to mark or unmark the task
+     * This method helps to mark or unmark the maxine task
      */
     public void changeMark() {
         int mark = Integer.parseInt(arr[1]) - 1;

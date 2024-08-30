@@ -1,10 +1,10 @@
-import exception.MaxineException;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+package maxine;
 
-import java.util.ArrayList;
+import maxine.exception.MaxineException;
+import maxine.task.Deadline;
+import maxine.task.Event;
+import maxine.task.Task;
+import maxine.task.Todo;
 
 public class Parser {
     

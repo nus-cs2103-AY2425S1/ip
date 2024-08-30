@@ -1,6 +1,4 @@
-package task;
-import exception.MaxineException;
-import java.util.ArrayList;
+package maxine.task;
 
 public class Event extends Task {
 

@@ -1,6 +1,6 @@
-package task;
+package maxine.task;
 
-import exception.MaxineException;
+import maxine.exception.MaxineException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -52,7 +52,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return isDone ? "[X] " : "[ ] "; // mark done task with X
+        return isDone ? "[X] " : "[ ] "; // mark done maxine.task with X
     }
     
     public String writeToFile() {

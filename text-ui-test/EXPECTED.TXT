@@ -1,4 +1,4 @@
-Hi! Nice to meet you :) I am Maxine
+Hi! Nice to meet you :) I am maxine.Maxine
 What can I do for you today? : What can I do for you today? : What can I do for you today? : What can I do for you today? : 1. [T][ ] return book
 2. [D][ ] return book (by:  sunday)
 3. [E][ ] project meeting (From:  monday | To:  tuesday)

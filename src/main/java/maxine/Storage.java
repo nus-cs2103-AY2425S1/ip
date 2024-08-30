@@ -1,5 +1,7 @@
-import exception.MaxineException;
-import task.Task;
+package maxine;
+
+import maxine.exception.MaxineException;
+import maxine.task.Task;
 
 import java.io.*;
 import java.util.ArrayList;

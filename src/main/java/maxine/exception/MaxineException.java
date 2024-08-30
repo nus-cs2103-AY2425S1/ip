@@ -1,4 +1,4 @@
-package exception;
+package maxine.exception;
 
 public class MaxineException extends Exception {
     

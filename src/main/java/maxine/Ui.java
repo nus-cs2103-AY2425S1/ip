@@ -1,6 +1,6 @@
-import task.Task;
+package maxine;
 
-import java.util.ArrayList;
+import maxine.task.Task;
 
 public class Ui {
     
@@ -9,7 +9,7 @@ public class Ui {
     }
     
     public void greet() {
-        System.out.println("Hi! Nice to meet you :) I am Maxine");
+        System.out.println("Hi! Nice to meet you :) I am maxine.Maxine");
     }
     
     public void goodbye() {
@@ -18,7 +18,7 @@ public class Ui {
     }
     
     public void delete(Task task) {
-        System.out.println("Deleting this task: " + task);
+        System.out.println("Deleting this maxine.task: " + task);
     }
     
     public void changeMark(Task task) {

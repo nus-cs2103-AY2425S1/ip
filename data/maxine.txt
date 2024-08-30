@@ -1,3 +1,4 @@
-T / 1 / homework
+T / 0 / homework
 D / 0 / project / Apr 30 2025
-E / 0 / lesson /  now /  later
+E / 1 / lesson /  now /  later
+D / 0 / cs2103t /  today

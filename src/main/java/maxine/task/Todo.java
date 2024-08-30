@@ -1,6 +1,4 @@
-package task;
-
-import java.util.ArrayList;
+package maxine.task;
 
 public class Todo extends Task {
 
