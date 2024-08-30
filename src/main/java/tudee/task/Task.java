@@ -9,6 +9,10 @@ public abstract class Task {
         this.done = false;
     }
 
+    public String getDescription() {
+        return this.taskString;
+    }
+
     public String getDone() {
         return (this.done ? "[X]" : "[ ]");
     }

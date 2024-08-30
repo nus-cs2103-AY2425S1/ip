@@ -70,6 +70,11 @@ public class Ui {
         System.out.println(message);
         showLine();
     }
+
+    public void showTask(Task task) {
+        System.out.println(task);
+    }
+
     public void close() {
         if (sc != null) {
             sc.close();
