@@ -38,6 +38,9 @@ public class Parser {
                 tasks.unmarkTask(Integer.parseInt(input.substring(7)) - 1);
             } else if (input.equalsIgnoreCase("exit")) {
                 System.out.println("Bye. Hope to see you again soon!");
+            } else if (input.startsWith("find")) {
+                String search = input.substring(input.indexOf(" ") + 1);
+                tasks.findTask(search);
             } else {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
