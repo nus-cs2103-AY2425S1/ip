@@ -1,5 +1,6 @@
 package sigmabot.task;
-import sigmabot.ui.UiComponent;
+
+import java.util.Scanner;
 
 public class Todo extends Task {
 
@@ -7,13 +8,19 @@ public class Todo extends Task {
         super(name, description);
     }
 
-    public static Todo createTodo(UiComponent ui) {
-        ui.printDialogue("Enter name: \n");
-        String name = ui.readInput();
-        ui.printDialogue("Enter description: \n");
-        String description = ui.readInput();
+    public Todo(String name, String description, boolean isDone) {
+        super(name, description);
+        this.isDone = isDone;
+    }
+
+    public static Todo createTodo(Scanner sc) {
+        System.out.println("Enter name: ");
+        String name = sc.nextLine().trim();
+        System.out.println("Enter description: ");
+        String description = sc.nextLine().trim();
         return new Todo(name, description);
     }
+
     @Override
     public String toString() {
         return "[T] " + super.toString();

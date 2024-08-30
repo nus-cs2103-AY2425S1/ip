@@ -1,14 +1,14 @@
 package sigmabot.command;
 
-import sigmabot.ui.UiComponent;
+import java.util.Scanner;
 
 public class Greeting extends Command {
     @Override
-    public void execute(UiComponent ui) {
-        System.out.println("Hi, what's up");
+    public void execute(Scanner sc) {
+        System.out.println("Hello! Welcome to SigmaBot. How can I assist you today?");
     }
 
-    public static void greet(UiComponent ui) {
-        System.out.println("Hi, what's u");
+    public static void greet() {
+        System.out.println("Hello! Welcome to SigmaBot. How can I assist you today?");
     }
 }

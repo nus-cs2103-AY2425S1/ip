@@ -25,14 +25,18 @@ public class UiComponent {
     public static final String PURPLE = "\u001B[35m";
     public static final String CYAN = "\u001B[36m";
     public static final String WHITE = "\u001B[37m";
-    private static Scanner scanner = new Scanner(System.in);
+
+    private static final Scanner scanner = new Scanner(System.in);
+
     public void closeScanner() {
         scanner.close();
     }
+
     public void printDialogue(String message) {
         System.out.println(HR_LINE);
         System.out.println(message);
     }
+
     public Command readCommand() {
         try {
             String input = scanner.nextLine().trim();
@@ -40,16 +44,17 @@ public class UiComponent {
                 case "/exit" -> new Exit();
                 case "/list" -> new ListOperation();
                 case "/joke" -> new Joke();
-                default -> throw new InvalidInputException("Unknown sigmabot.command: " + input);
+                default -> throw new InvalidInputException("Unknown command: " + input);
             };
         } catch (InvalidInputException e) {
-            System.err.println("Unknown sigmabot.command");
+            System.err.println("Unknown command");
         }
         return new Exit();
     }
 
     public String readInput() {
-        return scanner.nextLine().trim();
+        String input = scanner.nextLine().trim();
+        return input;
     }
 
     public LocalDate readDate() {
@@ -69,19 +74,20 @@ public class UiComponent {
         }
     }
 
-    public Command readListCommand() {
+    public static Command readListCommand() {
         try {
-            String input = scanner.nextLine().trim();
-            return switch (input) {
-                case "/exit" -> new Exit();
-                case "/list" -> new ListOperation();
-                case "/joke" -> new Joke();
-                default -> throw new InvalidInputException("Unknown command: " + input);
-            };
+            if (scanner.hasNextLine()) {
+                String input = scanner.nextLine().trim();
+                return switch (input) {
+                    case "/exit" -> new Exit();
+                    case "/list" -> new ListOperation();
+                    case "/joke" -> new Joke();
+                    default -> throw new InvalidInputException("Unknown command: " + input);
+                };
+            }
         } catch (InvalidInputException e) {
             System.err.println("Unknown command");
         }
         return new Exit();
     }
-
 }

@@ -1,9 +1,8 @@
 package sigmabot.task;
 
-import sigmabot.ui.UiComponent;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
 public class Event extends Task {
     private String location;
@@ -17,54 +16,51 @@ public class Event extends Task {
         this.location = location;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
+    public Event(String name, String description, LocalDate startTime, LocalDate endTime, String location, boolean isDone) {
+        super(name, description);
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.location = location;
+        this.isDone = isDone;
     }
 
-    public static Event createEvent(UiComponent ui) {
-        ui.printDialogue("Enter name: ");
-        String name = ui.readInput().trim();
-        ui.printDialogue("Enter description: ");
-        String description = ui.readInput().trim();
+    public static Event createEvent(Scanner sc) {
+        System.out.println("Enter name: ");
+        String name = sc.nextLine().trim();
+        System.out.println("Enter description: ");
+        String description = sc.nextLine().trim();
         LocalDate startTime = null;
         LocalDate endTime = null;
         String location;
         while (true) {
             try {
-                ui.printDialogue("Enter start time (yyyy-MM-dd): ");
-                startTime = LocalDate.parse(ui.readInput().trim());
-                break; // Exit loop if parsing succeeds
+                System.out.println("Enter start time (yyyy-MM-dd): ");
+                startTime = LocalDate.parse(sc.nextLine().trim());
+                break;
             } catch (DateTimeParseException e) {
-                ui.printDialogue("Invalid date format. Please enter in the format yyyy-MM-dd.");
+                System.out.println("Invalid date format. Please enter in the format yyyy-MM-dd.");
             }
         }
         while (true) {
             try {
-                ui.printDialogue("Enter end time (yyyy-MM-dd): ");
-                endTime = LocalDate.parse(ui.readInput().trim());
+                System.out.println("Enter end time (yyyy-MM-dd): ");
+                endTime = LocalDate.parse(sc.nextLine().trim());
                 if (endTime.isBefore(startTime)) {
-                    ui.printDialogue("End time cannot be before start time. Please enter a valid end time.");
+                    System.out.println("End time cannot be before start time. Please enter a valid end time.");
                 } else {
                     break;
                 }
             } catch (DateTimeParseException e) {
-                ui.printDialogue("Invalid date format. Please enter in the format yyyy-MM-dd.");
+                System.out.println("Invalid date format. Please enter in the format yyyy-MM-dd.");
             }
         }
-        ui.printDialogue("Enter location: ");
-        location = ui.readInput().trim();
+        System.out.println("Enter location: ");
+        location = sc.nextLine().trim();
         return new Event(name, description, startTime, endTime, location);
     }
 
     @Override
     public String toString() {
-        return "[E] " + super.toString() +
-                "\n\tStart Time: " + startTime +
-                "\n\tEnd Time: " + endTime +
-                "\n\tLocation: " + location;
+        return "[E] " + super.toString() + "\n\tStart Time: " + startTime + "\n\tEnd Time: " + endTime + "\n\tLocation: " + location;
     }
 }

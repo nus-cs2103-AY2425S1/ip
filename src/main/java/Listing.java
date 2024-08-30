@@ -324,11 +324,11 @@
 //        }
 //
 //
-//        clearCache("../data/datafile.txt");
+//        clearCache("../data/tasks.txt");
 //
 //
 //        for (Listing listing : sortedMap.values()) {
-//            listing.writeListingToFile(new File("../data/datafile.txt"));
+//            listing.writeListingToFile(new File("../data/tasks.txt"));
 //        }
 //
 //        System.out.println(SigmaBot.HR_LINE_OUT);
@@ -361,7 +361,7 @@
 //            System.out.println("\tEnter task type and name (format: [type] name, e.g., 'todo Buy milk') or EXIT to finish:\n" + SigmaBot.HR_LINE_DOUBLE);
 //            String input = sc.nextLine().trim();
 //            if (input.equalsIgnoreCase("EXIT")) {
-//                writeListingToFile(new File("../data/datafile.txt"));
+//                writeListingToFile(new File("../data/tasks.txt"));
 //                System.out.println(SigmaBot.HR_LINE + "\tComplete\n" + SigmaBot.HR_LINE_OUT);
 //                break;
 //            }
@@ -467,7 +467,7 @@
 //    }
 //
 //    private void updateDataFileAfterDeletion() {
-//        File filePath = new File("../data/datafile.txt");
+//        File filePath = new File("../data/tasks.txt");
 //        StringBuilder newContent = new StringBuilder();
 //        boolean inCurrentList = false;
 //        try (Scanner fileScanner = new Scanner(new FileInputStream(filePath))) {

@@ -1,7 +1,7 @@
 package sigmabot.command;
 
-import sigmabot.ui.UiComponent;
+import java.util.Scanner;
 
 public abstract class Command {
-    public abstract void execute(UiComponent ui);
+    public abstract void execute(Scanner sc);
 }
