@@ -1,0 +1,3 @@
+[T][X] eat
+[T][X] food
+[T][X] stop
