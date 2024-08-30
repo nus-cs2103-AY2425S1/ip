@@ -1,3 +1,7 @@
 T 0 return book
 T 0 buy book
 E 0 hi (from: 2019-10-15T14:30 to: 2019-10-16T15:30 )
+T 1 return book
+T 1 get coffee
+D 0 return coffee (by: 2019-10-19T18:30 )
+E 0 coffee run (from: 2019-10-19T18:30 to: 2019-10-15T19:30 )
