@@ -65,9 +65,9 @@ public class Ui {
      * a border for visual clarity.
      *
      * @param event the type of event that occurred (e.g., "todo", "deadline", "event").
-     * @param Mentos.task the Mentos.task object that was added or modified, whose details will be printed.
+     * @param task the task object that was added or modified, whose details will be printed.
      */
-    public void print_event(String event, Task task, int taskSize){
+    public void print_remaining_event(String event, Task task, int taskSize){
         print_line();
         System.out.printf(event+" Added\n%s\n%d remaining tasks%n",task.toString(),taskSize);
         print_line();
@@ -124,7 +124,7 @@ public class Ui {
      *
      * This method iterates through the list of tasks and prints each one,
      * preceded by its corresponding index in the list. The tasks are formatted
-     * as a numbered list, and each Mentos.task's string representation is output.
+     * as a numbered list, and each task's string representation is output.
      * After displaying all tasks, a separator line is printed.
      */
     public void displayTasks(TaskList tasks){
@@ -135,6 +135,20 @@ public class Ui {
         System.out.println("____________________________");
     }
 
+
+    public void printMatchingEvents(){
+        print_line();
+        System.out.println("Here are the matching tasks in your list!");
+    }
+
+    public void noMatchingEvents(){
+        print_line();
+        System.out.println("Sorry there are no events in your list");
+    }
+
+    public void printEvent(int index,Task task){
+        System.out.printf("%d. %s%n",index,task.toString());
+    }
 
 
 }

@@ -5,6 +5,7 @@ import Mentos.components.ActionTaskIndexTuple;
 import Mentos.components.Parser;
 import Mentos.components.Storage;
 import Mentos.components.Ui;
+import Mentos.task.Task;
 import Mentos.task.TaskList;
 
 public class Mentos
@@ -90,6 +91,21 @@ public class Mentos
         }
     }
 
+    public void searchTask(String description){
+        int index =0;
+        for (Task t: this.tasks.getTasks()){
+            if (t.getDescription().contains(description)){
+                index++;
+                ui.printEvent(index,t);
+            }
+        }
+        if (index == 0){
+            ui.noMatchingEvents();
+        } else{
+            ui.printMatchingEvents();
+        }
+    }
+
     public void run(){
         ui.startConversation();
         boolean isExit = false;
@@ -118,9 +134,12 @@ public class Mentos
                 } else if (action.equals("delete")){
                     deleteTask(actionTaskIndexTuple.getIndex());
                     ui.deleteEvent(actionTaskIndexTuple.getTask(), this.tasks.size());
-                } else{
+                } else if (action.equals("find")){
+                    String keyword = actionTaskIndexTuple.getTask().getDescription();
+                    searchTask(keyword);
+                }else{
                     this.tasks.add(actionTaskIndexTuple.getTask());
-                    ui.print_event(action,actionTaskIndexTuple.getTask(),this.tasks.size());
+                    ui.print_remaining_event(action,actionTaskIndexTuple.getTask(),this.tasks.size());
                 }
                 storage.saveTasksToFile(this.tasks);
 

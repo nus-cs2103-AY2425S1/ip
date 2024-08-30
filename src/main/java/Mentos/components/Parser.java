@@ -16,7 +16,7 @@ public class Parser {
     private final String DEADLINE = "deadline";
     private final String EVENT = "event";
     private final String DELETE = "delete";
-
+    private final String FIND = "find";
 
 
     /**
@@ -104,9 +104,15 @@ public class Parser {
                 Task newEvent = new Event(eventDesc,from,to);
                 return new ActionTaskIndexTuple(EVENT,newEvent,-1);
 
-            }
-
-            else {
+            } else if (input.startsWith(FIND)){
+                Matcher match = regexHandler(input,"find (\\w+)");
+                if (match == null){
+                    throw new MentosException("Invalid find");
+                }
+                String keyword = match.group(1);
+                Task findKeyword = new ToDo(keyword);
+                return new ActionTaskIndexTuple(FIND,findKeyword,-1);
+            } else {
                 System.out.println("____________________________");
                 System.out.println("Sorry me no understand");
                 System.out.println("____________________________");
