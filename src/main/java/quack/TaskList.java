@@ -7,9 +7,10 @@ import quack.exception.FailedUpdateException;
 import quack.tasks.Task;
 
 /**
-* This class provides functionality to keep track of tasks.
-* It can add, remove and update task status.
-*/
+ * This class provides functionality to keep track of tasks.
+ * <p>
+ * It can add, remove, uupdate and delete task status.
+ */
 public class TaskList {
 
     /** Track how many tasks are in the list */
@@ -87,7 +88,7 @@ public class TaskList {
 
     /**
      * Adds the task into the list.
-     * @param task Task to be added into the list
+     * @param task Task to be added into the list.
      */
     public void addTask(Task task) {
 
@@ -101,7 +102,7 @@ public class TaskList {
      * If the index input is out of bounds it will throw a invalid index exception.
      * 
      * @param idx Index of the task inside the task list.
-     * @return The task that has been removed from the list
+     * @return The task that has been removed from the list.
      * @throws IndexOutOfBoundsException If the index is < 0 or if it is >= the size of the task list.
      */
     public Task deleteTask(int idx) throws IndexOutOfBoundsException{
