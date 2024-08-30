@@ -32,4 +32,13 @@ public class TasksList {
     public ArrayList<Task> getAllTasks() {
         return tasks;
     }
+
+    public TasksList getFilteredList(String s) {
+        ArrayList<Task> temp = new ArrayList<>();
+        for (int i = 0; i < this.size(); i++) {
+            temp.add(this.getTask(i));
+        }
+        temp.removeIf(task -> !task.description.contains(s));
+        return new TasksList(temp);
+    }
 }

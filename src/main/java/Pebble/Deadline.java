@@ -4,10 +4,21 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Subclass of Tasks that has a deadline.
+ */
 public class Deadline extends Task {
+    /** When deadline date is properly formatted */
     protected LocalDate by;
+    /** When deadline date cannot be formatted from string will be left as string */
     protected String stringBy;
 
+    /**
+     *  Constructor for Deadline.
+     *
+     * @param description Task description.
+     * @param by Deadline date.
+     */
     public Deadline(String description, String by) {
         super(description);
         try {

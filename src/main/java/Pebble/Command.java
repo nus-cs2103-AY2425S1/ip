@@ -1,9 +1,18 @@
 package pebble;
 
+/**
+ * Class that handles the commands that the user can execute.
+ */
 public class Command {
     private CommandType commandType;
     private String arguments;
 
+    /**
+     * Constructs a Command object.
+     *
+     * @param commandType Type of command to be executed.
+     * @param arguments Additional information for command.
+     */
     public Command(CommandType commandType, String arguments) {
         this.commandType = commandType;
         this.arguments = arguments;
@@ -17,6 +26,13 @@ public class Command {
         return arguments;
     }
 
+    /**
+     * Receives input from either user or local storage to operate the chat bot.
+     *
+     * @param tasksList The current list of tasks.
+     * @param ui The UI instance to handle output.
+     * @param storage The Storage Instance to retrieve or create tasksList
+     */
     public void execute(TasksList tasksList, Ui ui, Storage storage) {
         try {
             switch (commandType) {
@@ -63,12 +79,16 @@ public class Command {
                 break;
             case DELETE:
                 int deleteIndex = Integer.parseInt(arguments) - 1;
-                if (deleteIndex < 1 || deleteIndex >= tasksList.size()) {
+                if (deleteIndex < 0 || deleteIndex > tasksList.size()) {
                     throw new InvalidTaskNumberException();
                 }
                 Task taskToDelete = tasksList.getTask(deleteIndex);
                 tasksList.deleteTask(deleteIndex);
                 ui.showDeleteTask(taskToDelete, tasksList.size());
+                break;
+            case FIND:
+                TasksList filteredTasksList = tasksList.getFilteredList(arguments);
+                ui.showTasksList(filteredTasksList.getAllTasks());
                 break;
             default:
                 ui.showError("OOPS!!! I'm sorry, but I don't know what that means :-(");
