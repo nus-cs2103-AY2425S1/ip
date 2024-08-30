@@ -1,8 +1,26 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task{
     private final String deadline;
+    private final LocalDate deadlineDate;
     public Deadline(String taskName, String deadline) {
         super(taskName);
-        this.deadline = deadline;
+        String dl;
+        LocalDate dld = null;
+        try {
+            dld = LocalDate.parse(deadline);
+            dl = dld.format(DateTimeFormatter.ISO_WEEK_DATE);
+        } catch (DateTimeParseException e) {
+            dl = deadline;
+        }
+        this.deadlineDate = dld;
+        this.deadline = dl;
+    }
+
+    public String getDeadline() {
+        return this.deadline;
     }
     @Override
     public String exportString() {
