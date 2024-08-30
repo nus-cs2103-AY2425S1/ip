@@ -31,7 +31,7 @@ public class FindCommand extends Command {
      * @param storage store data
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList matchedTasks = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
@@ -39,6 +39,6 @@ public class FindCommand extends Command {
                 matchedTasks.add(t);
             }
         }
-        ui.say(matchedTasks);
+        return ui.say(matchedTasks);
     }
 }

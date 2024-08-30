@@ -32,12 +32,12 @@ public class UpdateCommand extends Command {
      * @throws CheeseException if storage fails
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CheeseException {
         Task t = tasks.get(idx);
         storage.update(idx, tasks, isDelete);
         if (isDelete) {
             t = tasks.remove(idx);
         }
-        ui.say(t, tasks);
+        return ui.say(t, tasks);
     }
 }
