@@ -99,6 +99,7 @@ public class Parser {
         }
         // ensure task number is within the range of the task list
         if (Integer.parseInt(parsedInput[1]) > userList.size() || Integer.parseInt(parsedInput[1]) < 1) {
+
             throw new BillException("There is no task of that number in the current list, unable to delete,"
                         + " please try again with a valid number");
         }
@@ -108,5 +109,18 @@ public class Parser {
 
     public String[] handleRouteParser(String userCommand) {
         return userCommand.split(" ");
+    }
+
+    public String handleFindParser(String[] parsedInput) throws BillException {
+        // data validation
+        if (parsedInput.length < 2) {
+            throw new BillException("Please provide a second argument for the find command, such as a keyword,"
+                        + " the format for find is: find <>, where <> is a single keyword");
+        }
+        if (parsedInput.length > 2) {
+            throw new BillException("Please ensure the following format for the find command:"
+                        + " find <>, where <> is a single keyword");
+        }
+        return parsedInput[1];
     }
 }

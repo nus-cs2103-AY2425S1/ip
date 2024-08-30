@@ -17,7 +17,7 @@ public class Ui {
     private Parser parser;
 
     private enum Route {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND
     }
 
     /**
@@ -118,6 +118,11 @@ public class Ui {
         System.out.println("Now you have " + userList.size() + " tasks in the list.");
     }
 
+    private void handleFind(String[] parsedInput, TaskList tasks) throws BillException {
+        String keyWord = parser.handleFindParser(parsedInput);
+        tasks.showFilterList(keyWord);
+    }
+
     public void handleRoute(String userCommand, ArrayList<Task> userList, Storage storage, TaskList tasks) {
         String[] parsedInput = parser.handleRouteParser(userCommand);
         Route route = getRouteEnum(parsedInput[0]);
@@ -142,6 +147,9 @@ public class Ui {
                 break;
             case DELETE:
                 handleDelete(parsedInput, userList, tasks, storage);
+                break;
+            case FIND:
+                handleFind(parsedInput, tasks);
                 break;
             default:
                 throw new BillException("Not a recognised command, please try again");
