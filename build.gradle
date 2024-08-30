@@ -32,6 +32,7 @@ application {
 }
 
 shadowJar {
+    archiveFileName = 'bot.jar'
     archiveBaseName = "bot"
     archiveClassifier = null
 }
