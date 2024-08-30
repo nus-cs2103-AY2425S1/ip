@@ -1,12 +1,11 @@
 package luke;
+
 import luke.task.NoDescriptionException;
 import luke.task.TaskList;
 import luke.task.UnknownCommandException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Files;
 import java.util.List;
 
 public class StorageTest {
