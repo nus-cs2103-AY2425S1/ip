@@ -13,7 +13,7 @@ public class Ui {
      */
     public void welcomeMessage() {
         System.out.println("Hello! I'm Delphi, the greatest oracle in all of the classical world.");
-        System.out.println("To quote a very famous person who will arrive a bit later, ask and ye shall find");
+        System.out.println("For now, I will be acting as a personal assistant for you to manage your tasks:)");
     }
 
     /**
