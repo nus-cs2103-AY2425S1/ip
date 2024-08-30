@@ -27,6 +27,8 @@ public class Parser {
                 return new AddDeadlineCommand(arguments);
             case "event":
                 return new AddEventCommand(arguments);
+            case "find":
+                return new FindCommand(arguments);
             case "delete":
                 return new DeleteCommand(arguments);
             case "bye":
