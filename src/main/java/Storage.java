@@ -1,5 +1,4 @@
-import com.sun.security.jgss.GSSUtil;
-
+import java.io.FileWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,10 +11,15 @@ public class Storage {
     enum TaskType {
         T, D, E
     }
-    File file;
-    ArrayList<Task> tasks = new ArrayList<>();
+    String filePath;
+
 
     public Storage(String filePath) {
+        this.filePath = filePath;
+
+    }
+
+    public ArrayList<Task> load() {
         File file = new File(filePath);
         file.getParentFile().mkdirs();
         try {
@@ -23,16 +27,14 @@ public class Storage {
         } catch (IOException e) {
             System.out.println(e);
         }
-        this.file = file;
-    }
 
-    public ArrayList<Task> load() {
+        ArrayList<Task> tasks = new ArrayList<>();
         try {
-            Scanner sc = new Scanner(this.file);
+            Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 String line = sc.nextLine();
                 try {
-                    addTask(line);
+                    addTask(line, tasks);
                 } catch (InvalidFormatException e) {
                     System.out.println(e);
                 }
@@ -40,13 +42,17 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println(e);
         }
-        return this.tasks;
+        return tasks;
     }
 
-    private void addTask(String line) throws InvalidFormatException {
-        if (!line.matches("^[TDE] .+")) {
+    private void addTask(String line, ArrayList<Task> tasks) throws InvalidFormatException {
+        if (!line.matches("^[TDE] \\| .+")) {
             throw new InvalidFormatException("Invalid task type found in file");
         }
+        if (!line.matches("^[TDE] \\| [01] \\| .+")) {
+            throw new InvalidFormatException("Format is [T/D/E] | [0/1] | [description]");
+        }
+        // Need to move the below in the case or separate functions
         String[] input = line.split("\\|", 3);
         TaskType type = TaskType.valueOf(input[0].trim());
         boolean marked = Integer.parseInt(input[1].trim()) == 1;
@@ -92,7 +98,15 @@ public class Storage {
             if (marked) {
                 task.markCompleted();
             }
-            this.tasks.add(task);
+            tasks.add(task);
         }
+    }
+
+    public void rewriteFile(ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter(this.filePath);
+        for (Task task : tasks) {
+            fw.write(String.format("%s\n", task.formatString()));
+        }
+        fw.close();
     }
 }
