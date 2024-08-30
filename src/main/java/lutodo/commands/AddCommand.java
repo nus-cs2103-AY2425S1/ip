@@ -14,6 +14,14 @@ public class AddCommand extends Command{
     public AddCommand(String taskMessage) {
         this.taskMessage = taskMessage;
     }
+
+
+    /**
+     * Adds one of the 3 types of tasks to the task list.
+     *
+     * @param tasks the TaskList object that is to be added to.
+     * @param storage the Storage object used to save the new task list.
+     */
     @Override
     public void execute(TaskList tasks, Storage storage) {
         String taskType = Parser.splitTaskInfo(taskMessage)[0].trim();
