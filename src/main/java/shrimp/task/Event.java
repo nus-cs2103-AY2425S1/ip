@@ -50,6 +50,7 @@ public class Event extends Task {
      *
      * @return A string representing the type of the task, "[E]" for Event.
      */
+    @Override
     public String getType() {
         return "[E]";
     }
@@ -81,19 +82,5 @@ public class Event extends Task {
     public String toString() {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return getType() + super.toString() + " (from: " + from.format(pattern) + " to: " + to.format(pattern) + ")";
-    }
-
-    @Override
-    public Event markAsDone() {
-        return new Event(getDescription(), this.from, this.to, true);
-    }
-
-    @Override
-    public Event markAsNotDone() {
-        return new Event(getDescription(), this.from, this.to, false);
-    }
-
-    public String getType() {
-        return "[E]";
     }
 }

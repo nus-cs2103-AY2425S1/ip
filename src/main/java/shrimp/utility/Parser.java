@@ -66,8 +66,4 @@ public class Parser {
             return CommandType.ERROR;
         }
     }
-
-    public enum CommandType {
-        LIST, BYE, MARK, UNMARK, ADD, DEADLINE, EVENT, ERROR, DELETE, CLEAR
-    }
 }
