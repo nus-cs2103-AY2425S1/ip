@@ -56,6 +56,10 @@ public class TaskList {
         }
     }
 
+    public void addTask(Task task) {
+        this.tasks.add(task);
+    }
+
     public void addTask(Matcher matcher, TaskType tt) throws PhenexException {
         String taskName = matcher.group(1);
         String emptyNameRegex = "\\s*";
@@ -112,6 +116,16 @@ public class TaskList {
         Task taskToDelete = this.tasks.get(idx);
         this.tasks.remove(idx);
         Ui.printTaskDeletedMessage(taskToDelete, this.tasks.size());
+    }
+
+    public TaskList findTasks(String name) {
+        TaskList matchingTasks = new TaskList();
+        for (Task task : this.tasks) {
+            if (task.getName().equals(name)) {
+                matchingTasks.addTask(task);
+            }
+        }
+        return matchingTasks;
     }
 
     private void readFromStorage(Storage storage) {

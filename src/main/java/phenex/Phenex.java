@@ -49,6 +49,7 @@ public class Phenex {
         String unmarkRegex = "^unmark \\d+\\s*$";
         String deleteRegex = "^delete \\d+\\s*$";
         String dateCheckRegex = "^missions on (.+)$";
+        String findRegex = "^(?i)find (.+)$";
 
         // regex's for commands which tell phenex.Phenex to add Task.Task
         String todoRegex = "^(?i)todo (.+)";
@@ -65,6 +66,7 @@ public class Phenex {
         Pattern eventPattern = Pattern.compile(eventRegex);
         Pattern deletePattern = Pattern.compile(deleteRegex);
         Pattern dateCheckPattern = Pattern.compile(dateCheckRegex);
+        Pattern findPattern = Pattern.compile(findRegex);
 
         Matcher terminatingMatcher;
         Matcher listMatcher;
@@ -75,6 +77,7 @@ public class Phenex {
         Matcher eventMatcher;
         Matcher deleteMatcher;
         Matcher dateCheckMatcher;
+        Matcher findMatcher;
 
         while (true) {
             // scan inputs
@@ -95,6 +98,7 @@ public class Phenex {
             eventMatcher = eventPattern.matcher(userInput);
             deleteMatcher = deletePattern.matcher(userInput);
             dateCheckMatcher = dateCheckPattern.matcher(userInput);
+            findMatcher = findPattern.matcher(userInput);
 
             p.ui.printLine();
 
@@ -120,6 +124,10 @@ public class Phenex {
                     p.tasks.deleteTask(idx);
                 } else if (dateCheckMatcher.matches()) {
                     p.ui.printAllTasksOn(dateCheckMatcher, p.tasks);
+                } else if (findMatcher.matches()) {
+                    String name = p.parser.getNameOfTask(findMatcher);
+                    TaskList matchingTasks = p.tasks.findTasks(name);
+                    p.ui.printTaskList(matchingTasks);
                 } else {
                     Ui.printInvalidInputMessage();
                 }
