@@ -1,14 +1,7 @@
 package reminderebot;
 
-import reminderebot.commands.Command;
-import reminderebot.commands.ByeCommand;
-import reminderebot.commands.ListCommand;
-import reminderebot.commands.MarkCommand;
-import reminderebot.commands.UnmarkCommand;
-import reminderebot.commands.DeleteCommand;
-import reminderebot.commands.ToDoCommand;
-import reminderebot.commands.DeadlineCommand;
-import reminderebot.commands.EventCommand;
+import reminderebot.commands.*;
+
 import java.util.HashSet;
 import java.util.Scanner;
 
@@ -96,12 +89,22 @@ public class Parser {
                 String strEvent = scan.nextLine();
                 return new EventCommand(strEvent);
                 // unreachable
+            case FIND: // if the find command lacks required arguments
+                String[] findInfo = input.split(" ");
+                if (scan.hasNext() && findInfo.length==2) { // mark has necessary requirements
+                    // input is valid
+                    String keyword = scan.next();
+                    return new FindCommand(keyword);
+                } else {
+                    throw new ReminderebotException("Find items by entering a keyword.\n" +
+                            "Syntax: find <keyword>");
+                }
             }
         }
         // exception: command not found
         throw new ReminderebotException("I'm sorry, but I don't know what that means. :(\n" +
                     "Please enter a command below:\n" +
-                    " bye\n list\n mark <int>\n unmark <int>\n todo <taskname>\n" +
+                    " bye\n list\n mark <int>\n unmark <int>\n find <keyword>\n todo <taskname>\n" +
                     " deadline <taskname> /by <duedate>\n event <name> /from <datetime> /to <datetime>");
     }
 

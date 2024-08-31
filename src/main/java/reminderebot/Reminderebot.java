@@ -4,6 +4,11 @@ import reminderebot.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * The Reminderebot class represents the main application that interacts with the user.
+ * It handles the core functionality of the chatbot, including task management,
+ * user input processing, and file storage.
+ */
 public class Reminderebot {
     // note: needs support for handling multi-line inputs
     private Storage storage;

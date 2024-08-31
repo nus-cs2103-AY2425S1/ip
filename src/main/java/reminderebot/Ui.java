@@ -1,5 +1,6 @@
 package reminderebot;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import reminderebot.task.Task;
 import reminderebot.task.ToDo;
@@ -27,6 +28,7 @@ public class Ui {
     public Ui() {
         this.input = new Scanner(System.in);
     }
+
     /**
      * Prints greeting message.
      */
@@ -101,5 +103,14 @@ public class Ui {
                 task.toString() +
                 "\nNow you have " + index + " tasks in the list."
         );
+    }
+
+    public void findTask(ArrayList<Task> tasksFound) {
+        StringBuilder output = new StringBuilder();
+        output.append("Here are the matching tasks in your list:\n");
+        for (int i=0; i<tasksFound.size(); i++) {
+            output.append(i+1).append(".").append(tasksFound.get(i)).append("\n");
+        }
+        System.out.println(output);
     }
 }
