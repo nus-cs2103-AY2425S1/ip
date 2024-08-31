@@ -1,10 +1,14 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDate by;
 
-    public Deadline(String description, String by) {
+    public Deadline (String description, String by) throws DateTimeParseException{
         super(description);
-        this.by = by;
+        this.by = LocalDate.parse(by);
     }
 
     @Override

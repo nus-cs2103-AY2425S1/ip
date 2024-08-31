@@ -1,12 +1,15 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class Events extends Task{
 
-    String start;
-    String end;
+    LocalDate start;
+    LocalDate end;
 
-    public Events(String taskDes, String start, String end) {
+    public Events(String taskDes, String start, String end) throws DateTimeParseException {
         super(taskDes);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDate.parse(start);
+        this.end = LocalDate.parse(end);
     }
 
     @Override

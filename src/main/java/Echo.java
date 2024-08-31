@@ -1,8 +1,12 @@
 import java.io.FileNotFoundException;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 public class Echo {
     public static final String DOCS_TASKS_TXT = "docs/tasks.txt";
 
@@ -72,6 +76,8 @@ public class Echo {
                 System.out.println("OOPS!!!" + e.getMessage());
             } catch (IOException e) {
                 System.out.println(e.getMessage());
+            } catch (DateTimeParseException e) {
+                System.out.println("Date needs be in the YYYY-MM-DD format");
             }
         }
     }
@@ -130,7 +136,7 @@ public class Echo {
         }
     }
 
-    private static void addDeadline(List<Task> tasks, String input) throws EchoException {
+    private static void addDeadline(List<Task> tasks, String input) throws EchoException, DateTimeParseException {
         String[] details = input.split(" /by ", 2);
         if (details.length == 2) {
             String[] des = details[0].split(" ", 2);
@@ -143,7 +149,7 @@ public class Echo {
         }
     }
 
-    private static void addEvent(List<Task> tasks, String input) throws EchoException {
+    private static void addEvent(List<Task> tasks, String input) throws EchoException, DateTimeParseException {
         String[] details = input.split(" /from ", 2);
         if (details.length == 2) {
             String[] times = details[1].split(" /to ", 2);
