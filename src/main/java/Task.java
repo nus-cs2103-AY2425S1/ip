@@ -1,7 +1,7 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    private static int taskCount = 0;
+    static int taskCount = 0;
 
     public Task(String description) {
         this.description = description;
@@ -9,21 +9,15 @@ public class Task {
         taskCount++;
     }
 
-    public void markDone() {
+    public String markDone() {
         this.isDone = true;
-    }
-
-    public String markDoneToString() {
         return """
                 Yay! One task down!
                 I have marked the following task as DONE :)""";
     }
 
-    public void unmarkDone() {
+    public String unmarkDone() {
         this.isDone = false;
-    }
-
-    public String unmarkDoneToString() {
         return """
                 Oh no! I shall mark the following task as UNDONE :(
                 You can do it!""";
@@ -34,12 +28,6 @@ public class Task {
             return "[X] " + description;
         }
         return "[ ] " + description;
-    }
-
-    public String addTaskToString() {
-        return """
-                I have added this task into the list for you and
-                that brings your total number of tasks to""" + " " + String.valueOf(taskCount);
     }
 
     public String deleteTask() {

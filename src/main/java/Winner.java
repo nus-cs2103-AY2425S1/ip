@@ -12,12 +12,12 @@ import java.nio.file.Paths;
 import java.nio.file.Files;
 
 public class Winner {
-    private static final String HOME = System.getProperty("user.home");
-    private static final Path FOLDER_PATH = Paths.get(HOME, "Winner");
-    private static final Path TASKLIST_PATH = Paths.get(HOME, "Winner", "tasklist.txt");
+//    private static final String HOME = System.getProperty("user.home"); //Storage
+//    private static final Path FOLDER_PATH = Paths.get(HOME, "Winner"); //Storage
+//    private static final Path TASKLIST_PATH = Paths.get(HOME, "Winner", "tasklist.txt"); //Storage
 
     public static void main(String[] args) {
-        ArrayList<Task> tasks = new ArrayList<>();
+//        ArrayList<Task> tasks = new ArrayList<>();
         checkAndCreateFile();
         loadTasks(tasks);
         WinnerTaskBot(tasks);
@@ -27,46 +27,35 @@ public class Winner {
     private static void WinnerTaskBot(ArrayList<Task> tasks) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(("-".repeat(100) + "\n" +
-                "Hello! I am Winner, your personal task trackBOT!" + "\n"
-                + "You can send me these commands in the form shown below so I can help you keep track of your tasks :" + "\n"
-                + " ".repeat(5) + "- todo (task) --> tasks without any date/time attached" + "\n"
-                + " ".repeat(5) + "- deadline (task) by (date) at (time) --> tasks with a deadline" + "\n"
-                + " ".repeat(5) + "- event (task) from (start) to (end) --> tasks with a start and end date/time" + "\n"
-                + "\n"
-                + "You can also use these additional commands:" + "\n"
-                + " ".repeat(5) + "- list --> shows you your list of tasks" + "\n"
-                + " ".repeat(5) + "- mark (task number) --> mark the task number that you input as done" + "\n"
-                + " ".repeat(5) + "- unmark (task number) --> mark the task number that you input as undone" + "\n"
-                + " ".repeat(5) + "- delete (task number) --> remove the task number that you input from your list of tasks" + "\n"
-                + "-".repeat(100)).indent(10));
+        //winnerSaysHi
+
 
         while (true) {
             try {
                 String input = scanner.nextLine();
 
-                if (input.matches("(?i)hi|hello")) {
-                    System.out.println(("-".repeat(100) + "\n"
+/*                if (input.matches("(?i)hi|hello")) { //Parser
+                    System.out.println(("-".repeat(100) + "\n" //UI
                             + "hi" + "\n"
                             + "-".repeat(100)).indent(10));
 
-                } else if (input.matches("(?i).*\\b+todo\\b+.*")) {
-                    String description = input.split("todo", 2)[1].trim().toLowerCase();
-                    if (description.isEmpty()) {
+                } else if (input.matches("(?i).*\\b+todo\\b+.*")) { //Parser
+                    String description = input.split("todo", 2)[1].trim().toLowerCase(); //TaskList
+                    if (description.isEmpty()) { //Ui
                         throw new WinnerException("""
                                 Oh no! Your task cannot be empty.
                                 Please tell me your task in this form :
                                 todo (task)""");
                     }
-                    ToDo newToDo = new ToDo(description);
+                    ToDo newToDo = new ToDo(description); //TaskList
                     tasks.add(newToDo);
-                    System.out.println(("-".repeat(100) + "\n"
+                    System.out.println(("-".repeat(100) + "\n" //Ui
                             + newToDo.addTaskToString() + "\n"
                             + "-".repeat(100)).indent(10));
 
-                } else if (input.matches("(?i).*\\b+deadline\\b+.*")) {
-                    String[] parts = input.split("(?i)\\b+deadline\\b+ | \\bby\\b");
-                    if (parts.length != 3) {
+                } else if (input.matches("(?i).*\\b+deadline\\b+.*")) { //Parser
+                    String[] parts = input.split("(?i)\\b+deadline\\b+ | \\bby\\b"); //TaskList
+                    if (parts.length != 3) { //Ui
                         throw new WinnerException("""
                                 Oh no! You are missing a task and a deadline.
                                 Please tell me your task in this form :
@@ -84,25 +73,25 @@ public class Winner {
                                 Please tell me your task in this form :
                                 deadline (task) by (dd/mm/yyyy) at (time - 24 hour format)""");
                     }
-                    String description = parts[1].trim().toLowerCase();
-                    Deadline newDeadline;
+                    String description = parts[1].trim().toLowerCase(); //TaskList
+                    Deadline newDeadline; //TaskList
                     try {
-                        if (parts[2].matches(".*\\bat\\b.*")) {
-                            String dateTime = parts[2].trim();
+                        if (parts[2].matches(".*\\bat\\b.*")) { //Parser
+                            String dateTime = parts[2].trim(); //TaskList
                             DateTimeFormatter formattedDateTime = DateTimeFormatter.ofPattern("dd/MM/yyyy 'at' HHmm");
                             LocalDateTime byDateTime = LocalDateTime.parse(dateTime, formattedDateTime);
                             newDeadline = new Deadline(description, byDateTime);
                         } else {
-                            String date = parts[2].trim();
+                            String date = parts[2].trim(); //TaskList
                             DateTimeFormatter formattedDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                             LocalDate byDate = LocalDate.parse(date, formattedDate);
                             newDeadline = new Deadline(description, byDate);
                         }
-                        tasks.add(newDeadline);
-                        System.out.println(("-".repeat(100) + "\n"
+                        tasks.add(newDeadline); //TaskList
+                        System.out.println(("-".repeat(100) + "\n" //Ui
                                 + newDeadline.addTaskToString() + "\n"
                                 + "-".repeat(100)).indent(10));
-                    } catch (DateTimeParseException e) {
+                    } catch (DateTimeParseException e) { //Ui
                         System.out.println(("-".repeat(100) + "\n"
                                 + "Please format your date and time in this form: " + "\n"
                                 + "date - dd/mm/yyyy" + "\n"
@@ -110,9 +99,9 @@ public class Winner {
                                 + "-".repeat(100)).indent(10));
                     }
 
-                } else if (input.matches("(?i).*\\b+event\\b+.*")) {
-                    String[] parts = input.split("(?i)\\b+event\\b+ | \\bfrom\\b | \\bto\\b");
-                    if (parts.length != 4) {
+                } else if (input.matches("(?i).*\\b+event\\b+.*")) { //Parser
+                    String[] parts = input.split("(?i)\\b+event\\b+ | \\bfrom\\b | \\bto\\b"); //TaskList
+                    if (parts.length != 4) { //Ui
                         throw new WinnerException("""
                                 Oh no! You are missing a task, start and end day/date/time.
                                 Please tell me your task in this form :
@@ -137,81 +126,87 @@ public class Winner {
                                 Please tell me your task in this form :
                                 event (task) from (start) to (end)""");
                     }
-                    String description = parts[1].trim().toLowerCase();
+                    String description = parts[1].trim().toLowerCase(); //TaskList
                     String start = parts[2].trim().toLowerCase();
                     String end = parts[3].trim().toLowerCase();
                     Event newEvent = new Event(description, start, end);
                     tasks.add(newEvent);
-                    System.out.println(("-".repeat(100) + "\n"
+                    System.out.println(("-".repeat(100) + "\n" //Ui
                             + newEvent.addTaskToString() + "\n"
                             + "-".repeat(100)).indent(10));
 
-                } else if (input.matches("(?i).*\\b+list\\b+.*")) {
-                    int counter = 1;
-                    System.out.println(" ".repeat(10) + "-".repeat(100));
-                    System.out.println(" ".repeat(10) + "Here are the tasks you have in your list:");
-                    for (Task i : tasks) {
-                        System.out.println(" ".repeat(10) + counter + ". " + i.taskToString());
+                } else if (input.matches("(?i).*\\b+list\\b+.*")) { //Parser
+                    int counter = 1; //TaskList
+                    System.out.println(" ".repeat(10) + "-".repeat(100)); //Ui
+                    System.out.println(" ".repeat(10) + "Here are the tasks you have in your list:"); //Ui
+                    for (Task i : tasks) { //TaskList
+                        System.out.println(" ".repeat(10) + counter + ". " + i.taskToString()); //TaskList but dont use sout, return a String
                         counter++;
                     }
-                    System.out.println(" ".repeat(10) + "-".repeat(100) + "\n");
+                    System.out.println(" ".repeat(10) + "-".repeat(100) + "\n"); //Ui
 
-                } else if (input.matches("(?i).*\\b+mark\\b+.*")) {
-                    int taskNumber = Integer.parseInt(input.replaceAll("[^0-9]", ""));
-                    if (taskNumber < 1 || taskNumber > tasks.size()) {
+                } else if (input.matches("(?i).*\\b+mark\\b+.*")) { //Parser
+                    int taskNumber = Integer.parseInt(input.replaceAll("[^0-9]", "")); //TaskList
+                    if (taskNumber < 1 || taskNumber > tasks.size()) { //Ui
                         throw new WinnerException("""
                                 Oh no! I cannot mark this task as done because the number is invalid.
                                 Please tell me which task to mark as done in this form :
                                 mark (task number)""");
                     }
-                    Task task = tasks.get(taskNumber - 1);
+                    Task task = tasks.get(taskNumber - 1); //TaskList
                     if (task.isDone) {
                         throw new WinnerException("You have already marked this task as DONE :D");
                     }
-                    task.markDone();
-                    System.out.println(("-".repeat(100) + "\n"
+                    task.markDone(); //TaskList
+                    System.out.println(("-".repeat(100) + "\n" //Ui
                             + task.markDoneToString() + "\n"
                             + "-".repeat(100)).indent(10));
 
-                } else if (input.matches("(?i).*\\b+unmark\\b+.*")) {
-                    int taskNumber = Integer.parseInt(input.replaceAll("[^0-9]", ""));
-                    if (taskNumber < 1 || taskNumber > tasks.size()) {
+                } else if (input.matches("(?i).*\\b+unmark\\b+.*")) { //Parser
+                    int taskNumber = Integer.parseInt(input.replaceAll("[^0-9]", "")); //TaskList
+                    if (taskNumber < 1 || taskNumber > tasks.size()) { //Ui
                         throw new WinnerException("""
                                 Oh no! I cannot mark this task as undone because the number is invalid.
                                 Please tell me which task to mark as undone in this form :
                                 unmark (task number)""");
                     }
-                    Task task = tasks.get(taskNumber - 1);
-                    if (!task.isDone) {
+                    Task task = tasks.get(taskNumber - 1); //TaskList
+                    if (!task.isDone) { //Ui
                         throw new WinnerException("You cannot unmark this task as it has not been marked as done :(");
                     }
-                    task.unmarkDone();
-                    System.out.println(("-".repeat(100) + "\n"
+                    task.unmarkDone(); //TaskList
+                    System.out.println(("-".repeat(100) + "\n" //Ui
                             + task.unmarkDoneToString() + "\n"
                             + "-".repeat(100)).indent(10));
 
-                } else if (input.matches("(?i).*\\b+delete\\b+.*")) {
-                    int taskNumber = Integer.parseInt(input.replaceAll("[^0-9]", ""));
-                    if (taskNumber < 1 || taskNumber > tasks.size()) {
+                } else if (input.matches("(?i).*\\b+delete\\b+.*")) { //Parser
+                    int taskNumber = Integer.parseInt(input.replaceAll("[^0-9]", "")); //TaskList
+                    if (taskNumber < 1 || taskNumber > tasks.size()) { //Ui
                         throw new WinnerException("""
                                 Oh no! I cannot remove this task from the list because the number is invalid.
                                 Please tell me which task to remove in this form :
                                 delete (task number)""");
                     }
-                    Task task = tasks.get(taskNumber - 1);
+                    Task task = tasks.get(taskNumber - 1); //TaskList
                     tasks.remove(taskNumber - 1);
-                    System.out.println(("-".repeat(100) + "\n"
+                    System.out.println(("-".repeat(100) + "\n" //Ui
                             + task.deleteTask() + "\n"
                             + "-".repeat(100)).indent(10));
 
-                } else if (input.matches("(?i).*bye.*")) {
+                }
+
+                //winnerSaysBye
+
+                else if (input.matches("(?i).*bye.*")) { //Parser
                     System.out.println(("-".repeat(100) + "\n"
                             + "Hope I have been of service!" + "\n"
                             + "Thank you and see you again soon :D" + "\n"
                             + "Remember!!! A WINNER NEVER LOSES!!!" + "\n"
                             + "-".repeat(100)).indent(10));
                     break;
-                } else {
+
+
+                } else { //Ui
                     throw new WinnerException("""
                             Sorry, I do not know what that means
                             ⡴⠒⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠉⠳⡆⠀
@@ -229,6 +224,7 @@ public class Winner {
                             ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣤⣞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢢⣀⣠⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
                             ⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠀⠀⠙⠲⢤⣀⣀⠀⢀⣀⣀⠤⠒⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀""");
                 }
+*/
             } catch (WinnerException e) {
                 System.out.println(("-".repeat(100) + "\n"
                         + e.getMessage() + "\n"
@@ -238,7 +234,7 @@ public class Winner {
         scanner.close();
     }
 
-    private static void checkAndCreateFile() {
+/*    private static void checkAndCreateFile() { //Storage
         try {
           if (Files.exists(FOLDER_PATH)) {
                 Files.createFile(TASKLIST_PATH);
@@ -251,7 +247,7 @@ public class Winner {
         }
     }
 
-    private static void loadTasks(ArrayList<Task> tasks) {
+    private static void loadTasks(ArrayList<Task> tasks) { //Storage
         try (BufferedReader br = Files.newBufferedReader(TASKLIST_PATH)) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -289,7 +285,7 @@ public class Winner {
         }
     }
 
-    private static void saveTasks(ArrayList<Task> tasks) {
+    private static void saveTasks(ArrayList<Task> tasks) { //Storage
         try (BufferedWriter bw = Files.newBufferedWriter(TASKLIST_PATH)) {
             for (Task i : tasks) {
                 String description = i.description;
@@ -309,5 +305,5 @@ public class Winner {
             System.out.println("Error writing tasks to file: " + e.getMessage());
         }
     }
-
+*/
 }

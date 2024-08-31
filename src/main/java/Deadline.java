@@ -17,14 +17,6 @@ public class Deadline extends Task{
     }
 
     @Override
-    public String addTaskToString() {
-        return super.addTaskToString() + "\n"
-                + " ".repeat(5) + "[D] [ ] " + description + " (by: " + formattedDeadline() + ")" + "\n"
-                + "\n"
-                + "You can use the command \"list\" to view your list of tasks :D";
-    }
-
-    @Override
     public String taskToString() {
         if (isDone) {
             return "[D] [X] " + description + " (by: " + formattedDeadline() + ")";
@@ -33,13 +25,13 @@ public class Deadline extends Task{
     }
 
     @Override
-    public String markDoneToString() {
-        return super.markDoneToString() + "\n" + " ".repeat(5) + "[D] [X] " + description + " (by: " + formattedDeadline() + ")";
+    public String markDone() {
+        return super.markDone() + "\n" + " ".repeat(5) + "[D] [X] " + description + " (by: " + formattedDeadline() + ")";
     }
 
     @Override
-    public String unmarkDoneToString() {
-        return super.unmarkDoneToString() + "\n" + " ".repeat(5) + "[D] [ ] " + description + " (by: " + formattedDeadline() + ")";
+    public String unmarkDone() {
+        return super.unmarkDone() + "\n" + " ".repeat(5) + "[D] [ ] " + description + " (by: " + formattedDeadline() + ")";
     }
 
     @Override
