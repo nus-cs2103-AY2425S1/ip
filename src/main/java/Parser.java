@@ -28,27 +28,34 @@ public class Parser {
         }
     }
 
-    private void respond(Command cmd) throws DawnException { //provide responses to the user input
-        switch (cmd) {
-        case BYE:
-            System.out.println("Byeeee~ nice chatting with you! See you next time, Dawn 🌙 out");
-            Storage.saveTasks("./data/dawn.txt");
-            return;
-        case LIST:
-            TaskList.list();
-            break;
-        case MARK: case UNMARK:
-            mark(command, input);
-            break;
-        case DELETE:
-            TaskList.delete(input);
-            break;
-        case TODO: case DEADLINE: case EVENT:
-            TaskList.addTask(String.valueOf(cmd), input);
-            break;
-        case TODAY:
-            TaskList.doByToday();
-            break;
+    private void respond(Command cmd) { //provide responses to the user input
+        try {
+            switch (cmd) {
+            case BYE:
+                System.out.println("Byeeee~ nice chatting with you! See you next time, Dawn 🌙 out");
+                Storage.saveTasks("./data/dawn.txt");
+                return;
+            case LIST:
+                TaskList.list();
+                break;
+            case MARK:
+            case UNMARK:
+                mark(command, input);
+                break;
+            case DELETE:
+                TaskList.delete(input);
+                break;
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                TaskList.addTask(String.valueOf(cmd), input);
+                break;
+            case TODAY:
+                TaskList.doByToday();
+                break;
+            }
+        } catch (DawnException e) {
+            System.out.println(e);
         }
     }
 
