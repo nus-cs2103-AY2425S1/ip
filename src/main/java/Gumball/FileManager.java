@@ -18,10 +18,10 @@ public class FileManager {
         }
     }
 
-    public void updateFile(TaskList taskList) throws IOException {
+    public void updateFile(TaskList taskList) throws IOException, InputErrorException {
         FileWriter writer = new FileWriter(path);
         for (int i = 0; i < taskList.getN(); i++) {
-            Task task = taskList.getTask(i);
+            Task task = taskList.getTask(i + 1);
             try {
                 String temp = "";
                 temp = temp + task.getStatusIcon() + " ";
@@ -41,11 +41,11 @@ public class FileManager {
             String input = s.nextLine();
             String command = input.substring(4);
             if (command.startsWith("todo")) {
-                taskList.add(new ToDos(command));
+                taskList.add(new ToDo(command));
             } else if (command.startsWith("deadline")) {
-                taskList.add(new Deadlines(command));
+                taskList.add(new Deadline(command));
             } else if (command.startsWith("event")) {
-                taskList.add(new Events(command));
+                taskList.add(new Event(command));
             }
             if (input.startsWith("[X]")) {
                 taskList.mark(taskList.getN());

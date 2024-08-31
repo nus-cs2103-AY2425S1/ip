@@ -43,14 +43,26 @@ public class TaskList {
             temp = temp + task.getDescription();
             return temp;
         } catch(IndexOutOfBoundsException e) {
-            throw new InputErrorException("Sorry you do not have that many Tasks in your list");
+            if (i <= 0) {
+                throw new InputErrorException("Invalid input task number cannot be zero or less");
+            } else {
+                throw new InputErrorException("Sorry you do not have that many Tasks in your list");
+            }
         } catch (NullPointerException e) {
             throw new InputErrorException("Sorry your task list is currently empty.");
         }
     }
 
-    public Task getTask(int i) {
-        return tasks.get(i);
+    public Task getTask(int i) throws InputErrorException {
+        try {
+            return tasks.get(i - 1);
+        } catch (IndexOutOfBoundsException e) {
+            if (i <= 0) {
+                throw new InputErrorException("Invalid input task number cannot be zero or less");
+            } else {
+                throw new InputErrorException("Sorry you do not have that many Tasks in your list");
+            }
+        }
     }
 
     public String get() {

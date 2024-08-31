@@ -2,10 +2,10 @@ package Gumball;
 
 import java.time.LocalDate;
 
-public class Events extends Task {
+public class Event extends Task {
     private LocalDate eventStart;
     private LocalDate eventEnd;
-    public Events(String desc) throws TaskException{
+    public Event(String desc) throws TaskException{
         super("",desc);
         try {
             String[] section = desc.substring(6).split("/from | /to ");

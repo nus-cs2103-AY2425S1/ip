@@ -19,13 +19,13 @@ public class AddCommand extends Command{
     @Override
     public void execute(TaskList list, UI ui, FileManager fileManager) throws InputErrorException, IOException {
         if (input.startsWith("todo")) {
-            addToList(new ToDos(input), list, ui);
+            addToList(new ToDo(input), list, ui);
             fileManager.updateFile(list);
         } else if (input.startsWith("deadline")) {
-            addToList(new Deadlines(input), list, ui);
+            addToList(new Deadline(input), list, ui);
             fileManager.updateFile(list);
         } else if (input.startsWith("event")) {
-            addToList(new Events(input), list, ui);
+            addToList(new Event(input), list, ui);
             fileManager.updateFile(list);
         }
     }

@@ -3,9 +3,9 @@ package Gumball;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Deadlines extends Task{
+public class Deadline extends Task{
     private LocalDate deadlineTime;
-    public Deadlines(String desc) throws TaskException {
+    public Deadline(String desc) throws TaskException {
         super("",desc);
         try {
             String[] section = desc.substring(9).split("/by ");
