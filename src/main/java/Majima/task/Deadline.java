@@ -20,7 +20,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "
-                + deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + ")";
+                + deadline.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm")) + ")";
     }
 
     @Override

@@ -34,7 +34,7 @@ public class Parser {
                 return parseMarkCommand(args);
             case "unmark":
                 return parseUnmarkCommand(args);
-            case "exit":
+            case "bye":
                 return new ExitCommand();
             default:
                 throw new MajimaException("Kiryu? I ain't got the faintest idea of what ya just said!");
@@ -73,7 +73,7 @@ public class Parser {
 
     private static Command parseDeleteCommand(String args) throws MajimaException {
         try {
-            int index = Integer.parseInt(args);
+            int index = Integer.parseInt(args) - 1;
             return new DeleteCommand(index);
         } catch (NumberFormatException e) {
             throw new MajimaException("Eh? Kiryu-chan, that ain't no number!");
