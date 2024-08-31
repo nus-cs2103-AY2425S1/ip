@@ -5,11 +5,11 @@ import parser.Parser;
 import storage.FileStorage;
 import storage.Storage;
 import tasklist.TaskList;
-import ui.CommandLineUi;
 
 /**
  * The main class for the OuiOuiBaguette application.
- * It initializes the necessary components and handles the main application loop.
+ * It initializes the necessary components and handles the main application
+ * loop.
  */
 public class OuiOuiBaguette {
 
@@ -19,60 +19,62 @@ public class OuiOuiBaguette {
     /** The task list that manages the user's tasks. */
     private TaskList tasks;
 
-    /** The command-line interface for interacting with the user. */
-    private CommandLineUi ui;
-
     /** The parser that interprets user input and converts it into commands. */
     private Parser parser;
 
+    /** The flag that keeps track if the application should exit */
+    private boolean shouldExit = false;
+
     /**
-     * Constructs the OuiOuiBaguette application with the specified directory path for storage.
+     * Constructs the OuiOuiBaguette application with the specified directory path
+     * for storage.
      * Initializes the user interface, storage, task list, and parser.
      *
      * @param dirPath The directory path where task data will be stored.
      */
     public OuiOuiBaguette(String dirPath) {
-        ui = new CommandLineUi();
+        // ui = new CommandLineUi();
         storage = new FileStorage(dirPath);
         tasks = new TaskList(storage);
         parser = new Parser();
     }
 
     /**
-     * Runs the main loop of the OuiOuiBaguette application.
-     * Greets the user, processes commands in a loop, and exits when the user issues an exit command.
+     * Generates a response for the user's chat message.
      */
-    public void run() {
-        ui.greet();
-        System.out.println();
-
-        boolean isExit = false;
-
-        while (!isExit) {
-            String cmd = ui.readCommand();
-
-            try {
-                Command c = parser.parseCommand(cmd);
-                if (c.isExit()) {
-                    break;
-                }
-
-                ui.showDivider();
-
-                c.execute(tasks, ui);
-
-                ui.showDivider();
-
-            } catch (OuiOuiBaguetteException e) {
-                ui.showDivider();
-                ui.speakLine(e.getMessage());
-                ui.showDivider();
+    public String getResponse(String input) {
+        try {
+            Command c = parser.parseCommand(input);
+            if (c.isExit()) {
+                shouldExit = true;
             }
 
-            System.out.println();
-        }
+            return c.execute(tasks);
 
-        ui.farewell();
-        System.out.println();
+        } catch (OuiOuiBaguetteException e) {
+            return (e.getMessage());
+        }
     }
+
+    /**
+     * Greets the user with a welcome message.
+     */
+    public String greet() {
+        return "Bone-jaw! I'm Oui Oui Baguette.\nWhat can I do for you? Oui Oui";
+    }
+
+    /**
+     * Bids farewell to the user with a goodbye message.
+     */
+    public String farewell() {
+        return "Bye. Hope to see you soon! Oui Oui";
+    }
+
+    /**
+     * Getter function to check if chatbot should exit.
+     */
+    public boolean isExit() {
+        return shouldExit;
+    }
+
 }
