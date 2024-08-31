@@ -1,9 +1,8 @@
 package yihuibot.ui;
 
+import yihuibot.exception.parse.ParseException;
 import yihuibot.executable.Executable;
 import yihuibot.executable.Greet;
-
-import yihuibot.exception.parse.ParseException;
 
 /**
  * Deals with interactions with the user. Can be used to parse the user's
@@ -14,8 +13,8 @@ import yihuibot.exception.parse.ParseException;
  * @author Toh Yi Hui A0259080A
  */
 public class Ui {
-    private static final String HORIZONTAL_LINE
-            = "--------------------------------------------------------------------------------";
+    private static final String HORIZONTAL_LINE =
+            "--------------------------------------------------------------------------------";
 
     private Parser parser;
 

@@ -1,5 +1,8 @@
 package yihuibot;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -7,12 +10,9 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
-
 /**
  * Unit Test for YihuiBot.java
- * 
+ *
  * @author Toh Yi Hui A0259080A
  */
 public class YihuiBotTest {

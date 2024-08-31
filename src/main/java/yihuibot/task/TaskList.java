@@ -19,8 +19,8 @@ public class TaskList extends ArrayList<Task> {
      * Marks the Task at idx as complete.
      *
      * @param idx the 0-index of the Task.
-     * @throws IndexOutOfBoundsException when given index is out of bounds.
      * @return whether the Task status has changed.
+     * @throws IndexOutOfBoundsException when given index is out of bounds.
      */
     public boolean markComplete(int idx) throws IndexOutOfBoundsException {
         return super.get(idx).markComplete();
@@ -30,8 +30,8 @@ public class TaskList extends ArrayList<Task> {
      * Marks the Task at idx as incomplete.
      *
      * @param idx the 0-index of the Task.
-     * @throws IndexOutOfBoundsException when given index is out of bounds.
      * @return whether the Task status has changed.
+     * @throws IndexOutOfBoundsException when given index is out of bounds.
      */
     public boolean markIncomplete(int idx) throws IndexOutOfBoundsException {
         return super.get(idx).markIncomplete();

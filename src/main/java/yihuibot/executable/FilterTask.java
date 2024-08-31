@@ -34,7 +34,7 @@ public class FilterTask extends TaskModifier {
             throw new NullPointerException("TaskList cannot be null.");
         }
 
-        TaskList filtered = filter(super.tasks, filter); 
+        TaskList filtered = filter(super.tasks, filter);
         if (filtered.size() == 0) {
             output = "No tasks found with the given filter.";
         } else {

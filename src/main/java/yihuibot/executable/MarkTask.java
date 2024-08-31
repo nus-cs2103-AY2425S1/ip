@@ -1,8 +1,7 @@
 package yihuibot.executable;
 
-import yihuibot.task.TaskList;
-
 import yihuibot.exception.executable.ExecutableException;
+import yihuibot.task.TaskList;
 
 /**
  * An executable to mark tasks as done.
@@ -15,7 +14,7 @@ public class MarkTask extends TaskModifier {
 
     /**
      * Constructor for a new MarkTask executable.
-     * 
+     *
      * @param idx the 1-index of the tasks to mark as complete.
      */
     public MarkTask(int idx) {

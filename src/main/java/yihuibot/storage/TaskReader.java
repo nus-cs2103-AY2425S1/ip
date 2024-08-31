@@ -2,23 +2,20 @@ package yihuibot.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.Scanner;
-
-import yihuibot.task.Deadline;
-import yihuibot.task.Event;
-import yihuibot.task.Task;
-import yihuibot.task.TaskList;
-import yihuibot.task.Todo;
 
 import yihuibot.exception.taskformat.DateTimeFormatException;
 import yihuibot.exception.taskformat.IncorrectTaskFormatException;
 import yihuibot.exception.taskformat.StatusException;
 import yihuibot.exception.taskformat.TypeException;
+import yihuibot.task.Deadline;
+import yihuibot.task.Event;
+import yihuibot.task.Task;
+import yihuibot.task.TaskList;
+import yihuibot.task.Todo;
 
 /**
  * Reads the content of a file and convert it into a TaskList.
@@ -39,7 +36,7 @@ public class TaskReader {
      * @throws FileNotFoundException when the file is not found.
      */
     public TaskReader(File file, DateTimeFormatter formatter) throws FileNotFoundException,
-           IllegalArgumentException {
+            IllegalArgumentException {
         if (formatter == null) {
             throw new NullPointerException("Formatter cannot be null");
         }
@@ -68,9 +65,9 @@ public class TaskReader {
      * Parse the given line and convert it into a Task.
      *
      * @param line the line data.
+     * @return the task.
      * @throws IncorrectTaskFormatException when the content of file is not in
      *                                      the expected format.
-     * @return the task.
      */
     private Task parse(String line) throws IncorrectTaskFormatException {
         String[] array = line.split(" \\| ");

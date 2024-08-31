@@ -1,33 +1,32 @@
 package yihuibot.storage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.time.format.DateTimeFormatter;
-
-import yihuibot.exception.taskformat.IncorrectTaskFormatException;
-import yihuibot.exception.taskformat.StatusException;
-import yihuibot.exception.taskformat.TypeException;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import yihuibot.exception.taskformat.IncorrectTaskFormatException;
+import yihuibot.exception.taskformat.StatusException;
+import yihuibot.exception.taskformat.TypeException;
+
 /**
  * Unit Test for TaskReader.java
- * 
+ *
  * @author Toh Yi Hui A0259080A
  */
 public class TaskReaderTest {
-    private TaskReader taskReader;
     private static File file;
+    private TaskReader taskReader;
 
     /**
      * Create new file before all tests.

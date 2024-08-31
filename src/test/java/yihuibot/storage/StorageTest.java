@@ -1,5 +1,9 @@
 package yihuibot.storage;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -10,18 +14,14 @@ import org.junit.jupiter.api.Test;
 import yihuibot.exception.taskformat.IncorrectTaskFormatException;
 import yihuibot.task.TaskList;
 
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
-
 /**
  * Unit Test for Storage.java
- * 
+ *
  * @author Toh Yi Hui A0259080A
  */
 public class StorageTest {
-    private Storage storage;
     private static File file;
+    private Storage storage;
 
     /**
      * Create new file before all tests.

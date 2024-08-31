@@ -1,9 +1,12 @@
 package yihuibot.ui;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
 import yihuibot.exception.parse.ParseException;
-
 import yihuibot.executable.AddTask;
 import yihuibot.executable.DeleteTask;
 import yihuibot.executable.Exit;
@@ -11,13 +14,9 @@ import yihuibot.executable.ListTask;
 import yihuibot.executable.MarkTask;
 import yihuibot.executable.UnmarkTask;
 
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
-
 /**
  * Unit Test for Parser.java
- * 
+ *
  * @author Toh Yi Hui A0259080A
  */
 public class ParserTest {

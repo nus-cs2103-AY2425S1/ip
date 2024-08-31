@@ -1,10 +1,13 @@
 package yihuibot.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -16,19 +19,15 @@ import yihuibot.task.Deadline;
 import yihuibot.task.TaskList;
 import yihuibot.task.Todo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
-
 /**
  * Unit Test for TaskWriter.java
- * 
+ *
  * @author Toh Yi Hui A0259080A
  */
 public class TaskWriterTest {
+    private static File file;
     private TaskWriter taskWriter;
     private TaskList taskList;
-    private static File file;
 
     /**
      * Create new file before all tests.

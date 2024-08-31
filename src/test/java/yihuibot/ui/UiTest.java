@@ -1,18 +1,17 @@
 package yihuibot.ui;
 
-import org.junit.jupiter.api.Test;
-
-import yihuibot.exception.parse.ParseException;
-
-import yihuibot.executable.Executable;
-
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.Test;
+
+import yihuibot.exception.parse.ParseException;
+import yihuibot.executable.Executable;
+
 /**
  * Unit Test for Ui.java
- * 
+ *
  * @author Toh Yi Hui A0259080A
  */
 public class UiTest {

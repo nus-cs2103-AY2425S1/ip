@@ -1,23 +1,9 @@
 package yihuibot.ui;
 
-import java.util.Arrays;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
-import yihuibot.executable.AddTask;
-import yihuibot.executable.DeleteTask;
-import yihuibot.executable.Executable;
-import yihuibot.executable.Exit;
-import yihuibot.executable.FilterTask;
-import yihuibot.executable.ListTask;
-import yihuibot.executable.MarkTask;
-import yihuibot.executable.UnmarkTask;
-
-import yihuibot.task.Deadline;
-import yihuibot.task.Event;
-import yihuibot.task.Todo;
+import java.util.Arrays;
 
 import yihuibot.exception.parse.CommandNotFoundException;
 import yihuibot.exception.parse.IncorrectArrangementException;
@@ -29,6 +15,17 @@ import yihuibot.exception.parse.MissingStartTimeException;
 import yihuibot.exception.parse.ParseException;
 import yihuibot.exception.parse.TooLittleArgumentsException;
 import yihuibot.exception.parse.TooManyArgumentsException;
+import yihuibot.executable.AddTask;
+import yihuibot.executable.DeleteTask;
+import yihuibot.executable.Executable;
+import yihuibot.executable.Exit;
+import yihuibot.executable.FilterTask;
+import yihuibot.executable.ListTask;
+import yihuibot.executable.MarkTask;
+import yihuibot.executable.UnmarkTask;
+import yihuibot.task.Deadline;
+import yihuibot.task.Event;
+import yihuibot.task.Todo;
 
 /**
  * A parser to parse user's input from YihuiBot, returning the appropriate executable.
@@ -51,7 +48,7 @@ public class Parser {
         formatter = DateTimeFormatter.ofPattern(dateTimeFormat);
     }
 
-     /**
+    /**
      * Parse the user's input, breaking it down into a command and an array of
      * arguments. Based on what command and arguments were given, the Parser will
      * instantiate the appropriate executable with the appropriate arguments. This
