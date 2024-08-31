@@ -1,24 +1,17 @@
 package yihuibot;
 
+import java.io.IOException;
+import java.nio.file.InvalidPathException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import java.nio.file.InvalidPathException;
-
-import yihuibot.executable.Executable;
-import yihuibot.executable.TaskModifier;
 
 import yihuibot.exception.executable.ExecutableException;
 import yihuibot.exception.parse.ParseException;
 import yihuibot.exception.taskformat.IncorrectTaskFormatException;
-
+import yihuibot.executable.Executable;
+import yihuibot.executable.TaskModifier;
 import yihuibot.storage.Storage;
-
 import yihuibot.task.TaskList;
-
 import yihuibot.ui.Ui;
 
 /**
@@ -98,7 +91,7 @@ public class YihuiBot {
 
     public static void main(String[] args) {
         try {
-            new YihuiBot("data/task.txt").run(); 
+            new YihuiBot("data/task.txt").run();
         } catch (InvalidPathException | IOException e) {
             System.out.println(e.getMessage());
         }
