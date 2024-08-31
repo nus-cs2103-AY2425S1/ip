@@ -19,10 +19,6 @@ public class TaskLog {
         }
     }
 
-    public void addTask(String taskDesc) {
-        this.addTask(new Task(taskDesc));
-    }
-
     private void doubleLogSize() {
         int newLogSize = 2 * this.log.length;
         Task[] newLog = new Task[newLogSize];
@@ -77,4 +73,5 @@ public class TaskLog {
         this.numTasks--;
         return taskToDelete;
     }
+
 }

@@ -1,13 +1,14 @@
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
 
-    Task() {
-        this("null task");
-    }
     Task(String description) {
+        this(description, false);
+    }
+
+    Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getDesc() {
@@ -33,6 +34,12 @@ public class Task {
             return "[ ]";
         }
     }
+
+    public abstract String getType();
+
+    public String toTsv() {
+        return isDone + "\t" + description;
+    };
 
     public String toString() {
         return this.getStatus() + " " + this.getDesc();

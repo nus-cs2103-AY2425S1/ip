@@ -1,10 +1,18 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Rizzler {
     public static void main(String[] args) {
         RizzlerSpeech rizzlerSpeech = new RizzlerSpeech();
-        TaskLog taskLog = new TaskLog();
+        Storage storage = new Storage();
+        TaskLog taskLog;
+        try {
+            taskLog = storage.getTasks();
+        } catch (FileNotFoundException e) {
+            taskLog = new TaskLog();
+        }
         Scanner scanner = new Scanner(System.in);
 
         // greet user
@@ -46,6 +54,7 @@ public class Rizzler {
                         continue;
                     }
                     Task deletedTask = taskLog.deleteTask(taskToDelete);
+                    storage.storeTasks(taskLog);
                     rizzlerSpeech.say("sure hon, i'll remove this task from the list.");
                     rizzlerSpeech.say("\t" + deletedTask);
                     rizzlerSpeech.say("now we have " + taskLog.getNumTasks() + " tasks left to work on.");
@@ -74,6 +83,7 @@ public class Rizzler {
                         continue;
                     }
                     Task doneTask = taskLog.doTask(taskToMark);
+                    storage.storeTasks(taskLog);
                     rizzlerSpeech.say("aight, i'll note that you've completed this.");
                     rizzlerSpeech.say("\t" + doneTask.toString());
                     rizzlerSpeech.say();
@@ -101,6 +111,7 @@ public class Rizzler {
                         continue;
                     }
                     Task undoneTask = taskLog.undoTask(taskToUnmark);
+                    storage.storeTasks(taskLog);
                     rizzlerSpeech.say("no worries, we'll circle back around to this.");
                     rizzlerSpeech.say("\t" + undoneTask.toString());
                     rizzlerSpeech.say();
@@ -116,6 +127,7 @@ public class Rizzler {
                     String todoDesc = String.join(" ", todoDescArr);
                     ToDo newTodo = new ToDo(todoDesc);
                     taskLog.addTask(newTodo);
+                    storage.storeTasks(taskLog);
                     rizzlerSpeech.say("certainly, i'll keep track of this todo for you ;)");
                     rizzlerSpeech.say("\t" + newTodo);
                     rizzlerSpeech.say("now we have " + taskLog.getNumTasks() + " tasks to work on.");
@@ -150,6 +162,7 @@ public class Rizzler {
                     String deadlineTime = deadlineInfoBySplit[1];
                     Deadline newDeadline = new Deadline(deadlineDesc, deadlineTime);
                     taskLog.addTask(newDeadline);
+                    storage.storeTasks(taskLog);
                     rizzlerSpeech.say("certainly, i'll keep track of this deadline for you ;)");
                     rizzlerSpeech.say("\t" + newDeadline);
                     rizzlerSpeech.say("now we have " + taskLog.getNumTasks() + " tasks to work on.");
@@ -190,6 +203,7 @@ public class Rizzler {
                     String eventEnd = eventDuration.split("/to")[1];
                     Event newEvent = new Event(eventDesc, eventStart, eventEnd);
                     taskLog.addTask(newEvent);
+                    storage.storeTasks(taskLog);
                     rizzlerSpeech.say("certainly, i'll keep track of this event for you ;)");
                     rizzlerSpeech.say("\t" + newEvent);
                     rizzlerSpeech.say("now we have " + taskLog.getNumTasks() + " tasks to work on.");
@@ -202,7 +216,6 @@ public class Rizzler {
             }
         }
         scanner.close();
-
         // bid farewell to user
         rizzlerSpeech.bidFarewell();
     }
