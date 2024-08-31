@@ -23,8 +23,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage) {
-        ArrayList<Task> added = tasks.addTask(event);
-        storage.saveTasks(added);
+    public String execute(TaskList tasks, Storage storage) {
+        return tasks.addTask(event, storage);
     }
 }

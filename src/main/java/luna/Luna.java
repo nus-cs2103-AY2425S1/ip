@@ -30,30 +30,22 @@ public class Luna {
     /**
      * Runs the chatbot until exit command is entered
      */
-    public void run() {
-        System.out.println("Hello! I'm luna.Luna\n" + "What can I do for you?");
+    public String run(String input) {
 
-        boolean isRunning = true;
+        try {
+            ui.showLine();
+            Command command = Parser.parse(input);
+            return command.execute(tasks, storage);
 
-        while (isRunning) {
-
-            try {
-                String input = ui.readCommand();
-                ui.showLine();
-                Command command = Parser.parse(input);
-                command.execute(tasks, storage);
-                if (command instanceof ExitCommand) {
-                    isRunning = false;
-                }
-            } catch (LunaException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
+        } catch (LunaException e) {
+            ui.showError(e.getMessage());
+            return e.getMessage();
+        } finally {
+            ui.showLine();
         }
     }
 
     public static void main(String[] args) {
-        new Luna().run();
+        new Luna().run("Luna started");
     }
 }

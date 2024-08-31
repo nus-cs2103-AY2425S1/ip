@@ -23,8 +23,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage) throws LunaException {
-        ArrayList<Task> deleted = tasks.deleteTask(taskToDelete);
-        storage.saveTasks(deleted);
+    public String execute(TaskList tasks, Storage storage) throws LunaException {
+        return tasks.deleteTask(taskToDelete, storage);
     }
 }

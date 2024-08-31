@@ -24,13 +24,14 @@ public class TaskList {
      * @param task Task to be added.
      * @return List of tasks after adding task.
      */
-    public ArrayList<Task> addTask(Task task) {
+    public String addTask(Task task, Storage storage) {
         tasks.add(task);
-        String taskSize = String.format("Now you have %d tasks in the list.", tasks.size());
-        System.out.println("Got it. I've added this task:\n"
-                + "  " + task + "\n" + taskSize);
+        storage.saveTasks(tasks);
 
-        return tasks;
+        String taskSize = String.format("Now you have %d tasks in the list.", tasks.size());
+        return "Got it. I've added this task:\n"
+                + "  " + task + "\n"
+                + taskSize;
     }
 
     /**
@@ -40,29 +41,31 @@ public class TaskList {
      * @return List of tasks after deleting task.
      * @throws LunaException If task number is invalid.
      */
-    public ArrayList<Task> deleteTask(int task) throws LunaException {
+    public String deleteTask(int task, Storage storage) throws LunaException {
         if (task >= tasks.size() || task < 0) {
             throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
         }
 
         Task removed = tasks.remove(task);
-        System.out.println("Noted, I've removed this task:\n"
-                + "  " + removed.toString() + "\n"
-                + "Now you have " + tasks.size() + " tasks in the list.");
+        storage.saveTasks(tasks);
 
-        return tasks;
+        return "Noted, I've removed this task:\n"
+                + "  " + removed.toString() + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.";
     }
 
     /**
      * Prints the current list of tasks.
      */
-    public void list() {
-        System.out.println("Here are the tasks in your list:");
+    public String list() {
+        String list = "Here are the tasks in your list:\n";
 
         for (int i = 0; i < tasks.size(); i++) {
-            String taskStr = String.format("%d.%s", i + 1, tasks.get(i).toString());
-            System.out.println(taskStr);
+            String task = String.format("%d. %s\n", i + 1, tasks.get(i).toString());
+            list += task;
         }
+
+        return list;
     }
 
     /**
@@ -72,18 +75,17 @@ public class TaskList {
      * @return List of tasks after marking task.
      * @throws LunaException If task number is invalid.
      */
-    public ArrayList<Task> markTaskAsDone(int task) throws LunaException {
+    public String markTaskAsDone(int task, Storage storage) throws LunaException {
         if (task >= tasks.size() || task < 0) {
             throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
         }
 
         Task taskToMark = tasks.get(task);
         taskToMark.markAsDone();
+        storage.saveTasks(tasks);
 
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + taskToMark);
-
-        return tasks;
+        return "Nice! I've marked this task as done:\n" +
+                "  " + taskToMark;
     }
 
     /**
@@ -93,18 +95,17 @@ public class TaskList {
      * @return List of tasks after unmarking task.
      * @throws LunaException If task number is invalid.
      */
-    public ArrayList<Task> unmarkTask(int task) throws LunaException {
+    public String unmarkTask(int task, Storage storage) throws LunaException {
         if (task >= tasks.size() || task < 0) {
             throw new LunaException("Invalid task number. Type \"list\" to view tasks.");
         }
 
         Task taskToUnmark = tasks.get(task);
         taskToUnmark.unmark();
+        storage.saveTasks(tasks);
 
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + taskToUnmark);
-
-        return tasks;
+        return "OK, I've marked this task as not done yet:\n" +
+                "  " + taskToUnmark;
     }
 
     /**
@@ -113,11 +114,12 @@ public class TaskList {
      * @param query Description of task to find within tasks.
      * @return List of tasks matching query.
      */
-    public ArrayList<Task> find(String query) {
-        ArrayList<Task> matched = new ArrayList<>();
+    public String find(String query) {
+        String matched = "";
+
         for (Task task : tasks) {
             if (task.toString().substring(7).contains(query)) {
-                matched.add(task);
+                matched += String.format("%s\n", task);
             }
         }
         return matched;
