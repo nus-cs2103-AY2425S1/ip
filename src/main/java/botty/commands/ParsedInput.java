@@ -1,12 +1,12 @@
 package botty.commands;
 
-import botty.exceptions.ArgumentNotFoundException;
-import botty.exceptions.BottyException;
-import botty.exceptions.EmptyCommandException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import botty.exceptions.ArgumentNotFoundException;
+import botty.exceptions.BottyException;
+import botty.exceptions.EmptyCommandException;
 
 public class ParsedInput {
     private final Map<String, String> arguments;

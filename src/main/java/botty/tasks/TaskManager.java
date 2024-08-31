@@ -1,9 +1,9 @@
 package botty.tasks;
 
+import java.util.ArrayList;
+
 import botty.exceptions.TaskListEmptyException;
 import botty.exceptions.TaskNumberNotFoundException;
-
-import java.util.ArrayList;
 
 public class TaskManager {
     private final ArrayList<Task> taskList = new ArrayList<>(100);

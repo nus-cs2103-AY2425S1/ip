@@ -1,5 +1,8 @@
 package botty;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import botty.commands.Command;
 import botty.commands.DeadlineCommand;
 import botty.commands.DeleteCommand;
@@ -10,18 +13,11 @@ import botty.commands.MarkCommand;
 import botty.commands.ParsedInput;
 import botty.commands.TodoCommand;
 import botty.commands.UnmarkCommand;
-
 import botty.exceptions.BottyException;
 import botty.exceptions.UnknownCommandException;
-
 import botty.storage.StorageHandler;
-
 import botty.tasks.TaskManager;
-
 import botty.ui.UI;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Botty {
 

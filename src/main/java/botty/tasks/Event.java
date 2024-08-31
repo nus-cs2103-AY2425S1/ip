@@ -1,13 +1,14 @@
 package botty.tasks;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import botty.exceptions.BottyException;
 import botty.exceptions.CorruptedTaskStringException;
 import botty.exceptions.EmptyArgumentException;
 import botty.exceptions.IncorrectDateFormatException;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     private final LocalDate startDate;

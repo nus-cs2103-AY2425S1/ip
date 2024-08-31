@@ -1,7 +1,6 @@
 package botty.commands;
 
 import botty.exceptions.TaskListEmptyException;
-
 import botty.tasks.TaskManager;
 
 public class ListCommand extends Command {

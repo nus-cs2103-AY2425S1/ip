@@ -1,7 +1,6 @@
 package botty.commands;
 
 import botty.exceptions.BottyException;
-
 import botty.tasks.Task;
 import botty.tasks.TaskManager;
 
@@ -16,8 +15,8 @@ public class MarkCommand extends Command {
 
             return "Congrats on completing that! Let me just mark that as done for you.\n" + task;
         } catch (NumberFormatException ex) {
-            throw new BottyException("I don't quite know what you want me to do. " +
-                    "Do indicate which task to mark with its number!");
+            throw new BottyException("I don't quite know what you want me to do. "
+                    + "Do indicate which task to mark with its number!");
         }
     }
 }

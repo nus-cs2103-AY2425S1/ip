@@ -1,18 +1,16 @@
 package botty.storage;
 
-import botty.exceptions.BottyException;
-
-import botty.tasks.Task;
-import botty.tasks.TaskManager;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import botty.exceptions.BottyException;
+import botty.tasks.Task;
+import botty.tasks.TaskManager;
 
 public class StorageHandler {
     private final String directoryPath;

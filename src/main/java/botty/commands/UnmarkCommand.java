@@ -1,7 +1,6 @@
 package botty.commands;
 
 import botty.exceptions.BottyException;
-
 import botty.tasks.Task;
 import botty.tasks.TaskManager;
 
@@ -16,8 +15,8 @@ public class UnmarkCommand extends Command {
 
             return "It's okay, we can get that done later. I'll mark that as undone for you.\n" + task;
         } catch (NumberFormatException ex) {
-            throw new BottyException("I don't quite know what you want me to do. " +
-                    "Do indicate which task to unmark with its number!");
+            throw new BottyException("I don't quite know what you want me to do. "
+                    + "Do indicate which task to unmark with its number!");
         }
     }
 }

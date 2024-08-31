@@ -3,9 +3,8 @@ package botty.commands;
 import botty.exceptions.ArgumentNotFoundException;
 import botty.exceptions.BottyException;
 import botty.exceptions.EmptyArgumentException;
-
-import botty.tasks.Todo;
 import botty.tasks.TaskManager;
+import botty.tasks.Todo;
 
 public class TodoCommand extends AddTaskCommand {
     @Override
