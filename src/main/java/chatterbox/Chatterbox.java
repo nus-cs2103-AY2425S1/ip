@@ -126,6 +126,14 @@ public class Chatterbox {
             return nextEve;
         }
 
+        /**
+         * Adds an Event to the Tasklist
+         * @param desc description of event
+         * @param startDate start date of event
+         * @param endDate end date of event
+         * @return the created event
+         * @throws ChatterboxExceptions.ChatterBoxNoInput if no description was found
+         */
         public Event addEvent(String desc, LocalDateTime startDate, LocalDateTime endDate) throws ChatterboxExceptions.ChatterBoxNoInput {
             Event nextEve = new Event(desc, startDate, endDate);
             userTasks.add(nextEve);
