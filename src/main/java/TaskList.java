@@ -20,6 +20,10 @@ public class TaskList {
         taskList.add(task);
     }
 
+    public Task removeAt(int index) {
+        return taskList.remove(index);
+    }
+
     public Task get(int index) {
         return taskList.get(index);
     }

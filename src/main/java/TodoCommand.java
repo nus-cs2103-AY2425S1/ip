@@ -10,7 +10,7 @@ public class TodoCommand extends Command {
         tasklist.addTask(newTodo);
         try {
             storage.save(tasklist.getTaskList());
-            output.append("Got it. I've added this task:\n").append(newTodo).append("\n").append("Now you have ").append(tasklist.size()).append(" tasks in your list.\n");
+            output.append("Got it. I've added this todo:\n").append(newTodo).append("\n").append("Now you have ").append(tasklist.size()).append(" tasks in your list.\n");
             ui.printString(output.toString());
         } catch (AsuraException e) {
             ui.showError(e.getMessage());
