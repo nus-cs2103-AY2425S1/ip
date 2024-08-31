@@ -1,7 +1,9 @@
 public class UnmarkCommand extends Command {
     int selection;
 
-    public UnmarkCommand(int selection) {}
+    public UnmarkCommand(int selection) {
+        this.selection = selection;
+    }
 
     public void execute(TaskList tasklist, Ui ui, Storage storage) {
         tasklist.unMark(selection);

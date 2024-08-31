@@ -2,19 +2,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Parser {
 
     public Parser() {
     }
 
-    public Command parse(String command) throws AsuraException {
+    public static Command parse(String command) throws AsuraException {
         List<String> splitCommand = Arrays.asList(command.split(" "));
         String prefix = splitCommand.get(0);
-        if (splitCommand.size() == 1) {
+        if (splitCommand.size() == 1 && !Objects.equals(prefix, "list")) {
             throw new AsuraException("Invalid command format");
         }
-        int selection = Integer.parseInt(splitCommand.get(1)) - 1;
+        int selection;
         String taskString = String.join(" ", splitCommand.subList(1, splitCommand.size()));
         List<String> descriptionArray;
 
@@ -22,8 +23,10 @@ public class Parser {
             case "list":
                 return new ListCommand();
             case "mark":
+                selection = Integer.parseInt(splitCommand.get(1)) - 1;
                 return new MarkCommand(selection);
             case "unmark":
+                selection = Integer.parseInt(splitCommand.get(1)) - 1;
                 return new UnmarkCommand(selection);
             case "todo":
                 return new TodoCommand(taskString);
@@ -55,6 +58,7 @@ public class Parser {
                 }
                 return new EventCommand(descriptionArray, fromArray, toArray);
             case "delete":
+                selection = Integer.parseInt(splitCommand.get(1)) - 1;
                 return new DeleteCommand(selection);
             default:
                 throw new AsuraException("Invalid input");

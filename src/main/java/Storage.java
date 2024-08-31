@@ -11,7 +11,7 @@ public class Storage {
     private String filePath;
 
     public Storage(String filePath) throws AsuraException {
-        filePath = filePath;
+        this.filePath = filePath;
     }
 
     public List<Task> load() throws AsuraException {
