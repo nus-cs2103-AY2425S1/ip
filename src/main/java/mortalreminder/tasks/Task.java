@@ -1,6 +1,6 @@
-package mortal_reminder.tasks;
+package mortalreminder.tasks;
 
-import mortal_reminder.io.FormattedPrinting;
+import mortalreminder.io.FormattedPrinting;
 
 // solution is adapted from the Course Level 3 extension
 // class and constructor Javadocs were autocompleted using ChatGPT

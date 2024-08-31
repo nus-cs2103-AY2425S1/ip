@@ -1,4 +1,4 @@
-package mortal_reminder.tasks;
+package mortalreminder.tasks;
 
 // Class and constructor JavaDocs was autocompleted using ChatGPT with minor edits
 /**

@@ -1,6 +1,6 @@
-package mortal_reminder.backend;
+package mortalreminder.backend;
 
-import mortal_reminder.tasks.Task;
+import mortalreminder.tasks.Task;
 
 public class TaskListStub extends TaskList {
     public TaskListStub() {

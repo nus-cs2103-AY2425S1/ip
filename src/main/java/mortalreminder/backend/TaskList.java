@@ -1,12 +1,13 @@
-package mortal_reminder.backend;
-
-import mortal_reminder.io.FormattedPrinting;
-import mortal_reminder.tasks.Task;
+package mortalreminder.backend;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
+import mortalreminder.io.FormattedPrinting;
+import mortalreminder.tasks.Task;
+
 // The JavaDocs were generated using ChatGPT with minor edits
+
 /**
  * Manages a list of tasks and provides operations to add, delete, retrieve, and clear tasks.
  * <p>
@@ -16,7 +17,7 @@ import java.util.Objects;
  * long term storage and formatted printing for printing list to the user.
  */
 public class TaskList {
-    protected final ArrayList<Task> taskList = new ArrayList<Task>();
+    protected final ArrayList<Task> taskList = new ArrayList<>();
 
     /**
      * Retrieves the task at the specified index from the list.
@@ -91,6 +92,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds and returns the task based on descriptions matching the descriptions passed in.
+     *
+     * @param description string we are looking for in all matching tasks.
+     * @return TaskList of matching tasks that contain the description string passed into the method call.
+     */
     public TaskList findTasks(String description) {
         TaskList similarTasks = new TaskList();
         for (Task task : this.taskList) {

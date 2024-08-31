@@ -1,4 +1,4 @@
-package mortal_reminder.tasks;
+package mortalreminder.tasks;
 
 public class ToDoStub extends ToDo {
 
