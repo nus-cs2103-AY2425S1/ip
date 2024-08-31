@@ -83,7 +83,7 @@ public class UI {
         System.out.println(HR + "\nWans:"
                 + "\nHere are your tasks!\n"
                 + taskList.toString());
-        System.out.println("You have " + taskList.numOfTasks() + " tasks!" + "\n" + HR);
+        System.out.println("You have " + taskList.numOfTasks() + " tasks!"+"\n"+HR);
     }
 
     /**
@@ -212,6 +212,22 @@ public class UI {
         System.out.println("\nWans:\n"
                 + "You don't have files to load!"
                 + "\n" + HR);
+    }
+
+    /**
+     * Prints to console when WansBot finds tasks whose name contain the keyword.
+     */
+    public void handleFindKeyword(TaskList tasklist) {
+        if (tasklist.numOfTasks() == 0) {
+            System.out.println("\nWans:\n"
+                    + "You have no matching tasks!!"
+                    + "\n" + HR);
+        } else {
+            System.out.println(HR + "\nWans:"
+                    + "\nHere are your matching tasks!\n"
+                    + tasklist.toString());
+            System.out.println("You have " + tasklist.numOfTasks() + " tasks!"+"\n"+HR);
+        }
     }
 
     /**

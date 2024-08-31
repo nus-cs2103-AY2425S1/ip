@@ -55,6 +55,14 @@ public class Task {
         return false;
     }
 
+    // thos method returns true if keyword is contained within task name.
+    public Boolean hasName(String keyword) {
+        if (this.name.contains(keyword)) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return this.name;
