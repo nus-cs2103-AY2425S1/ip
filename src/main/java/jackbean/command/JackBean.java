@@ -1,8 +1,8 @@
 package jackbean.command;
 
-import jackbean.task.TaskList;
-
 import java.util.Scanner;
+
+import jackbean.task.TaskList;
 
 public class JackBean {
     public static void main(String[] args) {
