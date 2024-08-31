@@ -107,6 +107,7 @@ class BobException extends Exception {
 }
 
 class Ui {
+
     public static void dialogue(String input) {
         System.out.println("___________________________________\n");
         System.out.println(input);
@@ -141,6 +142,7 @@ class Ui {
 }
 
 class Parser {
+
     public static LocalDateTime parseDateTime(String input) throws BobException {
         try {
             // Correct format: "dd/MM/yyyy HHmm" (e.g., "02/12/2019 1800")
@@ -151,7 +153,6 @@ class Parser {
         }
     }
 
-    
     public static void processListCommand(List<Task> tasks) {
         String out = "Here are the tasks in your list: \n";
         for (int i = 0; i < tasks.size(); i++) {
@@ -214,6 +215,7 @@ class Parser {
 }
 
 class Storage {
+
     public static void saveTasks(List<Task> tasks) throws IOException {
         File directory = new File("./data");
         if (!directory.exists()) {
@@ -230,10 +232,11 @@ class Storage {
 }
 
 public class Bob {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         List<Task> tasks = new ArrayList<>();
-        
+
         Ui.runDialogue(scanner, tasks);
     }
 
