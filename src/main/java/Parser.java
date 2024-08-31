@@ -1,21 +1,13 @@
 import exceptions.*;
+import java.util.List;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Scanner;
 
-public class Astor {
+public class Parser {
+    private TaskList taskList;
+    private final DataFileModifier dataFileModifier;
 
-    // private final List<Task> listOfTasks;
 
-    private Ui ui;
-    // private final DataFileModifier dataFileModifier;
-
-    public Astor() {
-        this.ui = new Ui();
-    }
-
-    /*
     private enum Action {
         BYE,
         MARK,
@@ -29,14 +21,14 @@ public class Astor {
         DEFAULT
     }
 
-    public Astor() {
+    public Parser() {
+        this.taskList = new TaskList();
         this.dataFileModifier = new DataFileModifier();
         // this.hasUpdatedWithDataStorage = false;
-        this.listOfTasks = this.dataFileModifier.getData();
-        this.ui = new Ui();
+        this.taskList.loadTask(this.dataFileModifier.getData());
     }
 
-    private Action categorisation(String input) {
+    private Action categorise(String input) {
         if (input.equals("bye")) {
             return Action.BYE;
         } else if (input.startsWith("mark")) {
@@ -59,8 +51,9 @@ public class Astor {
         return Action.DEFAULT;
     }
 
-    private String processer(String input) throws AstorException {
-        Action action = categorisation(input);
+    public String process(String input) throws AstorException {
+        Action action = categorise(input);
+        List<Task> listOfTasks = this.taskList.getTaskList();
         switch (action) {
         case BYE:
             return "Bye. Hope to see you again!";
@@ -201,14 +194,4 @@ public class Astor {
         }
         return "";
     }
-
-     */
-
-
-    public static void main(String[] args) {
-        Astor astor = new Astor();
-        astor.ui.start();
-
-    }
-
 }
