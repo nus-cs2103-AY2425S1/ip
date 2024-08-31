@@ -12,15 +12,6 @@ import luke.task.UnknownCommandException;
 
 public class Ui {
     private static TaskList taskList = new TaskList();
-    private static Boolean isRunning = true;
-
-    //    public Ui(Storage storage, Parser parser, TaskList taskList) {
-    //        this.storage = storage;
-    //        this.parser = parser;
-    //        this.taskList = taskList;
-    //        this.isRunning = true;
-    //    }
-
     // todo: define handleUserInput() such that it feeds input to the user dialog box and output to the luke dialog box
     /**
      * Defines a Scanner object to accept string input (which will be parsed into commands later).
@@ -39,9 +30,8 @@ public class Ui {
     public static String handleCommand(Command command, boolean isLoadingFromDisk) {
         switch (command.getCommand()) {
         case "bye" -> {
-            isRunning = false;
+            // return "yeah bye bye to you too human being <3";
             Platform.exit();
-            return "yeah bye bye to you too human being <3";
         }
         case "list" -> {
             return showList();
