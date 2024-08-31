@@ -94,7 +94,7 @@ public class Storage {
 
         try {
             File file = new File(filePath);
-            if(!file.exists()) {
+            if (!file.exists()) {
                 System.out.println("No file found, list is empty so far.");
                 return tasks;
             } else {
@@ -134,14 +134,14 @@ public class Storage {
         String taskdes = splits[2];
         boolean isDone = splits[1].equals("1");
 
-        if(taskType.equals("T")) {
+        if (taskType.equals("T")) {
             ToDoTask task = new ToDoTask(taskdes);
             if(isDone) {
                 task.markDone();
             }
             return task;
 
-        } else if(taskType.equals("D")) {
+        } else if (taskType.equals("D")) {
             try {
                 String deadline = splits[3];
                 DeadlinesTask task = new DeadlinesTask(taskdes, deadline);
@@ -149,16 +149,16 @@ public class Storage {
                     task.markDone();
                 }
                 return task;
-            } catch(InvalidDeadlineException e) {
+            } catch (InvalidDeadlineException e) {
                 System.out.println(e.getMessage());
                 return null;
             }
 
-        } else if(taskType.equals("E")){
+        } else if (taskType.equals("E")){
             String from = splits[3];
             String to = splits[4];
             EventTask task = new EventTask(taskdes, from, to);
-            if(isDone) {
+            if (isDone) {
                 task.markDone();
             }
             return task;

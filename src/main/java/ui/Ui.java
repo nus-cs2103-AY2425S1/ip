@@ -24,7 +24,7 @@ public class Ui {
         // use String Builder to ensure that the string can be created on another line
         StringBuilder sb = new StringBuilder();
 
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             sb.append(i + 1 + ". " + list.get(i).printTask()).append("\n");
         }
 
