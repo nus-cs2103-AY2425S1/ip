@@ -32,6 +32,7 @@ public class Bob {
             strArr = parser.requestInput();
             ui.retBlank();
             try {
+                // main command control flow
                 switch (strArr[0].toLowerCase()) {
                 case "bye":
                     exit = true;
