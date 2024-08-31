@@ -2,8 +2,31 @@ package main.java.util;
 
 import main.java.TaskList;
 
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
 public class Ui {
-    private final String LINE = "_______________________\n";
+    private final static String LINE = "_______________________\n";
+    private final Scanner scanner;
+
+
+    public Ui() {
+        this.scanner = new Scanner(System.in);
+    }
+
+    /**
+     * Returns a string from the next line of user input
+     *
+     */
+    public String readInput() {
+        try {
+            String result = this.scanner.nextLine();
+            return result;
+        } catch (NoSuchElementException e) {
+            System.err.println("Ui readInput: no such element exception");
+            return "";
+        }
+    }
 
     public void showWelcome() {
         String output = LINE +
