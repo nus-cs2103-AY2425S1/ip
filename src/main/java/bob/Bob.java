@@ -8,6 +8,7 @@ import java.util.List;
 
 
 public class Bob {
+
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
