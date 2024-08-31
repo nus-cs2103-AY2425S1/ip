@@ -1,5 +1,7 @@
 package phenex;
 
+import phenex.command.Command;
+import phenex.command.TerminatingCommand;
 import phenex.task.TaskList;
 import phenex.ui.Ui;
 import phenex.storage.Storage;
@@ -25,7 +27,7 @@ public class Phenex {
     private Parser parser;
 
     public enum CommandType {
-        COMMAND_MARK, COMMAND_UNMARK, COMMAND_DELETE;
+        COMMAND_MARK, COMMAND_UNMARK, COMMAND_DELETE
     }
 
     public Phenex(Path filePath) {
@@ -45,105 +47,29 @@ public class Phenex {
 
         Scanner scanner = new Scanner(System.in);
         String userInput;
+        Command command = null;
 
-        // regex's for commands which tell phenex.Phenex to do actions
-        String terminatingRegex = "(?i)bye\\s*$";
-        String listRegex = "(?i)list\\s*$";
-        String markRegex = "^mark \\d+\\s*$";
-        String unmarkRegex = "^unmark \\d+\\s*$";
-        String deleteRegex = "^delete \\d+\\s*$";
-        String dateCheckRegex = "^missions on (.+)$";
-        String findRegex = "^(?i)find (.+)$";
-
-        // regex's for commands which tell phenex.Phenex to add Task.Task
-        String todoRegex = "^(?i)todo (.+)";
-        String deadlineRegex = "^(?i)deadline (.+) /by (.+)";
-        String eventRegex = "^(?i)event (.+) /from (.+) /to (.+)$";
-
-        // Patterns and Matchers for each regex
-        Pattern terminatingPattern = Pattern.compile(terminatingRegex);
-        Pattern listPattern = Pattern.compile(listRegex);
-        Pattern markPattern = Pattern.compile(markRegex);
-        Pattern unmarkPattern = Pattern.compile(unmarkRegex);
-        Pattern todoPattern = Pattern.compile(todoRegex);
-        Pattern deadlinePattern = Pattern.compile(deadlineRegex);
-        Pattern eventPattern = Pattern.compile(eventRegex);
-        Pattern deletePattern = Pattern.compile(deleteRegex);
-        Pattern dateCheckPattern = Pattern.compile(dateCheckRegex);
-        Pattern findPattern = Pattern.compile(findRegex);
-
-        Matcher terminatingMatcher;
-        Matcher listMatcher;
-        Matcher markMatcher;
-        Matcher unmarkMatcher;
-        Matcher todoMatcher;
-        Matcher deadlineMatcher;
-        Matcher eventMatcher;
-        Matcher deleteMatcher;
-        Matcher dateCheckMatcher;
-        Matcher findMatcher;
-
-        while (true) {
+        while (scanner.hasNext()) {
             // scan inputs
             userInput = scanner.nextLine();
-            terminatingMatcher = terminatingPattern.matcher(userInput);
-
-            // detect terminating string
-            if (terminatingMatcher.find()) {
-                break;
-            }
-
-            // Matchers to detect which input
-            listMatcher = listPattern.matcher(userInput);
-            markMatcher = markPattern.matcher(userInput);
-            unmarkMatcher = unmarkPattern.matcher(userInput);
-            todoMatcher = todoPattern.matcher(userInput);
-            deadlineMatcher = deadlinePattern.matcher(userInput);
-            eventMatcher = eventPattern.matcher(userInput);
-            deleteMatcher = deletePattern.matcher(userInput);
-            dateCheckMatcher = dateCheckPattern.matcher(userInput);
-            findMatcher = findPattern.matcher(userInput);
 
             phenex.ui.printLine();
 
             try {
-                if (listMatcher.find()) {
-                    phenex.ui.printTaskList(phenex.tasks);
-                } else if (markMatcher.find()) {
-                    // mark phenex.task as done
-                    int idx = phenex.parser.getIndexOfTask(markMatcher, CommandType.COMMAND_MARK);
-                    phenex.tasks.markTaskCompleted(idx);
-                } else if (unmarkMatcher.find()) {
-                    // unmark phenex.task as done
-                    int idx = phenex.parser.getIndexOfTask(unmarkMatcher, CommandType.COMMAND_UNMARK);
-                    phenex.tasks.markTaskIncomplete(idx);
-                } else if (todoMatcher.matches()) {
-                    phenex.tasks.addTask(todoMatcher, TaskList.TaskType.TASK_TODO);
-                } else if (deadlineMatcher.matches()) {
-                    phenex.tasks.addTask(deadlineMatcher, TaskList.TaskType.TASK_DEADLINE);
-                } else if (eventMatcher.matches()) {
-                    phenex.tasks.addTask(eventMatcher, TaskList.TaskType.TASK_EVENT);
-                } else if (deleteMatcher.matches()) {
-                    int idx = phenex.parser.getIndexOfTask(deleteMatcher, CommandType.COMMAND_DELETE);
-                    phenex.tasks.deleteTask(idx);
-                } else if (dateCheckMatcher.matches()) {
-                    phenex.ui.printAllTasksOn(dateCheckMatcher, phenex.tasks);
-                } else if (findMatcher.matches()) {
-                    String name = phenex.parser.getNameOfTask(findMatcher);
-                    TaskList matchingTasks = phenex.tasks.findTasks(name);
-                    phenex.ui.printTaskList(matchingTasks);
-                } else {
-                    Ui.printInvalidInputMessage();
-                }
+                command = phenex.parser.parseCommandFromLine(userInput);
+                command.execute(phenex.tasks, phenex.ui, phenex.storage);
             } catch (PhenexException e) {
                 Ui.printExceptionMessage(e);
             }
 
             phenex.ui.printLine();
+
+
+            if (command instanceof TerminatingCommand) {
+                break;
+            }
         }
 
-        phenex.storage.storeTasksToMemory(phenex.tasks);
         scanner.close();
-        phenex.ui.sayFarewell();
     }
 }

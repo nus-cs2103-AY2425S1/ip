@@ -61,34 +61,6 @@ public class Ui {
     }
 
     /**
-     * Returns lateral location of the specified position.
-     * If the position is unset, NaN is returned.
-     *
-     * @param matcher matcher, matcher to parse
-     * @param taskList, all the tasks
-     * @throws PhenexException if invalid parsing.
-     */
-    public void printAllTasksOn(Matcher matcher, TaskList taskList) throws PhenexException {
-        LocalDate localDate;
-        try {
-            localDate = LocalDate.parse(matcher.group().substring(12));
-        } catch (DateTimeParseException e) {
-            throw new PhenexException(e.getMessage());
-        }
-
-        System.out.println("\tMissions on " + localDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " :\n");
-        for (Task task : taskList.getTasks()) {
-            if (task instanceof TaskWithDate) {
-                // ok to cast here due to type checking during run time
-                TaskWithDate taskWithDate = (TaskWithDate) task;
-                if (taskWithDate.overlapsWith(localDate)) {
-                    System.out.println("\t" + taskWithDate);
-                }
-            }
-        }
-    }
-
-    /**
      * Prints invalid input message.
      *
      */
@@ -131,7 +103,7 @@ public class Ui {
      * @param taskDeleted, task which was deleted
      * @param taskListSize, current size of the task list
      */
-    public static void printTaskDeletedMessage(Task taskDeleted, int taskListSize) {
+    public void printTaskDeletedMessage(Task taskDeleted, int taskListSize) {
         System.out.println("\t OK. Mission aborted, retreat!");
         System.out.println("\t  " + taskDeleted);
         System.out.println("\t " + taskListSize + " missions remaining. Destroy the enemy!");
@@ -143,7 +115,7 @@ public class Ui {
      * @param taskAdded, task which was added
      * @param taskListSize, current size of task list
      */
-    public static void printTaskAddedMessage(Task taskAdded, int taskListSize) {
+    public void printTaskAddedMessage(Task taskAdded, int taskListSize) {
         System.out.println("\t Mission " + taskAdded.getName() + " added:");
         System.out.println("\t   " + taskAdded);
         System.out.println("\t Total upcoming missions: " + taskListSize);

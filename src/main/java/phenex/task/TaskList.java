@@ -8,17 +8,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.Scanner;
 
 public class TaskList {
     /** Encapsulates all tasks in the TaskList */
     protected ArrayList<Task> tasks;
-
-    public enum TaskType {
-        TASK_TODO, TASK_DEADLINE, TASK_EVENT
-    }
 
     public TaskList(Storage storage) {
         this.tasks = new ArrayList<>();
@@ -42,14 +36,15 @@ public class TaskList {
      *
      * @param idx, the index of the task to mark as complete
      * @throws PhenexException, if invalid index
+     * @return task which was marked as complete
      */
-    public void markTaskCompleted(int idx) throws PhenexException {
-        if (idx >= this.tasks.size()) {
+    public Task markTaskCompleted(int idx) throws PhenexException {
+        if (idx >= this.tasks.size() || idx < 0) {
             throw new PhenexException("\t Invalid input, no such mission!");
         } else {
             Task taskMarked = this.tasks.get(idx);
             taskMarked.setCompleted();
-            Ui.printTaskMarkedCompleteMessage(taskMarked);
+            return taskMarked;
         }
     }
 
@@ -58,14 +53,15 @@ public class TaskList {
      *
      * @param idx, the index of the task to mark as complete
      * @throws PhenexException, if invalid index
+     * @return task which was marked as incomplete
      */
-    public void markTaskIncomplete(int idx) throws PhenexException {
-        if (idx >= this.tasks.size()) {
+    public Task markTaskIncomplete(int idx) throws PhenexException {
+        if (idx >= this.tasks.size() || idx < 0) {
             throw new PhenexException("\t Invalid input, no such mission!");
         } else {
             Task taskMarked = this.tasks.get(idx);
             taskMarked.setUncompleted();
-            Ui.printTaskMarkedIncompleteMessage(taskMarked);
+            return taskMarked;
         }
     }
 
@@ -79,74 +75,19 @@ public class TaskList {
     }
 
     /**
-     * Adds a task to task list
-     *
-     * @param matcher, the matcher to get the task from
-     * @param taskType, the task type of the task to add
-     * @throws PhenexException, if invalid string
-     */
-    public void addTask(Matcher matcher, TaskType taskType) throws PhenexException {
-        String taskName = matcher.group(1);
-        String emptyNameRegex = "\\s*";
-        Pattern emptyNamePattern = Pattern.compile(emptyNameRegex);
-        Matcher emptyNameMatcher = emptyNamePattern.matcher(taskName);
-
-        Task taskToAdd;
-
-        switch (taskType) {
-        case TASK_TODO:
-            if (emptyNameMatcher.matches()) {
-                throw new PhenexException("Error, invalid todo name");
-            }
-            taskToAdd = new ToDo(taskName);
-            break;
-        case TASK_DEADLINE:
-            if (emptyNameMatcher.matches()) {
-                throw new PhenexException("Error, invalid deadline name");
-            }
-            String deadlineBy = matcher.group(2);
-            try {
-                LocalDate localDate = LocalDate.parse(deadlineBy);
-                taskToAdd = new Deadline(taskName, localDate);
-            } catch (DateTimeParseException e) {
-                throw new PhenexException(e.getMessage());
-            }
-            break;
-        case TASK_EVENT:
-            if (emptyNameMatcher.matches()) {
-                throw new PhenexException("Error, invalid event name");
-            }
-            try {
-                LocalDate fromDate = LocalDate.parse(matcher.group(2));
-                LocalDate toDate = LocalDate.parse(matcher.group(3));
-                taskToAdd = new Event(taskName, fromDate, toDate);
-                break;
-            } catch (DateTimeParseException e) {
-                throw new PhenexException(e.getMessage());
-            }
-
-        default:
-            Ui.printInvalidInputMessage();
-            return;
-        }
-
-        this.tasks.add(taskToAdd);
-        Ui.printTaskAddedMessage(taskToAdd, this.tasks.size());
-    }
-
-    /**
      * Deletes a task
      *
      * @param idx, index of task to delete
      * @throws PhenexException, if invalid index
+     * @return task which was deleted
      */
-    public void deleteTask(int idx) throws PhenexException {
-        if (idx >= this.tasks.size()) {
+    public Task deleteTask(int idx) throws PhenexException {
+        if (idx >= this.tasks.size() || idx < 0) {
             throw new PhenexException("Error, no such mission exists");
         }
         Task taskToDelete = this.tasks.get(idx);
         this.tasks.remove(idx);
-        Ui.printTaskDeletedMessage(taskToDelete, this.tasks.size());
+        return taskToDelete;
     }
 
     /** finds tasks with a given name
@@ -162,6 +103,26 @@ public class TaskList {
             }
         }
         return matchingTasks;
+    }
+
+    /** finds tasks which overlap with a given date
+     *
+     * @param localDate, date to check overlap
+     * @return task list containing all tasks overlapping date
+     */
+    public TaskList findAllTasksOn(LocalDate localDate) {
+        TaskList taskList = new TaskList();
+
+        for (Task task : this.tasks) {
+            if (task instanceof TaskWithDate) {
+                TaskWithDate taskWithDate = (TaskWithDate) task;
+                if (taskWithDate.overlapsWith(localDate)) {
+                    taskList.addTask(taskWithDate);
+                }
+            }
+        }
+
+        return taskList;
     }
 
     /**
