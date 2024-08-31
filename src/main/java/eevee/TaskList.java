@@ -14,7 +14,7 @@ public class TaskList {
     }
 
     public Task getTask(int taskNumber) throws EeveeException {
-        if (taskNumber > tasks.size()) {
+        if (taskNumber > tasks.size() || taskNumber < 1) {
             throw new EeveeException("No task under the given task number. "
                     + "Did you type the wrong number?");
         }
@@ -25,7 +25,7 @@ public class TaskList {
     }
 
     public void removeTask(int taskNumber) throws EeveeException {
-        if (taskNumber > tasks.size()) {
+        if (taskNumber > tasks.size() || taskNumber < 1) {
             throw new EeveeException("No task under the given task number. "
                     + "Did you type the wrong number?");
         }
