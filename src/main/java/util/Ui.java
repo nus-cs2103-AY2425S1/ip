@@ -112,6 +112,30 @@ public class Ui {
         System.out.print(output);
     }
 
+    public void showTodoSyntax() {
+        String output = LINE
+                + "Invalid syntax. Please follow this syntax for Todos:\n"
+                + "\t todo <task name>\n"
+                + LINE;
+        System.out.print(output);
+    }
+
+    public void showDeadlineSyntax() {
+        String output = LINE
+                + "Invalid syntax. Please follow this syntax for Deadlines:\n"
+                + "\t deadline <task name> /by <datetime>\n"
+                + LINE;
+        System.out.print(output);
+    }
+
+    public void showEventSyntax() {
+        String output = LINE
+                + "Invalid syntax. Please follow this syntax for Events:\n"
+                + "\t event <task name> /from <datetime> /to <datetime>\n"
+                + LINE;
+        System.out.print(output);
+    }
+
     public void showDateTimeError() {
         String output = LINE
                 + "Invalid format! Datetime must be in this form: E.g. 2024-10-11 1200\n"
