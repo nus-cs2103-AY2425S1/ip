@@ -24,11 +24,11 @@ public  class Storage {
 
     private String HISTFILE = Paths.get(System.getProperty("user.dir"),"data" , "command1.txt").toString();
 
-
+    /**
+     * Initializes Storage class with no specified storage file, creates a data directory and storage file command1
+     */
     public Storage() {
         checkDirectory();
-
-
     }
 
     /**
@@ -40,9 +40,11 @@ public  class Storage {
         this.HISTFILE = filePath;
     }
 
+    /**
+     * Saves the input arraylist
+     * @param userList contains ArrayList of task
+     */
     public void saveHistory(ArrayList<Task> userList) {
-
-
 
         checkDirectory();
 
@@ -62,6 +64,7 @@ public  class Storage {
                 history.append(taskStr);
                 history.append(System.lineSeparator());
             }
+
             writer.write(history.toString());
             writer.close();
 
@@ -71,6 +74,12 @@ public  class Storage {
         }
     }
 
+    /**
+     * Loads the
+     * @param parser
+     * @return
+     * @throws FileNotFoundException
+     */
     public ArrayList<Task> load(Parser parser) throws FileNotFoundException {
         File f = new File(this.HISTFILE);
         Scanner s = new Scanner(f);
@@ -116,7 +125,7 @@ public  class Storage {
                     String startDate = rest.substring(startBracket + 7, toStart).trim();
                     LocalDateTime startDateObj = parser.parseDateTime(startDate);
                     String endDate = rest.substring(toStart + 3, rest.length() - 2).trim();
-                    LocalDateTime endDateObj = parser.parseDateTime(startDate);
+                    LocalDateTime endDateObj = parser.parseDateTime(endDate);
 
                     Event nextEvent;
                     if (startDateObj != null && endDateObj != null) {
@@ -154,6 +163,14 @@ public  class Storage {
         } catch (IOException e) {
             System.out.println("Error creating data directory: " + e.getMessage());
         }
+    }
+
+    /**
+     * Gets the HISTFILE path string
+     * @return HISTFILE path string
+     */
+    public String getHistFilePath() {
+        return HISTFILE;
     }
 
 

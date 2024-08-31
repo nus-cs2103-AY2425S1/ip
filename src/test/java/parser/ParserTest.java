@@ -89,4 +89,24 @@ public class ParserTest {
             System.out.println("error" + e.getMessage());
         }
     }
+
+    @Test
+    public void parseEvent_eventSlash() {
+        try {
+            assertArrayEquals(new String[] {"first text", "/from abc", "/to end"},
+                    testParser.parseEvent("event first text /from/from abc /to /to end"));
+        } catch (ChatterboxExceptions.ChatterBoxMissingParameter e) {
+            System.out.println("error" + e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseEvent_repeatCommands() {
+        try {
+            assertArrayEquals(new String[] {"event text", "/from abc", "/from/to/to asdf"},
+                    testParser.parseEvent("event event text /from/from abc /to/from/to/to asdf"));
+        } catch (ChatterboxExceptions.ChatterBoxMissingParameter e) {
+            System.out.println("error" + e.getMessage());
+        }
+    }
 }
