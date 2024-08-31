@@ -1,16 +1,15 @@
+package task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import utility.CustomDateTimeFormatter;
 
 public class DeadlineTask extends Task {
     private final LocalDateTime deadlineDateTime;
 
-    public DeadlineTask(String taskDescription, String deadlineString) {
+    public DeadlineTask(String taskDescription, LocalDateTime deadlineDateTime) {
         super(taskDescription);
-        try {
-            this.deadlineDateTime = LocalDateTime.parse(deadlineString, dateTimeFormatter);
-        } catch (DateTimeParseException e) {
-            throw e;
-        }
+        this.deadlineDateTime = deadlineDateTime;
     }
 
     private DeadlineTask(boolean isDone, String taskDescription, LocalDateTime deadlineDateTime) {
@@ -35,6 +34,6 @@ public class DeadlineTask extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + deadlineDateTime
-            .format(prettyDateTimeFormatter) + ")";
+            .format(CustomDateTimeFormatter.PRETTY_DATE_TIME_FORMATTER) + ")";
     }
 }

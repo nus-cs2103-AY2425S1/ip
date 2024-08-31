@@ -1,3 +1,5 @@
+package utility;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -13,7 +15,6 @@ import java.io.Serializable;
  * @param <E> the type of elements in this list
  */
 public class ImList<E> implements Iterable<E>, Serializable {
-    private static final long serialVersionUID = 2L;
     private final ArrayList<E> elems;
 
     /**
