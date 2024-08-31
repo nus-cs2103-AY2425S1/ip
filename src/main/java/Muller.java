@@ -3,19 +3,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Muller {
-    public static void main(String[] args) throws MullerException{
+    public static void main(String[] args) throws MullerException {
         String logo = "____________________________________________________________";
         System.out.println(logo + "\nHello! I'm Muller\nWhat can I do for you?\n"
-                                + logo);
+                + logo);
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
-        while(true){
-            String in = sc.nextLine();
-            String[] inputs = in.split(" ", 2);
-            if(inputs[0].equals("bye")){
-                break;
-            } else if (inputs[0].equals("mark")) {
-                try {
+        while (true) {
+            try {
+                String in = sc.nextLine();
+                String[] inputs = in.split(" ", 2);
+                if (inputs[0].equals("bye")) {
+                    break;
+                } else if (inputs[0].equals("mark")) {
+
                     if (inputs.length < 2 || !isNumeric(inputs[1])) {
                         throw new MullerException("Pick a task number!");
                     }
@@ -26,11 +27,8 @@ public class Muller {
                     list.get(index).markAsDone();
                     System.out.println(logo + "\nNice! I've marked this task as done:\n");
                     System.out.println("  " + list.get(index) + "\n" + logo);
-                } catch (MullerException e) {
-                    System.out.println(logo + "\n" + e.getMessage() + "\n" + logo);
-                }
-            } else if (inputs[0].equals("unmark")) {
-                try {
+
+                } else if (inputs[0].equals("unmark")) {
                     if (inputs.length < 2 || !isNumeric(inputs[1])) {
                         throw new MullerException("Pick a task number!");
                     }
@@ -41,12 +39,8 @@ public class Muller {
                     list.get(index).markAsNotDone();
                     System.out.println(logo + "\nOK, I've marked this task as not done yet:\n");
                     System.out.println("  " + list.get(index) + "\n" + logo);
-                } catch (MullerException e) {
-                    System.out.println(logo + "\n" + e.getMessage() + "\n" + logo);
-                }
-            } else if (inputs[0].equals("todo")) {
-                try {
-                    if (inputs.length < 2 ) {
+                } else if (inputs[0].equals("todo")) {
+                    if (inputs.length < 2) {
                         throw new MullerException("Todo what?");
                     }
                     System.out.println(logo + "\nGot it. I've added this task:\n");
@@ -55,12 +49,8 @@ public class Muller {
                     list.add(t);
                     System.out.println("  " + t);
                     System.out.println("\nNow you have " + list.size() + " tasks in the list.\n" + logo);
-                } catch (MullerException e) {
-                    System.out.println(logo + "\n" + e.getMessage() + "\n" + logo);
-                }
-            } else if (inputs[0].equals("deadline")) {
-                try {
-                    if (inputs.length < 2 ) {
+                } else if (inputs[0].equals("deadline")) {
+                    if (inputs.length < 2) {
                         throw new MullerException("deadline for what?");
                     }
                     String[] detail = inputs[1].split("/by", 2);
@@ -74,12 +64,8 @@ public class Muller {
                     list.add(t);
                     System.out.println("  " + t);
                     System.out.println("\nNow you have " + list.size() + " tasks in the list.\n" + logo);
-                } catch (MullerException e) {
-                    System.out.println(logo + "\n" + e.getMessage() + "\n" + logo);
-                }
-            } else if (inputs[0].equals("event")) {
-                try {
-                    if (inputs.length < 2 ) {
+                } else if (inputs[0].equals("event")) {
+                    if (inputs.length < 2) {
                         throw new MullerException("event for what?");
                     }
                     System.out.println(logo + "\nGot it. I've added this task:\n");
@@ -97,11 +83,7 @@ public class Muller {
                     list.add(t);
                     System.out.println("  " + t);
                     System.out.println("\nNow you have " + list.size() + " tasks in the list.\n" + logo);
-                } catch (MullerException e) {
-                    System.out.println(logo + "\n" + e.getMessage() + "\n" + logo);
-                }
-            } else if (in.equals("list")) {
-                try {
+                } else if (in.equals("list")) {
                     if (list.isEmpty()) {
                         throw new MullerException("No tasks found.");
                     }
@@ -111,11 +93,9 @@ public class Muller {
                         System.out.println(i + ": " + list.get(i - 1));
                     }
                     System.out.println(logo);
-                } catch (MullerException e) {
-                    System.out.println(logo + "\n" + e.getMessage() + "\n" + logo);
-                }
-            } else if (inputs[0].equals("delete")) {
-                try {
+
+                } else if (inputs[0].equals("delete")) {
+
                     if (inputs.length < 2 || !isNumeric(inputs[1])) {
                         throw new MullerException("Pick a task number!");
                     }
@@ -126,13 +106,14 @@ public class Muller {
                     System.out.println(logo + "\nNoted. I've removed this task:\n");
                     System.out.println("  " + list.get(index) + "\n" + logo);
                     list.remove(index);
-                } catch (MullerException e) {
-                    System.out.println(logo + "\n" + e.getMessage() + "\n" + logo);
+
+                } else {
+                    System.out.println(logo + "\n" + "added: " + in + "\n" + logo);
+                    Task t = new Task(in);
+                    list.add(t);
                 }
-            } else {
-                System.out.println(logo + "\n" + "added: " + in+ "\n" + logo);
-                Task t = new Task(in);
-                list.add(t);
+            } catch (MullerException e) {
+                System.out.println(logo + "\n" + e.getMessage() + "\n" + logo);
             }
         }
 
