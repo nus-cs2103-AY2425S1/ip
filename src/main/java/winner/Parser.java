@@ -1,3 +1,5 @@
+package winner;
+
 public class Parser {
 
     public static void parseInput(String input, TaskList taskList) throws WinnerException {

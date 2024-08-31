@@ -1,3 +1,5 @@
+package winner;
+
 import java.util.Scanner;
 
 public class Winner {
