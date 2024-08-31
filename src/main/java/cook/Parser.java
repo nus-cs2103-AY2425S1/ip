@@ -4,13 +4,30 @@ import exceptions.InvalidCommandException;
 
 import java.util.HashMap;
 
+/**
+ * Parser class to format inputs from the user.
+ *
+ * @param commandArgs Stores commands and their expected number of arguments.
+ */
 public class Parser {
     HashMap<String, Integer> commandArgs;
 
+    /**
+     * Constructor for Parser class.
+     *
+     * @param commandArgs Stores commands and their expected number of arguments.
+     */
     public Parser(HashMap<String, Integer> commandArgs) {
         this.commandArgs = commandArgs;
     }
 
+    /**
+     * Constructor for Parser class.
+     *
+     * @param input Input to format.
+     * @return HashMap of commands and their corresponding inputs.
+     * @throws InvalidCommandException If command is not recognized.
+     */
     public HashMap<String, String> readInput(String input) throws InvalidCommandException {
         String[] arguments = input.split(" ");
         String command = arguments[0].toLowerCase();
