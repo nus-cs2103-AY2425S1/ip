@@ -10,7 +10,6 @@ public class Ui {
         parser = new Parser(tasklist);
     }
 
-    // TODO: FIX THIS TO RETURN A BOOLEAN / PAIR<BOOLEAN, BOOLEAN> FOR SLAVE TO CALL SAVE()
     public Pair<Boolean, Boolean> getUserInputs() {
         return parser.getUserInput();
 

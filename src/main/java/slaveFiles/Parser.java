@@ -128,7 +128,7 @@ public class Parser {
                 return false;
             }
             Task t = list.get(i - 1);
-            t.completed();
+            t.setAsCompleted();
             System.out.println("Finally doing something useful with your life eh...");
             System.out.println(t);
             return true;
@@ -152,7 +152,7 @@ public class Parser {
                 return false;
             }
             Task t = list.get(i - 1);
-            t.incomplete();
+            t.setAsIncomplete();
             System.out.println("Slacking off now, are you?");
             System.out.println(t);
             return true;
@@ -241,6 +241,7 @@ public class Parser {
 
     /**
      * removes the Task from list
+     *
      * @param s is the index of the Task to be removed
      */
     protected boolean deleteTask(String s) {
