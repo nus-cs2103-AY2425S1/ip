@@ -1,8 +1,12 @@
+package Dawn;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static Dawn.TaskList.getTask;
+import static Dawn.TaskList.numOfTasks;
 
 public class Storage {
     private ArrayList<Task> savedTasks;
@@ -92,8 +96,8 @@ public class Storage {
      */
     public static void saveTasks(String filePath) throws DawnException {
         try {
-            for (int i = 0; i < TaskList.numOfTasks(); i++) {
-                writeToFile(filePath, TaskList.getTask(i));
+            for (int i = 0; i < numOfTasks(); i++) {
+                writeToFile(filePath, getTask(i));
             }
         } catch (IOException e) {
             throw new DawnException("Something went wrong: " + e.getMessage());
@@ -109,7 +113,7 @@ public class Storage {
         String from;
         String to;
 
-        String textToAdd = "";
+        String textToAdd;
 
         if (task instanceof ToDo) {
             textToAdd = "T" + separator + isDone + separator + desc;

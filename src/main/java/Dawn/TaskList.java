@@ -1,3 +1,5 @@
+package Dawn;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -17,7 +19,7 @@ public class TaskList {
         DEADLINE,
         EVENT
     }
-    public static void addTask(String command, String input) throws DawnException{
+    public static void addTask(String command, String input) throws DawnException {
         Command cmd = Command.valueOf(command);
         if (input.isBlank()) {
             throw new DawnException("You might be missing the task description, please check again\n");

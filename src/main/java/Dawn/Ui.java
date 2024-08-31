@@ -1,4 +1,5 @@
-import java.io.File;
+package Dawn;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -20,6 +21,9 @@ public class Ui {
         while (scanner.hasNextLine()) {
             String command = scanner.next();
             new Parser(command, scanner.nextLine().trim());
+            if (command.equals("bye")) {
+                break;
+            }
         }
     }
     public void showLoadingError(DawnException ex) {

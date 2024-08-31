@@ -1,5 +1,7 @@
-import java.time.LocalDate;
-import java.util.Scanner;
+package Dawn;
+
+import static Dawn.Storage.saveTasks;
+import static Dawn.TaskList.*;
 
 public class Parser {
     private String command;
@@ -33,25 +35,27 @@ public class Parser {
             switch (cmd) {
             case BYE:
                 System.out.println("Byeeee~ nice chatting with you! See you next time, Dawn 🌙 out");
-                Storage.saveTasks("./data/dawn.txt");
+                saveTasks("./data/dawn.txt");
+                String divider = "--".repeat(30);
+                System.out.println(divider);
                 return;
             case LIST:
-                TaskList.list();
+                list();
                 break;
             case MARK:
             case UNMARK:
                 mark(command, input);
                 break;
             case DELETE:
-                TaskList.delete(input);
+                delete(input);
                 break;
             case TODO:
             case DEADLINE:
             case EVENT:
-                TaskList.addTask(String.valueOf(cmd), input);
+                addTask(String.valueOf(cmd), input);
                 break;
             case TODAY:
-                TaskList.doByToday();
+                doByToday();
                 break;
             }
         } catch (DawnException e) {
@@ -68,9 +72,9 @@ public class Parser {
         }
 
         if (cmd.equals("unmark")) {
-            TaskList.markAsNotDone(ind);
+            markAsNotDone(ind);
         } else {
-            TaskList.markAsDone(ind);
+            markAsDone(ind);
         }
     }
 }
