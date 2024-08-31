@@ -34,7 +34,7 @@ public class Parser {
             } else {
                 System.out.println("Input not recognised. Please input a valid action:");
                 System.out.println("todo, event, deadline, mark, unmark, list, bye");
-                return null;
+                return new InvalidCommand();
             }
         }
     }
