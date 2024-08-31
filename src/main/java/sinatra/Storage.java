@@ -1,4 +1,4 @@
-package Sinatra;
+package sinatra;
 
 import java.io.File;
 import java.io.FileNotFoundException;

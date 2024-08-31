@@ -1,4 +1,4 @@
-package Sinatra;
+package sinatra;
 
 public class Parser {
 

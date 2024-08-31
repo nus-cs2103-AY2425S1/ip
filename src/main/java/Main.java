@@ -1,4 +1,4 @@
-import Sinatra.Sinatra;
+import sinatra.Sinatra;
 
 public class Main {
 

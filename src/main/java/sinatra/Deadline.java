@@ -1,4 +1,4 @@
-package Sinatra;
+package sinatra;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

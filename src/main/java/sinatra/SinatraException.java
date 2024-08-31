@@ -1,4 +1,4 @@
-package Sinatra;
+package sinatra;
 
 public class SinatraException extends Exception {
     public SinatraException(String message) {
