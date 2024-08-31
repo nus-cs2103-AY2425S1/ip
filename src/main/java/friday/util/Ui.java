@@ -1,15 +1,17 @@
 package friday.util;
 
+import java.util.Scanner;
+
 import friday.task.Task;
 import friday.task.TaskList;
-
-import java.util.Scanner;
 
 /**
  * Handles user interface interactions for the Friday task manager.
  * Manages displaying messages to the user and reading user input.
  */
 public class Ui {
+
+    private final Scanner sc = new Scanner(System.in);
 
     /**
      * Displays a line separator in the console.
@@ -37,15 +39,15 @@ public class Ui {
     public boolean showHelp() {
         System.out.println("\tHere are the list of commands that I support");
         System.out.println("\thelp - List of commands supported by me, Friday.");
-        System.out.println("\tlist - View all entries to the current list of things" +
-                " you have asked me to take note of.");
+        System.out.println("\tlist - View all entries to the current list of things"
+                + " you have asked me to take note of.");
         System.out.println("\tmark <integer> - Mark an entry in the list as a completed task.");
         System.out.println("\tunmark <integer> - Unmark an entry in the list as a completed task.");
         System.out.println("\ttodo <string> - Remember a TODO task for you to revisit again.");
-        System.out.println("\tdeadline <string> /by <yyyy-mm-dd hhmm> - Remember a Deadline task for" +
-                " you to complete by the deadline.");
-        System.out.println("\tevent <string> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm> - Remember an Event task" +
-                " from when it begins to when it ends.");
+        System.out.println("\tdeadline <string> /by <yyyy-mm-dd hhmm> - Remember a Deadline task for"
+                + " you to complete by the deadline.");
+        System.out.println("\tevent <string> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm> - Remember an Event task"
+                + " from when it begins to when it ends.");
         System.out.println("\tdelete <integer> - Delete an entry from your current list.");
         System.out.println("\tfind <string> - Find tasks by a keyword from your current list.");
         System.out.println("\tbye - Exits this app and says Good Bye to Friday :)");
@@ -112,8 +114,6 @@ public class Ui {
         System.out.println("\t  " + task);
         System.out.println("\tNow you have " + taskCount + " tasks in the list.");
     }
-
-    private final Scanner sc = new Scanner(System.in);
 
     /**
      * Reads a command from the user input.

@@ -1,15 +1,15 @@
 package friday.util;
 
-import friday.task.Deadline;
-import friday.task.Event;
-import friday.task.Task;
-import friday.task.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import friday.task.Deadline;
+import friday.task.Event;
+import friday.task.Task;
+import friday.task.Todo;
 
 /**
  * Handles the loading and saving of tasks to and from a file.
@@ -38,7 +38,9 @@ public class Storage {
             Scanner sc = new Scanner(file);
             while (sc.hasNextLine()) {
                 String[] taskData = sc.nextLine().split(" \\| ");
-                if ((taskData.length < 3) || !taskData[1].chars().allMatch(Character::isDigit)) continue;
+                if ((taskData.length < 3) || !taskData[1].chars().allMatch(Character::isDigit)) {
+                    continue;
+                }
                 Task task = parseTask(taskData);
                 if (task != null && taskData[1].equals("1")) {
                     task.markAsDone();
@@ -75,7 +77,7 @@ public class Storage {
             task = new Event(taskData[2], taskData[3], taskData[4]);
             break;
         default:
-            System.out.println("\tCorrupted data found: "  + String.join(" | ", taskData));
+            System.out.println("\tCorrupted data found: " + String.join(" | ", taskData));
         }
         return task;
     }
@@ -92,8 +94,7 @@ public class Storage {
 
         if (currentDir.getName().equals("text-ui-test")) {
             writer = new FileWriter("../data/friday.txt");
-        }
-        else {
+        } else {
             writer = new FileWriter(FILE_PATH);
         }
 

@@ -1,11 +1,11 @@
 package friday.command;
 
+import java.io.IOException;
+
 import friday.task.TaskList;
 import friday.util.FridayException;
 import friday.util.Storage;
 import friday.util.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents an abstract command in the application.

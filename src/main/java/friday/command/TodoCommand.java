@@ -1,13 +1,13 @@
 package friday.command;
 
+import java.io.IOException;
+
 import friday.task.Task;
 import friday.task.TaskList;
 import friday.task.Todo;
 import friday.util.FridayException;
 import friday.util.Storage;
 import friday.util.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a command to add a to-do task to the task list.

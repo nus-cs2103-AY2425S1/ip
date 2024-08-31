@@ -1,8 +1,8 @@
 package friday.task;
 
-import friday.util.FridayException;
-
 import java.util.ArrayList;
+
+import friday.util.FridayException;
 
 /**
  * Represents a list of tasks.
@@ -53,7 +53,7 @@ public class TaskList {
      * Matching tasks are printed with their index in the list. If no tasks match the keyword, a message is displayed.
      * </p>
      *
-     * @param keyword The keyword to search for in the task descriptions. 
+     * @param keyword The keyword to search for in the task descriptions.
      *                The search is case-insensitive and looks for exact matches of words in the description.
      */
     public void findTasks(String keyword) {

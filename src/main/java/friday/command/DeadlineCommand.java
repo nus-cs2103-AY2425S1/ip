@@ -1,14 +1,14 @@
 package friday.command;
 
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
+
 import friday.task.Deadline;
 import friday.task.Task;
 import friday.task.TaskList;
 import friday.util.FridayException;
 import friday.util.Storage;
 import friday.util.Ui;
-
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a command to add a deadline task to the task list.
@@ -25,8 +25,8 @@ public class DeadlineCommand extends Command {
      */
     public DeadlineCommand(String[] inputs) {
         if (inputs.length != 2) {
-            throw new FridayException("\tInvalid input. 'deadline' command requires a" +
-                    " description and deadline\n\tusage: deadline <string> /by <yyyy-MM-dd HHmm>.");
+            throw new FridayException("\tInvalid input. 'deadline' command requires a"
+                    + " description and deadline\n\tusage: deadline <string> /by <yyyy-MM-dd HHmm>.");
         }
         this.description = inputs[0];
         this.by = inputs[1];

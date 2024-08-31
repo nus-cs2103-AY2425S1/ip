@@ -1,12 +1,12 @@
 package friday.command;
 
+import java.io.IOException;
+
 import friday.task.Task;
 import friday.task.TaskList;
 import friday.util.FridayException;
 import friday.util.Storage;
 import friday.util.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a command to mark or unmark a task as done or not done.
@@ -39,8 +39,8 @@ public class MarkUnmarkCommand extends Command {
         }
         int index = Integer.parseInt(inputs[1]);
         if (index > tasks.getSize() || index <= 0) {
-            throw new FridayException("\tInvalid input. It appears you are attempting to" +
-                    " access something that does not exist yet.");
+            throw new FridayException("\tInvalid input. It appears you are attempting to"
+                    + " access something that does not exist yet.");
         }
         Task task = tasks.getTasks().get(index - 1);
         if (inputs[0].equals("mark")) {
