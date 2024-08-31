@@ -2,6 +2,9 @@ package nah.ui;
 
 import java.util.Scanner;
 
+/**
+ * Handles the interaction with user by print out correct response.
+ */
 public class UI {
     private static String logo = "| \\   | |      /\\      | |  | |\n"
             + "| |\\  | |     / /\\     | |==| |\n"

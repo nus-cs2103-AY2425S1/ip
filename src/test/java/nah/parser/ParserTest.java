@@ -1,14 +1,13 @@
 package nah.parser;
-import nah.command.Command;
-import nah.exceptions.NahException;
-import nah.storage.Storage;
-import nah.tasklist.TaskList;
-import nah.ui.UI;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
-import static java.lang.Integer.parseInt;
-import static org.junit.jupiter.api.Assertions.*;
-
+import nah.command.Command;
+import nah.exceptions.NahException;
 public class ParserTest {
     /**
      * Tests if method parse throw correct exception.
@@ -49,7 +48,8 @@ public class ParserTest {
             fail("NahException expected");
 
         } catch (NahException e) {
-            assertEquals(" Nahh!!! Do not type nonsense after 'list' command\n",e.getMessage());
+            assertEquals(" Nahh!!! Do not type nonsense after 'list' command\n",
+                    e.getMessage());
         }
     }
 

@@ -2,9 +2,25 @@ package nah.command;
 
 import nah.data.Task;
 import nah.exceptions.NahException;
+import nah.storage.Storage;
 import nah.tasklist.TaskList;
 import nah.ui.UI;
-import nah.storage.Storage;
+
+/**
+ * The Command class serves as an abstract base class for all commands
+ * that can be executed in the application. Commands are responsible for
+ * interacting with the TaskList, UI, and Storage.
+ *
+ * <p>Each subclass must implement the method execute, which defines
+ * the specific behavior of the command.</p>
+ *
+ * <p>The Command class also provides a method to check if the command
+ * is an exit command.</p>
+ *
+ * @see TaskList
+ * @see UI
+ * @see Storage
+ */
 public abstract class Command {
     /**
      * Returns true this is exit command
@@ -25,6 +41,9 @@ public abstract class Command {
      */
     public abstract void execute(TaskList tasks, UI ui, Storage storage) throws NahException;
 
+    /**
+     * The CleanCommand class is for cleaning all data.
+     */
     public static class CleanCommand extends Command {
         /**
          * Executes the command by cleaning all data in the TaskList and Storage.
@@ -42,6 +61,9 @@ public abstract class Command {
         }
 
     }
+    /**
+     * The CleanCommand class is for finding matching data.
+     */
     public static class FindCommand extends Command {
         private String keyWord;
         public FindCommand(String keyWord) {
@@ -63,6 +85,9 @@ public abstract class Command {
         }
 
     }
+    /**
+     * The CleanCommand class is for adding new task.
+     */
     public static class AddCommand extends Command {
         private Task newTask;
         public AddCommand(Task newTask) {
@@ -89,6 +114,9 @@ public abstract class Command {
 
     }
 
+    /**
+     * The CleanCommand class is deleting a task.
+     */
     public static class DeleteCommand extends Command {
         private int idx;
         public DeleteCommand(int idx) {
@@ -111,6 +139,9 @@ public abstract class Command {
         }
     }
 
+    /**
+     * The CleanCommand class is for finding tasks before due.
+     */
     public static class DueOnCommand extends Command {
         private String due;
         public DueOnCommand(String due) {
@@ -132,6 +163,9 @@ public abstract class Command {
         }
     }
 
+    /**
+     * The CleanCommand class is for stopping the program.
+     */
     public static class ExitCommand extends Command {
         @Override
         public boolean isExit() {
@@ -153,6 +187,9 @@ public abstract class Command {
 
     }
 
+    /**
+     * The CleanCommand class is for listing all tasks.
+     */
     public static class ListCommand extends Command {
         /**
          * Executes the command by listing all tasks in the TaskList.
@@ -168,6 +205,9 @@ public abstract class Command {
         }
     }
 
+    /**
+     * The CleanCommand class is for marking a task as done.
+     */
     public static class MarkCommand extends Command {
         private int idx;
         public MarkCommand(int idx) {
@@ -190,6 +230,9 @@ public abstract class Command {
         }
     }
 
+    /**
+     * The CleanCommand class is for a command line that chatBot doesn't understand.
+     */
     public static class UnknownCommand extends Command {
         /**
          * Executes with UI showing the corresponding interaction.
@@ -204,6 +247,9 @@ public abstract class Command {
         }
     }
 
+    /**
+     * The CleanCommand class is for marking a class as not done.
+     */
     public static class UnmarkCommand extends Command {
         private int idx;
         public UnmarkCommand(int idx) {

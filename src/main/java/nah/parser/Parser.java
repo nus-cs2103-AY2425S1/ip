@@ -1,14 +1,17 @@
 package nah.parser;
-import nah.command.Command;
-import nah.data.Task;
-import nah.exceptions.NahException;
+
+import static java.lang.Integer.parseInt;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import static java.lang.Integer.parseInt;
-
+import nah.command.Command;
+import nah.data.Task;
+import nah.exceptions.NahException;
+/**
+ * Handles the parsing of user input into Command object for execution.
+ */
 public class Parser {
     /**
      * Converts a String command into an object of Command class.
@@ -116,7 +119,8 @@ public class Parser {
                 throw new NahException.LackDescriptionException(
                         " Nahhhhhhhhhhhh!!! Event needs ending time\n");
             }
-            LocalDateTime start, end;
+            LocalDateTime start;
+            LocalDateTime end;
             try {
                 start = LocalDateTime.parse(time[0].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
                 end = LocalDateTime.parse(time[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));

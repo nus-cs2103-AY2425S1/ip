@@ -1,11 +1,17 @@
 package nah.exceptions;
 
+/**
+ * Custom exception class for handling errors in the Nah application.
+ */
 public class NahException extends Exception {
 
     public NahException(String mess) {
         super(mess);
     }
 
+    /**
+     * Exception for invalid values in the file.
+     */
     public static class InvalidFileValueException extends NahException {
 
         public InvalidFileValueException() {
@@ -13,6 +19,9 @@ public class NahException extends Exception {
         }
     }
 
+    /**
+     * Exception for missing descriptions.
+     */
     public static class LackDescriptionException extends NahException {
 
         public LackDescriptionException(String mess) {
@@ -20,6 +29,9 @@ public class NahException extends Exception {
         }
     }
 
+    /**
+     * Exception for invalid task numbers.
+     */
     public static class InvalidTaskNumberException extends NahException {
         public InvalidTaskNumberException() {
             super(" Sorry, there is currently no task in the list to work with\n");
