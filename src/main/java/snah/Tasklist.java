@@ -33,6 +33,16 @@ public class Tasklist {
         return tasksList.size();
     }
 
+    public ArrayList<Task> search(String keyword) {
+        ArrayList<Task> searchResults = new ArrayList<>();
+        for (Task task : tasksList) {
+            if (task.contains(keyword)) {
+                searchResults.add(task);
+            }
+        }
+        return searchResults;
+    }
+
     public void save(Storage storage) {
         storage.saveTaskList(tasksList);
     }

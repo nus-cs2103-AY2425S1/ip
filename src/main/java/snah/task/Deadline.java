@@ -18,6 +18,17 @@ public class Deadline extends Task {
                 by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")), getDescription());
     }
 
+    /**
+     * Returns true if the task contains the keyword, including the 'by' field.
+     * 
+     * @param keyword
+     * @return boolean
+     */
+    @Override
+    public boolean contains(String keyword) {
+        return super.contains(keyword) || by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")).contains(keyword);
+    }
+
     public String toSaveFile() {
         return String.format("D:%s:%s:%s", isDone() ? "x" : "", getDescription(), by);
     }
