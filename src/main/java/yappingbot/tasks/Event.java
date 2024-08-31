@@ -42,10 +42,10 @@ public class Event extends Task {
      *
      * @param taskName String name of this task.
      * @param taskDone Boolean of whether the task is marked or unmarked as done.
-     * @param startDate String of the start date, in format "YYYY-MM-DD".
-     * @param endDate String of the end date, in format "YYYY-MM-DD".
+     * @param startTime String of the start date, in format "YYYY-MM-DD".
+     * @param endTime String of the end date, in format "YYYY-MM-DD".
      */
-    public Event(String taskName, boolean taskDone, String startDate, String endDate)
+    public Event(String taskName, boolean taskDone, String startTime, String endTime)
     throws YappingBotIncorrectCommandException  {
         super(taskName, taskDone);
         super.setTaskType(TaskTypes.EVENT);

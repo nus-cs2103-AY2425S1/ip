@@ -16,7 +16,6 @@ import static yappingbot.stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXC
  */
 public class Deadline extends Task {
     private LocalDate deadline;
-    private LocalDate deadline;
 
     /**
      * Constructor for a blank Deadline task (Task name "Untitled", unmarked).

@@ -8,7 +8,7 @@ import java.util.Spliterator;
 import java.util.function.Consumer;
 
 import yappingbot.exceptions.YappingBotException;
-import yappingbot.exceptions.YappingBotOOBException;
+import yappingbot.exceptions.YappingBotOobException;
 import yappingbot.stringconstants.ReplyTextMessages;
 import yappingbot.ui.MultilineStringBuilder;
 import yappingbot.ui.Ui;

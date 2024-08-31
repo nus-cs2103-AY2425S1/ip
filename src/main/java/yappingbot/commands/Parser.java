@@ -40,8 +40,6 @@ public class Parser {
      * @return CommandTypes of the corresponding command.
      * @throws YappingBotUnknownCommandException Exception if command is unimplemented.
      */
-    public CommandTypes parseCommand(String commandString) throws YappingBotUnknownCommandException {
-
     public CommandTypes parseCommand(String commandString)
             throws YappingBotUnknownCommandException {
         if (commandString.toLowerCase().trim().isEmpty()) {
@@ -62,8 +60,6 @@ public class Parser {
      * @return integer of the parsed integer.
      * @throws YappingBotInvalidTaskNumberException Exception if given String is not a valid integer.
      */
-    public static int parseTaskNumberSelected(String userInputSlice) throws YappingBotInvalidTaskNumberException {
-
     public static int parseTaskNumberSelected(String userInputSlice)
             throws YappingBotInvalidTaskNumberException {
         int i;
