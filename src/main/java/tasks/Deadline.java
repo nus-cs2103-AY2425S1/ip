@@ -30,7 +30,7 @@ public class Deadline extends Task {
         if (this.dueDateObj != null) {
             return super.getDescription() + String.format("( by %s ) ", this.dueDateObj.format(parser.Parser.getPrintdateformatter()));
         }
-        return super.getDescription() + String.format(" ( %s )", this.dueDate);
+        return super.getDescription() + String.format(" ( by %s )", this.dueDate);
     }
 
 }
