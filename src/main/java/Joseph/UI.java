@@ -4,6 +4,10 @@ import Joseph.Tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * Handles all interactions with the user.
+ */
 public class UI {
     private Scanner scanner;
     private final String LINE = "----------------------------------";
@@ -12,9 +16,17 @@ public class UI {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Prints a line separator.
+     */
     public void printLine() {
         System.out.println(LINE);
     }
+
+    /**
+     * Prints the welome message when the chatbot is started.
+     * @param name The name of the chatbot.
+     */
     public void printWelcomeMessage(String name) {
         printLine();
         System.out.println("Hello, I'm " + name + "!");
@@ -22,12 +34,19 @@ public class UI {
         printLine();
     }
 
+    /**
+     * Prints the exit message when the chatbot is closed i.e. the "bye" command.
+     */
     public void printExitMessage() {
         printLine();
         System.out.println("Bye! Have a nice day :)");
         printLine();
     }
 
+    /**
+     * Priunts the current list of tasks.
+     * @param list The list of tasks within ./data/joseph.txt.
+     */
     public void printListMessage(ArrayList<Task> list) {
         printLine();
         for (int i = 0; i < list.size(); i++) {
@@ -37,6 +56,9 @@ public class UI {
         printLine();
     }
 
+    /**
+     * Prints a help message showing all available commands. Command is "help".
+     */
     public void printHelpMessage() {
         printLine();
         System.out.println("help: prints all available commands");
@@ -60,42 +82,80 @@ public class UI {
         printLine();
     }
 
+    /**
+     * Prints a message to indicate that the task as been marked as done. Command is "mark X".
+     * @param taskDetails The details of the task being marked.
+     */
     public void printMarkMessage(String taskDetails) {
         System.out.println("Great, I've marked " + taskDetails + " as done!");
     }
 
+    /**
+     * Prints a message to indicate that the task has been unmarked. Command is "unmark X".
+     * @param taskDetails The details of the task being unmarked.
+     */
     public void printUnmarkMessage(String taskDetails) {
         System.out.println("Okay, I've unmarked " + taskDetails + " as not done!");
     }
 
+    /**
+     * Prints a message to indicate that the ToDo task has been added. Command is "todo XXX".
+     * @param taskDetails The details of the ToDo task.
+     */
     public void printTodoMessage(String taskDetails) {
         System.out.println("I've added the todo: " + taskDetails);
     }
 
+    /**
+     * Prints a message to indicate that the Deadline task has been added. Command is "deadline XXX".
+     * @param taskDetails The details of the Deadline task.
+     */
     public void printDeadlineMessage(String taskDetails) {
         System.out.println("I've added the deadline: " + taskDetails);
     }
 
+    /**
+     * Prints a message to indicate that the Event task has been added. Command is "event XXX".
+     * @param taskDetails The details of the Event task.
+     */
     public void printJEventMessage(String taskDetails) {
         System.out.println("I've added the event: " + taskDetails);
     }
 
+    /**
+     * Prints a message to indicate that the task has been deleted. Command is "delete X".
+     * @param taskDetails The details of the task being deleted.
+     */
     public void printDeleteMessage(String taskDetails) {
         System.out.println("Alright, I've deleted " + taskDetails);
     }
 
+    /**
+     * Prints a message to indicate that the command was not recognised.
+     */
     public void printUnrecognisedMessage() {
         System.out.println("I don't know what that means :(");
     }
 
+    /**
+     * Prints a message to indicate the error details.
+     * @param message The error message.
+     */
     public void printErrorMessage(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Reads user input.
+     * @return The user input as a string.
+     */
     public String readUserInput() {
         return scanner.nextLine();
     }
 
+    /**
+     * Closes the scanner.
+     */
     public void close() {
         scanner.close();
     }

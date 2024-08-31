@@ -6,6 +6,9 @@ import Joseph.Tasks.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ *  The main class of the chatbot.
+ */
 public class Joseph {
     public static void main(String[] args) {
         final String NAME = "Joseph";

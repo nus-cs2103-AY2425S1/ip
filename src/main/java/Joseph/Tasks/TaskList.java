@@ -4,6 +4,11 @@ import Joseph.*;
 import Joseph.Exceptions.InsufficientDetailsException;
 
 import java.util.ArrayList;
+
+/**
+ * Contains the task list as well as operations for adding. deleting, marking and unmarking tasks.
+ * Handles parsed commands.
+ */
 public class TaskList {
 
     private ArrayList<Task> tasks;
@@ -20,34 +25,64 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Adds a task to the task list.
+     * @param task The task to be added
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Deletes a task from the task list.
+     * @param index The index of the task to be deleted. User input is 1-indexed.
+     * @return The deleted task.
+     * @throws IndexOutOfBoundsException If no task exists at the specified index.
+     */
     public Task deleteTask(int index) throws IndexOutOfBoundsException {
-        index -= 1;
-        return tasks.remove(index);
+        return tasks.remove(index - 1);
     }
 
+    /**
+     * Retrieves a task from the task list.
+     * @param index The index of the task to be retrieved. User input is 1-indexed.
+     * @return The task at the specified index.
+     * @throws IndexOutOfBoundsException If no task exists at the specified index.
+     */
     public Task getTask(int index) throws IndexOutOfBoundsException {
-        index -= 1;
-        return tasks.get(index);
+        return tasks.get(index - 1);
     }
 
+    /**
+     * Marks a task as done.
+     * @param index The index of the task to be marked. User input is 1-indexed.
+     * @throws IndexOutOfBoundsException If no task exists at the specified index.
+     */
     public void markTask(int index) throws IndexOutOfBoundsException {
-        index -= 1;
-        tasks.get(index).setDone();
+        tasks.get(index - 1).setDone();
     }
-
+    /**
+     *
+     * Unmarks a task as not done.
+     * @param index The index of the task to be unmarked. User input is 1-indexed.
+     * @throws IndexOutOfBoundsException If no task exists at the specified index.
+     */
     public void unmarkTask(int index) throws IndexOutOfBoundsException {
-        index -= 1;
-        tasks.get(index).unDone();
+        tasks.get(index - 1).unDone();
     }
 
     public int size() {
         return tasks.size();
     }
 
+    /**
+     * Handles the commands to add, delete, mark or unmark tasks.
+     * @param command The command to handle.
+     * @param input The user input.
+     * @param parser The parser to interpret the input.
+     * @param ui The UI to interact with the user.
+     * @param storage The storage to save the task list.
+     */
     public void handleCommand(Parser.Command command, String input,
                               Parser parser, UI ui, Storage storage) {
         try {

@@ -14,6 +14,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Handles reading and writing tasks in the file ./data/joseph.txt.
+ */
 public class Storage {
 
     private String filePath;
@@ -21,6 +24,12 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+    /**
+     * Converts a task to its string representation.
+     * @param task The task to be converted.
+     * @return The string representation of the task.
+     */
     private static String taskToString(Task task) {
         String taskType = "";
         String status = task.getDone().equals("X") ? "1" : "0";
@@ -43,9 +52,14 @@ public class Storage {
     }
 
 
-    // used ChatGPT for saveTasks and loadTasks with following questions
-    // how to write/read from a file
-    // differences between FileWriter/Reader and their Buffered versions
+    // used ChatGPT for saveTasks and loadTasks with following questions.
+    // 1. how to write/read from a file.
+    // 2. differences between FileWriter/Reader and their Buffered versions.
+
+    /**
+     * Saves the list of tasks to the specified file.
+     * @param list The list of tasks to be saved.
+     */
     public void saveTasks(ArrayList<Task> list) {
         File file = new File(filePath);
         file.getParentFile().mkdirs();
@@ -60,6 +74,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the list of tasks from the specified file.
+     * @return The list of tasks loaded from the file.
+     */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> list = new ArrayList<>();
         File file = new File(filePath);

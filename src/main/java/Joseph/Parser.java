@@ -3,8 +3,15 @@ package Joseph;
 import Joseph.Exceptions.InsufficientDetailsException;
 import Joseph.Exceptions.UnknownCommandException;
 
+/**
+ *  The class responsible for interpreting user input commands.
+ */
 public class Parser {
 
+    /**
+     * The enum representing the possible commands supported by the chatbot.
+     * Excludes the "bye" and "help" command, which are in the main class.
+     */
     public enum Command {
         EXIT("bye"),
         LIST("list"),
@@ -27,6 +34,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the user input to determine which command it is.
+     * @param input The user input.
+     * @return The respective Command enum.
+     * @throws UnknownCommandException If the command is not in the Command enum.
+     */
     public Command parseCommand(String input) throws UnknownCommandException {
         for (Command command : Command.values()) {
             if (input.startsWith(command.getCommandText())) {
@@ -36,6 +49,13 @@ public class Parser {
         throw new UnknownCommandException("That is not a recognised command!");
     }
 
+    /**
+     * Parses the task number from the input string.
+     * @param input The user input.
+     * @param commandText The command text to be trimmed. Either "mark ", "unmark ", or "delete ".
+     * @return The task number.
+     * @throws InsufficientDetailsException If the task number is not provided or invalid.
+     */
     public int parseTaskNumber(String input, String commandText)
             throws InsufficientDetailsException {
         try {
@@ -45,6 +65,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parse the details of the ToDo task from the input string.
+     * @param input The user input.
+     * @param commandText The command text to be trimmed. In this case, "todo ".
+     * @return The ToDo details.
+     * @throws InsufficientDetailsException If the description is missing
+     */
     public String parseTodoDetails(String input, String commandText)
             throws InsufficientDetailsException {
         String details = input.substring(commandText.length()).trim();
@@ -54,6 +81,13 @@ public class Parser {
         return details;
     }
 
+    /**
+     * Parse the details of the Deadline task from the input string.
+     * @param input The user input.
+     * @param commandText The command text to be trimmed. In this case, "deadline ".
+     * @return An array containing the description and the due date
+     * @throws InsufficientDetailsException If description or due date is missing
+     */
     public String[] parseDeadlineDetails(String input, String commandText)
             throws InsufficientDetailsException {
         String details[] = input.substring(commandText.length()).trim().split(" /");
@@ -64,6 +98,13 @@ public class Parser {
         return details;
     }
 
+    /**
+     * Parse the details of the Event task from the input string.
+     * @param input The user input.
+     * @param commandText The command text to be trimmed. In this case, "event ".
+     * @return An array containing the description, the start and the end.
+     * @throws InsufficientDetailsException If description, start or end are missing.
+     */
     public String[] parseEventDetails(String input, String commandText)
             throws InsufficientDetailsException {
         String details[] = input.substring(commandText.length()).trim().split(" /");
