@@ -37,7 +37,7 @@ public class TaskList {
                 task, tasks.size());
     }
 
-    private String deleteItem(int index) throws MurphyException {
+    public String deleteItem(int index) throws MurphyException {
         if (index <= 0 || index > tasks.size()) {
             throw new MurphyException("The task number you chose is out of the range of tasks!");
         }
@@ -50,6 +50,7 @@ public class TaskList {
         if (index <= 0 || index > tasks.size()) {
             throw new MurphyException("Index is outside the range of tasks!");
         }
+        tasks.get(index - 1).mark();
         return String.format("Nice! I've marked this task as done:\n%s", tasks.get(index - 1));
     }
 
@@ -57,6 +58,7 @@ public class TaskList {
         if (index <= 0 || index > tasks.size()) {
             throw new MurphyException("Index is outside the range of tasks!");
         }
+        tasks.get(index - 1).unmark();
         return String.format("Ok, I've unmarked this task. Guess Murphy struck?\n%s", tasks.get(index - 1));
     }
 
@@ -70,6 +72,7 @@ public class TaskList {
         for (int i = 0; i < sz; i++) {
             string.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
         }
+        string.deleteCharAt(string.length() - 1); //remove the last newline
         return string.toString();
     }
 
