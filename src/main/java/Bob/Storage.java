@@ -28,4 +28,20 @@ class Storage {
             }
         }
     }
+
+    public static void findTasks(List<Task> tasks, String keyword) {
+        String out = "Here are the matching tasks in your list: \n";
+        int count = 0;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getDescription().contains(keyword)) {
+                out += (i + 1) + ". " + task + "\n";
+                count++;
+            }
+        }
+        if (count == 0) {
+            out = "There are no matching tasks in your list.";
+        }
+        Ui.dialogue(out);
+    }
 }
