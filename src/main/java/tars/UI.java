@@ -33,90 +33,101 @@ public class UI {
     }
 
     /**
-     * Prints a formatted response to the console, surrounded by lines.
+     * Generates a welcome message to be displayed when the application starts.
      *
-     * @param response the response message to be printed.
+     * @return a welcome message string.
      */
-    public void printResponse(String response) {
-        System.out.println(line);
-        System.out.println(response);
-        System.out.println(line);
+    public String getWelcomeMessage() {
+        return "Hello! I'm TARS\nWhat can I do for you?";
     }
 
     /**
-     * Prints a response indicating that a task has been marked as done.
+     * Generates a goodbye message to be displayed when the application exits.
+     *
+     * @return a goodbye message string.
+     */
+    public String getGoodbyeMessage() {
+        return "Bye. Hope to see you again soon!";
+    }
+
+    /**
+     * Generates a formatted response message, surrounded by lines.
+     *
+     * @param response the response message to be formatted.
+     * @return a formatted response message string.
+     */
+    public String getResponseMessage(String response) {
+        return "____________________________________\n" + response + "\n____________________________________";
+    }
+
+    /**
+     * Generates a response message indicating that a task has been marked as done.
      *
      * @param task the task that was marked as done.
+     * @return a response message indicating the task was marked as done.
      */
-    public void taskMarkedResponse(Task task) {
-        printResponse("Nice! I've marked this task as done:\n" + "  " + task.toString());
+    public String getTaskMarkedResponse(Task task) {
+        return "Nice! I've marked this task as done:\n  " + task.toString();
     }
 
     /**
-     * Prints a response indicating that a task has been marked as not done.
+     * Generates a response message indicating that a task has been marked as not done.
      *
      * @param task the task that was marked as not done.
+     * @return a response message indicating the task was marked as not done.
      */
-    public void taskUnmarkedResponse(Task task) {
-        printResponse("OK, I've marked this task as not done yet:\n" + "  " + task.toString());
+    public String getTaskUnmarkedResponse(Task task) {
+        return "OK, I've marked this task as not done yet:\n  " + task.toString();
     }
 
     /**
-     * Prints a response indicating that the specified task could not be found.
-     */
-    public void taskNotFoundResponse() {
-        printResponse("The task you specified cannot be found. Please try again");
-    }
-
-    /**
-     * Prints a response indicating that a task has been added to the task list.
+     * Generates a response message indicating that a task has been added to the task list.
      *
      * @param task the task that was added.
      * @param size the current number of tasks in the list.
+     * @return a response message indicating the task was added.
      */
-    public void taskAddedResponse(Task task, int size) {
-        printResponse("Got it. I've added this task: \n" + task.toString() + "\n" + "Now you have "
-                + size + " tasks in the list\n");
+    public String getTaskAddedResponse(Task task, int size) {
+        return "Got it. I've added this task:\n" + task.toString() + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
-     * Prints a response indicating that a task has been removed from the task list.
+     * Generates a response message indicating that a task has been removed from the task list.
      *
      * @param taskDescription the description of the task that was removed.
      * @param size the current number of tasks in the list.
+     * @return a response message indicating the task was removed.
      */
-    public void taskRemovedResponse(String taskDescription, int size) {
-        printResponse("Noted. I've removed this task:\n" + taskDescription + "\n" + "Now you have "
-                + size + " tasks in the list\n");
+    public String getTaskRemovedResponse(String taskDescription, int size) {
+        return "Noted. I've removed this task:\n" + taskDescription + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
-     * Prints the tasks that match the search keyword. If no tasks match, a message indicating
-     * that no matching tasks were found is printed instead.
+     * Generates a response message displaying tasks that match a search query.
+     * If no tasks match, an appropriate message is returned.
      *
-     * @param foundTasks The list of tasks that match the search keyword.
+     * @param foundTasks the list of tasks that match the search query.
+     * @return a response message displaying the matching tasks or indicating that no tasks were found.
      */
-    public void printFoundTasks(List<Task> foundTasks) {
+    public String getFoundTasksResponse(List<Task> foundTasks) {
         if (foundTasks.isEmpty()) {
-            printResponse("No matching tasks found.");
+            return "No matching tasks found.";
         } else {
             StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < foundTasks.size(); i++) {
                 response.append(i + 1).append(". ").append(foundTasks.get(i)).append("\n");
             }
-            printResponse(response.toString().trim());
+            return response.toString().trim();
         }
     }
 
-
     /**
-     * Prints a welcome message when the application starts.
+     * Generates an error message if there is an issue loading tasks from storage.
+     *
+     * @return an error message indicating a problem with loading tasks.
      */
-    public void printWelcome() {
-        System.out.println(line);
-        System.out.println("Hello! I'm TARS");
-        System.out.println("What can I do for you?");
-        System.out.println(line);
+    public String getLoadingError() {
+        return "There was an error loading tasks.";
     }
 
     /**
