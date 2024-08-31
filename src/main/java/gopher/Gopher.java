@@ -8,16 +8,29 @@ import gopher.ui.UI;
 
 import java.util.Scanner;
 
+/**
+ * Represents the chatbot Gopher.
+ */
 public class Gopher {
+    /** Scanner which takes in user input during main event loop */
     private static Scanner inputReader;
+
+    /** TaskList object used by Gopher to track user tasks */
     private static TaskList taskList;
 
+    /**
+     * Initialize the Scanner, TaskManager and TaskList
+     * before user interaction.
+     */
     private static void initialize() {
         inputReader = new Scanner(System.in);
         TaskManager.initialize();
         taskList = new TaskList(TaskManager.loadTasks());
     }
 
+    /**
+     * Start the main event loop.
+     */
     private static void run() {
         UI.printGreetMessage();
 
