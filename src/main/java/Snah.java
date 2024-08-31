@@ -1,4 +1,9 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Snah {
@@ -17,7 +22,7 @@ public class Snah {
 
     public static void main(String[] args) {
         greet();
-        chatLoop();
+        chatLoop(getTaskListFromSaveFile());
     }
 
     public static void chatbotPrint(String message) {
@@ -31,11 +36,67 @@ public class Snah {
         chatbotPrint(END_DIVIDER);
     }
 
-    public static void chatLoop() {
-        Scanner scanner = new Scanner(System.in);
-        String userInput = "";
+    public static void saveTaskToSaveFile(ArrayList<Task> tasks) {
+        try {
+            Files.newBufferedWriter(Paths.get("snah.txt"),
+                    StandardOpenOption.TRUNCATE_EXISTING).close();
+
+            for (Task task : tasks) {
+                String content = task.toSaveFile() + System.lineSeparator();
+                Files.write(Paths.get("snah.txt"), content.getBytes(), StandardOpenOption.CREATE,
+                        StandardOpenOption.APPEND);
+            }
+        } catch (IOException e) {
+            chatbotPrint("An error occurred while writing to the file.");
+        }
+    }
+
+    public static ArrayList<Task> getTaskListFromSaveFile() {
 
         ArrayList<Task> tasksList = new ArrayList<>();
+        try {
+            Files.createFile(Paths.get("snah.txt"));
+        } catch (IOException e) {
+            chatbotPrint("Save file already exists, loading tasks from save file");
+        }
+
+        try {
+            List<String> lines = Files.readAllLines(Paths.get("snah.txt"));
+            for (String line : lines) {
+                String[] data = line.split(":");
+
+                if (data[0].startsWith("T")) {
+                    ToDo newTask = new ToDo(data[2]);
+                    if (data[1].equals("x")) {
+                        newTask.markAsDone();
+                    }
+                    tasksList.add(newTask);
+                } else if (data[0].startsWith("D")) {
+                    Task newTask = new Deadline(data[2], data[3]);
+                    if (data[1].equals("x")) {
+                        newTask.markAsDone();
+                    }
+                    tasksList.add(newTask);
+                } else if (data[0].startsWith("E")) {
+                    Task newTask = new Event(data[2], data[3], data[4]);
+                    if (data[1].equals("x")) {
+                        newTask.markAsDone();
+                    }
+                    tasksList.add(newTask);
+                }
+
+            }
+
+        } catch (IOException e) {
+            chatbotPrint("No save file found, starting with a clean slate");
+        }
+
+        return tasksList;
+    }
+
+    public static void chatLoop(ArrayList<Task> tasksList) {
+        Scanner scanner = new Scanner(System.in);
+        String userInput = "";
 
         while (true) {
             userInput = scanner.nextLine();
@@ -189,6 +250,8 @@ public class Snah {
                 }
             }
             chatbotPrint(END_DIVIDER);
+
+            saveTaskToSaveFile(tasksList);
 
         }
         scanner.close();

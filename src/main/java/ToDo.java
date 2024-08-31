@@ -5,7 +5,11 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s (Task) %s", getStatus(), getDescription());
+        return String.format("%s (Task) %s", printStatus(), getDescription());
+    }
+
+    public String toSaveFile() {
+        return String.format("T:%s:%s", isDone() ? "x" : "", getDescription());
     }
 
 }
