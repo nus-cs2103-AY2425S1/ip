@@ -1,4 +1,4 @@
-# Edith User Guide
+# edith.edith User Guide
 
 // Update the title above to match the actual product name
 

@@ -1,4 +1,4 @@
-package Edith;
+package edith.exception;
 
 public class MissingTaskNameException extends Exception {
     public MissingTaskNameException() {

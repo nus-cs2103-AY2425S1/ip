@@ -1,4 +1,4 @@
-package Edith;
+package edith.exception;
 
 public class MissingDeadlineException extends Exception {
     public MissingDeadlineException() {

@@ -1,3 +1,10 @@
+package edith;
+
+import edith.task.DeadlineTask;
+import edith.task.EventTask;
+import edith.task.Task;
+import edith.task.ToDoTask;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

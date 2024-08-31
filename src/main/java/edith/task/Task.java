@@ -1,4 +1,4 @@
-package Edith;
+package edith.task;
 
 public abstract class Task {
     private String taskName;

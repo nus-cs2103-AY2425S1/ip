@@ -1,11 +1,9 @@
+package edith;
+
+import edith.exception.InvalidTaskNumberException;
+import edith.task.Task;
+
 import java.util.ArrayList;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
 
 public class ToDoList {
     private ArrayList<Task> toDoList = new ArrayList<>();

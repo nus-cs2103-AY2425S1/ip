@@ -1,4 +1,4 @@
-package Edith;
+package edith.exception;
 
 public class InvalidCommandException extends Exception {
     public InvalidCommandException() {

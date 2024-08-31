@@ -1,3 +1,10 @@
+package edith;
+
+import edith.exception.*;
+import edith.task.DeadlineTask;
+import edith.task.EventTask;
+import edith.task.ToDoTask;
+
 import java.util.Objects;
 
 public class Ui {
@@ -50,11 +57,11 @@ public class Ui {
             String command = Parser.getCommand(userInput);
 
             if (Objects.equals(command, "mark")) { // check if user wants to mark a task
-                toDoList.mark(taskNumber); // may throw InvalidTaskNumberException
+                toDoList.mark(taskNumber); // may throw Edith.InvalidTaskNumberException
                 System.out.println(" " + "yay! i've marked this task as done #productive:" + LINEBREAK +
                         "   " + toDoList.getTask(taskNumber) + LINEBREAK);
             } else { // unmarking a task
-                toDoList.unmark(taskNumber); // may throw InvalidTaskNumberException
+                toDoList.unmark(taskNumber); // may throw Edith.InvalidTaskNumberException
                 System.out.println(" " + "aw, i've marked this task as undone:" + LINEBREAK +
                         "   " + toDoList.getTask(taskNumber) + LINEBREAK);
             }
