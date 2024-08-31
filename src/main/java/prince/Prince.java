@@ -14,6 +14,16 @@ import ui.Ui;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * Main class for Prince bot
+ *
+ * This class initialises and runs Prince, managing the TODO list.
+ * it interacts with the parser to parse input commands, interacts with the UI to give
+ * proper output messages, interacts with the storage functions to store data of the user
+ * and maintains an arraylist of tasks for easy editing and retrieval.
+ *
+ */
+
 public class Prince {
 
     //private static final String dirPath = "./data";
@@ -33,6 +43,15 @@ public class Prince {
         event
     }
 
+    /**
+     * Constructor of Prince
+     *
+     * Initialises the various components and creates the files necessary for storage
+     *
+     * @param dirPath
+     * @param filePath
+     */
+
     public Prince(String dirPath, String filePath) {
         createDirectoryIfNotExists(dirPath);
         storage = new Storage(dirPath, filePath);
@@ -40,6 +59,7 @@ public class Prince {
         parser = new Parser();
         taskList = new TaskList(storage.loadTasksFromFile());
     }
+
 
     private void createDirectoryIfNotExists(String dirPath) {
         File dir = new File(dirPath);
@@ -52,6 +72,9 @@ public class Prince {
         }
     }
 
+    /**
+     * Starts the application in the main method, comprises of the scanner to scan user inputs
+     */
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
@@ -78,6 +101,12 @@ public class Prince {
         }
         scanner.close();
     }
+
+    /**
+     * main method of the application that runs Prince
+     * @param args
+     */
+
     public static void main(String[] args) {
         new Prince("./data","data/prince.Prince.txt").run();
 

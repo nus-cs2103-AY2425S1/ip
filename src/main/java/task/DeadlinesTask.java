@@ -7,6 +7,12 @@ import java.time.format.DateTimeParseException;
 import exception.InvalidDeadlineException;
 import prince.Prince;
 
+/**
+ * Represents a task with a deadline.
+ *
+ * A DeadlinesTask is a type of task that includes a deadline, at a specific date and time
+ * The class provides multiple methods to retrieve and save that information.
+ */
 
 
 public class DeadlinesTask extends Task {
@@ -18,6 +24,12 @@ public class DeadlinesTask extends Task {
     protected static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
     protected static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
+    /**
+     * Constructs a DeadlinesTask with the specified description and deadline in a particular format
+     * @param description
+     * @param deadline
+     * @throws InvalidDeadlineException
+     */
 
     public DeadlinesTask(String description, String deadline) throws InvalidDeadlineException {
         super(description);
@@ -31,9 +43,20 @@ public class DeadlinesTask extends Task {
         }
     }
 
+    /**
+     * Getter method for the deadline
+     * @return deadline
+     */
+
     public LocalDateTime getDeadline() {
         return this.deadline;
     }
+
+    /**
+     * Getter method for the deadline in string method
+     * @param time
+     * @return
+     */
 
     public String getDeadlineToString(LocalDateTime time) {
         //toLocalTime() extracts time from datetime object
@@ -49,10 +72,23 @@ public class DeadlinesTask extends Task {
             return time.format(dateTimeFormatter);
         }
     }
+
+    /**
+     * Returns a string representation of the task in a human-readable format.
+     *
+     * @return String
+     */
+
     @Override
     public String printTask() {
         return "[D]" + super.printTask() + " (by: " + getDeadlineToString(this.deadline) + ")";
     } // this is for human readable string
+
+    /**
+     * Returns a string representation of the task in a file-storage format.
+     *
+     * @return String
+     */
 
     @Override
     public String printFileFormat() {
