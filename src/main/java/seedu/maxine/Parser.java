@@ -8,14 +8,27 @@ public class Parser {
     private TaskList list;
     private Storage storage;
     private boolean isRunning;
-    
+
+    /**
+     * Constructs new instance of Parser class
+     */
     public Parser() {
         ui = new Ui();
         list = new TaskList();
         this.isRunning = true;
         storage = new Storage("data/maxine.txt");
     }
-    
+
+    /**
+     * Parses the user's inputs and sends the corresponding response.
+     * The parser accepts the commands bye, list, delete, mark, unmark, find,
+     * todo, deadline and event.
+     * <p>
+     * The method handles exceptions internally when users do not follow 
+     * the correct format of typing out a task
+     * 
+     * @param input Input string that is to be parsed for corresponding action
+     */
     public void parse(String input) {
         try {
             String[] answer = input.split(" ");
@@ -75,7 +88,12 @@ public class Parser {
             System.out.println(e.getMessage());
         }
     }
-    
+
+    /**
+     * Returns boolean which indicates if the parser is still running.
+     * When parser stops running, Maxine also stops running
+     * @return The status of the Parser
+     */
     public boolean getStatus() {
         return isRunning;
     }
