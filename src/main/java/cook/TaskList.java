@@ -2,14 +2,11 @@ package cook;
 
 import java.util.ArrayList;
 
-<<<<<<< HEAD
 import tasks.Task;
 
-=======
 /**
  * TaskList class to store tasks.
  */
->>>>>>> A-JavaDoc
 public class TaskList {
     protected ArrayList<Task> tasks;
 
@@ -50,12 +47,11 @@ public class TaskList {
         this.tasks.remove(indexNo);
     }
 
-<<<<<<< HEAD
     public String findTask(String keyword) {
         StringBuilder taskStringBuilder = new StringBuilder();
-        for (int i = 0; i < this.taskArrayList.size(); i++) {
+        for (int i = 0; i < this.tasks.size(); i++) {
             int taskNo = i + 1;
-            Task task = this.taskArrayList.get(i);
+            Task task = this.tasks.get(i);
             if (task.toString().contains(keyword.toLowerCase())) {
                 taskStringBuilder.append(taskNo).append(".").append(task.toString()).append("\n");
             }
@@ -63,11 +59,9 @@ public class TaskList {
         return taskStringBuilder.toString().strip();
     }
 
-=======
     /**
      * @inheritDoc.
      */
->>>>>>> A-JavaDoc
     @Override
     public String toString() {
         StringBuilder taskStringBuilder = new StringBuilder();
