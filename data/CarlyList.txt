@@ -1,4 +1,4 @@
+D | 0 | read | Oct 15 2019
 T | 1 | read
-D | 0 | fun | 9
-E | 0 | play | 5 to 10pm
-T | 1 | eat
+D | 0 | read | Oct 15 2019
+D | 0 | read | Oct 21 2019

@@ -1,6 +1,6 @@
 Elon
 todo cook pasta
-deadline complete homework /by Sunday 2359
+deadline complete homework /by 2019-10-15
 event project meeting /from tuesday 2pm /to 4pm
 list
 mark
@@ -8,7 +8,7 @@ mark 2
 unmark 2
 mark 1
 todo create post
-deadline reply email /by tonight
+deadline reply email /by 2025-06-06
 nonsense
 delete 1
 event hotpot /from 1pm /to 3pm
