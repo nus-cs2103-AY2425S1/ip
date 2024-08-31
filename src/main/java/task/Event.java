@@ -7,15 +7,28 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The Event class represents a task with a start and end date and time.
+ * It extends the Task class.
+ */
 public class Event extends Task {
 
     protected LocalDateTime startTime;
     protected LocalDateTime endTime;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd ha");
+
+    /**
+     * Constructs an Event object with an empty description and a type of "E".
+     */
     public Event() {
         super("", "E");
     }
 
+    /**
+     * Converts user input into an Event task.
+     *
+     * @param slicedStr The array of strings representing the user input.
+     */
     public void convertStringToTask(String[] slicedStr) {
         String taskDetails = String.join(" ",Arrays.copyOfRange(slicedStr, 1, slicedStr.length));
         String[] taskParts = taskDetails.split(" /from | /to ");
@@ -24,6 +37,11 @@ public class Event extends Task {
         this.endTime = parseDateTime(taskParts[2]);
     }
 
+    /**
+     * Converts saved data into an Event task.
+     *
+     * @param dataArr The array of strings representing the saved data.
+     */
     public void convertSavedDataToTask(String[] dataArr) {
         this.setMarkStatus(dataArr[1].equals("1"));
         this.description = dataArr[2];
@@ -31,6 +49,14 @@ public class Event extends Task {
         this.endTime = parseDateTime(dataArr[4]);
     }
 
+    /**
+     * Parses a date string into a LocalDateTime object.
+     * If no time is provided, it will automatically set the time to be 00:00 of the given date
+     *
+     * @param dateStr The date string to be parsed.
+     * @return The parsed LocalDateTime object.
+     * @throws IllegalArgumentException if the date string cannot be parsed.
+     */
     public LocalDateTime parseDateTime(String dateStr) {
         List<DateTimeFormatter> dateTimeFormatters = Arrays.asList(
                 DateTimeFormatter.ofPattern("d MMM yyyy HHmm"),
