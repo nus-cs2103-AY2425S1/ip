@@ -23,8 +23,6 @@ public class TaskList {
         //Create new task object from user input
         this.tasks[this.taskCount] = task;
         this.taskCount++;
-        
-        System.out.println("added: " + task);
     }
     
     /**
@@ -33,8 +31,6 @@ public class TaskList {
      */
     public void markTaskAsDone(int taskNumber) {
         this.tasks[taskNumber].markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.tasks[taskNumber]);
     }
     /**
      * Marks a task as not done.
@@ -42,9 +38,6 @@ public class TaskList {
      */
     public void markTaskAsNotDone(int taskNumber) {
         this.tasks[taskNumber].markAsNotDone();
-        
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this.tasks[taskNumber]);
     }
     /**
      * Returns the number of tasks in the TaskList.
@@ -59,14 +52,11 @@ public class TaskList {
      * @param taskNumber The index of the task to be deleted.
      */
     public void deleteTask(int taskNumber) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(this.tasks[taskNumber]);
         for (int i = taskNumber; i < this.taskCount - 1; i++) {
             this.tasks[i] = this.tasks[i + 1];
         }
         this.taskCount--;
         this.tasks[this.taskCount] = null;
-        System.out.println("Now you have " + this.taskCount + " tasks in the list.");
     }
 
     public Task getTask(int taskNumber) {
