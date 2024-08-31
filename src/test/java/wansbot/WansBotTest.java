@@ -1,13 +1,13 @@
 package wansbot;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import static wansbot.WansBot.emptyInput;
+
 import org.junit.jupiter.api.Test;
 
 import wansbot.tasks.InputEmptyException;
 import wansbot.tasks.TaskList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-import static wansbot.WansBot.emptyInput;
 
 public class WansBotTest {
     @Test

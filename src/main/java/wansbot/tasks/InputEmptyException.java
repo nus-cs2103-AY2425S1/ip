@@ -17,7 +17,7 @@ public class InputEmptyException extends RuntimeException {
      *
      * @param userInput Command input by user.
      * @param missingInfo Depending on context when InputEmptyException is invoked, prints to console what parts
-     * of the command are missing.
+     *     of the command are missing.
      */
     public InputEmptyException(String userInput, String missingInfo) {
         super("You need to include " + missingInfo + " in your command!");

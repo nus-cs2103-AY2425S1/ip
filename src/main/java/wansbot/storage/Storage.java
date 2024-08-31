@@ -18,13 +18,26 @@ import wansbot.tasks.TaskList;
 import wansbot.tasks.Todos;
 import wansbot.ui.UI;
 
+/**
+ * Class which gives WansBot functionality to read from existing tasklist or writing to a tasklist.
+ */
 public class Storage {
     private UI ui;
+
+    /**
+     * Initialises our storage with ui.
+     *
+     * @param ui UI is needed to print certain messages to console when Exception occur.
+     */
     public Storage(UI ui) {
         this.ui = ui;
     }
 
-    // handles loading tasks from ./data
+    /**
+     * Loads task from ./data/tasklist.txt. If file doesn't exist, WansBot will inform user as such.
+     *
+     * @return TaskList which is loaded from ./data/tasklist.txt.
+     */
     public TaskList loadTasks() {
         TaskList taskList = new TaskList();
         try {
@@ -95,7 +108,12 @@ public class Storage {
         return taskList;
     }
 
-    // handles saving of tasklist to ./data
+    /**
+     * Saves the current userTaskList to ./data/tasklist.txt. If ./data/tasklist.txt doesn't exist it will create the
+     * path. If it exists. It will overwrite the tasklist.txt file.
+     *
+     * @param taskList Takes in the current userTaskList and writes it to ./data/tasklist.txt.
+     */
     public void saveTasks(TaskList taskList) {
         try {
             if (!Files.exists(Paths.get("data"))) {
