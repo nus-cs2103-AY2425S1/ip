@@ -14,6 +14,10 @@ public class TaskList {
         return this.tasks.get(i);
     }
 
+    public int getSize() {
+        return this.tasks.size();
+    }
+
     public void addTask(Task t) {
         tasks.add(t);
     }
