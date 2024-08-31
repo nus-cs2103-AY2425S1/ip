@@ -1,3 +1,10 @@
+package Edith;
+
+import Edith.task.Task;
+import Edith.task.ToDo;
+import Edith.task.Deadline;
+import Edith.task.Event;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -68,7 +75,7 @@ public class Storage {
                 task = new Event(eventTask, startTime, endTime);
                 break;
             default:
-                throw new EdithException("An error occurred while parsing the task list. Data might be corrupted.", 1);
+                throw new EdithException("An error occurred while parsing the Edith.task list. Data might be corrupted.", 1);
             }
 
             if (statusString.equals("[X]")) {

@@ -1,3 +1,8 @@
+package Edith;
+
+import Edith.command.Command;
+import Edith.task.TaskList;
+
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
@@ -20,7 +25,7 @@ public class Edith {
             ui.showErrorMessage(e.getMessage() + " Starting with an empty list.");
             tasks = new TaskList();
         } catch (IOException e) {
-            ui.showErrorMessage("An error occurred while loading saved task list. Starting with an empty list.");
+            ui.showErrorMessage("An error occurred while loading saved Edith.task list. Starting with an empty list.");
             tasks = new TaskList();
         }
         this.tasks = tasks;

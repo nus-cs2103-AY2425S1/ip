@@ -1,3 +1,11 @@
+package Edith.command;
+
+import Edith.Ui;
+import Edith.Storage;
+import Edith.EdithException;
+import Edith.task.Task;
+import Edith.task.TaskList;
+
 import java.io.IOException;
 
 public class DeleteCommand extends Command {
@@ -10,13 +18,13 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
         if (index < 0 || index >= tasks.getNumOfTasks()) {
-            throw new EdithException("Task " + index + " does not exist. Please enter a valid task number.");
+            throw new EdithException("Edith.task.Task " + index + " does not exist. Please enter a valid Edith.task number.");
         }
 
         Task taskToDelete = tasks.getTask(index);
         tasks.deleteTask(index);
 
-        ui.showIndentedMessage("Certainly. I've removed this task:");
+        ui.showIndentedMessage("Certainly. I've removed this Edith.task:");
         ui.showIndentedMessage(taskToDelete.toString());
         ui.showIndentedMessage("There are now " + tasks.getNumOfTasks() + " tasks in your list.");
         ui.showLineBreak();
@@ -24,7 +32,7 @@ public class DeleteCommand extends Command {
         try {
             storage.save(tasks.getListOfTasks());
         } catch (IOException e) {
-            ui.showErrorMessage("An error occurred while saving updated task list.");
+            ui.showErrorMessage("An error occurred while saving updated Edith.task list.");
         }
     }
 }

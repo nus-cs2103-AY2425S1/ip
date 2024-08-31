@@ -1,3 +1,5 @@
+package Edith;
+
 public class Ui {
     private static final String LINE_BREAK = "\n_______________________________________________________________________\n";
     private static final String INDENTATION = "    ";
