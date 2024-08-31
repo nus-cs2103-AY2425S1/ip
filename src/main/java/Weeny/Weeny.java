@@ -112,7 +112,7 @@ public class Weeny {
      * @param size The size of the task list.
      * @param action The action being performed (e.g., "mark", "delete").
      */
-    private static void validateIndex(int index, int size, String action) {
+    protected static void validateIndex(int index, int size, String action) {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Just a reminder. You can't " + action + " tasks that don't exist!");
         }
