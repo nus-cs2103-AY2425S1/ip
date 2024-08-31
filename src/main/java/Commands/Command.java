@@ -1,6 +1,7 @@
 package Commands;
 
 import Data.StoreList;
+import Exceptions.InvalidIndexException;
 
 public abstract class Command {
     protected StoreList storeList;
@@ -10,6 +11,6 @@ public abstract class Command {
         this.storeList = storeList;
     }
 
-    public abstract void execute();
+    public abstract void execute() throws InvalidIndexException;
     public abstract boolean isExit();
 }

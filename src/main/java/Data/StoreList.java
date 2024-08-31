@@ -78,7 +78,10 @@ public class StoreList {
      *
      * @param num Index of task to be marked.
      */
-    public void markItem(int num) {
+    public void markItem(int num) throws InvalidIndexException {
+        if (num > items.size()) {
+            throw new InvalidIndexException("Task number does not exist");
+        }
         items.get(num - 1).mark();
         System.out.println("    " + "Wohoo! I've marked this task as done! WELL DONE!:\n" +
                 "      " + items.get(num - 1).print());
@@ -89,7 +92,10 @@ public class StoreList {
      *
      * @param num Index of task to be unmarked.
      */
-    public void UnmarkItem(int num) {
+    public void UnmarkItem(int num) throws InvalidIndexException {
+        if (num > items.size()) {
+            throw new InvalidIndexException("Task number does not exist");
+        }
         items.get(num - 1).unMark();
         System.out.println("    " + "Aww:( I've marked this task as not done yet:\n" +
                 "      " + items.get(num - 1).print());
@@ -100,10 +106,9 @@ public class StoreList {
      *
      * @param num Index of task to be deleted.
      */
-    public void deleteItem(int num) {
-        if (num > items.size()) {
-            System.out.println("Tasks.Task number does not exist");
-            return;
+    public void deleteItem(int num) throws InvalidIndexException{
+        if (num >= items.size()) {
+            throw new InvalidIndexException("Task number does not exist");
         }
         Task temp = items.get(num - 1);
         items.remove(num - 1);
@@ -158,6 +163,15 @@ public class StoreList {
                     found = true;
                 }
             }
+
+            if (task instanceof Events) {
+                // type cast once sure of type of task
+                LocalDate taskDate = ((Events) task).getLocalDate();
+                if (taskDate != null && taskDate.equals(inputDate)) {
+                    System.out.println("    " + (i + 1) + "." + items.get(i).print());
+                    found = true;
+                }
+            }
         }
 
         // if no tasks found, return no tasks due
@@ -166,6 +180,11 @@ public class StoreList {
         }
     }
 
+    /**
+     * Displays items in list based on keyword
+     *
+     * @param substring the keyword to search against.
+     */
     public void displayItemsWithWord(String substring) {
         System.out.println("    Here are the tasks in your list that match " + substring + ":");
         for (int i = 0; i < items.size(); i++) {

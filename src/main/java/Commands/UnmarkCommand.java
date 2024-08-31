@@ -1,5 +1,6 @@
 package Commands;
 
+import Exceptions.InvalidIndexException;
 import Main.Ui;
 
 public class UnmarkCommand extends Command {
@@ -14,7 +15,7 @@ public class UnmarkCommand extends Command {
      *
      */
     @Override
-    public void execute() {
+    public void execute() throws InvalidIndexException {
         // Split the string by spaces
         String[] words = userInput.split(" ");
         System.out.println(Ui.LINE);

@@ -3,6 +3,7 @@ package Main;
 import Commands.Command;
 import Data.Storage;
 import Data.StoreList;
+import Exceptions.InvalidIndexException;
 import Parser.Parser;
 
 /**
@@ -68,9 +69,15 @@ public class Flash {
      * @param command user command
      */
     private void executeCommand(Command command) {
-        command.setData(storeList);
-        command.execute();
-        storage.saveTasksToFile(storeList.getItems());
+        try {
+            command.setData(storeList);
+            command.execute();
+            storage.saveTasksToFile(storeList.getItems());
+        } catch (InvalidIndexException e) {
+            System.out.println("Failed to execute request");
+            throw new RuntimeException();
+
+        }
     }
 
     public static void main(String[] args) {

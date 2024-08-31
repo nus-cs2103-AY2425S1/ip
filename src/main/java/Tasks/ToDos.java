@@ -14,7 +14,9 @@ public class ToDos extends Task {
         if (desc.isEmpty()) {
             //throws exception if not desc is given
             throw new EmptyDescException
-                    ("     OOPS!!! The description of a todo cannot be empty leh.");
+                    ("     OOPS!!! The description of a todo cannot be empty leh. " +
+                            "Pls provide in the following format: " +
+                            "todo read book");
         }
     }
 
