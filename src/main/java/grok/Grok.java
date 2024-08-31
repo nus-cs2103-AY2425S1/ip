@@ -41,7 +41,7 @@ public class Grok {
 
         while (true) {
             try {
-                Command c = parser.parseUserInput(scanner.nextLine());
+                Command c = parser.parseUserInput(scanner.nextLine(), taskList);
                 c.execute(taskList, ui, storage);
                 if (c.isExit()) {
                     break;

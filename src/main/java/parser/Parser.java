@@ -28,6 +28,8 @@ public class Parser {
             throw new GrokInvalidUserInputException("Message cannot contain the restricted character '|'!");
         } else if (userInput.equals("bye")) {
             return new ExitCommand();
+        } else if (userInput.equals("list")) {
+            return new ListCommand();
         } else if (userInput.contains("unmark")) {
             if (userInput.length() < 8) {
                 throw new GrokInvalidUserInputException("Please indicate the index to unmark: e.g. unmark 1");
@@ -40,31 +42,30 @@ public class Parser {
                 throw new GrokInvalidUserInputException("Please enter the task index number to unmark.");
             }
 
-            if (taskIndex < 0 || taskIndex >= tasks.length()) {
+            if (taskIndex <= 0 || taskIndex > tasks.length()) {
                 throw new GrokInvalidUserInputException("Index provided is out of bounds of the current task list.");
             }
 
-            return new UnmarkCommand(taskIndex);
+            return new UnmarkCommand(taskIndex - 1);
         } else if (userInput.contains("mark")) {
             if (userInput.length() < 6) {
-                throw new GrokInvalidUserInputException ("Please indicate the index to mark: e.g. mark 1"));
+                throw new GrokInvalidUserInputException ("Please indicate the index to mark: e.g. mark 1");
             }
 
             int taskIndex;
             try {
                 taskIndex = Integer.parseInt(userInput.substring(5));
             } catch (NumberFormatException e) {
-                throw new GrokInvalidUserInputException("Please enter the task index number to mark."));
+                throw new GrokInvalidUserInputException("Please enter the task index number to mark.");
             }
 
             if (taskIndex <= 0 || taskIndex > tasks.length()) {
-                throw new GrokInvalidUserInputException("Please enter a valid task index to mark."));
+                throw new GrokInvalidUserInputException("Please enter a valid task index to mark.");
             }
-
-            return new MarkCommand(taskIndex);
+            return new MarkCommand(taskIndex - 1);
         } else if (userInput.contains("todo")) {
             if (userInput.length() < 6) {
-                throw new GrokInvalidUserInputException("Todo command usage: todo (task description here)"));
+                throw new GrokInvalidUserInputException("Todo command usage: todo (task description here)");
             }
 
             // potentially throws an invalid user input exception of its own.

@@ -8,7 +8,11 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+        if (tasks == null) {
+            this.tasks = new ArrayList<>();
+        } else {
+            this.tasks = tasks;
+        }
     }
 
     public int length() {
@@ -41,9 +45,7 @@ public class TaskList {
      * @return A copy of the task list (not the actual copy to prevent mutation of tasks through this method).
      */
     public ArrayList<Task> getAllTasks() {
-        if (tasks instanceof ArrayList<?>) {
-            // no choice but to do an unchecked cast here because of type erasure.
-            return (ArrayList<Task>) tasks.clone();
-        }
+        // no choice but to do an unchecked cast here because of type erasure.
+        return (ArrayList<Task>) tasks.clone();
     }
 }
