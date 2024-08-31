@@ -1,7 +1,11 @@
-package yappingbot.tasks;
+package yappingbot.tasks.tasklist;
 
 import yappingbot.exceptions.YappingBotInvalidSaveFileException;
 import yappingbot.stringconstants.ReplyTextMessages;
+import yappingbot.tasks.Deadline;
+import yappingbot.tasks.Event;
+import yappingbot.tasks.Task;
+import yappingbot.tasks.Todo;
 
 
 /**

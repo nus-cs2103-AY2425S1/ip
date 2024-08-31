@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import yappingbot.exceptions.YappingBotIncorrectCommandException;
 import yappingbot.exceptions.YappingBotInvalidSaveFileException;
 import yappingbot.stringconstants.ReplyTextMessages;
+import yappingbot.tasks.tasklist.TaskTypes;
 
 /**
  * Event variant of the Task that can be created.
@@ -142,5 +143,13 @@ public class Event extends Task {
         } catch (IllegalArgumentException e) {
             throw new YappingBotInvalidSaveFileException(e.getMessage());
         }
+    }
+
+    @Override
+    public boolean isStringFoundInTask(String searchString) {
+        // abuse the shortcircuiting
+        return (super.isStringFoundInTask(searchString)
+                || getStartTime().contains(searchString)
+                || getEndTime().contains(searchString));
     }
 }

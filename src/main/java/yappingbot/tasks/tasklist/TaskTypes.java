@@ -1,4 +1,4 @@
-package yappingbot.tasks;
+package yappingbot.tasks.tasklist;
 
 /**
  * Types of valid task types.

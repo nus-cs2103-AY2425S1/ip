@@ -3,6 +3,7 @@ package yappingbot.tasks;
 import yappingbot.exceptions.YappingBotIncorrectCommandException;
 import yappingbot.exceptions.YappingBotInvalidSaveFileException;
 import yappingbot.stringconstants.ReplyTextMessages;
+import yappingbot.tasks.tasklist.TaskTypes;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -110,6 +111,13 @@ public class Deadline extends Task {
         } catch (IllegalArgumentException e) {
             throw new YappingBotInvalidSaveFileException(e.getMessage());
         }
+    }
+
+    @Override
+    public boolean isStringFoundInTask(String searchString) {
+        // abuse the shortcircuiting
+        return (super.isStringFoundInTask(searchString)
+                || getDeadline().contains(searchString));
     }
 }
 

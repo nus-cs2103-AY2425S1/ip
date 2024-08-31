@@ -1,5 +1,7 @@
 package yappingbot.tasks;
 
+import yappingbot.tasks.tasklist.TaskTypes;
+
 /**
  * To-do variant of the Task that can be created.
  * Includes task name, and if task is marked done.

@@ -1,6 +1,6 @@
-package yappingbot.tasks;
+package yappingbot.tasks.tasklist;
 
-import static yappingbot.tasks.TaskParser.parseSingleTask;
+import static yappingbot.tasks.tasklist.TaskParser.parseSingleTask;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,6 +10,7 @@ import java.util.function.Consumer;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotOobException;
 import yappingbot.stringconstants.ReplyTextMessages;
+import yappingbot.tasks.Task;
 import yappingbot.ui.MultilineStringBuilder;
 import yappingbot.ui.Ui;
 
@@ -17,8 +18,8 @@ import yappingbot.ui.Ui;
  * TaskList container to hold valid Tasks.
  */
 public class TaskList implements Iterable<Task> {
-    private static ArrayList<Task> tasks;
-    private int size;
+    protected ArrayList<Task> tasks;
+    protected int size;
 
     /**
      * Creates an empty task list.

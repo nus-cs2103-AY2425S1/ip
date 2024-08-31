@@ -10,8 +10,9 @@ import yappingbot.exceptions.YappingBotSaveFileNotFoundException;
 import yappingbot.exceptions.YappingBotUnknownCommandException;
 import yappingbot.storage.Storage;
 import yappingbot.stringconstants.ReplyTextMessages;
-import yappingbot.tasks.TaskList;
-import yappingbot.tasks.TaskTypes;
+import yappingbot.tasks.tasklist.TaskList;
+import yappingbot.tasks.tasklist.TaskListFilterView;
+import yappingbot.tasks.tasklist.TaskTypes;
 import yappingbot.ui.Ui;
 
 
@@ -54,6 +55,8 @@ public class YappingBot {
      * @param storage Storage object interfacing with the disk.
      */
     private void saveAndExit(Storage storage) {
+        // REVERT LIST TO MAIN PARENT!
+        reset_view();
         try {
             storage.saveListToFile(userList.toRawFormat());
         } catch (YappingBotException e) {
@@ -68,57 +71,60 @@ public class YappingBot {
         Scanner userInputScanner = new Scanner(System.in);
         Parser parser = new Parser();
         while (userInputScanner.hasNextLine()) {
-            String userInput = userInputScanner.nextLine();
+            String userInput = userInputScanner.nextLine().trim();
             String[] userInputSlices = userInput.split(" ");
             try {
                 int taskListIndexPtr; // task list pointer
                 switch (parser.parseCommand(userInputSlices[0])) {
-                case EXIT:
-                    return;
-                case LIST:
-                    Commands.printUserList(userList);
+                    case EXIT:
+                        return;
+                case RESET_LIST:
+                    reset_view();
                     break;
-                case MARK:
-                    taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                    Commands.changeTaskListStatus(taskListIndexPtr, true, userList);
+                    case LIST:
+                        Commands.printUserList(userList);
+                        break;
+                    case MARK:
+                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
+                        Commands.changeTaskListStatus(taskListIndexPtr, true, userList);
+                        break;
+                    case UNMARK:
+                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
+                        Commands.changeTaskListStatus(taskListIndexPtr, false, userList);
+                        break;
+                    case DELETE:
+                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
+                        Commands.deleteTask(taskListIndexPtr, userList);
+                        break;
+                    case TODO:
+                        Commands.createNewTask(userInputSlices, TaskTypes.TODO, userList);
+                        break;
+                    case EVENT:
+                        Commands.createNewTask(userInputSlices, TaskTypes.EVENT, userList);
+                        break;
+                    case DEADLINE:
+                        Commands.createNewTask(userInputSlices, TaskTypes.DEADLINE, userList);
+                        break;
+                case FIND:
+                    String searchString = userInput.substring(userInput.indexOf(" ") + 1);
+                    userList = Commands.findStringInTasks(searchString, userList);
                     break;
-                case UNMARK:
-                    taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                    Commands.changeTaskListStatus(taskListIndexPtr, false, userList);
-                    break;
-                case DELETE:
-                    taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                    Commands.deleteTask(taskListIndexPtr, userList);
-                    break;
-                case TODO:
-                    userList.add(
-                            Commands.createNewTask(
-                                    userInputSlices,
-                                    TaskTypes.TODO,
-                                    userList));
-                    break;
-                case EVENT:
-                    userList.add(
-                            Commands.createNewTask(
-                                    userInputSlices,
-                                    TaskTypes.EVENT,
-                                    userList));
-                    break;
-                case DEADLINE:
-                    userList.add(
-                            Commands.createNewTask(
-                                    userInputSlices,
-                                    TaskTypes.DEADLINE,
-                                    userList));
-                    break;
-                case UNKNOWN:
-                default:
-                    throw new YappingBotUnknownCommandException();
+                    case UNKNOWN:
+                    default:
+                        throw new YappingBotUnknownCommandException();
                 }
             } catch (YappingBotException e) {
                 Ui.printError(e);
             }
         }
+    }
+
+    private void reset_view() {
+        // reset the view to main parent
+        while (userList instanceof TaskListFilterView) {
+            userList = ( (TaskListFilterView) userList ).getParent();
+        }
+        // TODO: add message
     }
 
     /**
