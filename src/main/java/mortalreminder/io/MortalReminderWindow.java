@@ -35,7 +35,9 @@ public class MortalReminderWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /**
+     * Injects the Duke instance
+     */
     public void setMortalReminder(MortalReminder mortalReminder) {
         this.mortalReminder = mortalReminder;
     }

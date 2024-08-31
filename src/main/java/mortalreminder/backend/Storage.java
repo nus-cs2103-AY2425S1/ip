@@ -60,7 +60,7 @@ public class Storage {
      * back to the file. This effectively updates the file to reflect the current state of the task list.
      * The method was inspired from the
      * <a href="https://stackoverflow.com/questions/5800603/delete-specific-line-from-java-text-file">
-     *     following post.</a>
+     * following post.</a>
      *
      * @param taskList the {@link TaskList} containing tasks to re-append to the file.
      */
