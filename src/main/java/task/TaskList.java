@@ -55,7 +55,7 @@ public class TaskList {
     public static void delTask(int num){
         // add task to the List
         // return a string
-        if(num >= 0 && num < list.size()) {
+        if (num >= 0 && num < list.size()) {
             list.remove(num);
         }
         //return "added: " + task.getDescription();
