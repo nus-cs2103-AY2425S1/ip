@@ -2,7 +2,7 @@ package main.java.angel;
 
 /**
  * Represents a task that does not have a specific date or time attached to it.
- * This class extends the {@link Task} class and is used to represent a "ToDo" task.
+ * This class extends the Task class and is used to represent a "Todo" task.
  */
 public class ToDo extends Task {
 

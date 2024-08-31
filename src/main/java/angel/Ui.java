@@ -9,7 +9,7 @@ public class Ui {
     private Scanner scanner;
 
     /**
-     * Constructs a Ui instance.
+     * Constructs an Ui instance.
      */
     public Ui() {
         scanner = new Scanner(System.in);

@@ -10,7 +10,7 @@ public class AngelException extends Exception {
      * Constructs a new AngelException with the specified detail message.
      *
      * @param message The detail message. The detail message is saved for later retrieval
-     *                by the {@link #getMessage()} method.
+     *                by the getMessage() method.
      */
     public AngelException(String message) {
         super(message);

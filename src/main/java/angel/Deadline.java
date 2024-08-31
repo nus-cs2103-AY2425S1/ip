@@ -15,6 +15,7 @@ public class Deadline extends Task {
      *
      * @param description Description of the task.
      * @param by          Due date/time of the task.
+     * @throws NullPointerException If by is null.
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
@@ -24,6 +25,11 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Returns a string representation of the Deadline in a user-readable format.
+     *
+     * @return A string representation of the Deadline, including its status, description, and due date/time.
+     */
     @Override
     public String toString() {
         // Format the due date/time string with a comma
@@ -31,6 +37,11 @@ public class Deadline extends Task {
                 + " (by: " + by.format(OUTPUT_FORMAT) + ")";
     }
 
+    /**
+     * Returns a string representation of the Deadline in a format suitable for saving to a file.
+     *
+     * @return A string representation of the Deadline in the save format, including its type, status, description, and due date/time.
+     */
     @Override
     public String toSaveFormat() {
         // Save format includes the date/time in yyyy/MM/dd HHmm format
