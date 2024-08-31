@@ -1,8 +1,7 @@
 package yihuibot.executable;
 
-import yihuibot.task.TaskList;
-
 import yihuibot.exception.executable.ExecutableException;
+import yihuibot.task.TaskList;
 
 /**
  * An executable to mark tasks as undone.

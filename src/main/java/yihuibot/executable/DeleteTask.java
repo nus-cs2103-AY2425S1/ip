@@ -1,9 +1,8 @@
 package yihuibot.executable;
 
+import yihuibot.exception.executable.ExecutableException;
 import yihuibot.task.Task;
 import yihuibot.task.TaskList;
-
-import yihuibot.exception.executable.ExecutableException;
 
 /**
  * An executable for deleting tasks.
