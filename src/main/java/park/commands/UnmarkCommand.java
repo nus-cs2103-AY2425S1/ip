@@ -16,10 +16,10 @@ public class UnmarkCommand extends Command {
     /**
      * Constructs a UnmarkCommand object.
      *
-     * @param i Index of task to be marked as not done.
+     * @param index Index of task to be marked as not done.
      */
-    public UnmarkCommand(int i) {
-        this.index = i;
+    public UnmarkCommand(int index) {
+        this.index = index;
     }
 
     @Override

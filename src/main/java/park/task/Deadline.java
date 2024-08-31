@@ -1,6 +1,6 @@
 package park.task;
 
-import park.parser.DTFormatter;
+import park.parser.DtFormatter;
 
 import java.time.format.DateTimeParseException;
 
@@ -20,9 +20,10 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         try {
-            this.by = DTFormatter.format(by);
+            this.by = DtFormatter.format(by);
         } catch (DateTimeParseException e) {
-            throw new DateTimeParseException("please input DateTime in format yyyy-MM-dd HHmm", e.getParsedString(), e.getErrorIndex());
+            throw new DateTimeParseException("please input DateTime in format yyyy-MM-dd HHmm",
+                    e.getParsedString(), e.getErrorIndex());
         }
     }
 

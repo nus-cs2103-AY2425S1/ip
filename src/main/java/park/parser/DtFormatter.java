@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class DTFormatter {
+public class DtFormatter {
 
     /**
      * Changes the format of a DateTime represented by a String.
@@ -19,7 +19,8 @@ public class DTFormatter {
             LocalDateTime dateTime = LocalDateTime.parse(inputDateTime, inputFormatter);
             return dateTime.format(outputFormatter);
         } catch (DateTimeParseException e) {
-            throw new DateTimeParseException("please input DateTime in format yyyy-MM-dd HHmm", inputDateTime, e.getErrorIndex());
+            throw new DateTimeParseException("please input DateTime in format yyyy-MM-dd HHmm",
+                    inputDateTime, e.getErrorIndex());
         }
     }
 }

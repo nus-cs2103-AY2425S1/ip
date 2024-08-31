@@ -16,10 +16,10 @@ public class MarkCommand extends Command {
     /**
      * Constructs a MarkCommand object.
      *
-     * @param i Index of task to be marked as done.
+     * @param index Index of task to be marked as done.
      */
-    public MarkCommand(int i) {
-        this.index = i;
+    public MarkCommand(int index) {
+        this.index = index;
     }
 
     @Override
