@@ -3,9 +3,12 @@ public class Task {
 
     protected boolean isDone;
 
+    protected TaskType type;
+
     public Task(String description) {
         this.description = description;
         isDone = false;
+        type = TaskType.TASK;
     }
 
     public String getStatusIcon() {
@@ -23,5 +26,12 @@ public class Task {
     @Override
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), description);
+    }
+
+    public enum TaskType {
+        TASK,
+        TODO,
+        DEADLINE,
+        EVENT
     }
 }

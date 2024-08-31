@@ -6,6 +6,7 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+        type = TaskType.EVENT;
     }
 
     protected String getTaskType() {
