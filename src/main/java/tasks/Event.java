@@ -3,13 +3,16 @@ package tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class encapsulating the event task.
+ */
 public class Event extends Task {
     private LocalDate from;
     private LocalDate to;
 
     /**
      * Constructor for an Event
-     * 
+     *
      * @param description
      * @param from
      * @param to
@@ -20,6 +23,7 @@ public class Event extends Task {
         this.to = to;
     }
 
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: "
                 + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " to: "

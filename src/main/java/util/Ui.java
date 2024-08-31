@@ -18,7 +18,7 @@ public class Ui {
     /**
      * Prints the response by prepending the indent to the msgs and wrapping the final msg in
      * between horizontal lines with pretty print.
-     * 
+     *
      * @param strArr The array of strings that make up the msg, each element will be separated with
      *        a \n in the printed msg.
      */
@@ -36,7 +36,7 @@ public class Ui {
 
     /**
      * Utility method to get input from std::in.
-     * 
+     *
      * @return Input from std::in.
      */
     public String getNextLine() {

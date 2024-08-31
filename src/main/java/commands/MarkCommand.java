@@ -6,6 +6,9 @@ import util.TaskList;
 import util.Ui;
 import util.Utility;
 
+/**
+ * Concrete implementation of mark command class.
+ */
 public class MarkCommand extends Command {
     public MarkCommand(CommandTypes type) {
         this.command = type;

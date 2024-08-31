@@ -1,11 +1,11 @@
 package util;
 
-import MizzExceptions.ToDoException;
-import MizzExceptions.DeadlineException;
-import MizzExceptions.EventException;
-import MizzExceptions.FindException;
-import MizzExceptions.UpdateMarkedException;
-import MizzExceptions.DeleteException;
+import exceptions.DeadlineException;
+import exceptions.DeleteException;
+import exceptions.EventException;
+import exceptions.FindException;
+import exceptions.ToDoException;
+import exceptions.UpdateMarkedException;
 
 /**
  * Utility class containing validation functions.
@@ -13,7 +13,7 @@ import MizzExceptions.DeleteException;
 public class Validator {
     /**
      * Method to validate the todo command.
-     * 
+     *
      * @param details The full split input from the user.
      * @throws ToDoException if the input is malformed.
      */
@@ -25,7 +25,7 @@ public class Validator {
 
     /**
      * Method to validate the deadline command.
-     * 
+     *
      * @param details The full split input from the user.
      * @param byIdx The idx of "/by" in details.
      * @throws DeadlineException if the input is malformed.
@@ -46,7 +46,7 @@ public class Validator {
 
     /**
      * Method to validate the event command.
-     * 
+     *
      * @param details The full split input from the user.
      * @param fromIdx The idx of "/from" in details.
      * @param toIdx The idx of "/to" in details.
@@ -76,7 +76,7 @@ public class Validator {
 
     /**
      * Method to validate the mark or unmark command.
-     * 
+     *
      * @param details The full split input from the user.
      * @throws UpdateMarkedException if the input is malformed.
      */
@@ -95,9 +95,9 @@ public class Validator {
 
     /**
      * Method to validate the delete command.
-     * 
+     *
      * @param details The split input from the user.
-     * @throws DeleteException
+     * @throws DeleteException if missing details.
      */
     public static void verifyDelete(String[] details) throws DeleteException {
         if (details.length == 1) {
@@ -110,6 +110,12 @@ public class Validator {
         }
     }
 
+    /**
+     * Method to validate the find command.
+     *
+     * @param details The split input from the user.
+     * @throws FindException if missing details.
+     */
     public static void verifyFind(String[] details) throws FindException {
         if (details.length <= 1) {
             throw new FindException("Incomplete request! Too few argument, missing: keyword");

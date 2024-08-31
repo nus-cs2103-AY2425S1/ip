@@ -1,12 +1,15 @@
 package tasks;
 
+/**
+ * Class encapsulating taskis
+ */
 public class Task {
     private String description;
     private boolean isDone;
 
     /**
      * Constructor for a Task.
-     * 
+     *
      * @param description
      */
     public Task(String description) {
@@ -30,7 +33,7 @@ public class Task {
 
     /**
      * Method to check the status of the task.
-     * 
+     *
      * @return true if the task is done else false.
      */
     public boolean isDone() {

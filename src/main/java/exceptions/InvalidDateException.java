@@ -1,7 +1,10 @@
-package MizzExceptions;
+package exceptions;
 
 import util.Utility;
 
+/**
+ * Class for an invalid date exception.
+ */
 public class InvalidDateException extends MizzException {
     public InvalidDateException(String msg) {
         super(msg);

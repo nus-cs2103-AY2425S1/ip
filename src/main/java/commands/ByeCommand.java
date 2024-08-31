@@ -4,6 +4,9 @@ import util.Storage;
 import util.TaskList;
 import util.Ui;
 
+/**
+ * Concrete implementation of a bye command class.
+ */
 public class ByeCommand extends Command {
     private final String exitMsg = "Bye. Hope to see you again soon!";
 

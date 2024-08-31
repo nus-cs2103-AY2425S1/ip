@@ -1,11 +1,13 @@
-import util.TaskList;
-import util.Storage;
-import util.Ui;
-import util.Parser;
 import static util.Utility.INDENT;
 import static util.Utility.prettyPrint;
-import MizzExceptions.MizzException;
+
 import commands.Command;
+import exceptions.MizzException;
+import util.Parser;
+import util.Storage;
+import util.TaskList;
+import util.Ui;
+
 
 /**
  * Main chat bot class.
@@ -26,7 +28,7 @@ public class Mizz {
 
     /**
      * Constructor for Mizz class. Initialises the Mizz object with defualt values
-     * 
+     *
      * @param greeting The greeting msg to be printed.
      * @param exitMsg The exit msg to be printed.
      */
@@ -73,7 +75,7 @@ public class Mizz {
 
     /**
      * Utility method to check if the bot should be exited.
-     * 
+     *
      * @return true if cmd == "bye" else false
      */
     private boolean isExited() {

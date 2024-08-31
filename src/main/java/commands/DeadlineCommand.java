@@ -2,15 +2,19 @@ package commands;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import MizzExceptions.InvalidDateException;
-import MizzExceptions.MizzException;
+
+import exceptions.InvalidDateException;
+import exceptions.MizzException;
 import tasks.Deadline;
+import tasks.Task;
 import util.Storage;
 import util.TaskList;
 import util.Ui;
 import util.Utility;
-import tasks.Task;
 
+/**
+ * Concrete implementation of deadline command class.
+ */
 public class DeadlineCommand extends Command {
     public DeadlineCommand(CommandTypes type) {
         this.command = type;

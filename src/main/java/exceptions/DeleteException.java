@@ -1,7 +1,10 @@
-package MizzExceptions;
+package exceptions;
 
 import util.Utility;
 
+/**
+ * Class for a delete exception.
+ */
 public class DeleteException extends MizzException {
     public DeleteException(String msg) {
         super(msg);
