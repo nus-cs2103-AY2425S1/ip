@@ -25,17 +25,10 @@ public class Echo {
         this.parser = new Parser();
     }
 
-    /**
-     * Sets the word for the echo object.
-     * @param word used to initialise the word of an echo object.
-     */
     public void setWord(String word) {
         this.word = word;
     }
 
-    /**
-     * Main logic for the entire chatbot. Handles all the different commands.
-     */
     public void echoOut() {
 
             String description = word;
