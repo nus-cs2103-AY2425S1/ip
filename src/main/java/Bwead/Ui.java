@@ -19,7 +19,7 @@ public class Ui {
     }
 
     public void showLoadingError (String msg) {
-        System.out.println("msg");
+        System.out.println(msg);
     }
 
     public void handleCommands() throws IOException {
