@@ -3,7 +3,8 @@ package barcus.command;
 import barcus.tasklist.TaskList;
 import barcus.ui.Ui;
 import barcus.storage.Storage;
-import barcus.task.*;
+import barcus.task.Task;
+
 public class DeleteCommand extends Command {
     private int pos;
 

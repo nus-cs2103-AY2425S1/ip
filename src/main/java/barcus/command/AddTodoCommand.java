@@ -3,7 +3,8 @@ package barcus.command;
 import barcus.tasklist.TaskList;
 import barcus.ui.Ui;
 import barcus.storage.Storage;
-import barcus.task.*;
+import barcus.task.Task;
+import barcus.task.Todo;
 
 public class AddTodoCommand extends AddCommand {
     public AddTodoCommand(String description) {

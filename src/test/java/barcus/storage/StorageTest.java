@@ -1,6 +1,5 @@
 package barcus.storage;
 
-import barcus.Barcus;
 import barcus.tasklist.TaskList;
 
 import barcus.exception.BarcusException;
