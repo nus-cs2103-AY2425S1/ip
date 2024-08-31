@@ -5,25 +5,49 @@ import task.Event;
 import task.Task;
 import task.Todo;
 import task.Deadline;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The ScoobyDoo class represents the main application for managing tasks.
+ * It handles user input, task management, and interaction with storage and UI components.
+ */
 public class ScoobyDoo {
+    /** The name of the application. */
     private final String name = "Scooby-Doo";
+    /** The list of tasks managed by the application. */
     private TaskList taskList = new TaskList();
+    /** The storage component for saving and loading tasks. */
     private final Storage storage;
+    /** The UI component for handling user interface operations. */
     private final UI ui;
 
+    /**
+     * Constructs a new ScoobyDoo application with the specified file path for storage.
+     *
+     * @param FilePath The file path where tasks will be saved and loaded from.
+     */
     public ScoobyDoo(String FilePath) {
         storage = new Storage(FilePath);
         ui = new UI();
     }
 
+    /**
+     * Runs the main application loop.
+     * This method handles user input, processes commands, and manages tasks until the user exits.
+     * It also loads existing tasks from storage at startup and saves tasks before exiting.
+     */
     public void run () {
+        // Method implementation
+        // 1. Print welcome message
+        // 2. Load existing tasks from storage
+        // 3. Enter main loop:
+        //    - Read user input
+        //    - Process commands (bye, list, todo, deadline, event, mark, unmark, delete)
+        //    - Handle exceptions and print appropriate messages
+        // 4. Save tasks and exit when user inputs "bye"
+
         ui.printFormattedResponse(String.format("Hello! I'm %s\nWhat can I do for you?", name));
         try {
             taskList = new TaskList(storage.load());
