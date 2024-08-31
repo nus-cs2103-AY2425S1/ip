@@ -1,21 +1,17 @@
-package friday.util;
+package friday.command;
 
-import friday.command.*;
+import friday.util.FridayException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
-import friday.task.TaskList;
 
 class ParserTest {
-
-    private final TaskList tasks = new TaskList();
 
     @Test
     void parse_validMarkCommand_returnsMarkCommand() throws FridayException {
         String input = "mark 1";
         Command command = Parser.parse(input);
 
-        assertTrue(command instanceof MarkUnmarkCommand);
+        Assertions.assertInstanceOf(MarkUnmarkCommand.class, command);
     }
 
     @Test
@@ -23,7 +19,7 @@ class ParserTest {
         String input = "unmark 2";
         Command command = Parser.parse(input);
 
-        assertTrue(command instanceof MarkUnmarkCommand);
+        Assertions.assertInstanceOf(MarkUnmarkCommand.class, command);
     }
 
     @Test
@@ -31,7 +27,7 @@ class ParserTest {
         String input = "help";
         Command command = Parser.parse(input);
 
-        assertTrue(command instanceof HelpCommand);
+        Assertions.assertInstanceOf(HelpCommand.class, command);
     }
 
     @Test
@@ -39,7 +35,7 @@ class ParserTest {
         String input = "list";
         Command command = Parser.parse(input);
 
-        assertTrue(command instanceof ListCommand);
+        Assertions.assertInstanceOf(ListCommand.class, command);
     }
 
     @Test
@@ -47,12 +43,12 @@ class ParserTest {
         String input = "bye";
         Command command = Parser.parse(input);
 
-        assertTrue(command instanceof ByeCommand);
+        Assertions.assertInstanceOf(ByeCommand.class, command);
     }
 
     @Test
     void parse_invalidCommand_throwsFridayException() {
         String input = "invalid command";
-        assertThrows(FridayException.class, () -> Parser.parse(input));
+        Assertions.assertThrows(FridayException.class, () -> Parser.parse(input));
     }
 }

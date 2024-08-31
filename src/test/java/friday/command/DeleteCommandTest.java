@@ -5,11 +5,10 @@ import friday.task.TaskList;
 import friday.task.Todo;
 import friday.util.Storage;
 import friday.util.Ui;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeleteCommandTest {
 
@@ -24,6 +23,6 @@ public class DeleteCommandTest {
         Command deleteCommand = new DeleteCommand(inputs); // Assuming task index starts at 1
         deleteCommand.execute(tasks, ui, storage);
 
-        assertEquals(0, tasks.getTasks().size());
+        Assertions.assertEquals(0, tasks.getTasks().size());
     }
 }

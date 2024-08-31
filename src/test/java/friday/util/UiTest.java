@@ -1,10 +1,10 @@
 package friday.util;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import static org.junit.jupiter.api.Assertions.*;
 
 class UiTest {
 
@@ -16,7 +16,7 @@ class UiTest {
 
         String command = ui.readCommand();
 
-        assertEquals("list", command);
+        Assertions.assertEquals("list", command);
     }
 
     @Test
@@ -29,7 +29,7 @@ class UiTest {
 
         ui.showGoodbye();
 
-        assertEquals(message + System.lineSeparator(), outputStream.toString());
+        Assertions.assertEquals(message + System.lineSeparator(), outputStream.toString());
 
         System.setOut(originalOut);
     }

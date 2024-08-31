@@ -2,9 +2,9 @@ package friday.command;
 
 import friday.task.Deadline;
 import friday.task.Todo;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
 import friday.task.TaskList;
 import friday.util.Ui;
@@ -31,7 +31,7 @@ class CommandTest {
         Command command = new MarkUnmarkCommand(inputs);
         command.execute(tasks, ui, storage);
 
-        assertTrue(tasks.getTasks().get(0).isDone());
+        Assertions.assertTrue(tasks.getTasks().get(0).isDone());
     }
 
     @Test
@@ -43,7 +43,7 @@ class CommandTest {
         Command command = new MarkUnmarkCommand(inputs);
         command.execute(tasks, ui, storage);
 
-        assertFalse(tasks.getTasks().get(0).isDone());
+        Assertions.assertFalse(tasks.getTasks().get(0).isDone());
     }
 
     @Test
@@ -51,7 +51,7 @@ class CommandTest {
         Command command = new HelpCommand();
         command.execute(tasks, ui, storage);
 
-        assertTrue(ui.showHelp());
+        Assertions.assertTrue(ui.showHelp());
     }
 
     @Test
@@ -62,7 +62,7 @@ class CommandTest {
         Command command = new ListCommand();
         command.execute(tasks, ui, storage);
 
-        assertTrue(ui.showTaskList(tasks));
+        Assertions.assertTrue(ui.showTaskList(tasks));
     }
 
     @Test
@@ -70,6 +70,6 @@ class CommandTest {
         Command command = new ByeCommand();
         command.execute(tasks, ui, storage);
 
-        assertTrue(command.isExit());
+        Assertions.assertTrue(command.isExit());
     }
 }
