@@ -14,6 +14,13 @@ import bob.task.Todo;
 
 class Parser {
 
+    /**
+     * Parses a string into a LocalDateTime object.
+     *
+     * @param input
+     * @return LocalDateTime
+     * @throws BobException
+     */
     public static LocalDateTime parseDateTime(String input) throws BobException {
         try {
             // Correct format: "dd/MM/yyyy HHmm" (e.g., "02/12/2019 1800")
@@ -24,6 +31,11 @@ class Parser {
         }
     }
 
+    /**
+     * Command to list all tasks.
+     *
+     * @param tasks
+     */
     public static void processListCommand(List<Task> tasks) {
         String out = "Here are the tasks in your list: \n";
         for (int i = 0; i < tasks.size(); i++) {
@@ -32,6 +44,14 @@ class Parser {
         Ui.dialogue(out);
     }
 
+    /**
+     * Command to mark, unmark, or delete a task.
+     *
+     * @param userInput
+     * @param tasks
+     * @throws BobException
+     * @throws IOException
+     */
     public static void processTaskModificationCommands(String userInput, List<Task> tasks) throws BobException, IOException {
         String[] words = userInput.split(" ");
         int index = Integer.parseInt(words[1]) - 1;
@@ -53,6 +73,15 @@ class Parser {
         Storage.saveTasks(tasks);
     }
 
+    /**
+     * Creates a new task based on the user input and adds it to the list of
+     * tasks.
+     *
+     * @param userInput
+     * @param tasks
+     * @throws BobException
+     * @throws IOException
+     */
     public static void processTaskCreationCommands(String userInput, List<Task> tasks) throws BobException, IOException {
         Task newTask = null;
         if (userInput.startsWith("todo")) {

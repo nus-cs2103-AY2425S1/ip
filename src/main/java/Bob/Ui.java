@@ -1,19 +1,30 @@
 package bob;
 
-import bob.task.Task;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+import bob.task.Task;
+
 public class Ui {
 
+    /**
+     * Prints a dialogue.
+     *
+     * @param input
+     */
     public static void dialogue(String input) {
         System.out.println("___________________________________\n");
         System.out.println(input);
         System.out.println("___________________________________\n");
     }
 
+    /**
+     * Runs the dialogue with the user.
+     *
+     * @param scanner
+     * @param tasks
+     */
     public static void runDialogue(Scanner scanner, List<Task> tasks) {
         Ui.dialogue("Hello! I'm Bob\nWhat can I do for you?");
 
