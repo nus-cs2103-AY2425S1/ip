@@ -1,7 +1,7 @@
-public class InvalidTaskException extends Exception {
+public class IllegalTaskException extends Exception {
     private String taskType;
     private String baseMessage;
-    public InvalidTaskException(String taskType, String baseMessage) {
+    public IllegalTaskException(String taskType, String baseMessage) {
         super();
         this.taskType = taskType;
         this.baseMessage = baseMessage;
