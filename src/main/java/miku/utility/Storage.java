@@ -1,3 +1,11 @@
+package miku.utility;
+
+import miku.exception.DataCorruptionException;
+import miku.task.Deadline;
+import miku.task.Event;
+import miku.task.Task;
+import miku.task.Todo;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -54,7 +62,7 @@ public class Storage {
                         if (dataLine[0].equals("D")){
                             tasks.initAdd(new Deadline(dataLine[2], dataLine[3], Boolean.parseBoolean(dataLine[1])));
                         } else if (dataLine[0].equals("T")) {
-                            tasks.initAdd(new Todo(dataLine[2]));
+                            tasks.initAdd(new Todo(dataLine[2], Boolean.parseBoolean(dataLine[1])));
                         } else if (dataLine[0].equals("E")) {
                             tasks.initAdd(new Event(dataLine[2], dataLine[3], dataLine[4], Boolean.parseBoolean(dataLine[1])));
                         } else {

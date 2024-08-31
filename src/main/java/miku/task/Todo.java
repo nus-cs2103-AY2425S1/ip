@@ -1,6 +1,12 @@
+package miku.task;
+
 public class Todo extends Task {
     public Todo(String desc) {
         super(desc, false);
+    }
+
+    public Todo(String desc, boolean isdone){
+        super(desc, isdone);
     }
 
     @Override

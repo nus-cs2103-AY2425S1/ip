@@ -1,6 +1,15 @@
-import java.util.ArrayList;
-import java.util.Arrays;
+package miku;
+
 import java.util.Scanner;
+
+import miku.utility.UI;
+import miku.utility.TaskList;
+import miku.utility.Storage;
+
+import miku.parser.CommandMikuParser;
+
+import miku.command.Command;
+import miku.command.ExitCommand;
 
 public class Run {
     public static Scanner scanner = new Scanner(System.in);

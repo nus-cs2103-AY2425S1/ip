@@ -1,3 +1,11 @@
+package miku.parser;
+
+import miku.command.*;
+import miku.exception.InvalidCommandException;
+import miku.task.Deadline;
+import miku.task.Event;
+import miku.task.Todo;
+
 public class CommandMikuParser extends MikuParser {
     public static String regexMark = "mark \\d+";
     public static String regexUnmark = "unmark \\d+";

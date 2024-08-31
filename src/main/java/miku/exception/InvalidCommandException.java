@@ -1,3 +1,5 @@
+package miku.exception;
+
 public class InvalidCommandException extends Exception {
     String desc = "";
 

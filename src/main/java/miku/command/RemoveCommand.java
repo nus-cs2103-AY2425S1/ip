@@ -1,4 +1,11 @@
-public class RemoveCommand extends Command{
+package miku.command;
+
+import miku.exception.RemoveNullException;
+import miku.utility.UI;
+import miku.utility.TaskList;
+import miku.utility.Storage;
+
+public class RemoveCommand extends Command {
     int index;
 
     public RemoveCommand(int index){
@@ -28,10 +35,10 @@ public class RemoveCommand extends Command{
 //                try {
 //        int index = Integer.parseInt(input.split(" ")[1]);
 //        if (index < 1 || index > taskList.size()) {
-//            throw new RemoveNullException(String.valueOf(index));
+//            throw new miku.exception.RemoveNullException(String.valueOf(index));
 //        }
 //        taskList.deleteItem(index);
-//    } catch (RemoveNullException e) {
+//    } catch (miku.exception.RemoveNullException e) {
 //        e.print();
 //        ui.printSectionBreak();
 //    }

@@ -1,4 +1,10 @@
-public class ExitCommand extends Command{
+package miku.command;
+
+import miku.utility.UI;
+import miku.utility.TaskList;
+import miku.utility.Storage;
+
+public class ExitCommand extends Command {
 
 
     @Override

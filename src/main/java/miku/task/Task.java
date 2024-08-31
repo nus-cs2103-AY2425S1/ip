@@ -1,3 +1,5 @@
+package miku.task;
+
 public abstract class Task {
     private String desc;
     private Boolean isDone = false;
