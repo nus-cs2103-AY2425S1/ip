@@ -24,6 +24,7 @@ public class AddTaskCommand extends Command {
                     newTask + "\n" +
                     "Oh my goodness you have " + taskList.getSize() + " tasks remaining\n" +
                     "----------------\n");
+            taskList.writeToStorage();
         } catch (NoTaskDescriptionException e) {
             System.out.println("Wah, no description then I record what?");
         } catch (InvalidTaskException e) {

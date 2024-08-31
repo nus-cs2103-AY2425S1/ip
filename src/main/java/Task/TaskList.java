@@ -2,6 +2,7 @@ package Task;
 
 import Parser.Parser;
 import Storage.Storage;
+import exceptions.InvalidDateException;
 import exceptions.InvalidTaskException;
 import exceptions.NoTaskDescriptionException;
 
@@ -10,19 +11,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class TaskList {
 
     protected ArrayList<Task> inputHistory;
     protected Storage storage;
 
-    public TaskList(Storage storage) {
+    public TaskList(Storage storage) throws InvalidDateException{
        inputHistory = new ArrayList<>();
        this.storage = storage;
        loadDataFromStorage();
     }
 
-    public void loadDataFromStorage() {
+    public void loadDataFromStorage() throws InvalidDateException {
         try {
             File dataFile = storage.getStorageFile();
             Scanner scanner = new Scanner(dataFile);
@@ -91,7 +93,17 @@ public class TaskList {
         System.out.println("---------------\n");
     }
 
+    public ArrayList<Task> matchTaskDescription(String desc) {
+       return inputHistory.stream()
+               .filter(x -> x.description.contains(desc))
+               .collect(Collectors.toCollection(ArrayList :: new));
+    }
+
     public int getSize() {
         return inputHistory.size();
+    }
+
+    public int indexOf(Task task) {
+        return inputHistory.indexOf(task);
     }
 }

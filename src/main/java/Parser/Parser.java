@@ -1,11 +1,16 @@
 package Parser;
 
 import Commands.*;
+import exceptions.InvalidDateException;
 import exceptions.InvalidTaskException;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Parser {
 
-    public static String dataInputToUserInput(String data) {
+    public static String dataInputToUserInput(String data) throws InvalidDateException {
         data = data.substring(data.indexOf("["));
         char taskType = data.charAt(1);
         int descriptionStartIndex = data.indexOf("] ", data.indexOf("]") + 1) + 2;
@@ -18,20 +23,32 @@ public class Parser {
             int endIndex = data.indexOf("(");
             description = data.substring(descriptionStartIndex, endIndex).trim();
 
-            int timeIndex = data.indexOf("(from");
-            timeDetails = data.substring(timeIndex).trim();
-            timeDetails = timeDetails.replace("(from:", "/from");
-            timeDetails = timeDetails.replace("to:", "/to");
-            timeDetails = timeDetails.replace(")", "");
-            return "event " + description + " " + timeDetails;
+            int fromIndex = data.indexOf("(from");
+            int toIndex = data.indexOf("to:");
+            int lastIndex = data.indexOf(")");
+            String fromDate = data.substring(fromIndex + 6, toIndex - 1);
+            fromDate = Parser.convertDateFormat(fromDate, "MMM dd yyyy", "dd/MM/yyyy");
+            String toDate = data.substring(toIndex + 4, lastIndex);
+            toDate = Parser.convertDateFormat(toDate, "MMM dd yyyy", "dd/MM/yyyy");
+            return "event " + description + " /from " + fromDate + " /to " + toDate;
         default:
             int descriptionEndIndex = data.indexOf("(");
             description = data.substring(descriptionStartIndex, descriptionEndIndex).trim();
             int deadlineIndex = data.indexOf("(by");
-            timeDetails = data.substring(deadlineIndex);
-            timeDetails = timeDetails.replace("(by", "/by");
-            timeDetails = timeDetails.replace(")", "");
-            return "deadline " + description + " " + timeDetails;
+            String date = data.substring(deadlineIndex + 4, data.indexOf(")"));
+            String inputDateFormat = Parser.convertDateFormat(date.trim(), "MMM dd yyyy", "dd/MM/yyyy");
+            return "deadline " + description + " /by " + inputDateFormat;
+        }
+    }
+
+    public static String convertDateFormat(String dateStr, String sourceFormat, String resultFormat) throws InvalidDateException {
+        try {
+            SimpleDateFormat sourceDateFormat = new SimpleDateFormat(sourceFormat);
+            Date date = sourceDateFormat.parse(dateStr);
+            SimpleDateFormat resultDateFormat = new SimpleDateFormat(resultFormat);
+            return resultDateFormat.format(date);
+        } catch (ParseException e) {
+           throw new InvalidDateException();
         }
     }
 
@@ -53,12 +70,45 @@ public class Parser {
            return new MarkCommand(Integer.parseInt(words[1]) - 1);
        case "unmark":
            return new UnmarkCommand(Integer.parseInt(words[1]) - 1);
+       case "find":
+           return new FindCommand(userInput.substring(5));
        case "todo", "deadline", "event":
            return new AddTaskCommand(userInput);
        default:
            throw new InvalidTaskException();
        }
     }
+
+    public static String formatInput(String input) {
+        input = input.substring(input.indexOf("["));
+        char taskType = input.charAt(1);
+        int descriptionStartIndex = input.indexOf("] ", input.indexOf("]") + 1) + 2;
+        String description;
+        String timeDetails;
+        switch (taskType) {
+            case 'T':
+                return "todo " + input.substring(descriptionStartIndex);
+            case 'E':
+                int endIndex = input.indexOf("(");
+                description = input.substring(descriptionStartIndex, endIndex).trim();
+
+                int timeIndex = input.indexOf("(from");
+                timeDetails = input.substring(timeIndex).trim();
+                timeDetails = timeDetails.replace("(from:", "/from");
+                timeDetails = timeDetails.replace("to:", "/to");
+                timeDetails = timeDetails.replace(")", "");
+                return "event " + description + " " + timeDetails;
+            default:
+                int descriptionEndIndex = input.indexOf("(");
+                description = input.substring(descriptionStartIndex, descriptionEndIndex).trim();
+                int deadlineIndex = input.indexOf("(by");
+                timeDetails = input.substring(deadlineIndex);
+                timeDetails = timeDetails.replace("(by", "/by");
+                timeDetails = timeDetails.replace(")", "");
+                return "deadline " + description + " " + timeDetails;
+        }
+    }
+
 }
 
 

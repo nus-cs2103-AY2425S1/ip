@@ -18,6 +18,7 @@ public class DeleteCommand extends Command{
                     removedTask + "\n" +
                     "HUH you still have " + taskList.getSize() + " tasks remaining??\n" +
                     "----------------\n");
+            taskList.writeToStorage();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No valid index was given!!");
         }

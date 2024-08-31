@@ -1,0 +1,4 @@
+1. [T][ ] water 1
+2. [T][ ] water2
+3. [T][ ] water 3
+4. [D][ ] hike (by: Oct 10 2019)

@@ -1,5 +1,6 @@
 import Storage.Storage;
 import Task.TaskList;
+import exceptions.InvalidDateException;
 
 
 public class Blitz{
@@ -9,9 +10,13 @@ public class Blitz{
     private Ui ui;
 
     public Blitz(String storagePath) {
-        this.storage = Storage.createStorage(storagePath);
-        this.taskList = new TaskList(storage);
-        ui = new Ui(taskList);
+        try {
+            this.storage = Storage.createStorage(storagePath);
+            this.taskList = new TaskList(storage);
+            ui = new Ui(taskList);
+        } catch (InvalidDateException e) {
+            System.out.println("PLEASE USE THE PROPER DATE FORMAT");
+        }
     }
 
     public static void main(String[] args) {

@@ -16,7 +16,8 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(TaskType.DEADLINE, description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-        String[] deadlineArr = by.split(" ");
+        System.out.println(by.trim());
+        String[] deadlineArr = by.trim().split(" ");
         deadlineDate = LocalDate.parse(deadlineArr[0], formatter);
         if (deadlineArr.length == 2) {
             deadlineTime = LocalTime.parse(deadlineArr[1]);
