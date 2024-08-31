@@ -1,0 +1,76 @@
+import java.io.*;
+import java.util.Scanner;
+
+public class Storage {
+    String filePath = "src/main/resources/data.txt";
+
+    public Storage(String filePath){
+        this.filePath = filePath;
+    }
+
+    public Storage(){}
+
+    public void saveFromTaskList(TaskList itemList){
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false));
+            for (Task item: itemList.getTasks()){
+                //System.out.println(item.stringValue());
+                writer.write(item.storeValue());
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("File Access Error:" + e.getMessage());
+        }
+    }
+
+    public String getFilePath(){
+        return filePath;
+    }
+
+    public void init(TaskList tasks){
+        File file = new File("src/main/resources/data.txt");
+        File dir = new File("src/main/resources");
+//        System.out.println("Does the file exist: " + file.exists());
+        if (!dir.exists()){
+            boolean dirCreated = dir.mkdirs();
+            if (dirCreated){
+                System.out.println("Directory created\n");
+            } else {
+                System.out.println("Directory not created\n");
+            }
+        }
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e){
+                System.out.println("File cannot be created: " + e.getMessage());
+            }
+        } else {
+            try {
+                Scanner sc = new Scanner(file);
+                while (sc.hasNext()){
+                    String[] dataLine = sc.nextLine().split(" \\| ");
+                    try {
+                        if (dataLine[0].equals("D")){
+                            tasks.initAdd(new Deadline(dataLine[2], dataLine[3], Boolean.parseBoolean(dataLine[1])));
+                        } else if (dataLine[0].equals("T")) {
+                            tasks.initAdd(new Todo(dataLine[2]));
+                        } else if (dataLine[0].equals("E")) {
+                            tasks.initAdd(new Event(dataLine[2], dataLine[3], dataLine[4], Boolean.parseBoolean(dataLine[1])));
+                        } else {
+                            throw new DataCorruptionException("The file is corrupted, the file would be deleted...\nA empty tasklist will be created.");
+                        }
+                    } catch (DataCorruptionException e){
+                        System.out.println(e.getMessage() + "DataCorruption!");
+                        file.delete();
+                        tasks.clear();
+                    }
+                }
+                System.out.println("Init Successful! no of elements: " + tasks.size());
+            } catch (FileNotFoundException e){
+                System.out.println(e.getMessage() + " File not found!");
+            }
+
+        }
+    }
+}
