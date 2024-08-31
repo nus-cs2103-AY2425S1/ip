@@ -59,6 +59,8 @@ public class Colby {
                     Task task = taskList.deleteTask(index);
                     storage.writeToFile(taskList.getTasks());
                     ui.showTaskDeleted(task);
+                } else if (command.startsWith("find")) {
+                    taskList.printMatchingTasks(input.split(" ", 2)[1]);
                 } else {
                     throw new ColbyException("Sorry!! I'm not sure how to add that to the list for " +
                             "you, try specifying the type of task!");
