@@ -11,7 +11,7 @@ public class CommandFind extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         StringBuilder listMessage = new StringBuilder("Here are the matching tasks in your list:");
         int count = 0;
         for (int i = 0; i < TaskList.getSize(); i++) {
@@ -21,9 +21,10 @@ public class CommandFind extends Command {
             }
         }
         if (count == 0) {
-            Ui.printMessage("No matching tasks found.");
-            return;
+            //Ui.printMessage("No matching tasks found.");
+            return "No matching tasks found.";
         }
-        Ui.printMessage(listMessage.toString());
+        //Ui.printMessage(listMessage.toString());
+        return listMessage.toString();
     }
 }

@@ -10,9 +10,19 @@ public class CommandUnknown extends Command {
     }
 
     @Override
-    public void execute() {
-        Ui.printMessage("Command not found, try another one!");
-        Ui.printMessage("Commands available are as follows:" + System.lineSeparator()
+    public String execute() {
+        //Ui.printMessage("Command not found, try another one!");
+        //Ui.printMessage("Commands available are as follows:" + System.lineSeparator()
+        //+ "todo <description>" + System.lineSeparator()
+        //+ "deadline <description> /by <date>" + System.lineSeparator()
+        //+ "event <description> /from <date> /to <date>" + System.lineSeparator()
+        // + "list" + System.lineSeparator()
+        // + "mark <index>" + System.lineSeparator()
+        //   + "unmark <index>" + System.lineSeparator()
+        //  + "delete <index>" + System.lineSeparator()
+        //   + "bye");
+        return "Command not found, try another one!" + System.lineSeparator()
+                + "Commands available are as follows:" + System.lineSeparator()
                 + "todo <description>" + System.lineSeparator()
                 + "deadline <description> /by <date>" + System.lineSeparator()
                 + "event <description> /from <date> /to <date>" + System.lineSeparator()
@@ -20,6 +30,7 @@ public class CommandUnknown extends Command {
                 + "mark <index>" + System.lineSeparator()
                 + "unmark <index>" + System.lineSeparator()
                 + "delete <index>" + System.lineSeparator()
-                + "bye");
+                + "find <keyword>" + System.lineSeparator()
+                + "bye";
     }
 }

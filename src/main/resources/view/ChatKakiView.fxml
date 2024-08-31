@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="chatkaki.ChatKakiController" prefWidth="800" prefHeight="600" spacing="10">
+    <children>
+        <Label text="Welcome to ChatKaki!" />
+        <TextArea fx:id="chatArea" editable="false" focusTraversable="false" prefHeight="250" />
+        <Label text="These are your tasks" />
+        <TextArea fx:id="taskArea" editable="false" focusTraversable="false" prefHeight="100" />
+        <TextField fx:id="inputField" onAction="#handleUserInput" prefHeight="40"/>
+        <Button text="Ask" onAction="#handleUserInput"/>
+    </children>
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10" />
+    </padding>
+</VBox>

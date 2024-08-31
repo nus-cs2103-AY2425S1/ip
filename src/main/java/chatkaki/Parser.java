@@ -1,8 +1,17 @@
 package chatkaki;
 
-import chatkaki.commands.*;
-
-import java.util.Scanner;
+import chatkaki.commands.Command;
+import chatkaki.commands.CommandBye;
+import chatkaki.commands.CommandDeadline;
+import chatkaki.commands.CommandDelete;
+import chatkaki.commands.CommandEvent;
+import chatkaki.commands.CommandFind;
+import chatkaki.commands.CommandList;
+import chatkaki.commands.CommandMark;
+import chatkaki.commands.CommandTodo;
+import chatkaki.commands.CommandTypes;
+import chatkaki.commands.CommandUnknown;
+import chatkaki.commands.CommandUnmark;
 
 /**
  * Represents a parser to parse user input.
@@ -12,11 +21,11 @@ public class Parser {
     /**
      * Parses the user input and returns the corresponding command.
      *
-     * @param scanner The scanner to read user input.
+     * @param userInput The  user input.
      * @return The command corresponding to the user input.
      */
-    public static Command parse(Scanner scanner) {
-        String userInput = scanner.nextLine();
+    @SuppressWarnings("checkstyle:Indentation")
+    public static Command parse(String userInput) {
         String[] inputs = userInput.split(" ", 2);
         CommandTypes command = CommandTypes.fromString(inputs[0]);
 
