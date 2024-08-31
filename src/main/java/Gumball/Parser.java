@@ -11,7 +11,7 @@ public class Parser {
             return new MarkCommand(num);
         } else if (input.startsWith("delete ")) {
             int num = Integer.parseInt(input.replaceAll("[^0-9]", ""));
-            return new MarkCommand(num);
+            return new DeleteCommand(num);
         } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
             return new AddCommand(input);
         } else {
