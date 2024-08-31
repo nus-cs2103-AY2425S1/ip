@@ -1,4 +1,4 @@
-package Joseph;
+package Joseph.Exceptions;
 
 public class InsufficientDetailsException extends Exception {
 

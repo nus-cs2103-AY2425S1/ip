@@ -1,5 +1,7 @@
 package Joseph;
 
+import Joseph.Tasks.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 public class UI {

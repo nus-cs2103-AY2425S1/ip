@@ -1,5 +1,9 @@
 package Joseph;
 
+import Joseph.Exceptions.UnknownCommandException;
+import Joseph.Tasks.Task;
+import Joseph.Tasks.TaskList;
+
 import java.util.ArrayList;
 
 public class Joseph {

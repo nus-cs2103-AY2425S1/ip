@@ -1,4 +1,6 @@
-package Joseph;
+package Joseph.Tasks;
+
+import Joseph.Tasks.Task;
 
 public class ToDo extends Task {
     public ToDo(String desc) {

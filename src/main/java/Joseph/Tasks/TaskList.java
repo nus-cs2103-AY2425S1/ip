@@ -1,4 +1,7 @@
-package Joseph;
+package Joseph.Tasks;
+
+import Joseph.*;
+import Joseph.Exceptions.InsufficientDetailsException;
 
 import java.util.ArrayList;
 public class TaskList {

@@ -1,5 +1,8 @@
 package Joseph;
 
+import Joseph.Exceptions.InsufficientDetailsException;
+import Joseph.Exceptions.UnknownCommandException;
+
 public class Parser {
 
     public enum Command {

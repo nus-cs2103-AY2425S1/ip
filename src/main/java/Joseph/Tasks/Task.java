@@ -1,4 +1,4 @@
-package Joseph;
+package Joseph.Tasks;
 
 public abstract class Task {
     private String desc;

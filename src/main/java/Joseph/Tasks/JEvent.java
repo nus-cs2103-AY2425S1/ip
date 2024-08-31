@@ -1,4 +1,6 @@
-package Joseph;
+package Joseph.Tasks;
+import Joseph.Tasks.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class JEvent extends Task {
