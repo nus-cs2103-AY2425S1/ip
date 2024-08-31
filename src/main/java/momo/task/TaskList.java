@@ -66,8 +66,7 @@ public class TaskList {
 
         if (command == CommandType.MARK) {
             task.markComplete();
-        }
-        else {
+        } else {
             task.unmark();
         }
     }
@@ -108,7 +107,6 @@ public class TaskList {
                     }
                 }
                 default -> throw new MomoException("Invalid file formatting....");
-
             }
 
 
