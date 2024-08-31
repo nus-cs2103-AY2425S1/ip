@@ -57,6 +57,11 @@ public class Parser {
                 }
                 LocalDate searchDate = LocalDate.parse(parts[1]);
                 return new SearchCommand(searchDate);
+            case "find":
+                if (parts.length == 1) {
+                    throw new InvalidFindArgument();
+                }
+                return new FindCommand(userInput.substring(5));
             default:
                 throw new InvalidFridayCommand(userInput);
         }
