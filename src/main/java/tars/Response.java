@@ -1,8 +1,12 @@
-import commands.AddCommand;
-import commands.DeleteCommand;
-import commands.MarkCommand;
-import exceptions.TarsException;
-import tasks.TaskList;
+package tars;
+
+import tars.commands.AddCommand;
+import tars.commands.DeleteCommand;
+import tars.commands.MarkCommand;
+
+import tars.exceptions.TarsException;
+
+import tars.tasks.TaskList;
 
 public class Response {
 
@@ -53,11 +57,17 @@ public class Response {
         formatResponse(tasks.toString());
     }
     public void intro() {
-        String introMessage = "\nGreetings, human! I'm TARS, your slightly sarcastic yet highly capable companion.\nLet's get this chat started! Just remember, my humor setting is at 75%, so things might get a bit cheeky.";
+        String introMessage = """
+                Greetings, human! I'm TARS, your slightly sarcastic yet highly capable companion.
+                Let's get this chat started! Just remember, my humor setting is at 75%, so things might get a bit cheeky.""";
+
         formatResponse(LOGO + introMessage);
     }
     public void outro() {
-        String outputMessage = "Well, that's a wrap! If you need anything else, just holler.\nBut let’s be honest, you’re probably better off asking someone else.";
+        String outputMessage = """
+                Well, that's a wrap! If you need anything else, just holler.
+                But let’s be honest, you’re probably better off asking someone else.""";
+
         formatResponse(outputMessage);
     }
 

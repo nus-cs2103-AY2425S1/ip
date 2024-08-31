@@ -1,9 +1,9 @@
-package parsers;
+package tars.parsers;
 
-import tasks.Deadline;
-import tasks.Task;
+import tars.exceptions.TarsException;
 
-import exceptions.TarsException;
+import tars.tasks.Task;
+import tars.tasks.Deadline;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -56,7 +56,7 @@ public class DeadlineParser extends Parser {
         }
         LocalDate date;
         try {
-            date = LocalDate.parse(deadlineCommand[1], Parser.FORMATTER);
+            date = LocalDate.parse(deadlineCommand[1], FORMATTER);
         } catch (DateTimeParseException e) {
             throw new TarsException("Date in wrong format. It should be in dd-mm-yy format");
         }

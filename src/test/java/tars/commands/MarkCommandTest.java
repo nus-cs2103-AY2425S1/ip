@@ -1,9 +1,11 @@
-package commands;
+package tars.commands;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import tasks.*;
+import tars.tasks.Task;
+import tars.tasks.TaskList;
+import tars.tasks.ToDo;
 
 import java.util.List;
 import java.util.ArrayList;

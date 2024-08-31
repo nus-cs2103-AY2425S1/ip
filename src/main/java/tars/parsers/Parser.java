@@ -1,6 +1,6 @@
-package parsers;
+package tars.parsers;
 
-import tasks.Task;
+import tars.tasks.Task;
 
 import java.time.format.DateTimeFormatter;
 

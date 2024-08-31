@@ -1,9 +1,13 @@
-package commands;
+package tars.commands;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import tasks.*;
+import tars.tasks.Task;
+import tars.tasks.TaskList;
+import tars.tasks.ToDo;
+import tars.tasks.Deadline;
+import tars.tasks.Event;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -23,7 +27,12 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand();
         String result = addCommand.execute(input, tasks);
 
-        String expected = String.format("Added yet another task\n   %s\nYou now have %d tasks. Are you gonna do any of them?", expectedTaskCreated, tasks.noOfTasks());
+        String expected = String.format("""
+                Added yet another task
+                   %s
+                You now have %d tasks. Are you gonna do any of them?""",
+                expectedTaskCreated, tasks.noOfTasks());
+
         assertEquals(expected, result);
 
     }
@@ -42,7 +51,12 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand();
         String result = addCommand.execute(input, tasks);
 
-        String expected = String.format("Added yet another task\n   %s\nYou now have %d tasks. Are you gonna do any of them?", expectedTaskCreated, tasks.noOfTasks());
+        String expected = String.format("""
+                Added yet another task
+                   %s
+                You now have %d tasks. Are you gonna do any of them?""",
+                expectedTaskCreated, tasks.noOfTasks());
+
         assertEquals(expected, result);
 
     }
@@ -61,7 +75,12 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand();
         String result = addCommand.execute(input, tasks);
 
-        String expected = String.format("Added yet another task\n   %s\nYou now have %d tasks. Are you gonna do any of them?", expectedTaskCreated, tasks.noOfTasks());
+        String expected = String.format("""
+                Added yet another task
+                   %s
+                You now have %d tasks. Are you gonna do any of them?""",
+                expectedTaskCreated, tasks.noOfTasks());
+
         assertEquals(expected, result);
 
     }

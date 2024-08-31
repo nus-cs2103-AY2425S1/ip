@@ -1,12 +1,13 @@
-package tasks;
+package tars.tasks;
 
-import parsers.ToDoParser;
-import parsers.DeadlineParser;
-import parsers.EventParser;
+import tars.exceptions.TarsException;
 
-import exceptions.TarsException;
+import tars.parsers.ToDoParser;
+import tars.parsers.DeadlineParser;
+import tars.parsers.EventParser;
 
 import java.util.List;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,7 +47,8 @@ public class TaskList {
 
         } else {
 
-            throw new TarsException("Hmm, that one flew right over my circuits. Try using words in my vocabulary next time");
+            throw new TarsException("Hmm, that one flew right over my circuits. " +
+                    "Try using words in my vocabulary next time");
         }
 
         return t;
@@ -62,6 +64,7 @@ public class TaskList {
             if (taskList.size() < i) {
                 throw new TarsException("tasks.Task not in list. Check again");
             }
+
             return taskList.get(i - 1);
         }
 
@@ -78,6 +81,7 @@ public class TaskList {
             if (taskList.size() < i) {
                 throw new TarsException("tasks.Task not in list. Check again");
             }
+
             t = taskList.get(i - 1);
             taskList.remove(t);
 
@@ -95,9 +99,10 @@ public class TaskList {
     @Override
     public String toString() {
 
-        StringBuilder str = new StringBuilder("Here are your tasks, champ. Let's see how many you can actually cross off.\n");
-        int index = 1;
+        StringBuilder str = new StringBuilder("Here are your tasks, champ. " +
+                "Let's see how many you can actually cross off.\n");
 
+        int index = 1;
         for (Task task : taskList) {
             str.append(index).append(". ").append(task.toString()).append('\n');
             index++;

@@ -1,4 +1,4 @@
-package tasks;
+package tars.tasks;
 
 public class Task {
 

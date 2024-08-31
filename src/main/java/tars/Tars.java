@@ -1,6 +1,7 @@
-import storage.Storage;
-import tasks.TaskList;
+package tars;
 
+import tars.storage.Storage;
+import tars.tasks.TaskList;
 import java.util.Scanner;
 public class Tars {
     public void run() {
@@ -13,27 +14,27 @@ public class Tars {
 
         Scanner scanner = new Scanner(System.in);
 
-        boolean exit = false;
+        boolean isExit = false;
 
-        while (!exit) {
+        while (!isExit) {
             System.out.print(">>>");
             String userInput = scanner.nextLine().trim();
 
             switch (userInput) {
-                case "bye":
-                    response.outro();
-                    scanner.close();
-                    exit = true;
+            case "bye":
+                response.outro();
+                scanner.close();
+                isExit = true;
 
-                    break;
+                break;
 
-                case "list":
-                    response.showList(tasks);
-                    break;
+            case "list":
+                response.showList(tasks);
+                break;
 
-                default:
-                    response.generateResponse(userInput, tasks);
-                    break;
+            default:
+                response.generateResponse(userInput, tasks);
+                break;
             }
         }
 
