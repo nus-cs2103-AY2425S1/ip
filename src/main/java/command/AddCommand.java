@@ -3,8 +3,15 @@ package command;
 import java.util.Arrays;
 import java.util.List;
 
-import exception.*;
-import task.*;
+import exception.InvalidArgumentException;
+import exception.LevelHundredException;
+import exception.MissingArgumentException;
+import task.Deadline;
+import task.Event;
+import task.Storage;
+import task.Task;
+import task.TaskList;
+import task.Todo;
 import ui.Ui;
 import utility.Parser;
 
@@ -15,7 +22,7 @@ public class AddCommand extends UserCommand {
             if (taskDescription.equals("")) {
                 throw new MissingArgumentException(command, "description");
             }
-            
+
             return new Todo(taskDescription);
         } else if (command.equals("deadline")) {
             List<String> tmp = Arrays.asList(words);
@@ -23,7 +30,7 @@ public class AddCommand extends UserCommand {
             if (byIdx == -1) {
                 throw new MissingArgumentException(command, "by");
             }
-            
+
             String taskDescription = String.join(" ", Arrays.copyOfRange(words, 1, byIdx));
             if (taskDescription.equals("")) {
                 throw new MissingArgumentException(command, "description");
@@ -39,7 +46,6 @@ public class AddCommand extends UserCommand {
             } catch (RuntimeException e) {
                 throw new InvalidArgumentException(command, "by");
             }
-            
         } else {
             List<String> tmp = Arrays.asList(words);
             int fromIdx = tmp.indexOf("/from");

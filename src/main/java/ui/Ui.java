@@ -1,8 +1,8 @@
 package ui;
 
-import task.Task;
-
 import java.util.ArrayList;
+
+import task.Task;
 
 public class Ui {
     private final int lineLength = 50;

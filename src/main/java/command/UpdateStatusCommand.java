@@ -2,8 +2,12 @@ package command;
 
 import java.util.Arrays;
 
-import exception.*;
-import task.*;
+import exception.InvalidArgumentException;
+import exception.LevelHundredException;
+import exception.MissingArgumentException;
+import task.Storage;
+import task.Task;
+import task.TaskList;
 import ui.Ui;
 
 public class UpdateStatusCommand extends UserCommand {
