@@ -13,6 +13,9 @@ import snah.task.Event;
 import snah.task.Task;
 import snah.task.ToDo;
 
+/**
+ * Class to handle the storage of the chatbot
+ */
 public class Storage {
     private final String SAVE_FILE_NAME = "snah.txt";
 
@@ -27,6 +30,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the save file and returns the list of tasks
+     * 
+     * @return List of tasks
+     */
     public ArrayList<Task> getTaskLists() {
         ArrayList<Task> tasksList = new ArrayList<>();
 
@@ -64,6 +72,11 @@ public class Storage {
         return tasksList;
     }
 
+    /**
+     * Saves the list of tasks to the save file
+     * 
+     * @param tasksList List of tasks to be saved
+     */
     public void saveTaskList(ArrayList<Task> tasksList) {
         try {
             Files.newBufferedWriter(Paths.get(SAVE_FILE_NAME),

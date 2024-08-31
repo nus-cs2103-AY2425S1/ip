@@ -30,6 +30,9 @@ public class Snah {
         this.chatLoop();
     }
 
+    /**
+     * Main chat loop for the chatbot
+     */
     public void chatLoop() {
         Scanner scanner = new Scanner(System.in);
         boolean continueChat = true;
