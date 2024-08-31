@@ -1,8 +1,5 @@
 package nerf.task;
 
-/**
- * Class to storing and manipulating tasks
- */
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +7,9 @@ import java.util.List;
 import nerf.error.InvalidDataException;
 import nerf.io.Parser;
 
+/**
+ * Class to storing and manipulating tasks
+ */
 public class TaskList {
     private final List<Task> listings;
 
@@ -48,32 +48,36 @@ public class TaskList {
 
     /**
      * Print current list of tasks.
+     * 
+     * @return list of tasks.
      */
-    public void printList() {
-        System.out.println("Here are the task(s) in your list:");
+    public String printList() {
+        String res = "Here are the task(s) in your list:\n";
         for (int i = 0; i < listings.size(); i++) {
-            System.out.println(String.format("%d. %s", i + 1, listings.get(i)));
+            res += String.format("%d. %s", i + 1, listings.get(i)) + "\n";
         }
+        return res;
     }
 
     /**
      * Set task completion on specified task.
      * 
      * @param input specific index of task.
+     * @return Mark task confirmation.
      */
-    public void markTask(String input) {
+    public String markTask(String input) {
         String number = input.substring(4).trim();
         try {
             int num = Integer.parseInt(number);
             listings.get(num - 1).setDone();
-            System.out.println("""
-                               Wow! Congrats on finishing another task!
-                               I've marked this task as done:
-                               """ + listings.get(num - 1));
+            return  """
+                    Wow! Congrats on finishing another task!
+                    I've marked this task as done:\n
+                    """ + listings.get(num - 1);
         } catch (NumberFormatException e) {
-            System.out.println("Oops! That does not seem like a number.");
+            return "Oops! That does not seem like a number.";
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Oops! Please specific a number within the list.");
+            return "Oops! Please specific a number within the list.";
         }
     }
 
@@ -81,20 +85,21 @@ public class TaskList {
      * Unset task completion on specified task.
      * 
      * @param input specific index of task.
+     * @return unmark task confirmation.
      */
-    public void unmarkTask(String input) {
+    public String unmarkTask(String input) {
         String number = input.substring(6).trim();
         try {
             int num = Integer.parseInt(number);
             listings.get(num - 1).setUndone();
-            System.out.println("""
-                               Ok noted!
-                               I've marked this task as undone:
-                               """ + listings.get(num - 1));
+            return  """
+                    Ok noted!
+                    I've marked this task as undone:\n
+                    """ + listings.get(num - 1);
         } catch (NumberFormatException e) {
-            System.out.println("Oops! That does not seem like a number.");
+            return "Oops! That does not seem like a number.";
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Oops! Please specific a number within the list.");
+            return "Oops! Please specific a number within the list.";
         }
     }
 
@@ -102,8 +107,9 @@ public class TaskList {
      * Filter and find task based on keyword.
      * 
      * @param input keyword to filter by.
+     * @return list of filtered task.
      */
-    public void findTasks(String input) {
+    public String findTasks(String input) {
         String keyword = input.substring(4).trim();
         List<Task> filteredList = new ArrayList<>();
         for (Task i : this.listings) {
@@ -112,37 +118,42 @@ public class TaskList {
             }
         }
         
-        System.out.println("Here are the matching task(s) in your list:");
+        String res = "Here are the matching task(s) in your list:\n";
         for (int i = 0; i < filteredList.size(); i++) {
-            System.out.println(String.format("%d. %s", i + 1, filteredList.get(i)));
+            res += String.format("%d. %s", i + 1, filteredList.get(i)) + "\n";
         }
+        return res;
     }
 
     /**
      * Add new task to list.
      * 
      * @param input Task object to be added.
+     * @return task added confirmation.
      */
-    private void addToList(Task input) {
+    private String addToList(Task input) {
         listings.add(input);
-        System.out.println("Understood. I've added the following task:");
-        System.out.println("  " + input);
+        return String.format("""
+                             Understood. I've added the following task:
+                                 %s
+                             You now have %d task(s) in total.
+                             """, input.toString(), listings.size());
         
-        System.out.println(String.format("You now have %d task(s) in total.", listings.size()));
     }
 
     /**
      * Convert given string to Todo object.
      * 
      * @param input string command.
+     * @return task added confirmation.
      * @throws InvalidDataException if command is missing taskDesc parameter.
      */
-    public void addTodo(String input) throws InvalidDataException {
+    public String addTodo(String input) throws InvalidDataException {
         String taskDesc = input.substring(4).trim();
         if (taskDesc.equals("")) {
             throw new InvalidDataException();
         } else {
-            addToList(new ToDos(taskDesc)); 
+            return addToList(new ToDos(taskDesc)); 
         }
     }
 
@@ -150,20 +161,21 @@ public class TaskList {
      * Convert given string to Deadline object.
      * 
      * @param input string command.
+     * @return task added confirmation.
      * @throws InvalidDataException if command is missing taskDesc or duedate parameter.
      */
-    public void addDeadline(String input) throws InvalidDataException {
+    public String addDeadline(String input) throws InvalidDataException {
         input = input.substring(8).trim();
         String[] parts = input.split("/by", 2);
         if (parts.length != 2) {
-            System.out.println("Syntax: deadline <taskname> /by <datetime>");
+            return "Syntax: deadline <taskname> /by <datetime>";
         } else {
             String taskDesc = parts[0].trim();
             LocalDate deadline = Parser.parseStringToDate(parts[1].trim());
             if (taskDesc.equals("") || deadline == null) {
                 throw new InvalidDataException();
             }
-            addToList(new Deadlines(taskDesc,deadline));
+            return addToList(new Deadlines(taskDesc,deadline));
         }
     }
 
@@ -171,18 +183,19 @@ public class TaskList {
      * Convert given string to Event object.
      * 
      * @param input string command.
+     * @return task added confirmation.
      * @throws InvalidDataException if command is missing taskDesc or fromDate or toDate parameter.
      */
-    public void addEvent(String input) throws InvalidDataException {
+    public String addEvent(String input) throws InvalidDataException {
         input = input.substring(5).trim();
         String[] part1 = input.split("/from", 2);
         if (part1.length != 2) {
-            System.out.println("Syntax: event <taskname> /from <datetime> /to <datetime>");
+            return "Syntax: event <taskname> /from <datetime> /to <datetime>";
         }
         else {
             String[] part2 = part1[1].split("/to", 2);
             if (part2.length != 2) {
-                System.out.println("Syntax: event <taskname> /from <datetime> /to <datetime>");
+                return "Syntax: event <taskname> /from <datetime> /to <datetime>";
             } else {
                 String taskDesc = part1[0].trim();
                 LocalDate from = Parser.parseStringToDate(part2[0].trim());
@@ -190,7 +203,7 @@ public class TaskList {
                 if (taskDesc.equals("") || from == null || to  == null) {
                     throw new InvalidDataException();
                 }
-                addToList(new Events(taskDesc, from, to));
+                return addToList(new Events(taskDesc, from, to));
             }
         }
     }
@@ -199,21 +212,22 @@ public class TaskList {
      * Delete specific task.
      * 
      * @param input specific index of task.
+     * @return task deletion confirmation.
      */
-    public void deleteTask(String input) {
+    public String deleteTask(String input) {
         String number = input.substring(6).trim();
         try {
             int num = Integer.parseInt(number);
             String taskDeleted = listings.get(num - 1).toString();
             listings.remove(num - 1);
-            System.out.println(String.format("""
-                              Noted, removing:
-                                 %s
-                              You now have %d task(s) in total.""", taskDeleted, listings.size()));
+            return String.format("""
+                                 Noted, removing:
+                                     %s
+                                 You now have %d task(s) in total.""", taskDeleted, listings.size());
         } catch (NumberFormatException e) {
-            System.out.println("Oops! That does not seem like a number.");
+           return "Oops! That does not seem like a number.";
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Oops! Please specific a number within the list.");
+            return "Oops! Please specific a number within the list.";
         }
     }
 

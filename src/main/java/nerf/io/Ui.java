@@ -3,7 +3,6 @@ package nerf.io;
 /**
  * Class for handling of user interface.
  */
-
 public class Ui {
     private static final int LINE_LENGTH = 60;
     private final String LOGO = """
@@ -63,10 +62,11 @@ public class Ui {
 
     /**
      * Prints out goodbye banner.
+     * 
+     * @return goodbye string.
      */
-    public void exit() {
-        System.out.println("Goodbye. Hope to see you soon!");
-        printDivider();
+    public String exit() {
+        return "Goodbye. Hope to see you soon!";
     }
 
 }

@@ -1,13 +1,12 @@
 package nerf.task;
 
-/**
- * Event class
- */
-
 import java.time.LocalDate;
 
 import nerf.io.Parser;
 
+/**
+ * Event class
+ */
 public class Events extends Task {
     private final LocalDate  fromDate;
     private final LocalDate  toDate;

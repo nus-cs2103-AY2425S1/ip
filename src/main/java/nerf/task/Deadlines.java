@@ -1,14 +1,12 @@
 package nerf.task;
 
-/**
- * Deadline class 
- */
-
 import java.time.LocalDate;
 
 import nerf.io.Parser;
 
-
+/**
+ * Deadline class 
+ */
 public class Deadlines extends Task {
     private final LocalDate dueDate;
 
