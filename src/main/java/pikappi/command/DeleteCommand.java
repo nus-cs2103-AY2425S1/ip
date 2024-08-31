@@ -1,9 +1,9 @@
 package pikappi.command;
 
-import pikappi.exception.PikappiException;
 import pikappi.Storage;
 import pikappi.TaskList;
 import pikappi.Ui;
+import pikappi.exception.PikappiException;
 
 /**
  * Represents a command by user to delete a task.

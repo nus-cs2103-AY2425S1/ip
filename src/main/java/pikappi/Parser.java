@@ -1,6 +1,15 @@
 package pikappi;
 
-import pikappi.command.*;
+import pikappi.command.Command;
+import pikappi.command.DeadlineCommand;
+import pikappi.command.DeleteCommand;
+import pikappi.command.EventCommand;
+import pikappi.command.ExitCommand;
+import pikappi.command.FindCommand;
+import pikappi.command.ListCommand;
+import pikappi.command.MarkCommand;
+import pikappi.command.TodoCommand;
+import pikappi.command.UnmarkCommand;
 import pikappi.exception.PikappiException;
 
 /**

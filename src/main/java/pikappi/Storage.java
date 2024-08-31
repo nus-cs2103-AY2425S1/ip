@@ -1,11 +1,5 @@
 package pikappi;
 
-import pikappi.exception.PikappiException;
-import pikappi.task.DeadlineTask;
-import pikappi.task.EventTask;
-import pikappi.task.Task;
-import pikappi.task.TodoTask;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,6 +7,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import pikappi.exception.PikappiException;
+import pikappi.task.DeadlineTask;
+import pikappi.task.EventTask;
+import pikappi.task.Task;
+import pikappi.task.TodoTask;
 
 /**
  * Represents a storage that saves and loads tasks.
