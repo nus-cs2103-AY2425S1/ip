@@ -3,12 +3,15 @@ package tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class encapsulating the deadline task.
+ */
 public class Deadline extends Task {
     private LocalDate by;
 
     /**
      * Constructor for a deadline task.
-     * 
+     *
      * @param description The task description.
      * @param by The due date of the task.
      */

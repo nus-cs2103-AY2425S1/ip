@@ -1,7 +1,10 @@
-package MizzExceptions;
+package exceptions;
 
 import util.Utility;
 
+/**
+ * Class for a deadline exception.
+ */
 public class DeadlineException extends MizzException {
     public DeadlineException(String msg) {
         super(msg);

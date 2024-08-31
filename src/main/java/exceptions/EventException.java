@@ -1,7 +1,10 @@
-package MizzExceptions;
+package exceptions;
 
 import util.Utility;
 
+/**
+ * Class for an event exception.
+ */
 public class EventException extends MizzException {
     public EventException(String msg) {
         super(msg);

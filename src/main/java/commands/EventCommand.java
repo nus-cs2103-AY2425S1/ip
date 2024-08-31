@@ -2,8 +2,9 @@ package commands;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import MizzExceptions.InvalidDateException;
-import MizzExceptions.MizzException;
+
+import exceptions.InvalidDateException;
+import exceptions.MizzException;
 import tasks.Event;
 import tasks.Task;
 import util.Storage;
@@ -11,6 +12,9 @@ import util.TaskList;
 import util.Ui;
 import util.Utility;
 
+/**
+ * Concrete implementation of event command class.
+ */
 public class EventCommand extends Command {
     public EventCommand(CommandTypes type) {
         this.command = type;

@@ -1,12 +1,15 @@
 package commands;
 
+import tasks.Task;
 import tasks.ToDo;
 import util.Storage;
 import util.TaskList;
 import util.Ui;
 import util.Utility;
-import tasks.Task;
 
+/**
+ * Concrete implementation of todo command class.
+ */
 public class ToDoCommand extends Command {
     public ToDoCommand(CommandTypes type) {
         this.command = type;

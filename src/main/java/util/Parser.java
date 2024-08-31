@@ -1,17 +1,18 @@
 package util;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import MizzExceptions.DeadlineException;
-import MizzExceptions.EventException;
-import MizzExceptions.FindException;
-import MizzExceptions.InvalidDateException;
-import MizzExceptions.MizzException;
-import MizzExceptions.ToDoException;
+
+import exceptions.DeadlineException;
+import exceptions.EventException;
+import exceptions.FindException;
+import exceptions.InvalidDateException;
+import exceptions.MizzException;
+import exceptions.ToDoException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -23,9 +24,9 @@ import tasks.ToDo;
 public class Parser {
     /**
      * Method to read the items in the Storage class.
-     * 
+     *
      * @param storage The Storage object being used.
-     * @return A List<Task> of the tasks stored in the Storage.
+     * @return A List of the tasks stored in the Storage.
      * @throws MizzException if entries in the Storage are wrongly formatted.
      */
     public static List<Task> parseFromStorage(Storage storage) throws MizzException {
@@ -101,7 +102,7 @@ public class Parser {
 
     /**
      * Utility method to parse and clean the user input.
-     * 
+     *
      * @param inputString The input from the scanner.
      * @return The parsed string as an array of size 4 where:
      *         <ul>
@@ -112,9 +113,9 @@ public class Parser {
      *         </ul>
      * @throws MizzException if input string is wrongly formatted or missing information.
      */
-    public static String[] parseStringInput(String inpuString) throws MizzException {
+    public static String[] parseStringInput(String inputString) throws MizzException {
         String[] result = new String[4];
-        String[] parts = inpuString.split("\\s+");
+        String[] parts = inputString.split("\\s+");
         result[0] = parts[0].toLowerCase();
 
         if (result[0].equals("mark") || result[0].equals("unmark")) {
@@ -157,7 +158,7 @@ public class Parser {
 
     /**
      * Helper method to parse a todo command.
-     * 
+     *
      * @param parts Split input string.
      * @param result Extra details inside the input string.
      * @return An array of strings containing the broken up and cleaned command.

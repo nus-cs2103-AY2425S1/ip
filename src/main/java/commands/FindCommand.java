@@ -1,12 +1,14 @@
 package commands;
 
-import MizzExceptions.MizzException;
+import java.util.ArrayList;
+import java.util.List;
+
+import exceptions.MizzException;
+import tasks.Task;
 import util.Storage;
 import util.TaskList;
 import util.Ui;
-import java.util.List;
-import java.util.ArrayList;
-import tasks.Task;
+
 
 /**
  * Class encapsulating the find command.
@@ -14,7 +16,7 @@ import tasks.Task;
 public class FindCommand extends Command {
     /**
      * Constructor for a find command.
-     * 
+     *
      * @param type The commandType.
      */
     public FindCommand(CommandTypes type) {

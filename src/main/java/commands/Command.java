@@ -1,16 +1,30 @@
 package commands;
 
-import MizzExceptions.MizzException;
+import exceptions.MizzException;
 import util.Storage;
 import util.TaskList;
 import util.Ui;
 
+/**
+ * Abstract class encapsulating a possible command.
+ */
 public abstract class Command {
     protected CommandTypes command;
 
+    /**
+     * Enum represnting all valid commands. <br>
+     * Contains useful methods to interact with valid types.
+     */
     public static enum CommandTypes {
         TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, FIND;
 
+        /**
+         * Method to convert a string to a commandType.
+         *
+         * @param type The type in string represetation.
+         * @return The corresponding commandtype of the input.
+         * @throws MizzException if an invalid type is used.
+         */
         public static CommandTypes toCommandType(String type) throws MizzException {
             switch (type.strip().toLowerCase()) {
             case "todo":
@@ -36,6 +50,13 @@ public abstract class Command {
             }
         }
 
+        /**
+         * Method to convert the command type to a command.
+         *
+         * @param type The command type to be converted.
+         * @return A command to the input type.
+         * @throws MizzException if invalid type is used.
+         */
         public static Command toCommand(CommandTypes type) throws MizzException {
             switch (type) {
             case TODO:
@@ -64,7 +85,7 @@ public abstract class Command {
 
     /**
      * Factory method to create a Command from a string.
-     * 
+     *
      * @param type String representing a command.
      * @return The Command represented by the type.
      * @throws MizzException if the type is an invalid command.
@@ -76,7 +97,7 @@ public abstract class Command {
 
     /**
      * Method to excute the command.
-     * 
+     *
      * @param tl The tasklist object.
      * @param ui The Ui object.
      * @param storage The storage object.

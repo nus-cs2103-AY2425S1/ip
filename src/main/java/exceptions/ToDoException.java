@@ -1,7 +1,10 @@
-package MizzExceptions;
+package exceptions;
 
 import util.Utility;
 
+/**
+ * Class for a todo exception.
+ */
 public class ToDoException extends MizzException {
     public ToDoException(String msg) {
         super(msg);

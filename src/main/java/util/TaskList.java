@@ -1,8 +1,9 @@
 package util;
 
-import java.util.List;
-import tasks.Task;
 import java.util.ArrayList;
+import java.util.List;
+
+import tasks.Task;
 
 /**
  * Utility class to interact with an instance of a list containing user tasks.
@@ -19,7 +20,7 @@ public class TaskList {
 
     /**
      * Method to add a new task into the running list.
-     * 
+     *
      * @param task The new task to be added.
      */
     public void addTask(Task task) {
@@ -28,7 +29,7 @@ public class TaskList {
 
     /**
      * Method to add a new task into the running list and the storage file.
-     * 
+     *
      * @param task The new task to be added.
      * @param s The storage instance being used.
      */
@@ -39,7 +40,7 @@ public class TaskList {
 
     /**
      * Method to delete a task from the list.
-     * 
+     *
      * @param idx The idx of the task to be deleted starting from 1.
      */
     public Task deleteTask(int idx, Storage storage) {
@@ -50,7 +51,7 @@ public class TaskList {
 
     /**
      * Mark the selected idx as done.
-     * 
+     *
      * @param idx Idx to be edited. Starting from 1.
      */
     public Task markAsDone(int idx, Storage storage) {
@@ -66,7 +67,7 @@ public class TaskList {
 
     /**
      * Mark the selected idx as undone.
-     * 
+     *
      * @param idx Idx to be edited. Starting from 1.
      */
     public Task markAsUndone(int idx, Storage storage) {
@@ -82,7 +83,7 @@ public class TaskList {
 
     /**
      * Utility method to get the size of the current list.
-     * 
+     *
      * @return Size of the list.
      */
     public int size() {
@@ -91,7 +92,7 @@ public class TaskList {
 
     /**
      * Utility method to convert to an array.
-     * 
+     *
      * @return The list as a Task array.
      */
     public Task[] toArray() {
@@ -111,7 +112,7 @@ public class TaskList {
 
     /**
      * Utility method to check if idx is valid.
-     * 
+     *
      * @param idx The idx to be checked.
      * @return true if is within range else false.
      */

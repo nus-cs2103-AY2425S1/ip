@@ -15,7 +15,7 @@ public class Storage {
 
     /**
      * Constructor for the storage class.
-     * 
+     *
      * @param filePath The path of the file to store the tasks.
      */
     public Storage(String filePath) {
@@ -37,7 +37,7 @@ public class Storage {
 
     /**
      * Method to append data to the file.
-     * 
+     *
      * @param data A string represnting the line to be added.
      */
     public void addToStorage(String data) {
@@ -51,7 +51,7 @@ public class Storage {
 
     /**
      * Method to overwrite the file.
-     * 
+     *
      * @param data A string representing the data to overwrite with.
      * @param lineNumber An integer representing the line to be updated.
      */
@@ -72,7 +72,7 @@ public class Storage {
 
     /**
      * Method to delete a line from the file.
-     * 
+     *
      * @param lineNumber An integer representing the line to be deleted.
      */
     public void removeFromStorage(int lineNumber) {
@@ -92,7 +92,7 @@ public class Storage {
 
     /**
      * Utility method to represent the data in the form of an array.
-     * 
+     *
      * @return An array of strings where each index corresponds to a line in the stored file.
      */
     public String[] toArray() {

@@ -1,11 +1,15 @@
 package commands;
 
 import java.util.ArrayList;
+
 import tasks.Task;
 import util.Storage;
 import util.TaskList;
 import util.Ui;
 
+/**
+ * Concrete implementation of list command class.
+ */
 public class ListCommand extends Command {
     public ListCommand(CommandTypes type) {
         this.command = type;

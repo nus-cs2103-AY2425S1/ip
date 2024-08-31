@@ -6,6 +6,9 @@ import util.TaskList;
 import util.Ui;
 import util.Utility;
 
+/**
+ * Concrete implementation of delete command class.
+ */
 public class DeleteCommand extends Command {
     public DeleteCommand(CommandTypes type) {
         this.command = type;

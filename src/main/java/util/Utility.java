@@ -11,7 +11,7 @@ public class Utility {
 
     /**
      * Method to wrap the msg between two horizontal lines.
-     * 
+     *
      * @param msg The msg to be wrapped.
      */
     public static void prettyPrint(String msg) {

@@ -1,10 +1,19 @@
-package MizzExceptions;
+package exceptions;
 
 import util.Utility;
 
+/**
+ * Class for a mark | unmark exception.
+ */
 public class UpdateMarkedException extends MizzException {
     private final boolean mark;
 
+    /**
+     * Custom constructor based on wheter its mark or unmark.
+     *
+     * @param msg The error msg.
+     * @param mark The command can be mark or marked.
+     */
     public UpdateMarkedException(String msg, String mark) {
         super(msg);
         this.mark = mark.equals("mark");

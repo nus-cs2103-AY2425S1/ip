@@ -1,7 +1,10 @@
-package MizzExceptions;
+package exceptions;
 
 import util.Utility;
 
+/**
+ * Class for a find exception.
+ */
 public class FindException extends MizzException {
     public FindException(String msg) {
         super(msg);
