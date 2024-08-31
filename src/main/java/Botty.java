@@ -1,3 +1,4 @@
+import storage.StorageHandler;
 import tasks.TaskManager;
 import commands.*;
 import exceptions.BottyException;
@@ -44,15 +45,21 @@ public class Botty {
         commands.put("event", new EventCommand(taskManager));
         commands.put("delete", new DeleteCommand(taskManager));
 
+        StorageHandler storageHandler = new StorageHandler("./data", "tasks");
+        storageHandler.loadTaskList(taskManager);
+
         Botty botty = new Botty(commands);
 
         botty.beginInteraction();
+
+        storageHandler.saveTaskList(taskManager);
     }
 
     public void beginInteraction() {
         inputScanner = new Scanner(System.in);
 
         displayIntroduction();
+
 
         while (true) {
             try {
