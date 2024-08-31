@@ -1,25 +1,40 @@
 package wansbot.tasks;
 
+/**
+ * Class which is inherited from all other types of tasks e.g. Todos, Deadlined, Event. Includes basic common
+ * functionality of a task.
+ */
 public class Task {
     private String name;
     private boolean finished;
 
+    /**
+     * Assigns a name to the task.
+     */
     public Task(String name) {
         this.name = name;
         this.finished = false;
     }
 
-    // Returns status of task
+    /**
+     * Indicates if task is complete or not
+     *
+     * @return Boolean which is true if task is complete. False otherwise.
+     */
     public boolean isDone() {
         return this.finished;
     }
 
-    // finishes selected task
+    /**
+     * Marks the task as complete.
+     */
     public void finish() {
         this.finished = true;
     }
 
-    // unchecks a finished task
+    /**
+     * Marks the class as incomplete.
+     */
     public void unfinish() {
         this.finished = false;
     }

@@ -92,7 +92,7 @@ public class WansBot {
         try {
             notNumInput(userInput, userTaskList.numOfTasks());
             int posTask = Integer.parseInt(userInput.substring(5)) - 1;
-            userTaskList.number(posTask).finish();
+            userTaskList.getTask(posTask).finish();
             ui.handleSuccesfulMarking(userTaskList, posTask);
         } catch (NumberFormatException e) {
             ui.handleMarkingFormat();
@@ -108,7 +108,7 @@ public class WansBot {
         try {
             notNumInput(userInput, userTaskList.numOfTasks());
             int posTask = Integer.parseInt(userInput.substring(7)) - 1;
-            userTaskList.number(posTask).unfinish();
+            userTaskList.getTask(posTask).unfinish();
             ui.handleSuccesfulUnmarking(userTaskList, posTask);
         } catch (NumberFormatException e) {
             ui.handleUnmarkingFormat();

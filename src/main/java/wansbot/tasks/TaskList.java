@@ -2,47 +2,57 @@ package wansbot.tasks;
 
 import java.util.ArrayList;
 
+/**
+ * Class which allows tasks to be put into a list.
+ */
 public class TaskList {
     private ArrayList<Task> listOfTasks;
 
+    /**
+     * Initializes an ArrayList of Tasks.
+     */
     public TaskList() {
         this.listOfTasks = new ArrayList<Task>();
     }
 
-    // adds a task to the tasklist
+    /**
+     * Adds a task to TaskList's listOfTasks.
+     */
     public void add(Task task) {
         this.listOfTasks.add(task);
     }
 
-    // returns task of specified number
-    public Task number(int index) {
-        if (listOfTasks.isEmpty()) {
-            return null;
-        }
-        return this.listOfTasks.get(index);
-    }
-
-    // finishes a task in a task list
+    /**
+     * Marks a task in listOfTasks as complete.
+     */
     public void finish(int index) {
         listOfTasks.get(index).finish();
     }
 
-    // unchecks a finished task in a task list
+    /**
+     * Marks a task in listOfTasks as incomplete.
+     */
     public void unfinish(int index) {
         listOfTasks.get(index).unfinish();
     }
 
-    // returns number of wansbot.tasks currently in a tasklist
+    /**
+     * Returns the size of listOfTasks.
+     */
     public int numOfTasks() {
         return this.listOfTasks.size();
     }
 
-    // removes a specified task in a task list
+    /**
+     * Removes a specified task in listOfTasks.
+     */
     public void removeTask(int taskNum) {
         this.listOfTasks.remove(taskNum);
     }
 
-    // returns a task in  a task list
+    /**
+     * Returns the task at a particular index on listOfTasks.
+     */
     public Task getTask(int i) {
         return this.listOfTasks.get(i);
     }

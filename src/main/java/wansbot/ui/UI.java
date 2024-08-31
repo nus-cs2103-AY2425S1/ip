@@ -83,7 +83,7 @@ public class UI {
         System.out.println(HR + "\nWans:"
                 + "\nHere are your tasks!\n"
                 + taskList.toString());
-        System.out.println("You have " + taskList.numOfTasks() + " tasks!"+"\n"+HR);
+        System.out.println("You have " + taskList.numOfTasks() + " tasks!" + "\n" + HR);
     }
 
     /**
@@ -95,7 +95,7 @@ public class UI {
     public void handleSuccesfulMarking(TaskList taskList, int posTask) {
         System.out.println(HR + "\nWans:"
                 + "\nNice! I've marked\n"
-                + taskList.number(posTask).toString()
+                + taskList.getTask(posTask).toString()
                 + " as completed\n" + HR);
     }
 
@@ -114,7 +114,7 @@ public class UI {
     public void handleSuccesfulUnmarking(TaskList taskList, int posTask) {
         System.out.println(HR + "\nWans:"
                 + "\nOkay, so you lied! I've marked\n"
-                + taskList.number(posTask).toString()
+                + taskList.getTask(posTask).toString()
                 + " as uncompleted\n" + HR);
     }
 
@@ -151,7 +151,7 @@ public class UI {
      */
     public void handleRemoveTask(TaskList taskList, int posTask) {
         System.out.println(HR + "\nWans:\n"
-                + "Ok! I've removed " + taskList.number(posTask)
+                + "Ok! I've removed " + taskList.getTask(posTask)
                 + "\n" + HR);
     }
 
