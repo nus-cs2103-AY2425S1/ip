@@ -17,12 +17,12 @@ public class TaskList {
         tasks.remove(index);
     }
 
-    public void markTask(int index) {
-        tasks.get(index).setMark();
+    public void markAsDone(int index) {
+        tasks.get(index).setAsDone();
     }
 
-    public void unmarkTask(int index) {
-        tasks.get(index).setUnmark();
+    public void markAsNotDone(int index) {
+        tasks.get(index).setAsNotDone();
     }
 
     public List<Task> getTasks() {

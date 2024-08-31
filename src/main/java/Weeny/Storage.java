@@ -61,7 +61,7 @@ public class Storage {
                 // should not reach here
             }
             if (Integer.parseInt(processTask[1]) == 1) {
-                currentTask.setMark();
+                currentTask.setAsDone();
             }
             taskList.add(currentTask);
         }

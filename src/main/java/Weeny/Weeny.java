@@ -38,14 +38,14 @@ public class Weeny {
                 case "mark":
                     int markIndex = parser.extractEndNumber(input) - 1;
                     validateIndex(markIndex, taskList.size(), "mark");
-                    taskList.markTask(markIndex);
+                    taskList.markAsDone(markIndex);
                     ui.showMarkMessage(taskList.getTask(markIndex));
                     break;
 
                 case "unmark":
                     int unmarkIndex = parser.extractEndNumber(input) - 1;
                     validateIndex(unmarkIndex, taskList.size(), "unmark");
-                    taskList.unmarkTask(unmarkIndex);
+                    taskList.markAsNotDone(unmarkIndex);
                     ui.showUnmarkMessage(taskList.getTask(unmarkIndex));
                     break;
 

@@ -17,11 +17,11 @@ public class Task {
             return this.description;
         }
 
-        public void setMark() {
+        public void setAsDone() {
             this.isDone = true;
         }
 
-        public void setUnmark() {
+        public void setAsNotDone() {
             this.isDone = false;
         }
 
