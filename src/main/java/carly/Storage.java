@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import carly.exception.CarlyException;
-import carly.tasks.TaskList;
 
 /**
  * Manages the storage of task data by handling file operations.

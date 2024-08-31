@@ -1,4 +1,4 @@
-package carly.tasks;
+package carly;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -8,6 +8,10 @@ import carly.exception.CarlyException;
 import carly.exception.CarlyIncorrectIndexFormat;
 import carly.exception.CarlyIndexOutOfBoundsException;
 import carly.exception.CarlyMissingDateTimeException;
+import carly.tasks.Deadline;
+import carly.tasks.Event;
+import carly.tasks.Task;
+import carly.tasks.Todo;
 
 /**
  * Represents a list of tasks.
