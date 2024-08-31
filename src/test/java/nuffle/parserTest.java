@@ -4,6 +4,7 @@ import nuffle.parser.Parser;
 import nuffle.task.Deadline;
 import nuffle.task.Task;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class parserTest {

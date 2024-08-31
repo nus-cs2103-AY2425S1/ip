@@ -60,13 +60,13 @@ public class Storage {
             // for example: D | 0 | return book | June 6th, then split it by "|"
             String[] components = eachLine.split("\\|");
 
-            String category =  components[0].trim();
+            String category = components[0].trim();
             String desc = components[2].trim();
             // note that D contains a fourth component and E contains a fourth and fifth component
             if (Objects.equals(category, "T")) {
 
                 Todo task = new Todo(desc);
-                if(components[1].trim().equals("1")) {
+                if (components[1].trim().equals("1")) {
                     task.markAsDone();
                 } else {
                     task.markNotDone();
@@ -76,7 +76,7 @@ public class Storage {
             } else if (Objects.equals(category, "D")) {
                 LocalDateTime by = LocalDateTime.parse(components[3].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
                 Deadline deadline = new Deadline(desc, by);
-                if(components[1].trim().equals("1")) {
+                if (components[1].trim().equals("1")) {
                     deadline.markAsDone();
                 } else {
                     deadline.markNotDone();
@@ -88,7 +88,7 @@ public class Storage {
                 LocalDateTime to = LocalDateTime.parse(components[3].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
                 LocalDateTime from = LocalDateTime.parse(components[4].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
                 Event event = new Event(desc, to, from);
-                if(components[1].trim().equals("1")) {
+                if (components[1].trim().equals("1")) {
                     event.markAsDone();
                 } else {
                     event.markNotDone();

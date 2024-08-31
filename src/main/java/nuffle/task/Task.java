@@ -1,5 +1,6 @@
 package nuffle.task;
 
+
 /**
  * Represents an abstract task.
  * This class provides a foundation for different types of tasks with common functionalities

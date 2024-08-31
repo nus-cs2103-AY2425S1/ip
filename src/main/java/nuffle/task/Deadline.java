@@ -3,6 +3,7 @@ package nuffle.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+
 /**
  * Represents a task with a deadline. A deadline task has a specific date and time by which it must be completed.
  */
@@ -20,6 +21,7 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
     }
+
 
     /**
      * Returns the description of the deadline task.

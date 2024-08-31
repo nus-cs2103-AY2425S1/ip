@@ -23,6 +23,7 @@ public class Event extends Task {
         this.to = to;
         this.from = from;
     }
+
     @Override
     public String toString() {
         // Add a [D] at the front of task description (parent class)

@@ -6,6 +6,7 @@ import nuffle.task.Task;
 import nuffle.ui.Ui;
 import nuffle.storage.Storage;
 import nuffle.task.TaskList;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -54,6 +55,7 @@ public class Nuffle {
             Ui.markTaskError();
         }
     }
+
 
     /**
      * Unmarks a specified task based on the given index
@@ -113,7 +115,7 @@ public class Nuffle {
         Scanner user_s = new Scanner(System.in);
 
         // Read the user input until the command "bye" is provided by the user
-        while(true) {
+        while (true) {
             // Get the user input from the scanner
             userInput = user_s.nextLine();
             try {
