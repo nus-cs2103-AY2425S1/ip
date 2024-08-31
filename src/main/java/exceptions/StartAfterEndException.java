@@ -1,7 +1,7 @@
 package exceptions;
 
-public class StartAfterEndException extends Exception {
+public class StartAfterEndException extends HimException {
     public StartAfterEndException() {
-        super("Start date and time is after end date and time");
+        super("Events need to end after they start!");
     }
 }
