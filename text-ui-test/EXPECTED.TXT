@@ -1,4 +1,4 @@
-Hello! I'm LBot, your dedicated personal assistant ;)
+Hello! I'm lbot, your dedicated personal assistant ;)
 What can I do for you?
 For commands, type $help.
 Successfully added task: [T][ ] - Complete automated test cases

@@ -2,10 +2,15 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
 }
 
 repositories {
     mavenCentral()
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }
 
 dependencies {
@@ -28,7 +33,7 @@ test {
 }
 
 application {
-    mainClass.set("LBot.LBot")
+    mainClass.set("lbot.LBot")
 }
 
 shadowJar {
@@ -36,6 +41,6 @@ shadowJar {
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
 }
