@@ -97,4 +97,91 @@ public class TaskList {
         }
         ui.foundTask(foundTasks);
     }
+
+
+    /**
+     * Marks a task as done.
+     *
+     * @param tasks The list of tasks.
+     * @param index The index of the task to mark as done.
+     */
+    public String markTaskUI(ArrayList<Task> tasks, int index) {
+        if (index >= 1 && index <= tasks.size()) {
+            tasks.get(index - 1).markDone();
+            return "  " + tasks.get(index - 1);
+        } else {
+            return "No Task Found";
+        }
+    }
+
+    /**
+     * Unmarks a task, indicating it is not done.
+     *
+     * @param tasks The list of tasks.
+     * @param index The index of the task to unmark.
+     */
+    public String unmarkTaskUI(ArrayList<Task> tasks, int index) {
+        if (index >= 1 && index <= tasks.size()) {
+            tasks.get(index - 1).markNotDone();
+            return "  " + tasks.get(index - 1);
+        } else {
+            return "No Task Found";
+        }
+    }
+
+    /**
+     * Deletes a task from the list.
+     *
+     * @param tasks The list of tasks.
+     * @param index The index of the task to delete.
+     */
+    public String deleteTaskUI(ArrayList<Task> tasks, int index) {
+        if (index >= 1 && index <= tasks.size()) {
+            Task removedTask = tasks.remove(index - 1);
+            return "  " + removedTask + "\nNow you have " + tasks.size() + " tasks in the list.";
+        } else {
+            return "No Task Found";
+        }
+
+    }
+
+    /**
+     * Adds a new task to the list.
+     *
+     * @param tasks The list of tasks.
+     * @param type  The type of the task (TODO, DEADLINE, EVENT).
+     * @param desc  The description of the task.
+     * @param args  Additional arguments for DEADLINE or EVENT tasks (e.g., due date, start and end times).
+     */
+    public String addTaskUI(ArrayList<Task> tasks, TaskType type, String desc, LocalDateTime... args) {
+        Task newTask = switch (type) {
+            case TODO -> new ToDo(desc);
+            case DEADLINE -> new Deadline(desc, args[0]);
+            case EVENT -> new Event(desc, args[0], args[1]);
+        };
+        tasks.add(newTask);
+        return "  " + newTask + "\nNow you have " + tasks.size() + " tasks in the list.";
+    }
+
+    /**
+     * Searches for tasks that contain the specified keyword and displays the matching tasks.
+     *
+     * @param tasks   The list of tasks to search through.
+     * @param keyword The keyword to search for in the task descriptions.
+     */
+    public String findTaskUI(ArrayList<Task> tasks, String keyword){
+
+        StringBuilder foundTasks = new StringBuilder();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDesc().contains(keyword)) {
+                foundTasks.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+            }
+        }
+
+        if (foundTasks.isEmpty()) {
+            return "No matching tasks found.";
+        }
+        return foundTasks.toString();
+    }
 }

@@ -24,7 +24,7 @@ public class Ui {
      */
     public void noTask() {
         System.out.println("_____________________________________");
-        System.out.println("No Task.Task Found");
+        System.out.println("No Task Found");
         System.out.println("_____________________________________");
     }
 
