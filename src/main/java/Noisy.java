@@ -1,10 +1,13 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Noisy {
 
 
     public static void main(String[] args) {
+        Parser parser = new Parser();
         Storage storage = new Storage();
         TaskList taskList = new TaskList(storage.loadTasks());
         int currentPointer = taskList.getListSize();
@@ -60,11 +63,11 @@ public class Noisy {
                         break;
                     case "Deadline":
                         String[] string = input.split(" ", 3);
-                        task = new Deadline(string[1], false, string[2]);
+                        task = new Deadline(string[1], false, parser.parseDate(string[2]));
                         break;
                     case "Event":
                         String[] eventString = input.split(" ", 4);
-                        task = new Event(eventString[1], false, eventString[2], eventString[3]);
+                        task = new Event(eventString[1], false, parser.parseDate(eventString[2]), parser.parseDate(eventString[3]));
                         break;
                     case "delete":
                         String[] deleteString = input.split(" ");

@@ -1,8 +1,10 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
 
-    private String deadline;
+    private LocalDate deadline;
 
-    public Deadline(String description, boolean isDone, String deadline) {
+    public Deadline(String description, boolean isDone, LocalDate deadline) {
         super(description, isDone);
         this.deadline = deadline;
     }
@@ -15,6 +17,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        return "[D]" + super.toString() + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

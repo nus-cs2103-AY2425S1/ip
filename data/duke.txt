@@ -1,5 +1,3 @@
-T |   dssda   | 0
-T |   dsdsa   | 0
-D |  sdsad  | 0 |  sdsad  |  sdsad 
-T | dsdas | 0
-T | dsdasad | 0
+T | dasdsa | 0
+D | dsds | 0 | dsds | 2019-12-01
+E | sdsad | 0 | 2019-12-01 | 2019-12-01

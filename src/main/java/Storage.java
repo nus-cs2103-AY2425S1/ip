@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
+import java.time.LocalDate;
 
 public class Storage {
+    Parser parser = new Parser();
     File file = new File("./data/duke.txt");
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -25,11 +27,11 @@ public class Storage {
                         tasks.add(new Todo(splitString[1], Boolean.parseBoolean(splitString[2])));
                         break;
                     case "D":
-                        System.out.println("Adding task" + new Deadline(splitString[1], Boolean.parseBoolean(splitString[2]), splitString[3]));
-                        tasks.add(new Deadline(splitString[1], Boolean.parseBoolean(splitString[2]), splitString[3]));
+                        System.out.println("Adding task" + new Deadline(splitString[1], Boolean.parseBoolean(splitString[2]), parser.parseDate(splitString[3])));
+                        tasks.add(new Deadline(splitString[1], Boolean.parseBoolean(splitString[2]), parser.parseDate(splitString[3])));
                         break;
                     case "E":
-                        tasks.add(new Event(splitString[1], Boolean.parseBoolean(splitString[2]), splitString[3], splitString[4]));
+                        tasks.add(new Event(splitString[1], Boolean.parseBoolean(splitString[2]), parser.parseDate(splitString[3]), parser.parseDate(splitString[4])));
                         break;
                 }
             }
