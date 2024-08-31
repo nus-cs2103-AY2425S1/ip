@@ -26,6 +26,10 @@ public class TaskList {
         }
     }
 
+    protected TaskList() {
+
+    }
+
     public int getCount() {
         return list.size();
     }
