@@ -1,3 +1,8 @@
+package commands;
+import storage.Storage;
+import storage.TaskList;
+import ui.UI;
+
 public class addCommand implements Command {
 
     private final String desc;

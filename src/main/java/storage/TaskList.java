@@ -1,3 +1,10 @@
+package storage;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,7 +20,7 @@ public class TaskList {
         System.out.println("""
                 Choose a task type (1, 2 or 3):
                 1. Todo - No end date
-                2. Deadline - Has end date
+                2. tasks.Deadline - Has end date
                 3. Event - Has start and end date
                 """);
         switch(getInputFromUser(sc, "(1, 2 or 3) > ")) {
@@ -23,7 +30,7 @@ public class TaskList {
                 break;
             case "2":
                 System.out.println("What is the deadline?");
-                this.parent.add(new Deadline(task, getInputFromUser(sc, "Deadline > ")));
+                this.parent.add(new Deadline(task, getInputFromUser(sc, "tasks.Deadline > ")));
                 System.out.println("Friday > Okay, I've added a deadline: " + task);
                 break;
             case "3":
