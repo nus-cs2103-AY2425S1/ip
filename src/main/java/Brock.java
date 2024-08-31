@@ -10,6 +10,9 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,7 +22,13 @@ public class Brock {
         UNMARK
     }
 
-    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
+    enum Context {
+        DUE,
+        START,
+        END
+    }
+
+    private static final String HORIZONTAL_LINE = "_____________________________________________________________________\n";
     private static final String FILE_PATH = "./src/main/java/saveFile.txt";
 
     private static final File saveFile = new File(FILE_PATH);
@@ -176,38 +185,93 @@ public class Brock {
 
     private static Task convertToTaskObject(String taskString) throws BrockException {
         // Split by ". "
-        String[] taskParts = taskString.split("\\. ", 2);
-        String details = taskParts[1];
-        char taskType = details.charAt(1);
+        String[] taskComponents = taskString.split("\\. ", 2);
+        String taskDetails = taskComponents[1];
+        char taskType = taskDetails.charAt(1);
 
         String description;
-        String[] detailPartsV1;
-        String[] detailPartsV2;
-        String[] detailPartsV3;
         switch (taskType) {
         case 'T':
-            description = details.substring(7);
+            description = taskDetails.substring(7);
             return new ToDos(description);
 
         case 'D':
-            detailPartsV1 = details.split(" ");
-            description = detailPartsV1[1];
+            String[] deadlineDetails = taskDetails.substring(7)
+                    .split(" \\(by: ", 2);
 
-            detailPartsV2 = details.split("\\(by: ");
-            // Exclude the closing bracket
-            String dueDate = detailPartsV2[1].substring(0, detailPartsV2[1].length() - 2);
-            return new Deadlines(description, dueDate);
+            description = deadlineDetails[0];
+            String dateTimeD = deadlineDetails[1];
+
+            String[] dateTimeParts = dateTimeD.split(", ");
+            String dueDateString;
+            String dueTimeString = "";
+            DateTimeFormatter dueDateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+            if (dateTimeParts.length == 1) {
+                // Only have date specified
+                // Exclude the closing bracket
+                String tempDate = dateTimeParts[0];
+                String tempString = tempDate.substring(0, tempDate.length() - 1);
+
+                dueDateString = LocalDate.parse(tempString, dueDateFormatter).toString();
+            } else {
+                // Have both date and time specified
+                // Exclude the closing bracket
+                String tempDate = dateTimeParts[0];
+                String tempTime = dateTimeParts[1];
+                dueDateString = LocalDate.parse(tempDate, dueDateFormatter).toString();
+                dueTimeString = tempTime.substring(0, tempTime.length() - 1)
+                        .replace(":", "");
+            }
+
+            if (dueTimeString.isEmpty()) {
+                return new Deadlines(description, dueDateString);
+            } else {
+                return new Deadlines(description, dueDateString, dueTimeString);
+            }
 
         case 'E':
-            detailPartsV1 = details.split(" ");
-            description = detailPartsV1[1];
+            String[] eventDetails = taskDetails.substring(7)
+                    .split(" \\(from: ", 2);
+            description = eventDetails[0];
+            String dateTimeE = eventDetails[1];
 
-            detailPartsV2 = details.split("\\(from: ");
-            detailPartsV3 = detailPartsV2[1].split("to: ");
-            String startDate = detailPartsV3[0];
-            // Exclude the closing bracket
-            String endDate = detailPartsV3[1].substring(0, detailPartsV3[1].length() - 2);
-            return new Events(description, startDate, endDate);
+            String[] dateTimePartsE = dateTimeE.split(" \\| ", 2);
+            String startDateTime = dateTimePartsE[0];
+            String endDateTime = dateTimePartsE[1];
+
+            String startDateString;
+            String endDateString;
+            String startTimeString = "";
+            String endTimeString = "";
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
+            String[] startDateTimeParts = startDateTime.split(", ");
+            String[] endDateTimeParts = endDateTime.substring(4).split(", "); // remove the 'to: '
+            if (startDateTimeParts.length == 1) {
+                // Only have date specified
+                // Exclude the closing bracket
+                String tempStartDate = startDateTimeParts[0];
+                String tempEndDate = endDateTimeParts[0].substring(0, endDateTimeParts[0].length() - 1);
+                startDateString = LocalDate.parse(tempStartDate, dateFormatter).toString();
+                endDateString = LocalDate.parse(tempEndDate, dateFormatter).toString();
+            } else {
+                // Have both date and time specified
+                String tempStartDate = startDateTimeParts[0];
+                String tempEndDate = endDateTimeParts[0];
+                startTimeString = startDateTimeParts[1].replace(":", "");
+                endTimeString = endDateTimeParts[1].substring(0, endDateTimeParts[1].length() - 1)
+                        .replace(":", "");
+
+                startDateString = LocalDate.parse(tempStartDate, dateFormatter).toString();
+                endDateString = LocalDate.parse(tempEndDate, dateFormatter).toString();
+            }
+
+            if (startTimeString.isEmpty()) {
+                return new Events(description, startDateString, endDateString);
+            } else {
+                return new Events(description, startDateString, startTimeString
+                        , endDateString, endTimeString);
+            }
 
         default:
             throw new BrockException("Unrecognized task type!");
@@ -225,7 +289,6 @@ public class Brock {
         } catch (FileNotFoundException e) {
             throw new BrockException("Unable to find and read from save file!");
         }
-
     }
 
     // Helper function to perform list command
@@ -327,6 +390,79 @@ public class Brock {
         writeToFile(fileContents, true);
     }
 
+    private static String getLabel(int dateTimeWords, Context context) throws BrockException {
+        String label = "";
+        switch (context) {
+        case DUE:
+            label = "Due ";
+            break;
+        case START:
+            label = "Start ";
+            break;
+        case END:
+            label = "End ";
+            break;
+        }
+
+        if (dateTimeWords > 2) {
+            throw new BrockException(String.format("Valid %s date & time must follow one of the below formats:\n"
+                    , label.toLowerCase())
+                    + "<yyyy-mm-dd> OR\n"
+                    + "<yyyy-mm-dd> <24hr-time>");
+        }
+        return label;
+    }
+
+    private static String[] validateDateTime(String dateTimeString, int dateTimeWords, Context context)
+            throws BrockException {
+        String label = getLabel(dateTimeWords, context);
+
+        String dateStringFinal = "";
+        String timeStringFinal = "";
+        if (dateTimeWords == 1) {
+            String dateString = dateTimeString.trim();
+            String[] dateParts = dateString.split("-");
+
+            if (dateParts.length != 3) {
+                throw new BrockException(label + "date & time following <yyyy-mm-dd> format:\n"
+                        + label + "date is not in the <yyyy-mm-dd> format!");
+            }
+            dateStringFinal = dateString;
+        }
+        if (dateTimeWords == 2) {
+            String[] dateTimeParts = dateTimeString.trim()
+                    .split(" ");
+            String dateString = dateTimeParts[0];
+            String timeString = dateTimeParts[1];
+            String[] dateParts = dateString.split("-");
+
+            if (dateParts.length != 3) {
+                throw new BrockException(label + "date & time following <yyyy-mm-dd> <24hr-time> format:\n"
+                        + label + "date is not in the <yyyy-mm-dd> format!");
+            }
+            if (isNotInteger(timeString)) {
+                throw new BrockException(label + "date & time following <yyyy-mm-dd> <24hr-time> format:\n"
+                        + label + "time is not a number!");
+            } else {
+                int time = Integer.parseInt(timeString);
+                if (time < 0 || time > 2359) {
+                    throw new BrockException(label + "date & time following <yyyy-mm-dd> <24hr-time> format:\n"
+                            + label + "time must be between 0000 - 2359!");
+                }
+                // Convert to string
+                // Force length == 4 with 0s as front-padding
+                timeStringFinal = String.format("%04d", time);
+            }
+            dateStringFinal = dateString;
+        }
+
+        if (timeStringFinal.isEmpty()) {
+            return new String[]{dateStringFinal};
+        } else {
+            return new String[]{dateStringFinal, timeStringFinal};
+        }
+    }
+
     // Helper function to create task and return the created task
     private static Task createTask(String command) throws BrockException {
         String[] commandWords = command.split(" ");
@@ -351,46 +487,59 @@ public class Brock {
                 description.append(commandWords[i])
                         .append(" ");
             }
-            StringBuilder dueDate = new StringBuilder();
-            boolean hasSeenDueDate = false;
+            StringBuilder dateTime = new StringBuilder();
+            boolean isSeeingDateTime = false;
+            int dateTimeWords = 0;
             for (String word : commandWords) {
-                if (hasSeenDueDate) {
-                    dueDate.append(word)
+                if (isSeeingDateTime) {
+                    dateTimeWords += 1;
+                    dateTime.append(word)
                             .append(" ");
                 }
                 if (word.equalsIgnoreCase("/by")) {
-                    hasSeenDueDate = true;
+                    isSeeingDateTime = true;
                 }
             }
 
-            if (dueDate.isEmpty()) {
+            if (dateTime.isEmpty()) {
                 throw new BrockException("Missing due date! Remember it is specified after /by!");
             }
-            // Trim away the trailing whitespace
-            task = new Deadlines(description.toString(),
-                    dueDate.toString().trim());
+            String[] dateTimeValues = validateDateTime(dateTime.toString()
+                    , dateTimeWords, Context.DUE);
+            if (dateTimeWords == 1) {
+                task = new Deadlines(description.toString()
+                        , dateTimeValues[0]);
+            } else {
+                task = new Deadlines(description.toString()
+                        , dateTimeValues[0]
+                        , dateTimeValues[1]);
+            }
 
         } else if (firstWord.equalsIgnoreCase("event")) {
-            StringBuilder startDate = new StringBuilder();
-            StringBuilder endDate = new StringBuilder();
-            boolean hasSeenStartDate = false;
-            boolean hasSeenEndDate = false;
+            StringBuilder startDateTime = new StringBuilder();
+            StringBuilder endDateTime = new StringBuilder();
+            boolean isSeeingStartDateTime = false;
+            boolean isSeeingEndDateTime = false;
+            int startDateTimeWords = 0;
+            int endDateTimeWords = 0;
             for (String word : commandWords) {
                 if (word.equalsIgnoreCase("/from")) {
-                    hasSeenStartDate = true;
+                    isSeeingStartDateTime = true;
                     continue;
                 }
                 if (word.equalsIgnoreCase("/to")) {
-                    hasSeenStartDate = false;
-                    hasSeenEndDate = true;
+                    isSeeingStartDateTime = false;
+                    isSeeingEndDateTime = true;
                     continue;
                 }
-                if (hasSeenStartDate) {
-                    startDate.append(word)
+                if (isSeeingStartDateTime) {
+                    startDateTimeWords += 1;
+                    startDateTime.append(word)
                             .append(" ");
                 }
-                if (hasSeenEndDate) {
-                    endDate.append(word)
+                if (isSeeingEndDateTime) {
+                    endDateTimeWords += 1;
+                    endDateTime.append(word)
                             .append(" ");
                 }
             }
@@ -402,16 +551,30 @@ public class Brock {
                         .append(" ");
             }
 
-            if (startDate.isEmpty()) {
+            if (startDateTime.isEmpty()) {
                 throw new BrockException("Missing start date! Remember it is specified after /from!");
             }
-            if (endDate.isEmpty()) {
+            if (endDateTime.isEmpty()) {
                 throw new BrockException("Missing end date! Remember it is specified after /to!");
             }
-            // Trim away the trailing whitespace
-            task = new Events(description.toString(),
-                    startDate.toString(),
-                    endDate.toString().trim());
+            if (startDateTimeWords != endDateTimeWords) {
+                throw new BrockException("Both start and end dates must either include or exclude a time!");
+            }
+            String[] startDateTimeValues = validateDateTime(startDateTime.toString()
+                    , startDateTimeWords, Context.START);
+            String[] endDateTimeValues = validateDateTime(endDateTime.toString()
+                    , endDateTimeWords, Context.END);
+            if (startDateTimeWords == 1) {
+                task = new Events(description.toString()
+                        , startDateTimeValues[0]
+                        , endDateTimeValues[0]);
+            } else {
+                task = new Events(description.toString()
+                        , startDateTimeValues[0]
+                        , startDateTimeValues[1]
+                        , endDateTimeValues[0]
+                        , endDateTimeValues[1]);
+            }
 
         } else {
             throw new BrockException("Invalid command!");
