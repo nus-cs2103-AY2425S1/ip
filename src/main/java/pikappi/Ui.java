@@ -1,9 +1,9 @@
 package pikappi;
 
-import pikappi.task.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import pikappi.task.Task;
 
 /**
  * Represents a user interface that interacts with the user.
@@ -56,16 +56,33 @@ public class Ui {
         System.out.println(message);
     }
 
+    /**
+     * Shows the added task to the user.
+     *
+     * @param task Task that was added
+     * @param taskCount Number of tasks in the list
+     */
     public void showAddedTask(Task task, int taskCount) {
-        System.out.println("Pi-ka-pipi! I've added this task:\n " + task.toString() +
-                "\nNow you have " + taskCount + " tasks in the list.");
+        System.out.println("Pi-ka-pipi! I've added this task:\n " + task.toString()
+                + "\nNow you have " + taskCount + " tasks in the list.");
     }
 
+    /**
+     * Shows the deleted task to the user.
+     *
+     * @param task Task that was deleted
+     * @param taskCount Number of tasks in the list
+     */
     public void showDeletedTask(Task task, int taskCount) {
-        System.out.println("Pipi-ka-pi! I've removed this task:\n " + task.toString() +
-                "\nNow you have " + taskCount + " tasks in the list.");
+        System.out.println("Pipi-ka-pi! I've removed this task:\n " + task.toString()
+                + "\nNow you have " + taskCount + " tasks in the list.");
     }
 
+    /**
+     * Shows the matching tasks to the user.
+     *
+     * @param matchingTasks TaskList list of tasks that contains matching tasks
+     */
     public void showMatchingTasks(TaskList matchingTasks) {
         if (matchingTasks.getTasks().isEmpty()) {
             System.out.println("Pika..? No matching tasks found..");
@@ -77,10 +94,16 @@ public class Ui {
         }
     }
 
+    /** Shows the user that there is no task in the list. */
     public void showNoTasks() {
         System.out.println("Pika-ka! You have no tasks!");
     }
 
+    /**
+     * Shows all tasks in the list to the user.
+     *
+     * @param tasks TaskList list of tasks to be shown
+     */
     public void showAllTasks(ArrayList<Task> tasks) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -92,10 +115,20 @@ public class Ui {
         }
     }
 
+    /**
+     * Shows the task that was marked as done to the user.
+     *
+     * @param task Task that was marked as done
+     */
     public void showMarkedTask(Task task) {
         System.out.println("Pika! I've marked this task as done:\n" + task);
     }
 
+    /**
+     * Shows the task that was unmarked as not done yet to the user.
+     *
+     * @param task Task that was unmarked as not done yet
+     */
     public void showUnmarkedTask(Task task) {
         System.out.println("kaPi! I've unmarked this task as not done yet:\n" + task);
     }
