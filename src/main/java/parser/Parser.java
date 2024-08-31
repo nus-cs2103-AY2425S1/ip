@@ -12,8 +12,9 @@ import java.time.format.DateTimeParseException;
  */
 public  class Parser {
     public enum ValidCommand {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID;
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND;
     }
+
 
     private static final DateTimeFormatter DASHFORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     private static final DateTimeFormatter SLASHFORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -83,8 +84,11 @@ public  class Parser {
             return ValidCommand.EVENT;
         } else if (text.startsWith("delete")) {
             return ValidCommand.DELETE;
+        }  else if (text.startsWith("find")) {
+            return ValidCommand.FIND;
         } else {
             return ValidCommand.INVALID;
+
         }
 
     }
@@ -209,6 +213,15 @@ public  class Parser {
     }
 
 
+
+    /**
+     * Parses for keywords in a find command
+     * @param command starting with find
+     * @return the keywords after find
+     */
+    public String parseFind(String command) {
+        return command.substring(4);
+    }
 
     /**
      * Returns a DateTimeFormatter used for printing LocalDateTime objects

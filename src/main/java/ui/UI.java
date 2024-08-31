@@ -93,9 +93,19 @@ ____________________________________________________________
     }
 
     public void delTaskMsg(Task task, int size) {
+        System.out.println(UI.getLineseperator());
         System.out.println("Deleting Task: ");
         System.out.println(task.getDescription());
         System.out.println(String.format("%d tasks left", size));
+
+    }
+
+    public void displaySearch(ArrayList<Task> matches) {
+        System.out.println(UI.getLineseperator());
+        System.out.println("Displaying all matching tasks: ");
+        for (int i = 0; i < matches.size(); i++) {
+            System.out.println(String.format(i + 1 + ". " + "[%s][%s] %s", matches.get(i).getTaskSymbol(), matches.get(i).getStatus() ? "X" : " ", matches.get(i).getDescription()));
+        }
 
     }
 

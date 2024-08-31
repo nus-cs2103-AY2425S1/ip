@@ -1,10 +1,11 @@
 package chatterbox;
 
 
+import java.sql.Array;
 import java.util.*;
 
 import java.io.FileNotFoundException;
-
+import java.util.stream.Collectors;
 import java.nio.file.Paths;
 
 import java.time.LocalDateTime;
@@ -174,6 +175,17 @@ public class Chatterbox {
             return userTasks.size();
         }
 
+        /**
+         * returns an ArrayList
+         * @param keywords is a string of keywords that should appear
+         * @return ArrayList with only tasks that have the keywords
+         */
+        public ArrayList<Task> findTasks(String keywords) {
+            return userTasks.stream()
+                    .filter(task -> task.getDescription().contains(keywords))
+                    .collect(Collectors.toCollection(ArrayList::new));
+
+        }
 
     }
 
@@ -187,6 +199,7 @@ public class Chatterbox {
                 try {
                     String response = scanner.nextLine();
                     Parser.ValidCommand command = parser.parseCommand(response);
+
                     int index;
                     switch (command) {
 
@@ -208,14 +221,12 @@ public class Chatterbox {
                         response = response.trim();
                         index = parser.extractNum(response) - 1; // -1 as the display  start from 1
                         ui.unmarkMsg(tasks.unmarkTask(index));
-
                         break;
 
                     case TODO:
 
                         tasks.addTodo(parser.parseTODO(response.trim()));
                         ui.addTaskMsg("Todo", tasks.size());
-
                         break;
 
                     case DEADLINE:
@@ -238,6 +249,7 @@ public class Chatterbox {
                         ui.addTaskMsg("Deadline", tasks.size());
 
                         break;
+
                     case EVENT:
                         String[] eventParsed = parser.parseEvent(response);
 
@@ -252,21 +264,26 @@ public class Chatterbox {
                             tasks.addEvent(eventParsed[0].trim(), startDate, endDate);
                         }
                         ui.addTaskMsg("Event", tasks.size());
-
-
                         break;
+
                     case DELETE:
                         response = response.trim();
                         int delIndex = parser.extractNum(response) - 1;
                         ui.delTaskMsg(tasks.deleteTask(delIndex), tasks.size());
+                         break;
 
+                        case FIND:
+                            String keywords = parser.parseFind(response).trim();
 
-                        break;
-                    case INVALID:
-                        ChatterboxExceptions.checkMessage(response);
-                        break;
+                            ArrayList<Task> matching = tasks.findTasks(keywords);
+                            ui.displaySearch(matching);
+                            break;
+
+                        case INVALID:
+                            ChatterboxExceptions.checkMessage(response);
+                            break;
+
                     }
-                    //                System.out.println("saving");
                     storage.saveHistory(tasks.getTasks());
                 } catch (ChatterboxExceptions.ChatterBoxError e) {
                     System.out.println("An error has occurred " + e.getMessage());

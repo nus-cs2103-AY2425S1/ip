@@ -40,6 +40,7 @@ public class ChatterboxExceptions {
         }
     }
     public static void checkMessage(String msg) throws ChatterBoxUnknownCommand{
+        System.out.println("message is " + msg);
         throw new ChatterBoxUnknownCommand("Error: Unknown command");
     }
 }
