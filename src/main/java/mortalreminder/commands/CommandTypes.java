@@ -4,7 +4,6 @@ package mortalreminder.commands;
  * Contains all types of commands in an Enum list.
  */
 public enum CommandTypes {
-    BYE,
     CLEAR_TASKS,
     DEADLINE,
     DELETE,

@@ -29,15 +29,11 @@ public class Storage {
      *
      * @param task the {@link Task} to append to the file.
      */
-    public static void appendToListFile(Task task) {
-        try {
-            FileWriter fw = new FileWriter(STORAGE_LIST_FILE_PATH, true);
-            String textToAdd = task.convertToFileFormat();
-            fw.write(textToAdd + System.lineSeparator());
-            fw.close();
-        } catch (IOException e) {
-            FormattedPrinting.taskUnableToBeStoredInFile();
-        }
+    public static void appendToListFile(Task task) throws IOException {
+        FileWriter fw = new FileWriter(STORAGE_LIST_FILE_PATH, true);
+        String textToAdd = task.convertToFileFormat();
+        fw.write(textToAdd + System.lineSeparator());
+        fw.close();
     }
 
     /**
@@ -52,7 +48,7 @@ public class Storage {
             fw.write("");
             fw.close();
         } catch (IOException e) {
-            FormattedPrinting.formatPrint("File does not exist");
+            FormattedPrinting.fileCorrupted();
         }
     }
 
@@ -68,7 +64,7 @@ public class Storage {
      *
      * @param taskList the {@link TaskList} containing tasks to re-append to the file.
      */
-    public static void refreshStorageFile(TaskList taskList) {
+    public static void refreshStorageFile(TaskList taskList) throws IOException {
         clearListFile();
         for (int i = 0; i < taskList.getSize(); i++) {
             appendToListFile(taskList.getTask(i));
