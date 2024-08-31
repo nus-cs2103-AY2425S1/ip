@@ -13,7 +13,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Constructor for TaskList.
-     * 
+     *
      * Creates an empty list of tasks.
      */
     public TaskList() {
@@ -22,9 +22,9 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Constructor for TaskList.
-     * 
+     *
      * Creates a list of tasks with the given list.
-     * 
+     *
      * @param list List of tasks.
      */
     public TaskList(ArrayList<Task> list) {
@@ -33,7 +33,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Adds a task to the list.
-     * 
+     *
      * @param task Task to be added.
      * @return True if the task is added successfully, false otherwise.
      */
@@ -43,7 +43,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Returns the task at the specified index.
-     * 
+     *
      * @param index Index of the task.
      * @return Task at the specified index.
      */
@@ -53,7 +53,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Removes the task at the specified index.
-     * 
+     *
      * @param index Index of the task.
      * @return Task that is removed.
      */
@@ -63,7 +63,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Returns the number of tasks in the list.
-     * 
+     *
      * @return Number of tasks in the list.
      */
     public int size() {

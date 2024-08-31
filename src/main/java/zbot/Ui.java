@@ -28,7 +28,7 @@ public class Ui {
 
     /**
      * Prints additional message after adding a task.
-     * 
+     *
      * @param task
      * @param size
      */
@@ -40,7 +40,7 @@ public class Ui {
 
     /**
      * Prints additional message after deleting a task.
-     * 
+     *
      * @param task
      * @param size
      */
@@ -52,8 +52,8 @@ public class Ui {
 
     /**
      * Prints additional message after marking a task as done.
-     * 
-     * @param tasks
+     *
+     * @param task
      */
     public void printMarkTaskMsg(Task task) {
         System.out.println("Nice! I've marked this task as done:");
@@ -63,8 +63,8 @@ public class Ui {
 
     /**
      * Prints additional message after marking a task as not done.
-     * 
-     * @param tasks
+     *
+     * @param task
      */
     public void printUnmarkTaskMsg(Task task) {
         System.out.println("OK, I've marked this task as not done yet:");
@@ -74,8 +74,6 @@ public class Ui {
 
     /**
      * Prints the error message when the no saved file is found.
-     * 
-     * @param tasks
      */
     public void printLoadingError() {
         System.out.println("No saved data found. Starting with an empty task list...\n");

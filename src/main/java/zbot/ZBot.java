@@ -38,7 +38,7 @@ public class ZBot {
 
     /**
      * Runs the ZBot application.
-     * 
+     *
      * Reads user input and processes it until the user types "bye".
      */
     public void run() {
@@ -53,6 +53,15 @@ public class ZBot {
         ui.outro();
     }
 
+    /**
+     * Executes the user input.
+     *
+     * The input is processed and the corresponding action is taken.
+     *
+     * @param input   User input.
+     * @param ui      User interface of the chatbot.
+     * @param storage Storage of the chatbot.
+     */
     public void executeInput(String input, Ui ui, Storage storage) {
         if (input.equals("list")) {
             listTasks();
@@ -62,9 +71,7 @@ public class ZBot {
         } else if (input.startsWith("unmark")) {
             unmarkTask(input, ui);
             storage.save(tasks);
-        } else if (input.startsWith("todo") ||
-                input.startsWith("deadline") ||
-                input.startsWith("event")) {
+        } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
             addTask(input, ui);
             storage.save(tasks);
         } else if (input.startsWith("delete")) {
@@ -79,7 +86,7 @@ public class ZBot {
 
     /**
      * Adds a task to the task list.
-     * 
+     *
      * @param input User input.
      * @param ui    User interface of the chatbot.
      */
@@ -124,7 +131,7 @@ public class ZBot {
 
     /**
      * Marks a task as done.
-     * 
+     *
      * @param input User input.
      * @param ui    User interface of the chatbot.
      */
@@ -140,7 +147,7 @@ public class ZBot {
 
     /**
      * Marks a task as not done.
-     * 
+     *
      * @param input User input.
      * @param ui    User interface of the chatbot.
      */
@@ -156,7 +163,7 @@ public class ZBot {
 
     /**
      * Deletes a task from the task list.
-     * 
+     *
      * @param input User input.
      * @param ui    User interface of the chatbot.
      */
@@ -170,6 +177,12 @@ public class ZBot {
         }
     }
 
+    /**
+     * Finds tasks with the given keyword.
+     *
+     * @param input User input.
+     * @param ui    User interface of the chatbot.
+     */
     public void findTask(String input, Ui ui) {
         String keyword = input.split(" ", 2)[1];
         int tasksFound = 0;
