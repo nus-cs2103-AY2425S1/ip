@@ -19,7 +19,7 @@ public class WansBot {
     private static Storage storage = new Storage(ui);
 
     // Method that deals with empty inputs by throwing wansbot.tasks.InputEmptyException
-    private static void emptyInput(String userInput) throws InputEmptyException {
+    protected static void emptyInput(String userInput) throws InputEmptyException {
         if (userInput.strip().equalsIgnoreCase("todos")
                 || userInput.strip().equalsIgnoreCase("deadline")
                 || userInput.strip().equalsIgnoreCase("event")
@@ -60,7 +60,7 @@ public class WansBot {
     }
 
     // Method that throws custom wansbot.tasks.InputEmptyException for events
-    private static void missingInputEvent(String userInput) {
+    protected static void missingInputEvent(String userInput) {
         String[] splitUserStartDate = userInput.split(" /from ", 3);
         if (splitUserStartDate.length < 2) {
             throw new InputEmptyException(userInput, "/from");
