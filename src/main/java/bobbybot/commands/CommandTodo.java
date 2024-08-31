@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import bobbybot.BobbyBotException;
 import bobbybot.Storage;
-import bobbybot.Task;
 import bobbybot.TaskList;
-import bobbybot.ToDo;
+import bobbybot.tasks.Task;
+import bobbybot.tasks.ToDo;
 import bobbybot.ui.Ui;
 
 

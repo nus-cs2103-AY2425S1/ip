@@ -1,5 +1,7 @@
 package bobbybot;
 
+import bobbybot.tasks.Task;
+
 /**
  * Represents a stub for a task for testing purposes.
  */

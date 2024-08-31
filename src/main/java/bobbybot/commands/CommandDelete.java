@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import bobbybot.BobbyBotException;
 import bobbybot.Storage;
-import bobbybot.Task;
 import bobbybot.TaskList;
+import bobbybot.tasks.Task;
 import bobbybot.ui.Ui;
 
 
@@ -31,7 +31,8 @@ public class CommandDelete extends Command {
         if (!indexParam.matches("\\d+")) {
             throw new BobbyBotException("Please specify a valid number.");
         }
-        this.index = Integer.parseInt(argument);
+        // Since the list shown to the user is 1-indexed, we need to subtract 1 from the index.
+        this.index = Integer.parseInt(argument) - 1;
     }
 
     @Override
