@@ -1,3 +1,9 @@
+package orion.tasks;
+
+import orion.exceptions.OrionException;
+import orion.exceptions.OrionInputException;
+
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 public class Event extends Task {
@@ -7,6 +13,22 @@ public class Event extends Task {
         super(body);
         this.start = start;
         this.end = end;
+    }
+
+    public Event(String body, String from, String to) throws OrionException {
+        super(body);
+        try {
+            LocalDate start = LocalDate.parse(from);
+            LocalDate end = LocalDate.parse(to);
+            if (start.isAfter(end)) {
+                throw new OrionInputException("Your start date must be later than your end date!");
+            }
+            this.start = start;
+            this.end = end;
+        } catch (DateTimeException e) {
+            throw new OrionInputException("Correct syntax: event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>. " +
+                    "Please input valid dates in the correct format!");
+        }
     }
 
     public Event(String body, boolean isDone, LocalDate start, LocalDate end) {
