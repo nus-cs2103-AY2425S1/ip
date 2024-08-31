@@ -256,7 +256,7 @@
       <property name="basicOffset" value="4"/>
       <property name="braceAdjustment" value="4"/>
       <property name="caseIndent" value="0"/>
-      <property name="throwsIndent" value="4"/>
+      <property name="throwsIndent" value="0"/>
       <property name="lineWrappingIndentation" value="4"/>
       <property name="arrayInitIndent" value="4"/>
     </module>
@@ -273,10 +273,13 @@
     <module name="ConstructorsDeclarationGrouping"/>
     <module name="VariableDeclarationUsageDistance"/>
     <module name="CustomImportOrder">
-      <property name="sortImportsInGroupAlphabetically" value="true"/>
-      <property name="separateLineBetweenGroups" value="true"/>
-      <property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE"/>
-      <property name="tokens" value="IMPORT, STATIC_IMPORT, PACKAGE_DEF"/>
+        <property name="sortImportsInGroupAlphabetically" value="true"/>
+        <property name="separateLineBetweenGroups" value="true"/>
+        <property name="customImportOrderRules"
+                  value="STATIC, STANDARD_JAVA_PACKAGE, SPECIAL_IMPORTS, THIRD_PARTY_PACKAGE, SAME_PACKAGE"/>
+        <property name="specialImportsRegExp" value="^org\."/>
+        <property name="thirdPartyPackageRegExp" value="^com\."/>
+        <property name="tokens" value="IMPORT, STATIC_IMPORT, PACKAGE_DEF"/>
     </module>
     <module name="MethodParamPad">
       <property name="tokens"
