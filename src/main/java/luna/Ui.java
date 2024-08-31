@@ -12,6 +12,12 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Asks user to input command.
+     *
+     * @return Text input from user.
+     * @throws LunaException If input is empty
+     */
     public String readCommand() throws LunaException {
 
         String input = scanner.nextLine();
@@ -28,10 +34,18 @@ public class Ui {
         return input;
     }
 
+    /**
+     * Prints line for separation between inputs and results.
+     */
     public void showLine() {
         System.out.println("---------------------------------" + System.lineSeparator());
     }
 
+    /**
+     * Prints line for error.
+     *
+     * @param message Error message.
+     */
     public void showError(String message) {
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         System.out.println(message);

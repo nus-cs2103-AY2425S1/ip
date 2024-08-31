@@ -1,8 +1,8 @@
 package luna.command;
 
+import luna.LunaException;
 import luna.Storage;
 import luna.TaskList;
-import luna.LunaException;
 
 /**
  * Represents a command from the user to be executed.

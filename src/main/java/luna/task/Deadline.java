@@ -10,6 +10,12 @@ public class Deadline extends Task {
 
     protected LocalDateTime deadline;
 
+    /**
+     * Creates a task with deadline.
+     *
+     * @param description Description of task.
+     * @param deadline Deadline of task.
+     */
     public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
@@ -23,7 +29,7 @@ public class Deadline extends Task {
 
     @Override
     public String toFileFormat() {
-        String status  = super.isDone ? "1|" : "0|";
+        String status = super.isDone ? "1|" : "0|";
         return "D|" + status + super.description + "|" + deadline;
     }
 }

@@ -30,7 +30,7 @@ test {
 }
 
 application {
-    mainClass.set("Luna")
+    mainClass.set("luna.Luna")
 }
 
 shadowJar {
@@ -40,4 +40,8 @@ shadowJar {
 
 run {
     standardInput = System.in
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }

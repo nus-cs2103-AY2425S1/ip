@@ -1,14 +1,22 @@
 package luna.command;
 
+import java.util.ArrayList;
+
 import luna.Storage;
 import luna.TaskList;
 import luna.task.Task;
 
-import java.util.ArrayList;
-
+/**
+ * Represents a command to find tasks from current list of tasks.
+ */
 public class FindCommand extends Command {
     private final String query;
 
+    /**
+     * Creates command to search list of tasks.
+     *
+     * @param query Description of task to search for.
+     */
     public FindCommand(String query) {
         this.query = query;
     }

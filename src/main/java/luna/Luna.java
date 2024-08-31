@@ -1,4 +1,5 @@
-import luna.*;
+package luna;
+
 import luna.command.Command;
 import luna.command.ExitCommand;
 
@@ -11,6 +12,9 @@ public class Luna {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates a chatbot session
+     */
     public Luna() {
         this.storage = new Storage();
         this.ui = new Ui();
@@ -23,8 +27,11 @@ public class Luna {
         }
     }
 
+    /**
+     * Runs the chatbot until exit command is entered
+     */
     public void run() {
-        System.out.println("Hello! I'm Luna\n" + "What can I do for you?");
+        System.out.println("Hello! I'm luna.Luna\n" + "What can I do for you?");
 
         boolean isRunning = true;
 
