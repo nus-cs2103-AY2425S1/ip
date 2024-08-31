@@ -15,11 +15,6 @@ public class EventTask extends Task {
     }
 
     @Override
-    public String toString() {
-        return "[E]" + super.toString() + getDetails();
-    }
-
-    @Override
     public String getDetails() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
         return " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
@@ -29,5 +24,10 @@ public class EventTask extends Task {
     public String toSaveFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return "E | " + (isDone ? "1" : "0") + " | " + name + " | " + from.format(formatter) + " | " + to.format(formatter);
+    }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + getDetails();
     }
 }

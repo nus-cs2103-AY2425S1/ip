@@ -7,11 +7,6 @@ public class TodoTask extends Task {
     }
 
     @Override
-    public String toString() {
-        return "[T]" + super.toString() + getDetails();
-    }
-
-    @Override
     public String getDetails() {
         return "";
     }
@@ -19,5 +14,10 @@ public class TodoTask extends Task {
     @Override
     public String toSaveFormat() {
         return "T | " + (isDone ? "1" : "0") + " | " + name;
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString() + getDetails();
     }
 }
