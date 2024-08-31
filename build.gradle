@@ -28,14 +28,17 @@ test {
 }
 
 application {
-    mainClass.set("main.java.park.Park")
+    mainClass.set("park.Park")
 }
 
 shadowJar {
     archiveBaseName = "park"
     archiveClassifier = null
+    archiveFileName = 'park.jar'
 }
 
 run{
     standardInput = System.in
 }
+
+mainClassName = "park.Park"
