@@ -166,13 +166,14 @@ public class Ui {
         System.out.println("    _______________________________________________________");
     }
 
-
-
-
-
-
-
-
-
-
+    public void showFindList(List<Task> tasks, String keyword) {
+        System.out.println("    _______________________________________________________");
+        System.out.println("     Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getTaskName().contains(keyword)) {
+                System.out.println("     " + (i + 1) + "." + tasks.get(i));
+            }
+        }
+        System.out.println("    _______________________________________________________");
+    }
 }
