@@ -17,6 +17,7 @@ public class Snah {
     private final static String TODO_INPUT = "todo";
     private final static String DELETE_INPUT = "delete";
     private final static String CHAT_NAME = "Snah";
+    private final static String CLEAR_TASKS = "clear";
     private final static String START_DIVIDER = "___________________________________________";
     private final static String END_DIVIDER = "___________________________________________\n";
 
@@ -110,6 +111,9 @@ public class Snah {
                 for (int i = 0; i < tasksList.size(); i++) {
                     chatbotPrint(String.format("%d. %s", i + 1, tasksList.get(i)));
                 }
+            } else if (userInput.startsWith("clear")) {
+                tasksList.clear();
+                chatbotPrint("Tasks cleared");
             } else if (userInput.startsWith(MARK_DONE_STRING)) {
                 String[] splitInput = userInput.split(" ");
                 int taskIndex = Integer.parseInt(splitInput[1]) - 1;

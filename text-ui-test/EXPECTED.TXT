@@ -3,6 +3,11 @@
 	What can I do for you?
 	___________________________________________
 
+	Save file already exists, loading tasks from save file
+	___________________________________________
+	Tasks cleared
+	___________________________________________
+
 	___________________________________________
 	Added todo to list
 	  [ ] (Task) Do laundry when it is ready
@@ -15,19 +20,19 @@
 
 	___________________________________________
 	Added deadline to list
-	  [ ] (Deadline: by tonight 2359 (or when I'm ready)) CS2109S homework
+	  [ ] (Deadline: by Aug 31 2024) CS2109S homework
 	___________________________________________
 
 	___________________________________________
 	Here are the tasks in your list:
 	1. [ ] (Task) Do laundry when it is ready
 	2. [ ] (Task) Eat dinner
-	3. [ ] (Deadline: by tonight 2359 (or when I'm ready)) CS2109S homework
+	3. [ ] (Deadline: by Aug 31 2024) CS2109S homework
 	___________________________________________
 
 	___________________________________________
 	Added deadline to list
-	  [ ] (Deadline: by tomorrow) CS2100 quizzes
+	  [ ] (Deadline: by Feb 21 2022) CS2100 quizzes
 	___________________________________________
 
 	___________________________________________
@@ -44,8 +49,8 @@
 	Here are the tasks in your list:
 	1. [ ] (Task) Do laundry when it is ready
 	2. [ ] (Task) Eat dinner
-	3. [ ] (Deadline: by tonight 2359 (or when I'm ready)) CS2109S homework
-	4. [ ] (Deadline: by tomorrow) CS2100 quizzes
+	3. [ ] (Deadline: by Aug 31 2024) CS2109S homework
+	4. [ ] (Deadline: by Feb 21 2022) CS2100 quizzes
 	5. [ ] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
 	6. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
 	___________________________________________
@@ -62,7 +67,7 @@
 
 	___________________________________________
 	Alright, I will mark the task as done
-	  [X] (Deadline: by tomorrow) CS2100 quizzes
+	  [X] (Deadline: by Feb 21 2022) CS2100 quizzes
 	___________________________________________
 
 	___________________________________________
@@ -74,8 +79,8 @@
 	Here are the tasks in your list:
 	1. [X] (Task) Do laundry when it is ready
 	2. [X] (Task) Eat dinner
-	3. [ ] (Deadline: by tonight 2359 (or when I'm ready)) CS2109S homework
-	4. [X] (Deadline: by tomorrow) CS2100 quizzes
+	3. [ ] (Deadline: by Aug 31 2024) CS2109S homework
+	4. [X] (Deadline: by Feb 21 2022) CS2100 quizzes
 	5. [X] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
 	6. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
 	___________________________________________
@@ -94,8 +99,8 @@
 	Here are the tasks in your list:
 	1. [ ] (Task) Do laundry when it is ready
 	2. [ ] (Task) Eat dinner
-	3. [ ] (Deadline: by tonight 2359 (or when I'm ready)) CS2109S homework
-	4. [X] (Deadline: by tomorrow) CS2100 quizzes
+	3. [ ] (Deadline: by Aug 31 2024) CS2109S homework
+	4. [X] (Deadline: by Feb 21 2022) CS2100 quizzes
 	5. [X] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
 	6. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
 	___________________________________________
@@ -109,8 +114,8 @@
 	Here are the tasks in your list:
 	1. [ ] (Task) Do laundry when it is ready
 	2. [ ] (Task) Eat dinner
-	3. [ ] (Deadline: by tonight 2359 (or when I'm ready)) CS2109S homework
-	4. [X] (Deadline: by tomorrow) CS2100 quizzes
+	3. [ ] (Deadline: by Aug 31 2024) CS2109S homework
+	4. [X] (Deadline: by Feb 21 2022) CS2100 quizzes
 	5. [X] (Event: from 6pm tonight to whenever they want to end) Dinner with friendos
 	6. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
 	7. [ ] (Event: from now to later) Test CS2103 bot thingy
@@ -165,8 +170,8 @@
 	___________________________________________
 	Here are the tasks in your list:
 	1. [ ] (Task) Do laundry when it is ready
-	2. [ ] (Deadline: by tonight 2359 (or when I'm ready)) CS2109S homework
-	3. [X] (Deadline: by tomorrow) CS2100 quizzes
+	2. [ ] (Deadline: by Aug 31 2024) CS2109S homework
+	3. [X] (Deadline: by Feb 21 2022) CS2100 quizzes
 	4. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
 	5. [ ] (Event: from now to later) Test CS2103 bot thingy
 	___________________________________________
@@ -178,8 +183,8 @@
 	___________________________________________
 	Here are the tasks in your list:
 	1. [ ] (Task) Do laundry when it is ready
-	2. [ ] (Deadline: by tonight 2359 (or when I'm ready)) CS2109S homework
-	3. [X] (Deadline: by tomorrow) CS2100 quizzes
+	2. [ ] (Deadline: by Aug 31 2024) CS2109S homework
+	3. [X] (Deadline: by Feb 21 2022) CS2100 quizzes
 	4. [ ] (Event: from 9pm every night to whenever she wants to sleep) Game night with gf
 	5. [ ] (Event: from now to later) Test CS2103 bot thingy
 	___________________________________________
