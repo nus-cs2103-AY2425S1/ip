@@ -48,8 +48,13 @@ public class Tecna {
      * Exits the chatbot by printing the goodbye lines.
      */
     public void exitChatBot() {
-        storage.setFilePath("src/main/data/tecna1.json");
-        storage.save(this.taskList);
+        storage.setFilePath("src/main/resources/data/tecna1.json");
+        try {
+            storage.save(this.taskList);
+        } catch (IOException ioException) {
+            this.ui.printError("I cannot access the data file " + storage.getFilePath());
+        }
+
         ui.printSectionLine();
         ui.printGoodbyeMsg();
         ui.printSectionLine();
@@ -140,7 +145,7 @@ public class Tecna {
     }
 
     public static void main(String[] args) {
-        Tecna tecna = new Tecna("src/main/data/tecna.json");
+        Tecna tecna = new Tecna("data/tecna.json");
         tecna.greet();
         tecna.getRequest();
         // tecna.echo();
