@@ -15,8 +15,8 @@ import java.util.function.Consumer;
 import static yappingbot.tasks.tasklist.TaskParser.parseSingleTask;
 
 public class TaskList implements Iterable<Task> {
-    private static ArrayList<Task> tasks;
-    private int size;
+    protected static ArrayList<Task> tasks;
+    protected int size;
     public TaskList() {
         tasks = new ArrayList<>();
     }
