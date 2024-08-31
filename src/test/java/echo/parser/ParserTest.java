@@ -1,11 +1,12 @@
 package echo.parser;
 
-import echo.task.Events;
-import echo.task.Task;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import echo.task.Events;
+import echo.task.Task;
 
 public class ParserTest {
     @Test
