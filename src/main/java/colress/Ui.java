@@ -2,12 +2,16 @@ package colress;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 import colress.command.Command;
 import colress.exception.UnknownCommandException;
 import colress.exception.UnknownTaskTypeException;
 
+/**
+ * Represents the Ui of the Colress chatbot.
+ */
 public final class Ui {
     private static final String MESSAGE_FAREWELL = "Well then, I'll see you soon.";
     private static final String MESSAGE_FILE_CREATED_CONFIRMATION = "New task list file created.";
@@ -33,6 +37,11 @@ public final class Ui {
     private final Parser parser;
     private boolean hasCalledExitCommand;
 
+    /**
+     * Constructor for the Ui class.
+     * The Ui object has a Parser object which reads user input and throws exceptions if invalid inputs are detected.
+     * The Ui object also has a boolean field that reflects whether the exit command has been called by the user.
+     */
     public Ui() {
         this.parser = new Parser();
         this.hasCalledExitCommand = false;
@@ -41,16 +50,31 @@ public final class Ui {
     public boolean getHasCalledExitCommand() {
         return hasCalledExitCommand;
     }
+
     public void print(String s) {
         System.out.println(SPACER + s + "\n" + SPACER);
     }
+
     public void welcome() {
         print(MESSAGE_GREETING);
     }
+
+    /**
+     * Facilitates exiting the program.
+     * The Ui prints a farewell message to the user.
+     * The boolean field is assigned true to reflect that an exit command has been called.
+     */
     public void exit() {
         print(MESSAGE_FAREWELL);
         hasCalledExitCommand = true;
     }
+
+    /**
+     * Prints a message to the user that reflects whether a new file has been created or if an existing file exists and
+     * tasks have been loaded.
+     *
+     * @param hasCreatedNewFile A boolean argument that reflects whether a new file has been created.
+     */
     public void printLoadTaskStatus(boolean hasCreatedNewFile) {
         if (hasCreatedNewFile) {
             print(MESSAGE_FILE_CREATED_CONFIRMATION);
@@ -59,6 +83,14 @@ public final class Ui {
         }
     }
 
+    /**
+     * Reads command input by the user using its Parser object and executes the command.
+     * The method catches an UnknownCommandException thrown by the parser if an invalid input is received, and alerts
+     * the user that an invalid command has been detected.
+     *
+     * @param taskList A TaskList object that is passed to the execute method of the commands to allow the commands to
+     *     do operations on the list of tasks.
+     */
     public void processInput(TaskList taskList) {
         Command command = null;
         while (command == null) {
@@ -71,6 +103,14 @@ public final class Ui {
         command.execute(this, taskList);
     }
 
+    /**
+     * Prompts the user to enter a task type to create and add to the list, reads the task type input by the user
+     * using its Parser object and returns it.
+     * The method catches an UnknownTaskTypeException thrown by the parser if an invalid input is received, and alerts
+     * the user that an invalid task type has been detected.
+     *
+     * @return A String that represents the type of task indicated by the user.
+     */
     public String promptTaskType() {
         String result = null;
         while (result == null) {
@@ -84,6 +124,12 @@ public final class Ui {
         return result;
     }
 
+    /**
+     * Prompts the user to enter a description for the task, reads it using its Parser object and returns it.
+     *
+     * @param taskType A String that represents the type of task, and prints the corresponding prompt.
+     * @return A String that represents the description of the task indicated by the user.
+     */
     public String promptDescription(String taskType) {
         switch (taskType) {
         case "deadline":
@@ -98,6 +144,14 @@ public final class Ui {
         return parser.getDescription();
     }
 
+    /**
+     * Prompts the user to enter a date for the task, reads it using its Parser object and returns it.
+     * The method catches a DateTimeParseException thrown by the parser if an invalid input is received, and alerts
+     * the user that an invalid date has been detected.
+     *
+     * @param taskType A String that represents the type of task, and prints the corresponding prompt.
+     * @return A LocalDate object that represents the date of the task indicated by the user.
+     */
     public LocalDate promptDate(String taskType) {
         String prompt;
         if (taskType.equals("deadline")) {
@@ -108,16 +162,27 @@ public final class Ui {
             prompt = PROMPT_DATE;
         }
 
-        print(prompt);
-        LocalDate result = parser.readDate();
+        LocalDate result = null;
         while (result == null) {
-            print(MESSAGE_NOT_A_VALID_DATE_TIME_ERROR);
-            print(prompt);
-            result = parser.readDate();
+            try {
+                print(prompt);
+                result = parser.readDate();
+            } catch (DateTimeParseException e) {
+                print(MESSAGE_NOT_A_VALID_DATE_TIME_ERROR);
+            }
         }
         return result;
     }
 
+    /**
+     * Prompts the user to enter a time for the event, reads it using its Parser object and returns it.
+     * The method catches a DateTimeParseException thrown by the parser if an invalid input is received, and alerts
+     * the user that an invalid time has been detected.
+     *
+     * @param timeType A String that represents whether a starting time or an ending time is being requested,
+     *     and prints the corresponding prompt.
+     * @return A LocalTime object that represents the time of the event indicated by the user.
+     */
     public LocalTime promptTime(String timeType) {
         String prompt;
         if (timeType.equals("from")) {
@@ -126,32 +191,52 @@ public final class Ui {
             prompt = PROMPT_EVENT_END_TIME;
         }
 
-        print(prompt);
-        LocalTime result = parser.readTime();
+        LocalTime result = null;
         while (result == null) {
-            print(MESSAGE_NOT_A_VALID_DATE_TIME_ERROR);
-            print(prompt);
-            result = parser.readTime();
+            try {
+                print(prompt);
+                result = parser.readTime();
+            } catch (DateTimeParseException e) {
+                print(MESSAGE_NOT_A_VALID_DATE_TIME_ERROR);
+            }
         }
         return result;
     }
 
+    /**
+     * Prompts the user to enter the task number of the task to operate on, reads it using its Parser object
+     * and returns it.
+     * The method catches a NumberFormatException thrown by the parser if a number is not received, and alerts
+     * the user.
+     * The method checks against the TaskList object if the input is valid, and alerts the user if it is not.
+     */
     public int promptTaskNumber(TaskList taskList) {
+        int result = -1;
         if (taskList.isEmpty()) {
             print(MESSAGE_LIST_EMPTY);
-            return -1;
         } else {
-            print(PROMPT_TASK_NUMBER);
-            int result = parser.getTaskNumber();
-            while (result == -1 || taskList.isOutOfBounds(result)) {
-                print(MESSAGE_NOT_A_VALID_NUMBER_ERROR);
-                print(PROMPT_TASK_NUMBER);
-                result = parser.getTaskNumber();
+            while (result == -1) {
+                try {
+                    print(PROMPT_TASK_NUMBER);
+                    result = parser.getTaskNumber();
+                    if (taskList.isOutOfBounds(result)) {
+                        print(MESSAGE_NOT_A_VALID_NUMBER_ERROR);
+                    }
+                } catch (NumberFormatException e) {
+                    print(MESSAGE_NOT_A_VALID_NUMBER_ERROR);
+                }
             }
-            return result;
         }
+        return result;
     }
 
+    /**
+     * Facilitates printing the list of tasks to the user.
+     *
+     * @param taskList A TaskList object representing the current list of tasks, for the method to retrieve the tasks
+     *     to print.
+     * @param printsAll A boolean argument to indicate whether the user wishes to print every task or not.
+     */
     public void printTasks(TaskList taskList, boolean printsAll) {
         if (taskList.isEmpty()) {
             print(MESSAGE_LIST_EMPTY);
@@ -164,6 +249,9 @@ public final class Ui {
         }
     }
 
+    /**
+     * Prints the message and the current list of tasks.
+     */
     public void printConfirmationMessage(TaskList taskList, String message) {
         print(message);
         printTasks(taskList, true);

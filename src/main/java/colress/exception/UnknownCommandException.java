@@ -1,5 +1,8 @@
 package colress.exception;
 
+/**
+ * An exception that is thrown when there is an invalid command entered by the user.
+ */
 public class UnknownCommandException extends Exception {
     public UnknownCommandException() {
         super("""

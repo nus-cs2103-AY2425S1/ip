@@ -17,16 +17,23 @@ import colress.command.UncheckCommand;
 import colress.exception.UnknownCommandException;
 import colress.exception.UnknownTaskTypeException;
 
+/**
+ * Represents the Parser of the Ui of the Colress chatbot.
+ */
 public final class Parser {
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner INPUT_READER = new Scanner(System.in);
     private String input = "";
     public Parser() {}
 
     private String getInput() {
-        input = scanner.nextLine().toLowerCase();
+        input = INPUT_READER.nextLine().toLowerCase();
         return input;
     }
 
+    /**
+     * Reads user input and returns the corresponding Command.
+     * Throws an UnknownCommandException if an invalid command is detected.
+     */
     public Command getCommand() throws UnknownCommandException {
         getInput();
         switch (input) {
@@ -49,10 +56,17 @@ public final class Parser {
         }
     }
 
+    /**
+     * Reads user input and returns the corresponding description.
+     */
     public String getDescription() {
         return getInput();
     }
 
+    /**
+     * Reads user input and returns the corresponding task type.
+     * Throws an UnknownTaskTypeException if an invalid task type is detected.
+     */
     public String getTaskType() throws UnknownTaskTypeException {
         String result = getInput();
         if (Objects.equals(result, "todo")
@@ -64,29 +78,27 @@ public final class Parser {
         }
     }
 
-    public LocalDate readDate() {
-        getInput();
-        try {
-            return LocalDate.parse(input);
-        } catch (DateTimeParseException e) {
-            return null;
-        }
+    /**
+     * Reads user input and returns the corresponding LocalDate object.
+     * Throws a DateTimeParseException if an invalid task type is detected.
+     */
+    public LocalDate readDate() throws DateTimeParseException {
+        return LocalDate.parse(getInput());
     }
 
-    public LocalTime readTime() {
-        getInput();
-        try {
-            return LocalTime.parse(input);
-        } catch (DateTimeParseException e) {
-            return null;
-        }
+    /**
+     * Reads user input and returns the corresponding LocalTime object.
+     * Throws a DateTimeParseException if an invalid task type is detected.
+     */
+    public LocalTime readTime() throws DateTimeParseException {
+        return LocalTime.parse(getInput());
     }
 
-    public int getTaskNumber() {
-        try {
-            return Integer.parseInt(getInput());
-        } catch (NumberFormatException e) {
-            return -1;
-        }
+    /**
+     * Reads user input and returns the corresponding task number.
+     * Throws a NumberFormatException if a number is not detected.
+     */
+    public int getTaskNumber() throws NumberFormatException {
+        return Integer.parseInt(getInput());
     }
 }
