@@ -1,6 +1,7 @@
-package commands;
-import tasks.Task;
-import tasks.TaskList;
+package tars.commands;
+
+import tars.tasks.Task;
+import tars.tasks.TaskList;
 public class MarkCommand extends Command {
 
     @Override

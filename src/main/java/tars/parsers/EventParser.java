@@ -1,9 +1,9 @@
-package parsers;
+package tars.parsers;
 
-import tasks.Event;
-import tasks.Task;
+import tars.exceptions.TarsException;
 
-import exceptions.TarsException;
+import tars.tasks.Task;
+import tars.tasks.Event;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -85,7 +85,7 @@ public class EventParser extends Parser {
 
 
         try {
-            startDate = LocalDate.parse(startCommand[1].trim(), Parser.FORMATTER);
+            startDate = LocalDate.parse(startCommand[1].trim(), FORMATTER);
 
         } catch (DateTimeParseException e) {
 
@@ -94,7 +94,7 @@ public class EventParser extends Parser {
         }
 
         try {
-            endDate = LocalDate.parse(endCommand[1].trim(), Parser.FORMATTER);
+            endDate = LocalDate.parse(endCommand[1].trim(), FORMATTER);
 
         } catch (DateTimeParseException e) {
             throw new TarsException("End date in wrong format. It should be in dd-mm-yy format");

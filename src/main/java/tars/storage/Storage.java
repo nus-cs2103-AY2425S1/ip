@@ -1,15 +1,26 @@
-package storage;
+package tars.storage;
 
-import exceptions.TarsException;
-import parsers.DeadlineParser;
-import parsers.EventParser;
-import tasks.*;
+import tars.exceptions.TarsException;
 
-import java.io.BufferedWriter;
+import tars.parsers.DeadlineParser;
+import tars.parsers.EventParser;
+
+import tars.tasks.Task;
+import tars.tasks.TaskList;
+import tars.tasks.ToDo;
+import tars.tasks.Deadline;
+import tars.tasks.Event;
+
+
+
 import java.io.File;
 import java.io.FileWriter;
+import java.io.BufferedWriter;
+
 import java.io.IOException;
+
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;

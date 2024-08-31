@@ -1,4 +1,4 @@
-package exceptions;
+package tars.exceptions;
 
 public class TarsException extends RuntimeException {
     public TarsException(String str) {

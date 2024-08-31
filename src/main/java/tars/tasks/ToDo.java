@@ -1,6 +1,4 @@
-package tasks;
-
-import tasks.Task;
+package tars.tasks;
 
 public class ToDo extends Task {
 
@@ -10,7 +8,6 @@ public class ToDo extends Task {
 
     @Override
     public String saveTask() {
-
         return String.format("T|%s|%s", super.getStatus(), super.getTask());
     }
     @Override

@@ -1,9 +1,11 @@
-package parsers;
+package tars.parsers;
 
-import tasks.Task;
-import tasks.ToDo;
+import tars.exceptions.TarsException;
 
-import exceptions.TarsException;
+import tars.tasks.Task;
+import tars.tasks.ToDo;
+
+
 
 public class ToDoParser extends Parser {
     @Override
