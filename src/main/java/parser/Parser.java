@@ -109,7 +109,7 @@ public  class Parser {
     }
 
     /**
-     * Used to parse a string for the description of a task
+     * parses a string to obtain text for todo without white space
      * @param desc of format todo {text}
      * @return the text description
      */
@@ -117,11 +117,11 @@ public  class Parser {
         return desc.substring(4).trim();
     }
 
-    /** used to parse deadlines
+    /** parses a string to obtain text for deaadline without white space
      *
      * @param desc of format deadline text /by text
      * @return String[] with the [0] as the description and [1] as by {text}
-     *
+     * @throws chatterboxexceptions.ChatterboxExceptions.ChatterBoxNoInput if no text is found
      */
     public String[] parseDeadline(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter{
 
@@ -132,17 +132,27 @@ public  class Parser {
         }
         StringBuilder plainDesc = new StringBuilder();
         StringBuilder deadline = new StringBuilder();
+        boolean commandEncountered = false;
         for (int i = 9; i < desc.length(); i++) {
+
             if (i < endDate) {
                 plainDesc.append(desc.charAt(i));
 
             } else {
-                if (desc.charAt(i) != '/') {
-                    deadline.append(desc.charAt(i));
+                if (desc.charAt(i) == '/') {
+                    if (!commandEncountered) {
+                        i += 2;
+                        commandEncountered = true;
+                        continue;
+
+                    }
+
+
                 }
+                deadline.append(desc.charAt(i));
             }
         }
-        return new String[] {plainDesc.toString(), deadline.toString()} ;
+        return new String[] {plainDesc.toString().trim(), deadline.toString().trim()} ;
     }
 
     /** Parses the event string for the desc, from and to time
@@ -165,23 +175,37 @@ public  class Parser {
         StringBuilder plainDesc = new StringBuilder();
         StringBuilder startDate = new StringBuilder();
         StringBuilder endDate = new StringBuilder();
+        boolean fromCommandFound = false;
+        boolean toCommandFound = false;
         //start with 5 to go past event
         for (int i = 5; i < desc.length(); i++) {
             if (i < fromStart) {
                 plainDesc.append(desc.charAt(i));
             } else if (i < toStart) {
-                if (desc.charAt(i) != '/') {
-                    startDate.append(desc.charAt(i));
+                if (desc.charAt(i) == '/') {
+                    if (!fromCommandFound) {
+                        i += 4;
+                        fromCommandFound = true;
+                        continue;
+                    }
 
                 }
+                startDate.append(desc.charAt(i));
+
             } else {
-                if (desc.charAt(i) != '/') {
-                    endDate.append(desc.charAt(i));
+                if (desc.charAt(i) == '/') {
+                    if (!toCommandFound) {
+                        i += 2;
+                        toCommandFound = true;
+                        continue;
+                    }
+
 
                 }
+                endDate.append(desc.charAt(i));
             }
         }
-        return new String[] {plainDesc.toString(), startDate.toString(), endDate.toString()};
+        return new String[] {plainDesc.toString().trim(), startDate.toString().trim(), endDate.toString().trim()};
     }
 
     public static DateTimeFormatter getPrintdateformatter() {

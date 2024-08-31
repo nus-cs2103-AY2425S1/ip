@@ -99,7 +99,7 @@ public  class Storage {
                     Deadline newDead;
 
                     if (deadlineObj == null) {
-                        newDead = new Deadline(desc, "by " + deadline);
+                        newDead = new Deadline(desc, deadline);
 
                     } else {
                         newDead = new Deadline(desc, deadlineObj);

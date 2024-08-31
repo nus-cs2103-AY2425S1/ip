@@ -1,7 +1,9 @@
 package parser;
 
+import chatterboxexceptions.ChatterboxExceptions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
@@ -47,5 +49,44 @@ public class ParserTest {
         }
     }
 
+    @Test
+    public void parseTodo_todoText() {
 
+        assertEquals("go home", testParser.parseTODO("todo go home"));
+    }
+
+    @Test void parseTodo_byeText() {
+
+        assertEquals("bye bye", testParser.parseTODO("todo bye bye"));
+    }
+    @Test
+    public void parseDeadline_deadlineText() {
+        String[] expected = {"homework", "tmr"};
+        try {
+            assertArrayEquals(expected, testParser.parseDeadline("deadline homework /by tmr"));
+
+        } catch (ChatterboxExceptions.ChatterBoxMissingParameter e) {
+            System.out.println("Fail");
+        }
+    }
+
+    @Test
+    public void parseDeadline_deadlineSlash() {
+        try {
+            assertArrayEquals(new String[]{"deadline text", "/by next year"},
+                    testParser.parseDeadline("deadline deadline text /by/by next year"));
+        } catch (ChatterboxExceptions.ChatterBoxMissingParameter e) {
+            System.out.println("error");
+        }
+    }
+
+    @Test
+    public void parseEvent_normalText() {
+        try {
+            assertArrayEquals(new String[] {"event start", "4pm", "9pm"},
+                    testParser.parseEvent("event event start /from 4pm /to 9pm"));
+        } catch (ChatterboxExceptions.ChatterBoxMissingParameter e) {
+            System.out.println("error" + e.getMessage());
+        }
+    }
 }
