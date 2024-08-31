@@ -19,13 +19,22 @@ import botty.storage.StorageHandler;
 import botty.tasks.TaskManager;
 import botty.ui.UI;
 
+/**
+ * The main class
+ */
 public class Botty {
-
+    // Map of command name to command instance
     private final Map<String, Command> commands;
+    // Manager of the tasks
     private final TaskManager taskManager;
+    // Storage handler to handle the saving and loading
     private final StorageHandler storageHandler;
+    // UI to handle interaction with the user
     private final UI ui;
 
+    /**
+     * Constructs a {@code Botty} instance
+     */
     public Botty() {
         commands = new HashMap<>();
         commands.put("list", new ListCommand());
@@ -42,12 +51,9 @@ public class Botty {
         storageHandler = new StorageHandler("./data", "tasks");
     }
 
-    public static void main(String[] args) {
-        Botty botty = new Botty();
-
-        botty.run();
-    }
-
+    /**
+     * Runs the bot
+     */
     public void run() {
         ui.displayIntroduction();
 
@@ -83,6 +89,10 @@ public class Botty {
         ui.reply("Thank you for your continued patronage. Goodbye!");
 
     }
+
+    /**
+     * Loads the task list from local storage into the task manager
+     */
     private void loadTaskList() {
         try {
             storageHandler.loadTaskList(taskManager);
@@ -93,11 +103,24 @@ public class Botty {
             ui.reply(ex.getMessage());
         }
     }
+
+    /**
+     * Saves the task list from task manager to local storage
+     */
     private void saveTaskList() {
         try {
             storageHandler.saveTaskList(taskManager);
         } catch (BottyException ex) {
             ui.reply(ex.getMessage());
         }
+    }
+
+    /**
+     * Main method
+     */
+    public static void main(String[] args) {
+        Botty botty = new Botty();
+
+        botty.run();
     }
 }

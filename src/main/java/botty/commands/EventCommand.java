@@ -6,7 +6,18 @@ import botty.exceptions.EmptyArgumentException;
 import botty.tasks.Event;
 import botty.tasks.TaskManager;
 
+/**
+ * Defines the behaviour of the Event command
+ */
 public class EventCommand extends AddTaskCommand {
+    /**
+     * Executes the event command, adding an event to the given task manager with
+     * the given arguments
+     * @param taskManager
+     * @param parsedInput
+     * @return success message
+     * @throws BottyException if given input is invalid
+     */
     @Override
     public String execute(TaskManager taskManager, ParsedInput parsedInput) throws BottyException {
         try {
