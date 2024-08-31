@@ -49,45 +49,54 @@ public class TaskList {
 
     /**
      * Prints the tasklist.
+     *
+     * @return String representation of the tasklist.
      */
-    public void printTaskList() {
-        System.out.println("Here are the tasks in your list:");
+    public String printTaskList() {
+        StringBuilder message = new StringBuilder("Here are the tasks in your list:");
         Task currentTask;
         for (int i = 0; i < this.tasklist.size(); i++) {
             currentTask = this.tasklist.get(i);
-            System.out.println((i + 1) + ". [" + currentTask.getEventType()
-                    + "][" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
+            String msg = "\n" + (i + 1) + ". [" + currentTask.getEventType()
+                    + "][" + currentTask.getStatusIcon() + "] " + currentTask.getDescription();
+            message.append(msg);
         }
+        return message.toString();
     }
 
     /**
      * Prints a specific task.
      *
      * @param task Task to be printed.
+     * @return String representation of the task.
      */
-    public void printTask(Task task) {
+    public String printTask(Task task) {
         int size = tasklist.size();
-        System.out.println("  [" + task.getEventType() + "][" + task.getStatusIcon() + "] " + task.getDescription());
-        System.out.println("Now you have " + size + " tasks in the list.");
+        String msg = "  [" + task.getEventType() + "][" + task.getStatusIcon() + "] " + task.getDescription();
+        String taskLeft = "Now you have " + size + " tasks in the list.";
+        return (msg + "\n" + taskLeft);
     }
 
     /**
      * Prints the tasks that contain the keyword.
      *
      * @param keyword Keyword to be searched.
+     * @return String representation of the tasks that contain the keyword.
      */
-    public void printFindTask(String keyword) {
+    public String printFindTask(String keyword) {
+        StringBuilder message = new StringBuilder("Here are the matching tasks in your list:");
         Task currentTask;
         int count = 1;
-        System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < this.tasklist.size(); i++) {
             currentTask = this.tasklist.get(i);
             if (currentTask.getDescription().contains(keyword)) {
-                System.out.println(count + ". [" + currentTask.getEventType()
-                        + "][" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
+                String msg = "\n" + count + ". [" + currentTask.getEventType()
+                        + "][" + currentTask.getStatusIcon() + "] " + currentTask.getDescription();
+                message.append(msg);
                 count++;
             }
         }
+        return message.toString();
     }
 
     /**

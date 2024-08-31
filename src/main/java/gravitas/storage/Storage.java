@@ -10,10 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gravitas.exception.DukeException;
-import gravitas.task.Deadline;
-import gravitas.task.Event;
+import gravitas.parser.Parser;
 import gravitas.task.Task;
-import gravitas.task.Todo;
 import gravitas.tasklist.TaskList;
 
 
@@ -55,39 +53,17 @@ public class Storage {
         if (new File(this.filePath.toString()).isFile()) {
             try {
                 List<String> lines = Files.readAllLines(this.filePath);
-                ArrayList<Task> t = new ArrayList<>();
+                ArrayList<Task> tasks = new ArrayList<>();
                 for (String line : lines) {
                     String[] frags = line.split("\\s*\\|\\s*");
-                    if (frags[0].equals("T")) {
-                        Task task = new Todo(frags[2]);
-                        if (frags[1].equals("1")) {
-                            task.markTask();
-                        }
-                        t.add(task);
-                    } else if (frags[0].equals("E")) {
-                        String startDate = frags[3] + " " + frags[4];
-                        String endDate = frags[5] + " " + frags[6];
-                        Task task = new Event(frags[2], startDate, endDate);
-                        if (frags[1].equals("1")) {
-                            task.markTask();
-                        }
-                        t.add(task);
-                    } else if (frags[0].equals("D")) {
-                        String endDate = frags[3] + " " + frags[4];
-                        Task task = new Deadline(frags[2], endDate);
-                        if (frags[1].equals("1")) {
-                            task.markTask();
-                        }
-                        t.add(task);
-                    }
+                    Task t = Parser.parseStringToTask(line);
+                    tasks.add(t);
                 }
-
-                return t;
+                return tasks;
             } catch (IOException e) {
                 throw new DukeException("Error in loading tasks!");
             }
         }
-
         return new ArrayList<>();
     }
 
