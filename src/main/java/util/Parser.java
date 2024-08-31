@@ -1,8 +1,8 @@
 package main.java.util;
 
-import main.java.Deadline;
-import main.java.Event;
-import main.java.Todo;
+import main.java.tasks.Deadline;
+import main.java.tasks.Event;
+import main.java.tasks.Todo;
 import main.java.commands.*;
 
 import java.time.format.DateTimeParseException;

@@ -1,7 +1,6 @@
 package main.java.commands;
 
-import main.java.TaskList;
-import main.java.util.Storage;
+import main.java.tasks.TaskList;
 import main.java.util.Ui;
 
 public class ListCommand extends Command{
