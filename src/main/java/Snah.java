@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Snah {
 
     private Storage storage;
-    private ArrayList<Task> tasksList;
+    private Tasklist tasksList;
     private Ui ui;
 
     public static void main(String[] args) {
@@ -14,7 +14,7 @@ public class Snah {
     public Snah() {
         this.ui = new Ui();
         this.storage = new Storage();
-        this.tasksList = storage.getTaskLists();
+        this.tasksList = new Tasklist(storage);
 
         ui.greet();
         this.chatLoop();
@@ -22,13 +22,10 @@ public class Snah {
 
     public void chatLoop() {
         Scanner scanner = new Scanner(System.in);
-        String userInput = "";
-
-        tasksList = storage.getTaskLists();
         boolean continueChat = true;
 
         while (continueChat) {
-            userInput = scanner.nextLine();
+            String userInput = scanner.nextLine();
             Parser.Command currentCommand = Parser.getCommand(userInput);
             ui.start();
             switch (currentCommand) {
@@ -149,10 +146,8 @@ public class Snah {
                     break;
                 }
             }
-
             ui.end();
-            storage.saveTaskList(tasksList);
-
+            tasksList.save(storage);
         }
         scanner.close();
     }
