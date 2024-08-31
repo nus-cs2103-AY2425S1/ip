@@ -19,7 +19,7 @@ import mortalreminder.tasks.Task;
  * and ensures that tasks are stored and retrieved correctly.
  */
 public class Storage {
-    protected static final String STORAGE_LIST_FILE_PATH = "src/main/resources/listStorage.txt";
+    protected static final String STORAGE_LIST_FILE_PATH = "src/main/resources/data/listStorage.txt";
 
     /**
      * Appends a task to the storage file.
