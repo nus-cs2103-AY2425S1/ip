@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -91,11 +94,16 @@ public class King {
                 if (parts.length == 2 && parts[0].length() >= 10) {
                     String description = parts[0].substring(9).trim();
                     String by = parts[1].trim();
-                    tasks.add(new Deadline(description, by));
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Approved. I've added this to your list of duties:\n" + tasks.get(tasks.size() - 1).toString());
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
+                    try {
+                        LocalDateTime byDate = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        tasks.add(new Deadline(description, byDate));
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Approved. I've added this to your list of duties:\n" + tasks.get(tasks.size() - 1).toString());
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.println("____________________________________________________________");
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid event date format. Please use yyyy-MM-dd HHmm.");
+                    }
                 } else {
                     System.out.println("Invalid deadline format.");
                 }
@@ -105,11 +113,17 @@ public class King {
                     String description = parts[0].substring(6).trim();
                     String from = parts[1].trim();
                     String to = parts[2].trim();
-                    tasks.add(new Event(description, from, to));
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Approved. I've added this to your list of duties:\n" + tasks.get(tasks.size() - 1).toString());
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
+                    try {
+                        LocalDateTime fromDate = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        LocalDateTime toDate = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        tasks.add(new Event(description, fromDate, toDate));
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Approved. I've added this to your list of duties:\n" + tasks.get(tasks.size() - 1).toString());
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.println("____________________________________________________________");
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid event date format. Please use yyyy-MM-dd HHmm.");
+                    }
                 } else {
                     System.out.println("Invalid event format.");
                 }
