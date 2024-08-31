@@ -15,7 +15,11 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatus() {
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public String printStatus() {
         return String.format("[%s]", isDone ? "X" : " ");
     }
 
@@ -23,9 +27,13 @@ public class Task {
         return description;
     }
 
+    public String toSaveFile() {
+        return String.format("T:%s:%s", isDone() ? "x" : "", getDescription());
+    }
+
     @Override
     public String toString() {
-        return String.format("%s %s", getStatus(), getDescription());
+        return String.format("%s %s", printStatus(), getDescription());
     }
 
 }

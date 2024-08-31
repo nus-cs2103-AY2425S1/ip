@@ -11,6 +11,10 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s (Event: from %s to %s) %s", getStatus(), from, to, getDescription());
+        return String.format("%s (Event: from %s to %s) %s", printStatus(), from, to, getDescription());
+    }
+
+    public String toSaveFile() {
+        return String.format("E:%s:%s:%s:%s", isDone() ? "x" : "", getDescription(), from, to);
     }
 }

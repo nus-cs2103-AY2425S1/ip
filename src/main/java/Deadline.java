@@ -9,7 +9,11 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s (Deadline: by %s) %s", getStatus(), by, getDescription());
+        return String.format("%s (Deadline: by %s) %s", printStatus(), by, getDescription());
+    }
+
+    public String toSaveFile() {
+        return String.format("D:%s:%s:%s", isDone() ? "x" : "", getDescription(), by);
     }
 
 }
