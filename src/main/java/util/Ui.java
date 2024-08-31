@@ -161,9 +161,18 @@ public class Ui {
         System.out.print(output);
     }
 
+    public void showNotANumberError() {
+        String output = LINE
+                + "Please enter a valid number!\n"
+                + LINE;
+        System.out.print(output);
+    }
+
+
     public void showDateTimeError() {
         String output = LINE
-                + "Invalid format! Datetime must be in this form: E.g. 2024-10-11 1200\n"
+                + "Invalid format! Datetime must be in this form: year-month-day 24hour_time"
+                + "E.g. 2024-10-11 1200\n"
                 + LINE;
         System.out.print(output);
     }
