@@ -1,5 +1,8 @@
 package Bwead;
 
+/**
+ * Represents a task with a name.
+ */
 public class Todo extends Task {
 
     private boolean done;

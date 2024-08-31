@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ParserTest {
     @Test
-    public void testGetEventEndTimeSuccess() throws Exception {
+    public void testGetEventEndTimeSuccess() {
         assertEquals(LocalTime.of(18,00),
                 new Parser("event project meeting /from 2019-10-15 1700 /to 2019-10-15 1800").getEventEndTime());
         assertEquals(LocalTime.of(9,00),
@@ -44,7 +44,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testDeadlineDateSuccess() throws Exception {
+    public void testDeadlineDateSuccess() {
         assertEquals(LocalDate.of(2020, 12, 13),
                 new Parser("deadline project meeting /by 2020-12-13 1700").getDeadlineDate());
         assertEquals(LocalDate.of(2021, 1, 2),

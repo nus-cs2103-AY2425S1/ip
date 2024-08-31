@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a start date and end date.
+ */
 public class Event extends Task {
 
     private boolean done;

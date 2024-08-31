@@ -9,22 +9,42 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Handles the saving of tasks in a file with a specific file path.
+ * Loads tasks from the file and updates the file upon new commands.
+ */
 public class History {
 
     private File saved;
     private static ArrayList<Task> historyList;
 
+    /**
+     * Constructs a History instance using a file path which points to local file.
+     * a new ArrayList will be created to store the current historyList.
+     *
+     * @param filePath file path of the local file which will save tasks.
+     */
     public History(String filePath) {
         this.saved = new File(filePath);
         historyList = new ArrayList<>();
     }
 
+    /**
+     * Returns local file where tasks are saved.
+     *
+     * @return File.
+     */
     public File getSaved() {
         return saved;
     }
 
+    /**
+     * Loads the saved tasks from the local file into a new ArrayList.
+     *
+     * @throws IOException when a failure occurs while performing read operations from scanning.
+     * @throws BweadException when file is not found at the specified file path.
+     */
     public ArrayList<Task> load() throws BweadException, IOException {
-
         if (saved.canRead()) {
             Scanner s = new Scanner(saved);
             while (s.hasNext()) {
@@ -32,10 +52,16 @@ public class History {
             }
             return historyList;
         } else {
-            throw new BweadException("no saved tasks found");
+            throw new BweadException("no file found");
         }
     }
 
+    /**
+     * Updates local file to the current arrayList in TaskList.
+     *
+     * @param tasklist ArrayList with all the current tasks.
+     * @throws IOException when a failure occurs while performing write operations.
+     */
     public void updateFile(ArrayList<Task> tasklist) throws IOException {
         FileWriter fw = new FileWriter(saved);
         for (int i = 1; i <= tasklist.size(); i++) {
@@ -45,6 +71,12 @@ public class History {
         fw.close();
     }
 
+    /**
+     * Converts a string from the local file into its equivalent task.
+     *
+     * @param string String from the local file.
+     * @return Task task that is represented by the string.
+     */
     public static Task getTaskfromString(String string) {
         char type = string.charAt(1);
         if (type == 'T') {
