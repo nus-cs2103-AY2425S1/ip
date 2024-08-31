@@ -1,3 +1,8 @@
+package Majima.command;
+
+import Majima.storage.Storage;
+import Majima.task.TaskList;
+import Majima.ui.Ui;
 
 public class ExitCommand extends Command {
 

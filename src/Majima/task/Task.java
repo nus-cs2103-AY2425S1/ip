@@ -1,3 +1,4 @@
+package Majima.task;
 
 public class Task {
     protected String description;

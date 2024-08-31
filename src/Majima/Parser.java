@@ -1,3 +1,17 @@
+package Majima;
+
+
+import Majima.command.AddTodoCommand;
+import Majima.command.Command;
+import Majima.command.ExitCommand;
+import Majima.command.ListCommand;
+import Majima.command.AddDeadlineCommand;
+import Majima.command.AddEventCommand;
+import Majima.command.MarkCommand;
+import Majima.command.DeleteCommand;
+import Majima.command.UnmarkCommand;
+import Majima.task.Task;
+
 public class Parser {
 
     public static Command parse(String input) throws MajimaException {

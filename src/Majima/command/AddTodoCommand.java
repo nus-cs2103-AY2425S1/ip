@@ -1,3 +1,11 @@
+package Majima.command;
+
+import Majima.MajimaException;
+import Majima.storage.Storage;
+import Majima.task.Task;
+import Majima.task.TaskList;
+import Majima.task.Todo;
+import Majima.ui.Ui;
 
 public class AddTodoCommand extends Command {
     private String description;

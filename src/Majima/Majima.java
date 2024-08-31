@@ -1,3 +1,9 @@
+package Majima;
+
+import Majima.command.Command;
+import Majima.ui.Ui;
+import Majima.storage.Storage;
+import Majima.task.TaskList;
 
 public class Majima {
 

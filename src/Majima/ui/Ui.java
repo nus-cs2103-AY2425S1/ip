@@ -1,3 +1,7 @@
+package Majima.ui;
+
+import Majima.task.Task;
+import Majima.task.TaskList;
 
 import java.util.Scanner;
 
