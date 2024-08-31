@@ -29,6 +29,12 @@ class Storage {
         }
     }
 
+    /**
+     * Finds tasks that match the keyword.
+     *
+     * @param tasks
+     * @param keyword
+     */
     public static void findTasks(List<Task> tasks, String keyword) {
         String out = "Here are the matching tasks in your list: \n";
         int count = 0;
@@ -39,9 +45,11 @@ class Storage {
                 count++;
             }
         }
+        
         if (count == 0) {
             out = "There are no matching tasks in your list.";
         }
+
         Ui.dialogue(out);
     }
 }
