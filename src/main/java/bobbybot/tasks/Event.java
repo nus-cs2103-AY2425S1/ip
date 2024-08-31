@@ -1,8 +1,10 @@
-package bobbybot;
+package bobbybot.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import bobbybot.BobbyBotException;
 
 /**
  * Represents an event task.

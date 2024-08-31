@@ -5,10 +5,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import bobbybot.BobbyBotException;
-import bobbybot.Deadline;
 import bobbybot.Storage;
-import bobbybot.Task;
 import bobbybot.TaskList;
+import bobbybot.tasks.Deadline;
+import bobbybot.tasks.Task;
 import bobbybot.ui.Ui;
 
 

@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import bobbybot.tasks.Deadline;
+import bobbybot.tasks.Event;
+import bobbybot.tasks.Task;
+import bobbybot.tasks.ToDo;
+
 /**
  * Represents the storage of the task list, using a text file.
  */

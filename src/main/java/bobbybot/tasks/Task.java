@@ -1,4 +1,4 @@
-package bobbybot;
+package bobbybot.tasks;
 
 /**
  * Represents an abstract task in the task list.

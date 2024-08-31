@@ -1,6 +1,7 @@
 package bobbybot;
-
 import java.util.ArrayList;
+
+import bobbybot.tasks.Task;
 
 /**
  * Represents a list of tasks.

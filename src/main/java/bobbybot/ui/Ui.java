@@ -1,11 +1,19 @@
 package bobbybot.ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Arrays;
 import java.util.stream.IntStream;
 
-import bobbybot.Task;
+import bobbybot.BobbyBot;
 import bobbybot.TaskList;
+import bobbybot.tasks.Task;
+import javafx.animation.PauseTransition;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Represents the user interface of BobbyBot.
@@ -13,33 +21,59 @@ import bobbybot.TaskList;
  */
 public class Ui {
 
-    private final Scanner scanner;
+    private FXMLLoader fxmlLoader;
+    private Stage stage;
 
     /**
-     * Constructor for Ui.
-     */
-    public Ui() {
-        scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Reads the next line of input from the user.
+     * Starts the JavaFX UI.
      *
-     * @return The next line of input from the user.
+     * @param stage     The stage to display the UI.
+     * @param bobbyBot The BobbyBot object to interact with.
      */
-    public String readCommand() {
-        return scanner.nextLine();
+    public void start(Stage stage, BobbyBot bobbyBot) {
+        try {
+            fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/MainWindow.fxml"));
+            this.stage = stage;
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            this.stage.setTitle(bobbyBot.getName());
+            this.stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setBobbyBot(bobbyBot);
+            printResponse("Hello! I'm " + bobbyBot.getName() + "\nWhat can I do for you?");
+            this.stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * Stops the JavaFX UI.
+     */
+    public void stop() {
+        // Delay closing the window to allow the user to read the final message.
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished(event -> stage.close());
+        delay.play();
+    }
+
+
+    /**
+     * Prints the response to the JavaFX UI.
+     * @param response The response to be printed.
+     */
+    public void printResponse(String... response) {
+        fxmlLoader.<MainWindow>getController()
+                  .printResponse(Arrays.stream(response).reduce("", (x, y) -> x + "\n" + y));
+    }
 
     /**
      * Prints a descriptive message, showing the task that has been removed.
      *
      * @param tasks The list of tasks.
-     * @param task The task that has been removed.
+     * @param task  The task that has been removed.
      */
     public void printRemoveTask(TaskList tasks, Task task) {
-        printInput(
+        printResponse(
                 "Noted. I've removed this task:",
                 "\t" + task,
                 "Now you have " + tasks.getSize() + " task(s) in the list."
@@ -50,10 +84,10 @@ public class Ui {
      * Prints a descriptive message, showing the task that has been added.
      *
      * @param tasks The list of tasks.
-     * @param task The task that has been added.
+     * @param task  The task that has been added.
      */
     public void printAddTask(TaskList tasks, Task task) {
-        printInput(
+        printResponse(
                 "Got it. I've added this task:",
                 "\t" + task,
                 "Now you have " + tasks.getSize() + " task(s) in the list."
@@ -69,10 +103,10 @@ public class Ui {
         ArrayList<String> taskListString = new ArrayList<>();
         taskListString.add("Here are the matching tasks in your list:");
         IntStream
-            .range(0, tasks.getSize())
-            .mapToObj(i -> i + 1 + ". " + tasks.getTask(i))
-            .forEach(taskListString::add);
-        printInput(taskListString.toArray(String[]::new));
+                .range(0, tasks.getSize())
+                .mapToObj(i -> i + 1 + ". " + tasks.getTask(i))
+                .forEach(taskListString::add);
+        printResponse(taskListString.toArray(String[]::new));
     }
 
     /**
@@ -84,25 +118,10 @@ public class Ui {
         ArrayList<String> taskListString = new ArrayList<>();
         taskListString.add("Here are the tasks in your list:");
         IntStream
-            .range(0, tasks.getSize())
-            .mapToObj(i -> i + 1 + ". " + tasks.getTask(i))
-            .forEach(taskListString::add);
-        printInput(taskListString.toArray(String[]::new));
-    }
-
-    /**
-     * Prints a message that is formatted.
-     *
-     * @param input The message to be formatted and printed.
-     */
-    public void printInput(String... input) {
-        System.out.print("\t");
-        printLine();
-        for (String i : input) {
-            System.out.println("\t" + i);
-        }
-        System.out.print("\t");
-        printLine();
+                .range(0, tasks.getSize())
+                .mapToObj(i -> i + 1 + ". " + tasks.getTask(i))
+                .forEach(taskListString::add);
+        printResponse(taskListString.toArray(String[]::new));
     }
 
     /**
@@ -111,13 +130,6 @@ public class Ui {
      * @param e The exception that caused the error.
      */
     public void printError(Exception e) {
-        printInput(e.getMessage());
-    }
-
-    /**
-     * Prints a line.
-     */
-    public void printLine() {
-        System.out.println("____________________________________________________________");
+        printResponse(e.getMessage());
     }
 }

@@ -14,6 +14,6 @@ public class CommandBye extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         setExit();
-        ui.printInput("Bye. Hope to see you again soon!");
+        ui.printResponse("Bye. Hope to see you again soon!");
     }
 }
