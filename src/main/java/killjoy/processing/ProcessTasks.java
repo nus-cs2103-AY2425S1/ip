@@ -1,14 +1,13 @@
-package chatbot.util;
+package killjoy.processing;
 
-import chatbot.util.KillJoy;
-import chatbot.util.Task;
+import killjoy.main.KillJoy;
+import killjoy.task.Task;
+import killjoy.main.UserInterface;
 
-import java.lang.invoke.StringConcatFactory;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//Upon suggestion about the code from ChatGPT, I am implementing some of the suggested changes.
-//I have divided my Chatbot into two classes. One takes care of the input/output and this takes care of processing.
 public class ProcessTasks {
     private KillJoy kj;
     private UserInterface ui;

@@ -1,7 +1,8 @@
-package chatbot.util;
+package killjoy.processing;
 
-import chatbot.util.Task;
-import chatbot.util.UserInterface;
+import killjoy.task.Task;
+import killjoy.main.UserInterface;
+import killjoy.main.KillJoy;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

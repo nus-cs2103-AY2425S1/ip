@@ -1,12 +1,12 @@
-package chatbot.util;
+package killjoy.main;
 
-import chatbot.util.ProcessTasks;
-import chatbot.util.Task;
-import chatbot.util.Todo;
-import chatbot.util.Event;
-import chatbot.util.Deadline;
-import chatbot.util.Storage;
-import chatbot.util.UserInterface;
+import killjoy.task.Deadline;
+import killjoy.task.Event;
+import killjoy.task.Task;
+import killjoy.task.Todo;
+import killjoy.processing.ProcessTasks;
+import killjoy.processing.Storage;
+import killjoy.processing.Parser;
 
 import java.util.ArrayList;
 import java.util.Scanner;

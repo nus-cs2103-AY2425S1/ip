@@ -1,6 +1,6 @@
-package chatbot.util;
+package killjoy.task;
 
-import chatbot.util.Task;
+import killjoy.task.Task;
 
 public class Todo extends Task {
 
