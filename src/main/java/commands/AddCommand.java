@@ -1,3 +1,7 @@
+package commands;
+import tasks.Task;
+import tasks.TaskList;
+
 public class AddCommand extends Command {
 
     @Override

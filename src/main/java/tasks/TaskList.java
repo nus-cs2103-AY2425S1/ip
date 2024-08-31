@@ -1,3 +1,11 @@
+package tasks;
+
+import parsers.ToDoParser;
+import parsers.DeadlineParser;
+import parsers.EventParser;
+
+import exceptions.TarsException;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -5,9 +13,9 @@ import java.util.regex.Pattern;
 public class TaskList {
     List<Task> taskList;
 
-    Parser toDoParser = new ToDoParser();
-    Parser deadlineParser = new DeadlineParser();
-    Parser eventParser = new EventParser();
+    ToDoParser toDoParser = new ToDoParser();
+    DeadlineParser deadlineParser = new DeadlineParser();
+    EventParser eventParser = new EventParser();
 
     public TaskList(List<Task> taskList) {
         this.taskList = taskList;
@@ -52,7 +60,7 @@ public class TaskList {
         if (matcher.find()) {
             int i = Integer.parseInt(matcher.group());
             if (taskList.size() < i) {
-                throw new TarsException("Task not in list. Check again");
+                throw new TarsException("tasks.Task not in list. Check again");
             }
             return taskList.get(i - 1);
         }
@@ -68,7 +76,7 @@ public class TaskList {
         if (matcher.find()) {
             int i = Integer.parseInt(matcher.group());
             if (taskList.size() < i) {
-                throw new TarsException("Task not in list. Check again");
+                throw new TarsException("tasks.Task not in list. Check again");
             }
             t = taskList.get(i - 1);
             taskList.remove(t);

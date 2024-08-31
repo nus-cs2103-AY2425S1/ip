@@ -1,8 +1,15 @@
+package parsers;
+
+import tasks.Task;
+import tasks.ToDo;
+
+import exceptions.TarsException;
+
 public class ToDoParser extends Parser {
     @Override
     public Task parse(String[] taskInfo) {
         if (taskInfo.length <= 1) {
-            throw new TarsException("Add a name to your ToDo task");
+            throw new TarsException("Add a name to your tasks.ToDo task");
         }
 
         String name = taskInfo[1].trim();

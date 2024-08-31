@@ -34,37 +34,37 @@ You now have 3 tasks. Are you gonna do any of them?
 
 >
 -------------------------------------------------------------------------------------
-Task complete. If I had arms, I might give you a pat on the back.
+tasks.Task complete. If I had arms, I might give you a pat on the back.
 [T] [X] borrow book
 -------------------------------------------------------------------------------------
 
 >
 --------------------------------------------------------------------------------------------------
-Task complete. If I had arms, I might give you a pat on the back.
+tasks.Task complete. If I had arms, I might give you a pat on the back.
 [D] [X] return book (by: Sunday)
 --------------------------------------------------------------------------------------------------
 
 >
 --------------------------------------------------------------------------------------------------------------
-Task complete. If I had arms, I might give you a pat on the back.
+tasks.Task complete. If I had arms, I might give you a pat on the back.
 [E] [X] meeting (from: Thursday 4pm to: 6pm)
 --------------------------------------------------------------------------------------------------------------
 
 >
 -------------------------------------------------------------------
-Task undone. No worries, I won't judge... much.
+tasks.Task undone. No worries, I won't judge... much.
 [T] [ ] borrow book
 -------------------------------------------------------------------
 
 >
 --------------------------------------------------------------------------------
-Task undone. No worries, I won't judge... much.
+tasks.Task undone. No worries, I won't judge... much.
 [D] [ ] return book (by: Sunday)
 --------------------------------------------------------------------------------
 
 >
 --------------------------------------------------------------------------------------------
-Task undone. No worries, I won't judge... much.
+tasks.Task undone. No worries, I won't judge... much.
 [E] [ ] meeting (from: Thursday 4pm to: 6pm)
 --------------------------------------------------------------------------------------------
 
