@@ -22,7 +22,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_invalCommand() {
+    public void parseCommand_invalidCommand() {
         assertEquals(Parser.VALID_COMMAND.INVALID, testParser.parseCommand("baye bye"));
 
     }
