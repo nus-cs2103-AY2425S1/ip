@@ -1,7 +1,9 @@
 package bob;
 
 public class DeadlineCommand  extends Command {
-    protected static String[] params = new String[] { "deadline", "/by" };
+    protected static String[] params = new String[] {
+            "deadline", "/by"
+    };
     protected static int paramCount = 2;
     protected static String identifier = "deadline";
     private String name;

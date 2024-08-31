@@ -1,7 +1,9 @@
 package bob;
 
 public class TodoCommand  extends Command {
-    protected static String[] params = new String[] { "todo" };
+    protected static String[] params = new String[] {
+            "todo"
+    };
     protected static int paramCount = 1;
     protected static String identifier = "todo";
     private String name;

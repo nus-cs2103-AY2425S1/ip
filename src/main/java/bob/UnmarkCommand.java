@@ -1,7 +1,9 @@
 package bob;
 
 public class UnmarkCommand  extends Command {
-    protected static String[] params = new String[] { "unmark" };
+    protected static String[] params = new String[] {
+            "unmark"
+    };
     protected static int paramCount = 1;
     protected static String identifier = "unmark";
     private final int idx;

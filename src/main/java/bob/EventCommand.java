@@ -1,7 +1,11 @@
 package bob;
 
 public class EventCommand  extends Command {
-    protected static String[] params = new String[] { "event", "/from", "/to" };
+    protected static String[] params = new String[] {
+            "event",
+            "/from",
+            "/to"
+    };
     protected static int paramCount = 3;
     protected static String identifier = "event";
     private String name;

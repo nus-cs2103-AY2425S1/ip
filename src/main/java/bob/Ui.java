@@ -3,8 +3,12 @@ package bob;
 import java.util.Scanner;
 
 public class Ui {
-    private static final String[] welcome = { "Hello! I'm bob.Bob", "What can I do for you?" };
-    private static final String[] farewell = { " Bye. Hope to see you again soon!" };
+    private static final String[] welcome = {
+            "Hello! I'm bob.Bob", "What can I do for you?"
+    };
+    private static final String[] farewell = {
+            " Bye. Hope to see you again soon!"
+    };
 
     public void showWelcome() {
         Printer.prettyPrint(Ui.welcome);
