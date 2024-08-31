@@ -1,7 +1,8 @@
 package commands;
 
 import exceptions.BottyException;
+import tasks.TaskManager;
 
 public interface Command {
-    String execute(ParsedInput parsedInput) throws BottyException;
+    String execute(TaskManager taskManager, ParsedInput parsedInput) throws BottyException;
 }

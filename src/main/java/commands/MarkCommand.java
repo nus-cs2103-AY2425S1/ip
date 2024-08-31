@@ -5,13 +5,8 @@ import exceptions.BottyException;
 import tasks.Task;
 
 public class MarkCommand implements Command {
-
-    private final TaskManager taskManager;
-    public MarkCommand(TaskManager taskManager) {
-        this.taskManager = taskManager;
-    }
     @Override
-    public String execute(ParsedInput parsedInput) throws BottyException {
+    public String execute(TaskManager taskManager, ParsedInput parsedInput) throws BottyException {
         try {
             String argument = parsedInput.getArgument("main");
 

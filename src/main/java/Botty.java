@@ -30,32 +30,34 @@ public class Botty {
     private static final String bottyIndentation = "       ";
     private Scanner inputScanner;
     private Map<String, Command> commands;
+    private TaskManager taskManager;
     public Botty(Map<String, Command> commands) {
         this.commands = commands;
     }
     public static void main(String[] args) {
-        TaskManager taskManager = new TaskManager();
 
         Map<String, Command> commands = new HashMap<>();
-        commands.put("list", new ListCommand(taskManager));
-        commands.put("mark", new MarkCommand(taskManager));
-        commands.put("unmark", new UnmarkCommand(taskManager));
-        commands.put("todo", new TodoCommand(taskManager));
-        commands.put("deadline", new DeadlineCommand(taskManager));
-        commands.put("event", new EventCommand(taskManager));
-        commands.put("delete", new DeleteCommand(taskManager));
+        commands.put("list", new ListCommand());
+        commands.put("mark", new MarkCommand());
+        commands.put("unmark", new UnmarkCommand());
+        commands.put("todo", new TodoCommand());
+        commands.put("deadline", new DeadlineCommand());
+        commands.put("event", new EventCommand());
+        commands.put("delete", new DeleteCommand());
 
-        StorageHandler storageHandler = new StorageHandler("./data", "tasks");
-        storageHandler.loadTaskList(taskManager);
+
 
         Botty botty = new Botty(commands);
 
         botty.beginInteraction();
 
-        storageHandler.saveTaskList(taskManager);
     }
 
     public void beginInteraction() {
+        taskManager = new TaskManager();
+        StorageHandler storageHandler = new StorageHandler("./data", "tasks");
+        storageHandler.loadTaskList(taskManager);
+
         inputScanner = new Scanner(System.in);
 
         displayIntroduction();
@@ -77,7 +79,7 @@ public class Botty {
                     throw new UnknownCommandException(parsedInput.getCommand());
                 }
 
-                reply(commands.get(parsedInput.getCommand()).execute(parsedInput));
+                reply(commands.get(parsedInput.getCommand()).execute(taskManager, parsedInput));
 
             } catch (BottyException exception) {
                 reply(exception.getMessage());
@@ -86,6 +88,7 @@ public class Botty {
 
         inputScanner.close();
         reply("Thank you for your continued patronage. Goodbye!");
+        storageHandler.saveTaskList(taskManager);
     }
 
     private void displayIntroduction() {

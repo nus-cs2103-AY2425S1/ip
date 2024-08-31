@@ -5,12 +5,8 @@ import exceptions.BottyException;
 import tasks.Task;
 
 public class DeleteCommand implements Command {
-    private final TaskManager taskManager;
-    public DeleteCommand(TaskManager taskManager) {
-        this.taskManager = taskManager;
-    }
     @Override
-    public String execute(ParsedInput parsedInput) throws BottyException {
+    public String execute(TaskManager taskManager, ParsedInput parsedInput) throws BottyException {
         try {
             String argument = parsedInput.getArgument("main");
             int taskIndex = Integer.parseInt(argument) - 1;
