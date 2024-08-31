@@ -6,4 +6,3 @@ T | 0 | borrow book
 T | 0 | 5
 T | 0 | borrow book
 T | 0 | borrow book
-T | 0 | borrow book

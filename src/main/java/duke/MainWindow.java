@@ -23,7 +23,9 @@ public class MainWindow extends AnchorPane {
     private MentalHealth duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/human_smiling.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/mental_health_robot_and_human.png"));
+    private Image dukeImage = new Image(
+            this.getClass().getResourceAsStream("/images/mental_health_robot_and_human.png")
+    );
 
     @FXML
     public void initialize() {

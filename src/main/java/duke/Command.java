@@ -312,6 +312,6 @@ public class Command {
      * @return The formatted task message.
      */
     public String formatMessage(IndividualTask task, int num) {
-        return  task + "\n" + "\n" + "Now you have " + num + " tasks in the list.\n";
+        return task + "\n" + "\n" + "Now you have " + num + " tasks in the list.\n";
     }
 }
