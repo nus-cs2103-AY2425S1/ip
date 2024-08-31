@@ -1,0 +1,15 @@
+T | 0 | german hw
+D | 0 | do this | 2/12/2022 2000
+D | 0 | asdf | 2-2-2022 2233
+D | 0 | asdf | Apr 23 2022, 11:59
+D | 0 | asd | Nov 11 2022, 11:59
+E | 0 | asfsj kl;  |  2044-11
+E | 0 | asdf  | Nov 11 2011, 11:11-Nov 12 2011, 12:12
+E | 0 | asdfjl;  | jan-feb
+E | 0 | asdf  | jan-feb
+T | 0 | homework
+T | 0 | asdfhk;
+D | 0 | hw | 2222-22-22 2222
+D | 0 | hw | Nov 11 2011, 11:11
+E | 0 | asf  | jan-feb
+E | 0 | asdf  | Nov 11 2011, 11:11-Dec 12 2012, 10:22
