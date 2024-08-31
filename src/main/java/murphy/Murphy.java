@@ -143,6 +143,12 @@ public class Murphy {
                 } catch (MurphyException e) {
                     ui.showError(String.format("Error adding event: %s", e.getMessage()));
                 }
+            } else if (input.startsWith("find ")) {
+                try {
+                    ui.showText(tasks.find(input.substring(5)));
+                } catch (MurphyException e) {
+                    ui.showError(e.getMessage());
+                }
             } else {
                 ui.showError("Command not found");
             }

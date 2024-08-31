@@ -67,4 +67,8 @@ abstract public class Task {
     public String toSaveString() {
         return String.valueOf(this.isDone) + "|" + this.description;
     }
+
+    public boolean containsString(String search) {
+        return description.contains(search);
+    }
 }

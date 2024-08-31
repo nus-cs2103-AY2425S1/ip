@@ -128,5 +128,22 @@ public class TaskList {
         return string.toString();
     }
 
+    /**
+     * Finds tasks in the list which have a matching search term in the task description.
+     * @return The String representation of the filtered TaskList.
+     * @throws MurphyException If search string is empty.
+     */
+    public String find(String search) throws MurphyException {
+        if (search.isEmpty()) {
+            throw new MurphyException("Error finding tasks: search term cannot be empty.");
+        }
+        TaskList matchedTasks = new TaskList();
+        for (Task task : tasks) {
+            if (task.containsString(search)) {
+                matchedTasks.addItem(task);
+            }
+        }
+        return matchedTasks.toString();
+    }
 }
 
