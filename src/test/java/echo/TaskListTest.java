@@ -1,14 +1,14 @@
 package echo;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
     @Test
-    public void test_list_delete(){
+    public void test_list_delete() {
 
         Task t1 = new Deadline("write essay", "2023/03/23 23:59");
         Task t2 = new Event("read book", "2pm Sunday", "2pm Monday");

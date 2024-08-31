@@ -16,7 +16,7 @@ public abstract class Task implements Serializable {
      * @param type task type.
      * @throws DukeException if user input invalid command.
      */
-    public static void checkValidCommand(String[] taskInfoArray, TaskType type) throws DukeException{
+    public static void checkValidCommand(String[] taskInfoArray, TaskType type) throws DukeException {
         // Return incorrect input message when the length of input less or equal to 1
         if (taskInfoArray.length <= 1 || taskInfoArray[1].isEmpty()) {
             String msg = "Oops! The description of a " + type + " cannot be empty.";
@@ -47,9 +47,9 @@ public abstract class Task implements Serializable {
             }
 
             String deadline = taskInfoArray[1].split(" /by ")[1];
-            String DATE_TIME_PATTERN = "^\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2}$";
+            String dateTimePattern = "^\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2}$";
             // Check whether user input a valid end time format
-            if (!Pattern.matches(DATE_TIME_PATTERN, deadline)) {
+            if (!Pattern.matches(dateTimePattern, deadline)) {
                 String msg = "Please input a valid deadline format i.e. \"yyyy/MM/dd HH:mm\".";
                 throw new DukeException(msg);
             }

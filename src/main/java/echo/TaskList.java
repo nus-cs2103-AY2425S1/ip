@@ -51,7 +51,7 @@ public class TaskList implements Serializable {
     public void add(Task task) {
         this.allTasks.add(task);
         System.out.println(task);
-        System.out.println("Now you have " + this.allTasks.size() +" tasks in the list.");
+        System.out.println("Now you have " + this.allTasks.size() + " tasks in the list.");
     }
 
     /**
@@ -66,7 +66,7 @@ public class TaskList implements Serializable {
 
         // Remove the task from list and return the size of list
         allTasks.remove(index);
-        System.out.println("Now you have " + allTasks.size() +" tasks in the list.");
+        System.out.println("Now you have " + allTasks.size() + " tasks in the list.");
     }
 
     /**

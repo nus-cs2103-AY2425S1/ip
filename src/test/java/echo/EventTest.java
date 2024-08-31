@@ -1,10 +1,12 @@
 package echo;
-import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class EventTest {
     @Test
-    public void test_creat_event(){
+    public void test_creat_event() {
         try {
             Task eventA = new Event("eA", "2pm Sunday", "2pm Monday");
             Task eventB = Task.createTask("event eA /from 2pm Sunday /to 2pm Monday");
@@ -15,7 +17,7 @@ public class EventTest {
     }
 
     @Test
-    public void test_unmark_event(){
+    public void test_unmark_event() {
         try {
             Task eventA = new Event("eA", "2pm Sunday", "2pm Monday");
             eventA.setMark();

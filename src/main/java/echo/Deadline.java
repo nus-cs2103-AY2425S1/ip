@@ -1,11 +1,9 @@
 package echo;
 
 import java.io.Serializable;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.Locale;
 
 /**
@@ -38,7 +36,7 @@ public class Deadline extends Task implements Serializable {
     public String toString() {
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern(
                 "MMM dd yyyy HH:mm", Locale.US);
-        return "[D]" + super.toString() +  " (by: " +
-                this.deadline.format(outputFormat) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + this.deadline.format(outputFormat) + ")";
     }
 }

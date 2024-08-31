@@ -1,6 +1,11 @@
 package echo;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -80,7 +85,7 @@ public class Storage {
     public static TaskList getData() {
         TaskList allTasks = null;
         try {
-            FileInputStream fileStream =new FileInputStream(Storage.DATA_PATH);
+            FileInputStream fileStream = new FileInputStream(Storage.DATA_PATH);
             ObjectInputStream outputStream = new ObjectInputStream(fileStream);
             allTasks = (TaskList) outputStream.readObject();
             outputStream.close();

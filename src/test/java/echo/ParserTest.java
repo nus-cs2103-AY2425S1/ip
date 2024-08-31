@@ -1,21 +1,21 @@
 package echo;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class ParserTest {
     @Test
-    public void test_parse_bye(){
+    public void test_parse_bye() {
         TaskList allTask = new TaskList();
         boolean isExit = Parser.parse("bye", allTask);
         assertEquals(isExit, true);
     }
 
     @Test
-    public void test_parse_create(){
+    public void test_parse_create() {
         Task t1 = new Deadline("write essay", "2023/03/23 23:59");
         TaskList allTask = new TaskList();
         Parser.parse("deadline write essay /by 2023/03/23 23:59", allTask);
@@ -25,7 +25,7 @@ public class ParserTest {
     }
 
     @Test
-    public void test_parse_delete(){
+    public void test_parse_delete() {
         Task t1 = new Deadline("write essay", "2023/03/23 23:59");
         Task t2 = new Event("read book", "2pm Sunday", "2pm Monday");
         TaskList allTask = new TaskList();

@@ -80,13 +80,13 @@ public class Parser {
     public static boolean parse(String userInput, TaskList allTasks) {
         // parse the command
         String[] cmdParts = userInput.split(" ", 2);
-        String CMD = cmdParts[0].toUpperCase();
+        String command = cmdParts[0].toUpperCase();
 
         // set isExit flag to indicate bot exit
         boolean isExit = false;
 
         try {
-            switch (Command.valueOf(CMD)) {
+            switch (Command.valueOf(command)) {
             case BYE:
                 bye();
                 return !isExit;

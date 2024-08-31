@@ -1,6 +1,9 @@
 package echo;
-import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 public class DeadlineTest {
     @Test
     public void test_creat_deadline() {
@@ -14,7 +17,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void test_mark_deadline(){
+    public void test_mark_deadline() {
         try {
             Task deadlineA = new Deadline("dA", "2023/03/23 23:59");
             Task deadlineB = Task.createTask("deadline dA /by 2023/03/23 23:59");

@@ -1,9 +1,10 @@
+import java.util.Scanner;
+
 import echo.Parser;
 import echo.Storage;
 import echo.TaskList;
 import echo.Ui;
 
-import java.util.Scanner;
 
 /**
  * Represents a simple task management bot that interacts with the user via the console.
