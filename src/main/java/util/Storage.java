@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import main.java.Task;
@@ -40,15 +41,11 @@ public class Storage {
 
     /**
      * Writes the string list textToSave to /data/Karen.txt
-     * @param taskList A list of Tasks to save to file
+     * @param taskList A TaskList to save to file
      */
-    public static void saveToFile(List<Task> taskList) {
-        List<String> writeBuffer = new ArrayList<>();
+    public static void saveToFile(TaskList taskList) {
         try {
-            for (int i = 0; i < taskList.size(); i++) {
-                Task t = taskList.get(i);
-                writeBuffer.add(t.toFileString());
-            }
+            List<String> writeBuffer = taskList.toFileStrings();
             Files.write(FILEPATH, writeBuffer, StandardCharsets.UTF_8);
         } catch (IOException e) {
             System.out.println("Error while saving to file");
