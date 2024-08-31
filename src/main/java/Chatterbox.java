@@ -15,8 +15,6 @@ public class Chatterbox {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID;
 
         public static Command parseCommand(String text) {
-
-
             if (text.startsWith("bye")) {
                 return BYE;
             } else if (text.startsWith("list")) {
