@@ -1,4 +1,4 @@
-package Bot;
+package him;
 
 import task.Task;
 import task.TaskList;
@@ -11,12 +11,9 @@ public class Ui {
     public static void say(String[] message) {
         System.out.println("\nHim: " + message[0]);
         for (int i = 1; i < message.length; i++) {
-            if (i == message.length - 1) {
-                System.out.println("     " + message[i] + "\n");
-                return;
-            }
             System.out.print("     " + message[i] + "\n");
         }
+        System.out.print("\n");
     }
 
     public static void printUser() {
