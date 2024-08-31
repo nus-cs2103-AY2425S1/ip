@@ -1,7 +1,16 @@
+package src.main.java;
+
+import src.main.java.Task;
+
 public class Todo extends Task {
 
     public Todo(String description) {
-        super(description);
+        super(description, TaskType.TODO);
+    }
+
+    @Override
+    public String getTaskInfo() {
+        return "TODO|" + String.valueOf(isDone ? 1 : 0) + "|" + this.description + "\n";
     }
 
     @Override

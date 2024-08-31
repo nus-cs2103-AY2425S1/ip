@@ -1,10 +1,22 @@
+package src.main.java;
+
+import src.main.java.Task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
+    private TaskType taskType = null;
 
-    public Task(String description) {
+    public enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+
+    public Task(String description, TaskType taskType) {
         this.description = description;
         this.isDone = false;
+        this.taskType = taskType;
     }
 
     public void changeStatus() {
@@ -18,6 +30,19 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
+
+    public boolean getTaskStatus() {
+        return isDone;
+    }
+
+    public TaskType getTaskType() {
+        return this.taskType;
+    }
+
+    public String getTaskInfo() {
+        return null;
+    }
+
 
     @Override
     public String toString() {

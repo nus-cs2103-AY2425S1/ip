@@ -1,3 +1,8 @@
+package src.main.java;
+
+import src.main.java.KillJoy;
+import src.main.java.Task;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -5,12 +10,6 @@ import java.util.regex.Pattern;
 //I have divided my Chatbot into two classes. One takes care of the input/output and this takes care of processing.
 public class ProcessTasks {
     private KillJoy kj;
-
-    private enum TaskType {
-        TODO,
-        DEADLINE,
-        EVENT
-    }
 
     public ProcessTasks(KillJoy kj) {
         this.kj = kj;
@@ -20,10 +19,10 @@ public class ProcessTasks {
         String[] inputSplitBySlash = input.split("/");
         String[] inputSplitBySpace = inputSplitBySlash[0].split(" ");
         String typeOfTask = inputSplitBySpace[0];
-        TaskType taskType = null;
+        Task.TaskType taskType = null;
 
         try {
-            taskType = TaskType.valueOf(typeOfTask.toUpperCase());
+            taskType = Task.TaskType.valueOf(typeOfTask.toUpperCase());
         } catch (IllegalArgumentException e) {
             this.printLine();
             System.out.println("    AGWHAHH!!! What'ya sayin' dawgg??");
@@ -40,27 +39,26 @@ public class ProcessTasks {
 
         this.printLine();
         switch (taskType) {
-            case TODO: {
-                String description = inputSplitBySlash[0].replaceFirst("todo ", "");
-                kj.addTask(description);
-                break;
+        case TODO: {
+            String description = inputSplitBySlash[0].replaceFirst("todo ", "");
+            kj.addTask(description);
+            break;
+        }
+        case DEADLINE: {
+            String description = inputSplitBySlash[0].replaceFirst("deadline ", "");
+            String by = inputSplitBySlash[1].replaceFirst("by ", "");
+            kj.addTask(description, by);
+            break;
             }
-            case DEADLINE: {
-                String description = inputSplitBySlash[0].replaceFirst("deadline ", "");
-                String by = inputSplitBySlash[1].replaceFirst("by ", "");
-                kj.addTask(description, by);
-                break;
-            }
-            case EVENT: {
-                String description = inputSplitBySlash[0].replaceFirst("event ", "");
-                String from = inputSplitBySlash[1].replaceFirst("from ", "");
-                String to = inputSplitBySlash[2].replaceFirst("to ", "");
-                kj.addTask(description, from, to);
-                break;
-            }
+        case EVENT: {
+            String description = inputSplitBySlash[0].replaceFirst("event ", "");
+            String from = inputSplitBySlash[1].replaceFirst("from ", "");
+            String to = inputSplitBySlash[2].replaceFirst("to ", "");
+            kj.addTask(description, from, to);
+            break;
+        }
         }
 
-        kj.increaseTaskCount();
         System.out.println("    Yo Dawgg!! Added this task:");
         System.out.println("    " + kj.getTask(kj.getTaskCount() - 1));
         if (kj.getTaskCount() == 1) {
@@ -126,6 +124,42 @@ public class ProcessTasks {
                 System.out.println("    Now you have " + kj.getTaskCount() + " tasks in the list.");
             }
             this.printLine();
+        }
+    }
+
+    public void createTasks(String taskInfo) {
+        String[] parts = taskInfo.split("\\|");
+        int num = parts.length;
+
+        Task.TaskType taskType = Task.TaskType.valueOf(parts[0]);
+        switch (taskType) {
+        case TODO: {
+            String description = parts[2];
+            kj.addTask(description);
+            changeStatusOfTask(kj.getTask(kj.getTaskCount() - 1), Integer.valueOf(parts[1]));
+            break;
+        }
+        case DEADLINE: {
+            String description = parts[2];
+            String by = parts[3];
+            kj.addTask(description, by);
+            changeStatusOfTask(kj.getTask(kj.getTaskCount() - 1), Integer.valueOf(parts[1]));
+            break;
+        }
+        case EVENT: {
+            String description = parts[1];
+            String from = parts[3];
+            String to = parts[4];
+            kj.addTask(description, from, to);
+            changeStatusOfTask(kj.getTask(kj.getTaskCount() - 1), Integer.valueOf(parts[1]));
+            break;
+        }
+        }
+    }
+
+    private void changeStatusOfTask(Task task, int i) {
+        if (i == 1) {
+            task.changeStatus();
         }
     }
 
