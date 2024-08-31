@@ -8,11 +8,17 @@ import murphy.task.TaskList;
 import murphy.task.Todo;
 import murphy.ui.Ui;
 
+/**
+ * Main class of the Murphy application, a chatbot which can record and display tasks.
+ */
 public class Murphy {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
 
+    /**
+     * Creates a new Murphy object using the save file at the specified filepath.
+     */
     public Murphy(String filepath) {
         ui = new Ui();
         try {
@@ -23,6 +29,11 @@ public class Murphy {
             tasks = new TaskList();
         }
     }
+
+    /**
+     * Gets user input continually to add, delete and modify tasks until the user decides to terminate
+     * the program.
+     */
     public void run() {
         /*
             String logo = " ____        _        \n"
