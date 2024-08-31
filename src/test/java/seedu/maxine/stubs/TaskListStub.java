@@ -1,5 +1,6 @@
-package seedu.maxine;
+package seedu.maxine.stubs;
 
+import seedu.maxine.MaxineList;
 import seedu.maxine.exception.MaxineException;
 import seedu.maxine.task.Deadline;
 import seedu.maxine.task.Event;

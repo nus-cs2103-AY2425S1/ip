@@ -1,4 +1,4 @@
-package seedu.maxine;
+package seedu.maxine.stubs;
 
 import seedu.maxine.task.Task;
 
