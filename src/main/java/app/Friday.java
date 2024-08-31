@@ -10,11 +10,20 @@ import ui.Ui;
 import java.io.*;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the Friday application that manages tasks for the user.
+ */
 public class Friday {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Initializes the Friday application by loading tasks from the specified file.
+     * If the file cannot be loaded, initializes an empty TaskList and displays an error message.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Friday(String filePath) {
         this.storage = new Storage(filePath);
         this.ui = new Ui();
@@ -26,6 +35,10 @@ public class Friday {
         }
     }
 
+    /**
+     * Runs the Friday application, displaying the welcome message and reading commands from the user.
+     * The application continues to run until the user enters the "bye" command.
+     */
     public void run() {
         ui.showWelcome();
         boolean isEndScanner = false;
@@ -46,6 +59,11 @@ public class Friday {
         ui.closeScanner();
     }
 
+    /**
+     * The main method that starts the Friday application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Friday("data/fridayTaskList.txt").run();
 

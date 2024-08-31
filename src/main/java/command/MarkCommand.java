@@ -9,13 +9,29 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to mark a task as completed.
+ */
 public class MarkCommand extends Command {
     private int taskIndex;
 
+    /**
+     * Constructs a MarkCommand with the specified task index.
+     *
+     * @param taskIndex The index of the task to be marked as completed.
+     */
     public MarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 
+    /**
+     * Marks the task as completed, displays a message to the user, and saves the task list to file.
+     *
+     * @param tasks The task list to be modified by the command.
+     * @param ui The user interface to display messages to the user.
+     * @param storage The storage to save the task list to file.
+     * @throws FridayException If an error occurs during execution of the command.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws FridayException {
         try {

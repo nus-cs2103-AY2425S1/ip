@@ -8,8 +8,18 @@ import task.ToDo;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a parser that parses the user input.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param userInput The user input.
+     * @return The corresponding command.
+     * @throws FridayException If the user input is invalid.
+     */
     public static Command parse(String userInput) throws FridayException {
         String[] parts = userInput.split(" ");
         String command = parts[0].toLowerCase();

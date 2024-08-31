@@ -9,13 +9,29 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to unmark a task as not completed.
+ */
 public class UnmarkCommand extends Command {
     private int taskIndex;
 
+    /**
+     * Constructs an UnmarkCommand with the specified task index.
+     *
+     * @param taskIndex The index of the task to be unmarked as not completed.
+     */
     public UnmarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
 
+    /**
+     * Unmarks the task as not completed, displays a message to the user, and saves the task list to file.
+     *
+     * @param tasks The task list to be modified by the command.
+     * @param ui The user interface to display messages to the user.
+     * @param storage The storage to save the task list to file.
+     * @throws FridayException If an error occurs during execution of the command.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws FridayException {
         try {

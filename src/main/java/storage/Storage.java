@@ -10,17 +10,36 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+/**
+ * Represents the storage of tasks in a file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage with the specified file path.
+     *
+     * @param filePath The file path of the file to store the tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Returns the file path of the storage.
+     *
+     * @return The file path of the storage.
+     */
     public String getFilePath() {
         return filePath;
     }
 
+    /**
+     * Handles the input string and returns the corresponding task.
+     *
+     * @param input The input string to be handled.
+     * @return The task corresponding to the input string.
+     */
     public Task handleInput(String input) {
         String taskType = input.split(" ")[0];
         return switch (taskType) {
@@ -31,6 +50,12 @@ public class Storage {
         };
     }
 
+    /**
+     * Loads the tasks from the file and returns the list of tasks.
+     *
+     * @return The list of tasks loaded from the file.
+     * @throws IOException If an error occurs during loading of the tasks.
+     */
     public List<Task> load() throws IOException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -62,6 +87,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the list of tasks to the file.
+     *
+     * @param tasks The list of tasks to be saved to the file.
+     * @throws IOException If an error occurs during saving of the tasks.
+     */
     public void save(List<Task> tasks) throws IOException {
         try (FileWriter fw = new FileWriter(filePath)) {
             for (Task task : tasks) {
@@ -72,6 +103,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks if the file is corrupted.
+     *
+     * @param file The file to be checked.
+     * @return True if the file is not corrupted, false otherwise.
+     */
     public boolean isFileUncorrupted(File file) {
         Pattern TODO_PATTERN = Pattern.compile("^T\\s+\\d\\s+\\w+.*$");
         Pattern EVENT_PATTERN = Pattern.compile("^E\\s+\\d\\s+\\w+.*\\s+/from\\s+\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|30)\\s+/to\\s+\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|30)$");

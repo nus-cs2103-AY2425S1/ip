@@ -8,20 +8,38 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents the user interface of the application.
+ */
 public class Ui {
     private Scanner scanner;
+
+    /**
+     * Constructs a user interface.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Reads the command entered by the user.
+     *
+     * @return The command entered by the user.
+     */
     public String readCommand() {
         return scanner.nextLine();
     }
 
+    /**
+     * Closes the scanner.
+     */
     public void closeScanner() {
         scanner.close();
     }
 
+    /**
+     * Shows the welcome message.
+     */
     public void showWelcome() {
         System.out.println("___________________________________________________________");
         System.out.println(" Hello! I'm Friday");
@@ -29,12 +47,20 @@ public class Ui {
         System.out.println("___________________________________________________________");
     }
 
+    /**
+     * Shows the goodbye message.
+     */
     public void showGoodbye() {
         System.out.println("___________________________________________________________");
         System.out.println(" Bye. Hope to see you again soon!");
         System.out.println("___________________________________________________________");
     }
 
+    /**
+     * Shows the list of tasks.
+     *
+     * @param tasks The list of tasks.
+     */
     public void showTaskList(List<Task> tasks) {
         System.out.println("    _______________________________________________________");
         System.out.println("     Here are the tasks in your list:");
@@ -44,6 +70,12 @@ public class Ui {
         System.out.println("    _______________________________________________________");
     }
 
+    /**
+     * Shows the task added message.
+     *
+     * @param task The task added.
+     * @param size The size of the task list.
+     */
     public void showTaskAdded(Task task, int size) {
         System.out.println("    _______________________________________________________");
         System.out.println("     Got it. I've added this task:");
@@ -52,6 +84,12 @@ public class Ui {
         System.out.println("    _______________________________________________________");
     }
 
+    /**
+     * Shows the task removed message.
+     *
+     * @param task The task removed.
+     * @param size The size of the task list.
+     */
     public void showTaskRemoved(Task task, int size) {
         System.out.println("    _______________________________________________________");
         System.out.println("     Noted. I've removed this task:");
@@ -60,6 +98,11 @@ public class Ui {
         System.out.println("    _______________________________________________________");
     }
 
+    /**
+     * Shows the task marked message.
+     *
+     * @param task The task marked.
+     */
     public void showTaskMarked(Task task) {
         System.out.println("    _______________________________________________________");
         System.out.println("     Nice! I've marked this task as done:");
@@ -67,6 +110,11 @@ public class Ui {
         System.out.println("    _______________________________________________________");
     }
 
+    /**
+     * Shows the task unmarked message.
+     *
+     * @param task The task unmarked.
+     */
     public void showTaskUnmarked(Task task) {
         System.out.println("    _______________________________________________________");
         System.out.println("     OK, I've marked this task as not done yet:");
@@ -74,18 +122,30 @@ public class Ui {
         System.out.println("    _______________________________________________________");
     }
 
+    /**
+     * Shows the general error message.
+     */
     public void showError(String message) {
         System.out.println("    _______________________________________________________");
         System.out.println("     " + "OOPS!!! " + message);
         System.out.println("    _______________________________________________________");
     }
 
+    /**
+     * Shows the loading error message.
+     */
     public void showLoadingError() {
         System.out.println("    _______________________________________________________");
         System.out.println("     An error occurred while loading tasks.");
         System.out.println("    _______________________________________________________");
     }
 
+    /**
+     * Shows the search list.
+     *
+     * @param tasks The list of tasks.
+     * @param searchDate The search date.
+     */
     public void showSearchList(List<Task> tasks, LocalDate searchDate) {
         System.out.println("    _______________________________________________________");
         System.out.println("     Here are the deadlines/events in your list that's due/occurring :");

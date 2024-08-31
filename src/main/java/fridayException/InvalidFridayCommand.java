@@ -1,5 +1,8 @@
 package fridayException;
 
+/**
+ * Represents an exception where the command is invalid.
+ */
 public class InvalidFridayCommand extends FridayException {
     public InvalidFridayCommand(String command) {
         super("I'm sorry, but this command is invalid: " + command + "\n"
