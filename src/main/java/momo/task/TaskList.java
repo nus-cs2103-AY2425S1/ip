@@ -74,6 +74,11 @@ public class TaskList {
 
 
     public void populateTaskList(String input) throws MomoException {
+
+        if (input.isEmpty()) {
+            return;
+        }
+
         String[] taskStrings = input.split("\n");
         for (String taskString : taskStrings) {
             String[] inputs = taskString.split("\\|");
