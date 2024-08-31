@@ -1,6 +1,9 @@
+package murphy.task;
+
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
+import murphy.MurphyException;
 
 public class TaskList {
     protected ArrayList<Task> tasks;
@@ -60,6 +63,19 @@ public class TaskList {
         }
         tasks.get(index - 1).unmark();
         return String.format("Ok, I've unmarked this task. Guess Murphy struck?\n%s", tasks.get(index - 1));
+    }
+
+    public String toSaveString() {
+        int sz = tasks.size();
+        if (sz == 0) {
+            return "Your list is currently empty. Add some tasks to get started!";
+        }
+        StringBuilder string = new StringBuilder();
+        for (Task task : tasks) {
+            string.append(String.format("%s\n", task.toSaveString()));
+        }
+        string.deleteCharAt(string.length() - 1); //remove the last newline
+        return string.toString();
     }
 
     @Override

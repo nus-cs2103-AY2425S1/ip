@@ -1,3 +1,13 @@
+package murphy;
+
+import murphy.storage.Storage;
+import murphy.task.Deadline;
+import murphy.task.Event;
+import murphy.task.Task;
+import murphy.task.TaskList;
+import murphy.task.Todo;
+import murphy.ui.Ui;
+
 public class Murphy {
     private Ui ui;
     private Storage storage;

@@ -1,8 +1,13 @@
+package murphy.storage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import murphy.MurphyException;
+import murphy.task.Task;
+import murphy.task.TaskList;
 
 public class Storage {
     private final String filepath;
@@ -33,9 +38,7 @@ public class Storage {
     public void write(TaskList taskList) throws MurphyException {
         try {
             FileWriter fw = new FileWriter(filepath);
-            for (Task task : taskList.tasks) {
-                fw.write(task.toSaveString() + System.lineSeparator());
-            }
+            fw.write(taskList.toSaveString());
             fw.close();
         } catch (IOException e) {
             throw new MurphyException("Error writing to save file: " + e.getMessage());

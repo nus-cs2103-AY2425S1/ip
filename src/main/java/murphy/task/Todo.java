@@ -1,3 +1,7 @@
+package murphy.task;
+
+import murphy.MurphyException;
+
 public class Todo extends Task {
     public Todo(String description) throws MurphyException{
         super(description);
