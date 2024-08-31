@@ -48,6 +48,9 @@ public class Broski {
             ui.delete(taskList, parser, reply);
             this.save();
             this.chatbot();
+        } else if (reply.length() > 5 && reply.startsWith("find")) {
+            ui.find(taskList, reply);
+            this.chatbot();
         } else {
             ui.mainResponse(taskList, parser, reply, dateTimeParser);
             this.save();
