@@ -1,6 +1,7 @@
 package momo;
 
 import momo.task.Task;
+import momo.task.TaskList;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,35 +23,22 @@ public class Ui {
         return sc.nextLine();
     }
 
-    public void printList(ArrayList<Task> list) {
+    public void printList(TaskList list) {
         showHorizontalLine();
 
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(i + 1 + ". " + list.get(i));
+        for (int i = 0; i < list.getCount(); i++) {
+            System.out.println(i + 1 + ". " + list.getTask(i));
         }
+        showHorizontalLine();
+    }
+
+    public void printTaskListCount(TaskList list) {
+        System.out.printf("Now there are %d tasks in your list\n", list.getCount());
         showHorizontalLine();
 
     }
 
 
-    public void printTaskAdded(ArrayList<Task> TaskList) {
-        try {
-            showHorizontalLine();
-            System.out.println("Noted. I've added this task:\n " + TaskList.get(TaskList.size() - 1));
-            System.out.println(String.format("Now you have %d task(s) in the list", TaskList.size()));
-            showHorizontalLine();
-        }
-        catch (IndexOutOfBoundsException e) {
-            System.out.println("This task has not been added: " + e.getMessage());
-            showHorizontalLine();
-        }
-    }
-
-    public void printDeletedTask(String task, int count) {
-        System.out.println("Noted. I've removed this task:\n " + task);
-        System.out.println(String.format("Now you have %d task(s) in the list", count));
-        showHorizontalLine();
-    }
 
     //TO-DO!!!
     public void showLoadingError() {

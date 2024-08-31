@@ -34,6 +34,11 @@ public class TaskList {
         return list;
     }
 
+    public void addTask(Task task) {
+        list.add(task);
+    }
+
+    public Task getTask(int index) { return list.get(index); }
 
     public void addTodo(String desc) {
         list.add(new Todo(desc, false));

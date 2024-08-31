@@ -1,9 +1,19 @@
-E|1|games night|2019-12-01|2020-10-10
+E|0|games night|2019-12-01|2020-10-10
 D|1|return book|2022-04-05
 E|1|dance|2021-01-04|2021-01-23
-D|1|finish week 3 iP|2024-08-30
+D|0|finish week 3 iP|2024-08-30
 E|0|bye|2020-02-02|2024-03-04
-E|1|splashdown orbital|2024-05-05|2024-05-06
-E|1|play ball|2020-02-02|2020-03-03
-E|1|play|2020-02-02|2024-01-01
+E|1|ballet recital|2024-10-03|2025-01-23
 T|1|ballet
+E|1|games night|2020-12-30|2021-01-23
+T|1|testing program
+D|1|finish project |2015-04-05
+E|1|ballet recital|2024-10-03|2025-01-23
+E|1|ballet recital|2024-10-03|2025-01-23
+E|1|ballet recital|2024-10-03|2025-01-23
+E|1|ballet recital|2024-10-03|2025-01-23
+T|1|stuff
+D|1|finish project |2015-04-05
+D|1|project |2015-04-05
+D|1|finish project|2015-04-05
+D|0|finish project|2015-04-05

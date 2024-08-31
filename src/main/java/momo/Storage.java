@@ -47,7 +47,6 @@ public class Storage {
                 System.out.println("Error in creating a file and folder ");
             }
 
-
         }
         return fileString.toString();
 

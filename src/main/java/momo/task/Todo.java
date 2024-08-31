@@ -1,7 +1,5 @@
 package momo.task;
 
-import momo.task.Task;
-
 public class Todo extends Task {
     public Todo(String task, boolean isCompleted) {
         super(task, isCompleted);
