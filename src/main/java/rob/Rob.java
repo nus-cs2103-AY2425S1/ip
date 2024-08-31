@@ -3,7 +3,6 @@ package rob;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,7 +10,6 @@ import java.util.regex.Pattern;
  * The Rob class represents a chatbot that helps users manage tasks
  */
 public class Rob {
-    private static final String FILE_PATH = "./data/robsaved.txt";
     private Storage storage;
     private TaskList tasks = new TaskList();
     private Ui ui;
@@ -34,100 +32,6 @@ public class Rob {
             ui.showLoadingError();
             tasks = new TaskList();
         }
-    }
-
-    /**
-     * Reads user input and processes commands such as:
-     * "bye", "list", "mark", "unmark" "delete", "deadline", "event", and "todo".
-     * Saves and loads tasks
-     */
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
-        ui.greet();
-
-        while (true) {
-            String input = scanner.nextLine();
-
-            parser = new Parser(input);
-            parser.checkString();
-            String command = parser.getCommand();
-
-            // exit
-            if (Objects.equals(command, "bye")) {
-                ui.exit();
-                break;
-            } else if (Objects.equals(command, "list")) {
-                ui.showList(tasks);
-            } else if (Objects.equals(command, "mark")) {
-                try {
-                    int taskNum = findTaskNum(input);
-                    ui.mark(tasks, taskNum);
-                    tasks.getTask(taskNum - 1).markAsDone();
-                    storage.saveTasks(tasks);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else if (Objects.equals(command, "unmark")) {
-                try {
-                    int taskNum = findTaskNum(input);
-                    ui.unmark(tasks, taskNum);
-                    tasks.getTask(taskNum - 1).unmark();
-                    storage.saveTasks(tasks);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else if (Objects.equals(command, "delete")) {
-                try {
-                    int taskNum = findTaskNum(input);
-                    ui.delete(tasks, taskNum);
-                    tasks.removeTask(taskNum - 1);
-                    storage.saveTasks(tasks);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else if (Objects.equals(command, "find")) {
-                try {
-                    String keyword = parser.getFind();
-                    List<Task> filteredList = tasks.searchTasks(keyword);
-                    TaskList filteredTasks = new TaskList(filteredList);
-                    ui.showList(filteredTasks);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else {
-                try {
-                    if (Objects.equals(command, "deadline")) {
-                        String desc = parser.getDesc();
-                        String day = parser.getDay();
-                        tasks.getTasks().add(new Deadline(desc, day));
-                        storage.saveTasks(tasks);
-
-                    } else if (Objects.equals(command, "event")) {
-                        String desc = parser.getDesc();
-                        String from = parser.getFrom();
-                        String to = parser.getTo();
-                        tasks.getTasks().add(new Event(desc, from, to));
-                        storage.saveTasks(tasks);
-
-                    } else if (Objects.equals(command, "todo")) {
-                        String desc = parser.getDesc();
-                        tasks.getTasks().add(new Todo(desc));
-                        storage.saveTasks(tasks);
-
-                    } else {
-                        throw new DukeException("I'm sorry... I don't seem to understand.");
-                    }
-                    ui.printText(tasks);
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        }
-        scanner.close();
-    }
-
-    public static void main(String[] args) {
-        new Rob(FILE_PATH).run();
     }
 
     /**
@@ -158,4 +62,90 @@ public class Rob {
             }
         }
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     *
+     * @return The string containing the chatbot's response.
+     */
+    public String getResponse(String input) {
+        parser = new Parser(input);
+        parser.checkString();
+        String command = parser.getCommand();
+
+        if (Objects.equals(command, "bye")) {
+            return ui.getExit();
+        } else if (Objects.equals(command, "list")) {
+            return ui.showList(tasks);
+        } else if (Objects.equals(command, "mark")) {
+            try {
+                int taskNum = findTaskNum(input);
+                String markedStr = ui.mark(tasks, taskNum);
+                tasks.getTask(taskNum - 1).markAsDone();
+                storage.saveTasks(tasks);
+                return markedStr;
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+                return e.getMessage();
+            }
+        } else if (Objects.equals(command, "unmark")) {
+            try {
+                int taskNum = findTaskNum(input);
+                String unmarkedStr = ui.unmark(tasks, taskNum);
+                tasks.getTask(taskNum - 1).unmark();
+                storage.saveTasks(tasks);
+                return unmarkedStr;
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+                return e.getMessage();
+            }
+        } else if (Objects.equals(command, "delete")) {
+            try {
+                int taskNum = findTaskNum(input);
+                String delStr = ui.delete(tasks, taskNum);
+                tasks.removeTask(taskNum - 1);
+                storage.saveTasks(tasks);
+                return delStr;
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+                return e.getMessage();
+            }
+        } else if (Objects.equals(command, "find")) {
+            try {
+                String keyword = parser.getFind();
+                List<Task> filteredList = tasks.searchTasks(keyword);
+                TaskList filteredTasks = new TaskList(filteredList);
+                return ui.showList(filteredTasks);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+                return e.getMessage();
+            }
+        } else {
+            try {
+                if (Objects.equals(command, "deadline")) {
+                    String desc = parser.getDesc();
+                    String day = parser.getDay();
+                    tasks.getTasks().add(new Deadline(desc, day));
+                    storage.saveTasks(tasks);
+                } else if (Objects.equals(command, "event")) {
+                    String desc = parser.getDesc();
+                    String from = parser.getFrom();
+                    String to = parser.getTo();
+                    tasks.getTasks().add(new Event(desc, from, to));
+                    storage.saveTasks(tasks);
+                } else if (Objects.equals(command, "todo")) {
+                    String desc = parser.getDesc();
+                    tasks.getTasks().add(new Todo(desc));
+                    storage.saveTasks(tasks);
+                } else {
+                    throw new DukeException("I'm sorry... I don't seem to understand.");
+                }
+                return ui.printText(tasks);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+                return e.getMessage();
+            }
+        }
+    }
 }
+
