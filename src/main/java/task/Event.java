@@ -28,7 +28,7 @@ public class Event extends Task {
     public String toString() {
         int len = super.toString().length();
         return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMAT) + "\n"
-                + UI.INDENT.repeat(3) + " ".repeat(len - 1)
+                + UI.UI.INDENT.repeat(3) + " ".repeat(len - 1)
                 + "to: " + to.format(OUTPUT_FORMAT) + ")";
     }
 }
