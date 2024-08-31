@@ -1,6 +1,6 @@
 public class EdithException extends IllegalArgumentException {
-    private final String lineBreak = "\n_______________________________________________________________________\n";
-    private final String indentation = "    ";
+    private final String LINE_BREAK = "\n_______________________________________________________________________\n";
+    private final String INDENTATION = "    ";
 
     public EdithException(String message) {
         super(message);
@@ -9,6 +9,6 @@ public class EdithException extends IllegalArgumentException {
     @Override
     public String toString() {
         String string = " Please provide a valid instruction with the correct relevant details.";
-        return indentation + getMessage() + string + lineBreak;
+        return INDENTATION + getMessage() + string + LINE_BREAK;
     }
 }

@@ -1,43 +1,40 @@
 public class Task {
+    private String typeOfTask;
     private String task;
-    private boolean doneFlag;
+    private boolean isDone;
 
-    public Task(String task) {
+    public Task(String typeOfTask, String task) {
+        this.typeOfTask = typeOfTask;
         this.task = task;
-        this.doneFlag = false;
+        this.isDone = false;
     }
 
     public String taskString() {
         return this.task;
     }
 
-    public boolean taskIsDone() {
-        return this.doneFlag;
+    public String typeOfTaskString() {
+        return this.typeOfTask;
     }
 
-    public String statusWhenDone() {
-        return "[X] ";
-    }
-
-    public String statusWhenNotDone() {
-        return "[ ] ";
+    public String statusString() {
+        if (this.isDone) {
+            return "[X] ";
+        } else {
+            return "[ ] ";
+        }
     }
 
     public void markTaskDone() {
-        this.doneFlag = true;
+        this.isDone = true;
     }
 
     public void markTaskUndone() {
-        this.doneFlag = false;
+        this.isDone = false;
     }
 
     @Override
     public String toString() {
-        String typeOfTask = "[ ] ";
-        if (this.doneFlag) {
-            return typeOfTask + statusWhenDone() + this.task;
-        } else {
-            return typeOfTask + statusWhenNotDone() + this.task;
-        }
+        return typeOfTaskString() + statusString() + taskString();
     }
 }

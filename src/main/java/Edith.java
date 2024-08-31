@@ -1,14 +1,19 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Edith {
-    private static final String prompt = "Your next instruction: ";
+    private static final String PROMPT = "Your next instruction: ";
 
-    private final String lineBreak = "\n_______________________________________________________________________\n";
-    private final String greeting = "Hello! I am EDITH, your personal chatbot companion:)"
+    private final String LINE_BREAK = "\n_______________________________________________________________________\n";
+    private final String GREETING = "Hello! I am EDITH, your personal chatbot companion:)"
             + "\nHow may I assist you?";
-    private final String indentation = "    ";
-    private final String exit = "It has been my pleasure helping you. Hope to see you again soon!";
+    private final String INDENTATION = "    ";
+    private final String FILE_PATH = "./data/edith.txt";
+    private final String EXIT = "It has been my pleasure helping you. Hope to see you again soon!";
 
     private ArrayList<Task> listOfTasks = new ArrayList<>();
 
@@ -16,11 +21,12 @@ public class Edith {
     }
 
     public void greet() {
-        System.out.println(lineBreak + greeting + lineBreak);
+        load();
+        System.out.println(LINE_BREAK + GREETING + LINE_BREAK);
     }
 
     public void exit() {
-        System.out.println(indentation + exit + lineBreak);
+        System.out.println(INDENTATION + EXIT + LINE_BREAK);
     }
 
     public void add(String string) {
@@ -62,26 +68,28 @@ public class Edith {
 
     public void addHelper(Task task) {
         listOfTasks.add(task);
+        save();
         int numOfTasks = listOfTasks.size();
         String message1 = "Got it. I've added this task:";
         String message2 = "There are now " + numOfTasks + " tasks in your list.";
 
-        System.out.println(indentation + message1);
-        System.out.println(indentation + task);
-        System.out.println(indentation + message2 + lineBreak);
+        System.out.println(INDENTATION + message1);
+        System.out.println(INDENTATION + task);
+        System.out.println(INDENTATION + message2 + LINE_BREAK);
     }
 
     public void delete(int index) {
         String deletedTask = listOfTasks.get(index).toString();
         listOfTasks.remove(index);
+        save();
 
         int numOfTasks = listOfTasks.size();
         String message1 = "Certainly. I've removed this task:";
         String message2 = "There are now " + numOfTasks + " tasks in your list.";
 
-        System.out.println(indentation + message1);
-        System.out.println(indentation + deletedTask);
-        System.out.println(indentation + message2 + lineBreak);
+        System.out.println(INDENTATION + message1);
+        System.out.println(INDENTATION + deletedTask);
+        System.out.println(INDENTATION + message2 + LINE_BREAK);
     }
 
     public void list() {
@@ -89,13 +97,13 @@ public class Edith {
         String filledListMessage = "Here are the tasks in your list:";
 
         if (listOfTasks.isEmpty()) {
-            System.out.println(indentation + emptyListMessage + lineBreak);
+            System.out.println(INDENTATION + emptyListMessage + LINE_BREAK);
         } else {
-            System.out.println(indentation + filledListMessage);
+            System.out.println(INDENTATION + filledListMessage);
             for (int i = 0; i < listOfTasks.size(); i++) {
-                System.out.println(indentation + (i+1) + ") " + listOfTasks.get(i));
+                System.out.println(INDENTATION + (i+1) + ") " + listOfTasks.get(i));
             }
-            System.out.println(lineBreak);
+            System.out.println(LINE_BREAK);
         }
     }
 
@@ -103,28 +111,108 @@ public class Edith {
         int num = index + 1;
         String message = "Alright, great job! I've marked task " + num + " as done:";
         listOfTasks.get(index).markTaskDone();
+        save();
 
-        System.out.println(indentation + message);
-        System.out.println(indentation + listOfTasks.get(index) + lineBreak);
+        System.out.println(INDENTATION + message);
+        System.out.println(INDENTATION + listOfTasks.get(index) + LINE_BREAK);
     }
 
     public void unmark(int index) {
         int num = index + 1;
         String message = "Sure, I've marked task " + num + " as not done yet:";
         listOfTasks.get(index).markTaskUndone();
+        save();
 
-        System.out.println(indentation + message);
-        System.out.println(indentation + listOfTasks.get(index) + lineBreak);
+        System.out.println(INDENTATION + message);
+        System.out.println(INDENTATION + listOfTasks.get(index) + LINE_BREAK);
+    }
+
+    public void save() {
+        try {
+            File file = new File(FILE_PATH);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            for (int i = 0; i < listOfTasks.size(); i++) {
+                Task curr = listOfTasks.get(i);
+                String typeOfTaskString = curr.typeOfTaskString();
+                String statusString = curr.statusString();
+                String taskString = curr.taskString();
+
+                writer.write(typeOfTaskString + "| " + statusString + "| " + taskString);
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(INDENTATION + "An error occurred while saving updated task list." + LINE_BREAK);
+        }
+    }
+
+    public void load() {
+        File file = new File(FILE_PATH);
+        File directory = new File(file.getParent());
+
+        try {
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            if (!file.exists()) {
+                file.createNewFile();
+                return;
+            }
+
+            Scanner scanner = new Scanner(file);
+            listOfTasks.clear();
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] taskData = line.split("\\|");
+                String typeOfTaskString = taskData[0].trim();
+                String statusString = taskData[1].trim();
+                String taskString = taskData[2].trim();
+                Task task;
+
+                switch (typeOfTaskString) {
+                case "[T]":
+                    task = new ToDo(taskString);
+                    break;
+                case "[D]":
+                    String[] deadlineParts = taskString.split(" \\(due: ");
+                    String deadlineTask = deadlineParts[0].trim();
+                    String dueDate = deadlineParts[1].replace(")", "").trim();
+                    task = new Deadline(deadlineTask, dueDate);
+                    break;
+                case "[E]":
+                    String[] eventParts = taskString.split(" \\(from: | to: ");
+                    String eventTask = eventParts[0].trim();
+                    String startTime = eventParts[1].trim();
+                    String endTime = eventParts[2].replace(")", "").trim();
+                    task = new Event(eventTask, startTime, endTime);
+                    break;
+                default:
+                    throw new EdithException("Unknown task type found in saved task list.");
+                }
+
+                if (statusString.equals("[X]")) {
+                    task.markTaskDone();
+                }
+
+                listOfTasks.add(task);
+            }
+        } catch (IOException e) {
+            System.out.println(INDENTATION + "An error occurred while loading saved task list." + LINE_BREAK);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(INDENTATION + "An error occurred while parsing the task list. Data might be corrupted." + LINE_BREAK);
+        }
     }
 
     public String invalidIndexMessage(int index) {
-        return indentation + "Task " + index + " does not exist. Please enter a valid task number." + lineBreak;
+        return INDENTATION + "Task " + index + " does not exist. Please enter a valid task number." + LINE_BREAK;
     }
 
     public String invalidTaskMessage() {
         String string1 = "Invalid task due to missing details which were not provided. ";
         String string2 = "Please provide a valid instruction with the correct relevant details.";
-        return indentation + string1 + string2 + lineBreak;
+        return INDENTATION + string1 + string2 + LINE_BREAK;
     }
 
     public void invalidInstruction() {
@@ -139,7 +227,7 @@ public class Edith {
         String userInput;
 
         while (true) {
-            System.out.println(prompt);
+            System.out.println(PROMPT);
             userInput = scanner.nextLine();
 
             if (userInput.equalsIgnoreCase("bye")) {
