@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Vecrosen {
@@ -11,6 +12,10 @@ public class Vecrosen {
     private enum TaskType {todo, deadline, event};
     private static ArrayList<Task> list;
 
+    /**
+     * Outputs a string with an indentation, to differentiate Vecrosen's dialog from the user's.
+     * @param s The string to be printed.
+     */
     private static void speak(String s) {
         System.out.print("    ");
         System.out.println(s);
@@ -25,23 +30,25 @@ public class Vecrosen {
             FileWriter fw = new FileWriter(f);
             for (int i = 0; i < list.size(); ++i) {
                 Task t = list.get(i);
+                if (i != 0) {
+                    fw.write('\n');
+                }
                 fw.write(t.getDescription());
-                fw.write(" " + t.isDone());
+                fw.write("\n" + t.isDone());
                 if (t.getClass() == Task.class) {
-                    fw.write(" " + TaskType.todo.ordinal() + " ");
+                    fw.write(" " + TaskType.todo.ordinal());
                 } else if (t.getClass() == Deadline.class) {
-                    fw.write(" " + TaskType.deadline.ordinal() + " ");
+                    fw.write(" " + TaskType.deadline.ordinal() + '\n');
                     Deadline d = (Deadline) t;
                     fw.write(d.getBy());
                 } else if (t.getClass() == Event.class) {
-                    fw.write(" " + TaskType.event.ordinal() + " ");
+                    fw.write(" " + TaskType.event.ordinal() + '\n');
                     Event e = (Event) t;
-                    fw.write(e.getBegin());
+                    fw.write(e.getBegin() + '\n');
                     fw.write(e.getEnd());
                 } else {
                     System.err.println("Unrecognized task type when saving!");
                 }
-                fw.write('\n');
             }
             fw.close();
         } catch (IOException e) {
@@ -49,16 +56,58 @@ public class Vecrosen {
         }
     }
 
+    /**
+     * Loads the data from the file into the list.
+     * @param file
+     */
+    private static void load(File file) {
+        if (!file.exists()) {
+            return;
+        }
+        try {
+            Scanner s = new Scanner(file);
+            while (s.hasNextLine()) {
+                String description = s.nextLine();
+                boolean isDone = s.nextBoolean();
+                int tth = s.nextInt();
+                TaskType tt = TaskType.values()[tth];
+                s.nextLine();
+                switch (tt) {
+                case event:
+                    String begin = s.nextLine();
+                    String end = s.nextLine();
+                    list.add(new Event(description, begin, end));
+                    break;
+                case deadline:
+                    String by = s.nextLine();
+                    list.add(new Deadline(description, by));
+                    break;
+                case todo:
+                    list.add(new Task(description));
+                    break;
+                }
+                list.get(list.size() - 1).setDone(isDone);
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("File exists but cannot be found...?");
+        } catch (NoSuchElementException | IndexOutOfBoundsException e) {
+            speak("Savefile is corrupted!");
+            list.clear();
+        }
+    }
+
     public static void main(String[] args) {
+        list = new ArrayList<Task>();
         speak("Hello, I'm Vecrosen.");
         speak("What can I do for you?");
-        list = new ArrayList<Task>();
+        load(new File("data/vecrosen.txt"));
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input;
             input = scanner.nextLine();
-            if (input.equals("bye")) break;
-            else if (input.matches("mark \\d+")) {
+            if (input.equals("bye")) {
+                break;
+            } else if (input.matches("mark \\d+")) {
                 int itemNo = Integer.parseInt(input.substring(5));
                 if (itemNo < 1 || itemNo > list.size()) speak("Invalid task number!");
                 else {
