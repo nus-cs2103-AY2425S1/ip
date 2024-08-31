@@ -39,6 +39,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    protected String getDescription() {
+        return this.description;
+    }
+
     /**
      * Returns a string representation needed for the save file.
      */
