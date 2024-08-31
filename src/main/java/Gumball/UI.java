@@ -1,4 +1,5 @@
-import java.io.IOException;
+package Gumball;
+
 import java.util.Scanner;
 
 public class UI {
@@ -15,7 +16,7 @@ public class UI {
         return inputScanner.nextLine();
     }
     public void intro() {
-        String str = "Hello! I'm Gumball \n"
+        String str = "Hello! I'm Gumball.Gumball \n"
                 + "What can I do for you?";
         print(str);
     }

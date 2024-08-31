@@ -1,3 +1,5 @@
+package Gumball;
+
 import java.time.LocalDate;
 
 public class Events extends Task {
@@ -11,7 +13,7 @@ public class Events extends Task {
             taskType = "[E]";
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new TaskException("Sorry, the desctiption you " +
-                    "gave does not follow the format for Events.");
+                    "gave does not follow the format for Gumball.Events.");
         }
     }
 }
