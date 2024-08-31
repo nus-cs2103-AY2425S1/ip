@@ -10,7 +10,7 @@ import java.io.IOException;
  * Represents a command to add a task to the task list.
  */
 public class AddCommand extends Command {
-    private Task task;
+    private final Task task;
 
     /**
      * Constructs an AddCommand with the specified task.

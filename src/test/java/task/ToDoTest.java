@@ -1,7 +1,10 @@
 package task;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ToDoTest {
 
@@ -11,6 +14,9 @@ public class ToDoTest {
         assertNotNull(todo);
         assertEquals("CS2103T IP", todo.getTaskName());
         assertFalse(todo.isCompleted());
+    }
+
+    private void assertEquals(String cs2103TIp, String taskName) {
     }
 
     @Test
