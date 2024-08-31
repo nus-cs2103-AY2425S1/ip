@@ -1,4 +1,4 @@
 X | todo | read book
-X | deadline | return book by Dec 2 2020, 15:00
+X | deadline | return book by 2/12/2020 15:00
 - | event | project meeting from Aug 6th 2pm to 4pm
 X | todo | join sports club

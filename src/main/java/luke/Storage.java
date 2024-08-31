@@ -12,7 +12,7 @@ import luke.task.Task;
 import luke.task.TaskList;
 
 public class Storage {
-    private final Path saveDataPath = Paths.get(Constants.FILE_PATH);
+    private static final Path saveDataPath = Paths.get(Constants.FILE_PATH);
 
     /**
      * Checks if save data is present. If present, the contents of the file will be returned as a string list.
@@ -20,7 +20,7 @@ public class Storage {
      * @throws IOException if any I/O errors occur
      * @throws NoSaveDataFoundException if no save data is present
      */
-    public List<String> loadData() throws IOException, NoSaveDataFoundException {
+    public static List<String> loadData() throws IOException, NoSaveDataFoundException {
         if (Files.notExists(saveDataPath)) {
             throw new NoSaveDataFoundException();
         }
@@ -32,7 +32,7 @@ public class Storage {
      * This function will only be called if the user indicates that they want a save file to be created.
      * @throws IOException if any I/O errors occur
      */
-    public void createSaveFile() throws IOException {
+    public static void createSaveFile() throws IOException {
         Files.createFile(saveDataPath);
     }
 
@@ -40,7 +40,7 @@ public class Storage {
      * Writes the task list data into the save file.
      * @param taskList  a list of Task objects
      */
-    public void saveData(TaskList taskList) {
+    public static void saveData(TaskList taskList) {
         try {
             // clear file
             FileWriter fw = new FileWriter(saveDataPath.toString(), false);

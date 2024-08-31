@@ -10,9 +10,9 @@ public class Parser {
      * @param input string input from a line in save data
      * @return a command object that stores the mark, task type (command), and args of tasks from save data
      */
-    public Command parseSavedData(String input) {
+    public static Command parseSavedData(String input) {
         List<String> inputList = Arrays.asList(input.split("\\|"));
-//        System.out.println("inputList: " + inputList);
+        //        System.out.println("inputList: " + inputList);
         String mark = inputList.get(0).strip().toLowerCase();
         String command = inputList.get(1).strip();
         String args = String.join(" ", inputList.subList(2, inputList.size())).strip();
@@ -24,9 +24,9 @@ public class Parser {
      * @param input string input from a Scanner line
      * @return a command object that stores the mark, task type (command), and args of tasks from save data
      */
-    public Command parseInputData(String input) {
+    public static Command parseInputData(String input) {
         List<String> inputList = Arrays.asList(input.split(" "));
-//        System.out.println("inputList: " + inputList);
+        //        System.out.println("inputList: " + inputList);
         String command = inputList.get(0).strip();
         String args = String.join(" ", inputList.subList(1, inputList.size())).strip();
         return new Command("-", command, args);

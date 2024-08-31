@@ -96,6 +96,7 @@ public class TaskList {
                     + Constants.INDENT + todo.taskDescription() + "\n"
                     + listSizeUpdateMessage();
         }
+        return "";
     }
 
     private String addDeadlineToList(String taskDetails, boolean isMarked, boolean isLoadingFromDisk) {
