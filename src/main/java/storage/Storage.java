@@ -3,7 +3,7 @@ package storage;
 import task.Deadline;
 import task.Event;
 import task.Task;
-import task.Todo;
+import task.ToDo;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class Storage {
     public Task handleInput(String input) {
         String taskType = input.split(" ")[0];
         return switch (taskType) {
-            case "T" -> new Todo(input.substring(4), input.split(" ")[1].equals("0"));
+            case "T" -> new ToDo(input.substring(4), input.split(" ")[1].equals("0"));
             case "D" -> new Deadline(input.substring(4), input.split(" ")[1].equals("0"));
             case "E" -> new Event(input.substring(4), input.split(" ")[1].equals("0"));
             default -> null;
@@ -72,10 +72,11 @@ public class Storage {
         }
     }
 
-    private boolean isFileUncorrupted(File file) {
+    public boolean isFileUncorrupted(File file) {
         Pattern TODO_PATTERN = Pattern.compile("^T\\s+\\d\\s+\\w+.*$");
-        Pattern EVENT_PATTERN = Pattern.compile("^E\\s+\\d\\s+\\w+.*\\s+/from\\s+\\w+.*\\s+/to\\s+\\w+.*$");
-        Pattern DEADLINE_PATTERN = Pattern.compile("^D\\s+\\d\\s+\\w+.*\\s+/by\\s+\\w+.*$");
+        Pattern EVENT_PATTERN = Pattern.compile("^E\\s+\\d\\s+\\w+.*\\s+/from\\s+\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|30)\\s+/to\\s+\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|30)$");
+
+        Pattern DEADLINE_PATTERN = Pattern.compile("^D\\s+\\d\\s+\\w+.*\\s+/by\\s+\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|30)$");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;

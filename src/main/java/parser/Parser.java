@@ -4,7 +4,7 @@ import command.*;
 import fridayException.*;
 import task.Deadline;
 import task.Event;
-import task.Todo;
+import task.ToDo;
 
 import java.time.LocalDate;
 
@@ -23,7 +23,7 @@ public class Parser {
                 if (parts.length == 1) {
                     throw new InvalidTodoArgument();
                 }
-                return new AddCommand(new Todo(userInput.substring(5)));
+                return new AddCommand(new ToDo(userInput.substring(5)));
             case "deadline":
                 if (parts.length <= 3 || !userInput.contains("/by")) {
                     throw new InvalidDeadlineArgument();

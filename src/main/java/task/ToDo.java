@@ -1,10 +1,10 @@
 package task;
 
-public class Todo extends Task {
-    public Todo (String taskName){
+public class ToDo extends Task {
+    public ToDo(String taskName){
         super(taskName);
     }
-    public Todo (String taskName, boolean isCompleted){
+    public ToDo(String taskName, boolean isCompleted){
         super(taskName, isCompleted);
 
     }
