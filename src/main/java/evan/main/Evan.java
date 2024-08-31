@@ -9,7 +9,6 @@ public class Evan {
     private Storage storage;
     private TaskList taskList;
 
-
     public Evan(String filePath) {
         ui = new Ui();
         userInputParser = new UserInputParser();
