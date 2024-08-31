@@ -10,6 +10,7 @@ import phenex.ui.Ui;
 import java.time.LocalDate;
 
 public class DeadlineCommand extends CreateTaskCommand {
+    /** encapsulates the date of deadline */
     private LocalDate localDate;
 
     public DeadlineCommand() {

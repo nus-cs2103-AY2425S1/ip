@@ -33,6 +33,11 @@ public class Parser {
             this.command = command;
         }
 
+        /** detects if a line matches the regex format
+         *
+         * @param line, the line to check
+         * @return a boolean indicating whether a match is detected
+         */
         public boolean detectMatch(String line) {
             Pattern pattern = Pattern.compile(this.regex);
             Matcher matcher = pattern.matcher(line);
@@ -40,6 +45,12 @@ public class Parser {
         }
     }
 
+    /** parses local date from a line
+     *
+     * @param line, the line to check
+     * @return a LocalDate object representing the local date
+     * @throws PhenexException, if parsing error occurs
+     */
     public LocalDate parseLocalDateFromLine(String line) throws PhenexException {
         try {
             return LocalDate.parse(line.substring(12));
@@ -48,6 +59,12 @@ public class Parser {
         }
     }
 
+    /** parses command from a line
+     *
+     * @param line, the line to check
+     * @return a Command object representing the command parsed
+     * @throws PhenexException, if parsing error
+     */
     public Command parseCommandFromLine(String line) throws PhenexException {
         try {
             for (RegexFormat format : RegexFormat.values()) {

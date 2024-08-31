@@ -8,6 +8,7 @@ import phenex.ui.Ui;
 import java.time.LocalDate;
 
 public class DateCheckCommand extends Command {
+    /** encapsulates the date to check */
     private LocalDate localDate;
 
     public DateCheckCommand() {

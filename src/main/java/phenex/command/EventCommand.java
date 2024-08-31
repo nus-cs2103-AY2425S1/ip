@@ -9,6 +9,7 @@ import phenex.ui.Ui;
 import java.time.LocalDate;
 
 public class EventCommand extends CreateTaskCommand {
+    /** encapsulates the from and to dates of the event */
     private LocalDate fromDate;
     private LocalDate toDate;
 

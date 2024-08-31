@@ -63,8 +63,7 @@ public class Phenex {
             }
 
             phenex.ui.printLine();
-
-
+            
             if (command instanceof TerminatingCommand) {
                 break;
             }
