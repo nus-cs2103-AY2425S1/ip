@@ -100,7 +100,7 @@ public class Response {
      */
     public void intro() {
         String introMessage = """
-                Greetings, human! I'm TARS, your slightly sarcastic yet highly capable companion.
+                \nGreetings, human! I'm TARS, your slightly sarcastic yet highly capable companion.
                 Let's get this chat started! Just remember, my humor setting is at 75%, so things might get a bit cheeky.""";
 
         formatResponse(LOGO + introMessage);
