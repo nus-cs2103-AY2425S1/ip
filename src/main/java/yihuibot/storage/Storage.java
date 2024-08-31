@@ -3,17 +3,13 @@ package yihuibot.storage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.time.format.DateTimeFormatter;
 
 import yihuibot.exception.taskformat.IncorrectTaskFormatException;
-
 import yihuibot.task.TaskList;
 
 /**
@@ -38,26 +34,24 @@ public class Storage {
      */
     public Storage(String filePath, String dateTimeFormat)
             throws InvalidPathException, IllegalArgumentException, IOException {
-        Path path = Paths.get(filePath);
-        try {
+        file = new File(filePath);
+        if (!file.exists()) {
+            Path path = Paths.get(filePath);
             Path directories = path.getParent();
             if (directories != null) {
                 Files.createDirectories(directories);
             }
             Files.createFile(path);
-        } catch (FileAlreadyExistsException e) {
-
         }
-        file = new File(filePath);
         formatter = DateTimeFormatter.ofPattern(dateTimeFormat);
     }
 
     /**
      * Reads the data in file and converts it into TaskList.
      *
+     * @return the TaskList.
      * @throws FileNotFoundException when the file is not found.
      * @throws IncorrectTaskFormatException when the file has corrupted data.
-     * @return the TaskList.
      */
     public TaskList load() throws FileNotFoundException,
             IncorrectTaskFormatException {
