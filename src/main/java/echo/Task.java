@@ -3,6 +3,10 @@ package echo;
 import java.io.Serializable;
 import java.util.regex.Pattern;
 
+/**
+ * Abstract base class representing a task.
+ * Each task has a description and a completion status.
+ */
 public abstract class Task implements Serializable {
     protected String task;
     protected boolean isDone = false;
