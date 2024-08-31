@@ -1,4 +1,4 @@
-package Ponder_Pika;
+package Ponder_Pika.Exception;
 
 public class PonderPikaException extends Exception{
 

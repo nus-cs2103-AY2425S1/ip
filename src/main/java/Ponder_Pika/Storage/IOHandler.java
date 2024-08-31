@@ -9,15 +9,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-import Ponder_Pika.PonderPikaException;
+import Ponder_Pika.Exception.PonderPikaException;
 import Ponder_Pika.Task.Deadline;
 import Ponder_Pika.Task.Event;
 import Ponder_Pika.Task.Task;
 import Ponder_Pika.Task.Todo;
+import Ponder_Pika.Task.TaskList;
 
 /**
  * This class is responsible for handling file operations.
@@ -55,14 +54,14 @@ public class IOHandler {
      * @param tasks the list of tasks to be saved
      * @throws PonderPikaException if an I/O error occurs while writing to the file
      */
-    public void saveData(List<Task> tasks) throws PonderPikaException {
+    public void saveData(TaskList tasks) throws PonderPikaException {
         try {
             if (!FILE.exists()) {
                 create();
             }
 
             FileWriter fw = new FileWriter(FILE);
-            for (Task task : tasks) {
+            for (Task task : tasks.getTasks()) {
                 String saveFormat = task.saveFullDetails();
                 fw.write(saveFormat);
                 fw.write("\n");
@@ -79,8 +78,8 @@ public class IOHandler {
      *
      * @return an ArrayList of tasks loaded from the file
      */
-    public ArrayList<Task> loadData() {
-        ArrayList<Task> list = new ArrayList<>();
+    public TaskList loadData() {
+        TaskList list = new TaskList();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         try {
             if (!FILE.exists()) {
@@ -100,7 +99,7 @@ public class IOHandler {
                         d.markDone();
                     }
 
-                    list.add(d);
+                    list.addTask(d);
                     break;
                 case "E":
                     Event e = new Event(splitlines[2].trim(), LocalDateTime.parse(splitlines[3].trim(),formatter),
@@ -109,7 +108,7 @@ public class IOHandler {
                         e.markDone();
                     }
 
-                    list.add(e);
+                    list.addTask(e);
                     break;
                 case "T":
                     Todo t = new Todo(splitlines[2].trim());
@@ -117,7 +116,7 @@ public class IOHandler {
                         t.markDone();
                     }
 
-                    list.add(t);
+                    list.addTask(t);
                     break;
                 }
             }
