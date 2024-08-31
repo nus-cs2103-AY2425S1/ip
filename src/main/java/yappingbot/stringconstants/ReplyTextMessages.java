@@ -73,4 +73,10 @@ public final class ReplyTextMessages {
     public static final String TIME_PARSE_HINT = "Time value must be given in any valid date-time format!";
     public static final String SAVE_FILE_ERROR_1s = "Error encountered while saving savefile:\n%s";
     public static final String LOAD_FILE_ERROR_1s = "Error encountered while loading savefile:\n%s";
+
+    public static final String FIND_STRING_INIT_1s = "Searching for '%s'.";
+    public static final String FIND_STRING_FAIL_1s = "Sorry, but I could not find '%s' in any " +
+                                                     "tasks.";
+    public static final String FIND_STRING_FOUND_1s = "Found %d tasks with '%s':";
+
 }
