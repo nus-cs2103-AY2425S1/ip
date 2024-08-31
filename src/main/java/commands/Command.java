@@ -28,4 +28,12 @@ public abstract class Command {
      * Unifying under a single method allows for abstraction of the effects of the command from the caller.
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Command)) {
+            return false;
+        }
+        return ((Command) obj).isExitCommand == isExitCommand;
+    }
 }

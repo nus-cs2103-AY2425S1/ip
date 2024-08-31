@@ -15,4 +15,9 @@ public class ExitCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.printByeMessage();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }
