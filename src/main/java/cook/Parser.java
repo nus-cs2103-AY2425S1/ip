@@ -2,16 +2,13 @@ package cook;
 
 import java.util.HashMap;
 
-<<<<<<< HEAD
 import exceptions.InvalidCommandException;
 
-=======
 /**
  * Parser class to format inputs from the user.
  *
  * @param commandArgs Stores commands and their expected number of arguments.
  */
->>>>>>> A-JavaDoc
 public class Parser {
     HashMap<String, Integer> commandArgs;
 
