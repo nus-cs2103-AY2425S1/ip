@@ -1,6 +1,7 @@
 package task;
 
 import storage.Storage;
+import UI.UI;
 import exception.JadeException;
 
 import java.util.ArrayList;
@@ -41,6 +42,16 @@ public class TaskManager {
         } else {
             throw new JadeException("Hmm, no such task. Try again.");
         }
+    }
+
+    public void findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        UI.showMatchingTasks(matchingTasks);
     }
 
     public boolean isValidTaskIndex(int index) {

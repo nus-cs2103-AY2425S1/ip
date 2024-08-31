@@ -6,6 +6,8 @@ import task.*;
 import java.util.Scanner;
 import java.time.format.DateTimeParseException;
 
+import java.util.ArrayList;
+
 public class UI {
     public static final String INDENT = "     "; // 5 spaces for indentation
     public static final String TOP_LINE = "    " + "_".repeat(60) + "\n";
@@ -39,6 +41,8 @@ public class UI {
                     handleTaskCommand(command);
                 } else if (command.startsWith("delete")) {
                     handleDeleteCommand(command);
+                } else if (command.startsWith("find")) {
+                    handleFindCommand(command);
                 } else {
                     throw new JadeException("Please specify the type of task: todo, deadline, or event.");
                 }
@@ -201,6 +205,25 @@ public class UI {
         } catch (JadeException e) {
             displayErrorMessage(e.getMessage());
         }
+    }
+
+    private void handleFindCommand(String command) {
+        String keyword = command.substring(5).trim();
+        taskManager.findTasks(keyword);
+    }
+
+    public static void showMatchingTasks(ArrayList<Task> matchingTasks) {
+        String message;
+        if (matchingTasks.isEmpty()) {
+            message = INDENT + "No matching tasks found.";
+        } else {
+            message = INDENT + "Here are the matching tasks in your list:";
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                message += "\n" + INDENT + (i + 1) + "." + matchingTasks.get(i);
+            }
+        }
+        System.out.println(TOP_LINE + message + BOT_LINE);
+
     }
 
     private void displayErrorMessage(String errorMessage) {
