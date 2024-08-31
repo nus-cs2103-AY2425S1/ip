@@ -4,25 +4,35 @@ import garfield.exceptions.GarfieldException;
 
 import java.util.ArrayList;
 
+/**
+ * The TaskList class represents a list of Tasks.
+ * It provides methods to list out all the tasks in a format suitable for users to read,
+ * methods to add and delete tasks, and to mark tasks as completed or incomplete.
+ */
 public class TaskList {
 
     ArrayList<Task> taskList;
+
+    /**
+     * Constructs a new empty TaskList.
+     */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
     /**
-     * Constructor for garfield.task.TaskList class taking in an existing taskList.
+     * Constructs a TaskList and populates it with tasks from a specified
+     * ArrayList of tasks.
      *
-     * @param taskList ArrayList of garfield.task.Task objects.
+     * @param taskList ArrayList of task.Task objects.
      */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
 
     /**
-     * Returns a string representation of all tasks in the garfield.task list,
-     * with each garfield.task numbered sequentially.
+     * Returns a string representation of all tasks in the TaskList,
+     * with each task numbered sequentially.
      *
      * @return A string containing the list of tasks, each on a new line.
      */
@@ -37,18 +47,18 @@ public class TaskList {
     }
 
     /**
-     * Checks if the garfield.task list is empty.
+     * Checks if the TaskList is empty.
      *
-     * @return {@code true} if the garfield.task list is empty; {@code false} otherwise.
+     * @return {@code true} if the TaskList is empty; {@code false} otherwise.
      */
     public boolean isEmpty() {
         return taskList.isEmpty();
     }
 
     /**
-     * Returns the number of tasks in the garfield.task list.
+     * Returns the number of tasks in the TaskList.
      *
-     * @return The number of tasks in the garfield.task list.
+     * @return The number of tasks in the TaskList.
      */
     public int size() {
         return taskList.size();
@@ -64,20 +74,20 @@ public class TaskList {
     }
 
     /**
-     * Adds a new garfield.task to the garfield.task list.
+     * Adds a new task to the TaskList.
      *
-     * @param task The garfield.task to be added.
+     * @param task The task to be added.
      */
     public void add(Task task) {
         this.taskList.add(task);
     }
 
     /**
-     * Deletes the garfield.task at the specified index from the garfield.task list.
+     * Deletes the task at the specified index from the TaskList.
      *
-     * @param taskId The 1-based index of the garfield.task to be deleted.
-     * @return A string representation of the deleted garfield.task.
-     * @throws GarfieldException If the garfield.task at the specified index does not exist.
+     * @param taskId The 1-based index of the task to be deleted.
+     * @return A string representation of the deleted task.
+     * @throws GarfieldException If the task at the specified index does not exist.
      */
     public String delete(int taskId) throws GarfieldException {
         Task task = this.get(taskId);
@@ -86,11 +96,11 @@ public class TaskList {
     }
 
     /**
-     * Marks the garfield.task at the specified index as done.
+     * Marks the task at the specified index as done.
      *
-     * @param taskId The 1-based index of the garfield.task to be marked as done.
-     * @return A string representation of the garfield.task after marking it as done.
-     * @throws GarfieldException If the garfield.task at the specified index does not exist.
+     * @param taskId The 1-based index of the task to be marked as done.
+     * @return A string representation of the task after marking it as done.
+     * @throws GarfieldException If the task at the specified index does not exist.
      */
     public String mark(int taskId) throws GarfieldException {
         Task task = this.get(taskId);
@@ -99,11 +109,11 @@ public class TaskList {
     }
 
     /**
-     * Marks the garfield.task at the specified index as not done.
+     * Marks the task at the specified index as not done.
      *
-     * @param taskId The 1-based index of the garfield.task to be marked as not done.
-     * @return A string representation of the garfield.task after marking it as not done.
-     * @throws GarfieldException If the garfield.task at the specified index does not exist.
+     * @param taskId The 1-based index of the task to be marked as not done.
+     * @return A string representation of the task after marking it as not done.
+     * @throws GarfieldException If the task at the specified index does not exist.
      */
     public String unmark(int taskId) throws GarfieldException {
         Task task = this.get(taskId);
@@ -112,15 +122,15 @@ public class TaskList {
     }
 
     /**
-     * Retrieves the garfield.task at the specified index from the garfield.task list.
+     * Retrieves the task at the specified index from the TaskList.
      *
-     * @param taskId The 1-based index of the garfield.task to retrieve.
-     * @return The garfield.task at the specified index.
-     * @throws GarfieldException If the garfield.task at the specified index does not exist.
+     * @param taskId The 1-based index of the task to retrieve.
+     * @return The task at the specified index.
+     * @throws GarfieldException If the task at the specified index does not exist.
      */
     private Task get(int taskId) throws GarfieldException {
         if (taskId > taskList.size()) {
-            throw new GarfieldException("The garfield.task doesn't exist!");
+            throw new GarfieldException("The task doesn't exist!");
         }
 
         return taskList.get(taskId - 1);
