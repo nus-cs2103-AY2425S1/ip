@@ -1,5 +1,7 @@
 package blue.task;
 
+import java.util.Objects;
+
 /**
  * TodoTask class that inherit from blue.task.Task.
  * Basically a kind of task that only has a description
@@ -20,6 +22,19 @@ public class ToDoTask extends Task {
     @Override
     public String toFileString() {
         return "T | " + getStatusIcon() + " | " + getDescription();
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ToDoTask that = (ToDoTask) o;
+        return Objects.equals(description, that.description) && this.isDone == that.isDone;
     }
 
     

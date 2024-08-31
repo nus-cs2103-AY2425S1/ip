@@ -3,3 +3,4 @@ D | 0 | Submit homework | 2/12/2024 1730
 D | 0 | bring blue for a walk | 31/8/2024 1900
 T | 1 | Prepare for interview
 T | 0 | homework
+D | 0 | return book | 12/9/2024 1800

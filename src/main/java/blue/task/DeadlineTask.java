@@ -3,6 +3,7 @@ package blue.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 public class DeadlineTask extends Task {
 
@@ -40,5 +41,21 @@ public class DeadlineTask extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         String formattedDeadline = deadline.format(formatter);
         return "D | " + getStatusIcon() + " | " + getDescription() + " | " + formattedDeadline;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        DeadlineTask that = (DeadlineTask) o;
+        return Objects.equals(description, that.description) &&
+                Objects.equals(deadline, that.deadline) && this.isDone == that.isDone;
     }
 }
