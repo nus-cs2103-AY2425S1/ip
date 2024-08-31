@@ -3,9 +3,11 @@ package gopher.parser;
 import gopher.exception.EmptyTaskDescriptionException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
+import java.lang.StringBuilder;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
 import gopher.task.Task;
 import gopher.ui.UI;
 
@@ -36,11 +38,10 @@ public class Parser {
         String date = tokens[0];
         String time = tokens.length == 2 ? tokens[1] : "";
 
-        if (time.isEmpty()) {
-            return LocalDateTime.parse(date + " " + "00:00", dateInputFormatter);
-        } else {
-            return LocalDateTime.parse(date + " " + time, dateInputFormatter);
-        }
+        return LocalDateTime.parse(date
+                        + " "
+                        + (time.isEmpty() ? "00:00" : time)
+                , dateInputFormatter);
     }
 
     /**
@@ -76,9 +77,8 @@ public class Parser {
             UI.printUnknownCommandWarning(e);
         } catch (DateTimeParseException e) {
             UI.printInvalidDateWarning();
-        }
-        catch (EmptyTaskDescriptionException
-               | MissingTokenException e) {
+        } catch (EmptyTaskDescriptionException
+                 | MissingTokenException e) {
             System.out.println(e.getMessage());
         }
         return null;
@@ -118,5 +118,17 @@ public class Parser {
         String[] tokens = command.split(" ");
         String taskNumber = tokens[1];
         return Integer.parseInt(taskNumber);
+    }
+
+    public static String parseFindCommand(String command) {
+        String[] tokens = command.split(" ");
+        StringBuilder keyword = new StringBuilder();
+        for (int i = 1; i < tokens.length; i++) {
+            keyword.append(tokens[i]);
+            if (i < tokens.length - 1) {
+                keyword.append(" ");
+            }
+        }
+        return keyword.toString();
     }
 }

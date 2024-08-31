@@ -57,6 +57,10 @@ public class Gopher {
             } else if (userInput.toLowerCase().startsWith("delete")) {
                 int taskNumber = Parser.parseDeleteCommand(userInput);
                 taskList.delete(taskNumber);
+            } else if (userInput.toLowerCase().startsWith("find")) {
+                String keyword = Parser.parseFindCommand(userInput);
+                TaskList matchedTasks = taskList.find(keyword);
+                UI.printMatchedTasks(matchedTasks);
             } else {
                 Task task = Parser.parseCreateTaskCommand(userInput);
                 if (task != null) {
@@ -66,7 +70,8 @@ public class Gopher {
 
             System.out.println();
             UI.printHorizontalSeparator();
-        };
+        }
+        ;
     }
 
     public static void main(String[] args) {

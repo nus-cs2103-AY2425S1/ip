@@ -13,13 +13,13 @@ public class UI {
      */
     public static void printGopherLogo() {
         System.out.println("""
-                     ____             _
-                    / ___| ___  _ __ | |__   ___ _ __
-                   | |  _ / _ \\| '_ \\| '_ \\ / _ \\ '__|
-                   | |_| | (_) | |_) | | | |  __/ |
-                    \\____|\\___/| .__/|_| |_|\\___|_|
-                               |_|
-                   """);
+                  ____             _
+                 / ___| ___  _ __ | |__   ___ _ __
+                | |  _ / _ \\| '_ \\| '_ \\ / _ \\ '__|
+                | |_| | (_) | |_) | | | |  __/ |
+                 \\____|\\___/| .__/|_| |_|\\___|_|
+                            |_|
+                """);
     }
 
     /**
@@ -46,6 +46,14 @@ public class UI {
         System.out.println(String.format("You currently have %d %s in the list\n",
                 tasks.getSize(),
                 tasks.getSize() == 1 ? "task" : "tasks"));
+        System.out.println(tasks);
+    }
+
+    public static void printMatchedTasks(TaskList tasks) {
+        System.out.println(String.format("Found %d matching %s in your list:",
+                tasks.getSize(),
+                tasks.getSize() == 1 ? "task" : "tasks"
+        ));
         System.out.println(tasks);
     }
 

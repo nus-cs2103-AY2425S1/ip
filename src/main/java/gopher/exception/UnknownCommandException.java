@@ -1,7 +1,8 @@
 package gopher.exception;
 
-public class UnknownCommandException extends Exception{
+public class UnknownCommandException extends Exception {
     private String command;
+
     public UnknownCommandException(String command) {
         this.command = command;
     }
