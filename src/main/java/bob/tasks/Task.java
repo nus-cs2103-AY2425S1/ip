@@ -33,6 +33,12 @@ public abstract class Task {
         this.isCompleted = false;
     }
 
+    /**
+     * Check if the given string is contained in the Task Name
+     *
+     * @param searchString String to search for in the task name
+     * @return If the string is in the task name
+     */
     public boolean contains(String searchString) {
         return this.taskName.toUpperCase().contains(searchString.toUpperCase());
     }

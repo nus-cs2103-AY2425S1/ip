@@ -78,6 +78,11 @@ public class TaskList {
         this.taskList.get(index).unmark();
     }
 
+    /**
+     * Filters all the tasks in the task list based on the search string given and returns a string of all the match cases
+     * @param searchString String to search for in the task name of the tasks
+     * @return String format of all the match cases in the task list for printing
+     */
     public String filter(String searchString) {
         String taskString = " Here are the matching tasks in your list:";
         int counter = 1;
