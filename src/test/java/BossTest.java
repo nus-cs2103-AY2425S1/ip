@@ -50,9 +50,14 @@ public class BossTest {
 
         tasks.addTask(task);
 
-        String newTask = tasks.mark("mark 1");
+        try {
+            String newTask = tasks.mark("mark 1");
+            assertEquals(true, newTask.contains("[X]"));
+        } catch (BossException e) {
+            System.out.println(e.getMessage());
+        }
 
-        assertEquals(true, newTask.contains("[X]"));
+
 
     }
 

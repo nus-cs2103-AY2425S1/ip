@@ -1,5 +1,6 @@
 package boss;
 
+
 /**
  * Represents an Event, which is a type of task
  * users can add to their list.
@@ -23,6 +24,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "| from:" + from + "| to:" + to;
+        return "[E]" + super.toString() + "| from: " + from + "| to: " + to;
     }
 }

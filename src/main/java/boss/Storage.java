@@ -23,7 +23,6 @@ public class Storage {
         this.filePath = filePath;
     }
 
-
     /**
      * Prints the tasks from the textfile when user
      * uses the "list" command
@@ -52,23 +51,6 @@ public class Storage {
         FileWriter fw = new FileWriter(filePath, appendorNot);
         fw.write(textToAdd);
         fw.close();
-    }
-
-    /**
-     * Returns the number of tasks
-     * @return num of tasks
-     * @throws FileNotFoundException throws error if file cannot be found
-     */
-
-    public int numofTasks() throws FileNotFoundException {
-        File f = new File(filePath);
-        Scanner s = new Scanner(f);
-        int i = 1;
-        while (s.hasNext()) {
-            String str = s.nextLine();
-            i++;
-        }
-        return i;
     }
 
     /**
@@ -123,8 +105,8 @@ public class Storage {
         } else if (str.contains("[E]")) {
             String[] newStr = description.split("\\| ");
 
-            String from = newStr[1].split("from:")[1];
-            String to = newStr[2].split("to:")[1];
+            String from = newStr[1].split("from: ")[1];
+            String to = newStr[2].split("to: ")[1];
 
             return new Event(newStr[0], from, to, isDone);
 

@@ -27,29 +27,25 @@ public class TaskList {
      * @param task the task that the user wants to unmark
      * @return the text to replace text in file
      */
-    public String unmark(String task) {
+    public String unmark(String task) throws BossException {
         // replace all characters with nothing, in order to extract number!
         String taskNum = task.replaceAll("[^0-9]", "");
-        try {
-            if (taskNum.equals("")) {
-                throw new BossException("Please specify a task number to unmark");
-            }
-            int num = Integer.parseInt(taskNum);
-            if (tasks.size() < num) {
-                throw new BossException("boss.Task " + num + " does not exist yet");
-            }
-            Task item = tasks.get(num - 1);
-            item.markAsUnDone();
-            String toReplace = item.getDescription();
-            String newFileData = reWrite(tasks, num, toReplace);
 
-            System.out.println("Ok! I have marked this task as not done yet!");
-            System.out.println(tasks.get(num - 1));
-            return newFileData;
-        } catch (BossException e) {
-            System.out.println(e.getMessage());
+        if (taskNum.equals("")) {
+            throw new BossException("Please specify a task number to unmark");
         }
-        return "";
+        int num = Integer.parseInt(taskNum);
+        if (tasks.size() < num) {
+            throw new BossException("boss.Task " + num + " does not exist yet");
+        }
+        Task item = tasks.get(num - 1);
+        item.markAsUnDone();
+
+        String newFileData = getAll(tasks);
+
+        System.out.println("Ok! I have marked this task as not done yet!");
+        System.out.println(tasks.get(num - 1));
+        return newFileData;
     }
 
     /**
@@ -57,29 +53,23 @@ public class TaskList {
      * @param task the task that the user wants to mark
      * @return the text to replace text in file
      */
-    public String mark(String task) {
+    public String mark(String task) throws BossException {
         String taskNum = task.replaceAll("[^0-9]", "");
-        try {
-            if (taskNum.equals("")) {
-                throw new BossException("Please specify a task number to mark");
-            }
-            int num = Integer.parseInt(taskNum);
-            if (tasks.size() < num) {
-                throw new BossException("boss.Task " + num + " does not exist yet");
-            }
-            Task item = tasks.get(num - 1);
-            item.markAsDone();
-            String toReplace = item.getDescription();
 
-            String newFileData = reWrite(tasks, num, toReplace);
-
-            System.out.println("Nice! I have marked this task as done!");
-            System.out.println(tasks.get(num - 1));
-            return newFileData;
-        } catch (BossException e) {
-            System.out.println(e.getMessage());
+        if (taskNum.equals("")) {
+            throw new BossException("Please specify a task number to mark");
         }
-        return "";
+        int num = Integer.parseInt(taskNum);
+        if (tasks.size() < num) {
+            throw new BossException("boss.Task " + num + " does not exist yet");
+        }
+        Task item = tasks.get(num - 1);
+        item.markAsDone();
+
+        String newFileData = getAll(tasks);
+        System.out.println("Nice! I have marked this task as done!");
+        System.out.println(tasks.get(num - 1));
+        return newFileData;
     }
 
     /**
@@ -87,41 +77,32 @@ public class TaskList {
      * @param task the task that the user wants to delete
      * @return the text to replace text in file
      */
-    public String delete(String task) {
-        try {
-            String taskNum = task.replaceAll("[^0-9]", "");
-            if (taskNum.equals("")) {
-                throw new BossException("Please specify a task number to delete");
-            }
-            int num = Integer.parseInt(taskNum);
-            if (tasks.size() < num) {
-                throw new BossException("boss.Task " + num + " does not exist");
-            }
-            Task item = tasks.remove(num - 1);
-            String newFileData = reWrite(tasks, num, "");
-
-            System.out.println("Ok. This task has been removed!");
-            System.out.println(item);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list");
-            return newFileData;
-
-        } catch (BossException e) {
-            System.out.println(e.getMessage());
+    public String delete(String task) throws BossException {
+        String taskNum = task.replaceAll("[^0-9]", "");
+        if (taskNum.equals("")) {
+            throw new BossException("Please specify a task number to delete");
         }
-        return "";
+        int num = Integer.parseInt(taskNum);
+        if (tasks.size() < num) {
+            throw new BossException("boss.Task " + num + " does not exist");
+        }
+        Task item = tasks.remove(num - 1);
+        String newFileData = getAll(tasks);
+
+        System.out.println("Ok. This task has been removed!");
+        System.out.println(item);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
+        return newFileData;
     }
 
     /**
-     * rewrites text file
+     * used to rewrite text file
      *
-     * @param tasks
-     * @param index
-     * @param toReplace
+     * @param tasks list of tasks
      * @return
      */
-    private static String reWrite(ArrayList<Task> tasks, int index, String toReplace) {
+    private static String getAll(ArrayList<Task> tasks) {
         String s = "";
-        int i = 1;
         for (Task str : tasks) {
             s += "" + str + '\n';
         }
@@ -131,13 +112,12 @@ public class TaskList {
 
     /**
      * Prints user messages to the screen.
-     * @param len number of tasks in list
      */
-    public void printabstraction(int len) {
+    public void printabstraction() {
         System.out.println("Got it! I've added this task now");
         int size = tasks.size();
         System.out.println(tasks.get(size-1));
-        System.out.println("Now you have " + len + " tasks in the list.");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
 

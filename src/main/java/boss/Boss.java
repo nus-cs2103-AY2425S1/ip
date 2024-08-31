@@ -25,16 +25,18 @@ public class Boss {
         System.out.println("What can I do for you?");
         Scanner myObj = new Scanner(System.in);
 
-        Parser parser = new Parser(storage, tasks);
+        Parser parser = new Parser(storage, tasks, ui);
 
         String task = myObj.nextLine();
         while (!task.equals("bye")) {
             try {
                 parser.handleCommand(task);
             } catch (FileNotFoundException e) {
-                ui.showLoadingError();
+                ui.showLoadingError(e);
             } catch (IOException e) {
-                ui.showLoadingError();
+                ui.showLoadingError(e);
+            } catch (BossException e) {
+                ui.showLoadingError(e);
             }
             task = myObj.nextLine();
         }
