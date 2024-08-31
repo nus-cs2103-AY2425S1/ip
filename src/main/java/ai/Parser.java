@@ -1,6 +1,15 @@
 package ai;
 
-import ai.command.*;
+import ai.command.AddCommand;
+import ai.command.ByeCommand;
+import ai.command.Command;
+import ai.command.DefaultCommand;
+import ai.command.DeleteCommand;
+import ai.command.DueCommand;
+import ai.command.FindCommand;
+import ai.command.ListCommand;
+import ai.command.MarkCommand;
+import ai.command.UnmarkCommand;
 import ai.exception.AiException;
 import ai.task.Deadline;
 import ai.task.Event;
@@ -32,14 +41,14 @@ public class Parser {
             return new MarkCommand(arguments);
         case "todo":
             if (arguments.length() <= 0) {
-                throw new AiException("Whoopsies, todo cannot be empty >.<\n " +
-                        "Try something like \"todo hangout with Ai\" instead!\n");
+                throw new AiException("Whoopsies, todo cannot be empty >.<\n "
+                        + "Try something like \"todo hangout with Ai\" instead!\n");
             }
             return new AddCommand(new ToDo(arguments));
         case "deadline":
             if (arguments.length() <= 0) {
-                throw new AiException("Whoopsies, deadline cannot be empty >.<\n " +
-                        "Try something like \"deadline date w Ai <3 /by Wed\" instead!\n");
+                throw new AiException("Whoopsies, deadline cannot be empty >.<\n "
+                        + "Try something like \"deadline date w Ai <3 /by Wed\" instead!\n");
             }
 
             String[] parsedInput = arguments.split(" /by ", 2);
@@ -49,8 +58,8 @@ public class Parser {
             return new AddCommand(new Deadline(desc, date));
         case "event":
             if (arguments.length() <= 0) {
-                throw new AiException("Whoopsies, event cannot be empty >.<\n " +
-                        "Try something like \"event birthday w Ai <3333 /from 5am /to 6pm\" instead!\n");
+                throw new AiException("Whoopsies, event cannot be empty >.<\n "
+                        + "Try something like \"event birthday w Ai <3333 /from 5am /to 6pm\" instead!\n");
             }
             return new AddCommand(new Event(arguments));
         case "due":

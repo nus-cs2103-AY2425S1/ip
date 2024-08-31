@@ -1,10 +1,10 @@
 package ai;
 
-import ai.command.Command;
-import ai.exception.AiException;
-
 import java.io.IOException;
 import java.util.Scanner;
+
+import ai.command.Command;
+import ai.exception.AiException;
 
 /**
  * Entry point of the programme.
@@ -35,11 +35,11 @@ public class Ai {
     /**
      * Obtains user reply using a scanner. Repeat the process until "bye" command is issued.
      */
-    public void run() { 
+    public void run() {
         ui.showGreetings();
         boolean isExit = false;
 
-        Scanner scanner = new Scanner(System.in);  // Create a Scanner object
+        Scanner scanner = new Scanner(System.in); //Create a Scanner object
         String reply;
 
         while (!isExit) {

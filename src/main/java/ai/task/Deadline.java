@@ -1,18 +1,24 @@
 package ai.task;
 
-import ai.exception.AiException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import ai.exception.AiException;
 
 /**
  * A subtype of Task that has a due date.
  */
 public class Deadline extends Task {
-    private final static String TASK_TYPE = "D";
+    private static final String TASK_TYPE = "D";
     private LocalDate deadline;
 
+    /**
+     * Creates a new Deadline object.
+     * @param input String to be stored as description.
+     * @param date in the format of d/M/yyyy HHmm or YYYY-MM-DD.
+     * @throws AiException if the date format is incorrect.
+     */
     public Deadline(String input, String date) throws AiException {
         super(input);
 
@@ -24,10 +30,18 @@ public class Deadline extends Task {
                 deadline = LocalDate.parse(date);
             }
         } catch (DateTimeParseException e) {
-            throw new AiException("Awww shucksss, your date time format should either be d/M/yyyy HHmm or YYYY-MM-DD\n");
+            throw new AiException("Awww shucksss, your date time format should either be d/M/yyyy HHmm "
+                    + "or YYYY-MM-DD\n");
         }
     }
 
+    /**
+     * Creates a new Deadline object.
+     * @param input String to be stored as description.
+     * @param date in the format of YYYY-MM-DD.
+     * @param isDone whether the task is done.
+     * @throws AiException if the date format is incorrect.
+     */
     public Deadline(String input, String date, Boolean isDone) {
         super(input, isDone);
 

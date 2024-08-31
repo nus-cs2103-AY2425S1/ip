@@ -4,7 +4,7 @@ package ai.task;
  * A subtype of Task that only has a description.
  */
 public class ToDo extends Task {
-    private final static String TASK_TYPE = "T";
+    private static final String TASK_TYPE = "T";
 
     public ToDo(String description) {
         super(description);

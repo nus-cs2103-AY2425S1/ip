@@ -11,6 +11,11 @@ public class Task {
         this.description = description;
     }
 
+    /**
+     * Creates a new Task object.
+     * @param description String to be stored as description.
+     * @param isDone whether the task is done.
+     */
     public Task(String description, Boolean isDone) {
         this.description = description;
         this.isDone = isDone;
@@ -44,7 +49,7 @@ public class Task {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns task in the format of [ ] description.
      */
     @Override
     public String toString() {

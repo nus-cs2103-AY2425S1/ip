@@ -4,6 +4,9 @@ import ai.TaskList;
 import ai.Ui;
 import ai.task.Task;
 
+/**
+ * Executes the add command that adds the task into the TaskList.
+ */
 public class AddCommand extends Command {
     private Task task;
 

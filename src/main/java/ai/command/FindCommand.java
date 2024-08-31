@@ -4,6 +4,9 @@ import ai.TaskList;
 import ai.Ui;
 import ai.task.Task;
 
+/**
+ * Executes the find command that prints out the task that contains the user specified word in the description.
+ */
 public class FindCommand extends Command {
     private String argument;
 

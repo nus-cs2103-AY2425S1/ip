@@ -1,20 +1,20 @@
 package ai;
 
-import ai.exception.AiException;
-import ai.task.Deadline;
-import ai.task.Task;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import ai.exception.AiException;
+import ai.task.Deadline;
+import ai.task.Task;
 
 /**
  * Manages the task list.
  */
 public class TaskList {
     private Ui ui = new Ui();
-    ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;

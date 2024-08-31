@@ -1,17 +1,17 @@
 package ai;
 
-import ai.exception.AiException;
-import ai.task.Deadline;
-import ai.task.Event;
-import ai.task.Task;
-import ai.task.ToDo;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import ai.exception.AiException;
+import ai.task.Deadline;
+import ai.task.Event;
+import ai.task.Task;
+import ai.task.ToDo;
 
 /**
  * Deals with file writing and reading.

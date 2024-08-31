@@ -4,10 +4,14 @@ package ai.task;
  * A subtype of Task that has a from and to date.
  */
 public class Event extends Task {
-    private final static String TASK_TYPE = "E";
+    private static final String TASK_TYPE = "E";
     private String from;
     private String to;
 
+    /**
+     * Creates a new Event object.
+     * @param input String to be parsed in description, from, and to.
+     */
     public Event(String input) {
         super(input.substring(0, input.indexOf("/from") - 1));
         int indexFrom = input.indexOf("/from");
@@ -16,6 +20,13 @@ public class Event extends Task {
         to = input.substring(indexTo + 4);
     }
 
+    /**
+     * Creates a new Event object.
+     * @param desc String containing description.
+     * @param from String containing starting time of the event.
+     * @param to String containing ending time of the event.
+     * @param isDone whether the task is done.
+     */
     public Event(String desc, String from, String to, Boolean isDone) {
         super(desc, isDone);
         this.from = from;
