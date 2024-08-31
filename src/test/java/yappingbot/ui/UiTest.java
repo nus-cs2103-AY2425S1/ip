@@ -1,11 +1,13 @@
 package yappingbot.ui;
 
-import org.junit.jupiter.api.Test;
-import yappingbot.testHelper;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import yappingbot.TestHelper;
+
 class UiTest {
 
     @Test
@@ -15,38 +17,40 @@ class UiTest {
         Ui.quoteSinglelineText("Test2", sb);
         Ui.quoteSinglelineText("", sb);
         Ui.quoteSinglelineText("multiline\naccident", sb);
-        String expected =
- """
-|  Test
-|  Test2
-|
-|  multilineaccident
-""";
+        final String expected =
+                """
+               |  Test
+               |  Test2
+               |
+               |  multilineaccident
+               """;
         assertEquals(expected, sb.toString());
     }
 
     @Test
     void testPrintError() throws IOException {
-        String expected = """
-|  Error message here!
-|  Multiline Error Message
-""";
-        testHelper h = new testHelper();
+        final String expected =
+                """
+                |  Error message here!
+                |  Multiline Error Message
+                """;
+        TestHelper h = new TestHelper();
         h.captureStdOut();
         Ui.printError("Error message here!\nMultiline Error Message");
         h.stopCapture();
-        assertEquals(expected,h.toString());
+        assertEquals(expected, h.toString());
     }
 
     @Test
     void testPrint() throws IOException {
-        String expected = """
-|  test 1
-|
-|  multiline
-|  Allowed
-        """;
-        testHelper h = new testHelper();
+        final String expected =
+                """
+                |  test 1
+                |
+                |  multiline
+                |  Allowed
+                        """;
+        TestHelper h = new TestHelper();
         h.captureStdOut();
         Ui.print("test 1");
         Ui.print("");
@@ -57,12 +61,13 @@ class UiTest {
 
     @Test
     void testPrintln() throws IOException {
-        String expected = """
-|  test 1
-|
-|  multilineprevented
-        """;
-        testHelper h = new testHelper();
+        final String expected =
+                """
+                |  test 1
+                |
+                |  multilineprevented
+                        """;
+        TestHelper h = new TestHelper();
         h.captureStdOut();
         Ui.println("test 1");
         Ui.println("");

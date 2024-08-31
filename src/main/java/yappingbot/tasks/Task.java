@@ -1,8 +1,8 @@
 package yappingbot.tasks;
 
-import yappingbot.exceptions.YappingBotInvalidSaveFileException;
-
 import static yappingbot.stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES;
+
+import yappingbot.exceptions.YappingBotInvalidSaveFileException;
 
 /**
  * Abstract Task class for the possible Task variants.
@@ -38,6 +38,7 @@ public abstract class Task {
         return taskType;
     }
 
+
     /**
      * Sets the type of task. To only be set internally by different task classes that extend this.
      * @param taskType TaskType of the task.
@@ -45,7 +46,6 @@ public abstract class Task {
     protected void setTaskType(TaskTypes taskType) {
         this.taskType = taskType;
     }
-
     public void setTaskDone(boolean taskDone) {
         this.taskDone = taskDone;
     }
@@ -58,6 +58,7 @@ public abstract class Task {
         return taskDone;
     }
 
+
     public String getTaskName() {
         return taskName;
     }
@@ -68,6 +69,7 @@ public abstract class Task {
      * @return String of a single char, demarcating what the task type is in a friendly manner.
      */
     public abstract String getTaskTypeSymbol();
+
 
     /**
      * Returns "X" or " " depending on whether task is marked done.
@@ -86,6 +88,7 @@ public abstract class Task {
     public String toString() {
         return String.format("Name: %s, Completed: %s", this.taskName, this.taskDone);
     }
+
 
     /**
      * Serializes the task in a String that can then be used to save the task to disk.
@@ -110,14 +113,16 @@ public abstract class Task {
      * @param sString String array, split by colons.
      * @throws YappingBotInvalidSaveFileException Exception if any issues parsing the given String arrays.
      */
-    public void deserialize(String[] sString) throws YappingBotInvalidSaveFileException {
-        if (sString.length < 3) {
-            throw new YappingBotInvalidSaveFileException(INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
+    public void deserialize(String[] stringDataSlices) throws YappingBotInvalidSaveFileException {
+        if (stringDataSlices.length < 3) {
+            throw new YappingBotInvalidSaveFileException(
+                    INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES
+            );
         }
         try {
-            taskType = TaskTypes.valueOf(sString[0]);
-            taskName = sString[1].replaceAll("/colon", ":");
-            taskDone = Boolean.parseBoolean(sString[2]);
+            taskType = TaskTypes.valueOf(stringDataSlices[0]);
+            taskName = stringDataSlices[1].replaceAll("/colon", ":");
+            taskDone = Boolean.parseBoolean(stringDataSlices[2]);
         } catch (IllegalArgumentException e) {
             throw new YappingBotInvalidSaveFileException(e.getMessage());
         }

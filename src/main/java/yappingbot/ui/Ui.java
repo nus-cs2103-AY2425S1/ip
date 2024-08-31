@@ -9,6 +9,7 @@ public class Ui {
     private static final String PREFIX = "|  ";
     private static final String PREFIX_EMPTY = "|";
 
+
     /**
      * Decorates the given string, to denote that it is the bot's output.
      *
@@ -19,7 +20,7 @@ public class Ui {
         if (line == null || line.trim().isEmpty()) {
             return PREFIX_EMPTY + "\n";
         } else {
-            return PREFIX + line.replaceAll("\n","") + "\n";
+            return PREFIX + line.replaceAll("\n", "") + "\n";
         }
     }
 
@@ -39,6 +40,7 @@ public class Ui {
         }
         sb.append("\n");
     }
+
 
     /**
      * Decorates the given string, to denote that it is the bot's output.
@@ -68,6 +70,7 @@ public class Ui {
         printError(e.getErrorMessage());
     }
 
+
     /**
      * Prints error message from a YappingBotException with decorations denoting output is from bot.
      *
@@ -85,6 +88,7 @@ public class Ui {
     public static void print(String msg) {
         System.out.print(Ui.quoteMultilineText(msg));
     }
+
 
     /**
      * Prints any String in a line, with decorations denoting output is from bot.

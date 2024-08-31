@@ -1,8 +1,5 @@
 package yappingbot.storage;
 
-import yappingbot.exceptions.YappingBotSaveFileIOException;
-import yappingbot.exceptions.YappingBotSaveFileNotFoundException;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,10 +8,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import yappingbot.exceptions.YappingBotSaveFileIoException;
+import yappingbot.exceptions.YappingBotSaveFileNotFoundException;
+
 /**
  * Storage class to keep track, load, and save data to disk.
  */
 public class Storage {
+
     private final String savefilePath;
 
     /**
@@ -55,14 +56,14 @@ public class Storage {
      * @param userListRaw ArrayList of Strings to be saved.
      * @throws YappingBotSaveFileIOException Exception if file is not accessible.
      */
-    public void saveListToFile(ArrayList<String> userListRaw) throws YappingBotSaveFileIOException {
+    public void saveListToFile(ArrayList<String> userListRaw) throws YappingBotSaveFileIoException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(savefilePath))) {
             for (String t : userListRaw) {
                 bw.write(t);
                 bw.newLine();
             }
         } catch (IOException e) {
-            throw new YappingBotSaveFileIOException(e.getMessage());
+            throw new YappingBotSaveFileIoException(e.getMessage());
         }
     }
 }

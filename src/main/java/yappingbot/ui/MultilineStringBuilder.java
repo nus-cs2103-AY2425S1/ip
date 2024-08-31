@@ -11,6 +11,7 @@ public class MultilineStringBuilder extends Ui{
      *
      * @param s String single-line text
      */
+
     public void addLine(String s) {
         Ui.quoteSinglelineText(s, sb);
     }

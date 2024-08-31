@@ -1,17 +1,17 @@
 package yappingbot.tasks;
 
-import yappingbot.exceptions.YappingBotException;
-import yappingbot.exceptions.YappingBotOOBException;
-import yappingbot.stringconstants.ReplyTextMessages;
-import yappingbot.ui.MultilineStringBuilder;
-import yappingbot.ui.Ui;
+import static yappingbot.tasks.TaskParser.parseSingleTask;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
-import static yappingbot.tasks.TaskParser.parseSingleTask;
+import yappingbot.exceptions.YappingBotException;
+import yappingbot.exceptions.YappingBotOOBException;
+import yappingbot.stringconstants.ReplyTextMessages;
+import yappingbot.ui.MultilineStringBuilder;
+import yappingbot.ui.Ui;
 
 /**
  * TaskList container to hold valid Tasks.
@@ -80,9 +80,9 @@ public class TaskList implements Iterable<Task> {
      *
      * @param index integer index of the task to be deleted.
      * @return Task that was deleted.
-     * @throws YappingBotOOBException Exception if index provided is out of bounds.
+     * @throws YappingBotOobException Exception if index provided is out of bounds.
      */
-    public Task delete(int index) throws YappingBotOOBException {
+    public Task delete(int index) throws YappingBotOobException {
         Task t = get(index);
         tasks.remove(index);
         size -= 1;
@@ -102,6 +102,7 @@ public class TaskList implements Iterable<Task> {
      * Returns size of list.
      * @return integer of the count of tasks in list.
      */
+
     public int size() {
         return size;
     }
@@ -111,15 +112,14 @@ public class TaskList implements Iterable<Task> {
      *
      * @param index integer index of the task to be accessed.
      * @return Task that was requested.
-     * @throws YappingBotOOBException Exception if index provided is out of bounds.
+     * @throws YappingBotOobException Exception if index provided is out of bounds.
      */
-    public Task get(int index) throws YappingBotOOBException {
+    public Task get(int index) throws YappingBotOobException {
         if (index < 0 || index >= size) {
-            throw new YappingBotOOBException(index);
+            throw new YappingBotOobException(index);
         }
         return tasks.get(index);
     }
-
 
     @Override
     public Iterator<Task> iterator() {

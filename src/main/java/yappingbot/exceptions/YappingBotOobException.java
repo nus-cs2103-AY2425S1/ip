@@ -1,10 +1,12 @@
 package yappingbot.exceptions;
+
 import yappingbot.stringconstants.ReplyTextMessages;
 
 /**
  * YappingBotException for indices that are out of bounds.
  */
 public class YappingBotOOBException extends YappingBotException {
+public class YappingBotOobException extends YappingBotException {
 
     /**
      * Constructs Exception for indices that are out of bounds of the task list.
@@ -12,5 +14,8 @@ public class YappingBotOOBException extends YappingBotException {
      */
     public YappingBotOOBException(int i) {
         super(String.format(ReplyTextMessages.SELECT_TASK_MISSING_TEXT_1d, i+1));
+    public YappingBotOobException(int i) {
+        super(String.format(ReplyTextMessages.SELECT_TASK_MISSING_TEXT_1d,
+                            i + 1));
     }
 }

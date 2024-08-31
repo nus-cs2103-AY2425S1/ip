@@ -1,4 +1,8 @@
 package yappingbot;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import yappingbot.commands.Commands;
 import yappingbot.commands.Parser;
 import yappingbot.exceptions.YappingBotException;
@@ -10,8 +14,6 @@ import yappingbot.tasks.TaskList;
 import yappingbot.tasks.TaskTypes;
 import yappingbot.ui.Ui;
 
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * YappingBot class, interactive task manager app.
@@ -71,37 +73,49 @@ public class YappingBot {
             try {
                 int taskListIndexPtr; // task list pointer
                 switch (parser.parseCommand(userInputSlices[0])) {
-                    case EXIT:
-                        return;
-                    case LIST:
-                        Commands.printUserList(userList);
-                        break;
-                    case MARK:
-                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                        Commands.changeTaskListStatus(taskListIndexPtr, true, userList);
-                        break;
-                    case UNMARK:
-                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                        Commands.changeTaskListStatus(taskListIndexPtr, false, userList);
-                        break;
-                    case DELETE:
-                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                        Commands.deleteTask(taskListIndexPtr, userList);
-                        break;
-                    case TODO:
-                        userList.add(Commands.createNewTask(userInputSlices, TaskTypes.TODO, userList));
-                        break;
-                    case EVENT:
-                        userList.add(Commands.createNewTask(userInputSlices, TaskTypes.EVENT, userList));
-                        break;
-                    case DEADLINE:
-                        userList.add(Commands.createNewTask(userInputSlices, TaskTypes.DEADLINE, userList));
-                        break;
-                    case UNKNOWN:
-                    default:
-                        throw new YappingBotUnknownCommandException();
+                case EXIT:
+                    return;
+                case LIST:
+                    Commands.printUserList(userList);
+                    break;
+                case MARK:
+                    taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
+                    Commands.changeTaskListStatus(taskListIndexPtr, true, userList);
+                    break;
+                case UNMARK:
+                    taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
+                    Commands.changeTaskListStatus(taskListIndexPtr, false, userList);
+                    break;
+                case DELETE:
+                    taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
+                    Commands.deleteTask(taskListIndexPtr, userList);
+                    break;
+                case TODO:
+                    userList.add(
+                            Commands.createNewTask(
+                                    userInputSlices,
+                                    TaskTypes.TODO,
+                                    userList));
+                    break;
+                case EVENT:
+                    userList.add(
+                            Commands.createNewTask(
+                                    userInputSlices,
+                                    TaskTypes.EVENT,
+                                    userList));
+                    break;
+                case DEADLINE:
+                    userList.add(
+                            Commands.createNewTask(
+                                    userInputSlices,
+                                    TaskTypes.DEADLINE,
+                                    userList));
+                    break;
+                case UNKNOWN:
+                default:
+                    throw new YappingBotUnknownCommandException();
                 }
-            } catch (YappingBotException e){
+            } catch (YappingBotException e) {
                 Ui.printError(e);
             }
         }

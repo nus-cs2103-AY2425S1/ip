@@ -1,10 +1,9 @@
 package yappingbot.commands;
 
+import java.util.HashMap;
+
 import yappingbot.exceptions.YappingBotInvalidTaskNumberException;
 import yappingbot.exceptions.YappingBotUnknownCommandException;
-import yappingbot.tasks.TaskList;
-
-import java.util.HashMap;
 
 /**
  * Parser class to aid in parsing command text and arguments.
@@ -16,6 +15,7 @@ public class Parser {
      * @see <a href="https://github.com/nus-cs2103-AY2425S1/forum/issues/22#issuecomment-2309939016"> Uses for enum </a>
      */
     public final HashMap<String, CommandTypes> commandsHashMap;
+
 
     /**
      * Constructs a Parser object.
@@ -41,6 +41,9 @@ public class Parser {
      * @throws YappingBotUnknownCommandException Exception if command is unimplemented.
      */
     public CommandTypes parseCommand(String commandString) throws YappingBotUnknownCommandException {
+
+    public CommandTypes parseCommand(String commandString)
+            throws YappingBotUnknownCommandException {
         if (commandString.toLowerCase().trim().isEmpty()) {
             throw new YappingBotUnknownCommandException();
         } else {
@@ -60,6 +63,9 @@ public class Parser {
      * @throws YappingBotInvalidTaskNumberException Exception if given String is not a valid integer.
      */
     public static int parseTaskNumberSelected(String userInputSlice) throws YappingBotInvalidTaskNumberException {
+
+    public static int parseTaskNumberSelected(String userInputSlice)
+            throws YappingBotInvalidTaskNumberException {
         int i;
         try {
             i = Integer.parseInt(userInputSlice) - 1;

@@ -15,7 +15,7 @@ import static yappingbot.stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXC
  * Includes task name, date that task must be completed, and if task is marked done.
  */
 public class Deadline extends Task {
-
+    private LocalDate deadline;
     private LocalDate deadline;
 
     /**
@@ -71,7 +71,9 @@ public class Deadline extends Task {
         try {
             this.deadline = LocalDate.parse(deadline);
         } catch (DateTimeParseException e) {
-            throw new YappingBotIncorrectCommandException(ReplyTextMessages.TIME_PARSE_HINT, e.getMessage());
+            throw new YappingBotIncorrectCommandException(
+                    ReplyTextMessages.TIME_PARSE_HINT,
+                    e.getMessage());
         }
     }
 
@@ -84,24 +86,28 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s (by: %s)", super.getTaskName(), this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        return String.format(
+                "%s (by: %s)",
+                super.getTaskName(),
+                this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 
     @Override
     public String serialize() {
         return String.format("%s:%s",
                 super.serialize(),
-                this.getDeadline().replaceAll(":", "/colon")
-        );
+                this.getDeadline().replaceAll(":", "/colon"));
     }
+
     @Override
-    public void deserialize(String[] sString) throws YappingBotInvalidSaveFileException {
-        if (sString.length < 4) {
-            throw new YappingBotInvalidSaveFileException(INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
+    public void deserialize(String[] stringDataSlices) throws YappingBotInvalidSaveFileException {
+        if (stringDataSlices.length < 4) {
+            throw new YappingBotInvalidSaveFileException(
+                    INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
         }
         try {
-            super.deserialize(sString);
-            this.setDeadline(sString[3].replaceAll("/colon", ":"));
+            super.deserialize(stringDataSlices);
+            this.setDeadline(stringDataSlices[3].replaceAll("/colon", ":"));
         } catch (IllegalArgumentException e) {
             throw new YappingBotInvalidSaveFileException(e.getMessage());
         }
