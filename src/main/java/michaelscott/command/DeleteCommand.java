@@ -1,8 +1,8 @@
 package michaelscott.command;
 
-import michaelscott.utils.MichaelScottException;
 import michaelscott.task.Task;
 import michaelscott.task.TaskList;
+import michaelscott.utils.MichaelScottException;
 
 
 /**
@@ -32,7 +32,7 @@ public class DeleteCommand implements Command {
     public String execute(TaskList tasks) throws MichaelScottException {
         Task deletedTask = tasks.getTask(this.taskIndex);
         tasks.removeTask(this.taskIndex);
-        return "Noted. I've removed this task:\n" + deletedTask.toString() +
-                "\nNow you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list.";
+        return "Noted. I've removed this task:\n" + deletedTask.toString()
+                + "\nNow you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list.";
     }
 }

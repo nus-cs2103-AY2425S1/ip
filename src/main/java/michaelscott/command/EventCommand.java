@@ -2,15 +2,27 @@ package michaelscott.command;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import michaelscott.utils.MichaelScottException;
+
 import michaelscott.task.Event;
 import michaelscott.task.TaskList;
+import michaelscott.utils.MichaelScottException;
 
+/**
+ * Represents a command to create a new event task.
+ * This class parses the input string to extract the event description, start time, and end time,
+ * and creates a new Event task when executed.
+ */
 public class EventCommand implements Command {
     private final String description;
     private final LocalDateTime toDate;
     private final LocalDateTime fromDate;
 
+    /**
+     * Constructs a new EventCommand by parsing the given arguments.
+     *
+     * @param args The string containing the event description, start time, and end time.
+     * @throws MichaelScottException If the input format is invalid or the dates cannot be parsed.
+     */
     public EventCommand(String args) throws MichaelScottException {
         String[] eventParts = args.split(" /from | /to ");
         if (eventParts.length != 3) {

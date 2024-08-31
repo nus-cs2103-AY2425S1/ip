@@ -1,7 +1,7 @@
 package michaelscott.command;
 
-import michaelscott.utils.MichaelScottException;
 import michaelscott.task.TaskList;
+import michaelscott.utils.MichaelScottException;
 
 /**
  * Represents a command to display the taskList.

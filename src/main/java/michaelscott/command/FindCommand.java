@@ -1,14 +1,25 @@
 package michaelscott.command;
 
-import michaelscott.utils.MichaelScottException;
-import michaelscott.task.TaskList;
-import michaelscott.task.Task;
-
 import java.util.ArrayList;
 
-public class FindCommand implements Command{
+import michaelscott.task.Task;
+import michaelscott.task.TaskList;
+import michaelscott.utils.MichaelScottException;
+
+/**
+ * Represents a command to find tasks containing a specific keyword.
+ * This class searches for tasks in the task list that contain the given keyword
+ * in their description and returns a list of matching tasks.
+ */
+public class FindCommand implements Command {
     private final String keyWord;
 
+    /**
+     * Constructs a new FindCommand with the given keyword.
+     *
+     * @param keyWord The keyword to search for in task descriptions.
+     * @throws MichaelScottException If the keyword is empty or consists only of whitespace.
+     */
     public FindCommand(String keyWord) throws MichaelScottException {
         if (keyWord.trim().isEmpty()) {
             throw new MichaelScottException(
@@ -19,7 +30,7 @@ public class FindCommand implements Command{
     }
 
     @Override
-    public String execute(TaskList tasks) throws MichaelScottException{
+    public String execute(TaskList tasks) throws MichaelScottException {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.getTask(i);

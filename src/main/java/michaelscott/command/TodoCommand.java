@@ -1,9 +1,9 @@
 package michaelscott.command;
 
-import michaelscott.utils.MichaelScottException;
 import michaelscott.task.Task;
 import michaelscott.task.TaskList;
 import michaelscott.task.Todo;
+import michaelscott.utils.MichaelScottException;
 
 /**
  * Represents a command to add a new todoTask to the task list.

@@ -1,8 +1,8 @@
 package michaelscott.command;
 
-import michaelscott.utils.MichaelScottException;
 import michaelscott.task.Task;
 import michaelscott.task.TaskList;
+import michaelscott.utils.MichaelScottException;
 
 /**
  * Represents a command to mark a task as done.
@@ -11,6 +11,12 @@ import michaelscott.task.TaskList;
 public class MarkCommand implements Command {
     private final int taskIndex;
 
+    /**
+     * Constructs a new MarkCommand with the given task index.
+     *
+     * @param args A string representation of the task number to be marked as done.
+     * @throws MichaelScottException If the provided argument cannot be parsed as a valid task number.
+     */
     public MarkCommand(String args) throws MichaelScottException {
         try {
             this.taskIndex = Integer.parseInt(args.trim()) - 1;

@@ -1,9 +1,15 @@
 package michaelscott.task;
 
+/**
+ * Represents an abstract class Task.
+ */
 public abstract class Task {
     protected Boolean isDone;
     protected String desc;
 
+    /**
+     * Constructs a Task.
+     */
     public Task(String desc) {
         this.isDone = false;
         this.desc = desc;

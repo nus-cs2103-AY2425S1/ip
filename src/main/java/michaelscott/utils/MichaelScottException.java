@@ -1,8 +1,11 @@
 package michaelscott.utils;
 
+/**
+ * Represents an exception thrown in the MichaelScott bot.
+ */
 public class MichaelScottException extends Exception {
     /**
-     * Represents an exception thrown in the MichaelScott chatbot.
+     * Constructs an exception thrown in the MichaelScott chatbot.
      */
     public MichaelScottException(String errMessage) {
         super(errMessage);

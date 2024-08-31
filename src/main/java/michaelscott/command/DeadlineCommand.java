@@ -2,15 +2,27 @@ package michaelscott.command;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import michaelscott.utils.MichaelScottException;
+
 import michaelscott.task.Deadline;
 import michaelscott.task.TaskList;
+import michaelscott.utils.MichaelScottException;
 
+/**
+ * Represents a command to create a new deadline task.
+ * This class parses the input string to extract the task description and deadline date,
+ * and creates a new Deadline task when executed.
+ */
 public class DeadlineCommand implements Command {
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final String description;
     private final LocalDateTime deadlineDate;
-    DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Constructs a new DeadlineCommand by parsing the given arguments.
+     *
+     * @param args The string containing the task description and deadline date.
+     * @throws MichaelScottException If the input format is invalid or the date cannot be parsed.
+     */
     public DeadlineCommand(String args) throws MichaelScottException {
         String[] deadlineParts = args.split(" /by ");
 

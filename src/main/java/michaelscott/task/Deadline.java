@@ -3,10 +3,18 @@ package michaelscott.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a deadline task.
+ */
 public class Deadline extends Task {
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final LocalDateTime deadlineDate;
-    DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Constructs a deadline.
+     *
+     * @Params String description, deadline date
+     */
     public Deadline(String description, LocalDateTime deadlineDate) {
         super(description);
         this.deadlineDate = deadlineDate;

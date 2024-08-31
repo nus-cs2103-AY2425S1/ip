@@ -2,7 +2,19 @@ package michaelscott.command;
 
 import michaelscott.utils.MichaelScottException;
 
+/**
+ * Represents a parser which takes a string input and returns the appropriate Command instance.
+ * This class is responsible for interpreting user input and creating the corresponding Command objects.
+ */
 public class CommandParser {
+
+    /**
+     * Parses the given full command string and returns the appropriate Command instance.
+     *
+     * @param fullCommand The full command string to be parsed.
+     * @return A Command object corresponding to the parsed command.
+     * @throws MichaelScottException If the command is not recognized or cannot be parsed.
+     */
     public Command parse(String fullCommand) throws MichaelScottException {
         String[] parts = fullCommand.split(" ", 2);
         String command = parts[0];
