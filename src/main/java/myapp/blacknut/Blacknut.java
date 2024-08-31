@@ -1,13 +1,16 @@
 package myapp.blacknut;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import myapp.blacknut.BlacknutExceptions.InvalidCommandException;
 import myapp.blacknut.BlacknutExceptions.EmptyDescriptionException;
 import myapp.blacknut.BlacknutExceptions.InvalidTaskNumberException;
 import myapp.blacknut.BlacknutExceptions.IncorrectFormatException;
+import java.io.File;
 
 public class Blacknut {
+    private static final String FILE_PATH = "data" + File.separator + "blacknut.txt";
 
     public static void main(String[] args) {
         String logo = " ____  _            _                _   \n"
@@ -24,8 +27,10 @@ public class Blacknut {
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
 
-        Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
+        loadTasksFromFile(tasks);
+        Scanner scanner = new Scanner(System.in);
+        //ArrayList<Task> tasks = new ArrayList<>();
 
         while (true) {
             String input = scanner.nextLine().trim();
@@ -61,6 +66,46 @@ public class Blacknut {
         }
 
         scanner.close();
+    }
+
+    private static void saveTasksToFile(ArrayList<Task> tasks) {
+        try {
+            // Ensure the directory exists
+            File directory = new File("data");
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+
+            // Proceed to write tasks to the file
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+            for (Task task : tasks) {
+                writer.write(task.toFileFormat());
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+
+    private static void loadTasksFromFile(ArrayList<Task> tasks) {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            return; // If the file doesn't exist, there's nothing to load
+        }
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = Task.fromFileFormat(line);
+                tasks.add(task);
+            }
+            reader.close();
+        } catch (IOException | IncorrectFormatException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
     }
 
     private static void listTasks(ArrayList<Task> tasks) {
@@ -104,6 +149,7 @@ public class Blacknut {
         }
         Task newTask = new Todo(description);
         tasks.add(newTask);
+        saveTasksToFile(tasks);
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + newTask);
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
@@ -116,6 +162,7 @@ public class Blacknut {
         }
         Task newTask = new Deadline(parts[0].trim(), parts[1].trim());
         tasks.add(newTask);
+        saveTasksToFile(tasks);
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + newTask);
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
@@ -128,6 +175,7 @@ public class Blacknut {
         }
         Task newTask = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
         tasks.add(newTask);
+        saveTasksToFile(tasks);
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + newTask);
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
@@ -139,6 +187,7 @@ public class Blacknut {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
             if (index >= 0 && index < tasks.size()) {
                 Task removedTask = tasks.remove(index);
+                saveTasksToFile(tasks);
                 System.out.println(" Noted. I've removed this task:");
                 System.out.println("   " + removedTask);
                 System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
