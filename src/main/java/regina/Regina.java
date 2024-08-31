@@ -1,5 +1,9 @@
 package regina;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Optional;
+
 import dateandtime.ReginaDateAndTime;
 import errorhandling.ReginaException;
 import file.Storage;
@@ -8,10 +12,6 @@ import tasks.EventsTask;
 import tasks.Task;
 import tasks.TaskList;
 import tasks.ToDosTask;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Optional;
 
 /**
  * The regina.Regina class represents a chatbot designed to help users track their tasks and activities.
