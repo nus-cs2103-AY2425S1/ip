@@ -11,14 +11,11 @@ import java.util.Scanner;
 
 public class Grok {
     private static final String TEXT_FILE_DIRECTORY = "./data/duke.txt";
+    private final Storage storage;
 
-    public Grok(String filePath) {
-        ArrayList<Task> tasks = Storage.parseTextFile(TEXT_FILE_DIRECTORY);
-    }
-
-    public static void main(String[] args) {
-
-
+    public Grok() {
+        storage = new Storage(TEXT_FILE_DIRECTORY);
+        ArrayList<Task> tasks = storage.parseTextStorage();
 
         // If data changes, prompt a save to text file
         boolean hasUnsavedChanges = false;
@@ -222,5 +219,9 @@ public class Grok {
 
 
         System.out.println(padMessage("Bye. Hope to see you again soon!"));
+    }
+
+    public static void main(String[] args) {
+        new Grok();
     }
 }
