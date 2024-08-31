@@ -2,13 +2,7 @@ package TrackBot.ui;
 
 
 import TrackBot.TrackBotException;
-import TrackBot.commands.AddCommand;
-import TrackBot.commands.Command;
-import TrackBot.commands.DeleteCommand;
-import TrackBot.commands.ExitCommand;
-import TrackBot.commands.ListCommand;
-import TrackBot.commands.MarkCommand;
-import TrackBot.commands.UnmarkCommand;
+import TrackBot.commands.*;
 import TrackBot.task.Deadline;
 import TrackBot.task.Event;
 import TrackBot.task.Task;
@@ -82,6 +76,11 @@ public class Parser {
                     throw TrackBotException.invalidFormat("unmark", "unmark <task number>");
                 }
             }
+        case "find":
+            if (otherWord.isEmpty()) {
+                throw TrackBotException.invalidFormat("find", "find <task keyword>");
+            }
+            return new FindCommand(otherWord);
         case "bye":
             return new ExitCommand();
         default:
