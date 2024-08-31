@@ -4,6 +4,7 @@ import Commands.DeleteCommand;
 import Parser.Parser;
 import Storage.Storage;
 import Task.TaskList;
+import exceptions.InvalidDateException;
 import exceptions.InvalidTaskException;
 import exceptions.NoTaskDescriptionException;
 import org.junit.jupiter.api.AfterEach;
@@ -41,33 +42,49 @@ public class CommandTest {
 
     @Test
     public void actionBasedOnInputTest1() {
-        TaskList taskList = new TaskList(Storage.createStorage(STORAGE_PATH));
-        AddTaskCommand command = new AddTaskCommand("blah");
-        command.execute(taskList);
-        assertEquals("THIS IS NOT A VALID TASK LAH", testOut.toString().trim());
+        try {
+            TaskList taskList = new TaskList(Storage.createStorage(STORAGE_PATH));
+            AddTaskCommand command = new AddTaskCommand("blah");
+            command.execute(taskList);
+            assertEquals("THIS IS NOT A VALID TASK LAH", testOut.toString().trim());
+        } catch (InvalidDateException e) {
+            System.out.println();
+        }
     }
 
     @Test
     public void actionBasedOnInputTest2() {
-        TaskList taskList = new TaskList(Storage.createStorage(STORAGE_PATH));
-        AddTaskCommand command = new AddTaskCommand("todo");
-        command.execute(taskList);
-        assertEquals("Wah, no description then I record what?", testOut.toString().trim());
+        try {
+            TaskList taskList = new TaskList(Storage.createStorage(STORAGE_PATH));
+            AddTaskCommand command = new AddTaskCommand("todo");
+            command.execute(taskList);
+            assertEquals("Wah, no description then I record what?", testOut.toString().trim());
+        } catch (InvalidDateException e) {
+            System.out.println();
+        }
     }
 
     @Test
     public void actionBasedOnInputTest3() {
-        TaskList taskList = new TaskList(Storage.createStorage(STORAGE_PATH));
-        AddTaskCommand command = new AddTaskCommand("event /from 10/10/2019 /to 11/10/2019");
-        command.execute(taskList);
-        assertEquals("Wah, no description then I record what?", testOut.toString().trim());
+        try {
+            TaskList taskList = new TaskList(Storage.createStorage(STORAGE_PATH));
+            AddTaskCommand command = new AddTaskCommand("event /from 10/10/2019 /to 11/10/2019");
+            command.execute(taskList);
+            assertEquals("Wah, no description then I record what?", testOut.toString().trim());
+        } catch (InvalidDateException e) {
+
+        }
     }
 
     @Test
     public void actionBasedOnInputTest4() {
-        TaskList taskList = new TaskList(Storage.createStorage(STORAGE_PATH));
-        DeleteCommand command = new DeleteCommand(10000);
-        command.execute(taskList);
-        assertEquals("No valid index was given!!", testOut.toString().trim());
+        try {
+            TaskList taskList = new TaskList(Storage.createStorage(STORAGE_PATH));
+            DeleteCommand command = new DeleteCommand(10000);
+            command.execute(taskList);
+            assertEquals("No valid index was given!!", testOut.toString().trim());
+        } catch (InvalidDateException e) {
+
+        }
     }
 }

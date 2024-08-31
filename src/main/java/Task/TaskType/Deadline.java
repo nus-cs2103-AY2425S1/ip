@@ -7,17 +7,24 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-
+/**
+ * Represents a deadline task that needs to be completed by a specific date and optionally, time.
+ * This class extends the {@link Task} class.
+ */
 public class Deadline extends Task {
 
     protected LocalDate deadlineDate;
     protected LocalTime deadlineTime;
 
-
+    /**
+     * Constructs a new {@code deadline} task with the specified description and deadline
+     *
+     * @param description A description of the deadline task
+     * @param by date that the task needs to be finished by, given in {@code d/M/yyyy} format (e.g. 25/10/2015)
+     */
     public Deadline(String description, String by) {
         super(TaskType.DEADLINE, description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-        System.out.println(by.trim());
         String[] deadlineArr = by.trim().split(" ");
         deadlineDate = LocalDate.parse(deadlineArr[0], formatter);
         if (deadlineArr.length == 2) {
