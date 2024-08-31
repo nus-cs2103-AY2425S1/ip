@@ -4,7 +4,6 @@ import java.util.List;
 
 import tasklist.TaskList;
 import tasks.Task;
-import ui.CommandLineUi;
 
 /**
  * Represents a command to list all tasks in the task list.
@@ -18,14 +17,19 @@ public class ListCommand extends Command {
      * displaying them in the command line interface.
      *
      * @param tasklist The TaskList containing the tasks to be listed.
-     * @param ui       The CommandLineUI used to interact with the user.
+     * @return List of tasks.
      */
-    public void execute(TaskList tasklist, CommandLineUi ui) {
+    @Override
+    public String execute(TaskList tasklist) {
         List<Task> tasks = tasklist.getTasks();
 
+        StringBuilder sb = new StringBuilder();
+
         for (int i = 0; i < tasks.size(); i++) {
-            ui.speakLine((i + 1) + ". " + tasks.get(i));
+            sb.append((i + 1) + ". " + tasks.get(i) + "\n");
         }
+
+        return sb.toString();
     }
 
     /**
@@ -33,6 +37,7 @@ public class ListCommand extends Command {
      *
      * @return false, as this command does not cause the application to exit.
      */
+    @Override
     public boolean isExit() {
         return false;
     }

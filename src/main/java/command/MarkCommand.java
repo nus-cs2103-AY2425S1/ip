@@ -2,7 +2,6 @@ package command;
 
 import tasklist.TaskList;
 import tasklist.TaskListOutOfBoundsException;
-import ui.CommandLineUi;
 
 /**
  * Represents a command to mark a task as done in the task list.
@@ -25,17 +24,22 @@ public class MarkCommand extends Command {
      * and displaying the appropriate messages in the command line interface.
      *
      * @param tasklist The TaskList where the task will be marked as done.
-     * @param ui       The CommandLineUI used to interact with the user.
+     * @return Confirmation of the task marked.
      */
-    public void execute(TaskList tasklist, CommandLineUi ui) {
+    @Override
+    public String execute(TaskList tasklist) {
+        StringBuilder sb = new StringBuilder();
+
         try {
             tasklist.mark(index);
 
-            ui.speakLine("Nice! I've marked this task as done: ");
-            ui.speakLine("  " + tasklist.getTask(index));
+            sb.append("Nice! I've marked this task as done:\n");
+            sb.append("  " + tasklist.getTask(index));
         } catch (TaskListOutOfBoundsException e) {
-            ui.speakLine(e.getMessage());
+            sb.append(e.getMessage());
         }
+
+        return sb.toString();
     }
 
     /**
@@ -43,6 +47,7 @@ public class MarkCommand extends Command {
      *
      * @return false, as this command does not cause the application to exit.
      */
+    @Override
     public boolean isExit() {
         return false;
     }

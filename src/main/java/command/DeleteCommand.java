@@ -3,7 +3,6 @@ package command;
 import tasklist.TaskList;
 import tasklist.TaskListOutOfBoundsException;
 import tasks.Task;
-import ui.CommandLineUi;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -27,20 +26,25 @@ public class DeleteCommand extends Command {
      * and displaying the appropriate messages in the command line interface.
      *
      * @param tasklist The TaskList from which the task will be deleted.
-     * @param ui       The CommandLineUI used to interact with the user.
+     * @return Confirmation of the task deleted.
      */
-    public void execute(TaskList tasklist, CommandLineUi ui) {
+    @Override
+    public String execute(TaskList tasklist) {
+
+        StringBuilder sb = new StringBuilder();
 
         try {
             Task task = tasklist.delete(index);
 
-            ui.speakLine("Noted. I've removed this task:");
-            ui.speakLine("  " + task);
-            ui.speakLine("Now you have " + tasklist.size() + " tasks in the list.");
+            sb.append("Noted. I've removed this task:\n");
+            sb.append("  " + task);
+            sb.append("Now you have " + tasklist.size() + " tasks in the list.\n");
 
         } catch (TaskListOutOfBoundsException e) {
-            ui.speakLine(e.getMessage());
+            sb.append(e.getMessage());
         }
+
+        return sb.toString();
 
     }
 
@@ -49,6 +53,7 @@ public class DeleteCommand extends Command {
      *
      * @return false, as this command does not cause the application to exit.
      */
+    @Override
     public boolean isExit() {
         return false;
     }
