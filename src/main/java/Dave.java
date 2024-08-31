@@ -1,8 +1,20 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Dave {
 
+    private void writeToFile(String filePath, String textToAdd) throws IOException, FileNotFoundException
+    {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    String file = "C:\\Users\\thamy\\OneDrive\\data\\daveData.txt";
     public static void main(String[] args) {
         String logo = " ____    _    __     ______\n"
                 + "|  _ \\  / \\   \\ \\   / / ___|\n"
@@ -115,7 +127,8 @@ public class Dave {
                             if (reply.length < 2 || reply[1].trim().isEmpty()) {
                                 throw new InvalidDescriptionException("Oh No! Please provide a todo task in the format: todo <task>");
                             }
-                            dataList.add(new Todo(reply[1].trim()));
+                            Task todoTask = new Todo(reply[1].trim());
+                            dataList.add(todoTask);
                             System.out.println(horizontal);
                             System.out.println("Got it. I've added this task:");
                             System.out.println(dataList.get(dataList.size() - 1));
