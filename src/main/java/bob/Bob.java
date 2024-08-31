@@ -26,8 +26,11 @@ public class Bob {
         boolean exit = false;
         String[] strArr = new String[2];
 
+        // initial message
         ui.startGame();
 
+
+        // main loop
         while(!exit) {
             strArr = parser.requestInput();
             ui.retBlank();
