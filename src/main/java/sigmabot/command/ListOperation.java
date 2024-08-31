@@ -20,7 +20,7 @@ import java.util.Scanner;
 public class ListOperation extends Command {
     private ListReader reader = new ListReader();
     private ListMapWriter writer = new ListMapWriter();
-    private String filePath = "/Users/wxy/Desktop/ip/src/main/data/tasks.txt";
+    private String filePath = "./src/main/data/tasks.txt";
     private Map<String, Task> taskList = new HashMap<>();
 
     /**
