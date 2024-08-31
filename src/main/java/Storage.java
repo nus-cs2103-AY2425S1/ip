@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
@@ -11,8 +10,8 @@ public class Storage {
         this.path = path;
     }
 
-    public ArrayList<Task> load() throws IOException {
-        ArrayList<Task> storedTasks = new ArrayList<>();
+    public TaskList load() throws IOException {
+        TaskList storedTasks = new TaskList();
         File file = new File(this.path);
         if (!file.exists()) {
             return storedTasks; // No file exists, start with an empty task list
@@ -42,17 +41,17 @@ public class Storage {
             if (taskData[1].equals("1")) {
                 task.markAsDone();
             }
-            storedTasks.add(task);
+            storedTasks.addTask(task);
         }
         scanner.close();
         return storedTasks;
     }
 
-    public void save(ArrayList<Task> storedTasks) throws IOException {
+    public void save(TaskList storedTasks) throws IOException {
         File f = new File(this.path);
         f.getParentFile().mkdirs(); // create directories if they don't exist
         FileWriter fw = new FileWriter(this.path);
-        for (Task task : storedTasks) {
+        for (Task task : storedTasks.getAllTasks()) {
             fw.write(task.toFileFormat() + "\n");
         }
         fw.close();
