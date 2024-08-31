@@ -15,6 +15,6 @@ public class Todos extends Task {
         } else {
             myTodo += "[   ]";
         }
-        return myTodo + super.toString();
+        return myTodo + " " + super.toString();
     }
 }
