@@ -15,6 +15,8 @@ public class TaskManager {
             this.tasks = storage.loadTaskFromFile();
         } catch (IOException e) {
             System.out.println("Error loading tasks from file: " + e.getMessage());
+        } catch (SamException e) {
+            throw new RuntimeException(e);
         }
     }
     public void addTask(Task task) {

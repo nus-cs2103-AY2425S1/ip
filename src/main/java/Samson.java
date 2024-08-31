@@ -48,14 +48,16 @@ public class Samson {
                     taskManager.unmarkTask(taskNum);
                 } else if (userInput.startsWith("todo")) {
                     if (userInput.length() <= 5) {
-                        throw new SamException("Please provide your description!!!!!!!!!");
+                        throw new SamException("Please provide your description!!!! \n" +
+                                "Example call: todo your_task");
                     }
                     String description = userInput.substring(5);
                     taskManager.addTask(new ToDo(description));
                 } else if (userInput.startsWith("deadline")) {
                     String[] parts = userInput.split(" /by ");
                     if (parts.length != 2 || parts[0].substring(9).trim().isEmpty()) {
-                        throw new SamException("Please provide the description and deadline of your task");
+                        throw new SamException("Please provide the description and deadline of your task \n " +
+                                "Example call: deadline your_task /by yyyy-MM-dd HHmm");
                     }
                     String description = parts[0].substring(9);
                     String by = parts[1];
@@ -63,7 +65,8 @@ public class Samson {
                 } else if (userInput.startsWith("event")) {
                     String[] parts = userInput.split(" /from | /to ");
                     if (parts.length != 3 || parts[0].substring(6).trim().isEmpty()) {
-                        throw new SamException("The description, start, and end time of an event cannot be empty.");
+                        throw new SamException("The description, start, and end time of an event cannot be empty. \n " +
+                                "Example call: event your_event /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm");
                     }
                     String description = parts[0].substring(6);
                     String from = parts[1];
