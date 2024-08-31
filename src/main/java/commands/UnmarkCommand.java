@@ -1,5 +1,6 @@
 package main.java.commands;
 
+import main.java.Task;
 import main.java.TaskList;
 import main.java.util.Storage;
 import main.java.util.Ui;
@@ -14,6 +15,9 @@ public class UnmarkCommand extends Command{
     @Override
     public void execute(TaskList taskList, Ui ui) {
         taskList.unmarkTask(this.index);
+        Task t = taskList.getTask(this.index);
+        ui.showUnmarkMessage(t);
+        Storage.saveToFile(taskList);
     }
 
     @Override
