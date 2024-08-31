@@ -29,6 +29,14 @@ public class Task {
             return " ";
         }
 
+        public boolean containString(String keyWord) {
+            if (this.description.contains(keyWord)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         @Override
         public String toString() {
             return "[" + getStatusIcon() +"] " + getDescription();

@@ -85,6 +85,11 @@ public class Weeny {
                     ui.showTaskDeletedMessage(removedTask, taskList.size());
                     break;
 
+                case "find":
+                    String keyWord = input.substring(5);
+                    ui.showSearchResult(taskList.findTask(keyWord));
+                    break;
+
                 default:
                     throw new UnsupportedOperationException("Oopsies we don't understand that command");
                 }
