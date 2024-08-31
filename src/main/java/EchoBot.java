@@ -15,6 +15,9 @@ public class EchoBot {
     private Ui ui = new Ui();
     private TaskList allTasks;
 
+    /**
+     * Creates an echobot object and sends greet message to the user.
+     */
     public EchoBot() {
         Storage.init();
         this.allTasks = Storage.getData();
@@ -38,6 +41,11 @@ public class EchoBot {
         }
     }
 
+    /**
+     * Chats with the user.
+     *
+     * @param args commands user input.
+     */
     public static void main(String[] args) {
         EchoBot bot = new EchoBot();
         bot.run();
