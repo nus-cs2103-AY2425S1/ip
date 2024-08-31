@@ -65,7 +65,7 @@ public class Optimus {
                                 "Please provide a task description.");
                     }
                     if (count < 100) {
-                        record.add(count, new ToDos(description));
+                        record.add(new ToDos(description));
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + record.get(count).toString());
                         count++;
@@ -85,7 +85,7 @@ public class Optimus {
                     }
                     if (count < 100) {
                         String by = parts.length > 1 ? parts[1] : "";
-                        record.add(count, new Deadlines(description, by));
+                        record.add(new Deadlines(description, by));
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + record.get(count).toString());
                         count++;
@@ -106,7 +106,7 @@ public class Optimus {
                     if (count < 100) {
                         String from = parts.length > 1 ? parts[1] : "";
                         String to = parts.length > 2 ? parts[2] : "";
-                        record.add(count, new Events(description, from, to));
+                        record.add(new Events(description, from, to));
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + record.get(count).toString());
                         count++;
@@ -185,11 +185,11 @@ public class Optimus {
     }
 
     public static void saveToFile(List<Task> record) throws IOException {
-        FileWriter writer = new FileWriter(FILE_PATH);
+        FileWriter fW = new FileWriter(FILE_PATH);
         for (Task task : record) {
-            writer.write(task.toSaveString() + System.lineSeparator());
+            fW.write(task.toSaveString() + System.lineSeparator());
         }
-        writer.close();
+        fW.close();
     }
 }
 
