@@ -23,13 +23,13 @@ public class CommandMark extends Command {
      * Executes the command to mark a task as done.
      */
     @Override
-    public void execute() {
+    public String execute() {
         int index = Integer.parseInt(inputs[1]);
         if (index < 1 || index > TaskList.getSize()) {
-            Ui.printMessage("Invalid Task number.");
-            return;
+            //Ui.printMessage("Invalid Task number.");
+            return "Invalid Task number.";
         }
         Task task = TaskList.getTask(index - 1);
-        task.markAsDone();
+        return task.markAsDone();
     }
 }

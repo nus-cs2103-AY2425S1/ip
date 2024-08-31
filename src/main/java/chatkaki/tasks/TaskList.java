@@ -16,11 +16,15 @@ public class TaskList {
      * @param task The task to add.
      * @param fromStorage Whether the task is being added from storage.
      */
-    public static void addTask(Task task, boolean fromStorage) {
+    public static String addTask(Task task, boolean fromStorage) {
         tasks.add(task);
         if (!fromStorage) {
-            Ui.printMessage("Got it. I've added this task:\n " + task + "\n Now you have " + TaskList.getSize() +
-                    " task" + (TaskList.getSize() == 1 ? "" : "s") + " in the list.");
+            //Ui.printMessage("Got it. I've added this task:\n " + task + "\n Now you have " + TaskList.getSize() +
+            // " task" + (TaskList.getSize() == 1 ? "" : "s") + " in the list.");
+            return "Got it. I've added this task:\n " + task + "\n Now you have " + TaskList.getSize()
+                    + " task" + (TaskList.getSize() == 1 ? "" : "s") + " in the list.";
+        } else {
+            return "";
         }
     }
 

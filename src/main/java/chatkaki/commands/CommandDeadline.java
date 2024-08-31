@@ -26,13 +26,13 @@ public class CommandDeadline extends Command {
      * Executes the command to add a deadline task.
      */
     @Override
-    public void execute() {
+    public String execute() {
         String[] parts = inputs[1].split(" /by ");
         if (parts.length != 2 || !DateTimeHelper.isValidDateFormat(parts[1])) {
-            Ui.printMessage("Invalid Deadline format, it should contain /by and a valid date.");
-            return;
+            //Ui.printMessage("Invalid Deadline format, it should contain /by and a valid date.");
+            return "Invalid Deadline format, it should contain /by and a valid date.";
         }
         LocalDateTime dateTime = DateTimeHelper.parseDate(parts[1]);
-        TaskList.addTask(new Deadline(false, parts[0], dateTime), false);
+        return TaskList.addTask(new Deadline(false, parts[0], dateTime), false);
     }
 }

@@ -12,7 +12,7 @@ public abstract class Command {
      *
      * @throws IOException if an I/O error occurs during execution.
      */
-    public abstract void execute() throws IOException;
+    public abstract String execute() throws IOException;
 
     /**
      * Indicates whether this command is an exit command.

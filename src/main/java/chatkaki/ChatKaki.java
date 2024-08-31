@@ -1,6 +1,7 @@
 package chatkaki;
 
 import java.util.Scanner;
+
 import chatkaki.commands.Command;
 
 /**
@@ -17,7 +18,7 @@ public class ChatKaki {
 
         boolean isExit = false;
         while (!isExit) {
-            Command command = Parser.parse(scanner);
+            Command command = Parser.parse("");
             try {
                 command.execute();
             } catch (Exception e) {

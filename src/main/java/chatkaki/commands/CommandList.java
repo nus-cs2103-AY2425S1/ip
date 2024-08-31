@@ -23,11 +23,12 @@ public class CommandList extends Command {
      * Executes the command to list all tasks.
      */
     @Override
-    public void execute() {
+    public String execute() {
         StringBuilder listMessage = new StringBuilder("Here are the tasks in your list:");
         for (int i = 0; i < TaskList.getSize(); i++) {
             listMessage.append("\n ").append(i + 1).append(". ").append(TaskList.getTask(i));
         }
-        Ui.printMessage(listMessage.toString());
+        //Ui.printMessage(listMessage.toString());
+        return listMessage.toString();
     }
 }

@@ -20,9 +20,10 @@ public class CommandBye extends Command {
      * Executes the command to exit the application.
      */
     @Override
-    public void execute() {
+    public String execute() {
         Storage.saveTasksToFile();
-        Ui.printMessage("Bye. Hope to see you again soon!");
+        //return Ui.printMessage("Bye. Hope to see you again soon!");
+        return "Bye. Hope to see you again soon!";
     }
 
     /**

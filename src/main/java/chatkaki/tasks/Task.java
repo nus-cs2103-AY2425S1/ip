@@ -39,25 +39,25 @@ public class Task {
     /**
      * Marks the task as done and prints the task status.
      */
-    public void markAsDone() {
+    public String markAsDone() {
         if (this.isDone) {
-            System.out.println("Task was already done!");
-            return;
+            //System.out.println("Task was already done!");
+            return "Task was already done!";
         }
         this.isDone = true;
-        printTaskStatus("Nice! I've marked this task as done:");
+        return printTaskStatus("Nice! I've marked this task as done:");
     }
 
     /**
      * Marks the task as not done and prints the task status.
      */
-    public void markAsUndone() {
+    public String markAsUndone() {
         if (!this.isDone) {
-            System.out.println("Task was already undone!");
-            return;
+            //System.out.println("Task was already undone!");
+            return "Task was already undone!";
         }
         this.isDone = false;
-        printTaskStatus("OK, I've marked this task as not done yet:");
+        return printTaskStatus("OK, I've marked this task as not done yet:");
     }
 
     /**
@@ -65,11 +65,13 @@ public class Task {
      *
      * @param message The message to print.
      */
-    private void printTaskStatus(String message) {
-        System.out.println("\n____________________________________________________________");
-        System.out.println(" " + message);
-        System.out.println(" " + this);
-        System.out.println("____________________________________________________________\n");
+    private String printTaskStatus(String message) {
+
+//        System.out.println("\n____________________________________________________________");
+//        System.out.println(" " + message);
+//        System.out.println(" " + this);
+//        System.out.println("____________________________________________________________\n");
+        return message + "\n" + this;
     }
 
     /**

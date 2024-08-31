@@ -12,11 +12,11 @@ public class CommandTodo extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         if (inputs.length <= 1) {
-            Ui.printMessage("The description of a todo cannot be empty.");
-            return;
+            //Ui.printMessage("The description of a todo cannot be empty.");
+            return "The description of a todo cannot be empty.";
         }
-        TaskList.addTask(new Todo(false, inputs[1]), false);
+        return TaskList.addTask(new Todo(false, inputs[1]), false);
     }
 }
