@@ -1,5 +1,15 @@
+package snah;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import snah.task.Deadline;
+import snah.task.Event;
+import snah.task.Task;
+import snah.task.ToDo;
+import snah.util.Parser;
+import snah.util.Storage;
+import snah.util.Ui;
 
 public class Snah {
 
