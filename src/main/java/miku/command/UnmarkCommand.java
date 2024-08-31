@@ -28,7 +28,7 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) {
-        taskList.mark(index);
+        taskList.unmark(index);
         ui.printSectionBreak();
         storage.saveFromTaskList(taskList);
     }

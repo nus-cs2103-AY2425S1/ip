@@ -21,6 +21,7 @@ public class CommandMikuParser extends MikuParser {
     public static String regexDeadline = "deadline .* /by .*";
     public static String regexEvent = "event .* /.* /.*";
     public static String regexRemove = "delete \\d+";
+    public static String regexFind = "find .*";
 
     public CommandMikuParser() {
     }
@@ -46,6 +47,8 @@ public class CommandMikuParser extends MikuParser {
             } else if (input.matches(regexRemove)) {
                 //Check if removable
                 return new RemoveCommand(Integer.parseInt(input.split(" ")[1]));
+            } else if (input.matches(regexFind)) {
+                return new FindCommand(input.substring(5));
             } else {
                 System.out.println("すみません、わかりません！\nEnter a valid command please, 39!");
                 throw new InvalidCommandException(input);
