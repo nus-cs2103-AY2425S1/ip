@@ -82,11 +82,7 @@ public class TaskList {
 
         Task currTask = myList.get(number - 1);
         currTask.markAsDone();
-        System.out.println("--------------------------------------------");
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(currTask.toString());
-        System.out.println("--------------------------------------------");
-
+        UI.displayAfterMark(currTask);
         Storage.saveToFile(this.myList);
     }
 
@@ -97,11 +93,7 @@ public class TaskList {
 
         Task currTask = myList.get(number - 1);
         currTask.markAsUnDone();
-        System.out.println("--------------------------------------------");
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(currTask.toString());
-        System.out.println("--------------------------------------------");
-
+        UI.displayAfterUnMark(currTask);
         Storage.saveToFile(this.myList);
     }
 
@@ -109,27 +101,14 @@ public class TaskList {
         if (number <= 0 || number > noOfTask) {
             throw new WrongNumberOfItemException(number);
         }
-
-        System.out.println("____________________________________________________________");
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(myList.get(number - 1).toString());
-        myList.remove(number - 1);
+        Task removedTask = myList.get(number - 1);
         this.noOfTask--;
-        String result = "Now you have " + noOfTask + " tasks in the list.";
-        System.out.println(result);
-        System.out.println("____________________________________________________________");
-
-        Storage.saveToFile(myList);
+        UI.displayAfterDelete(removedTask, noOfTask);
+        myList.remove(number - 1);
     }
 
     public void printList() {
-        System.out.println("Here are the tasks in your list:");
-        System.out.println("--------------------------------------------");
-        for (int i = 0; i < noOfTask; i++) {
-            String result = i + 1 + ". " + myList.get(i).toString();
-            System.out.println(result);
-        }
-        System.out.println("--------------------------------------------");
+       UI.displayList(myList, noOfTask);
     }
 
     public int getNumberOfTask() {
