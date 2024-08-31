@@ -61,13 +61,13 @@ public class Task {
     }
 
     public String getDataForStorage() {
-        return "Sinatra.Task:" + content + "," + getStatusString();
+        return "Sinatra.Task:" + content + "," + isMarkedString();
     }
 
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "]" + " " + this.content;
+        return "[" + isMarkedIcon() + "]" + " " + this.content;
     }
 
 
