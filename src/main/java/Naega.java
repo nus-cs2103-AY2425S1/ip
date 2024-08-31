@@ -37,6 +37,8 @@ public class Naega {
                     handleDeadline(tasks, userInput);
                 } else if (userInput.startsWith("event ")) {
                     handleEvent(tasks, userInput);
+                } else if (userInput.startsWith("delete ")) {
+                    handleDelete(tasks, userInput);
                 } else {
                     throw new NaegaException("I don't know how to handle that command.");
                 }
@@ -112,6 +114,15 @@ public class Naega {
         tasks.add(newTask);
         printTaskAdded(tasks, newTask);
     }
+    private static void handleDelete(ArrayList<Task> tasks, String userInput) throws NaegaException {
+        int taskIndex = parseTaskIndex(userInput, "delete ");
+        Task removedTask = tasks.remove(taskIndex);
+        System.out.println("____________________________________________________________");
+        System.out.println(" Noted. I've removed this task:");
+        System.out.println("   " + removedTask);
+        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
 
     private static String parseDescription(String userInput, String command) throws NaegaException {
         if (userInput.length() <= command.length()) {
@@ -119,6 +130,7 @@ public class Naega {
         }
         return userInput.substring(command.length()).trim();
     }
+
 
     private static int parseTaskIndex(String userInput, String command) throws NaegaException {
         try {
