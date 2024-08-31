@@ -17,21 +17,41 @@ import orion.tasks.Todo;
 
 import java.util.Arrays;
 
+/**
+ * The {@code Parser} class is responsible for parsing user input into executable commands.
+ * It processes input strings and returns the appropriate {@link Command} object.
+ */
 public class Parser {
 
+    /**
+     * Constructs a new {@code Parser} object.
+     */
     public Parser() {
 
     }
 
+    /**
+     * Removes the first word from a given string.
+     *
+     * @param str the string from which the first word is to be removed
+     * @return the string with the first word removed
+     */
     private static String removeFirstWordFromString(String str) {
         return str.split(" ", 2)[1];
     }
 
+    /**
+     * Parses the user input and returns the appropriate {@link Command} object.
+     *
+     * @param input the user input string to parse
+     * @return the corresponding {@link Command} object
+     * @throws OrionException if the input is invalid or cannot be parsed into a valid command
+     */
     protected static Command parse(String input) throws OrionException {
         String[] inputArray = input.split(" ");
         String command = inputArray[0].toLowerCase();
-        // For use by deadline and event commands
         String[] parsed = input.split("/");
+
         switch (command) {
             case "bye":
                 return new ExitCommand();
@@ -70,7 +90,6 @@ public class Parser {
                 if (parsed.length != 2 || !parsed[1].matches("^by.*$")) {
                     throw new OrionInputException("Correct syntax: deadline <task> /by <yyyy-mm-dd>");
                 } else {
-                    // Removes "deadline" and "by" keywords from input
                     String[] mapped = Arrays.stream(parsed)
                             .map(Parser::removeFirstWordFromString)
                             .toArray(String[]::new);
@@ -81,7 +100,6 @@ public class Parser {
                 if (parsed.length != 3 || !parsed[1].matches("^from.*$") || !parsed[2].matches("^to.*$")) {
                     throw new OrionInputException("Correct syntax: event <task> /from <yyyy-mm-dd> /to <yyyy-mm-dd>");
                 } else {
-                    // Removes "event", "from" and "to" keywords from input
                     String[] mapped = Arrays.stream(parsed)
                             .map(Parser::removeFirstWordFromString)
                             .toArray(String[]::new);
