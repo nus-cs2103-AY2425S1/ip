@@ -69,7 +69,7 @@ public class TaskList {
      * @return A string confirming the task has been marked as undone.
      * @throws InputFormatException If the provided index is out of range.
      */
-    public String unmarkTask(int i) throws InputFormatException {
+    public String unMarkTask(int i) throws InputFormatException {
         if (i > list.size() || i <= 0) {
             throw new InputFormatException("Your number is out of range");
         }

@@ -5,8 +5,11 @@ import task.Event;
 import task.Task;
 import task.Todo;
 import task.Deadline;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -116,7 +119,7 @@ public class ScoobyDoo {
             if (input.startsWith("unmark")) {
                 try {
                     int num = Task.matchesUnmark(input);
-                    ui.printFormattedResponse(taskList.unmarkTask(num));
+                    ui.printFormattedResponse(taskList.unMarkTask(num));
                 } catch (InputFormatException e) {
                     ui.printErrorMessage(e.getMessage());
                 }
