@@ -1,3 +1,5 @@
+package mryapper.exception;
+
 public class IllegalTaskException extends Exception {
     private String taskType;
     private String baseMessage;

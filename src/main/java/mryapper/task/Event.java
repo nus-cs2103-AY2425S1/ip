@@ -1,3 +1,5 @@
+package mryapper.task;
+
 public class Event extends Task {
     private final String eventStart;
     private final String eventEnd;

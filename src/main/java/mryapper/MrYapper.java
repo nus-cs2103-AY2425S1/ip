@@ -1,3 +1,13 @@
+package mryapper;
+
+import mryapper.command.Command;
+import mryapper.exception.IllegalTaskException;
+import mryapper.exception.InvalidSyntaxException;
+import mryapper.parser.Parser;
+import mryapper.storagemanager.StorageManager;
+import mryapper.task.TaskList;
+import mryapper.ui.Ui;
+
 import java.io.IOException;
 
 public class MrYapper {
