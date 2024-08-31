@@ -19,10 +19,10 @@ public class DateTime {
      * Instantiates a DateTime object.
      * This is a private constructor as the DateTime class uses the factory method design pattern.
      *
-     * @param textValue String that describes the instance in time.
-     * @param dateValue LocalDate that represents the instance in time.
+     * @param textValue     String that describes the instance in time.
+     * @param dateValue     LocalDate that represents the instance in time.
      * @param dateTimeValue LocalDateTime that represents the instance in time.
-     * @param type Type of this DateTime object.
+     * @param type          Type of this DateTime object.
      */
     private DateTime(String textValue, LocalDate dateValue, LocalDateTime dateTimeValue, InputType type) {
         this.textValue = textValue;

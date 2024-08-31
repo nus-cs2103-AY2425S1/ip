@@ -3,10 +3,6 @@ package evan.command;
 import evan.main.Storage;
 import evan.main.TaskList;
 import evan.main.Ui;
-import evan.task.Task;
-import evan.task.Todo;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command that the chatbot can find a task with a matching description.
