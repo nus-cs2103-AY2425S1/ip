@@ -1,4 +1,5 @@
 package nuffle.task;
+
 public class Todo extends Task {
     public Todo(String description) {
         // Constructor for Todo class

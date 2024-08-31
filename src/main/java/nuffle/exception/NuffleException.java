@@ -1,4 +1,5 @@
 package nuffle.exception;
+
 public class NuffleException extends Exception {
     public NuffleException(String message) {
         super(message);

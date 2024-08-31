@@ -2,6 +2,7 @@ package nuffle.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
     protected LocalDateTime by;
 
@@ -10,6 +11,7 @@ public class Deadline extends Task {
         super(description);
         this.by = by;
     }
+
     public String getDescription() {
         return description;
     }
@@ -17,6 +19,7 @@ public class Deadline extends Task {
     public String getFormattedDeadline() {
         return by.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a"));
     }
+
     @Override
     public String toString() {
         // Add a [D] at the front of task description (parent class)

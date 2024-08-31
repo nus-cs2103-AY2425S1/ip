@@ -21,6 +21,7 @@ public class Parser {
         Matcher matcher = pattern.matcher(dateTime);
         return matcher.matches();
     }
+
     public static Task parseDeadlineCommand(String command) {
         try {
             if (!command.contains("/by")) {
