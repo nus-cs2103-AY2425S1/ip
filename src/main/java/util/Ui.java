@@ -1,9 +1,8 @@
 package main.java.util;
 
-import main.java.Task;
-import main.java.TaskList;
+import main.java.tasks.Task;
+import main.java.tasks.TaskList;
 
-import java.io.PrintStream;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 

@@ -7,12 +7,10 @@ import java.nio.file.Path;
 import java.io.IOException;
 
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import main.java.Task;
-import main.java.TaskList;
+import main.java.tasks.Task;
+import main.java.tasks.TaskList;
 
 public class Storage {
     private static final Path DIRPATH = Paths.get("./data");

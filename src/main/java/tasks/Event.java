@@ -1,9 +1,9 @@
-package main.java;
+package main.java.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task{
+public class Event extends Task {
     private LocalDateTime from, to;
 
     public Event(String name, String from, String to) {
