@@ -129,8 +129,6 @@ public class ProcessTasks {
 
     public void createTasks(String taskInfo) {
         String[] parts = taskInfo.split("\\|");
-        int num = parts.length;
-
         Task.TaskType taskType = Task.TaskType.valueOf(parts[0]);
         switch (taskType) {
         case TODO: {
@@ -147,7 +145,7 @@ public class ProcessTasks {
             break;
         }
         case EVENT: {
-            String description = parts[1];
+            String description = parts[2];
             String from = parts[3];
             String to = parts[4];
             kj.addTask(description, from, to);
