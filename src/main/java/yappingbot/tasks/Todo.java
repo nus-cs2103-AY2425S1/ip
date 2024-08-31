@@ -16,6 +16,7 @@ public class Todo extends Task {
     public String getTaskTypeSymbol() {
         return "T";
     }
+
     @Override
     public String toString() {
         return String.format("%s", super.getTaskName());

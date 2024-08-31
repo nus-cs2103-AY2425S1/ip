@@ -89,4 +89,12 @@ public class Event extends Task {
             throw new YappingBotInvalidSaveFileException(e.getMessage());
         }
     }
+
+    @Override
+    public boolean isStringFoundInTask(String searchString) {
+        // abuse the shortcircuiting
+        return (super.isStringFoundInTask(searchString)
+                || getStartTime().contains(searchString)
+                || getEndTime().contains(searchString));
+    }
 }

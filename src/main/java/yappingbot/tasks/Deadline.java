@@ -70,5 +70,12 @@ public class Deadline extends Task {
             throw new YappingBotInvalidSaveFileException(e.getMessage());
         }
     }
+
+    @Override
+    public boolean isStringFoundInTask(String searchString) {
+        // abuse the shortcircuiting
+        return (super.isStringFoundInTask(searchString)
+                || getDeadline().contains(searchString));
+    }
 }
 
