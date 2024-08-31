@@ -40,10 +40,36 @@ public class JohnCena {
                 System.out.println(" OK, I've marked this task as not done yet:");
                 System.out.println("   " + tasks.get(taskIndex));
                 System.out.println("____________________________________________________________");
-            } else {
-                tasks.add(new Task(input));
+            }  else if (input.startsWith("todo ")) {
+                String description = input.substring(5);
+                Task task = new Todo(description);
+                tasks.add(task);
                 System.out.println("____________________________________________________________");
-                System.out.println(" added: " + input);
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + task);
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if (input.startsWith("deadline ")) {
+                String[] parts = input.substring(9).split(" /by ");
+                Task task = new Deadline(parts[0], parts[1]);
+                tasks.add(task);
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + task);
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else if (input.startsWith("event ")) {
+                String[] parts = input.substring(6).split(" /from | /to ");
+                Task task = new Event(parts[0], parts[1], parts[2]);
+                tasks.add(task);
+                System.out.println("____________________________________________________________");
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + task);
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } else {
+                System.out.println("____________________________________________________________");
+                System.out.println(" Invalid command.");
                 System.out.println("____________________________________________________________");
             }
         }
