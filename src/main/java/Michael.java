@@ -1,47 +1,59 @@
-import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
-import java.io.PrintWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Michael {
-    private static final String border = "--------------------------------------";
+    private static final String BORDER = "--------------------------------------";
     private static void printer(String text) { // Function to help print each interaction
-        System.out.println(border);
+        System.out.println(BORDER);
         System.out.println(text);
-        System.out.println(border);
+        System.out.println(BORDER);
     }
 
+    private static final String PATH = "src/main/data/save";
     private static ArrayList<Task> tasks = new ArrayList<>(); // store user inputs
-
-    private static File file = new File("src/main/data/save");
 
     public static void main(String[] args) {
         Scanner user = new Scanner(System.in); // scanner for user input
 
-        // Greet user first
-        printer("Hello! I'm Michael.\n" + "What can I do for you?");
+        try {
+            File f = new File(PATH);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                Task t = load(s.nextLine());
+                tasks.add(t);
+            }
 
-        // Read user's input
-        while (true) {
-            String input = user.nextLine();
-            if (input.equals("bye")) { // special bye command to exit
-                break;
+            FileWriter writer = new FileWriter(PATH, true);
+            // Greet user first
+            printer("Hello! I'm Michael.\n" + "What can I do for you?");
+
+            // Read user's input
+            while (true) {
+                String input = user.nextLine();
+                if (input.equals("bye")) { // special bye command to exit
+                    break;
+                }
+                try {
+                    processor(input);
+                    writer.write(input);
+                } catch (MichaelException e) {
+                    System.out.println(e.getMessage());
+                }
             }
-            try {
-                PrintWriter writer = new PrintWriter(file);
-                processor(input);
-                writer.write(input);
-            } catch (MichaelException e) {
-                System.out.println(e.getMessage());
-            } catch (FileNotFoundException e) {
-                System.out.println(e.getMessage());
-            }
+
+            // Exit
+            printer("Bye. Hope to see you again soon!");
+            writer.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Save file not found!");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
-
-        // Exit
-        printer("Bye. Hope to see you again soon!");
     }
 
     // Function to match command to required actions
@@ -124,5 +136,39 @@ public class Michael {
             throw new MichaelException("Invalid command entered. Please enter one of the following valid commands: " +
                     "todo, deadline, event, mark, unmark, list, bye");
         }
+    }
+
+    // Method loads task from save file
+    private static Task load(String line) {
+        String[] parts = line.split("\\|");
+        for (int i = 0; i < parts.length; i++) {
+            String s = parts[i];
+            parts[i] = s.strip();
+        }
+
+        if (parts[0].equals("T")) {
+            Task t = new ToDo(parts[2]);
+            if (Integer.valueOf(parts[1]) == 1) {
+                t.doTask();
+            }
+            return t;
+        } else if (parts[0].equals("D")) {
+            Task t = new Deadline(parts[2], parts[3]);
+            if (Integer.valueOf(parts[1]) == 1) {
+                t.doTask();
+            }
+            return t;
+        } else {
+            Task t = new Event(parts[2], parts[3], parts[4]);
+            if (Integer.valueOf(parts[1]) == 1) {
+                t.doTask();
+            }
+            return t;
+        }
+    }
+
+    // Method converts task inputted to format required in save file
+    private static void convert(String task) {
+
     }
 }
