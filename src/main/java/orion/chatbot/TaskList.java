@@ -20,8 +20,8 @@ public class TaskList {
      * Constructs an empty TaskList.
      */
     protected TaskList() {
-        this.tasks = new ArrayList<>();
-        this.noTasks = 0;
+        tasks = new ArrayList<>();
+        noTasks = 0;
     }
 
     /**
@@ -31,7 +31,7 @@ public class TaskList {
      */
     protected TaskList(List<Task> tasks) {
         this.tasks = tasks;
-        this.noTasks = tasks.size();
+        noTasks = tasks.size();
     }
 
     /**
@@ -55,7 +55,7 @@ public class TaskList {
      * @return The number of tasks.
      */
     public int getNoTasks() {
-        return this.noTasks;
+        return noTasks;
     }
 
     /**
@@ -76,7 +76,7 @@ public class TaskList {
      * @throws OrionInputException If the task number is invalid.
      */
     public Task markTask(int taskNo) throws OrionInputException {
-        Task task = this.tasks.get(taskNo);
+        Task task = tasks.get(taskNo);
         task.setDone();
         return task;
     }
@@ -89,7 +89,7 @@ public class TaskList {
      * @throws OrionInputException If the task number is invalid.
      */
     public Task unmarkTask(int taskNo) throws OrionInputException {
-        Task task = this.tasks.get(taskNo);
+        Task task = tasks.get(taskNo);
         task.setUndone();
         return task;
     }
@@ -101,9 +101,9 @@ public class TaskList {
      * @return The task that was deleted.
      */
     public Task deleteTask(int taskNo) {
-        Task task = this.tasks.get(taskNo);
-        this.tasks.remove(task);
-        this.noTasks--;
+        Task task = tasks.get(taskNo);
+        tasks.remove(task);
+        noTasks--;
         return task;
     }
 
@@ -115,7 +115,7 @@ public class TaskList {
      */
     public List<String> getSavedTaskDescriptions() {
         List<String> savedTaskDescriptions = new ArrayList<>();
-        for (Task task : this.tasks) {
+        for (Task task : tasks) {
             savedTaskDescriptions.add(task.saveString() + "\n");
         }
         return savedTaskDescriptions;
