@@ -17,7 +17,7 @@ public class TaskList extends ArrayList<Task> {
         System.out.println("いまは " + tasks.size() + " tasks in the list");
     }
 
-    public ArrayList<Task> getTasks(){
+    public ArrayList<Task> getTasks() {
         return tasks;
     }
 
@@ -41,11 +41,21 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
+    public void searchList(String string) {
+        int counter = 1;
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDesc().contains(string)) {
+                System.out.println(String.valueOf(counter) + ". " + tasks.get(i).stringValue());
+                counter += 1;
+            }
+        }
+    }
+
     public void initAdd(Task element) {
         tasks.add(element);
     }
 
-    public int size(){
+    public int size() {
         return tasks.size();
     }
 }
