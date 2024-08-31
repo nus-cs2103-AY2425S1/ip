@@ -56,6 +56,8 @@ public class ZBot {
         } else if (input.startsWith("delete")) {
             deleteTask(input, ui);
             storage.save(tasks);
+        } else if (input.startsWith("find")) {
+            findTask(input, ui);
         } else {
             System.out.println("Invalid command.\n");
         }
@@ -125,5 +127,21 @@ public class ZBot {
         } catch (NullPointerException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
             System.out.println("Please enter a valid task number!\n");
         }
+    }
+
+    public void findTask(String input, Ui ui) {
+        String keyword = input.split(" ", 2)[1];
+        int tasksFound = 0;
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDescription().contains(keyword)) {
+                tasksFound++;
+                System.out.println(String.format("%d. %s", i, tasks.get(i)));
+            }
+        }
+
+        if (tasksFound == 0) {
+            System.out.println("No tasks found.");
+        }
+        System.out.println();
     }
 }
