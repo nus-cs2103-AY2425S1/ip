@@ -1,13 +1,11 @@
 package nuffle.parser;
 
 import nuffle.exception.NuffleException;
-import nuffle.task.Deadline;
-import nuffle.task.Event;
-import nuffle.task.Task;
-import nuffle.task.Todo;
+import nuffle.task.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -135,5 +133,9 @@ public class Parser {
         }
     }
 
+    public static ArrayList<Task> parseFindCommand(String command, TaskList inputList) {
+        String desc = command.substring(4).trim();
+        return inputList.findTasksByKeyword(desc);
+    }
 
 }

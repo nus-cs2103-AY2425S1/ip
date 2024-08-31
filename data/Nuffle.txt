@@ -1,5 +1,5 @@
-E | 1 | meet friends | 2024-Aug-29 1500 | 2024-Aug-29 1600
+E | 1 | meet friends | 2024-Aug-29 1600 | 2024-Aug-29 1500
 D | 0 | submit homework | 2024-Aug-30 2359
-E | 0 | meet prof | 2024-Sep-30 1700 | 2024-Sep-30 1400
+E | 0 | meet prof | 2024-Sep-30 1400 | 2024-Sep-30 1700
 D | 0 | submit project | 2024-Aug-30 2359
-E | 1 | study | 2024-Sep-22 1700 | 2024-Sep-22 1400
+E | 1 | study | 2024-Sep-22 1400 | 2024-Sep-22 1700

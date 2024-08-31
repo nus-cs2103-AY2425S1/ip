@@ -2,6 +2,7 @@ package nuffle.ui;
 
 import nuffle.exception.NuffleException;
 import nuffle.task.Task;
+import java.util.ArrayList;
 
 /**
  * The Ui class handles the interaction with the user.
@@ -124,7 +125,17 @@ public class Ui {
         printLine();
         System.out.println("Nuffle caught an error > " + e.getMessage());
         printLine();
+    }
 
+    public static void displayFoundTasks(ArrayList<Task> inputList) {
+        if (inputList.isEmpty()) {
+            System.out.println("Opps! Seems like there is no matching tasks.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < inputList.size(); i++) {
+                System.out.println((i + 1) + ". " + inputList.get(i));
+            }
+        }
     }
 
 }

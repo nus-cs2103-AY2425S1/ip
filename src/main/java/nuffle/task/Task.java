@@ -20,6 +20,9 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
     }
+    public String getDescription() {
+        return this.description;
+    }
 
     /**
      * Returns the status of the task as a string, indicating whether the task is done or not.

@@ -22,7 +22,6 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-
     /**
      * Returns the description of the deadline task.
      *
