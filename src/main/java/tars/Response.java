@@ -2,6 +2,7 @@ package tars;
 
 import tars.commands.AddCommand;
 import tars.commands.DeleteCommand;
+import tars.commands.FindCommand;
 import tars.commands.MarkCommand;
 
 import tars.exceptions.TarsException;
@@ -21,6 +22,7 @@ public class Response {
     MarkCommand markCommand = new MarkCommand();
     DeleteCommand deleteCommand = new DeleteCommand();
     AddCommand addCommand = new AddCommand();
+    FindCommand findCommand = new FindCommand();
     private final static String LOGO = """
                 ________________ __________  _________
                 \\__    ___/  _  \\\\______   \\/   _____/
@@ -51,6 +53,7 @@ public class Response {
      * @param tasks The {@link TaskList} object containing the tasks to be modified or accessed.
      */
     public void generateResponse(String input, TaskList tasks) {
+        System.out.println(input);
         if (input.contains("mark")) {
             try {
                 formatResponse(markCommand.execute(input, tasks));
@@ -61,6 +64,13 @@ public class Response {
         } else if (input.contains("delete")) {
             try {
                 formatResponse(deleteCommand.execute(input, tasks));
+            } catch (TarsException e) {
+                formatResponse(e.getMessage());
+            }
+
+        } else if (input.contains("find")){
+            try {
+                formatResponse(findCommand.execute(input, tasks));
             } catch (TarsException e) {
                 formatResponse(e.getMessage());
             }
