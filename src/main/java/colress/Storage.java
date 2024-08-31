@@ -15,12 +15,20 @@ import colress.task.Deadline;
 import colress.task.Event;
 import colress.task.ToDo;
 
+/**
+ * Represents the Storage of the Colress chatbot.
+ */
 public final class Storage {
-    private File taskFile;
+    private final File TASK_FILE;
     private FileWriter writer;
 
+    /**
+     * Constructor for the Storage class.
+     *
+     * @param filePath A string representing the relative filepath for the text file containing the tasks.
+     */
     public Storage(String filePath) {
-        this.taskFile = new File(filePath);
+        this.TASK_FILE = new File(filePath);
     }
     private LocalDate readDate(String date) throws FileCorruptedException {
         try {
@@ -40,7 +48,7 @@ public final class Storage {
 
     private void repopulateTasks(TaskList taskList)
             throws FileCorruptedException, FileNotFoundException {
-        Scanner reader = new Scanner(taskFile);
+        Scanner reader = new Scanner(TASK_FILE);
         String[] strings;
         String currLine;
 
@@ -81,15 +89,24 @@ public final class Storage {
         }
     }
 
+    /**
+     * Facilitates loading the task from the file to the provided TaskList object, and returns a boolean that reflects
+     * whether a new file has been created or if there is an existing file.
+     * The method throws a FileCorruptedException if there are error reading the file.
+     */
     public boolean loadTasks(TaskList taskList) throws IOException, FileCorruptedException {
-        boolean createdNewFile = taskFile.createNewFile();
+        boolean createdNewFile = TASK_FILE.createNewFile();
         repopulateTasks(taskList);
         return createdNewFile;
     }
 
     private void initialiseFileWriter() throws IOException {
-        writer = new FileWriter(taskFile, false);
+        writer = new FileWriter(TASK_FILE, false);
     }
+
+    /**
+     * Facilitates writing tasks from the provided TaskList object to the text file.
+     */
     public void writeToTaskFile(TaskList taskList) throws IOException {
         String result = "";
         for (int i = 0; i < taskList.size(); i++) {

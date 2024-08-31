@@ -3,6 +3,9 @@ package colress.command;
 import colress.TaskList;
 import colress.Ui;
 
+/**
+ * An abstract class that encapsulates behaviour of a command.
+ */
 public abstract class Command {
     private final String executeSuccessMessage;
 
@@ -13,5 +16,6 @@ public abstract class Command {
     public String getExecuteSuccessMessage() {
         return executeSuccessMessage;
     }
+
     public abstract void execute(Ui ui, TaskList taskList);
 }

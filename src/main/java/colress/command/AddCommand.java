@@ -10,13 +10,18 @@ import colress.task.Event;
 import colress.task.Task;
 import colress.task.ToDo;
 
-
-
+/**
+ * Represents the add command that add a task to the list of tasks.
+ */
 public final class AddCommand extends Command {
     public AddCommand() {
         super("Okay. I have added this task to your list:\n");
     }
 
+    /**
+     * Facilitates adding a task to the provided TaskList as not done, using the provided Ui object to receive input
+     * from the user regarding what type of task to add and the various fields of the task to be added.
+     */
     @Override
     public void execute(Ui ui, TaskList taskList) {
         String taskType = ui.promptTaskType();

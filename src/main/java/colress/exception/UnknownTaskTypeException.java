@@ -1,5 +1,8 @@
 package colress.exception;
 
+/**
+ * An exception that is thrown when there is an invalid task type entered by the user.
+ */
 public class UnknownTaskTypeException extends Exception {
     public UnknownTaskTypeException() {
         super("""
