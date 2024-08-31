@@ -1,4 +1,4 @@
-package utility;
+package mummy.utility;
 
 public class Echo {
 

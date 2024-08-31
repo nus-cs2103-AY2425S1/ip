@@ -1,4 +1,4 @@
-package task;
+package mummy.task;
 
 
 public abstract class Task {

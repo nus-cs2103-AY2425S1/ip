@@ -1,15 +1,10 @@
-package tasklist;
+package mummy.task;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.ToDo;
 
 public class TaskList {
     private static final String LABEL = "Here are the tasks in your list:";

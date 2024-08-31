@@ -1,4 +1,4 @@
-package ui;
+package mummy.ui;
 
 public class UiException extends Exception {
 

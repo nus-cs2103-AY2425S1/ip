@@ -1,6 +1,7 @@
-import tasklist.TaskList;
-import ui.Ui;
-import utility.Storage;
+package mummy.ui;
+
+import mummy.task.TaskList;
+import mummy.utility.Storage;
 
 import java.io.IOException;
 import java.util.Scanner;

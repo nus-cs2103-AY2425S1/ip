@@ -1,4 +1,4 @@
-package utility;
+package mummy.utility;
 
 import java.io.File;
 import java.io.FileWriter;

@@ -1,4 +1,4 @@
-package tasklist;
+package mummy.task;
 
 public class TaskListException extends Exception {
 
