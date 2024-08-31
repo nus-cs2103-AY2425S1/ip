@@ -88,6 +88,15 @@ public class LuffyUI {
     }
 
     /**
+     * This method prints out a match message when the chatbot finds tasks with
+     * the matching keywords by user
+     */
+    public void showMatchingMessage() {
+        showLine();
+        System.out.println(" Here are the matching tasks in your list:");
+    }
+
+    /**
      * This method prints out an error message when the user inputs an
      * invalid command
      *

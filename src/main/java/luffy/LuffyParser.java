@@ -69,6 +69,9 @@ public class LuffyParser {
                 Event eventTask = new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2], false);
                 return new AddCommand(eventTask);
 
+            case "find":
+                return new FindCommand(commandDetails[1]);
+
             case "mark":
                 int markIndex = Integer.parseInt(fullCommand.substring(5)) - 1;
                 return new MarkCommand(markIndex);
