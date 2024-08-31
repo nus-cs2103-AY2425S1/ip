@@ -6,7 +6,9 @@ import garfield.tasks.TaskList;
 import garfield.ui.Ui;
 
 public class DeleteCommand extends Command {
+
     private int taskId;
+
     public DeleteCommand(int taskId) {
         this.taskId = taskId;
     }

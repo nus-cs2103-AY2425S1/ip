@@ -6,6 +6,7 @@ import garfield.tasks.TaskList;
 import garfield.ui.Ui;
 
 public class MarkCommand extends Command {
+
     private int taskId;
 
     public MarkCommand(int taskId) {
