@@ -23,7 +23,7 @@ public class Sinatra {
     }
 
     private void printIntro() {
-        String initial = "Hello! I'm Sinatra.Sinatra \nWhat can I do for you? ";
+        String initial = "Hello! I'm Sinatra. \nWhat can I do for you? ";
 
         //print intro
         System.out.println(initial);
