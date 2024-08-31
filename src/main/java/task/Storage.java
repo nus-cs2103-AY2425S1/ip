@@ -3,13 +3,13 @@ package task;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
-import exception.*;
+import exception.InvalidStorageFileException;
 import utility.Parser;
 
 /**
@@ -41,13 +41,14 @@ public class Storage {
 
     /**
      * Loads the tasks from the file
+     *
      * @return ArrayList<Task> of tasks from the file
      * @throws InvalidStorageFileException if the storage file is corrupted
      */
     public ArrayList<Task> load() throws InvalidStorageFileException {
         try {
             ArrayList<Task> tasks = new ArrayList<>();
-            
+
             this.createFileIfNotExists();
             List<String> lines = Files.readAllLines(this.path);
             for (String line : lines) {
@@ -62,6 +63,7 @@ public class Storage {
 
     /**
      * Updates the tasks from an ArrayList of tasks
+     *
      * @param taskList ArrayList<Task> of tasks
      * @throws InvalidStorageFileException
      */
@@ -69,7 +71,7 @@ public class Storage {
         try {
             // Create file content
             StringBuilder s = new StringBuilder();
-            for (Task t: taskList) {
+            for (Task t : taskList) {
                 s.append(t + System.lineSeparator());
             }
             String fileContent = s.toString();

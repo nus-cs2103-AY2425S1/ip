@@ -1,8 +1,8 @@
 package ui;
 
-import task.Task;
-
 import java.util.ArrayList;
+
+import task.Task;
 
 /**
  * The Ui class deals with printing outputs for users

@@ -1,6 +1,6 @@
 package command;
 
-import exception.*;
+import exception.LevelHundredException;
 import task.Storage;
 import task.TaskList;
 import ui.Ui;
@@ -21,6 +21,5 @@ public class ExitCommand extends UserCommand {
     @Override
     public void execute(String userInput, Ui ui, Storage storage, TaskList taskList) {
         ui.exit();
-        return;
     }
 }

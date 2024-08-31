@@ -1,11 +1,14 @@
 package levelhundred;
 
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import command.UserCommand;
-import exception.*;
-import task.*;
+import exception.InvalidStorageFileException;
+import exception.LevelHundredException;
+import task.Storage;
+import task.Task;
+import task.TaskList;
 import ui.Ui;
 import utility.Parser;
 
@@ -14,7 +17,7 @@ import utility.Parser;
  * the overall logic of the project
  */
 public class LevelHundred {
-    private final String NAME = "LevelHundred";
+    private final String name = "LevelHundred";
     private final Ui ui;
     private final Storage storage;
     private final TaskList taskList;
@@ -40,11 +43,11 @@ public class LevelHundred {
     private void run() {
         this.initialiseTaskList();
 
-        this.ui.greet(this.NAME);
+        this.ui.greet(this.name);
 
         Scanner sc = new Scanner(System.in);
         boolean isRunning = true;
-        String userInput = "";
+        String userInput;
 
         while (isRunning) {
             userInput = sc.nextLine();
