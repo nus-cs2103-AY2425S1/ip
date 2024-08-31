@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Rose {
     static final String horizontal = "____________________________________________________________";
@@ -13,6 +16,7 @@ public class Rose {
     private static void addTask(TaskType taskType, String taskName) {
         try {
             Task newTask;
+            DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
             switch (taskType) {
                 case EVENT:
@@ -24,14 +28,16 @@ public class Rose {
                     if (partsB.length < 2) {
                         throw new RoseException("Event task is missing '/to'.");
                     }
-                    newTask = new Event(partsA[0], partsB[0], partsB[1]);
+                    newTask = new Event(partsA[0],
+                            LocalDate.parse(partsB[0], INPUT_FORMAT),
+                            LocalDate.parse(partsB[1], INPUT_FORMAT));
                     break;
                 case DEADLINE:
                     String[] parts = taskName.split(" /by ");
                     if (parts.length < 2) {
                         throw new RoseException("Deadline task is missing '/by'.");
                     }
-                    newTask = new Deadline(parts[0], parts[1]);
+                    newTask = new Deadline(parts[0], LocalDate.parse(parts[1], INPUT_FORMAT));
                     break;
                 case TODO:
                     newTask = new Todo(taskName);
@@ -50,6 +56,10 @@ public class Rose {
         } catch (RoseException e) {
             printIndented(horizontal);
             printIndented("OOPS!!! " + e.getMessage());
+            printIndented(horizontal);
+        } catch (DateTimeParseException e) {
+            printIndented(horizontal);
+            printIndented("Please enter a valid date in this format yyyy-MM-dd");
             printIndented(horizontal);
         }
     }
@@ -124,8 +134,6 @@ public class Rose {
         String closing = horizontal + "\n    See you~~ Don't forget to drink some water ^_^\n    " + horizontal;
 
         printIndented(opening);
-
-
 
         String[] input = scanner.nextLine().split(" ",2);
         String message = "";
