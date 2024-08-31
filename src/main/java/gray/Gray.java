@@ -2,6 +2,9 @@ package gray;
 
 import gray.command.Command;
 
+/**
+ * The chatbot Gray.
+ */
 public class Gray {
 
     private static final String SAVE_TASKS_FILEPATH = "./data/saveTasks";
@@ -36,7 +39,9 @@ public class Gray {
             try {
                 Command c = Parser.parse(fullCommand);
                 c.execute(ui, tasks);
-                if (c.isExit()) break;
+                if (c.isExit()) {
+                    break;
+                }
             } catch (GrayException e) {
                 ui.showError(e.getMessage());
             }

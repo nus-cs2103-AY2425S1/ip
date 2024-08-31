@@ -1,12 +1,15 @@
 package gray;
 
-import gray.task.Task;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import gray.task.Task;
+
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList implements Serializable {
     private final ArrayList<Task> taskList;
 
@@ -51,7 +54,9 @@ public class TaskList implements Serializable {
      * @param index
      * @return the task specified
      */
-    public Task get(int index) { return taskList.get(index); }
+    public Task get(int index) {
+        return taskList.get(index);
+    }
 
     /**
      * Removes the task at the specified position in this task list.
@@ -60,8 +65,16 @@ public class TaskList implements Serializable {
      * @param index
      * @return the task removed
      */
-    public Task remove(int index) { return taskList.remove(index); }
+    public Task remove(int index) {
+        return taskList.remove(index);
+    }
 
+    /**
+     * Search tasks that has description matching the search query.
+     *
+     * @param search
+     * @return
+     */
     public List<Task> search(String search) {
         return taskList.stream()
                 .filter(task -> task.toString().contains(search))

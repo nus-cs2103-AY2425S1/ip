@@ -1,10 +1,13 @@
 package gray.command;
 
-import gray.Ui;
-import gray.TaskList;
-
 import java.util.StringJoiner;
 
+import gray.TaskList;
+import gray.Ui;
+
+/**
+ * A command that lists tasks.
+ */
 public class ListCommand extends Command {
 
     /**

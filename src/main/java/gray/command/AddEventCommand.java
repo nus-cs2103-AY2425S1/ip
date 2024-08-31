@@ -1,11 +1,14 @@
 package gray.command;
 
-import gray.Ui;
-import gray.task.EventTask;
-import gray.TaskList;
-
 import java.time.LocalDateTime;
 
+import gray.TaskList;
+import gray.Ui;
+import gray.task.EventTask;
+
+/**
+ * A command that adds an event task.
+ */
 public class AddEventCommand extends Command {
 
     private final String description;

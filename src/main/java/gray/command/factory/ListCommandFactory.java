@@ -1,9 +1,12 @@
-package gray.command_factory;
+package gray.command.factory;
 
 import gray.GrayException;
 import gray.command.Command;
 import gray.command.ListCommand;
 
+/**
+ * A parser that constructs a command that lists tasks.
+ */
 public class ListCommandFactory extends CommandFactory {
 
     /**
@@ -15,7 +18,9 @@ public class ListCommandFactory extends CommandFactory {
      */
     @Override
     public Command parse(String text) throws GrayException {
-        if (!text.equals("list")) return null;
+        if (!text.equals("list")) {
+            return null;
+        }
         return new ListCommand();
     }
 }

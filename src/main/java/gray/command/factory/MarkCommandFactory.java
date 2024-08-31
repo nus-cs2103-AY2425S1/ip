@@ -1,12 +1,15 @@
-package gray.command_factory;
+package gray.command.factory;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import gray.GrayException;
 import gray.command.Command;
 import gray.command.MarkCommand;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+/**
+ * A parser that constructs a command that marks or un-marks a task as completed.
+ */
 public class MarkCommandFactory extends CommandFactory {
 
     /**
@@ -20,7 +23,9 @@ public class MarkCommandFactory extends CommandFactory {
     public Command parse(String text) throws GrayException {
         Pattern pattern = Pattern.compile("(mark|unmark) (-?\\d+)");
         Matcher matcher = pattern.matcher(text);
-        if (!matcher.matches()) return null;
+        if (!matcher.matches()) {
+            return null;
+        }
         String command = matcher.group(1);
         int index = Integer.parseInt(matcher.group(2));
         return new MarkCommand(command, index);

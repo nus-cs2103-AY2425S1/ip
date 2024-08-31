@@ -1,9 +1,12 @@
 package gray.command;
 
 import gray.GrayException;
-import gray.Ui;
 import gray.TaskList;
+import gray.Ui;
 
+/**
+ * A command that ends the chatbot loop interaction.
+ */
 public class ByeCommand extends Command {
     /**
      * Executes the bye command.

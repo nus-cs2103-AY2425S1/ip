@@ -3,6 +3,9 @@ package gray;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * A storage that manages file-related IO procedures.
+ */
 public class Storage {
 
     private final File saveFile;
@@ -38,7 +41,9 @@ public class Storage {
      */
     public TaskList loadTasks() {
         saveFile.getParentFile().mkdirs();
-        if (!saveFile.exists()) return new TaskList();
+        if (!saveFile.exists()) {
+            return new TaskList();
+        }
         try {
             return (TaskList) Utility.deserialise(saveFile);
         } catch (IOException e) {

@@ -2,6 +2,9 @@ package gray;
 
 import java.util.Scanner;
 
+/**
+ * Represents a user interface for the chatbot.
+ */
 public class Ui {
 
     private final Scanner reader;

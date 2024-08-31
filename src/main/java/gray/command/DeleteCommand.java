@@ -1,10 +1,13 @@
 package gray.command;
 
 import gray.GrayException;
+import gray.TaskList;
 import gray.Ui;
 import gray.task.Task;
-import gray.TaskList;
 
+/**
+ * A command that attempts to delete an event.
+ */
 public class DeleteCommand extends Command {
     private final int index;
 

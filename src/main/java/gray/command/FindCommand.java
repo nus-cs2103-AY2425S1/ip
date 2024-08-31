@@ -1,15 +1,17 @@
 package gray.command;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import gray.GrayException;
 import gray.TaskList;
 import gray.Ui;
 import gray.task.Task;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
+/**
+ * A command that finds tasks.
+ */
 public class FindCommand extends Command {
     private final String search;
 
