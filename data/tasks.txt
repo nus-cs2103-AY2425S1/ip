@@ -1,4 +1,3 @@
 T | 1 | laundry
-D | 0 | homework | sat
-E | 0 | birthday | sat | sun
-D | 0 | 2101 | sun
+D | 0 | 2106 | 2024-09-01 2359
+E | 0 | birthday friend | 2024-08-31 2200 | 2024-08-31 2350

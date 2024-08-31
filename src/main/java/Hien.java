@@ -1,11 +1,16 @@
 import java.io.*;
 import java.nio.file.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Hien {
     private ArrayList<Task> tasks;
     private static final String DATA_FILE_PATH = "data/tasks.txt";
+    private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a");
 
     // Constructor
     public Hien() {
@@ -80,28 +85,39 @@ public class Hien {
     private void addDeadline(String input) throws HienException {
         String[] parts = input.substring(8).split(" /by ");
         if (parts.length == 2) {
-            Deadline deadline = new Deadline(parts[0].trim(), parts[1].trim());
-            tasks.add(deadline);
-            saveTasks();
-            System.out.println(" Got it. I've added this task:");
-            System.out.println("   " + deadline);
-            System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+            try {
+                LocalDateTime dateTime = LocalDateTime.parse(parts[1].trim(), INPUT_DATE_FORMAT);
+                Deadline deadline = new Deadline(parts[0].trim(), dateTime);
+                tasks.add(deadline);
+                saveTasks();
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + deadline);
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+            } catch (DateTimeParseException e) {
+                throw new HienException("☹ OOPS!!! The date format is incorrect. Please use: yyyy-MM-dd HHmm");
+            }
         } else {
-            throw new HienException(" ☹ OOPS!!! The deadline format is incorrect. Please use: deadline <description> /by <date>");
+            throw new HienException(" ☹ OOPS!!! The deadline format is incorrect. Please use: deadline <description> /by <yyyy-MM-dd HHmm>");
         }
     }
 
     private void addEvent(String input) throws HienException {
         String[] parts = input.substring(5).split(" /from | /to ");
         if (parts.length == 3) {
-            Event event = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
-            tasks.add(event);
-            saveTasks();
-            System.out.println(" Got it. I've added this task:");
-            System.out.println("   " + event);
-            System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+            try {
+                LocalDateTime startTime = LocalDateTime.parse(parts[1].trim(), INPUT_DATE_FORMAT);
+                LocalDateTime endTime = LocalDateTime.parse(parts[2].trim(), INPUT_DATE_FORMAT);
+                Event event = new Event(parts[0].trim(), startTime, endTime);
+                tasks.add(event);
+                saveTasks();
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + event);
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+            } catch (DateTimeParseException e) {
+                throw new HienException("☹ OOPS!!! The date format is incorrect. Please use: yyyy-MM-dd HHmm");
+            }
         } else {
-            throw new HienException("☹ OOPS!!! The event format is incorrect. Please use: event <description> /from <start-date> /to <end-date>");
+            throw new HienException("☹ OOPS!!! The event format is incorrect. Please use: event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
         }
     }
 
@@ -179,10 +195,13 @@ public class Hien {
                             task = new Todo(parts[2]);
                             break;
                         case "D":
-                            task = new Deadline(parts[2], parts[3]);
+                            LocalDateTime by = LocalDateTime.parse(parts[3].trim(), INPUT_DATE_FORMAT);
+                            task = new Deadline(parts[2], by);
                             break;
                         case "E":
-                            task = new Event(parts[2], parts[3], parts[4]);
+                            LocalDateTime from = LocalDateTime.parse(parts[3].trim(), INPUT_DATE_FORMAT);
+                            LocalDateTime to = LocalDateTime.parse(parts[4].trim(), INPUT_DATE_FORMAT);
+                            task = new Event(parts[2], from, to);
                             break;
                         default:
                             continue;
@@ -209,10 +228,10 @@ public class Hien {
                     line = "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
                 } else if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
-                    line = "D | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() + " | " + deadline.getBy();
+                    line = "D | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() + " | " + deadline.getBy().format(INPUT_DATE_FORMAT);
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
-                    line = "E | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() + " | " + event.getFrom() + " | " + event.getTo();
+                    line = "E | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() + " | " + event.getFrom().format(INPUT_DATE_FORMAT) + " | " + event.getTo().format(INPUT_DATE_FORMAT);
                 } else {
                     continue;
                 }
