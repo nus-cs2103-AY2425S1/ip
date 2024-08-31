@@ -32,8 +32,9 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "cook"
+    archiveBaseName = "Cook"
     archiveClassifier = null
+    archiveFileName = 'Cook.jar'
 }
 
 run {
