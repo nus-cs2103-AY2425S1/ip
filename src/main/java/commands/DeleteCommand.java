@@ -12,12 +12,17 @@ import ui.Ui;
 public class DeleteCommand extends Command {
     private final int taskIndex;
 
-    // By separation of concerns,
     public DeleteCommand(int taskIndex) {
         super();
         this.taskIndex = taskIndex;
     }
 
+    /**
+     * Execution actions:
+     * - Delete task with selected index from the task list
+     * - Write updated task list to storage
+     * - Print deleted task and inform user on total tasks
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.deleteTaskAt(taskIndex);

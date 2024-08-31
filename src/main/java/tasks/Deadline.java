@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * A Deadline stores an additional deadline field in ISO date format.
+ */
 public class Deadline extends Task {
     protected LocalDate due;
 

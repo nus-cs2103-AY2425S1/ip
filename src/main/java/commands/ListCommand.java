@@ -10,6 +10,11 @@ public class ListCommand extends Command {
         super();
     }
 
+    /**
+     * Execution actions:
+     * - Convert all tasks to their string representations
+     * - Print to user
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.length() == 0) {

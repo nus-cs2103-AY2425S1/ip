@@ -2,6 +2,10 @@ package tasks;
 
 import exceptions.GrokInvalidUserInputException;
 
+/**
+ * The parent class that denotes a task, which is to be stored in a task list.
+ * It stores 2 universal fields - the description of a task and its completion status.
+ */
 public abstract class Task implements Serializable {
     protected String description;
     protected boolean isDone;

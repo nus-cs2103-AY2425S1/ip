@@ -14,6 +14,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Persistent storage reader/writer, such as with a plaintext text file.
+ * Other persistent media like databases could be explored at a later date.
+ */
 public class Storage {
     private final String filePath;
 

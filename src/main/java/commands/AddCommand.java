@@ -13,6 +13,12 @@ public class AddCommand extends Command {
         this.task = task;
     }
 
+    /**
+     * Execution actions:
+     * - Add task to the task list
+     * - Write updated task list to storage
+     * - Print new task and inform user on total tasks
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(task);
