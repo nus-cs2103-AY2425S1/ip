@@ -36,6 +36,11 @@ shadowJar {
     archiveBaseName = "tecna-v0.1"
     archiveClassifier = null
 
+    // Include all compiled classes and resources in the root of the JAR
+    from(sourceSets.main.output) {
+        into('')
+    }
+
     from('src/main/data') {
         into('data')
     }
