@@ -1,14 +1,19 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
-
 public class Murphy {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
-    public static void main(String[] args) {
+    private Ui ui;
+    private Storage storage;
+    private TaskList tasks;
+
+    public Murphy(String filepath) {
+        ui = new Ui();
+        try {
+            storage = new Storage(filepath);
+            tasks = new TaskList(storage.load());
+        } catch (MurphyException e) {
+            ui.showError(String.format("Error loading save file: %s", e.getMessage()));
+            tasks = new TaskList();
+        }
+    }
+    public void run() {
         /*
             String logo = " ____        _        \n"
                     + "|  _ \\ _   _| | _____ \n"
@@ -17,244 +22,130 @@ public class Murphy {
                     + "|____/ \\__,_|_|\\_\\___|\n";
             System.out.println("Hello from\n" + logo);
         */
-        prLine();
-        System.out.println("Hello! I'm Murphy");
-        System.out.println("What can I do for you?");
-        prLine();
-        try {
-            loadSave();
-        } catch (IOException | MurphyException e) {
-            System.err.println("Error loading save file: " + e.getMessage());
-        }
-        Scanner scanner = new Scanner(System.in);
-        while(scanner.hasNextLine()) {
-            String input = scanner.nextLine();
+        boolean isClosed = false;
+        while(!isClosed) {
+            String input = ui.getInput();
             if (input.equals("bye")) {
-                Murphy.bye();
+                isClosed = true;
+                ui.showText("Bye. Hope to see you again soon!");
+                ui.closeScanner();
                 try {
-                    Murphy.writeSave();
-                } catch (IOException e) {
-                    System.err.println("Error writing to save file: " + e.getMessage());
+                    storage.write(tasks);
+                } catch (MurphyException e) {
+                    ui.showError(String.format("Error saving tasks to storage: %s", e.getMessage()));
                 }
-                scanner.close();
-                return;
+                continue;
             }
 
             if (input.equals("list")) {
-                Murphy.list();
+                ui.showText(tasks.toString());
             }
 
             else if (input.startsWith("mark ")) {
                 String[] split = input.split(" ");
                 if (split.length > 2) {
-                    System.err.println("mark usage: \"mark [task number]\"");
-                    prLine();
+                    ui.showError("mark usage: \"mark [task number]\"");
                     continue;
                 }
                 int index;
                 try {
                     index = Integer.parseInt(split[1]);
                 } catch (NumberFormatException e) {
-                    System.err.println("mark usage: \"mark [task number]\"");
-                    prLine();
-                    continue;
-                }
-                if (index > Murphy.tasks.size() || index <= 0) {
-                    System.err.println("The task number you chose is outside of the range of tasks!");
-                    prLine();
-                    continue;
-                }
-                Murphy.markItem(index);
-            }
-
-            else if (input.startsWith("unmark ")){
-                String[] split = input.split(" ");
-                if (split.length > 2) {
-                    System.err.println("unmark usage: \"unmark [task number]\"");
-                    prLine();
-                    continue;
-                }
-                int index;
-                try {
-                    index = Integer.parseInt(split[1]);
-                } catch (NumberFormatException e) {
-                    System.err.println("unmark usage: \"unmark [task number]\"");
-                    prLine();
-                    continue;
-                }
-                if (index > Murphy.tasks.size() || index <= 0) {
-                    System.err.println("The task number you chose is outside of the range of tasks!");
-                    prLine();
-                    continue;
-                }
-                Murphy.unmarkItem(index);
-            }
-
-            else if (input.startsWith("delete ")){
-                String[] split = input.split(" ");
-                if (split.length > 2) {
-                    System.err.println("delete usage: \"delete [task number]\"");
-                    prLine();
-                    continue;
-                }
-                int index;
-                try {
-                    index = Integer.parseInt(split[1]);
-                } catch (NumberFormatException e) {
-                    System.err.println("delete usage: \"delete [task number]\"");
-                    prLine();
+                    ui.showError("mark usage: \"mark [task number]\"");
                     continue;
                 }
                 try {
-                    Murphy.deleteItem(index);
+                    ui.showText(tasks.markItem(index));
                 } catch (MurphyException e) {
-                    System.err.println(e.getMessage());
-                    prLine();
+                    ui.showError(String.format("Error marking task: %s", e.getMessage()));
                 }
             }
 
-            else if(input.startsWith("todo ")){
+            else if (input.startsWith("unmark ")) {
+                String[] split = input.split(" ");
+                if (split.length > 2) {
+                    ui.showError("unmark usage: \"unmark [task number]\"");
+                    continue;
+                }
+                int index;
+                try {
+                    index = Integer.parseInt(split[1]);
+                } catch (NumberFormatException e) {
+                    ui.showError("unmark usage: \"unmark [task number]\"");
+                    continue;
+                }
+                try {
+                    ui.showText(tasks.unmarkItem(index));
+                } catch (MurphyException e) {
+                    ui.showError(String.format("Error unmarking task: %s", e.getMessage()));
+                }
+            }
+
+            else if (input.startsWith("delete ")) {
+                String[] split = input.split(" ");
+                if (split.length > 2) {
+                    ui.showError("delete usage: \"delete [task number]\"");
+                    continue;
+                }
+                int index;
+                try {
+                    index = Integer.parseInt(split[1]);
+                } catch (NumberFormatException e) {
+                    ui.showError("delete usage: \"delete [task number]\"");
+                    continue;
+                }
+                try {
+                    ui.showText(tasks.deleteItem(index));
+                } catch (MurphyException e) {
+                    ui.showError(String.format("Error deleting task: %s", e.getMessage()));
+                }
+            }
+
+            else if(input.startsWith("todo ")) {
                 try {
                     Task todo = new Todo(input.substring(5));
-                    Murphy.addItem(todo);
+                    ui.showText(tasks.addItem(todo));
                 } catch (MurphyException e) {
-                    System.err.println(e.getMessage());
-                    System.err.println("todo usage: \"todo [description]\"");
-                    prLine();
+                    ui.showError(String.format("Error adding todo: %s", e.getMessage()));
                 }
             }
 
             else if(input.startsWith("deadline ")) {
                 if (!input.contains("/by ")) {
-                    System.err.println("deadline usage: \"deadline [description] /by [date]\"");
-                    prLine();
+                    ui.showError("deadline usage: \"deadline [description] /by [date]\"");
                     continue;
                 }
                 String[] split = input.split("/by ");
                 try {
                     Task deadline = new Deadline(split[0].substring(9).trim(), split[1]);
-                    Murphy.addItem(deadline);
+                    ui.showText(tasks.addItem(deadline));
                 } catch (MurphyException e) {
-                    System.err.println(e.getMessage());
-                    System.err.println("deadline usage: \"deadline [description] /by [date]\"");
-                    prLine();
+                    ui.showError(String.format("Error adding deadline: %s", e.getMessage()));
                 }
             }
 
             else if (input.startsWith("event ")) {
                 if (!input.contains("/from ") || !input.contains("/to ")) {
-                    System.err.println("event usage: \"event [description] /from [date] /to [date]\"");
-                    prLine();
+                    ui.showError("event usage: \"event [description] /from [date] /to [date]\"");
                     continue;
                 }
                 String[] split = input.split("/from ");
                 String[] split2 = split[1].split("/to ");
                 try {
                     Task event = new Event(split[0].substring(6).trim(), split2[0].trim(), split2[1]);
-                    Murphy.addItem(event);
+                    ui.showText(tasks.addItem(event));
                 } catch (MurphyException e) {
-                    System.err.println(e.getMessage());
-                    System.err.println("event usage: \"event [description] /from [date] /to [date]\"");
-                    prLine();
+                    ui.showError(String.format("Error adding event: %s", e.getMessage()));
                 }
             }
 
             else {
-                System.err.println("Command not found");
-                prLine();
+                ui.showError("Command not found");
             }
         }
     }
 
-    private static void prLine() {
-        System.out.println("____________________");
-    }
-
-    private static void bye() {
-        System.out.println("Bye. Hope to see you again soon!");
-        prLine();
-    }
-
-    private static void list() {
-        int sz = Murphy.tasks.size();
-        if (sz == 0) {
-            System.out.println("Your list is currently empty. Add some tasks to get started!");
-            prLine();
-            return;
-        }
-        for (int i = 0; i < sz; i++) {
-            System.out.println((i+1) + ". " + Murphy.tasks.get(i));
-        }
-        prLine();
-    }
-
-    private static void addItem(Task task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        Murphy.tasks.add(task);
-        System.out.println("Now you have " + Murphy.tasks.size() + " task(s) in the list.");
-        prLine();
-    }
-
-    private static void markItem(int index) {
-        Murphy.tasks.get(index - 1).mark();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(Murphy.tasks.get(index - 1));
-        prLine();
-    }
-
-    private static void unmarkItem(int index) {
-        Murphy.tasks.get(index - 1).unmark();
-        System.out.println("I've unmarked this task. Guess Murphy struck?");
-        System.out.println(Murphy.tasks.get(index - 1));
-        prLine();
-    }
-
-    private static void deleteItem(int index) throws MurphyException {
-        if (index <= 0 || index > Murphy.tasks.size()) {
-            throw new MurphyException("The task number you chose is out of the range of tasks!");
-        }
-        Task task = Murphy.tasks.remove(index - 1);
-        System.out.println("Got it. I've deleted this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + Murphy.tasks.size() + " task(s) in the list.");
-        prLine();
-    }
-
-    private static void loadSave() throws IOException, MurphyException {
-        File file = new File("./data/murphy.txt");
-        if (!file.exists()) {
-            file.getParentFile().mkdirs();
-            file.createNewFile();
-        }
-        Scanner scanner = new Scanner(file);
-        while (scanner.hasNext()) {
-            String nextTask = scanner.nextLine();
-            String[] taskDetails = nextTask.split("\\|");
-            if (Objects.equals(taskDetails[0], "T") && taskDetails.length == 3) {
-                Task task = new Todo(taskDetails[2], Boolean.parseBoolean(taskDetails[1]));
-                Murphy.tasks.add(task);
-            } else if (Objects.equals(taskDetails[0], "D") && taskDetails.length == 4) {
-                Task task = new Deadline(taskDetails[2], Boolean.parseBoolean(taskDetails[1]),
-                                         taskDetails[3]);
-                Murphy.tasks.add(task);
-            } else if (Objects.equals(taskDetails[0], "E") && taskDetails.length == 5) {
-                Task task = new Event(taskDetails[2], Boolean.parseBoolean(taskDetails[1]),
-                                      taskDetails[3], taskDetails[4]);
-                Murphy.tasks.add(task);
-            } else {
-                FileWriter fw = new FileWriter("./data/murphy.txt");
-                fw.close();
-                throw new MurphyException("Save file seems to be corrupted. Overriding save.");
-            }
-        }
-    }
-
-    private static void writeSave() throws IOException {
-        FileWriter fw = new FileWriter("./data/murphy.txt");
-        for (Task task : Murphy.tasks) {
-            fw.write(task.toSaveString() + System.lineSeparator());
-        }
-        fw.close();
+    public static void main(String[] args){
+        new Murphy("./data/murphy.txt").run();
     }
 }
