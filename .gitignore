@@ -13,4 +13,7 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Task Storage to be saved and tracked locally
+taskStorage/
+
 /text-ui-test/ACTUAL.TXT
