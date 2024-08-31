@@ -1,31 +1,29 @@
 package infinity;
 
 import infinity.infinityexception.InfinityException;
-import infinity.task.Deadline;
 import infinity.storage.Storage;
+import infinity.task.Deadline;
 import infinity.task.Event;
 import infinity.task.Task;
 import infinity.task.ToDos;
 import infinity.tasklist.TaskList;
 import infinity.ui.Ui;
 
-import java.io.IOException;
-
 /**
  * This is the Infinity Bot that will run the program. Create a new instance and it will run.
- * 
+ *
  * @param <T> Type of Task that extends Task. Examples include ToDos, Events and Deadline.
  */
 public class Infinity <T extends Task> {
-    
+
     private enum KnownCommands {
-        BYE, 
-        DEADLINE, 
+        BYE,
+        DEADLINE,
         DELETE,
-        EVENT, 
+        EVENT,
         FIND,
-        LIST, 
-        MARK, 
+        LIST,
+        MARK,
         SAVE,
         TODO
     }
@@ -55,32 +53,31 @@ public class Infinity <T extends Task> {
 
                     botUI.listTasks(this.botTasks);
 
-                } else if (currentInput.startsWith(KnownCommands.MARK.toString().toLowerCase()) 
+                } else if (currentInput.startsWith(KnownCommands.MARK.toString().toLowerCase())
                         && currentInput.length() > 5) {
 
                     this.botTasks.markTask(currentInput);
                     storage.saveFile(this.botTasks.getTasks());
-                    
 
-                } else if (currentInput.startsWith(KnownCommands.TODO.toString().toLowerCase()) 
+                } else if (currentInput.startsWith(KnownCommands.TODO.toString().toLowerCase())
                         && currentInput.length() > 5) {
 
                     this.botTasks.addTask(new ToDos(currentInput.substring(5)));
                     storage.saveFile(this.botTasks.getTasks());
 
-                } else if (currentInput.startsWith(KnownCommands.DEADLINE.toString().toLowerCase()) 
+                } else if (currentInput.startsWith(KnownCommands.DEADLINE.toString().toLowerCase())
                         && currentInput.length() > 9) {
 
                     this.botTasks.addTask(new Deadline(currentInput.substring(9)));
                     storage.saveFile(this.botTasks.getTasks());
 
-                } else if (currentInput.startsWith(KnownCommands.EVENT.toString().toLowerCase()) 
+                } else if (currentInput.startsWith(KnownCommands.EVENT.toString().toLowerCase())
                         && currentInput.length() > 6) {
 
                     this.botTasks.addTask(new Event(currentInput.substring(6)));
                     storage.saveFile(this.botTasks.getTasks());
 
-                } else if (currentInput.startsWith(KnownCommands.DELETE.toString().toLowerCase()) 
+                } else if (currentInput.startsWith(KnownCommands.DELETE.toString().toLowerCase())
                         && currentInput.length() > 7) {
 
                     this.botTasks.deleteTask(currentInput.substring(7));
@@ -92,7 +89,7 @@ public class Infinity <T extends Task> {
                     this.botTasks.findTasks(currentInput.substring(5));
 
                 } else if (currentInput.startsWith(KnownCommands.SAVE.toString().toLowerCase())) {
-                    
+
                     storage.saveFile(this.botTasks.getTasks());
 
                 } else {
@@ -111,7 +108,7 @@ public class Infinity <T extends Task> {
 
     /**
      * Main method to run the Infinity bot.
-     * 
+     *
      * @param args The arguments to run the bot.
      */
     public static void main(String[] args) {

@@ -14,7 +14,7 @@ public class Parser {
     /**
      * Checks the length of the value given whether it is within the specified range.
      * Also checks if the value is parsable to an integer.
-     * 
+     *
      * @param value The value to be checked as a String.
      * @param min The minimum length of the value.
      * @param max The maximum length of the value.
@@ -23,16 +23,16 @@ public class Parser {
      * @return True if the value is within the specified range and is a number, false otherwise.
      */
     private static boolean isNumberInRange(String value, int min, int max, int minNo, int maxNo) {
-        return value.length() >= min 
-                && value.length() <= max 
+        return value.length() >= min
+                && value.length() <= max
                 && value.chars().allMatch(Character::isDigit)
-                && Integer.parseInt(value) >= minNo 
+                && Integer.parseInt(value) >= minNo
                 && Integer.parseInt(value) <= maxNo;
     }
 
     /**
      * Prepends a zero to the value if it is less than 10.
-     * 
+     *
      * @param value The value to be checked.
      * @return The value as a String with a zero prepended if it is less than 10.
      */
@@ -42,38 +42,38 @@ public class Parser {
 
     /**
      * Parses a LocalDateTime object to a String in the format dd-mm-yyyy hhmm.
-     * 
+     *
      * @param dateTime The LocalDateTime object to be parsed.
      * @return The LocalDateTime object as a String in the format dd-mm-yyyy hhmm.
      */
     public static String parseDateTimeString(LocalDateTime dateTime) {
         return prependZero(dateTime.getDayOfMonth())
-                + "-" 
-                + prependZero(dateTime.getMonthValue()) 
-                + "-" + dateTime.getYear() 
-                + " " + prependZero(dateTime.getHour()) 
+                + "-"
+                + prependZero(dateTime.getMonthValue())
+                + "-" + dateTime.getYear()
+                + " " + prependZero(dateTime.getHour())
                 + prependZero(dateTime.getMinute());
     }
 
     /**
      * Parses a LocalDateTime object to a String in the format Month dd, yyyy, hhmm.
-     * 
+     *
      * @param dateTime The LocalDateTime object to be parsed.
      * @return The LocalDateTime object as a String in the format Month dd, yyyy, hhmm.
      */
     public static String parseDateTimeStringAlt(LocalDateTime dateTime) {
         return Month.of(dateTime.getMonthValue()).getDisplayName(TextStyle.FULL_STANDALONE, Locale.ENGLISH)
-                + " " 
-                + prependZero(dateTime.getDayOfMonth()) 
-                + ", " + dateTime.getYear() 
-                + ", " + prependZero(dateTime.getHour()) 
+                + " "
+                + prependZero(dateTime.getDayOfMonth())
+                + ", " + dateTime.getYear()
+                + ", " + prependZero(dateTime.getHour())
                 + prependZero(dateTime.getMinute());
     }
 
     /**
      * Parses a String to a LocalDateTime object.
-     * 
-     * @param dateTime The String to be parsed in dd-mm-yyyy hhmm or dd/mm/yyyy hhmm, 
+     *
+     * @param dateTime The String to be parsed in dd-mm-yyyy hhmm or dd/mm/yyyy hhmm,
      *                 hhmm is in 24-hour format.
      * @return The String as a LocalDateTime object.
      * @throws DateTimeException If the String is not in the correct format.
@@ -88,9 +88,9 @@ public class Parser {
                 || !isNumberInRange(dateTimeBrokenDown[2], 4, 4, 2024, 9999)
                 || !isNumberInRange(dateTimeBrokenDown[3], 4, 4, 0, 2359)
                 || !isNumberInRange(dateTimeBrokenDown[3].substring(0, 2), 2, 2, 0, 23)
-                || !isNumberInRange(dateTimeBrokenDown[3].substring(2), 2, 2, 0, 59)) {;
+                || !isNumberInRange(dateTimeBrokenDown[3].substring(2), 2, 2, 0, 59)) {
             throw new DateTimeException("Invalid date time format");
-        };
+        }
         return LocalDateTime.of(
                 Integer.parseInt(dateTimeBrokenDown[2]),
                 Integer.parseInt(dateTimeBrokenDown[1]),

@@ -1,11 +1,11 @@
 
 package infinity.tasklist;
 
+import java.util.ArrayList;
+
 import infinity.infinityexception.InfinityException;
 import infinity.task.Task;
 import infinity.ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * This class handles the list of tasks actions. Each action method has to be called
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class TaskList {
 
     public static final int MAX_SIZE = 100;
-    
+
     private final Ui botUI;
 
     /** Maximum size of the task list */
@@ -22,8 +22,21 @@ public class TaskList {
     private int nextTaskIndex = 0;
 
     /**
+     * Constructor for the TaskList class.
+     *
+     * @param initialTask The initial list of tasks. If empty, pass in an empty ArrayList.
+     * @param botUI The initialised UI object to interact with the user.
+     */
+    @SuppressWarnings("unchecked")
+    public TaskList(ArrayList initialTask, Ui botUI) {
+        this.tasks = (ArrayList<Task>) initialTask;
+        this.botUI = botUI;
+        this.nextTaskIndex = initialTask.size();
+    }
+
+    /**
      * Adds a task to the list of tasks.
-     * 
+     *
      * @param <T> Type of Task that extends Task. Examples include ToDos, Events and Deadline.
      * @param task The task, T, to be added.
      * @throws InfinityException If the task list is full.
@@ -42,7 +55,7 @@ public class TaskList {
 
     /**
      * Deletes a task from the list of tasks.
-     * 
+     *
      * @param currentInput The string input from the user, but only the index as string.
      * @throws InfinityException If the task index is out of bounds or not a number.
      */
@@ -76,7 +89,7 @@ public class TaskList {
 
     /**
      * Marks a task as done.
-     * 
+     *
      * @param currentInput The full string input from the user.
      * @throws InfinityException If the task index is out of bounds or not a number.
      */
@@ -91,14 +104,14 @@ public class TaskList {
                         "Hmmm, I can't find that task. Please try again.");
             }
         } catch (NumberFormatException e) {
-            throw new InfinityException("Hey! That's not a number");   
+            throw new InfinityException("Hey! That's not a number");
         }
 
         tasks.get(taskIndex).markAsDone();
 
         botUI.botSays(String.format(
-                "I've marked task %d as done:\n%s", 
-                taskIndex + 1, 
+                "I've marked task %d as done:\n%s",
+                taskIndex + 1,
                 tasks.get(taskIndex).toString()));
     }
 
@@ -111,7 +124,7 @@ public class TaskList {
 
     /**
      * Checks if the task list is empty.
-     * 
+     *
      * @return True if the task list is empty, false otherwise.
      */
     public boolean isEmpty() {
@@ -120,7 +133,7 @@ public class TaskList {
 
     /**
      * Gets the list of tasks.
-     * 
+     *
      * @return The list of tasks.
      */
     public ArrayList<Task> getTasks() {
@@ -129,7 +142,7 @@ public class TaskList {
 
     /**
      * Finds tasks with a keyword and lists them.
-     * 
+     *
      * @param keyword The keyword to search for in the tasks.
      */
     public void findTasks(String keyword) {
@@ -144,18 +157,5 @@ public class TaskList {
         if (i == 1) {
             botUI.botSays("Strange, I can't find any tasks with that keyword...");
         }
-    }
-    
-    /**
-     * Constructor for the TaskList class.
-     * 
-     * @param initialTask The initial list of tasks. If empty, pass in an empty ArrayList.
-     * @param botUI The initialised UI object to interact with the user.
-     */
-    @SuppressWarnings("unchecked")
-    public TaskList(ArrayList initialTask, Ui botUI) {
-        this.tasks = (ArrayList<Task>) initialTask;
-        this.botUI = botUI;
-        this.nextTaskIndex = initialTask.size();
     }
 }

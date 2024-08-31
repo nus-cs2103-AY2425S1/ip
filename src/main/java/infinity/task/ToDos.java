@@ -8,7 +8,7 @@ import infinity.infinityexception.InfinityException;
 public class ToDos extends Task {
     /**
      * Constructor for the ToDos class.
-     * 
+     *
      * @param description The description of the todo.
      */
     public ToDos(String description) {
@@ -18,7 +18,7 @@ public class ToDos extends Task {
 
     /**
      * 2nd Constructor for the ToDos class.
-     * 
+     *
      * @param isDone The status of the todo.
      * @param description The description of the todo.
      * @throws InfinityException If the format of the todo is wrong.

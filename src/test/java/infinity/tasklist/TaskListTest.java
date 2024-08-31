@@ -1,16 +1,15 @@
 package infinity.tasklist;
 
-import infinity.tasklist.TaskList;
-import infinity.task.ToDos;
-import infinity.ui.Ui;
-import infinity.infinityexception.InfinityException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import infinity.infinityexception.InfinityException;
+import infinity.task.ToDos;
+import infinity.ui.Ui;
 
 public class TaskListTest {
 
