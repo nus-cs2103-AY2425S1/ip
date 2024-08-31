@@ -48,6 +48,7 @@ public class Ui {
     public void showBar() {
         System.out.println(Ui.BAR);
     }
+
     private static final String BAR = "____________________________________________________________";
 
     private static final String HELP_MESSAGE = "Key in \"I need help.\" for additional help.";

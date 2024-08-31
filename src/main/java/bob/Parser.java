@@ -90,19 +90,19 @@ public class Parser {
             }
             throw new InvalidCommandException();
 
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             ui.show("Seems like at least one of the arguments to this command was\n" +
                     "not a number when it should have been.");
             ui.advise();
-        } catch(StringIndexOutOfBoundsException e) {
+        } catch (StringIndexOutOfBoundsException e) {
             ui.show("Seems like the command keyed wasn't appropriately used. You may have\n" +
                     "given insufficient information. Also check that the order in which\n" +
                     "the information was given is correct.");
             ui.advise();
-        } catch(EmptyFieldException e) {
+        } catch (EmptyFieldException e) {
             ui.show("Field(s) may not be blank.");
             ui.advise();
-        } catch(DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             ui.show("Sorry, I only accept datetime inputs of yyyy-MM-dd HHmm");
         }
         return new ExitCommand();

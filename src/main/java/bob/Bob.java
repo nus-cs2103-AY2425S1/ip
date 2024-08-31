@@ -6,13 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class Bob {
+
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
     private static List<Task> memory = new ArrayList<Task>();
+
     public Bob(String filePath) {
         ui = new Ui();
         try {
@@ -52,6 +53,7 @@ public class Bob {
 
 
     }
+
     public static void main(String[] args) {
         new Bob("./data/bob.txt").run();
     }

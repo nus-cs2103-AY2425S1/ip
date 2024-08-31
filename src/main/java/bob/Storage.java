@@ -16,6 +16,7 @@ import java.util.Scanner;
 public class Storage {
 
     private Path filePath;
+
     public Storage(String filePath) throws IOException {
         this.filePath = Paths.get(filePath);
         Files.createDirectories(this.filePath.getParent());
