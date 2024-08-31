@@ -12,13 +12,13 @@ public class TaskList {
     private int noTasks;
 
     protected TaskList() {
-        this.tasks = new ArrayList<>();
-        this.noTasks = 0;
+        tasks = new ArrayList<>();
+        noTasks = 0;
     }
 
     protected TaskList(List<Task> tasks) {
         this.tasks = tasks;
-        this.noTasks = tasks.size();
+        noTasks = tasks.size();
     }
 
     public List<String> getTaskDescriptions() {
@@ -31,7 +31,7 @@ public class TaskList {
     }
 
     public int getNoTasks() {
-        return this.noTasks;
+        return noTasks;
     }
 
     public void addTask(Task task) {
@@ -40,27 +40,27 @@ public class TaskList {
     }
 
     public Task markTask(int taskNo) throws OrionInputException {
-        Task task = this.tasks.get(taskNo);
+        Task task = tasks.get(taskNo);
         task.setDone();
         return task;
     }
 
     public Task unmarkTask(int taskNo) throws OrionInputException {
-        Task task = this.tasks.get(taskNo);
+        Task task = tasks.get(taskNo);
         task.setUndone();
         return task;
     }
 
     public Task deleteTask(int taskNo) {
-        Task task = this.tasks.get(taskNo);
-        this.tasks.remove(task);
-        this.noTasks--;
+        Task task = tasks.get(taskNo);
+        tasks.remove(task);
+        noTasks--;
         return task;
     }
 
     public List<String> getSavedTaskDescriptions() {
         List<String> savedTaskDescriptions = new ArrayList<>();
-        for (Task task : this.tasks) {
+        for (Task task : tasks) {
             savedTaskDescriptions.add(task.saveString() + "\n");
         }
         return savedTaskDescriptions;
