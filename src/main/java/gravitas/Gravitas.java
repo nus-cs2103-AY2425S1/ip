@@ -1,9 +1,10 @@
 package gravitas;
 
+import gravitas.command.Command;
 import gravitas.exception.DukeException;
+import gravitas.parser.Parser;
 import gravitas.storage.Storage;
 import gravitas.tasklist.TaskList;
-import gravitas.ui.Ui;
 
 
 /**
@@ -13,7 +14,6 @@ public class Gravitas {
 
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
 
     /**
      * Constructor for Gravitas.
@@ -21,29 +21,32 @@ public class Gravitas {
      * @param filePath File path to load file
      */
     public Gravitas(String filePath) {
-        this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.loadTasks());
         } catch (DukeException e) {
-            ui.showLoadingError();
+            e.printStackTrace();
         }
     }
 
     /**
-     * Runs the program.
+     * Gets the response from Gravitas.
+     *
+     * @param input User input
+     * @return Response from Gravitas
      */
-    public void run() {
-        this.ui.greet();
-        while (this.ui.display(tasks)) {
-            try {
-                this.storage.saveTask(this.tasks);
-            } catch (DukeException e) {
-                Ui.showLoadingError();
+    public String getResponse(String input) {
+        try {
+            String response;
+            Command c = Parser.parse(input);
+            response = c.execute(tasks, storage);
+            if (c.isExit()) {
+                System.exit(0);
             }
+            storage.saveTask(tasks);
+            return response;
+        } catch (DukeException e) {
+            return e.getMessage();
         }
-    }
-    public static void main(String[] args) {
-        new Gravitas("Documents/Github/IP/data/tasks.txt").run();
     }
 }
