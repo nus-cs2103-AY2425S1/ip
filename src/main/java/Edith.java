@@ -15,12 +15,13 @@ public class Edith {
 
         // break out of loop when user inputs bye
         while (!Objects.equals(userInput, "bye")) {
-
+            Ui.showLine();
             Ui.handleUserInput(userInput, todoList);
+            Ui.showLine();
             userInput = scanner.nextLine();
 
         }
 
-        Ui.bidFarewellToUser();
+        Ui.bidFarewell();
     }
 }

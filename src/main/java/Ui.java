@@ -10,10 +10,8 @@ public class Ui {
         String command = Parser.getCommand(userInput);
 
         if (Objects.equals(command, "list")) { // check if user wants the todo list
-            System.out.println(HORIZONTAL + LINEBREAK +
-                    " tasks in your todo list!" + LINEBREAK +
-                    toDoList.toString() +
-                    HORIZONTAL);
+            System.out.println(" tasks in your todo list!" + LINEBREAK +
+                    toDoList.toString());
         }
 
         else if (Objects.equals(command, "mark") || Objects.equals(command, "unmark")) { // check if user wants to mark a task
@@ -33,7 +31,7 @@ public class Ui {
             try {
                 otherCommand();
             } catch (InvalidCommandException e) {
-                System.out.println(HORIZONTAL + LINEBREAK + e.getMessage() + LINEBREAK + HORIZONTAL);
+                showError(e.getMessage());
             }
         }
     }
@@ -42,8 +40,8 @@ public class Ui {
         System.out.println(HORIZONTAL + LINEBREAK + GREETING + LINEBREAK + HORIZONTAL);
     }
 
-    public static void bidFarewellToUser() {
-        System.out.println(HORIZONTAL + LINEBREAK + FAREWELL + LINEBREAK + HORIZONTAL);
+    public static void bidFarewell() {
+        System.out.println(FAREWELL + LINEBREAK);
     }
 
     public static void changeTaskStatus(String userInput, ToDoList toDoList) {
@@ -53,20 +51,16 @@ public class Ui {
 
             if (Objects.equals(command, "mark")) { // check if user wants to mark a task
                 toDoList.mark(taskNumber); // may throw InvalidTaskNumberException
-                System.out.println(HORIZONTAL + LINEBREAK +
-                        " " + "yay! i've marked this task as done #productive:" + LINEBREAK +
-                        "   " + toDoList.getTask(taskNumber) + LINEBREAK +
-                        HORIZONTAL);
+                System.out.println(" " + "yay! i've marked this task as done #productive:" + LINEBREAK +
+                        "   " + toDoList.getTask(taskNumber) + LINEBREAK);
             } else { // unmarking a task
                 toDoList.unmark(taskNumber); // may throw InvalidTaskNumberException
-                System.out.println(HORIZONTAL + LINEBREAK +
-                        " " + "aw, i've marked this task as undone:" + LINEBREAK +
-                        "   " + toDoList.getTask(taskNumber) + LINEBREAK +
-                        HORIZONTAL);
+                System.out.println(" " + "aw, i've marked this task as undone:" + LINEBREAK +
+                        "   " + toDoList.getTask(taskNumber) + LINEBREAK);
             }
 
         } catch (MissingTaskNumberException | InvalidTaskNumberException e) { // if there is a missing task number
-            System.out.println(HORIZONTAL + LINEBREAK + e.getMessage() + LINEBREAK + HORIZONTAL);
+            showError(e.getMessage());
         }
     }
 
@@ -87,18 +81,16 @@ public class Ui {
                 addEventTask(taskDetails, taskType, toDoList);
             }
         } catch (MissingTaskNameException e) {
-            System.out.println(HORIZONTAL + LINEBREAK + e.getMessage() + LINEBREAK + HORIZONTAL);
+            showError(e.getMessage());
         }
     }
 
     public static void addToDoTask(String taskName, ToDoList toDoList) {
         ToDoTask task = new ToDoTask(taskName);
         toDoList.add(task);
-        System.out.println(HORIZONTAL + LINEBREAK +
-                " " + "nice! i've added this task:" + LINEBREAK +
+        System.out.println(" " + "nice! i've added this task:" + LINEBREAK +
                 " " + task + LINEBREAK +
-                " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + LINEBREAK +
-                HORIZONTAL);
+                " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + LINEBREAK);
     }
 
     public static void addDeadlineTask(String taskDetails, String taskType, ToDoList toDoList) {
@@ -107,13 +99,11 @@ public class Ui {
             String taskDeadline = Parser.getTaskDeadline(taskDetails);
             DeadlineTask task = new DeadlineTask(taskName, taskDeadline);
             toDoList.add(task);
-            System.out.println(HORIZONTAL + LINEBREAK +
-                    " " + "nice! i've added this task:" + LINEBREAK +
+            System.out.println(" " + "nice! i've added this task:" + LINEBREAK +
                     " " + task + LINEBREAK +
-                    " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list."
-                    + LINEBREAK + HORIZONTAL);
+                    " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + LINEBREAK);
         } catch (MissingDeadlineException e) {
-            System.out.println(HORIZONTAL + LINEBREAK + e.getMessage() + LINEBREAK + HORIZONTAL);
+            showError(e.getMessage());
         }
     }
 
@@ -125,13 +115,11 @@ public class Ui {
             String taskEnd = Parser.getTaskEnd(taskDuration);
             EventTask task = new EventTask(taskName, taskStart, taskEnd);
             toDoList.add(task);
-            System.out.println(HORIZONTAL + LINEBREAK +
-                    " " + "nice! i've added this task:" + LINEBREAK +
+            System.out.println(" " + "nice! i've added this task:" + LINEBREAK +
                     " " + task + LINEBREAK +
-                    " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + LINEBREAK +
-                    HORIZONTAL);
+                    " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + LINEBREAK);
         } catch (MissingEventDurationException e) {
-            System.out.println(HORIZONTAL + LINEBREAK + e.getMessage() + LINEBREAK + HORIZONTAL);
+            showError(e.getMessage());
         }
     }
 
@@ -142,14 +130,21 @@ public class Ui {
     public static void delete(String userInput, ToDoList toDoList) {
         try {
             int taskNumber = Parser.getTaskNumber(userInput);
-            System.out.println(HORIZONTAL + LINEBREAK +
-                    " okay! i've deleted this task:" + LINEBREAK +
+            System.out.println(" okay! i've deleted this task:" + LINEBREAK +
                     "   " + toDoList.getTask(taskNumber) + LINEBREAK +
                     " you currently have " + (toDoList.getNumberofTasks() - 1) + " tasks in your todo list"
-                    + LINEBREAK + HORIZONTAL);
+                    + LINEBREAK);
             toDoList.delete(taskNumber);
         } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
-            System.out.println(HORIZONTAL + LINEBREAK + e.getMessage() + LINEBREAK + HORIZONTAL);
+            showError(e.getMessage());
         }
+    }
+
+    public static void showLine() {
+        System.out.println(HORIZONTAL + LINEBREAK);
+    }
+
+    public static void showError(String errorMessage) {
+        System.out.println(errorMessage);
     }
 }
