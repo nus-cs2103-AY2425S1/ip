@@ -51,6 +51,7 @@ public class Arona {
                 if (input.equalsIgnoreCase("bye")) {
 
                     // Write data to file
+                    // todo simplify code
                     try {
                         Files.write(dataDir, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
                         for (Task task : list) {
