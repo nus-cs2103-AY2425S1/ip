@@ -6,11 +6,20 @@ import seedu.maxine.task.Task;
 import seedu.maxine.task.Todo;
 
 public class FileParser {
-    
+
+    /**
+     * Constructs new instance of FileParser class
+     */
     public FileParser() {
         // nothing
     }
-    
+
+    /**
+     * Returns a Task (Todo, Deadline or Event) based on the string from the txt file
+     * If the file is empty, return null
+     * @param string String from txt file to be parsed
+     * @return Task which matches the input value
+     */
     public Task parse(String string) {
         String[] input = string.split(" / ");
         

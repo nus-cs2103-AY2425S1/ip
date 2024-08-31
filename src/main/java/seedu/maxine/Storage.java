@@ -10,12 +10,21 @@ public class Storage {
     
     private String filePath;
     private FileParser fileParser;
-    
+
+    /**
+     * Constructs new instance of Storage class
+     * @param filePath The path to the file where the data is stored or will be stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.fileParser = new FileParser();
     }
-    
+
+    /**
+     * Returns a collection of tasks from TaskList which matches the input keyword
+     * @param search Keyword to be searched
+     * @return a collection of tasks which matches the input keyword
+     */
     public ArrayList<Task> queryStorage(String search) {
         ArrayList<Task> currList = this.load();
         ArrayList<Task> results = new ArrayList<>();
@@ -27,6 +36,13 @@ public class Storage {
         return results;
     }
 
+
+    /**
+     * Returns the most updated collection of tasks. 
+     * The method reads the txt file and parses it to convert it into 
+     * its corresponding task. The tasks are then added to an ArrayList 
+     * @return ArrayList of collection of current tasks
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> list = new ArrayList<>();
         try {
@@ -43,6 +59,11 @@ public class Storage {
         return list;
     }
 
+
+    /**
+     * Adds new lines to the txt file, based on updated list.
+     * @param list updated TaskList
+     */
     public void refreshStorage(MaxineList list) {
 
         File file = new File(filePath);
