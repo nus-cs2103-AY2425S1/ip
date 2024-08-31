@@ -27,12 +27,12 @@ import wansbot.tasks.Todos;
 import wansbot.ui.UI;
 
 public class WansBot {
-    private final String HR = "----------------------------------------------------------------------";
-    TaskList userTaskList = new TaskList();
-    UI ui = new UI();
+    static final String HR = "----------------------------------------------------------------------";
+    static TaskList userTaskList = new TaskList();
+    static UI ui = new UI();
 
     // Method that deals with empty inputs by throwing wansbot.tasks.InputEmptyException
-    private  void emptyInput(String userInput) throws InputEmptyException {
+    private static void emptyInput(String userInput) throws InputEmptyException {
         if (userInput.strip().equalsIgnoreCase("todos") ||
             userInput.strip().equalsIgnoreCase("deadline") ||
             userInput.strip().equalsIgnoreCase("event") ||
@@ -44,8 +44,8 @@ public class WansBot {
     }
 
     // Method that throws NumberFormatException and custom wansbot.tasks.NotANumMarkingException
-    private void notNumInput(String userInput, int taskListSize) throws NumberFormatException,
-            NotANumMarkingException, NullPointerException {
+    private static void notNumInput(String userInput, int taskListSize) throws NumberFormatException,
+            NotANumMarkingException {
         if (userInput.startsWith("unmark")) {
             int posTask = Integer.parseInt(userInput.substring(7));
             if (posTask > taskListSize || posTask < 1) {
@@ -65,7 +65,7 @@ public class WansBot {
     }
 
     // Method that throws custom wansbot.tasks.InputEmptyException for deadlineds
-    private void missingInputDeadline(String userInput) {
+    private static void missingInputDeadline(String userInput) {
         String[] splitUser = userInput.split( " /by ", 2);
         if (splitUser.length < 2) {
             throw new InputEmptyException(userInput, "/by");
@@ -73,7 +73,7 @@ public class WansBot {
     }
 
     // Method that throws custom wansbot.tasks.InputEmptyException for events
-    private void missingInputEvent(String userInput) {
+    private static void missingInputEvent(String userInput) {
         String[] splitUserStartDate = userInput.split(" /from ", 3);
         if (splitUserStartDate.length < 2) {
             throw new InputEmptyException(userInput, "/from");
@@ -85,82 +85,58 @@ public class WansBot {
     }
 
     // Handles marking tasks function
-    private void markTasks(String userInput) {
+    private static void markTasks(String userInput) {
         try {
             notNumInput(userInput, userTaskList.numOfTasks());
             int posTask = Integer.parseInt(userInput.substring(5)) - 1;
             userTaskList.number(posTask).finish();
-            System.out.println(HR + "\nWans:"
-                    + "\nNice! I've marked\n"
-                    + userTaskList.number(posTask).toString()
-                    + " as completed\n" + HR);
-        } catch (NullPointerException e) {
-            System.out.println(HR + "\nWans:\n"
-                    + "You need to put something in your Task List!"
-                    + "!\n" + HR);
+            ui.handleSuccesfulMarking(userTaskList, posTask);
         } catch (NumberFormatException e) {
-            System.out.println(HR + "\nWans:\n"
-                    + "You need to input a single space, followed by a number after mark"
-                    + "!\n" + HR);
+            ui.handleMarkingFormat();
         } catch (NotANumMarkingException e) {
-            System.out.println(HR + "\nWans:\n"
-                    + "You need to input a valid number that exists in your TaskList!"
-                    + "\n" + HR);
+            ui.handleInvalidNum();
         }
     }
 
     // Handles unmarking tasks function
-    private void unmarkTasks(String userInput) {
+    private static void unmarkTasks(String userInput) {
         try {
             notNumInput(userInput, userTaskList.numOfTasks());
             int posTask = Integer.parseInt(userInput.substring(7)) - 1;
             userTaskList.number(posTask).unfinish();
-            System.out.println(HR + "\nWans:"
-                    + "\nOkay, so you lied! I've marked\n"
-                    + userTaskList.number(posTask).toString()
-                    + " as uncompleted\n" + HR);
+            ui.handleSuccesfulUnmarking(userTaskList, posTask);
         } catch (NumberFormatException e) {
-            System.out.println(HR + "\nWans:\n"
-                    + "You need to input a single space, followed by a number after mark"
-                    + "!\n" + HR);
+            ui.handleUnmarkingFormat();
         } catch (NotANumMarkingException e) {
-            System.out.println(HR + "\nWans:\n"
-                    + "You need to input a valid number that exists in your TaskList!"
-                    + "\n" + HR);
-                }
+            ui.handleInvalidNum();
+        }
     }
 
     // Handles adding Todos to the task list
-    private void addTodos(String userInput) {
+    private static void addTodos(String userInput) {
         Todos newTodo = new Todos(userInput.substring(5));
         userTaskList.add(newTodo);
-        System.out.println(HR + "\nWans:\n"
-                + "Ok! I've added " + newTodo.toString()
-                + "\n" + HR);
+        ui.handleSuccessfulAdd(newTodo);
     }
 
     // Handles adding Deadlineds to the task list
-    private void addDeadlined(String userInput) {
+    private static void addDeadlined(String userInput) {
         try {
             missingInputDeadline(userInput);
             String[] splitUser = userInput.split( " /by ", 2);
             Deadlined newDeadlined = new Deadlined(splitUser[0].substring(8)
                     , LocalDate.parse(splitUser[1].trim()));
             userTaskList.add(newDeadlined);
-            System.out.println(HR + "\nWans:\n"
-                    + "Ok! I've added " + newDeadlined.toString()
-                    + "\n" + HR);
+            ui.handleSuccessfulAdd(newDeadlined);
         } catch(InputEmptyException e) {
             ui.handleDeadlineFormat();
         } catch (DateTimeParseException e) {
-            System.out.println(HR + "\nWans:\n"
-                    + "Your date needs to be in the form YYYY-MM-DD! It needs to be a \n valid date too please!"
-                    + "\n" + HR);
+            ui.handleDateTimeException();
         }
     }
 
     // Handles adding Events to the task list
-    private void addEvent(String userInput) {
+    private static void addEvent(String userInput) {
         try {
             missingInputEvent(userInput);
             String[] splitUserStartDate = userInput.split(" /from ", 3);
@@ -169,9 +145,7 @@ public class WansBot {
                     LocalDate.parse(splitUserEndDate[0].trim()),
                     LocalDate.parse(splitUserEndDate[1].trim()));
             userTaskList.add(newEvent);
-            System.out.println(HR + "\nWans:\n"
-                    + "Ok! I've added " + newEvent.toString()
-                    + "\n" + HR);
+            ui.handleSuccessfulAdd(newEvent);
         } catch (InputEmptyException e) {
             ui.handleEventFormat();
         } catch (DateTimeParseException e) {
@@ -180,31 +154,21 @@ public class WansBot {
     }
 
     // Handles remove function of bot
-    private void removeTask(String userInput) {
+    private static void removeTask(String userInput) {
         try {
             notNumInput(userInput, userTaskList.numOfTasks());
             int posTask = Integer.parseInt(userInput.substring(7)) - 1;
-            System.out.println(HR + "\nWans:\n"
-                    + "Ok! I've removed " + userTaskList.number(posTask)
-                    + "\n" + HR);
+            ui.handleRemoveTask(userTaskList, posTask);
             userTaskList.removeTask(posTask);
-        } catch (NullPointerException e) {
-            System.out.println(HR + "\nWans:\n"
-                    + "You need to put something in your Task List!"
-                    + "!\n" + HR);
-        }catch (NumberFormatException e) {
-            System.out.println(HR + "\nWans:\n"
-                    + "You need to input a single space, followed by a number after remove"
-                    + "!\n" + HR);
+        } catch (NumberFormatException e) {
+            ui.handleRemoveFormat();
         } catch (NotANumMarkingException e) {
-            System.out.println(HR + "\nWans:\n"
-                    + "You need to input a valid number that exists in your TaskList!"
-                    + "\n" + HR);
+            ui.handleInvalidNum();
         }
     }
 
     // Handles saving of tasks into user machine
-    private void saveTasks() {
+    private static void saveTasks() {
         try {
             if (!Files.exists(Paths.get("data"))) {
                 File directory = new File("./data");
@@ -217,14 +181,12 @@ public class WansBot {
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println(HR + "\nWans:\n"
-                    + "I can't seem to save your tasks!"
-                    + "\n" + HR);
+            ui.handleIoExceptionSave();
         }
     }
 
     // Handles parsing of task list to load tasks
-    private void returnTask(String fileInput) {
+    private static void returnTask(String fileInput) {
         String[] splitInput = fileInput.split(" ");
         String typeTask = splitInput[1];
         String nameTask = "";
@@ -279,7 +241,7 @@ public class WansBot {
     }
 
     // Handles loading of task function from use machine
-    private void loadTasks() {
+    private static void loadTasks() {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("./data/tasklist.txt"));
             String line = reader.readLine();
@@ -289,18 +251,14 @@ public class WansBot {
             }
             reader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("\nWans:\n"
-                    + "You don't have files to load!"
-                    + "\n" + HR);
+            ui.handleFileNotFound();
         } catch (IOException e) {
-            System.out.println(HR + "\nWans:\n"
-                    + "I can't seem to load your tasks!"
-                    + "\n" + HR);;
+            ui.handleIoExceptionLoad();
         }
     }
 
     // Handles finding tasks of a specific date
-    private void findTaskDate(String userInput) {
+    private static void findTaskDate(String userInput) {
         try {
             String[] splitDate = userInput.split(" ");
             TaskList filteredList = new TaskList();
@@ -317,28 +275,13 @@ public class WansBot {
                     }
                 }
             }
-            if (filteredList.numOfTasks() != 0) {
-                System.out.println(HR + "\nWans:"
-                        + "\nHere are your tasks on " + LocalDate.parse(splitDate[1]).
-                        format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n"
-                        + userTaskList.toString());
-                System.out.println("You have " + userTaskList.numOfTasks() + " tasks " + "on "
-                        + LocalDate.parse(splitDate[1]).
-                        format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                        + "\n" + HR);
-            } else {
-                System.out.println(HR + "\nWans:"
-                        + "\n You have no tasks on "
-                        + LocalDate.parse(splitDate[1]).
-                        format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                        + "!" + "\n" + HR);
-            }
+            ui.handleFindFiles(userTaskList, splitDate[1]);
         } catch (DateTimeParseException e) {
             ui.handleDateTimeException();
         }
     }
 
-    public void main(String[] args) {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ui.introduceToUser();
         loadTasks();
@@ -349,9 +292,7 @@ public class WansBot {
             try {
                 emptyInput(userInput);
             } catch (InputEmptyException e) {
-                System.out.println(HR + "\nWans:\n"
-                        + "You need to input something after " + userInput
-                        + "!\n" + HR);
+                ui.handleInvalidCommands(userInput);
                 continue;
             }
 

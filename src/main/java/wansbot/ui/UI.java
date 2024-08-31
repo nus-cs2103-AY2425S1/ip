@@ -3,6 +3,10 @@ package wansbot.ui;
 import wansbot.tasks.Task;
 import wansbot.tasks.TaskList;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 public class UI {
     private static final String HR = "----------------------------------------------------------------------";
 
@@ -20,6 +24,14 @@ public class UI {
                 + logo
                 + "\nCan I help? (I can only manage a todo list so...)\n" + HR);
     }
+
+    // handles invalid commands
+    public void handleInvalidCommands(String userInput) {
+        System.out.println(HR + "\nWans:\n"
+                + "You need to input something after " + userInput
+                + "!\n" + HR);
+    }
+
 
     // method that tells user that bot does not understand
     public void handleUnrecognisedInput(String userInput) {
@@ -56,6 +68,104 @@ public class UI {
                 + "\nHere are your tasks!\n"
                 + taskList.toString());
             System.out.println("You have "+ taskList.numOfTasks() +" tasks!"+"\n"+HR);
+    }
+
+    //handle marking user task successfully
+    public void handleSuccesfulMarking(TaskList taskList, int posTask) {
+        System.out.println(HR + "\nWans:"
+                + "\nNice! I've marked\n"
+                + taskList.number(posTask).toString()
+                + " as completed\n" + HR);
+    }
+
+    //handle marking command format
+    public void handleMarkingFormat () {
+        System.out.println(HR + "\nWans:\n"
+                + "You need to input a single space, followed by a number after mark"
+                + "!\n" + HR);
+    }
+
+    //handles succesful unmarking
+    public void handleSuccesfulUnmarking(TaskList taskList, int posTask){
+        System.out.println(HR + "\nWans:"
+                + "\nOkay, so you lied! I've marked\n"
+                + taskList.number(posTask).toString()
+                + " as uncompleted\n" + HR);
+    }
+
+    public void handleUnmarkingFormat() {
+        System.out.println(HR + "\nWans:\n"
+                + "You need to input a single space, followed by a number after unmark"
+                + "!\n" + HR);
+    }
+
+    // handle invalid mark/unmark input
+    public void handleInvalidNum() {
+        System.out.println(HR + "\nWans:\n"
+                + "You need to input a valid number that exists in your TaskList!"
+                + "\n" + HR);
+    }
+
+    //handles successful adding of tasks
+    public void handleSuccessfulAdd(Task task) {
+        System.out.println(HR + "\nWans:\n"
+                + "Ok! I've added " + task.toString()
+                + "\n" + HR);
+    }
+
+    // handles succesful removal of tasks
+    public void handleRemoveTask(TaskList taskList, int posTask) {
+        System.out.println(HR + "\nWans:\n"
+                + "Ok! I've removed " + taskList.number(posTask)
+                + "\n" + HR);
+    }
+
+    //handles format of remove
+    public void handleRemoveFormat() {
+        System.out.println(HR + "\nWans:\n"
+                + "You need to input a single space, followed by a number after remove"
+                + "!\n" + HR);
+    }
+
+    // handles finding files
+    public void handleFindFiles(TaskList taskList, String date) {
+        if (taskList.numOfTasks() != 0) {
+            System.out.println(HR + "\nWans:"
+                    + "\nHere are your tasks on " + LocalDate.parse(date).
+                    format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n"
+                    + taskList.toString());
+            System.out.println("You have " + taskList.numOfTasks() + " tasks " + "on "
+                    + LocalDate.parse(date).
+                    format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                    + "\n" + HR);
+        } else {
+            System.out.println(HR + "\nWans:"
+                    + "\n You have no tasks on "
+                    + LocalDate.parse(date).
+                    format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                    + "!" + "\n" + HR);
+        }
+    }
+
+    // handles ioexception for save tasks
+    public void handleIoExceptionSave() {
+        System.out.println(HR + "\nWans:\n"
+                + "I can't seem to save your tasks!"
+                + "\n" + HR);
+    }
+
+    // handles ioexception for load tasks
+    public void handleIoExceptionLoad() {
+        System.out.println(HR + "\nWans:\n"
+                + "I can't seem to load your tasks!"
+                + "\n" + HR);
+    }
+
+    //handles filenotfound exception
+    public void handleFileNotFound() {
+        System.out.println("\nWans:\n"
+                + "You don't have files to load!"
+                + "\n" + HR);
     }
 
     // says goodbye to user and exits the program
