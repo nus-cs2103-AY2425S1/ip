@@ -27,11 +27,6 @@ public class Deadline extends Task {
     }
 
     @Override
-    public Deadline setDescription(String description) {
-        return new Deadline(this.getDescription(), this.isDone(), this.getDueBy());
-    }
-
-    @Override
     public String toFileRecord() {
         return String.format("D | %s | %s", this.getDescription(), this.getDueBy());
     }

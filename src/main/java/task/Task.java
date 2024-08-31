@@ -20,8 +20,6 @@ public abstract class Task {
 
     public abstract Task setAsUndone();
 
-    public abstract Task setDescription(String description);
-
     public abstract String toFileRecord();
 
     public boolean isDone() {

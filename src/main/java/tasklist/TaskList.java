@@ -1,3 +1,5 @@
+package tasklist;
+
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +14,11 @@ import task.ToDo;
 public class TaskList {
     private static final String LABEL = "Here are the tasks in your list:";
 
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private final ArrayList<Task> tasks;
 
-    public TaskList() {}
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
 
     public TaskList(List<String> lines) {
         this.tasks = parseLines(lines);

@@ -1,3 +1,5 @@
+package utility;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,27 +14,23 @@ public class Storage {
         this.ioPath = ioPath;
     }
 
-    public ArrayList<String> load() {
+    public ArrayList<String> load() throws IOException {
         File file = new File(ioPath);
         ArrayList<String> lines = new ArrayList<>();
 
-        try {
-            if (file.exists()) {
-                // if file already exists or is successfully created
-                Scanner sc = new Scanner(file);
+        if (file.exists()) {
+            // if file already exists or is successfully created
+            Scanner sc = new Scanner(file);
 
-                while (sc.hasNext()) {
-                    lines.add(sc.nextLine());
-                }
-
-                // clean up
-                sc.close();
-            } else {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
+            while (sc.hasNext()) {
+                lines.add(sc.nextLine());
             }
-        } catch (IOException e) {
-            System.out.println("Something went wrong when reading file: " + e.getMessage());
+
+            // clean up
+            sc.close();
+        } else {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
         }
 
         return lines;

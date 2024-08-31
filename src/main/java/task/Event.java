@@ -1,5 +1,6 @@
 package task;
 
+
 public class Event extends Task {
     private final String from, to;
 
@@ -23,11 +24,6 @@ public class Event extends Task {
     @Override
     public Event setAsUndone() {
         return new Event(this.getDescription(), false, this.getFrom(), this.getTo());
-    }
-
-    @Override
-    public Event setDescription(String description) {
-        return new Event(this.getDescription(), this.isDone(), this.getFrom(), this.getTo());
     }
 
     @Override

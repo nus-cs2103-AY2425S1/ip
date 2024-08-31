@@ -21,11 +21,6 @@ public class ToDo extends Task {
     }
 
     @Override
-    public ToDo setDescription(String description) {
-        return new ToDo(description, this.isDone());
-    }
-
-    @Override
     public String toFileRecord() {
         return String.format("T | %s", this.getDescription());
     }

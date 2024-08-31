@@ -1,4 +1,8 @@
+package utility;
+
 public class Echo {
+
+    private static final String DASHES = "-".repeat(100);
 
     private final String message;
 
@@ -8,10 +12,9 @@ public class Echo {
 
     @Override
     public String toString() {
-        String dashes = "-".repeat(100);
-        return dashes + "\n"
+        return DASHES + "\n"
                 + this.message + "\n"
-                + dashes;
+                + DASHES;
     }
 
     public void execute() {
