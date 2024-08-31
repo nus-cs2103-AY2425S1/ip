@@ -43,7 +43,7 @@ public class ParserTest {
     void testTodoCommandWithStorage() throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
         Parser.parseCommand("todo read book", taskList, ui, storage);
 
-        assertTrue(storage.saveTasksCalled, "saveTasks should be called");
+        assertTrue(storage.isSaveTasksCalled, "saveTasks should be called");
         assertEquals(2, storage.getSavedTasks().size(), "There should be two tasks saved");
         assertEquals("read book", storage.getSavedTasks().get(1).toString(), "The second task description should be 'read book'");
     }

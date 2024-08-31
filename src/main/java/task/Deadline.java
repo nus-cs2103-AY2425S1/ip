@@ -13,7 +13,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends Task{
 
-    private LocalDate dueTime;
+    protected LocalDate dueTime;
 
     /**
      * Constructs a Deadline object with an empty description and a type of "D".
