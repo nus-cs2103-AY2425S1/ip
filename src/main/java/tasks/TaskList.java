@@ -6,28 +6,37 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 public class TaskList {
-    private List<Task> taskList;
+    private final List<Task> taskList;
 
     public TaskList() {
         this.taskList = new ArrayList<Task>();
     }
-
+    /**
+     * Adds the task to the list of tasks.
+     * @param task Task to be added to the list.
+     */
     public void addTask(Task task) {
         this.taskList.add(task);
     }
-
+    /**
+     * Removes the task from the list of tasks.
+     * @param index the index of the task in the list to be removed.
+     */
     public void removeTask(int index) {
         if (index >= 0 && index < taskList.size()) {
             Task deletedTask = taskList.get(index);
             taskList.remove(index);
-            System.out.print("Noted. I've removed this task:\n" +
-                    deletedTask.getDescription() +
-                    String.format("Now you have %d tasks in the list.\n", taskList.size()));
+            System.out.print(String.format("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.\n",
+                    deletedTask.getDescription(), taskList.size()));
         } else {
             System.out.print("There is no such task number!");
         }
     }
-
+    /**
+     * Writes all tasks in the list into the file save point.
+     * @param filePath the save point.
+     * @throws IOException when the file cannot be found.
+     */
     public void write(String filePath) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
 
@@ -38,7 +47,11 @@ public class TaskList {
         }
         writer.close();
     }
-
+    /**
+     * Gets the string of all the different types of tasks to be saved into the save point.
+     * @param task the task to be converted into the proper format.
+     * @return a string of the task details.
+     */
     private String taskToString(Task task) {
 
         if (task instanceof EventTask) {
@@ -52,14 +65,23 @@ public class TaskList {
             return toDoTask.toString();
         }
     }
+    /**
+     * Gets the size of the TaskList.
+     * @return an integer to denote the size of the TaskList.
+     */
     public int size() {
         return this.taskList.size();
     }
-
+    /**
+     * Checks whether the TaskList is empty.
+     * @return a boolean value to denote whether the TaskList is empty.
+     */
     public boolean isEmpty() {
         return this.taskList.isEmpty();
     }
-
+    /**
+     * Prints the entire TaskList.
+     */
     public void printList() {
         if (taskList.isEmpty()) {
             System.out.print("No items in the list yet!\n");
@@ -71,19 +93,24 @@ public class TaskList {
             System.out.println(response);
         }
     }
-
+    /**
+     * Marks the indexed task as done.
+     * @param index the index of the task in the list.
+     */
     public void mark(int index) {
         if (index >= 0 && index < taskList.size()) {
             Task t = taskList.get(index);
             t.markAsDone();
-            String response = String.format("%s", t.getDescription());
-            System.out.println("Nice I've marked this task as done: \n"
-                    + line() + response);
+            System.out.println(String.format("Nice I've marked this task as not done yet: \n%s %s",
+                    line(), t.getDescription()));
         } else {
             System.out.println("Invalid Task Number.\n");
         }
     }
-
+    /**
+     * Marks the indexed task as undone.
+     * @param index the index of the task in the list.
+     */
     public void unmark(int index) {
         if (index >= 0 && index < taskList.size()) {
             Task t = taskList.get(index);
@@ -95,7 +122,10 @@ public class TaskList {
             System.out.println("Invalid Task Number.\n");
         }
     }
-
+    /**
+     * A line to separate messages.
+     * @return a string message of the segmentation between messages.
+     */
     public TaskList find(String command) {
         TaskList newList = new TaskList();
         for (Task task : taskList) {

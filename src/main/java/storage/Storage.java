@@ -16,6 +16,11 @@ public class Storage {
     }
 
     //Load tasks from the file
+    /**
+     * Returns a TaskList object that can be manipulated to get the tasks.
+     * @return a list of tasks objects.
+     * @throws IOException when the file cannot be found.
+     */
     public TaskList load() throws IOException {
         TaskList tasks = new TaskList();
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
@@ -29,6 +34,11 @@ public class Storage {
     }
 
     //Method to parse a line into a Task object
+    /**
+     * Returns a new task that is inserted into the list of tasks.
+     * @param line contains the command to be parsed.
+     * @return a new task from the parsed command.
+     */
     private Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
@@ -68,7 +78,11 @@ public class Storage {
                 return null;
         }
     }
-
+    /**
+     * Saves the list of tasks to a text file.
+     * @param tasks used to write to the designated text file.
+     * @throws IOException when the file cannot be found.
+     */
     public void saveTasksToFile(TaskList tasks) throws IOException {
         try {
             tasks.write(this.filePath);
