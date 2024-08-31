@@ -13,7 +13,7 @@ public class Edith {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ToDoList todoList = new ToDoList();
-        todoList.loadTasks();
+        Storage.loadTasks(todoList);
 
         // print out greeting when bot first starts up
         System.out.println(horizontal + linebreak +
