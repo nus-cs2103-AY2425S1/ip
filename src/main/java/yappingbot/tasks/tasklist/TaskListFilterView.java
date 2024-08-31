@@ -12,10 +12,12 @@ import yappingbot.tasks.Task;
  */
 public class TaskListFilterView extends TaskList {
     final TaskList parentTaskList;
-    ArrayList<Integer> indexInParentTaskList;
+    final ArrayList<Integer> indexInParentTaskList;
+    String filterString;
 
-    private TaskListFilterView(TaskList parentTaskList) {
+    private TaskListFilterView(TaskList parentTaskList, String filterString) {
         this.parentTaskList = parentTaskList;
+        this.filterString = filterString;
         indexInParentTaskList = new ArrayList<>();
     }
 
@@ -29,6 +31,21 @@ public class TaskListFilterView extends TaskList {
     }
 
     /**
+     * Gets the String used to create this filter.
+     *
+     * @return String used to create this filter.
+     */
+    public String getFilterString() {
+        if (parentTaskList instanceof TaskListFilterView) {
+            return ( (TaskListFilterView) parentTaskList ).getFilterString() +
+                   " AND " +
+                   this.filterString;
+        } else {
+            return this.filterString;
+        }
+    }
+
+    /**
      * Filters the Tasks found in parent TaskList to form a new TaskListFilterView.
      *
      * @param searchString String to be searched in each Task.
@@ -36,7 +53,7 @@ public class TaskListFilterView extends TaskList {
      *         Tasklist from the perspective of this filter
      */
     public static TaskListFilterView createFilter(TaskList parent, String searchString) {
-        TaskListFilterView newFilter = new TaskListFilterView(parent);
+        TaskListFilterView newFilter = new TaskListFilterView(parent, searchString);
         for (int index = 0; index < parent.size(); index++) { // dont ask me why index not i
             Task t = parent.get(index);
             if (t.isStringFoundInTask(searchString)) {
@@ -58,11 +75,10 @@ public class TaskListFilterView extends TaskList {
 
     @Override
     public Task delete(int index) throws YappingBotOOBException {
-        Task t = get(index);
         tasks.remove(index);
-        parentTaskList.delete(indexInParentTaskList.get(index));
-        indexInParentTaskList.remove(index);
         size -= 1;
+        Task t = parentTaskList.delete(indexInParentTaskList.get(index));
+        indexInParentTaskList.remove(index);
         return t;
     }
 }

@@ -17,8 +17,13 @@ public class Commands {
             return;
         }
 
+
         MultilineStringBuilder msb = new MultilineStringBuilder();
         msb.addLine(ReplyTextMessages.LIST_TEXT);
+        if (userList instanceof TaskListFilterView) {
+            msb.addLine(String.format("(Filter: '%s')",
+                                     ((TaskListFilterView) userList).getFilterString()));
+        }
         for (int i = 0; i < userList.size(); i++) {
             Task t = userList.get(i);
             msb.addLine(
@@ -66,6 +71,7 @@ public class Commands {
                         t)
         );
         msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
+        msb.print();
     }
     public static void createNewTask(String[] userInputSpliced, TaskTypes taskTypes,
                                   TaskList userList) throws YappingBotIncorrectCommandException {
@@ -195,6 +201,7 @@ public class Commands {
                     newFilteredView.size(),
                     searchString));
             msb.print();
+            printUserList(newFilteredView);
             return newFilteredView;
         }
     }

@@ -78,6 +78,7 @@ public final class ReplyTextMessages {
     public static final String FIND_STRING_INIT_1s = "Searching for '%s'.";
     public static final String FIND_STRING_FAIL_1s = "Sorry, but I could not find '%s' in any " +
                                                      "tasks.";
-    public static final String FIND_STRING_FOUND_1d_1s = "Found %d tasks with '%s':";
+    public static final String FIND_STRING_FOUND_1d_1s = "Found %d tasks with '%s' (Type reset " +
+                                                         "to return to default view)";
 
 }

@@ -99,6 +99,7 @@ public class YappingBot {
         while (userList instanceof TaskListFilterView) {
             userList = ( (TaskListFilterView) userList ).getParent();
         }
+        // TODO: add message
     }
 
     private void start() {
