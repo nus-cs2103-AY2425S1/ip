@@ -67,7 +67,8 @@ public class Commands {
         );
         msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
     }
-    public static Task createNewTask(String[] userInputSpliced, TaskTypes taskTypes, TaskList userList) throws YappingBotIncorrectCommandException {
+    public static void createNewTask(String[] userInputSpliced, TaskTypes taskTypes,
+                                  TaskList userList) throws YappingBotIncorrectCommandException {
         Task newTask;
         String taskName = null;
         String command = null;
@@ -164,9 +165,9 @@ public class Commands {
                         newTask.getTaskDoneCheckmark(),
                         newTask)
         );
+        userList.add(newTask);
         msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size() + 1));
         msb.print();
-        return newTask;
     }
 
     /**
