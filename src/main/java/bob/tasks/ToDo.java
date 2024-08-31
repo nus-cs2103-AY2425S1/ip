@@ -1,8 +1,8 @@
 package bob.tasks;
 
-public class ToDos extends Task{
+public class ToDo extends Task{
 
-    public ToDos(String taskName) {
+    public ToDo(String taskName) {
         super(taskName);
     }
 

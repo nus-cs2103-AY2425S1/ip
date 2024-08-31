@@ -39,7 +39,7 @@ public class Bob {
             try {
                 String userCommand = UI.readCommand();
                 UI.printLine();
-                Command command = Parser.parseCommand(userCommand, myTasks.size());
+                Command command = Parser.parseCommand(userCommand);
                 command.execute(myTasks);
                 isRunning = command.isRunning();
                 Storage.writeData(myTasks, this.filePath);

@@ -1,5 +1,6 @@
 package bob.command;
 
+import bob.exceptions.InvalidTaskNumberException;
 import bob.tasks.TaskList;
 import bob.UI;
 public class MarkCommand extends Command{
@@ -10,7 +11,7 @@ public class MarkCommand extends Command{
         this.index = index;
     }
 
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList) throws InvalidTaskNumberException {
         taskList.markTaskAtIndex(index);
         UI.printMarkTask();
     }

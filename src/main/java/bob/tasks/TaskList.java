@@ -1,5 +1,7 @@
 package bob.tasks;
 
+import bob.exceptions.InvalidTaskNumberException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,9 +16,9 @@ public class TaskList {
         this.taskList.add(task);
     }
 
-    public Task removeTaskAtIndex(int index) {
-        if (this.size() <= index) {
-            return null;
+    public Task removeTaskAtIndex(int index) throws InvalidTaskNumberException {
+        if (this.size() <= index || index < 0) {
+            throw new InvalidTaskNumberException();
         }
         return this.taskList.remove(index);
     }
@@ -25,16 +27,18 @@ public class TaskList {
         return this.taskList.size();
     }
 
-    public void markTaskAtIndex(int index) {
-        if (this.size() > index) {
-            this.taskList.get(index).mark();
+    public void markTaskAtIndex(int index) throws InvalidTaskNumberException {
+        if (this.size() <= index || index < 0) {
+            throw new InvalidTaskNumberException();
         }
+        this.taskList.get(index).mark();
     }
 
-    public void unmarkTaskAtIndex(int index) {
-        if (this.size() > index) {
-            this.taskList.get(index).unmark();
+    public void unmarkTaskAtIndex(int index) throws InvalidTaskNumberException {
+        if (this.size() <= index || index < 0) {
+            throw new InvalidTaskNumberException();
         }
+        this.taskList.get(index).unmark();
     }
 
     public String export() {

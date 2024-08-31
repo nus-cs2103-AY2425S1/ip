@@ -1,5 +1,6 @@
 package bob.command;
 
+import bob.exceptions.InvalidTaskNumberException;
 import bob.tasks.TaskList;
 
 public abstract class Command {
@@ -13,5 +14,5 @@ public abstract class Command {
         return isRunning;
     }
 
-    public abstract void execute(TaskList taskList);
+    public abstract void execute(TaskList taskList) throws InvalidTaskNumberException;
 }

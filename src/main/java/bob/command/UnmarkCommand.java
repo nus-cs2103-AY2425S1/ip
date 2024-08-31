@@ -1,5 +1,6 @@
 package bob.command;
 
+import bob.exceptions.InvalidTaskNumberException;
 import bob.tasks.TaskList;
 import bob.UI;
 
@@ -11,7 +12,7 @@ public class UnmarkCommand extends Command{
         this.index = index;
     }
 
-    public void execute(TaskList taskList) {
+    public void execute(TaskList taskList) throws InvalidTaskNumberException {
         taskList.unmarkTaskAtIndex(index);
         UI.printUnmarkTask();
     }
