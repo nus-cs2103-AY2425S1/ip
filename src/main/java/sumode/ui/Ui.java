@@ -52,6 +52,10 @@ public class Ui {
         dialogContainer.getChildren().addAll(DialogBox.getSumoDialog(response, sumoImage));
     }
 
+    private void respondDanger(String response) {
+        dialogContainer.getChildren().addAll(DialogBox.getSumoAngryDialog(response, sumoImage));
+    }
+
     @FXML
     private void echo(String input) {
         dialogContainer.getChildren().addAll(
@@ -84,14 +88,14 @@ public class Ui {
      * Prints a notice that command is wrong.
      */
     public void unknownCommand(String commandString) {
-        this.respond("Sumo dunno your command \"" + commandString + "\" ! Check spelling of your first word.");
+        this.respondDanger("Sumo dunno your command \"" + commandString + "\" ! Check spelling of your first word.");
     }
 
     /**
      * Prints error message.
      */
     public void handleError(Exception e) {
-        this.respond(e.getMessage());
+        this.respondDanger(e.getMessage());
     }
 
     /**
@@ -119,7 +123,7 @@ public class Ui {
      * Prints a notice that user won't be able to save any data in this session.
      */
     public void unknownSaveError() {
-        this.respond("Help! Sumo unable to save data due to unknown error!\n"
+        this.respondDanger("Help! Sumo unable to save data due to unknown error!\n"
                         + "Please exit and try again if u wanna save");
     }
 
@@ -127,7 +131,7 @@ public class Ui {
      * Prints a notice that user's latest change is unable to be saved.
      */
     public void latestSaveError() {
-        this.respond("Sumo cannot save latest change.");
+        this.respondDanger("Sumo cannot save latest change.");
     }
 
     /**
@@ -135,7 +139,7 @@ public class Ui {
      * @param line line where the file is corrupted.
      */
     public void corruptedSaveFile(int line) {
-        this.respond("Your saved file at line " + (line) + " is corrupted. "
+        this.respondDanger("Your saved file at line " + (line) + " is corrupted. "
                         + "Sumo cannot read so Sumo will skip that and continue with the rest!");
     }
 

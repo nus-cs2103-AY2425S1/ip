@@ -46,6 +46,13 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+    }
+
+    private void changeBackgroundToRed() {
+        dialog.getStyleClass().add("angry-reply-label");
+    }
+
+    private void changeBackgroundToYellowishGreen() {
         dialog.getStyleClass().add("reply-label");
     }
 
@@ -56,6 +63,14 @@ public class DialogBox extends HBox {
     public static DialogBox getSumoDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.changeBackgroundToYellowishGreen();
+        return db;
+    }
+
+    public static DialogBox getSumoAngryDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.flip();
+        db.changeBackgroundToRed();
         return db;
     }
 }

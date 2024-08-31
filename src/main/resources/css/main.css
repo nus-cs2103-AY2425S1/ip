@@ -6,11 +6,12 @@
 
 
 #heading {
-    -fx-background-color: red
+    -fx-background-color: linear-gradient(to bottom right, #3eb6b1, #423eb6);
 }
 
 #name {
-    -fx-background-color: red;
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
     -fx-alignment: center;
 }
 

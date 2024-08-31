@@ -6,7 +6,15 @@
     -fx-border-radius: 1em 1em 0 1em;
 }
 
+
+.angry-reply-label {
+    -fx-background-color: linear-gradient(to bottom right, #e5aa2b, #d5761d);
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
 .reply-label {
+    -fx-background-color: linear-gradient(to bottom right, #c1d81a, #90d81a);
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
 }
