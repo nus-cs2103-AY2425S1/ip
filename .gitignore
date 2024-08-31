@@ -3,6 +3,9 @@
 /out/
 /*.iml
 
+# data files produced by the programme for storing data locally
+/data/
+
 # Gradle build files
 /.gradle/
 /build/
