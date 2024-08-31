@@ -26,7 +26,7 @@ public class Blue {
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Note note = new Note();
+        TaskList taskList = new TaskList();
 
         // Greet the user
         Blue.greet();
@@ -42,14 +42,14 @@ public class Blue {
 
             //if list is typed, print out corresponding list of tasks
             if (input.equalsIgnoreCase("list")) {
-                note.printList();
+                taskList.printList();
                 continue;
             }
 
             if (input.startsWith("mark ")) {
                 try {
                     int taskNumber = Integer.parseInt(input.substring(5));
-                    note.mark(taskNumber);
+                    taskList.mark(taskNumber);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid task number format! Please use 'mark <number>'.");
                 } catch (WrongNumberOfItemException e) {
@@ -61,7 +61,7 @@ public class Blue {
             if (input.startsWith("unmark ")) {
                 try {
                     int taskNumber = Integer.parseInt(input.substring(7));
-                    note.unmark(taskNumber);
+                    taskList.unmark(taskNumber);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid task number format! Please use 'unmark <number>'.");
                 } catch (WrongNumberOfItemException e) {
@@ -73,7 +73,7 @@ public class Blue {
             if (input.startsWith("delete ")) {
                 try {
                     int taskNumber = Integer.parseInt(input.substring(7));
-                    note.delete(taskNumber);
+                    taskList.delete(taskNumber);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid task number format! Please use 'delete <number>'.");
                 } catch (WrongNumberOfItemException e) {
@@ -86,8 +86,8 @@ public class Blue {
 
             //print out added... and add the item to the myList field in the Note object
             try {
-                note.addToList(input);
-                String temp = "Now you have " + note.getNumberOfTask() + " tasks in the list.";
+                taskList.addToList(input);
+                String temp = "Now you have " + taskList.getNumberOfTask() + " tasks in the list.";
                 System.out.println(temp);
                 System.out.println("--------------------------------------------");
             } catch (EmptyDescriptionException e) {

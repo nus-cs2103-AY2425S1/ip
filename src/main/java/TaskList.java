@@ -13,13 +13,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-public class Note {
+public class TaskList {
     private ArrayList<Task> myList;
     private int noOfTask;
     private static final String FILE_PATH = "./data/blue.txt";
 
 
-    public Note() {
+    public TaskList() {
         this.myList = new ArrayList<>();
         this.noOfTask = 0;
         loadFromFile();
