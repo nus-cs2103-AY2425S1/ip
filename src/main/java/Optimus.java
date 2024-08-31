@@ -41,7 +41,7 @@ public class Optimus {
                 }
             } else if (text.startsWith("mark ") || text.startsWith("unmark ")) {
                 try {
-                    int taskNumber = Integer.parseInt(text.split(" ")[1]) - 1;
+                    int taskNumber = Integer.parseInt(text.split(" ")[1]) - 1; // asked chatgpt how to parse string
                     if (taskNumber < 0 || taskNumber >= count) {
                         throw new OptimusException("Invalid task number. " +
                                 "Please enter a number between 1 and " + count + ".");
@@ -149,7 +149,7 @@ public class Optimus {
             System.out.println("No existing data file found in given directory. A new record will be established");
             return record;
         }
-        Scanner s = new Scanner(f);
+        Scanner s = new Scanner(f); // Taken from notes
         while (s.hasNextLine()) {
             String line = s.nextLine();
             String[] parts = line.split(" \\| ");
@@ -187,7 +187,7 @@ public class Optimus {
     public static void saveToFile(List<Task> record) throws IOException {
         FileWriter fW = new FileWriter(FILE_PATH);
         for (Task task : record) {
-            fW.write(task.toSaveString() + System.lineSeparator());
+            fW.write(task.toSaveString() + System.lineSeparator()); // Found on StackOverflow
         }
         fW.close();
     }
