@@ -49,6 +49,11 @@ public class UI {
         System.out.println(tasks);
     }
 
+    /**
+     * Print the matched tasks from the given TaskList.
+     *
+     * @param tasks TaskList object containing all the matched tasks
+     */
     public static void printMatchedTasks(TaskList tasks) {
         System.out.println(String.format("Found %d matching %s in your list:",
                 tasks.getSize(),
@@ -61,7 +66,7 @@ public class UI {
      * Prints the message when TaskList successfully add in a new task.
      *
      * @param taskList TaskList object that accepts the new task
-     * @param task task to be added
+     * @param task     task to be added
      */
     public static void printAddTaskMessage(TaskList taskList, Task task) {
         System.out.println("Got it! I have added this task:\n" + task);
@@ -91,7 +96,7 @@ public class UI {
      * Prints the message when TaskList successfully delete a task.
      *
      * @param taskList TaskList in which the task needs to be deleted
-     * @param task task to be deleted
+     * @param task     task to be deleted
      */
     public static void printDeleteTaskMessage(TaskList taskList, Task task) {
         System.out.println("Noted. I've removed this task:");

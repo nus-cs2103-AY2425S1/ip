@@ -10,7 +10,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TaskList {
-    /** Tasks tracked by the TaskList */
+    /**
+     * Tasks tracked by the TaskList
+     */
     private ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
@@ -44,6 +46,12 @@ public class TaskList {
         UI.printDeleteTaskMessage(this, task);
     }
 
+    /**
+     * Finds tasks whose description contains the given keyword.
+     *
+     * @param keyword keyword used to search for tasks
+     * @return TaskList object containing all the matching tasks
+     */
     public TaskList find(String keyword) {
         ArrayList<Task> matchedTasks = new ArrayList<>();
         Pattern keywordPattern = Pattern.compile(keyword,
