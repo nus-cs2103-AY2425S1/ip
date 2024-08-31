@@ -1,12 +1,16 @@
+import java.io.*;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Hien {
     private ArrayList<Task> tasks;
+    private static final String DATA_FILE_PATH = "data/tasks.txt";
 
     // Constructor
     public Hien() {
         this.tasks = new ArrayList<>();
+        loadTasks();
     }
 
     public static void main(String[] args) {
@@ -149,4 +153,72 @@ public class Hien {
             System.out.println("   " + task);
         }
     }
+    private void loadTasks() {
+        try {
+            Files.createDirectories(Paths.get("data"));
+            File file = new File(DATA_FILE_PATH);
+            if (!file.exists()) {
+                file.createNewFile();
+                return;
+            }
+
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" \\| ");
+                if (parts.length >= 3) {
+                    Task task;
+                    switch (parts[0]) {
+                        case "T":
+                            task = new Todo(parts[2]);
+                            break;
+                        case "D":
+                            task = new Deadline(parts[2], parts[3]);
+                            break;
+                        case "E":
+                            task = new Event(parts[2], parts[3], parts[4]);
+                            break;
+                        default:
+                            continue;
+                    }
+                    if (parts[1].equals("1")) {
+                        task.markAsDone();
+                    }
+                    tasks.add(task);
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading tasks: " + e.getMessage());
+        }
+    }
+
+    private void saveTasks() {
+        try {
+            Files.createDirectories(Paths.get("data"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE_PATH));
+            for (Task task : tasks) {
+                String line;
+                if (task instanceof Todo) {
+                    line = "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
+                } else if (task instanceof Deadline) {
+                    Deadline deadline = (Deadline) task;
+                    line = "D | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() + " | " + deadline.getBy();
+                } else if (task instanceof Event) {
+                    Event event = (Event) task;
+                    line = "E | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() + " | " + event.getFrom() + " | " + event.getTo();
+                } else {
+                    continue;
+                }
+                writer.write(line);
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks: " + e.getMessage());
+        }
+    }
 }
+
+
+
