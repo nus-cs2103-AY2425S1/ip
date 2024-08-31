@@ -7,11 +7,18 @@ import barcus.exception.BarcusException;
 import barcus.command.Command;
 import barcus.parser.Parser;
 
+/**
+ * Main class for Barcus chatbot
+ */
 public class Barcus {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for Barcus, creates a new instance of Barcus with path to saved task data
+     * @param filePath
+     */
     public Barcus(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -23,6 +30,9 @@ public class Barcus {
         }
     }
 
+    /**
+     * Runs the Barcus instance
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -38,6 +48,11 @@ public class Barcus {
         }
     }
 
+    /**
+     * Main code that runs when barcus file runs
+     * Creates a barcus instance
+     * @param args
+     */
     public static void main(String[] args) {
         new Barcus("./data/savedTasks.txt").run();
     }
