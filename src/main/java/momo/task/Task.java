@@ -16,6 +16,9 @@ public class Task {
         this.task = task;
         this.isComplete = isComplete;
     }
+    public String getTask() {
+        return this.task;
+    }
 
     /**
      * Marks the task object as complete

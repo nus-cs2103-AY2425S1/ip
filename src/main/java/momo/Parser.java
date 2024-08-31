@@ -38,6 +38,12 @@ public class Parser {
             return CommandType.LIST;
         }
 
+        // Check if input is find
+        if (input.startsWith("find")) {
+            return CommandType.FIND;
+
+        }
+
         // Check if input is delete
         if (input.startsWith("delete")) {
             return CommandType.DELETE;
