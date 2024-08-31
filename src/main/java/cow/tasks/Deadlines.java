@@ -1,19 +1,21 @@
 package cow.tasks;
 
-import cow.tasks.Task;
-import cow.exceptions.MissingParametersException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import cow.exceptions.MissingParametersException;
+
+/**
+ * Deadlines Task class.
+ */
 public class Deadlines extends Task {
-    private LocalDateTime by;
     public static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private LocalDateTime by;
 
     /**
-     * @param description The Description of the Deadline with /by to state the dateline
+     * @param description The Description of the Deadline with /by to state the dateline.
      */
     public Deadlines(String description, LocalDateTime by) {
         super(description);
@@ -22,10 +24,10 @@ public class Deadlines extends Task {
     }
 
     /**
-     * Alternate constructor for loading isDone directly
-     * @param isDone 1 or 0 indicating if task is done
-     * @param description The Description of the Deadline
-     * @param by by to state the dateline of the task
+     * Alternate constructor for loading isDone directly.
+     * @param isDone 1 or 0 indicating if task is done.
+     * @param description The Description of the Deadline.
+     * @param by by to state the dateline of the task.
      */
     public Deadlines(String isDone, String description, String by) throws MissingParametersException {
         super(isDone, description);
@@ -33,10 +35,10 @@ public class Deadlines extends Task {
     }
 
     /**
-     * Parse the date time string from the .txt file
-     * @param by a date time string
-     * @return a LocalDateTime
-     * @throws MissingParametersException if arguments are invalid
+     * Parse the date time string from the .txt file.
+     * @param by a date time string.
+     * @return a LocalDateTime.
+     * @throws MissingParametersException if arguments are invalid.
      */
     private LocalDateTime parseDateTime(String by) throws MissingParametersException {
         try {
@@ -55,16 +57,16 @@ public class Deadlines extends Task {
     }
 
     /**
-     * Returns the deadlines date
-     * @return deadline's date
+     * Returns the deadlines date.
+     * @return deadline's date.
      */
     public LocalDate getDate() {
         return this.by.toLocalDate();
     }
 
     /**
-     * A string that matches the format for writing it to file
-     * @return A string to be written to a txt file
+     * A string that matches the format for writing it to file.
+     * @return A string to be written to a txt file.
      */
     @Override
     public String getSaveData() {

@@ -1,14 +1,15 @@
 package cow.commands;
 
-import cow.filesaver.FileSaver;
-import cow.todoList.TodoList;
 import cow.exceptions.CowExceptions;
+import cow.filesaver.FileSaver;
 import cow.message.Message;
 import cow.tasks.Task;
 import cow.tasks.Todo;
+import cow.todolist.TodoList;
+
 
 // solution below inspired by https://github.com/se-edu/addressbook-level2/tree/master
-
+/** Creates a TodoCommand. **/
 public class TodoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
     public static final String COMMAND_EXAMPLE = "todo buy groceries";
@@ -27,10 +28,10 @@ public class TodoCommand extends Command {
     }
 
     /**
-     * Creates a todo task and adds to the todo list
-     * @param todoList the list of the tasks
-     * @param fileSaver filesaver object used to write data to txt
-     * @throws CowExceptions any exceptions that might arise from the implementation
+     * Creates a todo task and adds to the todo list.
+     * @param todoList the list of the tasks.
+     * @param fileSaver filesaver object used to write data to txt.
+     * @throws CowExceptions any exceptions that might arise from the implementation.
      */
     @Override
     public void execute(TodoList todoList, FileSaver fileSaver) throws CowExceptions {

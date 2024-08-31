@@ -2,13 +2,14 @@ package cow.tasks;
 
 import java.time.LocalDate;
 
+/** Task class to create a task. **/
 public class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Create a new tasks.Todo object
-     * @param description The description of the tasks.Todo Object
+     * Creates a new tasks object.
+     * @param description The description of the tasks Object.
      */
     public Task(String description) {
         this.description = description;
@@ -30,7 +31,7 @@ public class Task {
     }
 
     /**
-     * Mark the todo object as completed
+     * Marks the todo object as completed.
      */
     public void markAsDone() {
         this.isDone = true;
@@ -49,21 +50,16 @@ public class Task {
     }
 
     /**
-     * A string that matches the format for writing it to file
-     * @return A string to be written to a txt file
-     */
-
-    /**
-     * A default date used for filtering out Tasks with deadlines
-     * @return a LocalDate
+     * A default date used for filtering out Tasks with deadlines.
+     * @return a LocalDate.
      */
     public LocalDate getDate() {
         return LocalDate.of(0, 1, 1);
     }
 
     /**
-     * Check if description contains substring
-     * @return boolean
+     * Check if description contains substring.
+     * @return boolean.
      */
     public boolean getContainsSubString(String subString) {
         return this.description.contains(subString);

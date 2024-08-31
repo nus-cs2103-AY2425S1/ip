@@ -1,10 +1,21 @@
 package cow.parser;
 
-import cow.commands.*;
-import cow.exceptions.CowExceptions;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import cow.commands.ByeCommand;
+import cow.commands.Command;
+import cow.commands.DeadlineCommand;
+import cow.commands.DeleteCommand;
+import cow.commands.DueCommand;
+import cow.commands.EventCommand;
+import cow.commands.HelpCommand;
+import cow.commands.ListCommand;
+import cow.commands.MarkCommand;
+import cow.commands.TodoCommand;
+import cow.commands.UnmarkCommand;
+import cow.exceptions.CowExceptions;
 
 public class ParserTest {
     @Test

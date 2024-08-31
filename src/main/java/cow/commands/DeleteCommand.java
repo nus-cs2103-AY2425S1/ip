@@ -1,13 +1,14 @@
 package cow.commands;
 
-import cow.filesaver.FileSaver;
-import cow.todoList.TodoList;
 import cow.exceptions.CowExceptions;
+import cow.filesaver.FileSaver;
 import cow.message.Message;
 import cow.tasks.Task;
+import cow.todolist.TodoList;
 
 // solution below inspired by https://github.com/se-edu/addressbook-level2/tree/master
 
+/** Creates a delete command object. **/
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     public static final String COMMAND_EXAMPLE = "delete 1";
@@ -21,10 +22,10 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Deletes task using the index in the todo list
-     * @param todoList the list of the tasks
-     * @param fileSaver filesaver object used to write data to txt
-     * @throws CowExceptions any exceptions that might arise from the implementation
+     * Deletes task using the index in the todo list.
+     * @param todoList the list of the tasks.
+     * @param fileSaver filesaver object used to write data to txt.
+     * @throws CowExceptions any exceptions that might arise from the implementation.
      */
     @Override
     public void execute(TodoList todoList, FileSaver fileSaver) throws CowExceptions {
