@@ -10,15 +10,63 @@ import java.time.format.DateTimeParseException;
 
 import static yappingbot.stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES;
 
+/**
+ * Deadline variant of the Task that can be created.
+ * Includes task name, date that task must be completed, and if task is marked done.
+ */
 public class Deadline extends Task {
+
+    private LocalDate deadline;
+
+    /**
+     * Constructor for a blank Deadline task (Task name "Untitled", unmarked).
+     */
     public Deadline() {
-        this("",false);
+        this("Untitled",false);
     }
 
+    /**
+     * Creates a Deadline task.
+     * Deadline date will default to the current local date of creation.
+     *
+     * @param taskName String name of this task.
+     * @param taskDone Boolean of whether the task is marked or unmarked as done.
+     */
+    public Deadline(String taskName, boolean taskDone) {
+        super(taskName, taskDone);
+        super.setTaskType(TaskTypes.DEADLINE);
+        this.deadline = LocalDate.now();
+    }
+
+    /**
+     * Creates a Deadline task.
+     *
+     * @param taskName String name of this task.
+     * @param taskDone Boolean of whether the task is marked or unmarked as done.
+     * @param deadline String of the deadline, in format "YYYY-MM-DD".
+     */
+    public Deadline(String taskName, boolean taskDone, String deadline) throws YappingBotIncorrectCommandException {
+        super(taskName, taskDone);
+        super.setTaskType(TaskTypes.DEADLINE);
+        this.setDeadline(deadline);
+    }
+
+    /**
+     * Returns deadline of task.
+     *
+     * @return String deadline in "YYYY-MM-DD" format
+     */
     public String getDeadline() {
         return deadline.toString();
     }
 
+    /**
+     * Sets the deadline.
+     * String provided must be of format "YYYY-MM-DD".
+     *
+     * @param deadline String of the deadline in "YYYY-MM-DD" format
+     * @throws YappingBotIncorrectCommandException If the provided date String is not valid format.
+     */
     public void setDeadline(String deadline) throws YappingBotIncorrectCommandException {
         try {
             this.deadline = LocalDate.parse(deadline);
@@ -27,18 +75,7 @@ public class Deadline extends Task {
         }
     }
 
-    private LocalDate deadline;
 
-    public Deadline(String taskName, boolean taskDone) {
-        super(taskName, taskDone);
-        super.setTaskType(TaskTypes.DEADLINE);
-        this.deadline = LocalDate.now();
-    }
-    public Deadline(String taskName, boolean taskDone, String deadline) throws YappingBotIncorrectCommandException {
-        super(taskName, taskDone);
-        super.setTaskType(TaskTypes.DEADLINE);
-        this.setDeadline(deadline);
-    }
 
     @Override
     public String getTaskTypeSymbol() {

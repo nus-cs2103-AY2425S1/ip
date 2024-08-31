@@ -13,14 +13,30 @@ import yappingbot.ui.Ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * YappingBot class, interactive task manager app.
+ */
 public class YappingBot {
+
     private TaskList userList;
     private final String savefilePath;
 
+    /**
+     * Sets the savefilePath that this bot will load from
+     * and save to. Saved item includes the task list.
+     *
+     * @param savefilePath the relative or absolute filepath
+     */
     private YappingBot(String savefilePath) {
         this.savefilePath = savefilePath;
     }
 
+    /**
+     * Initializes the bot. This takes a Storage object to load the tasks from,
+     * or creates a new task list if none is found or any error is encountered when trying to load the list from disk.
+     *
+     * @param storage the Storage object that interfaces with the disk.
+     */
     private void init(Storage storage) {
         try {
             ArrayList<String> s = storage.loadListFromFile();
@@ -31,6 +47,10 @@ public class YappingBot {
         }
     }
 
+    /**
+     * Saves the task list to disk using the already-created Storage object.
+     * @param storage Storage object interfacing with the disk.
+     */
     private void saveAndExit(Storage storage) {
         try {
             storage.saveListToFile(userList.toRawFormat());
@@ -39,6 +59,9 @@ public class YappingBot {
         }
     }
 
+    /**
+     * The main loop that receives and executes commands.
+     */
     private void mainLoop() {
         Scanner userInputScanner = new Scanner(System.in);
         Parser parser = new Parser();
@@ -54,15 +77,15 @@ public class YappingBot {
                         Commands.printUserList(userList);
                         break;
                     case MARK:
-                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1], userList);
+                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
                         Commands.changeTaskListStatus(taskListIndexPtr, true, userList);
                         break;
                     case UNMARK:
-                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1], userList);
+                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
                         Commands.changeTaskListStatus(taskListIndexPtr, false, userList);
                         break;
                     case DELETE:
-                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1], userList);
+                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
                         Commands.deleteTask(taskListIndexPtr, userList);
                         break;
                     case TODO:
@@ -84,6 +107,11 @@ public class YappingBot {
         }
     }
 
+    /**
+     * Executes the initialization,
+     * Entry point into the bot. This
+     * main loop, and exiting.
+     */
     private void start() {
         Storage storage = new Storage(savefilePath);
         init(storage);
@@ -93,7 +121,11 @@ public class YappingBot {
         saveAndExit(storage);
     }
 
-    // end of class methods
+    /**
+     * Creates a YappingBot and runs it.
+     * Main entry point.
+     * @param args if args[1] exists, it will be used for the savefile path instead of the default ./savefile.
+     */
     public static void main(String[] args) {
         String savefile;
 

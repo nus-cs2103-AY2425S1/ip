@@ -8,31 +8,67 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Event variant of the Task that can be created.
+ * Includes task name, beginning date of event, ending date of event, and if task is marked done.
+ */
 public class Event extends Task {
     private LocalDate startTime;
     private LocalDate endTime;
 
+    /**
+     * Constructor for a blank Event task (Task name "Untitled", unmarked).
+     */
+    public Event() {
+        this("Untitled",false);
+    }
+
+    /**
+     * Creates an Event task.
+     * Event start and end date will default to the current local date of creation.
+     *
+     * @param taskName String name of this task.
+     * @param taskDone Boolean of whether the task is marked or unmarked as done.
+     */
     public Event(String taskName, boolean taskDone) {
         super(taskName, taskDone);
         super.setTaskType(TaskTypes.EVENT);
         this.startTime = LocalDate.now();
         this.endTime = LocalDate.now();
     }
-    public Event(String taskName, boolean taskDone, String startTime, String endTime) throws YappingBotIncorrectCommandException  {
+
+    /**
+     * Creates a Event task.
+     *
+     * @param taskName String name of this task.
+     * @param taskDone Boolean of whether the task is marked or unmarked as done.
+     * @param startDate String of the start date, in format "YYYY-MM-DD".
+     * @param endDate String of the end date, in format "YYYY-MM-DD".
+     */
+    public Event(String taskName, boolean taskDone, String startDate, String endDate) throws YappingBotIncorrectCommandException  {
         super(taskName, taskDone);
         super.setTaskType(TaskTypes.EVENT);
-        this.setStartTime(startTime);
-        this.setEndTime(endTime);
+        this.setStartTime(startDate);
+        this.setEndTime(endDate);
     }
 
-    public Event() {
-        this("untitled",false);
-    }
 
+    /**
+     * Returns starting date of event.
+     *
+     * @return starting date as String formatted "YYYY-MM-DD".
+     */
     public String getStartTime() {
         return startTime.toString();
     }
 
+    /**
+     * Sets the starting date.
+     * String provided must be of format "YYYY-MM-DD".
+     *
+     * @param startTime String of the starting date in "YYYY-MM-DD" format
+     * @throws YappingBotIncorrectCommandException If the provided date String is not valid format.
+     */
     public void setStartTime(String startTime) throws YappingBotIncorrectCommandException {
         try {
             this.startTime = LocalDate.parse(startTime);
@@ -41,10 +77,22 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Returns ending date of event.
+     *
+     * @return ending date as String formatted "YYYY-MM-DD".
+     */
     public String getEndTime() {
         return endTime.toString();
     }
 
+    /**
+     * Sets the ending date.
+     * String provided must be of format "YYYY-MM-DD".
+     *
+     * @param endTime String of the ending date in "YYYY-MM-DD" format
+     * @throws YappingBotIncorrectCommandException If the provided date String is not valid format.
+     */
     public void setEndTime(String endTime) throws YappingBotIncorrectCommandException {
         try {
             this.endTime = LocalDate.parse(endTime);

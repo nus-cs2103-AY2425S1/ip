@@ -4,35 +4,76 @@ import yappingbot.exceptions.YappingBotInvalidSaveFileException;
 
 import static yappingbot.stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES;
 
+/**
+ * Abstract Task class for the possible Task variants.
+ */
 public abstract class Task {
     private String taskName;
     private boolean taskDone;
     private TaskTypes taskType;
 
+    /**
+     * Constructor for a blank task (Task name "Untitled", unmarked).
+     */
     public Task() {
         this("Untitled", false);
     }
 
-    public TaskTypes getTaskType() {
-        return taskType;
-    }
-    protected void setTaskType(TaskTypes taskType) {
-        this.taskType = taskType;
-    }
+    /**
+     * Creates a task.
+     *
+     * @param taskName String name of this task.
+     * @param taskDone Boolean of whether the task is marked or unmarked as done.
+     */
     public Task(String taskName, boolean taskDone) {
         this.taskName = taskName;
         this.taskDone = taskDone;
     }
+
+    /**
+     * Gets the type of task, depending on which subclass extends this.
+     * @return TaskTypes type of task.
+     */
+    public TaskTypes getTaskType() {
+        return taskType;
+    }
+
+    /**
+     * Sets the type of task. To only be set internally by different task classes that extend this.
+     * @param taskType TaskType of the task.
+     */
+    protected void setTaskType(TaskTypes taskType) {
+        this.taskType = taskType;
+    }
+
     public void setTaskDone(boolean taskDone) {
         this.taskDone = taskDone;
     }
+
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
+
     public boolean isTaskDone() {
         return taskDone;
     }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    /**
+     * Provides a friendly version of the task type, in the form of a single-char String.
+     *
+     * @return String of a single char, demarcating what the task type is in a friendly manner.
+     */
     public abstract String getTaskTypeSymbol();
+
+    /**
+     * Returns "X" or " " depending on whether task is marked done.
+     *
+     * @return String "X" or " " depending on whether task is marked done.
+     */
     public String getTaskDoneCheckmark() {
         if (this.taskDone) {
             return "X";
@@ -40,13 +81,18 @@ public abstract class Task {
             return " ";
         }
     }
-    public String getTaskName() {
-        return taskName;
-    }
+
     @Override
     public String toString() {
         return String.format("Name: %s, Completed: %s", this.taskName, this.taskDone);
     }
+
+    /**
+     * Serializes the task in a String that can then be used to save the task to disk.
+     * Escapes any colons (:) before formatting the task as colon-separated values.
+     *
+     * @return String of serialized format of the task.
+     */
     public String serialize() {
         return String.format("%s:%s:%s",
                 taskType,
@@ -54,6 +100,16 @@ public abstract class Task {
                 taskDone
         );
     }
+
+    /**
+     * Deserializes the String Slices and populates the task to the appropriate values.
+     * Replaces any escaped colons (:).
+     * Required format: "TaskType:TaskName:isTaskDone"
+     * Subclasses may include additional values (eg dates) that will be required accordingly.
+     *
+     * @param sString String array, split by colons.
+     * @throws YappingBotInvalidSaveFileException Exception if any issues parsing the given String arrays.
+     */
     public void deserialize(String[] sString) throws YappingBotInvalidSaveFileException {
         if (sString.length < 3) {
             throw new YappingBotInvalidSaveFileException(INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);

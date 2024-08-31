@@ -1,5 +1,8 @@
 package yappingbot.stringconstants;
 
+/**
+ * String constants of messages that the bot can use to reply.
+ */
 public final class ReplyTextMessages {
     // Text strings
     private static final String BOT_NAME = "YappingBot";
