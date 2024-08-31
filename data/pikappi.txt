@@ -1,4 +1,4 @@
 T | 0 | hello
-D | 0 | now | later   
+D | 0 | now | later    
 E | 1 | haha | yes | no
-D | 0 | trying | Mar 12 2024 6:20PM 12
+D | 0 | trying | Mar 12 2024 6:20PM 12 12

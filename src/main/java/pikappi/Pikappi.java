@@ -31,4 +31,8 @@ public class Pikappi {
             ui.showLine();
         }
     }
+
+    public String getResponse(String input) {
+        return "Pikappi heard: " + input;
+    }
 }

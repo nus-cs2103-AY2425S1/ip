@@ -22,6 +22,7 @@ public class DeadlineTask extends Task {
         String timeBy = "";
         try {
             LocalDate byDate = LocalDate.parse(by.split(" ")[0]);
+            System.out.println(byDate);
             this.by = byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             this.by = by;
