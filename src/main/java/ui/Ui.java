@@ -4,6 +4,9 @@ import task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * The Ui class deals with printing outputs for users
+ */
 public class Ui {
     private final int lineLength = 50;
     private final String horizontalLine = "\t" + "-".repeat(this.lineLength);
@@ -12,6 +15,10 @@ public class Ui {
         System.out.println(this.horizontalLine);
     }
 
+    /**
+     * Greets user upon instantiation of bot
+     * @param name String representing the name of the bot
+     */
     public void greet(String name) {
         this.printHorizontalLine();
         System.out.println("\t" + "Hello, I'm " + name);
@@ -19,12 +26,20 @@ public class Ui {
         this.printHorizontalLine();
     }
 
+    /**
+     * Prints an exit message upon termination of bot
+     */
     public void exit() {
         this.printHorizontalLine();
         System.out.println("\t" + "Bye. Hope to see you again soon!");
         this.printHorizontalLine();
     }
 
+    /**
+     * Informs user that task has been added
+     * @param t Task that has been added
+     * @param size Current number of tasks
+     */
     public void printAddTask(Task t, int size) {
         this.printHorizontalLine();
         System.out.println("\tGot it. I've added this task:");
@@ -33,6 +48,11 @@ public class Ui {
         this.printHorizontalLine();
     }
 
+    /**
+     * Informs user that task has been deleted
+     * @param t Task that has been deleted
+     * @param size Current number of tasks
+     */
     public void printDeleteTask(Task t, int size) {
         this.printHorizontalLine();
         System.out.println("\tNoted. I've removed this task:");
@@ -41,6 +61,10 @@ public class Ui {
         this.printHorizontalLine();
     }
 
+    /**
+     * Lists out all tasks in the given array
+     * @param tasks ArrayList<Task> of tasks to be printed
+     */
     public void printTasks(ArrayList<Task> tasks) {
         this.printHorizontalLine();
         if (tasks.size() == 0) {
@@ -53,6 +77,10 @@ public class Ui {
         this.printHorizontalLine();
     }
 
+    /**
+     * Informs user that task has been marked as done
+     * @param t Task that has been marked as done
+     */
     public void printSuccessfulMark(Task t) {
         this.printHorizontalLine();
         System.out.println("\tNice! I've marked this task as done:");
@@ -60,6 +88,10 @@ public class Ui {
         this.printHorizontalLine();
     }
 
+    /**
+     * Informs user that task has been marked as undone
+     * @param t Task that has been marked as undone
+     */
     public void printSuccessfulUnmark(Task t) {
         this.printHorizontalLine();
         System.out.println("\tOK, I've marked this task as not done yet:");
@@ -67,6 +99,10 @@ public class Ui {
         this.printHorizontalLine();
     }
 
+    /**
+     * Informs user of an exception in the program
+     * @param e Exception in the program
+     */
     public void printException(Exception e) {
         this.printHorizontalLine();
         System.out.println("\t" + e);

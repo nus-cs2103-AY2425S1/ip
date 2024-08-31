@@ -9,12 +9,19 @@ import task.*;
 import ui.Ui;
 import utility.Parser;
 
+/**
+ * The LevelHundred class is the main class responsible for
+ * the overall logic of the project
+ */
 public class LevelHundred {
     private final String NAME = "LevelHundred";
     private final Ui ui;
     private final Storage storage;
     private final TaskList taskList;
-    
+
+    /**
+     * Constructor for a LevelHundred bot
+     */
     public LevelHundred() {
         this.ui = new Ui();
         this.storage = new Storage();

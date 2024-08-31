@@ -40,9 +40,9 @@ public class Storage {
     }
 
     /**
-     * Loads the tasks from the file 
+     * Loads the tasks from the file
      * @return ArrayList<Task> of tasks from the file
-     * @throws InvalidStorageFileException
+     * @throws InvalidStorageFileException if the storage file is corrupted
      */
     public ArrayList<Task> load() throws InvalidStorageFileException {
         try {

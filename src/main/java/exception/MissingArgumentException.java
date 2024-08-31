@@ -1,5 +1,8 @@
 package exception;
 
+/**
+ * The MissingArgumentException class is used to indicate missing arguments
+ */
 public class MissingArgumentException extends LevelHundredException {
     private String command;
     private String arg;
