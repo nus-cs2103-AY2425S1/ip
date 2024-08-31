@@ -12,7 +12,6 @@ import java.util.List;
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected boolean isDeleted;
     protected int num;
     private static int count;
 
@@ -45,10 +44,6 @@ public class Task {
     
     public boolean getStatus() {
         return isDone;
-    }
-
-    public void delete() {
-        this.isDeleted = true;
     }
 
     public String getStatusIcon() {

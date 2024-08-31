@@ -65,6 +65,9 @@ public class Parser {
                 ui.delete(list.get(key));
                 storage.refreshStorage(list);
                 break;
+            case ("find"):
+                ui.search(input.substring(5));
+                break;
             default:
                 throw new MaxineException("Oh no.. this command is not recognised");
             }

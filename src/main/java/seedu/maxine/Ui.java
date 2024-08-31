@@ -2,7 +2,10 @@ package seedu.maxine;
 
 import seedu.maxine.task.Task;
 
+import java.util.ArrayList;
+
 public class Ui {
+    private Storage storage = new Storage("data/maxine.txt");
     
     public Ui() {
         // nothing
@@ -43,5 +46,15 @@ public class Ui {
     
     public void showError(String e) {
         System.out.print(e);
+    }
+    
+    public void search(String search) {
+        ArrayList<Task> results = storage.queryStorage(search);
+        System.out.println("Here are the results to your search:");
+        int count = 1;
+        for (Task task : results) {
+            System.out.println(count + ". " + task.toString());
+            count++;
+        }
     }
 }

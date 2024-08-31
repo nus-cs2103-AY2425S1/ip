@@ -108,7 +108,6 @@ public class TaskList implements MaxineList {
     
     public void delete(int key) {
         Task task = list.get(key);
-        task.delete();
         list.remove(task);
     }
     
