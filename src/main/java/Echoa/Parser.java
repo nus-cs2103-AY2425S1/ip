@@ -5,7 +5,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Parser is a class that encapsulates all methods interacting with CLI.
@@ -55,6 +56,8 @@ public class Parser {
             command = "";
         } else if (line.startsWith("list")) {
             command = "list";
+        } else if (line.startsWith("find")) {
+            command = "find";
         } else if (line.startsWith("mark")) {
             command = "mark";
         } else if (line.startsWith("unmark")) {
@@ -79,11 +82,25 @@ public class Parser {
      * The method parses for indexes in lines with instructions:
      * mark, unmark and delete.
      *
-     * @param line
-     * @return
+     * @param indexString indexString contains a possible label
+     * @return the index (0-indexed)
      */
-    public int parseIndex(String line) throws InvalidInstructionException {
-        return Integer.parseInt(line.split("\\s+")[1]) - 1;
+    public int parseIndex(String indexString) throws InvalidIndexInputException {
+        String[] lineArray = indexString.split("\\s+");
+        int numOfWords = lineArray.length;
+
+        if (numOfWords != 1) {
+            throw new InvalidIndexInputException(indexString);
+        }
+
+        Pattern pattern = Pattern.compile("\\d");
+        Matcher matcher = pattern.matcher(indexString);
+        if (!matcher.find()) {
+            throw  new InvalidIndexInputException(indexString);
+        }
+
+        System.out.println("label: " + Integer.parseInt(indexString));
+        return Integer.parseInt(indexString) - 1;
     }
 
     /**
@@ -111,11 +128,11 @@ public class Parser {
      * The method parses for description from the task line.
      *
      * @param task task line.
-     * @returnand array containing description.
-     * @throws InvalidToDoContentException
+     * @return an array containing description.
+     * @throws InvalidToDoContentException when the input format for todo is incorrect.
      */
     public Object[] parseToDoTask(String task) throws InvalidToDoContentException {
-        if (task.isBlank()) {
+        if (task.isBlank() || task.isEmpty()) {
             throw new InvalidToDoContentException();
         }
         return new Object[] {task};
@@ -125,12 +142,12 @@ public class Parser {
      * The method parses for description, dateAndTime from the task line.
      *
      * @param task task line
-     * @return and array containing description, dateAndTime.
+     * @return an array containing description, dateAndTime.
      * @throws InvalidDeadlineContentException when the input format for deadline is incorrect.
      * @throws DateTimeParseException when the input format for date and time is incorrect.
      */
     public Object[] parseDeadlineTask(String task) throws InvalidDeadlineContentException, DateTimeParseException {
-        String[] taskArray = task.split("/", 2);
+        String[] taskArray = task.split("/");
         trimSplitCommands(taskArray);
         if (taskArray.length != 2) {
             throw new InvalidDeadlineContentException();
@@ -139,7 +156,7 @@ public class Parser {
         String taskDescription = taskArray[0];
         String taskDate = taskArray[1];
 
-        String[] taskDateArray = taskArray[1].split("\\s+", 2);
+        String[] taskDateArray = taskArray[1].split("\\s+");
         if (taskDateArray.length != 2) {
             throw new InvalidDeadlineContentException();
         }
@@ -155,12 +172,12 @@ public class Parser {
      * The method parses for description, startDateAndTime, endDateAndTime from the task line.
      *
      * @param task task line
-     * @return and array containing description, startDateAndTime, endDateAndTime.
+     * @return an array containing description, startDateAndTime, endDateAndTime.
      * @throws InvalidEventContentException when the input format for event is not satisfied.
      * @throws DateTimeParseException when the input format for date and time is incorrect.
      */
     public Object[] parseEventTask(String task) throws InvalidEventContentException, DateTimeParseException {
-        String[] taskArray = task.split("/", 3);
+        String[] taskArray = task.split("/");
         trimSplitCommands(taskArray);
         if (taskArray.length != 3) {
             throw new InvalidEventContentException();
@@ -170,8 +187,8 @@ public class Parser {
         String taskStart = taskArray[1];
         String taskEnd = taskArray[2];
 
-        String[] taskStartArray = taskStart.split("\\s+", 2);
-        String[] taskEndArray = taskEnd.split("\\s+", 2);
+        String[] taskStartArray = taskStart.split("\\s+");
+        String[] taskEndArray = taskEnd.split("\\s+");
 
         if (taskStartArray.length != 2 || taskEndArray.length != 2) {
             throw new InvalidEventContentException();

@@ -81,5 +81,12 @@ public class Ui {
         System.out.println(e.getMessage());
     }
 
+    public void printInvalidIndexInputException(InvalidIndexInputException e) {
+        System.out.println(e.getMessage());
+    }
+
+    public void printDateTimeException() {
+        System.out.println("Date and/or time is inputted in the incorrect format.");
+    }
 
 }

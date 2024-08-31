@@ -13,6 +13,7 @@ public class InvalidToDoContentException extends InvalidTaskContentException {
     @Override
     public String getMessage() {
         return
+        "ToDo has been inputted in the wrong format.\n" +
         "Please key in the following format:\n" +
         "todo [task name]";
     }

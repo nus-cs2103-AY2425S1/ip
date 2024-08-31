@@ -12,6 +12,7 @@ public class InvalidEventContentException extends InvalidTaskContentException {
 
     public String toString() {
         return
+        "Event has been inputted in the wrong format.\n" +
         "Please key in the following format:\n" +
         "event [task name] /[start day, time and/or date] /[start day, time and/or date]";
     }

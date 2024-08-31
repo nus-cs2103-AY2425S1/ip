@@ -67,8 +67,6 @@ public class Storage {
             } catch (IOException e) {
                 f = null;
             }
-        } else {
-            System.out.println("File exists");
         }
 
         this.file = f;
@@ -94,24 +92,24 @@ public class Storage {
             String description = content[2];
 
             switch (type) {
-                case "T":
-                    taskList.addTask(new ToDo(description, isDone));
-                    break;
-                case "D":
-                    String[] dateAndTime = content[3].split(" ", 2);
-                    String date = dateAndTime[0];
-                    String time = dateAndTime[1];
-                    taskList.addTask(new Deadline(description, isDone, createDateTime(date, time)));
-                    break;
-                case "E":
-                    String[] startDateAndTime = content[3].split(" ", 2);
-                    String startDate = startDateAndTime[0];
-                    String startTime = startDateAndTime[1];
-                    String[] endDateAndTime = content[4].split(" ", 2);
-                    String endDate = endDateAndTime[0];
-                    String endTime = endDateAndTime[1];
-                    taskList.addTask(new Event(description, isDone, createDateTime(startDate, startTime), createDateTime(endDate,  endTime)));
-                    break;
+            case "T":
+                taskList.addTask(new ToDo(description, isDone));
+                break;
+            case "D":
+                String[] dateAndTime = content[3].split(" ", 2);
+                String date = dateAndTime[0];
+                String time = dateAndTime[1];
+                taskList.addTask(new Deadline(description, isDone, createDateTime(date, time)));
+                break;
+            case "E":
+                String[] startDateAndTime = content[3].split(" ", 2);
+                String startDate = startDateAndTime[0];
+                String startTime = startDateAndTime[1];
+                String[] endDateAndTime = content[4].split(" ", 2);
+                String endDate = endDateAndTime[0];
+                String endTime = endDateAndTime[1];
+                taskList.addTask(new Event(description, isDone, createDateTime(startDate, startTime), createDateTime(endDate,  endTime)));
+                break;
             }
         }
     }

@@ -53,21 +53,21 @@ public class Echoa {
                         ui.printListOfTasks(tasks);
                         break;
                     case "mark":
-                        int markIndex = parser.parseIndex(line);
+                        int markIndex = parser.parseIndex(task);
                         taskList.markTaskAsDone(markIndex);
                         ui.printMarkTaskMessage(taskList, markIndex);
                         storage.handleChange(taskList);
                         break;
                     case "unmark":
-                        int unmarkIndex = parser.parseIndex(line);
+                        int unmarkIndex = parser.parseIndex(task);
                         taskList.markTaskAsUndone(unmarkIndex);
                         ui.printUnmarkTaskMessage(taskList, unmarkIndex);
                         storage.handleChange(taskList);
                         break;
                     case "delete":
-                        int deleteIndex = parser.parseIndex(line);
-                        taskList.deleteTask(deleteIndex);
+                        int deleteIndex = parser.parseIndex(task);
                         ui.printDeleteTaskMessage(taskList, deleteIndex);
+                        taskList.deleteTask(deleteIndex);
                         storage.handleChange(taskList);
                         break;
                     case "todo":
@@ -114,31 +114,12 @@ public class Echoa {
             ui.askUserToTryAgain();
         } catch (ListOutOfBoundsException e) {
             ui.printListOutOfBoundsException(e);
-        }
-        finally {
-            scanner.close();
-        }
-    }
-
-    /**
-     * The main method is the entry point to the application.
-     * It catches any file related exception and handles them.
-     *
-     * @param args Arguments inputted into the command line interface.
-     */
-    public static void main(String[] args) {
-
-        String filePath = "./data/echoa.txt";
-        Echoa echoa = new Echoa(filePath);
-
-        try {
-            echoa.start();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } catch (IOException e) {
-            System.out.println("An error has occurred when writing to the file");
+        } catch (InvalidIndexInputException e) {
+            ui.printInvalidIndexInputException(e);
         } catch (DateTimeParseException e) {
-            System.out.println("Date or time is inputted in the wrong format!");
+            ui.printDateTimeException();
+        } finally {
+            scanner.close();
         }
     }
 }
