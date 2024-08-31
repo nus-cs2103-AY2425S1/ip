@@ -91,6 +91,16 @@ public class TaskList {
         return results.toArray(new String[0]);
     }
 
+    public String[] findTasksWith(String text) {
+        ArrayList<String> results = new ArrayList<>();
+        this.tasklist.forEach((task) -> {
+            if (task.hasInName(text)) {
+                results.add(task.toString());
+            }
+        });
+        return results.toArray(new String[0]);
+    }
+
     public String toString() {
         String str = "";
         for (int i = 0; i < this.tasklist.size(); i++) {
