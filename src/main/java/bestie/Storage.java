@@ -1,15 +1,15 @@
 package bestie;
 
-import bestie.task.Deadline;
-import bestie.task.Event;
-import bestie.task.Task;
-import bestie.task.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import bestie.task.Deadline;
+import bestie.task.Event;
+import bestie.task.Task;
+import bestie.task.Todo;
 
 /**
  * Deals with loading objects from the file and saving tasks in the bestie.txt file.
@@ -96,13 +96,18 @@ public class Storage {
                     newTask = new Event(description, start, end);
                     tasks.add(newTask);
                     break;
+
+                default:
+                    newTask = null;
                 }
+
 
                 if (newTask != null) {
                     if (isCompleted) {
                         newTask.markTaskDone();
                     }
                 }
+
             }
         } catch (IOException e) {
             System.out.println("An error occured loading tasks from the file.");

@@ -3,14 +3,19 @@ package bestie.task;
 /**
  * Represents an abstract Task class that contains general information about Event, Deadline and Todo tasks.
  */
-abstract public class Task {
+public abstract class Task {
 
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Creates a task with its description.
+     *
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description;
-        this.isDone  = false;
+        this.isDone = false;
     }
 
     /**
@@ -58,6 +63,6 @@ abstract public class Task {
      */
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() +"] " + this.description;
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 }

@@ -1,8 +1,11 @@
-package bestie.task;// import libraries necessary for bestie to understand the dates
+package bestie.task; // import libraries necessary for bestie to understand the dates
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Creates an instance of a deadline task.
+ */
 public class Deadline extends Task {
 
     protected String by;
@@ -52,4 +55,5 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.formattedDeadline + ")";
     }
+
 }

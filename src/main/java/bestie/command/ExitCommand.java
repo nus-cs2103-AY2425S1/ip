@@ -4,6 +4,9 @@ import bestie.Storage;
 import bestie.TaskList;
 import bestie.Ui;
 
+/**
+ * Creates a command for exiting the programme.
+ */
 public class ExitCommand extends Command {
 
     /**

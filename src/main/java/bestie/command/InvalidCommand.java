@@ -4,6 +4,9 @@ import bestie.Storage;
 import bestie.TaskList;
 import bestie.Ui;
 
+/**
+ * Creates a command that tells the user their input was invalid.
+ */
 public class InvalidCommand extends Command {
     /**
      * Prints message on the console to show that user has entered an invalid command.

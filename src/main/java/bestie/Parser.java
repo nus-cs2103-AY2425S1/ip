@@ -1,12 +1,24 @@
 package bestie;
 
-import bestie.command.*;
+import java.time.format.DateTimeParseException;
+
+import bestie.command.AddCommand;
+import bestie.command.Command;
+import bestie.command.DeleteCommand;
+import bestie.command.ExitCommand;
+import bestie.command.FindCommand;
+import bestie.command.InvalidCommand;
+import bestie.command.ListCommand;
+import bestie.command.MarkCommand;
+import bestie.command.UnmarkCommand;
 import bestie.task.Deadline;
 import bestie.task.Event;
 import bestie.task.Todo;
 
-import java.time.format.DateTimeParseException;
 
+/**
+ * Creates an instance of the parser to understand user input and executes command.
+ */
 public class Parser {
     /**
      * Parses user input to understand command and execute the corresponding command.
@@ -14,9 +26,9 @@ public class Parser {
      * @param userInput user input through CLI
      * @return command object corresponding to user's command input
      */
-    public static Command parse (String userInput) {
+    public static Command parse(String userInput) {
         String[] parts = userInput.split(" ");
-        String commandWord = parts[0];// first word only!!!
+        String commandWord = parts[0]; // first word only!!!
 
         switch(commandWord) {
         case("bye"):
@@ -80,7 +92,8 @@ public class Parser {
                 return new AddCommand(new Event(description, start, end));
             } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
                 System.out.println("You did not input the event in a valid format.");
-                System.out.println("Please follow the format \"event (name of event) /from (start time) /to (end time)\"");
+                System.out.println("Please follow the format \"event (name of event) /from (start time) "
+                        + "/to (end time)\"");
             } catch (DateTimeParseException e) {
                 System.out.println("You did not input the date and time in the correct format.");
                 System.out.println("Please stick to the correct format: YYYY-MM-DD HHMM");
@@ -91,7 +104,7 @@ public class Parser {
             return new InvalidCommand();
         }
 
-        return new EmptyCommand();
+        return null;
 
     }
 

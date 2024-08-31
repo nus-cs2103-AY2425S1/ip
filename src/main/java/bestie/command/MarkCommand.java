@@ -4,6 +4,9 @@ import bestie.Storage;
 import bestie.TaskList;
 import bestie.Ui;
 
+/**
+ * Creates a command that marks a task in the list.
+ */
 public class MarkCommand extends Command {
 
     private int index; // index of task that has been marked
@@ -27,7 +30,7 @@ public class MarkCommand extends Command {
             tasks.getTask(this.index).markTaskDone();
             ui.showTaskMarked(tasks.getTask(this.index));
         } else {
-            ui.showIndexOutOfBoundsMessage(this.index);
+            ui.showIndexOutOfBoundsMessage(this.index, tasks);
         }
 
     }

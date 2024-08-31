@@ -1,16 +1,15 @@
 package bestie;
 
-import bestie.task.Task;
-
-import java.sql.Array;
 import java.util.ArrayList;
+
+import bestie.task.Task;
 
 /**
  * Contains the list of tasks, and has operations to add or delete tasks in the list.
  */
 public class TaskList {
 
-    ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     /**
      * Initialises the task list, which is an ArrayList of Task objects.
@@ -19,6 +18,11 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Initialises task list when there is already an exising set of tasks.
+     *
+     * @param tasks Existing set of user tasks.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
@@ -70,6 +74,12 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Finds the list of tasks that have description matching the keyword.
+     *
+     * @param keyword Particular word in the task user is searching for.
+     * @return Arraylist of all tasks which have descriptions containing the keyword.
+     */
     public ArrayList<Task> findMatchingTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {

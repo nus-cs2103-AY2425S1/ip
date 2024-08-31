@@ -4,6 +4,9 @@ import bestie.Storage;
 import bestie.TaskList;
 import bestie.Ui;
 
+/**
+ * Creates a command to remove a specified task from the list.
+ */
 public class DeleteCommand extends Command {
     // delete tasks from list
     private int index; // item to be deleted
@@ -34,7 +37,7 @@ public class DeleteCommand extends Command {
             tasks.deleteTask(this.index);
             ui.showTaskDeleted(tasks.size());
         } else {
-            ui.showIndexOutOfBoundsMessage(this.index);
+            ui.showIndexOutOfBoundsMessage(this.index, tasks);
         }
     }
 }

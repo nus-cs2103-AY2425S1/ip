@@ -1,9 +1,9 @@
 package bestie;
 
-import bestie.task.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import bestie.task.Task;
 
 /**
  * Deals with interactions with the user.
@@ -14,8 +14,9 @@ public class Ui {
     private Scanner sc;
 
     /**
+     * Creates an instance of the object that displays messages to the user on the console.
      *
-     * @param sc
+     * @param sc Input scanner.
      */
     public Ui(Scanner sc) {
         this.sc = sc;
@@ -47,16 +48,17 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon! :)");
     }
 
-    /** Prints nicely formatted tasks in the user's task list.
+    /**
+     * Prints nicely formatted tasks in the user's task list.
      * Each task is preceded by its index in the list, the type of task and whether it has been completed.
      *
      * @param tasks Tasks in the user's list of tasks.
      */
     public void displayTasks(ArrayList<Task> tasks) {
         System.out.println("Sure! Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++){
+        for (int i = 0; i < tasks.size(); i++) {
             int index = i + 1;
-            System.out.println(index +"." + tasks.get(i).toString());
+            System.out.println(index + "." + tasks.get(i).toString());
         }
     }
 
@@ -111,11 +113,11 @@ public class Ui {
      *
      * @param taskSize Number of tasks in the list of tasks.
      */
-    public void showIndexOutOfBoundsMessage(int taskSize) {
+    public void showIndexOutOfBoundsMessage(int taskSize, TaskList tasks) {
         if (taskSize == 1) {
             System.out.println("That task does not exist. There is only 1 task in your list!");
         } else {
-            System.out.println("That task does not exist. There are only " + taskSize
+            System.out.println("That task does not exist. There are only " + tasks.size()
                     + " tasks in your list!");
         }
         System.out.println("Please key in a valid index.");
@@ -125,8 +127,8 @@ public class Ui {
      * Prints message that user has keyed in an invalid command, that is not one of the accepted commands.
      */
     public void invalidCommand() {
-        System.out.println("Invalid command! Please remember to start with \"todo\", \"deadline\" " +
-                "or \"event\".\nDouble check your spelling for other common commands like \"unmark\" or \"list\".");
+        System.out.println("Invalid command! Please remember to start with \"todo\", \"deadline\" "
+                + "or \"event\".\nDouble check your spelling for other common commands like \"unmark\" or \"list\".");
     }
 
     /**

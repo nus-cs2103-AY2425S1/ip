@@ -4,6 +4,9 @@ import bestie.Storage;
 import bestie.TaskList;
 import bestie.Ui;
 
+/**
+ * Creates a command that unmarks a task in the list.
+ */
 public class UnmarkCommand extends Command {
 
     private int index; // index of task that has been marked
@@ -27,7 +30,7 @@ public class UnmarkCommand extends Command {
             tasks.getTask(this.index).markUndone();
             ui.showTaskUnmarked(tasks.getTask(this.index));
         } else {
-            ui.showIndexOutOfBoundsMessage(this.index);
+            ui.showIndexOutOfBoundsMessage(this.index, tasks);
         }
     }
 }

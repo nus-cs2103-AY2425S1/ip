@@ -1,8 +1,8 @@
 package bestie.task;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
 
@@ -11,6 +11,10 @@ public class DeadlineTest {
         Deadline deadline = new Deadline("submit tutorial", "2024-08-29 1900");
         assertEquals("submit tutorial", deadline.getDescription());
         assertEquals("[D][ ] submit tutorial (by: Aug 29 2024 7:00 pm)", deadline.toString());
+    }
+
+    @Test
+    void constructor_incorrectInput_errorMessageDisplayed() {
     }
 
     @Test

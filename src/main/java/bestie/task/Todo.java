@@ -1,5 +1,8 @@
 package bestie.task;
 
+/**
+ * Creates a new todo task.
+ */
 public class Todo extends Task {
 
     /**

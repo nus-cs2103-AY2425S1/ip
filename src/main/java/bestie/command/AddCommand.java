@@ -4,6 +4,10 @@ import bestie.Storage;
 import bestie.TaskList;
 import bestie.Ui;
 import bestie.task.Task;
+
+/**
+ * Creates a command to add a new task to the list.
+ */
 public class AddCommand extends Command {
 
     private Task task;

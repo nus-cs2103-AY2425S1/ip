@@ -1,10 +1,11 @@
 package bestie;
 
-import bestie.task.Task;
-import bestie.task.Todo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import bestie.task.Task;
+import bestie.task.Todo;
 
 public class TaskListTest {
     @Test

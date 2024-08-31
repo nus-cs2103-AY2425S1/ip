@@ -3,6 +3,9 @@ package bestie.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Creates an instance of an event task.
+ */
 public class Event extends Task {
 
     protected String start;
@@ -20,7 +23,7 @@ public class Event extends Task {
      * @param start Start time of the task in the format YYYY-MM-DD HHMM.
      * @param end End time of the task in the format YYYY-MM-DD HHMM.
      */
-    public Event(String description, String start, String end){
+    public Event(String description, String start, String end) {
         super(description);
         this.start = start;
         this.end = end;

@@ -4,6 +4,9 @@ import bestie.Storage;
 import bestie.TaskList;
 import bestie.Ui;
 
+/**
+ * Creates a command that displays all tasks in the list to the user.
+ */
 public class ListCommand extends Command {
     /**
      * Displays all the tasks in the user's task list.
