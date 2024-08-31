@@ -3,7 +3,6 @@
 	What can I do for you?
 	___________________________________________
 
-	Save file already exists, loading tasks from save file
 	___________________________________________
 	Tasks cleared
 	___________________________________________

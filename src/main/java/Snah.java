@@ -22,8 +22,9 @@ public class Snah {
     private final static String END_DIVIDER = "___________________________________________\n";
 
     public static void main(String[] args) {
+        Storage storage = new Storage();
         greet();
-        chatLoop(getTaskListFromSaveFile());
+        chatLoop(storage);
     }
 
     public static void chatbotPrint(String message) {
@@ -37,67 +38,11 @@ public class Snah {
         chatbotPrint(END_DIVIDER);
     }
 
-    public static void saveTaskToSaveFile(ArrayList<Task> tasks) {
-        try {
-            Files.newBufferedWriter(Paths.get("snah.txt"),
-                    StandardOpenOption.TRUNCATE_EXISTING).close();
-
-            for (Task task : tasks) {
-                String content = task.toSaveFile() + System.lineSeparator();
-                Files.write(Paths.get("snah.txt"), content.getBytes(), StandardOpenOption.CREATE,
-                        StandardOpenOption.APPEND);
-            }
-        } catch (IOException e) {
-            chatbotPrint("An error occurred while writing to the file.");
-        }
-    }
-
-    public static ArrayList<Task> getTaskListFromSaveFile() {
-
-        ArrayList<Task> tasksList = new ArrayList<>();
-        try {
-            Files.createFile(Paths.get("snah.txt"));
-        } catch (IOException e) {
-            chatbotPrint("Save file already exists, loading tasks from save file");
-        }
-
-        try {
-            List<String> lines = Files.readAllLines(Paths.get("snah.txt"));
-            for (String line : lines) {
-                String[] data = line.split(":");
-
-                if (data[0].startsWith("T")) {
-                    ToDo newTask = new ToDo(data[2]);
-                    if (data[1].equals("x")) {
-                        newTask.markAsDone();
-                    }
-                    tasksList.add(newTask);
-                } else if (data[0].startsWith("D")) {
-                    Task newTask = new Deadline(data[2], data[3]);
-                    if (data[1].equals("x")) {
-                        newTask.markAsDone();
-                    }
-                    tasksList.add(newTask);
-                } else if (data[0].startsWith("E")) {
-                    Task newTask = new Event(data[2], data[3], data[4]);
-                    if (data[1].equals("x")) {
-                        newTask.markAsDone();
-                    }
-                    tasksList.add(newTask);
-                }
-
-            }
-
-        } catch (IOException e) {
-            chatbotPrint("No save file found, starting with a clean slate");
-        }
-
-        return tasksList;
-    }
-
-    public static void chatLoop(ArrayList<Task> tasksList) {
+    public static void chatLoop(Storage storage) {
         Scanner scanner = new Scanner(System.in);
         String userInput = "";
+
+        ArrayList<Task> tasksList = storage.getTaskLists();
 
         while (true) {
             userInput = scanner.nextLine();
@@ -111,7 +56,7 @@ public class Snah {
                 for (int i = 0; i < tasksList.size(); i++) {
                     chatbotPrint(String.format("%d. %s", i + 1, tasksList.get(i)));
                 }
-            } else if (userInput.startsWith("clear")) {
+            } else if (userInput.startsWith(CLEAR_TASKS)) {
                 tasksList.clear();
                 chatbotPrint("Tasks cleared");
             } else if (userInput.startsWith(MARK_DONE_STRING)) {
@@ -254,8 +199,7 @@ public class Snah {
                 }
             }
             chatbotPrint(END_DIVIDER);
-
-            saveTaskToSaveFile(tasksList);
+            storage.saveTaskList(tasksList);
 
         }
         scanner.close();
