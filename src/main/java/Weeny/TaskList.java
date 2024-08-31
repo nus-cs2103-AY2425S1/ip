@@ -39,8 +39,8 @@ public class TaskList {
      *
      * @param index The index of the task to mark.
      */
-    public void markTask(int index) {
-        tasks.get(index).setMark();
+    public void markAsDone(int index) {
+        tasks.get(index).markAsDone();
     }
 
     /**
@@ -48,8 +48,8 @@ public class TaskList {
      *
      * @param index The index of the task to unmark.
      */
-    public void unmarkTask(int index) {
-        tasks.get(index).setUnmark();
+    public void markAsNotDone(int index) {
+        tasks.get(index).markAsNotDone();
     }
 
     /**

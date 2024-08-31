@@ -1,5 +1,6 @@
 package weeny;
 
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -9,29 +10,23 @@ import java.time.LocalTime;
 public class Parser {
 
     /**
-     * Converts a date string from "dd/MM/yyyy" format to a LocalDate object.
+     * Converts a date string in the format "dd/MM/yyyy" to a LocalDate object.
      *
-     * @param date The date string.
+     * @param date Date string to convert.
      * @return The corresponding LocalDate object.
      */
     public LocalDate convertDate(String date) {
-        String[] splitDate = date.split("/");
-        int day = Integer.parseInt(splitDate[0]);
-        int month = Integer.parseInt(splitDate[1]);
-        int year = Integer.parseInt(splitDate[2]);
-        return LocalDate.of(year, month, day);
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     /**
-     * Converts a time string from "HHmm" format to a LocalTime object.
+     * Converts a time string in the format "HHmm" to a LocalTime object.
      *
-     * @param time The time string.
+     * @param time Time string to convert.
      * @return The corresponding LocalTime object.
      */
     public LocalTime convertTime(String time) {
-        int hour = Integer.parseInt(time.substring(0, 2));
-        int minute = Integer.parseInt(time.substring(2));
-        return LocalTime.of(hour, minute);
+        return LocalTime.parse(time, DateTimeFormatter.ofPattern("HHmm"));
     }
 
     /**

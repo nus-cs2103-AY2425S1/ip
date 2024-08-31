@@ -82,7 +82,7 @@ public class Storage {
             }
 
             if (Integer.parseInt(processTask[1]) == 1) {
-                currentTask.setMark();
+                currentTask.markAsDone();
             }
             taskList.add(currentTask);
         }
