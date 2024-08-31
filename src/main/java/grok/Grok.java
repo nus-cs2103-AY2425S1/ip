@@ -1,20 +1,10 @@
 package grok;
 
 import commands.Command;
-
 import exceptions.GrokInvalidUserInputException;
-
 import parser.Parser;
-
 import storage.Storage;
-
 import taskList.TaskList;
-
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
-
 import ui.Ui;
 
 import java.util.Scanner;
@@ -30,20 +20,16 @@ public class Grok {
     private final Ui ui;
     private final TaskList taskList;
     private final Parser parser;
+    private final Scanner scanner;
 
     public Grok() {
         storage = new Storage(TEXT_FILE_DIRECTORY);
         taskList = new TaskList(storage.parseTextStorage());
         ui = new Ui();
         parser = new Parser();
+        scanner = new Scanner(System.in);
 
         ui.printWelcomeMessage();
-
-        // If data changes, prompt a save to text file
-        boolean hasUnsavedChanges = false;
-
-        Scanner scanner = new Scanner(System.in);
-
         while (true) {
             try {
                 Command c = parser.parseUserInput(scanner.nextLine(), taskList);
