@@ -58,4 +58,13 @@ public class TaskManager {
     public int size() {
         return taskList.size();
     }
+    public Task getTask(int index) throws TaskListEmptyException, TaskNumberNotFoundException {
+        if (size() == 0) {
+            throw new TaskListEmptyException();
+        }
+        if (index < 0 || index > size() - 1) {
+            throw new TaskNumberNotFoundException(index + 1, size());
+        }
+        return taskList.get(index);
+    }
 }
