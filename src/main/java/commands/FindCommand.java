@@ -1,7 +1,7 @@
-package Commands;
+package commands;
 
-import Task.TaskList;
-import Task.Task;
+import task.TaskList;
+import task.Task;
 
 import java.util.ArrayList;
 

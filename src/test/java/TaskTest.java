@@ -1,4 +1,4 @@
-import Task.Task;
+import task.Task;
 import exceptions.InvalidTaskException;
 import exceptions.NoTaskDescriptionException;
 import org.junit.jupiter.api.Test;

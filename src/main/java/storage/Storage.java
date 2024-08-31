@@ -1,14 +1,8 @@
-package Storage;
+package storage;
 
-import Parser.Parser;
-import exceptions.InvalidTaskException;
-import exceptions.NoTaskDescriptionException;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
-import Task.Task;
 
 public class Storage {
 
@@ -26,7 +20,7 @@ public class Storage {
             directory.mkdir();
         }
 
-        if(!file.exists()) {
+        if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {

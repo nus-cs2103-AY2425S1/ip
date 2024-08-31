@@ -1,6 +1,6 @@
-package Commands;
+package commands;
 
-import Task.TaskList;
+import task.TaskList;
 
 /**
  * Represents a command to display tasks in specified TaskList

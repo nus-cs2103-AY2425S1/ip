@@ -1,17 +1,18 @@
-package Task;
+package task;
 
-import Parser.Parser;
-import Storage.Storage;
-import exceptions.InvalidDateException;
-import exceptions.InvalidTaskException;
-import exceptions.NoTaskDescriptionException;
+import parser.Parser;
+import storage.Storage;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import exceptions.InvalidDateException;
 import java.util.stream.Collectors;
+import exceptions.InvalidTaskException;
+import exceptions.NoTaskDescriptionException;
 
 /**
  * Manages a list of tasks. This class handles the addition, removal, updating,
@@ -96,7 +97,7 @@ public class TaskList {
      * @return The task that was removed.
      * @throws IndexOutOfBoundsException If the provided index is out of range.
      */
-    public Task removeTask(int deleteIndex) throws IndexOutOfBoundsException{
+    public Task removeTask(int deleteIndex) throws IndexOutOfBoundsException {
         Task taskToDelete = inputHistory.get(deleteIndex);
         inputHistory.remove(taskToDelete);
         return taskToDelete;
@@ -114,12 +115,12 @@ public class TaskList {
         Task task = inputHistory.get(indexToChange);
         if (action.equals("mark")) {
             task.changeStatus(true);
-            System.out.println("GOOD RIDDANCE! Finally, this task is done:\n" +
-                    task);
+            System.out.println("GOOD RIDDANCE! Finally, this task is done:\n"
+                    + task);
         } else {
             task.changeStatus(false);
-            System.out.println("Alright, this task is not done yet faster finish leh:\n" +
-                    task);
+            System.out.println("Alright, this task is not done yet faster finish leh:\n"
+                    + task);
         }
         System.out.println("---------------");
     }
@@ -130,9 +131,9 @@ public class TaskList {
      */
     public void displayList() {
         System.out.println("---------------");
-        inputHistory.forEach(task -> System.out.println((this.inputHistory.indexOf(task) + 1) +
-                ". " +
-                task));
+        inputHistory.forEach(task -> System.out.println((this.inputHistory.indexOf(task) + 1)
+                + ". "
+                + task));
         System.out.println("---------------\n");
     }
 

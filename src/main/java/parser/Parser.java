@@ -1,6 +1,6 @@
-package Parser;
+package parser;
 
-import Commands.*;
+import commands.*;
 import exceptions.InvalidDateException;
 import exceptions.InvalidTaskException;
 
@@ -49,7 +49,8 @@ public class Parser {
         }
     }
 
-    public static String convertDateFormat(String dateStr, String sourceFormat, String resultFormat) throws InvalidDateException {
+    public static String convertDateFormat(String dateStr, String sourceFormat, String resultFormat)
+            throws InvalidDateException {
         try {
             SimpleDateFormat sourceDateFormat = new SimpleDateFormat(sourceFormat);
             Date date = sourceDateFormat.parse(dateStr);

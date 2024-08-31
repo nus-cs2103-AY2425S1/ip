@@ -1,6 +1,6 @@
-package Task.TaskType;
+package task.tasktype;
 
-import Task.Task;
+import task.Task;
 
 /**
  * Represents a to-do task.

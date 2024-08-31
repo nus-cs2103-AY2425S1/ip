@@ -1,7 +1,7 @@
-package Commands;
+package commands;
 
-import Task.TaskList;
-import Task.Task;
+import task.TaskList;
+import task.Task;
 import exceptions.InvalidTaskException;
 import exceptions.NoTaskDescriptionException;
 
@@ -19,7 +19,7 @@ public class AddTaskCommand extends Command {
      * @param userInput The user input containing the task description and details.
      */
     public AddTaskCommand(String userInput) {
-       this.userInput = userInput;
+        this.userInput = userInput;
     }
 
     /**

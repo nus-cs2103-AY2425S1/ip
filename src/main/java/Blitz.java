@@ -1,9 +1,9 @@
-import Storage.Storage;
-import Task.TaskList;
+import storage.Storage;
+import task.TaskList;
 import exceptions.InvalidDateException;
 
 
-public class Blitz{
+public class Blitz {
 
     private Storage storage;
     private TaskList taskList;
@@ -21,7 +21,7 @@ public class Blitz{
 
     public static void main(String[] args) {
         String path = "src/main/data/blitz.txt";
-        Blitz blitz_jr = new Blitz(path);
+        Blitz blitzJr = new Blitz(path);
     }
 
     public TaskList getTaskList() {

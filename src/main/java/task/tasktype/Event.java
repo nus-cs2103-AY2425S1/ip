@@ -1,17 +1,17 @@
-package Task.TaskType;
+package task.tasktype;
 
-import Task.Task;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task{
+import task.Task;
 
-    LocalDate startDate;
-    LocalTime startTime;
-    LocalDate endDate;
-    LocalTime endTime;
+public class Event extends Task {
+
+    private LocalDate startDate;
+    private LocalTime startTime;
+    private LocalDate endDate;
+    private LocalTime endTime;
 
     /**
      * Constructs a new {@code deadline} task with the specified description and deadline

@@ -2,4 +2,5 @@
 2. [T][ ] water2
 3. [T][ ] water 3
 4. [D][ ] hike (by: Oct 10 2019)
-5. [D][ ] drink water (by: Jan 1 2020 19:00)
+5. [D][ ] drink water (by: Jan 1 2020)
+6. [D][ ] water (by: Jan 10 2020 19:00)

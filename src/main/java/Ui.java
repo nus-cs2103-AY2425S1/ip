@@ -1,25 +1,24 @@
-import Commands.Command;
-import Commands.ExitCommand;
-import Parser.Parser;
-import Task.TaskList;
-import exceptions.InvalidTaskException;
-
-import java.util.Arrays;
 import java.util.Scanner;
+
+import commands.Command;
+import commands.ExitCommand;
+import exceptions.InvalidTaskException;
+import parser.Parser;
+import task.TaskList;
 
 public class Ui {
 
     private TaskList taskList;
 
-    public Ui(TaskList taskList){
+    public Ui(TaskList taskList) {
         this.taskList = taskList;
         this.run();
     }
 
     public void run() {
-        System.out.println("---------------\n" +
-                "Hello! I'm BLITZ \n" +
-                "What can I do for you?");
+        System.out.println("---------------\n"
+                + "Hello! I'm BLITZ \n"
+                + "What can I do for you?");
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String userInput = scanner.nextLine();
