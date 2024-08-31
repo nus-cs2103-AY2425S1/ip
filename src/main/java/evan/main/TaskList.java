@@ -61,4 +61,16 @@ public class TaskList {
         }
         return result.toString();
     }
+
+    @Override
+    public String toString() {
+        if (tasks.isEmpty()) {
+            return "Hooray! Your task list is empty!";
+        }
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            result.append(String.format("%d.%s\n", i + 1, tasks.get(i)));
+        }
+        return result.toString();
+    }
 }
