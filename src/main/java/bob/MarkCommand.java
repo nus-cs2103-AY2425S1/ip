@@ -7,11 +7,13 @@ public class MarkCommand extends Command {
 
     /**
      * Creates a command object that operates on task i of the tasklist
+     *
      * @param taskIndex
      */
     public MarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
@@ -21,7 +23,7 @@ public class MarkCommand extends Command {
             ui.show(String.format("Nice! I've marked this task as done:\n\t%s", task));
         } catch (IndexOutOfBoundsException e) {
             ui.show("Nice try but there's no such task.");
-        } catch (IOException e){
+        } catch (IOException e) {
             ui.show("I can't remember that for some reason T T");
         }
     }

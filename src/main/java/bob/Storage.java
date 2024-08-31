@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class Storage {
 
     private Path filePath;
+
     public Storage(String filePath) throws IOException {
         this.filePath = Paths.get(filePath);
         Files.createDirectories(this.filePath.getParent());
@@ -32,6 +33,7 @@ public class Storage {
         }
         return temp;
     }
+
     /**
      * Saves tasklist in an appropriate format within storage
      *

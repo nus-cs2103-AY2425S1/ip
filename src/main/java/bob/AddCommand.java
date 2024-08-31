@@ -6,12 +6,12 @@ public class AddCommand extends Command {
     private Task task;
 
     /**
-     *
      * @param task task to be added
      */
     public AddCommand(Task task) {
         this.task = task;
     }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {

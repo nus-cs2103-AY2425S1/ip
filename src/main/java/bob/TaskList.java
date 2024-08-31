@@ -41,11 +41,11 @@ public class TaskList {
         }
         return text.toString();
     }
-    
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        for (int i = 0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             str.append((i + 1)).append(":").append(list.get(i));
             if (i < list.size() - 1) {
                 str.append("\n");
