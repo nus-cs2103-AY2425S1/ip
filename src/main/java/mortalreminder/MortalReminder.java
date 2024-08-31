@@ -1,13 +1,13 @@
-package mortal_reminder;
-
-import mortal_reminder.backend.Processor;
-import mortal_reminder.backend.Storage;
-import mortal_reminder.backend.TaskList;
-import mortal_reminder.commands.Command;
-import mortal_reminder.io.FormattedPrinting;
-import mortal_reminder.io.Parser;
+package mortalreminder;
 
 import java.util.Scanner;
+
+import mortalreminder.backend.Processor;
+import mortalreminder.backend.Storage;
+import mortalreminder.backend.TaskList;
+import mortalreminder.commands.Command;
+import mortalreminder.io.FormattedPrinting;
+import mortalreminder.io.Parser;
 
 /**
  * Main class of the MortalReminder App.
@@ -25,11 +25,11 @@ public class MortalReminder {
     public static void main(String[] args) {
         MortalReminder mortalReminder = new MortalReminder();
         mortalReminder.welcome();
-        mortalReminder.ProcessInputs();
+        mortalReminder.processInputs();
         mortalReminder.goodbye();
     }
 
-    private void ProcessInputs() {
+    private void processInputs() {
         Scanner inputScanner = new Scanner(System.in);
         Processor processor = new Processor();
 
@@ -37,7 +37,7 @@ public class MortalReminder {
         while (shouldContinue) {
             String input = inputScanner.nextLine();
             Command command = Parser.parseInputFromUser(input);
-            shouldContinue = processor.HandleCommand(command, this.taskList, shouldContinue);
+            shouldContinue = processor.handleCommand(command, this.taskList, shouldContinue);
         }
     }
 

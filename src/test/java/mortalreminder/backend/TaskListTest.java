@@ -1,7 +1,7 @@
-package mortal_reminder.backend;
+package mortalreminder.backend;
 
-import mortal_reminder.tasks.Task;
-import mortal_reminder.tasks.ToDoStub;
+import mortalreminder.tasks.Task;
+import mortalreminder.tasks.ToDoStub;
 
 import org.junit.jupiter.api.Test;
 

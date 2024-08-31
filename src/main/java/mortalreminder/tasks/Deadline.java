@@ -1,4 +1,4 @@
-package mortal_reminder.tasks;
+package mortalreminder.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;

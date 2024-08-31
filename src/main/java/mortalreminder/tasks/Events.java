@@ -1,4 +1,4 @@
-package mortal_reminder.tasks;
+package mortalreminder.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -18,7 +18,8 @@ public class Events extends Task implements TimedTask {
      * Constructs a new {@code Events} task with the specified description.
      * <p>
      * The description should include the task details followed by the start and end times,
-     * separated by the "/from" and "/to" keywords. For example, "Team meeting /from 12-09-2024 1000 /to 12-09-2024 1100".
+     * separated by the "/from" and "/to" keywords. For example,
+     * "Team meeting /from 12-09-2024 1000 /to 12-09-2024 1100".
      *
      * @param description the description of the event, including start and end times.
      * @throws IllegalArgumentException if the description is improperly formatted.

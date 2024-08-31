@@ -1,19 +1,19 @@
-package mortal_reminder.backend;
-
-import mortal_reminder.commands.Command;
-import mortal_reminder.commands.CommandTypes;
-import mortal_reminder.io.FormattedPrinting;
-import mortal_reminder.tasks.Deadline;
-import mortal_reminder.tasks.Events;
-import mortal_reminder.tasks.Task;
-import mortal_reminder.tasks.TimedTask;
-import mortal_reminder.tasks.ToDo;
+package mortalreminder.backend;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+
+import mortalreminder.commands.Command;
+import mortalreminder.commands.CommandTypes;
+import mortalreminder.io.FormattedPrinting;
+import mortalreminder.tasks.Deadline;
+import mortalreminder.tasks.Events;
+import mortalreminder.tasks.Task;
+import mortalreminder.tasks.TimedTask;
+import mortalreminder.tasks.ToDo;
 
 // javadocs was generated using ChatGPT with minor edits.
 /**
@@ -37,7 +37,7 @@ public class Processor {
      * @param shouldContinue a boolean indicating whether to continue processing commands.
      * @return {@code false} if the {@code BYE} command is issued, otherwise {@code true}.
      */
-    public boolean HandleCommand(Command command, TaskList taskList, boolean shouldContinue) {
+    public boolean handleCommand(Command command, TaskList taskList, boolean shouldContinue) {
         CommandTypes commandType = command.commandType();
 
         String commandDetails = Arrays.stream(command.commandDetails())
@@ -66,10 +66,6 @@ public class Processor {
             createTask(commandDetails, taskList, commandType);
             break;
 
-        case UNKNOWN:
-            FormattedPrinting.unknownCommand();
-            break;
-
         case CLEAR_TASKS:
             taskList.clearList();
             Storage.clearListFile();
@@ -81,6 +77,10 @@ public class Processor {
 
         case BYE:
             shouldContinue = false;
+            break;
+
+        default:
+            FormattedPrinting.unknownCommand();
             break;
         }
 
@@ -157,11 +157,11 @@ public class Processor {
      * @param taskList the {@link TaskList} containing the tasks to check for upcoming due dates.
      */
     public void upcomingTasks(TaskList taskList) {
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<Task> tasks = new ArrayList<>();
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
-            if (Objects.equals(task.getType(), "D") ||
-                    Objects.equals(task.getType(), "E")) {
+            if (Objects.equals(task.getType(), "D")
+                    || Objects.equals(task.getType(), "E")) {
                 TimedTask timedTask = (TimedTask) task;
                 if (LocalDateTime.now().isBefore(timedTask.getDueDate()) && !task.getIsDone()) {
                     tasks.add(task);
