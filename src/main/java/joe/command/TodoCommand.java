@@ -7,6 +7,8 @@ import joe.task.Task;
 import joe.task.TaskList;
 import joe.task.Todo;
 
+import java.util.Objects;
+
 /**
  * This class represents the todo command.
  */
@@ -21,4 +23,18 @@ public class TodoCommand extends Command {
         taskList.addTask(newTask);
         ui.printAddedTask(newTask, taskList.getSize());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || this.getClass() != obj.getClass()) return false;
+        TodoCommand other = (TodoCommand) obj;
+        return Objects.equals(this.description, other.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return description != null ? description.hashCode() : 0;
+    }
+
 }
