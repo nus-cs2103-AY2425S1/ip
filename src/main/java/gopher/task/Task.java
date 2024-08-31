@@ -7,7 +7,14 @@ import java.lang.StringBuilder;
 import java.time.LocalDateTime;
 import gopher.parser.Parser;
 
+/**
+ * Represents the task that the user needs to track.
+ */
 public abstract class Task {
+    /**
+     * Represents the todo Task.
+     * Only includes task description.
+     */
     private static class ToDo extends Task {
         public ToDo(String name) {
             super(name);
@@ -26,6 +33,10 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Represents deadline task.
+     * Includes task description and due date.
+     */
     private static class Deadline extends Task {
         private LocalDateTime dueDate;
 
@@ -50,6 +61,10 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Represents event task.
+     * Include task description, start date and end date.
+     */
     private static class Event extends Task {
         private LocalDateTime startDate;
         private LocalDateTime endDate;
@@ -78,7 +93,10 @@ public abstract class Task {
         }
     }
 
+    /** Name of the Task */
     protected String name;
+
+    /** Whether the task is done */
     protected boolean isDone;
 
     private Task(String name) {
@@ -86,6 +104,16 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Factory method which creates different types of task
+     * depending on the input command.
+     *
+     * @param command task creation command
+     * @return task of the correct type
+     * @throws UnknownCommandException if command is not recognized
+     * @throws EmptyTaskDescriptionException if task description is empty
+     * @throws MissingTokenException if tokens is missing for the given task type
+     */
     public static Task of(String command) throws UnknownCommandException,
             EmptyTaskDescriptionException, MissingTokenException {
         String[] tokens = command.split(" ");
@@ -188,16 +216,32 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Gets the save file message representation of this task.
+     *
+     * @return save string format of the task
+     */
     public abstract String getSaveMessage();
 
+    /**
+     * Marks the given task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks the given task as not done.
+     */
     public void markAsNotDone() {
         this.isDone = false;
     }
 
+    /**
+     * Gets the stats icon of the task.
+     *
+     * @return stats icon of the task
+     */
     protected String getStatusIcon() {
         return isDone ? "X" : " ";
     }
