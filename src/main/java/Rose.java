@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -109,12 +110,22 @@ public class Rose {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        Storage storage = new Storage("./data/rose.txt");
+
+        try {
+            tasks = storage.load();
+        } catch (IOException e) {
+            System.out.println("We cannot load tasks: " + e.getMessage());
+            tasks = new ArrayList<>();
+        }
 
         String opening = horizontal + "\n    Hi gorgeous! I'm " + name + "~~\n"
                 + "    How can I help you today?\n    " + horizontal;
         String closing = horizontal + "\n    See you~~ Don't forget to drink some water ^_^\n    " + horizontal;
 
         printIndented(opening);
+
+
 
         String[] input = scanner.nextLine().split(" ",2);
         String message = "";
@@ -125,40 +136,40 @@ public class Rose {
 
             try {
                 switch (command) {
-                    case "list":
-                        showList();
-                        break;
-                    case "mark":
-                        markTask(Integer.valueOf(message));
-                        break;
-                    case "unmark":
-                        unmarkTask(Integer.valueOf(message));
-                        break;
-                    case "todo":
-                        if (message.isEmpty()) {
-                            throw new RoseException("You need to provide details for the TODO task.");
-                        }
-                        addTask(TaskType.TODO, message);
-                        break;
-                    case "event":
-                        if (message.isEmpty()) {
-                            throw new RoseException("You need to provide details for the EVENT task.");
-                        }
-                        addTask(TaskType.EVENT, message);
-                        break;
-                    case "deadline":
-                        if (message.isEmpty()) {
-                            throw new RoseException("You need to provide details for the DEADLINE task.");
-                        }
-                        addTask(TaskType.DEADLINE, message);
-                        break;
-                    case "delete":
-                        delete(Integer.valueOf(message));
-                        break;
-                    default:
-                        printIndented(horizontal);
-                        printIndented("OOPS!!! I'm sorry, but I don't know that command :-(");
-                        printIndented(horizontal);
+                case "list":
+                    showList();
+                    break;
+                case "mark":
+                    markTask(Integer.valueOf(message));
+                    break;
+                case "unmark":
+                    unmarkTask(Integer.valueOf(message));
+                    break;
+                case "todo":
+                    if (message.isEmpty()) {
+                        throw new RoseException("You need to provide details for the TODO task.");
+                    }
+                    addTask(TaskType.TODO, message);
+                    break;
+                case "event":
+                    if (message.isEmpty()) {
+                        throw new RoseException("You need to provide details for the EVENT task.");
+                    }
+                    addTask(TaskType.EVENT, message);
+                    break;
+                case "deadline":
+                    if (message.isEmpty()) {
+                        throw new RoseException("You need to provide details for the DEADLINE task.");
+                    }
+                    addTask(TaskType.DEADLINE, message);
+                    break;
+                case "delete":
+                    delete(Integer.valueOf(message));
+                    break;
+                default:
+                    printIndented(horizontal);
+                    printIndented("OOPS!!! I'm sorry, but I don't know that command :-(");
+                    printIndented(horizontal);
                 }
             } catch (RoseException e) {
                 printIndented(horizontal);
@@ -169,6 +180,13 @@ public class Rose {
                 printIndented("OOPS!!! You should provide a number of the task index.");
                 printIndented(horizontal);
             }
+
+            try {
+                storage.save(tasks);
+            } catch (IOException e) {
+                System.out.println("We cannot save the tasks: " + e.getMessage());
+            }
+
             input = scanner.nextLine().split(" ",2);
         }
 
