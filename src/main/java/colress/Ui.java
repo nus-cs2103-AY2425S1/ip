@@ -30,6 +30,7 @@ public final class Ui {
     private static final String PROMPT_EVENT_DESCRIPTION = "Enter the description of the event.";
     private static final String PROMPT_EVENT_END_TIME = "Enter the ending time of the event (in the form hh:mm).";
     private static final String PROMPT_EVENT_START_TIME = "Enter the starting time of the event (in the form hh:mm).";
+    private static final String PROMPT_KEYWORD = "Enter the keyword to find in the list.";
     private static final String PROMPT_TASK_DESCRIPTION = "Enter the description of the task.";
     private static final String PROMPT_TASK_NUMBER = "Enter the task number.";
     private static final String PROMPT_TASK_TYPE = "Enter the type of task you wish to add to your list.";
@@ -103,6 +104,15 @@ public final class Ui {
         command.execute(this, taskList);
     }
 
+
+    /**
+     * Prompts the user for a keyword to find in the list of tasks and returns it.
+     */
+    public String promptKeyword() {
+        print(PROMPT_KEYWORD);
+        return PARSER.getString();
+    }
+
     /**
      * Prompts the user to enter a task type to create and add to the list, reads the task type input by the user
      * using its Parser object and returns it.
@@ -141,7 +151,7 @@ public final class Ui {
         default:
             print(PROMPT_TASK_DESCRIPTION);
         }
-        return PARSER.getDescription();
+        return PARSER.getString();
     }
 
     /**
@@ -235,16 +245,20 @@ public final class Ui {
      *
      * @param taskList A TaskList object representing the current list of tasks, for the method to retrieve the tasks
      *     to print.
-     * @param printsAll A boolean argument to indicate whether the user wishes to print every task or not.
+     * @param listType A String argument to indicate whether to print all tasks or to prompt the user for additional
+     *     input.
      */
-    public void printTasks(TaskList taskList, boolean printsAll) {
+    public void printTasks(TaskList taskList, String listType) {
         if (taskList.isEmpty()) {
             print(MESSAGE_LIST_EMPTY);
-        } else if (!printsAll) {
+        } else if (Objects.equals(listType, "list")) {
+            String result = taskList.retrieveTasks();
+            print(Objects.equals(result, "") ? MESSAGE_LIST_EMPTY : result);
+        } else if (Objects.equals(listType, "date")) {
             String result = taskList.retrieveTasks(promptDate("date"));
             print(Objects.equals(result, "") ? MESSAGE_LIST_EMPTY : result);
-        } else {
-            String result = taskList.retrieveTasks();
+        } else if (Objects.equals(listType, "find")) {
+            String result = taskList.retrieveTasks(promptKeyword());
             print(Objects.equals(result, "") ? MESSAGE_LIST_EMPTY : result);
         }
     }
@@ -254,6 +268,6 @@ public final class Ui {
      */
     public void printConfirmationMessage(TaskList taskList, String message) {
         print(message);
-        printTasks(taskList, true);
+        printTasks(taskList, "list");
     }
 }

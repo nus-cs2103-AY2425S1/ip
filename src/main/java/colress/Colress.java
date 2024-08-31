@@ -43,7 +43,7 @@ public final class Colress {
         try {
             UI.welcome();
             UI.printLoadTaskStatus(STORAGE.loadTasks(TASK_LIST));
-            UI.printTasks(TASK_LIST, true);
+            UI.printTasks(TASK_LIST, "list");
             while (!UI.getHasCalledExitCommand()) {
                 UI.processInput(TASK_LIST);
                 STORAGE.writeToTaskFile(TASK_LIST);

@@ -123,4 +123,24 @@ public final class TaskList {
         }
         return "Here is your list:" + result;
     }
+
+    public String retrieveTasks(String keyword) {
+        String result = "";
+        if (TASKS.isEmpty()) {
+            return result;
+        } else {
+            for (int i = 0; i < TASKS.size(); i++) {
+                Task currTask = TASKS.get(i);
+                if (!currTask.containsInDescription(keyword)) {
+                    continue;
+                }
+                result += String.format("\n%d. " + TASKS.get(i), i + 1);
+            }
+        }
+
+        if (result.isEmpty()) {
+            return result;
+        }
+        return "Here is your list:" + result;
+    }
 }

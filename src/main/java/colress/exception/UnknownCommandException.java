@@ -13,7 +13,8 @@ public class UnknownCommandException extends Exception {
                 uncheck: uncheck an item to your list of tasks.
                 delete: delete an item from your list of tasks
                 list: print out your list of tasks.
-                date: print out deadlines and events that occur on a specific date.
+                date: print out deadlines and events that occur on a specified date.
+                find: print out tasks that contain a specified keyword.
                 bye: bid me farewell."""
         );
     }

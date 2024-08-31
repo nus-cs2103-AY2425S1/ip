@@ -12,11 +12,11 @@ public final class DateCommand extends ListCommand {
     }
 
     /**
-     * Facilitates listing all tasks in the provided TaskList object that fall on a specific date, using the provided
+     * Facilitates listing all tasks in the provided TaskList object that fall on a specified date, using the provided
      * Ui object to receive date input from the user and to print the output for the user.
      */
     @Override
     public void execute(Ui ui, TaskList taskList) {
-        ui.printTasks(taskList, false);
+        ui.printTasks(taskList, "date");
     }
 }

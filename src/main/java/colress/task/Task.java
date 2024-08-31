@@ -55,6 +55,13 @@ public abstract class Task {
     public abstract boolean fallsOnDate(LocalDate date);
 
     /**
+     * Checks if task contains a specified keyword in its description and returns the result.
+     */
+    public boolean containsInDescription(String keyword) {
+        return this.DESCRIPTION.contains(keyword);
+    }
+
+    /**
      * Returns a string representation of the task with delimiters to facilitate file reading.
      */
     public abstract String toTextFile();

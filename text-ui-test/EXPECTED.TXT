@@ -19,7 +19,8 @@ check: check off an item to your list of tasks.
 uncheck: uncheck an item to your list of tasks.
 delete: delete an item from your list of tasks
 list: print out your list of tasks.
-date: print out deadlines and events that occur on a specific date.
+date: print out deadlines and events that occur on a specified date.
+find: print out tasks that contain a specified keyword.
 bye: bid me farewell.
 ____________________________________________________________________
 
@@ -297,6 +298,24 @@ Here is your list:
 2. [ ][E] lecture (Aug 29 2024, 1400 to 1600)
 3. [X][D] assignment (Aug 30 2024)
 4. [ ][D] assignment1 (Aug 29 2024)
+____________________________________________________________________
+
+____________________________________________________________________
+Enter the keyword to find in the list.
+____________________________________________________________________
+
+____________________________________________________________________
+Here is your list:
+3. [X][D] assignment (Aug 30 2024)
+4. [ ][D] assignment1 (Aug 29 2024)
+____________________________________________________________________
+
+____________________________________________________________________
+Enter the keyword to find in the list.
+____________________________________________________________________
+
+____________________________________________________________________
+Your list is empty.
 ____________________________________________________________________
 
 ____________________________________________________________________
