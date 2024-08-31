@@ -1,5 +1,4 @@
 package luffy;
-
 import java.io.IOException;
 
 /**
@@ -31,5 +30,4 @@ public class AddCommand extends Command {
         }
         ui.showAddedTask(this.task, taskList);
     }
-
 }

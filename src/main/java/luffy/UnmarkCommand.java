@@ -7,7 +7,7 @@ import java.io.IOException;
  */
 public class UnmarkCommand extends Command {
 
-    int markIndex;
+    private final int markIndex;
 
     public UnmarkCommand(int index) {
         this.markIndex = index;
@@ -37,5 +37,4 @@ public class UnmarkCommand extends Command {
             ui.showErrorMessage("Invalid task number.");
         }
     }
-
 }

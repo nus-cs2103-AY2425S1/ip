@@ -19,5 +19,4 @@ public class InvalidCommand extends Command {
         ui.showErrorMessage("Invalid Command.");
 
     }
-
 }

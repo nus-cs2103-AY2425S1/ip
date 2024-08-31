@@ -1,6 +1,14 @@
 package luffy;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
-import java.io.*;
+
+
 
 /**
  * Represents a file storing system that
@@ -23,7 +31,6 @@ public class Storage {
      */
     public void saveToFile(TaskList taskList) throws IOException {
 
-        int counter = 1;
         File saveFile = new File(this.filePath);
         FileWriter fileStream = new FileWriter(saveFile);
         BufferedWriter fileInfo = new BufferedWriter(fileStream);
@@ -57,18 +64,20 @@ public class Storage {
                 boolean isDone = Integer.parseInt(taskInfo[1].trim()) == 1;
 
                 switch (taskInfo[0].trim()) {
-                    case "TO-DO":
-                        loadedTasks.addTask(new Todo(taskToDo, isDone));
-                        break;
-                    case "DEADLINE":
-                        String deadline = taskInfo[3].trim().substring(4);
-                        loadedTasks.addTask(new Deadline(taskToDo, deadline, isDone));
-                        break;
-                    case "EVENT":
-                        String start = taskInfo[3].trim().substring(7);
-                        String end = taskInfo[4].trim().substring(5);
-                        loadedTasks.addTask(new Event(taskToDo, start, end, isDone));
-                        break;
+                case "TO-DO":
+                    loadedTasks.addTask(new Todo(taskToDo, isDone));
+                    break;
+                case "DEADLINE":
+                    String deadline = taskInfo[3].trim().substring(4);
+                    loadedTasks.addTask(new Deadline(taskToDo, deadline, isDone));
+                    break;
+                case "EVENT":
+                    String start = taskInfo[3].trim().substring(7);
+                    String end = taskInfo[4].trim().substring(5);
+                    loadedTasks.addTask(new Event(taskToDo, start, end, isDone));
+                    break;
+                default:
+                    break;
                 }
                 currentLine = fileReader.readLine();
             }

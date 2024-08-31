@@ -7,7 +7,7 @@ import java.io.IOException;
  */
 public class DeleteCommand extends Command {
 
-    int index;
+    private final int index;
 
     public DeleteCommand(int index) {
         this.index = index;
@@ -32,5 +32,4 @@ public class DeleteCommand extends Command {
         }
         ui.showDeletedTask(deletedTask, taskList);
     }
-
 }

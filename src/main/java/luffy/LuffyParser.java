@@ -21,74 +21,77 @@ public class LuffyParser {
         String commandWord = commandDetails[0];
 
         switch (commandWord) {
-            case "todo":
-                if (commandDetails.length == 1) {
-                    break;
-                }
-                return new AddCommand(new Todo(commandDetails[1], false));
+        case "todo":
+            if (commandDetails.length == 1) {
+                break;
+            }
+            return new AddCommand(new Todo(commandDetails[1], false));
 
-            case "deadline":
-                if (commandDetails.length == 1) {
-                    break;
-                }
+        case "deadline":
+            if (commandDetails.length == 1) {
+                break;
+            }
 
-                Deadline deadlineTask = null;
-                String[] taskAndDeadline = fullCommand.substring(9).split("/", 2);
+            Deadline deadlineTask = null;
+            String[] taskAndDeadline = fullCommand.substring(9).split("/", 2);
 
-                try {
-                    checkValidArguments(taskAndDeadline, 2);
-                } catch (LuffyException e) {
-                    System.out.println(e.getMessage());
-                    break;
-                }
+            try {
+                checkValidArguments(taskAndDeadline, 2);
+            } catch (LuffyException e) {
+                System.out.println(e.getMessage());
+                break;
+            }
 
-                if (taskAndDeadline[1].startsWith("by") || taskAndDeadline[1].startsWith("By")) {
-                    String dateAndTime = taskAndDeadline[1].substring(3).trim();
+            if (taskAndDeadline[1].startsWith("by") || taskAndDeadline[1].startsWith("By")) {
+                String dateAndTime = taskAndDeadline[1].substring(3).trim();
 
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                    LocalDateTime timeObj = LocalDateTime.parse(dateAndTime, formatter);
-                    String dateTime = timeObj.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
-                    deadlineTask = new Deadline(taskAndDeadline[0].trim(), dateTime + "HRS", false);
-                    return new AddCommand(deadlineTask);
-                } else {
-                    deadlineTask = new Deadline(taskAndDeadline[0].trim(), taskAndDeadline[1].trim(), false);
-                    return new AddCommand(deadlineTask);
-                }
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                LocalDateTime timeObj = LocalDateTime.parse(dateAndTime, formatter);
+                String dateTime = timeObj.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+                deadlineTask = new Deadline(taskAndDeadline[0].trim(), dateTime + "HRS", false);
+                return new AddCommand(deadlineTask);
+            } else {
+                deadlineTask = new Deadline(taskAndDeadline[0].trim(), taskAndDeadline[1].trim(), false);
+                return new AddCommand(deadlineTask);
+            }
 
-            case "event":
-                if (commandDetails.length == 1) {
-                    break;
-                }
-                String[] eventDetails = fullCommand.substring(6).split("/");
-                try {
-                    checkValidArguments(eventDetails, 3);
-                } catch (LuffyException e) {
-                    System.out.println(e.getMessage());
-                    break;
-                }
-                Event eventTask = new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2], false);
-                return new AddCommand(eventTask);
+        case "event":
+            if (commandDetails.length == 1) {
+                break;
+            }
+            String[] eventDetails = fullCommand.substring(6).split("/");
+            try {
+                checkValidArguments(eventDetails, 3);
+            } catch (LuffyException e) {
+                System.out.println(e.getMessage());
+                break;
+            }
+            Event eventTask = new Event(eventDetails[0].trim(), eventDetails[1].trim(), eventDetails[2], false);
+            return new AddCommand(eventTask);
 
-            case "mark":
-                int markIndex = Integer.parseInt(fullCommand.substring(5)) - 1;
-                return new MarkCommand(markIndex);
+        case "find":
+            return new FindCommand(commandDetails[1]);
 
-            case "unmark":
-                int unmarkIndex = Integer.parseInt(fullCommand.substring(7)) - 1;
-                return new UnmarkCommand(unmarkIndex);
+        case "mark":
+            int markIndex = Integer.parseInt(fullCommand.substring(5)) - 1;
+            return new MarkCommand(markIndex);
 
-            case "delete":
-                int deleteIndex = Integer.parseInt(fullCommand.substring(7)) - 1;
-                return new DeleteCommand(deleteIndex);
+        case "unmark":
+            int unmarkIndex = Integer.parseInt(fullCommand.substring(7)) - 1;
+            return new UnmarkCommand(unmarkIndex);
 
-            case "list":
-                return new ListCommand();
+        case "delete":
+            int deleteIndex = Integer.parseInt(fullCommand.substring(7)) - 1;
+            return new DeleteCommand(deleteIndex);
 
-            case "bye":
-                return new ExitCommand();
+        case "list":
+            return new ListCommand();
 
-            default:
-                return new InvalidCommand();
+        case "bye":
+            return new ExitCommand();
+
+        default:
+            return new InvalidCommand();
         }
         return new InvalidCommand();
     }

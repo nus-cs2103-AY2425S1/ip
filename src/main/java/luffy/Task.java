@@ -9,6 +9,11 @@ public class Task {
     private final String taskInfo;
     private boolean isDone;
 
+    /**
+     * Constructor to create a task
+     * @param taskInfo task that the user wants to store
+     * @param isDone state of task
+     */
     public Task(String taskInfo, boolean isDone) {
         this.taskInfo = taskInfo;
         this.isDone = isDone;

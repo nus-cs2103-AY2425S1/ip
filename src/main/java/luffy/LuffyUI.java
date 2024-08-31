@@ -1,8 +1,8 @@
 package luffy;
-
 import java.util.Scanner;
 
 import static java.lang.String.format;
+
 
 /**
  * Represents a UI for the chatbot that deals with
@@ -85,6 +85,15 @@ public class LuffyUI {
         showLine();
         System.out.println(" Bye. Hope to see you again!");
         showLine();
+    }
+
+    /**
+     * This method prints out a match message when the chatbot finds tasks with
+     * the matching keywords by user
+     */
+    public void showMatchingMessage() {
+        showLine();
+        System.out.println(" Here are the matching tasks in your list:");
     }
 
     /**

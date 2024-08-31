@@ -8,6 +8,13 @@ public class Event extends Task {
     private final String start;
     private final String end;
 
+    /**
+     * Constructor to create an eventTask
+     * @param taskInfo task that the user wants to store
+     * @param start start time of the given task
+     * @param end end time of the given task
+     * @param isDone state of task
+     */
     public Event(String taskInfo, String start, String end, boolean isDone) {
         super(taskInfo, isDone);
         this.start = start;
@@ -26,9 +33,11 @@ public class Event extends Task {
     @Override
     public String dataToSave() {
         if (checkIsDone()) {
-            return String.format("EVENT         | 1 | %s | START: %s | END: %s", super.getTaskInfo(), this.start, this.end);
+            return String.format("EVENT         | 1 | %s | START: %s | END: %s",
+                    super.getTaskInfo(), this.start, this.end);
         } else {
-            return String.format("EVENT         | 0 | %s | START: %s | END: %s", super.getTaskInfo(), this.start, this.end);
+            return String.format("EVENT         | 0 | %s | START: %s | END: %s",
+                    super.getTaskInfo(), this.start, this.end);
         }
     }
 }
