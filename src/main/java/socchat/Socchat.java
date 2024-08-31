@@ -53,39 +53,39 @@ public class Socchat {
                 Command command = getCommand(input);
                 System.out.print("> ");
                 switch (command) {
-                    case BYE:
-                        exit();
-                        break chatLoop;
-                    case LIST:
-                        taskList.list();
-                        break;
-                    case MARK:
-                        String taskIndexString = scanner.nextLine().trim();
-                        taskList.setMark(taskIndexString,true);
-                        break;
-                    case UNMARK:
-                        taskIndexString = scanner.nextLine().trim();
-                        taskList.setMark(taskIndexString, false);
-                        break;
-                    case TODO:
-                        String str = command + scanner.nextLine();
-                        strToken = Parser.tokenizeAdd(str);
-                        taskList.addTodo(strToken);
-                        break;
-                    case DEADLINE:
-                        str = command + scanner.nextLine();
-                        strToken = Parser.tokenizeAdd(str);
-                        taskList.addDeadline(strToken);
-                        break;
-                    case EVENT:
-                        str = command + scanner.nextLine();
-                        strToken = Parser.tokenizeAdd(str);
-                        taskList.addEvent(strToken);
-                        break;
-                    case DELETE:
-                        taskIndexString = scanner.nextLine().trim();
-                        taskList.delete(taskIndexString);
-                        break;
+                case BYE:
+                    exit();
+                    break chatLoop;
+                case LIST:
+                    taskList.list();
+                    break;
+                case MARK:
+                    String taskIndexString = scanner.nextLine().trim();
+                    taskList.setMark(taskIndexString,true);
+                    break;
+                case UNMARK:
+                    taskIndexString = scanner.nextLine().trim();
+                    taskList.setMark(taskIndexString, false);
+                    break;
+                case TODO:
+                    String str = command + scanner.nextLine();
+                    strToken = Parser.tokenizeAdd(str);
+                    taskList.addTodo(strToken);
+                    break;
+                case DEADLINE:
+                    str = command + scanner.nextLine();
+                    strToken = Parser.tokenizeAdd(str);
+                    taskList.addDeadline(strToken);
+                    break;
+                case EVENT:
+                    str = command + scanner.nextLine();
+                    strToken = Parser.tokenizeAdd(str);
+                    taskList.addEvent(strToken);
+                    break;
+                case DELETE:
+                    taskIndexString = scanner.nextLine().trim();
+                    taskList.delete(taskIndexString);
+                    break;
                 }
             } catch (SocchatException e) {
                 System.out.println(e.getMessage());
@@ -93,8 +93,8 @@ public class Socchat {
         }
 
     }
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         new Socchat("tasks.txt").run();
     }
 
