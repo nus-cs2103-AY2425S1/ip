@@ -1,3 +1,7 @@
+package murphy.task;
+
+import murphy.MurphyException;
+
 abstract public class Task {
     protected String description;
     protected boolean isDone;

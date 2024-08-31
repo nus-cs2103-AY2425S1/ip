@@ -1,11 +1,14 @@
+package murphy.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import murphy.MurphyException;
 
 public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
-    public Event(String description, String from, String to) throws MurphyException{
+    public Event(String description, String from, String to) throws MurphyException {
         super(description);
         String fromTrimmed = from.trim();
         String toTrimmed = to.trim();
