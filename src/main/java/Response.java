@@ -1,5 +1,6 @@
 import commands.AddCommand;
 import commands.DeleteCommand;
+import commands.FindCommand;
 import commands.MarkCommand;
 import exceptions.TarsException;
 import tasks.TaskList;
@@ -9,6 +10,7 @@ public class Response {
     MarkCommand markCommand = new MarkCommand();
     DeleteCommand deleteCommand = new DeleteCommand();
     AddCommand addCommand = new AddCommand();
+    FindCommand findCommand = new FindCommand();
     private final static String LOGO = """
                 ________________ __________  _________
                 \\__    ___/  _  \\\\______   \\/   _____/
@@ -24,6 +26,7 @@ public class Response {
     }
 
     public void generateResponse(String input, TaskList tasks) {
+        System.out.println(input);
         if (input.contains("mark")) {
             try {
                 formatResponse(markCommand.execute(input, tasks));
@@ -34,6 +37,13 @@ public class Response {
         } else if (input.contains("delete")) {
             try {
                 formatResponse(deleteCommand.execute(input, tasks));
+            } catch (TarsException e) {
+                formatResponse(e.getMessage());
+            }
+
+        } else if (input.contains("find")){
+            try {
+                formatResponse(findCommand.execute(input, tasks));
             } catch (TarsException e) {
                 formatResponse(e.getMessage());
             }

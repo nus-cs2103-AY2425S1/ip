@@ -6,7 +6,9 @@ import parsers.EventParser;
 
 import exceptions.TarsException;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -60,12 +62,45 @@ public class TaskList {
         if (matcher.find()) {
             int i = Integer.parseInt(matcher.group());
             if (taskList.size() < i) {
-                throw new TarsException("tasks.Task not in list. Check again");
+                throw new TarsException("Task not in list. Check again");
             }
             return taskList.get(i - 1);
         }
 
         throw new TarsException("Provide a number at the end");
+    }
+
+    /**
+     * Finds tasks in the task list that match a given description.
+     *
+     * <p>This method searches through the task list for tasks whose string representation
+     * contains the specified search term. It returns a list of formatted strings representing
+     * the matching tasks.</p>
+     *
+     * @param input The input string containing the search command and description. The description
+     *              should follow the command (e.g., "find keyword").
+     * @return A {@link List} of {@link String} objects representing the tasks that match the search term.
+     * @throws TarsException if the input does not contain a search term.
+     */
+    public List<String> findTaskByDescription(String input) {
+
+        String[] search = input.split(" ", 2);
+
+        if (search.length != 2) {
+            throw new TarsException("Tell me what you are searching for");
+        }
+
+        List<String> tasksFound = new ArrayList<>();
+        String searchString = search[1];
+
+        for (int i = 0; i < taskList.size(); i++) {
+            Task t = taskList.get(i);
+            if (t.toString().contains(searchString)) {
+                tasksFound.add(String.format("%s. %s", i+1, t));
+            }
+        }
+
+        return tasksFound;
     }
 
     public Task deleteTask(String input) {
@@ -76,7 +111,7 @@ public class TaskList {
         if (matcher.find()) {
             int i = Integer.parseInt(matcher.group());
             if (taskList.size() < i) {
-                throw new TarsException("tasks.Task not in list. Check again");
+                throw new TarsException("Task not in list. Check again");
             }
             t = taskList.get(i - 1);
             taskList.remove(t);
