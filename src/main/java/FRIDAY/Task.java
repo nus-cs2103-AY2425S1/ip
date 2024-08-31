@@ -1,4 +1,4 @@
-package main.java;
+package FRIDAY;
 
 public class Task {
     private boolean isComplete;

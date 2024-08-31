@@ -1,9 +1,4 @@
-package main.java;
-
-import java.io.*;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.ArrayList;
+package FRIDAY;
 
 public class FRIDAY {
     private Storage storage;

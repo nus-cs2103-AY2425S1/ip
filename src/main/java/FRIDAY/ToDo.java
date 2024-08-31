@@ -1,4 +1,4 @@
-package main.java;
+package FRIDAY;
 
 public class ToDo extends Task {
     public ToDo(String description, int type) {

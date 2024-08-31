@@ -1,4 +1,4 @@
-package main.java;
+package FRIDAY;
 
 public class Event extends Task {
     private String start, end;

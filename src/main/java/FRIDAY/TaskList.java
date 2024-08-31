@@ -1,6 +1,5 @@
-package main.java;
+package FRIDAY;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 public class TaskList {
