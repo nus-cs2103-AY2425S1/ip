@@ -4,6 +4,7 @@ import bob.command.AddTaskCommand;
 import bob.command.ByeCommand;
 import bob.command.Command;
 import bob.command.DeleteCommand;
+import bob.command.FindCommand;
 import bob.command.ListCommand;
 import bob.command.MarkCommand;
 import bob.command.UnmarkCommand;
@@ -104,6 +105,7 @@ public class Parser {
 
     /**
      * Parses the given string into an EventTask object
+     *
      * @param input String from the user input
      * @return EventTask object
      * @throws EmptyArgumentException If the "description", "from" or "to" field is empty

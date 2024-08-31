@@ -12,8 +12,6 @@ import bob.UI;
  * when executed.
  * Sets the isRunning param of the parent class to be true signalling that the program is still running.
  */
-=======
->>>>>>> branch-A-CodingStandard
 public class MarkCommand extends Command{
 
     private final int index;

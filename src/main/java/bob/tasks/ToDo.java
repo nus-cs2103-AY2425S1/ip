@@ -1,12 +1,21 @@
 package bob.tasks;
 
-
 public class ToDo extends Task{
 
+    /**
+     * Constructor for To Do
+     *
+     * @param taskName The name of the task
+     */
     public ToDo(String taskName) {
         super(taskName);
     }
 
+    /**
+     * Exports the To Do object to string to be saved in a text file
+     *
+     * @return String format of the To Do object to be exported
+     */
     @Override
     public String export() {
         return String.format("todo %s", super.export());

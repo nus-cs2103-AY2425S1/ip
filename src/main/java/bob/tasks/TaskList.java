@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
  * TaskList stores a list of Task objects
  */
 public class TaskList {
+
     private final List<Task> taskList;
 
     /**
