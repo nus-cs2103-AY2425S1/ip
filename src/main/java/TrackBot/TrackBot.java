@@ -46,7 +46,6 @@ public class TrackBot {
         }
 
         scanner.close();
-        ui.showBye();
     }
     
     public static void main(String[] args) {
