@@ -1,3 +1,5 @@
+package Edith;
+
 public class EdithException extends IllegalArgumentException {
     public EdithException(String message) {
         super(message + " Please provide a valid instruction with the correct relevant details.");

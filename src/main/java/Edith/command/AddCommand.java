@@ -1,3 +1,5 @@
+package command;
+
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
@@ -29,7 +31,7 @@ public class AddCommand extends Command {
         } else if (instruction.startsWith("event ")) {
             String[] parts = instruction.substring(6).split(" /from | /to ");
             if (parts.length != 3) {
-                throw new EdithException("Event must have a description, start time, and end time.");
+                throw new EdithException("task.Event must have a description, start time, and end time.");
             }
             String taskString = parts[0].trim();
             String startTime = parts[1].trim();
