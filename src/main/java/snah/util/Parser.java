@@ -1,6 +1,8 @@
+package snah.util;
+
 public class Parser {
 
-    enum Command {
+    public enum Command {
         BYE, LIST, MARK, UNMARK, DEADLINE, EVENT, TODO, DELETE, CLEAR, INVALID
     }
 

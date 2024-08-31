@@ -1,3 +1,5 @@
+package snah.task;
+
 public class Task {
 
     private boolean isDone = false;

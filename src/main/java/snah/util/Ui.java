@@ -1,3 +1,5 @@
+package snah.util;
+
 public class Ui {
     public static final String START_DIVIDER = "____________________________________________________________";
     public static final String END_DIVIDER = "____________________________________________________________\n";
