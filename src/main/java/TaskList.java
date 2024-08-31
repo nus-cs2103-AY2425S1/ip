@@ -1,24 +1,20 @@
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.io.FileWriter;
 
 public class TaskList {
-    List<Task> taskList = new ArrayList<>();
+    List<Task> taskList;
 
-    public TaskList() {
+    Parser toDoParser = new ToDoParser();
+    Parser deadlineParser = new DeadlineParser();
+    Parser eventParser = new EventParser();
 
+    public TaskList(List<Task> taskList) {
+        this.taskList = taskList;
     }
 
     public int noOfTasks() {
         return taskList.size();
-    }
-
-    public void updateTaskList(List<Task> t) {
-        this.taskList = t;
     }
 
     public Task addTask(String input) {
@@ -26,49 +22,18 @@ public class TaskList {
         String[] taskInfo = input.split(" ", 2);
         Task t;
 
-        if (input.contains("todo")) {
-            if (taskInfo.length <= 1) {
-                throw new TarsException("Add a name to your ToDo task");
-            }
+        String taskType = taskInfo[0];
 
-            String name = taskInfo[1].trim();
-
-            t = new ToDo(name);
+        if (taskType.contains("todo")) {
+            t = toDoParser.parse(taskInfo);
             taskList.add(t);
 
-        } else if (input.contains("deadline")) {
-            if (taskInfo.length <= 1) {
-                throw new TarsException("Add a name to your deadline");
-            }
-
-            String[] split = taskInfo[1].split("/", 2);
-
-            String name = split[0].trim();
-            String[] date = split.length > 1
-                          ? split[1].split(" ", 2)
-                          : null;
-
-            t = new Deadline(name, date);
+        } else if (taskType.contains("deadline")) {
+            t = deadlineParser.parse(taskInfo);
             taskList.add(t);
 
-        } else if (input.contains("event")) {
-            if (taskInfo.length <= 1) {
-                throw new TarsException("event? What is that even supposed to mean?\nAdd a name, start time and end time");
-            }
-
-            String[] split = taskInfo[1].split("/", 3);
-
-            String name = split[0].trim();
-
-            String[] startDate = split.length > 1
-                                ? split[1].split(" ", 2)
-                                : null;
-
-            String[] endDate = split.length > 2
-                                ? split[2].split(" ", 2)
-                                : null;
-
-            t = new Event(name, startDate, endDate);
+        } else if (taskType.contains("event")) {
+            t = eventParser.parse(taskInfo);
             taskList.add(t);
 
         } else {
@@ -115,19 +80,8 @@ public class TaskList {
         throw new TarsException("Provide a number at the end");
     }
 
-    public void saveTasks(String path) {
-        try (FileWriter writer = new FileWriter(path);
-             BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
-
-            for (Task t : taskList) {
-                String taskInfo = t.saveTask();
-                bufferedWriter.write(taskInfo);
-                bufferedWriter.newLine();
-            }
-
-        } catch (IOException e) {
-            throw new TarsException("Unexpected error occurred when writing to file");
-        }
+    public List<Task> getTasks() {
+        return taskList;
     }
 
     @Override
