@@ -45,6 +45,16 @@ public class TaskList {
         tasks.remove(index);
     }
 
+    public TaskList getTasksWithMatchingDescription(String description) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.containsMatchingDescription(description)) {
+                matchingTasks.add(task);
+            }
+        }
+        return new TaskList(matchingTasks);
+    }
+
     public void display() {
         if (tasks.isEmpty()) {
             System.out.println("Hooray! Your task list is empty!");
@@ -65,12 +75,12 @@ public class TaskList {
     @Override
     public String toString() {
         if (tasks.isEmpty()) {
-            return "Hooray! Your task list is empty!";
+            return "";
         }
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             result.append(String.format("%d.%s\n", i + 1, tasks.get(i)));
         }
-        return result.toString();
+        return result.toString().strip();
     }
 }

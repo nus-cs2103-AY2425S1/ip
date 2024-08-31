@@ -23,6 +23,13 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public boolean containsMatchingDescription(String description) {
+        if (this.description.contains(description)) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
