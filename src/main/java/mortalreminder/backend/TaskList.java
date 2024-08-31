@@ -99,14 +99,17 @@ public class TaskList {
     /**
      * Finds and returns the task based on descriptions matching the descriptions passed in.
      *
-     * @param description string we are looking for in all matching tasks.
+     * @param descriptions string argument(s) we are looking for in all matching tasks.
      * @return TaskList of matching tasks that contain the description string passed into the method call.
      */
-    public TaskList findTasks(String description) {
+    public TaskList findTasks(String... descriptions) {
         TaskList similarTasks = new TaskList();
         for (Task task : this.taskList) {
-            if (task.getDescription().contains(description.trim())) {
-                similarTasks.loadTask(task);
+            for (String description : descriptions) {
+                if (task.getDescription().contains(description.trim())
+                    && !similarTasks.taskList.contains(task)) {
+                    similarTasks.loadTask(task);
+                }
             }
         }
         return similarTasks;

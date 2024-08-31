@@ -49,7 +49,7 @@ public class Processor {
             return FormattedPrinting.printList(taskList);
 
         case FIND:
-            TaskList foundTasks = taskList.findTasks(commandDetails);
+            TaskList foundTasks = taskList.findTasks(commandDetails.split(","));
             return FormattedPrinting.printSimilarTasks(foundTasks);
 
         case MARK:
