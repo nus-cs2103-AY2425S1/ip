@@ -1,4 +1,4 @@
-package carly;
+package carly.ui;
 
 import java.util.Scanner;
 

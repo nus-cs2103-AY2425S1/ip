@@ -1,4 +1,4 @@
-package carly;
+package carly.utils;
 
 import carly.exception.CarlyNoTaskDescription;
 import carly.exception.CarlyUnknownIInputException;

@@ -1,4 +1,4 @@
-package carly;
+package carly.utils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;

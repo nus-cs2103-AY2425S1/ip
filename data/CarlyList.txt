@@ -1,4 +1,2 @@
-D | 0 | read | Oct 15 2019
-T | 1 | read
-D | 0 | read | Oct 15 2019
-D | 0 | read | Oct 21 2019
+T | 0 | cook pasta
+D | 0 | complete homework | Oct 15 2019

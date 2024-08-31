@@ -1,4 +1,4 @@
-package carly;
+package carly.utils;
 
 import java.io.File;
 import java.io.FileWriter;
