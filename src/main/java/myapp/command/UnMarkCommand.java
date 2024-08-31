@@ -1,30 +1,54 @@
 package myapp.command;
 
-import myapp.core.BingBongUi;
 import myapp.core.Storage;
-import myapp.task.TaskList;
 import myapp.task.Task;
+import myapp.task.TaskList;
 
+/**
+ * Represents a command that marks a task as not done in the task list.
+ * This command identifies the task by its index in the list and marks it as not completed.
+ */
 public class UnMarkCommand extends Command {
 
-    int index;
+    /** The index of the task to be marked as not done in the task list. */
+    private int index;
+
+    /**
+     * Constructs an UnMarkCommand with the specified task index.
+     *
+     * @param i The index of the task to be marked as not done.
+     */
     public UnMarkCommand(int i) {
         super();
         this.index = i;
     }
 
+    /**
+     * Executes the command by marking the specified task as not done in the task list.
+     * The updated task list is then saved to storage, and a confirmation message is returned.
+     *
+     * @param tasks   The task list containing the task to be marked as not done.
+     * @param storage The storage system used to save the updated task list.
+     * @return A string message confirming that the task has been marked as not done.
+     * @throws IndexOutOfBoundsException If the specified index is out of bounds for the task list.
+     */
     @Override
-    public void execute(TaskList tasks, BingBongUi ui, Storage storage)
+    public String execute(TaskList tasks, Storage storage)
             throws IndexOutOfBoundsException {
         if (index < 0 || index >= tasks.size()) {
             throw new IndexOutOfBoundsException();
         }
         Task task = tasks.get(index);
         task.markAsNotDone();
-        saveTasks(tasks, ui, storage);
-        ui.showResponse("OK, I've marked this task as not done yet:\n" + task);
+        saveTasks(tasks, storage);
+        return "OK, I've marked this task as not done yet:\n" + task;
     }
 
+    /**
+     * Returns false since an UnMarkCommand does not terminate the application.
+     *
+     * @return false, indicating that this command does not cause the application to exit.
+     */
     @Override
     public boolean isExit() {
         return false;

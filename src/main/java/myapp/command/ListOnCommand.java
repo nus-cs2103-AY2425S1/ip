@@ -1,7 +1,6 @@
 package myapp.command;
 
 import myapp.core.BingBongException;
-import myapp.core.BingBongUi;
 import myapp.core.DateTimeHandler;
 import myapp.core.Storage;
 import myapp.task.Deadline;
@@ -12,8 +11,22 @@ import myapp.task.TaskList;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command that lists all tasks scheduled on a specific date.
+ * This command filters tasks by their date and returns only those tasks that match the given date.
+ */
 public class ListOnCommand extends ListCommand {
-    LocalDate queryDate;
+
+    /** The date on which to filter tasks. */
+    private LocalDate queryDate;
+
+    /**
+     * Constructs a ListOnCommand with the specified date.
+     * The date is parsed and validated to ensure it is in the correct format.
+     *
+     * @param date The date on which to filter tasks.
+     * @throws BingBongException If the date format is invalid.
+     */
     public ListOnCommand(String date) throws BingBongException {
         super();
         try {
@@ -23,8 +36,16 @@ public class ListOnCommand extends ListCommand {
         }
     }
 
+    /**
+     * Executes the command by listing all tasks that are scheduled on the specified date.
+     * If no tasks are found for the given date, a message indicating this is returned.
+     *
+     * @param tasks   The task list containing the tasks to be filtered.
+     * @param storage The storage system (not used in this command).
+     * @return A string message listing the tasks scheduled on the specified date, or a message indicating no matches were found.
+     */
     @Override
-    public void execute(TaskList tasks, BingBongUi ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
 
         StringBuilder list = new StringBuilder("Tasks on " + DateTimeHandler.format(queryDate) + ":\n");
         boolean hasTasks = false;
@@ -40,8 +61,8 @@ public class ListOnCommand extends ListCommand {
                 }
             } else if (task instanceof Event) {
                 Event event = (Event) task;
-                if (event.getFrom().toLocalDate().equals(queryDate) ||
-                        event.getTo().toLocalDate().equals(queryDate)) {
+                if (event.getFrom().toLocalDate().equals(queryDate)
+                        || event.getTo().toLocalDate().equals(queryDate)) {
                     list.append(count).append(". ").append(event).append("\n");
                     hasTasks = true;
                     count++;
@@ -50,9 +71,9 @@ public class ListOnCommand extends ListCommand {
         }
 
         if (!hasTasks) {
-            ui.showResponse("No tasks found on " + DateTimeHandler.format(queryDate) + ".");
+            return "No tasks found on " + DateTimeHandler.format(queryDate) + ".";
         } else {
-            ui.showResponse(list.toString());
+            return list.toString();
         }
     }
 }
