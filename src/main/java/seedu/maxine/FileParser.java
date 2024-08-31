@@ -10,20 +10,19 @@ public class FileParser {
     public FileParser() {
         // nothing
     }
+    
     public Task parse(String string) {
         String[] input = string.split(" / ");
         
         switch (input[0]) {
         case ("T"):
-            Todo todo = new Todo(input[2]);
-            return todo;
+            return new Todo(input[2]);
         case ("D"):
-            Deadline deadline = new Deadline(input[2], input[3]);
-            return deadline;
+            return new Deadline(input[2], input[3]);
         case ("E"):
-            Event event = new Event(input[2], input[3], input[4]);
-            return event;
+            return new Event(input[2], input[3], input[4]);
         }
+        
         return null;
     }
 }
