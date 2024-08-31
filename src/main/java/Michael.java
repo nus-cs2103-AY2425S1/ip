@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -23,19 +22,21 @@ public class Michael {
             File f = new File(PATH);
             File parent = f.getParentFile();
 
-            if (parent != null && !parent.exists()) {
+            if (parent != null && !parent.exists()) { // create parent directories if they do not exist
                 parent.mkdirs();
             }
 
-            if (!f.exists()) {
+            if (!f.exists()) { // create file if it does not exist
                 f.createNewFile();
             }
 
+            // Read in tasks from saved file
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 Task t = load(s.nextLine());
                 tasks.add(t);
             }
+
             // Greet user first
             printer("Hello! I'm Michael.\n" + "What can I do for you?");
 
@@ -63,6 +64,7 @@ public class Michael {
                 }
             }
 
+            // Write all tasks into the save file to store locally
             FileWriter writer = new FileWriter(PATH);
             for (int i = 0; i < tasks.size(); i++) {
                 Task t = tasks.get(i);
@@ -78,7 +80,7 @@ public class Michael {
         }
     }
 
-    // Function to match command to required actions
+    // Process user's input accordingly
     private static void processor(String input) throws MichaelException {
         if (input.length() >= 4 && input.substring(0, 4).equals("mark")) { // mark a task as done
             if (input.length() < 6) { // no number given to mark
@@ -153,7 +155,7 @@ public class Michael {
         }
     }
 
-    // Method loads task from save file
+    // Method loads task from save file into program
     private static Task load(String line) {
         String[] parts = line.split("\\|");
         for (int i = 0; i < parts.length; i++) {
@@ -182,7 +184,7 @@ public class Michael {
         }
     }
 
-    // Method converts task inputted to text format required for save file
+    // Method converts task into text format required for save file
     private static String convert(Task task) {
         StringBuilder s = new StringBuilder();
 
