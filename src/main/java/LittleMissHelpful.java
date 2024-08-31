@@ -1,10 +1,11 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class LittleMissHelpful {
     public static void main(String[] args) {
-        String name = "Little Miss Helpful";
+        String name = "Ah Bang Mang";
         String lineBreak = "---------------------------------";
         String greeting = "Hello! I'm " + name + ".\nWhat you want sia?";
         String exitLine = "Ok, I zao first then!";
@@ -16,7 +17,7 @@ public class LittleMissHelpful {
         System.out.println(greeting);
         System.out.println(lineBreak);
 
-        Task[] list = new Task[100];
+        ArrayList<Task> list = new ArrayList<Task>();
 
         int counter = 0;
         while (true) { // Continuous input
@@ -41,12 +42,12 @@ public class LittleMissHelpful {
                         System.out.println(lineBreak);
 
                         if (counter == 0) {
-                            System.out.println("Wah shiok! No tasks at the moment.");
+                            System.out.println("Wah shiok! No tasks at the moment leh.");
                         } else {
-                            System.out.println("This your current task list!");
+                            System.out.println("Siao liao! This your current task list leh...");
                             for (int i = 0; i < counter; i++) {
                                 int listNumber = i + 1;
-                                Task listItem = list[i];
+                                Task listItem = list.get(i);
                                 System.out.println(listNumber + ". " + listItem.toString());
                             }
                         }
@@ -56,7 +57,7 @@ public class LittleMissHelpful {
 
                     // Invalid command --> throw exception
                     System.out.println(lineBreak);
-                    System.out.println("Alamak! Invalid input format. Please provide a valid command.");
+                    System.out.println("Alamak! Format salah already. Please provide a valid command.");
                     System.out.println(lineBreak);
                     continue;
                 }
@@ -70,8 +71,8 @@ public class LittleMissHelpful {
                         if (listIndex < 0 || listIndex >= counter) {
                             throw new TaskNotFoundException(lineBreak + "\nHai-ya, task number out of range lah.\n" + lineBreak);
                         }
-                        Task curTask = list[listIndex];
-                        list[listIndex] = curTask.markTask();
+                        Task curTask = list.get(listIndex);
+                        list.set(listIndex, curTask.markTask());
                         System.out.println(lineBreak);
                         System.out.println("Wah upz! You have marked this task as done: " + curTask.toString());
                         System.out.println(lineBreak);
@@ -88,13 +89,36 @@ public class LittleMissHelpful {
                         if (listIndex < 0 || listIndex >= counter) {
                             throw new TaskNotFoundException(lineBreak + "Hai-ya, task number out of range lah.\n" + lineBreak);
                         }
-                        Task curTask = list[listIndex];
-                        list[listIndex] = curTask.unmarkTask();
+                        Task curTask = list.get(listIndex);
+                        list.set(listIndex, curTask.unmarkTask());
                         System.out.println(lineBreak);
                         System.out.println("Ok, I see you laze. You have marked this task as not done yet: " + curTask.toString());
                         System.out.println(lineBreak);
                     } catch (NumberFormatException e) {
-                        System.out.println("Hai-yo, task number must be an integer lah.");
+                        System.out.println(lineBreak + "\nHai-yo, task number must be an integer lah.\n" + lineBreak);
+                    } catch (TaskNotFoundException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    continue;
+                }
+
+                //deletes task from list
+                if (command.equalsIgnoreCase("delete")) {
+                    try {
+                        int listIndex = Integer.parseInt(item) - 1;
+                        if (listIndex < 0 || listIndex >= counter) {
+                            throw new TaskNotFoundException(lineBreak + "\nHai-ya, task number out of range lah.\n" + lineBreak);
+                        }
+                        Task curTask = list.get(listIndex);
+                        list.remove(listIndex);
+                        counter--;
+
+                        System.out.println(lineBreak);
+                        System.out.println("Wah shiok! This task no more liao: " + curTask.toString());
+                        System.out.println("Now got only " + counter + " tasks left.");
+                        System.out.println(lineBreak);
+                    } catch (NumberFormatException e) {
+                        System.out.println(lineBreak + "\nHai-yo, task number must be an integer lah.\n" + lineBreak);
                     } catch (TaskNotFoundException e) {
                         System.out.println(e.getMessage());
                     }
@@ -113,7 +137,7 @@ public class LittleMissHelpful {
                             String[] itemList = item.split("/by", 2);
                             if (itemList.length < 2) {
                                 throw new InvalidTaskFormatException(
-                                    lineBreak + "\nAlamak! Invalid deadline format. Use 'deadline description /by date'.\n" + lineBreak);
+                                    lineBreak + "\nAlamak! Deadline format salah already. Use 'deadline description /by date'.\n" + lineBreak);
                             }
                             String desc = itemList[0].trim();
                             String by = itemList[1].trim();
@@ -124,7 +148,7 @@ public class LittleMissHelpful {
                             String[] itemList = item.split("/from | /to", 3);
                             if (itemList.length < 3) {
                                 throw new InvalidTaskFormatException(
-                                    lineBreak + "\nAlamak! Invalid event format. Use 'event description /from start /to end'.\n" + lineBreak);
+                                    lineBreak + "\nAlamak! Event format salah already. Use 'event description /from start /to end'.\n" + lineBreak);
                             }
                             String desc = itemList[0].trim();
                             String from = itemList[1].trim();
@@ -133,10 +157,10 @@ public class LittleMissHelpful {
                             newTask = new Event(desc, from, to);
                         }
 
-                        list[counter] = newTask;
+                        list.add(newTask);
                         System.out.println(lineBreak);
-                        System.out.println("Added to list: " + newTask.toString());
-                        System.out.println("Now got " + (counter + 1) + " tasks in your list.");
+                        System.out.println("Added to list liao: " + newTask.toString());
+                        System.out.println("Sian, now got " + (counter + 1) + " tasks in your list.");
                         System.out.println(lineBreak);
                         counter++;
 
@@ -148,7 +172,7 @@ public class LittleMissHelpful {
                 } else {
                     // Invalid command --> throw exception
                     System.out.println(
-                        lineBreak + "\nAlamak! Invalid input format. Please provide a valid command and description.\n" + lineBreak);
+                        lineBreak + "\nAlamak! Format salah already... Please provide a valid command and description.\n" + lineBreak);
                 }
             } catch (IOException e) {
                 System.out.println("Aiyo salah! Try again lor...");
