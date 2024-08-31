@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class UI {
     private Scanner scanner;
     private final String LINE = "----------------------------------";
-    private final String NAME = "Joseph";
 
     public UI() {
         this.scanner = new Scanner(System.in);
@@ -14,9 +13,9 @@ public class UI {
     public void printLine() {
         System.out.println(LINE);
     }
-    public void printWelcomeMessage() {
+    public void printWelcomeMessage(String name) {
         printLine();
-        System.out.println("Hello, I'm " + NAME + "!");
+        System.out.println("Hello, I'm " + name + "!");
         System.out.println("How can I help you today? (type help for all commands)");
         printLine();
     }
@@ -59,53 +58,43 @@ public class UI {
         printLine();
     }
 
-    public void printMarkMessage(String taskDetails) throws InsufficientDetailsException {
-        if (taskDetails.isEmpty()) {
-         throw new InsufficientDetailsException("I can't mark an unknown task!");
-        }
+    public void printMarkMessage(String taskDetails) {
         System.out.println("Great, I've marked " + taskDetails + " as done!");
     }
 
-    public void printUnmarkMessage(String taskDetails) throws InsufficientDetailsException {
-        if (taskDetails.isEmpty()) {
-            throw new InsufficientDetailsException("I can't unmark an unknown task!");
-        }
+    public void printUnmarkMessage(String taskDetails) {
         System.out.println("Okay, I've unmarked " + taskDetails + " as not done!");
     }
 
-    public void printTodoMessage(String taskDetails) throws InsufficientDetailsException {
-        if (taskDetails.isEmpty()) {
-            throw new InsufficientDetailsException(
-                    "You need to provide a description for a todo!");
-        }
+    public void printTodoMessage(String taskDetails) {
         System.out.println("I've added the todo: " + taskDetails);
     }
 
-    public void printDeadlineMessage(String taskDetails) throws InsufficientDetailsException {
-        if (taskDetails.isEmpty()) {
-            throw new InsufficientDetailsException(
-              "You need to provide a description and a due date for a deadline!");
-        }
+    public void printDeadlineMessage(String taskDetails) {
         System.out.println("I've added the deadline: " + taskDetails);
     }
 
-    public void printJEventMessage(String taskDetails) throws InsufficientDetailsException {
-        if (taskDetails.isEmpty()) {
-            throw new InsufficientDetailsException(
-                    "You need to provide a description, start and end for an event!");
-        }
+    public void printJEventMessage(String taskDetails) {
         System.out.println("I've added the event: " + taskDetails);
     }
 
-    public void printDeleteMessage(String taskDetails) throws InsufficientDetailsException {
-        if (taskDetails.isEmpty()) {
-            throw new InsufficientDetailsException(
-                    "I can't delete an unknown task!");
-        }
+    public void printDeleteMessage(String taskDetails) {
         System.out.println("Alright, I've deleted " + taskDetails);
     }
 
     public void printUnrecognisedMessage() {
-        System.out.println("Yup I don't know what that means");
+        System.out.println("I don't know what that means :(");
+    }
+
+    public void printErrorMessage(String message) {
+        System.out.println(message);
+    }
+
+    public String readUserInput() {
+        return scanner.nextLine();
+    }
+
+    public void close() {
+        scanner.close();
     }
 }
