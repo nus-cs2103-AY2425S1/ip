@@ -12,7 +12,6 @@ import ui.Ui;
 public class DeleteCommand extends Command {
     private final int taskIndex;
 
-    // By separation of concerns,
     public DeleteCommand(int taskIndex) {
         super();
         this.taskIndex = taskIndex;
