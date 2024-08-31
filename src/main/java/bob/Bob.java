@@ -1,10 +1,12 @@
 package bob;
 
 import bob.command.Command;
+
 import bob.exceptions.EmptyArgumentException;
 import bob.exceptions.InvalidInputException;
 import bob.exceptions.InvalidTaskNumberException;
 import bob.exceptions.MissingArgumentException;
+
 import bob.tasks.TaskList;
 
 import java.time.format.DateTimeParseException;
@@ -55,6 +57,5 @@ public class Bob {
             }
         }
     }
-
 }
 

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 public class TaskList {
     private final List<Task> taskList;
+
     public TaskList() {
         this.taskList = new ArrayList<>();
     }

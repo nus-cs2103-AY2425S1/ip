@@ -13,6 +13,7 @@ public class Deadline extends Task{
         super(taskName);
         this.deadlineDate = deadlineDate;
     }
+
     public Deadline(String taskName, LocalDate deadlineDate, LocalTime deadlineTime) {
         super(taskName);
         this.deadlineDate = deadlineDate;

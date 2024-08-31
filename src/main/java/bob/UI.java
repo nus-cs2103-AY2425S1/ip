@@ -6,6 +6,7 @@ import bob.tasks.TaskList;
 import java.util.Scanner;
 
 public class UI {
+    
     private static final String DIVIDER = "____________________________________________________________\n";
 
     public static String readCommand() {

@@ -1,12 +1,16 @@
 package bob.command;
 
 import bob.exceptions.InvalidTaskNumberException;
+
 import bob.tasks.Task;
 import bob.tasks.TaskList;
+
 import bob.UI;
+
 public class DeleteCommand extends Command{
 
     private final int index;
+
     public DeleteCommand(int index) {
         super(true);
         this.index = index;

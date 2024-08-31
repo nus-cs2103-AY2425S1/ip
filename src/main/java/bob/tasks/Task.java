@@ -3,6 +3,7 @@ package bob.tasks;
 public abstract class Task {
     private final String taskName;
     private boolean isCompleted;
+
     public Task(String taskName) {
         this.taskName = taskName;
         this.isCompleted = false;
