@@ -26,16 +26,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and saving of tasks to and from a file.
+ * The tasks are stored in a text file, where each line represents a task.
+ */
 public class Storage {
 
+    /**
+     * The pathname of the file where tasks are saved.
+     */
     public static final String DATA_PATHNAME = "./data/tasks.txt";
 
+    /**
+     * The pathname of the folder where the data file is stored.
+     */
     public static final String DATA_FOLDER_PATHNAME = "./data";
 
+    /**
+     * Constructor for Storage class.
+     * Protected to prevent direct instantiation.
+     */
     protected Storage() {
 
     }
 
+    /**
+     * Loads the tasks from the file specified by {@link #DATA_PATHNAME}.
+     * If the file does not exist or is corrupted, a new file is created.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws OrionException If there are issues with the file's format or
+     *                        if the file cannot be found or created.
+     */
     protected List<Task> loadTasks() throws OrionException {
         File taskList = new File(DATA_PATHNAME);
         Path path = Paths.get(DATA_PATHNAME);
@@ -114,6 +136,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the provided list of task descriptions to the file specified by {@link #DATA_PATHNAME}.
+     *
+     * @param saveTaskDescriptions A list of task descriptions to be saved.
+     * @throws OrionTaskListSaveException If the tasks cannot be saved to the file.
+     */
     public void saveTasks(List<String> saveTaskDescriptions) throws OrionTaskListSaveException {
         try {
             FileWriter fw = new FileWriter(DATA_PATHNAME);
