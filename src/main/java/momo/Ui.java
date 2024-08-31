@@ -7,14 +7,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    // momo.Ui class should handle greeting, scanning user input, farewell
     public static void showHorizontalLine() {
         System.out.println("____________________________________________________________");
     }
 
     private final static Scanner sc = new Scanner(System.in);
 
-    // Greeting
     public void showGreeting() {
         System.out.println("Hello! I'm Momo.\nWhat can I do for you?");
     }
@@ -37,14 +35,6 @@ public class Ui {
         showHorizontalLine();
 
     }
-
-
-
-    //TO-DO!!!
-    public void showLoadingError() {
-
-    }
-
 
     // Show Farewell
     public void showFarewell() {
