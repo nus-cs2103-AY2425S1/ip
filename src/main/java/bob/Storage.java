@@ -6,9 +6,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * The {@code Storage} class serves as the storage location for loading and saving of tasks to and from a file.
+ * It manages file creation, reading, and writing, ensuring that tasks are persisted between sessions.
+ */
 public class Storage {
     private File file;
 
+    /**
+     * Constructs a {@code Storage} object with the specified file path.
+     * If the file does not exist, it attempts to create a new file.
+     *
+     * @param filePath the file path where the tasks will be stored.
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
         try {
@@ -20,6 +30,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file into a {@code TaskList} object.
+     * If the file is not found, an empty {@code TaskList} is returned.
+     *
+     * @return a {@code TaskList} containing the tasks loaded from the file.
+     */
     public TaskList loadFile() {
         TaskList taskList = new TaskList();
         int i = 1;
@@ -51,6 +67,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the tasks from a {@code TaskList} object to the file.
+     * If an error occurs during saving, an error message is printed.
+     *
+     * @param taskList the {@code TaskList} containing the tasks to be saved.
+     */
     public void saveFile(TaskList taskList) {
         FileWriter writer;
         try {

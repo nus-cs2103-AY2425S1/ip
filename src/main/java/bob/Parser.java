@@ -1,7 +1,22 @@
 package bob;
 
+/**
+ * The {@code Parser} class is responsible for converting user input into specific commands that the Bob application
+ * can execute. It handles the parsing of various commands and their associated parameters.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input command string and returns the corresponding {@code Command} object.
+     * If the input is invalid or contains unknown commands, appropriate exceptions are thrown.
+     *
+     * @param command the user input command string to be parsed.
+     * @return the {@code Command} object that corresponds to the user's input.
+     * @throws ExtraParamException if extra parameters are provided for a command that does not require them.
+     * @throws TaskIndexException if the task index provided is not a valid number.
+     * @throws MissingParamException if required parameters for a command are missing.
+     * @throws UnknownCommandException if the input command is not recognized.
+     */
     public static Command parse(String command) {
         String[] words = command.split(" ");
         String firstWord = words[0];
@@ -67,6 +82,17 @@ public class Parser {
         }
     }
 
+    /**
+     * Splits the user input into components based on specified split parameters.
+     * The method identifies and returns the arguments for each command.
+     *
+     * @param input the user input array split by spaces.
+     * @param splits array of parameters to split the input by.
+     * @param splitCount the expected number of splits/arguments.
+     * @return an array of strings containing the arguments for the command.
+     * @throws MissingParamException if required parameters for the command are missing.
+     * @throws ExtraParamException if extra parameters for the command are provided.
+     */
     public static String[] splitInput(String[] input, String[] splits, int splitCount) {
         String[] result = new String[splits.length];
         int[] indexes = new int[splits.length + 1];
