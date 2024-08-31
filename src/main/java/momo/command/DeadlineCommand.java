@@ -10,6 +10,11 @@ import momo.task.TaskList;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
+/**
+ * Represents the Deadline command's functionalities, which includes validating
+ * input which begins with "deadline" and adding it to the {@link TaskList}
+ * If user input is not properly formatted it throws a {@link InvalidCommandException}
+ */
 public class DeadlineCommand extends AddCommand {
     public static void run(String input, Storage storage, TaskList tasks) throws InvalidCommandException, StorageException {
 
