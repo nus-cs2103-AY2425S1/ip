@@ -18,6 +18,18 @@ public class Gale {
             this.taskList = new TaskList();
         }
     }
+
+    public Gale(String filePath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        try {
+            this.taskList = new TaskList(storage.loadTasks());
+        } catch (IOException e) {
+            ui.showLoadingError();
+            this.taskList = new TaskList();
+        }
+    }
+
     public static void main(String[] args) {
         Gale gale = new Gale();
         gale.run();
