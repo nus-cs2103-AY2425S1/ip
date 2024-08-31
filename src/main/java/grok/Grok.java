@@ -6,23 +6,23 @@ import java.util.Scanner;
 public class Grok {
     private static final String TEXT_FILE_DIRECTORY = "./data/duke.txt";
 
-    private static String padHorizontalLines(String msg) {
-        String horizontalLine = "_".repeat(80);
-        return String.join(
-                "\n",
-                horizontalLine, msg, horizontalLine
-        );
-    }
-
-    private static String indent(String msg) {
-        String indentSpaces = " ".repeat(4);
-        return indentSpaces.concat(msg.replace("\n", "\n".concat(indentSpaces)));
-    }
-
+    /**
+     * Pad a provided message with horizontal lines and indentation to separate bot input from user input
+     * @param msg - Message the bot should return to the user
+     * @return Standard bot message formatted message, easily distinguishable from user messages
+     */
     private static String padMessage(String msg) {
-        return indent(padHorizontalLines(msg));
+        // first stage - add horizontal lines above and below the message
+        String horizontalLine = "_".repeat(80);
+        String msgWithHLines = String.join("\n", horizontalLine, msg, horizontalLine);
+
+        // second stage - provide 1 indentation to all lines of the message, including the horizontal line
+        String indentSpaces = " ".repeat(4);
+
+        return indentSpaces.concat(msgWithHLines.replace("\n", "\n".concat(indentSpaces)));
     }
 
+    // Provide information on added task and total number of tasks for the user
     private static String addTaskMessage(Task t, ArrayList<Task> tasks) {
         return "Got it. I've added this task:\n  " + t + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
@@ -140,7 +140,7 @@ public class Grok {
                     continue;
                 }
                 String description = components[0].substring(9);
-                String due = components[1];
+                String due = components[1].substring(1);
 
                 Task newTask;
                 try {
@@ -174,8 +174,8 @@ public class Grok {
                 }
 
                 String description = components[0];
-                String from = subcomponents[0];
-                String to = subcomponents[1];
+                String from = subcomponents[0].substring(1);
+                String to = subcomponents[1].substring(1);
 
                 Task newTask;
                 try {
