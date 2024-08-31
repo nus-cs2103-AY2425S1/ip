@@ -1,5 +1,5 @@
-package blue;
 
+package blue;
 import blue.task.TaskList;
 
 public class Blue {
