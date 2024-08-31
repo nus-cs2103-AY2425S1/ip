@@ -2,29 +2,55 @@ package cook;
 
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 import tasks.Task;
 
+=======
+/**
+ * TaskList class to store tasks.
+ */
+>>>>>>> A-JavaDoc
 public class TaskList {
-    protected ArrayList<Task> taskArrayList;
+    protected ArrayList<Task> tasks;
 
+    /**
+     * Constructor for TaskList class
+     */
     public TaskList() {
-        this.taskArrayList = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Adds task to tasks.
+     */
     public void addTask(Task task) {
-        this.taskArrayList.add(task);
+        this.tasks.add(task);
     }
 
+    /**
+     * Marks or unmarks task.
+     *
+     * @param taskNo Task number in tasks.
+     * @param toMark Mark or unmark task.
+     * @return Success of marking or unmarking task.
+     * @throws IndexOutOfBoundsException If task number does not indicate a task in tasks.
+     */
     public boolean markTask(int taskNo, boolean toMark) throws IndexOutOfBoundsException {
         int indexNo = taskNo - 1;
-        return this.taskArrayList.get(indexNo).mark(toMark);
+        return this.tasks.get(indexNo).mark(toMark);
     }
 
+    /**
+     * Deletes task
+     *
+     * @param taskNo Task number in tasks.
+     */
     public void deleteTask(int taskNo) {
         int indexNo = taskNo - 1;
-        this.taskArrayList.remove(indexNo);
+        this.tasks.remove(indexNo);
     }
 
+<<<<<<< HEAD
     public String findTask(String keyword) {
         StringBuilder taskStringBuilder = new StringBuilder();
         for (int i = 0; i < this.taskArrayList.size(); i++) {
@@ -37,12 +63,17 @@ public class TaskList {
         return taskStringBuilder.toString().strip();
     }
 
+=======
+    /**
+     * @inheritDoc.
+     */
+>>>>>>> A-JavaDoc
     @Override
     public String toString() {
         StringBuilder taskStringBuilder = new StringBuilder();
-        for (int i = 0; i < this.taskArrayList.size(); i++) {
+        for (int i = 0; i < this.tasks.size(); i++) {
             int taskNo = i + 1;
-            Task task = this.taskArrayList.get(i);
+            Task task = this.tasks.get(i);
             taskStringBuilder.append(taskNo).append(".").append(task.toString()).append("\n");
         }
         return taskStringBuilder.toString().strip();

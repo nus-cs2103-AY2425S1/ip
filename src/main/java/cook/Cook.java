@@ -11,12 +11,27 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.ToDo;
 
+<<<<<<< HEAD
+=======
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.io.IOException;
+import java.io.File;
+import java.util.HashMap;
+
+/**
+ * Cook class to store main logic and program.
+ */
+>>>>>>> A-JavaDoc
 public class Cook {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Constructor for Cook class.
+     */
     public Cook (File file) {
         this.storage = new Storage(file);
         this.tasks = new TaskList();
@@ -37,6 +52,9 @@ public class Cook {
         this.parser = new Parser(validCommandArgs);
     }
 
+    /**
+     * Runs main logic.
+     */
     public void run() {
         this.ui.welcome();
 
@@ -79,9 +97,12 @@ public class Cook {
                     this.ui.say("The task is not in the list.");
                     continue;
                 }
+<<<<<<< HEAD
             } else if (command.equals("find")) {
                 String keyword = argumentsHashMap.get("find");
                 this.ui.say(this.tasks.findTask(keyword));
+=======
+>>>>>>> A-JavaDoc
             } else {
                 if (command.equals("todo")) {
                     String taskDesc = argumentsHashMap.get("todo");
@@ -136,6 +157,9 @@ public class Cook {
         }
     }
 
+    /**
+     * Runs main.
+     */
     public static void main(String[] args) {
         new Cook(new File("data", "tasks.txt")).run();
     }
