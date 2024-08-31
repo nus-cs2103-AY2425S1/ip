@@ -19,7 +19,7 @@ public class Parser {
         UNKNOWN
     }
 
-    public static Command parse(String input) {
+    public static Command parse(String input, Ui ui) {
         //TODO implement parameter parsing for each case
         String[] arr = input.split(" ", 2);
         Keywords keyword;
@@ -40,8 +40,7 @@ public class Parser {
             try {
                 c = new AddTaskCommand(new Todo(arr[1]));
             } catch (IndexOutOfBoundsException e) {
-                //Make Ui display missing todo name error
-                System.out.println("Missing todo name");
+                ui.showTodoSyntax();
             }
             break;
         case DEADLINE:
@@ -49,8 +48,7 @@ public class Parser {
                 String[] params = arr[1].split(" /by ");
                 c = new AddTaskCommand(new Deadline(params[0], params[1]));
             } catch (IndexOutOfBoundsException e) {
-                //Make Ui display invalid Deadline syntax message
-                System.out.println("Invalid deadline syntax");
+                ui.showDeadlineSyntax();
             }
             break;
         case EVENT:
@@ -60,8 +58,7 @@ public class Parser {
                 String[] datetimes = params[1].split(" /to ");
                 c = new AddTaskCommand(new Event(name, datetimes[0], datetimes[1]));
             } catch (IndexOutOfBoundsException e) {
-                //Make Ui display invalid Event syntax message
-                System.out.println("Invalid Event syntax");
+                ui.showEventSyntax();
             }
             break;
         case MARK:
