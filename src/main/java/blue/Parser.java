@@ -1,11 +1,14 @@
-import Exceptions.EmptyDescriptionException;
-import Exceptions.InputErrorException;
-import Exceptions.WrongNumberOfItemException;
+package blue;
+
+import blue.Exceptions.EmptyDescriptionException;
+import blue.Exceptions.InputErrorException;
+import blue.Exceptions.WrongNumberOfItemException;
+import blue.task.TaskList;
 
 import java.util.Scanner;
 
 /**
- * The Parser class deals with making sense of user commands
+ * The blue.Parser class deals with making sense of user commands
  */
 public class Parser {
     Scanner scanner;

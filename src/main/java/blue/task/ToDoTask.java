@@ -1,5 +1,7 @@
+package blue.task;
+
 /**
- * TodoTask class that inherit from Task.
+ * TodoTask class that inherit from blue.task.Task.
  * Basically a kind of task that only has a description
  */
 

@@ -1,4 +1,4 @@
-package Exceptions;
+package blue.Exceptions;
 
 public class WrongNumberOfItemException extends Exception {
     public WrongNumberOfItemException(int n) {

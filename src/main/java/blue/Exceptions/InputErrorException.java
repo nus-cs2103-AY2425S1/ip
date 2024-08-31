@@ -1,4 +1,4 @@
-package Exceptions;
+package blue.Exceptions;
 
 public class InputErrorException extends Exception {
     public InputErrorException() {

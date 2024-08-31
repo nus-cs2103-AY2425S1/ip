@@ -1,5 +1,7 @@
+package blue.task;
+
 /**
- * EventTask class that inherit from Task.
+ * blue.task.EventTask class that inherit from blue.task.Task.
  * A kind of task that has a start and end time
  */
 public class EventTask extends Task {

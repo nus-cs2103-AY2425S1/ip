@@ -1,3 +1,7 @@
+package blue;
+
+import blue.task.Task;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * The Storage class deals with loading tasks from the file and saving tasks in the file
+ * The blue.Storage class deals with loading tasks from the file and saving tasks in the file
  */
 public class Storage {
 

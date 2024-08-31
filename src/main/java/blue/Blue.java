@@ -1,8 +1,7 @@
-import Exceptions.EmptyDescriptionException;
-import Exceptions.InputErrorException;
-import Exceptions.WrongNumberOfItemException;
+package blue;
 
-import java.util.Scanner;
+import blue.task.TaskList;
+
 public class Blue {
     private TaskList tasklist;
     private Parser parser;

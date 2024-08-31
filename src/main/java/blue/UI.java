@@ -1,10 +1,14 @@
+package blue;
+
+import blue.task.Task;
+
 import java.util.ArrayList;
 
 public class UI {
 
     public static void greet() {
         System.out.println("--------------------------------------------");
-        System.out.println("Hello! I'm Blue! Woof Woof! Yap Yap!");
+        System.out.println("Hello! I'm blue.Blue! Woof Woof! Yap Yap!");
         System.out.println("What can I do for you?");
         System.out.println("--------------------------------------------");
     }
