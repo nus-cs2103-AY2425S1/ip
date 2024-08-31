@@ -1,6 +1,6 @@
-package src.main.java;
+package chatbot.util;
 
-import src.main.java.Task;
+import chatbot.util.Task;
 
 public class Todo extends Task {
 

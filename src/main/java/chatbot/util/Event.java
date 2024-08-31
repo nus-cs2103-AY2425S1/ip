@@ -1,6 +1,6 @@
-package src.main.java;
+package chatbot.util;
 
-import src.main.java.Task;
+import chatbot.util.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,12 +16,16 @@ public class Event extends Task {
         super(description, TaskType.EVENT);
         try {
             this.from = LocalDateTime.parse(from.trim() + "T00:00");
+            this.to = LocalDateTime.parse(to.trim() + "T00:00");
         } catch (DateTimeParseException d) {
             try {
                 String[] parts = from.split(" ");
-                String time = parts[0] + "T" + parts[1];
-                this.from = LocalDateTime.parse(time);
-            } catch (DateTimeParseException dt) {
+                String timeFrom = parts[0] + "T" + parts[1];
+                this.from = LocalDateTime.parse(timeFrom);
+                String[] part = to.split(" ");
+                String timeTo = part[0] + "T" + part[1];
+                this.to = LocalDateTime.parse(timeTo);
+            } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
                 System.out.println("Mannnn!!! Not in proper Formattt. It should be YYYY-MM_DD<space>HH:MM.\n" +
                         "Or just input the date YYYY-MM-DD. I will take care of rest");
             }
@@ -33,7 +37,7 @@ public class Event extends Task {
                 String[] parts = to.split(" ");
                 String time = parts[0] + "T" + parts[1];
                 this.to = LocalDateTime.parse(time);
-            } catch (DateTimeParseException dt) {
+            } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
                 System.out.println("Mannnn!!! Not in proper Formattt. It should be YYYY-MM_DD<space>HH:MM.\n" +
                         "Or just input the date YYYY-MM-DD. I will take care of rest");
             }

@@ -1,8 +1,4 @@
-package src.main.java;
-
-import src.main.java.KillJoy;
-import src.main.java.Task;
-import src.main.java.ProcessTasks;
+package chatbot.util;
 
 import java.io.File;
 
@@ -12,11 +8,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class SaveAndLoad {
+public class Storage {
     private KillJoy kj;
     private ProcessTasks processTasks;
 
-    public SaveAndLoad(KillJoy kj, ProcessTasks processTasks) {
+    public Storage(KillJoy kj, ProcessTasks processTasks) {
         this.kj = kj;
         this.processTasks = processTasks;
     }

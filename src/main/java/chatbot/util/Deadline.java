@@ -1,6 +1,6 @@
-package src.main.java;
+package chatbot.util;
 
-import src.main.java.Task;
+import chatbot.util.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +19,7 @@ public class Deadline extends Task {
                 String[] parts = by.split(" ");
                 String time = parts[0] + "T" + parts[1];
                 this.by = LocalDateTime.parse(time);
-            } catch (DateTimeParseException dt) {
+            } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
                 System.out.println("Mannnn!!! Not in proper Formattt. It should be YYYY-MM_DD<space>HH:MM.\n" +
                         "Or just input the date YYYY-MM-DD. I will take care of rest");
             }
