@@ -20,7 +20,7 @@ public class Deadline extends Task {
     }
 
     public String storeValue() {
-        return this.stringValue().substring(1,2) + " | " + this.isTaskDone() + " | " + this.getDesc() + " | " + date + "\n";
+        return this.stringValue().substring(1, 2) + " | " + this.isTaskDone() + " | " + this.getDesc() + " | " + date + "\n";
     }
 
     @Override
@@ -28,11 +28,11 @@ public class Deadline extends Task {
         return "[D]" + super.stringValue() + " (by: " + localDate.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy")) + " )";
     }
 
-    public int getStartYear(){
+    public int getStartYear() {
         return localDate.getYear();
     }
 
-    public int getStartDayOfYear(){
+    public int getStartDayOfYear() {
         return localDate.getDayOfYear();
     }
 }

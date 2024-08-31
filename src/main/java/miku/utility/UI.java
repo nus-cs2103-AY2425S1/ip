@@ -36,18 +36,19 @@ public class UI {
             + "| |  | | |  | | |\\ \\  | |__| |\n"
             + "|_|  |_| |__| |_| \\_\\  \\____/";
 
-    public UI(){
+    public UI() {
         scanner = new Scanner(System.in);
     }
 
-    public String readNextCommand(){
+    public String readNextCommand() {
         return scanner.nextLine();
     }
 
-    public void printLogo(){
+    public void printLogo() {
         System.out.println("Hello from\n" + logo);
     }
-    public void printSectionBreak(){
+
+    public void printSectionBreak() {
         System.out.println();
     }
 

@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-   private String dateTime1 = "";
-   private String dateTime2 = "";
-   LocalDateTime startDateTime;
-   LocalDateTime endDateTime;
+    private String dateTime1 = "";
+    private String dateTime2 = "";
+    LocalDateTime startDateTime;
+    LocalDateTime endDateTime;
 
     public Event(String desc, String dateTime1, String dateTime2) {
         super(desc);
@@ -18,11 +18,11 @@ public class Event extends Task {
 
     }
 
-    public int getStartYear(){
+    public int getStartYear() {
         return startDateTime.getYear();
     }
 
-    public int getStartDayOfYear(){
+    public int getStartDayOfYear() {
         return startDateTime.getDayOfYear();
     }
 
@@ -40,7 +40,7 @@ public class Event extends Task {
     }
 
     public String storeValue() {
-        return this.stringValue().substring(1,2) + " | " + this.isTaskDone() + " | " + this.getDesc() + " | " + dateTime1 + " | " + dateTime2 + "\n";
+        return this.stringValue().substring(1, 2) + " | " + this.isTaskDone() + " | " + this.getDesc() + " | " + dateTime1 + " | " + dateTime2 + "\n";
     }
 
 }

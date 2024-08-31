@@ -17,4 +17,9 @@ public abstract class Command {
      * @param storage The storage function to store the data into a text file.
      */
     public abstract void execute(TaskList taskList, UI ui, Storage storage);
+
+    public abstract void setData();
+
+    public Command() {
+    }
 }
