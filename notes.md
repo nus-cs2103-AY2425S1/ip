@@ -49,16 +49,8 @@ find cook
 
 # jar
 ## create jar file
-./gradlew clean build
+(in directory ip)
+./gradlew build
 
-This command will:
-
-	•	Clean any previous builds.
-	•	Compile your project.
-	•	Package your application as a JAR file.
-
-After running this command, the JAR file will be created in the build/libs/ directory, typically named something like your-project-name-version.jar.
-
-
-## java -jar ip.jar
-
+(cd to libs in build)
+java -jar duke.jar
