@@ -13,7 +13,17 @@ import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Handles all the storage related actions
+ */
 public class Storage {
+
+    /**
+     * Reads the data from the given file and adds it to the taskList
+     *
+     * @param taskList TaskList to which all the data is to be added into
+     * @param filePath File path to the file from which the data is to be read from
+     */
     public static void readData(TaskList taskList, String filePath) {
         try (Scanner scanner =  new Scanner(new File(filePath), "UTF-8")){
             while (scanner.hasNextLine()){
@@ -52,6 +62,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Exports the taskList to be stored in a file
+     *
+     * @param taskList TaskList which is to be exported
+     * @param filePath File path to the file to which the data is to be exported to
+     */
     public static void writeData(TaskList taskList, String filePath) {
         try {
             PrintWriter writer = new PrintWriter(filePath, "UTF-8");

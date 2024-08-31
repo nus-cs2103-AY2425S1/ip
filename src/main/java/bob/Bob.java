@@ -10,17 +10,29 @@ import bob.tasks.TaskList;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 
+/**
+ * Bob is the ChatBot
+ */
 public class Bob {
 
     private final TaskList myTasks;
     private final String filePath;
 
+    /**
+     * Constructor for Bob
+     * Initializes Bob and retrieves data from the saved file
+     *
+     * @param filePath File path to the file of the saved data
+     */
     public Bob(String filePath) {
         this.myTasks = new TaskList();
         this.filePath = filePath;
         this.initialize();
     }
 
+    /**
+     * Reads the data from the saved file stored at the file path and updates the TaskList
+     */
     private void initialize() {
         Storage.readData(this.myTasks, this.filePath);
     }
@@ -32,6 +44,9 @@ public class Bob {
 
     }
 
+    /**
+     * Starts the chatbot
+     */
     public void startChatBot() {
         UI.printGreetings();
         boolean isRunning = true;
