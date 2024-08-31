@@ -16,28 +16,6 @@ public class Him {
     private static TaskList list = new TaskList();
     private static final Storage storage = new Storage();
 
-    private static void complete(int index) {
-        try {
-            list.complete(index);
-            him.Ui.sayCompleted(list.taskAt(index));
-        } catch (AlreadyCompletedException | TaskDoesNotExistException e) {
-            him.Ui.say(e.getMessage());
-        }
-    }
-
-    private static void delete(int index) {
-        try {
-            String task = list.delete(index);
-            him.Ui.sayDeleted(task);
-        } catch (TaskDoesNotExistException e) {
-            him.Ui.say(e.getMessage());
-        }
-    }
-
-    static TaskList getList() {
-        return list;
-    }
-
 
     public static void main(String[] args) {
         try {

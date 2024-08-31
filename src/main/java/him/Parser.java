@@ -16,7 +16,6 @@ import task.ToDo;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-    private static TaskList list = Him.getList();
 
     public static Command parseUserInput(String input) throws HimException {
         String[] args = input.split(" ", 2);
