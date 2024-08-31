@@ -25,9 +25,6 @@ public class History {
 
     public ArrayList<Task> load() throws BweadException, IOException {
 
-        if (!saved.exists()) {
-            System.out.println("Please create historyFile.txt at this file path: ./src/main/java/historyFile.txt");
-        }
         if (saved.canRead()) {
             Scanner s = new Scanner(saved);
             while (s.hasNext()) {

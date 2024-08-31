@@ -49,50 +49,54 @@ public class Ui {
                 System.out.println(e.getMessage());
             }
 
-            if (input.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                break;
-            } else if (input.equals("list")) {
-                taskList.printlist();
-            } else if (input.startsWith("mark")) {
-                int toadd = parser.getTaskToMark();
-                Task task = taskList.getCurrentList().get(toadd - 1);
-                task.setDone(true);
-                history.updateFile(taskList.getCurrentList());
-                System.out.println("Nice! I've marked this task as done: " + task.text);
-            } else if (input.startsWith("unmark")) {
-                int toadd = parser.getTaskToMark();
-                Task task = taskList.getCurrentList().get(toadd - 1);
-                task.setDone(false);
-                history.updateFile(taskList.getCurrentList());
-                System.out.println("OK, I've marked this task as not done yet: " + task.text);
-            } else if (input.startsWith("todo ")) {
-                String todoName = parser.getTodoName();
-                Todo task = new Todo(todoName);
-                taskList.getCurrentList().add(task);
-                history.updateFile(taskList.getCurrentList());
-                System.out.println("Got it. I've added this task: " + task.toString());
-                System.out.println("Now you have " + taskList.getCurrentList().size() + " tasks in the list.");
-            } else if (input.startsWith("deadline ")) {
-                Deadline task = new Deadline(parser.getDeadlineName(), parser.getDeadlineDate(),
-                        parser.getDeadlineTime());
-                taskList.getCurrentList().add(task);
-                history.updateFile(taskList.getCurrentList());
-                System.out.println("Got it. I've added this task: " + task.toString());
-                System.out.println("Now you have " + taskList.getCurrentList().size() + " tasks in the list.");
-            } else if (input.startsWith("event ")) {
-                Event task = new Event(parser.getEventName(), parser.getEventStart(), parser.getEventEnd(),
-                        parser.getEventStartTime(), parser.getEventEndTime());
-                taskList.getCurrentList().add(task);
-                history.updateFile(taskList.getCurrentList());
-                System.out.println("Got it. I've added this task: " + task.toString());
-                System.out.println("Now you have " + taskList.getCurrentList().size() + " tasks in the list.");
-            } else if (input.startsWith("delete")) {
-                Task toremove = taskList.getCurrentList().get(parser.getDeleteIndex() - 1);
-                taskList.getCurrentList().remove(toremove);
-                history.updateFile(taskList.getCurrentList());
-                System.out.println("Noted. I've removed this task: " + toremove.toString());
-                System.out.println("Now you have " + taskList.getCurrentList().size() + " tasks in the list.");
+            try {
+                if (input.equals("bye")) {
+                    System.out.println("Bye. Hope to see you again soon!");
+                    break;
+                } else if (input.equals("list")) {
+                    taskList.printlist();
+                } else if (input.startsWith("mark")) {
+                    int toadd = parser.getTaskToMark();
+                    Task task = taskList.getCurrentList().get(toadd - 1);
+                    task.setDone(true);
+                    history.updateFile(taskList.getCurrentList());
+                    System.out.println("Nice! I've marked this task as done: " + task.text);
+                } else if (input.startsWith("unmark")) {
+                    int toadd = parser.getTaskToMark();
+                    Task task = taskList.getCurrentList().get(toadd - 1);
+                    task.setDone(false);
+                    history.updateFile(taskList.getCurrentList());
+                    System.out.println("OK, I've marked this task as not done yet: " + task.text);
+                } else if (input.startsWith("todo ")) {
+                    String todoName = parser.getTodoName();
+                    Todo task = new Todo(todoName);
+                    taskList.getCurrentList().add(task);
+                    history.updateFile(taskList.getCurrentList());
+                    System.out.println("Got it. I've added this task: " + task.toString());
+                    System.out.println("Now you have " + taskList.getCurrentList().size() + " tasks in the list.");
+                } else if (input.startsWith("deadline ")) {
+                    Deadline task = new Deadline(parser.getDeadlineName(), parser.getDeadlineDate(),
+                            parser.getDeadlineTime());
+                    taskList.getCurrentList().add(task);
+                    history.updateFile(taskList.getCurrentList());
+                    System.out.println("Got it. I've added this task: " + task.toString());
+                    System.out.println("Now you have " + taskList.getCurrentList().size() + " tasks in the list.");
+                } else if (input.startsWith("event ")) {
+                    Event task = new Event(parser.getEventName(), parser.getEventStart(), parser.getEventEnd(),
+                            parser.getEventStartTime(), parser.getEventEndTime());
+                    taskList.getCurrentList().add(task);
+                    history.updateFile(taskList.getCurrentList());
+                    System.out.println("Got it. I've added this task: " + task.toString());
+                    System.out.println("Now you have " + taskList.getCurrentList().size() + " tasks in the list.");
+                } else if (input.startsWith("delete")) {
+                    Task toremove = taskList.getCurrentList().get(parser.getDeleteIndex() - 1);
+                    taskList.getCurrentList().remove(toremove);
+                    history.updateFile(taskList.getCurrentList());
+                    System.out.println("Noted. I've removed this task: " + toremove.toString());
+                    System.out.println("Now you have " + taskList.getCurrentList().size() + " tasks in the list.");
+                }
+            } catch (BweadException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
