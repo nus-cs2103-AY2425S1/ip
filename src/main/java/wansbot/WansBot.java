@@ -1,8 +1,7 @@
 package wansbot;
 
-import java.time.format.DateTimeParseException;
 import java.time.LocalDate;
-
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import wansbot.storage.Storage;
@@ -21,12 +20,12 @@ public class WansBot {
 
     // Method that deals with empty inputs by throwing wansbot.tasks.InputEmptyException
     private static void emptyInput(String userInput) throws InputEmptyException {
-        if (userInput.strip().equalsIgnoreCase("todos") ||
-            userInput.strip().equalsIgnoreCase("deadline") ||
-            userInput.strip().equalsIgnoreCase("event") ||
-            userInput.strip().equalsIgnoreCase("mark") ||
-            userInput.strip().equalsIgnoreCase("unmark") ||
-            userInput.strip().equalsIgnoreCase("remove")) {
+        if (userInput.strip().equalsIgnoreCase("todos")
+                || userInput.strip().equalsIgnoreCase("deadline")
+                || userInput.strip().equalsIgnoreCase("event")
+                || userInput.strip().equalsIgnoreCase("mark")
+                || userInput.strip().equalsIgnoreCase("unmark")
+                || userInput.strip().equalsIgnoreCase("remove")) {
             throw new InputEmptyException(userInput);
         }
     }
@@ -54,7 +53,7 @@ public class WansBot {
 
     // Method that throws custom wansbot.tasks.InputEmptyException for deadlineds
     private static void missingInputDeadline(String userInput) {
-        String[] splitUser = userInput.split( " /by ", 2);
+        String[] splitUser = userInput.split(" /by ", 2);
         if (splitUser.length < 2) {
             throw new InputEmptyException(userInput, "/by");
         }
@@ -66,7 +65,7 @@ public class WansBot {
         if (splitUserStartDate.length < 2) {
             throw new InputEmptyException(userInput, "/from");
         }
-        String[] splitUserEndDate = splitUserStartDate[1].split( " /to ", 2);
+        String[] splitUserEndDate = splitUserStartDate[1].split(" /to ", 2);
         if (splitUserEndDate.length < 2) {
             throw new InputEmptyException(userInput, "/to");
         }
@@ -111,12 +110,12 @@ public class WansBot {
     private static void addDeadlined(String userInput) {
         try {
             missingInputDeadline(userInput);
-            String[] splitUser = userInput.split( " /by ", 2);
-            Deadlined newDeadlined = new Deadlined(splitUser[0].substring(8)
-                    , LocalDate.parse(splitUser[1].trim()));
+            String[] splitUser = userInput.split(" /by ", 2);
+            Deadlined newDeadlined = new Deadlined(splitUser[0].substring(8),
+                    LocalDate.parse(splitUser[1].trim()));
             userTaskList.add(newDeadlined);
             ui.handleSuccessfulAdd(newDeadlined);
-        } catch(InputEmptyException e) {
+        } catch (InputEmptyException e) {
             ui.handleDeadlineFormat();
         } catch (DateTimeParseException e) {
             ui.handleDateTimeException();
@@ -128,7 +127,7 @@ public class WansBot {
         try {
             missingInputEvent(userInput);
             String[] splitUserStartDate = userInput.split(" /from ", 3);
-            String[] splitUserEndDate = splitUserStartDate[1].split( " /to ", 2);
+            String[] splitUserEndDate = splitUserStartDate[1].split(" /to ", 2);
             Events newEvent = new Events(splitUserStartDate[0].substring(5),
                     LocalDate.parse(splitUserEndDate[0].trim()),
                     LocalDate.parse(splitUserEndDate[1].trim()));
@@ -197,41 +196,41 @@ public class WansBot {
             String command = userInput.split(" ")[0];
 
             switch (command) {
-                case "list":
-                    ui.handleListingTask(userTaskList);
-                    break;
-                case "mark":
-                    markTasks(userInput);
-                    break;
-                case "unmark":
-                    unmarkTasks(userInput);
-                    break;
-                case "todos":
-                    addTodos(userInput);
-                    break;
-                case "deadline":
-                    addDeadlined(userInput);
-                    break;
-                case "event":
-                    addEvent(userInput);
-                    break;
-                case "remove":
-                    removeTask(userInput);
-                    break;
-                case "save":
-                    storage.saveTasks(userTaskList);
-                    break;
-                case "load":
-                    userTaskList = storage.loadTasks();
-                    break;
-                case "find":
-                    findTaskDate(userInput);
-                    break;
-                case "bye":
-                    ui.handleGoodbye();
-                    break;
-                default:
-                    ui.handleUnrecognisedInput(userInput);
+            case "list":
+                ui.handleListingTask(userTaskList);
+                break;
+            case "mark":
+                markTasks(userInput);
+                break;
+            case "unmark":
+                unmarkTasks(userInput);
+                break;
+            case "todos":
+                addTodos(userInput);
+                break;
+            case "deadline":
+                addDeadlined(userInput);
+                break;
+            case "event":
+                addEvent(userInput);
+                break;
+            case "remove":
+                removeTask(userInput);
+                break;
+            case "save":
+                storage.saveTasks(userTaskList);
+                break;
+            case "load":
+                userTaskList = storage.loadTasks();
+                break;
+            case "find":
+                findTaskDate(userInput);
+                break;
+            case "bye":
+                ui.handleGoodbye();
+                break;
+            default:
+                ui.handleUnrecognisedInput(userInput);
             }
         }
     }

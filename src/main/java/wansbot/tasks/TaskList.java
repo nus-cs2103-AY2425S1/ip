@@ -16,7 +16,9 @@ public class TaskList {
 
     // returns task of specified number
     public Task number(int index) {
-        if (listOfTasks.isEmpty()) return null;
+        if (listOfTasks.isEmpty()) {
+            return null;
+        }
         return this.listOfTasks.get(index);
     }
 
@@ -52,7 +54,7 @@ public class TaskList {
         }
         String myTasks = "";
         for (int i = 0; i < this.listOfTasks.size(); i++) {
-            myTasks += (i+1) + ". " + this.listOfTasks.get(i).toString() + "\n";
+            myTasks += (i + 1) + ". " + this.listOfTasks.get(i).toString() + "\n";
         }
 
         return myTasks;

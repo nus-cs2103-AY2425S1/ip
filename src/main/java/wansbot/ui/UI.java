@@ -1,11 +1,10 @@
 package wansbot.ui;
 
-import wansbot.tasks.Task;
-import wansbot.tasks.TaskList;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+
+import wansbot.tasks.Task;
+import wansbot.tasks.TaskList;
 
 public class UI {
     private static final String HR = "----------------------------------------------------------------------";
@@ -57,8 +56,8 @@ public class UI {
     // handles wrong event format
     public void handleEventFormat() {
         System.out.println(HR + "\nWans:\n"
-                + "You need to input event, followed by /from, then your start time, then /to, then " +
-                "your end time!"
+                + "You need to input event, followed by /from, then your start time, then /to, then "
+                + "your end time!"
                 + "\n" + HR);
     }
 
@@ -67,7 +66,7 @@ public class UI {
         System.out.println(HR + "\nWans:"
                 + "\nHere are your tasks!\n"
                 + taskList.toString());
-            System.out.println("You have "+ taskList.numOfTasks() +" tasks!"+"\n"+HR);
+        System.out.println("You have " + taskList.numOfTasks() + " tasks!"+"\n"+HR);
     }
 
     //handle marking user task successfully
@@ -79,14 +78,14 @@ public class UI {
     }
 
     //handle marking command format
-    public void handleMarkingFormat () {
+    public void handleMarkingFormat() {
         System.out.println(HR + "\nWans:\n"
                 + "You need to input a single space, followed by a number after mark"
                 + "!\n" + HR);
     }
 
     //handles succesful unmarking
-    public void handleSuccesfulUnmarking(TaskList taskList, int posTask){
+    public void handleSuccesfulUnmarking(TaskList taskList, int posTask) {
         System.out.println(HR + "\nWans:"
                 + "\nOkay, so you lied! I've marked\n"
                 + taskList.number(posTask).toString()
@@ -131,18 +130,18 @@ public class UI {
     public void handleFindFiles(TaskList taskList, String date) {
         if (taskList.numOfTasks() != 0) {
             System.out.println(HR + "\nWans:"
-                    + "\nHere are your tasks on " + LocalDate.parse(date).
-                    format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n"
+                    + "\nHere are your tasks on " + LocalDate.parse(date)
+                            .format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n"
                     + taskList.toString());
             System.out.println("You have " + taskList.numOfTasks() + " tasks " + "on "
-                    + LocalDate.parse(date).
-                    format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                    + LocalDate.parse(date)
+                            .format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                     + "\n" + HR);
         } else {
             System.out.println(HR + "\nWans:"
                     + "\n You have no tasks on "
-                    + LocalDate.parse(date).
-                    format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                    + LocalDate.parse(date)
+                    .format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                     + "!" + "\n" + HR);
         }
     }

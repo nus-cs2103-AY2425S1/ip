@@ -29,8 +29,8 @@ public class Deadlined extends Task {
             myDeadline += "[   ]";
         }
 
-        return myDeadline + super.toString() + " (by: " + this.deadline.
-                format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return myDeadline + super.toString() + " (by: " + this.deadline
+                        .format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
 }

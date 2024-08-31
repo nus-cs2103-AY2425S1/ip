@@ -7,7 +7,7 @@ public class Events extends Task {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public Events(String name,  LocalDate start, LocalDate end) {
+    public Events(String name, LocalDate start, LocalDate end) {
         super(name);
         this.startDate = start;
         this.endDate = end;
@@ -31,8 +31,8 @@ public class Events extends Task {
             myEvent += "[   ]";
         }
 
-        return myEvent + super.toString() + " (from: " + this.startDate.format(DateTimeFormatter.
-                ofPattern("MMM d yyyy")) + " to: " + this.endDate.format(DateTimeFormatter.
-                ofPattern("MMM d yyyy")) + " )";
+        return myEvent + super.toString() + " (from: " + this.startDate.format(DateTimeFormatter
+                .ofPattern("MMM d yyyy")) + " to: " + this.endDate.format(DateTimeFormatter
+                .ofPattern("MMM d yyyy")) + " )";
     }
 }
