@@ -1,16 +1,17 @@
 package cow.commands;
 
-import cow.filesaver.FileSaver;
-import cow.todoList.TodoList;
+import java.time.LocalDateTime;
+
 import cow.exceptions.CowExceptions;
+import cow.filesaver.FileSaver;
 import cow.message.Message;
 import cow.tasks.Deadlines;
 import cow.tasks.Task;
-
-import java.time.LocalDateTime;
+import cow.todolist.TodoList;
 
 // solution below inspired by https://github.com/se-edu/addressbook-level2/tree/master
 
+/** Creates a deadline command object. **/
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
     public static final String COMMAND_EXAMPLE = "deadline return book /by 2/12/2019 1800";
@@ -21,16 +22,22 @@ public class DeadlineCommand extends Command {
     private final LocalDateTime by;
     private final String description;
 
+    /**
+     * Creates a DeadlineCommand instance.
+     * @param description of the deadline task.
+     * @param by LocalDateTime of the deadline.
+     */
     public DeadlineCommand(String description, LocalDateTime by) {
         this.description = description.trim();
         this.by = by;
     }
 
     /**
-     * Creates a deadline task and adds to the todo list
-     * @param todoList the list of the tasks
-     * @param fileSaver filesaver object used to write data to txt
-     * @throws CowExceptions any exceptions that might arise from the implementation
+     * Creates a deadline task and adds to the todo list.
+     *
+     * @param todoList  the list of the tasks.
+     * @param fileSaver filesaver object used to write data to txt.
+     * @throws CowExceptions any exceptions that might arise from the implementation.
      */
     @Override
     public void execute(TodoList todoList, FileSaver fileSaver) throws CowExceptions {

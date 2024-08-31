@@ -1,16 +1,5 @@
 package cow.filesaver;
 
-import cow.message.Message;
-import cow.message.Messages;
-import cow.exceptions.CowExceptions;
-import cow.exceptions.MissingParametersException;
-import cow.exceptions.UnknownCommandException;
-import cow.tasks.Deadlines;
-import cow.tasks.Event;
-import cow.tasks.Task;
-import cow.tasks.Todo;
-import cow.todoList.TodoList;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,6 +8,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+import cow.exceptions.CowExceptions;
+import cow.exceptions.MissingParametersException;
+import cow.exceptions.UnknownCommandException;
+import cow.message.Message;
+import cow.message.Messages;
+import cow.tasks.Deadlines;
+import cow.tasks.Event;
+import cow.tasks.Task;
+import cow.tasks.Todo;
+import cow.todolist.TodoList;
+
+/**
+ * Creates a FileSaver Object.
+ **/
 public class FileSaver {
     private String filePath;
     private FileWriter fw;
@@ -28,9 +31,8 @@ public class FileSaver {
     }
 
     /**
-     * Writes the items in the TodoList.TodoList into the file
-     *
-     * @throws CowExceptions if the file or path has an issue
+     * Writes the items in the TodoList into the file.
+     * @throws CowExceptions if the file or path has an issue.
      */
     public void saveData(TodoList todoList) throws CowExceptions {
         try {
@@ -45,10 +47,9 @@ public class FileSaver {
     }
 
     /**
-     * Loads the data from the file into the TodoList.TodoList
-     *
-     * @return The loaded todolist
-     * @throws IOException   if the file does not exist
+     * Loads the data from the file into the TodoList.
+     * @return The loaded todolist.
+     * @throws IOException if the file does not exist.
      */
     public TodoList loadData() throws IOException {
         Path path = Paths.get(filePath);
@@ -64,17 +65,17 @@ public class FileSaver {
             Task t;
             try {
                 switch (tokens[0]) {
-                    case "T":
-                        t = new Todo(tokens[1], tokens[2]);
-                        break;
-                    case "D":
-                        t = new Deadlines(tokens[1], tokens[2], tokens[3]);
-                        break;
-                    case "E":
-                        t = new Event(tokens[1], tokens[2], tokens[3], tokens[4]);
-                        break;
-                    default:
-                        throw new UnknownCommandException();
+                case "T":
+                    t = new Todo(tokens[1], tokens[2]);
+                    break;
+                case "D":
+                    t = new Deadlines(tokens[1], tokens[2], tokens[3]);
+                    break;
+                case "E":
+                    t = new Event(tokens[1], tokens[2], tokens[3], tokens[4]);
+                    break;
+                default:
+                    throw new UnknownCommandException();
                 }
                 td.add(t);
             } catch (UnknownCommandException | ArrayIndexOutOfBoundsException | MissingParametersException e) {

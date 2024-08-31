@@ -1,16 +1,15 @@
 package cow.tasks;
 
-import cow.tasks.Task;
-
+/** Creates a Todo Task. **/
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
     }
 
     /**
-     * Alternate constructor for loading isDone directly
-     * @param isDone 1 or 0 indicating if task is done
-     * @param description The Description of the tasks.Todo
+     * Alternate constructor for loading isDone directly.
+     * @param isDone 1 or 0 indicating if task is done.
+     * @param description The Description of the tasks.
      */
     public Todo(String isDone, String description) {
         super(isDone, description);
@@ -22,8 +21,8 @@ public class Todo extends Task {
     }
 
     /**
-     * A string that matches the format for writing it to file
-     * @return A string to be written to a txt file
+     * A string that matches the format for writing it to file.
+     * @return A string to be written to a txt file.
      */
     @Override
     public String getSaveData() {
