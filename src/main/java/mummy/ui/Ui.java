@@ -1,14 +1,14 @@
-package ui;
+package mummy.ui;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.ToDo;
-import tasklist.TaskList;
-import tasklist.TaskListException;
-import utility.Echo;
-import utility.Parser;
-import utility.Storage;
+import mummy.task.Deadline;
+import mummy.task.Event;
+import mummy.task.Task;
+import mummy.task.ToDo;
+import mummy.task.TaskList;
+import mummy.task.TaskListException;
+import mummy.utility.Echo;
+import mummy.utility.Parser;
+import mummy.utility.Storage;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
@@ -106,7 +106,7 @@ public class Ui {
         try {
             taskList.markTask(taskIndex);
             saveTaskListToStorage();
-            echo("Nice! I've marked this task as done:\n\t" + taskList.get(taskIndex));
+            echo("Nice! I've marked this mummy.task as done:\n\t" + taskList.get(taskIndex));
         } catch (TaskListException exception) {
             throw new UiException(exception.getMessage());
         }
@@ -119,7 +119,7 @@ public class Ui {
         try {
             taskList.unmarkTask(taskIndex);
             saveTaskListToStorage();
-            echo("OK, I've marked this task as not done yet:\n\t" + taskList.get(taskIndex));
+            echo("OK, I've marked this mummy.task as not done yet:\n\t" + taskList.get(taskIndex));
         } catch (TaskListException exception) {
             throw new UiException(exception.getMessage());
         }
@@ -168,7 +168,7 @@ public class Ui {
             Task task = taskList.remove(taskIndex);
             saveTaskListToStorage();
             echo(String.format(
-                    "Noted. I've removed this task:\n\t%s\nNow you have %d tasks in the list.\n",
+                    "Noted. I've removed this mummy.task:\n\t%s\nNow you have %d tasks in the list.\n",
                     task, taskList.getCount()
             ));
         } catch (TaskListException exception) {
@@ -180,7 +180,7 @@ public class Ui {
         taskList.add(task);
         saveTaskListToStorage();
         echo(String.format(
-                "Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.\n",
+                "Got it. I've added this mummy.task:\n\t%s\nNow you have %d tasks in the list.\n",
                 task, taskList.getCount()
         ));
     }
