@@ -1,3 +1,10 @@
+package fence;
+
+import fence.parser.Parser;
+import fence.storage.Storage;
+import fence.task.Task;
+import fence.tasklist.TaskList;
+import fence.ui.Ui;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;

@@ -1,3 +1,8 @@
+package fence.ui;
+
+import fence.task.Task;
+import fence.tasklist.TaskList;
+
 public class Ui {
     public void greet() {
         System.out.println("nihao! I'm Fence |=|=|=|=|=|");
