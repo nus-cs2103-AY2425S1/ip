@@ -1,8 +1,14 @@
+import commands.AddCommand;
+import commands.DeleteCommand;
+import commands.MarkCommand;
+import exceptions.TarsException;
+import tasks.TaskList;
+
 public class Response {
 
-    Command markCommand = new MarkCommand();
-    Command deleteCommand = new DeleteCommand();
-    Command addCommand = new AddCommand();
+    MarkCommand markCommand = new MarkCommand();
+    DeleteCommand deleteCommand = new DeleteCommand();
+    AddCommand addCommand = new AddCommand();
     private final static String LOGO = """
                 ________________ __________  _________
                 \\__    ___/  _  \\\\______   \\/   _____/

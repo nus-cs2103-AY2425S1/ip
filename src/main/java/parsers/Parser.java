@@ -1,3 +1,7 @@
+package parsers;
+
+import tasks.Task;
+
 import java.time.format.DateTimeFormatter;
 
 public abstract class Parser {
