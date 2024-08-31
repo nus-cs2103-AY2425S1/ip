@@ -1,11 +1,19 @@
 package duck.util;
 
-import duck.data.exception.DuckException;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import duck.data.exception.DuckException;
+
+
+
+
+
 
 /**
  * Tests for the {@link Utils} class to verify the conversion of strings to {@link LocalDateTime}.
@@ -39,14 +47,14 @@ public class UtilsTest {
     @Test
     public void convertToDateTime_incorrectStringFormat_exceptionThrown() {
         String[] incorrectDateTimes = {
-                "2021-08-21 18000",  // Incorrect minute format (five digits)
-                "2021-08-21 1860",   // Incorrect minute format (60 minutes)
-                "2021-08-21 18:00",  // Incorrect format (includes colon)
-                "2021-08-21 18:00:00",  // Incorrect format (includes seconds)
-                "2021-08/21 1800",   // Incorrect separator (slash in date)
-                "20210821 1800",     // Incorrect format (missing separator)
-                "2021-08-21",        // Incorrect format (missing time)
-                "20210821"           // Incorrect format (missing separators and time)
+            "2021-08-21 18000", // Incorrect minute format (five digits)
+            "2021-08-21 1860", // Incorrect minute format (60 minutes)
+            "2021-08-21 18:00", // Incorrect format (includes colon)
+            "2021-08-21 18:00:00", // Incorrect format (includes seconds)
+            "2021-08/21 1800", // Incorrect separator (slash in date)
+            "20210821 1800", // Incorrect format (missing separator)
+            "2021-08-21", // Incorrect format (missing time)
+            "20210821" // Incorrect format (missing separators and time)
         };
 
         // Verify that each incorrect date-time format throws an exception

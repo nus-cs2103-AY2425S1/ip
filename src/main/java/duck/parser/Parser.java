@@ -1,6 +1,18 @@
 package duck.parser;
 
-import duck.commands.*;
+import duck.commands.ByeCommand;
+import duck.commands.Command;
+import duck.commands.CommandWord;
+import duck.commands.DeadlineCommand;
+import duck.commands.DeleteCommand;
+import duck.commands.EventCommand;
+import duck.commands.FindCommand;
+import duck.commands.InvalidCommand;
+import duck.commands.ListCommand;
+import duck.commands.MarkCommand;
+import duck.commands.OnCommand;
+import duck.commands.ToDoCommand;
+import duck.commands.UnmarkCommand;
 
 /**
  * Parses user input and creates corresponding Command instances based on the input message.
@@ -17,6 +29,7 @@ public class Parser {
     public static Command parse(String message) {
         try {
             CommandWord instruction = CommandWord.valueOf(getInstruction(message));
+            //CHECKSTYLE.OFF: Indentation
             return switch (instruction) {
                 case LIST -> new ListCommand(message);
                 case FIND -> new FindCommand(message);
@@ -29,6 +42,7 @@ public class Parser {
                 case ON -> new OnCommand(message);
                 case BYE -> new ByeCommand(message);
             };
+            //CHECKSTYLE.ON: Indentation
         } catch (IllegalArgumentException e) {
             return new InvalidCommand("");
         }

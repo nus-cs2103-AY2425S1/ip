@@ -3,27 +3,9 @@ package duck;
 import duck.commands.Command;
 import duck.data.TaskList;
 import duck.data.exception.DuckException;
-import duck.data.task.Deadline;
-import duck.data.task.Event;
-import duck.data.task.Task;
-import duck.data.task.ToDo;
 import duck.parser.Parser;
 import duck.storage.Storage;
 import duck.ui.Ui;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 /**
  * The Duck class serves as the main entry point for the Duck application.
@@ -31,6 +13,9 @@ import java.util.stream.Stream;
  * and processes user commands.
  */
 public class Duck {
+    /** The default file path where the task list is stored. */
+    private static final String FILE_PATH = "data/duck.txt";
+
     /** Manages the list of tasks. */
     private final TaskList tasks;
 
@@ -40,8 +25,7 @@ public class Duck {
     /** Handles the user interface operations such as displaying messages. */
     private final Ui ui;
 
-    /** The default file path where the task list is stored. */
-    private static final String FILE_PATH = "data/duck.txt";
+
 
 
     /**

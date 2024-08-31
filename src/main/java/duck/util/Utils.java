@@ -1,10 +1,10 @@
 package duck.util;
 
-import duck.data.exception.DuckException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import duck.data.exception.DuckException;
 
 /**
  * Utility class providing helper methods for handling date-time conversion and validation.

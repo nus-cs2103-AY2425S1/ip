@@ -1,19 +1,19 @@
 package duck.storage;
 
-import duck.data.TaskList;
-import duck.data.exception.DuckException;
-import duck.data.task.Task;
-import duck.data.task.ToDo;
-import duck.data.task.Deadline;
-import duck.data.task.Event;
-import duck.data.task.TaskType;
-import duck.util.Utils;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import duck.data.TaskList;
+import duck.data.exception.DuckException;
+import duck.data.task.Deadline;
+import duck.data.task.Event;
+import duck.data.task.Task;
+import duck.data.task.TaskType;
+import duck.data.task.ToDo;
+import duck.util.Utils;
 
 /**
  * Manages the loading and saving of tasks from/to a file.
@@ -167,6 +167,8 @@ public class Storage {
                 if (words.length == 4) {
                     Utils.convertToDateTime(words[3]);
                     return hasCorrectDoneFormat(words[1]) && !words[2].isEmpty();
+                } else {
+                    return false;
                 }
             case EVENT:
                 if (words.length == 5) {
@@ -174,6 +176,8 @@ public class Storage {
                             && !words[2].isEmpty()
                             && Utils.convertToDateTime(words[3])
                             .isBefore(Utils.convertToDateTime(words[4]));
+                } else {
+                    return false;
                 }
             default:
                 return false;

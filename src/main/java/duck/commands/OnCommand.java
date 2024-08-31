@@ -3,14 +3,14 @@ package duck.commands;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
+
 import duck.data.TaskList;
 import duck.data.exception.DuckException;
 import duck.data.task.Deadline;
 import duck.data.task.Event;
 import duck.storage.Storage;
 import duck.ui.Ui;
-
-import java.util.stream.Stream;
 
 /**
  * Represents a command to list tasks and events on a specific date.

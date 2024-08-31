@@ -1,10 +1,12 @@
 package duck.data;
 
+import java.util.ArrayList;
+
 import duck.data.exception.DuckException;
 import duck.data.task.Task;
 import duck.storage.Storage;
 
-import java.util.ArrayList;
+
 
 /**
  * Represents a list of tasks in the Duck application.

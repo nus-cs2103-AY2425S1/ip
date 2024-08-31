@@ -58,9 +58,9 @@ public class ToDoCommand extends Command {
         // Normalize to lowercase and remove the todo keyword
         String description = input.replaceFirst("(?i)^todo\\s*", "").trim();
         if (description.isEmpty()) {
-            throw new DuckException("What are you trying \"to do\", mate? " +
-                    "Give me a valid description instead of an empty one.\n" +
-                    "todo {description}\n");
+            throw new DuckException("What are you trying \"to do\", mate? "
+                    + "Give me a valid description instead of an empty one.\n"
+                    + "todo {description}\n");
         }
         return new ToDo(description);
     }
