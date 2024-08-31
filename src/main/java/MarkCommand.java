@@ -9,7 +9,7 @@ public class MarkCommand extends Command {
         tasklist.get(selection).markAsDone();
         try {
             storage.save(tasklist.getTaskList());
-            output.append("Nice! I've marked this task as done:").append("\n").append(tasks.get(selection).toString());
+            output.append("Nice! I've marked this task as done:").append("\n").append(tasklist.get(selection).toString());
             ui.printString(output.toString());
         } catch (AsuraException e) {
             ui.showError(e.getMessage());
