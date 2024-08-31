@@ -41,4 +41,16 @@ public class TaskList {
             return taskStrings;
         }
     }
+
+    public List<String> toFileStrings() {
+        if (this.tasks.isEmpty()) {
+            return new ArrayList<>();
+        } else {
+            List<String> fileStrings = new ArrayList<>();
+            for (Task t : tasks) {
+                fileStrings.add(t.toFileString());
+            }
+            return fileStrings;
+        }
+    }
 }
