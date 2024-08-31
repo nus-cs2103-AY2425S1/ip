@@ -2,8 +2,20 @@ package jackbean.exception;
 
 import jackbean.task.TaskType;
 
+/**
+ * Represents an exception thrown when the user does not provide enough arguments for a task in the JackBean chatbot.
+ * This JavaDoc was written by GitHub Copilot.
+ */
 public class NotEnoughArgumentsException extends Exception {
     public TaskType type;
+
+    /**
+     * Constructs a NotEnoughArgumentsException with a default message.
+     * This JavaDoc was written by GitHub Copilot.
+     *
+     * @param type The type of task that the user did not provide enough arguments for.
+     * @param message The message to be shown.
+     */
     public NotEnoughArgumentsException(String type, String message) {
         super(message);
         if (type.equalsIgnoreCase("deadline")) {
@@ -15,6 +27,12 @@ public class NotEnoughArgumentsException extends Exception {
         }
     }
 
+    /**
+     * Constructs a NotEnoughArgumentsException with a default message.
+     * This JavaDoc was written by GitHub Copilot.
+     *
+     * @param type The type of task that the user did not provide enough arguments for.
+     */
     public NotEnoughArgumentsException(String type) {
         new NotEnoughArgumentsException(type, "not enough arguments");
     }
@@ -22,12 +40,12 @@ public class NotEnoughArgumentsException extends Exception {
     @Override
     public String toString() {
         return switch (type) {
-            case DEADLINE ->
-                    "Yo Homieee, there are not enough arguments for deadline!\ndeadline should be of this format: deadline <description> /by <date>";
-            case EVENT ->
-                    "Yo Homieee, there are not enough arguments for event!\nevent should be of this format: event <description> /from <date> /to <date>";
-            case TODO ->
-                    "Yo Homieee, there are not enough arguments for todo!\ntodo should be of this format: todo <description>";
+        case DEADLINE ->
+                "Yo Homieee, there are not enough arguments for deadline!\ndeadline should be of this format: deadline <description> /by <date>";
+        case EVENT ->
+                "Yo Homieee, there are not enough arguments for event!\nevent should be of this format: event <description> /from <date> /to <date>";
+        case TODO ->
+                "Yo Homieee, there are not enough arguments for todo!\ntodo should be of this format: todo <description>";
         };
     }
 }

@@ -8,8 +8,24 @@ import jackbean.task.Event;
 import jackbean.task.TaskList;
 import jackbean.task.Todo;
 
+/**
+ * A parser to interpret userInputs made by the user and return the appropriate response.
+ * This parser is used by the JackBean class to handle user inputs.
+ */
 public class Parser {
-    public static String parseUserInput(String input, TaskList taskList) throws NotEnoughArgumentsException, TooManyArgumentsException, InvalidTaskTypeException {
+    /**
+     * Parses the user input and returns the appropriate response.
+     * This JavaDoc was written by GitHub Copilot.
+     *
+     * @param input The user input to be parsed.
+     * @param taskList The taskList to be updated based on the user input.
+     * @return The response to the user input.
+     * @throws NotEnoughArgumentsException If the user input does not have enough arguments.
+     * @throws TooManyArgumentsException If the user input has too many arguments.
+     * @throws InvalidTaskTypeException If the user input is not recognised.
+     */
+    public static String parseUserInput(String input, TaskList taskList)
+            throws NotEnoughArgumentsException, TooManyArgumentsException, InvalidTaskTypeException {
             if (input.equalsIgnoreCase("help")) {
                 // GitHub copilot helped mostly with the response to help message
                 StringBuilder reply = new StringBuilder("Yo homie! Here are the commands you can use:\n");

@@ -16,3 +16,6 @@ On the other hand, it was not able to help with personalised messages, so I had 
 
 ### Update(30/8/2024):
 GitHub Copilot helped to autocomplete the code for updating storage and reading storage. Main logic is still by me.
+
+### Update(31/8/2024):
+GitHub Copilot helped to autocomplete almost all the JavaDocs.
