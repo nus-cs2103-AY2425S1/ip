@@ -125,6 +125,26 @@ public class Ui {
     }
 
     /**
+     * Finds all tasks matching user's input.
+     * It is case-sensitive
+     *
+     * @param matchingTasks A list of all tasks that match the user's input
+     */
+    public void showFindTask(ArrayList<Task> matchingTasks) {
+        System.out.println(BREAKLINE);
+        if (matchingTasks.isEmpty()) {
+            System.out.println("Oops! No matching tasks found!");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.printf("%d.[%s][%s] %s%n", i + 1, matchingTasks.get(i).getType(),
+                        matchingTasks.get(i).getStatusIcon(), matchingTasks.get(i));
+            }
+        }
+        System.out.println(BREAKLINE);
+    }
+
+    /**
      * Reads a command from the user input.
      *
      * @return The command entered by the user as a String.

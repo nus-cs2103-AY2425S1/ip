@@ -63,6 +63,8 @@ public class Deadline extends Task{
             DateTimeFormatter.ofPattern("dd/MM/yyyy"),
             DateTimeFormatter.ofPattern("d-MMMM-yyyy"),
             DateTimeFormatter.ofPattern("d/MM/yyyy"),
+            DateTimeFormatter.ofPattern("d/M/yyyy"),
+            DateTimeFormatter.ofPattern("d/M/yy"),
             DateTimeFormatter.ofPattern("dd/M/yyyy"),
             DateTimeFormatter.ofPattern("d MMM"),
             DateTimeFormatter.ofPattern("d MMMM")

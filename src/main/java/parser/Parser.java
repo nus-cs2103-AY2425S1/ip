@@ -8,6 +8,7 @@ import task.*;
 import ui.Ui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -59,6 +60,10 @@ public class Parser {
 
         case "delete":
             handleDeleteCommand(slicedStr, taskList, ui, storage);
+            break;
+
+        case "find":
+            handleFindCommand(slicedStr, taskList, ui);
             break;
 
         default:
@@ -148,6 +153,8 @@ public class Parser {
             ui.showErrorMessage("Error saving tasks: " + e.getMessage());
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showErrorMessage("Error saving tasks details: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            ui.showErrorMessage(e.getMessage());
         }
     }
 
@@ -175,6 +182,8 @@ public class Parser {
             ui.showErrorMessage("Error saving tasks: " + e.getMessage());
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showErrorMessage("Error saving tasks details. Please enter a valid description or date");
+        } catch (IllegalArgumentException e) {
+            ui.showErrorMessage(e.getMessage());
         }
     }
 
@@ -190,7 +199,7 @@ public class Parser {
      */
     private static void handleDeleteCommand(String[] slicedStr, TaskList taskList, Ui ui, Storage storage) throws TaskIndexOutOfBound, InvalidInputException {
         if (slicedStr.length < 2) {
-                throw new InvalidInputException("Please provide a task number to delete.");
+            throw new InvalidInputException("Please provide a task number to delete.");
         }
 
         int taskIndex = Integer.parseInt(slicedStr[1]) - 1;
@@ -203,6 +212,29 @@ public class Parser {
         } catch (IOException e) {
             ui.showErrorMessage("Error saving tasks: " + e.getMessage());
         }
+    }
+
+    /**
+     * Handles the "find" command, finds tasks that match user's input
+     *
+     * @param slicedStr  The array of strings representing the user's command.
+     * @param taskList   The TaskList object that holds all the tasks.
+     * @param ui         The Ui object that handles user interaction.
+     * @throws InvalidInputException  if the user does not provide any keyword.
+     */
+    private static void handleFindCommand(String[] slicedStr, TaskList taskList, Ui ui) throws InvalidInputException{
+        if (slicedStr.length < 2) {
+            throw new InvalidInputException("Please indicate what you want to find.");
+        }
+
+        String keyword = slicedStr[1];
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : taskList.getTasks()) {
+            if (task.toString().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        ui.showFindTask(matchingTasks);
     }
 
     /**
