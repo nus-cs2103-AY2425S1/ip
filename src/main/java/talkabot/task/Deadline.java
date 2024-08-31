@@ -1,10 +1,11 @@
 package talkabot.task;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
+
 import talkabot.Parser;
 
 /**
@@ -47,6 +48,7 @@ public class Deadline extends Task{
      * @return Deadline day.
      */
     public String getDay() {
-        return this.deadline.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
+        return this.deadline.getDayOfWeek()
+                .getDisplayName(TextStyle.FULL, Locale.getDefault());
     }
 }

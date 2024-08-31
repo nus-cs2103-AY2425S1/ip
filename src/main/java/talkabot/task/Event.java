@@ -2,8 +2,8 @@ package talkabot.task;
 
 import talkabot.Parser;
 
-import java.time.LocalDate;
 import java.time.format.TextStyle;
+import java.time.LocalDate;
 import java.util.Locale;
 
 /**
@@ -50,6 +50,7 @@ public class Event extends Task {
      */
     public String getDay() {
         return this.from.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault())
-                + " to " + this.to.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
+                + " to " + this.to.getDayOfWeek().getDisplayName(TextStyle.FULL,
+                Locale.getDefault());
     }
 }

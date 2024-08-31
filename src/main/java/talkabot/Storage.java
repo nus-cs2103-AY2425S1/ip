@@ -1,17 +1,16 @@
 package talkabot;
 
-import talkabot.exceptions.UnknownTimeException;
-import talkabot.task.Deadline;
-import talkabot.task.Event;
-import talkabot.task.Task;
-import talkabot.task.TaskList;
-import talkabot.task.ToDo;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import talkabot.task.Deadline;
+import talkabot.task.Event;
+import talkabot.task.Task;
+import talkabot.task.TaskList;
+import talkabot.task.ToDo;
 
 /**
  * Storage Class handles the file containing the task list

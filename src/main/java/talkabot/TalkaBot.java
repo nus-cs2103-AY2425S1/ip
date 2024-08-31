@@ -1,5 +1,8 @@
 package talkabot;
 
+import java.io.IOException;
+import java.time.DateTimeException;
+
 import talkabot.exceptions.InvalidEditException;
 import talkabot.exceptions.InvalidScheduleException;
 import talkabot.exceptions.NoInputException;
@@ -10,9 +13,6 @@ import talkabot.task.Event;
 import talkabot.task.Task;
 import talkabot.task.TaskList;
 import talkabot.task.ToDo;
-
-import java.io.IOException;
-import java.time.DateTimeException;
 
 /**
  * TalkaBot Class handles the running of Talk-a-Bot
