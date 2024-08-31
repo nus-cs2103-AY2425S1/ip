@@ -1,8 +1,11 @@
-package david.Parser;
+package david.parser;
 
-import david.Exceptions.DavidInvalidArgumentsException;
+import david.exceptions.DavidInvalidArgumentsException;
 
-public class StringParser extends Parser{
+/**
+ * Class to parse all strings to the proper format
+ */
+public class StringParser extends Parser {
 
     /**
      * Takes an input string and returns the action to perform

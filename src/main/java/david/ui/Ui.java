@@ -1,20 +1,25 @@
-package david.UI;
+package david.ui;
 
-import david.Task.Task;
-import david.Task.TaskList;
 import java.util.Scanner;
 
+import david.task.Task;
+import david.task.TaskList;
+
+/**
+ * Ui class for I/O operations
+ */
 public class Ui {
+    private static final String INTRO =
+            "____________________________________________________________\n"
+                    + " Hello! I'm David.\n"
+                    + " What can I do for you?\n"
+                    + "____________________________________________________________";
+    private static final String OUTRO =
+            "____________________________________________________________\n"
+                    + "Bye. Hope to see you again soon!\n"
+                    + "____________________________________________________________\n";
+
     private Scanner sc;
-    private final static String intro =
-            "____________________________________________________________\n" +
-            " Hello! I'm David.\n" +
-            " What can I do for you?\n" +
-            "____________________________________________________________";
-    private final static String outro =
-            "____________________________________________________________\n" +
-            "Bye. Hope to see you again soon!\n" +
-            "____________________________________________________________\n";
 
     /**
      * Constructor for UI interface
@@ -27,14 +32,14 @@ public class Ui {
      * Prints the introduction message
      */
     public void start() {
-        System.out.println(intro);
+        System.out.println(INTRO);
     }
 
     /**
      * Prints the exit message
      */
     public void end() {
-        System.out.println(outro);
+        System.out.println(OUTRO);
     }
 
     /**
@@ -51,11 +56,14 @@ public class Ui {
      */
     public void displayTaskDetails(Task t, int noOfTasks) {
         System.out.println(
-                "____________________________________________________________\n" +
-                        "Got it. I've added this task:\n" +
-                        t + "\n" +
-                        "     You now have " + noOfTasks +  " tasks in the list.\n" +
-                        "____________________________________________________________\n"
+                "____________________________________________________________\n"
+                        + "Got it. I've added this task:\n"
+                        + t
+                        + "\n"
+                        + "     You now have "
+                        + noOfTasks
+                        + " tasks in the list.\n"
+                        + "____________________________________________________________\n"
         );
     }
 
@@ -66,11 +74,14 @@ public class Ui {
      */
     public void displaySuccessfulDeleteMessage(Task t, int noOfTasks) {
         System.out.println(
-                "____________________________________________________________\n" +
-                        "Alright, I've removed this task from the list:\n" +
-                        t + "\n" +
-                        "     You now have " + noOfTasks +  " tasks in the list.\n" +
-                        "____________________________________________________________\n");
+                "____________________________________________________________\n"
+                        + "Alright, I've removed this task from the list:\n"
+                        + t
+                        + "\n"
+                        + "     You now have "
+                        + noOfTasks
+                        + " tasks in the list.\n"
+                        + "____________________________________________________________\n");
     }
 
     /**
@@ -79,10 +90,11 @@ public class Ui {
      */
     public void displayMarkAsDoneMessage(Task t) {
         System.out.println(
-                "____________________________________________________________\n" +
-                        "Nice! I've marked this task as done:\n" +
-                        t + "\n" +
-                        "____________________________________________________________\n");
+                "____________________________________________________________\n"
+                        + "Nice! I've marked this task as done:\n"
+                        + t
+                        + "\n"
+                        + "____________________________________________________________\n");
     }
 
     /**
@@ -91,10 +103,11 @@ public class Ui {
      */
     public void displayMarkAsUnDoneMessage(Task t) {
         System.out.println(
-                "____________________________________________________________\n" +
-                        "Okay, I've marked this task as not done yet:\n" +
-                        t + "\n" +
-                        "____________________________________________________________\n");
+                "____________________________________________________________\n"
+                        + "Okay, I've marked this task as not done yet:\n"
+                        + t
+                        + "\n"
+                        + "____________________________________________________________\n");
     }
 
     /**

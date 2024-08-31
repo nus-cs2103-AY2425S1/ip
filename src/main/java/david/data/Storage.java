@@ -1,13 +1,5 @@
-package david.Data;
+package david.data;
 
-import david.Exceptions.DavidCacheException;
-import david.Exceptions.DavidInvalidDateTimeException;
-import david.Parser.DateParser;
-import david.Task.DeadlineTask;
-import david.Task.Task;
-import david.Task.TaskList;
-import david.Task.TodoTask;
-import david.Task.EventTask;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -17,12 +9,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import david.exceptions.DavidCacheException;
+import david.exceptions.DavidInvalidDateTimeException;
+import david.parser.DateParser;
+import david.task.DeadlineTask;
+import david.task.EventTask;
+import david.task.Task;
+import david.task.TaskList;
+import david.task.TodoTask;
+
+
 /*
 Format of cached data
 TaskType | completed | eventName | (optional) by/from | (optional) to
    0          1           2               3                 4
  */
 
+/**
+ * Defines a Storage class to store Data
+ */
 public class Storage {
     private String path;
 
@@ -44,7 +49,7 @@ public class Storage {
         try {
             File f = new File(this.path);
             Scanner sc = new Scanner(f);
-            while(sc.hasNextLine()) {
+            while (sc.hasNextLine()) {
                 Task t = parseTask(sc.nextLine());
                 tasks.add(t);
             }
@@ -80,7 +85,10 @@ public class Storage {
                 LocalDateTime byDate = DateParser.getDate(info[3]);
                 t = new DeadlineTask(info[2], byDate, isCompleted);
                 break;
-            } catch (DavidInvalidDateTimeException e){}
+            } catch (DavidInvalidDateTimeException e) {
+                System.out.println("error");
+            }
+            break;
         case "E":
             //"Event" task
             try {
@@ -88,9 +96,13 @@ public class Storage {
                 LocalDateTime toDate = DateParser.getDate(info[4]);
                 t = new EventTask(info[2], fromDate, toDate, isCompleted);
                 break;
-            } catch (DavidInvalidDateTimeException e) {}
+            } catch (DavidInvalidDateTimeException e) {
+                System.out.println("error");
+            }
+            break;
+        default:
+            break;
         }
-
         return t;
     }
 
@@ -99,8 +111,6 @@ public class Storage {
      */
     private void createNewCache() {
         File newFile = new File(this.path);
-//        File parentPath = newFile.getParentFile();  //gets parent path
-//        parentPath.mkdirs();
         try {
             newFile.createNewFile();
         } catch (IOException e) {
@@ -111,9 +121,9 @@ public class Storage {
     /**
      * Overwrites the file with the list of current tasks
      * @throws DavidCacheException if the named file exists but is a directory rather than a regular file,
-     * does not exist but cannot be created, or cannot be opened for any other reason
+     *     does not exist but cannot be created, or cannot be opened for any other reason
      */
-    public void saveTask(TaskList tasks) throws DavidCacheException{
+    public void saveTask(TaskList tasks) throws DavidCacheException {
         try {
             FileWriter writer = new FileWriter(this.path, false);
             String text = "";

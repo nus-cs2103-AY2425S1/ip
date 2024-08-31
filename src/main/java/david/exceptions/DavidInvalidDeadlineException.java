@@ -1,6 +1,9 @@
-package david.Exceptions;
+package david.exceptions;
 
-public class DavidInvalidDeadlineException extends DavidException{
+/**
+ * Invalid deadline exception class for David class
+ */
+public class DavidInvalidDeadlineException extends DavidException {
 
     public DavidInvalidDeadlineException() {}
 

@@ -1,9 +1,12 @@
-package david.Task;
-
-import david.Parser.DateParser;
+package david.task;
 
 import java.time.LocalDateTime;
 
+import david.parser.DateParser;
+
+/**
+ * Deadline task class
+ */
 public class DeadlineTask extends Task {
     private LocalDateTime by;
 

@@ -1,21 +1,39 @@
 package david;
 
-import david.Data.Storage;
-import david.Exceptions.*;
-import david.Parser.DateParser;
-import david.Parser.StringParser;
-import david.Task.*;
-import david.UI.Ui;
-
 import java.time.LocalDateTime;
 
+import david.data.Storage;
+import david.exceptions.DavidCacheException;
+import david.exceptions.DavidException;
+import david.exceptions.DavidInvalidArgumentsException;
+import david.exceptions.DavidInvalidDateTimeException;
+import david.exceptions.DavidInvalidDeadlineException;
+import david.exceptions.DavidInvalidRangeException;
+import david.exceptions.DavidInvalidTaskException;
+import david.exceptions.DavidUnknownActionException;
+import david.parser.DateParser;
+import david.parser.StringParser;
+import david.task.DeadlineTask;
+import david.task.EventTask;
+import david.task.Task;
+import david.task.TaskList;
+import david.task.TodoTask;
+import david.ui.Ui;
+
+
+/**
+ * Main chatbot class
+ */
 public class David {
-    TaskList tasks;
+    private TaskList tasks;
     private Ui ui;
     private String inputString = "";
     private Storage cache;
 
-    //constructor for David.David
+    /**
+     * Constructor for David.David
+     */
+
     public David(String path) {
         this.ui = new Ui();
         this.cache = new Storage(path);
@@ -27,11 +45,11 @@ public class David {
      */
     public void activateChatBot() {
         ui.start();
-        while(true) {
+        while (true) {
             inputString = ui.getInput(); //get next input
 
             if (inputString.equals("bye")) {
-                endChatBot();  //end chatbot
+                endChatBot(); //end chatbot
                 break;
             }
 
@@ -77,24 +95,20 @@ public class David {
     }
 
     /**
-<<<<<<< HEAD
-     * Adds a todo task to the arraylist
-     * @param s String event
-     * @throws DavidInvalidArgumentsException
-=======
-     * Lists all events corresponding to the specified event
+     * Return all events corresponding to the specified event
      * @param s input string
      * @throws DavidInvalidArgumentsException
      */
-    public void findEvent(String s) throws DavidInvalidArgumentsException{
+    public void findEvent(String s) throws DavidInvalidArgumentsException {
         String event = StringParser.parseStringToArguments(s);
         ui.findEvent(event, tasks);
     }
 
 
     /**
-    Adds todo task to array list of tasks
->>>>>>> branch-Level-9
+     * Adds todo task to tasklist
+     * @param s string task
+     * @throws DavidInvalidArgumentsException
      */
     public void addTodoTask(String s) throws DavidInvalidArgumentsException {
         String event = StringParser.parseStringToArguments(s);
@@ -146,7 +160,7 @@ public class David {
         String event = StringParser.parseStringToArguments(s);
         String[] eventSplit = event.split(" /by", 2);
 
-        if(eventSplit.length <= 1 || eventSplit[1].trim().equals("")) {
+        if (eventSplit.length <= 1 || eventSplit[1].trim().equals("")) {
             //deadline is not added to the input string
             throw new DavidInvalidDeadlineException();
         }
@@ -163,13 +177,13 @@ public class David {
      * @throws DavidInvalidArgumentsException
      * @throws DavidInvalidTaskException
      */
-    public void deleteTask(String s) throws DavidInvalidArgumentsException, DavidInvalidTaskException{
+    public void deleteTask(String s) throws DavidInvalidArgumentsException, DavidInvalidTaskException {
         try {
             String index = StringParser.parseStringToArguments(s);
-            int i = Integer.parseInt(index) -1;
-            if(i >= tasks.getSize()){
+            int i = Integer.parseInt(index) - 1;
+            if (i >= tasks.getSize()) {
                 throw new DavidInvalidTaskException();
-            };
+            }
             Task t = tasks.getTask(i);
             tasks.deleteTask(i);
             ui.displaySuccessfulDeleteMessage(t, this.tasks.getSize());
@@ -184,10 +198,10 @@ public class David {
      * @param s String index to mark
      * @throws DavidInvalidArgumentsException
      */
-    public void markTaskAsDone(String s) throws DavidInvalidArgumentsException{
+    public void markTaskAsDone(String s) throws DavidInvalidArgumentsException {
         try {
             String index = StringParser.parseStringToArguments(s);
-            Task t = tasks.getTask(Integer.parseInt(index) -1);
+            Task t = tasks.getTask(Integer.parseInt(index) - 1);
             t.markAsDone();
             ui.displayMarkAsDoneMessage(t);
         } catch (IndexOutOfBoundsException e) {

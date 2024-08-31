@@ -1,6 +1,9 @@
-package david.Exceptions;
+package david.exceptions;
 
-public class DavidCacheException extends DavidException{
+/**
+ * Cache exception class for David class
+ */
+public class DavidCacheException extends DavidException {
 
     public DavidCacheException() {};
 
