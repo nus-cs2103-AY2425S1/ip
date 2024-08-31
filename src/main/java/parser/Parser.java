@@ -208,6 +208,8 @@ public  class Parser {
         return new String[] {plainDesc.toString().trim(), startDate.toString().trim(), endDate.toString().trim()};
     }
 
+
+
     /**
      * Returns a DateTimeFormatter used for printing LocalDateTime objects
      * @return PRINTDATEFORMATTER, standard formatter for dates in Chatterbox
