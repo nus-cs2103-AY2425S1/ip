@@ -13,6 +13,8 @@ import bean.ui.Ui;
  * The Bean class represents the main entry point of the application.
  * It handles the interaction between the user, the task list, and the storage.
  */
+import java.util.List;
+
 public class Bean {
 
     private Storage storage;
@@ -52,32 +54,37 @@ public class Bean {
                 Command command = parser.parseCommand(input);
 
                 switch (command.getType()) {
-                case "list":
-                    ui.showTasks(tasks.getTasks());
-                    break;
-                case "mark":
-                case "unmark":
-                case "delete":
-                    int index = Integer.parseInt(command.getDetails()) - 1;
-                    handleTaskOperation(command.getType(), index);
-                    break;
-                case "todo":
-                    tasks.addTask(new TodoTask(command.getDetails()));
-                    ui.showTaskAdded(tasks.getTask(tasks.size() - 1), tasks.size());
-                    break;
-                case "deadline":
-                    String[] deadlineParts = command.getDetails().split(" /by ");
-                    tasks.addTask(new DeadlineTask(deadlineParts[0], deadlineParts[1]));
-                    ui.showTaskAdded(tasks.getTask(tasks.size() - 1), tasks.size());
-                    break;
-                case "event":
-                    String[] eventParts = command.getDetails().split(" /from | /to ");
-                    tasks.addTask(new EventTask(eventParts[0], eventParts[1], eventParts[2]));
-                    ui.showTaskAdded(tasks.getTask(tasks.size() - 1), tasks.size());
-                    break;
-                default:
-                    ui.showError("Unknown command");
-                    break;
+
+                    case "list":
+                        ui.showTasks(tasks.getTasks());
+                        break;
+                    case "mark":
+                    case "unmark":
+                    case "delete":
+                        int index = Integer.parseInt(command.getDetails()) - 1;
+                        handleTaskOperation(command.getType(), index);
+                        break;
+                    case "todo":
+                        tasks.addTask(new TodoTask(command.getDetails()));
+                        ui.showTaskAdded(tasks.getTask(tasks.size() - 1), tasks.size());
+                        break;
+                    case "deadline":
+                        String[] deadlineParts = command.getDetails().split(" /by ");
+                        tasks.addTask(new DeadlineTask(deadlineParts[0], deadlineParts[1]));
+                        ui.showTaskAdded(tasks.getTask(tasks.size() - 1), tasks.size());
+                        break;
+                    case "event":
+                        String[] eventParts = command.getDetails().split(" /from | /to ");
+                        tasks.addTask(new EventTask(eventParts[0], eventParts[1], eventParts[2]));
+                        ui.showTaskAdded(tasks.getTask(tasks.size() - 1), tasks.size());
+                        break;
+                    case "find":
+                        List<Task> foundTasks = tasks.findTasks(command.getDetails());
+                        ui.showMatchingTasks(foundTasks);
+                        break;
+                    default:
+                        ui.showError("Unknown command");
+                        break;
                 }
                 storage.save(tasks.getTasks());
             } catch (Exception e) {

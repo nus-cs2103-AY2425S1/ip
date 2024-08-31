@@ -61,11 +61,19 @@ public class Ui {
     }
 
     /**
-     * Displays a message indicating that a task has been added.
+     * Displays the list of matching tasks.
      *
-     * @param task The task that was added.
-     * @param numOfTasks The number of tasks in the list after the addition.
+     * @param tasks The list of tasks to display.
      */
+    public void showMatchingTasks(List<Task> tasks) {
+        System.out.println("______________________________");
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 1; i <= tasks.size(); i++) {
+            System.out.println(i + "." + tasks.get(i - 1));
+        }
+        System.out.println("______________________________");
+    }
+
     public void showTaskAdded(Task task, int numOfTasks) {
         System.out.println("______________________________");
         System.out.println("Got it. I've added this task:");
