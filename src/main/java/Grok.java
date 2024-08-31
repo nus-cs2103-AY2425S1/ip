@@ -122,7 +122,7 @@ public class Grok {
 
                 String[] components = userInput.split("/by");
                 String description = components[0].substring(9);
-                String due = components[1];
+                String due = components[1].substring(1);
 
                 Task newTask;
                 try {
@@ -145,8 +145,8 @@ public class Grok {
                 String[] components = userInput.split("/from");
                 String[] subcomponents = components[1].split("/to");
                 String description = components[0];
-                String from = subcomponents[0];
-                String to = subcomponents[1];
+                String from = subcomponents[0].substring(1);
+                String to = subcomponents[1].substring(1);
 
                 Task newTask;
                 try {
