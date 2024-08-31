@@ -1,4 +1,4 @@
-package calebyyy.Tasks;
+package calebyyy.tasks;
 
 /**
  * Represents a task.
@@ -9,7 +9,7 @@ public class Task {
 
     /**
      * Constructor for Task.
-     * 
+     *
      * @param description The description of the task.
      */
     public Task(String description) {
@@ -19,9 +19,7 @@ public class Task {
 
     /**
      * Constructor for Task.
-     * 
-     * @param description The description of the task.
-     * @param isDone Whether the task is done.
+     *
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
@@ -29,7 +27,7 @@ public class Task {
 
     /**
      * Returns the description of the task.
-     * 
+     *
      * @return The description of the task.
      */
     public String toSaveFormat() {
@@ -61,7 +59,7 @@ public class Task {
 
     /**
      * Returns the description of the task.
-     * 
+     *
      * @return The description of the task.
      */
     @Override

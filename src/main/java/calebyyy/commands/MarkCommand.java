@@ -1,9 +1,9 @@
 package calebyyy.commands;
 
 import calebyyy.Calebyyy;
-import calebyyy.exceptions.InvalidArgumentException;
 import calebyyy.TaskList;
 import calebyyy.Ui;
+import calebyyy.exceptions.InvalidArgumentException;
 
 /**
  * Represents a command to mark a task as done.
@@ -11,7 +11,7 @@ import calebyyy.Ui;
 public class MarkCommand extends Command {
     /**
      * Constructor for MarkCommand.
-     * 
+     *
      * @param calebyyy The main Calebyyy object.
      * @param ui The Ui object responsible for user interaction.
      * @param taskList The TaskList object responsible for storing tasks.
@@ -22,17 +22,18 @@ public class MarkCommand extends Command {
 
     /**
      * Marks a task as done.
-     * 
+     *
      * @param input The user input.
      * @throws InvalidArgumentException If the user input is invalid.
      */
     @Override
-    public void execute(String input) throws InvalidArgumentException{        
+    public void execute(String input) throws InvalidArgumentException {
         String[] parts = input.split(" ");
         if (parts.length < 2 || parts[1].isBlank()) {
             throw new InvalidArgumentException();
         }
-        int taskNumber = Integer.parseInt(input.substring(input.indexOf(' ') + 1)); 
+        int taskNumber = Integer.parseInt(input.substring(input.indexOf(' ') + 1));
         taskList.markTask(taskNumber);
     }
 }
+

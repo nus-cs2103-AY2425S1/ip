@@ -1,9 +1,9 @@
 package calebyyy.commands;
 
 import calebyyy.Calebyyy;
-import calebyyy.exceptions.InvalidArgumentException;
 import calebyyy.TaskList;
 import calebyyy.Ui;
+import calebyyy.exceptions.InvalidArgumentException;
 
 /**
  * Represents a command to unmark a task as done.
@@ -11,7 +11,7 @@ import calebyyy.Ui;
 public class UnmarkCommand extends Command {
     /**
      * Constructor for UnmarkCommand.
-     * 
+     *
      * @param calebyyy The main Calebyyy object.
      * @param ui The Ui object responsible for user interaction.
      * @param taskList The TaskList object responsible for storing tasks.
@@ -22,7 +22,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Unmarks a task as done.
-     * 
+     *
      * @param input The user input.
      * @throws InvalidArgumentException If the user input is invalid.
      */

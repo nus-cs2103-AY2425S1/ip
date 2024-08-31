@@ -1,12 +1,17 @@
 package calebyyy;
 
+/**
+ * Represents the main Calebyyy object.
+ */
 public class Calebyyy {
     private Parser parser;
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
 
-
+    /**
+     * Constructor for Calebyyy.
+     */
     public Calebyyy() {
         ui = new Ui();
         storage = new Storage("data/tasks.txt");

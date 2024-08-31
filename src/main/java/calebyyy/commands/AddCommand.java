@@ -3,11 +3,11 @@ package calebyyy.commands;
 import calebyyy.Calebyyy;
 import calebyyy.TaskList;
 import calebyyy.Ui;
-import calebyyy.Tasks.Deadline;
-import calebyyy.Tasks.Event;
-import calebyyy.Tasks.Task;
-import calebyyy.Tasks.Todo;
 import calebyyy.exceptions.InvalidArgumentException;
+import calebyyy.tasks.Deadline;
+import calebyyy.tasks.Event;
+import calebyyy.tasks.Task;
+import calebyyy.tasks.Todo;
 
 /**
  * Represents a command to add a task to the task list.
@@ -38,7 +38,6 @@ public class AddCommand extends Command {
         if (parts.length < 2 || parts[1].isBlank()) {
             throw new InvalidArgumentException();
         }
-        
         String commandType = parts[0];
         String taskDetails = parts[1];
 

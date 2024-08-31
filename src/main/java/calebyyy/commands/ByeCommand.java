@@ -10,7 +10,7 @@ import calebyyy.Ui;
 public class ByeCommand extends Command {
     /**
      * Constructor for ByeCommand.
-     * 
+     *
      * @param calebyyy The main Calebyyy object.
      * @param ui The Ui object responsible for user interaction.
      * @param taskList The TaskList object responsible for storing tasks.
@@ -21,7 +21,7 @@ public class ByeCommand extends Command {
 
     /**
      * Exits the program.
-     * 
+     *
      * @param input The user input.
      */
     @Override
