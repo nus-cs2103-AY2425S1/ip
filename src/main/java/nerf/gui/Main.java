@@ -100,6 +100,7 @@ public class Main extends Application {
         scrollPane.setFitToWidth(true);
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        dialogContainer.setSpacing(10);
         // auto-scroll to bottom
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
@@ -114,7 +115,7 @@ public class Main extends Application {
      */
     private void handleUserInput() {
         String userText = userInput.getText();
-        String nerfText = "test";
+        String nerfText = getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog(userText, userImage),
             DialogBox.getNerfDialog(nerfText, nerfImage)

@@ -2,12 +2,14 @@ package nerf.gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 public class DialogBox extends HBox {
 
@@ -22,7 +24,14 @@ public class DialogBox extends HBox {
         text.setWrapText(true);
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
+
+        //Clip image to circle
+        Circle clip = new Circle(50, 50, 50);
+        displayPicture.setClip(clip)
+        ;
         this.setAlignment(Pos.TOP_RIGHT);
+        this.setSpacing(10);
+        this.setStyle("-fx-background-color: #d3e3fc; -fx-border-color: lightgray; -fx-border-width: 1;");
 
         this.getChildren().addAll(text, displayPicture);
     }
