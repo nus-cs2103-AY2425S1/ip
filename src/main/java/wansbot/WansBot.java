@@ -24,6 +24,7 @@ import wansbot.tasks.InputEmptyException;
 import wansbot.tasks.NotANumMarkingException;
 import wansbot.tasks.TaskList;
 import wansbot.tasks.Todos;
+import wansbot.ui.UI;
 
 public class WansBot {
     private static final String HR = "----------------------------------------------------------------------";
@@ -81,18 +82,6 @@ public class WansBot {
         if (splitUserEndDate.length < 2) {
             throw new InputEmptyException(userInput, "/to");
         }
-    }
-
-    // Method that abstracts Bot message when bot first starts
-    private static void introduceToUser() {
-        String logo ="                 __"
-                + "\n|  |  /\\  |\\ | /__` "
-                + "\n|/\\| /~~\\ | \\| .__/\n";
-
-        System.out.println(HR + "\nWans:\n"
-                + "Hey, I'm\n"
-                + logo
-                + "\nCan I help? (I can only manage a todo list so...)\n" + HR);
     }
 
     // Handles listing tasks function
@@ -391,7 +380,8 @@ public class WansBot {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        introduceToUser();
+        UI ui = new UI();
+        ui.introduceToUser();
         loadTasks();
 
         while (true) {
