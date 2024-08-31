@@ -14,12 +14,21 @@ import talkabot.task.ToDo;
 import java.io.IOException;
 import java.time.DateTimeException;
 
+/**
+ * TalkaBot Class handles the running of Talk-a-Bot
+ * and responds according to user input.
+ */
 public class TalkaBot {
 
     private Ui ui;
     private TaskList taskList;
     private Storage storage;
 
+    /**
+     * Constructor for TalkaBot class.
+     *
+     * @param filePath path of file to be saved in hard drive.
+     */
     public TalkaBot(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -30,6 +39,9 @@ public class TalkaBot {
         }
     }
 
+    /**
+     * Runs the Talk-a-Bot, responding based on user input.
+     */
     private void run() {
         boolean end = false;
         this.ui.hello();
