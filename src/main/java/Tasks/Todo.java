@@ -23,7 +23,10 @@ public class Todo extends Task {
         return newTodo;
     }
 
-    
+    @Override
+    public String formatStringForSaving() {
+        return toString();
+    }
 
     @Override
     public String toString() {

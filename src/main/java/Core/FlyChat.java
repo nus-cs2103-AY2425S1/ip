@@ -1,6 +1,7 @@
+package Core;
 
-import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class FlyChat {
     private static final String lineBreak = "\n--------------------\n";

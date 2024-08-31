@@ -18,6 +18,10 @@ public class Task {
         this.done = false;
     }
 
+    public String formatStringForSaving() {
+        return toString();
+    }
+
     @Override
     public String toString() {
         return "[" + (done ? "X" : " ") + "] " + this.text;
