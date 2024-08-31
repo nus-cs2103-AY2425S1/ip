@@ -134,4 +134,15 @@ public class TaskList {
         list.add(task);
     }
 
+    public String find(String description) {
+        StringBuilder tasks = new StringBuilder();
+        tasks.append("Here are the matching tasks in your list: \n");
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).description.contains(description)) {
+                tasks.append((i + 1)).append(".").append(list.get(i) + "\n");
+            }
+        }
+        return tasks.substring(0, tasks.toString().length() - 1);
+    }
+
 }

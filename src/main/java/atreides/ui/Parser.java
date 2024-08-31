@@ -22,7 +22,7 @@ public class Parser {
      * @return
      */
     public static Command parse(String msg) {
-        Set<String> commands = Set.of("mark", "unmark", "delete", "todo", "event", "deadline");
+        Set<String> commands = Set.of("mark", "unmark", "delete", "todo", "event", "deadline", "find");
         if (msg.equals("list")) {
             return new ListCommand();
         } else if (msg.equalsIgnoreCase("bye")) {
@@ -41,6 +41,8 @@ public class Parser {
             } else if (words[0].equals("delete")) {
                 int index = Integer.parseInt(words[1]) - 1;
                 return new DeleteCommand(index);
+            } else if (words[0].equals("find")) {
+                return new FindCommand(words[1]);
             } else {
                 return new AddCommand(msg);
             }
