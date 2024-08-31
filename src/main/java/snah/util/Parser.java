@@ -1,11 +1,20 @@
 package snah.util;
 
+/**
+ * Class to handle the parsing of the chatbot
+ */
 public class Parser {
 
     public enum Command {
         BYE, LIST, MARK, UNMARK, DEADLINE, EVENT, TODO, DELETE, CLEAR, INVALID
     }
 
+    /**
+     * Returns the command from the user input
+     * 
+     * @param input User input
+     * @return Command from the user input
+     */
     public static Command getCommand(String input) {
         String commandSymbol = input.split(" ", 2)[0].toUpperCase();
         switch (commandSymbol) {
@@ -32,10 +41,22 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns the raw command from the user input
+     * 
+     * @param input User input
+     * @return Raw command from the user input
+     */
     public static String getRawCommand(String input) {
         return input.split(" ", 2)[0];
     }
 
+    /**
+     * Returns the payload from the user input
+     * 
+     * @param input User input
+     * @return Payload from the user input
+     */
     public static String[] getTodoPayload(String input) {
         String[] todoPayload = input.split(" ", 2);
         if (todoPayload.length == 1) {
@@ -48,6 +69,12 @@ public class Parser {
         return new String[] { todoDescription };
     }
 
+    /**
+     * Returns the deadline payload from the user input
+     * 
+     * @param input User input
+     * @return Deadline payload from the user input
+     */
     public static String[] getDeadlinePayload(String input) {
         String[] deadlinePayload = input.split(" ", 2);
         if (deadlinePayload.length == 1) {
@@ -60,6 +87,12 @@ public class Parser {
         return new String[] { splitInput[0], splitInput[1] };
     }
 
+    /**
+     * Returns the event payload from the user input
+     * 
+     * @param input User input
+     * @return Event payload from the user input
+     */
     public static String[] getEventPayload(String input) {
         String[] eventPayload = input.split(" ", 2);
         if (eventPayload.length == 1) {
@@ -76,12 +109,14 @@ public class Parser {
         return new String[] { splitInput[0], finalSplit[0], finalSplit[1] };
     }
 
+    /**
+     * Returns the task index from the user input
+     * 
+     * @param input User input
+     * @return Task index from the user input
+     */
     public static int getTaskIndex(String input) {
         return Integer.parseInt(input.split(" ", 2)[1].strip()) - 1;
-    }
-
-    public static String[] getCommandStrings() {
-        return Command.values().toString().replaceAll("^.|.$", "").split(", ");
     }
 
 }

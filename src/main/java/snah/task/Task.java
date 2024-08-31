@@ -1,5 +1,8 @@
 package snah.task;
 
+/**
+ * Class to handle the tasks of the chatbot
+ */
 public class Task {
 
     private boolean isDone = false;
@@ -29,6 +32,11 @@ public class Task {
         return description;
     }
 
+    /**
+     * Returns the task in the format to save to file
+     * 
+     * @return Task in the format to save to file
+     */
     public String toSaveFile() {
         return String.format("T:%s:%s", isDone() ? "x" : "", getDescription());
     }

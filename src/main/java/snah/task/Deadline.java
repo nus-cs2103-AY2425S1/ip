@@ -18,6 +18,12 @@ public class Deadline extends Task {
                 by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")), getDescription());
     }
 
+    /**
+     * Returns the Deadline in the format to save to file
+     * 
+     * @return Deadline in the format to save to file
+     */
+    @Override
     public String toSaveFile() {
         return String.format("D:%s:%s:%s", isDone() ? "x" : "", getDescription(), by);
     }
