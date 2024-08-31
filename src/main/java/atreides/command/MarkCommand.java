@@ -12,6 +12,15 @@ public class MarkCommand implements Command {
     public MarkCommand(int index) {
         this.index = index;
     }
+
+    /**
+     * The task indicated by the index will be marked as completed
+     * Ui will acknowledge that the task has been completed
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws AtreidesException if index not in list
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AtreidesException {
         tasks.mark(index);
@@ -20,6 +29,9 @@ public class MarkCommand implements Command {
                 + task);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;

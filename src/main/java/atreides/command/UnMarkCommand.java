@@ -12,6 +12,15 @@ public class UnMarkCommand implements Command {
     public UnMarkCommand(int index) {
         this.index = index;
     }
+
+    /**
+     * The task indicated by the index will be marked as undone
+     * Ui will acknowledge that the task has been marked as undone
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws AtreidesException if index not in list
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AtreidesException {
         tasks.unmark(index);
@@ -20,6 +29,9 @@ public class UnMarkCommand implements Command {
                 + task);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;

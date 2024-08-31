@@ -11,11 +11,20 @@ public class ErrorCommand implements Command {
         this.error = error;
     }
 
+    /**
+     * Ui will show the error message
+     * @param tasks
+     * @param ui
+     * @param storage
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showError(error);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;

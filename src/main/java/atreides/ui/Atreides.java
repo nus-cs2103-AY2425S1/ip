@@ -3,6 +3,9 @@ package atreides.ui;
 import atreides.command.Command;
 import atreides.task.TaskList;
 
+/**
+ * Represents the logic for the entire chatbot
+ */
 public class Atreides {
 
     private Storage storage;
@@ -10,6 +13,10 @@ public class Atreides {
     private Ui ui;
 
 
+    /**
+     * reads the lists of tasks in the filePath
+     * @param filePath
+     */
     public Atreides(String filePath) {
         this.ui = new Ui();
         storage = new Storage(filePath);
@@ -21,6 +28,9 @@ public class Atreides {
         }
     }
 
+    /**
+     * Accepts user commands and modifies the list of tasks accordingly
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

@@ -4,9 +4,19 @@ import atreides.ui.AtreidesException;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the list of tasks that can be added
+ */
 public class TaskList {
     protected ArrayList<Task> list;
 
+    /**
+     * parses the string msg and words and creates the relevant Task object
+     * @param msg
+     * @param words
+     * @return
+     * @throws AtreidesException if msg and words do not follow the standard commands
+     */
     public static Task getTask(String msg, String[] words) throws AtreidesException {
         Task newTask;
         if (words[0].equals("todo")) {
@@ -52,6 +62,10 @@ public class TaskList {
         this.list = new ArrayList<>();
     }
 
+    /**
+     * Creates string of list of tasks that the Ui will print out
+     * @return
+     */
     public String showList() {
         StringBuilder tasks = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
@@ -63,6 +77,10 @@ public class TaskList {
         return tasks.toString();
     }
 
+    /**
+     * creates a string of list of tasks that will be written into the file object
+     * @return
+     */
     public String writeList() {
         StringBuilder tasks = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
@@ -82,6 +100,12 @@ public class TaskList {
         markBool(index, false);
     }
 
+    /**
+     * marks whether task at the specific index based on the bool
+     * @param index
+     * @param bool
+     * @throws AtreidesException If index out of bounds
+     */
     public void markBool(int index, boolean bool) throws AtreidesException{
         checkIndexPresent(index);
         list.get(index).markDone(bool);

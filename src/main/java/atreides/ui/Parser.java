@@ -4,8 +4,16 @@ import atreides.command.*;
 
 import java.util.Set;
 
+/**
+ * Represents the class to parse commands and creates relevant commands
+ */
 public class Parser {
 
+    /**
+     * Parses the message and creates relevant commands
+     * @param msg
+     * @return
+     */
     public static Command parse(String msg) {
         Set<String> commands = Set.of("mark", "unmark", "delete", "todo", "event", "deadline");
         if (msg.equals("list")) {

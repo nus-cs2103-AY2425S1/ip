@@ -2,6 +2,9 @@ package atreides.ui;
 
 import java.util.Scanner;
 
+/**
+ * Represents the logic for the Ui that handles the printing to user and reading user commands
+ */
 public class Ui {
     private final String LOGO = "          _            _     _\n"
                              +  "    / \\  | |          (_)   | |\n"
@@ -13,7 +16,10 @@ public class Ui {
     private final String OUTRO = "Praise be Muad Dib\n" + "GoodBye\n";;
     private final String ERROR_STRING = "File cannot be found\n";
 
-
+    /**
+     * Ui will print out message to the user with the correct indentation and headers
+     * @param message
+     */
     public void showMessage(String message) {
         System.out.println(new Response(message));
     }

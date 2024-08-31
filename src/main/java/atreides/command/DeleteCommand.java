@@ -12,6 +12,14 @@ public class DeleteCommand implements Command {
     public DeleteCommand(int index) {
         this.index = index;
     }
+
+    /**
+     * Deletes the specific task based on its index
+     * @param tasks
+     * @param ui
+     * @param storage
+     * @throws AtreidesException if index not found
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AtreidesException {
         Task task = tasks.delete(index);
@@ -22,6 +30,9 @@ public class DeleteCommand implements Command {
         ui.showMessage(response);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExit() {
         return false;

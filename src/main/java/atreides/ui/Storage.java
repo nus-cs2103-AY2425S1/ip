@@ -8,6 +8,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the storage for the list of tasks written to .txt file
+ */
 public class Storage  {
     private final String fileName;
 
@@ -15,6 +18,11 @@ public class Storage  {
         this.fileName = fileName;
     }
 
+    /**
+     *
+     * @return a list of arrays of strings. Each string array corresponds to a command and task
+     * @throws AtreidesException if file not found
+     */
     ArrayList<String[]> load() throws AtreidesException {
         File file = new File(fileName);
         try {
@@ -31,6 +39,11 @@ public class Storage  {
         }
     }
 
+    /**
+     * writes the tasks into the .txt file after user exits chatbot
+     * @param tasks
+     * @throws AtreidesException if file not found
+     */
     void writeTasks(TaskList tasks) throws AtreidesException {
         try {
             PrintWriter pw = new PrintWriter(fileName);
