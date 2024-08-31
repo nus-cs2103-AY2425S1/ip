@@ -17,7 +17,7 @@ public class Tars {
      * Constructs a Tars object, initializing the user interface and loading tasks from storage.
      *
      * <p>The constructor attempts to load tasks from the specified file. If an error occurs
-     * during loading, an empty task list is created, and an error message is displayed.
+     * during loading, an empty task list is created instead.
      */
     public Tars() {
         ui = new UI();
@@ -26,79 +26,71 @@ public class Tars {
         try {
             loadedTasks = new TaskList(storage.loadTasks(), storage);
         } catch (TarsException e) {
-            ui.printLoadingError();
             loadedTasks = new TaskList(storage);
         }
         tasks = loadedTasks;
     }
 
     /**
-     * Starts the main loop of the Tars application, which listens for and processes user commands.
+     * Processes the user's input and returns a response based on the command provided.
+     *
+     * This method parses the user's input into a command and its arguments, executes the
+     * corresponding action, and returns the appropriate response message.
+     * The supported commands include:
+     *
+     * @param input the user's input string.
+     * @return a response message based on the command executed.
      */
-    public void run() {
-        ui.printWelcome();
-        boolean isRunning = true;
-        while (isRunning) {
-            String input = ui.readInput();
-            String[] parsedInput = Parser.parse(input);
-            String command = parsedInput[0];
-            String arguments = parsedInput[1];
+    public String getResponse(String input) {
+        String[] parsedInput = Parser.parse(input);
+        String command = parsedInput[0];
+        String arguments = parsedInput[1];
 
-            try {
-                switch (command) {
+        try {
+            switch (command) {
                 case "bye":
-                    ui.printGoodbye();
-                    isRunning = false;
-                    break;
+                    return ui.getGoodbyeMessage();
                 case "list":
-                    ui.printResponse(tasks.listTasks());
-                    break;
+                    return ui.getResponseMessage(tasks.listTasks());
                 case "mark":
                     int markIndex = Integer.parseInt(arguments.trim()) - 1;
                     Task markedTask = tasks.markTaskDone(markIndex);
-                    ui.taskMarkedResponse(markedTask);
-                    break;
+                    return ui.getTaskMarkedResponse(markedTask);
                 case "unmark":
                     int unmarkIndex = Integer.parseInt(arguments.trim()) - 1;
                     Task unmarkedTask = tasks.markTaskUndone(unmarkIndex);
-                    ui.taskUnmarkedResponse(unmarkedTask);
-                    break;
+                    return ui.getTaskUnmarkedResponse(unmarkedTask);
                 case "todo":
                     Task todo = new Todo(arguments, false);
                     tasks.addTask(todo);
-                    ui.taskAddedResponse(todo, tasks.getSize());
-                    break;
+                    return ui.getTaskAddedResponse(todo, tasks.getSize());
                 case "deadline":
                     String[] deadlineParts = arguments.split(" /by ", 2);
                     Task deadline = new Deadline(deadlineParts[0], false, deadlineParts[1]);
                     tasks.addTask(deadline);
-                    ui.taskAddedResponse(deadline, tasks.getSize());
-                    break;
+                    return ui.getTaskAddedResponse(deadline, tasks.getSize());
                 case "event":
                     String[] eventParts = arguments.split(" /from | /to ", 3);
                     Task event = new Event(eventParts[0], false, eventParts[1], eventParts[2]);
                     tasks.addTask(event);
-                    ui.taskAddedResponse(event, tasks.getSize());
-                    break;
+                    return ui.getTaskAddedResponse(event, tasks.getSize());
                 case "remove":
                     int removeIndex = Integer.parseInt(arguments.trim()) - 1;
                     tasks.removeTask(removeIndex);
-                    ui.printResponse("Noted. I've removed this task.");
-                    break;
+                    return ui.getTaskRemovedResponse("Task removed", tasks.getSize());
                 case "find":
                     List<Task> foundTasks = tasks.findTasks(arguments.trim());
-                    ui.printFoundTasks(foundTasks);
-                    break;
+                    return ui.getFoundTasksResponse(foundTasks);
                 default:
-                    ui.printResponse("I'm sorry, I can't quite help you with that.");
-                }
-            } catch (TarsException e) {
-                ui.printResponse(e.getMessage());
+                    return ui.getResponseMessage("I'm sorry, I can't quite help you with that.");
             }
+        } catch (TarsException e) {
+            return ui.getResponseMessage(e.getMessage());
+        } catch (NumberFormatException e) {
+            return ui.getResponseMessage("Invalid number format.");
+        } catch (Exception e) {
+            return ui.getResponseMessage("An unexpected error occurred: " + e.getMessage());
         }
     }
-
-    public static void main(String[] args) {
-        new Tars().run();
-    }
 }
+

@@ -1,0 +1,55 @@
+/* main.css */
+
+.root {
+    main-color: rgb(169, 169, 169);
+    -fx-background-color: main-color;
+}
+
+.scroll-bar {
+    -fx-background-color: rgb(105, 105, 105);
+}
+
+.text-field {
+    -fx-background-color: rgb(192, 192, 192);
+    -fx-font: 20px "Arial";
+    -fx-text-fill: rgb(70, 130, 180);
+}
+
+.button {
+    -fx-background-color: rgb(105, 105, 105);
+    -fx-font: bold 16px "Arial";
+    -fx-text-fill: rgb(70, 130, 180);
+}
+
+.button:hover {
+    -fx-background-color: rgb(169, 169, 169);
+    -fx-font-size: 18px;
+    -fx-text-fill: rgb(173, 216, 230);
+}
+
+.button:pressed {
+    -fx-background-color: rgb(128, 128, 128);
+    -fx-font-size: 20px;
+    -fx-text-fill: rgb(100, 149, 237);
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: rgb(105, 105, 105);
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgb(128, 128, 128);
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
