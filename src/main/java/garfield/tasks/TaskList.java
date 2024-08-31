@@ -37,6 +37,25 @@ public class TaskList {
     }
 
     /**
+     * Returns a string representation of all tasks containing the specified
+     * keyword in the TaskList, with each Task numbered sequentially.
+     *
+     * @return A string containing the list of tasks, each on a new line.
+     */
+    public String listKeywordTasks(String keyword) {
+        int count = 0;
+        StringBuilder result = new StringBuilder();
+        for (Task task: this.taskList) {
+            if (task.hasKeyword(keyword)) {
+                count++;
+                result.append(count).append(". ")
+                        .append(task.toString()).append("\n");
+            }
+        }
+        return result.toString();
+    }
+
+    /**
      * Checks if the garfield.task list is empty.
      *
      * @return {@code true} if the garfield.task list is empty; {@code false} otherwise.

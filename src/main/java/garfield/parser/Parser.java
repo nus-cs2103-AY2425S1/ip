@@ -1,5 +1,6 @@
 package garfield.parser;
 
+import garfield.Garfield;
 import garfield.commands.*;
 import garfield.exceptions.GarfieldException;
 import garfield.tasks.Deadline;
@@ -35,7 +36,7 @@ public class Parser {
             try {
                 return new DeleteCommand(getIntegerArg(inputLine));
             } catch (GarfieldException e) {
-                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: delete <garfield.task id>");
+                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: delete <task id>");
             }
         }
 
@@ -43,7 +44,7 @@ public class Parser {
             try {
                 return new MarkCommand(getIntegerArg(inputLine));
             } catch (GarfieldException e) {
-                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: mark <garfield.task id>");
+                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: mark <task id>");
             }
         }
 
@@ -51,7 +52,15 @@ public class Parser {
             try {
                 return new UnmarkCommand(getIntegerArg(inputLine));
             } catch (GarfieldException e) {
-                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: unmark <garfield.task id>");
+                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: unmark <task id>");
+            }
+        }
+
+        if (inputLine.toLowerCase().startsWith("find")) {
+            try {
+                return new FindCommand(parseFind(inputLine));
+            } catch (GarfieldException e) {
+                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: find <keyword>");
             }
         }
 
@@ -60,7 +69,7 @@ public class Parser {
                 Todo newTodo = parseTodo(inputLine);
                 return new AddCommand(newTodo);
             } catch (GarfieldException e) {
-                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: todo <garfield.task description>");
+                throw new GarfieldException(e.getMessage() + "\n\n" + "Correct Usage: todo <task description>");
             }
         }
 
@@ -70,7 +79,7 @@ public class Parser {
                 return new AddCommand(newDeadline);
             } catch (GarfieldException e) {
                 throw new GarfieldException(e.getMessage() + "\n\n"
-                        + "Correct Usage: deadline <garfield.task description> /by yyyy-MM-dd HH:mm (24h time)");
+                        + "Correct Usage: deadline <task description> /by yyyy-MM-dd HH:mm (24h time)");
             }
         }
 
@@ -80,7 +89,7 @@ public class Parser {
                 return new AddCommand(newEvent);
             } catch (GarfieldException e) {
                 throw new GarfieldException(e.getMessage() + "\n\n"
-                        + "Correct Usage: event <garfield.task description> /from yyyy-MM-dd HH:mm (24h time)"
+                        + "Correct Usage: event <task description> /from yyyy-MM-dd HH:mm (24h time)"
                         + " /to yyyy-MM-dd HH:mm (24h time)");
             }
         }
@@ -102,6 +111,25 @@ public class Parser {
             throw new GarfieldException("No integer after the command to select a garfield.task!");
         }
         return Integer.parseInt(output[1]);
+    }
+
+    /**
+     * Parses the user input for a find command and returns the keyword for the find command.
+     *
+     * @param fullInput String that user inputted.
+     * @return String representing the keyword to find.
+     * @throws GarfieldException when keyword is missing.
+     */
+    private static String parseFind(String fullInput) throws GarfieldException {
+        if (fullInput.length() <= 5) {
+            throw new GarfieldException("You are missing a keyword!");
+        }
+        String[] output = fullInput.split(" ");
+
+        if (output.length != 2 || output[1].isBlank()) {
+            throw new GarfieldException("You are missing a keyword!");
+        }
+        return output[1];
     }
 
     /**
