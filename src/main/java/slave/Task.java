@@ -1,29 +1,27 @@
-package slaveFiles;
+package slave;
 
 public abstract class Task {
-    private boolean completed;
+    private boolean isCompleted;
     private String task;
 
     public Task(String task) {
-        this.completed = false;
+        this.isCompleted = false;
         this.task = task;
     }
 
     protected Task(boolean completed, String task) {
         this.task = task;
-        this.completed = completed;
+        this.isCompleted = completed;
     }
 
     /**
-     *
      * @return the boolean value stored in the task
      */
     public boolean isCompleted() {
-        return this.completed;
+        return this.isCompleted;
     }
 
     /**
-     *
      * @return the string description of the task
      */
     public String getTask() {
@@ -34,14 +32,14 @@ public abstract class Task {
      * sets the task as completed
      */
     public void setAsCompleted() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     /**
      * sets the task as incomplete
      */
     public void setAsIncomplete() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**

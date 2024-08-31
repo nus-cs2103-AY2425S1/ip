@@ -1,4 +1,4 @@
-package slaveFiles;
+package slave;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -64,40 +64,40 @@ public class Storage {
                     char taskType = task.charAt(1);
                     char taskCompleted = task.charAt(4);
                     int firstSpacePos = task.indexOf(" ");
-                    boolean completed = false;
+                    boolean isCompleted = false;
                     if (taskCompleted == ']') {
                         // do nothing
                     } else if (taskCompleted == 'X') {
-                        completed = true;
+                        isCompleted = true;
                     } else {
                         throw new InvalidSaveFileFormatException("invalid completed status");
                     }
                     // identify the type of task:
                     switch (taskType) {
-                        case 'T':
-                            list.add(new Todo(completed, task.substring(firstSpacePos + 1)));
-                            success++;
-                            break;
-                        case 'D':
-                            // not sure how to get rid of error here for string formatting
-                            String[] deadlineArray = task.split(" \\(by: ");
-                            String deadlineName = deadlineArray[0].substring(firstSpacePos + 1);
-                            String by = deadlineArray[1].substring(0, deadlineArray[1].length() - 1);
-                            list.add(new Deadline(completed, deadlineName, LocalDate.parse(by)));
-                            success++;
-                            break;
-                        case 'E':
-                            // not sure how to get rid of error here for string formatting
-                            String[] eventArray = task.split(" \\(from: ");
-                            String eventName = eventArray[0].substring(firstSpacePos + 1);
-                            String[] eventDetails = eventArray[1].split(" to: ");
-                            String from = eventDetails[0];
-                            String to = eventDetails[1].substring(0, eventDetails[1].length() - 1);
-                            list.add(new Event(completed, eventName, LocalDate.parse(from), LocalDate.parse(to)));
-                            success++;
-                            break;
-                        default:
-                            throw new InvalidSaveFileFormatException("invalid Task type");
+                    case 'T':
+                        list.add(new Todo(isCompleted, task.substring(firstSpacePos + 1)));
+                        success++;
+                        break;
+                    case 'D':
+                        // not sure how to get rid of error here for string formatting
+                        String[] deadlineArray = task.split(" \\(by: ");
+                        String deadlineName = deadlineArray[0].substring(firstSpacePos + 1);
+                        String by = deadlineArray[1].substring(0, deadlineArray[1].length() - 1);
+                        list.add(new Deadline(isCompleted, deadlineName, LocalDate.parse(by)));
+                        success++;
+                        break;
+                    case 'E':
+                        // not sure how to get rid of error here for string formatting
+                        String[] eventArray = task.split(" \\(from: ");
+                        String eventName = eventArray[0].substring(firstSpacePos + 1);
+                        String[] eventDetails = eventArray[1].split(" to: ");
+                        String from = eventDetails[0];
+                        String to = eventDetails[1].substring(0, eventDetails[1].length() - 1);
+                        list.add(new Event(isCompleted, eventName, LocalDate.parse(from), LocalDate.parse(to)));
+                        success++;
+                        break;
+                    default:
+                        throw new InvalidSaveFileFormatException("invalid Task type");
                     }
                 } catch (InvalidSaveFileFormatException | DateTimeParseException
                          | IndexOutOfBoundsException | InvalidChronologicalOrderException e) {

@@ -1,17 +1,18 @@
-package slaveFiles;
+package slave;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     private LocalDate deadline;
-    public Deadline (String task, LocalDate deadline) {
+
+    public Deadline(String task, LocalDate deadline) {
         super(task);
         this.deadline = deadline;
     }
 
-    protected Deadline(boolean completed, String task, LocalDate deadline) {
-        super(completed, task);
+    protected Deadline(boolean isCompleted, String task, LocalDate deadline) {
+        super(isCompleted, task);
         this.deadline = deadline;
     }
 

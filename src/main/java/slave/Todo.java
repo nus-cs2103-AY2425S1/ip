@@ -1,12 +1,12 @@
-package slaveFiles;
+package slave;
 
 public class Todo extends Task {
     public Todo(String task) {
         super(task);
     }
 
-    protected Todo(boolean completed, String task) {
-        super(completed, task);
+    protected Todo(boolean isCompleted, String task) {
+        super(isCompleted, task);
     }
 
     @Override

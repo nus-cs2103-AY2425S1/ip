@@ -1,4 +1,4 @@
-package slaveFiles;
+package slave;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class Ui {
     }
 
     /**
-     *  Prints the goodbye message in response to the user inputting "bye"
+     * Prints the goodbye message in response to the user inputting "bye"
      */
     public void goodbye() {
         System.out.println("Good riddance " + user + ", try not to bother me in the future...");

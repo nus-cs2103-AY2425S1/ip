@@ -27,15 +27,15 @@ test {
 }
 
 application {
-    mainClass.set("slaveFiles.Slave")
+    mainClass.set("slave.Slave")
 }
 
 shadowJar {
-    archiveBaseName = "slaveFiles"
+    archiveBaseName = "slave"
     archiveClassifier = null
     archiveFileName = 'slave.jar'
 }
 
-run{
+run {
     standardInput = System.in
 }

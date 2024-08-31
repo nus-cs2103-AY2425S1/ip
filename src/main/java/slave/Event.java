@@ -1,4 +1,4 @@
-package slaveFiles;
+package slave;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     private LocalDate start;
     private LocalDate end;
+
     public Event(String task, LocalDate start, LocalDate end) throws InvalidChronologicalOrderException {
         super(task);
         if (start.isAfter(end)) {
@@ -15,8 +16,8 @@ public class Event extends Task {
         this.end = end;
     }
 
-    protected Event(boolean completed, String task, LocalDate start, LocalDate end) throws InvalidChronologicalOrderException {
-        super(completed, task);
+    protected Event(boolean isCompleted, String task, LocalDate start, LocalDate end) throws InvalidChronologicalOrderException {
+        super(isCompleted, task);
         if (start.isAfter(end)) {
             throw new InvalidChronologicalOrderException("Event cannot end before it starts");
         }
