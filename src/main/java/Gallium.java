@@ -1,6 +1,12 @@
-import java.util.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.nio.file.Paths;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Scanner;
 
 public class Gallium {
     public static void main(String[] args) {
@@ -16,6 +22,15 @@ public class Gallium {
         String list = "list";
         String mark = "mark";
         String unmark = "unmark";
+
+        try {
+            File dir = new File("./data");
+            dir.mkdirs();
+            File f = new File(dir, "gallium.txt");
+            f.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error creating file.");
+        }
 
         while (!Message.equals(bye)) {
             try {
@@ -120,6 +135,21 @@ public class Gallium {
             }
             Message = userInput.nextLine();
         }
+
+        StringBuilder listStringBuilder = new StringBuilder();
+        for (int i = 1; i < Task.count; i++) {
+            Task task = taskList.get(i - 1);
+            listStringBuilder.append("\n    ").append(task.toString());
+        }
+        String listString = listStringBuilder.toString();
+        try {
+            FileWriter fw = new FileWriter("./data/gallium.txt");
+            fw.write(listString);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+
         System.out.println("    " + lines + "\n    " + byeMessage + "\n    " + lines + "\n");
         userInput.close();
     }
