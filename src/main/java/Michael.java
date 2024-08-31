@@ -119,7 +119,11 @@ public class Michael {
                 String curr = parts[i];
                 parts[i] = curr.substring(0, curr.length() - 1);
             }
-            Deadline curr = new Deadline(parts[0], parts[1].substring(3));
+            String deadline = parts[1].substring(3);
+            if (deadline.split("-").length < 3) { // invalid format of date
+                throw new MichaelException("Deadline should be in format YYYY-MM-DD");
+            }
+            Deadline curr = new Deadline(parts[0], deadline);
             tasks.add(curr);
             String message = "Got it. I've added this task:\n" + "  " + curr.toString() + "\n"
                     + "Now you have " + String.valueOf(tasks.size()) + " tasks in the list.";
