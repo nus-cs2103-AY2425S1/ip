@@ -50,9 +50,6 @@ public class Grok {
                 ui.printErrorMessage(e.getMessage());
             }
         }
-
-
-        System.out.println(padMessage("Bye. Hope to see you again soon!"));
     }
 
     public static void main(String[] args) {

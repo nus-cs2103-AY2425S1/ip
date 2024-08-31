@@ -10,6 +10,10 @@ import ui.Ui;
 public abstract class Command {
     private final boolean isExitCommand;
 
+    public Command() {
+        isExitCommand = false;
+    }
+
     public Command(boolean isExitCommand) {
         this.isExitCommand = isExitCommand;
     }

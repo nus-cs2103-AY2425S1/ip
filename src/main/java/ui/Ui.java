@@ -5,6 +5,9 @@ import tasks.Task;
 import java.util.ArrayList;
 
 public class Ui {
+    public Ui() {
+
+    }
 
     /**
      * Pad a provided message with horizontal lines and indentation to separate bot input from user input
@@ -22,24 +25,19 @@ public class Ui {
         return indentSpaces.concat(msgWithHLines.replace("\n", "\n".concat(indentSpaces)));
     }
 
-    // Provide information on added task and total number of tasks for the user
-    private static String addTaskMessage(Task t, ArrayList<Task> tasks) {
-        return "Got it. I've added this task:\n  " + t + "\nNow you have " + tasks.size() + " tasks in the list.";
-    }
-
     public void printGenericMessage(String s) {
         System.out.println(padMessage(s));
     }
 
     public void printWelcomeMessage() {
-        System.out.println(padMessage("Hello! I'm Grok\nWhat ya wanna do to grok your way to success?"));
+        printGenericMessage("Hello! I'm Grok\nWhat ya wanna do to grok your way to success?");
+    }
+
+    public void printByeMessage() {
+        printGenericMessage("Bye. Hope to see you again soon!");
     }
 
     public void printErrorMessage(String s) {
-        System.out.println(padMessage("Error! " + s));
-    }
-
-    public Ui() {
-
+        printGenericMessage("Error! " + s);
     }
 }

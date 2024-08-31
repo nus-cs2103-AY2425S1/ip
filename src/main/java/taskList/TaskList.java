@@ -35,4 +35,15 @@ public class TaskList {
     }
 
     public void addTask(Task t) { tasks.add(t); }
+
+    /**
+     * Get all tasks as an ArrayList.
+     * @return A copy of the task list (not the actual copy to prevent mutation of tasks through this method).
+     */
+    public ArrayList<Task> getAllTasks() {
+        if (tasks instanceof ArrayList<?>) {
+            // no choice but to do an unchecked cast here because of type erasure.
+            return (ArrayList<Task>) tasks.clone();
+        }
+    }
 }

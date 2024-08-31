@@ -1,6 +1,7 @@
 package storage;
 
 import exceptions.GrokInvalidUserInputException;
+import taskList.TaskList;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -70,12 +71,12 @@ public class Storage {
         return items;
     }
 
-    public void writeToTextStorage(ArrayList<Task> tasks) {
+    public void writeToTextStorage(TaskList tasks) {
         try {
             // this line potentially throws IOException.
             FileWriter writer = new FileWriter(filePath);
 
-            for (Task t: tasks) {
+            for (Task t: tasks.getAllTasks()) {
                 writer.write(t.serialize());
                 writer.write("\n");
             }
