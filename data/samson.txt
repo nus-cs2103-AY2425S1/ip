@@ -1,2 +1,5 @@
+T | 1 | read book
+D | 0 | return book | 2019-10-15 1600
+D | 0 | read book | 2024-12-30 1300
 T | 0 | read book
-E | 0 | return book | Mon 2pm | 4pm
+D | 0 | drink water | 2024-07-29 1234
