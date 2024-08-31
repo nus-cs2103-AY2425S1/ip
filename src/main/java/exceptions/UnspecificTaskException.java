@@ -1,3 +1,5 @@
+package exceptions;
+
 public class UnspecificTaskException extends AstorException {
     public UnspecificTaskException() {
         super("Please be clear on what to do!\n" +

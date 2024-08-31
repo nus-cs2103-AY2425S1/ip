@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -69,13 +70,13 @@ public class DataFileModifier {
                     }
                     tasks.add(task);
                 } else if (info[0].equals("D")) {
-                    Task task = new Deadline(info[2], info[3]);
+                    Task task = new Deadline(info[2], LocalDateTime.parse(info[3]));
                     if (info[1].equals("1")) {
                         task.markDone();
                     }
                     tasks.add(task);
                 } else {
-                    Task task = new Event(info[2], info[3], info[4]);
+                    Task task = new Event(info[2], LocalDateTime.parse(info[3]), LocalDateTime.parse(info[4]));
                     if (info[1].equals("1")) {
                         task.markDone();
                     }
