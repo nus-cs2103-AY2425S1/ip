@@ -12,6 +12,7 @@ import colress.command.Command;
 import colress.command.DateCommand;
 import colress.command.DeleteCommand;
 import colress.command.ExitCommand;
+import colress.command.FindCommand;
 import colress.command.ListCommand;
 import colress.command.UncheckCommand;
 import colress.exception.UnknownCommandException;
@@ -40,6 +41,8 @@ public final class Parser {
             return new DeleteCommand();
         case "bye":
             return new ExitCommand();
+        case "find":
+            return new FindCommand();
         case "list":
             return new ListCommand();
         case "uncheck":
@@ -49,7 +52,7 @@ public final class Parser {
         }
     }
 
-    public String getDescription() {
+    public String getString() {
         return getInput();
     }
 

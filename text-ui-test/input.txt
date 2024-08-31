@@ -43,6 +43,10 @@ assignment1
 date
 2024-08-29
 list
+find
+assignment
+find
+hello
 delete
 5
 2

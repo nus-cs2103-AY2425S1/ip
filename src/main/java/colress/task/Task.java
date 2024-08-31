@@ -31,7 +31,15 @@ public abstract class Task {
     public void uncheck() {
         this.isDone = false;
     }
+
     public abstract boolean fallsOnDate(LocalDate date);
+
+    /**
+     * Checks if task contains a specified keyword in its description and returns the result.
+     */
+    public boolean containsInDescription(String keyword) {
+        return this.description.contains(keyword);
+    }
 
     public abstract String toTextFile();
 }

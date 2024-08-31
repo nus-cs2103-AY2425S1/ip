@@ -26,6 +26,7 @@ public final class Ui {
     private static final String PROMPT_EVENT_DESCRIPTION = "Enter the description of the event.";
     private static final String PROMPT_EVENT_END_TIME = "Enter the ending time of the event (in the form hh:mm).";
     private static final String PROMPT_EVENT_START_TIME = "Enter the starting time of the event (in the form hh:mm).";
+    private static final String PROMPT_KEYWORD = "Enter the keyword to find in the list.";
     private static final String PROMPT_TASK_DESCRIPTION = "Enter the description of the task.";
     private static final String PROMPT_TASK_NUMBER = "Enter the task number.";
     private static final String PROMPT_TASK_TYPE = "Enter the type of task you wish to add to your list.";
@@ -71,6 +72,14 @@ public final class Ui {
         command.execute(this, taskList);
     }
 
+    /**
+     * Prompts the user for a keyword to find in the list of tasks and returns it.
+     */
+    public String promptKeyword() {
+        print(PROMPT_KEYWORD);
+        return parser.getString();
+    }
+
     public String promptTaskType() {
         String result = null;
         while (result == null) {
@@ -95,7 +104,7 @@ public final class Ui {
         default:
             print(PROMPT_TASK_DESCRIPTION);
         }
-        return parser.getDescription();
+        return parser.getString();
     }
 
     public LocalDate promptDate(String taskType) {
@@ -152,20 +161,23 @@ public final class Ui {
         }
     }
 
-    public void printTasks(TaskList taskList, boolean printsAll) {
+    public void printTasks(TaskList taskList, String listType) {
         if (taskList.isEmpty()) {
             print(MESSAGE_LIST_EMPTY);
-        } else if (!printsAll) {
+        } else if (Objects.equals(listType, "list")) {
+            String result = taskList.retrieveTasks();
+            print(Objects.equals(result, "") ? MESSAGE_LIST_EMPTY : result);
+        } else if (Objects.equals(listType, "date")) {
             String result = taskList.retrieveTasks(promptDate("date"));
             print(Objects.equals(result, "") ? MESSAGE_LIST_EMPTY : result);
-        } else {
-            String result = taskList.retrieveTasks();
+        } else if (Objects.equals(listType, "find")) {
+            String result = taskList.retrieveTasks(promptKeyword());
             print(Objects.equals(result, "") ? MESSAGE_LIST_EMPTY : result);
         }
     }
 
     public void printConfirmationMessage(TaskList taskList, String message) {
         print(message);
-        printTasks(taskList, true);
+        printTasks(taskList, "list");
     }
 }

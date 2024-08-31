@@ -95,4 +95,24 @@ public class TaskList {
         }
         return "Here is your list:" + result;
     }
+
+    public String retrieveTasks(String keyword) {
+        String result = "";
+        if (tasks.isEmpty()) {
+            return result;
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                Task currTask = tasks.get(i);
+                if (!currTask.containsInDescription(keyword)) {
+                    continue;
+                }
+                result += String.format("\n%d. " + tasks.get(i), i + 1);
+            }
+        }
+
+        if (result.isEmpty()) {
+            return result;
+        }
+        return "Here is your list:" + result;
+    }
 }

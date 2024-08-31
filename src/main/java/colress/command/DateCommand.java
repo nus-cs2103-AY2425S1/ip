@@ -9,6 +9,6 @@ public final class DateCommand extends ListCommand {
     }
     @Override
     public void execute(Ui ui, TaskList taskList) {
-        ui.printTasks(taskList, false);
+        ui.printTasks(taskList, "date");
     }
 }
