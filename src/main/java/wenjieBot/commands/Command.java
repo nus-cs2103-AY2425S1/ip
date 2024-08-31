@@ -6,7 +6,7 @@ import wenjieBot.TaskList;
 import wenjieBot.Ui;
 
 /**
- * Abstract class representing a command in the bot.
+ * Abstract class representing a command in Wenjie chatbot.
  * Commands are used to perform various actions such as adding tasks, listing tasks, etc.
  * This class provides the basic structure for commands including whether the command
  * should exit the application and the input associated with the command.
