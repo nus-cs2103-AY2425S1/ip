@@ -16,5 +16,4 @@ public class Deadline extends Task {
         }
         return "[D]" + cross + " " + super.getInput() + "(by:" + this.deadline + ")\n";
     }
-
 }
