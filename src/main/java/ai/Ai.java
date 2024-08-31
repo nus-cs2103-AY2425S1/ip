@@ -35,7 +35,7 @@ public class Ai {
     /**
      * Obtains user reply using a scanner. Repeat the process until "bye" command is issued.
      */
-    public void run() {
+    public void run() { 
         ui.showGreetings();
         boolean isExit = false;
 
