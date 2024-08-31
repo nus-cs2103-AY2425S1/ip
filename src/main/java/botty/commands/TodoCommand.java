@@ -27,6 +27,9 @@ public class TodoCommand extends AddTaskCommand {
             throw new BottyException("I am unable to add that todo! Please ensure that the description is not blank");
         }
     }
+    /**
+     * Returns true as the command will edit the task list
+     */
     @Override
     public boolean changesTaskList() {
         return true;

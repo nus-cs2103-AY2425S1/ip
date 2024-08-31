@@ -29,6 +29,9 @@ public class MarkCommand extends Command {
                     + "Do indicate which task to mark with its number!");
         }
     }
+    /**
+     * Returns true as the command will edit the task list
+     */
     @Override
     public boolean changesTaskList() {
         return true;

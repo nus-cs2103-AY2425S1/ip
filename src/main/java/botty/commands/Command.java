@@ -16,10 +16,16 @@ public abstract class Command {
      */
     public abstract String execute(TaskManager taskManager, ParsedInput parsedInput) throws BottyException;
 
+    /**
+     * Returns if the command will cause the application to exit
+     */
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * Returns if the command will edit the task list
+     */
     public boolean changesTaskList() {
         return false;
     }

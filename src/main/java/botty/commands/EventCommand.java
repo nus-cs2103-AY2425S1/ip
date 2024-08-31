@@ -30,6 +30,9 @@ public class EventCommand extends AddTaskCommand {
                     + "the following format: [description] /from [start] /to [end]");
         }
     }
+    /**
+     * Returns true as the command will edit the task list
+     */
     @Override
     public boolean changesTaskList() {
         return true;

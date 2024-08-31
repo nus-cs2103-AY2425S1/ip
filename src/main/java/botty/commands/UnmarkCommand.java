@@ -30,6 +30,9 @@ public class UnmarkCommand extends Command {
                     + "Do indicate which task to unmark with its number!");
         }
     }
+    /**
+     * Returns true as the command will edit the task list
+     */
     @Override
     public boolean changesTaskList() {
         return true;
