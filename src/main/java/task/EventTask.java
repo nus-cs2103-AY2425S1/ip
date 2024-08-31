@@ -1,18 +1,18 @@
+package task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import utility.CustomDateTimeFormatter;
 
 public class EventTask extends Task {
     private final LocalDateTime fromDateTime;
     private final LocalDateTime toDateTime;
 
-    public EventTask(String taskDescription, String from, String to) {
+    public EventTask(String taskDescription, LocalDateTime fromDateTime,
+            LocalDateTime toDateTime) {
         super(taskDescription);
-        try {
-            this.fromDateTime = LocalDateTime.parse(from, dateTimeFormatter);
-            this.toDateTime = LocalDateTime.parse(to, dateTimeFormatter);
-        } catch (DateTimeParseException e) {
-            throw e;
-        }
+        this.fromDateTime = fromDateTime;
+        this.toDateTime = toDateTime;
     }
 
     private EventTask(boolean isDone, String taskDescription,
@@ -39,7 +39,7 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " 
-            + fromDateTime.format(prettyDateTimeFormatter) + " to: " 
-            + toDateTime.format(prettyDateTimeFormatter)+ ")";
+            + fromDateTime.format(CustomDateTimeFormatter.PRETTY_DATE_TIME_FORMATTER) + " to: " 
+            + toDateTime.format(CustomDateTimeFormatter.PRETTY_DATE_TIME_FORMATTER) + ")";
     }
 }

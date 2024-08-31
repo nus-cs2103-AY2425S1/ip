@@ -1,12 +1,9 @@
+package task;
+
 import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 
-public class Task implements Serializable{
-    private static final long serialVersionUID = 3L;
-    protected static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter
-            .ofPattern("dd-MM-yyyy kkmm");
-    protected static final DateTimeFormatter prettyDateTimeFormatter = 
-            DateTimeFormatter.ofPattern("dd MMM yyyy hh:mma");
+public class Task implements Serializable {
     protected final boolean isDone;
     protected final String taskDescription;
 
