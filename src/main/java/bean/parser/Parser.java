@@ -24,6 +24,8 @@ public class Parser {
                 return new Command("deadline", details);
             case "event":
                 return new Command("event", details);
+            case "find":
+                return new Command("find", details);
             default:
                 throw new UnknownCommandException();
         }

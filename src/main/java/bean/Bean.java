@@ -9,6 +9,8 @@ import bean.task.Task;
 import bean.task.TodoTask;
 import bean.ui.Ui;
 
+import java.util.List;
+
 public class Bean {
 
     private Storage storage;
@@ -62,6 +64,10 @@ public class Bean {
                         String[] eventParts = command.getDetails().split(" /from | /to ");
                         tasks.addTask(new EventTask(eventParts[0], eventParts[1], eventParts[2]));
                         ui.showTaskAdded(tasks.getTask(tasks.size() - 1), tasks.size());
+                        break;
+                    case "find":
+                        List<Task> foundTasks = tasks.findTasks(command.getDetails());
+                        ui.showMatchingTasks(foundTasks);
                         break;
                     default:
                         ui.showError("Unknown command");

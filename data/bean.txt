@@ -3,3 +3,5 @@ D | 0 | asdasa | 2019-10-11 1200
 T | 0 | asdaks
 T | 0 | asdasdklajsd
 D | 0 | asdjkhasd | 2018-10-10 1800
+T | 0 | read book
+T | 0 | return book
