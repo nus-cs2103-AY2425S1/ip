@@ -28,11 +28,10 @@ public class Parser {
      */
     public boolean cmd() {
         TaskManager tm = TaskManager.getInstance();
-        String cmd, args;
         while (sc.hasNext()) {
             String[] input = splitCmd(sc.nextLine());
-            cmd = input[0];
-            args = input[1];
+            String cmd = input[0];
+            String args = input[1];
 
             try {
                 switch (cmd) {

@@ -1,7 +1,7 @@
 package guy.tasks;
 
-import java.time.LocalDateTime;
 import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -47,10 +47,10 @@ public class TaskManager {
             String type = line[0];
 
             Task task = switch (type) {
-                case "T" -> new ToDo(line[2]);
-                case "D" -> new Deadline(line[2], LocalDateTime.parse(line[3], dtf));
-                case "E" -> new Event(line[2], LocalDateTime.parse(line[3], dtf), LocalDateTime.parse(line[4], dtf));
-                default -> throw new GuyException("Why did you give me a file with an invalid line, you dingus...");
+            case "T" -> new ToDo(line[2]);
+            case "D" -> new Deadline(line[2], LocalDateTime.parse(line[3], dtf));
+            case "E" -> new Event(line[2], LocalDateTime.parse(line[3], dtf), LocalDateTime.parse(line[4], dtf));
+            default -> throw new GuyException("Why did you give me a file with an invalid line, you dingus...");
             };
 
             if (line[1].equals("1")) {
@@ -70,8 +70,7 @@ public class TaskManager {
         int len = tasks.size();
         if (len == 0) {
             System.out.println("You really don't have anything better to do?");
-        }
-        else {
+        } else {
             System.out.println("Here are your damned tasks. Complete them or something.");
             for (int i = 0; i < len; i++) {
                 System.out.println((i + 1) + ". " + tasks.get(i).toString());
@@ -165,31 +164,33 @@ public class TaskManager {
             Task task;
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             switch (cmd) {
-                case "todo":
-                    task = new ToDo(input);
-                    break;
-                case "deadline":
-                    if (!input.contains("/by") || input.indexOf("/by") == input.length() - 3) {
-                        throw new GuyException("That isn't even a valid description!");
-                    }
-                    String[] splitted = input.split("/by", 2);
-                    task = new Deadline(splitted[0].trim(), LocalDateTime.parse(splitted[1].trim(), dtf));
-                    break;
-                case "event":
-                    if (
-                            !input.contains("/from") ||
-                                    !input.contains("/to") ||
-                                    input.indexOf("/from") == input.length() - 5 ||
-                                    input.indexOf("/to") == input.length() - 2
-                    ) throw new GuyException("That isn't even a valid description!");
-                    String[] splitFrom = input.split("/from", 2);
-                    String[] splitTo = splitFrom[1].split("/to", 2);
-                    task = new Event(splitFrom[0].trim(),
+            case "todo":
+                task = new ToDo(input);
+                break;
+            case "deadline":
+                if (!input.contains("/by") || input.indexOf("/by") == input.length() - 3) {
+                    throw new GuyException("That isn't even a valid description!");
+                }
+                String[] splitted = input.split("/by", 2);
+                task = new Deadline(splitted[0].trim(), LocalDateTime.parse(splitted[1].trim(), dtf));
+                break;
+            case "event":
+                if (
+                        !input.contains("/from")
+                        || !input.contains("/to")
+                        || input.indexOf("/from") == input.length() - 5
+                        || input.indexOf("/to") == input.length() - 2
+                    ) {
+                    throw new GuyException("That isn't even a valid description!");
+                }
+                String[] splitFrom = input.split("/from", 2);
+                String[] splitTo = splitFrom[1].split("/to", 2);
+                task = new Event(splitFrom[0].trim(),
                             LocalDateTime.parse(splitTo[0].trim(), dtf),
                             LocalDateTime.parse(splitTo[1].trim(), dtf));
-                    break;
-                default:
-                    throw new GuyException("That's not even a task type!");
+                break;
+            default:
+                throw new GuyException("That's not even a task type!");
             }
             tasks.add(task);
             Storage.saveData();
@@ -254,7 +255,7 @@ public class TaskManager {
         } else {
             System.out.println("These are your damned tasks, that actually match the keywords:");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.printf("%d.%s\n", i+1, matchingTasks.get(i).toString());
+                System.out.printf("%d.%s\n", i + 1, matchingTasks.get(i).toString());
             }
         }
     }
