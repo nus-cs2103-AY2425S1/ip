@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import yappingbot.exceptions.YappingBotSaveFileIOException;
+import yappingbot.exceptions.YappingBotSaveFileIoException;
 import yappingbot.exceptions.YappingBotSaveFileNotFoundException;
 
 public class Storage {
@@ -35,14 +35,14 @@ public class Storage {
         return taskListRaw;
     }
 
-    public void saveListToFile(ArrayList<String> userListRaw) throws YappingBotSaveFileIOException {
+    public void saveListToFile(ArrayList<String> userListRaw) throws YappingBotSaveFileIoException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(savefilePath))) {
             for (String t : userListRaw) {
                 bw.write(t);
                 bw.newLine();
             }
         } catch (IOException e) {
-            throw new YappingBotSaveFileIOException(e.getMessage());
+            throw new YappingBotSaveFileIoException(e.getMessage());
         }
     }
 }

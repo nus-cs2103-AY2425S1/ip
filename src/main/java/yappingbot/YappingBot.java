@@ -1,4 +1,8 @@
 package yappingbot;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import yappingbot.commands.Commands;
 import yappingbot.commands.Parser;
 import yappingbot.exceptions.YappingBotException;
@@ -9,9 +13,6 @@ import yappingbot.stringconstants.ReplyTextMessages;
 import yappingbot.tasks.TaskList;
 import yappingbot.tasks.TaskTypes;
 import yappingbot.ui.Ui;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class YappingBot {
     private TaskList userList;
@@ -66,13 +67,25 @@ public class YappingBot {
                     Commands.deleteTask(taskListIndexPtr, userList);
                     break;
                 case TODO:
-                    userList.add(Commands.createNewTask(userInputSlices, TaskTypes.TODO, userList));
+                    userList.add(
+                            Commands.createNewTask(
+                                    userInputSlices,
+                                    TaskTypes.TODO,
+                                    userList));
                     break;
                 case EVENT:
-                    userList.add(Commands.createNewTask(userInputSlices, TaskTypes.EVENT, userList));
+                    userList.add(
+                            Commands.createNewTask(
+                                    userInputSlices,
+                                    TaskTypes.EVENT,
+                                    userList));
                     break;
                 case DEADLINE:
-                    userList.add(Commands.createNewTask(userInputSlices, TaskTypes.DEADLINE, userList));
+                    userList.add(
+                            Commands.createNewTask(
+                                    userInputSlices,
+                                    TaskTypes.DEADLINE,
+                                    userList));
                     break;
                 case UNKNOWN:
                 default:

@@ -15,12 +15,12 @@ public final class ReplyTextMessages {
     public static final String ADDED_TEXT = "Got it. I've added this task:";
     public static final String DELETED_TEXT = "Noted. I've deleted this task:";
     public static final String DELETE_USAGE =
-    """
-            Here is the usage for the instruction 'delete':
-
-                delete TASK_NUMBER
-
-            where TASK_NUMBER is the task number in the task list to delete""";
+            """
+                    Here is the usage for the instruction 'delete':
+        
+                        delete TASK_NUMBER
+        
+                    where TASK_NUMBER is the task number in the task list to delete""";
     public static final String TODO_USAGE =
             """
                     Here is the usage for the instruction 'todo':

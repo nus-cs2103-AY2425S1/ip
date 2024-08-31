@@ -5,13 +5,15 @@ import yappingbot.exceptions.YappingBotException;
 public class Ui {
     private static final String PREFIX = "|  ";
     private static final String PREFIX_EMPTY = "|";
+
     private static String quoteSinglelineText(String line) {
         if (line == null || line.trim().isEmpty()) {
             return PREFIX_EMPTY + "\n";
         } else {
-            return PREFIX + line.replaceAll("\n","") + "\n";
+            return PREFIX + line.replaceAll("\n", "") + "\n";
         }
     }
+
     public static void quoteSinglelineText(String line, StringBuilder sb) {
         if (line.trim().isEmpty()) {
             sb.append(PREFIX_EMPTY);
@@ -21,6 +23,7 @@ public class Ui {
         }
         sb.append("\n");
     }
+
     private static String quoteMultilineText(String text) {
         // annotates text with pipe to denote speech from bot
         if (text == null) {
@@ -37,6 +40,7 @@ public class Ui {
     public static void printError(YappingBotException e) {
         printError(e.getErrorMessage());
     }
+
     public static void printError(String msg) {
         System.out.print(Ui.quoteMultilineText(msg));
     }
@@ -44,6 +48,7 @@ public class Ui {
     public static void print(String msg) {
         System.out.print(Ui.quoteMultilineText(msg));
     }
+
     public static void println(String msg) {
         System.out.print(Ui.quoteSinglelineText(msg));
     }

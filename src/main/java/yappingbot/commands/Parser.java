@@ -1,6 +1,7 @@
 package yappingbot.commands;
 
 import java.util.HashMap;
+
 import yappingbot.exceptions.YappingBotInvalidTaskNumberException;
 import yappingbot.exceptions.YappingBotUnknownCommandException;
 
@@ -21,7 +22,7 @@ public class Parser {
     }
 
     public CommandTypes parseCommand(String commandString)
-    throws YappingBotUnknownCommandException {
+            throws YappingBotUnknownCommandException {
         if (commandString.toLowerCase().trim().isEmpty()) {
             throw new YappingBotUnknownCommandException();
         } else {
@@ -34,7 +35,7 @@ public class Parser {
     }
 
     public static int parseTaskNumberSelected(String userInputSlice)
-    throws YappingBotInvalidTaskNumberException {
+            throws YappingBotInvalidTaskNumberException {
         int i;
         try {
             i = Integer.parseInt(userInputSlice) - 1;

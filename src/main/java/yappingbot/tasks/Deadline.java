@@ -1,5 +1,7 @@
 package yappingbot.tasks;
 
+import static yappingbot.stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -8,13 +10,24 @@ import yappingbot.exceptions.YappingBotIncorrectCommandException;
 import yappingbot.exceptions.YappingBotInvalidSaveFileException;
 import yappingbot.stringconstants.ReplyTextMessages;
 
-import static yappingbot.stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES;
-
 public class Deadline extends Task {
     private LocalDate deadline;
 
     public Deadline() {
-        this("",false);
+        this("", false);
+    }
+
+    public Deadline(String taskName, boolean taskDone) {
+        super(taskName, taskDone);
+        super.setTaskType(TaskTypes.DEADLINE);
+        this.deadline = LocalDate.now();
+    }
+
+    public Deadline(String taskName, boolean taskDone, String deadline)
+    throws YappingBotIncorrectCommandException {
+        super(taskName, taskDone);
+        super.setTaskType(TaskTypes.DEADLINE);
+        this.setDeadline(deadline);
     }
 
     public String getDeadline() {
@@ -31,17 +44,6 @@ public class Deadline extends Task {
         }
     }
 
-    public Deadline(String taskName, boolean taskDone) {
-        super(taskName, taskDone);
-        super.setTaskType(TaskTypes.DEADLINE);
-        this.deadline = LocalDate.now();
-    }
-
-    public Deadline(String taskName, boolean taskDone, String deadline) throws YappingBotIncorrectCommandException {
-        super(taskName, taskDone);
-        super.setTaskType(TaskTypes.DEADLINE);
-        this.setDeadline(deadline);
-    }
 
     @Override
     public String getTaskTypeSymbol() {

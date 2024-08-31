@@ -18,6 +18,7 @@ public class Event extends Task {
         this.startTime = LocalDate.now();
         this.endTime = LocalDate.now();
     }
+
     public Event(String taskName, boolean taskDone, String startTime, String endTime)
     throws YappingBotIncorrectCommandException  {
         super(taskName, taskDone);
@@ -27,7 +28,7 @@ public class Event extends Task {
     }
 
     public Event() {
-        this("untitled",false);
+        this("untitled", false);
     }
 
     public String getStartTime() {
