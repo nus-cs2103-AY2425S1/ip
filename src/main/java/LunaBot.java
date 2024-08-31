@@ -4,9 +4,20 @@ import java.util.Scanner;
 public class LunaBot {
 
     // Array of strings to store list of tasks
-    private final static ArrayList<Task> taskList =  new ArrayList<>();
+    private static ArrayList<Task> taskList;
+    private static Storage storage;
 
     public static void main(String[] args) {
+
+        storage = new Storage("./data/LunaBot.txt");
+
+        try {
+            taskList = storage.load();
+        }
+        catch (LunaBotException e) {
+            System.out.println("Unable to load tak list from file: " + e.getMessage());
+            taskList = new ArrayList<>();
+        }
 
         // Greet the user
         System.out.println("___________________________________________________________________");
@@ -95,6 +106,7 @@ public class LunaBot {
             System.out.println(" Nice! I've marked this task as done:");
             System.out.println("   " + taskList.get(taskNumber));
             System.out.println("___________________________________________________________________");
+            storage.save(taskList);
         }
         // Checks if user inputs and int
         catch (NumberFormatException e) {
@@ -120,6 +132,7 @@ public class LunaBot {
             System.out.println(" OK, I've marked this task as not done yet:");
             System.out.println("   " + taskList.get(taskNumber));
             System.out.println("___________________________________________________________________");
+            storage.save(taskList);
         }
         // Checks if user inputs and int
         catch (NumberFormatException e) {
@@ -139,6 +152,7 @@ public class LunaBot {
             System.out.println("   " + deleted);
             System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
             System.out.println("___________________________________________________________________");
+            storage.save(taskList);
         }
         catch (NumberFormatException e) {
             throw new LunaBotException("Invalid task number format");
@@ -159,6 +173,7 @@ public class LunaBot {
         System.out.println("   " + taskList.get(taskList.size() - 1));
         System.out.println(" Now you have " + taskList.size() + " tasks in the list");
         System.out.println("___________________________________________________________________");
+        storage.save(taskList);
     }
 
     private static void addDeadline(String input) throws LunaBotException {
@@ -180,6 +195,7 @@ public class LunaBot {
         System.out.println("   " + taskList.get(taskList.size() - 1));
         System.out.println(" Now you have " + taskList.size() + " tasks in the list");
         System.out.println("___________________________________________________________________");
+        storage.save(taskList);
     }
 
     private static void addEvent(String input) throws LunaBotException {
@@ -205,5 +221,6 @@ public class LunaBot {
         System.out.println("   " + taskList.get(taskList.size() - 1));
         System.out.println(" Now you have " + taskList.size() + " tasks in the list");
         System.out.println("___________________________________________________________________");
+        storage.save(taskList);
     }
 }
