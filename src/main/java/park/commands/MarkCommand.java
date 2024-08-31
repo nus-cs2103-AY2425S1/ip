@@ -10,8 +10,8 @@ public class MarkCommand extends Command {
 
     private final int index;
 
-    public MarkCommand(int i) {
-        this.index = i;
+    public MarkCommand(int index) {
+        this.index = index;
     }
 
     @Override

@@ -95,28 +95,26 @@ public class Storage {
         try {
             String[] s = line.split("/");
             switch (s[0]) {
-                case "T" -> {
-                    Task t = new ToDo(s[2]);
-                    if (s[1].equals("[X]")) {
-                        t.mark();
-                    }
-                    return t;
+            case "T":
+                Task toDo = new ToDo(s[2]);
+                if (s[1].equals("[X]")) {
+                    toDo.mark();
                 }
-                case "D" -> {
-                    Task t = new Deadline(s[2], s[3]);
-                    if (s[1].equals("[X]")) {
-                        t.mark();
-                    }
-                    return t;
+                return toDo;
+            case "D":
+                Task deadline = new Deadline(s[2], s[3]);
+                if (s[1].equals("[X]")) {
+                    deadline.mark();
                 }
-                case "E" -> {
-                    Task t = new Event(s[2], s[3], s[4]);
-                    if (s[1].equals("[X]")) {
-                        t.mark();
-                    }
-                    return t;
+                return deadline;
+            case "E":
+                Task event = new Event(s[2], s[3], s[4]);
+                if (s[1].equals("[X]")) {
+                    event.mark();
                 }
-                default -> throw new ParkException("file corrupted, loading new empty list");
+                return event;
+            default:
+                throw new ParkException("file corrupted, loading new empty list");
             }
         } catch (IndexOutOfBoundsException e) {
             throw new ParkException("file corrupted, loading new empty list");
