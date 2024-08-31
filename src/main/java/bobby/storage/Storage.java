@@ -51,23 +51,23 @@ public class Storage {
 
                 Task task;
                 switch (taskType) {
-                    case "T":
-                        task = new Todo(description);
-                        break;
-                    case "D":
-                        String byString = parts[3];
-                        LocalDate by = LocalDate.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                        task = new Deadline(description, by);
-                        break;
-                    case "E":
-                        String fromString = parts[3];
-                        String toString = parts[4];
-                        LocalDate from = LocalDate.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                        LocalDate to = LocalDate.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                        task = new Event(description, from, to);
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + taskType);
+                case "T":
+                    task = new Todo(description);
+                    break;
+                case "D":
+                    String byString = parts[3];
+                    LocalDate by = LocalDate.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    task = new Deadline(description, by);
+                    break;
+                case "E":
+                    String fromString = parts[3];
+                    String toString = parts[4];
+                    LocalDate from = LocalDate.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    LocalDate to = LocalDate.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    task = new Event(description, from, to);
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + taskType);
                 }
 
                 if (isDone) {

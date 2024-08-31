@@ -34,44 +34,44 @@ public class Bobby {
             Command command = parser.parseCommand(userInput);
             try {
                 switch (command) {
-                    case BYE:
-                        ui.showExitMessage();
-                        isRunning = false;
-                        break;
-                    case LIST:
-                        ui.showTasks(tasks);
-                        break;
-                    case MARK:
-                        int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                        Task task = tasks.get(index);
-                        task.markTask();
-                        ui.showTaskMarked(task);
-                        storage.saveTasks(tasks);
-                        break;
-                    case UNMARK:
-                        int i = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                        Task taskToUnmark = tasks.get(i);
-                        taskToUnmark.unmarkTask();
-                        ui.showTaskUnmarked(taskToUnmark);
-                        storage.saveTasks(tasks);
-                        break;
-                    case DELETE:
-                        int deleteIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                        Task deletedTask = tasks.remove(deleteIndex);
-                        ui.showTaskDeleted(deletedTask, tasks.size());
-                        storage.saveTasks(tasks);
-                        break;
-                    case FIND:
-                        String dateString = userInput.split(" ")[1];
-                        LocalDate date = LocalDate.parse(dateString);
-                        tasks.findTasksByDate(date, ui);
-                        break;
-                    default:
-                        Task newTask = parser.parseTask(userInput);
-                        tasks.add(newTask);
-                        ui.showTaskAdded(newTask, tasks.size());
-                        storage.saveTasks(tasks);
-                        break;
+                case BYE:
+                    ui.showExitMessage();
+                    isRunning = false;
+                    break;
+                case LIST:
+                    ui.showTasks(tasks);
+                    break;
+                case MARK:
+                    int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    Task task = tasks.get(index);
+                    task.markTask();
+                    ui.showTaskMarked(task);
+                    storage.saveTasks(tasks);
+                    break;
+                case UNMARK:
+                    int i = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    Task taskToUnmark = tasks.get(i);
+                    taskToUnmark.unmarkTask();
+                    ui.showTaskUnmarked(taskToUnmark);
+                    storage.saveTasks(tasks);
+                    break;
+                case DELETE:
+                    int deleteIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    Task deletedTask = tasks.remove(deleteIndex);
+                    ui.showTaskDeleted(deletedTask, tasks.size());
+                    storage.saveTasks(tasks);
+                    break;
+                case FIND:
+                    String dateString = userInput.split(" ")[1];
+                    LocalDate date = LocalDate.parse(dateString);
+                    tasks.findTasksByDate(date, ui);
+                    break;
+                default:
+                    Task newTask = parser.parseTask(userInput);
+                    tasks.add(newTask);
+                    ui.showTaskAdded(newTask, tasks.size());
+                    storage.saveTasks(tasks);
+                    break;
                 }
             } catch (BobbyException e) {
                 ui.showError(e.getMessage());
