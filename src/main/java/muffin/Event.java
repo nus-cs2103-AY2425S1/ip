@@ -3,11 +3,29 @@ package muffin;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event with a description and a specified date range.
+ * The event starts on the "from" date and ends on the "to" date.
+ */
 public class Event extends Task {
 
+    /**
+     * The start date of the event.
+     */
     protected LocalDate from;
+
+    /**
+     * The end date of the event.
+     */
     protected LocalDate to;
 
+    /**
+     * Constructs an Event with the specified description, start date, and end date.
+     *
+     * @param description A brief description of the event.
+     * @param from The start date of the event in the format "yyyy-MM-dd".
+     * @param to The end date of the event in the format "yyyy-MM-dd".
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = LocalDate.parse(from);

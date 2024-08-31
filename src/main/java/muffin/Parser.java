@@ -1,6 +1,19 @@
 package muffin;
 
+/**
+ * Responsible for parsing user input into distinct components.
+ * It splits the input string into a command and its respective arguments, handling
+ * cases where the input includes additional parameters separated by slashes ("/").
+ */
 public class Parser {
+
+    /**
+     * Parses the user input into an array of strings, where the first element is the command
+     * and the subsequent elements are the command's arguments.
+     *
+     * @param input The user input string to be parsed.
+     * @return An array of strings where the first element is the command, and the following elements are the arguments.
+     */
     public String[] parseInput(String input) {
         // Find the index of the first space
         int firstSpaceIndex = input.indexOf(" ");

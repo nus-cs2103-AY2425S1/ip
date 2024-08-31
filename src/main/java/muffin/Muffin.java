@@ -2,16 +2,47 @@ package muffin;
 
 import java.util.Scanner;
 
+/**
+ * The Muffin class represents the main application logic for a todo list.
+ */
 public class Muffin {
+
+    /**
+     * The file path to the task list file.
+     */
     String filePath = "../taskList.txt";
+
+    /**
+     * Scanner object to capture user input.
+     */
     Scanner sc = new Scanner(System.in);
+
+    /**
+     * An instance of FileProcessor to handle reading and writing tasks to a file.
+     */
     FileProcessor fp = new FileProcessor();
+
+    /**
+     * An instance of Parser to parse user input commands.
+     */
     Parser parser = new Parser();
+
+    /**
+     * The TaskList object that stores the list of tasks read from the file.
+     */
     TaskList list = new TaskList(fp.readFromFile(filePath));
+
+    /**
+     * Enum representing the possible commands the user can input.
+     */
     enum Command {
         BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
     }
 
+    /**
+     * Starts the Muffin application, displays the welcome message and
+     * processes the user's commands.
+     */
     public void run() {
         String logo = " __  __       __  __ _\n" +
                 "|  \\/  |_  _ / _|/ _(_)_ _\n" +
@@ -34,6 +65,13 @@ public class Muffin {
         new Muffin().run();
     }
 
+    /**
+     * Processes user commands. This method continuously reads user input, parses the command,
+     * and performs the corresponding action, such as adding a task, marking it as done,
+     * or deleting it.
+     *
+     * @throws MuffinException if the user input is invalid or an unsupported command is given.
+     */
     public void command() throws MuffinException {
         try {
             String userInput = sc.nextLine();
