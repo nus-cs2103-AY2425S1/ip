@@ -15,12 +15,21 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.io.BufferedWriter;
 
+/**
+ * The Storage class handles the reading and writing of tasks to and from a file.
+ * It allows tasks to be persisted between sessions of the bot.
+ */
 public class Storage {
 
     private String filePath;
     private ArrayList<Task> tasks = new ArrayList<>(0);
 
-
+    /**
+     * Constructs a Storage object with the specified file path.
+     * The constructor attempts to read existing tasks from the file.
+     *
+     * @param filePath the path of the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         try {
@@ -29,13 +38,23 @@ public class Storage {
             System.out.println("Bro I can't find a file to retrieve the data, \n" +
                     " can help lobang me and create a file pls");
         }
-
     }
 
+    /**
+     * Loads the list of tasks from storage.
+     *
+     * @return an ArrayList of Task objects that were read from the file.
+     */
     public ArrayList<Task> load() {
         return tasks;
     }
 
+    /**
+     * Reads tasks from the file specified by filePath and populates the tasks list.
+     * If the file does not exist, a NoFileException is thrown.
+     *
+     * @throws NoFileException if the file does not exist.
+     */
     public void readTasks() throws NoFileException {
         File file = new File(filePath);
 
@@ -50,7 +69,6 @@ public class Storage {
                     for (String stringifiedTask : parts) {
                         boolean isDone = stringifiedTask.charAt(4) == '1';
                         Task taskToAdd = getTask(stringifiedTask, isDone);
-
                         tasks.add(taskToAdd);
                     }
                 }
@@ -62,6 +80,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a stringified task into a Task object based on its type (ToDo, Deadline, or Event).
+     *
+     * @param stringifiedTask the string representation of the task.
+     * @param isDone whether the task is marked as done.
+     * @return the corresponding Task object.
+     */
     private static Task getTask(String stringifiedTask, boolean isDone) {
         String description = stringifiedTask.substring(8);
         Task taskToAdd = null;
@@ -86,7 +111,6 @@ public class Storage {
             case 'E': {
                 String[] segments = description.split("/");
                 taskToAdd = new Event(segments[0], segments[1].substring(6), segments[2].substring(4));
-
                 break;
             }
         }
@@ -99,6 +123,10 @@ public class Storage {
         return taskToAdd;
     }
 
+    /**
+     * Writes the current list of tasks to the file specified by filePath.
+     * If the file does not exist, a FileNotFoundException is thrown.
+     */
     public void writeTasks() {
         try {
             File file = new File(filePath);
@@ -111,7 +139,6 @@ public class Storage {
 
                     StringBuilder formattedString = new StringBuilder();
 
-
                     for (Task task : tasks) {
                         formattedString.append(task.toPrettierString());
                         formattedString.append("\n");
@@ -119,7 +146,6 @@ public class Storage {
 
                     writer.write(formattedString.toString());
                     writer.flush();
-
 
                 } catch (IOException e) {
                     System.out.println("An error occurred while saving the file.");
@@ -130,10 +156,5 @@ public class Storage {
             System.out.println("Bro I can't find a file to store the data, \n" +
                     " can help lobang me and create a file pls");
         }
-
-
-
-
     }
-
 }

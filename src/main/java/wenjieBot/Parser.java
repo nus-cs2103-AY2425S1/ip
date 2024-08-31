@@ -1,16 +1,21 @@
 package wenjieBot;
 
-import wenjieBot.commands.Command;
-import wenjieBot.commands.MarkCommand;
-import wenjieBot.commands.DeleteCommand;
-import wenjieBot.commands.ByeCommand;
-import wenjieBot.commands.ListCommand;
-import wenjieBot.commands.UnmarkCommand;
-import wenjieBot.commands.AddCommand;
+import wenjieBot.commands.*;
 import wenjieBot.exceptions.UnknownCommandException;
 
-
+/**
+ * The Parser class is responsible for interpreting user input
+ * and returning the corresponding Command object for execution in the wenjieBot application.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param input The user's input as a String.
+     * @return The corresponding Command object based on the user's input.
+     * @throws UnknownCommandException If the command is not recognized.
+     */
     public static Command parse(String input) throws UnknownCommandException {
         String[] parts = input.split(" ");
         String action = parts[0].toLowerCase();
@@ -63,6 +68,5 @@ public class Parser {
         }
 
         return response;
-
     }
 }
