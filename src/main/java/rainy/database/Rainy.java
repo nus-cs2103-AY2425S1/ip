@@ -104,6 +104,9 @@ public class Rainy {
                     tm.sortList();
                     System.out.println(tm.getList());
                     break;
+
+                case FIND:
+                    tm.findTask(ps.findTask(messages));
                 case INVALID:
                     ui.noCategoryDeclared();
                     break;

@@ -46,6 +46,10 @@ public class Parser {
         }
     }
 
+    public String findTask(String inputTask) {
+        return inputTask.split("find  |find").length == 1 ? "" : inputTask.split("find  |find")[1];
+    }
+
     public Instructions enumOperator(String newMessage) {
         Instructions instruction;
         try {

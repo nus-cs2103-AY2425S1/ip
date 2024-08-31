@@ -126,6 +126,26 @@ public class TaskTracker {
         }
 
     }
+
+    public void findTask(String compareTask) {
+        int numMatch = 0;
+        String output = "Here are some tasks matching your description:";
+        for (Task t: this.taskList) {
+            String taskDescription = t.toString();
+            String[] extractDesc = taskDescription.substring(4).split("//(");
+            String secondCompare = extractDesc[0];
+            if (secondCompare.toUpperCase().contains(compareTask.toUpperCase()) && !compareTask.equals("") && !compareTask.equals(" ")) {
+                numMatch++;
+                output += (t.getIsDone()) ? "\n" + numMatch + ". [X] " + t.toString()
+                        : "\n" + numMatch + ". [ ] " + t.toString();
+            }
+        }
+        if (numMatch > 0) {
+            System.out.println(output);
+        } else {
+            System.out.println("There are no tasks matching your description!");
+        }
+    }
     public void receivedFirstInput() {
         this.receivedInputs = true;
     }
