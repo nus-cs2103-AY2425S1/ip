@@ -1,10 +1,12 @@
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import tasks.Deadlined;
 import tasks.Events;
 import tasks.InputEmptyException;
+import java.time.LocalDate;
 import tasks.NotANumMarkingException;
 import tasks.Task;
 import tasks.TaskList;
@@ -150,7 +152,7 @@ public class WansBot {
             missingInputDeadline(userInput);
             String[] splitUser = userInput.split( " /by ", 2);
             Deadlined newDeadlined = new Deadlined(splitUser[0].substring(8)
-                    , splitUser[1]);
+                    , LocalDate.parse(splitUser[1].trim()));
             userTaskList.add(newDeadlined);
             System.out.println(HR + "\nWans:\n"
                     + "Ok! I've added " + newDeadlined.toString()
@@ -159,6 +161,10 @@ public class WansBot {
         } catch(InputEmptyException e) {
             System.out.println(HR + "\nWans:\n"
                     + "You need to input deadline, followed by /by, then the deadline!"
+                    + "\n" + HR);
+        } catch (DateTimeParseException e) {
+            System.out.println(HR + "\nWans:\n"
+                    + "Your date needs to be in the form YYYY-MM-DD!"
                     + "\n" + HR);
         }
     }
@@ -170,7 +176,8 @@ public class WansBot {
             String[] splitUserStartDate = userInput.split(" /from ", 3);
             String[] splitUserEndDate = splitUserStartDate[1].split( " /to ", 2);
             Events newEvent = new Events(splitUserStartDate[0].substring(5),
-                    splitUserEndDate[0], splitUserEndDate[1]);
+                    LocalDate.parse(splitUserEndDate[0].trim()),
+                    LocalDate.parse(splitUserEndDate[1].trim()));
             userTaskList.add(newEvent);
             System.out.println(HR + "\nWans:\n"
                     + "Ok! I've added " + newEvent.toString()
@@ -180,6 +187,10 @@ public class WansBot {
             System.out.println(HR + "\nWans:\n"
                     + "You need to input event, followed by /from, then your start time, then /to, then " +
                     "your end time!"
+                    + "\n" + HR);
+        } catch (DateTimeParseException e) {
+            System.out.println(HR + "\nWans:\n"
+                    + "Your date needs to be in the form YYYY-MM-DD! It needs to be a valid date too please!"
                     + "\n" + HR);
         }
     }
@@ -251,7 +262,8 @@ public class WansBot {
                 break;
             case "D":
                 String[] deadlineSplit = fileInput.split("by: ");
-                String deadline = deadlineSplit[1].substring(0, deadlineSplit[1].length() - 1);
+                LocalDate deadline = LocalDate.parse(deadlineSplit[1].substring(0,
+                        deadlineSplit[1].length() - 1).trim());
                 nameTask = deadlineSplit[0].substring(11, deadlineSplit[0].length() - 1);
                 if (fileInput.contains("[ X ]")) {
                     Deadlined next = new Deadlined(nameTask, deadline);
@@ -269,15 +281,15 @@ public class WansBot {
                 String[] splitUserEndDate = splitUserStartDate[1].split( "to: ", 2);
                 if (fileInput.contains("[ X ]")) {
                     Events next = new Events(splitUserStartDate[0].substring(11, splitUserStartDate[0].length() - 2),
-                            splitUserEndDate[0].substring(0, splitUserEndDate[0].length() -1),
-                            splitUserEndDate[1].substring(0, splitUserEndDate[1].length() - 2));
+                            LocalDate.parse(splitUserEndDate[0].substring(0, splitUserEndDate[0].length() -1).trim()),
+                            LocalDate.parse(splitUserEndDate[1].substring(0, splitUserEndDate[1].length() - 2).trim()));
                     next.finish();
                     userTaskList.add(next);
                     numTasks++;
                 } else {
                     Events next = new Events(splitUserStartDate[0].substring(11, splitUserStartDate[0].length() - 2),
-                            splitUserEndDate[0].substring(0, splitUserEndDate[0].length() -1),
-                            splitUserEndDate[1].substring(0, splitUserEndDate[1].length() - 2));
+                            LocalDate.parse(splitUserEndDate[0].substring(0, splitUserEndDate[0].length() -1).trim()),
+                            LocalDate.parse(splitUserEndDate[1].substring(0, splitUserEndDate[1].length() - 2).trim()));
                     userTaskList.add(next);
                     numTasks++;
                 }

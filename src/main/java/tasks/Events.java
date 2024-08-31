@@ -1,10 +1,13 @@
 package tasks;
 
-public class Events extends Task {
-    private String startDate;
-    private String endDate;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Events(String name,  String start, String end) {
+public class Events extends Task {
+    private LocalDate startDate;
+    private LocalDate endDate;
+
+    public Events(String name,  LocalDate start, LocalDate end) {
         super(name);
         this.startDate = start;
         this.endDate = end;
@@ -20,6 +23,8 @@ public class Events extends Task {
             myEvent += "[   ]";
         }
 
-        return myEvent + super.toString() + " (from: " + this.startDate + " to: " + this.endDate + " )";
+        return myEvent + super.toString() + " (from: " + this.startDate.format(DateTimeFormatter.
+                ofPattern("MMM d yyyy")) + " to: " + this.endDate.format(DateTimeFormatter.
+                ofPattern("MMM d yyyy")) + " )";
     }
 }
