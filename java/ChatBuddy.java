@@ -81,7 +81,6 @@ public class ChatBuddy {
                         fileHandler.saveTasks(tasks);
 
                     } else if (userInput.startsWith("deadline")) {
-                        // Add a Deadline task
                         String[] parts = userInput.substring(8).split(" /by ");
                         String description = parts[0].trim();
                         String by = parts.length > 1 ? parts[1].trim() : "";
@@ -101,7 +100,6 @@ public class ChatBuddy {
                         fileHandler.saveTasks(tasks);
 
                     } else if (userInput.startsWith("event")) {
-                        // Add an Event task
                         String[] parts = userInput.substring(5).split(" /from | /to ");
                         String description = parts[0].trim();
                         String from = parts.length > 1 ? parts[1].trim() : "";
