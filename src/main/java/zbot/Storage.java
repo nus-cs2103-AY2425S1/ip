@@ -61,7 +61,7 @@ public class Storage {
 
             // Append task-specific details
             if (taskType == 'D') {
-                sb.append(",").append(Parser.formatDateTimeToInput(((Deadline) task).getBy()));
+                sb.append(",").append(Parser.formatDateTimeToInput(((Deadline) task).getDueDate()));
             } else if (taskType == 'E') {
                 sb.append(",").append(Parser.formatDateTimeToInput(((Event) task).getFrom()))
                         .append(",").append(Parser.formatDateTimeToInput(((Event) task).getTo()));
