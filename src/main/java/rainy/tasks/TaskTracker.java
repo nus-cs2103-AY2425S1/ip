@@ -3,21 +3,30 @@ import java.util.*;
 import rainy.database.*;
 import rainy.rainyexceptions.*;
 
+/**
+ * Keeps track of the list of classes and variables pertaining to how many tasks there are.
+ *
+ */
 public class TaskTracker {
     private ArrayList<Task> taskList;
     private int counter;
     private boolean receivedInputs;
     private UI ui;
 
+    /**
+     * Constructs a new <code>TaskTracker</code> object.
+     */
     public TaskTracker() {
         this.taskList = new ArrayList<Task>();
         this.counter = 0;
         this.receivedInputs = false;
         this.ui = new UI();
     }
+
     public int getCounter() {
         return this.counter;
     }
+
     public boolean getReceivedInputs() {
         return this.receivedInputs;
     }
@@ -25,6 +34,11 @@ public class TaskTracker {
     public void toggleReceivedInputs() {
         this.receivedInputs = !this.receivedInputs;
     }
+
+    /**
+     * Displays the list of tasks when user inputs list. This method also checks if a particular task is marked or unmarked.
+     * @return  This method returns the list of tasks in <code>String</code>.
+     */
     public String getList() {
         if (this.counter == 0) {
             return "No tasks currently!";
@@ -45,6 +59,12 @@ public class TaskTracker {
         }
     }
 
+    /**
+     * Marks a particular task as specified by the user.
+     * @param z                               Represents the index of the task in the task list.
+     * @throws InvalidIndexException          Thrown by <code>TaskManager</code> object when user provides a non-existent task number.
+     * @throws InvalidMarkAndUnmarkException  Thrown by <code>Task</code> object when user wants to mark a marked tasked or unmark an unmarked task.
+     */
     public void markDone(int z) throws InvalidIndexException, InvalidMarkAndUnmarkException {
         if (this.counter == 0) {
             this.ui.noTasksAdded();
@@ -61,6 +81,12 @@ public class TaskTracker {
         }
     }
 
+    /**
+     * Unmarks a particular task as specified by the user.
+     * @param q                               Represents the index of the task in the task list.
+     * @throws InvalidIndexException          Thrown by <code>TaskManager</code> object when user provides a non-existent task number.
+     * @throws InvalidMarkAndUnmarkException  Thrown by <code>Task</code> object when user wants to mark a marked tasked or unmark an unmarked task.
+     */
     public void unmarkDone(int q) throws InvalidIndexException, InvalidMarkAndUnmarkException {
         if (this.counter == 0) {
             this.ui.noTasksAdded();
@@ -76,12 +102,21 @@ public class TaskTracker {
             }
         }
     }
+
+    /**
+     * Sorts the list according to the date of the task.
+     */
     public void sortList() {
         Collections.sort(this.taskList);
         if (this.taskList.size() > 0) {
             ui.sortDone();
         }
     }
+
+    /**
+     * Updates the list with a todo task as specified by the user.
+     * @param s  Represents the name of the todo task.
+     */
     public void updateListToDo(String s) {
         this.taskList.add(new ToDo(s));
         this.counter++;
@@ -92,6 +127,11 @@ public class TaskTracker {
         }
     }
 
+    /**
+     * Updates the list with a deadline task as specified by the user.
+     * @param s  Represents the name of the deadline.
+     * @param t  Represents the date and time of the deadline.
+     */
     public void updateListDeadline(String s, String t) {
         this.taskList.add(new Deadline(s, t));
         this.counter++;
@@ -102,6 +142,12 @@ public class TaskTracker {
         }
     }
 
+    /**
+     * Updates the list with an event task as specified by the user.
+     * @param s  Represents the name of the event.
+     * @param t  Represents the date of the event.
+     * @param u  Represents the timeframe of the event.
+     */
     public void updateListEvent(String s, String t, String u) {
         this.taskList.add(new Event(s, t, u));
         this.counter++;
@@ -112,6 +158,11 @@ public class TaskTracker {
         }
     }
 
+    /**
+     * Deletes a task as specified by the user.
+     * @param i                       Represents the index of the task.
+     * @throws InvalidIndexException  Thrown when user enters an invalid index.
+     */
     public void delete(int i) throws InvalidIndexException {
         if (this.counter == 0) {
             this.ui.noTasksBeforeDelete();
@@ -126,6 +177,7 @@ public class TaskTracker {
         }
 
     }
+
     public void receivedFirstInput() {
         this.receivedInputs = true;
     }

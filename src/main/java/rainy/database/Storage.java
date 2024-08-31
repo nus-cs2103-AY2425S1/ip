@@ -4,11 +4,26 @@ import java.util.*;
 import rainy.tasks.*;
 import rainy.rainyexceptions.*;
 
+/**
+ * Takes in a <code>File</code> object and either reads the file or writes over it entirely.
+ */
 public class Storage {
+
+    /**
+     * Constructs a new <code>Storage</code> object.
+     */
     public Storage() {
 
     }
 
+    /**
+     * Takes in a <code>File</code> object and reads the data.
+     * @param newFile                        Represents the file object to be read.
+     * @return                               This method copies the previously established tasks to a newly created <code>TaskTracker</code>
+     *                                       object and returns it to be used by the Rainy chatbot.
+     * @throws InvalidIndexException         Thrown by <code>TaskManager</code> object when user provides a non-existent task number.
+     * @throws InvalidMarkAndUnmarkException Thrown by <code>Task</code> object when user wants to mark a marked tasked or unmark an unmarked task.
+     */
     public TaskTracker copyPreviousFiles(File newFile) throws InvalidIndexException, InvalidMarkAndUnmarkException {
         TaskTracker newTask;
         UI ui = new UI();
@@ -45,7 +60,13 @@ public class Storage {
         return newTask;
     }
 
-    public void writeOverFile(File filename, TaskTracker tm) throws IOException {
+    /**
+     * Writes over the existing file to save the newly added tasks when program ends.
+     *
+     * @param filename Represents the file that this method will write over.
+     * @param tm       Provides the list of task for this method to extract and write into the <code>File</code> object.
+     */
+    public void writeOverFile(File filename, TaskTracker tm) {
         try {
             filename.createNewFile();
             FileWriter fw = new FileWriter(filename);
