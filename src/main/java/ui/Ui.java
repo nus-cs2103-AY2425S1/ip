@@ -1,8 +1,10 @@
 package ui;
 
+import task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-import task.Task;
+
 
 /**
  * The Ui class handles all user interactions, including displaying messages and

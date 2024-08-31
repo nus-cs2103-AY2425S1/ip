@@ -1,6 +1,7 @@
 package task;
 
 import exceptions.TaskIndexOutOfBound;
+
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * It provides methods to add, delete, mark, unmark, and retrieve tasks.
  */
 public class TaskList {
-    private final ArrayList<Task> tasks;
+    private final ArrayList<Task> TASKS;
 
     /**
      * Constructs a TaskList object with the specified list of tasks.
@@ -16,7 +17,7 @@ public class TaskList {
      * @param taskList The initial list of tasks.
      */
     public TaskList(ArrayList<Task> taskList) {
-        this.tasks = taskList;
+        this.TASKS= taskList;
     }
 
     /**
@@ -25,7 +26,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
-        tasks.add(task);
+        TASKS.add(task);
     }
 
     /**
@@ -35,10 +36,10 @@ public class TaskList {
      * @throws TaskIndexOutOfBound if the index is out of range (index < 0 || index >= tasks.size()).
      */
     public void deleteTask(int index) throws TaskIndexOutOfBound {
-        if (index < 0 || index >= tasks.size()) {
+        if (index < 0 || index >= TASKS.size()) {
             throw new TaskIndexOutOfBound();
         }
-        tasks.remove(index);
+        TASKS.remove(index);
     }
 
     /**
@@ -48,10 +49,10 @@ public class TaskList {
      * @throws TaskIndexOutOfBound if the index is out of range (index < 0 || index >= tasks.size()).
      */
     public void markTask(int index) throws TaskIndexOutOfBound {
-        if (index < 0 || index >= tasks.size()) {
+        if (index < 0 || index >= TASKS.size()) {
             throw new TaskIndexOutOfBound();
         }
-        tasks.get(index).setMarkStatus(true);
+        TASKS.get(index).setMarkStatus(true);
     }
 
     /**
@@ -61,10 +62,10 @@ public class TaskList {
      * @throws TaskIndexOutOfBound if the index is out of range (index < 0 || index >= tasks.size()).
      */
     public void unmarkTask(int index) throws TaskIndexOutOfBound {
-        if (index < 0 || index >= tasks.size()) {
+        if (index < 0 || index >= TASKS.size()) {
             throw new TaskIndexOutOfBound();
         }
-        tasks.get(index).setMarkStatus(false);
+        TASKS.get(index).setMarkStatus(false);
     }
 
     /**
@@ -75,10 +76,10 @@ public class TaskList {
      * @throws TaskIndexOutOfBound if the index is out of range (index < 0 || index >= tasks.size()).
      */
     public Task getTask(int index) throws TaskIndexOutOfBound {
-        if (index < 0 || index >= tasks.size()) {
+        if (index < 0 || index >= TASKS.size()) {
             throw new TaskIndexOutOfBound();
         }
-        return tasks.get(index);
+        return TASKS.get(index);
     }
 
     /**
@@ -87,6 +88,6 @@ public class TaskList {
      * @return The list of tasks.
      */
     public ArrayList<Task> getTasks() {
-        return tasks;
+        return TASKS;
     }
 }

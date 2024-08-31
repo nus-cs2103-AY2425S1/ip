@@ -1,11 +1,13 @@
 package task;
 
+import java.util.Arrays;
+import java.util.List;
+
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
-import java.util.List;
+
 
 /**
  * The Event class represents a task with a start and end date and time.
@@ -15,7 +17,7 @@ public class Event extends Task {
 
     protected LocalDateTime startTime;
     protected LocalDateTime endTime;
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd ha");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd ha");
 
     /**
      * Constructs an Event object with an empty description and a type of "E".
@@ -128,8 +130,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String formattedStartTime = this.startTime.format(formatter);
-        String formattedEndTime = this.endTime.format(formatter);
+        String formattedStartTime = this.startTime.format(FORMATTER);
+        String formattedEndTime = this.endTime.format(FORMATTER);
         return this.description + " (from: " + formattedStartTime + " to: " + formattedEndTime + ")";
     }
 }

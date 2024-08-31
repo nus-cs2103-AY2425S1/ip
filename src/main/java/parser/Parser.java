@@ -33,36 +33,36 @@ public class Parser {
         String action = slicedStr[0];
 
         switch (action) {
-            case "list":
-                ui.showTaskList(taskList.getTasks());
-                break;
+        case "list":
+            ui.showTaskList(taskList.getTasks());
+            break;
 
-            case "mark":
-                handleMarkCommand(slicedStr, taskList, ui, storage, true);
-                break;
+        case "mark":
+            handleMarkCommand(slicedStr, taskList, ui, storage, true);
+            break;
 
-            case "unmark":
-                handleMarkCommand(slicedStr, taskList, ui, storage, false);
-                break;
+        case "unmark":
+            handleMarkCommand(slicedStr, taskList, ui, storage, false);
+            break;
 
-            case "todo":
-                handleTodoCommand(slicedStr, taskList, ui, storage);
-                break;
+        case "todo":
+            handleTodoCommand(slicedStr, taskList, ui, storage);
+            break;
 
-            case "deadline":
-                handleDeadlineCommand(slicedStr, taskList, ui, storage);
-                break;
+        case "deadline":
+            handleDeadlineCommand(slicedStr, taskList, ui, storage);
+            break;
 
-            case "event":
-                handleEventCommand(slicedStr, taskList, ui, storage);
-                break;
+        case "event":
+            handleEventCommand(slicedStr, taskList, ui, storage);
+            break;
 
-            case "delete":
-                handleDeleteCommand(slicedStr, taskList, ui, storage);
-                break;
+        case "delete":
+            handleDeleteCommand(slicedStr, taskList, ui, storage);
+            break;
 
-            default:
-                throw new InvalidInputException("I'm sorry, but I don't know what that means :-(");
+        default:
+            throw new InvalidInputException("I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -164,6 +164,7 @@ public class Parser {
         if (slicedStr.length < 2) {
             throw new EmptyTaskException("event");
         }
+
         try {
             Event newEvent = new Event();
             newEvent.convertStringToTask(slicedStr);

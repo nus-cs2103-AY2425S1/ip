@@ -1,19 +1,19 @@
 package task;
 
-import ui.Ui;
-
-import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * The Deadline class represents a task with a deadline date.
  * It extends the Task class.
  */
 public class Deadline extends Task{
-    protected LocalDate dueTime;
+
+    private LocalDate dueTime;
 
     /**
      * Constructs a Deadline object with an empty description and a type of "D".

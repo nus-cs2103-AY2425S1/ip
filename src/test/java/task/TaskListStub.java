@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class TaskListStub extends TaskList {
     private ArrayList<Task> tasks = new ArrayList<>();
-    private boolean markCalled = false;
+    private boolean isMarkCalled = false;
 
     public TaskListStub(ArrayList<Task> TaskList) {
         super(TaskList);
@@ -31,7 +31,7 @@ public class TaskListStub extends TaskList {
             throw new TaskIndexOutOfBound();
         }
         tasks.get(index).setMarkStatus(true);
-        markCalled = true;
+        isMarkCalled = true;
     }
 
     @Override
