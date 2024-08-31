@@ -8,19 +8,29 @@ import carly.exception.CarlyException;
 import carly.exception.CarlyIncorrectIndexFormat;
 import carly.exception.CarlyIndexOutOfBoundsException;
 import carly.exception.CarlyMissingDateTimeException;
+
 /**
  * Represents a list of tasks.
  * Handle a collection of {@link Task} objects.
  */
-
 public class TaskList {
+
+    /** List of Task objects. */
     private final ArrayList<Task> taskList;
+
+    /** Indentation used in displaying output messages. */
     private final String INDENTATION = "    ";
 
     public TaskList() {
         this.taskList = new ArrayList<Task>();
     }
 
+    /**
+     * Marks the specified task as done.
+     *
+     * @param taskNumString The task number to be marked as done.
+     * @throws CarlyException If the task number format is incorrect or out of bounds.
+     */
     public void mark(String taskNumString) throws CarlyException{
         Integer taskNum = null;
         try {
@@ -37,6 +47,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks the specified task as not done yet.
+     *
+     * @param taskNumString The task number to be unmarked.
+     * @throws CarlyException If the task number is out of bounds.
+     */
     public void unmark(String taskNumString) throws CarlyException{
         Integer taskNum = null;
         try {
@@ -51,6 +67,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes the specified task from the list.
+     *
+     * @param taskNumString The task number to be deleted.
+     * @throws CarlyException If the task number format is incorrect or out of bounds.
+     */
     public void delete(String taskNumString) throws CarlyException{
         Integer taskNum = null;
         try {
@@ -66,6 +88,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a new ToDo task to the list.
+     *
+     * @param taskDescription The description of the task.
+     * @throws CarlyException If there are issues with the task description.
+     */
     public void addToDo(String taskDescription) throws CarlyException{
         Todo t = new Todo(taskDescription);
         this.taskList.add(t);
@@ -73,13 +101,19 @@ public class TaskList {
         taskListSize();
     }
 
+    /**
+     * Adds a new Deadline task to the list.
+     *
+     * @param taskDescription The description and due date of the task, formatted as "description /by dueDate".
+     * @throws CarlyMissingDateTimeException If the task description or due date is missing.
+     */
     public void addDeadLine(String taskDescription) throws CarlyException{
         try {
             String[] taskDueDate = taskDescription.split(" /by ");
             String task = taskDueDate[0];
-            String duedate = taskDueDate[1];
+            String dueDate = taskDueDate[1];
 
-            Deadline t = new Deadline(task, duedate);
+            Deadline t = new Deadline(task, dueDate);
             this.taskList.add(t);
 
             System.out.println("Got it. I've added this task:\n" + INDENTATION + t);
@@ -89,6 +123,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a new Event task to the list.
+     *
+     * @param taskDescription The description, start time, and end time of the task.
+     * @throws CarlyMissingDateTimeException If the task description, start time, or end time is missing.
+     */
     public void addEvent(String taskDescription) throws CarlyMissingDateTimeException{
         try {
             String[] taskTimeParts = taskDescription.split(" /from ");
@@ -107,18 +147,25 @@ public class TaskList {
         }
     }
 
+    /** Retrieves a task by index. */
     public Task get(Integer index) {
         return this.taskList.get(index);
     }
 
+    /** Gets the number of tasks in the list. */
     public Integer getSize() {
         return this.taskList.size();
     }
 
+    /** Prints the current size of the task list. */
     public void taskListSize() {
         System.out.println("Now you have " + this.getSize() + " tasks in the list.");
     }
 
+    /**
+     * Prints all tasks in the list.
+     * If the list is empty, prints a message indicating that there are no tasks.
+     */
     public void printTaskList() {
         if (this.taskList.isEmpty()) {
             System.out.println("There's nothing in your list yet.");

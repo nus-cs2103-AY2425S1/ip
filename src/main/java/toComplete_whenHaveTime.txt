@@ -1,4 +1,5 @@
-- Already mark items shouldn’t be marked again. Give warning message
+- scan.hasNextLine() causes each entry to come with an "enter". So not applicable to "bye"
+- Already mark items shouldn’t be marked again. Give warning message.
 - check for duplicate items
 - implement setters and getters
 - enum for tasktype

@@ -1,5 +1,5 @@
 What is your name?
-Hey Elon! I'm Carly 👩🏼‍💼️.
+Hey Elon! I'm Carly.
 What can I do for you?
 Got it. I've added this task:
     [T][ ] cook pasta
