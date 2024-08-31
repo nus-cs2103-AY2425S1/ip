@@ -16,6 +16,14 @@ public abstract class Task {
         }
     }
 
+    public String completeStatus() {
+        if (completed) {
+            return "1";
+        } else {
+            return "0";
+        }
+    }
+
     public void check() {
         this.completed = true;
     }
@@ -30,4 +38,6 @@ public abstract class Task {
 
     @Override
     public abstract String toString();
+
+    public abstract String toTask();
 }

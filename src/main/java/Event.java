@@ -14,6 +14,12 @@ public class Event extends Task {
                 + " (from: " + this.startDT + " to: " + this.endDT + ")";
     }
 
+    public String toTask() {
+        return this.getTaskType() + "/"+ this.completeStatus() + "/" + this.getName()
+                + "/" + this.startDT + "/" + this.endDT;
+    }
+
+
     public String getTaskType() {
         return this.taskType;
     }

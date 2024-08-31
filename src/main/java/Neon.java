@@ -1,7 +1,11 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
+import java.io.FileWriter;
 
 
 public class Neon {
@@ -9,6 +13,7 @@ public class Neon {
     private static final String DASH_BREAK = "-----------------------------------";
     private static ArrayList<Task> list = new ArrayList<>();
     private static int lastListIndex = 0;
+
     private static void greetingLine() {
         System.out.println(DASH_BREAK);
         String greeting = "hello i'm " + NAME + "!\n"
@@ -42,6 +47,7 @@ public class Neon {
                 lastListIndex++;
                 System.out.println("adding todo to list : " + taskTodo);
                 break;
+
             case "deadline":
                 String taskDeadline = answer.replace("deadline ", "");
                 String[] partsDeadline = taskDeadline.split("\\s*/by\\s*");
@@ -56,6 +62,7 @@ public class Neon {
                 lastListIndex++;
                 System.out.println("adding deadline to list : " + newDeadline.getName());
                 break;
+
             case "event":
                 String taskEvent = answer.replace("event ", "");
                 String[] partsEvent = taskEvent.split("\\s*/from\\s*|\\s*/to\\s*");
@@ -73,6 +80,7 @@ public class Neon {
                 lastListIndex++;
                 System.out.println("adding event to list : " + newEvent.getName());
                 break;
+
             default:
                 System.out.println("cannot read : " + first);
                 break;
@@ -81,12 +89,65 @@ public class Neon {
         System.out.println(DASH_BREAK);
     }
 
+    private static void saveTasks(ArrayList<Task> tasks) throws IOException {
+        try (FileWriter writer = new FileWriter("./data/data.txt")) {
+            for (Task task : tasks) {
+                writer.write(task.toTask() + "\n");
+            }
+            System.out.println("file saved!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void loadTasks() throws IOException {
+        try {
+            Scanner scanner = new Scanner(new File("./data/data.txt"));
+        } catch (FileNotFoundException e) {
+            File directory = new File("data");
+            File file = new File(directory, "data.txt");
+
+            directory.mkdir();
+            file.createNewFile();
+        }
+
+        Scanner scanner = new Scanner(new File("./data/data.txt"));
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            String[] content = line.split("/");
+
+            boolean completed;
+            switch (content[0]) {
+                case "T":
+                    completed = (Objects.equals(content[1], "1"));
+                    Todo tempTodo = new Todo(content[2], completed);
+                    list.add(tempTodo);
+                    lastListIndex++;
+                    break;
+                case "D":
+                    completed = (Objects.equals(content[1], "1"));
+                    Deadline tempDeadline = new Deadline(content[2], completed, content[3]);
+                    list.add(tempDeadline);
+                    lastListIndex++;
+                    break;
+                case "E":
+                    completed = (Objects.equals(content[1], "1"));
+                    Event tempEvent = new Event(content[2], completed, content[3], content[4]);
+                    list.add(tempEvent);
+                    lastListIndex++;
+                    break;
+
+            }
+        }
+    }
+
     private static String removeSpace(String line) {
         if (line.isEmpty()) {
             return line;
         }
         return line.substring(0, line.length() - 1);
     }
+
     private static void printList() {
         System.out.println(DASH_BREAK);
 
@@ -132,11 +193,13 @@ public class Neon {
         lastListIndex--;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         boolean chatting = true;
         greetingLine();
         StringBuilder answer = new StringBuilder();
         int number = -1;
+
+        loadTasks();
 
         Scanner ansObj = new Scanner(System.in);
         String allInput = ansObj.useDelimiter("\\Z").next(); // Reads until end of input (CTRL+D or an equivalent)
@@ -174,6 +237,7 @@ public class Neon {
             }
             answer = new StringBuilder();
         }
+        saveTasks(list);
         closingLine();
     }
 }

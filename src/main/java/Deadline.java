@@ -13,6 +13,11 @@ public class Deadline extends Task {
                 + " (by: " + this.dateTime + ")";
     }
 
+    public String toTask() {
+        return this.getTaskType() + "/"+ this.completeStatus() + "/" + this.getName()
+                + "/" + this.dateTime;
+    }
+
     public String getTaskType() {
         return this.taskType;
     }
