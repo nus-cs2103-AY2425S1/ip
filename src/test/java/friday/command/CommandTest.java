@@ -1,15 +1,17 @@
 package friday.command;
 
-import friday.task.Deadline;
-import friday.task.Todo;
+import java.io.IOException;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.io.IOException;
+
+import friday.task.Deadline;
 import friday.task.TaskList;
-import friday.util.Ui;
-import friday.util.Storage;
+import friday.task.Todo;
 import friday.util.FridayException;
+import friday.util.Storage;
+import friday.util.Ui;
 
 class CommandTest {
 

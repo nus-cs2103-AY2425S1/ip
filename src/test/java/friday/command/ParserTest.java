@@ -1,8 +1,9 @@
 package friday.command;
 
-import friday.util.FridayException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import friday.util.FridayException;
 
 class ParserTest {
 

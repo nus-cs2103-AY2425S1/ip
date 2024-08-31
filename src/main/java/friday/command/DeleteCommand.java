@@ -1,12 +1,12 @@
 package friday.command;
 
+import java.io.IOException;
+
 import friday.task.Task;
 import friday.task.TaskList;
 import friday.util.FridayException;
 import friday.util.Storage;
 import friday.util.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -40,8 +40,8 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, FridayException {
         if (index > tasks.getSize() || index <= 0) {
-            throw new FridayException("\tInvalid input. It appears you are attempting to" +
-                    " access something that does not exist yet.");
+            throw new FridayException("\tInvalid input. It appears you are attempting to"
+                    + " access something that does not exist yet.");
         }
         Task task = tasks.getTasks().get(index - 1);
         tasks.deleteTask(index - 1);

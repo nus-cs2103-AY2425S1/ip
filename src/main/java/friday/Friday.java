@@ -1,13 +1,13 @@
 package friday;
 
+import java.io.IOException;
+
 import friday.command.Command;
 import friday.command.Parser;
 import friday.task.TaskList;
 import friday.util.FridayException;
 import friday.util.Storage;
 import friday.util.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents the main application logic for the friday.Friday task manager.

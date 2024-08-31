@@ -1,12 +1,14 @@
 package friday.util;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import friday.task.Task;
 import friday.task.TaskList;
 import friday.task.Todo;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import java.io.IOException;
-import java.util.ArrayList;
 
 class StorageTest {
 

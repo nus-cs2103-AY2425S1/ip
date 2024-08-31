@@ -1,14 +1,14 @@
 package friday.command;
 
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
+
 import friday.task.Event;
 import friday.task.Task;
 import friday.task.TaskList;
 import friday.util.FridayException;
 import friday.util.Storage;
 import friday.util.Ui;
-
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a command to add an event task to the task list.
@@ -26,9 +26,9 @@ public class EventCommand extends Command {
      */
     public EventCommand(String[] inputs) {
         if (inputs.length != 3) {
-            throw new FridayException("\tInvalid input. 'event' command requires a description," +
-                    " start, and end time.\n\tusage: event <string> /from <yyyy-MM-dd HHmm>" +
-                    " /to <yyyy-MM-dd HHmm>.");
+            throw new FridayException("\tInvalid input. 'event' command requires a description,"
+                    + " start, and end time.\n\tusage: event <string> /from <yyyy-MM-dd HHmm>"
+                    + " /to <yyyy-MM-dd HHmm>.");
         }
         this.description = inputs[0];
         this.from = inputs[1];
