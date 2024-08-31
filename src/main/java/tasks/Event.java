@@ -1,3 +1,5 @@
+package tasks;
+
 public class Event extends Task {
     private final String startDate;
     private final String endDate;
@@ -10,7 +12,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s | Event from %s to %s", super.toString(), this.startDate, this.endDate);
+        return String.format("%s | tasks.Event from %s to %s", super.toString(), this.startDate, this.endDate);
     }
 
     public String getStart() {
