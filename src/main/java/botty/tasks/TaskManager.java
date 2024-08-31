@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import botty.exceptions.TaskListEmptyException;
 import botty.exceptions.TaskNumberNotFoundException;
+import botty.exceptions.TasksNotFoundException;
 
 /**
  * Manages all interactions with the task list
@@ -112,5 +113,33 @@ public class TaskManager {
             throw new TaskNumberNotFoundException(index + 1, size());
         }
         return taskList.get(index);
+    }
+
+    /**
+     * Returns a list of tasks that matches the given keyword
+     * @param keyword the keyword to be matched
+     * @return the list of tasks matched as a string
+     * @throws TaskListEmptyException when the task list is empty
+     * @throws TasksNotFoundException when no tasks are found matching the keyword
+     */
+    public String findTasks(String keyword) throws TaskListEmptyException, TasksNotFoundException {
+        if (taskList.isEmpty()) {
+            throw new TaskListEmptyException();
+        }
+        ArrayList<String> matchedTasks = new ArrayList<>();
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).toString().toLowerCase().matches(".*\\b" + keyword.toLowerCase() + "\\b.*")) {
+                matchedTasks.add((i + 1) + ". " + taskList.get(i).toString());
+            }
+        }
+        if (matchedTasks.isEmpty()) {
+            throw new TasksNotFoundException();
+        }
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < matchedTasks.size() - 1; i++) {
+            result.append(matchedTasks.get(i)).append("\n");
+        }
+        result.append(matchedTasks.get(matchedTasks.size() - 1));
+        return result.toString();
     }
 }

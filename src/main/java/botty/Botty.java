@@ -3,16 +3,7 @@ package botty;
 import java.util.HashMap;
 import java.util.Map;
 
-import botty.commands.Command;
-import botty.commands.DeadlineCommand;
-import botty.commands.DeleteCommand;
-import botty.commands.EventCommand;
-import botty.commands.ExitCommand;
-import botty.commands.ListCommand;
-import botty.commands.MarkCommand;
-import botty.commands.ParsedInput;
-import botty.commands.TodoCommand;
-import botty.commands.UnmarkCommand;
+import botty.commands.*;
 import botty.exceptions.BottyException;
 import botty.exceptions.UnknownCommandException;
 import botty.storage.StorageHandler;
@@ -44,6 +35,7 @@ public class Botty {
         commands.put("deadline", new DeadlineCommand());
         commands.put("event", new EventCommand());
         commands.put("delete", new DeleteCommand());
+        commands.put("find", new FindCommand());
         commands.put("bye", new ExitCommand());
 
         ui = new UI();
