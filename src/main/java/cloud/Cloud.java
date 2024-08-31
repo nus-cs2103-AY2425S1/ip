@@ -82,7 +82,7 @@ public class Cloud {
         storage.saveData(tasks);
     }
 
-    public static void deleteTask(Query query) {
+    private static void deleteTask(Query query) {
         int taskId = Integer.parseInt(query.getDetails().strip());
         String taskStatus = tasks.getTaskStatus(taskId);
         tasks.delete(taskId);
@@ -94,7 +94,7 @@ public class Cloud {
         );
     }
 
-    public static void loadData() {
+    private static void loadData() {
         tasks = storage.readData();
     }
 

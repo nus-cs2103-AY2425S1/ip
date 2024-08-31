@@ -21,6 +21,11 @@ public class TaskList {
         this.tasks.add(task);
     }
 
+    /**
+     * Remove a task from the list
+     *
+     * @param taskId index of the task
+     */
     public void delete(int taskId) {
         this.tasks.remove(taskId - 1);
     }
@@ -44,8 +49,10 @@ public class TaskList {
     }
 
     /**
-     * @param taskId
-     * @return
+     * Get the current status of a task
+     *
+     * @param taskId index of the task
+     * @return a string representation of the task
      */
     public String getTaskStatus(int taskId) {
         return tasks.get(taskId - 1).toString();
@@ -73,10 +80,10 @@ public class TaskList {
     }
 
     /**
-     * Get task in the list
+     * Get a task from the list
      *
-     * @param index
-     * @return
+     * @param index index of the task
+     * @return the requested task object
      */
     public Task getTask(int index) {
         return this.tasks.get(index);

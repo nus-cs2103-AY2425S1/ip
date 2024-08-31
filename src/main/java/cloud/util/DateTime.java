@@ -16,6 +16,12 @@ public class DateTime {
         this.dateTime = dateTime;
     }
 
+    /**
+     * Returns a DateTime object for the corresponding input string
+     * @param input date and time string in the format of "dd/MM/yyyy HH:mm"
+     * @return a DateTime object
+     * @throws CloudException If input format is invalid
+     */
     public static DateTime of(String input) throws CloudException {
         try {
             return new DateTime(LocalDateTime.parse(input, INPUT_FORMAT));
@@ -24,6 +30,10 @@ public class DateTime {
         }
     }
 
+    /**
+     * Returns a string representation of the DateTime object in a savable format
+     * @return formatted DateTime string
+     */
     public String formatSave() {
         return this.dateTime.format(INPUT_FORMAT);
     }

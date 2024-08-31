@@ -5,6 +5,12 @@ import cloud.exception.InputException;
 import cloud.exception.UnrecognisedException;
 
 public class Parser {
+    /**
+     * Parses a command into a Query object
+     * @param raw a query string
+     * @return a Query object based in the query string
+     * @throws CloudException
+     */
     public static Query parse(String raw) throws CloudException {
         String[] split = raw.split(" ", 2);
         String command = split[0].strip();

@@ -16,6 +16,10 @@ import java.io.IOException;
 public class Storage {
     private final String filePath = "./data/Cloud.txt";
 
+    /**
+     * Constructs a Storage object. Checks if the file exists at the filepath
+     * and creates a new file if it does not exist yet
+     */
     public Storage() {
         try {
             File f = new File(this.filePath);
@@ -28,6 +32,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves all the contents of a TaskList to a text file
+     * @param taskList the TaskList object to be saved
+     */
     public void saveData(TaskList taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             int taskCount = taskList.getTaskCount();
@@ -39,6 +47,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the contents of a text file into a TaskList
+     * @return a TaskList containing the saved data
+     */
     public TaskList readData() {
         TaskList taskList = new TaskList();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
