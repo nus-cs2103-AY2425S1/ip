@@ -10,12 +10,25 @@ import exceptions.NoTaskDescriptionException;
 import java.util.Arrays;
 import java.util.HashSet;
 
+/**
+ * Represents a general task. This class is a base class for specific task types such as
+ * to-dos, deadlines, and events.
+ */
 public class Task {
     protected String description;
     protected  boolean isDone;
     protected TaskType type;
     protected static HashSet<String> taskNames = new HashSet<>(Arrays.asList("todo", "deadline", "event"));
 
+    /**
+     * Factory method: Creates a new task based on the description provided. The task type is determined from
+     * the description, and the appropriate task object is created.
+     *
+     * @param description A string containing the task description and any associated time details.
+     * @return A new Task object of the appropriate type (Todo, Deadline, or Event).
+     * @throws InvalidTaskException if the task type is invalid.
+     * @throws NoTaskDescriptionException if the task description is missing
+     */
     public static Task createTask(String description)
             throws InvalidTaskException, NoTaskDescriptionException {
         String strippedDescription = description.trim().toLowerCase();
@@ -47,6 +60,12 @@ public class Task {
         }
     }
 
+    /**
+     * Determines the type of the task based on the description provided.
+     *
+     * @param description The task description.
+     * @return The TaskType (TODO, DEADLINE, or EVENT) based on the description.
+     */
     public static TaskType determineTaskType(String description) {
         if (description.startsWith("todo")) {
             return TaskType.TODO;
@@ -57,6 +76,12 @@ public class Task {
         }
     }
 
+    /**
+     * Constructs a new Task with the specified type and description.
+     *
+     * @param type The type of the task.
+     * @param description The description of the task.
+     */
     protected Task(TaskType type, String description) {
         this.type = type;
         this.description = description;
@@ -64,10 +89,20 @@ public class Task {
     }
 
 
+    /**
+     * Changes the status of the task to done or not done.
+     *
+     * @param newIsDone The new status of the task (true if done, false otherwise).
+     */
     public void changeStatus(boolean newIsDone) {
        this.isDone = newIsDone;
     }
 
+    /**
+     * Returns the status icon of the task ("X" if done, otherwise " ").
+     *
+     * @return A string representing the status of the task.
+     */
     public String getStatusIcon() {
         return isDone ? "X" : " ";
     }

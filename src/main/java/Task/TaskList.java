@@ -11,17 +11,32 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manages a list of tasks. This class handles the addition, removal, updating,
+ * and storage of tasks, providing an interface for interacting with a task list.
+ */
 public class TaskList {
 
     protected ArrayList<Task> inputHistory;
     protected Storage storage;
 
+    /**
+     * Constructs a TaskList object with a given storage mechanism.
+     * The tasks are loaded from storage upon initialization.
+     *
+     * @param storage The storage object used to save and load tasks.
+     */
     public TaskList(Storage storage) {
        inputHistory = new ArrayList<>();
        this.storage = storage;
        loadDataFromStorage();
     }
 
+    /**
+     * Loads task data from storage and populates the task list.
+     * Done once upon program initialisation
+     * If an error occurs during loading, appropriate error messages are displayed.
+     */
     public void loadDataFromStorage() {
         try {
             File dataFile = storage.getStorageFile();
@@ -42,6 +57,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Writes the current list of tasks to the storage file.
+     * Done after every {@code Command} except {@code ListCommand}
+     * If an error occurs during writing, an error message is displayed.
+     */
     public void writeToStorage() {
         try {
             FileWriter writer = new FileWriter(storage.getStorageFile());
@@ -58,16 +78,35 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a new task to the task list.
+     *
+     * @param newTask The new task to be added.
+     */
     public void addTask(Task newTask) {
         inputHistory.add(newTask);
     }
 
+    /**
+     * Removes a task from the task list at the specified index.
+     *
+     * @param deleteIndex The index of the task to remove.
+     * @return The task that was removed.
+     * @throws IndexOutOfBoundsException If the provided index is out of range.
+     */
     public Task removeTask(int deleteIndex) throws IndexOutOfBoundsException{
         Task taskToDelete = inputHistory.get(deleteIndex);
         inputHistory.remove(taskToDelete);
         return taskToDelete;
     }
 
+    /**
+     * Changes the status of a task (mark as done or undone) based on the action provided.
+     *
+     * @param action The action to perform ("mark" or "unmark").
+     * @param indexToChange The index of the task to change.
+     * @throws IndexOutOfBoundsException If the provided index is out of range.
+     */
     public void changeTaskStatus(String action, int indexToChange) throws IndexOutOfBoundsException {
         System.out.println("---------------");
         Task task = inputHistory.get(indexToChange);
@@ -83,6 +122,10 @@ public class TaskList {
         System.out.println("---------------");
     }
 
+    /**
+     * Displays the current list of tasks.
+     * Each task is printed along with its index and status.
+     */
     public void displayList() {
         System.out.println("---------------");
         inputHistory.forEach(task -> System.out.println((this.inputHistory.indexOf(task) + 1) +
@@ -91,6 +134,10 @@ public class TaskList {
         System.out.println("---------------\n");
     }
 
+    /**
+     * Displays the current list of tasks.
+     * Each task is printed along with its index and status.
+     */
     public int getSize() {
         return inputHistory.size();
     }
