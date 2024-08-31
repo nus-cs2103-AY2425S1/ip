@@ -5,6 +5,12 @@ import taskList.TaskList;
 import tasks.Task;
 import ui.Ui;
 
+/**
+ * Executable actions:
+ * - Find all tasks that contain the search query as a substring
+ * - Format the tasks traditionally
+ * - Print remaining task list to the user
+ */
 public class FindCommand extends Command {
     private final String searchQuery;
 
