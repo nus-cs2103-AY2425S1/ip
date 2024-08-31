@@ -58,8 +58,8 @@ public abstract class Task {
      */
     public void markAsDone() {
         isDone = true;
-        System.out.println("Nice! I've marked this task as done:\n" +
-                this.toString());
+        System.out.println("Nice! I've marked this task as done:\n"
+                + this.toString());
         System.out.println();
     }
 
@@ -68,8 +68,8 @@ public abstract class Task {
      */
     public void markAsIncomplete() {
         isDone = false;
-        System.out.println("OK, I've marked this task as not done yet:\n" +
-                this.toString());
+        System.out.println("OK, I've marked this task as not done yet:\n"
+                + this.toString());
         System.out.println();
     }
 

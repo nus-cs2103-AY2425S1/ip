@@ -1,15 +1,15 @@
 package duck.commands;
 
+import java.time.LocalDateTime;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import duck.data.TaskList;
 import duck.data.exception.DuckException;
 import duck.data.task.Deadline;
 import duck.storage.Storage;
 import duck.ui.Ui;
 import duck.util.Utils;
-
-import java.time.LocalDateTime;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Represents a command to add a Deadline task to the task list.
@@ -72,8 +72,7 @@ public class DeadlineCommand extends Command {
             String deadlineStr = matcher.group(2);
             LocalDateTime deadline = Utils.convertToDateTime(deadlineStr);
             return new Deadline(description, deadline);
-        }
-        else {
+        } else {
             throw new DuckException("Hey, a deadline instruction should be of the following format:\n"
                     + "deadline {description} /by {deadline}\n"
                     + "{deadline} should be in the format yyyy-MM-dd HHmm OR yyyy/MM/dd HHmm\n");

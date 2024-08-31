@@ -23,7 +23,8 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the command by marking the specified task as done.
-     * It validates the input format and checks if the task index is valid before marking it as done and updating the storage.
+     * It validates the input format and checks if the task index
+     * is valid before marking it as done and updating the storage.
      *
      * @param tasks The list of tasks from which a task will be marked as done.
      * @param storage The storage system where the updated task list will be saved.

@@ -1,8 +1,10 @@
 package duck.ui;
 
+import java.util.Scanner;
+
 import duck.data.exception.DuckException;
 
-import java.util.Scanner;
+
 
 /**
  * Handles user interactions with the Duck application, including displaying messages
@@ -64,7 +66,7 @@ public class Ui {
      */
     public String readCommand() {
         if (in.hasNextLine()) {
-            return(in.nextLine().trim());
+            return in.nextLine().trim();
         }
         return "bye";
     }

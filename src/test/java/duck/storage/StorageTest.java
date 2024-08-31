@@ -1,18 +1,19 @@
 package duck.storage;
 
-import duck.data.TaskList;
-import duck.data.task.Task;
-import duck.data.task.ToDo;
-import duck.data.exception.DuckException;
-import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.RepetitionInfo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.RepetitionInfo;
+
+import duck.data.TaskList;
+import duck.data.exception.DuckException;
+import duck.data.task.Task;
+import duck.data.task.ToDo;
 
 /**
  * Tests for the {@link Storage} class to verify file operations like writing and appending tasks.
