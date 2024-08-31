@@ -7,8 +7,8 @@ import TrackBot.ui.Parser;
  * Event task with a start and end time.
  */
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    private String from;
+    private String to;
 
     /**
      * Constructs an Event task with the specified description, start time and end time.

@@ -42,7 +42,7 @@ public class Parser {
         String commandWord = splitInput[0].toLowerCase();
         String otherWord = splitInput.length > 1 ? splitInput[1].trim() : "";
 
-    switch (commandWord) {
+        switch (commandWord) {
         case "list":
             if (!otherWord.isEmpty()) {
                 throw TrackBotException.invalidFormat("list", "list");
@@ -101,7 +101,7 @@ public class Parser {
             return new ExitCommand();
         default:
             throw new TrackBotException("Sorry, I did not understand that command.");
-    }
+        }
     }
 
     /**
@@ -117,17 +117,17 @@ public class Parser {
         Task task;
 
         switch (taskType) {
-            case "T":
-                task = new ToDo(parts[2]);
-                break;
-            case "D":
-                task = new Deadline(parts[2], parts[3]);
-                break;
-            case "E":
-                task = new Event(parts[2], parts[3], parts[4]);
-                break;
-            default:
-                return null;
+        case "T":
+            task = new ToDo(parts[2]);
+            break;
+        case "D":
+            task = new Deadline(parts[2], parts[3]);
+            break;
+        case "E":
+            task = new Event(parts[2], parts[3], parts[4]);
+            break;
+        default:
+            return null;
         }
 
         if (isDone) {

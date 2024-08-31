@@ -6,7 +6,7 @@ import TrackBot.ui.Parser;
  * Deadline task with deadline.
  */
 public class Deadline extends Task {
-    protected String by;
+    private String by;
 
     /**
      * Constructs a Deadline task with the specified description and deadline date and/or time.
