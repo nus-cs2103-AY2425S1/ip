@@ -44,6 +44,10 @@ public class TaskList {
         tasks.get(index).unDone();
     }
 
+    public int size() {
+        return tasks.size();
+    }
+
     public void handleCommand(Parser.Command command, String input,
                               Parser parser, UI ui, Storage storage) {
         try {
@@ -99,6 +103,8 @@ public class TaskList {
             }
         } catch (InsufficientDetailsException e) {
             ui.printErrorMessage(e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("A task does not exist at that index!");
         }
     }
 }
