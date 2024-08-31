@@ -208,4 +208,28 @@ public class TaskList {
             System.out.println("Invalid date(s) entered. Use this format: YYYY-MM-DD");
         }
     }
+
+    /**
+     * Finds the tasks in the list of tasks that contain the keyword entered by the user.
+     *
+     * @param input input entered by user.
+     */
+    public void handleFind(String input) {
+        String keyword = input.substring(5).trim();
+        @SuppressWarnings("unchecked")
+        ArrayList<Task> newList = (ArrayList<Task>) list.clone();
+        newList.removeIf(task -> !task.description.toLowerCase().contains(keyword.toLowerCase()));
+        System.out.println(LINE);
+        int index = 1;
+        if (newList.isEmpty()) {
+            System.out.println("No tasks found matching the keyword: " + keyword);
+        } else {
+            System.out.println("Tasks found matching the keyword: " + keyword);
+            for (Task task : newList) {
+                System.out.println(index + ". " + task);
+                index++;
+            }
+        }
+        System.out.println(LINE);
+    }
 }

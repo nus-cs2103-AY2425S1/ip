@@ -69,6 +69,9 @@ public class Alex {
         } else if (userInput.startsWith("tasks on")) {
             tasks.handleDate(userInput);
             scan();
+        } else if (userInput.startsWith("find")) {
+            tasks.handleFind(userInput);
+            scan();
         } else {
             System.out.println(LINE);
             System.out.println("Sorry, I don't understand that command. Did you make a typo?");
