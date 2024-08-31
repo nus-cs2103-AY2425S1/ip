@@ -26,28 +26,43 @@ public class Michael {
                 Task t = load(s.nextLine());
                 tasks.add(t);
             }
-
-            FileWriter writer = new FileWriter(PATH, true);
             // Greet user first
             printer("Hello! I'm Michael.\n" + "What can I do for you?");
 
             // Read user's input
             while (true) {
-                String input = user.nextLine();
+                String input = user.nextLine().strip();
                 if (input.equals("bye")) { // special bye command to exit
                     break;
                 }
+
+                if (input.equals("list")) { // list user inputs thus far
+                    String list = "Here are the tasks in your list:\n";
+                    for (int i = 0; i < tasks.size(); i++) {
+                        String elem = String.valueOf(i + 1) + ". " + tasks.get(i) + "\n";
+                        list = list.concat(elem);
+                    }
+                    printer(list.substring(0, list.length() - 1)); // substring to remove last line break
+                    continue;
+                }
+
                 try {
                     processor(input);
-                    writer.write(input);
                 } catch (MichaelException e) {
                     System.out.println(e.getMessage());
                 }
             }
 
+            FileWriter writer = new FileWriter(PATH);
+            for (int i = 0; i < tasks.size(); i++) {
+                Task t = tasks.get(i);
+                String save = convert(t);
+                writer.write(save);
+            }
+            writer.close();
+
             // Exit
             printer("Bye. Hope to see you again soon!");
-            writer.close();
 
         } catch (FileNotFoundException e) {
             System.out.println("Save file not found!");
@@ -76,13 +91,6 @@ public class Michael {
             Task target = tasks.get(index - 1);
             target.undoTask();
             printer("OK, I've marked this task as not done yet:\n" + "  " + target);
-        } else if (input.equals("list")) { // list user inputs thus far
-            String list = "Here are the tasks in your list:\n";
-            for (int i = 0; i < tasks.size(); i++) {
-                String elem = String.valueOf(i + 1) + ". " + tasks.get(i) + "\n";
-                list = list.concat(elem);
-            }
-            printer(list.substring(0, list.length() - 1)); // substring to remove last line break
         } else if (input.length() >= 4 && input.substring(0, 4).equals("todo")) { // task of type todo to be added
             if (input.length() < 6) { // no task given
                 throw new MichaelException("Enter a task to be done.");
@@ -167,8 +175,32 @@ public class Michael {
         }
     }
 
-    // Method converts task inputted to format required in save file
-    private static void convert(String task) {
+    // Method converts task inputted to text format required for save file
+    private static String convert(Task task) {
+        StringBuilder s = new StringBuilder();
 
+        // Add status of task
+        if (task.isDone()) {
+            s.append("1 | ");
+        } else {
+            s.append("0 | ");
+        }
+        // Add name of task
+        s.append(task.getTaskName());
+
+        if (task instanceof ToDo) {
+            s.insert(0, "T | ").append("\n");
+            return s.toString();
+        } else if (task instanceof Deadline) {
+            s.insert(0, "D | ");
+            Deadline d = (Deadline) task;
+            s.append(" | ").append(d.getDeadline()).append("\n");
+            return s.toString();
+        } else {
+            s.insert(0, "E | ");
+            Event e = (Event) task;
+            s.append(" | ").append(e.getStart()).append(" | ").append(e.getEnd()).append("\n");
+            return s.toString();
+        }
     }
 }

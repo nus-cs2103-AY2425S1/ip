@@ -15,6 +15,14 @@ public class Task {
         this.done = false;
     }
 
+    public boolean isDone() {
+        return this.done;
+    }
+
+    public String getTaskName() {
+        return this.taskName;
+    }
+
     @Override
     public String toString() {
         if (this.done) {
