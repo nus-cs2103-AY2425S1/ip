@@ -1,3 +1,8 @@
+package babblebot.ui;
+
+import babblebot.task.Task;
+import babblebot.task.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -12,7 +17,7 @@ public class Ui {
 
     public void sayWelcome() {
         System.out.println(SEPARATOR);
-        System.out.println("Hello! I'm BabbleBot!\nWhat can I do for you?");
+        System.out.println("Hello! I'm babblebot.BabbleBot!\nWhat can I do for you?");
         System.out.println(SEPARATOR);
     }
 
