@@ -21,7 +21,7 @@ import barney.data.task.TodoTask;
 public class Storage {
 
     private static final String SAVE_FILE_DELIMITER = "###";
-    private String filePath;
+    private final String filePath;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -42,49 +42,37 @@ public class Storage {
      *                                    contains invalid data.
      */
     private ArrayList<Task> readFile() throws FileNotFoundException, InvalidSaveFormatException {
-        ArrayList<Task> taskList = new ArrayList<Task>();
+        ArrayList<Task> taskList = new ArrayList<>();
         File listFile = new File(filePath);
-        Scanner fileScanner = new Scanner(listFile);
-        while (fileScanner.hasNext()) {
-            String line = fileScanner.nextLine();
-            String[] taskData = line.split(SAVE_FILE_DELIMITER);
+        try (Scanner fileScanner = new Scanner(listFile)) {
+            while (fileScanner.hasNext()) {
+                String line = fileScanner.nextLine();
+                String[] taskData = line.split(SAVE_FILE_DELIMITER);
 
-            Task newTask;
+                Task newTask;
 
-            // description
-            String description = taskData[1];
+                // description
+                String description = taskData[1];
 
-            // taskType
-            String taskType = taskData[2];
-            switch (taskType) {
-            case "T":
-                newTask = new TodoTask(description);
-                break;
-            case "D":
-                newTask = new DeadlineTask(description, taskData[3]);
-                break;
-            case "E":
-                newTask = new EventTask(description, taskData[3], taskData[4]);
-                break;
-            default:
-                throw new InvalidSaveFormatException("Invalid task type in the file: " + taskData[2]);
+                // taskType
+                String taskType = taskData[2];
+                switch (taskType) {
+                case "T" -> newTask = new TodoTask(description);
+                case "D" -> newTask = new DeadlineTask(description, taskData[3]);
+                case "E" -> newTask = new EventTask(description, taskData[3], taskData[4]);
+                default -> throw new InvalidSaveFormatException("Invalid task type in the file: " + taskData[2]);
+                }
+
+                // isMarked
+                switch (taskData[0]) {
+                case "1" -> newTask.mark();
+                case "0" -> newTask.unmark();
+                default -> throw new InvalidSaveFormatException("Invalid task status in the file: " + taskData[1]);
+                }
+
+                taskList.add(newTask);
             }
-
-            // isMarked
-            switch (taskData[0]) {
-            case "1":
-                newTask.mark();
-                break;
-            case "0":
-                newTask.unmark();
-                break;
-            default:
-                throw new InvalidSaveFormatException("Invalid task status in the file: " + taskData[1]);
-            }
-
-            taskList.add(newTask);
         }
-        fileScanner.close();
         return taskList;
     }
 
@@ -115,14 +103,14 @@ public class Storage {
      *                               file
      */
     private void writeFile(ArrayList<Task> taskList) throws FileNotFoundException, IOException {
-        FileWriter fileWriter = new FileWriter(filePath);
-        for (Task task : taskList) {
-            for (String data : task.toSaveArray()) {
-                fileWriter.write(data + SAVE_FILE_DELIMITER);
+        try (FileWriter fileWriter = new FileWriter(filePath)) {
+            for (Task task : taskList) {
+                for (String data : task.toSaveArray()) {
+                    fileWriter.write(data + SAVE_FILE_DELIMITER);
+                }
+                fileWriter.write("\n");
             }
-            fileWriter.write("\n");
         }
-        fileWriter.close();
     }
 
     /**

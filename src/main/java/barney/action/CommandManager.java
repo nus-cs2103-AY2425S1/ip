@@ -110,40 +110,30 @@ public class CommandManager {
      *         arguments.
      */
     private HashMap<String, String> parseArgument(CommandType commandType, String line) {
-        HashMap<String, String> commandMap = new HashMap<String, String>();
+        HashMap<String, String> commandMap = new HashMap<>();
         commandMap.put("command", commandType.toString());
         switch (commandType) {
-        case LIST:
-            break;
-        case MARK:
-            commandMap.put(commandType.commandArgs[0], line);
-            break;
-        case UNMARK:
-            commandMap.put(commandType.commandArgs[0], line);
-            break;
-        case DELETE:
-            commandMap.put(commandType.commandArgs[0], line);
-            break;
-        case TODO:
-            commandMap.put(commandType.commandArgs[0], line);
-            break;
-        case DEADLINE:
+        case LIST -> {
+        }
+        case MARK -> commandMap.put(commandType.commandArgs[0], line);
+        case UNMARK -> commandMap.put(commandType.commandArgs[0], line);
+        case DELETE -> commandMap.put(commandType.commandArgs[0], line);
+        case TODO -> commandMap.put(commandType.commandArgs[0], line);
+        case DEADLINE -> {
             String[] deadlineArgs = line.split("/by");
             commandMap.put(commandType.commandArgs[0], deadlineArgs[0].trim());
             commandMap.put(commandType.commandArgs[1], deadlineArgs[1].trim());
-            break;
-        case EVENT:
+        }
+        case EVENT -> {
             String[] eventArgs = line.split("/from");
             String[] timeArgs = eventArgs[1].split("/to");
             commandMap.put(commandType.commandArgs[0], eventArgs[0].trim());
             commandMap.put(commandType.commandArgs[1], timeArgs[0].trim());
             commandMap.put(commandType.commandArgs[2], timeArgs[1].trim());
-            break;
-        case FIND:
-            commandMap.put(commandType.commandArgs[0], line);
-            break;
-        case BYE:
-            break;
+        }
+        case FIND -> commandMap.put(commandType.commandArgs[0], line);
+        case BYE -> {
+        }
         }
         return commandMap;
     }

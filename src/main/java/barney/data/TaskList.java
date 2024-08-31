@@ -9,13 +9,13 @@ import barney.data.task.Task;
  */
 public class TaskList {
 
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructs an empty TaskList.
      */
     public TaskList() {
-        tasks = new ArrayList<Task>();
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -24,7 +24,7 @@ public class TaskList {
      * @param tasks The tasks to initialize the TaskList with.
      */
     public TaskList(ArrayList<Task> tasks) {
-        this.tasks = new ArrayList<Task>(tasks);
+        this.tasks = new ArrayList<>(tasks);
     }
 
     /**
@@ -71,7 +71,7 @@ public class TaskList {
      * @return A string representation of the TaskList.
      */
     public String toStringList() {
-        if (tasks.size() == 0) {
+        if (tasks.isEmpty()) {
             return "No tasks in the list!";
         }
         String output = "";
@@ -97,7 +97,7 @@ public class TaskList {
      * @return A TaskList containing tasks that match the given keyword.
      */
     public TaskList find(String keyword) {
-        ArrayList<Task> foundTasks = new ArrayList<Task>();
+        ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
                 foundTasks.add(task);

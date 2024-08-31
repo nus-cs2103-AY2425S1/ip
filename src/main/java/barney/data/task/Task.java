@@ -11,7 +11,7 @@ import java.util.Arrays;
  */
 public class Task {
 
-    private String description;
+    private final String description;
     private boolean isMarked;
 
     /**
@@ -68,7 +68,7 @@ public class Task {
      * @return An ArrayList of strings representing the Task object.
      */
     public ArrayList<String> toSaveArray() {
-        return new ArrayList<String>(Arrays.asList((this.isMarked ? "1" : "0"), this.description));
+        return new ArrayList<>(Arrays.asList((this.isMarked ? "1" : "0"), this.description));
     }
 
     /**
