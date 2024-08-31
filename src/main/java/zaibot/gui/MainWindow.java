@@ -5,16 +5,17 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import zaibot.Zaibot;
+import zaibot.utils.Ui;
 
 /**
  * This class is the controller for the MainWindow, which is the
@@ -39,7 +40,27 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getResponseDialog(Ui.printGreeting(), responseImage)
+        );
+        // Automatically scroll to the bottom initially
+        scrollPane.setVvalue(1.0);
+
+        dialogContainer.heightProperty().addListener((observable, oldValue, newValue) -> {
+            scrollPane.setVvalue(1.0);
+        });
+
+    }
+
+    /**
+     * This method sends the command in the TextField message
+     * if the key pressed is the Enter key.
+     * @param event The KeyEvent sent
+     */
+    public void sendCommandFromKeyboard(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            sendCommand();
+        }
     }
 
     /**
@@ -47,7 +68,11 @@ public class MainWindow extends AnchorPane {
      * when a mouse is clicked.
      * @param event The MouseEvent sent when clicked.
      */
-    public void sendCommand(MouseEvent event) {
+    public void sendCommandFromMouse(MouseEvent event) {
+        sendCommand();
+    }
+
+    private void sendCommand() {
         String input = message.getText().trim();
         String output = zaibot.runCommand(input);
         String[] outputs = output.split("\\r?\\n");
@@ -59,7 +84,6 @@ public class MainWindow extends AnchorPane {
 
         System.out.println(input);
         System.out.println(output);
-
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
