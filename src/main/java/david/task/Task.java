@@ -1,9 +1,15 @@
-package david.Task;
+package david.task;
 
+/**
+ * Abstract task class
+ */
 public abstract class Task {
     private String taskName;
     private boolean isCompleted;
 
+    /**
+     * constructor for Task class
+     */
     public Task(String s, boolean isCompleted) {
         this.isCompleted = isCompleted;
         this.taskName = s;

@@ -1,12 +1,15 @@
-package david.Parser;
-
-import david.Exceptions.DavidInvalidDateTimeException;
+package david.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class DateParser extends Parser{
+import david.exceptions.DavidInvalidDateTimeException;
+
+/**
+ * Date parser class to parse given date into proper LocalDateTime and back to String
+ */
+public class DateParser extends Parser {
 
     /**
      * Takes an input date time format in the form of " yyyy-MM-dd HHmm" and parses
@@ -15,7 +18,7 @@ public class DateParser extends Parser{
      * @return LocalDateTime instance
      * @throws DavidInvalidDateTimeException
      */
-    public static LocalDateTime getDate(String date) throws DavidInvalidDateTimeException{
+    public static LocalDateTime getDate(String date) throws DavidInvalidDateTimeException {
         try {
             //format string to remove whitespaces first
             DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(" yyyy-MM-dd HHmm");

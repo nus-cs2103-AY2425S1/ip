@@ -1,9 +1,12 @@
-package david.Task;
-
-import david.Parser.DateParser;
+package david.task;
 
 import java.time.LocalDateTime;
 
+import david.parser.DateParser;
+
+/**
+ * Event task class
+ */
 public class EventTask extends Task {
     private String event;
     private LocalDateTime from;

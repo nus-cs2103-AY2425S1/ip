@@ -1,12 +1,15 @@
-package david.Task;
+package david.task;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Task list containing all the tasks
+ */
 public class TaskList {
 
-    List<Task> tasks;
+    private List<Task> tasks;
 
     /**
      * Constructor for task list
@@ -93,8 +96,8 @@ public class TaskList {
             return "All is good :) There is no tasks for the time being.";
         }
         String str = "";
-        for (int i = 0; i<tasks.size(); i++) {
-            str += i+1 + ": " + tasks.get(i) + "\n";
+        for (int i = 0; i < tasks.size(); i++) {
+            str += i + 1 + ": " + tasks.get(i) + "\n";
         }
         return str;
     }

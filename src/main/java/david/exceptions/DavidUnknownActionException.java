@@ -1,9 +1,11 @@
-package david.Exceptions;
+package david.exceptions;
 
-public class DavidUnknownActionException extends DavidException{
+/**
+ * Unknown action exception class for David class
+ */
+public class DavidUnknownActionException extends DavidException {
 
     public DavidUnknownActionException() {
-
     }
 
     @Override

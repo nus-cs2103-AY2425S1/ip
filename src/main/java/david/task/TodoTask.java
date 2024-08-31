@@ -1,5 +1,8 @@
-package david.Task;
+package david.task;
 
+/**
+ * Todo task class
+ */
 public class TodoTask extends Task {
 
     /**
@@ -19,6 +22,6 @@ public class TodoTask extends Task {
     @Override
     public String toString() {
         String isCompleted = super.isCompleted() ? "X" : " ";
-        return "[T]" + "[" + isCompleted + "] " + super.getTask() ;
+        return "[T]" + "[" + isCompleted + "] " + super.getTask();
     }
 }
