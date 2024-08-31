@@ -1,10 +1,22 @@
 package myapp.core;
 
-import myapp.command.*;
-import myapp.utils.CommandType;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import myapp.command.Command;
+import myapp.command.DeadlineCommand;
+import myapp.command.DeleteCommand;
+import myapp.command.EventCommand;
+import myapp.command.ExitCommand;
+import myapp.command.FindCommand;
+import myapp.command.ListCommand;
+import myapp.command.ListOnCommand;
+import myapp.command.MarkCommand;
+import myapp.command.ToDoCommand;
+import myapp.command.UnMarkCommand;
+import myapp.utils.CommandType;
+
+
 
 /**
  * The {@code Parser} class is responsible for parsing user input commands
@@ -105,8 +117,8 @@ public class Parser {
             String by = input.substring(9).trim().split(" /by ")[1].trim();
             return DateTimeHandler.parse(by);
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-            throw new BingBongException("The deadline format is incorrect. " +
-                    "Use: deadline <task> /by <time>");
+            throw new BingBongException("The deadline format is incorrect. "
+                    + "Use: deadline <task> /by <time>");
         }
     }
 
@@ -114,15 +126,17 @@ public class Parser {
      * Parses the start and end date/time from the user's input for an event task.
      *
      * @param input the user's input string.
-     * @return an array of {@link LocalDateTime} objects where the first element is the start time and the second element is the end time.
-     * @throws BingBongException if the date/time format is incorrect, if the input is malformed, or if the required parts are missing.
+     * @return an array of {@link LocalDateTime} objects where the first element is the start time and
+     *      the second element is the end time.
+     * @throws BingBongException if the date/time format is incorrect, if the input is malformed,
+     *      or if the required parts are missing.
      */
     public static LocalDateTime[] parseEventDateTime(String input) throws BingBongException {
         try {
             String[] parts = input.substring(6).trim().split(" /from | /to ");
             if (parts.length < 3) {
-                throw new BingBongException("The event format is incorrect. Use: event <task> " +
-                        "/from <start time> /to <end time>");
+                throw new BingBongException("The event format is incorrect. Use: event <task> "
+                        + "/from <start time> /to <end time>");
             }
             LocalDateTime fromDateTime = DateTimeHandler.parse(parts[1].trim());
             LocalDateTime toDateTime = DateTimeHandler.parse(parts[2].trim());

@@ -1,8 +1,8 @@
 package myapp.task;
 
-import myapp.core.DateTimeHandler;
-
 import java.time.LocalDateTime;
+
+import myapp.core.DateTimeHandler;
 
 /**
  * The {@code Deadline} class represents a task that has a deadline.

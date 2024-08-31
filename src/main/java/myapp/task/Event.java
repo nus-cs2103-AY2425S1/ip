@@ -1,8 +1,9 @@
 package myapp.task;
 
+import java.time.LocalDateTime;
+
 import myapp.core.DateTimeHandler;
 
-import java.time.LocalDateTime;
 
 /**
  * The Event class represents a task that has a start and end date/time.
@@ -51,8 +52,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + DateTimeHandler.format(from) +
-                " to: " + DateTimeHandler.format(to) + ")";
+        return "[E]" + super.toString() + " (from: " + DateTimeHandler.format(from)
+                + " to: " + DateTimeHandler.format(to) + ")";
     }
 
     /**
@@ -63,8 +64,8 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " +
-                DateTimeHandler.format(from, true) + " | " +
-                DateTimeHandler.format(to, true);
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + DateTimeHandler.format(from, true) + " | "
+                + DateTimeHandler.format(to, true);
     }
 }

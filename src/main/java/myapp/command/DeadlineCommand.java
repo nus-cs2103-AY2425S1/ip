@@ -1,11 +1,13 @@
 package myapp.command;
 
+import java.time.LocalDateTime;
+
 import myapp.core.Storage;
 import myapp.task.Deadline;
 import myapp.task.Task;
 import myapp.task.TaskList;
 
-import java.time.LocalDateTime;
+
 
 /**
  * Represents a command that adds a new {@link Deadline} task to the task list.
@@ -14,7 +16,7 @@ import java.time.LocalDateTime;
  */
 public class DeadlineCommand extends AddCommand {
     /** The date and time by which the task should be completed. */
-    LocalDateTime by;
+    private LocalDateTime by;
 
     /**
      * Constructs a DeadlineCommand with the specified task description and deadline.

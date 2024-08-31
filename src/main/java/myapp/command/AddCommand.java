@@ -10,7 +10,7 @@ import myapp.task.TaskList;
  */
 public abstract class AddCommand extends Command {
     /** The description of the task to be added. */
-    String description;
+    protected String description;
 
     /**
      * Constructs an AddCommand with the specified task description.
