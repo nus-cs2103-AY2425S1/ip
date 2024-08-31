@@ -4,6 +4,12 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Creates a task from text that is correctly formatted.
+     *
+     * @param text correctly formatted text from which tasks can be created.
+     * @return Created task.
+     */
     public static Task from(String text) {
         if (text.startsWith("T")) {
             return ToDo.from(text);
@@ -17,6 +23,11 @@ public abstract class Task {
         return null;
     }
 
+    /**
+     * Converts task into the format used to create them.
+     *
+     * @return Correctly formatted text from which tasks can be created using the from() method.
+     */
     public abstract String toText();
 
     public Task(String description) {
@@ -34,10 +45,16 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Marks a task as completed.
+     */
     public void mark() {
         this.isDone = true;
     }
 
+    /**
+     * Undoes the marking of a task.
+     */
     public void unmark() {
         this.isDone = false;
     }

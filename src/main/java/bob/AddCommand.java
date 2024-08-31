@@ -5,10 +5,6 @@ import java.io.IOException;
 public class AddCommand extends Command {
     private Task task;
 
-    /**
-     *
-     * @param task task to be added
-     */
     public AddCommand(Task task) {
         this.task = task;
     }

@@ -6,8 +6,9 @@ public class MarkCommand extends Command {
     private int taskIndex;
 
     /**
-     * Creates a command object that operates on task i of the tasklist
-     * @param taskIndex
+     * Creates a command object that operates on task i of the tasklist.
+     *
+     * @param taskIndex index of task.
      */
     public MarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
