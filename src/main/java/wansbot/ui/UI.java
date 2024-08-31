@@ -66,7 +66,7 @@ public class UI {
         System.out.println(HR + "\nWans:"
                 + "\nHere are your tasks!\n"
                 + taskList.toString());
-        System.out.println("You have " + taskList.numOfTasks() + " tasks!"+"\n"+HR);
+        System.out.println("You have " + taskList.numOfTasks() + " tasks!" + "\n" + HR);
     }
 
     //handle marking user task successfully
