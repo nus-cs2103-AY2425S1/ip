@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
  * Inherits from the {@link Task} class and adds a start time and an end time.
  */
 public class Event extends Task {
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
     private LocalDateTime from;
     private LocalDateTime to;
 
@@ -24,6 +25,14 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public void setFrom(LocalDateTime from) {
+        this.from = from;
+    }
+
+    public void setTo(LocalDateTime to) {
+        this.to = to;
+    }
+
     /**
      * Converts this {@code Event} task to a string representation suitable for saving to a file.
      *
@@ -31,9 +40,8 @@ public class Event extends Task {
      */
     @Override
     public String stringify() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
         return String.format("E | %d | %s | %s | %s",
-                this.isDone ? 1 : 0, this.description, this.from.format(formatter), this.to.format(formatter));
+                this.isDone ? 1 : 0, this.description, this.from.format(FORMATTER), this.to.format(FORMATTER));
     }
 
     /**
@@ -43,8 +51,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
-        return "[E]" + super.toString() + " (from: " + this.from.format(formatter)
-                + " to: " + this.to.format(formatter) + ")";
+        return "[E]" + super.toString() + " (from: " + this.from.format(FORMATTER)
+                + " to: " + this.to.format(FORMATTER) + ")";
     }
 }

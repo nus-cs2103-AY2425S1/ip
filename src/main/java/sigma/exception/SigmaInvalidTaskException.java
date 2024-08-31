@@ -22,6 +22,6 @@ public class SigmaInvalidTaskException extends SigmaException {
      */
     @Override
     public String toString() {
-        return String.format("%s sigma.task.Task number %d is invalid.", super.toString(), this.taskNumber);
+        return String.format("%s Task number %d is invalid.", super.toString(), this.taskNumber);
     }
 }

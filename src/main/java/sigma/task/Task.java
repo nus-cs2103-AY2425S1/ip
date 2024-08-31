@@ -40,6 +40,10 @@ public abstract class Task {
         return (isDone ? "X" : " ");
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     /**
      * Checks if the task's description contains the specified keyword.
      * The comparison is case-insensitive.

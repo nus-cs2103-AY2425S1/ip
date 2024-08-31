@@ -38,6 +38,14 @@ public class SigmaMissingArgException extends SigmaException {
             return String.format(message, super.toString(), "unmark <task_number>");
         case DELETE:
             return String.format(message, super.toString(), "delete <task_number>");
+        case FIND:
+            return String.format(message, super.toString(), "find <keyword>");
+        case UPDATE:
+            String sample = "Fields in [] are optional but at least one field must be included.\n"
+                    + "Todo: update <task_number> <description>\n"
+                    + "Deadline: update <task_number> [<description>] [/by DD/MM/YY HH:MM]\n"
+                    + "Event: update <task_number> [<description>] [/from DD/MM/YY HH:MM /to DD/MM/YY HH:MM]";
+            return String.format(message, super.toString(), sample);
         default:
             return super.toString() + " Invalid argument.";
         }

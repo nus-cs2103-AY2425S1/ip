@@ -21,6 +21,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public void setBy(LocalDateTime by) {
+        this.by = by;
+    }
+
     /**
      * Converts this {@code Deadline} task to a string representation suitable for saving to a file.
      *

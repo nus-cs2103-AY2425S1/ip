@@ -74,7 +74,6 @@ public class Sigma {
             this.ui.closeScanner();
             this.storage.save(taskList.getAllTasks());
             this.isRunning = false;
-            assert !this.isRunning;
         } catch (SigmaFileException e) {
             this.ui.showErrorMessage(e);
         }
@@ -110,6 +109,10 @@ public class Sigma {
                 return handleDeleteCommand(Parser.parseArgs(CommandType.DELETE, userInput));
             case FIND:
                 return handleFindCommand(Parser.parseArgs(CommandType.FIND, userInput));
+            case HELP:
+                return this.ui.showHelp();
+            case UPDATE:
+                return handleUpdateCommand(Parser.parseArgs(CommandType.UPDATE, userInput));
             default:
                 throw new SigmaUnknownCommandException(userInput);
             }
@@ -296,6 +299,106 @@ public class Sigma {
         }
 
         return this.ui.showSearchedTasks(this.taskList.search(userInput));
+    }
+
+    /**
+     * Updates an existing task in the task list based on the user's input.
+     * <p>
+     * The format for the user input is "{taskNumber} {updateDetails}". For {@code Deadline} tasks,
+     * {@code updateDetails} can be "description /by dd/MM/yy HH:mm". For {@code Event} tasks,
+     * it can be "description /from dd/MM/yy HH:mm /to dd/MM/yy HH:mm".
+     * <p>
+     * If the task number is invalid or if the update details are missing or incorrectly formatted,
+     * appropriate exceptions will be thrown.
+     *
+     * @param userInput The input command with task number and update details.
+     * @return A confirmation message of the update.
+     * @throws SigmaException If the task number is invalid, or if the update details are incorrect.
+     */
+    public String handleUpdateCommand(String userInput) throws SigmaException {
+        try {
+            String[] parts = userInput.trim().split(" ", 2);
+            if (parts.length < 2) {
+                throw new SigmaMissingArgException(CommandType.UPDATE);
+            }
+
+            int taskNumber = Integer.parseInt(parts[0].trim());
+            String updateDetails = parts[1].trim();
+
+            if (taskNumber < 1 || taskNumber > taskList.getSize() || taskList.getSize() == 0) {
+                throw new SigmaInvalidTaskException(taskNumber);
+            }
+
+            Task task = taskList.getTask(taskNumber);
+
+            if (task instanceof Todo) {
+                task.setDescription(updateDetails.trim());
+            } else if (task instanceof Deadline) {
+                updateDeadline((Deadline) task, updateDetails);
+            } else if (task instanceof Event) {
+                updateEvent((Event) task, updateDetails);
+            } else {
+                throw new SigmaInvalidTaskException(taskNumber);
+            }
+
+            return this.ui.showUpdatedTask(task, taskNumber);
+        } catch (NumberFormatException e) {
+            throw new SigmaNaNException();
+        }
+    }
+
+    /**
+     * Updates a Deadline task with the provided details.
+     *
+     * @param deadline The Deadline task to update.
+     * @param updateDetails The details to update, which may include a new due date.
+     * @throws SigmaException If the date format is invalid.
+     */
+    private void updateDeadline(Deadline deadline, String updateDetails) throws SigmaException {
+        String[] updateParts = updateDetails.split("/by");
+        if (updateParts.length >= 2) {
+            if (!updateParts[1].trim().isEmpty()) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+                LocalDateTime newDueDate = LocalDateTime.parse(updateParts[1].trim(), formatter);
+                deadline.setBy(newDueDate);
+            } else {
+                throw new SigmaInvalidDateException(CommandType.UPDATE);
+            }
+        } else if (updateParts.length == 1) {
+            deadline.setDescription(updateParts[0].trim());
+        } else {
+            throw new SigmaInvalidArgException(CommandType.UPDATE);
+        }
+    }
+
+    /**
+     * Updates an Event task with the provided details.
+     *
+     * @param event The Event task to update.
+     * @param updateDetails The details to update, which may include new start and end times.
+     * @throws SigmaException If the date format is invalid or if the end time is before the start time.
+     */
+    private void updateEvent(Event event, String updateDetails) throws SigmaException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+        String[] updateParts = updateDetails.split("/from");
+        if (updateParts.length >= 2) {
+            String[] timeParts = updateParts[1].split("/to");
+            if (timeParts.length == 2) {
+                LocalDateTime newStartTime = LocalDateTime.parse(timeParts[0].trim(), formatter);
+                LocalDateTime newEndTime = LocalDateTime.parse(timeParts[1].trim(), formatter);
+                if (newEndTime.isBefore(newStartTime)) {
+                    throw new SigmaInvalidDateRangeException();
+                }
+                event.setFrom(newStartTime);
+                event.setTo(newEndTime);
+            } else {
+                throw new SigmaInvalidArgException(CommandType.UPDATE);
+            }
+        } else if (updateParts.length == 1) {
+            event.setDescription(updateParts[0].trim());
+        } else {
+            throw new SigmaInvalidArgException(CommandType.UPDATE);
+        }
     }
 
     /**

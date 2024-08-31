@@ -1,10 +1,9 @@
 .root {
     main-color: rgb(237, 255, 242);
-    -fx-background-color: main-color;
-    -fx-background-image: url("../images/background.png");
-    -fx-background-size: auto;
-    -fx-background-repeat: no-repeat;
+    -fx-background-image: url('../images/background.png');
+    -fx-background-size: cover;
     -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
 }
 
 .text-field {
