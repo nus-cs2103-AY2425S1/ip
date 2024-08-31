@@ -4,10 +4,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task that has a deadline.
+ */
 public class Deadline extends Task {
 
     protected String by;
 
+    /**
+     * Constructs a new deadline task with the specified description and deadline.
+     *
+     * @param description The description of the deadline task.
+     * @param by The deadline of the task to be completed.
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = by;

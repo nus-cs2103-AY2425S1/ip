@@ -1,5 +1,8 @@
 package rob;
 
+/**
+ * Manages the user interface of the chatbot, including the text printed.
+ */
 public class Ui {
     private static final String GREET = "Hello! I'm Rob\n"
             + "What can I do for you?\n";
@@ -50,9 +53,9 @@ public class Ui {
      */
     public void delete(TaskList taskList, int taskNum) {
         // echo
-        String echo = "____________________________________________________________\n" +
-                "deleted: " + taskList.getTask(taskNum - 1) + "\n" +
-                "____________________________________________________________\n";
+        String echo = "____________________________________________________________\n"
+                + "deleted: " + taskList.getTask(taskNum - 1) + "\n"
+                + "____________________________________________________________\n";
         String numTaskInList = "Now you have " + (taskList.len() - 1) + " task(s) in the list.\n";
         System.out.println(echo + numTaskInList);
     }
@@ -63,9 +66,9 @@ public class Ui {
      * @param taskList The task list where tasks will be added.
      */
     public void printText(TaskList taskList) {
-        String echo = "____________________________________________________________\n" +
-                "added: " + taskList.getTask(taskList.len() - 1) + "\n" +
-                "____________________________________________________________\n";
+        String echo = "____________________________________________________________\n"
+                + "added: " + taskList.getTask(taskList.len() - 1) + "\n"
+                + "____________________________________________________________\n";
         String numTaskInList = "Now you have " + taskList.len() + " task(s) in the list.\n";
         System.out.println(echo + numTaskInList);
     }
@@ -82,9 +85,9 @@ public class Ui {
             System.out.println("Already done!");
         } else {
             taskList.getTask(taskNum - 1).markAsDone();
-            String marked = "____________________________________________________________\n" +
-                    "Nice! I've marked this task as done:\n" + taskList.getTask(taskNum - 1) + "\n" +
-                    "____________________________________________________________\n";
+            String marked = "____________________________________________________________\n"
+                    + "Nice! I've marked this task as done:\n" + taskList.getTask(taskNum - 1) + "\n"
+                    + "____________________________________________________________\n";
             System.out.println(marked);
         }
     }
@@ -101,9 +104,9 @@ public class Ui {
             System.out.println("Already unmarked!");
         } else {
             taskList.getTask(taskNum - 1).unmark();
-            String unmarked = "____________________________________________________________\n" +
-                    "OK, I've marked this task as not done yet:\n" + taskList.getTask(taskNum - 1) + "\n" +
-                    "____________________________________________________________\n";
+            String unmarked = "____________________________________________________________\n"
+                    + "OK, I've marked this task as not done yet:\n" + taskList.getTask(taskNum - 1) + "\n"
+                    + "____________________________________________________________\n";
             System.out.println(unmarked);
         }
     }

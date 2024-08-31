@@ -1,5 +1,8 @@
 package rob;
 
+/**
+ * Represents the a todo task that the user adds.
+ */
 public class Todo extends Task {
     public Todo(String description) {
         super(description);

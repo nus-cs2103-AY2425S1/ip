@@ -1,18 +1,18 @@
 package rob;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 public class StorageTest {
     @Test
     public void testSaveTasks() {
-        List<Task> taskList= new ArrayList<>();
+        List<Task> taskList = new ArrayList<>();
         taskList.add(new Todo("buy apples"));
         taskList.add(new Deadline("buy bananas", "Tuesday"));
         taskList.add(new Event("peel coconuts", "3pm", "4pm"));
