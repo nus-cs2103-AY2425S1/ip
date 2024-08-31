@@ -1,4 +1,10 @@
+package Core;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -6,12 +12,6 @@ import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
-
-import java.util.ArrayList;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class StorageList {
     private ArrayList<Task> storageList;
@@ -58,7 +58,7 @@ public class StorageList {
                 System.out.println("Task added:\n  " + newDeadline + "\nNow you have " + storageList.size() 
                         + " tasks in the list. HAVE FUN ^o^");
             } catch(InputMismatchException e) {
-                System.out.println("Please ensure your deadline has a description and a end date TT");
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -157,7 +157,7 @@ public class StorageList {
             File tmp = File.createTempFile("tmp", "");
             BufferedWriter writer = new BufferedWriter(new FileWriter(tmp));
             for (Task t : storageList) {
-                writer.write(t + System.lineSeparator());
+                writer.write(t.formatStringForSaving() + System.lineSeparator());
             }
             writer.close();
             if(saveFile.delete()) {
