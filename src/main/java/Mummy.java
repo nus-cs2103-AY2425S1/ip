@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import task.Deadline;
@@ -43,10 +44,13 @@ public class Mummy {
 
             String input = scanner.nextLine();
             Command command;
+            HashMap<String, String> arguments = Parser.parse(input);
 
             try {
                 command = Command.valueOf(
-                        input.split(" ")[0].toUpperCase());
+                        arguments.getOrDefault("command", "")
+                                .toUpperCase()
+                );
             } catch (IllegalArgumentException exception) {
                 command = Command.UNKNOWN;
             }
@@ -60,22 +64,22 @@ public class Mummy {
                     onList();
                     break;
                 case MARK:
-                    onMark(input);
+                    onMark(arguments);
                     break;
                 case UNMARK:
-                    onUnmark(input);
+                    onUnmark(arguments);
                     break;
                 case TODO:
-                    onToDo(input);
+                    onToDo(arguments);
                     break;
                 case DEADLINE:
-                    onDeadline(input);
+                    onDeadline(arguments);
                     break;
                 case EVENT:
-                    onEvent(input);
+                    onEvent(arguments);
                     break;
                 case DELETE:
-                    onDelete(input);
+                    onDelete(arguments);
                     break;
                 default:
                     throw new MummyException("I'm sorry, but I don't know what that means :-(");
@@ -94,13 +98,13 @@ public class Mummy {
         echo(TASK_LIST.toString());
     }
 
-    private static void onMark(String input) throws MummyException {
+    private static void onMark(HashMap<String, String> arguments) throws MummyException {
         int taskIndex = parseIntOrDefault(
-                input.replaceAll("[^0-9]", ""),
+                arguments.getOrDefault("description", ""),
                 -1);
 
         try {
-            TASK_LIST.set(taskIndex, TASK_LIST.get(taskIndex).setAsDone());
+            TASK_LIST.markTask(taskIndex);
             saveTaskListToStorage();
             echo("Nice! I've marked this task as done:\n\t" + TASK_LIST.get(taskIndex));
         } catch (TaskListException exception) {
@@ -108,12 +112,12 @@ public class Mummy {
         }
     }
 
-    private static void onUnmark(String input) throws MummyException {
+    private static void onUnmark(HashMap<String, String> arguments) throws MummyException {
         int taskIndex = parseIntOrDefault(
-                input.replaceAll("[^0-9]", ""),
+                arguments.getOrDefault("description", ""),
                 -1);
         try {
-            TASK_LIST.set(taskIndex, TASK_LIST.get(taskIndex).setAsUndone());
+            TASK_LIST.unmarkTask(taskIndex);
             saveTaskListToStorage();
             echo("OK, I've marked this task as not done yet:\n\t" + TASK_LIST.get(taskIndex));
         } catch (TaskListException exception) {
@@ -121,22 +125,20 @@ public class Mummy {
         }
     }
 
-    private static void onToDo(String input) throws MummyException {
+    private static void onToDo(HashMap<String, String> arguments) throws MummyException {
         // length of "todo " is 5
         try {
-            String description = input.strip().substring(5);
+            String description = arguments.getOrDefault("description", "");
             addTaskToStore(new ToDo(description));
         } catch (IndexOutOfBoundsException exception) {
             throw new MummyException("description cannot be empty");
         }
     }
 
-    private static void onDeadline(String input) throws MummyException {
+    private static void onDeadline(HashMap<String, String> arguments) throws MummyException {
         try {
-            // length of "deadline " is 9
-            String[] tokens = input.substring(9).split("\\s*/by\\s*");
-            String description = tokens[0];
-            String dueBy = tokens[1];
+            String description = arguments.getOrDefault("description", "");
+            String dueBy = arguments.getOrDefault("by", "");
 
             addTaskToStore(new Deadline(description, dueBy));
         } catch (IndexOutOfBoundsException exception) {
@@ -146,14 +148,11 @@ public class Mummy {
         }
     }
 
-    private static void onEvent(String input) throws MummyException {
+    private static void onEvent(HashMap<String, String> arguments) throws MummyException {
         try {
-            // length of "event " is 6
-            String[] tokens = input.substring(6).split("\\s*/from\\s*");
-            String description = tokens[0];
-            String[] argumentTokens = tokens[1].split("\\s*/to\\s*");
-            String from = argumentTokens[0];
-            String to = argumentTokens[1];
+            String description = arguments.getOrDefault("description", "");
+            String from = arguments.getOrDefault("from", "");
+            String to = arguments.getOrDefault("to", "");
 
             addTaskToStore(new Event(description, from, to));
         } catch (IndexOutOfBoundsException exception) {
@@ -161,9 +160,9 @@ public class Mummy {
         }
     }
 
-    private static void onDelete(String input) throws MummyException {
+    private static void onDelete(HashMap<String, String> arguments) throws MummyException {
         int taskIndex = parseIntOrDefault(
-                input.replaceAll("[^0-9]", ""),
+                arguments.getOrDefault("description", ""),
                 -1);
 
         try {

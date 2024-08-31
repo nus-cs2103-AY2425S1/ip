@@ -42,9 +42,17 @@ public class TaskList {
         }
     }
 
-    public void set(int index, Task newTask) throws TaskListException {
+    public void markTask(int index) throws TaskListException {
         try {
-            this.tasks.set(index - 1, newTask);
+            this.tasks.set(index - 1, this.tasks.get(index - 1).setAsDone());
+        } catch (IndexOutOfBoundsException exception) {
+            throw new TaskListException("No such item");
+        }
+    }
+
+    public void unmarkTask(int index) throws TaskListException {
+        try {
+            this.tasks.set(index - 1, this.tasks.get(index - 1).setAsUndone());
         } catch (IndexOutOfBoundsException exception) {
             throw new TaskListException("No such item");
         }
