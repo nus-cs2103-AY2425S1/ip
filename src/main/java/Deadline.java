@@ -1,7 +1,15 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 public class Deadline extends Task {
 
     protected String desc;
     protected String by;
+    protected LocalDate date;
+    protected String time;
 
     public Deadline(String description) {
         super(description);
@@ -21,9 +29,21 @@ public class Deadline extends Task {
             this.by = byParts[1].split("\\)")[0];
             this.isDone = true;
         }
+        String dateString = by.split(" ")[0];
+        try {
+            this.date = LocalDate.parse(dateString);
+            SimpleDateFormat inputTime = new SimpleDateFormat("HHmm");
+            SimpleDateFormat outputTime = new SimpleDateFormat("hh:mm a");
+            Date time24 = inputTime.parse(by.split(" ")[1]);
+            this.time = outputTime.format(time24);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public String toString() {
-        return "[D]" + this.getStatusIcon() + this.desc + " (by: " + by + ")";
+        return "[D]" + this.getStatusIcon() + this.desc + " (by: "
+                + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + time + ")";
     }
 }
