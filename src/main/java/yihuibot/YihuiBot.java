@@ -6,6 +6,8 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import java.nio.file.InvalidPathException;
+
 import yihuibot.executable.Executable;
 import yihuibot.executable.TaskModifier;
 
@@ -39,19 +41,14 @@ public class YihuiBot {
      * Construct a new instance of YihuiBot.
      *
      * @param filePath the path to read task data from.
+     * @throws InvalidPathException when filePath cannot be converted to a Path.
+     * @throws IOException when an I/O error occurred when instantiating Storage.
      */
-    public YihuiBot(String filePath) {
+    public YihuiBot(String filePath) throws InvalidPathException, IOException {
         ui = new Ui(DATE_TIME_FORMAT);
         storage = new Storage(filePath, DATE_TIME_FORMAT);
         try {
             tasks = storage.load();
-        } catch (FileNotFoundException e) {
-            String s = "No file with path " + filePath + "found.";
-            String t = "If this file exists, make sure to run the program where";
-            String u = filePath + " is accessible.";
-            String v = "Initializing an empty TaskList.";
-            ui.warningPrint(e.getMessage(), s, t, u, v);
-            tasks = new TaskList();
         } catch (IncorrectTaskFormatException e) {
             String message = "Initializing an empty TaskList.";
             ui.warningPrint(e.getMessage(), message);
@@ -100,6 +97,10 @@ public class YihuiBot {
     }
 
     public static void main(String[] args) {
-        new YihuiBot("data/task.txt").run(); 
+        try {
+            new YihuiBot("data/task.txt").run(); 
+        } catch (InvalidPathException | IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

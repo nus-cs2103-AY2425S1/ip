@@ -4,6 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import java.time.format.DateTimeFormatter;
 
 import yihuibot.exception.taskformat.IncorrectTaskFormatException;
@@ -26,11 +32,19 @@ public class Storage {
      *
      * @param filePath the path to read task data from.
      * @param dateTimeFormat the format pattern to use for date time.
-     * @throws NullPointerException when filePath or dateTimeFormat is null.
+     * @throws InvalidPathException when filePath cannot be converted to a Path.
      * @throws IllegalArgumentException when dateTimeFormat is not a valid pattern.
+     * @throws IOException when an I/O error occurred.
      */
     public Storage(String filePath, String dateTimeFormat)
-            throws NullPointerException, IllegalArgumentException {
+            throws InvalidPathException, IllegalArgumentException, IOException {
+        Path path = Paths.get(filePath);
+        try {
+            Files.createDirectories(path.getParent());
+            Files.createFile(path);
+        } catch (FileAlreadyExistsException e) {
+
+        }
         file = new File(filePath);
         formatter = DateTimeFormatter.ofPattern(dateTimeFormat);
     }
