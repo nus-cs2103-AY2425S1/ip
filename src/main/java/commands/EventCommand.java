@@ -13,7 +13,7 @@ public class EventCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui) {
         taskList.addTask(this.event);
     }
 
