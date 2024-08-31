@@ -96,6 +96,22 @@ public class Ui {
 
     }
 
+    public void showUnknownInputError() {
+        String output = LINE
+                + "Sorry! I couldn't recognise that :(\n"
+                + "Try one of these commands:\n"
+                + "\t list\n"
+                + "\t todo <task name>\n"
+                + "\t deadline <task name> /by <datetime>\n"
+                + "\t event <task name> /from <datetime /to <datetime>\n"
+                + "\t mark <task index>\n"
+                + "\t unmark <task index>\n"
+                + "\t delete <task index>\n"
+                + "\t bye\n"
+                + LINE;
+        System.out.print(output);
+    }
+
     public void showDateTimeError() {
         String output = LINE
                 + "Invalid format! Datetime must be in this form: E.g. 2024-10-11 1200\n"
