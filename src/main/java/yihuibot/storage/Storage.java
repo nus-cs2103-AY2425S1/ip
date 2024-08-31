@@ -40,7 +40,10 @@ public class Storage {
             throws InvalidPathException, IllegalArgumentException, IOException {
         Path path = Paths.get(filePath);
         try {
-            Files.createDirectories(path.getParent());
+            Path directories = path.getParent();
+            if (directories != null) {
+                Files.createDirectories(directories);
+            }
             Files.createFile(path);
         } catch (FileAlreadyExistsException e) {
 

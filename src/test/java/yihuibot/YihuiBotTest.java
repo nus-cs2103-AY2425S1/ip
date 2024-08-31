@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @author Toh Yi Hui A0259080A
  */
 public class YihuiBotTest {
-    private YihuiBot yihuiBot;
     private static File file;
 
     /**
@@ -47,7 +46,11 @@ public class YihuiBotTest {
      */
     @Test
     public void constructor_notNull() {
-        yihuiBot = new YihuiBot("task.txt");
-        assertNotNull(yihuiBot);
+        try {
+            YihuiBot yihuiBot = new YihuiBot("data/task.txt");
+            assertNotNull(yihuiBot);
+        } catch (IOException e) {
+            fail();
+        }
     }
 }

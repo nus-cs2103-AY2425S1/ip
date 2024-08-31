@@ -1,7 +1,6 @@
 package yihuibot.storage;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.junit.jupiter.api.AfterAll;
@@ -29,7 +28,7 @@ public class StorageTest {
      */
     @BeforeAll
     public static void setUp() {
-        file = new File("task.txt");
+        file = new File("data/task.txt");
         try {
             file.createNewFile();
         } catch (IOException e) {
@@ -52,8 +51,12 @@ public class StorageTest {
      */
     @Test
     public void constructor_notNull() {
-        storage = new Storage("task.txt", "yyyy-MM-dd HH:mm");
-        assertNotNull(storage);
+        try {
+            storage = new Storage("data/task.txt", "yyyy-MM-dd HH:mm");
+            assertNotNull(storage);
+        } catch (IOException e) {
+            fail();
+        }
     }
 
     /**
@@ -61,10 +64,10 @@ public class StorageTest {
      */
     @Test
     public void load_returnsTaskList() {
-        storage = new Storage("task.txt", "yyyy-MM-dd HH:mm");
         try {
+            storage = new Storage("data/task.txt", "yyyy-MM-dd HH:mm");
             assertInstanceOf(TaskList.class, storage.load());
-        } catch (FileNotFoundException | IncorrectTaskFormatException e) {
+        } catch (IOException | IncorrectTaskFormatException e) {
             fail();
         }
     }
