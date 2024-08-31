@@ -1,4 +1,7 @@
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -184,6 +187,23 @@ public class Bob {
                 } else {
                     throw new BobException("I'm sorry, but I don't know what that means :(");
                 }
+
+                // Write tasks to ./data/bob.txt
+                File directory = new File("./data");
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                File file = new File(directory, "bob.txt");
+
+                try (FileWriter writer = new FileWriter(file)) {
+                    for (Task task : messages) {
+                        writer.write(task.toString() + "\n");
+                    }
+                } catch (IOException e) {
+                    System.err.println("An error occurred while writing to the file: " + e.getMessage());
+                }
+
             } catch (BobException e) {
                 dialogue(e.getMessage());
             }
