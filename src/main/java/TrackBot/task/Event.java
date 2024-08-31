@@ -3,10 +3,20 @@ package TrackBot.task;
 import TrackBot.task.Task;
 import TrackBot.ui.Parser;
 
+/**
+ * Event task with a start and end time.
+ */
 public class Event extends Task {
     protected String from;
     protected String to;
 
+    /**
+     * Constructs an Event task with the specified description, start time and end time.
+     *
+     * @param desc The description of the event.
+     * @param from The start time of the event.
+     * @param to The end time of the event.
+     */
     public Event(String desc, String from, String to) {
         super(desc);
         this.from = from;
