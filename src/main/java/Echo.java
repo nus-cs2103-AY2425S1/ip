@@ -67,6 +67,13 @@ public class Echo {
                 }
                 System.out.print(ui.line());
                 break;
+            case "find":
+                try {
+                    list.find(parts[1]).printList();
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("No such items in the list!");
+                }
+                break;
 
             case "todo":
                 try {
