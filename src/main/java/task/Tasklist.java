@@ -16,7 +16,9 @@ public class Tasklist {
      * @return String
      */
     public String getList() {
+        // init retstring
         String retString = "";
+
         for (int i = 0; i < taskList.size(); i++) {
             retString += (i + 1) + ". " + taskList.get(i) + "\n";
         }
