@@ -76,7 +76,22 @@ public class TaskList {
     }
 
     /**
-     * Handles the commands to add, delete, mark or unmark tasks.
+     * Finds tasks that contains the given keyword in their description.
+     * @param keyword The keyword to search for.
+     * @return A list of tasks that match the search.
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDesc().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
+
+    /**
+     * Handles the commands to add, delete, mark, unmark or find tasks.
      * @param command The command to handle.
      * @param input The user input.
      * @param parser The parser to interpret the input.
@@ -131,6 +146,11 @@ public class TaskList {
                     deleteTask(deleteNum);
                     storage.saveTasks(tasks);
                     ui.printDeleteMessage(deleteDetails);
+                    break;
+                case FIND:
+                    String keyword = parser.parseFindKeyword(input, command.getCommandText());
+                    ArrayList<Task> matchingTasks = findTasks(keyword);
+                    ui.printFindMessage(matchingTasks, keyword);
                     break;
                 default:
                     ui.printUnrecognisedMessage();

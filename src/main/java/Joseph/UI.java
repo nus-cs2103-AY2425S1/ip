@@ -131,6 +131,24 @@ public class UI {
     }
 
     /**
+     * Prints the tasks that match the keyword.
+     * @param tasks The list of matching tasks.
+     * @param keyword The search keyword.
+     */
+    public void printFindMessage(ArrayList<Task> tasks, String keyword) {
+        if (tasks.isEmpty()) {
+            System.out.println("I couldn't find any tasks with the keyword: " + keyword);
+        } else {
+            System.out.println("I've found the below tasks with the keyword: " + keyword);
+            printLine();
+            for (int i = 0; i < tasks.size(); i++) {
+                String done = "[" + tasks.get(i).getDone() + "] ";
+                System.out.println(i+1 + ". " + done + tasks.get(i).getDetails());
+            }
+            printLine();
+        }
+    }
+    /**
      * Prints a message to indicate that the command was not recognised.
      */
     public void printUnrecognisedMessage() {

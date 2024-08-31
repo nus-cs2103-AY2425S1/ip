@@ -21,7 +21,8 @@ public class Parser {
         TODO("todo "),
         DEADLINE("deadline "),
         EVENT("event "),
-        DELETE("delete ");
+        DELETE("delete "),
+        FIND("find ");
 
         private final String commandText;
 
@@ -113,5 +114,21 @@ public class Parser {
                     "a start and an end for an event!");
         }
         return details;
+    }
+
+    /**
+     * Parse the keyword from the input string.
+     * @param input The user input.
+     * @param commandText The command text to be trimmed. In this case, "find ".
+     * @return The keyword to search the list with.
+     * @throws InsufficientDetailsException If keyword is missing.
+     */
+    public String parseFindKeyword(String input, String commandText)
+            throws InsufficientDetailsException {
+        String keyword = input.substring((commandText.length())).trim();
+        if (keyword.isEmpty()) {
+            throw new InsufficientDetailsException("You need to provide a keyword!");
+        }
+        return keyword;
     }
 }
