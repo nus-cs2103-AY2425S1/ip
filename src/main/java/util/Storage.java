@@ -8,9 +8,11 @@ import java.io.IOException;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import main.java.Task;
+import main.java.TaskList;
 
 public class Storage {
     private static final Path DIRPATH = Paths.get("./data");
@@ -39,15 +41,11 @@ public class Storage {
 
     /**
      * Writes the string list textToSave to /data/Karen.txt
-     * @param taskList A list of Tasks to save to file
+     * @param taskList A TaskList to save to file
      */
-    public static void saveToFile(List<Task> taskList) {
-        List<String> writeBuffer = new ArrayList<>();
+    public static void saveToFile(TaskList taskList) {
         try {
-            for (int i = 0; i < taskList.size(); i++) {
-                Task t = taskList.get(i);
-                writeBuffer.add(t.toFileString());
-            }
+            List<String> writeBuffer = taskList.toFileStrings();
             Files.write(FILEPATH, writeBuffer, StandardCharsets.UTF_8);
         } catch (IOException e) {
             System.out.println("Error while saving to file");
@@ -55,19 +53,18 @@ public class Storage {
     }
 
     /**
-     * Returns a List of String from reading Karen.txt
-     *
+     * Populates the provided TaskList from reading Karen.txt
+     * @param taskList TaskList containing the user's Tasks
      */
-    public static List<Task> readFile() {
+    public static void readFile(TaskList taskList) {
         //Outer try/catch for file access errors
         try {
             List<String> readBuffer = Files.readAllLines(FILEPATH);
-            List<Task> taskList = new ArrayList<>();
             for (String line : readBuffer) {
                 //inner try catch to handle invalid lines without breaking loop
                 try {
                     Task newTask = Task.fromFileString(line);
-                    taskList.add(newTask);
+                    taskList.addTask(newTask);
                 } catch (IllegalArgumentException e) {
                     //Current parsed line is invalid
                     System.out.println("Error reading line");
@@ -75,10 +72,8 @@ public class Storage {
                     System.out.println("Error. Bad date format from file");
                 }
             }
-            return taskList;
         } catch (IOException e) {
             System.out.println("Error trying to read file");
-            return new ArrayList<>();
         }
     }
 }

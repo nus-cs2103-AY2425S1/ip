@@ -24,6 +24,8 @@ public class Event extends Task{
     @Override
     public String toFileString() {
         int markedInt = this.isMarked() ? 1 : 0;
-        return String.format("E | %d | %s | %s | %s", markedInt, this.getName(), this.from, this.to);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return String.format("E | %d | %s | %s | %s", markedInt, this.getName(),
+                this.from.format(formatter), this.to.format(formatter));
     }
 }

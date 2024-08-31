@@ -22,6 +22,7 @@ public class Deadline extends Task{
     @Override
     public String toFileString() {
         int markedInt = this.isMarked() ? 1 : 0;
-        return String.format("D | %d | %s | %s", markedInt, this.getName(), this.dueDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return String.format("D | %d | %s | %s", markedInt, this.getName(), this.dueDate.format(formatter));
     }
 }
