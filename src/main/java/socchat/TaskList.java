@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 
 public class TaskList {
-    private Parser parser = new Parser();
     private Storage storage;
     private ArrayList<Task> tasks;
 
@@ -24,10 +23,10 @@ public class TaskList {
 
     public void delete(String indexString) throws SocchatException {
         try {
-//            String taskIndexString = scanner.nextLine().trim();
             int taskIndex = Integer.parseInt(indexString);
             Task task = tasks.get(taskIndex - 1);
             tasks.remove(taskIndex - 1);
+
             System.out.println("Deleted "  + "\"" +  task.toString() + "\"");
             System.out.println("Now you have " + tasks.size() + " task(s).");
 
@@ -38,6 +37,7 @@ public class TaskList {
             throw new SocchatException("Please enter a valid task number.");
         }
     }
+
     public void list() {
         System.out.println("Your task list:");
         for(int i = 0; i < tasks.size(); i++) {
@@ -68,8 +68,8 @@ public class TaskList {
             String des = strToken[0].substring("event ".length());
             String from = strToken[1].substring("from ".length());
             String to = strToken[2].substring("to ".length());
-            LocalDateTime formattedFrom = parser.parseDate(from);
-            LocalDateTime formattedTo = parser.parseDate(to);
+            LocalDateTime formattedFrom = Parser.parseDate(from);
+            LocalDateTime formattedTo = Parser.parseDate(to);
 
             Task t = new Event(des, formattedFrom, formattedTo);
             tasks.add(t);
@@ -77,7 +77,7 @@ public class TaskList {
             System.out.println(t.toString());
             System.out.println("Now you have " + tasks.size() + " task(s).");
 
-            storage.update(tasks, true);
+            Storage.update(tasks, true);
         } catch (IndexOutOfBoundsException e) {
 
             throw new SocchatException("Invalid Event format: event <description> /from <startTime> /to <endTime>");
@@ -87,7 +87,7 @@ public class TaskList {
         try {
             String des = strToken[0].substring("deadline ".length());
             String by = strToken[1].substring("by ".length());
-            LocalDateTime formattedBy = parser.parseDate(by);
+            LocalDateTime formattedBy = Parser.parseDate(by);
 
             Task t = new Deadline(des, formattedBy);
             tasks.add(t);
@@ -95,7 +95,7 @@ public class TaskList {
             System.out.println(t.toString());
             System.out.println("Now you have " + tasks.size() + " task(s).");
 
-            storage.update(tasks, true);
+            Storage.update(tasks, true);
         } catch (IndexOutOfBoundsException e) {
             throw new SocchatException("Invalid Deadline format: deadline <description> /by <deadline>");
         }
@@ -111,7 +111,7 @@ public class TaskList {
             } else {
                 tasks.get(taskIndex - 1).unmark();
             }
-            storage.update(tasks, false);
+            Storage.update(tasks, false);
         } catch (IndexOutOfBoundsException e) {
             throw new SocchatException("Invalid task number.");
         } catch (NumberFormatException e) {

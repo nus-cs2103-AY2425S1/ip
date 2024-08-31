@@ -31,8 +31,7 @@ public class Parser {
      */
     public static LocalDateTime parseDate(String date) throws SocchatException {
         try {
-            LocalDateTime formatted = LocalDateTime.parse(date, FORMATTER);
-            return formatted;
+            return LocalDateTime.parse(date, FORMATTER);
         } catch (DateTimeException e) {
             throw new SocchatException("Please enter your dateTime as this format --- yyyy-MM-dd HH:mm");
         }

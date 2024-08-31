@@ -5,13 +5,12 @@ import socchat.task.todo.*;
 import socchat.task.deadline.*;
 import socchat.task.event.*;
 
-
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.io.File;
 import java.util.Scanner;
 
 /**
