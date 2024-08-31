@@ -16,15 +16,30 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles storage of user data and user tasks in the file
+ * Creates the necessary files and directories
+ */
+
 public class Storage {
 
     private static String dirPath;
     private static String filePath;
 
+    /**
+     * Constructs a storage object with a directory and file path
+     * @param dirPath
+     * @param filePath
+     */
+
     public Storage(String dirPath, String filePath) {
         this.dirPath = dirPath;
         this.filePath = filePath;
     }
+
+    /**
+     * creates file and directory if it doesn't exist
+     */
 
     public static void createListFile() {
         try {
@@ -46,6 +61,13 @@ public class Storage {
         }
     }
 
+    /**
+     * saves the tasks using fileWriter to the file
+     * tasks saved which can be unloaded later
+     *
+     * @param list
+     */
+
     public static void pushTasksToFile(ArrayList<Task> list) {
         //use inbuilt functions like FileWriter - that opens file at filepath, if doesnt exist, creates one
         //PrintWriter - wraps filewriter with printwriter so that can use inbuilt functions for formatting
@@ -62,6 +84,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks when the application is started
+     *
+     * @return ArrayList<Task> returns a list of tasks
+     */
     public static ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -90,6 +117,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Creates the relevant tasks according to the types
+     *
+     * @param taskString
+     * @return Task (created from its string description and details)
+     */
     public static Task getTaskFromFile(String taskString) {
         // need to split and add accordingly
         // first is the tasktype, then the progress, then the description, then the deadlines

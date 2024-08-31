@@ -13,10 +13,28 @@ import task.ToDoTask;
 
 import prince.Prince;
 
+/**
+ * Parses input commands by user and performs the corresponding actions
+ *
+ * Class is responsible for interpreting input commands such as adding and deleting tasks,
+ * marking tasks as done or undone and providing tasks in a list format when the user demands.
+ * Class is also responsible for creating the various types of tasks and thus throws relevant
+ * exceptions to ensure that commands are formatted correctly and the right tasks are created
+ * according to the tasks.
+ *
+ */
 
 
 public class Parser {
 
+    /**
+     * Parses the commands given by the user and performs the necessary actions
+     * @param command
+     * @return a String message in response to the command thrown and creates the corresponding
+     * object/ executes the corresponding action
+     * @throws UnknownWordException if the command is unknown
+     * @throws IncompleteDescException if the command is not fully completed in the right format
+     */
     public static String parseConversation(String command) throws UnknownWordException, IncompleteDescException {
         /*if(command.equals("bye")) { //string cannot do ==
             return "Bye! Hope to see you again soon!";*/
@@ -103,6 +121,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if command's length is one word
+     * this method is used to check whether the commands are likely incomplete
+     *
+     * @param command
+     * @return true if command length is only 1
+     */
     public static boolean checkCommandLength(String command) {
         String[] split = command.split(" ");
         return split.length == 1;
