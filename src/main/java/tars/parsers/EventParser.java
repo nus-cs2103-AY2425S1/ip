@@ -8,7 +8,24 @@ import tars.tasks.Event;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses input data to create an {@link Event} task.
+ *
+ * <p>The {@code EventParser} class extends the {@link Parser} class and provides
+ * specific logic to parse user input and create {@link Event} tasks. It checks that
+ * the input format is correct, including the event name, start date, and end date,
+ * and throws custom exceptions if the input is invalid.</p>
+ */
 public class EventParser extends Parser {
+
+    /**
+     * Parses an array of strings containing task information and converts it into an {@link Event} task.
+     *
+     * @param taskInfo An array of strings representing the task details to be parsed. The first element is expected
+     *                 to be the command name, and the second element should contain the task name, start date, and end date.
+     * @return An {@link Event} task created from the provided task information.
+     * @throws TarsException if the input is invalid, incomplete, or in the wrong format.
+     */
     @Override
     public Task parse(String[] taskInfo) {
         if (taskInfo.length <= 1) {
@@ -26,16 +43,27 @@ public class EventParser extends Parser {
         String[] endCommand = split.length > 2
                 ? split[2].split(" ", 2)
                 : null;
-        
+
         if (name.isEmpty()) {
             throw new TarsException("Try again. Next time tell me what your event is all about");
         }
-        
+
         LocalDate[] dates = validateCommand(startCommand, endCommand);
 
         return new Event(name, dates[0], dates[1]);
     }
-    
+
+    /**
+     * Validates the start and end commands to ensure they contain the correct commands
+     * ("/from" and "/to") and properly formatted dates.
+     *
+     * @param startCommand An array of strings representing the start command. The first element is expected
+     *                     to be the "/from" keyword, and the second element should be the start date in "dd-MM-yy" format.
+     * @param endCommand   An array of strings representing the end command. The first element is expected
+     *                     to be the "/to" keyword, and the second element should be the end date in "dd-MM-yy" format.
+     * @return An array of {@link LocalDate} objects representing the validated start and end dates.
+     * @throws TarsException if the commands are missing, improperly formatted, or the dates are in the wrong format.
+     */
     public LocalDate[] validateCommand(String[] startCommand, String[] endCommand) {
         if (startCommand == null) {
             throw new TarsException("Add a /from command and a start date");
@@ -102,6 +130,6 @@ public class EventParser extends Parser {
         }
 
         return new LocalDate[]{startDate, endDate};
-        
+
     }
 }
