@@ -7,7 +7,7 @@ public class MarkCommand extends Command{
 
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) {
-        taskList.get(index).markDone();
+        taskList.mark(index);
         storage.saveFromTaskList(taskList);
         ui.printSectionBreak();
     }
