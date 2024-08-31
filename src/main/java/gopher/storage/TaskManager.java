@@ -41,20 +41,20 @@ public class TaskManager {
             try {
                 Task newTask = null;
                 switch (taskType) {
-                    case "T":
-                        newTask = Task.of("todo " + taskName);
-                        break;
-                    case "D":
-                        newTask = Task.of(String.format("deadline %s /by %s",
-                                taskName,
-                                tokens[3]));
-                        break;
-                    case "E":
-                        newTask = Task.of(String.format("event %s /from %s /to %s",
-                                taskName,
-                                tokens[3],
-                                tokens[4]));
-                        break;
+                case "T":
+                    newTask = Task.of("todo " + taskName);
+                    break;
+                case "D":
+                    newTask = Task.of(String.format("deadline %s /by %s",
+                            taskName,
+                            tokens[3]));
+                    break;
+                case "E":
+                    newTask = Task.of(String.format("event %s /from %s /to %s",
+                            taskName,
+                            tokens[3],
+                            tokens[4]));
+                    break;
                 }
                 if (newTask != null && taskStatus.equals("X")) {
                     newTask.markAsDone();

@@ -1,6 +1,6 @@
 package gopher.exception;
 
-public class MissingTokenException extends Exception{
+public class MissingTokenException extends Exception {
     private String taskType;
     private String missingToken;
 

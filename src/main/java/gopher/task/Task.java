@@ -3,8 +3,10 @@ package gopher.task;
 import gopher.exception.EmptyTaskDescriptionException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
+
 import java.lang.StringBuilder;
 import java.time.LocalDateTime;
+
 import gopher.parser.Parser;
 
 public abstract class Task {
@@ -92,8 +94,8 @@ public abstract class Task {
 
         String taskType = tokens[0];
         if (!taskType.equalsIgnoreCase("todo")
-        && !taskType.equalsIgnoreCase("deadline")
-        && !taskType.equalsIgnoreCase("event")) {
+                && !taskType.equalsIgnoreCase("deadline")
+                && !taskType.equalsIgnoreCase("event")) {
             throw new UnknownCommandException(taskType);
         }
 
@@ -130,7 +132,7 @@ public abstract class Task {
             }
 
             StringBuilder dueDate = new StringBuilder();
-            for (int i = byTokenIndex + 1; i <tokens.length; i++) {
+            for (int i = byTokenIndex + 1; i < tokens.length; i++) {
                 dueDate.append(tokens[i]);
                 if (i < tokens.length - 1) {
                     dueDate.append(" ");

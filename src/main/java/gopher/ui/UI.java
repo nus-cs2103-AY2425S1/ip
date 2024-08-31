@@ -7,13 +7,13 @@ import gopher.task.TaskList;
 public class UI {
     public static void printGopherLogo() {
         System.out.println("""
-                     ____             _
-                    / ___| ___  _ __ | |__   ___ _ __
-                   | |  _ / _ \\| '_ \\| '_ \\ / _ \\ '__|
-                   | |_| | (_) | |_) | | | |  __/ |
-                    \\____|\\___/| .__/|_| |_|\\___|_|
-                               |_|
-                   """);
+                  ____             _
+                 / ___| ___  _ __ | |__   ___ _ __
+                | |  _ / _ \\| '_ \\| '_ \\ / _ \\ '__|
+                | |_| | (_) | |_) | | | |  __/ |
+                 \\____|\\___/| .__/|_| |_|\\___|_|
+                            |_|
+                """);
     }
 
     public static void printHorizontalSeparator() {
