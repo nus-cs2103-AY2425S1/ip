@@ -1,9 +1,9 @@
 package bob;
 
 public class UnmarkCommand  extends Command {
-    protected static String[] params = new String[] { "mark" };
+    protected static String[] params = new String[] { "unmark" };
     protected static int paramCount = 1;
-    protected static String identifier = "mark";
+    protected static String identifier = "unmark";
     private final int idx;
 
     public UnmarkCommand(int idx) {
@@ -16,5 +16,13 @@ public class UnmarkCommand  extends Command {
         Printer.prettyPrint(new String[] {
                 "OK, I've marked this task as not done yet:",
                 tasks.describeTask(idx) });
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof UnmarkCommand temp) {
+            return this.idx == temp.idx;
+        }
+        return false;
     }
 }

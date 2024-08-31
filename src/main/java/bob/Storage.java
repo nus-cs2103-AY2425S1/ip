@@ -7,11 +7,17 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-
     private File file;
 
     public Storage(String filePath) {
         this.file = new File(filePath);
+        try {
+            if (this.file.createNewFile()) {
+                Printer.prettyPrint(new String[] { "A new save file has been created."});
+            }
+        } catch (IOException e) {
+            Printer.prettyPrint(new String[] {"OOPS! The save file could not be found or created."});
+        }
     }
 
     public TaskList loadFile() {
@@ -19,13 +25,9 @@ public class Storage {
         int i = 1;
         Scanner scanner;
         try {
-            this.file.createNewFile();
             scanner = new Scanner(this.file);
         } catch (FileNotFoundException e) {
             Printer.prettyPrint(new String[] {"OOPS! The save file could not be found."});
-            return taskList;
-        } catch (IOException e) {
-            Printer.prettyPrint(new String[] {"OOPS! The save file could not be found or created."});
             return taskList;
         }
         while (scanner.hasNextLine()) {

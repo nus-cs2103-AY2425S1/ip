@@ -30,4 +30,12 @@ abstract public class Task {
         String completedBox = this.completed ? "[X] " : "[ ] ";
         return completedBox + this.name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Task temp) {
+            return this.completed == temp.completed && this.name == temp.name;
+        }
+        return false;
+    }
 }

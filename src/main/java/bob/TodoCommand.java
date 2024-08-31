@@ -17,4 +17,12 @@ public class TodoCommand  extends Command {
                 " " + todo.toString(),
                 String.format("Now you have %d tasks in the list.", tasks.getSize()) });
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof TodoCommand temp) {
+            return this.name.equals(temp.name);
+        }
+        return false;
+    }
 }

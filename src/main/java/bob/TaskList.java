@@ -29,7 +29,7 @@ public class TaskList {
 
     public void mark(int idx) {
         if (idx < 1 || idx > this.tasklist.size()) {
-            return;
+            throw new TaskIndexException(String.valueOf(idx));
         }
 
         this.tasklist.get(idx-1).complete();
@@ -37,7 +37,7 @@ public class TaskList {
 
     public void unmark(int idx) {
         if (idx < 1 || idx > this.tasklist.size()) {
-            return;
+            throw new TaskIndexException(String.valueOf(idx));
         }
 
         this.tasklist.get(idx-1).uncomplete();
@@ -45,7 +45,7 @@ public class TaskList {
 
     public Task delete(int idx) {
         if (idx < 1 || idx > this.tasklist.size()) {
-            return null;
+            throw new TaskIndexException(String.valueOf(idx));
         }
 
         Task deleted = this.tasklist.get(idx-1);
@@ -97,5 +97,13 @@ public class TaskList {
             str += String.format("%d. ", i + 1) + this.tasklist.get(i) + "\n";
         }
         return str;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof TaskList temp) {
+            return this.tasklist.equals(temp.tasklist);
+        }
+        return false;
     }
 }

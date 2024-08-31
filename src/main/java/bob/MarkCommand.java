@@ -17,4 +17,12 @@ public class MarkCommand  extends Command {
                 "Nice! I've marked this task as done:",
                 tasks.describeTask(idx) });
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof MarkCommand temp) {
+            return this.idx == temp.idx;
+        }
+        return false;
+    }
 }

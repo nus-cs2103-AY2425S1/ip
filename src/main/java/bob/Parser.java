@@ -1,15 +1,6 @@
 package bob;
 
 public class Parser {
-    private static final String[] PARAMS_BYE = new String[] { "bye" };
-    private static final String[] PARAMS_LIST = new String[] { "list" };
-    private static final String[] PARAMS_MARK = new String[] {"mark"};
-    private static final String[] PARAMS_UNMARK = new String[] { "unmark" };
-    private static final String[] PARAMS_OCCURS = new String[] { "occurs" };
-    private static final String[] PARAMS_TODO = new String[] { "todo" };
-    private static final String[] PARAMS_DEADLINE = new String[] { "deadline", "/by" };
-    private static final String[] PARAMS_EVENT = new String[] { "event", "/from", "/to" };
-    private static final String[] PARAMS_DELETE = new String[] { "delete" };
 
     public static Command parse(String command) {
         String[] words = command.split(" ");
@@ -17,71 +8,66 @@ public class Parser {
 
         switch (firstWord) {
         case ("bye"):
-            if (words.length > 1) throw new ExtraParamException(command.substring(4));
+            if (words.length > 1) {
+                throw new ExtraParamException(command.substring(4));
+            }
             return new ExitCommand();
         case ("list"):
-            if (words.length > 1) throw new ExtraParamException(command.substring(5));
+            if (words.length > 1) {
+                throw new ExtraParamException(command.substring(5));
+            }
             return new ListCommand();
         case ("mark"): {
-            String[] arguments = Parser.splitInput(words, new String[]{"mark"});
+            String[] arguments = Parser.splitInput(words, MarkCommand.params, MarkCommand.paramCount);
             int idx;
             try {
                 idx = Integer.parseInt(arguments[0]);
             } catch (NumberFormatException e) {
                 throw new TaskIndexException(arguments[0]);
             }
-//            if (idx <= 0 || idx > bob.Bob.taskList.getSize()) {
-//                throw new TaskIndexException(inputs[0]);
-//            }
             return new MarkCommand(idx);
         }
         case ("unmark"): {
-            String[] arguments = Parser.splitInput(words, new String[]{"unmark"});
+            String[] arguments = Parser.splitInput(words, UnmarkCommand.params, UnmarkCommand.paramCount);
             int idx;
             try {
                 idx = Integer.parseInt(arguments[0]);
             } catch (NumberFormatException e) {
                 throw new TaskIndexException(arguments[0]);
             }
-//            if (idx <= 0 || idx > bob.Bob.taskList.getSize()) {
-//                throw new TaskIndexException(arguments[0]);
-//            }
             return new UnmarkCommand(idx);
         }
         case ("find"): {
-            String[] arguments = Parser.splitInput(words, new String[]{"find"});
+            String[] arguments = Parser.splitInput(words, FindCommand.params, FindCommand.paramCount);
             return new FindCommand(arguments[0]);
         }
         case ("todo"): {
-            String[] arguments = Parser.splitInput(words, new String[]{"todo"});
+            String[] arguments = Parser.splitInput(words, TodoCommand.params, TodoCommand.paramCount);
             return new TodoCommand(arguments[0]);
         }
         case ("deadline"): {
-            String[] arguments = Parser.splitInput(words, new String[]{"deadline", "/by"});
+            String[] arguments = Parser.splitInput(words, DeadlineCommand.params, DeadlineCommand.paramCount);
             return new DeadlineCommand(arguments[0], arguments[1]);
         }
         case ("event"): {
-            String[] arguments = Parser.splitInput(words, new String[]{"event", "/from", "/to"});
+            String[] arguments = Parser.splitInput(words, EventCommand.params, EventCommand.paramCount);
             return new EventCommand(arguments[0], arguments[1], arguments[2]);
         }
         case ("delete"):
-            String[] arguments = Parser.splitInput(words, new String[]{"delete"});
+            String[] arguments = Parser.splitInput(words, DeleteCommand.params, DeleteCommand.paramCount);
             int idx;
             try {
                 idx = Integer.parseInt(arguments[0]);
             } catch (NumberFormatException e) {
                 throw new TaskIndexException(arguments[0]);
             }
-//            if (idx <= 0 || idx > bob.Bob.taskList.getSize()) {
-//                throw new TaskIndexException(inputs[0]);
-//            }
             return new DeleteCommand(idx);
         default:
             throw new UnknownCommandException(words[0]);
         }
     }
 
-    public static String[] splitInput(String[] input, String[] splits) {
+    public static String[] splitInput(String[] input, String[] splits, int splitCount) {
         String[] result = new String[splits.length];
         int[] indexes = new int[splits.length + 1];
         indexes[splits.length] = input.length;
@@ -107,6 +93,12 @@ public class Parser {
                 arg.append(input[j]);
             }
             result[i] = arg.toString();
+        }
+
+        if (result.length < splitCount) {
+            throw new MissingParamException("mark");
+        } else if (result.length > splitCount) {
+            throw new ExtraParamException("mark");
         }
 
         return result;

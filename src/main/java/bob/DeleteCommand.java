@@ -20,4 +20,12 @@ public class DeleteCommand  extends Command {
                 deleted.toString(),
                 String.format("Now you have %d tasks in the list.", tasks.getSize())});
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof DeleteCommand temp) {
+            return this.idx == temp.idx;
+        }
+        return false;
+    }
 }

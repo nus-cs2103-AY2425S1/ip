@@ -1,6 +1,6 @@
 package bob;
 
-public class FindCommand  extends Command {
+public class FindCommand extends Command {
     protected static String[] params = new String[] { "find" };
     protected static int paramCount = 1;
     protected static String identifier = "find";
@@ -19,5 +19,13 @@ public class FindCommand  extends Command {
         System.arraycopy(tasksFound, 0, toPrint, 1, tasksFound.length);
 
         Printer.prettyPrint(toPrint);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof FindCommand temp) {
+            return this.date.equals(temp.date);
+        }
+        return false;
     }
 }
