@@ -19,6 +19,14 @@ public class OnCommand extends Command {
         this.date = LocalDate.parse(arguments.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
+    /**
+     * Executes the command to list all tasks on a specific date.
+     *
+     * @param tasks the task list
+     * @param ui the user interface
+     * @param storage the storage
+     * @return the response to the user
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         List<Task> tasksOnDate = tasks.getTasksOnDate(date);

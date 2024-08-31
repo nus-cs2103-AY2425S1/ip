@@ -56,6 +56,7 @@ public class Ui {
 
     /**
      * Prints the error message when loading tasks
+     * @return the error message
      */
     public String showLoadingError() {
         return "OOPS!!! Error loading tasks."; // Print the error message
@@ -65,6 +66,7 @@ public class Ui {
      * Prints the error message
      *
      * @param message the error message
+     * @return the error message
      */
     public String showError(String message) {
         return " OOPS!!! " + message; // Print the specific error message
@@ -72,6 +74,7 @@ public class Ui {
 
     /**
      * Prints the goodbye message
+     * @return the goodbye message
      */
     public String showGoodbye() {
         return " Bye Dean's Lister! Hope to see you again soon :-)"; // Print the goodbye message
@@ -81,6 +84,7 @@ public class Ui {
      * Prints the tasks in the list
      *
      * @param tasks the list of tasks
+     * @return the tasks in the list
      */
     public String showTasks(TaskList tasks) {
         StringBuilder sb = new StringBuilder();
@@ -95,6 +99,7 @@ public class Ui {
      *
      * @param task the task that was added
      * @param size the new size of the task list
+     * @return the task that was added
      */
     public String showTaskAdded(Task task, int size) {
         return " Got it. I've added this task:\n   " + task + "\n Now you have " + size + " tasks in the list.";
@@ -104,6 +109,7 @@ public class Ui {
      * Prints the tasks that just got removed from the list
      * @param task the task that was removed
      * @param size the new size of the task list
+     * @return the task that was removed
      */
     public String showTaskRemoved(Task task, int size) {
         return " Noted. I've removed this task:\n   " + task + "\n Now you have " + size + " tasks in the list.";
@@ -111,8 +117,8 @@ public class Ui {
 
     /**
      * Prints the tasks that just got marked as done
-     *
      * @param task the task that was marked as done
+     * @return the task that was marked as done
      */
     public String showTaskMarked(Task task) {
         return " Nice! I've marked this task as done:\n   " + task;
@@ -122,16 +128,17 @@ public class Ui {
      * Prints the tasks that just got marked as not done
      *
      * @param task the task that was marked as not done
+     * @return the task that was marked as not done
      */
     public String showTaskUnmarked(Task task) {
         return " Nice! I've marked this task as not done yet:\n   " + task;
     }
-
     /**
-     * Prints the tasks that are due on a specific date
+     * Prints the tasks on the date specified
      *
-     * @param date the date to check for tasks
-     * @param tasks the list of tasks due on that date
+     * @param date the date in format yyyy-MM-dd
+     * @param tasks the list of tasks on the date
+     * @return the tasks on the date
      */
     public String showTasksOnDate(LocalDate date, Task... tasks) {
         StringBuilder sb = new StringBuilder();
@@ -150,6 +157,7 @@ public class Ui {
      * Prints the tasks that match the keyword
      *
      * @param matchingTasks the list of tasks that match the keyword
+     * @return the tasks that match the keyword
      */
     public String showMatchingTasks(List<Task> matchingTasks) {
         StringBuilder sb = new StringBuilder();
