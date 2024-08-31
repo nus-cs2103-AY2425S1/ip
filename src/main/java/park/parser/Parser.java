@@ -5,6 +5,7 @@ import park.commands.AddCommand;
 import park.commands.Command;
 import park.commands.DeleteCommand;
 import park.commands.ExitCommand;
+import park.commands.FindCommand;
 import park.commands.ListCommand;
 import park.commands.MarkCommand;
 import park.commands.UnmarkCommand;
@@ -112,6 +113,20 @@ public class Parser {
                 throw new ParkException("please use the format: desc /from start /to end");
             } catch (DateTimeParseException e) {
                 throw new ParkException("please input DateTime in format: yyyy-MM-dd HHmm");
+            }
+        } else if (userInput.startsWith("find")) {
+            try {
+                String charAfterCommand = getChar(userInput, 4);
+                if (!charAfterCommand.equals(" ")) {
+                    throw new ParkException("invalid input");
+                }
+                String keyword = userInput.substring(5);
+                if (keyword.isEmpty()) {
+                    throw new ParkException("please provide a keyword");
+                }
+                return new FindCommand(keyword);
+            } catch (IndexOutOfBoundsException e) {
+                throw new ParkException("please provide a keyword");
             }
         } else {
             throw new ParkException("invalid input");
