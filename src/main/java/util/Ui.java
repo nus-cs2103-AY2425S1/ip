@@ -1,5 +1,6 @@
 package main.java.util;
 
+import main.java.Task;
 import main.java.TaskList;
 
 import java.util.NoSuchElementException;
@@ -16,7 +17,6 @@ public class Ui {
 
     /**
      * Returns a string from the next line of user input
-     *
      */
     public String readInput() {
         try {
@@ -43,6 +43,39 @@ public class Ui {
         System.out.print(output);
     }
 
+    public void showMarkMessage(Task t) {
+        String output = LINE +
+                "Nice! I've marked this task as done:\n\t" +
+                t.toString() + "\n" +
+                LINE;
+        System.out.print(output);
+    }
+
+    public void showUnmarkMessage(Task t) {
+        String output = LINE +
+                "Ok! This task is now marked undone:\n\t" +
+                t.toString() + "\n" +
+                LINE;
+        System.out.print(output);
+    }
+
+    public void showAddTaskMessage(Task t, TaskList taskList) {
+        String output = LINE +
+                "Got it! Added this task:\n\t" +
+                t.toString() + "\n" +
+                String.format("Now you have %d tasks in the list.\n", taskList.getSize()) +
+                LINE;
+        System.out.print(output);
+    }
+
+    public void showDeleteMessage(Task t) {
+        String output = LINE
+                + "Alright! I've removed this task from your list:\n\t"
+                + t.toString() + "\n"
+                + LINE;
+        System.out.print(output);
+    }
+
     public void displayTaskList(TaskList taskList) {
         String[] taskStrings = taskList.toTaskStrings();
 
@@ -54,7 +87,7 @@ public class Ui {
         } else {
             output = LINE;
             for (int i = 0; i < taskStrings.length; i++) {
-                output += String.format("%d. %s\n", i+1, taskStrings[i]);
+                output += String.format("%d. %s\n", i + 1, taskStrings[i]);
 
             }
             output += LINE;
