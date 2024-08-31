@@ -11,7 +11,7 @@ import zbot.task.ToDo;
  * Represents the main class of the ZBot application.
  */
 public class ZBot {
-    private static final String SAVE_PATH = "./data/tasks.txt";
+    private static final String DEFAULT_FILE_PATH = "./data/tasks.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -23,7 +23,8 @@ public class ZBot {
      */
     public ZBot(String filepath) {
         ui = new Ui();
-        storage = new Storage(SAVE_PATH);
+        storage = new Storage(filepath);
+
         try {
             tasks = new TaskList(storage.load());
         } catch (ZBotException e) {
@@ -32,8 +33,15 @@ public class ZBot {
         }
     }
 
+    /**
+     * Constructor for ZBot with default file path.
+     */
+    public ZBot() {
+        this(DEFAULT_FILE_PATH);
+    }
+
     public static void main(String[] args) {
-        new ZBot(SAVE_PATH).run();
+        new ZBot().run();
     }
 
     /**
