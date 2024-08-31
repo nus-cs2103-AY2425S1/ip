@@ -88,6 +88,29 @@ public class Ui {
         System.out.println();
     }
 
+    public void showFound(TaskList taskList, String input) {
+        if (taskList.isEmpty()) {
+            System.out.println("There are no tasks in your list.");
+            return;
+        }
+        TaskList temp = new TaskList();
+        for (int i = 1; i <= taskList.size(); i++) {
+            Task t = taskList.get(i);
+            if (t.description.contains(input)) {
+                temp.add(t);
+            }
+        }
+        if (temp.isEmpty()) {
+            System.out.println("There are no matching tasks in your list.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 1; i <= temp.size(); i++) {
+                System.out.println(i + ". " + temp.get(i));
+            }
+        }
+        System.out.println();
+    }
+
     /**
      * Print an error message from BuddyBotException
      * @param e

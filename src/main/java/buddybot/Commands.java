@@ -6,5 +6,5 @@ package buddybot;
 public enum Commands {
     BYE, LIST,
     TODO, EVENT, DEADLINE,
-    DONE, DELETE,
+    DONE, DELETE, FIND,
 }

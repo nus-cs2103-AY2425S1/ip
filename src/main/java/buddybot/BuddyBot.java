@@ -60,6 +60,8 @@ public class BuddyBot {
                     case DELETE:
                         this.delete(Parser.parseArgs(userInput));
                         break;
+                    case FIND:
+                        this.find(Parser.parseArgs(userInput));
                 }
             } catch (BuddyBotException e) {
                 this.ui.showBuddyBotException(e);
@@ -171,7 +173,7 @@ public class BuddyBot {
         try {
             int taskNum = Integer.parseInt(args);
             if (taskNum > this.taskList.size()) {
-                throw new BuddyBotException("test");
+                throw new BuddyBotException("Your list is too small");
             }
             Task taskToDelete = this.taskList.get(taskNum);
             this.ui.showDelete(taskToDelete, this.taskList.size());
@@ -181,6 +183,11 @@ public class BuddyBot {
         } catch (IndexOutOfBoundsException e) {
             throw new BuddyBotException("This task doesn't exist.");
         }
+    }
+
+    private  void find(String args) throws BuddyBotException {
+        String descript = args.split("find ")[0];
+        this.ui.showFound(taskList, descript);
     }
 
     /**
