@@ -16,7 +16,7 @@ public class Storage {
     private UI ui;
     
     public Storage(UI ui) {
-        ui = ui;
+        this.ui = ui;
     }
 
     // handles loading tasks from ./data

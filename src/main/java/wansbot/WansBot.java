@@ -1,22 +1,9 @@
 package wansbot;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
 
 import java.util.Scanner;
-
-import java.time.LocalDate;
 
 import wansbot.storage.Storage;
 import wansbot.tasks.Deadlined;
@@ -28,7 +15,6 @@ import wansbot.tasks.Todos;
 import wansbot.ui.UI;
 
 public class WansBot {
-    private static final String HR = "----------------------------------------------------------------------";
     private static TaskList userTaskList = new TaskList();
     private static UI ui = new UI();
     private static Storage storage = new Storage(ui);
