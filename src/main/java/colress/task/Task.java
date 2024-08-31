@@ -3,16 +3,16 @@ package colress.task;
 import java.time.LocalDate;
 
 public abstract class Task {
-    private final String description;
+    private final String DESCRIPTION;
     private boolean isDone;
 
     public Task(String description) {
-        this.description = description;
+        this.DESCRIPTION = description;
         this.isDone = false;
     }
 
     public Task(String description, boolean isDone) {
-        this.description = description;
+        this.DESCRIPTION = description;
         this.isDone = isDone;
     }
 
@@ -21,7 +21,7 @@ public abstract class Task {
     }
 
     public String getDescription() {
-        return description;
+        return DESCRIPTION;
     }
 
     public void check() {

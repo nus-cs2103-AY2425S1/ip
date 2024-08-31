@@ -5,27 +5,27 @@ import java.io.IOException;
 import colress.exception.FileCorruptedException;
 
 public final class Colress {
-    private final Ui ui;
-    private final Storage storage;
-    private final TaskList taskList;
+    private final Ui UI;
+    private final Storage STORAGE;
+    private final TaskList TASK_LIST;
 
     public Colress(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        taskList = new TaskList();
+        UI = new Ui();
+        STORAGE = new Storage(filePath);
+        TASK_LIST = new TaskList();
     }
 
     public void run() {
         try {
-            ui.welcome();
-            ui.printLoadTaskStatus(storage.loadTasks(taskList));
-            ui.printTasks(taskList, true);
-            while (!ui.getHasCalledExitCommand()) {
-                ui.processInput(taskList);
-                storage.writeToTaskFile(taskList);
+            UI.welcome();
+            UI.printLoadTaskStatus(STORAGE.loadTasks(TASK_LIST));
+            UI.printTasks(TASK_LIST, true);
+            while (!UI.getHasCalledExitCommand()) {
+                UI.processInput(TASK_LIST);
+                STORAGE.writeToTaskFile(TASK_LIST);
             }
         } catch (FileCorruptedException e) {
-            ui.print(String.valueOf(e));
+            UI.print(String.valueOf(e));
         } catch (IOException e) {
             e.printStackTrace();
         }

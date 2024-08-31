@@ -6,34 +6,34 @@ import java.util.ArrayList;
 import colress.task.Task;
 
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> TASKS;
     public TaskList() {
-        this.tasks = new ArrayList<>();
+        this.TASKS = new ArrayList<>();
     }
     public Task get(int index) {
-        return tasks.get(index);
+        return TASKS.get(index);
     }
     public int size() {
-        return tasks.size();
+        return TASKS.size();
     }
     public boolean isEmpty() {
-        return tasks.isEmpty();
+        return TASKS.isEmpty();
     }
     public boolean isOutOfBounds(int x) {
-        return x > tasks.size();
+        return x > TASKS.size();
     }
     private String getCurrTask(int taskNumber) {
-        return taskNumber + ". " + tasks.get(taskNumber - 1);
+        return taskNumber + ". " + TASKS.get(taskNumber - 1);
     }
 
     public String addTask(Task task) {
-        tasks.add(task);
-        return getCurrTask(tasks.size());
+        TASKS.add(task);
+        return getCurrTask(TASKS.size());
     }
 
     public String checkTask(int taskNumber) {
         try {
-            Task task = tasks.get(taskNumber - 1);
+            Task task = TASKS.get(taskNumber - 1);
             task.check();
             return getCurrTask(taskNumber);
         } catch (IndexOutOfBoundsException e) {
@@ -43,7 +43,7 @@ public class TaskList {
 
     public String uncheckTask(int taskNumber) {
         try {
-            Task task = tasks.get(taskNumber - 1);
+            Task task = TASKS.get(taskNumber - 1);
             task.uncheck();
             return getCurrTask(taskNumber);
         } catch (IndexOutOfBoundsException e) {
@@ -53,7 +53,7 @@ public class TaskList {
 
     public void deleteTask(int taskNumber) {
         try {
-            tasks.remove(taskNumber - 1);
+            TASKS.remove(taskNumber - 1);
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
@@ -61,12 +61,12 @@ public class TaskList {
 
     public String retrieveTasks() {
         String result = "";
-        if (tasks.isEmpty()) {
+        if (TASKS.isEmpty()) {
             return result;
         }
 
-        for (int i = 0; i < tasks.size(); i++) {
-            result += String.format("\n%d. " + tasks.get(i), i + 1);
+        for (int i = 0; i < TASKS.size(); i++) {
+            result += String.format("\n%d. " + TASKS.get(i), i + 1);
         }
 
         if (result.isEmpty()) {
@@ -78,15 +78,15 @@ public class TaskList {
 
     public String retrieveTasks(LocalDate date) {
         String result = "";
-        if (tasks.isEmpty()) {
+        if (TASKS.isEmpty()) {
             return result;
         } else {
-            for (int i = 0; i < tasks.size(); i++) {
-                Task currTask = tasks.get(i);
+            for (int i = 0; i < TASKS.size(); i++) {
+                Task currTask = TASKS.get(i);
                 if (!currTask.fallsOnDate(date)) {
                     continue;
                 }
-                result += String.format("\n%d. " + tasks.get(i), i + 1);
+                result += String.format("\n%d. " + TASKS.get(i), i + 1);
             }
         }
 

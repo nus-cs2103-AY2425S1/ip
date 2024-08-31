@@ -30,11 +30,11 @@ public final class Ui {
     private static final String PROMPT_TASK_NUMBER = "Enter the task number.";
     private static final String PROMPT_TASK_TYPE = "Enter the type of task you wish to add to your list.";
     private static final String SPACER = "____________________________________________________________________\n";
-    private final Parser parser;
+    private final Parser PARSER;
     private boolean hasCalledExitCommand;
 
     public Ui() {
-        this.parser = new Parser();
+        this.PARSER = new Parser();
         this.hasCalledExitCommand = false;
     }
 
@@ -63,7 +63,7 @@ public final class Ui {
         Command command = null;
         while (command == null) {
             try {
-                command = parser.getCommand();
+                command = PARSER.getCommand();
             } catch (UnknownCommandException e) {
                 print(String.valueOf(e));
             }
@@ -76,7 +76,7 @@ public final class Ui {
         while (result == null) {
             try {
                 print(PROMPT_TASK_TYPE);
-                result = parser.getTaskType();
+                result = PARSER.getTaskType();
             } catch (UnknownTaskTypeException e) {
                 print(String.valueOf(e));
             }
@@ -95,7 +95,7 @@ public final class Ui {
         default:
             print(PROMPT_TASK_DESCRIPTION);
         }
-        return parser.getDescription();
+        return PARSER.getDescription();
     }
 
     public LocalDate promptDate(String taskType) {
@@ -109,11 +109,11 @@ public final class Ui {
         }
 
         print(prompt);
-        LocalDate result = parser.readDate();
+        LocalDate result = PARSER.readDate();
         while (result == null) {
             print(MESSAGE_NOT_A_VALID_DATE_TIME_ERROR);
             print(prompt);
-            result = parser.readDate();
+            result = PARSER.readDate();
         }
         return result;
     }
@@ -127,11 +127,11 @@ public final class Ui {
         }
 
         print(prompt);
-        LocalTime result = parser.readTime();
+        LocalTime result = PARSER.readTime();
         while (result == null) {
             print(MESSAGE_NOT_A_VALID_DATE_TIME_ERROR);
             print(prompt);
-            result = parser.readTime();
+            result = PARSER.readTime();
         }
         return result;
     }
@@ -142,11 +142,11 @@ public final class Ui {
             return -1;
         } else {
             print(PROMPT_TASK_NUMBER);
-            int result = parser.getTaskNumber();
+            int result = PARSER.getTaskNumber();
             while (result == -1 || taskList.isOutOfBounds(result)) {
                 print(MESSAGE_NOT_A_VALID_NUMBER_ERROR);
                 print(PROMPT_TASK_NUMBER);
-                result = parser.getTaskNumber();
+                result = PARSER.getTaskNumber();
             }
             return result;
         }

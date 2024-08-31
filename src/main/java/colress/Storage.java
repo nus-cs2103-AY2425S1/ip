@@ -16,11 +16,11 @@ import colress.task.Event;
 import colress.task.ToDo;
 
 public final class Storage {
-    private File taskFile;
+    private final File TASK_FILE;
     private FileWriter writer;
 
     public Storage(String filePath) {
-        this.taskFile = new File(filePath);
+        this.TASK_FILE = new File(filePath);
     }
     private LocalDate readDate(String date) throws FileCorruptedException {
         try {
@@ -40,7 +40,7 @@ public final class Storage {
 
     private void repopulateTasks(TaskList taskList)
             throws FileCorruptedException, FileNotFoundException {
-        Scanner reader = new Scanner(taskFile);
+        Scanner reader = new Scanner(TASK_FILE);
         String[] strings;
         String currLine;
 
@@ -82,13 +82,13 @@ public final class Storage {
     }
 
     public boolean loadTasks(TaskList taskList) throws IOException, FileCorruptedException {
-        boolean createdNewFile = taskFile.createNewFile();
+        boolean createdNewFile = TASK_FILE.createNewFile();
         repopulateTasks(taskList);
         return createdNewFile;
     }
 
     private void initialiseFileWriter() throws IOException {
-        writer = new FileWriter(taskFile, false);
+        writer = new FileWriter(TASK_FILE, false);
     }
     public void writeToTaskFile(TaskList taskList) throws IOException {
         String result = "";

@@ -18,12 +18,12 @@ import colress.exception.UnknownCommandException;
 import colress.exception.UnknownTaskTypeException;
 
 public final class Parser {
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner INPUT_READER = new Scanner(System.in);
     private String input = "";
     public Parser() {}
 
     private String getInput() {
-        input = scanner.nextLine().toLowerCase();
+        input = INPUT_READER.nextLine().toLowerCase();
         return input;
     }
 
