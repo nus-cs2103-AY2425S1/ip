@@ -13,12 +13,17 @@ import wansbot.tasks.TaskList;
 import wansbot.tasks.Todos;
 import wansbot.ui.UI;
 
+/**
+ * Main class in the package which has all the logic of the Bot.
+ */
 public class WansBot {
     private static TaskList userTaskList = new TaskList();
     private static UI ui = new UI();
     private static Storage storage = new Storage(ui);
 
-    // Method that deals with empty inputs by throwing wansbot.tasks.InputEmptyException
+    /**
+     * Throws InputEmptyException when user doesn't input anything after command word.
+     */
     protected static void emptyInput(String userInput) throws InputEmptyException {
         if (userInput.strip().equalsIgnoreCase("todos")
                 || userInput.strip().equalsIgnoreCase("deadline")
@@ -30,7 +35,10 @@ public class WansBot {
         }
     }
 
-    // Method that throws NumberFormatException and custom wansbot.tasks.NotANumMarkingException
+    /**
+     * Throws NumberFormatException and NotANumMarkingException when a non-number is inputted and when it's not
+     * a valid task number in the userTaskList.
+     */
     private static void notNumInput(String userInput, int taskListSize) throws NumberFormatException,
             NotANumMarkingException {
         if (userInput.startsWith("unmark")) {
@@ -51,7 +59,9 @@ public class WansBot {
         }
     }
 
-    // Method that throws custom wansbot.tasks.InputEmptyException for deadlineds
+    /**
+     * Throws InputEmptyException when user does not input a deadline after "deadline /by".
+     */
     private static void missingInputDeadline(String userInput) {
         String[] splitUser = userInput.split(" /by ", 2);
         if (splitUser.length < 2) {
@@ -59,7 +69,10 @@ public class WansBot {
         }
     }
 
-    // Method that throws custom wansbot.tasks.InputEmptyException for events
+    /**
+     * Throws custom InputEmptyException for events when either missing from date after /from, missing to date after
+     * /to or missing both.
+     */
     protected static void missingInputEvent(String userInput) {
         String[] splitUserStartDate = userInput.split(" /from ", 3);
         if (splitUserStartDate.length < 2) {
@@ -71,7 +84,10 @@ public class WansBot {
         }
     }
 
-    // Handles marking tasks function
+    /**
+     * Handles marking tasks function by specifying how caught exceptions are dealt with. Prints to console what
+     * user needs to correct for the command to work.
+     */
     private static void markTasks(String userInput) {
         try {
             notNumInput(userInput, userTaskList.numOfTasks());
@@ -85,7 +101,9 @@ public class WansBot {
         }
     }
 
-    // Handles unmarking tasks function
+    /**
+     * Handles unmarking tasks function by specifying to user what went wrong.
+     */
     private static void unmarkTasks(String userInput) {
         try {
             notNumInput(userInput, userTaskList.numOfTasks());
@@ -99,14 +117,18 @@ public class WansBot {
         }
     }
 
-    // Handles adding Todos to the task list
+    /**
+     * Adds Todos to the userTaskList.
+     */
     private static void addTodos(String userInput) {
         Todos newTodo = new Todos(userInput.substring(5));
         userTaskList.add(newTodo);
         ui.handleSuccessfulAdd(newTodo);
     }
 
-    // Handles adding Deadlineds to the task list
+    /**
+     * Adds Deadlined to userTaskList. If there is invalid input, WansBot will guide user on the correct commands.
+     */
     private static void addDeadlined(String userInput) {
         try {
             missingInputDeadline(userInput);
@@ -122,7 +144,9 @@ public class WansBot {
         }
     }
 
-    // Handles adding Events to the task list
+    /**
+     * Adds Deadlined to userTaskList. If there is invalid input, WansBot will guide user on the correct commands.
+     */
     private static void addEvent(String userInput) {
         try {
             missingInputEvent(userInput);
@@ -140,7 +164,10 @@ public class WansBot {
         }
     }
 
-    // Handles remove function of bot
+    /**
+     * Removes the user-specified task. If removal is of an invalid task number or not a number, WansBot will guide
+     * user on how to correct the command.
+     */
     private static void removeTask(String userInput) {
         try {
             notNumInput(userInput, userTaskList.numOfTasks());
@@ -154,7 +181,10 @@ public class WansBot {
         }
     }
 
-    // Handles finding tasks of a specific date
+    /**
+     * Gathers Deadlined and Event which are of exact date and in-between start and end date respectively. WansBot
+     * will tell the user which tasks these are. Todos will not be able to be found
+     */
     private static void findTaskDate(String userInput) {
         try {
             String[] splitDate = userInput.split(" ");
