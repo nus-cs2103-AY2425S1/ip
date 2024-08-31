@@ -5,6 +5,11 @@ package luna.task;
  */
 public class Todo extends Task {
 
+    /**
+     * Creates a task without deadline.
+     *
+     * @param description Description of task.
+     */
     public Todo(String description) {
         super(description);
     }
@@ -16,7 +21,7 @@ public class Todo extends Task {
 
     @Override
     public String toFileFormat() {
-        String status  = super.isDone ? "1|" : "0|";
+        String status = super.isDone ? "1|" : "0|";
         return "T|" + status + super.description;
     }
 }

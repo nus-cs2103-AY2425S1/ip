@@ -3,6 +3,9 @@ package luna.command;
 import luna.Storage;
 import luna.TaskList;
 
+/**
+ * Represents a command to end the chatbot session.
+ */
 public class ExitCommand extends Command {
 
     @Override

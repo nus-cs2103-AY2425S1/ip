@@ -4,18 +4,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-
 import java.time.LocalDateTime;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import luna.task.*;
+import luna.task.Deadline;
+import luna.task.Event;
+import luna.task.Task;
+import luna.task.Todo;
 
 /**
  * Handles the storage of tasks.
@@ -68,6 +68,8 @@ public class Storage {
                     }
                     tasks.add(event);
                     break;
+
+                default:
                 }
             }
         } catch (FileNotFoundException e) {

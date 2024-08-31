@@ -1,7 +1,8 @@
 package luna;
 
 import java.util.ArrayList;
-import luna.task.*;
+
+import luna.task.Task;
 
 /**
  * Represents a list of tasks.
@@ -26,8 +27,8 @@ public class TaskList {
     public ArrayList<Task> addTask(Task task) {
         tasks.add(task);
         String taskSize = String.format("Now you have %d tasks in the list.", tasks.size());
-        System.out.println("Got it. I've added this task:\n" +
-                "  " + task + "\n" + taskSize);
+        System.out.println("Got it. I've added this task:\n"
+                + "  " + task + "\n" + taskSize);
 
         return tasks;
     }
@@ -45,9 +46,9 @@ public class TaskList {
         }
 
         Task removed = tasks.remove(task);
-        System.out.println("Noted, I've removed this task:\n" +
-                "  " + removed.toString() + "\n" +
-                "Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("Noted, I've removed this task:\n"
+                + "  " + removed.toString() + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.");
 
         return tasks;
     }
@@ -106,6 +107,12 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Search for task from the current list of tasks.
+     *
+     * @param query Description of task to find within tasks.
+     * @return List of tasks matching query.
+     */
     public ArrayList<Task> find(String query) {
         ArrayList<Task> matched = new ArrayList<>();
         for (Task task : tasks) {

@@ -1,18 +1,19 @@
 package luna;
 
-import luna.task.Deadline;
-import luna.task.Task;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import luna.task.Deadline;
+import luna.task.Task;
 
 public class TaskListTest {
     @Test
-    public void deleteTask_negativeTaskNumber_exceptionThrown(){
+    public void deleteTask_negativeTaskNumber_exceptionThrown() {
         try {
             assertEquals(new ArrayList<Task>(), new TaskList().deleteTask(-1));
             fail();
@@ -22,7 +23,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void deleteTask_exceedTotalTask_exceptionThrown(){
+    public void deleteTask_exceedTotalTask_exceptionThrown() {
         try {
             assertEquals(new ArrayList<Task>(), new TaskList().deleteTask(1));
             fail();
@@ -32,7 +33,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void addTask_deadlineTask_success(){
+    public void addTask_deadlineTask_success() {
         Deadline deadline = new Deadline("Buy groceries", LocalDateTime.now());
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(deadline);
