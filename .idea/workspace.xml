@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cb34c10-f564-453a-b115-dca8695e189e" name="Changes" comment="test commit for repo sense" />
+    <list default="true" id="3cb34c10-f564-453a-b115-dca8695e189e" name="Changes" comment="test commit for repo sense">
+      <change afterPath="$PROJECT_DIR$/src/java/jarvis/ParserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Data/SavedData.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Data/SavedData.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/jarvis/ParserTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/jarvis/TaskListStub.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/jarvis/TaskListStub.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/jarvis/TaskListTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/jarvis/TaskListTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,7 +50,7 @@
         <entry key="$PROJECT_DIR$/.." value="branch-A-CodingStandard" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -98,10 +104,12 @@
       <command value="gradlew run" />
       <command value="gradlew checkstyleMain" />
       <command value="gradle shadowJar" />
+      <command value="gradle test\" />
+      <command value="gradlew test" />
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="ip [checkStyle]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="JUnit.ParserTest.parser_wrongInput_noTasksAdded">
+    <configuration name="ip [test\]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -112,7 +120,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="checkStyle" />
+            <option value="test\" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -123,93 +131,69 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="ip [checkstyleMain]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="checkstyleMain" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
+    <configuration name="ParserTest.parser_invalidCommand_noTasksAdded" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ip.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="jarvis.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="jarvis" />
+      <option name="MAIN_CLASS_NAME" value="jarvis.ParserTest" />
+      <option name="METHOD_NAME" value="parser_invalidCommand_noTasksAdded" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration name="ip [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="run" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
+    <configuration name="ParserTest.parser_listCommand_noTasksListed" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ip.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="jarvis.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="jarvis" />
+      <option name="MAIN_CLASS_NAME" value="jarvis.ParserTest" />
+      <option name="METHOD_NAME" value="parser_listCommand_noTasksListed" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration name="ip [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="shadowJar" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
+    <configuration name="ParserTest.parser_wrongInput_noTasksAdded" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ip.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="jarvis.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="jarvis" />
+      <option name="MAIN_CLASS_NAME" value="jarvis.ParserTest" />
+      <option name="METHOD_NAME" value="parser_wrongInput_noTasksAdded" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration name="ip [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
+    <configuration name="TaskListTest.add_invalidArgument_exceptionThrown" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ip.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="jarvis.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="jarvis" />
+      <option name="MAIN_CLASS_NAME" value="jarvis.TaskListTest" />
+      <option name="METHOD_NAME" value="add_invalidArgument_exceptionThrown" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="ip" />
@@ -226,11 +210,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.ip [run]" />
-        <item itemvalue="Gradle.ip [test]" />
-        <item itemvalue="Gradle.ip [shadowJar]" />
-        <item itemvalue="Gradle.ip [checkstyleMain]" />
-        <item itemvalue="Gradle.ip [checkStyle]" />
+        <item itemvalue="JUnit.ParserTest.parser_wrongInput_noTasksAdded" />
+        <item itemvalue="JUnit.TaskListTest.add_invalidArgument_exceptionThrown" />
+        <item itemvalue="JUnit.ParserTest.parser_invalidCommand_noTasksAdded" />
+        <item itemvalue="JUnit.ParserTest.parser_listCommand_noTasksListed" />
+        <item itemvalue="Gradle.ip [test\]" />
       </list>
     </recent_temporary>
   </component>
