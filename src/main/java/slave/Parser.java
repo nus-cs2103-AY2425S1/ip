@@ -66,6 +66,9 @@ public class Parser {
             case "schedule":
                 scheduleOn(body);
                 break;
+            case "find":
+                find(body);
+                break;
             default:
                 System.out.println("You're spouting gibberish...");
                 break;
@@ -258,6 +261,42 @@ public class Parser {
         } catch (NumberFormatException nfe) {
             System.out.println("That's not a task number");
             return false;
+        }
+    }
+
+    /**
+     * Finds all tasks containing the user provided string in the task description
+     * Prints all relevant tasks
+     *
+     * @param substring is the task description which the user is looking for
+     */
+    protected void find(String substring) {
+        // There is a slight difference in this implementation compared to ab3
+        // In ab3, calling DELETE after FIND deletes the task with the index provided by FIND
+        // However, in this version, calling in order to delete the task, the user has to use the original
+        // index of the task, provided by LIST, instead of that provided by FIND
+
+        if (substring.isEmpty() | substring.trim().isEmpty()) {
+            System.out.println("Quit wasting my time... Tell me what you want found");
+            return;
+        }
+
+        System.out.println("What's the point of that brain of yours if you don't use it");
+        System.out.println("Fine I'll look for tasks related to [" + substring + "]");
+
+        int count = 1;
+
+        for (int i = 0; i < list.size(); i++) {
+            Task t = list.get(i);
+            if (t.getTask().contains(substring)) {
+                System.out.println(count + ". " + t);
+                count++;
+            }
+        }
+
+        if (count == 1) {
+            System.out.println("\nThere's nothing related to [" + substring + "]");
+            System.out.println("Should have known better than to waste time trying to help you...");
         }
     }
 
