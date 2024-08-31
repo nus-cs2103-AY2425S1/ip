@@ -15,7 +15,7 @@ public class Parser {
     public static Command parse(String command) throws AsuraException {
         List<String> splitCommand = Arrays.asList(command.split(" "));
         String prefix = splitCommand.get(0);
-        if (splitCommand.size() == 1 && !Objects.equals(prefix, "list")) {
+        if (splitCommand.size() == 1 && !Objects.equals(prefix, "list") && !Objects.equals(prefix, "bye")) {
             throw new AsuraException("Invalid command format");
         }
         int selection;
@@ -63,6 +63,8 @@ public class Parser {
             case "delete":
                 selection = Integer.parseInt(splitCommand.get(1)) - 1;
                 return new DeleteCommand(selection);
+            case "bye":
+                return new ByeCommand();
             default:
                 throw new AsuraException("Invalid input");
         }
