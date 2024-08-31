@@ -1,9 +1,19 @@
+package src.main.java;
+
+import src.main.java.ProcessTasks;
+import src.main.java.Task;
+import src.main.java.Todo;
+import src.main.java.Event;
+import src.main.java.Deadline;
+import src.main.java.SaveAndLoad;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
+
 
 public class KillJoy {
     private ProcessTasks processTasks;
+    private SaveAndLoad saveAndLoad;
 
     private String welcomeString = "    Hello! I'm KillJoy\n    I'm GENIUS!!!\n    What can I do for you?\n" +
             "    ------------------------------------";
@@ -28,6 +38,7 @@ public class KillJoy {
 
     public KillJoy() {
         this.processTasks = new ProcessTasks(this);
+        this.saveAndLoad = new SaveAndLoad(this, processTasks);
     }
 
     public String getMarkString() {
@@ -56,14 +67,17 @@ public class KillJoy {
 
     public void addTask(String description) {
         taskList.add(new Todo(description));
+        this.increaseTaskCount();
     }
 
     public void addTask(String description, String by) {
         taskList.add(new Deadline(description, by));
+        this.increaseTaskCount();
     }
 
     public void addTask(String description, String from, String to) {
         taskList.add(new Event(description, from, to));
+        this.increaseTaskCount();
     }
 
     public Task getTask(int taskIndex) {
@@ -79,6 +93,8 @@ public class KillJoy {
         System.out.println(this.welcomeString);
         Scanner user = new Scanner(System.in);
 
+        saveAndLoad.loadTasks();
+
         while(true) {
             String input = user.nextLine();
             if (input.equals("")) {
@@ -91,6 +107,7 @@ public class KillJoy {
             String[] inputAsList = input.split(" ");
 
             if (inputAsList[0].equals("bye")) {
+                saveAndLoad.saveTasks(this.taskList);
                 System.out.println(this.exitString);
                 break;
             } else if (inputAsList[0].equals("list")){
