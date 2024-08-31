@@ -208,7 +208,9 @@ public class WansBot {
         }
     }
 
-    // find task based on name
+    /**
+     * Finds the current tasks in userTaskList that contain the keyword and prints to console in a list.
+     */
     private static void findTaskName(String userInput) { // "find [keyword]"
         String[] splitName = userInput.split("findName ");
         TaskList filteredList = new TaskList();
