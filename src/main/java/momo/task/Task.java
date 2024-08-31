@@ -11,6 +11,10 @@ public class Task {
         this.isComplete = isComplete;
     }
 
+    public String getTask() {
+        return this.task;
+    }
+
     public void markComplete() {
         this.isComplete = true;
     }
