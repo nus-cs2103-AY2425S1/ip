@@ -1,5 +1,8 @@
 package bob;
 
+/**
+ * This command creates a ToDo task with the specified name and adds it to the task list when run.
+ */
 public class TodoCommand  extends Command {
     protected static String[] params = new String[] { "todo" };
     protected static int paramCount = 1;
