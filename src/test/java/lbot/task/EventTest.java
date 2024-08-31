@@ -12,15 +12,21 @@ public class EventTest {
 
     @Test
     public void testEventMarkAsComplete() {
-        Task event = new Event("testing event is marked", false, LocalDateTime.parse("2024-08-29 2303", dateTimeFormat), LocalDateTime.parse("2024-08-29 2333", dateTimeFormat));
+        Task event = new Event("testing event is marked",
+                false, LocalDateTime.parse("2024-08-29 2303", dateTimeFormat),
+                LocalDateTime.parse("2024-08-29 2333", dateTimeFormat));
         event.mark();
-        assertEquals(event.toString(), "[D][x] testing event is marked (by: 2024-08-29 2303)");
+        assertEquals(event.toString(),
+                "[D][x] testing event is marked (by: 2024-08-29 2303)");
     }
 
     @Test
     public void testEventMarkAsIncomplete() {
-        Task event = new Event("testing event is unmarked", true, LocalDateTime.parse("2024-08-29 2303", dateTimeFormat), LocalDateTime.parse("2024-08-29 2333", dateTimeFormat));
+        Task event = new Event("testing event is unmarked",
+                true, LocalDateTime.parse("2024-08-29 2303", dateTimeFormat),
+                LocalDateTime.parse("2024-08-29 2333", dateTimeFormat));
         event.mark();
-        assertEquals(event.toString(), "[D][ ] testing event is unmarked (by: 2024-08-29 2303)");
+        assertEquals(event.toString(),
+                "[D][ ] testing event is unmarked (by: 2024-08-29 2303)");
     }
 }

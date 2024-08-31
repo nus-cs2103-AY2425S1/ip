@@ -1,5 +1,18 @@
 package lbot.helper;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import lbot.exception.FileException;
 import lbot.exception.InvalidCommandException;
 import lbot.exception.ParseCommandException;
@@ -8,21 +21,13 @@ import lbot.task.Event;
 import lbot.task.Task;
 import lbot.task.Todo;
 
-import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * This class handles the I/O of tasks to the specified file.
  */
 public class Storage {
+    private static final DateTimeFormatter dateTimeFormat =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"); // allows user to specify time as well
     private final String path;
-    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"); // allows user to specify time as well
-
 
     /**
      * Constructor for Storage.
@@ -76,21 +81,21 @@ public class Storage {
      * @throws ParseCommandException   thrown when error encountered while parsing line.
      * @throws InvalidCommandException thrown when command keyword is not supported.
      */
-    public static void addTaskToList(String input, TaskList taskList) throws ParseCommandException, InvalidCommandException {
-        /**
-         * Code adapted from ChatGPT, using regex to possibly avoid scenario where user uses reserved characters
-         * regex updated after testing on regex101.com
-         * Prompt used:
-         * Can you build me a regex string to detect the following pattern in java
-         * [T][x] Task
-         * [T][ ] Task
-         * [E][x] Event (from: 12/08/2024 to: 13/08/2024)
-         * [E][x] Event (from: Friday to: Friday)
-         * [E][ ] Event (from: 12/08/2024 to: 13/08/2024)
-         * [E][ ] Event (from: Friday to: Friday)
-         * [D][x] Deadline (by: 11)
-         * [D][ ] Deadline (by: 12/08/1203)
-         */
+    public static void addTaskToList(String input, TaskList taskList)
+            throws ParseCommandException, InvalidCommandException {
+
+        // Code adapted from ChatGPT, using regex to possibly avoid scenario where user uses reserved characters
+        // regex updated after testing on regex101.com
+        // Prompt used:
+        // Can you build me a regex string to detect the following pattern in java
+        // [T][x] Task
+        // [T][ ] Task
+        // [E][x] Event (from: 12/08/2024 to: 13/08/2024)
+        // [E][x] Event (from: Friday to: Friday)
+        // [E][ ] Event (from: 12/08/2024 to: 13/08/2024)
+        // [E][ ] Event (from: Friday to: Friday)
+        // [D][x] Deadline (by: 11)
+        // [D][ ] Deadline (by: 12/08/1203)
         String regex = "\\[([TED])]\\[(x|\\s?)] (.*?)(?: \\(from: ([^)]*?) to: ([^)]*?)\\)| \\(by: ([^)]*?)\\))?$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
@@ -105,17 +110,19 @@ public class Storage {
             String dueDate = matcher.group(6); // due datetime (matches by:...)
 
             switch (type) {
-                case "T":
-                    taskList.addTask(new Todo(description, isComplete));
-                    break;
-                case "D":
-                    taskList.addTask(new Deadline(description, isComplete, LocalDateTime.parse(dueDate, dateTimeFormat)));
-                    break;
-                case "E":
-                    taskList.addTask(new Event(description, isComplete, LocalDateTime.parse(start, dateTimeFormat), LocalDateTime.parse(end, dateTimeFormat)));
-                    break;
-                default:
-                    throw new ParseCommandException("Error reading file. Recreating task file.");
+            case "T":
+                taskList.addTask(new Todo(description, isComplete));
+                break;
+            case "D":
+                taskList.addTask(new Deadline(description, isComplete,
+                        LocalDateTime.parse(dueDate, dateTimeFormat)));
+                break;
+            case "E":
+                taskList.addTask(new Event(description, isComplete,
+                        LocalDateTime.parse(start, dateTimeFormat), LocalDateTime.parse(end, dateTimeFormat)));
+                break;
+            default:
+                throw new ParseCommandException("Error reading file. Recreating task file.");
             }
         }
     }
