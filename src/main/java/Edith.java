@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -107,6 +110,63 @@ public class Edith {
         }
     }
 
+    public void listTasksOnDate(String string) {
+        int index = 1;
+        boolean isDue = false;
+        boolean isStartingOn = false;
+        LocalDate date;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        date = LocalDate.parse(string, formatter);
+
+        String message1 = "Here are your tasks due by " + string + ":";
+        System.out.println(INDENTATION + message1);
+
+        for (Task task : listOfTasks) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.getDueDate().isEqual(date)) {
+                    System.out.println(INDENTATION + index + ") " + deadline);
+                    index++;
+                    isDue = true;
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.getEndTime().isEqual(date)) {
+                    System.out.println(INDENTATION + index + ") " + event);
+                    index++;
+                    isDue = true;
+                }
+            }
+        }
+
+        if (!isDue) {
+            System.out.println(INDENTATION + "NOTHING" + "\n");
+        } else {
+            System.out.println("\n");
+        }
+
+        String message2 = "Here are your events starting on " + string + ":";
+        System.out.println(INDENTATION + message2);
+
+        for (Task task : listOfTasks) {
+            if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.getStartTime().isEqual(date)) {
+                    System.out.println(INDENTATION + index + ") " + event);
+                    index++;
+                    isStartingOn = true;
+                }
+            }
+        }
+
+        if (!isStartingOn) {
+            System.out.println(INDENTATION + "NOTHING" + LINE_BREAK);
+        } else {
+            System.out.println(LINE_BREAK);
+        }
+    }
+
     public void mark(int index) {
         int num = index + 1;
         String message = "Alright, great job! I've marked task " + num + " as done:";
@@ -135,7 +195,7 @@ public class Edith {
                 Task curr = listOfTasks.get(i);
                 String typeOfTaskString = curr.typeOfTaskString();
                 String statusString = curr.statusString();
-                String taskString = curr.taskString();
+                String taskString = curr.savedTaskString();
 
                 writer.write(typeOfTaskString + "| " + statusString + "| " + taskString);
                 writer.newLine();
@@ -176,16 +236,16 @@ public class Edith {
                     task = new ToDo(taskString);
                     break;
                 case "[D]":
-                    String[] deadlineParts = taskString.split(" \\(due: ");
+                    String[] deadlineParts = taskString.split(" /by ");
                     String deadlineTask = deadlineParts[0].trim();
-                    String dueDate = deadlineParts[1].replace(")", "").trim();
+                    String dueDate = deadlineParts[1].trim();
                     task = new Deadline(deadlineTask, dueDate);
                     break;
                 case "[E]":
-                    String[] eventParts = taskString.split(" \\(from: | to: ");
+                    String[] eventParts = taskString.split(" /from | /to ");
                     String eventTask = eventParts[0].trim();
                     String startTime = eventParts[1].trim();
-                    String endTime = eventParts[2].replace(")", "").trim();
+                    String endTime = eventParts[2].trim();
                     task = new Event(eventTask, startTime, endTime);
                     break;
                 default:
@@ -215,6 +275,11 @@ public class Edith {
         return INDENTATION + string1 + string2 + LINE_BREAK;
     }
 
+    public String invalidDateTimeMessage() {
+        String string = "Invalid date/time format. Please use 'day/month/year HHmm' (e.g '13/9/2024 1800').";
+        return INDENTATION + string + LINE_BREAK;
+    }
+
     public void invalidInstruction() {
         throw new EdithException("Sorry but that is not an instruction I can execute.");
     }
@@ -235,6 +300,14 @@ public class Edith {
                 break;
             } else if (userInput.equalsIgnoreCase("list")) {
                 edith.list();
+            } else if (userInput.startsWith("list ")) {
+                String date = userInput.substring(5);
+                try {
+                    edith.listTasksOnDate(date);
+                } catch (DateTimeParseException e) {
+                    String errorMessage = edith.invalidDateTimeMessage();
+                    System.err.println(errorMessage);
+                }
             } else if (userInput.startsWith("mark ")) {
                 int index = Integer.parseInt(userInput.substring(5).trim()) - 1;
                 try {
@@ -264,6 +337,9 @@ public class Edith {
                     edith.add(userInput);
                 } catch (EdithException e) {
                     System.err.println(e);
+                } catch (DateTimeParseException e) {
+                    String errorMessage = edith.invalidDateTimeMessage();
+                    System.err.println(errorMessage);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     String errorMessage = edith.invalidTaskMessage();
                     System.err.println(errorMessage);

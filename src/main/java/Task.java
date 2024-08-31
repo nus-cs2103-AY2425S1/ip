@@ -13,6 +13,10 @@ public class Task {
         return this.task;
     }
 
+    public String savedTaskString() {
+        return this.task;
+    }
+
     public String typeOfTaskString() {
         return this.typeOfTask;
     }
