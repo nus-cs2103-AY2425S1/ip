@@ -44,6 +44,7 @@ public class Event extends Task {
     }
     @Override
     public String getDescription() {
+
         if (this.startDateObj != null && this.endDateObj != null) {
             return super.getDescription() + String.format(" ( from %s to %s )", this.startDateObj.format(parser.Parser.getPrintdateformatter())
                     , this.endDateObj.format(parser.Parser.getPrintdateformatter()));
