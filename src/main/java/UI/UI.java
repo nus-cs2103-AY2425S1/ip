@@ -6,6 +6,11 @@ import task.*;
 import java.util.Scanner;
 import java.time.format.DateTimeParseException;
 
+import java.util.ArrayList;
+
+/**
+ * Handles user interaction and input for the Jade application.
+ */
 public class UI {
     public static final String INDENT = "     "; // 5 spaces for indentation
     public static final String TOP_LINE = "    " + "_".repeat(60) + "\n";
@@ -18,11 +23,19 @@ public class UI {
     private final Scanner sc;
     private String message;
 
+    /**
+     * Constructs a UI object with the specified TaskManager.
+     *
+     * @param taskManager The TaskManager to interact with.
+     */
     public UI(TaskManager taskManager) {
         this.taskManager = taskManager;
         this.sc = new Scanner(System.in);
     }
 
+    /**
+     * Starts the user interface and handles user commands.
+     */
     public void run() {
         System.out.println(TOP_LINE + GREET + BOT_LINE);
         String command = sc.nextLine();
@@ -39,6 +52,8 @@ public class UI {
                     handleTaskCommand(command);
                 } else if (command.startsWith("delete")) {
                     handleDeleteCommand(command);
+                } else if (command.startsWith("find")) {
+                    handleFindCommand(command);
                 } else {
                     throw new JadeException("Please specify the type of task: todo, deadline, or event.");
                 }
@@ -201,6 +216,25 @@ public class UI {
         } catch (JadeException e) {
             displayErrorMessage(e.getMessage());
         }
+    }
+
+    private void handleFindCommand(String command) {
+        String keyword = command.substring(5).trim();
+        taskManager.findTasks(keyword);
+    }
+
+    public static void showMatchingTasks(ArrayList<Task> matchingTasks) {
+        StringBuilder message;
+        if (matchingTasks.isEmpty()) {
+            message = new StringBuilder(INDENT + "No matching tasks found.");
+        } else {
+            message = new StringBuilder(INDENT + "Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                message.append("\n" + INDENT).append(i + 1).append(".").append(matchingTasks.get(i));
+            }
+        }
+        System.out.println(TOP_LINE + message + BOT_LINE);
+
     }
 
     private void displayErrorMessage(String errorMessage) {
