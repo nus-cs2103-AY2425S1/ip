@@ -7,6 +7,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+import java.util.stream.Stream;
 
 public class Arona {
     public static ArrayList<Task> list = new ArrayList<>(100);
@@ -27,9 +29,8 @@ public class Arona {
         }
 
         // Read data.txt file
-        try {
-            // todo fix this yellow line
-            Files.lines(dataDir).forEach(Arona::process);
+        try (Stream<String> lines = Files.lines(dataDir)){
+            lines.forEach(Arona::process);
         } catch (Exception e) {
             print("Error processing data");
             print(e.getMessage());
@@ -98,7 +99,7 @@ public class Arona {
                     // Process and Reply
                     print("Got it. I've removed this task:");
                     Task task = list.get(index-1);
-                    print(task.getStatusIcon() + task.getCategory() + ": " + task.toString());
+                    print(task.getStatusIcon() + task.getCategory() + ": " + task.toFriendlyString());
                     list.remove(index-1 );
                     print("Now you have " + list.size() + " tasks in the list.");
 
@@ -135,7 +136,7 @@ public class Arona {
                     } else {
                         print("OK, I've marked this task as not done yet:");
                     }
-                    print(task.getStatusIcon() + task.getCategory() + ": " + task.toString());
+                    print(task.getStatusIcon() + task.getCategory() + ": " + task.toFriendlyString());
                 }
 
                 // Todos or events or deadline command
@@ -159,8 +160,14 @@ public class Arona {
                         }
                         case "deadline": {
                             String[] taskData = data[1].split(" /by ", 2);
+                            LocalDate byDate;
                             if (taskData.length == 2) {
-                                list.add(new Deadline(taskData[0], taskData[1]));
+                                try {
+                                    byDate = LocalDate.parse(taskData[1]);
+                                } catch (Exception e) {
+                                    throw new AronaException("Please input your date in yyyy-mm-dd format");
+                                }
+                                list.add(new Deadline(taskData[0], byDate));
                             } else {
                                 throw new AronaException("Error! Please specify a by");
                             }
@@ -168,8 +175,16 @@ public class Arona {
                         }
                         case "event": {
                             String[] taskData = data[1].split(" /from | /to ", 3);
+                            LocalDate fromDate;
+                            LocalDate toDate;
                             if (taskData.length == 3) {
-                                list.add(new Events(taskData[0], taskData[1], taskData[2]));
+                                try {
+                                    fromDate = LocalDate.parse(taskData[1]);
+                                    toDate = LocalDate.parse(taskData[2]);
+                                } catch (Exception e) {
+                                    throw new AronaException("Please input your date in yyyy-mm-dd format");
+                                }
+                                list.add(new Events(taskData[0], fromDate, toDate));
                             } else {
                                 throw new AronaException("Error! Please specify a from and to");
                             }
@@ -181,7 +196,7 @@ public class Arona {
                     print("Got it. I've added this task:");
                     int listSize = list.size();
                     Task task = list.get(listSize - 1);
-                    print(task.getStatusIcon() + task.getCategory() + ": " + task.toString());
+                    print(task.getStatusIcon() + task.getCategory() + ": " + task.toFriendlyString());
                     print("Now you have " + listSize + " tasks in the list.");
 
                 }
@@ -199,9 +214,6 @@ public class Arona {
 
     private static void process(String line) {
         String[] data = line.split("]", 3);
-        for (String i : data) {
-            print(i);
-        }
 
         switch (data[1]) {
             case "[T": {
@@ -211,13 +223,13 @@ public class Arona {
             }
             case "[D": {
                 String[] taskData = data[2].split(" \\(by: ", 2);
-                list.add(new Deadline(taskData[0].substring(1), taskData[1].substring(0, taskData[1].length() - 1)));
+                list.add(new Deadline(taskData[0].substring(1), LocalDate.parse(taskData[1].substring(0, taskData[1].length() - 1))));
                 list.get(list.size()-1).setStatus(data[0].equals("[X"));
                 break;
             }
             case "[E": {
                 String[] taskData = data[2].split(" \\(from: | to: ", 3);
-                list.add(new Events(taskData[0].substring(1), taskData[1], taskData[2].substring(0, taskData[2].length() - 1)));
+                list.add(new Events(taskData[0].substring(1), LocalDate.parse(taskData[1]), LocalDate.parse(taskData[2].substring(0, taskData[2].length() - 1))));
                 list.get(list.size()-1).setStatus(data[0].equals("[X"));
                 break;
             }

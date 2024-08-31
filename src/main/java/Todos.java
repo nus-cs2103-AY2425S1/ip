@@ -11,6 +11,10 @@ public class Todos extends Task {
         return "[T]";
     }
 
+    public String toFriendlyString() {
+        return super.toString();
+    }
+
     @Override
     public String toString() {
         return super.toString();
