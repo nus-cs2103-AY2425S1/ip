@@ -1,5 +1,8 @@
 package talkabot.task;
 
+import talkabot.Ui;
+import talkabot.exceptions.InvalidEditException;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -23,5 +26,19 @@ public class TaskList {
 
     public Task delete(int n) {
         return this.taskList.remove(n);
+    }
+
+    /**
+     * Finds all tasks that match the keyword
+     * @param input keyword
+     */
+    public void find(String input) {
+        TaskList matches = new TaskList();
+        for (Task task : this.taskList) {
+            if (task.description.contains(input)) {
+                matches.add(task);
+            }
+        }
+        Ui.returnMatches(matches);
     }
 }

@@ -7,6 +7,7 @@ import talkabot.task.Task;
 import talkabot.task.TaskList;
 import talkabot.task.ToDo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -77,6 +78,19 @@ public class Ui {
         for(int n = 0; n < 100; ++n)
             sb.append('-');
         System.out.println(sb.toString());
+    }
+
+    /**
+     * Prints all the tasks matching the user's input
+     *
+     * @param taskList list of matching tasks
+     */
+    public static void returnMatches(TaskList taskList) {
+        String output = "Here are the matching tasks in your to-do list:";
+        for (int i = 0; i < taskList.size(); i++) {
+            output += String.format("\n%d. ", i + 1) + taskList.get(i);
+        }
+        System.out.println(output);
     }
 
 }

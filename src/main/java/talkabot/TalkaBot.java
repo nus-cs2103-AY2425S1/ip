@@ -52,6 +52,11 @@ public class TalkaBot {
                     this.delete(input);
                 } else if (input.toLowerCase().startsWith("get day")) {
                     this.getDay(input);
+                } else if (input.toLowerCase().startsWith("find")) {
+                    if (input.length() < 6) {
+                        throw new InvalidEditException("find");
+                    }
+                    this.taskList.find(input.substring(5));
                 } else if (input.toLowerCase().startsWith("todo")) {
                     if (input.length() < 6) {
                         throw new InvalidScheduleException();
