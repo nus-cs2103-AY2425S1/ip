@@ -4,7 +4,19 @@ import jackbean.task.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * JackBean is a chatbot that helps you manage your tasks.
+ * It can add, delete, mark as done, and list tasks.
+ * It can also save your tasks to a file and load them back.
+ * This JavaDoc was written by GitHub Copilot.
+ */
 public class JackBean {
+    /**
+     * Main entry-point for the JackBean application.
+     * This JavaDoc was written by GitHub Copilot.
+     *
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         Ui.greet();
         TaskList taskList = new TaskList();

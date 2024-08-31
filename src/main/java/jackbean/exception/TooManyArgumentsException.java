@@ -2,9 +2,20 @@ package jackbean.exception;
 
 import jackbean.task.TaskType;
 
+/**
+ * Represents an exception thrown when the user provides too many arguments for a task in the JackBean chatbot.
+ * This JavaDoc was written by GitHub Copilot.
+ */
 public class TooManyArgumentsException extends Exception {
     public TaskType type;
 
+    /**
+     * Constructs a TooManyArgumentsException with a default message.
+     * This JavaDoc was written by GitHub Copilot.
+     *
+     * @param type The type of task that the user provided too many arguments for.
+     * @param message The message to be shown.
+     */
     public TooManyArgumentsException(String type, String message) {
         super(message);
         if (type.equalsIgnoreCase("deadline")) {
@@ -16,6 +27,12 @@ public class TooManyArgumentsException extends Exception {
         }
     }
 
+    /**
+     * Constructs a TooManyArgumentsException with a default message.
+     * This JavaDoc was written by GitHub Copilot.
+     *
+     * @param type The type of task that the user provided too many arguments for.
+     */
     public TooManyArgumentsException(String type) {
         new TooManyArgumentsException(type, "too many arguments");
     }
