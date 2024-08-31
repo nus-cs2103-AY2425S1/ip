@@ -17,7 +17,7 @@ public class Socchat {
      * Enum representing all available commands in the Socchat application.
      */
     enum Command{
-        BYE, LIST, MARK, UNMARK, TODO, EVENT, DEADLINE, DELETE
+        BYE, LIST, MARK, UNMARK, TODO, EVENT, DEADLINE, DELETE, FIND
     }
 
     /**
@@ -85,6 +85,10 @@ public class Socchat {
                 case DELETE:
                     taskIndexString = scanner.nextLine().trim();
                     taskList.delete(taskIndexString);
+                    break;
+                case FIND:
+                    str = scanner.nextLine().trim();
+                    taskList.find(str);
                     break;
                 }
             } catch (SocchatException e) {
