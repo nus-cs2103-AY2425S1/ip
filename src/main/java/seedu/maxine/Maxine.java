@@ -1,12 +1,10 @@
 package seedu.maxine;
 
-import seedu.maxine.task.Task;
-
 import java.util.Scanner;
 
 public class Maxine {
     
-    static String[] arr;
+    static String[] words;
     static Scanner scanner = new Scanner(System.in);
     private Ui ui;
     private Storage storage;
@@ -19,20 +17,6 @@ public class Maxine {
         parser = new Parser();
         storage = new Storage("data/maxine.txt");
     }
-
-    /**
-     * This constructor exists solely for testing purposes and
-     * is to be used in the JUnit
-     * @param ui
-     * @param storage
-     * @param tasks
-     */
-    public Maxine(Ui ui, Storage storage, TaskList tasks) {
-        this.ui = ui;
-        this.storage = storage;
-        this.tasks = tasks;
-        parser = new Parser();
-    }
     
     public void run() {
         try {
@@ -43,13 +27,14 @@ public class Maxine {
                 String answer = ask();
                 parser.parse(answer);
             }
-
+            
             scanner.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         
     }
+    
 
     /**
      * 
@@ -58,7 +43,7 @@ public class Maxine {
     public String ask() {
         System.out.print("What can I do for you today? : ");
         String answer = scanner.nextLine().toLowerCase();
-        arr = answer.split(" ");
+        words = answer.split(" ");
         return answer;
     }
 

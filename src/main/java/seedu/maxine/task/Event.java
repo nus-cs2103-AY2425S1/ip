@@ -10,6 +10,7 @@ public class Event extends Task {
 
     public Event(String description, String start, String end) {
         super(description);
+        
         try {
             this.start = dateTimeParser(start.trim());
             this.end = dateTimeParser(end.trim());
