@@ -98,9 +98,9 @@ public class Events extends Task {
 
     public String getExtraInfo() {
         String startDateFormatted = this.startDate
-                .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                .format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         String endDateFormatted = this.endDate
-                .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                .format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         return "(from: " + startDateFormatted
                 + (this.startTime == LocalTime.MAX
                 ? " | "

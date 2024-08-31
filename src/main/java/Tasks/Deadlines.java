@@ -62,7 +62,7 @@ public class Deadlines extends Task {
 
     public String getExtraInfo() {
         String dueDateFormatted = this.dueDate
-                .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                .format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         return "(by: " + dueDateFormatted
                 + (this.dueTime == LocalTime.MAX
                 ? ""
