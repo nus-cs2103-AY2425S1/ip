@@ -110,6 +110,12 @@ class Parser {
             LocalDateTime from = Parser.parseDateTime(times[0].trim());
             LocalDateTime to = Parser.parseDateTime(times[1].trim());
             newTask = new Event(parts[0].trim(), from, to);
+        } else if (userInput.startsWith("find")) {
+            String keyword = userInput.substring(5).trim();
+            Storage.findTasks(tasks, keyword);
+            return;
+        } else {
+            throw new BobException("I'm sorry, but I don't know what that means :(");
         }
 
         tasks.add(newTask);
