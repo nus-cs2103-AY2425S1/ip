@@ -7,7 +7,8 @@ public final class ReplyTextMessages {
             "Hello! I'm %s\nWhat can I do for you?",
             BOT_NAME
     );
-    public static final String HELP_TEXT = "Available commands: list, mark, unmark, todo, event, deadline.";
+    public static final String HELP_TEXT = "Available commands: list, mark, unmark, todo, event, " +
+                                           "deadline, find.";
     public static final String UNKNOWN_COMMAND_TEXT_1s = "I'm sorry, I do not understand what '%s' is!\n";
     public static final String LIST_TEXT = "Here are the tasks in your list:";
     public static final String ADDED_TEXT = "Got it. I've added this task:";
