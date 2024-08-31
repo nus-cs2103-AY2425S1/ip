@@ -1,5 +1,20 @@
 package bobby.command;
 
+
+/**
+ * The {@code Command} enum represents the set of valid commands that the application
+ * can interpret and execute. Each enum constant corresponds to a specific action
+ * that the user can request, such as adding a task, marking a task as done, or exiting the application.
+ * <p>
+ * This enum provides a method, {@code fromString}, to convert user input into the corresponding
+ * {@code Command} enum constant. If the input string does not match any recognized command,
+ * the {@code UNKNOWN} constant is returned.
+ * </p>
+ * <p>
+ * This class helps in categorizing and processing user commands in a structured way, making the
+ * input handling process in the application more efficient and easier to manage.
+ * </p>
+ */
 public enum Command {
     BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND;
 

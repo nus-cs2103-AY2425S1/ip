@@ -13,9 +13,31 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * The {@code Storage} class handles the reading and writing of tasks to and from a file.
+ * It provides methods to save the current state of a {@code TaskList} to a file and
+ * to load tasks from a file into a {@code TaskList}. This class ensures that tasks
+ * are persistently stored and can be retrieved even after the program is closed and reopened.
+ * <p>
+ * The storage format used by this class is a text-based format where each task is
+ * represented on a new line in a format that specifies the task type, its completion
+ * status, description, and any additional date information required (such as deadlines
+ * or event times).
+ * </p>
+ * <p>
+ * If the specified file does not exist, it will be created when tasks are saved.
+ * If an I/O error occurs during reading or writing, an appropriate error message
+ * is printed to the console.
+ * </p>
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a {@code Storage} object that will read from and write to the specified file path.
+     *
+     * @param filePath the path of the file where tasks are stored
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }

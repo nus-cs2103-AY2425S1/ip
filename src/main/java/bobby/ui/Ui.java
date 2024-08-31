@@ -7,9 +7,17 @@ import bobby.tasks.Task;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * The {@code Ui} class handles all user interactions, including displaying messages
+ * to the user and reading input from the console. It serves as the interface between
+ * the user and the application.
+ */
 public class Ui {
     private final Scanner scanner;
 
+    /**
+     * Constructs a new {@code Ui} object with a {@code Scanner} for reading user input.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }

@@ -10,6 +10,20 @@ import bobby.ui.Ui;
 
 import java.time.LocalDate;
 
+/**
+ * The {@code Bobby} class represents the main application for a task management program.
+ * This class initializes the core components of the application, including the user interface (UI),
+ * storage system, parser, and task list. It provides methods to run the application and handle user commands.
+ * <p>
+ * The main application loop continuously reads user input, interprets commands,
+ * and executes the corresponding actions such as adding tasks, marking tasks as done, deleting tasks,
+ * and saving tasks to a file. The program runs until the user issues an exit command.
+ * </p>
+ * <p>
+ * This class serves as the entry point to the application, encapsulating the primary functionality
+ * and workflow of the task manager.
+ * </p>
+ */
 public class Bobby {
 
     private static final String FILE_PATH = "./src/main/data/Bobby.txt";

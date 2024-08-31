@@ -10,6 +10,23 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+
+/**
+ * The {@code Parser} class is responsible for interpreting and converting
+ * user input into actionable commands and tasks. It contains methods to parse
+ * user input strings to determine the appropriate {@code Command} or to create
+ * specific types of {@code Task} objects, such as {@code Todo}, {@code Deadline},
+ * and {@code Event}.
+ * <p>
+ * The {@code Parser} class also handles input validation and throws specific exceptions
+ * when the input is invalid, incomplete, or improperly formatted. It ensures that the input
+ * provided by the user meets the expected format for each task type and command.
+ * </p>
+ * <p>
+ * This class is a key component of the application, facilitating user interaction by
+ * interpreting input and guiding the flow of the program accordingly.
+ * </p>
+ */
 public class Parser {
 
     /**
