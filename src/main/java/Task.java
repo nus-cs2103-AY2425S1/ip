@@ -15,7 +15,7 @@ public class Task {
         isDone = true;
     }
 
-    public void maskAsUndone() {
+    public void markAsUndone() {
         isDone = false;
     }
 
