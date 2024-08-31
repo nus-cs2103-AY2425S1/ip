@@ -182,7 +182,7 @@ public class Chatterbox {
             while (true) {
                 try {
                     String response = scanner.nextLine();
-                    Parser.VALID_COMMAND command = parser.parseCommand(response);
+                    Parser.ValidCommand command = parser.parseCommand(response);
                     int index;
                     switch (command) {
 

@@ -30,13 +30,13 @@ public class Event extends Task {
         this.endDateObj = endDateObj;
     }
 
-    public String getStartDate() {
-        return startDate;
-    }
-
-    private String getEndDate() {
-        return this.endDate;
-    }
+//    public String getStartDate() {
+//        return startDate;
+//    }
+//
+//    private String getEndDate() {
+//        return this.endDate;
+//    }
 
     @Override
     public String getTaskSymbol() {
@@ -46,8 +46,8 @@ public class Event extends Task {
     public String getDescription() {
 
         if (this.startDateObj != null && this.endDateObj != null) {
-            return super.getDescription() + String.format(" ( from %s to %s )", this.startDateObj.format(parser.Parser.getPrintdateformatter())
-                    , this.endDateObj.format(parser.Parser.getPrintdateformatter()));
+            return super.getDescription() + String.format(" ( from %s to %s )", this.startDateObj.format(parser.Parser.getPrintDateFormatter())
+                    , this.endDateObj.format(parser.Parser.getPrintDateFormatter()));
         }
         return super.getDescription() + String.format(" ( from %s to %s )", this.startDate, this.endDate);
     }
