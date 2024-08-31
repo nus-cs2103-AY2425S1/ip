@@ -1,13 +1,5 @@
 package infinity.storage;
 
-import infinity.infinityexception.InfinityException;
-import infinity.task.Deadline;
-import infinity.task.Event;
-import infinity.task.Task;
-import infinity.task.ToDos;
-import infinity.tasklist.TaskList;
-import infinity.ui.Ui;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,11 +9,19 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import infinity.infinityexception.InfinityException;
+import infinity.task.Deadline;
+import infinity.task.Event;
+import infinity.task.Task;
+import infinity.task.ToDos;
+import infinity.tasklist.TaskList;
+import infinity.ui.Ui;
+
 /**
  * This class handles the storage of the tasks in a file.
  */
 public class Storage {
-    
+
     /** Filepath Directory for Savefile */
     public static final String FILE_DIR_PATH = "../../../../data";
     /** Filename for Savefile */
@@ -34,8 +34,17 @@ public class Storage {
     private final Ui botUI;
 
     /**
+     * Constructor for the Storage class.
+     *
+     * @param botUI The Ui object to interact with the user.
+     */
+    public Storage(Ui botUI) {
+        this.botUI = botUI;
+    }
+
+    /**
      * Combines the description of the remainder of the text, if the text includes the delimiter.
-     * 
+     *
      * @param description The array of words in the text, already split with delimiter.
      * @param startIndex The index to start combining the rest of the description, inclusive.
      * @return The combined description as a String.
@@ -55,7 +64,7 @@ public class Storage {
 
     /**
      * Reads the file and returns the tasks in the file.
-     * 
+     *
      * @return The tasks in the file as an ArrayList of Task.
      */
     public ArrayList<Task> readFile() {
@@ -76,15 +85,15 @@ public class Storage {
 
                     switch (taskType) {
                     case "T":
-                        task = new ToDos(isDone, 
+                        task = new ToDos(isDone,
                                 combineDescription(words, 2));
                         break;
                     case "D":
-                        task = new Deadline(isDone, 
+                        task = new Deadline(isDone,
                                 combineDescription(words, 3), words[2]);
                         break;
                     case "E":
-                        task = new Event(isDone, 
+                        task = new Event(isDone,
                                 combineDescription(words, 4), words[2], words[3]);
                         break;
                     default:
@@ -99,11 +108,11 @@ public class Storage {
                 file.close();
             } catch (IOException e) {
                 botUI.botSays(
-                        "I'm sorry, I'm a noob at this, I can't read the file, can you help me debug? " 
+                        "I'm sorry, I'm a noob at this, I can't read the file, can you help me debug? "
                         + e.getMessage());
             } catch (InfinityException e) {
                 botUI.botSays(
-                        "I'm sorry, I'm a noob at this, I can't read the file, can you help me debug? " 
+                        "I'm sorry, I'm a noob at this, I can't read the file, can you help me debug? "
                         + e.getMessage());
             } catch (NoSuchElementException e) {
                 // Do nothing, likely means end of file
@@ -114,35 +123,35 @@ public class Storage {
 
     /**
      * Saves the tasks into the file.
-     * 
+     *
      * @param tasks The tasks to be saved in an ArrayList of Task.
      * @throws InfinityException If there is an error writing to the file.
      */
     public void saveFile(ArrayList<Task> tasks) throws InfinityException {
-                    
+
         try {
             createFileIfNotExists();
-    
+
             FileWriter file = new FileWriter(FILE_PATH);
-    
+
             for (Task task : tasks) {
                 file.write(task.saveFileFormat(DELIMITER));
                 file.write("\n");
             }
-    
+
             file.close();
-    
+
             botUI.botSays("Save Successful, Woohoo!");
         } catch (IOException e) {
             throw new InfinityException(
-                    "I'm sorry, I'm a noob at this, I can't save the file, can you help me debug? " 
+                    "I'm sorry, I'm a noob at this, I can't save the file, can you help me debug? "
                     + e.getMessage());
         }
     }
 
     /**
      * Checks if the file and directory exists.
-     * 
+     *
      * @return True if exists, false otherwise.
      */
     private boolean doesFileExist() {
@@ -161,17 +170,8 @@ public class Storage {
             }
         } catch (IOException e) {
             botUI.botSays(
-                    "I'm sorry, I'm a noob at this, I can't create the file, can you help me debug? " 
+                    "I'm sorry, I'm a noob at this, I can't create the file, can you help me debug? "
                     + e.getMessage());
         }
-    }
-
-    /**
-     * Constructor for the Storage class.
-     * 
-     * @param botUI The Ui object to interact with the user.
-     */
-    public Storage(Ui botUI) {
-        this.botUI = botUI;
     }
 }

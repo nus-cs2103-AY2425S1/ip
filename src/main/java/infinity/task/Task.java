@@ -20,7 +20,7 @@ public abstract class Task {
 
     /**
      * Sets the type of task
-     * 
+     *
      * @param typeOfTask The type of task, it will set the first letter to the type.
      */
     protected void setTypeOfTask(String typeOfTask) {
@@ -29,7 +29,7 @@ public abstract class Task {
 
     /**
      * Sets the description of the task.
-     * 
+     *
      * @param description The description of the task.
      */
     protected void setDescription(String description) {
@@ -38,17 +38,18 @@ public abstract class Task {
 
     /**
      * Parses the save-file format of the task.
-     * 
+     *
      * @param delimiter The delimiter to separate the fields.
      * @return The save-file format of the task.
      */
     public String saveFileFormat(String delimiter) {
-        return String.format("%s%s%s%s%s", Character.toString(typeOfTask), delimiter, isDone ? "1" : "0", delimiter, description);
+        return String.format("%s%s%s%s%s",
+                Character.toString(typeOfTask), delimiter, isDone ? "1" : "0", delimiter, description);
     }
 
     @Override
     public String toString() {
-        return String.format("[%s][%s] %s", 
+        return String.format("[%s][%s] %s",
                 Character.toString(typeOfTask), this.isDone ? "X" : " ", this.description);
     }
 }
