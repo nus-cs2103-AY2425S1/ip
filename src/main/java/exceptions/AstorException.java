@@ -1,3 +1,5 @@
+package exceptions;
+
 public class AstorException extends Exception {
     public AstorException() {
         super();

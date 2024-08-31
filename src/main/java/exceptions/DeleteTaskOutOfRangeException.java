@@ -1,3 +1,5 @@
+package exceptions;
+
 public class DeleteTaskOutOfRangeException extends AstorException {
     public DeleteTaskOutOfRangeException(String message) {
         super(message);

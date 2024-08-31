@@ -1,18 +1,18 @@
+import exceptions.*;
+
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Astor {
 
-    private List<Task> listOfTasks;
-    private boolean hasUpdatedWithDataStorage;
+    private final List<Task> listOfTasks;
 
     private String separatorLine() {
         return "--------------------------------------";
     }
 
-    private DataFileModifier dataFileModifier;
+    private final DataFileModifier dataFileModifier;
 
     private enum Action {
         BYE,
