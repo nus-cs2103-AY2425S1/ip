@@ -2,6 +2,9 @@ package broski;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class that holds functionality for events.
+ */
 public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
@@ -9,15 +12,16 @@ public class Event extends Task {
     private final DateTimeParser dateTimeParser = new DateTimeParser();
 
     /**
-     * Constructor for broski.Event class.
+     * Constructs a new task or event that has a time period.
      * @param description the description of the task/event
      * @param from when the event begins
      * @param to when the event ends
+     * @throws InvalidDateTimeException if from or to parameter is null due to invalid user input
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to) throws IllegalArgumentException {
+    public Event(String description, LocalDateTime from, LocalDateTime to) throws InvalidDateTimeException {
         super(description);
         if (from == null || to == null) {
-            throw new IllegalArgumentException("Argument cannot be null.");
+            throw new InvalidDateTimeException("Cannot be null.");
         }
         this.from = from;
         this.to = to;
@@ -30,10 +34,6 @@ public class Event extends Task {
                 + " | " + this.from + " | " + this.to;
     }
 
-    /**
-     * Returns a string representation of the task.
-     * @return task description with status and event period
-     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from " + this.dateTimeParser.formatOutput(this.from)

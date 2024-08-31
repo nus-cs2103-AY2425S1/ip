@@ -1,14 +1,18 @@
 package broski;
 
+/**
+ * Abstract class that acts as a parent class for 3 subcategories of tasks.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Constructor for broski.Task class but should not be used as there are its children classes.
+     * Constructs a new general task.
+     * Not in use.
      * @param description the description of the task
      */
-    public Task(String description) {
+    protected Task(String description) {
         this.description = description;
         this.isDone = false;
     }
@@ -35,11 +39,14 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns a string representation needed for the save file.
+     */
     public abstract String toStringSave();
 
     /**
      * Returns a string representation of the task.
-     * @return task description with status
+     * @return Task description with status.
      */
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

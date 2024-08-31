@@ -10,10 +10,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that holds all functionality for the saving and loading of tasks into hard disk.
+ */
 public class TaskManager {
 
     private static final String FILE_PATH = "./data/broski.txt";
 
+    /**
+     * Saves task to hard disk as txt file.
+     * @param tasks list of tasks to be saved to hard disk.
+     */
     public void saveTasks(List<Task> tasks) {
         try {
             File file = new File(FILE_PATH);
@@ -30,6 +37,10 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Loads the tasks back into the tasklist from txt file.
+     * @return ArrayList of tasks to be copied back into tasklist.
+     */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -51,6 +62,11 @@ public class TaskManager {
         return tasks;
     }
 
+    /**
+     * Parses each line in the txt file to return it to the intended format.
+     * @param line each line of the txt file.
+     * @return the specific task indicated by that line in the txt file.
+     */
     private Task parseTask(String line) {
         try {
             String[] parts = line.split(" \\| ");

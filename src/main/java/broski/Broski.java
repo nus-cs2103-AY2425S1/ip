@@ -2,6 +2,9 @@ package broski;
 
 import java.util.Scanner;
 
+/**
+ * A class to hold the general functions to run the chatbot.
+ */
 public class Broski {
     private final Scanner scanner = new Scanner(System.in);
     private TaskList taskList;
@@ -20,6 +23,10 @@ public class Broski {
 
     /**
      * The main content of the chatbot and all its possible responses.
+     * @throws TodoException if there are todo input errors.
+     * @throws DeadlineException if there are deadline input errors.
+     * @throws EventException if there are event input errors.
+     * @throws WrongInputException if there is invalid input.
      */
     public void chatbot() throws TodoException, DeadlineException,
             EventException, WrongInputException {
@@ -48,10 +55,16 @@ public class Broski {
         }
     }
 
+    /**
+     * Saves all content in the taskList to the hard disk.
+     */
     public void save() {
-        this.manager.saveTasks(this.taskList.peek());
+        this.manager.saveTasks(this.taskList.getList());
     }
 
+    /**
+     * Runs the chatbot and handles all exceptions.
+     */
     public void run() {
         try {
             this.chatbot();
