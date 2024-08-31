@@ -19,7 +19,7 @@ public class ParserTest {
                     Please enter one of the following commands:
                     "todo", "deadline", "event"
                     "mark", "unmark", "delete"
-                    "list", "bye"
+                    "list", "bye", "find"
                     """, e.getMessage());
         }
     }
