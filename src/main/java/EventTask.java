@@ -27,13 +27,6 @@ public class EventTask extends Task {
 
     @Override
     public String toFileFormat() {
-<<<<<<< HEAD
-        return "E | " + (super.isCompleted() ? "1" : "0") + " | "
-                + taskName + " | " + startTime + "-" + endTime;
-    }
-=======
->>>>>>> branch-level-8
-
         return "E | " + (super.isCompleted() ? "1" : "0") + " | " + taskName + " | "
                 + startTime.toStorageFormat() + " - " + endTime.toStorageFormat();
     }
