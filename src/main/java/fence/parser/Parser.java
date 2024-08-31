@@ -1,3 +1,9 @@
+package fence.parser;
+
+import fence.task.Deadline;
+import fence.task.Event;
+import fence.task.Task;
+import fence.task.Todo;
 import java.time.LocalDate;
 import java.util.StringTokenizer;
 

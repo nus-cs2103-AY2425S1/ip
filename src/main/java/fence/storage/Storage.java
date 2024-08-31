@@ -1,3 +1,8 @@
+package fence.storage;
+
+import fence.parser.Parser;
+import fence.task.Task;
+import fence.tasklist.TaskList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

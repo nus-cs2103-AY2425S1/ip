@@ -1,3 +1,6 @@
+package fence.tasklist;
+
+import fence.task.Task;
 import java.util.ArrayList;
 
 public class TaskList {
