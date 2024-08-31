@@ -1,8 +1,8 @@
 package terminator.command;
 
-import terminator.task.Task;
-
 import java.util.ArrayList;
+
+import terminator.task.Task;
 
 /**
  * Concrete class representing a command to find an item in the task list.
@@ -10,8 +10,7 @@ import java.util.ArrayList;
 public class FindCommand extends Command {
 
     private static final String ERR_MSG = """
-            String to search for cannot be empty. 
-            
+            String to search for cannot be empty.\n
             Usage: find <string>""";
 
     public FindCommand(String input) {

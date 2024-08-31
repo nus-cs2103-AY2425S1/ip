@@ -1,20 +1,26 @@
 package terminator.command;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-import terminator.task.Task;
-import terminator.task.TodoTask;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import terminator.task.Task;
+import terminator.task.TodoTask;
 
 public class MarkCommandTest {
+
+    private static final String ERR_MSG = """
+            Index to mark cannot be empty.\n
+            Usage: mark <index>""";
+
 
     private final PrintStream standardOut = System.out;
 
@@ -29,11 +35,6 @@ public class MarkCommandTest {
     public void tearDown() {
         System.setOut(standardOut);
     }
-
-    private static final String ERR_MSG = """
-            Index to mark cannot be empty.
-            
-            Usage: mark <index>""";
 
     @ParameterizedTest
     @ValueSource(strings = {"1", "2", "3", "4", "5"})

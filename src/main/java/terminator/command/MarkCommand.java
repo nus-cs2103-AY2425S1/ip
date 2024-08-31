@@ -1,22 +1,21 @@
 package terminator.command;
 
-import terminator.task.Task;
-
 import java.util.ArrayList;
+
+import terminator.task.Task;
 
 /**
  * Concrete class representing a command to mark a task in the task list.
  */
 public class MarkCommand extends Command {
 
+    private static final String ERR_MSG = """
+            Index to mark cannot be empty.\n
+            Usage: mark <index>""";
+
     public MarkCommand(String input) {
         super(input);
     }
-
-    private static final String ERR_MSG = """
-            Index to mark cannot be empty.
-            
-            Usage: mark <index>""";
 
     /**
      * Marks a task in the given task list as complete.

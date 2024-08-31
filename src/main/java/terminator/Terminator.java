@@ -1,16 +1,16 @@
 package terminator;
 
-import terminator.command.CommandParser;
+import java.util.Scanner;
+
 import terminator.command.Command;
+import terminator.command.CommandParser;
 import terminator.command.DeadlineCommand;
 import terminator.command.DeleteCommand;
-import terminator.command.TerminatorException;
 import terminator.command.EventCommand;
+import terminator.command.TerminatorException;
 import terminator.command.TodoCommand;
 import terminator.task.Storage;
 import terminator.task.TaskList;
-
-import java.util.Scanner;
 
 /**
  * Main class for the chatbot application.
@@ -25,6 +25,9 @@ public class Terminator {
 
     private final Storage storage;
 
+    /**
+     * Creates a new instance of the Terminator object, which is the main entry point of the application.
+     */
     public Terminator() {
         this.taskList = new TaskList();
         this.parser = new CommandParser();

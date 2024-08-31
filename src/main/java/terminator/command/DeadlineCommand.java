@@ -1,25 +1,23 @@
 package terminator.command;
 
-import terminator.task.DeadlineTask;
-import terminator.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import terminator.task.DeadlineTask;
+import terminator.task.Task;
 
 /**
  * Concrete class representing a command to create a DeadlineTask.
  */
 public class DeadlineCommand extends Command {
+    private static final String ERR_MSG = """
+            Deadline description cannot be empty.\n
+            Usage: deadline <description> /by dd/MM/yyyy HHmm""";
 
     public DeadlineCommand(String input) {
         super(input);
     }
-
-    private static final String ERR_MSG = """
-            Deadline description cannot be empty. 
-            
-            Usage: deadline <description> /by dd/MM/yyyy HHmm""";
 
     /**
      * Creates a new DeadlineTask with the given input and adds it to the task list.

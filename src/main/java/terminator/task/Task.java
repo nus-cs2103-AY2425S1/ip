@@ -20,6 +20,12 @@ public abstract class Task {
      */
     protected final TaskType taskType;
 
+    /**
+     * Creates a new instance of a Task object with the given description and type of task.
+     *
+     * @param description The description of the task.
+     * @param taskType The type of the task.
+     */
     public Task(String description, TaskType taskType) {
         this.description = description;
         this.isDone = false;

@@ -1,19 +1,15 @@
 package terminator;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class UiTest {
-
-    private final PrintStream standardOut = System.out;
-
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     private static final String HLINE = "____________________________________________________________\n";
 
@@ -36,9 +32,12 @@ public class UiTest {
             """;
 
     private static final String ERR_MSG = """
-            List command takes no arguments.
-            
+            List command takes no arguments.\n
             Usage: list""";
+
+    private final PrintStream standardOut = System.out;
+
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @BeforeEach
     public void setUp() {

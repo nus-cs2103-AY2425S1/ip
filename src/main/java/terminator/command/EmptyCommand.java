@@ -1,8 +1,8 @@
 package terminator.command;
 
-import terminator.task.Task;
-
 import java.util.ArrayList;
+
+import terminator.task.Task;
 
 /**
  * Concrete class representing an empty line entered by the user.

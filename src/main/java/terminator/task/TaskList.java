@@ -1,18 +1,18 @@
 package terminator.task;
 
-import terminator.command.TerminatorException;
-
 import java.util.ArrayList;
+
+import terminator.command.TerminatorException;
 
 /**
  * The TaskList object representing the list of tasks for the chatbot application.
  */
 public final class TaskList {
 
-    private final ArrayList<Task> _taskList;
+    private final ArrayList<Task> taskList;
 
     public TaskList() {
-        this._taskList = new ArrayList<>();
+        this.taskList = new ArrayList<>();
     }
 
     /**
@@ -21,14 +21,14 @@ public final class TaskList {
      * @return true if the operation was successful, false otherwise.
      */
     public boolean addAll(ArrayList<Task> arr) {
-        return this._taskList.addAll(arr);
+        return this.taskList.addAll(arr);
     }
 
     /**
      * Returns the task list.
      */
     public ArrayList<Task> getTaskList() {
-        return this._taskList;
+        return this.taskList;
     }
 
     /**
@@ -38,7 +38,7 @@ public final class TaskList {
      * @throws TerminatorException if an error occurred while writing to disk.
      */
     public void writeToDisk(Storage storage) throws TerminatorException {
-        storage.writeToDisk(this._taskList);
+        storage.writeToDisk(this.taskList);
     }
 
     /**
@@ -46,7 +46,7 @@ public final class TaskList {
      */
     public void printTasksRemaining() {
         String objectivesRemaining = "";
-        int n = this._taskList.size();
+        int n = this.taskList.size();
         if (n == 0) {
             objectivesRemaining = "No mission objectives specified";
         } else if (n == 1) {

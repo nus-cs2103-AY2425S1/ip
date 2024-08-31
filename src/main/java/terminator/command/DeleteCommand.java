@@ -1,22 +1,21 @@
 package terminator.command;
 
-import terminator.task.Task;
-
 import java.util.ArrayList;
+
+import terminator.task.Task;
 
 /**
  * Concrete class representing a command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
 
+    private static final String ERR_MSG = """
+            Index to delete cannot be empty.\n
+            Usage: delete <index>""";
+
     public DeleteCommand(String input) {
         super(input);
     }
-
-    private static final String ERR_MSG = """
-            Index to delete cannot be empty.
-            
-            Usage: delete <index>""";
 
     /**
      * Deletes a task from the given task list using the index specified by the user.

@@ -1,23 +1,22 @@
 package terminator.command;
 
+import java.util.ArrayList;
+
 import terminator.task.Task;
 import terminator.task.TodoTask;
-
-import java.util.ArrayList;
 
 /**
  * Concrete class representing a command to create a TodoTask.
  */
 public class TodoCommand extends Command {
 
+    private static final String ERR_MSG = """
+            Todo description cannot be empty.\n
+            Usage: todo <description>""";
+
     public TodoCommand(String input) {
         super(input);
     }
-
-    private static final String ERR_MSG = """
-            Todo description cannot be empty.
-            
-            Usage: todo <description>""";
 
     /**
      * Creates a new TodoTask with the given input and adds it to the task list.

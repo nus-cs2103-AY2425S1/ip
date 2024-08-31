@@ -1,22 +1,21 @@
 package terminator.command;
 
-import terminator.task.Task;
-
 import java.util.ArrayList;
+
+import terminator.task.Task;
 
 /**
  * Concrete class representing a command to unmark an item in the task list.
  */
 public class UnmarkCommand extends Command {
 
+    private static final String ERR_MSG = """
+            Index to unmark cannot be empty.\n
+            Usage: unmark <index>""";
+
     public UnmarkCommand(String input) {
         super(input);
     }
-
-    private static final String ERR_MSG = """
-            Index to unmark cannot be empty.
-            
-            Usage: unmark <index>""";
 
     /**
      * Marks a task in the given task list as incomplete.
@@ -26,7 +25,9 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(ArrayList<Task> todoList) throws TerminatorException {
-        if (input == null) throw new TerminatorException(ERR_MSG);
+        if (input == null) {
+            throw new TerminatorException(ERR_MSG);
+        }
         String trimmedInput = input.trim();
         try {
             int idx = Integer.parseInt(trimmedInput) - 1;

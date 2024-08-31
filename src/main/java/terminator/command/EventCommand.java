@@ -1,11 +1,11 @@
 package terminator.command;
 
-import terminator.task.EventTask;
-import terminator.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import terminator.task.EventTask;
+import terminator.task.Task;
 
 /**
  * Concrete class representing a command to create a EventTask.
@@ -13,8 +13,7 @@ import java.util.ArrayList;
 public class EventCommand extends Command {
 
     private static final String ERR_MSG = """
-            Event description cannot be empty.
-            
+            Event description cannot be empty.\n
             Usage: event <description> /from dd/MM/yyyy HH:mm /to dd/MM/yyyy HH:mm""";
 
     public EventCommand(String input) {

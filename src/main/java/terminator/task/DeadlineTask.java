@@ -10,6 +10,12 @@ public class DeadlineTask extends Task {
 
     private final LocalDateTime deadline;
 
+    /**
+     * Creates a new instance of a DeadlineTask with the given description and deadline date.
+     *
+     * @param description The description of the task.
+     * @param deadline The deadline to complete the task by.
+     */
     public DeadlineTask(String description, LocalDateTime deadline) {
         super(description, TaskType.DEADLINE);
         this.deadline = deadline;

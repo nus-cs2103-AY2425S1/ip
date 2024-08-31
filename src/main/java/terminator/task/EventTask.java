@@ -12,6 +12,13 @@ public class EventTask extends Task {
 
     private final LocalDateTime toDate;
 
+    /**
+     * Creates a new instance of an EventTask with a given description, start date and end date.
+     *
+     * @param description The description of the event.
+     * @param fromDate The start date and time.
+     * @param toDate The end date and time.
+     */
     public EventTask(String description, LocalDateTime fromDate, LocalDateTime toDate) {
         super(description, TaskType.EVENT);
         this.fromDate = fromDate;

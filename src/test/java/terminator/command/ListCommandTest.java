@@ -1,29 +1,29 @@
 package terminator.command;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-import terminator.task.Task;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import terminator.task.Task;
 
 public class ListCommandTest {
+
+    private static final String ERR_MSG = """
+            List command takes no arguments.\n
+            Usage: list""";
 
     private final PrintStream standardOut = System.out;
 
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-
-    private static final String ERR_MSG = """
-            List command takes no arguments.
-            
-            Usage: list""";
 
     @BeforeEach
     public void setUp() {

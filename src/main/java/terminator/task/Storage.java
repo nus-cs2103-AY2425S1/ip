@@ -1,12 +1,16 @@
 package terminator.task;
 
-import terminator.command.TerminatorException;
-
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import terminator.command.TerminatorException;
 
 /**
  * Class to handle read/write operations to the local disk. <br/>
@@ -83,12 +87,19 @@ public final class Storage {
                 }
 
                 // Parse task type
-                TaskType taskType =
-                        switch (data.charAt(0)) {
-                        case 'T' -> TaskType.TODO;
-                        case 'E' -> TaskType.EVENT;
-                        case 'D' -> TaskType.DEADLINE;
-                        default -> TaskType.UNKNOWN;
+                TaskType taskType;
+                switch (data.charAt(0)) {
+                case 'T':
+                    taskType = TaskType.TODO;
+                    break;
+                case 'E':
+                    taskType = TaskType.EVENT;
+                    break;
+                case 'D':
+                    taskType = TaskType.DEADLINE;
+                    break;
+                default:
+                    taskType = TaskType.UNKNOWN;
                 };
 
                 if (taskType == TaskType.UNKNOWN) {
@@ -105,13 +116,20 @@ public final class Storage {
 
                 // Parse task description
                 String desc = data.substring(4);
-                Task task =
-                        switch(taskType) {
-                        case TODO -> parseTodo(desc);
-                        case EVENT -> parseEvent(desc);
-                        case DEADLINE -> parseDeadline(desc);
-                        // We shouldn't reach this condition since we already checked the TaskType beforehand
-                        default -> null;
+                Task task = null;
+                switch(taskType) {
+                case TODO:
+                    parseTodo(desc);
+                    break;
+                case EVENT:
+                    parseEvent(desc);
+                    break;
+                case DEADLINE:
+                    parseDeadline(desc);
+                    break;
+                default:
+                    // We shouldn't reach this condition since we already checked the TaskType beforehand
+                    break;
                 };
 
                 // Update task status

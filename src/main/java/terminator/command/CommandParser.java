@@ -23,6 +23,9 @@ public class CommandParser {
     private final Pattern deletePattern;
     private final Pattern findPattern;
 
+    /**
+     * Creates a new instance of a CommandParser.
+     */
     public CommandParser() {
         this.listPattern = Pattern.compile("^list(\\s+" + ANY_WORDS + ")?$");
         this.markPattern = Pattern.compile("^mark(\\s+\\d+\\s*$)?");
@@ -56,7 +59,7 @@ public class CommandParser {
             return new EmptyCommand();
         } else if ((matcher = listPattern.matcher(input)).find()) {
             return new ListCommand(matcher.group(1));
-        }  else if ((matcher = markPattern.matcher(input)).find()) {
+        } else if ((matcher = markPattern.matcher(input)).find()) {
             return new MarkCommand(matcher.group(1));
         } else if ((matcher = unmarkPattern.matcher(input)).find()) {
             return new UnmarkCommand(matcher.group(1));

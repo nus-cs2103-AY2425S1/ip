@@ -1,8 +1,8 @@
 package terminator.command;
 
-import terminator.task.Task;
-
 import java.util.ArrayList;
+
+import terminator.task.Task;
 
 /**
  * Abstract base class to represent a command by the user.
