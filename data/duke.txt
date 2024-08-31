@@ -1,4 +1,2 @@
 T | X | fewe
-T | X |   
-T | X | hello
 D |   | hello  | 2020-10-20
