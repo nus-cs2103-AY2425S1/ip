@@ -1,4 +1,4 @@
-package maxine.task;
+package seedu.maxine.task;
 
 public class Deadline extends Task {
 

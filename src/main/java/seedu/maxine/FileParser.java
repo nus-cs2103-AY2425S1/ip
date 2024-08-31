@@ -1,19 +1,18 @@
-package maxine;
+package seedu.maxine;
 
-import maxine.exception.MaxineException;
-import maxine.task.Deadline;
-import maxine.task.Event;
-import maxine.task.Task;
-import maxine.task.Todo;
+import seedu.maxine.task.Deadline;
+import seedu.maxine.task.Event;
+import seedu.maxine.task.Task;
+import seedu.maxine.task.Todo;
 
-public class Parser {
+public class FileParser {
     
-    public Parser() {
+    public FileParser() {
         // nothing
     }
-    public Task parse(String string) throws MaxineException {
+    public Task parse(String string) {
         String[] input = string.split(" / ");
-
+        
         switch (input[0]) {
         case ("T"):
             Todo todo = new Todo(input[2]);
@@ -25,6 +24,6 @@ public class Parser {
             Event event = new Event(input[2], input[3], input[4]);
             return event;
         }
-        throw new MaxineException("No Task found!");
+        return null;
     }
 }

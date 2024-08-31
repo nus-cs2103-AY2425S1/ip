@@ -1,4 +1,4 @@
-package maxine.exception;
+package seedu.maxine.exception;
 
 public class MaxineException extends Exception {
     

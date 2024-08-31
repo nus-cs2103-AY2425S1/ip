@@ -1,18 +1,21 @@
-package maxine;
+package seedu.maxine;
 
-import maxine.exception.MaxineException;
-import maxine.task.Deadline;
-import maxine.task.Event;
-import maxine.task.Task;
-import maxine.task.Todo;
+import seedu.maxine.exception.MaxineException;
+import seedu.maxine.task.Deadline;
+import seedu.maxine.task.Event;
+import seedu.maxine.task.Task;
+import seedu.maxine.task.Todo;
+
 import java.util.Iterator;
 import java.util.ArrayList;
 
-public class TaskList implements Iterable<Task> {
+public class TaskList implements MaxineList {
     private ArrayList<Task> list;
+    private Storage storage;
     
-    public TaskList(ArrayList<Task> list) {
-        this.list = list;
+    public TaskList() {
+        Storage storage = new Storage("data/maxine.txt");
+        this.list = storage.load();
     }
 
     public void addTodo(String[] arr) {
@@ -103,8 +106,10 @@ public class TaskList implements Iterable<Task> {
         list.add(task);
     }
     
-    public void delete(Task task) {
+    public void delete(int key) {
+        Task task = list.get(key);
         task.delete();
+        list.remove(task);
     }
     
     public int size() {

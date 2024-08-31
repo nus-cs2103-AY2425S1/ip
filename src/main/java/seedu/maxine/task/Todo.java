@@ -1,4 +1,4 @@
-package maxine.task;
+package seedu.maxine.task;
 
 public class Todo extends Task {
 

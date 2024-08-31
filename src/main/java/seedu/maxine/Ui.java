@@ -1,6 +1,6 @@
-package maxine;
+package seedu.maxine;
 
-import maxine.task.Task;
+import seedu.maxine.task.Task;
 
 public class Ui {
     
@@ -9,7 +9,7 @@ public class Ui {
     }
     
     public void greet() {
-        System.out.println("Hi! Nice to meet you :) I am maxine.Maxine");
+        System.out.println("Hi! Nice to meet you :) I am Maxine");
     }
     
     public void goodbye() {
@@ -18,7 +18,7 @@ public class Ui {
     }
     
     public void delete(Task task) {
-        System.out.println("Deleting this maxine.task: " + task);
+        System.out.println("Deleting this task: " + task);
     }
     
     public void changeMark(Task task) {

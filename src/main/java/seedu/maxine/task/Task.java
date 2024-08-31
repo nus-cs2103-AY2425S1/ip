@@ -1,6 +1,6 @@
-package maxine.task;
+package seedu.maxine.task;
 
-import maxine.exception.MaxineException;
+import seedu.maxine.exception.MaxineException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -64,7 +64,7 @@ public class Task {
         return getStatusIcon() + description;
     }
 
-    public String dateTimeParser(String dateTime) throws MaxineException{
+    public String dateTimeParser(String dateTime) throws MaxineException {
         for (DateTimeFormatter formatter : FORMATS) {
             try {
                 // Check if the formatter pattern includes time
