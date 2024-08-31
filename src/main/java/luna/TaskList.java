@@ -116,9 +116,10 @@ public class TaskList {
      */
     public String find(String query) {
         String matched = "";
+        String queryCapitalised = query.toUpperCase();
 
         for (Task task : tasks) {
-            if (task.toString().substring(7).contains(query)) {
+            if (task.toString().substring(7).toUpperCase().contains(queryCapitalised)) {
                 matched += String.format("%s\n", task);
             }
         }

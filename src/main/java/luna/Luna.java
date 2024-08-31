@@ -33,15 +33,11 @@ public class Luna {
     public String run(String input) {
 
         try {
-            ui.showLine();
             Command command = Parser.parse(input);
             return command.execute(tasks, storage);
 
         } catch (LunaException e) {
-            ui.showError(e.getMessage());
             return e.getMessage();
-        } finally {
-            ui.showLine();
         }
     }
 
