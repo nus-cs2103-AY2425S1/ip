@@ -1,5 +1,7 @@
 package broski;
 
+import java.util.ArrayList;
+
 public class Ui {
     private static final String LINE = "_________________________________________";
 
@@ -54,6 +56,22 @@ public class Ui {
         System.out.println("Gotcha, I've removed this task:");
         System.out.println(temp);
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        printLine();
+    }
+
+    public void find(TaskList taskList, String reply) {
+        printLine();
+        String lookingFor = reply.replaceFirst("find ", "");
+        ArrayList<Task> tempList = new ArrayList<>();
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getDescription().contains(lookingFor)) {
+                tempList.add(taskList.get(i));
+            }
+        }
+        System.out.println("Here are the matching tasks in your list bro:");
+        for (int i = 1; i <= tempList.size(); i++) {
+            System.out.println(i + ". " + tempList.get(i - 1));
+        }
         printLine();
     }
 

@@ -35,6 +35,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    protected String getDescription() {
+        return this.description;
+    }
+
     public abstract String toStringSave();
 
     /**
