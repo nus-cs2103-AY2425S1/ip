@@ -16,7 +16,8 @@ import static momo.Momo.FILE_PATH;
  * they do not include the deleted task anymore
  */
 public class DeleteCommand {
-    public static void run(String input, TaskList tasks, Storage storage) throws InvalidCommandException, StorageException {
+    public static void run(String input, TaskList tasks, Storage storage) throws InvalidCommandException,
+            StorageException {
         try {
             int index = Integer.parseInt(input.substring(6).trim()) - 1;
 
@@ -39,8 +40,6 @@ public class DeleteCommand {
         }
 
     }
-
-
 
 
 }

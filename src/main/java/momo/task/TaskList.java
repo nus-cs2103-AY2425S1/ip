@@ -2,13 +2,7 @@ package momo.task;
 
 import momo.MomoException;
 import momo.Parser;
-import momo.command.CommandType;
-import momo.task.Deadline;
-import momo.task.Event;
-import momo.task.Task;
-import momo.task.Todo;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -24,8 +18,7 @@ public class TaskList {
     public TaskList(String fileText) {
         try {
             populateTaskList(fileText);
-        }
-        catch (MomoException e) {
+        } catch (MomoException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -39,6 +32,7 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the ArrayList
+     *
      * @return The int number of tasks in the ArrayList
      */
     public int getCount() {
@@ -61,9 +55,10 @@ public class TaskList {
 
     /**
      * Deletes specified task via index from the ArrayList
+     *
      * @param index Index of task to be deleted
      */
-    public  void deleteTask(int index)  {
+    public void deleteTask(int index) {
 
         list.remove(index);
     }
@@ -71,6 +66,7 @@ public class TaskList {
     /**
      * Populates the TaskList with all  the task strings inside the file
      * when the file is first loaded when the user boots up the program
+     *
      * @param input Refers to the string containing all tasks from the storage file
      * @throws MomoException thrown when file is corrupted
      */

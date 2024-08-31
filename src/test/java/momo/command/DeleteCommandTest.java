@@ -1,4 +1,5 @@
 package momo.command;
+
 import momo.InvalidCommandException;
 import momo.MomoException;
 import momo.StorageStub;
@@ -21,14 +22,15 @@ public class DeleteCommandTest {
     Task task1;
     Task task2;
     Task task3;
+
     @BeforeEach
     void setUp() {
-         tasks = new TasklistStub("");
-         storage = new StorageStub("");
+        tasks = new TasklistStub("");
+        storage = new StorageStub("");
 
-         task1 = new Todo("sample test1", false);
-         task2 = new Todo("sample test2", false);
-         task3 = new Todo("sample test3", false);
+        task1 = new Todo("sample test1", false);
+        task2 = new Todo("sample test2", false);
+        task3 = new Todo("sample test3", false);
 
         tasks.addTask(task1);
         tasks.addTask(task2);
@@ -51,20 +53,16 @@ public class DeleteCommandTest {
 
     @Test
     void testInvalidDeleteCommand() throws Exception {
-        Exception noNumberException = assertThrows(InvalidCommandException.class, () ->  DeleteCommand.run("delete eowid", tasks, storage));
+        Exception noNumberException = assertThrows(InvalidCommandException.class, () -> DeleteCommand.run("delete eowid", tasks, storage));
         String expectedMessage = "Watch out: You did not format your number properly...";
         assertTrue(noNumberException.getMessage().contains(expectedMessage));
 
-        Exception numberNotInListException = assertThrows(InvalidCommandException.class, () ->  DeleteCommand.run("delete 4", tasks, storage));
+        Exception numberNotInListException = assertThrows(InvalidCommandException.class, () -> DeleteCommand.run("delete 4", tasks, storage));
         expectedMessage = "You can only delete a number your task list contains";
         assertTrue(numberNotInListException.getMessage().contains(expectedMessage));
 
 
     }
-
-
-
-
 
 
 }

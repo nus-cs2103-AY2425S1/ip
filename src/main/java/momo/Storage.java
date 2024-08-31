@@ -51,8 +51,7 @@ public class Storage {
                         System.out.println("File and/or folder created successfully");
                     }
                 }
-            }
-            catch (IOException ioe) {
+            } catch (IOException ioe) {
                 System.out.println("Error in creating a file and folder ");
             }
 
@@ -66,7 +65,7 @@ public class Storage {
      * Appends task in file string format to the storage file, utilised when
      * todo/deadline/event tasks are added
      *
-     * @param filePath The file path to the file to be appended to
+     * @param filePath  The file path to the file to be appended to
      * @param textToAdd Task in file string format to be added
      * @throws IOException thrown when there are errors writing the string into the file
      */
@@ -82,7 +81,7 @@ public class Storage {
      * like mark/unmark/Delete
      *
      * @param filePath path to file which will be rewritten to
-     * @param list ArrayList containing all task objects from the TaskList
+     * @param list     ArrayList containing all task objects from the TaskList
      * @throws IOException thrown when there are errors writing the string into the file
      */
     public void RewriteTasksToFile(String filePath, ArrayList<Task> list) throws IOException {

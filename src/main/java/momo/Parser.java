@@ -1,12 +1,10 @@
 package momo;
 
-import momo.MomoException;
 import momo.command.CommandType;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 /**
  * Handles parsing and interpreting user inputs, namely the command type and dates,
@@ -16,10 +14,11 @@ public class Parser {
 
     /**
      * Parses user input string to determine the Command to be run
+     *
      * @param input User's input string
      * @return The corresponing {@link CommandType} based on the user's input
      * @throws InvalidCommandException thrown if user's command does not match any existing command words
-     * @throws EmptyCommandException thrown if user input is empty
+     * @throws EmptyCommandException   thrown if user input is empty
      */
     public static CommandType parseInput(String input) throws InvalidCommandException, EmptyCommandException {
 
@@ -50,7 +49,7 @@ public class Parser {
 
         }
 
-        if (input.startsWith("mark"))  {
+        if (input.startsWith("mark")) {
             return CommandType.MARK;
         }
 
@@ -75,6 +74,7 @@ public class Parser {
 
     /**
      * Parses a date string into a LocalDate object
+     *
      * @param input String input representing date
      * @return LocalDate object to represent date
      * @throws DateTimeException thrown if date input is not properly entered with a yyyy-mm-dd format
@@ -83,7 +83,8 @@ public class Parser {
         try {
             return LocalDate.parse(input);
         } catch (DateTimeException e) {
-            System.out.println("Your storage file seems to be corrupted. Consider deleting it or I might delete your existence.");
+            System.out.println("Your storage file seems to be corrupted. Consider deleting it or I might delete your " +
+                    "existence.");
             return null;
         }
     }

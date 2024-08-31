@@ -1,15 +1,7 @@
 package momo;
 
 import momo.command.*;
-
-import momo.task.Deadline;
-import momo.task.Event;
 import momo.task.TaskList;
-import momo.task.Todo;
-
-import java.io.IOException;
-import java.time.DateTimeException;
-import java.time.LocalDate;
 
 /**
  * Handles the main control flow of the chatbot program, responsible
@@ -18,7 +10,9 @@ import java.time.LocalDate;
  */
 public class Momo {
 
-    /** The file path where the task data is stored. */
+    /**
+     * The file path where the task data is stored.
+     */
     public static final String FILE_PATH = "data/momo.txt";
 
     private Storage storage;
@@ -38,11 +32,11 @@ public class Momo {
     }
 
     /**
-     *  Starts the main control loop of the chatbot program,
-     *  greeting the user then facilitating a continuous reading
-     *  of their input, triggering ui, task related commands or
-     *  reminders on properly formatting the input depending on user
-     *  input until the 'bye' command is triggered
+     * Starts the main control loop of the chatbot program,
+     * greeting the user then facilitating a continuous reading
+     * of their input, triggering ui, task related commands or
+     * reminders on properly formatting the input depending on user
+     * input until the 'bye' command is triggered
      */
     public void run() {
         ui.showGreeting();
@@ -72,7 +66,7 @@ public class Momo {
                         EventCommand.run(input, storage, tasks);
                     }
                 }
-            } catch (MomoException e){
+            } catch (MomoException e) {
                 System.out.println(e.getMessage());
             }
             input = ui.getUserInput();
@@ -81,6 +75,7 @@ public class Momo {
 
     /**
      * Main method which is the entry point to the chatbot program
+     *
      * @param args CLI arguments (not used)
      * @throws MomoException if unexpected chatbot related errors occur
      */

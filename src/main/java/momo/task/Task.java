@@ -1,12 +1,10 @@
 package momo.task;
 
-import java.util.ArrayList;
-
 /**
  * This class represents all task objects that have been created,
  * which have a {@code isComplete} property which can be toggled
  * on and off via the {@code markComplete} and {@code unmark} methods
- * */
+ */
 
 public class Task {
     String task;
@@ -16,6 +14,7 @@ public class Task {
         this.task = task;
         this.isComplete = isComplete;
     }
+
     public String getTask() {
         return this.task;
     }
@@ -40,6 +39,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return isComplete ? "[X] " + task  + " ": "[ ] " + task + " ";
+        return isComplete ? "[X] " + task + " " : "[ ] " + task + " ";
     }
 }

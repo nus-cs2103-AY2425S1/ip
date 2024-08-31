@@ -13,7 +13,8 @@ import momo.task.Todo;
  * If user input is not properly formatted it throws a {@link InvalidCommandException}
  */
 public class TodoCommand extends AddCommand {
-    public static void run(String input, Storage storage, TaskList tasks) throws InvalidCommandException, StorageException {
+    public static void run(String input, Storage storage, TaskList tasks) throws InvalidCommandException,
+            StorageException {
         String desc = input.substring(4).trim();
 
         if (desc.isEmpty()) {
@@ -23,7 +24,7 @@ public class TodoCommand extends AddCommand {
         Task todo = new Todo(desc, false);
 
         tasks.addTask(todo);
-        addToStorage(storage,todo);
+        addToStorage(storage, todo);
         printTaskAdded(todo);
         System.out.printf("Now you have %d task(s) in the list%n", tasks.getCount());
     }

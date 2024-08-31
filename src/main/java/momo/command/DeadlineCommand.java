@@ -16,7 +16,8 @@ import java.time.LocalDate;
  * If user input is not properly formatted it throws a {@link InvalidCommandException}
  */
 public class DeadlineCommand extends AddCommand {
-    public static void run(String input, Storage storage, TaskList tasks) throws InvalidCommandException, StorageException {
+    public static void run(String input, Storage storage, TaskList tasks) throws InvalidCommandException,
+            StorageException {
 
         try {
             String desc = input.substring(8).trim();
@@ -32,14 +33,15 @@ public class DeadlineCommand extends AddCommand {
             String by = desc.split("/by", 2)[1].trim();
             Task deadline = new Deadline(task, LocalDate.parse(by), false);
             tasks.addTask(deadline);
-            addToStorage(storage,deadline);
+            addToStorage(storage, deadline);
             printTaskAdded(deadline);
             System.out.printf("Now you have %d task(s) in the list%n", tasks.getCount());
 
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandException("You better format your deadline properly or else [REDACTED]");
         } catch (DateTimeException dte) {
-            throw new InvalidCommandException("You better format your deadline date in a valid YYYY-MM-DD format or else...");
+            throw new InvalidCommandException("You better format your deadline date in a valid YYYY-MM-DD format or " +
+                    "else...");
         }
     }
 }

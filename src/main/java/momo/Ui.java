@@ -1,9 +1,7 @@
 package momo;
 
-import momo.task.Task;
 import momo.task.TaskList;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -22,6 +20,7 @@ public class Ui {
 
     /**
      * Scans and returns user input string
+     *
      * @return Returns a String containing user input
      */
     public String getUserInput() {
@@ -49,7 +48,7 @@ public class Ui {
      */
     public void showFarewell() {
         String logo =
-                        "⣿⣿⣿⡉⢀⣾⣿⡟⣩⣭⣭⡈⠙⢿⣿⣿⣿⣿⣿⡿⣻⣿⣿⣿⣿⣿⣿⣿⡇⠄\n" +
+                "⣿⣿⣿⡉⢀⣾⣿⡟⣩⣭⣭⡈⠙⢿⣿⣿⣿⣿⣿⡿⣻⣿⣿⣿⣿⣿⣿⣿⡇⠄\n" +
                         "⣿⣿⡗⠄⣼⣿⣿⢸⡿⠉⠉⢻⡆⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢠⠄\n" +
                         "⣿⡻⠁⢠⣿⣿⣿⣦⡛⠢⠴⠛⠁⣸⣿⣿⣿⣿⡿⠛⢉⣉⣉⡙⢻⣿⣿⣗⠄⠄\n" +
                         "⠷⠁⠄⢰⣿⣿⣿⣷⣬⣭⣼⣷⣿⣿⣿⣿⣿⡏⢀⣾⠟⠛⢿⣿⣄⣿⣿⡏⠄⠄\n" +
@@ -62,14 +61,14 @@ public class Ui {
                         "⠄⠄⠎⠄⠄⣨⣿⣿⣿⣿⣿⣿⠋⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⡲⣿⣿⣿⣿";
 
         showHorizontalLine();
-        System.out.println("Farewell... for now. I'll be waiting for your return, taking refuge in your shadows. Rest well.... wħɨłɇ ɏøᵾ sŧɨłł ȼȺn\n" + logo);
+        System.out.println("Farewell... for now. I'll be waiting for your return, taking refuge in your shadows. Rest" +
+                " well.... wħɨłɇ ɏøᵾ sŧɨłł ȼȺn\n" + logo);
         showHorizontalLine();
         sc.close();
         System.exit(0);
 
 
     }
-
 
 
 }
