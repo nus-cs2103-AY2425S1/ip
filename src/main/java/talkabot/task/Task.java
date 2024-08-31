@@ -9,7 +9,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    private String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done talkabot.task with X
     }
 
