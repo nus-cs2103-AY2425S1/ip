@@ -16,45 +16,12 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> myList;
     private int noOfTask;
-    private static final String FILE_PATH = "./data/blue.txt";
-
 
     public TaskList() {
         this.myList = new ArrayList<>();
-        this.noOfTask = 0;
-        loadFromFile();
+        Storage.loadFromFile(myList);
+        this.noOfTask = myList.size();
     }
-
-
-    private void loadFromFile() {
-        File file = new File(FILE_PATH);
-        if (!file.exists()) {
-            return; // No file to load, just return
-        }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Task task = Task.fromFileString(line);
-                myList.add(task);
-                noOfTask++;
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred while loading from file: " + e.getMessage());
-        }
-    }
-
-    public void saveToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
-            for (Task task : myList) {
-                writer.write(task.toFileString());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving to file: " + e.getMessage());
-        }
-    }
-
 
     public void addToList(String input) throws EmptyDescriptionException, InputErrorException {
         Task task;
@@ -101,7 +68,7 @@ public class TaskList {
 
         myList.add(task);
         noOfTask++;
-        saveToFile(); // Save to file after adding a task
+        Storage.saveToFile(this.myList); // Save to file after adding a task
         System.out.println(task.toString());
     }
 
@@ -120,7 +87,7 @@ public class TaskList {
         System.out.println(currTask.toString());
         System.out.println("--------------------------------------------");
 
-        saveToFile();
+        Storage.saveToFile(this.myList);
     }
 
     public void unmark(int number) throws WrongNumberOfItemException {
@@ -135,7 +102,7 @@ public class TaskList {
         System.out.println(currTask.toString());
         System.out.println("--------------------------------------------");
 
-        saveToFile();
+        Storage.saveToFile(this.myList);
     }
 
     public void delete(int number) throws WrongNumberOfItemException {
@@ -152,7 +119,7 @@ public class TaskList {
         System.out.println(result);
         System.out.println("____________________________________________________________");
 
-        saveToFile();
+        Storage.saveToFile(myList);
     }
 
     public void printList() {
