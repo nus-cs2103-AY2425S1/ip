@@ -1,6 +1,19 @@
 package chobo;
 
+/**
+ * The type Parser.
+ */
 public class Parser {
+    /**
+     * Parse boolean.
+     *
+     * @param fullCommand the full command
+     * @param taskList    the task list
+     * @param ui          the ui
+     * @param storage     the storage
+     * @return the boolean
+     * @throws InputException the input exception
+     */
     public static boolean parse(String fullCommand, TaskList taskList, Ui ui, Storage storage) throws InputException {
         String[] input = fullCommand.split(" ", 2);
         String action = input[0];

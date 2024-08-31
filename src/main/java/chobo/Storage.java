@@ -5,12 +5,27 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * The type Storage.
+ */
 public class Storage {
     private final String filePath;
+
+    /**
+     * Instantiates a new Storage.
+     *
+     * @param filePath the file path
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Load tasks into array list.
+     *
+     * @return the array list
+     */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -48,6 +63,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Save tasks.
+     *
+     * @param tasks the tasks to be saved
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(filePath);

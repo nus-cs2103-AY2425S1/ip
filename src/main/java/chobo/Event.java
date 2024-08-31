@@ -2,6 +2,7 @@ package chobo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an event that starts at a specific date/time and ends at a specific date/time.
  * An chobo.Event object corresponds to an event in the Chobo chatbot.
@@ -11,6 +12,7 @@ public class Event extends Task{
     private String unformattedTo;
     private LocalDateTime from;
     private LocalDateTime to;
+
     /**
      * Creates a new chobo.Event task.
      *
