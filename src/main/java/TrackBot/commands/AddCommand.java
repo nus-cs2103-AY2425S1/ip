@@ -13,6 +13,11 @@ public class AddCommand extends Command {
         this.task = task;
     }
 
+
+    public Task getTask() {
+        return task;
+    }
+
     @Override
     public void execute(TrackList trackList, Ui ui, TrackBotStorage storage) throws TrackBotException {
         trackList.addToList(task);

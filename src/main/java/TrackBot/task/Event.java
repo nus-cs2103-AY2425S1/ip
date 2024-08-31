@@ -15,6 +15,14 @@ public class Event extends Task {
         this.to = Parser.checkDateFormat(to);
     }
 
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
     @Override
     public String toStorageFormat() {
         return "E | " + (isDone ? "1" : "0") + " | " + desc + " | " + from + " | " + to;

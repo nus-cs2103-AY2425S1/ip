@@ -1,6 +1,5 @@
 package TrackBot.task;
 
-import TrackBot.task.Task;
 import TrackBot.ui.Parser;
 
 public class Deadline extends Task {
@@ -12,6 +11,10 @@ public class Deadline extends Task {
         this.by = by;
         this.by = Parser.checkDateFormat(by);
 //        date = TrackBot.TrackBot.ui.Parser.checkDateFormat(by);
+    }
+
+    public String getBy() {
+        return by;
     }
     @Override
     public String toStorageFormat() {
