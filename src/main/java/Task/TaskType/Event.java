@@ -13,20 +13,35 @@ public class Event extends Task{
     LocalDate endDate;
     LocalTime endTime;
 
+    /**
+     * Constructs a new {@code deadline} task with the specified description and deadline
+     *
+     * @param description A description of the deadline task
+     * @param start date that the task needs to be finished by, given in {@code d/M/yyyy} format (e.g. 25/10/2015)
+     * @param end
+     */
     public Event(String description, String start, String end) {
         super(TaskType.EVENT, description);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String[] startArr = start.split(" ");
         startDate = LocalDate.parse(startArr[0], formatter);
         if (startArr.length == 2) {
-           startTime = LocalTime.parse(startArr[1]);
+            String timeStr = startArr[1];
+            if (timeStr.length() == 4) {
+                timeStr = timeStr.substring(0, 2) + ":" + timeStr.substring(2);
+            }
+           startTime = LocalTime.parse(timeStr);
         }
 
 
         String[] endArr = start.split(" ");
         endDate = LocalDate.parse(endArr[0], formatter);
         if (endArr.length == 2) {
-            endTime = LocalTime.parse(endArr[1]);
+            String timeStr = endArr[1];
+            if (timeStr.length() == 4) {
+                timeStr = timeStr.substring(0, 2) + ":" + timeStr.substring(2);
+            }
+            endTime = LocalTime.parse(timeStr);
         }
     }
 
