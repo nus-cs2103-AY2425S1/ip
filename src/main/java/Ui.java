@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -23,7 +22,7 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
-    public void showTaskAdded(ArrayList<Task> storedTasks) {
+    public void showTaskAdded(TaskList storedTasks) {
         System.out.println(SEPARATOR);
         System.out.println("Got it. I've added this task:");
         System.out.println("   " + storedTasks.get(storedTasks.size() - 1).toString());
@@ -31,11 +30,11 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
-    public void showRemoveMessage(ArrayList<Task> storedTasks, int index) {
+    public void showRemoveMessage(TaskList storedTasks, int index) {
         System.out.println(SEPARATOR);
         System.out.println("Noted. I've removed this task:");
         System.out.println("   " + storedTasks.get(index).toString());
-        storedTasks.remove(index);
+        storedTasks.deleteTask(index);
         System.out.println("Now you have " + storedTasks.size() + " tasks in the list.");
         System.out.println(SEPARATOR);
     }
@@ -51,14 +50,14 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
-    public void showMarkMessage(ArrayList<Task> storedTasks, int index) {
+    public void showMarkMessage(TaskList storedTasks, int index) {
         System.out.println(SEPARATOR);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("   " + storedTasks.get(index).toString());
         System.out.println(SEPARATOR);
     }
 
-    public void showUnmarkMessage(ArrayList<Task> storedTasks, int index) {
+    public void showUnmarkMessage(TaskList storedTasks, int index) {
         System.out.println(SEPARATOR);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("   " + storedTasks.get(index).toString());
