@@ -128,4 +128,83 @@ public class Parser {
             System.out.println("File not found");
         }
     }
+
+    public static void parseInput(TaskList taskList, String userInput, Storage storage) {
+        
+        String[] typeDetails = userInput.split(" ", 2);
+        String taskType = typeDetails[0];
+        if (taskType.equals("bye")) {
+            Ui.printBye();
+        } else if (taskType.equals("list")) {
+            Ui.printList(taskList);
+        } else if (taskType.equals("mark")) {
+            String taskNumber = typeDetails[1];
+            int num = Integer.parseInt(taskNumber) - 1;
+            taskList.markTaskAsDone(num);
+            storage.save();
+            Ui.printMarkAsDone(taskList, num);
+        } else if (taskType.equals("unmark")) {
+            String taskNumber = typeDetails[1];
+            int num = Integer.parseInt(taskNumber) - 1;
+            taskList.markTaskAsNotDone(num);
+            storage.save();
+            Ui.printMarkAsDone(taskList, num);
+        } else if(taskType.equals("delete")) {
+            String taskNumber = typeDetails[1];
+            int num = Integer.parseInt(taskNumber) - 1;
+            Task temp = taskList.getTask(num);
+            taskList.deleteTask(num);
+            storage.save();
+            Ui.printDelete(temp);
+        } else if (taskType.equals("todo")) {
+            ToDos newToDo = new ToDos(typeDetails[1]);
+            taskList.addTask(newToDo);
+            storage.save();
+            Ui.printAdded(newToDo);
+        } else if (taskType.equals("deadline")) {
+            String[] parts = typeDetails[1].split(" /by ");
+            String description = parts[0];
+            String[] dateTime = parts[1].split(" "); 
+
+            String[] dates = dateTime[0].split("/");
+            String day = String.format("%02d", Integer.parseInt(dates[0]));
+            String month = String.format("%02d", Integer.parseInt(dates[1]));
+            
+            String year = dates[2];
+
+            LocalDate date = LocalDate.parse(year + "-" + month + "-" + day);
+
+            LocalTime time = LocalTime.parse(dateTime[1], DateTimeFormatter.ofPattern("HHmm"));
+
+            Deadlines newDeadline = new Deadlines(description, date, time);
+            taskList.addTask(newDeadline);
+            storage.save();
+            Ui.printAdded(newDeadline);
+        } else if (taskType.equals("event")) {
+            String[] parts = typeDetails[1].split(" /from ");
+
+            String description = parts[0];
+            String times = parts[1];
+            String[] duration = times.split(" /to ");
+                    
+            String[] startDateTime = duration[0].split(" ");
+            String date = startDateTime[0];
+            String startTime = startDateTime[1];
+            String[] splitDate = date.split("/");
+            String day = String.format("%02d", Integer.parseInt(splitDate[0]));
+            String month = String.format("%02d", Integer.parseInt(splitDate[1]));
+            String year = splitDate[2];
+            LocalDate startDate = LocalDate.parse(year + "-" + month + "-" + day);
+            LocalTime start = LocalTime.parse(startTime, DateTimeFormatter.ofPattern("HHmm"));
+
+            String endTime = duration[1];
+            LocalTime end = LocalTime.parse(endTime, DateTimeFormatter.ofPattern("HHmm"));
+
+            Events newEvent = new Events(description, startDate, start, end);
+
+            taskList.addTask(newEvent);
+            storage.save();
+            Ui.printAdded(newEvent);
+        }
+    }   
 }
