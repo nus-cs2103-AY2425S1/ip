@@ -1,17 +1,26 @@
 package zbot;
 
 import java.time.format.DateTimeParseException;
+
+import zbot.task.Task;
 import zbot.task.Deadline;
 import zbot.task.Event;
-import zbot.task.Task;
 import zbot.task.ToDo;
 
+/**
+ * Represents the main class of the ZBot application.
+ */
 public class ZBot {
     private static final String SAVE_PATH = "./data/tasks.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for ZBot.
+     *
+     * @param filepath Path of the file to store tasks.
+     */
     public ZBot(String filepath) {
         ui = new Ui();
         storage = new Storage(SAVE_PATH);
@@ -23,6 +32,15 @@ public class ZBot {
         }
     }
 
+    public static void main(String[] args) {
+        new ZBot(SAVE_PATH).run();
+    }
+
+    /**
+     * Runs the ZBot application.
+     * 
+     * Reads user input and processes it until the user types "bye".
+     */
     public void run() {
         ui.intro();
         storage.createFileIfNotExists();
@@ -35,10 +53,13 @@ public class ZBot {
         ui.outro();
     }
 
-    public static void main(String[] args) {
-        new ZBot(SAVE_PATH).run();
-    }
-
+    /**
+     * Processes the user input.
+     * 
+     * @param input   User input.
+     * @param ui      User interface of the chatbot.
+     * @param storage Storage of tasks.
+     */
     public void processInput(String input, Ui ui, Storage storage) {
         if (input.equals("list")) {
             listTasks();
@@ -63,6 +84,12 @@ public class ZBot {
         }
     }
 
+    /**
+     * Adds a task to the task list.
+     * 
+     * @param input User input.
+     * @param ui    User interface of the chatbot.
+     */
     public void addTask(String input, Ui ui) {
         Task task;
         String[] inputParts = input.split(" ", 2);
@@ -91,6 +118,9 @@ public class ZBot {
         }
     }
 
+    /**
+     * Lists all tasks in the task list.
+     */
     public void listTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -99,6 +129,12 @@ public class ZBot {
         System.out.println();
     }
 
+    /**
+     * Marks a task as done.
+     * 
+     * @param input User input.
+     * @param ui    User interface of the chatbot.
+     */
     public void markTask(String input, Ui ui) {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]);
@@ -109,6 +145,12 @@ public class ZBot {
         }
     }
 
+    /**
+     * Marks a task as not done.
+     * 
+     * @param input User input.
+     * @param ui    User interface of the chatbot.
+     */
     public void unmarkTask(String input, Ui ui) {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]);
@@ -119,6 +161,12 @@ public class ZBot {
         }
     }
 
+    /**
+     * Deletes a task from the task list.
+     * 
+     * @param input User input.
+     * @param ui    User interface of the chatbot.
+     */
     public void deleteTask(String input, Ui ui) {
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]);
