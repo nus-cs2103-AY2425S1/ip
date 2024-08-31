@@ -12,7 +12,6 @@ import java.util.Scanner;
 /**
  * Main class of the MortalReminder App.
  */
-
 public class MortalReminder {
 
     private TaskList taskList = new TaskList();
@@ -21,7 +20,7 @@ public class MortalReminder {
      * Starts the MortalReminder App.
      * If the full app with its dependent classes is not available, the app will not start.
      *
-     * @param args
+     * @param args Command Line parameters passed into the program (not used)
      */
     public static void main(String[] args) {
         MortalReminder mortalReminder = new MortalReminder();
