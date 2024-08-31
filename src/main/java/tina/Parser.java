@@ -1,13 +1,14 @@
 package tina;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import tina.task.Deadline;
 import tina.task.Event;
 import tina.task.Task;
 import tina.task.Todo;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * The <code>Parser</code> class handles the parsing of user input commands and task data.
@@ -28,14 +29,12 @@ public class Parser {
             if (input.startsWith("todo")) {
                 String des = input.substring(5);
                 return tasks.addTask(new Todo(des));
-            }
-            else if (input.startsWith("deadline")) {
+            } else if (input.startsWith("deadline")) {
                 int byIdx = input.indexOf("/by");
                 String des = input.substring(9, byIdx - 1);
                 String end = input.substring(byIdx + 4);
                 return tasks.addTask(new Deadline(des, end));
-            }
-            else if (input.startsWith("event")) {
+            } else if (input.startsWith("event")) {
                 int fromIdx = input.indexOf("/from");
                 int toIdx = input.indexOf("/to");
                 String des = input.substring(6, fromIdx - 1);
@@ -93,23 +92,23 @@ public class Parser {
     public static Task parseLine(String input) {
         char type = input.charAt(0);
         boolean isMark = input.charAt(2) == '1';
-        switch(type) {
-            case 'T':
-                String desT = input.substring(4);
-                return new Todo(desT, isMark);
-            case 'D':
-                String[] parts = input.substring(4).split(" \\| ");
-                String desD = parts[0];
-                String endD = parts[1];
-                return new Deadline(desD, isMark, endD);
-            case 'E':
-                String[] partsE = input.substring(4).split(" \\| ");
-                String desE = partsE[0];
-                String start = partsE[1];
-                String end = partsE[2];
-                return new Event(desE, isMark, start, end);
-            default:
-                throw new TinaException("Invalid task type: " + type);
+        switch (type) {
+        case 'T':
+            String desT = input.substring(4);
+            return new Todo(desT, isMark);
+        case 'D':
+            String[] parts = input.substring(4).split(" \\| ");
+            String desD = parts[0];
+            String endD = parts[1];
+            return new Deadline(desD, isMark, endD);
+        case 'E':
+            String[] partsE = input.substring(4).split(" \\| ");
+            String desE = partsE[0];
+            String start = partsE[1];
+            String end = partsE[2];
+            return new Event(desE, isMark, start, end);
+        default:
+            throw new TinaException("Invalid task type: " + type);
         }
     }
 
