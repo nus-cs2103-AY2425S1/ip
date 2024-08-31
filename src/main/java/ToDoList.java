@@ -9,12 +9,10 @@ import java.util.Scanner;
 
 public class ToDoList {
     private ArrayList<Task> toDoList = new ArrayList<>();
-    private static final String FILE_PATH = "./data/edith.txt";
-    private static final File DIRECTORY = new File("./data");
 
     public void add(Task task) {
         toDoList.add(task);
-        saveTasks();
+        Storage.saveTasks(toDoList);
     }
 
     public void mark(int taskNumber) throws InvalidTaskNumberException {
@@ -22,7 +20,7 @@ public class ToDoList {
             throw new InvalidTaskNumberException();
         }
         toDoList.get(taskNumber - 1).check();
-        saveTasks();
+        Storage.saveTasks(toDoList);
     }
 
     public void unmark(int taskNumber) throws InvalidTaskNumberException {
@@ -30,7 +28,7 @@ public class ToDoList {
             throw new InvalidTaskNumberException();
         }
         toDoList.get(taskNumber - 1).uncheck();
-        saveTasks();
+        Storage.saveTasks(toDoList);
     }
 
     public String getTask(int taskNumber) throws InvalidTaskNumberException {
@@ -49,56 +47,7 @@ public class ToDoList {
             throw new InvalidTaskNumberException();
         }
         toDoList.remove(taskNumber - 1);
-        saveTasks();
-    }
-
-    public void saveTasks() {
-        if (!DIRECTORY.exists()) {
-            DIRECTORY.mkdirs();
-        }
-        try (FileWriter writer = new FileWriter(FILE_PATH)) {
-            for (Task task : toDoList) {
-                writer.write(task.toFileFormat() + System.lineSeparator());
-            }
-        } catch (IOException e) {
-            System.out.println("oops! an error occurred while saving tasks: " + e.getMessage());
-        }
-    }
-
-    public void loadTasks() {
-        try (Scanner scanner = new Scanner(new File(FILE_PATH))) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                List<String> properties = List.of(line.split(" \\| "));
-                if (Objects.equals(properties.get(0), "T")) {
-                    ToDoTask task = new ToDoTask(properties.get(2));
-                    if (Objects.equals(properties.get(1), "1")) {
-                        task.check();
-                    }
-                    toDoList.add(task);
-                }
-                else if (Objects.equals(properties.get(0), "D")) {
-                    DeadlineTask task = new DeadlineTask(properties.get(2), properties.get(3));
-                    if (Objects.equals(properties.get(1), "1")) {
-                        task.check();
-                    }
-                    toDoList.add(task);
-                }
-                else if (Objects.equals(properties.get(0), "E")){
-                    EventTask task = new EventTask(properties.get(2), properties.get(3), properties.get(4));
-                    if (Objects.equals(properties.get(1), "1")) {
-                        task.check();
-                    }
-                    toDoList.add(task);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println(" psa: you currently do not have the file edith.txt under the data directory. i'll create" +
-                    "one for you right now!");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(" oops!!! there's something wrong with edith.txt's format... please check it! for now," +
-                    "i will remove the tasks that have formatting issues.");
-        }
+        Storage.saveTasks(toDoList);
     }
 
     @Override
