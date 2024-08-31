@@ -2,6 +2,12 @@ package colby;
 
 import java.util.Objects;
 
+
+/**
+ * Class that represents deadline tasks
+ * description refers to what the task is about
+ * end is the deadline time/date for the task
+ */
 public class Deadline extends Task {
     private final String end;
 
@@ -10,7 +16,11 @@ public class Deadline extends Task {
         this.end = end;
     }
 
-
+    /**
+     * Returns a string depiction of the task with the type shown as "[D]", followed by whether the
+     * task is marked as done or not, the description of the task, and the deadline
+     * @return string of the deadline task with its details
+     */
     @Override
     public String toString() {
         String formattedEnd = formattedEnd = changeDateTime(end);
