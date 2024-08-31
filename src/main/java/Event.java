@@ -9,6 +9,15 @@ public class Event extends Task {
     }
 
     @Override
+    public String toStorageString() {
+        if (this.isDone()) {
+            return "E | 1 | " + this.getDescription() + " | " + this.from + " | " + this.to;
+        } else {
+            return "E | 0 | " + this.getDescription() + " | " + this.from + " | " + this.to;
+        }
+    }
+
+    @Override
     public String toString() {
         return super.toString() + " (from: " + from + " to: " + to + ")";
     }

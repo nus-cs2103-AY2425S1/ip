@@ -1,13 +1,25 @@
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
 public class TaskManager {
     private int taskCount;
-    private ArrayList<Task> tasks;
+    private List<Task> tasks;
+    private Storage storage;
     private boolean taskStatus;
-    public TaskManager() {
+    public TaskManager(Storage storage) {
         tasks = new ArrayList<>();
+        this.storage = storage;
+
+        try {
+            this.tasks = storage.loadTaskFromFile();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
     }
     public void addTask(Task task) {
         tasks.add(task);
+        saveTasks();
         System.out.println("____________________________________________________________");
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + task);
@@ -51,6 +63,14 @@ public class TaskManager {
 
     public int checkSize() {
         return tasks.size();
+    }
+
+    private void saveTasks() {
+        try {
+            storage.saveTasksToFile(tasks);
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
     }
 
     public String checkStatus() {

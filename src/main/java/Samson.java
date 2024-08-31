@@ -1,9 +1,13 @@
+import java.io.IOException;
 import java.util.Scanner;
 public class Samson {
-    public static void main(String[] args) throws SamException {
+    public static void main(String[] args) throws SamException, IOException {
         final String chatBoxName = "Samson";
         Greeting greeting = new Greeting(chatBoxName);
-        TaskManager taskManager =  new TaskManager();
+
+        String filePath = "./data/samson.txt";
+        Storage storage = new Storage(filePath);
+        TaskManager taskManager =  new TaskManager(storage);
 
         greeting.greet();
 
