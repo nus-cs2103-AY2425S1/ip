@@ -70,7 +70,7 @@ public class TaskList {
      * @param desc  The description of the task.
      * @param args  Additional arguments for DEADLINE or EVENT tasks (e.g., due date, start and end times).
      */
-    public void addTask(ArrayList<Task> tasks, TaskType type, String desc, LocalDateTime... args) {
+    public void addTask(ArrayList<Task> tasks, TaskType type, String desc, LocalDateTime... args) { // Use var-args here
         Task newTask = switch (type) {
             case TODO -> new ToDo(desc);
             case DEADLINE -> new Deadline(desc, args[0]);
@@ -153,7 +153,7 @@ public class TaskList {
      * @param desc  The description of the task.
      * @param args  Additional arguments for DEADLINE or EVENT tasks (e.g., due date, start and end times).
      */
-    public String addTaskUI(ArrayList<Task> tasks, TaskType type, String desc, LocalDateTime... args) {
+    public String addTaskUI(ArrayList<Task> tasks, TaskType type, String desc, LocalDateTime... args) { // Use var-args here
         Task newTask = switch (type) {
             case TODO -> new ToDo(desc);
             case DEADLINE -> new Deadline(desc, args[0]);
