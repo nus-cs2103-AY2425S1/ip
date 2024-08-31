@@ -2,15 +2,19 @@ package broski;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class that holds functionality for tasks with deadline.
+ */
 public class Deadline extends Task {
     protected LocalDateTime by;
 
     private final DateTimeParser dateTimeParser = new DateTimeParser();
 
     /**
-     * Constructor for broski.Deadline class.
-     * @param description the description of the task
-     * @param by the deadline of the task
+     * Constructs a new task that has a deadline.
+     * @param description description of the task
+     * @param by deadline of the task
+     * @throws InvalidDateTimeException if by parameter is null due to invalid user input
      */
     public Deadline(String description, LocalDateTime by) throws InvalidDateTimeException {
         super(description);
@@ -27,10 +31,6 @@ public class Deadline extends Task {
                 + " | " + this.by;
     }
 
-    /**
-     * Returns a string representation of the task.
-     * @return task description with status and deadline
-     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by " + this.dateTimeParser.formatOutput(this.by) + ")";

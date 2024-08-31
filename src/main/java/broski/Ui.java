@@ -1,5 +1,8 @@
 package broski;
 
+/**
+ * Class that handles output such as println.
+ */
 public class Ui {
     private static final String LINE = "_________________________________________";
 
@@ -7,6 +10,9 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Greets the user.
+     */
     public void greeting() {
         printLine();
         System.out.println("Wassup! I'm Broski!");
@@ -14,12 +20,19 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Says bye to the user.
+     */
     public void exit() {
         printLine();
         System.out.println("Bye, bro. See ya around!");
         printLine();
     }
 
+    /**
+     * Displays the entire list to the user.
+     * @param taskList stores all prior task input.
+     */
     public void list(TaskList taskList) {
         printLine();
         for (int i = 1; i <= taskList.size(); i++) {
@@ -28,6 +41,12 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Informs the user that the task has been marked as done.
+     * @param taskList stores all prior task input.
+     * @param parser parse user input.
+     * @param reply user input.
+     */
     public void mark(TaskList taskList, Parser parser, String reply) {
         printLine();
         int i = parser.parseIndex(reply);
@@ -37,6 +56,12 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Informs the user that the task has been marked as incomplete.
+     * @param taskList stores all prior task input.
+     * @param parser parse user input.
+     * @param reply user input.
+     */
     public void unmark(TaskList taskList, Parser parser, String reply) {
         printLine();
         int i = parser.parseIndex(reply);
@@ -46,6 +71,12 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Informs the user that the task has been deleted.
+     * @param taskList stores all prior task input.
+     * @param parser parse user input.
+     * @param reply user input.
+     */
     public void delete(TaskList taskList, Parser parser, String reply) {
         printLine();
         int i = parser.parseIndex(reply);
@@ -57,6 +88,17 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Main response towards the user regarding the 3 tasks.
+     * @param taskList stores all prior task input.
+     * @param parser parse user input.
+     * @param reply user input.
+     * @param dateTimeParser parse date and time.
+     * @throws TodoException if there are todo input errors.
+     * @throws DeadlineException if there are deadline input errors.
+     * @throws EventException if there are event input errors.
+     * @throws WrongInputException if there is invalid input.
+     */
     public void mainResponse(
             TaskList taskList, Parser parser, String reply,
             DateTimeParser dateTimeParser) throws TodoException, DeadlineException,
@@ -105,29 +147,44 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Bot's response to todo-related input errors.
+     */
     public void todoException() {
         System.out.println("Hey, your task description is empty bro.");
         printLine();
     }
 
+    /**
+     * Bot's response to deadline-related input errors.
+     */
     public void deadlineException() {
         System.out.println("Hey, your task description"
                 + " is either empty or your deadline is missing/wonky bro.");
         printLine();
     }
 
+    /**
+     * Bot's response to event-related input errors.
+     */
     public void eventException() {
         System.out.println("Hey, your task description"
                 + " is either empty or your duration is missing/wonky bro.");
         printLine();
     }
 
+    /**
+     * Bot's response to input errors that cannot be understood.
+     */
     public void wrongInputException() {
         System.out.println("I'm sorry but I can't understand you bro."
                 + " Use todo, deadline or event please!");
         printLine();
     }
 
+    /**
+     * Bot's response to date/time input errors.
+     */
     public void invalidDateTimeException() {
         System.out.println("Invalid date/time format. Please use dd/MM/yyyy HHmm format.");
         printLine();
