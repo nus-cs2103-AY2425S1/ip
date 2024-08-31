@@ -12,7 +12,7 @@ public class Storage {
     private static final Path FOLDER_PATH = Paths.get(HOME, "Winner");
     private static final Path TASKLIST_PATH = Paths.get(HOME, "Winner", "tasklist.txt");
 
-    private static void checkAndCreateFile() { //Storage
+    public static void checkAndCreateFile() { //Storage
         try {
             if (Files.exists(FOLDER_PATH)) {
                 Files.createFile(TASKLIST_PATH);
@@ -25,7 +25,7 @@ public class Storage {
         }
     }
 
-    private static void loadTasks(ArrayList<Task> tasks) { //Storage
+    public static void loadTasks(ArrayList<Task> tasks) { //Storage
         try (BufferedReader br = Files.newBufferedReader(TASKLIST_PATH)) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -63,7 +63,7 @@ public class Storage {
         }
     }
 
-    private static void saveTasks(ArrayList<Task> tasks) { //Storage
+    public static void saveTasks(ArrayList<Task> tasks) { //Storage
         try (BufferedWriter bw = Files.newBufferedWriter(TASKLIST_PATH)) {
             for (Task i : tasks) {
                 String description = i.description;

@@ -4,14 +4,14 @@ public class Ui {
 
     }
 
-    public static String applyTemplate(String msg) {
-        return ("-".repeat(100) + "\n"
+    public static void applyTemplate(String msg) {
+        System.out.println(("-".repeat(100) + "\n"
                 + msg + "\n"
-                + "-".repeat(100)).indent(10);
+                + "-".repeat(100)).indent(10));
     }
 
-    public static void hiAgain() {
-        System.out.println(applyTemplate("hi!"));
+    public static String hiAgain() {
+        return "hi!";
     }
 
     public static void winnerSaysHi() {
