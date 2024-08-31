@@ -53,9 +53,17 @@ public class MortalReminderWindow extends AnchorPane {
         String response = processor.handleCommand(command, taskList);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, mortalReminderImage)
+                DialogBox.getMortalReminderDialog(response, mortalReminderImage)
         );
         userInput.clear();
+    }
+
+    /**
+     * Displays the startup message to be used by the chatbot.
+     */
+    public void onStartUp() {
+        String welcome = mortalReminder.welcome();
+        dialogContainer.getChildren().add(DialogBox.getMortalReminderDialog(welcome, mortalReminderImage));
     }
 }
 

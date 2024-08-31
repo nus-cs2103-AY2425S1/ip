@@ -20,18 +20,7 @@ public class FormattedPrinting {
      * @param message output message from chatbot to be printed out to the user
      */
     public static String getResponse(String message) {
-        String indentation = "   ";
-        String separatorLine = indentation + "______________________________________________________";
-        StringBuilder outputMessage = new StringBuilder(separatorLine);
-        String[] messageLines = message.split("\n");
-        for (String line : messageLines) {
-            outputMessage.append("\n")
-                    .append(indentation)
-                    .append(line);
-        }
-        outputMessage.append("\n")
-                .append(separatorLine);
-        return outputMessage.toString();
+        return message;
     }
 
     /**

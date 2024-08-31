@@ -14,13 +14,14 @@ public class MortalReminder {
 
     private TaskList taskList = new TaskList();
 
-    private String welcome() {
+    /**
+     * This method loads all tasks from storage and greets the user.
+     *
+     * @return Welcome message with initial greeting to the user.
+     */
+    public String welcome() {
         this.taskList = Storage.loadTaskListFromFile();
         return FormattedPrinting.welcome();
-    }
-
-    private String goodbye() {
-        return FormattedPrinting.goodbye();
     }
 
     public Processor getProcessor() {

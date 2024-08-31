@@ -29,12 +29,8 @@ public class TaskList {
      * @param index the index of the task to retrieve.
      * @return the {@link Task} at the specified index, or {@code null} if the index is invalid.
      */
-    public Task getTask(int index) {
+    public Task getTask(int index) throws IndexOutOfBoundsException {
         return this.taskList.get(index);
-    }
-
-    public ArrayList<Task> getTaskList() {
-        return this.taskList;
     }
 
     public boolean isEmpty() {

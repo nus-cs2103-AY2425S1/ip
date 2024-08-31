@@ -16,6 +16,7 @@ public class Main extends Application {
 
     private MortalReminder mortalReminder = new MortalReminder();
 
+    // this method was slightly modified using chatGPT
     @Override
     public void start(Stage stage) {
         try {
@@ -23,7 +24,12 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MortalReminderWindow>getController().setMortalReminder(mortalReminder);
+            stage.setTitle("Mortal Reminder");
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
+            MortalReminderWindow controller = fxmlLoader.<MortalReminderWindow>getController();
+            controller.setMortalReminder(mortalReminder);
+            controller.onStartUp();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
