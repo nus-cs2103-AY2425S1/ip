@@ -1,5 +1,7 @@
 package bob.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class TaskTest {
     public void TaskConstructorTest() {
         Task task = new Task("description");

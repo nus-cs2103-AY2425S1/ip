@@ -1,16 +1,16 @@
 package bob;
 
-import bob.task.Deadline;
-import bob.task.Event;
-import bob.task.Task;
-import bob.task.Todo;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Locale;
+
+import bob.task.Deadline;
+import bob.task.Event;
+import bob.task.Task;
+import bob.task.Todo;
 
 class Parser {
 
