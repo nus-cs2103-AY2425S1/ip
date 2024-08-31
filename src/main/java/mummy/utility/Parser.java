@@ -30,4 +30,12 @@ public class Parser {
 
         return tokens;
     }
+
+    public static int parseIntOrDefault(String s, int defaultValue) {
+        try {
+            return Integer.parseInt(s);
+        } catch (NumberFormatException exception) {
+            return defaultValue;
+        }
+    }
 }

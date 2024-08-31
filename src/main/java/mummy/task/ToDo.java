@@ -11,18 +11,8 @@ public class ToDo extends Task {
     }
 
     @Override
-    public ToDo setAsDone() {
-        return new ToDo(this.getDescription(), true);
-    }
-
-    @Override
-    public ToDo setAsUndone() {
-        return new ToDo(this.getDescription(), false);
-    }
-
-    @Override
     public String toFileRecord() {
-        return String.format("T | %s", this.getDescription());
+        return String.format("T | %d | %s", this.isDone() ? 1 : 0, this.getDescription());
     }
 
     @Override

@@ -1,10 +1,12 @@
 package mummy.ui;
 
+import java.io.IOException;
+
+import mummy.command.Command;
 import mummy.task.TaskList;
+import mummy.utility.Parser;
 import mummy.utility.Storage;
 
-import java.io.IOException;
-import java.util.Scanner;
 
 public class Mummy {
     private static final String LOGO = " __  __\n"
@@ -31,12 +33,26 @@ public class Mummy {
             this.taskList = new TaskList();
         }
 
-        this.ui = new Ui(LOGO, this.taskList, this.storage);
+        this.ui = new Ui(LOGO);
     }
 
     private void run() {
-        this.ui.greet();
-        this.ui.listen(new Scanner(System.in));
+        ui.showWelcome();
+
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine(); // show the divider line ("_______")
+                Command command = Command.of(Parser.parse(fullCommand));
+                command.execute(this.taskList, this.ui, this.storage);
+                isExit = command.isExit();
+            } catch (MummyException exception) {
+                ui.showError(exception.getMessage());
+            } finally {
+                ui.showLine();
+            }
+        }
     }
 
     public static void main(String[] args) {

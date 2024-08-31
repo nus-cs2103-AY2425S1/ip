@@ -4,7 +4,7 @@ package mummy.task;
 public abstract class Task {
     private final String description;
 
-    private final boolean isDone;
+    private boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -16,11 +16,15 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
-    public abstract Task setAsDone();
-
-    public abstract Task setAsUndone();
-
     public abstract String toFileRecord();
+
+    public void setAsDone() {
+        this.isDone = true;
+    };
+
+    public void setAsUndone() {
+        this.isDone = false;
+    };
 
     public boolean isDone() {
         return this.isDone;

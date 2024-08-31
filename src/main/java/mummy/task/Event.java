@@ -2,7 +2,9 @@ package mummy.task;
 
 
 public class Event extends Task {
-    private final String from, to;
+    private final String from;
+
+    private final String to;
 
     public Event(String description, String from, String to) {
         super(description);
@@ -17,19 +19,9 @@ public class Event extends Task {
     }
 
     @Override
-    public Event setAsDone() {
-        return new Event(this.getDescription(), true, this.getFrom(), this.getTo());
-    }
-
-    @Override
-    public Event setAsUndone() {
-        return new Event(this.getDescription(), false, this.getFrom(), this.getTo());
-    }
-
-    @Override
     public String toFileRecord() {
-        return String.format("E | %s | %s | %s", this.getDescription(),
-                this.getFrom(), this.getTo());
+        return String.format("E | %d | %s | %s | %s", this.isDone() ? 1 : 0,
+                this.getDescription(), this.getFrom(), this.getTo());
     }
 
     public String getFrom() {

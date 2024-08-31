@@ -19,7 +19,6 @@ public class TaskList {
         this.tasks = parseLines(lines);
     }
 
-
     public Task get(int index) throws TaskListException {
         // index starts from 1
         try {
@@ -43,7 +42,7 @@ public class TaskList {
 
     public void markTask(int index) throws TaskListException {
         try {
-            this.tasks.set(index - 1, this.tasks.get(index - 1).setAsDone());
+            this.tasks.get(index - 1).setAsDone();
         } catch (IndexOutOfBoundsException exception) {
             throw new TaskListException("No such item");
         }
@@ -51,7 +50,7 @@ public class TaskList {
 
     public void unmarkTask(int index) throws TaskListException {
         try {
-            this.tasks.set(index - 1, this.tasks.get(index - 1).setAsUndone());
+            this.tasks.get(index - 1).setAsUndone();
         } catch (IndexOutOfBoundsException exception) {
             throw new TaskListException("No such item");
         }
@@ -63,10 +62,13 @@ public class TaskList {
 
     @Override
     public String toString() {
-        return IntStream.range(0, tasks.size())
+        return IntStream.range(0, this.tasks.size())
                 .mapToObj(i -> (i + 1) + ". " + this.tasks.get(i))
-                .reduce(LABEL + "\n",
-                        (acc, x) -> acc + x + "\n");
+                .reduce(
+                        new StringBuilder(LABEL).append("\n"),
+                        (acc, x) -> acc.append(x).append("\n"),
+                        StringBuilder::append
+                ).toString();
     }
 
     public List<String> toFileRecords() {
@@ -80,11 +82,11 @@ public class TaskList {
                     try {
                         switch (tokens[0]) {
                         case "T":
-                            return Stream.of(new ToDo(tokens[1]));
+                            return Stream.of(new ToDo(tokens[2], tokens[1].equals("1")));
                         case "D":
-                            return Stream.of(new Deadline(tokens[1], tokens[2]));
+                            return Stream.of(new Deadline(tokens[2], tokens[1].equals("1"), tokens[3]));
                         case "E":
-                            return Stream.of(new Event(tokens[1], tokens[2], tokens[3]));
+                            return Stream.of(new Event(tokens[2], tokens[1].equals("1"),tokens[3], tokens[4]));
                         default:
                             return Stream.of();
                         }
