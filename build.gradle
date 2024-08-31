@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("sumode.SumoDE")
+    mainClass.set("sumode.Launcher") //remember to change back
 }
 
 shadowJar {

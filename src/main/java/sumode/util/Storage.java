@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import sumode.task.Task;
+import sumode.ui.Ui;
 
 /**
  * In charge of saving/loading to the file path.

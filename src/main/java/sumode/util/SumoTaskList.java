@@ -11,6 +11,7 @@ import sumode.exception.NonExistentTaskException;
 import sumode.exception.UnknownCommandException;
 import sumode.exception.WrongSyntaxForCommandException;
 import sumode.task.Task;
+import sumode.ui.Ui;
 
 /**
  * Stores all tasks.
