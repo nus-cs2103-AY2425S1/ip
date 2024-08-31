@@ -31,6 +31,16 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+
+    /**
+     * Returns the description of the task
+     *
+     * @return the body of the {@code Task}
+     */
+    public String getBody() {
+        return body;
+    }
+
     /**
      * Marks the task as done.
      *

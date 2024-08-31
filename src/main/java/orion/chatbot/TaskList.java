@@ -120,4 +120,23 @@ public class TaskList {
         }
         return savedTaskDescriptions;
     }
+
+    /**
+     * Retrieves a list of tasks that contain the specified keyword in their body.
+     * The search is case-insensitive.
+     *
+     * @param keyword the keyword to search for within the tasks' bodies
+     * @return a list of {@link Task} objects whose body contains the keyword
+     */
+    public List<String> getMatchingTasks(String keyword) {
+        List<String> matchingTasks = new ArrayList<>();
+        int counter = 0;
+        for (Task task : this.tasks) {
+            if (task.getBody().toLowerCase().contains(keyword.toLowerCase())) {
+                String taskDescription = String.format("%d. %s", ++counter, task);
+                matchingTasks.add(taskDescription);
+            }
+        }
+        return matchingTasks;
+    }
 }
