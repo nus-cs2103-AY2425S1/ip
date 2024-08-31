@@ -2,6 +2,7 @@ package yappingbot.tasks.tasklist;
 
 import java.util.ArrayList;
 
+import yappingbot.exceptions.YappingBotOOBException;
 import yappingbot.tasks.Task;
 
 /**
@@ -11,11 +12,11 @@ import yappingbot.tasks.Task;
  */
 public class TaskListFilterView extends TaskList {
     final TaskList parentTaskList;
-    ArrayList<Boolean> areTaskIndicesInFilter;
+    ArrayList<Integer> indexInParentTaskList;
 
     private TaskListFilterView(TaskList parentTaskList) {
         this.parentTaskList = parentTaskList;
-        areTaskIndicesInFilter = new ArrayList<>(parentTaskList.size());
+        indexInParentTaskList = new ArrayList<>();
     }
 
     /**
@@ -40,11 +41,28 @@ public class TaskListFilterView extends TaskList {
         for (Task t : newFilter.getParent()) {
             if (t.isStringFoundInTask(searchString)) {
                 newFilter.add(t);
-                newFilter.areTaskIndicesInFilter.set(index, true);
-            } else {
-                newFilter.areTaskIndicesInFilter.set(index, false);
+                newFilter.indexInParentTaskList.add(index);
             }
+            index += 1;
         }
         return newFilter;
+    }
+
+    @Override
+    public void add(Task task) {
+        tasks.add(task);
+        parentTaskList.add(task);
+        indexInParentTaskList.add(parentTaskList.size());
+        size += 1;
+    }
+
+    @Override
+    public Task delete(int index) throws YappingBotOOBException {
+        Task t = get(index);
+        tasks.remove(index);
+        parentTaskList.delete(indexInParentTaskList.get(index));
+        indexInParentTaskList.remove(index);
+        size -= 1;
+        return t;
     }
 }
