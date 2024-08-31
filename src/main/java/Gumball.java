@@ -7,49 +7,51 @@ import java.util.Scanner;
 import java.util.function.Function;
 
 public class Gumball {
+
+    public String input;
+    public Scanner inputScanner;
+    public TaskList list;
+    private FileManager fileManager;
+
+    private UI ui;
     public static void main(String[] args) {
         try {
             Gumball chat = new Gumball();
             chat.start();
         } catch (IOException e) {
-            print(e.getMessage());
+            UI.print(e.getMessage());
         } catch (InputErrorException e) {
-            print("Error in file please start over.");
+            UI.print("Error in file please start over.");
         }
 
     }
 
-    public String command;
-    public Scanner input;
-    public TaskList list;
-
-    private FileManager fileManager;
-
-
 
     public Gumball() throws IOException, InputErrorException {
-        input = new Scanner(System.in);
+        ui = new UI();
+        inputScanner = new Scanner(System.in);
         fileManager = new FileManager("./gumball.txt");
         list = fileManager.loadFile();
     }
 
     public void start() throws FileNotFoundException {
-        intro();
+        ui.intro();
         while (true){
-            command = input.nextLine();
-            if(command.equals("bye")) break;
+            input = ui.readCommand();
+            if(input.equals("bye")) break;
             try {
-                execute(command);
+                Command c = Parser.parse(input);
+                c.execute(list, ui, fileManager);
             } catch (InputErrorException e) {
-                print(e.getMessage());
+                ui.print(e.getMessage());
             } catch (IOException e) {
-                print(e.getMessage());
+                ui.print(e.getMessage());
             }
         }
-        outro();
+        ui.outro();
     }
 
-    public void execute(String command) throws InputErrorException, IOException {
+   /* public void execute(String command) throws InputErrorException, IOException {
         if (command.equals("bye")) {
 
         } else if (command.equals("list")) {
@@ -105,5 +107,5 @@ public class Gumball {
         System.out.println(out);
         System.out.println(str);
 
-    }
+    }*/
 }

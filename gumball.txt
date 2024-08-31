@@ -1,1 +1,4 @@
 [ ] todo abc
+[ ] deadline return book /by 2019-10-15
+[ ] deadline return book /by 2019-10-15
+[ ] event project meeting /from Mon 2pm /to 4pm

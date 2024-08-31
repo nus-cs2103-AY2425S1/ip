@@ -1,5 +1,8 @@
-public class Events extends Task {
+import java.time.LocalDate;
 
+public class Events extends Task {
+    private LocalDate eventStart;
+    private LocalDate eventEnd;
     public Events(String desc) throws TaskException{
         super("",desc);
         try {
