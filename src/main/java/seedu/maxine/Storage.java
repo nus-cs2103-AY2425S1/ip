@@ -15,6 +15,17 @@ public class Storage {
         this.filePath = filePath;
         this.fileParser = new FileParser();
     }
+    
+    public ArrayList<Task> queryStorage(String search) {
+        ArrayList<Task> currList = this.load();
+        ArrayList<Task> results = new ArrayList<>();
+        for (Task task : currList) {
+            if (task.toString().contains(search)) {
+                results.add(task);
+            }
+        }
+        return results;
+    }
 
     public ArrayList<Task> load() {
         ArrayList<Task> list = new ArrayList<>();
