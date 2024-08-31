@@ -12,11 +12,16 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class represents the local storage where tasks are being saved so
+ * that they persist even after the chatbot is exited. It contains methods to
+ * load and save tasks from and into a  .txt file for local storage.
+ */
 public class Storage {
     private String saveFilePath;
 
     /**
-     * Constructor for the garfield.storage.Storage class.
+     * Constructs a new storage object with the specified save file path.
      *
      * @param saveFilePath Path to the save .txt file.
      */

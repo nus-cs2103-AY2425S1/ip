@@ -10,6 +10,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class contains static methods that can be called to parse a user inputted string,
+ * interpret what command the user is trying to run and with what arguments, then returns the
+ * corresponding Command object which contains the logic to be executed.
+ */
 public class Parser {
 
     /**
