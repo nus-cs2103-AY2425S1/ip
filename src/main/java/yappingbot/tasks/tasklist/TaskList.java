@@ -7,11 +7,10 @@ import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
-import yappingbot.tasks.Task;
-
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotOobException;
 import yappingbot.stringconstants.ReplyTextMessages;
+import yappingbot.tasks.Task;
 import yappingbot.ui.MultilineStringBuilder;
 import yappingbot.ui.Ui;
 

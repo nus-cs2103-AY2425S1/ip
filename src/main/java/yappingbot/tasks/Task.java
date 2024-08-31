@@ -2,9 +2,8 @@ package yappingbot.tasks;
 
 import static yappingbot.stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES;
 
-import yappingbot.tasks.tasklist.TaskTypes;
-
 import yappingbot.exceptions.YappingBotInvalidSaveFileException;
+import yappingbot.tasks.tasklist.TaskTypes;
 
 /**
  * Abstract Task class for the possible Task variants.

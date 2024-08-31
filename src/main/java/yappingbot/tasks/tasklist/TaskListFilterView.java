@@ -2,9 +2,8 @@ package yappingbot.tasks.tasklist;
 
 import java.util.ArrayList;
 
-import yappingbot.tasks.Task;
-
 import yappingbot.exceptions.YappingBotOobException;
+import yappingbot.tasks.Task;
 
 /**
  * Special TaskList with a parent TaskList that gives a filtered view.
