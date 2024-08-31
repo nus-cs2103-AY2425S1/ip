@@ -1,12 +1,39 @@
 package main.java;
 
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 
 public class Arona {
     public static ArrayList<Task> list = new ArrayList<>(100);
 
     public static void main(String[] args) {
+
+        // Current data.txt directory
+        Path dataDir = Paths.get(".", "\\data.txt");
+
+        // Make data.txt file if it doesn't exist
+        try {
+            Files.createFile(dataDir);
+        } catch (Exception e) {
+            if (!e.getMessage().equals(".\\data.txt")) {
+                print("Error retrieving data file");
+                print(e.getMessage());
+            }
+        }
+
+        // Read data.txt file
+        try {
+            Files.lines(dataDir).forEach(Arona::process);
+        } catch (Exception e) {
+            print("Error processing data");
+            print(e.getMessage());
+        }
+
         // For user input
         Scanner in = new Scanner(System.in);
 
@@ -21,6 +48,18 @@ public class Arona {
 
                 // Bye command
                 if (input.equalsIgnoreCase("bye")) {
+
+                    // Write data to file
+                    try {
+                        Files.write(dataDir, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
+                        for (Task task : list) {
+                            Files.write(dataDir, Collections.singletonList(task.getStatusIcon() + task.getCategory() + " " + task), StandardOpenOption.APPEND);
+                        }
+                    } catch (Exception e) {
+                        print("Error in saving data, your data may not be saved.");
+                        print(e.getMessage());
+                    }
+
                     print("Bye. Hope to see you again soon!");
                     break;
                 }
@@ -58,7 +97,7 @@ public class Arona {
                     print("Got it. I've removed this task:");
                     Task task = list.get(index-1);
                     print(task.getStatusIcon() + task.getCategory() + ": " + task.toString());
-                    list.remove(index-1);
+                    list.remove(index-1 );
                     print("Now you have " + list.size() + " tasks in the list.");
 
 
@@ -117,7 +156,7 @@ public class Arona {
                             break;
                         }
                         case "deadline": {
-                            String[] taskData = data[1].split("/by", 2);
+                            String[] taskData = data[1].split(" /by ", 2);
                             if (taskData.length == 2) {
                                 list.add(new Deadline(taskData[0], taskData[1]));
                             } else {
@@ -126,7 +165,7 @@ public class Arona {
                             break;
                         }
                         case "event": {
-                            String[] taskData = data[1].split("/from|/to", 3);
+                            String[] taskData = data[1].split(" /from | /to ", 3);
                             if (taskData.length == 3) {
                                 list.add(new Events(taskData[0], taskData[1], taskData[2]));
                             } else {
@@ -154,6 +193,33 @@ public class Arona {
                 print(e.getMessage());
             }
             }
+    }
+
+    private static void process(String line) {
+        String[] data = line.split("]", 3);
+        for (String i : data) {
+            print(i);
+        }
+
+        switch (data[1]) {
+            case "[T": {
+                list.add(new Todos(data[2].substring(1)));
+                list.get(list.size()-1).setStatus(data[0].equals("[X"));
+                break;
+            }
+            case "[D": {
+                String[] taskData = data[2].split(" \\(by: ", 2);
+                list.add(new Deadline(taskData[0].substring(1), taskData[1].substring(0, taskData[1].length() - 1)));
+                list.get(list.size()-1).setStatus(data[0].equals("[X"));
+                break;
+            }
+            case "[E": {
+                String[] taskData = data[2].split(" \\(from: | to: ", 3);
+                list.add(new Events(taskData[0].substring(1), taskData[1], taskData[2].substring(0, taskData[2].length() - 1)));
+                list.get(list.size()-1).setStatus(data[0].equals("[X"));
+                break;
+            }
+        }
     }
 
     private static void print(String message) {
