@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.time.format.DateTimeParseException;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -32,7 +30,7 @@ public class Storage {
 
     /**
      * Creates the file if it does not exist.
-     * 
+     *
      * If the file does not exist, the folder containing the file will be created as
      * well.
      * If the file already exists, nothing will be done.
@@ -55,9 +53,9 @@ public class Storage {
 
     /**
      * Writes text to the file.
-     * 
+     *
      * Overwrites the file if it already exists.
-     * 
+     *
      * @param text Text to write to the file.
      */
     public void writeToFile(String text) {
@@ -73,10 +71,10 @@ public class Storage {
 
     /**
      * Saves tasks to file.
-     * 
+     *
      * The tasks are saved in the following format:
      * [task type],[status],[description],[task-specific details]
-     * 
+     *
      * @param tasks Tasks to save.
      */
     public void save(TaskList tasks) {
@@ -103,10 +101,10 @@ public class Storage {
 
     /**
      * Loads tasks from file.
-     * 
+     *
      * The tasks are loaded in the following format:
      * [task type],[status],[description],[task-specific details]
-     * 
+     *
      * @return ArrayList of tasks loaded from file.
      * @throws ZBotException If no saved data is found.
      */
