@@ -26,6 +26,8 @@ public abstract class Task implements Serializable {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public String getDescription() { return description; }
+
     public void markDone() {
         this.isDone = true;
     }
@@ -36,7 +38,7 @@ public abstract class Task implements Serializable {
 
     @Override
     public String serialize() {
-        return String.join(" | ", isDone ? "X" : " ", description);
+        return String.join(" | ", getStatusIcon(), description);
     }
 
     @Override

@@ -30,6 +30,12 @@ public class Parser {
             return new ExitCommand();
         } else if (userInput.equals("list")) {
             return new ListCommand();
+        } else if (userInput.startsWith("find")) {
+            if (userInput.length() <= 5) {
+                throw new GrokInvalidUserInputException("Please indicate a non-empty search query, e.g. find book");
+            }
+
+            return new FindCommand(userInput.substring(5));
         } else if (userInput.contains("unmark")) {
             if (userInput.length() < 8) {
                 throw new GrokInvalidUserInputException("Please indicate the index to unmark: e.g. unmark 1");
