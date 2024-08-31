@@ -1,9 +1,0 @@
-T | 1 | read book
-D | 0 | return book | June 6th
-T | 1 | join sports club
-T | 0 | fuck myself
-E | 0 | fix laptop | from     1pm     to     5pm
-T | 0 | code
-D | 0 | CS2103T project | Friday 1600
-E | 0 | fuck | from   2pm    to    4pm
-E | 0 | volleybnall | from  wednesday 2pm   to   4pm

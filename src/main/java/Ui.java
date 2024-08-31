@@ -42,4 +42,8 @@ public class Ui {
     public boolean isActive() {
         return this.scanner.hasNextLine();
     }
+
+    public void display(String input) {
+        System.out.println(input);
+    }
 }

@@ -16,15 +16,33 @@ public class Storage {
      * @throws FRIDAYException exception is thrown when the file type in the storage file is not recognized
      * @throws FileNotFoundException exception thrown when the storage file is unable to be found
      */
-    public ArrayList<Task> load() throws FRIDAYException, FileNotFoundException {
-        File storageFile = new File(filePath);
-        Scanner fileScanner = new Scanner(storageFile);
+    public ArrayList<Task> load() throws FRIDAYException {
         ArrayList<Task> tasks = new ArrayList<>();
-        while(fileScanner.hasNextLine()) {
-            String data = fileScanner.nextLine();
-            populateProgramMemory(data, tasks);
+        File storageFile = new File(filePath);
+        try {
+            Scanner fileScanner = new Scanner(storageFile);
+            while (fileScanner.hasNextLine()) {
+                String data = fileScanner.nextLine();
+                populateProgramMemory(data, tasks);
+            }
+            fileScanner.close();
+        } catch(FileNotFoundException e) {
+            this.createDatabase();
         }
-        return tasks;
+        finally {
+            return tasks;
+        }
+    }
+
+    private void createDatabase() throws FRIDAYException {
+        File db = new File(this.filePath);
+        File dir = new File(db.getParent());
+        dir.mkdir();
+        try {
+            db.createNewFile();
+        } catch (IOException e) {
+            throw new FRIDAYException("Error creating database");
+        }
     }
 
     /**
@@ -67,6 +85,11 @@ public class Storage {
      */
     public void updateStorage(ArrayList<Task> taskList) {
         try {
+            File file = new File(filePath);
+            File parentDir = file.getParentFile();
+            if(parentDir != null && !parentDir.exists()) {
+                parentDir.mkdirs();
+            }
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             taskList.forEach((task) -> {
                 try {
