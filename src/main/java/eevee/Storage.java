@@ -11,6 +11,27 @@ public class Storage {
 
     public Storage(String filePath) {
         this.filePath = filePath;
+        checkFileExists();
+    }
+
+    private void checkFileExists() {
+        try {
+            File f = new File(filePath);
+            File dir = f.getParentFile();
+
+            // If directory does not exist, make it
+            if (dir != null && !dir.exists()) {
+                dir.mkdirs();
+            }
+
+            // If file doesn't exist, make it
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("Error occurred when attempted to create storage file!");
+            e.printStackTrace();
+        }
     }
 
     public void saveTasks(TaskList taskList) throws IOException {
