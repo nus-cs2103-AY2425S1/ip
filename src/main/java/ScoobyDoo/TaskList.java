@@ -38,7 +38,7 @@ public class TaskList {
         return String.format("Nice! I've marked this task as done:\n %s", list.get(i-1).toString());
     }
 
-    public String unmarkTask(int i) throws InputFormatException {
+    public String unMarkTask(int i) throws InputFormatException {
         if (i > list.size() || i <= 0) {
             throw new InputFormatException("Your number is out of range");
         }
