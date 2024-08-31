@@ -20,8 +20,23 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
+/**
+ * Parses user inputs and translate them into commands to be executed by TrackBot.
+ * The Parser class provides utility methods for parsing tasks from storage for display
+ * and validating date formats.
+ */
 public class Parser {
 
+    static final String DEFAULT_DATE_FORMAT = "MMM d yyyy";
+    static final String DEFAULT_DATE_TIME_FORMAT = "MMM d yyyy HH:mm";
+
+    /**
+     * Parses the user input and returns the corresponding Command.
+     *
+     * @param userInput The raw input string from the user.
+     * @return The Command object representing the user input.
+     * @throws TrackBotException If the input does not match any known commands or has an invalid format.
+     */
     public Command parse(String userInput) throws TrackBotException {
         String[] splitInput = userInput.split(" ", 2);
         String commandWord = splitInput[0].toLowerCase();
@@ -89,6 +104,12 @@ public class Parser {
     }
     }
 
+    /**
+     * Parses a task string from storage into a Task object.
+     *
+     * @param line The raw string representing a task in storage format.
+     * @return The Task object corresponding to the input string, or null if the format is invalid.
+     */
     public static Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0];
@@ -116,6 +137,12 @@ public class Parser {
         return task;
     }
 
+    /**
+     * Validates and reformats a date/time string into a consistent format.
+     *
+     * @param time The raw date/time string.
+     * @return The reformatted date/time string.
+     */
     public static String checkDateFormat(String time) {
         LocalDate date;
         LocalDateTime dateTime;
@@ -131,38 +158,38 @@ public class Parser {
         String regex_t1 = "^([0-9]{4})-([0-9]{2})-([0-9]{2})\\s((2[0-3])|([0-1][0-9])):[0-5][0-9]$";
 
         try {
-
+            // Reformat as date only
             if (Pattern.matches(regex_y, time)) {
                 date = LocalDate.parse(time);
-                time = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                time = date.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
                 return time;
             }
 
             if (Pattern.matches(regex_m, time)) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
                 date = LocalDate.parse(time, formatter);
-                time = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                time = date.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
                 return time;
             }
 
             if (Pattern.matches(regex_d1, time)) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 date = LocalDate.parse(time, formatter);
-                time = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                time = date.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
                 return time;
             }
             if (Pattern.matches(regex_d2, time)) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
                 date = LocalDate.parse(time, formatter);
-                time = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                time = date.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
                 return time;
             }
 
-//          // Reformat as date and time only
+            // Reformat as date and time only
             if (Pattern.matches(regex_t1, time)) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 dateTime = LocalDateTime.parse(time, formatter);
-                time = dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
+                time = dateTime.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT));
                 return time;
             }
         } catch (DateTimeParseException e) {

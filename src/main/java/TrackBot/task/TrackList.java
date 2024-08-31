@@ -7,10 +7,19 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * A list of tasks loaded from TrackBot Storage.
+ */
 public class TrackList {
     private List<Task> list;
     private final TrackBotStorage storage;
 
+    /**
+     * Constructs a TrackList and loads tasks from the specified storage.
+     *
+     * @param storage The TrackBotStorage object used for saving and loading tasks.
+     * @throws IOException If an I/O error occurs while loading the tasks.
+     */
     public TrackList(TrackBotStorage storage) throws IOException {
         this.storage = storage;
         try {
@@ -20,6 +29,10 @@ public class TrackList {
         }
     }
 
+    /**
+     * Saves the current task list to storage.
+     * Handles any I/O errors that occur during saving.
+     */
     private void saveList() {
         try {
             storage.saveContents(list);
@@ -28,6 +41,12 @@ public class TrackList {
         }
     }
 
+    /**
+     * Adds a new task to the list and saves the updated list to storage.
+     *
+     * @param task The task to be added to the list.
+     * @throws TrackBotException If the task is null.
+     */
     public void addToList(Task task) throws TrackBotException {
         if (task == null) {
             throw new TrackBotException("No task found.");
@@ -40,6 +59,12 @@ public class TrackList {
         System.out.println("````````````````````````````````````````````````````````````");
     }
 
+    /**
+     * Marks a task as done and saves the updated list to storage.
+     *
+     * @param num The index of the task to be marked as done (0-based index).
+     * @throws TrackBotException If the task number is invalid.
+     */
     public void markTask(int num) throws TrackBotException {
         if (num < 0 || num > list.size() - 1) {
             throw new TrackBotException("Please enter a valid task number.");
@@ -53,6 +78,12 @@ public class TrackList {
 
     }
 
+    /**
+     * Unmarks a task as not done yet and saves the updated list to storage.
+     *
+     * @param num The index of the task to be unmarked (0-based index).
+     * @throws TrackBotException If the task number is invalid.
+     */
     public void unmarkTask(int num) throws TrackBotException {
         if (num < 0 || num > list.size() - 1) {
             throw new TrackBotException("Please enter a valid task number.");
@@ -64,6 +95,13 @@ public class TrackList {
         System.out.println("  " + list.get(num).toString());
         System.out.println("````````````````````````````````````````````````````````````");
     }
+
+    /**
+     * Deletes a task from the list and saves the updated list to storage.
+     *
+     * @param num The index of the task to be deleted (0-based index).
+     * @throws TrackBotException If the task number is invalid.
+     */
     public void deleteFromList(int num) throws TrackBotException {
         if (num < 0 || num > list.size() - 1) {
             throw new TrackBotException("Please enter a valid task number.");
@@ -78,6 +116,11 @@ public class TrackList {
         System.out.println("````````````````````````````````````````````````````````````");
     }
 
+    /**
+     * Prints the entire list of tasks.
+     *
+     * @throws TrackBotException If the list is currently empty.
+     */
     public void printList() throws TrackBotException {
         if (list.isEmpty()) {
             throw new TrackBotException("The list is currently empty.");
