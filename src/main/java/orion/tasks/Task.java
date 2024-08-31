@@ -1,5 +1,7 @@
 package orion.tasks;
 
+import orion.exceptions.OrionInputException;
+
 public abstract class Task {
     private String body;
     private boolean isDone;
@@ -14,16 +16,16 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
-    public void setDone() throws IllegalStateException {
+    public void setDone() throws OrionInputException {
         if (this.isDone) {
-            throw new IllegalStateException("Task has already been set as completed!");
+            throw new OrionInputException("Task has already been set as completed!");
         }
         this.isDone = true;
     }
 
-    public void setUndone() {
+    public void setUndone() throws OrionInputException {
         if (!this.isDone) {
-            throw new IllegalStateException("Task has already been set as uncompleted!");
+            throw new OrionInputException("Task has already been set as uncompleted!");
         }
         this.isDone = false;
     }
