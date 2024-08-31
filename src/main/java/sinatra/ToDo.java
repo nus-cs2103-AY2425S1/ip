@@ -32,7 +32,7 @@ public class ToDo extends Task {
      * @return the data string for storage
      */
     public String getDataForStorage() {
-        return "Sinatra.ToDo:" + super.getContent() + "," + super.getStatusString();
+        return "Sinatra.ToDo:" + super.getContent() + "," + super.isMarkedString();
     }
 
     /**

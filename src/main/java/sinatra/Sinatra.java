@@ -10,6 +10,7 @@ public class Sinatra {
 
     private ArrayList<Task> tasks;
     private Storage storage;
+    private static final String FILE_PATH = "tasks.txt";
 
     /**
      * Constructs a new Sinatra object, initializes tasks, prints the introduction,
@@ -18,7 +19,7 @@ public class Sinatra {
     public Sinatra() {
         this.tasks = new ArrayList<Task>();
         this.printIntro();
-        this.storage = new Storage("tasks.txt");
+        this.storage = new Storage(Sinatra.FILE_PATH);
         this.tasks = storage.loadTasksFromFile();
         this.sinatraScanner();
     }
@@ -73,7 +74,7 @@ public class Sinatra {
                     throw new SinatraException("OOPS!!! The description of a event cannot be empty.");
                 }
                 ToDo toDo = new ToDo(message.substring(5, message.length()), false);
-                toDo.appendToStorage("tasks.txt");
+                toDo.appendToStorage(Sinatra.FILE_PATH);
                 tasks.add(toDo);
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + tasks.get(tasks.size() - 1));
@@ -86,7 +87,7 @@ public class Sinatra {
                 String content = parts[0];
                 String dateTimeString = parts[1];
                 Deadline deadline = new Deadline(content, false, dateTimeString);
-                deadline.appendToStorage("tasks.txt");
+                deadline.appendToStorage(Sinatra.FILE_PATH);
                 tasks.add(deadline);
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + tasks.get(tasks.size() - 1));
@@ -101,7 +102,7 @@ public class Sinatra {
                 String from = timeParts[0];
                 String to = timeParts[1];
                 Event event = new Event(content, false, from, to);
-                event.appendToStorage("tasks.txt");
+                event.appendToStorage(Sinatra.FILE_PATH);
                 tasks.add(event);
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + tasks.get(tasks.size() - 1));
