@@ -38,7 +38,7 @@ public class Parser {
             break;
         case TODO:
             try {
-                c = new TodoCommand(new Todo(arr[1]));
+                c = new AddTaskCommand(new Todo(arr[1]));
             } catch (IndexOutOfBoundsException e) {
                 //Make Ui display missing todo name error
                 System.out.println("Missing todo name");
@@ -47,7 +47,7 @@ public class Parser {
         case DEADLINE:
             try {
                 String[] params = arr[1].split(" /by ");
-                c = new DeadlineCommand(new Deadline(params[0], params[1]));
+                c = new AddTaskCommand(new Deadline(params[0], params[1]));
             } catch (IndexOutOfBoundsException e) {
                 //Make Ui display invalid Deadline syntax message
                 System.out.println("Invalid deadline syntax");
@@ -58,7 +58,7 @@ public class Parser {
                 String[] params = arr[1].split(" /from ");
                 String name = params[0];
                 String[] datetimes = params[1].split(" /to ");
-                c = new EventCommand(new Event(name, datetimes[0], datetimes[1]));
+                c = new AddTaskCommand(new Event(name, datetimes[0], datetimes[1]));
             } catch (IndexOutOfBoundsException e) {
                 //Make Ui display invalid Event syntax message
                 System.out.println("Invalid Event syntax");
