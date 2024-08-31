@@ -3,8 +3,43 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.LocalTime;
+
 
 public class Papagu {
+    private static int monthConverter(String month) {
+        switch (month) {
+            case "Jan":
+                return 1;
+            case "Feb":
+                return 2;
+            case "Mar":
+                return 3;
+            case "Apr":
+                return 4;
+            case "May":
+                return 5;
+            case "Jun":
+                return 6;
+            case "Jul":
+                return 7;
+            case "Aug":
+                return 8;
+            case "Sep":
+                return 9;
+            case "Oct":
+                return 10;
+            case "Nov":
+                return 11;
+            case "Dec":
+                return 12;
+            default:
+                return 0;
+        }
+    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -52,21 +87,59 @@ public class Papagu {
                     }    
                 } else if (taskType.equals("D")) {          //Deadline task                    
                     if (isDone.equals("1")) {
-                        Deadlines newDeadline = new Deadlines(parts[2], parts[3]);
+                        String[] dateTime = parts[3].split(" "); 
+
+                        String[] dates = dateTime[0].split("-");
+                        String month = String.format("%02d", monthConverter(dates[0]));
+                        String day = String.format("%02d", Integer.parseInt(dates[1]));
+                        String year = dates[2];
+
+                        LocalDate date = LocalDate.parse(year + "-" + month + "-" + day);
+
+                        LocalTime time = LocalTime.parse(dateTime[1]);
+
+                        Deadlines newDeadline = new Deadlines(parts[2], date, time);
                         newDeadline.markAsDone();
                         taskList.addTask(newDeadline);
                     } else {
-                        Deadlines newDeadline = new Deadlines(parts[2], parts[3]);
+                        String[] dateTime = parts[3].split(" "); 
+
+                        String[] dates = dateTime[0].split("-");
+                        String month = String.format("%02d", monthConverter(dates[0]));
+                        String day = String.format("%02d", Integer.parseInt(dates[1]));
+                        String year = dates[2];
+
+                        LocalDate date = LocalDate.parse(year + "-" + month + "-" + day);
+
+                        LocalTime time = LocalTime.parse(dateTime[1]);
+
+                        Deadlines newDeadline = new Deadlines(parts[2], date, time);
                         taskList.addTask(newDeadline);
                     }
                 } else if (taskType.equals("E")) {  
-                    String[] times = parts[3].split("-");      //Event task                    
+                    String description = parts[2];
+
+                    String[] dateTime = parts[3].split(" ");
+                   
+                    String[] dates = dateTime[0].split("-");
+                    String month = String.format("%02d", monthConverter(dates[0]));
+                    String day = String.format("%02d", Integer.parseInt(dates[1]));
+                    String year = dates[2];
+                    
+                    LocalDate date = LocalDate.parse(year + "-" + month + "-" + day);
+
+                    String[] times = dateTime[1].split("-");      
+
+   
+                    LocalTime start = LocalTime.parse(times[0]);
+                    LocalTime end = LocalTime.parse(times[1]);
+
                     if (isDone.equals("1")) {
-                        Events newEvent = new Events(parts[2], times[0], times[1]);
+                        Events newEvent = new Events(parts[2], date, start, end);
                         newEvent.markAsDone();
                         taskList.addTask(newEvent);
                     } else {
-                        Events newEvent = new Events(parts[2], times[0], times[1]);
+                        Events newEvent = new Events(parts[2], date, start, end);
                         taskList.addTask(newEvent);
                     }
                 }
@@ -154,7 +227,18 @@ public class Papagu {
                     String[] parts = input[1].split(" /by ");
                     String description = parts[0];
                     String time = parts[1];
-                    Deadlines newDeadline = new Deadlines(description, time);
+
+                    String[] dateTime = time.split(" ");
+                    
+                    String[] date = dateTime[0].split("/");
+                    String day = String.format("%02d", Integer.parseInt(date[0]));
+                    String month = String.format("%02d", Integer.parseInt(date[1]));
+                    String year = date[2];
+                    
+                    LocalDate currDate = LocalDate.parse(year + "-" + month + "-" + day);
+                    LocalTime currTime = LocalTime.parse(dateTime[1], DateTimeFormatter.ofPattern("HHmm"));
+                    
+                    Deadlines newDeadline = new Deadlines(description, currDate, currTime);
 
                     file.delete();
                     File newFile = new File("./Data/Tasks.txt");
@@ -164,6 +248,8 @@ public class Papagu {
                     taskList.addTask(newDeadline);
                     System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+
+
 
                     for (int i = 0; i < taskList.getTaskCount(); i++) {
                         try {
@@ -181,12 +267,25 @@ public class Papagu {
 
                     String[] input = userInput.split(" ", 2);
                     String[] parts = input[1].split(" /from ");
+
                     String description = parts[0];
-                    String time = parts[1];
-                    String[] duration = time.split(" /to ");
-                    String start = duration[0];
-                    String end = duration[1];
-                    Events newEvent = new Events(description, start, end);
+                    String times = parts[1];
+                    String[] duration = times.split(" /to ");
+                    
+                    String[] startDateTime = duration[0].split(" ");
+                    String date = startDateTime[0];
+                    String startTime = startDateTime[1];
+                    String[] splitDate = date.split("/");
+                    String day = String.format("%02d", Integer.parseInt(splitDate[0]));
+                    String month = String.format("%02d", Integer.parseInt(splitDate[1]));
+                    String year = splitDate[2];
+                    LocalDate startDate = LocalDate.parse(year + "-" + month + "-" + day);
+                    LocalTime start = LocalTime.parse(startTime, DateTimeFormatter.ofPattern("HHmm"));
+
+                    String endTime = duration[1];
+                    LocalTime end = LocalTime.parse(endTime, DateTimeFormatter.ofPattern("HHmm"));
+
+                    Events newEvent = new Events(description, startDate, start, end);
 
                     file.delete();
                     File newFile = new File("./Data/Tasks.txt");
