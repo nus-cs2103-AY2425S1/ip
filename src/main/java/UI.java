@@ -1,14 +1,14 @@
-import java.util.Arrays;
 import java.util.Scanner;
+import java.time.format.DateTimeParseException;
 
 public class UI {
-    private static final String INDENT = "     "; // 5 spaces for indentation
-    private static final String TOP_LINE = "    " + "_".repeat(60) + "\n";
-    private static final String BOT_LINE = "\n" + "    " + "_".repeat(60);
-    private static final String GREET = INDENT + "Hello! I'm Jade!\n"
+    public static final String INDENT = "     "; // 5 spaces for indentation
+    public static final String TOP_LINE = "    " + "_".repeat(60) + "\n";
+    public static final String BOT_LINE = "\n" + "    " + "_".repeat(60);
+    public static final String GREET = INDENT + "Hello! I'm Jade!\n"
             + INDENT + "What can I do for you?";
-    private static final String EXIT = INDENT + "Bye. Hope to see you again soon!";
-    private static final String LIST_MESSAGE = INDENT + "Here are the tasks in your list:";
+    public static final String EXIT = INDENT + "Bye. Hope to see you again soon!";
+    public static final String LIST_MESSAGE = INDENT + "Here are the tasks in your list:";
     private final TaskManager taskManager;
     private final Scanner sc;
     private String message;
@@ -127,7 +127,12 @@ public class UI {
             throw new JadeException("Please provide a deadline in the format:\n"
                     + INDENT + "  " + "deadline <task> /by <time>");
         } else {
-            return new Deadline(parts[0], parts[1]);
+            try {
+                return new Deadline(parts[0], parts[1]);
+            } catch (DateTimeParseException e) {
+                throw new JadeException("Please use yyyy-MM-dd HHmm format for time.\n"
+                        + INDENT + "  " + "eg. 2024-12-25 2130");
+            }
         }
     }
 
@@ -135,14 +140,19 @@ public class UI {
         String[] parts = command.substring(6).split(" /from ", 2);
         if (parts.length < 2) {
             throw new JadeException("Please provide an event in the format:\n"
-                    + INDENT + "  " + "event <task> /from <start time> /to <end time>");
+                    + INDENT + "  " + "event <task> /from <time>");
         } else {
             String[] timeParts = parts[1].split(" /to ", 2);
             if (timeParts.length < 2) {
                 throw new JadeException("Please provide an end time in the format:\n"
                         + INDENT + "  " + "event <task> /from <start time> /to <end time>");
             } else {
-                return new Event(parts[0], timeParts[0], timeParts[1]);
+                try {
+                    return new Event(parts[0], timeParts[0], timeParts[1]);
+                } catch (DateTimeParseException e) {
+                    throw new JadeException("Please use yyyy-MM-dd HHmm format for time.\n"
+                            + INDENT + "  " + "eg. 2024-12-25 2130");
+                }
             }
         }
     }
