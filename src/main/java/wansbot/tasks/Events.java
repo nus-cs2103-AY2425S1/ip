@@ -1,4 +1,4 @@
-package tasks;
+package wansbot.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,6 +11,13 @@ public class Events extends Task {
         super(name);
         this.startDate = start;
         this.endDate = end;
+    }
+
+    public boolean isBetweenDate(LocalDate date) {
+        if (this.startDate.isBefore(date) && this.endDate.isAfter(date)) {
+            return true;
+        }
+        return false;
     }
 
     @Override

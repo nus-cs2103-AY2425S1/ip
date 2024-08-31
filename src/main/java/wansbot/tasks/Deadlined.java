@@ -1,4 +1,4 @@
-package tasks;
+package wansbot.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,6 +9,13 @@ public class Deadlined extends Task {
     public Deadlined(String name, LocalDate deadline) {
         super(name);
         this.deadline = deadline;
+    }
+
+    public boolean isOnDate(LocalDate date) {
+        if (this.deadline.isEqual(date)) {
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -1,24 +1,31 @@
-import java.io.*;
+package wansbot;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-import tasks.Deadlined;
-import tasks.Events;
-import tasks.InputEmptyException;
 import java.time.LocalDate;
-import tasks.NotANumMarkingException;
-import tasks.Task;
-import tasks.TaskList;
-import tasks.Todos;
+import wansbot.tasks.Deadlined;
+import wansbot.tasks.Events;
+import wansbot.tasks.InputEmptyException;
+import wansbot.tasks.NotANumMarkingException;
+import wansbot.tasks.TaskList;
+import wansbot.tasks.Todos;
 
 public class WansBot {
     private static final String HR = "----------------------------------------------------------------------";
     private static int numTasks = 0;
     private static TaskList userTaskList = new TaskList();
 
-    // Method that deals with empty inputs by throwing tasks.InputEmptyException
+    // Method that deals with empty inputs by throwing wansbot.tasks.InputEmptyException
     private static void emptyInput(String userInput) throws InputEmptyException {
         if (userInput.strip().equalsIgnoreCase("todos") ||
             userInput.strip().equalsIgnoreCase("deadline") ||
@@ -30,7 +37,7 @@ public class WansBot {
         }
     }
 
-    // Method that throws NumberFormatException and custom tasks.NotANumMarkingException
+    // Method that throws NumberFormatException and custom wansbot.tasks.NotANumMarkingException
     private static void notNumInput(String userInput, int taskListSize) throws NumberFormatException,
             NotANumMarkingException, NullPointerException {
         if (userInput.startsWith("unmark")) {
@@ -51,7 +58,7 @@ public class WansBot {
         }
     }
 
-    // Method that throws custom tasks.InputEmptyException for deadlineds
+    // Method that throws custom wansbot.tasks.InputEmptyException for deadlineds
     private static void missingInputDeadline(String userInput) {
         String[] splitUser = userInput.split( " /by ", 2);
         if (splitUser.length < 2) {
@@ -59,7 +66,7 @@ public class WansBot {
         }
     }
 
-    // Method that throws custom tasks.InputEmptyException for events
+    // Method that throws custom wansbot.tasks.InputEmptyException for events
     private static void missingInputEvent(String userInput) {
         String[] splitUserStartDate = userInput.split(" /from ", 3);
         if (splitUserStartDate.length < 2) {
@@ -165,7 +172,7 @@ public class WansBot {
                     + "\n" + HR);
         } catch (DateTimeParseException e) {
             System.out.println(HR + "\nWans:\n"
-                    + "Your date needs to be in the form YYYY-MM-DD!"
+                    + "Your date needs to be in the form YYYY-MM-DD! It needs to be a \n valid date too please!"
                     + "\n" + HR);
         }
     }
@@ -191,7 +198,7 @@ public class WansBot {
                     + "\n" + HR);
         } catch (DateTimeParseException e) {
             System.out.println(HR + "\nWans:\n"
-                    + "Your date needs to be in the form YYYY-MM-DD! It needs to be a valid date too please!"
+                    + "Your date needs to be in the form YYYY-MM-DD! It needs to be a \nvalid date too please!"
                     + "\n" + HR);
         }
     }
@@ -322,6 +329,47 @@ public class WansBot {
                     + "\n" + HR);;
         }
     }
+
+    private static void findTaskDate(String userInput) {
+        try {
+            String[] splitDate = userInput.split(" ");
+            TaskList filteredList = new TaskList();
+            for (int i = 0; i < userTaskList.numOfTasks(); i++) {
+                if (userTaskList.getTask(i) instanceof Events) {
+                    Events event = (Events) userTaskList.getTask(i);
+                    if (event.isBetweenDate(LocalDate.parse(splitDate[1]))) {
+                        filteredList.add(event);
+                    }
+                } else if (userTaskList.getTask(i) instanceof Deadlined) {
+                    Deadlined deadlined = (Deadlined) userTaskList.getTask(i);
+                    if (deadlined.isOnDate(LocalDate.parse(splitDate[1]))) {
+                        filteredList.add(deadlined);
+                    }
+                }
+            }
+            if (filteredList.numOfTasks() != 0) {
+                System.out.println(HR + "\nWans:"
+                        + "\nHere are your tasks on " + LocalDate.parse(splitDate[1]).
+                        format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n"
+                        + userTaskList.toString());
+                System.out.println("You have " + numTasks + " tasks " + "on "
+                        + LocalDate.parse(splitDate[1]).
+                        format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                        + "\n" + HR);
+            } else {
+                System.out.println(HR + "\nWans:"
+                        + "\n You have no tasks on "
+                        + LocalDate.parse(splitDate[1]).
+                        format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                        + "!" + "\n" + HR);
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println(HR + "\nWans:\n"
+                    + "Your date needs to be in the form YYYY-MM-DD! It needs to be a valid \ndate too please!"
+                    + "\n" + HR);
+        }
+    }
+
     private static void sayGoodbye() {
         String exit = "|  _ \\ \\   / /  ____|"
                 + "\n| |_) \\ \\_/ /| |__"
@@ -380,6 +428,9 @@ public class WansBot {
                     break;
                 case "load":
                     loadTasks();
+                    break;
+                case "find":
+                    findTaskDate(userInput);
                     break;
                 case "bye":
                     sayGoodbye();

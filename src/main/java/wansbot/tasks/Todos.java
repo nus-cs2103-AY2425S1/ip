@@ -1,4 +1,4 @@
-package tasks;
+package wansbot.tasks;
 
 
 public class Todos extends Task {

@@ -1,4 +1,4 @@
-package tasks;
+package wansbot.tasks;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class TaskList {
         listOfTasks.get(index).unfinish();
     }
 
-    // returns number of tasks currently in a tasklist
+    // returns number of wansbot.tasks currently in a tasklist
     public int numOfTasks() {
         return this.listOfTasks.size();
     }

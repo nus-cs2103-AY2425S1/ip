@@ -18,7 +18,7 @@ Wans:
 Here are your tasks!
 1. [ T ] [   ] read book
 
-You have 1 tasks!
+You have 1 task!
 ----------------------------------------------------------------------
 User:
 ----------------------------------------------------------------------
@@ -58,7 +58,7 @@ Nice! I've marked
 User:
 ----------------------------------------------------------------------
 Wans:
-Here are your tasks!
+Here are your !
 1. [ T ] [ X ] read book
 2. [ D ] [   ] bathe (by: tomorrow)
 3. [ E ] [   ] eat lunch (from: 1pm to: 1pm )
