@@ -20,6 +20,17 @@ public abstract class Task {
     }
 
     /**
+     * Checks if the task's description contains the specified target word.
+     *
+     * @param targetWord The word to search for within the task's description.
+     * @return true if the description contains the target word, false otherwise.
+     */
+    public boolean find(String targetWord) {
+        return description.contains(targetWord);
+    }
+
+
+    /**
      * Returns a string representation of the task in a format suitable for file storage.
      * The format is: "doneStatus | description", where doneStatus is 1 if the task is done, 0 otherwise.
      *

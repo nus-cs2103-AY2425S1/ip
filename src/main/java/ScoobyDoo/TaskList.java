@@ -1,5 +1,7 @@
 package ScoobyDoo;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 import exception.InputFormatException;
 import task.Task;
 
@@ -83,7 +85,7 @@ public class TaskList {
      * @return A formatted string containing all tasks in the list.
      */
     public String printList() {
-        String listString = "Here are the task in your list:\n";
+        String listString = "";
         int i = 1;
         for (Task task : list) {
             listString = listString.concat(i + "." + task.toString());
@@ -132,6 +134,19 @@ public class TaskList {
         //using a combiner to add all the tasks string
         //only append the file once, which is when bye is called
         return list.stream().reduce("", (a, b) -> b.toFileFormatString() + "\n" + a, (a,b) -> a  + b);
+    }
+
+    /**
+     * Finds and returns a new TaskList containing all tasks that match the specified target word.
+     * The match is based on the task descriptions containing the target word.
+     *
+     * @param targetWord The word to search for within the task descriptions.
+     * @return A new TaskList containing all tasks that match the specified target word.
+     */
+    public TaskList find(String targetWord) {
+        ArrayList<Task> matchedTask = this.list.stream().filter(task -> task.find(targetWord))
+                .collect(Collectors.toCollection(ArrayList<Task>::new));
+        return new TaskList(matchedTask);
     }
 
 }
