@@ -6,6 +6,12 @@ import java.time.format.DateTimeParseException;
 
 public class DTFormatter {
 
+    /**
+     * Changes the format of a DateTime represented by a String.
+     *
+     * @param inputDateTime String representing DateTime in format "yyyy-MM-dd HHmm".
+     * @return String representing inputDateTime in format "MMM dd yyyy, h:mma".
+     */
     public static String format(String inputDateTime) {
         try {
             DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");

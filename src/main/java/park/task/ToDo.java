@@ -1,7 +1,15 @@
 package park.task;
 
+/**
+ * Represents a Task without any deadline or start/end time.
+ */
 public class ToDo extends Task {
 
+    /**
+     * Constructs a ToDo Object.
+     *
+     * @param description Description of the task.
+     */
     public ToDo(String description) {
         super(description);
     }

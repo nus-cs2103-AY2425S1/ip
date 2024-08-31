@@ -6,10 +6,18 @@ import park.storage.TaskList;
 import park.task.Task;
 import park.ui.Ui;
 
+/**
+ * Represents a command that marks an existing task as done.
+ */
 public class MarkCommand extends Command {
 
     private final int index;
 
+    /**
+     * Constructs a MarkCommand object.
+     *
+     * @param i Index of task to be marked as done.
+     */
     public MarkCommand(int i) {
         this.index = i;
     }

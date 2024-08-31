@@ -6,10 +6,18 @@ import park.storage.TaskList;
 import park.task.Task;
 import park.ui.Ui;
 
+/**
+ * Represents a command that marks an existing task as not done.
+ */
 public class UnmarkCommand extends Command {
 
     private final int index;
 
+    /**
+     * Constructs a UnmarkCommand object.
+     *
+     * @param i Index of task to be marked as not done.
+     */
     public UnmarkCommand(int i) {
         this.index = i;
     }

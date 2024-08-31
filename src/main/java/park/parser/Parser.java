@@ -17,6 +17,13 @@ import java.time.format.DateTimeParseException;
 
 public class Parser {
 
+    /**
+     * Returns a Command based on user input.
+     *
+     * @param userInput User input.
+     * @return Command object to be executed.
+     * @throws ParkException If user input is not in the correct format.
+     */
     public static Command parse(String userInput) throws ParkException {
         if (userInput.equals("bye")) {
             return new ExitCommand();

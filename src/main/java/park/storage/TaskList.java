@@ -4,6 +4,9 @@ import park.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * A class that represents an ArrayList of Tasks and implements some of its methods.
+ */
 public class TaskList {
 
     private ArrayList<Task> taskList;

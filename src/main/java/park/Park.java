@@ -13,6 +13,11 @@ public class Park {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a Park object and loads tasks, if any.
+     *
+     * @param filePath path of the file where tasks are recorded.
+     */
     public Park(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,6 +29,9 @@ public class Park {
         }
     }
 
+    /**
+     * Runs the chatbot.
+     */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;
