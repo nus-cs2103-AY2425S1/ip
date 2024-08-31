@@ -64,4 +64,12 @@ public class Parser {
         }
         return todoSplit[1].trim();
     }
+
+    public static String getFindTargetWord(String input) throws InputFormatException{
+        String[] findSplit = input.split(" ", 2);
+        if (findSplit.length != 2) {
+            throw new InputFormatException("Please input a word to find!");
+        }
+        return findSplit[1].trim();
+    }
 }

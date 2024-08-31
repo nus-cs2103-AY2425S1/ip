@@ -16,6 +16,13 @@ public class UI {
         printFormattedResponse("Bye. Hope to see you again soon!");
     }
 
+    public void printFindMessage(String s) {
+        printFormattedResponse(String.format("Here are the matching tasks in your list:\n%s", s));
+    }
+
+    public void printTaskListMessage(String s) {
+        printFormattedResponse(String.format("Here are the task in your list:\n%s",s));
+    }
     public void printErrorMessage(String s) {
         printFormattedResponse("Oops! An error has occurred " + s);
     }

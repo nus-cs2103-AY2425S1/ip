@@ -43,7 +43,7 @@ public class ScoobyDoo {
             }
 
             if (input.equals("list")) {
-                ui.printFormattedResponse(taskList.printList());
+                ui.printTaskListMessage(taskList.printList());
                 continue;
             }
 
@@ -107,6 +107,15 @@ public class ScoobyDoo {
                     ui.printErrorMessage(e.getMessage());
                 }
                 continue;
+            }
+
+            if (input.startsWith("find")) {
+                try {
+                    String targetWord = Parser.getFindTargetWord(input);
+                    ui.printFindMessage(taskList.find(targetWord).printList());
+                } catch (InputFormatException e) {
+                    ui.printErrorMessage(e.getMessage());
+                }
             }
 
             else {
