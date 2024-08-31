@@ -21,6 +21,10 @@ public class Task {
         isDone = newStatus;
     }
 
+    public String toFriendlyString() {
+        return this.toString();
+    }
+
     @Override
     public String toString() {
         return description;
