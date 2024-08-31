@@ -5,6 +5,8 @@ import main.java.Event;
 import main.java.Todo;
 import main.java.commands.*;
 
+import java.time.format.DateTimeParseException;
+
 public class Parser {
 
     private enum Keywords {
@@ -49,6 +51,8 @@ public class Parser {
                 c = new AddTaskCommand(new Deadline(params[0], params[1]));
             } catch (IndexOutOfBoundsException e) {
                 ui.showDeadlineSyntax();
+            } catch (DateTimeParseException e) {
+                ui.showDateTimeError();
             }
             break;
         case EVENT:
@@ -59,6 +63,8 @@ public class Parser {
                 c = new AddTaskCommand(new Event(name, datetimes[0], datetimes[1]));
             } catch (IndexOutOfBoundsException e) {
                 ui.showEventSyntax();
+            } catch (DateTimeParseException e) {
+                ui.showDateTimeError();
             }
             break;
         case MARK:
@@ -66,8 +72,7 @@ public class Parser {
                 int i = Integer.parseInt(arr[1]) - 1;
                 c = new MarkCommand(i);
             } catch (NumberFormatException e) {
-                //arr[1] is not a number
-                System.out.println("Please enter a valid number");
+                ui.showNotANumberError();
             } catch (IndexOutOfBoundsException e) {
                 ui.showMarkSyntax();
             }
@@ -77,8 +82,7 @@ public class Parser {
                 int i = Integer.parseInt(arr[1]) - 1;
                 c = new UnmarkCommand(i);
             } catch (NumberFormatException e) {
-                //arr[1] is not a number
-                System.out.println("Please enter a valid number");
+                ui.showNotANumberError();
             } catch (IndexOutOfBoundsException e) {
                 ui.showUnmarkSyntax();
             }
@@ -88,8 +92,7 @@ public class Parser {
                 int i = Integer.parseInt(arr[1]) - 1;
                 c = new DeleteCommand(i);
             } catch (NumberFormatException e) {
-                //arr[1] is not a number
-                System.out.println("Please enter a valid number");
+                ui.showNotANumberError();
             } catch (IndexOutOfBoundsException e) {
                 ui.showDeleteSyntax();
             }
