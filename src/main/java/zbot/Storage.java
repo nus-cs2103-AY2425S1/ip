@@ -1,15 +1,18 @@
 package zbot;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.FileNotFoundException;
+
+import zbot.task.Deadline;
 import zbot.task.Task;
 import zbot.task.ToDo;
-import zbot.task.Deadline;
 import zbot.task.Event;
 
 public class Storage {
