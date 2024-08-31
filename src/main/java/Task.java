@@ -15,7 +15,7 @@ public class Task {
 
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
-    }
+    }// X means task is done
 
     public void setStatus(boolean newStatus) {
         isDone = newStatus;
