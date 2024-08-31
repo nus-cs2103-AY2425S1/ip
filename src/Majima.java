@@ -1,3 +1,4 @@
+
 public class Majima {
 
     private Storage storage;

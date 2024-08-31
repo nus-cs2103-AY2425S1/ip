@@ -1,17 +1,14 @@
-public class AddEventCommand extends Command {
-    private String description;
-    private String from;
-    private String to;
 
-    public AddEventCommand(String description, String from, String to) {
+public class AddTodoCommand extends Command {
+    private String description;
+
+    public AddTodoCommand(String description) {
         this.description = description;
-        this.from = from;
-        this.to = to;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws MajimaException {
-        Task newTask = new Event(description, from, to);
+        Task newTask = new Todo(description);
         tasks.addTask(newTask);
         ui.showTaskAdded(newTask);
         storage.save(tasks.getTasks());

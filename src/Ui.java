@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class Ui {
@@ -36,7 +37,7 @@ public class Ui {
 
     public void showTaskAdded(Task task) {
         printLine();
-        System.out.println("Understood, Kiryu-chan! This is goin' into the" +
+        System.out.println("Understood, Kiryu-chan! This is goin' into the " +
                 "list: " + task);
         printLine();
     }
