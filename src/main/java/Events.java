@@ -1,20 +1,35 @@
-public class Events extends Task {
-    private String start;
-    private String end;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.LocalTime;
 
-    public Events(String description, String start, String end) {
+public class Events extends Task {
+    private LocalDate date;
+    private LocalTime start;
+    private LocalTime end;
+
+    public Events(String description, LocalDate date, LocalTime start, LocalTime end) {
         super(description);
+        this.date = date;
         this.start = start;
         this.end = end;
     }
 
     @Override
     public String toFile() {
-        return "E | " + (super.isDone() ? "1" : "0") + " | " + super.getDescription() + " | " + this.start + "-" + this.end;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
+        String formattedDate = this.date.format(formatter);
+
+        return "E | " + (super.isDone() ? "1" : "0") + " | " 
+                + super.getDescription() + " | " + formattedDate + " " + this.start + "-" + this.end;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
+        String formattedDate = this.date.format(formatter);
+
+        return "[E]" + super.toString() 
+                + " (from: " + formattedDate + " " + this.start + " to: " + this.end + ")";
     }
 }
