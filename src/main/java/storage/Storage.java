@@ -57,18 +57,18 @@ public class Storage {
         String description = parts[2];
 
         switch (taskType) {
-            case "T":
-                return new Todo(description, isDone);
-            case "D":
-                String by = parts[3];
-                return new Deadline(description, by, isDone);
-            case "E":
-                String[] subparts = parts[3].split(" - ");
-                String from = subparts[0];
-                String to = subparts[1];
-                return new Event(description, from, to, isDone);
-            default:
-                return null;
+        case "T":
+            return new Todo(description, isDone);
+        case "D":
+            String by = parts[3];
+            return new Deadline(description, by, isDone);
+        case "E":
+            String[] subparts = parts[3].split(" - ");
+            String from = subparts[0];
+            String to = subparts[1];
+            return new Event(description, from, to, isDone);
+        default:
+            return null;
         }
     }
 }
