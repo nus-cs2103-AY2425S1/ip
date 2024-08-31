@@ -86,7 +86,7 @@ public class Elysia {
             handleEmptyDescription("deadline");
         } else {
             String[] str = s.split("/by ");
-            Task task = new Deadline(str[0].trim(), str[1]);
+            Task task = new Deadline(str[0].trim(), DateParser.parseDate(str[1]));
             arrayLists.add(task);
             handleAddedMessage(task);
         }
@@ -231,7 +231,7 @@ public class Elysia {
 
     //deadline return book /by Sunday
     private static void addDeadline(String s, int i, String by) {
-            Task task = new Deadline(s, by);
+            Task task = new Deadline(s, DateParser.parseDate(by));
             if (i == 1) {
                 task.markAsDone();
             }
