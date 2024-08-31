@@ -6,6 +6,9 @@ import task.*;
 import java.util.Scanner;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Handles user interaction and input for the Jade application.
+ */
 public class UI {
     public static final String INDENT = "     "; // 5 spaces for indentation
     public static final String TOP_LINE = "    " + "_".repeat(60) + "\n";
@@ -18,11 +21,19 @@ public class UI {
     private final Scanner sc;
     private String message;
 
+    /**
+     * Constructs a UI object with the specified TaskManager.
+     *
+     * @param taskManager The TaskManager to interact with.
+     */
     public UI(TaskManager taskManager) {
         this.taskManager = taskManager;
         this.sc = new Scanner(System.in);
     }
 
+    /**
+     * Starts the user interface and handles user commands.
+     */
     public void run() {
         System.out.println(TOP_LINE + GREET + BOT_LINE);
         String command = sc.nextLine();
