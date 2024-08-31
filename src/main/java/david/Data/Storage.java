@@ -42,12 +42,12 @@ public class Storage {
     public TaskList loadTasks() {
         List<Task> tasks = new ArrayList<>();
         try {
-        File f = new File(this.path);
-        Scanner sc = new Scanner(f);
-        while(sc.hasNextLine()) {
-            Task t = parseTask(sc.nextLine());
-            tasks.add(t);
-        }
+            File f = new File(this.path);
+            Scanner sc = new Scanner(f);
+            while(sc.hasNextLine()) {
+                Task t = parseTask(sc.nextLine());
+                tasks.add(t);
+            }
         } catch (FileNotFoundException e) {
             //file does not exist
             this.createNewCache();
@@ -99,8 +99,8 @@ public class Storage {
      */
     private void createNewCache() {
         File newFile = new File(this.path);
-        File parentPath = newFile.getParentFile();  //gets parent path
-        parentPath.mkdirs();
+//        File parentPath = newFile.getParentFile();  //gets parent path
+//        parentPath.mkdirs();
         try {
             newFile.createNewFile();
         } catch (IOException e) {
