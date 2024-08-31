@@ -1,8 +1,5 @@
 package processes;
 
-import exceptions.InvalidDateException;
-import exceptions.InvalidTaskNameException;
-
 /**
  * PrefixString enum that contains the inputs the programme can handle.
  * Helps match user inputs to one of the predefined, valid inputs
@@ -27,7 +24,7 @@ public enum PrefixString {
      * @param prefix The prefix string that user inputs should match.
      *
      */
-    PrefixString (String prefix) {
+    PrefixString(String prefix) {
         this.prefix = prefix;
     }
 
@@ -39,7 +36,7 @@ public enum PrefixString {
      * @return The prefix string of the user input, if they match
      *
      */
-    public static PrefixString checkPrefixString (String input) {
+    public static PrefixString checkPrefixString(String input) {
         for (PrefixString item: PrefixString.values()) {
 
             if (item.equals(BYE)) {

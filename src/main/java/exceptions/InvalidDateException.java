@@ -4,12 +4,12 @@ package exceptions;
  * Exception that indicates an error with the dates provided to the tasks.
  *
  */
-public class InvalidDateException extends Exception{
+public class InvalidDateException extends Exception {
 
     /**
      * Default error message to show users when no message is provided
      */
-    public InvalidDateException () {
+    public InvalidDateException() {
         super("Error: No date provided");
     }
 
@@ -19,7 +19,7 @@ public class InvalidDateException extends Exception{
      *
      * @param message The message that explains why the date is invalid.
     */
-    public InvalidDateException (String message) {
+    public InvalidDateException(String message) {
         super("Error: " + message);
     }
 }

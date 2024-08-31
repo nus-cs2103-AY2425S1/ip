@@ -6,14 +6,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * Storage class that handles logic related to storing users' tasks in a file on their local machine
- */
 import tasks.DeadLine;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
 
+/**
+ * Storage class that handles logic related to storing users' tasks in a file on their local machine
+ */
 public class Storage {
     private String dirPath;
     private String filePath;
@@ -25,7 +25,7 @@ public class Storage {
      * @param dirPath The directory path that the file containing the saved user inputs should be in
      * @param filePath The path to the file where user inputs are saved.
      */
-    public Storage (String dirPath, String filePath) {
+    public Storage(String dirPath, String filePath) {
         this.dirPath = dirPath;
         this.filePath = filePath;
     }
@@ -38,26 +38,26 @@ public class Storage {
      *
      * @param taskList The location at which user info is stored for use in the programme
      */
-    public void loadData (ArrayList<Task> taskList) {
+    public void loadData(ArrayList<Task> taskList) {
         try {
             File dir = new File(dirPath);
             if (!dir.exists()) {
                 boolean doesDirExists = dir.mkdir();
                 if (!doesDirExists) {
-                    System.out.println("Error: Directory " + dirPath + " could not be created" +
-                            " to store your tasks!");
+                    System.out.println("Error: Directory " + dirPath + " could not be created"
+                            + " to store your tasks!");
                     return;
                 }
             }
 
-            File file = new File (filePath);
+            File file = new File(filePath);
             if (!file.exists()) {
                 boolean doesFileExists = file.createNewFile();
                 if (doesFileExists) {
                     System.out.println("File created to store your tasks!");
                 } else {
-                    System.out.println("Error: The file " + filePath + " could not be " +
-                            "created to store your tasks!");
+                    System.out.println("Error: The file " + filePath + " could not be "
+                            + "created to store your tasks!");
                 }
 
                 return;
@@ -80,6 +80,8 @@ public class Storage {
                 case "E":
                     newTask = new Event(args);
                     break;
+                default:
+                    System.out.println("Task of type " + type + " does not exist");
                 }
                 taskList.add(newTask);
             }

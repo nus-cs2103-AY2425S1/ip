@@ -1,12 +1,15 @@
 package tasks;
 
-import exceptions.InvalidDateException;
-import exceptions.InvalidTaskNameException;
-
 import static java.lang.Integer.parseInt;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import exceptions.InvalidDateException;
+import exceptions.InvalidTaskNameException;
+
+
+
 
 /**
  * Represents the Event task.
@@ -26,7 +29,7 @@ public class Event extends Task {
      * @throws InvalidDateException If invalid date is provided.
      *
      */
-    public Event (String inputString) throws InvalidTaskNameException, InvalidDateException {
+    public Event(String inputString) throws InvalidTaskNameException, InvalidDateException {
 
         if (inputString.contains("/from ")) {
             int fromIndex = inputString.indexOf("/from ");
@@ -96,7 +99,7 @@ public class Event extends Task {
      * @return string representation of the Event task.
      */
     @Override
-    public String toString () {
+    public String toString() {
         String res = "[E]";
         res += super.toString();
         res += " (from: " + this.fromDate.toString() + " to: " + this.toDate.toString() + ")";
@@ -110,7 +113,7 @@ public class Event extends Task {
      * @return save format of Event task.
      */
     @Override
-    public String toSave () {
+    public String toSave() {
         String res = "E|";
         res = res.concat(this.isDone ? "1|" : "0|");
         res = res.concat(this.name);

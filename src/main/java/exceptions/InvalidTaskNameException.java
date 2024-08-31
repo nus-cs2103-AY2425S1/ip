@@ -12,14 +12,14 @@ public class InvalidTaskNameException extends Exception {
      *
      * @param name The invalid name that was provided.
      */
-    public InvalidTaskNameException (String name) {
+    public InvalidTaskNameException(String name) {
         super("Error: The name " + name + " is invalid!");
     }
 
     /**
      * Default error message to show users when no name is provided to the tasks
      */
-    public InvalidTaskNameException () {
+    public InvalidTaskNameException() {
         super("Error: Please provide a name!");
     }
 }
