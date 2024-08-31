@@ -11,4 +11,12 @@ public class TaskList {
     public TaskList(List<Task> taskList) {
         this.taskList = taskList;
     }
+
+    public int size() {
+        return taskList.size();
+    }
+
+    public Task get(int index) {
+        return taskList.get(index);
+    }
 }

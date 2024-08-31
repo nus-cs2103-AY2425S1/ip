@@ -37,6 +37,10 @@ public class Ui {
         return scanner.nextLine();
     }
 
+    public void printString(String s) {
+        System.out.println(formatResponse(s));
+    }
+
     private String formatResponse(String msg) {
         String startBorder = "---------------------------------------\n";
         String endBorder = "\n---------------------------------------";
