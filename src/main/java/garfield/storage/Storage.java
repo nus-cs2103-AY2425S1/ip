@@ -46,33 +46,33 @@ public class Storage {
                 String taskType = taskDetails[0];
 
                 switch (taskType) {
-                    case "T":
-                        Todo newTodo = new Todo(taskDetails[2]);
-                        taskList.add(newTodo);
-                        if (taskDetails[1].equals("1")) {
-                            newTodo.markAsDone();
-                        } else {
-                            newTodo.markAsUndone();
-                        }
-                        break;
-                    case "D":
-                        Deadline newDeadline = new Deadline(taskDetails[2], this.parseDateTime(taskDetails[3]));
-                        taskList.add(newDeadline);
-                        if (taskDetails[1].equals("1")) {
-                            newDeadline.markAsDone();
-                        } else {
-                            newDeadline.markAsUndone();
-                        }
-                        break;
-                    case "E":
-                        Event newEvent = new Event(taskDetails[2], this.parseDateTime(taskDetails[3]), this.parseDateTime(taskDetails[4]));
-                        taskList.add(newEvent);
-                        if (taskDetails[1].equals("1")) {
-                            newEvent.markAsDone();
-                        } else {
-                            newEvent.markAsUndone();
-                        }
-                        break;
+                case "T":
+                    Todo newTodo = new Todo(taskDetails[2]);
+                    taskList.add(newTodo);
+                    if (taskDetails[1].equals("1")) {
+                        newTodo.markAsDone();
+                    } else {
+                        newTodo.markAsUndone();
+                    }
+                    break;
+                case "D":
+                    Deadline newDeadline = new Deadline(taskDetails[2], this.parseDateTime(taskDetails[3]));
+                    taskList.add(newDeadline);
+                    if (taskDetails[1].equals("1")) {
+                        newDeadline.markAsDone();
+                    } else {
+                        newDeadline.markAsUndone();
+                    }
+                    break;
+                case "E":
+                    Event newEvent = new Event(taskDetails[2], this.parseDateTime(taskDetails[3]), this.parseDateTime(taskDetails[4]));
+                    taskList.add(newEvent);
+                    if (taskDetails[1].equals("1")) {
+                        newEvent.markAsDone();
+                    } else {
+                        newEvent.markAsUndone();
+                    }
+                    break;
                 }
             }
             return taskList;

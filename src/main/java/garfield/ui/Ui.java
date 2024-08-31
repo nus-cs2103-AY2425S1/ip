@@ -2,9 +2,17 @@ package garfield.ui;
 
 import java.util.Scanner;
 
+/**
+ * The Ui class represents the interface with which the User
+ * interacts with. The Ui class provides methods to print messages to
+ * the screen for the viewer to read, and to read in user inputs.
+ */
 public class Ui {
     private Scanner inputScanner;
 
+    /**
+     * Constructs a new UI object.
+     */
     public Ui() {
         this.inputScanner = new Scanner(System.in);
     }
