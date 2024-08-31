@@ -1,8 +1,8 @@
 package cook;
 
-import tasks.Task;
-
 import java.util.ArrayList;
+
+import tasks.Task;
 
 public class TaskList {
     protected ArrayList<Task> taskArrayList;
