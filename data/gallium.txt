@@ -1,1 +1,2 @@
-[D][ ] 1 (by: Aug 31 202406:00 PM)
+[D][ ] a (by: Sep 9 2000, 07:00 PM)
+[E][X] b (from: Sep 9 2000, 07:00 PM to: Sep 9 2000, 08:00 PM)
