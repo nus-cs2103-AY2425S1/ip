@@ -1,4 +1,10 @@
-package grok;
+package storage;
+
+import grok.GrokInvalidUserInputException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,9 +13,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TextFileReader {
+public class Storage {
+    private String filePath
 
-    public static ArrayList<Task> parseFile(String fileName) {
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public static ArrayList<Task> parseTextStorage() {
         File file = new File(fileName);
 
         ArrayList<Task> items = new ArrayList<>();
@@ -63,12 +74,12 @@ public class TextFileReader {
         return items;
     }
 
-    public static void writeToFile(String fileName, ArrayList<Task> tasks) {
+    public static void writeToTextStorage(ArrayList<Task> tasks) {
         // I can't convert this with polymorphism since I cannot overwrite static methods :(
         // any alternate ideas?
         try {
             // this line potentially throws IOException.
-            FileWriter writer = new FileWriter(fileName);
+            FileWriter writer = new FileWriter(filePath);
 
             for (Task t: tasks) {
                 writer.write(t.serialize());
