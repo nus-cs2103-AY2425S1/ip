@@ -1,7 +1,8 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -123,6 +124,25 @@ public class Gallium {
                         // Message = userInput.nextLine();
                     }
                     // Message = userInput.nextLine();
+                } else if (Message.startsWith("date ")) {
+                    LocalDate date = LocalDate.parse(Message.split("date ")[1]);
+                    System.out.println("    " + lines + "\n    Deadlines/Events that match the date: ");
+                    for (int i = 1; i < Task.count; i++) {
+                        Task task = taskList.get(i - 1);
+                        if (task.description.startsWith("[D]") || task.description.startsWith("deadline ")) {
+                            Deadline deadline = (Deadline) task;
+                            if (date.format(DateTimeFormatter.ofPattern("MMM d yyyy")).equals(deadline.date)) {
+                                System.out.println("\n    " + deadline.toString());
+                            }
+                        } else if (task.description.startsWith("[E]") || task.description.startsWith("event ")) {
+                            Event event = (Event) task;
+                            if (date.format(DateTimeFormatter.ofPattern("MMM d yyyy")).equals(event.toDate)) {
+                                System.out.println("\n    " + event.toString());
+                            }
+                        }
+                    }
+                    System.out.println("\n    " + lines);
+
                 } else {
                     throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
