@@ -3,7 +3,7 @@ package bob.command;
 import bob.tasks.Deadline;
 import bob.tasks.EventTask;
 import bob.tasks.TaskList;
-import bob.tasks.ToDos;
+import bob.tasks.ToDo;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +17,7 @@ public class AddTaskCommandTest {
 
     @Test
     public void IsRunningTest() {
-        AddTaskCommand addTaskCommandToDo = new AddTaskCommand(new ToDos("Hello"));
+        AddTaskCommand addTaskCommandToDo = new AddTaskCommand(new ToDo("Hello"));
         AddTaskCommand addTaskCommandDeadline = new AddTaskCommand(new Deadline("Hello",
                 LocalDate.parse("18/12/2024", DateTimeFormatter.ofPattern("dd/MM/uuuu"))));
         AddTaskCommand addTaskCommandEvent = new AddTaskCommand(new EventTask("Hello",
@@ -31,7 +31,7 @@ public class AddTaskCommandTest {
 
     @Test
     public void AddTaskTest() {
-        AddTaskCommand addTaskCommandToDo = new AddTaskCommand(new ToDos("Hello"));
+        AddTaskCommand addTaskCommandToDo = new AddTaskCommand(new ToDo("Hello"));
         AddTaskCommand addTaskCommandDeadline = new AddTaskCommand(new Deadline("Hello",
                 LocalDate.parse("18/12/2024", DateTimeFormatter.ofPattern("dd/MM/uuuu"))));
         AddTaskCommand addTaskCommandEvent = new AddTaskCommand(new EventTask("Hello",
@@ -40,10 +40,10 @@ public class AddTaskCommandTest {
 
         TaskList myTasks = new TaskList();
         addTaskCommandToDo.execute(myTasks);
-        assertEquals(myTasks.size(), 1);
+        assertEquals(1, myTasks.size());
         addTaskCommandDeadline.execute(myTasks);
-        assertEquals(myTasks.size(), 2);
+        assertEquals(2, myTasks.size());
         addTaskCommandEvent.execute(myTasks);
-        assertEquals(myTasks.size(), 3);
+        assertEquals(3, myTasks.size());
     }
 }

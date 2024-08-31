@@ -1,7 +1,8 @@
 package bob.command;
 
+import bob.exceptions.InvalidTaskNumberException;
 import bob.tasks.TaskList;
-import bob.tasks.ToDos;
+import bob.tasks.ToDo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,13 +17,13 @@ public class UnmarkCommandTest {
     }
 
     @Test
-    public void testExecute() {
+    public void testExecute() throws InvalidTaskNumberException {
         TaskList myTasks = new TaskList();
-        ToDos toDos = new ToDos("Hello");
-        myTasks.addTask(toDos);
-        toDos.mark();
+        ToDo toDo = new ToDo("Hello");
+        myTasks.addTask(toDo);
+        toDo.mark();
         UnmarkCommand unmarkCommand = new UnmarkCommand(0);
         unmarkCommand.execute(myTasks);
-        assertEquals(toDos.toString(), "[T][ ] Hello");
+        assertEquals("[T][ ] Hello", toDo.toString());
     }
 }

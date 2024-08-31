@@ -1,7 +1,8 @@
 package bob.command;
 
+import bob.exceptions.InvalidTaskNumberException;
 import bob.tasks.TaskList;
-import bob.tasks.ToDos;
+import bob.tasks.ToDo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,12 +17,12 @@ public class MarkCommandTest {
     }
 
     @Test
-    public void testExecute() {
+    public void testExecute() throws InvalidTaskNumberException {
         TaskList myTasks = new TaskList();
-        ToDos toDos = new ToDos("Hello");
-        myTasks.addTask(toDos);
+        ToDo toDo = new ToDo("Hello");
+        myTasks.addTask(toDo);
         MarkCommand markCommand = new MarkCommand(0);
         markCommand.execute(myTasks);
-        assertEquals(toDos.toString(), "[T][X] Hello");
+        assertEquals("[T][X] Hello", toDo.toString());
     }
 }

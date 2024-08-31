@@ -1,9 +1,10 @@
 package bob.command;
 
+import bob.exceptions.InvalidTaskNumberException;
 import bob.tasks.Deadline;
 import bob.tasks.EventTask;
 import bob.tasks.TaskList;
-import bob.tasks.ToDos;
+import bob.tasks.ToDo;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -21,9 +22,9 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void testExecute() {
+    public void testExecute() throws InvalidTaskNumberException {
         TaskList myTasks = new TaskList();
-        myTasks.addTask(new ToDos("Hello"));
+        myTasks.addTask(new ToDo("Hello"));
         myTasks.addTask(new Deadline("Hello",
                 LocalDate.parse("18/12/2024", DateTimeFormatter.ofPattern("dd/MM/uuuu"))));
         myTasks.addTask(new EventTask("Hello",
@@ -31,10 +32,10 @@ public class DeleteCommandTest {
                 LocalDate.parse("18/12/2025", DateTimeFormatter.ofPattern("dd/MM/uuuu"))));
         DeleteCommand deleteCommand = new DeleteCommand(0);
         deleteCommand.execute(myTasks);
-        assertEquals(myTasks.size(), 2);
+        assertEquals(2, myTasks.size());
         deleteCommand.execute(myTasks);
-        assertEquals(myTasks.size(), 1);
+        assertEquals(1, myTasks.size());
         deleteCommand.execute(myTasks);
-        assertEquals(myTasks.size(), 0);
+        assertEquals(0, myTasks.size());
     }
 }
