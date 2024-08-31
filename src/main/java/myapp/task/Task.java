@@ -4,7 +4,7 @@ package myapp.task;
  * The Task class represents a general task with a description and a completion status.
  * This is an abstract class that serves as a base for more specific types of tasks, such as ToDo, Deadline and Event.
  */
-abstract public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 

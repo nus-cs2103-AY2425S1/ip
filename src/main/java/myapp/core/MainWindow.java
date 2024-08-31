@@ -1,5 +1,7 @@
 package myapp.core;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+
 
 /**
  * Controller for the main GUI. Manages the main window of the application,
@@ -41,7 +43,7 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
 
     /** The image representing the bot in the dialog boxes. */
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Constructs a MainWindow and sets up the primary stage.
@@ -71,7 +73,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Hello! I'm BingBong\n" + "What can I do for you?", dukeImage)
+                DialogBox.getDukeDialog("Hello! I'm BingBong\n" + "What can I do for you?", botImage)
         );
     }
 
@@ -96,7 +98,7 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, botImage)
         );
 
         if (bot.isExit()) {

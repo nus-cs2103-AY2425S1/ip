@@ -1,11 +1,12 @@
 package myapp.command;
 
+import java.time.LocalDateTime;
+
 import myapp.core.Storage;
 import myapp.task.Event;
 import myapp.task.Task;
 import myapp.task.TaskList;
 
-import java.time.LocalDateTime;
 
 /**
  * Represents a command that adds a new {@link Event} task to the task list.

@@ -1,5 +1,8 @@
 package myapp.command;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import myapp.core.BingBongException;
 import myapp.core.DateTimeHandler;
 import myapp.core.Storage;
@@ -8,8 +11,6 @@ import myapp.task.Event;
 import myapp.task.Task;
 import myapp.task.TaskList;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a command that lists all tasks scheduled on a specific date.
@@ -42,7 +43,8 @@ public class ListOnCommand extends ListCommand {
      *
      * @param tasks   The task list containing the tasks to be filtered.
      * @param storage The storage system (not used in this command).
-     * @return A string message listing the tasks scheduled on the specified date, or a message indicating no matches were found.
+     * @return A string message listing the tasks scheduled on the specified date, or a message indicating
+     *      no matches were found.
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {

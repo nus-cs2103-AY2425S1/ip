@@ -67,7 +67,8 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Returns the index of the first occurrence of the specified element in the list, or -1 if the list does not contain the element.
+     * Returns the index of the first occurrence of the specified element in the list, or -1 if the list
+     *      does not contain the element.
      *
      * @param o the element to search for.
      * @return the index of the first occurrence of the specified element, or -1 if not found.
