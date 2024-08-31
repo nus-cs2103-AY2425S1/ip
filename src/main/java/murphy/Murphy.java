@@ -55,14 +55,9 @@ public class Murphy {
                 } catch (MurphyException e) {
                     ui.showError(String.format("Error saving tasks to storage: %s", e.getMessage()));
                 }
-                continue;
-            }
-
-            if (input.equals("list")) {
+            } else if (input.equals("list")) {
                 ui.showText(tasks.toString());
-            }
-
-            else if (input.startsWith("mark ")) {
+            } else if (input.startsWith("mark ")) {
                 String[] split = input.split(" ");
                 if (split.length > 2) {
                     ui.showError("mark usage: \"mark [task number]\"");
@@ -80,9 +75,7 @@ public class Murphy {
                 } catch (MurphyException e) {
                     ui.showError(String.format("Error marking task: %s", e.getMessage()));
                 }
-            }
-
-            else if (input.startsWith("unmark ")) {
+            } else if (input.startsWith("unmark ")) {
                 String[] split = input.split(" ");
                 if (split.length > 2) {
                     ui.showError("unmark usage: \"unmark [task number]\"");
@@ -100,9 +93,7 @@ public class Murphy {
                 } catch (MurphyException e) {
                     ui.showError(String.format("Error unmarking task: %s", e.getMessage()));
                 }
-            }
-
-            else if (input.startsWith("delete ")) {
+            } else if (input.startsWith("delete ")) {
                 String[] split = input.split(" ");
                 if (split.length > 2) {
                     ui.showError("delete usage: \"delete [task number]\"");
@@ -120,18 +111,14 @@ public class Murphy {
                 } catch (MurphyException e) {
                     ui.showError(String.format("Error deleting task: %s", e.getMessage()));
                 }
-            }
-
-            else if(input.startsWith("todo ")) {
+            } else if(input.startsWith("todo ")) {
                 try {
                     Task todo = new Todo(input.substring(5));
                     ui.showText(tasks.addItem(todo));
                 } catch (MurphyException e) {
                     ui.showError(String.format("Error adding todo: %s", e.getMessage()));
                 }
-            }
-
-            else if(input.startsWith("deadline ")) {
+            } else if(input.startsWith("deadline ")) {
                 if (!input.contains("/by ")) {
                     ui.showError("deadline usage: \"deadline [description] /by [date]\"");
                     continue;
@@ -143,9 +130,7 @@ public class Murphy {
                 } catch (MurphyException e) {
                     ui.showError(String.format("Error adding deadline: %s", e.getMessage()));
                 }
-            }
-
-            else if (input.startsWith("event ")) {
+            } else if (input.startsWith("event ")) {
                 if (!input.contains("/from ") || !input.contains("/to ")) {
                     ui.showError("event usage: \"event [description] /from [date] /to [date]\"");
                     continue;
@@ -158,9 +143,7 @@ public class Murphy {
                 } catch (MurphyException e) {
                     ui.showError(String.format("Error adding event: %s", e.getMessage()));
                 }
-            }
-
-            else {
+            } else {
                 ui.showError("Command not found");
             }
         }
