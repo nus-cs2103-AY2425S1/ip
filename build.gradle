@@ -49,7 +49,7 @@ application {
 }
 
 run {
-    mainClass.set("regina.Regina")
+    mainClass.set("gui.Launcher")
 }
 
 shadowJar {
