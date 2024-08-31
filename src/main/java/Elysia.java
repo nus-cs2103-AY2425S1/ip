@@ -1,22 +1,31 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Elysia {
-    static String line = "____________________________________________________________";
-    static String welcomeMessage = "Hi there! Did you miss me?\n" +
+    private static String line = "____________________________________________________________";
+    private static String welcomeMessage = "Hi there! Did you miss me?\n" +
             "Wherever you are and whenever you need,\n" +
             "Elysia will always meet your expectations.";
-    static String exitMessage = "Alright, this time we really have to say goodbye.\n" +
+    private static String exitMessage = "Alright, this time we really have to say goodbye.\n" +
             "Goodbye, Mei!";
-    private static ArrayList<Task> arrayList;
+    private static ArrayList<Task> arrayLists;
+    private static String folderName = "data";
+    private static String fileName = "elysia.txt";
+    private static String filePath = "./data/elysia.txt";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
-        arrayList = new ArrayList<>();
+        arrayLists = new ArrayList<>();
 
         System.out.println(line);
         System.out.println(welcomeMessage);
         System.out.println(line);
+
+        scanFileContents(filePath);
 
         while (true) {
             String input = scanner.nextLine();
@@ -24,6 +33,8 @@ public class Elysia {
                 System.out.println(line);
                 System.out.println(exitMessage);
                 System.out.println(line);
+
+                handleExit();
                 break;
             } else if (input.equals("list")) {
                 printList();
@@ -44,80 +55,80 @@ public class Elysia {
             } else if (input.startsWith("delete")) {
                 deleteTask(input);
             } else {
-                    System.out.println("Oh my! I'm so sorry,\n" +
-                            "but it seems I'm not sure what that means.\n" +
-                            "Let's figure it out together, shall we?");
+                System.out.println("Oh my! I'm so sorry,\n" +
+                        "but it seems I'm not sure what that means.\n" +
+                        "Let's figure it out together, shall we?");
             }
         }
     }
 
-    public static void handleAddedMessage(Task task) {
+    private static void handleAddedMessage(Task task) {
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
-        System.out.println("Now you have " + arrayList.size() + " tasks in the list.");
+        System.out.println("Now you have " + arrayLists.size() + " tasks in the list.");
         System.out.println(line);
     }
 
-    public static void addToDos(String s) {
+    private static void addToDos(String s) {
         if (s.isEmpty()) {
             handleEmptyDescription("todo");
         } else {
             Task task = new ToDos(s);
-            arrayList.add(task);
+            arrayLists.add(task);
             handleAddedMessage(task);
         }
     }
 
     //deadline return book /by Sunday
-    public static void addDeadline(String s) {
+    private static void addDeadline(String s) {
         if (s.isEmpty()) {
             handleEmptyDescription("deadline");
         } else {
             String[] str = s.split("/by ");
-            Task task = new Deadline(str[0], str[1]);
-            arrayList.add(task);
+            Task task = new Deadline(str[0].trim(), str[1]);
+            arrayLists.add(task);
             handleAddedMessage(task);
         }
     }
 
-    public static void addEvent(String s) {
+    private static void addEvent(String s) {
         if (s.isEmpty()) {
             handleEmptyDescription("event");
         } else {
             String[] str = s.split("/from | /to ");
-            Task task = new Event(str[0], str[1], str[2]);
-            arrayList.add(task);
+            Task task = new Event(str[0].trim(), str[1], str[2]);
+            arrayLists.add(task);
             handleAddedMessage(task);
         }
     }
 
-    public static void printList() {
-        int n = arrayList.size();
+    private static void printList() {
+        int n = arrayLists.size();
         System.out.println("Here are the tasks in your list: ");
         for (int i = 1; i <= n; i++) {
-            Task curr = arrayList.get(i - 1);
+            Task curr = arrayLists.get(i - 1);
             System.out.println(i + "." + curr.toString());
         }
     }
 
-    public static void markAsDone(String input) {
+    private static void markAsDone(String input) {
         int index = Integer.parseInt(String.valueOf(input.charAt(5))) - 1;
-        Task curr = arrayList.get(index);
+        Task curr = arrayLists.get(index);
         curr.markAsDone();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(curr);
     }
 
-    public static void unmarkAsDone(String input) {
+    private static void unmarkAsDone(String input) {
         int index = Integer.parseInt(String.valueOf(input.charAt(7))) - 1;
-        Task curr = arrayList.get(index);
+        Task curr = arrayLists.get(index);
         curr.unmarkAsDone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(curr);
     }
 
-    public static void handleEmptyDescription(String taskType) {
+    private static void handleEmptyDescription(String taskType) {
         System.out.println(line);
         System.out.println("Oopsie! It looks like the description for this " +
                 taskType +
@@ -126,15 +137,114 @@ public class Elysia {
         System.out.println(line);
     }
 
-    public static void deleteTask(String input) {
+    private static void deleteTask(String input) {
         int index = Integer.parseInt(input.substring(7)) - 1;
-        Task task = arrayList.get(index);
-        arrayList.remove(index);
+        Task task = arrayLists.get(index);
+        arrayLists.remove(index);
         System.out.println(line);
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
-        System.out.println("Now you have " + arrayList.size() + " tasks in the list.");
+        System.out.println("Now you have " + arrayLists.size() + " tasks in the list.");
         System.out.println(line);
     }
+
+    private static void createFile() throws IOException {
+        File dataDir = new File(folderName);
+
+        if (!dataDir.exists()) {
+            dataDir.mkdir();
+
+        }
+
+        if (dataDir.exists() && dataDir.isDirectory()) {
+            File txtFile = new File(dataDir, fileName);
+
+            try {
+                if (txtFile.createNewFile()) {
+                    System.out.println(fileName + " successfully created.");
+                } else {
+                    System.out.println(fileName + " already exists");
+                }
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating the " + fileName);
+            }
+        }
+    }
+
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        fw.write(textToAppend);
+        fw.close();
+    }
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    private static void handleExit() throws IOException {
+        createFile();
+
+        try {
+            writeToFile(filePath, arrayLists.get(0).saveToTxt());
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+        for (int i = 1; i < arrayLists.size(); i++) {
+            appendToFile(filePath, "\n" + arrayLists.get(i).saveToTxt());
+        }
+    }
+
+    private static void scanFileContents(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+
+        if (f.exists() && f.isFile()) {
+            while (s.hasNext()) {
+                String input = s.nextLine();
+                String[] str = input.split(" \\| ");
+
+                if (str[0].equals("T")) {
+                    addToDos(str[2], Integer.parseInt(str[1]));
+                }
+
+                if (str[0].equals("D")) {
+                    addDeadline(str[2], Integer.parseInt(str[1]), str[3]);
+                }
+
+                if (str[0].equals("E")) {
+                    addEvent(str[2], Integer.parseInt(str[1]), str[3], str[4]);
+                }
+            }
+        }
+    }
+
+    private static void addToDos(String s, int i) {
+
+            Task task = new ToDos(s);
+            if (i == 1) {
+                task.markAsDone();
+            }
+            arrayLists.add(task);
+    }
+
+    //deadline return book /by Sunday
+    private static void addDeadline(String s, int i, String by) {
+            Task task = new Deadline(s, by);
+            if (i == 1) {
+                task.markAsDone();
+            }
+            arrayLists.add(task);
+        }
+    private static void addEvent(String s, int i, String from, String to) {
+
+            Task task = new Event(s, from, to);
+            if (i == 1) {
+                task.markAsDone();
+            }
+            arrayLists.add(task);
+    }
+
 }
 
