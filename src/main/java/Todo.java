@@ -4,6 +4,15 @@ public class Todo extends Task {
         super(name);
     }
 
+    public Todo(String name, boolean status) {
+        super(name, status);
+    }
+
+    @Override
+    public String storeInFile() {
+        return String.format("T | %s | %s", super.storeInFile(), this.name);
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();
