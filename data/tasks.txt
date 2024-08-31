@@ -1,0 +1,4 @@
+T | 1 | laundry
+D | 0 | homework | sat
+E | 0 | birthday | sat | sun
+D | 0 | 2101 | sun

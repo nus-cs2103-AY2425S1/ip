@@ -70,9 +70,11 @@ public class Hien {
         System.out.printf("description: %s", description);
         Todo todo = new Todo(description);
         tasks.add(todo);
+        saveTasks();
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + todo);
         System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+
     }
 
     private void addDeadline(String input) throws HienException {
@@ -80,6 +82,7 @@ public class Hien {
         if (parts.length == 2) {
             Deadline deadline = new Deadline(parts[0].trim(), parts[1].trim());
             tasks.add(deadline);
+            saveTasks();
             System.out.println(" Got it. I've added this task:");
             System.out.println("   " + deadline);
             System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
@@ -93,6 +96,7 @@ public class Hien {
         if (parts.length == 3) {
             Event event = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
             tasks.add(event);
+            saveTasks();
             System.out.println(" Got it. I've added this task:");
             System.out.println("   " + event);
             System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
@@ -130,6 +134,7 @@ public class Hien {
             int i = Integer.parseInt(index);
             Task removedTask = tasks.get(i - 1);
             tasks.remove(i - 1);
+            saveTasks();
             System.out.println(" Got it. I've deleted this task:");
             System.out.println("   " + removedTask);
             System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
@@ -150,6 +155,7 @@ public class Hien {
                 task.markAsUndone();
                 System.out.println(" OK, I've marked this task as not done yet:");
             }
+            saveTasks();
             System.out.println("   " + task);
         }
     }
