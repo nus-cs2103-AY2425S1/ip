@@ -1,9 +1,13 @@
 package gopher.task;
 
+import gopher.parser.Parser;
 import gopher.storage.TaskManager;
 import gopher.ui.UI;
-import java.util.ArrayList;
+
 import java.lang.StringBuilder;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -23,6 +27,21 @@ public class TaskList {
         tasks.remove(taskNumber - 1);
         TaskManager.saveTasks(tasks);
         UI.printDeleteTaskMessage(this, task);
+    }
+
+    public TaskList find(String keyword) {
+        ArrayList<Task> matchedTasks = new ArrayList<>();
+        Pattern keywordPattern = Pattern.compile(keyword,
+                Pattern.CASE_INSENSITIVE);
+
+        for (Task task : tasks) {
+            Matcher keywordMatcher = keywordPattern.matcher(task.toString());
+            if (keywordMatcher.find()) {
+                matchedTasks.add(task);
+            }
+        }
+
+        return new TaskList(matchedTasks);
     }
 
     public void markAsDone(int taskNumber) {
