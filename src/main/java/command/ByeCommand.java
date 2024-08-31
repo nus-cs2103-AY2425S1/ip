@@ -1,7 +1,6 @@
 package command;
 
 import tasklist.TaskList;
-import ui.CommandLineUi;
 
 /**
  * Represents a command to exit the application.
@@ -14,10 +13,12 @@ public class ByeCommand extends Command {
      * Executes the command, which in this case, does nothing as the command is meant to signal the application to exit.
      *
      * @param tasklist The TaskList, which is not used in this command.
-     * @param ui       The CommandLineUI, which is not used in this command.
+     * @return null.
      */
-    public void execute(TaskList tasklist, CommandLineUi ui) {
+    @Override
+    public String execute(TaskList tasklist) {
         // Do nothing
+        return null;
     }
 
     /**
@@ -25,6 +26,7 @@ public class ByeCommand extends Command {
      *
      * @return true, as this command signals the application to exit.
      */
+    @Override
     public boolean isExit() {
         return true;
     }

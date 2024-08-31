@@ -5,7 +5,6 @@ import java.util.List;
 
 import tasklist.TaskList;
 import tasks.Task;
-import ui.CommandLineUi;
 
 /**
  * Represents a command to find tasks in the task list that match a given keyword.
@@ -29,9 +28,10 @@ public class FindCommand extends Command {
      * and displaying the matching tasks in the command line interface.
      *
      * @param tasklist The TaskList to search for matching tasks.
-     * @param ui       The CommandLineUI used to interact with the user.
+     * @return List of tasks.
      */
-    public void execute(TaskList tasklist, CommandLineUi ui) {
+    @Override
+    public String execute(TaskList tasklist) {
         List<Task> matches = new ArrayList<Task>();
 
         List<Task> tasks = tasklist.getTasks();
@@ -44,9 +44,12 @@ public class FindCommand extends Command {
         }
 
         // Show matches
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < matches.size(); i++) {
-            ui.speakLine((i + 1) + ". " + matches.get(i).toString());
+            sb.append((i + 1) + ". " + matches.get(i).toString() + "\n");
         }
+
+        return sb.toString();
 
     }
 
@@ -55,6 +58,7 @@ public class FindCommand extends Command {
      *
      * @return false, as this command does not cause the application to exit.
      */
+    @Override
     public boolean isExit() {
         return false;
     }
