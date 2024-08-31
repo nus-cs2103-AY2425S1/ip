@@ -19,41 +19,17 @@ public class Ponder_Pika {
 
     private final IOHandler io = new IOHandler();
     private final List<Task> myList = io.loadData();
+    private final Ui ui = new Ui();
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
 
-    /**
-     * Prints a divider line for better readability in the console output.
-     */
-    public void printDivider() {
-        System.out.println("...........................................................");
-    }
 
-
-    /**
-     * Prints a greeting message to the user with the bot's name.
-     */
-    private void greet() {
-        String logo = "Ponder_Pika";
-
-        System.out.println("----------------------------------------------------------");
-        System.out.println("Hello I'm " + logo);
-        System.out.println("\nIt is a great day to ponder! How may I help you?");
-        System.out.println("----------------------------------------------------------");
-    }
-
-    /**
-     * Prints a goodbye message to the user.
-     */
-    private static void bidBye() {
-        System.out.println("\nBye! See you real soon!");
-    }
 
     /**
      * Starts the command-line interface for interacting with the task management system.
      * This method listens for user input (commands from user) and executes corresponding commands.
      */
     public void echo() {
-        greet();
+        ui.greet();
         Scanner scan = new Scanner(System.in);
         String userCommand;
 
@@ -67,7 +43,7 @@ public class Ponder_Pika {
                     for (int i = 0; i < myList.size(); i++) {
                         System.out.println(i + 1 + ". " + myList.get(i).toString());
                     }
-                    printDivider();
+                    ui.printDivider();
                     break;
 
                 case "mark":
@@ -77,7 +53,7 @@ public class Ponder_Pika {
                         myList.get(markIndex - 1).markDone();
                         System.out.println("Your task has been marked as done.");
                         System.out.println(myList.get(markIndex - 1).toString());
-                        printDivider();
+                        ui.printDivider();
                     } else {
                         throw new PonderPikaException("No task available at given index!");
                     }
@@ -90,7 +66,7 @@ public class Ponder_Pika {
                         myList.get(unMarkIndex - 1).markUndone();
                         System.out.println("Your task has been undone.");
                         System.out.println(myList.get(unMarkIndex - 1).toString());
-                        printDivider();
+                        ui.printDivider();
                     } else {
                         throw new PonderPikaException("No task available at given index!");
                     }
@@ -105,7 +81,7 @@ public class Ponder_Pika {
                     myList.add(todo);
                     System.out.println("        Pika! I have added your todo: " + commands[1]);
                     System.out.println("\nPeek-A-Boo! We have " + myList.size() + " tasks in our list");
-                    printDivider();
+                    ui.printDivider();
                     break;
                 case "deadline":
                         String[] args = commands[1].split("/by ");
@@ -122,7 +98,7 @@ public class Ponder_Pika {
                         myList.add(deadline);
                         System.out.println("        Pika! I have added a deadline: " + args[0].trim() + " by " + args[1].trim());
                         System.out.println("\nPeek-A-Boo! We have " + myList.size() + " tasks in our list");
-                        printDivider();
+                        ui.printDivider();
                         break;
 
                 case "event":
@@ -148,7 +124,7 @@ public class Ponder_Pika {
                         myList.add(event);
                         System.out.println("        Pika! I have added your event: " + desc[0].trim() + " from " + time[0].trim() + " to " + time[1].trim());
                         System.out.println("\nPeek-A-Boo! We have " + myList.size() + " tasks in our list");
-                        printDivider();
+                        ui.printDivider();
                         break;
 
                 case "delete":
@@ -159,7 +135,7 @@ public class Ponder_Pika {
                             System.out.println("Your task has been deleted.");
                             System.out.println(deletedItem.toString());
                             System.out.println("\nPeek-A-Boo! We have " + myList.size() + " tasks in our list");
-                            printDivider();
+                            ui.printDivider();
                         } else {
                             throw new PonderPikaException("No task available at given index to be deleted!");
                         }
@@ -167,7 +143,7 @@ public class Ponder_Pika {
 
                 case "bye":
                         System.out.println("------------------------------------------------------------");
-                        Ponder_Pika.bidBye();
+                        ui.bidBye();
                         System.out.println("\n----------------------------------------------------------");
                         io.saveData(this.myList);
                         break;
@@ -178,14 +154,14 @@ public class Ponder_Pika {
                                 System.out.println(i + 1 + ". " + myList.get(i).toString());
                             }
                         }
-                        printDivider();
+                        ui.printDivider();
                         break;
                 default:
                         throw new PonderPikaException("Invalid Command, Please Try Again!");
                 }
             } catch (PonderPikaException  e) {
                 System.out.println(e.toString());
-                printDivider();
+                ui.printDivider();
             }
 
             if (userCommand.equals("bye")) {
