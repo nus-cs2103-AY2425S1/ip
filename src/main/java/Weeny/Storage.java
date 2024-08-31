@@ -1,4 +1,5 @@
 package weeny;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,56 +11,76 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Handles reading from and writing to files, as well as creating necessary files and directories.
+ */
 public class Storage {
+
+    /**
+     * Creates a directory and file if they do not already exist.
+     *
+     * @param dir The directory path.
+     * @param file The file name.
+     */
     public void createFileIfNotExist(String dir, String file) {
         File dataDir = new File(dir);
         File taskFile = new File(dataDir, file);
         try {
             if (dataDir.mkdir()) {
-                // Create directory successful
+                // Directory created successfully
             }
             if (taskFile.createNewFile()) {
-                // Create file successful
+                // File created successfully
             }
         } catch (IOException e) {
-            System.err.println("Error creating directory or file" + e.getMessage());
+            System.err.println("Error creating directory or file: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
+    /**
+     * Loads tasks from a file and returns them as a list.
+     *
+     * @param fileName The path to the file.
+     * @return A list of tasks read from the file.
+     */
     public List<Task> loadTask(String fileName) {
-        List<Task> taskList= new ArrayList<>();
+        List<Task> taskList = new ArrayList<>();
         List<String> lines = Collections.emptyList();
         try {
             lines = Files.readAllLines(
                     Paths.get(fileName),
                     StandardCharsets.UTF_8);
-        }
-        catch (IOException e) {
-            // do something
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        Iterator<String> itr = lines.iterator();
-        while (itr.hasNext()) {
-            String[] processTask = itr.next().split(" \\| ");
+
+        for (String line : lines) {
+            String[] processTask = line.split(" \\| ");
             String description = processTask[2];
             Task currentTask = null;
-            if (processTask[0].equals("T")) {
+
+            switch (processTask[0]) {
+            case "T":
                 currentTask = new Todo(description);
-            } else if (processTask[0].equals("D")) {
+                break;
+            case "D":
                 currentTask = new Deadlines(description, processTask[3]);
-            } else if (processTask[0].equals("E")) {
-                // Split string into startDate and endDate string
+                break;
+            case "E":
                 int split = processTask[3].indexOf('-');
                 if (split == -1) {
-                    throw new IllegalArgumentException("Invalid event time format " + processTask[3]);
+                    throw new IllegalArgumentException("Invalid event time format: " + processTask[3]);
                 }
                 String startDatestring = processTask[3].substring(0, split).trim();
                 String endDatestring = processTask[3].substring(split + 1).trim();
                 currentTask = new Events(description, startDatestring, endDatestring);
-            } else {
-                // should not reach here
+                break;
+            default:
+                // Invalid task type
+                throw new IllegalArgumentException("Unknown task type: " + processTask[0]);
             }
+
             if (Integer.parseInt(processTask[1]) == 1) {
                 currentTask.setMark();
             }
@@ -68,19 +89,20 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves a list of tasks to a file.
+     *
+     * @param path The path to the file.
+     * @param tasks The list of tasks to save.
+     */
     public void saveTask(String path, List<Task> tasks) {
-        Iterator<Task> taskIterator = tasks.iterator();
-        try {
-            FileWriter fileWriter = new FileWriter(path);
-            while (taskIterator.hasNext()) {
-                fileWriter.write(taskIterator.next().toOutput() + "\n");
+        try (FileWriter fileWriter = new FileWriter(path)) {
+            for (Task task : tasks) {
+                fileWriter.write(task.toOutput() + "\n");
             }
-            fileWriter.close();
         } catch (IOException e) {
-            System.out.println("Error in writing");
+            System.out.println("Error writing to file: " + e.getMessage());
             e.printStackTrace();
         }
     }
-
-
 }

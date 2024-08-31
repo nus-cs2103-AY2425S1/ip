@@ -2,20 +2,26 @@ package weeny;
 
 /**
  * Main class for the Weeny task management application.
- * Handles user input and task operations.
+ * Manages user commands and handles tasks.
  */
 public class Weeny {
 
+    /**
+     * Starts the Weeny application.
+     * Initializes UI, storage, parser, and task list. Processes user commands.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
-        Ui ui = new Ui(); // Create Ui object
-        Storage storage = new Storage(); // Create storage object
-        Parser parser = new Parser(); // Create parser object
-        TaskList taskList = new TaskList(); // Create tasklist object
+        Ui ui = new Ui(); // UI for user interactions
+        Storage storage = new Storage(); // Manages task data storage
+        Parser parser = new Parser(); // Parses user input
+        TaskList taskList = new TaskList(); // List of tasks
 
-        // Check if data directory and TaskList.txt exist, create if not
+        // Ensure data directory and TaskList.txt file exist
         storage.createFileIfNotExist("./data", "TaskList.txt");
 
-        // Read TaskList file to resume TaskList
+        // Load tasks from file
         taskList.getTasks().addAll(storage.loadTask("./data/TaskList.txt"));
 
         boolean isFarewell = false;
@@ -86,7 +92,7 @@ public class Weeny {
                     break;
 
                 default:
-                    throw new UnsupportedOperationException("Oopsies we don't understand that command");
+                    throw new UnsupportedOperationException("Unknown command");
                 }
             } catch (IllegalArgumentException | IndexOutOfBoundsException | UnsupportedOperationException e) {
                 ui.showError(e.getMessage());
@@ -94,60 +100,64 @@ public class Weeny {
         }
         ui.showGoodbyeMessage();
 
-        // Write to TaskList.txt
+        // Save tasks to file
         storage.saveTask("./Data/TaskList.txt", taskList.getTasks());
     }
 
     /**
-     * Prints a line separator.
+     * Prints a separator line.
      */
     public static void printLine() {
         System.out.println("______________________________________________");
     }
 
     /**
-     * Validates that the index is within the valid range of task list.
+     * Checks if the index is within the task list range.
      *
-     * @param index The index to validate.
+     * @param index The index to check.
      * @param size The size of the task list.
      * @param action The action being performed (e.g., "mark", "delete").
+     * @throws IndexOutOfBoundsException if the index is out of range.
      */
     protected static void validateIndex(int index, int size, String action) {
         if (index >= size || index < 0) {
-            throw new IndexOutOfBoundsException("Just a reminder. You can't " + action + " tasks that don't exist!");
+            throw new IndexOutOfBoundsException("Invalid index for " + action + " action.");
         }
     }
 
     /**
-     * Validates the input for the "todo" command.
+     * Validates input for a "todo" command.
      *
-     * @param input The input string.
+     * @param input The command input.
+     * @throws IllegalArgumentException if the input is too short.
      */
     private static void validateTodoInput(String input) {
         if (input.length() <= 5) {
-            throw new IllegalArgumentException("Are you going to add nothing as your To-Do? >:(");
+            throw new IllegalArgumentException("To-Do description is too short.");
         }
     }
 
     /**
-     * Validates the input for the "event" command.
+     * Validates input for an "event" command.
      *
-     * @param input The input string.
+     * @param input The command input.
+     * @throws IllegalArgumentException if the input lacks necessary details.
      */
     private static void validateEventInput(String input) {
         if (input.length() <= 6 || !input.contains("/from") || !input.contains("/to")) {
-            throw new IllegalArgumentException("What kind of event has no name or time? >:(");
+            throw new IllegalArgumentException("Event details are incomplete.");
         }
     }
 
     /**
-     * Validates the input for the "deadline" command.
+     * Validates input for a "deadline" command.
      *
-     * @param input The input string.
+     * @param input The command input.
+     * @throws IllegalArgumentException if the input lacks necessary details.
      */
     private static void validateDeadlineInput(String input) {
         if (input.length() <= 9 || !input.contains("/by")) {
-            throw new IllegalArgumentException("What is a deadline without a date or a task? >:(");
+            throw new IllegalArgumentException("Deadline details are incomplete.");
         }
     }
 }
