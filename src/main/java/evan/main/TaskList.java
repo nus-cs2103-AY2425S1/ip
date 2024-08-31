@@ -6,21 +6,43 @@ import evan.task.Task;
 import java.util.ArrayList;
 
 
+/**
+ * Represents the list of tasks that the chatbot stores.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
+    /**
+     * Instantiates an empty TaskList object.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Instantiates a TaskList object that is pre-populated with Tasks from the specified ArrayList.
+     *
+     * @param tasks ArrayList of Tasks that will pre-populate the TaskList.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Adds a new Task to the TaskList.
+     *
+     * @param task Task to be added.
+     */
     public void add(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Marks the Task with the given taskNumber as done.
+     *
+     * @param taskNumber Task number of the task that will be marked as done.
+     * @throws NoSuchTaskException If there is no task with the specified taskNumber.
+     */
     public void markTaskAsDone(int taskNumber) throws NoSuchTaskException {
         int index = taskNumber - 1;
         if (index < 0 || index >= tasks.size()) {
@@ -29,6 +51,12 @@ public class TaskList {
         tasks.get(index).markAsDone();
     }
 
+    /**
+     * Marks the Task with the given taskNumber as undone.
+     *
+     * @param taskNumber Task number of the task that will be marked as undone.
+     * @throws NoSuchTaskException If there is no task with the specified taskNumber.
+     */
     public void markTaskAsUndone(int taskNumber) throws NoSuchTaskException {
         int index = taskNumber - 1;
         if (index < 0 || index >= tasks.size()) {
@@ -37,6 +65,12 @@ public class TaskList {
         tasks.get(index).markAsUndone();
     }
 
+    /**
+     * Deletes the Task with the given taskNumber.
+     *
+     * @param taskNumber Task number of the task that will be deleted.
+     * @throws NoSuchTaskException If there is no task with the specified taskNumber.
+     */
     public void deleteTask(int taskNumber) throws NoSuchTaskException {
         int index = taskNumber - 1;
         if (index < 0 || index >= tasks.size()) {
@@ -45,6 +79,9 @@ public class TaskList {
         tasks.remove(index);
     }
 
+    /**
+     * Prints a formatted representation of the TaskList.
+     */
     public void display() {
         if (tasks.isEmpty()) {
             System.out.println("Hooray! Your task list is empty!");
@@ -54,6 +91,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a String representation of the TaskList object that will be saved to the storage .txt file.
+     * Each Task in the TaskList has its own encodeAsString() method that will be called.
+     *
+     * @return String representation of the TaskList object that will be saved to the storage .txt file.
+     */
     public String encodeAsString() {
         StringBuilder result = new StringBuilder();
         for (Task task : tasks) {

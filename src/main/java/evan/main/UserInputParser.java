@@ -8,6 +8,11 @@ import java.util.regex.Pattern;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * Represents a parser that validates the user's input and converts it into commands that the chatbot can interpret and
+ * execute.
+ * Throws InvalidUserInputException when the user's input is invalid.
+ */
 public class UserInputParser {
     // Regular expression patterns to capture information from the user input
     private final Pattern keywordPattern = Pattern.compile("^(\\w+)");
@@ -18,7 +23,12 @@ public class UserInputParser {
     private final Pattern unmarkPattern = Pattern.compile("^unmark\\s+(\\d+)$");
     private final Pattern deletePattern = Pattern.compile("^delete\\s+(\\d+)$");
 
-
+    /**
+     * Parses the given user input and returns a Command that matches the user input.
+     *
+     * @return Command that the chatbot can execute.
+     * @throws InvalidUserInputException If the user input is not recognised.
+     */
     public Command parse(String userInput) throws InvalidUserInputException {
         Matcher keywordMatcher = keywordPattern.matcher(userInput);
 
