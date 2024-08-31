@@ -30,6 +30,12 @@ public class Event extends Task {
         return new Event(this.getDescription(), this.isDone(), this.getFrom(), this.getTo());
     }
 
+    @Override
+    public String toFileRecord() {
+        return String.format("E | %s | %s | %s", this.getDescription(),
+                this.getFrom(), this.getTo());
+    }
+
     public String getFrom() {
         return this.from;
     }

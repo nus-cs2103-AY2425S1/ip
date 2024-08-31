@@ -26,6 +26,11 @@ public class ToDo extends Task {
     }
 
     @Override
+    public String toFileRecord() {
+        return String.format("T | %s", this.getDescription());
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
