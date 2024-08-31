@@ -53,6 +53,14 @@ public class Parser {
                 return new DeleteCommand(Integer.parseInt(arg) - 1);
             }
 
+            if (input.startsWith("find")) {
+                String arg = input.substring("find".length()).trim();
+                if (arg.isEmpty()) {
+                    throw new EmptyFieldException();
+                }
+                return new FindCommand(arg);
+            }
+
 
             if (input.startsWith("deadline") || input.startsWith("todo") || input.startsWith("event")) {
                 Task task = null;
