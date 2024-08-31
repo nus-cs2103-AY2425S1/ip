@@ -7,10 +7,11 @@ import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
+import yappingbot.tasks.Task;
+
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotOobException;
 import yappingbot.stringconstants.ReplyTextMessages;
-import yappingbot.tasks.Task;
 import yappingbot.ui.MultilineStringBuilder;
 import yappingbot.ui.Ui;
 
@@ -30,6 +31,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Creates a task list populated with values from the given ArrayList of Strings.
+     *
      * @param tasksRaw ArrayList of Strings, each a line that denotes a serialized task.
      * @return TaskList, populated with appropriate values.
      */
@@ -56,6 +58,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Creates an ArrayList of Strings values, each containing the serialized version of the tasks.
+     *
      * @return ArrayList of Strings of each serialized task.
      */
     public ArrayList<String> toRawFormat() {
@@ -101,6 +104,7 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Returns size of list.
+     *
      * @return integer of the count of tasks in list.
      */
 

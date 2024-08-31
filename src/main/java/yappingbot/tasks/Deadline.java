@@ -1,15 +1,17 @@
 package yappingbot.tasks;
 
-import yappingbot.exceptions.YappingBotIncorrectCommandException;
-import yappingbot.exceptions.YappingBotInvalidSaveFileException;
-import yappingbot.stringconstants.ReplyTextMessages;
-import yappingbot.tasks.tasklist.TaskTypes;
+import static yappingbot.stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import static yappingbot.stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES;
+import yappingbot.tasks.tasklist.TaskTypes;
+
+import yappingbot.exceptions.YappingBotIncorrectCommandException;
+import yappingbot.exceptions.YappingBotInvalidSaveFileException;
+import yappingbot.stringconstants.ReplyTextMessages;
+
 
 /**
  * Deadline variant of the Task that can be created.
@@ -22,7 +24,7 @@ public class Deadline extends Task {
      * Constructor for a blank Deadline task (Task name "Untitled", unmarked).
      */
     public Deadline() {
-        this("Untitled",false);
+        this("Untitled", false);
     }
 
     /**
@@ -45,7 +47,8 @@ public class Deadline extends Task {
      * @param taskDone Boolean of whether the task is marked or unmarked as done.
      * @param deadline String of the deadline, in format "YYYY-MM-DD".
      */
-    public Deadline(String taskName, boolean taskDone, String deadline) throws YappingBotIncorrectCommandException {
+    public Deadline(String taskName, boolean taskDone, String deadline)
+    throws YappingBotIncorrectCommandException {
         super(taskName, taskDone);
         super.setTaskType(TaskTypes.DEADLINE);
         this.setDeadline(deadline);

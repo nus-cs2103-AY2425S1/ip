@@ -13,6 +13,7 @@ public class Parser {
 
     /**
      * HashMap to map text (in any locale) to the respective CommandTypes.
+     *
      * @see <a href="https://github.com/nus-cs2103-AY2425S1/forum/issues/22#issuecomment-2309939016"> Uses for enum </a>
      */
     public final HashMap<String, CommandTypes> commandsHashMap;
@@ -39,7 +40,8 @@ public class Parser {
     /**
      * Parses a given user-input command string, and returns the respective CommandTypes.
      *
-     * @param commandString String of the user input or first word of user input that denotes command desired.
+     * @param commandString String of the user input or first word of user input that denotes
+     *                      command desired.
      * @return CommandTypes of the corresponding command.
      * @throws YappingBotUnknownCommandException Exception if command is unimplemented.
      */
@@ -61,7 +63,8 @@ public class Parser {
      *
      * @param userInputSlice String of text to be converted to integer.
      * @return integer of the parsed integer.
-     * @throws YappingBotInvalidTaskNumberException Exception if given String is not a valid integer.
+     * @throws YappingBotInvalidTaskNumberException Exception if given String is not a valid
+     *         integer.
      */
     public static int parseTaskNumberSelected(String userInputSlice)
             throws YappingBotInvalidTaskNumberException {

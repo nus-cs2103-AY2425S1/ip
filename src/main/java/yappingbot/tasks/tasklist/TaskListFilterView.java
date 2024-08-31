@@ -2,8 +2,9 @@ package yappingbot.tasks.tasklist;
 
 import java.util.ArrayList;
 
-import yappingbot.exceptions.YappingBotOobException;
 import yappingbot.tasks.Task;
+
+import yappingbot.exceptions.YappingBotOobException;
 
 /**
  * Special TaskList with a parent TaskList that gives a filtered view.
@@ -37,9 +38,9 @@ public class TaskListFilterView extends TaskList {
      */
     public String getFilterString() {
         if (parentTaskList instanceof TaskListFilterView) {
-            return ( (TaskListFilterView) parentTaskList ).getFilterString() +
-                   " AND " +
-                   this.filterString;
+            return ((TaskListFilterView) parentTaskList).getFilterString()
+                   + " AND "
+                   + this.filterString;
         } else {
             return this.filterString;
         }

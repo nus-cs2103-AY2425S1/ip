@@ -4,6 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
+/**
+ * Helper class for jUnit tests, like capturing STDOUT to compare.
+ */
 public class TestHelper {
     final ByteArrayOutputStream uiPrintOut = new ByteArrayOutputStream();
 

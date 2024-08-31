@@ -3,7 +3,8 @@ package yappingbot.ui;
 import yappingbot.exceptions.YappingBotException;
 
 /**
- * User-interface class for mainly outputting different texts and decorating them to represent the bot talking.
+ * User-interface class for mainly outputting different texts and decorating them to represent
+ * the bot talking.
  */
 public class Ui {
     private static final String PREFIX = "|  ";
@@ -64,6 +65,7 @@ public class Ui {
 
     /**
      * Prints error message from a YappingBotException with decorations denoting output is from bot.
+     *
      * @param e YappingBotException or its derived classes with an embedded message.
      */
     public static void printError(YappingBotException e) {
@@ -74,7 +76,7 @@ public class Ui {
     /**
      * Prints error message from a YappingBotException with decorations denoting output is from bot.
      *
-     * @param e String error message to be outputted.
+     * @param msg String error message to be outputted.
      */
     public static void printError(String msg) {
         System.out.print(Ui.quoteMultilineText(msg));

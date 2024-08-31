@@ -9,6 +9,7 @@ public class YappingBotInvalidSaveFileException extends YappingBotException {
 
     /**
      * Constructs Exception for when there is an issue trying to load the savefile.
+     *
      * @param issue Specific issue or message encountered trying to load savefile.
      */
     public YappingBotInvalidSaveFileException(String issue) {

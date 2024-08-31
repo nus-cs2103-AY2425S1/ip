@@ -6,7 +6,6 @@ import yappingbot.tasks.Deadline;
 import yappingbot.tasks.Event;
 import yappingbot.tasks.Task;
 import yappingbot.tasks.Todo;
-
 import yappingbot.tasks.tasklist.TaskList;
 import yappingbot.tasks.tasklist.TaskListFilterView;
 import yappingbot.tasks.tasklist.TaskTypes;
@@ -241,7 +240,7 @@ public class Commands {
      */
     public static TaskList findStringInTasks(String searchString, TaskList userList) {
         MultilineStringBuilder msb = new MultilineStringBuilder();
-        String searchStringSanitized = searchString.replaceAll("\n","");
+        String searchStringSanitized = searchString.replaceAll("\n", "");
         msb.addLine(String.format(ReplyTextMessages.FIND_STRING_INIT_1s, searchStringSanitized));
         TaskList newFilteredView = TaskListFilterView.createFilter(userList, searchString);
         if (newFilteredView.isEmpty()) {

@@ -21,7 +21,8 @@ public class Storage {
     /**
      * Creates a Storage class.
      *
-     * @param savefilePath the absolute or relative path this Storage object will interface the disk with.
+     * @param savefilePath the absolute or relative path this Storage object will interface the
+     *                     disk with.
      */
     public Storage(String savefilePath) {
         this.savefilePath = savefilePath;
@@ -54,7 +55,7 @@ public class Storage {
      * Overrides file if exits.
      *
      * @param userListRaw ArrayList of Strings to be saved.
-     * @throws YappingBotSaveFileIOException Exception if file is not accessible.
+     * @throws YappingBotSaveFileIoException Exception if file is not accessible.
      */
     public void saveListToFile(ArrayList<String> userListRaw) throws YappingBotSaveFileIoException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(savefilePath))) {

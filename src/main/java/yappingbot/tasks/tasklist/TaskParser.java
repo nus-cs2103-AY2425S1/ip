@@ -1,11 +1,12 @@
 package yappingbot.tasks.tasklist;
 
-import yappingbot.exceptions.YappingBotInvalidSaveFileException;
-import yappingbot.stringconstants.ReplyTextMessages;
 import yappingbot.tasks.Deadline;
 import yappingbot.tasks.Event;
 import yappingbot.tasks.Task;
 import yappingbot.tasks.Todo;
+
+import yappingbot.exceptions.YappingBotInvalidSaveFileException;
+import yappingbot.stringconstants.ReplyTextMessages;
 
 
 /**
@@ -14,11 +15,13 @@ import yappingbot.tasks.Todo;
 public class TaskParser {
 
     /**
-     * Parse String array to determine which tasks to be created, creates them, and passes vales to be deserialized.
+     * Parse String array to determine which tasks to be created, creates them, and passes vales
+     * to be deserialized.
      *
      * @param s String array of String split by colon (:) that hold data for tasks to deserialize.
      * @return Task based on the given String array.
-     * @throws YappingBotInvalidSaveFileException If an invalid task type is detected or unable to determine task type.
+     * @throws YappingBotInvalidSaveFileException If an invalid task type is detected or unable
+     *         to determine task type.
      */
     public static Task parseSingleTask(String[] s) throws YappingBotInvalidSaveFileException {
         Task t;

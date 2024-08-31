@@ -36,7 +36,8 @@ public class YappingBot {
 
     /**
      * Initializes the bot. This takes a Storage object to load the tasks from,
-     * or creates a new task list if none is found or any error is encountered when trying to load the list from disk.
+     * or creates a new task list if none is found or any error is encountered when trying to
+     * load the list from disk.
      *
      * @param storage the Storage object that interfaces with the disk.
      */
@@ -52,11 +53,12 @@ public class YappingBot {
 
     /**
      * Saves the task list to disk using the already-created Storage object.
+     *
      * @param storage Storage object interfacing with the disk.
      */
     private void saveAndExit(Storage storage) {
         // REVERT LIST TO MAIN PARENT!
-        reset_view();
+        resetView();
         try {
             storage.saveListToFile(userList.toRawFormat());
         } catch (YappingBotException e) {
@@ -76,42 +78,42 @@ public class YappingBot {
             try {
                 int taskListIndexPtr; // task list pointer
                 switch (parser.parseCommand(userInputSlices[0])) {
-                    case EXIT:
-                        return;
+                case EXIT:
+                    return;
                 case RESET_LIST:
-                    reset_view();
+                    resetView();
                     break;
-                    case LIST:
-                        Commands.printUserList(userList);
-                        break;
-                    case MARK:
-                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                        Commands.changeTaskListStatus(taskListIndexPtr, true, userList);
-                        break;
-                    case UNMARK:
-                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                        Commands.changeTaskListStatus(taskListIndexPtr, false, userList);
-                        break;
-                    case DELETE:
-                        taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
-                        Commands.deleteTask(taskListIndexPtr, userList);
-                        break;
-                    case TODO:
-                        Commands.createNewTask(userInputSlices, TaskTypes.TODO, userList);
-                        break;
-                    case EVENT:
-                        Commands.createNewTask(userInputSlices, TaskTypes.EVENT, userList);
-                        break;
-                    case DEADLINE:
-                        Commands.createNewTask(userInputSlices, TaskTypes.DEADLINE, userList);
-                        break;
+                case LIST:
+                    Commands.printUserList(userList);
+                    break;
+                case MARK:
+                    taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
+                    Commands.changeTaskListStatus(taskListIndexPtr, true, userList);
+                    break;
+                case UNMARK:
+                    taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
+                    Commands.changeTaskListStatus(taskListIndexPtr, false, userList);
+                    break;
+                case DELETE:
+                    taskListIndexPtr = Parser.parseTaskNumberSelected(userInputSlices[1]);
+                    Commands.deleteTask(taskListIndexPtr, userList);
+                    break;
+                case TODO:
+                    Commands.createNewTask(userInputSlices, TaskTypes.TODO, userList);
+                    break;
+                case EVENT:
+                    Commands.createNewTask(userInputSlices, TaskTypes.EVENT, userList);
+                    break;
+                case DEADLINE:
+                    Commands.createNewTask(userInputSlices, TaskTypes.DEADLINE, userList);
+                    break;
                 case FIND:
                     String searchString = userInput.substring(userInput.indexOf(" ") + 1);
                     userList = Commands.findStringInTasks(searchString, userList);
                     break;
-                    case UNKNOWN:
-                    default:
-                        throw new YappingBotUnknownCommandException();
+                case UNKNOWN:
+                default:
+                    throw new YappingBotUnknownCommandException();
                 }
             } catch (YappingBotException e) {
                 Ui.printError(e);
@@ -119,10 +121,10 @@ public class YappingBot {
         }
     }
 
-    private void reset_view() {
+    private void resetView() {
         // reset the view to main parent
         while (userList instanceof TaskListFilterView) {
-            userList = ( (TaskListFilterView) userList ).getParent();
+            userList = ((TaskListFilterView) userList).getParent();
         }
         // TODO: add message
     }
@@ -144,7 +146,9 @@ public class YappingBot {
     /**
      * Creates a YappingBot and runs it.
      * Main entry point.
-     * @param args if args[1] exists, it will be used for the savefile path instead of the default ./savefile.
+     *
+     * @param args if args[1] exists, it will be used for the savefile path instead of the
+     *             default ./savefile.
      */
     public static void main(String[] args) {
         String savefile;

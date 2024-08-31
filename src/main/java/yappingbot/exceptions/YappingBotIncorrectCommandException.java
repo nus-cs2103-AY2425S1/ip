@@ -19,7 +19,8 @@ public class YappingBotIncorrectCommandException extends YappingBotException {
     /**
      * Constructs exception for commands that are not found or malformed.
      *
-     * @param usageMessage String of usage of command, if error is due to an incorrect use of message.
+     * @param usageMessage String of usage of command, if error is due to an incorrect use of
+     *                     message.
      * @param userInput StringArray of what user typed in that resulted in error.
      */
     public static YappingBotIncorrectCommandException withUserInputArray(String usageMessage,

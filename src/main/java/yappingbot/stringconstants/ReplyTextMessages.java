@@ -10,9 +10,10 @@ public final class ReplyTextMessages {
             "Hello! I'm %s\nWhat can I do for you?",
             BOT_NAME
     );
-    public static final String HELP_TEXT = "Available commands: list, mark, unmark, todo, event, " +
-                                           "deadline, find.";
-    public static final String UNKNOWN_COMMAND_TEXT_1s = "I'm sorry, I do not understand what '%s' is!\n";
+    public static final String HELP_TEXT = "Available commands: list, mark, unmark, todo, event, "
+                                           + "deadline, find.";
+    public static final String UNKNOWN_COMMAND_TEXT_1s = "I'm sorry, I do not understand what "
+                                                         + "'%s' is!\n";
     public static final String LIST_TEXT = "Here are the tasks in your list:";
     public static final String ADDED_TEXT = "Got it. I've added this task:";
     public static final String DELETED_TEXT = "Noted. I've deleted this task:";
@@ -74,19 +75,24 @@ public final class ReplyTextMessages {
                     where TASK_NUMBER is the task number in the task list""";
     public static final String EXIT_TEXT = "Bye. Hope to see you again soon!";
 
-    public static final String SAVE_FILE_NOT_FOUND_EXCEPTION = "Savefile not found...\nBeginning with blank list";
-    public static final String INVALID_SAVE_FILE_EXCEPTION_1s = "Error Reading save file! The following error was encountered: %s";
+    public static final String SAVE_FILE_NOT_FOUND_EXCEPTION = "Savefile not found...\nBeginning "
+                                                               + "with blank list";
+    public static final String INVALID_SAVE_FILE_EXCEPTION_1s = "Error Reading save file! The "
+                                                                + "following error was "
+                                                                + "encountered: %s";
     public static final String INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES = "Missing Data Values";
-    public static final String INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s = "Unable to parse value - %s";
+    public static final String INVALID_SAVE_FILE_EXCEPTION_INVALID_VALUES_1s = "Unable to parse "
+                                                                               + "value - %s";
     public static final String SAVEFILE_IO_EXCEPTION_1s = "Unable to save list to disk - %s";
-    public static final String TIME_PARSE_HINT = "Time value must be given in any valid date-time format!";
+    public static final String TIME_PARSE_HINT = "Time value must be given in any valid date-time"
+                                                 + " format!";
     public static final String SAVE_FILE_ERROR_1s = "Error encountered while saving savefile:\n%s";
     public static final String LOAD_FILE_ERROR_1s = "Error encountered while loading savefile:\n%s";
 
     public static final String FIND_STRING_INIT_1s = "Searching for '%s'.";
-    public static final String FIND_STRING_FAIL_1s = "Sorry, but I could not find '%s' in any " +
-                                                     "tasks.";
-    public static final String FIND_STRING_FOUND_1d_1s = "Found %d tasks with '%s' (Type reset " +
-                                                         "to return to default view)";
+    public static final String FIND_STRING_FAIL_1s = "Sorry, but I could not find '%s' in any "
+                                                     + "tasks.";
+    public static final String FIND_STRING_FOUND_1d_1s = "Found %d tasks with '%s' (Type reset "
+                                                         + "to return to default view)";
 
 }

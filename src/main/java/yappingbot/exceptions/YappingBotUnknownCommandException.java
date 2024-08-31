@@ -17,6 +17,7 @@ public class YappingBotUnknownCommandException extends YappingBotException {
 
     /**
      * Constructs Exception for a command that is not implemented.
+     *
      * @param userInput String of text inputted by user that caused the error.
      */
 

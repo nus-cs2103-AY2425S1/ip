@@ -1,9 +1,10 @@
 package yappingbot.tasks;
 
-import yappingbot.exceptions.YappingBotInvalidSaveFileException;
+import static yappingbot.stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES;
+
 import yappingbot.tasks.tasklist.TaskTypes;
 
-import static yappingbot.stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES;
+import yappingbot.exceptions.YappingBotInvalidSaveFileException;
 
 /**
  * Abstract Task class for the possible Task variants.
@@ -33,6 +34,7 @@ public abstract class Task {
 
     /**
      * Gets the type of task, depending on which subclass extends this.
+     *
      * @return TaskTypes type of task.
      */
     public TaskTypes getTaskType() {
@@ -42,11 +44,13 @@ public abstract class Task {
 
     /**
      * Sets the type of task. To only be set internally by different task classes that extend this.
+     *
      * @param taskType TaskType of the task.
      */
     protected void setTaskType(TaskTypes taskType) {
         this.taskType = taskType;
     }
+
     public void setTaskDone(boolean taskDone) {
         this.taskDone = taskDone;
     }
@@ -58,7 +62,6 @@ public abstract class Task {
     public boolean isTaskDone() {
         return taskDone;
     }
-
 
     public String getTaskName() {
         return taskName;
@@ -111,8 +114,9 @@ public abstract class Task {
      * Required format: "TaskType:TaskName:isTaskDone"
      * Subclasses may include additional values (eg dates) that will be required accordingly.
      *
-     * @param sString String array, split by colons.
-     * @throws YappingBotInvalidSaveFileException Exception if any issues parsing the given String arrays.
+     * @param stringDataSlices String array, split by colons.
+     * @throws YappingBotInvalidSaveFileException Exception if any issues parsing the given
+     *         String arrays.
      */
     public void deserialize(String[] stringDataSlices) throws YappingBotInvalidSaveFileException {
         if (stringDataSlices.length < 3) {

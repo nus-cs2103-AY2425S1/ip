@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import yappingbot.tasks.tasklist.TaskTypes;
+
 import yappingbot.exceptions.YappingBotIncorrectCommandException;
 import yappingbot.exceptions.YappingBotInvalidSaveFileException;
 import yappingbot.stringconstants.ReplyTextMessages;
-import yappingbot.tasks.tasklist.TaskTypes;
+
 
 /**
  * Event variant of the Task that can be created.
@@ -21,7 +23,7 @@ public class Event extends Task {
      * Constructor for a blank Event task (Task name "Untitled", unmarked).
      */
     public Event() {
-        this("Untitled",false);
+        this("Untitled", false);
     }
 
     /**

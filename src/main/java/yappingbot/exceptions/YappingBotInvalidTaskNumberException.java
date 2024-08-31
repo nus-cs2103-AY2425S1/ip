@@ -8,6 +8,7 @@ import yappingbot.stringconstants.ReplyTextMessages;
 public class YappingBotInvalidTaskNumberException extends YappingBotException {
     /**
      * Constructs Exception when a String, expected to be an index, is unable to be parsed.
+     *
      * @param userInputSlice The offending text that cannot be resolved into an integer.
      */
 
