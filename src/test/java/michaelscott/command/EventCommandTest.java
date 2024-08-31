@@ -1,6 +1,5 @@
-package MichaelScott.Command;
+package michaelscott.command;
 
-import michaelscott.command.EventCommand;
 import michaelscott.utils.MichaelScottException;
 import michaelscott.task.TaskList;
 import michaelscott.task.Event;
