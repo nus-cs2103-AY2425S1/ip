@@ -91,7 +91,6 @@ public class UserInterface {
         this.printLine();
     }
 
-
     public void displayAddedTaskMessage() {
         System.out.println("    Yo Dawgg!! Added this task:");
         System.out.println("    " + kj.getTask(kj.getTaskCount() - 1));

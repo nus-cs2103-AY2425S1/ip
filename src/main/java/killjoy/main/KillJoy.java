@@ -6,8 +6,8 @@ import killjoy.task.Task;
 import killjoy.task.Todo;
 import killjoy.processing.ProcessTasks;
 import killjoy.processing.Storage;
-import killjoy.processing.Parser;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,7 +15,6 @@ import java.util.Scanner;
 public class KillJoy {
     private ProcessTasks processTasks;
     private Storage saveAndLoad;
-    private Parser parser;
     private UserInterface ui;
     private ArrayList<Task> taskList = new ArrayList<>();
     private int taskCount = 0;
@@ -24,7 +23,6 @@ public class KillJoy {
         this.ui = new UserInterface(this);
         this.processTasks = new ProcessTasks(this, ui);
         this.saveAndLoad = new Storage(this, processTasks);
-        this.parser = new Parser(this, ui);
     }
 
     public int getTaskCount() {
@@ -44,12 +42,12 @@ public class KillJoy {
         this.increaseTaskCount();
     }
 
-    public void addTask(String description, String by) {
+    public void addTask(String description, LocalDateTime by) {
         taskList.add(new Deadline(description, by));
         this.increaseTaskCount();
     }
 
-    public void addTask(String description, String from, String to) {
+    public void addTask(String description, LocalDateTime from, LocalDateTime to) {
         taskList.add(new Event(description, from, to));
         this.increaseTaskCount();
     }

@@ -5,13 +5,14 @@ import killjoy.task.Task;
 import killjoy.main.UserInterface;
 
 
+import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ProcessTasks {
     private KillJoy kj;
     private UserInterface ui;
-    private Parser parser = new Parser(kj, ui);
+    private Parser parser = new Parser(ui);
 
     public ProcessTasks(KillJoy kj, UserInterface ui) {
         this.kj = kj;
@@ -19,7 +20,6 @@ public class ProcessTasks {
     }
 
     public void processUserInput(String input) {
-
         Task.TaskType taskType = parser.parseUserInput(input);
 
         if (taskType == null) {
@@ -28,39 +28,52 @@ public class ProcessTasks {
         }
 
         String[] inputSplitBySlash = input.split("/");
-        if (inputSplitBySlash[0].split(" ").length == 1) {
+
+        if (taskType != Task.TaskType.TODO && inputSplitBySlash.length == 1) {
+            ui.printLine();
             ui.displayInvalidCommandFormatMessage();
+            ui.printLine();
+            return;
+        }
+
+        if (inputSplitBySlash[0].split(" ").length == 1) {
+            ui.printLine();
+            ui.displayInvalidCommandFormatMessage();
+            ui.printLine();
             return;
         }
 
         ui.printLine();
         switch (taskType) {
         case TODO: {
-            String description = parser.getDescription(input);
+            String description = Parser.getDescription(input);
             kj.addTask(description);
             break;
         }
         case DEADLINE: {
-            String description = parser.getDescription(input);
-            String by = parser.getBy(input);
-            if (by == null) {
+            String description = Parser.getDescription(input);
+            String by = Parser.getBy(input);
+            LocalDateTime byDateTime = Parser.parseDateTime(by);
+            if (byDateTime == null) {
                 ui.displayInvalidCommandFormatMessage();
                 ui.printLine();
                 return;
             }
-            kj.addTask(description, by);
+            kj.addTask(description, byDateTime);
             break;
             }
         case EVENT: {
-            String description = parser.getDescription(input);
-            String from = parser.getFrom(input);
-            String to = parser.getTo(input);
-            if (from == null || to == null) {
+            String description = Parser.getDescription(input);
+            String from = Parser.getFrom(input);
+            LocalDateTime fromDateTime = Parser.parseDateTime(from);
+            String to = Parser.getTo(input);
+            LocalDateTime toDateTime = Parser.parseDateTime(to);
+            if (fromDateTime == null || toDateTime == null) {
                 ui.displayInvalidCommandFormatMessage();
                 ui.printLine();
                 return;
             }
-            kj.addTask(description, from, to);
+            kj.addTask(description, fromDateTime, toDateTime);
             break;
         }
         }
@@ -69,7 +82,7 @@ public class ProcessTasks {
     }
 
     public void markOrDelete(String input) {
-        String[] parsedInput = parser.parseMarkUnmarkDelete(input);
+        String[] parsedInput = Parser.parseMarkUnmarkDelete(input);
 
         if (parsedInput == null) {
             return;
@@ -109,7 +122,7 @@ public class ProcessTasks {
     }
 
     public void createTasks(String taskInfo) {
-        String[] parts = parser.parseTaskInfo(taskInfo);
+        String[] parts = Parser.parseTaskInfo(taskInfo);
         Task.TaskType taskType = Task.TaskType.valueOf(parts[0]);
         switch (taskType) {
         case TODO: {
@@ -120,15 +133,15 @@ public class ProcessTasks {
         }
         case DEADLINE: {
             String description = parts[2];
-            String by = parts[3];
+            LocalDateTime by = Parser.parseDateTime(parts[3]);
             kj.addTask(description, by);
             changeStatusOfTask(kj.getTask(kj.getTaskCount() - 1), Integer.valueOf(parts[1]));
             break;
         }
         case EVENT: {
             String description = parts[2];
-            String from = parts[3];
-            String to = parts[4];
+            LocalDateTime from = Parser.parseDateTime(parts[3]);
+            LocalDateTime to = Parser.parseDateTime(parts[4]);
             kj.addTask(description, from, to);
             changeStatusOfTask(kj.getTask(kj.getTaskCount() - 1), Integer.valueOf(parts[1]));
             break;

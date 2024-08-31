@@ -1,18 +1,23 @@
 package killjoy.processing;
 
+import killjoy.main.KillJoy;
 import killjoy.task.Task;
 import killjoy.main.UserInterface;
-import killjoy.main.KillJoy;
 
+import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import java.time.format.DateTimeParseException;
+
 public class Parser {
-    private static KillJoy kj;
     private static UserInterface ui;
 
-    public Parser(KillJoy kj, UserInterface ui) {
-        this.kj = kj;
+    public Parser() {
+        this.ui = new UserInterface(new KillJoy());
+    }
+
+    public Parser(UserInterface ui) {
         this.ui = ui;
     }
 
@@ -74,8 +79,22 @@ public class Parser {
             ui.displayInvalidCommandFormatMessage();
             return null;
         }
-
         return new String[]{matcher.group(1), matcher.group(3)};
+    }
+
+    public static LocalDateTime parseDateTime(String dateTime) {
+        try {
+            return LocalDateTime.parse(dateTime.trim() + "T00:00");
+        } catch (DateTimeParseException d) {
+            try {
+                String[] parts = dateTime.split(" ");
+                String time = parts[0] + "T" + parts[1];
+                return LocalDateTime.parse(time);
+            } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
+                return null;
+            }
+        }
+
     }
 
     public static String[] parseTaskInfo(String taskInfo) {

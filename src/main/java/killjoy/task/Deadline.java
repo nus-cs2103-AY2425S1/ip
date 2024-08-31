@@ -1,29 +1,15 @@
 package killjoy.task;
 
-import killjoy.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     private LocalDateTime by;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss");
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description, TaskType.DEADLINE);
-        try {
-            this.by = LocalDateTime.parse(by.trim() + "T00:00");
-        } catch (DateTimeParseException d) {
-            try {
-                String[] parts = by.split(" ");
-                String time = parts[0] + "T" + parts[1];
-                this.by = LocalDateTime.parse(time);
-            } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-                System.out.println("Mannnn!!! Not in proper Formattt. It should be YYYY-MM_DD<space>HH:MM.\n" +
-                        "Or just input the date YYYY-MM-DD. I will take care of rest");
-            }
-        }
+        this.by = by;
     }
 
     @Override

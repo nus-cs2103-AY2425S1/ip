@@ -3,7 +3,7 @@ package killjoy.task;
 public class Task {
     protected String description;
     protected boolean isDone;
-    private TaskType taskType = null;
+    TaskType taskType = null;
 
     public enum TaskType {
         TODO,
@@ -29,16 +29,20 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public boolean getTaskStatus() {
-        return isDone;
+    public String getDescription() {
+        return this.description;
     }
 
-    public TaskType getTaskType() {
-        return this.taskType;
+    public boolean getTaskStatus() {
+        return this.isDone;
     }
 
     public String getTaskInfo() {
         return null;
+    }
+
+    public TaskType getTaskType() {
+        return this.taskType;
     }
 
 
