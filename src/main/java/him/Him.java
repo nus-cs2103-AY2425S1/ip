@@ -5,15 +5,10 @@ import exceptions.AlreadyCompletedException;
 import exceptions.HimException;
 import exceptions.StartAfterEndException;
 import exceptions.TaskDoesNotExistException;
-import storage.Storage;
-import task.Deadline;
-import task.Event;
 import task.TaskList;
-import task.ToDo;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Him {
