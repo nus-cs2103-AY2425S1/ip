@@ -7,6 +7,7 @@ import yappingbot.exceptions.YappingBotUnknownCommandException;
 import yappingbot.storage.Storage;
 import yappingbot.stringconstants.ReplyTextMessages;
 import yappingbot.tasks.tasklist.TaskList;
+import yappingbot.tasks.tasklist.TaskListFilterView;
 import yappingbot.tasks.tasklist.TaskTypes;
 import yappingbot.ui.Ui;
 
@@ -50,6 +51,12 @@ public class YappingBot {
                 switch (parser.parseCommand(userInputSlices[0])) {
                     case EXIT:
                         return;
+                case RESET_LIST:
+                    // reset the view to main parent
+                    while (userList instanceof TaskListFilterView) {
+                        userList = ( (TaskListFilterView) userList ).getParent();
+                    }
+                    break;
                     case LIST:
                         Commands.printUserList(userList);
                         break;
@@ -74,6 +81,10 @@ public class YappingBot {
                     case DEADLINE:
                         userList.add(Commands.createNewTask(userInputSlices, TaskTypes.DEADLINE, userList));
                         break;
+                case FIND:
+                    String searchString = userInput.substring(userInput.indexOf(" "));
+                    userList = Commands.findStringInTasks(searchString, userList);
+                    break;
                     case UNKNOWN:
                     default:
                         throw new YappingBotUnknownCommandException();

@@ -169,6 +169,16 @@ public class Commands {
         return newTask;
     }
 
+    /**
+     * Returns a TaskList that is either the same userList given should there be no results found,
+     * or a new TaskListFilterView that will act as a TaskList but updates the parent TaskList
+     * that was passed into.
+     *
+     * @param searchString String to be searched in each Task.
+     * @param userList TaskList to be searched.
+     * @return TaskList of given userList if not found, or new TaskListFilterView with filtered
+     *         Tasks.
+     */
     public static TaskList findStringInTasks(String searchString, TaskList userList) {
         MultilineStringBuilder msb = new MultilineStringBuilder();
         String searchStringSanitized = searchString.replaceAll("\n","");
@@ -177,7 +187,7 @@ public class Commands {
         if (newFilteredView.isEmpty()) {
             msb.addLine(String.format(ReplyTextMessages.FIND_STRING_FAIL_1s, searchString));
             msb.print();
-            return null;
+            return userList;
         } else {
             msb.addLine(String.format(
                     ReplyTextMessages.FIND_STRING_FOUND_1d_1s,

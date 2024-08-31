@@ -1,5 +1,5 @@
 package yappingbot.commands;
 
 public enum CommandTypes {
-    LIST, MARK, UNMARK, DELETE, TODO, EVENT, DEADLINE, EXIT, UNKNOWN
+    FIND, LIST, MARK, UNMARK, DELETE, TODO, EVENT, DEADLINE, EXIT, RESET_LIST, UNKNOWN
 }

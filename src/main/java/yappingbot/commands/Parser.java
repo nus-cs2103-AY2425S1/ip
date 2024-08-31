@@ -11,6 +11,8 @@ public class Parser {
     public final HashMap<String, CommandTypes> commandsHashMap;
     public Parser() {
         commandsHashMap = new HashMap<>();
+        commandsHashMap.put("find", CommandTypes.FIND);
+        commandsHashMap.put("reset", CommandTypes.RESET_LIST);
         commandsHashMap.put("list", CommandTypes.LIST);
         commandsHashMap.put("mark", CommandTypes.MARK);
         commandsHashMap.put("unmark", CommandTypes.UNMARK);
