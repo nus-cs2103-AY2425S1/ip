@@ -90,8 +90,8 @@ public class Yapper {
                 }
             } else if (command.equals("find")) {
                 try {
-                    String keyword = input.split("find")[1].trim();
-                    return taskList.findTasks(keyword);
+                    String keywords = input.split("find")[1].trim();
+                    return taskList.findTasks(keywords);
                 } catch (IndexOutOfBoundsException e) {
                     throw new EmptyDescException("(Format: event find [KEYWORD])");
                 }
