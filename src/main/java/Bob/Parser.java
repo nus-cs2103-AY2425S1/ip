@@ -57,10 +57,13 @@ class Parser {
         Task newTask = null;
         if (userInput.startsWith("todo")) {
             String description = userInput.substring(5).trim();
+
             if (description.isEmpty()) {
                 throw new BobException("The description of a todo cannot be empty.");
             }
+            
             newTask = new Todo(description);
+
         } else if (userInput.startsWith("deadline")) {
             String[] parts = userInput.substring(9).split(" /by ");
             if (parts[0].trim().isEmpty()) {
@@ -68,6 +71,7 @@ class Parser {
             }
             LocalDateTime by = Parser.parseDateTime(parts[1].trim());
             newTask = new Deadline(parts[0].trim(), by);
+
         } else if (userInput.startsWith("event")) {
             String[] parts = userInput.substring(6).split(" /from ");
             String[] times = parts[1].split(" /to ");
