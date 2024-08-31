@@ -40,6 +40,11 @@ public class TaskList {
         return tasks;
     }
 
+    /**
+     * Finds tasks in the main list which include words that match the keyword
+     * @param keyword word that is searched for in the tasks' description
+     * @return List with all tasks which have the keyword in their description
+     */
     public List<Task> findTasks(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
 
@@ -51,6 +56,10 @@ public class TaskList {
         return matchingTasks;
     }
 
+    /**
+     * Prints out the list of tasks with words matching the keyword
+     * @param keyword word that the method will print tasks which include the word based on
+     */
     public void printMatchingTasks(String keyword) {
         List<Task> matchingTasks = findTasks(keyword);
 
