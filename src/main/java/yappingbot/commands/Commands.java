@@ -27,9 +27,9 @@ public class Commands {
                                     t.getTaskTypeSymbol(),
                                     t.getTaskDoneCheckmark(),
                                     t
-                            )
-                    )
-            );
+                                         )
+                                 )
+                       );
         }
         msb.print();
     }
@@ -48,8 +48,8 @@ public class Commands {
                         t.getTaskTypeSymbol(),
                         t.getTaskDoneCheckmark(),
                         t
-                )
-        );
+                             )
+                   );
         msb.print();
     }
     public static void deleteTask(int i, TaskList userList) {
@@ -58,10 +58,10 @@ public class Commands {
         msb.addLine(ReplyTextMessages.DELETED_TEXT);
         msb.addLine(
                 String.format(ReplyTextMessages.TASK_PRINT_TEXT_3s,
-                        t.getTaskTypeSymbol(),
-                        t.getTaskDoneCheckmark(),
-                        t)
-        );
+                              t.getTaskTypeSymbol(),
+                              t.getTaskDoneCheckmark(),
+                              t)
+                   );
         msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
     }
     public static Task createNewTask(String[] userInputSpliced, TaskTypes taskTypes, TaskList userList) throws YappingBotIncorrectCommandException {
@@ -157,10 +157,10 @@ public class Commands {
         msb.addLine(ReplyTextMessages.ADDED_TEXT);
         msb.addLine(
                 String.format(ReplyTextMessages.TASK_PRINT_TEXT_3s,
-                        newTask.getTaskTypeSymbol(),
-                        newTask.getTaskDoneCheckmark(),
-                        newTask)
-        );
+                              newTask.getTaskTypeSymbol(),
+                              newTask.getTaskDoneCheckmark(),
+                              newTask)
+                   );
         msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
         msb.print();
         return newTask;

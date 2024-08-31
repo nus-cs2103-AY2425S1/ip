@@ -1,21 +1,22 @@
 package yappingbot.tasks;
 
-import yappingbot.exceptions.YappingBotException;
-import yappingbot.exceptions.YappingBotOOBException;
-import yappingbot.stringconstants.ReplyTextMessages;
-import yappingbot.ui.MultilineStringBuilder;
-import yappingbot.ui.Ui;
+import static yappingbot.tasks.TaskParser.parseSingleTask;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
-import static yappingbot.tasks.TaskParser.parseSingleTask;
+import yappingbot.exceptions.YappingBotException;
+import yappingbot.exceptions.YappingBotOobException;
+import yappingbot.stringconstants.ReplyTextMessages;
+import yappingbot.ui.MultilineStringBuilder;
+import yappingbot.ui.Ui;
 
 public class TaskList implements Iterable<Task> {
     private static ArrayList<Task> tasks;
     private int size;
+
     public TaskList() {
         tasks = new ArrayList<>();
     }
@@ -45,22 +46,28 @@ public class TaskList implements Iterable<Task> {
         tasks.add(task);
         size += 1;
     }
-    public Task delete(int index) throws YappingBotOOBException {
+
+    public Task delete(int index) throws YappingBotOobException {
         Task t = get(index);
         tasks.remove(index);
         size -= 1;
         return t;
     }
+
     public int size() {
         return size;
     }
-    public Task get(int index) throws YappingBotOOBException {
+
+    public Task get(int index) throws YappingBotOobException {
         if (index < 0 || index >= size) {
-            throw new YappingBotOOBException(index);
+            throw new YappingBotOobException(index);
         }
         return tasks.get(index);
     }
-    public boolean isEmpty() { return size == 0; }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
 
     @Override
     public Iterator<Task> iterator() {

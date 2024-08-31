@@ -1,14 +1,13 @@
 package yappingbot.commands;
 
+import java.util.HashMap;
 import yappingbot.exceptions.YappingBotInvalidTaskNumberException;
 import yappingbot.exceptions.YappingBotUnknownCommandException;
-import yappingbot.tasks.TaskList;
-
-import java.util.HashMap;
 
 public class Parser {
     // https://github.com/nus-cs2103-AY2425S1/forum/issues/22#issuecomment-2309939016
     public final HashMap<String, CommandTypes> commandsHashMap;
+
     public Parser() {
         commandsHashMap = new HashMap<>();
         commandsHashMap.put("list", CommandTypes.LIST);
@@ -20,7 +19,9 @@ public class Parser {
         commandsHashMap.put("deadline", CommandTypes.DEADLINE);
         commandsHashMap.put("bye", CommandTypes.EXIT);
     }
-    public CommandTypes parseCommand(String commandString) throws YappingBotUnknownCommandException {
+
+    public CommandTypes parseCommand(String commandString)
+    throws YappingBotUnknownCommandException {
         if (commandString.toLowerCase().trim().isEmpty()) {
             throw new YappingBotUnknownCommandException();
         } else {
@@ -31,7 +32,9 @@ public class Parser {
             }
         }
     }
-    public static int parseTaskNumberSelected(String userInputSlice, TaskList userList) throws YappingBotInvalidTaskNumberException {
+
+    public static int parseTaskNumberSelected(String userInputSlice)
+    throws YappingBotInvalidTaskNumberException {
         int i;
         try {
             i = Integer.parseInt(userInputSlice) - 1;

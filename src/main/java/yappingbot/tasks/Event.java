@@ -1,12 +1,12 @@
 package yappingbot.tasks;
 
-import yappingbot.exceptions.YappingBotIncorrectCommandException;
-import yappingbot.exceptions.YappingBotInvalidSaveFileException;
-import yappingbot.stringconstants.ReplyTextMessages;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import yappingbot.exceptions.YappingBotIncorrectCommandException;
+import yappingbot.exceptions.YappingBotInvalidSaveFileException;
+import yappingbot.stringconstants.ReplyTextMessages;
 
 public class Event extends Task {
     private LocalDate startTime;
@@ -18,7 +18,8 @@ public class Event extends Task {
         this.startTime = LocalDate.now();
         this.endTime = LocalDate.now();
     }
-    public Event(String taskName, boolean taskDone, String startTime, String endTime) throws YappingBotIncorrectCommandException  {
+    public Event(String taskName, boolean taskDone, String startTime, String endTime)
+    throws YappingBotIncorrectCommandException  {
         super(taskName, taskDone);
         super.setTaskType(TaskTypes.EVENT);
         this.setStartTime(startTime);
@@ -37,7 +38,9 @@ public class Event extends Task {
         try {
             this.startTime = LocalDate.parse(startTime);
         } catch (DateTimeParseException e) {
-            throw new YappingBotIncorrectCommandException(ReplyTextMessages.TIME_PARSE_HINT, e.getMessage());
+            throw new YappingBotIncorrectCommandException(
+                    ReplyTextMessages.TIME_PARSE_HINT, e.getMessage()
+            );
         }
     }
 
@@ -49,7 +52,9 @@ public class Event extends Task {
         try {
             this.endTime = LocalDate.parse(endTime);
         } catch (DateTimeParseException e) {
-            throw new YappingBotIncorrectCommandException(ReplyTextMessages.TIME_PARSE_HINT, e.getMessage());
+            throw new YappingBotIncorrectCommandException(
+                    ReplyTextMessages.TIME_PARSE_HINT, e.getMessage()
+            );
         }
     }
 
@@ -75,15 +80,18 @@ public class Event extends Task {
                 this.getEndTime().replaceAll(":", "/colon")
         );
     }
+
     @Override
-    public void deserialize(String[] sString) throws YappingBotInvalidSaveFileException {
-        if (sString.length < 5) {
-            throw new YappingBotInvalidSaveFileException(ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
+    public void deserialize(String[] stringDataSlices) throws YappingBotInvalidSaveFileException {
+        if (stringDataSlices.length < 5) {
+            throw new YappingBotInvalidSaveFileException(
+                    ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES
+            );
         }
         try {
-            super.deserialize(sString);
-            this.setStartTime(sString[3].replaceAll("/colon", ":"));
-            this.setEndTime(sString[4].replaceAll("/colon", ":"));
+            super.deserialize(stringDataSlices);
+            this.setStartTime(stringDataSlices[3].replaceAll("/colon", ":"));
+            this.setEndTime(stringDataSlices[4].replaceAll("/colon", ":"));
         } catch (IllegalArgumentException e) {
             throw new YappingBotInvalidSaveFileException(e.getMessage());
         }

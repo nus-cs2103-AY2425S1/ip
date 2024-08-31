@@ -1,16 +1,18 @@
 package yappingbot.tasks;
 
-import yappingbot.exceptions.YappingBotIncorrectCommandException;
-import yappingbot.exceptions.YappingBotInvalidSaveFileException;
-import yappingbot.stringconstants.ReplyTextMessages;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import yappingbot.exceptions.YappingBotIncorrectCommandException;
+import yappingbot.exceptions.YappingBotInvalidSaveFileException;
+import yappingbot.stringconstants.ReplyTextMessages;
+
 import static yappingbot.stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES;
 
 public class Deadline extends Task {
+    private LocalDate deadline;
+
     public Deadline() {
         this("",false);
     }
@@ -23,17 +25,18 @@ public class Deadline extends Task {
         try {
             this.deadline = LocalDate.parse(deadline);
         } catch (DateTimeParseException e) {
-            throw new YappingBotIncorrectCommandException(ReplyTextMessages.TIME_PARSE_HINT, e.getMessage());
+            throw new YappingBotIncorrectCommandException(
+                    ReplyTextMessages.TIME_PARSE_HINT,
+                    e.getMessage());
         }
     }
-
-    private LocalDate deadline;
 
     public Deadline(String taskName, boolean taskDone) {
         super(taskName, taskDone);
         super.setTaskType(TaskTypes.DEADLINE);
         this.deadline = LocalDate.now();
     }
+
     public Deadline(String taskName, boolean taskDone, String deadline) throws YappingBotIncorrectCommandException {
         super(taskName, taskDone);
         super.setTaskType(TaskTypes.DEADLINE);
@@ -47,24 +50,28 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s (by: %s)", super.getTaskName(), this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+        return String.format(
+                "%s (by: %s)",
+                super.getTaskName(),
+                this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 
     @Override
     public String serialize() {
         return String.format("%s:%s",
                 super.serialize(),
-                this.getDeadline().replaceAll(":", "/colon")
-        );
+                this.getDeadline().replaceAll(":", "/colon"));
     }
+
     @Override
-    public void deserialize(String[] sString) throws YappingBotInvalidSaveFileException {
-        if (sString.length < 4) {
-            throw new YappingBotInvalidSaveFileException(INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
+    public void deserialize(String[] stringDataSlices) throws YappingBotInvalidSaveFileException {
+        if (stringDataSlices.length < 4) {
+            throw new YappingBotInvalidSaveFileException(
+                    INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
         }
         try {
-            super.deserialize(sString);
-            this.setDeadline(sString[3].replaceAll("/colon", ":"));
+            super.deserialize(stringDataSlices);
+            this.setDeadline(stringDataSlices[3].replaceAll("/colon", ":"));
         } catch (IllegalArgumentException e) {
             throw new YappingBotInvalidSaveFileException(e.getMessage());
         }
