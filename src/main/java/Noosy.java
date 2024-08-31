@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,13 +8,22 @@ public class Noosy {
 
         // Constant statements
         String greeting = "Heyo! This is Noosy! \n" +
-                "Need me to keep track of anything?";
+                "Noosy is da best, so tell me what you need :>";
         String goodbye = "Alright, see ya!";
         String done = "Hooray you've done this: \n";
         String undo = "Ok don't worry, you can continue working on this: \n";
         String delete = "Oo, removing the irrelevant task: \n";
 
+        // instead of creating new task list every time, we now try to load it
+        String filePath = "./data/noosy.txt";
+        Storage storage = new Storage(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            tasks = storage.load();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
+
         Scanner scanner = new Scanner(System.in);
         System.out.println(greeting);
         int totalTasks = -1;
@@ -105,10 +115,15 @@ public class Noosy {
                     break;
 
                 default:
-                    System.out.println("Huh? idgi...");
+                    System.out.println("Beep Boop, Noosy no understand");
                     break;
             }
             userInput = scanner.nextLine();
+        }
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
         }
 
         System.out.println(goodbye);

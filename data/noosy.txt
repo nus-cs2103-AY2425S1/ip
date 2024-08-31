@@ -1,0 +1,3 @@
+T | 1 | Gym
+T | 0 | cs2100 quiz
+T | 0 | lecture | 5pm-7pm

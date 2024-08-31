@@ -1,10 +1,15 @@
-public class Task {
+public abstract class Task {
     protected boolean status;
     protected String name;
 
     public Task(String desc) {
         this.name = desc;
         this.status = false; // default: task not completed
+    }
+
+    public Task(String desc, boolean status) {
+        this.name = desc;
+        this.status = status;
     }
 
     // mark as donw
@@ -20,6 +25,10 @@ public class Task {
     // get task name
     public String getDesc() {
         return this.name;
+    }
+
+    public String storeInFile() {
+        return String.valueOf(this.status ? 1 : 0);
     }
 
     @Override
