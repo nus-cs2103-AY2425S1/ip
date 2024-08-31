@@ -178,7 +178,8 @@ public class ParserTest {
 
         Parser parser = new Parser(validCommandArgs);
         try {
-            assertEquals(expectedCommandArgs, parser.readInput("event testing /from 2024-12-12 16:00 /to 2024-12-12 18:00"));
+            assertEquals(expectedCommandArgs,
+                    parser.readInput("event testing /from 2024-12-12 16:00 /to 2024-12-12 18:00"));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -196,7 +197,8 @@ public class ParserTest {
 
         Parser parser = new Parser(validCommandArgs);
         try {
-            assertEquals(expectedCommandArgs, parser.readInput("event test ing /from 2024-12-12 16:00 /to 2024-12-12 18:00"));
+            assertEquals(expectedCommandArgs,
+                    parser.readInput("event test ing /from 2024-12-12 16:00 /to 2024-12-12 18:00"));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

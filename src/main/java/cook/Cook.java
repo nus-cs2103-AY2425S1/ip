@@ -23,7 +23,7 @@ public class Cook {
     /**
      * Constructor for Cook class.
      */
-    public Cook (File file) {
+    public Cook(File file) {
         this.storage = new Storage(file);
         this.tasks = new TaskList();
         this.ui = new Ui();
@@ -119,15 +119,15 @@ public class Cook {
                         startDateTime = LocalDateTime.parse(argumentsHashMap.get("/from"));
                         endDateTime = LocalDateTime.parse(argumentsHashMap.get("/to"));
                         if (startDateTime.isAfter(endDateTime)) {
-                            this.ui.say("The starting date & time cannot be " +
-                                    "after the ending date & time");
+                            this.ui.say("The starting date & time cannot be "
+                                    + "after the ending date & time");
                         }
                     } catch (DateTimeParseException e) {
                         this.ui.say("Date & time must be in a valid format, e.g. YYYY-MM-DD HH:mm.");
                         continue;
                     } catch (NullPointerException e) {
-                        this.ui.say("Tasks.Event command format: event [desc] " +
-                                "/from [YYYY-MM-DD HH:mm] /to [YYYY-MM-DD HH:mm].");
+                        this.ui.say("Tasks.Event command format: event [desc] "
+                                + "/from [YYYY-MM-DD HH:mm] /to [YYYY-MM-DD HH:mm].");
                         continue;
                     }
 
