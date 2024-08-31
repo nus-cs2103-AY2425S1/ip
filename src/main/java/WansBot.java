@@ -1,6 +1,7 @@
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import tasks.Deadlined;
@@ -263,7 +264,7 @@ public class WansBot {
             case "D":
                 String[] deadlineSplit = fileInput.split("by: ");
                 LocalDate deadline = LocalDate.parse(deadlineSplit[1].substring(0,
-                        deadlineSplit[1].length() - 1).trim());
+                        deadlineSplit[1].length() - 1).trim(), DateTimeFormatter.ofPattern("MMM d yyyy"));
                 nameTask = deadlineSplit[0].substring(11, deadlineSplit[0].length() - 1);
                 if (fileInput.contains("[ X ]")) {
                     Deadlined next = new Deadlined(nameTask, deadline);
@@ -281,15 +282,19 @@ public class WansBot {
                 String[] splitUserEndDate = splitUserStartDate[1].split( "to: ", 2);
                 if (fileInput.contains("[ X ]")) {
                     Events next = new Events(splitUserStartDate[0].substring(11, splitUserStartDate[0].length() - 2),
-                            LocalDate.parse(splitUserEndDate[0].substring(0, splitUserEndDate[0].length() -1).trim()),
-                            LocalDate.parse(splitUserEndDate[1].substring(0, splitUserEndDate[1].length() - 2).trim()));
+                            LocalDate.parse(splitUserEndDate[0].substring(0, splitUserEndDate[0].length() -1).trim(),
+                                    DateTimeFormatter.ofPattern("MMM d yyyy")),
+                            LocalDate.parse(splitUserEndDate[1].substring(0, splitUserEndDate[1].length() - 2).trim(),
+                                    DateTimeFormatter.ofPattern("MMM d yyyy")));
                     next.finish();
                     userTaskList.add(next);
                     numTasks++;
                 } else {
                     Events next = new Events(splitUserStartDate[0].substring(11, splitUserStartDate[0].length() - 2),
-                            LocalDate.parse(splitUserEndDate[0].substring(0, splitUserEndDate[0].length() -1).trim()),
-                            LocalDate.parse(splitUserEndDate[1].substring(0, splitUserEndDate[1].length() - 2).trim()));
+                            LocalDate.parse(splitUserEndDate[0].substring(0, splitUserEndDate[0].length() -1).trim(),
+                                    DateTimeFormatter.ofPattern("MMM d yyyy")),
+                            LocalDate.parse(splitUserEndDate[1].substring(0, splitUserEndDate[1].length() - 2).trim(),
+                                    DateTimeFormatter.ofPattern("MMM d yyyy")));
                     userTaskList.add(next);
                     numTasks++;
                 }
