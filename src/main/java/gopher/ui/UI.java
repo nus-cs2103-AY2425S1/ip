@@ -49,6 +49,14 @@ public class UI {
         System.out.println(tasks);
     }
 
+    public static void printMatchedTasks(TaskList tasks) {
+        System.out.println(String.format("Found %d matching %s in your list:",
+                tasks.getSize(),
+                tasks.getSize() == 1 ? "task" : "tasks"
+        ));
+        System.out.println(tasks);
+    }
+
     /**
      * Prints the message when TaskList successfully add in a new task.
      *

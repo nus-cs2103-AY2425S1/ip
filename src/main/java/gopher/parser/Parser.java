@@ -3,7 +3,7 @@ package gopher.parser;
 import gopher.exception.EmptyTaskDescriptionException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
-
+import java.lang.StringBuilder;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -118,5 +118,17 @@ public class Parser {
         String[] tokens = command.split(" ");
         String taskNumber = tokens[1];
         return Integer.parseInt(taskNumber);
+    }
+
+    public static String parseFindCommand(String command) {
+        String[] tokens = command.split(" ");
+        StringBuilder keyword = new StringBuilder();
+        for (int i = 1; i < tokens.length; i++) {
+            keyword.append(tokens[i]);
+            if (i < tokens.length - 1) {
+                keyword.append(" ");
+            }
+        }
+        return keyword.toString();
     }
 }
