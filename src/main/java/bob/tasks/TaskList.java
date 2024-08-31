@@ -41,6 +41,18 @@ public class TaskList {
         this.taskList.get(index).unmark();
     }
 
+    public String filter(String searchString) {
+        String taskString = " Here are the matching tasks in your list:";
+        int counter = 1;
+        for (int i = 1; i < this.taskList.size() + 1; i++) {
+            if (this.taskList.get(i - 1).contains(searchString)) {
+                taskString = taskString + "\n " + counter + "." + this.taskList.get(i - 1);
+                counter++;
+            }
+        }
+        return taskString;
+    }
+
     public String export() {
         return this.taskList.stream().map(Task::export)
                 .collect(Collectors.joining("\n"));

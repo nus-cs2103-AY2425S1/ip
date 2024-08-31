@@ -29,6 +29,7 @@ public class Parser {
             case "deadline" -> new AddTaskCommand(Parser.newDeadline(scanner.nextLine().trim()));
             case "event" -> new AddTaskCommand(Parser.newEvent(scanner.nextLine().trim()));
             case "delete" -> new DeleteCommand(scanner.nextInt() - 1);
+            case "find" -> new FindCommand(scanner.nextLine().trim());
             default -> throw new InvalidInputException();
         };
         return command;

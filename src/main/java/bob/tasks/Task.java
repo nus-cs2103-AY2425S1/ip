@@ -16,6 +16,10 @@ public abstract class Task {
         this.isCompleted = false;
     }
 
+    public boolean contains(String searchString) {
+        return this.taskName.toUpperCase().contains(searchString.toUpperCase());
+    }
+
     public String export() {
         return String.format("%s %s", this.isCompleted, this.taskName);
     }
