@@ -36,7 +36,7 @@ public class Muffin {
      * Enum representing the possible commands the user can input.
      */
     enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
+        BYE, LIST, MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT
     }
 
     /**
@@ -128,6 +128,12 @@ public class Muffin {
                 System.out.println("Ok. Task has been removed:\n" + "\t" + r);
                 System.out.println("Now you have " + list.length() + " tasks in your list.");
                 fp.writeToFile(filePath, list.list);
+                command();
+                break;
+
+            case FIND:
+                System.out.println("Here are the matching tasks in your list:");
+                list.find(parts[1]);
                 command();
                 break;
 

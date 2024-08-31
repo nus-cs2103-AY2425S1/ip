@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * The TaskList class manages a list of tasks. It provides methods to add, delete, mark as done,
- * unmark as done, and retrieve tasks, as well as to list all tasks in the list.
+ * unmark as done, and retrieve tasks, as well as to list all tasks or matching tasks in the list.
  */
 public class TaskList {
 
@@ -46,7 +46,6 @@ public class TaskList {
         return t;
     }
 
-
     /**
      * Prints all tasks in the list to the console, with each task numbered sequentially.
      */
@@ -68,7 +67,6 @@ public class TaskList {
         return t;
     }
 
-
     /**
      * Adds a new task to the list.
      *
@@ -86,6 +84,23 @@ public class TaskList {
      */
     public Task get(int index) {
         return list.get(index);
+    }
+
+    /**
+     * Retrieves and display the tasks which contain the keyword.
+     *
+     * @param keyword The keyword to search for.
+     */
+    public void find(String keyword) {
+        ArrayList<Task> newList = new ArrayList<>();
+        for (Task task: list) {
+            if (task.description.contains(keyword)) {
+                newList.add(task);
+            }
+        }
+        for (int i = 0; i < newList.size(); i++) {
+            System.out.println((i + 1) + "." + newList.get(i));
+        }
     }
 
     /**
