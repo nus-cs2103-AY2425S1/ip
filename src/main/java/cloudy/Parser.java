@@ -5,10 +5,19 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Parser class is responsible for interpreting user input and converting it into executable
+ * commands for the Cloudy program.
+ */
 public class Parser {
 
     private static final String DATE_PATTERN = "^\\d{2}/\\d{2}/\\d{4}$";
 
+    /**
+     * Parses the user input into a Command object.
+     * @param userInput The user's input as a string.
+     * @return A Command object representing the user's intended action.
+     */
     public Command parseCommand(String userInput) {
         if (userInput.startsWith("mark ")) {
             return parseMarkCommand(userInput);
@@ -31,6 +40,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a mark command from the user's input.
+     * @param userInput The user's input containing the mark command.
+     * @return A command object for marking a task as complete.
+     */
     private Command parseMarkCommand(String userInput) {
         String[] parts = userInput.split(" ");
         if (parts.length >= 2) {
@@ -45,6 +59,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses an unmark command from the user's input.
+     * @param userInput The user's input containing the mark command.
+     * @return A command object for marking a task as complete.
+     */
     private Command parseUnmarkCommand(String userInput) {
         String[] parts = userInput.split(" ");
         if (parts.length == 2) {

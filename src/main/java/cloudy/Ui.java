@@ -1,7 +1,15 @@
 package cloudy;
 
+/**
+ * The Ui class handles all interactions with the user.
+ * It is responsible for displaying messages, including greetings, task lists,
+ * and error messages, in a formatted manner.
+ */
 public class Ui {
 
+    /**
+     * Displays the greeting message when the program starts.
+     */
     public void showGreeting() {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Cloudy.");
@@ -9,12 +17,19 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays the farewell message when the user exists the program.
+     */
     public void showBye() {
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays the list of tasks in the user's task list.
+     * @param tasks The TaskList containing all the tasks to be displayed. 
+     */
     public void showList(TaskList tasks) {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks in your list:");

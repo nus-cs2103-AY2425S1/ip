@@ -2,6 +2,10 @@ package cloudy;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a command in the Cloudy application.
+ * Provides methods to initialise a new instance of a command and to get task information
+ */
 public class Command {
     private String type;
     private int taskNumber;

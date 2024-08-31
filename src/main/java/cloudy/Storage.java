@@ -3,13 +3,26 @@ package cloudy;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * The storage class handles the reading and writing of task data to and from a file,
+ * ensuring that tasks are saved between sessions.
+ */
 public class Storage {
     private static String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     * @param filePath The path to the file where the tasks will be stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the list of tasks to the file specified by filePath.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void saveTasksToFile(ArrayList<Task> tasks) {
         checkFileExists();
         try (FileWriter writer = new FileWriter(filePath)) {
@@ -22,6 +35,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the list of tasks from the file specified by filePath.
+     *
+     * @return A list of tasks loaded from the file, stored in an ArrayList. If the file
+     * is empty or does not exist, an empty list is returned.
+     */
     public static ArrayList<Task> loadTasksFromFile() {
         checkFileExists();
         ArrayList<Task> tasks = new ArrayList<>();
@@ -44,6 +63,9 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Check if the file and its parent directories exist. If they do not exist, it creates them.
+     */
     public static void checkFileExists() {
         File file = new File(filePath);
         File directory = file.getParentFile();
