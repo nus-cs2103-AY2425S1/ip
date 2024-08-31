@@ -6,6 +6,7 @@ public final class Query {
 
     /**
      * Constructs a Query object
+     *
      * @param command string representation of the command
      * @param details additional details of the query
      */
@@ -16,6 +17,7 @@ public final class Query {
 
     /**
      * Constructs a Query object
+     *
      * @param command string representation of the command
      */
     public Query(String command) {

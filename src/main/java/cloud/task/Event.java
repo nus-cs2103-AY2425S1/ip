@@ -9,9 +9,10 @@ public class Event extends Task {
 
     /**
      * Constructs an Event object
-     * @param desc description of the event
+     *
+     * @param desc  description of the event
      * @param start start date and time of the event, in the format "dd/MM/yyyy HH:mm"
-     * @param end end date and time of the event, in the format "dd/MM/yyyy HH:mm"
+     * @param end   end date and time of the event, in the format "dd/MM/yyyy HH:mm"
      * @throws CloudException if the date or time input format is invalid
      */
     public Event(String desc, String start, String end) throws CloudException {

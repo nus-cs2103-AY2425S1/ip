@@ -11,14 +11,14 @@ public class Ui {
 
     public void showGreeting() {
         System.out.println(
-            "Hello! I'm Cloud\n" +
-            "What can I do for you?"
+                "Hello! I'm Cloud\n" +
+                        "What can I do for you?"
         );
     }
 
     public void showLine() {
         System.out.println(
-            "____________________________________________________________"
+                "____________________________________________________________"
         );
     }
 

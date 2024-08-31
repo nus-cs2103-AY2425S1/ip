@@ -1,5 +1,7 @@
 package cloud;
 
+import java.util.Scanner;
+
 import cloud.exception.CloudException;
 import cloud.task.Deadline;
 import cloud.task.Event;
@@ -10,24 +12,22 @@ import cloud.util.Storage;
 import cloud.util.TaskList;
 import cloud.util.Ui;
 
-import java.util.Scanner;
-
 public class Cloud {
 
-    private static TaskList tasks = new TaskList();
     private static final String EXIT_COMMAND = "bye";
     private static final Storage storage = new Storage();
+    private static TaskList tasks = new TaskList();
 
     private static void greet() {
         System.out.println(
-            "Hello! I'm Cloud\n" +
-            "What can I do for you?"
+                "Hello! I'm Cloud\n" +
+                        "What can I do for you?"
         );
     }
 
     private static void printHorizLine() {
         System.out.println(
-            "____________________________________________________________"
+                "____________________________________________________________"
         );
     }
 
@@ -44,34 +44,34 @@ public class Cloud {
         String command = query.getCommand().strip();
         String[] details;
         switch (command) {
-            case "todo":
-                Todo todo = new Todo(query.getDetails());
-                tasks.add(todo);
-                break;
-            case "deadline":
-                details = query.getDetails().split("/by");
-                try {
-                    Deadline dl = new Deadline(details[0].strip(), details[1].strip());
-                    tasks.add(dl);
-                } catch (CloudException e) {
-                    System.out.println(e.getMessage());
-                }
-                break;
-            case "event":
-                details = query.getDetails().split("/from|/to");
-                try {
-                    Event event = new Event(
-                            details[0].strip(),
-                            details[1].strip(),
-                            details[2].strip()
-                    );
-                    tasks.add(event);
-                } catch (CloudException e) {
-                    System.out.println(e.getMessage());
-                }
-                break;
-            default:
-                break;
+        case "todo":
+            Todo todo = new Todo(query.getDetails());
+            tasks.add(todo);
+            break;
+        case "deadline":
+            details = query.getDetails().split("/by");
+            try {
+                Deadline dl = new Deadline(details[0].strip(), details[1].strip());
+                tasks.add(dl);
+            } catch (CloudException e) {
+                System.out.println(e.getMessage());
+            }
+            break;
+        case "event":
+            details = query.getDetails().split("/from|/to");
+            try {
+                Event event = new Event(
+                        details[0].strip(),
+                        details[1].strip(),
+                        details[2].strip()
+                );
+                tasks.add(event);
+            } catch (CloudException e) {
+                System.out.println(e.getMessage());
+            }
+            break;
+        default:
+            break;
         }
         System.out.printf(
                 "Added the following task:\n\t%s\nNow you have %d task%s in the list\n",
@@ -99,7 +99,6 @@ public class Cloud {
     }
 
 
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Ui ui = new Ui();
@@ -124,31 +123,31 @@ public class Cloud {
             }
             int taskNum;
             switch (command) {
-                case "list":
-                    ui.showList(tasks.toString());
-                    break;
-                case "mark":
-                    taskNum = Integer.parseInt(query.getDetails());
-                    tasks.mark(taskNum);
-                    ui.showMarked(tasks.getTaskStatus(taskNum));
-                    storage.saveData(tasks);
-                    break;
-                case "unmark":
-                    taskNum = Integer.parseInt(query.getDetails());
-                    tasks.unmark(taskNum);
-                    ui.showUnmarked(tasks.getTaskStatus(taskNum));
-                    storage.saveData(tasks);
-                    break;
-                // case fallthrough for tasks
-                case ("event"):
-                case ("deadline"):
-                case ("todo"):
-                    addTask(query);
-                    break;
-                case "delete":
-                    deleteTask(query);
-                default:
-                    break;
+            case "list":
+                ui.showList(tasks.toString());
+                break;
+            case "mark":
+                taskNum = Integer.parseInt(query.getDetails());
+                tasks.mark(taskNum);
+                ui.showMarked(tasks.getTaskStatus(taskNum));
+                storage.saveData(tasks);
+                break;
+            case "unmark":
+                taskNum = Integer.parseInt(query.getDetails());
+                tasks.unmark(taskNum);
+                ui.showUnmarked(tasks.getTaskStatus(taskNum));
+                storage.saveData(tasks);
+                break;
+            // case fallthrough for tasks
+            case ("event"):
+            case ("deadline"):
+            case ("todo"):
+                addTask(query);
+                break;
+            case "delete":
+                deleteTask(query);
+            default:
+                break;
             }
         }
         exit();

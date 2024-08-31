@@ -6,7 +6,8 @@ public abstract class Task {
 
     /**
      * Constructs a task object
-     * @param desc description of the task
+     *
+     * @param desc   description of the task
      * @param isDone completion status of the task
      */
     public Task(String desc, boolean isDone) {
@@ -16,6 +17,7 @@ public abstract class Task {
 
     /**
      * Constructs a task object that is not completed
+     *
      * @param desc description of the task
      */
     public Task(String desc) {
@@ -38,6 +40,7 @@ public abstract class Task {
 
     /**
      * Returns a string representation of the task formatted for saving
+     *
      * @return formatted string representation of the task
      */
     public String formatSave() {

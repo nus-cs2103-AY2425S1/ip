@@ -8,8 +8,9 @@ public class Deadline extends Task {
 
     /**
      * Constructs a Deadline object
+     *
      * @param desc description of the task
-     * @param by expiry date and time of the task, in the format "dd/MM/yyyy HH:mm"
+     * @param by   expiry date and time of the task, in the format "dd/MM/yyyy HH:mm"
      * @throws CloudException if date or time input format is invalid
      */
     public Deadline(String desc, String by) throws CloudException {

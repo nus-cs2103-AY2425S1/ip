@@ -1,8 +1,8 @@
 package cloud.util;
 
-import cloud.task.Task;
-
 import java.util.ArrayList;
+
+import cloud.task.Task;
 
 public class TaskList {
 

@@ -1,17 +1,17 @@
 package cloud.util;
 
-import cloud.exception.CloudException;
-import cloud.task.Deadline;
-import cloud.task.Event;
-import cloud.task.Task;
-import cloud.task.Todo;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import cloud.exception.CloudException;
+import cloud.task.Deadline;
+import cloud.task.Event;
+import cloud.task.Task;
+import cloud.task.Todo;
 
 public class Storage {
     private final String filePath = "./data/Cloud.txt";
@@ -34,6 +34,7 @@ public class Storage {
 
     /**
      * Saves all the contents of a TaskList to a text file
+     *
      * @param taskList the TaskList object to be saved
      */
     public void saveData(TaskList taskList) {
@@ -49,6 +50,7 @@ public class Storage {
 
     /**
      * Reads the contents of a text file into a TaskList
+     *
      * @return a TaskList containing the saved data
      */
     public TaskList readData() {
