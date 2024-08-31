@@ -123,6 +123,16 @@ public class ListOperation extends Command {
     }
 
     /**
+     * Prints the entries of the task list for debugging purposes.
+     */
+    private void printTaskListDebug() {
+        System.out.println("Debug: Current Task List Contents:");
+        for (Map.Entry<String, Task> entry : taskList.entrySet()) {
+            System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+        }
+    }
+
+    /**
      * Displays all tasks in the current task list.
      * If the task list is empty, prompts the user to create a new task.
      */
@@ -130,6 +140,7 @@ public class ListOperation extends Command {
         if (taskList.isEmpty()) {
             System.out.println("No tasks available. You can create a new task.");
         } else {
+            printTaskListDebug();
             System.out.println("Current tasks:");
             for (Task task : taskList.values()) {
                 System.out.println(task.toString());

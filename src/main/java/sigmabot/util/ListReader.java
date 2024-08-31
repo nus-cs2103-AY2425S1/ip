@@ -48,6 +48,7 @@ public class ListReader {
 
     /**
      * Parses a Todo task from the input line.
+     *
      * @param line The line containing the task type and status.
      * @param br   The BufferedReader to read the next line for the description.
      * @return A Todo task.
@@ -59,7 +60,7 @@ public class ListReader {
         if (parts.length < 2) {
             throw new IllegalArgumentException("Invalid format for Todo task: " + line);
         }
-        String name = parts[1].trim();
+        String name = cleanTaskName(parts[1]);
         String descriptionLine = br.readLine().trim();
         String description = descriptionLine.replaceFirst("Description: ", "").trim();
         return new Todo(name, description, isDone);
@@ -80,7 +81,7 @@ public class ListReader {
             throw new IllegalArgumentException("Invalid format for Deadline task: " + line);
         }
 
-        String name = parts[1].trim();
+        String name = cleanTaskName(parts[1]);
         String descriptionLine = br.readLine().trim();
         String description = descriptionLine.replaceFirst("Description: ", "").trim();
 
@@ -106,7 +107,7 @@ public class ListReader {
         if (parts.length < 2) {
             throw new IllegalArgumentException("Invalid format for Event task: " + line);
         }
-        String name = parts[1].trim();
+        String name = cleanTaskName(parts[1]);
         String descriptionLine = br.readLine().trim();
         String description = descriptionLine.replaceFirst("Description: ", "").trim();
         String startTimeLine = br.readLine().trim();
@@ -120,5 +121,23 @@ public class ListReader {
         String locationLine = br.readLine().trim();
         String location = locationLine.replaceFirst("Location: ", "").trim();
         return new Event(name, description, startTime, endTime, location, isDone);
+    }
+
+    /**
+     * Cleans the task name by removing leading spaces and any leading "[%c]" sequences.
+     *
+     * @param name The task name string to clean.
+     * @return The cleaned task name.
+     */
+    private String cleanTaskName(String name) {
+        // Remove leading spaces
+        name = name.trim();
+
+        // Remove leading "[%c]" sequences
+        while (name.startsWith("[") && name.indexOf(']') > 0) {
+            name = name.substring(name.indexOf(']') + 1).trim();
+        }
+
+        return name;
     }
 }

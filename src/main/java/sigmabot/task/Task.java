@@ -71,6 +71,6 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + (isDone ? "X" : " ") + "] " + name + "\n\tDescription: " + description;
+        return String.format("[%s] %s\n\tDescription: %s", isDone ? "X" : " ", name, description);
     }
 }
