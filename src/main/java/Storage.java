@@ -78,7 +78,7 @@ public class Storage {
                         break;
                     case "E":
                         if (parts.length == 4) {
-                            String[] time = parts[3].split("-");
+                            String[] time = parts[3].split(" - ");
                             String startTime = time[0];
                             String endTime = time[1];
 
@@ -104,7 +104,7 @@ public class Storage {
                         break;
                     }
                 }
-            } catch (WrongDeadlineFormatException e) {
+            } catch (WrongDateTimeFormatException e) {
                 System.out.println(e.getMessage());
             }
         } catch (FileNotFoundException e) {
