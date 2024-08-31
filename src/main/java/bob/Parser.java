@@ -56,6 +56,10 @@ public class Parser {
             String[] arguments = Parser.splitInput(words, FindCommand.params, FindCommand.paramCount);
             return new FindCommand(arguments[0]);
         }
+        case ("findDate"): {
+            String[] arguments = Parser.splitInput(words, FindDateCommand.params, FindDateCommand.paramCount);
+            return new FindDateCommand(arguments[0]);
+        }
         case ("todo"): {
             String[] arguments = Parser.splitInput(words, TodoCommand.params, TodoCommand.paramCount);
             return new TodoCommand(arguments[0]);

@@ -1,8 +1,8 @@
 package bob;
 
 /**
- * Represents a command to find tasks occurring on a specific date.
- * This command searches for tasks with a specific date and prints the results when run.
+ * Represents a command to find tasks with specific text in its name.
+ * This command searches for tasks with a specific text and prints the results when run.
  */
 public class FindCommand extends Command {
     protected static String[] params = new String[] {
@@ -10,30 +10,30 @@ public class FindCommand extends Command {
     };
     protected static int paramCount = 1;
     protected static String identifier = "find";
-    private final String date;
+    private final String text;
 
     /**
-     * Constructs a {@code FindCommand} with the specified date.
+     * Constructs a {@code FindCommand} with the specified text.
      *
-     * @param date the date to search for tasks occurring on.
+     * @param text the text to search in the names of tasks for.
      */
-    public FindCommand(String date) {
-        this.date = date;
+    public FindCommand(String text) {
+        this.text = text;
     }
 
     /**
-     * Executes the find command by searching for tasks occurring on the specified date.
-     * This method retrieves tasks from the {@code TaskList} that match the date and prints the results.
+     * Executes the find command by searching for tasks with names containing the specified text.
+     * This method retrieves tasks from the {@code TaskList} that match the text and prints the results.
      *
      * @param tasks the {@code TaskList} containing all tasks.
-     * @param ui the {@code Ui} to interact with the user (not used in this method).
-     * @param storage the {@code Storage} where tasks are saved (not used in this method).
+     * @param ui the {@code Ui} to interact with the user.
+     * @param storage the {@code Storage} where tasks are saved.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        String[] tasksFound = tasks.findTasksOn(this.date);
+        String[] tasksFound = tasks.findTasksWith(this.text);
         String[] toPrint = new String[tasksFound.length + 2];
-        toPrint[0] = String.format("Here are the tasks occuring on %s:", this.date);
+        toPrint[0] = String.format("Here are the tasks matching %s:", this.text);
         toPrint[tasksFound.length + 1] = String.format("Number of tasks found: %d", tasksFound.length);
         System.arraycopy(tasksFound, 0, toPrint, 1, tasksFound.length);
 
@@ -42,15 +42,15 @@ public class FindCommand extends Command {
 
     /**
      * Checks if this {@code FindCommand} is equal to another object.
-     * Two {@code FindCommand} instances are considered equal if they have the same date.
+     * Two {@code FindCommand} instances are considered equal if they have the same text.
      *
      * @param obj the object to compare this command with.
-     * @return {@code true} if the object is a {@code FindCommand} with the same date; {@code false} otherwise.
+     * @return {@code true} if the objects are equal; {@code false} otherwise.
      */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof FindCommand temp) {
-            return this.date.equals(temp.date);
+            return this.text.equals(temp.text);
         }
         return false;
     }

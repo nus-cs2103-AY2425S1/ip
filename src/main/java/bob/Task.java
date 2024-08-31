@@ -25,6 +25,10 @@ abstract public class Task {
         return false;
     }
 
+    public boolean hasInName(String text) {
+        return this.name.contains(text);
+    }
+
     @Override
     public String toString() {
         String completedBox = this.completed ? "[X] " : "[ ] ";
