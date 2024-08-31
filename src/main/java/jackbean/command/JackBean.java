@@ -1,8 +1,8 @@
 package jackbean.command;
 
-import jackbean.task.TaskList;
-
 import java.util.Scanner;
+
+import jackbean.task.TaskList;
 
 /**
  * JackBean is a chatbot that helps you manage your tasks.

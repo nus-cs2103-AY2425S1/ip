@@ -1,7 +1,5 @@
 package jackbean.command;
 
-import jackbean.task.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,6 +8,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+
+import jackbean.task.Deadline;
+import jackbean.task.Event;
+import jackbean.task.Task;
+import jackbean.task.TaskList;
+import jackbean.task.Todo;
+
 
 /**
  * Storage class is responsible for reading and writing to the storage file.
@@ -53,8 +58,7 @@ public class Storage {
                 }
             }
             storageReader.close();
-        } catch (
-                FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("I could not find your file homie.");
             e.printStackTrace();
         }
@@ -75,9 +79,12 @@ public class Storage {
                 if (task instanceof Todo) {
                     storageWriter.write("T | " + task.getDescription() + " | " + task.getStatusIcon() + "\n");
                 } else if (task instanceof Deadline) {
-                    storageWriter.write("D | " + task.getDescription() + " | " + ((Deadline) task).getBy() + " | " + task.getStatusIcon() + "\n");
+                    storageWriter.write("D | " + task.getDescription() + " | "
+                            + ((Deadline) task).getBy() + " | " + task.getStatusIcon() + "\n");
                 } else if (task instanceof Event) {
-                    storageWriter.write("E | " + task.getDescription() + " | " + ((Event) task).getFrom() + " | " + ((Event) task).getTo() + " | " + task.getStatusIcon() + "\n");
+                    storageWriter.write("E | " + task.getDescription() + " | "
+                            + ((Event) task).getFrom() + " | " + ((Event) task).getTo()
+                            + " | " + task.getStatusIcon() + "\n");
                 }
             }
             storageWriter.close();

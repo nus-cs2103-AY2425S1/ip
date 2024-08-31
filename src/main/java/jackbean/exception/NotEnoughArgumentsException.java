@@ -7,7 +7,7 @@ import jackbean.task.TaskType;
  * This JavaDoc was written by GitHub Copilot.
  */
 public class NotEnoughArgumentsException extends Exception {
-    public TaskType type;
+    private TaskType type;
 
     /**
      * Constructs a NotEnoughArgumentsException with a default message.
@@ -41,11 +41,14 @@ public class NotEnoughArgumentsException extends Exception {
     public String toString() {
         return switch (type) {
         case DEADLINE ->
-                "Yo Homieee, there are not enough arguments for deadline!\ndeadline should be of this format: deadline <description> /by <date>";
+                "Yo Homieee, there are not enough arguments for deadline!\n"
+                        + "deadline should be of this format: deadline <description> /by <date>";
         case EVENT ->
-                "Yo Homieee, there are not enough arguments for event!\nevent should be of this format: event <description> /from <date> /to <date>";
+                "Yo Homieee, there are not enough arguments for event!\n"
+                        + "event should be of this format: event <description> /from <date> /to <date>";
         case TODO ->
-                "Yo Homieee, there are not enough arguments for todo!\ntodo should be of this format: todo <description>";
+                "Yo Homieee, there are not enough arguments for todo!\n"
+                        + "todo should be of this format: todo <description>";
         };
     }
 }

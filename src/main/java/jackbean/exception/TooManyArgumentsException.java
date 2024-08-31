@@ -7,7 +7,7 @@ import jackbean.task.TaskType;
  * This JavaDoc was written by GitHub Copilot.
  */
 public class TooManyArgumentsException extends Exception {
-    public TaskType type;
+    private TaskType type;
 
     /**
      * Constructs a TooManyArgumentsException with a default message.
@@ -40,12 +40,15 @@ public class TooManyArgumentsException extends Exception {
     @Override
     public String toString() {
         return switch (type) {
-            case DEADLINE ->
-                    "Yo Homieee, there are too many arguments for deadline!\ndeadline should be of this format: deadline <description> /by <date>";
-            case EVENT ->
-                    "Yo Homieee, there are too many arguments for event!\nevent should be of this format: event <description> /from <date> /to <date>";
-            case TODO ->
-                    "Yo Homieee, there are too many arguments for todo!\ntodo should be of this format: todo <description>";
+        case DEADLINE ->
+                "Yo Homieee, there are too many arguments for deadline!\n"
+                        + "deadline should be of this format: deadline <description> /by <date>";
+        case EVENT ->
+                "Yo Homieee, there are too many arguments for event!\n"
+                        + "event should be of this format: event <description> /from <date> /to <date>";
+        case TODO ->
+                "Yo Homieee, there are too many arguments for todo!\n"
+                        + "todo should be of this format: todo <description>";
         };
     }
 }
