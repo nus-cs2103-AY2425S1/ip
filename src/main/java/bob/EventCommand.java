@@ -5,7 +5,11 @@ package bob;
  * This command adds a new event task to the task list when run.
  */
 public class EventCommand  extends Command {
-    protected static String[] params = new String[] { "event", "/from", "/to" };
+    protected static String[] params = new String[] {
+            "event",
+            "/from",
+            "/to"
+    };
     protected static int paramCount = 3;
     protected static String identifier = "event";
     private String name;

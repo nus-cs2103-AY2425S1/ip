@@ -5,7 +5,9 @@ package bob;
  * This command saves the current state of tasks and indicates that the application should terminate.
  */
 class ExitCommand extends Command {
-    protected static String[] params = new String[] { "bye" };
+    protected static String[] params = new String[] {
+            "bye"
+    };
     protected static int paramCount = 0;
     protected static String identifier = "bye";
 

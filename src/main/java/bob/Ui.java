@@ -7,8 +7,12 @@ import java.util.Scanner;
  * It is responsible for displaying messages to the user and reading raw user input.
  */
 public class Ui {
-    private static final String[] welcome = { "Hello! I'm bob.Bob", "What can I do for you?" };
-    private static final String[] farewell = { " Bye. Hope to see you again soon!" };
+    private static final String[] welcome = {
+            "Hello! I'm bob.Bob", "What can I do for you?"
+    };
+    private static final String[] farewell = {
+            " Bye. Hope to see you again soon!"
+    };
 
     /**
      * Displays the welcome message to the user.

@@ -5,7 +5,9 @@ package bob;
  * This command updates the status of the task in the task list to completed when run.
  */
 public class MarkCommand  extends Command {
-    protected static String[] params = new String[] { "mark" };
+    protected static String[] params = new String[] {
+            "mark"
+    };
     protected static int paramCount = 1;
     protected static String identifier = "mark";
     private final int idx;

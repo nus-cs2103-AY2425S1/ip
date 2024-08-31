@@ -5,7 +5,9 @@ package bob;
  * This command searches for tasks with a specific date and prints the results when run.
  */
 public class FindCommand extends Command {
-    protected static String[] params = new String[] { "find" };
+    protected static String[] params = new String[] {
+            "find"
+    };
     protected static int paramCount = 1;
     protected static String identifier = "find";
     private final String date;

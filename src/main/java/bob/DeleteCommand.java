@@ -5,7 +5,9 @@ package bob;
  * This command removes a specified task from the list.
  */
 public class DeleteCommand  extends Command {
-    protected static String[] params = new String[] { "delete" };
+    protected static String[] params = new String[] {
+            "delete"
+    };
     protected static int paramCount = 1;
     protected static String identifier = "delete";
     private final int idx;

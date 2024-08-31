@@ -4,8 +4,10 @@ package bob;
  * Represents a command to add a deadline task to the task list.
  * This command specifies a task with a name and a deadline date.
  */
-class DeadlineCommand  extends Command {
-    protected static String[] params = new String[] { "deadline", "/by" };
+public class DeadlineCommand  extends Command {
+    protected static String[] params = new String[] {
+            "deadline", "/by"
+    };
     protected static int paramCount = 2;
     protected static String identifier = "deadline";
     private String name;
