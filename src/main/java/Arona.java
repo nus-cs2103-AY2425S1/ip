@@ -28,6 +28,7 @@ public class Arona {
 
         // Read data.txt file
         try {
+            // todo fix this yellow line
             Files.lines(dataDir).forEach(Arona::process);
         } catch (Exception e) {
             print("Error processing data");
