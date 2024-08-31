@@ -131,6 +131,6 @@ public class Main extends Application {
      * @return chatbot response.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        return nerf.handleCommand(input);
     }
 }

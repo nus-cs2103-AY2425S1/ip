@@ -63,10 +63,11 @@ public class Ui {
 
     /**
      * Prints out goodbye banner.
+     * 
+     * @return goodbye string.
      */
-    public void exit() {
-        System.out.println("Goodbye. Hope to see you soon!");
-        printDivider();
+    public String exit() {
+        return "Goodbye. Hope to see you soon!";
     }
 
 }
