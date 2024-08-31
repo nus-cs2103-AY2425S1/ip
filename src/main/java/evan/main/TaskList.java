@@ -120,6 +120,9 @@ public class TaskList {
         return result.toString();
     }
 
+    /**
+     * Returns a string representation of the TaskList.
+     */
     @Override
     public String toString() {
         if (tasks.isEmpty()) {
