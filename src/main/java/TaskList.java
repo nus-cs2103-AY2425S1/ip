@@ -31,6 +31,7 @@ public class TaskList {
                 if (temp.isEmpty()) { throw new MissingDescriptionException("deadline"); }
                 if (!temp.contains("/by")) { throw new MissingDeadlineException(); }
 
+
                 int byIndex = taskDescription.indexOf("/by");
                 String taskName = taskDescription.substring(9, byIndex);
                 String deadline = taskDescription.substring(byIndex + 4);
@@ -64,6 +65,8 @@ public class TaskList {
             System.out.println(d.toString());
         } catch (MissingStartEndTimeException a) {
             System.out.println(a.toString());
+        } catch (WrongDeadlineFormatException n) {
+            System.out.println(n.toString());
         }
     }
 

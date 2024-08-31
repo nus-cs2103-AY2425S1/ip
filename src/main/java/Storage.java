@@ -104,6 +104,8 @@ public class Storage {
                         break;
                     }
                 }
+            } catch (WrongDeadlineFormatException e) {
+                System.out.println(e.getMessage());
             }
         } catch (FileNotFoundException e) {
             logger.log(Level.SEVERE, "File not found", e);

@@ -20,7 +20,7 @@ public class EventTask extends Task {
     @Override
     public String toFileFormat() {
         return "E | " + (super.isCompleted() ? "1" : "0") + " | "
-                + taskName + " | " + startTime + " | " + endTime;
+                + taskName + " | " + startTime + "-" + endTime;
     }
 
 

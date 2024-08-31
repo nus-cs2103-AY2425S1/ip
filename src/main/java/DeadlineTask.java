@@ -1,17 +1,17 @@
 public class DeadlineTask extends Task {
     private String taskName;
-    private String deadline;
+    private DateTime deadline;
 
-    public DeadlineTask(String taskName, String deadline) {
+    public DeadlineTask(String taskName, String deadline) throws WrongDeadlineFormatException {
         super(taskName);
         this.taskName = taskName;
-        this.deadline = deadline;
+        this.deadline = new DateTime(deadline);
     }
 
-    public DeadlineTask(String taskName, boolean isCompleted, String deadline) {
+    public DeadlineTask(String taskName, boolean isCompleted, String deadline) throws WrongDeadlineFormatException {
         super(taskName, isCompleted);
         this.taskName = taskName;
-        this.deadline = deadline;
+        this.deadline = new DateTime(deadline);
     }
 
     @Override
