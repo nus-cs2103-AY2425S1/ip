@@ -1,7 +1,15 @@
 package miku.parser;
 
-import miku.command.*;
+import miku.command.AddCommand;
+import miku.command.Command;
+import miku.command.ExitCommand;
+import miku.command.MarkCommand;
+import miku.command.RemoveCommand;
+import miku.command.ShowListCommand;
+import miku.command.UnmarkCommand;
+
 import miku.exception.InvalidCommandException;
+
 import miku.task.Deadline;
 import miku.task.Event;
 import miku.task.Todo;
@@ -14,10 +22,10 @@ public class CommandMikuParser extends MikuParser {
     public static String regexEvent = "event .* /.* /.*";
     public static String regexRemove = "delete \\d+";
 
-    public CommandMikuParser(){
+    public CommandMikuParser() {
     }
 
-    public Command parse(String input){
+    public Command parse(String input) {
         try {
             if (input.equals("bye")) {
                 return new ExitCommand();
@@ -42,6 +50,7 @@ public class CommandMikuParser extends MikuParser {
                 System.out.println("すみません、わかりません！\nEnter a valid command please, 39!");
                 throw new InvalidCommandException(input);
             }
+
         } catch (InvalidCommandException e) {
             e.print();
         }

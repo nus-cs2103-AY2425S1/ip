@@ -1,6 +1,7 @@
 package miku.utility;
 
 import miku.exception.DataCorruptionException;
+
 import miku.task.Deadline;
 import miku.task.Event;
 import miku.task.Task;
@@ -12,16 +13,17 @@ import java.util.Scanner;
 public class Storage {
     String filePath = "src/main/resources/data.txt";
 
-    public Storage(String filePath){
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public Storage(){}
+    public Storage() {
+    }
 
-    public void saveFromTaskList(TaskList itemList){
+    public void saveFromTaskList(TaskList itemList) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false));
-            for (Task item: itemList.getTasks()){
+            for (Task item : itemList.getTasks()) {
                 //System.out.println(item.stringValue());
                 writer.write(item.storeValue());
             }
@@ -31,17 +33,17 @@ public class Storage {
         }
     }
 
-    public String getFilePath(){
+    public String getFilePath() {
         return filePath;
     }
 
-    public void init(TaskList tasks){
+    public void init(TaskList tasks) {
         File file = new File("src/main/resources/data.txt");
         File dir = new File("src/main/resources");
 //        System.out.println("Does the file exist: " + file.exists());
-        if (!dir.exists()){
+        if (!dir.exists()) {
             boolean dirCreated = dir.mkdirs();
-            if (dirCreated){
+            if (dirCreated) {
                 System.out.println("Directory created\n");
             } else {
                 System.out.println("Directory not created\n");
@@ -50,16 +52,16 @@ public class Storage {
         if (!file.exists()) {
             try {
                 file.createNewFile();
-            } catch (IOException e){
+            } catch (IOException e) {
                 System.out.println("File cannot be created: " + e.getMessage());
             }
         } else {
             try {
                 Scanner sc = new Scanner(file);
-                while (sc.hasNext()){
+                while (sc.hasNext()) {
                     String[] dataLine = sc.nextLine().split(" \\| ");
                     try {
-                        if (dataLine[0].equals("D")){
+                        if (dataLine[0].equals("D")) {
                             tasks.initAdd(new Deadline(dataLine[2], dataLine[3], Boolean.parseBoolean(dataLine[1])));
                         } else if (dataLine[0].equals("T")) {
                             tasks.initAdd(new Todo(dataLine[2], Boolean.parseBoolean(dataLine[1])));
@@ -68,14 +70,14 @@ public class Storage {
                         } else {
                             throw new DataCorruptionException("The file is corrupted, the file would be deleted...\nA empty tasklist will be created.");
                         }
-                    } catch (DataCorruptionException e){
+                    } catch (DataCorruptionException e) {
                         System.out.println(e.getMessage() + "DataCorruption!");
                         file.delete();
                         tasks.clear();
                     }
                 }
                 System.out.println("Init Successful! no of elements: " + tasks.size());
-            } catch (FileNotFoundException e){
+            } catch (FileNotFoundException e) {
                 System.out.println(e.getMessage() + " File not found!");
             }
 

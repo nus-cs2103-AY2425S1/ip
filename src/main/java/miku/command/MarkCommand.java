@@ -1,6 +1,5 @@
 package miku.command;
 
-
 import miku.utility.UI;
 import miku.utility.TaskList;
 import miku.utility.Storage;
@@ -8,7 +7,7 @@ import miku.utility.Storage;
 public class MarkCommand extends Command {
     int index;
 
-    public MarkCommand(int index){
+    public MarkCommand(int index) {
         this.index = index;
     }
 

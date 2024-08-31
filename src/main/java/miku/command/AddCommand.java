@@ -3,11 +3,13 @@ package miku.command;
 import miku.utility.UI;
 import miku.utility.TaskList;
 import miku.utility.Storage;
+
 import miku.task.Task;
+
 public class AddCommand extends Command {
     Task task;
 
-    public AddCommand(Task task){
+    public AddCommand(Task task) {
         this.task = task;
     }
 

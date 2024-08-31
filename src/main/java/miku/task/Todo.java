@@ -5,7 +5,7 @@ public class Todo extends Task {
         super(desc, false);
     }
 
-    public Todo(String desc, boolean isdone){
+    public Todo(String desc, boolean isdone) {
         super(desc, isdone);
     }
 
@@ -15,7 +15,7 @@ public class Todo extends Task {
     }
 
     public String storeValue() {
-        return this.stringValue().substring(1,2) + " | " + this.isTaskDone() + " | " + super.getDesc() + "\n";
+        return this.stringValue().substring(1, 2) + " | " + this.isTaskDone() + " | " + super.getDesc() + "\n";
     }
 
 }

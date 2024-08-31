@@ -17,7 +17,7 @@ public class TaskList extends ArrayList<Task> {
         System.out.println("いまは " + tasks.size() + " tasks in the list");
     }
 
-    public ArrayList<Task> getTasks(){
+    public ArrayList<Task> getTasks() {
         return tasks;
     }
 
@@ -45,7 +45,7 @@ public class TaskList extends ArrayList<Task> {
         tasks.add(element);
     }
 
-    public int size(){
+    public int size() {
         return tasks.size();
     }
 }
