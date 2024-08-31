@@ -17,7 +17,7 @@ public class ToDo extends Task {
     }
 
     public String getDataForStorage() {
-        return "Sinatra.ToDo:" + super.getContent() + "," + super.getStatusString();
+        return "Sinatra.ToDo:" + super.getContent() + "," + super.isMarkedString();
     }
 
 

@@ -23,7 +23,7 @@ public class Event extends Task {
     }
 
     public String getDataForStorage() {
-        return "Sinatra.Event:" + super.getContent() + "," + super.getStatusString() + "," + from + "," + to;
+        return "Sinatra.Event:" + super.getContent() + "," + super.isMarkedString() + "," + from + "," + to;
     }
 
 

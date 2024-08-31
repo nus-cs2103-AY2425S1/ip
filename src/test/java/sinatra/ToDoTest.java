@@ -10,7 +10,7 @@ public class ToDoTest {
        ToDo output =  sinatra.ToDo.newObjectFromData(input);
         ToDo actual =  new sinatra.ToDo("hi",true);
         assertEquals(output.getContent(), actual.getContent());
-        assertEquals(output.getStatus(),output.getStatus());
+        assertEquals(output.isMarked(),output.isMarked());
     
     }
 

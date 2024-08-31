@@ -29,7 +29,7 @@ this.dateTimeString = dateTimeString;
     }
 
     public String getDataForStorage() {
-        return "Sinatra.Deadline:" + super.getContent() + "," + super.getStatusString()  + "," + dateTimeString;
+        return "Sinatra.Deadline:" + super.getContent() + "," + super.isMarkedString()  + "," + dateTimeString;
     }
 
 

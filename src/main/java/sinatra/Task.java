@@ -33,26 +33,26 @@ public class Task {
         this.status = status;
     }
 
-    public Boolean getStatus() {
+    public Boolean isMarked() {
         return this.status;
     }
 
-    public String getStatusIcon() {
+    public String isMarkedIcon() {
         return (status ? "X" : " "); // mark done task with X
     }
 
-    public String getStatusString() {
+    public String isMarkedString() {
         return (status ? "True" : "False");
     }
 
     public String getDataForStorage() {
-        return "Sinatra.Task:" + content + "," + getStatusString();
+        return "Sinatra.Task:" + content + "," + isMarkedString();
     }
 
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "]" + " " + this.content;
+        return "[" + isMarkedIcon() + "]" + " " + this.content;
     }
 
 
