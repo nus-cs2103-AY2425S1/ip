@@ -24,10 +24,6 @@ public class TaskList {
         taskList.remove(i);
     }
 
-    public void set(int i, Task t) {
-        taskList.set(i, t);
-    }
-
     public Task get(int i) {
         return taskList.get(i);
     }
