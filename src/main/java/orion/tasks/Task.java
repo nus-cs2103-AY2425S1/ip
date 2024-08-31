@@ -16,6 +16,15 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Returns the description of the task
+     *
+     * @return the body of the {@code Task}
+     */
+    public String getBody() {
+        return body;
+    }
+
     public void setDone() throws OrionInputException {
         if (this.isDone) {
             throw new OrionInputException("Task has already been set as completed!");

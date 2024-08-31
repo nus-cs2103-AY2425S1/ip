@@ -4,6 +4,7 @@ import orion.commands.AddTaskCommand;
 import orion.commands.Command;
 import orion.commands.DeleteTaskCommand;
 import orion.commands.ExitCommand;
+import orion.commands.FindCommand;
 import orion.commands.MarkTaskCommand;
 import orion.commands.PrintTasksCommand;
 import orion.commands.UnmarkTaskCommand;
@@ -98,6 +99,13 @@ public class Parser {
                     } catch (NumberFormatException e) {
                         throw new OrionInputException("Correct syntax: delete <task number>");
                     }
+                }
+            case "find":
+                String[] findQuery = input.split(" ", 2);
+                if (inputArray.length < 2) {
+                    throw new OrionInputException("Correct syntax: find <search query>");
+                } else {
+                    return new FindCommand(findQuery[1].trim());
                 }
             default:
                 throw new OrionInputException("Please provide a supported command!");
