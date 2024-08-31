@@ -15,8 +15,21 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Handles the parsing of string into commands and task objects
+ */
 public class Parser {
 
+    /**
+     * Parses the given user input into an appropriate command
+     *
+     * @param UserCommand String of the user command entered
+     * @return Command object based on the input from the user
+     * @throws EmptyArgumentException If any of the required argument is empty
+     * @throws MissingArgumentException If user does not include a required argument in the command
+     * @throws InvalidInputException If user inputs an unrecognized command
+     * @throws InvalidTaskNumberException If user inputs an invalid Task Number
+     */
     public static Command parseCommand(String UserCommand) throws EmptyArgumentException, MissingArgumentException, InvalidInputException, InvalidTaskNumberException {
         Scanner scanner = new Scanner(UserCommand);
         String input = scanner.next();
@@ -35,6 +48,13 @@ public class Parser {
         return command;
     }
 
+    /**
+     * Parses the given string into a To Do object
+     *
+     * @param input String from the user input
+     * @return To Do object
+     * @throws EmptyArgumentException If the "description" field is empty
+     */
     public static ToDo newToDo(String input) throws EmptyArgumentException {
         if (input.isEmpty()) {
             throw new EmptyArgumentException("description", "todo");
@@ -42,6 +62,15 @@ public class Parser {
         return new ToDo(input);
     }
 
+    /**
+     * Parses the given string into a Deadline object
+     *
+     * @param input String from the user input
+     * @return Deadline object
+     * @throws EmptyArgumentException If the "description" or by field is empty
+     * @throws MissingArgumentException If the "by" field is not specified
+     * @throws DateTimeParseException If the inputted date is in the wrong format or invalid
+     */
     public static Deadline newDeadline(String input) throws EmptyArgumentException, MissingArgumentException, DateTimeParseException {
 
         if (!input.matches("^\\S.+")) {
@@ -64,6 +93,14 @@ public class Parser {
         return new Deadline(inputs[0].trim(), LocalDate.parse(dateTime[0], DateTimeFormatter.ofPattern("dd/MM/uuuu")));
     }
 
+    /**
+     * Parses the given string into an EventTask object
+     * @param input String from the user input
+     * @return EventTask object
+     * @throws EmptyArgumentException If the "description", "from" or "to" field is empty
+     * @throws MissingArgumentException If the "from" or "to" field is not specified
+     * @throws DateTimeParseException If the inputted date is in the wrong format or invalid
+     */
     public static EventTask newEvent(String input) throws EmptyArgumentException, MissingArgumentException, DateTimeParseException {
 
         if (!input.matches("^\\S.+")) {
