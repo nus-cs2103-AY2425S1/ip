@@ -1,6 +1,7 @@
 package main.java.angel;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  * Represents the Angel chatbot application.
@@ -70,6 +71,16 @@ public class Angel {
                     int deleteIndex = (int) command.getDetails();
                     taskList.deleteTask(deleteIndex);
                     ui.print("Noted. I've removed this task:\n  " + taskList.listTasks().get(deleteIndex));
+                    break;
+                case "find":
+                    String keyword = (String) command.getDetails();
+                    List<Task> foundTasks = taskList.findTasks(keyword); // Correct type is List<Task>
+                    if (foundTasks.isEmpty()) {
+                        ui.print("No matching tasks found.");
+                    } else {
+                        ui.print("Here are the matching tasks in your list:");
+                        ui.printFoundTasks(foundTasks); // You need a method to print the list of tasks
+                    }
                     break;
                 default:
                     throw new InvalidCommandException("Unknown command: " + command.getType() + ". Please enter a valid command.");

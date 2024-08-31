@@ -1,6 +1,7 @@
 package main.java.angel;
 
 import java.util.Scanner;
+import java.util.List;
 
 /**
  * Handles interactions with the user.
@@ -9,7 +10,7 @@ public class Ui {
     private Scanner scanner;
 
     /**
-     * Constructs an Ui instance.
+     * Constructs a Ui instance.
      */
     public Ui() {
         scanner = new Scanner(System.in);
@@ -51,6 +52,34 @@ public class Ui {
         print("Here are the tasks in your list:");
         for (int i = 0; i < taskList.listTasks().size(); i++) {
             print((i + 1) + "." + taskList.listTasks().get(i));
+        }
+    }
+
+    /**
+     * Prints the results of a search query to the user.
+     *
+     * @param keyword The keyword used for the search.
+     * @param results The list of tasks matching the search query.
+     */
+    public void printFindResults(String keyword, List<Task> results) {
+        if (results.isEmpty()) {
+            print("No tasks found containing: " + keyword);
+        } else {
+            print("Here are the matching tasks in your list:");
+            for (int i = 0; i < results.size(); i++) {
+                print((i + 1) + "." + results.get(i));
+            }
+        }
+    }
+
+    /**
+     * Prints a list of found tasks.
+     *
+     * @param tasks The list of tasks to print.
+     */
+    public void printFoundTasks(List<Task> tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
     }
 

@@ -26,6 +26,8 @@ public class Parser {
             return new Command(command, null);
         case "list":
             return new Command(command, null);
+        case "find":
+            return parseFindCommand(parts);
         case "todo":
             return parseTodoCommand(parts);
         case "deadline":
@@ -37,8 +39,22 @@ public class Parser {
         case "delete":
             return parseIndexCommand(parts, command);
         default:
-            throw new InvalidCommandException("Unknown command: " + command + ". Please enter a valid command (e.g., list, todo, deadline, event, mark, unmark, delete, bye).");
+            throw new InvalidCommandException("Unknown command: " + command + ". Please enter a valid command (e.g., list, todo, deadline, event, mark, unmark, delete, bye, find).");
         }
+    }
+
+    /**
+     * Parses the command for searching tasks by a keyword.
+     *
+     * @param parts The parts of the user input split by space.
+     * @return A Command object for the find task.
+     * @throws InvalidCommandException If the find keyword is missing.
+     */
+    private static Command parseFindCommand(String[] parts) throws InvalidCommandException {
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new InvalidCommandException("The find command requires a keyword. Please specify a keyword after 'find'. Example: 'find book'.");
+        }
+        return new Command("find", parts[1].trim());
     }
 
     /**

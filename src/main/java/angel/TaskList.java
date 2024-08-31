@@ -2,9 +2,11 @@ package main.java.angel;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * Handles task operations including adding, marking, unmarking, deleting, and listing tasks.
+ * Handles task operations including adding, marking, unmarking, deleting, listing, and finding tasks.
  */
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -80,9 +82,23 @@ public class TaskList {
 
     /**
      * Lists all tasks in the current task list.
+     *
+     * @return A list of all tasks.
      */
     public ArrayList<Task> listTasks() {
         return new ArrayList<>(tasks);
+    }
+
+    /**
+     * Finds tasks that contain the specified keyword in their description.
+     *
+     * @param keyword The keyword to search for.
+     * @return A list of tasks that contain the keyword in their description.
+     */
+    public List<Task> findTasks(String keyword) {
+        return tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
     }
 
     /**
