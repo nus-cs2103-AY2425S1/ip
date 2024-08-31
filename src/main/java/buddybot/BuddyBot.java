@@ -3,7 +3,7 @@ package buddybot;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-//level 9
+
 /**
  * This is the class for the chat bot with OOP added
  */
@@ -11,7 +11,7 @@ public class BuddyBot {
 
     private final FileStorage storage;
     private TaskList taskList;
-//9
+
     private final Ui ui;
 
     /**
@@ -28,7 +28,7 @@ public class BuddyBot {
             this.taskList = new TaskList();
         }
     }
-//9
+
     /**
      * Method to run BuddyBot, taking in the user input and making sense of the commands
      */
@@ -69,7 +69,7 @@ public class BuddyBot {
         }
         this.ui.goodbyeMsg();
     }
-//9
+
     /**
      * Method to exit the chatbot
      * Saves the existing list to a txt file
