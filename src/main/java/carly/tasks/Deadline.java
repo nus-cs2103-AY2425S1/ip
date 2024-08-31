@@ -20,7 +20,7 @@ public class Deadline extends Task{
         this.dueDate = duedate;
     }
 
-    private String getDueDate(){
+    public String getDueDate(){
         return this.dueDate;
     }
 

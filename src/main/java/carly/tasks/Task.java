@@ -24,14 +24,17 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public Boolean getIsDone() {
+        return this.isDone;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
     /** Returns the status icon of the task, indicating whether it is done or not. */
     private String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
-    }
-
-    /** Returns the description of the task.*/
-    private String getDescription() {
-        return this.description;
     }
 
     /** Marks the task as done and returns the updated Task object. */

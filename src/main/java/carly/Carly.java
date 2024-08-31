@@ -1,5 +1,6 @@
 package carly;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -13,15 +14,16 @@ import carly.tasks.TaskList;
  */
 public class Carly {
 
+    /** File path used to store list of tasks. */
+    private final String FILE_PATH = "./data/CarlyList.txt";
+
     /** Manages the list of tasks for the chatbot. */
     private final TaskList taskList;
 
-    /** Manages the list of tasks for the chatbot. */
+    /** The name of the user interacting with the Carly chatbot. */
     private String username;
 
-    /**
-     * Represents the set of commands that the chatbot can recognize and process.
-     */
+    /** Represents the set of commands that the chatbot can recognize and process. */
     private enum Command {
         BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
     }
@@ -29,6 +31,14 @@ public class Carly {
     public Carly() {
         this.taskList = new TaskList();
         this.username = "";
+    }
+
+    public String getFILE_PATH() {
+        return FILE_PATH;
+    }
+
+    public TaskList getTaskList() {
+        return this.taskList;
     }
 
     /** Sets the user's input name as the username of the chat. */
@@ -106,6 +116,7 @@ public class Carly {
         String taskDescription;
         Command command;
         welcomeMsg();
+        Storage listStorage = new Storage(FILE_PATH);
 
         while (true) {
             if (scan.hasNextLine()) {
@@ -178,6 +189,11 @@ public class Carly {
                 }
                 break;
             }
+            try {
+                listStorage.savesFile(this.taskList);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -194,5 +210,5 @@ public class Carly {
             System.out.println(e.getMessage());
         }
     }
-
 }
+

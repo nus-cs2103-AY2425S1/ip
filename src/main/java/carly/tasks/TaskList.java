@@ -22,7 +22,7 @@ public class TaskList {
     private final String INDENTATION = "    ";
 
     public TaskList() {
-        this.taskList = new ArrayList<Task>();
+        this.taskList = new ArrayList<>();
     }
 
     /**
@@ -175,6 +175,35 @@ public class TaskList {
                     .forEach(i -> System.out.println(
                             MessageFormat.format("{0}.{1}", i + 1, this.get(i).toString())));
         }
-
     }
+
+    /** Generates a string representation of all tasks in the list to be saved in txt file. */
+    public String getFormattedTaskList() {
+        if (this.taskList.isEmpty()) {
+            return "Nothing in your list";
+        } else {
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < this.getSize(); i++) {
+                Task task = this.get(i);
+                String taskType = task instanceof Todo ? "T" : task instanceof Deadline ? "D" : "E";
+                String isDone = task.getIsDone() ? "1" : "0";
+                String taskDescription = task.getDescription();
+
+                String details = "";
+                if (task instanceof Deadline) {
+                    details = " | " + ((Deadline) task).getDueDate();
+                } else if (task instanceof Event) {
+                    Event event = (Event) task;
+                    details = " | " + event.getStartTime() + " to " + event.getEndTime();
+                }
+
+                sb.append(String.format("%s | %s | %s%s\n", taskType, isDone, taskDescription, details));
+            }
+
+            return sb.toString().trim();
+        }
+    }
+
+
 }

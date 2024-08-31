@@ -1,0 +1,4 @@
+T | 1 | read
+D | 0 | fun | 9
+E | 0 | play | 5 to 10pm
+T | 1 | eat
