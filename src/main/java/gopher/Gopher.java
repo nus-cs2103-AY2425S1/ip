@@ -66,7 +66,8 @@ public class Gopher {
 
             System.out.println();
             UI.printHorizontalSeparator();
-        };
+        }
+        ;
     }
 
     public static void main(String[] args) {
