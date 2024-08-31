@@ -1,4 +1,4 @@
-package slaveFiles;
+package slave;
 
 public class InvalidTaskFormatException extends Exception {
     public InvalidTaskFormatException(String error) {

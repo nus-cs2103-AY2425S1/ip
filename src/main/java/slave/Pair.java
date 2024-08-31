@@ -1,6 +1,6 @@
-package slaveFiles;
+package slave;
 
-public class Pair<T,U> {
+public class Pair<T, U> {
     T t;
     U u;
 

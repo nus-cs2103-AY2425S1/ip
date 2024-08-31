@@ -1,4 +1,4 @@
-package slaveFiles;
+package slave;
 
 import java.util.LinkedList;
 

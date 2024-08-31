@@ -1,4 +1,4 @@
-package slaveFiles;
+package slave;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +19,7 @@ public class Parser {
      * prompts the user for input
      *
      * @return a Pair<Boolean, Boolean> indicating if there are more actions, and if there is a need for storage
-     *         to call the save() method respectively
+     * to call the save() method respectively
      */
     public Pair<Boolean, Boolean> getUserInput() {
         try {
@@ -36,39 +36,39 @@ public class Parser {
             }
             inputScanner.close();
             switch (command) {
-                case "bye":
-                    hasMoreInputs = false;
-                    break;
-                case "list":
-                    listItems();
-                    break;
-                case "mark":
-                    needToSave = markAsDone(body);
-                    break;
-                case "unmark":
-                    needToSave = markAsIncomplete(body);
-                    break;
-                case "todo":
-                    needToSave = addToList(0, body);
-                    break;
-                case "deadline":
-                    needToSave = addToList(1, body);
-                    break;
-                case "event":
-                    needToSave = addToList(2, body);
-                    break;
-                case "delete":
-                    needToSave = deleteTask(body);
-                    break;
-                case "clear":
-                    needToSave = clear();
-                    break;
-                case "schedule":
-                    scheduleOn(body);
-                    break;
-                default:
-                    System.out.println("You're spouting gibberish...");
-                    break;
+            case "bye":
+                hasMoreInputs = false;
+                break;
+            case "list":
+                listItems();
+                break;
+            case "mark":
+                needToSave = markAsDone(body);
+                break;
+            case "unmark":
+                needToSave = markAsIncomplete(body);
+                break;
+            case "todo":
+                needToSave = addToList(0, body);
+                break;
+            case "deadline":
+                needToSave = addToList(1, body);
+                break;
+            case "event":
+                needToSave = addToList(2, body);
+                break;
+            case "delete":
+                needToSave = deleteTask(body);
+                break;
+            case "clear":
+                needToSave = clear();
+                break;
+            case "schedule":
+                scheduleOn(body);
+                break;
+            default:
+                System.out.println("You're spouting gibberish...");
+                break;
             }
             pageBreakLine();
             return new Pair<>(hasMoreInputs, needToSave);
@@ -116,8 +116,8 @@ public class Parser {
      * marks the task as completed by changing the boolean value to true
      *
      * @param s is the task index in String format
-     * @throws IllegalArgumentException in the event that event index is out of the range of the task list
      * @return a boolean representing if storage.save() needs to be called after this method
+     * @throws IllegalArgumentException in the event that event index is out of the range of the task list
      */
     protected boolean markAsDone(String s) {
         try {
@@ -128,7 +128,7 @@ public class Parser {
                 return false;
             }
             Task t = list.get(i - 1);
-            t.completed();
+            t.setAsCompleted();
             System.out.println("Finally doing something useful with your life eh...");
             System.out.println(t);
             return true;
@@ -152,7 +152,7 @@ public class Parser {
                 return false;
             }
             Task t = list.get(i - 1);
-            t.incomplete();
+            t.setAsIncomplete();
             System.out.println("Slacking off now, are you?");
             System.out.println(t);
             return true;
@@ -177,46 +177,46 @@ public class Parser {
         boolean didInsert = true;
         try {
             switch (i) {
-                case 0:
-                    // todo
-                    //@@ author Carl Smotricz -reused
-                    // String.trim() method used to remove all whitespaces from a string to check if the string only
-                    // contains whitespaces is reused from the StackOverflow reply
-                    if (s.isEmpty() || s.trim().isEmpty()) {
+            case 0:
+                // todo
+                //@@ author Carl Smotricz -reused
+                // String.trim() method used to remove all whitespaces from a string to check if the string only
+                // contains whitespaces is reused from the StackOverflow reply
+                if (s.isEmpty() || s.trim().isEmpty()) {
                     //@@author
-                        throw new InvalidTaskFormatException("No task descriptor");
-                    }
-                    list.add(new Todo(s));
-                    break;
-                case 1:
-                    // deadline
-                    String[] arr = s.split(" /by ");
-                    if (arr.length == 1) {
-                        throw new InvalidTaskFormatException("Error with input string format");
-                    }
-                    // only accepts time in format yyyy-mm-dd
-                    LocalDate by = LocalDate.parse(arr[1]);
-                    list.add(new Deadline(arr[0], by));
-                    break;
-                case 2:
-                    // event
-                    // only accepts time in format yyyy-mm-dd
-                    String[] eventArr = s.split(" /from ");
-                    if (eventArr.length == 1) {
-                        throw new InvalidTaskFormatException("Missing event start date");
-                    }
-                    String[] startEndDate = eventArr[1].split(" /to ");
-                    if (startEndDate.length == 1) {
-                        throw new InvalidTaskFormatException("Missing event end date");
-                    }
-                    LocalDate start = LocalDate.parse(startEndDate[0]);
-                    LocalDate end = LocalDate.parse(startEndDate[1]);
-                    list.add(new Event(eventArr[0], start, end));
-                    break;
-                default:
-                    System.out.println("invalid Task code");
-                    didInsert = false;
-                    break;
+                    throw new InvalidTaskFormatException("No task descriptor");
+                }
+                list.add(new Todo(s));
+                break;
+            case 1:
+                // deadline
+                String[] details = s.split(" /by ");
+                if (details.length == 1) {
+                    throw new InvalidTaskFormatException("Error with input string format");
+                }
+                // only accepts time in format yyyy-mm-dd
+                LocalDate by = LocalDate.parse(details[1]);
+                list.add(new Deadline(details[0], by));
+                break;
+            case 2:
+                // event
+                // only accepts time in format yyyy-mm-dd
+                String[] eventArr = s.split(" /from ");
+                if (eventArr.length == 1) {
+                    throw new InvalidTaskFormatException("Missing event start date");
+                }
+                String[] startEndDate = eventArr[1].split(" /to ");
+                if (startEndDate.length == 1) {
+                    throw new InvalidTaskFormatException("Missing event end date");
+                }
+                LocalDate start = LocalDate.parse(startEndDate[0]);
+                LocalDate end = LocalDate.parse(startEndDate[1]);
+                list.add(new Event(eventArr[0], start, end));
+                break;
+            default:
+                System.out.println("invalid Task code");
+                didInsert = false;
+                break;
             }
             return didInsert;
         } catch (InvalidTaskFormatException e) {
@@ -241,6 +241,7 @@ public class Parser {
 
     /**
      * removes the Task from list
+     *
      * @param s is the index of the Task to be removed
      */
     protected boolean deleteTask(String s) {
@@ -273,6 +274,7 @@ public class Parser {
 
     /**
      * prints all deadlines / events occuring on the specified date
+     *
      * @param s is the date input provided by user
      */
     protected void scheduleOn(String s) {
