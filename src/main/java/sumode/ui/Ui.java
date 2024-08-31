@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import sumode.SumoDE;
 import sumode.task.Task;
@@ -25,13 +25,15 @@ public class Ui {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private HBox heading;
 
     private SumoDE sumoDE;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/kangaroo.png"));
     private Image sumoImage = new Image(this.getClass().getResourceAsStream("/images/sumoDE.png"));
 
-
+    /** Initialise the property for scroll bar to always scroll down and for SumoDE to greet */
     @FXML
     public void initialize() { //the initialize method in Java controller is automatically called after FXML been loaded
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty()); // means auto scroll down
@@ -44,21 +46,41 @@ public class Ui {
         this.sumoDE = new SumoDE("data\\taskSaved.txt", this);
     }
 
+    /**
+     * Reply by SumoDE.
+     * @param response response given by SumoDE.
+     */
     @FXML
     private void respond(String response) {
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(response, sumoImage));
+        dialogContainer.getChildren().addAll(DialogBox.getSumoDialog(response, sumoImage));
     }
 
+    /**
+     * Angry reply by SumoDE - usually used when errors are made.
+     * @param response response given by SumoDE
+     */
+    @FXML
+    private void respondDanger(String response) {
+        dialogContainer.getChildren().addAll(DialogBox.getSumoAngryDialog(response, sumoImage));
+    }
+
+    /**
+     * Print Message by user for record.
+     * @param input input from user
+     */
     @FXML
     private void echo(String input) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage)
         );
     }
+
+    /**
+     * Handles the user input.
+     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        //String response = duke.getResponse(input);
         echo(input);
         userInput.clear();
         this.sumoDE.execute(input);
@@ -71,9 +93,7 @@ public class Ui {
         this.respond("""
                 ------------------------------------
                     Hello, I am Sumo-DE
-                
-                \
-                 How can Sumo help you?
+                   How can Sumo help you?
                 ------------------------------------"""
         );
     }
@@ -82,14 +102,14 @@ public class Ui {
      * Prints a notice that command is wrong.
      */
     public void unknownCommand(String commandString) {
-        this.respond("Sumo dunno your command \"" + commandString + "\" ! Check spelling of your first word.");
+        this.respondDanger("Sumo dunno your command \"" + commandString + "\" ! Check spelling of your first word.");
     }
 
     /**
      * Prints error message.
      */
     public void handleError(Exception e) {
-        this.respond(e.getMessage());
+        this.respondDanger(e.getMessage());
     }
 
     /**
@@ -117,7 +137,7 @@ public class Ui {
      * Prints a notice that user won't be able to save any data in this session.
      */
     public void unknownSaveError() {
-        this.respond("Help! Sumo unable to save data due to unknown error!\n"
+        this.respondDanger("Help! Sumo unable to save data due to unknown error!\n"
                         + "Please exit and try again if u wanna save");
     }
 
@@ -125,7 +145,7 @@ public class Ui {
      * Prints a notice that user's latest change is unable to be saved.
      */
     public void latestSaveError() {
-        this.respond("Sumo cannot save latest change.");
+        this.respondDanger("Sumo cannot save latest change.");
     }
 
     /**
@@ -133,7 +153,7 @@ public class Ui {
      * @param line line where the file is corrupted.
      */
     public void corruptedSaveFile(int line) {
-        this.respond("Your saved file at line " + (line) + " is corrupted. "
+        this.respondDanger("Your saved file at line " + (line) + " is corrupted. "
                         + "Sumo cannot read so Sumo will skip that and continue with the rest!");
     }
 
