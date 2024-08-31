@@ -7,7 +7,21 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handled reading tasks from a file and writing tasks to a file.
+ * It processes Todos, Deadlines, and Events by reading their data from a file and
+ * saving the updated task list back to the file.
+ */
 public class FileProcessor {
+
+    /**
+     * Reads tasks from a file located at the specified file path. The file is
+     * expected to have lines representing different types of tasks, each line
+     * containing task details separated by a pipe '|' character.
+     *
+     * @param filePath The path of the file to read tasks from.
+     * @return An ArrayList of tasks read from the file.
+     */
     public ArrayList<Task> readFromFile(String filePath) {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -48,12 +62,25 @@ public class FileProcessor {
         return tasks;
     }
 
+    /**
+     * Marks the task as done or not based on the provided status.
+     *
+     * @param input A string representing the status of the task. "1" means the task is done, and "0" means it's not.
+     * @param task The task to update the status of.
+     */
     public void markStatus(String input, Task task) {
         if (input.equals("1")) {
             task.isDone = true;
         }
     }
 
+    /**
+     * Writes the list of tasks to a file at the specified file path. The tasks are serialized
+     * into lines of text, each line representing a task and its details.
+     *
+     * @param filePath The path of the file to write the tasks to.
+     * @param tasks An ArrayList of tasks to write to the file.
+     */
     public void writeToFile(String filePath, ArrayList<Task> tasks) {
         try {
             ArrayList<String> content = new ArrayList<>();
@@ -74,6 +101,12 @@ public class FileProcessor {
         }
     }
 
+    /**
+     * Checks the status of a task and returns "1" if the task is done, or "0" if it is not.
+     *
+     * @param task The task whose status is being checked.
+     * @return A string "1" if the task is done, or "0" if it is not.
+     */
     public String checkStatus(Task task) {
         if (task.isDone) {
             return "1";
