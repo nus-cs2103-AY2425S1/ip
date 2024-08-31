@@ -171,7 +171,7 @@ public class Ui {
 
     public void showDateTimeError() {
         String output = LINE
-                + "Invalid format! Datetime must be in this form: year-month-day 24hour_time"
+                + "Invalid format! Datetime must be in this form: year-month-day 24hr_time\n"
                 + "E.g. 2024-10-11 1200\n"
                 + LINE;
         System.out.print(output);
