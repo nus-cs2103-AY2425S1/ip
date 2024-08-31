@@ -1,3 +1,5 @@
+package mryapper.exception;
+
 public class InvalidFileDataException extends Exception {
     private String errorMessage;
 

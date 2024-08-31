@@ -1,3 +1,5 @@
+package mryapper.parser;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -41,7 +43,7 @@ public class DateTimeParser {
      * Attempts to parse a date and time from the given string and change to HHmm dd MMM yyyy
      * Returns the string itself if parsing fails
      */
-    protected static String parseDateTime(String dateTimeString) {
+    public static String parseDateTime(String dateTimeString) {
         for (DateTimeFormatter formatter : DATE_FORMATTERS) {
             try {
                 LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, formatter);
