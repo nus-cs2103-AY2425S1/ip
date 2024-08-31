@@ -14,6 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Handles the reading and writing of tasks to and from a file.
+ *
+ * <p>The {@code Storage} class is responsible for loading tasks from a file
+ * at the start of the application and saving tasks back to the file upon
+ * any update. It uses parsers to handle different types of tasks and their
+ * conversions.</p>
+ */
 public class Storage {
 
     private final static String FILEPATH = "./tarsTasks.txt";
@@ -21,6 +29,12 @@ public class Storage {
     DeadlineParser deadlineParser = new DeadlineParser();
     EventParser eventParser = new EventParser();
 
+    /**
+     * Reads tasks from the storage file.
+     *
+     * @return A list of strings representing the saved tasks in the file.
+     * @throws TarsException if an I/O error occurs during file creation or reading.
+     */
     private List<String> readFile() {
         List<String> savedTasks = new ArrayList<>();
 
@@ -44,6 +58,13 @@ public class Storage {
         return savedTasks;
     }
 
+    /**
+     * Converts a list of strings representing tasks into a list of {@link Task} objects.
+     *
+     * @param taskString A list of strings, where each string represents a task.
+     * @return A list of {@link Task} objects created from the provided strings.
+     * @throws TarsException if the file format is invalid.
+     */
     private List<Task> convertToTask(List<String> taskString){
 
         List<Task> tasks = new ArrayList<>();
@@ -88,9 +109,22 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Updates the task list by reading from the storage file and converting the data to {@link Task} objects.
+     *
+     * @return A list of {@link Task} objects loaded from the file.
+     */
     public List<Task> updateTasks() {
         return convertToTask(readFile());
     }
+
+    /**
+     * Saves the current list of tasks to the storage file with each task
+     * being saved to a new line.
+     *
+     * @param taskList The {@link TaskList} containing the tasks to be saved.
+     * @throws TarsException if an I/O error occurs during writing to the file.
+     */
     public void saveTasks(TaskList taskList) {
         List<Task> tasks = taskList.getTasks();
         try (FileWriter writer = new FileWriter(FILEPATH);
