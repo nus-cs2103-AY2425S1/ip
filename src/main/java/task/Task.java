@@ -1,23 +1,44 @@
 package task;
 import exception.InputFormatException;
+
+/**
+ * Represents a task with a description and a completion status.
+ */
 public abstract class Task {
     private final String description;
     private boolean done;
 
+    /**
+     * Create task with description.
+     * The task is initially marked as not done.
+     *
+     * @param description The description of the task.
+     */
     public Task (String description) {
         this.description = description;
         this.done = false;
     }
 
-
-
+    /**
+     * Returns a string representation of the task in a format suitable for file storage.
+     * The format is: "doneStatus | description", where doneStatus is 1 if the task is done, 0 otherwise.
+     *
+     * @return A string representation of the task for file storage.
+     */
     public String toFileFormatString() {
         return String.format("%d | %s", done? 1 : 0, description);
     }
 
+    /**
+     * Returns a string representation of the task, including its status and description.
+     * The format is: "[statusIcon] description", where statusIcon is "X" if the task is done, " " otherwise.
+     *
+     * @return A string representation of the task.
+     */
     public String toString() {
         return String.format("[%s] %s",this.getStatusIcon(), description);
     }
+
 
     public void markAsDone() {
         done = true;
@@ -31,6 +52,14 @@ public abstract class Task {
         return (done ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Checks if the input string matches the pattern for unmarking a task.
+     * The expected input format is "unmark {number}".
+     *
+     * @param input The input string to be checked.
+     * @return The number following the "unmark" keyword.
+     * @throws InputFormatException If the input format is incorrect.
+     */
     public static int matchesUnmark(String input) throws InputFormatException{
         String[] inputArr = input.split(" ");
         if (inputArr.length != 2) {
@@ -43,7 +72,14 @@ public abstract class Task {
         }
     }
 
-    //if returns 0 means no matches
+    /**
+     * Checks if the input string matches the pattern for marking a task as done.
+     * The expected input format is "mark {number}".
+     *
+     * @param input The input string to be checked.
+     * @return The number following the "mark" keyword.
+     * @throws InputFormatException If the input format is incorrect.
+     */
     public static int matchesMark(String input) throws InputFormatException{
         String[] inputArr = input.split(" ");
         if (inputArr.length != 2) {
