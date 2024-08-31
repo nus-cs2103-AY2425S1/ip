@@ -14,6 +14,10 @@ import chatterboxexceptions.ChatterboxExceptions;
 import parser.Parser;
 import storage.Storage;
 import ui.UI;
+
+/**
+ * main class that encapsulates all chatbot functionality
+ */
 public class Chatterbox {
     private final UI ui;
     private final Parser parser;
@@ -56,9 +60,6 @@ public class Chatterbox {
         this.tasks = new TaskList(new ArrayList<Task>());
         ui.greeting();
     }
-
-
-
 
 
 

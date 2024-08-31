@@ -3,6 +3,9 @@ import chatterboxexceptions.ChatterboxExceptions;
 import parser.Parser;
 import java.time.LocalDateTime;
 
+/**
+ * Event subclass of Task that has  a startDate and endDate, represented by either a String or LocalDateTime object
+ */
 public class Event extends Task {
 
     private final LocalDateTime startDateObj;
@@ -12,8 +15,13 @@ public class Event extends Task {
     private final String endDate;
 
 
-
-
+    /**
+     * Initializes Event Object with Strings
+     * @param desc description of event
+     * @param startDate String description of startDate
+     * @param endDate String description of endDate
+     * @throws ChatterboxExceptions.ChatterBoxNoInput if description is empty
+     */
     public Event(String desc, String startDate, String endDate) throws ChatterboxExceptions.ChatterBoxNoInput{
         super(desc);
         this.startDate = startDate;
