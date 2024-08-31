@@ -16,7 +16,7 @@ public class Tasklist {
      * @return String
      */
     public String getList() {
-        // init retstring
+        // init string to return
         String retString = "";
 
         for (int i = 0; i < taskList.size(); i++) {
