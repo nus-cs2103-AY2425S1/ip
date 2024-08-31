@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -9,6 +12,37 @@ public class TaskList {
 
     public ArrayList<Task> getTaskList() {
         return this.taskList;
+    }
+
+    public void tasksOnDate(String date) throws WrongDateTimeFormatException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        try {
+            LocalDate selectedDate = LocalDate.parse(date, formatter);
+            String output = "";
+            int counter = 1;
+
+            for (Task task : this.taskList) {
+                if (task instanceof DeadlineTask) {
+                    DeadlineTask deadlineTask = (DeadlineTask) task;
+                    LocalDate taskDate = deadlineTask.getDeadline().getDateTime().toLocalDate();
+                    if (selectedDate.equals(taskDate)) {
+                        output += counter + ". " + deadlineTask + "\n";
+                        counter++;
+                    }
+                } else if (task instanceof EventTask) {
+                    EventTask eventTask = (EventTask) task;
+                    LocalDate taskDate = eventTask.getEventDate().getDateTime().toLocalDate();
+                    if (selectedDate.equals(taskDate)) {
+                        output += counter + ". " + eventTask + "\n";
+                        counter++;
+                    }
+                }
+            }
+            System.out.println(output + "These tasks are due on "
+                    + selectedDate.toString() + horizontalLine);
+        } catch (DateTimeParseException e) {
+            throw new WrongDateTimeFormatException();
+        }
     }
 
     public void addTask(String taskDescription)
@@ -31,9 +65,11 @@ public class TaskList {
                 if (temp.isEmpty()) { throw new MissingDescriptionException("deadline"); }
                 if (!temp.contains("/by")) { throw new MissingDeadlineException(); }
 
+
                 int byIndex = taskDescription.indexOf("/by");
                 String taskName = taskDescription.substring(9, byIndex);
                 String deadline = taskDescription.substring(byIndex + 4);
+                
                 taskList.add(new DeadlineTask(taskName, deadline));
             } else if (taskDescription.startsWith("event")) {
                 String temp = taskDescription.substring(5).trim();
@@ -46,8 +82,7 @@ public class TaskList {
                 String taskName = taskDescription.substring(6, fromIndex).trim();
                 String startTime = taskDescription.substring(fromIndex + 5, toIndex).trim();
                 String endTime = taskDescription.substring(toIndex + 3).trim();
-                System.out.println(startTime);
-                System.out.println(endTime);
+
                 taskList.add(new EventTask(taskName, startTime, endTime));
             } else {
                 System.out.println("Please use keywords: todo, deadline or event");
@@ -63,6 +98,8 @@ public class TaskList {
             System.out.println(d.toString());
         } catch (MissingStartEndTimeException a) {
             System.out.println(a.toString());
+        } catch (WrongDateTimeFormatException n) {
+            System.out.println(n.toString());
         }
     }
 

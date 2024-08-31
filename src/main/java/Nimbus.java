@@ -36,7 +36,8 @@ public class Nimbus {
 
     public static void main(String[] args)
             throws WrongInputException, MissingDescriptionException,
-            MissingDeadlineException, MissingStartEndTimeException, IOException {
+            MissingDeadlineException, MissingStartEndTimeException, IOException,
+            WrongDateTimeFormatException {
 
         System.out.println(welcomeMessage);
         Storage.createFile();
@@ -51,6 +52,8 @@ public class Nimbus {
                 System.out.println("Nimbus: " + endingMessage);
             } else if (userInput.equals("list")) {
                 taskList.toString();
+            } else if (userInput.startsWith("check ")) {
+                taskList.tasksOnDate(userInput.substring(6).trim());
             } else if (userInput.startsWith("mark ")) {
                 int x = Integer.parseInt(userInput.substring(5).trim());
                 taskList.completeTask(x - 1);

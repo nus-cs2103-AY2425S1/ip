@@ -1,23 +1,27 @@
 public class DeadlineTask extends Task {
     private String taskName;
-    private String deadline;
+    private DateTime deadline;
 
-    public DeadlineTask(String taskName, String deadline) {
+    public DeadlineTask(String taskName, String deadline) throws WrongDateTimeFormatException {
         super(taskName);
         this.taskName = taskName;
-        this.deadline = deadline;
+        this.deadline = new DateTime(deadline);
     }
 
-    public DeadlineTask(String taskName, boolean isCompleted, String deadline) {
+    public DeadlineTask(String taskName, boolean isCompleted, String deadline) throws WrongDateTimeFormatException {
         super(taskName, isCompleted);
         this.taskName = taskName;
-        this.deadline = deadline;
+        this.deadline = new DateTime(deadline);
+    }
+
+    public DateTime getDeadline() {
+        return deadline;
     }
 
     @Override
     public String toFileFormat() {
         return "D | " + (super.isCompleted() ? "1" : "0") + " | "
-                + this.taskName + " | " + deadline;
+                + this.taskName + " | " + deadline.toStorageFormat();
     }
 
     @Override
