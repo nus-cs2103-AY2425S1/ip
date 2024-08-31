@@ -1,12 +1,6 @@
 package momo;
 
-import momo.command.CommandType;
-import momo.command.DeleteCommand;
-import momo.command.MarkCommand;
-import momo.command.UnmarkCommand;
-import momo.command.TodoCommand;
-import momo.command.DeadlineCommand;
-import momo.command.EventCommand;
+import momo.command.*;
 
 import momo.task.Deadline;
 import momo.task.Event;
@@ -50,6 +44,9 @@ public class Momo {
                 }
                 else if (command == CommandType.LIST) {
                     ui.printList(tasks);
+                }
+                else if (command == CommandType.FIND) {
+                    FindCommand.run(input, tasks);
                 }
                 else if (command == CommandType.MARK) {
                     MarkCommand.run(input, tasks, storage);
