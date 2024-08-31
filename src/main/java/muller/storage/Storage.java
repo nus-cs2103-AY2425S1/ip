@@ -1,26 +1,43 @@
 package muller.storage;
 
-import muller.task.Task;
-import muller.task.TaskList;
-import muller.command.MullerException;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import muller.command.MullerException;
+import muller.task.Task;
+import muller.task.TaskList;
+
+/**
+ * Handles the loading and saving of tasks to and from a file.
+ */
 public class Storage {
     private String filePath;
-
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-
+    /**
+     * Loads tasks from the specified file.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws MullerException If there is an issue loading the tasks.
+     */
     public ArrayList<Task> load() throws MullerException {
         ArrayList<Task> list = new ArrayList<>();
         try {
             File file = new File(filePath);
             if (!file.exists()) {
-                return list;  // No tasks to load, return empty list
+                return list; // No tasks to load, return empty list
             }
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
@@ -41,6 +58,12 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Saves the list of tasks to the specified file.
+     *
+     * @param tasks The TaskList containing the tasks to save.
+     * @throws MullerException If there is an issue saving the tasks.
+     */
     public void save(TaskList tasks) throws MullerException {
         try {
             File file = new File(filePath);
@@ -59,6 +82,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a line of text from the file into a Task object.
+     *
+     * @param parts The components of the task read from the file.
+     * @return The Task object parsed from the file.
+     * @throws MullerException If there is an issue parsing the task.
+     */
     private Task parseTask(String[] parts) throws MullerException {
         String type = parts[0];
         boolean isDone = parts[1].equals("1");

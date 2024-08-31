@@ -1,15 +1,26 @@
 package muller.command;
 
+import java.time.LocalDate;
+
 import muller.storage.Storage;
 import muller.task.Task;
 import muller.task.TaskList;
 import muller.ui.Ui;
 
-import java.time.LocalDate;
 
+
+/**
+ * Command to list all tasks occurring on a specific date.
+ */
 public class OnCommand extends Command {
     private LocalDate date;
 
+    /**
+     * Constructs an OnCommand with the specified inputs.
+     *
+     * @param inputs The command inputs.
+     * @throws MullerException If the input date format is invalid.
+     */
     public OnCommand(String[] inputs) throws MullerException {
         if (inputs.length < 2) {
             throw new MullerException("Specify a date (e.g., 'on 2019-10-15')!");
