@@ -14,6 +14,7 @@ public abstract class Task {
         }
         return null;
     }
+
     public abstract String toText();
 
     public Task(String description) {
