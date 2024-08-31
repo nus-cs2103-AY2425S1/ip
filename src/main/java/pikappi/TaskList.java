@@ -1,12 +1,9 @@
 package pikappi;
 
-import pikappi.exception.PikappiException;
-import pikappi.task.DeadlineTask;
-import pikappi.task.EventTask;
-import pikappi.task.Task;
-import pikappi.task.TodoTask;
-
 import java.util.ArrayList;
+
+import pikappi.exception.PikappiException;
+import pikappi.task.Task;
 
 /** Represents a list of tasks. */
 public class TaskList {
@@ -18,7 +15,8 @@ public class TaskList {
         this.tasks = new ArrayList<Task>();
     }
 
-    /** Returns a TaskList object that contains tasks.
+    /**
+     * Returns a TaskList object that contains tasks.
      *
      * @param tasks List of tasks
      */
@@ -26,7 +24,8 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-    /** Returns a TaskList object that contains tasks.
+    /**
+     * Returns a TaskList object that contains tasks.
      *
      * @return List of tasks
      */
@@ -34,7 +33,8 @@ public class TaskList {
         return tasks;
     }
 
-    /** Loads and adds a task to the list of tasks without printing statement.
+    /**
+     * Loads and adds a task to the list of tasks without printing statement.
      * Used for loading tasks from Storage.
      *
      * @param task Task to be added
@@ -43,7 +43,8 @@ public class TaskList {
         tasks.add(task);
     }
 
-    /** Adds a task to the list of tasks.
+    /**
+     * Adds a task to the list of tasks.
      * Used for adding tasks from user input.
      *
      * @param task Task to be added
@@ -56,7 +57,8 @@ public class TaskList {
         ui.showAddedTask(task, tasks.size());
     }
 
-    /** Deletes a task from the list of tasks.
+    /**
+     * Deletes a task from the list of tasks.
      *
      * @param taskNum Index of the task to be deleted
      * @throws PikappiException If the task does not exist
@@ -79,18 +81,35 @@ public class TaskList {
         ui.showAllTasks(this.tasks);
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param taskNumber Index of the task to be marked as done
+     */
     public void markTask(int taskNumber) {
         Task task = tasks.get(taskNumber - 1);
         task.markAsDone();
         ui.showMarkedTask(task);
     }
 
+    /**
+     * Unmarks a task as done.
+     *
+     * @param taskNumber Index of the task to be unmarked as not done
+     */
     public void unmarkTask(int taskNumber) {
         Task task = tasks.get(taskNumber - 1);
         task.unmarkAsDone();
         ui.showUnmarkedTask(task);
     }
 
+    /**
+     * Finds tasks that contain a keyword.
+     *
+     * @param keyword Keyword to search for in tasks
+     * @return TaskList object that contains tasks that match the keyword
+     * @throws PikappiException If no tasks match the keyword
+     */
     public TaskList findTask(String keyword) throws PikappiException {
         TaskList matches = new TaskList();
         for (Task task : tasks) {

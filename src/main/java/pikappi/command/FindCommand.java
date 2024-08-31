@@ -4,10 +4,10 @@ import pikappi.Storage;
 import pikappi.TaskList;
 import pikappi.Ui;
 import pikappi.exception.PikappiException;
-import pikappi.task.Task;
 
-import java.util.ArrayList;
-
+/**
+ * Represents a command by user to find tasks that match a keyword.
+ */
 public class FindCommand extends Command {
     private String keyword;
 

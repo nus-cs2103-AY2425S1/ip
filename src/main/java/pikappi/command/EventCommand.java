@@ -1,6 +1,8 @@
 package pikappi.command;
 
-import pikappi.*;
+import pikappi.Storage;
+import pikappi.TaskList;
+import pikappi.Ui;
 import pikappi.exception.PikappiException;
 import pikappi.task.EventTask;
 
