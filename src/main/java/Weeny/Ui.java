@@ -31,6 +31,16 @@ public class Ui {
         printLine();
     }
 
+
+    public void showSearchResult(List<Task> tasks) {
+        printLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i).toString());
+        }
+        printLine();
+    }
+
     /**
      * Displays a message indicating a task has been added.
      *

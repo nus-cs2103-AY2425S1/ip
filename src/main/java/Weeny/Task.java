@@ -21,6 +21,22 @@ public class Task {
     }
 
     /**
+     * Returns a boolean representing if a keyword is found
+     *
+     * @param keyWord
+     * @return True if the keyword is found in the description
+     */
+    public boolean containString(String keyWord) {
+        if (this.description.contains(keyWord)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
+    /**
      * Returns the status icon for the task.
      *
      * @return "X" if the task is done, otherwise a space.
