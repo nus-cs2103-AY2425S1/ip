@@ -13,12 +13,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class NahTest {
-    @Test
+
     /**
      * Test method run of chatBot.
      * The test pass if the chatBot response match the expected response and
      * no exception is thrown.
      */
+    @Test
     public void runTest1() {
         try {
             String inputPath = Paths.get("D:", "cs2103T_week_2", "src", "test", "java",
