@@ -8,8 +8,19 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+/**
+ * Handles parsing and interpreting user inputs, namely the command type and dates,
+ * and determining the type of commands to be run or returning date object values
+ */
 public class Parser {
 
+    /**
+     * Parses user input string to determine the Command to be run
+     * @param input User's input string
+     * @return The corresponing {@link CommandType} based on the user's input
+     * @throws InvalidCommandException thrown if user's command does not match any existing command words
+     * @throws EmptyCommandException thrown if user input is empty
+     */
     public static CommandType parseInput(String input) throws InvalidCommandException, EmptyCommandException {
 
         // Check if input is empty
@@ -56,6 +67,12 @@ public class Parser {
         throw new InvalidCommandException();
     }
 
+    /**
+     * Parses a date string into a LocalDate object
+     * @param input String input representing date
+     * @return LocalDate object to represent date
+     * @throws DateTimeException thrown if date input is not properly entered with a yyyy-mm-dd format
+     */
     public static LocalDate parseDate(String input) throws DateTimeException {
         try {
             return LocalDate.parse(input);

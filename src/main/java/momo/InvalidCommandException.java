@@ -1,5 +1,8 @@
 package momo;
 
+/**
+ * Thrown when user gives wrongly formatted command
+ */
 public class InvalidCommandException extends MomoException {
     public InvalidCommandException() {
         super("Your command is INVALID. You did not properly specify the type of task (todo/deadline/event) or command (bye/list)");
