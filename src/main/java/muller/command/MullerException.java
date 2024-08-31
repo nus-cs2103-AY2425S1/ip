@@ -13,4 +13,3 @@ public class MullerException extends Exception {
         super(message);
     }
 }
-
