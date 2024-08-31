@@ -1,4 +1,4 @@
-package grok;
+package exceptions;
 
 public class GrokInvalidUserInputException extends Exception {
     public GrokInvalidUserInputException() {

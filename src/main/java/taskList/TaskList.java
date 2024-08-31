@@ -33,4 +33,6 @@ public class TaskList {
     public Task deleteTaskAt(int idx) {
         return tasks.remove(idx);
     }
+
+    public void addTask(Task t) { tasks.add(t); }
 }

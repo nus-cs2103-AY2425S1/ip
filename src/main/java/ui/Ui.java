@@ -35,6 +35,10 @@ public class Ui {
         System.out.println(padMessage("Hello! I'm Grok\nWhat ya wanna do to grok your way to success?"));
     }
 
+    public void printErrorMessage(String s) {
+        System.out.println(padMessage("Error! " + s));
+    }
+
     public Ui() {
 
     }

@@ -1,6 +1,6 @@
 package storage;
 
-import grok.GrokInvalidUserInputException;
+import exceptions.GrokInvalidUserInputException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;

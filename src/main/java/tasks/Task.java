@@ -1,7 +1,6 @@
 package tasks;
 
-import grok.GrokInvalidUserInputException;
-import tasks.Serializable;
+import exceptions.GrokInvalidUserInputException;
 
 public abstract class Task implements Serializable {
     protected String description;
