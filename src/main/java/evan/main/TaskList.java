@@ -80,6 +80,21 @@ public class TaskList {
     }
 
     /**
+     * Retrieves all Tasks with descriptions that match the given description.
+     *
+     * @return TaskList containing Tasks with descriptions that match the given description.
+     */
+    public TaskList getTasksWithMatchingDescription(String description) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.containsMatchingDescription(description)) {
+                matchingTasks.add(task);
+            }
+        }
+        return new TaskList(matchingTasks);
+    }
+
+    /**
      * Prints a formatted representation of the TaskList.
      */
     public void display() {
@@ -103,5 +118,17 @@ public class TaskList {
             result.append(task.encodeAsString()).append("\n");
         }
         return result.toString();
+    }
+
+    @Override
+    public String toString() {
+        if (tasks.isEmpty()) {
+            return "";
+        }
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            result.append(String.format("%d.%s\n", i + 1, tasks.get(i)));
+        }
+        return result.toString().strip();
     }
 }

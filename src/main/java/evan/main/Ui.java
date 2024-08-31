@@ -67,6 +67,7 @@ public class Ui {
                 - mark <task_number>
                 - unmark <task_number>
                 - delete <task_number>
+                - find <description>
                 - exit""";
         System.out.println(commandList);
         showLine();

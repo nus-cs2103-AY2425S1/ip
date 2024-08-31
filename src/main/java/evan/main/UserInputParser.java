@@ -22,6 +22,7 @@ public class UserInputParser {
     private final Pattern markPattern = Pattern.compile("^mark\\s+(\\d+)$");
     private final Pattern unmarkPattern = Pattern.compile("^unmark\\s+(\\d+)$");
     private final Pattern deletePattern = Pattern.compile("^delete\\s+(\\d+)$");
+    private final Pattern findPattern = Pattern.compile("^find\\s+(.+)$");
 
     /**
      * Parses the given user input and returns a Command that matches the user input.
@@ -90,6 +91,14 @@ public class UserInputParser {
                     return new DeleteCommand(taskNumber);
                 }
                 throw new InvalidUserInputException("The 'delete' command requires <task_number>.");
+            }
+            case "find" -> {
+                Matcher findMatcher = findPattern.matcher(userInput);
+                if (findMatcher.find()) {
+                    String description = findMatcher.group(1);
+                    return new FindCommand(description);
+                }
+                throw new InvalidUserInputException("The 'find' command requires <description>.");
             }
             case "exit" -> {
                 return new ExitCommand();

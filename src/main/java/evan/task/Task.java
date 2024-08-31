@@ -45,6 +45,16 @@ public abstract class Task {
     }
 
     /**
+     * Returns true if the Task's description contains the given description, and false otherwise.
+     */
+    public boolean containsMatchingDescription(String description) {
+        if (this.description.contains(description)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Returns a String representation of the Task used for display purposes.
      */
     @Override
