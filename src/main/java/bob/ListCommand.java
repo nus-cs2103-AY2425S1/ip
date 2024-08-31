@@ -1,4 +1,4 @@
-package Bob;
+package bob;
 
 public class ListCommand extends Command {
     @Override

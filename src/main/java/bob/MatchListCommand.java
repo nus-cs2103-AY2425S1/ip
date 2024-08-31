@@ -1,4 +1,4 @@
-package Bob;
+package bob;
 
 public class MatchListCommand extends Command {
     @Override

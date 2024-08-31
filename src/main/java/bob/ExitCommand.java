@@ -1,4 +1,4 @@
-package Bob;
+package bob;
 
 public class ExitCommand extends Command {
     @Override

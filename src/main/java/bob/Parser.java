@@ -1,12 +1,8 @@
-package Bob;
+package bob;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 public class Parser {
     public Command parse(String input, Ui ui) throws InvalidCommandException {

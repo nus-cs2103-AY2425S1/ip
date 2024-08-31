@@ -1,5 +1,5 @@
 ____________________________________________________________
-Hello! I'm your chatbot, Bob.
+Hello! I'm your chatbot, bob.
 How may I assist you?
 
 Key in "I need help." for additional help.
