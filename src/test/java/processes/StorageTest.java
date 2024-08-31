@@ -1,18 +1,20 @@
 package processes;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.File;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import tasks.Task;
-import tasks.ToDo;
+
 import tasks.DeadLine;
 import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class StorageTest {
     private Storage storage;
@@ -39,7 +41,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testLoadData_FileDoesNotExist() {
+    public void testLoadData_fileDoesNotExist_success() {
         storage.loadData(taskList);
         assertEquals(0, taskList.size());
     }
@@ -65,8 +67,8 @@ public class StorageTest {
         assertEquals(3, taskList.size());
         assertEquals("[T][ ] Task 1", taskList.get(0).toString());
         assertEquals("[D][ ] Task 2" + " (by: " + start.toString() + ")", taskList.get(1).toString());
-        assertEquals("[E][ ] Task 3" +
-                " (from: " + start.toString() + " to: " + end.toString() + ")",
+        assertEquals("[E][ ] Task 3"
+                + " (from: " + start.toString() + " to: " + end.toString() + ")",
                 taskList.get(2).toString());
     }
 }

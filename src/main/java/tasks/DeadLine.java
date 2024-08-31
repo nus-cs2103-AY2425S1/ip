@@ -1,12 +1,13 @@
 package tasks;
 
-import exceptions.InvalidDateException;
-import exceptions.InvalidTaskNameException;
+import static java.lang.Integer.parseInt;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import static java.lang.Integer.parseInt;
+import exceptions.InvalidDateException;
+import exceptions.InvalidTaskNameException;
+
 
 /**
  * Represents the DeadLine task.
@@ -25,7 +26,7 @@ public class DeadLine extends Task {
      * @throws InvalidDateException If invalid date is provided.
      *
      */
-    public DeadLine (String inputString) throws InvalidTaskNameException, InvalidDateException {
+    public DeadLine(String inputString) throws InvalidTaskNameException, InvalidDateException {
         inputString = inputString.trim();
         if (inputString.contains("/by ")) {
             int index = inputString.indexOf("/by ");
@@ -57,7 +58,7 @@ public class DeadLine extends Task {
      *
      * @param input The array of strings, each string contains a field of the DeadLine task
      */
-    public DeadLine (String[] input) {
+    public DeadLine(String[] input) {
         int isDone = parseInt(input[0]);
         if (isDone == 0) {
             this.isDone = false;
@@ -75,7 +76,7 @@ public class DeadLine extends Task {
      * @return string representation of the DeadLine task.
      */
     @Override
-    public String toString () {
+    public String toString() {
         String res = "[D]";
         res += super.toString();
         res += " (by: " + this.endDate.toString() + ")";
@@ -89,7 +90,7 @@ public class DeadLine extends Task {
      * @return save format of DeadLine task.
      */
     @Override
-    public String toSave () {
+    public String toSave() {
         String res = "D|";
         res = res.concat(this.isDone ? "1|" : "0|");
         res = res.concat(this.name);

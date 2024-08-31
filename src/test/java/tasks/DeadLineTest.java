@@ -1,15 +1,18 @@
 package tasks;
 
-import exceptions.InvalidDateException;
-import exceptions.InvalidTaskNameException;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.fail;
+import exceptions.InvalidDateException;
+import exceptions.InvalidTaskNameException;
+
+
 public class DeadLineTest {
     @Test
     public void stringConstructor_validInputs_success() throws Exception {

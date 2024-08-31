@@ -13,7 +13,7 @@ public class Parser {
      * @param input The input string to compare with the PrefixString enum
      * @return The enum that matches the input string
      */
-    public PrefixString parseCommand (String input) {
+    public PrefixString parseCommand(String input) {
         return PrefixString.checkPrefixString(input);
     }
 
@@ -36,7 +36,15 @@ public class Parser {
     }
 
 
-    public int checkIndex (String command, int start) {
+    /**
+     * Returns the index provided by the user.
+     * Used after checkValidIndex to ensure that there is a valid index in the command
+     *
+     * @param command The input string that should contain the index.
+     * @param start The position that the integer index should be
+     * @return The index in the command.
+     */
+    public int checkIndex(String command, int start) {
         String trimmed = command.substring(start).trim();
         try {
             return Integer.parseInt(trimmed);

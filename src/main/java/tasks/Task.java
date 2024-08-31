@@ -8,7 +8,7 @@ public abstract class Task {
     protected String name;
     protected boolean isDone = false;
 
-    public String getName () {
+    public String getName() {
         return this.name;
     }
 
@@ -17,19 +17,19 @@ public abstract class Task {
      *
      * @return save format of task.
      */
-    public abstract String toSave ();
+    public abstract String toSave();
 
     /**
      * Marks the task as done by setting flag to true
      */
-    public void mark () {
+    public void mark() {
         this.isDone = true;
     }
 
     /**
      * Unmarks the task by setting flag to false
      */
-    public void unMark () {
+    public void unMark() {
         this.isDone = false;
     }
 
@@ -40,7 +40,7 @@ public abstract class Task {
      * @return string representation of a task.
      */
     @Override
-    public String toString () {
+    public String toString() {
         String res = "";
         if (this.isDone) {
             res += "[X] ";

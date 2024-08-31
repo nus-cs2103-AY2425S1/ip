@@ -1,5 +1,8 @@
 package processes;
 
+
+import java.util.ArrayList;
+
 import exceptions.InvalidDateException;
 import exceptions.InvalidTaskNameException;
 import tasks.DeadLine;
@@ -8,7 +11,6 @@ import tasks.Task;
 import tasks.ToDo;
 
 
-import java.util.ArrayList;
 
 /**
  * TaskList class stores the state of the programme.
@@ -26,7 +28,7 @@ public class TaskList {
      * The data structure used is an ArrayList
      *
      */
-    public TaskList () {
+    public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
@@ -36,7 +38,7 @@ public class TaskList {
      * @return The current list of tasks
      *
      */
-    public ArrayList<Task> getTasks () {
+    public ArrayList<Task> getTasks() {
         return taskList;
     }
 
@@ -47,7 +49,7 @@ public class TaskList {
      * @param arg The string received from the Ui object to create a ToDo object.
      *
      */
-    public void addTodo (String arg) {
+    public void addTodo(String arg) {
 
         try {
             ToDo newToDo = new ToDo(arg);
@@ -66,7 +68,7 @@ public class TaskList {
      * @param arg The string received from the Ui object to create a DeadLine object.
      *
      */
-    public void addDeadline (String arg) {
+    public void addDeadline(String arg) {
         try {
             Task newDeadline = new DeadLine(arg);
             taskList.add(newDeadline);
@@ -85,7 +87,7 @@ public class TaskList {
      * @param arg The string received from the Ui object to create an Event object.
      *
      */
-    public void addEvent (String arg) {
+    public void addEvent(String arg) {
         try {
             Task newEvent = new Event(arg);
             taskList.add(newEvent);
@@ -125,7 +127,7 @@ public class TaskList {
      * @param isMark Determines whether the task should be marked or not.
      *
      */
-    public void markAndUnmark (int index, boolean isMark) {
+    public void markAndUnmark(int index, boolean isMark) {
         if (index == Integer.MAX_VALUE) {
             throw new RuntimeException();
         } else if (index < 1 || index > taskList.size()) {
@@ -151,7 +153,7 @@ public class TaskList {
      * @param prompt The prompt provided by the user.
      *
      */
-    public void find (String prompt) {
+    public void find(String prompt) {
         Ui.printLine();
         ArrayList<Task> output = new ArrayList<>();
         for (Task item: this.taskList) {
