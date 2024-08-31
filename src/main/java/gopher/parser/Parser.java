@@ -3,6 +3,7 @@ package gopher.parser;
 import gopher.exception.EmptyTaskDescriptionException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
+
 import java.lang.StringBuilder;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
@@ -16,11 +17,15 @@ import gopher.ui.UI;
  * user and data files.
  */
 public class Parser {
-    /** DateTimeFormater for date input */
+    /**
+     * DateTimeFormater for date input
+     */
     private static final DateTimeFormatter dateInputFormatter
             = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    /** DateTimeFormatter for date display */
+    /**
+     * DateTimeFormatter for date display
+     */
     private static final DateTimeFormatter dateTextFormatter
             = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
 
@@ -29,7 +34,7 @@ public class Parser {
      *
      * @param input date input from the user or file
      * @return LocalDateTime object of the given date
-     * */
+     */
     public static LocalDateTime parseDateString(String input) {
         if (input.isEmpty()) {
             throw new IllegalArgumentException();
@@ -120,6 +125,12 @@ public class Parser {
         return Integer.parseInt(taskNumber);
     }
 
+    /**
+     * Parses find task command.
+     *
+     * @param command find task command
+     * @return keyword used for searching
+     */
     public static String parseFindCommand(String command) {
         String[] tokens = command.split(" ");
         StringBuilder keyword = new StringBuilder();
