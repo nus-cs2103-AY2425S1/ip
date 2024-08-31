@@ -1,2 +1,27 @@
-package PACKAGE_NAME;public class Parser {
+public class Parser {
+    public Parser() {}
+
+    public Command parse(String userInput, Ui ui) {
+        if (userInput.equalsIgnoreCase("bye")) {
+            return new ExitCommand();
+        } else if (userInput.equalsIgnoreCase("list")) {
+            return new ListCommand();
+        } else if (userInput.startsWith("list ")) {
+            String date = userInput.substring(5).trim();
+            return new ListOnDateCommand(date);
+        } else if (userInput.startsWith("mark ")) {
+            int index = Integer.parseInt(userInput.substring(5).trim()) - 1;
+            return new MarkCommand(index);
+        } else if (userInput.startsWith("unmark ")) {
+            int index = Integer.parseInt(userInput.substring(7).trim()) - 1;
+            return new UnmarkCommand(index);
+        } else if (userInput.startsWith("delete ")) {
+            int index = Integer.parseInt(userInput.substring(7).trim()) - 1;
+            return new DeleteCommand(index);
+        } else if (userInput.startsWith("todo ") || userInput.startsWith("deadline ") || userInput.startsWith("event ")) {
+            return new AddCommand(userInput);
+        } else {
+            ui.showInvalidInstructionError();
+        }
+    }
 }
