@@ -167,6 +167,20 @@ public class UI {
                 + "\n" + HR);
     }
 
+    // handles when finding keyword is used
+    public void handleFindKeyword(TaskList tasklist) {
+        if (tasklist.numOfTasks() == 0) {
+            System.out.println("\nWans:\n"
+                    + "You have no matching tasks!!"
+                    + "\n" + HR);
+        } else {
+            System.out.println(HR + "\nWans:"
+                    + "\nHere are your matching tasks!\n"
+                    + tasklist.toString());
+            System.out.println("You have " + tasklist.numOfTasks() + " tasks!"+"\n"+HR);
+        }
+    }
+
     // says goodbye to user and exits the program
     public void handleGoodbye() {
         String exit = "|  _ \\ \\   / /  ____|"

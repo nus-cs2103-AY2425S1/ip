@@ -178,6 +178,21 @@ public class WansBot {
         }
     }
 
+    // find task based on name
+    private static void findTaskName(String userInput) { // "find [keyword]"
+        String[] splitName = userInput.split("findName ");
+        TaskList filteredList = new TaskList();
+        //testing
+        System.out.println(splitName[1]);
+        //testing
+        for (int i = 0; i < userTaskList.numOfTasks(); i++) {
+            if (userTaskList.getTask(i).hasName(splitName[1])) {
+                filteredList.add(userTaskList.getTask(i));
+            }
+        }
+        ui.handleFindKeyword(filteredList);
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ui.introduceToUser();
@@ -223,8 +238,11 @@ public class WansBot {
             case "load":
                 userTaskList = storage.loadTasks();
                 break;
-            case "find":
+            case "findTask":
                 findTaskDate(userInput);
+                break;
+            case "findName":
+                findTaskName(userInput);
                 break;
             case "bye":
                 ui.handleGoodbye();
