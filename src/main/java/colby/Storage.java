@@ -1,9 +1,13 @@
 package colby;
 
+<<<<<<< HEAD
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+=======
+import java.io.*;
+>>>>>>> 2d1cab1aaf7bac00bb82782f8e90b8a1a5a2ed4d
 
 import java.util.ArrayList;
 import java.util.Scanner;

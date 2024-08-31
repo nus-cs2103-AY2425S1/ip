@@ -10,7 +10,6 @@ public class Deadline extends Task {
         this.end = end;
     }
 
-
     @Override
     public String toString() {
         String formattedEnd = formattedEnd = changeDateTime(end);
