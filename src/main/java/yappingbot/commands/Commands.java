@@ -5,6 +5,7 @@ import yappingbot.stringconstants.ReplyTextMessages;
 import yappingbot.tasks.*;
 
 import yappingbot.tasks.tasklist.TaskList;
+import yappingbot.tasks.tasklist.TaskListFilterView;
 import yappingbot.tasks.tasklist.TaskTypes;
 import yappingbot.ui.MultilineStringBuilder;
 import yappingbot.ui.Ui;
@@ -166,5 +167,24 @@ public class Commands {
         msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
         msb.print();
         return newTask;
+    }
+
+    public static TaskList findStringInTasks(String searchString, TaskList userList) {
+        MultilineStringBuilder msb = new MultilineStringBuilder();
+        String searchStringSanitized = searchString.replaceAll("\n","");
+        msb.addLine(String.format(ReplyTextMessages.FIND_STRING_INIT_1s, searchStringSanitized));
+        TaskList newFilteredView = TaskListFilterView.createFilter(userList, searchString);
+        if (newFilteredView.isEmpty()) {
+            msb.addLine(String.format(ReplyTextMessages.FIND_STRING_FAIL_1s, searchString));
+            msb.print();
+            return null;
+        } else {
+            msb.addLine(String.format(
+                    ReplyTextMessages.FIND_STRING_FOUND_1d_1s,
+                    newFilteredView.size(),
+                    searchString));
+            msb.print();
+            return newFilteredView;
+        }
     }
 }
