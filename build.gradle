@@ -33,6 +33,7 @@ application {
 shadowJar {
     archiveBaseName = "slaveFiles"
     archiveClassifier = null
+    archiveFileName = 'slave.jar'
 }
 
 run{
