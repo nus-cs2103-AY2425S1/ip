@@ -3,6 +3,7 @@ package main.java.util;
 import main.java.Task;
 import main.java.TaskList;
 
+import java.io.PrintStream;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -132,6 +133,30 @@ public class Ui {
         String output = LINE
                 + "Invalid syntax. Please follow this syntax for Events:\n"
                 + "\t event <task name> /from <datetime> /to <datetime>\n"
+                + LINE;
+        System.out.print(output);
+    }
+
+    public void showMarkSyntax() {
+        String output = LINE
+                + "Invalid syntax. Please follow this syntax for Mark:\n"
+                + "\t mark <task index>\n"
+                + LINE;
+        System.out.print(output);
+    }
+
+    public void showUnmarkSyntax() {
+        String output = LINE
+                + "Invalid syntax. Please follow this syntax for Unmark:\n"
+                + "\t unmark <task index>\n"
+                + LINE;
+        System.out.print(output);
+    }
+
+    public void showDeleteSyntax() {
+        String output = LINE
+                + "Invalid syntax. Please follow this syntax for Delete:\n"
+                + "\t delete <task index>\n"
                 + LINE;
         System.out.print(output);
     }
