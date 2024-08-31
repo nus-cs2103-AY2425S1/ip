@@ -164,7 +164,7 @@ public class Commands {
                         newTask.getTaskDoneCheckmark(),
                         newTask)
         );
-        msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
+        msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size() + 1));
         msb.print();
         return newTask;
     }

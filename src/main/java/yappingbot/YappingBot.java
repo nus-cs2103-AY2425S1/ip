@@ -73,13 +73,13 @@ public class YappingBot {
                         Commands.deleteTask(taskListIndexPtr, userList);
                         break;
                     case TODO:
-                        userList.add(Commands.createNewTask(userInputSlices, TaskTypes.TODO, userList));
+                        Commands.createNewTask(userInputSlices, TaskTypes.TODO, userList);
                         break;
                     case EVENT:
-                        userList.add(Commands.createNewTask(userInputSlices, TaskTypes.EVENT, userList));
+                        Commands.createNewTask(userInputSlices, TaskTypes.EVENT, userList);
                         break;
                     case DEADLINE:
-                        userList.add(Commands.createNewTask(userInputSlices, TaskTypes.DEADLINE, userList));
+                        Commands.createNewTask(userInputSlices, TaskTypes.DEADLINE, userList);
                         break;
                 case FIND:
                     String searchString = userInput.substring(userInput.indexOf(" "));
