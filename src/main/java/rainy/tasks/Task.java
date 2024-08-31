@@ -1,7 +1,10 @@
 package rainy.tasks;
+
 import java.time.LocalDate;
-import rainy.database.*;
-import rainy.rainyexceptions.*;
+
+import rainy.database.UI;
+
+import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
 
 public class Task implements Comparable<Task> {
     private boolean isDone;
@@ -39,6 +42,7 @@ public class Task implements Comparable<Task> {
             this.isDone = false;
         }
     }
+
     @Override
     public int compareTo(Task t) {
         return this.compareDate.compareTo(t.compareDate);

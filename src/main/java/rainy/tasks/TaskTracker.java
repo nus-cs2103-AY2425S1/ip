@@ -1,7 +1,12 @@
 package rainy.tasks;
-import java.util.*;
-import rainy.database.*;
-import rainy.rainyexceptions.*;
+
+import rainy.rainyexceptions.InvalidIndexException;
+import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
+
+import rainy.database.UI;
+
+import java.util.Collections;
+import java.util.ArrayList;
 
 public class TaskTracker {
     private ArrayList<Task> taskList;
@@ -76,19 +81,22 @@ public class TaskTracker {
             }
         }
     }
+
     public void sortList() {
         Collections.sort(this.taskList);
         if (this.taskList.size() > 0) {
             ui.sortDone();
         }
     }
+
     public void updateListToDo(String s) {
         this.taskList.add(new ToDo(s));
         this.counter++;
         if (this.receivedInputs) {
             this.ui.addedTask();
             System.out.println(this.taskList.get(this.counter - 1));
-            System.out.println("Take note you currently have " + this.counter + " task/s on your list. You got this Champ!!!");
+            System.out.println("Take note you currently have " + this.counter
+                    + " task/s on your list. You got this Champ!!!");
         }
     }
 
@@ -98,7 +106,8 @@ public class TaskTracker {
         if (this.receivedInputs) {
             this.ui.addedTask();
             System.out.println(this.taskList.get(this.counter - 1));
-            System.out.println("Take note you currently have " + this.counter + " task/s on your list. You got this Champ!!!");
+            System.out.println("Take note you currently have " + this.counter
+                    + " task/s on your list. You got this Champ!!!");
         }
     }
 
@@ -108,7 +117,8 @@ public class TaskTracker {
         if (this.receivedInputs) {
             this.ui.addedTask();
             System.out.println(this.taskList.get(this.counter - 1));
-            System.out.println("Take note you currently have " + this.counter + " task/s on your list. You got this Champ!!!");
+            System.out.println("Take note you currently have " + this.counter
+                    + " task/s on your list. You got this Champ!!!");
         }
     }
 
@@ -122,10 +132,12 @@ public class TaskTracker {
             System.out.println(this.taskList.get(i));
             this.taskList.remove(i);
             counter--;
-            System.out.println("You currently have " + counter + " task/s on hand. Please remember to complete them!");
+            System.out.println("You currently have " + counter
+                    + " task/s on hand. Please remember to complete them!");
         }
 
     }
+
     public void receivedFirstInput() {
         this.receivedInputs = true;
     }

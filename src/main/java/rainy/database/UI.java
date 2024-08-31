@@ -1,9 +1,6 @@
 package rainy.database;
-import rainy.tasks.*;
-import rainy.rainyexceptions.*;
 
 public class UI {
-
     public UI() {
 
     }
@@ -19,7 +16,8 @@ public class UI {
     }
 
     public void noCategoryDeclared() {
-        System.out.println("Please indicate the category of your task (ToDo, Deadline, or Event) before providing a description of it.");
+        System.out.println("Please indicate the category of your task (ToDo, Deadline, or Event) " +
+                "before providing a description of it.");
     }
 
     public void noToDoDescription() {
@@ -73,6 +71,7 @@ public class UI {
     public void addedTask() {
         System.out.println("Gotcha!! Added this task to your list:");
     }
+
     public void noTasksBeforeDelete() {
         System.out.println("You have currently added ZERO tasks to your list! Try telling me some of your tasks before deleting them.");
     }

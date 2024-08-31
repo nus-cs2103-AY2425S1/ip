@@ -1,8 +1,16 @@
 package rainy.database;
-import java.io.*;
-import java.util.*;
-import rainy.tasks.*;
-import rainy.rainyexceptions.*;
+
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
+import java.util.Scanner;
+
+import rainy.rainyexceptions.InvalidIndexException;
+import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
+
+import rainy.tasks.TaskTracker;
 
 public class Storage {
     public Storage() {
@@ -28,7 +36,9 @@ public class Storage {
                     } else {
                         String updatedOldData = oldData.substring(11, oldData.length() - 1);
                         String[] eventSplit = updatedOldData.split(" \\(");
-                        newTask.updateListEvent(eventSplit[0] + " ", eventSplit[1].split(" from ")[0], eventSplit[1].split(" from ")[1]);
+                        String newDate = eventSplit[1].split(" from ")[0];
+                        String newTime = eventSplit[1].split(" from ")[1];
+                        newTask.updateListEvent(eventSplit[0] + " ", newDate, newTime);
                     }
                     if (oldData.charAt(4) == 'X') {
                         newTask.markDone(trace - 1);
@@ -37,7 +47,7 @@ public class Storage {
                 trace++;
             }
             ui.startTracking();
-        } catch (FileNotFoundException e) {
+        } catch(FileNotFoundException e) {
             ui.startTracking();
             newTask = new TaskTracker();
         }
