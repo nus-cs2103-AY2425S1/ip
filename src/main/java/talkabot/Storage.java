@@ -1,5 +1,6 @@
 package talkabot;
 
+import talkabot.exceptions.UnknownTimeException;
 import talkabot.task.Deadline;
 import talkabot.task.Event;
 import talkabot.task.Task;
@@ -12,13 +13,30 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Storage Class handles the file containing the task list
+ * to be read and saved onto the hard drive.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructor for Storage class.
+     *
+     * @param filePath path of input file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Returns task list based on contents of file if it already exists.
+     * If not, returns empty task list.
+     *
+     * @return Task list.
+     * @throws IOException When an issue is encountered
+     * while trying to create or read file.
+     */
     public TaskList load() throws IOException {
         File file = new File(this.filePath);
 
@@ -58,6 +76,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves file based on current task list.
+     *
+     * @throws IOException When an issue is encountered
+     * while trying to write or save file.
+     */
     public void save(TaskList taskList) throws IOException {
         BufferedWriter taskWriter = new BufferedWriter(new FileWriter(this.filePath));
         String tasks = "";
