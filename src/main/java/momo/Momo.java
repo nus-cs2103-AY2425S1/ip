@@ -59,33 +59,24 @@ public class Momo {
                 CommandType command = Parser.parseInput(input);
                 if (command == CommandType.BYE) {
                     ui.showFarewell();
-                }
-                else if (command == CommandType.LIST) {
+                } else if (command == CommandType.LIST) {
                     ui.printList(tasks);
-                }
-                else if (command == CommandType.MARK) {
+                } else if (command == CommandType.MARK) {
                     MarkCommand.run(input, tasks, storage);
-                }
-                else if (command == CommandType.UNMARK) {
+                } else if (command == CommandType.UNMARK) {
                     UnmarkCommand.run(input, tasks, storage);
-                }
-                else if (command == CommandType.DELETE) {
+                } else if (command == CommandType.DELETE) {
                     DeleteCommand.run(input, tasks, storage);
-                }
-                else {
+                } else {
                     if (command == CommandType.TODO) {
                         TodoCommand.run(input, storage, tasks);
-                    }
-                    else if (command == CommandType.DEADLINE) {
+                    } else if (command == CommandType.DEADLINE) {
                         DeadlineCommand.run(input, storage, tasks);
-                    }
-
-                    else if (command == CommandType.EVENT) {
+                    } else if (command == CommandType.EVENT) {
                         EventCommand.run(input, storage, tasks);
                     }
                 }
-            }
-            catch (MomoException e){
+            } catch (MomoException e){
                 System.out.println(e.getMessage());
             }
             input = ui.getUserInput();

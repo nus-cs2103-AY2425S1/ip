@@ -16,7 +16,6 @@ public class Ui {
 
     private final static Scanner sc = new Scanner(System.in);
 
-    // Greeting
     public void showGreeting() {
         System.out.println("Hello! I'm Momo.\nWhat can I do for you?");
     }
@@ -43,6 +42,7 @@ public class Ui {
         showHorizontalLine();
 
     }
+
 
     /**
      * Shows an ominous farewell message and terminates the program

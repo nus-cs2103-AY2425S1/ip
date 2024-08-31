@@ -26,8 +26,6 @@ public class TodoCommand extends AddCommand {
         addToStorage(storage,todo);
         printTaskAdded(todo);
         System.out.printf("Now you have %d task(s) in the list%n", tasks.getCount());
-
-
     }
 
 }

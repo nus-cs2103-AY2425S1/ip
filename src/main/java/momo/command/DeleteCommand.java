@@ -34,8 +34,7 @@ public class DeleteCommand {
 
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Watch out: You did not format your number properly...");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new StorageException(e.getMessage());
         }
 

@@ -68,7 +68,6 @@ public class TaskList {
         list.remove(index);
     }
 
-
     /**
      * Populates the TaskList with all  the task strings inside the file
      * when the file is first loaded when the user boots up the program
@@ -110,7 +109,6 @@ public class TaskList {
                     }
                 }
                 default -> throw new MomoException("Invalid file formatting....");
-
             }
 
 
