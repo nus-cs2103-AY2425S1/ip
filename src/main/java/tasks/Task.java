@@ -19,10 +19,18 @@ public class Task {
     public void unMark() {
         this.isDone = false;
     }
+    /**
+     * Gets the description of the task.
+     * @return a string containing all the relevant information of the Task.
+     */
 
     public String getDescription() {
         return this.getStatusIcon() + " | " + this.description;
     }
+    /**
+     * A symbol denoting the task type.
+     * @return a string denoting the task type.
+     */
 
     public String getTaskType() {
         return "";
