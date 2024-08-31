@@ -1,7 +1,17 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * This is a chatbot class named Bob.
@@ -32,7 +42,7 @@ public class Bob {
     /**
      * This is a chat function by Bob.
      */
-    static void chat(Bob bob)  {
+    static void chat(Bob bob) {
         bob.loadTasks();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine().trim(); //input with NO whitespace in front/back
@@ -42,20 +52,20 @@ public class Bob {
             String keyword = inputWords[0];
 
             switch (keyword) {
-                case "list":
-                    bob.listRecords();
-                    break;
-                case "mark":
-                    bob.updateMark(input, inputWords, true);
-                    break;
-                case "unmark":
-                    bob.updateMark(input, inputWords, false);
-                    break;
-                case "delete":
-                    bob.delete(input);
-                    break;
-                default:
-                    bob.addTask(input, inputWords);
+            case "list":
+                bob.listRecords();
+                break;
+            case "mark":
+                bob.updateMark(input, inputWords, true);
+                break;
+            case "unmark":
+                bob.updateMark(input, inputWords, false);
+                break;
+            case "delete":
+                bob.delete(input);
+                break;
+            default:
+                bob.addTask(input, inputWords);
             }
             bob.saveRecords();
             input = scanner.nextLine().trim();
@@ -113,14 +123,14 @@ public class Bob {
     /**
      * Returns the actual task type instance.
      *
-     * @param keyword
-     * @param input
+     * @param keyword Represents the action that the user wants to do.
+     * @param input Input String provided by user.
      * @return
      */
     public Task getTask(String keyword, String input) throws InvalidTaskException {
         Task newTask = new Task("");
         String[] inputWords = input.split("\s+");
-        String taskDescription = this.getInputDescription(input); //gets the specific task description based on keyword.
+        String taskDescription = this.getDescriptionOnly(input); //gets the specific task description based on keyword.
         switch (keyword) {
         case "todo":
             if (taskDescription.equals("")) {
@@ -133,7 +143,8 @@ public class Bob {
                 throw new InvalidTaskException("OOPS!!! The description of a deadline cannot be empty.");
             }
 
-            String deadline = inputWords[Arrays.asList(inputWords).indexOf("/by") + 1];
+            String deadlineString = inputWords[Arrays.asList(inputWords).indexOf("/by") + 1];
+            LocalDate deadline = this.parseDate(deadlineString);
 
             newTask = new Deadline(taskDescription, deadline);
             break;
@@ -180,7 +191,15 @@ public class Bob {
             if (subString1.length <= 1) {
                 throw new InvalidTaskException("Invalid use of deadline. Should be '... /by ...'.");
             }
-            return subString1[0].trim() + " (by:" + subString1[1] + ")";
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+            LocalDate x = this.parseDate(subString1[1].trim());
+
+            if (x == null) {
+                throw new InvalidTaskException("Invalid date format provided.");
+            }
+
+            String part2 = x.format(outputFormatter);
+            return subString1[0].trim() + " (by:" + part2 + ")";
         case "event":
             if (separateKeyword.length == 1) {
                 throw new InvalidTaskException("OOPS!!! The description of event cannot be empty.");
@@ -206,6 +225,47 @@ public class Bob {
             }
 
             return subString2[0].trim() + " (from:" + subString3[0] + " to:" + subString3[1] + ")";
+
+        default:
+            return input;
+        }
+    }
+
+    /**
+     * Returns the String representation of the task description only.
+     * @param input input by the user.
+     * @return String representation of task description.
+     * @throws InvalidTaskException
+     */
+    public String getDescriptionOnly(String input) throws InvalidTaskException {
+        String[] separateKeyword = input.split(" ", 2); //separate the keyword from the rest of string
+        switch (separateKeyword[0]) {
+        case "todo":
+            if (separateKeyword.length == 1) {
+                throw new InvalidTaskException("OOPS!!! The description of todo cannot be empty.");
+            }
+            return separateKeyword[1];
+        case "deadline":
+            if (separateKeyword.length == 1) {
+                throw new InvalidTaskException("OOPS!!! The description of deadline cannot be empty.");
+            }
+            String[] subString1 = separateKeyword[1].split("/by");
+            if (subString1.length <= 1) {
+                throw new InvalidTaskException("Invalid use of deadline. Should be '... /by ...'.");
+            }
+            return subString1[0].trim();
+        case "event":
+            if (separateKeyword.length == 1) {
+                throw new InvalidTaskException("OOPS!!! The description of event cannot be empty.");
+            }
+            String[] subString2 = separateKeyword[1].split("/from");
+            if (subString2.length <= 1) {
+                if (subString2.length == 0) {
+                    throw new InvalidTaskException("OOPS!!! The event description cannot be empty.");
+                }
+                throw new InvalidTaskException("Invalid use of event format. Should be  '<description> /from <day> <start time>'");
+            }
+            return subString2[0].trim();
 
         default:
             return input;
@@ -364,20 +424,45 @@ public class Bob {
         }
     }
 
+    /**
+     * Parses the content from a line in the saved file to return the corresponding Task object.
+     * @param lineInput A single line in the saved file.
+     * @return Task based on the data specified in the lineInput.
+     * @throws IOException
+     */
     public Task parseData(String lineInput) throws IOException {
-        String[] parts = lineInput.split(" //| ");
-        boolean isDone = (parts[1].equals("1")) ? true : false;
+        String[] parts = lineInput.split("  | ");
+        boolean isDone = (parts[2].equals("1")) ? true : false;
 
         switch (parts[0]) {
         case "T":
-            return new Todo(parts[2], isDone);
+            System.out.println("parseDate description: " + parts[4]);
+            return new Todo(parts[4], isDone);
         case "D":
-            return new Deadline(parts[2], parts[3], isDone);
+            return new Deadline(parts[4], parts[6], isDone);
         case "E":
-            return new Event(parts[2], parts[3], parts[4], parts[5]);
+            return new Event(parts[4], parts[6], parts[8], parts[10]);
         default:
             throw new IOException("unable to parse Data for loading.");
         }
     }
+
+    /**
+     * Parses string format of date and returns a LocalDate object.
+     * @param date String format of date.
+     * @return LocalDate object
+     */
+    public LocalDate parseDate(String date) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        try {
+            LocalDate dateTime =  LocalDate.parse(date, inputFormatter);
+            return dateTime;
+        } catch (DateTimeParseException e) {
+            System.err.println("Invalid date format: " + date);
+            return null;
+        }
+    }
+
 
 }
