@@ -4,6 +4,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * This class represents a Deadline task object that has been created,
+ * storing the due date as a {@code LocalDate} object and providing functionality
+ * for converting the object to a file string to store in the storage file
+ */
 public class Deadline extends Task {
     protected LocalDate by;
     public Deadline(String task, LocalDate by, boolean isCompleted) {

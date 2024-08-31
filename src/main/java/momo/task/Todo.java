@@ -1,5 +1,8 @@
 package momo.task;
 
+/**
+ * Represents Todo objects and related functionality
+ */
 public class Todo extends Task {
     public Todo(String task, boolean isCompleted) {
         super(task, isCompleted);

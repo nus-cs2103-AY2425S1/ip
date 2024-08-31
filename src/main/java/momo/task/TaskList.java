@@ -12,6 +12,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Represents the list of Task objects stored in an ArrayList and provides
+ * range of functionalities for all task objects within the list
+ */
 public class TaskList {
 
     private final ArrayList<Task> list = new ArrayList<>();
@@ -26,10 +30,17 @@ public class TaskList {
         }
     }
 
+    /**
+     * Constructor for testing purposes
+     */
     protected TaskList() {
 
     }
 
+    /**
+     * Returns the number of tasks in the ArrayList
+     * @return The int number of tasks in the ArrayList
+     */
     public int getCount() {
         return list.size();
     }
@@ -42,37 +53,28 @@ public class TaskList {
         list.add(task);
     }
 
-    public Task getTask(int index) { return list.get(index); }
+    public Task getTask(int index) {
 
-    public void addTodo(String desc) {
-        list.add(new Todo(desc, false));
+        return list.get(index);
     }
 
-    public void addDeadline(String desc, LocalDate by) {
-        list.add(new Deadline(desc, by, false));
-    }
 
-    public void addEvent(String desc, LocalDate from, LocalDate to) {
-        list.add(new Event(desc, from, to, false));
-    }
-
+    /**
+     * Deletes specified task via index from the ArrayList
+     * @param index Index of task to be deleted
+     */
     public  void deleteTask(int index)  {
 
         list.remove(index);
     }
 
-    public  void changeCompletion(int index, CommandType command)  {
-        Task task = list.get(index);
 
-        if (command == CommandType.MARK) {
-            task.markComplete();
-        }
-        else {
-            task.unmark();
-        }
-    }
-
-
+    /**
+     * Populates the TaskList with all  the task strings inside the file
+     * when the file is first loaded when the user boots up the program
+     * @param input Refers to the string containing all tasks from the storage file
+     * @throws MomoException thrown when file is corrupted
+     */
     public void populateTaskList(String input) throws MomoException {
 
         if (input.isEmpty()) {

@@ -3,6 +3,11 @@ package momo.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class represents a event task object that has been created,
+ * storing the from and to dates as a {@code LocalDate} object and providing functionality
+ * for converting the object to a file string to store in the storage file
+ */
 public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
