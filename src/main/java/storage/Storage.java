@@ -1,4 +1,11 @@
-package grok;
+package storage;
+
+import exceptions.GrokInvalidUserInputException;
+import taskList.TaskList;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,10 +14,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TextFileReader {
+public class Storage {
+    private final String filePath;
 
-    public static ArrayList<Task> parseFile(String fileName) {
-        File file = new File(fileName);
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public ArrayList<Task> parseTextStorage() {
+        File file = new File(filePath);
 
         ArrayList<Task> items = new ArrayList<>();
 
@@ -18,13 +30,12 @@ public class TextFileReader {
             // this creates a file only if it does not already exist - so running it un-conditionally is OK.
             // the only thing which changes is that it will return false if the file already exists.
             if (file.createNewFile()) {
-                System.out.println("Initiating a new file to hold records...");
+                System.out.println("Text file not detected. Initiating a new file to hold records...");
             } else {
-                System.out.println("Reading data from existing file at location: " + fileName);
+                System.out.println("Reading data from existing text file at location: " + filePath);
             }
         } catch (IOException e) {
-            System.out.println("An error occurred in file opening :( Stack trace:");
-            e.printStackTrace();
+            System.out.println("An error occurred in file opening :(");
             return items;
         }
 
@@ -52,32 +63,26 @@ public class TextFileReader {
                     items.clear();
                 }
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred in file scanning :( Stack trace:");
-            e.printStackTrace();
-        } catch (GrokInvalidUserInputException e) {
-            System.out.println("Something has gone seriously wrong - you should not have invalid user input without a user!");
-            e.printStackTrace();
+        } catch (FileNotFoundException | GrokInvalidUserInputException e) {
+            System.out.println("Something has gone wrong - text file is corrupted, or file creation is not working.");
             System.exit(1);
         }
+
         return items;
     }
 
-    public static void writeToFile(String fileName, ArrayList<Task> tasks) {
-        // I can't convert this with polymorphism since I cannot overwrite static methods :(
-        // any alternate ideas?
+    public void writeToTextStorage(TaskList tasks) {
         try {
             // this line potentially throws IOException.
-            FileWriter writer = new FileWriter(fileName);
+            FileWriter writer = new FileWriter(filePath);
 
-            for (Task t: tasks) {
+            for (Task t: tasks.getAllTasks()) {
                 writer.write(t.serialize());
                 writer.write("\n");
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println("An error occurred in file scanning :( Stack trace:");
-            e.printStackTrace();
+            System.out.println("An error occurred while writing to the text file: " + e.getMessage());
         }
     }
 }

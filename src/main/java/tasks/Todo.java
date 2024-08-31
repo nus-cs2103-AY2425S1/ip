@@ -1,7 +1,8 @@
-package grok;
+package tasks;
+
+import exceptions.GrokInvalidUserInputException;
 
 public class Todo extends Task {
-    // Use different factory methods instead.
     public Todo(String description) throws GrokInvalidUserInputException {
         super(description);
     }
