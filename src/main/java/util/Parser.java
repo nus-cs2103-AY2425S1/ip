@@ -66,7 +66,7 @@ public class Parser {
             break;
         case MARK:
             try {
-                int i = Integer.parseInt(arr[1]);
+                int i = Integer.parseInt(arr[1]) - 1;
                 c = new MarkCommand(i);
             } catch (NumberFormatException e) {
                 //arr[1] is not a number
@@ -78,7 +78,7 @@ public class Parser {
             break;
         case UNMARK:
             try {
-                int i = Integer.parseInt(arr[1]);
+                int i = Integer.parseInt(arr[1]) - 1;
                 c = new UnmarkCommand(i);
             } catch (NumberFormatException e) {
                 //arr[1] is not a number
@@ -90,7 +90,7 @@ public class Parser {
             break;
         case DELETE:
             try {
-                int i = Integer.parseInt(arr[1]);
+                int i = Integer.parseInt(arr[1]) - 1;
                 c = new DeleteCommand(i);
             } catch (NumberFormatException e) {
                 //arr[1] is not a number
