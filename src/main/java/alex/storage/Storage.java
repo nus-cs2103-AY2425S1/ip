@@ -10,6 +10,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 
+/**
+ * Represents the storage where the list of tasks are stored. A Storage object corresponds to
+ * an inventory represented by strings referring to the directory and the data file.
+ */
 public class Storage {
     public ArrayList<Task> tasks;
 
@@ -17,12 +21,25 @@ public class Storage {
         createDirectory(directory);
         loadTasksFromFile(file);
     }
+    /**
+     * Creates a directory if the directory doesn't exist.
+     *
+     * @param directory the directory to create
+     */
     private void createDirectory(String directory) {
         File folder = new File(directory);
         if (!folder.exists()) {
             folder.mkdirs();
         }
     }
+    /**
+     * Returns the list of tasks that are in the specified file.
+     * Saves the current list of tasks into the specified file.
+     * Creates a new file if the file doesn't exist.
+     *
+     * @param file data file.
+     * @return list of tasks.
+     */
     public ArrayList<Task> loadTasksFromFile(String file) {
         ArrayList<Task> list = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -65,6 +82,13 @@ public class Storage {
         return list;
     }
 
+    /**
+    * Returns string representing whether the method succeeded or failed.
+    * Saves the current list of tasks into the specified file.
+    *
+    * @param file data file.
+    * @return success or fail.
+    */
     public String saveTasksToFile(String file) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (Task task : tasks) {
