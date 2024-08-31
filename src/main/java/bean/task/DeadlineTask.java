@@ -23,16 +23,6 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * Returns a string representation of the deadline task, including its type, completion status, name, and details.
-     *
-     * @return A string representing the deadline task.
-     */
-    @Override
-    public String toString() {
-        return "[D]" + super.toString() + getDetails();
-    }
-
-    /**
      * Retrieves the details of the task, including the deadline in a readable format.
      *
      * @return A string representing the task details.
@@ -52,5 +42,15 @@ public class DeadlineTask extends Task {
     public String toSaveFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return "D | " + (isDone ? "1" : "0") + " | " + name + " | " + by.format(formatter);
+    }
+
+    /**
+     * Returns a string representation of the deadline task, including its type, completion status, name, and details.
+     *
+     * @return A string representing the deadline task.
+     */
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + getDetails();
     }
 }

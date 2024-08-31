@@ -14,15 +14,6 @@ public class TodoTask extends Task {
         super(name);
     }
 
-    /**
-     * Returns a string representation of the task for display purposes.
-     *
-     * @return A string representing the todo task.
-     */
-    @Override
-    public String toString() {
-        return "[T]" + super.toString() + getDetails();
-    }
 
     /**
      * Returns the details specific to the task type. For todo tasks, this is an empty string.
@@ -42,5 +33,15 @@ public class TodoTask extends Task {
     @Override
     public String toSaveFormat() {
         return "T | " + (isDone ? "1" : "0") + " | " + name;
+    }
+
+    /**
+     * Returns a string representation of the task for display purposes.
+     *
+     * @return A string representing the todo task.
+     */
+    @Override
+    public String toString() {
+        return "[T]" + super.toString() + getDetails();
     }
 }

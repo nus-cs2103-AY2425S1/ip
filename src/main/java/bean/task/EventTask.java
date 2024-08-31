@@ -26,16 +26,6 @@ public class EventTask extends Task {
     }
 
     /**
-     * Returns a string representation of the event task, including its type, completion status, name, and details.
-     *
-     * @return A string representing the event task.
-     */
-    @Override
-    public String toString() {
-        return "[E]" + super.toString() + getDetails();
-    }
-
-    /**
      * Retrieves the details of the event, including the start and end times in a readable format.
      *
      * @return A string representing the event details.
@@ -55,5 +45,15 @@ public class EventTask extends Task {
     public String toSaveFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return "E | " + (isDone ? "1" : "0") + " | " + name + " | " + from.format(formatter) + " | " + to.format(formatter);
+    }
+
+    /**
+     * Returns a string representation of the event task, including its type, completion status, name, and details.
+     *
+     * @return A string representing the event task.
+     */
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + getDetails();
     }
 }
