@@ -1,16 +1,20 @@
 package nah;
 
+import java.nio.file.Paths;
+
 import nah.command.Command;
 import nah.exceptions.NahException;
+import nah.parser.Parser;
 import nah.storage.Storage;
 import nah.tasklist.TaskList;
 import nah.ui.UI;
-import nah.parser.Parser;
-import java.nio.file.Paths;
 
+/**
+ * Our chatBot
+ */
 public class Nah {
-    private static final String hardDisk
-            = Paths.get("D:", "cs2103T_week_2", "Data", "Nah.Nah.txt").toString();
+    private static final String hardDisk =
+            Paths.get("D:", "cs2103T_week_2", "Data", "Nah.Nah.txt").toString();
     private Storage storage;
     private UI ui;
     private TaskList tasks;
@@ -54,7 +58,6 @@ public class Nah {
             }
         }
     }
-    
     public static void main(String[] args) {
 
         Nah nah = new Nah(hardDisk);

@@ -1,6 +1,7 @@
 package nah;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -9,16 +10,15 @@ import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
+import org.junit.jupiter.api.Test;
 public class NahTest {
-    @Test
+
     /**
      * Test method run of chatBot.
      * The test pass if the chatBot response match the expected response and
      * no exception is thrown.
      */
+    @Test
     public void runTest1() {
         try {
             String inputPath = Paths.get("D:", "cs2103T_week_2", "src", "test", "java",

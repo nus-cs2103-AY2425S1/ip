@@ -1,20 +1,15 @@
 package nah.storage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.LinkedList;
-import java.util.Scanner;
-import nah.data.Task;
-import nah.exceptions.NahException;
-import nah.tasklist.TaskList;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.nio.file.Paths;
+import java.util.LinkedList;
+
+import org.junit.jupiter.api.Test;
+
+import nah.data.Task;
+import nah.exceptions.NahException;
 public class StorageTest {
     /**
      * Tests the method load.

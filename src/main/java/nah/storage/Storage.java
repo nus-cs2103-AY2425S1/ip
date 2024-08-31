@@ -7,16 +7,17 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.Scanner;
+
 import nah.data.Task;
 import nah.exceptions.NahException;
 
+/**
+ * Handles the storing the data into a hard disk.
+ */
 public class Storage {
-    private String filePath;
-
-
     private static final String hardDisk =
             Paths.get("D:", "cs2103T_week_2", "Data", "Nah.Nah.txt").toString();
-
+    private String filePath;
     public Storage() {
         this.filePath = hardDisk;
     }
@@ -56,7 +57,7 @@ public class Storage {
         Scanner s;
         try {
             f = new File(filePath);
-            s = new Scanner(f   );
+            s = new Scanner(f);
         } catch (FileNotFoundException | NullPointerException e) {
             throw new NahException(" Nahh!!! Something is wrong with the filePath");
         }
@@ -84,7 +85,7 @@ public class Storage {
      *
      * @throws NahException
      */
-    public void clean() throws NahException{
+    public void clean() throws NahException {
         try {
             FileWriter fw = new FileWriter(filePath, false);
             fw.close();

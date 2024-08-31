@@ -1,11 +1,14 @@
 package nah.storage;
-import nah.data.Task;
-import nah.exceptions.NahException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import nah.data.Task;
+import nah.exceptions.NahException;
+/**
+ * Handles the decoding of data of a file into a task object.
+ */
 public class Decoder {
     /**
      * Returns a task from a String representation.
@@ -40,8 +43,8 @@ public class Decoder {
                 throw new NahException.InvalidFileValueException();
             }
             try {
-                LocalDateTime time = LocalDateTime.
-                        parse(des[1].trim(), DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
+                LocalDateTime time = LocalDateTime
+                        .parse(des[1].trim(), DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
                 Task t = new Task.Deadlines(des[0].trim(), time);
                 if (command[1].trim().equals("1")) {
                     t.mark();
@@ -69,10 +72,10 @@ public class Decoder {
                 throw new NahException.InvalidFileValueException();
             }
             try {
-                LocalDateTime start = LocalDateTime.
-                        parse(time[0].trim(), DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
-                LocalDateTime end = LocalDateTime.
-                        parse(time[1].trim(), DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
+                LocalDateTime start = LocalDateTime
+                        .parse(time[0].trim(), DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
+                LocalDateTime end = LocalDateTime
+                        .parse(time[1].trim(), DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
                 Task t = new Task.Events(des[0].trim(), start, end);
                 if (command[1].trim().equals("1")) {
                     t.mark();

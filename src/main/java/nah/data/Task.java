@@ -3,6 +3,20 @@ package nah.data;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Task class serves as an abstract base class for different types
+ * of tasks that can be added to a task management application.
+ * A task has a description and a completion status, which can be
+ * marked as done or not done.
+ *
+ * <p>Subclasses of Task must implement the method brief, endTime,
+ * isReferToTask and other methods to provide specific behavior
+ * for different task types like deadlines, events, and todos.</p>
+ *
+ * @see Deadlines
+ * @see Events
+ * @see ToDos
+ */
 public abstract class Task {
     private String description;
     private boolean isDone = false;
@@ -88,15 +102,15 @@ public abstract class Task {
         }
         String[] wordsList = words.split(" ", 2);
 
-       while (wordsList.length >= 2 && !wordsList[1].trim().isEmpty()) {
-           if (isMatch(wordsList[0])) {
-               return true;
-           }
-           wordsList = wordsList[1].split(" ", 2);
-       }
-       if (isMatch((wordsList[0]))) {
-           return true;
-       }
+        while (wordsList.length >= 2 && !wordsList[1].trim().isEmpty()) {
+            if (isMatch(wordsList[0])) {
+                return true;
+            }
+            wordsList = wordsList[1].split(" ", 2);
+        }
+        if (isMatch((wordsList[0]))) {
+            return true;
+        }
         return false;
     }
 
@@ -141,10 +155,20 @@ public abstract class Task {
         return getStatusMark() + " " + this.description;
     }
 
+    /**
+     * The Deadlines class represents a task with a specific deadline.
+     * It has a LocalDateTime field to store the deadline.
+     *
+     */
     public static class Deadlines extends Task {
 
         private LocalDateTime time;
 
+        /**
+         * Constructor.
+         * @param content the description of the task
+         * @param by deadline of the task
+         */
         public Deadlines(String content, LocalDateTime by) {
             super(content);
             this.time = by;
@@ -197,10 +221,25 @@ public abstract class Task {
         }
     }
 
+    /**
+     * The Events class represents a task that occurs during a specific
+     * time period, with a start and end time. It has 2 LocalDateTime fields
+     * to store the start and end times.
+     *
+     * <p>This class provides methods to retrieve the end time, format the task
+     * for storage, and check if the task type is "event".</p>
+     */
     public static class Events extends Task {
 
-        private LocalDateTime start, end;
+        private LocalDateTime start;
+        private LocalDateTime end;
 
+        /**
+         * Constructor.
+         * @param content the description of the task
+         * @param start start of the event
+         * @param end end of the event
+         */
         public Events(String content, LocalDateTime start, LocalDateTime end) {
             super(content);
             this.start = start;
@@ -258,7 +297,16 @@ public abstract class Task {
         }
     }
 
+    /**
+     * The ToDos class represents a task without a specific deadline.
+     *
+     * <p>If the task type is "todo". The end time for a ToDo is considered to be infinite.</p>
+     */
     public static class ToDos extends Task {
+        /**
+         * Constructor.
+         * @param content the description of the task
+         */
         public ToDos(String content) {
 
             super(content);

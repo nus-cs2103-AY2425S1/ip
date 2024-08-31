@@ -6,15 +6,26 @@ import java.util.LinkedList;
 import nah.data.Task;
 import nah.exceptions.NahException;
 
+/**
+ * Handles the changes to the list of Tasks.
+ */
 public class TaskList {
     private LinkedList<Task> tasks;
     private int taskCount = 0;
 
+    /**
+     * Creates new TaskList based on a LinkList of tasks.
+     * @param tasks the LinkList of task
+     */
     public TaskList(LinkedList<Task> tasks) {
 
         this.tasks = tasks;
         this.taskCount = tasks.size();
     }
+
+    /**
+     * Creates new TaskList with empty LinkList of tasks.
+     */
     public TaskList() {
         this.tasks = new LinkedList<Task>();
     }
@@ -134,7 +145,7 @@ public class TaskList {
                 }
 
             }
-            i ++;
+            i++;
         }
         return s;
     }
@@ -174,11 +185,10 @@ public class TaskList {
         String ret = "";
         if (s.trim().isEmpty()) {
             ret += " Please specify keywords. I show you all the tasks\n";
-        }
-        else {
+        } else {
             ret += " Oke. Here are the task that match keywords:\n";
         }
-        for (int i = 1; i <= taskCount; i ++) {
+        for (int i = 1; i <= taskCount; i++) {
             Task t = tasks.get(i - 1);
             if (t.isOneMatch(s)) {
                 ret += " " + i + ". " + t.toString() + "\n";
