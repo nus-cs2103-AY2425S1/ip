@@ -1,13 +1,18 @@
 package lbot;
 
+import java.util.Scanner;
+
 import lbot.command.Command;
-import lbot.exception.*;
+import lbot.exception.ExecuteCommandException;
+import lbot.exception.FileException;
+import lbot.exception.InvalidCommandException;
+import lbot.exception.LBotException;
+import lbot.exception.ParseCommandException;
+import lbot.helper.Parser;
 import lbot.helper.Storage;
 import lbot.helper.TaskList;
 import lbot.helper.Ui;
-import lbot.helper.Parser;
 
-import java.util.Scanner;
 
 /**
  * <h1>LBot</h1>
@@ -46,7 +51,8 @@ public class LBot {
      * Starts LBot.
      *
      * @throws InvalidCommandException Thrown when command keyword is not supported.
-     * @throws ParseCommandException   Thrown when arguments in command is not parseable (e.g. wrong {@link java.time.LocalDateTime} format).
+     * @throws ParseCommandException   Thrown when arguments in command is not parseable
+     *                                 (e.g. wrong {@link java.time.LocalDateTime} format).
      * @throws ExecuteCommandException Thrown when command provided is not in a readable format.
      */
     public void run() throws InvalidCommandException, ParseCommandException, ExecuteCommandException {
