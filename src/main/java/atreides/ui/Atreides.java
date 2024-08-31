@@ -4,11 +4,9 @@ import atreides.command.Command;
 import atreides.task.TaskList;
 
 public class Atreides {
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
 
     public Atreides(String filePath) {
         this.ui = new Ui();

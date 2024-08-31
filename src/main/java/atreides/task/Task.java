@@ -18,7 +18,7 @@ public class Task {
     }
 
     public String getStatusIcon(String trueString, String falseString) {
-        return (isDone ? trueString : falseString); // mark done task with X
+        return (isDone ? trueString : falseString);
     }
 
 

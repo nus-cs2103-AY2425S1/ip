@@ -1,7 +1,7 @@
 package atreides.ui;
 
 public class AtreidesException extends Exception{
-    private String description;
+    private final String description;
 
     public AtreidesException(String description) {
         super(description);
