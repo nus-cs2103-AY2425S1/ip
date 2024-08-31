@@ -2,6 +2,7 @@ package bob;
 
 import bob.exceptions.EmptyArgumentException;
 import bob.exceptions.MissingArgumentException;
+
 import bob.tasks.Task;
 import bob.tasks.TaskList;
 
@@ -9,7 +10,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+
 import java.time.format.DateTimeParseException;
+
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -25,24 +28,24 @@ public class Storage {
      * @param filePath File path to the file from which the data is to be read from
      */
     public static void readData(TaskList taskList, String filePath) {
-        try (Scanner scanner =  new Scanner(new File(filePath), "UTF-8")){
-            while (scanner.hasNextLine()){
+        try (Scanner scanner =  new Scanner(new File(filePath), "UTF-8")) {
+            while (scanner.hasNextLine()) {
                 String in = scanner.nextLine();
                 try {
                     Task newTask;
                     switch (in.split(" ")[0]) {
-                        case "deadline":
-                            newTask = Parser.newDeadline(in.split(" ", 3)[2]);
-                            break;
-                        case "event":
-                            newTask = Parser.newEvent(in.split(" ", 3)[2]);
-                            break;
-                        case "todo":
-                            newTask = Parser.newToDo(in.split(" ", 3)[2]);
-                            break;
-                        default:
-                            System.out.println("Corrupted data found");
-                            continue;
+                    case "deadline":
+                        newTask = Parser.newDeadline(in.split(" ", 3)[2]);
+                        break;
+                    case "event":
+                        newTask = Parser.newEvent(in.split(" ", 3)[2]);
+                        break;
+                    case "todo":
+                        newTask = Parser.newToDo(in.split(" ", 3)[2]);
+                        break;
+                    default:
+                        System.out.println("Corrupted data found");
+                        continue;
                     }
                     if (Objects.equals(in.split(" ")[1], "true")) {
                         newTask.mark();

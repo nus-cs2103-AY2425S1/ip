@@ -9,6 +9,7 @@ import java.util.Scanner;
  * Manages all the User Interface actions such as printing and scanning
  */
 public class UI {
+    
     private static final String DIVIDER = "____________________________________________________________\n";
 
     /**

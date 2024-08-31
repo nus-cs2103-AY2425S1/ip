@@ -1,8 +1,10 @@
 package bob.command;
 
 import bob.exceptions.InvalidTaskNumberException;
+
 import bob.tasks.Task;
 import bob.tasks.TaskList;
+
 import bob.UI;
 
 /**
@@ -10,6 +12,8 @@ import bob.UI;
  * It takes in an index during initialization and then removes the task at that index from the TaskList when executed.
  * Sets the isRunning param of the parent class to be true signalling that the program is still running.
  */
+=======
+>>>>>>> branch-A-CodingStandard
 public class DeleteCommand extends Command{
 
     private final int index;

@@ -1,6 +1,7 @@
 package bob.command;
 
 import bob.exceptions.InvalidTaskNumberException;
+
 import bob.tasks.TaskList;
 
 /**
@@ -8,6 +9,7 @@ import bob.tasks.TaskList;
  * It is used to execute the commands from the users.
  */
 public abstract class Command {
+
     private final boolean isRunning;
 
     /**

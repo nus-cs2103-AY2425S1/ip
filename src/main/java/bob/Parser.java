@@ -1,10 +1,18 @@
 package bob;
 
-import bob.command.*;
+import bob.command.AddTaskCommand;
+import bob.command.ByeCommand;
+import bob.command.Command;
+import bob.command.DeleteCommand;
+import bob.command.ListCommand;
+import bob.command.MarkCommand;
+import bob.command.UnmarkCommand;
+
 import bob.exceptions.EmptyArgumentException;
 import bob.exceptions.InvalidInputException;
 import bob.exceptions.InvalidTaskNumberException;
 import bob.exceptions.MissingArgumentException;
+
 import bob.tasks.Deadline;
 import bob.tasks.EventTask;
 import bob.tasks.ToDo;
@@ -13,6 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.Scanner;
 
 /**
@@ -121,6 +130,7 @@ public class Parser {
         String[] dates = inputs[1].split("/to", 2);
         String[] startDateTime = dates[0].trim().split(" ");
         String[] endDateTime = dates[1].trim().split(" ");
+
         if (startDateTime.length == 1 && endDateTime.length == 1) {
             return new EventTask(inputs[0].trim(),
                     LocalDate.parse(startDateTime[0], DateTimeFormatter.ofPattern("dd/MM/uuuu")),
