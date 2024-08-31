@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class Parser {
     private TaskList taskList;
-    private final DataFileModifier dataFileModifier;
+    private final Storage storage;
 
 
     private enum Action {
@@ -23,9 +23,9 @@ public class Parser {
 
     public Parser() {
         this.taskList = new TaskList();
-        this.dataFileModifier = new DataFileModifier();
+        this.storage = new Storage();
         // this.hasUpdatedWithDataStorage = false;
-        this.taskList.loadTask(this.dataFileModifier.getData());
+        this.taskList.loadTask(this.storage.getData());
     }
 
     private Action categorise(String input) {
@@ -81,7 +81,7 @@ public class Parser {
                             task;
                 } else {
                     task.markDone();
-                    dataFileModifier.updateData(listOfTasks);
+                    storage.updateData(listOfTasks);
                     return "Nice! I've marked this task as done:\n" +
                             task;
                 }
@@ -101,7 +101,7 @@ public class Parser {
                 Task task = listOfTasks.get(index - 1);
                 if (task.isDone()) {
                     task.markUndone();
-                    this.dataFileModifier.updateData(listOfTasks);
+                    this.storage.updateData(listOfTasks);
                     return "OK, I've marked this task as not done yet:\n" +
                             task;
                 } else {
@@ -120,7 +120,7 @@ public class Parser {
             } else {
                 Task task = new Todo(s1);
                 try {
-                    dataFileModifier.appendToFile(task.dataDescription());
+                    storage.appendToFile(task.dataDescription());
                     listOfTasks.add(task);
                     return "Got it. I've added this task:\n  " +
                             task + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
@@ -139,7 +139,7 @@ public class Parser {
                 }
                 Task task = new Deadline(stringArr[0].trim(), stringArr[1].trim());
                 try {
-                    dataFileModifier.appendToFile(task.dataDescription());
+                    storage.appendToFile(task.dataDescription());
                     listOfTasks.add(task);
                     return "Got it. I've added this task:\n  " +
                             task + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
@@ -162,7 +162,7 @@ public class Parser {
                 }
                 Task task = new Event(stringArr[0].trim(), stringArr2[0].trim(), stringArr2[1].trim());
                 try {
-                    dataFileModifier.appendToFile(task.dataDescription());
+                    storage.appendToFile(task.dataDescription());
                     listOfTasks.add(task);
                     return "Got it. I've added this task:\n  " +
                             task + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
@@ -183,7 +183,7 @@ public class Parser {
             }
             if (indexC >= 1 && indexC <= listOfTasks.size()) {
                 Task task = listOfTasks.remove(indexC - 1);
-                dataFileModifier.updateData(listOfTasks);
+                storage.updateData(listOfTasks);
                 return "Noted. I've removed this task:\n  " +
                         task + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
             } else {
