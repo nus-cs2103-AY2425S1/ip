@@ -1,7 +1,10 @@
 package rainy.tasks;
+
 import java.time.LocalDate;
-import rainy.database.*;
-import rainy.rainyexceptions.*;
+
+import rainy.database.UI;
+
+import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
 
 /**
  * Represents each individual task. Its parameters tells users of details such as its completion status,
@@ -66,6 +69,7 @@ public class Task implements Comparable<Task> {
      * @return  Returns a -1 if this the object to be compared has a later date, 0 if it has the same
      * date, and 1 if it has an earlier date.
      */
+
     @Override
     public int compareTo(Task t) {
         return this.compareDate.compareTo(t.compareDate);

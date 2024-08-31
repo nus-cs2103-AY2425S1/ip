@@ -1,4 +1,5 @@
 package rainy.tasks;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import rainy.rainyexceptions.InvalidIndexException;

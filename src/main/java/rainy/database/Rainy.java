@@ -1,8 +1,15 @@
 package rainy.database;
-import java.util.*;
-import java.io.*;
-import rainy.rainyexceptions.*;
-import rainy.tasks.*;
+
+import rainy.rainyexceptions.InvalidIndexException;
+import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
+
+import rainy.tasks.TaskTracker;
+
+import java.util.Scanner;
+
+import java.io.File;
+import java.io.IOException;
+
 
 /**
  * Initializes the Rainy Chatbot.
@@ -20,15 +27,18 @@ public class Rainy {
      * @throws InvalidMarkAndUnmarkException Thrown by <code>Task</code> object when user wants to mark a marked tasked or unmark an unmarked task.
      * @throws IOException
      */
-    public static void main(String[] args) throws InvalidIndexException, InvalidMarkAndUnmarkException {
+    public static void main(String[] args) throws InvalidIndexException, InvalidMarkAndUnmarkException, IOException {
+        // Initialize UI, Storage, and TaskTracker, Parser, and File objects
         UI ui = new UI();
         Storage storage = new Storage();
         ui.welcomeMessage();
-        TaskTracker tm;
+        TaskTracker tm = new TaskTracker();
         Parser ps = new Parser();
-        File newFile = new File("src/main/java/Rainy.txt");
+        File newFile = new File("src/main/java/rainy.txt");
         tm = storage.copyPreviousFiles(newFile);
         tm.receivedFirstInput();
+
+        // Initialize Scanner object, take in user input
         Scanner sc = new Scanner(System.in);
         String messages = sc.nextLine();
         ps.firstInput(messages);
@@ -37,11 +47,14 @@ public class Rainy {
         String message = ps.getMessage();
         int count = ps.getCount();
         Instructions instruction = ps.enumOperator(message);
+
+        // Start processing user inputs
         while(instruction != Instructions.BYE) {
             switch (instruction) {
                 case LIST:
                     System.out.println(tm.getList());
                     break;
+
                 case MARK:
                     if (count != -1) {
                         tm.markDone(count - 1);
@@ -49,10 +62,11 @@ public class Rainy {
                         ui.noCategoryDeclared();
                     }
                     if (tm.getCounter() > 0) {
-                        File f = new File("src/main/java/Rainy.txt");
+                        File f = new File("src/main/java/rainy.txt");
                         storage.writeOverFile(f, tm);
                     }
                     break;
+
                 case UNMARK:
                     if (count != -1) {
                         tm.unmarkDone(count - 1);
@@ -60,10 +74,11 @@ public class Rainy {
                         ui.noCategoryDeclared();
                     }
                     if (tm.getCounter() > 0) {
-                        File f = new File("src/main/java/Rainy.txt");
+                        File f = new File("src/main/java/rainy.txt");
                         storage.writeOverFile(f, tm);
                     }
                     break;
+
                 case DELETE:
                     if (count != -1) {
                         tm.delete(count - 1);
@@ -71,10 +86,11 @@ public class Rainy {
                         ui.noCategoryDeclared();
                     }
                     if (tm.getCounter() > 0) {
-                        File f = new File("src/main/java/Rainy.txt");
+                        File f = new File("src/main/java/rainy.txt");
                         storage.writeOverFile(f, tm);
                     }
                     break;
+
                 case TODO:
                     if (input.length == 1) {
                         ui.noToDoDescription();
@@ -82,10 +98,11 @@ public class Rainy {
                         tm.updateListToDo(splitByTask[0].substring(5));
                     }
                     if (tm.getCounter() > 0) {
-                        File f = new File("src/main/java/Rainy.txt");
+                        File f = new File("src/main/java/rainy.txt");
                         storage.writeOverFile(f, tm);
                     }
                     break;
+
                 case DEADLINE:
                     if (input.length == 1) {
                         ui.noDeadlineDescription();
@@ -98,10 +115,11 @@ public class Rainy {
                         tm.updateListDeadline(splitByTask[0].substring(9), "" + splitByTask[3].substring(0, 4) + "-" + splitByTask[2] + "-" + splitByTask[1].substring(3, 5) + " " + splitByTask[3].substring(5, 9));
                     }
                     if (tm.getCounter() > 0) {
-                        File f = new File("src/main/java/Rainy.txt");
+                        File f = new File("src/main/java/rainy.txt");
                         storage.writeOverFile(f, tm);
                     }
                     break;
+
                 case EVENT:
                     if (input.length == 1) {
                         ui.noEventDescription();
@@ -111,14 +129,16 @@ public class Rainy {
                         tm.updateListEvent(splitByTask[0].substring(6), splitByTask[3].substring(0, 4) + "-" + splitByTask[2] + "-" + splitByTask[1].substring(3, 5), splitByTask[4]);
                     }
                     if (tm.getCounter() > 0) {
-                        File f = new File("src/main/java/Rainy.txt");
+                        File f = new File("src/main/java/rainy.txt");
                         storage.writeOverFile(f, tm);
                     }
                     break;
+
                 case SORT:
                     tm.sortList();
                     System.out.println(tm.getList());
                     break;
+
                 case INVALID:
                     ui.noCategoryDeclared();
                     break;
@@ -131,8 +151,10 @@ public class Rainy {
             count = ps.getCount();
             instruction = ps.enumOperator(message);
         }
+
+        // Goodbye message, write over file with current inputs
         if (tm.getCounter() >= 0) {
-            File f = new File("src/main/java/Rainy.txt");
+            File f = new File("src/main/java/rainy.txt");
             storage.writeOverFile(f, tm);
         }
         ui.goodbyeMessage();

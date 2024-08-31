@@ -1,12 +1,9 @@
 package rainy.database;
-import rainy.tasks.*;
-import rainy.rainyexceptions.*;
 
 /**
  * Consolidates and provides the list of responses the Rainy chatbot provides for user inputs.
  */
 public class UI {
-
     public UI() {
 
     }
@@ -31,7 +28,8 @@ public class UI {
      * Displays message if user does not specify the category of the task to the chabot.
      */
     public void noCategoryDeclared() {
-        System.out.println("Please indicate the category of your task (ToDo, Deadline, or Event) before providing a description of it.");
+        System.out.println("Please indicate the category of your task (ToDo, Deadline, or Event) " +
+                "before providing a description of it.");
     }
 
     /**
@@ -125,6 +123,7 @@ public class UI {
     public void addedTask() {
         System.out.println("Gotcha!! Added this task to your list:");
     }
+
 
     /**
      * Displays message when user tries to delete a task from an empty task list.

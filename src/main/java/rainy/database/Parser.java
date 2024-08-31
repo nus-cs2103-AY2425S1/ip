@@ -1,6 +1,4 @@
 package rainy.database;
-import rainy.tasks.*;
-import rainy.rainyexceptions.*;
 
 /**
  * Processes and makes sense of user inputs. This class takes a user input and stores it as an
@@ -58,7 +56,8 @@ public class Parser {
         this.input = userInput.split(" ");
         this.splitByTask = userInput.split("/");
         this.message = this.input[0];
-        if ((this.message.equals("mark") || this.message.equals("unmark") || this.message.equals("delete")) && this.input.length == 2) {
+        if ((this.message.equals("mark") || this.message.equals("unmark")
+                || this.message.equals("delete")) && this.input.length == 2) {
             try {
                 this.count = Integer.parseInt(this.input[1]);
             } catch (Exception e) {

@@ -1,6 +1,4 @@
 package rainy.tasks;
-import rainy.database.*;
-import rainy.rainyexceptions.*;
 
 /**
  * Represents a todo task. This class is a sub-class of the <code>Task</code> class.
