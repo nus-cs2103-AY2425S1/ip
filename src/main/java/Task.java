@@ -1,5 +1,5 @@
 
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
     protected TaskType type;
@@ -21,6 +21,17 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public abstract String toStorageString();
+
 
     @Override
     public String toString() {
