@@ -5,7 +5,7 @@ import task.*;
 import ui.Ui;
 
 /**
- * The UserCommand interface deals with executing user commands 
+ * The UserCommand interface deals with executing user commands
  */
 public abstract class UserCommand {
 
@@ -32,7 +32,7 @@ public abstract class UserCommand {
     }
 
     /**
-     * Checks whether to continue running the chatbot
+     * Checks whether to continue running the program
      * @return Boolean of whether the command is an exit command
      */
     public boolean continueRunning() {
@@ -43,5 +43,5 @@ public abstract class UserCommand {
      * Execute command that user inputs
      * @param userInput String representing the line that user inputs
      */
-    public abstract void execute(String userInput, Ui ui, Storage storage, TaskList taskList) throws LevelHundredException;
+    public abstract void execute(String userInput, Ui ui, Storage storage, TaskList taskList);
 }

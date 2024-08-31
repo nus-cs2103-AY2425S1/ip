@@ -83,8 +83,15 @@ public class AddCommand extends UserCommand {
         }
     }
 
+    /**
+     * Adds new task into taskList and storage
+     * @param userInput String representing the line that user inputs
+     * @param ui Ui to print output
+     * @param storage Storage where tasks are saved
+     * @param taskList Task list
+     */
     @Override
-    public void execute(String userInput, Ui ui, Storage storage, TaskList taskList) throws LevelHundredException {
+    public void execute(String userInput, Ui ui, Storage storage, TaskList taskList) {
         try {
             String[] words = userInput.split(" ");
             String command = words[0];
