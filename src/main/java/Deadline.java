@@ -9,6 +9,15 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D] " + super.toString() + " (by: " + by + ")";
+    }
+
+    public String getAdd(){
+        return " /by " + this.by;
+    }
+
+    @Override
+    public String getTypeLetter() {
+        return "D";
     }
 }

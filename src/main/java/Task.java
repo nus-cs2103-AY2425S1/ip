@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     boolean isDone;
     String taskDes;
 
@@ -21,4 +21,20 @@ public class Task {
             return "[ ] " + taskDes;
         }
     }
+
+    public String getIsDone() {
+        if(isDone) {
+            return "1";
+        }
+        return "0";
+    }
+
+    public  String getTaskDes() {
+        return taskDes;
+    }
+
+    public abstract String getAdd();
+
+    public abstract String getTypeLetter();
+
 }

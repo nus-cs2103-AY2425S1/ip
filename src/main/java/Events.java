@@ -11,6 +11,17 @@ public class Events extends Task{
 
     @Override
     public String toString(){
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        return "[E] " + super.toString() + " (from: " + start + " to: " + end + ")";
     }
+
+    @Override
+    public String getAdd(){
+        return " /from " + start + " /to " + end;
+    }
+
+    @Override
+    public String getTypeLetter() {
+        return "E";
+    }
+
 }

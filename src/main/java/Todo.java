@@ -1,6 +1,9 @@
 public class Todo extends Task{
 
 
+    public String getTypeLetter() {
+        return "T";
+    }
     public Todo(String taskDes) {
         super(taskDes);
     }
@@ -8,5 +11,10 @@ public class Todo extends Task{
     @Override
     public String toString() {
         return "[T] " + super.toString();
+    }
+
+    @Override
+    public String getAdd() {
+        return "";
     }
 }

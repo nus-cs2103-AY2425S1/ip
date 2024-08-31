@@ -1,2 +1,6 @@
 Hello, I'm Echo
 ____________________________________________________________
+
+Got it. I've added this task:
+[T] [ ] todo workNow you have 1 tasks in the list
+1. [T] [ ] todo work
