@@ -1,6 +1,7 @@
 package zbot;
 
 import java.time.format.DateTimeParseException;
+
 import zbot.task.Deadline;
 import zbot.task.Event;
 import zbot.task.Task;
@@ -28,7 +29,7 @@ public class ZBot {
         storage.createFileIfNotExists();
         String input = ui.readCommand();
         while (!input.equals("bye")) {
-            processInput(input, ui, storage);
+            executeInput(input, ui, storage);
             input = ui.readCommand();
         }
 
@@ -39,7 +40,7 @@ public class ZBot {
         new ZBot(SAVE_PATH).run();
     }
 
-    public void processInput(String input, Ui ui, Storage storage) {
+    public void executeInput(String input, Ui ui, Storage storage) {
         if (input.equals("list")) {
             listTasks();
         } else if (input.startsWith("mark")) {
