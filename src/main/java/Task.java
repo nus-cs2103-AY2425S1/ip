@@ -1,17 +1,17 @@
 public class Task {
-    String desc;
-    Boolean isMarked;
+    protected String description;
+    protected Boolean isDone;
 
-    public Task (String desc) {
-        this.desc = desc;
-        this.isMarked = false;
+    public Task (String description) {
+        this.description = description;
+        this.isDone = false;
     }
 
     public Task markTask() {
         /** 
          * Marks the task if unmarked & returns task.
          */
-        this.isMarked = true;
+        this.isDone = true;
         return this;
     }
 
@@ -19,7 +19,7 @@ public class Task {
         /** 
          * Unmarks the task if marked & returns task.
          */
-        this.isMarked = false;
+        this.isDone = false;
         return this;
     }
 
@@ -27,10 +27,10 @@ public class Task {
         /** 
          * Returns the String output
          */
-        if (this.isMarked) {
-            return "[X] " + this.desc;
+        if (this.isDone) {
+            return "[X] " + this.description;
         } else {
-            return "[ ] " + this.desc;
+            return "[ ] " + this.description;
         }
     }
 }
