@@ -1,18 +1,17 @@
 package task;
 
-import parser.Parser;
-import storage.Storage;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import exceptions.InvalidDateException;
-import java.util.stream.Collectors;
 import exceptions.InvalidTaskException;
 import exceptions.NoTaskDescriptionException;
+import parser.Parser;
+import storage.Storage;
 
 /**
  * Manages a list of tasks. This class handles the addition, removal, updating,
@@ -29,10 +28,10 @@ public class TaskList {
      *
      * @param storage The storage object used to save and load tasks.
      */
-    public TaskList(Storage storage) throws InvalidDateException{
-       inputHistory = new ArrayList<>();
-       this.storage = storage;
-       loadDataFromStorage();
+    public TaskList(Storage storage) throws InvalidDateException {
+        inputHistory = new ArrayList<>();
+        this.storage = storage;
+        loadDataFromStorage();
     }
 
     /**
@@ -138,9 +137,9 @@ public class TaskList {
     }
 
     public ArrayList<Task> matchTaskDescription(String desc) {
-       return inputHistory.stream()
-               .filter(x -> x.description.contains(desc))
-               .collect(Collectors.toCollection(ArrayList :: new));
+        return inputHistory.stream()
+                .filter(x -> x.description.contains(desc))
+                .collect(Collectors.toCollection(ArrayList :: new));
     }
 
     /**

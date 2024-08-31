@@ -1,9 +1,9 @@
 package commands;
 
-import task.TaskList;
-import task.Task;
 import exceptions.InvalidTaskException;
 import exceptions.NoTaskDescriptionException;
+import task.Task;
+import task.TaskList;
 
 /**
  * Represents a command to add a new task to the task list.
@@ -33,11 +33,11 @@ public class AddTaskCommand extends Command {
         try {
             Task newTask = Task.createTask(userInput);
             taskList.addTask(newTask);
-            System.out.println("----------------\n" +
-                    "Alrighty! The following task has been added:\n " +
-                    newTask + "\n" +
-                    "Oh my goodness you have " + taskList.getSize() + " tasks remaining\n" +
-                    "----------------\n");
+            System.out.println("----------------\n"
+                    + "Alrighty! The following task has been added:\n "
+                    + newTask + "\n"
+                    + "Oh my goodness you have " + taskList.getSize() + " tasks remaining\n"
+                    + "----------------\n");
             taskList.writeToStorage();
         } catch (NoTaskDescriptionException e) {
             System.out.println("Wah, no description then I record what?");

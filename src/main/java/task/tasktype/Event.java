@@ -30,7 +30,7 @@ public class Event extends Task {
             if (timeStr.length() == 4) {
                 timeStr = timeStr.substring(0, 2) + ":" + timeStr.substring(2);
             }
-           startTime = LocalTime.parse(timeStr);
+            startTime = LocalTime.parse(timeStr);
         }
 
 

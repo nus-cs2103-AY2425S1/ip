@@ -1,15 +1,15 @@
 package commands;
 
-import task.TaskList;
-import task.Task;
-
 import java.util.ArrayList;
+
+import task.Task;
+import task.TaskList;
 
 public class FindCommand extends Command {
     private final String ITEM_TO_FIND;
 
-    public FindCommand(String itemToFind) {
-        this.ITEM_TO_FIND = itemToFind;
+    public FindCommand(String item) {
+        this.ITEM_TO_FIND = item;
     }
     @Override
     public void execute(TaskList taskList) {

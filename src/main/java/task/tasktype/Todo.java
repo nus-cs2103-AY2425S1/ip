@@ -4,7 +4,8 @@ import task.Task;
 
 /**
  * Represents a to-do task.
- * This class extends the {@link Task} class and represents a task that needs to be done without any specific time constraints.
+ * This class extends the {@link Task} class and represents a task that needs to be done without
+ * any specific time constraints.
  */
 public class Todo extends Task {
 

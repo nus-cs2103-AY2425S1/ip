@@ -1,12 +1,21 @@
 package parser;
 
-import commands.*;
-import exceptions.InvalidDateException;
-import exceptions.InvalidTaskException;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import commands.AddTaskCommand;
+import commands.Command;
+import commands.DeleteCommand;
+import commands.ExitCommand;
+import commands.FindCommand;
+import commands.ListCommand;
+import commands.MarkCommand;
+import commands.UnmarkCommand;
+import exceptions.InvalidDateException;
+import exceptions.InvalidTaskException;
+
+
 
 public class Parser {
 
@@ -57,7 +66,7 @@ public class Parser {
             SimpleDateFormat resultDateFormat = new SimpleDateFormat(resultFormat);
             return resultDateFormat.format(date);
         } catch (ParseException e) {
-           throw new InvalidDateException();
+            throw new InvalidDateException();
         }
     }
 
@@ -72,31 +81,32 @@ public class Parser {
      * @throws InvalidTaskException If the user input does not match any valid command or task type.
      * @throws ArrayIndexOutOfBoundsException If the user input is missing required arguments.
      */
-    public static Command inputToCommand(String userInput) throws  InvalidTaskException, ArrayIndexOutOfBoundsException {
-       String strippedInput= userInput.toLowerCase().trim();
-       if (strippedInput.isEmpty()) {
-           return null;
-       }
+    public static Command inputToCommand(String userInput) throws InvalidTaskException,
+            ArrayIndexOutOfBoundsException {
+        String strippedInput = userInput.toLowerCase().trim();
+        if (strippedInput.isEmpty()) {
+            return null;
+        }
 
-       String[] words = strippedInput.split(" ");
-       switch (words[0]) {
-       case "bye":
-           return new ExitCommand();
-       case "list":
-           return new ListCommand();
-       case "delete":
-           return new DeleteCommand(Integer.parseInt(words[1]) - 1);
-       case "mark":
-           return new MarkCommand(Integer.parseInt(words[1]) - 1);
-       case "unmark":
-           return new UnmarkCommand(Integer.parseInt(words[1]) - 1);
-       case "find":
-           return new FindCommand(userInput.substring(5));
-       case "todo", "deadline", "event":
-           return new AddTaskCommand(userInput);
-       default:
-           throw new InvalidTaskException();
-       }
+        String[] words = strippedInput.split(" ");
+        switch (words[0]) {
+        case "bye":
+            return new ExitCommand();
+        case "list":
+            return new ListCommand();
+        case "delete":
+            return new DeleteCommand(Integer.parseInt(words[1]) - 1);
+        case "mark":
+            return new MarkCommand(Integer.parseInt(words[1]) - 1);
+        case "unmark":
+            return new UnmarkCommand(Integer.parseInt(words[1]) - 1);
+        case "find":
+            return new FindCommand(userInput.substring(5));
+        case "todo", "deadline", "event":
+            return new AddTaskCommand(userInput);
+        default:
+            throw new InvalidTaskException();
+        }
     }
 
     public static String formatInput(String input) {
@@ -106,26 +116,26 @@ public class Parser {
         String description;
         String timeDetails;
         switch (taskType) {
-            case 'T':
-                return "todo " + input.substring(descriptionStartIndex);
-            case 'E':
-                int endIndex = input.indexOf("(");
-                description = input.substring(descriptionStartIndex, endIndex).trim();
+        case 'T':
+            return "todo " + input.substring(descriptionStartIndex);
+        case 'E':
+            int endIndex = input.indexOf("(");
+            description = input.substring(descriptionStartIndex, endIndex).trim();
 
-                int timeIndex = input.indexOf("(from");
-                timeDetails = input.substring(timeIndex).trim();
-                timeDetails = timeDetails.replace("(from:", "/from");
-                timeDetails = timeDetails.replace("to:", "/to");
-                timeDetails = timeDetails.replace(")", "");
-                return "event " + description + " " + timeDetails;
-            default:
-                int descriptionEndIndex = input.indexOf("(");
-                description = input.substring(descriptionStartIndex, descriptionEndIndex).trim();
-                int deadlineIndex = input.indexOf("(by");
-                timeDetails = input.substring(deadlineIndex);
-                timeDetails = timeDetails.replace("(by", "/by");
-                timeDetails = timeDetails.replace(")", "");
-                return "deadline " + description + " " + timeDetails;
+            int timeIndex = input.indexOf("(from");
+            timeDetails = input.substring(timeIndex).trim();
+            timeDetails = timeDetails.replace("(from:", "/from");
+            timeDetails = timeDetails.replace("to:", "/to");
+            timeDetails = timeDetails.replace(")", "");
+            return "event " + description + " " + timeDetails;
+        default:
+            int descriptionEndIndex = input.indexOf("(");
+            description = input.substring(descriptionStartIndex, descriptionEndIndex).trim();
+            int deadlineIndex = input.indexOf("(by");
+            timeDetails = input.substring(deadlineIndex);
+            timeDetails = timeDetails.replace("(by", "/by");
+            timeDetails = timeDetails.replace(")", "");
+            return "deadline " + description + " " + timeDetails;
         }
     }
 
