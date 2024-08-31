@@ -66,23 +66,23 @@ public class Storage {
 
             Task task;
             switch (taskType) {
-                case "T" -> task = new Todo(description);
-                case "D" -> {
-                    String by = parts[3];
-                    task = new Deadline(description, by);
-                }
-                case "E" -> {
-                    String from = parts[3];
-                    String to = parts[4];
-                    task = new Event(description, from, to);
-                }
-                default -> throw new LoadingException("Invalid task type.\nLine that caused the error: '" + s + "'");
+            case "T" -> task = new Todo(description);
+            case "D" -> {
+                String by = parts[3];
+                task = new Deadline(description, by);
+            }
+            case "E" -> {
+                String from = parts[3];
+                String to = parts[4];
+                task = new Event(description, from, to);
+            }
+            default -> throw new LoadingException("Invalid task type.\nLine that caused the error: '" + s + "'");
             }
 
             switch (taskStatus) {
-                case "0" -> task.markAsUndone();
-                case "1" -> task.markAsDone();
-                default -> throw new LoadingException("Invalid task status.\nLine that caused the error: '" + s + "'");
+            case "0" -> task.markAsUndone();
+            case "1" -> task.markAsDone();
+            default -> throw new LoadingException("Invalid task status.\nLine that caused the error: '" + s + "'");
             }
 
             return task;
