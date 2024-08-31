@@ -213,13 +213,13 @@ public class UI {
     }
 
     public static void showMatchingTasks(ArrayList<Task> matchingTasks) {
-        String message;
+        StringBuilder message;
         if (matchingTasks.isEmpty()) {
-            message = INDENT + "No matching tasks found.";
+            message = new StringBuilder(INDENT + "No matching tasks found.");
         } else {
-            message = INDENT + "Here are the matching tasks in your list:";
+            message = new StringBuilder(INDENT + "Here are the matching tasks in your list:");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                message += "\n" + INDENT + (i + 1) + "." + matchingTasks.get(i);
+                message.append("\n" + INDENT).append(i + 1).append(".").append(matchingTasks.get(i));
             }
         }
         System.out.println(TOP_LINE + message + BOT_LINE);
