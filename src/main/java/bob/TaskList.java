@@ -16,7 +16,7 @@ public class TaskList {
     }
 
     /**
-     * Gets Task at index i
+     * Gets Task at index i.
      */
     public Task getTask(int i) {
         return list.get(i);

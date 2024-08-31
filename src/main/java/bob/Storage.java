@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents Bob's storage.
+ */
 public class Storage {
 
     private Path filePath;
@@ -22,6 +25,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Retrieves list of tasks from file saved on device.
+     *
+     * @return List of tasks.
+     * @throws FileNotFoundException if file does not exist.
+     */
     public List<Task> load() throws FileNotFoundException {
         Scanner fileReader = new Scanner(this.filePath.toFile());
         List<Task> temp = new ArrayList<>();
@@ -32,17 +41,19 @@ public class Storage {
         }
         return temp;
     }
+
     /**
-     * Saves tasklist in an appropriate format within storage
+     * Saves tasklist in an appropriate format in the file on the device.
      *
-     * @param tasklist Tasklist that is to be saved
+     * @param tasklist Tasklist that is to be saved.
+     * @throws IOException if file cannot be written to.
      */
     public void save(TaskList tasklist) throws IOException {
         store(tasklist.toText());
     }
 
     /**
-     * Stores the given string in storage, overriding any text currently in the file
+     * Stores the given string in the file on the device, overriding any text currently in the file.
      */
     public void store(String str) throws IOException {
         FileWriter fw = new FileWriter(filePath.toFile());

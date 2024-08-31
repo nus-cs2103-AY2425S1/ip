@@ -4,7 +4,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents Bob's parser.
+ */
 public class Parser {
+    /**
+     * Parses user input and returns a command object.
+     *
+     * @param input User's input.
+     * @param ui Bob's UI.
+     * @return Command.
+     * @throws InvalidCommandException if input doesn't start with any valid commands.
+     */
     public Command parse(String input, Ui ui) throws InvalidCommandException {
         try {
             if (input.startsWith("list")) {

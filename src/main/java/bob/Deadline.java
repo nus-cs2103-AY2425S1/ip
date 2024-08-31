@@ -3,6 +3,9 @@ package bob;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a deadline.
+ */
 public class Deadline extends Task {
     private LocalDateTime by;
     public Deadline(String description, LocalDateTime by) {

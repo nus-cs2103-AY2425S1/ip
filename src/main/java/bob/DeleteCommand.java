@@ -5,8 +5,9 @@ import java.io.IOException;
 public class DeleteCommand extends Command {
     private int taskIndex;
     /**
-     * Creates a command object that operates on task i of the tasklist
-     * @param taskIndex
+     * Creates a command object that operates on task i of the tasklist.
+     *
+     * @param taskIndex index of task.
      */
     public DeleteCommand(int taskIndex) {
         this.taskIndex = taskIndex;

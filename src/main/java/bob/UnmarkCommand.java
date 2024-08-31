@@ -6,8 +6,9 @@ public class UnmarkCommand extends Command {
     private int taskIndex;
 
     /**
-     * Creates a command object that operates on task i of the tasklist
-     * @param taskIndex
+     * Creates a command object that operates on task i of the tasklist.
+     *
+     * @param taskIndex index of task.
      */
     public UnmarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
