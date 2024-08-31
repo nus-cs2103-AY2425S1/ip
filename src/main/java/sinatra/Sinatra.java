@@ -31,6 +31,16 @@ public class Sinatra {
         String initial = "Hello! I'm Sinatra. \nWhat can I do for you? ";
         System.out.println(initial);
     }
+    private ArrayList<Task> findTasksWithContent(String contentPart) {
+
+        ArrayList<Task> foundTasks = new ArrayList<Task>();
+        for (Task task : tasks) {
+            if (task.getContent().contains(contentPart)) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
+    }
 
     /**
      * Starts the scanner to handle user inputs.
@@ -50,6 +60,7 @@ public class Sinatra {
      */
     private void handleInputs(String message) {
         try {
+
             if (message.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < tasks.size(); i++) {
@@ -113,7 +124,16 @@ public class Sinatra {
                 System.out.println("Noted. I've removed this task:");
                 System.out.println("  " + currTask);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            } else {
+            }else if(message.startsWith("find")){
+                String contentPart = message.substring(5);
+                ArrayList<Task> foundTasks = findTasksWithContent(contentPart);
+                System.out.println("Here are the matching tasks in your list:");
+                for (int i = 0; i < foundTasks.size(); i++) {
+                    System.out.println(i+1 + "." + foundTasks.get(i).toString());
+                }
+
+            }
+            else {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (SinatraException e) {
