@@ -1,6 +1,6 @@
 package garfield.tasks;
 
-public class Task {
+public abstract class Task {
     private String taskDescription;
     private boolean doneStatus;
 
