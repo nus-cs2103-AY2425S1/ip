@@ -1,7 +1,5 @@
 public class Parser {
-    public Parser() {}
-
-    public Command parse(String userInput, Ui ui) {
+    public Command parse(String userInput) {
         if (userInput.equalsIgnoreCase("bye")) {
             return new ExitCommand();
         } else if (userInput.equalsIgnoreCase("list")) {
@@ -21,7 +19,7 @@ public class Parser {
         } else if (userInput.startsWith("todo ") || userInput.startsWith("deadline ") || userInput.startsWith("event ")) {
             return new AddCommand(userInput);
         } else {
-            ui.showInvalidInstructionError();
+            throw new EdithException("Sorry but that is not an instruction I can execute.");
         }
     }
 }

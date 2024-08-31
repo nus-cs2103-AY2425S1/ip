@@ -68,7 +68,7 @@ public class Storage {
                 task = new Event(eventTask, startTime, endTime);
                 break;
             default:
-                throw new EdithException("Unknown task type found in saved task list.");
+                throw new EdithException("An error occurred while parsing the task list. Data might be corrupted.", 1);
             }
 
             if (statusString.equals("[X]")) {

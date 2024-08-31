@@ -28,23 +28,7 @@ public class Ui {
         System.err.println(INDENTATION + message + LINE_BREAK);
     }
 
-    public void showInvalidIndexError(int index) {
-        System.err.println(INDENTATION + "Task " + index + " does not exist. Please enter a valid task number." + LINE_BREAK);
-    }
-
-    public void showInvalidTaskError() {
-        String string1 = "Invalid task due to missing details which were not provided. ";
-        String string2 = "Please provide a valid instruction with the correct relevant details.";
-        System.err.println(INDENTATION + string1 + string2 + LINE_BREAK);
-    }
-
-    public void showInvalidDateTimeError() {
-        String string = "Invalid date/time format. Please use 'day/month/year HHmm' (e.g '13/9/2024 1800').";
-        System.err.println(INDENTATION + string + LINE_BREAK);
-    }
-
-    public void showInvalidInstructionError() {
-        EdithException e = new EdithException("Sorry but that is not an instruction I can execute.");
-        System.err.println(INDENTATION + e + LINE_BREAK);
+    public String invalidDateTimeError() {
+        return "Invalid date/time format. Please use 'day/month/year HHmm' (e.g '13/9/2024 1800').";
     }
 }
