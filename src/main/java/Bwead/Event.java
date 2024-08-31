@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
 
-    private boolean done;
+    private boolean isDone;
     private String text;
     private LocalDate start;
     private LocalDate end;
@@ -20,14 +20,15 @@ public class Event extends Task {
         this.end = end;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.isDone = false;
     }
-    public void setDone(boolean toset) {
-        this.done = toset;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public String toString() {
         String str = "";
-        if (done) {
+        if (isDone) {
             str = "X";
         } else {
             str = " ";
