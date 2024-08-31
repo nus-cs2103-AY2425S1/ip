@@ -60,9 +60,7 @@ public class Velma {
             return Command.DELETE;
         } else if (input.startsWith("find")) {
             return Command.FIND;
-        }
-
-        else if (input.equals("bye")) {
+        } else if (input.equals("bye")) {
             return Command.BYE;
         } else {
             return Command.UNKNOWN;
@@ -104,117 +102,115 @@ public class Velma {
 
             try {
                 switch (command) {
-                    case TODO:
-                        String todoDescription = request.replaceFirst("todo\\s*", "").trim();
-                        if (todoDescription.isEmpty()) {
-                            throw new VelmaException("Sorry boss! Where is your todo description?");
-                        }
-                        Task newTodo = new Todo(todoDescription);
-                        tasks.addTask(newTodo);
-                        ui.showTaskAdded(newTodo, tasks.getSize());
-                        storage.save(tasks.getTasks());
-                        break;
+                case TODO:
+                    String todoDescription = request.replaceFirst("todo\\s*", "").trim();
+                    if (todoDescription.isEmpty()) {
+                        throw new VelmaException("Sorry boss! Where is your todo description?");
+                    }
+                    Task newTodo = new Todo(todoDescription);
+                    tasks.addTask(newTodo);
+                    ui.showTaskAdded(newTodo, tasks.getSize());
+                    storage.save(tasks.getTasks());
+                    break;
 
-                    case DEADLINE:
-                        String[] parts = request.replaceFirst("deadline\\s*", "").split(" /by ");
-                        if (parts.length < 2) {
-                            throw new VelmaException("Sorry boss! Your deadline task needs a deadline!");
-                        }
-                        String description = parts[0];
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-                        LocalDateTime deadline;
+                case DEADLINE:
+                    String[] parts = request.replaceFirst("deadline\\s*", "").split(" /by ");
+                    if (parts.length < 2) {
+                        throw new VelmaException("Sorry boss! Your deadline task needs a deadline!");
+                    }
+                    String description = parts[0];
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                    LocalDateTime deadline;
+                    try {
+                        deadline = LocalDateTime.parse(parts[1], formatter);
+                    } catch (DateTimeParseException e) {
+                        throw new VelmaException("Sorry boss! The date format is incorrect. Please use d/M/yyyy HHmm.");
+                    }
+
+                    Task newDeadline = new Deadline(description, deadline);
+                    tasks.addTask(newDeadline);
+                    ui.showTaskAdded(new Deadline(description, deadline), tasks.getSize());
+                    storage.save(tasks.getTasks());
+                    break;
+
+                case EVENT:
+                    parts = request.replaceFirst("event\\s+", "").split(" /from | /to ");
+                    if (parts.length < 3) {
+                        throw new VelmaException("Sorry boss! An event needs a valid start time and end time!");
+                    }
+                    description = parts[0];
+                    String startTime = parts[1];
+                    String endTime = parts[2];
+                    Task newEvent = new Event(description, startTime, endTime);
+                    tasks.addTask(newEvent);
+                    ui.showTaskAdded(new Event(description, startTime, endTime), tasks.getSize());
+                    storage.save(tasks.getTasks());
+                    break;
+
+                case LIST:
+                    parts = request.split(" ");
+                    if (parts.length == 2) {
+                        String dateString = parts[1];
+                        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        LocalDate date;
                         try {
-                            deadline = LocalDateTime.parse(parts[1], formatter);
+                            date = LocalDate.parse(dateString, dateFormatter);
                         } catch (DateTimeParseException e) {
-                            throw new VelmaException("Sorry boss! The date format is incorrect. Please use d/M/yyyy HHmm.");
+                            throw new VelmaException("Sorry boss! The date format is incorrect. Please use yyyy-MM-dd.");
                         }
+                        ui.showTasksOnDate(tasks.getTasks(), date);
+                    } else {
+                        ui.showAllTasks(tasks.getTasks());
+                    }
+                    break;
 
-                        Task newDeadline = new Deadline(description, deadline);
-                        tasks.addTask(newDeadline);
-                        ui.showTaskAdded(new Deadline(description, deadline), tasks.getSize());
-                        storage.save(tasks.getTasks());
-                        break;
+                case MARK:
+                case UNMARK:
+                    parts = request.split(" ");
+                    if (parts.length < 2) {
+                        throw new VelmaException("Sorry boss! Please specify which task.");
+                    }
+                    int taskNumber = Integer.parseInt(parts[1]) - 1;
+                    Task task = tasks.getTask(taskNumber);
+                    task.changeIsDone();
+                    if (command == Command.MARK) {
+                        System.out.println("Nice! I have marked this task as done:");
+                    } else {
+                        System.out.println("OK! I have marked this task as not done yet:");
+                    }
+                    ui.showMarkUnmarkTask(task, task.getIsDone());
+                    storage.save(tasks.getTasks());
+                    break;
 
-                    case EVENT:
-                        parts = request.replaceFirst("event\\s+", "").split(" /from | /to ");
-                        if (parts.length < 3) {
-                            throw new VelmaException("Sorry boss! An event needs a valid start time and end time!");
-                        }
-                        description = parts[0];
-                        String startTime = parts[1];
-                        String endTime = parts[2];
-                        Task newEvent = new Event(description, startTime, endTime);
-                        tasks.addTask(newEvent);
-                        ui.showTaskAdded(new Event(description, startTime, endTime), tasks.getSize());
-                        storage.save(tasks.getTasks());
-                        break;
+                case DELETE:
+                    parts = request.split(" ");
+                    if (parts.length < 2) {
+                        throw new VelmaException("Sorry boss! Please specify which task to delete.");
+                    }
+                    taskNumber = Integer.parseInt(parts[1]) - 1;
+                    Task deletedTask = tasks.getTask(taskNumber);
+                    tasks.deleteTask(taskNumber);
+                    ui.showTaskDeleted(deletedTask, tasks.getSize());
+                    storage.save(tasks.getTasks());
+                    break;
 
-                    case LIST:
-                        parts = request.split(" ");
-                        if (parts.length == 2) {
-                            String dateString = parts[1];
-                            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                            LocalDate date;
-                            try {
-                                date = LocalDate.parse(dateString, dateFormatter);
-                            } catch (DateTimeParseException e) {
-                                throw new VelmaException("Sorry boss! The date format is incorrect. Please use yyyy-MM-dd.");
-                            }
-                            ui.showTasksOnDate(tasks.getTasks(), date);
-                        } else {
-                            ui.showAllTasks(tasks.getTasks());
-                        }
-                        break;
+                case FIND:
+                    String keyword = request.replaceFirst("find\\s*", "");
+                    ArrayList<Task> foundTasks = tasks.findTasks(keyword);
+                    ui.showFoundTasks(foundTasks);
+                    break;
 
-                    case MARK:
-                    case UNMARK:
-                        parts = request.split(" ");
-                        if (parts.length < 2) {
-                            throw new VelmaException("Sorry boss! Please specify which task.");
-                        }
-                        int taskNumber = Integer.parseInt(parts[1]) - 1;
-                        Task task = tasks.getTask(taskNumber);
-                        task.changeIsDone();
-                        if (command == Command.MARK) {
-                            System.out.println("Nice! I have marked this task as done:");
-                        } else {
-                            System.out.println("OK! I have marked this task as not done yet:");
-                        }
-                        ui.showMarkUnmarkTask(task, task.getIsDone());
-                        storage.save(tasks.getTasks());
-                        break;
+                case BYE:
+                    ui.showGoodbye();
+                    break;
 
-                    case DELETE:
-                        parts = request.split(" ");
-                        if (parts.length < 2) {
-                            throw new VelmaException("Sorry boss! Please specify which task to delete.");
-                        }
-                        taskNumber = Integer.parseInt(parts[1]) - 1;
-                        Task deletedTask = tasks.getTask(taskNumber);
-                        tasks.deleteTask(taskNumber);
-                        ui.showTaskDeleted(deletedTask, tasks.getSize());
-                        storage.save(tasks.getTasks());
-                        break;
-
-                    case FIND:
-                        String keyword = request.replaceFirst("find\\s*", "");
-                        ArrayList<Task> foundTasks = tasks.findTasks(keyword);
-                        ui.showFoundTasks(foundTasks);
-                        break;
-
-                    case BYE:
-                        ui.showGoodbye();
-                        break;
-
-                    case UNKNOWN:
-                    default:
-                        throw new VelmaException("Sorry boss! What are you talking about?");
+                case UNKNOWN:
+                default:
+                    throw new VelmaException("Sorry boss! What are you talking about?");
                 }
             } catch (VelmaException e) {
                ui.showError(e.getMessage());
             }
-
-
         }
     }
 }
