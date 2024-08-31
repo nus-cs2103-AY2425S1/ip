@@ -1,7 +1,8 @@
 package chatkaki.commands;
 
-import chatkaki.tasks.TaskList;
 import chatkaki.Ui;
+import chatkaki.tasks.TaskList;
+
 
 /**
  * Represents a command to list all tasks.
