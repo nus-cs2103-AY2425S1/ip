@@ -69,8 +69,7 @@ public class Parser {
                 //arr[1] is not a number
                 System.out.println("Please enter a valid number");
             } catch (IndexOutOfBoundsException e) {
-                //arr[1] doesn't exist
-                System.out.println("Invalid mark syntax");
+                ui.showMarkSyntax();
             }
             break;
         case UNMARK:
@@ -81,8 +80,7 @@ public class Parser {
                 //arr[1] is not a number
                 System.out.println("Please enter a valid number");
             } catch (IndexOutOfBoundsException e) {
-                //arr[1] doesn't exist
-                System.out.println("Invalid unmark syntax");
+                ui.showUnmarkSyntax();
             }
             break;
         case DELETE:
@@ -93,8 +91,7 @@ public class Parser {
                 //arr[1] is not a number
                 System.out.println("Please enter a valid number");
             } catch (IndexOutOfBoundsException e) {
-                //arr[1] doesn't exist
-                System.out.println("Invalid delete syntax");
+                ui.showDeleteSyntax();
             }
             break;
         case UNKNOWN:
