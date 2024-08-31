@@ -1,8 +1,9 @@
+clear
 todo Do laundry when it is ready
 todo Eat dinner
-deadline CS2109S homework /by tonight 2359 (or when I'm ready)
+deadline CS2109S homework /by 2024-08-31
 list
-deadline CS2100 quizzes /by tomorrow
+deadline CS2100 quizzes /by 2022-02-21
 event Dinner with friendos /from 6pm tonight /to whenever they want to end
 event Game night with gf /from 9pm every night /to whenever she wants to sleep
 list
