@@ -12,14 +12,15 @@ public class ExitCommand extends Command {
     /**
      * Initialise an exit command.
      */
-    public ExitCommand(){}
+    public ExitCommand() {
+    }
 
     /**
      * Execute the command to print the farewell message in an UI.
      *
      * @param taskList The task list that takes in the new task.
-     * @param ui The UI to perform printing.
-     * @param storage The storage function to store the data into a text file.
+     * @param ui       The UI to perform printing.
+     * @param storage  The storage function to store the data into a text file.
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) {

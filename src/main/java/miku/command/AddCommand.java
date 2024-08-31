@@ -18,7 +18,7 @@ public class AddCommand extends Command {
      *
      * @param task the task to be added to the task list.
      */
-    public AddCommand(Task task){
+    public AddCommand(Task task) {
         this.task = task;
     }
 
@@ -26,8 +26,8 @@ public class AddCommand extends Command {
      * Execute the command to add a task to a task list.
      *
      * @param taskList The task list that takes in the new task.
-     * @param ui The UI to perform printing.
-     * @param storage The storage function to store the data into a text file.
+     * @param ui       The UI to perform printing.
+     * @param storage  The storage function to store the data into a text file.
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) {

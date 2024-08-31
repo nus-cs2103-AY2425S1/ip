@@ -7,6 +7,7 @@ import miku.command.MarkCommand;
 import miku.command.RemoveCommand;
 import miku.command.ShowListCommand;
 import miku.command.UnmarkCommand;
+import miku.command.FindCommand;
 
 import miku.exception.InvalidCommandException;
 

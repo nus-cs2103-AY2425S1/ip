@@ -8,6 +8,7 @@ public class InvalidCommandException extends Exception {
 
     /**
      * Initialises an InvalidCommandException.
+     *
      * @param desc the message to be added to the end of the warning.
      */
     public InvalidCommandException(String desc) {

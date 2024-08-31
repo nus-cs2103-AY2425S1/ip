@@ -10,6 +10,7 @@ public class RemoveNullException extends Exception {
 
     /**
      * Initialises a RemoveNullException.
+     *
      * @param desc description of the error.
      */
     public RemoveNullException(String desc) {

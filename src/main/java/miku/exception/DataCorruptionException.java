@@ -7,6 +7,7 @@ public class DataCorruptionException extends Exception {
 
     /**
      * Initialises a DataCorruptionException.
+     *
      * @param message the message to be added to the end of the warning..
      */
     public DataCorruptionException(String message) {
