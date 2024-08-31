@@ -30,7 +30,9 @@ public class Tasklist {
      * @return String
      */
     public String getMatchRegex(String s) {
+        // init string to return
         String retString = "";
+
         Pattern pattern = Pattern.compile(s);
         int counter = 1;
 
