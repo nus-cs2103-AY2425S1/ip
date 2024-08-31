@@ -4,8 +4,23 @@ import java.io.*;
 import rainy.rainyexceptions.*;
 import rainy.tasks.*;
 
+/**
+ * Initializes the Rainy Chatbot.
+ * The Rainy program is a greenfield project building a rudimentary chatbot.
+ *
+ * @author Tan Soo Yap
+ * @since 2024-08-19
+ */
 public class Rainy {
-    public static void main(String[] args) throws InvalidIndexException, InvalidMarkAndUnmarkException, IOException {
+    /**
+     * Serves as the entry point for the Rainy chatbot.
+     *
+     * @param args  Command-line arguments passed to the program as an array of {@code String} objects.
+     * @throws InvalidIndexException         Thrown by <code>TaskManager</code> object when user provides a non-existent task number.
+     * @throws InvalidMarkAndUnmarkException Thrown by <code>Task</code> object when user wants to mark a marked tasked or unmark an unmarked task.
+     * @throws IOException
+     */
+    public static void main(String[] args) throws InvalidIndexException, InvalidMarkAndUnmarkException {
         UI ui = new UI();
         Storage storage = new Storage();
         ui.welcomeMessage();
