@@ -22,7 +22,6 @@ public class StorageHandler {
 
         ensureDirectoryExists();
     }
-
     private void ensureDirectoryExists() {
         Path path = Paths.get(directoryPath);
         try {
@@ -32,7 +31,7 @@ public class StorageHandler {
             ex.printStackTrace();
         }
     }
-    public void saveTaskList(TaskManager manager) {
+    public void saveTaskList(TaskManager manager) throws BottyException {
         Path filePath = Paths.get(directoryPath, fileName);
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
             for (int i = 0; i < manager.size(); i++) {
@@ -42,13 +41,10 @@ public class StorageHandler {
         } catch (IOException ex) {
             System.err.println("IO Exception occurred while writing file");
             ex.printStackTrace();
-        } catch (BottyException ex) {
-            System.err.println("Unexpected Botty Exception occurred while writing file");
-            ex.printStackTrace();
         }
     }
 
-    public void loadTaskList(TaskManager manager) {
+    public void loadTaskList(TaskManager manager) throws BottyException {
         Path filePath = Paths.get(directoryPath, fileName);
         try (BufferedReader reader = Files.newBufferedReader(filePath)) {
             String line;
@@ -66,9 +62,6 @@ public class StorageHandler {
             }
         } catch (IOException ex) {
             System.err.println("IO Exception occurred while reading file");
-            ex.printStackTrace();
-        } catch (BottyException ex) {
-            System.err.println("Unexpected Botty Exception occurred while writing file");
             ex.printStackTrace();
         }
     }

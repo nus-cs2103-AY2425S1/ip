@@ -31,9 +31,12 @@ public class Botty {
     private Scanner inputScanner;
     private Map<String, Command> commands;
     private TaskManager taskManager;
+    private StorageHandler storageHandler;
+
     public Botty(Map<String, Command> commands) {
         this.commands = commands;
     }
+
     public static void main(String[] args) {
 
         Map<String, Command> commands = new HashMap<>();
@@ -45,8 +48,6 @@ public class Botty {
         commands.put("event", new EventCommand());
         commands.put("delete", new DeleteCommand());
 
-
-
         Botty botty = new Botty(commands);
 
         botty.beginInteraction();
@@ -55,14 +56,13 @@ public class Botty {
 
     public void beginInteraction() {
         taskManager = new TaskManager();
-        StorageHandler storageHandler = new StorageHandler("./data", "tasks");
-        storageHandler.loadTaskList(taskManager);
+        storageHandler = new StorageHandler("./data", "tasks");
 
         inputScanner = new Scanner(System.in);
 
         displayIntroduction();
 
-
+        loadTaskList();
         while (true) {
             try {
                 System.out.println();
@@ -87,10 +87,29 @@ public class Botty {
         }
 
         inputScanner.close();
-        reply("Thank you for your continued patronage. Goodbye!");
-        storageHandler.saveTaskList(taskManager);
-    }
 
+        saveTaskList();
+        reply("Thank you for your continued patronage. Goodbye!");
+
+    }
+    private void loadTaskList() {
+        try {
+            storageHandler.loadTaskList(taskManager);
+            if (taskManager.size() > 0) {
+                reply("I've loaded your tasks from your previous session for you!");
+            }
+        } catch (BottyException ex) {
+            reply(ex.getMessage());
+        }
+    }
+    private void saveTaskList() {
+        reply("I'll store your tasks for the future.");
+        try {
+            storageHandler.saveTaskList(taskManager);
+        } catch (BottyException ex) {
+            reply(ex.getMessage());
+        }
+    }
     private void displayIntroduction() {
         System.out.println(logo);
         System.out.println();

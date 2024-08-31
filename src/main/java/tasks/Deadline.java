@@ -1,31 +1,42 @@
 package tasks;
 
+import exceptions.BottyException;
+import exceptions.IncorrectDateFormatException;
 import exceptions.CorruptedTaskStringException;
 import exceptions.EmptyArgumentException;
 
-public class Deadline extends Task {
-    private final String endDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Deadline(boolean completed, String description, String endDateTime) throws EmptyArgumentException {
+public class Deadline extends Task {
+    private final LocalDate endDate;
+
+    public Deadline(boolean completed, String description, String endDate)
+            throws EmptyArgumentException, IncorrectDateFormatException {
         super(completed, description);
         if (description.isEmpty()) {
             throw new EmptyArgumentException("description");
         }
-        if (endDateTime.isEmpty()) {
-            throw new EmptyArgumentException("end date time");
+        if (endDate.isEmpty()) {
+            throw new EmptyArgumentException("end date");
         }
-        this.endDateTime = endDateTime;
+        try {
+            this.endDate = LocalDate.parse(endDate);
+        } catch (DateTimeParseException ex) {
+            throw new IncorrectDateFormatException("end date needs to be in format yyyy-mm-dd");
+        }
     }
-    public Deadline(String description, String endDateTime) throws EmptyArgumentException {
-        this(false, description, endDateTime);
+    public Deadline(String description, String endDate) throws EmptyArgumentException, IncorrectDateFormatException {
+        this(false, description, endDate);
     }
 
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (by: " + endDateTime + ")";
+        return "[D] " + super.toString() + " (by: " + endDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ")";
     }
 
-    public static Deadline fromDataString(String taskString) throws CorruptedTaskStringException, EmptyArgumentException {
+    public static Deadline fromDataString(String taskString) throws BottyException {
         if (!taskString.matches("D \\| [10] \\| (.*?) \\| (.*?)")) {
             throw new CorruptedTaskStringException();
         }
@@ -34,13 +45,13 @@ public class Deadline extends Task {
 
         boolean completed = arguments[1].equals("1");
         String description = arguments[2];
-        String endDateTime = arguments[3];
+        String endDate = arguments[3];
 
-        return new Deadline(completed, description, endDateTime);
+        return new Deadline(completed, description, endDate);
     }
 
     @Override
     public String toDataString() {
-        return "D | " + getCompletedAndDescription() + " | " + endDateTime;
+        return "D | " + getCompletedAndDescription() + " | " + endDate;
     }
 }

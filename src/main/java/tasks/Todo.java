@@ -1,5 +1,6 @@
 package tasks;
 
+import exceptions.BottyException;
 import exceptions.CorruptedTaskStringException;
 import exceptions.EmptyArgumentException;
 
@@ -19,7 +20,7 @@ public class Todo extends Task {
         return "[T] " + super.toString();
     }
 
-    public static Todo fromDataString(String taskString) throws CorruptedTaskStringException, EmptyArgumentException {
+    public static Todo fromDataString(String taskString) throws BottyException {
         if (!taskString.matches("T \\| [10] \\| (.*?)")) {
             throw new CorruptedTaskStringException();
         }

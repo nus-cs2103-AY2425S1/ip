@@ -1,5 +1,6 @@
 package tasks;
 
+import exceptions.BottyException;
 import exceptions.CorruptedTaskStringException;
 import exceptions.EmptyArgumentException;
 
@@ -24,7 +25,7 @@ public abstract class Task {
         return String.format("[%s] %s", completed ? "X" : " ", description);
     }
 
-    public static Task fromDataString(String taskString) throws CorruptedTaskStringException, EmptyArgumentException {
+    public static Task fromDataString(String taskString) throws BottyException {
         switch (taskString.charAt(0)) {
         case 'E':
             return Event.fromDataString(taskString);
