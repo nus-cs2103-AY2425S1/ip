@@ -1,11 +1,10 @@
 package soju;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import soju.tasks.Event;
+
 import soju.tasks.Task;
 import soju.tasks.Todo;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
     @Test
