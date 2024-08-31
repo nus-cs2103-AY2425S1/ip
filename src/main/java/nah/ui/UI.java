@@ -21,16 +21,18 @@ public class UI {
             " Nahhhhh!!! Please give me a valid command, such as list, mark, todo,...\n";
 
     private Scanner scanner = new Scanner(System.in);
+
     /**
-     * Print out the greeting line.
+     * Prints out the greeting line.
      */
     public void greet() {
         System.out.println(greetLine);
     }
 
     /**
-     * Read the next line in the input
-     * @return
+     * Reads the next line in the input.
+     *
+     * @return a String of that next line
      */
     public String readCommand() {
         if (scanner.hasNext()) {
@@ -40,13 +42,14 @@ public class UI {
     }
 
     /**
-     * Print out a line
+     * Prints out a default line
      */
     public void showLine() {
         System.out.println(line);
     }
+
     /**
-     * Print out goodbye line.
+     * Prints out goodbye line.
      */
     public void exit() {
 
@@ -55,8 +58,10 @@ public class UI {
     }
 
     /**
-     * Print out the respond for the command
-     * @param s
+     * Prints out the response for the command.
+     * This response was delivered from execute method in nah.command.Command
+     *
+     * @param s the response
      */
     public void show(String s) {
 
@@ -65,7 +70,7 @@ public class UI {
     }
 
     /**
-     * Print out the unknown line
+     * Prints out the unknown line.
      */
     public void unknownLine() {
 

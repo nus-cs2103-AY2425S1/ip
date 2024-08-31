@@ -25,10 +25,11 @@ public class Storage {
     }
 
     /**
-     * Write to a file
-     * @param filePath
-     * @param textToAdd
-     * @throws NahException
+     * Clears all text in the files to add new text.
+     *
+     * @param filePath the path to the file
+     * @param textToAdd the text that we will add
+     * @throws NahException if something wrong with the filePath
      */
     private static void writeToFile(String filePath, String textToAdd) throws NahException {
         try {
@@ -44,9 +45,10 @@ public class Storage {
 
 
     /**
-     * Return a Link list of tasks extracted from the file at filePath
-     * @return
-     * @throws NahException
+     * Return a LinkList of tasks extracted from the file at filePath (helper method).
+     *
+     * @return a LinkList object
+     * @throws NahException if something wrong with the filePath
      */
     public LinkedList<Task> load() throws NahException {
         LinkedList<Task> t = new LinkedList<Task>();
@@ -68,13 +70,20 @@ public class Storage {
     }
 
     /**
-     * rewrite the file with String s
-     * @param s
+     * Rewrites the file with String s
+     *
+     * @param s the String that will be added
+     * @throws NahException if something wrong with the filePath of this storage.
      */
     public void rewrite(String s) throws NahException {
         writeToFile(filePath, s);
     }
 
+    /**
+     * Clears all text in the file in filePath.
+     *
+     * @throws NahException
+     */
     public void clean() throws NahException{
         try {
             FileWriter fw = new FileWriter(filePath, false);

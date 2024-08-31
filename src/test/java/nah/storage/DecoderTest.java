@@ -12,6 +12,10 @@ import java.time.format.DateTimeParseException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 public class DecoderTest {
+    /**
+     * Tests the method decode.
+     * The test pass if the decoding return is the correct task, and no exception is thrown.
+     */
     @Test
     public void decodingTest1() {
         try {
@@ -21,6 +25,10 @@ public class DecoderTest {
         }
     }
 
+    /**
+     * Tests the method decode.
+     * The test pass if the decoding return is the correct task, and no exception is thrown.
+     */
     @Test
     public void decodingTest2() {
         try {
@@ -31,6 +39,10 @@ public class DecoderTest {
         }
     }
 
+    /**
+     * Tests the method decode.
+     * The test pass if the correct exception is thrown.
+     */
     @Test
     public void exceptionTest1() {
         try {
@@ -41,6 +53,10 @@ public class DecoderTest {
         }
     }
 
+    /**
+     * Tests the method decode.
+     * The test pass if the correct exception is thrown.
+     */
     @Test
     public void exceptionTest2() {
         try {

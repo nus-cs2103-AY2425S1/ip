@@ -15,7 +15,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class NahTest {
     @Test
     /**
-     * Test if method run behave correctly
+     * Test method run of chatBot.
+     * The test pass if the chatBot response match the expected response and
+     * no exception is thrown.
      */
     public void runTest1() {
         try {

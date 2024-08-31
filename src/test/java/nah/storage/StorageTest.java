@@ -16,6 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class StorageTest {
+    /**
+     * Tests the method load.
+     * The test pass if the LinkList return by method load has correct third task and
+     * no exception is thrown.
+     */
     @Test
     public void loadTest1() {
         String data = Paths.get("D:", "cs2103T_week_2", "src", "test", "java",

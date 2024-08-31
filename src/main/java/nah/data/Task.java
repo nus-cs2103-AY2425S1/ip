@@ -10,11 +10,17 @@ public abstract class Task {
         this.description = description;
     }
 
+    /**
+     * Returns if this task is done or not
+     *
+     * @return a boolean
+     */
     public boolean isDone() {
         return this.isDone;
     }
+
     /**
-     * Mark the task as done by setting the {@code isDone} flag to {@code true}.
+     * Marks the task as done by setting the {@code isDone} flag to {@code true}.
      */
 
     public void mark() {
@@ -22,23 +28,35 @@ public abstract class Task {
     }
 
     /**
-     * Unmark the task by setting the {@code isDone} flag to {@code false}.
+     * Marks the task as not done by setting the {@code isDone} flag to {@code false}.
      */
-
     public void unMark() {
         isDone = false;
     }
+
+    /**
+     * Returns 1 if task id done, 0 otherwise.
+     *
+     * @return 1 or 0
+     */
     public int getStatus() {
         return isDone ? 1 : 0;
     }
+
+    /**
+     * Returns the description of the task.
+     *
+     * @return a String
+     */
     public String getTask() {
         return this.description;
     }
 
     /**
-     * Check if a word appear in the description
-     * @param word
-     * @return
+     * Checks if a word appear in the description.
+     *
+     * @param word the word needs to be checked
+     * @return a boolean value
      */
     public boolean isMatch(String word) {
         if (isReferToTask(word)) {
@@ -59,9 +77,10 @@ public abstract class Task {
     }
 
     /**
-     * Check if one of these words match the description
-     * @param words
-     * @return
+     * Checks if one of these words appears the description.
+     *
+     * @param words a String that have 0, 1 or more than 2 words
+     * @return a boolean value
      */
     public boolean isOneMatch(String words) {
         if (words.trim().isEmpty()) {
@@ -80,19 +99,42 @@ public abstract class Task {
        }
         return false;
     }
+
     /**
-     * Return a brief description of task
-     * @return
+     * Returns a brief description of task to be store in a hard disk.
+     *
+     * @return a String
      */
     public abstract String brief();
+
+    /**
+     * Returns [X] if the task is done, [ ] otherwise.
+     *
+     * @return [X] or [ ]
+     */
     private String getStatusMark() {
         return isDone ? "[X]" : "[ ]";
     }
-    public abstract LocalDateTime endTime();
-    public abstract boolean isReferToTask(String s);
+
     /**
-     * Return String representation
-     * @return
+     * Returns the end time of the task.
+     *
+     * @return a LocalDateTime value
+     */
+    public abstract LocalDateTime endTime();
+
+    /**
+     * Checks if the String is the name of this task (eg: deadline, todo, event).
+     *
+     * @param s the String that need to be checked
+     * @return a boolean value
+     */
+    public abstract boolean isReferToTask(String s);
+
+    /**
+     * Returns String representation of the task
+     *
+     * @return a String
      */
     @Override
     public String toString() {
@@ -109,8 +151,9 @@ public abstract class Task {
         }
 
         /**
-         * Return the deadline
-         * @return
+         * Returns the deadline of this task.
+         *
+         * @return a LocalDateTime value
          */
         @Override
         public LocalDateTime endTime() {
@@ -118,21 +161,31 @@ public abstract class Task {
         }
 
         /**
-         * Return a brief description of task
-         * @return
+         * Return a brief description of task to be store in a hard disk.
+         *
+         * @return a String
          */
         @Override
         public String brief() {
             return "D | " + super.getStatus() + " | " + super.getTask() + " | "
                    + this.time.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
         }
+
+        /**
+         * Checks if this String to lowercase is deadline.
+         *
+         * @param s the String that need to be checked
+         * @return a boolean value
+         */
         @Override
         public boolean isReferToTask(String s) {
             return s.trim().toLowerCase().equals("deadline");
         }
+
         /**
-         * String representation
-         * @return
+         * Returns String representation.
+         *
+         * @return a String
          */
         @Override
         public String toString() {
@@ -155,8 +208,9 @@ public abstract class Task {
         }
 
         /**
-         * Return the end time
-         * @return
+         * Returns the end time of the task.
+         *
+         * @return a LocalDateTime value
          */
         @Override
         public LocalDateTime endTime() {
@@ -164,8 +218,9 @@ public abstract class Task {
         }
 
         /**
-         * Return a brief description of task
-         * @return
+         * Return a brief description of task to be stored in a hard disk.
+         *
+         * @return a String
          */
         @Override
         public String brief() {
@@ -175,14 +230,21 @@ public abstract class Task {
 
         }
 
+        /**
+         * Checks if the String to lowercase is "event".
+         *
+         * @param s the String that need to be checked
+         * @return a boolean value
+         */
         @Override
         public boolean isReferToTask(String s) {
             return s.trim().toLowerCase().equals("event");
         }
 
         /**
-         * Return String representation
-         * @return
+         * Returns String representation.
+         *
+         * @return a String
          */
         @Override
         public String toString() {
@@ -202,22 +264,30 @@ public abstract class Task {
             super(content);
         }
         /**
-         * Return a brief description of task
-         * @return
+         * Return a brief description of this task.
+         *
+         * @return a String
          */
         @Override
         public String brief() {
             return "T | " + super.getStatus() + " | " + super.getTask();
         }
 
+        /**
+         * Checks if the String to lowercase is "todo".
+         *
+         * @param s the String that need to be checked
+         * @return a boolean value
+         */
         @Override
         public boolean isReferToTask(String s) {
             return s.trim().toLowerCase().equals("todo");
         }
 
         /**
-         * Return deadline, which is infinite
-         * @return
+         * Returns the deadline of this task, which is infinite.
+         *
+         * @return a LocalDateTime value.
          */
         @Override
         public LocalDateTime endTime() {
@@ -225,8 +295,9 @@ public abstract class Task {
         }
 
         /**
-         * Return String representation
-         * @return
+         * Returns String representation.
+         *
+         * @return a String
          */
         @Override
         public String toString() {

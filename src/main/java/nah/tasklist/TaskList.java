@@ -5,7 +5,6 @@ import java.util.LinkedList;
 
 import nah.data.Task;
 import nah.exceptions.NahException;
-import org.graalvm.collections.Pair;
 
 public class TaskList {
     private LinkedList<Task> tasks;
@@ -21,16 +20,19 @@ public class TaskList {
     }
 
     /**
-     * return number of tasks in Nah.TaskList
-     * @return
+     * Returns number of tasks in TaskList.
+     *
+     * @return an int
      */
     public int taskCount() {
         return this.taskCount;
     }
+
     /**
-     * Add new Nah.Data.Task to the Nah.TaskList.Nah.TaskList
-     * @param newTask
-     * @return
+     * Adds new Task to the TaskList.
+     *
+     * @param newTask new Task to be added
+     * @return a description of the action, that will be delivered to a UI
      */
     public String add(Task newTask) {
         tasks.add(newTask);
@@ -41,10 +43,11 @@ public class TaskList {
     }
 
     /**
-     * Mark task i as done
-     * @param i
-     * @return
-     * @throws NahException.InvalidTaskNumberException
+     * Marks task i as done.
+     *
+     * @param i the order of the task
+     * @return a description of the action, that will be delivered to a UI
+     * @throws NahException.InvalidTaskNumberException if there is no task that has order i
      */
     public String mark(int i) throws NahException.InvalidTaskNumberException {
         if (taskCount == 0) {
@@ -60,10 +63,11 @@ public class TaskList {
     }
 
     /**
-     * Unmark the task i
-     * @param i
-     * @return
-     * @throws NahException.InvalidTaskNumberException
+     * Marks the task i as not done.
+     *
+     * @param i the order of the task
+     * @return a description of the action, that will be delivered to a UI
+     * @throws NahException.InvalidTaskNumberException if there is no task that has order i
      */
     public String unMark(int i) throws NahException.InvalidTaskNumberException {
         if (taskCount == 0) {
@@ -79,10 +83,11 @@ public class TaskList {
     }
 
     /**
-     * Delete task i
-     * @param i
-     * @return
-     * @throws NahException.InvalidTaskNumberException
+     * Delete task i.
+     *
+     * @param i the order of the task
+     * @return a description of the action, that will be delivered to a UI
+     * @throws NahException.InvalidTaskNumberException if there is no task that has order i
      */
     public String delete(int i) throws NahException.InvalidTaskNumberException {
         if (taskCount == 0) {
@@ -100,8 +105,9 @@ public class TaskList {
     }
 
     /**
-     * Return String representation of all tasks in the list
-     * @return
+     * Returns String representation of all tasks in the TaskList.
+     *
+     * @return a String
      */
     public String readTask() {
         String s = " Here are the tasks in your list:\n";
@@ -112,9 +118,10 @@ public class TaskList {
     }
 
     /**
-     * Return String representation of tasks in the list that are before due
-     * @param time
-     * @return
+     * Return String representation of tasks in the list that are before due.
+     *
+     * @param time String representation of the due
+     * @return a description of the action, that will be delivered to a UI
      */
     public String dueOn(String time) {
         LocalDateTime due = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
@@ -133,8 +140,9 @@ public class TaskList {
     }
 
     /**
-     * A brief description of task list to store in a txt file
-     * @return
+     * A brief description of TaskList to store in a Storage.
+     *
+     * @return a String
      */
     public String brief() {
         String s = "";
@@ -144,11 +152,23 @@ public class TaskList {
         return s;
     }
 
+    /**
+     * Clears the TaskList.
+     *
+     * @return a description of the action, that will be delivered to a UI
+     */
+    public String clean() {
+        this.tasks.clear();
+        this.taskCount = 0;
+        return " Got it. I've cleaned the storage. Now you have no tasks in the list.\n";
+    }
 
     /**
-     * Return a list of task that description partially match a string (string can have more than 2 words)
-     * @param s
-     * @return
+     * Returns a list of task that description partially match a String.
+     * This String can have 0, 1 or more than 2 words.
+     *
+     * @param s the String to be checked
+     * @return a description of the action, that will be delivered to a UI
      */
     public String find(String s) {
         String ret = "";

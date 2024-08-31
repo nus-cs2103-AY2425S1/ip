@@ -16,8 +16,9 @@ public class Nah {
     private TaskList tasks;
 
     /**
-     * Build Nah chatbot based on a file of tasks
-     * @param filePath
+     * Builds Nah chatBot based on a file of tasks.
+     *
+     * @param filePath the file of tasks
      */
     public Nah(String filePath) {
         ui = new UI();
@@ -34,7 +35,7 @@ public class Nah {
     }
 
     /**
-     * Run the program
+     * Runs the program
      */
     public void run() {
         ui.greet();
@@ -53,13 +54,8 @@ public class Nah {
             }
         }
     }
-
-    /**
-     * main method
-     * @param args
-     */
+    
     public static void main(String[] args) {
-
 
         Nah nah = new Nah(hardDisk);
         nah.run();

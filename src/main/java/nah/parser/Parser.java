@@ -11,10 +11,11 @@ import static java.lang.Integer.parseInt;
 
 public class Parser {
     /**
-     * Convert a String command into a meaningfull command
-     * @param fullCommand
-     * @return
-     * @throws NahException
+     * Converts a String command into an object of Command class.
+     *
+     * @param fullCommand the String that needs to be converted
+     * @return a Command object
+     * @throws NahException if something wrong happen while processing the String command
      */
     public static Command parse(String fullCommand) throws NahException {
         String[] cmd = fullCommand.split(" ", 2);

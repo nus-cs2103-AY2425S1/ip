@@ -13,7 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskListTest {
-
+    /**
+     * Tests method add.
+     * The test pass if the String return by method add is correct
+     */
     @Test
     public void addTest1() {
         TaskList tasks = new TaskList();
@@ -24,6 +27,10 @@ public class TaskListTest {
 
     }
 
+    /**
+     * Tests method delete.
+     * The test pass if the String return by method delete is correct and no exception is thrown
+     */
     @Test void deleteTest1() {
         TaskList tasks = new TaskList();
         for (int i = 1; i <= 5; i ++) {
@@ -42,8 +49,14 @@ public class TaskListTest {
         }
     }
 
+    /**
+     * Tests method readTask.
+     * Preparation needs to create a new TaskList, so some Tasks must be created and some exceptions
+     * need to be handled.
+     * The test pass if the String return by method readTask is correct.
+     */
     @Test
-    public void readTeskTest1() {
+    public void readTaskTest1() {
         TaskList tasks = new TaskList();
         tasks.add(new Task.ToDos("go to bed"));
         try {
@@ -59,6 +72,12 @@ public class TaskListTest {
                 " 2. [D] [ ] Noel (by: Dec 26 2025, 12:00 AM)\n", tasks.readTask());
     }
 
+    /**
+     * Tests method dueOn.
+     * Preparation needs to create a new TaskList, so some task must be created and some exceptions
+     * need to be handled.
+     * The test pass if the String return by method dueOn is correct.
+     */
     @Test
     public void dueOnTest1() {
         TaskList tasks = new TaskList();
@@ -87,6 +106,10 @@ public class TaskListTest {
                 tasks.dueOn("2026-01-01 2000"));
     }
 
+    /**
+     * Tests method mark.
+     * The test pass if the correct exception is thrown when trying to mark a non-exist Task.
+     */
     @Test
     public void exceptionTest1() {
         TaskList tasks = new TaskList();
@@ -102,6 +125,12 @@ public class TaskListTest {
         }
     }
 
+    /**
+     * Tests method find.
+     * Preparation needs to create a new TaskList, so some task must be created and some exceptions
+     * need to be handled.
+     * The test pass if the String return by method find is correct.
+     */
     @Test
     public void findTest1() {
         TaskList tasks = new TaskList();

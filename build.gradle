@@ -41,6 +41,12 @@ shadowJar {
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
+}
+
+javadoc {
+    destinationDir = file("${buildDir}/docs/javadoc")
+    include 'com/baeldung/addition/**'
+    exclude 'com/baeldung/subtraction/**'
 }

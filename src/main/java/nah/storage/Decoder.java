@@ -8,10 +8,11 @@ import java.time.format.DateTimeParseException;
 
 public class Decoder {
     /**
-     * Return a task from a String representation
-     * @param s
-     * @return
-     * @throws NahException
+     * Returns a task from a String representation.
+     *
+     * @param s the String representation
+     * @return a Task object
+     * @throws NahException if something wrong happen while processing the String
      */
     public static Task decode(String s) throws NahException {
         String[] command = s.split("\\|", 3);

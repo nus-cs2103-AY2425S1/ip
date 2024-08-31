@@ -10,7 +10,10 @@ import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
-    @Test ()
+    /**
+     * Tests if method parse throw correct exception.
+     */
+    @Test
     public void exceptionTest1() {
         try {
             Command cmd = Parser.parse("todo");
@@ -20,6 +23,10 @@ public class ParserTest {
             assertEquals(e.getMessage(), " Nahhhh!!! Todo needs description\n");
         }
     }
+
+    /**
+     * Tests if method parse throw correct exception.
+     */
     @Test
     public void exceptionTest2() {
         try {
@@ -32,6 +39,23 @@ public class ParserTest {
         }
     }
 
+    /**
+     * Tests of method parse throws correct exception.
+     */
+    @Test
+    public void exceptionTest3() {
+        try {
+            Command cmd = Parser.parse("list asnhdjkasasdb as");
+            fail("NahException expected");
+
+        } catch (NahException e) {
+            assertEquals(" Nahh!!! Do not type nonsense after 'list' command\n",e.getMessage());
+        }
+    }
+
+    /**
+     * Tests of method parse return object of type Command.AddCommand.
+     */
     @Test
     public void commandTypeReturnTest1() {
 
@@ -44,6 +68,9 @@ public class ParserTest {
         }
     }
 
+    /**
+     * Tests of method parse return object of type Unknown.AddCommand.
+     */
     @Test
     public void commandTypeReturnTest2() {
         try {
@@ -55,15 +82,5 @@ public class ParserTest {
         }
     }
 
-    @Test
-    public void commandTypeReturnTest3() {
-        try {
-            Command cmd = Parser.parse("list asnhdjkasasdb as");
-            fail("NahException expected");
-
-        } catch (NahException e) {
-            assertEquals(" Nahh!!! Do not type nonsense after 'list' command\n",e.getMessage());
-        }
-    }
 }
 
