@@ -12,7 +12,7 @@ import java.time.format.DateTimeParseException;
  */
 public  class Parser {
     public enum VALID_COMMAND {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID;
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND;
     }
 
     private static final DateTimeFormatter DASHFORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
@@ -83,7 +83,9 @@ public  class Parser {
             return VALID_COMMAND.EVENT;
         } else if (text.startsWith("delete")) {
             return VALID_COMMAND.DELETE;
-        } else {
+        } else if (text.startsWith("find")) {
+            return VALID_COMMAND.FIND;
+        } else{
             return VALID_COMMAND.INVALID;
         }
 
@@ -206,6 +208,15 @@ public  class Parser {
             }
         }
         return new String[] {plainDesc.toString().trim(), startDate.toString().trim(), endDate.toString().trim()};
+    }
+
+    /**
+     * Parses for keywords in a find command
+     * @param command starting with find
+     * @return the keywords after find
+     */
+    public String parseFind(String command) {
+        return command.substring(4);
     }
 
     /**

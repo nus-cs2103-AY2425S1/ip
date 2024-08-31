@@ -1,10 +1,11 @@
 package chatterbox;
 
 
+import java.sql.Array;
 import java.util.*;
 
 import java.io.FileNotFoundException;
-
+import java.util.stream.Collectors;
 import java.nio.file.Paths;
 
 import java.time.LocalDateTime;
@@ -175,6 +176,17 @@ public class Chatterbox {
             return userTasks.size();
         }
 
+        /**
+         * returns an ArrayList
+         * @param keywords is a string of keywords that should appear
+         * @return ArrayList with only tasks that have the keywords
+         */
+        public ArrayList<Task> findTasks(String keywords) {
+            return userTasks.stream()
+                    .filter(task -> task.getDescription().contains(keywords))
+                    .collect(Collectors.toCollection(ArrayList::new));
+
+        }
 
     }
 
@@ -188,6 +200,7 @@ public class Chatterbox {
                 try {
                     String response = scanner.nextLine();
                     Parser.VALID_COMMAND command = parser.parseCommand(response);
+
                     int index;
                     switch (command) {
 
@@ -261,13 +274,19 @@ public class Chatterbox {
                             int delIndex = parser.extractNum(response) - 1;
                             ui.delTaskMsg(tasks.deleteTask(delIndex), tasks.size());
 
-
                             break;
+
+                        case FIND:
+                            String keywords = parser.parseFind(response).trim();
+
+                            ArrayList<Task> matching = tasks.findTasks(keywords);
+                            ui.displaySearch(matching);
+                            break;
+
                         case INVALID:
                             ChatterboxExceptions.checkMessage(response);
                             break;
                     }
-                    //                System.out.println("saving");
                     storage.saveHistory(tasks.getTasks());
                 } catch (ChatterboxExceptions.ChatterBoxError e) {
                     System.out.println("An error has occurred " + e.getMessage());
