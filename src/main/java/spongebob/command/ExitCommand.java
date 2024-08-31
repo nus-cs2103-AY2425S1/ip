@@ -1,8 +1,8 @@
 package spongebob.command;
 
-import spongebob.ui.Ui;
 import spongebob.storage.Storage;
 import spongebob.storage.TaskList;
+import spongebob.ui.Ui;
 
 /**
  * Command used when exiting the bot

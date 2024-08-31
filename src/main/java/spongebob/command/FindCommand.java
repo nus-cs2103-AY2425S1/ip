@@ -2,11 +2,10 @@ package spongebob.command;
 
 import java.util.ListIterator;
 
-import spongebob.ui.Ui;
 import spongebob.storage.Storage;
 import spongebob.storage.TaskList;
 import spongebob.task.Task;
-
+import spongebob.ui.Ui;
 
 
 /**

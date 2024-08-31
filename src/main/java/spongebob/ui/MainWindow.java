@@ -8,8 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import spongebob.Spongebob;
-import spongebob.ui.DialogBox;
-import spongebob.ui.Ui;
 
 /**
  * Controller for the main GUI.

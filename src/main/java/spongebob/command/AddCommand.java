@@ -1,6 +1,6 @@
 package spongebob.command;
 
-import spongebob.ui.Ui;
+
 import spongebob.exception.SpongebobException;
 import spongebob.storage.Storage;
 import spongebob.storage.TaskList;
@@ -8,6 +8,7 @@ import spongebob.task.Deadline;
 import spongebob.task.Event;
 import spongebob.task.Task;
 import spongebob.task.Todo;
+import spongebob.ui.Ui;
 
 /**
  * Creates a command that add an entry to the storage and/or tasklist

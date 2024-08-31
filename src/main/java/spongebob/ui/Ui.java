@@ -49,7 +49,7 @@ public class Ui {
         return "Woohoo! I've marked this task as done - great job! \n\n" + task;
     }
 
-    public String  showMarkedError() {
+    public String showMarkedError() {
         return "Oh, barnacles! You can't mark nothing! \n"
                 + "Make sure to fill it in before you add it.";
     }
@@ -74,7 +74,7 @@ public class Ui {
     }
 
     public String showTaskDeleted(Task task, int size) {
-       return "Noted. I've removed this task: \n\n"
+        return "Noted. I've removed this task: \n\n"
                + task + "\n\n"
                + "Now you have " + size + " tasks in the list.";
 
@@ -88,7 +88,7 @@ public class Ui {
             return "Oh no, it's out of bounds! That index is too far out - "
                     + "try a different number!";
         } else {
-            return  e.getMessage();
+            return e.getMessage();
         }
     }
 
