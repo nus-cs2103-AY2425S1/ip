@@ -1,0 +1,55 @@
+<!-- config/checkstyle/checkstyle.xml -->
+<!DOCTYPE module >
+<module name="Checker">
+    <module name="TreeWalker">
+        <!-- Naming Conventions -->
+        <module name="TypeName"/>
+        <module name="MethodName"/>
+        <module name="ParameterName"/>
+        <module name="LocalVariableName"/>
+        <module name="MemberName"/>
+        <module name="ConstantName"/>
+
+        <!-- Whitespace -->
+        <module name="WhitespaceAround"/>
+        <module name="WhitespaceAfter"/>
+        <module name="WhitespaceBefore"/>
+        <module name="NoWhitespaceAfter"/>
+        <module name="NoWhitespaceBefore"/>
+        <module name="EmptyLineSeparator"/>
+
+        <!-- Imports -->
+        <module name="CustomImportOrder">
+            <property name="customImportOrderRules" value="STATIC###STANDARD_JAVA_PACKAGE###THIRD_PARTY_PACKAGE###SPECIAL_IMPORTS"/>
+            <property name="sortImportsInGroupAlphabetically" value="true"/>
+        </module>
+        <module name="UnusedImports"/>
+
+        <!-- Javadoc -->
+        <module name="JavadocType"/>
+        <module name="JavadocMethod"/>
+        <module name="JavadocVariable"/>
+        <module name="JavadocStyle"/>
+        <module name="JavadocTagContinuationIndentation"/>
+
+        <!-- Size Violations -->
+        <module name="LineLength">
+            <property name="max" value="120"/>
+        </module>
+        <module name="MethodLength">
+            <property name="max" value="150"/>
+        </module>
+        <module name="ParameterNumber">
+            <property name="max" value="5"/>
+        </module>
+
+        <!-- Miscellaneous -->
+        <module name="FinalParameters"/>
+        <module name="EqualsHashCode"/>
+        <module name="ExplicitInitialization"/>
+        <module name="MagicNumber"/>
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="StringLiteralEquality"/>
+    </module>
+</module>

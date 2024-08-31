@@ -1,0 +1,7 @@
+<!-- config/checkstyle/suppressions.xml -->
+<!DOCTYPE suppressions PUBLIC "-//Checkstyle//DTD Suppressions 1.1//EN" "https://checkstyle.org/dtds/suppressions_1_1.dtd">
+<suppressions>
+    <!-- Suppress specific Checkstyle rules here -->
+    <!-- Example: Suppress LineLength check for specific files -->
+    <suppress files=".*\.java" checks="LineLength"/>
+</suppressions>
