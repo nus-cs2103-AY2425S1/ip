@@ -55,53 +55,55 @@ public class Note {
         }
     }
 
-    public void printNoOfTask() {
-        System.out.println(noOfTask);
-    }
-
 
     public void addToList(String input) throws EmptyDescriptionException, InputErrorException {
         Task task;
         // Handle direct input format (e.g., "todo read book")
-            String[] inputParts = input.split(" ", 2);
-            String taskType = inputParts[0].trim(); // todo, deadline, or event
+        String[] inputParts = input.split(" ", 2);
+        String taskType = inputParts[0].trim(); // todo, deadline, or event
 
-            if (taskType.equalsIgnoreCase("todo")) {
-                if (inputParts.length < 2 || inputParts[1].trim().isEmpty()) {
-                    throw new EmptyDescriptionException("The description of a todo cannot be empty.");
-                }
-                task = new ToDoTask(inputParts[1].trim());
-            } else if (taskType.equalsIgnoreCase("deadline")) {
-                String[] descParts = inputParts[1].split(" /by ", 2);
-                if (descParts.length < 2) {
-                    throw new InputErrorException("The deadline must be specified in the format: 'deadline <description> /by <date>'");
-                }
-                try {
-                    // Parse the date string into LocalDateTime
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-                    LocalDateTime deadline = LocalDateTime.parse(descParts[1].trim(), formatter);
-                    task = new DeadlineTask(descParts[0].trim(), deadline);
-                } catch (DateTimeParseException e) {
-                    throw new InputErrorException("The date format must be 'd/M/yyyy HHmm'. Example: '2/12/2019 1800'");
-                }
-            } else if (taskType.equalsIgnoreCase("event")) {
-                String[] descParts = inputParts[1].split(" /from ", 2);
-                if (descParts.length < 2 || !descParts[1].contains(" /to ")) {
-                    throw new InputErrorException("The event must be specified in the format: 'event <description> /from <start_time> /to <end_time>'");
-                }
-                String[] timeParts = descParts[1].split(" /to ", 2);
-                task = new EventTask(descParts[0].trim(), timeParts[0].trim(), timeParts[1].trim());
-            } else {
-                throw new InputErrorException("Unknown task type.");
+        if (taskType.equalsIgnoreCase("todo")) {
+            if (inputParts.length < 2 || inputParts[1].trim().isEmpty()) {
+                throw new EmptyDescriptionException("The description of a todo cannot be empty.");
             }
+            task = new ToDoTask(inputParts[1].trim());
+        } else if (taskType.equalsIgnoreCase("deadline")) {
+            String[] descParts = inputParts[1].split(" /by ", 2);
+            if (descParts.length < 2) {
+                throw new InputErrorException("The deadline must be specified in the format: 'deadline <description> /by <date>'");
+            }
+            try {
+                // Parse the date string into LocalDateTime using the correct format
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                LocalDateTime deadline = LocalDateTime.parse(descParts[1].trim(), formatter);
+                task = new DeadlineTask(descParts[0].trim(), deadline);
+            } catch (DateTimeParseException e) {
+                throw new InputErrorException("The date format must be 'd/M/yyyy HHmm'. Example: '2/12/2019 1800'");
+            }
+        } else if (taskType.equalsIgnoreCase("event")) {
+            String[] descParts = inputParts[1].split(" /from ", 2);
+            if (descParts.length < 2 || !descParts[1].contains(" /to ")) {
+                throw new InputErrorException("The event must be specified in the format: 'event <description> /from <start_time> /to <end_time>'");
+            }
+            String[] timeParts = descParts[1].split(" /to ", 2);
+            // Assuming the times are also in the "d/M/yyyy HHmm" format, adjust the parsing accordingly
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                LocalDateTime fromTime = LocalDateTime.parse(timeParts[0].trim(), formatter);
+                LocalDateTime toTime = LocalDateTime.parse(timeParts[1].trim(), formatter);
+                task = new EventTask(descParts[0].trim(), fromTime.toString(), toTime.toString());
+            } catch (DateTimeParseException e) {
+                throw new InputErrorException("The date format must be 'd/M/yyyy HHmm'. Example: '2/12/2019 1800'");
+            }
+        } else {
+            throw new InputErrorException("Unknown task type.");
+        }
 
         myList.add(task);
         noOfTask++;
         saveToFile(); // Save to file after adding a task
         System.out.println(task.toString());
     }
-
-
 
 
 

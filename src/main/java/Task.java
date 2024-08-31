@@ -48,7 +48,7 @@ public abstract class Task {
                 break;
             case "D":
                 String by = parts.length > 3 ? parts[3] : "";  // Handle missing date
-                task = new DeadlineTask(description, by);
+                task = new DeadlineTask(description, by);      // Pass the date string directly
                 break;
             case "E":
                 String from = parts.length > 3 ? parts[3] : "";  // Handle missing from
