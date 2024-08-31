@@ -1,5 +1,8 @@
 package duck;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import duck.commands.Command;
 import duck.data.TaskList;
 import duck.data.exception.DuckException;
@@ -26,6 +29,12 @@ public class Duck {
     private final Ui ui;
 
 
+    /**
+     * Initializes the Duck application with the default file path for storing tasks.
+     */
+    public Duck() {
+        this(FILE_PATH);
+    }
 
 
     /**
@@ -66,6 +75,27 @@ public class Duck {
         }
     }
 
+    public String getResponse(String message) {
+        // Create a ByteArrayOutputStream to capture the output
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out; // Save the original System.out
+        System.setOut(new PrintStream(baos)); // Redirect System.out to the ByteArrayOutputStream
+
+        try {
+            // Parse the message and execute the command
+            Command command = Parser.parse(message);
+            command.execute(tasks, storage, ui);
+        } catch (DuckException e) {
+            ui.displayDukeExceptionMessage(e);
+        } finally {
+            // Restore the original System.out
+            System.setOut(originalOut);
+        }
+
+        // Convert the captured output to a string
+        return baos.toString();
+    }
+
     /**
      * The main method serves as the entry point of the Duck application.
      * It creates a new Duck instance and starts the application.
@@ -73,8 +103,7 @@ public class Duck {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-
-        new Duck(FILE_PATH).run();
+        new Duck(FILE_PATH);
+        // new Duck(FILE_PATH).run();
     }
-
 }
