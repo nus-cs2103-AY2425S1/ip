@@ -76,6 +76,12 @@ public class ReginaDateAndTime {
         return this.time;
     }
 
+    /**
+     * Checks if this date and time is before the given date and time.
+     *
+     * @param dateAndTime The ReginaDateAndTime instance to compare against.
+     * @return true if this date and time is before the given instance; false otherwise.
+     */
     public boolean isBefore(ReginaDateAndTime dateAndTime) {
         if (this.date.isAfter(dateAndTime.getDate())) {
             return false;
@@ -86,10 +92,22 @@ public class ReginaDateAndTime {
         return true;
     }
 
+    /**
+     * Checks if this date and time is equal to the given date and time.
+     *
+     * @param dateAndTime The ReginaDateAndTime instance to compare against.
+     * @return true if this date and time is equal to the given instance; false otherwise.
+     */
     public boolean isEqual(ReginaDateAndTime dateAndTime) {
         return this.date.isEqual(dateAndTime.getDate()) && this.time.equals(dateAndTime.getTime());
     }
 
+    /**
+     * Checks if this date and time is after the given date and time.
+     *
+     * @param dateAndTime The ReginaDateAndTime instance to compare against.
+     * @return true if this date and time is after the given instance; false otherwise.
+     */
     public boolean isAfter(ReginaDateAndTime dateAndTime) {
         if (this.date.isBefore(dateAndTime.getDate())) {
             return false;

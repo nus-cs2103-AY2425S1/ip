@@ -6,7 +6,7 @@ import dateandtime.ReginaDateAndTime;
 
 /**
  * The tasks.TaskList class represents a list of tasks.
- * It extends ArrayList<Task.Task> to provide a custom implementation
+ * It extends ArrayList to provide a custom implementation
  * that holds Task.Task objects and includes functionality specific
  * to managing tasks.
  */
