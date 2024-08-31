@@ -1,6 +1,5 @@
 package bobbybot.ui;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.IntStream;
@@ -9,9 +8,7 @@ import bobbybot.BobbyBot;
 import bobbybot.TaskList;
 import bobbybot.tasks.Task;
 import javafx.animation.PauseTransition;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -21,7 +18,7 @@ import javafx.util.Duration;
  */
 public class Ui {
 
-    private FXMLLoader fxmlLoader;
+    private MainWindow mainWindow;
     private Stage stage;
 
     /**
@@ -31,19 +28,14 @@ public class Ui {
      * @param bobbyBot The BobbyBot object to interact with.
      */
     public void start(Stage stage, BobbyBot bobbyBot) {
-        try {
-            fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/MainWindow.fxml"));
-            this.stage = stage;
-            AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
-            this.stage.setTitle(bobbyBot.getName());
-            this.stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setBobbyBot(bobbyBot);
-            printResponse("Hello! I'm " + bobbyBot.getName() + "\nWhat can I do for you?");
-            this.stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        mainWindow = new MainWindow();
+        this.stage = stage;
+        Scene scene = new Scene(mainWindow);
+        this.stage.setTitle(bobbyBot.getName());
+        this.stage.setScene(scene);
+        mainWindow.setBobbyBot(bobbyBot);
+        printResponse("Hello! I'm " + bobbyBot.getName() + "\nWhat can I do for you?");
+        this.stage.show();
     }
 
     /**
@@ -56,14 +48,12 @@ public class Ui {
         delay.play();
     }
 
-
     /**
      * Prints the response to the JavaFX UI.
      * @param response The response to be printed.
      */
     public void printResponse(String... response) {
-        fxmlLoader.<MainWindow>getController()
-                  .printResponse(Arrays.stream(response).reduce("", (x, y) -> x + "\n" + y));
+        mainWindow.printResponse(Arrays.stream(response).reduce("", (x, y) -> x + "\n" + y));
     }
 
     /**
