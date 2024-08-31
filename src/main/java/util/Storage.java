@@ -55,7 +55,7 @@ public class Storage {
     }
 
     /**
-     * Returns a List of String from reading Karen.txt
+     * Returns a List of Tasks from reading Karen.txt
      *
      */
     public static List<Task> readFile() {
