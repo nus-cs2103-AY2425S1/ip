@@ -95,7 +95,7 @@ public class FormattedPrinting {
     /**
      * Prints a confirmation message when the user adds a new task.
      *
-     * @param task {@link Task} that has been added to the {@link TaskList}
+     * @param task     {@link Task} that has been added to the {@link TaskList}
      * @param taskList The current list of all tasks tracked by the backend.
      */
     public static String addTask(Task task, TaskList taskList) {
@@ -111,7 +111,7 @@ public class FormattedPrinting {
     /**
      * Prints a confirmation message when the user deletes a task.
      *
-     * @param task {@link Task} that has been deleted from the {@link TaskList}
+     * @param task     {@link Task} that has been deleted from the {@link TaskList}
      * @param taskList taskList The current list of all tasks tracked by the backend.
      */
     public static String deleteTask(Task task, TaskList taskList) {

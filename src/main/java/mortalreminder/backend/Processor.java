@@ -16,6 +16,7 @@ import mortalreminder.tasks.TimedTask;
 import mortalreminder.tasks.ToDo;
 
 // javadocs was generated using ChatGPT with minor edits.
+
 /**
  * Handles the processing of commands related to task management.
  * <p>
@@ -32,8 +33,8 @@ public class Processor {
      * mark or unmark a task as done, delete a task, clear all tasks, or list upcoming tasks.
      * If the command is of type {@code BYE}, it will stop further processing.
      *
-     * @param command         the {@link Command} to process.
-     * @param taskList        the {@link TaskList} to modify based on the command.
+     * @param command  the {@link Command} to process.
+     * @param taskList the {@link TaskList} to modify based on the command.
      * @return {@code false} if the {@code BYE} command is issued, otherwise {@code true}.
      */
     public String handleCommand(Command command, TaskList taskList) {

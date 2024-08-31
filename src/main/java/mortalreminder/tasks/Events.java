@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 // Class and constructor JavaDocs was autocompleted using ChatGPT with minor edits
+
 /**
  * Represents a task that spans a period of time. It stores the start and end time of the event using
  * {@link LocalDateTime} format to show the duration of the event and when it will be held.
@@ -35,6 +36,7 @@ public class Events extends Task implements TimedTask {
     }
 
     // the following constructor and javadoc was created using ChatGPT autocomplete with minor edits
+
     /**
      * Constructs a new {@code Events} task with the specified description, start time, end time, and completion status.
      * <p>
@@ -90,7 +92,6 @@ public class Events extends Task implements TimedTask {
      * or too little information provided to create the class. As such the ArrayIndexOutOfBoundsException()
      * is thrown to prevent the creation of the file. The getTime() methods help check if the parsing of the
      * dates and times are correct.
-     *
      *
      * @param descriptionString A list of string values passed in from the constructor which are to be checked
      *                          for data validation purposes. An error will be thrown if one of the values are

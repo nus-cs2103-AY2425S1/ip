@@ -1,6 +1,7 @@
 package mortalreminder.tasks;
 
 // Class and constructor JavaDocs was autocompleted using ChatGPT with minor edits
+
 /**
  * Represents a simple task without any specific time constraints.
  * <p>
@@ -21,6 +22,7 @@ public class ToDo extends Task {
     }
 
     // the following constructor and javadoc was created using ChatGPT autocomplete with minor edits
+
     /**
      * Constructs a new {@code ToDo} task with the specified description and completion status.
      * This method is only called when loading from a file. This method also assumes the values

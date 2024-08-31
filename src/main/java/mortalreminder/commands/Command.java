@@ -3,7 +3,7 @@ package mortalreminder.commands;
 /**
  * Represents a command input by the user, encapsulating the command type and any associated details.
  *
- * @param commandType   The type of command provided by the user.
+ * @param commandType    The type of command provided by the user.
  * @param commandDetails An array of strings containing the details associated with the command.
  */
 public record Command(CommandTypes commandType, String[] commandDetails) {
