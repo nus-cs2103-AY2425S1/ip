@@ -5,6 +5,7 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
+import ui.Ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,16 +13,19 @@ import java.util.Scanner;
 public class Grok {
     private static final String TEXT_FILE_DIRECTORY = "./data/duke.txt";
     private final Storage storage;
+    private final Ui ui;
 
     public Grok() {
         storage = new Storage(TEXT_FILE_DIRECTORY);
         ArrayList<Task> tasks = storage.parseTextStorage();
 
+        ui = new Ui();
+        ui.printWelcomeMessage();
+
         // If data changes, prompt a save to text file
         boolean hasUnsavedChanges = false;
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println(padMessage("Hello! I'm Grok\nWhat ya wanna do to grok your way to success?"));
 
         while (true) {
             String userInput = scanner.nextLine();

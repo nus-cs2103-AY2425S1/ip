@@ -1,4 +1,4 @@
-package Ui;
+package ui;
 
 import tasks.Task;
 
@@ -25,5 +25,17 @@ public class Ui {
     // Provide information on added task and total number of tasks for the user
     private static String addTaskMessage(Task t, ArrayList<Task> tasks) {
         return "Got it. I've added this task:\n  " + t + "\nNow you have " + tasks.size() + " tasks in the list.";
+    }
+
+    public void printGenericMessage(String s) {
+        System.out.println(padMessage(s));
+    }
+
+    public void printWelcomeMessage() {
+        System.out.println(padMessage("Hello! I'm Grok\nWhat ya wanna do to grok your way to success?"));
+    }
+
+    public Ui() {
+
     }
 }
