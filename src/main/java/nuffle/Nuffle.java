@@ -22,11 +22,10 @@ public class Nuffle {
         }
     }
 
+    /**
+     * This method will print out all the task that is stored in the inputList
+     */
     private static void outputList() {
-        /**
-         * This method will print out all the task that is stored in the inputList
-         */
-
         // If there is no user input in the list
         if (inputList.getInputList().isEmpty()) {
             System.out.println("List is empty. No input added.");
@@ -38,12 +37,13 @@ public class Nuffle {
         }
     }
 
+    /**
+     * Marks a specified task based on the given index
+     *
+     * @param index the index of the task to mark
+     */
     private static void markTask(int index) {
-        /**
-         * Marks a specified task based on the given index
-         *
-         * @param index the index of the task to mark
-         */
+
         // check that index is always more than or equals to 0 and index must be within the inputList size
         if (index >= 0 && index < inputList.getSize()) {
             Task currTask = inputList.getTask(index);
@@ -54,12 +54,14 @@ public class Nuffle {
             Ui.markTaskError();
         }
     }
+
+    /**
+     * Unmarks a specified task based on the given index
+     *
+     * @param index the index of the task to unmark
+     */
     private static void unMarkTask(int index) {
-        /**
-         * Unmarks a specified task based on the given index
-         *
-         * @param index the index of the task to unmark
-         */
+
         // check that index is always more than or equals to 0 and index must be within the inputList size
         if (index >= 0 && index < inputList.getSize()) {
             Task currTask = inputList.getTask(index);
@@ -71,22 +73,23 @@ public class Nuffle {
         }
     }
 
+    /**
+     * Adds a specified task to the inputList
+     *
+     * @param task which is Task object
+     */
     private static void addTaskToList(Task task) {
-        /**
-         * Adds a specified task to the inputList
-         *
-         * @param task which is Task object
-         */
         inputList.addTask(task);
         Ui.addTaskMessage(task, inputList.getSize());
     }
 
+    /**
+     * Deletes a specified task from the inputList
+     *
+     * @param index which is the index of the task to be removed
+     */
     private static void deleteTask(int index) {
-        /**
-         * Deletes a specified task from the inputList
-         *
-         * @param index which is the index of the task to be removed
-         */
+
 
         // first, check if the provided index is valid or not
         if (index >= 0 && index < inputList.getSize()) {

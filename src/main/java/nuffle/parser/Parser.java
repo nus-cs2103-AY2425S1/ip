@@ -11,16 +11,37 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Parser class is responsible for interpreting user commands and converting them
+ * into appropriate Task objects (e.g., Todo, Deadline, Event).
+ * It also validates date and time formats and handles input parsing.
+ */
 public class Parser {
 
     private static final String DATE_TIME_FORMAT_REGEX = "\\d{4}-\\d{2}-\\d{2} \\d{4}";
     // interpret user commands and create the task objects
 
-    public static boolean validateDateTimeFormat(String dateTime) {
+
+    /**
+     * Validates whether the input date and time string follows the required format (yyyy-MM-dd HHmm).
+     *
+     * @param dateTime The input date and time string to validate.
+     * @return True if the input follows the required format, false otherwise.
+     */
+    public static boolean isValidateDateTimeFormat(String dateTime) {
         Pattern pattern = Pattern.compile(DATE_TIME_FORMAT_REGEX);
         Matcher matcher = pattern.matcher(dateTime);
         return matcher.matches();
     }
+
+    /**
+     * Parses the deadline command from the user and creates a Deadline task.
+     *
+     * The expected command format is: "deadline DESCRIPTION /by yyyy-MM-dd HHmm"
+     *
+     * @param command The user command string for creating a deadline task.
+     * @return A Deadline task object, or null if there is an error in the command format.
+     */
     public static Task parseDeadlineCommand(String command) {
         try {
             if (!command.contains("/by")) {
@@ -34,7 +55,7 @@ public class Parser {
                 throw NuffleException.checkDeadlineParams();
             }
             // check that the date input is of the correct format (yyyy-mm-dd hhmm)
-            if (!validateDateTimeFormat(desc[1])) {
+            if (!isValidateDateTimeFormat(desc[1])) {
                 throw NuffleException.checkDateTimeFormat();
             }
             String dateTime = desc[1].trim();
@@ -49,6 +70,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the todo command from the user and creates a Todo task.
+     *
+     * The expected command format is: "todo DESCRIPTION"
+     *
+     * @param command The user command string for creating a todo task.
+     * @return A Todo task object, or null if there is an error in the command format.
+     */
     public static Task parseTodoCommand(String command) {
         try {
             // Program will add a To-do task to the list
@@ -64,6 +93,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the event command from the user and creates an Event task.
+     *
+     * The expected command format is: "event DESCRIPTION /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm"
+     *
+     * @param command The user command string for creating an event task.
+     * @return An Event task object, or null if there is an error in the command format.
+     */
     public static Task parseEventCommand(String command) {
         try {
             // Program will add an event task to the list
@@ -82,7 +119,7 @@ public class Parser {
                 throw NuffleException.checkEventParams();
             }
             // check that the date input is of the correct format (yyyy-mm-dd hhmm)
-            if (!validateDateTimeFormat(desc[1]) || !validateDateTimeFormat(desc[2])) {
+            if (!isValidateDateTimeFormat(desc[1]) || !isValidateDateTimeFormat(desc[2])) {
                 throw NuffleException.checkDateTimeFormat();
             }
             // Parse the date and time

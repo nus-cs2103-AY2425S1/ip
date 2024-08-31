@@ -11,19 +11,31 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Handles loading and saving tasks to and from a file.
+ * The file format is used to read and write tasks in a specific format.
+ */
 public class Storage {
     // variable to store the file path
     private final String filePath;
 
-    // constructor for the Storage class
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by the file path.
+     * The method reads the file line by line and creates appropriate Task objects based on the file's content.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws IOException If an I/O error occurs while reading the file.
+     */
     public ArrayList<Task> load() throws IOException {
-        /**
-         * Loads the data from the text file (hard disk) and return teh task list (if exist)
-         */
         ArrayList<Task> tasks = new ArrayList<>();
         File taskFile = new File(filePath);
 
@@ -92,10 +104,14 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the provided list of tasks to the file specified by the file path.
+     * The method writes each task's formatted string representation to the file.
+     *
+     * @param tasks The list of tasks to be saved to the file.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
-        /**
-         * Save will update the file with the new input
-         */
         FileWriter fileWrite = new FileWriter(filePath);
         BufferedWriter buffer = new BufferedWriter(fileWrite);
         for (Task eachTask : tasks) {
