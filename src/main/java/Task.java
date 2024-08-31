@@ -1,3 +1,6 @@
+/**
+ * Represents a task.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -11,6 +14,11 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Constructor for Task.
+     * @param description The description of the task.
+     * @param isDone The status of the task.
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;

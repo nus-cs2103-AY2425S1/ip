@@ -1,3 +1,6 @@
+/**
+ * Enum class to represent the different types of commands that the user can input.
+ */
 public enum CommandType {
     TODO,
     DEADLINE,
@@ -8,6 +11,11 @@ public enum CommandType {
     DELETE,
     UNKNOWN;
 
+    /**
+     * Returns the CommandType based on the user input.
+     * @param command the user input
+     * @return the CommandType based on the user input
+     */
     public static CommandType getCommandType(String command) {
         switch (command.toLowerCase()) {
             case "todo":

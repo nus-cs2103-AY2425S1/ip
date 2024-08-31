@@ -1,6 +1,9 @@
 import java.io.*;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Toothless represents a simple chat application.
@@ -42,8 +45,12 @@ public class Toothless {
      * Prints the tasks on the task list.
      */
     public void printTask() {
-        System.out.println("Toothless:\nHere are the tasks on the quest board:\n\n" +
-                "|-------------Quest Board -----------------|\n");
+        System.out.println("""
+                Toothless:
+                Here are the tasks on the quest board:
+
+                |-------------Quest Board -----------------|
+                """);
 
         if (list.isEmpty()) {
             System.out.println("There are no quests on the quest board!");
@@ -274,9 +281,12 @@ public class Toothless {
             case "T":
                 return new ToDos(description, isDone);
             case "D":
-                return new Deadline(description, splitData[3], isDone);
+                String deadline = splitData[3];
+                return new Deadline(description, LocalDateTime.parse(deadline), isDone);
             case "E":
-                return new Events(description, splitData[3], splitData[4], isDone);
+                String eventStart = splitData[3];
+                String eventEnd = splitData[4];
+                return new Events(description, LocalDateTime.parse(eventStart), LocalDateTime.parse(eventEnd), isDone);
             default:
                 return null;
         }

@@ -1,3 +1,8 @@
-D | 0 | assignment  |  tmr
-E | 1 | speech  |  2pm  |  4pm
-T | 0 | read 
+T | 1 | sleep
+T | 0 | read
+T | 0 | quiz
+D | 0 | study  | 2024-12-12T13:00
+E | 0 | talk  | 2024-01-12T13:00 | 2024-02-23T15:00
+D | 0 | study  | 2024-03-12T11:00
+D | 0 | study  | 2024-12-12T10:00
+T | 0 | sleep 
