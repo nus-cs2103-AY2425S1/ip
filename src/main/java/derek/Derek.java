@@ -7,26 +7,8 @@ import derek.task.TaskList;
  * adding tasks, marking them as complete or incomplete, deleting tasks, and more.
  */
 public class Derek {
-    private static String logo = " ---    ---\n"
-            +"| # |  | # |\n"
-            +" ---    ---\n"
-            +"  \\      /\n"
-            +"    ----\n";
-
-    private static String sadLogo = " ---    ---\n"
-            + "| # |  | # |\n"
-            + " ---    ---\n"
-            + "    ----\n"
-            + "  /      \\\n";
-
-
     private TaskList taskList;
     private Storage storage;
-
-
-    public static void main(String[] args) {
-        Derek instance = new Derek();
-    }
 
     public Derek() {
         this.taskList = new TaskList();
@@ -40,6 +22,11 @@ public class Derek {
         Ui ui = new Ui(storage, taskList);
         ui.introduce();
     }
+
+    public static void main(String[] args) {
+        Derek instance = new Derek();
+    }
+
 
 }
 

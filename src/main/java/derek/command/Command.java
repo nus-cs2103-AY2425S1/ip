@@ -16,7 +16,7 @@ public class Command {
      * @param command the command input by the user
      */
 
-    public Command (String command) {
+    public Command(String command) {
         this.command = command;
     }
 

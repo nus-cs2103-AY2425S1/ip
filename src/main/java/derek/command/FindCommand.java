@@ -1,8 +1,8 @@
 package derek.command;
 
 import derek.Storage;
-import derek.exception.TaskNotFoundException;
 import derek.Ui;
+import derek.exception.TaskNotFoundException;
 import derek.task.Task;
 import derek.task.TaskList;
 
@@ -27,7 +27,7 @@ public class FindCommand extends Command {
             this.getTaskDescription();
             Task task = taskList.find(this.taskDescription);
             ui.printTask(task);
-        } catch (TaskNotFoundException e){
+        } catch (TaskNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }

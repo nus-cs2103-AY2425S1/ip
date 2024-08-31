@@ -41,7 +41,7 @@ public class Task {
      * @return "X" if the task is completed, otherwise " "
      */
     public String isCompleted() {
-        return this.isCompleted? "X"
+        return this.isCompleted ? "X"
                                 : " ";
     }
 

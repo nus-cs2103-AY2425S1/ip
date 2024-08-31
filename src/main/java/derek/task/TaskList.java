@@ -1,8 +1,9 @@
 package derek.task;
 
+import java.util.ArrayList;
+
 import derek.exception.TaskNotFoundException;
 
-import java.util.ArrayList;
 
 
 /**
@@ -70,10 +71,10 @@ public class TaskList {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         String list = "";
         for (int i = 0; i < taskList.size(); i++) {
-            list += String.format((i+1) + ". " + taskList.get(i).toString() + "\n");
+            list += String.format((i + 1) + ". " + taskList.get(i).toString() + "\n");
         }
         return list;
     }

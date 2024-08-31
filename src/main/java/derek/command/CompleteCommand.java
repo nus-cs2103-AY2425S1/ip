@@ -1,9 +1,9 @@
 package derek.command;
 
 import derek.Storage;
+import derek.Ui;
 import derek.task.Task;
 import derek.task.TaskList;
-import derek.Ui;
 
 /**
  * The {@code CompleteCommand} class marks a task as completed in the task list.

@@ -1,15 +1,16 @@
 package derek;
 
-import derek.task.DeadlineTask;
-import derek.task.EventTask;
-import derek.task.Task;
-import derek.task.TaskList;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import derek.task.DeadlineTask;
+import derek.task.EventTask;
+import derek.task.Task;
+import derek.task.TaskList;
+
 
 /**
  * The {@code Storage} class handles the reading and writing of task data to and from a file.
@@ -123,7 +124,7 @@ public class Storage {
      * @param textToAdd the string to be added to the file
      * @throws IOException if an I/O error occurs during file writing
      */
-    public void writeToFile(String textToAdd) throws IOException{
+    public void writeToFile(String textToAdd) throws IOException {
         FileWriter writer = new FileWriter(dataFilePathName, true);
         writer.write(textToAdd);
         writer.close();

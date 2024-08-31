@@ -1,10 +1,11 @@
 package derek;
 
+import java.time.format.DateTimeParseException;
+
 import derek.command.*;
 import derek.exception.IncorrectCommandException;
 import derek.task.Task;
 
-import java.time.format.DateTimeParseException;
 
 /**
  * The {@code Parser} class handles the interpretation and execution of user commands.
@@ -76,7 +77,8 @@ public class Parser {
                         return;
                     }
                 } else {
-                    throw new IncorrectCommandException("Please enter your commands correctly for Derek (e.g. todo (task)), he keeps throwing tantrums");
+                    throw new IncorrectCommandException("Please enter your commands correctly for Derek "
+                            + "(e.g. todo (task)), he keeps throwing tantrums");
                 }
                 this.getTask();
             }
@@ -95,7 +97,8 @@ public class Parser {
             if (words[0].equals("deadline")) {
                 String[] parts = command.split("/by");
                 if (parts.length != 2) {
-                    throw new IncorrectCommandException("Please enter your commands correctly for Derek (deadline (task) /by (date))");
+                    throw new IncorrectCommandException("Please enter your commands correctly "
+                            + "for Derek (deadline (task) /by (date))");
                 }
                 DeadlineCommand deadlineCommand = new DeadlineCommand(this.command);
                 String name = deadlineCommand.getTask();
@@ -107,7 +110,8 @@ public class Parser {
                 String[] parts = command.split("/from");
                 String[] time = command.split("/to");
                 if (parts.length != 2 && time.length != 2) {
-                    throw new IncorrectCommandException("Please enter your commands correctly for Derek (event (task) /from (time) /to (time)");
+                    throw new IncorrectCommandException("Please enter your commands correctly "
+                            + "for Derek (event (task) /from (time) /to (time)");
                 }
                 EventCommand eventCommand = new EventCommand(this.command);
                 String name = eventCommand.getTask();
@@ -121,7 +125,9 @@ public class Parser {
                 Task task = Task.toDoTask(name);
                 todoCommand.execute(task, this.storage, this.ui);
             } else {
-                throw new IncorrectCommandException("Is it a todo, event, or deadline?\nPlease enter your commands correctly for Derek (e.g. todo (task)), he keeps throwing tantrums");
+                throw new IncorrectCommandException("Is it a todo, event, or deadline?\n"
+                        + "Please enter your commands correctly for Derek (e.g. todo (task)), "
+                        + "he keeps throwing tantrums");
             }
         } catch (IncorrectCommandException e) {
             System.out.println(e.getMessage());

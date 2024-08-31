@@ -1,12 +1,13 @@
 package derek;
 
+import java.util.Random;
+import java.util.Scanner;
+
 import derek.command.Command;
 import derek.exception.IncorrectCommandException;
 import derek.task.Task;
 import derek.task.TaskList;
 
-import java.util.Random;
-import java.util.Scanner;
 
 /**
  * The {@code Ui} class handles user interaction in the application.
@@ -14,20 +15,19 @@ import java.util.Scanner;
  */
 public class Ui {
     private static String logo = " ---    ---\n"
-            +"| # |  | # |\n"
-            +" ---    ---\n"
-            +"  \\      /\n"
-            +"    ----\n";
+            + "| # |  | # |\n"
+            + " ---    ---\n"
+            + "  \\      /\n"
+            + "    ----\n";
 
     private static String sadLogo = " ---    ---\n"
             + "| # |  | # |\n"
             + " ---    ---\n"
             + "    ----\n"
             + "  /      \\\n";
-
+    private static String leavingMessage = String.format("Ok...\n" + sadLogo);
     private String user;
 
-    private static String leavingMessage = String.format("Ok...\n" + sadLogo);
     private boolean isRunning;
     private Storage storage;
     private TaskList taskList;
@@ -126,7 +126,7 @@ public class Ui {
     }
 
     public void removeTask(Task task) {
-        System.out.println( "phew! that list was looooonngggg... i was getting tired of remembering it!"
+        System.out.println("phew! that list was looooonngggg... i was getting tired of remembering it!"
                 + "\n"
                 + task.toString());
     }
@@ -150,7 +150,11 @@ public class Ui {
     }
 
     public String generateRandomCelebration() {
-        String[] celebrationMessages = new String[]{"yay!", "woohoo!", "let's go!!!!", "great job :)", "you're on a roll!"};
+        String[] celebrationMessages = new String[]{"yay!",
+            "woohoo!",
+            "let's go!!!!",
+            "great job :)",
+            "you're on a roll!"};
         Random random = new Random();
         int min = 0;
         int max = celebrationMessages.length - 1;

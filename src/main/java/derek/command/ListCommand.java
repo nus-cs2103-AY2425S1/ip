@@ -2,7 +2,6 @@ package derek.command;
 
 import derek.Storage;
 import derek.Ui;
-import derek.command.Command;
 
 /**
  * The {@code ListCommand} class handles the user's command to list all tasks.
