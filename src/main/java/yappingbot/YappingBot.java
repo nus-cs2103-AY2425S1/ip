@@ -82,7 +82,7 @@ public class YappingBot {
                         Commands.createNewTask(userInputSlices, TaskTypes.DEADLINE, userList);
                         break;
                 case FIND:
-                    String searchString = userInput.substring(userInput.indexOf(" "));
+                    String searchString = userInput.substring(userInput.indexOf(" ") + 1);
                     userList = Commands.findStringInTasks(searchString, userList);
                     break;
                     case UNKNOWN:
