@@ -28,6 +28,7 @@ public class Arona {
 
         // Read data.txt file
         try {
+            // todo fix this yellow line
             Files.lines(dataDir).forEach(Arona::process);
         } catch (Exception e) {
             print("Error processing data");
@@ -50,6 +51,7 @@ public class Arona {
                 if (input.equalsIgnoreCase("bye")) {
 
                     // Write data to file
+                    // todo simplify code
                     try {
                         Files.write(dataDir, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
                         for (Task task : list) {
