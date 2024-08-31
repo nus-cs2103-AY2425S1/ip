@@ -1,3 +1,5 @@
+package asura.data.tasks;
+
 public class Event extends Task {
     protected String start;
     protected String end;
@@ -6,6 +8,14 @@ public class Event extends Task {
         super(description);
         this.start = start;
         this.end = end;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public String getEnd() {
+        return end;
     }
 
     @Override

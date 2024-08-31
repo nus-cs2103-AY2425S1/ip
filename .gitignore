@@ -3,7 +3,7 @@
 /out/
 /*.iml
 
-# Task data
+# asura.data.tasks.Task data
 /data/
 
 # Gradle build files

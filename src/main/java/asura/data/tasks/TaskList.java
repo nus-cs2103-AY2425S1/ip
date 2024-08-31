@@ -1,3 +1,5 @@
+package asura.data.tasks;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,3 +1,5 @@
+package asura.data.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -7,6 +9,10 @@ public class Deadline extends Task{
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
+    }
+
+    public LocalDateTime getBy() {
+        return by;
     }
 
     @Override
