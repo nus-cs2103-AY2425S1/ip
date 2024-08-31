@@ -13,9 +13,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * Represents the storage for managing task related data files.
+ */
 public class TaskManager {
+    /** Path of the task data file relative to the working directory */
     private static final Path taskFile = Paths.get("./task/task.txt");
 
+    /**
+     * Converts ArrayList of Task to String data.
+     *
+     * @param tasks ArrayList of Tasks
+     * @return string to be stored in the data file
+     */
     private static String readTaskList(ArrayList<Task> tasks) {
         StringBuilder taskString = new StringBuilder();
         for (Task task : tasks) {
@@ -25,6 +35,13 @@ public class TaskManager {
         return taskString.toString();
     }
 
+    /**
+     * Convert String data to ArrayList of Task.
+     *
+     * @param taskString string data about the tasks
+     * @return ArrayList of Task
+     * @throws FileCorruptedException if the task String can't be interpreted
+     */
     private static ArrayList<Task> convertToTaskList(String taskString)
             throws FileCorruptedException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -69,6 +86,11 @@ public class TaskManager {
         return tasks;
     }
 
+    /**
+     * Initialize the Task Manager to set up the required paths and files.
+     * Check if the relative path already exists in the user's system.
+     * If not, create them.
+     */
     public static void initialize() {
         try {
             Files.createDirectories(taskFile.getParent());
@@ -80,6 +102,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Save the tasks into the local task data file.
+     *
+     * @param tasks ArrayList of Task tracked by the TaskManager
+     */
     public static void saveTasks(ArrayList<Task> tasks) {
         try {
             String taskString = readTaskList(tasks);
@@ -89,6 +116,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Load the tasks from the local task data file.
+     *
+     * @return ArrayList of Task stored in the file
+     */
     public static ArrayList<Task> loadTasks() {
         try {
             String taskString = Files.readString(taskFile);
