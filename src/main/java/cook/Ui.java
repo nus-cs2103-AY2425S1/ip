@@ -1,4 +1,4 @@
-package Cook;
+package cook;
 
 import java.util.Scanner;
 

@@ -5,9 +5,17 @@
 \____/\____/\____/\_|\_\
                         
 ____________________________________________________________
-Hello, I'm Cook.Cook!
+Hello, I'm Cook!
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
-Bye. Hope to see you again soon!
+I've created a new file under "data\Task List.txt" to store your task list!
+____________________________________________________________
+____________________________________________________________
+Your task list file has been updated with the event! It can be found under "data\Task List.txt".
+You now have 2 task(s) in the list!
+____________________________________________________________
+____________________________________________________________
+Your task list file has been updated with the event! It can be found under "data\Task List.txt".
+You now have 3 task(s) in the list!
 ____________________________________________________________

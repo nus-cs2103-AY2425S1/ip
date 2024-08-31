@@ -28,14 +28,14 @@ test {
 }
 
 application {
-    mainClass.set("Cook.Cook")
+    mainClass.set("tasks.Cook")
 }
 
 shadowJar {
-    archiveBaseName = "Cook"
+    archiveBaseName = "cook"
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
 }

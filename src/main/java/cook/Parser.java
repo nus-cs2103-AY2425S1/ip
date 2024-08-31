@@ -1,14 +1,14 @@
-package Cook;
+package cook;
 
-import Exceptions.InvalidCommandException;
+import exceptions.InvalidCommandException;
 
 import java.util.HashMap;
 
 public class Parser {
-    HashMap<String, Integer> commandTypeHashMap;
+    HashMap<String, Integer> commandArgs;
 
-    public Parser(HashMap<String, Integer> commandTypeHashMap) {
-        this.commandTypeHashMap = commandTypeHashMap;
+    public Parser(HashMap<String, Integer> commandArgs) {
+        this.commandArgs = commandArgs;
     }
 
     public HashMap<String, String> readInput(String input) throws InvalidCommandException {
@@ -16,8 +16,8 @@ public class Parser {
         String command = arguments[0].toLowerCase();
         HashMap<String, String> argumentsHashMap = new HashMap<>();
 
-        if (this.commandTypeHashMap.containsKey(command)) {
-            int argsExpected = this.commandTypeHashMap.get(command);
+        if (this.commandArgs.containsKey(command)) {
+            int argsExpected = this.commandArgs.get(command);
             argumentsHashMap.put("command", command);
 
             if (arguments.length < argsExpected) {
@@ -32,9 +32,11 @@ public class Parser {
                 for (int i = 1; i < arguments.length; i++) {
                     String currentArgument = arguments[i];
 
-                    if (!(currentArgument.startsWith("/") || i + 1 == arguments.length)) {
+                    if (!currentArgument.startsWith("/")) {
                         valueSB.append(currentArgument).append(" ");
-                    } else {
+                    }
+
+                    if (currentArgument.startsWith("/") || i + 1 == arguments.length) {
                         argumentsHashMap.put(commandKey.toLowerCase(), valueSB.toString().strip());
                         commandKey = currentArgument;
                         valueSB.setLength(0);

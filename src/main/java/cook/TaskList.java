@@ -1,6 +1,6 @@
-package Cook;
+package cook;
 
-import Tasks.Task;
+import tasks.Task;
 
 import java.util.ArrayList;
 
@@ -11,13 +11,13 @@ public class TaskList {
         this.taskArrayList = new ArrayList<>();
     }
 
+    public void addTask(Task task) {
+        this.taskArrayList.add(task);
+    }
+
     public boolean markTask(int taskNo, boolean toMark) throws IndexOutOfBoundsException {
         int indexNo = taskNo - 1;
         return this.taskArrayList.get(indexNo).mark(toMark);
-    }
-
-    public void addTask(Task task) {
-        this.taskArrayList.add(task);
     }
 
     public void deleteTask(int taskNo) {
