@@ -17,13 +17,13 @@ public class ParserTest {
 
     @Test
     public void parseCommand_byeCommand() {
-        assertEquals(Parser.VALID_COMMAND.BYE, testParser.parseCommand("bye bye sas"));
+        assertEquals(Parser.ValidCommand.BYE, testParser.parseCommand("bye bye sas"));
 
     }
 
     @Test
     public void parseCommand_invalidCommand() {
-        assertEquals(Parser.VALID_COMMAND.INVALID, testParser.parseCommand("baye bye"));
+        assertEquals(Parser.ValidCommand.INVALID, testParser.parseCommand("baye bye"));
 
     }
 

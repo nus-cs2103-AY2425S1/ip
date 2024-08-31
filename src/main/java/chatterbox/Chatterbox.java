@@ -46,8 +46,6 @@ public class Chatterbox {
 
     }
 
-
-
     /**
      * Initiates Chatterbox with no prior history
      */
@@ -188,85 +186,85 @@ public class Chatterbox {
             while (true) {
                 try {
                     String response = scanner.nextLine();
-                    Parser.VALID_COMMAND command = parser.parseCommand(response);
+                    Parser.ValidCommand command = parser.parseCommand(response);
                     int index;
                     switch (command) {
 
-                        case BYE:
-                            return;
+                    case BYE:
+                        return;
 
-                        case LIST:
-                            ui.displayList(tasks.getTasks());
-                            break;
+                    case LIST:
+                        ui.displayList(tasks.getTasks());
+                        break;
 
-                        case MARK:
-                            response = response.trim();
-                            index = parser.extractNum(response) - 1; // -1 as the display  start from 1
-                            ui.markMsg(tasks.markTask(index));
+                    case MARK:
+                        response = response.trim();
+                        index = parser.extractNum(response) - 1; // -1 as the display  start from 1
+                        ui.markMsg(tasks.markTask(index));
 
-                            break;
+                        break;
 
-                        case UNMARK:
-                            response = response.trim();
-                            index = parser.extractNum(response) - 1; // -1 as the display  start from 1
-                            ui.unmarkMsg(tasks.unmarkTask(index));
+                    case UNMARK:
+                        response = response.trim();
+                        index = parser.extractNum(response) - 1; // -1 as the display  start from 1
+                        ui.unmarkMsg(tasks.unmarkTask(index));
 
-                            break;
+                        break;
 
-                        case TODO:
+                    case TODO:
 
-                            tasks.addTodo(parser.parseTODO(response.trim()));
-                            ui.addTaskMsg("Todo", tasks.size());
+                        tasks.addTodo(parser.parseTODO(response.trim()));
+                        ui.addTaskMsg("Todo", tasks.size());
 
-                            break;
+                        break;
 
-                        case DEADLINE:
-                            String[] parsed = parser.parseDeadline(response);
-
-
-                            LocalDateTime deadlineDate = parser.parseDateTime(parsed[1].substring(2));
+                    case DEADLINE:
+                        String[] parsed = parser.parseDeadline(response);
 
 
-                            if (deadlineDate == null) {
-
-                                tasks.addDeadline(parsed[0], parsed[1]);
-
-                            } else {
-                                //add back by for string
-
-                                tasks.addDeadline(parsed[0], deadlineDate);
-                            }
-
-                            ui.addTaskMsg("Deadline", tasks.size());
-
-                            break;
-                        case EVENT:
-                            String[] eventParsed = parser.parseEvent(response);
-
-                            LocalDateTime startDate = parser.parseDateTime(eventParsed[1].substring(4)); //from 4
-                            LocalDateTime endDate = parser.parseDateTime(eventParsed[2].substring(2));
-
-                            if (startDate == null || endDate == null) {
-
-                                tasks.addEvent(eventParsed[0].trim(), eventParsed[1], eventParsed[2]);
-
-                            } else {
-                                tasks.addEvent(eventParsed[0].trim(), startDate, endDate);
-                            }
-                            ui.addTaskMsg("Event", tasks.size());
+                        LocalDateTime deadlineDate = parser.parseDateTime(parsed[1].substring(2));
 
 
-                            break;
-                        case DELETE:
-                            response = response.trim();
-                            int delIndex = parser.extractNum(response) - 1;
-                            ui.delTaskMsg(tasks.deleteTask(delIndex), tasks.size());
+                        if (deadlineDate == null) {
+
+                            tasks.addDeadline(parsed[0], parsed[1]);
+
+                        } else {
+                            //add back by for string
+
+                            tasks.addDeadline(parsed[0], deadlineDate);
+                        }
+
+                        ui.addTaskMsg("Deadline", tasks.size());
+
+                        break;
+                    case EVENT:
+                        String[] eventParsed = parser.parseEvent(response);
+
+                        LocalDateTime startDate = parser.parseDateTime(eventParsed[1].substring(4)); //from 4
+                        LocalDateTime endDate = parser.parseDateTime(eventParsed[2].substring(2));
+
+                        if (startDate == null || endDate == null) {
+
+                            tasks.addEvent(eventParsed[0].trim(), eventParsed[1], eventParsed[2]);
+
+                        } else {
+                            tasks.addEvent(eventParsed[0].trim(), startDate, endDate);
+                        }
+                        ui.addTaskMsg("Event", tasks.size());
 
 
-                            break;
-                        case INVALID:
-                            ChatterboxExceptions.checkMessage(response);
-                            break;
+                        break;
+                    case DELETE:
+                        response = response.trim();
+                        int delIndex = parser.extractNum(response) - 1;
+                        ui.delTaskMsg(tasks.deleteTask(delIndex), tasks.size());
+
+
+                        break;
+                    case INVALID:
+                        ChatterboxExceptions.checkMessage(response);
+                        break;
                     }
                     //                System.out.println("saving");
                     storage.saveHistory(tasks.getTasks());

@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
  * Parser class has various methods to parse user input
  */
 public  class Parser {
-    public enum VALID_COMMAND {
+    public enum ValidCommand {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID;
     }
 
@@ -60,31 +60,31 @@ public  class Parser {
     }
 
     /**
-     * Parses a string of text to check if text has a valid command listed in VALID_COMMANDS by checking sthe started of text
+     * Parses a string of text to check if text has a valid command listed in ValidCommandS by checking sthe started of text
      * @param text to be parsed,
-     * @return corresponding VALID_COMMAND enum to the command in text
+     * @return corresponding ValidCommand enum to the command in text
      */
-    public VALID_COMMAND parseCommand(String text) {
+    public ValidCommand parseCommand(String text) {
 
 
         if (text.startsWith("bye")) {
-            return VALID_COMMAND.BYE;
+            return ValidCommand.BYE;
         } else if (text.startsWith("list")) {
-            return VALID_COMMAND.LIST;
+            return ValidCommand.LIST;
         } else if (text.startsWith("mark")) {
-            return VALID_COMMAND.MARK;
+            return ValidCommand.MARK;
         } else if (text.startsWith("unmark")) {
-            return VALID_COMMAND.UNMARK;
+            return ValidCommand.UNMARK;
         } else if (text.startsWith("todo")) {
-            return VALID_COMMAND.TODO;
+            return ValidCommand.TODO;
         } else if (text.startsWith("deadline")) {
-            return VALID_COMMAND.DEADLINE;
+            return ValidCommand.DEADLINE;
         } else if (text.startsWith("event")) {
-            return VALID_COMMAND.EVENT;
+            return ValidCommand.EVENT;
         } else if (text.startsWith("delete")) {
-            return VALID_COMMAND.DELETE;
+            return ValidCommand.DELETE;
         } else {
-            return VALID_COMMAND.INVALID;
+            return ValidCommand.INVALID;
         }
 
     }
@@ -212,7 +212,7 @@ public  class Parser {
      * Returns a DateTimeFormatter used for printing LocalDateTime objects
      * @return PRINTDATEFORMATTER, standard formatter for dates in Chatterbox
      */
-    public static DateTimeFormatter getPrintdateformatter() {
+    public static DateTimeFormatter getPrintDateFormatter() {
 
         return PRINTDATEFORMATTER;
     }

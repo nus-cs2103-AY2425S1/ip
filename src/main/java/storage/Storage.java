@@ -22,13 +22,15 @@ import java.util.Scanner;
  */
 public  class Storage {
 
-    private String HISTFILE = Paths.get(System.getProperty("user.dir"),"data" , "command1.txt").toString();
+    private final String HISTFILE;
 
     /**
      * Initializes Storage class with no specified storage file, creates a data directory and storage file command1
      */
     public Storage() {
+
         checkDirectory();
+        HISTFILE =  Paths.get(System.getProperty("user.dir"),"data" , "command1.txt").toString();
     }
 
     /**
