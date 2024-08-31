@@ -20,6 +20,8 @@ public class Optimus {
         } catch (FileNotFoundException e) {
             System.out.println("File not in folder: " + e.getMessage());
             record = new ArrayList<>();
+        } catch (OptimusException e) {
+            throw new RuntimeException(e);
         }
         int count = record.size();
 
@@ -103,6 +105,10 @@ public class Optimus {
                         throw new OptimusException("Oops! The description of an event cannot be empty. " +
                                 "Please provide a task description.");
                     }
+                    if (parts.length < 3) {
+                        throw new OptimusException("Oops! The event time format is incorrect. " +
+                                "Please provide both 'from' and 'to' times, e.g., /from 2/12/2019 18:00 /to 19:00.");
+                    }
                     if (count < 100) {
                         String from = parts.length > 1 ? parts[1] : "";
                         String to = parts.length > 2 ? parts[2] : "";
@@ -142,7 +148,7 @@ public class Optimus {
         }
     }
 
-    private static List<Task> loadFile() throws FileNotFoundException {
+    private static List<Task> loadFile() throws FileNotFoundException, OptimusException {
         File f = new File(FILE_PATH);
         List<Task> record = new ArrayList<>();
         if (!f.exists()) {
