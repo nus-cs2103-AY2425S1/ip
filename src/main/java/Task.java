@@ -1,3 +1,7 @@
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     private String name;
     private boolean completed;
@@ -21,6 +25,15 @@ public abstract class Task {
             return "1";
         } else {
             return "0";
+        }
+    }
+
+    public String processDate(String date) throws DateTimeException {
+        try {
+            LocalDate parsedDate = LocalDate.parse(date);
+            return parsedDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (DateTimeException d) {
+            return date;
         }
     }
 

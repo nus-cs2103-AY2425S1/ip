@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 import java.io.FileWriter;
+import java.time.LocalDate;
 
 
 public class Neon {
@@ -17,14 +18,14 @@ public class Neon {
     private static void greetingLine() {
         System.out.println(DASH_BREAK);
         String greeting = "hello i'm " + NAME + "!\n"
-                + "what can i help you with?\n";
+                + "what can i help you with?";
         System.out.println(greeting);
         System.out.println(DASH_BREAK);
     }
 
     private static void closingLine() {
         System.out.println(DASH_BREAK);
-        String closing = "byeee! nice to meet you :)\n";
+        String closing = "byeee! nice to meet you :)";
         System.out.println(closing);
         System.out.println(DASH_BREAK);
     }
@@ -152,7 +153,7 @@ public class Neon {
         System.out.println(DASH_BREAK);
 
         String message = "";
-        if (lastListIndex == 1) {
+        if (lastListIndex == 0) {
             message = "nothing in the list!";
         } else {
             message = "printing list:";

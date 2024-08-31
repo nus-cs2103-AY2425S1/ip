@@ -16,7 +16,7 @@ public class Event extends Task {
 
     public String toTask() {
         return this.getTaskType() + "/"+ this.completeStatus() + "/" + this.getName()
-                + "/" + this.startDT + "/" + this.endDT;
+                + "/" + processDate(this.startDT) + "/" + processDate(this.endDT);
     }
 
 

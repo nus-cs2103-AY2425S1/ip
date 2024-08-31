@@ -15,7 +15,7 @@ public class Deadline extends Task {
 
     public String toTask() {
         return this.getTaskType() + "/"+ this.completeStatus() + "/" + this.getName()
-                + "/" + this.dateTime;
+                + "/" + processDate(this.dateTime);
     }
 
     public String getTaskType() {
