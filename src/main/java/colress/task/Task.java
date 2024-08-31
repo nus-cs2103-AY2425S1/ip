@@ -7,7 +7,7 @@ import java.time.LocalDate;
  * its description, and a boolean field that reflects whether the task is marked as done or not.
  */
 public abstract class Task {
-    private final String description;
+    private final String DESCRIPTION;
     private boolean isDone;
 
     /**
@@ -15,7 +15,7 @@ public abstract class Task {
      * When a new task is created using this constructor, the task is not done by default.
      */
     public Task(String description) {
-        this.description = description;
+        this.DESCRIPTION = description;
         this.isDone = false;
     }
 
@@ -23,7 +23,7 @@ public abstract class Task {
      * Constructor for the Task class, initialising both description and isDone fields with the provided parameters.
      */
     public Task(String description, boolean isDone) {
-        this.description = description;
+        this.DESCRIPTION = description;
         this.isDone = isDone;
     }
 
@@ -32,7 +32,7 @@ public abstract class Task {
     }
 
     public String getDescription() {
-        return description;
+        return DESCRIPTION;
     }
 
     /**
