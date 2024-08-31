@@ -52,6 +52,10 @@ public class TaskList {
     @Override
     public String toString() {
         int listSize = this.count();
+        if (listSize == 0) {
+            return "You do not have any tasks!";
+        }
+
         String listInString = "";
         for (int i = 0; i < listSize; i += 1) {
             String taskString = String.format(" %d.%s", i + 1, taskList.get(i));
