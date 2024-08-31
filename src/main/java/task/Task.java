@@ -1,10 +1,7 @@
 package task;
 
-import java.io.Serializable;
 
-public abstract class Task implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public abstract class Task {
     private final String description;
 
     private final boolean isDone;
@@ -23,7 +20,7 @@ public abstract class Task implements Serializable {
 
     public abstract Task setAsUndone();
 
-    public abstract Task setDescription(String description);
+    public abstract String toFileRecord();
 
     public boolean isDone() {
         return this.isDone;

@@ -1,5 +1,6 @@
 package task;
 
+
 public class Event extends Task {
     private final String from, to;
 
@@ -26,8 +27,9 @@ public class Event extends Task {
     }
 
     @Override
-    public Event setDescription(String description) {
-        return new Event(this.getDescription(), this.isDone(), this.getFrom(), this.getTo());
+    public String toFileRecord() {
+        return String.format("E | %s | %s | %s", this.getDescription(),
+                this.getFrom(), this.getTo());
     }
 
     public String getFrom() {

@@ -1,16 +1,17 @@
 package task;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
-    private final LocalDate dueBy;
+    private final String dueBy;
 
-    public Deadline(String description, LocalDate dueBy) {
+    public Deadline(String description, String dueBy) {
         super(description);
         this.dueBy = dueBy;
     }
 
-    public Deadline(String description, boolean isDone, LocalDate dueBy) {
+    public Deadline(String description, boolean isDone, String dueBy) {
         super(description, isDone);
         this.dueBy = dueBy;
     }
@@ -26,12 +27,20 @@ public class Deadline extends Task {
     }
 
     @Override
-    public Deadline setDescription(String description) {
-        return new Deadline(this.getDescription(), this.isDone(), this.getDueBy());
+    public String toFileRecord() {
+        return String.format("D | %s | %s", this.getDescription(), this.getDueBy());
     }
 
-    public LocalDate getDueBy() {
+    public String getDueBy() {
         return this.dueBy;
+    }
+
+    public LocalDate getDueByLocalDate() {
+        try {
+            return LocalDate.parse(this.getDueBy());
+        } catch (DateTimeParseException e) {
+            return null;
+        }
     }
 
     @Override
