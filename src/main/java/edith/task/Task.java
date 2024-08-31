@@ -1,3 +1,5 @@
+package Edith;
+
 public abstract class Task {
     private String taskName;
     private boolean status; // false for undone, true for done
