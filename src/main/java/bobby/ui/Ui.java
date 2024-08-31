@@ -4,7 +4,7 @@ import bobby.exceptions.InvalidTaskNumberException;
 import bobby.tasklist.TaskList;
 import bobby.tasks.Task;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -61,11 +61,20 @@ public class Ui {
         System.out.println("OOPS!!! " + message);
     }
 
-    public void showFindTasksMessage(LocalDate date) {
-        System.out.println("Tasks on " + date + ":");
-    }
-
-    public void showNoTasksFound() {
-        System.out.println("No tasks found for the given date.");
+    /**
+     * Displays the list of tasks that match the search criteria.
+     * This method prints the tasks with their respective indices to the console.
+     *
+     * @param tasks An ArrayList of tasks that match the search criteria.
+     */
+    public void showFoundTasks(ArrayList<Task> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
+        }
     }
 }

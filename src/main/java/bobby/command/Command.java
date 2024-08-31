@@ -1,7 +1,7 @@
 package bobby.command;
 
 public enum Command {
-    BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND;
+    BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND, SEARCHDATE;
 
     public static Command fromString(String input) {
         String command = input.split(" ")[0].toLowerCase();
@@ -24,6 +24,8 @@ public enum Command {
                 return EVENT;
             case "find":
                 return FIND;
+            case "searchdate":
+                return SEARCHDATE;
             default:
                 return UNKNOWN;
         }

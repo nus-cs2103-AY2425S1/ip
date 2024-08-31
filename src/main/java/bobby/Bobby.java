@@ -2,13 +2,13 @@ package bobby;
 
 import bobby.command.Command;
 import bobby.exceptions.BobbyException;
+import bobby.parser.Parser;
 import bobby.storage.Storage;
 import bobby.tasklist.TaskList;
 import bobby.tasks.Task;
-import bobby.parser.Parser;
 import bobby.ui.Ui;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Bobby {
 
@@ -61,10 +61,10 @@ public class Bobby {
                         ui.showTaskDeleted(deletedTask, tasks.size());
                         storage.saveTasks(tasks);
                         break;
+                    case SEARCHDATE:
                     case FIND:
-                        String dateString = userInput.split(" ")[1];
-                        LocalDate date = LocalDate.parse(dateString);
-                        tasks.findTasksByDate(date, ui);
+                        ArrayList<Task> foundTasks = parser.parseFindCommand(userInput, tasks);
+                        ui.showFoundTasks(foundTasks);
                         break;
                     default:
                         Task newTask = parser.parseTask(userInput);
