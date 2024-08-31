@@ -15,6 +15,9 @@ public abstract class Task {
         this.isDone = true;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
     public void setNotDone() {
         this.isDone = false;
     }
@@ -27,4 +30,6 @@ public abstract class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    public abstract String toSaveString();
 }
