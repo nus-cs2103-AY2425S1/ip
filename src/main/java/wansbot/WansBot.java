@@ -330,6 +330,7 @@ public class WansBot {
         }
     }
 
+    // Handles finding tasks of a specific date
     private static void findTaskDate(String userInput) {
         try {
             String[] splitDate = userInput.split(" ");
@@ -370,6 +371,7 @@ public class WansBot {
         }
     }
 
+    // says goodbye to user and exits the program
     private static void sayGoodbye() {
         String exit = "|  _ \\ \\   / /  ____|"
                 + "\n| |_) \\ \\_/ /| |__"

@@ -11,6 +11,7 @@ public class Deadlined extends Task {
         this.deadline = deadline;
     }
 
+    // returns true if Deadlined's deadline coincides with date
     public boolean isOnDate(LocalDate date) {
         if (this.deadline.isEqual(date)) {
             return true;

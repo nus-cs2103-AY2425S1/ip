@@ -9,10 +9,12 @@ public class TaskList {
         this.listOfTasks = new ArrayList<Task>();
     }
 
+    // adds a task to the tasklist
     public void add(Task task) {
         this.listOfTasks.add(task);
     }
 
+    // returns task of specified number
     public Task number(int index) {
         if (listOfTasks.isEmpty()) return null;
         return this.listOfTasks.get(index);

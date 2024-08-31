@@ -13,6 +13,7 @@ public class Events extends Task {
         this.endDate = end;
     }
 
+    // returns true if date is between start and end date of Event
     public boolean isBetweenDate(LocalDate date) {
         if (this.startDate.isBefore(date) && this.endDate.isAfter(date)) {
             return true;
