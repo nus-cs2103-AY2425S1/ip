@@ -20,4 +20,8 @@ public class DeleteCommand extends Command {
                     + "Do indicate which task to delete with its number!");
         }
     }
+    @Override
+    public boolean changesTaskList() {
+        return true;
+    }
 }

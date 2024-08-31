@@ -19,4 +19,8 @@ public class EventCommand extends AddTaskCommand {
                     + "the following format: [description] /from [start] /to [end]");
         }
     }
+    @Override
+    public boolean changesTaskList() {
+        return true;
+    }
 }

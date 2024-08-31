@@ -17,4 +17,8 @@ public class DeadlineCommand extends AddTaskCommand {
                     + "in the following format: [description] /by [deadline]");
         }
     }
+    @Override
+    public boolean changesTaskList() {
+        return true;
+    }
 }

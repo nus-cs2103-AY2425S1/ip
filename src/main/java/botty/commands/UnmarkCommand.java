@@ -19,4 +19,8 @@ public class UnmarkCommand extends Command {
                     + "Do indicate which task to unmark with its number!");
         }
     }
+    @Override
+    public boolean changesTaskList() {
+        return true;
+    }
 }

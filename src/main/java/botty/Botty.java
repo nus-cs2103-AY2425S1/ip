@@ -63,18 +63,23 @@ public class Botty {
                     throw new UnknownCommandException(parsedInput.getCommand());
                 }
 
-                if (commands.get(parsedInput.getCommand()).isExit()) {
+                Command command = commands.get(parsedInput.getCommand());
+
+                if (command.isExit()) {
                     break;
                 }
 
-                ui.reply(commands.get(parsedInput.getCommand()).execute(taskManager, parsedInput));
+                ui.reply(command.execute(taskManager, parsedInput));
+
+                if (command.changesTaskList()) {
+                    saveTaskList();
+                }
 
             } catch (BottyException exception) {
                 ui.reply(exception.getMessage());
             }
         }
 
-        saveTaskList();
         ui.reply("Thank you for your continued patronage. Goodbye!");
 
     }
@@ -89,7 +94,6 @@ public class Botty {
         }
     }
     private void saveTaskList() {
-        ui.reply("I'll store your tasks for the future.");
         try {
             storageHandler.saveTaskList(taskManager);
         } catch (BottyException ex) {
