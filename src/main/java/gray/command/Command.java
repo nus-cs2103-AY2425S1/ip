@@ -1,9 +1,12 @@
 package gray.command;
 
 import gray.GrayException;
-import gray.Ui;
 import gray.TaskList;
+import gray.Ui;
 
+/**
+ * A command abstract class to follow for the parser.
+ */
 public abstract class Command {
 
     /**
@@ -20,5 +23,7 @@ public abstract class Command {
      *
      * @return
      */
-    public boolean isExit() { return false; }
+    public boolean isExit() {
+        return false;
+    }
 }

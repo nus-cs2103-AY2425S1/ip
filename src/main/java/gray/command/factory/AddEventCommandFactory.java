@@ -1,14 +1,17 @@
-package gray.command_factory;
-
-import gray.GrayException;
-import gray.command.AddEventCommand;
-import gray.command.Command;
+package gray.command.factory;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import gray.GrayException;
+import gray.command.AddEventCommand;
+import gray.command.Command;
+
+/**
+ * A parser that constructs a command to add event task.
+ */
 public class AddEventCommandFactory extends CommandFactory {
 
     /**
@@ -22,7 +25,9 @@ public class AddEventCommandFactory extends CommandFactory {
     public Command parse(String text) throws GrayException {
         Pattern pattern = Pattern.compile("event (.*) /from (.*) /to (.*)");
         Matcher matcher = pattern.matcher(text);
-        if (!matcher.matches()) return null;
+        if (!matcher.matches()) {
+            return null;
+        }
         String description = matcher.group(1);
         String start = matcher.group(2);
         String end = matcher.group(3);

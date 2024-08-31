@@ -1,8 +1,11 @@
-package gray.command_factory;
+package gray.command.factory;
 
 import gray.GrayException;
 import gray.command.Command;
 
+/**
+ * A parser that creates a command.
+ */
 public abstract class CommandFactory {
 
     /**

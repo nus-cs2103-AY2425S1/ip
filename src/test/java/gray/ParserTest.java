@@ -1,14 +1,14 @@
 package gray;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 public class ParserTest {
 
     @Test
-    public void parse_badCommand_exceptionThrown(){
+    public void parse_badCommand_exceptionThrown() {
         try {
             Parser.parse("Hello World");
             fail();

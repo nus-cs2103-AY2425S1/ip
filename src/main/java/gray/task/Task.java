@@ -2,10 +2,17 @@ package gray.task;
 
 import java.io.Serializable;
 
+/**
+ * A generic task that has a description.
+ */
 public class Task implements Serializable {
     private final String description;
     private boolean isDone;
 
+    /**
+     * Constructs a task.
+     * @param description
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

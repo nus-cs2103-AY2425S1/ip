@@ -1,10 +1,13 @@
 package gray.command;
 
 import gray.GrayException;
+import gray.TaskList;
 import gray.Ui;
 import gray.task.Task;
-import gray.TaskList;
 
+/**
+ * A command that marks or un-marks a task as completed.
+ */
 public class MarkCommand extends Command {
 
     private final String command;

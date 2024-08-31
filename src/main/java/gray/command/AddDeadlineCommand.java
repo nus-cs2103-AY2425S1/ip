@@ -1,11 +1,14 @@
 package gray.command;
 
-import gray.Ui;
-import gray.task.DeadlineTask;
-import gray.TaskList;
-
 import java.time.LocalDateTime;
 
+import gray.TaskList;
+import gray.Ui;
+import gray.task.DeadlineTask;
+
+/**
+ * A command that adds a deadline task.
+ */
 public class AddDeadlineCommand extends Command {
 
     private final String description;
