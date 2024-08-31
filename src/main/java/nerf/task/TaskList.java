@@ -1,8 +1,5 @@
 package nerf.task;
 
-/**
- * Class to storing and manipulating tasks
- */
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +7,9 @@ import java.util.List;
 import nerf.error.InvalidDataException;
 import nerf.io.Parser;
 
+/**
+ * Class to storing and manipulating tasks
+ */
 public class TaskList {
     private final List<Task> listings;
 

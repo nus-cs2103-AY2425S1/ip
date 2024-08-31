@@ -1,9 +1,5 @@
 package nerf.gui;
 
-/**
- * Main GUI class
- */
-
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -13,7 +9,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import nerf.Nerf;
 
-
+/**
+ * Main GUI class
+ */
 public class Main extends Application {
 
     private Nerf nerf = new Nerf("data/taskStorage.txt");

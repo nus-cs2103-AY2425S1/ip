@@ -3,7 +3,6 @@ package nerf.io;
 /**
  * Class for handling of user interface.
  */
-
 public class Ui {
     private static final int LINE_LENGTH = 60;
     private final String LOGO = """

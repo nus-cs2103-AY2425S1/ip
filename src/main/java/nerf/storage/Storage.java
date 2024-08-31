@@ -1,9 +1,5 @@
 package nerf.storage;
 
-/**
- * Class for handling file I/O.
- */
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +11,9 @@ import java.util.List;
 
 import nerf.error.FilePermissionsException;
 
+/**
+ * Class for handling file I/O.
+ */
 public class Storage {
     /** path to save file */
     private final String saveDirectory;

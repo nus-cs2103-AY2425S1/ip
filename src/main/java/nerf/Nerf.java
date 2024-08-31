@@ -1,16 +1,14 @@
 package nerf;
 
-/**
- * Main class
- */
-
 import nerf.error.FilePermissionsException;
 import nerf.error.InvalidDataException;
 import nerf.io.Ui;
 import nerf.storage.Storage;
 import nerf.task.TaskList;
 
-
+/**
+ * Main class
+ */
 public class Nerf {
     private final Ui ui;
     private final Storage storage;

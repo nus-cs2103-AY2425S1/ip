@@ -1,9 +1,5 @@
 package nerf.gui;
 
-/**
- * Controller for the main GUI.
- */
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -14,6 +10,9 @@ import javafx.scene.layout.VBox;
 
 import nerf.Nerf;
 
+/**
+ * Controller for the main GUI.
+ */
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
