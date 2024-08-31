@@ -20,7 +20,6 @@ public class Gallium {
         String list = "list";
         String mark = "mark";
         String unmark = "unmark";
-        int curr = Task.count;
 
         try {
             File dir = new File("./data");
@@ -41,7 +40,6 @@ public class Gallium {
                     taskList.add(event);
                 }
                 Task.count = taskList.size() + 1;
-                curr = Task.count;
             }
             scanner.close();
         } catch (IOException e) {

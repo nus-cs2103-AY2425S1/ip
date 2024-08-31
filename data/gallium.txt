@@ -1,4 +1,7 @@
 [T][ ] j
-[T][ ] 2
+[T][X] 2
 [D][X] 3 (by: 33)
-[E][ ] 4 (from: jj to: dd)
+[T][ ] j
+[D][ ] sjdofsd (by: josdfjosjf)
+[E][X] sdijfos (from: oijfo to: oefoef)
+[T][ ] j

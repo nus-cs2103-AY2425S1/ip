@@ -9,12 +9,16 @@ public class Deadline extends Task {
             this.desc = description.split("deadline ")[1].split(" /by")[0];
             this.by = description.split("/by ")[1];
         } else if (description.startsWith("[D][ ] ")) {
-            this.desc = description.split("[D] ")[1].split(" (")[0];
-            this.by = description.split("(by: ")[1].split(")")[0];
+            String[] parts = description.split("\\[D\\]\\[ \\] ");
+            this.desc = parts[1].split(" \\(by:")[0];
+            String[] byParts = parts[1].split("\\(by: ");
+            this.by = byParts[1].split("\\)")[0];
             this.isDone = false;
         } else if (description.startsWith("[D][X] ")) {
-            this.desc = description.split("[D][X] ")[1].split(" (")[0];
-            this.by = description.split("(by: ")[1].split(")")[0];
+            String[] parts = description.split("\\[D\\]\\[X\\] ");
+            this.desc = parts[1].split(" \\(by:")[0];
+            String[] byParts = parts[1].split("\\(by: ");
+            this.by = byParts[1].split("\\)")[0];
             this.isDone = true;
         }
     }
