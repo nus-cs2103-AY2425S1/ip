@@ -1,5 +1,8 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Storage {
     private String filePath;
@@ -28,16 +31,24 @@ public class Storage {
                 String taskType = arr[0];
                 boolean isDone = arr[1].equals("1");
                 String description = arr[2];
+                LocalDateTime dateTime = null;
+
+                if (arr.length > 3) {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+                    dateTime = LocalDateTime.parse(arr[3], formatter);
+                }
 
                 switch (taskType) {
                     case "T":
                         taskList.add(new ToDo(description, isDone));
                         break;
                     case "D":
-                        taskList.add(new Deadline(description, arr[3], isDone));
+                        taskList.add(new Deadline(description, dateTime, isDone));
                         break;
                     case "E":
-                        taskList.add(new Event(description, arr[3], arr[4], isDone));
+                        LocalDateTime from = LocalDateTime.parse(arr[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        LocalDateTime to = LocalDateTime.parse(arr[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        taskList.add(new Event(description, from, to, isDone));
                         break;
                     default:
                         throw new LunaBotException("Invalid task type found in file");

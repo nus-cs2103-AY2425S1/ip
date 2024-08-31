@@ -1,5 +1,9 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class LunaBot {
 
@@ -188,7 +192,14 @@ public class LunaBot {
             throw new LunaBotException("Deadline of task cannot be empty");
         }
         String description = arr[0];
-        String by = arr[1];
+        LocalDateTime by;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            by = LocalDateTime.parse(arr[1], formatter);
+        }
+        catch (DateTimeParseException e) {
+            throw new LunaBotException("Invalid deadline date/time format. Use yyyy-MM-dd HHmm")
+        }
         taskList.add(new Deadline(description, by));
         System.out.println("___________________________________________________________________");
         System.out.println(" Got it. I've added this task:");
@@ -213,8 +224,16 @@ public class LunaBot {
             throw new LunaBotException("End time of task cannot be empty");
         }
         String description = arr[0];
-        String from = arr[1];
-        String to = arr[2];
+        LocalDateTime from;
+        LocalDateTime to;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            from = LocalDateTime.parse(arr[1], formatter);
+            to = LocalDateTime.parse(arr[2], formatter);
+        }
+        catch {
+            throw new LunaBotException("Invalid event date/time format. Use yyyy-MM-dd HHmm")
+        }
         taskList.add(new Event(description, from, to));
         System.out.println("___________________________________________________________________");
         System.out.println(" Got it. I've added this task:");
