@@ -6,101 +6,33 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class PHamBot {
-    private static final String line = "____________________________________________________________\n";
-    private static TaskList tasks = new TaskList();
+    private static TaskList tasks;
     private static final String[] UserGreetings = {"Hello", "Hi", "What's up"};
 
     public static void main(String[] args) {
         Greet();
         Scanner scanner = new Scanner(System.in);
+        Parser parser = new Parser();
+        UserData data = new UserData();
+        tasks = data.getTasks();
+        Command.setUserData(tasks);
 
         while (true) {
             String input = scanner.nextLine();
 
-            if (input.equals("bye")) {
-                SayGoodbye();
+            Command command = parser.parseCommand(input);
+            command.executeCommand();
+            if (command instanceof ExitCommand) {
+                data.setTasks(tasks);
+                data.saveTasks();
                 break;
             }
-
-            if (input.equals("list")) {
-                ListTasks();
-            }
-
-            if (input.contains("delete")) {
-                try {
-                    int index = checkIndexInput(input) - 1;
-                    if (index < 0) {
-                        OutlineMessage("Sorry boss, you need to give me a positive number, I not good with negatives.");
-                    }
-                    else {
-                        printRemoveTask(index);
-                        tasks.deleteTask(index);
-                    }
-                } catch (MissingIndexException e) {
-                    OutlineMessage("Bro, which task you want me to delete sia...");
-                } catch (IndexOutOfBoundsException e) {
-                    OutlineMessage("Laoban, you don't even have that many task!");
-                }
-            }
-
-            if (input.contains("todo")) {
-                try {
-                    ToDo task = checkToDoInput(input, new ToDo());
-                    tasks.addTask(task);
-                    OutlineMessage("Added: " + task.toString());
-                } catch (MissingTaskException e) {
-                    OutlineMessage("You gotta give me a task man!");
-                }
-            }
-
-            if (input.contains("deadline")) {
-                try {
-                    DatedTask task = checkDatedTaskInput(input, new Deadline());
-                    tasks.addTask(task);
-                    OutlineMessage("Added: " + task.toString());
-                } catch (MissingTaskException e) {
-                    OutlineMessage("You gotta give me a task man!");
-                } catch (MissingDateException e) {
-                    OutlineMessage("You haven't added a date for the task!");
-                } catch (MissingDividerException e) {
-                    OutlineMessage("You missed out a slash to separate the task and date!");
-                }
-            }
-
-            if (input.contains("event")) {
-                try {
-                    DatedTask task = checkDatedTaskInput(input, new Event());
-                    tasks.addTask(task);
-                    OutlineMessage("Added: " + task.toString());
-                } catch (MissingTaskException e) {
-                    OutlineMessage("You gotta give me a task man!");
-                } catch (MissingDateException e) {
-                    OutlineMessage("You haven't added a date for the task!");
-                } catch (MissingDividerException e) {
-                    OutlineMessage("You missed out a slash to separate the task and date!");
-                }
-            }
-
-            if (input.contains("unmark")) {
-                unmark(Integer.parseInt(input.substring(7)));
-            } else if (input.contains("mark")) {
-                mark(Integer.parseInt(input.substring(5)));
-            }
-            else {
-                for (String userGreeting : UserGreetings) {
-                    if (input.contains(userGreeting)) {
-                        OutlineMessage("Hi! How can I help you?");
-                        break;
-                    }
-                }
-            }
-
 
         }
     }
 
     private static void OutlineMessage(String msg) {
-        System.out.println(line + msg + "\n" + line);
+        System.out.println(Utilities.line + msg + "\n" + Utilities.line);
     }
 
     public static void Greet() {

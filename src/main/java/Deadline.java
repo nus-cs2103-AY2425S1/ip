@@ -1,8 +1,11 @@
 public class Deadline extends DatedTask{
-    public Deadline(String task, String deadline) {
-        super(task, deadline);
+    public Deadline(String task, String date) {
+        super(task, date);
     }
 
+    public Deadline(String task, String date, String time) {
+        super(task, date, time);
+    }
     public Deadline() {
         super();
     }

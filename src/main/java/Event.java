@@ -7,6 +7,10 @@ public class Event extends DatedTask {
         super();
     }
 
+    public Event(String task, String date, String time) {
+        super(task, date, time);
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + getDate().toString() + " " + this.getTime() + ")";

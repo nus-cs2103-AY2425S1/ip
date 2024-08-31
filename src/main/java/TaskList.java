@@ -6,17 +6,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class TaskList {
-    private final String saveFileDirectory = "data/testSaveFile.txt";
     private ArrayList<Task> tasks;
 
     public TaskList() {
         tasks = new ArrayList<>();
-        loadTasks(saveFileDirectory);
+
+    }
+
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public boolean addTask(Task task) {
         if (tasks.add(task)) {
-            saveTasks();
             return true;
         }
         return false;
@@ -40,69 +42,6 @@ public class TaskList {
 
     public int taskCount() {
         return tasks.size();
-    }
-
-    private void saveTasks() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(saveFileDirectory))) {
-            for (Task task : tasks) {
-                if (task instanceof Deadline) {
-                    writer.write("D" + '/' + task.getTaskStatus() + "/" + task.getTaskName() + "/" + ((Deadline) task).getDate().toString());
-                    if (((Deadline) task).getTime() != null) {
-                        writer.write("/" + ((Deadline) task).getTime().toString());
-                    }
-                }
-                else if (task instanceof Event) {
-                    writer.write("E" +"/" + task.getTaskStatus() + "/" +task.getTaskName() + "/" + ((Event) task).getDate());
-                    if (((Event) task).getTime() != null) {
-                        writer.write("/" + ((Event) task).getTime().toString());
-                    }
-                }
-                else {
-                    writer.write("T" + "/" + task.getTaskStatus() + "/" + task.getTaskName());
-                }
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadTasks(String fileName) {
-        ArrayList<String> taskList = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String task;
-            while ((task = reader.readLine()) != null) {
-                String[] splitTask = task.split("/");
-                if (splitTask[0].equals("T")) {
-                    ToDo newToDo = new ToDo();
-                    newToDo.setTaskStatus(Boolean.parseBoolean(splitTask[1]));
-                    newToDo.setTaskName(splitTask[2]);
-                    tasks.add(newToDo);
-                }
-                if (splitTask[0].equals("D")) {
-                    Deadline newDeadline = new Deadline();
-                    newDeadline.setTaskStatus(Boolean.parseBoolean(splitTask[1]));
-                    newDeadline.setTaskName(splitTask[2]);
-                    newDeadline.setDate(splitTask[3]);
-                    if (splitTask.length > 4) {
-                        newDeadline.setTime(splitTask[4]);
-                    }
-                    tasks.add(newDeadline);
-                }
-                if (splitTask[0].equals("E")) {
-                    Event newEvent = new Event();
-                    newEvent.setTaskStatus(Boolean.parseBoolean(splitTask[1]));
-                    newEvent.setTaskName(splitTask[2]);
-                    newEvent.setDate(splitTask[3]);
-                    if (splitTask.length > 4) {
-                        newEvent.setTime(splitTask[4]);
-                    }
-                    tasks.add(newEvent);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

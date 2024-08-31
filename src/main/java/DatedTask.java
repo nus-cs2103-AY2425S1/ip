@@ -6,6 +6,12 @@ public class DatedTask extends Task {
     private LocalDate date;
     private LocalTime time;
 
+    public DatedTask(String task, String date, String time) {
+        super(task);
+        this.date = LocalDate.parse(date);
+        this.time = LocalTime.parse(time);
+    }
+
     public DatedTask(String task, String date) {
         super(task);
         this.date = LocalDate.parse(date);
