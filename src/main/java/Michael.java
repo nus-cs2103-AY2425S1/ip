@@ -13,7 +13,7 @@ public class Michael {
         System.out.println(BORDER);
     }
 
-    private static final String PATH = "src/main/data/save";
+    private static final String PATH = "./data/save.txt";
     private static ArrayList<Task> tasks = new ArrayList<>(); // store user inputs
 
     public static void main(String[] args) {
@@ -21,6 +21,16 @@ public class Michael {
 
         try {
             File f = new File(PATH);
+            File parent = f.getParentFile();
+
+            if (parent != null && !parent.exists()) {
+                parent.mkdirs();
+            }
+
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 Task t = load(s.nextLine());
@@ -60,14 +70,11 @@ public class Michael {
                 writer.write(save);
             }
             writer.close();
-
             // Exit
             printer("Bye. Hope to see you again soon!");
 
-        } catch (FileNotFoundException e) {
-            System.out.println("Save file not found!");
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Cannot save data in file!");
         }
     }
 
