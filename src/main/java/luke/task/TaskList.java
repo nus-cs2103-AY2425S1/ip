@@ -79,57 +79,63 @@ public class TaskList {
             throw new NoDescriptionException();
         }
         switch (command) {
-        case "todo" -> {
-            Todo todo = new Todo(taskDetails, isMarked);
-            taskList.add(todo);
-            if (!(isLoadingFromDisk)) {
-                System.out.println(Constants.DIVIDER
-                        + "i've thrown this to-do into your task list:\n"
-                        + Constants.INDENT + todo.taskDescription() + "\n"
-                        + listSizeUpdateMessage()
-                        + Constants.DIVIDER);
-            }
-        }
-        case "deadline" -> {
-            String[] taskAndDeadline;
-            if (isLoadingFromDisk) {
-                taskAndDeadline = taskDetails.split(" by ");
-            } else {
-                taskAndDeadline = taskDetails.split(" /by ");
-            }
-            String taskName = taskAndDeadline[0];
-            String deadline = taskAndDeadline[1];
-            Deadline dl = new Deadline(taskName, deadline, isMarked);
-            addTask(dl);
-            if (!(isLoadingFromDisk)) {
-                System.out.println(Constants.DIVIDER
-                        + "the new deadline's been added to your task list:\n"
-                        + Constants.INDENT + dl.taskDescription() + "\n"
-                        + listSizeUpdateMessage()
-                        + Constants.DIVIDER);
-            }
-        }
-        case "event" -> {
-            String[] taskAndTimings;
-            if (isLoadingFromDisk) {
-                taskAndTimings = taskDetails.split(" from | to ");
-            } else {
-                taskAndTimings = taskDetails.split(" /from | /to ");
-            }
-            String taskName = taskAndTimings[0];
-            String from = taskAndTimings[1];
-            String to = taskAndTimings[2];
-            Event event = new Event(taskName, from, to, isMarked);
-            addTask(event);
-            if (!(isLoadingFromDisk)) {
-                System.out.println(Constants.DIVIDER
-                        + "aaaaand this event is now in your task list:\n"
-                        + Constants.INDENT + event.taskDescription() + "\n"
-                        + listSizeUpdateMessage()
-                        + Constants.DIVIDER);
-            }
-        }
+        case "todo" -> addTodoToList(taskDetails, isMarked, isLoadingFromDisk);
+        case "deadline" -> addDeadlineToList(taskDetails, isMarked, isLoadingFromDisk);
+        case "event" -> addEventToList(taskDetails, isMarked, isLoadingFromDisk);
         default -> throw new UnknownCommandException();
+        }
+    }
+
+    private void addTodoToList(String taskDetails, boolean isMarked, boolean isLoadingFromDisk) {
+        Todo todo = new Todo(taskDetails, isMarked);
+        taskList.add(todo);
+        if (!isLoadingFromDisk) {
+            System.out.println(Constants.DIVIDER
+                    + "i've thrown this to-do into your task list:\n"
+                    + Constants.INDENT + todo.taskDescription() + "\n"
+                    + listSizeUpdateMessage()
+                    + Constants.DIVIDER);
+        }
+    }
+
+    private void addDeadlineToList(String taskDetails, boolean isMarked, boolean isLoadingFromDisk) {
+        String[] taskAndDeadline;
+        if (isLoadingFromDisk) {
+            taskAndDeadline = taskDetails.split(" by ");
+        } else {
+            taskAndDeadline = taskDetails.split(" /by ");
+        }
+        String taskName = taskAndDeadline[0];
+        String deadline = taskAndDeadline[1];
+        Deadline dl = new Deadline(taskName, deadline, isMarked);
+        addTask(dl);
+        if (!isLoadingFromDisk) {
+            System.out.println(Constants.DIVIDER
+                    + "the new deadline's been added to your task list:\n"
+                    + Constants.INDENT + dl.taskDescription() + "\n"
+                    + listSizeUpdateMessage()
+                    + Constants.DIVIDER);
+        }
+    }
+
+    private void addEventToList(String taskDetails, boolean isMarked, boolean isLoadingFromDisk) {
+        String[] taskAndTimings;
+        if (isLoadingFromDisk) {
+            taskAndTimings = taskDetails.split(" from | to ");
+        } else {
+            taskAndTimings = taskDetails.split(" /from | /to ");
+        }
+        String taskName = taskAndTimings[0];
+        String from = taskAndTimings[1];
+        String to = taskAndTimings[2];
+        Event event = new Event(taskName, from, to, isMarked);
+        addTask(event);
+        if (!isLoadingFromDisk) {
+            System.out.println(Constants.DIVIDER
+                    + "aaaaand this event is now in your task list:\n"
+                    + Constants.INDENT + event.taskDescription() + "\n"
+                    + listSizeUpdateMessage()
+                    + Constants.DIVIDER);
         }
     }
 
