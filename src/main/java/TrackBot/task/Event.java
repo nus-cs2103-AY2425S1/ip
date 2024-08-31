@@ -4,8 +4,8 @@ import TrackBot.task.Task;
 import TrackBot.ui.Parser;
 
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    private String from;
+    private String to;
 
     public Event(String desc, String from, String to) {
         super(desc);

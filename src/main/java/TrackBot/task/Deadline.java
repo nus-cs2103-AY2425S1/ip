@@ -3,7 +3,7 @@ package TrackBot.task;
 import TrackBot.ui.Parser;
 
 public class Deadline extends Task {
-    protected String by;
+    private String by;
 //    protected LocalDate date;
 
     public Deadline(String description, String by) {
