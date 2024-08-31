@@ -8,6 +8,12 @@ import momo.task.*;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
+/**
+ * Handles the functionality of adding an event, updating the {@link TaskList} and
+ * {@link Storage} to include it. It also validates the initial user input. If it was
+ * not properly formatted an {@link InvalidCommandException} is thrown which prompts
+ * user to submit a proper input
+ */
 public class EventCommand extends AddCommand {
     public static void run(String input, Storage storage, TaskList tasks) throws InvalidCommandException, StorageException {
         try {

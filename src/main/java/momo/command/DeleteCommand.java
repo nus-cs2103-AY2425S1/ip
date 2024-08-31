@@ -10,6 +10,11 @@ import java.io.IOException;
 
 import static momo.Momo.FILE_PATH;
 
+/**
+ * Handles the delete task functionality, handling the validation of input and
+ * updating the {@link TaskList} and rewriting the {@link Storage} file such that
+ * they do not include the deleted task anymore
+ */
 public class DeleteCommand {
     public static void run(String input, TaskList tasks, Storage storage) throws InvalidCommandException, StorageException {
         try {

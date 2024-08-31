@@ -6,8 +6,10 @@ import momo.task.TaskList;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles Ui related functionality in the chatbot program, handling some user interactions
+ */
 public class Ui {
-    // momo.Ui class should handle greeting, scanning user input, farewell
     public static void showHorizontalLine() {
         System.out.println("____________________________________________________________");
     }
@@ -19,6 +21,10 @@ public class Ui {
         System.out.println("Hello! I'm Momo.\nWhat can I do for you?");
     }
 
+    /**
+     * Scans and returns user input string
+     * @return Returns a String containing user input
+     */
     public String getUserInput() {
         return sc.nextLine();
     }
@@ -38,15 +44,9 @@ public class Ui {
 
     }
 
-
-
-    //TO-DO!!!
-    public void showLoadingError() {
-
-    }
-
-
-    // Show Farewell
+    /**
+     * Shows an ominous farewell message and terminates the program
+     */
     public void showFarewell() {
         String logo =
                         "⣿⣿⣿⡉⢀⣾⣿⡟⣩⣭⣭⡈⠙⢿⣿⣿⣿⣿⣿⡿⣻⣿⣿⣿⣿⣿⣿⣿⡇⠄\n" +

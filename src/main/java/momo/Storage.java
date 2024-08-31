@@ -9,6 +9,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Storage handles the loading, updating and saving of user tasks from the
+ * ArrayList into the Storage object file which is stored in the {@code filePath}
+ */
 public class Storage {
     // Should handle file creation, file loading, load into list
     private final String filePath;
@@ -17,6 +21,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads all tasks from the storage file returning them as a single string.
+     *
+     * @return A string containing all the tasks saved to the storage file
+     */
     public String load() {
         StringBuilder fileString = new StringBuilder();
         try {
@@ -53,12 +62,29 @@ public class Storage {
     }
 
 
+    /**
+     * Appends task in file string format to the storage file, utilised when
+     * todo/deadline/event tasks are added
+     *
+     * @param filePath The file path to the file to be appended to
+     * @param textToAdd Task in file string format to be added
+     * @throws IOException thrown when there are errors writing the string into the file
+     */
     public void addTaskToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAdd + "\n");
         fw.close();
     }
 
+    /**
+     * Rewrites ArrayList of tasks to the storage file when commands are
+     * used to modify/delete pre-existing tasks in the TaskList
+     * like mark/unmark/Delete
+     *
+     * @param filePath path to file which will be rewritten to
+     * @param list ArrayList containing all task objects from the TaskList
+     * @throws IOException thrown when there are errors writing the string into the file
+     */
     public void RewriteTasksToFile(String filePath, ArrayList<Task> list) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task task : list) {

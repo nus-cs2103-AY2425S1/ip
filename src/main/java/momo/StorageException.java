@@ -1,5 +1,9 @@
 package momo;
 
+/**
+ * Handles storage related exceptions - when there are issues
+ * writing into or interpreting files
+ */
 public class StorageException extends MomoException {
 
     public StorageException(String message) {
