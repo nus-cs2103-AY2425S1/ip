@@ -14,13 +14,16 @@
 | T |   | this
 | E |   | y | x ----- z
 | T |   | timeskip
-| D |   | this | 06: 00 pm
+| D | X | this | 06: 00 pm
 | D |   | this | 06: 00 pm
 | T | X | this
 | T |   | eat
 | E |   | this | maybe tomorrow or sometime later ----- years later after graduation
-| T |   | 1600
 | D |   | this | 11:59 pm
 | D |   | this | Saturday 2359
-| T |   | this
 | T |   | that
+| D |   | something | 04:00 pm
+| D |   | something | 04:00 am
+| T |   | this that
+| D | X | something else | 11:59 pm
+| E |   | something over there or elsewhere | Jan 2 2983 12:00 pm ----- May 5 1879 06:00 pm

@@ -146,7 +146,7 @@ public class TaskList {
     /**
      * Finds and prints out the tasks that contain a certain keyword
      *
-     * @param keywords     the keywords used to filter out the relevant tasks
+     * @param keyword     the keyword used to filter out the relevant tasks
      */
     public String findTasks(String keyword) {
         ArrayList<Task> foundMatches = new ArrayList<>();

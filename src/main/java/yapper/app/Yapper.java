@@ -74,7 +74,7 @@ public class Yapper {
             } else if (command.equals("deadline")) {
                 try {
                     String[] deadline = input.split("/by");
-                    String[] desc = deadline[0].split(" ");
+                    String[] desc = deadline[0].split("deadline");
                     return taskList.addTask(new Deadline(desc[1].trim(), deadline[1].trim()));
                 } catch (IndexOutOfBoundsException e) {
                     throw new YapperFormatException("(Format: deadline [DESC] /by [DEADLINE_BY])");
@@ -83,15 +83,15 @@ public class Yapper {
                 try {
                     String[] toDate = input.split("/to");
                     String[] fromDate = toDate[0].split("/from");
-                    String[] desc = fromDate[0].split(" ");
+                    String[] desc = fromDate[0].split("event");
                     return taskList.addTask(new Event(desc[1].trim(), fromDate[1].trim(), toDate[1].trim()));
                 } catch (IndexOutOfBoundsException e) {
                     throw new YapperFormatException("(Format: event [DESC] /from [FROM] /to [TO])");
                 }
             } else if (command.equals("find")) {
                 try {
-                    String keywords = input.split("find")[1].trim();
-                    return taskList.findTasks(keywords);
+                    String keyword = input.split("find")[1].trim();
+                    return taskList.findTasks(keyword);
                 } catch (IndexOutOfBoundsException e) {
                     throw new EmptyDescException("(Format: event find [KEYWORD])");
                 }
