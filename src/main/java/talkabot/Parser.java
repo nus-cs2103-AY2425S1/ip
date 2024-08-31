@@ -1,9 +1,9 @@
 package talkabot;
 
-import talkabot.exceptions.UnknownTimeException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import talkabot.exceptions.UnknownTimeException;
 
 public class Parser {
 
