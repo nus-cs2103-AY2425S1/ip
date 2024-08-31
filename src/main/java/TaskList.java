@@ -19,7 +19,6 @@ public class TaskList {
         switch(getInputFromUser(sc, "(1, 2 or 3) > ")) {
             case "1":
                 this.parent.add(new Todo(task));
-
                 System.out.println("Friday > Okay, I've added a todo: " + task);
                 break;
             case "2":
@@ -43,7 +42,7 @@ public class TaskList {
         Task temp = parent.get(task);
         this.parent.remove(task);
 
-        System.out.println("Friday > Successfully removed: " + temp);
+        System.out.println("Friday > Successfully removed: " + temp.getName());
         System.out.println("Friday > You now have " + getSize() + " total tasks left.");
     }
 
@@ -84,7 +83,7 @@ public class TaskList {
         while (true) {
             System.out.print(template);
             String str = sc.nextLine();
-            if (str.length() <= 0) {
+            if (str.isEmpty()) {
                 System.out.println("Friday > Invalid input! Did you make sure to type something?");
             } else {
                 return str.trim();
