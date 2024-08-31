@@ -20,6 +20,10 @@ import barney.ui.Ui;
  */
 public class DeadlineCommandTest {
 
+    /**
+     * Tests that a deadline task is added when the arguments are valid.
+     *
+     */
     @Test
     public void execute_validArguments_addsDeadlineTask() {
         TaskList tasks = new TaskList();
@@ -41,9 +45,12 @@ public class DeadlineCommandTest {
             assertEquals(1, tasks.size());
             assertTrue(tasks.get(0) instanceof DeadlineTask);
             // Verify the output
-            String expectedOutput = "Got it. I've added this task:\r\n" + //
-                    "[D][ ] return book (by: June 6th)\r\n" + //
-                    "Now you have 1 tasks in the list.";
+            String expectedOutput = """
+                    Got it. I've added this task:\r
+                    [D][ ] return book (by: June 6th)\r
+                    Now you have 1 tasks in the list.""" //
+            //
+            ;
 
             assertTrue(outContent.toString().contains(expectedOutput));
         } catch (InvalidArgumentException e) {
@@ -51,6 +58,108 @@ public class DeadlineCommandTest {
         } finally {
             // Restore the original System.out
             System.setOut(originalOut);
+        }
+    }
+
+    /**
+     * Tests that an InvalidArgumentException is thrown when the description is
+     * missing.
+     */
+    @Test
+    public void execute_missingDescription_throwsInvalidArgumentException() {
+        TaskList tasks = new TaskList();
+        Ui ui = new Ui();
+        HashMap<String, String> argumentMap = new HashMap<>();
+        argumentMap.put("by", "June 6th");
+
+        try {
+            DeadlineCommand command = new DeadlineCommand(argumentMap);
+            command.execute(tasks, ui);
+            fail("InvalidArgumentException should be thrown");
+        } catch (InvalidArgumentException e) {
+            assertEquals("Missing description for deadline!", e.getMessage());
+        }
+    }
+
+    /**
+     * Tests that an InvalidArgumentException is thrown when the by is missing.
+     */
+    @Test
+    public void execute_missingBy_throwsInvalidArgumentException() {
+        TaskList tasks = new TaskList();
+        Ui ui = new Ui();
+        HashMap<String, String> argumentMap = new HashMap<>();
+        argumentMap.put("description", "return book");
+
+        try {
+            DeadlineCommand command = new DeadlineCommand(argumentMap);
+            command.execute(tasks, ui);
+            fail("InvalidArgumentException should be thrown");
+        } catch (InvalidArgumentException e) {
+            assertEquals("Missing by for deadline!", e.getMessage());
+        }
+    }
+
+    /**
+     * Tests that an InvalidArgumentException is thrown when the description is
+     * empty.
+     */
+    @Test
+    public void execute_emptyDescription_throwsInvalidArgumentException() {
+        TaskList tasks = new TaskList();
+        Ui ui = new Ui();
+        HashMap<String, String> argumentMap = new HashMap<>();
+        argumentMap.put("description", "");
+        argumentMap.put("by", "June 6th");
+
+        try {
+            DeadlineCommand command = new DeadlineCommand(argumentMap);
+            command.execute(tasks, ui);
+            fail("InvalidArgumentException should be thrown");
+        } catch (InvalidArgumentException e) {
+            assertEquals("The description of a deadline cannot be empty!", e.getMessage());
+        }
+    }
+
+    /**
+     * Tests that an InvalidArgumentException is thrown when the by is empty.
+     */
+    @Test
+    public void execute_emptyBy_throwsInvalidArgumentException() {
+        TaskList tasks = new TaskList();
+        Ui ui = new Ui();
+        HashMap<String, String> argumentMap = new HashMap<>();
+        argumentMap.put("description", "return book");
+        argumentMap.put("by", "");
+
+        try {
+            DeadlineCommand command = new DeadlineCommand(argumentMap);
+            command.execute(tasks, ui);
+            fail("InvalidArgumentException should be thrown");
+        } catch (InvalidArgumentException e) {
+            assertEquals("The by of a deadline cannot be empty!", e.getMessage());
+        }
+    }
+
+    /**
+     * Tests that an InvalidArgumentException is thrown when there are extra
+     * arguments.
+     */
+    @Test
+    public void execute_extraArguments_throwsInvalidArgumentException() {
+        TaskList tasks = new TaskList();
+        Ui ui = new Ui();
+        HashMap<String, String> argumentMap = new HashMap<>();
+        argumentMap.put("description", "return book");
+        argumentMap.put("by", "June 6th");
+        argumentMap.put("extra", "extra");
+
+        try {
+            DeadlineCommand command = new DeadlineCommand(argumentMap);
+            command.execute(tasks, ui);
+            fail("InvalidArgumentException should be thrown");
+        } catch (InvalidArgumentException e) {
+            assertEquals("Extra arguments found for deadline!", e.getMessage());
         }
     }
 }

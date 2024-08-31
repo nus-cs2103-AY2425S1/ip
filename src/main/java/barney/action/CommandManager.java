@@ -7,10 +7,10 @@ import barney.action.commands.DeadlineCommand;
 import barney.action.commands.DeleteCommand;
 import barney.action.commands.EndCommand;
 import barney.action.commands.EventCommand;
+import barney.action.commands.FindCommand;
 import barney.action.commands.ListCommand;
 import barney.action.commands.MarkCommand;
 import barney.action.commands.TodoCommand;
-import barney.action.commands.FindCommand;
 import barney.data.exception.BarneyException;
 import barney.data.exception.InvalidCommandException;
 
