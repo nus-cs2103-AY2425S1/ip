@@ -12,6 +12,10 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    public TaskList(TaskList taskList) {
+        this.tasks = taskList.getAllTasks();
+    }
+
     public void addTask(Task task) {
         tasks.add(task);
     }
