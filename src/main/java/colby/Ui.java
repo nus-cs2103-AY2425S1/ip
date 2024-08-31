@@ -52,6 +52,7 @@ public class Ui {
     }
 
     public void showUnknownCommandMessage() {
-        System.out.println("Sorry!! I'm not sure how to add that to the list for you, try specifying the type of task!");
+        System.out.println("Sorry!! I'm not sure how to add that to the list for you, " +
+                "try specifying the type of task!");
     }
 }
