@@ -34,10 +34,9 @@ public class Processor {
      *
      * @param command         the {@link Command} to process.
      * @param taskList        the {@link TaskList} to modify based on the command.
-     * @param shouldContinue a boolean indicating whether to continue processing commands.
      * @return {@code false} if the {@code BYE} command is issued, otherwise {@code true}.
      */
-    public boolean handleCommand(Command command, TaskList taskList, boolean shouldContinue) {
+    public String handleCommand(Command command, TaskList taskList) {
         CommandTypes commandType = command.commandType();
 
         String commandDetails = Arrays.stream(command.commandDetails())
@@ -46,45 +45,32 @@ public class Processor {
 
         switch (commandType) {
         case LIST:
-            FormattedPrinting.printList(taskList);
-            break;
+            return FormattedPrinting.printList(taskList);
 
         case FIND:
             TaskList foundTasks = taskList.findTasks(commandDetails);
-            FormattedPrinting.printSimilarTasks(foundTasks);
-            break;
+            return FormattedPrinting.printSimilarTasks(foundTasks);
 
         case MARK:
         case UNMARK:
         case DELETE:
-            markUnmarkOrDelete(commandDetails, taskList, commandType);
-            break;
+            return markUnmarkOrDelete(commandDetails, taskList, commandType);
 
         case TODO:
         case DEADLINE:
         case EVENT:
-            createTask(commandDetails, taskList, commandType);
-            break;
+            return createTask(commandDetails, taskList, commandType);
 
         case CLEAR_TASKS:
-            taskList.clearList();
             Storage.clearListFile();
-            break;
+            return taskList.clearList();
 
         case UPCOMING_TASKS:
-            upcomingTasks(taskList);
-            break;
-
-        case BYE:
-            shouldContinue = false;
-            break;
+            return upcomingTasks(taskList);
 
         default:
-            FormattedPrinting.unknownCommand();
-            break;
+            return FormattedPrinting.unknownCommand();
         }
-
-        return shouldContinue;
     }
 
     /**
@@ -98,24 +84,31 @@ public class Processor {
      * @param taskList       the {@link TaskList} containing the tasks to modify.
      * @param commandType    the {@link CommandTypes} indicating the action to perform.
      */
-    public void markUnmarkOrDelete(String commandDetails, TaskList taskList, CommandTypes commandType) {
+    public String markUnmarkOrDelete(String commandDetails, TaskList taskList, CommandTypes commandType) {
+        String response = "";
         try {
             int index = Integer.parseInt(commandDetails) - 1;
             Task newTask = taskList.getTask(index);
             if (newTask != null) {
                 if (commandType == CommandTypes.MARK) {
-                    newTask.markDone();
+                    response = newTask.markDone();
                     Storage.refreshStorageFile(taskList);
                 } else if (commandType == CommandTypes.UNMARK) {
-                    newTask.markUndone();
+                    response = newTask.markUndone();
                     Storage.refreshStorageFile(taskList);
                 } else {
-                    taskList.deleteTask(newTask);
+                    response = taskList.deleteTask(newTask);
                 }
             }
         } catch (NumberFormatException e) {
-            FormattedPrinting.unknownNumber();
+            response = FormattedPrinting.unknownNumber();
+        } catch (Exception e) {
+            if (taskList.isEmpty()) {
+                return FormattedPrinting.emptyList();
+            }
+            return FormattedPrinting.outOfListBounds(taskList);
         }
+        return response;
     }
 
     /**
@@ -130,7 +123,7 @@ public class Processor {
      * @param taskList       the {@link TaskList} to add the new task to.
      * @param commandType    the {@link CommandTypes} indicating the type of task to create.
      */
-    public void createTask(String commandDetails, TaskList taskList, CommandTypes commandType) {
+    public String createTask(String commandDetails, TaskList taskList, CommandTypes commandType) {
         try {
             Task newTask;
             if (commandType == CommandTypes.TODO) {
@@ -140,11 +133,11 @@ public class Processor {
             } else {
                 newTask = new Events(commandDetails);
             }
-            taskList.addTask(newTask);
+            return taskList.addTask(newTask);
         } catch (ArrayIndexOutOfBoundsException e) {
-            FormattedPrinting.invalidNumberOfDetails();
+            return FormattedPrinting.invalidNumberOfDetails();
         } catch (DateTimeParseException e) {
-            FormattedPrinting.invalidDate();
+            return FormattedPrinting.invalidDate();
         }
     }
 
@@ -156,7 +149,7 @@ public class Processor {
      *
      * @param taskList the {@link TaskList} containing the tasks to check for upcoming due dates.
      */
-    public void upcomingTasks(TaskList taskList) {
+    public String upcomingTasks(TaskList taskList) {
         ArrayList<Task> tasks = new ArrayList<>();
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
@@ -168,7 +161,7 @@ public class Processor {
                 }
             }
         }
-        FormattedPrinting.upcomingDeadlinesEvents(tasks);
+        return FormattedPrinting.upcomingDeadlinesEvents(tasks);
     }
 
 }

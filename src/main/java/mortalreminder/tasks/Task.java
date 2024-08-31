@@ -64,12 +64,12 @@ public abstract class Task {
      * If the task is already marked as done, it calls the {@code markError} method
      * from {@code FormattedPrinting} to print an error message.
      */
-    public void markDone() {
+    public String markDone() {
         if (!this.isDone) {
             this.isDone = true;
-            FormattedPrinting.printMarked(this);
+            return FormattedPrinting.printMarked(this);
         } else {
-            FormattedPrinting.markError();
+            return FormattedPrinting.markError();
         }
     }
 
@@ -82,12 +82,12 @@ public abstract class Task {
      * If the task is already marked as not done, it calls the {@code unmarkError} method
      * from {@code FormattedPrinting} to print an error message.
      */
-    public void markUndone() {
+    public String markUndone() {
         if (this.isDone) {
             this.isDone = false;
-            FormattedPrinting.printUnmarked(this);
+            return FormattedPrinting.printUnmarked(this);
         } else {
-            FormattedPrinting.unmarkError();
+            return FormattedPrinting.unmarkError();
         }
     }
 

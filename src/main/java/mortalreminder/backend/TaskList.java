@@ -1,5 +1,6 @@
 package mortalreminder.backend;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -29,16 +30,15 @@ public class TaskList {
      * @return the {@link Task} at the specified index, or {@code null} if the index is invalid.
      */
     public Task getTask(int index) {
-        try {
-            return this.taskList.get(index);
-        } catch (Exception e) {
-            if (this.taskList.isEmpty()) {
-                FormattedPrinting.emptyList();
-                return null;
-            }
-            FormattedPrinting.outOfListBounds(this);
-            return null;
-        }
+        return this.taskList.get(index);
+    }
+
+    public ArrayList<Task> getTaskList() {
+        return this.taskList;
+    }
+
+    public boolean isEmpty() {
+        return this.taskList.isEmpty();
     }
 
     /**
@@ -50,13 +50,17 @@ public class TaskList {
      *
      * @param task the {@link Task} to add.
      */
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         if (!Objects.equals(task.getDescription().trim(), "")) {
-            Storage.appendToListFile(task);
+            try {
+                Storage.appendToListFile(task);
+            } catch (IOException e) {
+                return FormattedPrinting.taskUnableToBeStoredInFile();
+            }
             this.taskList.add(task);
-            FormattedPrinting.addTask(task, this);
+            return FormattedPrinting.addTask(task, this);
         } else {
-            FormattedPrinting.descriptionEmptyError();
+            return FormattedPrinting.descriptionEmptyError();
         }
     }
 
@@ -82,13 +86,17 @@ public class TaskList {
      *
      * @param task the {@link Task} to delete.
      */
-    public void deleteTask(Task task) {
+    public String deleteTask(Task task) {
         if (!Objects.equals(task.getDescription().trim(), "")) {
             this.taskList.remove(task);
-            Storage.refreshStorageFile(this);
-            FormattedPrinting.deleteTask(task, this);
+            try {
+                Storage.refreshStorageFile(this);
+            } catch (IOException e) {
+                return FormattedPrinting.fileCorrupted();
+            }
+            return FormattedPrinting.deleteTask(task, this);
         } else {
-            FormattedPrinting.descriptionEmptyError();
+            return FormattedPrinting.descriptionEmptyError();
         }
     }
 
@@ -120,9 +128,9 @@ public class TaskList {
     /**
      * Clears all tasks from the list and prints a confirmation message.
      */
-    public void clearList() {
+    public String clearList() {
         this.taskList.clear();
-        FormattedPrinting.clearList();
+        return FormattedPrinting.clearList();
     }
 
     /**

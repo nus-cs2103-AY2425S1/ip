@@ -1,5 +1,7 @@
 package mortalreminder.backend;
 
+import java.util.ArrayList;
+
 import mortalreminder.tasks.Task;
 
 public class TaskListStub extends TaskList {
@@ -8,7 +10,8 @@ public class TaskListStub extends TaskList {
     }
 
     @Override
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         this.taskList.add(task);
+        return "";
     }
 }
