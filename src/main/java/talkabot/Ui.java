@@ -23,7 +23,7 @@ public class Ui {
     }
 
     public void echo(Task task, int total) {
-        System.out.println(String.format("Got it. I've added this talkabot.task:\n%s\nto your list!"
+        System.out.println(String.format("Got it. I've added this task:\n%s\nto your list!"
                         + "\nYou now have " + total + " tasks.", task));
     }
 
