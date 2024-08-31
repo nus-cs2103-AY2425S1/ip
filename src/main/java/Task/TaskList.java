@@ -5,7 +5,6 @@ import Utilities.Ui;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-
 /**
  * Manages the list of tasks, including adding, removing, marking, and unmarking tasks.
  */
@@ -16,7 +15,6 @@ public class TaskList {
     public TaskList(){
         this.ui = new Ui();
     }
-
 
     /**
      * Marks a task as done.
@@ -33,7 +31,6 @@ public class TaskList {
         }
     }
 
-
     /**
      * Unmarks a task, indicating it is not done.
      *
@@ -48,7 +45,6 @@ public class TaskList {
             ui.noTask();
         }
     }
-
 
     /**
      * Deletes a task from the list.
@@ -65,7 +61,6 @@ public class TaskList {
         }
 
     }
-
 
     /**
      * Adds a new task to the list.
@@ -85,7 +80,6 @@ public class TaskList {
         ui.alterTask(tasks, newTask, true);
     }
 
-
     /**
      * Searches for tasks that contain the specified keyword and displays the matching tasks.
      *
@@ -101,7 +95,6 @@ public class TaskList {
                 foundTasks.add((i + 1) + ". " + tasks.get(i));
             }
         }
-
         ui.foundTask(foundTasks);
     }
 }

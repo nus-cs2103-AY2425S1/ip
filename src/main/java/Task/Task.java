@@ -2,11 +2,11 @@ package Task;
 
 public class Task {
 
-    private final String desc;
+    private final String DESC;
     private boolean isDone;
 
     public Task(String desc) {
-        this.desc = desc;
+        this.DESC = desc;
         this.isDone = false;
     }
 
@@ -18,7 +18,7 @@ public class Task {
         this.isDone = false;
     }
 
-    String getType() {
+    public String getType() {
         return "[ ]";
     }
 
@@ -27,11 +27,11 @@ public class Task {
     }
 
     public String getDesc(){
-        return this.desc;
+        return this.DESC;
     }
 
     @Override
     public String toString() {
-        return getType() + (isDone ? "[X] " : "[ ] ") + desc;
+        return getType() + (isDone ? "[X] " : "[ ] ") + DESC;
     }
 }

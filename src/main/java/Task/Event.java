@@ -4,31 +4,31 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task{
-    private final LocalDateTime from;
-    private final LocalDateTime to;
+    private final LocalDateTime FROM;
+    private final LocalDateTime TO;
 
     public Event(String desc, LocalDateTime from, LocalDateTime to) {
         super(desc);
-        this.from = from;
-        this.to = to;
+        this.FROM = from;
+        this.TO = to;
     }
 
     @Override
-    String getType() {
+    public String getType() {
         return "[E]";
     }
 
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
+        return super.toString() + " (from: " + FROM.format(formatter) + " to: " + TO.format(formatter) + ")";
     }
 
     public LocalDateTime getFrom(){
-        return this.from;
+        return this.FROM;
     }
 
     public LocalDateTime getTo(){
-        return this.to;
+        return this.TO;
     }
 }

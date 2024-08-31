@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Storage {
 
-    private static final String filePath = "./data/db.txt";
+    private static final String FILEPATH = "./data/db.txt";
 
     /**
      * Loads tasks from the file into the provided task list.
@@ -24,11 +24,11 @@ public class Storage {
      */
     public void load(ArrayList<Task> tasks) {
 
-        new FileChecker(filePath);
+        new FileChecker(FILEPATH);
 
         Parser dateTimeParser = new Parser();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILEPATH))) {
             try{
                 String line;
 
@@ -69,10 +69,12 @@ public class Storage {
     }
 
     /**
-     * @param tasks
+     * Saves the provided task list to the file.
+     *
+     * @param tasks The list of tasks to save.
      */
     public void save(ArrayList<Task> tasks){
-        try (FileWriter writer = new FileWriter(filePath, false)) {  // 'false' to overwrite the file
+        try (FileWriter writer = new FileWriter(FILEPATH, false)) {  // 'false' to overwrite the file
             for (Task task : tasks) {
                 String line = getString(task);
                 writer.write(line + "\n");
@@ -83,9 +85,9 @@ public class Storage {
     }
 
     /**
-     * Saves the provided task list to the file.
+     * Format task object to string.
      *
-     * @param task The list of tasks to save.
+     * @param task Task to format.
      */
     public String getString(Task task) {
         String taskType = task instanceof ToDo ? "T" : task instanceof Deadline ? "D" : "E";

@@ -12,7 +12,7 @@ public class Deadline extends Task{
     }
 
     @Override
-    String getType() {
+    public String getType() {
         return "[D]";
     }
 

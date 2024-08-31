@@ -6,7 +6,7 @@ public class ToDo extends Task{
     }
 
     @Override
-    String getType() {
+    public String getType() {
         return "[T]";
     }
 }
