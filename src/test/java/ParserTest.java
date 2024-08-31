@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import command.Command;
+import psu.Parser;
 
 public class ParserTest {
     @Test

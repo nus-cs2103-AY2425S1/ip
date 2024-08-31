@@ -1,3 +1,5 @@
+package psu;
+
 import java.util.Scanner;
 
 import command.Command;
