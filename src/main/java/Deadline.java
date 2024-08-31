@@ -6,6 +6,14 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Returns the due date/time/etc of the deadline.
+     * @return The due of the deadline
+     */
+    public String getBy() {
+        return by;
+    }
+
     @Override
     public String toString() {
         String prev = super.toString();
