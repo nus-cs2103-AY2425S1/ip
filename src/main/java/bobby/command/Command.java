@@ -16,7 +16,7 @@ package bobby.command;
  * </p>
  */
 public enum Command {
-    BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND;
+    BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN, FIND, SEARCHDATE;
 
     /**
      *Returns the corresponding {@code Command} enum constant for a given input string.
@@ -30,26 +30,28 @@ public enum Command {
     public static Command fromString(String input) {
         String command = input.split(" ")[0].toLowerCase();
         switch (command) {
-            case "bye":
-                return BYE;
-            case "list":
-                return LIST;
-            case "mark":
-                return MARK;
-            case "unmark":
-                return UNMARK;
-            case "delete":
-                return DELETE;
-            case "todo":
-                return TODO;
-            case "deadline":
-                return DEADLINE;
-            case "event":
-                return EVENT;
-            case "find":
-                return FIND;
-            default:
-                return UNKNOWN;
+        case "bye":
+            return BYE;
+        case "list":
+            return LIST;
+        case "mark":
+            return MARK;
+        case "unmark":
+            return UNMARK;
+        case "delete":
+            return DELETE;
+        case "todo":
+            return TODO;
+        case "deadline":
+            return DEADLINE;
+        case "event":
+            return EVENT;
+        case "find":
+            return FIND;
+        case "searchdate":
+            return SEARCHDATE;
+        default:
+            return UNKNOWN;
         }
     }
 }
