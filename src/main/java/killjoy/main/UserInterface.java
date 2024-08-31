@@ -1,4 +1,4 @@
-package chatbot.util;
+package killjoy.main;
 
 public class UserInterface {
     private KillJoy kj;

@@ -1,6 +1,4 @@
-package chatbot.util;
-
-import chatbot.util.Task;
+package killjoy.task;
 
 public class Task {
     protected String description;
