@@ -1,20 +1,58 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Vecrosen {
 
+    private enum TaskType {todo, deadline, event};
+    private static ArrayList<Task> list;
+
     private static void speak(String s) {
         System.out.print("    ");
         System.out.println(s);
     }
 
+    /**
+     * Saves the task list to vecrosen.txt.
+     */
+    private static void save() {
+        try {
+            File f = new File("data/vecrosen.txt");
+            FileWriter fw = new FileWriter(f);
+            for (int i = 0; i < list.size(); ++i) {
+                Task t = list.get(i);
+                fw.write(t.getDescription());
+                fw.write(" " + t.isDone());
+                if (t.getClass() == Task.class) {
+                    fw.write(" " + TaskType.todo.ordinal() + " ");
+                } else if (t.getClass() == Deadline.class) {
+                    fw.write(" " + TaskType.deadline.ordinal() + " ");
+                    Deadline d = (Deadline) t;
+                    fw.write(d.getBy());
+                } else if (t.getClass() == Event.class) {
+                    fw.write(" " + TaskType.event.ordinal() + " ");
+                    Event e = (Event) t;
+                    fw.write(e.getBegin());
+                    fw.write(e.getEnd());
+                } else {
+                    System.err.println("Unrecognized task type when saving!");
+                }
+                fw.write('\n');
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.err.println("Savefile cannot be accessed!");
+        }
+    }
+
     public static void main(String[] args) {
         speak("Hello, I'm Vecrosen.");
         speak("What can I do for you?");
-        ArrayList<Task> list = new ArrayList<Task>();
+        list = new ArrayList<Task>();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input;
@@ -95,6 +133,7 @@ public class Vecrosen {
                 speak("Sorry, I don't understand.");
                 speak("Commands: todo deadline event mark unmark delete list bye");
             }
+            save();
         }
         speak("Bye. Hope to see you again soon!");
     }

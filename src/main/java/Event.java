@@ -7,6 +7,22 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * Returns the start of the event.
+     * @return The start of the event
+     */
+    public String getBegin() {
+        return this.begin;
+    }
+
+    /**
+     * Returns the end of the event.
+     * @return The end of the event
+     */
+    public String getEnd() {
+        return this.end;
+    }
+
     @Override
     public String toString() {
         String prev = super.toString();
