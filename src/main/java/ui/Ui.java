@@ -75,6 +75,16 @@ public class Ui {
         System.out.println(BREAKLINE);
     }
 
+    public void showFindTask(String keyword, ArrayList<Task> matchingTasks) {
+        System.out.println(BREAKLINE);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.printf("%d.[%s][%s] %s%n", i + 1, matchingTasks.get(i).getType(),
+                                matchingTasks.get(i).getStatusIcon(), matchingTasks.get(i));
+        }
+        System.out.println(BREAKLINE);
+    }
+
     public String readCommand() {
         return scanner.nextLine();
     }

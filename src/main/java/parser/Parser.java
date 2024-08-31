@@ -8,6 +8,7 @@ import task.*;
 import ui.Ui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Parser {
@@ -16,36 +17,40 @@ public class Parser {
         String action = slicedStr[0];
 
         switch (action) {
-            case "list":
-                ui.showTaskList(taskList.getTasks());
-                break;
+        case "list":
+            ui.showTaskList(taskList.getTasks());
+            break;
 
-            case "mark":
-                handleMarkCommand(slicedStr, taskList, ui, storage, true);
-                break;
+        case "mark":
+            handleMarkCommand(slicedStr, taskList, ui, storage, true);
+            break;
 
-            case "unmark":
-                handleMarkCommand(slicedStr, taskList, ui, storage, false);
-                break;
+        case "unmark":
+            handleMarkCommand(slicedStr, taskList, ui, storage, false);
+            break;
 
-            case "todo":
-                handleTodoCommand(slicedStr, taskList, ui, storage);
-                break;
+        case "todo":
+            handleTodoCommand(slicedStr, taskList, ui, storage);
+            break;
 
-            case "deadline":
-                handleDeadlineCommand(slicedStr, taskList, ui, storage);
-                break;
+        case "deadline":
+            handleDeadlineCommand(slicedStr, taskList, ui, storage);
+            break;
 
-            case "event":
-                handleEventCommand(slicedStr, taskList, ui, storage);
-                break;
+        case "event":
+            handleEventCommand(slicedStr, taskList, ui, storage);
+            break;
 
-            case "delete":
-                handleDeleteCommand(slicedStr, taskList, ui, storage);
-                break;
+        case "delete":
+            handleDeleteCommand(slicedStr, taskList, ui, storage);
+            break;
 
-            default:
-                throw new InvalidInputException("I'm sorry, but I don't know what that means :-(");
+        case "find":
+            handleFindCommand(slicedStr, taskList, ui, storage);
+            break;
+
+        default:
+            throw new InvalidInputException("I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -102,6 +107,8 @@ public class Parser {
             ui.showErrorMessage("Error saving tasks: " + e.getMessage());
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showErrorMessage("Error saving tasks details: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            ui.showErrorMessage(e.getMessage());
         }
     }
 
@@ -119,12 +126,14 @@ public class Parser {
             ui.showErrorMessage("Error saving tasks: " + e.getMessage());
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showErrorMessage("Error saving tasks details. Please enter a valid description or date");
+        } catch (IllegalArgumentException e) {
+            ui.showErrorMessage(e.getMessage());
         }
     }
 
     private static void handleDeleteCommand(String[] slicedStr, TaskList taskList, Ui ui, Storage storage) throws TaskIndexOutOfBound, InvalidInputException {
         if (slicedStr.length < 2) {
-                throw new InvalidInputException("Please provide a task number to delete.");
+            throw new InvalidInputException("Please provide a task number to delete.");
         }
 
         int taskIndex = Integer.parseInt(slicedStr[1]) - 1;
@@ -137,6 +146,21 @@ public class Parser {
         } catch (IOException e) {
             ui.showErrorMessage("Error saving tasks: " + e.getMessage());
         }
+    }
+
+    private static void handleFindCommand(String[] slicedStr, TaskList taskList, Ui ui, Storage storage) throws InvalidInputException{
+        if (slicedStr.length < 2) {
+            throw new InvalidInputException("Please indicate what you want to find.");
+        }
+
+        String keyword = slicedStr[1];
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : taskList.getTasks()) {
+            if (task.toString().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        ui.showFindTask(keyword, matchingTasks);
     }
 
 
