@@ -67,28 +67,30 @@ public class Storage {
         Task taskToAdd = null;
 
         switch (stringifiedTask.charAt(0)) {
-            case 'T': {
-                taskToAdd = new ToDo(description);
-                break;
-            }
-            case 'D': {
-                String[] segments = description.split("/");
-                int index = 0;
-                for(int i = 0; i < description.length(); i++) {
-                    if (description.charAt(i) == '/') {
-                        index = i + 4;
-                        break;
-                    }
-                }
-                taskToAdd = new Deadline(segments[0], description.substring(index));
-                break;
-            }
-            case 'E': {
-                String[] segments = description.split("/");
-                taskToAdd = new Event(segments[0], segments[1].substring(6), segments[2].substring(4));
+        case 'T':
+            taskToAdd = new ToDo(description);
+            break;
 
-                break;
+        case 'D':
+            String[] deadlineSegments = description.split("/");
+            int index = 0;
+            for(int i = 0; i < description.length(); i++) {
+                if (description.charAt(i) == '/') {
+                    index = i + 4;
+                    break;
+                }
             }
+            taskToAdd = new Deadline(deadlineSegments[0], description.substring(index));
+            break;
+
+        case 'E':
+            String[] eventSegments = description.split("/");
+            taskToAdd = new Event(eventSegments[0],
+                    eventSegments[1].substring(6),
+                    eventSegments[2].substring(4));
+
+            break;
+
         }
 
         if (isDone) {

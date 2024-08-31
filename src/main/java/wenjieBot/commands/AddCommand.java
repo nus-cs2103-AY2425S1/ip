@@ -1,6 +1,8 @@
 package wenjieBot.commands;
 
-import wenjieBot.*;
+import wenjieBot.Storage;
+import wenjieBot.Ui;
+import wenjieBot.TaskList;
 import wenjieBot.tasks.Deadline;
 import wenjieBot.tasks.Task;
 import wenjieBot.tasks.ToDo;
@@ -33,36 +35,36 @@ public class AddCommand extends Command {
         ArrayList<Task> taskList = tasks.getTasks();
 
         switch (typeOfEvent) {
-            case TODO: {
-                if (getInput().length() <= 5) {
-                    throw new NoFollowUpException();
-                }
-                ToDo temp = new ToDo(getInput().substring(5));
-                taskList.add(temp);
-                printAcknowledgeMessage(taskList.size(), ui, temp);
-
-                break;
+        case TODO:
+            if (getInput().length() <= 5) {
+                throw new NoFollowUpException();
             }
+            ToDo todo = new ToDo(getInput().substring(5));
+            taskList.add(todo);
+            printAcknowledgeMessage(taskList.size(), ui, todo);
 
-            case DEADLINE: {
+            break;
 
-                Deadline temp = getDeadline();
-                taskList.add(temp);
 
-                printAcknowledgeMessage(taskList.size(), ui, temp);
+        case DEADLINE:
 
-                break;
-            }
+            Deadline deadline = getDeadline();
+            taskList.add(deadline);
 
-            case EVENT: {
+            printAcknowledgeMessage(taskList.size(), ui, deadline);
 
-                Event temp = getEvent();
-                taskList.add(temp);
+            break;
 
-                printAcknowledgeMessage(taskList.size(), ui, temp);
 
-                break;
-            }
+        case EVENT:
+
+            Event event = getEvent();
+            taskList.add(event);
+
+            printAcknowledgeMessage(taskList.size(), ui, event);
+
+            break;
+
         }
     }
 
