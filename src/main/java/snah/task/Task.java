@@ -41,6 +41,16 @@ public class Task {
         return String.format("T:%s:%s", isDone() ? "x" : "", getDescription());
     }
 
+    /**
+     * Returns true if the task contains the keyword.
+     * 
+     * @param keyword
+     * @return boolean
+     */
+    public boolean contains(String keyword) {
+        return getDescription().contains(keyword);
+    }
+
     @Override
     public String toString() {
         return String.format("%s %s", printStatus(), getDescription());

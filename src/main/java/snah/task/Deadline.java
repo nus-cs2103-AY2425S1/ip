@@ -19,6 +19,18 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns true if the task
+     * contains the keyword, including the 'by' field.
+     *
+     * @param keyword
+     * @return boolean
+     */
+    @Override
+    public boolean contains(String keyword) {
+        return super.contains(keyword) || by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")).contains(keyword);
+    }
+
+    /**
      * Returns the Deadline in the format to save to file
      * 
      * @return Deadline in the format to save to file

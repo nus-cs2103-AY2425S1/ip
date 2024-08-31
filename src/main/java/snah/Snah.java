@@ -128,6 +128,29 @@ public class Snah {
                     ui.printf("  %s", tasksList.get(tasksList.size() - 1));
                     break;
                 }
+                case FIND: {
+                    String keyword = Parser.getSearchQuery(userInput);
+
+                    if (keyword == null) {
+                        ui.print("Oi, you need to provide a keyword to search for");
+                        ui.print("Format as such:");
+                        ui.print("  search <keyword>");
+                        continue;
+                    }
+
+                    ArrayList<Task> searchResults = tasksList.search(keyword);
+
+                    if (searchResults.isEmpty()) {
+                        ui.print("No tasks found with the keyword");
+                        continue;
+                    }
+
+                    ui.print("Here are the tasks in your list:");
+                    for (int i = 0; i < searchResults.size(); i++) {
+                        ui.printf("%d. %s", i + 1, searchResults.get(i));
+                    }
+                    break;
+                }
                 case DELETE: {
                     int taskIndex = Parser.getTaskIndex(userInput);
 

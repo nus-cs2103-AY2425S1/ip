@@ -6,7 +6,17 @@ package snah.util;
 public class Parser {
 
     public enum Command {
-        BYE, LIST, MARK, UNMARK, DEADLINE, EVENT, TODO, DELETE, CLEAR, INVALID
+        BYE,
+        LIST,
+        MARK,
+        UNMARK,
+        DEADLINE,
+        EVENT,
+        TODO,
+        DELETE,
+        CLEAR,
+        INVALID,
+        FIND
     }
 
     /**
@@ -36,6 +46,8 @@ public class Parser {
                 return Command.DELETE;
             case "BYE":
                 return Command.BYE;
+            case "FIND":
+                return Command.FIND;
             default:
                 return Command.INVALID;
         }
@@ -117,6 +129,18 @@ public class Parser {
      */
     public static int getTaskIndex(String input) {
         return Integer.parseInt(input.split(" ", 2)[1].strip()) - 1;
+    }
+
+    public static String getSearchQuery(String input) {
+        String[] searchPayload = input.split(" ", 2);
+        if (searchPayload.length == 1) {
+            return null;
+        }
+        return input.split(" ", 2)[1];
+    }
+
+    public static String[] getCommandStrings() {
+        return Command.values().toString().replaceAll("^.|.$", "").split(", ");
     }
 
 }
