@@ -119,6 +119,21 @@ public class JohnCena {
             System.out.println("   " + task);
             System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
             System.out.println("____________________________________________________________");
+        } else if (input.startsWith("delete ")) {
+            try {
+                int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+                if (taskIndex < 0 || taskIndex >= tasks.size()) {
+                    throw new CenaInvalidTaskIndexException("The task index is invalid.");
+                }
+                Task removedTask = tasks.remove(taskIndex);
+                System.out.println("____________________________________________________________");
+                System.out.println(" Noted. I've removed this task:");
+                System.out.println("   " + removedTask);
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                System.out.println("____________________________________________________________");
+            } catch (NumberFormatException e) {
+                throw new CenaInvalidTaskIndexException("The task index must be a number.");
+            }
         } else {
             throw new CenaUnknownCommandException("I'm sorry, but I don't know what that means :-(\n  Please use a valid command (todo, deadline or event)");
         }
