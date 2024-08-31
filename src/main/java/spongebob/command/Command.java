@@ -1,6 +1,6 @@
 package spongebob.command;
 
-import spongebob.Ui;
+import spongebob.ui.Ui;
 import spongebob.storage.Storage;
 import spongebob.storage.TaskList;
 
@@ -11,7 +11,7 @@ import spongebob.storage.TaskList;
 
 public abstract class Command {
 
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage);
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage);
 
     public abstract boolean isExit();
 

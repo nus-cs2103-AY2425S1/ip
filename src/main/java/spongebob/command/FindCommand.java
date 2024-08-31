@@ -2,7 +2,7 @@ package spongebob.command;
 
 import java.util.ListIterator;
 
-import spongebob.Ui;
+import spongebob.ui.Ui;
 import spongebob.storage.Storage;
 import spongebob.storage.TaskList;
 import spongebob.task.Task;
@@ -27,7 +27,7 @@ public class FindCommand extends Command {
      * @param storage   Storage of Spongebob
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         String keyword = arguments[1];
         StringBuilder builder = new StringBuilder();
         ListIterator<Task> iter = taskList.find(keyword).listIterator();
@@ -35,7 +35,7 @@ public class FindCommand extends Command {
             Task cur = iter.next();
             builder.append((iter.previousIndex() + 1) + "." + cur + "\n");
         }
-        ui.showFindTask(builder.toString());
+        return ui.showFindTask(builder.toString());
 
     }
 

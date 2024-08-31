@@ -1,6 +1,6 @@
 package spongebob.command;
 
-import spongebob.Ui;
+import spongebob.ui.Ui;
 import spongebob.storage.Storage;
 import spongebob.storage.TaskList;
 import spongebob.task.Task;
@@ -24,14 +24,13 @@ public class MarkCommand extends Command {
      * @param storage   Storage to keep all entries to a .txt file
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         if (arguments[1].equals(" ") || arguments[1].isEmpty()) {
             if (this.arguments[0].equals("mark")) {
-                ui.showMarkedError();
-                return;
+                return ui.showMarkedError();
+
             } else {
-                ui.showUnmarkedError();
-                return;
+                return ui.showUnmarkedError();
             }
         }
         this.index = Integer.parseInt(arguments[1]) - 1;
@@ -43,17 +42,20 @@ public class MarkCommand extends Command {
                 taskList.update(this.index, task);
                 storage.update(this.index, task);
 
-                ui.showMarked(task);
+                return ui.showMarked(task);
 
             } else if (this.arguments[0].equals("unmark")) {
                 task.unmarkAsDone();
 
                 taskList.update(this.index, task);
                 storage.update(this.index, task);
-                ui.showUnmarked(task);
+                return ui.showUnmarked(task);
+            } else {
+                // should not happen
+                return ui.unknownCommand();
             }
         } catch (IndexOutOfBoundsException e) {
-            ui.showException(e);
+            return ui.showException(e);
         }
     }
 

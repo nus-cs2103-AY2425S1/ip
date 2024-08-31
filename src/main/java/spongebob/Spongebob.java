@@ -4,6 +4,7 @@ import spongebob.command.Command;
 import spongebob.exception.SpongebobException;
 import spongebob.storage.Storage;
 import spongebob.storage.TaskList;
+import spongebob.ui.Ui;
 
 /**
  * main class to run the bot
@@ -13,6 +14,7 @@ public class Spongebob {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private Parser parser;
 
     /**
      * Takes in a filepath for loading the storage, creates the UI components and tasklist
@@ -20,6 +22,7 @@ public class Spongebob {
     public Spongebob(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+        parser = new Parser();
 
         try {
             tasks = new TaskList(storage);
@@ -27,6 +30,11 @@ public class Spongebob {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+    }
+
+    public String getResponse(String input) {
+        Command c = parser.parse(input);
+        return c.execute(tasks, ui, storage);
     }
 
     /**
