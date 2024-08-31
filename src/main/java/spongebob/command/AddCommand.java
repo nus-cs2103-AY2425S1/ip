@@ -1,6 +1,6 @@
 package spongebob.command;
 
-import spongebob.Ui;
+import spongebob.ui.Ui;
 import spongebob.exception.SpongebobException;
 import spongebob.storage.Storage;
 import spongebob.storage.TaskList;
@@ -18,9 +18,6 @@ public class AddCommand extends Command {
     private String[] arguments;
 
     public AddCommand(String[] arguments) {
-
-
-
         this.arguments = arguments;
     }
 
@@ -31,7 +28,7 @@ public class AddCommand extends Command {
      * @param storage The storage for Spongebob to store entries
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         Task newTask = null;
 
         try {
@@ -56,10 +53,10 @@ public class AddCommand extends Command {
 
             taskList.add(newTask);
             storage.add(newTask);
-            ui.showTaskAdded(newTask, taskList.size());
+            return ui.showTaskAdded(newTask, taskList.size());
 
         } catch (SpongebobException e) {
-            ui.showException(e);
+            return ui.showException(e);
         }
     }
 

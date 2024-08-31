@@ -1,6 +1,6 @@
 package spongebob.command;
 
-import spongebob.Ui;
+import spongebob.ui.Ui;
 import spongebob.storage.Storage;
 import spongebob.storage.TaskList;
 import spongebob.task.Task;
@@ -23,16 +23,16 @@ public class DeleteCommand extends Command {
      * @param storage   Storage to keep all entries to a .txt file
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
         Task cur;
         try {
             cur = taskList.getCache().get(Integer.parseInt(arguments[1]) - 1);
             taskList.delete(Integer.parseInt(arguments[1]) - 1);
             storage.delete(cur);
-            ui.showTaskDeleted(cur, taskList.size());
+            return ui.showTaskDeleted(cur, taskList.size());
 
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            ui.showException(e);
+            return ui.showException(e);
         }
     }
 
