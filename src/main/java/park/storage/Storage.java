@@ -18,10 +18,22 @@ public class Storage {
 
     private final String filePath;
 
+    /**
+     * Constructs a Storage object.
+     *
+     * @param filePath Path of the file where tasks are recorded.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Returns the lists of tasks loaded from saved file.
+     * Creates a new list if saved file does not exist or is empty.
+     *
+     * @return TaskList object representing saved list of tasks.
+     * @throws ParkException If there is an error loading or creating the file.
+     */
     public TaskList load() throws ParkException {
         File f = new File(filePath);
         if (!f.exists()) {
@@ -49,6 +61,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Adds a new task to the saved file.
+     *
+     * @param t Task to be added.
+     * @throws ParkException If there is an error writing to the file.
+     */
     public void append(Task t) throws ParkException {
         try {
             FileWriter fw = new FileWriter(filePath, true);
@@ -59,6 +77,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Changes a task in the saved file.
+     *
+     * @param oldLine Encoded line in file representing the task to be changed.
+     * @param newLine Encoded line representing what the task is changed to.
+     * @throws ParkException If there is an error writing to the file.
+     */
     public void modify(String oldLine, String newLine) throws ParkException {
         try {
             List<String> lines = Files.readAllLines(Path.of(filePath));
@@ -76,6 +101,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes a task in the saved file.
+     *
+     * @param t Task to be deleted.
+     * @throws ParkException If there is an error writing to the file.
+     */
     public void delete(Task t) throws ParkException {
         try {
             List<String> lines = Files.readAllLines(Path.of(filePath));
@@ -91,6 +122,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the line in the saved file and returns it as a Task object.
+     *
+     * @param line Encoded line in the saved file.
+     * @return Task object represented by line.
+     * @throws ParkException If file is corrupted.
+     */
     public Task decode(String line) throws ParkException {
         try {
             String[] s = line.split("/");

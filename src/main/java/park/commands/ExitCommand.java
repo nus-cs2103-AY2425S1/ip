@@ -4,6 +4,9 @@ import park.storage.Storage;
 import park.storage.TaskList;
 import park.ui.Ui;
 
+/**
+ * Represents a command that exits the chatbot session.
+ */
 public class ExitCommand extends Command{
 
     @Override

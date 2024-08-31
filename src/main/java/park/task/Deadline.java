@@ -4,10 +4,19 @@ import park.parser.DTFormatter;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a Task with a deadline.
+ */
 public class Deadline extends Task {
 
     protected String by;
 
+    /**
+     * Constructs a Deadline object.
+     *
+     * @param description Description of the task.
+     * @param by Deadline of the task.
+     */
     public Deadline(String description, String by) {
         super(description);
         try {

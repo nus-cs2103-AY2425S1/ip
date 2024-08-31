@@ -6,10 +6,18 @@ import park.storage.TaskList;
 import park.task.Task;
 import park.ui.Ui;
 
+/**
+ * Represents a command that deletes a task from the list.
+ */
 public class DeleteCommand extends Command {
 
     private final int index;
 
+    /**
+     * Constructs a DeleteCommand object.
+     *
+     * @param i Index of task to be deleted.
+     */
     public DeleteCommand(int i) {
         this.index = i;
     }

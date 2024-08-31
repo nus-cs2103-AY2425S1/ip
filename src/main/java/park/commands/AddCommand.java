@@ -6,10 +6,18 @@ import park.storage.TaskList;
 import park.task.Task;
 import park.ui.Ui;
 
+/**
+ * Represents a command that adds a task to the list.
+ */
 public class AddCommand extends Command {
 
     private final Task t;
 
+    /**
+     * Constructs an AddCommand object.
+     *
+     * @param t Task to be added.
+     */
     public AddCommand(Task t) {
         this.t = t;
     }

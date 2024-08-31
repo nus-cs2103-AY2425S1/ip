@@ -4,6 +4,9 @@ import park.storage.Storage;
 import park.storage.TaskList;
 import park.ui.Ui;
 
+/**
+ * Represents a command that shows the user the current list of tasks.
+ */
 public class ListCommand extends Command {
 
     @Override
