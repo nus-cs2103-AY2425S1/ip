@@ -4,6 +4,8 @@ import yappingbot.exceptions.*;
 import yappingbot.stringconstants.ReplyTextMessages;
 import yappingbot.tasks.*;
 
+import yappingbot.tasks.tasklist.TaskList;
+import yappingbot.tasks.tasklist.TaskTypes;
 import yappingbot.ui.MultilineStringBuilder;
 import yappingbot.ui.Ui;
 

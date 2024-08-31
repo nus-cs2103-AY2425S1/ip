@@ -1,6 +1,7 @@
 package yappingbot.tasks;
 
 import yappingbot.exceptions.YappingBotInvalidSaveFileException;
+import yappingbot.tasks.tasklist.TaskTypes;
 
 import static yappingbot.stringconstants.ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES;
 
@@ -65,6 +66,21 @@ public abstract class Task {
         } catch (IllegalArgumentException e) {
             throw new YappingBotInvalidSaveFileException(e.getMessage());
         }
+    }
+
+    /**
+     * Returns if the given String is found within anywhere in the task.
+     *
+     * @param searchString String to be searched in the Task.
+     * @return boolean True if found, else false.
+     */
+    public boolean isStringFoundInTask(String searchString) {
+        // Prevent passing null or empty string
+        if (searchString == null || searchString.isEmpty()) {
+            return false;
+        }
+
+        return this.taskName.contains(searchString);
     }
 }
 

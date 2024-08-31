@@ -1,5 +1,7 @@
 package yappingbot.tasks;
 
+import yappingbot.tasks.tasklist.TaskTypes;
+
 public class Todo extends Task {
     public Todo(String taskName, boolean taskDone) {
         super(taskName, taskDone);

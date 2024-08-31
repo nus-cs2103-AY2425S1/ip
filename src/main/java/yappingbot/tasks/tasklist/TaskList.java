@@ -1,8 +1,9 @@
-package yappingbot.tasks;
+package yappingbot.tasks.tasklist;
 
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotOOBException;
 import yappingbot.stringconstants.ReplyTextMessages;
+import yappingbot.tasks.Task;
 import yappingbot.ui.MultilineStringBuilder;
 import yappingbot.ui.Ui;
 
@@ -11,7 +12,7 @@ import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
-import static yappingbot.tasks.TaskParser.parseSingleTask;
+import static yappingbot.tasks.tasklist.TaskParser.parseSingleTask;
 
 public class TaskList implements Iterable<Task> {
     private static ArrayList<Task> tasks;

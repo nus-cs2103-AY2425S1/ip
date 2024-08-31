@@ -6,8 +6,8 @@ import yappingbot.exceptions.YappingBotSaveFileNotFoundException;
 import yappingbot.exceptions.YappingBotUnknownCommandException;
 import yappingbot.storage.Storage;
 import yappingbot.stringconstants.ReplyTextMessages;
-import yappingbot.tasks.TaskList;
-import yappingbot.tasks.TaskTypes;
+import yappingbot.tasks.tasklist.TaskList;
+import yappingbot.tasks.tasklist.TaskTypes;
 import yappingbot.ui.Ui;
 
 import java.util.ArrayList;

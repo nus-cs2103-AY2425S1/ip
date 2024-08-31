@@ -2,7 +2,7 @@ package yappingbot.commands;
 
 import yappingbot.exceptions.YappingBotInvalidTaskNumberException;
 import yappingbot.exceptions.YappingBotUnknownCommandException;
-import yappingbot.tasks.TaskList;
+import yappingbot.tasks.tasklist.TaskList;
 
 import java.util.HashMap;
 
