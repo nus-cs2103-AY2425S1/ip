@@ -5,8 +5,18 @@ public class Deadline extends Task {
 
     public Deadline(String description) {
         super(description);
-        this.desc = description.split("deadline ")[1].split(" /by")[0];
-        this.by = description.split("/by ")[1];
+        if (description.startsWith("deadline ")) {
+            this.desc = description.split("deadline ")[1].split(" /by")[0];
+            this.by = description.split("/by ")[1];
+        } else if (description.startsWith("[D][ ] ")) {
+            this.desc = description.split("[D] ")[1].split(" (")[0];
+            this.by = description.split("(by: ")[1].split(")")[0];
+            this.isDone = false;
+        } else if (description.startsWith("[D][X] ")) {
+            this.desc = description.split("[D][X] ")[1].split(" (")[0];
+            this.by = description.split("(by: ")[1].split(")")[0];
+            this.isDone = true;
+        }
     }
 
     public String toString() {

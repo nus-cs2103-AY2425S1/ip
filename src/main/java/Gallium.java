@@ -1,7 +1,5 @@
 import java.io.File;
 import java.io.FileWriter;
-import java.io.FileNotFoundException;
-import java.nio.file.Paths;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -22,14 +20,32 @@ public class Gallium {
         String list = "list";
         String mark = "mark";
         String unmark = "unmark";
+        int curr = Task.count;
 
         try {
             File dir = new File("./data");
             dir.mkdirs();
             File f = new File(dir, "gallium.txt");
             f.createNewFile();
+            Scanner scanner = new Scanner(f);
+            while (scanner.hasNextLine()) {
+                String taskDesc = scanner.nextLine();
+                if (taskDesc.startsWith("[T]")) {
+                    Todo todo = new Todo(taskDesc);
+                    taskList.add(todo);
+                } else if (taskDesc.startsWith("[D]")) {
+                    Deadline deadline = new Deadline(taskDesc);
+                    taskList.add(deadline);
+                } else if (taskDesc.startsWith("[E]")) {
+                    Event event = new Event(taskDesc);
+                    taskList.add(event);
+                }
+                Task.count = taskList.size() + 1;
+                curr = Task.count;
+            }
+            scanner.close();
         } catch (IOException e) {
-            System.out.println("Error creating file.");
+            System.out.println("Error creating file:" + e.getMessage());
         }
 
         while (!Message.equals(bye)) {
@@ -139,7 +155,7 @@ public class Gallium {
         StringBuilder listStringBuilder = new StringBuilder();
         for (int i = 1; i < Task.count; i++) {
             Task task = taskList.get(i - 1);
-            listStringBuilder.append("\n    ").append(task.toString());
+            listStringBuilder.append(task.toString()).append("\n");
         }
         String listString = listStringBuilder.toString();
         try {

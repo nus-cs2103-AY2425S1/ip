@@ -4,7 +4,15 @@ public class Todo extends Task {
 
     public Todo(String description) {
         super(description);
-        this.desc = description.split("todo ")[1];
+        if (description.startsWith("todo ")) {
+            this.desc = description.substring(5).trim();
+        } else if (description.startsWith("[T][ ] ")) {
+            this.desc = description.substring(7).trim();
+            this.isDone = false;
+        } else if (description.startsWith("[T][X] ")) {
+            this.desc = description.substring(7).trim();
+            this.isDone = true;
+        }
     }
 
     public String toString() {
