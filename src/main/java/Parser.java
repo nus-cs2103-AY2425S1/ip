@@ -1,6 +1,6 @@
 public class Parser {
 
-    public static void parseInput(String input, TaskList tasks) throws WinnerException {
+    public static void parseInput(String input, TaskList taskList) throws WinnerException {
         if (input.matches("(?i)hi|hello")) {
             Ui.applyTemplate(Ui.hiAgain());
 
@@ -11,7 +11,7 @@ public class Parser {
                         Expected format for adding todo task:
                         todo (task)""");
             }
-            String msg = tasks.addToDo(description);
+            String msg = taskList.addToDo(description);
             Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\b+deadline\\b+.*")) {
@@ -21,7 +21,7 @@ public class Parser {
                         Expected format for adding deadline task:
                         deadline (task) by (dd/mm/yyyy) at (time - 24 hour format)""");
             }
-            String msg = tasks.addDeadline(parts[1].trim().toLowerCase(), parts[2]);
+            String msg = taskList.addDeadline(parts[1].trim().toLowerCase(), parts[2]);
             Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\b+event\\b+.*")) {
@@ -35,11 +35,11 @@ public class Parser {
             String description = parts[1].trim().toLowerCase(); //TaskList
             String start = parts[2].trim().toLowerCase();
             String end = parts[3].trim().toLowerCase();
-            String msg = tasks.addEvent(description, start, end);
+            String msg = taskList.addEvent(description, start, end);
             Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\b+list\\b+.*")) {
-            String msg = tasks.listTasks();
+            String msg = taskList.listTasks();
             Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\b+mark\\b+.*")) {
@@ -48,13 +48,13 @@ public class Parser {
                 throw new WinnerException("Please input a task number instead.");
             }
             int taskNumber = Integer.parseInt(numberString);
-            if (taskNumber < 1 || taskNumber > tasks.getNoOfTasks()) {
+            if (taskNumber < 1 || taskNumber > taskList.getNoOfTasks()) {
                 throw new WinnerException("""
                         Oh no! I cannot mark this task as done because the number is invalid.
                         Expected format for marking tasks as done:
                         mark (task number)""");
             }
-            String msg = tasks.markTaskAsDone(taskNumber);
+            String msg = taskList.markTaskAsDone(taskNumber);
             Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\b+unmark\\b+.*")) {
@@ -63,13 +63,13 @@ public class Parser {
                 throw new WinnerException("Please input a task number instead.");
             }
             int taskNumber = Integer.parseInt(numberString);
-            if (taskNumber < 1 || taskNumber > tasks.getNoOfTasks()) {
+            if (taskNumber < 1 || taskNumber > taskList.getNoOfTasks()) {
                 throw new WinnerException("""
                         Oh no! I cannot unmark this done task because the number is invalid.
                         Expected format for unmarking done tasks:
                         unmark (task number)""");
             }
-            String msg = tasks.unmarkDoneTask(taskNumber);
+            String msg = taskList.unmarkDoneTask(taskNumber);
             Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*\\b+delete\\b+.*")) {
@@ -78,13 +78,13 @@ public class Parser {
                 throw new WinnerException("Please input a task number instead.");
             }
             int taskNumber = Integer.parseInt(numberString);
-            if (taskNumber < 1 || taskNumber > tasks.getNoOfTasks()) {
+            if (taskNumber < 1 || taskNumber > taskList.getNoOfTasks()) {
                 throw new WinnerException("""
                         Oh no! I cannot remove this task from the list because the number is invalid.
                         Expected format for removing tasks:
                         delete (task number)""");
             }
-            String msg = tasks.deleteTask(taskNumber);
+            String msg = taskList.deleteTask(taskNumber);
             Ui.applyTemplate(msg);
 
         } else if (input.matches("(?i).*bye.*")) {

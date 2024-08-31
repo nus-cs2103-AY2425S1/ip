@@ -72,7 +72,7 @@ public class TaskList {
 
     public String listTasks() {
         int counter = 1;
-        StringBuilder list = new StringBuilder("Here are the tasks you have in your list:\n");
+        StringBuilder list = new StringBuilder("\nHere are the tasks you have in your list:\n");
         for (Task i : tasks) {
             list.append(counter).append(". ").append(i.taskToString()).append("\n");
             counter++;
