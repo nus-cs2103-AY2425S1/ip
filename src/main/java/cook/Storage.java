@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 public class Storage {
     // Solution below adapted from https://www.w3schools.com/java/java_files_create.asp
-    File file;
+    private File file;
 
     /**
      * Constructor for Storage class.

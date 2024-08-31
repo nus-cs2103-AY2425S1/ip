@@ -6,11 +6,9 @@ import exceptions.InvalidCommandException;
 
 /**
  * Parser class to format inputs from the user.
- *
- * @param commandArgs Stores commands and their expected number of arguments.
  */
 public class Parser {
-    HashMap<String, Integer> commandArgs;
+    private HashMap<String, Integer> commandArgs;
 
     /**
      * Constructor for Parser class.
@@ -38,8 +36,8 @@ public class Parser {
             argumentsHashMap.put("command", command);
 
             if (arguments.length < argsExpected) {
-                throw new InvalidCommandException("The command should have at least " +
-                        argsExpected + " arguments.");
+                throw new InvalidCommandException("The command should have at least "
+                        + argsExpected + " arguments.");
             } else if (argsExpected == 2) {
                 argumentsHashMap.put(command, input.replace(command, "").strip());
             } else if (argsExpected > 3) {

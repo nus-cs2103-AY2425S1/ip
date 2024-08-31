@@ -20,15 +20,17 @@ public class Ui {
      * Welcome screen.
      */
     public void welcome() {
+        //CHECKSTYLE.OFF: RuleName
         // Solution below adapted from https://www.patorjk.com/software/taag/#p=author&v=0&f=Avatar&t=Cook
-        String logo = """ 
+        String logo = """
                           ____  ____  ____  _  __
                          /   _\\/  _ \\/  _ \\/ |/ /
                          |  /  | / \\|| / \\||   /\s
                          |  \\__| \\_/|| \\_/||   \\\s
                          \\____/\\____/\\____/\\_|\\_\\
                                                 \s
-                         """;
+                      """;
+        //CHECKSTYLE.ON: RuleName
         System.out.print(logo);
         say("Hello, I'm Cook!\nWhat can I do for you?");
     }
@@ -44,10 +46,10 @@ public class Ui {
      * Formats and outputs String to console.
      */
     public void say(String content) {
-        System.out.println("____________________________________________________________" +
-                "____________________________________________________________");
+        System.out.println("____________________________________________________________"
+                + "____________________________________________________________");
         System.out.println(content);
-        System.out.println("____________________________________________________________" +
-                "____________________________________________________________");
+        System.out.println("____________________________________________________________"
+                + "____________________________________________________________");
     }
 }

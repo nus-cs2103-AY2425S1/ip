@@ -9,7 +9,7 @@ public class InvalidCommandException extends Exception {
     /**
      * Constructor for InvalidCommandException class.
      */
-    public InvalidCommandException (String message) {
+    public InvalidCommandException(String message) {
         super(message);
     }
 }

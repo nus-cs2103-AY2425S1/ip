@@ -47,6 +47,11 @@ public class TaskList {
         this.tasks.remove(indexNo);
     }
 
+    /**
+     * Finds task
+     *
+     * @param keyword String to find in task descriptions
+     */
     public String findTask(String keyword) {
         StringBuilder taskStringBuilder = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {

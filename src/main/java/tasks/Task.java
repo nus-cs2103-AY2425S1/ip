@@ -13,8 +13,7 @@ public abstract class Task {
         // Tasks.Task is already marked correctly
         if (this.isMarked == toMark) {
             return false;
-        }
-        else {
+        } else {
             this.isMarked = toMark;
             return true;
         }
