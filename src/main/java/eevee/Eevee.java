@@ -86,9 +86,9 @@ public class Eevee {
                 }
                 case DEADLINE: {
                     String[] info = input.substring(9).trim().split("/by", 2);
-                    if (info.length < 2) {
-                        throw new EeveeException("eevee.Deadline not given for task type 'deadline'. "
-                                + "Please input a deadline denoted by '/by' or use task type 'todo' instead.");
+                    if (info.length < 2 || info[0].isEmpty() || info[1].isEmpty()) {
+                        throw new EeveeException("Description or deadline not given for task type 'deadline'. "
+                                + "Make sure the deadline is denoted by '/by'.");
                     }
 
                     // Create and store task
@@ -100,8 +100,8 @@ public class Eevee {
                 }
                 case EVENT: {
                     String[] info = input.substring(6).trim().split("/from|/to", 3);
-                    if (info.length < 3) {
-                        throw new EeveeException("eevee.Event start and/or end timings not provided."
+                    if (info.length < 3 || info[0].isEmpty() || info[1].isEmpty() || info[2].isEmpty()) {
+                        throw new EeveeException("Event description, start and/or end timings not provided. "
                                 + "Please input a start time denoted by '/from' "
                                 + "and an end time denoted by '/to' when using task type eevee.Event");
                     }
