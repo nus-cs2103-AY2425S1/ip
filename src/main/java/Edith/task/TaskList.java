@@ -1,4 +1,4 @@
-package task;
+package Edith.task;
 
 import Edith.Ui;
 

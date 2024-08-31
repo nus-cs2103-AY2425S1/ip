@@ -1,4 +1,4 @@
-package task;
+package Edith.task;
 
 public abstract class Task {
     private String typeOfTask;
