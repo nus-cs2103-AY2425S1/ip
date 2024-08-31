@@ -48,41 +48,41 @@ public class Tars {
 
         try {
             switch (command) {
-                case "bye":
-                    return ui.getGoodbyeMessage();
-                case "list":
-                    return ui.getResponseMessage(tasks.listTasks());
-                case "mark":
-                    int markIndex = Integer.parseInt(arguments.trim()) - 1;
-                    Task markedTask = tasks.markTaskDone(markIndex);
-                    return ui.getTaskMarkedResponse(markedTask);
-                case "unmark":
-                    int unmarkIndex = Integer.parseInt(arguments.trim()) - 1;
-                    Task unmarkedTask = tasks.markTaskUndone(unmarkIndex);
-                    return ui.getTaskUnmarkedResponse(unmarkedTask);
-                case "todo":
-                    Task todo = new Todo(arguments, false);
-                    tasks.addTask(todo);
-                    return ui.getTaskAddedResponse(todo, tasks.getSize());
-                case "deadline":
-                    String[] deadlineParts = arguments.split(" /by ", 2);
-                    Task deadline = new Deadline(deadlineParts[0], false, deadlineParts[1]);
-                    tasks.addTask(deadline);
-                    return ui.getTaskAddedResponse(deadline, tasks.getSize());
-                case "event":
-                    String[] eventParts = arguments.split(" /from | /to ", 3);
-                    Task event = new Event(eventParts[0], false, eventParts[1], eventParts[2]);
-                    tasks.addTask(event);
-                    return ui.getTaskAddedResponse(event, tasks.getSize());
-                case "remove":
-                    int removeIndex = Integer.parseInt(arguments.trim()) - 1;
-                    tasks.removeTask(removeIndex);
-                    return ui.getTaskRemovedResponse("Task removed", tasks.getSize());
-                case "find":
-                    List<Task> foundTasks = tasks.findTasks(arguments.trim());
-                    return ui.getFoundTasksResponse(foundTasks);
-                default:
-                    return ui.getResponseMessage("I'm sorry, I can't quite help you with that.");
+            case "bye":
+                return ui.getGoodbyeMessage();
+            case "list":
+                return ui.getResponseMessage(tasks.listTasks());
+            case "mark":
+                int markIndex = Integer.parseInt(arguments.trim()) - 1;
+                Task markedTask = tasks.markTaskDone(markIndex);
+                return ui.getTaskMarkedResponse(markedTask);
+            case "unmark":
+                int unmarkIndex = Integer.parseInt(arguments.trim()) - 1;
+                Task unmarkedTask = tasks.markTaskUndone(unmarkIndex);
+                return ui.getTaskUnmarkedResponse(unmarkedTask);
+            case "todo":
+                Task todo = new Todo(arguments, false);
+                tasks.addTask(todo);
+                return ui.getTaskAddedResponse(todo, tasks.getSize());
+            case "deadline":
+                String[] deadlineParts = arguments.split(" /by ", 2);
+                Task deadline = new Deadline(deadlineParts[0], false, deadlineParts[1]);
+                tasks.addTask(deadline);
+                return ui.getTaskAddedResponse(deadline, tasks.getSize());
+            case "event":
+                String[] eventParts = arguments.split(" /from | /to ", 3);
+                Task event = new Event(eventParts[0], false, eventParts[1], eventParts[2]);
+                tasks.addTask(event);
+                return ui.getTaskAddedResponse(event, tasks.getSize());
+            case "remove":
+                int removeIndex = Integer.parseInt(arguments.trim()) - 1;
+                tasks.removeTask(removeIndex);
+                return ui.getTaskRemovedResponse("Task removed", tasks.getSize());
+            case "find":
+                List<Task> foundTasks = tasks.findTasks(arguments.trim());
+                return ui.getFoundTasksResponse(foundTasks);
+            default:
+                return ui.getResponseMessage("I'm sorry, I can't quite help you with that.");
             }
         } catch (TarsException e) {
             return ui.getResponseMessage(e.getMessage());

@@ -3,13 +3,13 @@ package tars;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.util.Duration;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 /**
  * Controller for the main GUI.
  */
@@ -26,7 +26,7 @@ public class MainWindow extends AnchorPane {
     private Tars tars;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image tarsImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.jpg"));
+    private Image tarsImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
      * Initializes the main window by setting up the scroll pane and displaying a welcome message.
