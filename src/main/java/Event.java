@@ -1,28 +1,33 @@
-public class Event extends Task {
-    protected String fromTime;
-    protected String toTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Event (String taskName, String fromTime, String toTime) {
+public class Event extends Task {
+    protected LocalDate fromDate;
+    protected LocalDate toDate;
+
+    public Event (String taskName, LocalDate fromDate, LocalDate toDate) {
         super(taskName);
-        this.fromTime = fromTime;
-        this.toTime = toTime;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
     }
 
-    public Event (String taskName, String fromTime, String toTime, boolean isDone) {
+    public Event (String taskName, LocalDate fromDate, LocalDate toDate, boolean isDone) {
         super(taskName, isDone);
-        this.fromTime = fromTime;
-        this.toTime = toTime;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
     }
 
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         return String.format("[E]%s (from: %s to: %s)",
-                super.toString(), this.fromTime, this.toTime);
+                super.toString(), this.fromDate.format(formatter), this.toDate.format(formatter));
     }
 
     @Override
     public String commaString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return String.format("E,%s,%s,%s",
-                super.commaString(), this.fromTime, this.toTime);
+                super.commaString(), this.fromDate.format(formatter), this.toDate.format(formatter));
     }
 }
