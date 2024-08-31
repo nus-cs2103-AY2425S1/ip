@@ -31,12 +31,10 @@ public class DeadlineCommand extends AddCommand {
             printTaskAdded(deadline);
             System.out.printf("Now you have %d task(s) in the list%n", tasks.getCount());
 
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandException("You better format your deadline properly or else [REDACTED]");
         } catch (DateTimeException dte) {
             throw new InvalidCommandException("You better format your deadline date in a valid YYYY-MM-DD format or else...");
         }
     }
-
 }

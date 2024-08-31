@@ -33,8 +33,7 @@ public class EventCommand extends AddCommand {
             printTaskAdded(event);
             System.out.printf("Now you have %d task(s) in the list%n", tasks.getCount());
 
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandException("You better format your event properly or else [REDACTED]");
         } catch (DateTimeException dte) {
             throw new InvalidCommandException("You better format your event dates in a valid YYYY-MM-DD format or else...");

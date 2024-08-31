@@ -28,8 +28,7 @@ public class UnmarkCommand {
 
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Watch out: You did format not your number properly...");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new StorageException(e.getMessage());
         }
 
