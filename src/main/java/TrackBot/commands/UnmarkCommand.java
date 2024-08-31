@@ -12,6 +12,9 @@ public class UnmarkCommand extends Command {
         this.taskIndex = taskIndex;
     }
 
+    public int getTaskIndex() {
+        return taskIndex;
+    }
     @Override
     public void execute(TrackList taskList, Ui ui, TrackBotStorage storage) throws TrackBotException {
         taskList.unmarkTask(taskIndex);
