@@ -1,3 +1,5 @@
+import javafx.beans.Observable;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -5,10 +7,10 @@ import java.util.Scanner;
 
 
 public class Edith {
-    private static final String horizontal = "____________________________________________________________";
-    private static final String greeting = " heyyy im edith!\n what can I do for you?";
-    private static final String farewell = " bye!! see you soon love <3";
-    private static final String linebreak = "\n";
+    private static final String HORIZONTAL = "____________________________________________________________";
+    private static final String GREETING = " heyyy im edith!\n what can I do for you?";
+    private static final String FAREWELL = " bye!! see you soon love <3";
+    private static final String LINEBREAK = "\n";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -16,196 +18,161 @@ public class Edith {
         Storage.loadTasks(todoList);
 
         // print out greeting when bot first starts up
-        System.out.println(horizontal + linebreak +
-                greeting + linebreak +
-                horizontal);
+        System.out.println(HORIZONTAL + LINEBREAK +
+                GREETING + LINEBREAK +
+                HORIZONTAL);
 
-        String command = scanner.nextLine();
+        String userInput = scanner.nextLine();
 
         // break out of loop when user inputs bye
-        while (!Objects.equals(command, "bye")) {
-            List<String> words = Arrays.asList(command.split(" "));
+        while (!Objects.equals(userInput, "bye")) {
+            List<String> words = Arrays.asList(userInput.split(" "));
+
+            String command = Parser.getCommand(userInput);
 
             if (Objects.equals(command, "list")) { // check if user wants the todo list
-                System.out.println(horizontal + linebreak +
-                        " tasks in your todo list!" + linebreak +
+                System.out.println(HORIZONTAL + LINEBREAK +
+                        " tasks in your todo list!" + LINEBREAK +
                         todoList.toString() +
-                        horizontal);
-                command = scanner.nextLine();
+                        HORIZONTAL);
+                userInput = scanner.nextLine();
             }
 
-            else if (Objects.equals(words.get(0), "mark") || Objects.equals(words.get(0), "unmark")) { // check if user wants to mark a task
-                try {
-                    changeTaskStatus(words, todoList);
-                } catch (InvalidTaskNumberException | MissingTaskNumberException e) {
-                    System.out.println(horizontal + linebreak +
-                            e.getMessage() + linebreak +
-                            horizontal);
-                } finally {
-                    command = scanner.nextLine();
-                }
+            else if (Objects.equals(command, "mark") || Objects.equals(command, "unmark")) { // check if user wants to mark a task
+                changeTaskStatus(userInput, todoList);
+                userInput = scanner.nextLine();
             }
 
-            else if (Objects.equals((words).get(0), "todo") || Objects.equals(words.get(0), "deadline") ||
-                    Objects.equals(words.get(0), "event")) {
-                try {
-                    addTask(command, words.get(0), todoList);
-                } catch (MissingTaskNameException | MissingDeadlineException | MissingEventDurationException e) {
-                    System.out.println(horizontal + linebreak +
-                            e.getMessage() + linebreak +
-                            horizontal);
-                } finally {
-                    command = scanner.nextLine();
-                }
+            else if (Objects.equals(command, "todo") || Objects.equals(command, "deadline") ||
+                    Objects.equals(command, "event")) {
+                addTask(userInput, todoList);
+                userInput = scanner.nextLine();
             }
 
-            else if (Objects.equals(words.get(0), "delete")) {
-                try {
-                    delete(words, todoList);
-                } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
-                    System.out.println(horizontal + linebreak +
-                            e.getMessage() + linebreak +
-                            horizontal);
-                } finally {
-                    command = scanner.nextLine();
-                }
+            else if (Objects.equals(command, "delete")) {
+                delete(userInput, todoList);
+                userInput = scanner.nextLine();
             }
 
             else {
                 try {
                     otherCommand();
                 } catch (InvalidCommandException e) {
-                    System.out.println(horizontal + linebreak +
-                            e.getMessage() + linebreak +
-                            horizontal);
+                    System.out.println(HORIZONTAL + LINEBREAK + e.getMessage() + LINEBREAK + HORIZONTAL);
                 } finally {
-                    command = scanner.nextLine();
+                    userInput = scanner.nextLine();
                 }
             }
 
         }
 
-        System.out.println(horizontal + linebreak + farewell + linebreak + horizontal);
+        System.out.println(HORIZONTAL + LINEBREAK + FAREWELL + LINEBREAK + HORIZONTAL);
     }
 
-    public static void changeTaskStatus(List<String> commands, ToDoList toDoList) throws InvalidTaskNumberException,
-            MissingTaskNumberException {
+    public static void changeTaskStatus(String userInput, ToDoList toDoList) {
         try {
-            int taskNumber = Integer.parseInt(commands.get(1));
-            if (Objects.equals(commands.get(0), "mark")) { // check if user wants to mark a task
+            int taskNumber = Parser.getTaskNumber(userInput);
+            String command = Parser.getCommand(userInput);
+
+            if (Objects.equals(command, "mark")) { // check if user wants to mark a task
                 toDoList.mark(taskNumber); // may throw InvalidTaskNumberException
-                System.out.println(horizontal + linebreak +
-                        " " + "yay! i've marked this task as done #productive:" + linebreak +
-                        "   " + toDoList.getTask(taskNumber) + linebreak +
-                        horizontal);
+                System.out.println(HORIZONTAL + LINEBREAK +
+                        " " + "yay! i've marked this task as done #productive:" + LINEBREAK +
+                        "   " + toDoList.getTask(taskNumber) + LINEBREAK +
+                        HORIZONTAL);
+            } else { // unmarking a task
+                toDoList.unmark(taskNumber); // may throw InvalidTaskNumberException
+                System.out.println(HORIZONTAL + LINEBREAK +
+                        " " + "aw, i've marked this task as undone:" + LINEBREAK +
+                        "   " + toDoList.getTask(taskNumber) + LINEBREAK +
+                        HORIZONTAL);
             }
 
-            else { // unmarking a task
-                toDoList.unmark(taskNumber); // may throw InvalidTaskNumberException
-                System.out.println(horizontal + linebreak +
-                        " " + "aw, i've marked this task as undone:" + linebreak +
-                        "   " + toDoList.getTask(taskNumber) + linebreak +
-                        horizontal);
-            }
-        } catch (ArrayIndexOutOfBoundsException e) { // if there is a missing task number
-            throw new MissingTaskNumberException();
+        } catch (MissingTaskNumberException | InvalidTaskNumberException e) { // if there is a missing task number
+            System.out.println(HORIZONTAL + LINEBREAK + e.getMessage() + LINEBREAK + HORIZONTAL);
         }
     }
 
-    public static void addTask(String fullCommand, String firstCommand, ToDoList toDoList)
-            throws MissingTaskNameException, MissingDeadlineException, MissingEventDurationException {
-        // System.out.println("addTask block running");
+    public static void addTask(String userInput, ToDoList toDoList) {
+        String taskType = Parser.getCommand(userInput);
+        try {
+            String taskDetails = Parser.getTaskDetails(userInput, taskType);
 
-        if (Objects.equals(firstCommand, "todo")) {
-            // System.out.println("todo block running");
-            List<String> commandToArray = Arrays.asList(fullCommand.split("todo "));
-            // System.out.println(commandToArray);
-            try {
-                String taskName = commandToArray.get(1);
-                ToDoTask task = new ToDoTask(taskName);
-                toDoList.add(task);
-                System.out.println(horizontal + linebreak +
-                        " " + "nice! i've added this task:" + linebreak +
-                        " " + task.toString() + linebreak +
-                        " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + linebreak +
-                        horizontal);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new MissingTaskNameException();
+            if (Objects.equals(taskType, "todo")) {
+                addToDoTask(taskDetails, toDoList);
             }
-        }
 
-        if (Objects.equals(firstCommand, "deadline")) {
-            // System.out.println("deadline block running");
-            List<String> commandToArray = Arrays.asList(fullCommand.split("deadline "));
-            // System.out.println(commandToArray);
-            try {
-                String taskAndDeadline = commandToArray.get(1);
-                try {
-                    String taskName = taskAndDeadline.split(" /by ")[0];
-                    String deadline = taskAndDeadline.split(" /by ")[1];
-                    DeadlineTask task = new DeadlineTask(taskName, deadline);
-                    toDoList.add(task);
-                    System.out.println(horizontal + linebreak +
-                            " " + "nice! i've added this task:" + linebreak +
-                            " " + task.toString() + linebreak +
-                            " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list."
-                            + linebreak + horizontal);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new MissingDeadlineException();
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new MissingTaskNameException();
+            if (Objects.equals(taskType, "deadline")) {
+                addDeadlineTask(taskDetails, taskType, toDoList);
             }
-        }
 
-        if (Objects.equals(firstCommand, "event")) {
-            // System.out.println("event block running");
-            List<String> commandToArray = Arrays.asList(fullCommand.split("event "));
-            // System.out.println(commandToArray);
-            try {
-                String taskAndDuration = commandToArray.get(1);
-                try {
-                    List<String> taskAndDurationArray = Arrays.asList(taskAndDuration.split(" /from "));
-                    // System.out.println(taskAndDurationArray);
-                    String taskName = taskAndDurationArray.get(0);
-                    String duration = taskAndDurationArray.get(1);
-                    List<String> durationArray = Arrays.asList(duration.split(" /to "));
-                    // System.out.println(durationArray);
-                    String start = durationArray.get(0);
-                    String end = durationArray.get(1);
-                    EventTask task = new EventTask(taskName, start, end);
-                    toDoList.add(task);
-                    System.out.println(horizontal + linebreak +
-                            " " + "nice! i've added this task:" + linebreak +
-                            " " + task.toString() + linebreak +
-                            " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + linebreak +
-                            horizontal);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new MissingEventDurationException();
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new MissingTaskNameException();
+            if (Objects.equals(taskType, "event")) {
+                addEventTask(taskDetails, taskType, toDoList);
             }
+        } catch (MissingTaskNameException e) {
+            System.out.println(HORIZONTAL + LINEBREAK + e.getMessage() + LINEBREAK + HORIZONTAL);
         }
+    }
 
+    public static void addToDoTask(String taskName, ToDoList toDoList) {
+        ToDoTask task = new ToDoTask(taskName);
+        toDoList.add(task);
+        System.out.println(HORIZONTAL + LINEBREAK +
+                " " + "nice! i've added this task:" + LINEBREAK +
+                " " + task + LINEBREAK +
+                " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + LINEBREAK +
+                HORIZONTAL);
+    }
+
+    public static void addDeadlineTask(String taskDetails, String taskType, ToDoList toDoList) {
+        try {
+            String taskName = Parser.getTaskName(taskDetails, taskType);
+            String taskDeadline = Parser.getTaskDeadline(taskDetails);
+            DeadlineTask task = new DeadlineTask(taskName, taskDeadline);
+            toDoList.add(task);
+            System.out.println(HORIZONTAL + LINEBREAK +
+                    " " + "nice! i've added this task:" + LINEBREAK +
+                    " " + task + LINEBREAK +
+                    " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list."
+                    + LINEBREAK + HORIZONTAL);
+        } catch (MissingDeadlineException e) {
+            System.out.println(HORIZONTAL + LINEBREAK + e.getMessage() + LINEBREAK + HORIZONTAL);
+        }
+    }
+
+    public static void addEventTask(String taskDetails, String taskType, ToDoList toDoList) {
+        try {
+            String taskName = Parser.getTaskName(taskDetails, taskType);
+            String taskDuration = Parser.getTaskDuration(taskDetails);
+            String taskStart = Parser.getTaskStart(taskDuration);
+            String taskEnd = Parser.getTaskEnd(taskDuration);
+            EventTask task = new EventTask(taskName, taskStart, taskEnd);
+            toDoList.add(task);
+            System.out.println(HORIZONTAL + LINEBREAK +
+                    " " + "nice! i've added this task:" + LINEBREAK +
+                    " " + task + LINEBREAK +
+                    " there are currently " + toDoList.getNumberofTasks() + " tasks in your todo list." + LINEBREAK +
+                    HORIZONTAL);
+        } catch (MissingEventDurationException e) {
+            System.out.println(HORIZONTAL + LINEBREAK + e.getMessage() + LINEBREAK + HORIZONTAL);
+        }
     }
 
     public static void otherCommand() throws InvalidCommandException {
         throw new InvalidCommandException();
     }
 
-    public static void delete(List<String> commands, ToDoList toDoList) throws InvalidTaskNumberException,
-            MissingTaskNumberException {
+    public static void delete(String userInput, ToDoList toDoList) {
         try {
-            int taskNumber = Integer.parseInt(commands.get(1));
-            System.out.println(horizontal + linebreak +
-                    " okay! i've deleted this task:" + linebreak +
-                    "   " + toDoList.getTask(taskNumber) + linebreak +
+            int taskNumber = Parser.getTaskNumber(userInput);
+            System.out.println(HORIZONTAL + LINEBREAK +
+                    " okay! i've deleted this task:" + LINEBREAK +
+                    "   " + toDoList.getTask(taskNumber) + LINEBREAK +
                     " you currently have " + (toDoList.getNumberofTasks() - 1) + " tasks in your todo list"
-                    + linebreak + horizontal);
+                    + LINEBREAK + HORIZONTAL);
             toDoList.delete(taskNumber);
-        } catch (IndexOutOfBoundsException e) {
-            throw new MissingTaskNumberException();
+        } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
+            System.out.println(HORIZONTAL + LINEBREAK + e.getMessage() + LINEBREAK + HORIZONTAL);
         }
     }
 }
