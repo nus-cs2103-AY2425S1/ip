@@ -1,10 +1,10 @@
 package commands;
 
-import tasks.TaskManager;
 import exceptions.ArgumentNotFoundException;
 import exceptions.BottyException;
 import exceptions.EmptyArgumentException;
 import tasks.Event;
+import tasks.TaskManager;
 
 public class EventCommand extends AddTaskCommand {
     @Override

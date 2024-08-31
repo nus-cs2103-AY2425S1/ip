@@ -1,10 +1,10 @@
 package commands;
 
-import tasks.TaskManager;
 import exceptions.BottyException;
 import tasks.Task;
+import tasks.TaskManager;
 
-public class UnmarkCommand implements Command {
+public class UnmarkCommand extends Command {
     @Override
     public String execute(TaskManager taskManager, ParsedInput parsedInput) throws BottyException {
         try {

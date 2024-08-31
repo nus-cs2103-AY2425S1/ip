@@ -1,9 +1,10 @@
 package commands;
 
-import tasks.TaskManager;
 import exceptions.TaskListEmptyException;
 
-public class ListCommand implements Command {
+import tasks.TaskManager;
+
+public class ListCommand extends Command {
     @Override
     public String execute(TaskManager taskManager, ParsedInput parsedInput) throws TaskListEmptyException {
         return "Here you go!\n" + taskManager.list();

@@ -3,7 +3,7 @@ package commands;
 import tasks.TaskManager;
 import tasks.Task;
 
-public abstract class AddTaskCommand implements Command {
+public abstract class AddTaskCommand extends Command {
     protected String addToTaskList(TaskManager taskManager, Task task) {
         taskManager.addTask(task);
 

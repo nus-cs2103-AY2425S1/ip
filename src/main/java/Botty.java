@@ -24,6 +24,7 @@ public class Botty {
         commands.put("deadline", new DeadlineCommand());
         commands.put("event", new EventCommand());
         commands.put("delete", new DeleteCommand());
+        commands.put("bye", new ExitCommand());
 
         ui = new UI();
         taskManager = new TaskManager();
@@ -47,12 +48,12 @@ public class Botty {
 
                 ParsedInput parsedInput = ParsedInput.parse(userInput);
 
-                if (parsedInput.getCommand().equals("bye")) {
-                    break;
-                }
-
                 if (!commands.containsKey(parsedInput.getCommand())) {
                     throw new UnknownCommandException(parsedInput.getCommand());
+                }
+
+                if (commands.get(parsedInput.getCommand()).isExit()) {
+                    break;
                 }
 
                 ui.reply(commands.get(parsedInput.getCommand()).execute(taskManager, parsedInput));

@@ -1,10 +1,10 @@
 package commands;
 
-import tasks.TaskManager;
 import exceptions.ArgumentNotFoundException;
 import exceptions.BottyException;
 import exceptions.EmptyArgumentException;
 import tasks.Todo;
+import tasks.TaskManager;
 
 public class TodoCommand extends AddTaskCommand {
     @Override

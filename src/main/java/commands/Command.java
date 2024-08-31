@@ -3,6 +3,10 @@ package commands;
 import exceptions.BottyException;
 import tasks.TaskManager;
 
-public interface Command {
-    String execute(TaskManager taskManager, ParsedInput parsedInput) throws BottyException;
+public abstract class Command {
+    public abstract String execute(TaskManager taskManager, ParsedInput parsedInput) throws BottyException;
+
+    public boolean isExit() {
+        return false;
+    }
 }
