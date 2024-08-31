@@ -34,47 +34,47 @@ public class Cloudy {
             Command command = parser.parseCommand(userInput);
 
             switch (command.getType()) {
-                case "bye":
-                    ui.showBye();
-                    return;
-                case "list":
-                    ui.showList(tasks);
-                    break;
-                case "mark":
-                    handleMarkCommand(command);
-                    break;
-                case "unmark":
-                    handleUnmarkCommand(command);
-                    break;
-                case "todo":
-                    handleTodoCommand(command);
-                    break;
-                case "deadline":
-                    handleDeadlineCommand(command);
-                    break;
-                case "event":
-                    handleEventCommand(command);
-                    break;
-                case "delete":
-                    handleDeleteCommand(command);
-                    break;
-                case "invalid":
-                    ui.showInvalidCommand();
-                    break;
-                case "invalidTaskNum":
-                    ui.showInvalidTaskNum();
-                    break;
-                case "invalidTaskFormat":
-                    ui.showInvalidTaskFormat();
-                    break;
-                case "invalidDeadline":
-                    ui.showInvalidDeadline();
-                    break;
-                case "invalidEvent":
-                    ui.showInvalidEvent();
-                    break;
-                default:
-                    ui.showInvalidCommand();
+            case "bye":
+                ui.showBye();
+                return;
+            case "list":
+                ui.showList(tasks);
+                break;
+            case "mark":
+                handleMarkCommand(command);
+                break;
+            case "unmark":
+                handleUnmarkCommand(command);
+                break;
+            case "todo":
+                handleTodoCommand(command);
+                break;
+            case "deadline":
+                handleDeadlineCommand(command);
+                break;
+            case "event":
+                handleEventCommand(command);
+                break;
+            case "delete":
+                handleDeleteCommand(command);
+                break;
+            case "invalid":
+                ui.showInvalidCommand();
+                break;
+            case "invalidTaskNum":
+                ui.showInvalidTaskNum();
+                break;
+            case "invalidTaskFormat":
+                ui.showInvalidTaskFormat();
+                break;
+            case "invalidDeadline":
+                ui.showInvalidDeadline();
+                break;
+            case "invalidEvent":
+                ui.showInvalidEvent();
+                break;
+            default:
+                ui.showInvalidCommand();
             }
         }
     }

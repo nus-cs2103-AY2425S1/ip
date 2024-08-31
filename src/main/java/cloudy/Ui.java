@@ -85,7 +85,8 @@ public class Ui {
 
     public void showInvalidEvent() {
         System.out.println("____________________________________________________________");
-        System.out.println("Invalid format. Please enter an event with the format [event] /from dd/mm/yyyy /to dd/mm/yyyy");
+        System.out.println(
+                "Invalid format. Please enter an event with the format [event] /from dd/mm/yyyy /to dd/mm/yyyy");
         System.out.println("____________________________________________________________");
     }
 

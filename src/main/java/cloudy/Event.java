@@ -28,7 +28,8 @@ public class Event extends Task {
 
     @Override
     public String toFileFormat() {
-        return "E | " + (this.isMarked ? "1" : "0") + " | " + this.description + " | " + this.startTime + " | " + this.endTime;
+        return "E | " + (this.isMarked ? "1" : "0") + " | " + this.description + " | "
+                + this.startTime + " | " + this.endTime;
     }
 
 }

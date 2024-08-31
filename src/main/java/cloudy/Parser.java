@@ -79,7 +79,8 @@ public class Parser {
         if (matcher.matches()) {
             try {
                 String[] deadlineParts = inputDeadline.split("/");
-                LocalDate deadline = LocalDate.parse(deadlineParts[2] + "-" + deadlineParts[1] + "-" + deadlineParts[0]);
+                LocalDate deadline = LocalDate.parse(
+                        deadlineParts[2] + "-" + deadlineParts[1] + "-" + deadlineParts[0]);
                 return new Command("deadline", taskDescription, deadline);
             } catch (DateTimeParseException e) {
                 return new Command("invalidDeadline");
@@ -109,8 +110,10 @@ public class Parser {
             try {
                 String[] startTimeParts = startTime.split("/");
                 String[] endTimeParts = endTime.split("/");
-                LocalDate startTimeFinal = LocalDate.parse(startTimeParts[2] + "-" + startTimeParts[1] + "-" + startTimeParts[0]);
-                LocalDate endTimeFinal = LocalDate.parse(endTimeParts[2] + "-" + endTimeParts[1] + "-" + endTimeParts[0]);
+                LocalDate startTimeFinal = LocalDate.parse(
+                        startTimeParts[2] + "-" + startTimeParts[1] + "-" + startTimeParts[0]);
+                LocalDate endTimeFinal = LocalDate.parse(
+                        endTimeParts[2] + "-" + endTimeParts[1] + "-" + endTimeParts[0]);
                 return new Command("event", taskDescription, startTimeFinal, endTimeFinal);
             } catch (DateTimeParseException e) {
                 return new Command("invalidEvent");
@@ -144,17 +147,17 @@ public class Parser {
         String taskDescription = parts[2];
 
         switch (typeOfTask) {
-            case "T":
-                return new Todo(taskDescription, isMarked);
-            case "D":
-                LocalDate deadline = LocalDate.parse(parts[3]);
-                return new Deadline(taskDescription, deadline, isMarked);
-            case "E":
-                LocalDate startTime = LocalDate.parse(parts[3]);
-                LocalDate endTime = LocalDate.parse(parts[4]);
-                return new Event(taskDescription, startTime, endTime, isMarked);
-            default:
-                return null;
+        case "T":
+            return new Todo(taskDescription, isMarked);
+        case "D":
+            LocalDate deadline = LocalDate.parse(parts[3]);
+            return new Deadline(taskDescription, deadline, isMarked);
+        case "E":
+            LocalDate startTime = LocalDate.parse(parts[3]);
+            LocalDate endTime = LocalDate.parse(parts[4]);
+            return new Event(taskDescription, startTime, endTime, isMarked);
+        default:
+            return null;
         }
     }
 
