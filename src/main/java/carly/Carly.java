@@ -33,10 +33,6 @@ public class Carly {
         this.username = "";
     }
 
-    public String getFILE_PATH() {
-        return FILE_PATH;
-    }
-
     public TaskList getTaskList() {
         return this.taskList;
     }
@@ -191,7 +187,7 @@ public class Carly {
             }
             try {
                 listStorage.savesFile(this.taskList);
-            } catch (IOException e) {
+            } catch (IOException | CarlyException e) {
                 System.out.println(e.getMessage());
             }
         }

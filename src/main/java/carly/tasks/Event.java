@@ -6,7 +6,7 @@ import java.text.MessageFormat;
  * Represents a task of type Event.
  * An Event task includes a description, start time, and end time.
  */
-public class Event extends Task{
+public class Event extends Task {
     /** The task type identifier for Event tasks. */
     private static final String TASK_TYPE = "E";
 
@@ -24,11 +24,11 @@ public class Event extends Task{
         this.endTime = endTime;
     }
 
-    public String getStartTime(){
+    protected String getStartTime(){
         return this.startTime;
     }
 
-    public String getEndTime(){
+    protected String getEndTime(){
         return this.endTime;
     }
 

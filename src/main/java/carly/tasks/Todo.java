@@ -6,7 +6,7 @@ import java.text.MessageFormat;
  * Represents a task of type Todo.
  * A Todo task is a basic task without any time constraints.
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /** The task type identifier for Todo tasks. */
     private static final String TASK_TYPE = "T";

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import carly.exception.CarlyException;
 import carly.tasks.TaskList;
 
 /**
@@ -45,7 +46,7 @@ public class Storage {
     }
 
     /** Saves the formatted task list to the file. */
-    public void savesFile(TaskList tasklist) throws IOException {
+    public void savesFile(TaskList tasklist) throws IOException, CarlyException {
         String textToAdd = tasklist.getFormattedTaskList();
         this.writeToFile(textToAdd);
     }

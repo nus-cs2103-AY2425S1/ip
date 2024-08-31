@@ -178,7 +178,7 @@ public class TaskList {
     }
 
     /** Generates a string representation of all tasks in the list to be saved in txt file. */
-    public String getFormattedTaskList() {
+    public String getFormattedTaskList() throws CarlyException{
         if (this.taskList.isEmpty()) {
             return "Nothing in your list";
         } else {
