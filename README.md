@@ -14,11 +14,11 @@ Spongebob fulfills **all** your needs for chatbot:
 
 ## ✨ Key Features
 
--[ ] **Manages** and **tracks** your tasks for you.
--[ ] Set different types of **tasks**, from deadlines to events.
--[ ] Set and manages **deadlines**.
--[ ] **Mark** tasks as done.
--[ ] **Filter** tasks based on description. 
+- [ ] **Manages** and **tracks** your tasks for you.
+- [ ] Set different types of **tasks**, from deadlines to events.
+- [ ] Set and manages **deadlines**.
+- [ ] **Mark** tasks as done.
+- [ ] **Filter** tasks based on description. 
 
 --- 
 ## 🛠️ Setup
