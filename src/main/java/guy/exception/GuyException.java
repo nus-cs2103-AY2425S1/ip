@@ -3,7 +3,7 @@ package guy.exception;
 /**
  * Custom Exception class for errors unique to ThatOneGuy.
  */
-public class GuyException extends Exception{
+public class GuyException extends Exception {
     /**
      * Constructs a GuyException with the given message.
      *

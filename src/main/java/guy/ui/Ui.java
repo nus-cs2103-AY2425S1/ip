@@ -5,7 +5,7 @@ package guy.ui;
  * Supports displaying startup and shutdown messages, albeit somewhat rude ones.
  */
 public class Ui {
-    String name = "that one guy";
+    private final String name = "that one guy";
 
     /**
      * Displays a startup message, complete with the application name.

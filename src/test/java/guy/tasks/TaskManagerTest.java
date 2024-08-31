@@ -7,10 +7,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import guy.parser.Parser;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import guy.parser.Parser;
+
 
 /**
  * Test class for the TaskManager class.
