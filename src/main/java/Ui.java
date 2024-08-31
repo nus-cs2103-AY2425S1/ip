@@ -24,6 +24,10 @@ public class Ui {
         System.out.println(INDENTATION + message);
     }
 
+    public void showErrorMessage(String message) {
+        System.err.println(INDENTATION + message + LINE_BREAK);
+    }
+
     public void showInvalidIndexError(int index) {
         System.err.println(INDENTATION + "Task " + index + " does not exist. Please enter a valid task number." + LINE_BREAK);
     }
