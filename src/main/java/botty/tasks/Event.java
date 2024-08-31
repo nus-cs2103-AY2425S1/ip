@@ -9,11 +9,24 @@ import botty.exceptions.CorruptedTaskStringException;
 import botty.exceptions.EmptyArgumentException;
 import botty.exceptions.IncorrectDateFormatException;
 
-
+/**
+ * A task with a start date and an end date
+ */
 public class Event extends Task {
+    // The start date of the task
     private final LocalDate startDate;
+    // The end date of the task
     private final LocalDate endDate;
 
+    /**
+     * Constructs an {@code Event} with the given arguments
+     * @param completed if the {@code Event} is completed
+     * @param description the description of the {@code Event}
+     * @param startDate the start date of the {@code Event}
+     * @param endDate the end date of the {@code Event}
+     * @throws EmptyArgumentException if description, start date or end date is empty
+     * @throws IncorrectDateFormatException if start date or end date is in the incorrect date format
+     */
     public Event(boolean completed, String description, String startDate, String endDate)
             throws EmptyArgumentException, IncorrectDateFormatException {
         super(completed, description);
@@ -37,16 +50,34 @@ public class Event extends Task {
             throw new IncorrectDateFormatException("end date needs to be in format yyyy-mm-dd");
         }
     }
-    public Event(String description, String startDateTime, String endDate)
+    /**
+     * Constructs an {@code Event} with the given arguments, set to not completed
+     * @param description the description of the {@code Event}
+     * @param startDate the start date of the {@code Event}
+     * @param endDate the end date of the {@code Event}
+     * @throws EmptyArgumentException if description, start date or end date is empty
+     * @throws IncorrectDateFormatException if start date or end date is in the incorrect date format
+     */
+    public Event(String description, String startDate, String endDate)
             throws EmptyArgumentException, IncorrectDateFormatException {
-        this(false, description, startDateTime, endDate);
+        this(false, description, startDate, endDate);
     }
+
+    /**
+     * Returns a string representation of the event
+     */
     @Override
     public String toString() {
         return "[E] " + super.toString() + " (from: " + startDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
                 + " to: " + endDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ")";
     }
 
+    /**
+     * Constructs an {@code Event} from a data string for loading from file
+     * @param taskString the data string from file
+     * @return the constructed event
+     * @throws BottyException if corrupted task string or invalid arguments
+     */
     public static Event fromDataString(String taskString) throws BottyException {
         if (!taskString.matches("E \\| [10] \\| (.*?) \\| (.*?) \\| (.*?)")) {
             throw new CorruptedTaskStringException();
@@ -62,6 +93,9 @@ public class Event extends Task {
         return new Event(completed, description, startDate, endDate);
     }
 
+    /**
+     * Returns a string representation of the {@code Event} that is used for local storage
+     */
     @Override
     public String toDataString() {
         return "E | " + getCompletedAndDescription() + " | " + startDate + " | " + endDate;

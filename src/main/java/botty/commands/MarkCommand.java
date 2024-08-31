@@ -4,7 +4,17 @@ import botty.exceptions.BottyException;
 import botty.tasks.Task;
 import botty.tasks.TaskManager;
 
+/**
+ * Defines the behaviour of the mark command
+ */
 public class MarkCommand extends Command {
+    /**
+     * Executes the mark command, marking the task at the given index as done
+     * @param taskManager
+     * @param parsedInput
+     * @return success message
+     * @throws BottyException if given input is invalid
+     */
     @Override
     public String execute(TaskManager taskManager, ParsedInput parsedInput) throws BottyException {
         try {

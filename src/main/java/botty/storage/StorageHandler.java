@@ -12,15 +12,30 @@ import botty.exceptions.BottyException;
 import botty.tasks.Task;
 import botty.tasks.TaskManager;
 
+/**
+ * Handles saving and loading from local storage
+ */
 public class StorageHandler {
+    // The path to the directory to store the file
     private final String directoryPath;
+    // The file name
     private final String fileName;
+
+    /**
+     * Constructs a {@code StorageHandler}. If the directory does not exist, it will create it.
+     * @param directoryPath the path to the directory.
+     * @param fileName the file name.
+     */
     public StorageHandler(String directoryPath, String fileName) {
         this.directoryPath = directoryPath;
         this.fileName = fileName;
 
         ensureDirectoryExists();
     }
+
+    /**
+     * Checks if the directory exists and if it does not, creates it.
+     */
     private void ensureDirectoryExists() {
         Path path = Paths.get(directoryPath);
         try {
@@ -30,6 +45,12 @@ public class StorageHandler {
             ex.printStackTrace();
         }
     }
+
+    /**
+     * Saves the task list to the file.
+     * @param manager the task manager consisting the tasks to be stored.
+     * @throws BottyException if an error occurs while reading the tasks from task manager.
+     */
     public void saveTaskList(TaskManager manager) throws BottyException {
         Path filePath = Paths.get(directoryPath, fileName);
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
@@ -42,7 +63,11 @@ public class StorageHandler {
             ex.printStackTrace();
         }
     }
-
+    /**
+     * Loads the task list to the file.
+     * @param manager the task manager consisting the tasks to be loaded.
+     * @throws BottyException if an error occurs while loading the tasks from task manager.
+     */
     public void loadTaskList(TaskManager manager) throws BottyException {
         Path filePath = Paths.get(directoryPath, fileName);
         try (BufferedReader reader = Files.newBufferedReader(filePath)) {
