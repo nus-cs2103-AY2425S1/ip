@@ -1,9 +1,8 @@
 package luke;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 
+import javafx.application.Platform;
 import luke.command.Command;
 import luke.env.Constants;
 import luke.task.NoDescriptionException;
@@ -12,133 +11,78 @@ import luke.task.TaskList;
 import luke.task.UnknownCommandException;
 
 public class Ui {
-    private Storage storage;
-    private Parser parser;
-    private TaskList taskList;
-    private Boolean isRunning;
+    private static TaskList taskList = new TaskList();
+    private static Boolean isRunning = true;
 
-    public Ui(Storage storage, Parser parser, TaskList taskList) {
-        this.storage = storage;
-        this.parser = parser;
-        this.taskList = taskList;
-        this.isRunning = true;
-    }
+    //    public Ui(Storage storage, Parser parser, TaskList taskList) {
+    //        this.storage = storage;
+    //        this.parser = parser;
+    //        this.taskList = taskList;
+    //        this.isRunning = true;
+    //    }
 
-    /**
-     * Initialises the UI.
-     */
-    public void start() {
-        try {
-            List<String> lines = storage.loadData();
-            for (String line : lines) {
-                Command command = parser.parseSavedData(line);
-                handleCommand(command, true);
-            }
-        } catch (NoSaveDataFoundException e) {
-            handleMissingFile();
-        } catch (IOException e) {
-            System.out.println("hmmm... i ran into an issue while setting up. try launching me again.");
-            System.exit(0);
-        }
-        acceptCommand();
-    }
-
+    // todo: define handleUserInput() such that it feeds input to the user dialog box and output to the luke dialog box
     /**
      * Defines a Scanner object to accept string input (which will be parsed into commands later).
      */
-    public void acceptCommand() {
-        Scanner scanner = new Scanner(System.in);
-        while (isRunning && scanner.hasNextLine()) {
-            String input = scanner.nextLine();
-            Command command = parser.parseInputData(input);
-            handleCommand(command, false);
-        }
-        scanner.close();
-    }
-
-    /**
-     * Provides the user with the choice to create a save file if a save file cannot be found.
-     * Exits if an IOException is thrown or if the user chooses not to make a save file.
-     */
-    public void handleMissingFile() {
-        System.out.println("i couldn't find a saved task list. you will need to create one to continue using me.\n"
-                + "would you like to create one? (y/n)");
-        Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNextLine()) {
-            String input = scanner.nextLine().toLowerCase();
-            switch (input) {
-            case "y", "yes" -> {
-                try {
-                    storage.createSaveFile();
-                    System.out.println(Constants.DIVIDER);
-                    System.out.println("save file created! ok, i'm all ears now. tell me what you need.");
-                    System.out.println(Constants.DIVIDER);
-                } catch (IOException e) {
-                    System.out.println(Constants.DIVIDER);
-                    System.out.println("oof, i couldn't create the file. i'll exit first - try restarting me!");
-                    System.out.println(Constants.DIVIDER);
-                    System.exit(0);
-                }
-            }
-            case "n", "no" -> {
-                System.out.println(Constants.DIVIDER);
-                System.out.println("alright then. cya ;)");
-                System.out.println(Constants.DIVIDER);
-                System.exit(0);
-            }
-            default -> System.out.println("didn't quite understand what you said there. try again?");
-            }
-        }
-        System.exit(0);
+    public static String handleUserInput(String input) {
+        Command command = Parser.parseInputData(input);
+        return handleCommand(command, false);
     }
 
     /**
      * Determines which procs to invoke depending on the command word.
      * @param command command word and its associated args
      * @param isLoadingFromDisk true if the command was loaded from save data
+     * @return command output
      */
-    public void handleCommand(Command command, boolean isLoadingFromDisk) {
+    public static String handleCommand(Command command, boolean isLoadingFromDisk) {
         switch (command.getCommand()) {
         case "bye" -> {
-            System.out.println("""
-                    ____________________________________________________________
-                    yeah bye bye to you too human being
-                    ____________________________________________________________
-                    """);
             isRunning = false;
+            Platform.exit();
+            return "yeah bye bye to you too human being <3";
         }
-        case "list" -> showList();
-        case "mark", "unmark" -> handleTaskMarking(command);
-        case "delete" -> handleDelete(command);
-        case "find" -> handleFind(command);
-        default -> handleAddTask(command, isLoadingFromDisk);
+        case "list" -> {
+            return showList();
+        }
+        case "mark", "unmark" -> {
+            return handleTaskMarking(command);
+        }
+        case "delete" -> {
+            return handleDelete(command);
+        }
+        case "find" -> {
+            return handleFind(command);
+        }
+        default -> {
+            return handleAddTask(command, isLoadingFromDisk);
+        }
         }
     }
 
-    public void showList() {
-        System.out.println(Constants.DIVIDER + "here's everything that's in your list:");
-        taskList.printList();
-        System.out.println(Constants.DIVIDER);
+    public static String showList() {
+        return "here's everything that's in your list:\n" + taskList.printList();
     }
 
     /**
      * Marks or unmark tasks
      * @param command the mark/unmark command word and its associated tasks
      */
-    public void handleTaskMarking(Command command) {
+    public static String handleTaskMarking(Command command) {
         int taskToMark = Integer.parseInt(command.getArgs());
         try {
             Task task = taskList.getTask(taskToMark - 1);
             task.changeMark();
-            System.out.println(Constants.DIVIDER + (command.getCommand().equals("mark")
+            Storage.saveData(taskList);
+            return (command.getCommand().equals("mark")
                     ? "ok i've marked"
                     : "ok i've unmarked")
-                    + " this task:");
-            System.out.println(Constants.INDENT + task.taskDescription());
-            System.out.println(Constants.DIVIDER);
-            storage.saveData(taskList);
+                    + " this task:\n"
+                    + Constants.INDENT + task.taskDescription();
+
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            TaskList.taskNotFound(taskToMark);
+            return TaskList.taskNotFound(taskToMark);
         }
     }
 
@@ -146,24 +90,26 @@ public class Ui {
      * Deletes a task from the task list
      * @param command the "delete" command word and its arg -- the index of the relevant task in the task list
      */
-    public void handleDelete(Command command) {
+    public static String handleDelete(Command command) {
         int taskToDelete = Integer.parseInt(command.getArgs());
         try {
-            taskList.removeTask(taskToDelete - 1);
-            storage.saveData(taskList);
+            Task deletedTask = taskList.removeTask(taskToDelete - 1);
+            Storage.saveData(taskList);
+            return "alright i've purged this task for you:\n"
+                    + Constants.INDENT + deletedTask.taskDescription() + "\n"
+                    + taskList.listSizeUpdateMessage();
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            TaskList.taskNotFound(taskToDelete);
+            return TaskList.taskNotFound(taskToDelete);
         }
     }
 
-    public void handleFind(Command command) {
+    public static String handleFind(Command command) {
+        String filteredList = "";
         List<Task> matchingTasks = taskList.findTasks(command.getArgs());
-        System.out.println(Constants.DIVIDER);
-        System.out.println("here are the matching tasks in your list:");
         for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println((i + 1) + ". " + matchingTasks.get(i).taskDescription());
+            filteredList = filteredList + (i + 1) + ". " + matchingTasks.get(i).taskDescription() + "\n";
         }
-        System.out.println(Constants.DIVIDER);
+        return "here are the matching tasks in your list:\n" + filteredList;
     }
 
     /**
@@ -171,20 +117,16 @@ public class Ui {
      * @param command command word and its associated args
      * @param isLoadingFromDisk true if the command was loaded from save data
      */
-    public void handleAddTask(Command command, boolean isLoadingFromDisk) {
+    public static String handleAddTask(Command command, boolean isLoadingFromDisk) {
         try {
-            taskList.addToList(command.getCommand(),
+            return taskList.addToList(command.getCommand(),
                     command.getArgs(),
                     command.getMark().equalsIgnoreCase("x"),
                     isLoadingFromDisk);
         } catch (NoDescriptionException e) {
-            System.out.println(Constants.DIVIDER);
-            System.out.println("hmm...a description seems to be missing. try again?");
-            System.out.println(Constants.DIVIDER);
+            return "hmm...a description seems to be missing. try again?";
         } catch (UnknownCommandException e) {
-            System.out.println(Constants.DIVIDER);
-            System.out.println("hmm... i don't quite recognise that command. try again?");
-            System.out.println(Constants.DIVIDER);
+            return "hmm... i don't quite recognise that command. try again?";
         }
     }
 }
