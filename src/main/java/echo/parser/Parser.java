@@ -60,14 +60,12 @@ public class Parser {
 
     /**
      * Returns the String Array of the events task containing task description,
-     * start time of event and end time of event
+     * start time of event and end time of event.
      * e.g.[task description, start time, end time]
      *
      * @param taskDescription string of description provided after parsing the input.
-     * @return string array of event task containing task description,
-     * start time of event and end time of event.
-     * @throws EchoException if there is no task description and
-     * if there is no start or end time included for the task.
+     * @return string array of event containing task description, start and end time of event.
+     * @throws EchoException if there is no task description and there is no start or end time.
      */
     public String[] parseEvents(String taskDescription) throws EchoException {
         if (taskDescription.isEmpty()) {
@@ -101,8 +99,7 @@ public class Parser {
      *
      * @param task String input provided from text file
      * @return Task object determined after parsing and finding the command
-     * @throws EchoException if the command in the text file does not correspond to the either
-     * "todo", "deadline" or "event"
+     * @throws EchoException if the command in the text file is not "todo", "deadline" or "event"
      */
     public Task parseInputFromTextFile(String task) throws EchoException {
         String[] textArray = task.split(" \\| ");

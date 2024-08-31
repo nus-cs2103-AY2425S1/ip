@@ -10,16 +10,15 @@ import java.time.format.FormatStyle;
  * @author Ernest Lim
  */
 public abstract class Task {
-    private boolean isCompleted;
-    private String description;
 
     /** Input formatter for when users type in the deadlines*/
     protected static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
     /** Output formatter when the ChatBot prints the deadline of the tasks*/
-    protected static final DateTimeFormatter OUTPUT_FORMATTER
-            = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
-
+    protected static final DateTimeFormatter OUTPUT_FORMATTER =
+            DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
+    private boolean isCompleted;
+    private String description;
     /**
      * Constructor for Task
      *

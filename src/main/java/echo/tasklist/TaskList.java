@@ -1,10 +1,10 @@
 package echo.tasklist;
 
-import echo.exception.EchoException;
-import echo.task.Task;
-
 import java.util.ArrayList;
 import java.util.Collections;
+
+import echo.exception.EchoException;
+import echo.task.Task;
 
 /**
  * Represents a list of task

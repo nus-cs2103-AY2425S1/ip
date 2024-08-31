@@ -1,15 +1,14 @@
 package echo.storage;
 
-import echo.parser.Parser;
-import echo.task.Task;
-import echo.tasklist.TaskList;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.Scanner;
+
+import echo.parser.Parser;
+import echo.task.Task;
+import echo.tasklist.TaskList;
 
 /**
  * Represents a storage space to store user's task

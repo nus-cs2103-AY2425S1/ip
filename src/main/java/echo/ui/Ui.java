@@ -1,9 +1,9 @@
 package echo.ui;
 
+import java.util.ArrayList;
+
 import echo.task.Task;
 import echo.tasklist.TaskList;
-
-import java.util.ArrayList;
 
 /**
  * Represents user's user interface when using the Chat Bot Echo
@@ -18,12 +18,12 @@ public class Ui {
      */
     public void greet() {
         System.out.println(LINE_BREAK);
-        System.out.println("   |\\---/|\n" +
-                           "   | ,_, |\n" +
-                           "    \\_'_/-..----.\n" +
-                           " ___/ `   ' ,\"\"+ \\  Meow\n" +
-                           "(__...'   __\\    |`.___.';\n" +
-                           "  (_,...'(_,.`__)/'.....+");
+        System.out.println("   |\\---/|\n"
+                         + "   | ,_, |\n"
+                         + "    \\_'_/-..----.\n"
+                         + " ___/ `   ' ,\"\"+ \\  Meow\n"
+                         + "(__...'   __\\    |`.___.';\n"
+                         + "  (_,...'(_,.`__)/'.....+");
         System.out.println("Meow I'm Echo");
         System.out.println("What can I do for you?");
         System.out.println(LINE_BREAK);
@@ -35,10 +35,10 @@ public class Ui {
     public void bye() {
         System.out.println(LINE_BREAK);
         System.out.println("Goodnight! Hope to see you again soon!");
-        System.out.println("      |\\      _,,,---,,_\n" +
-                           "ZZZzz /,`.-'`'    -.  ;-;;,_\n" +
-                           "     |,4-  ) )-,_. ,\\ (  `'-'\n" +
-                           "    '---''(_/--'  `-'\\_)");
+        System.out.println("      |\\      _,,,---,,_\n"
+                         + "ZZZzz /,`.-'`'    -.  ;-;;,_\n"
+                         + "     |,4-  ) )-,_. ,\\ (  `'-'\n"
+                         + "    '---''(_/--'  `-'\\_)");
         System.out.println(LINE_BREAK);
     }
 

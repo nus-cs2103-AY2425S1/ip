@@ -1,5 +1,10 @@
 package echo.main;
 
+import java.io.IOException;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import echo.exception.EchoException;
 import echo.parser.Parser;
 import echo.storage.Storage;
@@ -9,11 +14,6 @@ import echo.task.Task;
 import echo.task.ToDos;
 import echo.tasklist.TaskList;
 import echo.ui.Ui;
-
-import java.io.IOException;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents the Chat Bot called Echo
