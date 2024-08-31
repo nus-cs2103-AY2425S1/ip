@@ -14,7 +14,7 @@ public class MarkCommand extends Command{
 
     @Override
     public void execute(TaskList taskList, Ui ui) {
-        taskList.unmarkTask(this.index);
+        taskList.markTask(this.index);
         Task t = taskList.getTask(this.index);
         ui.showMarkMessage(t);
         Storage.saveToFile(taskList);
