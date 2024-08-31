@@ -14,7 +14,7 @@ public class Parser {
         if (splitFromTo.length != 3) {
             throw new InputFormatException("Oops! I need a /from and a /to regex to save your event task");
         }
-        return splitFromTo[0];
+        return splitFromTo[0].trim();
     }
 
     public static LocalDateTime[] getEventFromAndToDate(String input) throws InputFormatException{
@@ -41,7 +41,7 @@ public class Parser {
         if (splitBySlash.length != 2) {
             throw new InputFormatException("Oops! I need one /by regex to save your deadline task");
         }
-        return splitBySlash[0];
+        return splitBySlash[0].trim();
     }
 
     public static LocalDateTime getDeadlineDate(String input) throws InputFormatException {
@@ -62,6 +62,6 @@ public class Parser {
         if (todoSplit.length != 2) {
             throw new InputFormatException("Oops!  I need a description to save your task");
         }
-        return todoSplit[1];
+        return todoSplit[1].trim();
     }
 }

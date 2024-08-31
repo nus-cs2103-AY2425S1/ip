@@ -15,8 +15,8 @@ import java.util.Scanner;
 public class ScoobyDoo {
     private final String name = "Scooby-Doo";
     private TaskList taskList = new TaskList();
-    private Storage storage;
-    private UI ui;
+    private final Storage storage;
+    private final UI ui;
 
     public ScoobyDoo(String FilePath) {
         storage = new Storage(FilePath);
