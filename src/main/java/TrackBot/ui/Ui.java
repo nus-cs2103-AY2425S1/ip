@@ -20,4 +20,12 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("************************************************************");
     }
+
+    /**
+     * Prints a line.
+     */
+    public void printLine() {
+        System.out.println("````````````````````````````````````````````````````````````");
+    }
+
 }
