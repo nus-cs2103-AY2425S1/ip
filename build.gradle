@@ -1,8 +1,9 @@
 plugins {
+    id 'checkstyle'
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-}
+} 
 
 repositories {
     mavenCentral()
@@ -29,6 +30,19 @@ test {
 
 application {
     mainClass.set("Mizz")
+}
+
+checkstyle {
+  toolVersion = '10.2'
+  configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+}
+
+checkstyleMain {
+  source = 'src/main/java'
+}
+
+checkstyleTest {
+  source = 'src/test/java'
 }
 
 shadowJar {
