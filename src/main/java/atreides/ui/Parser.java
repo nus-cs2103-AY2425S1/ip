@@ -1,6 +1,13 @@
 package atreides.ui;
 
-import atreides.command.*;
+import atreides.command.AddCommand;
+import atreides.command.Command;
+import atreides.command.DeleteCommand;
+import atreides.command.ErrorCommand;
+import atreides.command.ExitCommand;
+import atreides.command.ListCommand;
+import atreides.command.MarkCommand;
+import atreides.command.UnMarkCommand;
 
 import java.util.Set;
 
