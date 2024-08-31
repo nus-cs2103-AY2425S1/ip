@@ -3,6 +3,9 @@ package rob;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the list of tasks the user has added.
+ */
 public class TaskList {
     private List<Task> taskList;
 

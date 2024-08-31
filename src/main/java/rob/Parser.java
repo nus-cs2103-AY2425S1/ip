@@ -2,9 +2,17 @@ package rob;
 
 import java.util.Objects;
 
+/**
+ * Interprets the user input string and splits string for further processing.
+ */
 public class Parser {
     private String string;
 
+    /**
+     * Constructs a new Parser to interpret and process the input string.
+     *
+     * @param string The input string to be processed.
+     */
     public Parser(String string) {
         this.string = string;
 

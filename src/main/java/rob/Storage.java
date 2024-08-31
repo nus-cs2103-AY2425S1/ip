@@ -1,5 +1,4 @@
 package rob;
-import rob.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,6 +7,9 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Stores previous tasks added by user.
+ */
 public class Storage {
     private String filePath;
     public Storage(String filePath) {
@@ -33,7 +35,7 @@ public class Storage {
                 String type = parts[0].trim();
                 String status = parts[1].trim();
                 String desc = parts[2].trim();
-                String firstLimiter  = (parts.length > 3) ? parts[3].trim() : "";
+                String firstLimiter = (parts.length > 3) ? parts[3].trim() : "";
                 String secondLimiter = (parts.length > 4) ? parts[4].trim() : "";
 
                 if (type.equals("[T]")) {

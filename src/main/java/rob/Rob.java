@@ -7,12 +7,23 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Rob class represents a chatbot that helps users manage tasks
+ */
 public class Rob {
     private static final String FILE_PATH = "./data/robsaved.txt";
     private Storage storage;
     private TaskList tasks = new TaskList();
     private Ui ui;
     private Parser parser;
+
+    /**
+     * Initializes a new instance of the Rob chatbot.
+     * Initializes the user interface, storage, and task list components
+     * of the Rob chatbot.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
 
     public Rob(String filePath) {
         ui = new Ui();
@@ -26,7 +37,8 @@ public class Rob {
     }
 
     /**
-     * Reads user input and processes commands such as "bye", "list", "mark", "unmark", "delete", "deadline", "event", and "todo".
+     * Reads user input and processes commands such as:
+     * "bye", "list", "mark", "unmark" "delete", "deadline", "event", and "todo".
      * Saves and loads tasks
      */
     public void run() {
@@ -58,7 +70,7 @@ public class Rob {
             } else if (Objects.equals(command, "unmark")) {
                 try {
                     int taskNum = findTaskNum(input);
-                    ui.unmark(tasks,taskNum);
+                    ui.unmark(tasks, taskNum);
                     tasks.getTask(taskNum - 1).unmark();
                     storage.saveTasks(tasks);
                 } catch (DukeException e) {
