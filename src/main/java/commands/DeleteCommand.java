@@ -1,5 +1,6 @@
 package main.java.commands;
 
+import main.java.Task;
 import main.java.TaskList;
 import main.java.util.Storage;
 import main.java.util.Ui;
@@ -13,7 +14,10 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui) {
+        Task t = taskList.getTask(this.index);
         taskList.deleteTask(this.index);
+        ui.showDeleteMessage(t);
+        Storage.saveToFile(taskList);
     }
 
     @Override
