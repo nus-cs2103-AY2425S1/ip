@@ -1,7 +1,6 @@
 package sumode;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -15,11 +14,12 @@ import sumode.exception.EndBeforeStartException;
 import sumode.exception.NonExistentTaskException;
 import sumode.exception.UnknownCommandException;
 import sumode.exception.WrongSyntaxForCommandException;
+import sumode.ui.Ui;
 import sumode.util.Command;
 import sumode.util.Parser;
 import sumode.util.Storage;
 import sumode.util.SumoTaskList;
-import sumode.ui.Ui;
+
 
 /**
  * Main class where user will run the Main from
@@ -104,7 +104,7 @@ public class SumoDE extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<Ui>getController().setSumoDE();  // inject the Duke instance
+            fxmlLoader.<Ui>getController().setSumoDE(); // inject the Duke instance
             stage.setTitle("SumoDE");
             stage.show();
         } catch (IOException e) {

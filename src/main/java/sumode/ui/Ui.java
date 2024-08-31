@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import sumode.SumoDE;
@@ -34,7 +33,7 @@ public class Ui {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/kangaroo.png"));
     private Image sumoImage = new Image(this.getClass().getResourceAsStream("/images/sumoDE.png"));
 
-
+    /** Initialise the property for scroll bar to always scroll down and for SumoDE to greet */
     @FXML
     public void initialize() { //the initialize method in Java controller is automatically called after FXML been loaded
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty()); // means auto scroll down
@@ -47,21 +46,38 @@ public class Ui {
         this.sumoDE = new SumoDE("data\\taskSaved.txt", this);
     }
 
+    /**
+     * Reply by SumoDE.
+     * @param response response given by SumoDE.
+     */
     @FXML
     private void respond(String response) {
         dialogContainer.getChildren().addAll(DialogBox.getSumoDialog(response, sumoImage));
     }
 
+    /**
+     * Angry reply by SumoDE - usually used when errors are made.
+     * @param response response given by SumoDE
+     */
+    @FXML
     private void respondDanger(String response) {
         dialogContainer.getChildren().addAll(DialogBox.getSumoAngryDialog(response, sumoImage));
     }
 
+    /**
+     * Print Message by user for record.
+     * @param input input from user
+     */
     @FXML
     private void echo(String input) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage)
         );
     }
+
+    /**
+     * Handles the user input.
+     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
@@ -77,9 +93,7 @@ public class Ui {
         this.respond("""
                 ------------------------------------
                     Hello, I am Sumo-DE
-                
-                \
-                 How can Sumo help you?
+                   How can Sumo help you?
                 ------------------------------------"""
         );
     }
