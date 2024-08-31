@@ -1,10 +1,7 @@
 package Joseph;
 
 import Joseph.Exceptions.UnknownCommandException;
-import Joseph.Tasks.Task;
 import Joseph.Tasks.TaskList;
-
-import java.util.ArrayList;
 
 /**
  *  The main class of the chatbot.
@@ -16,8 +13,6 @@ public class Joseph {
         Parser parser = new Parser();
         Storage storage = new Storage("./data/joseph.txt");
         TaskList taskList = new TaskList(storage.loadTasks());
-
-        ArrayList<Task> list = storage.loadTasks();
 
         ui.printWelcomeMessage(NAME);
 

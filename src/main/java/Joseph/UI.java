@@ -9,8 +9,7 @@ import java.util.Scanner;
  * Handles all interactions with the user.
  */
 public class UI {
-    private Scanner scanner;
-    private final String LINE = "----------------------------------";
+    private final Scanner scanner;
 
     public UI() {
         this.scanner = new Scanner(System.in);
@@ -20,11 +19,12 @@ public class UI {
      * Prints a line separator.
      */
     public void printLine() {
+        String LINE = "----------------------------------";
         System.out.println(LINE);
     }
 
     /**
-     * Prints the welome message when the chatbot is started.
+     * Prints the welcome message when the chatbot is started.
      * @param name The name of the chatbot.
      */
     public void printWelcomeMessage(String name) {
@@ -44,7 +44,7 @@ public class UI {
     }
 
     /**
-     * Priunts the current list of tasks.
+     * Prints the current list of tasks.
      * @param list The list of tasks within ./data/joseph.txt.
      */
     public void printListMessage(ArrayList<Task> list) {
@@ -71,7 +71,7 @@ public class UI {
                 "accepts desc as any string");
         System.out.println("The below deadline and event commands " +
                 "accepts a due or start and end " +
-                "in the following format: DD/MM/YYYY HHMM");
+                "in the following format: DD/MM/YYYY HHmm");
         System.out.println("todo desc, " +
                 "adds a todo to the list");
         System.out.println("deadline desc /due, " +
