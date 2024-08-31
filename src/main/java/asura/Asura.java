@@ -1,14 +1,11 @@
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+package asura;
+
+import asura.commands.Command;
+import asura.data.exception.AsuraException;
+import asura.data.tasks.TaskList;
+import asura.parser.Parser;
+import asura.storage.Storage;
+import asura.ui.Ui;
 
 public class Asura {
 
@@ -47,7 +44,7 @@ public class Asura {
     }
 
 
-    public static void main(String[] args) throws AsuraException {
+    public static void main(String[] args) {
         new Asura("data/asura.txt").run();
     }
 }

@@ -1,3 +1,11 @@
+package asura.storage;
+
+import asura.data.exception.AsuraException;
+import asura.data.tasks.Deadline;
+import asura.data.tasks.Event;
+import asura.data.tasks.Task;
+import asura.data.tasks.Todo;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -52,17 +60,14 @@ public class Storage {
     public void save(List<Task> taskList) throws AsuraException {
         StringBuilder sb = new StringBuilder();
         for (Task task : taskList) {
-            if (task instanceof Event) {
-                Event event = (Event) task;
-                sb.append("E|").append(event.isDone ? 1 : 0).append("|").append(event.description).append("|").append(event.start).append("|").append(event.end).append("\n");
+            if (task instanceof Event event) {
+                sb.append("E|").append(event.getIsDone() ? 1 : 0).append("|").append(event.getDescription()).append("|").append(event.getStart()).append("|").append(event.getEnd()).append("\n");
             }
-            else if (task instanceof Todo) {
-                Todo todo = (Todo) task;
-                sb.append("T|").append(todo.isDone ? 1 : 0).append("|").append(todo.description).append("\n");
+            else if (task instanceof Todo todo) {
+                sb.append("T|").append(todo.getIsDone() ? 1 : 0).append("|").append(todo.getDescription()).append("\n");
             }
-            else if (task instanceof Deadline) {
-                Deadline deadline = (Deadline) task;
-                sb.append("D|").append(deadline.isDone ? 1 : 0).append("|").append(deadline.description).append("|").append(deadline.by).append("\n");
+            else if (task instanceof Deadline deadline) {
+                sb.append("D|").append(deadline.getIsDone() ? 1 : 0).append("|").append(deadline.getDescription()).append("|").append(deadline.getBy()).append("\n");
             }
         }
         try {
