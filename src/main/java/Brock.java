@@ -19,7 +19,7 @@ public class Brock {
         UNMARK
     }
 
-    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
+    private static final String HORIZONTAL_LINE = "_____________________________________________________________________\n";
     private static final String FILE_PATH = "./src/main/java/saveFile.txt";
 
     private static final File saveFile = new File(FILE_PATH);
@@ -421,7 +421,7 @@ public class Brock {
             }
             String[] dateTimeValues = validateDateTime(dateTime.toString()
                     , dateTimeWords);
-            if (dateTimeValues.length == 1) {
+            if (dateTimeWords == 1) {
                 return new Deadlines(description.toString()
                         , dateTimeValues[0]);
             } else {
@@ -475,7 +475,6 @@ public class Brock {
             if (startDateTimeWords != endDateTimeWords) {
                 throw new BrockException("Both start and end dates must either include or exclude a time!");
             }
-
             String[] startDateTimeValues = validateDateTime(startDateTime.toString()
                     , startDateTimeWords);
             String[] endDateTimeValues = validateDateTime(endDateTime.toString()

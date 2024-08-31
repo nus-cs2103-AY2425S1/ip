@@ -9,14 +9,12 @@ import java.time.format.DateTimeParseException;
 
 public class Deadlines extends Task {
     private final LocalDate dueDate;
+    private final LocalTime dueTime;
 
-    // TODO: Probably change this to LocalTime for intuitive
-    private final String time;
-
-    private LocalTime parseTime() {
-        String hours = this.time
+    private LocalTime parseTime(String dueTimeString) {
+        String hours = dueTimeString
                 .substring(0, 2);
-        String minutes = this.time
+        String minutes = dueTimeString
                 .substring(2);
         return LocalTime.of(Integer.parseInt(hours)
                 , Integer.parseInt(minutes));
@@ -27,9 +25,9 @@ public class Deadlines extends Task {
         if (this.dueDate.isBefore(today)) {
             throw new BrockException("Due date cannot be earlier than today!");
         }
-        if (!this.time.isEmpty()) {
+        if (this.dueTime != LocalTime.MAX) {
             LocalTime now = LocalTime.now();
-            if (parseTime().isBefore(now)) {
+            if (this.dueTime.isBefore(now)) {
                 throw new BrockException("Due time cannot be earlier than now!");
             }
         }
@@ -38,7 +36,7 @@ public class Deadlines extends Task {
     public Deadlines(String description, String dueDateString) throws BrockException {
         super(description);
         try {
-            this.time = "";
+            this.dueTime = LocalTime.MAX; // dummy value for time
             this.dueDate = LocalDate.parse(dueDateString);
             validateDateTime();
         } catch (DateTimeParseException e) {
@@ -49,7 +47,7 @@ public class Deadlines extends Task {
     public Deadlines(String description, String dueDateString, String dueTimeString) throws BrockException {
         super(description);
         try {
-            this.time = dueTimeString;
+            this.dueTime = parseTime(dueTimeString);
             this.dueDate = LocalDate.parse(dueDateString);
             validateDateTime();
         } catch (DateTimeParseException e) {
@@ -66,9 +64,9 @@ public class Deadlines extends Task {
         String dueDateFormatted = this.dueDate
                 .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         return "(by: " + dueDateFormatted
-                + (this.time.isEmpty()
+                + (this.dueTime == LocalTime.MAX
                 ? ""
-                : ", " + this.time)
+                : ", " + this.dueTime.toString())
                 + ")";
     }
 }
