@@ -1,8 +1,8 @@
 package cook;
 
-import exceptions.InvalidCommandException;
-
 import java.util.HashMap;
+
+import exceptions.InvalidCommandException;
 
 public class Parser {
     HashMap<String, Integer> commandArgs;
