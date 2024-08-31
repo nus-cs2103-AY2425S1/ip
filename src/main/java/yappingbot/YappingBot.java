@@ -46,7 +46,7 @@ public class YappingBot {
         Scanner userInputScanner = new Scanner(System.in);
         Parser parser = new Parser();
         while (userInputScanner.hasNextLine()) {
-            String userInput = userInputScanner.nextLine();
+            String userInput = userInputScanner.nextLine().trim();
             String[] userInputSlices = userInput.split(" ");
             try {
                 int taskListIndexPtr; // task list pointer
