@@ -1,3 +1,5 @@
+package babblebot.parser;
+
 public class Parser {
 
     public static String parseCommand(String userInput) {
