@@ -70,7 +70,7 @@ public class Parser {
             }
         } else if (words[0].equals("delete")) {
             if (words.length != 2) {
-                throw new BarcusException("please have a number after 'delete'");
+                throw new BarcusException("please have an integer after 'delete'");
             } else {
                 try {
                     int pos = Integer.parseInt(words[1]);
