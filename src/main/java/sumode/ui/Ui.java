@@ -8,6 +8,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import sumode.SumoDE;
 import sumode.task.Task;
@@ -25,6 +26,8 @@ public class Ui {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private HBox heading;
 
     private SumoDE sumoDE;
 
@@ -46,7 +49,7 @@ public class Ui {
 
     @FXML
     private void respond(String response) {
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(response, sumoImage));
+        dialogContainer.getChildren().addAll(DialogBox.getSumoDialog(response, sumoImage));
     }
 
     @FXML
@@ -58,7 +61,6 @@ public class Ui {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        //String response = duke.getResponse(input);
         echo(input);
         userInput.clear();
         this.sumoDE.execute(input);
