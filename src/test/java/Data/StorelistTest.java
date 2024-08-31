@@ -125,10 +125,10 @@ public class StorelistTest {
         storeList.displayItems();
 
 
-        assertEquals("    Here are the tasks in your list:\n" +
-                "    1.[D][ ] read book (by: Apr 05 2020, 4:00 pm)\n" +
-                "    2.[E][ ] project (from: 4:00 pm to: 6:00 pm on: Apr 05 2020)\n" +
-                "    3.[T][ ] read book\n", outContent.toString());
+        assertEquals("    Here are the tasks in your list:\r\n" +
+                "    1.[D][ ] read book (by: Apr 05 2020, 4:00 pm)\r\n" +
+                "    2.[E][ ] project (from: 4:00 pm to: 6:00 pm on: Apr 05 2020)\r\n" +
+                "    3.[T][ ] read book\r\n", outContent.toString());
 
         // Restore original System.out
         System.setOut(originalOut);
@@ -158,9 +158,9 @@ public class StorelistTest {
         storeList.dueOnDate("2020-04-05");
 
 
-        assertEquals("    Here are the tasks due on 2020-04-05:\n" +
-                "    1.[D][ ] read book (by: Apr 05 2020, 4:00 pm)\n" +
-                "    2.[E][ ] project (from: 4:00 pm to: 6:00 pm on: Apr 05 2020)\n", outContent.toString());
+        assertEquals("    Here are the tasks due on 2020-04-05:\r\n" +
+                "    1.[D][ ] read book (by: Apr 05 2020, 4:00 pm)\r\n" +
+                "    2.[E][ ] project (from: 4:00 pm to: 6:00 pm on: Apr 05 2020)\r\n", outContent.toString());
 
         // Restore original System.out
         System.setOut(originalOut);
@@ -190,9 +190,9 @@ public class StorelistTest {
         storeList.displayItemsWithWord("book");
 
 
-        assertEquals("    Here are the tasks in your list that match book:\n" +
-                "    1.[D][ ] read book (by: Apr 05 2020, 4:00 pm)\n" +
-                "    3.[T][ ] read book\n", outContent.toString());
+        assertEquals("    Here are the tasks in your list that match book:\r\n" +
+                "    1.[D][ ] read book (by: Apr 05 2020, 4:00 pm)\r\n" +
+                "    3.[T][ ] read book\r\n", outContent.toString());
 
         // Restore original System.out
         System.setOut(originalOut);
