@@ -64,6 +64,16 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
+    public void showTaskList(TaskList storedTasks) {
+        System.out.println(SEPARATOR);
+        int tempCount = 1;
+        for (Task t : storedTasks.getAllTasks()) {
+            System.out.println(tempCount + ". " + t.toString());
+            tempCount++;
+        }
+        System.out.println(SEPARATOR);
+    }
+
     public void showBabbleBotError() {
         System.out.println(SEPARATOR);
         System.out.println("Whoopsie daisy! Looks like I got all tangled up in my words there!\n" +
