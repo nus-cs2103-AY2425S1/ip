@@ -1,12 +1,12 @@
-package MichaelScott.Command;
+package michaelscott.command;
 
-import michaelscott.command.ClearlistCommand;
-import michaelscott.task.Todo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 import michaelscott.task.TaskList;
+import michaelscott.task.Todo;
 
 class ClearlistCommandTest {
     private TaskList tasks;

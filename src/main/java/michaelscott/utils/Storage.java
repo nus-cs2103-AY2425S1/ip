@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import michaelscott.task.Task;
 import michaelscott.task.TaskList;
 import michaelscott.task.TaskParser;
@@ -17,6 +18,9 @@ import michaelscott.task.TaskParser;
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a storage class.
+     */
     public Storage(TaskList taskList) {
         try {
             Files.createDirectories(Paths.get("./userdata"));
@@ -54,6 +58,10 @@ public class Storage {
         }
     }
 
+    /**
+     * This function reads the userdata file and loads the task.
+     * Parses the file and constructs the appropriate classes.
+     */
     public void loadTasks(TaskList taskList) {
         File file = new File(this.filePath);
         Scanner sc;
@@ -68,7 +76,7 @@ public class Storage {
                 taskList.addTask(TaskParser.parseTask(line));
             }
             sc.close();
-        } catch (IOException | MichaelScottException e ) {
+        } catch (IOException | MichaelScottException e) {
             Ui.showError(e.getMessage());
         }
     }
