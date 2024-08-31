@@ -2,8 +2,8 @@ public class Ui {
     private static final String DIVIDER = "---------------------------------------------------";
     private static  final String GREETING = "Hello! I'm Nebula, what can I do for you today?";
     private static  final String GOODBYE = "Bye! Hope to see you again soon :)";
-    private static final String MARKED = "Nice! This task has successfully been marked: ";
-    private static final String UNMARKED = "Nice! This task has successfully been unmarked: ";
+    private static final String MARKED = "Nice! This task has successfully been marked:";
+    private static final String UNMARKED = "Nice! This task has successfully been unmarked:";
     private static final String ALREADY_MARKED = "This task has already been marked!";
     private static final String ALREADY_UNMARKED = "This task has already been unmarked!";
 
@@ -32,7 +32,7 @@ public class Ui {
      * @return A string containing the message that a task was added with the task description
      */
     public String displayAddedTask(Task task) {
-        return DIVIDER + "\n" + "Got it! I've added this task: " + "\n"
+        return DIVIDER + "\n" + "Got it! I've added this task:" + "\n"
                 + "  " + task.toString() + "\n" + "Now you have " + TaskList.getTaskListLength()
                 + (TaskList.getTaskListLength() == 1 ? " task " : " tasks ") + "in the list." + "\n" + DIVIDER;
     }
@@ -43,7 +43,7 @@ public class Ui {
      * @return A string containing the formatted list of tasks. If the list is empty, a message indicating that the list is empty is returned
      */
     public String displayList() {
-        String displayList = DIVIDER + "\n" + "Here are the tasks in your list: " + "\n";
+        String displayList = DIVIDER + "\n" + "Here are the tasks in your list:" + "\n";
         int taskLength = TaskList.getTaskListLength();
         Task[] list = TaskList.getTaskList();
         if(taskLength == 0) {
