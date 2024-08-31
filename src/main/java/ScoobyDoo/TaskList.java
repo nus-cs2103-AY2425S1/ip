@@ -46,10 +46,6 @@ public class TaskList {
         return String.format("OK, I've marked this task as not done yet:\n %s", list.get(i-1).toString());
     }
 
-    public Task getTask(int i) {
-        return list.get(i);
-    }
-
     public String printList() {
         String listString = "Here are the task in your list:\n";
         int i = 1;
