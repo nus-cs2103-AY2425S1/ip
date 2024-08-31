@@ -112,7 +112,6 @@ public class Chatterbox {
         throw new ChatterBoxUnknownCommand("Error: Unknown command");
     }
 
-
     public static String greeting() {
         return String.format("""
 ____________________________________________________________
