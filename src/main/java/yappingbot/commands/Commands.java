@@ -166,7 +166,7 @@ public class Commands {
                         newTask)
         );
         userList.add(newTask);
-        msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size() + 1));
+        msb.addLine(String.format(ReplyTextMessages.LIST_SUMMARY_TEXT_1d, userList.size()));
         msb.print();
     }
 

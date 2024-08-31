@@ -33,6 +33,8 @@ public class YappingBot {
     }
 
     private void saveAndExit(Storage storage) {
+        // REVERT LIST TO MAIN PARENT!
+        reset_view();
         try {
             storage.saveListToFile(userList.toRawFormat());
         } catch (YappingBotException e) {
@@ -52,10 +54,7 @@ public class YappingBot {
                     case EXIT:
                         return;
                 case RESET_LIST:
-                    // reset the view to main parent
-                    while (userList instanceof TaskListFilterView) {
-                        userList = ( (TaskListFilterView) userList ).getParent();
-                    }
+                    reset_view();
                     break;
                     case LIST:
                         Commands.printUserList(userList);
@@ -92,6 +91,13 @@ public class YappingBot {
             } catch (YappingBotException e){
                 Ui.printError(e);
             }
+        }
+    }
+
+    private void reset_view() {
+        // reset the view to main parent
+        while (userList instanceof TaskListFilterView) {
+            userList = ( (TaskListFilterView) userList ).getParent();
         }
     }
 

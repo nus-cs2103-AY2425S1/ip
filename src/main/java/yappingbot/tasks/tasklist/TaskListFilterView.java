@@ -37,13 +37,13 @@ public class TaskListFilterView extends TaskList {
      */
     public static TaskListFilterView createFilter(TaskList parent, String searchString) {
         TaskListFilterView newFilter = new TaskListFilterView(parent);
-        int index = 0;
-        for (Task t : newFilter.getParent()) {
+        for (int index = 0; index < parent.size(); index++) { // dont ask me why index not i
+            Task t = parent.get(index);
             if (t.isStringFoundInTask(searchString)) {
-                newFilter.add(t);
+                newFilter.tasks.add(t);
                 newFilter.indexInParentTaskList.add(index);
+                newFilter.size += 1;
             }
-            index += 1;
         }
         return newFilter;
     }
