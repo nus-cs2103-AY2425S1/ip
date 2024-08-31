@@ -1,9 +1,15 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadlines extends Task{
+    private LocalDate deadlineTime;
     public Deadlines(String desc) throws TaskException {
         super("",desc);
         try {
             String[] section = desc.substring(9).split("/by ");
-            super.description = section[0] + "(by: " + section[1] + ")";
+            LocalDate d1 = LocalDate.parse(section[1]);
+            deadlineTime = d1;
+            super.description = section[0] + "(by: " + d1.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
             taskType = "[D]";
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new TaskException("Sorry, the desctiption you " +
