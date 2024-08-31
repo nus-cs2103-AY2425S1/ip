@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Mittens {
@@ -22,6 +21,7 @@ public class Mittens {
             """;
     
     private final static TaskList taskList = new TaskList();
+    private final static Storage storage = new Storage("data/data.txt");
 
     public static void greet() {
         System.out.println(GREETING_MESSAGE);
@@ -192,6 +192,8 @@ public class Mittens {
 
                     Event newEvent = new Event(description, from, to);
                     addTask(newEvent);
+                } else if (input.equals("save")) {
+                    storage.save(taskList);
                 } else {
                     throw new BadInputException("'%s' is not a known command".formatted(input));
                 }
