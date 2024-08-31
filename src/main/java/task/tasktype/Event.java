@@ -1,17 +1,17 @@
-package Task.TaskType;
+package task.tasktype;
 
-import Task.Task;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task{
+import task.Task;
 
-    LocalDate startDate;
-    LocalTime startTime;
-    LocalDate endDate;
-    LocalTime endTime;
+public class Event extends Task {
+
+    private LocalDate startDate;
+    private LocalTime startTime;
+    private LocalDate endDate;
+    private LocalTime endTime;
 
     public Event(String description, String start, String end) {
         super(TaskType.EVENT, description);
@@ -19,7 +19,7 @@ public class Event extends Task{
         String[] startArr = start.split(" ");
         startDate = LocalDate.parse(startArr[0], formatter);
         if (startArr.length == 2) {
-           startTime = LocalTime.parse(startArr[1]);
+            startTime = LocalTime.parse(startArr[1]);
         }
 
 

@@ -1,11 +1,10 @@
-package Task.TaskType;
+package task.tasktype;
 
-import Task.TaskType.TaskType;
-
-import Task.Task;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+
+import task.Task;
 
 
 public class Deadline extends Task {
@@ -28,6 +27,6 @@ public class Deadline extends Task {
         String altFormat = deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String timeStr = deadlineTime == null ? "" : deadlineDate.toString();
         String deadline = (altFormat + " " + timeStr).trim();
-        return "[D]" + super.toString() + " (by: " + deadline + ")" ;
+        return "[D]" + super.toString() + " (by: " + deadline + ")";
     }
 }

@@ -1,6 +1,12 @@
-package Parser;
+package parser;
 
-import Commands.*;
+import commands.AddTaskCommand;
+import commands.Command;
+import commands.DeleteCommand;
+import commands.ExitCommand;
+import commands.ListCommand;
+import commands.MarkCommand;
+import commands.UnmarkCommand;
 import exceptions.InvalidTaskException;
 
 public class Parser {
@@ -35,29 +41,30 @@ public class Parser {
         }
     }
 
-    public static Command inputToCommand(String userInput) throws  InvalidTaskException, ArrayIndexOutOfBoundsException {
-       String strippedInput= userInput.toLowerCase().trim();
-       if (strippedInput.isEmpty()) {
-           return null;
-       }
+    public static Command inputToCommand(String userInput) throws InvalidTaskException,
+            ArrayIndexOutOfBoundsException {
+        String strippedInput = userInput.toLowerCase().trim();
+        if (strippedInput.isEmpty()) {
+            return null;
+        }
 
-       String[] words = strippedInput.split(" ");
-       switch (words[0]) {
-       case "bye":
-           return new ExitCommand();
-       case "list":
-           return new ListCommand();
-       case "delete":
-           return new DeleteCommand(Integer.parseInt(words[1]) - 1);
-       case "mark":
-           return new MarkCommand(Integer.parseInt(words[1]) - 1);
-       case "unmark":
-           return new UnmarkCommand(Integer.parseInt(words[1]) - 1);
-       case "todo", "deadline", "event":
-           return new AddTaskCommand(userInput);
-       default:
-           throw new InvalidTaskException();
-       }
+        String[] words = strippedInput.split(" ");
+        switch (words[0]) {
+        case "bye":
+            return new ExitCommand();
+        case "list":
+            return new ListCommand();
+        case "delete":
+            return new DeleteCommand(Integer.parseInt(words[1]) - 1);
+        case "mark":
+            return new MarkCommand(Integer.parseInt(words[1]) - 1);
+        case "unmark":
+            return new UnmarkCommand(Integer.parseInt(words[1]) - 1);
+        case "todo", "deadline", "event":
+            return new AddTaskCommand(userInput);
+        default:
+            throw new InvalidTaskException();
+        }
     }
 }
 

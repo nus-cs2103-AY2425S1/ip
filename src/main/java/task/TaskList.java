@@ -1,9 +1,4 @@
-package Task;
-
-import Parser.Parser;
-import Storage.Storage;
-import exceptions.InvalidTaskException;
-import exceptions.NoTaskDescriptionException;
+package task;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -11,15 +6,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import exceptions.InvalidTaskException;
+import exceptions.NoTaskDescriptionException;
+import parser.Parser;
+import storage.Storage;
+
 public class TaskList {
 
     protected ArrayList<Task> inputHistory;
     protected Storage storage;
 
     public TaskList(Storage storage) {
-       inputHistory = new ArrayList<>();
-       this.storage = storage;
-       loadDataFromStorage();
+        inputHistory = new ArrayList<>();
+        this.storage = storage;
+        loadDataFromStorage();
     }
 
     public void loadDataFromStorage() {
@@ -62,7 +62,7 @@ public class TaskList {
         inputHistory.add(newTask);
     }
 
-    public Task removeTask(int deleteIndex) throws IndexOutOfBoundsException{
+    public Task removeTask(int deleteIndex) throws IndexOutOfBoundsException {
         Task taskToDelete = inputHistory.get(deleteIndex);
         inputHistory.remove(taskToDelete);
         return taskToDelete;
@@ -73,21 +73,21 @@ public class TaskList {
         Task task = inputHistory.get(indexToChange);
         if (action.equals("mark")) {
             task.changeStatus(true);
-            System.out.println("GOOD RIDDANCE! Finally, this task is done:\n" +
-                    task);
+            System.out.println("GOOD RIDDANCE! Finally, this task is done:\n"
+                    + task);
         } else {
             task.changeStatus(false);
-            System.out.println("Alright, this task is not done yet faster finish leh:\n" +
-                    task);
+            System.out.println("Alright, this task is not done yet faster finish leh:\n"
+                    + task);
         }
         System.out.println("---------------");
     }
 
     public void displayList() {
         System.out.println("---------------");
-        inputHistory.forEach(task -> System.out.println((this.inputHistory.indexOf(task) + 1) +
-                ". " +
-                task));
+        inputHistory.forEach(task -> System.out.println((this.inputHistory.indexOf(task) + 1)
+                + ". "
+                + task));
         System.out.println("---------------\n");
     }
 

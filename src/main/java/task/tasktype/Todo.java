@@ -1,6 +1,6 @@
-package Task.TaskType;
+package task.tasktype;
 
-import Task.Task;
+import task.Task;
 
 public class Todo extends Task {
 

@@ -1,8 +1,8 @@
-package Commands;
+package commands;
 
-import Task.TaskList;
+import task.TaskList;
 
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     private int indexToMark;
 
     public MarkCommand(int indexToMark) {

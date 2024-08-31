@@ -1,4 +1,4 @@
-package Task.TaskType;
+package task.tasktype;
 
 public enum TaskType {
     TODO,

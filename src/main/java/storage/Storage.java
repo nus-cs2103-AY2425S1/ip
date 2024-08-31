@@ -1,4 +1,4 @@
-package Storage;
+package storage;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class Storage {
             directory.mkdir();
         }
 
-        if(!file.exists()) {
+        if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {

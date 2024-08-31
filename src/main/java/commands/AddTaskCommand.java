@@ -1,16 +1,16 @@
-package Commands;
+package commands;
 
-import Task.TaskList;
-import Task.Task;
 import exceptions.InvalidTaskException;
 import exceptions.NoTaskDescriptionException;
+import task.Task;
+import task.TaskList;
 
 public class AddTaskCommand extends Command {
 
     private String userInput;
 
     public AddTaskCommand(String userInput) {
-       this.userInput = userInput;
+        this.userInput = userInput;
     }
 
 
@@ -19,11 +19,11 @@ public class AddTaskCommand extends Command {
         try {
             Task newTask = Task.createTask(userInput);
             taskList.addTask(newTask);
-            System.out.println("----------------\n" +
-                    "Alrighty! The following task has been added:\n " +
-                    newTask + "\n" +
-                    "Oh my goodness you have " + taskList.getSize() + " tasks remaining\n" +
-                    "----------------\n");
+            System.out.println("----------------\n"
+                    + "Alrighty! The following task has been added:\n "
+                    + newTask + "\n"
+                    + "Oh my goodness you have " + taskList.getSize() + " tasks remaining\n"
+                    + "----------------\n");
         } catch (NoTaskDescriptionException e) {
             System.out.println("Wah, no description then I record what?");
         } catch (InvalidTaskException e) {
