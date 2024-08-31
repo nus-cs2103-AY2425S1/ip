@@ -1,8 +1,8 @@
 package zbot;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import java.time.format.DateTimeParseException;
@@ -10,10 +10,10 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import zbot.task.Task;
-import zbot.task.ToDo;
 import zbot.task.Deadline;
 import zbot.task.Event;
+import zbot.task.Task;
+import zbot.task.ToDo;
 
 /**
  * Represents the storage of tasks in a file.
@@ -90,10 +90,10 @@ public class Storage {
 
             // Append task-specific details
             if (taskType == 'D') {
-                sb.append(",").append(Parser.formatDateTimeToInput(((Deadline) task).getBy()));
+                sb.append(",").append(Parser.formatDateTimeToInput(((Deadline) task).getDueDate()));
             } else if (taskType == 'E') {
-                sb.append(",").append(Parser.formatDateTimeToInput(((Event) task).getFrom()))
-                        .append(",").append(Parser.formatDateTimeToInput(((Event) task).getTo()));
+                sb.append(",").append(Parser.formatDateTimeToInput(((Event) task).getStartDate()))
+                        .append(",").append(Parser.formatDateTimeToInput(((Event) task).getEndDate()));
             }
             sb.append("\n");
         }
