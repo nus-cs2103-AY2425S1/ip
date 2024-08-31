@@ -5,6 +5,9 @@ import exceptions.GrokInvalidUserInputException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * An Event stores two fields, one 'from' field and one 'to' field, in ISO date format.
+ */
 public class Event extends Task {
     protected LocalDate start;
     protected LocalDate end;

@@ -19,6 +19,11 @@ import ui.Ui;
 
 import java.util.Scanner;
 
+/**
+ * The main coordinator engine behind the application
+ * - Coordinates the actions of the Ui, storage, task list, and parser
+ * - Endlessly waits for commands until the bye command is encountered
+ */
 public class Grok {
     private static final String TEXT_FILE_DIRECTORY = "./data/duke.txt";
     private final Storage storage;

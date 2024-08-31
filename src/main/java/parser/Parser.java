@@ -8,13 +8,16 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
+/**
+ * A wrapper class helps to process raw input from the user and converts into a cleaned command for execution.
+ */
 public class Parser {
     public Parser() {
 
     }
 
     /**
-     * Parse a single line of user input into an executable command
+     * Parse a single line of user input into an executable command.
      * @param userInput - the raw string input by the user
      * @param tasks - the current task list. Required for input validation of index arguments, like mark
      * @return an executable command if the user input is valid

@@ -4,6 +4,9 @@ import tasks.Task;
 
 import java.util.ArrayList;
 
+/**
+ * A wrapper class to hold a list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
