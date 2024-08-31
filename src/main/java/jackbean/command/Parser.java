@@ -22,7 +22,8 @@ public class Parser {
                 reply.append("7. bye - to exit the program\n");
                 reply.append("8. help - to see this message again\n");
                 reply.append("9. delete <task number> - to delete a task\n");
-                reply.append("10. maybe some easter eggs in the future? :)");
+                reply.append("10. find <keyword> - to find tasks that match the keyword\n");
+                reply.append("11. maybe some easter eggs in the future? :)");
                 return reply.toString();
             } else if (input.equalsIgnoreCase("list")) {
                 StringBuilder reply = new StringBuilder("Yo homie!, here are the tasks in your list:");
@@ -113,6 +114,20 @@ public class Parser {
                 Storage.updateStorage(taskList);
                 return "Got it homie! I've added your event, LESGOOOOO:\n"
                         + taskList.getTask(taskList.getSize()) + "\n" + taskList.howManyTasks();
+            } else if (input.toLowerCase().startsWith("find")) {
+                String keyword = input.substring(5).toLowerCase();
+                StringBuilder reply = new StringBuilder("Yo homie! Here are the tasks in your list that match your keyword:");
+                int count = 0; // keep track of how many tasks match the keyword
+                for (int i = 1; i <= taskList.getSize(); i++) {
+                    if (taskList.getTask(i).toString().toLowerCase().contains(keyword)) {
+                        count++;
+                        reply.append("\n").append(count).append(". ").append(taskList.getTask(i));
+                    }
+                }
+                if (count == 0) {
+                    return "Sorry homie, I couldn't find any tasks that match your keyword :(";
+                }
+                return reply.toString();
             } else {
                 throw new InvalidTaskTypeException();
             }
