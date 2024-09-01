@@ -17,6 +17,9 @@ public class TaskList {
     public static List<Task> getItems() {
         return items;
     }
+    public static Task get(int i) {
+        return items.get(i);
+    }
     public static String toPrettyList() {
         int i = 1;
         StringBuilder result = new StringBuilder(); // this is a terrible time complexity

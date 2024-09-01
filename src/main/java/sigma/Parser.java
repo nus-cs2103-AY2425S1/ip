@@ -21,8 +21,8 @@ public class Parser {
     }
 
     // dont really need this yet
-    public void greet() {
-        System.out.println("hello, I'm Sigma, your personal chatbot");
+    public String greet() {
+        return "hello, I'm Sigma, your personal chatbot";
     }
 
     public void goodbye() {

@@ -11,6 +11,9 @@ public class Task {
     public void setStatus(boolean status) { // setter
         this.status = status;
     }
+    public String getName() {
+        return this.name;
+    }
 
     @Override
     public String toString() {
