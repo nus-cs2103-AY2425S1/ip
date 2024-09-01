@@ -1,3 +1,10 @@
+package genji;
+
+import genji.task.Task;
+import genji.task.TaskList;
+import genji.task.ToDo;
+import genji.task.Deadline;
+import genji.task.Event;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

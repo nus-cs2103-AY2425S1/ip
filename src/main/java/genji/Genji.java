@@ -1,18 +1,9 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+package genji;
+
+import genji.command.Command;
+import genji.task.TaskList;
 
 public class Genji {
-    private static String NAME = "Genji";
-    private static String LINE = "________________________________________________________________";
-    private static Scanner scanner = new Scanner(System.in);
-    private static TaskList list;
     private Ui ui;
     private Storage storage;
     private TaskList taskList;

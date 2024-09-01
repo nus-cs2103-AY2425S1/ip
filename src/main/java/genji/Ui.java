@@ -1,3 +1,7 @@
+package genji;
+
+import genji.task.Task;
+import genji.task.TaskList;
 import java.util.Scanner;
 
 public class Ui {
