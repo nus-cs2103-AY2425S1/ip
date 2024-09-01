@@ -19,7 +19,7 @@ public class HelpCommand extends Command {
             Here are the commands you can use:
             1. todo <description> - Add a todo task
             2. deadline <description> /by <date> - Add a deadline task
-            3. event <description> /at <date> - Add an event task
+            3. event <description> /from <date> /to <date> - Add an event task
             4. list - List all tasks
             5. mark <task number> - Mark a task as done
             6. unmark <task number> - Mark a task as incomplete
