@@ -16,5 +16,8 @@ bin/
 #.txt input and output files
 *.txt
 
+#ignore all JAR files
+*.jar
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

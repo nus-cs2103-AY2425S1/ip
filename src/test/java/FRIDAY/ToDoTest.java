@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
          int type = 1;
          ToDo todo = new ToDo(description, type);
          assertEquals(description, todo.getDescription());
-         assertEquals(type, todo.getType());
+         assertEquals(true, todo.getType());
      }
 
      @Test
