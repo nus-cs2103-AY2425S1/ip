@@ -16,7 +16,6 @@ public class Him {
     private static TaskList list = new TaskList();
     private static final Storage storage = new Storage();
 
-
     public static void main(String[] args) {
         try {
             list = storage.loadTaskList();

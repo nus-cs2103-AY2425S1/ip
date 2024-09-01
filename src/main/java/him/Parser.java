@@ -7,10 +7,15 @@ import command.MarkCommand;
 import command.DeleteCommand;
 import command.UnknownCommand;
 
-import exceptions.*;
+import exceptions.HimException;
+import exceptions.InvalidTodoFormatException;
+import exceptions.InvalidDeadlineFormatException;
+import exceptions.InvalidEventFormatException;
+import exceptions.InvalidDateTimeFormatException;
+import exceptions.InvalidDeleteFormatException;
+
 import task.Deadline;
 import task.Event;
-import task.TaskList;
 import task.ToDo;
 
 import java.time.format.DateTimeParseException;
@@ -62,20 +67,32 @@ public class Parser {
         }
     }
 
-    private static Deadline parseDeadline(String[] args) throws InvalidDeadlineFormatException {
+    private static Deadline parseDeadline(String[] args) throws HimException {
         try {
             String[] details = args[1].split("/by");
-            return Deadline.of(details[0].trim(), details[1].trim());
+            String description = details[0].trim();
+            if (description.isEmpty()) {
+                throw new InvalidDeadlineFormatException();
+            }
+            return Deadline.of(description, details[1].trim());
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidDeadlineFormatException();
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeFormatException();
         }
     }
 
     private static Event parseEvent(String[] args) throws HimException {
         try {
             String[] details = args[1].split("/start");
+            String description = details[0].trim();
             String[] interval = details[1].split("/end");
-            return new Event(details[0].trim(), interval[0].trim(), interval[1].trim());
+
+            if (description.isEmpty()) {
+                throw new InvalidEventFormatException();
+            }
+
+            return new Event(description, interval[0].trim(), interval[1].trim());
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidEventFormatException();
         } catch (DateTimeParseException e) {
