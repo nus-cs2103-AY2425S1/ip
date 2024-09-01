@@ -179,5 +179,4 @@ public class Ui {
     public void showEmptyFind() {
         out.println(MESSAGE_EMPTY_FIND);
     }
-
 }

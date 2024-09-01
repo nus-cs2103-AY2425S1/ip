@@ -1,7 +1,11 @@
 package taskon.parser;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static taskon.common.Messages.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static taskon.common.Messages.MESSAGE_DATE_MISSING;
+import static taskon.common.Messages.MESSAGE_DESCRIPTION_MISSING;
+import static taskon.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
