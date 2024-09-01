@@ -109,7 +109,7 @@ public class Ui {
 
     public void showFoundNothingMessage() {
         String output = LINE
-                + "Sorry! Could not find any matching tasks :("
+                + "Sorry! Could not find any matching tasks :(\n"
                 + LINE;
         System.out.print(output);
     }
@@ -174,6 +174,14 @@ public class Ui {
         String output = LINE
                 + "Invalid syntax. Please follow this syntax for Delete:\n"
                 + "\t delete <task index>\n"
+                + LINE;
+        System.out.print(output);
+    }
+
+    public void showFindSyntax() {
+        String output = LINE
+                + "Invalid syntax. Please follow this syntax for Find:\n"
+                + "\t find <search string>\n"
                 + LINE;
         System.out.print(output);
     }
