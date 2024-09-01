@@ -1,3 +1,4 @@
+package futureYou.exception;
 /**
  * FutureYouException is an exception that is thrown when an error occurs.
  */

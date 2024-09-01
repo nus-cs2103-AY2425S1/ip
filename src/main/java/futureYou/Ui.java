@@ -1,6 +1,9 @@
+package futureYou;
 import java.util.ArrayList;
 
 import java.util.Scanner;
+
+import futureYou.task.Task;
 
 /**
  * The Ui class handles all interactions with the user.
