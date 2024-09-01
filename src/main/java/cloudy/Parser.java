@@ -22,6 +22,8 @@ public class Parser {
             return parseEventCommand(userInput);
         } else if (userInput.startsWith("delete")) {
             return parseDeleteCommand(userInput);
+        } else if (userInput.startsWith("find")) {
+            return parseFindCommand(userInput);
         } else if (userInput.equals("list")) {
             return new Command("list");
         } else if (userInput.equals("bye")) {
@@ -132,6 +134,11 @@ public class Parser {
         } else {
             return new Command("invalidCommand");
         }
+    }
+
+    private Command parseFindCommand(String userInput) {
+        String searchQuery = userInput.substring(5).trim();
+        return new Command("find", searchQuery);
     }
 
     public static Task parseTaskFromFile(String line) {

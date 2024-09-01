@@ -2,6 +2,7 @@ package cloudy;
 
 import java.time.LocalDate;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Cloudy {
@@ -39,6 +40,9 @@ public class Cloudy {
                     return;
                 case "list":
                     ui.showList(tasks);
+                    break;
+                case "find":
+                    handleFindCommand(command);
                     break;
                 case "mark":
                     handleMarkCommand(command);
@@ -153,6 +157,10 @@ public class Cloudy {
         }
     }
 
+    private void handleFindCommand(Command command) {
+        ArrayList<Task> matchingTasks = tasks.findTasks(command.getTaskDescription());
+        ui.showFindTask(matchingTasks);
+    }
 
 
 
