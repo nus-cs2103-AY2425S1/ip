@@ -2,8 +2,14 @@ package ahmad.exceptions.deadline;
 
 import ahmad.exceptions.AhmadException;
 
+/**
+ * Exception class for invalid deadline arguments.
+ */
 public class DeadlineInvalidArgsException extends AhmadException {
-  public DeadlineInvalidArgsException() {
-    super("That is not a valid \"deadline\" command");
-  }
+    /**
+     * Constructs a DeadlineInvalidArgsException instance.
+     */
+    public DeadlineInvalidArgsException() {
+        super("That is not a valid \"deadline\" command");
+    }
 }

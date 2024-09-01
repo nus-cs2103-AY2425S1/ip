@@ -2,8 +2,14 @@ package ahmad.exceptions.event;
 
 import ahmad.exceptions.AhmadException;
 
+/**
+ * Exception class for invalid event arguments.
+ */
 public class EventInvalidArgsException extends AhmadException {
-  public EventInvalidArgsException() {
-    super("That is not a valid \"event\" command");
-  }
+    /**
+     * Constructs an EventInvalidArgsException instance.
+     */
+    public EventInvalidArgsException() {
+        super("That is not a valid \"event\" command");
+    }
 }

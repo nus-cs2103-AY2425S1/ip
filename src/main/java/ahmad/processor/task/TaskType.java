@@ -1,7 +1,19 @@
 package ahmad.processor.task;
 
+/**
+ * Types of tasks.
+ */
 public enum TaskType {
-  Todo,
-  Deadline,
-  Event
+    /**
+     * A todo task.
+     */
+    Todo,
+    /**
+     * A deadline task.
+     */
+    Deadline,
+    /**
+     * An event task.
+     */
+    Event
 }

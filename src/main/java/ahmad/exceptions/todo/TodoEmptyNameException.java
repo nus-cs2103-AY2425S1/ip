@@ -2,8 +2,14 @@ package ahmad.exceptions.todo;
 
 import ahmad.exceptions.AhmadException;
 
+/**
+ * Exception class for empty todo name.
+ */
 public class TodoEmptyNameException extends AhmadException {
-  public TodoEmptyNameException() {
-    super("Name should not be empty");
-  }
+    /**
+     * Constructs a TodoEmptyNameException instance.
+     */
+    public TodoEmptyNameException() {
+        super("Name should not be empty");
+    }
 }

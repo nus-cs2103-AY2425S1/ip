@@ -1,18 +1,10 @@
 package ahmad;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import ahmad.exceptions.AhmadException;
 import ahmad.exceptions.CommandInvalidException;
-import ahmad.processor.task.Task;
-import ahmad.processor.task.TaskList;
-import ahmad.processor.task.TaskType;
-import ahmad.response.Response;
 import org.junit.jupiter.api.Test;
-import ahmad.processor.Processor;
-import ahmad.processor.task.Mark;
 
 
 public class ParserTest {
