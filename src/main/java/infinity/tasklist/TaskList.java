@@ -13,9 +13,9 @@ import infinity.ui.Ui;
  */
 public class TaskList {
 
+    /** Max size of the Task List. */
     public static final int MAX_SIZE = 100;
 
-    /** Maximum size of the task list */
     private ArrayList<Task> tasks = new ArrayList<>(MAX_SIZE);
     private int nextTaskIndex;
 

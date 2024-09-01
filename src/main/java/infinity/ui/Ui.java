@@ -8,9 +8,13 @@ import infinity.tasklist.TaskList;
  */
 public class Ui {
 
+    /** Name of the Bot. */
     public static final String BOT_NAME = "Infinity";
+    /** What the bot says when it shutdowns. */
     public static final String BOT_END_STATEMENT = "Well, if you are leaving, then I must be infinitely too dumb :(";
+    /** Just a breakline. */
     private static final String BREAKLINE = "\n";
+    /** String output for help command. */
     private static final String COMMAND_STRING = """
                     fields in <> are to be populated as appropriate
 
