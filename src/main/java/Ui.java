@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Ui {
     private static final String DIVIDER = "---------------------------------------------------";
     private static  final String GREETING = "Hello! I'm Nebula, what can I do for you today?";
@@ -52,12 +54,12 @@ public class Ui {
     public String displayList() {
         String displayList = DIVIDER + "\n" + "Here are the tasks in your list:" + "\n";
         int taskLength = TaskList.getTaskListLength();
-        Task[] list = TaskList.getTaskList();
+        ArrayList<Task> list = TaskList.getTaskList();
         if(taskLength == 0) {
             return displayList + "Your task list is empty!" + "\n" + DIVIDER;
         }
         for (int i = 0; i < taskLength; i++) {
-            displayList += (i + 1) + ". " + list[i].toString() + "\n";
+            displayList += (i + 1) + ". " + list.get(i).toString() + "\n";
             if(i == taskLength - 1) {
                 displayList += DIVIDER;
                 break;

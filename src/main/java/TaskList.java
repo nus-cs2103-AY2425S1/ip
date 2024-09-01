@@ -1,5 +1,7 @@
+import java.util.ArrayList;
+
 public class TaskList {
-    private static Task[] taskList;
+    private static ArrayList<Task> taskList;
     private static int length;
 
     private Ui ui;
@@ -9,9 +11,8 @@ public class TaskList {
      * The TaskList is initialized with an empty array of Tasks, a length of 0, and a new Ui instance
      */
     public TaskList() {
-        taskList = new Task[100];
-        length = 0;
-        ui = new Ui();
+        taskList = new ArrayList<>(100);
+        this.ui = new Ui();
     }
 
     /**
@@ -19,7 +20,7 @@ public class TaskList {
      *
      * @return An array of Task objects representing the current list of tasks
      */
-    public static Task[] getTaskList() {
+    public static ArrayList<Task> getTaskList() {
         return taskList;
     }
 
@@ -29,7 +30,7 @@ public class TaskList {
      * @return The number of tasks in the TaskList
      */
     public static int getTaskListLength() {
-        return length;
+        return taskList.size();
     }
 
     /**
@@ -38,8 +39,7 @@ public class TaskList {
      * @param task The Task object to be added to the TaskList
      */
     public String addTask(Task task) {
-        taskList[length] = task;
-        length++;
+        taskList.add(task);
         return ui.displayAddedTask(task);
     }
 
@@ -50,7 +50,7 @@ public class TaskList {
      * @return A string message indicating the result of the marking operation
      */
     public String markTask(int taskNum) {
-        Task t = taskList[taskNum - 1];
+        Task t = taskList.get(taskNum - 1);
         if (t.isDone()){
             return ui.displayAlreadyMarkedTask();
         }
@@ -65,7 +65,7 @@ public class TaskList {
      * @return A string message indicating the result of the unmarking operation
      */
     public String unmarkTask(int taskNum) {
-        Task t = taskList[taskNum - 1];
+        Task t = taskList.get(taskNum - 1);
         if (!t.isDone()){
             return ui.displayAlreadyUnmarkedTask();
         }
