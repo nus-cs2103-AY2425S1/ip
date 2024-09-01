@@ -1,3 +1,4 @@
+
 package papadom.storage;
 
 import papadom.exceptions.NoTaskNumberException;
@@ -32,7 +33,7 @@ public class TaskList {
      *
      * @return The ArrayList of tasks.
      */
-    public ArrayList<Task> getTasks () {
+    public ArrayList<Task> getTasks() {
         return this.TASKS_LIST;
     }
 
@@ -59,7 +60,7 @@ public class TaskList {
      * @param task The task to be added.
      * @return The message confirming the addition of the task.
      */
-    public String addToList(Task task){
+    public String addToList(Task task) {
         this.TASKS_LIST.add(task);
         this.STORAGE.addTaskToDatabase(task);
         String response = " Got it. I've added this task:\n  " + task.toString() + "\n"
@@ -87,7 +88,8 @@ public class TaskList {
             }
             Task taskToBeDeleted = this.TASKS_LIST.get(taskIndex);
             this.TASKS_LIST.remove(taskIndex);
-            return " Noted. I've removed this task:\n  " + taskToBeDeleted + "\n Now you have " + this.TASKS_LIST.size() + " tasks in the list.";
+            return " Noted. I've removed this task:\n  " + taskToBeDeleted
+                    + "\n Now you have " + this.TASKS_LIST.size() + " tasks in the list.";
             // Proceed with your logic using taskIndex
         } catch (NumberFormatException e) {
             throw new NoTaskNumberException(); // Throw the custom exception if parts[1] is not an integer

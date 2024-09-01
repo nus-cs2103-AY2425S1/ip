@@ -57,7 +57,7 @@ public class Storage {
             System.err.println("An error occurred while creating the file: " + e.getMessage());
         }
     }
-    public String findTaskBySearching (String searchText) {
+    public String findTaskBySearching(String searchText) {
         String searchResult = " Here are the matching tasks in your list:";
         int count = 1;
         for (Task task : this.TASKS) {

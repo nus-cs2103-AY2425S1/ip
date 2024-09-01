@@ -10,7 +10,7 @@ public class FindEventCommand extends Command {
     private final String TEXT;
     private static final Parser PARSER = new Parser();
 
-    public FindEventCommand (String text) {
+    public FindEventCommand(String text) {
         this.TEXT = text;
     }
     @Override

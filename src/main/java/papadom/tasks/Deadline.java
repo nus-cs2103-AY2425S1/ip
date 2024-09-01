@@ -44,9 +44,11 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (hasTime) {
-            return "[D]" + super.toString() + " (by: " + localDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a")) + ")";
+            return "[D]" + super.toString() + " (by: "
+                    + localDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a")) + ")";
         } else {
-            return "[D]" + super.toString() + " (by: " + localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+            return "[D]" + super.toString() + " (by: "
+                    + localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
         }
     }
 }

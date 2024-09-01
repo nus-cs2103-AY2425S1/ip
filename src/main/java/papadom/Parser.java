@@ -64,7 +64,7 @@ public class Parser {
 
         // Check if the command starts with "find" and has a keyword following it
         if (words.length > 1 && words[0].equals("find")) {
-            return words[1];  // Return the keyword after "find"
+            return words[1]; // Return the keyword after "find"
         } else {
             throw new IncorrectTaskInputFormatException();
         }
