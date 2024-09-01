@@ -8,26 +8,35 @@ import static java.lang.Integer.parseInt;
 public class DrBrown {
 
     private Storage storage;
-//    private TaskList tasks;
-//    private Ui ui;
-//    private Parser parser;
+    private TaskList tasks;
+    private Ui ui;
+    private Parser parser;
+
+    public void run() {
+        ui.showGreeting();
+
+    }
+
+    public DrBrown(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        //load values
+    }
+
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        //Scanner scanner = new Scanner(System.in);
         ArrayList<Task> list;
-        String greeting = "\nRoads? Where We're Going, We Don't Need Roads?! So, what can I help you with today?";
-        String ending = "Your future is whatever you make it, so make it a good one! Until next time, keep the DeLorean ready!";
-        String divider = "-------------------------------------------------------------------------------------------------------------------------------------------";
 
-        System.out.println(greeting);
+        //System.out.println(greeting);
         TaskList tasks = new TaskList();
 
         while (true) {
 
-            System.out.println(divider);
-            String input = scanner.nextLine();
+            //System.out.println(divider);
+            //String input = scanner.nextLine();
             String[] inputSplit = input.split(" ", 2);
-            System.out.println(divider);
+            //System.out.println(divider);
 
             switch (inputSplit[0]) {
 
@@ -37,10 +46,10 @@ public class DrBrown {
                             throw new DrBrownException("Great Scott! You can't add a to-do without a description!\n\nUse the format: todo {description}");
                         }
                         Task todo = new Todo(false, inputSplit[1].trim());
-                        System.out.println("Doc, you don't just walk into a store and buy plutonium! But you sure can add this task to your list!\n");
-                        System.out.println(todo.toString());
+                        //System.out.println("Doc, you don't just walk into a store and buy plutonium! But you sure can add this task to your list!\n");
+                        //System.out.println(todo.toString());
                         tasks.add(todo);
-                        System.out.println("\nWhy don’t you make like a tree and get outta here? But not before you see that you have " + tasks.getCount() + " tasks in the list.");
+                        //System.out.println("\nWhy don’t you make like a tree and get outta here? But not before you see that you have " + tasks.getCount() + " tasks in the list.");
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("Great Scott! You can't add a to-do without a description!\n\nUse the format: todo {description}");
                     } catch (DrBrownException e) {
@@ -58,10 +67,10 @@ public class DrBrown {
                             throw new DrBrownException("Hello? Hello? Anybody home? Looks like something's missing here!\nUse the format: deadline {description} /by {date}");
                         }
                         Task deadline = new Deadline(false, deadlineSplit[0].trim(), LocalDate.parse(deadlineSplit[1].trim()));
-                        System.out.println("Last night, Darth Vader came down from Planet Vulcan and told me that if you don't meet this deadline... he'd melt your brain! So, better get moving!\n");
-                        System.out.println(deadline.toString());
+                        //System.out.println("Last night, Darth Vader came down from Planet Vulcan and told me that if you don't meet this deadline... he'd melt your brain! So, better get moving!\n");
+                        //System.out.println(deadline.toString());
                         tasks.add(deadline);
-                        System.out.println("\nIf you're gonna build a time machine into a car, why not do it with some style? And speaking of style, you now have " + tasks.getCount() + " tasks in the list.");
+                        //System.out.println("\nIf you're gonna build a time machine into a car, why not do it with some style? And speaking of style, you now have " + tasks.getCount() + " tasks in the list.");
                     } catch (DrBrownException e) {
                         System.out.println(e.getMessage());
                     } catch (ArrayIndexOutOfBoundsException e) {
@@ -79,10 +88,10 @@ public class DrBrown {
                         }
                         String[] eventSplit = inputSplit[1].split("/from | /to");
                         Task event = new Event(false, eventSplit[0].trim(), LocalDate.parse(eventSplit[1].trim()), LocalDate.parse(eventSplit[2].trim()));
-                        System.out.println("The appropriate question is: ‘When the hell are they?’ Your event is now set in time!\n");
-                        System.out.println(event.toString());
+                        //System.out.println("The appropriate question is: ‘When the hell are they?’ Your event is now set in time!\n");
+                        //System.out.println(event.toString());
                         tasks.add(event);
-                        System.out.println("\nMarty, don't be such a square. Now you have " + tasks.getCount() + " tasks in the list.");
+                        //System.out.println("\nMarty, don't be such a square. Now you have " + tasks.getCount() + " tasks in the list.");
                     } catch (DrBrownException e) {
                         System.out.println(e.getMessage());
                     } catch (ArrayIndexOutOfBoundsException e) {
@@ -97,9 +106,9 @@ public class DrBrown {
                         }
                         list = tasks.getList();
                         Task markTask = list.get(parseInt(inputSplit[1]) - 1);
-                        System.out.println("Task complete! If my calculations are correct, when this baby hits 88 miles per hour... you're gonna see some serious progress!\n");
+                        //System.out.println("Task complete! If my calculations are correct, when this baby hits 88 miles per hour... you're gonna see some serious progress!\n");
                         markTask.setStatus(true);
-                        System.out.println(markTask.toString());
+                        //System.out.println(markTask.toString());
                     } catch (DrBrownException e) {
                         System.out.println(e.getMessage());
                     } catch (NumberFormatException e) {
@@ -116,9 +125,9 @@ public class DrBrown {
                         }
                         list = tasks.getList();
                         Task unmarkTask = list.get(parseInt(inputSplit[1]) - 1);
-                        System.out.println("Looks like we're going back to the future—task unmarked! Time to revisit this one.\n");
+                        //System.out.println("Looks like we're going back to the future—task unmarked! Time to revisit this one.\n");
                         unmarkTask.setStatus(false);
-                        System.out.println(unmarkTask.toString());
+                        //System.out.println(unmarkTask.toString());
                     } catch (DrBrownException e) {
                         System.out.println(e.getMessage());
                     } catch (NumberFormatException e) {
@@ -138,7 +147,7 @@ public class DrBrown {
                         }
                         list = tasks.getList();
                         int listCount = 1;
-                        System.out.println("Here’s your list! Like Doc Brown’s flux capacitor, this will help keep everything in perfect sync!\n");
+                        //System.out.println("Here’s your list! Like Doc Brown’s flux capacitor, this will help keep everything in perfect sync!\n");
                         for (Task item: list) {
                             System.out.println(listCount + ". " + item.toString());
                             listCount++;
@@ -153,7 +162,7 @@ public class DrBrown {
                         if (inputSplit.length != 1) {
                             throw new DrBrownException("Whoa, hold on! You've written more letters than necessary! It's like trying to fit a flux capacitor into a toaster – it just doesn't belong!");
                         }
-                        System.out.println(ending);
+                        //System.out.println(ending);
                         scanner.close();
                     } catch (DrBrownException e) {
                         System.out.println(e.getMessage());
@@ -167,10 +176,10 @@ public class DrBrown {
                         }
                         list = tasks.getList();
                         Task deleteTask = list.get(parseInt(inputSplit[1]) - 1);
-                        System.out.println("That task's history has been erased! Just like Marty’s fading photo—it's gone, like it never existed!\n");
-                        System.out.println(deleteTask.toString());
+                        //System.out.println("That task's history has been erased! Just like Marty’s fading photo—it's gone, like it never existed!\n");
+                        //System.out.println(deleteTask.toString());
                         tasks.removeItem(parseInt(inputSplit[1]) - 1);
-                        System.out.println("\nYour total count is now " + tasks.getCount() + "! Like the time circuits, everything's in sync – keep those tasks ticking along!\"");
+                        //System.out.println("\nYour total count is now " + tasks.getCount() + "! Like the time circuits, everything's in sync – keep those tasks ticking along!\"");
                     } catch (DrBrownException e) {
                         System.out.println(e.getMessage());
                     } catch (NumberFormatException e) {
@@ -181,7 +190,7 @@ public class DrBrown {
                     break;
 
                 default:
-                    System.out.println("I’m from the future, and even I don’t know what that means.");
+                    //System.out.println("I’m from the future, and even I don’t know what that means.");
 
             }
 
