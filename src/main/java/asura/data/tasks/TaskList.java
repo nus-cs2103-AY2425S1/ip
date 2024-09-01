@@ -2,6 +2,8 @@ package asura.data.tasks;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TaskList {
     List<Task> taskList;
@@ -36,6 +38,12 @@ public class TaskList {
 
     public void unMark(int index) {
         taskList.get(index).markAsNotDone();
+    }
+
+    public List<Task> find(String description) {
+        List<Task> result = taskList.stream().filter(t -> t.getDescription().toUpperCase().contains(description.toUpperCase()))
+                    .toList();
+        return result;
     }
 
     public List<Task> getTaskList() {

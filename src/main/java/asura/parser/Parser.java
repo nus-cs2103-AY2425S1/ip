@@ -63,6 +63,8 @@ public class Parser {
             case "delete":
                 selection = Integer.parseInt(splitCommand.get(1)) - 1;
                 return new DeleteCommand(selection);
+            case "find":
+                return new FindCommand(taskString);
             case "bye":
                 return new ByeCommand();
             default:
