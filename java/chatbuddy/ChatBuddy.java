@@ -1,3 +1,12 @@
+package chatbuddy;
+
+import chatbuddy.command.Command;
+import chatbuddy.exception.ChatBuddyException;
+import chatbuddy.parser.Parser;
+import chatbuddy.storage.Storage;
+import chatbuddy.task.TaskList;
+import chatbuddy.ui.Ui;
+
 public class ChatBuddy {
 
     private Storage storage;

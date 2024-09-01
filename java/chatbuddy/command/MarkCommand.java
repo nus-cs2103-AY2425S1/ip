@@ -1,3 +1,11 @@
+package chatbuddy.command;
+
+import chatbuddy.exception.ChatBuddyException;
+import chatbuddy.storage.Storage;
+import chatbuddy.task.Task;
+import chatbuddy.task.TaskList;
+import chatbuddy.ui.Ui;
+
 public class MarkCommand extends Command {
 
     private int index;

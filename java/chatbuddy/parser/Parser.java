@@ -1,3 +1,14 @@
+package chatbuddy.parser;
+
+import chatbuddy.command.AddCommand;
+import chatbuddy.command.Command;
+import chatbuddy.command.DeleteCommand;
+import chatbuddy.command.ExitCommand;
+import chatbuddy.command.ListCommand;
+import chatbuddy.command.MarkCommand;
+import chatbuddy.command.UnmarkCommand;
+import chatbuddy.exception.ChatBuddyException;
+
 public class Parser {
 
     public static Command parse(String userInput) throws ChatBuddyException {
