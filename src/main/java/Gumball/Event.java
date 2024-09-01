@@ -5,6 +5,12 @@ import java.time.LocalDate;
 public class Event extends Task {
     private LocalDate eventStart;
     private LocalDate eventEnd;
+
+    /**
+     *
+     * @param desc The description of the Event to be added including name the start and end times.
+     * @throws TaskException
+     */
     public Event(String desc) throws TaskException{
         super("",desc);
         try {
