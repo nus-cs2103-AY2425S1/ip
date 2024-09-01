@@ -3,6 +3,7 @@ package command;
 import task.TaskList;
 
 public class UnknownCommand extends Command {
+
     String command;
 
     public UnknownCommand(String command) {

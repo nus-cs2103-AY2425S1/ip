@@ -4,6 +4,7 @@ import task.Task;
 import task.TaskList;
 
 public class AddCommand extends Command {
+
     Task task;
 
     public AddCommand(Task task) {

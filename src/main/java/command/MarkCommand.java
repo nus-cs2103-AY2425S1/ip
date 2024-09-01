@@ -5,6 +5,7 @@ import exceptions.TaskDoesNotExistException;
 import task.TaskList;
 
 public class MarkCommand extends Command {
+
     int index;
 
     public MarkCommand(int index) {

@@ -4,6 +4,7 @@ import exceptions.AlreadyCompletedException;
 import exceptions.StartAfterEndException;
 
 public abstract class Task {
+
     private boolean isCompleted = false;
     private String title;
 
@@ -13,12 +14,14 @@ public abstract class Task {
 
     public static Task of(String data) throws AlreadyCompletedException, StartAfterEndException {
         String[] args = data.split("\\|");
+        //@formatter:off
         return switch (args[0]) {
-            case "T" -> ToDo.of(args);
-            case "D" -> Deadline.of(args);
-            case "E" -> Event.of(args);
-            default -> null;
+        case "T" -> ToDo.of(args);
+        case "D" -> Deadline.of(args);
+        case "E" -> Event.of(args);
+        default -> null;
         };
+        //@formatter:on
     }
 
     public void complete() throws AlreadyCompletedException {

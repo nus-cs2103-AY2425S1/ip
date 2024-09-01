@@ -4,6 +4,7 @@ import task.Task;
 import task.TaskList;
 
 public class Ui {
+
     public static void say(String message) {
         System.out.println("\nHim: " + message + "\n");
     }

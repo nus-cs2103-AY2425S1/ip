@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
+
     private LocalDateTime start;
     private LocalDateTime end;
 
@@ -21,10 +22,8 @@ public class Event extends Task {
         String endDate = endArgs[0].trim();
         String startTime = startArgs[1].trim();
         String endTime = endArgs[1].trim();
-        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.parse(startDate),
-                LocalTime.parse(startTime));
-        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.parse(endDate),
-                LocalTime.parse(endTime));
+        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.parse(startDate), LocalTime.parse(startTime));
+        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.parse(endDate), LocalTime.parse(endTime));
         if (startDateTime.isAfter(endDateTime)) {
             throw new StartAfterEndException();
         }
@@ -54,6 +53,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' at 'HH:mm");
-        return String.format("%s (FROM: %s | TO: %s)", super.toString(), start.format(formatter), end.format(formatter));
+        return String.format("%s (FROM: %s | TO: %s)", super.toString(), start.format(formatter),
+                end.format(formatter));
     }
 }

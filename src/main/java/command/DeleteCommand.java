@@ -5,6 +5,7 @@ import task.Task;
 import task.TaskList;
 
 public class DeleteCommand extends Command {
+
     int index;
 
     public DeleteCommand(int index) {

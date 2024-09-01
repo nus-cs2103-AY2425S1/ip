@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 
 public class TaskList {
+
     private ArrayList<Task> tasks;
 
     public TaskList() {
@@ -20,7 +21,9 @@ public class TaskList {
     public void complete(int index) throws AlreadyCompletedException, TaskDoesNotExistException {
         try {
             Task task = tasks.get(index);
-            if (task == null) throw new TaskDoesNotExistException(index);
+            if (task == null) {
+                throw new TaskDoesNotExistException(index);
+            }
             task.complete();
         } catch (IndexOutOfBoundsException e) {
             throw new TaskDoesNotExistException(index);
@@ -38,7 +41,9 @@ public class TaskList {
     public String delete(int index) throws TaskDoesNotExistException {
         try {
             Task task = tasks.get(index);
-            if (task == null) throw new TaskDoesNotExistException(index);
+            if (task == null) {
+                throw new TaskDoesNotExistException(index);
+            }
             tasks.remove(index);
             return task.toString();
         } catch (IndexOutOfBoundsException e) {
@@ -58,8 +63,9 @@ public class TaskList {
     public String toString() {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            output.append(String.format("%d.[%s][%s] %s\n", i + 1, tasks.get(i).getTypeIcon(),
-                    tasks.get(i).getStatusIcon(), tasks.get(i)));
+            output.append(
+                    String.format("%d.[%s][%s] %s\n", i + 1, tasks.get(i).getTypeIcon(), tasks.get(i).getStatusIcon(),
+                            tasks.get(i)));
         }
         return output.toString();
     }

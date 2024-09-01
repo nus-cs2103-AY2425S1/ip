@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Deadline extends Task {
+
     private LocalDate dueDate;
 
     public Deadline(String title, LocalDate dueDate) {

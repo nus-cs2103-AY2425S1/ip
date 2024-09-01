@@ -1,18 +1,19 @@
 package him;
 
-import exceptions.AlreadyCompletedException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import exceptions.AlreadyCompletedException;
 import exceptions.StartAfterEndException;
+
 import task.Task;
 import task.TaskList;
 
 public class Storage {
+
     private static final String FILE_PATH = "data/tasks.txt";
     private static final String DIRECTORY_PATH = "data";
 

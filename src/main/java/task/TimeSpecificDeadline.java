@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class TimeSpecificDeadline extends Deadline {
+
     private LocalTime dueTime;
 
     public TimeSpecificDeadline(String title, LocalDate dueDate, LocalTime dueTime) {
