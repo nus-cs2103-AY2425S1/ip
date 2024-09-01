@@ -17,12 +17,26 @@ public class Tira {
     private static final String Directory = "./data";
     private static final String FileName = "./data/Tira.txt";
     private static DateTimeFormatter IN_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private Ui ui;
+    private TaskList tasks;
+    private Storage storage;
 
-    public static void main(String[] args) throws TiraException, IOException {
-        // variable declarations
+    public Tira(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (TiraException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    public void run() throws TiraException{
+        Ui ui = new Ui();
+        ui.greet();
         Scanner scanner = new Scanner(new InputStreamReader(System.in));
         PrintWriter printer = new PrintWriter(System.out);
-        TaskList tasks = new TaskList();
         String logo = "TIRAMISU THE CAT (TIRA)";
         System.out.println("MIAO (Hello) from\n" + logo + "\n" +
                 "What can I do for you, miao?\n");
@@ -31,24 +45,6 @@ public class Tira {
         ArrayList<Task> taskList = new ArrayList<Task>();
          */
         //Solution for Save below (Level-7)  inspired by https://github.com/hansneddyanto/ip/blob/master/src/main/java/Hana.java
-        File directory = new File(Directory);
-        File file = new File(FileName);
-        FileReader fileReader = null;
-        try {
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-            }
-            fileReader = new FileReader(file);
-        } catch (FileNotFoundException e) {// if file not found, create a new file
-        } catch (IOException a) {
-            System.out.println(a.getMessage());
-        }
-        try {
-            FileWriter fileWriter = new FileWriter(file, false);
-            // try loading the file to the list, if it fails, then the file doesn't exist
-            // if it doesn't exist, then create a new file.
-            // printing
             while (true) {
                 String command = scanner.nextLine();
                 String[] splitCommand = command.split(" ");
@@ -56,115 +52,25 @@ public class Tira {
                 if (command.equals("bye")) { //BYE
                     break;
                 } else if (firstWord.equals("list")) { //LIST
-                    tasks.getList();
+                    tasks.printTasks();
                 } else {
                     tasks.modifyTask(firstWord, command, splitCommand);
                 }
-                fileWriter.write(tasks.toString());
-                fileWriter.flush();
             }
-        printer.println("Bye. Come back with treats, MIAO!");
-        printer.close();
-    } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        }
-    private static void getList(PrintWriter printer, ArrayList<Task> taskList) {
-        printer.println("HERE ARE THE CURRENT TASKS:");
-        printer.flush();
-        for (int i = 0; i < taskList.size(); i++) {
-            Task currTask = taskList.get(i);
-            printer.print((i + 1) + ". " +
-                    taskList.get(i).toString() + "\n");
-            printer.flush();
-        }
-    }
-/*
-
-
-    private static void markTask(PrintWriter printer, ArrayList<Task> taskList, String[] splitCommand) throws TiraException {
-        if (splitCommand.length < 2) {
-            throw new TiraException("MRAW?? WHERE IS THE TASK?");
-        }
-        int currNum = Integer.parseInt(splitCommand[1]) - 1;
-        taskList.get(currNum).markStatus();
-        printer.print("NYA! Good job on this task:" + "\n" +
-                taskList.get(currNum).toString() + "\n");
-        printer.flush();
-    }
-
-    private static void unmarkTask(PrintWriter printer, ArrayList<Task> taskList, String[] splitCommand) throws TiraException {
-        if (splitCommand.length < 2) {
-            throw new TiraException("MRAW?? WHERE IS THE TASK?");
-        }
-        int currNum2 = Integer.parseInt(splitCommand[1]) - 1;
-        taskList.get(currNum2).unmarkStatus();
-        printer.print("MRAWWW! Don't forget to return to this task:" + "\n" +
-                taskList.get(currNum2).toString() + "\n");
-        printer.flush();
-    }
-
-    private static void addToDo(ArrayList<Task> taskList, String[] splitCommand) throws TiraException {
-        if (splitCommand.length < 2) {
-            throw new TiraException("MRAW?? WHERE IS THE TASK?");
-        }
-        String description = "";
-        for (int i = 1; i < splitCommand.length; i++) {
-            description += (splitCommand[i]);
-            if (i != splitCommand.length - 1) {
-                description += " ";
+            try {
+                storage.save(tasks.getTasks());
+                System.out.println("managed to save");
+            } catch (IOException e) {
+                System.out.println("Error while saving tasks. Please try again");
             }
-        }
-        Task newTask = new ToDo(description);
-        Tira.addTask(newTask, taskList);
+            ui.bye();
+            printer.close();
     }
 
-    private static void addDeadline(ArrayList<Task> taskList, String[] splitCommand, String command) throws TiraException {
-        if (splitCommand.length < 2) {
-            throw new TiraException("MRAW?? WHERE IS THE TASK?");
-        }
-        String[] dateCommands = command.split("/");
-        try {
-            LocalDate endDate = LocalDate.parse(dateCommands[1].substring(3).trim(), IN_FORMATTER);
-            Task deadlineTask = new Deadline(dateCommands[0], endDate);
-            Tira.addTask(deadlineTask, taskList);
-        } catch (DateTimeParseException e) {
-            System.out.println(e.getMessage());
-        }
+    public static void main(String[] args) throws TiraException, IOException {
+        // variable declarations
+        new Tira("data/tasks/txt").run();
     }
-
-    private static void addEvent(ArrayList<Task> taskList, String[] splitCommand, String command) throws TiraException {
-        try {
-            String startDateString = dateCommands2[1].substring(5);
-            String endDateString = dateCommands2[2].substring(3);
-            System.out.println(startDateString + endDateString);
-            LocalDate startDate = LocalDate.parse(dateCommands2[1].substring(5).trim(), IN_FORMATTER);
-            LocalDate endDate = LocalDate.parse(dateCommands2[2].substring(3).trim(), IN_FORMATTER);
-            Task eventTask = new Event(dateCommands2[0].substring(6), startDate, endDate);
-            Tira.addTask(eventTask, taskList);
-        } catch (DateTimeParseException e) {
-            System.out.println(e.getMessage());
-
-        }
-
-    private static void delete(PrintWriter printer, ArrayList<Task> taskList, String[] splitCommand) throws TiraException {
-        if (splitCommand.length < 2) {
-            throw new TiraException("MRAW?? WHERE IS THE TASK?");
-        }
-        int indexToDelete = Integer.parseInt(splitCommand[1]);
-        Task taskToRemove = taskList.get(indexToDelete - 1);
-        taskList.remove(indexToDelete - 1);
-        printer.println("Noted, Miao! I've removed this task:\n" + taskToRemove +
-                "\nNow you have " + taskList.size() + " task(s) in the list!");
-    }
-
-    private static void addTask(Task task, ArrayList<Task> taskList) {
-        taskList.add(task);
-        System.out.println("Miao! Got it. I've added this task to my cat brain:\n" +
-                task.toString() + "\nNow you have " + taskList.size() + " task(s) in the list!");
-    }
-
- */
 }
 
 

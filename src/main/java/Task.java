@@ -7,6 +7,9 @@ public class Task {// used Task class from the Week 2 IP Page
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return description;
+    }
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }

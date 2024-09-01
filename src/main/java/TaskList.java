@@ -14,13 +14,20 @@ public class TaskList {
         this.tasks = new ArrayList<Task>();
     }
 
-    public void getList() {
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+    public void printTasks() {
         printer.println("HERE ARE THE CURRENT TASKS:");
         for (int i = 0; i < tasks.size(); i++) {
             Task currTask = tasks.get(i);
             printer.print((i + 1) + ". " + currTask + "\n");
         }
         printer.flush();
+    }
+
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
     }
 
     public void markTask(String command, String[] splitCommand) throws TiraException {
@@ -126,7 +133,6 @@ public class TaskList {
         printer.println("Noted, Miao! I've removed this task:\n" + taskToRemove +
                 "\nNow you have " + tasks.size() + " task(s) in the list!");
         printer.flush();
-
     }
 
 }
