@@ -19,7 +19,7 @@ public class Snowy {
     private Snowy(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
-        try{
+        try {
             this.tasks = new TaskList(storage.load());
         } catch (SnowyException e) {
             this.tasks = new TaskList();
@@ -48,8 +48,8 @@ public class Snowy {
             case "mark":
                 try {
                     int index = Integer.parseInt(description);
-                     Task task = tasks.markTask(index);
-                     ui.printMarkDone(task);
+                    Task task = tasks.markTask(index);
+                    ui.printMarkDone(task);
                 } catch (NumberFormatException | SnowyException e) {
                     ui.printIndexError();
                 }
@@ -115,13 +115,12 @@ public class Snowy {
         try {
             storage.save(tasks.toSaveString());
         } catch (SnowyException e) {
-
+            ui.printUpdateError();
         }
         ui.printEnding();
     }
 
     public static void main(String[] args) {
         new Snowy("data/snowy.txt").run();
-
     }
 }

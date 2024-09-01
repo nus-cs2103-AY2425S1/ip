@@ -7,10 +7,10 @@ import java.time.format.FormatStyle;
 /**
  * Represents an abstract Task with all the methods that a Task should do.
  */
-abstract public class Task {
+public abstract class Task {
     private boolean isCompleted = false;
 
-    public final DateTimeFormatter FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
 
     private String name;
 

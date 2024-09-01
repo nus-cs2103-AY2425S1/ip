@@ -1,11 +1,14 @@
 package snowy;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+
+
 
 public class TaskListTest {
 
@@ -17,10 +20,10 @@ public class TaskListTest {
         lines.add("E|0|Camp|2024-09-01|2024-09-02");
         TaskList tasks = new TaskList(lines);
 
-        assertEquals("1. [T][X] read book\n" +
-                "2. [D][ ] return book (by September 5, 2024)\n" +
-                "3. [E][ ] Camp (from September 1, 2024 to: September 2, 2024)\n"
-                , tasks.toString());
+        assertEquals("1. [T][X] read book\n"
+                + "2. [D][ ] return book (by September 5, 2024)\n"
+                + "3. [E][ ] Camp (from September 1, 2024 to: September 2, 2024)\n",
+                tasks.toString());
     }
 
     @Test
@@ -31,10 +34,10 @@ public class TaskListTest {
         lines.add("E|0|Camp|2024-09-01|2024-09-02");
         TaskList tasks = new TaskList(lines);
 
-        assertEquals("T|1|read book\n" +
-                "D|0|return book|2024-09-05\n" +
-                "E|0|Camp|2024-09-01|2024-09-02\n"
-                , tasks.toSaveString());
+        assertEquals("T|1|read book\n"
+                + "D|0|return book|2024-09-05\n"
+                + "E|0|Camp|2024-09-01|2024-09-02\n",
+                tasks.toSaveString());
     }
 
     @Test
@@ -87,7 +90,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void addDeadline_InvalidDate_exceptionThrown() {
+    public void addDeadline_invalidDate_exceptionThrown() {
         try {
             TaskList tasks = new TaskList();
             tasks.addDeadline("Return book /by 123-09-05");

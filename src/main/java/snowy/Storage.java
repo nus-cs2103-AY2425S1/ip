@@ -27,7 +27,7 @@ public class Storage {
      * @throws SnowyException if the file does not exist and cannot be created.
      * @throws SnowyException if the file exists but cannot be opened.
      */
-    public ArrayList<String> load() throws SnowyException{
+    public ArrayList<String> load() throws SnowyException {
         ArrayList<String> lines = new ArrayList<>();
         try {
             file.createNewFile();
@@ -50,8 +50,8 @@ public class Storage {
      * @param saveLines the lines to be saved into the file.
      * @throws SnowyException if the file is unable to be updated.
      */
-    public void save(String saveLines) throws SnowyException{
-        try{
+    public void save(String saveLines) throws SnowyException {
+        try {
             FileWriter writer = new FileWriter(file);
             writer.write(saveLines);
             writer.close();

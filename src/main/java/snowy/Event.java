@@ -8,7 +8,7 @@ import java.time.LocalDate;
  * Represents a task that is an event with start and end date.
  * This class holds the fromDate and toDate as a LocalDate.
  */
-public class Event extends Task{
+public class Event extends Task {
     private LocalDate fromDate;
     private LocalDate toDate;
 

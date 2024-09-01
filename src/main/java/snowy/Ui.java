@@ -73,11 +73,15 @@ public class Ui {
         System.out.println(task.toString());
     }
 
+    public void printUpdateError() {
+        System.out.println("Unable to update save file.");
+    }
+
     public void printFoundTask(ArrayList<Task> foundTasks) {
         int i = 1;
         System.out.println("Here are the matching tasks in your list:");
-        for(Task task : foundTasks) {
-            System.out.println(i +". " + task.toString());
+        for (Task task : foundTasks) {
+            System.out.println(i + ". " + task.toString());
             i++;
         }
     }

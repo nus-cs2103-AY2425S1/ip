@@ -21,7 +21,7 @@ public class TaskList {
     /**
      * Creates an empty TaskList.
      */
-    public TaskList(){
+    public TaskList() {
 
     }
 
@@ -46,17 +46,11 @@ public class TaskList {
             status = dataArray[1];
             name = dataArray[2];
             String dueDate = dataArray[3];
-            try {
-                Task newDateline = new Deadline(name, dueDate);
-                tasks.add(newDateline);
-                if (status.equals("1")) {
-                    newDateline.markComplete();
-                }
-            } catch (SnowyException ignored) {
-
+            Task newDateline = new Deadline(name, dueDate);
+            tasks.add(newDateline);
+            if (status.equals("1")) {
+                newDateline.markComplete();
             }
-
-
             break;
 
         case "E":
@@ -64,14 +58,10 @@ public class TaskList {
             name = dataArray[2];
             String fromDate = dataArray[3];
             String toDate = dataArray[4];
-            try {
-                Task newEvent = new Event(name, fromDate, toDate);
-                tasks.add(newEvent);
-                if (status.equals("1")) {
-                    newEvent.markComplete();
-                }
-            } catch (SnowyException ignored) {
-
+            Task newEvent = new Event(name, fromDate, toDate);
+            tasks.add(newEvent);
+            if (status.equals("1")) {
+                newEvent.markComplete();
             }
 
             break;
@@ -86,7 +76,7 @@ public class TaskList {
      * @param description the description of the task.
      * @throws SnowyException if the description given is empty.
      */
-    public  void addToDo(String description) throws SnowyException{
+    public void addToDo(String description) throws SnowyException {
         if (description.isEmpty()) {
             throw new SnowyException("Invalid input for Todo");
         }
@@ -101,7 +91,7 @@ public class TaskList {
      * @param description the description of the deadline task.
      * @throws SnowyException if the description is empty or invalid.
      */
-    public void addDeadline(String description) throws SnowyException{
+    public void addDeadline(String description) throws SnowyException {
         if (description.isEmpty()) {
             throw new SnowyException("Invalid input for Deadline");
         }
@@ -132,7 +122,7 @@ public class TaskList {
      * @param description the description of the event.
      * @throws SnowyException if the description is empty or invalid.
      */
-    public void addEvent(String description) throws SnowyException{
+    public void addEvent(String description) throws SnowyException {
         if (description.isEmpty()) {
             throw new SnowyException("Invalid input for Event");
         }
@@ -229,6 +219,12 @@ public class TaskList {
         return text.toString();
     }
 
+
+    /**
+     * Find all task which description matches the specifed string before returning them in an arrayList.
+     * @param description The String to be matched.
+     * @return An ArrayList of tasks which matches the string
+     */
     public ArrayList<Task> findTask(String description) {
         int i = 0;
         ArrayList<Task> result = new ArrayList<>();
