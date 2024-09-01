@@ -13,9 +13,8 @@ public class Storage {
         this.filePath = filePath;
         try {
             this.file = new File(filePath);
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-            e.printStackTrace();
+        } catch (NullPointerException e) {
+            System.out.println("pathname unrecognised");
         } catch (Exception e) {
             System.out.println("Exception occured: " + e.getMessage());
         }

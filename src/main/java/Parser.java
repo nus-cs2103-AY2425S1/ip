@@ -26,13 +26,13 @@ public class Parser {
             }
         } else if (command.equals("event")) {
             String[] arr = desc.split("/from");
-            String[] arr2;
+            String[] arr2 = new String[0];
             try {
                 arr2 = arr[1].split("/to");
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("missing /from");
             }
-            Task t = null;
+            t = null;
             try {
                 try {
                     t = new Event(arr[0].strip(), arr2[0].strip(), arr2[1].strip());
@@ -62,21 +62,22 @@ public class Parser {
         String action = fullCommand.split(" ")[0];
         String desc = fullCommand.substring(fullCommand.indexOf(" ") + 1);
         desc = desc.stripLeading();
+        Command c = null;
         if (action.equals("mark")) {
-            return new MarkCommand(Integer.parseInt(desc) - 1);
+            c = new MarkCommand(Integer.parseInt(desc) - 1);
             // Task t = this.tasks.get(Integer.parseInt(desc) - 1).markAsDone();
             // System.out.println("I've marked as done:\n" + t);
         } else if (action.equals("unmark")) {
-            return new UnmarkCommand(Integer.parseInt(desc) - 1);
+            c = new UnmarkCommand(Integer.parseInt(desc) - 1);
             // Task t = this.tasks.get(Integer.parseInt(desc) - 1).markAsNotDone();
             // System.out.println("I've marked as not done:\n" + t);
         } else if (action.equals("list")) {
-            return new ListCommand();
+            c = new ListCommand();
             // System.out.println(this.getTasksString());
         } else if (action.equals("todo") || action.equals("deadline") || action.equals("event")) {
-            return new AddCommand(action, desc);
+            c = new AddCommand(action, desc);
         } else if (action.equals("delete")) {
-            return new DeleteCommand(Integer.parseInt(desc));
+            c = new DeleteCommand(Integer.parseInt(desc));
             // this.deleteTask(Integer.parseInt(desc));
         } else {
             try {
@@ -86,7 +87,6 @@ public class Parser {
             }
             //System.out.println("Unknown command: " + command);
         }
+        return c;
     }
-
-
 }
