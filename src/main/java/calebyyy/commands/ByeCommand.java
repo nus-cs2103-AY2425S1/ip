@@ -27,6 +27,14 @@ public class ByeCommand extends Command {
     @Override
     public void execute(String input) {
         ui.byeMessage();
-        System.exit(0);
+        new Thread(() -> {
+            try {
+                Thread.sleep(3000); // Sleep for 3 seconds
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                // Handle the exception if needed
+            }
+            System.exit(0);
+        }).start();
     }
 }

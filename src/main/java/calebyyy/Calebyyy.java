@@ -1,5 +1,10 @@
 package calebyyy;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import calebyyy.exceptions.CalebyyyException;
+
 /**
  * Represents the main Calebyyy object.
  */
@@ -29,6 +34,20 @@ public class Calebyyy {
     }
 
     public String getResponse(String input) {
-        return "Calebyyy heard: " + input;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+        PrintStream oldOut = System.out;
+        System.setOut(ps);
+
+        try {
+            parser.executeCommand(input);
+        } catch (CalebyyyException e) {
+            System.setOut(oldOut);
+            return "Error: " + e.getMessage();
+        }
+
+        System.out.flush();
+        System.setOut(oldOut);
+        return baos.toString();
     }
 }
