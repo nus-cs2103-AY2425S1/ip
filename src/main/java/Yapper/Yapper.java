@@ -8,6 +8,11 @@ public class Yapper {
     public static Storage storage;
     public static TaskList taskList;
 
+    /**
+     * Creates an instance of Yapper.
+     *
+     * @param fileName String of file path to load and write the history of tasks to.
+     */
     public Yapper(String fileName) {
         File file = new File(fileName);
         storage = new Storage(file);
