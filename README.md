@@ -10,9 +10,11 @@ All you need to do is,
 2. double-click it.
 3. add your tasks.
 4. let it manage your tasks for you 😉
+
 And it is **FREE**!
 
 Features:
+
 [X] Managing tasks
 [ ] Managing deadlines (coming soon)
 [ ] Reminders (coming soon)
