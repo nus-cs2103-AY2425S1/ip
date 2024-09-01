@@ -23,8 +23,8 @@ public class Add {
   /**
    * Returns a response based on the prompt for a todo command.
    * 
-   * @param prompt Prompt/argument for command.
-   * @return Appropriate response for command.
+   * @param prompt Prompt/argument for todo command.
+   * @return Appropriate response for todo command.
    * @throws TodoEmptyNameException If name is empty.
    * @throws DeadlineInvalidArgsException If prompt/argument is invalid.
    * @throws DeadlineEmptyNameException If name is empty.
@@ -45,8 +45,8 @@ public class Add {
   /**
    * Returns a response based on the prompt for a deadline command.
    * 
-   * @param prompt Prompt/argument for command.
-   * @return Appropriate response for command.
+   * @param prompt Prompt/argument for deadline command.
+   * @return Appropriate response for deadline command.
    * @throws TodoEmptyNameException If name is empty.
    * @throws DeadlineInvalidArgsException If prompt/argument is invalid.
    * @throws DeadlineEmptyNameException If name is empty.
@@ -67,8 +67,8 @@ public class Add {
   /**
    * Returns a response based on the prompt for an event command.
    * 
-   * @param prompt Prompt/argument for command.
-   * @return Appropriate response for command.
+   * @param prompt Prompt/argument for event command.
+   * @return Appropriate response for event command.
    * @throws TodoEmptyNameException If name is empty.
    * @throws DeadlineInvalidArgsException If prompt/argument is invalid.
    * @throws DeadlineEmptyNameException If name is empty.

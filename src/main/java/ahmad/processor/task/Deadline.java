@@ -3,11 +3,17 @@ package ahmad.processor.task;
 import java.time.LocalDateTime;
 
 /**
- * Deadline
+ * Deadline class that extends from Task
  */
 public class Deadline extends Task {
   private final LocalDateTime deadline;
 
+  /**
+   * Constructs a Deadline instance based on the name and deadline.
+   *
+   * @param name Name of deadline.
+   * @param deadline Deadline date of deadline.
+   */
   public Deadline(String name, LocalDateTime deadline) {
     super(name);
     this.deadline = deadline;

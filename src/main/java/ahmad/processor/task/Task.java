@@ -14,6 +14,9 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Base abstract class for tasks.
+ */
 public abstract class Task {
   private final String name;
   private final boolean state;
@@ -28,6 +31,20 @@ public abstract class Task {
     this.state = state;
   }
 
+  /**
+   * Factory method for tasks.
+   *
+   * @param type Type of task being created.
+   * @param arg Argument for task.
+   * @return A new instance of the task being created.
+   * @throws TodoEmptyNameException If name is empty.
+   * @throws DeadlineInvalidArgsException If prompt/argument is invalid.
+   * @throws DeadlineEmptyNameException If name is empty.
+   * @throws EventEmptyNameException If name is empty.
+   * @throws EventInvalidArgsException If prompt/argument is invalid.
+   * @throws DeadlineInvalidTimeException If given time is invalid.
+   * @throws EventInvalidTimeException If given time is invalid.
+   */
   public static Task of(TaskType type, String arg) throws DeadlineInvalidArgsException, DeadlineEmptyNameException, EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException, DeadlineInvalidTimeException, EventInvalidTimeException {
     switch (type) {
       case Todo:
@@ -103,12 +120,32 @@ public abstract class Task {
     throw new IllegalStateException();
   }
 
+  /**
+   * Marks current task as done.
+   *
+   * @return new, immutable task.
+   */
   public abstract Task mark();
 
+  /**
+   * Marks current task as not done.
+   *
+   * @return new, immutable task.
+   */
   public abstract Task unmark();
 
+  /**
+   * Returns symbol of current task.
+   *
+   * @return symbol of current task.
+   */
   public abstract String getSymbol();
 
+  /**
+   * Returns extra information about the task.
+   *
+   * @return task information.
+   */
   public abstract String getExtraInformation();
 
   protected String formatDate(LocalDateTime date) {

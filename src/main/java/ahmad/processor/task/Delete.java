@@ -8,7 +8,19 @@ import ahmad.response.Response;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Delete processor class.
+ */
 public class Delete {
+  /**
+   * Returns a response based on the prompt for a delete command.
+   *
+   * @param prompt Prompt/argument for delete command.
+   * @return Appropriate response for delete command
+   * @throws DeleteInvalidNumberException If index given is not a number.
+   * @throws DeleteIndexOutOfBoundsException If index given is out of bounds.
+   * @throws DeleteInvalidArgsException If argument is invalid.
+   */
   public static Response process(String prompt) throws DeleteInvalidNumberException, DeleteIndexOutOfBoundsException, DeleteInvalidArgsException {
     final List<String> prompts = Arrays.asList(prompt.split("delete "));
 
