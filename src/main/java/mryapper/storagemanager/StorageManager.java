@@ -33,13 +33,13 @@ public class StorageManager {
                 taskList.add(readTaskData(dataFileReader.nextLine()));
             }
             dataFileReader.close();
-            return new TaskList(this, taskList);
+            return new TaskList(taskList);
         } catch (InvalidFileDataException e) {
             System.out.println(e.getMessage() + "\n");
             boolean fileCreationSuccessful = taskData.createNewFile();
             if (fileCreationSuccessful) {
                 System.out.println(" A new data file has been created successfully");
-                return new TaskList(this);
+                return new TaskList();
             } else {
                 return null;
             }

@@ -20,17 +20,21 @@ public class Ui {
         scanner.close();
     }
 
-    public void say(String message) {
-        System.out.println("____________________________________________________________\n"
-                + message
-                + "\n____________________________________________________________");
+    public void send(String message) {
+        System.out.println(message);
+    }
+
+    public void showLine() {
+        System.out.println("____________________________________________________________");
     }
 
     public void showGreeting() {
-        say(GREETING_MESSAGE);
+        showLine();
+        send(GREETING_MESSAGE);
+        showLine();
     }
 
     public void showGoodbye() {
-        say(GOODBYE_MESSAGE);
+        send(GOODBYE_MESSAGE);
     }
 }

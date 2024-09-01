@@ -37,11 +37,13 @@ public class MrYapper {
         while (conversationIsOngoing) {
             try {
                 String userInput = ui.readCommand();
+                ui.showLine();
                 Command c = Parser.parse(userInput);
                 conversationIsOngoing = !c.execute(tasks, ui, storageManager);
             } catch (IllegalTaskException | InvalidSyntaxException | IllegalArgumentException e) {
-                ui.say(e.getMessage());
+                ui.send(e.getMessage());
             }
+            ui.showLine();
         }
         ui.close();
     }
