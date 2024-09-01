@@ -61,7 +61,7 @@ public class Event extends Task {
 
             // converts start date from (yyyy-MM-dd) to (MM dd yyyy)
             // converts start time from (hh:mm) to (hh:mm a)
-            startDateAndTime = DateAndTimeFormatter(commandDetails[indexOfFrom + 1], commandDetails[indexOfFrom + 2]);
+            startDateAndTime = Task.DateAndTimeFormatter(commandDetails[indexOfFrom + 1], commandDetails[indexOfFrom + 2]);
 
             // converts end date from (yyyy-MM-dd) to (MM dd yyyy)
             // converts end time from (hh:mm) to (hh:mm a)
