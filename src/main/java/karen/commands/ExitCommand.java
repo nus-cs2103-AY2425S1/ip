@@ -1,7 +1,7 @@
-package Karen.commands;
+package karen.commands;
 
-import Karen.tasks.TaskList;
-import Karen.util.Ui;
+import karen.tasks.TaskList;
+import karen.util.Ui;
 
 public class ExitCommand extends Command{
 

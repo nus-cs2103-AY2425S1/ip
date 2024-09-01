@@ -1,22 +1,22 @@
-package Karen.commands;
+package karen.commands;
 
-import Karen.tasks.Task;
-import Karen.tasks.TaskList;
-import Karen.util.Storage;
-import Karen.util.Ui;
+import karen.tasks.Task;
+import karen.tasks.TaskList;
+import karen.util.Storage;
+import karen.util.Ui;
 
-public class DeleteCommand extends Command {
+public class UnmarkCommand extends Command{
     private int index;
 
-    public DeleteCommand(int i) {
+    public UnmarkCommand(int i) {
         this.index = i;
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui) {
+        taskList.unmarkTask(this.index);
         Task t = taskList.getTask(this.index);
-        taskList.deleteTask(this.index);
-        ui.showDeleteMessage(t);
+        ui.showUnmarkMessage(t);
         Storage.saveToFile(taskList);
     }
 

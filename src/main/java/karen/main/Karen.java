@@ -1,10 +1,10 @@
-package Karen.main;
+package karen.main;
 
-import Karen.commands.Command;
-import Karen.tasks.TaskList;
-import Karen.util.Parser;
-import Karen.util.Storage;
-import Karen.util.Ui;
+import karen.commands.Command;
+import karen.tasks.TaskList;
+import karen.util.Parser;
+import karen.util.Storage;
+import karen.util.Ui;
 
 public class Karen {
     private TaskList taskList;

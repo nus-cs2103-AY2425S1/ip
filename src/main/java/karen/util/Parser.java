@@ -1,16 +1,16 @@
-package Karen.util;
+package karen.util;
 
-import Karen.tasks.Deadline;
-import Karen.tasks.Event;
-import Karen.tasks.Todo;
-import Karen.commands.Command;
-import Karen.commands.ListCommand;
-import Karen.commands.ExitCommand;
-import Karen.commands.DeleteCommand;
-import Karen.commands.AddTaskCommand;
-import Karen.commands.MarkCommand;
-import Karen.commands.UnmarkCommand;
-import Karen.commands.UnknownCommand;
+import karen.tasks.Deadline;
+import karen.tasks.Event;
+import karen.tasks.Todo;
+import karen.commands.Command;
+import karen.commands.ListCommand;
+import karen.commands.ExitCommand;
+import karen.commands.DeleteCommand;
+import karen.commands.AddTaskCommand;
+import karen.commands.MarkCommand;
+import karen.commands.UnmarkCommand;
+import karen.commands.UnknownCommand;
 
 import java.time.format.DateTimeParseException;
 
