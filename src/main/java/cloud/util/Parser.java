@@ -30,6 +30,7 @@ public class Parser {
             case "bye":
             case "mark":
             case "unmark":
+            case "find":
                 break;
             default:
                 throw new UnrecognisedException("Unrecognised command, please try again.");

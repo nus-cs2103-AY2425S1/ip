@@ -94,6 +94,12 @@ public class Cloud {
         );
     }
 
+    private static void findTasks(Query query) {
+        String keyword = query.getDetails();
+        tasks.find(keyword);
+
+    }
+
     private static void loadData() {
         tasks = storage.readData();
     }
@@ -147,6 +153,9 @@ public class Cloud {
                     break;
                 case "delete":
                     deleteTask(query);
+                    break;
+                case "find":
+                    ui.showMatching(tasks.find(query.getDetails()).toString());
                 default:
                     break;
             }
