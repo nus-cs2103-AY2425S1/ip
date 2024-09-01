@@ -1,4 +1,4 @@
-package duke;
+package duke.ui;
 
 import duke.ui.Parser;
 

@@ -1,10 +1,6 @@
 package duke.Tasks;
 
-import duke.Notgpt;
-import duke.Tasks.Deadline;
-import duke.Tasks.Event;
-import duke.Tasks.Task;
-import duke.Tasks.Todo;
+import duke.ui.Notgpt;
 import duke.parsers.DataParser;
 
 import java.util.ArrayList;

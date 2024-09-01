@@ -1,6 +1,5 @@
 package duke.ui;
 
-import duke.Notgpt;
 import duke.Tasks.Storage;
 
 import java.util.Scanner;
