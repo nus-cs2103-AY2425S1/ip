@@ -24,6 +24,7 @@ public class Parser {
         DEADLINE,
         EVENT,
         DELETE,
+        FIND,
         BYE,
         UNKNOWN
     }
@@ -102,6 +103,14 @@ public class Parser {
                 ui.showNotANumberError();
             } catch (IndexOutOfBoundsException e) {
                 ui.showDeleteSyntax();
+            }
+            break;
+        case FIND:
+            try {
+                String searchWord = arr[1];
+                //c = new FindCommand(searchWord);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Invalid Find syntax");
             }
             break;
         case UNKNOWN:
