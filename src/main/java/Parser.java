@@ -111,7 +111,7 @@ public class Parser {
                     System.out.println("what? type an actual command pls...");
             }
             text ="";
-            Duke.lnDiv();
+            Notgpt.lnDiv();
         } while (!command.equals("bye"));
         scanner.close();
     }

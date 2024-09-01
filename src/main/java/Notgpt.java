@@ -1,4 +1,4 @@
-public class Duke {
+public class Notgpt {
 
     public static void lnDiv() {
         System.out.println("___________________________________________________________________________");

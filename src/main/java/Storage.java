@@ -1,10 +1,29 @@
 import java.util.ArrayList;
-
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 public class Storage {
     private ArrayList<Task> store = new ArrayList<>();
-
+    Path filePath = Paths.get(".", "data", "not-gpt.txt");
     public Storage() {
+        try {
+            Files.createDirectories(filePath.getParent());
 
+            if (Files.exists(filePath)) {
+                System.out.println("Data found and loaded from: " + filePath.toAbsolutePath());
+            } else {
+                Files.createFile(filePath);
+                System.out.println("File created successfully at: " + filePath.toAbsolutePath());
+                String content = "This is a new file created using java.nio.file.Files";
+                Files.writeString(filePath, content);
+                System.out.println("Content written to the new file.");
+            }
+
+        } catch (IOException e) {
+            System.err.println("An error occurred: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
     public void todo(String s){
         store.add(new Todo(s));
