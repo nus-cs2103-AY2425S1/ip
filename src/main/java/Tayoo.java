@@ -213,6 +213,8 @@ public class Tayoo {
         fw.close();
     }
 
+
+
     private static void readFromTasklist() {
         File f = new File(TASKLIST_FILEPATH);
         StringBuilder tasklistStr = new StringBuilder("Added tasks:\n");
@@ -220,6 +222,8 @@ public class Tayoo {
             Scanner s = new Scanner(f);
             if (s.hasNextLine()) {
                 printText("I see you have some tasks from the last time we chatted! Pulling them up now :)");
+            } else {
+                return;
             }
             while (s.hasNextLine()) {
                 //read file and add task to tasklist
@@ -268,9 +272,12 @@ public class Tayoo {
             title = scanner.next().trim();
             String deadlineStr = scanner.next().trim();
             LocalDateTime deadline = dateTimeParser(deadlineStr);
+            LocalDateTime timeOnly = timeOnlyParser(deadlineStr);
             scanner.close();
             if (deadline != null) {
                 return new Deadline(title, deadline, isComplete);
+            } else if (timeOnly != null){
+                return new Deadline(title, timeOnly, isComplete);
             } else {
                 return new Deadline(title, deadlineStr, isComplete);
             }
@@ -372,6 +379,20 @@ public class Tayoo {
                 .optionalEnd()
                 .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
                 .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                .toFormatter();
+
+        try{
+            return LocalDateTime.parse(dateTime, formatter);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+    }
+
+    private static LocalDateTime timeOnlyParser(String dateTime) {
+
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendOptional(DateTimeFormatter.ofPattern("HH:mm"))
+                .appendOptional(DateTimeFormatter.ofPattern("HHmm"))
                 .toFormatter();
 
         try{
