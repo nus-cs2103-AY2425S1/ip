@@ -12,6 +12,9 @@ public class AddTodoCommand extends Command {
     private String description;
 
     public AddTodoCommand(String input) throws SkibidiException {
+        if (input.length() < 5) {
+            throw new SkibidiException("OOPS!!! The description of a todo cannot be empty.");
+        }
         this.description = input.substring(5).trim();
         if (description.isEmpty()) {
             throw new SkibidiException("OOPS!!! The description of a todo cannot be empty.");
