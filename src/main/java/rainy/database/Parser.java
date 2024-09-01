@@ -68,6 +68,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Finds a task matching a certain set of keywords.
+     * @param inputTask  Represents the command keyword the user enters.
+     * @return           Returns a processed result containing only the keyword and not the command.
+     */
+    public String findTask(String inputTask) {
+        return inputTask.split("find |find").length == 0
+                ? "" : inputTask.split("find ")[1];
+    }
+
     public Instructions enumOperator(String newMessage) {
         /**
          * Represents a <code>String</code> object as an <code>Instructions</code> object.

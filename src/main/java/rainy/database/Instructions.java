@@ -20,5 +20,6 @@ public enum Instructions {
     DEADLINE,
     EVENT,
     SORT,
+    FIND,
     INVALID
 }
