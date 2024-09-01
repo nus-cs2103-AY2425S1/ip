@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone = false;
 
-    public Task(String description) {
+    protected Task(String description) {
         this.description = description;
     }
 
@@ -29,10 +29,15 @@ public class Task {
         System.out.printf("\t%s%n", "------------------------------------------------------------------");
     }
 
+    public abstract String getTaskType();
+
+    public String toSaveFormat() {
+        return String.format("%s | %d | %s", this.getTaskType(), (isDone ? 1 : 0), description);
+    }
 
     @Override
     public String toString() {
-        return getStatusIcon() + " " + this.description;
+        return "[" + getTaskType() + "]" + getStatusIcon() + " " + this.description;
     }
 
 }

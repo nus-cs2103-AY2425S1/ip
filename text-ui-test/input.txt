@@ -1,7 +1,7 @@
 list
-todo read book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+todo read book after save
+deadline return book 2 after save /by Monday
+event after save meeting /from Mon 2pm /to 4pm
 list
 mark 1
 unmark 1
@@ -10,11 +10,13 @@ unmark
 mark 0
 unmark 0
 deadline
-deadline code project
+deadline code project after save
 event
 event hackathon
 event /from 2pm /to 6pm
+todo code after save
+list
 delete
-delete 3
+delete 7
 blah
 bye
