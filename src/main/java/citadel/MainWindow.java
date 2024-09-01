@@ -54,8 +54,7 @@ public class MainWindow extends AnchorPane {
      */
     private void sendWelcomeMessage() {
         String startMessage = ui.printStart();
-        Storage db = new Storage("data/citadel");
-        TaskList items = db.getTasks();
+        TaskList items = Citadel.loadDatabase();
         String tasksToString = ui.printTasks(items);
         String welcomeMessage = startMessage + "\n"
                 + tasksToString;
@@ -81,10 +80,11 @@ public class MainWindow extends AnchorPane {
 
             Platform.runLater(() -> {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(750);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                Citadel.saveDatabase();
                 Platform.exit();
             });
         }

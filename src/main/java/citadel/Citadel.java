@@ -32,6 +32,25 @@ public class Citadel {
     private static final TextUI ui = new TextUI();
 
     /**
+     * Loads tasks from the database (storage) into the application.
+     */
+    public static TaskList loadDatabase() {
+        items = db.getTasks();
+        return items;
+    }
+
+    /**
+     * Saves tasks from the application into the database (storage).
+     */
+    public static void saveDatabase() {
+        try {
+            db.saveData(items);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
@@ -45,7 +64,6 @@ public class Citadel {
             return ui.printException(e);
         }
     }
-
 
     /**
      * Processes the user's input command and executes the corresponding task.
@@ -102,7 +120,7 @@ public class Citadel {
      */
     public static void main(String[] args) throws IOException {
         ui.printStart();
-        items = db.getTasks();
+        loadDatabase();  // Load tasks from storage
         ui.printTasks(items);
 
         while (true) {
@@ -123,6 +141,6 @@ public class Citadel {
         }
 
         ui.printGoodbye();
-        db.saveData(items);
+        saveDatabase();  // Save tasks to storage before exiting
     }
 }
