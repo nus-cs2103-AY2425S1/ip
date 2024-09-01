@@ -8,9 +8,9 @@ import java.util.Scanner;
  * Initializes components, loads tasks from storage, and handles user input.
  */
 public class Alice {
+    private static final String path = "./data/alice.txt";
     private TaskList list;
     private final Storage storage;
-    private static final String path = "./data/alice.txt";
     private Ui ui;
     private Parser parser;
 

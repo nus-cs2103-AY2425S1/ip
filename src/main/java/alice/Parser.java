@@ -78,9 +78,9 @@ public class Parser {
         case "deadline":
             return CommandType.DEADLINE;
             // Fallthrough
-        case "find": 
-            return CommandType.FIND;  
-            // Fallthrough  
+        case "find":
+            return CommandType.FIND;
+            // Fallthrough
         default:
             return CommandType.INVALID;
             // Fallthrough
@@ -134,8 +134,8 @@ public class Parser {
             // Fallthrough
         case FIND:
             handleFind(input);
-            return true;  
-            // Fallthrough  
+            return true;
+            // Fallthrough
         case INVALID:
             handleInvalid(input);
             return true;
@@ -279,6 +279,13 @@ public class Parser {
         ui.invalidMsg();
     }
 
+    /**
+     * Handles the "find" command by searching for tasks that match the specified keyword.
+     *
+     * @param input The user input string containing the "find" command followed by the keyword
+     *              to search for in the task list.
+     *              The input format should be "find [keyword]".
+     */
     public void handleFind(String input) {
         String keyword = input.split(" ", 2)[1].trim();
         TaskList findList = list.findTask(keyword);
