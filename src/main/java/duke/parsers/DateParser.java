@@ -18,7 +18,7 @@ public class DateParser {
         for (DateTimeFormatter formatter : formatters) {
             try {
             date = LocalDate.parse(s, formatter);
-            return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
                 } catch (DateTimeParseException e) {
             }
         }
