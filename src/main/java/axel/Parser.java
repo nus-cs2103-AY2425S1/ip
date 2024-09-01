@@ -1,5 +1,6 @@
-public class Parser {
+package axel;
 
+public class Parser {
     public static Command parse(String command) throws AxelException {
         if (command.startsWith("todo")) {
             return new AddCommand(new ToDoTask(command.substring(5).trim()));
@@ -29,7 +30,6 @@ public class Parser {
             throw new UnrecognisedCommandException();
         }
     }
-
     private static int parseTaskIndex(String command) throws AxelException {
         try {
             return Integer.parseInt(command.substring(command.indexOf(' ') + 1).trim()) - 1;

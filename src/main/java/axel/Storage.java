@@ -1,9 +1,11 @@
+package axel;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
-    private String filePath;
+    protected String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;
     }

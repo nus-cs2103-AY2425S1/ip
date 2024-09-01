@@ -1,8 +1,10 @@
+package axel;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-    private List<Task> tasks;
+    protected List<Task> tasks;
     public TaskList(List<Task> tasks) {
         this.tasks = new ArrayList<>(tasks);
     }

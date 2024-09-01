@@ -1,3 +1,5 @@
+package axel;
+
 import java.io.IOException;
 
 public interface Command {
@@ -13,8 +15,7 @@ abstract class CommandBase implements Command {
 }
 
 class AddCommand extends CommandBase {
-    private Task task;
-
+    protected Task task;
     public AddCommand(Task task) {
         this.task = task;
     }
@@ -32,8 +33,7 @@ class AddCommand extends CommandBase {
 }
 
 class MarkCommand extends CommandBase {
-    private int taskIndex;
-
+    protected int taskIndex;
     public MarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
@@ -52,12 +52,10 @@ class MarkCommand extends CommandBase {
 }
 
 class UnmarkCommand extends CommandBase {
-    private int taskIndex;
-
+    protected int taskIndex;
     public UnmarkCommand(int taskIndex) {
         this.taskIndex = taskIndex;
     }
-
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws AxelException {
         Task task = taskList.getTask(taskIndex);
@@ -72,12 +70,11 @@ class UnmarkCommand extends CommandBase {
 }
 
 class DeleteCommand extends CommandBase {
-    private int taskIndex;
-
+    protected int taskIndex;
     public DeleteCommand(int taskIndex) {
+
         this.taskIndex = taskIndex;
     }
-
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws AxelException {
         Task task = taskList.getTask(taskIndex);
@@ -92,7 +89,6 @@ class DeleteCommand extends CommandBase {
 }
 
 class ListCommand extends CommandBase {
-
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         ui.printTaskList(taskList.getTasks());
