@@ -20,22 +20,22 @@ public class Ui {
     /**
      * Greets the user when the program starts.
      */
-    public void greet() {
-        System.out.println("Pika! I'm Pikappi!\nWhat can I do for you?\n");
+    public String greet() {
+        return "Pika! I'm Pikappi!\nWhat can I do for you?\n";
     }
 
     /**
      * Bids farewell to the user when the program ends.
      */
-    public void goodbye() {
-        System.out.println("Pi-kapi! See you again~\n");
+    public String goodbye() {
+        return "Pi-kapi! See you again~\n";
     }
 
     /**
      * Shows a horizontal line.
      */
-    public void showLine() {
-        System.out.println("____________________________________________________________");
+    public String showLine() {
+        return "____________________________________________________________";
     }
 
     /**
@@ -52,8 +52,8 @@ public class Ui {
      *
      * @param message Error message to be shown to the user
      */
-    public void showErrorMessage(String message) {
-        System.out.println(message);
+    public String showErrorMessage(String message) {
+        return message;
     }
 
     /**
@@ -62,9 +62,9 @@ public class Ui {
      * @param task Task that was added
      * @param taskCount Number of tasks in the list
      */
-    public void showAddedTask(Task task, int taskCount) {
-        System.out.println("Pi-ka-pipi! I've added this task:\n " + task.toString()
-                + "\nNow you have " + taskCount + " tasks in the list.");
+    public String showAddedTask(Task task, int taskCount) {
+        return "Pi-ka-pipi! I've added this task:\n " + task.toString()
+                + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
     /**
@@ -73,9 +73,9 @@ public class Ui {
      * @param task Task that was deleted
      * @param taskCount Number of tasks in the list
      */
-    public void showDeletedTask(Task task, int taskCount) {
-        System.out.println("Pipi-ka-pi! I've removed this task:\n " + task.toString()
-                + "\nNow you have " + taskCount + " tasks in the list.");
+    public String showDeletedTask(Task task, int taskCount) {
+        return "Pipi-ka-pi! I've removed this task:\n " + task.toString()
+                + "\nNow you have " + taskCount + " tasks in the list.";
     }
 
     /**
@@ -83,20 +83,21 @@ public class Ui {
      *
      * @param matchingTasks TaskList list of tasks that contains matching tasks
      */
-    public void showMatchingTasks(TaskList matchingTasks) {
+    public String showMatchingTasks(TaskList matchingTasks) {
         if (matchingTasks.getTasks().isEmpty()) {
-            System.out.println("Pika..? No matching tasks found..");
+            return "Pika..? No matching tasks found..";
         } else {
-            System.out.println("Pika! Here are the matching tasks in your list:");
+            String s = "Pika! Here are the matching tasks in your list:\n";
             for (int i = 0; i < matchingTasks.getTasks().size(); i++) {
-                System.out.println((i + 1) + ". " + matchingTasks.getTasks().get(i));
+                s += (i + 1) + ". " + matchingTasks.getTasks().get(i) + "\n";
             }
+            return s;
         }
     }
 
     /** Shows the user that there is no task in the list. */
-    public void showNoTasks() {
-        System.out.println("Pika-ka! You have no tasks!");
+    public String showNoTasks() {
+        return "Pika-ka! You have no tasks!";
     }
 
     /**
@@ -104,15 +105,16 @@ public class Ui {
      *
      * @param tasks TaskList list of tasks to be shown
      */
-    public void showAllTasks(ArrayList<Task> tasks) {
-        System.out.println("Here are the tasks in your list:");
+    public String showAllTasks(ArrayList<Task> tasks) {
+        String s = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) != null) {
-                System.out.println((i + 1) + "." + tasks.get(i));
+                s += (i + 1) + "." + tasks.get(i) + "\n";
             } else {
                 break;
             }
         }
+        return s;
     }
 
     /**
@@ -120,8 +122,8 @@ public class Ui {
      *
      * @param task Task that was marked as done
      */
-    public void showMarkedTask(Task task) {
-        System.out.println("Pika! I've marked this task as done:\n" + task);
+    public String showMarkedTask(Task task) {
+        return "Pika! I've marked this task as done:\n" + task;
     }
 
     /**
@@ -129,7 +131,7 @@ public class Ui {
      *
      * @param task Task that was unmarked as not done yet
      */
-    public void showUnmarkedTask(Task task) {
-        System.out.println("kaPi! I've unmarked this task as not done yet:\n" + task);
+    public String showUnmarkedTask(Task task) {
+        return "kaPi! I've unmarked this task as not done yet:\n" + task;
     }
 }

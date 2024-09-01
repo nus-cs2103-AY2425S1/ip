@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: pikappi.Pikappi
+pikappi.Main-Class: pikappi.Pikappi
 

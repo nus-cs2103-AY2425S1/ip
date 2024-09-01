@@ -3,6 +3,7 @@ package pikappi.command;
 import pikappi.Storage;
 import pikappi.TaskList;
 import pikappi.Ui;
+import pikappi.exception.PikappiException;
 
 /**
  * Represents a command by user to mark a task as done.
@@ -27,8 +28,8 @@ public class MarkCommand extends Command {
      * @param storage The storage object.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.markTask(index);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws PikappiException {
         storage.save(tasks);
+        return tasks.markTask(index);
     }
 }

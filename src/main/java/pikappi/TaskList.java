@@ -49,12 +49,12 @@ public class TaskList {
      *
      * @param task Task to be added
      */
-    public void addTask(Task task) throws PikappiException {
+    public String addTask(Task task) throws PikappiException {
         if (task == null) {
             throw new PikappiException("Pi-ka..?? What is the task..?");
         }
         tasks.add(task);
-        ui.showAddedTask(task, tasks.size());
+        return ui.showAddedTask(task, tasks.size());
     }
 
     /**
@@ -63,22 +63,21 @@ public class TaskList {
      * @param taskNum Index of the task to be deleted
      * @throws PikappiException If the task does not exist
      */
-    public void deleteTask(int taskNum) throws PikappiException {
+    public String deleteTask(int taskNum) throws PikappiException {
         if (taskNum > tasks.size() || taskNum < 1) {
             throw new PikappiException("Pi-ka..?? Task does not exist..");
         }
         Task task = tasks.get(taskNum - 1);
         tasks.remove(taskNum - 1);
-        ui.showDeletedTask(task, tasks.size());
+        return ui.showDeletedTask(task, tasks.size());
     }
 
     /** Lists all tasks in the list of tasks. */
-    public void listTasks() {
+    public String listTasks() {
         if (tasks.isEmpty()) {
-            ui.showNoTasks();
-            return;
+            return ui.showNoTasks();
         }
-        ui.showAllTasks(this.tasks);
+        return ui.showAllTasks(this.tasks);
     }
 
     /**
@@ -86,10 +85,14 @@ public class TaskList {
      *
      * @param taskNumber Index of the task to be marked as done
      */
-    public void markTask(int taskNumber) {
-        Task task = tasks.get(taskNumber - 1);
-        task.markAsDone();
-        ui.showMarkedTask(task);
+    public String markTask(int taskNumber) throws PikappiException {
+        try {
+            Task task = tasks.get(taskNumber - 1);
+            task.markAsDone();
+            return ui.showMarkedTask(task);
+        } catch (IndexOutOfBoundsException e) {
+            throw new PikappiException("Pi-ka..?? Task does not exist..");
+        }
     }
 
     /**
@@ -97,10 +100,10 @@ public class TaskList {
      *
      * @param taskNumber Index of the task to be unmarked as not done
      */
-    public void unmarkTask(int taskNumber) {
+    public String unmarkTask(int taskNumber) {
         Task task = tasks.get(taskNumber - 1);
         task.unmarkAsDone();
-        ui.showUnmarkedTask(task);
+        return ui.showUnmarkedTask(task);
     }
 
     /**
