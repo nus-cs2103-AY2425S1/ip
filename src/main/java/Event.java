@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 
 class Event extends Task {
     protected LocalDateTime from;
-    private LocalDateTime to;
+    protected LocalDateTime to;
 
     public Event(String description, String from, String to) {
         super(description);
@@ -14,7 +14,7 @@ class Event extends Task {
 
     @Override
     public String toString() {
-        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
         return "[E]" + super.toString() + " (from: " + from.format(outputFormat) + " to: " + to.format(outputFormat) + ")";
     }
 
