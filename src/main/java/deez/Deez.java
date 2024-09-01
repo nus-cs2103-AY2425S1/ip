@@ -1,14 +1,11 @@
 package deez;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.function.Consumer;
 
 import javafx.util.Pair;
 
@@ -16,12 +13,28 @@ import javafx.util.Pair;
 /**
  * Deez class
  */
-public class Deez implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private static Storage storage = new Storage("./data");
+public class Deez {
     private static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    private static Storage storage = new Storage("./data");
     protected TaskList taskList = new TaskList(new ArrayList<>());
     protected boolean isActive = true;
+    private Ui ui = new Ui();
+
+    public Deez() {
+        if (storage.canLoad()) {
+            try {
+                taskList = storage.loadTasks();
+            } catch (Exception e) {
+                System.out.println("Failed to load save-file, it might possibly be corrupted!");
+            }
+        }
+    }
+
+    public void initialiseUi(Consumer<String> messageConsumer) {
+        ui = new Ui(messageConsumer);
+        ui.say("Hello! I'm Deez!", "What can I do you for?");
+    }
 
     /**
      * Parse an integer from a given string
@@ -48,7 +61,7 @@ public class Deez implements Serializable {
      * List all tasks
      */
     private void handleListTasks() {
-        Ui.printList(taskList.getTasks());
+        ui.printList(taskList.getTasks());
     }
 
     /**
@@ -73,7 +86,7 @@ public class Deez implements Serializable {
         }
         Todo t = new Todo(props.getProperty("name"));
         taskList.addTask(t);
-        Ui.say("Easy. I have added your task.", t.toString(),
+        ui.say("Easy. I have added your task.", t.toString(),
             "You have " + taskList.size() + " tasks in the " + "list");
     }
 
@@ -88,7 +101,7 @@ public class Deez implements Serializable {
             LocalDateTime byDateTime = LocalDateTime.parse(props.getProperty("by"), dateTimeInputFormatter);
             Deadline d = new Deadline(props.getProperty("name"), byDateTime);
             taskList.addTask(d);
-            Ui.say("Donezo. I have added your task.", d.toString(),
+            ui.say("Donezo. I have added your task.", d.toString(),
                 "You have " + taskList.size() + " tasks in the " + "list");
         } catch (DateTimeParseException e) {
             throw new DeezException("Failed to parse deadline date.", "Usage:",
@@ -112,7 +125,7 @@ public class Deez implements Serializable {
             }
             Event e = new Event(props.getProperty("name"), startDate, endDate);
             taskList.addTask(e);
-            Ui.say("Event added", e.toString(), "You have " + taskList.size() + " tasks in the " + "list");
+            ui.say("Event added", e.toString(), "You have " + taskList.size() + " tasks in the " + "list");
         } catch (DateTimeParseException e) {
             throw new DeezException("Invalid date.", "Usage:",
                 "event " + "project meeting /from 2019-10-15 1800 /to 2019-10-15 1900");
@@ -135,7 +148,7 @@ public class Deez implements Serializable {
             } else if (!isMarkDone && t.isDone()) {
                 t.toggleDone();
             }
-            Ui.say("Updated task:", t.toString());
+            ui.say("Updated task:", t.toString());
         } catch (Exception e) {
             throw new DeezException("No task at index " + taskIdx, "Please try again.");
         }
@@ -146,7 +159,7 @@ public class Deez implements Serializable {
         try {
             Task t = taskList.get(taskIdx - 1);
             taskList.remove(t);
-            Ui.say("Deleted task:", t.toString(), taskList.size() + " tasks remain.");
+            ui.say("Deleted task:", t.toString(), taskList.size() + " tasks remain.");
         } catch (Exception e) {
             throw new DeezException("No task at index " + taskIdx, "Please try again.");
         }
@@ -158,7 +171,7 @@ public class Deez implements Serializable {
             throw new DeezException("No keyword provided.", "Usage:", "find book", "Please try again.");
         }
         ArrayList<Task> foundTasks = taskList.getTasks(keyword);
-        Ui.printList(foundTasks);
+        ui.printList(foundTasks);
     }
 
     /**
@@ -186,51 +199,16 @@ public class Deez implements Serializable {
     }
 
     private void save() {
-        storage.save(this);
-        Ui.say("Saved successfully!");
+        storage.saveTasks(taskList);
+        ui.say("Saved successfully!");
     }
 
-    /**
-     * Run the Deez
-     *
-     * @throws IOException if any issue occurs during reading input.
-     */
-    public void run() throws IOException {
-        Ui.say("Hello! I'm Deez!", "What can I do you for?");
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        while (isActive) {
-            // process command
-            String inputStr = br.readLine();
-
-            if (inputStr.isEmpty()) {
-                continue;
-            }
-            try {
-                Pair<Command, Properties> inputPair = Parser.parse(inputStr);
-                handleCommand(inputPair);
-            } catch (DeezException e) {
-                Ui.say(e.getErrorMessages());
-            }
+    public void handleInput(String inputStr) {
+        try {
+            Pair<Command, Properties> inputPair = Parser.parse(inputStr);
+            handleCommand(inputPair);
+        } catch (DeezException e) {
+            ui.say(e.getErrorMessages());
         }
-        Ui.say("Bye. Hope to see you soon!");
-    }
-
-    public String getResponse(String input) {
-        Pair<Command, Properties> inputPair = Parser.parse(input);
-        return inputPair.toString();
-    }
-
-    public static void main(String[] args) throws IOException {
-        Deez deez = new Deez();
-        if (storage.canLoad()) {
-            try {
-                deez = storage.load();
-            } catch (Exception e) {
-                System.out.println("Failed to load save-file, it might possibly be corrupted!");
-            }
-        }
-        deez.run();
     }
 }

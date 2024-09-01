@@ -33,10 +33,20 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Injects the Duke instance
+     * Injects Deez and sets up callback
      */
     public void setDeez(Deez d) {
         deez = d;
+        deez.initialiseUi((String message) -> outputMessage(message));
+    }
+
+    /**
+     * Adds a message from Deez in the GUI.
+     */
+    public void outputMessage(String message) {
+        dialogContainer.getChildren().addAll(
+            DialogBox.getDukeDialog(message, dukeImage)
+        );
     }
 
     /**
@@ -46,11 +56,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = deez.getResponse(input);
-        dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(input, userImage),
-            DialogBox.getDukeDialog(response, dukeImage)
+        dialogContainer.getChildren().add(
+            DialogBox.getUserDialog(input, userImage)
         );
+        if (!input.isBlank()) {
+            deez.handleInput(input);
+        }
         userInput.clear();
     }
 }
