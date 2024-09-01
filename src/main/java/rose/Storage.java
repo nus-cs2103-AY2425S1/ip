@@ -58,7 +58,6 @@ public class Storage {
             file.getParentFile().mkdirs();
             file.createNewFile();
         }
-
         return tasks;
     }
 
@@ -71,5 +70,4 @@ public class Storage {
 
         writer.close();
     }
-
 }

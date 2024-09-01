@@ -6,12 +6,12 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     protected LocalDate byDate;
 
-    public Deadline (String taskName, LocalDate byDate) {
+    public Deadline(String taskName, LocalDate byDate) {
         super(taskName);
         this.byDate = byDate;
     }
 
-    public Deadline (String taskName, LocalDate byDate, boolean isDone) {
+    public Deadline(String taskName, LocalDate byDate, boolean isDone) {
         super(taskName, isDone);
         this.byDate = byDate;
     }
@@ -27,6 +27,6 @@ public class Deadline extends Task {
     public String commaString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return String.format("D,%s,%s",
-                super.commaString(), this.byDate);
+                super.commaString(), this.byDate.format(formatter));
     }
 }

@@ -55,7 +55,6 @@ public class AddCommand extends Command {
 
             tasks.addTask(newTask);
             ui.showAdd(newTask, tasks.size());
-
         } catch (DateTimeParseException e) {
             ui.showError("Please enter a valid date in the format yyyy-MM-dd.");
         } catch (RoseException e) {
@@ -68,5 +67,4 @@ public class AddCommand extends Command {
             ui.showError("We cannot save the tasks: " + e.getMessage());
         }
     }
-
 }
