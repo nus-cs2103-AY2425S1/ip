@@ -52,6 +52,15 @@ public class Ui {
     }
 
     /**
+     * Reads the user's command.
+     *
+     * @return The command entered by the user.
+     */
+    public String readUserCommand() {
+        return scannerInput.nextLine();
+    }
+
+    /**
      * Closes the scanner.
      */
     public void close() {

@@ -10,7 +10,7 @@ public class Parser {
      */
     public static String parseCommand(String userCommand) {
         String[] userInputs = userCommand.split(" ");
-        return userInputs[0];
+        return userInputs[0].toLowerCase().trim();
     }
 
     /**
