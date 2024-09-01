@@ -16,8 +16,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws PikappiException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws PikappiException {
         TaskList matchingTasks = tasks.findTask(keyword);
-        ui.showMatchingTasks(matchingTasks);
+        return ui.showMatchingTasks(matchingTasks);
     }
 }

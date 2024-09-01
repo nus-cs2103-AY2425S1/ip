@@ -46,20 +46,15 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String description, String by, boolean isDone) {
         super(description, isDone);
-        String timeBy = "";
         try {
             LocalDate byDate = LocalDate.parse(by.split(" ")[0]);
-            this.by = byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-            this.by = by;
-        }
-        try {
-            timeBy = by.split(" ")[1];
+            String timeBy = by.split(" ")[1];
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HHmm");
             LocalTime byTime = LocalTime.parse(timeBy, dtf);
+            this.by = byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             this.by += byTime.format(DateTimeFormatter.ofPattern(" h:mma"));
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-            this.by += " " + timeBy;
+            this.by = by;
         }
     }
 

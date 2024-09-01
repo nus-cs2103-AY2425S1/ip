@@ -30,7 +30,7 @@ public class TodoCommand extends Command {
      * @throws PikappiException If an error occurs while adding the task.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws PikappiException {
-        tasks.addTask(new TodoTask(description));
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws PikappiException {
+        return tasks.addTask(new TodoTask(description));
     }
 }

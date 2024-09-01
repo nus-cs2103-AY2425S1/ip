@@ -38,7 +38,7 @@ public class DeadlineCommand extends Command {
      * @throws PikappiException If the task cannot be added to the list of tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws PikappiException {
-        tasks.addTask(new DeadlineTask(description, by));
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws PikappiException {
+        return tasks.addTask(new DeadlineTask(description, by));
     }
 }

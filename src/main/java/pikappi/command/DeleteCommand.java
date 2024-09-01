@@ -28,11 +28,11 @@ public class DeleteCommand extends Command {
      * @param storage The storage object.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            tasks.deleteTask(taskNum);
+            return tasks.deleteTask(taskNum);
         } catch (PikappiException e) {
-            ui.showErrorMessage(e.getMessage());
+            return ui.showErrorMessage(e.getMessage());
         }
     }
 }
