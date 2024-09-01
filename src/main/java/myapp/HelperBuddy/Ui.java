@@ -13,6 +13,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Main class which represents the JavaFX GUI for the chatbot
+ */
 public class Ui extends Application {
     private static final String HOME = System.getProperty("user.home");
     private static final String DIRECTORY_PATH = HOME + "/Documents/";
@@ -178,14 +181,14 @@ public class Ui extends Application {
         if (command.startsWith("todo")) {
             return "Sorry! The todo task description cannot be empty.";
         } else if (command.startsWith("deadline")) {
-            return "Sorry! The deadline task description cannot be empty.\n" +
-                    "The deadline timing should be in dd/MM/yyyy HHmm format.";
+            return "Sorry! The deadline task description cannot be empty.\n"
+                    + "The deadline timing should be in dd/MM/yyyy HHmm format.";
         } else if (command.startsWith("event")) {
-            return "Sorry! The event task description cannot be empty.\n" +
-                    "The event from and to timings should be in dd/MM/yyyy HHmm format.";
+            return "Sorry! The event task description cannot be empty.\n"
+                    + "The event from and to timings should be in dd/MM/yyyy HHmm format.";
         } else {
-            return "Invalid command. Please use 'find', 'todo', 'deadline', 'event', 'delete'," +
-                    " 'mark', 'unmark', 'list' or 'bye'. Thank you for understanding!";
+            return "Invalid command. Please use 'find', 'todo', 'deadline', 'event', 'delete',"
+                    + " 'mark', 'unmark', 'list' or 'bye'. Thank you for understanding!";
         }
     }
 
@@ -204,11 +207,11 @@ public class Ui extends Application {
      * Displays a message indicating that a task has been added.
      * Shows the details of the added task and the updated size of the task list.
      * @param task added to the list.
-     * @param taskList_size updated number of tasks in the list.
+     * @param tasklistSize updated number of tasks in the list.
      */
-    public String showTaskAdded(Task task, int taskList_size) {
+    public String showTaskAdded(Task task, int tasklistSize) {
         return "Got it. I've added this task: " + task
-                + "\nNow you have " + taskList_size + " tasks in the list.";
+                + "\nNow you have " + tasklistSize + " tasks in the list.";
     }
 
     /**

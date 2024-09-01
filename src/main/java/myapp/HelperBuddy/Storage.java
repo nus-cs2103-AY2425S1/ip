@@ -6,6 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Storage class which loads and saves task from the specified file
+ */
 public class Storage {
     private String filePath;
 

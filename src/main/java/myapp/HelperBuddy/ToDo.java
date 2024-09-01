@@ -1,5 +1,8 @@
 package myapp.helperbuddy;
 
+/**
+ * To_Do class representing a To_Do task
+ */
 public class ToDo extends Task {
     /**
      * Constructs a To_Do task with the specified description.

@@ -14,6 +14,9 @@ import javafx.scene.layout.HBox;
 import java.io.IOException;
 import java.util.Collections;
 
+/**
+ * DialogBox class which represents the dialog boxes for User and Duke
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
