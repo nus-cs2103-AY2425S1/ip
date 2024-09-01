@@ -20,7 +20,8 @@ public class ToDo extends Task {
      * Constructs a new ToDo task with the specified description, completion status, and type.
      *
      * @param description The description of the ToDo task.
-     * @param isDone The completion status of the task. {@code true} if the task is marked as done, {@code false} otherwise.
+     * @param isDone The completion status of the task.
+     *               {@code true} if the task is marked as done, {@code false} otherwise.
      * @param type The type of the task, which should be {@link TaskType#TODO}.
      */
     public ToDo(String description, boolean isDone, TaskType type) {
