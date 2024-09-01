@@ -1,8 +1,10 @@
-package Duke.Tasks;
+package duke.Tasks;
+import duke.parsers.DateParser;
+
 
 public class Deadline extends Task {
     private String by;
-
+    DateParser dateParser = new DateParser();
     public Deadline(String s) {
         super(s.split(" /by ")[0]);
         String[] parts = s.split(" /by ", 2);
@@ -10,6 +12,10 @@ public class Deadline extends Task {
             throw new IllegalArgumentException("Duke.Tasks.Deadline must include both a task description and a 'by' time.");
         }
         this.by = parts[1].trim();
+        String toDate = dateParser.giveDate(by);
+        if (toDate != null) {
+            this.by = toDate;
+        }
     }
 
     @Override

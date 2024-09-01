@@ -1,8 +1,9 @@
-package Duke.Tasks;
-
+package duke.Tasks;
 public class Task {
     private String task;
     private boolean done;
+
+
     public Task(String s){
         task = s;
         done = false;

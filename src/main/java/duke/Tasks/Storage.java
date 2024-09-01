@@ -1,9 +1,11 @@
-package Duke;
+package duke.Tasks;
 
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Event;
-import Duke.Tasks.Task;
-import Duke.Tasks.Todo;
+import duke.Notgpt;
+import duke.Tasks.Deadline;
+import duke.Tasks.Event;
+import duke.Tasks.Task;
+import duke.Tasks.Todo;
+import duke.parsers.DataParser;
 
 import java.util.ArrayList;
 import java.io.IOException;
@@ -60,11 +62,13 @@ public class Storage {
     public String toString() {
         String thing = "";
         int j = 1;
-        for(int i = 0; i<store.size()-1; i++){
-                thing += j + ". " + store.get(i).toString() + "\n";
+        for(int i = 0; i<store.size(); i++){
+            thing += j + ". " + store.get(i).toString();
+            if (i != store.size()-1) {
+                thing += "\n";
+            }
                 j++;
         }
-        thing += j + ". " + store.get(store.size()-1).toString();
         return thing;
     }
     public void mark(int i){

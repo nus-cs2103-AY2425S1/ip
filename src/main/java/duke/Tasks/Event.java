@@ -1,8 +1,11 @@
-package Duke.Tasks;
+package duke.Tasks;
+import duke.parsers.DateParser;
 
 public class Event extends Task {
     private String from;
     private String to;
+
+    DateParser dateParser = new DateParser();
 
     public Event(String s) {
         super(s.split(" /")[0].trim());
@@ -14,6 +17,14 @@ public class Event extends Task {
             } else if (part.startsWith("to ")) {
                 this.to = part.substring(3);
             }
+        }
+        String toDate = dateParser.giveDate(to);
+        if (toDate != null) {
+            this.to = toDate;
+        }
+        String fromDate = dateParser.giveDate(from);
+        if (fromDate != null) {
+            this.from = fromDate;
         }
 
         if (parts[0].trim().isEmpty() || from == null || to == null) {

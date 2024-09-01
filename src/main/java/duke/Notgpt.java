@@ -1,4 +1,6 @@
-package Duke;
+package duke;
+
+import duke.ui.Parser;
 
 public class Notgpt {
 
