@@ -44,20 +44,24 @@ public abstract class Task {
 
         Task task;
         switch (type) {
-            case "T":
-                task = new ToDoTask(description);
-                break;
-            case "D":
-                String by = parts.length > 3 ? parts[3] : "";  // Handle missing date
-                task = new DeadlineTask(description, by);      // Pass the date string directly
-                break;
-            case "E":
-                String from = parts.length > 3 ? parts[3] : "";  // Handle missing from
-                String to = parts.length > 4 ? parts[4] : "";    // Handle missing to
-                task = new EventTask(description, from, to);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid task type in file: " + type);
+        case "T":
+            task = new ToDoTask(description);
+            break;
+        case "D":
+            // Handle missing date
+            String by = parts.length > 3 ? parts[3] : "";
+            // Pass the date string directly
+            task = new DeadlineTask(description, by);
+            break;
+        case "E":
+            // Handle missing from
+            String from = parts.length > 3 ? parts[3] : "";
+            // Handle missing to
+            String to = parts.length > 4 ? parts[4] : "";
+            task = new EventTask(description, from, to);
+            break;
+        default:
+            throw new IllegalArgumentException("Invalid task type in file: " + type);
         }
 
         if (isDone) {
