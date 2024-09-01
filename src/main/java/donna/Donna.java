@@ -8,15 +8,22 @@ import donna.task.ToDo;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents the main class for the Donna chatbot.
+ */
 public class Donna {
-    private Ui ui;
+    private final Ui ui;
     private TaskList tasks;
-    private Parser parser;
+    private final Parser parser;
     private static Storage storage;
 
     private static final String DIRECTORY_PATH = "data";
     private static final String FILE_PATH = DIRECTORY_PATH + "/donna-tasks.txt";
 
+    /**
+     * Constructs a Donna instance, initializing the user interface, storage,
+     * parser, and loading previously saved tasks.
+     */
     public Donna() {
         ui = new Ui();
         storage = new Storage(DIRECTORY_PATH, FILE_PATH);
@@ -29,6 +36,10 @@ public class Donna {
         }
     }
 
+    /**
+     * Runs the main loop, processing user input and executing commands.
+     * Handles exceptions and prints error messages as needed.
+     */
     private void run() {
         boolean dataWasLoaded = !tasks.isEmpty();
         ui.printGreeting(dataWasLoaded);
@@ -71,9 +82,15 @@ public class Donna {
         }
     }
 
-    private void handleMark(String argument) throws DonnaException {
+    /**
+     * Handles the marking of a task as done.
+     *
+     * @param taskNum S.No of the task to mark (index from 1).
+     * @throws DonnaException If the argument is not a valid task number.
+     */
+    private void handleMark(String taskNum) throws DonnaException {
         try {
-            int taskIdx = Integer.parseInt(argument) - 1;
+            int taskIdx = Integer.parseInt(taskNum) - 1;
             Task task = tasks.markTask(taskIdx, true);
             ui.printTaskMarkedMessage(task, true);
         } catch (NumberFormatException e) {
@@ -81,9 +98,15 @@ public class Donna {
         }
     }
 
-    private void handleUnmark(String argument) throws DonnaException {
+    /**
+     * Handles the marking of a task as not done.
+     *
+     * @param taskNum Index of the task to unmark (index from 1).
+     * @throws DonnaException If the argument is not a valid task number.
+     */
+    private void handleUnmark(String taskNum) throws DonnaException {
         try {
-            int taskIdx = Integer.parseInt(argument) - 1;
+            int taskIdx = Integer.parseInt(taskNum) - 1;
             Task task = tasks.markTask(taskIdx, false);
             ui.printTaskMarkedMessage(task, false);
         } catch (NumberFormatException e) {
@@ -91,9 +114,15 @@ public class Donna {
         }
     }
 
-    private void handleDelete(String argument) throws DonnaException {
+    /**
+     * Handles the deletion of a task.
+     *
+     * @param taskNum Index of the task to delete (index from 1).
+     * @throws DonnaException If the argument is not a valid task number.
+     */
+    private void handleDelete(String taskNum) throws DonnaException {
         try {
-            int taskIndex = Integer.parseInt(argument) - 1;
+            int taskIndex = Integer.parseInt(taskNum) - 1;
             Task task = tasks.deleteTask(taskIndex);
             ui.printTaskDeletedMessage(task, tasks.getTaskCount());
         } catch (NumberFormatException e) {
@@ -101,37 +130,50 @@ public class Donna {
         }
     }
 
+    /**
+     * Handles the addition of a task to the list.
+     *
+     * @param type Type of the task (e.g., "todo", "deadline", "event").
+     * @param description Description of the task.
+     * @throws DonnaException If the type or description is invalid.
+     */
     private void handleAdd(String type, String description) throws DonnaException {
         Task newTask;
+
         switch (type) {
-            case "todo":
-                newTask = new ToDo(description);
-                break;
-            case "deadline":
-                String[] deadlineParts = description.split(" /by ", 2);
-                if (deadlineParts.length != 2) {
-                    throw DonnaException.emptyDescription(type);
-                }
-                newTask = new Deadline(deadlineParts[0], deadlineParts[1]);
-                break;
-            case "event":
-                String[] eventParts = description.split(" /from ", 2);
-                if (eventParts.length != 2) {
-                    throw DonnaException.emptyDescription(type);
-                }
-                String[] eventTimes = eventParts[1].split(" /to ", 2);
-                if (eventTimes.length != 2) {
-                    throw DonnaException.emptyEventTime();
-                }
-                newTask = new Event(eventParts[0], eventTimes[0], eventTimes[1]);
-                break;
-            default:
-                throw DonnaException.invalidTaskType(type);
+        case "todo":
+            newTask = new ToDo(description);
+            break;
+        case "deadline":
+            String[] deadlineParts = description.split(" /by ", 2);
+            if (deadlineParts.length != 2) {
+                throw DonnaException.emptyDescription(type);
+            }
+            newTask = new Deadline(deadlineParts[0], deadlineParts[1]);
+            break;
+        case "event":
+            String[] eventParts = description.split(" /from ", 2);
+            if (eventParts.length != 2) {
+                throw DonnaException.emptyDescription(type);
+            }
+            String[] eventTimes = eventParts[1].split(" /to ", 2);
+            if (eventTimes.length != 2) {
+                throw DonnaException.emptyEventTime();
+            }
+            newTask = new Event(eventParts[0], eventTimes[0], eventTimes[1]);
+            break;
+        default:
+            throw DonnaException.invalidTaskType(type);
         }
         tasks.addTask(newTask);
         ui.printTaskAddedMessage(newTask, tasks.getTaskCount());
     }
 
+    /**
+     * Main method to start the Donna application.
+     *
+     * @param args Arguments.
+     */
     public static void main(String[] args) {
         new Donna().run();
     }
