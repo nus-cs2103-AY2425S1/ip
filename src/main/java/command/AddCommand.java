@@ -3,9 +3,20 @@ package command;
 import task.Task;
 import task.TaskList;
 
+/**
+ * Command which adds a task to the task list when executed by Him.
+ *
+ * @author IsaacPangTH
+ */
 public class AddCommand extends Command {
-    Task task;
 
+    private Task task;
+
+    /**
+     * Constructor for<code>AddCommand</code>.
+     *
+     * @param task Task to be added.
+     */
     public AddCommand(Task task) {
         this.task = task;
     }

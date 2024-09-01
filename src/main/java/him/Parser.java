@@ -20,8 +20,20 @@ import task.ToDo;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class to handle parsing user inputs to Him.
+ *
+ * @author IsaacPangTH
+ */
 public class Parser {
 
+    /**
+     * Parses a user input and returns a command to be executed.
+     *
+     * @param input User input string.
+     * @return Command to be executed by Him.
+     * @throws HimException If the command is formatted wrongly or used in an invalid case.
+     */
     public static Command parseUserInput(String input) throws HimException {
         String[] args = input.split(" ", 2);
         String command = args[0];

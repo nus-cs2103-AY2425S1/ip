@@ -4,9 +4,20 @@ import exceptions.AlreadyCompletedException;
 import exceptions.TaskDoesNotExistException;
 import task.TaskList;
 
+/**
+ * Command which marks a task as completed when executed.
+ *
+ * @author IsaacPangTH
+ */
 public class MarkCommand extends Command {
-    int index;
 
+    private int index;
+
+    /**
+     * Constructor for<code>MarkCommand</code>.
+     *
+     * @param index Index of task to be marked.
+     */
     public MarkCommand(int index) {
         this.index = index;
     }

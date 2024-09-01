@@ -1,26 +1,53 @@
 package task;
 
+import java.util.ArrayList;
+
 import exceptions.AlreadyCompletedException;
+import exceptions.HimException;
 import exceptions.StartAfterEndException;
 
+/**
+ * Abstract class representing a task stored by Him.
+ *
+ * @author IsaacPangTH
+ */
 public abstract class Task {
-    private boolean isCompleted = false;
-    private String title;
 
-    public Task(String title) {
-        this.title = title;
+    private boolean isCompleted = false;
+    private String description;
+
+    /**
+     * Constructor for a incomplete <code>Task</code>.
+     *
+     * @param description Description of the task.
+     */
+    public Task(String description) {
+        this.description = description;
     }
 
-    public static Task of(String data) throws AlreadyCompletedException, StartAfterEndException {
-        String[] args = data.split("\\|");
+    /**
+     * Factory method which creates a<code>Task</code>from a String containing data of the task.
+     *
+     * @param data String containing task information.
+     * (See<code>ToDo.toData()</code>,<code>Deadline.toData()</code>,<code>Event.toData()</code>for format details).
+     * @return <code>Task</code> from String.
+     * @throws StartAfterEndException If invalid task if parsed.
+     */
+    public static Task of(String data) throws StartAfterEndException {
+        String[] args = data.split("\\|", 2);
         return switch (args[0]) {
-            case "T" -> ToDo.of(args);
-            case "D" -> Deadline.of(args);
-            case "E" -> Event.of(args);
+            case "T" -> ToDo.of(args[1]);
+            case "D" -> Deadline.of(args[1]);
+            case "E" -> Event.of(args[1]);
             default -> null;
         };
     }
 
+    /**
+     * Marks the task as completed.
+     *
+     * @throws AlreadyCompletedException If task has already been completed.
+     */
     public void complete() throws AlreadyCompletedException {
         if (this.isCompleted) {
             throw new AlreadyCompletedException();
@@ -28,19 +55,34 @@ public abstract class Task {
         this.isCompleted = true;
     }
 
+    /**
+     * Returns a string indicating completion status.
+     *
+     * @return Status icon (X if completed, space otherwise).
+     */
     public String getStatusIcon() {
         return (this.isCompleted ? "X" : " ");
     }
 
+    /**
+     * Returns a string indicating subtype of task.
+     *
+     * @return Type icon (T for<code>ToDo</code>, D for<code>Deadline</code>, E for<code>Event</code>).
+     */
     public abstract String getTypeIcon();
 
+    /**
+     * Returns data of the task in string form.
+     *
+     * @return Task data in the format "Type|completion status|description".
+     */
     public String toData() {
-        return String.format("%s|%b|%s", this.getTypeIcon(), this.isCompleted, this.title);
+        return String.format("%s|%b|%s", this.getTypeIcon(), this.isCompleted, this.description);
     }
 
     @Override
     public String toString() {
-        return this.title;
+        return this.description;
     }
 }
 

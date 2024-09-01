@@ -11,6 +11,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Entry point for Him chatbot.
+ *
+ * @author IsaacPangTH
+ */
 public class Him {
 
     private static TaskList list = new TaskList();
@@ -21,7 +26,7 @@ public class Him {
             list = storage.loadTaskList();
         } catch (FileNotFoundException e) {
             storage.initStorage();
-        } catch (AlreadyCompletedException | StartAfterEndException e) {
+        } catch (HimException e) {
             him.Ui.showLoadingFailure();
             System.exit(0);
         }
