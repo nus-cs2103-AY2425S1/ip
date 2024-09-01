@@ -1,8 +1,6 @@
 package FRIDAY;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 /**
  * Represents a task with a deadline, description and a completion status.
@@ -12,7 +10,7 @@ import java.time.temporal.ChronoUnit;
  * </p>
  */
 public class Deadline extends Task{
-    private LocalDate deadline;
+    private LocalDate taskDeadline;
 
     /**
      * Constructor for task of type deadline
@@ -23,7 +21,7 @@ public class Deadline extends Task{
     public Deadline(String description, String deadline, int type) {
         super(description, type);
         //accept deadline in YYYY-MM-DD format
-        this.deadline = LocalDate.parse(deadline.trim());
+        this.taskDeadline = LocalDate.parse(deadline.trim());
     }
 
     /**
@@ -32,16 +30,16 @@ public class Deadline extends Task{
      */
     //store deadline in YYYY-MM-DD format
     public String storageDisplay() {
-        return "D" + super.storageDisplay() + " | " + deadline;
+        return "D" + super.storageDisplay() + " | " + taskDeadline;
     }
 
     @Override
     public String toString() {
         //print it out in MM-DD-YYYY format
-        return "[D]" + super.toString() + "(" + deadline.getMonth() + " " + deadline.getDayOfMonth() + " " + deadline.getYear() + ")";
+        return "[D]" + super.toString() + "(" + taskDeadline.getMonth() + " " + taskDeadline.getDayOfMonth() + " " + taskDeadline.getYear() + ")";
     }
 
-    public LocalDate getDeadline() {
-        return this.deadline;
+    public LocalDate getTaskDeadline() {
+        return this.taskDeadline;
     }
 }
