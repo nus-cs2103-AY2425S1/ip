@@ -9,13 +9,29 @@ import java.io.IOException;
 import meep.ui.Ui;
 import meep.MeepException;
 
+/**
+ * The {@code Storage} class handles the loading and saving of tasks to and from a file.
+ * It manages the storage of task data, ensuring that tasks are persisted between sessions.
+ */
 public class Storage {
     private final String dataPath;
 
+    /**
+     * Constructs a {@code Storage} object with the specified file path for task data.
+     *
+     * @param dataPath The file path where task data will be stored.
+     */
     public Storage(String dataPath) {
         this.dataPath = dataPath;
     }
 
+    /**
+     * Processes a task string and adds the corresponding task to the specified {@code TaskList}.
+     * The task string is expected to be in the format used for saving tasks to a file.
+     *
+     * @param taskString The string representation of the task.
+     * @param taskList   The {@code TaskList} to which the task will be added.
+     */
     private static void processTaskString(String taskString, TaskList taskList) {
         try {
             String[] taskParts = taskString.split("\\|");
@@ -52,13 +68,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates the file at the specified path if it does not already exist.
+     *
+     * @throws MeepException If an error occurs while creating the file.
+     */
     private void createFileIfNotExists() throws MeepException {
-        // This method is created with use of ChatGPT
-
-        // Create a File object for the file
         File file = new File(this.dataPath);
         try {
-            // Check if the file exists, if not, create it
             if (!file.exists()) {
                 if (!file.createNewFile()) {
                     throw new IOException("Failed to create the file");
@@ -69,13 +86,19 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the file and returns them as a {@code TaskList}.
+     * If the file does not exist, it will be created.
+     *
+     * @return A {@code TaskList} containing the tasks loaded from the file.
+     * @throws MeepException If an error occurs while loading tasks.
+     */
     public TaskList loadTasks() throws MeepException {
-        // Load tasks from file
         createFileIfNotExists();
         TaskList taskList = new TaskList();
         try {
-            File f = new File(this.dataPath); // create a File for the given file path
-            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            File f = new File(this.dataPath);
+            Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 processTaskString(s.nextLine(), taskList);
             }
@@ -85,8 +108,13 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the tasks in the specified {@code TaskList} to the file.
+     *
+     * @param taskList The {@code TaskList} to be saved.
+     * @throws MeepException If an error occurs while saving tasks.
+     */
     public void saveTasks(TaskList taskList) throws MeepException {
-        // Save tasks to file
         try {
             FileWriter fw = new FileWriter(this.dataPath);
             fw.write(taskList.getSaveFormatList());
