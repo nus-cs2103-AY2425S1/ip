@@ -101,6 +101,30 @@ public class TaskList {
         return data.toString();
     }
 
+    /**
+     * Returns list of tasks containing the keyword.
+     *
+     * @param keyword Keyword used for the search.
+     * @return List of tasks containing the keyword in string form.
+     */
+    public String find(String keyword) {
+        int count = 0;
+        StringBuilder list = new StringBuilder();
+
+        for (Task task : tasks) {
+            if (task.descriptionContains(keyword)) {
+                count++;
+                list.append(String.format("%d.[%s][%s] %s\n", count, task.getTypeIcon(), task.getStatusIcon(), task));
+            }
+        }
+
+        if (list.isEmpty()) {
+            return "No results of containing that keyword found";
+        }
+
+        return list.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();

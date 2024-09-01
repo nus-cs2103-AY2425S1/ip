@@ -79,6 +79,22 @@ public abstract class Task {
         return String.format("%s|%b|%s", this.getTypeIcon(), this.isCompleted, this.description);
     }
 
+    /**
+     * Returns<code>true</code>if task's description contains the keyword.
+     *
+     * @param keyword Keyword to check for.
+     * @return <code>true</code>if task's description contains the keyword.
+     */
+    public boolean descriptionContains(String keyword) {
+        String[] description = this.description.split(" ");
+        for (String s : description) {
+            if (s.equalsIgnoreCase(keyword)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return this.description;
