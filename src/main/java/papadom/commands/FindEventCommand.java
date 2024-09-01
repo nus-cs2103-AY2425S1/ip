@@ -14,10 +14,10 @@ public class FindEventCommand extends Command {
         this.TEXT = text;
     }
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws IncorrectTaskInputFormatException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws IncorrectTaskInputFormatException {
         try {
             String keyword = PARSER.findKeyword(this.TEXT);
-            ui.output(storage.findTaskBySearching(keyword));
+            return ui.output(storage.findTaskBySearching(keyword));
         } catch (IndexOutOfBoundsException e) {
             throw new IncorrectTaskInputFormatException();
         }

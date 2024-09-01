@@ -28,11 +28,15 @@ public class MainController {
             appendMessage("You: " + userInput);
 
             // Get the response from the bot
-            String response = chatbot.getResponse(userInput); // Ensure this method exists in Papadom class
-            appendMessage("Bot: " + response);
+            String response = Papadom.getResponse(userInput);
+            appendMessage(response);
 
             // Clear the input field after sending
             inputField.clear();
+
+            if (userInput.equalsIgnoreCase("bye")) {
+                inputField.setDisable(true); // Disable further input
+            }
         }
     }
 

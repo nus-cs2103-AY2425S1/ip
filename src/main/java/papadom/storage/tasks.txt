@@ -10,3 +10,9 @@
 [D][ ] return book (by: Dec 12 2022)
 [T][ ] read book
 [D][ ] return book (by: Dec 12 2022)
+[T][ ] borrow book
+[T][ ] borrow book
+[T][ ] borrow book
+[D][ ] return book (by: Dec 12 2024)
+[D][ ] return book (by: Dec 12 2024, 12:00 pm)
+[E][ ] project meeting (from: Mon 2pm to: 4pm)

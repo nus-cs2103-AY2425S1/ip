@@ -44,70 +44,43 @@ public class Papadom {
     private static final Scanner SCANNER = new Scanner(System.in);
 
     /**
-     * Runs the Papadom chatbot, handling user input and executing commands in a loop.
+     * Runs the Papadom chatbot, handling user input and executing commands in a loop. Not required actually
      */
     private static void run() {
         UI.welcomeMessage();
         STORAGE.createFileIfNotPresent();
 
         while (true) {
-            Command command = null;
-            try {
-                String text = SCANNER.nextLine();
-                String commandText = text.split(" ")[0];
-                CommandType commandType = CommandType.fromString(commandText);
-                switch (commandType) {
-                    case LIST:
-                        command = new ListCommand();
-                        break;
-                    case BYE:
-                        command = new ExitCommand();
-                        break;
-                    case MARK:
-                        command = new MarkCommand(text);
-                        break;
-                    case UNMARK:
-                        command = new UnmarkCommand(text);
-                        break;
-                    case TODO:
-                        command = new AddTodoCommand(text);
-                        break;
-                    case DEADLINE:
-                        command = new AddDeadlineCommand(text);
-                        break;
-                    case EVENT:
-                        command = new AddEventCommand(text);
-                        break;
-                    case DELETE:
-                        command = new DeleteEventCommand(text);
-                        break;
-                    case FIND:
-                        command = new FindEventCommand(text);
-                        break;
-                    default:
-                        throw new UnknownCommandException();
-                }
-                command.execute(TASK_LIST, UI, STORAGE);
-                if (command instanceof ExitCommand) {
-                    return;
-                }
-            } catch (Exception e) {
-                UI.output(e.getMessage());
-            }
+            String input = SCANNER.nextLine();
+            String response = Papadom.getResponse(input);
+            // Put response on the chat
         }
     }
 
-    public String getResponse(String input) {
-        // Implement your chatbot logic here
-        // For example:
-        if (input.equalsIgnoreCase("hello")) {
-            return "Hi there! How can I help you today?";
-        } else if (input.equalsIgnoreCase("bye")) {
-            return "Goodbye! Have a great day!";
-        } else {
-            return "I'm not sure how to respond to that.";
+    public static String getResponse(String input) {
+        Command command;
+        try {
+            String commandText = input.split(" ")[0];
+            CommandType commandType = CommandType.fromString(commandText);
+            command = switch (commandType) {
+                case LIST -> new ListCommand();
+                case BYE -> new ExitCommand();
+                case MARK -> new MarkCommand(input);
+                case UNMARK -> new UnmarkCommand(input);
+                case TODO -> new AddTodoCommand(input);
+                case DEADLINE -> new AddDeadlineCommand(input);
+                case EVENT -> new AddEventCommand(input);
+                case DELETE -> new DeleteEventCommand(input);
+                case FIND -> new FindEventCommand(input);
+                default -> throw new UnknownCommandException();
+            };
+            // Execute the command and capture the output
+            return command.execute(TASK_LIST, UI, STORAGE);
+        } catch (Exception e) {
+            return UI.output(e.getMessage()); // Return the exception message if there's an error
         }
     }
+
 
     /**
      * Main entry point for the Papadom application.

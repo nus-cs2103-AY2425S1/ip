@@ -10,8 +10,8 @@ public class Ui {
      *
      * @param message The message to be displayed.
      */
-    public void output(String message) {
-        System.out.println(OPENING_LINE + message + CLOSING_LINE);
+    public String output(String message) {
+        return OPENING_LINE + message + CLOSING_LINE;
     }
     /**
      * Displays a welcome message when the chatbot starts.
@@ -22,8 +22,8 @@ public class Ui {
     /**
      * Displays a farewell message when the chatbot exits.
      */
-    public void exitMessage() {
-        System.out.println(OPENING_LINE + " Bye. Hope to see you again soon!" + CLOSING_LINE);
+    public String exitMessage() {
+        return OPENING_LINE + " Bye. Hope to see you again soon!" + CLOSING_LINE;
     }
 }
 

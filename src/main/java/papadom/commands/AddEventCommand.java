@@ -32,10 +32,10 @@ public class AddEventCommand extends Command{
      * @throws IncorrectTaskInputFormatException If the input format is invalid.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws IncorrectTaskInputFormatException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws IncorrectTaskInputFormatException {
         try {
             Event eventTask = PARSER.eventTaskCreator(TEXT.substring(6));
-            ui.output(taskList.addToList(eventTask));
+            return ui.output(taskList.addToList(eventTask));
         } catch (IndexOutOfBoundsException e) {
             throw new IncorrectTaskInputFormatException();
         }

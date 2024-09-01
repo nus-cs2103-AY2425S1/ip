@@ -16,7 +16,7 @@ public class ExitCommand extends Command {
      * @param storage The storage system for saving the task list.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.exitMessage();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.exitMessage();
     }
 }
