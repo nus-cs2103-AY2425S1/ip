@@ -1,4 +1,4 @@
-package duke.parsers;
+package duke.additionalParsers;
 
 import duke.Tasks.Deadline;
 import duke.Tasks.Event;

@@ -5,16 +5,15 @@ import duke.Tasks.Storage;
 import java.util.Scanner;
 
 public class Parser {
-    public static void parse() {
-        Scanner scanner = new Scanner(System.in);
+    public static void parse(Scanner scanner) {
         Storage storage = new Storage();
         String command;
         String text ="";
         String input;
         do {
-            input = scanner.nextLine().toLowerCase();
+            input = scanner.nextLine();
             String[] parts = input.split("\\s+", 2);
-            command = parts[0];
+            command = parts[0].toLowerCase();
             if (parts.length > 1 && !parts[1].trim().isEmpty()) {
                 text = parts[1];
             }
