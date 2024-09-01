@@ -33,6 +33,8 @@ public class Parser {
             return new UnmarkCommand(input);
         } else if (normalizedInput.startsWith("delete ")) {
             return new DeleteCommand(input);
+        } else if (normalizedInput.startsWith("find ")) {
+            return new FindCommand(input);
         } else {
             throw new SkibidiException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
