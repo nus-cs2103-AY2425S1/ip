@@ -1,4 +1,8 @@
-import java.util.ArrayList;
+package jbot.command;
+
+import jbot.task.EventTask;
+import jbot.task.Task;
+import jbot.util.TaskList;
 
 public class EventCommand extends AddCommand {
     private static final EventCommand instance = new EventCommand();

@@ -1,4 +1,6 @@
-import java.util.ArrayList;
+package jbot.command;
+
+import jbot.JBot;
 
 public class ByeCommand implements JBotCommand {
 

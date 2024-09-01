@@ -1,4 +1,9 @@
-import java.util.ArrayList;
+package jbot.command;
+
+import jbot.task.EmptyToDoDescriptionException;
+import jbot.task.Task;
+import jbot.task.ToDoTask;
+import jbot.util.TaskList;
 
 public class ToDoCommand extends AddCommand {
     private static final ToDoCommand instance = new ToDoCommand();

@@ -1,8 +1,10 @@
+package jbot.task;
+
 public abstract class Task {
 
-    protected String name;
+    String name;
     private boolean done = false;
-    protected String taskTypeSymbol;
+    String taskTypeSymbol;
 
     public boolean isDone() {
         return this.done;
@@ -18,7 +20,14 @@ public abstract class Task {
     @Override
     public String toString() {
         String doneString = done ? "X" : " ";
-        return String.format("[%1$s] [%2$s]  %3$s", this.taskTypeSymbol, doneString, this.name);
+        return String.format("[%1$s] [%2$s]  %3$s", this.getTaskTypeSymbol(), doneString, this.getName());
     }
 
+    public String getTaskTypeSymbol() {
+        return taskTypeSymbol;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

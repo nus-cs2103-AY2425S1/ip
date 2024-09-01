@@ -1,7 +1,23 @@
+package jbot.util;
+
 import java.util.HashMap;
 import java.util.Map;
 
+import jbot.command.ByeCommand;
+import jbot.command.DeadlineCommand;
+import jbot.command.DeleteCommand;
+import jbot.command.EventCommand;
+import jbot.command.InvalidCommandException;
+import jbot.command.JBotCommand;
+import jbot.command.ListCommand;
+import jbot.command.MarkCommand;
+import jbot.command.ToDoCommand;
+import jbot.command.UnmarkCommand;
+
 public class Parser {
+    private Parser() {
+        throw new UnsupportedOperationException("Utility class cannot be instantiated");
+    }
     private static Map<String, JBotCommand> commandMap;
     public static void init() {
         commandMap = new HashMap<>();
@@ -15,7 +31,7 @@ public class Parser {
         commandMap.put("delete", DeleteCommand.getInstance());
     }
 
-    public static JBotCommand parse(String userInput) throws InvalidCommandException{
+    public static JBotCommand parse(String userInput) throws InvalidCommandException {
         String inputCommand = userInput.split(" ")[0];
         JBotCommand command = commandMap.get(inputCommand);
         if (command == null) {

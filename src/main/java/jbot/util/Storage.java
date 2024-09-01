@@ -1,3 +1,5 @@
+package jbot.util;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,9 +12,18 @@ import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-public class Storage {
-    private static File storageFile;
 
+import jbot.task.DeadlineTask;
+import jbot.task.EmptyToDoDescriptionException;
+import jbot.task.EventTask;
+import jbot.task.Task;
+import jbot.task.ToDoTask;
+
+public class Storage {
+    private Storage() {
+        throw new UnsupportedOperationException("Utility class cannot be instantiated");
+    }
+    private static File storageFile;
     public static void init() {
         Storage.storageFile = getStorageFile();
     }
@@ -65,8 +76,8 @@ public class Storage {
     }
 
     private static String taskToJson(Task task) {
-        String type = task.taskTypeSymbol;
-        String name = task.name;
+        String type = task.getTaskTypeSymbol();
+        String name = task.getName();
         String status = task.isDone() ? "X" : " ";
 
         if (task instanceof ToDoTask) {
@@ -74,7 +85,7 @@ public class Storage {
         } else if (task instanceof EventTask) {
             EventTask eventTask = (EventTask) task;
             return String.format("{\"type\":\"%s\",\"name\":\"%s\",\"done\":\"%s\",\"from\":\"%s\",\"to\":\"%s\"}",
-                    type, name, status, eventTask.from, eventTask.to);
+                    type, name, status, eventTask.getFrom(), eventTask.getTo());
         } else if (task instanceof DeadlineTask) {
             DeadlineTask deadlineTask = (DeadlineTask) task;
             return String.format("{\"type\":\"%s\",\"name\":\"%s\",\"done\":\"%s\",\"deadline\":\"%s\"}",
@@ -83,7 +94,7 @@ public class Storage {
         return "{}";
     }
 
-    public static TaskList parseData() {
+    public static void parseData() {
         ArrayList<Task> tasks = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(storageFile))) {
@@ -94,7 +105,7 @@ public class Storage {
             }
 
             if (json.length() == 0) {
-                return new TaskList(tasks); // Return empty list if file is empty
+                TaskList.setList(tasks);
             }
 
             JSONArray jsonArray = new JSONArray(json.toString());
@@ -133,7 +144,7 @@ public class Storage {
             System.out.println(e.getMessage());
         }
 
-        return new TaskList(tasks);
+        TaskList.setList(tasks);
     }
 
     private static String getValue(String field) {

@@ -1,4 +1,6 @@
-import java.util.ArrayList;
+package jbot.command;
+
+import jbot.util.TaskList;
 
 public class ListCommand implements JBotCommand {
 

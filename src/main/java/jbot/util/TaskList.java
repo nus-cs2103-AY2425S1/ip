@@ -1,9 +1,15 @@
+package jbot.util;
+
 import java.util.ArrayList;
 
-public class TaskList {
-    private static ArrayList<Task> list;
+import jbot.task.Task;
 
-    public TaskList(ArrayList<Task> list) {
+public class TaskList {
+    private TaskList() {
+        throw new UnsupportedOperationException("Utility class cannot be instantiated");
+    }
+    private static ArrayList<Task> list;
+    public static void setList(ArrayList<Task> list) {
         TaskList.list = list;
     }
 
