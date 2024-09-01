@@ -11,18 +11,7 @@ public class Tina {
         tasks = new TaskList(storage);
     }
 
-    public void run() {
-        ui.greet();
-        tasks = new TaskList(storage);
-        ui.doTask(tasks);
-        ui.exit();
-    }
-
     public String getResponse(String input) {
         return ui.runInput(tasks, input);
-    }
-
-    public static void main(String[] args) {
-        new Tina("./data/tina.txt").run();
     }
 }

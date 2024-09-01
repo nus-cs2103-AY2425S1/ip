@@ -44,6 +44,6 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return String.format("T %d %s", isMark? 1 : 0, des);
+        return String.format("T %d %s", isMark ? 1 : 0, des);
     }
 }

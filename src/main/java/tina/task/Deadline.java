@@ -1,7 +1,9 @@
 package tina.task;
 
-import tina.Parser;
 import java.time.LocalDateTime;
+
+import tina.Parser;
+
 
 /**
  * Represents a task with a deadline.
@@ -58,6 +60,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("D %d %s | %s", isMark? 1 : 0, des, end);
+        return String.format("D %d %s | %s", isMark ? 1 : 0, des, end);
     }
 }
