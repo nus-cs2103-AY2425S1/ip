@@ -51,7 +51,7 @@ public class Parser {
         validateCommand(commandDetails, numOfTasksInList);
         checkInaccurateCommand(commandDetails);
         validateDeadline(commandDetails);
-        validateEvent(commandDetails);
+        // validateEvent(commandDetails);
         validateByeAndList(commandDetails);
     }
 
@@ -131,27 +131,6 @@ public class Parser {
 
 
     /**
-     * Returns true if "/from" and "/to" are BOTH found, false otherwise.
-     *
-     * @param commandDetails A String[], where each element corresponds to a word of the user input.
-     * @return A boolean value indicating whether "/from" and "/to" were found in the user's input.
-     */
-    public static boolean fromOrToKeywordNotFound(String[] commandDetails) {
-        boolean fromNotFound = false;
-        boolean toNotFound = false;
-        for (String word : commandDetails) {
-            if (word.equals("/from")) {
-                fromNotFound = true;
-            }
-            if (word.equals("/to")) {
-                toNotFound = true;
-            }
-        }
-        return fromNotFound && toNotFound;
-    }
-
-
-    /**
      * Throws a new JanetException if "/by" keyword not found in input.
      * Example: 'deadline return book 2024-08-30 18:00'
      *
@@ -164,22 +143,6 @@ public class Parser {
                 byKeywordNotFound(commandDetails)
         ) {
             throw new JanetException("WHOOPS! Missing/Wrong keywords for creating deadline...");
-        }
-    }
-
-
-    /**
-     * Throws a new JanetException if "/from" and "/to" keywords are not found in input.
-     *
-     * @param commandDetails A String[], where each element corresponds to a word of the user input.
-     * @throws JanetException If "/from" and "/to" are missing from user's command line input.
-     */
-    public static void validateEvent(String[] commandDetails) throws JanetException {
-        if (commandDetails[0].equals("event") &&
-                commandDetails.length > 1 &&
-                !fromOrToKeywordNotFound(commandDetails)
-        ) {
-            throw new JanetException("WHOOPS! Missing/Wrong keywords for creating event...");
         }
     }
 
