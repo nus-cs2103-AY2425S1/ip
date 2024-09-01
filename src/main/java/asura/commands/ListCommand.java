@@ -6,7 +6,8 @@ import asura.ui.Ui;
 
 public class ListCommand extends Command {
 
-    public ListCommand() {}
+    public ListCommand() {
+    }
 
     public void execute(TaskList tasklist, Ui ui, Storage storage) {
         output.append("Here are the tasks in your list:\n");
