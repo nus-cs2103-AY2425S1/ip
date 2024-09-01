@@ -22,6 +22,7 @@ public class Ui {
     public Ui() {
         this.scannerInput = new Scanner(System.in);
     }
+
     /**
      * Shows a message to the user.
      *
@@ -58,24 +59,49 @@ public class Ui {
     }
 
     /**
-     * Prints the tasks in the user's tasklist.
-     */
-    public static void listTasks() {
-        int count = 1;
-        System.out.println("Items in List:");
-        for (Task item : taskList) {
-            System.out.println(count++ + ". " + item.print());
-        }
-    }
-/**
      * Replies to the user's command.
      *
      * @param userCommand The command inputted by the user.
      */
     public void respond(String userCommand) {
-    try {
-        
-    } catch (Exception e) {
-    }
+        try {
+            String command = Parser.parseCommand(userCommand);
+            switch (command) {
+                case "todo": {
+                    displayMessage(Parser.parseToDoTask(userCommand));
+                    break;
+                }
+                case "list":
+                    displayMessage(TaskList.listTasks());
+                    break;
+                case "mark": {
+                    int taskNum = Parser.parseTaskNumber(userCommand);
+                    displayMessage(TaskList.markTask(taskNum));
+                    break;
+                }
+                case "delete": {
+                    int taskNum = Parser.parseTaskNumber(userCommand);
+                    displayMessage(TaskList.deleteTask(taskNum));
+                    break;
+                }
+                case "bye":
+                    bye();
+                    close();
+                    break;
+                case "deadline": {
+                    displayMessage(Parser.parseDeadlineTask(userCommand));
+                    break;
+                }
+                case "event": {
+                    displayMessage(Parser.parseEventTask(userCommand));
+                    break;
+                }
+                default: // User enters invalid command
+                    displayMessage("Please enter a valid command!");
+                    break;
+            }
+        } catch (Exception e) {
+            displayMessage("Please enter a valid command");
+        }
     }
 }
