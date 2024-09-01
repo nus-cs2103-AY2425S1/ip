@@ -1,5 +1,6 @@
+package Noisy;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class Parser {
 
@@ -29,9 +30,9 @@ public class Parser {
                         throw new NoisyException("OOPS!!! The description of a todo cannot be empty.");
                     }
                     return 3;
-                case "Deadline":
+                case "Noisy.Deadline":
                     return 4;
-                case "Event":
+                case "Noisy.Event":
                     return 5;
                 case "delete":
                     return 6;

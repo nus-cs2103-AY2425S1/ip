@@ -1,8 +1,10 @@
+package Noisy;
+
 public class Ui {
 
     public void printWelcome() {
         String welcomeMessage = "____________________________________________________________\n"
-                + " Hello! I'm Noisy\n"
+                + " Hello! I'm Noisy.Noisy\n"
                 + " What can I do for you?\n"
                 + "____________________________________________________________\n"
                 + " Bye. Hope to see you again soon!\n"

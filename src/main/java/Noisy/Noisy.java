@@ -1,7 +1,6 @@
+package Noisy;
+
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class Noisy {
 
@@ -42,11 +41,11 @@ public class Noisy {
                         }
                         task = new Todo(input.split(" ", 2)[1], false);
                         break;
-                    case "Deadline":
+                    case "Noisy.Deadline":
                         String[] string = input.split(" ", 3);
                         task = new Deadline(string[1], false, parser.parseDate(string[2]));
                         break;
-                    case "Event":
+                    case "Noisy.Event":
                         String[] eventString = input.split(" ", 4);
                         task = new Event(eventString[1], false, parser.parseDate(eventString[2]), parser.parseDate(eventString[3]));
                         break;
