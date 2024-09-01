@@ -22,9 +22,6 @@ public class Deadline extends TimeTask {
         super(description, isDone);
         this.by = by;
 
-        System.out.println(description);
-        System.out.println(by);
-
         setDateTime(by);
     }
 
