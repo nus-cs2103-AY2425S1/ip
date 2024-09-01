@@ -9,6 +9,8 @@ public class Ui {
 
     private final String logo;
 
+    private final Scanner scanner = new Scanner(System.in);
+
     public Ui(String logo) {
         this.logo = logo;
     }
@@ -20,14 +22,14 @@ public class Ui {
     }
 
     public String readCommand() {
-        String fullCommand;
-        try (Scanner scanner = new Scanner(System.in)) {
-            fullCommand = "";
-            if (scanner.hasNext()) {
-                fullCommand = scanner.nextLine();
-            }
+        if (scanner.hasNext()) {
+            return scanner.nextLine();
         }
-        return fullCommand;
+        return "";
+    }
+
+    public void closeScanner() {
+        scanner.close();
     }
 
     public void show(String message) {

@@ -53,6 +53,8 @@ public class Mummy {
                 ui.showLine();
             }
         }
+
+        ui.closeScanner();
     }
 
     public static void main(String[] args) {

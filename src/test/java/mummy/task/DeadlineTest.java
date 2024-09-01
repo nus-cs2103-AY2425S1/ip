@@ -1,10 +1,11 @@
 package mummy.task;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
 

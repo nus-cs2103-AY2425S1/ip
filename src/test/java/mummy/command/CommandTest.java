@@ -1,5 +1,10 @@
 package mummy.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -11,8 +16,6 @@ import mummy.task.TaskList;
 import mummy.ui.MummyException;
 import mummy.ui.Ui;
 import mummy.utility.Storage;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 public class CommandTest {
