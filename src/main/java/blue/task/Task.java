@@ -104,9 +104,9 @@ public abstract class Task {
             task = new DeadlineTask(description, by);
             break;
         case "E":
-            // Handle missing start time
+            // Handle missing from
             String from = parts.length > 3 ? parts[3] : "";
-            // Handle missing end time
+            // Handle missing to
             String to = parts.length > 4 ? parts[4] : "";
             task = new EventTask(description, from, to);
             break;
