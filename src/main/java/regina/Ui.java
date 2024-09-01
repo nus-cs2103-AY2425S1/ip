@@ -33,70 +33,63 @@ public class Ui {
      *
      * @param name The name of the chatbot, which will be displayed in the greeting message.
      */
-    public void greet(String name) {
-        String greetingMessage = String.format(
-                LINE
-                        + "\n%sHey there! I'm %s\n"
-                        + "%sI am a chatbot designed to help you track your activities.\n"
-                        + "%sYou can add tasks using the following formats:\n"
-                        + "%s1. To add a To-Do task: todo <task_description>\n"
-                        + "%s   Example: todo Finish homework\n"
-                        + "%s2. To add a Deadline task: deadline <task_description> /by <deadline>\n"
-                        + "%s   Example: deadline Submit report /by 2/12/2024 1800\n"
-                        + "%s3. To add an Event task: event <task_description> /from <start_time> /to <end_time>\n"
-                        + "%s   Example: event Team meeting /from 2/12/2024 1600 /to 2/12/2024 1800\n"
-                        + "%sYou can also:\n"
-                        + "%s1. Mark a task as done: mark <task_number>\n"
-                        + "%s   Example: mark 1\n"
-                        + "%s2. Unmark a task: unmark <task_number>\n"
-                        + "%s   Example: unmark 1\n"
-                        + "%s3. Delete a task: delete <task_number>\n"
-                        + "%s   Example: delete 1\n"
-                        + "%s4. List tasks: type 'list' to see all your tasks\n"
-                        + "%s5. Delete all current tasks: type 'clear'\n"
-                        + "%s6. Find out current date and time: type 'now'\n"
-                        + "%s7. List out all tasks occurring at a specified date and time: occurring <date_and_time>\n"
-                        + "%s   Example: occurring 2/12/2024 1800\n"
-                        + "%s8. For help: type 'help'\n"
-                        + "%sWhat can I do for you?\n%s",
-                INDENT, name, INDENT, INDENT, INDENT, INDENT,
-                INDENT, INDENT, INDENT, INDENT, INDENT, INDENT,
-                INDENT, INDENT, INDENT, INDENT, INDENT, INDENT, INDENT,
-                INDENT, INDENT, INDENT, INDENT, INDENT, LINE);
+    public String greet(String name) {
+        String greetingMessage = String.format("Hey there! I'm %s\n"
+                        + "I am a chatbot designed to help you track your activities.\n"
+                        + "You can add tasks using the following formats:\n"
+                        + "1. To add a To-Do task: todo <task_description>\n"
+                        + "   Example: todo Finish homework\n"
+                        + "2. To add a Deadline task: deadline <task_description> /by <deadline>\n"
+                        + "   Example: deadline Submit report /by 2/12/2024 1800\n"
+                        + "3. To add an Event task: event <task_description> /from <start_time> /to <end_time>\n"
+                        + "   Example: event Team meeting /from 2/12/2024 1600 /to 2/12/2024 1800\n"
+                        + "You can also:\n"
+                        + "1. Mark a task as done: mark <task_number>\n"
+                        + "   Example: mark 1\n"
+                        + "2. Unmark a task: unmark <task_number>\n"
+                        + "   Example: unmark 1\n"
+                        + "3. Delete a task: delete <task_number>\n"
+                        + "   Example: delete 1\n"
+                        + "4. List tasks: type 'list' to see all your tasks\n"
+                        + "5. Delete all current tasks: type 'clear'\n"
+                        + "6. Find out current date and time: type 'now'\n"
+                        + "7. List out all tasks occurring at a specified date and time: occurring <date_and_time>\n"
+                        + "   Example: occurring 2/12/2024 1800\n"
+                        + "8. For help: type 'help'\n"
+                        + "What can I do for you?\n", name
+        );
 
         System.out.println(greetingMessage);
+        return greetingMessage;
     }
 
     /**
      * Provides help details about the commands the user can use.
      * This method displays a list of available commands and their formats in the UI.
      */
-    public void help() {
-        String helpMessage = String.format(LINE
-                        + "\n%sHere are the commands you can use: \n"
-                        + "%s- To add a To-Do task: todo <task_description>\n"
-                        + "%s  Example: todo Finish homework\n"
-                        + "%s- To add a Deadline task: deadline <task_description> /by <deadline>\n"
-                        + "%s  Example: deadline Submit report /by 2023-12-01 1600\n"
-                        + "%s- To add an Event task: event <task_description> /from <start_time> /to <end_time>\n"
-                        + "%s  Example: event Team meeting /from 2/12/2024 1600 /to 2/12/2024 1800\n"
-                        + "%s- To mark a task as done: mark <task_number>\n"
-                        + "%s  Example: mark 1\n"
-                        + "%s- To unmark a task: unmark <task_number>\n"
-                        + "%s  Example: unmark 1\n"
-                        + "%s- To delete a task: delete <task_number>\n"
-                        + "%s  Example: delete 1\n"
-                        + "%s- To view your tasks: list\n"
-                        + "%s- To delete all current tasks: clear\n"
-                        + "%s- For current date and time: now\n"
-                        + "%s- To view tasks occurring on a specified date and time: occurring <date_and_time>\n"
-                        + "%s  Example: occurring 2/12/2024 1800\n"
-                        + "%s\n",
-                LINE, INDENT, INDENT, INDENT, INDENT, INDENT, INDENT, INDENT, INDENT,
-                INDENT, INDENT, INDENT, INDENT, INDENT, INDENT, INDENT, INDENT, INDENT,
-                LINE);
-
+    public String help() {
+        String helpMessage = """
+                Here are the commands you can use:\s
+                - To add a To-Do task: todo <task_description>
+                  Example: todo Finish homework
+                - To add a Deadline task: deadline <task_description> /by <deadline>
+                  Example: deadline Submit report /by 2023-12-01 1600
+                - To add an Event task: event <task_description> /from <start_time> /to <end_time>
+                  Example: event Team meeting /from 2/12/2024 1600 /to 2/12/2024 1800
+                - To mark a task as done: mark <task_number>
+                  Example: mark 1
+                - To unmark a task: unmark <task_number>
+                  Example: unmark 1
+                - To delete a task: delete <task_number>
+                  Example: delete 1
+                - To view your tasks: list
+                - To delete all current tasks: clear
+                - For current date and time: now
+                - To view tasks occurring on a specified date and time: occurring <date_and_time>
+                  Example: occurring 2/12/2024 1800
+                """;
         System.out.println(helpMessage);
+        return helpMessage;
     }
 
     /**
@@ -113,8 +106,9 @@ public class Ui {
      *
      * @param message The error message to display to the user.
      */
-    public void printError(String message) {
+    public String printError(String message) {
         System.out.printf("%s\n%s%s\n%s\n", LINE, INDENT, message, LINE);
+        return String.format("%s\n%s%s\n%s\n", LINE, INDENT, message, LINE);
     }
 
     /**
@@ -122,9 +116,10 @@ public class Ui {
      *
      * @param message The message to be printed to the console.
      */
-    public void printMessage(String message) {
+    public String printMessage(String message) {
         String formattedMessage = formatMessage(message);
-        System.out.println(LINE + "\n" + formattedMessage + LINE);
+        System.out.println(formattedMessage);
+        return formattedMessage;
     }
 
     /**
@@ -146,7 +141,7 @@ public class Ui {
         StringBuilder formatted = new StringBuilder();
         String[] lines = message.split("\n");
         for (String line : lines) {
-            formatted.append(INDENT).append(line).append("\n");
+            formatted.append(line).append("\n");
         }
         return formatted.toString();
     }
