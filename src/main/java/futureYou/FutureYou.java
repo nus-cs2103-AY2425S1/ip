@@ -1,6 +1,4 @@
 package futureYou;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class FutureYou {
     private TaskList taskList;
