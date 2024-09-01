@@ -1,3 +1,5 @@
+package secondmind;
+
 public class UnknownCommandException extends Exception {
     @Override
     public String toString() {

@@ -1,3 +1,5 @@
+package secondmind;
+
 public class EmptyToDoException extends Exception {
     @Override
     public String toString() {

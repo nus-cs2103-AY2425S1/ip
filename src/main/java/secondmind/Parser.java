@@ -1,3 +1,5 @@
+package secondmind;
+
 public class Parser {
     public Parser() {}
 

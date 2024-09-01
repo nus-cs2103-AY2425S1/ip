@@ -1,3 +1,5 @@
+package secondmind;
+
 public class EventTask extends Task {
     private String eventStart;
     private String eventEnd;

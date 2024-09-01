@@ -1,3 +1,5 @@
+package secondmind;
+
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;

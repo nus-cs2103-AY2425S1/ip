@@ -1,3 +1,5 @@
+package secondmind;
+
 public class ToDoTask extends Task {
     public ToDoTask(String task) {
         super(task);
