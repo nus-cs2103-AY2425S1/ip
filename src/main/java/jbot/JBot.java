@@ -1,7 +1,6 @@
 package jbot;
 
 
-import jbot.command.ByeCommand;
 import jbot.command.JBotCommand;
 import jbot.util.Parser;
 import jbot.util.Storage;
@@ -16,14 +15,15 @@ public class JBot {
     }
 
     public static void close() {
-        JBot.isRunning = false;
+        isRunning = false;
         Ui.close();
     }
 
+    @SuppressWarnings("FeatureEnvy")
     public static void main(String[] args) {
-        JBot.init();
+        init();
         Ui.greetUser();
-        while (JBot.isRunning) {
+        while (isRunning) {
             try {
                 String userInput = Ui.readInput();
                 JBotCommand command = Parser.parse(userInput);

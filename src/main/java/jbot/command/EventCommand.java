@@ -9,7 +9,7 @@ public class EventCommand extends AddCommand {
     private EventCommand() {
     };
     public static EventCommand getInstance() {
-        return EventCommand.instance;
+        return instance;
     }
     @Override
     public void run(String input) {

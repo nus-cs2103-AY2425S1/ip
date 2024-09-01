@@ -8,7 +8,7 @@ public class ByeCommand implements JBotCommand {
     private ByeCommand() {
     };
     public static ByeCommand getInstance() {
-        return ByeCommand.instance;
+        return instance;
     }
     @Override
     public void run(String input) {

@@ -10,7 +10,7 @@ public class ToDoCommand extends AddCommand {
     private ToDoCommand() {
     };
     public static ToDoCommand getInstance() {
-        return ToDoCommand.instance;
+        return instance;
     }
     @Override
     public void run(String input) {

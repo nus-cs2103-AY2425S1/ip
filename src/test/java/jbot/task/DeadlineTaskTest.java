@@ -8,6 +8,7 @@ import java.time.format.DateTimeParseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings({"UnqualifiedFieldAccess", "UnqualifiedStaticUsage"})
 public class DeadlineTaskTest {
 
     private static final String VALID_INPUT = "deadline return book /by 2/12/2020 1900";

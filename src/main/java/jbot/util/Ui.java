@@ -10,31 +10,31 @@ public class Ui {
     }
     private static final Scanner sc = new Scanner(System.in);
     public static void close() {
-        sc.close();
+        Ui.sc.close();
     }
     private static void hLine() {
         System.out.println("________________________________________");
     }
 
     public static void greetUser() {
-        hLine();
+        Ui.hLine();
         System.out.println("Hello! I'm JBot");
         System.out.println("What can I do for you?");
-        hLine();
+        Ui.hLine();
     }
     public static void display(JBotCommand command, String userInput) {
-        hLine();
+        Ui.hLine();
         command.run(userInput);
-        hLine();
+        Ui.hLine();
     }
 
     public static String readInput() {
-        return sc.nextLine();
+        return Ui.sc.nextLine();
     }
 
     public static void handleError(Exception e) {
-        hLine();
+        Ui.hLine();
         System.out.println(e.getMessage());
-        hLine();
+        Ui.hLine();
     }
 }

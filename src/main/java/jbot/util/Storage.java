@@ -19,6 +19,7 @@ import jbot.task.EventTask;
 import jbot.task.Task;
 import jbot.task.ToDoTask;
 
+@SuppressWarnings({"FeatureEnvy", "StaticVariableMayNotBeInitialized", "StaticVariableUsedBeforeInitialization"})
 public class Storage {
     private Storage() {
         throw new UnsupportedOperationException("Utility class cannot be instantiated");
@@ -27,7 +28,7 @@ public class Storage {
     private static File storageFile;
 
     public static void init() {
-        Storage.storageFile = getStorageFile();
+        storageFile = Storage.getStorageFile();
     }
 
     public static File getStorageFile() {
@@ -58,7 +59,7 @@ public class Storage {
     }
 
     public static void updateData() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(storageFile))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Storage.storageFile))) {
             StringBuilder json = new StringBuilder();
             json.append("[");
 
@@ -67,7 +68,7 @@ public class Storage {
                 if (i > 0) {
                     json.append(",");
                 }
-                json.append(taskToJson(task));
+                json.append(Storage.taskToJson(task));
             }
 
             json.append("]");
@@ -98,9 +99,10 @@ public class Storage {
     public static void parseData() {
         ArrayList<Task> tasks = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(storageFile))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(Storage.storageFile))) {
             StringBuilder json = new StringBuilder();
             String line;
+            //noinspection NestedAssignment
             while ((line = reader.readLine()) != null) {
                 json.append(line);
             }

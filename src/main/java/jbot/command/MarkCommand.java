@@ -8,7 +8,7 @@ public class MarkCommand implements JBotCommand {
     private MarkCommand() {
     };
     public static MarkCommand getInstance() {
-        return MarkCommand.instance;
+        return instance;
     }
     @Override
     public void run(String input) {

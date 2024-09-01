@@ -9,7 +9,7 @@ public class DeadlineCommand extends AddCommand {
     private DeadlineCommand() {
     };
     public static DeadlineCommand getInstance() {
-        return DeadlineCommand.instance;
+        return instance;
     }
     @Override
     public void run(String input) {

@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 
 public class DeadlineTask extends Task {
 
+    @SuppressWarnings("InstanceVariableMayNotBeInitialized")
     LocalDateTime deadline;
 
     public DeadlineTask(String input) {

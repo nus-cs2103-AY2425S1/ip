@@ -8,7 +8,7 @@ public class ListCommand implements JBotCommand {
     private ListCommand() {
     };
     public static ListCommand getInstance() {
-        return ListCommand.instance;
+        return instance;
     }
     @Override
     public void run(String input) {

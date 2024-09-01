@@ -8,7 +8,7 @@ public class UnmarkCommand implements JBotCommand {
     private UnmarkCommand() {
     };
     public static UnmarkCommand getInstance() {
-        return UnmarkCommand.instance;
+        return instance;
     }
     @Override
     public void run(String input) {

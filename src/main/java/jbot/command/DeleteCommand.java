@@ -8,7 +8,7 @@ public class DeleteCommand extends AddCommand {
     private DeleteCommand() {
     };
     public static DeleteCommand getInstance() {
-        return DeleteCommand.instance;
+        return instance;
     }
     @Override
     public void run(String input) {

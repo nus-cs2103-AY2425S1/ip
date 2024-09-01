@@ -23,10 +23,10 @@ public class EventTask extends Task {
     }
 
     public String getFrom() {
-        return from;
+        return this.from;
     }
 
     public String getTo() {
-        return to;
+        return this.to;
     }
 }
