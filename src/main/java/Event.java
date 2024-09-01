@@ -8,7 +8,11 @@ public class Event extends Task {
     this.from = from;
     this.to = to;
   }
+  @Override
+  public String toFileFormat() {
+    return "E | " + (this.getBooleanStatus() ? "1" : "0") + " | " + this + " | " + from + " to " + to;
 
+  }
   @Override
   public String toString() {
     return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";

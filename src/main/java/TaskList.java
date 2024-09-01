@@ -3,43 +3,26 @@ import java.util.ArrayList;
 public class TaskList {
 
   private ArrayList<Task>  tasks;
-  //private int taskCount;
 
   public TaskList() {
     this.tasks = new ArrayList<>();
-    //this.taskCount = 0;
   }
 
-  public void addTask(String task) throws EmptyDescriptionException, UnknownCommandException{
+  public TaskList(ArrayList<Task> tasks) {
+    this.tasks = tasks;
+  }
+
+  public ArrayList<Task> getTasks() {
+    return tasks;
+  }
+  public void addTask(Task task) throws EmptyDescriptionException, UnknownCommandException{
     // todo borrow book
     // deadline return book /by Sunday
     // event project meeting /from Mon 2pm /to 4pm
-
-    String[] parts = task.split(" ", 2);
-    String type = parts[0];
-    String details = parts[1];
-
-    if (details.isEmpty()) {
-      throw new EmptyDescriptionException(type);
-    }
-
-    Task newTask;
-    if (type.equalsIgnoreCase("todo")) {
-      newTask = new ToDo(details);
-    } else if (type.equalsIgnoreCase("deadline")) {
-      String[] deadlineParts = details.split(" /by ");
-      newTask = new Deadline(deadlineParts[0], deadlineParts[1]);
-    } else if (type.equalsIgnoreCase("event")) {
-      String[] eventParts = details.split(" /from | /to ");
-      newTask = new Event(eventParts[0], eventParts[1], eventParts[2]);
-    } else {
-      // newTask = new Task(task);
-      throw new UnknownCommandException();
-    }
     if (tasks.size() < 100) {
-      tasks.add(newTask);
+      tasks.add(task);
       System.out.println("____________________________________________________________");
-      System.out.println(" added: " + newTask);
+      System.out.println(" added: " + task);
       System.out.println("____________________________________________________________");
 
     } else {
@@ -58,6 +41,7 @@ public class TaskList {
 
 
   public void mark(int taskIdx) {
+    tasks.get(taskIdx - 1).changeDoneStatus(true);
     System.out.println("____________________________________________________________");
     System.out.println(" Great job!");
     System.out.println("   " + tasks.get(taskIdx - 1));
@@ -71,6 +55,7 @@ public class TaskList {
     System.out.println(" OK, I've marked this task as not done yet:");
     System.out.println("   " + tasks.get(taskIdx - 1));
     System.out.println("____________________________________________________________");
+
   }
 
   public void delete(int taskIdx) {

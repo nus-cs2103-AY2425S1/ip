@@ -6,6 +6,10 @@ public class Deadline extends Task {
     super(task);
     this.by = by;
   }
+  @Override
+  public String toFileFormat() {
+    return "D | " + (this.getBooleanStatus() ? "1" : "0") + " | " + this + " | " + by;
+  }
 
   @Override
   public String toString() {
