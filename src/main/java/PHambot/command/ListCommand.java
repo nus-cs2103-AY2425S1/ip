@@ -1,3 +1,7 @@
+package PHambot.command;
+
+import PHambot.utils.Utilities;
+
 import java.util.List;
 
 public class ListCommand extends Command {

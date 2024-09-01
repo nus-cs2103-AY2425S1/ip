@@ -1,3 +1,9 @@
+package PHambot.parser;
+
+import PHambot.command.*;
+import PHambot.exceptions.*;
+import PHambot.utils.Utilities;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;

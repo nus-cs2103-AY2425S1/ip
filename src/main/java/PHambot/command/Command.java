@@ -1,3 +1,7 @@
+package PHambot.command;
+
+import PHambot.task.TaskList;
+
 public abstract class Command {
     public abstract boolean executeCommand();
     protected static TaskList taskList;

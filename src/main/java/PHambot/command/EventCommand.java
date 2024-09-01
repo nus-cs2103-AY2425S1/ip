@@ -1,3 +1,8 @@
+package PHambot.command;
+
+import PHambot.task.Event;
+import PHambot.utils.Utilities;
+
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
 

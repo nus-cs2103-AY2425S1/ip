@@ -1,3 +1,12 @@
+package PHambot;
+
+import PHambot.utils.Utilities;
+import PHambot.command.*;
+import PHambot.parser.Parser;
+import PHambot.task.TaskList;
+import PHambot.storage.UserData;
+import jdk.jshell.execution.Util;
+
 import javax.lang.model.type.ErrorType;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -34,18 +43,14 @@ public class PHamBot {
         }
     }
 
-    private static void OutlineMessage(String msg) {
-        System.out.println(Utilities.line + msg + "\n" + Utilities.line);
-    }
-
     public static void Greet() {
         String greeting = "Hi! I'm PHamBot\nHappy to be of service to you today!";
-        OutlineMessage(greeting);
+        Utilities.OutlineMessage(greeting);
     }
 
     public static void SayGoodbye() {
         String goodbye = "Hope I was able to help\nGoodbye!";
-        OutlineMessage(goodbye);
+        Utilities.OutlineMessage(goodbye);
     }
 
 }

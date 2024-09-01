@@ -1,3 +1,5 @@
+package PHambot.utils;
+
 public class Utilities {
 
     public static final String line = "____________________________________________________________\n";

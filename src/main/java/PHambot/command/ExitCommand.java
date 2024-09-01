@@ -1,3 +1,7 @@
+package PHambot.command;
+
+import PHambot.utils.Utilities;
+
 public class ExitCommand extends Command {
 
     public static boolean isRunning = true;

@@ -1,3 +1,8 @@
+package PHambot.command;
+
+import PHambot.task.Deadline;
+import PHambot.utils.Utilities;
+
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
 

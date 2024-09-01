@@ -1,3 +1,5 @@
+package PHambot.task;
+
 public class Deadline extends DatedTask{
     public Deadline(String task, String date) {
         super(task, date);
