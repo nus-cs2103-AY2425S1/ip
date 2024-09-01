@@ -1,10 +1,5 @@
 package fanny.storage;
 
-import fanny.task.Deadline;
-import fanny.task.Event;
-import fanny.task.Task;
-import fanny.task.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,6 +9,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import fanny.task.Deadline;
+import fanny.task.Event;
+import fanny.task.Task;
+import fanny.task.ToDo;
+
 
 /**
  * Handles the loading and saving of tasks to a file.
@@ -79,7 +80,7 @@ public class Storage {
      * @return The task parsed from the line.
      * @throws IllegalArgumentException If the task type in the line is unknown.
      */
-    private Task parseTask(String line) throws IllegalArgumentException{
+    private Task parseTask(String line) throws IllegalArgumentException {
         String[] parts = line.split("\\|");
         String taskType = parts[0].trim();
         boolean isDone = parts[1].trim().equals("1");
@@ -88,23 +89,23 @@ public class Storage {
 
         Task task;
         switch (taskType) {
-            case "T":
-                task = new ToDo(description);
-                break;
-            case "D":
-                String by = parts[3].trim();
-                LocalDateTime byDate = LocalDateTime.parse(parts[3].trim(), formatter);
-                task = new Deadline(description, byDate);
-                break;
-            case "E":
-                String from = parts[3].trim();
-                String to = parts[4].trim();
-                LocalDateTime fromDate = LocalDateTime.parse(parts[3].trim(), formatter);
-                LocalDateTime toDate = LocalDateTime.parse(parts[4].trim(), formatter);
-                task = new Event(description, fromDate, toDate);
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown task type");
+        case "T":
+            task = new ToDo(description);
+            break;
+        case "D":
+            String by = parts[3].trim();
+            LocalDateTime byDate = LocalDateTime.parse(parts[3].trim(), formatter);
+            task = new Deadline(description, byDate);
+            break;
+        case "E":
+            String from = parts[3].trim();
+            String to = parts[4].trim();
+            LocalDateTime fromDate = LocalDateTime.parse(parts[3].trim(), formatter);
+            LocalDateTime toDate = LocalDateTime.parse(parts[4].trim(), formatter);
+            task = new Event(description, fromDate, toDate);
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown task type");
         }
 
         if (isDone) {

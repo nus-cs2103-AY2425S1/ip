@@ -1,7 +1,7 @@
 package fanny.command;
 
-import fanny.task.TaskList;
 import fanny.task.Task;
+import fanny.task.TaskList;
 import fanny.task.ToDo;
 import fanny.ui.Ui;
 

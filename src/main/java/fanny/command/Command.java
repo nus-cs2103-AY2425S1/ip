@@ -1,9 +1,9 @@
 package fanny.command;
 
+import java.time.format.DateTimeFormatter;
+
 import fanny.task.TaskList;
 import fanny.ui.Ui;
-
-import java.time.format.DateTimeFormatter;
 
 /**
  * Represents an abstract command that can be executed with
@@ -28,7 +28,7 @@ public abstract class Command {
      * should cause the application to exit.
      *
      * @return {@code true} if the command should cause the application to exit,
-     * {@code false} otherwise.
+     *     {@code false} otherwise.
      */
     public abstract boolean isExit();
 }

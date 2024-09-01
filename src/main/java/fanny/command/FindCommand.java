@@ -1,10 +1,11 @@
 package fanny.command;
 
+import java.util.List;
+
 import fanny.task.Task;
 import fanny.task.TaskList;
 import fanny.ui.Ui;
 
-import java.util.List;
 
 /**
  * Represents the command that handles the "find" prompt.
@@ -12,7 +13,7 @@ import java.util.List;
 public class FindCommand extends Command {
 
     /** The keyword to search for in the list of tasks. */
-    public String keyword;
+    private String keyword;
 
     /**
      * Constructs an {@code FindCommand} with the specified keyword.
