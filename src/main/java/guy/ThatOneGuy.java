@@ -32,11 +32,16 @@ public class ThatOneGuy {
      *
      * @param args command-line arguments, currently unused
      */
-    public static void main(String[] args) {
+    public static void main(String... args) {
         ThatOneGuy guy = new ThatOneGuy();
         guy.ui.greet();
         guy.keepGoing();
         guy.ui.bye();
+
+        if (args.length > 0) {
+            System.out.println(args.length + " arguments used.");
+        }
+
     }
 
     /**
