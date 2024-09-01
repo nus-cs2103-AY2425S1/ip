@@ -43,6 +43,7 @@ public class Bob {
         BYE,
         LIST,
         RELEVANT,
+        FIND,
         MARK,
         UNMARK,
         TODO,
@@ -119,8 +120,13 @@ public class Bob {
                     commandDelete(taskDetails);
                     break;
 
+                case FIND:
+                    commandFind(taskDetails);
+                    break;
+
                 case UNKNOWN:
                     // Fallthrough
+
                 default:
                     throw new BobException("Sorry, I do not understand. Please try something else.");
                 }
@@ -156,7 +162,17 @@ public class Bob {
      * @throws BobException If date format is invalid.
      */
     static void commandRelevant(String dateStr) throws BobException {
-        ui.showMessage(tasks.printRelevantTasks(dateStr));
+        ui.showMessage(tasks.printRelevantTasksByDate(dateStr));
+    }
+
+    /**
+     * Handles the "FIND" command to find tasks that have description containing a keyword or a phrase.
+     *
+     * @param keyword The keyword or phrase to find within the task description.
+     * @throws BobException If keyword is empty.
+     */
+    static void commandFind(String keyword) throws BobException {
+        ui.showMessage(tasks.printTasksByKeyword(keyword));
     }
 
     /**
@@ -322,14 +338,18 @@ public class Bob {
         if (taskDetails.isEmpty()) {
             throw new BobException("Please provide a task number.");
         }
-        // Get task
-        int taskNum = Integer.parseInt(taskDetails);
-        Task currTask = tasks.getTask(taskNum);
+        try {
+            // Get task
+            int taskNum = Integer.parseInt(taskDetails);
+            Task currTask = tasks.getTask(taskNum);
 
-        // Delete task and update tasks
-        tasks.delTask(taskNum);
-        storage.saveTasks(tasks);
-        ui.showMessage("Noted, removing this task:\n " + currTask
-                + "\nTotal number of tasks in your list: " + tasks.getNumTasks());
+            // Delete task and update tasks
+            tasks.delTask(taskNum);
+            storage.saveTasks(tasks);
+            ui.showMessage("Noted, removing this task:\n " + currTask
+                    + "\nTotal number of tasks in your list: " + tasks.getNumTasks());
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new BobException("The task number provided is invalid.");
+        }
     }
 }
