@@ -1,27 +1,19 @@
 import java.util.ArrayList;
 
 public class Parser {
-    public enum ActionType {undefined, formatting, taskNum, todo, deadline, event, mark, unmark, delete, list, bye};
+    public enum ActionType {undefined, formatting, todo, deadline, event, mark, unmark, delete, list, bye};
     
-    public static ActionType parse(String input, ArrayList<Object> returnArgs, int listSize) {
+    public static ActionType parse(String input, ArrayList<Object> returnArgs) {
         if (input.equals("bye")) {
             return ActionType.bye;
         } else if (input.matches("mark \\d+")) {
             Integer itemNo = Integer.parseInt(input.substring(5));
-            if (itemNo < 1 || itemNo > listSize) {
-                return ActionType.taskNum;
-            } else {
-                returnArgs.add(itemNo);
-                return ActionType.mark;
-            }
+            returnArgs.add(itemNo);
+            return ActionType.mark;
         } else if (input.matches("unmark \\d+")) {
             Integer itemNo = Integer.parseInt(input.substring(7));
-            if (itemNo < 1 || itemNo > listSize) {
-                return ActionType.taskNum;
-            } else {
-                returnArgs.add(itemNo);
-                return ActionType.unmark;
-            }
+            returnArgs.add(itemNo);
+            return ActionType.unmark;
         } else if (input.equals("list")) {
             return ActionType.list;
         } else if (input.matches("todo .+")) {
@@ -57,12 +49,8 @@ public class Parser {
             return ActionType.event;
         } else if (input.matches("delete \\d+")) {
             int itemNo = Integer.parseInt(input.substring(7));
-            if (itemNo < 1 || itemNo > listSize) {
-                return ActionType.taskNum;
-            } else {
-                returnArgs.add(itemNo);
-                return ActionType.delete;
-            }
+            returnArgs.add(itemNo);
+            return ActionType.delete;
         } // TODO: make helper function
         else if (input.startsWith("todo")) {
             returnArgs.add("todo [description]");
