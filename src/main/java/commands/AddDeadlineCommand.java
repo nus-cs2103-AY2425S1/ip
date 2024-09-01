@@ -7,6 +7,7 @@ import storage.TaskStorage;
 import storage.Deadline;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 public class AddDeadlineCommand extends Command {
     private String description;
@@ -30,6 +31,8 @@ public class AddDeadlineCommand extends Command {
             ui.printMessage("Got it. I've added this task:\n  " + deadline);
         } catch (SkibidiException | IOException e) {
             ui.printMessage(e.getMessage());
+        } catch (DateTimeParseException e) {
+            ui.printMessage("Invalid date format. Please use yyyy-mm-dd.");
         }
         return true;
     }
