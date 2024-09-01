@@ -2,6 +2,9 @@ package ahmad.processor.task;
 
 import java.time.LocalDateTime;
 
+/**
+ * Deadline
+ */
 public class Deadline extends Task {
   private final LocalDateTime deadline;
 
