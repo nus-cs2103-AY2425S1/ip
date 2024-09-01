@@ -13,10 +13,6 @@ import java.time.format.DateTimeParseException;
 public class Parser {
     private static UserInterface ui;
 
-    public Parser() {
-        this.ui = new UserInterface(new KillJoy());
-    }
-
     public Parser(UserInterface ui) {
         this.ui = ui;
     }

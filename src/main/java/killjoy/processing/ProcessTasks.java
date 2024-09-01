@@ -4,10 +4,7 @@ import killjoy.main.KillJoy;
 import killjoy.task.Task;
 import killjoy.main.UserInterface;
 
-
 import java.time.LocalDateTime;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ProcessTasks {
     private KillJoy kj;
@@ -109,7 +106,6 @@ public class ProcessTasks {
             ui.printLine();
         } else if (inputCommand.equals("delete")) {
             kj.removeTask(taskIndex);
-            kj.decreaseTaskCount();
             ui.printLine();
             System.out.println("    " + ui.getDeleteString() + "\n        " + task );
             if (kj.getTaskCount() == 1) {
