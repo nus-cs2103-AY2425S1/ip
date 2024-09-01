@@ -3,9 +3,9 @@ public class Task {
     private boolean status;
     private String description;
 
-    public Task(String description) {
+    public Task(boolean status, String description) {
         this.description = description;
-        this.status = false;
+        this.status = status;
     }
 
     public Task() {}
@@ -20,6 +20,10 @@ public class Task {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String toFileString() {
+        return "";
     }
 
 }

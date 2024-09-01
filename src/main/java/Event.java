@@ -3,10 +3,15 @@ public class Event extends Task {
     private String start;
     private String end;
 
-    public Event(String description, String start, String end) {
-        super(description);
+    public Event(boolean status, String description, String start, String end) {
+        super(status, description);
         this.start = start;
         this.end = end;
+    }
+
+    @Override
+    public String toFileString() {
+        return "";
     }
 
     @Override
