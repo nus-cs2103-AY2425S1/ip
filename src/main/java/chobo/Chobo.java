@@ -1,4 +1,5 @@
 package chobo;
+
 import java.util.Scanner;
 
 /**

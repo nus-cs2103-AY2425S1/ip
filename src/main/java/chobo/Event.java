@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Represents an event that starts at a specific date/time and ends at a specific date/time.
  * An chobo.Event object corresponds to an event in the Chobo chatbot.
  */
-public class Event extends Task{
+public class Event extends Task {
     private String unformattedFrom;
     private String unformattedTo;
     private LocalDateTime from;
@@ -21,7 +21,7 @@ public class Event extends Task{
      * @param from The start time/date of the event.
      * @param to   The end time/date of the event.
      */
-    public Event (String name, boolean done, String from, String to) {
+    public Event(String name, boolean done, String from, String to) {
         super(name, done);
         unformattedFrom = from;
         unformattedTo = to;
