@@ -1,12 +1,12 @@
 package fanny.command;
 
-import fanny.ui.Ui;
-import fanny.task.TaskList;
-import fanny.task.Task;
-import fanny.task.Deadline;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import fanny.task.Deadline;
+import fanny.task.Task;
+import fanny.task.TaskList;
+import fanny.ui.Ui;
 
 /**
  * Represents the command that handles the "deadline" prompt.

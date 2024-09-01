@@ -1,12 +1,12 @@
 package fanny.command;
 
-import fanny.task.TaskList;
-import fanny.ui.Ui;
-import fanny.task.Task;
-import fanny.task.Event;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import fanny.task.Event;
+import fanny.task.Task;
+import fanny.task.TaskList;
+import fanny.ui.Ui;
 
 /**
  * Represents the command that handles the "event" prompt.

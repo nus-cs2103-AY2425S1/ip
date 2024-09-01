@@ -2,11 +2,10 @@ package fanny.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import fanny.task.Event;
-
-import java.time.LocalDateTime;
 
 class EventTest {
 
