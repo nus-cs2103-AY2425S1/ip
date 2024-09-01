@@ -1,7 +1,7 @@
-package Karen.util;
+package karen.util;
 
-import Karen.tasks.Task;
-import Karen.tasks.TaskList;
+import karen.tasks.Task;
+import karen.tasks.TaskList;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;

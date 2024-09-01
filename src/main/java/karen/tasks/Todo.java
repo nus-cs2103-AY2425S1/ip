@@ -1,4 +1,4 @@
-package Karen.tasks;
+package karen.tasks;
 
 public class Todo extends Task {
     public Todo(String name) {

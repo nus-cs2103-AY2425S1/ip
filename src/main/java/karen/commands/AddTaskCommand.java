@@ -1,9 +1,9 @@
-package Karen.commands;
+package karen.commands;
 
-import Karen.tasks.Task;
-import Karen.tasks.TaskList;
-import Karen.util.Storage;
-import Karen.util.Ui;
+import karen.tasks.Task;
+import karen.tasks.TaskList;
+import karen.util.Storage;
+import karen.util.Ui;
 
 public class AddTaskCommand extends Command{
     private Task task;
