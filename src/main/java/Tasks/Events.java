@@ -8,10 +8,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Events extends Task {
-    private final LocalDate startDate;
-    private final LocalTime startTime;
-    private final LocalDate endDate;
-    private final LocalTime endTime;
+    private final LocalDate START_DATE;
+    private final LocalTime START_TIME;
+    private final LocalDate END_DATE;
+    private final LocalTime END_TIME;
 
     private LocalTime parseTime(String timeString) {
         String hours = timeString
@@ -24,24 +24,24 @@ public class Events extends Task {
 
     private void validateDateTime() throws BrockException {
         LocalDate today = LocalDate.now();
-        if (this.startDate.isBefore(today)) {
+        if (START_DATE.isBefore(today)) {
             throw new BrockException("Start date cannot be earlier than today!");
         }
-        if (this.endDate.isBefore(today)) {
+        if (END_DATE.isBefore(today)) {
             throw new BrockException("End date cannot be earlier than today!");
         }
-        if (this.endDate.isBefore(this.startDate)) {
+        if (END_DATE.isBefore(START_DATE)) {
             throw new BrockException("End date cannot be earlier than start date!");
         }
 
-        if (this.startTime == LocalTime.MAX) {
-            if (this.endDate.equals(this.startDate)) {
+        if (START_TIME == LocalTime.MAX) {
+            if (END_DATE.equals(START_DATE)) {
                 throw new BrockException("Without time specified,"
                         + " end date must be after start date!");
             }
         } else {
-            if (this.endDate.equals(this.startDate)
-                    && !this.endTime.isAfter(this.startTime)) {
+            if (END_DATE.equals(START_DATE)
+                    && !END_TIME.isAfter(START_TIME)) {
                 throw new BrockException("End time must be after start time!");
             }
         }
@@ -52,12 +52,12 @@ public class Events extends Task {
         boolean isParseStartDateSuccessful = false;
         try {
             // Dummy values for time
-            this.startTime = LocalTime.MAX;
-            this.endTime = LocalTime.MAX;
+            START_TIME = LocalTime.MAX;
+            END_TIME = LocalTime.MAX;
 
-            this.startDate = LocalDate.parse(startDateString);
+            START_DATE = LocalDate.parse(startDateString);
             isParseStartDateSuccessful = true;
-            this.endDate = LocalDate.parse(endDateString);
+            END_DATE = LocalDate.parse(endDateString);
             validateDateTime();
 
         } catch (DateTimeParseException e) {
@@ -74,12 +74,12 @@ public class Events extends Task {
         super(description);
         boolean isParseStartDateSuccessful = false;
         try {
-            this.startTime = parseTime(startTimeString);
-            this.endTime = parseTime(endTimeString);
+            START_TIME = parseTime(startTimeString);
+            END_TIME = parseTime(endTimeString);
 
-            this.startDate = LocalDate.parse(startDateString);
+            START_DATE = LocalDate.parse(startDateString);
             isParseStartDateSuccessful = true;
-            this.endDate = LocalDate.parse(endDateString);
+            END_DATE = LocalDate.parse(endDateString);
             validateDateTime();
 
         } catch (DateTimeParseException e) {
@@ -97,18 +97,19 @@ public class Events extends Task {
     }
 
     public String getExtraInfo() {
-        String startDateFormatted = this.startDate
-                .format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        String endDateFormatted = this.endDate
-                .format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        String startDateFormatted = START_DATE
+                .format(formatter);
+        String endDateFormatted = END_DATE
+                .format(formatter);
         return "(from: " + startDateFormatted
-                + (this.startTime == LocalTime.MAX
+                + (START_TIME == LocalTime.MAX
                 ? " | "
-                : ", " + this.startTime.toString() + " | ")
+                : ", " + START_TIME.toString() + " | ")
                 + "to: " + endDateFormatted
-                + (this.endTime == LocalTime.MAX
+                + (END_TIME == LocalTime.MAX
                 ? ""
-                : ", " + this.endTime.toString())
+                : ", " + END_TIME.toString())
                 + ")";
     }
 }

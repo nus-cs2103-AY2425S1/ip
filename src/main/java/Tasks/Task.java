@@ -1,16 +1,16 @@
 package Tasks;
 
 public abstract class Task {
-    private final String description;
+    private final String DESCRIPTION;
     private boolean isDone;
 
     protected Task(String description) {
-        this.description = description;
+        DESCRIPTION = description;
         this.isDone = false;
     }
 
     public String getDescription() {
-        return this.description;
+        return DESCRIPTION;
     }
 
     public void markAsDone() {

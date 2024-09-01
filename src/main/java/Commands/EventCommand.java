@@ -1,0 +1,109 @@
+package Commands;
+
+import Exceptions.BrockException;
+import Storage.Storage;
+import Tasks.Events;
+import Tasks.Task;
+import Tasks.TaskList;
+import Ui.Ui;
+import Utility.Utility;
+
+public class EventCommand extends Command {
+    public EventCommand(String command) {
+        super(command);
+    }
+
+    private Task createEvent() throws BrockException {
+        String command = super.getCommand();
+        String[] commandWords = command.split(" ");
+        int commandLength = commandWords.length;
+
+        StringBuilder description = new StringBuilder();
+        for (int i = 1; i < commandLength; i++) {
+            if (commandWords[i].equalsIgnoreCase("/from")) {
+                break;
+            }
+            description.append(commandWords[i])
+                    .append(" ");
+        }
+
+        StringBuilder startDateTime = new StringBuilder();
+        StringBuilder endDateTime = new StringBuilder();
+        boolean isSeeingStartDateTime = false;
+        boolean isSeeingEndDateTime = false;
+        int startDateTimeWords = 0;
+        int endDateTimeWords = 0;
+        for (String word : commandWords) {
+            if (word.equalsIgnoreCase("/from")) {
+                isSeeingStartDateTime = true;
+                continue;
+            }
+            if (word.equalsIgnoreCase("/to")) {
+                isSeeingStartDateTime = false;
+                isSeeingEndDateTime = true;
+                continue;
+            }
+            if (isSeeingStartDateTime) {
+                startDateTimeWords += 1;
+                startDateTime.append(word)
+                        .append(" ");
+            }
+            if (isSeeingEndDateTime) {
+                endDateTimeWords += 1;
+                endDateTime.append(word)
+                        .append(" ");
+            }
+        }
+
+        if (description.isEmpty()) {
+            throw new BrockException("Description is missing!");
+        }
+        if (startDateTime.isEmpty()) {
+            throw new BrockException("Missing start date! Remember it is specified after /from!");
+        }
+        if (endDateTime.isEmpty()) {
+            throw new BrockException("Missing end date! Remember it is specified after /to!");
+        }
+        if (startDateTimeWords != endDateTimeWords) {
+            throw new BrockException("Both start and end dates must either include or exclude a time!");
+        }
+
+        String[] startDateTimeValues = Utility.validateDateTime(startDateTime.toString()
+                , startDateTimeWords, Utility.Context.START);
+        String[] endDateTimeValues = Utility.validateDateTime(endDateTime.toString()
+                , endDateTimeWords, Utility.Context.END);
+        if (startDateTimeWords == 1) {
+            return new Events(description.toString()
+                    , startDateTimeValues[0]
+                    , endDateTimeValues[0]);
+        } else {
+            return new Events(description.toString()
+                    , startDateTimeValues[0]
+                    , startDateTimeValues[1]
+                    , endDateTimeValues[0]
+                    , endDateTimeValues[1]);
+        }
+    }
+
+    @Override
+    public void execute(Ui ui, Storage storage, TaskList tasks) throws BrockException {
+        Task eventTask = createEvent();
+        tasks.addToList(eventTask);
+        ui.displayResponse("Got it. I've added this task:\n"
+                + "  "
+                + tasks.getTaskDetails(eventTask)
+                + '\n'
+                + tasks.getTasksSummary());
+
+        storage.writeToFile(tasks.numTasks()
+                        + ". "
+                        + tasks.getTaskDetails(eventTask)
+                        + '\n'
+                , true);
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
+}
