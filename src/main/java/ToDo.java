@@ -6,8 +6,15 @@ public class ToDo extends Task{
         super(description);
     }
 
-    @Override
-    public String toString() {
-        return "[T]" + super.toString();
+    public ToDo(String description, int done) {
+        super(description);
+        if (done == 1) {
+            this.isDone = true;
+        }
     }
+    @Override
+    public String getTaskType() {
+        return "T";
+    }
+
 }
