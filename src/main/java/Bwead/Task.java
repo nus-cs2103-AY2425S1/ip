@@ -5,21 +5,21 @@ package Bwead;
  */
 public class Task {
 
-    public boolean done;
+    public boolean isDone;
     public String text;
 
     public Task(String text) {
-        this.done = false;
+        this.isDone = false;
         this.text = text;
     }
 
-    public void setDone(boolean toset) {
-        this.done = toset;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public String toString() {
         String str = "";
-        if (done) {
+        if (isDone) {
             str = "X";
         } else {
             str = " ";

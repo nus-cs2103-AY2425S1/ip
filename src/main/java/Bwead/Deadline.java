@@ -8,7 +8,8 @@ import java.time.format.DateTimeFormatter;
  * Represents a task with a deadline.
  */
 public class Deadline extends Task {
-    private boolean done;
+
+    private boolean isDone;
     private String text;
     private LocalDate date;
     private LocalTime time;
@@ -18,20 +19,21 @@ public class Deadline extends Task {
         this.text = text;
         this.date = date;
         this.time = time;
+        this.isDone = false;
     }
 
-    public void setDone(boolean toset) {
-        this.done = toset;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public String toString() {
         String str = "";
-        if (done) {
+        if (isDone) {
             str = "X";
         } else {
             str = " ";
         }
-        return "[D][" + str + "] " + text + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
-                ", " + time.format(DateTimeFormatter.ofPattern("HH:mm")) + ")";
+        return "[D][" + str + "] " + text + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ", " +
+                time.format(DateTimeFormatter.ofPattern("HH:mm")) + ")";
     }
 }

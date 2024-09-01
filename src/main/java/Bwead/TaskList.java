@@ -39,7 +39,7 @@ public class TaskList {
      */
     public static void printlist() {
         for (int i = 1; i <= currentList.size(); i++) {
-            Task task = currentList.get(i-1);
+            Task task = currentList.get(i - 1);
             System.out.println(i + "." + task.toString());
         }
     }

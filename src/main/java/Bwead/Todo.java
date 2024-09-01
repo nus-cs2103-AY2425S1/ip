@@ -5,22 +5,22 @@ package Bwead;
  */
 public class Todo extends Task {
 
-    private boolean done;
+    private boolean isDone;
     private String text;
 
     public Todo(String text) {
         super(text);
         this.text = text;
-        this.done = false;
+        this.isDone = false;
     }
 
-    public void setDone(boolean toset) {
-        this.done = toset;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public String toString() {
         String str = "";
-        if (this.done) {
+        if (this.isDone) {
             str = "X";
         } else {
             str = " ";
