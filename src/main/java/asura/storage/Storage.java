@@ -14,14 +14,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents a Storage to save/load the user's task data.
+ */
 public class Storage {
 
     private String filePath;
 
-    public Storage(String filePath) throws AsuraException {
+    /**
+     * Creates a Storage with the specified file path.
+     * @param filePath The file path that the user wants to save their task data at.
+     */
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Load the user's task data.
+     * @return The saved list of tasks of the user.
+     * @throws AsuraException If loading the data fails.
+     */
     public List<Task> load() throws AsuraException {
         List<Task> taskList = new ArrayList<>();
         File data = new File(filePath);
@@ -57,6 +69,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the task data of the user with the give task list.
+     * @param taskList The list of tasks to be saved.
+     * @throws AsuraException If saving the tasks fails.
+     */
     public void save(List<Task> taskList) throws AsuraException {
         StringBuilder sb = new StringBuilder();
         for (Task task : taskList) {
