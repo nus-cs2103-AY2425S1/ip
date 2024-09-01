@@ -6,12 +6,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an Event task which includes a description, start time, and end time.
+ */
 public class Event extends Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
     private final String description;
-    private final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    private final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
+    private final DateTimeFormatter inputFormatter =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private final DateTimeFormatter outputFormatter =
+            DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
 
     /**
      * Constructs an Event task with the specified description, start time, and end time.
@@ -23,6 +28,8 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) throws DonnaException {
         super(description);
+        this.description = description;
+
         if (from.trim().isEmpty() && to.trim().isEmpty()) {
             throw DonnaException.emptyEventTime();
         }
@@ -30,11 +37,10 @@ public class Event extends Task {
             this.from = LocalDateTime.parse(from, inputFormatter);
             this.to = LocalDateTime.parse(to, inputFormatter);
         } catch (DateTimeParseException e) {
-            throw new DonnaException("Invalid date and time format! Please use dd/MM/yyyy HHmm (24hr format)"+ "\n" +
-                    "Use this format for specifying the date and time for both," + "\n" +
-                    "/from and /to");
+            throw new DonnaException("Invalid date and time format! Please use dd/MM/yyyy HHmm (24hr format)"
+                    + "\n" + "Use this format for specifying the date and time for both,"
+                    + "\n" + "/from and /to");
         }
-        this.description = description;
     }
 
     /**
@@ -55,6 +61,12 @@ public class Event extends Task {
         return "E";
     }
 
+    /**
+     * Returns a string representation of the event task.
+     * Includes the description, status, and time range.
+     *
+     * @return A string representing the event task.
+     */
     @Override
     public String toString() {
         String fromFormatted = from.format(outputFormatter);
