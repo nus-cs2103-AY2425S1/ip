@@ -94,7 +94,7 @@ public class Janet {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         new Janet("janet.txt").run();
     }
 
