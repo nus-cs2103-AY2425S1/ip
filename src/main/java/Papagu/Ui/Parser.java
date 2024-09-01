@@ -151,6 +151,10 @@ public class Parser {
             taskList.markTaskAsNotDone(num);
             storage.save();
             Ui.printMarkAsDone(taskList, num);
+        } else if (taskType.equals("find")) {
+            String keyword = typeDetails[1];
+            TaskList found = taskList.findTasks(keyword);
+            Ui.printFound(found);
         } else if(taskType.equals("delete")) {
             String taskNumber = typeDetails[1];
             int num = Integer.parseInt(taskNumber) - 1;
