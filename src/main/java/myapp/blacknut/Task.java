@@ -1,5 +1,10 @@
 package myapp.blacknut;
 import myapp.blacknut.BlacknutExceptions.IncorrectFormatException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
+
 
 public class Task {
     protected String description;
@@ -40,7 +45,9 @@ public class Task {
                 break;
             case "D":
                 if (parts.length != 4) throw new IncorrectFormatException("File format incorrect: " + line);
-                task = new Deadline(description, parts[3]);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
+                task = new Deadline(description, by.format(formatter));
                 break;
             case "E":
                 if (parts.length != 5) throw new IncorrectFormatException("File format incorrect: " + line);
