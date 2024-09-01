@@ -21,12 +21,9 @@ import barney.ui.Ui;
  */
 public class DeadlineCommandTest {
 
-<<<<<<< Updated upstream
-=======
     /**
      * Tests that a deadline task is added when the arguments are valid.
      */
->>>>>>> Stashed changes
     @Test
     public void execute_validArguments_addsDeadlineTask() {
         TaskList tasks = new TaskList();
@@ -48,16 +45,11 @@ public class DeadlineCommandTest {
             assertEquals(1, tasks.size());
             assertTrue(tasks.get(0) instanceof DeadlineTask);
             // Verify the output
-<<<<<<< Updated upstream
-            String expectedOutput = "Got it. I've added this task:\r\n" + //
-                    "[D][ ] return book (by: June 6th)\r\n" + //
-                    "Now you have 1 tasks in the list.";
-=======
             String expectedOutput = """
-                    Got it. I've added this task:\r
-                    [D][ ] return book (by: June 6th)\r
-                    Now you have 1 tasks in the list.""";
->>>>>>> Stashed changes
+                Got it. I've added this task:\r
+                [D][ ] return book (by: June 6th)\r
+                Now you have 1 tasks in the list.""";
+
 
             assertTrue(outContent.toString().contains(expectedOutput));
         } catch (InvalidArgumentException e) {
@@ -67,9 +59,6 @@ public class DeadlineCommandTest {
             System.setOut(originalOut);
         }
     }
-<<<<<<< Updated upstream
-}
-=======
 
     /**
      * Tests that an InvalidArgumentException is thrown when the description is
@@ -173,4 +162,3 @@ public class DeadlineCommandTest {
         }
     }
 }
->>>>>>> Stashed changes

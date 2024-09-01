@@ -41,16 +41,11 @@ public class TodoCommandTest {
             assertEquals(1, tasks.size());
             assertTrue(tasks.get(0) instanceof TodoTask);
             // Verify the output
-<<<<<<< Updated upstream
-            String expectedOutput = "Got it. I've added this task:\r\n" + //
-                    "[T][ ] borrow book\r\n" + //
-                    "Now you have 1 tasks in the list.";
-=======
+
             String expectedOutput = """
-                    Got it. I've added this task:\r
-                    [T][ ] borrow book\r
-                    Now you have 1 tasks in the list.""";
->>>>>>> Stashed changes
+                Got it. I've added this task:\r
+                [T][ ] borrow book\r
+                Now you have 1 tasks in the list.""";
 
             assertTrue(outContent.toString().contains(expectedOutput));
         } catch (InvalidArgumentException e) {
@@ -60,9 +55,6 @@ public class TodoCommandTest {
             System.setOut(originalOut);
         }
     }
-<<<<<<< Updated upstream
-}
-=======
 
     /**
      * Tests that an InvalidArgumentException is thrown when the description is
@@ -122,4 +114,3 @@ public class TodoCommandTest {
         }
     }
 }
->>>>>>> Stashed changes
