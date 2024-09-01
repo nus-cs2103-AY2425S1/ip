@@ -54,4 +54,23 @@ public class Mendel {
     public static void main(String[] args) {
         new Mendel().run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String currAction) {
+        String response = "";
+        try {
+            response = taskManager.manage(currAction);
+            ui.preetyPrint(response);
+        } catch (MendelException e) {
+            response = e.toString();
+            ui.preetyPrint(response);
+        } catch (ServerError e) {
+            response = e.toString();
+            ui.preetyPrint(response);
+            taskManager.manage("bye");
+        }
+        return response;
+    }
 }
