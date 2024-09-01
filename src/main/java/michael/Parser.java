@@ -88,7 +88,7 @@ public class Parser {
                     "Now you have " + tasks.size() + " tasks in the list.";
         } else { // invalid command
             throw new MichaelException("Invalid command entered. Please enter one of the following valid commands: " +
-                    "todo, deadline, event, mark, unmark, list, bye");
+                    "todo, deadline, event, mark, unmark, list, delete, bye");
         }
     }
 }
