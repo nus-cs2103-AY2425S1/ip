@@ -1,10 +1,10 @@
 package lumina.main;
 
-import lumina.task.TaskList;
-import lumina.parser.Parser;
-import lumina.ui.Ui;
-import lumina.storage.Storage;
 import lumina.exception.LuminaException;
+import lumina.parser.Parser;
+import lumina.storage.Storage;
+import lumina.task.TaskList;
+import lumina.ui.Ui;
 
 import java.util.Scanner;
 
@@ -81,8 +81,9 @@ public class Lumina {
                         int taskIndex = Integer.parseInt(msgSplit[1]) - 1; // 0 indexed
                         taskList.markTaskNotDone(taskIndex);
                     } else {
-                        throw new LuminaException("Oh no! Lumina.Main.Lumina detected unexpected number of parameters in " +
-                                "your command! Please try again");
+                        throw new LuminaException("Oh no! Lumina.Main.Lumina detected "
+                                + "unexpected number of parameters in your command! "
+                                + "Please try again");
                     }
                 } catch(LuminaException e) {
                     ui.printMessage(e.getMessage());
@@ -96,8 +97,9 @@ public class Lumina {
                         int taskIndex = Integer.parseInt(msgSplit[1]) - 1; // 0 indexed
                         taskList.markTaskDone(taskIndex);
                     } else {
-                        throw new LuminaException("Oh no! Lumina.Main.Lumina detected unexpected number of parameters in " +
-                                "your command! Please try again");
+                        throw new LuminaException("Oh no! Lumina.Main.Lumina detected "
+                                + "unexpected number of parameters in your command! "
+                                + "Please try again");
                     }
                 } catch(LuminaException e) {
                     ui.printMessage(e.getMessage());
@@ -135,8 +137,9 @@ public class Lumina {
                         int taskIndex = Integer.parseInt(msgSplit[1]) - 1; // 0 indexed
                         taskList.deleteTask(taskIndex);
                     } else {
-                        throw new LuminaException("Oh no! Lumina.Main.Lumina detected unexpected number of parameters in " +
-                                "your command! Please try again");
+                        throw new LuminaException("Oh no! Lumina.Main.Lumina detected "
+                                + "unexpected number of parameters in your command! "
+                                + "Please try again");
                     }
                 } catch(LuminaException e) {
                     ui.printMessage(e.getMessage());
@@ -145,7 +148,8 @@ public class Lumina {
             }
 
             // exception
-            ui.printMessage("Oh no! I don't know what to do with this command! Please try again");
+            ui.printMessage("Oh no! I don't know what to do with this command! "
+                    + "Please try again");
         }
     }
 

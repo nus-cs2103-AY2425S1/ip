@@ -28,9 +28,10 @@ public class TodoTask extends Task {
     }
 
     /**
-     * Overrides string representation to show more complete information of Lumina.Main.Lumina.Task.TodoTask
+     * Overrides string representation to show more complete information of
+     * Todo task
      *
-     * @return string representation of Lumina.Main.Lumina.Task.TodoTask
+     * @return string representation of TodoTask
      */
     @Override
     public String toString() {

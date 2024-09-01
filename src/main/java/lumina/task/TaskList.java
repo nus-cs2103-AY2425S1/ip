@@ -1,7 +1,9 @@
 package lumina.task;
-import lumina.ui.Ui;
-import lumina.parser.Parser;
+
 import lumina.exception.LuminaException;
+import lumina.parser.Parser;
+import lumina.ui.Ui;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -50,7 +52,8 @@ public class TaskList {
 
     public void markTaskDone(int index) throws LuminaException {
         if (index < 0 || index >= this.tasks.size()) {
-            throw new LuminaException("Oh no! Lumina.Main.Lumina detected index out of bounds! Please try again");
+            throw new LuminaException("Oh no! Lumina.Main.Lumina detected index out of bounds! "
+                    + "Please try again");
         }
         StringBuilder taskDoneMessage = new StringBuilder();
         taskDoneMessage.append("Nice! I've marked this task as done:\n");
@@ -61,7 +64,8 @@ public class TaskList {
 
     public void markTaskNotDone(int index) throws LuminaException {
         if (index < 0 || index >= this.tasks.size()) {
-            throw new LuminaException("Oh no! Lumina.Main.Lumina detected index out of bounds! Please try again");
+            throw new LuminaException("Oh no! Lumina.Main.Lumina detected index out of bounds! "
+                    + "Please try again");
         }
         StringBuilder taskNotDoneMessage = new StringBuilder();
         taskNotDoneMessage.append("OK, I've marked this task as not done yet:\n");
@@ -73,8 +77,8 @@ public class TaskList {
     public void handleTodoTask(String msg) throws LuminaException {
         String[] msgSplit = msg.split(" ");
         if(msgSplit.length < 2) {
-            throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for your ToDo Lumina.Main.Lumina.Task.Task!" +
-                    " Please try again");
+            throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for your "
+                    + "ToDo Task! Please try again");
         }
         StringBuilder builder = new StringBuilder();
         for(int i = 1; i < msgSplit.length; i++) {
@@ -91,8 +95,8 @@ public class TaskList {
     public void handleDeadlineTask(String msg) throws LuminaException {
         String[] msgSplit = msg.split(" ");
         if(msgSplit.length < 4) { // need desc and bydatetime
-            throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for your Deadline Lumina.Main.Lumina.Task.Task!" +
-                    " Please try again");
+            throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for your "
+                    + "Deadline Task! Please try again");
         }
 
         StringBuilder builder = new StringBuilder();
@@ -102,8 +106,8 @@ public class TaskList {
         for(int i = 1; i < msgSplit.length; i++) {
             if(msgSplit[i].equals("/by")) {
                 if(by) {
-                    throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for your Deadline Lumina.Main.Lumina.Task.Task!" +
-                            " Please try again");
+                    throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for "
+                            + "your Deadline Task.Task! Please try again");
                 }
                 by = true;
                 desc = builder.toString().trim();
@@ -117,13 +121,13 @@ public class TaskList {
         }
 
         if (!by) {
-            throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for your Deadline Lumina.Main.Lumina.Task.Task!" +
-                    " Please try again");
+            throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for your "
+                    + "Deadline Task! Please try again");
         }
         byDateTime = builder.toString().trim();
         if (desc.isEmpty() || byDateTime.isEmpty()) {
-            throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for your Deadline Lumina.Main.Lumina.Task.Task!" +
-                    " Please try again");
+            throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for your "
+                    + "Deadline Task! Please try again");
         }
         LocalDate byDateObject = parser.parseDateString(byDateTime);
         Task task = new DeadlineTask(desc, byDateObject);
@@ -132,22 +136,24 @@ public class TaskList {
 
     public void deleteTask(int index) throws LuminaException {
         if (index < 0 || index >= this.tasks.size()) {
-            throw new LuminaException("Oh no! Lumina.Main.Lumina detected index out of bounds! Please try again");
+            throw new LuminaException("Oh no! Lumina.Main.Lumina detected index out of bounds! "
+                    + "Please try again");
         }
         StringBuilder deleteTaskMessage = new StringBuilder();
         deleteTaskMessage.append("Noted. I've removed this task:\n");
         deleteTaskMessage.append(ui.indentMessage(this.tasks.get(index).toString()));
         deleteTaskMessage.append("\n");
         this.tasks.remove(index);
-        deleteTaskMessage.append(String.format("Now you have %d tasks in the list.", tasks.size()));
+        deleteTaskMessage.append(String.format("Now you have %d tasks in the list.",
+                tasks.size()));
         ui.printMessage(deleteTaskMessage.toString());
     }
 
     public void handleEventTask(String msg) throws LuminaException {
         String[] msgSplit = msg.split(" ");
         if(msgSplit.length < 6) { // need desc, startDateTime, endDateTime
-            throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for your Event Lumina.Main.Lumina.Task.Task!" +
-                    " Please try again");
+            throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for your "
+                    + "Event Task! Please try again");
         }
 
         enum Type {
@@ -163,19 +169,19 @@ public class TaskList {
         for(int i = 1; i < msgSplit.length; i++) {
             if(msgSplit[i].equals("/from")) {
                 if (from) {
-                    throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for your Event Lumina.Main.Lumina.Task.Task!" +
-                            " Please try again");
+                    throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for "
+                            + "your Event Task! Please try again");
                 }
                 switch (currentType) {
-                    case DESC:
-                        desc = builder.toString().trim();
-                        break;
-                    case FROM:
-                        startDateTime = builder.toString().trim();
-                        break;
-                    case TO:
-                        endDateTime = builder.toString().trim();
-                        break;
+                case DESC:
+                    desc = builder.toString().trim();
+                    break;
+                case FROM:
+                    startDateTime = builder.toString().trim();
+                    break;
+                case TO:
+                    endDateTime = builder.toString().trim();
+                    break;
                 }
                 builder = new StringBuilder();
                 from = true;
@@ -184,8 +190,8 @@ public class TaskList {
             }
             if (msgSplit[i].equals("/to")) {
                 if (to) {
-                    throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for your Event Lumina.Main.Lumina.Task.Task!" +
-                            " Please try again");
+                    throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for "
+                            + "your Event Task! Please try again");
                 }
                 switch (currentType) {
                     case DESC:
@@ -210,8 +216,8 @@ public class TaskList {
         }
 
         if (!from || !to) {
-            throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for your Event Lumina.Main.Lumina.Task.Task!" +
-                    " Please try again");
+            throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for your "
+                    + "Event Task! Please try again");
         }
         switch (currentType) {
             case DESC:
@@ -225,8 +231,8 @@ public class TaskList {
                 break;
         }
         if (desc.trim().isEmpty() || startDateTime.trim().isEmpty() || endDateTime.trim().isEmpty()) {
-            throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for your Event Lumina.Main.Lumina.Task.Task!" +
-                    " Please try again");
+            throw new LuminaException("Oh no! Lumina.Main.Lumina detected invalid format for your "
+                    + "Event Task! Please try again");
         }
         LocalDate startDateObject = parser.parseDateString(startDateTime);
         LocalDate endDateObject = parser.parseDateString(endDateTime);
