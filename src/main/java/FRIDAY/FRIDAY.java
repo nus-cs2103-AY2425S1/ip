@@ -1,5 +1,7 @@
 package FRIDAY;
 
+import java.util.ArrayList;
+
 public class FRIDAY {
     private Storage storage;
     private TaskList taskList;
@@ -43,7 +45,7 @@ public class FRIDAY {
      */
     public void activateBot() {
         this.isActive = true;
-        ui.greeting();;
+        ui.greeting();
     }
 
     /**
@@ -116,6 +118,10 @@ public class FRIDAY {
             case ("list"):
                 System.out.println(taskList.displayTasks());
                 break;
+            case("search") :
+                String word = Parser.parseTaskDetails(taskDetails);
+                ArrayList<Task> searchResults = taskList.search(word);
+                ui.displaySearchResults(searchResults);
             //if there is no input then nothing added to list
             case (""):
                 break;
