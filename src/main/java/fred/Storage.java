@@ -1,4 +1,5 @@
 package fred;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -8,9 +9,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class handles the creation, reading, updating, and deletion of data
+ * from a persistent storage file. It manages tasks stored in a file and allows
+ * the application to load and save tasks between sessions.
+ */
 public class Storage {
     File dataFile;
 
+    /**
+     * Ensures that the data file and its directory exist. If not, they are created.
+     */
     void getDataFile() {
         File dataDirectory = new File("./data");
         if (!dataDirectory.exists() || !dataDirectory.isDirectory()) {
@@ -26,6 +35,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Retrieves tasks from the data file and returns them as an ArrayList of Task objects.
+     *
+     * @return An ArrayList containing the tasks read from the data file.
+     */
     ArrayList<Task> getTasksFromDataFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = null;
@@ -34,23 +48,25 @@ public class Storage {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
             String[] lineParts = line.split(" \\| ");
             Task task = null;
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
             switch (lineParts[0]) {
-            case "T":
-                task = new Todo(lineParts[2]);
-                break;
-            case "D":
-                task = new Deadline(lineParts[2], LocalDateTime.parse(lineParts[3], formatter));
-                break;
-            case "E":
-                String[] fromTo = lineParts[3].split(" - ");
-                task = new Event(lineParts[2], LocalDateTime.parse(fromTo[0], formatter), LocalDateTime.parse(fromTo[1], formatter));
-                break;
+                case "T":
+                    task = new Todo(lineParts[2]);
+                    break;
+                case "D":
+                    task = new Deadline(lineParts[2], LocalDateTime.parse(lineParts[3], formatter));
+                    break;
+                case "E":
+                    String[] fromTo = lineParts[3].split(" - ");
+                    task = new Event(lineParts[2], LocalDateTime.parse(fromTo[0], formatter), LocalDateTime.parse(fromTo[1], formatter));
+                    break;
             }
+
             if (lineParts[1].equals("1")) {
                 task.markAsDone();
             } else if (lineParts[1].equals("0")) {
@@ -61,6 +77,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Deletes a specific task from the data file by rewriting the file without the specified task.
+     *
+     * @param taskNumber The index of the task to be deleted from the data file.
+     */
     void deleteFromDataFile(int taskNumber) {
         File tempFile = new File("./data/tmp.txt");
         try {
@@ -75,7 +96,6 @@ public class Storage {
                 }
                 writer.write(currentLine + System.lineSeparator());
                 i++;
-                System.out.println(i);
             }
             writer.close();
             scanner.close();
@@ -85,6 +105,11 @@ public class Storage {
         tempFile.renameTo(dataFile);
     }
 
+    /**
+     * Appends a new task to the data file.
+     *
+     * @param task The task to be added to the data file.
+     */
     void appendToDataFile(Task task) {
         try {
             FileWriter writer = new FileWriter(dataFile, true);
