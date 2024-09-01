@@ -2,8 +2,6 @@ package ollie.task;
 
 import ollie.exception.EmptyDescriptionException;
 
-import ollie.TaskType;
-
 /**
  * Todo is a type of Task.
  * It represents a task with a description.

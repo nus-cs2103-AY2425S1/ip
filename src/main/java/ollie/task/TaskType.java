@@ -1,4 +1,4 @@
-package ollie;
+package ollie.task;
 
 /**
  * Enum to represent the type of task.

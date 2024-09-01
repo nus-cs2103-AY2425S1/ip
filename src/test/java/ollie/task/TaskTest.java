@@ -1,6 +1,5 @@
 package ollie.task;
 
-import ollie.TaskType;
 import ollie.exception.OllieException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
