@@ -11,9 +11,7 @@ import utility.TaskList;
 import java.io.*;
 import java.util.ArrayList;
 
-/**
- * Main class of the application.
- */
+/** Main class of the application. */
 public class Luke {
     private final Storage storage;
     private final Parser parser;
@@ -32,9 +30,12 @@ public class Luke {
         this.ui = new Ui();
     }
 
-    public void saveTodo(String taskName) throws IOException {
-        taskList.addTask(new Todo(taskName));
+    public void saveTasks() throws IOException {
         taskList.save(storage);
+    }
+
+    public void addTask(Task task) {
+        taskList.addTask(task);
     }
 
     /** Runs the Luke application */
@@ -51,6 +52,7 @@ public class Luke {
                 System.out.println(e.getMessage());
                 continue;
             }
+
             switch (parser.getCommand()) {
             case list -> {
                 ui.listTaskDialog();
@@ -93,7 +95,6 @@ public class Luke {
         ui.closingDialog();
         br.close();
     }
-
     public static void main(String[] args) throws IOException {
         new Luke("./data/Luke.txt").run();
     }

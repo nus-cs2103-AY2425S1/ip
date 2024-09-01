@@ -1,12 +1,13 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import tasks.Todo;
 
 import java.io.IOException;
 
 public class AddTodoTaskScene {
     private SceneManager sceneManager;
     @FXML
-    private TextField taskName;
+    private TextField taskDescription;
 
     public void setSceneManager(SceneManager sceneManager) {
         this.sceneManager = sceneManager;
@@ -24,7 +25,8 @@ public class AddTodoTaskScene {
         sceneManager.showAddDeadLineTaskScene();
     }
 
-    public void save() throws IOException {
-        sceneManager.getLuke().saveTodo(taskName.getText());
+    public void addTask() throws IOException {
+        sceneManager.getLuke().addTask(new Todo(taskDescription.getText()));
+        sceneManager.showHomeScreenScene();
     }
 }

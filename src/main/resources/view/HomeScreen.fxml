@@ -4,8 +4,9 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeScreenScene">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeScreenScene">
     <Button fx:id="addTaskButton" layoutX="277.0" layoutY="14.0" onAction="#switchToAddTaskScene" text="Add new Task" AnchorPane.rightAnchor="14.0" />
    <ScrollPane hbarPolicy="NEVER" layoutX="8.0" layoutY="45.0" prefHeight="529.0" prefWidth="388.0" vbarPolicy="ALWAYS" />
+   <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#saveTasks" text="Save" />
 
 </AnchorPane>
