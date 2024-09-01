@@ -32,22 +32,69 @@ public class Echo {
     }
 
     public void run() {
-        Parser parser = new Parser();
+        ui.showWelcomeMessage();
+
+        while (true) {
+            String input = ui.readCommand();
+            String[] parts = Parser.parseCommand(input);
+            String command = parts[0];
 
 
-        Scanner myObj = new Scanner(System.in);
+        /*Scanner myObj = new Scanner(System.in);
         String logo = "____________________________________________________________\n";
         System.out.println("Hello, I'm Echo\n" + logo);
         String input = null;
         while (true) {
             input = myObj.nextLine().trim().toLowerCase();
             String[] parts = input.split(" ", 2);
-            String command = parts[0];
+            String command = parts[0];*/
 
 
-            switch (command) {
-                case "list":
-                    this.tasks.listTask();
+            try {
+                switch (command) {
+                    case "bye":
+                        storage.save(tasks.getTasks());
+                        ui.showGoodbyeMessage();
+                        return;
+                    case "list":
+                        ui.showTaskList(tasks.getTasks());
+                        break;
+                    case "mark":
+                        tasks.markTask(Integer.parseInt(parts[1]));
+                        ui.showMarkedTask(tasks.getTask(Integer.parseInt(parts[1])));
+                        break;
+                    case "unmark":
+                        tasks.unmarkTask(Integer.parseInt(parts[1]));
+                        ui.showUnmarkedTask(tasks.getTask(Integer.parseInt(parts[1])));
+                        break;
+                    case "todo":
+                        Task todo = tasks.addTodo(parts[1]);
+                        ui.showTaskAdded(todo, tasks.getTasks().size());
+                        break;
+                    case "deadline":
+                        Deadline deadline = tasks.addDeadline(parts[1]);
+                        /*String[] deadlineDetails = Parser.parseDeadline(parts[1]);
+                        Task deadline = new Deadline(deadlineDetails[0], deadlineDetails[1]);
+                        tasks.addTask(deadline);*/
+                        ui.showTaskAdded(deadline, tasks.getTasks().size());
+                        break;
+                    case "event":
+                        Events event = tasks.addEvent(parts[1]);
+                        /*String eventDes = Parser.parseEventDes(parts[1]);
+                        String[] eventDetails = Parser.parseEventTime(parts[1]);
+                        Task event = new Events(eventDes, eventDetails[0], eventDetails[1]);
+                        tasks.addEvent(event);*/
+                        ui.showTaskAdded(event, tasks.getTasks().size());
+                        break;
+                    case "delete":
+                        Task removedTask = tasks.deleteTask(Integer.parseInt(parts[1]));
+                        ui.showTaskRemoved(removedTask, tasks.getTasks().size());
+                        break;
+                    default:
+                        ui.showErrorMessage("I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (EchoException | IOException e) {
+                ui.showErrorMessage(e.getMessage());
             }
 
         }

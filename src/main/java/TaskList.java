@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class TaskList {
     List<Task> tasks;
     public TaskList(List<Task> tasks) throws EchoException, FileNotFoundException {
-        this.tasks =tasks;
+        this.tasks = tasks;
 
     }
 
@@ -27,86 +27,18 @@ public class TaskList {
         return listString.toString();
     }
 
-    /*private void loadTasks(String filePath) throws FileNotFoundException {
-
-        File file = new File(filePath);
-        if(file.exists()) {
-            Scanner saveScanner = new Scanner(file);
-            while (saveScanner.hasNextLine()) {
-                String input = saveScanner.nextLine();
-                String[] parts = input.split("\\|");
-
-                String type = parts[0];
-                String marked = parts[1];
-                String des = parts[2];
-                String info = parts[3];
-                switch (type) {
-                    case "T":
-
-                        Todo todo = new Todo(info);
-                        if (Objects.equals(marked, "1")) {
-                            todo.setDone();
-                        }
-                        tasks.add(todo);
-                        break;
-                    case "D":
-
-                        String[] details = input.split("/by ", 2);
-                        if (details.length == 2) {
-                            Deadline deadlineTask = new Deadline(des, details[1]);
-                            if (Objects.equals(marked, "1")) {
-                                deadlineTask.setDone();
-                            }
-
-                            tasks.add(deadlineTask);
-                        }
-                        break;
-                    case "E":
-                        String[] eventDetails = input.split(" /from ", 2);
-                        if (eventDetails.length == 2) {
-                            String[] times = eventDetails[1].split(" /to ", 2);
-                            if (times.length == 2) {
-                                Events eventTask = new Events(des, times[0], times[1]);
-                                if (Objects.equals(marked, "1")) {
-                                    eventTask.setDone();
-                                }
-                                tasks.add(eventTask);
-
-                            }
-                        }
-                        break;
-                    default:
-                        System.out.println("Unknown task type: " + type);
-                        break;
-                }
-
-            }
-        }
-    }*/
-
-    public void listTask() {
-        if (tasks.isEmpty()) {
-            System.out.println("No tasks to show.");
-        } else {
-            int count = 1;
-            for (Task task : tasks) {
-                System.out.println(count + ". " + task);
-                count++;
-            }
-        }
-    }
 
     public void addTask(Task task) {
         tasks.add(task);
     }
 
-    private static void deleteTask(List<Task> tasks, String input) throws EchoException {
+    public Task deleteTask( int num) throws EchoException {
         try {
-            int num = Integer.parseInt(input);
-            if (num > 0 && num <= tasks.size()) {
-                Task removedTask = tasks.remove(num - 1);
-                System.out.println(" Noted. I've removed this task:\n   " + removedTask);
-                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+
+            if (num > 0 && num <= this.tasks.size()) {
+                Task removedTask = this.tasks.remove(num - 1);
+
+                return removedTask;
             } else {
                 throw new EchoException("Invalid task number.");
             }
@@ -142,39 +74,35 @@ public class TaskList {
     }
 
 
-    private void addDeadline( String input) throws EchoException, DateTimeParseException {
+    public Deadline addDeadline( String input) throws EchoException, DateTimeParseException {
         String[] details = input.split(" /by ", 2);
         if (details.length == 2) {
             String[] des = details[0].split(" ", 2);
-            Deadline deadlineTask = new Deadline(des[1], details[1]);
+            Deadline deadlineTask = new Deadline(details[0], details[1]);
             this.tasks.add(deadlineTask);
-            System.out.println("added: " + deadlineTask);
+            //System.out.println("added: " + deadlineTask);
+            return deadlineTask;
         } else {
             throw new EchoException("Please specify the task description and deadline.");
 
         }
     }
 
-    private void addEvent( String input) throws EchoException, DateTimeParseException {
-        String[] details = input.split(" /from ", 2);
-        if (details.length == 2) {
-            String[] times = details[1].split(" /to ", 2);
-            if (times.length == 2) {
-                String[] des = details[0].split(" ", 2);
-                Events eventTask = new Events(des[1], times[0], times[1]);
-                this.tasks.add(eventTask);
-                System.out.println("added: " + eventTask);
-            }
-        } else {
-            throw new EchoException("Please specify the task description and deadline.");
+    public Events addEvent( String input) throws EchoException, DateTimeParseException {
+        String eventDes = Parser.parseEventDes(input);
 
-        }
+        String[] times = Parser.parseEventTime(input);
+        Events eventTask = new Events(eventDes, times[0], times[1]);
+        this.tasks.add(eventTask);
+        return eventTask;
+
     }
 
 
-    private void addTodo(String taskDescription) {
+    public Todo addTodo(String taskDescription) {
         Todo todo = new Todo(taskDescription);
         this.tasks.add(todo);
         System.out.println("Got it. I've added this task:\n" + todo.toString() + "Now you have " + tasks.size() + " tasks in the list");
+        return todo;
     }
 }
