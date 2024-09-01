@@ -2,16 +2,22 @@ package ahmad.processor.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class TaskList {
   private static final List<Task> list = new ArrayList<Task>();
 
-  public static List<String> getStringList() {
+  private static List<String> getStringList(List<Task> list) {
     if (list.isEmpty()) {
       return List.of("No items!");
     }
     return List.of(IntStream.range(0, list.size()).mapToObj(i -> (i + 1) + ". " + list.get(i)).reduce("", (acc, cur) -> acc + '\n' + cur));
+  }
+
+  public static List<String> getStringList() {
+    return getStringList(TaskList.list);
   }
 
   public static String getSpecificTask(int idx) {
@@ -36,5 +42,10 @@ public class TaskList {
 
   public static void unmark(int idx) {
     list.set(idx, list.get(idx).unmark());
+  }
+
+  public static List<String> findTask(String keyword) {
+      Stream<Task> stream = list.stream().filter((Task task) -> task.toString().contains(keyword));
+      return getStringList(stream.toList());
   }
 }

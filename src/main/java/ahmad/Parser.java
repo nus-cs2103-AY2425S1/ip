@@ -3,10 +3,7 @@ package ahmad;
 import ahmad.exceptions.CommandInvalidException;
 import ahmad.processor.Exit;
 import ahmad.processor.Processor;
-import ahmad.processor.task.Add;
-import ahmad.processor.task.Mark;
-import ahmad.processor.task.Unmark;
-import ahmad.processor.task.Delete;
+import ahmad.processor.task.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +30,8 @@ public class Parser {
         return Add::event;
       case "delete":
         return Delete::process;
+      case "find":
+        return Find::process;
     }
     throw new CommandInvalidException();
   }
