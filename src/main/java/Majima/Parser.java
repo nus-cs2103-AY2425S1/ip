@@ -4,6 +4,7 @@ package Majima;
 import Majima.command.AddTodoCommand;
 import Majima.command.Command;
 import Majima.command.ExitCommand;
+import Majima.command.FindCommand;
 import Majima.command.ListCommand;
 import Majima.command.AddDeadlineCommand;
 import Majima.command.AddEventCommand;
@@ -36,6 +37,8 @@ public class Parser {
                 return parseUnmarkCommand(args);
             case "bye":
                 return new ExitCommand();
+            case "find":
+                return new FindCommand(args);
             default:
                 throw new MajimaException("Kiryu? I ain't got the faintest idea of what ya just said!");
         }
