@@ -54,20 +54,20 @@ public class Storage {
                 String line = fileReader.nextLine();
                 String[] instructions = line.split(" \\| ");
                 switch (instructions[0]) {
-                    case "T":
-                        taskList.addTask(new Todo(instructions[2]));
-                        break;
-                    case "D":
-                        taskList.addTask(new Deadline(instructions[2],
-                                LocalDateTime.parse(instructions[3])));
-                        break;
-                    case "E":
-                        taskList.addTask(new Event(instructions[2],
-                                LocalDateTime.parse(instructions[3]),
-                                LocalDateTime.parse(instructions[4])));
-                        break;
-                    default:
-                        throw new Exception("Error");
+                case "T":
+                    taskList.addTask(new Todo(instructions[2]));
+                    break;
+                case "D":
+                    taskList.addTask(new Deadline(instructions[2],
+                            LocalDateTime.parse(instructions[3])));
+                    break;
+                case "E":
+                    taskList.addTask(new Event(instructions[2],
+                            LocalDateTime.parse(instructions[3]),
+                            LocalDateTime.parse(instructions[4])));
+                    break;
+                default:
+                    throw new Exception("Error");
                 }
                 if (Objects.equals(instructions[1], "1")) taskList.markAsDone(taskList.numberOfElements() - 1);
             }

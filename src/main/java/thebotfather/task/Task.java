@@ -14,17 +14,19 @@ public abstract class Task {
     /**
      * Formatter for input date and time strings.
      */
-    protected static final DateTimeFormatter DATE_STRING_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    protected static final DateTimeFormatter DATE_STRING_FORMATTER =
+            DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     /**
      * Formatter for printing date and time in a more readable format.
      */
-    protected static final DateTimeFormatter DATE_STRING_FORMATTER_PRINT = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
+    protected static final DateTimeFormatter DATE_STRING_FORMATTER_PRINT =
+            DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
 
     /**
      * Indicates whether the task is completed.
      */
-    private boolean done = false;
+    private boolean isDone = false;
 
     /**
      * The description of the task.
@@ -54,14 +56,14 @@ public abstract class Task {
      * Marks the task as done.
      */
     public void markAsDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Unmarks the task as not done.
      */
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -70,7 +72,7 @@ public abstract class Task {
      * @return true if the task is done, false otherwise.
      */
     public boolean isDone() {
-        return this.done;
+        return this.isDone;
     }
 
     /**
@@ -93,7 +95,7 @@ public abstract class Task {
      * @return "X" if done, otherwise a space character.
      */
     protected String getStatusIcon() {
-        return (done ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done task with X
     }
 
     /**
