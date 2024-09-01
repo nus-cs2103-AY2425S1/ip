@@ -1,5 +1,9 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Zero {
     public static void main(String[] args) {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -133,7 +137,8 @@ public class Zero {
             throw new ZeroException("The description of a deadline or the date/time cannot be empty.");
         }
         String description = parts[0].substring(9).trim();  // extract description
-        String by = parts[1].trim();  // extract deadline
+        String byString = parts[1].trim();  // extract deadline
+        LocalDate by = handleDate(byString);
         tasks.add(new Deadline(description, by));
         System.out.println("____________________________________________________________");
         System.out.println(" Got it. I've added this task:");
@@ -148,13 +153,25 @@ public class Zero {
             throw new ZeroException("The description of an event or the date/time cannot be empty.");
         }
         String description = parts[0].substring(6).trim();  // extract description
-        String from = parts[1].trim();  // extract start time
-        String to = parts[2].trim();  // extract end time
+        String fromString = parts[1].trim();  // extract start time
+        String toString = parts[2].trim();  // extract end time
+        LocalDate from = handleDate(fromString);
+        LocalDate to = handleDate(toString);
         tasks.add(new Event(description, from, to));
         System.out.println("____________________________________________________________");
         System.out.println(" Got it. I've added this task:");
         System.out.println("   " + tasks.get(taskCount));
         System.out.println(" Now you have " + (taskCount + 1) + " tasks in the list.");
         System.out.println("____________________________________________________________");
+    }
+
+    private static LocalDate handleDate(String dateString) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd[ HHmm]");
+            return LocalDate.parse(dateString, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format (yyyy-MM-dd): " + e.getMessage());
+            return null;
+        }
     }
 }
