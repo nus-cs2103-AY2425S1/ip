@@ -13,14 +13,14 @@ public class TaskList implements Serializable {
     /**
      * Returns all tasks in the task list of EchoBot.
      */
-    public void listAllTask() {
+    public String listAllTask() {
         String tasks = "";
         // Get task from task list
         for (int i = 0; i < this.allTasks.size(); i++) {
             tasks += (i + 1) + ". " + this.allTasks.get(i).toString();
             tasks += (i == this.allTasks.size() - 1) ? "" : "\n";
         }
-        System.out.println(tasks);
+        return tasks;
     }
 
     /**
@@ -29,8 +29,10 @@ public class TaskList implements Serializable {
      * @param index index of target Task object.
      * @throws IndexOutOfBoundsException if index is out of bound.
      */
-    public void markTask(int index) throws IndexOutOfBoundsException {
-        this.allTasks.get(index).setMark();
+    public String markTask(int index) throws IndexOutOfBoundsException {
+        Task t = this.allTasks.get(index);
+        t.setMark();
+        return "Nice! I've marked this task as done:" + "\n" + t.toString();
     }
 
     /**
@@ -39,8 +41,10 @@ public class TaskList implements Serializable {
      * @param index index of target Task object.
      * @throws IndexOutOfBoundsException if index is out of bound.
      */
-    public void unmarkTask(int index) throws IndexOutOfBoundsException {
-        this.allTasks.get(index).setUnmark();
+    public String unmarkTask(int index) throws IndexOutOfBoundsException {
+        Task t = this.allTasks.get(index);
+        t.setUnmark();
+        return "OK, I've marked this task as not done yet:" + "\n" + t.toString();
     }
 
     /**
@@ -48,10 +52,10 @@ public class TaskList implements Serializable {
      *
      * @param task Task object to add to the list.
      */
-    public void add(Task task) {
+    public String add(Task task) {
         this.allTasks.add(task);
-        System.out.println(task);
-        System.out.println("Now you have " + this.allTasks.size() + " tasks in the list.");
+        return task + "\n" + "Now you have "
+                + this.allTasks.size() + " tasks in the list.";
     }
 
     /**
@@ -60,13 +64,13 @@ public class TaskList implements Serializable {
      * @param index index of target Task object.
      * @throws IndexOutOfBoundsException if index is out of bound.
      */
-    public void delete(int index) throws IndexOutOfBoundsException {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(allTasks.get(index));
-
+    public String delete(int index) throws IndexOutOfBoundsException {
+        String message = "Noted. I've removed this task:" + "\n" ;
+        Task t = allTasks.get(index);
         // Remove the task from list and return the size of list
         allTasks.remove(index);
-        System.out.println("Now you have " + allTasks.size() + " tasks in the list.");
+        return message + t.toString() + "\n" + "Now you have "
+                + allTasks.size() + " tasks in the list.";
     }
 
     /**
@@ -74,7 +78,7 @@ public class TaskList implements Serializable {
      *
      * @param keywords the keywords to search for within the task descriptions.
      */
-    public void find(String keywords) {
+    public String find(String keywords) {
         CharSequence cs = keywords;
         ArrayList<Task> result = new ArrayList<>();
         // Traversal the list to find Task object with keywords in description
@@ -90,8 +94,8 @@ public class TaskList implements Serializable {
             tasks += (i + 1) + ". " + result.get(i).toString();
             tasks += (i == result.size() - 1) ? "" : "\n";
         }
-        System.out.println("Here are the matching tasks in your list:");
-        System.out.println(tasks);
+
+        return "Here are the matching tasks in your list:" + "\n" + tasks;
     }
 
     @Override

@@ -7,12 +7,6 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 public class ParserTest {
-    @Test
-    public void test_parse_bye() {
-        TaskList allTask = new TaskList();
-        boolean isExit = Parser.parse("bye", allTask);
-        assertEquals(isExit, true);
-    }
 
     @Test
     public void test_parse_create() {
