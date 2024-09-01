@@ -1,20 +1,37 @@
 import java.util.Scanner;
+import java.io.File;  // Import the File class
+import java.io.FileNotFoundException;  // Import this class to handle errors
+
+/** B_word is a chatbot that helps with planning tasks
+ *
+ */
 
 public class B_word {
-    public static final String hline = "____________________________________________________________\n";
+    public static final String FILELOCATION = "./data/bword.txt";
+    public static final String HLINE = "____________________________________________________________\n";
+
     public static void main(String[] args) {
+        TaskHandler th = new TaskHandler();
+        File file;
+        try {
+            file = new File(FILELOCATION);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                String s = sc.nextLine();
+                System.out.println(s);
+                th.addPastTask(s);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+            e.printStackTrace();
+            return;
+        }
         Scanner sc = new Scanner(System.in);
 
-        TaskHandler th = new TaskHandler();
-
-        System.out.print(hline +
+        System.out.print(HLINE +
                 " Hello! I'm 'B word'\n" +
                 " What can I do for you?\n" +
-                hline);
-
-        // plan:
-        // while loop, String s = scanner nextLine, strip
-        // echo
+                HLINE);
 
         enum States {to_loop, to_exit, to_list}
         States currentState = States.to_loop;
@@ -22,31 +39,20 @@ public class B_word {
         while (currentState != States.to_exit) {
             String command = sc.next();
             String s = sc.nextLine();
-            System.out.print(hline);
+            System.out.print(HLINE);
             String tmp = s.strip();
             if (command.equals("bye")) {
                 break;
             }
             th.handleCommand(command, s);
-            /*
-            if (tmp.equals("bye")) {
-                currentState = States.to_exit;
-                break;
-            } else if (tmp.equals("list")) {
-                currentState = States.to_list;
-                System.out.println(th.getTasksString());
-                currentState = States.to_loop;
-            } else {
-                 th.addToDo(tmp);
-                //System.out.println(tmp);
-                System.out.println("added: " + tmp);
-            }
-             */
-            System.out.print(hline);
+            System.out.print(HLINE);
         }
+
+        file.delete();
+        th.writeToFile(FILELOCATION);
 
         System.out.println(
                 " Bye. Hope to see you again soon!\n" +
-                hline);
+                HLINE);
     }
 }

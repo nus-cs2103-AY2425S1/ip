@@ -1,9 +1,12 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
 public class TaskHandler {
     private List<Task> tasks;
     // private List<Boolean> markedDone;
+    private static final List<String> VALIDTASKS = List.of("T", "D", "E");
 
     public TaskHandler() {
         this.tasks = new ArrayList<Task>();
@@ -103,12 +106,44 @@ public class TaskHandler {
         return s.stripTrailing();
     }
 
-    public void markDone(int i) {
+    private void markDone(int i) {
         if (i > this.tasks.size()) {
             System.out.println("Error: Task number out of bounds");
             return;
         }
         // this.markedDone.set(i - 1, true);
         System.out.println("Marked done: " + i + "\n");
+    }
+
+    void writeToFile(String fileloc) {
+        try {
+            FileWriter myWriter = new FileWriter(fileloc);
+            for (Task t : this.tasks) {
+                System.out.println(t.toString());
+                myWriter.write(t.toString());
+                myWriter.write("\n");
+            }
+            myWriter.close();
+            // myWriter.write("Files in Java might be tricky, but it is fun enough!");
+            // myWriter.close();
+            // System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    void addPastTask(String s) {
+        if (s.isEmpty()) {
+            return;
+        }
+        String taskChar = s.substring(1, 2);
+        if (!VALIDTASKS.contains(taskChar)) {
+            System.out.println("unknown task stored: " + s);
+            return;
+        }
+        int i = VALIDTASKS.indexOf(taskChar);
+        
+        Task t = new ToDoTask(desc);
     }
 }
