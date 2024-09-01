@@ -12,8 +12,8 @@ import barney.data.datetime.BarneyDateTime;
  * deadlines.
  */
 public class DeadlineTask extends Task {
-    private String byString;
-    private LocalDate byDate;
+    private final String byString;
+    private final LocalDate byDate;
 
     /**
      * Represents a task with a deadline.

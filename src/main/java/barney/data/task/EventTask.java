@@ -9,10 +9,10 @@ import barney.data.datetime.BarneyDateTime;
  * Represents an event task.
  */
 public class EventTask extends Task {
-    private String atString;
-    private LocalDate atDate;
-    private String toString;
-    private LocalDate toDate;
+    private final String atString;
+    private final LocalDate atDate;
+    private final String toString;
+    private final LocalDate toDate;
 
     /**
      * Represents an event task that has a specific start and end date/time.

@@ -45,11 +45,14 @@ public abstract class Command {
     void verifyFlags() throws InvalidArgumentException {
         for (String arg : CommandManager.CommandType.fromString(this.name).commandArgs) {
             if (!argumentMap.containsKey(arg)) {
-                throw new MissingFlagException("Missing" + arg + " for " + name + "!");
+                throw new MissingFlagException("Missing " + arg + " for " + name + "!");
             }
             if (argumentMap.get(arg).isEmpty()) {
                 throw new InvalidArgumentException("The " + arg + " of a " + name + " cannot be empty!");
             }
+        }
+        if (argumentMap.size() > CommandManager.CommandType.fromString(this.name).commandArgs.length) {
+            throw new InvalidArgumentException("Extra arguments found for " + name + "!");
         }
     }
 
