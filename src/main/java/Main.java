@@ -7,23 +7,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static com.sun.javafx.scene.control.skin.Utils.getResource;
+
 public class Main extends Application {
 
-    @FXML
-    private Scene scene;
-
-    @FXML
-    private Button addTaskButton;
-
     @Override
-    public void start(Stage primaryStage) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/HomeScreen.fxml"));
-            scene = new Scene(fxmlLoader.load());
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void start(Stage stage) {
+
+        SceneManager sceneManager = new SceneManager(stage);
+        sceneManager.showHomeScreenScene();
+
     }
 }
