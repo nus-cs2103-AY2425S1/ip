@@ -11,6 +11,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents the Storage class of the KillJoy application.
+ * Contains methods to load and save tasks.
+ */
 public class Storage {
     private KillJoy kj;
     private ProcessTasks processTasks;
@@ -20,6 +24,9 @@ public class Storage {
         this.processTasks = processTasks;
     }
 
+    /**
+     * Loads tasks from the file.
+     */
     public void loadTasks() {
         File file = new File("KillJoy.txt");
         try {
@@ -40,6 +47,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks to the file.
+     * @param tasks The list of tasks to be saved.
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter("KillJoy.txt");

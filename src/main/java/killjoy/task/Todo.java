@@ -1,7 +1,9 @@
 package killjoy.task;
 
-import killjoy.task.Task;
-
+/**
+ * Represents the Todo class of the KillJoy application.
+ * Contains methods to create and manage Todo tasks.
+ */
 public class Todo extends Task {
 
     public Todo(String description) {

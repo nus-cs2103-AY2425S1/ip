@@ -3,6 +3,9 @@ package killjoy.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task of type Event.
+ */
 public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;

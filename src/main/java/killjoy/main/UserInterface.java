@@ -1,5 +1,9 @@
 package killjoy.main;
 
+/**
+ * Represents the UserInterface class of the KillJoy application.
+ * Contains methods to interact with the user.
+ */
 public class UserInterface {
     private KillJoy kj;
 

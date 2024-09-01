@@ -6,9 +6,11 @@ import killjoy.main.UserInterface;
 
 
 import java.time.LocalDateTime;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+/**
+ * Represents the ProcessTasks class of the KillJoy application.
+ * Contains methods to process user input.
+ */
 public class ProcessTasks {
     private KillJoy kj;
     private UserInterface ui;
@@ -19,6 +21,10 @@ public class ProcessTasks {
         this.ui = ui;
     }
 
+    /**
+     * Processes the user input.
+     * @param input The user input.
+     */
     public void processUserInput(String input) {
         Task.TaskType taskType = parser.parseUserInput(input);
 
@@ -81,6 +87,10 @@ public class ProcessTasks {
         ui.displayAddedTaskMessage();
     }
 
+    /**
+     * Marks or deletes a task.
+     * @param input The user input.
+     */
     public void markOrDelete(String input) {
         String[] parsedInput = Parser.parseMarkUnmarkDelete(input);
 
@@ -121,6 +131,10 @@ public class ProcessTasks {
         }
     }
 
+    /**
+     * Creates tasks from the task information that is loaded from the save file.
+     * @param taskInfo The task information.
+     */
     public void createTasks(String taskInfo) {
         String[] parts = Parser.parseTaskInfo(taskInfo);
         Task.TaskType taskType = Task.TaskType.valueOf(parts[0]);
