@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import yihuibot.component.MainWindow;
 import yihuibot.exception.taskformat.IncorrectTaskFormatException;
 
@@ -36,7 +35,7 @@ public class Main extends Application {
 
     /**
      * Constructor for a new Main, when no file path is provided.
-     * 
+     *
      * @throws InvalidPathException when filePath cannot be converted to a Path.
      * @throws IOException when an I/O Error occurred.
      * @throws IncorrectTaskFormatExceptionn when data in filePath is corrupted.
@@ -45,7 +44,7 @@ public class Main extends Application {
             IncorrectTaskFormatException {
         this(DEFAULT_FILE_PATH);
     }
-    
+
     /**
      * Display the GUI for YihuiBot.
      */

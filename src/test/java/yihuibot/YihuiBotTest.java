@@ -10,6 +10,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import yihuibot.exception.taskformat.IncorrectTaskFormatException;
+
 /**
  * Unit Test for YihuiBot.java
  *
@@ -49,7 +51,7 @@ public class YihuiBotTest {
         try {
             YihuiBot yihuiBot = new YihuiBot("data/task.txt");
             assertNotNull(yihuiBot);
-        } catch (IOException e) {
+        } catch (IOException | IncorrectTaskFormatException e) {
             fail();
         }
     }
