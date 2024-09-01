@@ -42,25 +42,30 @@
         [D][ ] complete homework (by: Oct 15 2019)
     -----------------------------------------------------------
     -----------------------------------------------------------
-    Okiee! I've marked this task as done:
-        [T][X] cook pasta
-    -----------------------------------------------------------
-    -----------------------------------------------------------
     Got it. I've added this task:
         [T][ ] create post
     Now you have 4 tasks in the list.
     -----------------------------------------------------------
     -----------------------------------------------------------
     Got it. I've added this task:
-        [D][ ] reply email (by: Jun 06 2025)
+        [D][ ] reply email for homework (by: Jun 06 2025)
     Now you have 5 tasks in the list.
     -----------------------------------------------------------
     -----------------------------------------------------------
     OOPS!! The input 'nonsense' is not valid. Please ensure that you enter a valid command.
     -----------------------------------------------------------
     -----------------------------------------------------------
+    Here are the matching returns for your list:
+
+    1.[D][ ] complete homework (by: Oct 15 2019)
+    2.[D][ ] reply email for homework (by: Jun 06 2025)
+    -----------------------------------------------------------
+    -----------------------------------------------------------
+    Oh no. What you're looking for is not in the list :(
+    -----------------------------------------------------------
+    -----------------------------------------------------------
     Okay, I've removed this task:
-        [T][X] cook pasta
+        [T][ ] cook pasta
     Now you have 4 tasks in the list.
     -----------------------------------------------------------
     -----------------------------------------------------------
@@ -81,7 +86,7 @@
     1.[D][ ] complete homework (by: Oct 15 2019)
     2.[E][X] project meeting (from: tuesday 2pm to: 4pm)
     3.[T][ ] create post
-    4.[D][ ] reply email (by: Jun 06 2025)
+    4.[D][ ] reply email for homework (by: Jun 06 2025)
     5.[E][ ] hotpot (from: 1pm to: 3pm)
     -----------------------------------------------------------
     -----------------------------------------------------------

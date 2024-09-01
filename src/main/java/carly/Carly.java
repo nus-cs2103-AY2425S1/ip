@@ -80,6 +80,14 @@ public class Carly {
                     System.out.println(e.getMessage());
                 }
                 break;
+            case FIND:
+                try {
+                    this.taskList.find(taskDescription);
+                    break;
+                } catch (CarlyException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
             case TODO:
                 try {
                     this.taskList.addToDo(taskDescription);

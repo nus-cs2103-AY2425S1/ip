@@ -93,6 +93,16 @@ public class TaskList {
         }
     }
 
+    public void find(String word) throws CarlyException {
+        TaskList filteredList = new TaskList();
+        for (Task t: this.taskList) {
+            if (t.getDescription().contains(word)) {
+                filteredList.taskList.add(t);
+            }
+        }
+        filteredList.printTaskList("Here are the matching returns for your list:");
+    }
+
     /**
      * Adds a new ToDo task to the list.
      *
@@ -167,20 +177,27 @@ public class TaskList {
         return ONE_INDENT + "Now you have " + this.getSize() + " tasks in the list.";
     }
 
-    /**
-     * Prints all tasks in the list.
-     * If the list is empty, prints a message indicating that there are no tasks.
-     */
-    public void printTaskList() {
+    /** Prints list for Command FIND*/
+    public void printTaskList(String msg) {
         if (this.taskList.isEmpty()) {
-            Ui.printOutput("There's nothing in your list yet.");
+            Ui.printOutput("Oh no. What you're looking for is not in the list :(");
         } else {
-            Ui.printOutputTopLine("Here are the tasks in your list:");
+            Ui.printOutputTopLine(msg);
             IntStream.range(0, this.getSize())
                     .forEach(i -> Ui.printOutputNoLine(
                             MessageFormat.format("{0}.{1}", i + 1, this.get(i).toString())));
             Ui.printOutputBottomLine();
 
+        }
+    }
+
+    /** Prints list for Command LIST*/
+    public void printTaskList() {
+        if (this.taskList.isEmpty()) {
+            Ui.printOutput("There's nothing in your list yet.");
+        } else {
+            String msg = "Here are the tasks in your list:";
+            this.printTaskList(msg);
         }
     }
 

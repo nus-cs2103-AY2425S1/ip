@@ -7,10 +7,11 @@ list
 mark
 mark 2
 unmark 2
-mark 1
 todo create post
-deadline reply email /by 2025-06-06
+deadline reply email for homework /by 2025-06-06
 nonsense
+find homework
+find shower
 delete 1
 event hotpot /from 1pm /to 3pm
 mark i
