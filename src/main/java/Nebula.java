@@ -16,9 +16,11 @@ public class Nebula {
                 System.out.println(ui.goodbye());
                 break;
             }
+
             else if(command.equals("list")) {
                 System.out.println(ui.displayList());
             }
+
             else if(command.startsWith("mark")) {
                 try {
                     validateCommand(command, taskList);
@@ -29,6 +31,7 @@ public class Nebula {
                 int taskNum = parser.splitCommandAndTaskNumber(command);
                 System.out.println(taskList.markTask(taskNum));
             }
+
             else if(command.startsWith("unmark")) {
                 try {
                     validateCommand(command, taskList);
@@ -39,6 +42,7 @@ public class Nebula {
                 int taskNum = parser.splitCommandAndTaskNumber(command);
                 System.out.println(taskList.unmarkTask(taskNum));
             }
+
             else if(command.startsWith("delete")) {
                 try {
                     validateCommand(command, taskList);
@@ -49,6 +53,7 @@ public class Nebula {
                 int taskNum = parser.splitCommandAndTaskNumber(command);
                 System.out.println(taskList.deleteTask(taskNum));
             }
+
             else {
                 try {
                     validateCommand(command, taskList);
@@ -56,36 +61,45 @@ public class Nebula {
                     System.out.println(e.getMessage());
                     continue;
                 }
-                if(command.startsWith("todo")) {
-                    String taskDescription = parser.splitCommandAndTaskDescription(command);
-                    Task newTask = new Todo(taskDescription);
-                    String addedTask = taskList.addTask(newTask);
-                    System.out.println(addedTask);
+
+                TaskType taskType = parseTaskType(command);
+
+                switch (taskType) {
+                    case TODO:
+                        String taskDescription = parser.splitCommandAndTaskDescription(command);
+                        Task newTodo = new Todo(taskDescription);
+                        String addedTodo = taskList.addTask(newTodo);
+                        System.out.println(addedTodo);
+                        break;
+
+                    case DEADLINE:
+                        String taskInformation = parser.splitCommandAndTaskDescription(command);
+                        String taskDescriptionDeadline = parser.splitDeadlineCommand(taskInformation)[0];
+                        String taskDeadline = parser.splitDeadlineCommand(taskInformation)[1];
+                        Task newDeadline = new Deadline(taskDescriptionDeadline, taskDeadline);
+                        String addedDeadline = taskList.addTask(newDeadline);
+                        System.out.println(addedDeadline);
+                        break;
+
+                    case EVENT:
+                        String taskInfo = parser.splitCommandAndTaskDescription(command);
+                        String taskDescriptionEvent = parser.splitEventCommand(taskInfo)[0];
+                        String startInfo = parser.splitEventCommand(taskInfo)[1];
+                        String endInfo = parser.splitEventCommand(taskInfo)[2];
+
+                        String taskStart = parser.splitCommandAndTaskDescription(startInfo);
+                        String taskEnd = parser.splitCommandAndTaskDescription(endInfo);
+
+                        Task newEvent = new Event(taskDescriptionEvent, taskStart, taskEnd);
+                        String addedEvent = taskList.addTask(newEvent);
+                        System.out.println(addedEvent);
+                        break;
+
+                    case UNKNOWN:
+                        System.out.println("Unknown command type.");
+                        break;
                 }
-                else if(command.startsWith("deadline")) {
-                    String taskInformation = parser.splitCommandAndTaskDescription(command);
-                    String taskDescription = parser.splitDeadlineCommand(taskInformation)[0];
-                    String taskDeadline = parser.splitDeadlineCommand(taskInformation)[1];
-                    Task newTask = new Deadline(taskDescription, taskDeadline);
-                    String addedTask = taskList.addTask(newTask);
-                    System.out.println(addedTask);
-                }
-                else if(command.startsWith("event")) {
-                    String taskInformation = parser.splitCommandAndTaskDescription(command);
 
-                    String taskDescription = parser.splitEventCommand(taskInformation)[0];
-
-                    String startInfo = parser.splitEventCommand(taskInformation)[1];
-                    String endInfo = parser.splitEventCommand(taskInformation)[2];
-
-                    String taskStart = parser.splitCommandAndTaskDescription(startInfo);
-                    String taskEnd = parser.splitCommandAndTaskDescription(endInfo);
-
-
-                    Task newTask = new Event(taskDescription, taskStart, taskEnd);
-                    String addedTask = taskList.addTask(newTask);
-                    System.out.println(addedTask);
-                }
             }
 
         }
@@ -136,6 +150,19 @@ public class Nebula {
             }
         }
     }
+
+    public static TaskType parseTaskType(String command) {
+        if (command.startsWith("todo")) {
+            return TaskType.TODO;
+        } else if (command.startsWith("deadline")) {
+            return TaskType.DEADLINE;
+        } else if (command.startsWith("event")) {
+            return TaskType.EVENT;
+        } else {
+            return TaskType.UNKNOWN;
+        }
+    }
+
 
 
 
