@@ -1,6 +1,5 @@
 package elysia.command;
 
-import java.lang.annotation.Native;
 /**
  * Represents a basic task
  */
@@ -10,6 +9,7 @@ public abstract class Task {
 
     /**
      * Constructs a basic task with the description
+     *
      * @param description The description of the task.
      */
     public Task(String description) {
@@ -21,7 +21,11 @@ public abstract class Task {
      * Keeps track of task's status
      */
     public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]"); // mark done task with X
+        return (isDone ? "[X]":"[ ]"); // mark done task with X
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     /**

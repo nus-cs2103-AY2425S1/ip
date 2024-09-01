@@ -49,6 +49,7 @@ public class Storage {
                 }
             }
         }
+        s.close();
     }
 
     private void addToDos(String s, int i) {

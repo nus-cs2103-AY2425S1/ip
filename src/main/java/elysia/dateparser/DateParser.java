@@ -52,7 +52,7 @@ public class DateParser {
         return parsedDate;
     }
 
-    private static Map<String, LocalDate> buildMap() {
+    static Map<String, LocalDate> buildMap() {
         Map<String, LocalDate> map = new HashMap<>();
         LocalDate today = LocalDate.now();
 
