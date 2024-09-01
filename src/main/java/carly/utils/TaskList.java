@@ -36,7 +36,7 @@ public class TaskList {
      * @param taskNumString The task number to be marked as done.
      * @throws CarlyException If the task number format is incorrect or out of bounds.
      */
-    public void mark(String taskNumString) throws CarlyException{
+    public void mark(String taskNumString) throws CarlyException {
         Integer taskNum = null;
         try {
             taskNum = Integer.parseInt(taskNumString);
@@ -58,7 +58,7 @@ public class TaskList {
      * @param taskNumString The task number to be unmarked.
      * @throws CarlyException If the task number is out of bounds.
      */
-    public void unmark(String taskNumString) throws CarlyException{
+    public void unmark(String taskNumString) throws CarlyException {
         Integer taskNum = null;
         try {
             taskNum = Integer.parseInt(taskNumString);
@@ -78,7 +78,7 @@ public class TaskList {
      * @param taskNumString The task number to be deleted.
      * @throws CarlyException If the task number format is incorrect or out of bounds.
      */
-    public void delete(String taskNumString) throws CarlyException{
+    public void delete(String taskNumString) throws CarlyException {
         Integer taskNum = null;
         try {
             taskNum = Integer.parseInt(taskNumString);
@@ -99,7 +99,7 @@ public class TaskList {
      * @param taskDescription The description of the task.
      * @throws CarlyException If there are issues with the task description.
      */
-    public void addToDo(String taskDescription) throws CarlyException{
+    public void addToDo(String taskDescription) throws CarlyException {
         Todo t = new Todo(taskDescription);
         this.taskList.add(t);
         String msg = "Got it. I've added this task:\n" + TWO_INDENT + t;
@@ -112,7 +112,7 @@ public class TaskList {
      * @param taskDescription The description and due date of the task, formatted as "description /by dueDate".
      * @throws CarlyMissingDateTimeException If the task description or due date is missing.
      */
-    public void addDeadLine(String taskDescription) throws CarlyException{
+    public void addDeadLine(String taskDescription) throws CarlyException {
         try {
             String[] taskDueDate = taskDescription.split(" /by ");
             String task = taskDueDate[0];
@@ -134,7 +134,7 @@ public class TaskList {
      * @param taskDescription The description, start time, and end time of the task.
      * @throws CarlyMissingDateTimeException If the task description, start time, or end time is missing.
      */
-    public void addEvent(String taskDescription) throws CarlyMissingDateTimeException{
+    public void addEvent(String taskDescription) throws CarlyMissingDateTimeException {
         try {
             String[] taskTimeParts = taskDescription.split(" /from ");
             String task = taskTimeParts[0];

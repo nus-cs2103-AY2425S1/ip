@@ -40,7 +40,7 @@ public class Event extends Task {
      * @inheritDoc
      */
     @Override
-    public String toString(){
+    public String toString() {
         return MessageFormat.format("[{0}]{1} (from: {2} to: {3})",
                 TASK_TYPE,
                 super.toString(),

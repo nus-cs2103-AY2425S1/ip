@@ -4,6 +4,10 @@ import carly.exception.CarlyException;
 
 import java.util.Scanner;
 
+/**
+ * Deals with interactions with the user.
+ * Also deals with formatting of output message.
+ */
 public class Ui {
     private final String username;
     private static final String LINE = "-----------------------------------------------------------";
