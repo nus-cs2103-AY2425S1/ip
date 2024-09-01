@@ -1,5 +1,7 @@
 package controllers;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
+import javafx.util.Duration;
 import processes.MrTracker;
 /**
  * Controller for the main GUI.
@@ -60,5 +62,13 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getChatBotDialog(response, dukeImage)
         );
         userInput.clear();
+
+        // Check if the input is "bye"
+        if (input.trim().equalsIgnoreCase("bye")) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(1));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
+        }
+
     }
 }
