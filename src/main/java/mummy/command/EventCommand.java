@@ -16,11 +16,9 @@ public class EventCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws MummyException {
-        HashMap<String, String> arguments = this.getArguments();
-
-        String description = arguments.getOrDefault("description", "");
-        String from = arguments.get("from");
-        String to = arguments.get("to");
+        String description = this.getArgument("description", "");
+        String from = this.getArgument("from");
+        String to = this.getArgument("to");
 
         if (from == null || to == null) {
             throw new MummyException("/from and /to are required");

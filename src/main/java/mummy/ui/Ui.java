@@ -20,11 +20,14 @@ public class Ui {
     }
 
     public String readCommand() {
-        Scanner scanner = new Scanner(System.in);
-        if (scanner.hasNext()) {
-            return scanner.nextLine();
+        String fullCommand;
+        try (Scanner scanner = new Scanner(System.in)) {
+            fullCommand = "";
+            if (scanner.hasNext()) {
+                fullCommand = scanner.nextLine();
+            }
         }
-        return "";
+        return fullCommand;
     }
 
     public void show(String message) {

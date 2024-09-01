@@ -30,8 +30,12 @@ public abstract class Command {
 
     public abstract boolean isExit();
 
-    public HashMap<String, String> getArguments() {
-        return this.arguments;
+    public String getArgument(String key) {
+        return this.arguments.get(key);
+    }
+
+    public String getArgument(String key, String defaultArgument) {
+        return this.arguments.getOrDefault(key, defaultArgument);
     }
 
     public void saveTaskListToStorage(TaskList taskList, Storage storage) throws MummyException {

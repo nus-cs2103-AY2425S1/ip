@@ -19,16 +19,14 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws MummyException {
-        HashMap<String, String> arguments = this.getArguments();
-
-        String taskIndexString = arguments.get("description");
+        String taskIndexString = this.getArgument("description");
 
         if (taskIndexString == null) {
             throw new MummyException("Task number is required");
         }
 
         int taskIndex = Parser.parseIntOrDefault(
-                arguments.getOrDefault("description", ""),
+                this.getArgument("description", ""),
                 -1);
 
         try {

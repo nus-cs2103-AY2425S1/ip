@@ -1,6 +1,5 @@
 package mummy.task;
 
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -86,11 +85,11 @@ public class TaskList {
                         case "D":
                             return Stream.of(new Deadline(tokens[2], tokens[1].equals("1"), tokens[3]));
                         case "E":
-                            return Stream.of(new Event(tokens[2], tokens[1].equals("1"),tokens[3], tokens[4]));
+                            return Stream.of(new Event(tokens[2], tokens[1].equals("1"), tokens[3], tokens[4]));
                         default:
                             return Stream.of();
                         }
-                    } catch (IndexOutOfBoundsException | DateTimeParseException e) {
+                    } catch (IndexOutOfBoundsException e) {
                         return Stream.of();
                     }
                 })

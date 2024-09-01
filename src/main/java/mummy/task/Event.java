@@ -1,6 +1,10 @@
 package mummy.task;
 
 
+/**
+ * Represents an event task that has a start and end time.
+ * Inherits from the Task class.
+ */
 public class Event extends Task {
     private final String from;
 
@@ -24,10 +28,20 @@ public class Event extends Task {
                 this.getDescription(), this.getFrom(), this.getTo());
     }
 
+    /**
+     * Returns the value of the 'from' property.
+     *
+     * @return the value of the 'from' property
+     */
     public String getFrom() {
         return this.from;
     }
 
+    /**
+     * Returns the value of the 'to' property.
+     *
+     * @return the value of the 'to' property
+     */
     public String getTo() {
         return this.to;
     }

@@ -16,7 +16,7 @@ public class ToDoCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws MummyException {
-        String description = this.getArguments().getOrDefault("description", "");
+        String description = this.getArgument("description", "");
         addTask(new ToDo(description), taskList, ui, storage);
     }
 

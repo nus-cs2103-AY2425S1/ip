@@ -17,10 +17,8 @@ public class DeadlineCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws MummyException {
-        HashMap<String, String> arguments = this.getArguments();
-
-        String description = arguments.getOrDefault("description", "");
-        String dueBy = arguments.get("by");
+        String description = this.getArgument("description", "");
+        String dueBy = this.getArgument("by");
 
         if (dueBy == null) {
             throw new MummyException("/by is required");
