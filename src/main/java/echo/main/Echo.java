@@ -39,113 +39,133 @@ public class Echo {
         this.storage = new Storage(filePath);
     }
 
+    public String greetUser() {
+        try {
+            this.storage.loadStorage(this.parser, this.taskList);
+            return ui.greet();
+        } catch (IOException e) {
+            return ui.printErrorMessage(e);
+        }
+    }
+
     /**
      * Handles the command when user types in "list"
-     * Prints out the list of tasks in taskList
+     *
+     * @return string of the list of tasks in taskList
      */
-    public void handleListCommand() {
-        this.ui.listAllTask(this.taskList);
+    public String handleListCommand() {
+        return this.ui.listAllTask(this.taskList);
     }
 
     /**
      * Handles the command when user types in "mark"
-     * Prints out a display message after marking a task
      *
      * @param index the index of the task that is required to be marked in String
+     * @return string of display message after marking a task
      */
-    public void handleMarkCommand(String index) {
+    public String handleMarkCommand(String index) {
         Task task = taskList.markAndGetTask(index);
-        ui.printMarkMessage(task);
+        return this.ui.printMarkMessage(task);
     }
 
     /**
      * Handles the command when user types in "unmark"
-     * Prints out a display message after unmarking a task
      *
      * @param index the index of the task that is required to be unmarked in String
+     * @return string of display message after unmarking a task
      */
-    public void handleUnmarkCommand(String index) {
+    public String handleUnmarkCommand(String index) {
         Task task = taskList.unmarkAndGetTask(index);
-        ui.printUnmarkMessage(task);
+        return ui.printUnmarkMessage(task);
     }
 
     /**
      * Handles the command when users types in "todo"
      * Creates a ToDos object and is added to the taskList
-     * Prints out a display message after adding the ToDos object
      *
      * @param taskDescription description of the ToDos task
+     * @return string of message after adding the ToDos object
      */
-    public void handleToDoCommand(String taskDescription) {
+    public String handleToDoCommand(String taskDescription) {
         String description = parser.parseToDos(taskDescription);
         ToDos toDoTask = new ToDos(description);
         taskList.addTask(toDoTask);
-        ui.printAddTaskMessage(toDoTask, taskList);
+        return ui.printAddTaskMessage(toDoTask, taskList);
     }
 
     /**
      * Handles the command when users types in "deadline".
      * Creates a Deadline object and is added to the taskList
-     * Prints out a display message after adding the Deadline object
      *
      * @param taskDescription description and deadline of the Deadline task
+     * @return string of message after adding the Deadlines object
      */
-    public void handleDeadlineCommand(String taskDescription) {
+    public String handleDeadlineCommand(String taskDescription) {
         String[] deadlineArray = parser.parseDeadlines(taskDescription);
         String deadlineDescription = deadlineArray[0];
         String deadlineDate = deadlineArray[1];
         Deadlines deadlineTask = new Deadlines(deadlineDescription, deadlineDate);
         taskList.addTask(deadlineTask);
-        ui.printAddTaskMessage(deadlineTask, taskList);
+        return ui.printAddTaskMessage(deadlineTask, taskList);
     }
 
     /**
      * Handles the command when users types in "event".
      * Creates an Event object and is added to the taskList
-     * Prints out a display message after adding the Event object
      *
      * @param taskDescription description, start time and end time of the Event task
+     * @return string of message after adding the Events object
      */
-    public void handleEventCommand(String taskDescription) {
+    public String handleEventCommand(String taskDescription) {
         String[] eventArray = parser.parseEvents(taskDescription);
         String eventDescription = eventArray[0];
         String eventStartTime = eventArray[1];
         String eventEndTime = eventArray[2];
         Events eventTask = new Events(eventDescription, eventStartTime, eventEndTime);
         taskList.addTask(eventTask);
-        ui.printAddTaskMessage(eventTask, taskList);
+        return ui.printAddTaskMessage(eventTask, taskList);
     }
 
     /**
      * Handles the command when user types in "delete"
      * Remove the task at that index provided from taskList
-     * Prints out a display message after deleting the task
      *
      * @param index the index of the task that is required to be deleted in String
+     * @return a string of message after deleting task
      */
-    public void handleDeleteCommand(String index) {
+    public String handleDeleteCommand(String index) {
         Task deletedTask = taskList.getTaskAndDelete(index);
-        ui.printDeleteMessage(deletedTask, taskList);
+        return ui.printDeleteMessage(deletedTask, taskList);
     }
 
     /**
      * Handles the command when user types in "find"
-     * Prints a list of all the task with the keyword
      *
      * @param keyword keyword contained in the task description
+     * @return a string of list of all the task with the keyword
      */
-    public void handleFindCommand(String keyword) {
+    public String handleFindCommand(String keyword) {
         ArrayList<Task> arrayList = taskList.findTask(keyword);
-        ui.printFoundTask(arrayList);
+        return ui.printFoundTask(arrayList);
+    }
+
+    public String handleByeCommand() {
+        try {
+            this.storage.saveTaskList(this.taskList);
+            return ui.bye();
+        } catch (IOException e) {
+            return ui.printErrorMessage(e);
+        }
     }
 
     /**
      * Determines which command the user is giving and calls the respective functions to handle the command
      *
      * @param input command and description entered by users e.g. deadline work /by 11-12-2024 2345
+     * @return string of output from chatbot
      * @throws EchoException if the command in the input is not valid
      */
-    public void executeInput(String input) throws EchoException {
+    public String executeInput(String input) throws EchoException {
         try {
             String[] replyArray = parser.parseInput(input);
             String command = replyArray[0];
@@ -153,35 +173,28 @@ public class Echo {
 
             switch (command) {
             case "list":
-                handleListCommand();
-                break;
+                return handleListCommand();
             case "mark":
-                handleMarkCommand(description);
-                break;
+                return handleMarkCommand(description);
             case "unmark":
-                handleUnmarkCommand(description);
-                break;
+                return handleUnmarkCommand(description);
             case "todo":
-                handleToDoCommand(description);
-                break;
+                return handleToDoCommand(description);
             case "deadline":
-                handleDeadlineCommand(description);
-                break;
+                return handleDeadlineCommand(description);
             case "event":
-                handleEventCommand(description);
-                break;
+                return handleEventCommand(description);
             case "delete":
-                handleDeleteCommand(description);
-                break;
+                return handleDeleteCommand(description);
             case "find":
-                handleFindCommand(description);
-                break;
+                return handleFindCommand(description);
+            case "bye":
+                return handleByeCommand();
             default:
-                ui.showValidCommands();
                 throw new EchoException("Sorry! I don't get what you mean. Try again with the list of commands above.");
             }
         } catch (EchoException | DateTimeParseException | NumberFormatException e) {
-            ui.printErrorMessage(e);
+            return ui.printErrorMessage(e);
         }
     }
 
@@ -192,22 +205,23 @@ public class Echo {
      */
     public void run() {
         try {
-            ui.greet();
+            System.out.println(this.greetUser());
             this.storage.loadStorage(this.parser, this.taskList);
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
 
             while (!input.equals("bye")) {
-                this.executeInput(input);
+                String output = this.executeInput(input);
+                System.out.println(output);
                 input = scanner.nextLine();
             }
             scanner.close();
 
-            ui.bye();
+            System.out.println(ui.bye());
             this.storage.saveTaskList(this.taskList);
 
         } catch (IOException e) {
-            ui.printErrorMessage(e);
+            System.out.println(ui.printErrorMessage(e));
         }
     }
 
