@@ -17,7 +17,14 @@ public class FindCommand extends Command {
     @Override
     public boolean execute(Ui ui, TaskStorage storage) {
         List<Task> matchingTasks = storage.findTasksByKeyword(keyword);
-        ui.showMatchingTasks(matchingTasks);
+        if (matchingTasks.isEmpty()) {
+            ui.printMessage("No matching tasks found.");
+        } else {
+            ui.printMessage("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                ui.printMessage((i + 1) + ". " + matchingTasks.get(i));
+            }
+        }
         return true;
     }
 }
