@@ -1,3 +1,7 @@
+package rose;
+
+import rose.task.Task;
+
 import java.util.Scanner;
 
 public class Ui {

@@ -1,3 +1,7 @@
+package rose;
+
+import rose.command.Command;
+
 import java.io.IOException;
 
 public class Rose {

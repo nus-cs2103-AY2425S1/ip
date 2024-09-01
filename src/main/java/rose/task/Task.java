@@ -1,3 +1,5 @@
+package rose.task;
+
 public class Task {
     protected final String taskName;
     protected boolean isDone;
@@ -20,11 +22,11 @@ public class Task {
         return String.format("%s,%s", this.isDone ? "X" : " ", taskName);
     }
 
-    void mark() {
+    public void mark() {
         this.isDone = true;
     }
 
-    void unmark() {
+    public void unmark() {
         this.isDone = false;
     }
 }

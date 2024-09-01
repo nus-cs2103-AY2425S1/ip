@@ -1,6 +1,12 @@
+package rose.command;
+
+import rose.Storage;
+import rose.TaskList;
+import rose.Ui;
+
 import java.io.IOException;
 
-class MarkCommand extends Command {
+public class MarkCommand extends Command {
     private int idx;
 
     public MarkCommand(int idx) {

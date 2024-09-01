@@ -1,3 +1,10 @@
+package rose;
+
+import rose.task.Task;
+import rose.task.Todo;
+import rose.task.Event;
+import rose.task.Deadline;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -6,9 +13,7 @@ import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Storage {

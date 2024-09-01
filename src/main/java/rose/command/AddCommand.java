@@ -1,9 +1,17 @@
+package rose.command;
+
+import rose.RoseException;
+import rose.Storage;
+import rose.TaskList;
+import rose.Ui;
+import rose.task.*;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-class AddCommand extends Command {
+public class AddCommand extends Command {
     private final TaskType taskType;
     private final String taskName;
 
@@ -47,19 +55,11 @@ class AddCommand extends Command {
 
             tasks.addTask(newTask);
             ui.showAdd(newTask, tasks.size());
-            //ui.showLine();
-            //ui.display("Got it. I've added this task :");
-            //ui.display("  " + newTask.toString());
-            //ui.display(String.format("Now you have %d tasks in the list.", tasks.size()));
-            //ui.showLine();
+
         } catch (DateTimeParseException e) {
-            //ui.showLine();
             ui.showError("Please enter a valid date in the format yyyy-MM-dd.");
-            //ui.showLine();
         } catch (RoseException e) {
-            //ui.showLine();
             ui.showError("OOPS!!! " + e.getMessage());
-            //ui.showLine();
         }
 
         try {
