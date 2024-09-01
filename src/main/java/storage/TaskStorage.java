@@ -12,7 +12,7 @@ import java.util.List;
 public class TaskStorage {
     private List<Task> tasks;
     private static final int MAX_TASKS = 100;
-    private StorageManager storageManager;
+    private final StorageManager storageManager;
 
     /**
      * Creates a new TaskStorage.

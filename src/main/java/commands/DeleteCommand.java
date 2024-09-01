@@ -12,7 +12,7 @@ import java.io.IOException;
  * Represents a command to delete a task.
  */
 public class DeleteCommand extends Command {
-    private int index;
+    private final int index;
 
     /**
      * Creates a new DeleteCommand.

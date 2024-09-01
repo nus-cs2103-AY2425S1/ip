@@ -3,15 +3,15 @@ package skibidi;
 /**
  * Represents the user interface of the Skibidi program.
  */
-public class Ui {
-    private String logo = "   _____ _  _______ ____ _____ _____ _____\n"
+public class Ui {   
+    private final String logo = "   _____ _  _______ ____ _____ _____ _____\n"
             + "  / ____| |/ /_   _|  _ \\_   _|  __ \\_   _|\n"
             + " | (___ | ' /  | | | |_) || | | |  | || |\n"
             + "  \\___ \\|  <   | | |  _ < | | | |  | || |\n"
             + "  ____) | . \\ _| |_| |_) || |_| |__| || |_\n"
             + " |_____/|_|\\_\\_____|____/_____|_____/_____|\n";
 
-    private String line = "____________________________________________________________\n";
+    private final String line = "____________________________________________________________\n";
 
     /**
      * Shows the welcome message.

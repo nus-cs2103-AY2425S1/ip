@@ -8,7 +8,7 @@ import storage.TaskStorage;
  * Represents a command to echo a message.
  */
 public class EchoCommand extends Command {
-    private String message;
+    private final String message;
 
     /**
      * Creates a new EchoCommand.

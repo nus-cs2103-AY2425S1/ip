@@ -13,9 +13,9 @@ import java.time.format.DateTimeParseException;
  * Represents a command to add an event task.
  */
 public class AddEventCommand extends Command {
-    private String description;
-    private String startTime;
-    private String endTime;
+    private final String description;
+    private final String startTime;
+    private final String endTime;
 
     /**
      * Creates a new AddEventCommand.

@@ -8,7 +8,7 @@ import java.util.List;
  * Manages the storage of tasks in a file.
  */
 public class StorageManager {
-    private String filePath;
+    private final String filePath;
 
     /**
      * Creates a new StorageManager.

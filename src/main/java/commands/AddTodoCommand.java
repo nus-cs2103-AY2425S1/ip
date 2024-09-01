@@ -12,7 +12,7 @@ import java.io.IOException;
  * Represents a command to add a todo task.
  */
 public class AddTodoCommand extends Command {
-    private String description;
+    private final String description;
 
     /**
      * Creates a new AddTodoCommand.

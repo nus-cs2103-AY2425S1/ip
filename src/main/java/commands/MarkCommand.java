@@ -12,7 +12,7 @@ import java.io.IOException;
  * Represents a command to mark a task as done.
  */
 public class MarkCommand extends Command {
-    private String taskInput;
+    private final String taskInput;
 
     /**
      * Creates a new MarkCommand.

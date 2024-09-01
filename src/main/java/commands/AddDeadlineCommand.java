@@ -13,8 +13,8 @@ import java.time.format.DateTimeParseException;
  * Represents a command to add a deadline task.
  */
 public class AddDeadlineCommand extends Command {
-    private String description;
-    private String deadline;
+    private final String description;
+    private final String deadline;
 
     /**
      * Creates a new AddDeadlineCommand.

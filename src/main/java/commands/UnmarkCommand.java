@@ -12,7 +12,7 @@ import java.io.IOException;
  * Represents a command to unmark a task as done.
  */
 public class UnmarkCommand extends Command {
-    private String taskInput;
+    private final String taskInput;
 
     /**
      * Creates a new UnmarkCommand.

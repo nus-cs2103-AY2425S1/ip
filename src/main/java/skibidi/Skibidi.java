@@ -9,8 +9,8 @@ import java.util.Scanner;
  * Represents the main class of the Skibidi program.
  */
 public class Skibidi {
-    private Ui ui;
-    private Parser parser;
+    private final Ui ui;
+    private final Parser parser;
     private TaskStorage storage;
 
     /**
