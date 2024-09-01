@@ -5,6 +5,43 @@ import java.util.Scanner;
 public class Potong {
 
     private static final String LINE = "_________________________";
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+
+    public Potong() throws FileNotFoundException, IllegalInputPotongException {
+        ui = new Ui();
+        tasks = new TaskList();
+        storage = new Storage(tasks);
+    }
+
+    public void run() {
+        ui.showIntroduction();
+        while (true) {
+            String userInput = ui.getUserCommand();
+            Command c = Parser.parse(userInput);
+            assert c != null;
+            try {
+                c.execute(tasks, storage, ui);
+            } catch (PotongException | IOException e) {
+                throw new RuntimeException(e);
+            }
+            if (c instanceof ExitCommand) {
+                break;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            new Potong().run();
+        } catch (FileNotFoundException | IllegalInputPotongException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    /*
     public static void main(String[] args) throws PotongException, IOException {
         System.out.println("Hello! I'm Potong");
         System.out.println("What can I do for you?\n");
@@ -59,6 +96,8 @@ public class Potong {
         }
         System.out.println("Bye. Hope to see you again soon!\n");
         System.out.println(Potong.LINE);
+
     }
+    */
 
 }
