@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * TaskList class helps to manage the tasks present inside the task list
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 

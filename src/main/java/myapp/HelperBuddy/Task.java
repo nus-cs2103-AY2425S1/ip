@@ -1,5 +1,8 @@
 package myapp.helperbuddy;
 
+/**
+ * Task abstract class which is inherited from subclasses
+ */
 abstract class Task {
     private String description;
     private boolean isDone;
