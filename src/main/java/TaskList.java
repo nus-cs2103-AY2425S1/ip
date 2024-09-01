@@ -30,4 +30,12 @@ public class TaskList {
     int size() {
         return this.tasks.size();
     }
+
+    String getTaskToString(int index) {
+        return this.tasks.get(index).toString();
+    }
+
+    void remove(int index) {
+        this.tasks.remove(index);
+    }
 }
