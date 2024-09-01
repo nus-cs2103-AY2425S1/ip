@@ -1,13 +1,13 @@
 package bob;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import bob.task.Task;
 import bob.task.ToDo;
 import bob.task.Deadline;
 import bob.task.Event;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Parser {
 
@@ -29,20 +29,20 @@ public class Parser {
         String description = details[2];
 
         switch (type) {
-            case "T":
-                return new ToDo(description, isDone);
-            case "D":
-                String byStr = details[3];
-                LocalDateTime by = parseDateTime(byStr);
-                return new Deadline(description, isDone, by);
-            case "E":
-                String fromStr = details[3];
-                String toStr = details[4];
-                LocalDateTime from = parseDateTime(fromStr);
-                LocalDateTime to = parseDateTime(toStr);
-                return new Event(description, isDone, from, to);
-            default:
-                throw new BobException("Unknown task type: " + type);
+        case "T":
+            return new ToDo(description, isDone);
+        case "D":
+            String byStr = details[3];
+            LocalDateTime by = parseDateTime(byStr);
+            return new Deadline(description, isDone, by);
+        case "E":
+            String fromStr = details[3];
+            String toStr = details[4];
+            LocalDateTime from = parseDateTime(fromStr);
+            LocalDateTime to = parseDateTime(toStr);
+            return new Event(description, isDone, from, to);
+        default:
+            throw new BobException("Unknown task type: " + type);
         }
     }
 
@@ -59,9 +59,9 @@ public class Parser {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             return LocalDateTime.parse(dateTimeStr, formatter);
         } catch (DateTimeParseException e) {
-            throw new BobException("Please provide the correct date and 24-hour time format: " +
-                    "yyyy-mm-dd HHmm" +
-                    "\nEg. 2024-08-27 1530 for Aug 27 2024 03.30pm");
+            throw new BobException(
+                    "Please provide the correct date and 24-hour time format: yyyy-mm-dd HHmm\n"
+                    + "Eg. 2024-08-27 1530 for Aug 27 2024 03.30pm");
         }
     }
 

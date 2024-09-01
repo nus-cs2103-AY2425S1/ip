@@ -1,16 +1,17 @@
 package bob;
 
+import java.io.File;
+import java.time.LocalDateTime;
+
 import bob.task.Task;
 import bob.task.ToDo;
 import bob.task.Deadline;
 import bob.task.Event;
 
-import java.io.File;
-import java.time.LocalDateTime;
-
 public class Bob {
+    /** File path to where saved tasks are stored */
     private static final String FILE_PATH = "data" + File.separator + "Bob.txt";
-    private static TaskList taskList;
+    private static TaskList tasks;
     private static Storage storage;
     private static Ui ui;
 
@@ -18,16 +19,25 @@ public class Bob {
         storage = new Storage(filePath);
         ui = new Ui();
         try {
-            taskList = new TaskList(storage.load());
+            tasks = new TaskList(storage.load());
             ui.showLoadingSuccess();
         } catch (BobException e) {
             ui.showError(e);
-            taskList = new TaskList();
+            tasks = new TaskList();
         }
     }
 
     public enum Command {
-        BYE, LIST, RELEVANT, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
+        BYE,
+        LIST,
+        RELEVANT,
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE,
+        UNKNOWN
     }
 
     public static void main(String[] args) {
@@ -43,50 +53,54 @@ public class Bob {
 
         while (true) {
             try {
+                // Read user input
                 String userInput = ui.readCommand();
+
+                // Process user input
                 Command command = Parser.parseCommand(userInput);
                 String taskDetails = Parser.getTaskDetails(userInput);
 
                 switch (command) {
-                    case BYE:
-                        commandBye();
-                        return;
+                case BYE:
+                    commandBye();
+                    return;
 
-                    case LIST:
-                        commandList();
-                        break;
+                case LIST:
+                    commandList();
+                    break;
 
-                    case RELEVANT:
-                        commandRelevant(taskDetails);
-                        break;
+                case RELEVANT:
+                    commandRelevant(taskDetails);
+                    break;
 
-                    case MARK:
-                        commandMark(taskDetails);
-                        break;
+                case MARK:
+                    commandMark(taskDetails);
+                    break;
 
-                    case UNMARK:
-                        commandUnmark(taskDetails);
-                        break;
+                case UNMARK:
+                    commandUnmark(taskDetails);
+                    break;
 
-                    case TODO:
-                        commandTodo(taskDetails);
-                        break;
+                case TODO:
+                    commandTodo(taskDetails);
+                    break;
 
-                    case DEADLINE:
-                        commandDeadline(taskDetails);
-                        break;
+                case DEADLINE:
+                    commandDeadline(taskDetails);
+                    break;
 
-                    case EVENT:
-                        commandEvent(taskDetails);
-                        break;
+                case EVENT:
+                    commandEvent(taskDetails);
+                    break;
 
-                    case DELETE:
-                        commandDelete(taskDetails);
-                        break;
+                case DELETE:
+                    commandDelete(taskDetails);
+                    break;
 
-                    case UNKNOWN:
-                    default:
-                        throw new BobException("Sorry, I do not understand. Please try something else.");
+                case UNKNOWN:
+                    // Fallthrough
+                default:
+                    throw new BobException("Sorry, I do not understand. Please try something else.");
                 }
             } catch (BobException e) {
                 ui.showError(e);
@@ -101,14 +115,14 @@ public class Bob {
     }
 
     static void commandList() {
-        if (taskList.isEmpty()) {
+        if (tasks.isEmpty()) {
             ui.showNoTasks();
         }
-            ui.showMessage("Your list of tasks:\n" + taskList.printTasks());
+            ui.showMessage("Your list of tasks:\n" + tasks.printTasks());
     }
 
     static void commandRelevant(String dateStr) throws BobException {
-        ui.showMessage(taskList.printRelevantTasks(dateStr));
+        ui.showMessage(tasks.printRelevantTasks(dateStr));
     }
 
     static void commandMark(String taskDetails) throws BobException {
@@ -116,10 +130,13 @@ public class Bob {
             throw new BobException("Please provide a task number.");
         }
         try {
+            // Get task
             int taskNum = Integer.parseInt(taskDetails);
-            bob.task.Task currTask = taskList.getTask(taskNum);
+            bob.task.Task currTask = tasks.getTask(taskNum);
+
+            // Mark task as done and update tasks
             currTask.markAsDone();
-            storage.saveTasks(taskList);
+            storage.saveTasks(tasks);
             ui.showMessage("Good Job! Marking this task as done:\n " + currTask);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new BobException("The task number provided is invalid.");
@@ -131,10 +148,13 @@ public class Bob {
             throw new BobException("Please provide a task number.");
         }
         try {
+            // Get Task
             int taskNum = Integer.parseInt(taskDetails);
-            Task currTask = taskList.getTask(taskNum);
+            Task currTask = tasks.getTask(taskNum);
+
+            // Mark task as not done and update tasks
             currTask.markAsUndone();
-            storage.saveTasks(taskList);
+            storage.saveTasks(tasks);
             ui.showMessage("Okay, marking this task as not done yet:\n " + currTask);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new BobException("The task number provided is invalid.");
@@ -146,11 +166,14 @@ public class Bob {
         if (taskDetails.isEmpty()) {
             throw new BobException("Missing details!\n" + format);
         }
+        // Create a new task
         ToDo task = new ToDo(taskDetails);
-        taskList.addTask(task);
-        storage.saveTasks(taskList);
+
+        // Add task and update tasks
+        tasks.addTask(task);
+        storage.saveTasks(tasks);
         ui.showMessage("Adding ToDo task:\n " + task
-                + "\nTotal number of tasks in your list: " + taskList.getNumTasks());
+                + "\nTotal number of tasks in your list: " + tasks.getNumTasks());
     }
 
     static void commandDeadline(String taskDetails) throws BobException {
@@ -161,6 +184,7 @@ public class Bob {
         }
 
         try {
+            // Process task details
             String[] params = taskDetails.split(" /");
             String description = params[0];
             String byStr = params[1].split(" ", 2)[1];
@@ -170,11 +194,15 @@ public class Bob {
                 throw new BobException("Oops! The date you provided is in the past. "
                         + "Kindly provide a future date.");
             }
+
+            // Create a new task
             Deadline task = new Deadline(description, by);
-            taskList.addTask(task);
-            storage.saveTasks(taskList);
+
+            // Add task and update tasks
+            tasks.addTask(task);
+            storage.saveTasks(tasks);
             ui.showMessage("Adding Deadline task:\n " + task
-                    + "\nTotal number of tasks in your list: " + taskList.getNumTasks());
+                    + "\nTotal number of tasks in your list: " + tasks.getNumTasks());
         } catch (IndexOutOfBoundsException e) {
             throw new BobException("You may have missing details or wrong format!\n" + format);
         }
@@ -188,6 +216,7 @@ public class Bob {
         }
 
         try {
+            // Process task details
             String[] params = taskDetails.split(" /");
             String description = params[0];
             String fromStr = params[1].split(" ", 2)[1];
@@ -196,18 +225,24 @@ public class Bob {
             LocalDateTime from = Parser.parseDateTime(fromStr);
             LocalDateTime to = Parser.parseDateTime(toStr);
             if (from.isBefore(LocalDateTime.now()) || to.isBefore(LocalDateTime.now())) {
-                throw new BobException("Oops! The date you provided is in the past. "
+                throw new BobException(
+                        "Oops! The date you provided is in the past. "
                         + "Kindly provide a future date.");
             }
             if (to.isBefore(from)) {
-                throw new BobException("The end date cannot be before the start date. " +
+                throw new BobException(
+                        "The end date cannot be before the start date. " +
                         "Please try again.");
             }
+
+            // Create a new task
             Event task = new Event(description, from, to);
-            taskList.addTask(task);
-            storage.saveTasks(taskList);
+
+            // Add task and update tasks
+            tasks.addTask(task);
+            storage.saveTasks(tasks);
             ui.showMessage("Adding Event task:\n " + task
-                    + "\nTotal number of tasks in your list: " + taskList.getNumTasks());
+                    + "\nTotal number of tasks in your list: " + tasks.getNumTasks());
         } catch (IndexOutOfBoundsException e) {
             throw new BobException("You may have missing details or wrong format!\n" + format);
         }
@@ -217,12 +252,14 @@ public class Bob {
         if (taskDetails.isEmpty()) {
             throw new BobException("Please provide a task number.");
         }
-
+        // Get task
         int taskNum = Integer.parseInt(taskDetails);
-        Task currTask = taskList.getTask(taskNum);
-        taskList.delTask(taskNum);
-        storage.saveTasks(taskList);
+        Task currTask = tasks.getTask(taskNum);
+
+        // Delete task and update tasks
+        tasks.delTask(taskNum);
+        storage.saveTasks(tasks);
         ui.showMessage("Noted, removing this task:\n " + currTask
-                + "\nTotal number of tasks in your list: " + taskList.getNumTasks());
+                + "\nTotal number of tasks in your list: " + tasks.getNumTasks());
     }
 }

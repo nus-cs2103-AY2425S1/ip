@@ -1,12 +1,13 @@
 package bob;
 
-import bob.task.Task;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import bob.task.Task;
 
 public class TaskList {
     private final List<Task> tasks;
@@ -49,6 +50,7 @@ public class TaskList {
 
     String printTasks() {
         StringBuilder sb = new StringBuilder();
+
         for (int i = 1; i <= getNumTasks(); i++) {
             Task currTask = tasks.get(i - 1);
             if (i == getNumTasks()) {
@@ -62,9 +64,11 @@ public class TaskList {
 
     String printRelevantTasks(String dateStr) throws BobException {
         try {
+            // Process the date string
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate date = LocalDate.parse(dateStr, formatter);
 
+            // Obtain relevant tasks to be printed
             StringBuilder sb = new StringBuilder();
             int numRelevantTasks = 0;
             for (Task currTask : tasks) {
@@ -74,8 +78,8 @@ public class TaskList {
                 }
             }
             DateTimeFormatter formatterWords = DateTimeFormatter.ofPattern("MMM dd yyyy");
-            sb.append("Total number of relevant tasks for ").append(date.format(formatterWords))
-                    .append(": ").append(numRelevantTasks);
+            sb.append("Total number of relevant tasks for ")
+                    .append(date.format(formatterWords)).append(": ").append(numRelevantTasks);
             return sb.toString();
         } catch (DateTimeParseException e) {
             throw new BobException("Invalid date format. Required format: relevant yyyy-MM-dd");
