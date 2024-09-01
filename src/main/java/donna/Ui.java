@@ -4,7 +4,12 @@ import donna.task.Task;
 
 import java.util.List;
 
+/**
+ * Contains user interface methods for interacting with the application.
+ * Handles displaying messages, task lists, and error information to the user.
+ */
 public class Ui {
+
     static private void printDashedLine() {
         System.out.println("____________________________________________________________________");
     }
@@ -17,7 +22,12 @@ public class Ui {
         System.out.println();
     }
 
-    public void printGreeting(boolean dataWasLoaded) { // T/F depending on whether the arrayList is empty
+    /**
+     * Prints a greeting message to the user.
+     *
+     * @param dataWasLoaded True if any previously saved tasks were loaded; false otherwise.
+     */
+    public void printGreeting(boolean dataWasLoaded) {
         printDashedLine();
         printDonnaLogo();
         System.out.println("Hello! I'm Donna");
@@ -29,12 +39,21 @@ public class Ui {
         printDashedLine();
     }
 
+    /**
+     * Prints a goodbye message to the user.
+     */
     public void printGoodbyeMessage() {
         printDashedLine();
         System.out.println("Bye. Hope to see you again soon!");
         printDashedLine();
     }
 
+    /**
+     * Prints a message confirming that a task has been added.
+     *
+     * @param task The task that was added.
+     * @param taskCount The current number of tasks in the list.
+     */
     public void printTaskAddedMessage(Task task, int taskCount) {
         printDashedLine();
         System.out.println("Got it. I've added this task: " );
@@ -47,6 +66,12 @@ public class Ui {
         printDashedLine();
     }
 
+    /**
+     * Prints a message confirming that a task has been deleted.
+     *
+     * @param task The task that was deleted.
+     * @param taskCount The current number of tasks in the list.
+     */
     public void printTaskDeletedMessage(Task task, int taskCount) {
         printDashedLine();
         System.out.println("Alright. The following task has been deleted: ");
@@ -59,6 +84,12 @@ public class Ui {
         printDashedLine();
     }
 
+    /**
+     * Prints a message confirming the status of a task.
+     *
+     * @param task The task that was marked.
+     * @param isMarked True if the task is marked as done; false otherwise.
+     */
     public void printTaskMarkedMessage(Task task, boolean isMarked) {
         printDashedLine();
         if (isMarked) {
@@ -70,6 +101,11 @@ public class Ui {
         printDashedLine();
     }
 
+    /**
+     * Prints the list of all tasks.
+     *
+     * @param tasks The TaskList containing tasks to be displayed.
+     */
     public void printTaskList(TaskList tasks) {
         printDashedLine();
         if (tasks.isEmpty()) {
@@ -85,12 +121,22 @@ public class Ui {
         printDashedLine();
     }
 
+    /**
+     * Prints an error message.
+     *
+     * @param message The error message to be printed.
+     */
     public void printErrorMessage(String message) {
         printDashedLine();
         System.out.println(message);
         printDashedLine();
     }
 
+    /**
+     * Prints the results of a search query.
+     *
+     * @param tasks The list of tasks that match the search.
+     */
     public void printFindResults(List<Task> tasks) {
         printDashedLine();
         if (tasks.isEmpty()) {
@@ -103,5 +149,4 @@ public class Ui {
         }
         printDashedLine();
     }
-
 }
