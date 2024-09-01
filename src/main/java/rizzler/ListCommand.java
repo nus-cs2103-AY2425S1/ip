@@ -12,11 +12,12 @@ class ListCommand implements Command {
      * @param tasks TaskList supplied by Rizzler.
      * @param ui Ui supplied by Rizzler.
      * @param fileStorage FileStorage supplied by Rizzler.
+     * @return String detailing list of tasks.
      */
-    public void execute(TaskList tasks,
+    public String execute(TaskList tasks,
                         Ui ui,
                         FileStorage fileStorage) {
-        tasks.list();
+        return tasks.list();
     }
 
     /**

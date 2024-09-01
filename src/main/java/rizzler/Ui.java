@@ -14,34 +14,21 @@ class Ui {
 
     /**
      * Outputs a greeting to the user.
+     *
+     * @return String greeting to the user.
      */
-    void showGreeting() {
-        System.out.println(
-                separator
-                + "Hello! I'm the Rizzler.\n"
-                + "What can I do for you today?\n"
-                + separator);
+    String showGreeting() {
+        return "Hello! I'm the Rizzler.\n"
+                + "What can I do for you today?\n";
     }
 
     /**
      * Outputs a goodbye to the user.
-     */
-    void showGoodbye() {
-        System.out.println(
-                separator
-                + "Bye! Rizz you later!\n"
-                + separator);
-    }
-
-    /**
-     * Takes in a command input from the user.
      *
-     * @return String representing command input from user.
+     * @return String goodbye to the user.
      */
-    String readCommand() {
-        Scanner sc = new Scanner(System.in);
-        String fullCommand = sc.nextLine();
-        return fullCommand;
+    String showGoodbye() {
+        return "Bye! Rizz you later!\n";
     }
 
     /**
@@ -49,14 +36,12 @@ class Ui {
      *
      * @param task Task added to list.
      * @param size New size of list.
+     * @return String detailing the addition.
      */
-    void showAdditionToList(Task task, int size) {
-        System.out.println(
-                separator
-                + "Gotcha! I've added the new task for you:\n"
+    String showAdditionToList(Task task, int size) {
+        return "Gotcha! I've added the new task for you:\n"
                 + task + "\n"
-                + "Now you have " + size + " tasks in the list.\n"
-                + separator);
+                + "Now you have " + size + " tasks in the list.\n";
     }
 
     /**
@@ -64,14 +49,12 @@ class Ui {
      *
      * @param task Task deleted from list.
      * @param size New size of list.
+     * @return String detailing the removal.
      */
-    void showRemovalFromList(Task task, int size) {
-        System.out.println(
-                separator
-                + "I have removed this task for you:\n"
+    String showRemovalFromList(Task task, int size) {
+        return "I have removed this task for you:\n"
                 + task + "\n"
-                + "Now you have " + size + " tasks in the list.\n"
-                + separator);
+                + "Now you have " + size + " tasks in the list.\n";
     }
 
     /**
@@ -79,21 +62,17 @@ class Ui {
      * that no tasks are in the list if the list is empty.
      *
      * @param tasks List of tasks to output.
+     * @return String detailing the list.
      */
-    void showList(ArrayList<Task> tasks) {
+    String showList(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println(
-                    separator
-                    + "No tasks here yet\n"
-                    + separator);
+            return "No tasks here yet\n";
         } else {
-            System.out.println(
-                    separator
-                    + "Here are the tasks in your list");
+            String output = "Here are the tasks in your list\n";
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(String.valueOf(i + 1) + ". " + tasks.get(i));
+                output += String.valueOf(i + 1) + ". " + tasks.get(i) + "\n";
             }
-            System.out.println(separator);
+            return output;
         }
     }
 
@@ -101,26 +80,22 @@ class Ui {
      * Outputs the completion message of the task marked as done.
      *
      * @param task Task marked as done.
+     * @return String detailing the marking.
      */
-    void showMarking(Task task) {
-        System.out.println(
-                separator
-                + "Hell yeah! You finished your task:\n"
-                + task + "\n"
-                + separator);
+    String showMarking(Task task) {
+        return "Hell yeah! You finished your task:\n"
+                + task + "\n";
     }
 
     /**
      * Outputs the completion message of the task marked as not done.
      *
      * @param task Task marked as not done.
+     * @return String detailing the unmarking.
      */
-    void showUnmarking(Task task) {
-        System.out.println(
-                separator
-                + "Womp womp. Better do it later:\n"
-                + task + "\n"
-                + separator);
+    String showUnmarking(Task task) {
+        return "Womp womp. Better do it later:\n"
+                + task + "\n";
     }
 
     /**
@@ -128,32 +103,27 @@ class Ui {
      * If no tasks are found, outputs that no tasks are found.
      * 
      * @param tasks ArrayList of tasks that match the given keyword.
+     * @return String detailing found tasks.
      */
-    void showFoundList(ArrayList<Task> tasks) {
+    String showFoundList(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println(
-                    separator
-                    + "I couldn't find any tasks matching your keyword\n"
-                    + separator);
+            return "I couldn't find any tasks matching your keyword\n";
         } else {
-            System.out.println(
-                    separator
-                    + "I found these tasks matching your keyword");
+            String output = "I found these tasks matching your keyword\n";
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println(String.valueOf(i + 1) + ". " + tasks.get(i));
+                output += String.valueOf(i + 1) + ". " + tasks.get(i) + "\n";
             }
-            System.out.println(separator);
+            return output;
         }
     }
 
     /**
      * Outputs error message when loading up.
+     *
+     * @return String for loading error.
      */
-    void showLoadingError() {
-        System.out.println(
-                separator
-                + "Oops, something went wrong while loading."
-                + separator);
+    String showLoadingError() {
+        return "Oops, something went wrong while loading.";
     }
 
     /**
@@ -161,11 +131,9 @@ class Ui {
      * during the runtime of Rizzler.
      *
      * @param message Error message from <code>RizzlerException</code>.
+     * @return String of error message.
      */
-    void showError(String message) {
-        System.out.println(
-                separator
-                + message + "\n"
-                + separator);
+    String showError(String message) {
+        return message + "\n";
     }
 }

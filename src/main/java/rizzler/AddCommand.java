@@ -32,11 +32,12 @@ public class AddCommand implements Command {
      * @param tasks TaskList supplied by Rizzler.
      * @param ui Ui supplied by Rizzler.
      * @param fileStorage FileStorage supplied by Rizzler.
+     * @return String detailing task addition.
      * @throws RizzlerException If the command was entered incorrectly.
      */
-    public void execute(TaskList tasks,
-                        Ui ui,
-                        FileStorage fileStorage) throws RizzlerException {
+    public String execute(TaskList tasks,
+                          Ui ui,
+                          FileStorage fileStorage) throws RizzlerException {
         switch (this.taskType) {
         case "todo":
             if (this.fullCommand.length == 1) {
@@ -49,10 +50,10 @@ public class AddCommand implements Command {
                 for (int i = 2; i < this.fullCommand.length; i++) {
                     taskName += " " + fullCommand[i];
                 }
-                tasks.add(new Todo(taskName));
+                String output = tasks.add(new Todo(taskName));
                 fileStorage.save(tasks.getListToSave());
+                return output;
             }
-            break;
         case "deadline":
             int indexOfBy = 0;
             boolean byInInput = false;
@@ -76,9 +77,11 @@ public class AddCommand implements Command {
                     deadline += " " + this.fullCommand[i];
                 }
                 String byTime = this.fullCommand[indexOfBy + 1];
-                tasks.add(new Deadline(deadline, LocalDate.parse(byTime)));
+                String output = tasks.add(
+                        new Deadline(deadline,
+                                LocalDate.parse(byTime)));
                 fileStorage.save(tasks.getListToSave());
-                break;
+                return output;
             } catch (DateTimeException e) {
                 throw new RizzlerException(
                         "Please put a valid date-time format\n"
@@ -117,17 +120,21 @@ public class AddCommand implements Command {
             String fromTime = this.fullCommand[indexOfFrom + 1];
             String toTime = this.fullCommand[indexOfTo + 1];
             try {
-                tasks.add(new Event(event,
-                        LocalDate.parse(fromTime),
-                        LocalDate.parse(toTime)));
+                String output = tasks.add(
+                        new Event(
+                                event,
+                                LocalDate.parse(fromTime),
+                                LocalDate.parse(toTime)));
                 fileStorage.save(tasks.getListToSave());
-                break;
+                return output;
             } catch (DateTimeException e) {
                 throw new RizzlerException(
                         "Please put a valid date-time format\n"
-                        + "Format:\n"
-                        + "event [task name] /from [yyyy-mm-dd] /to [yyyy-mm-dd]");
+                                + "Format:\n"
+                                + "event [task name] /from [yyyy-mm-dd] /to [yyyy-mm-dd]");
             }
+        default:
+            throw new RizzlerException("Something went wrong with the addition");
         }
     }
 

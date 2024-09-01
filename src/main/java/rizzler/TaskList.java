@@ -25,10 +25,11 @@ class TaskList {
      * and commands Ui to output the completion message.
      *
      * @param task Task to be added.
+     * @return String showing task addition.
      */
-    void add(Task task) {
+    String add(Task task) {
         this.tasks.add(task);
-        this.ui.showAdditionToList(task, this.tasks.size());
+        return this.ui.showAdditionToList(task, this.tasks.size());
     }
 
     /**
@@ -39,13 +40,15 @@ class TaskList {
      * @param index index of the specified task in the list.
      * @throws RizzlerException If list is empty or index is not in the list.
      */
-    void delete(int index) throws RizzlerException {
+    String delete(int index) throws RizzlerException {
         if (this.tasks.isEmpty()) {
             throw new RizzlerException("No tasks to delete");
         }
         try {
             Task removedTask = this.tasks.remove(index);
-            this.ui.showRemovalFromList(removedTask, this.tasks.size());
+            return this.ui.showRemovalFromList(
+                    removedTask,
+                    this.tasks.size());
         } catch (IndexOutOfBoundsException e) {
             throw new RizzlerException(
                     "Please put task number that is actually in the list");
@@ -55,9 +58,11 @@ class TaskList {
     /**
      * Uses the Ui to output the String representation
      * of tasks in the list.
+     *
+     * @return String detailing list of tasks.
      */
-    void list() {
-        ui.showList(this.tasks);
+    String list() {
+        return this.ui.showList(this.tasks);
     }
 
     /**
@@ -76,15 +81,16 @@ class TaskList {
      * output a completion message.
      *
      * @param index index of specified task in the list.
+     * @return String detailing the marked task.
      * @throws RizzlerException If list is empty or index is not in the list.
      */
-    void mark(int index) throws RizzlerException {
+    String mark(int index) throws RizzlerException {
         if (this.tasks.isEmpty()) {
             throw new RizzlerException("No tasks to mark");
         }
         try {
             this.tasks.get(index).markAsDone();
-            this.ui.showMarking(this.tasks.get(index));
+            return this.ui.showMarking(this.tasks.get(index));
         } catch (IndexOutOfBoundsException e) {
             throw new RizzlerException(
                     "Please put task number that is actually in the list");
@@ -97,15 +103,16 @@ class TaskList {
      * output a completion message.
      *
      * @param index index of specified task in the list.
+     * @return String detailing unmarked task.
      * @throws RizzlerException If list is empty or index is not in the list.
      */
-    void unmark(int index) throws RizzlerException {
+    String unmark(int index) throws RizzlerException {
         if (this.tasks.isEmpty()) {
             throw new RizzlerException("No tasks to unmark");
         }
         try {
             this.tasks.get(index).unmark();
-            this.ui.showUnmarking(this.tasks.get(index));
+            return this.ui.showUnmarking(this.tasks.get(index));
         } catch (IndexOutOfBoundsException e) {
             throw new RizzlerException(
                     "Please put task number that is actually in the list");
@@ -118,9 +125,10 @@ class TaskList {
      * another ArrayList, which is fed to the Ui to be outputted.
      * 
      * @param keyword Keyword to match with the task.
+     * @return String detailing all found tasks.
      * @throws RizzlerException If the tasklist is empty.
      */
-    void find(String keyword) throws RizzlerException {
+    String find(String keyword) throws RizzlerException {
         if (this.tasks.size() == 0) {
             throw new RizzlerException("No tasks here to find");
         }
@@ -130,6 +138,6 @@ class TaskList {
                 foundList.add(this.tasks.get(i));
             }
         }
-        this.ui.showFoundList(foundList);
+        return this.ui.showFoundList(foundList);
     }
 }

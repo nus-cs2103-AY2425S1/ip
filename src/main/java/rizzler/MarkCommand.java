@@ -38,14 +38,16 @@ class MarkCommand implements Command {
      * @param tasks TaskList supplied by Rizzler.
      * @param ui Ui supplied by Rizzler.
      * @param fileStorage FileStorage supplied by Rizzler.
+     * @return String detailing the marked task.
      * @throws RizzlerException If <code>TaskList</code> throws a <code>RizzlerException</code>.
      */
-    public void execute(TaskList tasks,
+    public String execute(TaskList tasks,
                         Ui ui,
                         FileStorage fileStorage) throws RizzlerException {
         try {
-            tasks.mark(this.markIndex);
+            String output = tasks.mark(this.markIndex);
             fileStorage.save(tasks.getListToSave());
+            return output;
         } catch (RizzlerException e) {
             throw e;
         }

@@ -11,9 +11,10 @@ interface Command {
      * @param tasks TaskList supplied by Rizzler.
      * @param ui Ui supplied by Rizzler.
      * @param fileStorage FileStorage supplied by Rizzler.
+     * @return String response processed by Rizzler.
      * @throws RizzlerException If something goes wrong with command execution.
      */
-    public void execute(TaskList tasks,
+    public String execute(TaskList tasks,
                         Ui ui,
                         FileStorage fileStorage) throws RizzlerException;
 

@@ -38,14 +38,16 @@ class DeleteCommand implements Command {
      * @param tasks TaskList supplied by Rizzler.
      * @param ui Ui supplied by Rizzler.
      * @param fileStorage FileStorage supplied by Rizzler.
+     * @return String detailing the deletion.
      * @throws RizzlerException If <code>TaskList</code> throws a <code>RizzlerException</code>.
      */
-    public void execute(TaskList tasks,
+    public String execute(TaskList tasks,
                         Ui ui,
                         FileStorage fileStorage) throws RizzlerException {
         try {
-            tasks.delete(this.deleteIndex);
+            String output = tasks.delete(this.deleteIndex);
             fileStorage.save(tasks.getListToSave());
+            return output;
         } catch (RizzlerException e) {
             throw e;
         }
