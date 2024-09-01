@@ -1,62 +1,82 @@
 package bob;
 
-import java.util.Scanner;
-
 /**
- * The Bob class is the main class for the Bob chatbot application.
- * It initializes the chatbot's task list, handles user inputs, and interacts
- * with the storage and UI components to process tasks and display responses.
+ * Represents the Bob chatbot application. This class initializes the chatbot's components,
+ * handles user input, and interacts with storage and UI components to process tasks and generate responses.
  */
 public class Bob {
-
-    /** UI component for displaying messages and handling user interactions */
-    private static Ui ui = new Ui();
-
-    /** UI component for displaying messages and handling user interactions */
-    private static Storage storage;
-
-    /** UI component for displaying messages and handling user interactions */
-    private static TaskList taskList;
-
-    /** UI component for displaying messages and handling user interactions */
+    /** The name of the chatbot */
     private static final String NAME = "Bob";
 
+    /** UI component for displaying messages and handling user interactions */
+    private Ui ui;
+
+    /** Storage component for saving and loading tasks */
+    private Storage storage;
+
+    /** Task list component for managing tasks */
+    private TaskList taskList;
+
     /**
-     * The main entry point of the Bob application.
-     * Initializes the storage, task list, and UI components, and processes user input.
-     *
-     * @param args Command-line arguments (not used)
+     * Constructs a Bob instance and initializes its components.
+     * Sets up the UI, storage, and task list, and loads any existing tasks from storage.
      */
-    public static void main(String[] args) {
+    public Bob() {
+        ui = new Ui();
         storage = new Storage("./data/bob.txt");
         taskList = new TaskList();
-        ui.showWelcomeMessage(NAME);
 
-        // Load tasks from storage
         try {
             taskList.setTasks(storage.load());
         } catch (ChatBotException e) {
             ui.showError(e.getMessage());
         }
+    }
 
-        Scanner scanner = new Scanner(System.in);
-        String phrase = scanner.nextLine();
+    /**
+     * Returns the UI component associated with this Bob instance.
+     *
+     * @return The UI component.
+     */
+    public Ui getUi() {
+        return this.ui;
+    }
 
-        // Main loop to handle user input
-        while (!phrase.equals("bye")) {
-            try {
-                ui.showLine();
-                Parser.handleInput(phrase, taskList, ui);
-                storage.save(taskList.getTasks());
-            } catch (ChatBotException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-                phrase = scanner.nextLine();
-            }
+    /**
+     * Processes the user's input and generates a response from the chatbot.
+     * Handles any exceptions that occur during processing and saves the updated task list to storage.
+     *
+     * @param input The user's input as a string.
+     * @return The chatbot's response as a string. In case of an error, an error message is returned.
+     */
+    public String getResponse(String input) {
+        String response;
+        try {
+            response = Parser.handleInput(input, taskList, ui);
+            storage.save(taskList.getTasks());
+        } catch (ChatBotException e) {
+            response = "Error: " + e.getMessage();
         }
+        return response;
+    }
 
-        // Show goodbye message when the user exits the program
-        ui.showGoodbyeMessage();
+    /**
+     * Returns the chatbot's welcome message.
+     * This message is displayed when the application starts.
+     *
+     * @return The welcome message as a string.
+     */
+    public String getWelcomeMessage() {
+        return String.format("Hello! I'm %s!\nWhat can I do for you?", NAME);
+    }
+
+    /**
+     * Returns the chatbot's goodbye message.
+     * This message is displayed when the user exits the application.
+     *
+     * @return The goodbye message as a string.
+     */
+    public String getGoodbyeMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 }
