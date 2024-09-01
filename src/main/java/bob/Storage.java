@@ -1,7 +1,5 @@
 package bob;
 
-import bob.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,11 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import bob.task.Task;
+
 /**
  * Handles the loading and saving of tasks from/to a file.
  * The Storage class provides methods for reading tasks from a file and saving tasks to a file.
  */
 public class Storage {
+    /** File path to where saved tasks are stored */
     private static String filePath ;
 
     /**
@@ -53,6 +54,8 @@ public class Storage {
             List<Task> taskList = new ArrayList<>();
             File file = new File(filePath);
             Scanner s = new Scanner(file);
+
+            // Load each task
             while (s.hasNext()) {
                 String taskLine = s.nextLine();
                 Task task = Parser.parseTask(taskLine);
@@ -74,6 +77,8 @@ public class Storage {
         try {
             ensureDataDirectoryExists();
             FileWriter fw = new FileWriter(filePath);
+
+            // Save each task
             for (Task task : taskList.getTasks()) {
                 fw.write(task.getTaskLine() + System.lineSeparator());
             }

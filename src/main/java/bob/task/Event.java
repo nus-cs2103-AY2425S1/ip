@@ -1,10 +1,10 @@
 package bob.task;
 
-import bob.Parser;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import bob.Parser;
 
 /**
  * Represents a Event task.
@@ -84,7 +84,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
-        return "[" + getSymbol() + "]" + super.toString() + " (from: " + from.format(formatter)
+        return "[" + getSymbol() + "]" + super.toString()
+                + " (from: " + from.format(formatter)
                 + " to: " + to.format(formatter) + ")";
     }
 }

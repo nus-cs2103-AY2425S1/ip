@@ -1,10 +1,10 @@
 package bob.task;
 
-import bob.Parser;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import bob.Parser;
 
 /**
  * Represents a Deadline task.
