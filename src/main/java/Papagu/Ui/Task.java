@@ -64,7 +64,7 @@ public class Task {
     }
 
     /**
-     * Returns a Task object if the keyword matches the description of the task.
+     * Returns if the task matches the keyword.
      * @param keyword
      * @return
      */
