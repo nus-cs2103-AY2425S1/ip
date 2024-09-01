@@ -3,6 +3,7 @@ package citadel;
 import citadel.Task.TaskList;
 import citadel.ui.TextUI;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -10,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.util.Objects;
 
 /**
  * Controller for the main GUI.
@@ -55,7 +58,7 @@ public class MainWindow extends AnchorPane {
         TaskList items = db.getTasks();
         String tasksToString = ui.printTasks(items);
         String welcomeMessage = startMessage + "\n"
-                                + tasksToString;
+                + tasksToString;
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(welcomeMessage, dukeImage)
         );
@@ -73,5 +76,17 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+
+        if (Objects.equals(response, ui.printGoodbye())) {
+
+            Platform.runLater(() -> {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Platform.exit();
+            });
+        }
     }
 }

@@ -58,7 +58,7 @@ public class Citadel {
 
         switch (command) {
         case BYE:
-            break;
+            return ui.printGoodbye();
 
         case LIST:
             return ui.printTasks(items);
@@ -87,7 +87,7 @@ public class Citadel {
         default:
             throw new CitadelInvalidCommandException();
         }
-        return null;
+
     }
 
     /**
