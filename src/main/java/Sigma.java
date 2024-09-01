@@ -40,6 +40,11 @@ public class Sigma {
                 continue;
             }
 
+            if (userInput.equals("greet")) {
+                System.out.println(parser.greet());
+                break;
+            }
+
             if (userInput.equals("bye")) {
                 parser.goodbye();
                 break;
@@ -64,6 +69,11 @@ public class Sigma {
             if (userInput.startsWith("event")) {
                 parser.handleEvent(userInput);
                 continue;
+            }
+
+            if (userInput.startsWith("find")) {
+                parser.handleFind(userInput);
+                break;
             }
             ui.dontRecognise();
         }

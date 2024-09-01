@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import sigma.task.*;
@@ -154,5 +155,34 @@ public class Parser {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm:ss");
 
         return parsedDateTime.format(outputFormatter);
+    }
+
+    /**
+     * Returns all tasks containing descriptions that match the given keyword(s)
+     * @param userInput The keyword
+     */
+    public void handleFind(String userInput) {
+        Pattern pattern = Pattern.compile("(find) (.+)");
+        Matcher matcher = pattern.matcher(userInput);
+
+        if (matcher.find()) {
+            String keyword = matcher.group(2).toLowerCase();
+            ArrayList<Task> matchingTasks = new ArrayList<>();
+            // could possibly create a list in TaskList for this
+
+            for (Task task : TaskList.getItems()) {
+                if (task.getName().toLowerCase().contains(keyword)) {
+                    matchingTasks.add(task);
+                }
+            }
+            if (!matchingTasks.isEmpty()) {
+                System.out.println("Here are the matching tasks in your list:\n");
+                for (int i = 0; i < matchingTasks.size(); i++) {
+                    System.out.println((i + 1) + ". " + matchingTasks.get(i).toString());
+                }
+            }
+            System.out.println("No remaining matching tasks found.");
+
+        }
     }
 }
