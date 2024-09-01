@@ -3,10 +3,7 @@ package elysia.command;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Represents a Deadline task with a description and a due date.
- * Extends the Task class to include deadline-specific details.
- */
+/** Extends the Task class to include deadline-specific details. **/
 public class Deadline extends Task {
     protected LocalDate by;
 

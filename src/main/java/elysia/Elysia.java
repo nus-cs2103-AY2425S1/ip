@@ -9,13 +9,17 @@ import elysia.command.Task;
 import elysia.command.TaskList;
 import elysia.ui.*;
 
-
+/**
+ * Entry point of the (Elysia) chatbot application.
+ * Initializes the application.
+ */
 public class Elysia {
     private static ArrayList<Task> arrayLists;
     private static String folderName = "data";
     private static String fileName = "elysia.txt";
     private static String filePath = "./data/elysia.txt";
 
+    /** Runs the program until termination. **/
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         arrayLists = new ArrayList<>();

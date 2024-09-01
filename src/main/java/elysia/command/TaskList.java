@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import elysia.dateparser.DateParser;
 import elysia.ui.Ui;
 
+/** Provides command to user. **/
 public class TaskList {
+
+    /** Adds ToDo task to the list. **/
     public void addToDos(ArrayList<Task> arrayLists, String s) {
         Ui ui = new Ui();
 
@@ -18,6 +21,7 @@ public class TaskList {
         }
     }
 
+    /** Adds Deadline task to the list. **/
     public void addDeadline(ArrayList<Task> arrayLists, String s) {
         Ui ui = new Ui();
         if (s.isEmpty()) {
@@ -30,6 +34,7 @@ public class TaskList {
         }
     }
 
+    /** Adds Event task to the list. **/
     public void addEvent(ArrayList<Task> arrayLists, String s) {
         Ui ui = new Ui();
 
@@ -43,6 +48,7 @@ public class TaskList {
         }
     }
 
+    /** Marks the task as done. **/
     public void markAsDone(ArrayList<Task> arrayLists, String input) {
         int index = Integer.parseInt(String.valueOf(input.charAt(5))) - 1;
         Task curr = arrayLists.get(index);
@@ -52,6 +58,7 @@ public class TaskList {
         ui.showMarkAsDoneMessage(curr);
     }
 
+    /** Unmarks the completed task. **/
     public void unmarkAsDone(ArrayList<Task> arrayLists, String input) {
         int index = Integer.parseInt(String.valueOf(input.charAt(7))) - 1;
         Task curr = arrayLists.get(index);
@@ -61,6 +68,7 @@ public class TaskList {
         ui.showUnmarkAsDoneMessage(curr);
     }
 
+    /** Deletes the task from list. **/
     public void deleteTask(ArrayList<Task> arrayLists, String input) {
         int index = Integer.parseInt(input.substring(7)) - 1;
         Task task = arrayLists.get(index);

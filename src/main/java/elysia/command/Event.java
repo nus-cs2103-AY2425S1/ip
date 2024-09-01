@@ -2,14 +2,14 @@ package elysia.command;
 
 /**
  * Represents an Event task with a description, starting time
- * and end time
+ * and end time.
  */
 public class Event extends Task {
     protected String startTime;
     protected String endTime;
 
     /**
-     * Constructs an event task
+     * Constructs an event task.
      *
      * @param description The description of the task.
      * @param startTime The start time of the event.

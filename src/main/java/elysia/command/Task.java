@@ -1,14 +1,14 @@
 package elysia.command;
 
 /**
- * Represents a basic task
+ * Represents a basic task.
  */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Constructs a basic task with the description
+     * Constructs a basic task with the description.
      *
      * @param description The description of the task.
      */
@@ -18,25 +18,28 @@ public abstract class Task {
     }
 
     /**
-     * Keeps track of task's status
+     * Prints task's status.
      */
     public String getStatusIcon() {
         return (isDone ? "[X]":"[ ]"); // mark done task with X
     }
 
+    /**
+     * Returns task's description.
+     */
     public String getDescription() {
         return this.description;
     }
 
     /**
-     * Marks the task as done
+     * Marks the task as done.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Unmarks the task as done
+     * Unmarks a completed task.
      */
     public void unmarkAsDone() {
         this.isDone = false;
@@ -47,6 +50,7 @@ public abstract class Task {
         return getStatusIcon() + " " + this.description;
     }
 
+    /** Saves the task into the txt file. **/
     public abstract String saveToTxt();
 
     //...

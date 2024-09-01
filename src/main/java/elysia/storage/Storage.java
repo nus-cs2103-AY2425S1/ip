@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/** Stores and scans the txt file in hard disk to save the progress. **/
 public class Storage {
     private static ArrayList<Task> arrayLists;
 
@@ -21,12 +22,7 @@ public class Storage {
         this.arrayLists = arrayLists;
     }
 
-    /**
-     * Load the saved list
-     * @param filePath
-     * @return the saved arraylist
-     * @throws FileNotFoundException
-     */
+    /** Loads the saved list. **/
     public void scanFileContents(String filePath) throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
@@ -53,6 +49,7 @@ public class Storage {
         s.close();
     }
 
+    /** Loads the ToDo Tasks from the saved file. **/
     private void addToDos(String s, int i) {
 
         Task task = new ToDos(s);
@@ -62,7 +59,7 @@ public class Storage {
         arrayLists.add(task);
     }
 
-
+    /** Loads the Deadline Tasks from the saved file. **/
     private void addDeadline(String s, int i, String by) {
         Task task = new Deadline(s, DateParser.parseDate(by));
         if (i == 1) {
@@ -70,6 +67,8 @@ public class Storage {
         }
         arrayLists.add(task);
     }
+
+    /** Loads the Event Tasks from the saved file. **/
     private void addEvent(String s, int i, String from, String to) {
 
         Task task = new Event(s, from, to);
@@ -79,6 +78,7 @@ public class Storage {
         arrayLists.add(task);
     }
 
+    /** Creates the txt file if it does not exist to prevent exception. **/
     public static void createFile(String folderName, String fileName) throws IOException {
         File dataDir = new File(folderName);
 
@@ -102,18 +102,28 @@ public class Storage {
         }
     }
 
+    /** Appends the input from users to the txt file. **/
     private void appendToFile(String filePath, String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
         fw.write(textToAppend);
         fw.close();
     }
 
+    /** Writes the input from users to the txt file and rewrites the content in the file. **/
     private void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
     }
 
+    /** Creates a txt file if it does not exist.
+     * Saves all the input from list into txt file.
+     *
+     * @param folderName folderName in String.
+     * @param fileName fileName in String.
+     * @param filePath filePath in String.
+     * @throws IOException
+     */
     public void handleExit(String folderName, String fileName, String filePath) throws IOException {
         createFile(folderName, fileName);
 
