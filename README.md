@@ -15,9 +15,9 @@ And it is **FREE**!
 
 Features:
 
-[X] Managing tasks
-[ ] Managing deadlines (coming soon)
-[ ] Reminders (coming soon)
+- [X] Managing tasks
+- [ ] Managing deadlines (coming soon)
+- [ ] Reminders (coming soon)
 ___
 If you are a Java programmer, you can use it to practice Java too. Here's the <span style="color:#ff69b4;">main</span> method:
 ```java
