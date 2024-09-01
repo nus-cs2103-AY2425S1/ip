@@ -22,7 +22,6 @@ public class Luke {
 
     /**
      * Returns an instance of Luke object.
-     *
      * @param filePath Where data is stored.
      * @throws IOException If filePath direct to a non *.txt file.
      */
@@ -33,9 +32,12 @@ public class Luke {
         this.ui = new Ui();
     }
 
-    /**
-     * Runs the Luke application
-     */
+    public void saveTodo(String taskName) throws IOException {
+        taskList.addTask(new Todo(taskName));
+        taskList.save(storage);
+    }
+
+    /** Runs the Luke application */
     public void run() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         ui.greetDialog();

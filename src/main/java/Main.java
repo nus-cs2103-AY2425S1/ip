@@ -12,10 +12,8 @@ import static com.sun.javafx.scene.control.skin.Utils.getResource;
 public class Main extends Application {
 
     @Override
-    public void start(Stage stage) {
-
-        SceneManager sceneManager = new SceneManager(stage);
+    public void start(Stage stage) throws IOException {
+        SceneManager sceneManager = new SceneManager(stage, new Luke("data/Luke.txt"));
         sceneManager.showHomeScreenScene();
-
     }
 }

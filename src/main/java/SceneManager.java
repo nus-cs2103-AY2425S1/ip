@@ -7,9 +7,15 @@ import java.io.IOException;
 
 public class SceneManager {
     private Stage stage;
+    private Luke luke;
 
-    public SceneManager(Stage primaryStage) {
+    public Luke getLuke() {
+        return luke;
+    }
+
+    public SceneManager(Stage primaryStage, Luke luke) {
         this.stage = primaryStage;
+        this.luke = luke;
     }
 
     public void showHomeScreenScene() {
