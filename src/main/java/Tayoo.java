@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.LocalDateTime;
@@ -109,10 +110,13 @@ public class Tayoo {
 
                     String deadlineStr = command.substring(deadlineIndex + 4).trim();
                     LocalDateTime deadline = dateTimeParser(deadlineStr);
+                    LocalTime timeOnly = timeOnlyParser(deadlineStr);
 
                     if (deadline != null) {
-                        addTask(new Deadline(command.substring(9, deadlineIndex - 1).trim(),
-                                deadline));
+                        addTask(new Deadline(command.substring(9, deadlineIndex - 1).trim(), deadline));
+                    } else if (timeOnly != null){
+                        logger.info(timeOnly.toString());
+                        addTask(new Deadline(command.substring(9, deadlineIndex - 1).trim(), timeOnly));
                     } else {
                         addTask(new Deadline(command.substring(9, deadlineIndex - 1).trim(), deadlineStr));
                     }
@@ -139,6 +143,7 @@ public class Tayoo {
                     }
 
                     int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
+                    deleteTxt(taskNumber);
                     deleteTask(tasklist.get(taskNumber));
                 } catch (IndexOutOfBoundsException e) {
                     printText("Hey, that task doesn't exist for me to delete!");
@@ -193,6 +198,7 @@ public class Tayoo {
         printText("Removing all tasks");
         for (int i = length - 1; i >= 0; i--) {
             tasklist.remove(i);
+            deleteTxt(i);
         }
     }
 
@@ -272,7 +278,7 @@ public class Tayoo {
             title = scanner.next().trim();
             String deadlineStr = scanner.next().trim();
             LocalDateTime deadline = dateTimeParser(deadlineStr);
-            LocalDateTime timeOnly = timeOnlyParser(deadlineStr);
+            LocalTime timeOnly = timeOnlyParser(deadlineStr);
             scanner.close();
             if (deadline != null) {
                 return new Deadline(title, deadline, isComplete);
@@ -367,7 +373,11 @@ public class Tayoo {
     private static LocalDateTime dateTimeParser(String dateTime) {
 
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendOptional(DateTimeFormatter.ISO_DATE_TIME)
                 .appendOptional(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy"))
+                .appendOptional(DateTimeFormatter.ofPattern("dd/M/yyyy"))
+                .appendOptional(DateTimeFormatter.ofPattern("d/MM/yyyy"))
                 .appendOptional(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
                 .appendOptional(DateTimeFormatter.ofPattern("dd MM yyyy"))
                 .appendOptional(DateTimeFormatter.ofPattern("dd MMM yyyy"))
@@ -376,6 +386,7 @@ public class Tayoo {
                 .optionalStart()
                 .appendOptional(DateTimeFormatter.ofPattern(" HH:mm"))
                 .appendOptional(DateTimeFormatter.ofPattern(" HHmm"))
+                .appendOptional(DateTimeFormatter.ofPattern("HH:mm"))
                 .optionalEnd()
                 .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
                 .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
@@ -388,7 +399,7 @@ public class Tayoo {
         }
     }
 
-    private static LocalDateTime timeOnlyParser(String dateTime) {
+    private static LocalTime timeOnlyParser(String dateTime) {
 
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendOptional(DateTimeFormatter.ofPattern("HH:mm"))
@@ -396,11 +407,39 @@ public class Tayoo {
                 .toFormatter();
 
         try{
-            return LocalDateTime.parse(dateTime, formatter);
+            return LocalTime.parse(dateTime, formatter);
         } catch (DateTimeParseException e) {
             return null;
         }
     }
 
+    private static void deleteTxt(int taskNumber){
+        List<String> lines = new ArrayList<>();
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(TASKLIST_FILEPATH));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+            reader.close();
+        } catch (FileNotFoundException e) {
+            printText("Cannot find tasklist.txt");
+        } catch (IOException e) {
+            printText("An error occurred while reading the file");
+        }
+
+        lines.remove(taskNumber);
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter(TASKLIST_FILEPATH));
+            for (String updatedLine : lines) {
+                writer.write(updatedLine);
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            printText("An error occurred while deleting the task");
+        }
+    }
 
 }
