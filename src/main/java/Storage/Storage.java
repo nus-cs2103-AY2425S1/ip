@@ -145,8 +145,7 @@ public class Storage {
         fileResult.append("Creating save file for tasks...\n")
                 .append(fileStatus);
 
-        return new String[] {dirResult.toString()
-                , fileResult.toString()};
+        return new String[] {dirResult.toString(), fileResult.toString()};
     }
 
     // Read from file with no exclusion
