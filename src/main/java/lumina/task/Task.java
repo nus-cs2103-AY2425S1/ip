@@ -79,6 +79,10 @@ public abstract class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    public boolean findInDescription(String searchStr) {
+        return this.description.toLowerCase().contains(searchStr.toLowerCase());
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

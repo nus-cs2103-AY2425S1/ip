@@ -143,6 +143,23 @@ public class TaskList {
         ui.printMessage(deleteTaskMessage.toString());
     }
 
+    public void findTasks(String searchString) {
+        StringBuilder findTasksMessage = new StringBuilder();
+        findTasksMessage.append("Here are the matching tasks in your list:\n");
+        int count = 1;
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if(this.tasks.get(i).findInDescription(searchString)) {
+                if (count > 1) {
+                    findTasksMessage.append("\n");
+                }
+                findTasksMessage.append(Integer.toString(count)).append(".");
+                findTasksMessage.append(this.tasks.get(i));
+                count++;
+            }
+        }
+        ui.printMessage(findTasksMessage.toString());
+    }
+
     public void handleEventTask(String msg) throws LuminaException {
         String[] msgSplit = msg.split(" ");
         if(msgSplit.length < 6) { // need desc, startDateTime, endDateTime

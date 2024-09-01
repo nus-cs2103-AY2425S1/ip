@@ -7,6 +7,8 @@ import lumina.storage.Storage;
 import lumina.exception.LuminaException;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The Lumina.Main.Lumina class represents a simple chatbot.
@@ -33,6 +35,7 @@ public class Lumina {
     private static final String ECHO_DEADLINE_TASK = "deadline";
     private static final String ECHO_EVENT_TASK = "event";
     private static final String ECHO_DELETE_TASK = "delete";
+    private static final String ECHO_FIND_TASK = "find";
 
 
     /**
@@ -139,6 +142,25 @@ public class Lumina {
                                 "your command! Please try again");
                     }
                 } catch(LuminaException e) {
+                    ui.printMessage(e.getMessage());
+                }
+                continue;
+            }
+            if (command.equals(Lumina.ECHO_FIND_TASK)) {
+
+                try {
+                    // Define the regex pattern to match the first word followed by any whitespace
+                    Pattern pattern = Pattern.compile("^\\S+\\s*(.*)$");
+                    Matcher matcher = pattern.matcher(msg);
+
+                    // Check if the pattern matches
+                    if (matcher.find()) {
+                        taskList.findTasks(matcher.group(1));
+                    } else {
+                        // if it doesn't throw exception
+                        throw new LuminaException("Oh no! invalid find command! Please try again");
+                    }
+                } catch (LuminaException e) {
                     ui.printMessage(e.getMessage());
                 }
                 continue;
