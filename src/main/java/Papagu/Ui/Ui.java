@@ -54,4 +54,15 @@ public class Ui {
     public static void printLoadingError() {
         System.out.println("Error loading file");
     }
+
+    /**
+     * Prints out the list for the find command
+     * @param list
+     */
+    public static void printFound(TaskList list) {
+        printLine();
+        System.out.println("Here are the matching tasks in your list:");
+        System.out.println(list);
+        printLine();
+    }
 }
