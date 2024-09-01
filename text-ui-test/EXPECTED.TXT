@@ -30,7 +30,7 @@ Here’s your list! Like Doc Brown’s flux capacitor, this will help keep every
 3. [E][ ] Watch Back to the Future (from: 18:00 end: 20:00)
 -------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------
-Task complete! If my calculations are correct, when this baby hits 88 miles per hour... you're gonna see some serious progress!
+drbrown.task.Task complete! If my calculations are correct, when this baby hits 88 miles per hour... you're gonna see some serious progress!
 [T][X] Read the Back to the Future script
 -------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------
