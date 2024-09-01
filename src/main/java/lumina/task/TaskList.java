@@ -1,9 +1,7 @@
+package lumina.task;
+
 import lumina.exception.LuminaException;
 import lumina.parser.Parser;
-import lumina.task.DeadlineTask;
-import lumina.task.EventTask;
-import lumina.task.Task;
-import lumina.task.TodoTask;
 import lumina.ui.Ui;
 
 import java.time.LocalDate;
