@@ -4,6 +4,7 @@ import muller.command.AddCommand;
 import muller.command.Command;
 import muller.command.DeleteCommand;
 import muller.command.ExitCommand;
+import muller.command.FindCommand;
 import muller.command.ListCommand;
 import muller.command.MarkCommand;
 import muller.command.MullerException;
@@ -44,6 +45,8 @@ public class Parser {
             return new DeleteCommand(inputs);
         case "on":
             return new OnCommand(inputs);
+        case "find":
+            return new FindCommand(inputs);
         default:
             throw new MullerException("I'm sorry, but I don't know what that means :-(");
         }

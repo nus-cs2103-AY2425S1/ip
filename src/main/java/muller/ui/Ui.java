@@ -1,8 +1,10 @@
 package muller.ui;
 
+import java.util.List;
 import java.util.Scanner;
 
 import muller.command.MullerException;
+import muller.task.Task;
 import muller.task.TaskList;
 
 /**
@@ -68,6 +70,22 @@ public class Ui {
             }
         } catch (MullerException e) {
             showError(e.getMessage());
+        }
+    }
+
+    /**
+     * Displays the list of tasks that match the search keyword.
+     *
+     * @param matchingTasks The list of matching tasks.
+     */
+    public void showMatchingTasks(List<Task> matchingTasks) {
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 1; i <= matchingTasks.size(); i++) {
+                System.out.println(i + ": " + matchingTasks.get(i - 1));
+            }
         }
     }
 }
