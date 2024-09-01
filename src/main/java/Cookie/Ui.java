@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Ui {
 
     /**
-     * Prints robot art.
+     * Returns robot art.
      */
-    public void printLogo() {
-        String logo = "    o      o    \n"
+    public String printLogo() {
+        return "    o      o    \n"
                 + " ____\\____/____\n"
                 + "|   _      _   |\n"
                 + "|  / \\    / \\  |   /\n"
@@ -16,92 +16,73 @@ public class Ui {
                 + "|              | /\n"
                 + "|______________|/\n"
                 + "\n";
-        System.out.println(logo);
     }
 
     /**
-     * Prints greeting message.
+     * Returns greeting message.
      */
-    public void printGreet() {
-        String greet = "Hello! I'm Cookie\n"
+    public String printGreet() {
+        return "Hello! I'm Cookie\n"
                 + "How can I help you?\n"
                 + "Here are some commands you can use:\n"
                 + "todo, deadline, event, mark, unmark, delete, list";
-        System.out.println(greet);
     }
 
     /**
-     * Prints exit message.
+     * Returns exit message.
      */
-    public void printQuit() {
-        String bye = "Bye. See you soon!";
-        System.out.println(bye);
+    public String printQuit() {
+        return "Bye. See you soon!";
     }
 
     /**
-     * Prints the number of task.
+     * Returns the number of task.
      */
-    public void printNoTasksInList(ArrayList<Task> taskArrayList) {
+    public String printNoTasksInList(ArrayList<Task> taskArrayList) {
         if (taskArrayList.size() == 1) {
-            System.out.println("Now you have " + taskArrayList.size() + " task in the list.\n");
+            return "Now you have " + taskArrayList.size() + " task in the list.\n";
         } else {
-            System.out.println("Now you have " + taskArrayList.size() + " tasks in the list.\n");
+            return "Now you have " + taskArrayList.size() + " tasks in the list.\n";
         }
     }
 
     /**
-     * Prints the latest task to be added to the list.
+     * Returns the latest task to be added to the list.
      */
-    public void printLatestTask(Task task) {
-        System.out.println("Got it. Cookie has added this task:\n"
-                + task.toString());
+    public String printLatestTask(Task task) {
+        return "Got it. Cookie has added this task:\n" + task.toString() + "\n";
     }
 
     /**
-     * Prints a message when a task has been deleted from the list.
+     * Returns a message when a task has been deleted from the list.
      */
-    public void printDeleteTask(Task task) {
-        String delete = "Cookie has removed the following task from your list:\n"
-                + task.toString();
-        System.out.println(delete);
+    public String printDeleteTask(Task task) {
+        return "Cookie has removed the following task from your list:\n" + task.toString();
     }
 
     /**
-     * Prints a message when a task is successfully marked as done.
+     * Returns a message when a task is successfully marked as done.
      */
-    public void printMarkTask(Task task) {
-        String mark = "Cookie has marked this as done! Good job!\n"
-                + task.toString();
-        System.out.println(mark);
+    public String printMarkTask(Task task) {
+        return "Cookie has marked this as done! Good job!\n" + task.toString();
     }
 
     /**
-     * Prints a message when a task is successfully marked as not done.
+     * Returns a message when a task is successfully marked as not done.
      */
-    public void printUnmarkTask(Task task) {
-        String unmark = "Cookie has unmarked this task!\n"
-                + task.toString();
-        System.out.println(unmark);
-    }
-
-    public void printBeforeListResult() {
-        System.out.println("Here are all tasks in your list!");
-    }
-
-    public void printBeforeFindResult() {
-        System.out.println("Here are matching tasks in your list!");
+    public String printUnmarkTask(Task task) {
+        return "Cookie has unmarked this task!\n" + task.toString();
     }
 
     /**
-     * Prints all the task in the ArrayList.
+     * Returns all the task in the ArrayList.
      */
-    public void printTasks(ArrayList<Task> taskArrayList) {
+    public String printTasks(ArrayList<Task> taskArrayList) {
         int count = 1;
         StringBuilder list = new StringBuilder();
         for (Task task: taskArrayList) {
             list.append(count++).append(": ").append(task.toString()).append("\n");
         }
-        System.out.println(list.toString());
+        return list.toString();
     }
-
 }
