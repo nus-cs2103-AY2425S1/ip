@@ -6,8 +6,11 @@ public class EventTask extends Task {
     private String startDateTime;
     private String endDateTime;
     /**
-     * Constructur for todo task
+     * Constructur for Event task
+     *
      * @param description description of task
+     * @param startDateTime start date of task
+     * @param endDateTime end date of task
      */
     public EventTask(String description, String startDateTime, String endDateTime) {
         super(description);
@@ -15,6 +18,28 @@ public class EventTask extends Task {
         endDateTime = endDateTime.trim();
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
+    }
+
+    /**
+     * Constructur for Event task
+     *
+     * @param description description of task
+     * @param startDateTime start date of task
+     * @param endDateTime end date of task
+     * @param isDone status of task
+     */
+    public EventTask(String description, String startDateTime,
+                     String endDateTime, boolean isDone) {
+        super(description, isDone);
+        startDateTime = startDateTime.trim();
+        endDateTime = endDateTime.trim();
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+    }
+
+    @Override
+    public String saveString() {
+        return "E | " + super.getStatusAndDescription() + " | " + startDateTime + " | " + endDateTime;
     }
 
     /**

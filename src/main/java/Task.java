@@ -1,12 +1,45 @@
-public class Task {
-    protected String description;
-    protected boolean isDone;
+public abstract class Task {
+    private String description;
+    private boolean isDone;
 
+    /**
+     * Constructor for Task
+     *
+     * @param description description of the task
+     */
     public Task(String description) {
         description = description.trim();
         this.description = description;
         this.isDone = false;
     }
+
+    /**
+     * Constructor for Task
+     *
+     * @param description description of the task
+     * @param isDone status of task
+     */
+    public Task(String description, boolean isDone) {
+        description = description.trim();
+        this.description = description;
+        this.isDone = isDone;
+    }
+
+    /**
+     * Returns string representation of status and description for save file
+     *
+     * @return string representation of status and description for save file
+     */
+    public String getStatusAndDescription() {
+        return (this.isDone ? "1" : "0") + " | " + this.description;
+    }
+
+    /**
+     * Returns a string representation of the task suitable for saving
+     *
+     * @return string representation of the task in data file
+     */
+    public abstract String saveString();
 
     /**
      * Returns status icon of a given task
@@ -16,6 +49,8 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
+
+
 
     /**
      * Marks the status of task as done

@@ -17,6 +17,24 @@ public class DeadlineTask extends Task{
     }
 
     /**
+     * Constructor for DeadlineTask
+     *
+     * @param description description of task
+     * @param byDateTime  deadline of task
+     * @param isDone status of task
+     */
+    public DeadlineTask(String description, String byDateTime, boolean isDone) {
+        super(description, isDone);
+        byDateTime = byDateTime.trim();
+        this.byDateTime = byDateTime;
+    }
+
+    @Override
+    public String saveString() {
+        return "D | " + super.getStatusAndDescription() + " | " + byDateTime;
+    }
+
+    /**
      * Overrides string representation to show more complete information of Deadline task
      *
      * @return string representation of Deadline task
