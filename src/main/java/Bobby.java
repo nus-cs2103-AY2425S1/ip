@@ -3,25 +3,72 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Bobby is a chatbot that can manage a list of tasks, including ToDos, Deadlines, and Events.
+ * It can mark tasks as done, unmark, delete and add tasks.
+ */
 public class Bobby {
+
+    /**
+     * Greeting message displayed when the bot starts
+     */
     private static String greeting = "Hello! I'm Bobby\n"
             + "What can I do for you?\n";
+
+    /**
+     * Exit msg when the bot terminates
+     */
     private static String exit = "Bye. Hope to see you again soon!";
+
+    /**
+     * Scanner to read user input
+     */
     private static Scanner scan = new Scanner(System.in);
+
+    /**
+     * Storage instance for saving/loading tasks from a file
+     */
     private static Storage storage;
+
+    /**
+     * TaskList instance to manage the list of task
+     */
     private static TaskList taskList;
+
+    /**
+     * Parser instance to handle command parsing
+     */
     private static Parser parser;
+
+    /**
+     * File path to store task data
+     */
     private static final String FILE_PATH = "/Users/zhiyi/Desktop/CS2103T/Chatbot/src/main/task.txt";
 
+    /**
+     * Enum representing the basic types of tasks that Bobby can handle.
+     * T - ToDo
+     * D - Deadline
+     * E - Event
+     */
     private enum SimpleType {
         T, D, E
     }
 
+    /**
+     * Enum representation of the action that Bobby can take.
+     */
     public enum ActionType {
         bye, list, delete, mark, unmark, todo, deadline, event, retry
     }
 
-
+    /**
+     * Constructs a Task object from a string description.
+     *
+     * @param desc The string description of the task.
+     * @return A Task object corresponding to the description,
+     * or null if the input is invalid.
+     */
 
     public static Task constructTask(String desc) {
         String details[] = desc.split("/");
@@ -73,8 +120,10 @@ public class Bobby {
 
 
     /**
-     * Handles the "bye" command by printing the task list and
-     * writes all task into task.txt to be saved in disk
+     * Handles the "bye" command by saving all tasks to
+     * the file and printing the exit message.
+     *
+     * @throws Exception if there is an issue writing to the file.
      */
     private static void handle_bye() throws Exception {
         if (scan.nextLine().isEmpty()) {
@@ -86,8 +135,10 @@ public class Bobby {
     }
 
     /**
-     * Handles the "list" command by printing the task list and
-     * processing the next user action.
+     * Handles the "list" command by printing the task list
+     * and processing the next user action.
+     *
+     * @throws Exception if there is an issue processing the next action.
      */
     private static void handle_list() throws Exception {
         if (scan.nextLine().isEmpty()) {
@@ -99,8 +150,9 @@ public class Bobby {
     }
 
     /**
-     * Handles the "delete" command by deleting the specified task
-     * and processing the next user action.
+     * Handles the "delete" command by deleting the specified task from the list.
+     *
+     * @throws Exception if there is an issue processing the next action.
      */
     private static void handle_delete() throws Exception {
         int curr_task_index = scan.nextInt();
@@ -109,8 +161,9 @@ public class Bobby {
     }
 
     /**
-     * Handles the "mark" command by marking the specified task as done
-     * and processing the next user action.
+     * Handles the "mark" command by marking the specified task as done.
+     *
+     * @throws Exception if there is an issue processing the next action.
      */
     private static void handle_mark() throws Exception {
         Task curr_task;
@@ -139,8 +192,9 @@ public class Bobby {
     }
 
     /**
-     * Handles the "unmark" command by unmarking the specified task
-     * and processing the next user action.
+     * Handles the "unmark" command by unmarking the specified task as not done.
+     *
+     * @throws Exception if there is an issue processing the next action.
      */
     private static void handle_unmark() throws Exception {
         Task curr_task;
@@ -169,8 +223,9 @@ public class Bobby {
     }
 
     /**
-     * Handles the "todo" command by adding a new ToDo task
-     * and processing the next user action.
+     * Handles the "todo" command by adding a new ToDo task to the task list.
+     *
+     * @throws Exception if there is an issue processing the next action.
      */
     private static void handle_todo() throws Exception {
         String input = scan.nextLine();
@@ -188,8 +243,9 @@ public class Bobby {
     }
 
     /**
-     * Handles the "deadline" command by adding a new Deadline task
-     * and processing the next user action.
+     * Handles the "deadline" command by adding a new Deadline task to the task list.
+     *
+     * @throws Exception if there is an issue processing the next action.
      */
     private static void handle_deadline() throws Exception {
         String input = scan.nextLine();
@@ -217,8 +273,9 @@ public class Bobby {
     }
 
     /**
-     * Handles the "event" command by adding a new Event task
-     * and processing the next user action.
+     * Handles the "event" command by adding a new Event task to the task list.
+     *
+     * @throws Exception if there is an issue processing the next action.
      */
     private static void handle_event() throws Exception {
         String input = scan.nextLine();
