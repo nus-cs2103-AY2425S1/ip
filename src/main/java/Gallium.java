@@ -2,39 +2,34 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Gallium {
     public static void main(String[] args) {
         Ui ui = new Ui();
-        ArrayList<Task> taskList = new ArrayList<Task>();
-        TaskList tasklist = new TaskList(taskList);
+        TaskList taskList;
+
         String Message = ui.readNextLine();
         String bye = "bye";
         String list = "list";
         String mark = "mark";
         String unmark = "unmark";
 
-        // File dir = new File("./data");
-        // dir.mkdirs();
-        // File f = new File(dir, "gallium.txt");
-        // f.createNewFile();
         Storage storage = new Storage("./data/gallium.txt");
-        tasklist = storage.load();
+        taskList = storage.load();
 
         while (!Message.equals(bye)) {
             try {
                 if (Message.equals(list)) {
-                    ui.printList(tasklist);
+                    ui.printList(taskList);
                 } else if (Message.matches(mark + " \\d+") || Message.matches(unmark + " \\d+")) {
                     boolean isMark = Message.startsWith(mark);
                     Pattern pattern = Pattern.compile((isMark ? mark : unmark) + " (\\d+)");
                     Matcher matcher = pattern.matcher(Message);
                     if (matcher.matches()) {
                         int index = Integer.parseInt(matcher.group(1));
-                        Task task = taskList.get(index - 1);
+                        Task task = taskList.getTask(index - 1);
                         task.setIsDone(isMark);
                         ui.printMarkMessage(isMark, task);
                     }
@@ -107,20 +102,7 @@ public class Gallium {
             Message = ui.readNextLine();
         }
 
-        StringBuilder listStringBuilder = new StringBuilder();
-        for (int i = 1; i < Task.count; i++) {
-            Task task = taskList.get(i - 1);
-            listStringBuilder.append(task.toString()).append("\n");
-        }
-        String listString = listStringBuilder.toString();
-        try {
-            FileWriter fw = new FileWriter("./data/gallium.txt");
-            fw.write(listString);
-            fw.close();
-        } catch (IOException e) {
-            ui.showIOException(e);
-        }
-
+        storage.writeFile(ui);
         ui.printByeMessage();
         ui.closeScanner();
     }

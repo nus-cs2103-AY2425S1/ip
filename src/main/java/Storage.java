@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Storage {
     File filePath;
     Scanner scanner;
+    TaskList taskList;
 
     public Storage(String filePathString) {
         try {
@@ -24,7 +25,7 @@ public class Storage {
 
     public TaskList load() {
         ArrayList<Task> taskArrayList = new ArrayList<Task>();
-        TaskList taskList = new TaskList(taskArrayList);
+        this.taskList = new TaskList(taskArrayList);
         while (scanner.hasNextLine()) {
             String taskDesc = scanner.nextLine();
             if (taskDesc.startsWith("[T]")) {
@@ -40,6 +41,22 @@ public class Storage {
         }
         Task.count = taskArrayList.size() + 1;
         scanner.close();
-        return taskList;
+        return this.taskList;
+    }
+
+    public void writeFile(Ui ui) {
+        StringBuilder listStringBuilder = new StringBuilder();
+        for (int i = 1; i < Task.count; i++) {
+            Task task = taskList.get(i - 1);
+            listStringBuilder.append(task.toString()).append("\n");
+        }
+        String listString = listStringBuilder.toString();
+        try {
+            FileWriter fw = new FileWriter("./data/gallium.txt");
+            fw.write(listString);
+            fw.close();
+        } catch (IOException e) {
+            ui.showIOException(e);
+        }
     }
 }
