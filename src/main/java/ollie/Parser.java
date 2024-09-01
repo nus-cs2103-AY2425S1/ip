@@ -1,7 +1,13 @@
 package ollie;
 
+import ollie.task.TaskList;
+import ollie.ui.Ui;
+
 import ollie.exception.OllieException;
-import ollie.exception.UnknownTaskTypeException;
+
+import ollie.task.Deadline;
+import ollie.task.Event;
+import ollie.task.Todo;
 
 /**
  * The Parser class deals with making sense of the user command.
@@ -41,41 +47,57 @@ public class Parser {
     /**
      * Parses the user's command and returns the appropriate action.
      *
-     * @param userCommand The command entered by the user.
-     * @return The type of command parsed.
-     * @throws OllieException If the command is not recognized.
+     * @param userInput The input entered by the user.
+     * @param taskList  The list of tasks.
+     * @param ui        The user interface.
+     * @return The response by Ollie.
      */
-    public static Command parse(String userCommand) throws OllieException {
-        if (userCommand.equals("hello") || userCommand.equals("hi")) {
-            return Command.GREETING;
+    public static String parseUserCommand(String userInput, TaskList taskList, Ui ui) {
+        String[] splitInput = userInput.split(" ");
+        String command = splitInput[0].toLowerCase();
+
+        StringBuilder commandDescription = new StringBuilder();
+        for (int i = 1; i < splitInput.length; i++) {
+            if (i > 1) {
+                commandDescription.append(" ");
+            }
+            commandDescription.append(splitInput[i]);
         }
-        if (userCommand.equals("bye")) {
-            return Command.EXIT;
+        String commandDescriptionString = commandDescription.toString();
+
+        try {
+            switch (command) {
+            case "hello":
+                return ui.greeting();
+            case "bye":
+                return ui.exit();
+            case "list":
+                return taskList.listTasks();
+            case "mark":
+                int taskNumber = Parser.parseTaskNumber(userInput, 5);
+                return taskList.markTaskAsDone(taskNumber);
+            case "unmark":
+                int taskNumberToUnmark = Parser.parseTaskNumber(userInput, 7);
+                return taskList.unmarkTaskAsDone(taskNumberToUnmark);
+            case "delete":
+                int taskNumberDelete = Parser.parseTaskNumber(userInput, 7);
+                return taskList.deleteTask(taskNumberDelete);
+            case "find":
+                String keyword = Parser.parseKeyword(userInput);
+                return taskList.findTasksByKeyword(keyword);
+            case "todo":
+                return taskList.addTask(Todo.createTask(userInput));
+            case "deadline":
+                return taskList.addTask(Deadline.createTask(userInput));
+            case "event":
+                return taskList.addTask(Event.createTask(userInput));
+            default:
+                return Ui.returnErrorAsString(
+                        new OllieException("I am sorry, but please enter a valid command! ☺"));
+            }
+        } catch (OllieException e) {
+            return Ui.returnErrorAsString(e);
         }
-        if (userCommand.equals("list")) {
-            return Command.LIST;
-        }
-        if (userCommand.startsWith("mark ")) {
-            return Command.MARK;
-        }
-        if (userCommand.startsWith("unmark ")) {
-            return Command.UNMARK;
-        }
-        if (userCommand.startsWith("delete ")) {
-            return Command.DELETE;
-        }
-        if (userCommand.startsWith("find ")) {
-            return Command.FIND;
-        }
-        if (userCommand.startsWith("todo")) {
-            return Command.TODO;
-        }
-        if (userCommand.startsWith("deadline")) {
-            return Command.DEADLINE;
-        }
-        if (userCommand.startsWith("event")) {
-            return Command.EVENT;
-        }
-        throw new UnknownTaskTypeException();
     }
 }
+

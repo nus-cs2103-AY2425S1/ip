@@ -1,10 +1,7 @@
 package ollie;
 
 import ollie.exception.OllieException;
-import ollie.task.Deadline;
-import ollie.task.Event;
-import ollie.task.Task;
-import ollie.task.Todo;
+import ollie.task.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -104,14 +101,14 @@ public class Storage {
      * @param tasks The list of tasks.
      */
     public void saveTasks(ArrayList<Task> tasks) {
-        assert tasks != null : "Oops! ollie.task.Task list is empty.";
+        assert tasks != null : "Oops! Task list is empty.";
         try {
             File file = new File(this.filePath);
-            assert file != null : "Oops! File object cannot be null.";
+            assert file != null : "File object cannot be null.";
             FileWriter writer = new FileWriter(file);
 
             for (Task task : tasks) {
-                assert task != null : "Oops! ollie.task.Task object cannot be null.";
+                assert task != null : "Oops! Task object cannot be null.";
                 writer.write(task.saveAsString() + System.lineSeparator());
             }
             writer.close();
@@ -132,15 +129,15 @@ public class Storage {
             assert file != null : "Oops! File cannot be null.";
 
             if (!file.exists()) {
-                boolean created = file.createNewFile();
-                assert created : "Oops! Failed to create a new file for the list of tasks.";
+                boolean isCreated = file.createNewFile();
+                assert isCreated : "Oops! Failed to create a new file for the list of tasks.";
                 return this.taskList.getTasks();
             }
 
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
                 String taskData = fileScanner.nextLine();
-                assert taskData != null : "Oops! ollie.task.Task data string cannot be null.";
+                assert taskData != null : "Oops! Task data cannot be null.";
                 parseTask(taskData);
             }
             fileScanner.close();

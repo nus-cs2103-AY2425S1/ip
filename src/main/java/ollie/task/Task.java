@@ -2,8 +2,6 @@ package ollie.task;
 
 import ollie.exception.OllieException;
 
-import ollie.TaskType;
-
 import java.time.format.DateTimeFormatter;
 
 /**
