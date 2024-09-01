@@ -11,6 +11,14 @@ import astor.task.Task;
 
 import java.io.IOException;
 
+/**
+ * Represents a command for creating a deadline task.
+ *
+ * Allows the command to be executed to be stored in taskList, storage and sends reply to user through ui,
+ * and shows that this is not a terminal command.
+ *
+ * @author Choi Yi Hao
+ */
 public class DeadlineCommand extends Command {
     private String info;
 
