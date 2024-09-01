@@ -35,7 +35,7 @@ public class Janet {
             String userCommand = input.nextLine();
             String[] commandDetails = Parser.getCommandDetails(userCommand);    // converts user input into a String array
             try {
-                Parser.checkUserInput(commandDetails, tasks.getNumberOfTasks());    // runs all the checks to verify user input
+                Parser.userInputChecker(commandDetails, tasks.getNumberOfTasks());    // runs all the checks to verify user input
 
                 CommandType commandType = Parser.getCommand(commandDetails);    // get the CommandType
                 switch (commandType) {
