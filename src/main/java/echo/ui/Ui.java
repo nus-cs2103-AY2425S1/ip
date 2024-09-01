@@ -11,172 +11,157 @@ import echo.tasklist.TaskList;
  * @author Ernest Lim
  */
 public class Ui {
-    private static final String LINE_BREAK = "-----------------------------------------------";
+
+    /*
+                        ("   |\\---/|\n"
+                       + "   | ,_, |\n"
+                       + "    \\_'_/-..----.\n"
+                       + " ___/ `   ' ,\"\"+ \\  Meow\n"
+                       + "(__...'   __\\    |`.___.';\n"
+                       + "  (_,...'(_,.`__)/'.....+'\n")
+     */
 
     /**
-     * Prints a greeting
+     * Returns a string of greeting message
+     *
+     * @return a string of greeting message
      */
-    public void greet() {
-        System.out.println(LINE_BREAK);
-        System.out.println("   |\\---/|\n"
-                         + "   | ,_, |\n"
-                         + "    \\_'_/-..----.\n"
-                         + " ___/ `   ' ,\"\"+ \\  Meow\n"
-                         + "(__...'   __\\    |`.___.';\n"
-                         + "  (_,...'(_,.`__)/'.....+");
-        System.out.println("Meow I'm Echo");
-        System.out.println("What can I do for you?");
-        System.out.println(LINE_BREAK);
+    public String greet() {
+        String output = "Meow, I'm Echo\n";
+        output += "What can I do for you?";
+        return output;
     }
 
     /**
-     * Prints a goodbye message
+     * Returns a goodbye message
+     *
+     * @return a string of message saying goodbye
      */
-    public void bye() {
-        System.out.println(LINE_BREAK);
-        System.out.println("Goodnight! Hope to see you again soon!");
-        System.out.println("      |\\      _,,,---,,_\n"
-                         + "ZZZzz /,`.-'`'    -.  ;-;;,_\n"
-                         + "     |,4-  ) )-,_. ,\\ (  `'-'\n"
-                         + "    '---''(_/--'  `-'\\_)");
-        System.out.println(LINE_BREAK);
+    public String bye() {
+        String output = "The tasks in the list have been saved successfully!\n";
+        output += "Goodnight! Hope to see you again soon!\n";
+        return output;
     }
 
     /**
-     * Prints out the list of all tasks stored in taskList
+     * Returns the list of all tasks stored in taskList as a string
      *
      * @param taskList taskList containing all the tasks stored
+     * @return string od list of all tasks in taskList
      */
-    public void listAllTask(TaskList taskList) {
-        System.out.println(LINE_BREAK);
-        System.out.println("Here are the tasks in your list:");
+    public String listAllTask(TaskList taskList) {
+        String output = "Here are the tasks in your list:\n";
         for (int i = 0; i < taskList.sizeOfTaskList(); i++) {
-            System.out.println((i + 1) + "." + taskList.getTask(i).toString());
+            String task = (i + 1) + ". " + taskList.getTask(i).toString() + "\n";
+            output += task;
         }
-        System.out.println(LINE_BREAK);
+        return output;
     }
 
     /**
-     * Prints a display message about successful marking of task
+     * Returns a string of message about successful marking of task
      *
      * @param task task to be displayed in the message
+     * @return string of message about successful marking of task
      */
-    public void printMarkMessage(Task task) {
-        System.out.println(LINE_BREAK);
-        System.out.println("Meow-velous! I've marked this task as done:");
-        System.out.println(task.toString());
-        System.out.println(LINE_BREAK);
+    public String printMarkMessage(Task task) {
+        String output = "Meow-velous! I've marked this task as done:\n";
+        output += task.toString();
+        return output;
     }
 
     /**
-     * Prints a display message about successful unmarking of task
+     * Returns a string of message about successful unmarking of task
      *
      * @param task task to be displayed in the message
+     * @return string of message about successful unmarking of task
      */
-    public void printUnmarkMessage(Task task) {
-        System.out.println(LINE_BREAK);
-        System.out.println("Meow-nificent! I've marked this task as not done yet:");
-        System.out.println(task.toString());
-        System.out.println(LINE_BREAK);
+    public String printUnmarkMessage(Task task) {
+        String output = "Meow-nificent! I've marked this task as not done yet:\n";
+        output += task.toString();
+        return output;
     }
 
     /**
-     * Prints a display message of the task being added and the number of task in the list
+     * Returns a string of message of the task being added and the number of task in the list
      *
      * @param task task to be added
      * @param taskList taskList that the task is being added to
+     * @return string of message after successful adding of ToDos task
      */
-    public void printAddTaskMessage(Task task, TaskList taskList) {
+    public String printAddTaskMessage(Task task, TaskList taskList) {
         int numOfTask = taskList.sizeOfTaskList();
-        System.out.println(LINE_BREAK);
-        System.out.println("Got it! I've added this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + numOfTask + " tasks in the list.");
-        System.out.println(LINE_BREAK);
+        String output = "Got it! I've added this task:\n";
+        output += (task.toString() + "\n");
+        output += ("Now you have " + numOfTask + " tasks in the list.");
+        return output;
     }
 
     /**
-     * Prints a display message of the task being deleted and the number of task left in the list
+     * Returns a string of message of the task being deleted and the number of task left in the list
      *
      * @param task task to be deleted
      * @param taskList taskList that the task is being deleted from
-     *
+     * @return a string of message after successfully deleting task
      */
-    public void printDeleteMessage(Task task, TaskList taskList) {
+    public String printDeleteMessage(Task task, TaskList taskList) {
         int numOfTask = taskList.sizeOfTaskList();
-        System.out.println(LINE_BREAK);
-        System.out.println("Got it!. I've removed this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + numOfTask + " tasks in the list.");
-        System.out.println(LINE_BREAK);
+        String output = "Got it!. I've removed this task:";
+        output += (task.toString() + "\n");
+        output += ("Now you have " + numOfTask + " tasks in the list.");
+        return output;
     }
 
     /**
-     * Prints the list of task found in an arrayList of Task
+     * Returns a string of list of task found in an arrayList of Task
      *
      * @param arrayList arrayList containing a list of task
+     * @return string of list of task found in an arrayList of Task
      */
-    public void printFoundTask(ArrayList<Task> arrayList) {
-        System.out.println(LINE_BREAK);
+    public String printFoundTask(ArrayList<Task> arrayList) {
         if (arrayList.isEmpty()) {
-            System.out.println("There are no task found with the keyword");
+            return "There are no task found with the keyword";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            String output = "Here are the matching tasks in your list:\n";
             for (int i = 0; i < arrayList.size(); i++) {
-                System.out.println((i + 1) + "." + arrayList.get(i).toString());
+                String task = (i + 1) + "." + arrayList.get(i).toString() + "\n";
+                output += task;
             }
+            return output;
         }
-        System.out.println(LINE_BREAK);
     }
 
     /**
-     * Prints the error message of the respective exceptions being caught
+     * Return string of error message of the respective exceptions being caught
      *
      * @param exception exceptions that are caught while running the program
+     * @return string of error message of the respective exceptions being caught
      */
-    public void printErrorMessage(Exception exception) {
+    public String printErrorMessage(Exception exception) {
         switch (exception.getClass().getSimpleName()) {
         case "DateTimeParseException":
-            System.out.println(LINE_BREAK);
-            System.out.println("Sorry! You have provided an invalid date and time.");
-            System.out.println("Try again in this format dd-MM-yyyy HHmm");
-            System.out.println(LINE_BREAK);
-            break;
+            String dateTimeParseOutput = "Sorry! You have provided an invalid date and time.\n";
+            dateTimeParseOutput += "Try again in this format dd-MM-yyyy HHmm";
+            return dateTimeParseOutput;
         case "FileNotFoundException":
-            System.out.println(LINE_BREAK);
-            System.out.println("Sorry! File is not found, please check your file path again.");
-            System.out.println(LINE_BREAK);
-            break;
+            return "Sorry! File is not found, please check your file path again.";
         case "IOException":
-            System.out.println(LINE_BREAK);
-            System.out.println("Sorry! There has been an invalid input or output found.");
-            System.out.println(LINE_BREAK);
-            break;
+            return "Sorry! There has been an invalid input or output found.";
         case "EchoException":
-            System.out.println(LINE_BREAK);
-            System.out.println(exception.getMessage());
-            System.out.println(LINE_BREAK);
-            break;
+            return exception.getMessage();
         case "NumberFormatException":
-            System.out.println(LINE_BREAK);
-            System.out.println("Sorry! You have provided an invalid number.");
-            System.out.println(LINE_BREAK);
-            break;
+            return "Sorry! You have provided an invalid number.";
         default:
-            System.out.println(LINE_BREAK);
-            System.out.println(exception.getMessage());
-            System.out.println(LINE_BREAK);
-            break;
+            return exception.getMessage();
         }
     }
 
     /**
-     * Prints a list of valid commands and how to use them
+     * Returns a string of list of valid commands and how to use them
      *
      */
-    public void showValidCommands() {
-        System.out.println(LINE_BREAK);
-        System.out.println("List of valid commands:\n"
+    public String showValidCommands() {
+        return ("List of valid commands:\n"
                 + "list --> list\n"
                 + "mark --> mark [index]\n"
                 + "unmark --> unmark [index]\n"
