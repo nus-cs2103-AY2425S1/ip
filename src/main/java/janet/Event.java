@@ -59,27 +59,36 @@ public class Event extends Task {
             String[] descriptionArray = Arrays.copyOfRange(commandDetails, 1, indexOfFrom);
             description = String.join(" ", descriptionArray);
 
-            // get the start date (yyyy-mm-dd)
-            LocalDate startDate = LocalDate.parse(commandDetails[indexOfFrom + 1]);
-            String outputStartDate = startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            // converts start date from (yyyy-MM-dd) to (MM dd yyyy)
+            // converts start time from (hh:mm) to (hh:mm a)
+            startDateAndTime = DateAndTimeFormatter(commandDetails[indexOfFrom + 1], commandDetails[indexOfFrom + 2]);
 
-            // get the start time (hh:mm, 24hr format)
-            LocalTime inputStartTime = LocalTime.parse(commandDetails[indexOfFrom + 2]);
-            String outputStartTime = inputStartTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
-            startDateAndTime = outputStartDate + " " + outputStartTime;
-
-            // get the end date (yyyy-mm-dd)
-            LocalDate endDate = LocalDate.parse(commandDetails[indexOfTo + 1]);
-            String outputEndDate = endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-
-            // get the end time
-            LocalTime inputEndTime = LocalTime.parse(commandDetails[indexOfTo + 2]);
-            String outputEndTime = inputEndTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
-            endDateAndTime = outputEndDate + " " + outputEndTime;
+            // converts end date from (yyyy-MM-dd) to (MM dd yyyy)
+            // converts end time from (hh:mm) to (hh:mm a)
+            endDateAndTime = DateAndTimeFormatter(commandDetails[indexOfTo + 1], commandDetails[indexOfTo + 2]);
         } catch (DateTimeParseException e) {
             throw new JanetException("WHOOPS! Ensure that the start & end date are in the format: yyyy-MM-dd hh:mm (24hr)");
         }
         return new String[]{description, startDateAndTime, endDateAndTime};
+    }
+
+
+    /**
+     * Converts and returns the input date and time into appropriate formats
+     * date -> MM dd yyyy
+     * time -> hh:mm a
+     *
+     * @param inputDate A string representing a date in the format, yyyy-MM-dd
+     * @param inputTime A string representing a time in the format, hh:mm
+     * @return
+     */
+    public static String DateAndTimeFormatter(String inputDate, String inputTime) {
+        LocalDate localDate = LocalDate.parse(inputDate);
+        String date = localDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+
+        LocalTime localTime = LocalTime.parse(inputTime);
+        String time = localTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+        return date + " " + time;
     }
 
 
@@ -95,7 +104,7 @@ public class Event extends Task {
         String[] eventDetails = findEventDetails(commandDetails);
         DateTimeFormatter stringToDateTime = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");    // format the date and time
         String startDateAndTimeString = eventDetails[1];
-        LocalDateTime startDateAndTime = LocalDateTime.parse(startDateAndTimeString, stringToDateTime);
+        LocalDateTime startDateAndTime = LocalDateTime.parse(startDateAndTimeString, stringToDateTime); // format String to LocalDateTime
 
         String endDateAndTimeString = eventDetails[2];
         LocalDateTime endDateAndTime = LocalDateTime.parse(endDateAndTimeString, stringToDateTime);
