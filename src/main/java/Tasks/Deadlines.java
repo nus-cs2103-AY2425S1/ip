@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadlines extends Task {
-    private final LocalDate dueDate;
-    private final LocalTime dueTime;
+    private final LocalDate DUE_DATE;
+    private final LocalTime DUE_TIME;
 
     private LocalTime parseTime(String dueTimeString) {
         String hours = dueTimeString
@@ -22,12 +22,12 @@ public class Deadlines extends Task {
 
     private void validateDateTime() throws BrockException {
         LocalDate today = LocalDate.now();
-        if (this.dueDate.isBefore(today)) {
+        if (DUE_DATE.isBefore(today)) {
             throw new BrockException("Due date cannot be earlier than today!");
         }
-        if (this.dueTime != LocalTime.MAX) {
+        if (DUE_TIME != LocalTime.MAX) {
             LocalTime now = LocalTime.now();
-            if (this.dueTime.isBefore(now)) {
+            if (DUE_TIME.isBefore(now)) {
                 throw new BrockException("Due time cannot be earlier than now!");
             }
         }
@@ -36,8 +36,8 @@ public class Deadlines extends Task {
     public Deadlines(String description, String dueDateString) throws BrockException {
         super(description);
         try {
-            this.dueTime = LocalTime.MAX; // dummy value for time
-            this.dueDate = LocalDate.parse(dueDateString);
+            DUE_TIME = LocalTime.MAX; // dummy value for time
+            DUE_DATE = LocalDate.parse(dueDateString);
             validateDateTime();
         } catch (DateTimeParseException e) {
             throw new BrockException("Values in due date string are not valid!");
@@ -47,8 +47,8 @@ public class Deadlines extends Task {
     public Deadlines(String description, String dueDateString, String dueTimeString) throws BrockException {
         super(description);
         try {
-            this.dueTime = parseTime(dueTimeString);
-            this.dueDate = LocalDate.parse(dueDateString);
+            DUE_TIME = parseTime(dueTimeString);
+            DUE_DATE = LocalDate.parse(dueDateString);
             validateDateTime();
         } catch (DateTimeParseException e) {
             throw new BrockException("Values in due date string are not valid!");
@@ -61,12 +61,13 @@ public class Deadlines extends Task {
     }
 
     public String getExtraInfo() {
-        String dueDateFormatted = this.dueDate
-                .format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        String dueDateFormatted = DUE_DATE
+                .format(formatter);
         return "(by: " + dueDateFormatted
-                + (this.dueTime == LocalTime.MAX
+                + (DUE_TIME == LocalTime.MAX
                 ? ""
-                : ", " + this.dueTime.toString())
+                : ", " + DUE_TIME.toString())
                 + ")";
     }
 }
