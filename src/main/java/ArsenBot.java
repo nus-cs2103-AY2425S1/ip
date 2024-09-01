@@ -156,11 +156,9 @@ public class ArsenBot {
                     }
                 }
             }
-
         } else {
             throw new TaskManagerException("Error: Unrecognized command. Please enter a valid task command.");
         }
-
         if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")
                 || input.startsWith("mark") || input.startsWith("unmark") || input.startsWith("delete")) {
             saveTasksToFile();
