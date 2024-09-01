@@ -26,7 +26,7 @@ public class CommandTest {
 
     @BeforeEach
     public void setup() {
-        this.taskList = new TaskList();
+        this.taskList = new TaskList("Here are the tasks in your list:");
         this.ui = new Ui("");
         this.storage = new Storage("data/test.txt");
     }
