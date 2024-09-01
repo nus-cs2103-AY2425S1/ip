@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
- * Represents a user inputting a DeadlineCommand
+ * Represents a user inputting a DeadlineCommand.
  */
 public class DeadlineCommand extends Command {
 
@@ -19,9 +19,9 @@ public class DeadlineCommand extends Command {
     List<String> dateArray;
 
     /**
-     * Creates a DeadlineCommand with the specified description and date
-     * @param descriptionArray An array of the description specified by the user
-     * @param dateArray An array of the date specified by the user
+     * Creates a DeadlineCommand with the specified description and date.
+     * @param descriptionArray An array of the description specified by the user.
+     * @param dateArray An array of the date specified by the user.
      */
     public DeadlineCommand(List<String> descriptionArray, List<String> dateArray) {
         this.descriptionArray = descriptionArray;
@@ -29,11 +29,11 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Adds a Deadline task into the task list and outputs feedback to the user
-     * @param tasklist The list of tasks of the user
-     * @param ui The UI object to give user feedback
-     * @param storage The storage object to save/load tasks
-     * @throws AsuraException If saving user tasks fails
+     * Adds a Deadline task into the task list and outputs feedback to the user.
+     * @param tasklist The list of tasks of the user.
+     * @param ui The UI object to give user feedback.
+     * @param storage The storage object to save/load tasks.
+     * @throws AsuraException If saving user tasks fails.
      */
     public void execute(TaskList tasklist, Ui ui, Storage storage) throws AsuraException {
         String dateStr = String.join(" ", dateArray);
@@ -48,8 +48,8 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Indicates that the user does not want to terminate the program
-     * @return A boolean representing whether the program is to be terminated, in this case false
+     * Indicates that the user does not want to terminate the program.
+     * @return A boolean representing whether the program is to be terminated, in this case false.
      */
     public boolean isExit() {
         return false;
