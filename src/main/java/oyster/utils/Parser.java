@@ -1,12 +1,16 @@
 package oyster.utils;
 
-import oyster.commands.*;
-import oyster.exceptions.ParseException;
-import oyster.tasks.*;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import oyster.commands.Command;
+import oyster.exceptions.ParseException;
+import oyster.tasks.Task;
+import oyster.tasks.TaskList;
+
+/**
+ * Handles all parsing functions.
+ */
 public class Parser {
     /**
      * Parses a file into a TaskList.

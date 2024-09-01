@@ -2,6 +2,9 @@ package oyster.tasks;
 
 import oyster.exceptions.TaskFieldException;
 
+/**
+ * ToDoTask that can be marked.
+ */
 public class ToDoTask extends Task {
     public static final String FILE_SYMBOL = "T";
 
@@ -38,9 +41,9 @@ public class ToDoTask extends Task {
     @Override
     public String[] compose() {
         return new String[] {
-                FILE_SYMBOL,
-                isMarked() ? "1" : "0",
-                getDescription()
+            FILE_SYMBOL,
+            isMarked() ? "1" : "0",
+            getDescription()
         };
     }
 }

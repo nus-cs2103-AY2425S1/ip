@@ -1,14 +1,11 @@
 package oyster.tasks;
 
+/**
+ * Abstract Task class for TaskList.
+ */
 public abstract class Task {
     private boolean isComplete = false;
     private String description;
-
-    public static enum TASK_TYPES {
-        TODO,
-        DEADLINE,
-        EVENT
-    }
 
     /**
      * Create a Task given its values.

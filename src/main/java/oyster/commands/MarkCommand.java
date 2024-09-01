@@ -3,6 +3,9 @@ package oyster.commands;
 import oyster.LogicController;
 import oyster.tasks.TaskList;
 
+/**
+ * MarkCommand marks a Task when executed.
+ */
 public class MarkCommand extends Command {
     private final int index;
 
@@ -25,8 +28,8 @@ public class MarkCommand extends Command {
         try {
             taskList.mark(index);
             setMessage(new String[]{
-                    "Well done on completing the task!",
-                    "\t" + taskList.getTask(index).toString()
+                "Well done on completing the task!",
+                "\t" + taskList.getTask(index).toString()
             });
         } catch (Exception e) {
             setMessage("Task number does not exist!");

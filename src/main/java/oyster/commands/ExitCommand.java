@@ -3,6 +3,9 @@ package oyster.commands;
 import oyster.LogicController;
 import oyster.Oyster;
 
+/**
+ * ExitCommand closes the chatbot when executed.
+ */
 public class ExitCommand extends Command {
     /**
      * Creates an ExitCommand to exit the chatbot.

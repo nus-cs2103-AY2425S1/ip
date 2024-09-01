@@ -1,9 +1,12 @@
 package oyster.utils;
 
-import oyster.exceptions.DateFormatException;
-
 import java.time.LocalDateTime;
 
+import oyster.exceptions.DateFormatException;
+
+/**
+ * Formats input and DateTime.
+ */
 public class DateTimeFormatter {
     /**
      * Creates a LocalDateTime based on input String to parse.
@@ -70,13 +73,7 @@ public class DateTimeFormatter {
     public static String format(LocalDateTime date) {
         return String.format("%s %s %s",
                 date.getDayOfMonth(),
-                date.getMonth().toString().substring(0,3),
+                date.getMonth().toString().substring(0, 3),
                 date.getYear());
-//        return String.format("%s:%s %s %s %s",
-//                date.getHour(),
-//                date.getMinute(),
-//                date.getDayOfWeek(),
-//                date.getMonth(),
-//                date.getYear());
     }
 }

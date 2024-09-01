@@ -1,12 +1,15 @@
 package oyster;
 
-import oyster.commands.Command;
-import oyster.tasks.TaskList;
-import oyster.utils.Storage;
-import oyster.utils.Parser;
-
 import java.util.Scanner;
 
+import oyster.commands.Command;
+import oyster.tasks.TaskList;
+import oyster.utils.Parser;
+import oyster.utils.Storage;
+
+/**
+ * The main class that controls all components of the chatbot.
+ */
 public class LogicController {
     private static final Ui display = new Ui();
     private static boolean isRunning = false;
@@ -24,16 +27,16 @@ public class LogicController {
             taskList = Storage.loadTaskList();
         } catch (Exception e) {
             display.output(new String[]{
-                    e.getMessage(),
-                    "Save file deleted..."
+                e.getMessage(),
+                "Save file deleted..."
             });
             taskList = new TaskList();
             Storage.saveTaskList(taskList);
         }
 
         display.output(new String[]{
-                "Hello! I'm " + Oyster.CHATBOT_NAME,
-                "What can I do for you?"
+            "Hello! I'm " + Oyster.CHATBOT_NAME,
+            "What can I do for you?"
         });
 
         isRunning = true;
@@ -49,7 +52,9 @@ public class LogicController {
     }
 
     private static void awaitInput() {
-        if (!isRunning) return;
+        if (!isRunning) {
+            return;
+        }
 
         isAwaitingInput = true;
 

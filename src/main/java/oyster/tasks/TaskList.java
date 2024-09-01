@@ -2,6 +2,9 @@ package oyster.tasks;
 
 import java.util.ArrayList;
 
+/**
+ * TaskList class that holds Tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
@@ -99,7 +102,7 @@ public class TaskList {
         String result = "";
 
         for (int i = 0; i < tasks.size(); i++) {
-            result += String.format("%d. %s",i + 1 , tasks.get(i)) + (i < tasks.size() - 1 ? "\n" : "");
+            result += String.format("%d. %s", i + 1, tasks.get(i)) + (i < tasks.size() - 1 ? "\n" : "");
         }
 
         return result;

@@ -1,7 +1,8 @@
 package oyster.commands;
 
-import oyster.Oyster;
-
+/**
+ * ErrorCommand that does nothing and holds a message.
+ */
 public class ErrorCommand extends Command {
     /**
      * Creates an ErrorCommand that holds a message.

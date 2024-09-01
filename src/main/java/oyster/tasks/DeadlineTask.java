@@ -1,11 +1,14 @@
 package oyster.tasks;
 
+import java.time.LocalDateTime;
+import java.util.Scanner;
+
 import oyster.exceptions.TaskFieldException;
 import oyster.utils.DateTimeFormatter;
 
-import java.util.Scanner;
-import java.time.LocalDateTime;
-
+/**
+ * DeadlineTask contains a deadline.
+ */
 public class DeadlineTask extends Task {
     public static final String FILE_SYMBOL = "D";
 
@@ -73,10 +76,10 @@ public class DeadlineTask extends Task {
     @Override
     public String[] compose() {
         return new String[] {
-                FILE_SYMBOL,
-                isMarked() ? "1" : "0",
-                getDescription(),
-                deadline.toString()
+            FILE_SYMBOL,
+            isMarked() ? "1" : "0",
+            getDescription(),
+            deadline.toString()
         };
     }
 }

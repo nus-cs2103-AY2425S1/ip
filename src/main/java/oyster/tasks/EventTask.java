@@ -1,13 +1,15 @@
 package oyster.tasks;
 
-import oyster.exceptions.DateFormatException;
-import oyster.exceptions.OysterException;
-import oyster.exceptions.TaskFieldException;
-import oyster.utils.DateTimeFormatter;
-
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import oyster.exceptions.DateFormatException;
+import oyster.exceptions.TaskFieldException;
+import oyster.utils.DateTimeFormatter;
+
+/**
+ * EventTask contains a "from" date and a "to" date.
+ */
 public class EventTask extends Task {
     public static final String FILE_SYMBOL = "E";
 
@@ -96,11 +98,11 @@ public class EventTask extends Task {
     @Override
     public String[] compose() {
         return new String[] {
-                FILE_SYMBOL,
-                isMarked() ? "1" : "0",
-                getDescription(),
-                from.toString(),
-                to.toString()
+            FILE_SYMBOL,
+            isMarked() ? "1" : "0",
+            getDescription(),
+            from.toString(),
+            to.toString()
         };
     }
 }

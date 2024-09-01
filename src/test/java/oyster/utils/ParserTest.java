@@ -1,13 +1,13 @@
 package oyster.utils;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.Test;
+
 public class ParserTest {
     @Test
-    public void parseTest(){
+    public void parseTest() {
         assertEquals("""
                 1. [T][ ] Test task
                 2. [D][ ] Test task (by: 28 NOV 2002)
@@ -36,7 +36,7 @@ public class ParserTest {
     }
 
     @Test
-    public void corrupted(){
+    public void corrupted() {
         try {
             Parser.parseTaskList("""
                 T~ ~0Test task

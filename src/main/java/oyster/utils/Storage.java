@@ -8,9 +8,12 @@ import java.nio.file.Paths;
 import oyster.exceptions.ParseException;
 import oyster.tasks.TaskList;
 
+/**
+ * Class that handles saving and loading.
+ */
 public class Storage {
     private static final String SAVE_FILE_NAME = "oyster.txt";
-    private static final Path SAVE_PATH = Paths.get(".","save-data", SAVE_FILE_NAME);
+    private static final Path SAVE_PATH = Paths.get(".", "save-data", SAVE_FILE_NAME);
 
     private static boolean directoryExists() {
         return Files.exists(SAVE_PATH);
@@ -23,7 +26,9 @@ public class Storage {
      * @throws ParseException If parsing goes wrong.
      */
     public static TaskList loadTaskList() throws ParseException {
-        if (!directoryExists()) createSave();
+        if (!directoryExists()) {
+            createSave();
+        }
 
         try {
             return Parser.parseTaskList(Files.readString(SAVE_PATH));
@@ -42,7 +47,9 @@ public class Storage {
     }
 
     private static void writeSave(String text) throws IOException {
-        if (!directoryExists()) createSave();
+        if (!directoryExists()) {
+            createSave();
+        }
 
         try {
             Files.write(SAVE_PATH, text.getBytes());

@@ -1,7 +1,10 @@
 package oyster;
 
+/**
+ * Ui class that handles output display.
+ */
 public class Ui {
-    private int LINE_LENGTH = 50;
+    private static final int LINE_LENGTH = 50;
 
     /**
      * Displays a given Message.

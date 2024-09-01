@@ -1,8 +1,13 @@
 package oyster.commands;
 
 import oyster.LogicController;
-import oyster.tasks.*;
+import oyster.tasks.EventTask;
+import oyster.tasks.Task;
+import oyster.tasks.TaskList;
 
+/**
+ * EventCommand that creates an Event Task.
+ */
 public class EventCommand extends Command {
     private final Task task;
 
@@ -24,13 +29,13 @@ public class EventCommand extends Command {
         taskList.insert(task);
 
         setMessage(new String[] {
-                "Alright, the task has been added!",
-                "\t" + task.toString(),
-                String.format(
-                        "You now have %s %s!",
-                        taskList.length(),
-                        taskList.length() == 1 ? "task" : "tasks"
-                )
+            "Alright, the task has been added!",
+            "\t" + task.toString(),
+            String.format(
+                "You now have %s %s!",
+                taskList.length(),
+                taskList.length() == 1 ? "task" : "tasks"
+            )
         });
     }
 }

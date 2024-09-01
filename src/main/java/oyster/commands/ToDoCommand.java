@@ -1,11 +1,13 @@
 package oyster.commands;
 
 import oyster.LogicController;
-import oyster.tasks.DeadlineTask;
 import oyster.tasks.Task;
 import oyster.tasks.TaskList;
 import oyster.tasks.ToDoTask;
 
+/**
+ * ToDoCommand creates a new To Do task when executed.
+ */
 public class ToDoCommand extends Command {
     private final Task task;
 
@@ -27,13 +29,13 @@ public class ToDoCommand extends Command {
         taskList.insert(task);
 
         setMessage(new String[] {
-                "Alright, the task has been added!",
-                "\t" + task.toString(),
-                String.format(
-                        "You now have %s %s!",
-                        taskList.length(),
-                        taskList.length() == 1 ? "task" : "tasks"
-                )
+            "Alright, the task has been added!",
+            "\t" + task.toString(),
+            String.format(
+                "You now have %s %s!",
+                taskList.length(),
+                taskList.length() == 1 ? "task" : "tasks"
+            )
         });
     }
 }

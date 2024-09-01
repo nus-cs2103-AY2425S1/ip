@@ -1,11 +1,24 @@
 package oyster.utils;
 
-import oyster.commands.*;
+import java.util.Scanner;
+
+import oyster.commands.Command;
+import oyster.commands.DeadlineCommand;
+import oyster.commands.DeleteCommand;
+import oyster.commands.ErrorCommand;
+import oyster.commands.EventCommand;
+import oyster.commands.ExitCommand;
+import oyster.commands.FindCommand;
+import oyster.commands.ListCommand;
+import oyster.commands.MarkCommand;
+import oyster.commands.ToDoCommand;
+import oyster.commands.UnmarkCommand;
 import oyster.exceptions.DateFormatException;
 import oyster.exceptions.TaskFieldException;
 
-import java.util.Scanner;
-
+/**
+ * Parses commands.
+ */
 public class CommandParser {
     /**
      * Parses a singular line into a Command object.

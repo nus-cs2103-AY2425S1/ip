@@ -1,16 +1,14 @@
 package oyster.tasks;
 
-import org.junit.jupiter.api.Test;
-import oyster.utils.Parser;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
     @Test
-    public void empty(){
+    public void empty() {
         TaskList taskList = new TaskList();
 
         assertEquals("", taskList.toString());
@@ -19,12 +17,14 @@ public class TaskListTest {
     }
 
     @Test
-    public void add(){
+    public void add() {
         TaskList taskList = new TaskList();
 
         taskList.insert(new ToDoTask("Test"));
         taskList.insert(new DeadlineTask("Test", LocalDateTime.parse("2000-10-10T00:00:00")));
-        taskList.insert(new EventTask("Test", LocalDateTime.parse("2000-10-10T00:00:00"), LocalDateTime.parse("2000-10-11T00:00:00")));
+        taskList.insert(new EventTask("Test",
+                LocalDateTime.parse("2000-10-10T00:00:00"),
+                LocalDateTime.parse("2000-10-11T00:00:00")));
 
         taskList.mark(1);
         taskList.unmark(1);
@@ -39,12 +39,14 @@ public class TaskListTest {
     }
 
     @Test
-    public void remove(){
+    public void remove() {
         TaskList taskList = new TaskList();
 
         taskList.insert(new ToDoTask("Test"));
-        taskList.insert(new DeadlineTask("Test", LocalDateTime.parse("2000-10-10T00:00:00")));
-        taskList.insert(new EventTask("Test", LocalDateTime.parse("2000-10-10T00:00:00"), LocalDateTime.parse("2000-10-11T00:00:00")));
+        taskList.insert(new DeadlineTask("Test",
+                LocalDateTime.parse("2000-10-10T00:00:00")));
+        taskList.insert(new EventTask("Test",
+                LocalDateTime.parse("2000-10-10T00:00:00"), LocalDateTime.parse("2000-10-11T00:00:00")));
 
         taskList.pop(0);
         taskList.pop(0);

@@ -1,12 +1,9 @@
 package oyster.commands;
 
+/**
+ * Command Class that holds an executable callback.
+ */
 public abstract class Command {
-    public enum Type {
-        BYE,
-        ERROR,
-        LIST,
-        TODO,
-    }
     private String[] message;
 
     /**

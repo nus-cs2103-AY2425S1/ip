@@ -4,8 +4,9 @@ import oyster.LogicController;
 import oyster.tasks.Task;
 import oyster.tasks.TaskList;
 
-import java.util.ArrayList;
-
+/**
+ * FindCommand finds Tasks using a keyword when executed.
+ */
 public class FindCommand extends Command {
     private final String keyword;
 
@@ -29,8 +30,8 @@ public class FindCommand extends Command {
             setMessage("Oops, nothing found for '" + keyword + "'!");
         } else {
             setMessage(new String[] {
-                    "Tasks matching '" + keyword + "':",
-                    resultTaskList.toString()
+                "Tasks matching '" + keyword + "':",
+                resultTaskList.toString()
             });
         }
     }

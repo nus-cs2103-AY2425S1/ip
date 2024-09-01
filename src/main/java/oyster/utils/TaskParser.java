@@ -1,16 +1,19 @@
 package oyster.utils;
 
+import java.time.LocalDateTime;
+import java.util.Objects;
+
 import oyster.exceptions.ParseException;
 import oyster.tasks.DeadlineTask;
 import oyster.tasks.EventTask;
 import oyster.tasks.Task;
 import oyster.tasks.ToDoTask;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
-
+/**
+ * Parses Tasks.
+ */
 public class TaskParser {
-    private static String FILE_DELIMITER = "~ ~";
+    private static final String FILE_DELIMITER = "~ ~";
 
     /**
      * Parses a String into Task.
