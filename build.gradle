@@ -5,7 +5,7 @@ plugins {
     id 'checkstyle'
 }
 
-mainClassName = 'deez.Deez'
+mainClassName = 'app.Launcher'
 
 repositories {
     mavenCentral()
@@ -50,8 +50,6 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "deez"
-    archiveClassifier = null
     archiveFileName = 'deez.jar'
 }
 
