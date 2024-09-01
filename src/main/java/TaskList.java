@@ -72,4 +72,11 @@ public class TaskList {
         t.setDone(false);
         return ui.displayUnmarkedTask(t);
     }
+
+    public String deleteTask(int taskNum) {
+        System.out.println(taskNum);
+        Task t = taskList.get(taskNum - 1);
+        taskList.remove(taskNum - 1);
+        return ui.displayDeletedTask(t);
+    }
 }
