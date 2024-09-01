@@ -1,9 +1,14 @@
-import java.util.ArrayList;
+package jbot.util;
+
 import java.util.Scanner;
 
-public class Ui {
+import jbot.command.JBotCommand;
 
-    private static Scanner sc = new Scanner(System.in);
+public class Ui {
+    private Ui() {
+        throw new UnsupportedOperationException("Utility class cannot be instantiated");
+    }
+    private static final Scanner sc = new Scanner(System.in);
     public static void close() {
         sc.close();
     }

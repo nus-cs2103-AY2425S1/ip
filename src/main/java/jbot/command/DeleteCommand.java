@@ -1,4 +1,7 @@
-import java.util.ArrayList;
+package jbot.command;
+
+import jbot.task.Task;
+import jbot.util.TaskList;
 
 public class DeleteCommand extends AddCommand {
     private static final DeleteCommand instance = new DeleteCommand();

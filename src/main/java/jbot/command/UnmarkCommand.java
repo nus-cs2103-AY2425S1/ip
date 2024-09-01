@@ -1,4 +1,7 @@
-import java.util.ArrayList;
+package jbot.command;
+
+import jbot.task.Task;
+import jbot.util.TaskList;
 
 public class UnmarkCommand implements JBotCommand {
     private static final UnmarkCommand instance = new UnmarkCommand();

@@ -1,4 +1,6 @@
-import java.util.ArrayList;
+package jbot.command;
+
+import jbot.util.TaskList;
 
 public abstract class AddCommand implements JBotCommand {
     @Override

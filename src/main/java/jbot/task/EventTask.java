@@ -1,7 +1,9 @@
+package jbot.task;
+
 public class EventTask extends Task {
 
-    String from;
-    String to;
+    private String from;
+    private String to;
 
     public EventTask(String input) {
 
@@ -17,6 +19,14 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("%1$s (from: %2$s to: %3$s)", super.toString(), this.from, this.to);
+        return String.format("%1$s (from: %2$s to: %3$s)", super.toString(), this.getFrom(), this.getTo());
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
     }
 }

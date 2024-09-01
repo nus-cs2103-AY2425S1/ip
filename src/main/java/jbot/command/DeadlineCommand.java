@@ -1,4 +1,8 @@
-import java.util.ArrayList;
+package jbot.command;
+
+import jbot.task.DeadlineTask;
+import jbot.task.Task;
+import jbot.util.TaskList;
 
 public class DeadlineCommand extends AddCommand {
     private static final DeadlineCommand instance = new DeadlineCommand();

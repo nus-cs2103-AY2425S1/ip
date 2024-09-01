@@ -1,18 +1,18 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+package jbot;
 
+
+import jbot.command.ByeCommand;
+import jbot.command.JBotCommand;
+import jbot.util.Parser;
+import jbot.util.Storage;
+import jbot.util.Ui;
 
 public class JBot {
     private static boolean isRunning = true;
-
-    private static TaskList taskList;
-
     private static void init() {
         Storage.init();
         Parser.init();
-        JBot.taskList = Storage.parseData();
+        Storage.parseData();
     }
 
     public static void close() {
