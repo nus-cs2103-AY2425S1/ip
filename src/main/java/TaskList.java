@@ -1,3 +1,5 @@
+import com.sun.source.util.TaskListener;
+
 import java.util.ArrayList;
 
 /** TaskList serves the purpose of where all the Task is being stored
@@ -29,6 +31,16 @@ public class TaskList {
 
     int size() {
         return this.tasks.size();
+    }
+
+    Task getTask(int index) {
+        return this.tasks.get(index);
+    }
+
+    void listTasks() {
+        for (Task t : this.tasks) {
+            System.out.println(t);
+        }
     }
 
     String getTaskToString(int index) {
