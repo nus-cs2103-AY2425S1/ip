@@ -32,9 +32,23 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duck instance */
+    /** Injects the Duck instance and render startup message. */
     public void setDuck(Duck d) {
         this.duck = d;
+        // Render the startup message automatically when the Duck instance is set
+        displayStartUpMessage();
+    }
+
+    /**
+     * Displays the startup message from Duck.
+     */
+    private void displayStartUpMessage() {
+        if (duck != null) {
+            String startUpMessage = duck.getStartUpMessage();
+            dialogContainer.getChildren().add(
+                    DialogBox.getDuckDialog(startUpMessage, duckImage)
+            );
+        }
     }
 
     /**
