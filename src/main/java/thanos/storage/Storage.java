@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import thanos.exceptions.InvalidDateException;
 import thanos.exceptions.InvalidTaskException;
 import thanos.tasks.Deadline;
 import thanos.tasks.Event;
@@ -189,7 +190,7 @@ public class Storage implements IStorage {
                 task.setDone(isDone);
             }
             return task;
-        } catch (InvalidTaskException | DateTimeParseException e) {
+        } catch (InvalidTaskException | DateTimeParseException | InvalidDateException e) {
             System.out.println(e.getMessage());
             return null;
         }

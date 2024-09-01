@@ -46,7 +46,7 @@ test {
 }
 
 application {
-    mainClass.set("thanos.Thanos")
+    mainClass.set("thanos.Launcher")
 }
 
 shadowJar {

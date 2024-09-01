@@ -1,11 +1,12 @@
 package thanos.commands;
 
+import static thanos.utility.ResponseFormatter.generateTaskListResponse;
+
 import java.util.ArrayList;
 
 import thanos.exceptions.InvalidCommandException;
 import thanos.tasks.Task;
 import thanos.tasks.TaskList;
-import thanos.ui.Ui;
 
 /**
  * Represents a command to list all tasks in the {@code TaskList}.
@@ -23,18 +24,17 @@ public class ListCommand extends Command {
     /**
      * Executes the command to retrieve and display the list of all tasks.
      * <p>
-     * This method retrieves the current list of tasks from the {@code TaskList} and passes it to the {@code Ui}
-     * component for display. A message is shown to indicate that the tasks are being listed.
+     * This method retrieves the current list of tasks from the {@code TaskList} and returns a formatted string
+     * that lists the tasks with an appropriate header.
      * </p>
      *
-     * @param taskList the list of tasks to be retrieved and displayed.
-     * @param ui the user interface component used to display the tasks to the user.
-     *
-     * @throws InvalidCommandException if there is an issue retrieving or displaying the tasks.
+     * @param taskList The {@code TaskList} containing the tasks to be retrieved and displayed.
+     * @return A formatted string listing all tasks along with a header.
+     * @throws InvalidCommandException If there is an issue with retrieving or formatting the tasks.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) throws InvalidCommandException {
+    public String execute(TaskList taskList) throws InvalidCommandException {
         ArrayList<Task> result = taskList.getTaskList();
-        ui.displayTasks(result, "Here are the tasks in your list:");
+        return generateTaskListResponse(result, "Here are the tasks in your list:");
     }
 }
