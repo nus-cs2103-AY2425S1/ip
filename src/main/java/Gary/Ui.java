@@ -1,5 +1,7 @@
-import java.util.List;
+package Gary;
+
 import java.util.Scanner;
+import Gary.task.Task;
 public class Ui {
     Scanner detector;
     public Ui() {

@@ -1,6 +1,12 @@
-import java.io.IOException;
+package Gary.command;
 
-public class EditTaskCommand extends Command{
+import java.io.IOException;
+import Gary.TaskList;
+import Gary.Ui;
+import Gary.Storage;
+import Gary.task.Task;
+
+public class EditTaskCommand extends Command {
     protected boolean isDone;
     protected int index;
 
@@ -21,7 +27,7 @@ public class EditTaskCommand extends Command{
             }
             storage.saveTask(taskLists);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Task List index is out of bounds!!");
+            System.out.println("Gary.task.Task List index is out of bounds!!");
         } catch (IOException e) {
 
         }
