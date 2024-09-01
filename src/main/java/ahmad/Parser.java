@@ -43,7 +43,8 @@ public class Parser {
             return Add::event;
         case "delete":
             return Delete::process;
+        default:
+            throw new CommandInvalidException();
         }
-        throw new CommandInvalidException();
     }
 }

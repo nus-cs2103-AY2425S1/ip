@@ -18,7 +18,8 @@ import ahmad.response.Response;
 public class Add {
     private static Response process(Task newTask) {
         ahmad.processor.task.TaskList.addTask(newTask);
-        return new Response(java.util.List.of("Got it! I have added:\n  " + newTask + "\n" + "You now have " + TaskList.getTaskCount() + " tasks!"), false, true);
+        return new Response(java.util.List.of("Got it! I have added:\n  "
+                + newTask + "\n" + "You now have " + TaskList.getTaskCount() + " tasks!"), false, true);
     }
 
     /**
@@ -34,7 +35,9 @@ public class Add {
      * @throws DeadlineInvalidTimeException If given time is invalid.
      * @throws EventInvalidTimeException    If given time is invalid.
      */
-    public static Response todo(String prompt) throws TodoEmptyNameException, DeadlineInvalidArgsException, DeadlineEmptyNameException, EventEmptyNameException, EventInvalidArgsException, DeadlineInvalidTimeException, EventInvalidTimeException {
+    public static Response todo(String prompt) throws TodoEmptyNameException, DeadlineInvalidArgsException,
+            DeadlineEmptyNameException, EventEmptyNameException, EventInvalidArgsException,
+            DeadlineInvalidTimeException, EventInvalidTimeException {
         final List<String> prompts = Arrays.asList(prompt.split("todo "));
         if (prompts.size() < 2) {
             throw new TodoEmptyNameException();
@@ -56,7 +59,9 @@ public class Add {
      * @throws DeadlineInvalidTimeException If given time is invalid.
      * @throws EventInvalidTimeException    If given time is invalid.
      */
-    public static Response deadline(String prompt) throws DeadlineEmptyNameException, DeadlineInvalidArgsException, EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException, DeadlineInvalidTimeException, EventInvalidTimeException {
+    public static Response deadline(String prompt) throws DeadlineEmptyNameException, DeadlineInvalidArgsException,
+            EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException,
+            DeadlineInvalidTimeException, EventInvalidTimeException {
         final List<String> prompts = Arrays.asList(prompt.split("deadline "));
         if (prompts.size() < 2) {
             throw new DeadlineEmptyNameException();
@@ -78,7 +83,9 @@ public class Add {
      * @throws DeadlineInvalidTimeException If given time is invalid.
      * @throws EventInvalidTimeException    If given time is invalid.
      */
-    public static Response event(String prompt) throws DeadlineInvalidArgsException, DeadlineEmptyNameException, EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException, DeadlineInvalidTimeException, EventInvalidTimeException {
+    public static Response event(String prompt) throws DeadlineInvalidArgsException, DeadlineEmptyNameException,
+            EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException,
+            DeadlineInvalidTimeException, EventInvalidTimeException {
         final List<String> prompts = Arrays.asList(prompt.split("event "));
         if (prompts.size() < 2) {
             throw new EventEmptyNameException();

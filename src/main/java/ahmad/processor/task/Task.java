@@ -57,7 +57,9 @@ public abstract class Task {
      * @throws DeadlineInvalidTimeException If given time is invalid.
      * @throws EventInvalidTimeException    If given time is invalid.
      */
-    public static Task of(TaskType type, String arg) throws DeadlineInvalidArgsException, DeadlineEmptyNameException, EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException, DeadlineInvalidTimeException, EventInvalidTimeException {
+    public static Task of(TaskType type, String arg) throws DeadlineInvalidArgsException, DeadlineEmptyNameException,
+            EventEmptyNameException, EventInvalidArgsException, TodoEmptyNameException,
+            DeadlineInvalidTimeException, EventInvalidTimeException {
         switch (type) {
         case Todo:
             if (arg.replaceAll("\\s+", "").isEmpty()) {
@@ -91,7 +93,8 @@ public abstract class Task {
                 throw new EventInvalidArgsException();
             }
 
-            final String from, to;
+            final String from;
+            final String to;
             if (eventArgs.get(1).startsWith("to")) {
                 if (!eventArgs.get(2).startsWith("from")
                         || eventArgs.get(1).replaceAll("\\s+", "").length() == 2
@@ -112,7 +115,8 @@ public abstract class Task {
                 throw new EventInvalidArgsException();
             }
 
-            final LocalDateTime fromDate, toDate;
+            final LocalDateTime fromDate;
+            final LocalDateTime toDate;
 
             try {
                 fromDate = LocalDateTime.parse(from.replaceAll("\\s+", ""));
@@ -127,9 +131,9 @@ public abstract class Task {
             }
 
             return new Event(eventArgs.get(0), fromDate, toDate);
+        default:
+            throw new IllegalStateException();
         }
-
-        throw new IllegalStateException();
     }
 
     /**

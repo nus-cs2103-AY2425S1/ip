@@ -21,10 +21,13 @@ public class Mark {
      * @throws MarkInvalidNumberException    If given index is invalid.
      * @throws MarkIndexOutOfBoundsException If given index is out of bounds.
      */
-    public static Response process(String prompt) throws MarkInvalidArgsException, MarkInvalidNumberException, MarkIndexOutOfBoundsException {
+    public static Response process(String prompt) throws MarkInvalidArgsException, MarkInvalidNumberException,
+            MarkIndexOutOfBoundsException {
         final List<String> prompts = Arrays.asList(prompt.split(" "));
 
-        if (prompts.size() != 2) throw new MarkInvalidArgsException();
+        if (prompts.size() != 2) {
+            throw new MarkInvalidArgsException();
+        }
 
         try {
             final int idx = Integer.parseInt(prompts.get(1)) - 1;

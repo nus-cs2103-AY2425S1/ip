@@ -20,10 +20,13 @@ public class Unmark {
      * @throws UnmarkInvalidNumberException    If number/index is invalid.
      * @throws UnmarkIndexOutOfBoundsException If index is out of bounds.
      */
-    public static Response process(String prompt) throws UnmarkInvalidArgsException, UnmarkInvalidNumberException, UnmarkIndexOutOfBoundsException {
+    public static Response process(String prompt) throws UnmarkInvalidArgsException, UnmarkInvalidNumberException,
+            UnmarkIndexOutOfBoundsException {
         final java.util.List<String> prompts = Arrays.asList(prompt.split(" "));
 
-        if (prompts.size() != 2) throw new UnmarkInvalidArgsException();
+        if (prompts.size() != 2) {
+            throw new UnmarkInvalidArgsException();
+        }
 
         try {
             final int idx = Integer.parseInt(prompts.get(1)) - 1;

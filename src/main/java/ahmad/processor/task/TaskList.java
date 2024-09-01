@@ -19,7 +19,9 @@ public class TaskList {
         if (list.isEmpty()) {
             return List.of("No items!");
         }
-        return List.of(IntStream.range(0, list.size()).mapToObj(i -> (i + 1) + ". " + list.get(i)).reduce("", (acc, cur) -> acc + '\n' + cur));
+
+        return List.of(IntStream.range(0, list.size()).mapToObj(i -> (i + 1) + ". " + list.get(i))
+                .reduce("", (acc, cur) -> acc + '\n' + cur));
     }
 
     /**

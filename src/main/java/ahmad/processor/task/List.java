@@ -15,7 +15,9 @@ public class List {
      * @throws ListInvalidArgsException If the prompt is invalid.
      */
     public static Response process(String prompt) throws ListInvalidArgsException {
-        if (prompt.length() != 4) throw new ListInvalidArgsException();
+        if (prompt.length() != 4) {
+            throw new ListInvalidArgsException();
+        }
         return new Response(ahmad.processor.task.TaskList.getStringList());
     }
 }
