@@ -9,6 +9,7 @@ import java.util.Scanner;
  */
 public class Lumina {
 
+    private static int luminaCount = 0;
     private static final String ECHO_EXIT_STRING = "bye";
     private static final String ECHO_LIST_STRING = "list";
     private static final String ECHO_MARK_TASK_STRING = "mark";
@@ -24,9 +25,17 @@ public class Lumina {
 
     /**
      * Constructor for the chatbot
+     *
+     * @throws IllegalStateException If already instantiated
      */
     public Lumina() {
+        if (luminaCount > 0) {
+            // since for now we only have one data file, we will prevent more instantiation
+            // of more than once Lumina instance, to prevent data from being corrupted
+            throw new IllegalStateException("Lumina has already been instantiated!");
+        }
         tasks = new ArrayList<>();
+        luminaCount++;
     }
 
 
