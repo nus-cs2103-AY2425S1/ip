@@ -4,9 +4,6 @@ import java.util.List;
 import java.io.IOException;
 
 public class Parser {
-    private TaskList taskList;
-    private final Storage storage;
-
 
     private enum Action {
         BYE,
@@ -22,13 +19,9 @@ public class Parser {
     }
 
     public Parser() {
-        this.taskList = new TaskList();
-        this.storage = new Storage();
-        // this.hasUpdatedWithDataStorage = false;
-        this.taskList.loadTask(this.storage.getData());
     }
 
-    private Action categorise(String input) {
+    private static Action categorise(String input) {
         if (input.equals("bye")) {
             return Action.BYE;
         } else if (input.startsWith("mark")) {
@@ -51,19 +44,43 @@ public class Parser {
         return Action.DEFAULT;
     }
 
-    public String process(String input) throws AstorException {
+    public static Command process(String input) throws AstorException {
         Action action = categorise(input);
-        List<Task> listOfTasks = this.taskList.getTaskList();
+        switch (action) {
+        case MARK:
+            return new MarkCommand(input);
+        case UNMARK:
+            return new UnmarkCommand(input);
+        case LIST:
+            return new ListCommand();
+        case DELETE:
+            return new DeleteCommand(input);
+        case TODO:
+            return new TodoCommand(input);
+        case DEADLINE:
+            return new DeadlineCommand(input);
+        case EVENT:
+            return new EventCommand(input);
+        case EMPTY:
+            throw new EmptyInputException();
+        case BYE:
+            return new ExitCommand();
+        case DEFAULT:
+            throw new UnspecificTaskException();
+        }
+        return null;
+    }
+
+
+        /*
+
         switch (action) {
         case BYE:
             return "Bye. Hope to see you again!";
         case LIST:
             String reply = "Here are the tasks in your list:";
             int indexA = 1;
-            for (Task t : listOfTasks) {
-                reply += "\n" + indexA + ". " + t.toString();
-                indexA++;
-            }
+            reply += taskList.getTaskList();
             return reply;
         case MARK:
             int indexB;
@@ -193,5 +210,7 @@ public class Parser {
             throw new UnspecificTaskException();
         }
         return "";
-    }
+
+         */
+
 }

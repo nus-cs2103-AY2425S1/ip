@@ -13,6 +13,7 @@ public class Ui {
         parser = new Parser();
     }
 
+    /*
     public void start() {
         System.out.println(INTRODUCTION_LINE);
         Scanner scanner = new Scanner(System.in);
@@ -33,7 +34,9 @@ public class Ui {
         scanner.close();
     }
 
-    /*
+     */
+
+
     public void showWelcome() {
         System.out.println(INTRODUCTION_LINE);
         this.scanner = new Scanner(System.in);
@@ -43,11 +46,20 @@ public class Ui {
         if (scanner.hasNextLine()) {
             return scanner.nextLine();
         }
+        return null;
     }
 
     public void showLine() {
         System.out.println(SEPARATOR_LINE);
     }
 
-     */
+    public void showError(String message) {
+        System.out.println(message);
+    }
+
+    public void showOutput (String output) {
+        System.out.println(output);
+    }
+
+
 }

@@ -11,19 +11,20 @@ import java.util.Scanner;
 
 public class Storage {
 
-    private final Path path = Paths.get("./src/main/data/Astor.txt");
+    // private final Path path = Paths.get("./src/main/data/Astor.txt");
     private FileWriter fw;
     private File file;
 
-    public Storage() {
+    public Storage(String filePath) {
         try {
-            this.fw = createNewDataStore();
+            this.fw = createNewDataStore(filePath);
         } catch (IOException e) {
             System.out.println("Error occurred while loading the file: " + e.getMessage());
         }
     }
 
-    private FileWriter createNewDataStore() throws IOException {
+    private FileWriter createNewDataStore(String filePath) throws IOException {
+        Path path = Paths.get(filePath);
         File file = path.toFile();
         if (!file.exists()) {
             file.createNewFile();
