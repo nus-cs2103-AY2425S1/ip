@@ -9,10 +9,10 @@ public class Ui {
 
     private Scanner scanner;
     private String introduction = """
-                Hello! I'm Asura!
-                What can I do for you?""";
+            Hello! I'm Asura!
+            What can I do for you?""";
     private String goodbye = """
-                Bye. Hope to see you again soon!""";
+            Bye. Hope to see you again soon!""";
 
     /**
      * Creates a UI.

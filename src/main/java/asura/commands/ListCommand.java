@@ -9,7 +9,8 @@ import asura.ui.Ui;
  */
 public class ListCommand extends Command {
 
-    public ListCommand() {}
+    public ListCommand() {
+    }
 
     /**
      * Outputs the list of tasks of the user.

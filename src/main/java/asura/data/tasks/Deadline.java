@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a Deadline.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected LocalDateTime by;
 
     /**

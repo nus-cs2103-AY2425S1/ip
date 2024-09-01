@@ -3,7 +3,7 @@ package asura.data.tasks;
 /**
  * Represents a Todo.
  */
-public class Todo extends Task{
+public class Todo extends Task {
     /**
      * Creates a Todo with the specified description.
      * @param description The description of the Todo.

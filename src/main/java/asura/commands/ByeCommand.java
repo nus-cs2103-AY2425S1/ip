@@ -9,7 +9,8 @@ import asura.ui.Ui;
  */
 public class ByeCommand extends Command {
 
-    public ByeCommand() {}
+    public ByeCommand() {
+    }
 
     /**
      * No operations to be done when user exits the program.
@@ -17,7 +18,8 @@ public class ByeCommand extends Command {
      * @param ui The UI object to give user feedback.
      * @param storage The storage object to save/load tasks.
      */
-    public void execute(TaskList tasklist, Ui ui, Storage storage) {}
+    public void execute(TaskList tasklist, Ui ui, Storage storage) {
+    }
 
     /**
      * Indicates that the user wants to terminate the program.
