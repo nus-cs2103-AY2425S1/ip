@@ -3,6 +3,7 @@ package rose;
 import rose.task.Task;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
@@ -65,4 +66,16 @@ public class Ui {
         this.display("  " + task.toString());
         this.display(String.format("Now you have %d tasks in the list.", size));
     }
+
+    public void showFind(ArrayList<Task> matchingTasks) {
+        if (!matchingTasks.isEmpty()) {
+            this.display(String.format("Here are %d tasks that matches your keyword : ", matchingTasks.size()));
+            for (Task task : matchingTasks) {
+                this.display(task.toString());
+            }
+        } else {
+            this.display("There is no task that matches your keyword :(");
+        }
+    }
+
 }

@@ -40,4 +40,17 @@ public class TaskList {
             ui.display((i + 1) + ". " + tasks.get(i).toString());
         }
     }
+
+    public void findTask(String keyword, Ui ui) {
+        ArrayList<Task> matchingTasks = new ArrayList<Task>();
+        for (Task task : tasks) {
+            if (task.hasWord(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        ui.showFind(matchingTasks);
+
+
+    }
 }

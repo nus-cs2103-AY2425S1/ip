@@ -7,6 +7,7 @@ import rose.command.ListCommand;
 import rose.command.ExitCommand;
 import rose.command.MarkCommand;
 import rose.command.UnmarkCommand;
+import rose.command.FindCommand;
 import rose.task.TaskType;
 
 public class Parser {
@@ -39,6 +40,11 @@ public class Parser {
                     throw new RoseException("You need to provide details for the DEADLINE task.");
                 }
                 return new AddCommand(TaskType.DEADLINE, message);
+            case "find":
+                if (message.isEmpty()) {
+                    throw new RoseException("You need to provide keyword that you want to find.");
+                }
+                return new FindCommand(message);
             case "delete":
                 return new DeleteCommand(Integer.valueOf(message));
             case "bye":
