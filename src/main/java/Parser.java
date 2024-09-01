@@ -1,4 +1,13 @@
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Parser {
+
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    private static final Pattern DEADLINE_FORMAT = Pattern.compile(" (?<desc>.*)");
+
     public static Task createTask(String taskDescription) throws IllegalInputPotongException {
         String[] arr = taskDescription.split("\\|");
         for (int i = 0; i < arr.length; i++) {
@@ -27,4 +36,35 @@ public class Parser {
         }
         return result;
     }
+
+    public static Command parse(String input) {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
+        if (!matcher.matches()) {
+
+        }
+        final String commandWord = matcher.group("commandWord");
+        final String arguments = matcher.group("arguments").strip();
+
+        switch (commandWord) {
+            case "bye":
+                return new ExitCommand(arguments);
+            case "list":
+                return new ListCommand(arguments);
+            case "mark":
+                return new MarkCommand(arguments, true);
+            case "unmark":
+                return new MarkCommand(arguments, false);
+            case "delete":
+                return new DeleteCommand(arguments);
+            case "todo":
+                return new AddCommand(arguments, AddCommand.Type.TODO);
+            case "deadline":
+                return new AddCommand(arguments, AddCommand.Type.DEADLINE);
+            case "event":
+                return new AddCommand(arguments, AddCommand.Type.EVENT);
+            default:
+                return null;
+        }
+    }
+
 }
