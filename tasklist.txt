@@ -1,0 +1,3 @@
+Todo | true | read book
+Deadline | false | return book | Sunday
+Event | false | project meeting | today | tomorrow
