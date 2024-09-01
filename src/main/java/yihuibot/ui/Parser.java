@@ -102,7 +102,7 @@ public class Parser {
      * @return an Exit Executable.
      * @throws TooManyArgumentsException when command is called with any arguments.
      */
-    private Executable bye(String[] arguments) throws TooManyArgumentsException {
+    private Executable bye(String... arguments) throws TooManyArgumentsException {
         if (arguments != null) {
             throw new TooManyArgumentsException(0);
         }
@@ -117,7 +117,7 @@ public class Parser {
      * @return an ListTask Executable.
      * @throws TooManyArgumentsException when command is called with any arguments.
      */
-    private Executable list(String[] arguments) throws TooManyArgumentsException {
+    private Executable list(String... arguments) throws TooManyArgumentsException {
         if (arguments != null) {
             throw new TooManyArgumentsException(0);
         }
@@ -134,7 +134,7 @@ public class Parser {
      * @throws TooManyArgumentsException when more than one argument is provided.
      * @throws InvalidArgumentException when the argument for 'mark' is not an integer.
      */
-    private Executable mark(String[] arguments) throws TooLittleArgumentsException,
+    private Executable mark(String... arguments) throws TooLittleArgumentsException,
             TooManyArgumentsException, InvalidArgumentException {
         String sample = "mark 2";
 
@@ -164,7 +164,7 @@ public class Parser {
      * @throws TooManyArgumentsException when more than one argument is provided.
      * @throws InvalidArgumentException when the argument for 'unmark' is not an integer.
      */
-    private Executable unmark(String[] arguments) throws TooLittleArgumentsException,
+    private Executable unmark(String... arguments) throws TooLittleArgumentsException,
             TooManyArgumentsException, InvalidArgumentException {
         String sample = "unmark 2";
 
@@ -194,7 +194,7 @@ public class Parser {
      * @throws TooManyArgumentsException when more than one argument is provided.
      * @throws InvalidArgumentException when the argument for 'delete' is not an integer.
      */
-    private Executable delete(String[] arguments) throws TooLittleArgumentsException,
+    private Executable delete(String... arguments) throws TooLittleArgumentsException,
             TooManyArgumentsException, InvalidArgumentException {
         String sample = "delete 2";
 
@@ -222,7 +222,7 @@ public class Parser {
      * @return a AddTask Executable.
      * @throws MissingDescriptionException when no description is provided for the Todo Task.
      */
-    private Executable todo(String[] arguments) throws MissingDescriptionException {
+    private Executable todo(String... arguments) throws MissingDescriptionException {
         String sample = "todo read book";
 
         if (arguments == null || arguments.length < 1) {
@@ -246,7 +246,7 @@ public class Parser {
      * @throws InvalidArgumentException when the deadline cannot be converted into a LocalDateTime
      *                                  object.
      */
-    private Executable deadline(String[] arguments) throws MissingDescriptionException,
+    private Executable deadline(String... arguments) throws MissingDescriptionException,
             MissingDeadlineException, InvalidArgumentException {
         String sample = "deadline return book /by 2024-04-08 06:30";
 
@@ -289,7 +289,7 @@ public class Parser {
      *                                  object.
      * @throws IncorrectArrangementException when user input the end time before the start time.
      */
-    private Executable event(String[] arguments) throws MissingDescriptionException,
+    private Executable event(String... arguments) throws MissingDescriptionException,
             MissingStartTimeException, MissingEndTimeException, InvalidArgumentException,
             IncorrectArrangementException {
         String sample = "event project meeting /from 2024-04-08 10:30 /to 2024-04-08 12:30";
@@ -345,7 +345,7 @@ public class Parser {
      * @return a FilterTask Executable.
      * @throws TooLittleArguments if no arguments are called with 'find'.
      */
-    private Executable find(String[] arguments) throws TooLittleArgumentsException {
+    private Executable find(String... arguments) throws TooLittleArgumentsException {
         if (arguments == null || arguments.length < 1) {
             throw new TooLittleArgumentsException(1);
         }
