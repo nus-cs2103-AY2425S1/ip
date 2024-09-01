@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import papadom.exceptions.IncorrectTaskInputFormatException;
 import papadom.storage.Storage;
 import papadom.storage.TaskList;
-import papadom.Ui;
+import papadom.utils.Ui;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

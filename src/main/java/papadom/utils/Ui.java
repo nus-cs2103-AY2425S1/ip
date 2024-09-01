@@ -1,4 +1,4 @@
-package papadom;
+package papadom.utils;
 /**
  * Handles user interaction by displaying messages.
  */

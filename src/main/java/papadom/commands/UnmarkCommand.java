@@ -5,7 +5,7 @@ import papadom.exceptions.NoTaskNumberException;
 import papadom.exceptions.WrongTaskNumberException;
 import papadom.storage.Storage;
 import papadom.storage.TaskList;
-import papadom.Ui;
+import papadom.utils.Ui;
 /**
  * Represents a command to unmark a task as completed.
  */

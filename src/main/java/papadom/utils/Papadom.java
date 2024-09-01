@@ -1,4 +1,4 @@
-package papadom;
+package papadom.utils;
 
 import papadom.exceptions.*;
 import papadom.storage.Storage;
@@ -94,6 +94,18 @@ public class Papadom {
             } catch (Exception e) {
                 UI.output(e.getMessage());
             }
+        }
+    }
+
+    public String getResponse(String input) {
+        // Implement your chatbot logic here
+        // For example:
+        if (input.equalsIgnoreCase("hello")) {
+            return "Hi there! How can I help you today?";
+        } else if (input.equalsIgnoreCase("bye")) {
+            return "Goodbye! Have a great day!";
+        } else {
+            return "I'm not sure how to respond to that.";
         }
     }
 

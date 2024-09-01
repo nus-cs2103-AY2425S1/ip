@@ -21,7 +21,7 @@ then
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin papadom.Papadom < input.txt > ACTUAL.TXT
+java -classpath ../bin papadom.utils.Papadom < input.txt > ACTUAL.TXT
 
 
 # compare the output to the expected output

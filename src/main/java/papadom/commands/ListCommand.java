@@ -2,7 +2,7 @@ package papadom.commands;
 
 import papadom.storage.Storage;
 import papadom.storage.TaskList;
-import papadom.Ui;
+import papadom.utils.Ui;
 
 /**
  * Represents a command to list all tasks in the task list.

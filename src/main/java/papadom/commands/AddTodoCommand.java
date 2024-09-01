@@ -3,7 +3,7 @@ import papadom.exceptions.IncorrectTaskInputFormatException;
 import papadom.storage.Storage;
 import papadom.storage.TaskList;
 import papadom.tasks.Todo;
-import papadom.Ui;
+import papadom.utils.Ui;
 
 /**
  * Represents a command to add a todo task to the task list.

@@ -1,4 +1,4 @@
-package papadom;
+package papadom.utils;
 
 import papadom.exceptions.IncorrectTaskInputFormatException;
 import papadom.tasks.Deadline;

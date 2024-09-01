@@ -4,7 +4,7 @@ import papadom.exceptions.NoTaskNumberException;
 import papadom.exceptions.WrongTaskNumberException;
 import papadom.storage.Storage;
 import papadom.storage.TaskList;
-import papadom.Ui;
+import papadom.utils.Ui;
 /**
  * Represents a command to mark a task as completed.
  */

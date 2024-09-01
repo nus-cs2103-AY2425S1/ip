@@ -2,10 +2,10 @@ package papadom.commands;
 
 import papadom.exceptions.IncorrectTaskInputFormatException;
 import papadom.tasks.Event;
-import papadom.Parser;
+import papadom.utils.Parser;
 import papadom.storage.Storage;
 import papadom.storage.TaskList;
-import papadom.Ui;
+import papadom.utils.Ui;
 
 /**
  * Represents a command to add an event task to the task list.
