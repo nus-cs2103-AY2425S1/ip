@@ -70,10 +70,14 @@ public class TaskList {
         taskList.get(index).markAsNotDone();
     }
 
+    /**
+     * Filters the task list to find a specified description.
+     * @param description The specified description.
+     * @return A new list of tasks containing all tasks that match the description.
+     */
     public List<Task> find(String description) {
-        List<Task> result = taskList.stream().filter(t -> t.getDescription().toUpperCase().contains(description.toUpperCase()))
+        return taskList.stream().filter(t -> t.getDescription().toUpperCase().contains(description.toUpperCase()))
                     .toList();
-        return result;
     }
 
     public List<Task> getTaskList() {
