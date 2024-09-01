@@ -1,3 +1,5 @@
+package michael;
+
 public class Ui {
     private static final String BORDER = "--------------------------------------";
 

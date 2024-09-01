@@ -1,3 +1,5 @@
+package michael;
+
 public class Task {
     private final String taskName;
     private boolean done;
