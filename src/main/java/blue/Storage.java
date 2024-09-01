@@ -1,7 +1,5 @@
 package blue;
 
-import blue.task.Task;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import blue.task.Task;
 /**
  * The {@code Storage} class handles loading tasks from a file and saving tasks to a file.
  * It is responsible for persisting the state of the task list between program runs.

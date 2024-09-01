@@ -1,10 +1,8 @@
-import java.util.ArrayList;
-
 package blue;
 
-import blue.task.Task;
-
 import java.util.ArrayList;
+
+import blue.task.Task;
 
 
 
