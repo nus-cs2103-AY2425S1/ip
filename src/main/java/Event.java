@@ -12,7 +12,7 @@ public class Event extends Task {
 
     public String write()
     {
-        statement = String.format("E | %d | %s | %s-%s\n", this.isDone, this.description, this.from, this.to);
+        statement = String.format("E | %d | %s | %s-%s\n", this.isDone ? 1 : 0, this.description, this.from, this.to);
         return statement;
     }
 

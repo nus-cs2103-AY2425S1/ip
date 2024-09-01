@@ -10,7 +10,7 @@ public class Deadline extends Task
 
     public String write()
     {
-        statement = String.format("D | %d | %s | %s\n", this.isDone, this.description, this.by);
+        statement = String.format("D | %d | %s | %s\n", this.isDone ? 1 : 0, this.description, this.by);
         return statement;
     }
 

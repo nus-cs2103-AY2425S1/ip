@@ -7,14 +7,41 @@ import java.io.IOException;
 
 public class Dave {
 
-    private void writeToFile(String filePath, String textToAdd) throws IOException, FileNotFoundException
+    private static final String file = "C:\\Users\\thamy\\OneDrive\\data\\daveData.txt";
+
+    public static void saveFile(String file, ArrayList<Task> dataList) throws IOException
     {
-        FileWriter fw = new FileWriter(filePath);
-        fw.write(textToAdd);
+        File fileObj = new File(file);
+        fileObj.getParentFile().mkdirs();
+        if (!fileObj.exists()) {
+            fileObj.createNewFile();
+        }
+        FileWriter fw = new FileWriter(file);
+        for (int i = 0; i < dataList.size(); i++)
+        {
+            fw.write(dataList.get(i).write());
+        }
         fw.close();
     }
 
-    String file = "C:\\Users\\thamy\\OneDrive\\data\\daveData.txt";
+    public static void clearFile(String file) throws IOException {
+        FileWriter fw = new FileWriter(file, false);
+        fw.write("");
+        fw.close();
+    }
+
+    public static void amendFile(String file, Task task) throws IOException
+    {
+        File fileObj = new File(file);
+        fileObj.getParentFile().mkdirs();
+        if (!fileObj.exists()) {
+            fileObj.createNewFile();
+        }
+        FileWriter fw = new FileWriter(file, true);
+        fw.write(task.write());
+        fw.close();
+    }
+
     public static void main(String[] args) {
         String logo = " ____    _    __     ______\n"
                 + "|  _ \\  / \\   \\ \\   / / ___|\n"
@@ -33,9 +60,18 @@ public class Dave {
         System.out.println("Hello! I'm Dave.");
         System.out.println("What can I do for you?");
         System.out.println(horizontal);
-
         Scanner scanner = new Scanner(System.in);
         String userInput;
+        try {
+            clearFile(file);
+        } catch (IOException e) {
+            System.out.println(horizontal);
+            System.out.println("An error occurred while trying to write to the file: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(horizontal);
+            System.out.println("An unexpected error occurred while marking the task.");
+        }
 
         while (true) {
             try {
@@ -89,12 +125,17 @@ public class Dave {
                                 throw new IndexOutOfBoundsException();
                             }
                             dataList.get(taskNumber - 1).markAsDone();
+                            saveFile(file,dataList);
                             System.out.println(horizontal);
                             System.out.println("Nice! I've marked this task as done:");
                             System.out.println(dataList.get(taskNumber - 1));
                         } catch (IndexOutOfBoundsException | NumberFormatException e) {
                             System.out.println(horizontal);
                             System.out.println("Oh no! You have entered an invalid number. Please try again.");
+                        } catch (IOException e) {
+                            System.out.println(horizontal);
+                            System.out.println("An error occurred while trying to write to the file: " + e.getMessage());
+                            e.printStackTrace();
                         } catch (Exception e) {
                             System.out.println(horizontal);
                             System.out.println("An unexpected error occurred while marking the task.");
@@ -109,12 +150,17 @@ public class Dave {
                                 throw new IndexOutOfBoundsException();
                             }
                             dataList.get(taskNumber - 1).markAsNotDone();
+                            saveFile(file,dataList);
                             System.out.println(horizontal);
                             System.out.println("Ok, I've marked this task as not done yet:");
                             System.out.println(dataList.get(taskNumber - 1));
                         } catch (IndexOutOfBoundsException | NumberFormatException e) {
                             System.out.println(horizontal);
                             System.out.println("Oh no! You have entered an invalid number. Please try again.");
+                        } catch (IOException e) {
+                            System.out.println(horizontal);
+                            System.out.println("An error occurred while trying to write to the file: " + e.getMessage());
+                            e.printStackTrace();
                         } catch (Exception e) {
                             System.out.println(horizontal);
                             System.out.println("An unexpected error occurred while unmarking the task.");
@@ -129,6 +175,7 @@ public class Dave {
                             }
                             Task todoTask = new Todo(reply[1].trim());
                             dataList.add(todoTask);
+                            amendFile(file,todoTask);
                             System.out.println(horizontal);
                             System.out.println("Got it. I've added this task:");
                             System.out.println(dataList.get(dataList.size() - 1));
@@ -136,6 +183,10 @@ public class Dave {
                         } catch (InvalidDescriptionException e) {
                             System.out.println(horizontal);
                             System.out.println(e.getMessage());
+                        } catch (IOException e) {
+                            System.out.println(horizontal);
+                            System.out.println("An error occurred while trying to write to the file: " + e.getMessage());
+                            e.printStackTrace();
                         } catch (Exception e) {
                             System.out.println(horizontal);
                             System.out.println("An unexpected error occurred while adding the todo task.");
@@ -152,7 +203,9 @@ public class Dave {
                             if (deadlineParts.length < 2) {
                                 throw new InvalidDescriptionException("Oh No! Please provide a deadline task in the format: deadline <task> /by <date>");
                             }
-                            dataList.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
+                            Task deadlineTask = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
+                            dataList.add(deadlineTask);
+                            amendFile(file, deadlineTask);
                             System.out.println(horizontal);
                             System.out.println("Got it. I've added this task:");
                             System.out.println(dataList.get(dataList.size() - 1));
@@ -160,9 +213,14 @@ public class Dave {
                         } catch (InvalidDescriptionException e) {
                             System.out.println(horizontal);
                             System.out.println(e.getMessage());
+                        } catch (IOException e) {
+                            System.out.println(horizontal);
+                            System.out.println("An error occurred while trying to write to the file: " + e.getMessage());
+                            e.printStackTrace();
                         } catch (Exception e) {
                             System.out.println(horizontal);
-                            System.out.println("An unexpected error occurred while adding the deadline task.");
+                            System.out.println("An unexpected error occurred: " + e.getMessage());
+                            e.printStackTrace();
                         }
                         System.out.println(horizontal);
                         break;
@@ -176,7 +234,9 @@ public class Dave {
                             if (eventParts.length < 3) {
                                 throw new InvalidDescriptionException("Please provide an event task in the format: event <task> /from <start> /to <end>");
                             }
-                            dataList.add(new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim()));
+                            Task eventTask = new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
+                            dataList.add(eventTask);
+                            amendFile(file, eventTask);
                             System.out.println(horizontal);
                             System.out.println("Got it. I've added this task:");
                             System.out.println(dataList.get(dataList.size() - 1));
@@ -184,6 +244,10 @@ public class Dave {
                         } catch (InvalidDescriptionException e) {
                             System.out.println(horizontal);
                             System.out.println(e.getMessage());
+                        } catch (IOException e) {
+                            System.out.println(horizontal);
+                            System.out.println("An error occurred while trying to write to the file: " + e.getMessage());
+                            e.printStackTrace();
                         } catch (Exception e) {
                             System.out.println(horizontal);
                             System.out.println("An unexpected error occurred while adding the event task.");
@@ -198,6 +262,7 @@ public class Dave {
                                 throw new IndexOutOfBoundsException();
                             }
                             Task removedTask = dataList.remove(taskNumber);
+                            saveFile(file,dataList);
                             System.out.println(horizontal);
                             System.out.println("Noted. I've removed this task:");
                             System.out.println(removedTask);
@@ -205,6 +270,10 @@ public class Dave {
                         } catch (IndexOutOfBoundsException | NumberFormatException e) {
                             System.out.println(horizontal);
                             System.out.println("Oh no! You have entered an invalid number. Please try again.");
+                        } catch (IOException e) {
+                            System.out.println(horizontal);
+                            System.out.println("An error occurred while trying to write to the file: " + e.getMessage());
+                            e.printStackTrace();
                         } catch (Exception e) {
                             System.out.println(horizontal);
                             System.out.println("An unexpected error occurred while deleting the task.");

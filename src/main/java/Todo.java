@@ -7,7 +7,7 @@ public class Todo extends Task {
 
     public String write()
     {
-        statement = String.format("D | %d | %s | %s\n", this.isDone, this.description);
+        statement = String.format("D | %d | %s\n", this.isDone ? 1 : 0, this.description);
         return statement;
     }
 
