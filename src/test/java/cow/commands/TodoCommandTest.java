@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import cow.exceptions.CowExceptions;
 import cow.filesaver.FileSaver;
+import cow.message.Ui;
 import cow.todolist.TodoList;
 
 public class TodoCommandTest {
@@ -21,8 +22,8 @@ public class TodoCommandTest {
 
         TodoCommand todo = new TodoCommand("test");
         FileSaver fs = new FileSaver("data/cow.txt");
-        todo.execute(td, fs);
-        assertEquals(td.toString(), "Here are the tasks in your list:\n"
-                + "1.[T][ ] test");
+        Ui ui = new Ui();
+        todo.execute(td, ui, fs);
+        assertEquals(td.toString(), "1.[T][ ] test");
     }
 }

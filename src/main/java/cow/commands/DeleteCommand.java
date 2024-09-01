@@ -2,7 +2,7 @@ package cow.commands;
 
 import cow.exceptions.CowExceptions;
 import cow.filesaver.FileSaver;
-import cow.message.Message;
+import cow.message.Ui;
 import cow.tasks.Task;
 import cow.todolist.TodoList;
 
@@ -28,9 +28,9 @@ public class DeleteCommand extends Command {
      * @throws CowExceptions any exceptions that might arise from the implementation.
      */
     @Override
-    public void execute(TodoList todoList, FileSaver fileSaver) throws CowExceptions {
+    public void execute(TodoList todoList, Ui ui, FileSaver fileSaver) throws CowExceptions {
         Task t = todoList.delete(this.index);
         fileSaver.saveData(todoList);
-        Message.printDeletedTask(t, todoList);
+        ui.printDeletedTask(t, todoList);
     }
 }

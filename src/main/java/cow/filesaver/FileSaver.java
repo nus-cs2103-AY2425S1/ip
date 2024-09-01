@@ -11,7 +11,6 @@ import java.util.Scanner;
 import cow.exceptions.CowExceptions;
 import cow.exceptions.MissingParametersException;
 import cow.exceptions.UnknownCommandException;
-import cow.message.Message;
 import cow.message.Messages;
 import cow.tasks.Deadlines;
 import cow.tasks.Event;
@@ -51,7 +50,7 @@ public class FileSaver {
      * @return The loaded todolist.
      * @throws IOException if the file does not exist.
      */
-    public TodoList loadData() throws IOException {
+    public TodoList loadData() throws IOException, CowExceptions {
         Path path = Paths.get(filePath);
         if (!Files.exists(path)) {
             Files.createDirectories(path.getParent());
@@ -79,7 +78,7 @@ public class FileSaver {
                 }
                 td.add(t);
             } catch (UnknownCommandException | ArrayIndexOutOfBoundsException | MissingParametersException e) {
-                Message.printCorruptionDetected();
+                throw new CowExceptions(e.getMessage());
             }
         }
         return td;
