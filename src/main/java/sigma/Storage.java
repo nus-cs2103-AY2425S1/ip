@@ -7,8 +7,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-// deals with loading tasks from the file and saving tasks in the file
+/**
+ * Class that deals with loading and saving tasks from the file it is stored in
+ *
+ * @author Qiao Yi
+ */
 public class Storage {
+    /**
+     * Constructor for a Storage object
+     * @param filePath The path to the file that the data is stored in
+     */
     public Storage(String filePath) {
         try {
             File file = new File(filePath);
@@ -22,17 +30,26 @@ public class Storage {
         }
     }
 
-//    public static String getItemsFromFile(String path) throws IOException {
-//        // there's gotta be a better way to do this
-//        StringBuilder itemsFromFile = new StringBuilder();
-//        int i = 1;
-//        for (String line: Files.readAllLines(Paths.get(path))) {
-//            itemsFromFile.append(i).append(". ").append(line).append("\n");
-//            i++;
-//        }
-//        return itemsFromFile.toString();
-//    }
+    /**
+     * Reads the file and lists out their items
+     * @param path to the file to be read
+     * @return a String representation of the item
+     * @throws IOException if there is an error reading the file
+     */
+    public static String getItemsFromFile(String path) throws IOException {
+        // there's gotta be a better way to do this
+        StringBuilder itemsFromFile = new StringBuilder();
+        int i = 1;
+        for (String line: Files.readAllLines(Paths.get(path))) {
+            itemsFromFile.append(i).append(". ").append(line).append("\n");
+            i++;
+        }
+        return itemsFromFile.toString();
+    }
 
+    /**
+     * Reads the tasks contained in the file and adds it to the TaskList
+     */
     public void readTasksFromFile() {
         try {
             List<String> lines = Files.readAllLines(Paths.get("data/sigma.txt"));

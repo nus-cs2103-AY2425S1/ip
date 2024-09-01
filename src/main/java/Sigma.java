@@ -1,12 +1,21 @@
 import java.util.Scanner;
 import sigma.*;
 @SuppressWarnings("FieldMayBeFinal")
+/**
+ * The main class from where the program is run
+ *
+ * @author Qiao Yi
+ */
 public class Sigma {
     private Ui ui;
     private Storage storage;
     private Parser parser;
     private TaskList taskList;
 
+    /**
+     * Constructor for Sigma
+     * @param filePath The path to the file where past data is stored
+     */
     public Sigma(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -14,6 +23,9 @@ public class Sigma {
         parser = new Parser();
     }
 
+    /**
+     * Opens and runs the program
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
         storage.readTasksFromFile();

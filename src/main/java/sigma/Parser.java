@@ -7,10 +7,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import sigma.task.*;
 
-// deals with making sense of the user command
+/**
+ * Class that handles the logic relating to user commands
+ */
 public class Parser {
     private FileWriter writer;
 
+    /**
+     * Constructor for a Parser
+     */
     public Parser() {
         try {
             writer = new FileWriter("data/sigma.txt", true);
@@ -20,11 +25,17 @@ public class Parser {
 
     }
 
-    // dont really need this yet
+    /**
+     * Greets the user upon command
+     * @return The greeting message
+     */
     public String greet() {
         return "hello, I'm Sigma, your personal chatbot";
     }
 
+    /**
+     * Greets the user goodbye and closes the program
+     */
     public void goodbye() {
         try {
             writer.flush();
@@ -38,7 +49,10 @@ public class Parser {
 
     }
 
-    // make this return a task instead
+    /**
+     * Adds a To-do task to the TaskList
+     * @param userInput The to-do task that the user wants to add
+     */
     public void handleTodo(String userInput) {
         String description = userInput.substring(4).trim(); // trims the input away
         if (description.isEmpty()) { // handle empty input
@@ -55,6 +69,10 @@ public class Parser {
         System.out.println("added todo task:\n [T][ ] " + description);
     }
 
+    /**
+     * Adds a Deadline task to the TaskList
+     * @param userInput The Deadline task that the user wants to add
+     */
     public void handleDeadline(String userInput) {
         Pattern pattern = Pattern.compile("deadline (.+) /by (.+)");
         Matcher matcher = pattern.matcher(userInput);
@@ -75,6 +93,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds an Event task to the TaskList
+     * @param userInput The Event task that the user wants to add
+     */
     public void handleEvent(String userInput) {
         Pattern pattern = Pattern.compile("event (.+) /from (.+) /to (.+)");
         Matcher matcher = pattern.matcher(userInput);
@@ -97,6 +119,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks a task as done or undone
+     * @param userInput The task that the user wants to mark or unmark
+     */
     public void handleMarkUnmark(String userInput) {
         Pattern pattern = Pattern.compile("(mark|unmark) (\\d+)");
         Matcher matcher = pattern.matcher(userInput);
@@ -118,6 +144,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Converts the date provided by the user into a Date object
+     * @param date The date given by the user as a String
+     * @return The formatted date object
+     */
     public static String stringToDate(String date) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime parsedDateTime = LocalDateTime.parse(date, inputFormatter);
