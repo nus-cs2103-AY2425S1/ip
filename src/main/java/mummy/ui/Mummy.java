@@ -8,6 +8,11 @@ import mummy.utility.Parser;
 import mummy.utility.Storage;
 
 
+/**
+ * Represents the main class for the Mummy application.
+ * The Mummy class is responsible for initializing the application, loading tasks from storage,
+ * and handling user commands.
+ */
 public class Mummy {
     private static final String LOGO = " __  __\n"
             + "|  \\/  |_   _ _ __ ___  _ __ ___  _   _\n"

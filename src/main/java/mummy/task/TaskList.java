@@ -5,21 +5,44 @@ import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+/**
+ * Represents a list of tasks.
+ * @see Task
+ * @see TaskListException
+ */
 public class TaskList {
     private final String label;
 
     private final ArrayList<Task> tasks;
 
+    /**
+     * Constructs a TaskList object with the specified label.
+     *
+     * @param label the label for the TaskList
+     */
     public TaskList(String label) {
         this.label = label;
         this.tasks = new ArrayList<>();
     }
 
-    public TaskList(String label, List<String> lines) {
+    /**
+     * Constructs a TaskList object with the specified label and file records.
+     *
+     * @param label the label of the task list
+     * @param fileRecords the lines representing the tasks
+     */
+    public TaskList(String label, List<String> fileRecords) {
         this.label = label;
-        this.tasks = parseLines(lines);
+        this.tasks = parseLines(fileRecords);
     }
 
+    /**
+     * Retrieves the task at the specified index from the task list.
+     *
+     * @param index The index of the task to retrieve. Index starts from 1.
+     * @return The task at the specified index.
+     * @throws TaskListException If the index is out of bounds.
+     */
     public Task get(int index) throws TaskListException {
         // index starts from 1
         try {
@@ -29,10 +52,22 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to be added.
+     */
     public void add(Task task) {
         this.tasks.add(task);
     }
 
+    /**
+     * Removes the task at the specified index from the task list.
+     *
+     * @param index the index of the task to be removed
+     * @return the removed task
+     * @throws TaskListException if the index is out of bounds
+     */
     public Task remove(int index) throws TaskListException {
         try {
             return this.tasks.remove(index - 1);
@@ -41,6 +76,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as done in the task list.
+     *
+     * @param index The index of the task to be marked as done.
+     * @throws TaskListException If the index is out of bounds.
+     */
     public void markTask(int index) throws TaskListException {
         try {
             this.tasks.get(index - 1).setAsDone();
@@ -49,6 +90,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks the task at the specified index as undone.
+     *
+     * @param index The index of the task to be unmarked.
+     * @throws TaskListException If the index is out of bounds.
+     */
     public void unmarkTask(int index) throws TaskListException {
         try {
             this.tasks.get(index - 1).setAsUndone();
@@ -57,6 +104,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the number of tasks in the task list.
+     *
+     * @return The number of tasks in the task list.
+     */
     public int getCount() {
         return this.tasks.size();
     }
@@ -66,16 +118,25 @@ public class TaskList {
         return IntStream.range(0, this.tasks.size())
                 .mapToObj(i -> (i + 1) + ". " + this.tasks.get(i))
                 .reduce(
-                        new StringBuilder(label).append("\n"),
-                        (acc, x) -> acc.append(x).append("\n"),
+                        new StringBuilder(label).append("\n"), (acc, x) -> acc.append(x).append("\n"),
                         StringBuilder::append
                 ).toString();
     }
 
+    /**
+     * Converts the task list to a list of file records.
+     *
+     * @return A list of file records representing the tasks in the task list.
+     */
     public List<String> toFileRecords() {
         return this.tasks.stream().map(Task::toFileRecord).toList();
     }
 
+    /**
+     * Filters the task list based on a keyword.
+     * @param keyword The keyword to filter the tasks by.
+     * @return A new TaskList object containing the matching tasks.
+     */
     public TaskList filter(String keyword) {
         List<String> filteredTasks = this.tasks.stream()
                 .filter(task -> task.getDescription().contains(keyword))
