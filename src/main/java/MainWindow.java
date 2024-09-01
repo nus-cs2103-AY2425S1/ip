@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     private EchoBot echoBot;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/robot_two.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
 
     @FXML
     public void initialize() {

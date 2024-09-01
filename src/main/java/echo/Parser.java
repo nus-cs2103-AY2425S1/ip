@@ -97,12 +97,11 @@ public class Parser {
                 return allTasks.add(task);
             }
         } catch (ClassCastException e) {
-            String msg = "Input Error: " + e.getMessage();
-            throw new DukeException(msg);
+            throw new DukeException("Input Error: " + "\n" + e.getMessage());
         } catch (IllegalArgumentException e) {
-            throw new DukeException("Invalid command entered. " + e.getMessage());
+            throw new DukeException("Invalid command entered. " + "\n" + e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Invalid index entered. " + e.getMessage());
+            throw new DukeException("Invalid index entered. " + "\n" + e.getMessage());
         }
     }
 }

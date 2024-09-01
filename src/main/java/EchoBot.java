@@ -8,7 +8,7 @@ import echo.*;
  * It handles task storage, user input, and displays task-related information.
  */
 public class EchoBot {
-    private Scanner scanner = new Scanner(System.in);
+    // private Scanner scanner = new Scanner(System.in);
     private Ui ui = new Ui();
     private TaskList allTasks;
 

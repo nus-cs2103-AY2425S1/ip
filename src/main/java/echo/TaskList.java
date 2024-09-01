@@ -14,13 +14,19 @@ public class TaskList implements Serializable {
      * Returns all tasks in the task list of EchoBot.
      */
     public String listAllTask() {
+        if (this.allTasks.isEmpty()) {
+            return "Emmm, there is no task in the list." + "\n"
+                    + "Please feel free to add some tasks!";
+        }
+
         String tasks = "";
         // Get task from task list
         for (int i = 0; i < this.allTasks.size(); i++) {
             tasks += (i + 1) + ". " + this.allTasks.get(i).toString();
             tasks += (i == this.allTasks.size() - 1) ? "" : "\n";
         }
-        return tasks;
+        return "There are " + this.allTasks.size() + " tasks in the list:"
+                + "\n" + tasks;
     }
 
     /**
