@@ -118,8 +118,10 @@ public class TaskList {
      * @param s the string containing information about the task type
      * @param taskType the type of task
      * @throws TaskCreationException if error occurs while creating task
+     * @return how many tasks are in the list now, and what task was added
      */
-    public void add(String s, Task.TaskType taskType) {
+    public String add(String s, Task.TaskType taskType) {
+        StringBuilder response = new StringBuilder();
         try {
             Task newTask;
             switch (taskType) {
@@ -135,121 +137,161 @@ public class TaskList {
                 default:
                     throw new IllegalArgumentException("Invalid task type");
             }
+
             this.taskList.add(newTask);
             this.taskListLength += 1;
-            line.drawLine();
-            System.out.println("    Got it. I've added this task: ");
-            System.out.println("      [" + newTask.getTaskTypeAsString() + "][ ] " + newTask.readTask());
+
+            response.append("Got it. I've added this task:\n")
+                    .append("[")
+                    .append(newTask.getTaskTypeAsString())
+                    .append("][ ] ")
+                    .append(newTask.readTask())
+                    .append("\n");
+
             if (this.taskListLength == 1) {
-                System.out.println("    Now you have 1 task in the list.");
+                response.append("Now you have 1 task in the list.\n");
             } else {
-                System.out.println("    Now you have " + this.taskListLength + " tasks in the list.");
+                response.append("Now you have ")
+                        .append(this.taskListLength)
+                        .append(" tasks in the list.\n");
             }
-            line.drawLine();
+
         } catch (TaskCreationException e) {
-            line.drawLine();
-            System.out.println("    " + e.getMessage());
-            line.drawLine();
+            response.append(e.getMessage())
+                    .append("\n");
         }
+
+        return response.toString();
     }
 
     /**
      * Deletes a task from the task list
      * @param idx index displayed on the list to be deleted
+     * @return returns how many tasks are left in the task list
      */
-    public void delete(int idx) {
+    public String delete(int idx) {
         idx = idx - 1;
+        StringBuilder response = new StringBuilder();
+
         if (idx < 0 || idx >= taskListLength) {
-            line.drawLine();
-            System.out.println("    Enter a valid index");
-            line.drawLine();
+            return "Enter a valid index";
         } else {
             Task removedTask = taskList.remove(idx);
-            line.drawLine();
             taskListLength--;
-            System.out.println("    Noted. I've removed this task: ");
-            System.out.println("      [" + removedTask.getTaskTypeAsString() + "]" + "["+ removedTask.getStatus() + "] " + removedTask.readTask());
+
+            response.append("    Noted. I've removed this task:\n")
+                    .append("      [")
+                    .append(removedTask.getTaskTypeAsString())
+                    .append("][")
+                    .append(removedTask.getStatus())
+                    .append("] ")
+                    .append(removedTask.readTask())
+                    .append("\n");
+
             if (taskListLength == 1) {
-                System.out.println("    Now you have 1 task in the list.");
+                response.append("Now you have 1 task in the list.\n");
             } else {
-                System.out.println("    Now you have " + this.taskListLength + " tasks in the list.");
+                response.append("Now you have ")
+                        .append(taskListLength)
+                        .append(" tasks in the list.\n");
             }
-            line.drawLine();
         }
+
+        return response.toString();
     }
     /**
      * Marks task at given index as completed
      * @param s index to be marked as done
      */
-    public void markAsDone(String s) {
+    public String markAsDone(String s) {
         int idx = parseInt(s);
         idx -= 1;
         if ((idx < 0) || (idx >= taskListLength)) {
-            return;
+            return "Error marking as done";
         }
         Task currentTask = taskList.get(idx);
         currentTask.markAsDone();
-        line.drawLine();
-        System.out.println("    Nice! I've marked this task as done:");
-        System.out.println("      [" + currentTask.getStatus() + "] " + currentTask.readTask());
-        line.drawLine();
+        String response = "Nice! I've marked this task as done:" + "[" + currentTask.getStatus() + "] " + currentTask.readTask();
+        return response;
     }
 
     /**
      * Marks task at given index as not completed
      * @param s index to be marked as undone
      */
-    public void markAsUndone(String s) {
+    public String markAsUndone(String s) {
         int idx = parseInt(s);
         idx -= 1;
         if ((idx < 0) || (idx >= taskListLength)) {
-            return;
+            return "Error marking as undone";
         }
         Task currentTask = taskList.get(idx);
-        currentTask.markAsUndone();
-        line.drawLine();
-        System.out.println("    OK, I've marked this task as not done yet:");
-        System.out.println("      [" + currentTask.getStatus() + "] " + currentTask.readTask());
-        line.drawLine();
+        currentTask.markAsDone();
+        String response = "Ok, I've marked this task as not done:" + "[" + currentTask.getStatus() + "] " + currentTask.readTask();
+        return response;
     }
 
 
     /**
      * Prints all tasks in the task list
+     * @return list of all tasks as a string
      */
-    public void list() {
+    public String list() {
         if (taskListLength == 0) {
-            return;
+            return "No tasks in list";
         }
 
-        line.drawLine();
+        StringBuilder response = new StringBuilder();
         for (int i = startPointer; i < taskListLength; i++) {
             int counter = i + 1;
             Task currentTask = this.taskList.get(i);
-            System.out.println("    " + counter + ". [" + currentTask.getTaskTypeAsString() + "] [" + currentTask.getStatus()  + "] " + currentTask.readTask());
+            response.append(counter)
+                    .append(". [")
+                    .append(currentTask.getTaskTypeAsString())
+                    .append("] [")
+                    .append(currentTask.getStatus())
+                    .append("] ")
+                    .append(currentTask.readTask())
+                    .append("\n");
         }
-        line.drawLine();
+        return response.toString();
     }
 
     /**
      * Prints tasks with matching string in description
      * @param s the keyword
+     * @return tasks with matching keyword as a string
      */
-    public void find(String s) {
-        List<Task> tasks = new ArrayList<Task>();
+    public String find(String s) {
+        List<Task> tasks = new ArrayList<>();
+        StringBuilder response = new StringBuilder();
+
         for (Task task : taskList) {
-            if (task.readTask().toLowerCase().contains((s.toLowerCase()))) {
+            if (task.readTask().toLowerCase().contains(s.toLowerCase())) {
                 tasks.add(task);
             }
         }
-        line.drawLine();
-        System.out.println("      Here are the matching tasks in your list:");
+
+        if (tasks.isEmpty()) {
+            return "No matching tasks found.";
+        }
+
+        response.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             int counter = i + 1;
             Task currentTask = tasks.get(i);
-            System.out.println("    " + counter + ". [" + currentTask.getTaskTypeAsString() + "] [" + currentTask.getStatus()  + "] " + currentTask.readTask());
+            response.append("    ")
+                    .append(counter)
+                    .append(". [")
+                    .append(currentTask.getTaskTypeAsString())
+                    .append("] [")
+                    .append(currentTask.getStatus())
+                    .append("] ")
+                    .append(currentTask.readTask())
+                    .append("\n");
         }
-        line.drawLine();
+
+        return response.toString();
     }
 
 }
