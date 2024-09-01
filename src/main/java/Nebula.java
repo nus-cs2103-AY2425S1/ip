@@ -12,7 +12,6 @@ public class Nebula {
         while(sc.hasNext()) {
             String command = sc.nextLine();
 
-
             if(command.equals("bye")) {
                 System.out.println(ui.goodbye());
                 break;
@@ -21,12 +20,34 @@ public class Nebula {
                 System.out.println(ui.displayList());
             }
             else if(command.startsWith("mark")) {
+                try {
+                    validateCommand(command, taskList);
+                } catch (NebulaException e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
                 int taskNum = parser.splitCommandAndTaskNumber(command);
                 System.out.println(taskList.markTask(taskNum));
             }
             else if(command.startsWith("unmark")) {
+                try {
+                    validateCommand(command, taskList);
+                } catch (NebulaException e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
                 int taskNum = parser.splitCommandAndTaskNumber(command);
                 System.out.println(taskList.unmarkTask(taskNum));
+            }
+            else if(command.startsWith("delete")) {
+                try {
+                    validateCommand(command, taskList);
+                } catch (NebulaException e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
+                int taskNum = parser.splitCommandAndTaskNumber(command);
+                System.out.println(taskList.deleteTask(taskNum));
             }
             else {
                 try {
@@ -35,7 +56,6 @@ public class Nebula {
                     System.out.println(e.getMessage());
                     continue;
                 }
-
                 if(command.startsWith("todo")) {
                     String taskDescription = parser.splitCommandAndTaskDescription(command);
                     Task newTask = new Todo(taskDescription);
@@ -81,7 +101,8 @@ public class Nebula {
             throw new NebulaException("Please enter a command!");
         } else if (!(command.startsWith("todo") || command.startsWith("deadline")
                 || command.startsWith("event") || command.startsWith("mark")
-                || command.startsWith("unmark") || command.startsWith("delete"))) {
+                || command.startsWith("unmark") || command.startsWith("delete")
+                || command.startsWith("list") || command.startsWith("bye"))) {
             throw new NebulaException(ui.displayUnknownCommandException());
         } else if (command.startsWith("mark") || command.startsWith("unmark") || command.startsWith("delete")) {
             String[] parts = command.split(" ", 2);
