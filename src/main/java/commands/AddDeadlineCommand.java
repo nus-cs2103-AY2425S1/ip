@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 public class AddDeadlineCommand extends Command {
-    private String description;
-    private String deadline;
+    private final String description;
+    private final String deadline;
 
     public AddDeadlineCommand(String input) throws SkibidiException{
         String[] parts = input.split("/by ");

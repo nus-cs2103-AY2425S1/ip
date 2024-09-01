@@ -9,7 +9,7 @@ import storage.Todo;
 import java.io.IOException;
 
 public class AddTodoCommand extends Command {
-    private String description;
+    private final String description;
 
     public AddTodoCommand(String input) throws SkibidiException {
         if (input.length() < 5) {

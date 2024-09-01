@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StorageManager {
-    private String filePath;
+    private final String filePath;
 
     public StorageManager(String filePath) {
         this.filePath = filePath;

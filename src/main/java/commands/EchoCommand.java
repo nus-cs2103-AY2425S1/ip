@@ -5,7 +5,7 @@ import skibidi.Command;
 import storage.TaskStorage;
 
 public class EchoCommand extends Command {
-    private String message;
+    private final String message;
 
     public EchoCommand(String message) {
         this.message = message;

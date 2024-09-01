@@ -9,7 +9,7 @@ import skibidi.SkibidiException;
 import java.io.IOException;
 
 public class DeleteCommand extends Command {
-    private int index;
+    private final int index;
 
     public DeleteCommand(String input) throws SkibidiException {
         try {

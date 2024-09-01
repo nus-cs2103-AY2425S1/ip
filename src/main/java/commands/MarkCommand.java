@@ -9,7 +9,7 @@ import storage.TaskStorage;
 import java.io.IOException;
 
 public class MarkCommand extends Command {
-    private String taskInput;
+    private final String taskInput;
 
     public MarkCommand(String taskInput) {
         this.taskInput = taskInput.substring(5).trim();

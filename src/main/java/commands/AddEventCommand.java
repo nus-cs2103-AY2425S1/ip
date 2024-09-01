@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 public class AddEventCommand extends Command {
-    private String description;
-    private String startTime;
-    private String endTime;
+    private final String description;
+    private final String startTime;
+    private final String endTime;
 
     public AddEventCommand(String input) throws SkibidiException{
         String[] partsFrom = input.split("/from ");
