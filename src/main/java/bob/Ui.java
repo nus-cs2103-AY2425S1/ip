@@ -11,92 +11,104 @@ import java.util.ArrayList;
 public class Ui {
 
     /**
-     * Displays the welcome message when the bot starts.
+     * Returns the welcome message when the bot starts.
      *
      * @param botName The name of the chatbot.
+     * @return The formatted welcome message.
      */
-    public void showWelcomeMessage(String botName) {
-        System.out.println("____________________________________________________________");
-        System.out.printf("Hello! I'm %s!\n", botName);
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+    public String showWelcomeMessage(String botName) {
+        return String.format("Hello! I'm %s!\n", botName);
     }
 
     /**
-     * Displays the goodbye message when the bot ends.
+     * Returns the goodbye message when the bot ends.
+     *
+     * @return The formatted goodbye message.
      */
-    public void showGoodbyeMessage() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+    public String showGoodbyeMessage() {
+        return "Bye. Hope to see you again soon!\n";
     }
 
     /**
-     * Displays a horizontal line for formatting output in the UI.
+     * Returns a horizontal line for formatting output in the UI.
+     *
+     * @return The horizontal line as a string.
      */
-    public void showLine() {
-        System.out.println("____________________________________________________________");
+    public String showLine() {
+        return "____________________________________________________________\n";
     }
 
     /**
-     * Displays a message when a task is added to the list.
+     * Returns a message when a task is added to the list.
      *
      * @param task The task that was added.
      * @param size The new size of the task list.
+     * @return A message indicating that the task was added and the new list size.
      */
-    public void showTaskAdded(Task task, int size) {
-        System.out.println("Got it. I've added this task:");
-        System.out.printf("  %s\n", task);
-        System.out.printf("Now you have %d tasks in the list.\n", size);
+    public String showTaskAdded(Task task, int size) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Got it. I've added this task:\n");
+        sb.append(String.format("  %s\n", task));
+        sb.append(String.format("Now you have %d tasks in the list.\n", size));
+        return sb.toString();
     }
 
     /**
-     * Displays a message when a task is deleted from the list.
+     * Returns a message when a task is deleted from the list.
      *
      * @param deleted The string representation of the deleted task.
      * @param size The new size of the task list.
+     * @return A message indicating that the task was deleted and the new list size.
      */
-    public void showTaskDeleted(String deleted, int size) {
-        System.out.println(deleted);
-        System.out.printf("Now you have %d tasks in the list.\n", size);
+    public String showTaskDeleted(String deleted, int size) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(deleted).append("\n");
+        sb.append(String.format("Now you have %d tasks in the list.\n", size));
+        return sb.toString();
     }
 
     /**
-     * Displays an error message.
+     * Returns an error message.
      *
      * @param errorMessage The error message to be displayed.
+     * @return The formatted error message.
      */
-    public void showError(String errorMessage) {
-        System.out.println(" Error: " + errorMessage);
+    public String showError(String errorMessage) {
+        return "Error: " + errorMessage + "\n";
     }
 
     /**
-     * Displays a message when a task is marked as done.
+     * Returns a message when a task is marked as done.
      *
      * @param mark The string representation of the marked task.
+     * @return A message indicating that the task was marked as done.
      */
-    public void showTaskMarked(String mark) {
-        System.out.println(mark);
+    public String showTaskMarked(String mark) {
+        return mark + "\n";
     }
 
     /**
-     * Displays a message when a task is unmarked as done.
+     * Returns a message when a task is unmarked as done.
      *
      * @param unmark The string representation of the unmarked task.
+     * @return A message indicating that the task was unmarked as done.
      */
-    public void showTaskUnmarked(String unmark) {
-        System.out.println(unmark);
+    public String showTaskUnmarked(String unmark) {
+        return unmark + "\n";
     }
 
     /**
-     * Displays a list of tasks that match the search key.
+     * Returns a list of tasks that match the search key.
      *
      * @param tasksWithKey An ArrayList of tasks that contain the keyword in their descriptions.
+     * @return A message listing tasks that match the search key.
      */
-    public void showTasksFound(ArrayList<Task> tasksWithKey) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String showTasksFound(ArrayList<Task> tasksWithKey) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < tasksWithKey.size(); i++) {
-            System.out.printf("%d.%s\n", i + 1, tasksWithKey.get(i));
+            sb.append(String.format("%d.%s\n", i + 1, tasksWithKey.get(i)));
         }
+        return sb.toString();
     }
 }

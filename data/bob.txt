@@ -1,5 +1,7 @@
-T | 0 | test
-T | 0 | test task1
+T | 1 | test
+T | 1 | test task1
 T | 0 | test task
 D | 1 | read | 2024-08-29 1800
 E | 0 | read books | 2024-08-28 1500 | 2024-08-28 1700
+T | 1 | testing
+E | 0 | go to class | 2024-09-01 0800 | 2024-09-01 1000

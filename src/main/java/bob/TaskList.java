@@ -11,6 +11,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
+    /** List of tasks managed by the TaskList */
     private ArrayList<Task> tasks;
 
     /**
@@ -21,7 +22,7 @@ public class TaskList {
     }
 
     /**
-     * Constructs a TaskList with a list of existing tasks.
+     * Constructs a TaskList with an existing list of tasks.
      *
      * @param tasks The list of tasks to initialize the TaskList with.
      */
@@ -30,7 +31,7 @@ public class TaskList {
     }
 
     /**
-     * Sets the tasks in the TaskList.
+     * Sets the tasks in the TaskList to the provided list.
      *
      * @param tasks The list of tasks to set in the TaskList.
      */
@@ -49,7 +50,7 @@ public class TaskList {
     }
 
     /**
-     * Returns the list of tasks.
+     * Returns the list of tasks in the TaskList.
      *
      * @return The list of tasks.
      */
@@ -67,29 +68,33 @@ public class TaskList {
     }
 
     /**
-     * Lists all the tasks in the TaskList and prints them to the UI.
+     * Lists all the tasks in the TaskList and returns them as a formatted string.
      *
-     * @param ui The UI object to display the list of tasks.
+     * @param ui The UI object used to display the list of tasks.
+     * @return A string containing all tasks in the TaskList.
      */
-    public void listTasks(Ui ui) {
-        System.out.println("Here are the tasks in your list:");
+    public String listTasks(Ui ui) {
+        StringBuilder result = new StringBuilder();
+        result.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("%d.%s\n", i + 1, tasks.get(i));
+            result.append(String.format("%d.%s\n", i + 1, tasks.get(i)));
         }
+        return result.toString();
     }
 
     /**
-     * Marks a task as done at the specified index.
+     * Marks the task at the specified index as done.
      *
      * @param index The index of the task to mark as done.
-     * @param ui The UI object to display the result.
+     * @param ui The UI object used to display the result of the operation.
+     * @return A message indicating the result of the mark operation.
      * @throws ChatBotException If the index is invalid.
      */
-    public void markTask(int index, Ui ui) throws ChatBotException {
+    public String markTask(int index, Ui ui) throws ChatBotException {
         try {
             if (index >= 0 && index < tasks.size()) {
                 Task task = tasks.get(index);
-                ui.showTaskMarked(task.mark());
+                return ui.showTaskMarked(task.mark());
             } else {
                 throw new ChatBotException("Invalid task number for marking.");
             }
@@ -99,17 +104,18 @@ public class TaskList {
     }
 
     /**
-     * Unmarks a task as not done at the specified index.
+     * Unmarks the task at the specified index.
      *
      * @param index The index of the task to unmark.
-     * @param ui The UI object to display the result.
+     * @param ui The UI object used to display the result of the operation.
+     * @return A message indicating the result of the unmark operation.
      * @throws ChatBotException If the index is invalid.
      */
-    public void unmarkTask(int index, Ui ui) throws ChatBotException {
+    public String unmarkTask(int index, Ui ui) throws ChatBotException {
         try {
             if (index >= 0 && index < tasks.size()) {
                 Task task = tasks.get(index);
-                ui.showTaskUnmarked(task.unmark());
+                return ui.showTaskUnmarked(task.unmark());
             } else {
                 throw new ChatBotException("Invalid task number for unmarking.");
             }
@@ -119,18 +125,19 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task at the specified index.
+     * Deletes the task at the specified index.
      *
      * @param index The index of the task to delete.
-     * @param ui The UI object to display the result.
+     * @param ui The UI object used to display the result of the operation.
+     * @return A message indicating the result of the delete operation.
      * @throws ChatBotException If the index is invalid.
      */
-    public void deleteTask(int index, Ui ui) throws ChatBotException {
+    public String deleteTask(int index, Ui ui) throws ChatBotException {
         try {
             if (index >= 0 && index < tasks.size()) {
                 Task task = tasks.get(index);
                 tasks.remove(index);
-                ui.showTaskDeleted(task.delete(), tasks.size());
+                return ui.showTaskDeleted(task.delete(), tasks.size());
             } else {
                 throw new ChatBotException("Invalid task number for deleting.");
             }
@@ -140,37 +147,39 @@ public class TaskList {
     }
 
     /**
-     * Adds a ToDo task to the TaskList.
+     * Adds a new todo task to the TaskList.
      *
-     * @param phrase The input command containing the ToDo description.
-     * @param ui The UI object to display the result.
-     * @throws ChatBotException If the description is empty.
+     * @param phrase The user input containing the description of the todo task.
+     * @param ui The UI object used to display the result of the operation.
+     * @return A message indicating the result of the add operation.
+     * @throws ChatBotException If the description is empty or if there is an error in the input.
      */
-    public void addToDo(String phrase, Ui ui) throws ChatBotException {
+    public String addToDo(String phrase, Ui ui) throws ChatBotException {
         if (phrase.length() <= 5) {
             throw new ChatBotException("The description of a todo cannot be empty.");
         }
         String description = phrase.substring(5);
         Task newTask = new ToDo(description, TaskType.TODO);
         tasks.add(newTask);
-        ui.showTaskAdded(newTask, tasks.size());
+        return ui.showTaskAdded(newTask, tasks.size());
     }
 
     /**
-     * Adds a Deadline task to the TaskList.
+     * Adds a new deadline task to the TaskList.
      *
-     * @param phrase The input command containing the Deadline description and due date.
-     * @param ui The UI object to display the result.
-     * @throws ChatBotException If the format is incorrect or the date cannot be parsed.
+     * @param phrase The user input containing the description and deadline of the task.
+     * @param ui The UI object used to display the result of the operation.
+     * @return A message indicating the result of the add operation.
+     * @throws ChatBotException If the input format is incorrect or if there is an error parsing the deadline.
      */
-    public void addDeadline(String phrase, Ui ui) throws ChatBotException {
+    public String addDeadline(String phrase, Ui ui) throws ChatBotException {
         try {
             String[] parts = phrase.split(" /by ");
             String description = parts[0].substring(9);
             String by = parts[1];
             Task newTask = new Deadline(description, by, TaskType.DEADLINE);
             tasks.add(newTask);
-            ui.showTaskAdded(newTask, tasks.size());
+            return ui.showTaskAdded(newTask, tasks.size());
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new ChatBotException("Invalid format for deadline. "
                     + "Correct format: deadline <description> /by <yyyy-MM-dd HHmm>");
@@ -178,13 +187,14 @@ public class TaskList {
     }
 
     /**
-     * Adds an Event task to the TaskList.
+     * Adds a new event task to the TaskList.
      *
-     * @param phrase The input command containing the Event description, start, and end times.
-     * @param ui The UI object to display the result.
-     * @throws ChatBotException If the format is incorrect or the dates cannot be parsed.
+     * @param phrase The user input containing the description, start time, and end time of the event.
+     * @param ui The UI object used to display the result of the operation.
+     * @return A message indicating the result of the add operation.
+     * @throws ChatBotException If the input format is incorrect or if there is an error parsing the dates.
      */
-    public void addEvent(String phrase, Ui ui) throws ChatBotException {
+    public String addEvent(String phrase, Ui ui) throws ChatBotException {
         try {
             String[] parts = phrase.split(" /from | /to ");
             String description = parts[0].substring(6);
@@ -192,7 +202,7 @@ public class TaskList {
             String to = parts[2];
             Task newTask = new Event(description, from, to, TaskType.EVENT);
             tasks.add(newTask);
-            ui.showTaskAdded(newTask, tasks.size());
+            return ui.showTaskAdded(newTask, tasks.size());
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new ChatBotException("Invalid format for event. "
                     + "Correct format: event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
@@ -200,45 +210,51 @@ public class TaskList {
     }
 
     /**
-     * Prints the tasks occurring on the specified date.
+     * Retrieves tasks occurring on a specific date and returns them as a formatted string.
      *
-     * @param date The date to search for tasks (in yyyy-MM-dd format).
-     * @param ui The UI object to display the result.
+     * @param date The date to search for tasks.
+     * @param ui The UI object used to display the result of the operation.
+     * @return A string containing tasks scheduled for the specified date.
      * @throws ChatBotException If the date format is invalid.
      */
-    public void printTasksOnDate(String date, Ui ui) throws ChatBotException {
+    public String printTasksOnDate(String date, Ui ui) throws ChatBotException {
         LocalDate searchDate;
+        StringBuilder result = new StringBuilder();
         try {
             searchDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } catch (DateTimeParseException e) {
             throw new ChatBotException("Invalid date format. Please use yyyy-MM-dd.");
         }
 
-        ui.showLine();
-        System.out.println("Here are your tasks on "
-                + searchDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":");
+        result.append("Here are your tasks on ")
+                .append(searchDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")))
+                .append(":\n");
         for (Task task : tasks) {
             if (task instanceof Deadline) {
                 LocalDate taskDate = ((Deadline) task).getDeadline().toLocalDate();
                 if (taskDate.equals(searchDate)) {
-                    System.out.println(task);
+                    result.append(task).append("\n");
                 }
             } else if (task instanceof Event) {
                 LocalDate taskDate = ((Event) task).getFrom().toLocalDate();
                 if (taskDate.equals(searchDate)) {
-                    System.out.println(task);
+                    result.append(task).append("\n");
                 }
             }
         }
+        return result.toString();
     }
 
     /**
-     * If no tasks with the specified keyword are found, displays an error message.
-     * Otherwise, displays the list of tasks that contain the keyword.
+     * Searches for tasks containing a specific keyword in their description
+     * and returns the results as a formatted string.
      *
+     * @param phrase The user input containing the keyword to search for.
      * @param ui The UI object used to display the results of the search.
+     * @return A string containing tasks that match the keyword, or an error message if no tasks are found.
+     * @throws ChatBotException If the keyword is empty or the input format is incorrect.
      */
-    public void searchKeyword(String phrase, Ui ui) throws ChatBotException {
+    public String searchKeyword(String phrase, Ui ui) throws ChatBotException {
         if (phrase.length() <= 5) {
             throw new ChatBotException("The keyword of a find command cannot be empty.");
         }
@@ -259,9 +275,9 @@ public class TaskList {
 
         // Display the found tasks or an error message
         if (found) {
-            ui.showTasksFound(tasksWithKey);
+            return ui.showTasksFound(tasksWithKey);
         } else {
-            ui.showError("No tasks found containing the keyword: " + key);
+            return ui.showError("No tasks found containing the keyword: " + key);
         }
     }
 }
