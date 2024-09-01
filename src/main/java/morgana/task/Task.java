@@ -1,9 +1,8 @@
 package morgana.task;
 
 /**
- * Represents an abstract task with a type and description.
- * A task can be marked as done or not done and can also be
- * converted to a file format for storage.
+ * Represents an abstract task with a type and description. A task can be
+ * marked as done or not done and converted to a file format for storage.
  */
 public abstract class Task {
     private final TaskType type;
@@ -11,9 +10,9 @@ public abstract class Task {
     private boolean isDone = false;
 
     /**
-     * Constructs a Task with the specified type and description.
+     * Constructs a {@code Task} with the specified type and description.
      *
-     * @param type The type of the task (e.g., Todo, Deadline, Event).
+     * @param type The type of the task, as defined in {@link TaskType}.
      * @param description The description of the task.
      */
     public Task(TaskType type, String description) {

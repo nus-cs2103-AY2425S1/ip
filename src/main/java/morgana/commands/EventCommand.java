@@ -5,7 +5,15 @@ import morgana.parser.Parser;
 import morgana.task.Event;
 import morgana.task.Task;
 
+/**
+ * Represents a command to add an {@link Event} to the task list.
+ */
 public class EventCommand extends AddCommand {
+    /**
+     * Constructs an {@code EventCommand} with the specified arguments.
+     *
+     * @param args The string containing the task description, start date/time, and end date/time.
+     */
     public EventCommand(String args) {
         super(args);
     }

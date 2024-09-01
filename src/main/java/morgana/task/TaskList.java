@@ -11,14 +11,14 @@ public class TaskList {
     private final List<Task> tasks;
 
     /**
-     * Constructs an empty TaskList.
+     * Constructs an empty {@code TaskList}.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
     /**
-     * Constructs a TaskList with an initial list of tasks.
+     * Constructs a {@code TaskList} with an initial list of tasks.
      *
      * @param tasks The initial list of tasks.
      */
@@ -28,8 +28,6 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the list.
-     *
-     * @return The size of the task list.
      */
     public int size() {
         return tasks.size();
@@ -55,7 +53,7 @@ public class TaskList {
     }
 
     /**
-     * Removes the task at the specified index from the list.
+     * Removes the task at the specified index from the list and returns it.
      *
      * @param index The index of the task to remove.
      * @return The task that was removed.
