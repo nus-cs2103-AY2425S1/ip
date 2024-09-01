@@ -1,38 +1,40 @@
-/** Enums for commands. */
+/**
+ * Enums for commands.
+ */
 package deez;
 
 public enum Command {
 
-  /** Exit the program. */
-  EXIT,
+    /** Exit the program. */
+    EXIT,
 
-  /** List all tasks. */
-  LIST,
+    /** List all tasks. */
+    LIST,
 
-  /** Mark a task as completed. */
-  MARK,
+    /** Mark a task as completed. */
+    MARK,
 
-  /** Unmark a task. */
-  UNMARK,
+    /** Unmark a task. */
+    UNMARK,
 
-  /** Create a new todo item. */
-  TODO,
+    /** Create a new todo item. */
+    TODO,
 
-  /** Set a deadline for a task. */
-  DEADLINE,
+    /** Set a deadline for a task. */
+    DEADLINE,
 
-  /** Schedule an event. */
-  EVENT,
+    /** Schedule an event. */
+    EVENT,
 
-  /** Delete a task. */
-  DELETE,
+    /** Delete a task. */
+    DELETE,
 
-  /** Save the current state of tasks. */
-  SAVE,
+    /** Save the current state of tasks. */
+    SAVE,
 
-  /** Find a specific task based on its name or description. */
-  FIND,
+    /** Find a specific task based on its name or description. */
+    FIND,
 
-  /** Unknown command. */
-  UNKNOWN;
+    /** Unknown command. */
+    UNKNOWN;
 }
