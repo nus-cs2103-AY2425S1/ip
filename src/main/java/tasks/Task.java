@@ -12,9 +12,9 @@ public class Task {
     @Override
     public String toString() {
         if (done) {
-            return "[x] " + name;
+            return "[x] " + this.name;
         }
-        return "[ ] " + name;
+        return "[ ] " + this.name;
     }
 
     public boolean isDone() {

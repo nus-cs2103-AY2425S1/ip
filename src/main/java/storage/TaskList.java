@@ -30,7 +30,7 @@ public class TaskList {
                 break;
             case "2":
                 System.out.println("What is the deadline?");
-                this.parent.add(new Deadline(task, getInputFromUser(sc, "tasks.Deadline > ")));
+                this.parent.add(new Deadline(task, getInputFromUser(sc, "Deadline > ")));
                 System.out.println("Friday > Okay, I've added a deadline: " + task);
                 break;
             case "3":
