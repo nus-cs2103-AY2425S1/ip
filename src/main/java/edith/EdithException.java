@@ -1,4 +1,4 @@
-package Edith;
+package edith;
 
 public class EdithException extends IllegalArgumentException {
     public EdithException(String message) {

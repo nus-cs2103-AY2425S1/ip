@@ -1,6 +1,6 @@
-package Edith.task;
+package edith.task;
 
-import Edith.Ui;
+import edith.Ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

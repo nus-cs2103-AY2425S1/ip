@@ -1,9 +1,9 @@
-package Edith;
+package edith;
 
-import Edith.task.Task;
-import Edith.task.ToDo;
-import Edith.task.Deadline;
-import Edith.task.Event;
+import edith.task.Task;
+import edith.task.ToDo;
+import edith.task.Deadline;
+import edith.task.Event;
 
 import java.io.BufferedWriter;
 import java.io.File;

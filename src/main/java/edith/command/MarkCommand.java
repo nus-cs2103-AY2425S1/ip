@@ -1,17 +1,17 @@
-package Edith.command;
+package edith.command;
 
-import Edith.Ui;
-import Edith.Storage;
-import Edith.EdithException;
-import Edith.task.Task;
-import Edith.task.TaskList;
+import edith.Ui;
+import edith.Storage;
+import edith.EdithException;
+import edith.task.Task;
+import edith.task.TaskList;
 
 import java.io.IOException;
 
-public class UnmarkCommand extends Command {
+public class MarkCommand extends Command {
     private int index;
 
-    public UnmarkCommand(int index) {
+    public MarkCommand(int index) {
         this.index = index;
     }
 
@@ -21,11 +21,11 @@ public class UnmarkCommand extends Command {
             throw new EdithException("Edith.task.Task " + index + " does not exist. Please enter a valid Edith.task number.");
         }
 
-        Task taskToUnmark = tasks.getTask(index);
-        taskToUnmark.markTaskUndone();
+        Task taskToMark = tasks.getTask(index);
+        taskToMark.markTaskDone();
 
-        ui.showIndentedMessage("Sure, I've marked Edith.task " + (index + 1) + " as not done yet:");
-        ui.showIndentedMessage(taskToUnmark.toString());
+        ui.showIndentedMessage("Alright, great job! I've marked Edith.task " + (index + 1) + " as done:");
+        ui.showIndentedMessage(taskToMark.toString());
         ui.showLineBreak();
 
         try {

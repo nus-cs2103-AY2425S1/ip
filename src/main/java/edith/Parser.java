@@ -1,13 +1,13 @@
-package Edith;
+package edith;
 
-import Edith.command.Command;
-import Edith.command.ExitCommand;
-import Edith.command.ListCommand;
-import Edith.command.AddCommand;
-import Edith.command.ListOnDateCommand;
-import Edith.command.MarkCommand;
-import Edith.command.UnmarkCommand;
-import Edith.command.DeleteCommand;
+import edith.command.Command;
+import edith.command.ExitCommand;
+import edith.command.ListCommand;
+import edith.command.AddCommand;
+import edith.command.ListOnDateCommand;
+import edith.command.MarkCommand;
+import edith.command.UnmarkCommand;
+import edith.command.DeleteCommand;
 
 public class Parser {
     public Command parse(String userInput) {

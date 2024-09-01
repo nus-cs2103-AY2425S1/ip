@@ -1,4 +1,4 @@
-package Edith;
+package edith;
 
 public class Ui {
     private static final String LINE_BREAK = "\n_______________________________________________________________________\n";

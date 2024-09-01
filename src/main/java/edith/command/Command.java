@@ -1,9 +1,9 @@
-package Edith.command;
+package edith.command;
 
-import Edith.Ui;
-import Edith.Storage;
-import Edith.EdithException;
-import Edith.task.TaskList;
+import edith.Ui;
+import edith.Storage;
+import edith.EdithException;
+import edith.task.TaskList;
 
 public abstract class Command {
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws EdithException;

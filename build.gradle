@@ -9,6 +9,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.google.guava:guava:32.0.0-jre'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
@@ -28,14 +29,14 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("edith.Edith")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "edith"
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
 }

@@ -1,7 +1,7 @@
-package Edith;
+package edith;
 
-import Edith.command.Command;
-import Edith.task.TaskList;
+import edith.command.Command;
+import edith.task.TaskList;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;

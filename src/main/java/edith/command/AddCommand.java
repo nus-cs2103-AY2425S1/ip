@@ -1,13 +1,13 @@
-package Edith.command;
+package edith.command;
 
-import Edith.Ui;
-import Edith.Storage;
-import Edith.EdithException;
-import Edith.task.Task;
-import Edith.task.ToDo;
-import Edith.task.Deadline;
-import Edith.task.Event;
-import Edith.task.TaskList;
+import edith.Ui;
+import edith.Storage;
+import edith.EdithException;
+import edith.task.Task;
+import edith.task.ToDo;
+import edith.task.Deadline;
+import edith.task.Event;
+import edith.task.TaskList;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
