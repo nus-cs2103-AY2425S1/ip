@@ -31,15 +31,15 @@ public class Ui {
     /**
      * Prints the introduction message
      */
-    public void start() {
-        System.out.println(INTRO);
+    public String start() {
+        return INTRO;
     }
 
     /**
      * Prints the exit message
      */
-    public void end() {
-        System.out.println(OUTRO);
+    public String end() {
+        return OUTRO;
     }
 
     /**
@@ -54,17 +54,16 @@ public class Ui {
      * @param t Task to display
      * @param noOfTasks Current size of arraylist
      */
-    public void displayTaskDetails(Task t, int noOfTasks) {
-        System.out.println(
-                "____________________________________________________________\n"
+    public String displayTaskDetails(Task t, int noOfTasks) {
+        return "____________________________________________________________\n"
                         + "Got it. I've added this task:\n"
                         + t
                         + "\n"
                         + "     You now have "
                         + noOfTasks
                         + " tasks in the list.\n"
-                        + "____________________________________________________________\n"
-        );
+                        + "____________________________________________________________\n";
+
     }
 
     /**
@@ -72,66 +71,63 @@ public class Ui {
      * @param t Task to delete
      * @param noOfTasks Current size of arraylist
      */
-    public void displaySuccessfulDeleteMessage(Task t, int noOfTasks) {
-        System.out.println(
-                "____________________________________________________________\n"
+    public String displaySuccessfulDeleteMessage(Task t, int noOfTasks) {
+        return "____________________________________________________________\n"
                         + "Alright, I've removed this task from the list:\n"
                         + t
                         + "\n"
                         + "     You now have "
                         + noOfTasks
                         + " tasks in the list.\n"
-                        + "____________________________________________________________\n");
+                        + "____________________________________________________________\n";
     }
 
     /**
      * Displays successful marking of a task
      * @param t Task to mark as done
      */
-    public void displayMarkAsDoneMessage(Task t) {
-        System.out.println(
-                "____________________________________________________________\n"
+    public String displayMarkAsDoneMessage(Task t) {
+        return "____________________________________________________________\n"
                         + "Nice! I've marked this task as done:\n"
                         + t
                         + "\n"
-                        + "____________________________________________________________\n");
+                        + "____________________________________________________________\n";
     }
 
     /**
      * Displays successful unmarking of a task
      * @param t Task to unmark as done
      */
-    public void displayMarkAsUnDoneMessage(Task t) {
-        System.out.println(
-                "____________________________________________________________\n"
+    public String displayMarkAsUnDoneMessage(Task t) {
+        return "____________________________________________________________\n"
                         + "Okay, I've marked this task as not done yet:\n"
                         + t
                         + "\n"
-                        + "____________________________________________________________\n");
+                        + "____________________________________________________________\n";
     }
 
     /**
      * Displays exception message
      * @param e exception to handle
      */
-    public void displayErrorMessage(Exception e) {
-        System.out.println(e.toString());
+    public String displayErrorMessage(Exception e) {
+        return e.toString();
     }
 
     /**
      * Displays exception message
      * @param s custom string message to display
      */
-    public void displayErrorMessage(String s) {
-        System.out.println(s);
+    public String displayErrorMessage(String s) {
+        return s;
     }
 
     /**
      * Displays the arraylist of tasks
      * @param tasks TaskList of tasks
      */
-    public void listTasks(TaskList tasks) {
-        System.out.println(tasks.toString());
+    public String listTasks(TaskList tasks) {
+        return tasks.toString();
     }
 
     /**
@@ -140,7 +136,7 @@ public class Ui {
      * @param s specified event String
      * @param tasks TaskList of all tasks
      */
-    public void findEvent(String s, TaskList tasks) {
-        System.out.println(tasks.findEvent(s));
+    public String findEvent(String s, TaskList tasks) {
+        return tasks.findEvent(s);
     }
 }

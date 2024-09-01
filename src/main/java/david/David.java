@@ -33,7 +33,6 @@ public class David {
     /**
      * Constructor for David.David
      */
-
     public David(String path) {
         this.ui = new Ui();
         this.cache = new Storage(path);
@@ -41,56 +40,43 @@ public class David {
     };
 
     /**
-     * Start the chatbot
+     * Get response from chatbot
      */
-    public void activateChatBot() {
-        ui.start();
-        while (true) {
-            inputString = ui.getInput(); //get next input
+    public String getResponse(String input) {
+        inputString = input;
 
-            if (inputString.equals("bye")) {
-                endChatBot(); //end chatbot
-                break;
+        if (inputString.equals("bye")) {
+            return endChatBot(); //end chatbot
+        }
+
+        try {
+            switch (StringParser.parseStringToCommand(inputString)) {
+            case "LIST":
+                return listTasks();
+            case "MARK":
+                return markTaskAsDone(inputString);
+            case "UNMARK":
+                return markTaskAsUnDone(inputString);
+            case "TODO":
+                return addTodoTask(inputString);
+            case "EVENT":
+                return addEventTask(inputString);
+            case "DEADLINE":
+                return addDeadlineTask(inputString);
+            case "DELETE":
+                return deleteTask(inputString);
+            case "FIND":
+                return findEvent(inputString);
+            default:
+                throw new DavidUnknownActionException();
             }
-
-            try {
-                switch (StringParser.parseStringToCommand(inputString)) {
-                case "LIST":
-                    listTasks();
-                    break;
-                case "MARK":
-                    markTaskAsDone(inputString);
-                    break;
-                case "UNMARK":
-                    markTaskAsUnDone(inputString);
-                    break;
-                case "TODO":
-                    addTodoTask(inputString);
-                    break;
-                case "EVENT":
-                    addEventTask(inputString);
-                    break;
-                case "DEADLINE":
-                    addDeadlineTask(inputString);
-                    break;
-                case "DELETE":
-                    deleteTask(inputString);
-                    break;
-                case "FIND":
-                    findEvent(inputString);
-                    break;
-                default:
-                    throw new DavidUnknownActionException();
-                }
-            } catch (DavidException e) {
-                /*
-                Catch all exception.
-                The actual error message thrown/shown depends on the runtime type of
-                the exception thrown. (Polymorphism)
-                 */
-                ui.displayErrorMessage(e);
-            }
-
+        } catch (DavidException e) {
+            /*
+            Catch all exception.
+            The actual error message thrown/shown depends on the runtime type of
+            the exception thrown. (Polymorphism)
+             */
+            return ui.displayErrorMessage(e);
         }
     }
 
@@ -99,9 +85,9 @@ public class David {
      * @param s input string
      * @throws DavidInvalidArgumentsException
      */
-    public void findEvent(String s) throws DavidInvalidArgumentsException {
+    public String findEvent(String s) throws DavidInvalidArgumentsException {
         String event = StringParser.parseStringToArguments(s);
-        ui.findEvent(event, tasks);
+        return ui.findEvent(event, tasks);
     }
 
 
@@ -110,11 +96,11 @@ public class David {
      * @param s string task
      * @throws DavidInvalidArgumentsException
      */
-    public void addTodoTask(String s) throws DavidInvalidArgumentsException {
+    public String addTodoTask(String s) throws DavidInvalidArgumentsException {
         String event = StringParser.parseStringToArguments(s);
         Task t = new TodoTask(s, false);
         this.tasks.addTask(t);
-        ui.displayTaskDetails(t, this.tasks.getSize());
+        return ui.displayTaskDetails(t, this.tasks.getSize());
     }
 
     /**
@@ -124,7 +110,7 @@ public class David {
      * @throws DavidInvalidRangeException
      * @throws DavidInvalidDateTimeException
      */
-    public void addEventTask(String s) throws DavidInvalidArgumentsException, DavidInvalidRangeException,
+    public String addEventTask(String s) throws DavidInvalidArgumentsException, DavidInvalidRangeException,
             DavidInvalidDateTimeException {
         String event = StringParser.parseStringToArguments(s);
         String[] eventSplit = event.split(" /from", 2);
@@ -145,7 +131,7 @@ public class David {
 
         Task t = new EventTask(eventName, fromDate, toDate, false);
         this.tasks.addTask(t);
-        ui.displayTaskDetails(t, this.tasks.getSize());
+        return ui.displayTaskDetails(t, this.tasks.getSize());
     }
 
     /**
@@ -155,7 +141,7 @@ public class David {
      * @throws DavidInvalidDeadlineException
      * @throws DavidInvalidDateTimeException
      */
-    public void addDeadlineTask(String s) throws DavidInvalidArgumentsException, DavidInvalidDeadlineException,
+    public String addDeadlineTask(String s) throws DavidInvalidArgumentsException, DavidInvalidDeadlineException,
             DavidInvalidDateTimeException {
         String event = StringParser.parseStringToArguments(s);
         String[] eventSplit = event.split(" /by", 2);
@@ -168,7 +154,7 @@ public class David {
         LocalDateTime byDate = DateParser.getDate(eventSplit[1]);
         Task t = new DeadlineTask(eventSplit[0], byDate, false);
         this.tasks.addTask(t);
-        ui.displayTaskDetails(t, this.tasks.getSize());
+        return ui.displayTaskDetails(t, this.tasks.getSize());
     }
 
     /**
@@ -177,7 +163,7 @@ public class David {
      * @throws DavidInvalidArgumentsException
      * @throws DavidInvalidTaskException
      */
-    public void deleteTask(String s) throws DavidInvalidArgumentsException, DavidInvalidTaskException {
+    public String deleteTask(String s) throws DavidInvalidArgumentsException, DavidInvalidTaskException {
         try {
             String index = StringParser.parseStringToArguments(s);
             int i = Integer.parseInt(index) - 1;
@@ -186,9 +172,9 @@ public class David {
             }
             Task t = tasks.getTask(i);
             tasks.deleteTask(i);
-            ui.displaySuccessfulDeleteMessage(t, this.tasks.getSize());
+            return ui.displaySuccessfulDeleteMessage(t, this.tasks.getSize());
         } catch (NumberFormatException e) {
-            ui.displayErrorMessage("The number you entered is not a valid number. Please enter a valid number");
+            return ui.displayErrorMessage("The number you entered is not a valid number. Please enter a valid number");
         }
 
     }
@@ -198,16 +184,16 @@ public class David {
      * @param s String index to mark
      * @throws DavidInvalidArgumentsException
      */
-    public void markTaskAsDone(String s) throws DavidInvalidArgumentsException {
+    public String markTaskAsDone(String s) throws DavidInvalidArgumentsException {
         try {
             String index = StringParser.parseStringToArguments(s);
             Task t = tasks.getTask(Integer.parseInt(index) - 1);
             t.markAsDone();
-            ui.displayMarkAsDoneMessage(t);
+            return ui.displayMarkAsDoneMessage(t);
         } catch (IndexOutOfBoundsException e) {
-            ui.displayErrorMessage("No such task! Please enter a valid task.");
+            return ui.displayErrorMessage("No such task! Please enter a valid task.");
         } catch (NumberFormatException e) {
-            ui.displayErrorMessage("The number you entered is not a valid number. Please enter a valid number");
+            return ui.displayErrorMessage("The number you entered is not a valid number. Please enter a valid number");
         }
     }
 
@@ -216,44 +202,38 @@ public class David {
      * @param s String index to mark
      * @throws DavidInvalidArgumentsException
      */
-    public void markTaskAsUnDone(String s) throws DavidInvalidArgumentsException {
+    public String markTaskAsUnDone(String s) throws DavidInvalidArgumentsException {
         try {
             String index = StringParser.parseStringToArguments(s);
             Task t = tasks.getTask(Integer.parseInt(index) - 1);
             t.markAsUnDone();
-            ui.displayMarkAsUnDoneMessage(t);
+            return ui.displayMarkAsUnDoneMessage(t);
         } catch (IndexOutOfBoundsException e) {
-            ui.displayErrorMessage("No such task! Please enter a valid task.");
+            return ui.displayErrorMessage("No such task! Please enter a valid task.");
         } catch (NumberFormatException e) {
-            ui.displayErrorMessage("The number you entered is not a valid number. Please enter a valid number");
+            return ui.displayErrorMessage("The number you entered is not a valid number. Please enter a valid number");
         }
     }
 
     /**
      * Lists all tasks added
      */
-    public void listTasks() {
-        ui.listTasks(this.tasks);
+    public String listTasks() {
+        return ui.listTasks(this.tasks);
     }
 
     /**
      * End chatbot
      */
-    public void endChatBot() {
+    public String endChatBot() {
         try {
             cache.saveTask(tasks);
-            ui.end();
+            return ui.end();
         } catch (DavidCacheException e) {
-            ui.displayErrorMessage(e);
+            return ui.displayErrorMessage(e);
         }
 
     }
 
-    /**
-     * Main method called at the start of the program
-     * @param args
-     */
-    public static void main(String[] args) {
-        new David("./src/main/java/David/Data/database.txt").activateChatBot();
-    }
+
 }
