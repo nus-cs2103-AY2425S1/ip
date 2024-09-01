@@ -20,6 +20,7 @@ public class Elysia {
         Scanner scanner = new Scanner(System.in);
         arrayLists = new ArrayList<>();
         Storage storage = new Storage(arrayLists);
+        Storage.createFile(folderName, fileName);
         storage.scanFileContents(filePath);
         TaskList taskList = new TaskList();
         Ui ui = new Ui();

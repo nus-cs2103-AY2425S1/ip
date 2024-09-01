@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -78,7 +79,7 @@ public class Storage {
         arrayLists.add(task);
     }
 
-    private void createFile(String folderName, String fileName) throws IOException {
+    public static void createFile(String folderName, String fileName) throws IOException {
         File dataDir = new File(folderName);
 
         if (!dataDir.exists()) {
@@ -116,13 +117,18 @@ public class Storage {
     public void handleExit(String folderName, String fileName, String filePath) throws IOException {
         createFile(folderName, fileName);
 
-        try {
-            writeToFile(filePath, arrayLists.get(0).saveToTxt());
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
-        for (int i = 1; i < arrayLists.size(); i++) {
-            appendToFile(filePath, "\n" + arrayLists.get(i).saveToTxt());
+        if (!arrayLists.isEmpty()) {
+            try {
+                writeToFile(filePath, arrayLists.get(0).saveToTxt());
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+            for (int i = 1; i < arrayLists.size(); i++) {
+                appendToFile(filePath, "\n" + arrayLists.get(i).saveToTxt());
+            }
+        } else {
+            File file = new File(filePath);
+            Files.delete(file.toPath());
         }
     }
 }
