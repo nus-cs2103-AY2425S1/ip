@@ -46,7 +46,12 @@ public class Ui {
                 "____________________________________________________________\n";
     }
 
-    public void printAdd(int i, TaskList taskList) {
-
+    public void printAdd(Task task, TaskList taskList) {
+        String taskAdd = "____________________________________________________________\n" +
+                " Got it. I've added this task:\n" +
+                task + "\n" +
+                "Now you have " + taskList.getListSize() + " tasks in the list.\n" +
+                "____________________________________________________________";
+        System.out.println(taskAdd);
     }
 }
