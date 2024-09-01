@@ -1,3 +1,5 @@
+package secondmind;
+
 public class EmptyCommandException extends Exception {
     @Override
     public String toString() {

@@ -1,3 +1,5 @@
+package secondmind;
+
 public class InvalidTaskNumberException extends Exception {
     int invalidTaskNumber;
 
