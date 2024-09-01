@@ -2,41 +2,91 @@ package meep.task;
 
 import java.util.ArrayList;
 
+/**
+ * The {@code TaskList} class represents a list of tasks.
+ * It provides methods to add, delete, and manipulate tasks, as well as retrieve information about the task list.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty {@code TaskList}.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a new {@code TaskList} that is a copy of the specified {@code TaskList}.
+     *
+     * @param taskList The {@code TaskList} to copy.
+     */
     public TaskList(TaskList taskList) {
         this.tasks = new ArrayList<>(taskList.tasks);
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param item The task to be added.
+     */
     public void addItem(Task item) {
         this.tasks.add(item);
     }
 
+    /**
+     * Deletes the task at the specified index from the task list.
+     *
+     * @param index The index of the task to be deleted.
+     */
     public void deleteItem(int index) {
         this.tasks.remove(index);
     }
 
+    /**
+     * Marks the task at the specified index as done.
+     *
+     * @param index The index of the task to be marked as done.
+     */
     public void markAsDone(int index) {
         this.tasks.get(index).markAsDone();
     }
 
+    /**
+     * Marks the task at the specified index as not done.
+     *
+     * @param index The index of the task to be marked as not done.
+     */
     public void markAsUndone(int index) {
         this.tasks.get(index).markAsUndone();
     }
 
+    /**
+     * Returns a string representation of the task at the specified index.
+     * The returned string includes a newline character at the end.
+     *
+     * @param index The index of the task to be retrieved.
+     * @return The string representation of the task at the specified index.
+     */
     public String getTask(int index) {
         return this.tasks.get(index).toString() + "\n";
     }
 
+    /**
+     * Returns a string representation of the last task in the list.
+     *
+     * @return The string representation of the last task.
+     */
     public String getLastTask() {
         return this.tasks.get(this.tasks.size() - 1).toString();
     }
 
+    /**
+     * Returns a string representation of all tasks in the task list.
+     * Each task is preceded by its index in the list.
+     *
+     * @return The string representation of the entire task list.
+     */
     public String getList() {
         StringBuilder list = new StringBuilder();
         for (int i = 0; i < this.tasks.size(); i++) {
@@ -45,6 +95,12 @@ public class TaskList {
         return list.toString();
     }
 
+    /**
+     * Returns a string representation of all tasks in the task list in a format suitable for saving to a file.
+     * Each task's string representation is followed by a newline character.
+     *
+     * @return The save format string of the entire task list.
+     */
     public String getSaveFormatList() {
         StringBuilder list = new StringBuilder();
         for (Task task : this.tasks) {
@@ -53,6 +109,11 @@ public class TaskList {
         return list.toString();
     }
 
+    /**
+     * Returns the number of tasks in the task list.
+     *
+     * @return The size of the task list.
+     */
     public int getSize() {
         return tasks.size();
     }
