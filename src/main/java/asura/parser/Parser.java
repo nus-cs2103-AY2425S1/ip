@@ -19,7 +19,7 @@ public class Parser {
      * Identifies the command of the user and returns the command identified.
      * @param command The command that the user inputted.
      * @return The command identified by the parser.
-     * @throws AsuraException If the user inputted an invalid command
+     * @throws AsuraException If the user inputted an invalid command.
      */
     public static Command parse(String command) throws AsuraException {
         List<String> splitCommand = Arrays.asList(command.split(" "));
