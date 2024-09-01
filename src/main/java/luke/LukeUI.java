@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Luke using FXML.
+ * A GUI for Luke built on FXML.
  */
 public class LukeUI extends Application {
 

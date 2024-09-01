@@ -12,9 +12,9 @@ import luke.task.UnknownCommandException;
 
 public class Ui {
     private static TaskList taskList = new TaskList();
-    // todo: define handleUserInput() such that it feeds input to the user dialog box and output to the luke dialog box
+
     /**
-     * Defines a Scanner object to accept string input (which will be parsed into commands later).
+     * Takes in user input and passes it to handleCommand.
      */
     public static String handleUserInput(String input) {
         Command command = Parser.parseInputData(input);
@@ -49,6 +49,7 @@ public class Ui {
             return handleAddTask(command, isLoadingFromDisk);
         }
         }
+        return "";
     }
 
     public static String showList() {
@@ -56,7 +57,7 @@ public class Ui {
     }
 
     /**
-     * Marks or unmark tasks
+     * Marks or unmarks tasks
      * @param command the mark/unmark command word and its associated tasks
      */
     public static String handleTaskMarking(Command command) {

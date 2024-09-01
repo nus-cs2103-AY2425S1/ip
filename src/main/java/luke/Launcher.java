@@ -3,7 +3,7 @@ package luke;
 import javafx.application.Application;
 
 /**
- * A launcher class to workaround classpath issues.
+ * (From the SE-EDU JavaFX tutorial) A launcher class to workaround classpath issues.
  */
 public class Launcher {
     public static void main(String[] args) {
