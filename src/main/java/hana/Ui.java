@@ -4,6 +4,7 @@ import hana.task.Task;
 import hana.task.TaskList;
 
 import java.util.Scanner;
+import java.util.List;
 
 /**
  * Handles interactions with the user.
@@ -96,6 +97,18 @@ public class Ui {
             System.out.println("    " + (i + 1) + "." + tasks.get(i));
         }
         System.out.println(line);
+    }
+
+    public void showFindResults(List<Task> foundTasks) {
+        if (foundTasks.isEmpty()) {
+            System.out.println(line + "    No matching tasks found.\n" + line);
+        } else {
+            System.out.println(line + "    Here are the matching tasks in your list:");
+            for (int i = 0; i < foundTasks.size(); i++) {
+                System.out.println("    " + (i + 1) + "." + foundTasks.get(i));
+            }
+            System.out.println(line);
+        }
     }
 }
 

@@ -5,6 +5,7 @@ import hana.task.TaskList;
 
 
 import java.io.IOException;
+import java.util.List;
 
 public abstract class Command {
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws HanaException, IOException;
@@ -44,6 +45,20 @@ class DeleteCommand extends Command {
         tasks.remove(index);
         storage.save(tasks.getTasks());
         ui.showTaskDeleted(task, tasks.size());
+    }
+}
+
+class FindCommand extends Command {
+    private String keyword;
+
+    public FindCommand(String keyword) {
+        this.keyword = keyword;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        List<Task> foundTasks = tasks.findTasks(keyword);
+        ui.showFindResults(foundTasks);
     }
 }
 
