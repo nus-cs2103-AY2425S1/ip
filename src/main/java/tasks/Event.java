@@ -9,6 +9,7 @@ public class Event extends Task {
 
     protected LocalDate fromDuration;
     protected LocalDate toDuration;
+    protected DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     public Event(String description, LocalDate fromDuration, LocalDate toDuration) {
         super(description);
@@ -24,7 +25,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.fromDuration + " to: " + this.toDuration + ")";
+        return "[E]" + super.toString() + " (from: " + this.fromDuration.format(outputFormatter) + " to: " + this.toDuration.format(outputFormatter) + ")";
     }
 
     public LocalDate getFromDur() {

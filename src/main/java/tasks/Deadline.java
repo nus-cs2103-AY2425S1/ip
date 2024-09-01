@@ -2,11 +2,11 @@ package tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 public class Deadline extends Task {
 
     protected LocalDate by;
+    protected DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     public Deadline(String description, LocalDate by) {
         super(description);
@@ -22,7 +22,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + this.by.format(outputFormatter) + ")";
     }
 
     public LocalDate getDeadlineDate() {

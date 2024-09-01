@@ -2,9 +2,10 @@ package tasklist;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import tasks.*;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
 import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDate;
@@ -12,7 +13,6 @@ import java.util.Scanner;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import tasklist.*;
 
 public class TaskListTest {
 
@@ -41,8 +41,8 @@ public class TaskListTest {
         String expectedOutput =
                 "____________________________________________________________" + System.lineSeparator()
                         + "Here are the matching tasks in your list:" + System.lineSeparator()
-                        + "1.[D][ ] CS2103T (by: 2024-08-26)" + System.lineSeparator()
-                        + "2.[E][ ] CS2102 (from: 2025-01-15 to: 2025-05-07)" + System.lineSeparator()
+                        + "1.[D][ ] CS2103T (by: Aug 26 2024)" + System.lineSeparator()
+                        + "2.[E][ ] CS2102 (from: Jan 15 2025 to: May 07 2025)" + System.lineSeparator()
                         + "____________________________________________________________" + System.lineSeparator();
 
         // Print to see actual output
@@ -77,7 +77,7 @@ public class TaskListTest {
         String expectedOutput =
                 "____________________________________________________________" + System.lineSeparator()
                         + "Here are the tasks that occur at this date: 2025-02-10" + System.lineSeparator()
-                        + "1.[E][ ] CS2102 (from: 2025-01-15 to: 2025-05-07)" + System.lineSeparator()
+                        + "1.[E][ ] CS2102 (from: Jan 15 2025 to: May 07 2025)" + System.lineSeparator()
                         + "____________________________________________________________" + System.lineSeparator();
 
         // Print to see actual output

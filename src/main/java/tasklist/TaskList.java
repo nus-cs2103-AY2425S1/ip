@@ -4,8 +4,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
-import tasks.*;
-import exceptions.*;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
+import exceptions.TheOrangeRatchetCatException;
 
 public class TaskList {
 
@@ -145,6 +148,8 @@ public class TaskList {
         }
         // The "by" part is the second part, if it exists
         String date = parts.length > 1 ? parts[1].trim() : "";
+        /*String time = date.substring(10).trim();
+        System.out.println(time);*/
         LocalDate dateBy;
 
         try { // Utilises LocalDate static method to parse input
