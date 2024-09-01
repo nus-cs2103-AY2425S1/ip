@@ -7,21 +7,21 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import calebyyy.Tasks.Deadline;
-import calebyyy.Tasks.Event;
-import calebyyy.Tasks.Task;
-import calebyyy.Tasks.Todo;
+import calebyyy.tasks.Deadline;
+import calebyyy.tasks.Event;
+import calebyyy.tasks.Task;
+import calebyyy.tasks.Todo;
 
 /**
  * Represents the storage of the application.
  */
 public class Storage {
 
-    String filePath;
+    private String filePath;
 
     /**
      * Constructor for Storage.
-     * 
+     *
      * @param filePath The file path to store the tasks.
      */
     public Storage(String filePath) {
@@ -31,7 +31,7 @@ public class Storage {
 
     /**
      * Loads tasks from the file.
-     * 
+     *
      * @param tasklist The task list to load the tasks into.
      */
     void loadTasks(TaskList tasklist) {
@@ -50,18 +50,20 @@ public class Storage {
                 Task task = null;
 
                 switch (type) {
-                    case "T":
-                        task = new Todo(description);
-                        break;
-                    case "D":
-                        String by = parts[3];
-                        task = new Deadline(description, by);
-                        break;
-                    case "E":
-                        String from = parts[3];
-                        String to = parts[4];
-                        task = new Event(description, from, to);
-                        break;
+                case "T":
+                    task = new Todo(description);
+                    break;
+                case "D":
+                    String by = parts[3];
+                    task = new Deadline(description, by);
+                    break;
+                case "E":
+                    String from = parts[3];
+                    String to = parts[4];
+                    task = new Event(description, from, to);
+                    break;
+                default:
+                    break;
                 }
 
                 if (task != null) {
@@ -78,7 +80,7 @@ public class Storage {
 
     /**
      * Saves tasks to the file.
-     * 
+     *
      * @param taskList The task list to save the tasks from.
      */
     public void saveTasks(TaskList taskList) {

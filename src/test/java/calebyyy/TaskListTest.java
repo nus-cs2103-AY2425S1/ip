@@ -1,8 +1,10 @@
 package calebyyy;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import calebyyy.Tasks.Task;
+
+import calebyyy.tasks.Task;
 
 
 public class TaskListTest {

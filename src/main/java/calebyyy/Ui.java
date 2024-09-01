@@ -1,6 +1,7 @@
 package calebyyy;
-import calebyyy.Tasks.Task;
 import java.util.ArrayList;
+
+import calebyyy.tasks.Task;
 
 /**
  * Represents the user interface of the application.

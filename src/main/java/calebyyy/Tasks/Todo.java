@@ -1,4 +1,4 @@
-package calebyyy.Tasks;
+package calebyyy.tasks;
 
 /**
  * Represents a todo task.

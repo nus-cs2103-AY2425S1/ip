@@ -15,7 +15,7 @@ public abstract class Command {
 
     /**
      * Constructor for Command.
-     * 
+     *
      * @param calebyyy The main Calebyyy object.
      * @param ui The Ui object responsible for user interaction.
      * @param taskList The TaskList object responsible for storing tasks.
@@ -28,7 +28,7 @@ public abstract class Command {
 
     /**
      * Executes the command.
-     * 
+     *
      * @param input The user input.
      * @throws CalebyyyException If an error occurs during execution.
      */
