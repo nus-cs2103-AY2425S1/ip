@@ -4,13 +4,18 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.HashMap;
 import java.util.Map;
 
-/** Parses the string input into LocalDate object. **/
+/**
+ * Parses the string input into LocalDate object.
+ **/
 public class DateParser {
 
-    /** Parses the string input into LocalDate object. **/
+    /**
+     * Parses the string input into LocalDate object.
+     **/
     public static LocalDate parseDate(String input) {
         LocalDate parsedDate = null;
 
@@ -19,7 +24,7 @@ public class DateParser {
 
         parsedDate = map.get(input.toLowerCase());
 
-        if (parsedDate!=null) {
+        if (parsedDate != null) {
             return parsedDate;
         }
 
@@ -55,7 +60,9 @@ public class DateParser {
         return parsedDate;
     }
 
-    /** Builds a map that map the subsequent dates for Mon, Tues...Sun. **/
+    /**
+     * Builds a map that map the subsequent dates for Mon, Tues...Sun.
+     **/
     static Map<String, LocalDate> buildMap() {
         Map<String, LocalDate> map = new HashMap<>();
         LocalDate today = LocalDate.now();

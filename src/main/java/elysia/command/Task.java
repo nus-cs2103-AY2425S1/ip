@@ -21,7 +21,7 @@ public abstract class Task {
      * Prints task's status.
      */
     public String getStatusIcon() {
-        return (isDone ? "[X]":"[ ]"); // mark done task with X
+        return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
 
     /**
@@ -50,7 +50,9 @@ public abstract class Task {
         return getStatusIcon() + " " + this.description;
     }
 
-    /** Saves the task into the txt file. **/
+    /**
+     * Saves the task into the txt file.
+     **/
     public abstract String saveToTxt();
 
     //...

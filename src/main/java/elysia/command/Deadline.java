@@ -3,7 +3,9 @@ package elysia.command;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-/** Extends the Task class to include deadline-specific details. **/
+/**
+ * Extends the Task class to include deadline-specific details.
+ **/
 public class Deadline extends Task {
     protected LocalDate by;
 
@@ -27,7 +29,7 @@ public class Deadline extends Task {
 
     @Override
     public String saveToTxt() {
-        int i = this.isDone ? 1:0;
+        int i = this.isDone ? 1 : 0;
         return "D | " + i + " | " + this.description + " | " + this.by;
     }
 }
