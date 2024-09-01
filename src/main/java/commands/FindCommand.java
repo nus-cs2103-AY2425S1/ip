@@ -11,7 +11,7 @@ public class FindCommand extends Command {
     private String keyword;
 
     public FindCommand(String keyword) {
-        this.keyword = keyword;
+        this.keyword = keyword.substring(5).trim();
     }
 
     @Override
@@ -20,10 +20,11 @@ public class FindCommand extends Command {
         if (matchingTasks.isEmpty()) {
             ui.printMessage("No matching tasks found.");
         } else {
-            ui.printMessage("Here are the matching tasks in your list:");
+            StringBuilder str = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                ui.printMessage((i + 1) + ". " + matchingTasks.get(i));
+                str.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
             }
+            ui.printMessage(str.toString());
         }
         return true;
     }
