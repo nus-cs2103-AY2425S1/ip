@@ -18,6 +18,10 @@ public class Todo extends Task {
         this.isDone = isDone;
     }
 
+    public String getName() {
+        return this.text;
+    }
+
     public String toString() {
         String str = "";
         if (this.isDone) {

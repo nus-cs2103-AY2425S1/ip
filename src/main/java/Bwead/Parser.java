@@ -3,6 +3,7 @@ package Bwead;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
 
@@ -41,7 +42,8 @@ public class Parser {
      */
     public boolean isInvalidMultiWord() {
         return !command.startsWith("todo") && !command.startsWith("deadline") && !command.startsWith("event")
-                && !command.startsWith("delete") && !command.startsWith("mark") && !command.startsWith("unmark");
+                && !command.startsWith("delete") && !command.startsWith("mark") && !command.startsWith("unmark")
+                && !command.startsWith("find");
     }
 
     /**
@@ -185,4 +187,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Gets the keyword to search for.
+     *
+     * @return String search keyword.
+     */
+    public String getKeyword() {
+        return command.split("find ")[1];
+    }
 }

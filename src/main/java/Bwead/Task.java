@@ -17,6 +17,10 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public String getName() {
+        return this.text;
+    }
+
     public String toString() {
         String str = "";
         if (isDone) {
