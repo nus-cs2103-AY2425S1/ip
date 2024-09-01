@@ -51,6 +51,9 @@ public class Event extends Task {
                 indexOfTo = i;
             }
         }
+        if (indexOfFrom == 0 || indexOfTo == 0) {
+            throw new JanetException("WHOOPS! Missing/Wrong keywords for creating event...");
+        }
         // get the description
         String description = null;
         String startDateAndTime = null;
@@ -66,7 +69,7 @@ public class Event extends Task {
             // converts end date from (yyyy-MM-dd) to (MM dd yyyy)
             // converts end time from (hh:mm) to (hh:mm a)
             endDateAndTime = DateAndTimeFormatter(commandDetails[indexOfTo + 1], commandDetails[indexOfTo + 2]);
-        } catch (DateTimeParseException e) {
+        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             throw new JanetException("WHOOPS! Ensure that the start & end date are in the format: yyyy-MM-dd hh:mm (24hr)");
         }
         return new String[]{description, startDateAndTime, endDateAndTime};
