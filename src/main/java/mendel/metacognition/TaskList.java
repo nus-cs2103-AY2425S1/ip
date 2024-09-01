@@ -1,21 +1,20 @@
 package mendel.metacognition;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mendel.datetime.DateTimeManager;
 import mendel.discretetask.Task;
 import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Represents a list of tasks with functionality to manage and interact with the tasks.
  * Provides operations to add, remove, mark, unmark, and find tasks within the list.
  */
-public class TaskList extends Command{
+public class TaskList extends Command {
     private final List<Task> messages;
-    int counter;
+    private int counter;
 
     /**
      * Constructs a new TaskList object with an empty list of tasks and a counter set to 0.
@@ -99,7 +98,7 @@ public class TaskList extends Command{
      * @return A message indicating that the task has been removed.
      * @throws MendelException If the serial number is out of bounds.
      */
-    public String delete(int serial) throws MendelException{
+    public String delete(int serial) throws MendelException {
         ConditionalExceptionHandler.of()
                 .conditionTriggerException(serial >= this.counter, "OOPS! serial is too big.\nDecrease serial.")
                 .conditionTriggerException(serial < 0, "OOPS! Serial is too small.\nIncrease serial.");
@@ -169,7 +168,7 @@ public class TaskList extends Command{
                 matchString += "find " + segments[i];
             }
         }
-        String finalMessage = "Here are the matching tasks in your list", formattedDate;
+        String finalMessage = "Here are the matching tasks in your list";
         int increment = 0;
         for (int i = 0; i < counter; i++) {
             if (this.messages.get(i).isMatchingDescription(matchString)) {

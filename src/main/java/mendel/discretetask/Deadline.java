@@ -81,7 +81,7 @@ public class Deadline extends Task {
      * Validates the raw description string and handles various error conditions.
      *
      * @param rawDescription The raw description string to be validated.
-     * @throws MendelException if there are issues such as missing description, missing due date, or incorrect formatting.
+     * @throws MendelException if there are issues such as missing description missing due date, or incorrect formatting
      */
     private static void handleError(String rawDescription) throws MendelException {
         String[] slashSegments = rawDescription.split(" /by ");
@@ -111,7 +111,8 @@ public class Deadline extends Task {
      */
     @Override
     public boolean isTargetDueDate(String formattedDate) {
-        return new DateTimeManager(formattedDate).removeTimeStamp().equals(new DateTimeManager(this.by).removeTimeStamp());
+        return new DateTimeManager(formattedDate).removeTimeStamp()
+                .equals(new DateTimeManager(this.by).removeTimeStamp());
     }
 
     /**

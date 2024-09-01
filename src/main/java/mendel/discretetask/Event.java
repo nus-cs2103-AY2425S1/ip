@@ -106,7 +106,8 @@ public class Event extends Task {
                         "OOPS! event start cannot be empty.\nPlease indicate a start.")
                 .conditionTriggerException(mainMessage.length == 1,
                         "OOPS! event description cannot be empty.\nAdd description.")
-                .conditionTriggerException(slashSegments[1].split(" /to ").length != slashSegments[1].split("/to").length,
+                .conditionTriggerException(slashSegments[1].split(" /to ").length != slashSegments[1]
+                                .split("/to").length,
                         "OOPS! deadline to wrongly formatted.\nPlease add spaces around /to.")
                 .conditionTriggerException(slashSegments[1].split(" /to ").length < 2,
                         "OOPS! I am unsure of end.\nPlease specify an end.")
@@ -130,7 +131,8 @@ public class Event extends Task {
      */
     @Override
     public boolean isTargetDueDate(String formattedDate) {
-        return new DateTimeManager(formattedDate).removeTimeStamp().equals(new DateTimeManager(this.to).removeTimeStamp());
+        return new DateTimeManager(formattedDate).removeTimeStamp()
+                .equals(new DateTimeManager(this.to).removeTimeStamp());
     }
 
     /**
