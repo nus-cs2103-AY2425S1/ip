@@ -8,9 +8,18 @@ import skibidi.SkibidiException;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to delete a task.
+ */
 public class DeleteCommand extends Command {
     private int index;
 
+    /**
+     * Creates a new DeleteCommand.
+     *
+     * @param input The input string containing the index of the task to be deleted.
+     * @throws SkibidiException If the input string is in an invalid format.
+     */
     public DeleteCommand(String input) throws SkibidiException {
         try {
             input = input.substring(7).trim();
@@ -20,6 +29,13 @@ public class DeleteCommand extends Command {
         }
     }
 
+    /**
+     * Executes the command to delete a task.
+     *
+     * @param ui The user interface to interact with the user.
+     * @param storage The task storage to store the task.
+     * @return True to continue running the program.
+     */
     @Override
     public boolean execute(Ui ui, TaskStorage storage) {
         try {

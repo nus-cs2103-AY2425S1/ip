@@ -5,11 +5,17 @@ import storage.TaskStorage;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents the main class of the Skibidi program.
+ */
 public class Skibidi {
     private Ui ui;
     private Parser parser;
     private TaskStorage storage;
 
+    /**
+     * Creates a new Skibidi program.
+     */
     public Skibidi() {
         ui = new Ui();
         parser = new Parser();
@@ -21,6 +27,9 @@ public class Skibidi {
         }
     }
 
+    /**
+     * Runs the Skibidi program.
+     */
     public void run() {
         ui.showWelcome();
         Scanner scanner = new Scanner(System.in);
@@ -39,6 +48,11 @@ public class Skibidi {
         scanner.close();
     }
 
+    /**
+     * The entry point of the Skibidi program.
+     *
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         new Skibidi().run();
     }

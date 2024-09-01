@@ -4,13 +4,27 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Manages the storage of tasks in a file.
+ */
 public class StorageManager {
     private String filePath;
 
+    /**
+     * Creates a new StorageManager.
+     *
+     * @param filePath The file path to store the tasks.
+     */
     public StorageManager(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the tasks to the file.
+     *
+     * @param tasks The list of tasks to save.
+     * @throws IOException If an I/O error occurs.
+     */
     public void saveTasks(List<Task> tasks) throws IOException {
         File file = new File(filePath);
         file.getParentFile().mkdirs(); // Create the directory if it doesn't exist
@@ -23,6 +37,12 @@ public class StorageManager {
         }
     }
 
+    /**
+     * Loads the tasks from the file.
+     *
+     * @return The list of tasks loaded from the file.
+     * @throws IOException If an I/O error occurs.
+     */
     public List<Task> loadTasks() throws IOException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -48,12 +68,23 @@ public class StorageManager {
         return tasks;
     }
 
+    /**
+     * Creates the file if it does not exist.
+     *
+     * @throws IOException If an I/O error occurs.
+     */
     public void createFile() throws IOException {
         File file = new File(filePath);
         file.getParentFile().mkdirs();
         file.createNewFile();
     }
 
+    /**
+     * Parses a task from a line in the file.
+     *
+     * @param line The line containing the task data.
+     * @return The task parsed from the line.
+     */
     private Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
         String type = parts[0];

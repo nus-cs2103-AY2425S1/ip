@@ -9,10 +9,19 @@ import storage.Deadline;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a command to add a deadline task.
+ */
 public class AddDeadlineCommand extends Command {
     private String description;
     private String deadline;
 
+    /**
+     * Creates a new AddDeadlineCommand.
+     *
+     * @param input The input string containing the deadline description and deadline date.
+     * @throws SkibidiException If the input string is in an invalid format.
+     */
     public AddDeadlineCommand(String input) throws SkibidiException{
         String[] parts = input.split("/by ");
         if (parts.length < 2) {
@@ -27,6 +36,13 @@ public class AddDeadlineCommand extends Command {
         }
     }
 
+    /**
+     * Executes the command to add a deadline task.
+     *
+     * @param ui The user interface to interact with the user.
+     * @param storage The task storage to store the task.
+     * @return True to continue running the program.
+     */
     @Override
     public boolean execute(Ui ui, TaskStorage storage) {
         try {

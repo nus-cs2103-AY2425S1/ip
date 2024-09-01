@@ -2,7 +2,17 @@ package skibidi;
 
 import commands.*;
 
+/**
+ * Represents a parser to parse user input.
+ */
 public class Parser {
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param input The user input.
+     * @return The corresponding command.
+     * @throws SkibidiException If the user input is invalid.
+     */
     public Command parse(String input) throws SkibidiException {
 
         String normalizedInput = input.trim().toLowerCase();
