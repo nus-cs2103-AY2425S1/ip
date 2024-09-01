@@ -1,17 +1,17 @@
 package mendel.dbmanager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 import mendel.discretetask.Deadline;
 import mendel.discretetask.Event;
 import mendel.discretetask.Task;
 import mendel.discretetask.Todo;
 import mendel.mendelexception.ServerError;
 import mendel.metacognition.TaskList;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * The Storage class handles the interaction with the file system to manage storage

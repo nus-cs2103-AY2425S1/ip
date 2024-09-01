@@ -7,6 +7,6 @@ public class ServerError extends RuntimeException {
 
     @Override
     public String toString() {
-    return super.getMessage();
-  }
+        return super.getMessage();
+    }
 }
