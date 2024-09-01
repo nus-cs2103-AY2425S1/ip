@@ -2,8 +2,8 @@ package jbot.task;
 
 public class EventTask extends Task {
 
-    private String from;
-    private String to;
+    private final String from;
+    private final String to;
 
     public EventTask(String input) {
 
