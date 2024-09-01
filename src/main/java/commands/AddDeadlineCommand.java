@@ -19,7 +19,11 @@ public class AddDeadlineCommand extends Command {
             throw new SkibidiException("Invalid deadline format. Usage: deadline [description] /by [date]");
         } else {
             this.description = parts[0].substring(9).trim();
-            this.deadline = parts[1].trim();
+            String[] dateTimeParts = parts[1].trim().split(" ", 2);
+            String date = dateTimeParts[0];
+            String time = dateTimeParts.length > 1 ? dateTimeParts[1] : "00:00";  // Default to "00:00" if time is missing
+
+            this.deadline = date + "T" + time;
         }
     }
 
@@ -29,10 +33,10 @@ public class AddDeadlineCommand extends Command {
             Deadline deadline = new Deadline(description, this.deadline, false);
             storage.addTask(deadline);
             ui.printMessage("Got it. I've added this task:\n  " + deadline);
+        } catch (DateTimeParseException e) {
+            ui.printMessage("Invalid date format. Please use yyyy-mm-dd hh:mm.");
         } catch (SkibidiException | IOException e) {
             ui.printMessage(e.getMessage());
-        } catch (DateTimeParseException e) {
-            ui.printMessage("Invalid date format. Please use yyyy-mm-dd.");
         }
         return true;
     }
