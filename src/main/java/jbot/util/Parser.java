@@ -7,6 +7,7 @@ import jbot.command.ByeCommand;
 import jbot.command.DeadlineCommand;
 import jbot.command.DeleteCommand;
 import jbot.command.EventCommand;
+import jbot.command.FindCommand;
 import jbot.command.InvalidCommandException;
 import jbot.command.JBotCommand;
 import jbot.command.ListCommand;
@@ -20,15 +21,16 @@ public class Parser {
     }
     private static Map<String, JBotCommand> commandMap;
     public static void init() {
-        commandMap = new HashMap<>();
-        commandMap.put("list", ListCommand.getInstance());
-        commandMap.put("bye", ByeCommand.getInstance());
-        commandMap.put("mark", MarkCommand.getInstance());
-        commandMap.put("unmark", UnmarkCommand.getInstance());
-        commandMap.put("todo", ToDoCommand.getInstance());
-        commandMap.put("deadline", DeadlineCommand.getInstance());
-        commandMap.put("event", EventCommand.getInstance());
-        commandMap.put("delete", DeleteCommand.getInstance());
+        Parser.commandMap = new HashMap<>();
+        Parser.commandMap.put("list", ListCommand.getInstance());
+        Parser.commandMap.put("bye", ByeCommand.getInstance());
+        Parser.commandMap.put("mark", MarkCommand.getInstance());
+        Parser.commandMap.put("unmark", UnmarkCommand.getInstance());
+        Parser.commandMap.put("todo", ToDoCommand.getInstance());
+        Parser.commandMap.put("deadline", DeadlineCommand.getInstance());
+        Parser.commandMap.put("event", EventCommand.getInstance());
+        Parser.commandMap.put("delete", DeleteCommand.getInstance());
+        Parser.commandMap.put("find", FindCommand.getInstance());
     }
 
     public static JBotCommand parse(String userInput) throws InvalidCommandException {
