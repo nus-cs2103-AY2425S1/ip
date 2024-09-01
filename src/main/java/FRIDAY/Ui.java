@@ -1,5 +1,6 @@
 package FRIDAY;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -21,11 +22,11 @@ public class Ui {
     }
 
     public void printAdd(Task task, int numTasks) {
-        System.out.println(DIVIDER + "Got it. I've added this taskL:\n" + task.getDescription() + "\nNow you have " + numTasks + " tasks in your list\n" + DIVIDER);
+        System.out.println(DIVIDER + "Got it. I've added this taskL:\n" + task.getTaskDescription() + "\nNow you have " + numTasks + " tasks in your list\n" + DIVIDER);
     }
 
     public void printRemove(Task task, int numTasks) {
-        System.out.println(DIVIDER + "Noted. I've removed this taskL:\n" + task.getDescription() + "\nNow you have " + numTasks + " tasks in your list\n" + DIVIDER);
+        System.out.println(DIVIDER + "Noted. I've removed this taskL:\n" + task.getTaskDescription() + "\nNow you have " + numTasks + " tasks in your list\n" + DIVIDER);
     }
 
     public void printCheck() {
@@ -45,5 +46,14 @@ public class Ui {
 
     public void display(String input) {
         System.out.println(input);
+    }
+
+    public void displaySearchResults(ArrayList<Task> searchResults) {
+        StringBuilder output = new StringBuilder(DIVIDER + "Here are the matching tasks from your list\n:");
+        searchResults.forEach((task) -> {
+            output.append(task);
+        });
+        output.append("\n" + DIVIDER);
+        System.out.println(output);
     }
 }

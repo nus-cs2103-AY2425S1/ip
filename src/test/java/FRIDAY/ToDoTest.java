@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
          String description = "Buy milk";
          int type = 1;
          ToDo todo = new ToDo(description, type);
-         assertEquals(description, todo.getDescription());
+         assertEquals(description, todo.getTaskDescription());
          assertEquals(true, todo.getType());
      }
 

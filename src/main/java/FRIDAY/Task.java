@@ -2,15 +2,15 @@ package FRIDAY;
 
 public class Task {
     private boolean isComplete;
-    private String description;
+    private String taskDescription;
 
     public Task(String description, int type) {
         this.isComplete = type > 0;
-        this.description = description;
+        this.taskDescription = description;
     }
 
-    public String getDescription() {
-        return this.description;
+    public String getTaskDescription() {
+        return this.taskDescription;
     }
 
     public void check() {
@@ -24,16 +24,19 @@ public class Task {
     @Override
     public String toString() {
         String str = "";
-        str = String.format((isComplete ? "[X]" : "[ ]") + " " + this.description);
+        str = String.format((isComplete ? "[X]" : "[ ]") + " " + this.taskDescription);
         return str;
     }
 
     public String storageDisplay() {
         String type = isComplete ? "1" : "0";
-        return " | " + type + " | " + this.description;
+        return " | " + type + " | " + this.taskDescription;
     }
 
     public boolean getType() {
         return this.isComplete;
+    }
+    public boolean containsKeyword(String keyword) {
+        return taskDescription.contains(keyword);
     }
 }
