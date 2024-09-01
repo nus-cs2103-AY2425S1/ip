@@ -1,12 +1,5 @@
 package yihuibot;
 
-/*
-import java.io.IOException;
-import java.nio.file.InvalidPathException;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
-*/
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,29 +11,12 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-/*
-import yihuibot.exception.executable.ExecutableException;
-import yihuibot.exception.parse.ParseException;
-import yihuibot.exception.taskformat.IncorrectTaskFormatException;
-import yihuibot.executable.Executable;
-import yihuibot.executable.TaskModifier;
-import yihuibot.storage.Storage;
-import yihuibot.task.TaskList;
-import yihuibot.ui.Ui;
-*/
-
 /**
  * Your friendly todolist bot.
  *
  * @author Toh Yi Hui A0259080A
  */
 public class Main extends Application {
-    // The name of this bot
-    private static final String NAME = "YihuiBot";
-
-    // Format for date time of task
-    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
-
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -49,6 +25,7 @@ public class Main extends Application {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/smiling-cat.jpg"));
     private Image botImage = new Image(this.getClass().getResourceAsStream("/images/chad-cat.jpg"));
+    private YihuiBot yihuiBot = new YihuiBot();
 
     /**
      * Display the GUI for YihuiBot.
@@ -61,9 +38,6 @@ public class Main extends Application {
 
         userInput = new TextField();
         sendButton = new Button("Send");
-
-        DialogBox dialogBox = new DialogBox("Hello!", userImage);
-        dialogContainer.getChildren().addAll(dialogBox);
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
@@ -85,6 +59,8 @@ public class Main extends Application {
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
         userInput.setPrefWidth(325.0);
 
         sendButton.setPrefWidth(55.0);
@@ -97,9 +73,31 @@ public class Main extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+        // Handling user input
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+
         // Set stage
         scene = new Scene(mainLayout);
         stage.setScene(scene);
         stage.show();
+    }
+
+    /**
+     * Creates a DialogBox containing user input, and appends it to
+     * the dialogContainer. Clears the user input after processing.
+     */
+    private void handleUserInput() {
+        String userText = userInput.getText();
+        String botText = yihuiBot.getResponse(userText);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getBotDialog(botText, botImage)
+        );
+        userInput.clear();
     }
 }
