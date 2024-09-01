@@ -44,6 +44,7 @@ public class ParsedCommand {
     public String getCommandType() {
         return commandType;
     }
+
     public String getArgument1() {
         return argument1;
     }

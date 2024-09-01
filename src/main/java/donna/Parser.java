@@ -1,6 +1,20 @@
 package donna;
 
+/**
+ * Parses user input (commands and arguments) into ParsedCommand objects.
+ */
 public class Parser {
+
+    /**
+     * Parses the given input string into a ParsedCommand object.
+     * The input string is split into a command and arguments based on the first space.
+     * Recognizes commands such as "bye", "list", "mark", "unmark", "delete", "todo",
+     * "deadline", "event", and "find".
+     *
+     * @param input Input string containing the command and arguments.
+     * @return A ParsedCommand object representing the parsed command and arguments.
+     * @throws DonnaException If the command is invalid or not recognized.
+     */
     public ParsedCommand parse(String input) throws DonnaException {
         String[] inputWords = input.split(" ", 2);
         String command = inputWords[0];
@@ -25,8 +39,6 @@ public class Parser {
             return new ParsedCommand("find", arguments);
         default:
             throw DonnaException.invalidTaskType(command);
-
         }
-
     }
 }
