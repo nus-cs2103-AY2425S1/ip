@@ -54,4 +54,11 @@ public class Mendel {
     public static void main(String[] args) {
         new Mendel().run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
 }

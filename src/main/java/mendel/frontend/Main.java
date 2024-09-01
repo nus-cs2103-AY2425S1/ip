@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.layout.Region;
 
-
+import mendel.main.Mendel;
 
 public class Main extends Application {
     private ScrollPane scrollPane;
@@ -20,20 +20,17 @@ public class Main extends Application {
     private Button sendButton;
     private Scene scene;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/temp.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/temp.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/temp2.png"));
+    private Mendel mendel = new Mendel();
 
     @Override
     public void start(Stage stage) {
-        //Setting up required components
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
 
         userInput = new TextField();
         sendButton = new Button("Send");
-
-        DialogBox dialogBox = new DialogBox("Hello!", userImage);
-        dialogContainer.getChildren().addAll(dialogBox);
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
@@ -70,6 +67,26 @@ public class Main extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        //More code to be added here later
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+    }
+
+    /**
+     * Creates a dialog box containing user input, and appends it to
+     * the dialog container. Clears the user input after processing.
+     */
+    private void handleUserInput() {
+        String userText = userInput.getText();
+        String dukeText = mendel.getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getDukeDialog(dukeText, dukeImage)
+        );
+        userInput.clear();
     }
 }
