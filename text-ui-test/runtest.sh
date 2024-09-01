@@ -31,8 +31,10 @@ diff ACTUAL.TXT EXPECTED.TXT
 if [ $? -eq 0 ]
 then
     echo "Test result: PASSED"
+    rm -r taskStorage
     exit 0
 else
     echo "Test result: FAILED"
+    rm -r taskStorage
     exit 1
 fi

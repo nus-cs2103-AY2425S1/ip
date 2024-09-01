@@ -1,16 +1,17 @@
 todo wake up
-deadline get out of bed /by <10 minutes after the alarm rings, hopefully
+deadline get out of bed /by 2012-11-13
 todo get to the bathroom
-event brush teeth /from 10 minutes after waking (AW) /to 12 minutes AW
+event brush teeth /from 2023-09-01 /to 2023-09-01
 todo decide what to eat for breakfast
+event brush tongue /from iunno whenver ig /to when im doen bruh
 mark 1
 list
 todo head out of the house
-deadline call the lift to head downstairs /by the time the lift has not left yet
+deadline call the lift to head downstairs /by 2023-09-01
 mark 2
 mark 3
 list
-event order food /from 8.07am /to 8.10
+event order food /from 2024-09-03 /to 2024-09-03
 list
 unmark 2
 list
