@@ -13,7 +13,13 @@ public class DataManager {
     /**
      * Path to the file where task data is stored.
      */
-    private static final Path DATA_FILE_PATH = Path.of("data/rapgod.txt");
+    private final Path DATA_FILE_PATH;
+    private TaskList taskList;
+
+    public DataManager(String path) {
+        this.DATA_FILE_PATH = Path.of(path);
+        this.taskList = new TaskList(this.readMemory());
+    }
 
     /**
      * Regular expression pattern to validate the format of task entries.
@@ -30,14 +36,14 @@ public class DataManager {
      *
      * @return A list of {@link Task} objects read from the file.
      */
-    public static List<Task> readMemory() {
+    public List<Task> readMemory() {
         List<Task> list = new ArrayList<>();
         try {
             if (Files.exists(DATA_FILE_PATH)) {
                 List<String> lines = Files.readAllLines(DATA_FILE_PATH);
                 for (String line : lines) {
                     if (TASK_PATTERN.matcher(line).matches()) {
-                        Task task = Task.fromString(line);
+                        Task task = Parser.parseToTask(line);
                         list.add(task);
                     } else {
                         System.err.println("Corrupted line found ---> " + line);
@@ -70,10 +76,10 @@ public class DataManager {
      *
      * @param list A list of {@link Task} objects to be written to the file.
      */
-    public static void updateMemory(List<Task> list) {
+    public void updateMemory() {
         StringBuilder updatedList = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            updatedList.append(String.format("%d. %s\n", i + 1, list.get(i).toString()));
+        for (int i = 0; i < this.taskList.getList().size(); i++) {
+            updatedList.append(String.format("%d. %s\n", i + 1, this.taskList.getList().get(i).toString()));
         }
 
         try {
@@ -81,5 +87,9 @@ public class DataManager {
         } catch (IOException e) {
             System.err.println("Error writing to the file: " + e.getMessage());
         }
+    }
+
+    public TaskList getTaskList() {
+        return this.taskList;
     }
 }
