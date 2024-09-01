@@ -1,7 +1,7 @@
-package exceptions;
+package astor.exception;
 
 public class DeleteTaskNumberException extends AstorException {
     public DeleteTaskNumberException() {
-        super("Specify task index to delete!");
+        super("Specify astor.task index to delete!");
     }
 }

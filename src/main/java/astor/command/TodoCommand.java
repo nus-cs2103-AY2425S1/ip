@@ -1,5 +1,12 @@
-import exceptions.AstorException;
-import exceptions.EmptyTaskInfoException;
+package astor.command;
+
+import astor.Storage;
+import astor.TaskList;
+import astor.Ui;
+import astor.exception.AstorException;
+import astor.exception.EmptyTaskInfoException;
+import astor.task.Task;
+import astor.task.Todo;
 
 import java.io.IOException;
 
@@ -18,7 +25,7 @@ public class TodoCommand extends Command {
         } else {
             Task task = new Todo(s1);
             String s = taskList.addTask(task, storage);
-            ui.showOutput("Got it. I've added this task:\n  " +
+            ui.showOutput("Got it. I've added this astor.task:\n  " +
                     s + "\nNow you have " + taskList.size() + " tasks in the list.");
         }
     }

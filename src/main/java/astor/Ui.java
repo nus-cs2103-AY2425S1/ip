@@ -1,10 +1,10 @@
-import exceptions.AstorException;
+package astor;
 
 import java.util.Scanner;
 
 public class Ui {
     private final String SEPARATOR_LINE = "--------------------------------------";
-    private final String INTRODUCTION_LINE = "Hello, I'm Astor!\n" + "What can I do for you?\n"
+    private final String INTRODUCTION_LINE = "Hello, I'm astor.Astor!\n" + "What can I do for you?\n"
             + SEPARATOR_LINE;
     private Parser parser;
     private Scanner scanner;

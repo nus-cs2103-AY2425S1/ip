@@ -1,5 +1,10 @@
-import exceptions.AstorException;
-import exceptions.DeleteTaskNumberException;
+package astor.command;
+
+import astor.Storage;
+import astor.TaskList;
+import astor.Ui;
+import astor.exception.AstorException;
+import astor.exception.DeleteTaskNumberException;
 
 public class DeleteCommand extends Command {
     private String info;

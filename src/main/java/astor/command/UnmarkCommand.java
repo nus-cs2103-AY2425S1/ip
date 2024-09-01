@@ -1,6 +1,10 @@
-import exceptions.AstorException;
-import exceptions.MarkTaskOutOfRangeException;
-import exceptions.MarkingTaskNotANumberException;
+package astor.command;
+
+import astor.Storage;
+import astor.TaskList;
+import astor.Ui;
+import astor.exception.AstorException;
+import astor.exception.MarkingTaskNotANumberException;
 
 public class UnmarkCommand extends Command {
     private final String info;

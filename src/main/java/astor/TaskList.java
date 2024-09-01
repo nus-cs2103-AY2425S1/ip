@@ -1,7 +1,9 @@
-import exceptions.AstorException;
-import exceptions.DeleteTaskNumberException;
-import exceptions.DeleteTaskOutOfRangeException;
-import exceptions.MarkTaskOutOfRangeException;
+package astor;
+
+import astor.exception.AstorException;
+import astor.exception.DeleteTaskOutOfRangeException;
+import astor.exception.MarkTaskOutOfRangeException;
+import astor.task.Task;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,12 +34,12 @@ public class TaskList {
         if (taskIndex >= 1 && taskIndex <= taskList.size()) {
             Task task = taskList.get(taskIndex - 1);
             if (task.isDone()) {
-                return "This task is already done:\n" + taskIndex
+                return "This astor.task is already done:\n" + taskIndex
                         + ". " + task;
             } else {
                 task.markDone();
                 storage.updateData(taskList);
-                return "Nice! I've marked this task as done:\n" + taskIndex
+                return "Nice! I've marked this astor.task as done:\n" + taskIndex
                         + ". " + task;
             }
         } else {
@@ -51,10 +53,10 @@ public class TaskList {
             if (task.isDone()) {
                 task.markUndone();
                 storage.updateData(taskList);
-                return "OK, I've marked this task as not done yet:\n" + taskIndex
+                return "OK, I've marked this astor.task as not done yet:\n" + taskIndex
                         + ". " + task;
             } else {
-                return "This task is already marked as uncompleted:\n" + taskIndex
+                return "This astor.task is already marked as uncompleted:\n" + taskIndex
                         + ". " + task;
             }
         } else {
@@ -69,7 +71,7 @@ public class TaskList {
         if (taskIndex >= 1 && taskIndex <= taskList.size()) {
             Task task = taskList.remove(taskIndex - 1);
             storage.updateData(taskList);
-            return "Noted. I've removed this task:\n  " +
+            return "Noted. I've removed this astor.task:\n  " +
                     task + "\nNow you have " + taskList.size() + " tasks in the list.";
         } else {
             throw DeleteTaskOutOfRangeException.outOfRangeTaskToDelete(taskList.size());

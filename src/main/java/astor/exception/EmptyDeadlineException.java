@@ -1,4 +1,4 @@
-package exceptions;
+package astor.exception;
 
 public class EmptyDeadlineException extends AstorException {
     public EmptyDeadlineException() {

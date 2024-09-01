@@ -1,7 +1,7 @@
-import exceptions.*;
-import java.util.List;
+package astor;
 
-import java.io.IOException;
+import astor.command.*;
+import astor.exception.*;
 
 public class Parser {
 
@@ -92,15 +92,15 @@ public class Parser {
             }
 
             if (indexB >= 1 && indexB <= listOfTasks.size()) {
-                Task task = listOfTasks.get(indexB - 1);
-                if (task.isDone()) {
-                    return "This task is already done:\n" +
-                            task;
+                astor.task.Task astor.task = listOfTasks.get(indexB - 1);
+                if (astor.task.isDone()) {
+                    return "This astor.task is already done:\n" +
+                            astor.task;
                 } else {
-                    task.markDone();
+                    astor.task.markDone();
                     storage.updateData(listOfTasks);
-                    return "Nice! I've marked this task as done:\n" +
-                            task;
+                    return "Nice! I've marked this astor.task as done:\n" +
+                            astor.task;
                 }
             } else {
                 throw new MarkTaskOutOfRangeException(listOfTasks.size());
@@ -115,15 +115,15 @@ public class Parser {
             }
 
             if (index >= 1 && index <= listOfTasks.size()) {
-                Task task = listOfTasks.get(index - 1);
-                if (task.isDone()) {
-                    task.markUndone();
+                astor.task.Task astor.task = listOfTasks.get(index - 1);
+                if (astor.task.isDone()) {
+                    astor.task.markUndone();
                     this.storage.updateData(listOfTasks);
-                    return "OK, I've marked this task as not done yet:\n" +
-                            task;
+                    return "OK, I've marked this astor.task as not done yet:\n" +
+                            astor.task;
                 } else {
-                    return "This task is already marked as uncompleted:\n" +
-                            task;
+                    return "This astor.task is already marked as uncompleted:\n" +
+                            astor.task;
                 }
             } else {
                 throw new MarkTaskOutOfRangeException(listOfTasks.size());
@@ -135,12 +135,12 @@ public class Parser {
             if (s1.isEmpty()) {
                 throw new EmptyTaskInfoException();
             } else {
-                Task task = new Todo(s1);
+                astor.task.Task astor.task = new astor.task.Todo(s1);
                 try {
-                    storage.appendToFile(task.dataDescription());
-                    listOfTasks.add(task);
-                    return "Got it. I've added this task:\n  " +
-                            task + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
+                    storage.appendToFile(astor.task.dataDescription());
+                    listOfTasks.add(astor.task);
+                    return "Got it. I've added this astor.task:\n  " +
+                            astor.task + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
                 } catch (IOException e) {
                     System.out.println("An error occurred while writing to the file.");
                 }
@@ -154,12 +154,12 @@ public class Parser {
                 if (stringArr.length != 2) {
                     throw new EmptyDeadlineException();
                 }
-                Task task = new Deadline(stringArr[0].trim(), stringArr[1].trim());
+                astor.task.Task astor.task = new astor.task.Deadline(stringArr[0].trim(), stringArr[1].trim());
                 try {
-                    storage.appendToFile(task.dataDescription());
-                    listOfTasks.add(task);
-                    return "Got it. I've added this task:\n  " +
-                            task + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
+                    storage.appendToFile(astor.task.dataDescription());
+                    listOfTasks.add(astor.task);
+                    return "Got it. I've added this astor.task:\n  " +
+                            astor.task + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
                 } catch (IOException e) {
                     System.out.println("An error occurred while writing to the file.");
                 }
@@ -177,12 +177,12 @@ public class Parser {
                 if (stringArr2.length != 2) {
                     throw new EmptyTimeException();
                 }
-                Task task = new Event(stringArr[0].trim(), stringArr2[0].trim(), stringArr2[1].trim());
+                astor.task.Task astor.task = new astor.task.Event(stringArr[0].trim(), stringArr2[0].trim(), stringArr2[1].trim());
                 try {
-                    storage.appendToFile(task.dataDescription());
-                    listOfTasks.add(task);
-                    return "Got it. I've added this task:\n  " +
-                            task + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
+                    storage.appendToFile(astor.task.dataDescription());
+                    listOfTasks.add(astor.task);
+                    return "Got it. I've added this astor.task:\n  " +
+                            astor.task + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
                 } catch (IOException e) {
                     System.out.println("An error occurred while writing to the file.");
                 }
@@ -199,10 +199,10 @@ public class Parser {
                 throw new DeleteTaskNumberException();
             }
             if (indexC >= 1 && indexC <= listOfTasks.size()) {
-                Task task = listOfTasks.remove(indexC - 1);
+                astor.task.Task astor.task = listOfTasks.remove(indexC - 1);
                 storage.updateData(listOfTasks);
-                return "Noted. I've removed this task:\n  " +
-                        task + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
+                return "Noted. I've removed this astor.task:\n  " +
+                        astor.task + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
             } else {
                 throw DeleteTaskOutOfRangeException.outOfRangeTaskToDelete(listOfTasks.size());
             }

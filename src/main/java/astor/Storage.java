@@ -1,3 +1,10 @@
+package astor;
+
+import astor.task.Deadline;
+import astor.task.Event;
+import astor.task.Task;
+import astor.task.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,7 +18,7 @@ import java.util.Scanner;
 
 public class Storage {
 
-    // private final Path path = Paths.get("./src/main/data/Astor.txt");
+    // private final Path path = Paths.get("./src/main/data/astor.Astor.txt");
     private FileWriter fw;
     private File file;
 

@@ -1,15 +1,16 @@
-import exceptions.*;
+package astor;
+
+import astor.command.Command;
+import astor.exception.*;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Scanner;
 
 public class Astor {
 
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
-    private static final String DESTINATION_STORAGE = "./src/main/data/Astor.txt";
+    private static final String DESTINATION_STORAGE = "./src/main/data/astor.Astor.txt";
 
 
     public Astor(String filePath) {

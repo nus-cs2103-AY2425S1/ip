@@ -1,4 +1,4 @@
-package exceptions;
+package astor.exception;
 
 public class EmptyTimeException extends AstorException {
     public EmptyTimeException() {

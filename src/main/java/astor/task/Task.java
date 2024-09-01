@@ -1,3 +1,5 @@
+package astor.task;
+
 public class Task {
     private boolean status;
     private String taskInfo;
