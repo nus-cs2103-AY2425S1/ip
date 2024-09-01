@@ -48,7 +48,7 @@ checkstyle {
 }
 
 application {
-    mainClass.set("mendel.main.Mendel")
+    mainClass.set("mendel.frontend.Launcher")
 }
 
 shadowJar {
