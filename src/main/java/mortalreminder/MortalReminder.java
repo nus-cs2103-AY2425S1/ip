@@ -17,7 +17,7 @@ public class MortalReminder {
     /**
      * This method loads all tasks from storage and greets the user.
      *
-     * @return Welcome message with initial greeting to the user.
+     * @return string of welcome message with initial greeting to the user.
      */
     public String welcome() {
         this.taskList = Storage.loadTaskListFromFile();
@@ -25,11 +25,11 @@ public class MortalReminder {
     }
 
     public Processor getProcessor() {
-        return processor;
+        return this.processor;
     }
 
     public TaskList getTaskList() {
-        return taskList;
+        return this.taskList;
     }
 
 }

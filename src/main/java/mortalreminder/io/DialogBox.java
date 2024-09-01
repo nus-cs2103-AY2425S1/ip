@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import mortalreminder.commands.Command;
 import mortalreminder.commands.CommandTypes;
 
 /**
@@ -44,6 +43,13 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
+    public static DialogBox getMortalReminderDialog(String text, Image img, CommandTypes commandType) {
+        var db = new DialogBox(text, img);
+        db.flip();
+        db.changeDialogStyle(commandType);
+        return db;
+    }
+
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
@@ -56,7 +62,7 @@ public class DialogBox extends HBox {
     }
 
     private void changeDialogStyle(CommandTypes commandType) {
-        switch(commandType) {
+        switch (commandType) {
         case TODO:
         case DEADLINE:
         case EVENT:
@@ -72,13 +78,6 @@ public class DialogBox extends HBox {
         default:
             // Do nothing
         }
-    }
-
-    public static DialogBox getMortalReminderDialog(String text, Image img, CommandTypes commandType) {
-        var db = new DialogBox(text, img);
-        db.flip();
-        db.changeDialogStyle(commandType);
-        return db;
     }
 
 }

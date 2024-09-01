@@ -65,6 +65,8 @@ public abstract class Task {
      * <p>
      * If the task is already marked as done, it calls the {@code markError} method
      * from {@code FormattedPrinting} to print an error message.
+     *
+     * @return the confirmation if the task was marked successfully or an error if the task has already been marked.
      */
     public String markDone() {
         if (!this.isDone) {
@@ -83,6 +85,8 @@ public abstract class Task {
      * <p>
      * If the task is already marked as not done, it calls the {@code unmarkError} method
      * from {@code FormattedPrinting} to print an error message.
+     *
+     * @return the confirmation if the task was unmarked successfully or an error if the task has already been unmarked.
      */
     public String markUndone() {
         if (this.isDone) {

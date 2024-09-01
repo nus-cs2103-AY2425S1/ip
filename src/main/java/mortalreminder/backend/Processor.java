@@ -35,7 +35,7 @@ public class Processor {
      *
      * @param command  the {@link Command} to process.
      * @param taskList the {@link TaskList} to modify based on the command.
-     * @return {@code false} if the {@code BYE} command is issued, otherwise {@code true}.
+     * @return response string which is the output message of the entire command.
      */
     public String handleCommand(Command command, TaskList taskList) {
         CommandTypes commandType = command.commandType();
@@ -84,6 +84,7 @@ public class Processor {
      * @param commandDetails the details of the command, typically the task index.
      * @param taskList       the {@link TaskList} containing the tasks to modify.
      * @param commandType    the {@link CommandTypes} indicating the action to perform.
+     * @return returns a confirmation message of the corresponding type of command done.
      */
     public String markUnmarkOrDelete(String commandDetails, TaskList taskList, CommandTypes commandType) {
         String response = "";
@@ -123,6 +124,7 @@ public class Processor {
      * @param commandDetails the details of the command, typically the task description.
      * @param taskList       the {@link TaskList} to add the new task to.
      * @param commandType    the {@link CommandTypes} indicating the type of task to create.
+     * @return returns a confirmation message of type of task created or the reason why the task could not be created.
      */
     public String createTask(String commandDetails, TaskList taskList, CommandTypes commandType) {
         try {
@@ -149,6 +151,7 @@ public class Processor {
      * have a due date in the future, and are not yet marked as done. The upcoming tasks are then printed.
      *
      * @param taskList the {@link TaskList} containing the tasks to check for upcoming due dates.
+     * @return a string message containing list of upcoming tasks that have not been marked yet.
      */
     public String upcomingTasks(TaskList taskList) {
         ArrayList<Task> tasks = new ArrayList<>();

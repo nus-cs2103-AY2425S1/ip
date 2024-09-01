@@ -45,6 +45,7 @@ public class TaskList {
      * Otherwise, an error message is printed.
      *
      * @param task the {@link Task} to add.
+     * @return string of confirmation message if adding was successful and an error message if not.
      */
     public String addTask(Task task) {
         if (!Objects.equals(task.getDescription().trim(), "")) {
@@ -64,7 +65,8 @@ public class TaskList {
      * Loads a task directly into the list from the storage file. Thus, in this method, the task is not added
      * back into the storage file.
      * <p>
-     * This method is typically used during the initial loading of tasks from a file.
+     * This method is typically used only internally when the task has already been added to the app
+     * before such as when loading tasks from a file or creating a {@link TaskList} of upcoming tasks.
      *
      * @param task the {@link Task} to load into the list.
      */
@@ -81,6 +83,7 @@ public class TaskList {
      * Otherwise, an error message is printed.
      *
      * @param task the {@link Task} to delete.
+     * @return a string of confirmation or error message if the task cannot be deleted.
      */
     public String deleteTask(Task task) {
         if (!Objects.equals(task.getDescription().trim(), "")) {
@@ -126,6 +129,8 @@ public class TaskList {
 
     /**
      * Clears all tasks from the list and prints a confirmation message.
+     *
+     * @return A string of the confirmation message of the tasks being cleared.
      */
     public String clearList() {
         this.taskList.clear();
