@@ -3,12 +3,23 @@ package bmo.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event task.
+ */
 public class Event extends Task {
 
     private LocalDate from;
     private LocalDate to;
     private DateTimeFormatter outputFormatter;
 
+    /**
+     * Constructor for Event class.
+     *
+     * @param description Description of the task
+     *
+     * @param from Start date of the event
+     * @param to End date of the event
+     */
     public Event(String description, String from, String to) {
         super(description);
 
@@ -20,7 +31,7 @@ public class Event extends Task {
         this.to = LocalDate.parse(to, inputFormatter);
 
         // Define output date format
-        DateTimeFormatter outputFormatter =  DateTimeFormatter.ofPattern("MMM-dd-yyyy");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
         this.outputFormatter = outputFormatter;
     }
 
@@ -28,7 +39,7 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.getPrintedFrom() + " to: " + this.getPrintedTo() + ")";
     }
-    
+
     /**
      * Returns the start date in the format MMM-dd-yyyy to be printed in the console.
      */
@@ -59,6 +70,7 @@ public class Event extends Task {
 
     @Override
     public String getSavedFormat() {
-        return "E | " + (this.getIsDone() ? "1" : "0") + " | " + this.getDescription() + " | " + this.getStorageFrom() + " | " + this.getStorageTo() + "\n";
+        return "E | " + (this.getIsDone() ? "1" : "0") + " | " + this.getDescription() + " | "
+            + this.getStorageFrom() + " | " + this.getStorageTo() + "\n";
     }
 }

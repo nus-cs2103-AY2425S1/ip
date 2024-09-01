@@ -1,9 +1,17 @@
 package bmo.task;
 
-abstract public class Task {
+/**
+ * Represents an abstract task class.
+ */
+public abstract class Task {
     private String description;
     private boolean isDone;
 
+    /**
+     * Constructor for Task class
+     *
+     * @param description Description of the task
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -11,7 +19,7 @@ abstract public class Task {
 
     /**
      * Returns the status icon of the task
-     * 
+     *
      * @return "X" if the task is done, " " if the task is not done
      */
     public String getStatusIcon() {
@@ -41,14 +49,14 @@ abstract public class Task {
 
     /**
      * Returns the string format of the task to be saved in the file
-     * 
+     *
      * @return "[task type] | [isDone] | [description] | [timings if applicable]"
      */
-    abstract public String getSavedFormat();
+    public abstract String getSavedFormat();
 
     /**
      * Returns true if the task description contains the keyword
-     * 
+     *
      * @param keyword the keyword to search for
      * @return true if the task description contains the keyword
      */

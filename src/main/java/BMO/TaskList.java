@@ -1,13 +1,16 @@
 package bmo;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
 import bmo.task.Deadline;
 import bmo.task.Event;
 import bmo.task.Task;
 import bmo.task.ToDo;
 
-import java.io.IOException;
-
-import java.util.ArrayList;
-
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -17,7 +20,7 @@ public class TaskList {
 
     /**
      * Adds a task to the task list.
-     * 
+     *
      * @param task the task to be added.
      */
     public void addTask(Task task) {
@@ -26,16 +29,16 @@ public class TaskList {
 
     /**
      * Returns the list of tasks.
-     * 
+     *
      * @return ArrayList of all tasks.
-     */ 
+     */
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }
 
     /**
      * Returns the task at the specified index.
-     * 
+     *
      * @param index of the task to be retrieved.
      * @return Task object at the specified index.
      */
@@ -52,7 +55,7 @@ public class TaskList {
 
     /**
      * Deletes a task from the list
-     * 
+     *
      * @param index of the task to be deleted.
      */
     public void deleteTask(int index) {
@@ -61,7 +64,7 @@ public class TaskList {
 
     /**
      * Marks a task as completed
-     * 
+     *
      * @param index of the task to be marked as completed.
      */
     public void markTask(int index) {
@@ -70,7 +73,7 @@ public class TaskList {
 
     /**
      * Unmarks a task as incomplete.
-     * 
+     *
      * @param index of the task to be unmarked.
      */
     public void unmarkTask(int index) {
@@ -79,7 +82,7 @@ public class TaskList {
 
     /**
      * Adds a todo task to the list.
-     * 
+     *
      * @param description of the todo task.
      */
     public void addTodo(String description) {
@@ -89,7 +92,7 @@ public class TaskList {
 
     /**
      * Adds a deadline task to the list.
-     * 
+     *
      * @param description of the deadline task.
      * @param by the deadline of the task. Format: "dd/MM/yyyy"
      */
@@ -100,7 +103,7 @@ public class TaskList {
 
     /**
      * Adds an event task to the list.
-     * 
+     *
      * @param description of the event task.
      * @param from the start date of the event. Format: "dd/MM/yyyy"
      * @param to the end date of the event. Format: "dd/MM/yyyy"
@@ -110,6 +113,12 @@ public class TaskList {
         this.addTask(event);
     }
 
+    /**
+     * Finds tasks with a description that matches the keyword.
+     *
+     * @param keyword String to be searched for in the task descriptions.
+     * @return TaskList containing tasks with matching descriptions.
+     */
     public TaskList findMatchingTasks(String keyword) {
         TaskList matchingTasks = new TaskList();
         for (Task task : this.tasks) {

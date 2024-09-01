@@ -3,11 +3,20 @@ package bmo.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+/**
+ * Represents a deadline task.
+ */
+public class Deadline extends Task {
 
     private LocalDate by;
     private DateTimeFormatter outputFormatter;
 
+    /**
+     * Constructor for Deadline class.
+     *
+     * @param description Description of the task
+     * @param by Deadline date of the task
+     */
     public Deadline(String description, String by) {
         super(description);
 
@@ -17,7 +26,7 @@ public class Deadline extends Task{
         // Convert the string to a LocalDate
         this.by = LocalDate.parse(by, inputFormatter);
 
-        DateTimeFormatter outputFormatter =  DateTimeFormatter.ofPattern("MMM-dd-yyyy");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
         this.outputFormatter = outputFormatter;
     }
 
@@ -42,7 +51,7 @@ public class Deadline extends Task{
 
     @Override
     public String getSavedFormat() {
-        return "D | " + (this.getIsDone() ? "1" : "0") + " | " + this.getDescription() + " | " 
-            + this.getStorageDeadline() +"\n";
+        return "D | " + (this.getIsDone() ? "1" : "0") + " | " + this.getDescription() + " | "
+            + this.getStorageDeadline() + "\n";
     }
 }

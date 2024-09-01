@@ -12,7 +12,7 @@ public class ParserTest {
             String[] expected = new String[5];
             expected[0]= "list";
             assertArrayEquals(expected, parser.parse("list"));
-        } catch (BMOException e) {
+        } catch (BmoException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -25,7 +25,7 @@ public class ParserTest {
             expected[0]= "mark";
             expected[1]= "1";
             assertArrayEquals(expected, parser.parse("mark 1"));
-        } catch (BMOException e) {
+        } catch (BmoException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -38,7 +38,7 @@ public class ParserTest {
             expected[0]= "unmark";
             expected[1]= "1";
             assertArrayEquals(expected, parser.parse("unmark 1"));
-        } catch (BMOException e) {
+        } catch (BmoException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -51,7 +51,7 @@ public class ParserTest {
             expected[0]= "todo";
             expected[1]= "Watch 2100 Lecture";
             assertArrayEquals(expected, parser.parse("todo Watch 2100 Lecture"));
-        } catch (BMOException e) {
+        } catch (BmoException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -65,7 +65,7 @@ public class ParserTest {
             expected[1]= "Submit Week 3 iP Tasks";
             expected[2]= "30/08/2024";
             assertArrayEquals(expected, parser.parse("deadline Submit Week 3 iP Tasks /by 30/08/2024"));
-        } catch (BMOException e) {
+        } catch (BmoException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -80,7 +80,7 @@ public class ParserTest {
             expected[2]= "28/09/2024";
             expected[3]= "29/09/2024";
             assertArrayEquals(expected, parser.parse("event Public Garden /from 28/09/2024 /to 29/09/2024"));
-        } catch (BMOException e) {
+        } catch (BmoException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -93,7 +93,7 @@ public class ParserTest {
             expected[0]= "delete";
             expected[1]= "1";
             assertArrayEquals(expected, parser.parse("delete 1"));
-        } catch (BMOException e) {
+        } catch (BmoException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -105,7 +105,7 @@ public class ParserTest {
             String[] expected = new String[5];
             expected[0]= "bye";
             assertArrayEquals(expected, parser.parse("bye"));
-        } catch (BMOException e) {
+        } catch (BmoException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -113,7 +113,7 @@ public class ParserTest {
     @Test
     public void parseInvalidMarkTest() {
         Parser parser = new Parser();
-        assertThrows(BMOException.class, () -> {
+        assertThrows(BmoException.class, () -> {
             parser.parse("mark");
         });
     }
@@ -121,7 +121,7 @@ public class ParserTest {
     @Test
     public void parseInvalidUnmarkTest() {
         Parser parser = new Parser();
-        assertThrows(BMOException.class, () -> {
+        assertThrows(BmoException.class, () -> {
             parser.parse("unmark");
         });
 
@@ -130,7 +130,7 @@ public class ParserTest {
     @Test
     public void parseInvalidTodoTest() {
         Parser parser = new Parser();
-        assertThrows(BMOException.class, () -> {
+        assertThrows(BmoException.class, () -> {
             parser.parse("todo");
         });
     }
@@ -138,7 +138,7 @@ public class ParserTest {
     @Test
     public void parseInvalidDeadlineTest() {
         Parser parser = new Parser();
-        assertThrows(BMOException.class, () -> {
+        assertThrows(BmoException.class, () -> {
             parser.parse("deadline");
         });
     }
@@ -146,7 +146,7 @@ public class ParserTest {
     @Test
     public void parseInvalidEventTest() {
         Parser parser = new Parser();
-        assertThrows(BMOException.class, () -> {
+        assertThrows(BmoException.class, () -> {
             parser.parse("event");
         });
     }
@@ -154,7 +154,7 @@ public class ParserTest {
     @Test
     public void parseInvalidDeleteTest() {
         Parser parser = new Parser();
-        assertThrows(BMOException.class, () -> {
+        assertThrows(BmoException.class, () -> {
             parser.parse("delete");
         });
     }
@@ -166,7 +166,7 @@ public class ParserTest {
             String[] expected = new String[5];
             expected[0]= "invalid";
             assertArrayEquals(expected, parser.parse("this is not a valid input"));
-        } catch (BMOException e) {
+        } catch (BmoException e) {
             System.out.println(e.getMessage());
         }
     }

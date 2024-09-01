@@ -1,7 +1,11 @@
 package bmo;
 
-public class BMOException extends Exception {
-    public BMOException(String message) {
+/**
+ * Exceptions specific to Bmo
+ */
+public class BmoException extends Exception {
+
+    public BmoException(String message) {
         super(message);
     }
 }

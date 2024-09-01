@@ -1,5 +1,4 @@
 package bmo;
-import bmo.task.Task;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,10 +6,21 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import bmo.task.Task;
+
+/**
+ * Storage class that handles the reading and writing of tasks to the storage file
+ */
 public class Storage {
 
     private FileWriter writer = null;
 
+    /**
+     * Constructor for the Storage class
+     *
+     * @param filePath the path of the storage file
+     * @throws IOException if unable to create the file
+     */
     public Storage(String filePath) throws IOException {
         try {
             File file = new File(filePath);
@@ -30,8 +40,8 @@ public class Storage {
 
     /**
      * Updates the storage file with the tasks in the task list
-     * 
-     * @param TaskList object containing all current tasks
+     *
+     * @param tasks object containing all current tasks
      * @throws IOException if unable to write to file
      */
     public void updateStorageFile(TaskList tasks) throws IOException {
@@ -45,15 +55,15 @@ public class Storage {
 
     /**
      * Reads the storage file and loads the saved tasks into the task list
-     * 
-     * @param TaskList object to store the tasks
+     *
+     * @param tasks object to store the tasks
      * @param filePath the path of the storage file
      * @throws IOException if unable to read the file
      */
     public void readStorageFile(TaskList tasks, String filePath) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-             String line;
-             while ((line = reader.readLine()) != null) {
+            String line;
+            while ((line = reader.readLine()) != null) {
                 String[] taskDetails = line.split(" \\| ");
                 switch (taskDetails[0]) {
                 case "T":
@@ -68,12 +78,12 @@ public class Storage {
                 default:
                     break;
                 }
-           
+
                 if (taskDetails[1].equals("1")) {
                     tasks.getTask(tasks.getSize() - 1).mark();
                 }
                 this.updateStorageFile(tasks);
-             }
+            }
         } catch (IOException e) {
             throw new IOException("File not found");
         }
@@ -81,8 +91,8 @@ public class Storage {
 
     /**
      * Saves a task to the storage file
-     * 
-     * @param Task object to be saved
+     *
+     * @param task object to be saved
      * @throws IOException if unable to write to file
      */
     public void saveTask(Task task) throws IOException {

@@ -1,23 +1,33 @@
 package bmo;
-import bmo.task.Task;
 
 import java.util.Scanner;
 
-public class BMO {
+import bmo.task.Task;
 
+/**
+ * Bmo is a chatbot that helps users manage their tasks.
+ */
+public class Bmo {
+
+    private static String filePath = "ip/data/BMO.txt";
     private Storage storage;
     private Ui ui;
     private Parser parser;
     private TaskList taskList;
-    private static String FILE_PATH = "ip/data/BMO.txt";
 
-    public BMO(String filePath) throws Exception {
+    /**
+     * Constructor for Bmo class.
+     *
+     * @param filePath the path of the storage file
+     * @throws Exception if unable to create the storage file
+     */
+    public Bmo(String filePath) throws Exception {
         try {
             this.storage = new Storage(filePath);
             this.ui = new Ui();
             this.parser = new Parser();
             this.taskList = new TaskList();
-            BMO.FILE_PATH = filePath;
+            Bmo.filePath = filePath;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -25,12 +35,12 @@ public class BMO {
 
     /**
      * Runs the BMO chatbot program
-     * 
+     *
      * @throws IOException if unable to read or write to file
-     * @throws BMOException if the user input is invalid
+     * @throws BmoException if the user input is invalid
      */
     public void run() throws Exception {
-        storage.readStorageFile(taskList, FILE_PATH);
+        storage.readStorageFile(taskList, filePath);
         ui.printWelcome();
         Scanner sc = new Scanner(System.in);
 
@@ -38,10 +48,9 @@ public class BMO {
         while (true) {
             String userInput = sc.nextLine();
             String[] input = parser.parse(userInput);
-        
+
             //Switch statement to handle different commands
             switch (input[0]) {
-            
             //Lists all the tasks in the list
             case "list":
                 ui.printList(taskList.getTasks());
@@ -53,7 +62,7 @@ public class BMO {
                 int index = Integer.parseInt(input[1]) - 1;
 
                 if (index >= taskList.getSize() || index < 0) {
-                    throw new BMOException("\nOh no! The task number you specified does not exist!");
+                    throw new BmoException("\nOh no! The task number you specified does not exist!");
                 }
                 taskList.markTask(index);
                 storage.updateStorageFile(taskList);
@@ -66,14 +75,14 @@ public class BMO {
                 int index2 = Integer.parseInt(input[1]) - 1;
 
                 if (index2 >= taskList.getSize() || index2 < 0) {
-                    throw new BMOException("\nOh no! The task number you specified does not exist!");
+                    throw new BmoException("\nOh no! The task number you specified does not exist!");
                 }
                 taskList.unmarkTask(index2);
                 storage.updateStorageFile(taskList);
                 ui.printTaskUnmarked(taskList.getTask(index2));
                 break;
 
-            //Adds a todo task (no deadline) to the list 
+            //Adds a todo task (no deadline) to the list
             case "todo":
                 taskList.addTodo(input[1]);
                 storage.saveTask(taskList.getTask(taskList.getSize() - 1));
@@ -101,14 +110,14 @@ public class BMO {
                 int index3 = Integer.parseInt(input[1]) - 1;
 
                 if (index3 >= taskList.getSize() || index3 < 0) {
-                    throw new BMOException("\nOh no! The task number you specified does not exist!");
+                    throw new BmoException("\nOh no! The task number you specified does not exist!");
                 }
                 Task taskToDelete = taskList.getTask(index3);
                 taskList.deleteTask(index3);
                 storage.updateStorageFile(taskList);
                 ui.printTaskRemoved(taskToDelete, taskList.getSize());
                 break;
-            
+
             //Finds tasks with descriptions containing the keyword
             case "find":
                 TaskList matchingTasks = taskList.findMatchingTasks(input[1]);
@@ -122,14 +131,14 @@ public class BMO {
                 break loop;
             //Catches unknown commands
             default:
-                throw new BMOException("\nOh no! I do not recognise that command, please try again!");
+                throw new BmoException("\nOh no! I do not recognise that command, please try again!");
             }
         }
     }
 
-    public static void main(String[] args) { 
-        try {  
-            new BMO(FILE_PATH).run();
+    public static void main(String[] args) {
+        try {
+            new Bmo(filePath).run();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

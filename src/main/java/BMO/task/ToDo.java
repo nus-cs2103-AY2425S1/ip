@@ -1,5 +1,8 @@
 package bmo.task;
 
+/**
+ * Represents a todo task.
+ */
 public class ToDo extends Task {
 
     public ToDo(String description) {

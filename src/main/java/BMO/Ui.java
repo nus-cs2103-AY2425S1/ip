@@ -1,8 +1,12 @@
 package bmo;
-import bmo.task.Task;
 
 import java.util.ArrayList;
 
+import bmo.task.Task;
+
+/**
+ * Represents the user interface of BMO.
+ */
 public class Ui {
     public static void printLine() {
         System.out.println("____________________________________________________________\n");
@@ -28,7 +32,7 @@ public class Ui {
 
     /**
      * Prints the message when a task is added.
-     * 
+     *
      * @param task the task that was added
      * @param taskCount the number of tasks in the list
      */
@@ -42,7 +46,7 @@ public class Ui {
 
     /**
      * Prints the message when a task is removed.
-     * 
+     *
      * @param task the task that was removed
      * @param taskCount the number of tasks in the list
      */
@@ -56,7 +60,7 @@ public class Ui {
 
     /**
      * Prints the message when a task is marked as completed.
-     * 
+     *
      * @param task the task that was marked as done
      */
     public void printTaskMarked(Task task) {
@@ -68,6 +72,7 @@ public class Ui {
 
     /**
      * Prints the message when a task is unmarked as incomplete.
+     *
      * @param task the task that was unmarked
      */
     public void printTaskUnmarked(Task task) {
@@ -79,7 +84,7 @@ public class Ui {
 
     /**
      * Prints the list of tasks in the task list.
-     * 
+     *
      * @param tasks the list of tasks
      */
     public void printList(ArrayList<Task> tasks) {
@@ -93,8 +98,8 @@ public class Ui {
 
     /**
      * Prints the message when a task is found.
-     * 
-     * @param task the task that was found
+     *
+     * @param tasks the task that was found
      */
     public void printMatchingTasks(TaskList tasks) {
         printLine();
