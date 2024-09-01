@@ -1,3 +1,5 @@
+
+
 public class Todo extends Task {
 
     public String statement;
@@ -7,7 +9,7 @@ public class Todo extends Task {
 
     public String write()
     {
-        statement = String.format("D | %d | %s\n", this.isDone ? 1 : 0, this.description);
+        statement = String.format("T | %d | %s\n", this.isDone ? 1 : 0, this.description);
         return statement;
     }
 
