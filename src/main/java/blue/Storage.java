@@ -8,23 +8,23 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
 
 /**
- * The blue.Storage class deals with loading tasks from the file and saving tasks in the file
+ * The {@code Storage} class handles loading tasks from a file and saving tasks to a file.
+ * It is responsible for persisting the state of the task list between program runs.
  */
 public class Storage {
 
+    /** The path to the file where tasks are saved and loaded from. */
     private static final String FILE_PATH = "./data/blue.txt";
 
     /**
-     * Loads tasks into array list from file.
-     * @param myList list of tasks.
-     * @throws IOException error reading from file
+     * Loads tasks from the file and adds them to the specified list.
+     *
+     * @param myList The list of tasks to populate from the file.
      */
     public static void loadFromFile(ArrayList<Task> myList) {
-
         File file = new File(FILE_PATH);
         if (!file.exists()) {
             return;
@@ -42,9 +42,9 @@ public class Storage {
     }
 
     /**
-     * Writes to file after editing task.
-     * @param myList list of tasks.
-     * @throws IOException error reading from file
+     * Saves the current list of tasks to the file.
+     *
+     * @param myList The list of tasks to save to the file.
      */
     public static void saveToFile(ArrayList<Task> myList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
@@ -56,5 +56,4 @@ public class Storage {
             System.out.println("An error occurred while saving to file: " + e.getMessage());
         }
     }
-
 }
