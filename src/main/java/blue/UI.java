@@ -1,17 +1,27 @@
 package blue;
 
 import blue.task.Task;
-
 import java.util.ArrayList;
 
+/**
+ * The {@code UI} class handles interactions with the user by displaying messages and task information.
+ * It provides methods to greet the user, say farewell, and display task-related updates.
+ */
 public class UI {
 
+    /**
+     * Displays a greeting message to the user.
+     */
     public static void greet() {
         System.out.println("--------------------------------------------");
-        System.out.println("Hello! I'm blue.Blue! Woof Woof! Yap Yap!");
+        System.out.println("Hello! I'm Blue! Woof Woof! Yap Yap!");
         System.out.println("What can I do for you?");
         System.out.println("--------------------------------------------");
     }
+
+    /**
+     * Displays a farewell message to the user.
+     */
     public static void farewell() {
         System.out.println("Bye Bye! Hope to see you again soon!");
         System.out.println("_     /)---(\\          /~~~\\");
@@ -26,6 +36,11 @@ public class UI {
         System.out.println("--------------------------------------------");
     }
 
+    /**
+     * Displays a message after a task has been marked as done.
+     *
+     * @param task The task that has been marked as done.
+     */
     public static void displayAfterMark(Task task) {
         System.out.println("--------------------------------------------");
         System.out.println("Nice! I've marked this task as done:");
@@ -33,6 +48,11 @@ public class UI {
         System.out.println("--------------------------------------------");
     }
 
+    /**
+     * Displays a message after a task has been unmarked (marked as not done).
+     *
+     * @param task The task that has been unmarked.
+     */
     public static void displayAfterUnMark(Task task) {
         System.out.println("--------------------------------------------");
         System.out.println("OK, I've marked this task as not done yet:");
@@ -40,6 +60,12 @@ public class UI {
         System.out.println("--------------------------------------------");
     }
 
+    /**
+     * Displays a message after a task has been deleted, along with the updated number of tasks.
+     *
+     * @param task The task that has been deleted.
+     * @param noOfTask The number of remaining tasks in the list.
+     */
     public static void displayAfterDelete(Task task, int noOfTask) {
         System.out.println("____________________________________________________________");
         System.out.println("Noted. I've removed this task:");
@@ -49,14 +75,19 @@ public class UI {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays the current list of tasks.
+     *
+     * @param myList The list of tasks to display.
+     * @param noOfTask The number of tasks in the list.
+     */
     public static void displayList(ArrayList<Task> myList, int noOfTask) {
         System.out.println("Here are the tasks in your list:");
         System.out.println("--------------------------------------------");
         for (int i = 0; i < noOfTask; i++) {
-            String result = i + 1 + ". " + myList.get(i).toString();
+            String result = (i + 1) + ". " + myList.get(i).toString();
             System.out.println(result);
         }
         System.out.println("--------------------------------------------");
     }
-
 }

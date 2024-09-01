@@ -5,29 +5,40 @@ import blue.Exceptions.InputErrorException;
 import blue.Exceptions.WrongNumberOfItemException;
 import blue.Storage;
 import blue.UI;
-import blue.task.DeadlineTask;
-import blue.task.EventTask;
-import blue.task.Task;
-import blue.task.ToDoTask;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Manages a list of tasks, allowing tasks to be added, marked as done, unmarked, deleted, and listed.
+ */
 public class TaskList {
+    /** List of tasks. */
     private ArrayList<Task> myList;
+
+    /** The number of tasks in the list. */
     private int noOfTask;
 
+    /**
+     * Constructs a TaskList, loading tasks from storage if available.
+     */
     public TaskList() {
         this.myList = new ArrayList<>();
         Storage.loadFromFile(myList);
         this.noOfTask = myList.size();
     }
 
+    /**
+     * Adds a task to the list based on the user's input.
+     *
+     * @param input The user's input specifying the task type and details.
+     * @throws EmptyDescriptionException If the task description is empty.
+     * @throws InputErrorException If the input format is incorrect.
+     */
     public void addToList(String input) throws EmptyDescriptionException, InputErrorException {
         Task task;
-        // Handle direct input format (e.g., "todo read book")
         String[] inputParts = input.split(" ", 2);
         String taskType = inputParts[0].trim(); // todo, deadline, or event
 
@@ -42,7 +53,6 @@ public class TaskList {
                 throw new InputErrorException("The deadline must be specified in the format: 'deadline <description> /by <date>'");
             }
             try {
-                // Parse the date string into LocalDateTime using the correct format
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
                 LocalDateTime deadline = LocalDateTime.parse(descParts[1].trim(), formatter);
                 task = new DeadlineTask(descParts[0].trim(), deadline);
@@ -55,7 +65,6 @@ public class TaskList {
                 throw new InputErrorException("The event must be specified in the format: 'event <description> /from <start_time> /to <end_time>'");
             }
             String[] timeParts = descParts[1].split(" /to ", 2);
-            // Assuming the times are also in the "d/M/yyyy HHmm" format, adjust the parsing accordingly
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
                 LocalDateTime fromTime = LocalDateTime.parse(timeParts[0].trim(), formatter);
@@ -74,9 +83,12 @@ public class TaskList {
         System.out.println(task.toString());
     }
 
-
-
-
+    /**
+     * Marks the specified task as done.
+     *
+     * @param number The task number to mark as done.
+     * @throws WrongNumberOfItemException If the task number is invalid.
+     */
     public void mark(int number) throws WrongNumberOfItemException {
         if (number <= 0 || number > noOfTask) {
             throw new WrongNumberOfItemException(number);
@@ -88,6 +100,12 @@ public class TaskList {
         Storage.saveToFile(this.myList);
     }
 
+    /**
+     * Marks the specified task as not done.
+     *
+     * @param number The task number to unmark.
+     * @throws WrongNumberOfItemException If the task number is invalid.
+     */
     public void unmark(int number) throws WrongNumberOfItemException {
         if (number <= 0 || number > noOfTask) {
             throw new WrongNumberOfItemException(number);
@@ -99,6 +117,12 @@ public class TaskList {
         Storage.saveToFile(this.myList);
     }
 
+    /**
+     * Deletes the specified task from the list.
+     *
+     * @param number The task number to delete.
+     * @throws WrongNumberOfItemException If the task number is invalid.
+     */
     public void delete(int number) throws WrongNumberOfItemException {
         if (number <= 0 || number > noOfTask) {
             throw new WrongNumberOfItemException(number);
@@ -107,14 +131,22 @@ public class TaskList {
         this.noOfTask--;
         UI.displayAfterDelete(removedTask, noOfTask);
         myList.remove(number - 1);
+        Storage.saveToFile(this.myList); // Save to file after deleting a task
     }
 
+    /**
+     * Prints the current list of tasks.
+     */
     public void printList() {
-       UI.displayList(myList, noOfTask);
+        UI.displayList(myList, noOfTask);
     }
 
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return The number of tasks in the list.
+     */
     public int getNumberOfTask() {
         return this.noOfTask;
     }
-
 }
