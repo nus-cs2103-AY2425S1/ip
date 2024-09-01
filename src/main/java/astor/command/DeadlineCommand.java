@@ -30,7 +30,7 @@ public class DeadlineCommand extends Command {
             }
             Task task = new Deadline(stringArr[0].trim(), stringArr[1].trim());
             String s1 = taskList.addTask(task, storage);
-            ui.showOutput("Got it. I've added this astor.task:\n  "
+            ui.showOutput("Got it. I've added this task:\n  "
                     + s1 + "\nNow you have " + taskList.size() + " tasks in the list.");
         }
     }
