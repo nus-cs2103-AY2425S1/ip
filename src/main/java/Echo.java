@@ -8,9 +8,55 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 public class Echo {
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
     public static final String DOCS_TASKS_TXT = "docs/tasks.txt";
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public Echo(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            this.tasks = new TaskList(storage.load());
+        } catch (EchoException e) { //empty file or file does not exist
+
+            ui.showLoadingError();
+            tasks = new TaskList();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void run() {
+        Parser parser = new Parser();
+
+
+        Scanner myObj = new Scanner(System.in);
+        String logo = "____________________________________________________________\n";
+        System.out.println("Hello, I'm Echo\n" + logo);
+        String input = null;
+        while (true) {
+            input = myObj.nextLine().trim().toLowerCase();
+            String[] parts = input.split(" ", 2);
+            String command = parts[0];
+
+
+            switch (command) {
+                case "list":
+                    this.tasks.listTask();
+            }
+
+        }
+    }
+    public static void main(String[] args) {
+        Echo echo = new Echo("docs/tasks.txt");
+        echo.run();
+    }
+    /*public static void main(String[] args) throws FileNotFoundException {
         List<Task> tasks = new ArrayList<>();
         //load saved
         Scanner saveScanner = new Scanner(DOCS_TASKS_TXT);
@@ -80,9 +126,9 @@ public class Echo {
                 System.out.println("Date needs be in the YYYY-MM-DD format");
             }
         }
-    }
+    }*/
 
-    private static void loadTasks(List<Task> tasks) throws FileNotFoundException {
+    /*private static void loadTasks(List<Task> tasks) throws FileNotFoundException {
         File file = new File(DOCS_TASKS_TXT);
         if(file.exists()) {
             Scanner saveScanner = new Scanner(file);
@@ -134,7 +180,7 @@ public class Echo {
 
             }
         }
-    }
+    }*/
 
     private static void addDeadline(List<Task> tasks, String input) throws EchoException, DateTimeParseException {
         String[] details = input.split(" /by ", 2);
