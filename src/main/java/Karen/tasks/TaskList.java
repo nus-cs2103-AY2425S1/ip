@@ -68,4 +68,13 @@ public class TaskList {
         }
         return result;
     }
+
+    public static TaskList fromList(List<Task> listOfTask) {
+        TaskList taskList = new TaskList();
+        for (Task t : listOfTask) {
+            taskList.addTask(t);
+        }
+
+        return taskList;
+    }
 }
