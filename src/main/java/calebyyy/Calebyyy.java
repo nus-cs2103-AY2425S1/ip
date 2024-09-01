@@ -27,4 +27,8 @@ public class Calebyyy {
     public static void main(String[] args) {
         new Calebyyy().start();
     }
+
+    public String getResponse(String input) {
+        return "Calebyyy heard: " + input;
+    }
 }
