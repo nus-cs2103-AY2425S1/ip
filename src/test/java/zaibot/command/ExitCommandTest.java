@@ -2,11 +2,11 @@ package zaibot.command;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import zaibot.utils.Storage;
 import zaibot.utils.TaskList;
 
 public class ExitCommandTest {
-
 
     @Test
     public void execute_success() {

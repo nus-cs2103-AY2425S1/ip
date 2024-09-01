@@ -1,12 +1,13 @@
 package zaibot.command;
 
+import java.util.HashMap;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import zaibot.utils.Storage;
 import zaibot.utils.TaskList;
-
-import java.util.HashMap;
 
 public class TaskAdditionCommandTest {
     private final TaskList tasks = new TaskList();

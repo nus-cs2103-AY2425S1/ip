@@ -3,9 +3,10 @@ package zaibot.command;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import zaibot.task.ToDoTask;
 import zaibot.utils.Storage;
 import zaibot.utils.TaskList;
-import zaibot.task.ToDoTask;
 
 public class TaskListingCommandTest {
     private final TaskList tasks = new TaskList();

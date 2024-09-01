@@ -1,13 +1,14 @@
 package zaibot.command;
 
+import java.util.HashMap;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import zaibot.task.ToDoTask;
 import zaibot.utils.Storage;
 import zaibot.utils.TaskList;
-import zaibot.task.ToDoTask;
-
-import java.util.HashMap;
 
 public class TaskFindCommandTest {
     private final TaskList tasks = new TaskList();
@@ -66,9 +67,9 @@ public class TaskFindCommandTest {
         TaskFindCommand command = new TaskFindCommand("find", options);
 
         String expected = """
-                    Filtered the tasks for you. Good enough?
-                    1. [T][ ] one
-                    """;
+                Filtered the tasks for you. Good enough?
+                1. [T][ ] one
+                """;
 
         String outputMessage;
         try {
@@ -89,10 +90,10 @@ public class TaskFindCommandTest {
         TaskFindCommand command = new TaskFindCommand("find", options);
 
         String expected = """
-                    Filtered the tasks for you. Good enough?
-                    1. [T][ ] one
-                    2. [T][ ] one more
-                    """;
+                Filtered the tasks for you. Good enough?
+                1. [T][ ] one
+                2. [T][ ] one more
+                """;
 
         String outputMessage;
         try {

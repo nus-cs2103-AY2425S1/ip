@@ -1,14 +1,15 @@
 package zaibot.command;
 
+import java.util.HashMap;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import zaibot.utils.Storage;
-import zaibot.utils.TaskList;
+
 import zaibot.task.Task;
 import zaibot.task.ToDoTask;
-
-import java.util.HashMap;
+import zaibot.utils.Storage;
+import zaibot.utils.TaskList;
 
 public class TaskUpdateCommandTest {
     private final TaskList tasks = new TaskList();

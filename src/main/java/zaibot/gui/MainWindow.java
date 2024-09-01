@@ -38,6 +38,9 @@ public class MainWindow extends AnchorPane {
         this.zaibot = zaibot;
     }
 
+    /**
+     * Initialises the default view
+     */
     @FXML
     public void initialize() {
         dialogContainer.getChildren().addAll(
@@ -55,6 +58,7 @@ public class MainWindow extends AnchorPane {
     /**
      * This method sends the command in the TextField message
      * if the key pressed is the Enter key.
+     *
      * @param event The KeyEvent sent
      */
     public void sendCommandFromKeyboard(KeyEvent event) {
@@ -66,6 +70,7 @@ public class MainWindow extends AnchorPane {
     /**
      * This method sends the command in the TextField message
      * when a mouse is clicked.
+     *
      * @param event The MouseEvent sent when clicked.
      */
     public void sendCommandFromMouse(MouseEvent event) {
