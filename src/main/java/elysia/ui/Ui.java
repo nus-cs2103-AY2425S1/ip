@@ -1,3 +1,7 @@
+package elysia.ui;
+
+import elysia.command.Task;
+
 import java.util.ArrayList;
 
 /**
