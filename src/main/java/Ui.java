@@ -56,7 +56,7 @@ public class Ui {
         int taskLength = TaskList.getTaskListLength();
         ArrayList<Task> list = TaskList.getTaskList();
         if(taskLength == 0) {
-            return displayList + "Your task list is empty!" + "\n" + DIVIDER;
+            return DIVIDER + "\n" + "Your task list is empty!" + "\n" + DIVIDER;
         }
         for (int i = 0; i < taskLength; i++) {
             displayList += (i + 1) + ". " + list.get(i).toString() + "\n";
@@ -104,6 +104,12 @@ public class Ui {
      */
     public String displayAlreadyUnmarkedTask() {
         return DIVIDER + "\n" + ALREADY_UNMARKED + "\n" + DIVIDER;
+    }
+
+    public String displayDeletedTask(Task task) {
+        return DIVIDER + "\n" + "Noted. I've removed this task:" + "\n" + " " + task.toString()
+                + "\n" + "Now you have " + TaskList.getTaskListLength()
+                + (TaskList.getTaskListLength() == 1 ? " task " : " tasks ") + "in the list." + "\n" + DIVIDER;
     }
 
     public String displayUnknownCommandException() {
