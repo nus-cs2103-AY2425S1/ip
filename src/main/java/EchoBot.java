@@ -1,9 +1,6 @@
 import java.util.Scanner;
 
-import echo.Parser;
-import echo.Storage;
-import echo.TaskList;
-import echo.Ui;
+import echo.*;
 
 
 /**
@@ -11,7 +8,7 @@ import echo.Ui;
  * It handles task storage, user input, and displays task-related information.
  */
 public class EchoBot {
-    private Scanner scanner = new Scanner(System.in);
+    // private Scanner scanner = new Scanner(System.in);
     private Ui ui = new Ui();
     private TaskList allTasks;
 
@@ -24,30 +21,21 @@ public class EchoBot {
         this.ui.greet();
     }
 
-    /**
-     * Runs the main function of the EchoBot.
-     * Continuously reads users' input, processes the input to perform actions
-     * on the task list, and displays results until the exit condition is met.
-     */
-    public void run() {
-        boolean isExit = false;
-
-        // parse the user input iteratively
-        while (!isExit) {
-            String userInput = this.scanner.nextLine();
-            ui.showLine();
-            isExit = Parser.parse(userInput, this.allTasks);
-            ui.showLine();
-        }
+    public String getResponse(String input) {
+        this.allTasks = Storage.getData();
+        String userOutput = run(input, this.allTasks);
+        return userOutput;
     }
 
-    /**
-     * Chats with the user.
-     *
-     * @param args commands user input.
-     */
-    public static void main(String[] args) {
-        EchoBot bot = new EchoBot();
-        bot.run();
+    public static String run(String userInput, TaskList allTasks) {
+        String botOutput = "";
+        try {
+            botOutput = Parser.parse(userInput, allTasks);
+            Storage.setData(allTasks);
+        } catch (DukeException e) {
+            botOutput = e.getMessage();
+        } finally {
+            return botOutput;
+        }
     }
 }
