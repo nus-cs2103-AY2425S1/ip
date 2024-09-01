@@ -2,6 +2,10 @@ package zbot;
 
 import java.time.format.DateTimeParseException;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import zbot.task.Deadline;
 import zbot.task.Event;
 import zbot.task.Task;
@@ -10,7 +14,7 @@ import zbot.task.ToDo;
 /**
  * Represents the main class of the ZBot application.
  */
-public class ZBot {
+public class ZBot extends Application {
     private static final String DEFAULT_FILE_PATH = "./data/tasks.txt";
     private Storage storage;
     private TaskList tasks;
@@ -38,10 +42,6 @@ public class ZBot {
      */
     public ZBot() {
         this(DEFAULT_FILE_PATH);
-    }
-
-    public static void main(String[] args) {
-        new ZBot().run();
     }
 
     /**
@@ -205,5 +205,14 @@ public class ZBot {
             System.out.println("No tasks found.");
         }
         System.out.println();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Label hello = new Label("Hello! I'm ZBot!"); // Creating a new Label control
+        Scene scene = new Scene(hello); // Setting the scene to be our Label
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
     }
 }
