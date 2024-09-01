@@ -34,6 +34,10 @@ public class TaskList {
         tasks.get(i).unmark();
     }
 
+    /**
+     * Returns an array of all the taskStrings for each <code>Task</code> in the <code>TaskList</code>
+     * @return String[]
+     */
     public String[] toTaskStrings() {
         if (this.tasks.isEmpty()) {
             return new String[] {};
@@ -46,6 +50,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a {@code List<String>} containing each Task's fileString
+     * @return {@code List<String>}
+     */
     public List<String> toFileStrings() {
         if (this.tasks.isEmpty()) {
             return new ArrayList<>();

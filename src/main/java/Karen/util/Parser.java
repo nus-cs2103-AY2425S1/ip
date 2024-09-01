@@ -28,8 +28,13 @@ public class Parser {
         UNKNOWN
     }
 
+    /**
+     * Returns a {@code Command} after parsing the user's input
+     * @param input A String representing the user input to System.in
+     * @param ui Ui object which handles all input/output processes
+     * @return {@code Command}
+     */
     public static Command parse(String input, Ui ui) {
-        //TODO implement parameter parsing for each case
         String[] arr = input.split(" ", 2);
         Keywords keyword;
         try {

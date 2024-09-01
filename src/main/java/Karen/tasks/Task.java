@@ -9,14 +9,24 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Sets the value of isDone field to true
+     */
     public void mark() {
         this.isDone = true;
     }
 
+    /**
+     * Sets the value of isDone field to false
+     */
     public void unmark() {
         this.isDone = false;
     }
 
+    /**
+     * Returns the value of this.isDone
+     *
+     */
     public boolean isMarked() {
         return this.isDone;
     }
