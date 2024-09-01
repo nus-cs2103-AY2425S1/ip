@@ -4,7 +4,7 @@ package chobo;
  * Represents an exception thrown when there is invalid input in the Chobo chatbot.
  * This exception is used to handle various cases of incorrect or missing input.
  */
-public class InputException extends Exception{
+public class InputException extends Exception {
     public InputException() {
         super("invalid input");
     }
@@ -16,11 +16,11 @@ public class InputException extends Exception{
      * @param msg The type of input error (e.g., "name", "todo", "event", "deadline", "id").
      */
     public InputException(String msg) {
-        super(msg.equals("name")?"pls include name of task"
-                :msg.equals("todo")? "todo format: todo xxxxx"
-                :msg.equals("event")? "event format: event xxxxx /from xxxxx /to xxxxx"
-                :msg.equals("deadline")? "deadline format: deadline xxxxx /by xxxx"
-                :msg.equals("id")? "invalid task ID"
-                :"invalid input");
+        super(msg.equals("name") ? "pls include name of task"
+                : msg.equals("todo") ? "todo format: todo xxxxx"
+                : msg.equals("event") ? "event format: event xxxxx /from xxxxx /to xxxxx"
+                : msg.equals("deadline") ? "deadline format: deadline xxxxx /by xxxx"
+                : msg.equals("id") ? "invalid task ID"
+                : "invalid input");
     }
 }
