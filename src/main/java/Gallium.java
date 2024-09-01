@@ -10,13 +10,10 @@ import java.util.Scanner;
 
 public class Gallium {
     public static void main(String[] args) {
-        String helloMessage = "Hello! I am Gallium. \n    What can I do for you?";
-        String listMessage = "Here are the tasks in your list:";
-        String byeMessage = "Bye. Hope to see you again soon!";
-        String lines = "____________________________________________________________";
+        Ui ui = new Ui();
         ArrayList<Task> taskList = new ArrayList<Task>();
+        TaskList tasklist = new TaskList(taskList);
         Scanner userInput = new Scanner(System.in);
-        System.out.println("    " + lines + "\n    " + helloMessage + "\n    " + lines);
         String Message = userInput.nextLine();
         String bye = "bye";
         String list = "list";
@@ -45,20 +42,13 @@ public class Gallium {
             }
             scanner.close();
         } catch (IOException e) {
-            System.out.println("Error creating file:" + e.getMessage());
+            ui.showCreateFileError(e);
         }
 
         while (!Message.equals(bye)) {
             try {
                 if (Message.equals(list)) {
-                    System.out.println("    " + lines);
-                    System.out.println("    " + listMessage);
-                    for (int i = 1; i < Task.count; i++) {
-                        Task task = taskList.get(i - 1);
-                        System.out.println("\n    " + i + ". " + task.toString());
-                    }
-                    System.out.println("    " + lines + "\n    ");
-                    // Message = userInput.nextLine();
+                    ui.printList(tasklist);
                 } else if (Message.matches(mark + " \\d+") || Message.matches(unmark + " \\d+")) {
                     boolean isMark = Message.startsWith(mark);
                     Pattern pattern = Pattern.compile((isMark ? mark : unmark) + " (\\d+)");
@@ -67,43 +57,24 @@ public class Gallium {
                         int index = Integer.parseInt(matcher.group(1));
                         Task task = taskList.get(index - 1);
                         task.setIsDone(isMark);
-                        System.out.println("    " + lines);
-                        System.out.println("    " + (isMark ? "Nice! I've marked this task as done: "
-                                : "OK, I've marked this task as not done yet: ") + "\n" + "    "
-                                + task.toString());
-                        System.out.println("    " + lines + "\n    ");
+                        ui.printMarkMessage(isMark, task);
                     }
-                    // Message = userInput.nextLine();
                 } else if (Message.equals("todo") || Message.equals("todo ") || Message.equals("deadline")
                         || Message.equals("deadline ") || Message.equals("event") || Message.equals("event ")) {
                     throw new GalliumException("OOPS!!! The description of a " + Message + " cannot be empty.");
                 } else if (Message.startsWith("todo ")) {
                     Todo todo = new Todo(Message);
-                    System.out.println("    " + lines + "\n    " + "Got it. I've added this task: \n" + "    "
-                            + todo.toString()
-                            + "\n    Now you have " + Task.count + " " + Task.taskCount() + " in the list.\n" + "    "
-                            + lines
-                            + "\n");
+                    ui.printAddTodo(todo);
                     taskList.add(todo);
                     Task.count++;
                 } else if (Message.startsWith("deadline ")) {
                     Deadline deadline = new Deadline(Message);
-                    System.out
-                            .println("    " + lines + "\n    " + "Got it. I've added this task: \n"
-                                    + "    " + deadline.toString()
-                                    + "\n    Now you have " + Task.count + " " + Task.taskCount() + " in the list.\n"
-                                    + "    "
-                                    + lines
-                                    + "\n");
+                    ui.printAddDeadline(deadline);
                     taskList.add(deadline);
                     Task.count++;
                 } else if (Message.startsWith("event ")) {
                     Event event = new Event(Message);
-                    System.out.println("    " + lines + "\n    " + "Got it. I've added this task: \n" + "    "
-                            + event.toString()
-                            + "\n    Now you have " + Task.count + " " + Task.taskCount() + " in the list.\n" + "    "
-                            + lines
-                            + "\n");
+                    ui.printAddEvent(event);
                     taskList.add(event);
                     Task.count++;
                 } else if (Message.startsWith("delete ")) {
@@ -113,59 +84,45 @@ public class Gallium {
                         int index = Integer.parseInt(matcher.group(1));
                         Task task = taskList.get(index - 1);
                         Task.count--;
-                        System.out.println("    " + lines);
-                        System.out.println("    " + "Noted. I've removed this task:" + "\n" + "    "
-                                + task.toString());
-                        System.out.println(
-                                "\n    Now you have " + (Task.count - 1) + " " + Task.taskCountDelete()
-                                        + " in the list.\n");
-                        System.out.println("    " + lines + "\n    ");
+                        ui.printDelete(task);
                         taskList.remove(index - 1);
-                        // Message = userInput.nextLine();
                     }
-                    // Message = userInput.nextLine();
                 } else if (Message.startsWith("date ")) {
                     LocalDate date = LocalDate.parse(Message.split("date ")[1]);
-                    System.out.println("    " + lines + "\n    Deadlines/Events that match the date: ");
+                    StringBuilder tasksStringBuilder = new StringBuilder();
                     for (int i = 1; i < Task.count; i++) {
                         Task task = taskList.get(i - 1);
                         if (task.description.startsWith("[D]") || task.description.startsWith("deadline ")) {
                             Deadline deadline = (Deadline) task;
                             if (date.format(DateTimeFormatter.ofPattern("MMM d yyyy")).equals(deadline.date)) {
-                                System.out.println("\n    " + deadline.toString());
+                                tasksStringBuilder.append("\n    " + deadline.toString());
                             }
                         } else if (task.description.startsWith("[E]") || task.description.startsWith("event ")) {
                             Event event = (Event) task;
                             if (date.format(DateTimeFormatter.ofPattern("MMM d yyyy")).equals(event.toDate)) {
-                                System.out.println("\n    " + event.toString());
+                                tasksStringBuilder.append("\n    " + event.toString());
                             }
                         }
                     }
-                    System.out.println("\n    " + lines);
+                    String tasks = tasksStringBuilder.toString();
+                    ui.printMatchingDate(tasks);
 
                 } else {
-                    throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :(");
                 }
                 // Message = userInput.nextLine();
             } catch (GalliumException e) {
-                System.out.println("    " + lines + "\n    " + e.getMessage() + "\n    " + lines + "\n");
+                ui.showGalliumException(e);
                 // Message = userInput.nextLine();
             } catch (ArrayIndexOutOfBoundsException e) {
                 if (Message.startsWith("deadline ")) {
-                    System.out.println("    " + lines + "\n    " + "Please put the date of the deadline!!" + "\n    "
-                            + lines + "\n");
+                    ui.showIncompleteDeadline();
                 } else if (Message.startsWith("event ")) {
-                    System.out
-                            .println("    " + lines + "\n    " + "Please put the from and to of the event!!" + "\n    "
-                                    + lines + "\n");
+                    ui.showIncompleteEvent();
                 }
             } catch (IndexOutOfBoundsException e) {
                 if (Message.startsWith(mark) || Message.startsWith(unmark) || Message.startsWith("delete")) {
-                    System.out
-                            .println("    " + lines + "\n    " + "Please put a number between 1 and " + (Task.count - 1)
-                                    + "!" + "\n    Now you have " + (Task.count - 1) + " " + Task.taskCountDelete()
-                                    + " in the list.\n" + "    "
-                                    + lines + "\n");
+                    ui.showWrongIndex();
                 }
             }
             Message = userInput.nextLine();
@@ -182,10 +139,10 @@ public class Gallium {
             fw.write(listString);
             fw.close();
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            ui.showIOException(e);
         }
 
-        System.out.println("    " + lines + "\n    " + byeMessage + "\n    " + lines + "\n");
+        ui.printByeMessage();
         userInput.close();
     }
 }
