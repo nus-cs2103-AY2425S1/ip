@@ -23,6 +23,9 @@ public class Storage {
         while (sc.hasNextLine()) {
             String s = sc.nextLine();
             Task t = Parser.parseTask(s);
+            if (t == null) {
+                continue;
+            }
             tasks.add(t);
         }
         return tasks;

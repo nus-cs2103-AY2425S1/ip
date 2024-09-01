@@ -30,4 +30,8 @@ public class Ui {
     void showLoadingError() {
         System.out.println("Something went wrong when loading file");
     }
+
+    static void printAnything(String s) {
+        System.out.println(s);
+    }
 }
