@@ -8,11 +8,11 @@ public class DeleteCommand extends AddCommand {
         return DeleteCommand.instance;
     }
     @Override
-    public void run(String input, ArrayList<Task> taskList) {
+    public void run(String input) {
         int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
-        Task task = taskList.remove(taskIndex);
+        Task task = TaskList.remove(taskIndex);
         System.out.println("Noted. I've removed this task:");
         System.out.printf("  %1$s\n", task);
-        super.run(input, taskList);
+        super.run(input);
     }
 }

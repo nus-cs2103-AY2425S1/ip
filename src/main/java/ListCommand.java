@@ -9,18 +9,16 @@ public class ListCommand implements JBotCommand {
         return ListCommand.instance;
     }
     @Override
-    public void run(String input, ArrayList<Task> taskList) {
-        int counter = 1;
+    public void run(String input) {
 
         System.out.println("Here are the tasks in your list:");
 
-        for (Task task : taskList) {
+        for (int i = 0; i < TaskList.size(); i++) {
             System.out.printf(
                     "%1$s. %2$s%n",
-                    counter,
-                    task
+                    i + 1,
+                    TaskList.get(i)
             );
-            counter++;
         }
     }
 }

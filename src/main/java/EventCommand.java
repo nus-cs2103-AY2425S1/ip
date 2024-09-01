@@ -8,11 +8,11 @@ public class EventCommand extends AddCommand {
         return EventCommand.instance;
     }
     @Override
-    public void run(String input, ArrayList<Task> taskList) {
+    public void run(String input) {
         Task task = new EventTask(input);
-        taskList.add(task);
+        TaskList.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.printf("  %1$s\n", task);
-        super.run(input, taskList);
+        super.run(input);
     }
 }

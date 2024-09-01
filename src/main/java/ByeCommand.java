@@ -9,7 +9,8 @@ public class ByeCommand implements JBotCommand {
         return ByeCommand.instance;
     }
     @Override
-    public void run(String input, ArrayList<Task> taskList) {
+    public void run(String input) {
         System.out.println("Bye. Hope to see you again soon!");
+        JBot.close();
     }
 }
