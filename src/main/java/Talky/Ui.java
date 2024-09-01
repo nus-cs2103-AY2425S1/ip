@@ -30,7 +30,7 @@ public class Ui {
      * @param content Content to wrap seperator around.
      */
     public void printSeperator(String content) {
-        String SEPERATOR = "---------------------------------------";
+        final String SEPERATOR = "---------------------------------------";
         System.out.println(SEPERATOR);
         System.out.println(content);
         System.out.println(SEPERATOR);

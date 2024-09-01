@@ -1,7 +1,6 @@
 package Talky;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -12,7 +11,7 @@ import java.util.Scanner;
  * Class that acts as save data.
  */
 public class SaveData {
-    String filePath;
+    private String filePath;
 
     /**
      * Constructor that takes in path of save file.
@@ -40,7 +39,7 @@ public class SaveData {
                 System.out.println("Creating New Save Data");
             }
             Scanner sc = new Scanner(saveData);
-            while(sc.hasNext()) {
+            while (sc.hasNext()) {
                 String[] taskDetails = sc.nextLine().split(" ");
                 switch (taskDetails[0]) {
                 case "Talky.ToDo":

@@ -1,15 +1,15 @@
 import java.time.LocalDateTime;
-import Talky.Ui;
-import Talky.TaskList;
-import Talky.SaveData;
-import Talky.Parser;
-import Talky.TalkyException;
 
+import Talky.Parser;
+import Talky.SaveData;
+import Talky.TalkyException;
+import Talky.TaskList;
+import Talky.Ui;
 /**
  * Talky Chatbot that acts as a Task Manager.
  */
 public class Talky {
-    private final static String SAVE_PATH = "./data/talky.txt";
+    private static final String SAVE_PATH = "./data/talky.txt";
     private Ui ui;
     private TaskList userTasks;
     private SaveData saveData;
@@ -28,7 +28,7 @@ public class Talky {
     /**
      * Runs Talky Chatbot.
      */
-    public void run(){
+    public void run() {
         ui.printSeperator("Hello I'm Talky\n" + "How may I help you?");
         boolean isRunning = true;
         while (isRunning) {
