@@ -7,12 +7,12 @@ import ahmad.exceptions.AhmadException;
  */
 public class DeleteInvalidNumberException extends AhmadException {
 
-  /**
-   * Constructs a DeleteInvalidNumberException instance based on given number.
-   *
-   * @param number The invalid number in question.
-   */
-  public DeleteInvalidNumberException(String number) {
-    super("\"" + number + "\" is an invalid number");
-  }
+    /**
+     * Constructs a DeleteInvalidNumberException instance based on given number.
+     *
+     * @param number The invalid number in question.
+     */
+    public DeleteInvalidNumberException(String number) {
+        super("\"" + number + "\" is an invalid number");
+    }
 }

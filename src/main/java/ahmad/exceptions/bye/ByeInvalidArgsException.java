@@ -6,10 +6,10 @@ import ahmad.exceptions.AhmadException;
  * Exception class for bye command
  */
 public class ByeInvalidArgsException extends AhmadException {
-  /**
-   * Constructs a ByeInvalidArgsException instance.
-   */
-  public ByeInvalidArgsException() {
-    super("That is not a valid \"bye\" command");
-  }
+    /**
+     * Constructs a ByeInvalidArgsException instance.
+     */
+    public ByeInvalidArgsException() {
+        super("That is not a valid \"bye\" command");
+    }
 }
