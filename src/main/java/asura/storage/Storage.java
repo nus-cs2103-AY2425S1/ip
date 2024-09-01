@@ -33,18 +33,18 @@ public class Storage {
                 String[] task = scanner.nextLine().split("\\|");
                 int status = Integer.parseInt(task[1]);
                 switch (task[0]) {
-                    case "T":
-                        Todo todo = new Todo(task[2]);
-                        taskList.add(todo);
-                        break;
-                    case "E":
-                        Event event = new Event(task[2], task[3], task[4]);
-                        taskList.add(event);
-                        break;
-                    case "D":
-                        Deadline deadline = new Deadline(task[2], LocalDateTime.parse(task[3]));
-                        taskList.add(deadline);
-                        break;
+                case "T":
+                    Todo todo = new Todo(task[2]);
+                    taskList.add(todo);
+                    break;
+                case "E":
+                    Event event = new Event(task[2], task[3], task[4]);
+                    taskList.add(event);
+                    break;
+                case "D":
+                    Deadline deadline = new Deadline(task[2], LocalDateTime.parse(task[3]));
+                    taskList.add(deadline);
+                    break;
                 }
                 if (status == 1) {
                     taskList.get(taskList.size() - 1).markAsDone();
@@ -62,11 +62,9 @@ public class Storage {
         for (Task task : taskList) {
             if (task instanceof Event event) {
                 sb.append("E|").append(event.getIsDone() ? 1 : 0).append("|").append(event.getDescription()).append("|").append(event.getStart()).append("|").append(event.getEnd()).append("\n");
-            }
-            else if (task instanceof Todo todo) {
+            } else if (task instanceof Todo todo) {
                 sb.append("T|").append(todo.getIsDone() ? 1 : 0).append("|").append(todo.getDescription()).append("\n");
-            }
-            else if (task instanceof Deadline deadline) {
+            } else if (task instanceof Deadline deadline) {
                 sb.append("D|").append(deadline.getIsDone() ? 1 : 0).append("|").append(deadline.getDescription()).append("|").append(deadline.getBy()).append("\n");
             }
         }
