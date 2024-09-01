@@ -15,11 +15,12 @@ public class FindCommand extends Command{
 
     @Override
     public void execute(TaskList taskList, Ui ui) {
-        List<Task> foundTasks = taskList.searchTasks(this.searchWord);
-        if (foundTasks.isEmpty()) {
-            System.out.println("Couldnt find any matching tasks :(");
+        List<Task> foundList = taskList.searchTasks(this.searchWord);
+        TaskList foundTasks = TaskList.fromList(foundList);
+        if (foundTasks.getSize() == 0) {
+            ui.showFoundNothingMessage();
         } else {
-            System.out.println("Found tasks!");
+            ui.showFindOutput(foundTasks);
         }
     }
 
