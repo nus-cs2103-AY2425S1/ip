@@ -1,7 +1,17 @@
 package gale;
+
+/**
+ * Represents the user interface of the application. A Ui object is responsible for
+ * displaying messages to the user and interacting with the user.
+ *
+ * @author kaikquah
+ */
 public class Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
 
+    /**
+     * Displays a greeting message to the user when the application starts.
+     */
     public void greet() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello! I'm Gale, your friendly windy assistant.");
@@ -9,6 +19,9 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Displays a goodbye message to the user when the application exits.
+     */
     public void exit() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Aw, it's time for you to go huh?");
@@ -16,6 +29,11 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Displays a message to the user when a task is added to the task list.
+     * @param task the task that was added
+     * @param taskCount the updated number of tasks in the task list
+     */
     public void printAddedTask(Task task, int taskCount) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Whoosh! Task \"" + task + "\" added to my windy memory.");
@@ -25,6 +43,11 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Displays a message to the user when a task is deleted from the task list.
+     * @param task the task that was deleted
+     * @param taskCount the updated number of tasks in the task list
+     */
     public void showDeletedTask(Task task, int taskCount) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Poof! The wind has blown away this task:");
@@ -34,6 +57,10 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Displays the list of tasks to the user when prompted by the user.
+     * @param taskList the list of tasks to be displayed
+     */
     public void displayTaskList(TaskList taskList) {
         System.out.println(HORIZONTAL_LINE);
         if (taskList.isEmpty()) {
@@ -47,6 +74,11 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Displays a message to the user when a task is marked as done or undone.
+     * @param task the task that was marked
+     * @param isDone the status of the task as a boolean (true if done, false if undone)
+     */
     public void showMarkedTask(Task task, boolean isDone) {
         System.out.println(HORIZONTAL_LINE);
         if (isDone) {
@@ -58,12 +90,19 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Displays an exception message to the user.
+     * @param message the exception message to be displayed
+     */
     public void showException(String message) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(message);
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Displays a message to the user when an error occurs while loading tasks from the file.
+     */
     public void showLoadingError() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Oops! The wind blew away your tasks. Starting with a clean slate.");
