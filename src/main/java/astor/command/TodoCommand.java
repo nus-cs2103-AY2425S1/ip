@@ -25,7 +25,7 @@ public class TodoCommand extends Command {
         } else {
             Task task = new Todo(s1);
             String s = taskList.addTask(task, storage);
-            ui.showOutput("Got it. I've added this astor.task:\n  " +
+            ui.showOutput("Got it. I've added this task:\n  " +
                     s + "\nNow you have " + taskList.size() + " tasks in the list.");
         }
     }

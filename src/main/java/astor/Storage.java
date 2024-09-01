@@ -30,6 +30,10 @@ public class Storage {
         }
     }
 
+    public Storage() {
+
+    }
+
     private FileWriter createNewDataStore(String filePath) throws IOException {
         Path path = Paths.get(filePath);
         File file = path.toFile();

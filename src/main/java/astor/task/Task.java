@@ -37,6 +37,20 @@ public class Task {
         return s;
     }
 
+    public static String generateParse(String deadline) {
+        String[] dateAndTime = deadline.trim().split("\\s+|/");
+        String parsedDate = dateAndTime[2] + "-" + dateAndTime[1] + "-" + dateAndTime[0];
+
+        if (dateAndTime.length > 3) {
+            String hour = dateAndTime[3].substring(0,2);
+            String minute = dateAndTime[3].substring(2);
+            parsedDate +=  "T" + hour + ":" + minute;
+        } else {
+            parsedDate += "T00:00:00";
+        }
+        return parsedDate;
+    }
+
     public String dataDescription() {
         return "";
     }
