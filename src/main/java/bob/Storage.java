@@ -35,10 +35,10 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             String directoryPath = "./data";
-            if (Files.exists(Paths.get(directoryPath)) &&
-                    Files.isDirectory(Paths.get(directoryPath)) &&
-                    Files.exists(Paths.get(filePath)) &&
-                    Files.isRegularFile(Paths.get(filePath))) {
+            if (Files.exists(Paths.get(directoryPath))
+                    && Files.isDirectory(Paths.get(directoryPath))
+                    && Files.exists(Paths.get(filePath))
+                    && Files.isRegularFile(Paths.get(filePath))) {
                 Scanner s = new Scanner(Paths.get(filePath));
                 while (s.hasNext()) {
                     String taskString = s.nextLine();
@@ -61,13 +61,13 @@ public class Storage {
     public void save(ArrayList<Task> tasks) throws ChatBotException {
         try {
             String directoryPath = "./data";
-            if (!Files.exists(Paths.get(directoryPath)) ||
-                    !Files.isDirectory(Paths.get(directoryPath))) {
+            if (!Files.exists(Paths.get(directoryPath))
+                    || !Files.isDirectory(Paths.get(directoryPath))) {
                 Files.createDirectory(Paths.get(directoryPath));
             }
 
-            if (!Files.exists(Paths.get(filePath)) ||
-                    !Files.isRegularFile(Paths.get(filePath))) {
+            if (!Files.exists(Paths.get(filePath))
+                    || !Files.isRegularFile(Paths.get(filePath))) {
                 Files.createFile(Paths.get(filePath));
             }
 

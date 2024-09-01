@@ -1,9 +1,9 @@
 package bob;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for the {@link TaskList} class.
@@ -28,7 +28,7 @@ public class TaskListTest {
             taskList.addToDo("todo " + todo.getDescription(), ui);
             assertEquals(1, taskList.size());
             assertEquals(todo.getDescription(), taskList.getTask(0).getDescription());
-        } catch (ChatBotException e){
+        } catch (ChatBotException e) {
             ui.showError(e.getMessage());
         }
     }
@@ -49,7 +49,7 @@ public class TaskListTest {
             taskList.addToDo("todo " + todo.getDescription(), ui);
             taskList.markTask(0, ui);
             assertTrue(taskList.getTask(0).isDone());
-        } catch (ChatBotException e){
+        } catch (ChatBotException e) {
             ui.showError(e.getMessage());
         }
     }

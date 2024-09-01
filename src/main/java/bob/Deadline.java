@@ -10,9 +10,9 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends Task {
 
-    private LocalDateTime by;
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+    private LocalDateTime by;
 
     /**
      * Constructs a Deadline task with a description and deadline date/time.
