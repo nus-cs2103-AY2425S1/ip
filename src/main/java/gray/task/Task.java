@@ -31,4 +31,8 @@ public class Task implements Serializable {
         char icon = isDone ? 'X' : ' ';
         return String.format("[%c] %s", icon, description);
     }
+
+    public boolean contains(String search) {
+        return description.contains(search);
+    }
 }

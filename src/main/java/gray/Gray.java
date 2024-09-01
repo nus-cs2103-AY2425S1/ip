@@ -3,54 +3,32 @@ package gray;
 import gray.command.Command;
 
 /**
- * The chatbot Gray.
+ * Represents the chatbot gray
  */
 public class Gray {
 
-    private static final String SAVE_TASKS_FILEPATH = "./data/saveTasks";
+    private final Tasks tasks;
 
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    public Gray(Tasks tasks) {
+        this.tasks = tasks;
+    }
 
     /**
-     * Constructor to initialise Gray chatbot.
-     * Takes in an argument to initialise the file save for tasks.
-     * @param saveTasksFilepath
+     * Respond for chatbot
+     *
+     * @param text
+     * @return
      */
-    public Gray(String saveTasksFilepath) {
-        ui = new Ui();
-        storage = new Storage(saveTasksFilepath);
+    public String respond(String text) {
         try {
-            tasks = storage.loadTasks();
-        } catch (Exception e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
+            Command command = Parser.parse(text);
+            return command.execute(tasks);
+        } catch (GrayException e) {
+            return e.getMessage();
         }
     }
 
-    /**
-     * Runs the chatbot.
-     */
-    public void run() {
-        ui.showWelcome();
-        while (true) {
-            String fullCommand = ui.readCommand();
-            try {
-                Command c = Parser.parse(fullCommand);
-                c.execute(ui, tasks);
-                if (c.isExit()) {
-                    break;
-                }
-            } catch (GrayException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-        storage.saveTasks(tasks);
+    public String welcome() {
+        return "Hello! I am chatbot Gray. How may I assist today?";
     }
-
-    public static void main(String[] args) {
-        new Gray(SAVE_TASKS_FILEPATH).run();
-    }
-
 }
