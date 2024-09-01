@@ -2,7 +2,6 @@
 package cow;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -19,13 +18,11 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Cow cow;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/person.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/cow.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image cowImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.jpg"));
 
     /** Prints greetings on initialize **/
     @FXML
@@ -34,11 +31,11 @@ public class MainWindow extends AnchorPane {
 
     }
 
-    /** Injects the Duke instance */
-    public void setDuke(Cow d) {
+    /** Injects the Cow instance */
+    public void setCow(Cow d) {
         cow = d;
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(cow.getGreetings(), dukeImage)
+                DialogBox.getCowDialog(cow.getGreetings(), cowImage)
         );
     }
 
@@ -52,7 +49,7 @@ public class MainWindow extends AnchorPane {
         String response = cow.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getCowDialog(response, cowImage)
         );
         userInput.clear();
     }

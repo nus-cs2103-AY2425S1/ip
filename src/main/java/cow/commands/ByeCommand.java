@@ -4,6 +4,7 @@ import cow.exceptions.CowExceptions;
 import cow.filesaver.FileSaver;
 import cow.message.Ui;
 import cow.todolist.TodoList;
+import javafx.application.Platform;
 
 // solution below inspired by https://github.com/se-edu/addressbook-level2/tree/master
 /** Creates a bye command object. **/
@@ -22,6 +23,7 @@ public class ByeCommand extends Command {
     @Override
     public void execute(TodoList todoList, Ui ui, FileSaver fileSaver) {
         ui.printGoodBye();
+        Platform.exit();
     }
 
     /**
