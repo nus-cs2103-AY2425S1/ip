@@ -68,11 +68,11 @@ public class Task {
      * @param keyword
      * @return
      */
-    public Task isMatching(String keyword) {
+    public boolean isMatching(String keyword) {
         if (this.description.contains(keyword)) {
-            return this;
+            return true;
         } else {
-            return null;
+            return false;
         }
     }
 }
