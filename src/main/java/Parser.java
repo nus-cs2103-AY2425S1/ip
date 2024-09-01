@@ -63,11 +63,11 @@ public class Parser {
         String desc = fullCommand.substring(fullCommand.indexOf(" ") + 1);
         desc = desc.stripLeading();
         if (action.equals("mark")) {
-            return new MarkCommand(Integer.parseInt(desc));
+            return new MarkCommand(Integer.parseInt(desc) - 1);
             // Task t = this.tasks.get(Integer.parseInt(desc) - 1).markAsDone();
             // System.out.println("I've marked as done:\n" + t);
         } else if (action.equals("unmark")) {
-            return new UnmarkCommand(Integer.parseInt(desc));
+            return new UnmarkCommand(Integer.parseInt(desc) - 1);
             // Task t = this.tasks.get(Integer.parseInt(desc) - 1).markAsNotDone();
             // System.out.println("I've marked as not done:\n" + t);
         } else if (action.equals("list")) {
