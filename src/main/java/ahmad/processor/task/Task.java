@@ -21,11 +21,23 @@ public abstract class Task {
   private final String name;
   private final boolean state;
 
+  /**
+   * Constructs abstract task instance based on name.
+   * State defaults to false.
+   *
+   * @param name Name of task.
+   */
   protected Task(String name) {
     this.name = name;
     this.state = false;
   }
 
+  /**
+   * Constructs abstract task instance based on an old copy.
+   *
+   * @param oldTask Old task to be copied from.
+   * @param state New state of task.
+   */
   protected Task(Task oldTask, boolean state) {
     this.name = oldTask.name;
     this.state = state;

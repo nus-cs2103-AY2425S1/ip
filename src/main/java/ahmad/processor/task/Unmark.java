@@ -7,7 +7,19 @@ import ahmad.response.Response;
 
 import java.util.Arrays;
 
+/**
+ * Unmark processor class.
+ */
 public class Unmark {
+  /**
+   * Returns a response based on the prompt for an unmark command.
+   *
+   * @param prompt Prompt/argument for unmark command.
+   * @return Appropriate response for unmark command.
+   * @throws UnmarkInvalidArgsException If prompt/argument is invalid.
+   * @throws UnmarkInvalidNumberException If number/index is invalid.
+   * @throws UnmarkIndexOutOfBoundsException If index is out of bounds.
+   */
   public static Response process(String prompt) throws UnmarkInvalidArgsException, UnmarkInvalidNumberException, UnmarkIndexOutOfBoundsException {
     final java.util.List<String> prompts = Arrays.asList(prompt.split(" "));
 

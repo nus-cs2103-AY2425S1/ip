@@ -9,9 +9,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Storage class in charge of reading and writing to file.
+ */
 public class Storage {
   private static final String FILE_PATH = "./data/tasks.txt";
 
+  /**
+   * Loads file contents into TaskList.
+   */
   public static void load() {
     try {
       final File file = new File(FILE_PATH);
@@ -33,6 +39,11 @@ public class Storage {
     }
   }
 
+  /**
+   * Saves prompt into file.
+   *
+   * @param prompt The prompt/command to be saved.
+   */
   public static void save(String prompt) {
     try {
       final File file = new File(FILE_PATH);
