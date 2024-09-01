@@ -26,47 +26,44 @@ import jackson.utils.Ui;
  */
 public class Jackson {
 
-    /* Chatbot name */
-    private static String name = "Jackson";
-
     /* Expected number of tasks to store */
     private static final int EXPECTED_SIZE = 100;
 
     /* Path to save list data */
-    private static final String PATH = "src/main/java/data.txt";
+    private static final String PATH = "src/main/resources/texts/data.txt";
 
     /* Stores secret text for greedy loading */
     private static String secret = "";
+
+    /* Stores previous command type for css style changing */
+    private String commandType;
 
     /* Instance variables for main loop */
     private TaskList taskList;
     private Ui ui;
     private Storage storage;
-    private Scanner sc;
 
     /**
      * Constructs Jackson instance.
-     * @param expectedSize integer of how many tasks are expected to be stored.
-     * @param path String path for save file.
      */
-    public Jackson(int expectedSize, String path) {
-        this.taskList = new TaskList(expectedSize);
+    public Jackson() {
+        this.taskList = new TaskList(EXPECTED_SIZE);
         this.ui = new Ui();
-        this.storage = new Storage(path);
-        this.sc = new Scanner(System.in);
+        this.storage = new Storage(PATH);
+        this.commandType = "intro";
     }
 
     /**
      * Reads secret text from secret file and prints it.
      * If secret file not found, handles exception and prints error message.
+     * @return String response.
      */
-    public void readSecret() {
+    public String readSecret() {
         // get string builder to read line by line
         StringBuilder temp = new StringBuilder();
         String output;
         if (secret.isEmpty()) {
-            File f = new File("src/main/java/secret_text.txt");
-
+            File f = new File("src/main/resources/texts/secret_text.txt");
             try {
                 // read via scanner line by line
                 Scanner sc = new Scanner(f);
@@ -83,124 +80,145 @@ public class Jackson {
                 sc.close();
             } catch (FileNotFoundException e) {
                 // if file path not found
-                System.out.println("Oops! Secret file not found...");
-                return;
+                output = "Oops! Secret file not found...";
             }
         } else {
             output = secret;
         }
         // print secret msg!
-        System.out.println(output);
+        return output;
     }
 
     /**
      * Runs the main loop of the chatbot.
      */
-    public void run() {
+    public String getResponse(String input) {
         // Variables for main loop
-        String input;
         Task task;
         Response response;
         Actions.ActionType action;
         Matcher matcher;
         ArrayList<Task> tasks;
         int index;
-
-        // determine whether to terminate loop
-        boolean isQuit = false;
-
-        // load in tasks from save file (if any)
-        this.storage.load(this.taskList);
-
-        // Welcome message
-        this.ui.printWelcome();
+        String output = "";
+        System.out.println(input);
 
         // main loop starts
-        while (!isQuit) {
-            try {
-                // print the input marker > and take in input from user
-                this.ui.printMarker();
-                input = this.sc.nextLine();
+        try {
+            // first parse input and get response (or throw error here)
+            response = Parser.parse(input);
+            action = response.getAction();
+            matcher = response.getMatcher();
 
-                // first parse input and get response (or throw error here)
-                response = Parser.parse(input);
-                action = response.getAction();
-                matcher = response.getMatcher();
-
-                // decide what action to take based on action object received from parser
-                switch (action) {
-                case LIST:
-                    this.ui.printList(this.taskList.toString());
-                    break;
-                case TODO:
-                    task = new Todo(matcher.group(1));
-                    this.taskList.addTask(task);
-                    this.ui.printAddList(task, this.taskList);
-                    break;
-                case DEADLINE:
-                    task = new Deadline(matcher.group(1), matcher.group(2));
-                    this.taskList.addTask(task);
-                    this.ui.printAddList(task, this.taskList);
-                    break;
-                case EVENT:
-                    task = new Event(matcher.group(1), matcher.group(2), matcher.group(3));
-                    this.taskList.addTask(task);
-                    this.ui.printAddList(task, this.taskList);
-                    break;
-                case MARK:
-                    index = Integer.parseInt(matcher.group(1)) - 1;
-                    task = this.taskList.mark(index);
-                    this.ui.printMark(task);
-                    break;
-                case UNMARK:
-                    index = Integer.parseInt(matcher.group(1)) - 1;
-                    task = this.taskList.unmark(index);
-                    this.ui.printUnmark(task);
-                    break;
-                case DELETE:
-                    index = Integer.parseInt(matcher.group(1)) - 1;
-                    task = this.taskList.deleteTask(index);
-                    this.ui.printDeleteList(task, this.taskList);
-                    break;
-                case FIND:
-                    tasks = this.taskList.findTasks(matcher.group(1));
-                    this.ui.printFindList(tasks, matcher.group(1));
-                    break;
-                case BYE:
-                    isQuit = true;
-                    break;
-                case SECRET:
-                    this.readSecret();
-                    break;
-                case INVALID:
-                    throw new UnsupportedException(input);
-                default:
-                    System.out.println("Unknown error! Contact the developer...");
-                    break;
-                }
-            } catch (UnsupportedException e) {
-                // if user input not recognised, print command list
-                this.ui.printCommands();
-            } catch (SyntaxException e) {
-                // if the user input is in the wrong format for the command, print format guide
-                this.ui.printFormatGuide(e.getMessage());
-            } catch (OutOfListException e) {
-                // if user inputs an invalid index for mark/unmark/delete, print index guide
-                this.ui.printIndexGuide(this.taskList);
-            } catch (Exception e) {
-                // some other error unaccounted for, print generic warning
-                this.ui.printUnknownError(e);
+            // decide what action to take based on action object received from parser
+            switch (action) {
+            case LIST:
+                output = this.ui.printList(this.taskList.toString());
+                this.commandType = "normal";
+                break;
+            case TODO:
+                task = new Todo(matcher.group(1));
+                this.taskList.addTask(task);
+                output = this.ui.printAddList(task, this.taskList);
+                this.commandType = "task";
+                break;
+            case DEADLINE:
+                task = new Deadline(matcher.group(1), matcher.group(2));
+                this.taskList.addTask(task);
+                output = this.ui.printAddList(task, this.taskList);
+                this.commandType = "task";
+                break;
+            case EVENT:
+                task = new Event(matcher.group(1), matcher.group(2), matcher.group(3));
+                this.taskList.addTask(task);
+                output = this.ui.printAddList(task, this.taskList);
+                this.commandType = "task";
+                break;
+            case MARK:
+                index = Integer.parseInt(matcher.group(1)) - 1;
+                task = this.taskList.mark(index);
+                output = this.ui.printMark(task);
+                this.commandType = "modify";
+                break;
+            case UNMARK:
+                index = Integer.parseInt(matcher.group(1)) - 1;
+                task = this.taskList.unmark(index);
+                output = this.ui.printUnmark(task);
+                this.commandType = "modify";
+                break;
+            case DELETE:
+                index = Integer.parseInt(matcher.group(1)) - 1;
+                task = this.taskList.deleteTask(index);
+                output = this.ui.printDeleteList(task, this.taskList);
+                this.commandType = "modify";
+                break;
+            case FIND:
+                tasks = this.taskList.findTasks(matcher.group(1));
+                output = this.ui.printFindList(tasks, matcher.group(1));
+                this.commandType = "task";
+                break;
+            case BYE:
+                output = this.storage.save(this.taskList);
+                this.commandType = "exit";
+                break;
+            case SECRET:
+                output = this.readSecret();
+                this.commandType = "secret";
+                break;
+            case INVALID:
+                throw new UnsupportedException(input);
+            default:
+                output = "Unknown error! Contact the developer...\n";
+                break;
             }
-            // save task list to storage after every command
-            this.storage.save(this.taskList);
+        } catch (UnsupportedException e) {
+            // if user input not recognised, print command list
+            output = this.ui.printCommands();
+            this.commandType = "error";
+        } catch (SyntaxException e) {
+            // if the user input is in the wrong format for the command, print format guide
+            output = this.ui.printFormatGuide(e.getMessage());
+            this.commandType = "error";
+        } catch (OutOfListException e) {
+            // if user inputs an invalid index for mark/unmark/delete, print index guide
+            output = this.ui.printIndexGuide(this.taskList);
+            this.commandType = "error";
+        } catch (Exception e) {
+            // some other error unaccounted for, print generic warning
+            output = this.ui.printUnknownError(e);
+            this.commandType = "error";
         }
-        System.out.println("K k bye lah!");
-        this.sc.close();
+
+        // save task list to storage after every command
+        this.storage.save(this.taskList);
+        return output;
     }
 
-    public static void main(String[] args) {
-        // create instance of Jackson and run main loop
-        Jackson jackson = new Jackson(EXPECTED_SIZE, PATH);
-        jackson.run();
+    /**
+     * Returns welcome message.
+     * @return String representation of welcome message.
+     */
+    public String start() {
+        return this.ui.printWelcome();
+    }
+
+    /**
+     * Loads task list from save file (if it exists).
+     * @return String representation of success or failure of loading.
+     */
+    public String load() {
+        return this.storage.load(this.taskList);
+    }
+
+    /**
+     * Returns goodbye String.
+     * @return String representation of goodbye.
+     */
+    public String sayGoodbye() {
+        return this.ui.printGoodbye();
+    }
+
+    public String getCommandType() {
+        return this.commandType;
     }
 }

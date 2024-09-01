@@ -16,173 +16,198 @@ public class Ui {
     public Ui() { }
 
     /**
-     * Used to print welcome at the start of the chatbot program.
-     * Cosmetic.
+     * Returns welcome message at the start of the chatbot program.
+     * @return String represenation of welcome.
      */
-    public void printWelcome() {
-        System.out.println("Oi! I'm Jackson!\nWhat you want me do today ah?");
+    public String printWelcome() {
+        return "Oi! I'm Jackson!\nWhat you want me do today ah?\n";
     }
 
     /**
-     * Prints a marker symbol before taking user input.
-     * Cosmetic.
+     * Returns goodbye message at the end of the chatbot program.
+     * @return String represenation of goodbye.
      */
-    public void printMarker() {
-        System.out.print("> ");
+    public String printGoodbye() {
+        return "K k bye lah!\n";
     }
 
     /**
-     * Prints command list during an unrecognised command.
-     * Exception.
+     * Returns command list during an unrecognised command.
+     * @return String response.
      */
-    public void printCommands() {
-        System.out.println("Harh? What you talking about?");
-        System.out.println("Try entering a recognized command:");
-        System.out.println("""
-                        1. todo [task-name]
-                        2. deadline [task-name] /by [due-date]
-                        3. event [task-name] /from [start-date] /to [end-date]
-                        4. mark [index]
-                        5. unmark [index]
-                        6. list
-                        7. find
-                        8. bye""");
+    public String printCommands() {
+        return """
+        Harh? What you talking about?
+        Try entering a recognized command:
+        1. todo [task-name]
+        2. deadline [task-name] /by [due-date]
+        3. event [task-name] /from [start-date] /to [end-date]
+        4. mark [index]
+        5. unmark [index]
+        6. list
+        7. find
+        8. bye
+        """;
     }
 
     /**
-     * Prints format of command based on which command user incorrectly enters.
+     * Returns format of command based on which command user incorrectly enters.
      * @param category Command category that is entered incorrectly.
+     * @return String response.
      */
-    public void printFormatGuide(String category) {
-        System.out.println("Wrong format leh...");
-        System.out.println("Try formatting your command as such:");
+    public String printFormatGuide(String category) {
+        String output = """
+        Wrong format leh...
+        Try formatting your command as such:
+        """;
 
         // category is the type of command that the user incorrectly enters the format of
         // print the correct command format based on the user input
         switch (category) {
         case "todo":
-            System.out.println("todo [task-name]");
+            output += "todo [task-name]";
             break;
         case "deadline":
-            System.out.println("deadline [task-name] /by [due-date]");
-            System.out.println("All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)");
+            output += """
+            deadline [task-name] /by [due-date]
+            All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)""";
             break;
         case "event":
-            System.out.println("event [task-name] /from [start-date] /to [end-date]");
-            System.out.println("All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)");
+            output += """
+            event [task-name] /from [start-date] /to [end-date]
+            All dates must be in DD-MM-YYYY HH:MM format (HH:MM is optional)""";
             break;
         case "list":
-            System.out.println("list");
+            output += "list";
             break;
         case "mark":
-            System.out.println("mark [index]");
+            output += "mark [index]";
             break;
         case "unmark":
-            System.out.println("unmark [index]");
+            output += "unmark [index]";
             break;
         case "delete":
-            System.out.println("delete [index]");
+            output += "delete [index]";
             break;
         case "find":
-            System.out.println("find [keywords]");
+            output += "find [keywords]";
             break;
         case "bye":
-            System.out.println("bye");
+            output += "bye";
             break;
         default:
-            System.out.println("Unknown error...");
+            output += "Unknown error...";
             break;
         }
+        return output + "\n";
     }
 
     /**
-     * Prints valid indices when invalid index is entered.
+     * Returns valid indices when invalid index is entered.
      * @param taskList {@code OutOfListException} exception encountered.
+     * @return String response.
      */
-    public void printIndexGuide(TaskList taskList) {
+    public String printIndexGuide(TaskList taskList) {
         int size = taskList.getSize();
-        System.out.printf("Alamak, you got %d items on the list only leh...\n", size);
+        String output = String.format("Alamak, you got %d items on the list only leh...\n", size);
 
         // different responses based on taskList size
         if (size == 0) {
-            System.out.println("You've got no items in the list! Add some stuff first!");
+            output += "You've got no items in the list! Add some stuff first!";
         } else if (size == 1) {
-            System.out.println("Enter 1 to mark/unmark/delete the task in the list!");
+            output += "Enter 1 to mark/unmark/delete the task in the list!";
         } else {
-            System.out.printf("Enter a number between 1 and %d when marking/unmarking/deleting tasks!\n", size);
+            output += String.format("Enter a number between 1 and %d when marking/unmarking/deleting tasks!\n", size);
         }
+        return output + "\n";
     }
 
     /**
-     * Prints generic error message when other Exceptions occur.
+     * Returns generic error message when other Exceptions occur.
      * @param e {@code Exception} encountered during runtime.
+     * @return String response.
      */
-    public void printUnknownError(Exception e) {
-        System.out.println("Oops! Something went wrong!");
-        System.out.println(e.toString());
+    public String printUnknownError(Exception e) {
+        return String.format("Oops! Something went wrong!\n%s\n", e.toString());
     }
 
     /**
-     * Prints chatbot response when adding task to list.
+     * Returns chatbot response when adding task to list.
      * @param task {@code Task} object to be added to taskList.
      * @param taskList {@code TaskList} object task is to be added to.
+     * @return String response.
      */
-    public void printAddList(Task task, TaskList taskList) {
-        System.out.println("Ya la, adding this task to your list!");
-        System.out.printf("\t%s\n", task);
-        System.out.printf("You now got %s tasks in your list leh\n", taskList.getSize());
+    public String printAddList(Task task, TaskList taskList) {
+        String output = "";
+        output += "Ya la, adding this task to your list!\n";
+        output += String.format("\t%s\n", task);
+        output += String.format("You now got %s tasks in your list leh\n", taskList.getSize());
+        return output;
     }
 
     /**
-     * Prints chatbot response when deleting task from list.
+     * Returns chatbot response when deleting task from list.
      * @param task {@code Task} object to be deleted from taskList.
      * @param taskList {@code TaskList} object task is to be deleted from.
+     * @return String response.
      */
-    public void printDeleteList(Task task, TaskList taskList) {
-        System.out.println("Deleting now hor!");
-        System.out.printf("\t%s\n", task);
-        System.out.printf("You now got %s tasks in your list leh\n", taskList.getSize());
+    public String printDeleteList(Task task, TaskList taskList) {
+        String output = "";
+        output += "Deleting now hor!\n";
+        output += String.format("\t%s\n", task);
+        output += String.format("You now got %s tasks in your list leh\n", taskList.getSize());
+        return output;
     }
 
     /**
-     * Prints chatbot response when finding tasks containing keyword.
+     * Returns chatbot response when finding tasks containing keyword.
      * @param tasks {@code ArrayList} of tasks that contain keyword.
      * @param keyword String keyword.
+     * @return String response.
      */
-    public void printFindList(ArrayList<Task> tasks, String keyword) {
-        System.out.println("Ok ok, find for you already...");
+    public String printFindList(ArrayList<Task> tasks, String keyword) {
+        String output = "";
+        output += "Ok ok, find for you already...\n";
         if (tasks.isEmpty()) {
-            System.out.printf("Don't have tasks that match '%s' leh....\n", keyword);
+            output += String.format("Don't have tasks that match '%s' leh....\n", keyword);
         } else {
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.printf("%d. %s\n", i, tasks.get(i));
+                output += String.format("%d. %s\n", i + 1, tasks.get(i));
             }
         }
+        return output;
     }
 
     /**
-     * Prints chatbot response when marking task in list.
+     * Returns chatbot response when marking task in list.
      * @param task {@code Task} object to be marked.
+     * @return String response.
      */
-    public void printMark(Task task) {
-        System.out.println("Solid lah, marked already");
-        System.out.printf("\t%s\n", task);
+    public String printMark(Task task) {
+        String output = "";
+        output += "Solid lah, marked already\n";
+        output += String.format("\t%s\n", task);
+        return output;
     }
 
     /**
-     * Prints chatbot response when unmarking task in list.
+     * Returns chatbot response when unmarking task in list.
      * @param task {@code Task} object to be unmarked.
+     * @return String response.
      */
-    public void printUnmark(Task task) {
-        System.out.println("Walao, ok la I unmark already...");
-        System.out.printf("\t%s\n", task);
+    public String printUnmark(Task task) {
+        String output = "";
+        output += "Walao, ok la I unmark already...\n";
+        output += String.format("\t%s\n", task);
+        return output;
     }
 
     /**
-     * Prints tasks stored in the task list.
+     * Returns tasks stored in the task list.
      * @param listString {@code String} representation of tasks in the list.
+     * @return String response.
      */
-    public void printList(String listString) {
-        System.out.println(listString);
+    public String printList(String listString) {
+        return listString + "\n";
     }
 }

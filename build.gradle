@@ -44,11 +44,11 @@ test {
 }
 
 application {
-    mainClass.set("jackson.Jackson")
+    mainClass.set("jackson.Launcher")
 }
 
 run {
-    mainClass.set("jackson.Jackson")
+    mainClass.set("jackson.Launcher")
 }
 
 shadowJar {
@@ -57,8 +57,4 @@ shadowJar {
 
 checkstyle {
     toolVersion = '10.2'
-}
-
-run {
-    standardInput = System.in
 }

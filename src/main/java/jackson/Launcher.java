@@ -1,3 +1,6 @@
+package jackson;
+
+import jackson.graphics.Main;
 import javafx.application.Application;
 
 public class Launcher {

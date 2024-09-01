@@ -36,8 +36,9 @@ public class Storage {
      * if IOException raised, will print error statement.
      * @param taskList {@code TaskList} object that the tasks are written from.
      */
-    public void save(TaskList taskList) {
+    public String save(TaskList taskList) {
         File f = new File(this.path); // new file from path
+        String output = "";
         try {
             f.createNewFile();
             FileWriter fw = new FileWriter(f);
@@ -48,21 +49,25 @@ public class Storage {
                 }
             }
             fw.close();
+            output += "Task list saved successfully!\n";
         } catch (IOException e) {
             // when file cannot be accessed/written to
-            System.out.println("Error! Please check your file permissions!");
+            output += "Error! Please check your file permissions!\n";
         }
+        return output;
     }
 
     /**
      * Loads task list from save file.
      * Will skip tasks if task format is wrong, will not load the full list if save file cannot be opened.
      * @param taskList {@code TaskList} object to load tasks into.
+     * @return String representing success or failure of loading.
      */
-    public void load(TaskList taskList) {
+    public String load(TaskList taskList) {
         File f = new File(this.path); // new file object
         Matcher m;
         Task t;
+        String output = "";
         try {
             Scanner sc = new Scanner(f);
             while (sc.hasNextLine()) {
@@ -96,18 +101,19 @@ public class Storage {
                     }
                 } else {
                     // no matches, we do not load the task and skip
-                    System.out.println("Error with loading task, skipping to next one...");
+                    output += "Error with loading task, skipping to next one...\n";
                 }
             }
             sc.close(); // close scanner
-            System.out.println("Tasks loaded successfully!");
+            output += "Tasks loaded successfully!\n";
         } catch (IOException e) {
             // file cannot be access or read from
             // skip loading completely
-            System.out.printf("IOException! %s! Aborting loading...\n", e);
+            output += String.format("IOException! %s! Aborting loading...\n", e);
         } catch (Exception e) {
             // some other exception besides IOException
-            System.out.printf("Unknown Error! %s! Aborting loading...\n", e);
+            output += String.format("Unknown Error! %s! Aborting loading...\n", e);
         }
+        return output;
     }
 }

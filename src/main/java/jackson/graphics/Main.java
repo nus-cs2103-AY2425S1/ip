@@ -1,3 +1,5 @@
+package jackson.graphics;
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -6,12 +8,14 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import jackson.Jackson;
+
 /**
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Jackson jackson = new Jackson();
 
     @Override
     public void start(Stage stage) {
@@ -24,7 +28,7 @@ public class Main extends Application {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
 
-            fxmlLoader.<MainWindow>getController().setDuke(duke);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setJackson(jackson);  // inject the Jackson instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,16 +1,69 @@
 .label {
-    background:white;
-    -fx-background-color: background;
-    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
+    -fx-background-color: navy;
+    -fx-border-color: navy;
+    -fx-text-fill: white;
     -fx-border-width: 2px;
-    -fx-background-radius: 1em 1em 0 1em;
-    -fx-border-radius: 1em 1em 0 1em;
-    -fx-text-fill: ladder(background, white 49%, black 50%);
+    -fx-background-radius: 1em 0 1em 1em;
+    -fx-border-radius: 1em 0 1em 1em;
+}
+
+.jackson-label {
+    -fx-background-color: purple;
+    -fx-border-color: purple;
+    -fx-text-fill: white;
+    -fx-border-width: 2px;
+    -fx-background-radius: 0 1em 1em 1em;
+    -fx-border-radius: 0 1em 1em 1em;
+}
+
+.modify-label {
+    -fx-background-color: darkgreen;
+    -fx-border-color: darkgreen;
+    -fx-text-fill: white;
+    -fx-border-width: 2px;
+    -fx-background-radius: 0 1em 1em 1em;
+    -fx-border-radius: 0 1em 1em 1em;
+}
+
+.error-label {
+    -fx-background-color: maroon;
+    -fx-border-color: maroon;
+    -fx-text-fill: white;
+    -fx-border-width: 2px;
+    -fx-background-radius: 0 1em 1em 1em;
+    -fx-border-radius: 0 1em 1em 1em;
+}
+
+.task-label {
+    -fx-background-color: orange;
+    -fx-border-color: orange;
+    -fx-text-fill: black;
+    -fx-border-width: 2px;
+    -fx-background-radius: 0 1em 1em 1em;
+    -fx-border-radius: 0 1em 1em 1em;
+}
+
+.intro-exit-label {
+    -fx-background-color: black;
+    -fx-border-color: black;
+    -fx-text-fill: white;
+    -fx-border-width: 2px;
+    -fx-background-radius: 0 1em 1em 1em;
+    -fx-border-radius: 0 1em 1em 1em;
+}
+
+.secret-label {
+    -fx-background-color: linear-gradient(red, red, red, white, white, white);
+    -fx-border-color: black;
+    -fx-text-fill: black;
+    -fx-border-width: 2px;
+    -fx-background-radius: 0 1em 1em 1em;
+    -fx-border-radius: 0 1em 1em 1em;
 }
 
 .reply-label {
-    -fx-background-radius: 1em 1em 1em 0;
-    -fx-border-radius: 1em 1em 1em 0;
+    -fx-background-radius: 0 1em 1em 1em;
+    -fx-border-radius: 0 1em 1em 1em;
 }
 
 #displayPicture {
