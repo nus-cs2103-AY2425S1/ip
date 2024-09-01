@@ -12,23 +12,23 @@ public abstract class Task {
     }
 
     public String getDesc() {
-        return this.description;
+        return description;
     }
 
     public boolean isDone() {
-        return this.isDone;
+        return isDone;
     }
 
     public void done() {
-        this.isDone = true;
+        isDone = true;
     }
 
     public void undone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     public String getStatus() {
-        if (this.isDone) {
+        if (isDone()) {
             return "[X]";
         } else {
             return "[ ]";
@@ -42,7 +42,7 @@ public abstract class Task {
     };
 
     public String toString() {
-        return this.getStatus() + " " + this.getDesc();
+        return getStatus() + " " + getDesc();
     }
 
 }

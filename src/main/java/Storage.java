@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -29,8 +31,12 @@ public class Storage {
         TaskLog taskLog = new TaskLog();
         while (scanner.hasNextLine()) {
             String taskTsv = scanner.nextLine();
-            Task newTask = tsvToTask(taskTsv);
-            taskLog.addTask(newTask);
+            try {
+                Task newTask = tsvToTask(taskTsv);
+                taskLog.addTask(newTask);
+            } catch (DateTimeParseException e) {
+                continue;
+            }
         }
         scanner.close();
         return taskLog;
@@ -61,7 +67,7 @@ public class Storage {
         }
     }
 
-    private Task tsvToTask(String tsv) {
+    private Task tsvToTask(String tsv) throws DateTimeParseException {
         String[] tsvFields = tsv.split("\t");
         Task newTask;
         switch (tsvFields[0]) {

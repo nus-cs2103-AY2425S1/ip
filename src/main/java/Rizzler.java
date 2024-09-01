@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -127,7 +128,13 @@ public class Rizzler {
                         continue;
                     }
                     String todoDesc = String.join(" ", todoDescArr);
-                    ToDo newTodo = new ToDo(todoDesc);
+                    ToDo newTodo;
+                    try {
+                        newTodo = new ToDo(todoDesc);
+                    } catch (DateTimeParseException e) {
+                        rizzlerSpeech.say(e.getMessage());
+                        continue;
+                    }
                     taskLog.addTask(newTodo);
                     storage.storeTasks(taskLog);
                     rizzlerSpeech.say("certainly, i'll keep track of this todo for you ;)");
@@ -155,14 +162,20 @@ public class Rizzler {
                         rizzlerSpeech.say();
                         continue;
                     }
-                    String deadlineDesc = deadlineInfoBySplit[0];
+                    String deadlineDesc = deadlineInfoBySplit[0].trim();
                     if (deadlineDesc.isEmpty()) {
                         rizzlerSpeech.say("your deadline is missing a description honey.");
                         rizzlerSpeech.say();
                         continue;
                     }
-                    String deadlineTime = deadlineInfoBySplit[1];
-                    Deadline newDeadline = new Deadline(deadlineDesc, deadlineTime);
+                    String deadlineTime = deadlineInfoBySplit[1].trim();
+                    Deadline newDeadline;
+                    try {
+                        newDeadline = new Deadline(deadlineDesc, deadlineTime);
+                    } catch (DateTimeParseException e) {
+                        rizzlerSpeech.say(e.getMessage());
+                        continue;
+                    }
                     taskLog.addTask(newDeadline);
                     storage.storeTasks(taskLog);
                     rizzlerSpeech.say("certainly, i'll keep track of this deadline for you ;)");
@@ -189,7 +202,7 @@ public class Rizzler {
                         continue;
                     }
                     String[] eventInfoFromSplit = eventInfo.split("/from");
-                    String eventDesc = eventInfoFromSplit[0];
+                    String eventDesc = eventInfoFromSplit[0].trim();
                     if (eventDesc.isEmpty()) {
                         rizzlerSpeech.say("your event is missing a description honey.");
                         rizzlerSpeech.say();
@@ -201,9 +214,16 @@ public class Rizzler {
                         rizzlerSpeech.say();
                         continue;
                     }
-                    String eventStart = eventDuration.split("/to")[0];
-                    String eventEnd = eventDuration.split("/to")[1];
-                    Event newEvent = new Event(eventDesc, eventStart, eventEnd);
+                    String eventStart = eventDuration.split("/to")[0].trim();
+                    String eventEnd = eventDuration.split("/to")[1].trim();
+                    Event newEvent;
+                    try {
+                        newEvent = new Event(eventDesc, eventStart, eventEnd);
+                    } catch (DateTimeParseException e) {
+                        rizzlerSpeech.say(e.getMessage());
+                        rizzlerSpeech.say();
+                        continue;
+                    }
                     taskLog.addTask(newEvent);
                     storage.storeTasks(taskLog);
                     rizzlerSpeech.say("certainly, i'll keep track of this event for you ;)");
