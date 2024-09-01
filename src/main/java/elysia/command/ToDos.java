@@ -1,12 +1,12 @@
 package elysia.command;
 
 /**
- * Represents a ToDo task with a description
+ * Represents a ToDo task with a description.
  */
 public class ToDos extends Task{
 
     /**
-     * Constructs a ToDo task with the description
+     * Constructs a ToDo task with the description.
      *
      * @param description The description of the task.
      */
