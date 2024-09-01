@@ -1,3 +1,4 @@
+/*
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -18,7 +19,7 @@ public class TaskHandler {
         this.tasks.add(task);
         // this.markedDone.add(false);
     }
-     */
+
 
     public void handleCommand(String command, String desc) {
         desc = desc.stripLeading();
@@ -193,53 +194,5 @@ public class TaskHandler {
         String desc = s.substring(s.indexOf(" "));
         this.handleCommand(command, desc, true);
     }
-
-    /*
-    void addPastTask(String s) {
-        if (s.isEmpty()) {
-            return;
-        }
-        String taskChar = s.substring(1, 2);
-        if (!VALIDTASKS.contains(taskChar)) {
-            System.out.println("unknown task stored: " + s);
-            return;
-        }
-        int i = VALIDTASKS.indexOf(taskChar);
-        int descEndIndex = s.length();
-        if (s.contains("(by") || s.contains("(from")) {
-            descEndIndex = s.indexOf("(") - 1;
-        }
-        String taskDesc = s.substring(7, descEndIndex);
-        // System.out.println("task desc: " + s.substring(7, descEndIndex) + ".");
-        int validTaskIndex = VALIDTASKS.indexOf(taskChar);
-        try {
-            Task t = new ToDoTask("placeholder");
-            if (validTaskIndex == 0) {
-                try {
-                    t = new ToDoTask(taskDesc);
-                } catch (Exception e) {
-                    System.out.println("Creating ToDoTask failed: " + s);
-                }
-            } else if (validTaskIndex == 1) {
-                int deadlineStartIndex = descEndIndex + 6;
-                t = new Deadline(taskDesc, s.substring(deadlineStartIndex, s.length() - 1));
-            } else if (validTaskIndex == 2) {
-                // System.out.println("trying to add: " + s);
-
-                int toIndex = s.indexOf("to: ");
-                int fromIndex = s.indexOf("(from: ");
-                // System.out.println("toindex: " + toIndex + ", fromindex: " + fromIndex);
-
-                String fromDesc = s.substring(fromIndex + 7, toIndex - 1);
-                // System.out.println("from: " + fromDesc);
-                String toDesc = s.substring(toIndex + 4, s.length() - 1);
-                // System.out.println("to: " + toDesc);
-                t = new Event(taskDesc, fromDesc, toDesc);
-            }
-            this.tasks.add(t);
-        } catch (Exception e) {
-            System.out.println("An error occurred." + e);
-        }
-     }
-     */
 }
+*/

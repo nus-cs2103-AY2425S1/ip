@@ -5,8 +5,8 @@
  */
 
 public class Bword {
-    public static final String FILELOCATION = "./data/bword.txt";
-    public static final String HLINE = "____________________________________________________________\n";
+    private static final String FILELOCATION = "./data/bword.txt";
+    //public static final String HLINE = "____________________________________________________________\n";
 
     private Storage storage;
     private TaskList taskList;
