@@ -15,14 +15,25 @@ public class TaskList {
 
     private final ArrayList<Task> tasks;
 
+    /**
+     * Constructs a TaskList object with the specified label.
+     *
+     * @param label the label for the TaskList
+     */
     public TaskList(String label) {
         this.label = label;
         this.tasks = new ArrayList<>();
     }
 
-    public TaskList(String label, List<String> lines) {
+    /**
+     * Constructs a TaskList object with the specified label and file records.
+     *
+     * @param label the label of the task list
+     * @param lines the lines representing the tasks
+     */
+    public TaskList(String label, List<String> fileRecords) {
         this.label = label;
-        this.tasks = parseLines(lines);
+        this.tasks = parseLines(fileRecords);
     }
 
     /**
@@ -107,8 +118,7 @@ public class TaskList {
         return IntStream.range(0, this.tasks.size())
                 .mapToObj(i -> (i + 1) + ". " + this.tasks.get(i))
                 .reduce(
-                        new StringBuilder(label).append("\n"),
-                        (acc, x) -> acc.append(x).append("\n"),
+                        new StringBuilder(label).append("\n"), (acc, x) -> acc.append(x).append("\n"),
                         StringBuilder::append
                 ).toString();
     }
@@ -122,6 +132,11 @@ public class TaskList {
         return this.tasks.stream().map(Task::toFileRecord).toList();
     }
 
+    /**
+     * Filters the task list based on a keyword.
+     * @param keyword The keyword to filter the tasks by.
+     * @return A new TaskList object containing the matching tasks.
+     */
     public TaskList filter(String keyword) {
         List<String> filteredTasks = this.tasks.stream()
                 .filter(task -> task.getDescription().contains(keyword))
