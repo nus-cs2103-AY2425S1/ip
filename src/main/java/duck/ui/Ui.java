@@ -31,7 +31,10 @@ public class Ui {
      * Displays a message indicating that Duck has started up successfully.
      */
     public void showStartUpCompleteMessage() {
-        System.out.println("Quack. Duck is up!");
+        System.out.println("""
+                Quack. Duck is up!
+                If you need Duck's guidance, type 'help'!
+                """);
     }
 
     /**
@@ -94,5 +97,9 @@ public class Ui {
      */
     public void displayIllegalArgumentMessage(IllegalArgumentException iae) {
         System.out.println("Quack, that's not a valid instruction! I don't know how to respond to that.");
+    }
+
+    public void showHelpMessage(String helpString) {
+        System.out.println(helpString);
     }
 }

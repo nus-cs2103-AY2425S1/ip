@@ -7,6 +7,11 @@ package duck.commands;
  */
 public enum CommandWord {
     /**
+     * Command to display help information.
+     */
+    HELP,
+
+    /**
      * Command to list all tasks.
      */
     LIST,

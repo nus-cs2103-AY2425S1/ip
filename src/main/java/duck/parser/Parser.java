@@ -7,6 +7,7 @@ import duck.commands.DeadlineCommand;
 import duck.commands.DeleteCommand;
 import duck.commands.EventCommand;
 import duck.commands.FindCommand;
+import duck.commands.HelpCommand;
 import duck.commands.InvalidCommand;
 import duck.commands.ListCommand;
 import duck.commands.MarkCommand;
@@ -31,6 +32,7 @@ public class Parser {
             CommandWord instruction = CommandWord.valueOf(getInstruction(message));
             //CHECKSTYLE.OFF: Indentation
             return switch (instruction) {
+                case HELP -> new HelpCommand(message);
                 case LIST -> new ListCommand(message);
                 case FIND -> new FindCommand(message);
                 case MARK -> new MarkCommand(message);

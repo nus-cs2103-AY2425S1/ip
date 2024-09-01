@@ -37,7 +37,7 @@ public class ByeCommand extends Command {
         ui.showGoodbyeMessage();
 
         // Pause for 2 seconds before exiting
-        PauseTransition pause = new PauseTransition(Duration.seconds(5));
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
         pause.setOnFinished(event -> Platform.exit()); // Exits the JavaFX application
         pause.play();
     }
