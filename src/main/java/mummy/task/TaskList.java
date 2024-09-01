@@ -11,22 +11,17 @@ import java.util.stream.Stream;
  * @see TaskListException
  */
 public class TaskList {
-    private static final String LABEL = "Here are the tasks in your list:";
+    private final String label;
 
     private final ArrayList<Task> tasks;
 
-    /**
-     * Constructs a TaskList object.
-     */
-    public TaskList() {
+    public TaskList(String label) {
+        this.label = label;
         this.tasks = new ArrayList<>();
     }
 
-    /**
-     * Constructs a TaskList object.
-     * @param lines the list of strings representing the tasks
-     */
-    public TaskList(List<String> lines) {
+    public TaskList(String label, List<String> lines) {
+        this.label = label;
         this.tasks = parseLines(lines);
     }
 
@@ -112,7 +107,8 @@ public class TaskList {
         return IntStream.range(0, this.tasks.size())
                 .mapToObj(i -> (i + 1) + ". " + this.tasks.get(i))
                 .reduce(
-                        new StringBuilder(LABEL).append("\n"), (acc, x) -> acc.append(x).append("\n"),
+                        new StringBuilder(label).append("\n"),
+                        (acc, x) -> acc.append(x).append("\n"),
                         StringBuilder::append
                 ).toString();
     }
@@ -126,9 +122,17 @@ public class TaskList {
         return this.tasks.stream().map(Task::toFileRecord).toList();
     }
 
-    private static ArrayList<Task> parseLines(List<String> lines) {
-        return lines.stream()
-                .map(line -> line.split("\\s*\\|\\s*"))
+    public TaskList filter(String keyword) {
+        List<String> filteredTasks = this.tasks.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .map(Task::toFileRecord)
+                .toList();
+        return new TaskList("Here are the matching tasks in your list:", filteredTasks);
+    }
+
+    private static ArrayList<Task> parseLines(List<String> fileRecords) {
+        return fileRecords.stream()
+                .map(fileRecord -> fileRecord.split("\\s*\\|\\s*"))
                 .flatMap(tokens -> {
                     try {
                         switch (tokens[0]) {

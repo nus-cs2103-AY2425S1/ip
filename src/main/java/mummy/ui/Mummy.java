@@ -33,9 +33,9 @@ public class Mummy {
         this.storage = new Storage(filePath);
 
         try {
-            this.taskList = new TaskList(this.storage.load());
+            this.taskList = new TaskList("Here are the tasks in your list:", this.storage.load());
         } catch (IOException e) {
-            this.taskList = new TaskList();
+            this.taskList = new TaskList("Here are the tasks in your list:");
         }
 
         this.ui = new Ui(LOGO);

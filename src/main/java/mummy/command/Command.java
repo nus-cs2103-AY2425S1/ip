@@ -20,7 +20,7 @@ public abstract class Command {
 
     private enum CommandType {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE,
-        EVENT, DELETE, UNKNOWN
+        EVENT, DELETE, FIND, UNKNOWN
     }
 
     /**
@@ -147,6 +147,8 @@ public abstract class Command {
             return new EventCommand(arguments);
         case DELETE:
             return new DeleteCommand(arguments);
+        case FIND:
+            return new FindCommand(arguments);
         default:
             throw new MummyException("I'm sorry, but I don't know what that means :-(");
         }
