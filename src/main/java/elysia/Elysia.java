@@ -1,13 +1,14 @@
 package elysia;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import elysia.storage.Storage;
 import elysia.command.Task;
 import elysia.command.TaskList;
-import elysia.ui.*;
+import elysia.storage.Storage;
+import elysia.ui.Ui;
+
+import java.io.IOException;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Entry point of the (Elysia) chatbot application.
@@ -19,7 +20,9 @@ public class Elysia {
     private static String fileName = "elysia.txt";
     private static String filePath = "./data/elysia.txt";
 
-    /** Runs the program until termination. **/
+    /**
+     * Runs the program until termination.
+     **/
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         arrayLists = new ArrayList<>();
