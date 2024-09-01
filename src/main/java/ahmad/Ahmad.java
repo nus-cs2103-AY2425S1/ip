@@ -3,9 +3,11 @@ package ahmad;
 import ahmad.exceptions.AhmadException;
 import ahmad.processor.Processor;
 import ahmad.response.Response;
-
 import java.util.Scanner;
 
+/**
+ * Main class for Ahmad bot.
+ */
 public class Ahmad {
 
   private static void startInteraction() {
@@ -33,6 +35,12 @@ public class Ahmad {
     }
   }
 
+  /**
+   * Runs the program.
+   * Loads file (if exists), and starts interaction.
+   * 
+   * @param args Arguments from the compiler.
+   */
   public static void main(String[] args) {
     final String welcomeMsg = "Hello! I'm ahmad.Ahmad\nWhat can I do for you?\n\nEnjoy!";
     Ui.print(welcomeMsg);
