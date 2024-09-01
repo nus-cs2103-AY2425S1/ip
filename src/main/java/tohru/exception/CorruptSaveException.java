@@ -1,8 +1,8 @@
 package tohru.exception;
 
-import tohru.task.TodoItem;
-
 import java.util.ArrayList;
+
+import tohru.task.TodoItem;
 
 /**
  * Catches errors that are due to corrupt save entries in the save file.

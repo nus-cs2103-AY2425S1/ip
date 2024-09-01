@@ -1,17 +1,19 @@
 package tohru.command;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import tohru.exception.TohruException;
 import tohru.storage.FileStore;
 import tohru.storage.FileStoreStub;
 import tohru.task.TodoList;
 import tohru.ui.Ui;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 public class AddDeadlineCommandTest {
 
@@ -31,7 +33,7 @@ public class AddDeadlineCommandTest {
     }
 
     @Test
-    public void execute_correctFormatArguments_success(){
+    public void execute_correctFormatArguments_success() {
         String args = "test deadline /by 01/01/2024 0101";
 
         AddDeadlineCommand cmd = new AddDeadlineCommand(args);
@@ -45,7 +47,7 @@ public class AddDeadlineCommandTest {
     }
 
     @Test
-    public void execute_missingArguments_exceptionThrown(){
+    public void execute_missingArguments_exceptionThrown() {
         String args = null;
 
         AddDeadlineCommand cmd = new AddDeadlineCommand(args);
@@ -59,7 +61,7 @@ public class AddDeadlineCommandTest {
     }
 
     @Test
-    public void execute_missingPartialArguments_exceptionThrown(){
+    public void execute_missingPartialArguments_exceptionThrown() {
         String args = "test deadline";
 
         AddDeadlineCommand cmd = new AddDeadlineCommand(args);
@@ -73,7 +75,7 @@ public class AddDeadlineCommandTest {
     }
 
     @Test
-    public void execute_missingDescription_exceptionThrown(){
+    public void execute_missingDescription_exceptionThrown() {
         String args = "/by 01/01/2024 0101";
 
         AddDeadlineCommand cmd = new AddDeadlineCommand(args);
@@ -87,7 +89,7 @@ public class AddDeadlineCommandTest {
     }
 
     @Test
-    public void execute_missingDeadline_exceptionThrown(){
+    public void execute_missingDeadline_exceptionThrown() {
         String args = "test deadline /by";
 
         AddDeadlineCommand cmd = new AddDeadlineCommand(args);

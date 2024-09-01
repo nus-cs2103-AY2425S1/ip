@@ -1,9 +1,9 @@
 package tohru.task;
 
-import tohru.exception.TohruException;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import tohru.exception.TohruException;
 
 /**
  * Represents a list containing to-do entries.

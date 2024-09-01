@@ -1,11 +1,5 @@
 package tohru.storage;
 
-import tohru.exception.CorruptSaveException;
-import tohru.exception.TohruException;
-import tohru.task.DeadlineItem;
-import tohru.task.EventItem;
-import tohru.task.TodoItem;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,6 +9,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import tohru.exception.CorruptSaveException;
+import tohru.exception.TohruException;
+import tohru.task.DeadlineItem;
+import tohru.task.EventItem;
+import tohru.task.TodoItem;
 
 /**
  * Represents the file storage medium used to enable persistent of data across sessions.
@@ -126,8 +126,8 @@ public class FileStore {
                     String entryEventFromString = entryStringSplit[3].trim();
                     String entryEventToString = entryStringSplit[4].trim();
                     // Check if the components is empty
-                    if (entryEventString.isEmpty() || entryEventFromString.isEmpty() ||
-                            entryEventToString.isEmpty()) {
+                    if (entryEventString.isEmpty() || entryEventFromString.isEmpty()
+                            || entryEventToString.isEmpty()) {
                         errorEntriesCount++;
                         continue;
                     }

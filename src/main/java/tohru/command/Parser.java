@@ -1,10 +1,10 @@
 package tohru.command;
 
-import tohru.exception.TohruException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import tohru.exception.TohruException;
 
 /**
  * Parser represents the parsing of input prompt and determine which command to execute
