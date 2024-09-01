@@ -34,10 +34,17 @@ public class KorolevUI {
         String input = "";
         boolean isRunning = true;
         KorolevCommand c;
-        while (isRunning) {
-            input = scanner.nextLine();
-            c = new KorolevCommand(input, repo);
-            isRunning = c.executeCommand();
-        }
+        input = scanner.nextLine();
+        c = new KorolevCommand(input, repo);
+        String out = c.executeCommand();
+    }
+
+    public String getResponse(String input) {
+        KorolevCommand c = new KorolevCommand(input, repo);
+        return c.executeCommand();
+    }
+
+    public void loadEvent() {
+        this.repo.loadEvent();
     }
 }
