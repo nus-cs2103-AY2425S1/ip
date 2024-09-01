@@ -1,7 +1,7 @@
 package duke;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.concurrent.BlockingQueue;
 
 import duke.tasks.Task;
 
@@ -9,10 +9,24 @@ import duke.tasks.Task;
  * Represents the user interface, responsible reading and writing messages.
  */
 public class Ui {
+    private BlockingQueue<String> inputQueue;
+    private BlockingQueue<String> outputQueue;
+    private Formatter formatter = msg -> msg;
     /**
      * Constructor for a user interface.
      */
-    public Ui() {
+    public Ui(BlockingQueue<String> inputQueue, BlockingQueue<String> outputQueue) {
+        this.inputQueue = inputQueue;
+        this.outputQueue = outputQueue;
+    }
+
+    /**
+     * Use a formatter for outputting messages.
+     *
+     * @param f The formatter to use.
+     */
+    public void useFormatter(Formatter f) {
+        this.formatter = f;
     }
 
     /**
@@ -21,9 +35,7 @@ public class Ui {
      * @param msg The message to format.
      */
     public void write(String msg) {
-        System.out.print("___________________________________________________________\n"
-                + msg
-                + "\n___________________________________________________________\n");
+        this.outputQueue.add(formatter.format(msg));
     }
 
     /**
@@ -32,8 +44,11 @@ public class Ui {
      * @return The message read.
      */
     public String read() {
-        Scanner in = new Scanner(System.in);
-        return in.nextLine();
+        try {
+            return this.inputQueue.take();
+        } catch (InterruptedException e) {
+            return "";
+        }
     }
 
     /**
