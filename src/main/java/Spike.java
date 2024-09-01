@@ -1,5 +1,9 @@
 // General imports
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.DateTimeException;
+import java.util.Comparator;
+import java.util.List;
 
 // IO imports
 import java.util.Scanner;
@@ -7,10 +11,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
 enum InputType {
     BYE,
     LIST,
+    LISTBYDATE,
     MARK,
     UNMARK,
     TODO,
@@ -55,6 +59,9 @@ public class Spike {
                     case LIST:
                         listTasks();
                         break;
+                    case LISTBYDATE:
+                        listTasksByDate();
+                        break;
                     case MARK:
                         markTask(inputSplit[1]);
                         break;
@@ -95,6 +102,8 @@ public class Spike {
             return InputType.BYE;
         } else if (input.equalsIgnoreCase("list")) {
             return InputType.LIST;
+        } else if (input.equalsIgnoreCase("listbydate")) {
+            return InputType.LISTBYDATE;
         } else if (input.equalsIgnoreCase("mark")) {
             return InputType.MARK;
         } else if (input.equalsIgnoreCase("unmark")) {
@@ -123,6 +132,31 @@ public class Spike {
         System.out.println("      Here are the tasks in your list:");
         int counter = 0;
         for (Task item : toDoList) {
+            counter++;
+            System.out.println("      " + counter + ". " + item.toString());
+        }
+        System.out.println("     _________________________________________________________");
+    }
+
+    private static Comparator<Task> dateComparator = new Comparator<Task>() {
+        @Override
+        public int compare(Task t1, Task t2) {
+            LocalDateTime date1 = t1 instanceof Deadline ? ((Deadline) t1).getDate() : ((Event) t1).getFrom();
+            LocalDateTime date2 = t2 instanceof Deadline ? ((Deadline) t2).getDate() : ((Event) t2).getFrom();
+            return date1.compareTo(date2);
+        }
+    };
+
+    private static void listTasksByDate() {
+        System.out.println("     _________________________________________________________");
+        System.out.println("      Here are the tasks in your list by date:");
+        List<Task> filteredAndSortedTasks = toDoList.stream()
+                .filter(t -> t instanceof Deadline || t instanceof Event)
+                .sorted(dateComparator)
+                .toList();
+
+        int counter = 0;
+        for (Task item : filteredAndSortedTasks) {
             counter++;
             System.out.println("      " + counter + ". " + item.toString());
         }
@@ -179,17 +213,26 @@ public class Spike {
         if (parts.length != 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
             if (parts[0].trim().isEmpty()) {
                 throw new SpikeException("Please enter a valid event description followed by " +
-                        "/from start time and /to end time");
+                        "/from yyyy-MM-dd'T'HH:mm:ss <start date, time> " +
+                        "/to yyyy-MM-dd'T'HH:mm:ss <end date, time>");
             }
-            if (parts.length != 3 || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
-                throw new SpikeException("Please enter a valid event in the right format: event description " +
-                        "/from start time /to end time");
-            }
+            throw new SpikeException("Please enter a valid event in the right format: event description " +
+                    "/from yyyy-MM-dd'T'HH:mm:ss <start date, time> " +
+                    "/to yyyy-MM-dd'T'HH:mm:ss <end date, time>");
         }
 
-        Event formattedEvent = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
-        toDoList.add(formattedEvent);
-        addTaskString(formattedEvent.toString());
+        try {
+            LocalDateTime start = LocalDateTime.parse(parts[1].trim());
+            LocalDateTime end = LocalDateTime.parse(parts[2].trim());
+            if (start.isAfter(end)) {
+                throw new SpikeException("Please enter a valid event with a start date and time that is before the end date and time");
+            }
+            Event formattedEvent = new Event(parts[0].trim(), start, end);
+            toDoList.add(formattedEvent);
+            addTaskString(formattedEvent.toString());
+        } catch (DateTimeException e) {
+            throw new SpikeException("Please enter a valid event with a start date and time followed by /to end date and time");
+        }
     }
 
 
@@ -199,16 +242,20 @@ public class Spike {
         if (split.length != 2 || split[0].trim().isEmpty() || split[1].trim().isEmpty()) {
             if (split.length != 2 || split[1].trim().isEmpty()) {
                 throw new SpikeException("Please enter a valid deadline in the right format: " +
-                        "deadline description /by due date");
+                        "deadline description /by yyyy-MM-dd'T'HH:mm:ss <due date, time>");
             }
-            if (split[0].trim().isEmpty()) {
-                throw new SpikeException("Please enter a valid deadline description followed by /by due date");
-            }
+            throw new SpikeException("Please enter a valid deadline description followed by " +
+                    "/by yyyy-MM-dd'T'HH:mm:ss <due date, time>");
         }
 
-        Deadline formattedDeadline = new Deadline(split[0].trim(), split[1].trim());
-        toDoList.add(formattedDeadline);
-        addTaskString(formattedDeadline.toString());
+        try {
+            LocalDateTime deadline = LocalDateTime.parse(split[1].trim());
+            Deadline formattedDeadline = new Deadline(split[0].trim(), deadline);
+            toDoList.add(formattedDeadline);
+            addTaskString(formattedDeadline.toString());
+        } catch (DateTimeException e) {
+            throw new SpikeException("Please enter a deadline with a valid due date and time");
+        }
     }
 
     public static void addTaskString(String taskToString) {
@@ -252,10 +299,13 @@ public class Spike {
                         task = new ToDo(parts[2]);
                         break;
                     case "D":
-                        task = new Deadline(parts[2], parts[3]);
+                        LocalDateTime deadline = LocalDateTime.parse(parts[3]);
+                        task = new Deadline(parts[2], deadline);
                         break;
                     case "E":
-                        task = new Event(parts[2], parts[3], parts[4]);
+                        LocalDateTime from = LocalDateTime.parse(parts[3]);
+                        LocalDateTime to = LocalDateTime.parse(parts[4]);
+                        task = new Event(parts[2], from, to);
                         break;
                     default:
                         throw new SpikeException("An error occurred while reading from file");
