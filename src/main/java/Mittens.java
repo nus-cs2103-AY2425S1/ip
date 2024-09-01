@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Mittens {
@@ -20,9 +19,11 @@ public class Mittens {
               / \\      -------------
              (___)_/
             """;
-
-    private static ArrayList<Task> tasks = new ArrayList<>();
-
+    
+    
+    private final static Storage storage = new Storage("data/data.txt");
+    private static TaskList taskList;
+    
     public static void greet() {
         System.out.println(GREETING_MESSAGE);
     }
@@ -42,46 +43,46 @@ public class Mittens {
     }
 
     public static void addTask(Task task) {
-        tasks.add(task);
+        taskList.addTask(task);
         System.out.printf("\nI've added \"%s\" to your list :3\n\n", task.getDescription());
     }
 
     public static void listTasks() {
-        if (tasks.size() == 0) {
+        if (taskList.getCount() == 0) {
             System.out.println("\nMeow?! Your list is empty!\n");
             return;
         }
-        System.out.printf("\nYou have %d tasks in your list, here they are :3\n", tasks.size());
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
+        System.out.printf("\nYou have %d tasks in your list, here they are :3\n", taskList.getCount());
+        for (int i = 0; i < taskList.getCount(); i++) {
+            Task task = taskList.getTask(i);
             System.out.printf("%d. %s\n", i + 1, task.toString());
         }
         System.out.print("\n");
     }
 
     public static void markTaskAsDone(int index) throws BadInputException {
-        if (index > tasks.size()) {
+        if (index > taskList.getCount()) {
             throw new BadInputException("Task index is out of range");
         }
-        Task task = tasks.get(index - 1);
+        Task task = taskList.getTask(index - 1);
         task.markAsDone();
         System.out.printf("\nMeow, I scratched the check box for you:\n%s\n\n", task.toString());
     }
 
     public static void markTaskAsNotDone(int index) throws BadInputException {
-        if (index > tasks.size()) {
+        if (index > taskList.getCount()) {
             throw new BadInputException("Task index is out of range");
         }
-        Task task = tasks.get(index - 1);
+        Task task = taskList.getTask(index - 1);
         task.markAsNotDone();
         System.out.printf("\nMeow, I unscratched the check box for you:\n%s\n\n", task.toString());
     }
     
     public static void deleteTask(int index) throws BadInputException {
-        if (index > tasks.size()) {
+        if (index > taskList.getCount()) {
             throw new BadInputException("Task index is out of range");
         }
-        Task task = tasks.remove(index - 1);
+        Task task = taskList.removeTask(index - 1);
         System.out.printf("\nMeow, I deleted the task '%s' for you :3\n\n", task.getDescription());
     }
 
@@ -90,6 +91,14 @@ public class Mittens {
     }
 
     public static void main(String[] args) {
+        try {
+            taskList = storage.load();
+        } catch (Exception e) {
+            UnknownException newException = new UnknownException(e.getMessage());
+            newException.echo();
+            taskList = new TaskList();
+        }
+        
         Scanner scanner = new Scanner(System.in);
 
         greet();
@@ -192,6 +201,8 @@ public class Mittens {
 
                     Event newEvent = new Event(description, from, to);
                     addTask(newEvent);
+                } else if (input.equals("save")) {
+                    storage.save(taskList);
                 } else {
                     throw new BadInputException("'%s' is not a known command".formatted(input));
                 }
