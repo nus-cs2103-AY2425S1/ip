@@ -1,5 +1,7 @@
-import java.io.FileNotFoundException;
+package Gary;
 
+import java.io.FileNotFoundException;
+import Gary.command.Command;
 public class Gary {
     protected Storage storage;
     protected TaskList taskLists;

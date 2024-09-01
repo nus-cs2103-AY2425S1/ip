@@ -1,4 +1,10 @@
+package Gary.command;
+
 import java.io.IOException;
+import Gary.TaskList;
+import Gary.Ui;
+import Gary.Storage;
+import Gary.task.Task;
 
 public class AddCommand extends Command {
         protected Task task;

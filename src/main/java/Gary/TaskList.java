@@ -1,5 +1,12 @@
+package Gary;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+import Gary.task.Task;
+import Gary.task.ToDo;
+import Gary.task.Deadline;
+import Gary.task.Event;
+
 
 public class TaskList {
     private ArrayList<Task> taskLists;

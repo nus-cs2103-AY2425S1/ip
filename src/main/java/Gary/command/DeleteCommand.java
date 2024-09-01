@@ -1,4 +1,10 @@
+package Gary.command;
+
 import java.io.IOException;
+import Gary.TaskList;
+import Gary.Ui;
+import Gary.Storage;
+import Gary.task.Task;
 
 public class DeleteCommand extends Command {
     int deletedIndex;
@@ -16,7 +22,7 @@ public class DeleteCommand extends Command {
         } catch (IOException e) {
 
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Task List index is out of bounds!!");
+            System.out.println("Gary.task.Task List index is out of bounds!!");
         }
     }
 
