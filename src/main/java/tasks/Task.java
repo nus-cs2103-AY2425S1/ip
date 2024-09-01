@@ -1,8 +1,6 @@
 package tasks;
 
-import java.time.format.DateTimeFormatter;
-
-public class Task {
+public abstract class Task {
     private final String name;
     private boolean done;
 
