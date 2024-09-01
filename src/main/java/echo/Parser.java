@@ -1,5 +1,6 @@
 package echo;
 
+
 /**
  * The Parser class is responsible for interpreting user commands
  * and performing the corresponding actions on the task list.
@@ -15,6 +16,7 @@ public class Parser {
      *
      * @param cmdParts command user input.
      * @param allTasks task list.
+     * @return A string confirming that the task has been marked as done.
      * @throws IllegalArgumentException If the index is out of bounds.
      */
     public static String mark(String[] cmdParts, TaskList allTasks)
@@ -28,9 +30,9 @@ public class Parser {
      *
      * @param cmdParts command user input.
      * @param allTasks task list.
+     * @return A string confirming that the task has been marked as not done.
      * @throws IllegalArgumentException If the index is out of bounds.
      */
-
     public static String unmark(String[] cmdParts, TaskList allTasks)
             throws IndexOutOfBoundsException {
         int unmarkIdx = Integer.parseInt(cmdParts[1]) - 1;
@@ -44,6 +46,7 @@ public class Parser {
      *
      * @param cmdParts command user input.
      * @param allTasks task list.
+     * @return A string confirming that the task has been deleted, along with the updated task list size.
      * @throws IllegalArgumentException If the index is out of bounds.
      */
     public static String deleteTask(String[] cmdParts, TaskList allTasks)
@@ -57,6 +60,7 @@ public class Parser {
      *
      * @param cmdParts command user input.
      * @param allTasks task list.
+     * @return A string containing the list of tasks that match the search keywords.
      */
     public static String findTask(String[] cmdParts, TaskList allTasks) {
         String keywords = cmdParts[1];
@@ -68,7 +72,7 @@ public class Parser {
      *
      * @param userInput the input command from the user.
      * @param allTasks the task list to be manipulated based on the command.
-     * @return a boolean value indicating whether the application should exit.
+     * @return A string response based on the command execution.
      */
     public static String parse(String userInput, TaskList allTasks) throws DukeException {
         // parse the command

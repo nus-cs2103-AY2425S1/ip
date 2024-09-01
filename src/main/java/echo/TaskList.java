@@ -12,6 +12,8 @@ public class TaskList implements Serializable {
 
     /**
      * Returns all tasks in the task list of EchoBot.
+     *
+     * @return A string containing all tasks in the list.
      */
     public String listAllTask() {
         if (this.allTasks.isEmpty()) {
@@ -33,6 +35,7 @@ public class TaskList implements Serializable {
      * Marks the target task in the list based on the index.
      *
      * @param index index of target Task object.
+     * @return A string confirming that the task has been marked as done.
      * @throws IndexOutOfBoundsException if index is out of bound.
      */
     public String markTask(int index) throws IndexOutOfBoundsException {
@@ -45,6 +48,7 @@ public class TaskList implements Serializable {
      * Unmarks the target task in the list based on the index.
      *
      * @param index index of target Task object.
+     * @return A string confirming that the task has been marked as not done.
      * @throws IndexOutOfBoundsException if index is out of bound.
      */
     public String unmarkTask(int index) throws IndexOutOfBoundsException {
@@ -57,6 +61,7 @@ public class TaskList implements Serializable {
      * Adds a Task to the task list.
      *
      * @param task Task object to add to the list.
+     * @return A string confirming the task was added, along with the total number of tasks in the list.
      */
     public String add(Task task) {
         this.allTasks.add(task);
@@ -68,10 +73,11 @@ public class TaskList implements Serializable {
      * Deletes the target Task object in the list.
      *
      * @param index index of target Task object.
+     * @return A string confirming that the task was deleted, along with the number of remaining tasks in the list.
      * @throws IndexOutOfBoundsException if index is out of bound.
      */
     public String delete(int index) throws IndexOutOfBoundsException {
-        String message = "Noted. I've removed this task:" + "\n" ;
+        String message = "Noted. I've removed this task:" + "\n";
         Task t = allTasks.get(index);
         // Remove the task from list and return the size of list
         allTasks.remove(index);
@@ -80,9 +86,10 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Prints a list of tasks with target keywords
+     * Prints a list of tasks with target keywords。
      *
      * @param keywords the keywords to search for within the task descriptions.
+     * @return A string containing the list of tasks that match the keywords.
      */
     public String find(String keywords) {
         CharSequence cs = keywords;
