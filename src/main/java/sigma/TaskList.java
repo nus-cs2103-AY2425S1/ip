@@ -74,7 +74,6 @@ public class TaskList {
      * Adds the given task to the TaskList
      * @param task The task to be added
      */
-    // why do i even need this
     public static void addToList(Task task) {
         items.add(task);
     }

@@ -20,8 +20,6 @@ public class Storage {
     public Storage(String filePath) {
         try {
             File file = new File(filePath);
-//            FileWriter writer = new FileWriter(filePath, true);
-
             if (file.createNewFile()) {
                 System.out.println("New file created: " + file.getName());
             }
@@ -37,7 +35,6 @@ public class Storage {
      * @throws IOException if there is an error reading the file
      */
     public static String getItemsFromFile(String path) throws IOException {
-        // there's gotta be a better way to do this
         StringBuilder itemsFromFile = new StringBuilder();
         int i = 1;
         for (String line: Files.readAllLines(Paths.get(path))) {
@@ -64,7 +61,6 @@ public class Storage {
                 String taskName = parts[1];
                 boolean isDone = status.equals("[X]");
                 Task task = new Task(taskName, isDone);
-//                items.add(task);
                 TaskList.addToList(task);
 
             }

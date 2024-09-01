@@ -45,8 +45,6 @@ public class Parser {
         } finally {
             System.out.println("leaving so soon? goodbye!");
         }
-
-
     }
 
     /**
@@ -113,7 +111,8 @@ public class Parser {
             } catch (IOException e) {
                 System.err.println("an error occurred writing to file: " + e.getMessage());
             }
-            System.out.println("added event task:\n  [E][ ] " + description + " (from: " + fromDate + " to: " + toDate + ")");
+            System.out.println("added event task:\n  [E][ ] " + description
+                    + " (from: " + fromDate + " to: " + toDate + ")");
         } else {
             System.out.println("bro really thinks bro can make an empty event and get away with it, lets try again");
         }
@@ -152,7 +151,6 @@ public class Parser {
     public static String stringToDate(String date) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime parsedDateTime = LocalDateTime.parse(date, inputFormatter);
-
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm:ss");
 
         return parsedDateTime.format(outputFormatter);
