@@ -1,9 +1,11 @@
 package carly.ui;
 
+import carly.exception.CarlyException;
+
 import java.util.Scanner;
 
 public class Ui {
-    private String username;
+    private final String username;
 
     public Ui(String username) {
         this.username = username;
@@ -19,12 +21,11 @@ public class Ui {
         System.out.println("Bye " + username + ". I'll see you next time!");
     }
 
-    public String ReadInput() {
-        Scanner scan = new Scanner(System.in);
+    public String ReadInput(Scanner scan) throws CarlyException {
         if (scan.hasNextLine()) {
             return scan.nextLine();
         } else {
-            return "No input detected. Exiting...";
+            throw new CarlyException("");
         }
     }
 }

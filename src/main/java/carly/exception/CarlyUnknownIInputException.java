@@ -13,7 +13,9 @@ public class CarlyUnknownIInputException extends CarlyException {
      * @param action The invalid command input that caused the exception.
      */
     public CarlyUnknownIInputException(String action) {
-        super("OOPS!! The input '" + action + "' is not valid. Please ensure that you enter a valid command.");
+        super(action.isEmpty()
+                ? "No input detected. Please type in something!!"
+                : "OOPS!! The input '" + action + "' is not valid. Please ensure that you enter a valid command.");
     }
 
 }

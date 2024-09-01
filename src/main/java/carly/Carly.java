@@ -44,10 +44,9 @@ public class Carly {
         Storage listStorage = new Storage("./data/CarlyList.txt");
 
         while (true) {
-            input = ui.ReadInput();
-            Parser parser = new Parser(input);
-
             try {
+                input = ui.ReadInput(scan);
+                Parser parser = new Parser(input);
                 command = parser.getCommand();
                 taskDescription = parser.getDetailsAfterCommand(command);
             } catch (CarlyException e) {
