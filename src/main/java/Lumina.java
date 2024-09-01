@@ -1,5 +1,7 @@
 import java.io.IOException;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -140,7 +142,8 @@ public class Lumina {
                         throw luminaException;
                     }
                     String byDateTime = parts[3].trim();
-                    task = new DeadlineTask(description, byDateTime, isDone);
+                    LocalDate byDateObject = parseDateString(byDateTime);
+                    task = new DeadlineTask(description, byDateObject, isDone);
                     break;
                 case "E":
                     if (parts.length != 5) {
@@ -148,7 +151,9 @@ public class Lumina {
                     }
                     String startDateTime = parts[3].trim();
                     String endDateTime = parts[4].trim();
-                    task = new EventTask(description, startDateTime, endDateTime, isDone);
+                    LocalDate startDateObject = parseDateString(startDateTime);
+                    LocalDate endDateObject = parseDateString(endDateTime);
+                    task = new EventTask(description, startDateObject, endDateObject, isDone);
                     break;
                 default:
                     throw luminaException;
@@ -254,7 +259,17 @@ public class Lumina {
         this.printMessage(taskNotDoneMessage.toString());
     }
 
+    private LocalDate parseDateString(String date) throws LuminaException {
+        LocalDate ret = null;
 
+        try {
+            ret = LocalDate.parse(date);
+        } catch (DateTimeParseException e) {
+            throw new LuminaException("Invalid date format! Please try again");
+        }
+
+        return ret;
+    }
 
     private void handleTodoTask(String msg) throws LuminaException{
         String[] msgSplit = msg.split(" ");
@@ -300,7 +315,7 @@ public class Lumina {
                             " Please try again");
                 }
                 by = true;
-                desc = builder.toString();
+                desc = builder.toString().trim();
                 builder = new StringBuilder();
                 continue;
             }
@@ -314,12 +329,13 @@ public class Lumina {
             throw new LuminaException("Oh no! Lumina detected invalid format for your Deadline Task!" +
                     " Please try again");
         }
-        byDateTime = builder.toString();
-        if (desc.trim().isEmpty() || byDateTime.trim().isEmpty()) {
+        byDateTime = builder.toString().trim();
+        if (desc.isEmpty() || byDateTime.isEmpty()) {
             throw new LuminaException("Oh no! Lumina detected invalid format for your Deadline Task!" +
                     " Please try again");
         }
-        Task task = new DeadlineTask(desc, byDateTime);
+        LocalDate byDateObject = parseDateString(byDateTime);
+        Task task = new DeadlineTask(desc, byDateObject);
         this.addTask(task);
     }
 
@@ -365,13 +381,13 @@ public class Lumina {
                 }
                 switch (currentType) {
                     case DESC:
-                        desc = builder.toString();
+                        desc = builder.toString().trim();
                         break;
                     case FROM:
-                        startDateTime = builder.toString();
+                        startDateTime = builder.toString().trim();
                         break;
                     case TO:
-                        endDateTime = builder.toString();
+                        endDateTime = builder.toString().trim();
                         break;
                 }
                 builder = new StringBuilder();
@@ -386,13 +402,13 @@ public class Lumina {
                 }
                 switch (currentType) {
                     case DESC:
-                        desc = builder.toString();
+                        desc = builder.toString().trim();
                         break;
                     case FROM:
-                        startDateTime = builder.toString();
+                        startDateTime = builder.toString().trim();
                         break;
                     case TO:
-                        endDateTime = builder.toString();
+                        endDateTime = builder.toString().trim();
                         break;
                 }
                 builder = new StringBuilder();
@@ -412,20 +428,22 @@ public class Lumina {
         }
         switch (currentType) {
             case DESC:
-                desc = builder.toString();
+                desc = builder.toString().trim();
                 break;
             case FROM:
-                startDateTime = builder.toString();
+                startDateTime = builder.toString().trim();
                 break;
             case TO:
-                endDateTime = builder.toString();
+                endDateTime = builder.toString().trim();
                 break;
         }
         if (desc.trim().isEmpty() || startDateTime.trim().isEmpty() || endDateTime.trim().isEmpty()) {
             throw new LuminaException("Oh no! Lumina detected invalid format for your Event Task!" +
                     " Please try again");
         }
-        Task task = new EventTask(desc, startDateTime, endDateTime);
+        LocalDate startDateObject = parseDateString(startDateTime);
+        LocalDate endDateObject = parseDateString(endDateTime);
+        Task task = new EventTask(desc, startDateObject, endDateObject);
         this.addTask(task);
     }
 
@@ -515,7 +533,7 @@ public class Lumina {
             }
 
             // exception
-            this.printMessage("Oh no! I don't know what to do with this command!");
+            this.printMessage("Oh no! I don't know what to do with this command! Please try again");
         }
     }
 
