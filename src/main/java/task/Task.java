@@ -1,9 +1,6 @@
 package task;
 
-import java.util.ArrayList;
-
 import exceptions.AlreadyCompletedException;
-import exceptions.HimException;
 import exceptions.StartAfterEndException;
 
 /**
@@ -35,12 +32,14 @@ public abstract class Task {
      */
     public static Task of(String data) throws StartAfterEndException {
         String[] args = data.split("\\|", 2);
+        //@formatter:off
         return switch (args[0]) {
-            case "T" -> ToDo.of(args[1]);
-            case "D" -> Deadline.of(args[1]);
-            case "E" -> Event.of(args[1]);
-            default -> null;
+        case "T" -> ToDo.of(args[1]);
+        case "D" -> Deadline.of(args[1]);
+        case "E" -> Event.of(args[1]);
+        default -> null;
         };
+        //@formatter:on
     }
 
     /**

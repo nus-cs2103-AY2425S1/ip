@@ -37,34 +37,32 @@ public class Parser {
     public static Command parseUserInput(String input) throws HimException {
         String[] args = input.split(" ", 2);
         String command = args[0];
+        //@formatter:off
         return switch (command) {
-            case "list": {
-                yield new ListCommand();
-            }
-            case "mark": {
-                int index = parseMark(args);
-                yield new MarkCommand(index);
-            }
-            case "todo": {
-                ToDo newTodo = parseTodo(args);
-                yield new AddCommand(newTodo);
-            }
-            case "deadline": {
-                Deadline newDeadline = parseDeadline(args);
-                yield new AddCommand(newDeadline);
-            }
-            case "event": {
-                Event newEvent = parseEvent(args);
-                yield new AddCommand(newEvent);
-            }
-            case "delete": {
-                int index = parseDelete(args);
-                yield new DeleteCommand(index);
-            }
-            default: {
-                yield new UnknownCommand(command);
-            }
+        case "list" -> new ListCommand();
+        case "mark" -> {
+            int index = parseMark(args);
+            yield new MarkCommand(index);
+        }
+        case "todo" -> {
+            ToDo newTodo = parseTodo(args);
+            yield new AddCommand(newTodo);
+        }
+        case "deadline" -> {
+            Deadline newDeadline = parseDeadline(args);
+            yield new AddCommand(newDeadline);
+        }
+        case "event" -> {
+            Event newEvent = parseEvent(args);
+            yield new AddCommand(newEvent);
+        }
+        case "delete" -> {
+            int index = parseDelete(args);
+            yield new DeleteCommand(index);
+        }
+        default -> new UnknownCommand(command);
         };
+        //@formatter:on
     }
 
     private static int parseMark(String[] args) {
