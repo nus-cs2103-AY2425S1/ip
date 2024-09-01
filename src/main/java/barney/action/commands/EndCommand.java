@@ -11,23 +11,21 @@ import barney.ui.Ui;
  */
 
 public class EndCommand extends Command {
-    HashMap<String, String> argumentMap;
 
     /**
      * Represents an EndCommand that is used to exit the program.
-     *
+     * <p>
      * This command is responsible for terminating the program execution. It
      * inherits from the Command class and accepts a HashMap of arguments. The "bye"
      * keyword is used to invoke this command.
      */
     public EndCommand(HashMap<String, String> argumentMap) {
-        super("bye");
-        this.argumentMap = argumentMap;
+        super("bye", argumentMap);
     }
 
     /**
      * Executes the EndCommand.
-     *
+     * <p>
      * This method is responsible for executing the EndCommand. It verifies the
      * flags in the argument map and returns a boolean value.
      *
@@ -38,7 +36,7 @@ public class EndCommand extends Command {
      */
     @Override
     public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
-        verifyFlags(argumentMap);
+        verifyFlags();
         return false;
     }
 

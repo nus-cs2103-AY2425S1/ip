@@ -12,18 +12,16 @@ import barney.ui.Ui;
  * {@link Command} class.
  */
 public class DeleteCommand extends Command {
-    HashMap<String, String> argumentMap;
 
     /**
      * Represents a delete command.
-     *
+     * <p>
      * This command is used to delete an item based on the provided arguments.
      *
      * @param argumentMap A HashMap containing the arguments for the delete command.
      */
     public DeleteCommand(HashMap<String, String> argumentMap) {
-        super("delete");
-        this.argumentMap = argumentMap;
+        super("delete", argumentMap);
     }
 
     /**
@@ -33,15 +31,15 @@ public class DeleteCommand extends Command {
      * @param ui    The user interface to display the result of the delete
      *              operation.
      * @return {@code true} if the delete command is executed successfully,
-     *         {@code false} otherwise.
+     * {@code false} otherwise.
      * @throws InvalidArgumentException If the index of the task to delete is out of
      *                                  range.
      */
     @Override
     public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
-        verifyFlags(argumentMap);
+        verifyFlags();
 
-        String index = argumentMap.get("index");
+        String index = getParameter("index");
         int deleteIndex = Integer.parseInt(index) - 1;
         if (deleteIndex < 0 || deleteIndex >= tasks.size()) {
             throw new InvalidArgumentException("The index of a task to delete is out of range!");

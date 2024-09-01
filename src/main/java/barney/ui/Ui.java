@@ -128,7 +128,7 @@ public class Ui {
     public void printAddedTask(Task task, int size) {
         System.out.println("Got it. I've added this task:");
         System.out.println(task.toString());
-        System.out.println(String.format("Now you have %d tasks in the list.", size));
+        System.out.printf("Now you have %d tasks in the list.%n", size);
         printLongLine();
     }
 
@@ -141,7 +141,7 @@ public class Ui {
     public void printDeleteTask(Task task, int size) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.toString());
-        System.out.println(String.format("Now you have %d tasks in the list.", size));
+        System.out.printf("Now you have %d tasks in the list.%n", size);
         printLongLine();
     }
 

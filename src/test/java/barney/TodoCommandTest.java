@@ -1,12 +1,13 @@
 package barney;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 
 import barney.action.commands.TodoCommand;
@@ -40,9 +41,16 @@ public class TodoCommandTest {
             assertEquals(1, tasks.size());
             assertTrue(tasks.get(0) instanceof TodoTask);
             // Verify the output
+<<<<<<< Updated upstream
             String expectedOutput = "Got it. I've added this task:\r\n" + //
                     "[T][ ] borrow book\r\n" + //
                     "Now you have 1 tasks in the list.";
+=======
+            String expectedOutput = """
+                    Got it. I've added this task:\r
+                    [T][ ] borrow book\r
+                    Now you have 1 tasks in the list.""";
+>>>>>>> Stashed changes
 
             assertTrue(outContent.toString().contains(expectedOutput));
         } catch (InvalidArgumentException e) {
@@ -52,4 +60,66 @@ public class TodoCommandTest {
             System.setOut(originalOut);
         }
     }
+<<<<<<< Updated upstream
 }
+=======
+
+    /**
+     * Tests that an InvalidArgumentException is thrown when the description is
+     * missing.
+     */
+    @Test
+    public void execute_missingDescription_throwsInvalidArgumentException() {
+        TaskList tasks = new TaskList();
+        Ui ui = new Ui();
+        HashMap<String, String> argumentMap = new HashMap<>();
+
+        try {
+            TodoCommand command = new TodoCommand(argumentMap);
+            command.execute(tasks, ui);
+            fail("InvalidArgumentException should be thrown");
+        } catch (InvalidArgumentException e) {
+            assertEquals("Missing description for todo!", e.getMessage());
+        }
+    }
+
+    /**
+     * Tests that an InvalidArgumentException is thrown when there are extra
+     */
+    @Test
+    public void execute_emptyDescription_throwsInvalidArgumentException() {
+        TaskList tasks = new TaskList();
+        Ui ui = new Ui();
+        HashMap<String, String> argumentMap = new HashMap<>();
+        argumentMap.put("description", "");
+
+        try {
+            TodoCommand command = new TodoCommand(argumentMap);
+            command.execute(tasks, ui);
+            fail("InvalidArgumentException should be thrown");
+        } catch (InvalidArgumentException e) {
+            assertEquals("The description of a todo cannot be empty!", e.getMessage());
+        }
+    }
+
+    /**
+     * Tests that an InvalidArgumentException is thrown when there are extra
+     * arguments.
+     */
+    @Test
+    public void execute_extraArguments_throwsInvalidArgumentException() {
+        TaskList tasks = new TaskList();
+        Ui ui = new Ui();
+        HashMap<String, String> argumentMap = new HashMap<>();
+        argumentMap.put("description", "borrow book");
+        argumentMap.put("extra", "extra");
+        try {
+            TodoCommand command = new TodoCommand(argumentMap);
+            command.execute(tasks, ui);
+            fail("InvalidArgumentException should be thrown");
+        } catch (InvalidArgumentException e) {
+            assertEquals("Extra arguments found for todo!", e.getMessage());
+        }
+    }
+}
+>>>>>>> Stashed changes

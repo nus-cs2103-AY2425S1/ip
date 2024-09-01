@@ -11,7 +11,6 @@ import barney.ui.Ui;
  * Represents a command to create an event. Extends the {@link Command} class.
  */
 public class EventCommand extends Command {
-    HashMap<String, String> argumentMap;
 
     /**
      * Represents an EventCommand that performs an action related to events.
@@ -19,8 +18,7 @@ public class EventCommand extends Command {
      * @param argumentMap A HashMap containing the arguments for the command.
      */
     public EventCommand(HashMap<String, String> argumentMap) {
-        super("event");
-        this.argumentMap = argumentMap;
+        super("event", argumentMap);
     }
 
     /**
@@ -33,11 +31,11 @@ public class EventCommand extends Command {
      */
     @Override
     public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
-        verifyFlags(argumentMap);
+        verifyFlags();
 
-        String description = argumentMap.get("description");
-        String at = argumentMap.get("from");
-        String to = argumentMap.get("to");
+        String description = getParameter("description");
+        String at = getParameter("from");
+        String to = getParameter("to");
 
         EventTask newEvent = new EventTask(description, at, to);
         tasks.add(newEvent);

@@ -7,7 +7,7 @@ import barney.data.datetime.BarneyDateTime;
 
 /**
  * Represents a task with a deadline.
- *
+ * <p>
  * This class extends the Task class and adds functionality to handle tasks with
  * deadlines.
  */
@@ -17,7 +17,7 @@ public class DeadlineTask extends Task {
 
     /**
      * Represents a task with a deadline.
-     *
+     * <p>
      * This class extends the Task class and adds functionality to handle tasks with
      * deadlines.
      *

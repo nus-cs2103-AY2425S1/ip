@@ -12,7 +12,6 @@ import barney.ui.Ui;
  * {@link Command} class.
  */
 public class UnmarkCommand extends Command {
-    HashMap<String, String> argumentMap;
 
     /**
      * Represents an UnmarkCommand. This command is used to unmark an item.
@@ -20,8 +19,7 @@ public class UnmarkCommand extends Command {
      * @param argumentMap A HashMap containing the arguments for the command.
      */
     public UnmarkCommand(HashMap<String, String> argumentMap) {
-        super("unmark");
-        this.argumentMap = argumentMap;
+        super("unmark", argumentMap);
     }
 
     /**
@@ -35,9 +33,9 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
-        verifyFlags(argumentMap);
+        verifyFlags();
 
-        String indexStr = argumentMap.get("index");
+        String indexStr = getParameter("index");
 
         if (!indexStr.matches("^\\d+$")) {
             throw new InvalidArgumentException("Please enter a task number!");
@@ -50,7 +48,7 @@ public class UnmarkCommand extends Command {
         Task task = tasks.get(index);
         task.unmark();
 
-        ui.printMarked(task);
+        ui.printUnmarked(task);
 
         return true;
     }

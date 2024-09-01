@@ -11,7 +11,6 @@ import barney.ui.Ui;
  * {@link Command} class.
  */
 public class FindCommand extends Command {
-    HashMap<String, String> argumentMap;
 
     /**
      * Constructs a new FindCommand object.
@@ -19,8 +18,7 @@ public class FindCommand extends Command {
      * @param argumentMap A HashMap containing the arguments for the command.
      */
     public FindCommand(HashMap<String, String> argumentMap) {
-        super("find");
-        this.argumentMap = argumentMap;
+        super("find", argumentMap);
     }
 
     /**
@@ -34,9 +32,9 @@ public class FindCommand extends Command {
      */
     @Override
     public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
-        verifyFlags(argumentMap);
+        verifyFlags();
 
-        String keyword = argumentMap.get("keyword");
+        String keyword = getParameter("keyword");
 
         TaskList matchingTasks = tasks.find(keyword);
         ui.printMatchingTasks(matchingTasks);

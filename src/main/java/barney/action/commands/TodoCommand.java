@@ -12,18 +12,15 @@ import barney.ui.Ui;
  * class.
  */
 public class TodoCommand extends Command {
-    HashMap<String, String> argumentMap;
-
     /**
      * Represents a TodoCommand.
-     *
+     * <p>
      * This command is used to create a new todo item.
      *
      * @param argumentMap A HashMap containing the arguments for the command.
      */
     public TodoCommand(HashMap<String, String> argumentMap) {
-        super("todo");
-        this.argumentMap = argumentMap;
+        super("todo", argumentMap);
     }
 
     /**
@@ -36,9 +33,9 @@ public class TodoCommand extends Command {
      */
     @Override
     public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
-        verifyFlags(argumentMap);
+        verifyFlags();
 
-        String description = argumentMap.get("description");
+        String description = getParameter("description");
 
         TodoTask newTodo = new TodoTask(description);
         tasks.add(newTodo);

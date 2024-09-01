@@ -10,7 +10,6 @@ import barney.ui.Ui;
  * Represents a command to list all tasks. Extends the {@link Command} class.
  */
 public class ListCommand extends Command {
-    HashMap<String, String> argumentMap;
 
     /**
      * Represents a command for listing items.
@@ -18,8 +17,7 @@ public class ListCommand extends Command {
      * @param argumentMap A HashMap containing the arguments for the command.
      */
     public ListCommand(HashMap<String, String> argumentMap) {
-        super("list");
-        this.argumentMap = argumentMap;
+        super("list", argumentMap);
     }
 
     /**
@@ -33,7 +31,7 @@ public class ListCommand extends Command {
      */
     @Override
     public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
-        verifyFlags(argumentMap);
+        verifyFlags();
 
         ui.printList(tasks);
         return true;

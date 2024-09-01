@@ -2,6 +2,7 @@ package barney.data.task;
 
 import java.util.ArrayList;
 
+
 /**
  * Represents a todo task. Inherits from the Task class.
  */

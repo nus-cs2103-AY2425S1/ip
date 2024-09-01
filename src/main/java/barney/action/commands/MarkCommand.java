@@ -12,7 +12,6 @@ import barney.ui.Ui;
  * {@link Command} class.
  */
 public class MarkCommand extends Command {
-    HashMap<String, String> argumentMap;
 
     /**
      * Creates a new MarkCommand object.
@@ -20,8 +19,7 @@ public class MarkCommand extends Command {
      * @param argumentMap a HashMap containing the arguments for the command
      */
     public MarkCommand(HashMap<String, String> argumentMap) {
-        super("mark");
-        this.argumentMap = argumentMap;
+        super("mark", argumentMap);
     }
 
     /**
@@ -35,9 +33,9 @@ public class MarkCommand extends Command {
      */
     @Override
     public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
-        verifyFlags(argumentMap);
+        verifyFlags();
 
-        String indexStr = argumentMap.get("index");
+        String indexStr = getParameter("index");
 
         if (!indexStr.matches("^\\d+$")) {
             throw new InvalidArgumentException("Please enter a task number!");

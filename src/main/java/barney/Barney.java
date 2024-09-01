@@ -6,6 +6,7 @@ import barney.action.CommandManager;
 import barney.action.commands.Command;
 import barney.data.TaskList;
 import barney.data.exception.BarneyException;
+import barney.data.exception.InvalidArgumentException;
 import barney.storage.Storage;
 import barney.ui.Ui;
 
@@ -16,10 +17,10 @@ import barney.ui.Ui;
  */
 public class Barney {
 
-    private Scanner scanner;
-    private CommandManager commandManager;
-    private Ui ui;
-    private Storage storage;
+    private final Scanner scanner;
+    private final CommandManager commandManager;
+    private final Ui ui;
+    private final Storage storage;
     private TaskList tasks;
 
     /**
@@ -71,6 +72,8 @@ public class Barney {
                 }
                 Command command = commandManager.getCommand(line);
                 isChatting = command.execute(tasks, ui);
+            } catch (InvalidArgumentException e) {
+                ui.printInvalidCommand();
             } catch (BarneyException e) {
                 ui.printChatError(e.getMessage());
             } catch (Exception e) {

@@ -74,11 +74,11 @@ public class TaskList {
         if (tasks.size() == 0) {
             return "No tasks in the list!";
         }
-        String output = "";
+        StringBuilder output = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            output += (i + 1) + ". " + tasks.get(i).toString() + "\n";
+            output.append((i + 1)).append(". ").append(tasks.get(i).toString()).append("\n");
         }
-        return output;
+        return output.toString();
     }
 
     /**

@@ -12,31 +12,18 @@ import barney.ui.Ui;
  * {@link Command} class.
  */
 public class DeadlineCommand extends Command {
-    HashMap<String, String> argumentMap;
-
     /**
-     * Represents a command for creating a deadline task.
+     * Constructs a new DeadlineCommand with the specified argument map.
      *
-     * This command is used to create a deadline task with the specified arguments.
-     * The arguments are provided as a HashMap, where the key represents the
-     * argument name and the value represents the argument value.
-     *
-     * Example usage: HashMap<String, String> argumentMap = new HashMap<>();
-     * argumentMap.put("taskName", "Finish report"); argumentMap.put("dueDate",
-     * "2022-12-31"); DeadlineCommand deadlineCommand = new
-     * DeadlineCommand(argumentMap);
-     *
-     * @param argumentMap A HashMap containing the arguments for creating the
-     *                    deadline task.
+     * @param argumentMap map of the arguments
      */
     public DeadlineCommand(HashMap<String, String> argumentMap) {
-        super("deadline");
-        this.argumentMap = argumentMap;
+        super("deadline", argumentMap);
     }
 
     /**
      * Executes the DeadlineCommand.
-     *
+     * <p>
      * This method is responsible for executing the DeadlineCommand. It adds a new
      * DeadlineTask to the TaskList with the provided description and deadline. It
      * also prints a message to the user indicating that the task has been added
@@ -49,10 +36,10 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public boolean execute(TaskList tasks, Ui ui) throws InvalidArgumentException {
-        verifyFlags(argumentMap);
+        verifyFlags();
 
-        String description = argumentMap.get("description");
-        String by = argumentMap.get("by");
+        String description = getParameter("description");
+        String by = getParameter("by");
 
         DeadlineTask newDeadline = new DeadlineTask(description, by);
         tasks.add(newDeadline);
