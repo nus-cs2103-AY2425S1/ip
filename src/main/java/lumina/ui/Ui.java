@@ -1,3 +1,5 @@
+package lumina.ui;
+
 public class Ui {
     // configs
     private static final int indentWidth = 2;
@@ -38,7 +40,7 @@ public class Ui {
      * Greets the user with a welcome message when the program starts.
      */
     public void greet() {
-        this.printMessage("Hello! I'm Lumina\n" +
+        this.printMessage("Hello! I'm Lumina.Main.Lumina\n" +
                 "What can I do for you?");
     }
 

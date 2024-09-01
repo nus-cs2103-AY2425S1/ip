@@ -1,14 +1,16 @@
+package lumina.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
  * This is task with a deadline
  */
-public class DeadlineTask extends Task{
+public class DeadlineTask extends Task {
     private LocalDate byDateObject;
 
     /**
-     * Constructor for DeadlineTask
+     * Constructor for Lumina.Main.Lumina.Lumina.Main.Lumina.Task.Task.DeadlineTask
      *
      * @param description description of task
      * @param byDateObject  deadline of task
@@ -19,7 +21,7 @@ public class DeadlineTask extends Task{
     }
 
     /**
-     * Constructor for DeadlineTask
+     * Constructor for Lumina.Main.Lumina.Lumina.Main.Lumina.Task.Task.DeadlineTask
      *
      * @param description description of task
      * @param byDateObject  deadline of task

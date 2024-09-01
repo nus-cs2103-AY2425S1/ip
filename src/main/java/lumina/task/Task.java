@@ -1,9 +1,11 @@
+package lumina.task;
+
 public abstract class Task {
     private String description;
     private boolean isDone;
 
     /**
-     * Constructor for Task
+     * Constructor for Lumina.Main.Lumina.Task.Task
      *
      * @param description description of the task
      */
@@ -14,7 +16,7 @@ public abstract class Task {
     }
 
     /**
-     * Constructor for Task
+     * Constructor for Lumina.Main.Lumina.Task.Task
      *
      * @param description description of the task
      * @param isDone status of task

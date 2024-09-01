@@ -1,3 +1,11 @@
+package lumina.parser;
+
+import lumina.exception.LuminaException;
+import lumina.task.DeadlineTask;
+import lumina.task.EventTask;
+import lumina.task.Task;
+import lumina.task.TodoTask;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
