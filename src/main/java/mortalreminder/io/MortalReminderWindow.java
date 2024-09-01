@@ -11,6 +11,7 @@ import mortalreminder.MortalReminder;
 import mortalreminder.backend.Processor;
 import mortalreminder.backend.TaskList;
 import mortalreminder.commands.Command;
+import mortalreminder.commands.CommandTypes;
 
 /**
  * Controller for the main GUI.
@@ -55,7 +56,7 @@ public class MortalReminderWindow extends AnchorPane {
         String response = processor.handleCommand(command, taskList);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getMortalReminderDialog(response, mortalReminderImage)
+                DialogBox.getMortalReminderDialog(response, mortalReminderImage, command.commandType())
         );
         userInput.clear();
     }
@@ -65,7 +66,8 @@ public class MortalReminderWindow extends AnchorPane {
      */
     public void onStartUp() {
         String welcome = mortalReminder.welcome();
-        dialogContainer.getChildren().add(DialogBox.getMortalReminderDialog(welcome, mortalReminderImage));
+        dialogContainer.getChildren()
+                .add(DialogBox.getMortalReminderDialog(welcome, mortalReminderImage, CommandTypes.UNKNOWN));
     }
 }
 

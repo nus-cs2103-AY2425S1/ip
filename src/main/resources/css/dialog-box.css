@@ -9,6 +9,20 @@
 .reply-label {
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
+    -fx-background-color: white;
+}
+
+/* Paste this below reply-label */
+.add-label {
+    -fx-background-color: yellow;
+}
+
+.marked-label {
+    -fx-background-color: palegreen;
+}
+
+.delete-label {
+    -fx-background-color: lightpink;
 }
 
 #displayPicture {
