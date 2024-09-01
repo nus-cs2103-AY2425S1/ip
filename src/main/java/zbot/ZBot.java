@@ -2,10 +2,6 @@ package zbot;
 
 import java.time.format.DateTimeParseException;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import zbot.task.Deadline;
 import zbot.task.Event;
 import zbot.task.Task;
@@ -14,7 +10,7 @@ import zbot.task.ToDo;
 /**
  * Represents the main class of the ZBot application.
  */
-public class ZBot extends Application {
+public class ZBot {
     private static final String DEFAULT_FILE_PATH = "./data/tasks.txt";
     private Storage storage;
     private TaskList tasks;
@@ -54,7 +50,7 @@ public class ZBot extends Application {
         storage.createFileIfNotExists();
         String input = ui.readCommand();
         while (!input.equals("bye")) {
-            executeInput(input, ui, storage);
+            executeInput(input);
             input = ui.readCommand();
         }
 
@@ -66,30 +62,33 @@ public class ZBot extends Application {
      *
      * The input is processed and the corresponding action is taken.
      *
-     * @param input   User input.
-     * @param ui      User interface of the chatbot.
-     * @param storage Storage of the chatbot.
+     * @param input User input.
+     * @return Response to the user input.
      */
-    public void executeInput(String input, Ui ui, Storage storage) {
+    public String executeInput(String input) {
+        String response;
+
         if (input.equals("list")) {
-            listTasks();
+            response = listTasks();
         } else if (input.startsWith("mark")) {
-            markTask(input, ui);
+            response = markTask(input, ui);
             storage.save(tasks);
         } else if (input.startsWith("unmark")) {
-            unmarkTask(input, ui);
+            response = unmarkTask(input, ui);
             storage.save(tasks);
         } else if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
-            addTask(input, ui);
+            response = addTask(input, ui);
             storage.save(tasks);
         } else if (input.startsWith("delete")) {
-            deleteTask(input, ui);
+            response = deleteTask(input, ui);
             storage.save(tasks);
         } else if (input.startsWith("find")) {
-            findTask(input, ui);
+            response = findTask(input, ui);
         } else {
-            System.out.println("Invalid command.\n");
+            response = "Invalid command!";
         }
+
+        return response;
     }
 
     /**
@@ -98,8 +97,9 @@ public class ZBot extends Application {
      * @param input User input.
      * @param ui    User interface of the chatbot.
      */
-    public void addTask(String input, Ui ui) {
+    public String addTask(String input, Ui ui) {
         Task task;
+        String response;
         String[] inputParts = input.split(" ", 2);
 
         try {
@@ -117,24 +117,27 @@ public class ZBot extends Application {
             }
 
             tasks.add(task);
-            ui.printAddTaskMsg(task, tasks.size());
+            response = ui.printAddTaskMsg(task, tasks.size());
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please enter a valid task format!\n");
+            response = "Please enter a valid task format!\n";
         } catch (DateTimeParseException e) {
-            System.out.println(
-                    "Please enter a valid date and time format (dd/MM/yyyy HHmm, dd/MM/yyyy)!\n");
+            response = "Please enter a valid date and time format (dd/MM/yyyy HHmm, dd/MM/yyyy)!\n";
         }
+
+        return response;
     }
 
     /**
      * Lists all tasks in the task list.
      */
-    public void listTasks() {
-        System.out.println("Here are the tasks in your list:");
+    public String listTasks() {
+        StringBuilder response = new StringBuilder();
+        response.append("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(String.format("%d. %s", i + 1, tasks.get(i)));
+            response.append(String.format("%d. %s", i + 1, tasks.get(i)));
         }
-        System.out.println();
+        response.append("\n");
+        return response.toString();
     }
 
     /**
@@ -143,14 +146,18 @@ public class ZBot extends Application {
      * @param input User input.
      * @param ui    User interface of the chatbot.
      */
-    public void markTask(String input, Ui ui) {
+    public String markTask(String input, Ui ui) {
+        String response;
+
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]);
             tasks.get(taskNumber - 1).markAsDone();
-            ui.printMarkTaskMsg(tasks.get(taskNumber - 1));
+            response = ui.printMarkTaskMsg(tasks.get(taskNumber - 1));
         } catch (NullPointerException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please enter a valid task number!\n");
+            response = "Please enter a valid task number!\n";
         }
+
+        return response;
     }
 
     /**
@@ -159,14 +166,18 @@ public class ZBot extends Application {
      * @param input User input.
      * @param ui    User interface of the chatbot.
      */
-    public void unmarkTask(String input, Ui ui) {
+    public String unmarkTask(String input, Ui ui) {
+        String response;
+
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]);
             tasks.get(taskNumber - 1).markAsUndone();
-            ui.printUnmarkTaskMsg(tasks.get(taskNumber - 1));
+            response = ui.printUnmarkTaskMsg(tasks.get(taskNumber - 1));
         } catch (NullPointerException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please enter a valid task number!\n");
+            response = "Please enter a valid task number!\n";
         }
+
+        return response;
     }
 
     /**
@@ -175,14 +186,18 @@ public class ZBot extends Application {
      * @param input User input.
      * @param ui    User interface of the chatbot.
      */
-    public void deleteTask(String input, Ui ui) {
+    public String deleteTask(String input, Ui ui) {
+        String response;
+
         try {
             int taskNumber = Integer.parseInt(input.split(" ")[1]);
             Task task = tasks.remove(taskNumber - 1);
-            ui.printDeleteTaskMsg(task, tasks.size());
+            response = ui.printDeleteTaskMsg(task, tasks.size());
         } catch (NullPointerException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please enter a valid task number!\n");
+            response = "Please enter a valid task number!\n";
         }
+
+        return response;
     }
 
     /**
@@ -191,28 +206,23 @@ public class ZBot extends Application {
      * @param input User input.
      * @param ui    User interface of the chatbot.
      */
-    public void findTask(String input, Ui ui) {
+    public String findTask(String input, Ui ui) {
+        StringBuilder response = new StringBuilder();
         String keyword = input.split(" ", 2)[1];
         int tasksFound = 0;
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getDescription().contains(keyword)) {
+                response.append(String.format("%d. %s", i, tasks.get(i)));
                 tasksFound++;
-                System.out.println(String.format("%d. %s", i, tasks.get(i)));
             }
         }
 
         if (tasksFound == 0) {
-            System.out.println("No tasks found.");
+            response.append("No tasks found.");
         }
-        System.out.println();
+
+        response.append("\n");
+        return response.toString();
     }
 
-    @Override
-    public void start(Stage stage) {
-        Label hello = new Label("Hello! I'm ZBot!"); // Creating a new Label control
-        Scene scene = new Scene(hello); // Setting the scene to be our Label
-
-        stage.setScene(scene); // Setting the stage to show our screen
-        stage.show(); // Render the stage.
-    }
 }
