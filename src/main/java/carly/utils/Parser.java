@@ -5,6 +5,10 @@ import carly.exception.CarlyUnknownIInputException;
 
 import java.util.Arrays;
 
+/**
+ * Responsible for parsing user input and extracting commands and task descriptions.
+ * It supports various command types such as BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, and EVENT.
+ */
 public class Parser {
     private final String input;
     private final Integer firstSpaceIndex;
@@ -40,8 +44,6 @@ public class Parser {
     /**
      * Extracts the task description from the user's input after the command.
      *
-     * @param command         the input command in Command enum.
-     * @return the task description without the command type.
      * @throws CarlyNoTaskDescription if the command requires a task description but none is provided.
      */
     public  String getDetailsAfterCommand(Command command)

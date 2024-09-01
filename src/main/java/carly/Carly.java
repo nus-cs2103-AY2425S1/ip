@@ -27,20 +27,17 @@ public class Carly {
      * The conversation continues until the user inputs the "BYE" command.
      *
      * If the user enters an invalid command or provides insufficient information
-     * (e.g., missing task description), appropriate exceptions are caught, and
-     * error messages are displayed without terminating the chat.
+     * appropriate exceptions are caught, and error messages are displayed without terminating the chat.
      */
     private void chat() {
         Scanner scan = new Scanner(System.in);
-        System.out.println("What is your name?");
-        String username = scan.nextLine();
+        Ui ui = new Ui();
+        ui = ui.setUsername(scan);
+        ui.welcomeMsg();
 
         String input;
         String taskDescription;
         Parser.Command command;
-        Ui ui = new Ui(username);
-        ui.welcomeMsg();
-
         Storage listStorage = new Storage("./data/CarlyList.txt");
 
         while (true) {
@@ -105,6 +102,7 @@ public class Carly {
                 }
                 break;
             }
+            //ui.printLineSeparator();
             try {
                 listStorage.savesFile(this.taskList);
             } catch (IOException | CarlyException e) {

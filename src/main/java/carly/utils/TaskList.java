@@ -12,18 +12,19 @@ import carly.tasks.Deadline;
 import carly.tasks.Event;
 import carly.tasks.Task;
 import carly.tasks.Todo;
+import carly.ui.Ui;
 
-/**
- * Represents a list of tasks.
- * Handle a collection of {@link Task} objects.
- */
+/** Represents a list of tasks. Handle a collection of {@link Task} objects. */
 public class TaskList {
 
     /** List of Task objects. */
     private final ArrayList<Task> taskList;
 
-    /** Indentation used in displaying output messages. */
-    private final String INDENTATION = "    ";
+    /** TWO_INDENT used in displaying tasklist size. */
+    private final String ONE_INDENT = "    ";
+
+    /** TWO_INDENT used in displaying output messages. */
+    private final String TWO_INDENT = "        ";
 
     public TaskList() {
         this.taskList = new ArrayList<>();
@@ -42,8 +43,8 @@ public class TaskList {
             Task t = this.get(taskNum - 1);
             Task updatedT = t.markAsDone();
             this.taskList.set(taskNum - 1, updatedT);
-            String msg = "Okiee! I've marked this task as done:\n" + INDENTATION + t;
-            System.out.println(msg);
+            String msg = "Okiee! I've marked this task as done:\n" + TWO_INDENT + t;
+            Ui.printOutput(msg);
         } catch (NumberFormatException e) {
             throw new CarlyIncorrectIndexFormat();
         } catch (IndexOutOfBoundsException e) {
@@ -64,8 +65,8 @@ public class TaskList {
             Task t = this.get(taskNum - 1);
             Task updatedT = t.unmarkAsDone();
             this.taskList.set(taskNum - 1, updatedT);
-            String msg = "Okiee! I've marked this task as not done yet:\n" + INDENTATION + t;
-            System.out.println(msg);
+            String msg = "Okiee! I've marked this task as not done yet:\n" + TWO_INDENT + t;
+            Ui.printOutput(msg);
         } catch (IndexOutOfBoundsException e) {
             throw new CarlyIndexOutOfBoundsException(taskNum, this.getSize());
         }
@@ -83,8 +84,8 @@ public class TaskList {
             taskNum = Integer.parseInt(taskNumString);
             Task t = this.get(taskNum - 1);
             this.taskList.remove(taskNum - 1);
-            String msg = "Okay, I've removed this task:\n" + t.toString();
-            System.out.println(msg);
+            String msg = "Okay, I've removed this task:\n" + TWO_INDENT + t;
+            Ui.printOutput(msg + "\n" + taskListSize());
         } catch (NumberFormatException e) {
             throw new CarlyIncorrectIndexFormat();
         } catch (IndexOutOfBoundsException e) {
@@ -101,8 +102,8 @@ public class TaskList {
     public void addToDo(String taskDescription) throws CarlyException{
         Todo t = new Todo(taskDescription);
         this.taskList.add(t);
-        System.out.println("Got it. I've added this task:\n" + INDENTATION + t);
-        taskListSize();
+        String msg = "Got it. I've added this task:\n" + TWO_INDENT + t;
+        Ui.printOutput(msg + "\n" + taskListSize());
     }
 
     /**
@@ -120,8 +121,8 @@ public class TaskList {
             Deadline t = new Deadline(task, dueDate);
             this.taskList.add(t);
 
-            System.out.println("Got it. I've added this task:\n" + INDENTATION + t);
-            taskListSize();
+            String msg = "Got it. I've added this task:\n" + TWO_INDENT + t;
+            Ui.printOutput(msg + "\n" + taskListSize());
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new CarlyMissingDateTimeException("task description or \"/by\" command");
         }
@@ -144,8 +145,8 @@ public class TaskList {
 
             Event t = new Event(task, startTime, endTime);
             this.taskList.add(t);
-            System.out.println("Got it. I've added this task:\n" + INDENTATION + t);
-            taskListSize();
+            String msg = "Got it. I've added this task:\n" + TWO_INDENT + t;
+            Ui.printOutput(msg + "\n" + taskListSize());
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new CarlyMissingDateTimeException("\"/from\" or \"/to\" command");
         }
@@ -162,8 +163,8 @@ public class TaskList {
     }
 
     /** Prints the current size of the task list. */
-    public void taskListSize() {
-        System.out.println("Now you have " + this.getSize() + " tasks in the list.");
+    public String taskListSize() {
+        return ONE_INDENT + "Now you have " + this.getSize() + " tasks in the list.";
     }
 
     /**
@@ -172,17 +173,19 @@ public class TaskList {
      */
     public void printTaskList() {
         if (this.taskList.isEmpty()) {
-            System.out.println("There's nothing in your list yet.");
+            Ui.printOutput("There's nothing in your list yet.");
         } else {
-            System.out.println("Here are the tasks in your list:");
+            Ui.printOutputTopLine("Here are the tasks in your list:");
             IntStream.range(0, this.getSize())
-                    .forEach(i -> System.out.println(
+                    .forEach(i -> Ui.printOutputNoLine(
                             MessageFormat.format("{0}.{1}", i + 1, this.get(i).toString())));
+            Ui.printOutputBottomLine();
+
         }
     }
 
     /** Generates a string representation of all tasks in the list to be saved in txt file. */
-    public String getFormattedTaskList() throws CarlyException{
+    public String getFormattedTaskList() {
         if (this.taskList.isEmpty()) {
             return "Nothing in your list";
         } else {

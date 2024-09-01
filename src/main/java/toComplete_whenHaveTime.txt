@@ -24,3 +24,6 @@ gradle tools:
 ./gradlew test
 ./gradlew clean shadowJar
 ./gradlew clean build
+
+shortcut:
+- double click on code -> softwrap

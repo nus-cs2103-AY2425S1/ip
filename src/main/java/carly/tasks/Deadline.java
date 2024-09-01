@@ -31,8 +31,6 @@ public class Deadline extends Task {
     public String getDueDate() {
             DateTimeParser d = new DateTimeParser(dueDate.toString());
             return d.formatDateTime();
-            //System.out.prinln("in getDueDate: " + )
-            //return this.dueDate.toString();
     }
 
     /**
