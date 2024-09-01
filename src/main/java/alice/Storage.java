@@ -1,10 +1,14 @@
 package alice;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Handles the saving and loading of tasks to and from a file.
@@ -82,17 +86,18 @@ public class Storage {
                 String description = parts[2];
 
                 switch (type) {
-                    case "T":
-                        list.add(new Todo(description, isDone));
-                        break;
-                    case "D":
-                        list.add(new Deadline(description, setTime(parts[3]), isDone));
-                        break;
-                    case "E":
-                        list.add(new Event(description, setTime(parts[3]), setTime(parts[4]), isDone));
-                    default:
-                        System.out.println("Unknown task type" + type + line);
-                        break;
+                case "T":
+                    list.add(new Todo(description, isDone));
+                    break;
+                case "D":
+                    list.add(new Deadline(description, setTime(parts[3]), isDone));
+                    break;
+                case "E":
+                    list.add(new Event(description, setTime(parts[3]), setTime(parts[4]), isDone));
+                    break;
+                default:
+                    System.out.println("Unknown task type" + type + line);
+                    break;
                 }
             }
         } catch (FileNotFoundException e) {

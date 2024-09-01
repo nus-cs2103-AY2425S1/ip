@@ -7,10 +7,10 @@ import java.util.ArrayList;
  * Manages the tasks, including adding, marking as done/undone, deleting, and retrieving tasks.
  */
 public class TaskList {
-    ArrayList<Task> list;
-    Ui ui;
     private static final String line =
             "____________________________________________________________";
+    private ArrayList<Task> list;
+    private Ui ui;
 
     /**
      * Constructs a TaskList with an empty list of tasks and a new Ui instance.
@@ -20,6 +20,11 @@ public class TaskList {
         this.ui = new Ui();
     }
 
+    /**
+     * Constructs a TaskList with the specified list of tasks and a new Ui instance.
+     *
+     * @param list An ArrayList of Task objects to initialize the task list with.
+     */
     public TaskList(ArrayList<Task> list) {
         this.list = list;
         this.ui = new Ui();
@@ -97,6 +102,12 @@ public class TaskList {
         return this.list.size();
     }
 
+    /**
+     * Finds tasks in the list that contain the given keyword.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return A TaskList containing tasks that match the keyword.
+     */
     public TaskList findTask(String keyword) {
         ArrayList<Task> temp = new ArrayList<>();
         for (Task task : list) {

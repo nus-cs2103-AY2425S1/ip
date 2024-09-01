@@ -40,7 +40,7 @@ public class Event extends Task {
 
     /**
      * Returns a string representation of the event suitable for saving to storage.
-     * The format includes a task type identifier, the task's description, completion status, and the start and end times.
+     * The format includes a task type identifier, description, completion status, and the start and end time.
      *
      * @return A string representing the event in a saveable format.
      */
@@ -65,7 +65,7 @@ public class Event extends Task {
                 : "Fail to set start time, check time format: dd-MM-yyyy HHmm";
         String formattedEnd = (end != null) ? end.format(formatter)
                 : "Fail to set end time, check time format: dd-MM-yyyy HHmm";
-        return "[E]" + super.toString() +
-                " (from: " + formattedStart + " to: " + formattedEnd + ")";
+        return "[E]" + super.toString()
+                + " (from: " + formattedStart + " to: " + formattedEnd + ")";
     }
 }
