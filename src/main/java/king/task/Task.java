@@ -1,3 +1,5 @@
+package king.task;
+
 import java.time.LocalDateTime;
 
 public abstract class Task {
@@ -10,7 +12,7 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark done king.task with X
     }
 
     public void markAsDone() {
