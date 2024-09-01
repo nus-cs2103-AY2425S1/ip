@@ -13,10 +13,7 @@ import carly.tasks.Event;
 import carly.tasks.Task;
 import carly.tasks.Todo;
 
-/**
- * Represents a list of tasks.
- * Handle a collection of {@link Task} objects.
- */
+/** Represents a list of {@link Task} objects. */
 public class TaskList {
 
     /** List of Task objects. */
@@ -182,7 +179,7 @@ public class TaskList {
     }
 
     /** Generates a string representation of all tasks in the list to be saved in txt file. */
-    public String getFormattedTaskList() throws CarlyException{
+    public String getFormattedTaskList() {
         if (this.taskList.isEmpty()) {
             return "Nothing in your list";
         } else {
