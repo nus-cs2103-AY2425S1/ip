@@ -115,10 +115,15 @@ public class Duck {
     private String captureOutput(Runnable runnable) {
         // Create a ByteArrayOutputStream to capture the output
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+
         PrintStream originalOut = System.out; // Save the original System.out
         System.setOut(new PrintStream(baos)); // Redirect System.out to the ByteArrayOutputStream
 
         runnable.run();
+
+        // Ensure all output is flushed
+        System.out.flush();
 
         // Convert the captured output to a string
         return baos.toString();

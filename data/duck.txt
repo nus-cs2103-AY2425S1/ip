@@ -1,4 +1,0 @@
-T | 0 | Read a book
-T | 0 | supp
-T | 0 | ok!
-Tt | 0 | sus

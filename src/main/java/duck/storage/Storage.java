@@ -108,13 +108,14 @@ public class Storage {
                     }
                     break;
                 default:
-                    continue;
+                    break;
                 }
 
                 if (task != null) {
                     tasks.add(task);
                 } else {
-                    System.out.println("Warning: Skipping invalid line " + lineNumber + ": " + line);
+                    System.out.println("WARNING\nSkipping invalid line " + lineNumber
+                            + "\n" + line + "\n");
                 }
             }
         } catch (FileNotFoundException e) {
