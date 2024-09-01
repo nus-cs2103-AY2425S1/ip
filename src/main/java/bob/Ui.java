@@ -1,7 +1,5 @@
 package bob;
 
-import java.util.ArrayList;
-
 /**
  * Represents the user interface of the Bob chatbot.
  * The Ui class handles all user interactions, displaying messages and formatting output.
@@ -100,14 +98,14 @@ public class Ui {
     /**
      * Returns a list of tasks that match the search key.
      *
-     * @param tasksWithKey An ArrayList of tasks that contain the keyword in their descriptions.
+     * @param tasksWithKey An array of tasks that contain the keyword in their descriptions.
      * @return A message listing tasks that match the search key.
      */
-    public String showTasksFound(ArrayList<Task> tasksWithKey) {
+    public String showTasksFound(Task... tasksWithKey) {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the matching tasks in your list:\n");
-        for (int i = 0; i < tasksWithKey.size(); i++) {
-            sb.append(String.format("%d.%s\n", i + 1, tasksWithKey.get(i)));
+        for (int i = 0; i < tasksWithKey.length; i++) {
+            sb.append(String.format("%d.%s\n", i + 1, tasksWithKey[i]));
         }
         return sb.toString();
     }
