@@ -74,25 +74,6 @@ public class Event extends Task {
 
 
     /**
-     * Converts and returns the input date and time into appropriate formats
-     * date -> MM dd yyyy
-     * time -> hh:mm a
-     *
-     * @param inputDate A string representing a date in the format, yyyy-MM-dd
-     * @param inputTime A string representing a time in the format, hh:mm
-     * @return
-     */
-    public static String DateAndTimeFormatter(String inputDate, String inputTime) {
-        LocalDate localDate = LocalDate.parse(inputDate);
-        String date = localDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-
-        LocalTime localTime = LocalTime.parse(inputTime);
-        String time = localTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
-        return date + " " + time;
-    }
-
-
-    /**
      * Returns an Event object that was created from the user's command.
      * Based on the description, start date and end date.
      *
