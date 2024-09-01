@@ -2,7 +2,7 @@ package Gumball;
 
 import java.io.IOException;
 
-public class AddCommand extends Command{
+public class AddCommand extends Command {
     private String input;
 
     public AddCommand(String input) {
@@ -17,7 +17,8 @@ public class AddCommand extends Command{
      * @param fileManager
      */
     @Override
-    public void execute(TaskList list, UI ui, FileManager fileManager) throws InputErrorException, IOException {
+    public void execute(TaskList list, UI ui, FileManager fileManager)
+            throws InputErrorException, IOException {
         if (input.startsWith("todo")) {
             addToList(new ToDo(input), list, ui);
             fileManager.updateFile(list);
@@ -31,8 +32,8 @@ public class AddCommand extends Command{
     }
 
     public void addToList(Task task, TaskList list, UI ui) throws InputErrorException {
-        ui.print("Got it. I've added this task:\n" + list.add(task) +
-                String.format("\nNow you have %d tasks in the list.",list.getN()));
+        UI.print("Got it. I've added this task:\n" + list.add(task) +
+                String.format("\nNow you have %d tasks in the list.", list.getN()));
     }
 
 }

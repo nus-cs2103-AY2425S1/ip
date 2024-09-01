@@ -12,6 +12,7 @@ public class Gumball {
     private FileManager fileManager;
 
     private UI ui;
+
     public static void main(String[] args) {
         try {
             Gumball chat = new Gumball();
@@ -34,16 +35,16 @@ public class Gumball {
 
     public void start() throws FileNotFoundException {
         ui.intro();
-        while (true){
+        while (true) {
             input = ui.readCommand();
-            if(input.equals("bye")) break;
+            if (input.equals("bye")) break;
             try {
                 Command c = Parser.parse(input);
                 c.execute(list, ui, fileManager);
             } catch (InputErrorException e) {
-                ui.print(e.getMessage());
+                UI.print(e.getMessage());
             } catch (IOException e) {
-                ui.print(e.getMessage());
+                UI.print(e.getMessage());
             }
         }
         ui.outro();

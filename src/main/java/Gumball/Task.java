@@ -8,7 +8,7 @@ public abstract class Task {
 
     protected String taskType;
 
-    public Task(String description,String originalInput) {
+    public Task(String description, String originalInput) {
         this.description = description;
         this.originalInput = originalInput;
         this.isDone = false;

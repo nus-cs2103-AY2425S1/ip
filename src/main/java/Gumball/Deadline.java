@@ -3,15 +3,17 @@ package Gumball;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     private LocalDate deadlineTime;
+
     public Deadline(String desc) throws TaskException {
-        super("",desc);
+        super("", desc);
         try {
             String[] section = desc.substring(9).split("/by ");
             LocalDate d1 = LocalDate.parse(section[1]);
             deadlineTime = d1;
-            super.description = section[0] + "(by: " + d1.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+            super.description = section[0] + "(by: "
+                    + d1.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
             taskType = "[D]";
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new TaskException("Sorry, the desctiption you " +
