@@ -6,6 +6,9 @@ public class FRIDAY {
     private Ui ui;
     private boolean isActive = true;
 
+    /**
+     * constructor for bot
+     */
     public FRIDAY() {
         //divider
         this.ui = new Ui();
