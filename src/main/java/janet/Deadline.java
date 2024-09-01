@@ -47,16 +47,10 @@ public class Deadline extends Task {
         String[] descriptionArray = Arrays.copyOfRange(commandDetails, 1, indexOfBy);
         String description = String.join(" ", descriptionArray);
         String dueDate = null;
-        try {   // code will try to convert the input into a LocalDate/LocalTime
-            // get due date
-            String inputDate  = commandDetails[commandDetails.length - 2];    // yyyy-mm-dd
-            LocalDate date = LocalDate.parse(inputDate);
-            String outputDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            // get time
-            String inputTime = commandDetails[commandDetails.length - 1];
-            LocalTime time = LocalTime.parse(inputTime);
-            String outputTime = time.format(DateTimeFormatter.ofPattern("hh:mm a"));
-            dueDate = outputDate + " " + outputTime;
+        try {
+            // converts due date from (yyyy-MM-dd) to (MM dd yyyy)
+            // converts time from (hh:mm) to (hh:mm a)
+            dueDate = Task.DateAndTimeFormatter(commandDetails[commandDetails.length - 2], commandDetails[commandDetails.length - 1]);
         } catch (DateTimeParseException e) {
             throw new JanetException("WHOOPS! Ensure that the due date is in the format: yyyy-MM-dd hh:mm (24hr)");
         }
@@ -76,7 +70,7 @@ public class Deadline extends Task {
         String[] deadlineDetails = findDeadlineDetails(commandDetails);     // (description, MMM dd yyyy hh:mm a)
         String dateAndTimeString = deadlineDetails[1];    // MMM dd yyyy hh:mm a
         DateTimeFormatter stringToDateTime = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
-        LocalDateTime dateAndTime = LocalDateTime.parse(dateAndTimeString, stringToDateTime);
+        LocalDateTime dateAndTime = LocalDateTime.parse(dateAndTimeString, stringToDateTime);  // format String to LocalDateTime
         return new Deadline(deadlineDetails[0], "D", dateAndTime);
     }
 
