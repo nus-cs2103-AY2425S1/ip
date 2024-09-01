@@ -15,16 +15,13 @@ public class Nimbus {
         this.ui = new Ui(taskList);
     }
 
-    private void run() throws MissingStartEndTimeException, WrongDateTimeFormatException,
-            MissingDeadlineException, IOException, MissingDescriptionException, WrongInputException {
+    private void run() throws WrongDateTimeFormatException, IOException {
         Ui.showWelcome();
         ui.run();
     }
 
     public static void main(String[] args)
-            throws WrongInputException, MissingDescriptionException,
-            MissingDeadlineException, MissingStartEndTimeException, IOException,
-            WrongDateTimeFormatException {
+            throws IOException, WrongDateTimeFormatException {
         new Nimbus("src/main/data/nimbus.txt").run();
     }
 }
