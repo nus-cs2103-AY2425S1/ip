@@ -1,5 +1,8 @@
 package Bwead;
 
+/**
+ * Represents a task that has a string method and can be marked to done.
+ */
 public class Task {
 
     public boolean done;

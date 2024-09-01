@@ -3,28 +3,50 @@ package Bwead;
 import java.util.Scanner;
 import java.io.IOException;
 
+/**
+ * Handles input commands from the system and parses it using Parsers,
+ * then provides outputs back to the user.
+ */
 public class Ui {
 
     private Scanner scanner;
     private TaskList taskList;
     private History history;
 
+    /**
+     * Constructor for a new Ui, creating a scanner as well.
+     */
     public Ui() {
         scanner = new Scanner(System.in);
     }
 
+    /**
+     * sets a reference to History and TaskList.
+     *
+     * @param taskList taskList with all the current tasks.
+     * @param history handles saving the tasks locally.
+     */
     public void set (History history, TaskList taskList) {
         this.history = history;
         this.taskList = taskList;
     }
 
-    public void showLoadingError (String msg) {
+    /**
+     * Prints the error message when loading.
+     *
+     * @param msg error message.
+     */
+    public void showLoadingError(String msg) {
         System.out.println(msg);
     }
 
+    /**
+     * Handles the command inputs by parsing it using a Parser.
+     *
+     * @throws IOException when a failure occurs while performing scanning or write operations.
+     */
     public void handleCommands() throws IOException {
         while (true) {
-
             String input = scanner.nextLine();
 
             Parser parser = new Parser(input);

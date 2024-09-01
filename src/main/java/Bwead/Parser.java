@@ -1,42 +1,84 @@
 package Bwead;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.time.LocalDate;
 
+/**
+ * Takes in a command, and provides necessary information about the command
+ * back to the Ui.
+ */
 public class Parser {
 
     private static Scanner scanner = new Scanner(System.in);
     private String command;
 
+    /**
+     * Constructor for Parser, creating a command to parse.
+     *
+     * @param command input command.
+     */
     public Parser(String command) {
         this.command = command;
     }
 
+    /**
+     * Checks if the command is a single word.
+     *
+     * @return boolean true if the command is a single word.
+     * @throws IOException when a failure occurs while performing write operations.
+     */
     public boolean isOneWord() {
         return command.indexOf(" ") == -1;
     }
 
+    /**
+     * Checks if the command is more than one word and invalid.
+     *
+     * @return boolean true if the command is invalid and multiple words.
+     */
     public boolean isInvalidMultiWord() {
         return !command.startsWith("todo") && !command.startsWith("deadline") && !command.startsWith("event")
                 && !command.startsWith("delete") && !command.startsWith("mark") && !command.startsWith("unmark");
     }
 
+    /**
+     * Gets the index of the task to mark.
+     *
+     * @return int index of task in taskList.
+     */
     public int getTaskToMark() {
         return Integer.valueOf(command.split(" ")[1]);
     }
 
+    /**
+     * Gets the Todo task name.
+     *
+     * @return String Todo task name.
+     */
     public String getTodoName() {
         return command.replace("todo ", "");
     }
 
+    /**
+     * Gets the Deadline task name.
+     *
+     * @return String Deadline task name.
+     */
     public String getDeadlineName() {
         String input1 = command.replace("deadline ", "");
         int slash = input1.indexOf("/");
         return input1.substring(0, slash - 1);
     }
 
+    /**
+     * Gets the Deadline task date.
+     *
+     * @return LocalDate Deadline task date.
+     * @throws BweadException if date input is invalid.
+     */
     public LocalDate getDeadlineDate() throws BweadException {
         try {
             String dateString = command.split("/by ")[1];
@@ -48,11 +90,22 @@ public class Parser {
         }
     }
 
+    /**
+     * Gets the Event task name.
+     *
+     * @return String Event task name
+     */
     public String getEventName() {
         String input = command.replace("event ", "");
         return input.split("/from")[0];
     }
 
+    /**
+     * Gets the Event task start date.
+     *
+     * @return LocalDate event task start date.
+     * @throws BweadException if date input is invalid.
+     */
     public LocalDate getEventStart() throws BweadException {
         try {
             String startString = command.split("/from ")[1].split(" /to")[0];
@@ -63,6 +116,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Gets the EVent task end date.
+     *
+     * @return LocalDate Event task end date.
+     * @throws BweadException if date input is invalid.
+     */
     public LocalDate getEventEnd() throws BweadException {
         try {
             String endString = command.split("/from ")[1].split("/to ")[1];
@@ -73,6 +132,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Gets the index of task to delete.
+     *
+     * @return int task index.
+     */
     public int getDeleteIndex() {
         return Integer.valueOf(command.split(" ")[1]);
     }
@@ -87,6 +151,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Gets the Event task start time.
+     *
+     * @return LocalTime Event task start time.
+     * @throws BweadException if time input is invalid.
+     */
     public LocalTime getEventStartTime() throws BweadException {
         try {
             String startDateTimeString = command.split("from ")[1].split(" /to")[0];
@@ -98,6 +168,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Gets the Event task end time.
+     *
+     * @return LocalTime Event task end time.
+     * @throws BweadException if time input is invalid.
+     */
     public LocalTime getEventEndTime() throws BweadException {
         try {
             String endDateTimeString = command.split("to ")[1];
