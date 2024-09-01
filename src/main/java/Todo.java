@@ -6,9 +6,13 @@ public class Todo extends Task {
 
     @Override
     public String toFileString() {
-        return "D | " + this.getStatus() + " | " + this.getDescription();
+        return "T | " + this.getStatus() + " | " + this.getDescription();
     }
 
+    @Override
+    public String toUIString() {
+        return "Doc, you don't just walk into a store and buy plutonium! But you sure can add this task to your list!\n";
+    }
 
     @Override
     public String toString() {
