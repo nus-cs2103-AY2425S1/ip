@@ -7,6 +7,7 @@ import jbot.command.ByeCommand;
 import jbot.command.DeadlineCommand;
 import jbot.command.DeleteCommand;
 import jbot.command.EventCommand;
+import jbot.command.FindCommand;
 import jbot.command.InvalidCommandException;
 import jbot.command.JBotCommand;
 import jbot.command.ListCommand;
@@ -41,6 +42,8 @@ public class Parser {
         Parser.commandMap.put("deadline", DeadlineCommand.getInstance());
         Parser.commandMap.put("event", EventCommand.getInstance());
         Parser.commandMap.put("delete", DeleteCommand.getInstance());
+        Parser.commandMap.put("find", FindCommand.getInstance());
+
     }
 
     /**
