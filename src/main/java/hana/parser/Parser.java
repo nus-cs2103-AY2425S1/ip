@@ -8,6 +8,7 @@ import hana.command.DeleteCommand;
 import hana.command.EventCommand;
 import hana.command.FindByDateCommand;
 import hana.command.FindCommand;
+import hana.command.GreetingsCommand;
 import hana.command.HelpCommand;
 import hana.command.ListCommand;
 import hana.command.MarkCommand;
@@ -49,6 +50,8 @@ public class Parser {
             return new HelpCommand();
         } else if (input.startsWith("findByKey")) {
             return new FindCommand(input);
+        } else if (input.startsWith("hello")) {
+            return new GreetingsCommand();
         } else {
             throw new HanaException("Unknown command! Use help to see list of available commands");
         }

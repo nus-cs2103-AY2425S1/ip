@@ -6,13 +6,13 @@ import hana.tasklist.TaskList;
 import hana.ui.Ui;
 
 /**
- * Represents a command to print list of all tasks.
- * When executed, this command will print all tasks.
+ * Represents a command to exit the program.
+ * When executed, this command will print a goodbye message and signal the application to exit.
  */
-public class ListCommand extends Command {
+public class GreetingsCommand extends Command {
 
     /**
-     * Executes the command to print all tasks.
+     * Executes the ByeCommand which prints a goodbye message.
      *
      * @param taskList The list of tasks.
      * @param ui The UI object used to interact with the user.
@@ -21,9 +21,6 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws HanaException {
-        if (taskList.isEmpty()) {
-            ui.printMessage("No Task in list.\nAdd Task using todo, deadline or event");
-        }
-        ui.printTasks(taskList.getTasks());
+        ui.printGreetings();
     }
 }
