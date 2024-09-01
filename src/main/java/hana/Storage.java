@@ -13,13 +13,27 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Handles loading tasks from the file and saving tasks to the file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Initializes the Storage with the specified file path.
+     *
+     * @param filePath The path of the file to save/load tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the specified file.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws IOException If there is an error reading the file.
+     */
     public List<Task> load() throws IOException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -60,6 +74,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the tasks to the specified file.
+     *
+     * @param tasks The list of tasks to save.
+     * @throws IOException If there is an error writing to the file.
+     */
     public void save(List<Task> tasks) throws IOException {
         FileWriter writer = new FileWriter(filePath);
 
@@ -70,6 +90,12 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Converts a Task object to a string format suitable for saving to the file.
+     *
+     * @param task The Task to convert.
+     * @return A string representing the Task.
+     */
     private String taskToString(Task task) {
         if (task instanceof ToDo) {
             return "T | " + (task.isDone ? "1" : "0") + " | " + task.description;

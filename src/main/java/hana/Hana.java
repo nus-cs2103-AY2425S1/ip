@@ -4,12 +4,22 @@ import java.io.IOException;
 
 import hana.task.TaskList;
 
+/**
+ * Entry point for the Hana application.
+ * Manages the initialization and execution of the program.
+ */
 public class Hana {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Initializes the Hana application with the given file path.
+     * Loads the task list from the specified file.
+     *
+     * @param filePath The file path where the tasks are stored.
+     */
     public Hana(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -21,6 +31,9 @@ public class Hana {
         }
     }
 
+    /**
+     * Runs the Hana application, which listens for user input and executes commands.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -36,6 +49,11 @@ public class Hana {
         }
     }
 
+    /**
+     * Main method to start the Hana application.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         new Hana("data/hana.txt").run();
     }

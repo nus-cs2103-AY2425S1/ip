@@ -10,8 +10,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Handles the parsing of user input into executable commands.
+ */
 public class Parser {
 
+    /**
+     * Parses the user's command input and returns the corresponding Command object.
+     *
+     * @param fullCommand The full command string input by the user.
+     * @return A Command object representing the user's command.
+     * @throws HanaException If the command is invalid or contains errors.
+     */
     public static Command parse(String fullCommand) throws HanaException {
         String[] parts = fullCommand.split(" ", 2);
         String commandWord = parts[0];
