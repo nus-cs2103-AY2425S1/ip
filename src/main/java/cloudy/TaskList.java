@@ -1,5 +1,6 @@
 package cloudy;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 
 /**
@@ -41,6 +42,16 @@ public class TaskList {
         if (index >= 0 && index < tasks.size()) {
             tasks.remove(index);
         }
+    }
+
+    public ArrayList<Task> findTasks(String searchQuery) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.description.contains(searchQuery)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 
     public ArrayList<Task> getAllTasks() {

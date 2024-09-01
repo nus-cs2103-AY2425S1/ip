@@ -1,10 +1,15 @@
 package cloudy;
 
+<<<<<<< HEAD
 /**
  * The Ui class handles all interactions with the user.
  * It is responsible for displaying messages, including greetings, task lists,
  * and error messages, in a formatted manner.
  */
+=======
+import java.util.ArrayList;
+
+>>>>>>> branch-Level-9
 public class Ui {
 
     /**
@@ -65,6 +70,15 @@ public class Ui {
         System.out.println("____________________________________________________________");
         System.out.println("Noted. I've removed this task:");
         System.out.println("Now you have " + totalTasks + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    public void showFindTask(ArrayList<Task> tasks) {
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i).printTaskOnList());
+        }
         System.out.println("____________________________________________________________");
     }
 
