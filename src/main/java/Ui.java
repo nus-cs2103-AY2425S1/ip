@@ -8,7 +8,7 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-    static void showWelcome() {
+    void showWelcome() {
         System.out.print(HLINE +
                 " Hello! I'm 'B word'\n" +
                 " What can I do for you?\n" +

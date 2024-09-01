@@ -76,7 +76,8 @@ public class Parser {
         } else if (action.equals("todo") || action.equals("deadline") || action.equals("event")) {
             return new AddCommand(action, desc);
         } else if (action.equals("delete")) {
-            this.deleteTask(Integer.parseInt(desc));
+            return new DeleteCommand(Integer.parseInt(desc));
+            // this.deleteTask(Integer.parseInt(desc));
         } else {
             try {
                 throw new InvalidCommandException();
