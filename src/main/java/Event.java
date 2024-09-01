@@ -11,7 +11,7 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return "";
+        return "D | " + this.getStatus() + " | " + this.getDescription() + " | " + this.start + " | " + this.end;
     }
 
     @Override

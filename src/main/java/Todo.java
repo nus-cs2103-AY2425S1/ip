@@ -6,7 +6,7 @@ public class Todo extends Task {
 
     @Override
     public String toFileString() {
-        return "";
+        return "D | " + this.getStatus() + " | " + this.getDescription();
     }
 
 
