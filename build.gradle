@@ -32,7 +32,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "luffy"
+    archiveBaseName = "LuffyBot"
+    archiveVersion = "v0.1"
     archiveClassifier = null
 }
 
