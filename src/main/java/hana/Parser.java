@@ -48,8 +48,8 @@ public class Parser {
                 throw new HanaException("OOPS!!! Please add deadline date/time by adding /by");
             }
             try {
-                LocalDate d1 = LocalDate.parse(deadlineParts[1]);
-                deadlineParts[1] = d1.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                LocalDate dateBy = LocalDate.parse(deadlineParts[1]);
+                deadlineParts[1] = dateBy.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
             } catch (DateTimeParseException e) {
                 throw new HanaException("OOPS!!! The date format is incorrect. Please use the format YYYY-MM-DD.");
             }
@@ -64,13 +64,13 @@ public class Parser {
                 throw new HanaException("OOPS!!! Please add /from before /to");
             }
             try {
-                LocalDate d1 = LocalDate.parse(eventParts[1]);
-                LocalDate d2 = LocalDate.parse(eventParts[2]);
-                if (d1.isAfter(d2)) {
+                LocalDate dateFrom = LocalDate.parse(eventParts[1]);
+                LocalDate dateTo = LocalDate.parse(eventParts[2]);
+                if (dateFrom.isAfter(dateTo)) {
                     throw new HanaException("OOPS!!! from date cannot be after to date.");
                 }
-                eventParts[1] = d1.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-                eventParts[2] = d2.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                eventParts[1] = dateFrom.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                eventParts[2] = dateTo.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
             } catch (DateTimeParseException e) {
                 throw new HanaException("OOPS!!! The date format is incorrect. \nPlease use the format YYYY-MM-DD.");
             }
