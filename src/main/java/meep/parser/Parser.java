@@ -19,6 +19,7 @@ enum Command {
     EVENT,
     TODO,
     LIST,
+    FIND
 }
 
 public class Parser {
@@ -127,6 +128,13 @@ public class Parser {
 
         } else if (CommandParser.checkEqualCommand(input, Command.LIST.toString())) {
             ui.listTasks(taskList.getList());
+        } else if (CommandParser.checkCommand(input, Command.FIND.toString())) {
+            try {
+                String keyword = input.split(" ", 2)[1];
+                ui.findTasks(taskList.findTasks(keyword));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ui.invalidFindCommand();
+            }
         } else {
             // Any other command will be considered invalid
             ui.invalidCommand();
