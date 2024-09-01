@@ -18,34 +18,27 @@ public class Ui {
         System.out.println("There was an error!");
     }
 
+    /**
+     * Prints an error message when
+     * an exception occurs!
+     */
     public void showLoadingError(Exception e) {
         System.out.println(e.getMessage());
     }
 
-    public boolean hasDate(String s) {
-        if (s.matches("\\d{4}-\\d{2}-\\d{2}") || s.matches("\\d{4}-\\d{2}-\\d{2} ")) {
-            return true;
-        }
-        return false;
+    /**
+     * Welcomes the user!
+     */
+    public void welcome() {
+        System.out.println("Hello! I'm the boss.");
+        System.out.println("What can I do for you?");
     }
 
-    public boolean hasDateTime(String s) {
-        if (s.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}") || s.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2} ")) {
-            return true;
-        }
-        return false;
-    }
-
-    public String formatDateTime(String s, boolean time) {
-        if (!time) {
-            LocalDate date = LocalDate.parse(s);
-            return date.format(DateTimeFormatter.ofPattern("MMM d yyyy "));
-        } else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            LocalDateTime date = LocalDateTime.parse(s, formatter);
-            return date.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm "));
-        }
-
+    /**
+     * Says goodbye to the user!
+     */
+    public void bye() {
+        System.out.println("Bye. Hope to see you again soon!");
     }
 
 

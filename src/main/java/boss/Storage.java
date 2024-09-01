@@ -37,6 +37,7 @@ public class Storage {
         while (s.hasNext()) {
             String str = s.nextLine();
             System.out.println(i + ". " + str);
+
             i++;
         }
     }
@@ -100,7 +101,7 @@ public class Storage {
 
             String deadline = string[1].split("by: ")[1];
 
-            return Deadline.of(string[0], deadline, isDone);
+            return new Deadline(string[0], isDone, deadline);
 
         } else if (str.contains("[E]")) {
             String[] newStr = description.split("\\| ");

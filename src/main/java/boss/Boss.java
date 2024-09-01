@@ -21,8 +21,7 @@ public class Boss {
      * Starts the Chatbot.
      */
     public void run() {
-        System.out.println("Hello! I'm the boss.");
-        System.out.println("What can I do for you?");
+        ui.welcome();
         Scanner myObj = new Scanner(System.in);
 
         Parser parser = new Parser(storage, tasks, ui);
@@ -40,7 +39,7 @@ public class Boss {
             }
             task = myObj.nextLine();
         }
-        System.out.println("Bye. Hope to see you again soon!");
+        ui.bye();
 
     }
 

@@ -121,6 +121,10 @@ public class TaskList {
     }
 
 
+    /**
+     * Finds a word in the list of tasks
+     * @param word word to find
+     */
     public void find(String word) {
         int i = 0;
         for (Task str : tasks) {

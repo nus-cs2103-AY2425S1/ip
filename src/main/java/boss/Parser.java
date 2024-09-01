@@ -82,18 +82,7 @@ public class Parser {
                     ui.showLoadingError(new BossException("Please specify a deadline date!"));
                 }
 
-                //check if string has date
-                Task newTask;
-                if (ui.hasDateTime(str[1])) {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                    LocalDateTime date = LocalDateTime.parse(str[1], formatter);
-                    newTask = new Deadline(str[0], false, date);
-                } else if (ui.hasDate(str[1])) {
-                    LocalDate date = LocalDate.parse(str[1]);
-                    newTask = new Deadline(str[0], false, date);
-                } else {
-                    newTask = new Deadline(str[0], false, str[1]);
-                }
+                Task newTask = new Deadline(str[0], false, str[1]);
 
                 tasks.addTask(newTask);
                 tasks.printabstraction();
@@ -102,13 +91,13 @@ public class Parser {
                 break;
 
             case EVENT:
-                String[] str3 = task.split("/");
-                if (!(str3.length == 3 && str3[1].contains("from") && str3[2].contains("to"))) {
+                String[] strArr = task.split("/");
+                if (!(strArr.length == 3 && strArr[1].contains("from") && strArr[2].contains("to"))) {
                     ui.showLoadingError(new BossException("Wrong input! You must specify a description, start and end date for an event!"));
                 }
-                String[] description = str3[0].split(" ");
-                String[] fromArr = str3[1].split("from ");
-                String[] toArr = str3[2].split("to ");
+                String[] description = strArr[0].split(" ");
+                String[] fromArr = strArr[1].split("from ");
+                String[] toArr = strArr[2].split("to ");
 
                 if (description.length <= 1 || fromArr.length <= 1 || toArr.length <= 1
                         || fromArr[1].equals("") || toArr[1].equals("")) {
@@ -118,21 +107,7 @@ public class Parser {
                 String from = fromArr[1];
                 String to = toArr[1];
 
-                if (ui.hasDateTime(from)) {
-                    from = from.trim();
-                    from = ui.formatDateTime(from, true);
-                } else if (ui.hasDate(from)) {
-                    from = from.replace(" ", "");
-                    from = ui.formatDateTime(from, false);
-                }
-
-                if (ui.hasDateTime(to)) {
-                    to = ui.formatDateTime(to, true);
-                } else if (ui.hasDate(to)) {
-                    to = ui.formatDateTime(to, false);
-                }
-
-                Task newItem = new Event(str3[0], from, to, false);
+                Task newItem = new Event(strArr[0], from, to, false);
 
                 tasks.addTask(newItem);
                 tasks.printabstraction();
