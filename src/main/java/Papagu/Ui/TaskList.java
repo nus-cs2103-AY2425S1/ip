@@ -79,4 +79,19 @@ public class TaskList {
         }
         return result;
     }
+
+    /**
+     * Finds tasks that match a given keyword
+     * @param keyword
+     * @return TaskList containing tasks that match the keyword
+     */
+    public TaskList findTasks(String keyword) {
+        TaskList result = new TaskList();
+        for (int i = 0; i < this.taskCount; i++) {
+            if (tasks[i].isMatching(keyword)) {
+                result.addTask(tasks[i]);
+            }
+        }
+        return result;
+    }
 }
