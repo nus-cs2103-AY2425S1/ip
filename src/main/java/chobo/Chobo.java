@@ -47,6 +47,10 @@ public class Chobo {
     public static void main(String[] args) {
         new Chobo().run();
     }
+
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
 }
 
 
