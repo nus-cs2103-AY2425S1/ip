@@ -1,4 +1,4 @@
-public class Task
+public abstract class Task
 {
     public String description;
     public boolean isDone;
@@ -19,6 +19,8 @@ public class Task
     public String getStatus() {
         return (isDone ? "X" : " ");
     }
+
+    public abstract String write();
 
     @Override
     public String toString() {
