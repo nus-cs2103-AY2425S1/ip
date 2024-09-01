@@ -2,7 +2,7 @@ package Gumball;
 
 import java.io.IOException;
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     private int index;
 
     /**
@@ -22,10 +22,11 @@ public class DeleteCommand extends Command{
      * @throws IOException
      */
     @Override
-    public void execute(TaskList list, UI ui, FileManager fileManager) throws InputErrorException, IOException {
+    public void execute(TaskList list, UI ui, FileManager fileManager)
+            throws InputErrorException, IOException {
         String temp = list.delete(index);
-        ui.print("Nice! I've deleted this task:\n" + temp
-                + String.format("\nNow you have %d tasks in the list.",list.getN()));
+        UI.print("Nice! I've deleted this task:\n" + temp
+                + String.format("\nNow you have %d tasks in the list.", list.getN()));
         fileManager.updateFile(list);
     }
 }

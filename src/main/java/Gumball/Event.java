@@ -11,8 +11,8 @@ public class Event extends Task {
      * @param desc The description of the Event to be added including name the start and end times.
      * @throws TaskException
      */
-    public Event(String desc) throws TaskException{
-        super("",desc);
+    public Event(String desc) throws TaskException {
+        super("", desc);
         try {
             String[] section = desc.substring(6).split("/from | /to ");
             super.description = section[0] + "(from: " + section[1] + " to: " + section[2] + ")";

@@ -13,7 +13,7 @@ public abstract class Task {
      * @param description The description of the task.
      * @param originalInput The original input that was inputted by the user.
      */
-    public Task(String description,String originalInput) {
+    public Task(String description, String originalInput) {
         this.description = description;
         this.originalInput = originalInput;
         this.isDone = false;

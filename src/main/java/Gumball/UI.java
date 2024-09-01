@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class UI {
     private Parser parser;
-    Scanner inputScanner;
-    public String input;
+    private Scanner inputScanner;
+    private String input;
 
     public UI() {
         parser = new Parser();
@@ -15,6 +15,7 @@ public class UI {
     public String readCommand() {
         return inputScanner.nextLine();
     }
+
     public void intro() {
         String str = "Hello! I'm Gumball.Gumball \n"
                 + "What can I do for you?";
@@ -22,12 +23,12 @@ public class UI {
     }
 
     public void outro() {
-        String str ="Bye. Hope to see you again soon!";
+        String str = "Bye. Hope to see you again soon!";
         print(str);
     }
 
     public static void print(String out) {
-        String str ="____________________________________________________________";
+        String str = "____________________________________________________________";
         System.out.println(str);
         System.out.println(out);
         System.out.println(str);

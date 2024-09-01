@@ -16,7 +16,7 @@ public class TaskList {
      * @return information of the Task being added.
      * @throws InputErrorException
      */
-    public String add(Task adding) throws InputErrorException{
+    public String add(Task adding) throws InputErrorException {
         tasks.add(adding);
         n++;
         return getSpecific(n);
@@ -35,13 +35,16 @@ public class TaskList {
      * @param i Index of task.
      * @throws InputErrorException
      */
-    public void mark(int i) throws InputErrorException{
-        if(tasks.isEmpty()) {
+
+    public void mark(int i) throws InputErrorException {
+        if (tasks.isEmpty()) {
             throw new InputErrorException("Sorry your task list is currently empty");
-        } try {
+        }
+        try {
             tasks.get(i - 1).markDone();
         } catch (IndexOutOfBoundsException e) {
-            throw new InputErrorException("Sorry you do not have that many Tasks in your list");
+            throw new InputErrorException(
+                    "Sorry you do not have that many Tasks in your list");
         } catch (NullPointerException e) {
             throw new InputErrorException("Sorry your task list is currently empty");
         }
@@ -54,20 +57,23 @@ public class TaskList {
      * @throws InputErrorException
      */
     public String getSpecific(int i) throws InputErrorException {
-        if(tasks.isEmpty()) {
+        if (tasks.isEmpty()) {
             throw new InputErrorException("Sorry your task list is currently empty");
-        } try {
+        }
+        try {
             String temp = "";
             Task task = tasks.get(i - 1);
             temp = temp + task.getTaskType();
             temp = temp + task.getStatusIcon() + " ";
             temp = temp + task.getDescription();
             return temp;
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             if (i <= 0) {
-                throw new InputErrorException("Invalid input task number cannot be zero or less");
+                throw new InputErrorException(
+                        "Invalid input task number cannot be zero or less");
             } else {
-                throw new InputErrorException("Sorry you do not have that many Tasks in your list");
+                throw new InputErrorException(
+                        "Sorry you do not have that many Tasks in your list");
             }
         } catch (NullPointerException e) {
             throw new InputErrorException("Sorry your task list is currently empty.");
@@ -85,9 +91,11 @@ public class TaskList {
             return tasks.get(i - 1);
         } catch (IndexOutOfBoundsException e) {
             if (i <= 0) {
-                throw new InputErrorException("Invalid input task number cannot be zero or less");
+                throw new InputErrorException(
+                        "Invalid input task number cannot be zero or less");
             } else {
-                throw new InputErrorException("Sorry you do not have that many Tasks in your list");
+                throw new InputErrorException(
+                        "Sorry you do not have that many Tasks in your list");
             }
         }
     }
@@ -121,7 +129,7 @@ public class TaskList {
      */
     public String delete(int i) throws InputErrorException {
         String str = getSpecific(i);
-        tasks.remove(i-1);
+        tasks.remove(i - 1);
         n--;
         return str;
     }
