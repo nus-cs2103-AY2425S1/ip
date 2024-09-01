@@ -16,3 +16,7 @@
 [D][ ] return book (by: Dec 12 2024)
 [D][ ] return book (by: Dec 12 2024, 12:00 pm)
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
+[T][ ] return book
+[T][ ] go home
+[T][ ] go home
+[T][ ] off aircon

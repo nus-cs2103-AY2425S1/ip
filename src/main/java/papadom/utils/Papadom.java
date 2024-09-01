@@ -53,7 +53,7 @@ public class Papadom {
         while (true) {
             String input = SCANNER.nextLine();
             String response = Papadom.getResponse(input);
-            // Put response on the chat
+            // Redundant
         }
     }
 
