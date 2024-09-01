@@ -1,36 +1,34 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class DataFileModifier {
-    private final Path path = Paths.get("./src/main/data/Astor.txt");
+public class Storage {
+
+    // private final Path path = Paths.get("./src/main/data/Astor.txt");
     private FileWriter fw;
     private File file;
 
-    public DataFileModifier() {
+    public Storage(String filePath) {
         try {
-            this.fw = createNewDataStore();
+            this.fw = createNewDataStore(filePath);
         } catch (IOException e) {
             System.out.println("Error occurred while loading the file: " + e.getMessage());
         }
     }
 
-    private FileWriter createNewDataStore() throws IOException {
-
+    private FileWriter createNewDataStore(String filePath) throws IOException {
+        Path path = Paths.get(filePath);
         File file = path.toFile();
-
         if (!file.exists()) {
             file.createNewFile();
         }
-
         this.file = file;
         return new FileWriter(file, true);
     }
@@ -88,8 +86,4 @@ public class DataFileModifier {
         }
         return tasks;
     }
-
-
-
-
 }
