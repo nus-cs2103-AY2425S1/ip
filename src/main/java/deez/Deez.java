@@ -217,6 +217,11 @@ public class Deez implements Serializable {
         Ui.say("Bye. Hope to see you soon!");
     }
 
+    public String getResponse(String input) {
+        Pair<Command, Properties> inputPair = Parser.parse(input);
+        return inputPair.toString();
+    }
+
     public static void main(String[] args) throws IOException {
         Deez deez = new Deez();
         if (storage.canLoad()) {
