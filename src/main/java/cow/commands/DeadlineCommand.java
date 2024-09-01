@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import cow.exceptions.CowExceptions;
 import cow.filesaver.FileSaver;
-import cow.message.Message;
+import cow.message.Ui;
 import cow.tasks.Deadlines;
 import cow.tasks.Task;
 import cow.todolist.TodoList;
@@ -40,10 +40,10 @@ public class DeadlineCommand extends Command {
      * @throws CowExceptions any exceptions that might arise from the implementation.
      */
     @Override
-    public void execute(TodoList todoList, FileSaver fileSaver) throws CowExceptions {
+    public void execute(TodoList todoList, Ui ui, FileSaver fileSaver) throws CowExceptions {
         Task t = new Deadlines(this.description, this.by);
         todoList.add(t);
         fileSaver.saveData(todoList);
-        Message.printAddedTask(t, todoList);
+        ui.printAddedTask(t, todoList);
     }
 }

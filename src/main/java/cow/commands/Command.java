@@ -1,6 +1,8 @@
 package cow.commands;
+
 import cow.exceptions.CowExceptions;
 import cow.filesaver.FileSaver;
+import cow.message.Ui;
 import cow.todolist.TodoList;
 
 // solution below inspired by https://github.com/se-edu/addressbook-level2/tree/master
@@ -20,6 +22,6 @@ public abstract class Command {
      * @param fileSaver filesaver object used to write data to txt.
      * @throws CowExceptions any exceptions that might arise from the implementation.
      */
-    public void execute(TodoList todoList, FileSaver fileSaver) throws CowExceptions {};
+    public void execute(TodoList todoList, Ui ui, FileSaver fileSaver) throws CowExceptions {};
 
 }

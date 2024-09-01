@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import cow.exceptions.CowExceptions;
-import cow.message.Message;
 import cow.message.Messages;
+import cow.message.Ui;
 import cow.tasks.Task;
 
 /**
@@ -35,11 +35,11 @@ public class TodoList {
      * @param i index to mark.
      * @throws CowExceptions if index is invalid.
      */
-    public void markTask(int i) throws CowExceptions {
+    public void markTask(int i, Ui ui) throws CowExceptions {
         try {
             Task t = todoList.get(i);
             t.markAsDone();
-            Message.printMarked(t);
+            ui.printMarked(t);
         } catch (IndexOutOfBoundsException e) {
             throw new CowExceptions(Messages.INDEX_OUT_OF_RANGE);
         }
@@ -52,11 +52,11 @@ public class TodoList {
      * @param i index to mark.
      * @throws CowExceptions if index is invalid.
      */
-    public void unmarkTask(int i) throws CowExceptions {
+    public void unmarkTask(int i, Ui ui) throws CowExceptions {
         try {
             Task t = todoList.get(i);
             t.unmarkAsDone();
-            Message.printUnmarked(t);
+            ui.printUnmarked(t);
         } catch (IndexOutOfBoundsException e) {
             throw new CowExceptions(Messages.INDEX_OUT_OF_RANGE);
         }

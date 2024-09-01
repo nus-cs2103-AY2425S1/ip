@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import cow.exceptions.CowExceptions;
 import cow.filesaver.FileSaver;
-import cow.message.Message;
+import cow.message.Ui;
 import cow.todolist.TodoList;
 
 // solution below inspired by https://github.com/se-edu/addressbook-level2/tree/master
@@ -28,7 +28,7 @@ public class DueCommand extends Command {
      * @throws CowExceptions any exceptions that might arise from the implementation.
      */
     @Override
-    public void execute(TodoList todoList, FileSaver fileSaver) throws CowExceptions {
-        Message.printDue(this.date, todoList);
+    public void execute(TodoList todoList, Ui ui, FileSaver fileSaver) throws CowExceptions {
+        ui.printDue(this.date, todoList);
     }
 }

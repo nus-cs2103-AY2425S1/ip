@@ -7,10 +7,11 @@ import cow.tasks.Task;
 import cow.todolist.TodoList;
 
 /** Class to handle all printing methods. **/
-public class Message {
-    private static final Scanner scanner = new Scanner(System.in);
+public class Ui {
+    private final Scanner scanner = new Scanner(System.in);
+    private String text = "";
 
-    public static String readCommand() {
+    public String readCommand() {
         return scanner.nextLine();
     }
 
@@ -18,23 +19,24 @@ public class Message {
      * Prints a string in the dialog box.
      * @param text The content of the dialog box.
      */
-    public static void print(String text) {
+    public void print(String text) {
         printDialogBox(text);
     }
 
     /**
      * Prints greeting message
      */
-    public static void printGreetings() {
+    public String printGreetings() {
         String content = " Hello! I'm COW\n"
                 + " What can I do for you?";
         printDialogBox(content);
+        return content;
     }
 
     /**
      * Prints error loading file.
      */
-    public static void printLoadingError() {
+    public void printLoadingError() {
         String content = "Error loading file, proceed with empty task list";
         printDialogBox(content);
     }
@@ -44,7 +46,7 @@ public class Message {
      * @param task     The task that was added.
      * @param todoList The todoList the task was added to.
      */
-    public static void printAddedTask(Task task, TodoList todoList) {
+    public void printAddedTask(Task task, TodoList todoList) {
         String content = "Got it. I've added this task:\n"
                 + "  "
                 + task + "\n"
@@ -56,7 +58,7 @@ public class Message {
      * Prints the message after marking a task.
      * @param task The task to be marked.
      */
-    public static void printMarked(Task task) {
+    public void printMarked(Task task) {
         String content = "Nice! I've marked this task as done:\n  " + task;
         printDialogBox(content);
     }
@@ -64,7 +66,7 @@ public class Message {
     /**
      * Prints the message after detecting corrupted file and skipping the line.
      */
-    public static void printCorruptionDetected() {
+    public void printCorruptionDetected() {
         String content = "Corrupted command detected! Skipping command.";
         printDialogBox(content);
     }
@@ -72,7 +74,7 @@ public class Message {
     /**
      * Prints the message before exiting the program.
      */
-    public static void printGoodBye() {
+    public void printGoodBye() {
         String content = "Bye. Hope to see you again soon!";
         printDialogBox(content);
     }
@@ -82,7 +84,7 @@ public class Message {
      * @param date The specific date to check.
      * @param todoList The list of todos.
      */
-    public static void printDue(LocalDate date, TodoList todoList) {
+    public void printDue(LocalDate date, TodoList todoList) {
         printDialogBox(todoList.getDueAt(date).toString());
     }
 
@@ -90,7 +92,7 @@ public class Message {
      * Prints the message after unmarking a task.
      * @param task The task to be unmarked.
      */
-    public static void printUnmarked(Task task) {
+    public void printUnmarked(Task task) {
         String content = "OK, I've marked this task as not done yet:\n  " + task;
         printDialogBox(content);
     }
@@ -100,7 +102,7 @@ public class Message {
      * @param task The task that was deleted.
      * @param todoList The todoList the task was deleted from.
      */
-    public static void printDeletedTask(Task task, TodoList todoList) {
+    public void printDeletedTask(Task task, TodoList todoList) {
         String content = "Noted. I've removed this task:\n"
                 + "  "
                 + task + "\n"
@@ -112,7 +114,7 @@ public class Message {
      * Prints the content and dialog box.
      * @param content The content to be printed in the dialog box.
      */
-    private static void printDialogBox(String content) {
+    private void printDialogBox(String content) {
         String line = "____________________________________________________________";
         System.out.println(line
                 + "\n"
@@ -120,13 +122,19 @@ public class Message {
                 + "\n"
                 + line
                 + "\n");
+        this.text = content;
+    }
+
+    /** Returns the latest command output **/
+    public String getCurrentText() {
+        return this.text;
     }
 
     /**
      * Prints todo list in a nice format.
      * @param list TodoList to print.
      */
-    public static void printList(TodoList list) {
+    public void printList(TodoList list) {
         String content = "Here are the tasks in your list:\n"
                 + list;
         printDialogBox(content);
@@ -136,7 +144,7 @@ public class Message {
      * Prints matched todo list in a nice format.
      * @param list TodoList to print.
      */
-    public static void printFindTask(TodoList list) {
+    public void printFindTask(TodoList list) {
         String content = "Here are the matching tasks in your list:\n"
                 + list;
         printDialogBox(content);

@@ -2,7 +2,7 @@ package cow.commands;
 
 import cow.exceptions.CowExceptions;
 import cow.filesaver.FileSaver;
-import cow.message.Message;
+import cow.message.Ui;
 import cow.tasks.Task;
 import cow.tasks.Todo;
 import cow.todolist.TodoList;
@@ -34,10 +34,10 @@ public class TodoCommand extends Command {
      * @throws CowExceptions any exceptions that might arise from the implementation.
      */
     @Override
-    public void execute(TodoList todoList, FileSaver fileSaver) throws CowExceptions {
+    public void execute(TodoList todoList, Ui ui, FileSaver fileSaver) throws CowExceptions {
         Task t = new Todo(this.description);
         todoList.add(t);
-        Message.printAddedTask(t, todoList);
+        ui.printAddedTask(t, todoList);
         fileSaver.saveData(todoList);
     }
 
