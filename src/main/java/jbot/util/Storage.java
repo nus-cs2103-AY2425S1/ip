@@ -19,6 +19,10 @@ import jbot.task.EventTask;
 import jbot.task.Task;
 import jbot.task.ToDoTask;
 
+/**
+ * A utility class for managing the storage of tasks in a JSON file.
+ * This class cannot be instantiated.
+ */
 public class Storage {
     private Storage() {
         throw new UnsupportedOperationException("Utility class cannot be instantiated");
@@ -26,10 +30,19 @@ public class Storage {
 
     private static File storageFile;
 
+    /**
+     * Initializes the storage by setting up the storage file.
+     * This method should be called before any operations on the storage.
+     */
     public static void init() {
         Storage.storageFile = getStorageFile();
     }
 
+    /**
+     * Retrieves the storage file. Creates the file if it does not exist.
+     *
+     * @return The storage file.
+     */
     public static File getStorageFile() {
         Path dataFilePath = Paths.get("data", "JBotStorage.json");
         File file = dataFilePath.toFile();
@@ -57,6 +70,10 @@ public class Storage {
         return file;
     }
 
+    /**
+     * Updates the storage file with the current list of tasks.
+     * Converts tasks to JSON format and writes them to the file.
+     */
     public static void updateData() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(storageFile))) {
             StringBuilder json = new StringBuilder();
@@ -78,6 +95,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Converts a task to its JSON representation.
+     *
+     * @param task The task to convert.
+     * @return The JSON string representing the task.
+     */
     private static String taskToJson(Task task) {
         String type = task.getTaskTypeSymbol();
         String name = task.getName();
@@ -95,6 +118,10 @@ public class Storage {
         return "{}";
     }
 
+    /**
+     * Parses the storage file and populates the task list with the data from the file.
+     * Handles various task types and updates the task list accordingly.
+     */
     public static void parseData() {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -152,6 +179,12 @@ public class Storage {
         TaskList.setList(tasks);
     }
 
+    /**
+     * Extracts the value from a field in a string format.
+     *
+     * @param field The field string containing the value.
+     * @return The extracted value.
+     */
     private static String getValue(String field) {
         return field.split(":")[1].replace("\"", "").trim();
     }

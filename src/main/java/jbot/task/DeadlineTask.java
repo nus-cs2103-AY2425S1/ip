@@ -4,10 +4,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with a deadline.
+ * A <code>DeadlineTask</code> includes a name and a specific deadline date and time.
+ */
 public class DeadlineTask extends Task {
 
     LocalDateTime deadline;
 
+    /**
+     * Constructs a <code>DeadlineTask</code> with the specified input string.
+     * The input string must include the task name and deadline in the format 'd/M/yyyy HHmm'.
+     *
+     * @param input The input string containing the task details and deadline.
+     */
     public DeadlineTask(String input) {
         int byIndex = input.indexOf("/by");
         this.name = input.substring(9, byIndex).trim();
@@ -24,13 +34,25 @@ public class DeadlineTask extends Task {
         this.taskTypeSymbol = "D";
     }
 
-    // Constructor for deserialization
+    /**
+     * Constructs a <code>DeadlineTask</code> with the specified name and deadline.
+     * This constructor is intended for deserialization.
+     *
+     * @param name The name of the task.
+     * @param deadlineString The deadline in ISO-8601 format.
+     */
     public DeadlineTask(String name, String deadlineString) {
         this.name = name;
         this.taskTypeSymbol = "D";
         this.deadline = LocalDateTime.parse(deadlineString); // Assuming the deadlineString is in ISO format
     }
 
+    /**
+     * Returns a string representation of the deadline task.
+     * The format is the task's super string representation followed by the formatted deadline.
+     *
+     * @return A string representation of the deadline task.
+     */
     @Override
     public String toString() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
@@ -38,6 +60,11 @@ public class DeadlineTask extends Task {
         return String.format("%1$s (by: %2$s)", super.toString(), formattedDeadline);
     }
 
+    /**
+     * Returns the deadline as a string in ISO-8601 format.
+     *
+     * @return The deadline in ISO-8601 format.
+     */
     public String getDeadlineAsString() {
         return this.deadline.toString(); // This returns the ISO-8601 format by default
     }

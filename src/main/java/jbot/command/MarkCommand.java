@@ -3,13 +3,33 @@ package jbot.command;
 import jbot.task.Task;
 import jbot.util.TaskList;
 
+/**
+ * Represents a command that marks a specific task as done.
+ * This command updates the status of a task in the task list to completed.
+ * Implements {@link JBotCommand} to adhere to the command interface.
+ */
 public class MarkCommand implements JBotCommand {
     private static final MarkCommand instance = new MarkCommand();
+
     private MarkCommand() {
-    };
+    }
+
+    /**
+     * Returns the singleton instance of {@link MarkCommand}.
+     *
+     * @return The singleton instance of {@link MarkCommand}.
+     */
     public static MarkCommand getInstance() {
         return MarkCommand.instance;
     }
+
+    /**
+     * Executes the Mark command using the provided input string.
+     * Marks the task at the specified index as done and prints a confirmation message.
+     *
+     * @param input The user input string containing the command and the task index.
+     *              The index is expected to be the second part of the input string.
+     */
     @Override
     public void run(String input) {
         int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
