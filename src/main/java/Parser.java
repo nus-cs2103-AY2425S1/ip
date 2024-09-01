@@ -1,14 +1,9 @@
-import java.time.format.DateTimeFormatter;
-
 /**
  * The Parser class is responsible for interpreting and processing user input.
  * It determines the type of action requested by the user and provides the appropriate
  * response based on the input.
  */
 public class Parser {
-
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-
     /**
      * Constructs a Parser object.
      * There is no specific initialization required for this class.
