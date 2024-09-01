@@ -6,12 +6,22 @@ import astor.Ui;
 import astor.exception.AstorException;
 import astor.exception.MarkingTaskNotANumberException;
 
+/**
+ * Represents a class for marking a task as not completed.
+ *
+ * When executed, it looks for the task in the taskList and marks it as undone, updates the storage and sends reply
+ * to user. This is not a terminal command.
+ *
+ * @author Choi Yi Hao
+ */
 public class UnmarkCommand extends Command {
     private final String info;
 
     public UnmarkCommand(String info) {
         this.info = info;
     }
+
+
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws AstorException {

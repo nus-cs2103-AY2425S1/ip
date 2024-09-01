@@ -10,6 +10,14 @@ import astor.task.Todo;
 
 import java.io.IOException;
 
+/**
+ * Represents a command for creating a todo task.
+ *
+ * When executed, it stores the todo task in the taskList and updates the storage.
+ * This is not a terminal command.
+ *
+ * @author Choi Yi Hao
+ */
 public class TodoCommand extends Command {
     private String info;
 

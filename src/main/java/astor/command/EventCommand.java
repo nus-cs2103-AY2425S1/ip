@@ -11,7 +11,14 @@ import astor.task.Task;
 
 import java.io.IOException;
 
-
+/**
+ * Represents a command to create an Event task.
+ *
+ * Allows the command to be executed, to store events in taskList, updates storage and sends reply to the ui,
+ * and shows that this is not a terminal command
+ *
+ * @author Choi Yi Hao
+ */
 public class EventCommand extends Command {
     private String info;
 

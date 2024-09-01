@@ -3,8 +3,14 @@ package astor;
 import astor.command.*;
 import astor.exception.*;
 
+/**
+ * Parses user input and categorises the command to take.
+ */
 public class Parser {
 
+    /**
+     * The list of the available commands.
+     */
     private enum Action {
         BYE,
         MARK,
@@ -21,6 +27,12 @@ public class Parser {
     public Parser() {
     }
 
+    /**
+     * Scans the user input for the first keyword to deduce the command given.
+     *
+     * @param input the user input string to categorise
+     * @return the action categorised from the input
+     */
     private static Action categorise(String input) {
         if (input.equals("bye")) {
             return Action.BYE;
@@ -44,6 +56,15 @@ public class Parser {
         return Action.DEFAULT;
     }
 
+    /**
+     * Processes the user input and returns the corresponding Command object.
+     *
+     * @param input the user input string to process
+     * @return the Command object corresponding to the input
+     * @throws AstorException if the input is invalid or results in an error
+     * @throws EmptyInputException if the input is empty
+     * @throws UnspecificTaskException if the input does not match any known command
+     */
     public static Command process(String input) throws AstorException {
         Action action = categorise(input);
         switch (action) {

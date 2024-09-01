@@ -6,6 +6,14 @@ import astor.Ui;
 import astor.exception.AstorException;
 import astor.exception.MarkingTaskNotANumberException;
 
+/**
+ * Represents a command to mark tasks as completed.
+ *
+ * When executed, it looks for the task in the taskList, mark the task as done and updates the storage.
+ * This is not a terminal command.
+ *
+ * @author Choi Yi Hao
+ */
 public class MarkCommand extends Command {
     private final String info;
 
