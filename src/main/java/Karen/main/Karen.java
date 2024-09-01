@@ -1,8 +1,10 @@
-import main.java.commands.Command;
-import main.java.tasks.TaskList;
-import main.java.util.Parser;
-import main.java.util.Storage;
-import main.java.util.Ui;
+package Karen.main;
+
+import Karen.commands.Command;
+import Karen.tasks.TaskList;
+import Karen.util.Parser;
+import Karen.util.Storage;
+import Karen.util.Ui;
 
 public class Karen {
     private TaskList taskList;

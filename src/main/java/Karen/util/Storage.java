@@ -1,4 +1,4 @@
-package main.java.util;
+package Karen.util;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
-import main.java.tasks.Task;
-import main.java.tasks.TaskList;
+import Karen.tasks.Task;
+import Karen.tasks.TaskList;
 
 public class Storage {
     private static final Path DIRPATH = Paths.get("./data");

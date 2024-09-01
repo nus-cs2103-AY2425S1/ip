@@ -1,4 +1,4 @@
-package main.java.tasks;
+package Karen.tasks;
 
 public class Todo extends Task {
     public Todo(String name) {

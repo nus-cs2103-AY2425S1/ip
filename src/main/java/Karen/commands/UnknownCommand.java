@@ -1,7 +1,7 @@
-package main.java.commands;
+package Karen.commands;
 
-import main.java.tasks.TaskList;
-import main.java.util.Ui;
+import Karen.tasks.TaskList;
+import Karen.util.Ui;
 
 public class UnknownCommand extends Command {
 

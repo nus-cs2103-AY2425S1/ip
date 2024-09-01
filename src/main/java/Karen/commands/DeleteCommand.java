@@ -1,9 +1,9 @@
-package main.java.commands;
+package Karen.commands;
 
-import main.java.tasks.Task;
-import main.java.tasks.TaskList;
-import main.java.util.Storage;
-import main.java.util.Ui;
+import Karen.tasks.Task;
+import Karen.tasks.TaskList;
+import Karen.util.Storage;
+import Karen.util.Ui;
 
 public class DeleteCommand extends Command {
     private int index;

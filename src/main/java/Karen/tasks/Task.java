@@ -1,4 +1,4 @@
-package main.java.tasks;
+package Karen.tasks;
 
 public abstract class Task {
     private String name;
