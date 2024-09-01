@@ -21,6 +21,7 @@ public class Bword {
                 // System.out.println(s);
                 th.addPastTask(s);
             }
+            sc.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
             e.printStackTrace();
@@ -29,13 +30,6 @@ public class Bword {
         Scanner sc = new Scanner(System.in);
 
         Ui.showWelcome();
-
-        /*
-        System.out.print(HLINE +
-                " Hello! I'm 'B word'\n" +
-                " What can I do for you?\n" +
-                HLINE);
-         */
 
         enum States {to_loop, to_exit, to_list}
         States currentState = States.to_loop;

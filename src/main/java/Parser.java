@@ -57,4 +57,35 @@ public class Parser {
 
         return t;
     }
+
+    static Command parse(String fullCommand) {
+        String action = fullCommand.split(" ")[0];
+        String desc = fullCommand.substring(fullCommand.indexOf(" ") + 1);
+        desc = desc.stripLeading();
+        if (action.equals("mark")) {
+            return new MarkCommand(Integer.parseInt(desc));
+            // Task t = this.tasks.get(Integer.parseInt(desc) - 1).markAsDone();
+            // System.out.println("I've marked as done:\n" + t);
+        } else if (action.equals("unmark")) {
+            return new UnmarkCommand(Integer.parseInt(desc));
+            // Task t = this.tasks.get(Integer.parseInt(desc) - 1).markAsNotDone();
+            // System.out.println("I've marked as not done:\n" + t);
+        } else if (action.equals("list")) {
+            return new ListCommand();
+            // System.out.println(this.getTasksString());
+        } else if (action.equals("todo") || action.equals("deadline") || action.equals("event")) {
+            return new AddCommand(action, desc);
+        } else if (action.equals("delete")) {
+            this.deleteTask(Integer.parseInt(desc));
+        } else {
+            try {
+                throw new InvalidCommandException();
+            } catch (InvalidCommandException e) {
+                System.out.println(e);
+            }
+            //System.out.println("Unknown command: " + command);
+        }
+    }
+
+
 }
