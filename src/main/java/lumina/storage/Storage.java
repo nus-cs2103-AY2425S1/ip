@@ -14,12 +14,21 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Manages the saving and loading of task data to and from a file.
+ */
 public class Storage {
     // paths
     private static final String DATA_DIRECTORY_PATH = "./data";
     private static final String DATA_FILE_PATH = "./data/data.txt";
 
     private Parser parser;
+
+    /**
+     * Constructs a Storage instance with the specified parser.
+     *
+     * @param parser the Parser instance used for parsing dates or other data in the storage operations
+     */
     public Storage(Parser parser) {
         this.parser = parser;
     }
@@ -49,7 +58,13 @@ public class Storage {
         }
     }
 
-
+    /**
+     * Saves the data from the given TaskList to a file.
+     * The data is written to a file specified by {@code DATA_FILE_PATH}.
+     * If the file already exists, it is truncated before writing new data.
+     *
+     * @param taskList the TaskList instance containing the tasks to be saved
+     */
     public void saveData(TaskList taskList) {
         Path path = Paths.get(DATA_FILE_PATH);
         ArrayList<String> lines = taskList.toLines();
@@ -62,7 +77,10 @@ public class Storage {
     }
 
     /**
-     * Loads all valid data onto the current list of tasks from data.txt
+     * Loads all valid data from the data file and sets it onto the provided TaskList.
+     * The data file is created if it does not already exist.
+     *
+     * @param taskList the TaskList instance to which the loaded tasks will be added
      */
     public void loadData(TaskList taskList) {
         // create data directory and file if not exists

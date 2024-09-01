@@ -9,8 +9,18 @@ import lumina.task.TodoTask;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Utility class for parsing dates and task data.
+ */
 public class Parser {
 
+    /**
+     * Parses a date string into a LocalDate object.
+     *
+     * @param date the date string to parse
+     * @return the parsed LocalDate object
+     * @throws LuminaException if the date string is in an invalid format
+     */
     public LocalDate parseDateString(String date) throws LuminaException {
         LocalDate ret = null;
 
@@ -23,6 +33,14 @@ public class Parser {
         return ret;
     }
 
+    /**
+     * Parses a data line from the storage file into a Task object.
+     * The data line should be in the format: "<type> | <done> | <description> | <additionalData>"
+     * The type can be "T" for TodoTask, "D" for DeadlineTask, or "E" for EventTask.
+     *
+     * @param line the data line to parse
+     * @return the parsed Task object, or null if the line is invalid
+     */
     public Task parseDataLine(String line) {
         String[] parts = line.split(" \\| ");
         LuminaException luminaException = new LuminaException(

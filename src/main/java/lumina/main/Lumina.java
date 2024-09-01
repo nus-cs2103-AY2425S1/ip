@@ -9,7 +9,7 @@ import lumina.exception.LuminaException;
 import java.util.Scanner;
 
 /**
- * The Lumina.Main.Lumina class represents a simple chatbot.
+ * Represents a simple chatbot.
  * It uses predefined set of responses and can be extended for more complex behaviour
  */
 public class Lumina {
