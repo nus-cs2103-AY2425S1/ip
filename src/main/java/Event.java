@@ -7,6 +7,11 @@ public class Event extends Task {
         this.toTime = toTime;
     }
 
+    @Override
+    public String getOriginalCommand() {
+        return "event " + super.getOriginalCommand() + " /from " + this.fromTime + " /to " + this.toTime;
+    }
+
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.fromTime + ", to: " + this.toTime + ")";
     }
