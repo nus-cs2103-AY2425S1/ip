@@ -68,4 +68,17 @@ public class Task {
         return (this.isDone ? "[X] " : "[ ] ")
                 + this.description;
     }
+
+    /**
+     * Returns if the task matches the keyword.
+     * @param keyword
+     * @return
+     */
+    public boolean isMatching(String keyword) {
+        if (this.description.contains(keyword)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
