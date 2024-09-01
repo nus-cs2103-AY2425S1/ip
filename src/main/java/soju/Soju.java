@@ -40,6 +40,13 @@ public class Soju {
         soju.run();
     }
 
+    public String getResponse(String input) throws SojuException {
+        Command command = Parser.parse(input);
+        String response = command.execute(tasks, ui, storage);
+        storage.saveToFile(tasks);
+        return response;
+    }
+
     /**
      * Runs the main event loop of the Soju chatbot.
      * It greets the user, continuously reads and processes user commands,

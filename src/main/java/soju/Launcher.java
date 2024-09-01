@@ -1,3 +1,5 @@
+package soju;
+
 import javafx.application.Application;
 
 /**
