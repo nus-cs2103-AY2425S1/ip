@@ -29,7 +29,7 @@ test {
 }
 
 application {
-    mainClass.set("Mizz")
+    mainClass.set("mizz.Mizz")
 }
 
 checkstyle {
