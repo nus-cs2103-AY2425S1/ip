@@ -16,3 +16,10 @@ exceptions:
                 + "                          `---'  ";
 
         System.out.println("Hello from\n" + logo);*/
+
+
+gradle tools:
+./gradlew run
+./gradlew checkstyleMain checkstyleTest
+./gradlew test
+./gradlew clean shadowJar

@@ -1,2 +1,2 @@
-T | 0 | read
-T | 0 | dice
+T | 1 | read book
+T | 0 | play
