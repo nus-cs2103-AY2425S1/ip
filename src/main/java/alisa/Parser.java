@@ -26,6 +26,8 @@ public class Parser {
                 return new DeleteCommand(Integer.parseInt(commandArray[1]));
             case "list":
                 return new ListCommand();
+            case "bye":
+                return new ExitCommand();
             default:
                 throw new AlisaException("Sorry, I didn't quite catch that. Put in a command that I understand");
         }
