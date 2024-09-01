@@ -1,9 +1,8 @@
-import java.time.format.DateTimeFormatter;
 
 public class EventTask extends Task {
-    private String taskName;
-    private DateTime startTime;
-    private DateTime endTime;
+    private final String taskName;
+    private final DateTime startTime;
+    private final DateTime endTime;
 
     public EventTask(String taskName, String startTime, String endTime)
             throws WrongDateTimeFormatException {
@@ -33,6 +32,6 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " from: " + this.startTime + " to: " + this.endTime;
+        return "[E]" + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")";
     }
 }

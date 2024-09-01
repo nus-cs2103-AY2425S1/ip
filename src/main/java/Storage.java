@@ -5,15 +5,15 @@ import java.util.logging.Logger;
 
 public class Storage {
     private static String filepath;
-    private static String dirpath;
-    private static final Logger logger = Logger.getLogger(Nimbus.class.getName());
+    private String dirpath = "src/main/data";
+    private final Logger logger = Logger.getLogger(Nimbus.class.getName());
+    private static final Logger staticLogger = Logger.getLogger(Nimbus.class.getName());
 
-    public Storage(String filepath, String dirpath) {
-        this.filepath = filepath;
-        this.dirpath = dirpath;
+    public Storage(String filepath) {
+        Storage.filepath = filepath;
     }
 
-    public static void createFile() {
+    public void createFile() {
         try {
             File directory = new File(dirpath);
             if (!directory.exists()) {
@@ -29,7 +29,7 @@ public class Storage {
         }
     }
 
-    public static void loadFile(TaskList taskList) {
+    public void loadFile(TaskList taskList) {
         try {
             File savedFile = new File(filepath);
             if (!savedFile.exists()) {
@@ -120,7 +120,7 @@ public class Storage {
                 printWriter.println(task.toFileFormat());
             }
         } catch (IOException e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
+            staticLogger.log(Level.SEVERE, e.getMessage(), e);
         }
     }
 }
