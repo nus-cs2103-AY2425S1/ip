@@ -20,6 +20,7 @@ public class Tira {
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
+    private Parser parser;
 
     public Tira(String filePath) {
         ui = new Ui();
@@ -30,6 +31,8 @@ public class Tira {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+        parser = new Parser(tasks);
+
     }
 
     public void run() throws TiraException{
@@ -48,10 +51,8 @@ public class Tira {
                 String firstWord = splitCommand[0];
                 if (command.equals("bye")) { //BYE
                     break;
-                } else if (firstWord.equals("list")) { //LIST
-                    ui.showTaskList(tasks);
                 } else {
-                    tasks.modifyTask(firstWord, command, splitCommand);
+                    parser.parseCommand(command);
                 }
             }
             try {
