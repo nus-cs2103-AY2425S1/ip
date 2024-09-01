@@ -47,4 +47,19 @@ public class DeadlineTask extends Task {
         return "[D]" + super.toString() + " (by: " +
                 byDateObject.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (obj instanceof DeadlineTask) {
+            DeadlineTask other = (DeadlineTask) obj;
+            return this.byDateObject.equals(other.byDateObject);
+        }
+        return false;
+    }
 }

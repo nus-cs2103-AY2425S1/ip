@@ -78,4 +78,16 @@ public abstract class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj instanceof Task) {
+            Task task = (Task) obj;
+            return task.description.equals(this.description) && task.isDone == this.isDone;
+        }
+        return false;
+    }
 }

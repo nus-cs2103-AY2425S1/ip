@@ -37,4 +37,18 @@ public class TodoTask extends Task {
         return "[T]" + super.toString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        if (o instanceof  TodoTask) {
+            return true;
+        }
+        return false;
+    }
+
 }

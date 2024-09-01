@@ -57,4 +57,20 @@ public class EventTask extends Task {
                 this.endDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        if(o instanceof EventTask) {
+            EventTask other = (EventTask) o;
+            return this.startDateObject.equals(other.startDateObject)
+                    && this.endDateTime.equals(other.endDateTime);
+        }
+        return false;
+    }
+
 }
