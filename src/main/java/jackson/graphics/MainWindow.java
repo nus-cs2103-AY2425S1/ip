@@ -1,18 +1,18 @@
 package jackson.graphics;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import jackson.Jackson;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
 /**
  * Controller for the main GUI.
@@ -29,8 +29,8 @@ public class MainWindow extends AnchorPane {
 
     private Jackson jackson;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image jacksonImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User_Icon.jpg"));
+    private Image jacksonImage = new Image(this.getClass().getResourceAsStream("/images/Jackson_Icon.png"));
 
     @FXML
     public void initialize() {
@@ -63,9 +63,14 @@ public class MainWindow extends AnchorPane {
 
         if (commandType.equals("exit")) {
             this.dialogContainer.getChildren().addAll(
-                    DialogBox.getJacksonDialog(jackson.sayGoodbye(), this.jacksonImage, commandType)
+                    DialogBox.getJacksonDialog(jackson.sayGoodbye(), this.jacksonImage, commandType),
+                    DialogBox.getJacksonDialog("This window will close in 5 seconds hor...", this.jacksonImage, "error")
             );
-//            Platform.exit();
+            this.userInput.setDisable(true);
+            this.userInput.setPromptText("Exiting...");
+            this.sendButton.setDisable(true);
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> Platform.exit()));
+            timeline.play();
         }
         this.userInput.clear();
     }
