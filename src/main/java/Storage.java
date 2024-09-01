@@ -16,6 +16,7 @@ import java.io.BufferedReader;
 public class Storage {
     private static DateTimeFormatter OUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
     private final String filePath;
+    private final Ui ui = new Ui();
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -41,6 +42,9 @@ public class Storage {
                 String line = bufferedReader.readLine();
                 while (line != null) {
                     lines.add(line);
+                    if (bufferedReader.readLine() == null) {
+                        break;
+                    }
                 }
                 return this.convertToTaskList(lines);
             }
@@ -75,21 +79,21 @@ public class Storage {
         if (task instanceof ToDo) {
             output += "T | ";
             if (task.isDone) {
-                output += "1 ";
+                output += "1";
             } else {
-                output += "0 ";
+                output += "0";
             }
-            output += task.getDescription();
+            output += " | " + task.getDescription();
         }
         if (task instanceof Deadline) {
             output += "D |";
             Deadline deadline = (Deadline) task;
             if (deadline.isDone) {
-                output += "1 ";
+                output += "1";
             } else {
-                output += "0 ";
+                output += "0";
             }
-            output += deadline.getDescription() + " | " + deadline.getEndDate();
+            output += " | " + deadline.getDescription() + " | " + deadline.getEndDate();
 
         }
         if (task instanceof Event) {
@@ -100,7 +104,7 @@ public class Storage {
             } else {
                 output += "0 ";
             }
-            output += event.getDescription() + " | " + event.getStartDate() +
+            output +=  " | " + event.getDescription() + " | " + event.getStartDate() +
                     " | " + event.getEndDate();
         }
         return output;

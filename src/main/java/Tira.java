@@ -34,25 +34,22 @@ public class Tira {
 
     public void run() throws TiraException{
         Ui ui = new Ui();
-        ui.greet();
-        Scanner scanner = new Scanner(new InputStreamReader(System.in));
+        ui.welcome();
+        boolean isDone = false;
         PrintWriter printer = new PrintWriter(System.out);
-        String logo = "TIRAMISU THE CAT (TIRA)";
-        System.out.println("MIAO (Hello) from\n" + logo + "\n" +
-                "What can I do for you, miao?\n");
         // check the user input
         /*
         ArrayList<Task> taskList = new ArrayList<Task>();
          */
         //Solution for Save below (Level-7)  inspired by https://github.com/hansneddyanto/ip/blob/master/src/main/java/Hana.java
             while (true) {
-                String command = scanner.nextLine();
+                String command = ui.read();
                 String[] splitCommand = command.split(" ");
                 String firstWord = splitCommand[0];
                 if (command.equals("bye")) { //BYE
                     break;
                 } else if (firstWord.equals("list")) { //LIST
-                    tasks.printTasks();
+                    ui.showTaskList(tasks);
                 } else {
                     tasks.modifyTask(firstWord, command, splitCommand);
                 }

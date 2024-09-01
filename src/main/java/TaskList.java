@@ -9,6 +9,7 @@ public class TaskList {
     private ArrayList<Task> tasks;
     private final PrintWriter printer = new PrintWriter(System.out);
     private static DateTimeFormatter IN_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private final Ui ui = new Ui();
 
     public TaskList() {
         this.tasks = new ArrayList<Task>();
@@ -16,14 +17,6 @@ public class TaskList {
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
-    }
-    public void printTasks() {
-        printer.println("HERE ARE THE CURRENT TASKS:");
-        for (int i = 0; i < tasks.size(); i++) {
-            Task currTask = tasks.get(i);
-            printer.print((i + 1) + ". " + currTask + "\n");
-        }
-        printer.flush();
     }
 
     public ArrayList<Task> getTasks() {
@@ -36,8 +29,8 @@ public class TaskList {
         }
         int currNum = Integer.parseInt(splitCommand[1]) - 1;
         tasks.get(currNum).markStatus();
-        printer.print("NYA! Good job on this task:" + "\n" +
-                tasks.get(currNum).toString() + "\n");
+        Task currTask = tasks.get(currNum);
+        ui.showMarkTask(currTask);
         printer.flush();
     }
 
@@ -45,10 +38,10 @@ public class TaskList {
         if (splitCommand.length < 2) {
             throw new TiraException("MRAW?? WHERE IS THE TASK?");
         }
-        int currNum2 = Integer.parseInt(splitCommand[1]) - 1;
-        tasks.get(currNum2).unmarkStatus();
-        printer.print("MRAWWW! Don't forget to return to this task:" + "\n" +
-                tasks.get(currNum2).toString() + "\n");
+        int currNum= Integer.parseInt(splitCommand[1]) - 1;
+        tasks.get(currNum).unmarkStatus();
+        Task currTask = tasks.get(currNum);
+        ui.showUnmarkTask(currTask);
         printer.flush();
     }
 
@@ -84,9 +77,7 @@ public class TaskList {
         }
         Task newTask = new ToDo(description);
         tasks.add(newTask);
-        System.out.println("Miao! Got it. I've added this task to my cat brain:\n" +
-                newTask.toString() + "\nNow you have " + tasks.size() + " task(s) in the list!");
-
+        ui.showAddTask(newTask, tasks.size());
     }
 
     public void addDeadline(String command, String[] splitCommand) throws TiraException {
@@ -98,8 +89,7 @@ public class TaskList {
             LocalDate endDate = LocalDate.parse(dateCommands[1].substring(3).trim(), IN_FORMATTER);
             Task deadlineTask = new Deadline(dateCommands[0], endDate);
             tasks.add(deadlineTask);
-            System.out.println("Miao! Got it. I've added this task to my cat brain:\n" +
-                    deadlineTask.toString() + "\nNow you have " + tasks.size() + " task(s) in the list!");
+            ui.showAddTask(deadlineTask, tasks.size());
         } catch (DateTimeParseException e) {
             System.out.println(e.getMessage());
         }
@@ -116,8 +106,7 @@ public class TaskList {
             LocalDate endDate = LocalDate.parse(dateCommands[2].substring(3).trim(), IN_FORMATTER);
             Task eventTask = new Event(dateCommands[0], startDate, endDate);
             tasks.add(eventTask);
-            System.out.println("Miao! Got it. I've added this task to my cat brain:\n" +
-                    eventTask.toString() + "\nNow you have " + tasks.size() + " task(s) in the list!");
+            ui.showAddTask(eventTask, tasks.size());
         } catch (DateTimeParseException e) {
             System.out.println(e.getMessage());
         }
@@ -130,8 +119,7 @@ public class TaskList {
         int indexToDelete = Integer.parseInt(splitCommand[1]);
         Task taskToRemove = tasks.get(indexToDelete - 1);
         tasks.remove(indexToDelete - 1);
-        printer.println("Noted, Miao! I've removed this task:\n" + taskToRemove +
-                "\nNow you have " + tasks.size() + " task(s) in the list!");
+        ui.showDelete(taskToRemove, tasks.size());
         printer.flush();
     }
 
