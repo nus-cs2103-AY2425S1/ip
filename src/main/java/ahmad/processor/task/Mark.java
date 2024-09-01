@@ -8,7 +8,19 @@ import ahmad.response.Response;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Mark processor class.
+ */
 public class Mark {
+  /**
+   * Returns a response based on the prompt for a mark command.
+   *
+   * @param prompt Prompt/argument for mark command.
+   * @return Appropriate response for mark command.
+   * @throws MarkInvalidArgsException If prompt/argument is invalid.
+   * @throws MarkInvalidNumberException If given index is invalid.
+   * @throws MarkIndexOutOfBoundsException If given index is out of bounds.
+   */
   public static Response process(String prompt) throws MarkInvalidArgsException, MarkInvalidNumberException, MarkIndexOutOfBoundsException {
     final List<String> prompts = Arrays.asList(prompt.split(" "));
 

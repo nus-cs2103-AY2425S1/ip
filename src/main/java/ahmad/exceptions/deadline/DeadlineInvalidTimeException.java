@@ -8,6 +8,7 @@ import ahmad.exceptions.AhmadException;
 public class DeadlineInvalidTimeException extends AhmadException {
   /**
    * Constructs a DeadlineInvalidTimeException instance based on given time.
+   *
    * @param time The invalid time in question.
    */
   public DeadlineInvalidTimeException(String time) {

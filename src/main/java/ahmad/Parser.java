@@ -11,7 +11,17 @@ import ahmad.processor.task.Delete;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A command parser class.
+ */
 public class Parser {
+  /**
+   * Returns the appropriate processor for given command.
+   *
+   * @param prompt User prompt.
+   * @return The correct processor.
+   * @throws CommandInvalidException If command/prompt given is invalid.
+   */
   public static Processor parse(String prompt) throws CommandInvalidException {
 
     final List<String> prompts = Arrays.asList(prompt.split(" "));
