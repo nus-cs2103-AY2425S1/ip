@@ -22,46 +22,49 @@ public class KorolevCommand {
      *
      * @return whether the execution is successful or not
      */
-    public boolean executeCommand() {
+    public String executeCommand() {
 
         if (input.equals("bye")) {
             repo.saveEvent();
-            return false;
+            System.exit(0);
         } else if (input.equals("list")) {
             System.out.println(repo.displayList());
+            return repo.displayList();
         } else if (target[0].equals("unmark")) {
             try {
-                repo.unmarkEvent(Integer.parseInt(target[1]) - 1);
+                return repo.unmarkEvent(Integer.parseInt(target[1]) - 1);
             } catch (DukeException | ArrayIndexOutOfBoundsException | NumberFormatException e) {
                 System.out.println("Error:" + e.getMessage());
+                return "Error:" + e.getMessage();
             }
         } else if (target[0].equals("mark")) {
             try {
-                repo.markEvent(Integer.parseInt(target[1]) - 1);
+                return repo.markEvent(Integer.parseInt(target[1]) - 1);
             } catch (DukeException | ArrayIndexOutOfBoundsException | NumberFormatException e) {
                 System.out.println("Error:" + e.getMessage());
+                return "Error:" + e.getMessage();
             }
         } else if (target[0].equals("delete")) {
             try {
-                repo.removeEvent(Integer.parseInt(target[1]) - 1);
+                return repo.removeEvent(Integer.parseInt(target[1]) - 1);
             } catch (DukeException | ArrayIndexOutOfBoundsException | NumberFormatException e) {
                 System.out.println("Error:" + e.getMessage());
+                return "Error:" + e.getMessage();
             }
         } else if (target[0].equals("find")) {
             String key = "";
             for (String s : this.target) {
                 key = (s + " ");
             }
-            KorolevList.displayFilteredList(repo.findItem(key.strip()));
+            return KorolevList.displayFilteredList(repo.findItem(key.strip()));
         } else {
             try {
-                repo.addEvent(input);
+                return repo.addEvent(input);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+                return e.getMessage();
             }
         }
-        System.out.println(divider);
-        repo.saveEvent();
-        return true;
+        return "";
     }
 }

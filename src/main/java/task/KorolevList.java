@@ -43,7 +43,7 @@ public class KorolevList {
      * @param event description of the event
      * @throws DukeException when failing to add event
      */
-    public void addEvent(String event) throws DukeException {
+    public String addEvent(String event) throws DukeException {
         KorolevTask e;
         String name, date, from, to;
         String target = event.split("\\s")[0];
@@ -57,8 +57,12 @@ public class KorolevList {
                     this.events.add(e);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(e);
+
+                    return "Got it. I've added this task:\n" + e
+                            + "\nNow you have " + events.size() + " tasks in the list\n";
                 } catch (ParseException | DateTimeParseException exp) {
                     System.out.println(exp.getMessage());
+                    return exp.getMessage();
                 }
             }
             case "todo" -> {
@@ -68,8 +72,12 @@ public class KorolevList {
                     this.events.add(e);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(e);
+
+                    return "Got it. I've added this task:\n" + e
+                            + "\nNow you have " + events.size() + " tasks in the list\n";
                 } catch (ParseException exp) {
                     System.out.println(exp.getMessage());
+                    return exp.getMessage();
                 }
             }
             case "deadline" -> {
@@ -80,14 +88,17 @@ public class KorolevList {
                     this.events.add(e);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(e);
+
+                    return "Got it. I've added this task:\n" + e
+                            + "\nNow you have " + events.size() + " tasks in the list\n";
                 } catch (ParseException exp) {
                     System.out.println(exp.getMessage());
+
+                    return exp.getMessage();
                 }
             }
             default -> throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-
-        System.out.println("Now you have " + events.size() + " tasks in the list");
     }
 
     /**
@@ -105,7 +116,7 @@ public class KorolevList {
      * @param index index of the event.
      * @throws DukeException the index is out of bound
      */
-    public void markEvent(int index) throws DukeException {
+    public String markEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
             throw new DukeException(outOfIndexError);
         }
@@ -113,6 +124,8 @@ public class KorolevList {
         t.markTask();
         System.out.println(markNotice);
         System.out.println(t);
+
+        return markNotice + "\n" + t;
     }
 
     /**
@@ -121,7 +134,7 @@ public class KorolevList {
      * @param index index of the task
      * @throws DukeException when the index is out of the range of the array list
      */
-    public void removeEvent(int index) throws DukeException {
+    public String removeEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
             throw new DukeException(outOfIndexError);
         }
@@ -129,6 +142,9 @@ public class KorolevList {
         System.out.println(t);
         System.out.println(deleteNotice);
         System.out.println("Now you have " + this.events.size() + " tasks in the list.");
+
+        return t + "\n" + deleteNotice + "\n"
+                + "Now you have " + this.events.size() + " tasks in the list.";
     }
 
     /**
@@ -138,7 +154,7 @@ public class KorolevList {
      * @throws DukeException when the index is out of the range of the array list
      */
 
-    public void unmarkEvent(int index) throws DukeException {
+    public String unmarkEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
             throw new DukeException(outOfIndexError);
         }
@@ -146,6 +162,8 @@ public class KorolevList {
         t.unmarkTask();
         System.out.println(unmarkNotice);
         System.out.println(t);
+
+        return unmarkNotice + "\n" + t;
     }
 
     /**
@@ -189,12 +207,14 @@ public class KorolevList {
         return out;
     }
 
-    public static void displayFilteredList(ArrayList<KorolevTask> tasks) {
+    public static String displayFilteredList(ArrayList<KorolevTask> tasks) {
         System.out.println(filteredNotice);
         StringBuilder msg = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             msg.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
         System.out.println(msg.toString());
+
+        return filteredNotice + "\n" + msg.toString();
     }
 }
