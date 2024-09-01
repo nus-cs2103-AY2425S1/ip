@@ -6,8 +6,8 @@ public class Event extends Task{
     protected LocalDateTime to;
     public Event(String description, String from, String to) {
         super(description);
-        this.from = Task.parseDateTime(from);
-        this.to = Task.parseDateTime(to);
+        this.from = Parser.parseToDateTime(from);
+        this.to = Parser.parseToDateTime(to);
     }
     @Override
     public String toString() {
