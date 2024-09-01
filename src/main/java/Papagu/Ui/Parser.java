@@ -10,7 +10,16 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.LocalTime;
 
+/**
+ * Deals with making sense of user command
+ */
+
 public class Parser {
+    /**
+     * Function to help convert month to int format
+     * @param month
+     * @return
+     */
     private static int monthConverter(String month) {
         switch (month) {
             case "Jan":
@@ -45,6 +54,8 @@ public class Parser {
     /**
      * Transferrs task already in the Tasks.txt file to the taskList
      * No need to handle writing to file here
+     * @param file
+     * @param taskList
      */
 	public static void parseFile(File file, TaskList taskList) {
         try {
@@ -131,6 +142,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the user input commands and executes the relevant methods from the other classes
+     * @param taskList
+     * @param userInput
+     * @param storage
+     */
     public static void parseInput(TaskList taskList, String userInput, Storage storage) {
         
         String[] typeDetails = userInput.split(" ", 2);

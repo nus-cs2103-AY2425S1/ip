@@ -4,7 +4,9 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.io.File;
 
-
+/**
+ * Main class for Papagu chatbot
+ */
 public class Papagu {
 
     private Storage storage;
@@ -29,6 +31,9 @@ public class Papagu {
         }
     }
 
+    /**
+     * Main function to run Papagu
+     */
     public void run() {
         Ui.printWelcomeMessage();
         Scanner sc = new Scanner(System.in);

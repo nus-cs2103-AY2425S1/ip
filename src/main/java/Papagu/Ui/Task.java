@@ -48,6 +48,10 @@ public class Task {
         return this.description;
     }
 
+    /**
+     * Returns the string representation of the task for saving to tasks.txt
+     * @return
+     */
     public String toFile() {
         return " | " + (this.isDone ? "1" : "0") + " | " + this.description;
     }
