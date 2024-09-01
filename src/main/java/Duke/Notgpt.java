@@ -1,3 +1,5 @@
+package Duke;
+
 public class Notgpt {
 
     public static void lnDiv() {

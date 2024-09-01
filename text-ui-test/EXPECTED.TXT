@@ -19,17 +19,17 @@ ___________________________________________________________________________
 ___________________________________________________________________________
 bruh? type something to add I'm not adding a blank...
 ___________________________________________________________________________
-Event must include both task description and 'from' and 'to' times
+Duke.Tasks.Event must include both task description and 'from' and 'to' times
 ___________________________________________________________________________
-Event must include both task description and 'from' and 'to' times
+Duke.Tasks.Event must include both task description and 'from' and 'to' times
 ___________________________________________________________________________
-Event must include both task description and 'from' and 'to' times
+Duke.Tasks.Event must include both task description and 'from' and 'to' times
 ___________________________________________________________________________
-Event must include both task description and 'from' and 'to' times
+Duke.Tasks.Event must include both task description and 'from' and 'to' times
 ___________________________________________________________________________
-Event must include both task description and 'from' and 'to' times
+Duke.Tasks.Event must include both task description and 'from' and 'to' times
 ___________________________________________________________________________
-Event must include both task description and 'from' and 'to' times
+Duke.Tasks.Event must include both task description and 'from' and 'to' times
 ___________________________________________________________________________
 Wow "thing1 /from 0 /to 100" is an event in your life huh?
 you have 2 tasks now
@@ -39,13 +39,13 @@ ___________________________________________________________________________
 ___________________________________________________________________________
 bruh? type something to add I'm not adding a blank...
 ___________________________________________________________________________
-Deadline must include both a task description and a 'by' time.
+Duke.Tasks.Deadline must include both a task description and a 'by' time.
 ___________________________________________________________________________
-Deadline must include both a task description and a 'by' time.
+Duke.Tasks.Deadline must include both a task description and a 'by' time.
 ___________________________________________________________________________
 The description of a deadline must include '/by' :/
 ___________________________________________________________________________
-Deadline must include both a task description and a 'by' time.
+Duke.Tasks.Deadline must include both a task description and a 'by' time.
 ___________________________________________________________________________
 lol "thing2 /by 0" is a new deadline, better finish it quick...
 you have 3 tasks now

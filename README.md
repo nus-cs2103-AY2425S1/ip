@@ -12,7 +12,7 @@ This is a project is a basic chatbot which can be used to keep track of your tas
 1. **mark** - marks task given in the follow up text as completed by filling in the empty [  ] with a cross [X].  Follow up text must be a valid integer. 
 1. **unmark** - unmarks a task given in the follow up text as completed reverting the [X] to a [  ].  Follow up text must be a valid integer.   
 1. **delete** - deletes task given in the follow up text.  Follow up text must be a valid integer.  
-## Task addition commands
+## Duke.Tasks.Task addition commands
 5. **todo** -
 6. **event** -
 7. **deadline** -

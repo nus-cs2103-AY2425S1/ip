@@ -1,3 +1,5 @@
+package Duke.Tasks;
+
 public class Event extends Task {
     private String from;
     private String to;
@@ -15,7 +17,7 @@ public class Event extends Task {
         }
 
         if (parts[0].trim().isEmpty() || from == null || to == null) {
-            throw new IllegalArgumentException("Event must include both task description and 'from' and 'to' times and not include extra \"/\"");
+            throw new IllegalArgumentException("Duke.Tasks.Event must include both task description and 'from' and 'to' times and not include extra \"/\"");
         }
     }
 

@@ -1,3 +1,9 @@
+package Duke;
+
+import Duke.Tasks.Deadline;
+import Duke.Tasks.Event;
+import Duke.Tasks.Task;
+import Duke.Tasks.Todo;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -54,7 +60,6 @@ public class DataParser {
 
         return null;
     }
-
     private static void setCompletionStatus(Task task, String status) {
         if (status.equals("[X]")) {
             task.complete();
