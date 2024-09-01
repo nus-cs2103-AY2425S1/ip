@@ -1,11 +1,11 @@
 package thanos.utility;
 
-import static thanos.ui.Ui.printDivider;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import thanos.exceptions.InvalidDateException;
 
 /**
  * Utility class for parsing and formatting date and time values.
@@ -60,8 +60,10 @@ public class DateTimeUtility {
      *
      * @param s the string to parse.
      * @return the parsed {@code LocalDateTime} object, or {@code null} if parsing fails.
+     * @throws InvalidDateException if the string cannot be parsed into a valid {@code LocalDateTime} or
+     *                              {@code LocalDate} using the predefined formats.
      */
-    public static LocalDateTime parse(String s) {
+    public static LocalDateTime parse(String s) throws InvalidDateException {
         // Try parsing as LocalDateTime
         for (DateTimeFormatter formatter : dateTimeFormatters) {
             try {
@@ -80,10 +82,8 @@ public class DateTimeUtility {
             }
         }
 
-        // If all parsing attempts fail, print an error message and return null
-        System.out.println("Invalid datetime format: " + s);
-        printDivider();
-        return null;
+        // If all parsing attempts fail, throw an InvalidDateException
+        throw new InvalidDateException("Invalid datetime format: " + s);
     }
 
     /**

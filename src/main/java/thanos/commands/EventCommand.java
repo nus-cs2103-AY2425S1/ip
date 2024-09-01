@@ -5,6 +5,7 @@ import static thanos.utility.ResponseFormatter.generateTaskAddedResponse;
 import java.time.LocalDateTime;
 
 import thanos.exceptions.InvalidCommandException;
+import thanos.exceptions.InvalidDateException;
 import thanos.tasks.Event;
 import thanos.tasks.TaskList;
 import thanos.utility.DateTimeUtility;
@@ -54,13 +55,14 @@ public class EventCommand extends Command {
             );
         }
 
-        LocalDateTime startDate = DateTimeUtility.parse(fromToArr[0]);
-        LocalDateTime endDate = DateTimeUtility.parse(fromToArr[1]);
-        if (startDate == null || endDate == null) {
-            return "";
+        try {
+            LocalDateTime startDate = DateTimeUtility.parse(fromToArr[0]);
+            LocalDateTime endDate = DateTimeUtility.parse(fromToArr[1]);
+            Event event = new Event(description, startDate, endDate);
+            taskList.add(event);
+            return generateTaskAddedResponse(event, taskList.size());
+        } catch (InvalidDateException e) {
+            throw new InvalidCommandException(e.getMessage());
         }
-        Event event = new Event(description, startDate, endDate);
-        taskList.add(event);
-        return generateTaskAddedResponse(event, taskList.size());
     }
 }

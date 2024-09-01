@@ -5,6 +5,7 @@ import static thanos.utility.ResponseFormatter.generateTaskAddedResponse;
 import java.time.LocalDateTime;
 
 import thanos.exceptions.InvalidCommandException;
+import thanos.exceptions.InvalidDateException;
 import thanos.tasks.Deadline;
 import thanos.tasks.TaskList;
 import thanos.utility.DateTimeUtility;
@@ -45,13 +46,15 @@ public class DeadlineCommand extends Command {
             );
         }
 
-        String description = detailsArr[0];
-        LocalDateTime date = DateTimeUtility.parse(detailsArr[1]);
-        if (date == null) {
-            return "";
+        try {
+            String description = detailsArr[0];
+            LocalDateTime date = DateTimeUtility.parse(detailsArr[1]);
+            Deadline deadline = new Deadline(description, date);
+            taskList.add(deadline);
+            return generateTaskAddedResponse(deadline, taskList.size());
+        } catch (InvalidDateException e) {
+            throw new InvalidCommandException(e.getMessage());
         }
-        Deadline deadline = new Deadline(description, date);
-        taskList.add(deadline);
-        return generateTaskAddedResponse(deadline, taskList.size());
+
     }
 }

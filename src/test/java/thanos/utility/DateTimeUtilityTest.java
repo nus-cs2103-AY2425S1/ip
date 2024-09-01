@@ -7,9 +7,11 @@ import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
+import thanos.exceptions.InvalidDateException;
+
 public class DateTimeUtilityTest {
     @Test
-    public void testParseWithValidDateTimeFormats() {
+    public void testParseWithValidDateTimeFormats() throws InvalidDateException {
         assertEquals(LocalDateTime.of(2024, 8, 26, 14, 30),
                 DateTimeUtility.parse("26/8/2024 1430"));
 
@@ -42,7 +44,7 @@ public class DateTimeUtilityTest {
     }
 
     @Test
-    public void testParseWithValidDateFormats() {
+    public void testParseWithValidDateFormats() throws InvalidDateException {
         assertEquals(LocalDateTime.of(2024, 8, 26, 0, 0),
                 DateTimeUtility.parse("26/8/2024"));
 
@@ -57,7 +59,7 @@ public class DateTimeUtilityTest {
     }
 
     @Test
-    public void testParseWithInvalidDateTimeFormat() {
+    public void testParseWithInvalidDateTimeFormat() throws InvalidDateException {
         assertNull(DateTimeUtility.parse("Tomorrow 2 PM"));
     }
 

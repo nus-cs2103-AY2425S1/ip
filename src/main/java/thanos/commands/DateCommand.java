@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import thanos.exceptions.InvalidCommandException;
+import thanos.exceptions.InvalidDateException;
 import thanos.tasks.Task;
 import thanos.tasks.TaskList;
 import thanos.utility.DateTimeUtility;
@@ -47,11 +48,12 @@ public class DateCommand extends Command {
             );
         }
 
-        LocalDateTime date = DateTimeUtility.parse(this.getArgument());
-        if (date == null) {
-            return "";
+        try {
+            LocalDateTime date = DateTimeUtility.parse(this.getArgument());
+            ArrayList<Task> result = taskList.findByDate(date);
+            return generateTaskListResponse(result, "Here are the tasks on: " + format(date));
+        } catch (InvalidDateException e) {
+            throw new InvalidCommandException(e.getMessage());
         }
-        ArrayList<Task> result = taskList.findByDate(date);
-        return generateTaskListResponse(result, "Here are the tasks on: " + format(date));
     }
 }
