@@ -24,6 +24,7 @@ public class Parser {
                 throw new InputException("The description of a todo cannot be empty");
             }
             break;
+        // fallthrough
         case "deadline":
         case "event":
         case "list":
@@ -31,6 +32,7 @@ public class Parser {
         case "bye":
         case "mark":
         case "unmark":
+        case "find":
             break;
         default:
             throw new UnrecognisedException("Unrecognised command, please try again.");

@@ -89,6 +89,16 @@ public class TaskList {
         return this.tasks.get(index);
     }
 
+    public TaskList find(String keyword) {
+        TaskList tasks = new TaskList();
+        for (Task task : this.tasks) {
+            if (task.getDescription().contains(keyword)) {
+                tasks.add(task);
+            }
+        }
+        return tasks;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

@@ -42,6 +42,10 @@ public class Ui {
         System.out.println("Here is a list of all your tasks:\n" + list);
     }
 
+    public void showMatching(String list) {
+        System.out.println("Here are the matching tasks in your list:\n" + list);
+    }
+
     public void showError(String message) {
         System.out.println(message);
     }
