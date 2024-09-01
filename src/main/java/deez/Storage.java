@@ -47,24 +47,23 @@ public class Storage {
     }
 
     /**
-     * Loads a Deez object from the storage file.
+     * Loads tasks from a stored file into an ArrayList.
      *
-     * @return The loaded Deez object
-     * @throws IOException            If there's an issue reading the file
-     * @throws ClassNotFoundException If the serialized object cannot be read
+     * @throws IOException            If there is an issue with reading the file.
+     * @throws ClassNotFoundException If the stored class is not recognized.
      */
-    public Deez load() throws IOException, ClassNotFoundException {
+    public TaskList loadTasks() throws IOException, ClassNotFoundException {
         FileInputStream fileInputStream = new FileInputStream(filePath + File.separator + FILE_NAME);
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-        return (Deez) objectInputStream.readObject();
+        return (TaskList) objectInputStream.readObject();
     }
 
     /**
-     * Saves a Deez object to the storage file.
+     * Saves the given task list to a file.
      *
-     * @param deez The Deez object to save
+     * @param taskList The tasks to be saved
      */
-    public void save(Deez deez) {
+    public void saveTasks(TaskList taskList) {
         if (!fileExists()) {
             File dir = new File(filePath);
             dir.mkdirs();
@@ -73,7 +72,7 @@ public class Storage {
             FileOutputStream fileOutputStream =
                 new FileOutputStream(filePath + File.separator + FILE_NAME);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(deez);
+            objectOutputStream.writeObject(taskList);
         } catch (Exception e) {
             e.printStackTrace();
             throw new DeezException("Failed to save.");
