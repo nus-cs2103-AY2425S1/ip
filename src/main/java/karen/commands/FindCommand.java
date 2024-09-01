@@ -1,8 +1,8 @@
-package Karen.commands;
+package karen.commands;
 
-import Karen.tasks.Task;
-import Karen.tasks.TaskList;
-import Karen.util.Ui;
+import karen.tasks.Task;
+import karen.tasks.TaskList;
+import karen.util.Ui;
 
 import java.util.List;
 

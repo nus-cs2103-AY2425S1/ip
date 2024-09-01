@@ -8,6 +8,7 @@ import karen.commands.ListCommand;
 import karen.commands.ExitCommand;
 import karen.commands.DeleteCommand;
 import karen.commands.AddTaskCommand;
+import karen.commands.FindCommand;
 import karen.commands.MarkCommand;
 import karen.commands.UnmarkCommand;
 import karen.commands.UnknownCommand;
