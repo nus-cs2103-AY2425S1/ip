@@ -135,7 +135,7 @@ public class Duck {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        new Duck(FILE_PATH);
+        new Duck(FILE_PATH).run();
         // new Duck(FILE_PATH).run();
     }
 }
