@@ -59,6 +59,8 @@ public class Elysia {
 
             } else if (input.startsWith("delete")) {
                 taskList.deleteTask(arrayLists, input);
+            } else if (input.startsWith("find")) {
+                taskList.findTask(arrayLists, input.substring(5).trim());
             } else {
                 ui.showFailMessage();
             }
