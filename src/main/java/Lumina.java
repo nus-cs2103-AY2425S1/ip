@@ -1,7 +1,10 @@
-import javafx.util.Pair;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+
 
 /**
  * The Lumina class represents a simple chatbot.
@@ -36,8 +39,43 @@ public class Lumina {
         }
         tasks = new ArrayList<>();
         luminaCount++;
+        loadData();
     }
 
+    private void createDataDirectoryAndFileIfNotExists() {
+
+        // get relative and absolute Path to data directory
+        Path relativePath = Paths.get("./data");
+        Path absolutePath = relativePath.toAbsolutePath().normalize();
+        System.out.println(absolutePath);
+
+        // declare fileName and it's path
+        String fileName = "data.txt";
+        Path filePath = absolutePath.resolve(fileName);
+
+        // create the directory and file if it does not exist
+        try {
+            if (Files.notExists(absolutePath)) {
+                // Create the directory if it doesn't exist
+                Files.createDirectory(absolutePath);
+            }
+
+            if (Files.notExists(filePath)) {
+                // Create the file if it doesn't exist
+                Files.createFile(filePath);
+            }
+
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private void loadData() {
+        createDataDirectoryAndFileIfNotExists();
+
+
+
+    }
 
     private String indentMessage(String msg) {
         String[] lines = msg.split("\n");
