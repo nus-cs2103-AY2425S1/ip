@@ -16,7 +16,7 @@ public class DeezTest {
 
     @BeforeEach
     public void setup() {
-        deez = new Deez();
+        deez = new Deez(true);
     }
 
     // Test that the addTodo method correctly adds a todo task to the task list
