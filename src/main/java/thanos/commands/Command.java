@@ -2,7 +2,6 @@ package thanos.commands;
 
 import thanos.exceptions.InvalidCommandException;
 import thanos.tasks.TaskList;
-import thanos.ui.Ui;
 
 /**
  * Represents an abstract command.
@@ -39,17 +38,17 @@ public abstract class Command {
     }
 
     /**
-     * Executes the command with the provided {@code TaskList} and {@code Ui}.
+     * Executes the command with the provided {@code TaskList}.
      * <p>
      * This method must be implemented by subclasses to define the specific behavior of the command.
      * </p>
      *
      * @param taskList the current list of tasks
-     * @param ui the user interface component that handles displaying messages to the user.
+     * @return a string message resulting from the execution of the command.
      *
      * @throws InvalidCommandException if the command cannot be executed.
      */
-    public abstract void execute(TaskList taskList, Ui ui) throws InvalidCommandException;
+    public abstract String execute(TaskList taskList) throws InvalidCommandException;
 
     /**
      * Indicates whether this command signifies the exit of the application.

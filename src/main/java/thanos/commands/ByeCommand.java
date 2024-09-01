@@ -2,7 +2,6 @@ package thanos.commands;
 
 import thanos.exceptions.InvalidCommandException;
 import thanos.tasks.TaskList;
-import thanos.ui.Ui;
 
 /**
  * Represents a command to exit the application.
@@ -21,21 +20,17 @@ public class ByeCommand extends Command {
         super(argument);
     }
 
+
     /**
-     * Executes the {@code ByeCommand}.
-     * <p>
-     * This method will invoke the {@code display} method of the {@code Ui} class
-     * to show a farewell message to the user.
-     * </p>
+     * Executes the {@code ByeCommand}, which provides a farewell message to indicates that the application is exiting.
      *
-     * @param taskList the current list of tasks.
-     * @param ui the user interface component that handles displaying messages to the user.
-     *
-     * @throws InvalidCommandException if the command cannot be executed.
+     * @param taskList The current list of tasks.
+     * @return A string containing a farewell message for the user.
+     * @throws InvalidCommandException This exception is not thrown by this method.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) throws InvalidCommandException {
-        ui.display("Bye. Hope to see you again soon!\n");
+    public String execute(TaskList taskList) throws InvalidCommandException {
+        return "Bye. Hope to see you again soon!\n";
     }
 
     /**

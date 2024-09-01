@@ -3,7 +3,6 @@ package thanos.commands;
 import thanos.exceptions.InvalidCommandException;
 import thanos.tasks.Task;
 import thanos.tasks.TaskList;
-import thanos.ui.Ui;
 
 /**
  * Represents a command to delete a task from the {@code TaskList}.
@@ -24,19 +23,18 @@ public class DeleteCommand extends Command {
      * Executes the command to delete a task from the {@code TaskList}.
      * <p>
      * This method parses the command argument to obtain the task index, verifies the format and index validity,
-     * removes the task from the {@code TaskList}, and displays a confirmation message using the {@code Ui} component.
-     * If the argument is empty, incorrectly formatted, or if the index is invalid, an {@code InvalidCommandException}
-     * is thrown.
+     * removes the task from the {@code TaskList}, and returns a formatted string confirming the removal of the task
+     * and displaying the updated task count. If the argument is empty, incorrectly formatted, or if the index is
+     * invalid, an {@code InvalidCommandException} is thrown.
      * </p>
      *
      * @param taskList the list of tasks from which the task will be removed.
-     * @param ui the user interface component used to display the task removal confirmation to the user.
-     *
+     * @return a formatted string confirming the removal of the task and displaying the updated task count.
      * @throws InvalidCommandException if the argument is empty, incorrectly formatted, or if the index is invalid
      *                                  (either not an integer or out of range).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) throws InvalidCommandException {
+    public String execute(TaskList taskList) throws InvalidCommandException {
         if (this.getArgument().isEmpty()) {
             throw new InvalidCommandException(
                     "No task index provided. Please use the correct format: 'delete [task index]'"
@@ -52,7 +50,9 @@ public class DeleteCommand extends Command {
         try {
             int index = Integer.parseInt(this.getArgument()) - 1;
             Task task = taskList.remove(index);
-            ui.displayTaskRemoved(task, taskList.size());
+            return String.format(
+                    "Noted. I've removed this task:\n  %s\nNow you have %d tasks in the list.\n", task, taskList.size()
+            );
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
         } catch (IndexOutOfBoundsException e) {

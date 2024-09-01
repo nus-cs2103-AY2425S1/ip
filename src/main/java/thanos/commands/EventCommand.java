@@ -1,11 +1,12 @@
 package thanos.commands;
 
+import static thanos.utility.ResponseFormatter.generateTaskAddedResponse;
+
 import java.time.LocalDateTime;
 
 import thanos.exceptions.InvalidCommandException;
 import thanos.tasks.Event;
 import thanos.tasks.TaskList;
-import thanos.ui.Ui;
 import thanos.utility.DateTimeUtility;
 
 /**
@@ -26,20 +27,19 @@ public class EventCommand extends Command {
      * Executes the command to create an event and add it to the {@code TaskList}.
      * <p>
      * This method parses the command argument to obtain the event description, start time, and end time.
-     * It verifies the format of the argument and converts the times to {@code LocalDateTime} objects.
-     * An {@code Event} is created with these details, added to the {@code TaskList}, and a confirmation message
-     * is displayed using the {@code Ui} component. If the argument is not formatted correctly or the date
-     * parsing fails, an {@code InvalidCommandException} is thrown.
+     * It verifies the format of the argument and converts the times to {@code LocalDateTime} objects. An {@code Event}
+     * is created with these details and added to the {@code TaskList}. A confirmation message indicating the addition
+     * of the event and displaying the updated task count is returned. If the argument is incorrectly formatted or if
+     * the date parsing fails, an {@code InvalidCommandException} is thrown.
      * </p>
      *
      * @param taskList the list of tasks to which the event will be added.
-     * @param ui the user interface component used to display the task addition confirmation to the user.
-     *
+     * @return a confirmation message indicating that the event has been added and displaying the updated task count.
      * @throws InvalidCommandException if the argument is incorrectly formatted or if the start or end time
      *                                  cannot be parsed into {@code LocalDateTime} objects.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) throws InvalidCommandException {
+    public String execute(TaskList taskList) throws InvalidCommandException {
         String[] detailsArr = this.getArgument().split(" /from ");
         if (detailsArr.length != 2) {
             throw new InvalidCommandException("Invalid input format."
@@ -57,10 +57,10 @@ public class EventCommand extends Command {
         LocalDateTime startDate = DateTimeUtility.parse(fromToArr[0]);
         LocalDateTime endDate = DateTimeUtility.parse(fromToArr[1]);
         if (startDate == null || endDate == null) {
-            return;
+            return "";
         }
         Event event = new Event(description, startDate, endDate);
         taskList.add(event);
-        ui.displayTaskAdded(event, taskList.size());
+        return generateTaskAddedResponse(event, taskList.size());
     }
 }

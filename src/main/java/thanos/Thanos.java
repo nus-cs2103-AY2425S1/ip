@@ -59,7 +59,8 @@ public class Thanos {
             try {
                 String userInput = scanner.nextLine();
                 Command command = Parser.parse(userInput);
-                command.execute(taskList, ui);
+                String response = command.execute(taskList);
+                ui.display(response);
                 isExit = command.isExit();
             } catch (InvalidCommandException e) {
                 ui.display(e.getMessage() + "\n");

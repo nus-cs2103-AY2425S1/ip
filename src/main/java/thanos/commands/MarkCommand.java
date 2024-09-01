@@ -3,7 +3,6 @@ package thanos.commands;
 import thanos.exceptions.InvalidCommandException;
 import thanos.tasks.Task;
 import thanos.tasks.TaskList;
-import thanos.ui.Ui;
 
 /**
  * Represents a command to mark a task as completed in the {@code TaskList}.
@@ -22,19 +21,18 @@ public class MarkCommand extends Command {
     /**
      * Executes the command to mark a task as completed.
      * <p>
-     * This method parses the task index from the argument, marks the corresponding task in the {@code TaskList} as
-     * completed, and displays a message indicating the task has been marked. If the argument is empty, incorrectly
-     * formatted, or if the index is invalid, an {@code InvalidCommandException} is thrown.
+     * This method parses the task index from the command argument, marks the corresponding task in the {@code TaskList}
+     * as completed, and returns a message indicating that the task has been marked as done. If the argument is empty,
+     * incorrectly formatted, or if the index is invalid, an {@code InvalidCommandException} is thrown.
      * </p>
      *
-     * @param taskList the list of tasks from which the specified task will be marked as completed.
-     * @param ui the user interface component used to display the task marking status to the user.
-     *
-     * @throws InvalidCommandException if the argument is empty, incorrectly formatted, or if the index is invalid
+     * @param taskList The {@code TaskList} containing the task to be marked as completed.
+     * @return A formatted string confirming that the task has been marked as done.
+     * @throws InvalidCommandException If the argument is empty, incorrectly formatted, or if the index is invalid
      *         (either not an integer or out of range).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) throws InvalidCommandException {
+    public String execute(TaskList taskList) throws InvalidCommandException {
         if (this.getArgument().isEmpty()) {
             throw new InvalidCommandException(
                     "No task index provided. Please use the correct format: 'mark [task index]'"
@@ -50,7 +48,7 @@ public class MarkCommand extends Command {
         try {
             int index = Integer.parseInt(this.getArgument()) - 1;
             Task task = taskList.mark(index);
-            ui.displayTaskMarked(task);
+            return String.format("Nice! I've marked this task as done:\n  %s\n", task);
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
         } catch (IndexOutOfBoundsException e) {

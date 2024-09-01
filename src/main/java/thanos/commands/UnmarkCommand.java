@@ -3,7 +3,6 @@ package thanos.commands;
 import thanos.exceptions.InvalidCommandException;
 import thanos.tasks.Task;
 import thanos.tasks.TaskList;
-import thanos.ui.Ui;
 
 /**
  * Represents a command to unmark a task as completed in the {@code TaskList}.
@@ -22,19 +21,18 @@ public class UnmarkCommand extends Command {
     /**
      * Executes the command to unmark a task in the {@code TaskList}.
      * <p>
-     * This method parses the task index from the argument, unmarks the corresponding task in the {@code TaskList},
-     * and displays a message indicating that the task has been unmarked. If the argument is empty, incorrectly
-     * formatted, or if the index is invalid, an {@code InvalidCommandException} is thrown.
+     * This method parses the task index from the command argument, unmarks the corresponding task in the
+     * {@code TaskList}, and returns a message indicating that the task has been unmarked. If the argument is empty,
+     * incorrectly formatted, or if the index is invalid, an {@code InvalidCommandException} is thrown.
      * </p>
      *
-     * @param taskList the list of tasks from which the specified task will be unmarked.
-     * @param ui the user interface component used to display the task unmarking status to the user.
-     *
-     * @throws InvalidCommandException if the argument is empty, incorrectly formatted, or if the index is invalid
+     * @param taskList The {@code TaskList} from which the specified task will be unmarked.
+     * @return A formatted string confirming that the task has been marked as not done yet.
+     * @throws InvalidCommandException If the argument is empty, incorrectly formatted, or if the index is invalid
      *         (either not an integer or out of range).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui) throws InvalidCommandException {
+    public String execute(TaskList taskList) throws InvalidCommandException {
         if (this.getArgument().isEmpty()) {
             throw new InvalidCommandException(
                     "No task index provided. Please use the correct format: 'unmark [task index]'"
@@ -50,7 +48,7 @@ public class UnmarkCommand extends Command {
         try {
             int index = Integer.parseInt(this.getArgument()) - 1;
             Task task = taskList.unmark(index);
-            ui.displayTaskUnmarked(task);
+            return String.format("OK, I've marked this task as not done yet:\n  %s\n", task);
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Invalid task index. The task index provided is not an integer.");
         } catch (IndexOutOfBoundsException e) {
