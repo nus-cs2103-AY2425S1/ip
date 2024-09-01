@@ -1,7 +1,5 @@
-import common.Command;
-import common.Parser;
-import common.Ui;
-import common.SkibidiException;
+package skibidi;
+
 import storage.TaskStorage;
 
 import java.io.IOException;

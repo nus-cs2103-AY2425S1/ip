@@ -1,7 +1,6 @@
-package common;
+package skibidi;
 
 import commands.*;
-import common.Command;
 
 public class Parser {
     public Command parse(String input) throws SkibidiException {

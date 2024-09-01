@@ -1,7 +1,6 @@
 package storage;
 
-import common.SkibidiException;
-import storage.StorageManager;
+import skibidi.SkibidiException;
 
 import java.io.IOException;
 import java.util.ArrayList;

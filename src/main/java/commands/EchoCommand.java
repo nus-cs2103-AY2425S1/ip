@@ -1,7 +1,7 @@
 package commands;
 
-import common.Ui;
-import common.Command;
+import skibidi.Ui;
+import skibidi.Command;
 import storage.TaskStorage;
 
 public class EchoCommand extends Command {
