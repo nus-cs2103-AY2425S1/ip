@@ -8,4 +8,5 @@ unmark 2
 list
 abc
 delete 2
+list
 bye
