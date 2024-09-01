@@ -49,7 +49,8 @@ public class Task {
     }
 
     public String toFile() {
-        return " | " + (this.isDone ? "1" : "0") + " | " + this.description;
+        return " | " + (this.isDone ? "1" : "0")
+                + " | " + this.description;
     }
 
     /**
@@ -60,6 +61,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return (this.isDone ? "[X] " : "[ ] ") + this.description;
+        return (this.isDone ? "[X] " : "[ ] ")
+                + this.description;
     }
 }

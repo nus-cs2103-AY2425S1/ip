@@ -21,7 +21,8 @@ public class Deadlines extends Task {
         String formattedDate = this.date.format(formatter);
 
         return "D | " + (super.isDone() ? "1" : "0") + " | " 
-                + super.getDescription() + " | " + formattedDate + " " + this.time;
+                + super.getDescription() + " | "
+                        + formattedDate + " " + this.time;
     }
 
     @Override
