@@ -40,7 +40,40 @@ public class Storage {
         }
     }
     
-    public TaskList load() {
-        return new TaskList();
+    public TaskList load() throws IOException {
+        if (!Files.exists(this.filePath)) {
+            Files.createFile(this.filePath);
+            return new TaskList();
+        }
+        
+        try {
+            ArrayList<String> encodedTasks = new ArrayList<>(Files.readAllLines(this.filePath));
+            TaskList taskList = new TaskList();
+            for (String encodedTask : encodedTasks) {
+                String[] taskComponents = encodedTask.split("\\|");
+                Task task = null;
+                switch (taskComponents[0]) {
+                    case "T":
+                        task = new Todo(taskComponents[2]);
+                        break;
+                    case "D":
+                        task = new Deadline(taskComponents[2], taskComponents[3]);
+                        break;
+                    case "E":
+                        task = new Event(taskComponents[2], taskComponents[3], taskComponents[4]);
+                        break;
+                    default:
+                        break;
+                }
+                if (taskComponents[1].equals("1")) {
+                    task.markAsDone();
+                }
+                taskList.addTask(task);
+            }
+            return taskList;
+        } catch (IOException e) {
+            System.out.println(e);
+            throw e;
+        }
     }
 }

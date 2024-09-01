@@ -20,9 +20,10 @@ public class Mittens {
              (___)_/
             """;
     
-    private final static TaskList taskList = new TaskList();
+    
     private final static Storage storage = new Storage("data/data.txt");
-
+    private static TaskList taskList;
+    
     public static void greet() {
         System.out.println(GREETING_MESSAGE);
     }
@@ -90,6 +91,14 @@ public class Mittens {
     }
 
     public static void main(String[] args) {
+        try {
+            taskList = storage.load();
+        } catch (Exception e) {
+            UnknownException newException = new UnknownException(e.getMessage());
+            newException.echo();
+            taskList = new TaskList();
+        }
+        
         Scanner scanner = new Scanner(System.in);
 
         greet();
