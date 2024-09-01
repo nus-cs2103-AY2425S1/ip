@@ -1,4 +1,14 @@
+/**
+ * Represents a ToDo task, which is a type of task with only a description.
+ * This class extends the {@link Task} class and provides specific formatting
+ * for storing and displaying ToDo tasks.
+ */
 public class ToDos extends Task {
+    /**
+     * Constructs a new ToDos task with the specified description.
+     *
+     * @param description The description of the ToDo task.
+     */
     public ToDos(String description) {
         super(description);
     }

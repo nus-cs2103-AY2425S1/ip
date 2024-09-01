@@ -1,13 +1,23 @@
 /**
  * Represents a generic task with a description and a completion status.
- * Provides methods to mark the task as done or not done, and to get the task's status.
+ * Provides methods to mark the task as done or not done,
+ * and to get the task's status.
  */
 public abstract class Task {
+
+    /**
+     * Provides the description of the Task
+     */
     protected String description;
+
+    /**
+     * Boolean indicating if the task is completed
+     */
     protected boolean isDone;
 
     /**
      * Constructs a new Task with the specified description.
+     * Task is initalised to not done.
      *
      * @param description The description of the task.
      */
@@ -35,6 +45,7 @@ public abstract class Task {
     public String getStatus() {
         return (isDone ? "1" : "0");
     }
+
     /**
      * Marks the task as done. If the task is already done, a message indicating
      * that it is already completed is displayed.
@@ -51,8 +62,8 @@ public abstract class Task {
     }
 
     /**
-     * Marks the task as not done. If the task is already not done, a message indicating
-     * that it is not marked yet is displayed.
+     * Marks the task as not done. If the task is already not done,
+     * a message indicating that it is not marked yet is displayed.
      */
     public void unMark() {
         if (this.isDone) {
