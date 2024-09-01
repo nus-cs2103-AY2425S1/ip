@@ -1,6 +1,7 @@
 package muller.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import muller.command.MullerException;
 
@@ -62,6 +63,22 @@ public class TaskList {
             throw new MullerException("Invalid task number!");
         }
         return tasks.get(index);
+    }
+
+    /**
+     * Finds tasks that contain the given keyword in their description.
+     *
+     * @param keyword The keyword to search for.
+     * @return A list of tasks that contain the keyword.
+     */
+    public List<Task> findTasksByKeyword(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getName().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 
     /**

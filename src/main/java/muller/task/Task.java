@@ -136,5 +136,14 @@ public class Task {
         }
         return sb.toString();
     }
+
+    /**
+     * Returns the name (description) of the task.
+     *
+     * @return The name of the task.
+     */
+    public String getName() {
+        return name;
+    }
 }
 
