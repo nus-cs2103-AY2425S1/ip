@@ -43,7 +43,7 @@ public class Ui {
         System.out.println("list (Lists out all the current tasks)");
         System.out.println("mark [index] (Marks the tasks at the specified index)");
         System.out.println("unmark [index] (Unmarks the tasks at the specified index)");
-        System.out.println("delete [index] (deletes the tasks at the specified index)");
+        System.out.println("delete [index] (Deletes the tasks at the specified index)");
         System.out.println("find [keyword] (Unmarks the tasks at the specified index)");
         System.out.println("\n");
         System.out.println("What can I do for you?");
