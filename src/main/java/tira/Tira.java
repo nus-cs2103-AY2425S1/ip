@@ -12,6 +12,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Tira java
+ *
+ */
 
 public class Tira {
     private static final String Directory = "./data";
