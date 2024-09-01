@@ -1,18 +1,19 @@
+import java.io.CharConversionException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileHandler {
+public class Storage {
 
     private String filePath;
 
-    public FileHandler(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> loadTasks() {
+    public ArrayList<Task> load() throws ChatBuddyException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             File file = new File(filePath);
@@ -54,14 +55,14 @@ public class FileHandler {
                 }
                 file.createNewFile();
             }
-        } catch (IOException | ChatBuddyException e) {
-            System.out.println("An error occurred while loading tasks: " + e.getMessage());
+        } catch (IOException e) {
+            throw new ChatBuddyException("An error occurred while loading tasks: " + e.getMessage());
         }
 
         return tasks;
     }
 
-    public void saveTasks(ArrayList<Task> tasks) {
+    public void saveTasks(ArrayList<Task> tasks) throws ChatBuddyException {
         try {
             FileWriter writer = new FileWriter(filePath);
             for (Task task : tasks) {
@@ -69,7 +70,7 @@ public class FileHandler {
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println("An error occurred while saving tasks: " + e.getMessage());
+            throw new ChatBuddyException("An error occurred while saving tasks: " + e.getMessage());
         }
     }
 }

@@ -18,6 +18,6 @@ public class Deadline extends Task {
 
     @Override
     public String toFileFormat() {
-        return "D" + super.toFileFormat() + " | " + by.format(INPUT_FORMATTER);
+        return "D" + " | " + (isDone ? "1" : "0") + " | " + description + " | " + by.format(INPUT_FORMATTER);
     }
 }
