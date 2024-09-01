@@ -1,7 +1,12 @@
 package yihuibot;
 
+import java.io.IOException;
+import java.util.Collections;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -15,28 +20,31 @@ import javafx.scene.layout.HBox;
  * @author Toh Yi Hui A0259080A
  */
 public class DialogBox extends HBox {
-
-    private Label text;
+    @FXML
+    private Label dialog;
+    @FXML
     private ImageView displayPicture;
 
     /**
      * Constructor for a new DialogBox containing the messenger's
      * profile picture and its dialog.
      *
-     * @param s the user's dialog.
-     * @param i the user's profile picture.
+     * @param text the user's dialog.
+     * @param img the user's profile picture.
      */
-    private DialogBox(String s, Image i) {
-        text = new Label(s);
-        displayPicture = new ImageView(i);
+    private DialogBox(String text, Image img) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource(
+                    "/view/DialogBox.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        // Styling DialogBox
-        text.setWrapText(true);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
-        this.setAlignment(Pos.TOP_RIGHT);
-
-        this.getChildren().addAll(text, displayPicture);
+        dialog.setText(text);
+        displayPicture.setImage(img);
     }
 
     /**
@@ -53,23 +61,23 @@ public class DialogBox extends HBox {
     /**
      * Factory method for a new user Dialog.
      *
-     * @param s the user's dialog.
-     * @param i the user's profile picture.
+     * @param text the user's dialog.
+     * @param img the user's profile picture.
      * @return a right justified DialogBox.
      */
-    public static DialogBox getUserDialog(String s, Image i) {
-        return new DialogBox(s, i);
+    public static DialogBox getUserDialog(String text, Image img) {
+        return new DialogBox(text, img);
     }
 
     /**
      * Factory method for a bot Dialog.
      *
-     * @param s the bot's dialog.
-     * @param i the bot's profile picture.
+     * @param text the bot's dialog.
+     * @param img the bot's profile picture.
      * @return a left justified DialogBox.
      */
-    public static DialogBox getBotDialog(String s, Image i) {
-        DialogBox dialogBox = new DialogBox(s, i);
+    public static DialogBox getBotDialog(String text, Image img) {
+        DialogBox dialogBox = new DialogBox(text, img);
         dialogBox.flip();
         return dialogBox;
     }
