@@ -3,7 +3,7 @@ package Yapper;
 import java.io.File;
 
 public class Yapper {
-    public static UI ui;
+    public static Ui ui;
     public static Parser parser;
     public static Storage storage;
     public static TaskList taskList;
@@ -18,7 +18,7 @@ public class Yapper {
         storage = new Storage(file);
         taskList = storage.loadHistory();
         parser = new Parser(taskList);
-        ui = new UI(parser);
+        ui = new Ui(parser);
     }
 
     public static void main(String[] args) {
