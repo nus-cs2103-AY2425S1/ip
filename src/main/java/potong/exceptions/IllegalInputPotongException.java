@@ -1,3 +1,5 @@
+package potong.exceptions;
+
 public class IllegalInputPotongException extends PotongException {
 
     public IllegalInputPotongException() {

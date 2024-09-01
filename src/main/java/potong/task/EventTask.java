@@ -1,3 +1,7 @@
+package potong.task;
+
+import potong.exceptions.IllegalInputPotongException;
+
 public class EventTask extends Task {
 
     private final String start;

@@ -1,3 +1,9 @@
+package potong.command;
+
+import potong.Storage;
+import potong.TaskList;
+import potong.Ui;
+
 import java.io.IOException;
 
 public class ExitCommand extends Command {

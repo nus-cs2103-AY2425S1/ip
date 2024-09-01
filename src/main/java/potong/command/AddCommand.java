@@ -1,3 +1,11 @@
+package potong.command;
+
+import potong.*;
+import potong.exceptions.IllegalInputPotongException;
+import potong.task.DeadlineTask;
+import potong.task.EventTask;
+import potong.task.ToDoTask;
+
 public class AddCommand extends Command {
 
     public enum Type {
