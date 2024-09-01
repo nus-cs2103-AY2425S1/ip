@@ -1,0 +1,23 @@
+.label {
+    -fx-border-width: 2px;
+    -fx-background-color: #99cccc;
+    -fx-border-color: #549191;
+    -fx-background-radius: .5em .5em 0 .5em;
+    -fx-border-radius: .5em .5em 0 .5em;
+}
+
+.reply-label {
+    -fx-background-color: #a9b3c9;
+    -fx-border-color: #004c99;
+    -fx-background-radius: .5em .5em .5em 0;
+    -fx-border-radius: .5em .5em .5em 0;
+}
+
+#displayPicture {
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}

@@ -53,7 +53,7 @@ public class MainWindow extends AnchorPane {
         String response = yihuiBot.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBotDialog(response, botImage)
+                DialogBox.getReplyDialog(response, botImage)
         );
         userInput.clear();
     }

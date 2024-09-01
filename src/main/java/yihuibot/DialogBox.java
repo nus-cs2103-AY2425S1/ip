@@ -1,7 +1,6 @@
 package yihuibot;
 
 import java.io.IOException;
-import java.util.Collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,8 +28,8 @@ public class DialogBox extends HBox {
      * Constructor for a new DialogBox containing the messenger's
      * profile picture and its dialog.
      *
-     * @param text the user's dialog.
-     * @param img the user's profile picture.
+     * @param text the messenger's dialog.
+     * @param img the messenger's profile picture.
      */
     private DialogBox(String text, Image img) {
         try {
@@ -56,6 +55,7 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         FXCollections.reverse(tmp);
         this.getChildren().setAll(tmp);
+        dialog.getStyleClass().add("reply-label");
     }
 
     /**
@@ -70,13 +70,13 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Factory method for a bot Dialog.
+     * Factory method for a reply Dialog.
      *
-     * @param text the bot's dialog.
-     * @param img the bot's profile picture.
+     * @param text the response dialog.
+     * @param img the replyer's profile picture.
      * @return a left justified DialogBox.
      */
-    public static DialogBox getBotDialog(String text, Image img) {
+    public static DialogBox getReplyDialog(String text, Image img) {
         DialogBox dialogBox = new DialogBox(text, img);
         dialogBox.flip();
         return dialogBox;
