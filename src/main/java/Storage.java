@@ -13,10 +13,9 @@ import org.json.JSONObject;
 public class Storage {
     private static File storageFile;
 
-    public Storage() {
+    public static void init() {
         Storage.storageFile = getStorageFile();
     }
-
     public static File getStorageFile() {
         Path dataFilePath = Paths.get("data", "JBotStorage.json");
         File file = dataFilePath.toFile();
@@ -44,13 +43,13 @@ public class Storage {
         return file;
     }
 
-    public static void updateData(ArrayList<Task> taskList) {
+    public static void updateData() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(storageFile))) {
             StringBuilder json = new StringBuilder();
             json.append("[");
 
-            for (int i = 0; i < taskList.size(); i++) {
-                Task task = taskList.get(i);
+            for (int i = 0; i < TaskList.size(); i++) {
+                Task task = TaskList.get(i);
                 if (i > 0) {
                     json.append(",");
                 }
@@ -84,7 +83,7 @@ public class Storage {
         return "{}";
     }
 
-    public static ArrayList<Task> parseData() {
+    public static TaskList parseData() {
         ArrayList<Task> tasks = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(storageFile))) {
@@ -95,7 +94,7 @@ public class Storage {
             }
 
             if (json.length() == 0) {
-                return tasks; // Return empty list if file is empty
+                return new TaskList(tasks); // Return empty list if file is empty
             }
 
             JSONArray jsonArray = new JSONArray(json.toString());
@@ -134,7 +133,7 @@ public class Storage {
             System.out.println(e.getMessage());
         }
 
-        return tasks;
+        return new TaskList(tasks);
     }
 
     private static String getValue(String field) {

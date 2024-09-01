@@ -8,10 +8,10 @@ public class UnmarkCommand implements JBotCommand {
         return UnmarkCommand.instance;
     }
     @Override
-    public void run(String input, ArrayList<Task> taskList) {
+    public void run(String input) {
         int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
 
-        Task task = taskList.get(taskIndex);
+        Task task = TaskList.get(taskIndex);
         task.unmarkAsDone();
 
         System.out.println("OK, I've marked this task as not done yet:");

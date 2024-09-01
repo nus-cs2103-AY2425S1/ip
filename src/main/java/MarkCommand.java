@@ -8,10 +8,10 @@ public class MarkCommand implements JBotCommand {
         return MarkCommand.instance;
     }
     @Override
-    public void run(String input, ArrayList<Task> taskList) {
+    public void run(String input) {
         int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
 
-        Task task = taskList.get(taskIndex);
+        Task task = TaskList.get(taskIndex);
         task.markAsDone();
 
         System.out.println("Nice! I've marked this task as done:");
