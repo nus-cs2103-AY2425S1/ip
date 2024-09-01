@@ -1,3 +1,4 @@
+package sigma.task;
 public class Task {
     private String name;
     private boolean status;
