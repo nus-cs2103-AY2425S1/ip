@@ -4,13 +4,12 @@ import java.util.ArrayList;
 
 import jbot.task.Task;
 
-<<<<<<< HEAD
 /**
  * A utility class for managing a list of tasks. This class cannot be instantiated.
  */
-=======
+
 @SuppressWarnings({"StaticVariableMayNotBeInitialized", "StaticVariableUsedBeforeInitialization"})
->>>>>>> branch-A-CodingStandard
+
 public class TaskList {
     private TaskList() {
         throw new UnsupportedOperationException("Utility class cannot be instantiated");
