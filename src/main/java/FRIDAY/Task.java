@@ -32,4 +32,8 @@ public class Task {
         String type = isComplete ? "1" : "0";
         return " | " + type + " | " + this.description;
     }
+
+    public boolean getType() {
+        return this.isComplete;
+    }
 }

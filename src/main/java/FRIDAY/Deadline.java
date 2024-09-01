@@ -21,4 +21,8 @@ public class Deadline extends Task{
         //print it out in MM-DD-YYYY format
         return "[D]" + super.toString() + "(" + deadline.getMonth() + " " + deadline.getDayOfMonth() + " " + deadline.getYear() + ")";
     }
+
+    public LocalDate getDeadline() {
+        return this.deadline;
+    }
 }
