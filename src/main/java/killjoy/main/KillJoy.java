@@ -11,7 +11,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/**
+ * Represents the main class of the KillJoy application.
+ * Contains the main method to run the application.
+ */
 public class KillJoy {
     private ProcessTasks processTasks;
     private Storage saveAndLoad;
@@ -29,24 +32,45 @@ public class KillJoy {
         return taskCount;
     }
 
+    /**
+     * Increases the task count by 1.
+     */
     public void increaseTaskCount() {
         this.taskCount++;
     }
 
+    /**
+     * Decreases the task count by 1.
+     */
     public void decreaseTaskCount() {
         this.taskCount--;
     }
 
+    /**
+     * Adds a task to the task list.
+     * @param description
+     */
     public void addTask(String description) {
         taskList.add(new Todo(description));
         this.increaseTaskCount();
     }
 
+    /**
+     * Adds a task to the task list.
+     * @param description
+     * @param by
+     */
     public void addTask(String description, LocalDateTime by) {
         taskList.add(new Deadline(description, by));
         this.increaseTaskCount();
     }
 
+    /**
+     * Adds a task to the task list.
+     * @param description
+     * @param from
+     * @param to
+     */
     public void addTask(String description, LocalDateTime from, LocalDateTime to) {
         taskList.add(new Event(description, from, to));
         this.increaseTaskCount();
@@ -56,10 +80,17 @@ public class KillJoy {
         return this.taskList.get(taskIndex);
     }
 
+    /**
+     * Removes a task from the task list.
+     * @param taskIndex
+     */
     public void removeTask(int taskIndex) {
         this.taskList.remove(taskIndex);
     }
 
+    /**
+     * Starts the KillJoy application.
+     */
     public void start() {
         System.out.println(ui.getLogoString());
         System.out.println(ui.getWelcomeString());

@@ -3,6 +3,9 @@ package killjoy.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task of type Deadline.
+ */
 public class Deadline extends Task {
     private LocalDateTime by;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss");
