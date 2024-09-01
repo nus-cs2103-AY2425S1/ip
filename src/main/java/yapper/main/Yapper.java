@@ -1,20 +1,21 @@
 package yapper.main;
 
-import yapper.task.Task;
-import yapper.task.Todo;
+import java.io.IOException;
+import java.util.List;
+
+import yapper.command.CommandType;
+import yapper.command.Parser;
+import yapper.exception.EmptyDescriptionException;
+import yapper.exception.InvalidTaskNumberException;
+import yapper.exception.UnknownCommandException;
+import yapper.exception.YapperException;
+import yapper.storage.Storage;
 import yapper.task.Deadline;
 import yapper.task.Event;
+import yapper.task.Task;
 import yapper.task.TaskList;
-import yapper.command.Parser;
-import yapper.command.CommandType;
-import yapper.exception.YapperException;
-import yapper.exception.EmptyDescriptionException;
-import yapper.exception.UnknownCommandException;
-import yapper.exception.InvalidTaskNumberException;
+import yapper.task.Todo;
 import yapper.ui.Ui;
-import yapper.storage.Storage;
-
-import java.io.IOException;
 
 public class Yapper {
 
@@ -63,6 +64,9 @@ public class Yapper {
                         break;
                     case DELETE:
                         handleDelete(fullCommand);
+                        break;
+                    case FIND:
+                        handleFind(fullCommand);
                         break;
                     case BYE:
                         isExit = true;
@@ -159,6 +163,20 @@ public class Yapper {
         ui.printTaskRemoved(task, tasks.getSize());
     }
 
+    private void handleFind(String fullCommand) throws YapperException {
+        String[] parts = fullCommand.split(" ", 2);
+        if (parts.length < 2) {
+            throw new EmptyDescriptionException("find");
+        }
+        String keyword = parts[1];
+        List<Task> matchingTasks = tasks.findTasks(keyword);
+        
+        if (matchingTasks.isEmpty()) {
+            ui.showNoMatchingTasksMessage();
+        } else {
+            ui.showMatchingTasks(matchingTasks);
+        }
+    }
     public static void main(String[] args) {
         new Yapper("data/tasks.txt").run();
     }

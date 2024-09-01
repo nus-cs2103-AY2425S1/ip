@@ -25,6 +25,8 @@ public class Parser {
                 return CommandType.EVENT;
             case "delete":
                 return CommandType.DELETE;
+            case "find":
+                return CommandType.FIND;
             default:
                 return CommandType.UNKNOWN;
         }
