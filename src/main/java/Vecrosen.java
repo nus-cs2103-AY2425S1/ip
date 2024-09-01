@@ -92,6 +92,7 @@ public class Vecrosen {
             System.err.println("File exists but cannot be found...?");
         } catch (NoSuchElementException | IndexOutOfBoundsException e) {
             speak("Savefile is corrupted!");
+            System.err.println(list.size());
             list.clear();
         }
     }

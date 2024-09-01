@@ -1,5 +1,5 @@
 public class Event extends Task {
-    String begin, end;
+    private String begin, end;
 
     public Event(String description, String begin, String end) {
         super(description);
