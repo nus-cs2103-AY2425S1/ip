@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static java.lang.Integer.parseInt;
 
@@ -34,10 +36,10 @@ public class DrBrown {
                         if (inputSplit[1].trim().isEmpty()) {
                             throw new DrBrownException("Great Scott! You can't add a to-do without a description!\n\nUse the format: todo {description}");
                         }
-                        Task todo = new Todo(inputSplit[1].trim());
+                        Task todo = new Todo(false, inputSplit[1].trim());
                         System.out.println("Doc, you don't just walk into a store and buy plutonium! But you sure can add this task to your list!\n");
                         System.out.println(todo.toString());
-                        tasks.addList(todo);
+                        tasks.add(todo);
                         System.out.println("\nWhy don’t you make like a tree and get outta here? But not before you see that you have " + tasks.getCount() + " tasks in the list.");
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("Great Scott! You can't add a to-do without a description!\n\nUse the format: todo {description}");
@@ -55,10 +57,10 @@ public class DrBrown {
                         if (deadlineSplit[0].isEmpty()) {
                             throw new DrBrownException("Hello? Hello? Anybody home? Looks like something's missing here!\nUse the format: deadline {description} /by {date}");
                         }
-                        Task deadline = new Deadline(deadlineSplit[0].trim(), deadlineSplit[1].trim());
+                        Task deadline = new Deadline(false, deadlineSplit[0].trim(), LocalDate.parse(deadlineSplit[1].trim()));
                         System.out.println("Last night, Darth Vader came down from Planet Vulcan and told me that if you don't meet this deadline... he'd melt your brain! So, better get moving!\n");
                         System.out.println(deadline.toString());
-                        tasks.addList(deadline);
+                        tasks.add(deadline);
                         System.out.println("\nIf you're gonna build a time machine into a car, why not do it with some style? And speaking of style, you now have " + tasks.getCount() + " tasks in the list.");
                     } catch (DrBrownException e) {
                         System.out.println(e.getMessage());
@@ -76,10 +78,10 @@ public class DrBrown {
                             throw new DrBrownException("Looks like your Uncle Joey didn't make parole again... and you missed the date! Let's fix that event!\nUse the format: event {description} /from {date} /to {date}");
                         }
                         String[] eventSplit = inputSplit[1].split("/from | /to");
-                        Task event = new Event(eventSplit[0].trim(), eventSplit[1].trim(), eventSplit[2].trim());
+                        Task event = new Event(false, eventSplit[0].trim(), LocalDate.parse(eventSplit[1].trim()), LocalDate.parse(eventSplit[2].trim()));
                         System.out.println("The appropriate question is: ‘When the hell are they?’ Your event is now set in time!\n");
                         System.out.println(event.toString());
-                        tasks.addList(event);
+                        tasks.add(event);
                         System.out.println("\nMarty, don't be such a square. Now you have " + tasks.getCount() + " tasks in the list.");
                     } catch (DrBrownException e) {
                         System.out.println(e.getMessage());
