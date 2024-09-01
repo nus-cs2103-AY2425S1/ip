@@ -16,11 +16,19 @@ public class Gallium {
     }
 
     public void run() {
-        String Message = ui.readNextLine();
-        parser = new Parser(ui, taskList);
-        parser.run(Message);
+        boolean isExit = false;
+        while (!isExit) {
+            String Message = ui.readNextLine();
+            parser = new Parser(ui, taskList);
+            Command c = parser.parse(Message);
+            try {
+                c.execute(taskList, ui, storage);
+                isExit = c.isExit();
+            } catch (GalliumException e) {
+                ui.showGalliumException(e);
+            }
+        }
         storage.writeFile(ui);
-        ui.printByeMessage();
         ui.closeScanner();
     }
 

@@ -1,8 +1,3 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class Parser {
 
     private static final String BYE = "bye";
@@ -23,13 +18,12 @@ public class Parser {
         this.taskList = taskList;
     }
 
-    public void run(String Message) {
+    public Command parse(String Message) {
         while (!Message.equals(BYE)) {
             try {
                 switch (Message) {
                     case LIST:
-                        runList();
-                        break;
+                        return runList();
 
                     case "todo":
                     case "todo ":
@@ -41,23 +35,21 @@ public class Parser {
 
                     default:
                         if (Message.matches(MARK + " \\d+") || Message.matches(UNMARK + " \\d+")) {
-                            runMark(Message);
+                            return runMark(Message);
                         } else if (Message.startsWith(TODO) || Message.startsWith(DEADLINE)
                                 || Message.startsWith(EVENT)) {
-                            runAdd(Message);
+                            return runAdd(Message);
                         } else if (Message.startsWith(DELETE)) {
-                            runDelete(Message);
+                            return runDelete(Message);
                         } else if (Message.startsWith(DATE)) {
-                            runDate(Message);
+                            return runDate(Message);
                         } else {
                             throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :(");
                         }
-                        break;
                 }
 
             } catch (GalliumException e) {
                 ui.showGalliumException(e);
-                // Message = userInput.nextLine();
             } catch (ArrayIndexOutOfBoundsException e) {
                 if (Message.startsWith(DEADLINE)) {
                     ui.showIncompleteDeadline();
@@ -71,74 +63,27 @@ public class Parser {
             }
             Message = ui.readNextLine();
         }
+        return new ByeCommand();
     }
 
-    public void runList() {
-        this.ui.printList(this.taskList);
+    public ListCommand runList() {
+        return new ListCommand();
     }
 
-    public void runMark(String Message) {
-        boolean isMark = Message.startsWith(MARK);
-        Pattern pattern = Pattern.compile((isMark ? MARK : UNMARK) + " (\\d+)");
-        Matcher matcher = pattern.matcher(Message);
-        if (matcher.matches()) {
-            int index = Integer.parseInt(matcher.group(1));
-            Task task = taskList.getTask(index - 1);
-            task.setIsDone(isMark);
-            ui.printMarkMessage(isMark, task);
-        }
+    public MarkCommand runMark(String Message) {
+        return new MarkCommand(Message);
     }
 
-    public void runAdd(String Message) {
-        if (Message.startsWith("todo ")) {
-            Todo todo = new Todo(Message);
-            ui.printAddTodo(todo);
-            taskList.add(todo);
-            Task.count++;
-        } else if (Message.startsWith("deadline ")) {
-            Deadline deadline = new Deadline(Message);
-            ui.printAddDeadline(deadline);
-            taskList.add(deadline);
-            Task.count++;
-        } else if (Message.startsWith("event ")) {
-            Event event = new Event(Message);
-            ui.printAddEvent(event);
-            taskList.add(event);
-            Task.count++;
-        }
+    public AddCommand runAdd(String Message) {
+        return new AddCommand(Message);
     }
 
-    public void runDelete(String Message) {
-        Pattern pattern = Pattern.compile(("delete") + " (\\d+)");
-        Matcher matcher = pattern.matcher(Message);
-        if (matcher.matches()) {
-            int index = Integer.parseInt(matcher.group(1));
-            Task task = taskList.get(index - 1);
-            Task.count--;
-            ui.printDelete(task);
-            taskList.remove(index - 1);
-        }
+    public DeleteCommand runDelete(String Message) {
+        return new DeleteCommand(Message);
     }
 
-    public void runDate(String Message) {
-        LocalDate date = LocalDate.parse(Message.split("date ")[1]);
-        StringBuilder tasksStringBuilder = new StringBuilder();
-        for (int i = 1; i < Task.count; i++) {
-            Task task = taskList.get(i - 1);
-            if (task.description.startsWith("[D]") || task.description.startsWith("deadline ")) {
-                Deadline deadline = (Deadline) task;
-                if (date.format(DateTimeFormatter.ofPattern("MMM d yyyy")).equals(deadline.date)) {
-                    tasksStringBuilder.append("\n    " + deadline.toString());
-                }
-            } else if (task.description.startsWith("[E]") || task.description.startsWith("event ")) {
-                Event event = (Event) task;
-                if (date.format(DateTimeFormatter.ofPattern("MMM d yyyy")).equals(event.toDate)) {
-                    tasksStringBuilder.append("\n    " + event.toString());
-                }
-            }
-        }
-        String tasks = tasksStringBuilder.toString();
-        ui.printMatchingDate(tasks);
+    public DateCommand runDate(String Message) {
+        return new DateCommand(Message);
     }
 
 }

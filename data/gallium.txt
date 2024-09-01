@@ -1,9 +1,10 @@
 [E][X] b (from: Sep 9 2000, 07:00 PM to: Sep 9 2000, 08:00 PM)
-[T][X] ooo
+[T][ ] ooo
 [D][X] d (by: Sep 8 2000, 12:00 PM)
 [E][ ] e (from: Feb 2 2030, 08:00 PM to: Feb 2 2030, 10:00 PM)
 [D][X] /by 2024-08-08 1900 (by: Aug 8 2024, 07:00 PM)
 [T][X] g
 [D][ ] aa (by: Oct 10 2000, 10:00 AM)
 [E][ ] fefer (from: Sep 8 2000, 11:11 AM to: Sep 9 2000, 11:22 PM)
-[T][ ] f
+[D][ ] /by 2000-01-01 1000 (by: Jan 1 2000, 10:00 AM)
+[E][ ] ddd (from: Jan 1 2000, 10:00 AM to: Jan 1 2000, 08:00 PM)
