@@ -56,12 +56,14 @@ public class TaskList {
     private void loadTasksFromSave() {
         File file = new File(save.getPath());
         if (!file.exists()) {
+//            System.out.println("File does not exist");
             return;
         }
 
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
+                System.out.println(line);
                 Task task = parseTask(line);
                 taskList.add(task);
                 taskListLength++;
