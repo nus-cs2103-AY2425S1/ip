@@ -43,18 +43,18 @@ public class Storage {
                 String name = parts[2];
 
                 switch (taskType) {
-                    case "T":
-                        tasks.add(new ToDo(name, isDone));
-                        break;
-                    case "D":
-                        String by = parts[3];
-                        tasks.add(new Deadline(name, isDone, by));
-                        break;
-                    case "E":
-                        String from = parts[3];
-                        String to = parts[4];
-                        tasks.add(new Event(name, isDone, from, to));
-                        break;
+                case "T":
+                    tasks.add(new ToDo(name, isDone));
+                    break;
+                case "D":
+                    String by = parts[3];
+                    tasks.add(new Deadline(name, isDone, by));
+                    break;
+                case "E":
+                    String from = parts[3];
+                    String to = parts[4];
+                    tasks.add(new Event(name, isDone, from, to));
+                    break;
                 }
             }
         } catch (IOException e) {

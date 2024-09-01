@@ -45,7 +45,7 @@ public abstract class Task {
      *
      * @return the boolean
      */
-    public boolean getIsDone(){
+    public boolean getIsDone() {
         return isDone;
     }
 
@@ -70,14 +70,14 @@ public abstract class Task {
      *
      * @return the boolean
      */
-    public boolean getDone(){
+    public boolean getDone() {
         return this.isDone;
     }
 
 
     @Override
     public String toString() {
-        String checked = this.isDone? "[X] ":"[ ] ";
+        String checked = this.isDone ? "[X] " : "[ ] ";
         return (checked + this.name);
     }
 }
