@@ -1,3 +1,7 @@
+package potong.task;
+
+import potong.exceptions.IllegalInputPotongException;
+
 public class Task {
     protected String description;
     protected boolean isDone;

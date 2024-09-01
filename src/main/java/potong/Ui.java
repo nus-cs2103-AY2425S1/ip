@@ -1,3 +1,5 @@
+package potong;
+
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
@@ -24,9 +26,9 @@ public class Ui {
     }
 
     public void showIntroduction() {
-        System.out.println("Hello! I'm Potong");
+        System.out.println("Hello! I'm potong.Potong");
         System.out.println("What can I do for you?\n");
-//        System.out.println(Ui.LINE);
+//        System.out.println(potong.Ui.LINE);
     }
 
     public void showLine() {

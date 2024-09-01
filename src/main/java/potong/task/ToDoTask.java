@@ -1,3 +1,7 @@
+package potong.task;
+
+import potong.exceptions.IllegalInputPotongException;
+
 public class ToDoTask extends Task {
     public ToDoTask(String description) throws IllegalInputPotongException {
         super(description);

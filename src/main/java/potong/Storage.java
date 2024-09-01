@@ -1,3 +1,8 @@
+package potong;
+
+import potong.exceptions.IllegalInputPotongException;
+import potong.task.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
