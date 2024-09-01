@@ -24,24 +24,25 @@ public class MarkCommand extends Command {
      * @throws TerminatorException if the user specifies an index out of bounds.
      */
     @Override
-    public void execute(ArrayList<Task> todoList) throws TerminatorException {
+    public String execute(ArrayList<Task> todoList) throws TerminatorException {
         if (input == null) {
             throw new TerminatorException(ERR_MSG);
         }
         String trimmedInput = input.trim();
+        String response = "";
         try {
             int idx = Integer.parseInt(trimmedInput) - 1;
 
             if (idx >= 0 && idx < todoList.size()) {
-                System.out.println("Objective marked as completed. Awaiting next directive:");
                 Task currentTask = todoList.get(idx);
                 currentTask.markAsDone();
-                System.out.println(currentTask);
+                response = "Objective marked as completed. Awaiting next directive:\n" + currentTask;
             } else {
                 throw new TerminatorException("Index out of bounds.");
             }
         } catch (NumberFormatException nfe) {
             System.out.println("Error: index is not a valid integer.");
         }
+        return response;
     }
 }

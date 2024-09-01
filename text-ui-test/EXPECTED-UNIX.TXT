@@ -1,0 +1,136 @@
+Parsing file data...
+Parse file success: true
+Load file success: true
+____________________________________________________________
+                   <((((((\\\
+                   /      . }\
+                   ;--..--._|}
+(\                 '--/\--'  )
+ \\                | '-'  :'|
+  \\               . -==- .-|
+   \\               \.__.'   \--._
+   [\\          __.--|       //  _/'--.
+   \ \\       .'-._ ('-----'/ __/      \
+    \ \\     /   __>|      | '--.       |
+     \ \\   |   \   |     /    /       /
+      \ '\ /     \  |     |  _/       /
+       \  \       \ |     | /        /
+        \  \      \        /
+Device booted successfully. State your request.
+____________________________________________________________
+____________________________________________________________
+Error detected: List command takes no arguments.
+
+Usage: list
+____________________________________________________________
+____________________________________________________________
+Error detected: List command takes no arguments.
+
+Usage: list
+____________________________________________________________
+____________________________________________________________
+Error detected: Todo description cannot be empty.
+
+Usage: todo <description>
+____________________________________________________________
+____________________________________________________________
+Mission parameters updated. Added new objective:
+
+[T][ ] terminate aliens
+
+5 objectives remaining
+____________________________________________________________
+____________________________________________________________
+Error detected: Event description cannot be empty.
+
+Usage: event <description> /from dd/MM/yyyy HH:mm /to dd/MM/yyyy HH:mm
+____________________________________________________________
+____________________________________________________________
+Error detected: Event description cannot be empty.
+
+Usage: event <description> /from dd/MM/yyyy HH:mm /to dd/MM/yyyy HH:mm
+____________________________________________________________
+____________________________________________________________
+Error detected: Event description cannot be empty.
+
+Usage: event <description> /from dd/MM/yyyy HH:mm /to dd/MM/yyyy HH:mm
+____________________________________________________________
+____________________________________________________________
+Mission parameters updated. Added new objective:
+
+[E][ ] abc from: Jan 1 2000 00:00 to: Jan 2 2000 00:00
+
+6 objectives remaining
+____________________________________________________________
+____________________________________________________________
+Error detected: Deadline description cannot be empty.
+
+Usage: deadline <description> /by dd/MM/yyyy HHmm
+____________________________________________________________
+____________________________________________________________
+Error detected: Deadline description cannot be empty.
+
+Usage: deadline <description> /by dd/MM/yyyy HHmm
+____________________________________________________________
+____________________________________________________________
+Error detected: Deadline description cannot be empty.
+
+Usage: deadline <description> /by dd/MM/yyyy HHmm
+____________________________________________________________
+____________________________________________________________
+Error detected: Deadline description cannot be empty.
+
+Usage: deadline <description> /by dd/MM/yyyy HHmm
+____________________________________________________________
+____________________________________________________________
+Error detected: List command takes no arguments.
+
+Usage: list
+____________________________________________________________
+____________________________________________________________
+Error detected: Index out of bounds.
+____________________________________________________________
+____________________________________________________________
+Objective marked as completed. Awaiting next directive:
+[T][X] terminate aliens
+____________________________________________________________
+____________________________________________________________
+Error detected: Index to mark cannot be empty.
+
+Usage: mark <index>
+____________________________________________________________
+____________________________________________________________
+Error detected: Index out of bounds.
+____________________________________________________________
+____________________________________________________________
+Objective reopened:
+[T][ ] terminate aliens
+____________________________________________________________
+____________________________________________________________
+Error detected: Index to unmark cannot be empty.
+
+Usage: unmark <index>
+____________________________________________________________
+____________________________________________________________
+I do not understand your request. Clarify your command.
+____________________________________________________________
+____________________________________________________________
+Insufficient data. Clarify your command.
+____________________________________________________________
+____________________________________________________________
+Error detected: Index out of bounds.
+____________________________________________________________
+____________________________________________________________
+Successfully wiped all traces of the task from the database.
+[T][ ] terminate aliens
+
+5 objectives remaining
+____________________________________________________________
+____________________________________________________________
+Error detected: Index to delete cannot be empty.
+
+Usage: delete <index>
+____________________________________________________________
+____________________________________________________________
+Connection terminated. I will be back...
+____________________________________________________________

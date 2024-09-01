@@ -3,12 +3,8 @@ package terminator.command;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -21,25 +17,10 @@ public class ListCommandTest {
             List command takes no arguments.\n
             Usage: list""";
 
-    private final PrintStream standardOut = System.out;
-
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-
-    @BeforeEach
-    public void setUp() {
-        System.setOut(new PrintStream(outputStreamCaptor));
-    }
-
-    @AfterEach
-    public void tearDown() {
-        System.setOut(standardOut);
-    }
-
     @Test
     public void execute_validListPattern_success() throws TerminatorException {
         ListCommand lc = new ListCommand(null);
-        lc.execute(new ArrayList<Task>());
-        assertEquals("Listing current mission objectives:\n\n", outputStreamCaptor.toString());
+        assertEquals("Listing current mission objectives:\n", lc.execute(new ArrayList<Task>()));
     }
 
     @ParameterizedTest

@@ -21,7 +21,7 @@ public class Terminator {
 
     private final CommandParser parser;
 
-    private final Ui ui;
+    private final TerminalUi terminalUi;
 
     private final Storage storage;
 
@@ -31,7 +31,7 @@ public class Terminator {
     public Terminator() {
         this.taskList = new TaskList();
         this.parser = new CommandParser();
-        this.ui = new Ui();
+        this.terminalUi = new TerminalUi();
         this.storage = new Storage();
     }
 
@@ -44,7 +44,7 @@ public class Terminator {
      *
      * The application exits when the user enters {@code bye} into the command line.
      */
-    private void run() {
+    private void runTerminalUi() {
         // Load data from storage
         try {
             this.storage.loadDataFromFile(this.taskList);
@@ -52,45 +52,77 @@ public class Terminator {
             System.out.println("Invalid data format.");
         } catch (Exception e) {
             System.err.println("Unexpected error: " + e.getMessage());
-            this.ui.showErrorMsg();
+            this.terminalUi.showErrorMsg();
             return;
         }
 
         // Start main event loop
-        this.ui.greet();
+        this.terminalUi.greet();
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         while (!input.equals("bye")) {
-            this.ui.printHorizontalLine();
+            this.terminalUi.printHorizontalLine();
             try {
                 Command command = this.parser.parse(input);
-                command.execute(this.taskList.getTaskList());
+                String response = command.execute(this.taskList.getTaskList());
                 if (command instanceof TodoCommand
                     || command instanceof EventCommand
                     || command instanceof DeadlineCommand
                     || command instanceof DeleteCommand) {
-                    taskList.printTasksRemaining();
+                    response += taskList.getTasksRemaining();
                 }
+                System.out.println(response);
             } catch (TerminatorException de) {
                 System.out.println("Error detected: " + de.getMessage());
             }
-            this.ui.printHorizontalLine();
+            this.terminalUi.printHorizontalLine();
             input = sc.nextLine();
         }
         sc.close();
 
         // Save data before exit
+        writeToStorage();
+
+        this.terminalUi.showExitMsg();
+    }
+
+    private void loadStorage() {
+        try {
+            this.storage.loadDataFromFile(this.taskList);
+        } catch (TerminatorException e) {
+            System.out.println("Invalid data format.");
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Returns a response from executing a user command.
+     *
+     * @return The response from the command.
+     */
+    public String getResponse(String input) {
+        String response = "";
+        try {
+            Command command = this.parser.parse(input);
+            response = command.execute(this.taskList.getTaskList());
+            if (command instanceof TodoCommand
+                    || command instanceof EventCommand
+                    || command instanceof DeadlineCommand
+                    || command instanceof DeleteCommand) {
+                response += taskList.getTasksRemaining();
+            }
+        } catch (TerminatorException de) {
+            response = "Error detected: " + de.getMessage();
+        }
+        return response;
+    }
+
+    private void writeToStorage() {
         try {
             taskList.writeToDisk(this.storage);
         } catch (TerminatorException de) {
             System.out.println(de.getMessage());
         }
-
-        this.ui.showExitMsg();
-    }
-
-    public static void main(String[] args) {
-        Terminator tChatbot = new Terminator();
-        tChatbot.run();
     }
 }

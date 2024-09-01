@@ -24,22 +24,23 @@ public class DeleteCommand extends Command {
      * @throws TerminatorException if the index is out of bounds.
      */
     @Override
-    public void execute(ArrayList<Task> todoList) throws TerminatorException {
+    public String execute(ArrayList<Task> todoList) throws TerminatorException {
         if (input == null) {
             throw new TerminatorException(ERR_MSG);
         }
+        String response = "";
         try {
             int idx = Integer.parseInt(input.trim()) - 1;
 
             if (idx >= 0 && idx < todoList.size()) {
-                System.out.println("Successfully wiped all traces of the task from the database.");
                 Task currentTask = todoList.remove(idx);
-                System.out.println(currentTask);
+                response = "Successfully wiped all traces of the task from the database.\n" + currentTask;
             } else {
                 throw new TerminatorException("Index out of bounds.");
             }
         } catch (NumberFormatException nfe) {
             System.out.println("Error: index is not a valid integer.");
         }
+        return response;
     }
 }

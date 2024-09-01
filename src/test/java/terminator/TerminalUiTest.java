@@ -9,7 +9,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class UiTest {
+public class TerminalUiTest {
 
     private static final String HLINE = "____________________________________________________________\n";
 
@@ -31,10 +31,6 @@ public class UiTest {
                     \\  \\      \\        /
             """;
 
-    private static final String ERR_MSG = """
-            List command takes no arguments.\n
-            Usage: list""";
-
     private final PrintStream standardOut = System.out;
 
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
@@ -51,9 +47,9 @@ public class UiTest {
 
     @Test
     public void greet_shouldPrintCorrectGreetingMessage() {
-        Ui ui = new Ui();
+        TerminalUi terminalUi = new TerminalUi();
         String expectedGreetingMsg = HLINE + LOGO + "Device booted successfully. State your request.\n" + HLINE;
-        ui.greet();
+        terminalUi.greet();
         assertEquals(expectedGreetingMsg, outputStreamCaptor.toString());
     }
 }

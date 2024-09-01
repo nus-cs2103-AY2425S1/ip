@@ -3,7 +3,7 @@ package terminator;
 /**
  * Class responsible for displaying UI interface.
  */
-public class Ui {
+public class TerminalUi {
 
     private static final String HLINE = "____________________________________________________________\n";
 
@@ -25,7 +25,7 @@ public class Ui {
                     \\  \\      \\        /
             """;
 
-    public Ui() {
+    public TerminalUi() {
     }
 
     /**

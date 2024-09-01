@@ -27,7 +27,7 @@ public class EventCommand extends Command {
      * @throws TerminatorException if the description of the Event task is empty.
      */
     @Override
-    public void execute(ArrayList<Task> todoList) throws TerminatorException {
+    public String execute(ArrayList<Task> todoList) throws TerminatorException {
         if (input == null) {
             throw new TerminatorException(ERR_MSG);
         }
@@ -53,6 +53,6 @@ public class EventCommand extends Command {
         Task t = new EventTask(description, fromDate, toDate);
         todoList.add(t);
 
-        System.out.println("Mission parameters updated. Added new objective:\n\n" + t);
+        return "Mission parameters updated. Added new objective:\n\n" + t;
     }
 }

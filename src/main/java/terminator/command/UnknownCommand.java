@@ -19,7 +19,7 @@ public class UnknownCommand extends Command {
      * @param todoList The task list.
      */
     @Override
-    public void execute(ArrayList<Task> todoList) {
-        System.out.println("I do not understand your request. Clarify your command.");
+    public String execute(ArrayList<Task> todoList) {
+        return "I do not understand your request. Clarify your command.";
     }
 }

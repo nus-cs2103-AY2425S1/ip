@@ -25,7 +25,7 @@ public class TodoCommand extends Command {
      * @throws TerminatorException if the description of the TodoTask is empty.
      */
     @Override
-    public void execute(ArrayList<Task> todoList) throws TerminatorException {
+    public String execute(ArrayList<Task> todoList) throws TerminatorException {
         if (input == null) {
             throw new TerminatorException(ERR_MSG);
         }
@@ -35,6 +35,6 @@ public class TodoCommand extends Command {
         }
         Task t = new TodoTask(description);
         todoList.add(t);
-        System.out.println("Mission parameters updated. Added new objective:\n\n" + t);
+        return "Mission parameters updated. Added new objective:\n\n" + t;
     }
 }

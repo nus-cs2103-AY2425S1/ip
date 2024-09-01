@@ -42,9 +42,11 @@ public final class TaskList {
     }
 
     /**
-     * Prints the number of tasks in the task list.
+     * Returns the remaining tasks.
+     *
+     * @return The tasks remaining as a string.
      */
-    public void printTasksRemaining() {
+    public String getTasksRemaining() {
         String objectivesRemaining = "";
         int n = this.taskList.size();
         if (n == 0) {
@@ -54,6 +56,6 @@ public final class TaskList {
         } else {
             objectivesRemaining = String.valueOf(n) + " objectives remaining";
         }
-        System.out.println("\n" + objectivesRemaining);
+        return "\n" + objectivesRemaining;
     }
 }

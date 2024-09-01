@@ -26,7 +26,7 @@ public class DeadlineCommand extends Command {
      * @throws TerminatorException if the description of the deadline task is empty.
      */
     @Override
-    public void execute(ArrayList<Task> todoList) throws TerminatorException {
+    public String execute(ArrayList<Task> todoList) throws TerminatorException {
         if (input == null) {
             throw new TerminatorException(ERR_MSG);
         }
@@ -44,6 +44,8 @@ public class DeadlineCommand extends Command {
         // Add to TaskList
         Task t = new DeadlineTask(description, byDate);
         todoList.add(t);
-        System.out.println("Mission parameters updated. Added new objective:\n\n" + t);
+
+        String response = "Mission parameters updated. Added new objective:\n\n" + t;
+        return response;
     }
 }

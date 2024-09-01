@@ -19,7 +19,7 @@ public class EmptyCommand extends Command {
      * @param todoList The task list.
      */
     @Override
-    public void execute(ArrayList<Task> todoList) {
-        System.out.println("Insufficient data. Clarify your command.");
+    public String execute(ArrayList<Task> todoList) {
+        return "Insufficient data. Clarify your command.";
     }
 }

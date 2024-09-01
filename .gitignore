@@ -13,9 +13,9 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.TXT
-/text-ui-test/EXPECTED-UNIX.TXT
-/text-ui-test/data/
+/text-terminalUi-test/ACTUAL.TXT
+/text-terminalUi-test/EXPECTED-UNIX.TXT
+/text-terminalUi-test/data/
 
 # Ignore Gradle project-specific cache directory
 .gradle

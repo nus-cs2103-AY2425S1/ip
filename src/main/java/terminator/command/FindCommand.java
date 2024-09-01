@@ -24,7 +24,7 @@ public class FindCommand extends Command {
      * @throws TerminatorException if the string to search for is empty.
      */
     @Override
-    public void execute(ArrayList<Task> todoList) throws TerminatorException {
+    public String execute(ArrayList<Task> todoList) throws TerminatorException {
         if (input == null) {
             throw new TerminatorException(ERR_MSG);
         }
@@ -38,13 +38,15 @@ public class FindCommand extends Command {
                 temp.add(t);
             }
         }
+        StringBuilder sb = new StringBuilder();
         if (matches == 0) {
-            System.out.println("No matches found.");
+            sb.append("No matches found.");
         } else {
-            System.out.println("Match found.");
+            sb.append("Match found.");
             for (int i = 0; i < temp.size(); i++) {
-                System.out.println(String.valueOf(i + 1) + "." + temp.get(i));
+                sb.append("\n" + String.valueOf(i + 1) + "." + temp.get(i));
             }
         }
+        return sb.toString();
     }
 }

@@ -23,14 +23,16 @@ public class ListCommand extends Command {
      * @throws TerminatorException if the user supplies extra parameters with the {@code list} command.
      */
     @Override
-    public void execute(ArrayList<Task> todoList) throws TerminatorException {
+    public String execute(ArrayList<Task> todoList) throws TerminatorException {
         if (!(input == null)) {
             throw new TerminatorException(ERR_MSG);
         }
-        System.out.println("Listing current mission objectives:\n");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Listing current mission objectives:\n");
         for (int i = 0; i < todoList.size(); i++) {
             Task currentTask = todoList.get(i);
-            System.out.println((i + 1) + "." + currentTask);
+            sb.append("\n" + (i + 1) + "." + currentTask);
         }
+        return sb.toString();
     }
 }

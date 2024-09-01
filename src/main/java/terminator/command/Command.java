@@ -36,5 +36,5 @@ public abstract class Command {
      * @param todoList The task list.
      * @throws TerminatorException
      */
-    public abstract void execute(ArrayList<Task> todoList) throws TerminatorException;
+    public abstract String execute(ArrayList<Task> todoList) throws TerminatorException;
 }
