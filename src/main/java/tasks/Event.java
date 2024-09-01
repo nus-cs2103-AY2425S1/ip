@@ -1,10 +1,13 @@
 package tasks;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    private final String startDate;
-    private final String endDate;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
+    private final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM uuuu");
 
-    public Event(String task, String startDate, String endDate) {
+    public Event(String task, LocalDate startDate, LocalDate endDate) {
         super(task);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -12,14 +15,14 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s | Event from %s to %s", super.toString(), this.startDate, this.endDate);
+        return String.format("%s | Event from %s to %s", super.toString(), outputFormatter.format(this.startDate), outputFormatter.format(this.endDate));
     }
 
-    public String getStart() {
+    public LocalDate getStart() {
         return startDate;
     }
 
-    public String getEnd() {
+    public LocalDate getEnd() {
         return endDate;
     }
 }
