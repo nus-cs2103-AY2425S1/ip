@@ -1,5 +1,10 @@
-import javax.xml.crypto.Data;
-import java.util.List;
+package rapgod.ui;
+
+import rapgod.RapGod;
+import rapgod.exceptions.RudeInputException;
+import rapgod.exceptions.NoInputException;
+import rapgod.storage.DataManager;
+
 import java.util.Scanner;
 
 /**
@@ -31,7 +36,7 @@ public class ListBot {
         System.out.print(initialise);
 
         Scanner scanner = RapGod.scanner;
-        String input = "";
+        String input;
         DataManager dataManager = new DataManager("data/rapgod.txt");
 
         while (true) {
