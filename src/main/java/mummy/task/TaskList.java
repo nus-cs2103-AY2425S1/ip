@@ -29,7 +29,7 @@ public class TaskList {
      * Constructs a TaskList object with the specified label and file records.
      *
      * @param label the label of the task list
-     * @param lines the lines representing the tasks
+     * @param fileRecords the lines representing the tasks
      */
     public TaskList(String label, List<String> fileRecords) {
         this.label = label;
