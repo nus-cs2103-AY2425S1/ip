@@ -2,12 +2,14 @@ package him;
 
 import command.Command;
 import command.AddCommand;
+import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.DeleteCommand;
 import command.UnknownCommand;
 
 import exceptions.HimException;
+import exceptions.InvalidFindFormatException;
 import exceptions.InvalidTodoFormatException;
 import exceptions.InvalidDeadlineFormatException;
 import exceptions.InvalidEventFormatException;
@@ -48,6 +50,10 @@ public class Parser {
             case "delete": {
                 int index = parseDelete(args);
                 yield new DeleteCommand(index);
+            }
+            case "find": {
+                String keyword = parseFind(args);
+                yield new FindCommand(keyword);
             }
             default: {
                 yield new UnknownCommand(command);
@@ -105,6 +111,18 @@ public class Parser {
             return Integer.parseInt(args[1]) - 1;
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidDeleteFormatException();
+        }
+    }
+
+    private static String parseFind(String[] args) throws InvalidFindFormatException {
+        try {
+            String[] keywords = args[1].split(" ");
+            if (keywords.length != 1) {
+                throw new InvalidFindFormatException();
+            }
+            return keywords[0].trim();
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidFindFormatException();
         }
     }
 }

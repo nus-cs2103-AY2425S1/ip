@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 
 public class TaskList {
+
     private ArrayList<Task> tasks;
 
     public TaskList() {
@@ -20,7 +21,9 @@ public class TaskList {
     public void complete(int index) throws AlreadyCompletedException, TaskDoesNotExistException {
         try {
             Task task = tasks.get(index);
-            if (task == null) throw new TaskDoesNotExistException(index);
+            if (task == null) {
+                throw new TaskDoesNotExistException(index);
+            }
             task.complete();
         } catch (IndexOutOfBoundsException e) {
             throw new TaskDoesNotExistException(index);
@@ -38,7 +41,9 @@ public class TaskList {
     public String delete(int index) throws TaskDoesNotExistException {
         try {
             Task task = tasks.get(index);
-            if (task == null) throw new TaskDoesNotExistException(index);
+            if (task == null) {
+                throw new TaskDoesNotExistException(index);
+            }
             tasks.remove(index);
             return task.toString();
         } catch (IndexOutOfBoundsException e) {
@@ -54,12 +59,37 @@ public class TaskList {
         return data.toString();
     }
 
+    /**
+     * Returns list of tasks containing the keyword.
+     *
+     * @param keyword Keyword used for the search.
+     * @return List of tasks containing the keyword in string form.
+     */
+    public String find(String keyword) {
+        int count = 0;
+        StringBuilder list = new StringBuilder();
+
+        for (Task task : tasks) {
+            if (task.descriptionContains(keyword)) {
+                count++;
+                list.append(String.format("%d.[%s][%s] %s\n", count, task.getTypeIcon(), task.getStatusIcon(), task));
+            }
+        }
+
+        if (list.isEmpty()) {
+            return "No results of containing that keyword found";
+        }
+
+        return list.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            output.append(String.format("%d.[%s][%s] %s\n", i + 1, tasks.get(i).getTypeIcon(),
-                    tasks.get(i).getStatusIcon(), tasks.get(i)));
+            output.append(
+                    String.format("%d.[%s][%s] %s\n", i + 1, tasks.get(i).getTypeIcon(), tasks.get(i).getStatusIcon(),
+                            tasks.get(i)));
         }
         return output.toString();
     }
