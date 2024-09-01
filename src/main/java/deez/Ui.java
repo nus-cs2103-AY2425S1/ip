@@ -7,10 +7,12 @@ import java.util.function.Consumer;
  * The Ui class contains utility methods for user interface.
  */
 public class Ui {
-    private Consumer<String> messageConsumer = (String message) -> {};
+    private Consumer<String> messageConsumer = (String message) -> {
+    };
 
     public Ui() {
     }
+
     public Ui(Consumer<String> messageConsumer) {
         this.messageConsumer = messageConsumer;
     }
@@ -22,7 +24,7 @@ public class Ui {
      */
     public void say(String... msgs) {
         for (String msg : msgs) {
-            messageConsumer.accept("> " + msg);
+            messageConsumer.accept(msg);
         }
     }
 

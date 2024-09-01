@@ -21,6 +21,9 @@ public class Deez {
     protected boolean isActive = true;
     private Ui ui = new Ui();
 
+    /**
+     * Constructor
+     */
     public Deez() {
         if (storage.canLoad()) {
             try {
@@ -31,6 +34,17 @@ public class Deez {
         }
     }
 
+    /**
+     * Constructor for testing purposes
+     */
+    public Deez(Boolean isTesting) {
+    }
+
+    /**
+     * Initialises the UI and sets the message consumer
+     *
+     * @param messageConsumer The function that will handle messages displayed by the UI
+     */
     public void initialiseUi(Consumer<String> messageConsumer) {
         ui = new Ui(messageConsumer);
         ui.say("Hello! I'm Deez!", "What can I do you for?");
@@ -174,6 +188,11 @@ public class Deez {
         ui.printList(foundTasks);
     }
 
+    private void handleSave() {
+        storage.saveTasks(taskList);
+        ui.say("Saved successfully!");
+    }
+
     /**
      * Handle a command
      *
@@ -191,18 +210,18 @@ public class Deez {
         case MARK -> handleMarkUnmarkDone(true, props);
         case UNMARK -> handleMarkUnmarkDone(false, props);
         case DELETE -> handleDeleteTask(props);
-        case SAVE -> save();
+        case SAVE -> handleSave();
         case FIND -> handleFind(props);
         case UNKNOWN -> invalidCommand();
         default -> invalidCommand();
         }
     }
 
-    private void save() {
-        storage.saveTasks(taskList);
-        ui.say("Saved successfully!");
-    }
-
+    /**
+     * Handle input from the user
+     *
+     * @param inputStr the string to be parsed and handled
+     */
     public void handleInput(String inputStr) {
         try {
             Pair<Command, Properties> inputPair = Parser.parse(inputStr);
