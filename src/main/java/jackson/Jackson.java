@@ -198,6 +198,11 @@ public class Jackson {
         this.sc.close();
     }
 
+    /**
+     * Main loop for Jackson.
+     * To be displayed in PR.
+     * @param args String args from command line.
+     */
     public static void main(String[] args) {
         // create instance of Jackson and run main loop
         Jackson jackson = new Jackson(EXPECTED_SIZE, PATH);
