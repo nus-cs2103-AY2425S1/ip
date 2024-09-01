@@ -11,6 +11,17 @@ public class TodoTask extends Task {
     }
 
     /**
+     * Constructor for todo task
+     *
+     * @param description description of task
+     * @param isDone status of task
+     */
+    public TodoTask(String description, boolean isDone) {
+        this(description);
+        this.isDone = isDone;
+    }
+
+    /**
      * Overrides string representation to show more complete information of TodoTask
      *
      * @return string representation of TodoTask

@@ -1,9 +1,12 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 /**
@@ -70,11 +73,72 @@ public class Lumina {
         }
     }
 
+    private ArrayList<Task> readData() {
+        ArrayList<Task> retTasks = new ArrayList<>();
+
+        Path path = Paths.get("./data/data.txt");
+
+        try (Stream<String> lines = Files.lines(path)) {
+            retTasks = lines.map(this::parseDataLine).
+                    filter(Objects::nonNull).
+                    collect(Collectors.toCollection(ArrayList::new));
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return retTasks;
+    }
+
+    private Task parseDataLine(String line) {
+        String[] parts = line.split(" \\| ");
+        LuminaException luminaException = new LuminaException(
+                String.format("Corrupt data entry: %s", line)
+        );
+        String type = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+
+        Task task = null;
+        try {
+            switch (type) {
+                case "T":
+                    if (parts.length != 3) {
+                        throw luminaException;
+                    }
+                    task = new TodoTask(description, isDone);
+                    break;
+                case "D":
+                    if (parts.length != 4) {
+                        throw luminaException;
+                    }
+                    String byDateTime = parts[3].trim();
+                    task = new DeadlineTask(description, byDateTime, isDone);
+                    break;
+                case "E":
+                    if (parts.length != 5) {
+                        throw luminaException;
+                    }
+                    String startDateTime = parts[3].trim();
+                    String endDateTime = parts[4].trim();
+                    task = new EventTask(description, startDateTime, endDateTime, isDone);
+                    break;
+                default:
+                    throw luminaException;
+
+            }
+        } catch (LuminaException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return task;
+    }
+
+    /**
+     * Loads all valid data onto the current list of tasks from data.txt
+     */
     private void loadData() {
         createDataDirectoryAndFileIfNotExists();
-
-
-
+        tasks = readData();
     }
 
     private String indentMessage(String msg) {
@@ -136,7 +200,7 @@ public class Lumina {
         this.printMessage(listedTaskMessage.toString());
     }
 
-    private void markTaskDone(int index) throws LuminaException{
+    private void markTaskDone(int index) throws LuminaException {
         if (index < 0 || index >= this.tasks.size()) {
             throw new LuminaException("Oh no! Lumina detected index out of bounds! Please try again");
         }
