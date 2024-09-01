@@ -55,7 +55,11 @@ public class Blacknut {
                     addEvent(tasks, input);
                 } else if (input.startsWith("delete ")) {
                     deleteTask(tasks, input);
-                } else {
+                } else if (input.startsWith("find ")) {
+                    String keyword = input.substring(5).trim();
+                    findTask(tasks, keyword);
+                }
+                else {
                     throw new InvalidCommandException("I don't know what that means. Please enter a valid command.");
                 }
             } catch (InvalidCommandException | EmptyDescriptionException | InvalidTaskNumberException | IncorrectFormatException e) {
@@ -66,6 +70,24 @@ public class Blacknut {
         }
 
         scanner.close();
+    }
+
+    private static void findTask(ArrayList<Task> tasks, String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).description.contains(keyword)) {
+                matchingTasks.add(tasks.get(i));
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            System.out.println(" No tasks match your search.");
+        } else {
+            System.out.println(" Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println(" " + (i + 1) + "." + matchingTasks.get(i));
+            }
+        }
     }
 
     private static void saveTasksToFile(ArrayList<Task> tasks) {
