@@ -17,8 +17,12 @@ public class TodoTask extends Task {
      * @param isDone status of task
      */
     public TodoTask(String description, boolean isDone) {
-        this(description);
-        this.isDone = isDone;
+        super(description, isDone);
+    }
+
+    @Override
+    public String saveString() {
+        return "T | " + super.getStatusAndDescription();
     }
 
     /**

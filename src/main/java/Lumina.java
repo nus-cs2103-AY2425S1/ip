@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -15,7 +16,17 @@ import java.util.stream.Stream;
  */
 public class Lumina {
 
+    // configs
+    private static final int indentWidth = 2;
+
+    // counter for instances
     private static int luminaCount = 0;
+
+    // paths
+    private static final String DATA_DIRECTORY_PATH = "./data";
+    private static final String DATA_FILE_PATH = "./data/data.txt";
+
+    // commands
     private static final String ECHO_EXIT_STRING = "bye";
     private static final String ECHO_LIST_STRING = "list";
     private static final String ECHO_MARK_TASK_STRING = "mark";
@@ -24,9 +35,8 @@ public class Lumina {
     private static final String ECHO_DEADLINE_TASK = "deadline";
     private static final String ECHO_EVENT_TASK = "event";
     private static final String ECHO_DELETE_TASK = "delete";
-    private static final int indentWidth = 2;
 
-    // task description and whether the task is done
+    // tasks
     private ArrayList<Task> tasks;
 
     /**
@@ -42,25 +52,22 @@ public class Lumina {
         }
         tasks = new ArrayList<>();
         luminaCount++;
-        loadData();
+        this.loadData();
     }
 
     private void createDataDirectoryAndFileIfNotExists() {
 
         // get relative and absolute Path to data directory
-        Path relativePath = Paths.get("./data");
-        Path absolutePath = relativePath.toAbsolutePath().normalize();
-        System.out.println(absolutePath);
+        Path directoryPath = Paths.get(DATA_DIRECTORY_PATH).toAbsolutePath().normalize();
 
         // declare fileName and it's path
-        String fileName = "data.txt";
-        Path filePath = absolutePath.resolve(fileName);
+        Path filePath = Paths.get(DATA_FILE_PATH).toAbsolutePath().normalize();
 
         // create the directory and file if it does not exist
         try {
-            if (Files.notExists(absolutePath)) {
+            if (Files.notExists(directoryPath)) {
                 // Create the directory if it doesn't exist
-                Files.createDirectory(absolutePath);
+                Files.createDirectory(directoryPath);
             }
 
             if (Files.notExists(filePath)) {
@@ -73,12 +80,25 @@ public class Lumina {
         }
     }
 
+    private void saveData() {
+        Path path = Paths.get(DATA_FILE_PATH);
+        ArrayList<String> lines = tasks.stream()
+                .map(Task::saveString)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        try {
+            Files.write(path, lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
     private ArrayList<Task> readData() {
         // intialize empty array
         ArrayList<Task> retTasks = new ArrayList<>();
 
         // get path to data file
-        Path path = Paths.get("./data/data.txt");
+        Path path = Paths.get(DATA_FILE_PATH);
 
         // get line stream and collect it into an array
         try (Stream<String> lines = Files.lines(path)) {
@@ -98,12 +118,16 @@ public class Lumina {
         LuminaException luminaException = new LuminaException(
                 String.format("Corrupt data entry: %s", line)
         );
-        String type = parts[0].trim();
-        boolean isDone = parts[1].trim().equals("1");
-        String description = parts[2].trim();
 
         Task task = null;
+
         try {
+            if (parts.length < 3) {
+                throw luminaException;
+            }
+            String type = parts[0].trim();
+            boolean isDone = parts[1].trim().equals("1");
+            String description = parts[2].trim();
             switch (type) {
                 case "T":
                     if (parts.length != 3) {
@@ -142,10 +166,10 @@ public class Lumina {
      */
     private void loadData() {
         // create data directory and file if not exists
-        createDataDirectoryAndFileIfNotExists();
+        this.createDataDirectoryAndFileIfNotExists();
 
         // read data and load it onto tasks
-        tasks = readData();
+        tasks = this.readData();
     }
 
     private String indentMessage(String msg) {
@@ -182,6 +206,7 @@ public class Lumina {
 
     private void exit() {
         this.printMessage("Bye. Hope to see you again soon!");
+        this.saveData();
         System.exit(0);
     }
 

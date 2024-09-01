@@ -24,8 +24,14 @@ public class DeadlineTask extends Task{
      * @param isDone status of task
      */
     public DeadlineTask(String description, String byDateTime, boolean isDone) {
-        this(description, byDateTime);
-        this.isDone = isDone;
+        super(description, isDone);
+        byDateTime = byDateTime.trim();
+        this.byDateTime = byDateTime;
+    }
+
+    @Override
+    public String saveString() {
+        return "D | " + super.getStatusAndDescription() + " | " + byDateTime;
     }
 
     /**

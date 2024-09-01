@@ -30,11 +30,17 @@ public class EventTask extends Task {
      */
     public EventTask(String description, String startDateTime,
                      String endDateTime, boolean isDone) {
-        this(description, startDateTime, endDateTime);
-        this.isDone = isDone;
+        super(description, isDone);
+        startDateTime = startDateTime.trim();
+        endDateTime = endDateTime.trim();
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
     }
 
-
+    @Override
+    public String saveString() {
+        return "E | " + super.getStatusAndDescription() + " | " + startDateTime + " | " + endDateTime;
+    }
 
     /**
      * Overrides string representation to show more complete information of Event task
