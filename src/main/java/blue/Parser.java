@@ -1,10 +1,11 @@
 package blue;
 
+import java.util.List;
 import java.util.Scanner;
-
 import blue.Exceptions.EmptyDescriptionException;
 import blue.Exceptions.InputErrorException;
 import blue.Exceptions.WrongNumberOfItemException;
+import blue.task.Task;
 import blue.task.TaskList;
 
 
@@ -87,6 +88,18 @@ public class Parser {
                 } catch (WrongNumberOfItemException e) {
                     System.out.println("Please check the number you input.");
                 }
+                continue;
+            }
+
+            if (input.startsWith("find ")) {
+                String keyword = input.substring(5);
+                List<Task> matchingTasks = taskList.find(keyword);
+                System.out.println("    ____________________________________________________________");
+                System.out.println("     Here are the matching tasks in your list:");
+                for (int i = 0; i < matchingTasks.size(); i++) {
+                    System.out.println("     " + (i + 1) + "." + matchingTasks.get(i));
+                }
+                System.out.println("    ____________________________________________________________");
                 continue;
             }
 

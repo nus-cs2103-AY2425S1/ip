@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-
+import java.util.List;
 import blue.Exceptions.EmptyDescriptionException;
 import blue.Exceptions.InputErrorException;
 import blue.Exceptions.WrongNumberOfItemException;
@@ -29,6 +29,22 @@ public class TaskList {
         this.myList = new ArrayList<>();
         Storage.loadFromFile(myList);
         this.noOfTask = myList.size();
+    }
+
+    /**
+     * returns list of task that contains keyword
+     *
+     * @param keyword
+     * @return
+     */
+    public List<Task> find(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : myList) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 
     /**
