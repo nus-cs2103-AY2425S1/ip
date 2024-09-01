@@ -23,6 +23,8 @@ public class Parser {
         } else if (input.startsWith("todo")
                 || input.startsWith("deadline") || input.startsWith("event")) {
             return new AddCommand(input);
+        } else if(input.startsWith("find ")) {
+            return new FindCommand(input.substring(5));
         } else {
             throw (new InputErrorException("Sorry I don't know how to do that"));
         }
