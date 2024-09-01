@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Vecrosen {
@@ -95,82 +96,64 @@ public class Vecrosen {
         ui.speak("What can I do for you?");
         load(new File("data/vecrosen.txt"));
         Scanner scanner = new Scanner(System.in);
+        int itemNo;
+        String desc;
         while (true) {
             String input;
             input = scanner.nextLine();
-            if (input.equals("bye")) {
+            ArrayList<Object> parseArgs = new ArrayList<Object>();
+            Parser.ActionType actionType = Parser.parse(input, parseArgs, list.size());
+            switch (actionType) {
+            case bye:
+                ui.speak("Bye. Hope to see you again soon!");
+                return;
+            case taskNum:
+                ui.speak("Invalid task number!");
                 break;
-            } else if (input.matches("mark \\d+")) {
-                int itemNo = Integer.parseInt(input.substring(5));
-                if (itemNo < 1 || itemNo > list.size()) ui.speak("Invalid task number!");
-                else {
-                    list.get(itemNo-1).setDone(true);
-                    ui.speak("Task marked as complete: " + list.get(itemNo-1).getDescription());
-                }
-            } else if (input.matches("unmark \\d+")) {
-                int itemNo = Integer.parseInt(input.substring(7));
-                if (itemNo < 1 || itemNo > list.size()) ui.speak("Invalid task number!");
-                else {
-                    list.get(itemNo-1).setDone(false);
-                    ui.speak("Task marked as incomplete: " + list.get(itemNo-1).getDescription());
-                }
-            } else if (input.equals("list")) {
+            case mark:
+                itemNo = (Integer) parseArgs.get(0);
+                list.get(itemNo-1).setDone(true);
+                ui.speak("Task marked as complete: " + list.get(itemNo-1).getDescription());
+                break;
+            case unmark:
+                itemNo = (Integer) parseArgs.get(0);
+                list.get(itemNo-1).setDone(false);
+                ui.speak("Task marked as incomplete: " + list.get(itemNo-1).getDescription());
+                break;
+            case list:
                 for (int i = 0; i < list.size(); ++i) {
                     ui.speak((i+1) + "." + list.get(i).toString());
                 }
-            } else if (input.matches("todo .+")) {
-                String desc = input.substring(5);
+                break;
+            case todo:
+                desc = (String) parseArgs.get(0);
                 list.add(new Task(desc));
                 ui.speak("Todo added: " + desc);
-            } else if (input.matches("deadline .+ /by .+")) {
-                int byStart = input.indexOf("/by ");
-                String by = input.substring(byStart + 4);
-                String desc = input.substring(9, byStart - 1);
-                list.add(new Deadline(desc, by));
+                break;
+            case deadline:
+                desc = (String) parseArgs.get(0);
+                list.add(new Deadline(desc, (String) parseArgs.get(1)));
                 ui.speak("Deadline added: " + desc);
-            } else if (input.matches("event .+ /begin .+ /end .+")) {
-                int beginStart = input.indexOf("/begin ");
-                int endStart = input.indexOf("/end ");
-                String desc = input.substring(6, beginStart - 1);
-                String begin = input.substring(beginStart + 7, endStart - 1);
-                String end = input.substring(endStart + 5);
-                list.add(new Event(desc, begin, end));
+                break;
+            case event:
+                desc = (String) parseArgs.get(0);
+                list.add(new Event(desc, (String) parseArgs.get(1), (String) parseArgs.get(2)));
                 ui.speak("Event added: " + desc);
-            } else if (input.matches("event .+ /end .+ /begin .+")) {
-                int beginStart = input.indexOf("/begin ");
-                int endStart = input.indexOf("/end ");
-                String desc = input.substring(6, endStart - 1);
-                String end = input.substring(endStart + 5, beginStart - 1);
-                String begin = input.substring(beginStart + 7);
-                list.add(new Event(desc, begin, end));
-                ui.speak("Event added: " + desc);
-            } else if (input.matches("delete \\d+")) {
-                int itemNo = Integer.parseInt(input.substring(7));
-                if (itemNo < 1 || itemNo > list.size()) ui.speak("Invalid task number!");
-                else {
-                    ui.speak("Removing task: " + list.get(itemNo - 1).getDescription());
-                    list.remove(itemNo - 1);
-                    ui.speak("You now have " + list.size() + " tasks left in record.");
-                }
-            } // TODO: make helper function
-            else if (input.startsWith("todo")) {
-                ui.invalidFormat("todo [description]");
-            } else if (input.startsWith("deadline")) {
-                ui.invalidFormat("deadline [description] /by [deadline]");
-            } else if (input.startsWith("event")) {
-                ui.invalidFormat("event [description] /begin [startTime] /end [endTime]");
-            } else if (input.startsWith("mark")) {
-                ui.invalidFormat("mark [taskID]");
-            } else if (input.startsWith("unmark")) {
-                ui.invalidFormat("unmark [taskID]");
-            } else if (input.startsWith("delete")) {
-                ui.invalidFormat("delete [taskID]");
-            } else {
+                break;
+            case delete:
+                itemNo = (Integer) parseArgs.get(0);
+                ui.speak("Removing task: " + list.get(itemNo - 1).getDescription());
+                list.remove(itemNo - 1);
+                ui.speak("You now have " + list.size() + " tasks left in record.");
+                break;
+            case formatting:
+                ui.invalidFormat((String) parseArgs.get(0));
+                break;
+            case undefined:
                 ui.speak("Sorry, I don't understand.");
                 ui.speak("Commands: todo deadline event mark unmark delete list bye");
             }
             save();
         }
-        ui.speak("Bye. Hope to see you again soon!");
     }
 }
