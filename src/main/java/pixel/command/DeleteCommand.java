@@ -1,11 +1,15 @@
 package pixel.command;
 
-import pixel.Storage;
 import pixel.PixelException;
+import pixel.Storage;
 import pixel.Ui;
 import pixel.task.Task;
 import pixel.task.TaskList;
 
+/**
+ * Represents a command to delete a task from the list. When executed, it deletes the task from the
+ * list.
+ */
 public class DeleteCommand extends Command {
     private int taskListIndex;
 
@@ -27,20 +31,20 @@ public class DeleteCommand extends Command {
      * Executes the delete command, deleting a task from the list.
      *
      * @param taskList the task list
-     * @param ui       the user interface
-     * @param storage  the storage
+     * @param ui the user interface
+     * @param storage the storage
      * @throws PixelException if the task list index is out of range
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws PixelException {
         if (this.taskListIndex < 0 || this.taskListIndex >= taskList.size()) {
-            throw new PixelException(String
-                    .format("%d is out of range of task list, index should be range between %d and %d inclusive",
-                            this.taskListIndex + 1, 1, taskList.size()));
+            throw new PixelException(String.format(
+                    "%d is out of range of task list, index should be range between %d and %d inclusive",
+                    this.taskListIndex + 1, 1, taskList.size()));
         }
         Task task = taskList.getTaskAtIndex(taskListIndex);
         taskList.deleteTask(task);
-        ui.PixelSays("Noted. I've removed this task:", "  " + task,
+        ui.pixelSays("Noted. I've removed this task:", "  " + task,
                 "Now you have " + taskList.size() + " tasks in the list.");
     }
 }

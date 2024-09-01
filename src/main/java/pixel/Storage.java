@@ -1,7 +1,9 @@
 package pixel;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import pixel.task.Deadline;
@@ -11,8 +13,6 @@ import pixel.task.TaskList;
 import pixel.task.TaskType;
 import pixel.task.Todo;
 
-import java.io.File;
-import java.io.FileWriter;
 
 /**
  * The Storage class handles the loading and writing of tasks to a file.
@@ -30,8 +30,7 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the file and returns a TaskList object containing the loaded
-     * tasks.
+     * Loads tasks from the file and returns a TaskList object containing the loaded tasks.
      *
      * @return A TaskList object containing the loaded tasks.
      * @throws IOException If an I/O error occurs while reading the file.
@@ -44,18 +43,20 @@ public class Storage {
             String[] taskRepresentation = line.split(",");
             TaskType taskType = TaskType.valueOf(taskRepresentation[0]);
             switch (taskType) {
-                case E:
-                    Task eventTask = new Event(taskRepresentation[2], taskRepresentation[1]);
-                    taskList.addTask(eventTask);
-                    break;
-                case D:
-                    Task deadlineTask = new Deadline(taskRepresentation[2], taskRepresentation[1]);
-                    taskList.addTask(deadlineTask);
-                    break;
-                case T:
-                    Task todoTask = new Todo(taskRepresentation[2], taskRepresentation[1]);
-                    taskList.addTask(todoTask);
-                    break;
+            case E:
+                Task eventTask = new Event(taskRepresentation[2], taskRepresentation[1]);
+                taskList.addTask(eventTask);
+                break;
+            case D:
+                Task deadlineTask = new Deadline(taskRepresentation[2], taskRepresentation[1]);
+                taskList.addTask(deadlineTask);
+                break;
+            case T:
+                Task todoTask = new Todo(taskRepresentation[2], taskRepresentation[1]);
+                taskList.addTask(todoTask);
+                break;
+            default:
+                break;
             }
             line = br.readLine();
         }

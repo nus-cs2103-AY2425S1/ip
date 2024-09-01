@@ -3,8 +3,9 @@ package pixel.task;
 import java.util.ArrayList;
 
 /**
- * The TaskList class represents a list of tasks.
- * It provides methods to add, delete, and retrieve tasks from the list.
+ * The TaskList class represents a list of tasks. It provides methods to add,
+ * delete, and retrieve
+ * tasks from the list.
  */
 public class TaskList {
     private ArrayList<Task> list;
@@ -18,7 +19,7 @@ public class TaskList {
 
     /**
      * Constructs a TaskList with the same tasks as the given TaskList.
-     * 
+     *
      * @param taskList the TaskList to copy tasks from
      */
     public TaskList(TaskList taskList) {
@@ -31,7 +32,7 @@ public class TaskList {
 
     /**
      * Retrieves the task at the specified index.
-     * 
+     *
      * @param index the index of the task to retrieve
      * @return the task at the specified index
      */
@@ -41,7 +42,7 @@ public class TaskList {
 
     /**
      * Adds a task to the TaskList.
-     * 
+     *
      * @param task the task to add
      */
     public void addTask(Task task) {
@@ -50,7 +51,7 @@ public class TaskList {
 
     /**
      * Deletes a task from the TaskList.
-     * 
+     *
      * @param task the task to delete
      */
     public void deleteTask(Task task) {
@@ -59,13 +60,18 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the TaskList.
-     * 
+     *
      * @return the number of tasks in the TaskList
      */
     public int size() {
         return list.size();
     }
 
+    /**
+     * Returns a string representation of the TaskList.
+     *
+     * @return a string representation of the TaskList
+     */
     public TaskList findTasks(String keyword) {
         TaskList matchingTasks = new TaskList();
         for (int i = 0; i < list.size(); i++) {

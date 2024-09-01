@@ -1,7 +1,7 @@
 package pixel.command;
 
-import pixel.Storage;
 import pixel.PixelException;
+import pixel.Storage;
 import pixel.Ui;
 import pixel.task.TaskList;
 
@@ -21,8 +21,8 @@ public class ListCommand extends Command {
      * Executes the list command, displaying all tasks in the task list.
      *
      * @param taskList The task list containing the tasks.
-     * @param ui       The user interface to interact with the user.
-     * @param storage  The storage to save and load tasks.
+     * @param ui The user interface to interact with the user.
+     * @param storage The storage to save and load tasks.
      * @throws PixelException If there is an error executing the command.
      */
     @Override
@@ -33,6 +33,6 @@ public class ListCommand extends Command {
             int index = i + 1;
             outputs[i + 1] = index + ". " + taskList.getTaskAtIndex(i);
         }
-        ui.PixelSays(outputs);
+        ui.pixelSays(outputs);
     }
 }

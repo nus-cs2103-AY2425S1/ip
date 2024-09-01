@@ -1,3 +1,7 @@
 {
-  "java.format.settings.url": "eclipse-formatter.xml"
+  // "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+  // "java.format.settings.profile": "GoogleStyle",
+  "java.checkstyle.configuration": "${workspaceFolder}/config/checkstyle/checkstyle.xml",
+  "java.checkstyle.version": "10.18.1",
+  
 }

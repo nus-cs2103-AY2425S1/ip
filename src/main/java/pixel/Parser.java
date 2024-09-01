@@ -14,7 +14,8 @@ import pixel.task.Todo;
 
 /**
  * The Parser class is responsible for parsing user input and converting it into
- * executable commands.
+ * executable
+ * commands.
  */
 public class Parser {
     /**
@@ -23,7 +24,8 @@ public class Parser {
      * @param fullCommand The full command entered by the user.
      * @return The Command object corresponding to the given command.
      * @throws PixelException If the command is not recognized or if there is an
-     *                        error in parsing the command.
+     *                        error in parsing
+     *                        the command.
      */
     public static Command parser(String fullCommand) throws PixelException {
         String cmdString = fullCommand.split(" ")[0].toUpperCase();
@@ -37,7 +39,8 @@ public class Parser {
             }
         }
         if (!valid) {
-            throw new PixelException(String.format("OH NO!!! I don't understand %s! Try Again!", cmdString));
+            throw new PixelException(
+                    String.format("OH NO!!! I don't understand '%s'! Try Again!", cmdString));
         }
 
         cmd = PixelCommandEnum.valueOf(cmdString.toUpperCase());
@@ -45,29 +48,29 @@ public class Parser {
         String input = fullCommand.substring(cmdString.length()).strip();
 
         switch (cmd) {
-        case BYE:
-            return new ExitCommand();
-        case LIST:
-            return new ListCommand();
-        case MARK:
-            return new MarkCommand(input.strip());
-        case UNMARK:
-            return new MarkCommand(input.strip());
-        case TODO:
-            Todo todo = new Todo(input);
-            return new AddCommand(todo);
-        case DEADLINE:
-            Deadline deadline = new Deadline(input);
-            return new AddCommand(deadline);
-        case EVENT:
-            Event event = new Event(input);
-            return new AddCommand(event);
-        case DELETE:
-            return new DeleteCommand(input.strip());
-        case FIND:
-            return new FindCommand(input.strip());
-        default:
-            throw new PixelException("OH NO!!! I don't understand this! Try Again!");
+            case BYE:
+                return new ExitCommand();
+            case LIST:
+                return new ListCommand();
+            case MARK:
+                return new MarkCommand(input.strip());
+            case UNMARK:
+                return new MarkCommand(input.strip());
+            case TODO:
+                Todo todo = new Todo(input);
+                return new AddCommand(todo);
+            case DEADLINE:
+                Deadline deadline = new Deadline(input);
+                return new AddCommand(deadline);
+            case EVENT:
+                Event event = new Event(input);
+                return new AddCommand(event);
+            case DELETE:
+                return new DeleteCommand(input.strip());
+            case FIND:
+                return new FindCommand(input.strip());
+            default:
+                throw new PixelException("OH NO!!! I don't understand this! Try Again!");
         }
     }
 }
