@@ -2,15 +2,13 @@ package gray.command;
 
 import java.time.LocalDateTime;
 
-import gray.TaskList;
-import gray.Ui;
+import gray.Tasks;
 import gray.task.DeadlineTask;
 
 /**
  * A command that adds a deadline task.
  */
-public class AddDeadlineCommand extends Command {
-
+public class AddDeadlineCommand implements Command {
     private final String description;
     private final LocalDateTime deadline;
 
@@ -28,17 +26,17 @@ public class AddDeadlineCommand extends Command {
     /**
      * Executes the add deadline task.
      *
-     * @param ui
      * @param tasks
+     * @return
      */
     @Override
-    public void execute(Ui ui, TaskList tasks) {
+    public String execute(Tasks tasks) {
         DeadlineTask task = new DeadlineTask(description, deadline);
         tasks.add(task);
-        ui.say(String.format("""
+        return String.format("""
                 Got it. I've added this task:
                     %s
                 Now you have %d tasks in the list.""",
-                task, tasks.size()));
+                task, tasks.size());
     }
 }

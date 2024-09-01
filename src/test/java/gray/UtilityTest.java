@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ public class UtilityTest {
     @Test
     public void serialise_badFile_exceptionThrown() {
         try {
-            Utility.serialise(new File("./awd/awd/awd"), new TaskList());
+            Utility.serialise(new File("./awd/awd/awd"), new Serializable() {});
             fail();
         } catch (IOException e) {
             assertEquals("./awd/awd/awd (No such file or directory)", e.getMessage());
