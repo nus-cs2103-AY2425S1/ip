@@ -1,15 +1,15 @@
 package mendel.discretetask;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
     @Test
-    public void showDeadline(){
+    public void showDeadline() {
         assertEquals("[D][ ] testing (by: Jan 01 2024)",
                 Deadline.of("deadline testing /by 1 Jan 2024").toString());
         assertEquals("[D][ ] testing (by: Jan 01 2024, 15:00)",
